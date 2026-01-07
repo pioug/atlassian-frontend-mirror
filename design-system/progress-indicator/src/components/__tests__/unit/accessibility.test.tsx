@@ -7,6 +7,7 @@ import __noop from '@atlaskit/ds-lib/noop';
 
 import ProgressIndicator from '../../progress-dots';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('aXe audit should not fail', () => {
 	it('for basic progressIndicator', async () => {
 		const { container } = render(

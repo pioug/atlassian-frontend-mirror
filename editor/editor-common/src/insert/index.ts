@@ -346,7 +346,7 @@ export const shouldSplitSelectedNodeOnNodeInsertion = ({
 	content: Node;
 	grandParentNodeType: NodeType;
 	parentNodeType: NodeType;
-}) => {
+}): boolean => {
 	if (
 		parentNodeType.name === 'doc' ||
 		(parentNodeType.name === 'paragraph' &&

@@ -6,6 +6,7 @@ import { Box } from '@atlaskit/primitives/compiled';
 
 import Flag from '../../flag';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Flag Expander', () => {
 	beforeEach(() => {
 		jest.useFakeTimers();

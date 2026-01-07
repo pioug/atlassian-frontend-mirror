@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 import Blanket from '../../blanket';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('ak-blanket', () => {
 	describe('exports', () => {
 		it('should export a base component', () => {

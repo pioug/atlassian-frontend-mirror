@@ -10,6 +10,7 @@ import AddIcon from '../../../../core/add';
 import type { CustomGlyphProps, SVGProps } from '../../../types';
 import Icon from '../../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Old icons', () => {
 	it('Basic icon with empty label string should not fail aXe audit', async () => {
 		render(<LikeIcon label="" />);

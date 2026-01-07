@@ -11,7 +11,7 @@ const getIsCollapsing = () => {
 	return document.documentElement.getAttribute(IS_SIDEBAR_COLLAPSING) === 'true';
 };
 
-const useIsSidebarCollapsing = () => {
+const useIsSidebarCollapsing = (): boolean => {
 	const [isCollapsing, setIsCollapsing] = useState(getIsCollapsing);
 
 	useEffect(() => {

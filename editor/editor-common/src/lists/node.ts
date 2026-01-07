@@ -6,7 +6,7 @@ import { isListItemNode, isListNode } from '../utils';
 
 import { wrapTaskListIntoListAbove } from './replace-content';
 
-export function isListNodeValidContent(node: PMNode) {
+export function isListNodeValidContent(node: PMNode): boolean {
 	const { bulletList } = node.type.schema.nodes;
 	if (!bulletList) {
 		return false;

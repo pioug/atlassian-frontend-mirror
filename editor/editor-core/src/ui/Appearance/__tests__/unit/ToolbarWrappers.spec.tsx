@@ -11,6 +11,7 @@ import {
 } from '../../FullPage/CustomToolbarWrapper';
 import { MainToolbarWrapper } from '../../FullPage/MainToolbarWrapper';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Toolbar wrapper components', () => {
 	describe('MainToolbarWrapper', () => {
 		const renderWrapper = (twoLine = false, keyline = false) =>

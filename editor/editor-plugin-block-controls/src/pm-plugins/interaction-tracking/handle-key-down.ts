@@ -3,7 +3,7 @@ import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { startEditing } from './commands';
 import { getInteractionTrackingState } from './pm-plugin';
 
-export const handleKeyDown = (view: EditorView, event: KeyboardEvent) => {
+export const handleKeyDown = (view: EditorView, event: KeyboardEvent): boolean => {
 	// Check if this is a keyboard shortcut (Ctrl/Cmd + key)
 	const isShortcut = event.ctrlKey || event.metaKey || event.altKey;
 

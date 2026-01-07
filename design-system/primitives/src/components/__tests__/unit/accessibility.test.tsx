@@ -8,6 +8,7 @@ import { Box, Flex, Grid, Inline, Stack, Text } from '../../../index';
 import Anchor from '../../anchor';
 import Pressable from '../../pressable';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Primitives', () => {
 	describe('Anchor', () => {
 		it('should pass an aXe audit', async () => {

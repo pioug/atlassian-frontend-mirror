@@ -7,6 +7,7 @@ import Button from '../../../old-button/button';
 const types: React.ElementType[] = ['button', 'a', 'span'];
 
 types.forEach((tag: React.ElementType) => {
+	// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 	describe(`has overlay [type: <${tag}>]`, () => {
 		it('should set data-has-overlay to true if there is an overlay', () => {
 			const { rerender } = render(

@@ -23,6 +23,7 @@ type CaseArgs = {
 	name: string;
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('NavigationListener', () => {
 	const analyticsWebClientMock: jest.Mocked<AnalyticsWebClient> = {
 		sendUIEvent: jest.fn(),

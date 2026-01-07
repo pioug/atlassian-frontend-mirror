@@ -7,6 +7,7 @@ import __noop from '@atlaskit/ds-lib/noop';
 
 import CommentTime from '../../time';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('CommentTime', () => {
 	it('should fire an analytics event', () => {
 		const onEvent = jest.fn();

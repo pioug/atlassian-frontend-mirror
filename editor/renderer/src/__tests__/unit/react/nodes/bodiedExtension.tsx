@@ -18,6 +18,7 @@ import { act } from 'react-dom/test-utils';
 import { render, screen } from '@testing-library/react';
 import { adfNestedTableData } from '../../../__fixtures__/nested-tables';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Renderer - React/Nodes/BodiedExtension', () => {
 	const providerFactory = ProviderFactory.create({});
 	const extensionHandlers: ExtensionHandlers = {

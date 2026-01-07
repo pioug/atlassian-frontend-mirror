@@ -7,6 +7,7 @@ import TextField from '@atlaskit/textfield';
 
 import CharacterCounter from '../../character-counter';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('CharacterCounter', () => {
 	const user = userEvent.setup();
 

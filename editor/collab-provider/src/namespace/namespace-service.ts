@@ -11,7 +11,7 @@ export class NamespaceService {
 	constructor(private isNamespaceLocked: boolean = false) {}
 
 	// Primitive values are always copied
-	getIsNamespaceLocked = () => this.isNamespaceLocked;
+	getIsNamespaceLocked = (): boolean => this.isNamespaceLocked;
 
 	/**
 	 * ESS-2916 namespace status event- lock/unlock

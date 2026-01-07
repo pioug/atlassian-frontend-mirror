@@ -11,7 +11,7 @@ import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/new';
 import Form, { RequiredAsterisk } from '@atlaskit/form';
-import EmailIcon from '@atlaskit/icon/core/migration/email';
+import EmailIcon from '@atlaskit/icon/core/email';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import { MenuGroup } from '@atlaskit/menu';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss

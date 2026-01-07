@@ -74,6 +74,7 @@ const createModal = (props?: ModalDialogProps) => (
 	<ModalDialog label="Modal" testId={testId} onClose={noop} {...props} />
 );
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<ModalDialog />', () => {
 	describe('should close popup correctly when escape is pressed', () => {
 		render(<LayeredModal />);

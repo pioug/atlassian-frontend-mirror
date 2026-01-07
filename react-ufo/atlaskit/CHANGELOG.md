@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.16.6
+
+### Patch Changes
+
+- [`2b80f43fe0ea7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b80f43fe0ea7) -
+  Add platform feature gate check for collecting more accurate page visibility
+
 ## 4.16.5
 
 ### Patch Changes

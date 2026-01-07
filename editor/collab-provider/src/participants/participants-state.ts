@@ -59,7 +59,7 @@ export class ParticipantsState {
 		return [...uniqueParticipants.values()];
 	};
 
-	hasMoreParticipantsToHydrate = () => {
+	hasMoreParticipantsToHydrate = (): boolean => {
 		return (
 			this.getUniqueParticipants({
 				isHydrated: false,

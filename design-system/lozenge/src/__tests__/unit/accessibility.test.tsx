@@ -6,6 +6,7 @@ import { axe } from '@af/accessibility-testing';
 
 import Lozenge from '../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Lozenge', () => {
 	it('Default Lozenge should not fail basic aXe audit', async () => {
 		const { container } = render(<Lozenge>Default</Lozenge>);

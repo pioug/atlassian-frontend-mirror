@@ -5,6 +5,7 @@ import { act, type EventType, fireEvent, render, screen } from '@testing-library
 import { iconButtonVariants } from '../../../utils/variants';
 
 iconButtonVariants.forEach(({ name, Component }) => {
+	// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 	describe(name, () => {
 		describe('tooltips', () => {
 			beforeEach(() => {

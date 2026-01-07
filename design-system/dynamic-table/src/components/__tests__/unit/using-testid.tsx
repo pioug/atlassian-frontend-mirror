@@ -5,6 +5,7 @@ import { render, screen } from '@testing-library/react';
 import { head, rows, rowsWithTestIdOverrides } from '../../../../examples/content/sample-data';
 import DynamicTableStateful, { DynamicTableStateless } from '../../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Test IDs', () => {
 	test('allow elements to be accessible for testing', () => {
 		const testId = 'the-table';

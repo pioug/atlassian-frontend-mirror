@@ -5,6 +5,7 @@ import { fireEvent, render } from '@testing-library/react';
 import { HardBreak } from '../../../../react/nodes';
 import Expand from '../../../../ui/Expand';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Expand', () => {
 	describe('analytics', () => {
 		it('should call when expanding', async () => {

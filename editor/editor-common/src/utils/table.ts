@@ -137,7 +137,7 @@ export function isPositionNearTableRow(
 	pos: ResolvedPos,
 	schema: Schema,
 	direction: 'before' | 'after',
-) {
+): boolean {
 	if (!schema.nodes.tableRow) {
 		return false;
 	}

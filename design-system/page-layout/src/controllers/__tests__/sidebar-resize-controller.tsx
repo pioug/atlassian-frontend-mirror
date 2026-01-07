@@ -49,6 +49,7 @@ export const ResizeControlledConsumer = (): React.JSX.Element => {
 	);
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('SidebarResizeController', () => {
 	beforeEach(() => {
 		jest.useFakeTimers();

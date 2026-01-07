@@ -68,6 +68,7 @@ const defaultTheme: Theme = {
 	typography: 'typography',
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('ThemeProvider', () => {
 	it('should set the initial theme and color mode', async () => {
 		render(
@@ -163,7 +164,7 @@ describe('ThemeProvider', () => {
 				dark: 'dark',
 				spacing: 'spacing',
 				shape: 'shape',
-				typography: 'typography-adg3',
+				typography: 'typography',
 			};
 
 			render(
@@ -178,7 +179,7 @@ describe('ThemeProvider', () => {
 					light: 'light',
 					shape: 'shape',
 					dark: 'dark',
-					typography: 'typography-adg3',
+					typography: 'typography',
 					spacing: 'spacing',
 				}),
 			);

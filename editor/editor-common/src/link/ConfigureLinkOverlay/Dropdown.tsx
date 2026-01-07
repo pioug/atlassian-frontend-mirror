@@ -15,9 +15,9 @@ import DropdownMenu, {
 	type OnOpenChangeArgs,
 } from '@atlaskit/dropdown-menu';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import PreferencesIcon from '@atlaskit/icon/core/customize';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
-import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
 
 import { cardMessages as messages } from '../../messages';
 

@@ -4,6 +4,7 @@ import { render, screen, within } from '@testing-library/react';
 
 import Banner from '../../banner';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('banner', () => {
 	it('basic sanity check', () => {
 		render(<Banner testId="banner-basic" />);

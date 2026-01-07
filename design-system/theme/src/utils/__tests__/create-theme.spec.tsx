@@ -8,6 +8,7 @@ interface TestTokens {
 	[index: string]: boolean;
 }
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('createTheme', () => {
 	describe('component as a consumer', () => {
 		it('should create context with provided tokens', (done) => {

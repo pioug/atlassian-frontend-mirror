@@ -12,6 +12,7 @@ import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
 import EditAction from '../index';
 import { type EditActionProps } from '../types';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('EditAction', () => {
 	const testId = 'smart-action-edit-action';
 

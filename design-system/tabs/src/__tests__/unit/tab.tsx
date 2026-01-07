@@ -19,6 +19,7 @@ const CustomTab = ({ label }: { label: string }) => {
 	);
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('@atlaskit/tabs', () => {
 	describe('tab', () => {
 		it('should error without a context provider', () => {

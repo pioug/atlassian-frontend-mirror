@@ -26,7 +26,7 @@ export const isButtonDisabled = ({
 	api?: ExtractInjectionAPI<AnnotationPlugin>;
 	canAddComments: boolean;
 	state: EditorState | null | undefined;
-}) => {
+}): boolean => {
 	const annotationSelectionType = state ? isSelectionValid(state) : AnnotationSelectionType.INVALID;
 	return (
 		!canAddComments ||
@@ -43,7 +43,7 @@ export const shouldShowCommentButton = ({
 	annotationSelectionType: AnnotationSelectionType;
 	isVisible?: boolean;
 	state: EditorState | null | undefined;
-}) => {
+}): boolean => {
 	const isMediaSelected = state ? currentMediaNodeWithPos(state) : false;
 
 	let isDrafting = false;
@@ -130,7 +130,7 @@ export const startCommentExperience = ({
 	api: ExtractInjectionAPI<AnnotationPlugin>;
 	dispatch: EditorView['dispatch'];
 	state: EditorState;
-}) => {
+}): boolean => {
 	const annotationManager = annotationProviders?.annotationManager;
 	if (annotationManager) {
 		annotationManager

@@ -22,6 +22,7 @@ import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analy
 jest.mock('../../../draft/dom');
 jest.mock('../../../draft/component');
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Annotations: Mounter', () => {
 	const fakeApplyAnnotation: jest.Mock = jest.fn().mockReturnValue({});
 	const fakeOnCloseProp: jest.Mock = jest.fn();

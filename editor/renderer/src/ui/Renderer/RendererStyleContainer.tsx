@@ -91,7 +91,10 @@ import {
 	denseEmojiHeightH4,
 } from '@atlaskit/editor-common/emoji';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { BodiedSyncBlockSharedCssClassName, SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
+import {
+	BodiedSyncBlockSharedCssClassName,
+	SyncBlockSharedCssClassName,
+} from '@atlaskit/editor-common/sync-block';
 
 const wrappedMediaBreakoutPoint = 410;
 const TELEPOINTER_ID = 'ai-streaming-telepointer';
@@ -2350,20 +2353,33 @@ const denseStyles = css({
 });
 
 const syncBlockStyles = css({
-	[`.${SyncBlockSharedCssClassName.renderer}, .${BodiedSyncBlockSharedCssClassName.renderer}, .${SyncBlockSharedCssClassName.error}, .${SyncBlockSharedCssClassName.loading}`]: {
-		borderRadius: token('radius.small', '3px'),
-		marginTop: token('space.150', '12px'),
-		paddingTop: token('space.075', '6px'),
-		paddingBottom: token('space.050', '4px'),
-	},
+	[`.${SyncBlockSharedCssClassName.renderer}, .${BodiedSyncBlockSharedCssClassName.renderer}, .${SyncBlockSharedCssClassName.error}, .${SyncBlockSharedCssClassName.loading}`]:
+		{
+			borderRadius: token('radius.small', '3px'),
+			paddingBlock: token('space.150', '12px'),
+		},
 
+	[`.${SyncBlockSharedCssClassName.renderer}`]: {
+		// First child node in syncBlock in editor is overridden with marginTop: 0, hence apply the same style in renderer for consistency
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ak-renderer-document > :first-child': {
+			marginTop: 0,
+		},
+	},
+	[`.${BodiedSyncBlockSharedCssClassName.renderer}`]: {
+		// First child node in bodiedSyncBlock in editor is overridden with marginTop: 0, hence apply the same style in renderer for consistency
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
+		'> :first-child': {
+			marginTop: 0,
+		},
+	},
 	[`.${SyncBlockSharedCssClassName.error}`]: {
 		backgroundColor: token('color.background.disabled'),
 	},
 
 	[`.${SyncBlockSharedCssClassName.loading}`]: {
 		boxShadow: `0 0 0 1px ${token('color.border')}`,
-	}
+	},
 });
 
 type RendererStyleContainerProps = Pick<

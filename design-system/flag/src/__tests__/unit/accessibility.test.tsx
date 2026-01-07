@@ -9,6 +9,7 @@ import { token } from '@atlaskit/tokens';
 
 import Flag, { AutoDismissFlag, FlagGroup } from '../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Accessibility jest-axe', () => {
 	it('FlagGroup', async () => {
 		const flags = [

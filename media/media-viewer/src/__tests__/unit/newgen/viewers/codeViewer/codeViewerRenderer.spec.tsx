@@ -35,6 +35,7 @@ function createFixture(customSrc?: string) {
 	return { el, onClose, onSuccess, onError };
 }
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('CodeViewRenderer', () => {
 	it('should call onSuccess when loaded, and onSuccess should render the CodeBlock component with the passed in language style if text (src) <= max formatted lines and fileSize is less than limit', async () => {
 		const { onSuccess } = createFixture();

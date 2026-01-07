@@ -10,6 +10,7 @@ import BreadcrumbsItem from '../../breadcrumbs-item';
 
 const TestIcon = <AtlassianIcon label="Test icon" size="small" />;
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('BreadcrumbsItem', () => {
 	it('renders item', () => {
 		const onClick = jest.fn();

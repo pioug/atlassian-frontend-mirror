@@ -10,6 +10,7 @@ import { css } from '@atlaskit/css';
 
 const stylesStyles = css({ color: 'var(--ds-link)' });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('strict compiled tests', () => {
 	it('should assert colors exist', () => {
 		render(<div css={stylesStyles}>Foo</div>);

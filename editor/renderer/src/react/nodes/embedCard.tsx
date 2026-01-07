@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+/* eslint-disable jsdoc/check-tag-names */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { useContext, useState, useRef } from 'react';
@@ -67,6 +68,7 @@ type EmbedCardInternalProps = {
 	isInsideOfBlockNode?: boolean;
 	isInsideOfInlineExtension?: boolean;
 	layout: RichMediaLayout;
+	onSetLinkTarget?: (url: string) => '_blank' | undefined;
 	originalHeight?: number;
 	originalWidth?: number;
 	portal?: HTMLElement;
@@ -87,6 +89,7 @@ function EmbedCardInternal(props: EmbedCardInternalProps) {
 		rendererAppearance,
 		smartLinks,
 		isInsideOfInlineExtension,
+		onSetLinkTarget,
 	} = props;
 	const portal = usePortal(props);
 	const embedIframeRef = useRef(null);
@@ -241,8 +244,12 @@ function EmbedCardInternal(props: EmbedCardInternalProps) {
 
 					return (
 						// Ignored via go/ees005
-						// eslint-disable-next-line react/jsx-props-no-spreading
-						<CardErrorBoundary unsupportedComponent={UnsupportedBlock} {...cardProps}>
+						<CardErrorBoundary
+							unsupportedComponent={UnsupportedBlock}
+							onSetLinkTarget={onSetLinkTarget}
+							// eslint-disable-next-line react/jsx-props-no-spreading
+							{...cardProps}
+						>
 							<EmbedResizeMessageListener
 								embedIframeRef={embedIframeRef}
 								onHeightUpdate={setLiveHeight}
@@ -297,6 +304,7 @@ export const EmbedOrBlockCardInternal = ({
 	isInsideOfBlockNode,
 	smartLinks,
 	isInsideOfInlineExtension,
+	onSetLinkTarget,
 }: EmbedCardInternalProps) => {
 	const { width } = useContext(WidthContext);
 	const viewAsBlockCard = width && width <= akEditorFullPageNarrowBreakout;
@@ -310,6 +318,7 @@ export const EmbedOrBlockCardInternal = ({
 			layout={layout}
 			rendererAppearance={rendererAppearance}
 			smartLinks={smartLinks}
+			onSetLinkTarget={onSetLinkTarget}
 		/>
 	) : (
 		<EmbedCardInternal
@@ -325,6 +334,7 @@ export const EmbedOrBlockCardInternal = ({
 			isInsideOfBlockNode={isInsideOfBlockNode}
 			smartLinks={smartLinks}
 			isInsideOfInlineExtension={isInsideOfInlineExtension}
+			onSetLinkTarget={onSetLinkTarget}
 		/>
 	);
 };

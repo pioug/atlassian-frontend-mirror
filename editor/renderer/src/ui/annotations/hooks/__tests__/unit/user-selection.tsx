@@ -9,6 +9,7 @@ import { isRangeInsideOfRendererContainer } from '../../utils';
 
 jest.useFakeTimers();
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Annotations: SelectionInlineCommentMounter', () => {
 	beforeEach(() => {
 		jest.spyOn(document, 'createRange').mockImplementation(() => new Range());

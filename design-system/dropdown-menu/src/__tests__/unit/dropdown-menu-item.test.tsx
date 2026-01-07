@@ -46,6 +46,7 @@ const MyRouterLinkComponent: React.ForwardRefExoticComponent<
 	},
 );
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('DropdownMenu Item', () => {
 	describe('default menu - button', () => {
 		it('simple menu item', () => {

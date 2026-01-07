@@ -19,6 +19,7 @@ const testIdCurrentMonthYear = `${testId}--current-month-year`;
 const testIdContainer = `${testId}--container`;
 const testIdColumnHeader = `${testId}--column-header`;
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Calendar should be found by data-testid', () => {
 	const today = new Date();
 	const year = today.getFullYear();

@@ -1,5 +1,21 @@
 # @atlaskit/renderer
 
+## 125.2.0
+
+### Minor Changes
+
+- [`2cb77d624e5f5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2cb77d624e5f5) -
+  Configure fallback links shown for errors from smartlinks to respect the optional renderer
+  onSetLinkTarget callback used to show/hide external link icon
+
+## 125.1.1
+
+### Patch Changes
+
+- [`e64156876a79c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e64156876a79c) -
+  Update documentation from Stash to Bitbucket
+- Updated dependencies
+
 ## 125.1.0
 
 ### Minor Changes

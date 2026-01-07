@@ -19,6 +19,7 @@ const toPxNumber = (value: string): number => {
 	return Number.isNaN(parsed) ? 0 : parsed;
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Tile', () => {
 	it('renders children', () => {
 		render(

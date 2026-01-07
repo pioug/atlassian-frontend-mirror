@@ -51,6 +51,7 @@ import {
 } from '../feature-flags-accessed';
 import type { LabelStack, SegmentLabel } from '../interaction-context';
 import { getInteractionId } from '../interaction-id-context';
+import { flushSsrRenderProfilerTraces } from '../segment/ssr-render-profiler'
 import { newVCObserver } from '../vc';
 import { type VCObserverInterface } from '../vc/types';
 
@@ -768,6 +769,7 @@ function finishInteraction(
 	}
 	clearActiveTrace();
 	callCleanUpCallbacks(data);
+	flushSsrRenderProfilerTraces();
 	if (getConfig()?.vc?.stopVCAtInteractionFinish) {
 		// Use per-interaction VC observer if available, otherwise fall back to global
 		const observer = data.vcObserver;

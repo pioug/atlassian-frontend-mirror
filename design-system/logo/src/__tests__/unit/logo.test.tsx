@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 import { AtlassianLogo } from '../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Logo component', () => {
 	it('should be an svg', () => {
 		const { container } = render(<AtlassianLogo />);

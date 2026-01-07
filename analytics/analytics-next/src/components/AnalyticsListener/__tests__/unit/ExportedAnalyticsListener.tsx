@@ -9,6 +9,7 @@ jest.mock('../../ModernAnalyticsListener', () => ({
 	default: () => <div>ModernAnalytics</div>,
 }));
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('ExportedAnalyticsListener', () => {
 	test('renders analytics context', () => {
 		const onEvent = jest.fn();

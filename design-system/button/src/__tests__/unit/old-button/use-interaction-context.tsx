@@ -17,6 +17,7 @@ const context: InteractionContextType = {
 	tracePress: mockTraceInteraction,
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('press-tracing', () => {
 	afterEach(() => {
 		jest.resetAllMocks();

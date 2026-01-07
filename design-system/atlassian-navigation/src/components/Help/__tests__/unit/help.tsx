@@ -25,6 +25,7 @@ class MockNotificationLogClient extends NotificationLogClient {
 	}
 }
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Help', () => {
 	it('Should display badge if the "badge" prop is defined and the number of notification is > 0', async () => {
 		const notificationsClient = new MockNotificationLogClient();

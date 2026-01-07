@@ -18,6 +18,7 @@ const CustomTabPanel = ({ children }: { children: ReactNode }) => {
 	);
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('@atlaskit/tabs', () => {
 	describe('tab panel', () => {
 		it('should throw an error if context not provided', () => {

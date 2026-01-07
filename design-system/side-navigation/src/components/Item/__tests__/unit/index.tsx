@@ -7,6 +7,7 @@ import { NestedContext } from '../../../NestableNavigationContent/context';
 import { default as NestingItem } from '../../../NestingItem';
 import { ButtonItem, CustomItem, type CustomItemComponentProps, LinkItem } from '../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Item', () => {
 	const callbacks = {
 		currentStackId: ROOT_ID,

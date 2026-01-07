@@ -17,6 +17,7 @@ import { TopNav } from '../../top-nav/top-nav';
 
 const originalNodeEnv = process.env.NODE_ENV;
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('page layout', () => {
 	beforeEach(() => {
 		resetMatchMedia();

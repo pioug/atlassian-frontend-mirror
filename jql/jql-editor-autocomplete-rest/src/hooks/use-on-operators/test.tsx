@@ -43,6 +43,7 @@ const mapOperatorToAutocompleteOptions = (data: string[]) =>
 		};
 	});
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('onOperators', () => {
 	const onNext = jest.fn();
 

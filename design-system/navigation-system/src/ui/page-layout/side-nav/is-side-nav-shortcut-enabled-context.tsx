@@ -29,6 +29,6 @@ export function IsSideNavShortcutEnabledProvider({
  * Returns the value of the `isSideNavShortcutEnabled` prop from the `Root` component, which
  * is shared through context.
  */
-export function useIsSideNavShortcutEnabled() {
+export function useIsSideNavShortcutEnabled(): boolean {
 	return useContext(IsSideNavShortcutEnabledContext);
 }

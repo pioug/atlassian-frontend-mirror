@@ -1704,6 +1704,7 @@ describe('<LinkPicker />', () => {
 						expect(screen.getByTestId(testIds.searchError)).toBeInTheDocument();
 					});
 
+					// eslint-disable-next-line @atlassian/a11y/no-violation-count
 					await expect(container).toBeAccessible({ violationCount: 1 });
 				});
 			});

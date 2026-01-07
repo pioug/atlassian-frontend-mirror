@@ -74,6 +74,7 @@ const PopupNested = () => {
 	);
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Popup', () => {
 	const defaultProps = {
 		content: () => <div>content</div>,

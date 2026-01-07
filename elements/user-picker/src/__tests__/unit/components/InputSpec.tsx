@@ -92,6 +92,7 @@ describe('ClearIndicator', () => {
 
 			expect(ariaAttr).not.toBeInTheDocument();
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 1 });
 		});
 
@@ -106,6 +107,7 @@ describe('ClearIndicator', () => {
 
 			expect(ariaAttr).toBeInTheDocument();
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
@@ -121,6 +123,7 @@ describe('ClearIndicator', () => {
 
 			expect(ariaAttr).toBeInTheDocument();
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 	});
@@ -135,6 +138,7 @@ describe('ClearIndicator', () => {
 
 			expect(ariaAttr).not.toBeInTheDocument();
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 1 });
 		});
 
@@ -151,6 +155,7 @@ describe('ClearIndicator', () => {
 
 			expect(ariaAttr?.getAttribute('aria-labelledby')).toEqual(labelledById);
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
@@ -166,6 +171,7 @@ describe('ClearIndicator', () => {
 
 			expect(ariaAttr?.getAttribute('aria-labelledby')).toEqual(describedById);
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 	});

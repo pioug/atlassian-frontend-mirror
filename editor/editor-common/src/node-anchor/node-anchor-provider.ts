@@ -19,7 +19,7 @@ export class NodeAnchorProvider {
 		this.emptyDoc = emptyDoc;
 	}
 
-	public isEmptyDoc() {
+	public isEmptyDoc(): boolean {
 		return this.emptyDoc;
 	}
 
@@ -27,7 +27,7 @@ export class NodeAnchorProvider {
 		this.emptyDoc = isEmpty;
 	}
 
-	public isLimitedMode() {
+	public isLimitedMode(): boolean {
 		return this.limitedMode;
 	}
 

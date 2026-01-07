@@ -1,5 +1,12 @@
 # @atlaskit/storybook-addon-design-system
 
+## 3.2.0
+
+### Minor Changes
+
+- [`cff151b7a3c6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cff151b7a3c6e) -
+  Enable refreshed typography theme in `withDesignTokens` decorator.
+
 ## 3.1.6
 
 ### Patch Changes

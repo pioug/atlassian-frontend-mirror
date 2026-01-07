@@ -11,6 +11,7 @@ const packageVersion = process.env._PACKAGE_VERSION_;
 
 const createUser = () => userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Tooltip', () => {
 	beforeEach(() => {
 		jest.useFakeTimers();

@@ -1,5 +1,14 @@
 # @atlaskit/tooltip
 
+## 20.12.0
+
+### Minor Changes
+
+- [`2e7328e8eff65`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e7328e8eff65) -
+  Adds `mouse-x` and `mouse-y` positions for tooltips behind the
+  `platform_dst_nav4_side_nav_resize_tooltip_feedback` gate. These positions only use the mouse
+  coordinates on one axis, but are otherwise relative to the target.
+
 ## 20.11.1
 
 ### Patch Changes

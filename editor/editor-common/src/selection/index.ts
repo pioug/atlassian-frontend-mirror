@@ -159,7 +159,7 @@ export function createSelectionClickHandler(
 		nodePos: number,
 		event: MouseEvent,
 		direct: boolean,
-	) {
+	): boolean {
 		if (options.useLongPressSelection) {
 			return false;
 		}

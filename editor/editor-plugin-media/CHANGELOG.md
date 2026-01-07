@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-media
 
+## 9.3.0
+
+### Minor Changes
+
+- [`12da6b7aac3a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/12da6b7aac3a9) -
+  add support of disable resize handles in resizable media single
+
+## 9.2.0
+
+### Minor Changes
+
+- [`ca937489954b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca937489954b8) -
+  Introduce new insertMediaSingle on media plugin and deprecate old action version.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.1.1
 
 ### Patch Changes

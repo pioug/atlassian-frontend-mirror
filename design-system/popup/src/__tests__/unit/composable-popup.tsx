@@ -10,6 +10,7 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { Popup, PopupContent, PopupTrigger } from '../../compositional/popup';
 import type { TriggerProps } from '../../types';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Popup with composable API', () => {
 	it('should render correctly when popup is closed', () => {
 		render(

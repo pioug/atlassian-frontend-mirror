@@ -16,6 +16,7 @@ const getAllDays = () => {
 	return allDays;
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('DatePicker', () => {
 	it('should fire an analytics event', async () => {
 		const onEvent = jest.fn();

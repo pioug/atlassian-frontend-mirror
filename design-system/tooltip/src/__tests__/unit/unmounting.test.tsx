@@ -6,6 +6,7 @@ import { shouldIgnoreLog } from '@af/suppress-react-warnings';
 
 import Tooltip from '../../tooltip';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Unmounting tooltip', () => {
 	beforeEach(() => {
 		HTMLElement.prototype.matches = jest.fn().mockReturnValue(true);

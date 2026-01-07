@@ -6,7 +6,7 @@ import { ScrollContext } from '../context';
  * This returns whether or not scrolling is allowed based on the existing
  * scrolling context.
  */
-export default function useScroll() {
+export default function useScroll(): boolean {
 	const shouldScrollInViewport = useContext(ScrollContext);
 	if (shouldScrollInViewport == null) {
 		throw Error(

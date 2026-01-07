@@ -9,6 +9,7 @@ const ComponentUsingHook = () => {
 	return <span data-testid="span">{renderCounter}</span>;
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('useRenderCounter', () => {
 	it('should return the current render count', () => {
 		const { rerender, getByTestId } = render(<ComponentUsingHook />);

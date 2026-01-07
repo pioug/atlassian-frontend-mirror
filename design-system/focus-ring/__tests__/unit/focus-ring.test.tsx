@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 import FocusRing from '../../src';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('focus ring', () => {
 	it('renders with basic usage', () => {
 		render(

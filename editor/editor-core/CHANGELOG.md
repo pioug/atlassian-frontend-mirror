@@ -1,5 +1,32 @@
 # @atlaskit/editor-core
 
+## 216.2.0
+
+### Minor Changes
+
+- [`0ef55acfa69f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ef55acfa69f4) -
+  Skip validation for SSR Renderer
+
+### Patch Changes
+
+- Updated dependencies
+
+## 216.1.7
+
+### Patch Changes
+
+- [`661555b3ca0d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/661555b3ca0d6) -
+  [EDITOR-3965] Fix source sync block fickers when hovering on and off action item
+- Updated dependencies
+
+## 216.1.6
+
+### Patch Changes
+
+- [`9e3a102746991`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e3a102746991) -
+  EDITOR-4273 Block menu extension lozenge rendering
+- Updated dependencies
+
 ## 216.1.5
 
 ### Patch Changes

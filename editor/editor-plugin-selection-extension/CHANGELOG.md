@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 10.0.4
+
+### Patch Changes
+
+- [`01e7a0b3e1d7a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01e7a0b3e1d7a) -
+  Fix range error when select multiple paragraphs
+
+## 10.0.3
+
+### Patch Changes
+
+- [`9e3a102746991`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e3a102746991) -
+  EDITOR-4273 Block menu extension lozenge rendering
+- Updated dependencies
+
 ## 10.0.2
 
 ### Patch Changes

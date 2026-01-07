@@ -195,5 +195,5 @@ export const isDecendantOfStyleBlock = (node: Rule.Node): boolean => {
 	return false;
 };
 
-export const isChildOfType = (node: Rule.Node, type: Rule.Node['type']) =>
+export const isChildOfType = (node: Rule.Node, type: Rule.Node['type']): boolean =>
 	isNodeOfType(node.parent, type);

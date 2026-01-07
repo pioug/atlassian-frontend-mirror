@@ -9,6 +9,7 @@ import TextField from '@atlaskit/textfield';
 
 import Form, { CharacterCounterField } from '../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('CharacterCounterField', () => {
 	const user = userEvent.setup();
 

@@ -22,6 +22,7 @@ const MockLayerComponent = ({ type }: { type?: LayerType }) => {
 	return <div>Test layer component</div>;
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('OpenLayerObserver', () => {
 	it('useOpenLayerObserver should not throw an error if used when there is no layer observer', () => {
 		const { result } = renderHook(useOpenLayerObserver);

@@ -137,7 +137,7 @@ export default class ProgressTrackerStage extends PureComponent<ProgressTrackerS
 		});
 	}
 
-	shouldShowLink() {
+	shouldShowLink(): boolean {
 		return (
 			this.props.item.status === 'visited' &&
 			// TODO: `noLink` is unnecessary as we should just be detecting if the `href` is set...

@@ -1,14 +1,15 @@
 import React from 'react';
 import { screen, render } from '@testing-library/react';
 import DeleteIcon from '@atlaskit/icon/core/delete';
-import DownloadIcon from '@atlaskit/icon/core/migration/download';
-import EditIcon from '@atlaskit/icon/core/migration/edit';
+import DownloadIcon from '@atlaskit/icon/core/download';
+import EditIcon from '@atlaskit/icon/core/edit';
 import userEvent from '@testing-library/user-event';
 
 import { type CardAction } from '../../../actions';
 
 import { ActionsBar } from '../actionsBar';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('ActionsBar', () => {
 	const deleteAction: CardAction = {
 		label: 'Delete',

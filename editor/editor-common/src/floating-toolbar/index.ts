@@ -7,7 +7,7 @@ function makeSameType<T>(_a: T, _b: any): _b is T {
 	return true;
 }
 
-export const shallowEqual = (objA?: Object, objB?: Object) => {
+export const shallowEqual = (objA?: Object, objB?: Object): boolean => {
 	if (objA === objB) {
 		return true;
 	}
@@ -47,7 +47,7 @@ export const compareArrays = <T extends Array<any>>(
 	left: Array<T>,
 	right: Array<T>,
 	compareFn: (left: T, right: T) => boolean = shallowEqual,
-) => {
+): boolean => {
 	if (left.length !== right.length) {
 		return false;
 	}

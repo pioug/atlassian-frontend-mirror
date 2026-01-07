@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 import VisuallyHidden from '../../src';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Visually Hidden', () => {
 	it('renders', () => {
 		render(

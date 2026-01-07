@@ -25,6 +25,7 @@ const headNotSortable = {
 	],
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Sorting', () => {
 	const data = [1, 3, 2, 4];
 	const rows = data.map((number: number) => ({

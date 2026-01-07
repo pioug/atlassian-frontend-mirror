@@ -7,6 +7,7 @@ import Button from '../../../new';
 
 const testId = 'button-group';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Button Group', () => {
 	it('renders the `testId` prop to a data attribute', () => {
 		render(<ButtonGroup testId={testId} />);

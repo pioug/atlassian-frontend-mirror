@@ -5,6 +5,7 @@ import { userEvent } from '@testing-library/user-event';
 
 import DropdownMenu, { DropdownItemRadio, DropdownItemRadioGroup } from '../../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('DropdownMenu with RadioGroup and Radio', () => {
 	it('should render defaultSelected item as checked', async () => {
 		render(

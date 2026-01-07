@@ -64,6 +64,7 @@ describe('hyperlink lpLinkPicker flag behaviour in composable editor with defaul
 		await screen.findByTestId('hyperlink-add-toolbar');
 		expect(screen.queryByTestId('link-picker')).not.toBeInTheDocument();
 
+		// eslint-disable-next-line @atlassian/a11y/no-violation-count
 		await expect(document.body).toBeAccessible({ violationCount: 1 });
 	});
 });

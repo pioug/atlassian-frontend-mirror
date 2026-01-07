@@ -24,6 +24,7 @@ const createProps = () => ({
 	testId: 'dynamictable',
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('RankableBody', () => {
 	beforeEach(() => {
 		HTMLElement.prototype.scrollIntoView = jest.fn();

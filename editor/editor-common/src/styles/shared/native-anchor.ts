@@ -11,7 +11,7 @@ const hasCssSupport = memoizeOne(() => {
 	return false;
 });
 
-export const isCSSAttrAnchorSupported = memoizeOne(() => {
+export const isCSSAttrAnchorSupported = memoizeOne((): boolean => {
 	if (hasCssSupport()) {
 		return CSS.supports('anchor-name', 'attr(data-anchor-name type(<custom-ident>))');
 	}

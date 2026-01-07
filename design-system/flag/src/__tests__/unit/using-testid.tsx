@@ -7,6 +7,7 @@ import SuccessIcon from '@atlaskit/icon/core/status-success';
 
 import Flag from '../../flag';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Flag should be found by data-testid', () => {
 	test('Using getByTestId()', async () => {
 		render(

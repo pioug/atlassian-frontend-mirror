@@ -35,6 +35,7 @@ const elementTestNode2: AST.Element = {
 	children: [textTestNode, textWithNumberTestNode],
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('createElement', () => {
 	it('should return plain text for text node if it does not contain bidi characters', () => {
 		const element = createElement({

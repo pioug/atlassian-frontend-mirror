@@ -15,6 +15,7 @@ import variants, { iconButtonVariants } from '../../../utils/variants';
 
 variants.forEach(({ name, Component, appearances }) =>
 	appearances.map((appearance) => {
+		// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 		describe(`${name}: '${appearance}' appearance accessibility`, () => {
 			it('should not fail an aXe audit', async () => {
 				const { container } = render(

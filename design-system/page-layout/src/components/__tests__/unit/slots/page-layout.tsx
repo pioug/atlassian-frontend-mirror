@@ -21,6 +21,7 @@ import {
 
 const slotLabelStyles = css({ textAlign: 'center' });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('page-layout', () => {
 	it('should have data attribute for all the page layout slots', () => {
 		render(

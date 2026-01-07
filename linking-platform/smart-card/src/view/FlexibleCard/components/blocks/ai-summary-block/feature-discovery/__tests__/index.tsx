@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 import FeatureDiscovery from '../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('FeatureDiscovery', () => {
 	it('does not show feature discovery component when localStorage throws error', () => {
 		jest.spyOn(localStorage, 'getItem').mockImplementationOnce(() => {

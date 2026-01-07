@@ -34,6 +34,7 @@ const RENDERED_POPUP_CLASS = 'popup-select__menu-list';
 const RENDERED_POPUP_SELECTOR = `.${RENDERED_POPUP_CLASS}`;
 const PORTALED_CONTAINER = document.body;
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Popup Select', () => {
 	beforeEach(() => {
 		//@ts-ignore

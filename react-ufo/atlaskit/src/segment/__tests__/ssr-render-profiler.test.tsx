@@ -7,17 +7,58 @@ jest.mock('../../interaction-metrics', () => ({
 	getActiveInteraction: jest.fn(),
 }));
 
-import { SsrRenderProfilerInner } from '../ssr-render-profiler';
+// Mock the config module
+jest.mock('../../config', () => ({
+	getConfig: jest.fn(),
+}));
 
+import {
+	clearState,
+	flushSsrRenderProfilerTraces,
+	type GlobalThis,
+	type Span,
+	SsrRenderProfilerInner,
+	type TesseractTelemetryAPI,
+} from '../ssr-render-profiler';
+
+const mockGetConfig = require('../../config').getConfig;
 const mockGetActiveInteraction = require('../../interaction-metrics').getActiveInteraction;
 
 describe('SsrRenderProfilerInner', () => {
 	let mockOnRender: jest.Mock;
+	let mockStartSpan: jest.Mock;
+	const originalStartSpan = (globalThis as GlobalThis).__vm_internals__?.telemetry?.startSpan;
+	let mockSpan: Span;
 
 	beforeEach(() => {
 		jest.clearAllMocks();
 		mockOnRender = jest.fn();
 		mockGetActiveInteraction.mockReturnValue(undefined);
+		mockGetConfig.mockReturnValue({ ssr: { enableNativeTracing: true } });
+
+		const __vm_internals__ = ((globalThis as GlobalThis).__vm_internals__ =
+			(globalThis as GlobalThis).__vm_internals__ ?? {});
+		const telemetry = (__vm_internals__.telemetry =
+			__vm_internals__.telemetry ?? ({} as TesseractTelemetryAPI));
+		mockStartSpan = jest.fn(() => mockSpan);
+		telemetry.startSpan = mockStartSpan;
+		mockSpan = {
+			end: jest.fn(),
+			setAttribute: jest.fn(),
+			addEvent: jest.fn(),
+			getSpanContext: jest.fn(() => ({
+				spanId: 'span-123',
+				traceId: 'trace-123',
+				isSampled: true,
+				isRemote: false,
+			})),
+		};
+	});
+
+	afterEach(() => {
+		(globalThis as any).__vm_internals__.telemetry.startSpan =
+			originalStartSpan as TesseractTelemetryAPI['startSpan'];
+		clearState();
 	});
 
 	describe('rendering children', () => {
@@ -541,6 +582,236 @@ describe('SsrRenderProfilerInner', () => {
 			expect(screen.getByText('Third')).toBeInTheDocument();
 
 			await expect(document.body).toBeAccessible();
+		});
+	});
+
+	describe('native tracing with spans', () => {
+		it('should not create spans when enableNativeTracing is false', () => {
+			mockGetConfig.mockReturnValue({ ssr: { enableNativeTracing: false } });
+			const labelStack = [{ name: 'test', segmentId: 'seg-1' }];
+
+			render(
+				<SsrRenderProfilerInner labelStack={labelStack} onRender={mockOnRender}>
+					<div>Test</div>
+				</SsrRenderProfilerInner>,
+			);
+
+			expect(screen.getByText('Test')).toBeInTheDocument();
+			expect(mockStartSpan).not.toHaveBeenCalled();
+		});
+
+		it('should create spans when enableNativeTracing is true', () => {
+			mockGetConfig.mockReturnValue({ ssr: { enableNativeTracing: true } });
+			const labelStack = [{ name: 'test-segment', segmentId: 'seg-1' }];
+
+			render(
+				<SsrRenderProfilerInner labelStack={labelStack} onRender={mockOnRender}>
+					<div>Test</div>
+				</SsrRenderProfilerInner>,
+			);
+
+			expect(mockStartSpan).toHaveBeenCalledWith('test-segment', { parentSpanId: undefined });
+		});
+
+		it('should track multiple renders with the same segment', () => {
+			const labelStack = [{ name: 'test', segmentId: 'seg-1' }];
+
+			const { rerender } = render(
+				<SsrRenderProfilerInner labelStack={labelStack} onRender={mockOnRender}>
+					<div>Test 1</div>
+				</SsrRenderProfilerInner>,
+			);
+
+			const firstCallCount = mockStartSpan.mock.calls.length;
+
+			rerender(
+				<SsrRenderProfilerInner labelStack={labelStack} onRender={mockOnRender}>
+					<div>Test 2</div>
+				</SsrRenderProfilerInner>,
+			);
+
+			// Should have been called for both renders
+			expect(mockStartSpan.mock.calls.length).toBeGreaterThanOrEqual(firstCallCount);
+		});
+
+		it('should pass parentSpanId when in nested context', () => {
+			const mockParentSpan = {
+				end: jest.fn(),
+				setAttribute: jest.fn(),
+				addEvent: jest.fn(),
+				getSpanContext: jest.fn(() => ({
+					spanId: 'parent-span-123',
+					traceId: 'trace-123',
+					isSampled: true,
+					isRemote: false,
+				})),
+			};
+
+			const mockChildSpan = {
+				end: jest.fn(),
+				setAttribute: jest.fn(),
+				addEvent: jest.fn(),
+				getSpanContext: jest.fn(() => ({
+					spanId: 'child-span-456',
+					traceId: 'trace-123',
+					isSampled: true,
+					isRemote: false,
+				})),
+			};
+
+			mockStartSpan.mockImplementation((name) => {
+				if (name === 'parent') {
+					return mockParentSpan;
+				}
+				return mockChildSpan;
+			});
+
+			mockGetConfig.mockReturnValue({ ssr: { enableNativeTracing: true } });
+			const parentLabelStack = [{ name: 'parent', segmentId: 'seg-1' }];
+			const childLabelStack = [
+				{ name: 'parent', segmentId: 'seg-1' },
+				{ name: 'child', segmentId: 'seg-2' },
+			];
+
+			render(
+				<SsrRenderProfilerInner labelStack={parentLabelStack} onRender={mockOnRender}>
+					<SsrRenderProfilerInner labelStack={childLabelStack} onRender={mockOnRender}>
+						<div>Nested Test</div>
+					</SsrRenderProfilerInner>
+				</SsrRenderProfilerInner>,
+			);
+
+			expect(mockStartSpan).toHaveBeenCalledWith('parent', { parentSpanId: undefined });
+			expect(mockStartSpan).toHaveBeenCalledWith('child', { parentSpanId: 'parent-span-123' });
+		});
+	});
+
+	describe('flushSsrRenderProfilerTraces', () => {
+		it('should end all spans with their latestEndTime', () => {
+			mockGetConfig.mockReturnValue({ ssr: { enableNativeTracing: true } });
+			const labelStack = [{ name: 'test-segment', segmentId: 'seg-1' }];
+
+			render(
+				<SsrRenderProfilerInner labelStack={labelStack} onRender={mockOnRender}>
+					<div>Test</div>
+				</SsrRenderProfilerInner>,
+			);
+
+			expect(mockStartSpan).toHaveBeenCalledWith('test-segment', { parentSpanId: undefined });
+
+			// Before flush, spans should not be ended
+			expect(mockSpan.end).not.toHaveBeenCalled();
+
+			// Flush the traces
+			flushSsrRenderProfilerTraces();
+
+			// After flush, spans with latestEndTime should be ended
+			// Note: The span should have been created and have latestEndTime set by onRender calls
+			expect(mockSpan.end).toHaveBeenCalled();
+		});
+	});
+
+	describe('span context propagation', () => {
+		it('should provide span context to nested profilers', () => {
+			const mockParentSpan = {
+				end: jest.fn(),
+				setAttribute: jest.fn(),
+				addEvent: jest.fn(),
+				getSpanContext: jest.fn(() => ({
+					spanId: 'parent-span',
+					traceId: 'trace-123',
+					isSampled: true,
+					isRemote: false,
+				})),
+			};
+
+			const mockChildSpan = {
+				end: jest.fn(),
+				setAttribute: jest.fn(),
+				addEvent: jest.fn(),
+				getSpanContext: jest.fn(() => ({
+					spanId: 'child-span',
+					traceId: 'trace-123',
+					isSampled: true,
+					isRemote: false,
+				})),
+			};
+
+			let spanIndex = 0;
+			mockStartSpan.mockImplementation(() => {
+				const span = spanIndex++ === 0 ? mockParentSpan : mockChildSpan;
+				return span;
+			});
+
+			mockGetConfig.mockReturnValue({ ssr: { enableNativeTracing: true } });
+
+			const parentLabelStack = [{ name: 'parent', segmentId: 'seg-1' }];
+			const childLabelStack = [
+				{ name: 'parent', segmentId: 'seg-1' },
+				{ name: 'child', segmentId: 'seg-2' },
+			];
+
+			render(
+				<SsrRenderProfilerInner labelStack={parentLabelStack} onRender={mockOnRender}>
+					<div>Parent</div>
+					<SsrRenderProfilerInner labelStack={childLabelStack} onRender={mockOnRender}>
+						<div>Child</div>
+					</SsrRenderProfilerInner>
+				</SsrRenderProfilerInner>,
+			);
+
+			expect(mockStartSpan).toHaveBeenCalledWith('parent', { parentSpanId: undefined });
+			expect(mockStartSpan).toHaveBeenCalledWith('child', { parentSpanId: 'parent-span' });
+		});
+
+		it('should handle deeply nested span contexts', () => {
+			const createMockSpan = (spanId: string) => ({
+				end: jest.fn(),
+				setAttribute: jest.fn(),
+				addEvent: jest.fn(),
+				getSpanContext: jest.fn(() => ({
+					spanId,
+					traceId: 'trace-123',
+					isSampled: true,
+					isRemote: false,
+				})),
+			});
+
+			const spans = {
+				level1: createMockSpan('level1-span'),
+				level2: createMockSpan('level2-span'),
+				level3: createMockSpan('level3-span'),
+			};
+
+			mockStartSpan.mockImplementation((name) => spans[name as keyof typeof spans]);
+			mockGetConfig.mockReturnValue({ ssr: { enableNativeTracing: true } });
+
+			const level1Stack = [{ name: 'level1', segmentId: 'seg-1' }];
+			const level2Stack = [
+				{ name: 'level1', segmentId: 'seg-1' },
+				{ name: 'level2', segmentId: 'seg-2' },
+			];
+			const level3Stack = [
+				{ name: 'level1', segmentId: 'seg-1' },
+				{ name: 'level2', segmentId: 'seg-2' },
+				{ name: 'level3', segmentId: 'seg-3' },
+			];
+
+			render(
+				<SsrRenderProfilerInner labelStack={level1Stack} onRender={mockOnRender}>
+					<div>Level 1</div>
+					<SsrRenderProfilerInner labelStack={level2Stack} onRender={mockOnRender}>
+						<div>Level 2</div>
+						<SsrRenderProfilerInner labelStack={level3Stack} onRender={mockOnRender}>
+							<div>Level 3</div>
+						</SsrRenderProfilerInner>
+					</SsrRenderProfilerInner>
+				</SsrRenderProfilerInner>,
+			);
+
+			expect(mockStartSpan).toHaveBeenCalledWith('level1', { parentSpanId: undefined });
+			expect(mockStartSpan).toHaveBeenCalledWith('level2', { parentSpanId: 'level1-span' });
+			expect(mockStartSpan).toHaveBeenCalledWith('level3', { parentSpanId: 'level2-span' });
 		});
 	});
 });

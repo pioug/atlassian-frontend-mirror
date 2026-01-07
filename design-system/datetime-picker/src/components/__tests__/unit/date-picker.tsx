@@ -28,6 +28,7 @@ const getAllDays = () => {
 
 // userEvent does not work for inputs or mousedowns sometimes. Unsure of why.
 // Assuming react-select is the issue.
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('DatePicker', () => {
 	const label = 'label';
 	const openCalendarLabel = 'open calendar';

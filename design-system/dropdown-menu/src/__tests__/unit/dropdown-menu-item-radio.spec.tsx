@@ -8,6 +8,7 @@ import DropdownMenu, { DropdownItemRadio, DropdownItemRadioGroup } from '../../i
 /**
  * With the FF off the default selected state is not persisted.
  */
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Dropdown item radio', () => {
 	it('should persist default selected state', async () => {
 		render(

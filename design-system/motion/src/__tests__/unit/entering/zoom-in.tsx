@@ -8,6 +8,7 @@ import { easeInOut } from '../../../utils/curves';
 
 jest.mock('../../../utils/accessibility');
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<ZoomIn />', () => {
 	it('should default to medium duration', () => {
 		render(<ZoomIn>{(props) => <div data-testid="target" {...props} />}</ZoomIn>);

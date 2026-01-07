@@ -63,6 +63,7 @@ const TestComponentNoFallback = ({
 	);
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('useFocusWithin', () => {
 	it('returns focused element when focus moves inside the container', () => {
 		const mockFocusChange = jest.fn();

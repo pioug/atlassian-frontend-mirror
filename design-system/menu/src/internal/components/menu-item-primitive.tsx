@@ -7,7 +7,6 @@ import { useContext } from 'react';
 import { ClassNames, cssMap, jsx } from '@compiled/react';
 import { ax } from '@compiled/react/runtime';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Inline, type InlineProps } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -232,10 +231,7 @@ const MenuItemPrimitive = ({
 							spacingMapStyles[spacing],
 							!isDisabled && !isSelected && styles.unselected,
 							!isDisabled && isSelected && styles.selected,
-							!fg('platform_fix_a11y_selected_and_hovered_state_color') &&
-								!isDisabled &&
-								isSelected &&
-								styles.selectedOld,
+							!isDisabled && isSelected && styles.selectedOld,
 							!isDisabled && isSelected && selectionStyle === 'border' && styles.selectedBorder,
 							!isDisabled && isSelected && selectionStyle === 'notch' && styles.selectedNotch,
 							isDisabled && styles.disabled,

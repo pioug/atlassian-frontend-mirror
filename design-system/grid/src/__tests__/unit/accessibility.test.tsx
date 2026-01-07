@@ -29,6 +29,7 @@ const jsx = (
 	</Grid>
 );
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Grid and GridItem', () => {
 	it('should pass an aXe audit', async () => {
 		const { container } = render(jsx);

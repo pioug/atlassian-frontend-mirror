@@ -9,6 +9,7 @@ import { useMediaClient } from '../../src';
 
 import { MockedMediaClientProvider } from './MockedMediaClientProvider';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('MockedMediaClientProvider', () => {
 	it('should create and provide a mediaClient using mockedMediaApi and initialStore', () => {
 		const mockedMediaApi = { getItems: jest.fn() };

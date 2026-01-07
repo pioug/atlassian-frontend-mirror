@@ -8,6 +8,7 @@ import { hasStyleRule } from '../_util/style-rules';
 const types: React.ElementType[] = ['button', 'a', 'span'];
 
 types.forEach((tag: React.ElementType) => {
+	// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 	describe(`disabled [type: <${tag}>]`, () => {
 		// Validating behaviour
 		it('should render the expected tag', () => {

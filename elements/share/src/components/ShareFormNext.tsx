@@ -6,7 +6,7 @@ import { AnalyticsContext } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/new';
 import { cssMap, cx } from '@atlaskit/css';
 import Form, { RequiredAsterisk } from '@atlaskit/form';
-import EmailIcon from '@atlaskit/icon/core/migration/email';
+import EmailIcon from '@atlaskit/icon/core/email';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import { MenuGroup } from '@atlaskit/menu';
 import { Box } from '@atlaskit/primitives/compiled';

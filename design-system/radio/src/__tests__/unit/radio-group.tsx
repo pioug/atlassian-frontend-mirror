@@ -10,6 +10,7 @@ const sampleOptions = [
 	{ name: 'test', value: '3', label: 'three', isDisabled: true },
 ];
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('@atlaskit/radio', () => {
 	describe('RadioGroup', () => {
 		describe('props', () => {

@@ -32,6 +32,7 @@ jest.mock('popper.js', () => {
 	};
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('inline-dialog', () => {
 	it('should render the children of an inline dialog as the target', () => {
 		render(

@@ -4,6 +4,7 @@ import { render } from '@testing-library/react';
 
 import useScrollbarWidth from '../use-scrollbar-width';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('useScrollbarWidth()', () => {
 	const Container = ({ refStub, onRender }: { refStub?: any; onRender?: () => void }) => {
 		const { width, ref } = useScrollbarWidth();

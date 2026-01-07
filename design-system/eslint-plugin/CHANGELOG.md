@@ -1,5 +1,22 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.31.0
+
+### Minor Changes
+
+- [`7de53802511d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7de53802511d2) -
+  Adds tag migration to the labelling system visual uplift migration eslint rule. Renaming
+  lozenge-isBold-and-lozenge-badge-appearance-migration to
+  lozenge-badge-tag-labelling-system-migration.
+
+## 13.30.1
+
+### Patch Changes
+
+- [`c355e102b3fc0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c355e102b3fc0) -
+  Update documentation for field message wrapper rule.
+- Updated dependencies
+
 ## 13.30.0
 
 ### Minor Changes

@@ -6,6 +6,7 @@ import __noop from '@atlaskit/ds-lib/noop';
 
 import Breadcrumbs, { BreadcrumbsItem } from '../../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Breadcrumbs container', () => {
 	it('should be able to render a single child', () => {
 		render(

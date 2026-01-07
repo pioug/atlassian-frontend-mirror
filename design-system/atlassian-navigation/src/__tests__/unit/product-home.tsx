@@ -17,6 +17,7 @@ const containerTestId = `${testId}-container`;
 const getLogoMaxWidthCSSVar = () =>
 	screen.getByTestId(containerTestId)?.style.getPropertyValue('--logo-max-width');
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<ProductHome />', () => {
 	const icon = jest.fn(() => null);
 	const logo = jest.fn(() => null);

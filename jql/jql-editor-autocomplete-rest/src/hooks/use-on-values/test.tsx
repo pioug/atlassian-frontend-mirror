@@ -57,6 +57,7 @@ const mapToAutocompleteOptions = (data: JQLFieldValueResponse[]): AutocompleteOp
 		};
 	});
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('onValues', () => {
 	afterEach(() => {
 		jest.clearAllMocks();

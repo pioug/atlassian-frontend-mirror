@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 import Radio from '../../radio';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Radio', () => {
 	const user = userEvent.setup();
 

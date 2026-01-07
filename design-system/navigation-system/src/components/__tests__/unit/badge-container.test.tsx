@@ -7,6 +7,7 @@ import { axe } from '@af/accessibility-testing';
 import { BadgeContainer } from '../../badge-container';
 import { List } from '../../list';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('BadgeContainer', () => {
 	it('should be accessible', async () => {
 		const { container } = render(

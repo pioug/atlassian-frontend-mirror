@@ -5,6 +5,7 @@ import { render, screen } from '@testing-library/react';
 import variants from '../../../utils/variants';
 
 variants.forEach(({ name, Component, elementType }) => {
+	// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 	describe(name, () => {
 		it('should apply a provided `type` prop', () => {
 			render(

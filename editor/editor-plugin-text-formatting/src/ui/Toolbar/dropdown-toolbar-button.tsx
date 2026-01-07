@@ -13,7 +13,7 @@ import {
 	disableBlueBorderStyles,
 } from '@atlaskit/editor-common/styles';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
-import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ItalicIcon from '@atlaskit/icon/core/text-italic';
 
 import { ToolbarType } from './types';

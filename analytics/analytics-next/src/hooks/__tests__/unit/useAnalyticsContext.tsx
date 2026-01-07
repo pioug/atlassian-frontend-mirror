@@ -47,6 +47,7 @@ const UnderTest = ({
 	);
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('useAnalyticsContext', () => {
 	it('should return analytics context', () => {
 		const callback = jest.fn();

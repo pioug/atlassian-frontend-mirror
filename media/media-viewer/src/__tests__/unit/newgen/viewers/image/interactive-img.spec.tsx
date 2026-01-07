@@ -58,6 +58,7 @@ function setup(props?: Partial<Props & ImageSize>) {
 	return { component, onClose, onBlanketClicked };
 }
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('InteractiveImg', () => {
 	it('should have image and overflow invisible until camera is defined', () => {
 		const { container } = render(

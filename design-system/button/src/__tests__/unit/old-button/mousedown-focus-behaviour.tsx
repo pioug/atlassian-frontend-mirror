@@ -7,6 +7,7 @@ import Button from '../../../old-button/button';
 const types: React.ElementType[] = ['button', 'a', 'span'];
 
 types.forEach((tag: React.ElementType) => {
+	// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 	describe(`focus behaviour [type: <${tag}>]`, () => {
 		// Note: this behaviour sucks but it is so engrained in usages of button that it will be really hard to unwind
 		it('should call event.prevent default on mouse down to prevent the button getting focus', () => {

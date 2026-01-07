@@ -28,7 +28,7 @@ export const LANGUAGE_MAP = {
 
 export type LanguageMapKeys = keyof typeof LANGUAGE_MAP;
 
-export const supportedLanguages = (Object.keys(LANGUAGE_MAP) as Array<LanguageMapKeys>).map(
+export const supportedLanguages: string[] = (Object.keys(LANGUAGE_MAP) as Array<LanguageMapKeys>).map(
 	(name) => LANGUAGE_MAP[name],
 );
 

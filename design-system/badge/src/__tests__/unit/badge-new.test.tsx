@@ -12,6 +12,7 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 import BadgeNew, { appearanceMapping } from '../../badge-new';
 import Badge from '../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('BadgeNew component (UI uplift)', () => {
 	const testId = 'test-badge-new';
 

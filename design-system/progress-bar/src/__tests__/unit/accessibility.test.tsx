@@ -10,6 +10,7 @@ import TransparentProgressBar from '../../components/transparent-progress-bar';
 
 type ProgressBarProps = ComponentProps<typeof ProgressBar>;
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('ProgressBar', () => {
 	const defaultProps: ProgressBarProps = {
 		ariaLabel: 'Axe test label',

@@ -34,7 +34,7 @@ export const allowedAttrs: string[] = ['id', 'data-testid', 'key'];
 
 // Only allow elements with strings as children
 // The use of `<FormattedMessage ... />` component and `{formatMessage(...)}` are allowed as these are used for i18n
-export function hasTextChildrenOnly(node: JSXElement) {
+export function hasTextChildrenOnly(node: JSXElement): boolean {
 	return node.children?.every((child) => {
 		if (isNodeOfType(child, 'JSXText')) {
 			return true;

@@ -11,6 +11,7 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 const testId = 'link';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Analytics:', () => {
 	it('should fire an event on the public channel and the internal channel', () => {
 		const onPublicEvent = jest.fn();

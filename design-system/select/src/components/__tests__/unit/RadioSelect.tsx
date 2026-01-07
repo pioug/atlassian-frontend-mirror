@@ -16,6 +16,7 @@ const OPTIONS = [
 	{ label: '4', value: 'four' },
 ];
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Radio Select', () => {
 	it('should load radio icons with options', () => {
 		render(<AtlaskitRadioSelect menuIsOpen options={OPTIONS} label="Options" />);

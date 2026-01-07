@@ -4,6 +4,7 @@ import FileChooser from '../../../../components/common/FileChooser';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('File Chooser', () => {
 	let user: ReturnType<typeof userEvent.setup>;
 	beforeEach(() => {

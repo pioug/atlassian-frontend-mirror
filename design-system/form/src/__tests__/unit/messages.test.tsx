@@ -10,6 +10,7 @@ const props = {
 	children: ['test'],
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Messages', () => {
 	describe('wrapper', () => {
 		it('should have an aria-live attribute', () => {

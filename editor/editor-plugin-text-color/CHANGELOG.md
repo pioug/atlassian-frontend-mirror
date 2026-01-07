@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-text-color
 
+## 7.1.1
+
+### Patch Changes
+
+- [`c4d291905a6e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4d291905a6e1) -
+  Add new types for common plugin configuration, use for insert block plugin and add new config to
+  textColorPlugin to hide the text color toolbar
+- Updated dependencies
+
 ## 7.1.0
 
 ### Minor Changes

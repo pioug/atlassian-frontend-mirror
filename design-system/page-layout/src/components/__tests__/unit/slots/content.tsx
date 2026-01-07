@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 import { Content, LeftPanel, Main, PageLayout, RightPanel } from '../../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<Content />', () => {
 	it('should take up all space between the panels', () => {
 		render(

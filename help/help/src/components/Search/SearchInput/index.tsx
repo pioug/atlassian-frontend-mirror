@@ -12,7 +12,7 @@ import {
 import Textfield from '@atlaskit/textfield';
 import Button from '@atlaskit/button/custom-theme-button';
 import Spinner from '@atlaskit/spinner';
-import SearchIcon from '@atlaskit/icon/core/migration/search';
+import SearchIcon from '@atlaskit/icon/core/search';
 import EditorCloseIcon from '@atlaskit/icon/core/cross';
 import { css, jsx } from '@compiled/react';
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl-next';

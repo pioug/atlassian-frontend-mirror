@@ -4,6 +4,7 @@ import { render } from '@testing-library/react';
 
 import Link from '../../../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe(`Ref forwarding:`, () => {
 	it(`should return an HTMLAnchorElement as it's ref`, () => {
 		const mock = jest.fn();

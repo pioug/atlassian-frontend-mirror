@@ -4,6 +4,7 @@ import { queryByAttribute, render, screen } from '@testing-library/react';
 
 import Text from '../../text';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Text component', () => {
 	it('should render given text', () => {
 		render(<Text>Text</Text>);

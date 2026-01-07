@@ -14,6 +14,7 @@ window.requestAnimationFrame = (cb) => {
 	return -1;
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<ButtonItem />', () => {
 	it('should callback on click', () => {
 		const callback = jest.fn();

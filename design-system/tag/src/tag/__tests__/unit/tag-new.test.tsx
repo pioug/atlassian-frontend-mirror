@@ -11,6 +11,7 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 import TagNew, { colorMapping } from '../../../tag-new';
 import SimpleTag from '../../../tag/simple-tag';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('TagNew component (UI uplift)', () => {
 	const testId = 'test-tag-new';
 

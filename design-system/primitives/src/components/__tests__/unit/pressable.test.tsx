@@ -23,6 +23,7 @@ const pressableStyles = xcss({
 	textTransform: 'uppercase',
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Pressable', () => {
 	it('should render with a given test id', () => {
 		render(<Pressable testId={testId}>Pressable with testid</Pressable>);

@@ -1,7 +1,7 @@
 import type { Scope } from 'eslint';
 import { isNodeOfType } from 'eslint-codemod-utils';
 
-export const isFunctionNamed = (node: Scope.Definition | undefined, name: string) => {
+export const isFunctionNamed = (node: Scope.Definition | undefined, name: string): boolean => {
 	if (!node) {
 		return false;
 	}

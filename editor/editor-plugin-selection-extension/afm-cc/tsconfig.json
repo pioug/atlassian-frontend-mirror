@@ -27,6 +27,9 @@
 			"path": "../../adf-utils/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/css/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-json-transformer/afm-cc/tsconfig.json"
 		},
 		{
@@ -85,6 +88,9 @@
 		},
 		{
 			"path": "../../tmp-editor-statsig/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../editor-common/afm-cc/tsconfig.json"

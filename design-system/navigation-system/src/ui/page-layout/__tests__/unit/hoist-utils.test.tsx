@@ -6,6 +6,7 @@ import { media } from '@atlaskit/primitives/responsive';
 
 import { DangerouslyHoistCssVarToDocumentRoot, HoistCssVarToLocalGrid } from '../../hoist-utils';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('HoistCssVarToLocalGrid', () => {
 	it('should add the correct style rule', () => {
 		render(

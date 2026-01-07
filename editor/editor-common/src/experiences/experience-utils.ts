@@ -8,7 +8,7 @@
 export const containsPopupWithNestedElement = (
 	node: Node | null | undefined,
 	nestedElementQuery: string,
-) => {
+): boolean => {
 	if (!(node instanceof HTMLElement)) {
 		return false;
 	}

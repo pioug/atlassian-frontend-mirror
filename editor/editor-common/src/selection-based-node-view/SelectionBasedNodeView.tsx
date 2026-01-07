@@ -114,7 +114,7 @@ export class SelectionBasedNodeView<P = ReactComponentProps> extends ReactNodeVi
 		return pos < from && to < posEnd;
 	};
 
-	insideSelection = () => {
+	insideSelection = (): boolean => {
 		const {
 			selection: { from, to },
 		} = this.view.state;
@@ -122,7 +122,7 @@ export class SelectionBasedNodeView<P = ReactComponentProps> extends ReactNodeVi
 		return this.isSelectedNode || this.isSelectionInsideNode(from, to);
 	};
 
-	nodeInsideSelection = () => {
+	nodeInsideSelection = (): boolean => {
 		const { selection } = this.view.state;
 		const { from, to } = selection;
 

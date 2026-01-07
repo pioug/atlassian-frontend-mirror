@@ -10,6 +10,7 @@ import Tabs, { Tab, TabList, TabPanel } from '../../index';
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Tabs analytics', () => {
 	it(`should fire an event on the public channel and the internal channel when tabs are changed`, async () => {
 		const user = userEvent.setup();

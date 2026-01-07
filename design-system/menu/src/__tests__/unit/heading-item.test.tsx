@@ -7,6 +7,7 @@ import { HeadingItem } from '../../index';
 const testId = 'heading-item';
 const headingLevel = 3;
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('HeadingItem', () => {
 	it('Should have role="heading" and level of heading specified', () => {
 		render(

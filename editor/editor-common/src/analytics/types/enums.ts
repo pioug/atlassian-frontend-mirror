@@ -528,6 +528,7 @@ export enum ACTION_SUBJECT_ID {
 	SYNCED_BLOCK_DELETE = 'syncedBlockDelete',
 	SYNCED_BLOCK_GET_SOURCE_INFO = 'syncedBlockGetSourceInfo',
 	SYNCED_BLOCK_FETCH = 'syncedBlockFetch',
+	TABLE_STICKY_HEADER = 'tableStickyHeader',
 }
 
 export enum FLOATING_CONTROLS_TITLE {

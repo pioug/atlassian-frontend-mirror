@@ -5,6 +5,7 @@ import { render, screen } from '@testing-library/react';
 import { CSS_VAR_CONTENTS_OPACITY } from '../../../styled/loading-container';
 import LoadingContainer from '../../loading-container';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('LoadingContainer', () => {
 	const testId = 'dynamic--table--test--id';
 	const Contents = () => <div data-testid={`${testId}--contents`}>Contents</div>;

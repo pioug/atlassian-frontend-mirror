@@ -14,6 +14,7 @@ import {
 
 const styles = cssMap({ root: { color: 'red' } });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Inline CSS test util', () => {
 	it(`compiled css is removed from text content for none style element`, () => {
 		render(

@@ -272,7 +272,7 @@ export class CommitStepService {
 		);
 	}
 
-	getReadyToCommitStatus() {
+	getReadyToCommitStatus(): boolean {
 		return this.readyToCommit;
 	}
 }

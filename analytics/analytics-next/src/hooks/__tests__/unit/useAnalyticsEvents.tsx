@@ -21,6 +21,7 @@ const Component = (props: {
 	return null;
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('useAnalyticsEvents()', () => {
 	beforeEach(() => {
 		jest.spyOn(console, 'error').mockImplementation(() => {});

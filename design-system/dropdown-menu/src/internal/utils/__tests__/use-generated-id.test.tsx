@@ -20,6 +20,7 @@ const ComponentWithId = ({ testId }: { testId: string }) => {
 	);
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('useGeneratedId', () => {
 	it('should generate a unique id each invocation', () => {
 		const { getByTestId } = render(

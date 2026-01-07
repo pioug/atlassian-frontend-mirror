@@ -12,7 +12,7 @@ import { convertASTObjectExpressionToJSObject } from './convert-ast-object-expre
 export const isValidCssPropertiesToTransform = (
 	node: SimpleCallExpression & Rule.NodeParentExtension,
 	config: RuleConfig,
-) => {
+): boolean => {
 	if (!node) {
 		return false;
 	}

@@ -10,6 +10,7 @@ const testIdMonth = `${testId}--month`;
 const testIdWeek = `${testId}--week`;
 const testIdSelectedDay = `${testId}--selected-day`;
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Calendar should not submit form', () => {
 	const onSubmit = jest.fn();
 

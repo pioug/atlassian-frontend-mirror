@@ -37,6 +37,7 @@ const nestedGridStyles = cssMap({
 	},
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Grid component', () => {
 	it('should render with a given test id', () => {
 		render(<Grid testId={testId}>Grid with testid</Grid>);

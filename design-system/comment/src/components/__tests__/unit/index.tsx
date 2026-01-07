@@ -9,6 +9,7 @@ import __noop from '@atlaskit/ds-lib/noop';
 
 import Comment, { CommentAction, CommentAuthor, CommentEdited, CommentTime } from '../../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('@atlaskit comments', () => {
 	describe('Comment', () => {
 		describe('exports', () => {

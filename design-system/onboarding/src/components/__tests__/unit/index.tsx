@@ -127,6 +127,7 @@ const SpotlightDialogLabel = (props: SpotlightDialogLabelProps) => {
 	);
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Benefits Modal', () => {
 	it('should have an appriorate accessible label', () => {
 		render(

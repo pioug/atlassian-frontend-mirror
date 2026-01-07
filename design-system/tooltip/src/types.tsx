@@ -7,7 +7,7 @@ import { type TooltipPrimitiveProps } from './tooltip-primitive';
 
 export type PositionTypeBase = Placement;
 // eslint-disable-next-line @repo/internal/react/consistent-types-definitions
-export type PositionType = PositionTypeBase | 'mouse';
+export type PositionType = PositionTypeBase | 'mouse' | 'mouse-y' | 'mouse-x';
 
 export interface TriggerProps {
 	onMouseOver: (event: React.MouseEvent<HTMLElement>) => void;
@@ -75,7 +75,7 @@ export interface TooltipProps {
 
 	/**
 	 * Where the tooltip should appear relative to the mouse pointer.
-	 * Only use this when the `position` prop is set to `"mouse"`.
+	 * Only use this when the `position` prop is set to `"mouse"`, `"mouse-y"`, or `"mouse-x"`.
 	 * When interacting with the target element using a keyboard, it will use this position against the target element instead.
 	 */
 	mousePosition?: PositionTypeBase;
@@ -116,6 +116,8 @@ export interface TooltipProps {
 	/**
 	 * Where the tooltip should appear relative to its target.
 	 * If set to `"mouse"`, the tooltip will display next to the mouse pointer instead.
+	 * If set to `"mouse-y"`, the tooltip will use the mouse Y coordinate but the target X coordinate.
+	 * If set to `"mouse-x"`, the tooltip will use the mouse X coordinate but the target Y coordinate.
 	 * Make sure to utilize the `mousePosition` if you want to customize where the tooltip will show in relation to the mouse.
 	 */
 	position?: PositionType;

@@ -6,6 +6,7 @@ import { axe } from '@af/accessibility-testing';
 
 import Badge from '../../../src';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('badge accessibility', () => {
 	describe('basic tests', () => {
 		it('Basic badge should not fail basic aXe audit', async () => {

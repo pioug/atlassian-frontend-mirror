@@ -8,6 +8,7 @@ import { Box } from '@atlaskit/primitives/compiled';
 import Flag from '../../flag';
 import { type AppearanceTypes, type FlagProps } from '../../types';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('actions prop', () => {
 	const generateFlag = (extraProps: Partial<FlagProps>) => (
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

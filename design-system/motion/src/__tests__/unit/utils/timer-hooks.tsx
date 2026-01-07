@@ -7,6 +7,7 @@ import * as raf from '../../__utils__/raf';
 
 raf.replace();
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('timer hooks', () => {
 	beforeEach(() => jest.useRealTimers());
 

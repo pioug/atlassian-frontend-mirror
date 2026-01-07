@@ -117,6 +117,7 @@ const UnderTest = ({
 	);
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('usePlatformLeafEventHandler', () => {
 	it('should provide a callback that creates an event and fires on the channel', () => {
 		const onEvent = jest.fn();

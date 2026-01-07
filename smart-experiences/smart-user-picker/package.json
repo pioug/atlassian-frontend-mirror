@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-user-picker",
-	"version": "8.6.0",
+	"version": "8.8.0",
 	"license": "Apache-2.0",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -76,6 +76,9 @@
 			"type": "boolean"
 		},
 		"smart-user-picker-managed-teams-gate": {
+			"type": "boolean"
+		},
+		"smart-user-picker-restrict-to-gate": {
 			"type": "boolean"
 		}
 	}

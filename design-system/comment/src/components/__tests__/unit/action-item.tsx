@@ -7,6 +7,7 @@ import __noop from '@atlaskit/ds-lib/noop';
 
 import ActionItem from '../../action-item';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('ActionItem', () => {
 	it('should fire an analytics event', () => {
 		const onEvent = jest.fn();

@@ -46,7 +46,7 @@ const withDesignTokens = (
 						colorMode: theme,
 						spacing: 'spacing',
 						shape: 'shape',
-						typography: 'typography-modernized',
+						typography: 'typography',
 					});
 					break;
 				case 'split':
@@ -55,7 +55,7 @@ const withDesignTokens = (
 						colorMode: 'light',
 						spacing: 'spacing',
 						shape: 'shape',
-						typography: 'typography-modernized',
+						typography: 'typography',
 					});
 
 					document.documentElement.querySelectorAll('style[data-theme]').forEach((el) => {

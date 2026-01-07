@@ -59,6 +59,7 @@ const MyRouterLinkComponent: React.ForwardRefExoticComponent<
 	},
 );
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<LinkItem />', () => {
 	it('should callback on click', () => {
 		const callback = jest.fn();

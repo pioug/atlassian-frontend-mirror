@@ -5,6 +5,7 @@ import TooltipBasic from '../../../examples/default-tooltip';
 import KeyboardShortcutsExample from '../../../examples/keyboard-shortcut';
 import KeyboardShortcutGlobalStylesExample from '../../../examples/keyboard-shortcut-global-styles';
 import TooltipPosition from '../../../examples/position';
+import TooltipPositionMouseExample from '../../../examples/position-mouse';
 import TooltipTruncateExample from '../../../examples/truncate';
 
 const lightModeVariant: SnapshotTestOptions<Hooks>['variants'] = [
@@ -57,6 +58,41 @@ snapshot(TooltipPosition, {
 		},
 	],
 	drawsOutsideBounds: true,
+	featureFlags: {
+		platform_dst_nav4_side_nav_resize_tooltip_feedback: [true, false],
+	},
+});
+
+snapshot(TooltipPositionMouseExample, {
+	description: 'tooltip with dynamic mouse X position but target Y position',
+	states: [
+		{
+			selector: {
+				byTestId: 'trigger-mouse-x',
+			},
+			state: 'hovered',
+		},
+	],
+	drawsOutsideBounds: true,
+	featureFlags: {
+		platform_dst_nav4_side_nav_resize_tooltip_feedback: [true, false],
+	},
+});
+
+snapshot(TooltipPositionMouseExample, {
+	description: 'tooltip with dynamic mouse Y position but target X position',
+	states: [
+		{
+			selector: {
+				byTestId: 'trigger-mouse-y',
+			},
+			state: 'hovered',
+		},
+	],
+	drawsOutsideBounds: true,
+	featureFlags: {
+		platform_dst_nav4_side_nav_resize_tooltip_feedback: [true, false],
+	},
 });
 
 // While we intend on removing the `truncate` prop in the future, we still need a VR test for it to prevent regressions.

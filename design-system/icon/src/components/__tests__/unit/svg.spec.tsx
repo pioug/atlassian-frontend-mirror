@@ -6,6 +6,7 @@ import SVG from '../../svg';
 
 const testId = 'test';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('@atlaskit/icon', () => {
 	describe('SVG', () => {
 		it(`has role="presentation" and no aria-label with label=""`, () => {

@@ -7,6 +7,7 @@ import { ROOT_ID } from '../../../NestableNavigationContent';
 import { NestedContext } from '../../../NestableNavigationContent/context';
 import { default as NestingItem } from '../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<NestingItem />', () => {
 	const callbacks = {
 		currentStackId: ROOT_ID,

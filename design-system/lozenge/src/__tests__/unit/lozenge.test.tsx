@@ -9,6 +9,7 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Lozenge', () => {
 	it('@atlaskit/lozenge should have Compiled styles', () => {
 		render(<Lozenge testId="test">Hello</Lozenge>);

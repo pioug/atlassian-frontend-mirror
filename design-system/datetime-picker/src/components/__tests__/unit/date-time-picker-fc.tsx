@@ -21,6 +21,7 @@ jest.mock('@atlaskit/select', () => {
 	};
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('DateTimePicker', () => {
 	const testId = 'testId';
 	const today = new Date();

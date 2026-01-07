@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection-extension",
-	"version": "10.0.2",
+	"version": "10.0.4",
 	"description": "editor-plugin-selection-extension plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,6 +36,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-utils": "workspace:^",
+		"@atlaskit/css": "workspace:^",
 		"@atlaskit/editor-json-transformer": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-block-controls": "workspace:^",
@@ -56,6 +57,7 @@
 		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
 		"lodash": "root:*",
 		"react-intl-next": "root:*",

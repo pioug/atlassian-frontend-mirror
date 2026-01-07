@@ -2056,6 +2056,7 @@ cases(
 	},
 );
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('accessible description for the listbox', () => {
 	it('Default (non-safari) should not have an accessible description that references the input', () => {
 		render(<Select {...BASIC_PROPS} menuIsOpen />);

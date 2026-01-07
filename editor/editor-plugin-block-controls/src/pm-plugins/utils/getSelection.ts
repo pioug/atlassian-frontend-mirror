@@ -43,7 +43,7 @@ export const getInlineNodePos = (
 	return { inlineNodePos, inlineNodeEndPos };
 };
 
-export const isNodeWithCodeBlock = (tr: Transaction, start: number, nodeSize: number) => {
+export const isNodeWithCodeBlock = (tr: Transaction, start: number, nodeSize: number): boolean => {
 	const $startPos = tr.doc.resolve(start);
 	let hasCodeBlock = false;
 	tr.doc.nodesBetween($startPos.pos, $startPos.pos + nodeSize, (n) => {

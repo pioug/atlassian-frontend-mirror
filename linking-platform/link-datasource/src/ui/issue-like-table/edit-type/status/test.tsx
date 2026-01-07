@@ -16,6 +16,7 @@ import StatusEditType from './index';
 jest.mock('../../../../contexts/datasource-experience-id');
 jest.mock('../../../../hooks/useLoadOptions');
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('StatusEditType', () => {
 	const testId = 'inline-edit-status-select--input';
 	const setEditValues = jest.fn();

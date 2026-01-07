@@ -22,6 +22,7 @@ const SomethingWithError = ({ error: hasError }: { error: boolean }) => {
 	return <ChildComponent />;
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('AnalyticsErrorBoundary', () => {
 	beforeEach(() => {
 		jest.spyOn(global.console, 'error').mockImplementation(() => {});

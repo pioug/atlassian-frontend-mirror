@@ -6,6 +6,7 @@ import ProgressBar from '../../components/progress-bar';
 
 const ariaLabel = 'Progress bar label';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Progress Bar', () => {
 	it('should render aria-label if supplied', () => {
 		render(<ProgressBar value={0.4} ariaLabel={ariaLabel} />);

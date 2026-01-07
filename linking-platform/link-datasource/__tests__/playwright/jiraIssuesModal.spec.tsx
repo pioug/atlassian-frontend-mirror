@@ -4,6 +4,7 @@ import { expect, test } from '@af/integration-testing';
 
 const sitePickerSelector = '[data-testid="jira-datasource-modal--site-selector__control"]';
 
+// eslint-disable-next-line @atlassian/a11y/require-playwright-coverage
 test.describe('JiraIssuesModal', () => {
 	async function setup(
 		page: Page,

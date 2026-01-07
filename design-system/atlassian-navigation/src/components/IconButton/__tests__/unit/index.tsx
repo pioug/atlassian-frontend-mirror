@@ -16,6 +16,7 @@ jest.mock('@atlaskit/tooltip/src/internal/use-unique-id', () => ({
 		.mockReturnValueOnce('uuid'),
 }));
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<IconButton />', () => {
 	it('should pass down test id', () => {
 		const label = 'label';

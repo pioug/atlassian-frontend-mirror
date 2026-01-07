@@ -68,7 +68,7 @@ export interface ADMarkSimple {
  * It's important that this order follows the marks rank defined here:
  * https://product-fabric.atlassian.net/wiki/spaces/ETEMP/pages/11174043/Atlassian+Document+Format+-+Internal+documentation#Rank
  */
-export const markOrder = [
+export const markOrder: string[] = [
 	'fragment',
 	'link',
 	'em',
@@ -98,7 +98,7 @@ export const getMarksByOrder = (marks: readonly PMMark[]) => {
 /*
  * Check if two marks are the same by comparing type and attrs
  */
-export const isSameMark = (mark: PMMark | null, otherMark: PMMark | null) => {
+export const isSameMark = (mark: PMMark | null, otherMark: PMMark | null): boolean => {
 	if (!mark || !otherMark) {
 		return false;
 	}

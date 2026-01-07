@@ -8,6 +8,7 @@ import { ExpandableMenuItemTrigger } from '../../expandable-menu-item/expandable
 import { MenuList } from '../../menu-list';
 import { TopLevelSpacer } from '../../top-level-spacer';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('TopLevelSpacer', () => {
 	describe('in development', () => {
 		const nodeEnv = process.env.NODE_ENV;

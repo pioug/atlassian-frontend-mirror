@@ -51,6 +51,7 @@ const createAvatarGroup = (props: AvatarGroupProps, withUniqueIndex = false) => 
 	);
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('avatar group re-ordering', () => {
 	const rearrange = (data: Array<any>) => {
 		const updated = [...data];

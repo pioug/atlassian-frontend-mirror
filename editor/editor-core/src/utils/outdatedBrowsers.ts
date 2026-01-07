@@ -1,4 +1,4 @@
-export const isOutdatedBrowser = (userAgent: string) => {
+export const isOutdatedBrowser = (userAgent: string): boolean => {
 	// Take browsers in both Desktop and Mobile (includes Chrome, Firefox, Edge and Safari) within last 2 years
 	// Ignored via go/ees005
 	// eslint-disable-next-line require-unicode-regexp

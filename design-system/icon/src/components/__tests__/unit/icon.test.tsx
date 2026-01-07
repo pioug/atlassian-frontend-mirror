@@ -6,6 +6,7 @@ import AddIconNew from '../../../../core/add';
 import AddIcon from '../../../../glyph/add';
 import Icon, { type CustomGlyphProps, IconNew, type IconProps, size } from '../../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('@atlaskit/icon', () => {
 	describe('Icon', () => {
 		const secretContent = 'secret content';

@@ -205,8 +205,8 @@ export const getSelectionInfoFromSameNode = (selection: TextSelection) => {
 export const getSelectionInfo = (selection: TextSelection, schema: Schema) => {
 	const { $from, $to } = selection;
 
-	// For same parent selections, check for parent container
-	if ($from.parent === $to.parent) {
+	// For same parent selections but not the r, check for parent container
+	if ($from.parent === $to.parent && $from.depth > 0) {
 		const { node: parentNode, pos: parentNodePos } = getCommonParentContainer($from, $to);
 		if (parentNode) {
 			const selectionRanges = buildSelectionRanges(parentNode, parentNodePos, $from, $to);

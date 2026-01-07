@@ -10,6 +10,7 @@ import type { IconTileAppearance } from '../../../../types';
 import IconTile from '../../index';
 
 ffTest.both('platform_dst_new_icon_tile', '', () => {
+	// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 	describe('IconTile Accessibility', () => {
 		describe('aXe audits', () => {
 			it('should not fail with default props', async () => {

@@ -7,6 +7,7 @@ import WidthDetector from '../../index';
 // requestAnimationFrame is stubbed with `raf-stub`
 const requestAnimationFrame = window.requestAnimationFrame as any;
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('@atlaskit/width-detector', () => {
 	const createChildWithSpy = (spy: Function) => (args: any) => spy(args);
 

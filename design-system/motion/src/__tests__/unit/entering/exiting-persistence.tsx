@@ -23,6 +23,7 @@ const Motion = ({ id, color, onRender }: { id: string; color?: string; onRender?
 	);
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<ExitingPersistence />', () => {
 	beforeEach(() => {
 		(isReducedMotion as jest.Mock).mockReturnValue(false);

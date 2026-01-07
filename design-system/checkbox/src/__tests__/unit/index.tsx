@@ -9,6 +9,7 @@ import Checkbox from '../../checkbox';
 
 declare var global: any;
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('@atlaskit/checkbox', () => {
 	const renderCheckbox = (overridingProps: any) =>
 		render(

@@ -74,7 +74,7 @@ export const changeImageAlignment =
 		return false;
 	};
 
-export const changeImageAlignmentNext = (align?: AlignmentState) => (tr: Transaction) => {
+export const changeImageAlignmentNext = (align?: AlignmentState) => (tr: Transaction): boolean => {
 	const { from, to } = tr.selection;
 	const initialDoc = tr.doc;
 	tr.doc.nodesBetween(from, to, (node, pos) => {

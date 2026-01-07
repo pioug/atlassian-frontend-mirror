@@ -16,7 +16,7 @@ import { getBreakpoint } from '../ui/WidthProvider';
 
 import { parsePx } from './dom';
 
-export const breakoutResizableNodes = ['expand', 'layoutSection', 'codeBlock', 'syncBlock', 'bodiedSyncBlock']
+export const breakoutResizableNodes: string[] = ['expand', 'layoutSection', 'codeBlock', 'syncBlock', 'bodiedSyncBlock']
 
 export const getBreakoutResizableNodeTypes = (schema: Schema) => {
 	const { expand, codeBlock, layoutSection, syncBlock, bodiedSyncBlock } = schema.nodes;

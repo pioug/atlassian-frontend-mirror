@@ -13,6 +13,7 @@ import Button from '../../../index';
 import CustomThemeButton from '../../../old-button/custom-theme-button';
 import LoadingButton from '../../../old-button/loading-button';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Button component accessibility', () => {
 	describe('Button', () => {
 		it('should not fail an aXe audit', async () => {

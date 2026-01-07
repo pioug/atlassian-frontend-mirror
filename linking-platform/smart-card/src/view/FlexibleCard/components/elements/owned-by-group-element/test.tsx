@@ -21,6 +21,7 @@ const renderOwnedByElement = (onRender?: (hasData: boolean) => void) => {
 	);
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('OwnedByGroupElement', () => {
 	it('should render trigger onRender callback when feature flag is enabled', async () => {
 		const onRender = jest.fn();

@@ -4,6 +4,7 @@ import { render } from '@testing-library/react';
 
 import { IsFhsEnabledProvider } from '../../is-fhs-enabled-provider';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('IsFhsEnabledProvider', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();

@@ -5,6 +5,7 @@ import { render, screen } from '@testing-library/react';
 import SkeletonItem from '../../../menu-item/skeleton-item';
 import Section from '../../section';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<Section />', () => {
 	it('should render heading when `title` is passed in', () => {
 		render(

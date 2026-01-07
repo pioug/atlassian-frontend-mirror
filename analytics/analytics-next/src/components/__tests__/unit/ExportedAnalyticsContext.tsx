@@ -20,6 +20,7 @@ const props = {
 	children: <div className="child-component" />,
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('ExportedAnalyticsListener with Error', () => {
 	const onError = jest.fn();
 	const error = new Error('Error');

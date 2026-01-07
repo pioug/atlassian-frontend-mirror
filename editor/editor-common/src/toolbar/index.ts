@@ -224,6 +224,13 @@ export {
 export { useEditorToolbar, EditorToolbarProvider, type EditorToolbarContextType } from './context';
 export { EditorToolbarUIProvider } from './EditorToolbarUIProvider';
 
-export { getInputMethodFromParentKeys, shouldShowPrimaryToolbar, shouldShowSelectionToolbar } from './utils';
+export {
+	getInputMethodFromParentKeys,
+	shouldShowPrimaryToolbar,
+	shouldShowSelectionToolbar,
+} from './utils';
 
-export { type ContextualFormattingEnabledOptions } from './types';
+export {
+	type ContextualFormattingEnabledOptions,
+	type PluginToolbarComponentConfig,
+} from './types';

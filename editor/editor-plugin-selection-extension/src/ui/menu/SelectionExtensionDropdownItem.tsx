@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -7,12 +8,21 @@ import {
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
+import Lozenge from '@atlaskit/lozenge';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import { selectionExtensionPluginKey } from '../../pm-plugins/main';
 import { getSelectionAdfInfoNew, getSelectionTextInfoNew } from '../../pm-plugins/utils';
 import type { ExtensionDropdownItemConfiguration } from '../../types';
 import { SelectionExtensionActionTypes } from '../../types';
 import { useSelectionExtensionComponentContext } from '../SelectionExtensionComponentContext';
+
+const styles = cssMap({
+	lozenge: {
+		marginLeft: token('space.050'),
+	},
+});
 
 type SelectionExtensionDropdownItemProps = {
 	dropdownItem: ExtensionDropdownItemConfiguration;
@@ -77,6 +87,11 @@ export const SelectionExtensionDropdownItem = ({
 			isDisabled={dropdownItem.isDisabled}
 		>
 			{dropdownItem.label}
+			{dropdownItem.lozenge ? (
+				<Box as="span" xcss={styles.lozenge}>
+					<Lozenge appearance="new">{dropdownItem.lozenge.label}</Lozenge>
+				</Box>
+			) : undefined}
 		</ToolbarDropdownItem>
 	);
 };

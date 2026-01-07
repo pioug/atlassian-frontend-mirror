@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 import PageHeader from '../../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('@atlaskit/page-header', () => {
 	it('should render correctly', () => {
 		const BreadCrumbs = () => <div>Breadcrumb</div>;

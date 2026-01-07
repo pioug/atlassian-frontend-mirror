@@ -7,8 +7,8 @@ import { type CSSProperties, type ReactNode } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
+import DownIcon from '@atlaskit/icon/core/chevron-down';
 import CrossIcon from '@atlaskit/icon/core/cross-circle';
-import DownIcon from '@atlaskit/icon/core/migration/chevron-down';
 import { Inline, Pressable } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';

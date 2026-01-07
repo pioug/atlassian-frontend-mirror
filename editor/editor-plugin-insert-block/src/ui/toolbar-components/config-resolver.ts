@@ -1,8 +1,6 @@
-import type {
-	InsertBlockPluginOptions,
-	ToolbarGroupConfig,
-	ToolbarInsertBlockButtonsConfig,
-} from '../../types';
+import type { PluginToolbarComponentConfig } from '@atlaskit/editor-common/toolbar';
+
+import type { InsertBlockPluginOptions, ToolbarInsertBlockButtonsConfig } from '../../types';
 
 /**
  * Resolves toolbar configuration from plugin options, handling backward compatibility
@@ -39,9 +37,11 @@ export const resolveToolbarConfig = (
 		};
 	}
 
-	const defaults: ToolbarGroupConfig = { enabled: false, showAt: 'lg' };
+	const defaults: PluginToolbarComponentConfig = { enabled: false, showAt: 'lg' };
 
-	const resolveGroupConfig = (groupConfig?: ToolbarGroupConfig): ToolbarGroupConfig => {
+	const resolveGroupConfig = (
+		groupConfig?: PluginToolbarComponentConfig,
+	): PluginToolbarComponentConfig => {
 		return {
 			enabled: groupConfig?.enabled ?? defaults.enabled,
 			showAt: groupConfig?.showAt ?? defaults.showAt,

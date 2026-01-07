@@ -26,7 +26,7 @@ const toolbarComponentsWrapper = css({
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class ToolbarInner extends React.Component<ToolbarInnerProps> {
-	shouldComponentUpdate(nextProps: ToolbarInnerProps) {
+	shouldComponentUpdate(nextProps: ToolbarInnerProps): boolean {
 		return !isEqual(nextProps, this.props);
 	}
 

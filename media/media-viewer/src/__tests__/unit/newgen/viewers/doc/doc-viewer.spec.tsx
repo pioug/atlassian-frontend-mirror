@@ -57,6 +57,7 @@ jest.mock('@atlaskit/spinner', () => ({
 	),
 }));
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<DocViewer />', () => {
 	const mockOnSuccess = jest.fn();
 	const mockOnError = jest.fn();

@@ -27,6 +27,7 @@ afterEach(() => {
 	createRangeMock.mockRestore();
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Annotations: draft/dom', () => {
 	describe('#updateWindowSelectionAroundDraft', () => {
 		const position = {

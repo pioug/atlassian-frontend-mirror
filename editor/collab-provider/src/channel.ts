@@ -72,8 +72,8 @@ export class Channel extends Emitter<ChannelEvent> {
 	}
 
 	// read-only getters used for tests
-	getInitialized = () => this.initialized;
-	getConnected = () => this.connected;
+	getInitialized = (): boolean => this.initialized;
+	getConnected = (): boolean => this.connected;
 	getSocket: () => Socket | null = () => this.socket;
 	getToken = () => this.token;
 

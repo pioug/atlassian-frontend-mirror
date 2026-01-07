@@ -6,7 +6,6 @@ import { memo } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import type { UNSAFE_NewGlyphProps } from '../types';
@@ -129,16 +128,11 @@ export const Icon = memo(function Icon(props: UNSAFE_NewGlyphProps) {
 		color = 'currentColor',
 		testId,
 		label,
-		LEGACY_primaryColor,
-		LEGACY_secondaryColor,
-		LEGACY_size,
-		LEGACY_fallbackIcon: FallbackIcon,
 		// Used to set icon dimensions/behaviour in codegen
 		// Used to set icon glyphs in codegen
 		dangerouslySetGlyph,
 		// Used with iconTile to scale icon up and down
 		shouldScale,
-		LEGACY_margin,
 		spacing = 'none',
 		name,
 	} = props as InternalIconPropsNew;
@@ -149,21 +143,6 @@ export const Icon = memo(function Icon(props: UNSAFE_NewGlyphProps) {
 			}
 		: undefined;
 
-	// Fall back to old icon
-	if (FallbackIcon && !fg('platform-visual-refresh-icons')) {
-		// parse out unnecessary props
-		return (
-			<FallbackIcon
-				primaryColor={LEGACY_primaryColor ?? color}
-				secondaryColor={LEGACY_secondaryColor}
-				size={LEGACY_size}
-				label={label}
-				testId={testId}
-				// @ts-ignore -next-line
-				UNSAFE_margin={LEGACY_margin}
-			/>
-		);
-	}
 	let size: 'medium' | 'small' = 'medium';
 	if ('size' in props && props.size !== undefined) {
 		if (typeof props.size === 'string') {

@@ -28,7 +28,7 @@ export function isAllowListedVariable({
 }: {
 	allowList: AllowList;
 	variable: Variable;
-}) {
+}): boolean {
 	const definitions = variable.defs;
 
 	if (!definitions) {

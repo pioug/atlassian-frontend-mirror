@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 import { ThemedButton, ThemedIconButton, ThemedLinkIconButton } from '../../button';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('ThemedButton', () => {
 	it('should not pass through styles', () => {
 		render(

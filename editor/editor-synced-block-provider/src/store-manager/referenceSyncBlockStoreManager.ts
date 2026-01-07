@@ -342,7 +342,7 @@ export class ReferenceSyncBlockStoreManager {
 					// When a block is moved, the old component unmounts before the new one mounts.
 					// By delaying deletion, we give the new component time to subscribe and
 					// cancel this pending deletion, preserving the cached data.
-					// TODO: EDITOR-4152 - Rework this logic 
+					// TODO: EDITOR-4152 - Rework this logic
 					const deletionTimeout = setTimeout(() => {
 						// Only delete if still no subscribers (wasn't re-subscribed)
 						if (!this.subscriptions.has(resourceId)) {
@@ -442,15 +442,32 @@ export class ReferenceSyncBlockStoreManager {
 		const { parentDataProviders, providerCreator } =
 			this.dataProvider.getSyncedBlockRendererProviderOptions();
 
-		let providerFactory: ProviderFactory | undefined = this.providerFactories.get(resourceId);
-		if (!providerFactory) {
-			providerFactory = ProviderFactory.create({
-				mentionProvider: parentDataProviders?.mentionProvider,
-				profilecardProvider: parentDataProviders?.profilecardProvider,
-				taskDecisionProvider: parentDataProviders?.taskDecisionProvider,
-			});
-			this.providerFactories.set(resourceId, providerFactory);
-		}
+			let providerFactory: ProviderFactory | undefined = this.providerFactories.get(resourceId);
+			if (!providerFactory) {
+				providerFactory = ProviderFactory.create({
+					mentionProvider: parentDataProviders?.mentionProvider,
+					profilecardProvider: parentDataProviders?.profilecardProvider,
+					taskDecisionProvider: parentDataProviders?.taskDecisionProvider,
+				});
+				this.providerFactories.set(resourceId, providerFactory);
+			} else {
+				if (parentDataProviders?.mentionProvider) {
+					providerFactory.setProvider('mentionProvider', parentDataProviders?.mentionProvider);
+				}
+				if (parentDataProviders?.profilecardProvider) {
+					providerFactory.setProvider(
+						'profilecardProvider',
+						parentDataProviders?.profilecardProvider,
+					);
+				}
+				if (parentDataProviders?.taskDecisionProvider) {
+					providerFactory.setProvider(
+						'taskDecisionProvider',
+						parentDataProviders?.taskDecisionProvider,
+					);
+				}
+			}
+
 
 		if (providerCreator) {
 			try {

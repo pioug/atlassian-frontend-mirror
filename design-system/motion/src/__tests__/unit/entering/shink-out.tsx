@@ -14,6 +14,7 @@ jest.mock('../../../utils/accessibility');
 replaceRaf();
 const raf = window.requestAnimationFrame as any;
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<ShrinkOut />', () => {
 	beforeEach(() => {
 		jest.useRealTimers();

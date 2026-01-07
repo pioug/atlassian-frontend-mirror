@@ -7,7 +7,7 @@ import { type FC, useEffect, useState } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import AiAgentIcon from '@atlaskit/icon/core/ai-agent';
-import PersonIcon from '@atlaskit/icon/core/migration/person';
+import PersonIcon from '@atlaskit/icon/core/person';
 import ReleaseIcon from '@atlaskit/icon/core/release';
 import { token } from '@atlaskit/tokens';
 

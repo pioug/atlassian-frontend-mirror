@@ -7,6 +7,7 @@ import __noop from '@atlaskit/ds-lib/noop';
 import ButtonItem from '../../../menu-item/button-item';
 import MenuGroup from '../../menu-group';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<MenuGroup />', () => {
 	describe('`aria-busy`', () => {
 		it('should be true if `isLoading`', () => {

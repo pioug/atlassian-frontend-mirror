@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 4.31.0
+
+### Minor Changes
+
+- [`61c38baaba36a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/61c38baaba36a) -
+  feature flag cleanup
+
+### Patch Changes
+
+- [`e64156876a79c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e64156876a79c) -
+  Update documentation from Stash to Bitbucket
+
 ## 4.30.18
 
 ### Patch Changes

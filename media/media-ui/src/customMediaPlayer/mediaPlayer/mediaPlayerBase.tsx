@@ -11,7 +11,7 @@ import FullScreenIconOff from '@atlaskit/icon/core/shrink-diagonal';
 import SoundIcon from '@atlaskit/icon/core/volume-high';
 import VideoHdIcon from '@atlaskit/icon-lab/core/video-hd';
 import VideoHdFilledIcon from '@atlaskit/icon-lab/core/video-hd-filled';
-import DownloadIcon from '@atlaskit/icon/core/migration/download';
+import DownloadIcon from '@atlaskit/icon/core/download';
 import { injectIntl } from 'react-intl-next';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
 import { cssMap } from '@atlaskit/css';

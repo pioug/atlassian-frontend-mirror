@@ -70,6 +70,7 @@ function createFixture(
 	return { mediaClient, el };
 }
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Audio viewer', () => {
 	afterEach(() => {
 		jest.clearAllMocks();

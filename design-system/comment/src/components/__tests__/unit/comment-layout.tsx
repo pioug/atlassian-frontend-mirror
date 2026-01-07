@@ -6,6 +6,7 @@ import Avatar from '@atlaskit/avatar';
 
 import { CommentLayout } from '../../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('@atlaskit comments', () => {
 	describe('CommentLayout', () => {
 		describe('exports', () => {

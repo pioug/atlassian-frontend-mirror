@@ -56,7 +56,7 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 	 * Defines the internal atBlank method used in the markdown serializer
 	 * @see https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/to_markdown.ts#L241
 	 */
-	atBlank() {
+	atBlank(): boolean {
 		// Ignored via go/ees005
 		// eslint-disable-next-line require-unicode-regexp
 		return /(^|\n)$/.test(this.out);

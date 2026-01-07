@@ -22,11 +22,11 @@ interface ErrorBoundaryState {
 export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
 	state = { errorCaptured: false };
 
-	hasFallback() {
+	hasFallback(): boolean {
 		return typeof this.props.fallbackComponent !== 'undefined';
 	}
 
-	shouldRecover() {
+	shouldRecover(): boolean {
 		return this.hasFallback() && this.state.errorCaptured;
 	}
 

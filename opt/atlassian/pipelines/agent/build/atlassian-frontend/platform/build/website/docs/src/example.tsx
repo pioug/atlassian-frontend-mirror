@@ -7,7 +7,7 @@ import React, { useCallback, useState } from 'react';
 import { token } from '@atlaskit/tokens';
 import CodeBlock from '@atlaskit/code/block';
 import type { SupportedLanguages } from '@atlaskit/code/types';
-import ToggleIcon from '@atlaskit/icon/core/migration/angle-brackets--code';
+import ToggleIcon from '@atlaskit/icon/core/angle-brackets';
 import { ErrorBoundary } from './error-boundary';
 import { replaceSrc } from './replace-src';
 import { cssMap, jsx } from '@compiled/react';

@@ -25,6 +25,7 @@ const gridStyles = cssMap({
 	},
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Primitives', () => {
 	describe('Anchor', () => {
 		it('should pass an aXe audit', async () => {

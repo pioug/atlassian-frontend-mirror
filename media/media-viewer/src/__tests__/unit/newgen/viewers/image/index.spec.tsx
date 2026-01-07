@@ -51,6 +51,7 @@ function setup(response: Promise<Blob>, props?: Partial<ImageViewerProps>) {
 	return { mediaClient, component, onClose, onLoaded };
 }
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('ImageViewer', () => {
 	it('assigns an object url for images when successful', async () => {
 		const response = Promise.resolve(new Blob());

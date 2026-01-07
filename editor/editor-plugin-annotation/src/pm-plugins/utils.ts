@@ -388,7 +388,7 @@ export const hasInvalidNodes = (state: EditorState): boolean => {
 	);
 };
 
-export const isSupportedBlockNode = (node: Node, supportedBlockNodes: string[] = []) => {
+export const isSupportedBlockNode = (node: Node, supportedBlockNodes: string[] = []): boolean => {
 	return (
 		supportedBlockNodes.indexOf(node.type.name) >= 0 ||
 		(node.type.name === 'mediaSingle' && supportedBlockNodes.indexOf('media') >= 0)
@@ -402,7 +402,7 @@ export const isSupportedBlockNode = (node: Node, supportedBlockNodes: string[] =
 export function hasInvalidWhitespaceNode(
 	selection: TextSelection | AllSelection | NodeSelection,
 	schema: Schema,
-) {
+): boolean {
 	let foundInvalidWhitespace = false;
 
 	const content = selection.content().content;
@@ -537,7 +537,7 @@ export function isSelectedAnnotationsChanged(
 export const isBlockNodeAnnotationsSelected = (
 	selection: Selection,
 	selectedAnnotations: AnnotationInfo[] = [],
-) => {
+): boolean => {
 	if (selectedAnnotations.length && selection instanceof NodeSelection) {
 		const node =
 			selection.node.type.name === 'mediaSingle' ? selection.node.firstChild : selection.node;

@@ -30,7 +30,7 @@ const SyncedBlockRendererComponent = ({
 	const { isInternetOffline } = useSharedPluginStateWithSelector(
 		api,
 		['connectivity'],
-		({ connectivityState }) => ({ 
+		({ connectivityState }) => ({
 			isInternetOffline: connectivityState?.mode === 'collab-offline'
 		})
 	);

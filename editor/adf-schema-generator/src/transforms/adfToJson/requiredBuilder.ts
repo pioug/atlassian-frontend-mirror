@@ -2,7 +2,7 @@ import type { ADFAttributes } from '../../types/ADFAttribute';
 import { isAnyOf } from '../../utils/isAnyOf';
 import type { ContentVisitorReturnType } from './adfToJsonVisitor';
 
-export function buildRequired(attrs: ADFAttributes, hasContent: boolean, name: string) {
+export function buildRequired(attrs: ADFAttributes, hasContent: boolean, name: string): string[] {
 	const required = ['type'];
 
 	if (hasRequiredAttributes(attrs)) {

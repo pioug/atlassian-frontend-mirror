@@ -12,6 +12,7 @@ import MediaAnalyticsListener from '../../../media/MediaAnalyticsListener';
 import { type AnalyticsWebClient, FabricChannel } from '../../../types';
 import { createLoggerMock } from '../../_testUtils';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('MediaAnalyticsListener', () => {
 	let analyticsWebClientMock: AnalyticsWebClient;
 	let loggerMock: Logger;

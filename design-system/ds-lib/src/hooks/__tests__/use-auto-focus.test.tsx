@@ -5,6 +5,7 @@ import { renderHook } from '@testing-library/react-hooks';
 
 import useAutoFocus from '../use-auto-focus';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('useAutoFocus()', () => {
 	const Component = ({ autoFocus }: { autoFocus: boolean }) => {
 		const ref = useRef<HTMLButtonElement>(null);

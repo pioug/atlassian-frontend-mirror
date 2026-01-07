@@ -13,6 +13,7 @@ const styles = xcss({
 	rowGap: 'space.100',
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Inline', () => {
 	const testId = 'test';
 

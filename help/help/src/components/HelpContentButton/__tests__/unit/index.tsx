@@ -44,6 +44,7 @@ describe('HelpContentButton', () => {
 		const { container } = render(component);
 
 		await expect(container).toBeAccessible({
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			violationCount: 1,
 		});
 	});

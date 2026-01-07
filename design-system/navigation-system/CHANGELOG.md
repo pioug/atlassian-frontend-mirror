@@ -1,5 +1,28 @@
 # @atlassian/navigation-system
 
+## 5.21.0
+
+### Minor Changes
+
+- [`67075d80cdd6b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/67075d80cdd6b) -
+  Fixes a bug where the panel splitter would not be resizable when some browser extensions were
+  installed. This was caused by the `dragstart` event incorrectly returning `0` for the client's
+  cursor position (`clientX`).
+
+  This fix is behind the feature gate `platform-dst-panel-splitter-drag-start-client-x`.
+
+## 5.20.0
+
+### Minor Changes
+
+- [`2e7328e8eff65`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e7328e8eff65) -
+  Modifies the side nav resize tooltip to remain locked on the x-axis relative to the resizer,
+  behind the `platform_dst_nav4_side_nav_resize_tooltip_feedback` feature gate.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.19.0
 
 ### Minor Changes

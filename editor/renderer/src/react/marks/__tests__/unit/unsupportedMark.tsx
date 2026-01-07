@@ -2,6 +2,7 @@ import UnsupportedMark from '../../unsupportedMark';
 import { render } from '@testing-library/react';
 import React from 'react';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('UnsupportedMark', () => {
 	const DummyComponent = () => <p>Hello</p>;
 

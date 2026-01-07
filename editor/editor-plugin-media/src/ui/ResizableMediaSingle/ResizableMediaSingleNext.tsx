@@ -265,6 +265,7 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 		view,
 		viewMediaClientConfig,
 		forceHandlePositioning,
+		disableHandles,
 	} = props;
 
 	const initialWidth = useMemo(() => {
@@ -340,6 +341,10 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 			return lineLength;
 		}
 
+		if (!isResizing && expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)) {
+			return `var(--ak-editor-max-container-width)`;
+		}
+
 		return calcMaxWidth({
 			containerWidth,
 			editorAppearance,
@@ -368,7 +373,9 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 				className,
 				resizerItemClassName,
 				{
-					'display-handle': selected,
+					'display-handle': expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)
+						? selected && !disableHandles
+						: selected,
 					'richMedia-selected': selected,
 					'rich-media-wrapped': layout === 'wrap-left' || layout === 'wrap-right',
 				},
@@ -388,7 +395,7 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 		);
 
 		return classnames(classNameNext, resizerStyles as unknown as Mapping);
-	}, [className, isResizing, layout, selected]);
+	}, [className, disableHandles, isResizing, layout, selected]);
 
 	const isInsideInlineLike = useMemo(() => {
 		if (nodePosition === null) {
@@ -402,6 +409,12 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 	}, [nodePosition, view]);
 
 	const enable: EnabledHandles = useMemo(() => {
+		if (disableHandles && expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)) {
+			return {
+				left: false,
+				right: false,
+			};
+		}
 		return handleSides.reduce((acc, side) => {
 			const oppositeSide = side === 'left' ? 'right' : 'left';
 			acc[side] =
@@ -416,7 +429,7 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 
 			return acc;
 		}, {} as EnabledHandles);
-	}, [layout, isInsideInlineLike]);
+	}, [disableHandles, layout, isInsideInlineLike]);
 	const defaultGuidelines = useMemo(() => {
 		if (isAdjacentMode) {
 			return [];
@@ -738,7 +751,11 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 				snap={snaps}
 				resizeRatio={nonWrappedLayouts.includes(layout) ? 2 : 1}
 				data-testid={resizerNextTestId}
-				isHandleVisible={selected}
+				isHandleVisible={
+					expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)
+						? selected && !disableHandles
+						: selected
+				}
 				handlePositioning={handlePositioning}
 				handleHighlight="full-height"
 			>

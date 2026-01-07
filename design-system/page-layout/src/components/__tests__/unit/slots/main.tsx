@@ -6,6 +6,7 @@ import { skipA11yAudit } from '@af/accessibility-testing';
 
 import { Content, LeftSidebar, Main, PageLayout, RightSidebar } from '../../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<Main />', () => {
 	it('should take up all space between the sidebars', () => {
 		render(

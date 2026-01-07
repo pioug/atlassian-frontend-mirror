@@ -9,6 +9,7 @@ import PullRequestObject from '../../components/pull-request';
 import TaskObject from '../../components/task';
 import WorkItemObject from '../../components/work-item';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Object Accessibility', () => {
 	describe('aXe audits', () => {
 		it('should not fail with default props', async () => {

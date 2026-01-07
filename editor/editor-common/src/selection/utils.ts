@@ -245,7 +245,7 @@ export const expandSelectionToBlockRange = ({ $from, $to }: Selection) => {
 	return expandToBlockRange($from, $to);
 };
 
-export const isMultiBlockRange = (range: NodeRange) => {
+export const isMultiBlockRange = (range: NodeRange): boolean => {
 	if (range.endIndex - range.startIndex <= 1) {
 		return false; // At most one child
 	}

@@ -7,6 +7,7 @@ import InlineMessage from '../../../index';
 
 const testId = 'test';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Inline Message', () => {
 	it('basic sanity check', () => {
 		render(<InlineMessage testId={testId} />);

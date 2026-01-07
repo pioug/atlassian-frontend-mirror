@@ -8,6 +8,7 @@ import { SplitButton } from '../../../new-button/containers/split-button';
 import Button from '../../../new-button/variants/default/button';
 import IconButton from '../../../new-button/variants/icon/button';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('SplitButton', () => {
 	const primaryActionClickMock = jest.fn();
 	const secondaryActionClickMock = jest.fn();

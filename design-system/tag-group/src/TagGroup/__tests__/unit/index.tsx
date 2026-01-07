@@ -6,6 +6,7 @@ import Tag from '@atlaskit/tag';
 
 import TagGroup from '../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('TagGroup', () => {
 	it('should export a base component', () => {
 		render(

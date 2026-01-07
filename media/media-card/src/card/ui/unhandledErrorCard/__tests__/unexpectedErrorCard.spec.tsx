@@ -7,6 +7,7 @@ jest.mock('@atlaskit/icon/core/status-warning', () => {
 	return jest.fn((props) => <div data-testid="warning-icon" {...props} />);
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<UnhandledErrorCard />', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();

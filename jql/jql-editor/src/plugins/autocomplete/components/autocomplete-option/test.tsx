@@ -83,6 +83,7 @@ describe('interactions', () => {
 			</OptionsListWrapper>,
 		);
 
+		// eslint-disable-next-line @atlassian/a11y/no-violation-count
 		await expect(container).toBeAccessible({ violationCount: 0 });
 	});
 
@@ -164,6 +165,7 @@ describe('highlighting', () => {
 			</OptionsListWrapper>,
 		);
 
+		// eslint-disable-next-line @atlassian/a11y/no-violation-count
 		await expect(container).toBeAccessible({ violationCount: 0 });
 	});
 
@@ -285,6 +287,7 @@ describe('field type', () => {
 			</OptionsListWrapper>,
 		);
 
+		// eslint-disable-next-line @atlassian/a11y/no-violation-count
 		await expect(container).toBeAccessible({ violationCount: 0 });
 	});
 
@@ -334,6 +337,7 @@ describe('deprecated icon', () => {
 			</OptionsListWrapper>,
 		);
 
+		// eslint-disable-next-line @atlassian/a11y/no-violation-count
 		await expect(container).toBeAccessible({ violationCount: 0 });
 	});
 

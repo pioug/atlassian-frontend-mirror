@@ -5,6 +5,7 @@ import { render, screen } from '@testing-library/react';
 import variants from '../../../utils/variants';
 
 variants.forEach(({ name, Component }) => {
+	// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 	describe(name, () => {
 		it('should not focus on the element if autoFocus is not set', () => {
 			render(<Component testId="button">Hello</Component>);

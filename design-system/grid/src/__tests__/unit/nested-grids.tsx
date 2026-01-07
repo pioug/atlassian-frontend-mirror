@@ -5,6 +5,7 @@ import { render } from '@testing-library/react';
 import { Grid } from '../../grid';
 import { GridItem } from '../../grid-item';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Nested Grids', () => {
 	it('does not throw an error when not nested', () => {
 		expect(() => render(<Grid>hello world</Grid>)).not.toThrow();

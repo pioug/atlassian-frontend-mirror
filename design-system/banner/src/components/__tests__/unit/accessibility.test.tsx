@@ -7,6 +7,7 @@ import WarningIcon from '@atlaskit/icon/core/status-warning';
 
 import Banner from '../../banner';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('a11y', () => {
 	it('Default banner with icon should not fail an aXe audit', async () => {
 		const { container } = render(

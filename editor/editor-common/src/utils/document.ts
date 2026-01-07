@@ -59,7 +59,7 @@ export function isEmptyDocument(node: Node): boolean {
 	return isEmptyParagraph(nodeChild);
 }
 
-export function bracketTyped(state: EditorState) {
+export function bracketTyped(state: EditorState): boolean {
 	const { selection } = state;
 	const { $cursor, $anchor } = selection as TextSelection;
 
@@ -172,7 +172,7 @@ type __ReplaceStep = ReplaceStep & {
 export const isReplaceDocOperation = (
 	transactions: readonly Transaction[],
 	oldState: EditorState,
-) => {
+): boolean => {
 	return transactions.some((tr) => {
 		if (tr.getMeta('replaceDocument')) {
 			return true;

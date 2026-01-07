@@ -4,6 +4,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 
 import AvatarImage from '../../internal/avatar-image';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('AvatarImage', () => {
 	it('should display the default avatar if no image is provided', () => {
 		render(<AvatarImage appearance="circle" size="large" alt="Carole Baskin" testId="avatar" />);

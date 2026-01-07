@@ -16,6 +16,7 @@ afterEach(() => {
 	container = null;
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Annotations: Hooks/useInlineCommentsFilter', () => {
 	beforeEach(() => {});
 

@@ -7,7 +7,7 @@ import { IsFhsEnabledContext } from './is-fhs-enabled-context';
  *
  * Retrieves is FHS enabled.
  */
-export const useIsFhsEnabled = () => {
+export const useIsFhsEnabled = (): boolean => {
 	const isFhsEnabled = useContext(IsFhsEnabledContext);
 
 	return typeof isFhsEnabled === 'boolean' ? isFhsEnabled : isFhsEnabled();

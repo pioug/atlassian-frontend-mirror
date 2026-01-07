@@ -8,6 +8,7 @@ import { AUTO_DISMISS_SECONDS } from '../../auto-dismiss-flag';
 import { AutoDismissFlag, FlagGroup } from '../../index';
 import { type AutoDismissFlagProps } from '../../types';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Auto dismiss flag', () => {
 	// Helper function to generate <AutoDismissFlag /> with base required props
 	const generateAutoDismissFlag = (

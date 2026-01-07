@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 import { DropdownItem, DropdownItemGroup } from '../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('DropdownMenu Item Group', () => {
 	describe('item group', () => {
 		it('should have a group of items with a meaningful title', () => {

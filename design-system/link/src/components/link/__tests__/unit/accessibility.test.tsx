@@ -7,6 +7,7 @@ import { axe } from '@af/accessibility-testing';
 import Link from '../../../../index';
 import variations from '../../../../testutils/variations';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe(`Accessibility:`, () => {
 	variations.forEach(({ name, props }) => {
 		describe(`'${name}' accessibility`, () => {

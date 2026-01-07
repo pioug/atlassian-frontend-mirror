@@ -28,6 +28,7 @@ const ComponentUsingHook = ({
 	return <button onClick={onClick}>Button</button>;
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('useTrackedRef', () => {
 	it('should return a reference that tracks the last value rendered', () => {
 		const callback = jest.fn();

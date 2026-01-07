@@ -61,6 +61,7 @@ describe('drop destination', () => {
 			const { container } = render(<Board />);
 
 			await expect(container).toBeAccessible({
+				// eslint-disable-next-line @atlassian/a11y/no-violation-count
 				violationCount: 1,
 			});
 		});

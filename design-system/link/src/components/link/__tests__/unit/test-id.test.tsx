@@ -6,6 +6,7 @@ import Link from '../../../../index';
 
 const testId = 'link';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Test ID:', () => {
 	it('should render on main element', () => {
 		render(

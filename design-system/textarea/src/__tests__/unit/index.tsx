@@ -6,6 +6,7 @@ import { userEvent } from '@testing-library/user-event';
 import TextArea from '../../text-area';
 import type { TextAreaProps } from '../../types';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('TextArea', () => {
 	const testId = 'testId';
 

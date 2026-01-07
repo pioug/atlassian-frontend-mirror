@@ -15,8 +15,8 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdow
 // eslint-disable-next-line @atlaskit/design-system/no-banned-imports
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import FocusRing from '@atlaskit/focus-ring';
-import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
-import ChevronRightIcon from '@atlaskit/icon/core/migration/chevron-right';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
+import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { ModalTransition } from '@atlaskit/modal-dialog';
 import { fg } from '@atlaskit/platform-feature-flags';

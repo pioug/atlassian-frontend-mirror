@@ -12,6 +12,7 @@ const widthValues = {
 	wide: '29pc', // 464px
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<EmptyState width />', () => {
 	it('should default to wide', () => {
 		render(<EmptyState header="hello" testId="test" />);

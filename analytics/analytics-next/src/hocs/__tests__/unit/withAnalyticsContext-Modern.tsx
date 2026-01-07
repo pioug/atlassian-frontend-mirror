@@ -104,6 +104,7 @@ const UnderTestManyContext = ({
 	);
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('withAnalyticsContext ModernContext', () => {
 	it('should render the wrapped component', () => {
 		const { getByTestId } = render(<UnderTestSingleContext onEvent={() => null} />);

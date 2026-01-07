@@ -562,7 +562,7 @@ interface ExpandEditorProps {
 	allowExpand?: EditorProps['allowExpand'];
 }
 
-export function isExpandInsertionEnabled({ allowExpand }: ExpandEditorProps) {
+export function isExpandInsertionEnabled({ allowExpand }: ExpandEditorProps): boolean {
 	if (allowExpand && typeof allowExpand === 'object') {
 		return !!allowExpand.allowInsertion;
 	}

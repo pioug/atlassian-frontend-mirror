@@ -8,6 +8,7 @@ import Modal, { ModalBody, ModalHeader } from '@atlaskit/modal-dialog';
 
 import { Layering, useLayering } from '../../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Layering', () => {
 	const mockCallback = jest.fn();
 

@@ -10,6 +10,7 @@ import Range from '@atlaskit/range';
 
 import Form, { RangeField } from '../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('RangeField', () => {
 	const user = userEvent.setup();
 

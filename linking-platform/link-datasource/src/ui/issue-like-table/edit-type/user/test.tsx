@@ -16,6 +16,7 @@ import UserEditType from './index';
 jest.mock('../../../../contexts/datasource-experience-id');
 jest.mock('../../../../hooks/useLoadOptions');
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('UserEditType', () => {
 	const testId = 'inline-edit-user-select--input';
 	const setEditValues = jest.fn();

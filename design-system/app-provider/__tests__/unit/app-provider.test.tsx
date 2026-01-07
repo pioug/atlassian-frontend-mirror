@@ -17,6 +17,7 @@ afterEach(() => {
 	jest.resetAllMocks();
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('AppProvider', () => {
 	it('should render', async () => {
 		render(<AppProvider>Hello</AppProvider>);

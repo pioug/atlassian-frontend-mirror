@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 import Page from '../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<Page />', () => {
 	it('page should accept navigation as a property', () => {
 		const testId = 'navigation';

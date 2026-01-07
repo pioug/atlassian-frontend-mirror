@@ -23,6 +23,7 @@ type CaseArgs = {
 	name: string;
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('AVPAnalyticsListener', () => {
 	const analyticsWebClientMock: AnalyticsWebClient = {
 		sendUIEvent: jest.fn(),

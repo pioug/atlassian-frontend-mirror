@@ -13,6 +13,7 @@ import { RankableTableCell } from '../../rankable/table-cell';
 
 import { cellWithKey as cell, headMock1, rows, rowsWithKeys, sortKey } from './_data';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Dynamic Table Accessibility', () => {
 	describe('Stateful table', () => {
 		it('default stateful should pass basic aXe audit', async () => {

@@ -9,6 +9,7 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../index';
 
 const triggerText = 'Options';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('dropdown menu keyboard navigation', () => {
 	// requestAnimationFrame is replaced by raf-stub
 	replaceRaf();

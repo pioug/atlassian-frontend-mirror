@@ -1,5 +1,6 @@
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { PluginToolbarComponentConfig } from '@atlaskit/editor-common/toolbar';
 import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
 import { textColorPalette } from '@atlaskit/editor-common/ui-color';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -25,6 +26,18 @@ type TextColorDefaultColor = {
 
 export interface TextColorPluginConfig {
 	defaultColor?: TextColorDefaultColor;
+	/**
+	 * Optional configuration to control this plugin's toolbar components.
+	 * @default { enabled: true }
+	 * @example
+	 * To hide toolbar component, set `enabled` to `false`.
+	 * ```ts
+	 * toolbarConfig: {
+	 *   enabled: false,
+	 * },
+	 * ```
+	 */
+	toolbarConfig?: Exclude<PluginToolbarComponentConfig, 'showAt'>;
 }
 
 function createInitialPluginState(

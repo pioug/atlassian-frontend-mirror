@@ -52,6 +52,7 @@ function createFixture(response: Promise<Blob>) {
 	return { mediaClient, el, onLoad, onClose, onError };
 }
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('ImageViewer analytics', () => {
 	beforeEach(() => {
 		jest.spyOn(globalMediaEventEmitter, 'emit');

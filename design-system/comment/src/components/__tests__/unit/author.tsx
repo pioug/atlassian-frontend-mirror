@@ -7,6 +7,7 @@ import __noop from '@atlaskit/ds-lib/noop';
 
 import Author from '../../author';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Author', () => {
 	it('should fire an analytics event', () => {
 		const onEvent = jest.fn();

@@ -16,6 +16,7 @@ afterEach(() => {
 	jest.resetAllMocks();
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('ArchiveSidebarFolderEntry', () => {
 	const baseProps: ArchiveSidebarFolderProps = {
 		root: '',

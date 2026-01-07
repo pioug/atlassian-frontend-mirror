@@ -46,7 +46,7 @@ export function clearMeasure(measureName: string): void {
 	performance.clearMeasures(measureName);
 }
 
-export function isMeasuring(measureName: string) {
+export function isMeasuring(measureName: string): boolean {
 	if (!isPerformanceAPIAvailable()) {
 		return false;
 	}

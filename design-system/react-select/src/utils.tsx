@@ -293,7 +293,7 @@ export function getBoundingClientObj(element: HTMLElement) {
 // Touch Capability Detector
 // ==============================
 
-export function isTouchCapable() {
+export function isTouchCapable(): boolean {
 	try {
 		document.createEvent('TouchEvent');
 		return true;
@@ -306,7 +306,7 @@ export function isTouchCapable() {
 // Mobile Device Detector
 // ==============================
 
-export function isMobileDevice() {
+export function isMobileDevice(): boolean {
 	try {
 		return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
 			navigator.userAgent,

@@ -41,6 +41,7 @@ const sectionMessageWrapperWithTestIds = (
 	</SectionMessage>
 );
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Section Message should be found by data-testid', () => {
 	test('Using getByTestId()', async () => {
 		render(sectionMessageWrapperWithTestIds);

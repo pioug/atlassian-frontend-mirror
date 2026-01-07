@@ -32,6 +32,7 @@ const longCode = `// some code
 
 const testId = 'code-test';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('CodeBlock', () => {
 	const findCodeLine = (line: number): HTMLElement => {
 		return screen.getByTestId(`${testId}-line-${line}`);

@@ -7,6 +7,7 @@ import { Grid, GridColumn } from '../../index';
 
 const testId = 'grid';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<Grid />', () => {
 	it('should set a css variable for the number of columns', () => {
 		const columns = 42;

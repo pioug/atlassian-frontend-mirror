@@ -239,6 +239,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 			principalId,
 			productAttributes,
 			productKey,
+			restrictTo,
 			searchQueryFilter,
 			siteId,
 			transformOptions,
@@ -286,6 +287,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 				isEmail && !searchQueryFilter
 					? '(NOT not_mentionable:true) AND (account_status:active) AND (NOT account_type:app)'
 					: searchQueryFilter,
+			...(restrictTo && fg('smart-user-picker-restrict-to-gate') && { restrictTo }),
 		};
 		try {
 			const { query } = this.state;
@@ -351,11 +353,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 			}
 
 			// Filter to only verified teams when verifiedTeams is true and feature flag is enabled
-			if (
-				verifiedTeams &&
-				includeTeams &&
-				fg('smart-user-picker-managed-teams-gate')
-			) {
+			if (verifiedTeams && includeTeams && fg('smart-user-picker-managed-teams-gate')) {
 				recommendedUsers = recommendedUsers.filter((option) => {
 					if (isTeam(option)) {
 						// Only include teams that are verified
@@ -525,12 +523,8 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 	};
 
 	render(): React.JSX.Element {
-		const {
-			allowEmail,
-			enableEmailSearch,
-			allowEmailSelectionWhenEmailMatched,
-			...restProps
-		} = this.props;
+		const { allowEmail, enableEmailSearch, allowEmailSelectionWhenEmailMatched, ...restProps } =
+			this.props;
 
 		// Determine whether to allow email selection based on allowEmailSelectionWhenEmailMatched, if needed
 		let shouldAllowEmail = allowEmail;

@@ -3,6 +3,7 @@
  * @jsx jsx
  */
 import {
+	forwardRef,
 	type ReactNode,
 	useCallback,
 	useContext,
@@ -17,16 +18,19 @@ import { bind } from 'bind-event-listener';
 import { createPortal } from 'react-dom';
 import invariant from 'tiny-invariant';
 
+import noop from '@atlaskit/ds-lib/noop';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
 import { useOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { blockDraggingToIFrames } from '@atlaskit/pragmatic-drag-and-drop/element/block-dragging-to-iframes';
 import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/disable-native-drag-preview';
 import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/prevent-unhandled';
 import { token } from '@atlaskit/tokens';
-import Tooltip, { type TooltipProps } from '@atlaskit/tooltip';
+import Tooltip, { type TooltipPrimitiveProps, type TooltipProps } from '@atlaskit/tooltip';
+import TooltipContainer from '@atlaskit/tooltip/TooltipContainer';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
@@ -129,6 +133,15 @@ const lineStyles = cssMap({
 	},
 });
 
+const tooltipStyles = cssMap({
+	root: {
+		// Hacking a reduced offset to account for the splitter having a wider hit zone than its visual representation.
+		// The panel splitter is 17px wide, but the visual representation is 3px wide, so there's an extra 7px of space between the tooltip and the splitter.
+		// We use a negative margin to offset this extra space, resulting in only an extra 1px of space between the tooltip and the splitter.
+		marginInlineStart: token('space.negative.075'),
+	},
+});
+
 export type PanelSplitterProps = {
 	/**
 	 * The accessible label for the panel splitter. It is visually hidden, but is required for accessibility.
@@ -181,6 +194,24 @@ type MaybeTooltipProps = Pick<PanelSplitterProps, 'tooltipContent'> & {
 	shortcut?: TooltipProps['shortcut'];
 };
 
+const PanelSplitterTooltip = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(
+	({ children, className, ...props }, ref) => {
+		return (
+			<TooltipContainer
+				{...props}
+				ref={ref}
+				// Must be statically passed
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/no-unsafe-style-overrides
+				className={className}
+				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
+				css={tooltipStyles.root}
+			>
+				{children}
+			</TooltipContainer>
+		);
+	},
+);
+
 /**
  * A wrapper component that renders a tooltip if the tooltipContent or shortcut is provided.
  */
@@ -192,9 +223,14 @@ const MaybeTooltip = ({ tooltipContent, shortcut, children }: MaybeTooltipProps)
 			<Tooltip
 				content={tooltipContent}
 				shortcut={shortcut}
-				position="mouse"
+				position={fg('platform_dst_nav4_side_nav_resize_tooltip_feedback') ? 'mouse-y' : 'mouse'}
 				mousePosition="right"
 				isScreenReaderAnnouncementDisabled
+				component={
+					fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')
+						? PanelSplitterTooltip
+						: undefined
+				}
 			>
 				{children}
 			</Tooltip>
@@ -266,12 +302,37 @@ const PortaledPanelSplitter = ({
 	 */
 	const onDoubleClick = useContext(OnDoubleClickContext);
 
+	// Storing the initial `clientX` on `mousedown` events, to workaround a bug caused by some browser extensions
+	// where the `dragstart` event incorrectly returns `0` for the `clientX` location.
+	const initialClientXRef = useRef<number | null>(null);
+
 	useEffect(() => {
 		const splitter = splitterRef.current;
 		invariant(splitter, 'Splitter ref must be set');
 
 		return combine(
 			blockDraggingToIFrames({ element: splitter }),
+			/**
+			 * Capturing the initial `clientX` from the mousedown, before the drag starts.
+			 *
+			 * ⚠️ Note: We are not using pragmatic-drag-and-drop's `onDragStart` for this as some browser
+			 * extensions can cause the client location (e.g. clientX) to incorrectly return 0 during the `dragstart` event.
+			 *
+			 * We are also not using pragmatic-drag-and-drop's `onDrag` here as it is throttled, which means
+			 * fast mouse movements can cause the real first drag event to be missed, causing a different clientX
+			 * to be captured.
+			 *
+			 * I also tried only binding an event listener inside pragmatic-drag-and-drop's `onDragStart`, which seemd to work
+			 * but did not feel as robust, and might have timing issues as it happens slightly later.
+			 */
+			fg('platform-dst-panel-splitter-drag-start-client-x')
+				? bind(splitter, {
+						type: 'mousedown',
+						listener: (event) => {
+							initialClientXRef.current = event.clientX;
+						},
+					})
+				: noop,
 			draggable({
 				element: splitter,
 				onGenerateDragPreview: ({ nativeSetDragImage }) => {
@@ -300,6 +361,10 @@ const PortaledPanelSplitter = ({
 					});
 				},
 				onDragStart({ source }) {
+					/**
+					 * ⚠️ Note: We are not using the client locations (e.g. clientX) during `onDragStart`
+					 * because some browser extensions can cause the event properties to incorrectly return 0.
+					 */
 					invariant(isPanelSplitterDragData(source.data));
 
 					onResizeStart?.({ initialWidth: source.data.initialWidth });
@@ -308,9 +373,17 @@ const PortaledPanelSplitter = ({
 					openLayerObserver?.closeLayers();
 				},
 				onDrag({ location, source }) {
+					/**
+					 * ⚠️ Note: We are not using the location.initial.input client locations because some browser extensions
+					 * can cause the client locations (e.g. clientX) in the `dragstart` event to incorrectly return 0.
+					 */
 					invariant(isPanelSplitterDragData(source.data));
 
 					const { initialWidth, resizeBounds, direction } = source.data;
+
+					if (fg('platform-dst-panel-splitter-drag-start-client-x')) {
+						invariant(initialClientXRef.current !== null, 'initialClientX must be set');
+					}
 
 					/**
 					 * How wide the element would be if there were no width constraints,
@@ -319,6 +392,8 @@ const PortaledPanelSplitter = ({
 					const targetWidth = getWidthFromDragLocation({
 						initialWidth,
 						location,
+						// The fallback of 0 won't be used due to the invariant, however we require one to satisfy the type.
+						initialClientX: initialClientXRef.current ?? 0,
 						direction,
 						position,
 					});

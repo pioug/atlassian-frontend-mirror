@@ -7,6 +7,7 @@ import { PLATFORM } from '../../../../analytics/events';
 import { ACTION, EVENT_TYPE, ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
 import { mockCreateAnalyticsEvent } from '@atlaskit/editor-test-helpers/mock-analytics-next';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('When error boundary for dom errors flag is enabled it should call fireAnalyticsEvent again with ComponentCaughtDomErrorAEP', () => {
 	const CustomError = new Error(
 		`Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node`,

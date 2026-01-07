@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 import { Checkbox } from '../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Checkbox should be found by data-testid', () => {
 	test('Using getByTestId()', async () => {
 		const testId = 'the-checkbox';

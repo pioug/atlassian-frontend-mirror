@@ -34,7 +34,7 @@ export class TableSideEffectHandler {
 		tableRect: TableRect,
 		column: number | null,
 		isDelete: boolean,
-	) {
+	): boolean {
 		if (isDelete && tableRect.map.width === 1 && column === 0) {
 			// Add side effect
 			this.addTableSideEffect(

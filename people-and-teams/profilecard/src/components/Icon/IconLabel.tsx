@@ -1,9 +1,9 @@
 import React from 'react';
 
 import IconRecent from '@atlaskit/icon/core/clock';
-import IconEmail from '@atlaskit/icon/core/migration/email';
-import IconLocation from '@atlaskit/icon/core/migration/location';
-import OfficeBuildingIcon from '@atlaskit/icon/core/migration/office-building';
+import IconEmail from '@atlaskit/icon/core/email';
+import IconLocation from '@atlaskit/icon/core/location';
+import OfficeBuildingIcon from '@atlaskit/icon/core/office-building';
 import { token } from '@atlaskit/tokens';
 
 import { DetailsLabel, DetailsLabelIcon, DetailsLabelText } from '../../styled/Card';

@@ -41,6 +41,7 @@ const TestComponent = (props: { height: number }) => (
 	<Container {...useResizingHeight()} height={props.height} id="element" />
 );
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<ResizingHeight />', () => {
 	beforeEach(() => {
 		(isReducedMotion as jest.Mock).mockReturnValue(false);

@@ -47,6 +47,7 @@ const style = {
 // spy
 const refractorSpy = jest.spyOn(refractor, 'highlight');
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Highlight', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();

@@ -9,6 +9,7 @@ import BasicInlineCodeExample from '../../../examples/01-inline-code-basic';
 import CodeBlockHighlightingExample from '../../../examples/14-code-block-highlighting-long-lines';
 import { CodeBlock } from '../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('CodeBlock Accessibility jest-axe', () => {
 	const props = {
 		shouldShowLineNumbers: true,

@@ -9,8 +9,8 @@ import { useIntl } from 'react-intl-next';
 
 import { IconButton } from '@atlaskit/button/new';
 import { ErrorMessage, Field } from '@atlaskit/form';
-import CrossCircleIcon from '@atlaskit/icon/core/migration/cross-circle';
-import QuestionCircleIcon from '@atlaskit/icon/core/migration/question-circle';
+import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
+import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
 import SearchIcon from '@atlaskit/icon/core/search';
 import CheckCircleIcon from '@atlaskit/icon/core/status-success';
 import { Box } from '@atlaskit/primitives/compiled';

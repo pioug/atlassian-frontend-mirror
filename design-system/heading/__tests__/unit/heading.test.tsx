@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 import Heading, { HeadingContextProvider } from '../../src';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Heading', () => {
 	it('renders', () => {
 		render(

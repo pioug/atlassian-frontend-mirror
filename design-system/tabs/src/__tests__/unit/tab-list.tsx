@@ -33,6 +33,7 @@ const renderTabList = (overridingValue: Partial<TabListAttributesType> = {}) => 
 	</TabListContext.Provider>
 );
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('@atlaskit/tabs', () => {
 	describe('tab list', () => {
 		it('should have role tablist', () => {

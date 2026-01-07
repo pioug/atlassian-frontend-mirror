@@ -186,6 +186,7 @@ test('pagination should move to last page when selected page is greater than tot
 	expect(screen.getAllByTestId(/^myTable--row-*/)).toHaveLength(1); // we're on the 2nd page
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Sort button', () => {
 	test('sort button for a currently unsorted column should show sort icon on hover', async () => {
 		const props = createProps();

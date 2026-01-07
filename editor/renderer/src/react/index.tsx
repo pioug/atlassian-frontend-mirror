@@ -298,6 +298,8 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 				return this.getEmbedCardProps(node, path);
 			case 'blockCard':
 				return this.getBlockCardProps(node, path);
+			case 'inlineCard':
+				return this.getInlineCardProps(node, path);
 			case 'expand':
 				return this.getExpandProps(node, path);
 			case 'unsupportedBlock':
@@ -658,6 +660,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		return {
 			...this.getProps(node),
 			isInsideOfBlockNode,
+			onSetLinkTarget: this.onSetLinkTarget,
 		};
 	}
 
@@ -665,6 +668,14 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		return {
 			...this.getProps(node),
 			isNodeNested: path.length > 0,
+			onSetLinkTarget: this.onSetLinkTarget,
+		};
+	}
+
+	private getInlineCardProps(node: Node, path: Array<Node> = []) {
+		return {
+			...this.getProps(node, path),
+			onSetLinkTarget: this.onSetLinkTarget,
 		};
 	}
 

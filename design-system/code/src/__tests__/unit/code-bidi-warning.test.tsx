@@ -5,6 +5,7 @@ import { render, screen } from '@testing-library/react';
 import { characters } from '../../../examples/example-data/bidi-examples';
 import CodeBidiWarning from '../../bidi-warning';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('CodeBidiWarning', () => {
 	test('Cosmetic decoration is visible to sighted users, but ignored by accessibility software', () => {
 		render(<CodeBidiWarning bidiCharacter={characters.u202e} testId="test" />);

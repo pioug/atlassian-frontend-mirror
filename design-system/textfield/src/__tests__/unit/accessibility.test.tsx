@@ -6,6 +6,7 @@ import { axe } from '@af/accessibility-testing';
 
 import Textfield from '../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Text field basic accessibility unit tests with jest-axe', () => {
 	const defaultProps = {
 		testId: 'basic-textfield',

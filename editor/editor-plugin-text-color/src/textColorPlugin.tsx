@@ -32,6 +32,14 @@ const pluginConfig = (
 	return textColorConfig;
 };
 
+const isToolbarComponentEnabled = (textColorConfig: TextColorPluginConfig | undefined) => {
+	return (
+		textColorConfig === undefined ||
+		textColorConfig.toolbarConfig === undefined ||
+		textColorConfig.toolbarConfig.enabled !== false
+	);
+};
+
 export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api }) => {
 	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
 
@@ -63,8 +71,17 @@ export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api 
 	};
 
 	if (isToolbarAIFCEnabled) {
-		if (api?.toolbar?.actions.registerComponents) {
-			api.toolbar.actions.registerComponents(getToolbarComponents(api));
+		if (fg('platform_editor_toolbar_aifc_text_color_config')) {
+			if (
+				api?.toolbar?.actions.registerComponents &&
+				isToolbarComponentEnabled(pluginConfig(textColorConfig))
+			) {
+				api.toolbar.actions.registerComponents(getToolbarComponents(api));
+			}
+		} else {
+			if (api?.toolbar?.actions.registerComponents) {
+				api.toolbar.actions.registerComponents(getToolbarComponents(api));
+			}
 		}
 	} else {
 		api?.primaryToolbar?.actions.registerComponent({

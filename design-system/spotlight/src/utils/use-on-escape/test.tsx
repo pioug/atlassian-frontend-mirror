@@ -11,6 +11,7 @@ const TestComponent = ({ onEscape }: { onEscape: (event: KeyboardEvent) => void 
 	return <div data-testid="test-component">Test Component</div>;
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('useOnEscape', () => {
 	it('calls onEscape callback when Escape key is pressed', () => {
 		const mockOnEscape = jest.fn();

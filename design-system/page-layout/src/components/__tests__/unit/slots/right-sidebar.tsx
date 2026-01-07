@@ -6,6 +6,7 @@ import { render, screen } from '@testing-library/react';
 import { Main, PageLayout, RightSidebar } from '../../../index';
 
 const emptyGridState = { gridState: {} };
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<RightSidebar />', () => {
 	it('should respect the shouldPersistWidth prop', () => {
 		const { rerender } = render(

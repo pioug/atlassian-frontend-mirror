@@ -34,6 +34,7 @@ const createDrawer = (props: DrawerProps) => (
 	</Drawer>
 );
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('esc key', () => {
 	beforeEach(() => {
 		jest.spyOn(global.window, 'addEventListener');

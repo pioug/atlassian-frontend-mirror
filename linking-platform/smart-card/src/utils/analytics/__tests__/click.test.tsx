@@ -63,6 +63,7 @@ describe('withLinkClickedEvent', () => {
 					},
 				});
 
+				// eslint-disable-next-line @atlassian/a11y/no-violation-count
 				await expect(document.body).toBeAccessible({ violationCount: 1 });
 			});
 
@@ -98,6 +99,7 @@ describe('withLinkClickedEvent', () => {
 					},
 				});
 
+				// eslint-disable-next-line @atlassian/a11y/no-violation-count
 				await expect(document.body).toBeAccessible({ violationCount: 1 });
 			});
 
@@ -114,6 +116,7 @@ describe('withLinkClickedEvent', () => {
 				expect(onClick).not.toHaveBeenCalled();
 				expect(onMouseDown).toHaveBeenCalled();
 
+				// eslint-disable-next-line @atlassian/a11y/no-violation-count
 				await expect(document.body).toBeAccessible({ violationCount: 1 });
 			});
 		},
@@ -161,6 +164,7 @@ describe('withLinkClickedEvent', () => {
 					},
 				});
 
+				// eslint-disable-next-line @atlassian/a11y/no-violation-count
 				await expect(document.body).toBeAccessible({ violationCount: 1 });
 			});
 
@@ -195,6 +199,7 @@ describe('withLinkClickedEvent', () => {
 					},
 				});
 
+				// eslint-disable-next-line @atlassian/a11y/no-violation-count
 				await expect(document.body).toBeAccessible({ violationCount: 1 });
 			});
 
@@ -229,6 +234,7 @@ describe('withLinkClickedEvent', () => {
 					},
 				});
 
+				// eslint-disable-next-line @atlassian/a11y/no-violation-count
 				await expect(document.body).toBeAccessible({ violationCount: 1 });
 			});
 
@@ -263,6 +269,7 @@ describe('withLinkClickedEvent', () => {
 					},
 				});
 
+				// eslint-disable-next-line @atlassian/a11y/no-violation-count
 				await expect(document.body).toBeAccessible({ violationCount: 1 });
 			});
 
@@ -324,6 +331,7 @@ describe('withLinkClickedEvent', () => {
 					},
 				});
 
+				// eslint-disable-next-line @atlassian/a11y/no-violation-count
 				await expect(document.body).toBeAccessible({ violationCount: 1 });
 			});
 		});

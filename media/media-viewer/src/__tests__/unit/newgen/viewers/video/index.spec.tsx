@@ -97,6 +97,7 @@ function setup(options: SetupOptions = {}) {
 	return { mediaClient, el, item: item || videoItem };
 }
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Video viewer', () => {
 	beforeEach(() => {
 		jest.spyOn(globalMediaEventEmitter, 'emit');

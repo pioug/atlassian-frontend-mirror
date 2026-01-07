@@ -10,6 +10,7 @@ import ModalDialog from '../../modal-dialog';
 jest.mock('raf-schd', () => (fn: Function) => fn);
 jest.mock('@atlaskit/ds-lib/warn-once');
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<ModalBody />', () => {
 	it('should render default body', () => {
 		render(

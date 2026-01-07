@@ -386,7 +386,7 @@ export { countNodes } from './count-nodes';
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function shallowEqual(obj1: any = {}, obj2: any = {}) {
+export function shallowEqual(obj1: any = {}, obj2: any = {}): boolean {
 	const keys1 = Object.keys(obj1);
 	const keys2 = Object.keys(obj2);
 
@@ -432,7 +432,7 @@ export const findFarthestParentNode =
 		return candidate;
 	};
 
-export const insideTableCell = (state: EditorState) => {
+export const insideTableCell = (state: EditorState): boolean => {
 	const { tableCell, tableHeader } = state.schema.nodes;
 	return hasParentNodeOfType([tableCell, tableHeader])(state.selection);
 };
@@ -571,7 +571,7 @@ export function isNodeEmpty(node?: PMNode): boolean {
 	);
 }
 
-export function isInEmptyLine(state: EditorState) {
+export function isInEmptyLine(state: EditorState): boolean {
 	const { selection } = state;
 	const { $cursor, $anchor } = selection as TextSelection;
 

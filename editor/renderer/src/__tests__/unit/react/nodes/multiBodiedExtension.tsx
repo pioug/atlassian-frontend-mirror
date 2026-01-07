@@ -31,6 +31,7 @@ beforeEach(() => {
 	});
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('MultiBodiedExtension node', () => {
 	const defaultProps: any = {
 		serializer: jest.fn(),

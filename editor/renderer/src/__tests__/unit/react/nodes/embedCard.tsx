@@ -20,6 +20,7 @@ jest.mock('@atlaskit/smart-card', () => {
 	};
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Renderer - React/Nodes/EmbedCard', () => {
 	const url =
 		'https://pug.jira-dev.com/wiki/spaces/CE/blog/2017/08/18/3105751050/A+better+REST+API+for+Confluence+Cloud+via+Swagger';

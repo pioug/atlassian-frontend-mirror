@@ -4,6 +4,7 @@ import { render, screen } from '@atlassian/testing-library';
 
 import PullRequestObjectTile from '../../components/pull-request';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('ObjectTile', () => {
 	it('should render with default props', () => {
 		render(<PullRequestObjectTile testId="pullrequest-test" />);

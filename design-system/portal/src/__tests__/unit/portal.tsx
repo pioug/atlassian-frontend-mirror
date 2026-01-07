@@ -60,6 +60,7 @@ afterEach(() => {
 	unbind = null;
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Portal container', () => {
 	test('should be able to render a portal', () => {
 		const { container } = render(

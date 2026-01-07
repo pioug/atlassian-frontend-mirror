@@ -9,6 +9,7 @@ import { Content, LeftSidebar, PageLayout } from '../../../../index';
 import { IS_SIDEBAR_DRAGGING } from '../../../constants';
 import { useIsSidebarDragging } from '../../../hooks';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('useIsSidebarDragging', () => {
 	beforeEach(() => {
 		document.documentElement.removeAttribute(IS_SIDEBAR_DRAGGING);

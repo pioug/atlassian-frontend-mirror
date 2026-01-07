@@ -8,6 +8,7 @@ import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-uti
 
 const noop = () => {};
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('@atlaskit/editor-core/ui/PanelTextInput', () => {
 	let panel: RenderResult;
 

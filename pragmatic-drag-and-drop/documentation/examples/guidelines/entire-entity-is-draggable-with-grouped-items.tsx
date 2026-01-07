@@ -5,8 +5,8 @@ import invariant from 'tiny-invariant';
 
 import { IconButton } from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import DragHandleVerticalIcon from '@atlaskit/icon/core/drag-handle-vertical';
-import ChevronRightIcon from '@atlaskit/icon/core/migration/chevron-right';
 import EditorMoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';

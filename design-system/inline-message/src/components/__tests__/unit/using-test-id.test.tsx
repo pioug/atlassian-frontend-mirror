@@ -31,6 +31,7 @@ const createWrapper = (testId?: string) => (
 	</InlineMessage>
 );
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Inline message should be found by data-testid', () => {
 	const user = userEvent.setup();
 

@@ -22,6 +22,7 @@ const OPTIONS = [
 	{ label: '4', value: 'four' },
 ];
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Select', () => {
 	// test cases for async select using Select
 	cases(

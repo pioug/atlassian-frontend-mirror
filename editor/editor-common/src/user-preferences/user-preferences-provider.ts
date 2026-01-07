@@ -44,7 +44,7 @@ export class UserPreferencesProvider {
 	 * @returns true if the user preferences provider is initialized, false otherwise
 	 * @example userPreferencesProvider.isInitialized
 	 */
-	get isInitialized() {
+	get isInitialized(): boolean {
 		return this.initialized;
 	}
 

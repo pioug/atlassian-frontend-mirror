@@ -1,5 +1,12 @@
 # @atlaskit/focused-task-close-account
 
+## 3.2.17
+
+### Patch Changes
+
+- [`44c4cb05486fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/44c4cb05486fa) -
+  Deprecate focused-task-close-account package
+
 ## 3.2.16
 
 ### Patch Changes

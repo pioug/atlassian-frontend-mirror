@@ -4,7 +4,7 @@ const HasTextAncestorContext = createContext(false);
 /**
  * @internal
  */
-export const useHasTextAncestor = () => useContext(HasTextAncestorContext);
+export const useHasTextAncestor = (): boolean => useContext(HasTextAncestorContext);
 /**
  * @internal
  */

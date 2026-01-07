@@ -11,6 +11,7 @@ import Calendar from '../../index';
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Calendar analytics', () => {
 	const testId = 'calendar';
 	const testIdMonth = `${testId}--month`;

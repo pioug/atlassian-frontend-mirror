@@ -5,6 +5,7 @@ import { render, screen } from '@testing-library/react';
 import { varColumnSpan } from '../../constants';
 import { Grid, GridColumn } from '../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<GridColumn />', () => {
 	it('should set a css variable for the column span', () => {
 		const testId = 'column';

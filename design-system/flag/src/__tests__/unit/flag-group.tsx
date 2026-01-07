@@ -8,6 +8,7 @@ import FlagGroup from '../../flag-group';
 import Flag from '../../index';
 import { type FlagProps } from '../../types';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('FlagGroup', () => {
 	const generateFlag = (extraProps?: Partial<FlagProps>) => (
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

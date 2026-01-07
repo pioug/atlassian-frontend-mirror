@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 import Tabs, { Tab, TabList, TabPanel } from '../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Tabs should be found by data-testid', () => {
 	test('Using screen.getByTestId()', async () => {
 		const tabsTestId = 'the-tabs';

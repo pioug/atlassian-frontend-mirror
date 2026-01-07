@@ -146,6 +146,7 @@ const testCases: Array<{
 	},
 ];
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Anchor', () => {
 	it('should render with a given test id', () => {
 		render(

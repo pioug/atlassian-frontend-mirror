@@ -9,6 +9,7 @@ import __noop from '@atlaskit/ds-lib/noop';
 import Cell from '../../components/cell';
 import Row from '../../components/row';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Row', () => {
 	it('should fire an analytics event on expand', async () => {
 		const user = userEvent.setup();

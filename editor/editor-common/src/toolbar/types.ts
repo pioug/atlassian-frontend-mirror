@@ -1,3 +1,5 @@
+import type { Breakpoint } from '@atlaskit/editor-toolbar';
+
 /**
  * Controls the behavior and placement of the contextual formatting toolbar in the editor.
  *
@@ -22,3 +24,9 @@
  * @public
  */
 export type ContextualFormattingEnabledOptions = 'always-inline' | 'always-pinned' | 'controlled';
+
+// Plugin toolbar config
+export type PluginToolbarComponentConfig = {
+	enabled?: boolean;
+	showAt?: Breakpoint;
+};

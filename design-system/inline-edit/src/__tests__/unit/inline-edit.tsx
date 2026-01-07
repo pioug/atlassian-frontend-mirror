@@ -12,6 +12,7 @@ import InlineEdit from '../../inline-edit';
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('InlineEdit component', () => {
 	describe('Simple render', () => {
 		it('should render read view component by default', () => {

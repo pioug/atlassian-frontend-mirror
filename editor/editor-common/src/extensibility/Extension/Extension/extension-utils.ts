@@ -1,6 +1,6 @@
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 
-export const isEmptyBodiedMacro = (node: PmNode) => {
+export const isEmptyBodiedMacro = (node: PmNode): boolean => {
 	if (node.type.name !== 'bodiedExtension') {
 		return false;
 	}

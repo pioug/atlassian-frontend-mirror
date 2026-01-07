@@ -16,6 +16,7 @@ const OPTIONS = [
 	{ label: '4', value: 'four' },
 ];
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Checkbox Select', () => {
 	it('should render all checkbox options', () => {
 		render(<AtlaskitCheckboxSelect menuIsOpen={true} options={OPTIONS} label="Options" />);

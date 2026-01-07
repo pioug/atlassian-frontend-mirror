@@ -44,6 +44,7 @@ class VirtualReference implements VirtualElement {
 const virtualReferenceElement = new VirtualReference();
 const referenceElement = document.createElement('button');
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Popper', () => {
 	it('should render Popper', async () => {
 		render(

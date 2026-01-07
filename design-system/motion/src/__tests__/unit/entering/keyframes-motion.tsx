@@ -16,6 +16,7 @@ beforeEach(() => {
 	(isReducedMotion as jest.Mock).mockReturnValue(false);
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<KeyframesMotion />', () => {
 	beforeEach(() => {
 		jest.useRealTimers();

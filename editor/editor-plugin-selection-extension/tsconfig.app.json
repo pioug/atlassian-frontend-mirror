@@ -35,6 +35,9 @@
 			"path": "../adf-utils/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/css/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{
@@ -105,6 +108,9 @@
 		},
 		{
 			"path": "../tmp-editor-statsig/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tokens/tsconfig.app.json"
 		}
 	],
 	"files": []

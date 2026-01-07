@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 8.0.1
+
+### Patch Changes
+
+- [`e64156876a79c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e64156876a79c) -
+  Update documentation from Stash to Bitbucket
+- Updated dependencies
+
 ## 8.0.0
 
 ### Patch Changes

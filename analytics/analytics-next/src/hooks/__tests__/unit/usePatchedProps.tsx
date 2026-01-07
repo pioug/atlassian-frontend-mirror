@@ -80,6 +80,7 @@ const UnderTest = ({
 	);
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('usePatchedProps', () => {
 	it('should wrap any props with matching keys found in createEventMap when value is an object', () => {
 		const contextData = { ticket: 'AFP-123' };

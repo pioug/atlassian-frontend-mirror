@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-platform
 
+## 2.7.2
+
+### Patch Changes
+
+- [`e64156876a79c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e64156876a79c) -
+  Update documentation from Stash to Bitbucket
+
 ## 2.7.1
 
 ### Patch Changes

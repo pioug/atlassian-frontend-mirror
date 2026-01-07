@@ -17,6 +17,7 @@ import ExcludeFromHydration from '../../../ui/ExcludeFromHydration';
 const mockIsSSR = isSSR as jest.MockedFunction<typeof isSSR>;
 const mockExpValEquals = expValEquals as jest.MockedFunction<typeof expValEquals>;
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('ExcludeFromHydration', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();

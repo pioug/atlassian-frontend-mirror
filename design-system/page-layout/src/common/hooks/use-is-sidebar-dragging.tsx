@@ -13,7 +13,7 @@ const getIsDragging = () => {
 
 // TODO: I think this should be derived from the sidebar state,
 // and not indirectly from observing an attribute change
-const useIsSidebarDragging = () => {
+const useIsSidebarDragging = (): boolean => {
 	const [isDragging, setIsDragging] = useState(getIsDragging);
 
 	useEffect(() => {

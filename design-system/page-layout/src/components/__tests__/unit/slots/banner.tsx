@@ -6,6 +6,7 @@ import { render, screen } from '@testing-library/react';
 import { Banner, PageLayout } from '../../../index';
 
 const emptyGridState = { gridState: {} };
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<Banner />', () => {
 	it('should render with the height passed to it', () => {
 		render(

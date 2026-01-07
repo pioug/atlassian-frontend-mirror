@@ -19,6 +19,7 @@ import {
 } from '../../../../../viewers/archiveSidebar/archive-sidebar';
 import { type ZipEntry } from 'unzipit';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('ArchiveSidebar', () => {
 	const mediaClient = fakeMediaClient();
 

@@ -14,6 +14,7 @@ const attributes = {
 	packageVersion: process.env._PACKAGE_VERSION_ as string,
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('TimePicker', () => {
 	it(`should fire an event on internal channel when value is changed`, async () => {
 		const user = userEvent.setup();

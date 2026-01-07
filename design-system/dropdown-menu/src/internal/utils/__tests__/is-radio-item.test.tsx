@@ -6,6 +6,7 @@ import { ButtonItem } from '@atlaskit/menu';
 
 import isRadioItem from '../is-radio-item';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('#isRadioItem', () => {
 	it('should return true for radioitems with in browsers with voiceover support', () => {
 		const testCases = [

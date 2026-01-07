@@ -124,6 +124,7 @@ const triggerPlay = async () => {
 	fireEvent.play(getVideoElement());
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<MediaPlayer />', () => {
 	const setup = (
 		props?: Partial<MediaPlayerProps>,

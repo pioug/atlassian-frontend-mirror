@@ -22,7 +22,7 @@ export class ADFNode<
 	/**
 	 * Returns true if the node has been defined, e.g. node.define() method was called.
 	 */
-	isDefined() {
+	isDefined(): boolean {
 		return !!this.#spec;
 	}
 
@@ -186,14 +186,14 @@ export class ADFNode<
 	 * - full node stage 0
 	 * - partial stage 0 override for a node
 	 */
-	hasStage0() {
+	hasStage0(): boolean {
 		return !!this.#spec?.stage0;
 	}
 
 	/**
 	 * Return true if the node is stage0 only.
 	 */
-	isStage0Only() {
+	isStage0Only(): boolean {
 		return this.#spec?.stage0 === true;
 	}
 
@@ -201,7 +201,7 @@ export class ADFNode<
 		return this.getSpec(stage0)?.marks ?? [];
 	}
 
-	getMarksTypes(stage0: boolean = false) {
+	getMarksTypes(stage0: boolean = false): string[] {
 		return this.getMarks(stage0).map((mark) => mark.getType());
 	}
 
@@ -222,7 +222,7 @@ export class ADFNode<
 	/**
 	 * Returns true if variant has attributes that don't match base spec.
 	 */
-	hasAttributeOverride() {
+	hasAttributeOverride(): boolean {
 		if (this.getVariant() === 'base') {
 			return false;
 		}
@@ -253,7 +253,7 @@ export class ADFNode<
 		return this;
 	}
 
-	getGroups() {
+	getGroups(): string[] {
 		return this.#groups;
 	}
 }

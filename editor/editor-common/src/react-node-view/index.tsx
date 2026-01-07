@@ -257,7 +257,7 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 		decorations: ReadonlyArray<Decoration>,
 		_innerDecorations?: DecorationSource,
 		validUpdate: (currentNode: PMNode, newNode: PMNode) => boolean = () => true,
-	) {
+	): boolean {
 		// @see https://github.com/ProseMirror/prosemirror/issues/648
 		const isValidUpdate = this.node.type === node.type && validUpdate(this.node, node);
 

@@ -8,6 +8,7 @@ import { Checkbox } from '@atlaskit/checkbox';
 
 import Form, { CheckboxField } from '../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('CheckboxField', () => {
 	const user = userEvent.setup();
 

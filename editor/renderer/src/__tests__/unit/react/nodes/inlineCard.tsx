@@ -51,6 +51,7 @@ const data = {
 		'Today is a big day for Atlassian – we have entered into an agreement to buy Trello. (boom)',
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Renderer - React/Nodes/InlineCard', () => {
 	let node: ReactWrapper;
 

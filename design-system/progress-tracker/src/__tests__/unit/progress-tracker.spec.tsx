@@ -30,6 +30,7 @@ const generateStages = ({
 	}));
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<ProgressTracker />', () => {
 	it('should have default label where there is no label passed', () => {
 		render(<ProgressTracker items={generateStages({ count: 6 })} />);

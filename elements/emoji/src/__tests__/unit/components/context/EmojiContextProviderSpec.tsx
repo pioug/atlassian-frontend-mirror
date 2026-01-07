@@ -23,6 +23,7 @@ const FunctionContextChild = () => {
 	return <span>{JSON.stringify(emoji)}</span>;
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('the emoji context provider', () => {
 	let emojiProviderStub: sinon.SinonStubbedInstance<EmojiResource>;
 	beforeEach(() => {

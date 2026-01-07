@@ -104,7 +104,7 @@ function clearMeasure(measureName: string) {
 	performance.clearMeasures(measureName);
 }
 
-export const shouldTelepointerBeSampled = () =>
+export const shouldTelepointerBeSampled = (): boolean =>
 	// At peak usage, telepointer we had 200M events per day. The goal is to sample 1:10000 of the events. (20k per day)
 	// Math.random() generates a random floating-point number between 0 (inclusive) and 1 (exclusive).
 	// The condition Math.random() < TELEPOINTER_SAMPLE_RATE (0.0001) will be true approximately 0.01% of the time.

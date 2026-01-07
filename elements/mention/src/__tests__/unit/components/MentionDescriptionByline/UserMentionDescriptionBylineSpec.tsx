@@ -3,6 +3,7 @@ import UserMentionDescriptionByline from '../../../../components/MentionDescript
 import { userMention } from './_commonData';
 import { screen, render } from '@testing-library/react';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('User mention description', () => {
 	it('should render User Mention description component', () => {
 		render(<UserMentionDescriptionByline mention={userMention} />);

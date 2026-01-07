@@ -12,6 +12,7 @@ import * as ClickAreaHelper from '../../../../ui/Addon/click-area-helper';
 import ClickAreaBlock from '../../../../ui/Addon/ClickAreaBlock';
 
 const clickWrapperId = 'click-wrapper';
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('ClickAreaBlock', () => {
 	const createEditor = createEditorFactory();
 	const editor = (doc: DocBuilder) =>

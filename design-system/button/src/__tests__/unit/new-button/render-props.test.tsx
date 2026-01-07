@@ -14,6 +14,7 @@ async function assertDropdownIsVisible(icon: HTMLElement) {
 	expect(dropdownMenu).toBeVisible();
 }
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe(`Buttons should not throw away events due to re-renders when using various icon API methods`, () => {
 	it('renderProp', async () => {
 		render(

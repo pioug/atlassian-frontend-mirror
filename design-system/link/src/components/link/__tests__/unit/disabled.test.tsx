@@ -6,6 +6,7 @@ import Link from '../../../../index';
 
 const testId = 'link';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe(`Disabled:`, () => {
 	// `disabled` is not a valid HTML anchor attribute
 	it('does not allow `disabled` attribute to be passed', () => {

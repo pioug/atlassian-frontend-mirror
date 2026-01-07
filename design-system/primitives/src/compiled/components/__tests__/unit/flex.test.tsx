@@ -23,6 +23,7 @@ const styles = cssMap({
 	},
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Flex component', () => {
 	it('should render with a given test id', () => {
 		render(<Flex testId={testId}>Flex with testid</Flex>);

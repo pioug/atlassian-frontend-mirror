@@ -4,6 +4,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import { Fragment, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
+	NodeSelection,
 	TextSelection,
 	type EditorState,
 	type Selection,
@@ -204,12 +205,17 @@ export function getSelectionAdfInfoNew(selection: Selection): SelectionInfo {
 			selectionInfo = getSelectionInfo(selection, schema);
 		} else {
 			const { $from, $to } = selection;
-			if ($from.parent === $to.parent) {
+			if ($from.parent === $to.parent && $from.depth > 0) {
 				selectionInfo = getSelectionInfoFromSameNode(selection);
 			}
 		}
 	} else if (selection instanceof CellSelection) {
 		selectionInfo = getSelectionInfoFromCellSelection(selection);
+	} else if (selection instanceof NodeSelection) {
+		selectionInfo = {
+			selectedNode: selection.node,
+			nodePos: selection.from,
+		};
 	}
 
 	const serializer = new JSONTransformer();

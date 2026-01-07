@@ -43,7 +43,7 @@ const parse = (html: string, additionalParseOptions?: AdditionalParseOptions) =>
 const TABLE_LOCAL_ID = 'test-table-local-id';
 const MENTION_LOCAL_ID = 'test-mention-local-id';
 
-export const textWithMarks = (obj: PMNode, text: string, marks: Mark[]) => {
+export const textWithMarks = (obj: PMNode, text: string, marks: Mark[]): boolean => {
 	let matched = false;
 	obj.descendants((node) => {
 		if (node.isText && node.text === text) {

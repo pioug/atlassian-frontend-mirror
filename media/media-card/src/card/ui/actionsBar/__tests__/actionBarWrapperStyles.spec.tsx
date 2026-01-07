@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 
 import { ActionsBarWrapper } from '../actionsBarWrapper';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Actions Bar Styles', () => {
 	it('Opacity should be 0 if Action Bar is not fixed', () => {
 		render(<ActionsBarWrapper />);

@@ -113,7 +113,7 @@ export class LazyNodeView implements NodeView {
 		return !this.node.sameMarkup(prevNode);
 	};
 
-	ignoreMutation() {
+	ignoreMutation(): boolean {
 		if (this.node.type.isTextblock) {
 			return false;
 		}

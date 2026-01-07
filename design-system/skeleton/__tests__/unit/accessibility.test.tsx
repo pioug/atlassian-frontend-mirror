@@ -6,6 +6,7 @@ import { axe } from '@af/accessibility-testing';
 
 import Skeleton from '../../src';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Skeleton', () => {
 	it('should pass aXe audit for all skeleton variants', async () => {
 		const testCases = [

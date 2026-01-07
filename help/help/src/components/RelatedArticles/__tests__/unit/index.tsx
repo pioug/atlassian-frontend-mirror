@@ -78,6 +78,7 @@ describe('RelatedArticles', () => {
 		);
 
 		await expect(container).toBeAccessible({
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			violationCount: 2,
 		});
 	});

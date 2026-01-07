@@ -13,8 +13,8 @@ import type {
 	SelectOption,
 } from '@atlaskit/editor-common/types';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
+import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
-import CopyIcon from '@atlaskit/icon/core/migration/copy';
 import TextWrapIcon from '@atlaskit/icon/core/text-wrap';
 import { fg } from '@atlaskit/platform-feature-flags';
 

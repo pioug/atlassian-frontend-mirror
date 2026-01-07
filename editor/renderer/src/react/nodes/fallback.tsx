@@ -18,6 +18,7 @@ export class CardErrorBoundary extends React.PureComponent<
 		datasourceId?: string;
 		isDatasource?: boolean;
 		onClick?: (e: React.MouseEvent<HTMLElement>, url?: string) => void;
+		onSetLinkTarget?: (url: string) => '_blank' | undefined;
 		url?: string;
 	} & CardErrorBoundaryProps
 > {
@@ -46,15 +47,42 @@ export class CardErrorBoundary extends React.PureComponent<
 				isDatasource,
 				unsupportedComponent: UnsupportedComponent,
 				datasourceId,
+				onSetLinkTarget,
 			} = this.props;
 			if (url) {
+				let actualTarget;
+
+				if (onSetLinkTarget && fg('rovo_chat_deep_linking_enabled')) {
+					try {
+						actualTarget = onSetLinkTarget(url);
+					} catch {
+						// If URL parsing fails, use the original target
+					}
+				}
+
+				const linkProps = {
+					href: url,
+					onClick: this.onClickFallback,
+					...(actualTarget === '_blank' && { target: '_blank', rel: 'noreferrer noopener' }),
+				};
+
 				const fallback = fg('dst-a11y__replace-anchor-with-link__editor') ? (
-					<Link href={url} onClick={this.onClickFallback}>
+					<Link
+						href={linkProps.href}
+						onClick={linkProps.onClick}
+						target={linkProps.target}
+						rel={linkProps.rel}
+					>
 						{url}
 					</Link>
 				) : (
 					// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
-					<a href={url} onClick={this.onClickFallback}>
+					<a
+						href={linkProps.href}
+						onClick={linkProps.onClick}
+						target={linkProps.target}
+						rel={linkProps.rel}
+					>
 						{url}
 					</a>
 				);

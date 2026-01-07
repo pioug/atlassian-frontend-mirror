@@ -21,6 +21,7 @@ jest.mock('@atlaskit/spinner', () => {
 	};
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('@atlaskit/dynamic-table', () => {
 	const testId = 'dynamic--table--test--id';
 	describe('stateless', () => {

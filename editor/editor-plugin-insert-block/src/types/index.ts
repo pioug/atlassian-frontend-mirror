@@ -1,3 +1,4 @@
+import type { PluginToolbarComponentConfig } from '@atlaskit/editor-common/toolbar';
 import type { EditorAppearance, OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { BlockTypePlugin } from '@atlaskit/editor-plugin-block-type';
@@ -26,7 +27,6 @@ import type { TablePlugin } from '@atlaskit/editor-plugin-table';
 import type { TasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decisions';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
-import type { Breakpoint } from '@atlaskit/editor-toolbar';
 
 export type InsertBlockPluginDependencies = [
 	TypeAheadPlugin,
@@ -58,21 +58,13 @@ export type InsertBlockPluginDependencies = [
 	OptionalPlugin<ToolbarPlugin>,
 ];
 
-export interface ToolbarGroupConfig {
-	enabled?: boolean;
-	showAt?: Breakpoint;
-}
+type PluginToolbarComponentsConfig<T extends string> = {
+	[componentName in T]?: PluginToolbarComponentConfig;
+};
 
-export interface ToolbarInsertBlockButtonsConfig {
-	codeBlock?: ToolbarGroupConfig;
-	emoji?: ToolbarGroupConfig;
-	insert?: ToolbarGroupConfig;
-	layout?: ToolbarGroupConfig;
-	media?: ToolbarGroupConfig;
-	mention?: ToolbarGroupConfig;
-	table?: ToolbarGroupConfig;
-	taskList?: ToolbarGroupConfig;
-}
+export type ToolbarInsertBlockButtonsConfig = PluginToolbarComponentsConfig<
+	'codeBlock' | 'emoji' | 'insert' | 'layout' | 'media' | 'mention' | 'table' | 'taskList'
+>;
 
 export interface InsertBlockPluginOptions {
 	allowExpand?: boolean;

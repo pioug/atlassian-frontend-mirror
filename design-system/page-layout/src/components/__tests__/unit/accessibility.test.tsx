@@ -97,6 +97,7 @@ const renderPageLayout = (isBasic: boolean = true) => {
 	);
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Page Layout Accessibility', () => {
 	it('Basic layout should pass basic aXe audit', async () => {
 		renderPageLayout();

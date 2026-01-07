@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 
 import { IconMessageWrapper } from '../iconMessageWrapper';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Icon message wrapper styles', () => {
 	const iconMessageWrapperTestId = 'icon-message-wrapper';
 	it('should render animations if animated is true', () => {

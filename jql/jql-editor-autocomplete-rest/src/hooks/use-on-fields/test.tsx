@@ -72,6 +72,7 @@ const mapToAutocompleteOptions = (data: JQLFieldResponse[]): AutocompleteOptions
 		};
 	});
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('onFields', () => {
 	type OnFieldsConsumerProps = {
 		clause?: JQLClause;

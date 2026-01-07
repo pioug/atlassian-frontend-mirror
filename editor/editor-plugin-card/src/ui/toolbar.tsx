@@ -59,7 +59,6 @@ import DeleteIcon from '@atlaskit/icon/core/delete';
 import EditIcon from '@atlaskit/icon/core/edit';
 import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
-import LegacyCommentIcon from '@atlaskit/icon/core/migration/comment';
 import CogIcon from '@atlaskit/icon/core/settings';
 import type { CardAppearance } from '@atlaskit/smart-card';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -491,7 +490,7 @@ const generateToolbarItems =
 							type: 'button',
 							icon: CommentIcon,
 							testId: 'inline-card-toolbar-comment-button',
-							iconFallback: LegacyCommentIcon,
+							iconFallback: CommentIcon,
 							title: intl.formatMessage(annotationMessages.createComment),
 							showTitle: editorExperiment('platform_editor_controls', 'control') ? undefined : true,
 							onClick: onCommentButtonClick,
@@ -1070,7 +1069,7 @@ export const getStartingToolbarItems = (
 		link: string,
 		onEditLink: Command,
 		metadata: { title: string; url: string },
-		state?: EditorState,
+		_state?: EditorState,
 	): FloatingToolbarItem<Command>[] => {
 		const areAllNewToolbarFlagsDisabled = !areToolbarFlagsEnabled(Boolean(api?.toolbar));
 
@@ -1192,7 +1191,7 @@ export const getStartingToolbarItems = (
 
 export const getEndingToolbarItems =
 	(options: CardPluginOptions, api?: ExtractInjectionAPI<typeof cardPlugin> | undefined) =>
-	(intl: IntlShape, link: string): FloatingToolbarItem<Command>[] => {
+	(intl: IntlShape, _link: string): FloatingToolbarItem<Command>[] => {
 		/**
 		 * Require either provider to be supplied (controls link preferences)
 		 * Or explicit user preferences config in order to enable button

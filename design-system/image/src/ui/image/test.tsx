@@ -11,6 +11,7 @@ const testSrc = 'test.jpg';
 const testSrcDark = 'test-dark.jpg';
 const altText = 'Test image';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Image', () => {
 	it('should be found by its testid', async () => {
 		render(<Image alt={altText} testId={testId} />);

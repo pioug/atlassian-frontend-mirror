@@ -8,6 +8,7 @@ import __noop from '@atlaskit/ds-lib/noop';
 import { Block } from '../../../examples-util/helpers';
 import Avatar, { AvatarItem } from '../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Avatar accessibility', () => {
 	it('Basic Avatar examples (circle, square, disabled, with presence, with status) should not fail aXe audit', async () => {
 		const { container } = render(

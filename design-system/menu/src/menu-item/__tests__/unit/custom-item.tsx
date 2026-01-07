@@ -15,6 +15,7 @@ window.requestAnimationFrame = (cb) => {
 	return -1;
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<CustomItem />', () => {
 	const Component = (props: CustomItemComponentProps) => (
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

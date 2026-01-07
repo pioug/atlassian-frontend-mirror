@@ -7,6 +7,7 @@ import { getContext } from '../../../../../../../examples/utils/flexible-ui';
 import { FlexibleCardContext } from '../../../../../../state/flexible-ui-context';
 import OwnedByElement from '../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('OwnedByElement', () => {
 	const testId = 'smart-element-text';
 	const context = getContext({

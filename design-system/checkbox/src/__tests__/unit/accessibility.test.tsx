@@ -6,6 +6,7 @@ import { axe } from '@af/accessibility-testing';
 
 import Checkbox from '../../checkbox';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Checkbox Accessibility jest-axe', () => {
 	const props = {
 		value: 'Basic checkbox',

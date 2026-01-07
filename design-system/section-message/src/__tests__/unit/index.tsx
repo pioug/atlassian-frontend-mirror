@@ -37,6 +37,7 @@ const CustomLinkComponent: React.ForwardRefExoticComponent<
 
 const getByHref = queryByAttribute.bind(null, 'href');
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('SectionMessage', () => {
 	it('should render correct defaults', () => {
 		render(<SectionMessage>boo</SectionMessage>);

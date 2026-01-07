@@ -212,7 +212,7 @@ export function getLinkCreationAnalyticsEvent(
 	};
 }
 
-export const canLinkBeCreatedInRange = (from: number, to: number) => (state: EditorState) => {
+export const canLinkBeCreatedInRange = (from: number, to: number) => (state: EditorState): boolean => {
 	if (!state.doc.rangeHasMark(from, to, state.schema.marks.link)) {
 		const $from = state.doc.resolve(from);
 		const $to = state.doc.resolve(to);

@@ -11,6 +11,7 @@ jest.mock('@atlaskit/ds-lib/warn-once');
 
 (warnOnce as jest.Mock).mockImplementation(() => 42);
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('getTokenValue', () => {
 	const setup = () =>
 		render(

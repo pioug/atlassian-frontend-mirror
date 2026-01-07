@@ -4,6 +4,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 
 import RemoveButton from '../../internal/removable/remove-button';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<RemoveButton />', () => {
 	it('should apply the given testId', () => {
 		render(<RemoveButton testId="remove-button" />);

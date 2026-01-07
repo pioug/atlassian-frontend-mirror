@@ -267,6 +267,7 @@ describe('BaseUserPicker', () => {
 		expect(input).not.toHaveTextContent(defaultPlaceholder);
 		expect(input).toHaveTextContent(custom);
 
+		// eslint-disable-next-line @atlassian/a11y/no-violation-count
 		await expect(document.body).toBeAccessible({ violationCount: 2 });
 	});
 
@@ -473,6 +474,7 @@ describe('BaseUserPicker', () => {
 		fireEvent.change(input, { target: { value: 't' } });
 		expect(onInputChange).toHaveBeenCalledWith('t', 'random-session-id');
 
+		// eslint-disable-next-line @atlassian/a11y/no-violation-count
 		await expect(document.body).toBeAccessible({ violationCount: 2 });
 	});
 
@@ -1648,6 +1650,7 @@ describe('BaseUserPicker', () => {
 					'fabric-elements',
 				);
 
+				// eslint-disable-next-line @atlassian/a11y/no-violation-count
 				await expect(document.body).toBeAccessible({ violationCount: 1 });
 			});
 
@@ -2271,6 +2274,7 @@ describe('BaseUserPicker', () => {
 				'SUCCEEDED',
 			]);
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
@@ -2314,6 +2318,7 @@ describe('BaseUserPicker', () => {
 			expect(input).toHaveAttribute('aria-labelledby');
 			expect(input).not.toHaveAttribute('test-aria-false-property');
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 	});

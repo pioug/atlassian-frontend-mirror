@@ -27,7 +27,7 @@ export class StepQueueState {
 	 * Get whether the document service has stopped processing new steps whilst it carries out processes such as catchup.
 	 * Exposed for testing
 	 */
-	isPaused = () => this.queuePaused;
+	isPaused = (): boolean => this.queuePaused;
 
 	pauseQueue = (): void => {
 		this.queuePaused = true;

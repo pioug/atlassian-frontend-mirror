@@ -507,10 +507,12 @@ async function createInteractionMetricsPayload(
 			? buildSegmentTree(segments.map((segment) => segment.labelStack))
 			: {};
 	const isDetailedPayload = pageVisibilityAtTTAI === 'visible';
+	const isPageLoadEvent = type === 'page_load' || type === 'transition';
 	const isPageLoad = type === 'page_load';
 
 	const calculatePageVisibilityFromTheStartOfPageLoad =
-		config.enableBetterPageVisibilityApi && isPageLoad;
+		(config.enableBetterPageVisibilityApi ?? fg('platform_enable_better_page_visibility')) &&
+		isPageLoadEvent;
 
 	const moreAccuratePageVisibilityAtTTI = calculatePageVisibilityFromTheStartOfPageLoad
 		? getMoreAccuratePageVisibilityUpToTTI(interaction)

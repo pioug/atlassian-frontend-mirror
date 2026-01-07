@@ -18,6 +18,7 @@ function assert(eventMock: jest.Mock<any, any>, expected: UIAnalyticsEvent) {
 	expect(eventMock.mock.calls[0][0].context).toEqual(expected.context);
 }
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('test analytics', () => {
 	beforeEach(() => {
 		HTMLElement.prototype.matches = jest.fn().mockReturnValue(true);

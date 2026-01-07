@@ -1,5 +1,35 @@
 # @atlaskit/editor-common
 
+## 111.6.1
+
+### Patch Changes
+
+- [`c4d291905a6e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4d291905a6e1) -
+  Add new types for common plugin configuration, use for insert block plugin and add new config to
+  textColorPlugin to hide the text color toolbar
+
+## 111.6.0
+
+### Minor Changes
+
+- [`38de936c97015`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38de936c97015) -
+  EDITOR-3707 Fire UI event when native/ legacy sticky headers are enabled
+
+### Patch Changes
+
+- Updated dependencies
+
+## 111.5.0
+
+### Minor Changes
+
+- [`ca937489954b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca937489954b8) -
+  Introduce new insertMediaSingle on media plugin and deprecate old action version.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 111.4.0
 
 ### Minor Changes

@@ -25,6 +25,7 @@ jest.mock('../../themed/button', () => {
 	};
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('top navigation custom theming', () => {
 	describe('Button', () => {
 		it('should use the standard Button if no theme is provided', () => {

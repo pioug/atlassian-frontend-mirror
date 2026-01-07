@@ -16,6 +16,7 @@ import { Content, LeftSidebar, Main, PageLayout } from '../../../../index';
 import { getDimension } from '../__utils__/get-dimension';
 import { triggerTransitionEnd } from '../__utils__/transition-end';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Left sidebar', () => {
 	beforeEach(() => {
 		jest.useFakeTimers();

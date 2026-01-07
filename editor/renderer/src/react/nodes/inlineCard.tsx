@@ -46,6 +46,7 @@ export interface InlineCardProps extends MarkDataAttributes {
 	eventHandlers?: EventHandlers;
 	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
 	marks?: Mark[];
+	onSetLinkTarget?: (url: string) => '_blank' | undefined;
 	portal?: HTMLElement;
 	rendererAppearance?: RendererAppearance;
 	smartLinks?: SmartLinksOptions;
@@ -177,7 +178,15 @@ const OverlayWithCardContext = ({
 };
 
 const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
-	const { url, data, eventHandlers, fireAnalyticsEvent, smartLinks, rendererAppearance } = props;
+	const {
+		url,
+		data,
+		eventHandlers,
+		fireAnalyticsEvent,
+		smartLinks,
+		rendererAppearance,
+		onSetLinkTarget,
+	} = props;
 	const portal = usePortal(props);
 	const cardContext = useSmartCardContext();
 	const [isResolvedViewRendered, setIsResolvedViewRendered] = useState(false);
@@ -336,6 +345,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 						disablePreviewPanel={true}
 					/>
 				</MaybeOverlay>
+				{CompetitorPromptComponent}
 			</AnalyticsContext>
 		);
 	}
@@ -355,6 +365,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 					// Ignored via go/ees005
 					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...cardProps}
+					onSetLinkTarget={onSetLinkTarget}
 				>
 					<MaybeOverlay
 						url={url || ''}

@@ -13,7 +13,7 @@ export class ADFMark<TMarkSpec extends ADFMarkSpec> {
 	/**
 	 * Returns true if the mark has been defined, e.g. mark.define() method was called.
 	 */
-	isDefined() {
+	isDefined(): boolean {
 		return !!this.#spec;
 	}
 

@@ -42,6 +42,7 @@ const DropdownCheckboxStateless = () => {
 	);
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('DropdownMenu with checkbox as item', () => {
 	describe('checkbox stateless', () => {
 		it('select item by click', async () => {

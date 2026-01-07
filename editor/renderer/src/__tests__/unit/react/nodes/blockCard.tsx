@@ -25,6 +25,7 @@ jest.mock('@atlaskit/smart-card', () => {
 	};
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Renderer - React/Nodes/BlockCard', () => {
 	const url = 'https://extranet.atlassian.com/pages/viewpage.action?pageId=3088533424';
 

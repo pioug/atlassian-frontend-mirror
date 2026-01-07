@@ -17,7 +17,7 @@ export const FORGE_EXTENSION_TYPE = 'com.atlassian.ecosystem';
 export const getExtensionKeyAndNodeKey = (
 	extensionKey: ExtensionKey,
 	extensionType: ExtensionType,
-) => {
+): string[] => {
 	// Forge macro extensionKey has a user generated string, so splitting on
 	// a colon is unstable for their particular use case. They only have one
 	// node in the relevant manifest so we can hardcode nodeKey to 'default'.

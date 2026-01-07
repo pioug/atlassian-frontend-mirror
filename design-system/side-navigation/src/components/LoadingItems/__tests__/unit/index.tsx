@@ -7,6 +7,7 @@ import __noop from '@atlaskit/ds-lib/noop';
 import { NestedContext } from '../../../NestableNavigationContent/context';
 import LoadingItems from '../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<LoadingItems />', () => {
 	const markup = (loading: boolean = true) => (
 		<LoadingItems testId="test" isLoading={loading} fallback={<div>loading...</div>}>

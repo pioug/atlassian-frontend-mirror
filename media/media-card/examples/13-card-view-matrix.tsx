@@ -10,9 +10,9 @@ import { atlassianLogoUrl, tallImage, wideTransparentImage } from '@atlaskit/med
 import { token } from '@atlaskit/tokens';
 import { Checkbox } from '@atlaskit/checkbox';
 import Select from '@atlaskit/select';
-import DownloadIcon from '@atlaskit/icon/core/migration/download';
+import DownloadIcon from '@atlaskit/icon/core/download';
 import TrashIcon from '@atlaskit/icon/core/delete';
-import EditIcon from '@atlaskit/icon/core/migration/edit';
+import EditIcon from '@atlaskit/icon/core/edit';
 import { type CardAction, type CardStatus } from '../src';
 import { CardView } from '../src/card/cardView';
 import { type FileDetails, type MediaType } from '@atlaskit/media-client';

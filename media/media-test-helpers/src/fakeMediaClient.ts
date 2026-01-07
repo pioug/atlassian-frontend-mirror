@@ -20,13 +20,13 @@ export const getDefaultMediaClientConfig = (): MediaClientConfig => ({
 export const fakeMediaClient = (
 	config: MediaClientConfig = getDefaultMediaClientConfig(),
 ): MediaClient => {
-	if (jestHelper && jestHelper.genMockFromModule) {
+	if (jestHelper && jestHelper.createMockFromModule) {
 		const {
 			MediaClient: MockMediaClient,
 			FileFetcherImpl,
 			MediaStore: MockMediaStore,
 			StargateClient,
-		} = jestHelper.genMockFromModule<any>('@atlaskit/media-client');
+		} = jestHelper.createMockFromModule<any>('@atlaskit/media-client');
 		const mediaClient = new MockMediaClient();
 
 		const fileFetcher = new FileFetcherImpl();

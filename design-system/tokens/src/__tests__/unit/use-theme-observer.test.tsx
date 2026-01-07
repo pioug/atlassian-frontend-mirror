@@ -75,6 +75,7 @@ const HookWrapper = ({ isAuto, children }: HookWrapperProps) => {
 	return <>{children}</>;
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('useThemeObserver', () => {
 	it('should return an empty object when no theme is set', () => {
 		const { result } = renderHook(() => useThemeObserver());

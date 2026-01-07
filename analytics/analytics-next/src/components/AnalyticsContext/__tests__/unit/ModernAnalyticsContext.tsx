@@ -80,6 +80,7 @@ const UnderTestTwoContexts = ({
 	);
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('ModernAnalyticsContext', () => {
 	it('should provide context to children', () => {
 		const callback = jest.fn();

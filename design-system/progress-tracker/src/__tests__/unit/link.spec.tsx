@@ -17,6 +17,7 @@ const item = {
 	onClick: jest.fn(),
 } as const;
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('@atlaskit/progress-tracker/link', () => {
 	beforeEach(jest.resetAllMocks);
 

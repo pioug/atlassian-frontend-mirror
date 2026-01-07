@@ -5,6 +5,7 @@ import { render, screen } from '@testing-library/react';
 import { PageLayout, TopNavigation } from '../../../index';
 
 const emptyGridState = { gridState: {} };
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<TopNavigation />', () => {
 	it('should render with the height passed to it', () => {
 		render(

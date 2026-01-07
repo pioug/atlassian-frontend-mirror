@@ -12,6 +12,7 @@ const c = (title: any, children?: any) => ({
 	children,
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('TableTree', () => {
 	const Title = (props: any) => <span>{props.title}</span>;
 	const Numbering = (props: any) => <span>{props.numbering}</span>;

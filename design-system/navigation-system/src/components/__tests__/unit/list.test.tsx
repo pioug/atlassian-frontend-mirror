@@ -5,6 +5,7 @@ import { render, screen } from '@testing-library/react';
 import { List } from '../../list';
 import { ListItem } from '../../list-item';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('List', () => {
 	describe('renders for correct semantic components', () => {
 		const originalNodeEnv = process.env.NODE_ENV;

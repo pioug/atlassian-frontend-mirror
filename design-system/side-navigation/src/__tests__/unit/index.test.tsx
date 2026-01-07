@@ -7,6 +7,7 @@ import { NestableNavigationContent, NestingItem, Section, SideNavigation } from 
 
 replaceRaf();
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('controlled side nav', () => {
 	it('calls onUnknownNest on invalid nesting', () => {
 		const unknownNestCallback = jest.fn();

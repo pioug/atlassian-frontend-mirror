@@ -7,6 +7,7 @@ import { PageLayout, RightPanel } from '../../../index';
 
 const emptyGridState = { gridState: {} };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<RightPanel />', () => {
 	it('should render with width passed to it', () => {
 		render(

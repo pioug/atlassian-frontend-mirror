@@ -4,6 +4,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 
 import DropdownMenu, { DropdownItemCheckbox, DropdownItemCheckboxGroup } from '../../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('DropdownMenu with checkbox as item', () => {
 	describe('checkbox', () => {
 		it('render checkbox on the dropdown menu', () => {

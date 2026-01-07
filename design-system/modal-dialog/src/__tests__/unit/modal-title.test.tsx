@@ -9,6 +9,7 @@ import ModalDialog from '../../modal-dialog';
 import ModalHeader from '../../modal-header';
 import ModalTitle from '../../modal-title';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<ModalTitle />', () => {
 	it('modal dialog should use aria-labelledby to reference the title text', () => {
 		const title = 'Title - This is a dialog';

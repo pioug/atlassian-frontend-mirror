@@ -68,7 +68,7 @@ const getHandleStyle = (node: BreakoutSupportedNodes, hidden: boolean) => {
 
 export const ignoreResizerMutations = (
 	mutation: MutationRecord | { target: Node; type: 'selection' },
-) => {
+): boolean => {
 	if (mutation.target instanceof Element) {
 		return (
 			mutation.target.classList.contains('resizer-item') ||

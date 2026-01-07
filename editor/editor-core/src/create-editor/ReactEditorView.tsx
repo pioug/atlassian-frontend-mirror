@@ -233,7 +233,11 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 
 			// if the collabEdit API is set, skip this validation due to potential pm validation errors
 			// from docs that end up with invalid marks after processing (See #hot-111702 for more details)
-			if (api?.collabEdit !== undefined || options.props.editorProps.skipValidation) {
+			if (
+				(isSSR() && expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)) ||
+				api?.collabEdit !== undefined ||
+				options.props.editorProps.skipValidation
+			) {
 				return processRawValueWithoutValidation(schema, options.doc, dispatchAnalyticsEvent);
 			} else {
 				return processRawValue(

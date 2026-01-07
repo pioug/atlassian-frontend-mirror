@@ -13,6 +13,7 @@ const styles = xcss({
 	gap: 'space.100',
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Stack', () => {
 	it('should render stack', () => {
 		render(

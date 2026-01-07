@@ -69,6 +69,7 @@ describe('<MediaViewer />', () => {
 			expect(blanketComponent).toBeInTheDocument();
 		});
 
+		// eslint-disable-next-line @atlassian/a11y/no-violation-count
 		await expect(document.body).toBeAccessible({ violationCount: 1 });
 	});
 
@@ -92,6 +93,7 @@ describe('<MediaViewer />', () => {
 		expect(blanketComponent).toHaveAttribute('aria-modal', 'true');
 		expect(blanketComponent).toHaveAttribute('aria-labelledby', 'media.media-viewer.file.name');
 
+		// eslint-disable-next-line @atlassian/a11y/no-violation-count
 		await expect(document.body).toBeAccessible({ violationCount: 1 });
 	});
 
@@ -149,6 +151,7 @@ describe('<MediaViewer />', () => {
 			fireEvent.click(downloadButton); // since default state of headerWrapperStyles is pointerEvents: 'none', we need to use fireEvent.click instead of user.click
 			expect(closeButton).toBeInTheDocument();
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 1 });
 		});
 
@@ -203,6 +206,7 @@ describe('<MediaViewer />', () => {
 				name: 'mediaViewerModal',
 			});
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 1 });
 		});
 
@@ -235,6 +239,7 @@ describe('<MediaViewer />', () => {
 
 		// TODO: this test is flaky on pipeline, that's why its skipped for now and needs to be unskipped in the future
 
+		// eslint-disable-next-line @atlassian/a11y/no-commented-a11y-tests
 		/* it('should send analytics when closed with esc key', async () => {
       render(
         <AnalyticsListener channel="media" onEvent={onEvent}>
@@ -302,6 +307,7 @@ describe('<MediaViewer />', () => {
 					close: expect.any(Function),
 				});
 
+				// eslint-disable-next-line @atlassian/a11y/no-violation-count
 				await expect(document.body).toBeAccessible({ violationCount: 1 });
 			});
 
@@ -375,6 +381,7 @@ describe('<MediaViewer />', () => {
 				);
 				expect(sidebarButton).not.toBeInTheDocument();
 
+				// eslint-disable-next-line @atlassian/a11y/no-violation-count
 				await expect(document.body).toBeAccessible({ violationCount: 1 });
 			});
 		});
@@ -400,6 +407,7 @@ describe('<MediaViewer />', () => {
 			fireEvent.click(sidebarButton);
 			expect(screen.queryByText('Sidebar Content')).not.toBeInTheDocument();
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 1 });
 		});
 	});
@@ -461,6 +469,7 @@ describe('<MediaViewer />', () => {
 					}),
 				);
 
+				// eslint-disable-next-line @atlassian/a11y/no-violation-count
 				await expect(document.body).toBeAccessible({ violationCount: 1 });
 			});
 

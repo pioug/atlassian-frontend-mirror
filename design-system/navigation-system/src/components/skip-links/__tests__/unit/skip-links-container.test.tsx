@@ -39,6 +39,7 @@ afterAll(() => {
 	consoleWarn.mockRestore();
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Custom skip links', () => {
 	it('generates 3 links - 1 through standard slot method, 2 custom, in the correct order', () => {
 		const IntroSection = () => {

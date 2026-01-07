@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 import Toggle from '../../toggle';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Toggle component', () => {
 	const label = 'Label';
 

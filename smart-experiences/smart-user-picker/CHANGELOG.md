@@ -1,5 +1,29 @@
 # @atlassian/smart-user-picker
 
+## 8.8.0
+
+### Minor Changes
+
+- [`386987f274ff5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/386987f274ff5) -
+  Add support for `restrictTo` prop to filter recommendations by user IDs and group IDs. This allows
+  filtering down results based on specific groups or users in a site.
+
+  **New prop:** `restrictTo?: { userIds?: string[], groupIds?: string[] }`
+
+  This prop is passed directly to the URS recommendations endpoint's `searchQuery.restrictTo` field,
+  enabling you to constrain recommendations to a specific set of users and/or groups.
+
+  **Feature gate:** `smart-user-picker-restrict-to-gate` - The prop is only forwarded to the backend
+  when this feature gate is enabled.
+
+## 8.7.0
+
+### Minor Changes
+
+- [`ae3f597598ae8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae3f597598ae8) -
+  Added prop to toggle the ability to return only verified teams. Only applies when includeTeams is
+  true.
+
 ## 8.6.0
 
 ### Minor Changes

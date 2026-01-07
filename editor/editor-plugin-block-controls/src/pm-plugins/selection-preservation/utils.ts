@@ -13,7 +13,7 @@ import type { SelectionPreservationMeta } from './types';
  * @param transactions The list of transactions to check.
  * @returns True if any transaction includes a user-driven selection change, otherwise false.
  */
-export const hasUserSelectionChange = (transactions: readonly Transaction[]) => {
+export const hasUserSelectionChange = (transactions: readonly Transaction[]): boolean => {
 	return transactions.some((tr) => tr.getMeta('pointer') && tr.selectionSet);
 };
 
@@ -27,6 +27,6 @@ export const getSelectionPreservationMeta = (tr: Transaction | ReadonlyTransacti
  * @param selection The current selection to check.
  * @returns True if the selection is within a code block, otherwise false.
  */
-export const isSelectionWithinCodeBlock = ({ $from, $to }: Selection) => {
+export const isSelectionWithinCodeBlock = ({ $from, $to }: Selection): boolean => {
 	return $from.sameParent($to) && $from.parent.type.name === 'codeBlock';
 };

@@ -4,7 +4,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { getAnchorAttrName } from '../../ui/utils/dom-attr-name';
 
-export const isAnchorSupported = memoizeOne(() => {
+export const isAnchorSupported = memoizeOne((): boolean => {
 	// directly use CSS would cause failed SSR tests.
 	if (window.CSS && window.CSS.supports) {
 		return window.CSS.supports('anchor-name: --a');

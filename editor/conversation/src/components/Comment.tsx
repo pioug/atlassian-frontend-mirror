@@ -86,7 +86,7 @@ export default class Comment extends React.Component<Props, State> {
 
 	private additionalCommentActions: JSX.Element[] = [];
 
-	shouldComponentUpdate(nextProps: Props, nextState: State) {
+	shouldComponentUpdate(nextProps: Props, nextState: State): boolean {
 		const { isEditing, isReplying } = this.state;
 		const { isHighlighted, portal, comment, maxCommentNesting, renderEditor } = this.props;
 

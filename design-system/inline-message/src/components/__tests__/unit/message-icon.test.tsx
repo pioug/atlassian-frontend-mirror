@@ -5,6 +5,7 @@ import { render, screen } from '@testing-library/react';
 import { typesMapping } from '../../../constants';
 import MessageIcon from '../../message-icon';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('MessageIcon component', () => {
 	describe('props', () => {
 		// These will be updated once we have the actual icons.

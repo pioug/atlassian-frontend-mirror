@@ -51,6 +51,7 @@ function assertNavigationButtonRendering({
 	}
 }
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Pagination Accessibility', () => {
 	const setup = <T extends any = number>(paginationProps: Partial<PaginationPropTypes<T>> = {}) => {
 		const props = {

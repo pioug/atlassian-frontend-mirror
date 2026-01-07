@@ -16,6 +16,7 @@ import IconEditType from './index';
 jest.mock('../../../../contexts/datasource-experience-id');
 jest.mock('../../../../hooks/useLoadOptions');
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('IconEditType', () => {
 	const testId = 'inline-edit-priority-select--input';
 	const setEditValues = jest.fn();

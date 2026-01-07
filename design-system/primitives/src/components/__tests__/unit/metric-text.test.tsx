@@ -4,6 +4,7 @@ import { queryByAttribute, render, screen } from '@testing-library/react';
 
 import MetricText from '../../metric-text';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('MetricText component', () => {
 	it('should render given text', () => {
 		render(<MetricText size="medium">Text</MetricText>);

@@ -1,5 +1,12 @@
 # @atlaskit/menu
 
+## 8.4.14
+
+### Patch Changes
+
+- [`6b279e3304f41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b279e3304f41) -
+  Cleaning up archived flag.
+
 ## 8.4.13
 
 ### Patch Changes

@@ -9,6 +9,7 @@ import { CloseButton } from '../../close-button';
 
 const user = userEvent.setup();
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Close button', () => {
 	const label = 'label';
 	const testId = 'testId';

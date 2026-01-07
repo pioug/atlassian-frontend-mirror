@@ -194,6 +194,7 @@ describe('DocumentViewer', () => {
 			await screen.findByTestId('page-0-image');
 			expect(getPageImageUrlSpy).toHaveBeenCalled();
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
@@ -257,6 +258,7 @@ describe('DocumentViewer', () => {
 			await screen.findByTestId('page-0-image');
 			expect(getPageImageUrlSpy).toHaveBeenCalledWith(expect.any(Number), 2);
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
@@ -285,6 +287,7 @@ describe('DocumentViewer', () => {
 					// Should be limited to maxPageImageZoom (6) instead of zoom * devicePixelRatio (20)
 					expect(getPageImageUrlSpy).toHaveBeenCalledWith(expect.any(Number), 6);
 
+					// eslint-disable-next-line @atlassian/a11y/no-violation-count
 					await expect(document.body).toBeAccessible({ violationCount: 2 });
 				});
 			},
@@ -298,6 +301,7 @@ describe('DocumentViewer', () => {
 			const image = await screen.findByTestId('page-0-image');
 			expect(image).toHaveAttribute('data-zoom', '2');
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
@@ -328,6 +332,7 @@ describe('DocumentViewer', () => {
 			expect(mockScrollElement.scrollLeft).toBe(100 + expectedScrollLeftAdjustment);
 			expect(mockScrollElement.scrollTop).toBe(100 + expectedScrollTopAdjustment);
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
@@ -343,6 +348,7 @@ describe('DocumentViewer', () => {
 				rerender(<DocumentViewer {...createMockProps({ zoom: 2 })} />);
 			}).not.toThrow();
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 	});
@@ -378,6 +384,7 @@ describe('DocumentViewer', () => {
 			// Should not throw any errors and render normally
 			expect(screen.getByTestId('document-viewer')).toBeInTheDocument();
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
@@ -412,6 +419,7 @@ describe('DocumentViewer', () => {
 			// onSuccess should only be called once for the first page
 			expect(onSuccessSpy).toHaveBeenCalledTimes(1);
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 	});
@@ -435,6 +443,7 @@ describe('DocumentViewer', () => {
 			expect(textLayer).toBeInTheDocument();
 			expect(textLayer.textContent).toContain('Sample text');
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
@@ -449,6 +458,7 @@ describe('DocumentViewer', () => {
 			expect(tspanElement).toHaveAttribute('y', '-20');
 			expect(tspanElement).toHaveAttribute('textLength', '100');
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
@@ -462,6 +472,7 @@ describe('DocumentViewer', () => {
 				expect(screen.getByTestId('page-0-line-0')).toBeInTheDocument();
 			});
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
@@ -473,6 +484,7 @@ describe('DocumentViewer', () => {
 			const image = await screen.findByTestId('page-0-image');
 			expect(image).toHaveAttribute('alt', '');
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
@@ -490,6 +502,7 @@ describe('DocumentViewer', () => {
 			// Should not show image yet
 			expect(screen.queryByTestId('page-0-image')).not.toBeInTheDocument();
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
@@ -503,6 +516,7 @@ describe('DocumentViewer', () => {
 			expect(image).toBeInTheDocument();
 			expect(screen.queryByTestId('spinner-wrapper')).not.toBeInTheDocument();
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
@@ -612,6 +626,7 @@ describe('DocumentViewer', () => {
 			expect(input).toHaveAttribute('readonly');
 			expect(input).toHaveAttribute('type', 'text');
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
@@ -628,6 +643,7 @@ describe('DocumentViewer', () => {
 			expect(input).toHaveAttribute('readonly');
 			expect(input).toHaveAttribute('type', 'text');
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
@@ -680,6 +696,7 @@ describe('DocumentViewer', () => {
 			await userEvent.keyboard('{arrowright}');
 			expect(onKeyUpSpy).toHaveBeenCalledTimes(0);
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
@@ -706,6 +723,7 @@ describe('DocumentViewer', () => {
 			await userEvent.keyboard('{arrowright}');
 			expect(onKeyUpSpy).toHaveBeenCalledTimes(0);
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
@@ -717,6 +735,7 @@ describe('DocumentViewer', () => {
 			const textFormField = await screen.findByTestId('text-form-field-0');
 			expect(textFormField).toBeInTheDocument();
 
+			// eslint-disable-next-line @atlassian/a11y/no-commented-a11y-tests
 			// await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
@@ -768,6 +787,7 @@ describe('DocumentViewer', () => {
 			expect(anchor).toHaveAttribute('target', '_blank');
 			expect(anchor).toHaveAttribute('rel', 'noopener noreferrer');
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
@@ -782,6 +802,7 @@ describe('DocumentViewer', () => {
 			const anchor = localLink.querySelector('a');
 			expect(anchor).toHaveAttribute('href', '#page-3'); // p_num 2 + 1 = page-3
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
@@ -821,6 +842,7 @@ describe('DocumentViewer', () => {
 					const image = await screen.findByTestId('page-0-image');
 					expect(image).toHaveStyle('image-rendering: pixelated');
 
+					// eslint-disable-next-line @atlassian/a11y/no-violation-count
 					await expect(document.body).toBeAccessible({ violationCount: 2 });
 				});
 			},
@@ -838,6 +860,7 @@ describe('DocumentViewer', () => {
 					const image = await screen.findByTestId('page-0-image');
 					expect(image).not.toHaveStyle('image-rendering: pixelated');
 
+					// eslint-disable-next-line @atlassian/a11y/no-violation-count
 					await expect(document.body).toBeAccessible({ violationCount: 2 });
 				});
 			},
@@ -857,6 +880,7 @@ describe('DocumentViewer', () => {
 			// Verify blob URL was created
 			expect(global.URL.createObjectURL).toHaveBeenCalled();
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
@@ -877,6 +901,7 @@ describe('DocumentViewer', () => {
 			// Verify that the function was called with some zoom value
 			expect(getPageImageUrlSpy.mock.calls.length).toBeGreaterThan(0);
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 	});
@@ -915,6 +940,7 @@ describe('DocumentViewer', () => {
 			expect(tspanElement).toHaveAttribute('y', '-20');
 			expect(tspanElement).toHaveAttribute('textLength', '100');
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 	});
@@ -956,6 +982,7 @@ describe('DocumentViewer', () => {
 			const line = await screen.findByTestId('page-0-line-0');
 			expect(line).toBeInTheDocument();
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 	});
@@ -985,6 +1012,7 @@ describe('DocumentViewer', () => {
 			// Should call getPageImageUrl when page becomes visible
 			expect(getPageImageUrlSpy).toHaveBeenCalled();
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 	});

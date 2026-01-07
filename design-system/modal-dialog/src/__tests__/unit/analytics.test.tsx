@@ -6,6 +6,7 @@ import { AnalyticsListener } from '@atlaskit/analytics-next';
 
 import ModalDialog, { ModalTransition } from '../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('modal dialog analytics', () => {
 	it('should fire analytics when the modal dialog is closed from within', () => {
 		const callback = jest.fn();

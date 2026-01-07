@@ -93,7 +93,7 @@ const getIconKey = (iconPackage: string) => {
 /**
  * Checks if a new icon can be auto-migrated based on guidance from the migration map
  */
-export const canAutoMigrateNewIconBasedOnSize = (guidance?: IconMigrationSizeGuidance) => {
+export const canAutoMigrateNewIconBasedOnSize = (guidance?: IconMigrationSizeGuidance): boolean => {
 	return guidance
 		? ['swap', 'swap-slight-visual-change', 'swap-visual-change'].includes(guidance)
 		: false;
@@ -243,7 +243,7 @@ export const createGuidance = ({
  * @param color String representing the color to check
  * @returns True if the color can be migrated, false otherwise
  */
-export const canMigrateColor = (color: string) => {
+export const canMigrateColor = (color: string): boolean => {
 	if (color.match(/^color\.icon/)) {
 		return true;
 	} else if (color.match(/^color\.link/)) {
@@ -497,7 +497,7 @@ export const createHelpers = (ctx: Rule.RuleContext) => {
 	 * @param defaultValue The default value of the configuration flag
 	 * @returns defaultValue if the configuration flag is not set, the defaultValue of the configuration flag otherwise
 	 */
-	const getConfigFlag = (key: string, defaultValue: boolean) => {
+	const getConfigFlag = (key: string, defaultValue: boolean): boolean => {
 		if (
 			context.options.length > 0 &&
 			context.options[0] &&

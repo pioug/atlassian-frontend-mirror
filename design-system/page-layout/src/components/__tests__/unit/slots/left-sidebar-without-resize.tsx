@@ -5,6 +5,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { LeftSidebarWithoutResize, Main, PageLayout } from '../../../index';
 import { getDimension } from '../__utils__/get-dimension';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<LeftSidebarWithoutResize />', () => {
 	beforeEach(() => {
 		jest.useFakeTimers();

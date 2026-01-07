@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 import Skeleton from './index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Skeleton', () => {
 	const testId = 'skeleton';
 

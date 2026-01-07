@@ -11,6 +11,7 @@ import { DrawerContent } from '../../drawer-panel/drawer-content';
 import { DrawerSidebar } from '../../drawer-panel/drawer-sidebar';
 import { type DrawerWidth } from '../../types';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Drawer close button', () => {
 	const commonProps = {
 		testId: 'test',

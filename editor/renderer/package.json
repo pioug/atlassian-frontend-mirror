@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "125.1.0",
+	"version": "125.2.0",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

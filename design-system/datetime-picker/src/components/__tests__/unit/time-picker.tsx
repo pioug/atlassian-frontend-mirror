@@ -26,6 +26,7 @@ const createTimePicker = (props: TimePickerBaseProps = {}) => (
 	<TimePicker label="Time" testId={testId} {...props} />
 );
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('TimePicker', () => {
 	const getInput = () => screen.getByRole('combobox');
 	const queryMenu = () => screen.queryByTestId(`${testId}--popper--container`);

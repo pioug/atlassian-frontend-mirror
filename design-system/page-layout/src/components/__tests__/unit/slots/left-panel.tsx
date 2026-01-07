@@ -6,6 +6,7 @@ import { render, screen } from '@testing-library/react';
 import { LeftPanel, PageLayout } from '../../../index';
 
 const emptyGridState = { gridState: {} };
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<LeftPanel />', () => {
 	it('should render with the width passed to it', () => {
 		render(

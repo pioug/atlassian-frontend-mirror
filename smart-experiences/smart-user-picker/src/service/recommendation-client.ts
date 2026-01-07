@@ -43,7 +43,7 @@ const getUserRecommendations = (
 				filter: request.searchQueryFilter || '',
 				minimumAccessLevel: 'APPLICATION',
 				queryString: request.query,
-				restrictTo: {
+				restrictTo: request.restrictTo || {
 					userIds: [],
 					groupIds: [],
 				},

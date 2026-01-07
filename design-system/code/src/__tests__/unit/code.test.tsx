@@ -20,6 +20,7 @@ const pyCode = `def transform_data(data_frame, rolling_value):
 rolling_df = pd.DataFrame(data_frame)
 return rolling_df.rolling(rolling_value, min_periods=1, center=True).mean()`;
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Code', () => {
 	const codeJavascript = <Code testId={jsTestId}>{jsCode}</Code>;
 	const jsxInCode = (

@@ -39,6 +39,7 @@ const Consumer = (props: Partial<CreateFlagArgs>) => {
 	);
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('flag provider', () => {
 	it('should render children', () => {
 		render(<FlagsProvider>child</FlagsProvider>);

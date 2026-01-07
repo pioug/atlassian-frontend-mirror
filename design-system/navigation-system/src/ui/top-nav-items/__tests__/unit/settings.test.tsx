@@ -8,6 +8,7 @@ import { axe } from '@af/accessibility-testing';
 import { List } from '../../../../components/list';
 import { Settings } from '../../settings';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Settings', () => {
 	it('should be accessible', async () => {
 		const { container } = render(

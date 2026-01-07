@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 import CustomItem, { type CustomItemComponentProps } from '../../custom-item';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<CustomItem />', () => {
 	it('should pass through extra props to the component', () => {
 		const Link = ({ children, ...props }: CustomItemComponentProps & { href: string }) => (

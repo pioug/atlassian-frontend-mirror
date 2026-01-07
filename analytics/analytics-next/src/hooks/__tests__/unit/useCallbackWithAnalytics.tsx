@@ -57,6 +57,7 @@ const UnderTest = ({
 	);
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('useCallbackWithAnalytics', () => {
 	it('should provide a callback that creates an event and fires on the channel - when using object payload', () => {
 		const onEvent = jest.fn();

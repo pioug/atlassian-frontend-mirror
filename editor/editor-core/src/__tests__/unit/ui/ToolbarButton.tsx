@@ -94,6 +94,7 @@ describe('@atlaskit/editor-core/ui/ToolbarButton', () => {
 			fireEvent.click(getByTestId('some-test-id'));
 			expect(onEvent).not.toHaveBeenCalled();
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 1 });
 		});
 	});
@@ -130,6 +131,7 @@ describe('@atlaskit/editor-core/ui/ToolbarButton', () => {
 				'editor',
 			);
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 1 });
 		});
 	});

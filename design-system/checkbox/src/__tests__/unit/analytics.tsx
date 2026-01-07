@@ -9,6 +9,7 @@ import { Checkbox } from '../../index';
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Checkbox analytics', () => {
 	it(`should fire an event on the public channel and the internal channel when checkbox is clicked`, () => {
 		const onPublicEvent = jest.fn();

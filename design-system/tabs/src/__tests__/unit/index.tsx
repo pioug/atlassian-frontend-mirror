@@ -22,6 +22,7 @@ const renderTabs = (overridingProps: Partial<TabsProps> = {}) => (
 	</Tabs>
 );
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('@atlaskit/tabs', () => {
 	describe('Tabs', () => {
 		describe('rendering', () => {

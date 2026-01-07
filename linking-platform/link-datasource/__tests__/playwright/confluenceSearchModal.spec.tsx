@@ -5,6 +5,7 @@ import { expect, test } from '@af/integration-testing';
 const sitePickerSelector =
 	'[data-testid="confluence-search-datasource-modal--site-selector__control"]';
 
+// eslint-disable-next-line @atlassian/a11y/require-playwright-coverage
 test.describe('ConfluenceSearchModal', () => {
 	async function setup(
 		page: Page,

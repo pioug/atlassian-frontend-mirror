@@ -6,6 +6,7 @@ import InteractionContext from '@atlaskit/interaction-context';
 
 import Spinner from '../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('spinner', () => {
 	it('calls hold from context', () => {
 		const interactionName = 'load.event';

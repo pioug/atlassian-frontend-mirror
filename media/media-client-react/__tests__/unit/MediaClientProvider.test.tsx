@@ -6,6 +6,7 @@ import { type MediaClient, type MediaClientConfig } from '@atlaskit/media-client
 
 import { MediaClientProvider, useMediaClient } from '../../src';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('MediaClientProvider', () => {
 	it('should throw an error if no media client has been set', () => {
 		const consoleMock = jest.spyOn(console, 'error').mockImplementation(() => undefined);

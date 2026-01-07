@@ -45,6 +45,7 @@ const weekendFilter = (date: string) => {
 	return dayOfWeek === 0 || dayOfWeek === 6;
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Calendar', () => {
 	const testId = 'calendar';
 	const testIdMonth = `${testId}--month`;

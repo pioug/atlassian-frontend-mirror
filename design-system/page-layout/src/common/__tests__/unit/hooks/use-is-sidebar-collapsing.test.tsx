@@ -9,6 +9,7 @@ import { Content, LeftSidebar, PageLayout } from '../../../../index';
 import { IS_SIDEBAR_COLLAPSING } from '../../../constants';
 import { useIsSidebarCollapsing } from '../../../hooks';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('useIsSidebarCollapsing', () => {
 	beforeEach(() => {
 		document.documentElement.removeAttribute(IS_SIDEBAR_COLLAPSING);

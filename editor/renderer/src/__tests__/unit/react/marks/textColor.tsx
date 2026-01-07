@@ -6,6 +6,7 @@ import { token } from '@atlaskit/tokens';
 
 import TextColor from '../../../../react/marks/textColor';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Renderer - React/Marks/TextColor', () => {
 	let wrapper: RenderResult;
 	beforeEach(() => {

@@ -6,6 +6,7 @@ import { Example } from '../../example';
 const MockComponent = () => <div>Mock Component</div>;
 const mockSource = '<div>sourcecode</div>';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<Example />', () => {
 	it('should display the button title', () => {
 		render(

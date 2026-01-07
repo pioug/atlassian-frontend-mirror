@@ -104,6 +104,7 @@ const MyCustomComponent = ({ getBinaryContent, fileItem }: CustomRendererProps) 
 	return <div data-testid="custom-renderer-content">{content}</div>;
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('CustomViewer', () => {
 	beforeEach(() => {
 		jest.spyOn(globalMediaEventEmitter, 'emit');

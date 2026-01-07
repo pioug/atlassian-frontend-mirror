@@ -16,6 +16,7 @@ const context: InteractionContextType = {
 };
 
 variants.forEach(({ name, Component }) => {
+	// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 	describe(`${name} press-tracing`, () => {
 		afterEach(() => {
 			jest.resetAllMocks();

@@ -56,6 +56,7 @@ beforeEach(() => {
 	jest.clearAllMocks();
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Media', () => {
 	const mediaNode = {
 		type: 'media',

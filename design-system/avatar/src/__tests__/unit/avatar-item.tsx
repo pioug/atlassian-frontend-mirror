@@ -6,6 +6,7 @@ import __noop from '@atlaskit/ds-lib/noop';
 
 import Avatar, { AvatarItem } from '../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Avatar', () => {
 	it('should render a span when neither onClick or href us supplied', () => {
 		render(<AvatarItem avatar={<Avatar />} testId={'avatar'} />);

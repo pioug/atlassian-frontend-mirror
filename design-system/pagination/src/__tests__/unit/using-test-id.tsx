@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 import Pagination from '../../index';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Pagination should be found by data-testid', () => {
 	const setup = () => {
 		const testId = 'testing';

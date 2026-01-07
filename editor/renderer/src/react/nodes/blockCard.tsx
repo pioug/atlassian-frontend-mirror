@@ -43,12 +43,13 @@ export default function BlockCard(props: {
 	isNodeNested?: boolean;
 	layout?: string;
 	localId?: string;
+	onSetLinkTarget?: (url: string) => '_blank' | undefined;
 	portal?: HTMLElement;
 	rendererAppearance?: RendererAppearance;
 	smartLinks?: SmartLinksOptions;
 	url?: string;
 }) {
-	const { url, data, eventHandlers, smartLinks, isNodeNested, localId } = props;
+	const { url, data, eventHandlers, smartLinks, isNodeNested, localId, onSetLinkTarget } = props;
 	const portal = usePortal(props);
 	const { actionOptions } = smartLinks || {};
 	const onClick = getCardClickHandler(eventHandlers, url);
@@ -105,6 +106,7 @@ export default function BlockCard(props: {
 					<CardErrorBoundary
 						unsupportedComponent={UnsupportedInline}
 						datasourceId={props.datasource.id}
+						onSetLinkTarget={onSetLinkTarget}
 						// Ignored via go/ees005
 						// eslint-disable-next-line react/jsx-props-no-spreading
 						{...cardProps}
@@ -186,6 +188,7 @@ export default function BlockCard(props: {
 			>
 				<CardErrorBoundary
 					unsupportedComponent={UnsupportedBlock}
+					onSetLinkTarget={onSetLinkTarget}
 					// Ignored via go/ees005
 					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...cardProps}

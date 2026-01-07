@@ -45,7 +45,7 @@ interface ReactExtensionNodeProps {
 export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 	ReactExtensionNodeProps & AdditionalParams
 > {
-	ignoreMutation(mutation: MutationRecord | { target: Node; type: 'selection' }) {
+	ignoreMutation(mutation: MutationRecord | { target: Node; type: 'selection' }): boolean {
 		// Extensions can perform async operations that will change the DOM.
 		// To avoid having their tree rebuilt, we need to ignore the mutation
 		// for atom based extensions if its not a layout, we need to give
@@ -83,7 +83,7 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 	 * content area instead. This change prevents the editor view from trying to handle these events,
 	 * when the target of the event is an input element, so the extension can.
 	 */
-	stopEvent(event: Event) {
+	stopEvent(event: Event): boolean {
 		if (fg('forge-ui-extensionnodeview-stop-event-for-textarea')) {
 			return event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement;
 		}

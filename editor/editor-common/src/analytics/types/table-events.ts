@@ -2,7 +2,7 @@ import type { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
 
 import type { EditorBreakpointKey } from '../../utils/analytics';
 
-import type { ACTION_SUBJECT, INPUT_METHOD } from './enums';
+import type { ACTION_SUBJECT, INPUT_METHOD, ACTION_SUBJECT_ID } from './enums';
 import type { OperationalAEP, TableAEP, UIAEP } from './utils';
 
 export enum TABLE_ACTION {
@@ -48,6 +48,7 @@ export enum TABLE_ACTION {
 	TABLE_WIDTH_INFO = 'tableWidthInformation',
 	TABLE_EDITOR_HEIGHT_INFO = 'tableEditorHeightInformation',
 	TABLE_RENDERER_HEIGHT_INFO = 'tableRendererHeightInformation',
+	STICKY_HEADER_METHOD_TOGGLED = 'stickyHeaderMethodToggled',
 }
 
 export enum TABLE_BREAKOUT {
@@ -130,6 +131,7 @@ export type OverflowStateInfo = {
 	width: number;
 };
 
+
 type TableDeleteAEP = TableAEP<
 	TABLE_ACTION.DELETED,
 	{
@@ -142,12 +144,12 @@ type TableClearAEP = TableAEP<
 	TABLE_ACTION.CLEARED,
 	{
 		inputMethod:
-			| INPUT_METHOD.KEYBOARD
-			| INPUT_METHOD.CONTEXT_MENU
-			| INPUT_METHOD.FLOATING_TB
-			| INPUT_METHOD.TABLE_CONTEXT_MENU;
+		| INPUT_METHOD.KEYBOARD
+		| INPUT_METHOD.CONTEXT_MENU
+		| INPUT_METHOD.FLOATING_TB
+		| INPUT_METHOD.TABLE_CONTEXT_MENU;
 	} & HorizontalAndVerticalCells &
-		TotalRowAndColCount,
+	TotalRowAndColCount,
 	undefined
 >;
 
@@ -163,9 +165,9 @@ type TableColorAEP = TableAEP<
 	TABLE_ACTION.COLORED,
 	{
 		inputMethod:
-			| INPUT_METHOD.CONTEXT_MENU
-			| INPUT_METHOD.FLOATING_TB
-			| INPUT_METHOD.TABLE_CONTEXT_MENU;
+		| INPUT_METHOD.CONTEXT_MENU
+		| INPUT_METHOD.FLOATING_TB
+		| INPUT_METHOD.TABLE_CONTEXT_MENU;
 	} & { cellColor: string } & AllCellInfo,
 	undefined
 >;
@@ -194,12 +196,12 @@ type TableAddRowOrColumnAEP = TableAEP<
 	TABLE_ACTION.ADDED_ROW | TABLE_ACTION.ADDED_COLUMN,
 	{
 		inputMethod:
-			| INPUT_METHOD.SHORTCUT
-			| INPUT_METHOD.CONTEXT_MENU
-			| INPUT_METHOD.BUTTON
-			| INPUT_METHOD.KEYBOARD
-			| INPUT_METHOD.FLOATING_TB
-			| INPUT_METHOD.TABLE_CONTEXT_MENU;
+		| INPUT_METHOD.SHORTCUT
+		| INPUT_METHOD.CONTEXT_MENU
+		| INPUT_METHOD.BUTTON
+		| INPUT_METHOD.KEYBOARD
+		| INPUT_METHOD.FLOATING_TB
+		| INPUT_METHOD.TABLE_CONTEXT_MENU;
 		position: number;
 	} & TotalRowAndColCount,
 	undefined
@@ -210,11 +212,11 @@ type TableDeleteRowOrColumnAEP = TableAEP<
 	{
 		count: number;
 		inputMethod:
-			| INPUT_METHOD.CONTEXT_MENU
-			| INPUT_METHOD.BUTTON
-			| INPUT_METHOD.FLOATING_TB
-			| INPUT_METHOD.SHORTCUT
-			| INPUT_METHOD.TABLE_CONTEXT_MENU;
+		| INPUT_METHOD.CONTEXT_MENU
+		| INPUT_METHOD.BUTTON
+		| INPUT_METHOD.FLOATING_TB
+		| INPUT_METHOD.SHORTCUT
+		| INPUT_METHOD.TABLE_CONTEXT_MENU;
 		position: number;
 	} & TotalRowAndColCount,
 	undefined
@@ -225,9 +227,9 @@ type TableDistributeColumnsWidthsAEP = TableAEP<
 	{
 		count: number;
 		inputMethod:
-			| INPUT_METHOD.CONTEXT_MENU
-			| INPUT_METHOD.FLOATING_TB
-			| INPUT_METHOD.TABLE_CONTEXT_MENU;
+		| INPUT_METHOD.CONTEXT_MENU
+		| INPUT_METHOD.FLOATING_TB
+		| INPUT_METHOD.TABLE_CONTEXT_MENU;
 		position: number;
 	} & TotalRowAndColCount,
 	undefined
@@ -237,15 +239,15 @@ type TableSortColumnAEP = TableAEP<
 	TABLE_ACTION.SORTED_COLUMN,
 	{
 		inputMethod:
-			| INPUT_METHOD.SHORTCUT
-			| INPUT_METHOD.CONTEXT_MENU
-			| INPUT_METHOD.TABLE_CONTEXT_MENU
-			| INPUT_METHOD.BUTTON
-			| INPUT_METHOD.FLOATING_TB
-			| INPUT_METHOD.KEYBOARD;
+		| INPUT_METHOD.SHORTCUT
+		| INPUT_METHOD.CONTEXT_MENU
+		| INPUT_METHOD.TABLE_CONTEXT_MENU
+		| INPUT_METHOD.BUTTON
+		| INPUT_METHOD.FLOATING_TB
+		| INPUT_METHOD.KEYBOARD;
 		position: number;
 	} & TotalRowAndColCount &
-		SortColumn,
+	SortColumn,
 	undefined
 >;
 
@@ -316,9 +318,9 @@ type TableMovedRowOrColumnAEP = TableAEP<
 		count: number;
 		distance: number;
 		inputMethod:
-			| INPUT_METHOD.TABLE_CONTEXT_MENU
-			| INPUT_METHOD.DRAG_AND_DROP
-			| INPUT_METHOD.SHORTCUT;
+		| INPUT_METHOD.TABLE_CONTEXT_MENU
+		| INPUT_METHOD.DRAG_AND_DROP
+		| INPUT_METHOD.SHORTCUT;
 		status: TABLE_STATUS.SUCCESS | TABLE_STATUS.CANCELLED | TABLE_STATUS.INVALID;
 	} & TotalRowAndColCount,
 	undefined
@@ -331,9 +333,9 @@ type TableClonedRowOrColumnAEP = TableAEP<
 		count: number;
 		distance: number;
 		inputMethod:
-			| INPUT_METHOD.TABLE_CONTEXT_MENU
-			| INPUT_METHOD.DRAG_AND_DROP
-			| INPUT_METHOD.SHORTCUT;
+		| INPUT_METHOD.TABLE_CONTEXT_MENU
+		| INPUT_METHOD.DRAG_AND_DROP
+		| INPUT_METHOD.SHORTCUT;
 		status: TABLE_STATUS.SUCCESS | TABLE_STATUS.CANCELLED | TABLE_STATUS.INVALID;
 	} & TotalRowAndColCount,
 	undefined
@@ -416,6 +418,11 @@ type TableHeightInfoAEP = TableAEP<
 	undefined
 >;
 
+type TableStickyHeaderEnabledAEP = UIAEP<
+	TABLE_ACTION.STICKY_HEADER_METHOD_TOGGLED, ACTION_SUBJECT.TABLE, ACTION_SUBJECT_ID.TABLE_STICKY_HEADER, {
+		nativeStickyHeaderEnabled: boolean;
+	}, undefined>
+
 export type TableEventPayload =
 	| TableDeleteAEP
 	| TableClearAEP
@@ -444,4 +451,5 @@ export type TableEventPayload =
 	| TableBackgroundColorFixAEP
 	| TableChangedAlignmentAEP
 	| TableWidthInfoAEP
-	| TableHeightInfoAEP;
+	| TableHeightInfoAEP
+	| TableStickyHeaderEnabledAEP;

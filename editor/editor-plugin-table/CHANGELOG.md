@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 16.1.5
+
+### Patch Changes
+
+- [`38de936c97015`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38de936c97015) -
+  EDITOR-3707 Fire UI event when native/ legacy sticky headers are enabled
+- Updated dependencies
+
 ## 16.1.4
 
 ### Patch Changes

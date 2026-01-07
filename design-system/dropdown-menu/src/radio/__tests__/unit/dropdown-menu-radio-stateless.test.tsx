@@ -30,6 +30,7 @@ const DropdownMenuWithRadio = () => {
 	);
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('DropdownMenu with RadioGroup and Radio', () => {
 	describe('radio', () => {
 		it('should render radio as initially unchecked', async () => {

@@ -6,6 +6,7 @@ import { render, screen } from '@testing-library/react';
 import LoadingContainerAdvanced from '../../loading-container-advanced'; // LoadingContainerAdvancedProps,
 
 const testId = 'dynamic--table--test--id';
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('LoadingContainerAdvanced', () => {
 	// let wrappers: Array<
 	//   | ReactWrapper<LoadingContainerAdvancedProps, {}, LoadingContainerAdvanced>

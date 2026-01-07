@@ -16,6 +16,7 @@ type CaseArgs = {
 	name: string;
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('AtlaskitListener', () => {
 	let analyticsWebClientMock: AnalyticsWebClient;
 	let loggerMock: Logger;

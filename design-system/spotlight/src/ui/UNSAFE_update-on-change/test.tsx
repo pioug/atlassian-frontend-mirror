@@ -25,6 +25,7 @@ jest.mock('@atlaskit/browser-apis', () => ({
 
 const { getDocument } = require('@atlaskit/browser-apis');
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('UNSAFE_UpdateOnChange', () => {
 	const mockUpdate = jest.fn();
 	const mockPopoverContent = {

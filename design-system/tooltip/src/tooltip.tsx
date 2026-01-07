@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
+import type { VirtualElement } from '@popperjs/core';
 import { bind } from 'bind-event-listener';
 
 import { usePlatformLeafSyntheticEventHandler } from '@atlaskit/analytics-next';
@@ -8,6 +9,7 @@ import useCloseOnEscapePress from '@atlaskit/ds-lib/use-close-on-escape-press';
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 import { type Direction, ExitingPersistence, FadeIn, type Transition } from '@atlaskit/motion';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type Placement, Popper } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
@@ -17,7 +19,11 @@ import { type API, type Entry, show, type Source } from './internal/tooltip-mana
 import useUniqueId from './internal/use-unique-id';
 import TooltipContainer from './tooltip-container';
 import { type TooltipProps, type TriggerProps } from './types';
-import { getMousePosition } from './utilities';
+import {
+	type FakeMouseElement,
+	getMousePosition,
+	getVirtualElementFromMousePos,
+} from './utilities';
 
 const tooltipZIndex = layers.tooltip();
 const analyticsAttributes = {
@@ -80,7 +86,10 @@ function Tooltip({
 	isScreenReaderAnnouncementDisabled = false,
 	shortcut,
 }: TooltipProps): React.JSX.Element {
-	const tooltipPosition = position === 'mouse' ? mousePosition : position;
+	// Not using a gate for this check. When the gate is disabled `mouse-y` and `mouse-x` are treated as `mouse`.
+	const isMousePosition = position === 'mouse' || position === 'mouse-y' || position === 'mouse-x';
+
+	const tooltipPosition = isMousePosition ? mousePosition : position;
 	const onShowHandler = usePlatformLeafSyntheticEventHandler({
 		fn: onShow,
 		action: 'displayed',
@@ -316,21 +325,26 @@ function Tooltip({
 			}
 			event.preventDefault();
 
-			const source: Source =
-				position === 'mouse'
-					? {
-							type: 'mouse',
-							// TODO: ideally not recalculating this object each time
-							mouse: getMousePosition({
-								left: event.clientX,
-								top: event.clientY,
-							}),
-						}
-					: { type: 'keyboard' };
+			const source: Source = isMousePosition
+				? {
+						type: 'mouse',
+						// TODO: ideally not recalculating this object each time
+						// Removing old `mouse` behind gate because it stored a function.
+						// With the gate we just store the coords which are easier to work with.
+						mouse: fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')
+							? undefined
+							: getMousePosition({
+									left: event.clientX,
+									top: event.clientY,
+								}),
+						clientX: event.clientX,
+						clientY: event.clientY,
+					}
+				: { type: 'keyboard' };
 
 			tryShowTooltip(source);
 		},
-		[position, tryShowTooltip],
+		[isMousePosition, tryShowTooltip],
 	);
 
 	// Ideally we would be using onMouseEnter here, but
@@ -357,17 +371,19 @@ function Tooltip({
 		}
 	}, []);
 
-	const onMouseMove =
-		position === 'mouse'
-			? (event: React.MouseEvent<HTMLElement>) => {
-					if (apiRef.current?.isActive()) {
+	const onMouseMove = isMousePosition
+		? (event: React.MouseEvent<HTMLElement>) => {
+				if (apiRef.current?.isActive()) {
+					if (!fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')) {
 						apiRef.current.mousePosition = getMousePosition({
 							left: event.clientX,
 							top: event.clientY,
 						});
 					}
+					apiRef.current.mousePos = { clientX: event.clientX, clientY: event.clientY };
 				}
-			: undefined;
+			}
+		: undefined;
 
 	const onMouseOverTooltip = useCallback(() => {
 		if (apiRef.current && apiRef.current.isActive()) {
@@ -385,7 +401,7 @@ function Tooltip({
 				if (!e.target.matches(':focus-visible')) {
 					return;
 				}
-			} catch (_) {
+			} catch {
 				// Ignore errors from environments that don't support :focus-visible
 			}
 
@@ -440,8 +456,24 @@ function Tooltip({
 		onClose: handleOpenLayerObserverCloseSignal,
 	});
 
-	const getReferenceElement = () => {
-		if (position === 'mouse' && apiRef.current?.mousePosition) {
+	const getReferenceElement = (): HTMLElement | VirtualElement | FakeMouseElement | undefined => {
+		if (
+			isMousePosition &&
+			apiRef.current?.mousePos &&
+			targetRef.current &&
+			fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')
+		) {
+			return getVirtualElementFromMousePos(apiRef.current.mousePos, {
+				targetElement: targetRef.current,
+				tooltipPosition: position,
+			});
+		}
+
+		if (
+			isMousePosition &&
+			apiRef.current?.mousePosition &&
+			!fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')
+		) {
 			return apiRef.current?.mousePosition;
 		}
 
@@ -542,10 +574,9 @@ function Tooltip({
 							// Invert the entrance and exit directions.
 							// E.g. a tooltip's position is on the 'right', it should enter from and exit to the 'left'
 							// This gives the effect the tooltip is appearing from the target
-							const direction =
-								position === 'mouse'
-									? undefined
-									: invertedDirection[getDirectionFromPlacement(placement)];
+							const direction = isMousePosition
+								? undefined
+								: invertedDirection[getDirectionFromPlacement(placement)];
 
 							return (
 								<ExitingPersistence appear>

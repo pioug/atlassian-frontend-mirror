@@ -3,6 +3,7 @@ import { render } from '@testing-library/react';
 import Paragraph from '../../../../react/nodes/paragraph';
 import ReactSerializer from '../../../../react';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Renderer - React/Nodes/Paragraph', () => {
 	const serialiser = new ReactSerializer({});
 

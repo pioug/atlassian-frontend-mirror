@@ -9,6 +9,7 @@ jest.mock('../../../components/SizeableAvatar', () => ({
 	),
 }));
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('AvatarOrIcon', () => {
 	const renderAvatarOrIcon = (props: Partial<AvatarOrIconProps> = {}) =>
 		render(<AvatarOrIcon appearance="big" {...props} />);

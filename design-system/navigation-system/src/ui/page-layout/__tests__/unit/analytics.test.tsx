@@ -28,6 +28,7 @@ window.scrollTo = noop;
 
 ffTest.both('platform_dst_nav4_side_nav_default_collapsed_api', 'default state changes', () => {
 	ffTest.on('platform_dst_nav4_fhs_instrumentation_1', 'analytics', () => {
+		// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 		describe('sideNavMenu viewedOnLoad', () => {
 			it('should fire if the menu is open on initial load (desktop)', () => {
 				setMediaQuery('(min-width: 64rem)', { initial: true });

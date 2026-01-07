@@ -29,6 +29,7 @@ const buildTeamData = (memberCount: number, includesYou: boolean) => ({
 	},
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Team mention description', () => {
 	it('should render Team Mention description component with less than 50 members, includes you', () => {
 		renderByline(buildTeamData(5, true));

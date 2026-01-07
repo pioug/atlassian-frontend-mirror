@@ -32,6 +32,7 @@ const FakeContextProvider = ({
 	return <AnalyticsReactContext.Provider value={value}>{children}</AnalyticsReactContext.Provider>;
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('withAnalyticsEvents', () => {
 	it('should forward the ref to the wrapped component', () => {
 		const ButtonToBeWrapped = forwardRef<HTMLButtonElement>((_props, ref) => {

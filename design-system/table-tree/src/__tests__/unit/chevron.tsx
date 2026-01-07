@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 import Chevron from '../../components/internal/chevron';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Chevron', () => {
 	const controlledId = 'controlled_element_id';
 

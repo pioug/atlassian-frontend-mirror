@@ -6,6 +6,7 @@ import { type DefaultValue, type OptionData, type User } from '@atlaskit/user-pi
 import { AnalyticsListener, type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 // Commented due to HOT-111922
 import { /* type ConcurrentExperience, */ type UFOExperience } from '@atlaskit/ufo';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import SmartUserPicker, { type Props } from '../../../index';
 import MessagesIntlProvider from '../../../components/MessagesIntlProvider';
@@ -208,6 +209,7 @@ const mockReturnOptionsForAnalytics = mockReturnOptions.map(({ id, type }) => ({
 	type,
 }));
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('SmartUserPicker', () => {
 	let getUserRecommendationsMock = getUserRecommendations as jest.Mock;
 	let getUsersByIdMock = hydrateDefaultValues as jest.Mock;
@@ -440,30 +442,30 @@ describe('SmartUserPicker', () => {
 		});
 
 		it('should execute onError when recommendations client returns with error', async () => {
-		const request = {
-			baseUrl: '',
-			context: {
-				childObjectId: undefined,
-				containerId: undefined,
-				contextType: 'test',
-				objectId: undefined,
-				principalId: 'Context',
-				productAttributes: undefined,
-				productKey: 'jira',
-				sessionId: mockPREFETCH_SESSION_ID,
-				siteId: 'site-id',
-				organizationId: 'org-id',
-			},
-			includeGroups: false,
-			includeTeams: false,
-			includeUsers: true,
-			includeNonLicensedUsers: false,
-			verifiedTeams: false,
-			maxNumberOfResults: 100,
-			query: '',
-			searchEmail: false,
-			searchQueryFilter: undefined,
-		};
+			const request = {
+				baseUrl: '',
+				context: {
+					childObjectId: undefined,
+					containerId: undefined,
+					contextType: 'test',
+					objectId: undefined,
+					principalId: 'Context',
+					productAttributes: undefined,
+					productKey: 'jira',
+					sessionId: mockPREFETCH_SESSION_ID,
+					siteId: 'site-id',
+					organizationId: 'org-id',
+				},
+				includeGroups: false,
+				includeTeams: false,
+				includeUsers: true,
+				includeNonLicensedUsers: false,
+				verifiedTeams: false,
+				maxNumberOfResults: 100,
+				query: '',
+				searchEmail: false,
+				searchQueryFilter: undefined,
+			};
 
 			const mockError = new Error();
 			getUserRecommendationsMock.mockImplementation(() => {
@@ -2194,6 +2196,112 @@ describe('SmartUserPicker', () => {
 					return false;
 				});
 			});
+		});
+	});
+
+	describe('restrictTo prop', () => {
+		afterEach(() => {
+			jest.mocked(fg).mockImplementation((flag: string) => {
+				if (flag === 'twcg-444-invite-usd-improvements-m2-gate') {
+					return true;
+				}
+				if (flag === 'smart-user-picker-managed-teams-gate') {
+					return true;
+				}
+				return false;
+			});
+		});
+
+		it('should not include restrictTo in the recommendations request when the feature gate is disabled', async () => {
+			// Mock fg to return false for the restrictTo gate
+			jest.mocked(fg).mockImplementation((flag: string) => {
+				if (flag === 'smart-user-picker-restrict-to-gate') {
+					return false; // Feature gate is disabled
+				}
+				return false;
+			});
+
+			const mockGetUserRecommendations = jest.requireMock('../../../service')
+				.getUserRecommendations as jest.Mock;
+			mockGetUserRecommendations.mockResolvedValue(mockReturnOptions);
+
+			renderSmartUserPicker({
+				restrictTo: {
+					groupIds: ['group-1', 'group-2'],
+					userIds: ['user-1'],
+				},
+			});
+
+			const input = screen.getByRole('combobox');
+			await act(() => input.focus());
+
+			await waitFor(() => {
+				expect(mockGetUserRecommendations).toHaveBeenCalled();
+			});
+
+			const callArgs = mockGetUserRecommendations.mock.calls[0][0];
+			expect(callArgs.restrictTo).toBeUndefined();
+		});
+
+		it('should include restrictTo in the recommendations request when the feature gate is enabled', async () => {
+			// Mock fg to return true for the restrictTo gate
+			jest.mocked(fg).mockImplementation((flag: string) => {
+				if (flag === 'smart-user-picker-restrict-to-gate') {
+					return true; // Feature gate is enabled
+				}
+				return false;
+			});
+
+			const mockGetUserRecommendations = jest.requireMock('../../../service')
+				.getUserRecommendations as jest.Mock;
+			mockGetUserRecommendations.mockResolvedValue(mockReturnOptions);
+
+			const restrictToValue = {
+				groupIds: ['group-1', 'group-2'],
+				userIds: ['user-1'],
+			};
+
+			renderSmartUserPicker({
+				restrictTo: restrictToValue,
+			});
+
+			const input = screen.getByRole('combobox');
+			await act(() => input.focus());
+
+			await waitFor(() => {
+				expect(mockGetUserRecommendations).toHaveBeenCalled();
+			});
+
+			const callArgs = mockGetUserRecommendations.mock.calls[0][0];
+			expect(callArgs.restrictTo).toEqual(restrictToValue);
+		});
+
+		it('should not include restrictTo when gate is enabled but restrictTo prop is not provided', async () => {
+			// Mock fg to return true for the restrictTo gate
+			jest.mocked(fg).mockImplementation((flag: string) => {
+				if (flag === 'smart-user-picker-restrict-to-gate') {
+					return true; // Feature gate is enabled
+				}
+				return false;
+			});
+
+			const mockGetUserRecommendations = jest.requireMock('../../../service')
+				.getUserRecommendations as jest.Mock;
+			mockGetUserRecommendations.mockResolvedValue(mockReturnOptions);
+
+			renderSmartUserPicker({
+				// restrictTo is not provided
+			});
+
+			const input = screen.getByRole('combobox');
+			await act(() => input.focus());
+
+			await waitFor(() => {
+				expect(mockGetUserRecommendations).toHaveBeenCalled();
+			});
+
+			const callArgs = mockGetUserRecommendations.mock.calls[0][0];
+			expect(callArgs.restrictTo).toBeUndefined();
 		});
 	});
 });

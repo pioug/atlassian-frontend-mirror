@@ -4,6 +4,7 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import Tooltip from '../../tooltip';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Multiple tooltips', () => {
 	beforeEach(() => {
 		HTMLElement.prototype.matches = jest.fn().mockReturnValue(true);

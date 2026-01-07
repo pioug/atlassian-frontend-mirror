@@ -8,6 +8,7 @@
     "component-prop.tsx",
     "default-tooltip.tsx",
     "position.tsx",
+    "position-mouse.tsx",
     "render-props.tsx"
   ],
   "exampleDependencies": []

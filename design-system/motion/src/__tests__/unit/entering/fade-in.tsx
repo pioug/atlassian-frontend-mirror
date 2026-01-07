@@ -5,6 +5,7 @@ import { render, screen } from '@testing-library/react';
 import FadeIn from '../../../entering/fade-in';
 import { easeInOut } from '../../../utils/curves';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<FadeIn />', () => {
 	it('should ease in for the timing curve', () => {
 		render(<FadeIn>{(props) => <div data-testid="element" {...props} />}</FadeIn>);

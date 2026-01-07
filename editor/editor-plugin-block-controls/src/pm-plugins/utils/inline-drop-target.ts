@@ -17,7 +17,7 @@ export const shouldAllowInlineDropTarget = (
 	 */
 	isSameLayout: boolean = false,
 	activeNode?: ActiveNode,
-) => {
+): boolean => {
 	if (editorExperiment('advanced_layouts', false) || isNested) {
 		return false;
 	}

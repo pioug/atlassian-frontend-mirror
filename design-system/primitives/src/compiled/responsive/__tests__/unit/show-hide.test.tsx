@@ -16,6 +16,7 @@ const styles = cssMap({
 	},
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('should apply styles with `xcss`', () => {
 	const text = 'text';
 

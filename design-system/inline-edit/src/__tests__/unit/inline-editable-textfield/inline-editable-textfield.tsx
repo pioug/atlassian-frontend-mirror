@@ -4,6 +4,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 
 import InlineEditableTextfield from '../../../inline-editable-textfield';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Simple render', () => {
 	it('should render read view component by default', () => {
 		const defaultValue = 'Some text';

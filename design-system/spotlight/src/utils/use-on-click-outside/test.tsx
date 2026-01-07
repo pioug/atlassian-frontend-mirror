@@ -24,6 +24,7 @@ const createMockContext = (ref: MutableRefObject<HTMLDivElement | null> | null =
 		},
 	}) as unknown as SpotlightContextType;
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('useOnClickOutside', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();

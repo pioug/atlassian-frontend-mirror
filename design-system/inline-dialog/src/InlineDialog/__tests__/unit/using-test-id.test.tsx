@@ -22,6 +22,7 @@ jest.mock('popper.js', () => {
 	};
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Inline dialog should be found by data-testid', () => {
 	test('Using getByTestId()', async () => {
 		const testId = 'the-inline-dialog';

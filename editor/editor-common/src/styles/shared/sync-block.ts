@@ -11,7 +11,7 @@ export const SyncBlockRendererDataAttributeName = 'data-sync-block-renderer';
 const bodiedPrefix = 'ak-editor-bodied-sync-block';
 export const BodiedSyncBlockSharedCssClassName = {
 	prefix: bodiedPrefix,
-	renderer: `${prefix}__renderer`,
+	renderer: `${bodiedPrefix}__renderer`,
 	content: `${bodiedPrefix}__content`,
 	selectionInside: `${bodiedPrefix}__selection_inside`,
 };

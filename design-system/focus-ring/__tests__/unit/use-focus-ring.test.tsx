@@ -23,6 +23,7 @@ function setup(initialFocus?: FocusState) {
 	return [returnVal] as const;
 }
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Focus Ring', () => {
 	it('can accept a different default state', () => {
 		const [focusHook] = setup('on');

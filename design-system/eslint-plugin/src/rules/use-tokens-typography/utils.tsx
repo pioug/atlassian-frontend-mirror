@@ -27,7 +27,7 @@ import { Import, Root } from '../../ast-nodes';
 
 export const typographyProperties: string[] = ['fontSize', 'fontWeight', 'fontFamily', 'lineHeight'];
 
-export const isTypographyProperty = (propertyName: string) => {
+export const isTypographyProperty = (propertyName: string): boolean => {
 	return typographyProperties.includes(propertyName);
 };
 
@@ -188,7 +188,7 @@ export function notUndefined<V>(value: V | undefined): value is V {
 	return value !== undefined;
 }
 
-export function isValidPropertyNode(node: Property) {
+export function isValidPropertyNode(node: Property): boolean {
 	if (!isNodeOfType(node.key, 'Identifier') && !isNodeOfType(node.key, 'Literal')) {
 		return false;
 	}

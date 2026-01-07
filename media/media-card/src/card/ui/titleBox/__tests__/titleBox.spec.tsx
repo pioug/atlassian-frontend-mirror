@@ -8,6 +8,7 @@ const headerTestId = 'title-box-header';
 const footerTestId = 'title-box-footer';
 const iconTestId = 'title-box-icon';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('TitleBox', () => {
 	it('should render TitleBox properly', () => {
 		const name = 'roberto.jpg';

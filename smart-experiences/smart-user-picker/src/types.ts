@@ -21,6 +21,11 @@ export interface Context {
 	productAttributes?: ProductAttributes;
 }
 
+export interface RestrictionFilter {
+	userIds?: string[];
+	groupIds?: string[];
+}
+
 export interface RecommendationRequest {
 	baseUrl?: string;
 	context: Context;
@@ -33,6 +38,7 @@ export interface RecommendationRequest {
 	includeNonLicensedUsers?: boolean;
 	searchEmail?: boolean;
 	verifiedTeams?: boolean;
+	restrictTo?: RestrictionFilter;
 }
 
 type OnError = (error: any, request: RecommendationRequest) => Promise<OptionData[]> | void;
@@ -268,6 +274,12 @@ export interface SmartProps {
 	isFooterFocused?: boolean;
 	/** Sets if the footer is focused or not. This is needed to keep the menu open when the footer is focused */
 	setIsFooterFocused?: React.Dispatch<React.SetStateAction<boolean>>;
+	/**
+	 * Restricts the recommendations to specific users and/or groups.
+	 * If provided, only users matching the provided user IDs and/or groups matching the provided group IDs will be included in the results.
+	 * @example { userIds: ["123", "456"], groupIds: ["789"] }
+	 */
+	restrictTo?: RestrictionFilter;
 }
 
 // Override UserPickerProps below with replacement documentation

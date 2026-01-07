@@ -21,6 +21,7 @@ const walkSync = (dir: string, filelist: string[]) => {
 	return filelist;
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('@atlaskit/icon-lab', () => {
 	describe('new icon exports', () => {
 		it('align with metadata', () => {

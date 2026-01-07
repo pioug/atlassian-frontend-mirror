@@ -5,6 +5,7 @@ import { render, screen } from '@testing-library/react';
 import AnimateIn from '../../../entering/animate-in';
 import { easeIn40Out } from '../../../utils/curves';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<AnimateIn />', () => {
 	it('should ease in for the timing curve', () => {
 		render(

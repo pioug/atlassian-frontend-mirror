@@ -1,5 +1,14 @@
 # @atlaskit/icon
 
+## 29.4.0
+
+### Minor Changes
+
+- [`8d397e132e0b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d397e132e0b2) -
+  In preparation for removal of the `migration` entry points, the `platform-visual-refresh-icons`
+  feature flag has been removed. All `migration` entry point usages will now use the new
+  iconography.
+
 ## 29.3.2
 
 ### Patch Changes

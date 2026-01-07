@@ -18,6 +18,7 @@ const styles = xcss({
 	gridTemplateColumns: '100px',
 });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Grid component', () => {
 	it('should render with a given test id', () => {
 		render(<Grid testId={testId}>Grid with testid</Grid>);

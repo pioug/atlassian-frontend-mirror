@@ -137,7 +137,7 @@ export const entireSelectionContainsMark = (
 	doc: PMNode,
 	fromPos: number,
 	toPos: number,
-) => {
+): boolean => {
 	let onlyContainsMark = true;
 
 	doc.nodesBetween(fromPos, toPos, (node) => {

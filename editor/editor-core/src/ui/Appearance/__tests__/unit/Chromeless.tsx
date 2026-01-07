@@ -10,6 +10,7 @@ import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { ChromelessEditorContainer } from '../../../Appearance/Chromeless';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Chromeless editor', () => {
 	afterEach(() => {
 		jest.clearAllMocks();

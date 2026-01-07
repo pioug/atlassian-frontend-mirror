@@ -80,7 +80,10 @@ import { tintDirtyTransaction } from '@atlaskit/editor-common/collab';
 import * as coreUtilsModule from '@atlaskit/editor-common/core-utils';
 import { type EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import * as ProcessRawValueModule from '@atlaskit/editor-common/process-raw-value';
-import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
+import {
+	processRawValue,
+	processRawValueWithoutValidation,
+} from '@atlaskit/editor-common/process-raw-value';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { measureRender, SEVERITY, toJSON } from '@atlaskit/editor-common/utils';
@@ -1132,10 +1135,15 @@ describe('@atlaskit/editor-core', () => {
 						expect(EditorSSRRenderer).toHaveBeenCalledTimes(1);
 					});
 
-					it('call processRawValue only once during rendering', () => {
+					it('should not call processRawValue only once during rendering', () => {
 						renderWithIntl(<ReactEditorView {...props} />);
 
-						expect(processRawValue).toHaveBeenCalledTimes(1);
+						expect(processRawValue).not.toHaveBeenCalled();
+					});
+					it('should call processRawValueWithoutValidation only once during rendering', () => {
+						renderWithIntl(<ReactEditorView {...props} />);
+
+						expect(processRawValueWithoutValidation).toHaveBeenCalledTimes(1);
 					});
 
 					it('should render exactly the same HTML container that browser renders', () => {

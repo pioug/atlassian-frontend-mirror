@@ -13,6 +13,7 @@ const fakeName = 'axe-test-radio-name';
 const fakeLabel = 'Axe test radio label';
 const fakeValue = 'axe test radio value';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Radio', () => {
 	const defaultProps: OptionProps = {
 		name: fakeName,

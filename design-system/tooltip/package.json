@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tooltip",
-	"version": "20.11.1",
+	"version": "20.12.0",
 	"description": "A tooltip describes an interactive element on mouse hover or keyboard focus.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -101,6 +101,9 @@
 	},
 	"homepage": "https://atlassian.design/components/tooltip/",
 	"platform-feature-flags": {
+		"platform_dst_nav4_side_nav_resize_tooltip_feedback": {
+			"type": "boolean"
+		},
 		"platform-component-visual-refresh": {
 			"type": "boolean",
 			"referenceOnly": true

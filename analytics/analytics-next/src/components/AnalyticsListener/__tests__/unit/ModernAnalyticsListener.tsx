@@ -69,6 +69,7 @@ const UnderTestTwoListeners = ({
 	);
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('ModernAnalyticsListener', () => {
 	it('should provide event handlers context to children', () => {
 		const event = new UIAnalyticsEvent({ payload: { action: 'clicked' } });

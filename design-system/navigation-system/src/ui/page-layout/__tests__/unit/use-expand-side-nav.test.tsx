@@ -12,6 +12,7 @@ import {
 	SideNavVisibilityState,
 } from '../../side-nav/visibility-context';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('useExpandSideNav', () => {
 	beforeEach(() => {
 		resetMatchMedia();

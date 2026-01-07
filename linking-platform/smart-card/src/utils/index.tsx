@@ -105,20 +105,20 @@ export const getLazyIcons = (): Partial<
 			default: () => import(/* webpackChunkName: "@atlaskit-internal_video-icon" */ '../common/ui/icons/video-icon'),
 		},
 		[IconType.Project]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphProject" */ '@atlaskit/icon/core/migration/people-group'),
+			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphProject" */ '@atlaskit/icon/core/people-group'),
 		},
 		[IconType.Template]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphTemplate" */ '@atlaskit/icon/core/migration/file--document-filled'),
+			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphTemplate" */ '@atlaskit/icon/core/file'),
 		},
 
 		[IconType.Forbidden]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphForbidden" */ '@atlaskit/icon/core/migration/lock-locked--lock-filled'),
+			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphForbidden" */ '@atlaskit/icon/core/lock-locked'),
 		},
 		[IconType.Default]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphDefault" */ '@atlaskit/icon/core/migration/link'),
+			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphDefault" */ '@atlaskit/icon/core/link'),
 		},
 		[IconType.Error]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphDefault" */ '@atlaskit/icon/core/migration/status-error--error'),
+			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphDefault" */ '@atlaskit/icon/core/status-error'),
 		},
 		[IconType.Archive]: {
 			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphArchive" */ '@atlaskit/icon-file-type/glyph/archive/16'),
@@ -238,13 +238,13 @@ export const getLazyIcons = (): Partial<
 		},
 
 		// Badge icons
-		[IconType.Attachment]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphAttachment" */ '@atlaskit/icon/core/migration/attachment')},
-		[IconType.CheckItem]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphAttachment" */ '@atlaskit/icon/core/migration/task')},
-		[IconType.Component]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphComponent" */ '@atlaskit/icon/core/migration/component')},
-		[IconType.Comment]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphComment" */ '@atlaskit/icon/core/migration/comment')},
-		[IconType.View]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphComment" */ '@atlaskit/icon/core/migration/eye-open--watch')},
-		[IconType.React]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphComment" */ '@atlaskit/icon/core/migration/thumbs-up--like')},
-		[IconType.Vote]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphComment" */ '@atlaskit/icon/core/migration/arrow-up')},
+		[IconType.Attachment]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphAttachment" */ '@atlaskit/icon/core/attachment')},
+		[IconType.CheckItem]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphAttachment" */ '@atlaskit/icon/core/task')},
+		[IconType.Component]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphComponent" */ '@atlaskit/icon/core/component')},
+		[IconType.Comment]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphComment" */ '@atlaskit/icon/core/comment')},
+		[IconType.View]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphComment" */ '@atlaskit/icon/core/eye-open')},
+		[IconType.React]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphComment" */ '@atlaskit/icon/core/thumbs-up')},
+		[IconType.Vote]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphComment" */ '@atlaskit/icon/core/arrow-up')},
 		[IconType.PriorityBlocker]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphBlocker" */ '@atlaskit/icon-priority/glyph/priority-blocker')},
 		[IconType.PriorityCritical]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphCritical" */ '@atlaskit/icon-priority/glyph/priority-critical')},
 		[IconType.PriorityHigh]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphHigh" */ '@atlaskit/icon-priority/glyph/priority-high')},
@@ -255,10 +255,10 @@ export const getLazyIcons = (): Partial<
 		[IconType.PriorityMedium]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphMedium" */ '@atlaskit/icon-priority/glyph/priority-medium')},
 		[IconType.PriorityMinor]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphMinor" */ '@atlaskit/icon-priority/glyph/priority-minor')},
 		[IconType.PriorityTrivial]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphTrivial" */ '@atlaskit/icon-priority/glyph/priority-trivial')},
-		[IconType.PriorityUndefined]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphUndefined" */ '@atlaskit/icon/core/migration/question-circle--question')},
-		[IconType.ProgrammingLanguage]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphProgrammingLanguage" */ '@atlaskit/icon/core/migration/angle-brackets--code')},
-		[IconType.Subscriber]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphSubscriber" */ '@atlaskit/icon/core/migration/people-group--people')},
-		[IconType.SubTasksProgress]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphSubtaskProgress" */ '@atlaskit/icon/core/migration/subtasks--subtask')},
+		[IconType.PriorityUndefined]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphUndefined" */ '@atlaskit/icon/core/question-circle')},
+		[IconType.ProgrammingLanguage]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphProgrammingLanguage" */ '@atlaskit/icon/core/angle-brackets')},
+		[IconType.Subscriber]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphSubscriber" */ '@atlaskit/icon/core/people-group')},
+		[IconType.SubTasksProgress]: { default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphSubtaskProgress" */ '@atlaskit/icon/core/subtasks')},
 	};
 };
 

@@ -7,6 +7,7 @@ import Button from '@atlaskit/button/new';
 import EmptyState from '../../empty-state';
 import type { RenderImageProps } from '../../types';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Empty state', () => {
 	it('should render primary action when primaryAction prop is not empty', async () => {
 		render(

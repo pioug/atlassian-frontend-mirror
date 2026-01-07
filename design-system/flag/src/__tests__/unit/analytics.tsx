@@ -35,6 +35,7 @@ function WithBoth({
 	);
 }
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Flag analytics', () => {
 	[
 		{ method: 'onFocus', action: 'focused' },

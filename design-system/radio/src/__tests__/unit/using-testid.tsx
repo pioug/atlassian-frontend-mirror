@@ -5,6 +5,7 @@ import { render, screen } from '@testing-library/react';
 import RadioGroup from '../../radio-group';
 import { type OptionsPropType } from '../../types';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Radio should be found by data-testid', () => {
 	test('Using getByTestId()', async () => {
 		const options: OptionsPropType = [

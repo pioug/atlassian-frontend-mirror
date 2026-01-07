@@ -7,6 +7,7 @@ import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { Drawer } from '../../drawer';
 import { DrawerContent } from '../../drawer-panel/drawer-content';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Drawer', () => {
 	it('should fire an analytics event', () => {
 		const onClose = jest.fn();

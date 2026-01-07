@@ -15,7 +15,7 @@ export const IsOpenContext = createContext(false);
  * A context for storing a function that sets isOpen value of the FlyoutMenuItem.
  */
 export const SetIsOpenContext = createContext<(value: boolean) => void>(noop);
-export const useFlyoutMenuOpen = () => useContext(IsOpenContext);
+export const useFlyoutMenuOpen = (): boolean => useContext(IsOpenContext);
 export const useSetFlyoutMenuOpen = () => useContext(SetIsOpenContext);
 
 /**

@@ -9,10 +9,10 @@ import { css, jsx } from '@emotion/react';
 
 import { NavigationSkeleton as TopNavigationSkeleton } from '@atlaskit/atlassian-navigation/skeleton';
 import Button, { IconButton } from '@atlaskit/button/new';
+import ChevronDown from '@atlaskit/icon/core/chevron-down';
 import WatchFilledIcon from '@atlaskit/icon/core/eye-open-filled';
-import ChevronDown from '@atlaskit/icon/core/migration/chevron-down';
-import FeedbackIcon from '@atlaskit/icon/core/migration/feedback';
-import ShareIcon from '@atlaskit/icon/core/migration/share';
+import FeedbackIcon from '@atlaskit/icon/core/feedback';
+import ShareIcon from '@atlaskit/icon/core/share';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import LikeIcon from '@atlaskit/icon/core/thumbs-up';
 import { RightSidebar, TopNavigation } from '@atlaskit/page-layout';

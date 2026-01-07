@@ -6,6 +6,7 @@ import { axe } from '@af/accessibility-testing';
 
 import Tile from '../../src';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Tile Accessibility', () => {
 	describe('aXe audits', () => {
 		it('should not fail with default props', async () => {

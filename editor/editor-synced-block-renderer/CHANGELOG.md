@@ -1,5 +1,13 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 5.0.3
+
+### Patch Changes
+
+- [`19ca45d2afec9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19ca45d2afec9) -
+  EDITOR-3596 Fix mentions and profile card in Synced Blocks in Jira Renderer
+- Updated dependencies
+
 ## 5.0.2
 
 ### Patch Changes

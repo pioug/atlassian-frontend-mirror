@@ -7,6 +7,7 @@ import { ButtonItem } from '@atlaskit/menu';
 
 import isCheckboxItem from '../is-checkbox-item';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('#isCheckboxItem', () => {
 	cases(
 		'should return true for checkboxitems with in browsers with voiceover support',

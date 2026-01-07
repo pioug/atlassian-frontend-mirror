@@ -19,9 +19,9 @@ export const shouldAddDefaultWrappedWidth = (
 
 export const nonWrappedLayouts: RichMediaLayout[] = ['center', 'wide', 'full-width'];
 
-export const floatingLayouts = ['wrap-left', 'wrap-right'];
+export const floatingLayouts: string[] = ['wrap-left', 'wrap-right'];
 
-export const isRichMediaInsideOfBlockNode = (view: EditorView, pos: number | boolean) => {
+export const isRichMediaInsideOfBlockNode = (view: EditorView, pos: number | boolean): boolean => {
 	if (typeof pos !== 'number' || isNaN(pos) || !view) {
 		return false;
 	}

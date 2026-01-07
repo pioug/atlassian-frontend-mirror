@@ -2,6 +2,7 @@ import UnsupportedNodeAttribute from '../../unsupportedNodeAttribute';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('UnsupportedNodeAttribute', () => {
 	const DummyComponent = () => <p>Hello</p>;
 

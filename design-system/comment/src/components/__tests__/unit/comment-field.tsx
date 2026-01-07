@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 import CommentField, { type CommentFieldProps } from '../../field';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('@atlaskit comments', () => {
 	describe('CommentField', () => {
 		describe('exports', () => {

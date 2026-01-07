@@ -83,7 +83,7 @@ type ShouldSuppressFloatingToolbarOptions = {
 export const shouldSuppressFloatingToolbar = ({
 	state,
 	bookmark,
-}: ShouldSuppressFloatingToolbarOptions) => {
+}: ShouldSuppressFloatingToolbarOptions): boolean => {
 	if (!bookmark) {
 		return false;
 	}

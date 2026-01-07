@@ -16,6 +16,7 @@ const createDropdown = (props?: DropdownMenuProps) => (
 	<DropdownMenu trigger={triggerText} testId={testId} {...props} />
 );
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('dropdown menu', () => {
 	const items = ['Move', 'Clone', 'Delete'];
 

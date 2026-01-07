@@ -16,6 +16,7 @@ const MockedUnsupportedInline = () => <div>UnsupportedInline</div>;
 const url = 'https://extranet.atlassian.com/pages/viewpage.action?pageId=3088533424';
 const datasourceId = 'mock-datasource-id';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Renderer - Fallback analytics', () => {
 	const EVENT_CHANNEL = 'media';
 	const mockError = new Error('Error');

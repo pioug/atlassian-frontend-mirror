@@ -18,12 +18,10 @@ export const syncBlockStyles: SerializedStyles = css({
 			position: 'relative',
 			cursor: 'pointer',
 			borderRadius: token('radius.small', '3px'),
-			marginTop: token('space.150', '12px'),
 			marginRight: `-18px`,
 			marginLeft: `-18px`,
 			marginBottom: 0,
-			paddingTop: token('space.075', '6px'),
-			paddingBottom: token('space.050', '4px'),
+			paddingBlock: token('space.150', '12px'),
 			color: 'inherit',
 
 			/* Hover state */
@@ -131,7 +129,7 @@ export const syncBlockStyles: SerializedStyles = css({
 					'&::before': {
 						border: 'none',
 					},
-				}
+				},
 			},
 
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
@@ -142,9 +140,8 @@ export const syncBlockStyles: SerializedStyles = css({
 				[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
 					opacity: 0,
 					visibility: 'hidden',
-				}
+				},
 			},
-
 
 			/* Live doc view mode state */
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
@@ -170,6 +167,23 @@ export const syncBlockStyles: SerializedStyles = css({
 				padding: '0 18px',
 			},
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		[`.${BodiedSyncBlockSharedCssClassName.content}`]: {
+			// First child node that has drag handle widget next to it is overridden with marginTop: 0, see globalStyles in editor-plugin-block-controls/src/ui/global-styles.tsx
+			// Hence we set marginTop: 0 when by default to avoid flickering when hovering on and off the first node
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
+			'> :nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span))': {
+				marginTop: 0,
+			},
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		[`.${SyncBlockSharedCssClassName.renderer}`]: {
+			// First child node in bodiedSyncBlock is overridden with marginTop: 0, hence apply the same style to syncBlock for consistency
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
+			'.ak-renderer-document > :first-child': {
+				marginTop: 0,
+			},
+		}
 	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values

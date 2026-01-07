@@ -430,8 +430,8 @@ const includesWholeWord = (value: string, options: Set<string>) => {
 	return values.some((value) => options.has(value));
 };
 
-export const isLegacyColor = (value: string) => legacyColors.has(value);
-export const isLegacyNamedColor = (value: string) => legacyColorMixins.has(value);
+export const isLegacyColor = (value: string): boolean => legacyColors.has(value);
+export const isLegacyNamedColor = (value: string): boolean => legacyColorMixins.has(value);
 
 export const includesHardCodedColor = (raw: string): boolean => {
 	const value = raw.toLowerCase();

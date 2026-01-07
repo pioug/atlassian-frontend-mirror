@@ -21,6 +21,7 @@ export const RenderContextStub = (): React.JSX.Element => {
 	return <p>{contextState}</p>;
 };
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<EmojiResourceProvider />', () => {
 	test('renders children without context if no context is found', () => {
 		const result = render(

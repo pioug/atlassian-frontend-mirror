@@ -33,7 +33,7 @@ const insideProseMirrorEditableArea = (ref: HTMLElement | null): boolean => {
  * 1. if editor (e.g. comment inside of Jira ticket view) is inside modal then ensure focus and cursor is brought to the input
  * 2. if another modal is open (e.g. delete confirmation modal for confluence table) then ignore clicks as they shouldn't influence editor state
  */
-export const checkForModal = (target: HTMLElement | null) => {
+export const checkForModal = (target: HTMLElement | null): boolean => {
 	const modalDialog = target?.closest('[role=dialog]');
 
 	if (modalDialog) {

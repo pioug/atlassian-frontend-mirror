@@ -308,6 +308,7 @@ describe('ShareDialogWithTrigger', () => {
 			const popup = screen.getByRole('dialog');
 			expect(popup).toBeInTheDocument();
 
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			await expect(document.body).toBeAccessible({ violationCount: 1 });
 		});
 

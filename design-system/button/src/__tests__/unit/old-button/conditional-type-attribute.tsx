@@ -5,6 +5,7 @@ import { render, screen } from '@testing-library/react';
 import forEachType from './_util/for-each-type';
 
 forEachType(({ name, Component }) => {
+	// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 	describe(`Conditional type attribute with button: ${name}`, () => {
 		it('should add a type="button" prop to button elements when not type is provided', () => {
 			render(<Component testId="button">Hello</Component>);

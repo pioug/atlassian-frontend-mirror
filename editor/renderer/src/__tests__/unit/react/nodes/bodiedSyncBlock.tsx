@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import BodiedSyncBlock from '../../../../react/nodes/bodiedSyncBlock';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Renderer - React/Nodes/BodiedSyncBlock', () => {
 	it('should wrap content with div-tag', () => {
 		const { container } = render(

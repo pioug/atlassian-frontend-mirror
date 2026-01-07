@@ -30,6 +30,7 @@ import {
 
 const createUser = () => userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('SideNavToggleButton', () => {
 	let resetConsoleErrorSpyFn: ResetConsoleErrorFn;
 	beforeAll(() => {

@@ -19,6 +19,7 @@ const StubComponent: FC<{ onSelect?: () => any }> = ({ onSelect }) => (
 	/>
 );
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Progress Indicator', () => {
 	it('should be possible to create a component', () => {
 		render(<StubComponent />);

@@ -10,6 +10,7 @@ import { SkipLinkWrapper, useCustomSkipLink } from '../../../skip-links';
 import Banner from '../../../slots/banner-slot';
 import PageLayout from '../../../slots/page-layout';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('skip links', () => {
 	describe('SkipLinkWrapper', () => {
 		const label = '跳转到';

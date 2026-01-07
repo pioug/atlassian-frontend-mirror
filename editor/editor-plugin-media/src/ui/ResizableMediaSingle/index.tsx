@@ -341,6 +341,12 @@ export default class ResizableMediaSingle extends React.Component<Props, State> 
 		const enable: EnabledHandles = {};
 		handleSides.forEach((side) => {
 			const oppositeSide = side === 'left' ? 'right' : 'left';
+			if (expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)) {
+				if (this.props.disableHandles) {
+					enable[side] = false;
+					return;
+				}
+			}
 			enable[side] =
 				['full-width', 'wide', 'center']
 					.concat(`wrap-${oppositeSide}` as MediaSingleLayout)

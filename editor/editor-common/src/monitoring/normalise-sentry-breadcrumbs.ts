@@ -1,6 +1,6 @@
 import type { Breadcrumb } from '@sentry/types';
 
-export const SERIALIZABLE_ATTRIBUTES = ['data-test-id', 'data-testid'];
+export const SERIALIZABLE_ATTRIBUTES: string[] = ['data-test-id', 'data-testid'];
 const WHITELISTED_ATTRIBNUTES = ['type', 'name', ...SERIALIZABLE_ATTRIBUTES];
 const REG_MATCH_NOTALLOWED_ATTRIBUTES = new RegExp(
 	`\\[(?!${WHITELISTED_ATTRIBNUTES.join('|')}).*?\\]`,

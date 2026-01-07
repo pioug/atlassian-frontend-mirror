@@ -256,6 +256,16 @@ function ComposableEditorPage() {
 				},
 			},
 			{
+				label: 'Create template',
+				icon: AppIcon,
+				lozenge: {
+					label: 'NEW',
+				},
+				onClick: () => {
+					console.log('<<<click create template');
+				},
+			},
+			{
 				label: 'Dropdown extension item',
 				icon: AppIcon,
 				getMenuItems: () => {

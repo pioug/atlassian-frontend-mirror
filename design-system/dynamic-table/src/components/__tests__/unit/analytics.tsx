@@ -8,6 +8,7 @@ import DynamicTable from '../../stateless';
 
 import { headMock1, rows } from './_data';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('DynamicTable', () => {
 	it('should fire an analytics event onSort', () => {
 		const onEvent = jest.fn();

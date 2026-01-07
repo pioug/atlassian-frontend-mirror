@@ -165,8 +165,8 @@ const colorFunctionSet = new Set([
 	'device-cmyk',
 ]);
 
-export const isColorFunction = (value: string) => colorFunctionSet.has(value);
+export const isColorFunction = (value: string): boolean => colorFunctionSet.has(value);
 
 // <https://www.w3.org/TR/css-color-4/#hex-notation>
-export const isHexColor = (value: string) =>
+export const isHexColor = (value: string): boolean =>
 	/^#([0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(value);

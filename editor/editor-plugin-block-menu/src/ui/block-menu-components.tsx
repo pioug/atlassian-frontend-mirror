@@ -42,6 +42,8 @@ import { MoveDownDropdownItem } from './move-down';
 import { MoveUpDropdownItem } from './move-up';
 import { SuggestedItemsMenuSection } from './suggested-items-menu-section';
 import { SuggestedMenuItems } from './suggested-menu-items';
+import { createMenuItemsMap } from './utils/createMenuItemsMap';
+import { getSuggestedItemsFromSelection } from './utils/getSuggestedItemsFromSelection';
 
 const getMoveUpMoveDownMenuComponents = (
 	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined,
@@ -107,6 +109,16 @@ const getTurnIntoMenuComponents = (
 				rank: TRANSFORM_SUGGESTED_MENU_SECTION_RANK[TRANSFORM_SUGGESTED_MENU_ITEM.key],
 			},
 			component: () => <SuggestedMenuItems api={api} />,
+			isHidden: () => {
+				const blockMenuComponents = api?.blockMenu?.actions.getBlockMenuComponents();
+				const menuItemsMap = createMenuItemsMap(blockMenuComponents);
+				const selection = api?.selection?.sharedState.currentState()?.selection;
+				const preservedSelection =
+					api?.blockControls?.sharedState.currentState()?.preservedSelection;
+				const currentSelection = preservedSelection || selection;
+				const suggestedItems = getSuggestedItemsFromSelection(menuItemsMap, currentSelection);
+				return suggestedItems.length === 0;
+			},
 		},
 		{
 			type: 'block-menu-section' as const,

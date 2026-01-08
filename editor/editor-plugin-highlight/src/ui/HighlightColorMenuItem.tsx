@@ -59,7 +59,7 @@ const styles = cssMap({
 const TextColorIconDecorator = ({ label, isSelected }: { isSelected: boolean; label: string }) => {
 	const iconColor = token('color.icon', '#000000');
 	return isSelected ? (
-		<EditorDoneIcon color={iconColor} LEGACY_primaryColor={iconColor} label={label} />
+		<EditorDoneIcon color={iconColor} label={label} />
 	) : (
 		<Box as="span" xcss={styles.icon}>
 			<Icon

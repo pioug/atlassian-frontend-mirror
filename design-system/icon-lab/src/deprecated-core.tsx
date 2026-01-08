@@ -6,6 +6,7 @@
  * @codegen <<SignedSource::76fab6ad916e9e2ad7e252306192ad79>>
  * @codegenCommand yarn build:icon-glyphs
  */
-const deprecatedIcons: Record<string, { message: string; unfixable?: boolean }> = {};
+const deprecatedIcons: Record<string, { message: string; unfixable?: boolean }> = {
+};
 
 export default deprecatedIcons;

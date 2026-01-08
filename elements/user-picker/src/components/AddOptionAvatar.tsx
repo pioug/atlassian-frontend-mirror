@@ -45,8 +45,6 @@ export const AddOptionAvatar: React.FunctionComponent<AddOptionAvatarProps> = ({
 			<EmailIcon
 				testId="add-option-avatar-email-icon"
 				label={label || ''}
-				LEGACY_size={isLozenge ? 'small' : 'medium'}
-				LEGACY_margin="0 0 0 -2px"
 				color={
 					isPendingAction && fg('twcg-444-invite-usd-improvements-m2-gate')
 						? token('color.text.warning')

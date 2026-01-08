@@ -9,7 +9,7 @@ import { setGlobalTheme } from '@atlaskit/tokens';
 
 describe('RendererStyleContainer', () => {
 	beforeEach(() => {
-		setGlobalTheme({ typography: 'typography-modernized' });
+		setGlobalTheme({ typography: 'typography' });
 	});
 
 	it('should capture and report a11y violations', async () => {

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 7.0.2
+
+### Patch Changes
+
+- [`034a10bed9524`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/034a10bed9524) -
+  [ED-29732] clean up FG platform_editor_a11y_find_replace_focus_fix
+- Updated dependencies
+
 ## 7.0.1
 
 ### Patch Changes

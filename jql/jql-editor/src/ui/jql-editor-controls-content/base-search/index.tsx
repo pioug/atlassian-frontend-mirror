@@ -76,12 +76,7 @@ export const BaseSearch = ({
 				isLoading={isSearching}
 				iconBefore={
 					<Box xcss={iconStyle}>
-						<SearchIcon
-							color="currentColor"
-							label={''}
-							LEGACY_size={'medium'}
-							LEGACY_margin="-4px"
-						/>
+						<SearchIcon color="currentColor" label={''} />
 					</Box>
 				}
 				{...(fg('add_nin_press_interactions') && {

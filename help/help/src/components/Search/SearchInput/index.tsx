@@ -118,7 +118,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
 				name="help-search-input"
 				elemBeforeInput={
 					<SearchIconContainer>
-						<SearchIcon LEGACY_margin="0 2px" color="currentColor" spacing="spacious" label="" />
+						<SearchIcon color="currentColor" spacing="spacious" label="" />
 					</SearchIconContainer>
 				}
 				elemAfterInput={

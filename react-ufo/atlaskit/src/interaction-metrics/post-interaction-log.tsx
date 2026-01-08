@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import {
 	type HoldActive,
 	type LastInteractionFinishInfo,
@@ -112,11 +110,7 @@ export default class PostInteractionLog {
 	 * Send the log if there is data
 	 */
 	async sendPostInteractionLog(): Promise<void> {
-		if (
-			!this.lastInteractionFinish ||
-			!this.sinkHandlerFn ||
-			(!this.hasData() && !fg('platform_ufo_always_send_post_interaction_log'))
-		) {
+		if (!this.lastInteractionFinish || !this.sinkHandlerFn) {
 			this.reset();
 			this.vcObserver?.stop();
 			return;

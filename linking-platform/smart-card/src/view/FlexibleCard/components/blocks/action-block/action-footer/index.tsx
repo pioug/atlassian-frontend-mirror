@@ -46,9 +46,7 @@ const getIcon = (appearance?: ActionMessageAppearance) => {
 					color={token('color.icon.danger', '#C9372C')}
 					spacing="compact"
 					label="Error"
-					LEGACY_size="small"
 					testId="action-error-icon"
-					LEGACY_margin={`0 ${token('space.negative.025')}`}
 					size="small"
 				/>
 			);

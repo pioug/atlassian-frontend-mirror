@@ -45,18 +45,6 @@ const createSyncBlockStoreManager = (dataProvider?: SyncBlockDataProvider) => {
 	return new SyncBlockStoreManager(dataProvider);
 };
 
-export const createAndInitializeSyncBlockStoreManager = ({
-	dataProvider,
-	fireAnalyticsEvent,
-}: {
-	dataProvider?: SyncBlockDataProvider;
-	fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void;
-}) => {
-	const syncBlockStoreManager = createSyncBlockStoreManager(dataProvider);
-	syncBlockStoreManager.setFireAnalyticsEvent(fireAnalyticsEvent);
-	return syncBlockStoreManager;
-};
-
 export const useMemoizedSyncBlockStoreManager = (
 	dataProvider?: SyncBlockDataProvider,
 	fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void,

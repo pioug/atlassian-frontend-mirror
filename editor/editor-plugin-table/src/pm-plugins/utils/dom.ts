@@ -5,9 +5,9 @@ import { TableCssClassName as ClassName } from '../../types';
 export const isCell = (node: HTMLElement | null): boolean => {
 	return Boolean(
 		node &&
-			(['TH', 'TD'].indexOf(node.tagName) > -1 ||
-				!!closestElement(node, `.${ClassName.TABLE_HEADER_CELL}`) ||
-				!!closestElement(node, `.${ClassName.TABLE_CELL}`)),
+		(['TH', 'TD'].indexOf(node.tagName) > -1 ||
+			!!closestElement(node, `.${ClassName.TABLE_HEADER_CELL}`) ||
+			!!closestElement(node, `.${ClassName.TABLE_CELL}`)),
 	);
 };
 
@@ -249,3 +249,24 @@ export const findNearestCellIndexToPoint = (
 		col: cell!.cellIndex,
 	};
 };
+
+export const areAllRectsZero = (entry: IntersectionObserverEntry): boolean => {
+	const rects = [
+		entry.boundingClientRect,
+		entry.rootBounds,
+		entry.intersectionRect
+	];
+
+	return rects.every(
+		(rect) =>
+			rect &&
+			rect.width === 0 &&
+			rect.height === 0 &&
+			rect.top === 0 &&
+			rect.left === 0 &&
+			rect.bottom === 0 &&
+			rect.right === 0 &&
+			rect.x === 0 &&
+			rect.y === 0,
+	);
+}

@@ -38,13 +38,7 @@ export const AgentStarCount = ({
 
 	return (
 		<Box xcss={styles.count}>
-			<StarIcon
-				LEGACY_margin={`0 ${token('space.negative.025')}`}
-				color="currentColor"
-				label=""
-				LEGACY_size="small"
-				size="small"
-			/>
+			<StarIcon color="currentColor" label="" size="small" />
 			{isLoading ? (
 				<Skeleton
 					testId="agent-profile-info-star-count-skeleton"

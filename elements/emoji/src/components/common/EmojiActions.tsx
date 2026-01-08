@@ -105,12 +105,7 @@ const AddOwnEmoji = (props: AddOwnEmojiProps) => {
 								onClick={onOpenUpload}
 								iconBefore={
 									<Box xcss={styles.icon}>
-										<AddIcon
-											LEGACY_margin={`0 ${token('space.025')} 0 ${token('space.050')}`}
-											color="currentColor"
-											label=""
-											LEGACY_size="small"
-										/>
+										<AddIcon color="currentColor" label="" />
 									</Box>
 								}
 								appearance="subtle"

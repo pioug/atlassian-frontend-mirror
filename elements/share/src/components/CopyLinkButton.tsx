@@ -149,10 +149,8 @@ export class CopyLinkButtonInner extends React.Component<Props, State> {
 							}
 						>
 							<LinkFilledIcon
-								LEGACY_margin={`0 ${token('space.negative.025')} 0 0`}
 								color={isExtendedShareDialogEnabled ? token('color.text.subtle') : 'currentColor'}
 								label=""
-								LEGACY_size="medium"
 							/>
 						</Box>
 					)

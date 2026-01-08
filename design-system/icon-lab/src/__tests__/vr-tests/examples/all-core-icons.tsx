@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::b0daafad8acf8e6c244e81376f927c58>>
+ * @codegen <<SignedSource::14df0d1e70d703adc6cae007acfd6adb>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -258,6 +258,7 @@ import InitiativeIcon from '../../../../core/initiative';
 import JiraIcon from '../../../../core/jira';
 import JiraAddIcon from '../../../../core/jira-add';
 import JiraUploadIcon from '../../../../core/jira-upload';
+import JourneysIcon from '../../../../core/journeys';
 import KanbanIcon from '../../../../core/kanban';
 import KeyIcon from '../../../../core/key';
 import LayoutFiveColumnsIcon from '../../../../core/layout-five-columns';
@@ -863,6 +864,7 @@ const Icons = [
 	VideoFastForwardIcon,
 	VideoFastForwardOverlayIcon,
 	VideoRewindIcon,
+	JourneysIcon,
 ];
 
 const groupSize = 50;

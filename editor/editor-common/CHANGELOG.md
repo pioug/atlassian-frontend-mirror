@@ -1,5 +1,41 @@
 # @atlaskit/editor-common
 
+## 111.7.1
+
+### Patch Changes
+
+- [`0bf8d0bd8bf2c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0bf8d0bd8bf2c) -
+  [ux] EDITOR-4276 Apply block selection visual style only from drag handle
+- Updated dependencies
+
+## 111.7.0
+
+### Minor Changes
+
+- [`87b12e64ff750`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87b12e64ff750) -
+  Removed usages of LEGACY icon props
+
+### Patch Changes
+
+- Updated dependencies
+
+## 111.6.3
+
+### Patch Changes
+
+- [`1051a075c959d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1051a075c959d) -
+  Internal changes to typography theme types.
+- Updated dependencies
+
+## 111.6.2
+
+### Patch Changes
+
+- [`2e9f634e23b38`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e9f634e23b38) -
+  ENGHEALTH-48712: Add aria-checked even for false entries for floating toolbar buttons that have
+  radio role.
+- Updated dependencies
+
 ## 111.6.1
 
 ### Patch Changes

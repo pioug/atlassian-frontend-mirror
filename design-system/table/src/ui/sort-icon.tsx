@@ -16,25 +16,9 @@ export const SortIcon: FC<{ name: string }> = memo(({ name }) => {
 	if (sortKey === name) {
 		switch (sortDirection) {
 			case 'ascending':
-				return (
-					<ArrowUpIcon
-						color="currentColor"
-						LEGACY_size="small"
-						label=""
-						LEGACY_primaryColor="inherit"
-						size="small"
-					/>
-				);
+				return <ArrowUpIcon color="currentColor" label="" size="small" />;
 			case 'descending':
-				return (
-					<ArrowDownIcon
-						color="currentColor"
-						LEGACY_size="small"
-						label=""
-						LEGACY_primaryColor="inherit"
-						size="small"
-					/>
-				);
+				return <ArrowDownIcon color="currentColor" label="" size="small" />;
 		}
 	}
 

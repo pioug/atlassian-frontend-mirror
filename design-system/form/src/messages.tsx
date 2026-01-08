@@ -73,24 +73,8 @@ const IconWrapper = ({ children }: { children: ReactNode }) => (
 );
 
 const messageIcons: Partial<Record<MessageAppearance, JSX.Element>> = {
-	error: (
-		<ErrorIcon
-			LEGACY_margin="0 -2px 0 0"
-			color="currentColor"
-			LEGACY_size="small"
-			label="error"
-			size="small"
-		/>
-	),
-	valid: (
-		<SuccessIcon
-			LEGACY_margin="0 -2px 0 0"
-			color="currentColor"
-			LEGACY_size="small"
-			label="success"
-			size="small"
-		/>
-	),
+	error: <ErrorIcon color="currentColor" label="error" size="small" />,
+	valid: <SuccessIcon color="currentColor" label="success" size="small" />,
 };
 
 const Message = ({ children, appearance = 'default', fieldId, testId }: InternalMessageProps) => {

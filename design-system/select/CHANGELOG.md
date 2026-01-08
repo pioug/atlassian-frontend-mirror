@@ -1,5 +1,16 @@
 # @atlaskit/select
 
+## 21.6.4
+
+### Patch Changes
+
+- [`99876f547dece`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/99876f547dece) -
+  Adds support for `shouldPreventEscapePropagation` prop in PopupSelect to stop Escape keydown event
+  propagation when closing the popup. This is useful when PopupSelect is inside a modal or other
+  component that also listens for Escape key events. Feature is behind
+  `platform_navx_sllv_dropdown_escape_and_focus_fix` feature flag.
+- Updated dependencies
+
 ## 21.6.3
 
 ### Patch Changes

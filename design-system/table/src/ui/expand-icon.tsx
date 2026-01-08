@@ -14,24 +14,8 @@ import ChevronUpIcon from '@atlaskit/icon/core/chevron-up';
 export const ExpandIcon = memo(({ isExpanded }: { isExpanded: boolean }): React.JSX.Element => {
 	switch (isExpanded) {
 		case true:
-			return (
-				<ChevronUpIcon
-					color="currentColor"
-					LEGACY_size="small"
-					label=""
-					LEGACY_primaryColor="inherit"
-					size="small"
-				/>
-			);
+			return <ChevronUpIcon color="currentColor" label="" size="small" />;
 		case false:
-			return (
-				<ChevronDownIcon
-					color="currentColor"
-					LEGACY_size="small"
-					label=""
-					LEGACY_primaryColor="inherit"
-					size="small"
-				/>
-			);
+			return <ChevronDownIcon color="currentColor" label="" size="small" />;
 	}
 });

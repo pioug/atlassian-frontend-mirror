@@ -103,9 +103,6 @@
 			"path": "../link/tsconfig.app.json"
 		},
 		{
-			"path": "../onboarding/tsconfig.app.json"
-		},
-		{
 			"path": "../popup/tsconfig.app.json"
 		},
 		{
@@ -122,6 +119,9 @@
 		},
 		{
 			"path": "../select/tsconfig.app.json"
+		},
+		{
+			"path": "../spotlight/tsconfig.app.json"
 		},
 		{
 			"path": "../textfield/tsconfig.app.json"

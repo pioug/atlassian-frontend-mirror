@@ -65,6 +65,7 @@ const sharedIconOrLogoContainerStyles = cssMap({
 	root: {
 		// Overflow should never occur, but hiding it just in case
 		overflow: 'hidden',
+		paddingInline: token('space.050'),
 		/**
 		 * Using a nested selector because we cannot resize the image correctly by only styling the container.
 		 *
@@ -83,9 +84,6 @@ const sharedIconOrLogoContainerStyles = cssMap({
 			objectFit: 'contain',
 		},
 	},
-	appIconTilePaddingFlagged: {
-		paddingInline: token('space.050'),
-	},
 	withFullHeightSidebar: {
 		maxWidth: '100%',
 		minWidth: 24,
@@ -99,7 +97,6 @@ const iconContainerStyles = cssMap({
 		maxWidth: 24,
 		// Using `content-box` sizing because the padding is irrelevant for the maxWidth
 		boxSizing: 'content-box',
-		paddingInline: token('space.050'),
 		'@media (min-width: 64rem)': {
 			// '&&' is required to add more CSS specificity to resolve non-deterministic ordering, which can result in
 			// both the `icon` and `logo` elements to be displayed at the same time
@@ -120,7 +117,6 @@ const logoContainerStyles = cssMap({
 		maxWidth: 320,
 		// Using `content-box` sizing because the padding is irrelevant for the maxWidth
 		boxSizing: 'content-box',
-		paddingInline: token('space.100'),
 		'@media (min-width: 64rem)': {
 			// '&&' is required to add more CSS specificity to resolve non-deterministic ordering, which can result in
 			// both the `icon` and `logo` elements to be displayed at the same time
@@ -239,8 +235,6 @@ export const CustomLogo = ({
 				css={[
 					sharedIconOrLogoContainerStyles.root,
 					iconContainerStyles.root,
-					fg('platform-team25-app-icon-tiles') &&
-						sharedIconOrLogoContainerStyles.appIconTilePaddingFlagged,
 					isFhsEnabled && sharedIconOrLogoContainerStyles.withFullHeightSidebar,
 				]}
 			>
@@ -250,8 +244,6 @@ export const CustomLogo = ({
 				css={[
 					sharedIconOrLogoContainerStyles.root,
 					logoContainerStyles.root,
-					fg('platform-team25-app-icon-tiles') &&
-						sharedIconOrLogoContainerStyles.appIconTilePaddingFlagged,
 					isFhsEnabled && sharedIconOrLogoContainerStyles.withFullHeightSidebar,
 				]}
 			>

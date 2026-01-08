@@ -1,5 +1,20 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.5.3
+
+### Patch Changes
+
+- [`bf9309f0d44d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf9309f0d44d1) -
+  Pass parentAri to block service provider
+- Updated dependencies
+
+## 3.5.2
+
+### Patch Changes
+
+- [`54cbf654939aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/54cbf654939aa) -
+  Send current document ARI when fetching block
+
 ## 3.5.1
 
 ### Patch Changes

@@ -6,7 +6,7 @@ import { expect, test } from './fixtures';
 test.describe('ReactUFO: post-interaction-log always send', () => {
 	test.use({
 		examplePage: 'basic-three-sections',
-		featureFlags: ['platform_ufo_always_send_post_interaction_log'],
+		featureFlags: [],
 	});
 
 	test('sends post interaction log when FG is enabled', async ({

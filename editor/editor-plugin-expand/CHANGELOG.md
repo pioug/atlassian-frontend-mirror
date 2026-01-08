@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-expand
 
+## 8.0.2
+
+### Patch Changes
+
+- [`b909e5f47ea91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b909e5f47ea91) -
+  EDITOR-4159 Make sure block-menu-item type component return null when tranform disabled
+- Updated dependencies
+
+## 8.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.0
 
 ### Patch Changes

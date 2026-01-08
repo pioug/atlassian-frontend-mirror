@@ -730,7 +730,10 @@ const generateMediaSingleFloatingToolbar = (
 								}) ?? false
 							);
 						},
+						// Making the button more accessible
 						supportsViewMode: false,
+						isRadioButton: true,
+						selected: false,
 					});
 				}
 			}
@@ -1003,7 +1006,7 @@ export const floatingToolbar = (
 		getDomRef: () => {
 			const element = isSelectedNodeMediaSingle
 				? mediaPluginState.element?.querySelector(`.${MediaSingleNodeSelector}`) ||
-				  mediaPluginState.element
+					mediaPluginState.element
 				: mediaPluginState.element;
 			return element as HTMLElement | undefined;
 		},

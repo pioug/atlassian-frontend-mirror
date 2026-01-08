@@ -62,6 +62,13 @@ const modalStyles = css({
 	insetInline: token('space.050'),
 });
 
+const newModalStyles = css({
+	maxHeight: `calc(100vh - 2 * ${token('space.050')})`,
+	position: 'fixed',
+	insetBlockStart: token('space.050'),
+	insetInline: token('space.050'),
+});
+
 const focusRingStyles = cssMap({
 	root: {
 		'&:focus-visible': {
@@ -100,7 +107,8 @@ const DefaultPopupComponent: React.ForwardRefExoticComponent<
 			css={[
 				wrapperStyles.root,
 				fg('platform-dst-shape-theme-default') && wrapperStyles.rootT26Shape,
-				appearance === 'UNSAFE_modal-below-sm' && modalStyles,
+				appearance === 'UNSAFE_modal-below-sm' && !fg('platform_dst_nav4_flyout_menu_slots_close_button') && modalStyles,
+				appearance === 'UNSAFE_modal-below-sm' && fg('platform_dst_nav4_flyout_menu_slots_close_button') && newModalStyles,
 				// The popup creates its own scroll container when either:
 				// - It is rendered in a portal
 				// - It is constrained to fit into the viewport (behind a FG)

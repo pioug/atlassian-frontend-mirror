@@ -5,7 +5,6 @@ import ErrorIcon from '@atlaskit/icon/core/status-error';
 import InlineDialog from '@atlaskit/inline-dialog';
 import { Box } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
-import { R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import InlineEdit from './inline-edit';
@@ -82,12 +81,7 @@ const InlineEditableTextfield = (props: InlineEditableTextfieldProps): React.JSX
 						elemAfterInput={
 							isInvalid && (
 								<Box xcss={errorIconContainerStyles.root}>
-									<ErrorIcon
-										label="error"
-										LEGACY_primaryColor={token('color.icon.danger', R400)}
-										color={token('color.icon.danger')}
-										size="small"
-									/>
+									<ErrorIcon label="error" color={token('color.icon.danger')} size="small" />
 								</Box>
 							)
 						}

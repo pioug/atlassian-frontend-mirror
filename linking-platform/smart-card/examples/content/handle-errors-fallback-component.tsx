@@ -12,14 +12,7 @@ const FallbackComponent = (): JSX.Element => {
 	return (
 		<Banner
 			appearance="error"
-			icon={
-				<ErrorIcon
-					color="currentColor"
-					spacing="spacious"
-					label=""
-					LEGACY_secondaryColor="inherit"
-				/>
-			}
+			icon={<ErrorIcon color="currentColor" spacing="spacious" label="" />}
 		>
 			An unexpected error occurred and this is a custom fallback component.
 			<br />

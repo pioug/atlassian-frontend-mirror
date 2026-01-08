@@ -18,8 +18,8 @@ export type EditorExperimentsConfig = typeof editorExperimentsConfig;
  */
 export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
-		? true // Boolean: only 'true' is allowed as expected value
-		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+	? true // Boolean: only 'true' is allowed as expected value
+	: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
 
 /**
  * Extract valid default values.
@@ -28,8 +28,8 @@ export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimen
  */
 export type ExperimentDefaultValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
-		? false // Boolean: only 'false' is allowed as default value
-		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+	? false // Boolean: only 'false' is allowed as default value
+	: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
 
 /**
  * When adding a new experiment, you need to add it here.
@@ -106,13 +106,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 03-09-2025
 	cc_editor_limited_mode_include_lcm: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2025-11-07
-	cc_editor_limited_mode_table_align_bttn: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -834,6 +827,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-01-05
+	platform_editor_table_update_table_ref: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-11-18
 	platform_editor_wait_for_space_after_ascii_emoji: {
 		defaultValue: boolean;
@@ -921,6 +921,13 @@ export const editorExperimentsConfig: {
 	// Added 2025-3-15
 	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_single_column_layout/setup
 	single_column_layouts: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-01-07
+	platform_editor_table_sticky_header_patch_10: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1101,7 +1108,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-
+	// Added 2026-01-7
+	platform_editor_table_sticky_header_patch_10: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_table_sticky_header_patch_10',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-11-17
 	platform_editor_renderer_extension_width_fix: createBooleanExperiment({
 		productKeys: {
@@ -1592,6 +1606,14 @@ export const editorExperimentsConfig: {
 		values: ['control', 'css_changes_only', 'css_js_changes'],
 		defaultValue: 'control',
 	}),
+	// Added 2026-01-05
+	platform_editor_table_update_table_ref: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_table_update_table_ref',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-08-17
 	platform_hover_card_preview_panel: createMultivariateExperiment({
 		productKeys: {
@@ -2034,14 +2056,6 @@ export const editorExperimentsConfig: {
 	platform_editor_lovability_emoji_scaling: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_lovability_emoji_scaling',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-11-07
-	cc_editor_limited_mode_table_align_bttn: createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc_editor_limited_mode_table_align_bttn',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

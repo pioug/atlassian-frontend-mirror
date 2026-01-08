@@ -1054,6 +1054,11 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				data-editor-id={editorId.current}
 				onEditorStateChanged={(state) => {
 					ssrEditorStateRef.current = state;
+					// Notify listeners about the initial SSR state
+					pluginInjectionAPI.current.onEditorViewUpdated({
+						newEditorState: state,
+						oldEditorState: undefined,
+					});
 				}}
 			/>
 		);

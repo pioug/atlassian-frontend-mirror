@@ -366,6 +366,12 @@ export default class PopupSelect<
 			case 'Escape':
 			case 'Esc':
 				this.close();
+				if (
+					this.props.shouldPreventEscapePropagation && 
+					fg('platform_navx_sllv_dropdown_escape_and_focus_fix')
+				) {
+					event.stopPropagation();
+				}
 				break;
 			default:
 		}
@@ -579,10 +585,10 @@ export default class PopupSelect<
 			maxMenuWidth,
 			minMenuWidth,
 			placeholder,
-			target,
+			target: _target,
 			testId,
-			onMenuOpen,
-			onMenuClose,
+			onMenuOpen: _onMenuOpen,
+			onMenuClose: _onMenuClose,
 			...props
 		} = this.props;
 

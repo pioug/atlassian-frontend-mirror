@@ -126,6 +126,8 @@ export interface PopupComponentProps {
 	/**
 	 * The "default" appearance is used for standard popups.
 	 * The "UNSAFE_modal-below-sm" appearance makes the popup appear as a modal when the viewport is smaller than "sm".
+	 * When the feature gate `platform_dst_nav4_flyout_menu_slots_close_button` is enabled, the appearance should only
+	 * be set to "UNSAFE_modal-below-sm" if the provided popup includes a close button.
 	 */
 	appearance?: 'default' | 'UNSAFE_modal-below-sm';
 

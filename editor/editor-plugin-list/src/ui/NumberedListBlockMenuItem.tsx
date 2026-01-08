@@ -36,11 +36,6 @@ const NumberedListBlockMenuItem = ({ api }: NumberedListBlockMenuItemProps) => {
 		});
 	};
 
-	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(NODE_NAME);
-	if (isTransfromToPanelDisabled) {
-		return null;
-	}
-
 	return (
 		<ToolbarDropdownItem onClick={handleClick} elemBefore={<ListNumberedIcon label="" />}>
 			{formatMessage(listMessages.orderedList)}

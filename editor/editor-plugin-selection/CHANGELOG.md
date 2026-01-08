@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection
 
+## 7.0.1
+
+### Patch Changes
+
+- [`0bf8d0bd8bf2c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0bf8d0bd8bf2c) -
+  [ux] EDITOR-4276 Apply block selection visual style only from drag handle
+- Updated dependencies
+
 ## 7.0.0
 
 ### Patch Changes

@@ -30,7 +30,6 @@ export default ({ children }: Props) => (
 				label=""
 				aria-hidden
 				color={token('color.icon.success', G300)}
-				LEGACY_margin="4px 0 0 0"
 			/>
 		</div>
 		{children}

@@ -1150,6 +1150,12 @@ export function abortByNewInteraction(interactionId: string, interactionName: st
 			onExperimentalInteractionComplete(interactionId, interaction);
 			remove(interactionId);
 		}
+	} else {
+		if (fg('platform_reset_post_interaction_on_new_interaction')) {
+			// post-interaction log is active after interaction is aborted by new one
+			postInteractionLog.reset();
+			postInteractionLog.stopVCObserver();
+		}
 	}
 }
 

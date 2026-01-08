@@ -109,10 +109,8 @@ export class MultiValue extends React.Component<Props> {
 			return (
 				<Box xcss={groupTagContainer}>
 					<PeopleIcon
-						LEGACY_margin="-2px 0 0 0"
 						color="currentColor"
 						label="" // This element is a decorative icon and does not require a label
-						LEGACY_size="small"
 					/>
 				</Box>
 			);

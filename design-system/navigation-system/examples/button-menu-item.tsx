@@ -107,6 +107,13 @@ export const ButtonMenuItemExample = () => (
 					With description
 				</ButtonMenuItem>
 				<ButtonMenuItem
+					elemBefore={homeIcon}
+					description="This is an example of a long description"
+					isSelected
+				>
+					With description and selected
+				</ButtonMenuItem>
+				<ButtonMenuItem
 					elemBefore={
 						<IconButton icon={HomeIcon} label="IconButton" appearance="subtle" spacing="compact" />
 					}

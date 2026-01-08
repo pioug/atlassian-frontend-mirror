@@ -1,5 +1,16 @@
 # @atlaskit/forge-react-types
 
+## 0.53.0
+
+### Minor Changes
+
+- [`6f93643f9e844`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f93643f9e844) -
+  [ux] Addition of Tile component for Forge UIKit
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.52.2
 
 ### Patch Changes

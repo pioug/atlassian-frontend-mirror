@@ -57,6 +57,7 @@ export type { TagGroupProps, TTagGroup } from './TagGroupProps.codegen';
 export type { SimpleTagProps as TagProps, TSimpleTag as TTag } from './TagProps.codegen';
 export type { TextAreaProps, TTextArea } from './TextAreaProps.codegen';
 export type { TextfieldProps, TTextfield } from './TextfieldProps.codegen';
+export type { TileProps, TTile } from './TileProps.codegen';
 export type { TimePickerProps, TTimePicker } from './TimePickerProps.codegen';
 export type { ToggleProps, TToggle } from './ToggleProps.codegen';
 export type { TooltipProps, TTooltip } from './TooltipProps.codegen';

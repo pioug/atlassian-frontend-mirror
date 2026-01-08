@@ -1,5 +1,21 @@
 # @atlassian/navigation-system
 
+## 5.23.0
+
+### Minor Changes
+
+- [`5ebd55afb7494`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ebd55afb7494) -
+  The `description` of menu items will now use the selected state token when the menu item is
+  selected. This change is behind the feature gate `platform-dst-menu-item-description-selected`.
+
+## 5.22.0
+
+### Minor Changes
+
+- [`dc012a1dfb067`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc012a1dfb067) -
+  Tidied `platform-team25-app-icon-tiles` feature gate. There are now adjustments to `CustomLogo`
+  padding.
+
 ## 5.21.0
 
 ### Minor Changes

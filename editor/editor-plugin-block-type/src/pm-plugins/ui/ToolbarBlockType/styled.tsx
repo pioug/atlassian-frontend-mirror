@@ -9,16 +9,12 @@ import { headingsSharedStyles, blockquoteSharedStyles } from '@atlaskit/editor-c
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { N400 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
+import { token, type ThemeState } from '@atlaskit/tokens';
 
 export const blockTypeMenuItemStyle = (
 	tagName: string,
 	selected?: boolean,
-	typographyTheme?:
-		| 'typography'
-		| 'typography-adg3'
-		| 'typography-modernized'
-		| 'typography-refreshed',
+	typographyTheme?: ThemeState['typography'],
 ) => {
 	// TEMP FIX: See https://product-fabric.atlassian.net/browse/ED-13878
 	const selectedStyle = selected

@@ -58,6 +58,9 @@ const taskDecisionToolbarGroupStyles = css({
 	display: 'flex',
 });
 
+const TASK_LIST_NODE_NAME = 'taskList';
+const DECISION_LIST_NODE_NAME = 'decisionList';
+
 const addItem =
 	(insert: (node: PMNode) => Transaction, listType: TaskDecisionListType, schema: Schema) =>
 	({ listLocalId, itemLocalId }: { itemLocalId?: string; listLocalId?: string }) => {
@@ -175,7 +178,11 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 					key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
 					rank: TRANSFORM_STRUCTURE_MENU_SECTION_RANK[TRANSFORM_STRUCTURE_TASK_LIST_MENU_ITEM.key],
 				},
-				component: () => <TaskListBlockMenuItem api={api} />,
+				component: () => {
+					return <TaskListBlockMenuItem api={api} />;
+				},
+				isHidden: () =>
+					Boolean(api?.blockMenu?.actions.isTransformOptionDisabled(TASK_LIST_NODE_NAME)),
 			},
 			{
 				type: 'block-menu-item',
@@ -185,7 +192,11 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 					key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
 					rank: TRANSFORM_STRUCTURE_MENU_SECTION_RANK[TRANSFORM_STRUCTURE_DECISION_MENU_ITEM.key],
 				},
-				component: () => <DecisionListBlockMenuItem api={api} />,
+				component: () => {
+					return <DecisionListBlockMenuItem api={api} />;
+				},
+				isHidden: () =>
+					Boolean(api?.blockMenu?.actions.isTransformOptionDisabled(DECISION_LIST_NODE_NAME)),
 			},
 		]);
 	}

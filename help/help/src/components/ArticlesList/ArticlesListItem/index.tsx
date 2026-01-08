@@ -117,7 +117,6 @@ export const ArticlesListItem = forwardRef<HTMLAnchorElement, ArticlesListItemPr
 								LEGACY_size="small"
 								label="Opens in a new window"
 								color={token('color.icon.subtle', colors.N90)}
-								LEGACY_secondaryColor={token('color.icon.subtle', colors.N90)}
 							/>
 						</ArticlesListItemLinkIcon>
 					)}
@@ -133,12 +132,7 @@ export const ArticlesListItem = forwardRef<HTMLAnchorElement, ArticlesListItemPr
 						)}
 						{isHelpfulCountVisible && (
 							<ArticlesListItemHelpfulCount>
-								<LikeIcon
-									LEGACY_margin="0 -0.25px 0 0"
-									color="currentColor"
-									label="Like"
-									LEGACY_size="small"
-								/>
+								<LikeIcon color="currentColor" label="Like" />
 								{trustFactors.helpfulCount}
 							</ArticlesListItemHelpfulCount>
 						)}

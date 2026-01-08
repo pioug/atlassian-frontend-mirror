@@ -53,21 +53,11 @@ const PanelStateless: FC<PanelState> = ({ children, header, isExpanded = false, 
 						iconBefore={
 							isExpanded ? (
 								<Box as="span" paddingInlineStart="space.050">
-									<ChevronDownIcon
-										color="currentColor"
-										label={i18nCollapseText}
-										LEGACY_margin="0 0 0 -4px"
-										size="small"
-									/>
+									<ChevronDownIcon color="currentColor" label={i18nCollapseText} size="small" />
 								</Box>
 							) : (
 								<Box as="span" paddingInlineStart="space.050">
-									<ChevronRightIcon
-										color="currentColor"
-										label={i18nExpandText}
-										LEGACY_margin="0 0 0 -4px"
-										size="small"
-									/>
+									<ChevronRightIcon color="currentColor" label={i18nExpandText} size="small" />
 								</Box>
 							)
 						}

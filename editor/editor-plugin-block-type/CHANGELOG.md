@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-block-type
 
+## 11.0.3
+
+### Patch Changes
+
+- [`b909e5f47ea91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b909e5f47ea91) -
+  EDITOR-4159 Make sure block-menu-item type component return null when tranform disabled
+- Updated dependencies
+
+## 11.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.1
+
+### Patch Changes
+
+- [`1051a075c959d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1051a075c959d) -
+  Internal changes to typography theme types.
+- Updated dependencies
+
 ## 11.0.0
 
 ### Patch Changes

@@ -4,7 +4,6 @@ import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
 import { token } from '@atlaskit/tokens';
 
 import { SkeletonIconButton } from './components/SkeletonIconButton';
-import { useTheme } from './theme';
 
 export type SkeletonHelpButtonProps = {
 	/**
@@ -25,17 +24,9 @@ export type SkeletonHelpButtonProps = {
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
 export const SkeletonHelpButton = ({ label = '' }: SkeletonHelpButtonProps): React.JSX.Element => {
-	const {
-		mode: { navigation },
-	} = useTheme();
-
 	return (
 		<SkeletonIconButton>
-			<QuestionCircleIcon
-				label={label}
-				color="currentColor"
-				LEGACY_secondaryColor={navigation.backgroundColor}
-			/>
+			<QuestionCircleIcon label={label} color="currentColor" />
 		</SkeletonIconButton>
 	);
 };

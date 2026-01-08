@@ -1,5 +1,19 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.16.8
+
+### Patch Changes
+
+- [`4272868869ef8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4272868869ef8) -
+  Updated threshold for observations and keep SSR entry
+
+## 4.16.7
+
+### Patch Changes
+
+- [`b59c796cf683e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b59c796cf683e) -
+  Aborting post-interaction logs also when original event is already finished
+
 ## 4.16.6
 
 ### Patch Changes

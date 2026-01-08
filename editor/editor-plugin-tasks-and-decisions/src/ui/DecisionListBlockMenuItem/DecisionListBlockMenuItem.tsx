@@ -39,11 +39,6 @@ export const DecisionListBlockMenuItem = ({
 		});
 	};
 
-	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(NODE_NAME);
-	if (isTransfromToPanelDisabled) {
-		return null;
-	}
-
 	return (
 		<ToolbarDropdownItem onClick={onClick} elemBefore={<DecisionIcon label="" />}>
 			{formatMessage(blockMenuMessages.decisionList)}

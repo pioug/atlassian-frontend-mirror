@@ -2436,6 +2436,16 @@ const metadata: IconMetadata = {
 		usage: 'Reserved for importing Jira work items',
 		createdAt: '2025-07-31T03:28:03.217Z',
 	},
+	journeys: {
+		keywords: ['JSM', 'journey', 'lifecycle', 'map', 'process'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'JSM Getting Started',
+		status: 'published',
+		id: '60320:16792',
+		usage: 'Reserved for representing Journeys in JSM.',
+		createdAt: '2026-01-07T03:43:57.080Z',
+	},
 	kanban: {
 		keywords: [],
 		categorization: 'single-purpose',

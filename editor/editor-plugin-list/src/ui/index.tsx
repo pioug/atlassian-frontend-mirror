@@ -12,6 +12,9 @@ import type { ListPlugin } from '../listPluginType';
 import { createBulletedListBlockMenuItem } from './BulletedListBlockMenuItem';
 import { createNumberedListBlockMenuItem } from './NumberedListBlockMenuItem';
 
+const BULLET_LIST_NODE_NAME = 'bulletList';
+const ORDERED_LIST_NODE_NAME = 'orderedList';
+
 export const getListComponents = (
 	api: ExtractInjectionAPI<ListPlugin> | undefined,
 ): RegisterBlockMenuComponent[] => {
@@ -27,6 +30,8 @@ export const getListComponents = (
 				],
 			},
 			component: createBulletedListBlockMenuItem({ api }),
+			isHidden: () =>
+				Boolean(api?.blockMenu?.actions.isTransformOptionDisabled(BULLET_LIST_NODE_NAME)),
 		},
 		{
 			type: 'block-menu-item',
@@ -39,6 +44,8 @@ export const getListComponents = (
 				],
 			},
 			component: createNumberedListBlockMenuItem({ api }),
+			isHidden: () =>
+				Boolean(api?.blockMenu?.actions.isTransformOptionDisabled(ORDERED_LIST_NODE_NAME)),
 		},
 	];
 };

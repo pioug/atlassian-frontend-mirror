@@ -352,11 +352,21 @@ const styles = cssMap({
 				display: 'block',
 			},
 		},
+		'@container toolbar-container (min-width: 411px) and (max-width: 476px)': {
+			'.show-only-sm': {
+				display: 'block',
+			},
+		},
 		'@container toolbar-container (max-width: 476px)': {
 			'.show-above-md': {
 				display: 'none',
 			},
 			'.show-below-md': {
+				display: 'block',
+			},
+		},
+		'@container toolbar-container (min-width: 477px) and (max-width: 768px)': {
+			'.show-only-md': {
 				display: 'block',
 			},
 		},
@@ -368,11 +378,21 @@ const styles = cssMap({
 				display: 'block',
 			},
 		},
+		'@container toolbar-container (min-width: 768px) and (max-width: 1024px)': {
+			'.show-only-lg': {
+				display: 'block',
+			},
+		},
 		'@container toolbar-container (max-width: 1024px)': {
 			'.show-above-xl': {
 				display: 'none',
 			},
 			'.show-below-xl': {
+				display: 'block',
+			},
+		},
+		'@container toolbar-container (min-width: 1024px)': {
+			'.show-only-xl': {
 				display: 'block',
 			},
 		},
@@ -388,11 +408,21 @@ const styles = cssMap({
 					display: 'block',
 				},
 			},
+			'@container toolbar-container (min-width: 211px) and (max-width: 408px)': {
+				'.show-only-sm': {
+					display: 'block',
+				},
+			},
 			'@container toolbar-container (max-width: 408px)': {
 				'.show-above-md': {
 					display: 'none',
 				},
 				'.show-below-md': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (min-width: 408px) and (max-width: 575px)': {
+				'.show-only-md': {
 					display: 'block',
 				},
 			},
@@ -404,11 +434,21 @@ const styles = cssMap({
 					display: 'block',
 				},
 			},
+			'@container toolbar-container (min-width: 576px) and (max-width: 1024px)': {
+				'.show-only-lg': {
+					display: 'block',
+				},
+			},
 			'@container toolbar-container (max-width: 1024px)': {
 				'.show-above-xl': {
 					display: 'none',
 				},
 				'.show-below-xl': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (min-width: 1024px)': {
+				'.show-only-xl': {
 					display: 'block',
 				},
 			},

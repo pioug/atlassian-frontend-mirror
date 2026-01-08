@@ -204,6 +204,10 @@ export class ReferenceSyncBlockStoreManager {
 			nodesToFetch.push(node);
 		});
 
+		if (nodesToFetch.length === 0) {
+			return;
+		}
+
 		nodesToFetch.forEach((node) => {
 			this.syncBlockFetchDataRequests.set(node.attrs.resourceId, true);
 		});

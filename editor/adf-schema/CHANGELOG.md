@@ -1,5 +1,12 @@
 # @atlaskit/adf-schema
 
+## 51.5.5
+
+### Patch Changes
+
+- [`4e6624861c374`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e6624861c374) -
+  [NO-ISSUE] Moves eslint to devDependencies
+
 ## 51.5.4
 
 ### Patch Changes

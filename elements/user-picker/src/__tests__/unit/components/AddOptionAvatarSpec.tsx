@@ -19,7 +19,6 @@ describe('AddOptionAvatar', () => {
 		expect(inviteIcon).toHaveLength(1);
 		expect(inviteIcon.props()).toMatchObject({
 			label: 'Invite',
-			LEGACY_size: 'medium',
 			color: token('color.text.subtle', N500),
 		});
 	});

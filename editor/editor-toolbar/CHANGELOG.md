@@ -1,5 +1,20 @@
 # @atlaskit/editor-toolbar
 
+## 0.19.0
+
+### Minor Changes
+
+- [`87b12e64ff750`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87b12e64ff750) -
+  Removed usages of LEGACY icon props
+
+## 0.18.9
+
+### Patch Changes
+
+- [`5ab68d0750bb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ab68d0750bb2) -
+  Fix only style missing in the old responsive container
+- Updated dependencies
+
 ## 0.18.8
 
 ### Patch Changes

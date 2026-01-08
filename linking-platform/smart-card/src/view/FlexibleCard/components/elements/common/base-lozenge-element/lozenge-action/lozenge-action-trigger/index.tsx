@@ -139,8 +139,6 @@ const LozengeActionTrigger = ({
 							<ChevronDownIcon
 								color="currentColor"
 								label="options"
-								LEGACY_size="medium"
-								LEGACY_margin="-4px -8px -4px -7px"
 								size="small"
 								aria-hidden={true}
 							/>

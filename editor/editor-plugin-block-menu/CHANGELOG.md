@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.0.12
+
+### Patch Changes
+
+- [`b909e5f47ea91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b909e5f47ea91) -
+  EDITOR-4159 Make sure block-menu-item type component return null when tranform disabled
+- Updated dependencies
+
+## 6.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.10
+
+### Patch Changes
+
+- [`b512bf962fe38`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b512bf962fe38) -
+  [ux] codeblock transformations should drop any incompatible content, it should just be wrapped
+- Updated dependencies
+
 ## 6.0.9
 
 ### Patch Changes

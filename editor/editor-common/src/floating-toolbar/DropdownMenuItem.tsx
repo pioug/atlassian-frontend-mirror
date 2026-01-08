@@ -74,12 +74,7 @@ const SelectedIconBefore = ({ itemSelected, intl, showSelected }: SelectedIconBe
 	if (showSelected && itemSelected) {
 		return (
 			<span aria-hidden="true">
-				<EditorDoneIcon
-					LEGACY_primaryColor={token('color.icon.selected')}
-					LEGACY_size="small"
-					label={intl.formatMessage(messages.confirmModalOK)}
-					spacing="none"
-				/>
+				<EditorDoneIcon label={intl.formatMessage(messages.confirmModalOK)} spacing="none" />
 			</span>
 		);
 	}

@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 8.2.0
+
+### Minor Changes
+
+- [`87b12e64ff750`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87b12e64ff750) -
+  Removed usages of LEGACY icon props
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.1
 
 ### Patch Changes

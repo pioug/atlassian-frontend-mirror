@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/adf-schema",
-	"version": "51.5.4",
+	"version": "51.5.5",
 	"description": "Shared package that contains the ADF-schema (json) and ProseMirror node/mark specs",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,7 +45,6 @@
 		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@babel/runtime": "root:*",
 		"css-color-names": "root:*",
-		"eslint": "root:*",
 		"linkify-it": "root:*",
 		"memoize-one": "root:*"
 	},
@@ -71,6 +70,7 @@
 		"@types/linkify-it": "root:*",
 		"@types/node": "root:*",
 		"babel-plugin-transform-define": "root:*",
+		"eslint": "root:*",
 		"jest": "root:*",
 		"jest-environment-jsdom": "root:*",
 		"json-schema-diff-validator": "root:*",

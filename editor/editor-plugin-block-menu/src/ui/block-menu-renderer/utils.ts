@@ -95,26 +95,20 @@ export const buildChildrenMap = (components: RegisterBlockMenuComponent[]): Chil
  * Determines whether a component will render based on its type and children
  *
  * Rules:
- * - An item will not render if has a component that returns null
- * - A nested menu will render if it has at least one registered child component
+ * - An item will not render if it has isHidden that returns true OR if its component returns null (fallback)
+ * - A nested menu will render if at least one section, that has at least one registered child
  * - A section will render if it has at least one registered child component that will render
  *
- * NOTE: This requires invoking each item's component function to check for null return
  */
 export const willComponentRender = (
 	registeredComponent: RegisterBlockMenuComponent,
 	childrenMap: ChildrenMap,
 ): boolean => {
 	if (registeredComponent.type === 'block-menu-item') {
-		return registeredComponent.component ? registeredComponent.component() !== null : true;
+		return !registeredComponent?.isHidden?.();
 	}
-
 	const childrenMapKey = getChildrenMapKey(registeredComponent.key, registeredComponent.type);
 	const registeredComponents = childrenMap.get(childrenMapKey) || [];
-
-	if (registeredComponent.type === 'block-menu-nested') {
-		return registeredComponents.length > 0;
-	}
 
 	return registeredComponents.some((childComponent) =>
 		willComponentRender(childComponent, childrenMap),

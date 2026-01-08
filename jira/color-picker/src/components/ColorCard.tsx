@@ -169,7 +169,6 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 										color={newCheckmarkColor as IconColor}
 										label=""
 										spacing="spacious"
-										LEGACY_margin="1px"
 									/>
 								)}
 							</div>

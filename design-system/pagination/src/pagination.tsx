@@ -54,12 +54,7 @@ function NavigatorIcon({ chevronDirection }: { chevronDirection: 'left' | 'right
 
 	return (
 		<Box as="span" xcss={styles.navigatorIconWrapper}>
-			<Chevron
-				label=""
-				LEGACY_margin={`0 ${token('space.negative.075')}`}
-				color="currentColor"
-				size="small"
-			/>
+			<Chevron label="" color="currentColor" size="small" />
 		</Box>
 	);
 }

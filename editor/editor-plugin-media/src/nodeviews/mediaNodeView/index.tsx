@@ -281,6 +281,13 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 			const isSelectedAndInteracted =
 				this.nodeInsideSelection() && interactionState !== 'hasNotHadInteraction';
 
+			let mediaProviderToUse = mediaProvider;
+			if (!mediaProviderToUse && expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)) {
+				mediaProviderToUse = mediaOptions.syncProvider
+					? Promise.resolve(mediaOptions.syncProvider)
+					: mediaOptions.provider;
+			}
+
 			return (
 				<MediaNode
 					api={pluginInjectionApi}
@@ -291,7 +298,7 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 					originalDimensions={originalDimensions}
 					maxDimensions={maxDimensions}
 					url={url}
-					mediaProvider={mediaProvider}
+					mediaProvider={mediaProviderToUse}
 					contextIdentifierProvider={contextIdentifierProvider}
 					mediaOptions={mediaOptions}
 					onExternalImageLoaded={this.onExternalImageLoaded}

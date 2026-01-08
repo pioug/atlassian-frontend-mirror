@@ -36,11 +36,6 @@ const BulletedListBlockMenuItem = ({ api }: BulletedListBlockMenuItemProps) => {
 		});
 	};
 
-	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(NODE_NAME);
-	if (isTransfromToPanelDisabled) {
-		return null;
-	}
-
 	return (
 		<ToolbarDropdownItem onClick={handleClick} elemBefore={<ListBulletedIcon label="" />}>
 			{formatMessage(listMessages.bulletedList)}

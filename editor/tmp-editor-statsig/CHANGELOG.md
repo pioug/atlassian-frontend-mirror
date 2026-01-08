@@ -1,5 +1,30 @@
 # @atlaskit/editor-statsig-tmp
 
+## 16.11.0
+
+### Minor Changes
+
+- [`0095cf9cd3e6f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0095cf9cd3e6f) -
+  NOISSUE Clean up feature gate cc_editor_limited_mode_table_align_bttn
+
+  Remove the feature gate `cc_editor_limited_mode_table_align_bttn` and assume it's always enabled.
+  The performance optimization for table column distribution in limited mode is now always active
+  when limited mode is enabled.
+
+## 16.10.0
+
+### Minor Changes
+
+- [`acd81a73a9a20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/acd81a73a9a20) -
+  [ux] EDITOR-4259 Set table ref when table is rendered
+
+## 16.9.0
+
+### Minor Changes
+
+- [`8c24728c97456`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c24728c97456) -
+  EDITOR-3638 Exclude zero intersection entries when scroll is detected
+
 ## 16.8.0
 
 ### Minor Changes

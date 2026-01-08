@@ -1,5 +1,12 @@
 # @atlaskit/pagination
 
+## 16.2.0
+
+### Minor Changes
+
+- [`87b12e64ff750`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87b12e64ff750) -
+  Removed usages of LEGACY icon props
+
 ## 16.1.23
 
 ### Patch Changes

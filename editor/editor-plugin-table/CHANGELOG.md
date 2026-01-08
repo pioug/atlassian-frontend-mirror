@@ -1,5 +1,42 @@
 # @atlaskit/editor-plugin-table
 
+## 16.1.9
+
+### Patch Changes
+
+- [`0095cf9cd3e6f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0095cf9cd3e6f) -
+  NOISSUE Clean up feature gate cc_editor_limited_mode_table_align_bttn
+
+  Remove the feature gate `cc_editor_limited_mode_table_align_bttn` and assume it's always enabled.
+  The performance optimization for table column distribution in limited mode is now always active
+  when limited mode is enabled.
+
+- Updated dependencies
+
+## 16.1.8
+
+### Patch Changes
+
+- [`7b37ece9ebb50`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b37ece9ebb50) -
+  EDITOR-4199: Fix table border issues when tables rendered under mobile breakpoint.
+- Updated dependencies
+
+## 16.1.7
+
+### Patch Changes
+
+- [`acd81a73a9a20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/acd81a73a9a20) -
+  [ux] EDITOR-4259 Set table ref when table is rendered
+- Updated dependencies
+
+## 16.1.6
+
+### Patch Changes
+
+- [`8c24728c97456`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c24728c97456) -
+  EDITOR-3638 Exclude zero intersection entries when scroll is detected
+- Updated dependencies
+
 ## 16.1.5
 
 ### Patch Changes

@@ -61,9 +61,6 @@ const interactionStateSharedOptions: Parameters<typeof snapshotInformational>[1]
 snapshotInformational(TopNavWithTempNavAppIconAppLogo, {
 	...interactionStateSharedOptions,
 	description: 'nav logo hover',
-	featureFlags: {
-		'platform-team25-app-icon-tiles': true,
-	},
 	prepare: async (page) => {
 		await page.getByRole('link', { name: 'Home page' }).hover();
 	},
@@ -72,9 +69,6 @@ snapshotInformational(TopNavWithTempNavAppIconAppLogo, {
 snapshotInformational(TopNavWithTempNavAppIconAppLogo, {
 	...interactionStateSharedOptions,
 	description: 'nav logo pressed',
-	featureFlags: {
-		'platform-team25-app-icon-tiles': true,
-	},
 	prepare: async (page) => {
 		await page.getByRole('link', { name: 'Home page' }).hover();
 		await page.mouse.down();
@@ -84,9 +78,6 @@ snapshotInformational(TopNavWithTempNavAppIconAppLogo, {
 snapshotInformational(TopNavigationThemingSingleExample, {
 	...interactionStateSharedOptions,
 	description: 'nav logo hover - custom theming',
-	featureFlags: {
-		'platform-team25-app-icon-tiles': true,
-	},
 	prepare: async (page) => {
 		await page.getByRole('link', { name: 'Home page' }).hover();
 	},
@@ -95,9 +86,6 @@ snapshotInformational(TopNavigationThemingSingleExample, {
 snapshotInformational(TopNavigationThemingSingleExample, {
 	...interactionStateSharedOptions,
 	description: 'nav logo pressed - custom theming',
-	featureFlags: {
-		'platform-team25-app-icon-tiles': true,
-	},
 	prepare: async (page) => {
 		await page.getByRole('link', { name: 'Home page' }).hover();
 		await page.mouse.down();
@@ -106,9 +94,6 @@ snapshotInformational(TopNavigationThemingSingleExample, {
 
 snapshotInformational(TopNavWithLongProductName, {
 	description: 'long product name tooltip',
-	featureFlags: {
-		'platform-team25-app-icon-tiles': true,
-	},
 	prepare: async (page) => {
 		// Reduce the viewport size to remove whitespace but include the tooltip
 		await page.setViewportSize({ width: 1200, height: 100 });

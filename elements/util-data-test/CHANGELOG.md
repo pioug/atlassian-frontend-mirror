@@ -1,5 +1,16 @@
 # @atlaskit/util-data-test
 
+## 18.4.0
+
+### Minor Changes
+
+- [`87b12e64ff750`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87b12e64ff750) -
+  Removed usages of LEGACY icon props
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.3.9
 
 ### Patch Changes

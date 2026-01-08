@@ -25,8 +25,6 @@ export default () => {
 			<EditorPanelIcon
 				testId="source-icon"
 				label=""
-				LEGACY_size="large"
-				LEGACY_margin={`0 ${token('space.negative.050')} 0 0`}
 				spacing="spacious"
 				color={token('color.text.subtlest', isMouseHovered ? N200 : N50)}
 			/>

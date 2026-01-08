@@ -33,8 +33,6 @@ export { getJiraWorkItemAri, getJiraWorkItemIdFromAri } from './clients/jira/ari
 
 // providers
 export {
-	createBlockServiceAPIProviders,
-	createBlockServiceFetchOnlyAPIProvider,
 	useMemoizedBlockServiceAPIProviders,
 	useMemoizedBlockServiceFetchOnlyAPIProvider,
 } from './providers/block-service/blockServiceAPI';
@@ -42,7 +40,6 @@ export { fetchConfluencePageInfo } from './clients/confluence/sourceInfo';
 
 export {
 	SyncBlockProvider as SyncedBlockProvider,
-	createAndInitializeSyncedBlockProvider,
 	useMemoizedSyncedBlockProvider,
 } from './providers/syncBlockProvider';
 export type {
@@ -63,7 +60,6 @@ export type {
 export { type ReferenceSyncBlockStoreManager } from './store-manager/referenceSyncBlockStoreManager';
 export {
 	SyncBlockStoreManager,
-	createAndInitializeSyncBlockStoreManager,
 	useMemoizedSyncBlockStoreManager,
 } from './store-manager/syncBlockStoreManager';
 

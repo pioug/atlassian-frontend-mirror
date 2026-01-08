@@ -34,6 +34,8 @@ import refreshBrowserSelectionOnChange from './pm-plugins/refresh-browser-select
 import { getToolbarConfig } from './pm-plugins/toolbar';
 import { createCodeBlockMenuItem } from './ui/CodeBlockMenuItem';
 
+const CODE_BLOCK_NODE_NAME = 'codeBlock';
+
 const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => {
 	if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
 		api?.blockMenu?.actions.registerBlockMenuComponents([
@@ -46,6 +48,8 @@ const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => {
 					rank: TRANSFORM_STRUCTURE_MENU_SECTION_RANK[TRANSFORM_STRUCTURE_CODE_BLOCK_MENU_ITEM.key],
 				},
 				component: createCodeBlockMenuItem(api),
+				isHidden: () =>
+					Boolean(api?.blockMenu?.actions.isTransformOptionDisabled(CODE_BLOCK_NODE_NAME)),
 			},
 		]);
 	}

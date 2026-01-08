@@ -28,8 +28,6 @@ export const FailedTitleBox: React.FC<FailedTitleBoxProps> = ({
 			<ErrorMessageWrapper>
 				<EditorWarningIcon
 					label={'Warning'}
-					LEGACY_size={'small'}
-					LEGACY_margin={`0 ${token('space.negative.025')}`}
 					color={token('color.text.danger', R300)}
 					size="small"
 				/>

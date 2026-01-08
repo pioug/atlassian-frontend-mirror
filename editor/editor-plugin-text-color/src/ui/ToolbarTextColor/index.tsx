@@ -200,12 +200,7 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 									{
 										//eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 										<span css={expandIconContainerStyle}>
-											<ChevronDownIcon
-												label=""
-												color="currentColor"
-												LEGACY_margin="0 0 0 -8px"
-												size="small"
-											/>
+											<ChevronDownIcon label="" color="currentColor" size="small" />
 										</span>
 									}
 								</div>

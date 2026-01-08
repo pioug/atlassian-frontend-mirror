@@ -113,6 +113,7 @@ export const getReferenceSyncedBlocks = async (
 
 export type GetSyncedBlockContentRequest = {
 	blockAri: string; // the ARI of the block. E.G ari:cloud:blocks:site-123:synced-block/uuid-456
+	documentAri?: string; // optional document ARI to pass as query parameter
 };
 
 export type DeleteSyncedBlockRequest = {
@@ -193,9 +194,14 @@ export class BlockError extends Error {
 
 export const getSyncedBlockContent = async ({
 	blockAri,
+	documentAri,
 }: GetSyncedBlockContentRequest): Promise<BlockContentResponse> => {
+	// Disable sending documentAri for now. We'll add it back if we find a way to update references that follows the save & refresh principle.
+	// Slack discussion here: https://atlassian.slack.com/archives/C09DZT1TBNW/p1767836775552099?thread_ts=1767836754.024889&cid=C09DZT1TBNW
+	// const queryParams = documentAri ? `?documentAri=${encodeURIComponent(documentAri)}` : '';
+	const queryParams = '';
 	const response = await fetchWithRetry(
-		`${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}`,
+		`${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}` + queryParams,
 		{
 			method: 'GET',
 			headers: COMMON_HEADERS,
@@ -207,7 +213,7 @@ export const getSyncedBlockContent = async ({
 	}
 
 	return (await response.json()) as BlockContentResponse;
-};
+};;
 
 /**
  * Batch retrieves multiple synced blocks by their ARIs.
@@ -286,7 +292,7 @@ export const createSyncedBlock = async ({
 		product,
 		content,
 	};
-	
+
 	if (stepVersion !== undefined) {
 		requestBody.stepVersion = stepVersion;
 	}

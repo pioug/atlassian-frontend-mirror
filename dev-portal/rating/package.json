@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rating",
-	"version": "3.0.14",
+	"version": "3.1.0",
 	"description": "An accessible rating component that can be heavily customized.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

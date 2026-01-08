@@ -43,8 +43,7 @@
 	},
 	"devDependencies": {
 		"@storybook/addon-knobs": "root:*",
-		"@testing-library/react": "root:*",
-		"@testing-library/react-hooks": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"@welldone-software/why-did-you-render": "root:*",
 		"enzyme": "root:*",
 		"fetch-mock": "root:*",

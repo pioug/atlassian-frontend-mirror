@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 8.0.5
+
+### Patch Changes
+
+- [`0bf8d0bd8bf2c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0bf8d0bd8bf2c) -
+  [ux] EDITOR-4276 Apply block selection visual style only from drag handle
+- Updated dependencies
+
 ## 8.0.4
 
 ### Patch Changes

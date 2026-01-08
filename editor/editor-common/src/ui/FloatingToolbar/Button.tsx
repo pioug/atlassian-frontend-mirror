@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/custom-theme-button';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import Tooltip, { type TooltipProps } from '@atlaskit/tooltip';
 
@@ -94,7 +95,15 @@ export default ({
 	const iconOnly = (icon || iconAfter) && !children;
 	const customSpacing = iconOnly ? iconOnlySpacing : {};
 	const isButtonPressed = ariaHasPopup ? undefined : selected;
-	const ariaChecked = isRadioButton ? isButtonPressed : undefined;
+	/**
+	 * If it's a radio button, we need to reflect false values too, hence
+	 * we cast it as a Boolean
+	 */
+	const ariaChecked = isRadioButton
+		? fg('platform_editor_dec_a11y_fixes')
+			? Boolean(isButtonPressed)
+			: isButtonPressed
+		: undefined;
 	const ariaPressed = isRadioButton ? undefined : isButtonPressed;
 	const [spotlightReferenceElement, setSpotlightReferenceElement] = useState<HTMLElement | null>(
 		null,

@@ -35,7 +35,6 @@ const Color = (props: Props) => {
 		label,
 		isSelected,
 		borderColor,
-		checkMarkColor = '#FFFFFF',
 		/**
 		 * When hexToPaletteColor prop is set,
 		 * it will be used to get background color style based on
@@ -89,9 +88,7 @@ const Color = (props: Props) => {
 					}}
 					autoFocus={autoFocus}
 				>
-					{!decorator && isSelected && (
-						<EditorDoneIcon LEGACY_primaryColor={checkMarkColor} label="" />
-					)}
+					{!decorator && isSelected && <EditorDoneIcon label="" />}
 					{decorator}
 				</button>
 			</span>

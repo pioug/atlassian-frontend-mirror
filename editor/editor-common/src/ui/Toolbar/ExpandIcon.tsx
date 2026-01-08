@@ -13,7 +13,7 @@ const expandIconContainerStyle = css({
 export function ToolbarExpandIcon() {
 	return (
 		<span css={expandIconContainerStyle}>
-			<ChevronDownIcon label="" color="currentColor" LEGACY_margin="0 0 0 -8px" size="small" />
+			<ChevronDownIcon label="" color="currentColor" size="small" />
 		</span>
 	);
 }

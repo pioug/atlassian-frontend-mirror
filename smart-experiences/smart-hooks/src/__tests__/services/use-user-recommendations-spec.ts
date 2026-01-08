@@ -1,4 +1,4 @@
-import { act, renderHook, type RenderResult } from '@testing-library/react-hooks';
+import { act, renderHook, waitFor } from '@testing-library/react';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
@@ -84,7 +84,7 @@ describe('useUserRecommendations hook', () => {
 	});
 
 	const setUpInstrumentation = (
-		result: RenderResult<ReturnType<typeof useUserRecommendations>>,
+		result: { current: ReturnType<typeof useUserRecommendations> },
 	) => {
 		expect(result.current.recommendations).toEqual(instrumentFailureOption);
 		expect(result.current.isLoading).toEqual(false);
@@ -102,7 +102,7 @@ describe('useUserRecommendations hook', () => {
 	};
 
 	it('should return recommendations', async () => {
-		const { result, waitForNextUpdate } = renderHook(() => useUserRecommendations(mockProps));
+		const { result } = renderHook(() => useUserRecommendations(mockProps));
 
 		setUpInstrumentation(result);
 
@@ -117,18 +117,18 @@ describe('useUserRecommendations hook', () => {
 		expect(fetchUserRecommendationsMock).toHaveBeenCalledTimes(1);
 
 		// wait for search to resolve
-		await waitForNextUpdate();
-
-		expect(result.current.recommendations).toEqual(mockUserSearchData);
-		expect(result.current.isLoading).toEqual(false);
-		expect(result.current.error).toBeUndefined();
+		await waitFor(() => {
+			expect(result.current.recommendations).toEqual(mockUserSearchData);
+			expect(result.current.isLoading).toEqual(false);
+			expect(result.current.error).toBeUndefined();
+		});
 	});
 
 	it('should return no recommendations and error if error downstream', async () => {
 		const expectedError = new Error('400 - Bad Request');
 		fetchUserRecommendationsMock.mockReturnValue(Promise.reject(expectedError));
 
-		const { result, waitForNextUpdate } = renderHook(() => useUserRecommendations(mockProps));
+		const { result } = renderHook(() => useUserRecommendations(mockProps));
 
 		setUpInstrumentation(result);
 
@@ -142,15 +142,15 @@ describe('useUserRecommendations hook', () => {
 		expect(result.current.error).toBeUndefined();
 
 		// wait for search to resolve
-		await waitForNextUpdate();
-
-		expect(result.current.recommendations).toEqual([]);
-		expect(result.current.isLoading).toEqual(false);
-		expect(result.current.error).toBe(expectedError);
+		await waitFor(() => {
+			expect(result.current.recommendations).toEqual([]);
+			expect(result.current.isLoading).toEqual(false);
+			expect(result.current.error).toBe(expectedError);
+		});
 	});
 
 	it('should respect preload', async () => {
-		const { result, waitForNextUpdate } = renderHook(() =>
+		const { result } = renderHook(() =>
 			useUserRecommendations({ ...mockProps, preload: true }),
 		);
 
@@ -158,17 +158,17 @@ describe('useUserRecommendations hook', () => {
 		expect(result.current.isLoading).toEqual(true);
 		expect(result.current.error).toBeUndefined();
 
-		await waitForNextUpdate();
-
 		act(() => {
 			// instantiate analytics handlers to satisfy instrumentation verification
 			result.current.selectUserFactory();
 			result.current.triggerSearchFactory();
 		});
 
-		expect(result.current.recommendations).toEqual(mockUserSearchData);
-		expect(result.current.isLoading).toEqual(false);
-		expect(result.current.error).toBeUndefined();
+		await waitFor(() => {
+			expect(result.current.recommendations).toEqual(mockUserSearchData);
+			expect(result.current.isLoading).toEqual(false);
+			expect(result.current.error).toBeUndefined();
+		});
 	});
 
 	it('should return error message option if not instrumented', () => {
@@ -185,7 +185,7 @@ describe('useUserRecommendations hook', () => {
 
 	it('should not refetch if current query was the same as last query', async () => {
 		// disable debounce since debounce may cause potential fetch to not refetch
-		const { result, waitForNextUpdate } = renderHook(() =>
+		const { result } = renderHook(() =>
 			useUserRecommendations({ ...mockProps, debounceTimeMs: 0 }),
 		);
 
@@ -197,9 +197,9 @@ describe('useUserRecommendations hook', () => {
 		});
 
 		// wait for search to resolve
-		await waitForNextUpdate();
-
-		expect(fetchUserRecommendationsMock).toHaveBeenCalledTimes(1);
+		await waitFor(() => {
+			expect(fetchUserRecommendationsMock).toHaveBeenCalledTimes(1);
+		});
 
 		act(() => {
 			// search for users
@@ -221,74 +221,73 @@ describe('useUserRecommendations hook', () => {
 
 		it('should change sessions between searches', async () => {
 			// SETUP
-			const { result, waitForNextUpdate } = renderHook(() => useUserRecommendations(mockProps));
+			const { result } = renderHook(() => useUserRecommendations(mockProps));
 			setUpInstrumentation(result);
 
 			// ACT & TEST
-			act(() => {
+			await act(() => {
 				// search for users
 				result.current.triggerSearchFactory()('');
 			});
 
-			// wait for search to resolve
-			await waitForNextUpdate();
-
-			act(() => {
+			await act(() => {
 				// clicks on user
 				result.current.selectUserFactory()(mockUserSearchData[0].id);
 			});
 
-			expect(fireEventMock).toHaveBeenCalledWith(
-				expect.objectContaining({
-					action: 'selected',
-					actionSubject: 'user',
-					attributes: expect.objectContaining({
-						context: 'mockFieldId',
-						loadedUsersSize: mockUserSearchData.length,
-						maxNumberOfResults: 25,
-						position: 0,
-						productKey: 'jira',
-						queryLength: 0,
-						renderId: 'renderId',
-						selectedUser: '2234',
-						sessionId: '1',
-						tenantId: 'tenantId',
+			await waitFor(() => {
+				expect(fireEventMock).toHaveBeenCalledWith(
+					expect.objectContaining({
+						action: 'selected',
+						actionSubject: 'user',
+						attributes: expect.objectContaining({
+							context: 'mockFieldId',
+							loadedUsersSize: mockUserSearchData.length,
+							maxNumberOfResults: 25,
+							position: 0,
+							productKey: 'jira',
+							queryLength: 0,
+							renderId: 'renderId',
+							selectedUser: '2234',
+							sessionId: '1',
+							tenantId: 'tenantId',
+						}),
+						eventType: 'track',
+						source: '@atlaskit/smart-hooks/use-user-recommendations',
 					}),
-					eventType: 'track',
-					source: '@atlaskit/smart-hooks/use-user-recommendations',
-				}),
-			);
+				);
+			});
 
 			// changes input
-			act(() => {
+			await act(() => {
 				result.current.triggerSearchFactory()('ad');
 			});
-			// wait for search to resolve
-			await waitForNextUpdate();
 
 			// clicks on user
-			act(() => {
+			await act(() => {
 				result.current.selectUserFactory()(mockUserSearchData[3].id);
 			});
 
-			expect(fireEventMock).toHaveBeenCalledWith(
-				expect.objectContaining({
-					action: 'selected',
-					actionSubject: 'user',
-					attributes: expect.objectContaining({
-						position: 3,
-						queryLength: 2,
-						renderId: 'renderId',
-						selectedUser: '12312412',
-						sessionId: '2',
+			await waitFor(() => {
+				expect(fireEventMock).toHaveBeenCalledWith(
+					expect.objectContaining({
+						action: 'selected',
+						actionSubject: 'user',
+						attributes: expect.objectContaining({
+							position: 3,
+							queryLength: 2,
+							renderId: 'renderId',
+							selectedUser: '12312412',
+							sessionId: '2',
+						}),
 					}),
-				}),
-			);
+				);
+			});
 		});
 
 		it('should track UFO search experience success', async () => {
 			// SETUP
-			const { result, waitForNextUpdate } = renderHook(() => useUserRecommendations(mockProps));
+			const { result } = renderHook(() => useUserRecommendations(mockProps));
 			setUpInstrumentation(result);
 
 			// ACT & TEST
@@ -299,15 +298,15 @@ describe('useUserRecommendations hook', () => {
 			expect(usersFetchedUfoStartMock).toHaveBeenCalledTimes(1);
 
 			// wait for search to resolve
-			await waitForNextUpdate();
-
-			expect(usersFetchedUfoSuccessMock).toHaveBeenCalledTimes(1);
+			await waitFor(() => {
+				expect(usersFetchedUfoSuccessMock).toHaveBeenCalledTimes(1);
+			});
 		});
 
 		it('should track UFO search experience fail', async () => {
 			// SETUP
 			fetchUserRecommendationsMock.mockReturnValue(Promise.reject());
-			const { result, waitForNextUpdate } = renderHook(() => useUserRecommendations(mockProps));
+			const { result } = renderHook(() => useUserRecommendations(mockProps));
 			setUpInstrumentation(result);
 
 			// ACT & TEST
@@ -318,9 +317,9 @@ describe('useUserRecommendations hook', () => {
 			expect(usersFetchedUfoStartMock).toHaveBeenCalledTimes(1);
 
 			// wait for search to resolve
-			await waitForNextUpdate();
-
-			expect(usersFetchedUfoFailMock).toHaveBeenCalledTimes(1);
+			await waitFor(() => {
+				expect(usersFetchedUfoFailMock).toHaveBeenCalledTimes(1);
+			});
 		});
 
 		it('should abort UFO search experience if new search is triggered', async () => {
@@ -344,7 +343,7 @@ describe('useUserRecommendations hook', () => {
 						}, 20);
 					}),
 				);
-			const { result, waitForNextUpdate } = renderHook(() =>
+			const { result } = renderHook(() =>
 				useUserRecommendations({ ...mockProps, debounceTimeMs: 0 }),
 			);
 			setUpInstrumentation(result);
@@ -365,9 +364,9 @@ describe('useUserRecommendations hook', () => {
 			jest.advanceTimersByTime(100);
 
 			// wait for search to resolve
-			await waitForNextUpdate();
-
-			expect(usersFetchedUfoAbortMock).toHaveBeenCalledTimes(1);
+			await waitFor(() => {
+				expect(usersFetchedUfoAbortMock).toHaveBeenCalledTimes(1);
+			});
 		});
 	});
 });

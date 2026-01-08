@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-media
 
+## 9.3.2
+
+### Patch Changes
+
+- [`f0aa021b562bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0aa021b562bb) -
+  Updated with default media provider and handle optional view in media state
+- Updated dependencies
+
+## 9.3.1
+
+### Patch Changes
+
+- [`17e77ddc106cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/17e77ddc106cc) -
+  Added basic image modal tests for editor-plugin-media-editing Added image-edit-toolbar-button into
+  the editor media testing toolbar Imported media editing plugin into the editor test helper
+- Updated dependencies
+
 ## 9.3.0
 
 ### Minor Changes

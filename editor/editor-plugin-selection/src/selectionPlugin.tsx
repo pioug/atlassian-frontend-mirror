@@ -1,5 +1,5 @@
 import type { EditorCommand } from '@atlaskit/editor-common/types';
-import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { getSelectionFragment, getSelectionLocalIds } from './editor-actions';
 import { createAutoExpandSelectionRangeOnInlineNodePlugin } from './pm-plugins/auto-expand-selection-range-on-inline-node-main';
@@ -51,6 +51,26 @@ const hideCursor =
 		});
 	};
 
+const setBlockSelection =
+	(selection: Selection): EditorCommand =>
+	({ tr }) => {
+		const currMeta = tr.getMeta(selectionPluginKey);
+		return tr.setMeta(selectionPluginKey, {
+			...currMeta,
+			setBlockSelection: selection,
+		});
+	};
+
+const clearBlockSelection =
+	(): EditorCommand =>
+	({ tr }) => {
+		const currMeta = tr.getMeta(selectionPluginKey);
+		return tr.setMeta(selectionPluginKey, {
+			...currMeta,
+			clearBlockSelection: true,
+		});
+	};
+
 export const selectionPlugin: SelectionPlugin = ({ api, config: options }) => ({
 	name: 'selection',
 
@@ -59,6 +79,8 @@ export const selectionPlugin: SelectionPlugin = ({ api, config: options }) => ({
 		clearManualSelection,
 		hideCursor,
 		setManualSelection,
+		setBlockSelection,
+		clearBlockSelection,
 	},
 
 	actions: {

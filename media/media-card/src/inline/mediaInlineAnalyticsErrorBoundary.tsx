@@ -68,13 +68,7 @@ const ErrorBoundaryComponent: React.FC<ErrorBoundaryProps> = ({ message, isSelec
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		<span style={style}>
-			<WarningIcon
-				LEGACY_margin={`0 ${token('space.negative.050')} 0 0`}
-				label="error"
-				LEGACY_size="small"
-				color={token('color.icon.danger', R300)}
-				size="small"
-			/>
+			<WarningIcon label="error" color={token('color.icon.danger', R300)} size="small" />
 			{message}
 		</span>
 	);

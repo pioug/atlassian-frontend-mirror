@@ -861,7 +861,12 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 	};
 
 	selectedMediaContainerNode = (): PMNode | undefined => {
-		const { selection } = this.view.state;
+		let selection: Selection | undefined;
+		if (expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)) {
+			selection = this.view?.state?.selection;
+		} else {
+			({ selection } = this.view.state);
+		}
 		if (selection instanceof NodeSelection && this.isMediaSchemaNode(selection.node)) {
 			return selection.node;
 		}

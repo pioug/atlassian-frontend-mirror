@@ -121,12 +121,7 @@ export const DropdownIndicator = <Option, IsMulti extends boolean, Group extends
 				children
 			) : (
 				<Inline as="span" xcss={dropdownWrapperStyles.root}>
-					<DownIcon
-						color="currentColor"
-						label="open"
-						LEGACY_margin={token('space.negative.075', '-0.375rem')}
-						size="small"
-					/>
+					<DownIcon color="currentColor" label="open" size="small" />
 				</Inline>
 			)}
 		</div>
@@ -201,13 +196,7 @@ export const ClearIndicator = <Option, IsMulti extends boolean, Group extends Gr
 		>
 			{/* The Clear button is intentionally excluded from the tab order, please avoid assigning a non-negative tabIndex to it. Context: https://hello.atlassian.net/wiki/spaces/A11YKB/pages/3031993460/Clear+Options+on+an+Input+Field */}
 			<Pressable xcss={iconContainerStyles.root} tabIndex={-1} aria-label={clearControlLabel}>
-				<CrossIcon
-					label=""
-					color="currentColor"
-					LEGACY_size="small"
-					LEGACY_margin={token('space.negative.025', '-0.125rem')}
-					size="small"
-				/>
+				<CrossIcon label="" color="currentColor" size="small" />
 			</Pressable>
 		</div>
 	);

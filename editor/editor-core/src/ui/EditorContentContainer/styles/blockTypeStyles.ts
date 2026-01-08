@@ -1,6 +1,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, type SerializedStyles } from '@emotion/react';
 
+import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
 // This style is needed to avoid Confluence's batch.css overrides that expand blockquote with extra padding after SSR.
@@ -333,12 +334,8 @@ export const blocktypeStyles_fg_platform_editor_nested_dnd_styles_changes: Seria
 });
 
 // This class applies when the node is selected directly or is included in the selected range
-const isSelectedNode = '.ak-editor-selected-node';
+const isSelectedNode = `.${akEditorSelectedNodeClassName}`;
 const isOuterMostSelectedNode = `${isSelectedNode}:not(${isSelectedNode} *)`;
-
-// This class applies when there is a node selection on this node directly
-const isOnlySelectedNode = '.ProseMirror-selectednode';
-const isOuterMostOnlySelectedNode = `${isOnlySelectedNode}:not(${isOnlySelectedNode} *)`;
 
 const isList = ':is(ul, ol, div[data-node-type="actionList"])';
 const isOuterMostList = `${isList}:not(${isList} *)`;
@@ -369,7 +366,7 @@ const isRootText = `${isText}:not(${isList} ${isText})`;
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const textSelectedNodeStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
-	[`.ProseMirror ${isRootText}${isOuterMostOnlySelectedNode}`]: {
+	[`.ProseMirror ${isRootText}${isOuterMostSelectedNode}`]: {
 		background: token('color.background.accent.blue.subtler'),
 		WebkitUserSelect: 'text',
 		boxShadow: `0 -4px 0 ${token('color.background.accent.blue.subtler')}, 0 4px 0 ${token('color.background.accent.blue.subtler')}`,

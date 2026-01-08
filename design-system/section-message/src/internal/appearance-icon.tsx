@@ -50,20 +50,13 @@ const appearanceIconSchema: {
 export function getAppearanceIconStyles(appearance: Appearance, icon: SectionMessageProps['icon']) {
 	const appearanceIconStyles = appearanceIconSchema[appearance] || appearanceIconSchema.information;
 	const AppearanceIcon = ({
-		size,
 		primaryColor,
-		secondaryColor,
 	}: {
-		size: string;
 		primaryColor: string;
-		secondaryColor: string;
 	}): React.JSX.Element => (
 		<appearanceIconStyles.Icon
-			LEGACY_size={size}
 			color={primaryColor}
 			spacing="spacious"
-			LEGACY_primaryColor={primaryColor}
-			LEGACY_secondaryColor={secondaryColor}
 			label={appearance}
 		/>
 	);

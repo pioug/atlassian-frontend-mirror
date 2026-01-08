@@ -25,6 +25,7 @@ import {
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { selectionPluginKey } from '../types';
 
@@ -34,6 +35,7 @@ export const getDecorations = (
 	tr: Transaction | ReadonlyTransaction,
 	manualSelection?: { anchor: number; head: number },
 	hideCursor?: boolean,
+	blockSelection?: Selection,
 ): DecorationSet => {
 	let selection = tr.selection;
 	const decorations: Decoration[] = [];
@@ -61,14 +63,20 @@ export const getDecorations = (
 		) {
 			selection = TextSelection.create(tr.doc, manualSelection.anchor, manualSelection.head);
 		}
-		const selectionDecorations = getNodesToDecorateFromSelection(selection, tr.doc).map(
-			({ node, pos }) => {
-				return Decoration.node(pos, pos + node.nodeSize, {
-					class: akEditorSelectedNodeClassName,
-				});
-			},
-		);
-		decorations.push(...selectionDecorations);
+
+		// Only apply node decorations when there is an active block selection.
+		// When there is no block selection, text selections should use native browser selection appearance.
+		if (!expValEquals('platform_editor_block_menu', 'isEnabled', true) || blockSelection) {
+			const selectionDecorations = getNodesToDecorateFromSelection(selection, tr.doc).map(
+				({ node, pos }) => {
+					return Decoration.node(pos, pos + node.nodeSize, {
+						class: akEditorSelectedNodeClassName,
+					});
+				},
+			);
+			decorations.push(...selectionDecorations);
+		}
+
 		return DecorationSet.create(tr.doc, decorations);
 	}
 

@@ -334,10 +334,7 @@ export const getToolbarCellOptionsConfig = (
 
 		// Performance optimization: Skip expensive getTableScalingPercent() DOM query when limited mode is enabled.
 		// This avoids layout reflows on every transaction. Instead, button stays enabled and calculates on-demand when clicked.
-		if (
-			!expValEquals('cc_editor_limited_mode_table_align_bttn', 'isEnabled', true) ||
-			!isLimitedModeEnabled
-		) {
+		if (!isLimitedModeEnabled) {
 			newResizeStateWithAnalytics = editorView
 				? getNewResizeStateFromSelectedColumns(
 						initialSelectionRect,
@@ -354,10 +351,7 @@ export const getToolbarCellOptionsConfig = (
 
 		const distributeColumnWidths: Command = (state, dispatch, view) => {
 			// When optimization is enabled, calculate on-demand when clicked
-			if (
-				expValEquals('cc_editor_limited_mode_table_align_bttn', 'isEnabled', true) &&
-				isLimitedModeEnabled
-			) {
+			if (isLimitedModeEnabled) {
 				if (view) {
 					const resizeState = getNewResizeStateFromSelectedColumns(
 						initialSelectionRect,
@@ -934,10 +928,7 @@ const getColumnSettingItems = (
 
 	// Performance optimization: Skip expensive getTableScalingPercent() DOM query when limited mode is enabled.
 	// This avoids layout reflows on every transaction. Instead, button stays enabled and calculates on-demand when clicked.
-	if (
-		!expValEquals('cc_editor_limited_mode_table_align_bttn', 'isEnabled', true) ||
-		!isLimitedModeEnabled
-	) {
+	if (!isLimitedModeEnabled) {
 		newResizeStateWithAnalytics = getNewResizeStateFromSelectedColumns(
 			selectionOrTableRect,
 			editorState,

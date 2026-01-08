@@ -25,7 +25,7 @@ import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
-import { autoSizeTable, clearHoverSelection } from '../pm-plugins/commands';
+import { autoSizeTable, clearHoverSelection, setTableRef } from '../pm-plugins/commands';
 import { autoScrollerFactory } from '../pm-plugins/drag-and-drop/utils/autoscrollers';
 import { pluginKey as stickyHeadersPluginKey } from '../pm-plugins/sticky-headers/plugin-key';
 import type { RowStickyState, StickyPluginState } from '../pm-plugins/sticky-headers/types';
@@ -882,6 +882,16 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 							if (tableElement !== this.table) {
 								this.table = tableElement;
 								this.observeTable(this.table);
+
+								// // Update tableRef in plugin state when table is properly mounted
+								// // At this point, both table and wrapper are in DOM with correct parent-child relationship
+								if (
+									this.table &&
+									this.props.view &&
+									expValEquals('platform_editor_table_update_table_ref', 'isEnabled', true)
+								) {
+									setTableRef(this.table)(this.props.view.state, this.props.view.dispatch);
+								}
 							}
 						}
 					}}

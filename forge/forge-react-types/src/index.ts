@@ -55,6 +55,7 @@ export type {
 	TextProps,
 	TextAreaProps,
 	TextfieldProps,
+	TileProps,
 	ToggleProps,
 	TooltipProps,
 	TimePickerProps,
@@ -127,6 +128,7 @@ export type {
 	TText,
 	TPressable,
 	TFilePicker,
+	TTile,
 } from './components/__generated__';
 
 export type {

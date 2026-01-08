@@ -18,13 +18,13 @@ export const BlockMenuComponent = ({
 	childrenMap,
 	fallbacks,
 }: BlockMenuComponentProps) => {
+	if (!willComponentRender(registeredComponent, childrenMap)) {
+		return null;
+	}
+
 	if (registeredComponent.type === 'block-menu-item') {
 		const ItemComponent = registeredComponent.component || fallbacks['block-menu-item'];
 		return <ItemComponent key={registeredComponent.key} />;
-	}
-
-	if (!willComponentRender(registeredComponent, childrenMap)) {
-		return null;
 	}
 
 	const ParentComponent = registeredComponent.component || fallbacks[registeredComponent.type];

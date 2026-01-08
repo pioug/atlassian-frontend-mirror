@@ -32,7 +32,7 @@ const errorIconWrapperStyles = css({
 // Error icon with wrapper for character count violations
 const ErrorIconWithWrapper = () => (
 	<span css={errorIconWrapperStyles}>
-		<ErrorIcon LEGACY_margin="0 -2px 0 0" LEGACY_size="small" label="error" size="small" />
+		<ErrorIcon label="error" size="small" />
 	</span>
 );
 

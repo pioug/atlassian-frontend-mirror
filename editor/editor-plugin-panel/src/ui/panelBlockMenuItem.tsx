@@ -36,11 +36,6 @@ const PanelBlockMenuItem = ({ api }: Props) => {
 		});
 	};
 
-	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(NODE_NAME);
-	if (isTransfromToPanelDisabled) {
-		return null;
-	}
-
 	return (
 		<ToolbarDropdownItem onClick={handleClick} elemBefore={<InformationCircleIcon label="" />}>
 			{formatMessage(blockTypeMessages.panel)}

@@ -2,7 +2,6 @@ import React, { forwardRef, type Ref } from 'react';
 
 import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
 
-import { useTheme } from '../../theme';
 import { BadgeContainer } from '../BadgeContainer';
 import { IconButton } from '../IconButton';
 
@@ -41,10 +40,6 @@ export const Help: React.ForwardRefExoticComponent<
 		tooltip,
 		...rest
 	} = props;
-	const {
-		mode: { navigation },
-	} = useTheme();
-
 	const button = (
 		<IconButton
 			component={component}
@@ -54,7 +49,6 @@ export const Help: React.ForwardRefExoticComponent<
 					label={typeof tooltip === 'string' ? tooltip : 'Help Icon'}
 					color="currentColor"
 					spacing="spacious"
-					LEGACY_secondaryColor={navigation.backgroundColor}
 				/>
 			}
 			id={id}

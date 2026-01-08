@@ -14,12 +14,21 @@ import ModalDialog, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
+import { Text } from '@atlaskit/primitives/compiled';
 import {
-	Spotlight,
-	SpotlightManager,
-	SpotlightTarget,
-	SpotlightTransition,
-} from '@atlaskit/onboarding';
+	PopoverContent,
+	PopoverProvider,
+	PopoverTarget,
+	SpotlightActions,
+	SpotlightBody,
+	SpotlightCard,
+	SpotlightControls,
+	SpotlightDismissControl,
+	SpotlightFooter,
+	SpotlightHeader,
+	SpotlightHeadline,
+	SpotlightPrimaryAction,
+} from '@atlaskit/spotlight';
 
 const SpotlightTourExample = (props: { children: React.ReactNode; onModalReady: boolean }) => {
 	const { children, onModalReady } = props;
@@ -34,28 +43,29 @@ const SpotlightTourExample = (props: { children: React.ReactNode; onModalReady: 
 	}, [onModalReady]);
 
 	return (
-		<SpotlightManager blanketIsTinted={false}>
-			<SpotlightTarget name="codesandbox">
+		<PopoverProvider>
+			<PopoverTarget>
 				<div>{children}</div>
-			</SpotlightTarget>
-			<SpotlightTransition>
-				{isSpotlightActive && (
-					<Spotlight
-						actions={[
-							{
-								onClick: () => end(),
-								text: 'OK',
-							},
-						]}
-						dialogPlacement="right top"
-						heading="Change onboarding"
-						target="codesandbox"
-					>
-						This is the body of the onboarding. It will contain message.
-					</Spotlight>
-				)}
-			</SpotlightTransition>
-		</SpotlightManager>
+			</PopoverTarget>
+			<PopoverContent dismiss={end} placement="right-end" isVisible={isSpotlightActive}>
+				<SpotlightCard>
+					<SpotlightHeader>
+						<SpotlightHeadline>Change onboarding</SpotlightHeadline>
+						<SpotlightControls>
+							<SpotlightDismissControl />
+						</SpotlightControls>
+					</SpotlightHeader>
+					<SpotlightBody>
+						<Text>This is the body of the onboarding. It will contain message.</Text>
+					</SpotlightBody>
+					<SpotlightFooter>
+						<SpotlightActions>
+							<SpotlightPrimaryAction onClick={end}>Done</SpotlightPrimaryAction>
+						</SpotlightActions>
+					</SpotlightFooter>
+				</SpotlightCard>
+			</PopoverContent>
+		</PopoverProvider>
 	);
 };
 

@@ -71,16 +71,7 @@ const withIconWrapper = (Component: React.ComponentType<NewCoreIconProps>) => {
 			onClick={clickHandler('mouse')}
 			testId={testId}
 		>
-			<Component
-				label={label}
-				LEGACY_size="xlarge"
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-				LEGACY_primaryColor="#9FADBC"
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-				LEGACY_secondaryColor="#161A1D"
-				color="currentColor"
-				size="small"
-			/>
+			<Component label={label} color="currentColor" size="small" />
 		</Pressable>
 	);
 };

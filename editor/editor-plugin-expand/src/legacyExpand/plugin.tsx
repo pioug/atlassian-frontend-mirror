@@ -22,6 +22,8 @@ import { toggleExpandRange } from '../editor-commands/toggleExpandRange';
 import type { ExpandPlugin } from '../types';
 import { createExpandBlockMenuItem } from '../ui/ExpandBlockMenuItem';
 
+const EXPAND_NODE_NAME = 'expand';
+
 import {
 	createExpandNode,
 	insertExpand,
@@ -46,6 +48,8 @@ export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 					rank: TRANSFORM_STRUCTURE_MENU_SECTION_RANK[TRANSFORM_STRUCTURE_EXPAND_MENU_ITEM.key],
 				},
 				component: createExpandBlockMenuItem(api),
+				isHidden: () =>
+					Boolean(api?.blockMenu?.actions.isTransformOptionDisabled(EXPAND_NODE_NAME)),
 			},
 		]);
 	}

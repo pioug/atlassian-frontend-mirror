@@ -22,7 +22,7 @@ import {
 	updateStickyMargins as updateTableMargin,
 } from '../pm-plugins/table-resizing/utils/dom';
 import type { TableDOMElements } from '../pm-plugins/utils/dom';
-import { getTop, getTree } from '../pm-plugins/utils/dom';
+import { areAllRectsZero, getTop, getTree } from '../pm-plugins/utils/dom';
 import { supportedHeaderRow } from '../pm-plugins/utils/nodes';
 import type { TablePluginState } from '../types';
 import {
@@ -350,7 +350,7 @@ export default class TableRowNativeStickyWithFallback
 					 */
 					entries.forEach((entry) => {
 						const tableWrapper = this.dom.closest(`.${ClassName.TABLE_NODE_WRAPPER}`);
-						if (tableWrapper && tableWrapper instanceof HTMLElement) {
+						if (tableWrapper && tableWrapper instanceof HTMLElement && ((!areAllRectsZero(entry) && expValEquals('platform_editor_table_sticky_header_patch_10', 'isEnabled', true)) || !expValEquals('platform_editor_table_sticky_header_patch_10', 'isEnabled', true))) {
 							if (entry.isIntersecting) {
 								tableWrapper.classList.add(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
 								this.dom.classList.add(ClassName.NATIVE_STICKY);

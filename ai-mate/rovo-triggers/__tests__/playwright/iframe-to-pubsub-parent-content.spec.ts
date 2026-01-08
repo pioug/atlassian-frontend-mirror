@@ -62,5 +62,5 @@ test('should capture and report a11y violations', async ({ page }) => {
 	const publishChatNewSelector = 'button[data-testid="publish-chat-new-to-parent-window"]';
 	await page.frameLocator(iframeOneSelector).locator(publishChatNewSelector).click();
 
-	await expect(page).toBeAccessible({ violationCount: 1 });
+	await expect(page).toBeAccessible();
 });

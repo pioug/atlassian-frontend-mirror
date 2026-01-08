@@ -11,6 +11,7 @@ import {
 	ANCHOR_VARIABLE_NAME,
 	tableMarginTop,
 	tableSharedStyle,
+	TableSharedCssClassName,
 } from '@atlaskit/editor-common/styles';
 import { SORTABLE_COLUMN_ICON_CLASSNAME } from '@atlaskit/editor-common/table';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
@@ -120,8 +121,8 @@ const rangeSelectionStyles = `
 `;
 
 const rangeSelectionStylesForFakeBorders = `
-.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName} .pm-table-left-border,
-.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName} .pm-table-right-border {
+.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName} .${TableSharedCssClassName.TABLE_LEFT_BORDER},
+.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName} .${TableSharedCssClassName.TABLE_RIGHT_BORDER} {
 	  background: ${akEditorSelectedBorderColor};
 }
 `;
@@ -741,6 +742,17 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		.${ClassName.TABLE_RIGHT_SHADOW}.${ClassName.TABLE_CHROMELESS} {
 			left: calc(100% - 16px);
 		}
+
+		${fg('platform_editor_table_less_padding_fix')
+			? `
+				.${TableSharedCssClassName.TABLE_LEFT_BORDER} {
+					left: 8px;
+				}
+				.${TableSharedCssClassName.TABLE_RIGHT_BORDER} {
+					right: 8px;
+				}
+			`
+			: ''}
 	}
 
 	> .${ClassName.NODEVIEW_WRAPPER} {

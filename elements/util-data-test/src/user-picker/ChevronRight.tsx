@@ -22,10 +22,8 @@ export default (): React.JSX.Element => {
 		<Box xcss={containerStyles} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
 			<Box xcss={iconWrapperStyles}>
 				<ChevronRightIcon
-					LEGACY_margin={`${token('space.negative.050')} 0 0 ${token('space.negative.050')}`}
 					testId="chevron-right-icon"
 					label="chevron right"
-					LEGACY_size="large"
 					color={token('color.text.subtlest', isMouseHovered ? N200 : N50)}
 					spacing="spacious"
 					size="small"

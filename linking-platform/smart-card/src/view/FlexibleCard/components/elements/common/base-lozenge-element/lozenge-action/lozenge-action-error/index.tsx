@@ -11,7 +11,7 @@ import { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable } from '@atlaskit/primitives/compiled';
-import { N800, R50, R500 } from '@atlaskit/theme/colors';
+import { N800, R500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { useAnalyticsEvents } from '../../../../../../../../common/analytics/generated/use-analytics-events';
@@ -123,9 +123,7 @@ const LozengeActionError = ({
 				<div css={styles.contentStyles}>
 					<ErrorIcon
 						testId={`${testId}-icon`}
-						LEGACY_size="medium"
 						color={token('color.icon.danger', R500)}
-						LEGACY_secondaryColor={token('color.background.danger', R50)}
 						label={'error'}
 						spacing="spacious"
 					/>

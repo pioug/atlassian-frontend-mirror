@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::d88f645424084d083b914e87abd80e77>>
+ * @codegen <<SignedSource::9daf513a3a0db2d77693e71ed1893fda>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -4045,6 +4045,15 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for importing Jira work items',
 		team: 'Whiteboards',
+		status: 'published',
+	},
+	journeys: {
+		keywords: ['journeys', 'icon', 'icon-lab', 'JSM', 'journey', 'lifecycle', 'map', 'process'],
+		componentName: 'JourneysIcon',
+		package: '@atlaskit/icon-lab/core/journeys',
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing Journeys in JSM.',
+		team: 'JSM Getting Started',
 		status: 'published',
 	},
 	kanban: {

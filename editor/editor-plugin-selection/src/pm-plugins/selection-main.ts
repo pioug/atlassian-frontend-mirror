@@ -4,7 +4,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { SelectionPluginState } from '@atlaskit/editor-common/selection';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { type Selection, NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -33,6 +33,7 @@ export const createPlugin = (
 	options: SelectionPluginOptions = {},
 ) => {
 	let cursorHidden = false;
+	let blockSelection: Selection | undefined;
 
 	return new SafePlugin({
 		key: selectionPluginKey,
@@ -42,30 +43,43 @@ export const createPlugin = (
 
 			let manualSelection: { anchor: number; head: number } | undefined;
 			let hideCursorChanged = false;
+			let blockSelectionChanged = false;
 
 			const needsHideCursor = fg('platform_editor_ai_generic_prep_for_aifc_2');
 			const needsManualSelection = editorExperiment(
 				'platform_editor_element_drag_and_drop_multiselect',
 				true,
 			);
+			const needsBlockSelection = expValEquals('platform_editor_block_menu', 'isEnabled', true);
 
-			if (needsHideCursor || needsManualSelection) {
-				for (let i = transactions.length - 1; i >= 0; i--) {
-					const meta = transactions[i].getMeta(selectionPluginKey);
+			for (let i = transactions.length - 1; i >= 0; i--) {
+				const meta = transactions[i].getMeta(selectionPluginKey);
 
-					if (needsHideCursor && meta?.hideCursor !== undefined) {
-						const newHideCursorValue = meta.hideCursor;
-						if (cursorHidden !== newHideCursorValue) {
-							cursorHidden = newHideCursorValue;
-							hideCursorChanged = true;
-						}
+				if (needsHideCursor && meta?.hideCursor !== undefined) {
+					const newHideCursorValue = meta.hideCursor;
+					if (cursorHidden !== newHideCursorValue) {
+						cursorHidden = newHideCursorValue;
+						hideCursorChanged = true;
+					}
+				}
+
+				if (needsManualSelection && meta?.manualSelection && !manualSelection) {
+					manualSelection = meta.manualSelection;
+
+					if (!needsHideCursor && !needsBlockSelection) {
+						break;
+					}
+				}
+
+				if (needsBlockSelection) {
+					if (meta?.setBlockSelection) {
+						blockSelection = meta.setBlockSelection;
+						blockSelectionChanged = true;
 					}
 
-					if (needsManualSelection && meta?.manualSelection && !manualSelection) {
-						manualSelection = meta.manualSelection;
-						if (!needsHideCursor) {
-							break;
-						}
+					if (meta?.clearBlockSelection) {
+						blockSelection = undefined;
+						blockSelectionChanged = true;
 					}
 				}
 			}
@@ -73,7 +87,8 @@ export const createPlugin = (
 			if (
 				!shouldRecalcDecorations({ oldEditorState, newEditorState }) &&
 				!manualSelection &&
-				!hideCursorChanged
+				!hideCursorChanged &&
+				!blockSelectionChanged
 			) {
 				return;
 			}
@@ -81,7 +96,7 @@ export const createPlugin = (
 			tr.setMeta(selectionPluginKey, {
 				type: SelectionActionTypes.SET_DECORATIONS,
 				selection: tr.selection,
-				decorationSet: getDecorations(tr, manualSelection, cursorHidden),
+				decorationSet: getDecorations(tr, manualSelection, cursorHidden, blockSelection),
 			});
 
 			return tr;

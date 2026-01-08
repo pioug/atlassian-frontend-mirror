@@ -36,11 +36,6 @@ const ParagraphBlockMenuItem = ({ api }: ParagraphBlockMenuItemProps) => {
 		});
 	};
 
-	const isTransfromToPanelDisabled = api?.blockMenu?.actions.isTransformOptionDisabled(NODE_NAME);
-	if (isTransfromToPanelDisabled) {
-		return null;
-	}
-
 	return (
 		<ToolbarDropdownItem onClick={handleClick} elemBefore={<TextParagraphIcon label="" />}>
 			{formatMessage(blockMenuMessages.paragraph)}

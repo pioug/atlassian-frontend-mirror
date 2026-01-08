@@ -4,7 +4,7 @@
  * @jsx jsx
  */
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
@@ -46,11 +46,24 @@ const SectionContentOne = () => {
 	);
 };
 
+const LongHoldPageLoad = () => {
+	const [showHold, setShowHold] = useState(true);	
+	useEffect(() => {
+		setTimeout(() => {
+			setShowHold(false);
+		}, 1000);
+	}, []);
+	return (
+		showHold ? <UFOLoadHold name="show-page-load-hold">Loading</UFOLoadHold> : null
+	);
+};
+
 export default function Example(): JSX.Element {
 	return (
 		<UFOSegment name="app-root">
 			<main id="app-main" css={mainStyles}>
 				<SectionContentOne />
+				<LongHoldPageLoad />
 			</main>
 		</UFOSegment>
 	);

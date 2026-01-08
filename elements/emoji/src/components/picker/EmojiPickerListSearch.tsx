@@ -118,12 +118,7 @@ export const EmojiPickerListSearch = (props: Props) => {
 				onChange={handleOnChange}
 				elemBeforeInput={
 					<span css={searchIcon}>
-						<SearchIcon
-							LEGACY_margin="0 0 0 2px"
-							color="currentColor"
-							spacing="spacious"
-							label=""
-						/>
+						<SearchIcon color="currentColor" spacing="spacious" label="" />
 					</span>
 				}
 				testId={emojiPickerSearchTestId}

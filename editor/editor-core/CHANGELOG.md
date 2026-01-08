@@ -1,5 +1,27 @@
 # @atlaskit/editor-core
 
+## 216.2.3
+
+### Patch Changes
+
+- [`0bf8d0bd8bf2c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0bf8d0bd8bf2c) -
+  [ux] EDITOR-4276 Apply block selection visual style only from drag handle
+- Updated dependencies
+
+## 216.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 216.2.1
+
+### Patch Changes
+
+- [`60a80e1f0e1ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/60a80e1f0e1ab) -
+  [EDITOR-4213] Fix SSR renderer toolbar initial state
+- Updated dependencies
+
 ## 216.2.0
 
 ### Minor Changes

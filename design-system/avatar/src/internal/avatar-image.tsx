@@ -110,7 +110,6 @@ const AvatarImage: FC<AvatarImageProps> = ({
 						color={token('color.icon.subtle')}
 						testId={testId && `${testId}--person`}
 						spacing="spacious"
-						LEGACY_secondaryColor={token('color.icon.subtle')}
 					/>
 				);
 				break;
@@ -132,7 +131,6 @@ const AvatarImage: FC<AvatarImageProps> = ({
 						color={token('color.icon.subtle')}
 						testId={testId && `${testId}--ship`}
 						spacing="spacious"
-						LEGACY_secondaryColor={token('color.icon.subtle')}
 					/>
 				);
 				break;

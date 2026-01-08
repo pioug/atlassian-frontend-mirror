@@ -7,7 +7,7 @@
 import { css } from '@emotion/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { token } from '@atlaskit/tokens';
+import { token, type ThemeState } from '@atlaskit/tokens';
 
 import editorUGCToken from '../../ugc-tokens/get-editor-ugc-token';
 
@@ -46,11 +46,7 @@ const headingWithAlignmentStyles = () =>
 // @see typography spreadsheet: https://docs.google.com/spreadsheets/d/1iYusRGCT4PoPfvxbJ8NrgjtfFgXLm5lpDWXzjua1W2E/edit#gid=93913128
 // text sizing prototype: http://proto/fabricrender/
 export const headingsSharedStyles = (
-	_typographyTheme?:
-		| 'typography'
-		| 'typography-adg3'
-		| 'typography-modernized'
-		| 'typography-refreshed',
+	_typographyTheme?: ThemeState['typography'],
 ) => {
 	if (fg('platform_editor_typography_ugc')) {
 		return css({

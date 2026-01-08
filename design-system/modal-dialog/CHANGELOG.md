@@ -1,5 +1,12 @@
 # @atlaskit/modal-dialog
 
+## 14.9.5
+
+### Patch Changes
+
+- [`206b56810d426`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/206b56810d426) -
+  Migrate example from @atlaskit/onboarding to @atlaskit/spotlight
+
 ## 14.9.4
 
 ### Patch Changes

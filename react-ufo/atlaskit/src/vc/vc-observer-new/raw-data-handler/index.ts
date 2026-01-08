@@ -3,7 +3,7 @@ import getViewportHeight from '../metric-calculator/utils/get-viewport-height';
 import getViewportWidth from '../metric-calculator/utils/get-viewport-width';
 import type { VCObserverEntry, ViewportEntryData, WindowEventEntryData } from '../types';
 const ABORTING_WINDOW_EVENT = ['wheel', 'scroll', 'keydown', 'resize'] as const;
-const MAX_OBSERVATIONS = 100;
+const MAX_OBSERVATIONS = 200;
 
 function isWindowEventEntryData(
 	data: ViewportEntryData | WindowEventEntryData,
@@ -181,12 +181,26 @@ export default class RawDataHandler {
 		});
 
 		// If the number of observations is greater than the maximum allowed, we need to trim the observations to the maximum allowed.
-		// We do this by keeping the first observation and the last MAX_OBSERVATIONS observations.
+		// We do this by keeping the first observation, the SSR observation (if present), and the last MAX_OBSERVATIONS observations.
 		// We then collect the referenced IDs from the remaining observations and remove the unreferenced entries from the maps
 		if (rawObservations.length > MAX_OBSERVATIONS) {
 			const firstObservation = rawObservations[0];
 			const lastObservations = rawObservations.slice(-MAX_OBSERVATIONS);
-			rawObservations = [firstObservation, ...lastObservations];
+
+			// Find the SSR observation by looking up the eid that corresponds to 'SSR' element name
+			const ssrEid = targetNameToIdMap.get('SSR');
+			const ssrObservation = ssrEid
+				? rawObservations.find((obs) => obs.eid === ssrEid && obs !== firstObservation)
+				: undefined;
+
+			// Include SSR observation if it exists and is not already in the kept observations
+			const ssrAlreadyIncluded =
+				ssrObservation && lastObservations.some((obs) => obs === ssrObservation);
+			rawObservations = [
+				firstObservation,
+				...(ssrObservation && !ssrAlreadyIncluded ? [ssrObservation] : []),
+				...lastObservations,
+			];
 
 			// Collect referenced IDs from remaining observations
 			const referencedEids = new Set<number>();

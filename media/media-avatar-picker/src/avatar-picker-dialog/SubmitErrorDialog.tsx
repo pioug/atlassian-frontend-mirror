@@ -5,7 +5,6 @@
 import { jsx, css } from '@compiled/react';
 import { useRef, useEffect } from 'react';
 
-import { R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import Flag from '@atlaskit/flag';
@@ -33,14 +32,7 @@ export const SubmitErrorDialog = () => {
 		<div css={avatarPickerErrorStyles} ref={flagContainerRef}>
 			<Flag
 				appearance="error"
-				icon={
-					<ErrorIcon
-						label="Error"
-						color="currentColor"
-						LEGACY_secondaryColor={token('color.background.danger.bold', R400)}
-						spacing="spacious"
-					/>
-				}
+				icon={<ErrorIcon label="Error" color="currentColor" spacing="spacious" />}
 				id="avatar-picker-error"
 				key="error"
 				title={intl.formatMessage(messages.or_select_default_avatars)}

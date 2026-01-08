@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -11,13 +11,9 @@ import { FormattedMessage } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
 import type { ErrorReporter } from '@atlaskit/editor-common/error-reporter';
-import Modal, {
-	ModalBody,
-	ModalFooter,
-	ModalTransition,
-} from '@atlaskit/modal-dialog';
+import Modal, { ModalBody, ModalFooter, ModalTransition } from '@atlaskit/modal-dialog';
 
-import { Cropper, type CropperRef } from './Cropper'
+import { Cropper, type CropperRef } from './Cropper';
 import { useImageFlip } from './imageEditActions';
 
 interface ImageEditModalProps {
@@ -35,7 +31,7 @@ const imageWrapper = css({
 	display: 'flex',
 	flexDirection: 'column',
 	justifyContent: 'center',
-	alignItems: 'center'
+	alignItems: 'center',
 });
 
 const cropper = css({
@@ -49,17 +45,18 @@ const modalFooter = css({
 	display: 'flex',
 	justifyContent: 'space-between',
 	alignItems: 'center',
-	width: '100%'
+	width: '100%',
 });
 
-export const ImageEditor = ({ 
+export const ImageEditor = ({
 	imageUrl,
-	isOpen, 
+	isOpen,
 	onClose,
 	onSave,
-	errorReporter
- }: ImageEditModalProps) => {
+	errorReporter,
+}: ImageEditModalProps) => {
 	const cropperRef = useRef<CropperRef>(null);
+	const [isImageReady, setIsImageReady] = useState(false);
 	const { flipHorizontal, flipVertical } = useImageFlip(cropperRef);
 
 	const handleSave = async () => {
@@ -84,7 +81,12 @@ export const ImageEditor = ({
 	return (
 		<ModalTransition>
 			{isOpen && (
-				<Modal onClose={onClose} width={1800}>
+				<Modal
+					onClose={onClose}
+					width={1800}
+					testId="image-editor-modal"
+					label="Image editor modal"
+				>
 					<br></br>
 					<ModalBody>
 						<div css={imageWrapper}>
@@ -97,6 +99,7 @@ export const ImageEditor = ({
 									crossOrigin="anonymous"
 									css={cropper}
 									initialCoverage={1}
+									onImageReady={setIsImageReady}
 								/>
 							)}
 						</div>
@@ -104,18 +107,32 @@ export const ImageEditor = ({
 					<ModalFooter>
 						<div css={modalFooter}>
 							<div>
-								<Button onClick={flipHorizontal}>
-									<FormattedMessage id="editor.imageEditor.flipHorizontal" defaultMessage="Flip Horizontal" />
+								<Button
+									onClick={flipHorizontal}
+									isDisabled={!isImageReady}
+									testId="image-editor-flip-horizontal-btn"
+								>
+									<FormattedMessage
+										id="editor.imageEditor.flipHorizontal"
+										defaultMessage="Flip Horizontal"
+									/>
 								</Button>
-								<Button onClick={flipVertical}>
-									<FormattedMessage id="editor.imageEditor.flipVertical" defaultMessage="Flip Vertical" />
+								<Button
+									onClick={flipVertical}
+									isDisabled={!isImageReady}
+									testId="image-editor-flip-vertical-btn"
+								>
+									<FormattedMessage
+										id="editor.imageEditor.flipVertical"
+										defaultMessage="Flip Vertical"
+									/>
 								</Button>
 							</div>
 							<div>
 								<Button appearance="subtle" onClick={onClose}>
 									<FormattedMessage id="editor.imageEditor.cancel" defaultMessage="Cancel" />
 								</Button>
-								<Button appearance="primary" onClick={handleSave}>
+								<Button appearance="primary" onClick={handleSave} isDisabled={!isImageReady}>
 									<FormattedMessage id="editor.imageEditor.done" defaultMessage="Done" />
 								</Button>
 							</div>

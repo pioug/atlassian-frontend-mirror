@@ -5,7 +5,7 @@ import InformationIcon from '@atlaskit/icon/core/status-information';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
 import { type BackgroundColor } from '@atlaskit/primitives/compiled';
-import { B400, N0, N30A, N500, N700, N800 } from '@atlaskit/theme/colors';
+import { B400, N0, N30A, N700, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { type AppearanceTypes, type HeadingColor } from './types';
@@ -27,41 +27,11 @@ export const flagIconColor: Record<AppearanceTypes, string> = {
 };
 
 export const flagIconGlyph: Record<AppearanceTypes, ReactElement> = {
-	error: (
-		<ErrorIcon
-			label=""
-			LEGACY_primaryColor={token('color.icon.inverse', N0)}
-			LEGACY_secondaryColor={token('color.background.danger.bold')}
-		/>
-	),
-	info: (
-		<InformationIcon
-			label=""
-			LEGACY_primaryColor={token('color.icon.inverse', N0)}
-			LEGACY_secondaryColor={token('color.background.neutral.bold')}
-		/>
-	),
-	normal: (
-		<InformationIcon
-			label=""
-			LEGACY_primaryColor={token('color.icon.subtle', N500)}
-			LEGACY_secondaryColor={token('elevation.surface.overlay')}
-		/>
-	),
-	success: (
-		<SuccessIcon
-			label=""
-			LEGACY_primaryColor={token('color.icon.inverse', N0)}
-			LEGACY_secondaryColor={token('color.background.success.bold')}
-		/>
-	),
-	warning: (
-		<WarningIcon
-			label=""
-			LEGACY_primaryColor={token('color.icon.warning.inverse', N700)}
-			LEGACY_secondaryColor={token('color.background.warning.bold')}
-		/>
-	),
+	error: <ErrorIcon label="" />,
+	info: <InformationIcon label="" />,
+	normal: <InformationIcon label="" />,
+	success: <SuccessIcon label="" />,
+	warning: <WarningIcon label="" />,
 };
 
 export const flagTextColor: Record<AppearanceTypes, HeadingColor> = {

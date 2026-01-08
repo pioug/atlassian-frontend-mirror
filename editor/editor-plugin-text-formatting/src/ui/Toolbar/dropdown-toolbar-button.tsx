@@ -74,12 +74,7 @@ export const DropdownToolbarButton = ({
 					)}
 					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values */}
 					<span css={expandIconContainerStyle}>
-						<ChevronDownIcon
-							label=""
-							color="currentColor"
-							LEGACY_margin="0 0 0 -8px"
-							size="small"
-						/>
+						<ChevronDownIcon label="" color="currentColor" size="small" />
 					</span>
 				</div>
 			}

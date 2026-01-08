@@ -85,6 +85,9 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	async fetchNodesData(nodes: SyncBlockNode[]): Promise<SyncBlockInstance[]> {
 		const resourceIdSet = new Set<string>(nodes.map((node) => node.attrs.resourceId));
 		const resourceIds = [...resourceIdSet];
+		if (resourceIds.length === 0) {
+			return [];
+		}
 
 		if (fg('platform_synced_block_dogfooding')) {
 			try {
@@ -301,21 +304,6 @@ const createSyncedBlockProvider = ({
 	writeProvider: ADFWriteProvider | undefined;
 }) => {
 	return new SyncBlockProvider(fetchProvider, writeProvider);
-};
-
-export const createAndInitializeSyncedBlockProvider = ({
-	fetchProvider,
-	writeProvider,
-	providerOptions,
-	getSSRData,
-}: UseMemoizedSyncedBlockProviderProps) => {
-	const syncBlockProvider = createSyncedBlockProvider({ fetchProvider, writeProvider });
-	syncBlockProvider.setProviderOptions(providerOptions);
-	const ssrData = getSSRData ? getSSRData() : undefined;
-	if (ssrData) {
-		syncBlockProvider.setSSRData(ssrData);
-	}
-	return syncBlockProvider;
 };
 
 export const useMemoizedSyncedBlockProvider = ({

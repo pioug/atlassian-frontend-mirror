@@ -44,6 +44,8 @@ import { createPlugin } from './pm-plugins/main';
 import { createPanelBlockMenuItem } from './ui/panelBlockMenuItem';
 import { getToolbarConfig } from './ui/toolbar';
 
+const PANEL_NODE_NAME = 'panel';
+
 const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => {
 	if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
 		api?.blockMenu?.actions.registerBlockMenuComponents([
@@ -56,6 +58,7 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => {
 					rank: TRANSFORM_STRUCTURE_MENU_SECTION_RANK[TRANSFORM_STRUCTURE_PANEL_MENU_ITEM.key],
 				},
 				component: createPanelBlockMenuItem(api),
+				isHidden: () => Boolean(api?.blockMenu?.actions.isTransformOptionDisabled(PANEL_NODE_NAME)),
 			},
 		]);
 	}

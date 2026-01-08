@@ -10,8 +10,6 @@ import ArrowRightIcon from '@atlaskit/icon/core/arrow-right';
 import { type ButtonItemProps, type CustomItemComponentProps } from '@atlaskit/menu';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
-import { N10 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
 
 import { ButtonItem, CustomItem, NavigationContent } from '../index';
 import { ROOT_ID } from '../NestableNavigationContent';
@@ -312,7 +310,6 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
 					<ArrowRightIcon
 						testId={testId && `${testId}--item--right-arrow`}
 						color="currentColor"
-						LEGACY_secondaryColor={token('elevation.surface', N10)}
 						label=""
 					/>
 				</Box>

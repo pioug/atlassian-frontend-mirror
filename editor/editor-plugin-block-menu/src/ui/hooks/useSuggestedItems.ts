@@ -1,12 +1,11 @@
 import { useMemo } from 'react';
 
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { expandSelectionToBlockRange } from '@atlaskit/editor-common/selection';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 import type { BlockMenuPlugin, RegisterBlockMenuItem } from '../../blockMenuPluginType';
-import { getBlockNodesInRange } from '../../editor-commands/transform-node-utils/utils';
-import { getSortedSuggestedItems } from '../utils/suggested-items-rank';
+import { createMenuItemsMap } from '../utils/createMenuItemsMap';
+import { getSuggestedItemsFromSelection } from '../utils/getSuggestedItemsFromSelection';
 
 export const useSuggestedItems = (
 	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined,
@@ -22,46 +21,12 @@ export const useSuggestedItems = (
 	const blockMenuComponents = api?.blockMenu?.actions.getBlockMenuComponents();
 
 	const menuItemsMap = useMemo(() => {
-		if (!blockMenuComponents) {
-			return new Map<string, RegisterBlockMenuItem>();
-		}
-
-		return new Map(
-			blockMenuComponents
-				.filter((c): c is RegisterBlockMenuItem => c.type === 'block-menu-item')
-				.map((item) => [item.key, item]),
-		);
+		return createMenuItemsMap(blockMenuComponents);
 	}, [blockMenuComponents]);
 
 	const suggestedItems = useMemo(() => {
 		const currentSelection = preservedSelection || selection;
-
-		if (menuItemsMap.size === 0 || !currentSelection) {
-			return [];
-		}
-		const { range } = expandSelectionToBlockRange(currentSelection);
-		if (!range) {
-			return [];
-		}
-		const blockNodes = getBlockNodesInRange(range);
-
-		if (blockNodes.length === 0) {
-			return [];
-		}
-
-		const firstNodeType = blockNodes[0].type.name;
-		const allSameType = blockNodes.every((node) => node.type.name === firstNodeType);
-
-		if (!allSameType) {
-			return [];
-		}
-
-		const nodeTypeName = firstNodeType;
-		const sortedKeys = getSortedSuggestedItems(nodeTypeName);
-
-		return sortedKeys
-			.map((key) => menuItemsMap.get(key))
-			.filter((item): item is RegisterBlockMenuItem => item !== undefined);
+		return getSuggestedItemsFromSelection(menuItemsMap, currentSelection);
 	}, [menuItemsMap, preservedSelection, selection]);
 
 	return suggestedItems;

@@ -318,15 +318,7 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 						<ArchiveItemViewerWrapper>
 							<AudioPlayer data-testid="media-viewer-audio-content">
 								<DefaultCoverWrapper>
-									<AudioIcon
-										label="cover"
-										LEGACY_size="xlarge"
-										color="currentColor"
-										// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-										LEGACY_primaryColor="#22272B"
-										// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-										LEGACY_secondaryColor="#9FADBC"
-									/>
+									<AudioIcon label="cover" color="currentColor" />
 								</DefaultCoverWrapper>
 								<CustomAudioPlayerWrapper>
 									<CustomMediaPlayer

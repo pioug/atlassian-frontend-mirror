@@ -18,7 +18,6 @@ import { Label } from '@atlaskit/form';
 import TextLetterCaseIcon from '@atlaskit/icon-lab/core/text-letter-case';
 import MatchCaseIcon from '@atlaskit/icon/core/text-style';
 import type { IconProps } from '@atlaskit/icon/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Textfield from '@atlaskit/textfield';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -99,14 +98,10 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
 
 		// focus initially on dialog mount if there is no find text provided
 		if (!this.props.findText) {
-			if (fg('platform_editor_a11y_find_replace_focus_fix')) {
-				// Wait for findTextfieldRef to become available then focus
-				setTimeout(() => {
-					this.focusFindTextfield();
-				}, 100);
-			} else {
+			// Wait for findTextfieldRef to become available then focus
+			setTimeout(() => {
 				this.focusFindTextfield();
-			}
+			}, 100);
 		}
 		this.syncFindText(() => {
 			// focus after input is synced if find text provided
@@ -201,14 +196,14 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
 		this.handleFindKeyDownThrottled.cancel();
 	};
 
-	handleFindNextClick = (ref: React.RefObject<HTMLElement>) => {
+	handleFindNextClick = () => {
 		if (this.isComposing) {
 			return;
 		}
 		this.props.onFindNext({ triggerMethod: TRIGGER_METHOD.BUTTON });
 	};
 
-	handleFindPrevClick = (ref: React.RefObject<HTMLElement>) => {
+	handleFindPrevClick = () => {
 		if (this.isComposing) {
 			return;
 		}
@@ -229,7 +224,7 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
 		this.props.onCancel({ triggerMethod: TRIGGER_METHOD.BUTTON });
 	};
 
-	handleMatchCaseClick = (buttonRef: React.RefObject<HTMLButtonElement>) => {
+	handleMatchCaseClick = () => {
 		if (this.props.onToggleMatchCase) {
 			this.props.onToggleMatchCase();
 			this.props.onFind(this.props.findText);

@@ -674,8 +674,8 @@ describe('RawDataHandler', () => {
 
 	describe('getRawData - event observations trimming', () => {
 		const startTime = 1000;
-		const stopTime = 2000;
-		const MAX_OBSERVATIONS = 100;
+		const stopTime = 4000;
+		const MAX_OBSERVATIONS = 200;
 
 		it('should not trim event observations when count is exactly MAX_OBSERVATIONS', async () => {
 			const entries: VCObserverEntry[] = [];
@@ -948,6 +948,336 @@ describe('RawDataHandler', () => {
 			);
 			if (wheelEventId !== undefined) {
 				expect(allEventIds.has(Number(wheelEventId))).toBe(false);
+			}
+		});
+	});
+
+	describe('getRawData - viewport observations trimming with SSR preservation', () => {
+		const startTime = 1000;
+		const stopTime = 4000;
+		const MAX_OBSERVATIONS = 200;
+
+		it('should preserve SSR observation when trimming viewport observations', async () => {
+			const entries: VCObserverEntry[] = [];
+			const totalEntries = MAX_OBSERVATIONS + 50; // 150 entries
+
+			// Create first entry with unique element name
+			entries.push({
+				time: startTime,
+				data: {
+					type: 'mutation:element',
+					elementName: 'first-element',
+					rect: new DOMRect(0, 0, 100, 100),
+					visible: true,
+				} as ViewportEntryData,
+			});
+
+			// Create SSR entry that should be preserved
+			entries.push({
+				time: startTime + 10,
+				data: {
+					type: 'mutation:element',
+					elementName: 'SSR',
+					rect: new DOMRect(0, 0, 1920, 1080),
+					visible: true,
+				} as ViewportEntryData,
+			});
+
+			// Create middle entries that should be trimmed
+			for (let i = 2; i < totalEntries - MAX_OBSERVATIONS; i++) {
+				entries.push({
+					time: startTime + i * 10,
+					data: {
+						type: 'mutation:element',
+						elementName: `middle-element-${i}`,
+						rect: new DOMRect(0, 0, 50, 50),
+						visible: true,
+					} as ViewportEntryData,
+				});
+			}
+
+			// Create last MAX_OBSERVATIONS entries that should be kept
+			for (let i = totalEntries - MAX_OBSERVATIONS; i < totalEntries; i++) {
+				entries.push({
+					time: startTime + i * 10,
+					data: {
+						type: 'mutation:element',
+						elementName: `last-element-${i}`,
+						rect: new DOMRect(0, 0, 100, 100),
+						visible: true,
+					} as ViewportEntryData,
+				});
+			}
+
+			const result = await handler.getRawData({
+				entries,
+				startTime,
+				stopTime,
+				isPageVisible: true,
+			});
+
+			// Should have first observation + SSR observation + last MAX_OBSERVATIONS = 102 total
+			expect(result?.rawData?.obs).toHaveLength(MAX_OBSERVATIONS + 2);
+
+			// Verify SSR is in the element map
+			const elementNames = Object.values(result?.rawData?.eid || {});
+			expect(elementNames).toContain('SSR');
+			expect(elementNames).toContain('first-element');
+
+			// Verify SSR observation exists in the observations
+			const ssrEid = Object.keys(result?.rawData?.eid || {}).find(
+				(key) => result?.rawData?.eid?.[Number(key)] === 'SSR',
+			);
+			expect(ssrEid).toBeDefined();
+			const ssrObservationExists = result?.rawData?.obs?.some((obs) => obs.eid === Number(ssrEid));
+			expect(ssrObservationExists).toBe(true);
+		});
+
+		it('should not duplicate SSR observation when it is the first observation', async () => {
+			const entries: VCObserverEntry[] = [];
+			const totalEntries = MAX_OBSERVATIONS + 50; // 150 entries
+
+			// Create SSR entry as the first entry
+			entries.push({
+				time: startTime,
+				data: {
+					type: 'mutation:element',
+					elementName: 'SSR',
+					rect: new DOMRect(0, 0, 1920, 1080),
+					visible: true,
+				} as ViewportEntryData,
+			});
+
+			// Create middle entries that should be trimmed
+			for (let i = 1; i < totalEntries - MAX_OBSERVATIONS; i++) {
+				entries.push({
+					time: startTime + i * 10,
+					data: {
+						type: 'mutation:element',
+						elementName: `middle-element-${i}`,
+						rect: new DOMRect(0, 0, 50, 50),
+						visible: true,
+					} as ViewportEntryData,
+				});
+			}
+
+			// Create last MAX_OBSERVATIONS entries
+			for (let i = totalEntries - MAX_OBSERVATIONS; i < totalEntries; i++) {
+				entries.push({
+					time: startTime + i * 10,
+					data: {
+						type: 'mutation:element',
+						elementName: `last-element-${i}`,
+						rect: new DOMRect(0, 0, 100, 100),
+						visible: true,
+					} as ViewportEntryData,
+				});
+			}
+
+			const result = await handler.getRawData({
+				entries,
+				startTime,
+				stopTime,
+				isPageVisible: true,
+			});
+
+			// Should have first observation (SSR) + last MAX_OBSERVATIONS = 101 total
+			// SSR should not be duplicated since it's already the first observation
+			expect(result?.rawData?.obs).toHaveLength(MAX_OBSERVATIONS + 1);
+
+			// Verify SSR is in the element map
+			const elementNames = Object.values(result?.rawData?.eid || {});
+			expect(elementNames).toContain('SSR');
+
+			// Count how many SSR observations exist - should be exactly 1
+			const ssrEid = Object.keys(result?.rawData?.eid || {}).find(
+				(key) => result?.rawData?.eid?.[Number(key)] === 'SSR',
+			);
+			const ssrObservationCount = result?.rawData?.obs?.filter(
+				(obs) => obs.eid === Number(ssrEid),
+			).length;
+			expect(ssrObservationCount).toBe(1);
+		});
+
+		it('should not duplicate SSR observation when it is in the last MAX_OBSERVATIONS', async () => {
+			const entries: VCObserverEntry[] = [];
+			const totalEntries = MAX_OBSERVATIONS + 50; // 150 entries
+
+			// Create first entry
+			entries.push({
+				time: startTime,
+				data: {
+					type: 'mutation:element',
+					elementName: 'first-element',
+					rect: new DOMRect(0, 0, 100, 100),
+					visible: true,
+				} as ViewportEntryData,
+			});
+
+			// Create middle entries that should be trimmed
+			for (let i = 1; i < totalEntries - MAX_OBSERVATIONS; i++) {
+				entries.push({
+					time: startTime + i * 10,
+					data: {
+						type: 'mutation:element',
+						elementName: `middle-element-${i}`,
+						rect: new DOMRect(0, 0, 50, 50),
+						visible: true,
+					} as ViewportEntryData,
+				});
+			}
+
+			// Create last MAX_OBSERVATIONS entries with SSR as one of them
+			for (let i = totalEntries - MAX_OBSERVATIONS; i < totalEntries; i++) {
+				const isSSR = i === totalEntries - 50; // SSR is in the middle of last observations
+				entries.push({
+					time: startTime + i * 10,
+					data: {
+						type: 'mutation:element',
+						elementName: isSSR ? 'SSR' : `last-element-${i}`,
+						rect: new DOMRect(0, 0, 100, 100),
+						visible: true,
+					} as ViewportEntryData,
+				});
+			}
+
+			const result = await handler.getRawData({
+				entries,
+				startTime,
+				stopTime,
+				isPageVisible: true,
+			});
+
+			// Should have first observation + last MAX_OBSERVATIONS = 101 total
+			// SSR should not be duplicated since it's already in the last MAX_OBSERVATIONS
+			expect(result?.rawData?.obs).toHaveLength(MAX_OBSERVATIONS + 1);
+
+			// Verify SSR is in the element map
+			const elementNames = Object.values(result?.rawData?.eid || {});
+			expect(elementNames).toContain('SSR');
+
+			// Count how many SSR observations exist - should be exactly 1
+			const ssrEid = Object.keys(result?.rawData?.eid || {}).find(
+				(key) => result?.rawData?.eid?.[Number(key)] === 'SSR',
+			);
+			const ssrObservationCount = result?.rawData?.obs?.filter(
+				(obs) => obs.eid === Number(ssrEid),
+			).length;
+			expect(ssrObservationCount).toBe(1);
+		});
+
+		it('should handle case when there is no SSR observation', async () => {
+			const entries: VCObserverEntry[] = [];
+			const totalEntries = MAX_OBSERVATIONS + 50; // 150 entries
+
+			// Create first entry
+			entries.push({
+				time: startTime,
+				data: {
+					type: 'mutation:element',
+					elementName: 'first-element',
+					rect: new DOMRect(0, 0, 100, 100),
+					visible: true,
+				} as ViewportEntryData,
+			});
+
+			// Create remaining entries without SSR
+			for (let i = 1; i < totalEntries; i++) {
+				entries.push({
+					time: startTime + i * 10,
+					data: {
+						type: 'mutation:element',
+						elementName: `element-${i}`,
+						rect: new DOMRect(0, 0, 50, 50),
+						visible: true,
+					} as ViewportEntryData,
+				});
+			}
+
+			const result = await handler.getRawData({
+				entries,
+				startTime,
+				stopTime,
+				isPageVisible: true,
+			});
+
+			// Should have first observation + last MAX_OBSERVATIONS = 101 total
+			expect(result?.rawData?.obs).toHaveLength(MAX_OBSERVATIONS + 1);
+
+			// Verify SSR is NOT in the element map
+			const elementNames = Object.values(result?.rawData?.eid || {});
+			expect(elementNames).not.toContain('SSR');
+		});
+
+		it('should correctly retain SSR element mapping after trimming', async () => {
+			const entries: VCObserverEntry[] = [];
+			const totalEntries = MAX_OBSERVATIONS + 50; // 150 entries
+
+			// Create first entry
+			entries.push({
+				time: startTime,
+				data: {
+					type: 'mutation:element',
+					elementName: 'first-element',
+					rect: new DOMRect(0, 0, 100, 100),
+					visible: true,
+				} as ViewportEntryData,
+			});
+
+			// Create SSR entry that should be preserved
+			entries.push({
+				time: startTime + 10,
+				data: {
+					type: 'mutation:element',
+					elementName: 'SSR',
+					rect: new DOMRect(0, 0, 1920, 1080),
+					visible: true,
+				} as ViewportEntryData,
+			});
+
+			// Create entries with a unique element that will be trimmed
+			entries.push({
+				time: startTime + 20,
+				data: {
+					type: 'mutation:element',
+					elementName: 'trimmed-element',
+					rect: new DOMRect(0, 0, 50, 50),
+					visible: true,
+				} as ViewportEntryData,
+			});
+
+			// Create remaining entries
+			for (let i = 3; i < totalEntries; i++) {
+				entries.push({
+					time: startTime + i * 10,
+					data: {
+						type: 'mutation:element',
+						elementName: `element-${i}`,
+						rect: new DOMRect(0, 0, 50, 50),
+						visible: true,
+					} as ViewportEntryData,
+				});
+			}
+
+			const result = await handler.getRawData({
+				entries,
+				startTime,
+				stopTime,
+				isPageVisible: true,
+			});
+
+			// Verify SSR is still in the element map
+			const elementNames = Object.values(result?.rawData?.eid || {});
+			expect(elementNames).toContain('SSR');
+			expect(elementNames).toContain('first-element');
+
+			// Verify trimmed-element is NOT in the element map (it was trimmed)
+			expect(elementNames).not.toContain('trimmed-element');
+
+			// Verify all observation eids reference valid entries in the eid map
+			const allEids = new Set(result?.rawData?.obs?.map((obs) => obs.eid) || []);
+			for (const eid of allEids) {
+				expect(result?.rawData?.eid?.[eid]).toBeDefined();
 			}
 		});
 	});

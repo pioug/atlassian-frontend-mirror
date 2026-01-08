@@ -20,6 +20,7 @@ import {
 	hasUserSelectionChange,
 	isSelectionWithinCodeBlock,
 } from './utils';
+
 /**
  * Selection Preservation Plugin
  *
@@ -74,6 +75,16 @@ export const createSelectionPreservationPlugin =
 
 					if (newState.preservedSelection && tr.docChanged) {
 						newState.preservedSelection = mapPreservedSelection(newState.preservedSelection, tr);
+					}
+
+					if (newState.preservedSelection !== pluginState.preservedSelection) {
+						if (newState?.preservedSelection) {
+							api?.core.actions.execute(
+								api?.selection?.commands?.setBlockSelection(newState.preservedSelection),
+							);
+						} else {
+							api?.core.actions.execute(api?.selection?.commands?.clearBlockSelection());
+						}
 					}
 
 					return newState;

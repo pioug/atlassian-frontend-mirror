@@ -1,5 +1,14 @@
 # @atlaskit/popup
 
+## 4.13.0
+
+### Minor Changes
+
+- [`dd02781bfb92f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd02781bfb92f) -
+  Increases the height of the popup on viewports with appearance `UNSAFE_modal-below-sm`, i.e.
+  viewports below "sm" (mobile) from 50vh to 100vh. This change is behind the
+  `platform_dst_nav4_flyout_menu_slots_close_button` feature gate.
+
 ## 4.12.0
 
 ### Minor Changes

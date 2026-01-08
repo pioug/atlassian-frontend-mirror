@@ -108,11 +108,7 @@ export const Color = memo<ColorProps>(
 						autoFocus={autoFocus}
 					>
 						{!decorator && isSelected && (
-							<EditorDoneIcon
-								color={checkMarkColor as IconColor}
-								LEGACY_primaryColor={checkMarkColor}
-								label=""
-							/>
+							<EditorDoneIcon color={checkMarkColor as IconColor} label="" />
 						)}
 						{decorator}
 					</button>

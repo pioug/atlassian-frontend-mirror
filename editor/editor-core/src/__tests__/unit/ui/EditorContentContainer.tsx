@@ -38,7 +38,7 @@ jest.mock('@emotion/react', () => {
 // and dev should update the new styles, and then update the snapshot
 describe('Editor Content styles', () => {
 	beforeEach(() => {
-		setGlobalTheme({ typography: 'typography-modernized' });
+		setGlobalTheme({ typography: 'typography' });
 		fgMock.mockReturnValue(true);
 	});
 

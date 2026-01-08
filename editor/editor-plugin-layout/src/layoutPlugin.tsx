@@ -44,6 +44,8 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
+const LAYOUT_SECTION_NODE_NAME = 'layoutSection';
+
 import type { LayoutPlugin } from './layoutPluginType';
 import {
 	createDefaultLayoutSection,
@@ -104,6 +106,8 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 					rank: TRANSFORM_STRUCTURE_MENU_SECTION_RANK[TRANSFORM_STRUCTURE_LAYOUT_MENU_ITEM.key],
 				},
 				component: createLayoutBlockMenuItem(api),
+				isHidden: () =>
+					Boolean(api?.blockMenu?.actions.isTransformOptionDisabled(LAYOUT_SECTION_NODE_NAME)),
 			},
 		]);
 	}

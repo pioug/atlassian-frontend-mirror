@@ -1,5 +1,16 @@
 # @atlaskit/inline-edit
 
+## 15.6.0
+
+### Minor Changes
+
+- [`87b12e64ff750`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87b12e64ff750) -
+  Removed usages of LEGACY icon props
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.5.0
 
 ### Minor Changes

@@ -4,6 +4,8 @@ import React from 'react';
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import { type OptionsType, PopupSelect } from '../../../index';
 
 const user = userEvent.setup();
@@ -112,6 +114,85 @@ describe('Popup Select', () => {
 		expect(onChangeMock).not.toHaveBeenCalled();
 		expect(selectTrigger2).toHaveFocus();
 	});
+
+	ffTest.on(
+		'platform_navx_sllv_dropdown_escape_and_focus_fix',
+		'shouldPreventEscapePropagation',
+		() => {
+			it('should stop propagation of Escape key event when shouldPreventEscapePropagation is true', async () => {
+				const parentKeyDownHandler = jest.fn();
+
+				render(
+					// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
+					<div onKeyDown={parentKeyDownHandler} role="presentation">
+						<PopupSelect
+							options={OPTIONS}
+							value={OPTIONS[0]}
+							shouldPreventEscapePropagation
+							target={({ ref }) => (
+								<button type="button" ref={ref}>
+									Target
+								</button>
+							)}
+							label="Options"
+						/>
+					</div>,
+				);
+
+				// Open the popup
+				await user.click(screen.getByText('Target'));
+
+				// Dispatch Escape key event
+				const escapeKeyDownEvent = new KeyboardEvent('keydown', {
+					key: 'Escape',
+					bubbles: true,
+				});
+
+				// Spy on stopPropagation
+				const stopPropagationSpy = jest.spyOn(escapeKeyDownEvent, 'stopPropagation');
+
+				window.dispatchEvent(escapeKeyDownEvent);
+
+				expect(stopPropagationSpy).toHaveBeenCalled();
+			});
+
+			it('should not stop propagation of Escape key event when shouldPreventEscapePropagation is false or not set', async () => {
+				const parentKeyDownHandler = jest.fn();
+
+				render(
+					// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
+					<div onKeyDown={parentKeyDownHandler} role="presentation">
+						<PopupSelect
+							options={OPTIONS}
+							value={OPTIONS[0]}
+							target={({ ref }) => (
+								<button type="button" ref={ref}>
+									Target
+								</button>
+							)}
+							label="Options"
+						/>
+					</div>,
+				);
+
+				// Open the popup
+				await user.click(screen.getByText('Target'));
+
+				// Dispatch Escape key event
+				const escapeKeyDownEvent = new KeyboardEvent('keydown', {
+					key: 'Escape',
+					bubbles: true,
+				});
+
+				// Spy on stopPropagation
+				const stopPropagationSpy = jest.spyOn(escapeKeyDownEvent, 'stopPropagation');
+
+				window.dispatchEvent(escapeKeyDownEvent);
+
+				expect(stopPropagationSpy).not.toHaveBeenCalled();
+			});
+		},
+	);
 
 	it('should stay open when cleared', async () => {
 		render(
@@ -357,7 +438,7 @@ describe('Popup Select', () => {
 			const view = render(
 				<PopupSelect
 					options={OPTIONS}
-					target={({ isOpen, ...triggerProps }) => (
+					target={({ isOpen: _isOpen, ...triggerProps }) => (
 						<button type="button" {...triggerProps}>
 							Target
 						</button>
@@ -445,7 +526,7 @@ describe('Popup Select', () => {
 			const view = render(
 				<PopupSelect
 					options={OPTIONS}
-					target={({ isOpen, ...triggerProps }) => (
+					target={({ isOpen: _isOpen, ...triggerProps }) => (
 						<button type="button" {...triggerProps}>
 							Target
 						</button>

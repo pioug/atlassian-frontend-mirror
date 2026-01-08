@@ -1,7 +1,10 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, type SerializedStyles } from '@emotion/react';
 
-import { akEditorDeleteIconColor } from '@atlaskit/editor-shared-styles';
+import {
+	akEditorDeleteIconColor,
+	akEditorSelectedNodeClassName,
+} from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
 /*
@@ -16,9 +19,6 @@ export const resizerHandleClassName = 'resizer-handle';
 export const resizerHandleTrackClassName = `${resizerHandleClassName}-track`;
 export const resizerHandleThumbClassName = `${resizerHandleClassName}-thumb`;
 export const resizerDangerClassName = `${resizerHandleClassName}-danger`;
-
-// akEditorSelectedNodeClassName from '@atlaskit/editor-shared-styles';
-const akEditorSelectedNodeClassName = 'ak-editor-selected-node';
 
 export const handleWrapperClass = 'resizer-handle-wrapper';
 

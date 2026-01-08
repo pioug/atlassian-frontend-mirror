@@ -50,14 +50,7 @@ export const SearchExternalSite: React.FC<Props & WrappedComponentProps> = ({
 				>
 					<Button
 						appearance="link"
-						iconAfter={
-							<ShortcutIcon
-								LEGACY_size="small"
-								label=""
-								color={token('color.icon.subtle', colors.N90)}
-								LEGACY_secondaryColor={token('color.icon.subtle', colors.N90)}
-							/>
-						}
+						iconAfter={<ShortcutIcon label="" color={token('color.icon.subtle', colors.N90)} />}
 						spacing="compact"
 						href={searchExternalUrl}
 						target="_blank"

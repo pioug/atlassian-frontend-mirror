@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 5.3.1
+
+### Patch Changes
+
+- [`2367bfbab903a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2367bfbab903a) -
+  Add iframe title to integration test
+
 ## 5.3.0
 
 ### Minor Changes

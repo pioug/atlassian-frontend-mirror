@@ -1,5 +1,12 @@
 # @atlaskit/rating
 
+## 3.1.0
+
+### Minor Changes
+
+- [`87b12e64ff750`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87b12e64ff750) -
+  Removed usages of LEGACY icon props
+
 ## 3.0.14
 
 ### Patch Changes

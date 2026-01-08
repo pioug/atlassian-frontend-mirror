@@ -35,7 +35,7 @@ const DropDownButtonIcon = React.memo((props: { label: string }) => (
 		{<AddIcon label={props.label} color="currentColor" spacing="spacious" />}
 		{
 			<span>
-				<ChevronDownIcon label="" color="currentColor" LEGACY_margin="0 0 0 -8px" size="small" />
+				<ChevronDownIcon label="" color="currentColor" size="small" />
 			</span>
 		}
 	</span>

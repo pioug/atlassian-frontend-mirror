@@ -17,13 +17,6 @@ export interface StarProps extends RatingProps {
 	color?: string;
 
 	/**
-   * Size of the star icon.
-
-   * Defaults to `"large"`.
-   */
-	size?: 'small' | 'medium' | 'large' | 'xlarge';
-
-	/**
 	 * Spacing between the star and the text.
 	 *
 	 * Defaults to `"spacious"`.
@@ -32,38 +25,18 @@ export interface StarProps extends RatingProps {
 }
 
 const Star = forwardRef<HTMLLabelElement, StarProps>(
-	(
-		{
-			size = 'large',
-			color = token('color.icon.accent.yellow', Y200),
-			spacing = 'spacious',
-			...props
-		},
-		ref,
-	) => {
+	({ color = token('color.icon.accent.yellow', Y200), spacing = 'spacious', ...props }, ref) => {
 		const render: RatingRender = useCallback(
 			(props) => {
 				return props.isChecked ? (
 					// Labels are set inside Rating - blank them out here to not double up.
-					<StarStarredIcon
-						LEGACY_size={size}
-						LEGACY_primaryColor={color}
-						color={color as any}
-						spacing={spacing}
-						label=""
-					/>
+					<StarStarredIcon color={color as any} spacing={spacing} label="" />
 				) : (
 					// Labels are set inside Rating - blank them out here to not double up.
-					<StarUnstarredIcon
-						LEGACY_size={size}
-						LEGACY_primaryColor={color}
-						color={color as any}
-						spacing={spacing}
-						label=""
-					/>
+					<StarUnstarredIcon color={color as any} spacing={spacing} label="" />
 				);
 			},
-			[color, size, spacing],
+			[color, spacing],
 		);
 
 		return <Rating {...props} ref={ref} render={render} />;

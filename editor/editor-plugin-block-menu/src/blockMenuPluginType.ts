@@ -145,6 +145,7 @@ export type RegisterBlockMenuSection = BlockMenuSection & {
 
 export type RegisterBlockMenuItem = BlockMenuItem & {
 	component?: BlockMenuItemComponent;
+	isHidden?: () => boolean;
 	parent: Parent<BlockMenuSection>;
 };
 

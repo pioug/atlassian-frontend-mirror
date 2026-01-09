@@ -1,5 +1,12 @@
 # @atlaskit/tokens
 
+## 9.1.1
+
+### Patch Changes
+
+- [`22a828a976edc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22a828a976edc) -
+  Removing experimental feature flag to disable the typography theme.
+
 ## 9.1.0
 
 ### Minor Changes

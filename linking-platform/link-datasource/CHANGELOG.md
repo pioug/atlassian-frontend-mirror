@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 4.32.1
+
+### Patch Changes
+
+- [`1d8c8a19192b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d8c8a19192b2) -
+  [ux] For Jira inlne editing dropdown (status, assignee) are now show over the edge of scrallable
+  table. Behind FG platform_navx_sllv_j2ws_dropdown_for_single_row
+
 ## 4.32.0
 
 ### Minor Changes

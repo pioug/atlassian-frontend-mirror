@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { SideNavState } from './types';
 import { SetSideNavVisibilityState, SideNavVisibilityState } from './visibility-context';
 
@@ -16,7 +14,7 @@ export const SideNavVisibilityProvider = ({
 	defaultCollapsed?: boolean;
 }): React.JSX.Element => {
 	const initialState: SideNavState | null =
-		typeof defaultCollapsed === 'boolean' && fg('platform_dst_nav4_side_nav_default_collapsed_api')
+		typeof defaultCollapsed === 'boolean'
 			? {
 					desktop: defaultCollapsed ? 'collapsed' : 'expanded',
 					mobile: 'collapsed',

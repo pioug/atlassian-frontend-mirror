@@ -55,6 +55,9 @@ const StatusEditType = (props: StatusEditTypeProps): React.JSX.Element => {
 		<Layering isDisabled={false}>
 			<Select<Status>
 				{...getCleanedSelectProps(props)}
+				menuPortalTarget={
+					fg('platform_navx_sllv_j2ws_dropdown_for_single_row') ? document.body : undefined
+				}
 				autoFocus
 				options={options}
 				defaultMenuIsOpen

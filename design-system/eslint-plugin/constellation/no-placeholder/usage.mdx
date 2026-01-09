@@ -1,0 +1,145 @@
+# no-placeholder
+
+Placeholders are inherently inaccessible and should not be used. Instead, information about the type
+or formatting of a value should be included in a helper message that is associated to the input.
+This can be done natively in Atlaskit forms using the form's field and messaging components, like
+[this example](https://atlassian.design/components/form/examples#building-a-form) in our form's
+documentation.
+
+## Examples
+
+This rule will find violations for when a placeholder is used on an input element.
+
+### Incorrect
+
+```jsx
+<input id="name" name="username" type="text" placeholder="FooBarBaz" />
+                                             ^^^^^^^^^^^ `placeholder` prop should not be used
+```
+
+```jsx
+import Textfield from '@atlaskit/textfield';
+
+<Textfield placeholder="FooBarBaz">
+           ^^^^^^^^^^^ `placeholder` prop should not be used
+```
+
+```jsx
+import Form, { Field, FormFooter } from '@atlaskit/form';
+import Textarea from '@atlaskit/textarea';
+
+export default function Example(): React.JSX.Element {
+  return (
+    <Form onSubmit={(formState: unknown) => console.log('form submitted', formState)}>
+      <Field label="Comments" name="comments">
+        {({ fieldProps }) => (
+          <Textfield
+            placeholder="Include any thoughts you have about the above blog post."
+            ^^^^^^^^^^^ `placeholder` prop should not be used
+            {...fieldProps}
+          />
+        )}
+      </Field>
+      <FormFooter>
+        <Button type="submit" appearance="primary">
+          Submit
+        </Button>
+      </FormFooter>
+    </Form>
+  );
+}
+```
+
+```jsx
+import Form, { Field, FormFooter } from '@atlaskit/form';
+import Textarea from '@atlaskit/textarea';
+
+export default function Example(): React.JSX.Element {
+  return (
+    <Form onSubmit={(formState: unknown) => console.log('form submitted', formState)}>
+      <Field
+        label="Comments"
+        name="comments"
+        component={({ fieldProps }) => (
+          <Textfield
+            placeholder="Include any thoughts you have about the above blog post."
+            ^^^^^^^^^^^ `placeholder` prop should not be used
+            {...fieldProps}
+          />
+        )}
+      />
+      <FormFooter>
+        <Button type="submit" appearance="primary">
+          Submit
+        </Button>
+      </FormFooter>
+    </Form>
+  );
+}
+```
+
+### Correct
+
+```jsx
+<input id="name" name="username" type="text" aria-describedby="name__helper" />
+<p id="name__helper">Usernames should be over 8 characters and include upper- and lower-case characters. For example, "FooBarBaz"</p>
+```
+
+```jsx
+import Textfield from '@atlaskit/textfield';
+
+<Textfield id="name" name="username" aria-describedby="name__helper" />
+<p id="name__helper">Usernames should be over 8 characters and include upper- and lower-case characters. For example, "FooBarBaz"</p>
+```
+
+```jsx
+import Form, { Field, FormFooter, HelperMessage, MessageWrapper } from '@atlaskit/form';
+import Textarea from '@atlaskit/textarea';
+
+export default function Example(): React.JSX.Element {
+  return (
+    <Form onSubmit={(formState: unknown) => console.log('form submitted', formState)}>
+      <Field label="Comments" name="comments">
+        {({ fieldProps }) => (
+          <Fragment>
+            <Textfield {...fieldProps} />
+            <MessageWrapper>
+              <HelperMessage>Include any thoughts you have about the above blog post.</HelperMessage>
+            </MessageWrapper>
+          </Fragment>
+        )}
+      </Field>
+      <FormFooter>
+        <Button type="submit" appearance="primary">
+          Submit
+        </Button>
+      </FormFooter>
+    </Form>
+  );
+}
+```
+
+```jsx
+import Form, { Field, FormFooter } from '@atlaskit/form';
+import Textarea from '@atlaskit/textarea';
+
+export default function Example(): React.JSX.Element {
+  return (
+    <Form onSubmit={(formState: unknown) => console.log('form submitted', formState)}>
+      <Field
+        label="Comments"
+        name="comments"
+        component={({ fieldProps }) => (
+          <Textfield {...fieldProps} />
+        )}
+        helperMessage="Include any thoughts you have about the above blog post."
+      />
+      <FormFooter>
+        <Button type="submit" appearance="primary">
+          Submit
+        </Button>
+      </FormFooter>
+    </Form>
+  );
+}
+```

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 8.0.6
+
+### Patch Changes
+
+- [`52a4db18c2a6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/52a4db18c2a6a) -
+  EDITOR-4161 Fix drag handle selection collapse in nested scenarios
+- Updated dependencies
+
 ## 8.0.5
 
 ### Patch Changes

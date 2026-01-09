@@ -8,10 +8,17 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
  * ExcludeFromHydration component delays rendering of its children until after the initial
  * hydration phase, based on a feature flag check. If the feature flag is disabled,
  * it will render children immediately after hydration.
- * @param param0
+ * @param children - The content to render after hydration
+ * @param fallback - Optional fallback content to render during hydration (e.g., a placeholder to prevent layout shift)
  * @returns
  */
-function ExcludeFromHydration({ children }: { children: React.ReactNode }): React.ReactNode {
+function ExcludeFromHydration({
+	children,
+	fallback = null,
+}: {
+	children: React.ReactNode;
+	fallback?: React.ReactNode;
+}): React.ReactNode {
 	const [shouldRender, setShouldRender] = useState(false);
 
 	useEffect(() => {
@@ -22,7 +29,7 @@ function ExcludeFromHydration({ children }: { children: React.ReactNode }): Reac
 	}, []);
 
 	if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && !shouldRender) {
-		return null;
+		return fallback ?? null;
 	}
 
 	return children;

@@ -1,5 +1,12 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.5.4
+
+### Patch Changes
+
+- [`0248c6fa91442`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0248c6fa91442) -
+  EDITOR-4310 Ensure confirmation callback is cleaned up properly
+
 ## 3.5.3
 
 ### Patch Changes

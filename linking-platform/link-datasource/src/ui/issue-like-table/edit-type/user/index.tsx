@@ -84,6 +84,9 @@ const UserEditType = (props: UserEditTypeProps): React.JSX.Element => {
 		<Layering isDisabled={false}>
 			<Select<User>
 				{...getCleanedSelectProps(props)}
+				menuPortalTarget={
+					fg('platform_navx_sllv_j2ws_dropdown_for_single_row') ? document.body : undefined
+				}
 				autoFocus
 				defaultMenuIsOpen
 				blurInputOnSelect

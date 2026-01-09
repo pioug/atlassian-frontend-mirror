@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::760141a986e4947e8a1ce74480931f43>>
+ * @codegen <<SignedSource::1d71c9baf13f30c0e219c4a2cea33365>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { ESLint } from 'eslint';
@@ -48,6 +48,7 @@ const rules: ESLint.ConfigData = {
 		'@atlaskit/design-system/no-margin': 'warn',
 		'@atlaskit/design-system/no-nested-styles': 'error',
 		'@atlaskit/design-system/no-physical-properties': 'error',
+		'@atlaskit/design-system/no-placeholder': 'warn',
 		'@atlaskit/design-system/no-separator-with-list-elements': 'warn',
 		'@atlaskit/design-system/no-styled-tagged-template-expression': 'error',
 		'@atlaskit/design-system/no-to-match-snapshot': 'error',

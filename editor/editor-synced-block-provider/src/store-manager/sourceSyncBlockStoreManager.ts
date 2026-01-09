@@ -403,6 +403,8 @@ export class SourceSyncBlockStoreManager {
 						onDeleteCompleted,
 						destroyCallback,
 					};
+				} else {
+					destroyCallback();
 				}
 			} else {
 				destroyCallback();

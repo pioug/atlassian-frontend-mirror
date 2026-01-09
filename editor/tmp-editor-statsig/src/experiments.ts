@@ -112,21 +112,9 @@ export function editorExperiment<ExperimentName extends keyof EditorExperimentsC
 	return expectedExperimentValue === experimentValue;
 }
 
-type Unstable_EditorExperimentParams = {
-	platform_editor_ai_proactive_ai_nudge_parameters: {
-		params:
-			| 'min_final_confidence'
-			| 'min_length_percentage_difference'
-			| 'max_length_percentage_difference'
-			| 'min_input_readability_score'
-			| 'min_output_readability_score'
-			| 'max_readability_score_delta'
-			| 'min_readability_score_delta'
-			| 'min_alternative_confidence';
-	};
-};
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+type Unstable_EditorExperimentParams = {};
 
-// type Unstable_EditorExperimentParams = {};
 /**
  * @warning This currently lacks type safety on the param names and return values
  * and has limited associated test tooling.

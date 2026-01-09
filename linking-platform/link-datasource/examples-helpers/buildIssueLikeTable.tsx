@@ -23,16 +23,12 @@ import { useCommonTableProps } from './useCommonTableProps';
 type Props = {
 	canControlWrapping?: boolean;
 	canResizeColumns?: boolean;
+	cloudId?: string;
 	forceLoading?: boolean;
 	isReadonly?: boolean;
-	/**
-	 * Use infinity for an infinite delay (promise never resolves or rejects)
-	 * Default is 600ms
-	 */
-	mockExecutionDelay?: number;
 	skipIntl?: boolean;
 	visibleColumnKeys?: string[];
-};
+} & Parameters<typeof mockDatasourceFetchRequests>[0];
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const TableViewWrapper = styled.div({
@@ -50,13 +46,14 @@ const ExampleBody = ({
 	forceLoading = false,
 	visibleColumnKeys: overrideVisibleColumnKeys,
 	mockExecutionDelay = 600,
+	cloudId,
 }: Props) => {
 	const parameters = useMemo<JiraIssueDatasourceParameters>(
 		() => ({
-			cloudId: 'some-cloud-id',
+			cloudId: cloudId ?? 'some-cloud-id',
 			jql: 'some-jql',
 		}),
-		[],
+		[cloudId],
 	);
 
 	useEffect(() => {

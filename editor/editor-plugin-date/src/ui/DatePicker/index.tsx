@@ -20,7 +20,6 @@ import {
 } from '@atlaskit/editor-common/ui';
 import { timestampToIsoFormat, timestampToUTCDate } from '@atlaskit/editor-common/utils';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N60A } from '@atlaskit/theme/colors';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
@@ -150,11 +149,9 @@ class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
 				scrollableElement={scrollableElement}
 				preventOverflow={true}
 			>
-				{fg('editor_a11y_announce_date_picker_open') && (
-					<VisuallyHidden aria-atomic role="alert">
-						{intl.formatMessage(messages.datePickerOpenedAlert)}
-					</VisuallyHidden>
-				)}
+				<VisuallyHidden aria-atomic role="alert">
+					{intl.formatMessage(messages.datePickerOpenedAlert)}
+				</VisuallyHidden>
 				<PlainOutsideClickTargetRefContext.Consumer>
 					{(setOutsideClickTargetRef) => (
 						<div css={popupContentWrapper} ref={setOutsideClickTargetRef}>

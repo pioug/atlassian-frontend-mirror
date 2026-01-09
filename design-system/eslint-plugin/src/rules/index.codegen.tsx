@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7b80dfb4568d4c5f7c84d7c382b81de9>>
+ * @codegen <<SignedSource::52a4317ab2912be8cb3eefd111662024>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { Rule } from 'eslint';
@@ -43,6 +43,7 @@ import noLegacyIcons from './no-legacy-icons';
 import noMargin from './no-margin';
 import noNestedStyles from './no-nested-styles';
 import noPhysicalProperties from './no-physical-properties';
+import noPlaceholder from './no-placeholder';
 import noSeparatorWithListElements from './no-separator-with-list-elements';
 import noStyledTaggedTemplateExpression from './no-styled-tagged-template-expression';
 import noToMatchSnapshot from './no-to-match-snapshot';
@@ -118,6 +119,7 @@ export const rules: Record<string, Rule.RuleModule> = {
 	'no-margin': noMargin,
 	'no-nested-styles': noNestedStyles,
 	'no-physical-properties': noPhysicalProperties,
+	'no-placeholder': noPlaceholder,
 	'no-separator-with-list-elements': noSeparatorWithListElements,
 	'no-styled-tagged-template-expression': noStyledTaggedTemplateExpression,
 	'no-to-match-snapshot': noToMatchSnapshot,

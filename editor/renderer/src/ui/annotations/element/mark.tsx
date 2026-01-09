@@ -77,7 +77,6 @@ const markStylesWithInlineComments = css({
 		cursor: 'pointer',
 		padding: `1px 0 ${token('space.025')}`,
 
-		// it was under fg(annotations_align_editor_and_renderer_styles) from AnnotationSharedCSSByState().common, assume it's on as already rolled out
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'&:has(.card), &:has([data-inline-card])': {
 			padding: '5px 0 3px 0',

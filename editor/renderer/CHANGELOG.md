@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 125.3.0
+
+### Minor Changes
+
+- [`8702c4d80694c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8702c4d80694c) -
+  [https://hello.jira.atlassian.cloud/browse/EDITOR-4103](EDITOR-4103) - clean up
+  annotations_align_editor_and_renderer_styles
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 125.2.0
 
 ### Minor Changes

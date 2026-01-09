@@ -7,15 +7,25 @@ import {
 	convertSyncBlockJSONNodeToSyncBlockNode,
 	useMemoizedSyncBlockStoreManager,
 	type SyncBlockDataProvider,
+	type SyncBlockInstance,
 	type SyncBlockNode,
 } from '@atlaskit/editor-synced-block-provider';
 import type { SyncedBlockProvider } from '@atlaskit/editor-synced-block-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SyncedBlockRendererOptions } from './types';
 import {
 	SyncedBlockNodeComponentRenderer,
 	type SyncedBlockNodeProps,
 } from './ui/SyncedBlockNodeComponentRenderer';
+
+export type GetSyncedBlockNodeComponentProps = {
+	fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void;
+	getSSRData?: () => Record<string, SyncBlockInstance> | undefined;
+	syncBlockNodes: SyncBlockNode[];
+	syncBlockProvider: SyncedBlockProvider;
+	syncBlockRendererOptions: SyncedBlockRendererOptions | undefined;
+};
 
 export const getSyncBlockNodesFromDoc = (doc: DocNode): SyncBlockNode[] => {
 	const { content } = doc;
@@ -28,25 +38,29 @@ export const getSyncBlockNodesFromDoc = (doc: DocNode): SyncBlockNode[] => {
 	return syncBlockNodes;
 };
 
-type SyncedBlockNodeComponentProps = {
-	fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void;
-	syncBlockNodes: SyncBlockNode[];
-	syncBlockProvider: SyncedBlockProvider;
-	syncBlockRendererOptions: SyncedBlockRendererOptions | undefined;
-};
-
 export const useMemoizedSyncedBlockNodeComponent = ({
 	syncBlockNodes,
 	syncBlockProvider,
 	syncBlockRendererOptions,
 	fireAnalyticsEvent,
-}: SyncedBlockNodeComponentProps): ((props: SyncedBlockNodeProps) => React.JSX.Element) => {
+	getSSRData,
+}: GetSyncedBlockNodeComponentProps): ((props: SyncedBlockNodeProps) => React.JSX.Element) => {
 	const syncBlockStoreManager = useMemoizedSyncBlockStoreManager(
 		syncBlockProvider as SyncBlockDataProvider,
 		fireAnalyticsEvent,
 	);
 
-	// Initial fetch sync block data
+	// Initialize SSR data if available
+	useEffect(() => {
+		if (getSSRData && fg('platform_synced_block_dogfooding')) {
+			const ssrData = getSSRData();
+			if (ssrData && (syncBlockProvider as SyncBlockDataProvider).setSSRData) {
+				(syncBlockProvider as SyncBlockDataProvider).setSSRData(ssrData);
+			}
+		}
+	}, [getSSRData, syncBlockProvider]);
+
+	// Initial fetch sync block data (will use SSR data as initial cache if available)
 	useEffect(() => {
 		syncBlockStoreManager.referenceManager.fetchSyncBlocksData(syncBlockNodes);
 	}, [syncBlockNodes, syncBlockStoreManager.referenceManager]);

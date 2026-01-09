@@ -23,7 +23,6 @@ export type EditorExperimentOverridesBoolean = {
 export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = {
 	'example-multivariate': 'one',
 	'platform_editor_ai-prompts-placeholder': 'control',
-	platform_editor_ai_proactive_ai_nudge_parameters: 'control',
 	platform_editor_controls: 'control',
 	confluence_whiteboards_quick_insert: 'control',
 	confluence_whiteboards_quick_insert_localised: 'control',

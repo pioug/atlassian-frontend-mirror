@@ -2513,9 +2513,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				smartCardStylesAvatarListZeroMarginTop,
 				fg('editor_inline_comments_on_inline_nodes') && rendererAnnotationStyles,
 				// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-				fg('editor_inline_comments_on_inline_nodes') &&
-					fg('annotations_align_editor_and_renderer_styles') &&
-					rendererAnnotationStylesCommentHeightFix,
+				fg('editor_inline_comments_on_inline_nodes') && rendererAnnotationStylesCommentHeightFix,
 				baseOtherStyles,
 				allowNestedHeaderLinks && alignedHeadingAnchorStyle,
 				mediaSingleSharedStyle,

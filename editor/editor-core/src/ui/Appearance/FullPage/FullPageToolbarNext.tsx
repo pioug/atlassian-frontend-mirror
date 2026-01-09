@@ -94,6 +94,13 @@ const styles = cssMap({
 	backgroundColor: {
 		backgroundColor: token('elevation.surface'),
 	},
+	// Placeholder styles to reserve toolbar space during hydration and prevent layout shift
+	toolbarPlaceholder: {
+		borderBottom: `${token('border.width')} solid ${token('color.border')}`,
+		backgroundColor: token('elevation.surface'),
+		// @ts-expect-error - the type here expects an explicit height value, but CSS variables seem to work and are well-supported in compiled for whenever that migration occurs.
+		height: 'var(--ak-editor-fullpage-toolbar-height)',
+	},
 });
 
 const MainToolbarWrapper = ({
@@ -152,6 +159,14 @@ const SecondChildWrapper = ({ children }: { children: React.ReactNode }) => {
 	);
 };
 
+/**
+ * Placeholder component that reserves the toolbar's space during hydration
+ * to prevent layout shift when the actual toolbar renders.
+ */
+const ToolbarPlaceholder = () => {
+	return <div css={styles.toolbarPlaceholder} data-testid="ak-editor-main-toolbar-placeholder" />;
+};
+
 export const FullPageToolbarNext = ({
 	editorAPI,
 	beforeIcon,
@@ -196,7 +211,7 @@ export const FullPageToolbarNext = ({
 	return (
 		<ContextPanelConsumer>
 			{({ width: ContextPanelWidth }) => (
-				<ExcludeFromHydration>
+				<ExcludeFromHydration fallback={<ToolbarPlaceholder />}>
 					<ToolbarArrowKeyNavigationProvider
 						editorView={editorView}
 						childComponentSelector="[data-testid='ak-editor-main-toolbar']"

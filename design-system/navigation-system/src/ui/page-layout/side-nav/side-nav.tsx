@@ -711,30 +711,9 @@ function SideNavInternal({
 		trigger: 'click-outside-on-mobile',
 	});
 
-	useEffect(() => {
-		if (fg('platform_dst_nav4_side_nav_default_collapsed_api')) {
-			// This is the old version of the hook, so we skip it when the flag is enabled
-			return;
-		}
-
-		// Sync the visibility in context (provided in `<Root>`) with the local `defaultCollapsed` prop provided to `SideNav`
-		// after SSR hydration. This should only run once, after the initial render on the client.
-		setSideNavState({
-			desktop: initialDefaultCollapsed ? 'collapsed' : 'expanded',
-			mobile: 'collapsed',
-			flyout: 'closed',
-			lastTrigger: null,
-		});
-	}, [initialDefaultCollapsed, setSideNavState]);
-
-	// Moving to `useLayoutEffect` so that there's no visual shift in non-SSR environments when using legacy API
+	// Using `useLayoutEffect` so that there's no visual shift in non-SSR environments when using legacy API
 	// For SSR the new API is still necessary
 	useLayoutEffect(() => {
-		if (!fg('platform_dst_nav4_side_nav_default_collapsed_api')) {
-			// This is the new version of the hook, so we skip it when the flag is disabled
-			return;
-		}
-
 		if (sideNavState !== null) {
 			// Only need to do an initial sync if it hasn't been initialized from Root
 			return;

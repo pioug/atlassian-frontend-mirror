@@ -1,5 +1,17 @@
 # @atlaskit/editor-statsig-tmp
 
+## 16.12.0
+
+### Minor Changes
+
+- [`7b39652e2fb7e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b39652e2fb7e) -
+  Updates editor to only show placeholder once collab has connected.
+
+### Patch Changes
+
+- [`0432552b0f173`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0432552b0f173) -
+  Cleaning up platform_editor_ai_proactive_ai_nudge
+
 ## 16.11.0
 
 ### Minor Changes

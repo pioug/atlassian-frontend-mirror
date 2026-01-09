@@ -97,6 +97,13 @@ export const editorExperimentsConfig: {
 	// new format to avoid collisions with other users when updating the file
 	// Editor Platform experiments
 	// lwoollard experiments
+	// Added 22-12-2025
+	cc_editor_placeholder_collab_wait: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 02-12-2025
 	cc_fix_hydration_ttvc: {
 		defaultValue: boolean;
@@ -271,14 +278,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: (value: unknown) => value is 'control' | 'adf_gemini25flash' | 'adf_gpt41mini';
 		values: ('control' | 'adf_gemini25flash' | 'adf_gpt41mini')[];
-	};
-	// Added 2025-03-28
-	platform_editor_ai_proactive_ai_nudge_parameters: {
-		defaultValue: 'control' | 'variant1';
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: (value: unknown) => value is 'control' | 'variant1';
-		values: ('control' | 'variant1')[];
 	};
 	// Added 2025-05-07
 	platform_editor_ai_quickstart_command: {
@@ -1043,6 +1042,15 @@ export const editorExperimentsConfig: {
 
 	// Editor Platform experiments
 	// lwoollard experiments
+
+	// Added 22-12-2025
+	cc_editor_placeholder_collab_wait: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_editor_placeholder_collab_wait',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 02-12-2025
 	cc_fix_hydration_ttvc: createBooleanExperiment({
 		productKeys: {
@@ -1364,15 +1372,6 @@ export const editorExperimentsConfig: {
 		},
 		param: 'isEnabled',
 		defaultValue: false,
-	}),
-	// Added 2025-03-28
-	platform_editor_ai_proactive_ai_nudge_parameters: createMultivariateExperiment({
-		productKeys: {
-			confluence: 'platform_editor_ai_proactive_ai_nudge_parameters',
-		},
-		param: 'cohort',
-		values: ['control', 'variant1'],
-		defaultValue: 'control',
 	}),
 	// Added 2025-04-14
 	// https://switcheroo.atlassian.com/ui/gates/b159b45a-86d9-4f4b-b482-f9aca5b615d6/key/platform_editor_offline_editing_web

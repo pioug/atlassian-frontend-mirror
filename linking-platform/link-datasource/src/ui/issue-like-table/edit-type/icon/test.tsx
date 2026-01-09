@@ -86,4 +86,28 @@ describe('IconEditType', () => {
 			expect(() => setup()).not.toThrow();
 		});
 	});
+
+	ffTest.on('platform_navx_sllv_j2ws_dropdown_for_single_row', '', () => {
+		it('should render dropdown menu in portal when feature flag is enabled', async () => {
+			setup();
+
+			const menu = await screen.findByRole('listbox');
+			const container = screen.getByTestId('inline-edit-priority-select--container');
+
+			// When portaled, menu should not be inside the container
+			expect(container.contains(menu)).toBe(false);
+		});
+	});
+
+	ffTest.off('platform_navx_sllv_j2ws_dropdown_for_single_row', '', () => {
+		it('should render dropdown menu inline when feature flag is disabled', async () => {
+			setup();
+
+			const menu = await screen.findByRole('listbox');
+			const container = screen.getByTestId('inline-edit-priority-select--container');
+
+			// When not portaled, menu should be inside the container
+			expect(container.contains(menu)).toBe(true);
+		});
+	});
 });

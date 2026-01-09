@@ -55,6 +55,9 @@ const IconEditType = (props: IconEditTypeProps): React.JSX.Element => {
 		<Layering isDisabled={false}>
 			<Select<Icon>
 				{...getCleanedSelectProps(props)}
+				menuPortalTarget={
+					fg('platform_navx_sllv_j2ws_dropdown_for_single_row') ? document.body : undefined
+				}
 				autoFocus
 				blurInputOnSelect
 				defaultMenuIsOpen

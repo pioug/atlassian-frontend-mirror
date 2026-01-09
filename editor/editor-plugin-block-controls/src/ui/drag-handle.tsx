@@ -588,6 +588,13 @@ export const DragHandle = ({
 		}
 	}, [anchorName, nodeType, view.dom]);
 
+	const handleMouseUp = useCallback((e: MouseEvent<HTMLButtonElement>) => {
+		// Stop propagation so that for drag handles in nested scenarios the click is captured
+		// and doesn't propagate to the edge of the element and trigger a node selection
+		// on the parent element
+		e.stopPropagation();
+	}, []);
+
 	const handleOnClickNew = useCallback(
 		(e: MouseEvent<HTMLButtonElement>) => {
 			api?.core?.actions.execute(({ tr }) => {
@@ -1437,6 +1444,11 @@ export const DragHandle = ({
 						? positionStyles
 						: positionStylesOld
 					: {}
+			}
+			onMouseUp={
+				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+					? handleMouseUp
+					: undefined
 			}
 			onClick={
 				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)

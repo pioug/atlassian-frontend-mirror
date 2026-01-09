@@ -5,6 +5,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { pluginKey, EMPTY_PARAGRAPH_TIMEOUT_DELAY } from '../placeholderPlugin';
 import type { PlaceholderPlugin } from '../placeholderPluginType';
@@ -122,6 +123,12 @@ export default function createPlugin(
 		},
 		props: {
 			decorations(editorState) {
+				if (expValEquals('cc_editor_placeholder_collab_wait', 'isEnabled', true)) {
+					// @ts-ignore quick fix which needs follow up to use standard apis
+					if (editorState.collabEditPlugin$ && editorState.collabEditPlugin$.isReady !== true) {
+						return;
+					}
+				}
 				const {
 					hasPlaceholder,
 					placeholderText,

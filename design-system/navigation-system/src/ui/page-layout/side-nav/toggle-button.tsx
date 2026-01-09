@@ -109,9 +109,7 @@ export const SideNavToggleButton = ({
 	// When default state is provided to `Root` the state in context will already be
 	// initialized in SSR
 	const [isSideNavExpanded, setIsSideNavExpanded] = useState<boolean>(
-		sideNavState === null || !fg('platform_dst_nav4_side_nav_default_collapsed_api')
-			? !defaultCollapsed
-			: isSideNavExpandedOnDesktop,
+		sideNavState === null ? !defaultCollapsed : isSideNavExpandedOnDesktop,
 	);
 
 	const ref = useContext(SideNavToggleButtonAttachRef);

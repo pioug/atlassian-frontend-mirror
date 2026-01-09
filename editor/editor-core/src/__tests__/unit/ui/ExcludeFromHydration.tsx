@@ -128,4 +128,65 @@ describe('ExcludeFromHydration', () => {
 
 		expect(container).toBeInTheDocument();
 	});
+
+	describe('fallback prop', () => {
+		it('should render fallback when feature flag is enabled and not yet hydrated', () => {
+			mockExpValEquals.mockReturnValue(true);
+			mockIsSSR.mockReturnValue(true); // Simulate SSR where useEffect hasn't run
+
+			const { container } = render(
+				<ExcludeFromHydration fallback={<div data-testid="fallback">Placeholder</div>}>
+					<div data-testid="child-content">Test Content</div>
+				</ExcludeFromHydration>,
+			);
+
+			// During SSR with feature flag enabled, fallback should be rendered
+			expect(screen.queryByTestId('fallback')).toBeInTheDocument();
+			expect(screen.queryByTestId('child-content')).not.toBeInTheDocument();
+			expect(container).toBeInTheDocument();
+		});
+
+		it('should render children instead of fallback after hydration', () => {
+			mockExpValEquals.mockReturnValue(true);
+			mockIsSSR.mockReturnValue(false);
+
+			render(
+				<ExcludeFromHydration fallback={<div data-testid="fallback">Placeholder</div>}>
+					<div data-testid="child-content">Test Content</div>
+				</ExcludeFromHydration>,
+			);
+
+			// After hydration (useEffect runs), children should be rendered
+			expect(screen.getByTestId('child-content')).toBeInTheDocument();
+			expect(screen.queryByTestId('fallback')).not.toBeInTheDocument();
+		});
+
+		it('should render children when feature flag is disabled regardless of fallback', () => {
+			mockExpValEquals.mockReturnValue(false);
+			mockIsSSR.mockReturnValue(false);
+
+			render(
+				<ExcludeFromHydration fallback={<div data-testid="fallback">Placeholder</div>}>
+					<div data-testid="child-content">Test Content</div>
+				</ExcludeFromHydration>,
+			);
+
+			expect(screen.getByTestId('child-content')).toBeInTheDocument();
+			expect(screen.queryByTestId('fallback')).not.toBeInTheDocument();
+		});
+
+		it('should render null when no fallback provided and feature flag enabled during SSR', () => {
+			mockExpValEquals.mockReturnValue(true);
+			mockIsSSR.mockReturnValue(true);
+
+			const { container } = render(
+				<ExcludeFromHydration>
+					<div data-testid="child-content">Test Content</div>
+				</ExcludeFromHydration>,
+			);
+
+			expect(screen.queryByTestId('child-content')).not.toBeInTheDocument();
+			expect(container.firstChild).toBeNull();
+		});
+	});
 });

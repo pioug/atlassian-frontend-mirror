@@ -1187,68 +1187,38 @@ describe('Side nav', () => {
 			return render(<div dangerouslySetInnerHTML={{ __html: renderToString(element) }} />);
 		}
 
-		ffTest.on('platform_dst_nav4_side_nav_default_collapsed_api', 'future state', () => {
-			it('should use the root collapse state for the initial render', () => {
-				// Intentionally using opposite values on Root and SideNav
-				// to demonstrate that only the root value is used
-				const { unmount } = renderHtml(
-					<Root defaultSideNavCollapsed={true}>
-						<SideNav defaultCollapsed={false} testId="side-nav">
-							sidenav
-						</SideNav>
-					</Root>,
-				);
+		it('should use the root collapse state for the initial render', () => {
+			// Intentionally using opposite values on Root and SideNav
+			// to demonstrate that only the root value is used
+			const { unmount } = renderHtml(
+				<Root defaultSideNavCollapsed={true}>
+					<SideNav defaultCollapsed={false} testId="side-nav">
+						sidenav
+					</SideNav>
+				</Root>,
+			);
 
-				expect(screen.getByTestId('side-nav')).toHaveAttribute('data-visible', 'false');
+			expect(screen.getByTestId('side-nav')).toHaveAttribute('data-visible', 'false');
 
-				unmount();
+			unmount();
 
-				// Intentionally using opposite values on Root and SideNav
-				// to demonstrate that only the root value is used
-				renderHtml(
-					<Root defaultSideNavCollapsed={false}>
-						<SideNav defaultCollapsed={true} testId="side-nav">
-							sidenav
-						</SideNav>
-					</Root>,
-				);
+			// Intentionally using opposite values on Root and SideNav
+			// to demonstrate that only the root value is used
+			renderHtml(
+				<Root defaultSideNavCollapsed={false}>
+					<SideNav defaultCollapsed={true} testId="side-nav">
+						sidenav
+					</SideNav>
+				</Root>,
+			);
 
-				expect(screen.getByTestId('side-nav')).not.toHaveAttribute('data-visible', 'false');
-			});
-
-			it('should use the root collapse state post-SSR', () => {
-				render(
-					<Root defaultSideNavCollapsed={true}>
-						<SideNav defaultCollapsed={false} testId="side-nav">
-							sidenav
-						</SideNav>
-					</Root>,
-				);
-
-				expect(screen.getByTestId('side-nav')).toHaveAttribute('data-visible', 'false');
-			});
-
-			it('should not sync state post-SSR when default state is provided to Root', () => {
-				const setSideNavStateMock = jest.fn();
-
-				render(
-					<Root defaultSideNavCollapsed>
-						<SetSideNavVisibilityState.Provider value={setSideNavStateMock}>
-							<SideNav testId="side-nav">sidenav</SideNav>
-						</SetSideNavVisibilityState.Provider>
-					</Root>,
-				);
-
-				expect(setSideNavStateMock).not.toHaveBeenCalled();
-			});
+			expect(screen.getByTestId('side-nav')).not.toHaveAttribute('data-visible', 'false');
 		});
-	});
 
-	ffTest.on('platform_dst_nav4_side_nav_default_collapsed_api', 'future state', () => {
-		it('should still use the legacy API if no default state is provided to Root', () => {
+		it('should use the root collapse state post-SSR', () => {
 			render(
-				<Root>
-					<SideNav defaultCollapsed testId="side-nav">
+				<Root defaultSideNavCollapsed={true}>
+					<SideNav defaultCollapsed={false} testId="side-nav">
 						sidenav
 					</SideNav>
 				</Root>,
@@ -1256,5 +1226,31 @@ describe('Side nav', () => {
 
 			expect(screen.getByTestId('side-nav')).toHaveAttribute('data-visible', 'false');
 		});
+
+		it('should not sync state post-SSR when default state is provided to Root', () => {
+			const setSideNavStateMock = jest.fn();
+
+			render(
+				<Root defaultSideNavCollapsed>
+					<SetSideNavVisibilityState.Provider value={setSideNavStateMock}>
+						<SideNav testId="side-nav">sidenav</SideNav>
+					</SetSideNavVisibilityState.Provider>
+				</Root>,
+			);
+
+			expect(setSideNavStateMock).not.toHaveBeenCalled();
+		});
+	});
+
+	it('should still use the legacy API if no default state is provided to Root', () => {
+		render(
+			<Root>
+				<SideNav defaultCollapsed testId="side-nav">
+					sidenav
+				</SideNav>
+			</Root>,
+		);
+
+		expect(screen.getByTestId('side-nav')).toHaveAttribute('data-visible', 'false');
 	});
 });

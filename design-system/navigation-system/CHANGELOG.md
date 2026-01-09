@@ -1,5 +1,16 @@
 # @atlassian/navigation-system
 
+## 5.24.0
+
+### Minor Changes
+
+- [`2fafe4842f106`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2fafe4842f106) -
+  Cleans up the `platform_dst_nav4_side_nav_default_collapsed_api` feature gate. Default side nav
+  collapsed state can now be passed into the `Root` component via the `defaultSideNavCollapsed`
+  prop. This is the preferred API, and the legacy API will be removed at some point in the future.
+
+  This was previously reverted.
+
 ## 5.23.0
 
 ### Minor Changes

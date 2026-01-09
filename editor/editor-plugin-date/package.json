@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-date",
-	"version": "9.0.0",
+	"version": "9.1.0",
 	"description": "Date plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -100,9 +100,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"editor_a11y_announce_date_picker_open": {
-			"type": "boolean"
-		},
 		"platform_editor_adf_with_localid": {
 			"type": "boolean"
 		}

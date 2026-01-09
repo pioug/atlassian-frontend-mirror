@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-date
 
+## 9.1.0
+
+### Minor Changes
+
+- [`c4d3ca353b93a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4d3ca353b93a) -
+  [https://hello.jira.atlassian.cloud/browse/EDITOR-4326](EDITOR-4326) - clean up
+  editor_a11y_announce_date_picker_open
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.0.0
 
 ### Patch Changes

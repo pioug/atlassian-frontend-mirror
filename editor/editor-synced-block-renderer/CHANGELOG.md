@@ -1,5 +1,16 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 5.1.0
+
+### Minor Changes
+
+- [`fc67bbb84995b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fc67bbb84995b) -
+  The renderer version of synced blocks should also use the SSR preloaded data
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.3
 
 ### Patch Changes

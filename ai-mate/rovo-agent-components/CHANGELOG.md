@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-components
 
+## 3.18.0
+
+### Minor Changes
+
+- [`521db26fb5a9c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/521db26fb5a9c) -
+  Remove internal barrel file calls
+
 ## 3.17.0
 
 ### Minor Changes

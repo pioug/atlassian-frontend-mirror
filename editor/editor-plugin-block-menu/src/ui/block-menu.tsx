@@ -23,7 +23,8 @@ import {
 	OutsideClickTargetRefContext,
 	withReactEditorViewOuterListeners,
 } from '@atlaskit/editor-common/ui-react';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react';
@@ -183,6 +184,10 @@ export type BlockMenuProps = {
 	scrollableElement?: HTMLElement;
 };
 
+const isSelectionWithinCodeBlock = (state: EditorState) => {
+	const { $from, $to } = state.selection;
+	return $from.sameParent($to) && $from.parent.type === state.schema.nodes.codeBlock;
+};
 const BlockMenuContent = ({
 	api,
 	setRef,
@@ -283,7 +288,8 @@ const BlockMenu = ({
 	const handleKeyDown = (event: KeyboardEvent) => {
 		// When the editor view has focus, the keydown will be handled by the
 		// selection preservation plugin – exit early to avoid double handling
-		if (!editorView || editorView?.hasFocus()) {
+		// Also exit if selection is within a code block to avoid double handling when code block got focus when the node after it is deleted
+		if (!editorView || editorView?.hasFocus() || isSelectionWithinCodeBlock(editorView.state)) {
 			return;
 		}
 

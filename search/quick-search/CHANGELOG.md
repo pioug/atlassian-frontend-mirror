@@ -1,5 +1,12 @@
 # @atlaskit/quick-search
 
+## 10.0.25
+
+### Patch Changes
+
+- [`386838c84de1a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/386838c84de1a) -
+  Auto-fix duplicate import statements in platform/packages/search
+
 ## 10.0.24
 
 ### Patch Changes

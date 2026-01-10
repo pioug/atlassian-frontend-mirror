@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.0.13
+
+### Patch Changes
+
+- [`799170edab4f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/799170edab4f8) -
+  Fix the delete wrong content via keyboard when block menu open
+
 ## 6.0.12
 
 ### Patch Changes

@@ -5,9 +5,9 @@
 import { PureComponent } from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { N20, N300 } from '@atlaskit/theme/colors';
 import AkButton from '@atlaskit/button/standard-button';
 import Heading from '@atlaskit/heading';
+import { Stack } from '@atlaskit/primitives/compiled';
 import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import { customCategory } from '../../util/constants';
 import type { EmojiDescription, Message } from '../../types';
@@ -30,35 +30,31 @@ const uploadAddRow = css({
 	display: 'flex',
 	justifyContent: 'flex-end',
 	alignItems: 'center',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-	paddingTop: '10px',
+	paddingTop: token('space.100'),
 });
 
 const uploadPreview = css({
 	display: 'flex',
 	justifyContent: 'space-between',
 	alignItems: 'center',
-	backgroundColor: token('color.background.neutral', N20),
+	backgroundColor: token('color.background.neutral'),
 	borderRadius: token('radius.small', '3px'),
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-	padding: '10px',
+	paddingTop: token('space.150'),
+	paddingRight: token('space.150'),
+	paddingBottom: token('space.150'),
+	paddingLeft: token('space.150'),
 });
 
 const uploadPreviewFooter = css({
 	display: 'flex',
 	flexDirection: 'column',
-	height: '100px',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-	padding: '10px',
+	paddingTop: token('space.100'),
+	paddingRight: token('space.100'),
+	paddingBottom: token('space.100'),
+	paddingLeft: token('space.100'),
 });
 
 const uploadPreviewText = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	h5: {
-		color: token('color.text.subtle', N300),
-		paddingBottom: token('space.050', '4px'),
-		font: token('font.body.UNSAFE_small'),
-	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	img: {
 		maxHeight: '20px',
@@ -114,14 +110,14 @@ class EmojiUploadPreview extends PureComponent<
 		return (
 			<div css={uploadPreviewFooter}>
 				<div css={uploadPreview} data-testid={uploadPreviewTestId}>
-					<div css={uploadPreviewText}>
+					<Stack space="space.050">
 						<Heading size="xsmall">
 							<FormattedMessage {...messages.emojiPreviewTitle} />
 						</Heading>
-						<div id={addEmojiPreviewDescriptionId}>
+						<div id={addEmojiPreviewDescriptionId} css={uploadPreviewText}>
 							<FormattedMessage {...messages.emojiPreview} values={{ emoji: emojiComponent }} />
 						</div>
-					</div>
+					</Stack>
 					<div css={bigEmojiPreview}>{emojiComponent}</div>
 				</div>
 				<div css={uploadAddRow}>

@@ -5,33 +5,33 @@ order: 2
 ## Usage
 
 Use text areas to let people enter long-form plain text that spans over multiple lines, in an area
-that can expand in height. Text areas are normally used in [forms](/patterns/forms).
+that can expand in height. Text areas are normally used in [forms](https://atlassian.design/components/form/examples).
 
 ## Anatomy
 
-![The text area component is made up of four parts, a label that is left-aligned above the field input area, placeholder text which appears inside the input area, and helper text which appears below the input area.](images/anatomy.png)
+![The text area component is made up of three parts, a label that is left-aligned above the field input area, the input area, and helper text which appears below the input area.](images/anatomy.png)
 
-1. ** Label: ** Indicates the type of information the text area requires.
-2. ** Placeholder text (optional):** Avoid placeholders when possible. Never use placeholder text to
-   communicate critical information — this is not accessible. Instead, use field labels or helper
-   text to describe the purpose of the field and how to use it. Placeholders can be used for example
-   entries that help clarify the text input.
+1. ** Label: ** Indicates the information the text area requires.
 3. ** Input area: ** This is where users enter text.
-4. ** Helper text: ** Use this to provide a hint about specific formats the text area will accept
-   (for example, `Enter up to 250 characters`).
+4. ** Helper text (optional): ** Use to provide extra information about the field or to give specific formats the text area will accept (for example: `Passwords must contain at least 8 characters`).
 
 ## Accessibility
 
 - Always use a label and associate the label to the field properly so that the text area is
   accessible to assistive technology.
-- Avoid using placeholder text whenever possible. Make sure any critical information is communicated
-  either in the field label or using helper text below the field. Search fields or brief examples
-  are exceptions where placeholder text may be OK.
+- Don’t use placeholder text. Make sure any critical information is communicated in the field label or helper text below the field. Search fields are the only exceptions where placeholder text is okay, but they should include an icon and accessible label.
+
+## Character counter
+
+You can add a character counter to a text area. It shows people how many characters can be entered and provides real-time feedback on characters used and remaining.
+
+A counter can be set to show a maximum length, minimum length, and both a minimum and maximum length.
+
+View [details and examples of character counters](https://atlassian.design/components/form/usage#character-counter).
 
 ## Content guidelines
 
-- Use a combination of a concise label and helper text to clarify the field input. Don’t rely on
-  placeholder text as it is not visible at all times.
+- Write a clear, concise label and use helper text to clarify the field input. Don’t use placeholder text as it isn’t announced by assistive technologies and disappears when the field is selected.
 - The label should be a noun string. For example, if the text area appears in a modal called “Create
   component”, the label for a description text area should only say “Description” and not repeat the
   modal’s title.

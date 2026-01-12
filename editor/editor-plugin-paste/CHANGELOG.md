@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-paste
 
+## 8.0.3
+
+### Patch Changes
+
+- [`2154ee4210e97`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2154ee4210e97) -
+  Fix pasting emoji from HTML turning into media single
+- Updated dependencies
+
 ## 8.0.2
 
 ### Patch Changes

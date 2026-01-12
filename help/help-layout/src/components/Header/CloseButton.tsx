@@ -55,7 +55,6 @@ export const CloseButton: React.FC<Props & WrappedComponentProps> = ({
 						<EditorCloseIcon
 							color="currentColor"
 							label={formatMessage(messages.help_panel_header_close)}
-							LEGACY_size="medium"
 						/>
 					}
 				/>

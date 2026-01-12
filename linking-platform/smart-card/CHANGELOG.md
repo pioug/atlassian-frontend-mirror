@@ -1,5 +1,22 @@
 # @atlaskit/smart-card
 
+## 43.20.2
+
+### Patch Changes
+
+- [`370c2ca23ca71`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/370c2ca23ca71) -
+  NAVX-2811 adding alt text to embed modal icon
+- [`bdcd4b4374105`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bdcd4b4374105) -
+  Minor improvements to how styles are applied.
+- Updated dependencies
+
+## 43.20.1
+
+### Patch Changes
+
+- [`aac6485a45d73`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aac6485a45d73) -
+  NAVX-2815 adding correct role for icon button in preview modal
+
 ## 43.20.0
 
 ### Minor Changes

@@ -66,7 +66,7 @@ const AvatarOptionLabel = ({ data, testId }: { data: AvatarLabelOption; testId?:
 		<Flex alignItems="center" testId={testId || 'basic-filter-popup-select-option--avatar'}>
 			{data.isGroup ? (
 				<Flex alignItems="center" justifyContent="center" xcss={styles.groupWrapperStyles}>
-					<PeopleGroupIcon color="currentColor" LEGACY_size="small" label="" />
+					<PeopleGroupIcon color="currentColor" label="" />
 				</Flex>
 			) : (
 				<Avatar appearance={data.isSquare ? 'square' : 'circle'} src={data.avatar} size="xsmall" />

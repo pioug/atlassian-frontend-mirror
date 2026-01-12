@@ -3,7 +3,6 @@
 - **options** - Array of option objects with label and value
 - **isMulti** - Enable multiple selection
 - **isSearchable** - Enable search functionality
-- **placeholder** - Text shown when no option is selected
 - **value** - Currently selected option(s)
 
 # Translating from Tailwind
@@ -20,7 +19,7 @@ An example diff of a migration from Tailwind generated code to ADS generated cod
 -  <option value="option3">Option 3</option>
 -</select>
 +<Select
-+  placeholder="Choose an option"
++  placeholder=""
 +  options={[
 +    { label: 'Option 1', value: 'option1' },
 +    { label: 'Option 2', value: 'option2' },
@@ -31,7 +30,7 @@ An example diff of a migration from Tailwind generated code to ADS generated cod
 -<div className="relative">
 -  <input
 -    type="text"
--    placeholder="Search options..."
+-    placeholder=""
 -    className="w-full px-3 py-2 border border-gray-300 rounded-md"
 -  />
 -  <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
@@ -39,7 +38,7 @@ An example diff of a migration from Tailwind generated code to ADS generated cod
 -  </div>
 -</div>
 +<Select
-+  placeholder="Search options..."
++  placeholder=""
 +  isSearchable
 +  options={options}
 +/>

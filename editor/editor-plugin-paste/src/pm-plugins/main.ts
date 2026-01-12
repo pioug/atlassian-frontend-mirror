@@ -863,7 +863,10 @@ export function createPlugin(
 
 				// Remove breakout marks HTML around sync block renderer nodes
 				// so the breakout mark doesn't get applied to the wrong nodes
-				if (html.indexOf(SyncBlockRendererDataAttributeName) >= 0 && editorExperiment('platform_synced_block', true)) {
+				if (
+					html.indexOf(SyncBlockRendererDataAttributeName) >= 0 &&
+					editorExperiment('platform_synced_block', true)
+				) {
 					html = removeBreakoutFromRendererSyncBlockHTML(html);
 				}
 

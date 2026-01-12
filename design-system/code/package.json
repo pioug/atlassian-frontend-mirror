@@ -55,7 +55,7 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"@types/jscodeshift": "root:*",
 		"@types/refractor": "root:*",
 		"color-contrast-checker": "root:*",

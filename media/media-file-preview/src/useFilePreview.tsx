@@ -145,16 +145,23 @@ export const useFilePreview = ({
 			}
 
 			if (!ssrData?.dataURI) {
-				try {
-					return getSSRPreview(ssr, mediaClient, identifier.id, imageURLParams, mediaBlobUrlAttrs);
-				} catch (e: any) {
-					ssrReliabilityRef.current = {
-						...ssrReliabilityRef.current,
-						[ssr]: {
-							status: 'fail',
-							...extractErrorInfo(e, traceContext),
-						},
-					};
+				// Only attempt SSR preview generation if:
+				// 1. We're on the server (ssr='server'), OR
+				// 2. We're on the client AND there is SSR data (meaning SSR actually happened)
+				// If ssr='client' but there's no SSR data, it means this is a client-side navigation
+				// where no SSR occurred, so we should skip SSR preview generation entirely.
+				if (ssr === 'server' || ssrData) {
+					try {
+						return getSSRPreview(ssr, mediaClient, identifier.id, imageURLParams, mediaBlobUrlAttrs);
+					} catch (e: any) {
+						ssrReliabilityRef.current = {
+							...ssrReliabilityRef.current,
+							[ssr]: {
+								status: 'fail',
+								...extractErrorInfo(e, traceContext),
+							},
+						};
+					}
 				}
 			} else {
 				const { dimensions, dataURI, srcSet, loading } = ssrData;

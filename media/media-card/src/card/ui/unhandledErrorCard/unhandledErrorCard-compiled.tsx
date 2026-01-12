@@ -77,12 +77,7 @@ export class UnhandledErrorCard extends Component<UnhandledErrorCardProps, {}> {
 				onClick={onClick}
 				data-testid="unhandled-error-card"
 			>
-				<WarningIcon
-					label="Error"
-					color={token('color.icon.warning', Y500)}
-					LEGACY_size="medium"
-					spacing="spacious"
-				/>
+				<WarningIcon label="Error" color={token('color.icon.warning', Y500)} spacing="spacious" />
 				<ContentLoadingErrorMessage isHidden={hideText} />
 			</div>
 		);

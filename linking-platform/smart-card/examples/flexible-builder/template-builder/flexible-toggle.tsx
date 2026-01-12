@@ -39,11 +39,7 @@ const FlexibleToggle = ({
 						{...tooltipProps}
 						href="http://go/flexible-smart-links-docs"
 						iconBefore={
-							<ShortcutIcon
-								label="Go to flexible smart links docs"
-								LEGACY_size="small"
-								color="currentColor"
-							/>
+							<ShortcutIcon label="Go to flexible smart links docs" color="currentColor" />
 						}
 						spacing="none"
 						target="_blank"

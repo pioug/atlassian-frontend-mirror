@@ -54,7 +54,7 @@
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"react-dom": "root:*"
 	},
 	"techstack": {

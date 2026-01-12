@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-undo-redo
 
+## 7.2.0
+
+### Minor Changes
+
+- [`37a002ff9028f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/37a002ff9028f) -
+  [https://hello.jira.atlassian.cloud/browse/EDITOR-4332](EDITOR-4332) - clean up
+  platform_editor_add_undo_meta_analytics
+
 ## 7.1.1
 
 ### Patch Changes

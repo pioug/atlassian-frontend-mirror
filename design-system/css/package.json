@@ -61,7 +61,7 @@
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@emotion/react": "root:*",
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"@types/jscodeshift": "root:*",
 		"jscodeshift": "root:*",
 		"react-dom": "root:*"

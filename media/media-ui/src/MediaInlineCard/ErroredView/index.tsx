@@ -43,12 +43,7 @@ export class MediaInlineCardErroredView extends React.Component<MediaInlineCardE
 					icon={
 						icon || (
 							<AKIconWrapper>
-								<WarningIcon
-									label="error"
-									LEGACY_size="small"
-									color={token('color.icon.danger', R500)}
-									size="small"
-								/>
+								<WarningIcon label="error" color={token('color.icon.danger', R500)} size="small" />
 							</AKIconWrapper>
 						)
 					}

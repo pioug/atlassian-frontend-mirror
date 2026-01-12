@@ -206,6 +206,9 @@ import {
 	decisionIconWithVisualRefresh,
 	decisionStyles,
 	getDenseTasksAndDecisionsStyles,
+	taskItemCheckboxStyles,
+	taskItemCheckboxStylesWithBlockTaskItem,
+	taskItemNextCheckboxStyles,
 	taskItemStyles,
 	taskItemStylesWithBlockTaskItem,
 	tasksAndDecisionsStyles,
@@ -521,6 +524,18 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 							taskItemStylesWithBlockTaskItem
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							taskItemStyles,
+					expValEquals('platform_editor_task_item_styles', 'isEnabled', true)
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							taskItemNextCheckboxStyles
+						: expValEqualsNoExposure(
+									'platform_editor_blocktaskitem_node_tenantid',
+									'isEnabled',
+									true,
+							  )
+							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								taskItemCheckboxStylesWithBlockTaskItem
+							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								taskItemCheckboxStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					decisionIconWithVisualRefresh,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/portal",
-	"version": "5.1.8",
+	"version": "5.2.0",
 	"description": "A wrapper for rendering components in React portals.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -36,6 +36,7 @@
 		".": "./src/index.tsx"
 	},
 	"dependencies": {
+		"@atlaskit/app-provider": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@babel/runtime": "root:*"
@@ -65,8 +66,7 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@compiled/react": "root:*",
-		"@testing-library/react": "root:*",
-		"@testing-library/react-hooks": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"bind-event-listener": "root:*",
 		"raf-stub": "root:*"
 	},
@@ -98,6 +98,9 @@
 	"homepage": "https://atlassian.design/components/portal/",
 	"platform-feature-flags": {
 		"platform_design_system_team_portal_logic_r18_fix": {
+			"type": "boolean"
+		},
+		"platform_dst_subtree_theming": {
 			"type": "boolean"
 		}
 	}

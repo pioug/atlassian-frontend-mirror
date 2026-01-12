@@ -40,6 +40,9 @@
 			"path": "./tsconfig.app.json"
 		},
 		{
+			"path": "../accessibility-testing/tsconfig.app.json"
+		},
+		{
 			"path": "../checkbox/tsconfig.app.json"
 		},
 		{

@@ -14,7 +14,7 @@ const SelectMultiExample = (): React.JSX.Element => (
 			options={cities}
 			isMulti
 			isSearchable={false}
-			placeholder="Choose a city"
+			placeholder=""
 		/>
 	</>
 );

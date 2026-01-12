@@ -81,14 +81,7 @@ class MobileHeader extends PureComponent<MobileHeaderProps, MobileHeaderState> {
 		const menu = customMenu || (
 			<Button
 				appearance="subtle"
-				iconBefore={
-					<MenuIcon
-						label={menuIconLabel}
-						LEGACY_size="large"
-						color="currentColor"
-						spacing="spacious"
-					/>
-				}
+				iconBefore={<MenuIcon label={menuIconLabel} color="currentColor" spacing="spacious" />}
 				onClick={this.props.onNavigationOpen}
 			/>
 		);

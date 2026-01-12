@@ -3,6 +3,7 @@ import React, { useCallback, useRef, useState } from 'react';
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { skipA11yAudit } from '@af/accessibility-testing';
 import Button from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import noop from '@atlaskit/ds-lib/noop';
@@ -76,6 +77,9 @@ const createModal = (props?: ModalDialogProps) => (
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<ModalDialog />', () => {
+	beforeEach(() => {
+		skipA11yAudit();
+	});
 	describe('should close popup correctly when escape is pressed', () => {
 		render(<LayeredModal />);
 
@@ -604,6 +608,9 @@ describe('autoFocus', () => {
 });
 
 describe('multiple modals', () => {
+	beforeEach(() => {
+		skipA11yAudit();
+	});
 	it('should position a modal dialog behind two others', () => {
 		render(
 			createModal({

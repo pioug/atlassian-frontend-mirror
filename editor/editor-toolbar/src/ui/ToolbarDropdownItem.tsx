@@ -184,7 +184,7 @@ export const ToolbarDropdownItem = ({
 			rel={rel}
 			// @ts-ignore -- This `CustomDropdownMenuItemButton` has type conflicts with the `DropdownItem` component in a way that cannot be reconciled (ignored as it fails types in Jira and should in Platform)
 			component={
-				href && expValEquals('platform_editor_toolbar_migrate_loom', 'isEnabled', true)
+				href
 					? undefined
 					: CustomDropdownMenuItemButton
 			}

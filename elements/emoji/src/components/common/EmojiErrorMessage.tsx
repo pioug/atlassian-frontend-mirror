@@ -61,7 +61,6 @@ const EmojiErrorMessage = (props: Props) => {
 				<ErrorIcon
 					color="currentColor"
 					label={formatMessage(messages.error)}
-					LEGACY_size="medium"
 					spacing="spacious"
 					testId={emojiErrorIconTestId}
 				/>
@@ -69,7 +68,7 @@ const EmojiErrorMessage = (props: Props) => {
 		</div>
 	) : (
 		<div css={errorMessageStyles[errorStyle]} data-testid={emojiErrorMessageTestId}>
-			<ErrorIcon color="currentColor" label={formatMessage(messages.error)} LEGACY_size="small" />
+			<ErrorIcon color="currentColor" label={formatMessage(messages.error)} />
 			{message}
 		</div>
 	);

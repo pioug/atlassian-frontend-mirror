@@ -109,7 +109,7 @@ const RemoveButton = ({
 			onMouseLeave={onMouseLeave}
 			testId={testId}
 		>
-			<CloseIcon color="currentColor" label="" LEGACY_size="small" size="small" />
+			<CloseIcon color="currentColor" label="" size="small" />
 		</Pressable>
 	);
 };

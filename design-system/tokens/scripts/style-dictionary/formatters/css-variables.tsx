@@ -5,6 +5,7 @@ import { createSignedArtifact } from '@atlassian/codegen';
 import {
 	COLOR_MODE_ATTRIBUTE,
 	CONTRAST_MODE_ATTRIBUTE,
+	SUBTREE_THEME_ATTRIBUTE,
 	THEME_DATA_ATTRIBUTE,
 } from '../../../src/constants';
 import themeConfig, { type Themes } from '../../../src/theme-config';
@@ -56,7 +57,7 @@ export const cssVariableFormatter: Format['formatter'] = ({ dictionary, options 
 	if (theme.attributes.type === 'color') {
 		let selectors: string[] = colorModes.map(
 			(mode) =>
-				`html[${COLOR_MODE_ATTRIBUTE}="${mode}"][${THEME_DATA_ATTRIBUTE}~="${mode}:${themeId}"]`,
+				`html[${COLOR_MODE_ATTRIBUTE}="${mode}"][${THEME_DATA_ATTRIBUTE}~="${mode}:${themeId}"], [${SUBTREE_THEME_ATTRIBUTE}][${COLOR_MODE_ATTRIBUTE}="${mode}"][${THEME_DATA_ATTRIBUTE}~="${mode}:${themeId}"]`,
 		);
 
 		const hasIncreasedContrastTheme = Boolean(getIncreasedContrastTheme(themeId));
@@ -90,7 +91,9 @@ export const cssVariableFormatter: Format['formatter'] = ({ dictionary, options 
 		indent += 2;
 		outputLine(`color-scheme: ${theme.attributes.mode};`);
 	} else {
-		outputLine(`html[${THEME_DATA_ATTRIBUTE}~="${theme.attributes.type}:${themeId}"] {`);
+		outputLine(
+			`html[${THEME_DATA_ATTRIBUTE}~="${theme.attributes.type}:${themeId}"], [${SUBTREE_THEME_ATTRIBUTE}][${THEME_DATA_ATTRIBUTE}~="${theme.attributes.type}:${themeId}"] {`,
+		);
 		indent += 2;
 	}
 

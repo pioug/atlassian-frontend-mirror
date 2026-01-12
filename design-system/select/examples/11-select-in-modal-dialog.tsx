@@ -54,7 +54,7 @@ class SelectInModal extends Component<{}, State> {
 									defaultValue={options.slice(3)}
 									isMulti
 									options={options}
-									placeholder="Choose a City"
+									placeholder=""
 									// The below is needed for the modal dialog to not crop <Select> dropdown.
 									// The z-index ensures it floats above the modal. Check out:
 									// https://atlaskit.atlassian.com/examples/design-system/modal-dialog/with-layered-components

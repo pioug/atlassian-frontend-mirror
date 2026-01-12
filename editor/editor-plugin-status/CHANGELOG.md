@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-status
 
+## 8.1.0
+
+### Minor Changes
+
+- [`88c35f564f62d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88c35f564f62d) -
+  [https://hello.jira.atlassian.cloud/browse/EDITOR-4328](EDITOR-4328) - clean up
+  editor_a11y_announce_status_editor_open
+
 ## 8.0.0
 
 ### Patch Changes

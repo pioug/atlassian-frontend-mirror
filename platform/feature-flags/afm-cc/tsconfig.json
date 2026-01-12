@@ -1,5 +1,5 @@
 {
-	"extends": "../../../../tsconfig.entry-points.confluence.json",
+	"extends": "../../../../tsconfig.local-consumption.json",
 	"compilerOptions": {
 		"outDir": "../../../../../confluence/tsDist/@atlaskit__platform-feature-flags",
 		"rootDir": "../",

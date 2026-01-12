@@ -35,7 +35,7 @@ export const AIFooterMetadata = ({
 			>
 				{(tooltipProps) => (
 					<Box {...tooltipProps}>
-						<InfoIcon label="Information" LEGACY_size="small" color={token('color.icon.subtle')} />
+						<InfoIcon label="Information" color={token('color.icon.subtle')} />
 					</Box>
 				)}
 			</Tooltip>

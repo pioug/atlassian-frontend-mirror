@@ -1,5 +1,18 @@
 # @atlaskit/editor-statsig-tmp
 
+## 16.13.0
+
+### Minor Changes
+
+- [`1265c260f9bad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1265c260f9bad) -
+  [ED-29455] clean up experiment platform_editor_toolbar_migrate_loom
+- [`2154ee4210e97`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2154ee4210e97) -
+  Fix pasting emoji from HTML turning into media single
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.12.0
 
 ### Minor Changes

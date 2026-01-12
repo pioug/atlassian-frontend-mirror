@@ -1,31 +1,52 @@
+/* eslint-disable import/order */
 import React from 'react';
 
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import * as tokens from '@atlaskit/tokens';
 
 // Mock must be imported before ThemeProvider
 import { setMatchMediaPrefersDark } from '../mocks/match-media.mock';
-// eslint-disable-next-line import/order
-import ThemeProvider, {
-	type Theme,
-	useColorMode,
-	useSetColorMode,
-	useSetTheme,
-	useTheme,
-} from '../../src/theme-provider';
+
+import AppProvider from '../../src/app-provider';
+import { useColorMode } from '../../src/theme-provider/hooks/use-color-mode';
+import { useIsInsideThemeProvider } from '../../src/theme-provider/hooks/use-is-inside-theme-provider';
+import { useSetColorMode } from '../../src/theme-provider/hooks/use-set-color-mode';
+import { useSetTheme } from '../../src/theme-provider/hooks/use-set-theme';
+import { useTheme } from '../../src/theme-provider/hooks/use-theme';
+import ThemeProvider from '../../src/theme-provider';
+import { type Theme } from '../../src/theme-provider/context/theme';
 
 jest.mock('@atlaskit/tokens', () => ({
 	__esModule: true,
 	...jest.requireActual('@atlaskit/tokens'),
 }));
 
+// Mock loadAndMountThemes
+jest.mock('../../src/theme-provider/utils/load-and-mount-themes', () => ({
+	loadAndMountThemes: jest.fn(),
+}));
+
+import { loadAndMountThemes } from '../../src/theme-provider/utils/load-and-mount-themes';
+
+const loadAndMountThemesSpy = loadAndMountThemes as jest.MockedFunction<typeof loadAndMountThemes>;
 const setGlobalThemeSpy = jest.spyOn(tokens, 'setGlobalTheme');
 
 afterEach(() => {
 	jest.resetAllMocks();
 	setMatchMediaPrefersDark(false);
+	// Clean up any theme attributes that might have been set on the HTML element
+	document.documentElement.removeAttribute('data-theme');
+	document.documentElement.removeAttribute('data-color-mode');
+	// Clean up any mounted theme styles
+	// eslint-disable-next-line testing-library/no-node-access
+	const styles = document.head.querySelectorAll('style[data-theme]');
+	Array.from(styles).forEach((style) => {
+		// eslint-disable-next-line testing-library/no-node-access
+		style.remove();
+	});
 });
 
 function ThemedComponent() {
@@ -164,7 +185,7 @@ describe('ThemeProvider', () => {
 				dark: 'dark',
 				spacing: 'spacing',
 				shape: 'shape',
-				typography: 'typography',
+				typography: 'typography-adg3',
 			};
 
 			render(
@@ -179,7 +200,7 @@ describe('ThemeProvider', () => {
 					light: 'light',
 					shape: 'shape',
 					dark: 'dark',
-					typography: 'typography',
+					typography: 'typography-adg3',
 					spacing: 'spacing',
 				}),
 			);
@@ -362,6 +383,630 @@ describe('ThemeProvider', () => {
 			expect(screen.getByTestId('theme-light')).toHaveTextContent('light');
 			expect(screen.getByTestId('theme-dark')).toHaveTextContent('dark');
 			expect(screen.getByTestId('theme-spacing')).toHaveTextContent('spacing');
+		});
+	});
+
+	describe('Nested ThemeProvider (Sub-tree theming)', () => {
+		function NestedThemedComponent() {
+			const colorMode = useColorMode();
+			const setColorMode = useSetColorMode();
+			const setTheme = useSetTheme();
+			const theme = useTheme();
+			const isInside = useIsInsideThemeProvider();
+
+			return (
+				<div>
+					<div data-testid="color-mode">{colorMode || 'undefined'}</div>
+					<div data-testid="is-inside">{isInside ? 'true' : 'false'}</div>
+					{theme && (
+						<div>
+							<div data-testid="theme-light">{theme.light}</div>
+							<div data-testid="theme-dark">{theme.dark}</div>
+							<div data-testid="theme-spacing">{theme.spacing}</div>
+							<div data-testid="theme-typography">{theme.typography}</div>
+						</div>
+					)}
+					<button type="button" onClick={() => setColorMode('dark')}>
+						dark color mode
+					</button>
+					<button type="button" onClick={() => setColorMode('light')}>
+						light color mode
+					</button>
+					<button type="button" onClick={() => setColorMode('auto')}>
+						auto color mode
+					</button>
+					<button
+						type="button"
+						onClick={() =>
+							setTheme({
+								light: 'legacy-light',
+								dark: 'legacy-dark',
+								spacing: 'spacing',
+							})
+						}
+					>
+						legacy color themes
+					</button>
+					<button type="button" onClick={() => setTheme({ light: 'legacy-light' })}>
+						legacy light theme
+					</button>
+				</div>
+			);
+		}
+
+		describe('Basic rendering', () => {
+			ffTest.off(
+				'platform_dst_subtree_theming',
+				'should render children when feature flag is disabled',
+				() => {
+					it('should render children when feature flag is disabled', () => {
+						render(
+							<ThemeProvider>
+								<div data-testid="content">Test Content</div>
+							</ThemeProvider>,
+						);
+						expect(screen.getByText('Test Content')).toBeInTheDocument();
+						// Verify no wrapper div is added - content should be direct child of container
+						const content = screen.getByTestId('content');
+						// eslint-disable-next-line testing-library/no-node-access
+						expect(content.parentElement).not.toHaveAttribute('data-subtree-theme');
+					});
+				},
+			);
+
+			ffTest.on(
+				'platform_dst_subtree_theming',
+				'should render children with theme attributes when feature flag is enabled',
+				() => {
+					it('should render children with theme attributes when feature flag is enabled', () => {
+						render(
+							<ThemeProvider>
+								<div data-testid="content">Test Content</div>
+							</ThemeProvider>,
+						);
+						expect(screen.getByText('Test Content')).toBeInTheDocument();
+						// Verify wrapper div is added with attributes by checking parent
+						const content = screen.getByTestId('content');
+						// eslint-disable-next-line testing-library/no-node-access
+						const wrapper = content.parentElement;
+						expect(wrapper).toBeInTheDocument();
+						expect(wrapper).toHaveAttribute('data-subtree-theme');
+						expect(wrapper).toHaveAttribute('data-theme');
+						expect(wrapper).toHaveAttribute('data-color-mode');
+					});
+				},
+			);
+		});
+
+		describe('Default values', () => {
+			ffTest.both(
+				'platform_dst_subtree_theming',
+				'should use default theme settings when no defaultTheme prop is provided',
+				() => {
+					it('should use default theme settings when no defaultTheme prop is provided', () => {
+						render(
+							<ThemeProvider>
+								<NestedThemedComponent />
+							</ThemeProvider>,
+						);
+						expect(screen.getByTestId('theme-light')).toHaveTextContent('light');
+						expect(screen.getByTestId('theme-dark')).toHaveTextContent('dark');
+						expect(screen.getByTestId('theme-spacing')).toHaveTextContent('spacing');
+						expect(screen.getByTestId('theme-typography')).toHaveTextContent('typography');
+					});
+				},
+			);
+
+			ffTest.both(
+				'platform_dst_subtree_theming',
+				'should use default color mode auto when not specified',
+				() => {
+					it('should use default color mode auto when not specified', () => {
+						render(
+							<ThemeProvider>
+								<NestedThemedComponent />
+							</ThemeProvider>,
+						);
+						// Auto should resolve to light when prefers-dark is false
+						expect(screen.getByTestId('color-mode')).toHaveTextContent('light');
+					});
+				},
+			);
+		});
+
+		describe('Custom Props', () => {
+			ffTest.both('platform_dst_subtree_theming', 'should apply custom defaultColorMode', () => {
+				it.each([
+					['light', 'light'],
+					['dark', 'dark'],
+					['auto', 'light'], // auto resolves to light when prefers-dark is false
+				])('should apply custom defaultColorMode: %s', (mode, expected) => {
+					render(
+						<ThemeProvider defaultColorMode={mode as 'light' | 'dark' | 'auto'}>
+							<NestedThemedComponent />
+						</ThemeProvider>,
+					);
+					expect(screen.getByTestId('color-mode')).toHaveTextContent(expected);
+				});
+			});
+
+			ffTest.both('platform_dst_subtree_theming', 'should apply custom defaultTheme', () => {
+				it('should apply custom defaultTheme', () => {
+					const customTheme: Partial<Theme> = {
+						dark: 'legacy-dark',
+						spacing: 'spacing',
+					};
+					render(
+						<ThemeProvider defaultTheme={customTheme}>
+							<NestedThemedComponent />
+						</ThemeProvider>,
+					);
+					// Should merge with defaults
+					expect(screen.getByTestId('theme-light')).toHaveTextContent('light');
+					expect(screen.getByTestId('theme-dark')).toHaveTextContent('legacy-dark');
+					expect(screen.getByTestId('theme-spacing')).toHaveTextContent('spacing');
+					expect(screen.getByTestId('theme-typography')).toHaveTextContent('typography');
+				});
+			});
+		});
+
+		describe('Theme Loading', () => {
+			ffTest.on(
+				'platform_dst_subtree_theming',
+				'should load and mount themes when feature flag is enabled and nested',
+				() => {
+					it('should load and mount themes when feature flag is enabled and nested', async () => {
+						const customTheme: Partial<Theme> = {
+							light: 'legacy-light',
+							dark: 'legacy-dark',
+						};
+						render(
+							<AppProvider>
+								<ThemeProvider defaultTheme={customTheme}>
+									<div>Test</div>
+								</ThemeProvider>
+							</AppProvider>,
+						);
+						await waitFor(() => {
+							expect(loadAndMountThemesSpy).toHaveBeenCalled();
+						});
+						expect(loadAndMountThemesSpy).toHaveBeenCalledWith(
+							expect.objectContaining({
+								light: 'legacy-light',
+								dark: 'legacy-dark',
+								spacing: 'spacing',
+								typography: 'typography',
+							}),
+						);
+					});
+				},
+			);
+
+			ffTest.on(
+				'platform_dst_subtree_theming',
+				'should load themes when theme is updated via setTheme',
+				() => {
+					it('should load themes when theme is updated via setTheme', async () => {
+						const user = userEvent.setup();
+						render(
+							<AppProvider>
+								<ThemeProvider>
+									<NestedThemedComponent />
+								</ThemeProvider>
+							</AppProvider>,
+						);
+						loadAndMountThemesSpy.mockClear();
+						await user.click(screen.getByRole('button', { name: 'legacy color themes' }));
+						await waitFor(() => {
+							expect(loadAndMountThemesSpy).toHaveBeenCalled();
+						});
+					});
+				},
+			);
+		});
+
+		describe('Color Mode State Management', () => {
+			ffTest.both(
+				'platform_dst_subtree_theming',
+				'should update color mode when setColorMode is called',
+				() => {
+					it('should update color mode when setColorMode is called', async () => {
+						const user = userEvent.setup();
+						render(
+							<AppProvider>
+								<ThemeProvider defaultColorMode="light">
+									<NestedThemedComponent />
+								</ThemeProvider>
+							</AppProvider>,
+						);
+						expect(screen.getByTestId('color-mode')).toHaveTextContent('light');
+						await user.click(screen.getByRole('button', { name: 'dark color mode' }));
+						expect(screen.getByTestId('color-mode')).toHaveTextContent('dark');
+					});
+				},
+			);
+
+			ffTest.both(
+				'platform_dst_subtree_theming',
+				'should reconcile auto color mode based on system preference',
+				() => {
+					it('should reconcile auto color mode to dark when system prefers dark', () => {
+						setMatchMediaPrefersDark(true);
+						render(
+							<AppProvider>
+								<ThemeProvider defaultColorMode="auto">
+									<NestedThemedComponent />
+								</ThemeProvider>
+							</AppProvider>,
+						);
+						expect(screen.getByTestId('color-mode')).toHaveTextContent('dark');
+					});
+
+					it('should reconcile auto color mode to light when system prefers light', () => {
+						setMatchMediaPrefersDark(false);
+						render(
+							<AppProvider>
+								<ThemeProvider defaultColorMode="auto">
+									<NestedThemedComponent />
+								</ThemeProvider>
+							</AppProvider>,
+						);
+						expect(screen.getByTestId('color-mode')).toHaveTextContent('light');
+					});
+				},
+			);
+		});
+
+		describe('Nesting Scenarios', () => {
+			ffTest.both(
+				'platform_dst_subtree_theming',
+				'should work when nested inside AppProvider',
+				() => {
+					it('should work when nested inside AppProvider', () => {
+						render(
+							<AppProvider>
+								<ThemeProvider defaultColorMode="dark">
+									<NestedThemedComponent />
+								</ThemeProvider>
+							</AppProvider>,
+						);
+						expect(screen.getByTestId('color-mode')).toHaveTextContent('dark');
+						expect(screen.getByTestId('is-inside')).toHaveTextContent('true');
+					});
+				},
+			);
+
+			ffTest.both(
+				'platform_dst_subtree_theming',
+				'should work when nested inside AppProvider with UNSAFE_isThemingDisabled',
+				() => {
+					it('should work when nested inside AppProvider with UNSAFE_isThemingDisabled', () => {
+						render(
+							<AppProvider UNSAFE_isThemingDisabled>
+								<ThemeProvider defaultColorMode="dark">
+									<NestedThemedComponent />
+								</ThemeProvider>
+							</AppProvider>,
+						);
+						expect(screen.getByTestId('color-mode')).toHaveTextContent('dark');
+						expect(screen.getByTestId('is-inside')).toHaveTextContent('true');
+					});
+				},
+			);
+
+			ffTest.both(
+				'platform_dst_subtree_theming',
+				'should work when nested inside ThemeProvider',
+				() => {
+					it('should work when nested inside ThemeProvider', () => {
+						render(
+							<ThemeProvider defaultColorMode="light">
+								<ThemeProvider defaultColorMode="dark">
+									<NestedThemedComponent />
+								</ThemeProvider>
+							</ThemeProvider>,
+						);
+						expect(screen.getByTestId('color-mode')).toHaveTextContent('dark');
+						expect(screen.getByTestId('is-inside')).toHaveTextContent('true');
+					});
+				},
+			);
+
+			ffTest.both(
+				'platform_dst_subtree_theming',
+				'should work when nested inside ThemeProvider without AppProvider',
+				() => {
+					it('should work when nested inside ThemeProvider without AppProvider', () => {
+						render(
+							<ThemeProvider defaultColorMode="light">
+								<ThemeProvider defaultColorMode="dark">
+									<NestedThemedComponent />
+								</ThemeProvider>
+							</ThemeProvider>,
+						);
+						expect(screen.getByTestId('color-mode')).toHaveTextContent('dark');
+						expect(screen.getByTestId('is-inside')).toHaveTextContent('true');
+					});
+				},
+			);
+
+			ffTest.both('platform_dst_subtree_theming', 'should support nested ThemeProviders', () => {
+				it('should support nested ThemeProviders', () => {
+					render(
+						<ThemeProvider defaultColorMode="dark">
+							<ThemeProvider defaultColorMode="light">
+								<NestedThemedComponent />
+							</ThemeProvider>
+						</ThemeProvider>,
+					);
+					// Inner provider should take precedence
+					expect(screen.getByTestId('color-mode')).toHaveTextContent('light');
+					expect(screen.getByTestId('is-inside')).toHaveTextContent('true');
+				});
+			});
+
+			ffTest.both('platform_dst_subtree_theming', 'should work in complex nesting', () => {
+				it('should work in complex nesting: AppProvider > ThemeProvider > ThemeProvider', () => {
+					render(
+						<AppProvider defaultColorMode="light">
+							<ThemeProvider defaultColorMode="dark">
+								<ThemeProvider defaultColorMode="light">
+									<NestedThemedComponent />
+								</ThemeProvider>
+							</ThemeProvider>
+						</AppProvider>,
+					);
+					// Inner ThemeProvider should take precedence
+					expect(screen.getByTestId('color-mode')).toHaveTextContent('light');
+					expect(screen.getByTestId('is-inside')).toHaveTextContent('true');
+				});
+			});
+
+			ffTest.both(
+				'platform_dst_subtree_theming',
+				'should work without AppProvider or parent ThemeProvider',
+				() => {
+					it('should work without AppProvider or parent ThemeProvider', () => {
+						render(
+							<ThemeProvider defaultColorMode="dark">
+								<NestedThemedComponent />
+							</ThemeProvider>,
+						);
+						expect(screen.getByTestId('color-mode')).toHaveTextContent('dark');
+						expect(screen.getByTestId('is-inside')).toHaveTextContent('true');
+					});
+				},
+			);
+		});
+
+		describe('Hook Tests', () => {
+			describe('useIsInsideThemeProvider', () => {
+				ffTest.both(
+					'platform_dst_subtree_theming',
+					'should return true when inside ThemeProvider',
+					() => {
+						it('should return true when inside ThemeProvider', () => {
+							render(
+								<ThemeProvider>
+									<NestedThemedComponent />
+								</ThemeProvider>,
+							);
+							expect(screen.getByTestId('is-inside')).toHaveTextContent('true');
+						});
+					},
+				);
+
+				ffTest.both(
+					'platform_dst_subtree_theming',
+					'should return false when outside ThemeProvider',
+					() => {
+						it('should return false when outside ThemeProvider', () => {
+							// Render ThemeProvider to ensure feature flag is called
+							render(<ThemeProvider>{null}</ThemeProvider>);
+							function TestComponent() {
+								const isInside = useIsInsideThemeProvider();
+								return <div data-testid="is-inside">{isInside ? 'true' : 'false'}</div>;
+							}
+							render(<TestComponent />);
+							expect(screen.getByTestId('is-inside')).toHaveTextContent('false');
+						});
+					},
+				);
+			});
+		});
+
+		describe('Integration Tests', () => {
+			ffTest.on(
+				'platform_dst_subtree_theming',
+				'should apply correct theme attributes to wrapper div when feature flag enabled',
+				() => {
+					it('should apply correct theme attributes to wrapper div when feature flag enabled', () => {
+						const customTheme: Partial<Theme> = {
+							light: 'legacy-light',
+							dark: 'legacy-dark',
+						};
+						render(
+							<AppProvider>
+								<ThemeProvider defaultColorMode="dark" defaultTheme={customTheme}>
+									<div data-testid="content">Test</div>
+								</ThemeProvider>
+							</AppProvider>,
+						);
+						const content = screen.getByTestId('content');
+						// eslint-disable-next-line testing-library/no-node-access
+						const wrapper = content.parentElement;
+						expect(wrapper).toBeInTheDocument();
+						expect(wrapper).toHaveAttribute('data-subtree-theme');
+						expect(wrapper).toHaveAttribute('data-theme');
+						expect(wrapper).toHaveAttribute('data-color-mode', 'dark');
+					});
+				},
+			);
+
+			ffTest.off(
+				'platform_dst_subtree_theming',
+				'should not apply theme attributes when feature flag disabled',
+				() => {
+					it('should not apply theme attributes when feature flag disabled', () => {
+						render(
+							<AppProvider>
+								<ThemeProvider defaultColorMode="dark">
+									<div data-testid="content">Test</div>
+								</ThemeProvider>
+							</AppProvider>,
+						);
+						const content = screen.getByTestId('content');
+						// eslint-disable-next-line testing-library/no-node-access
+						expect(content.parentElement).not.toHaveAttribute('data-subtree-theme');
+					});
+				},
+			);
+
+			ffTest.both(
+				'platform_dst_subtree_theming',
+				'should update theme attributes when theme changes',
+				() => {
+					it('should update theme attributes when theme changes', async () => {
+						const user = userEvent.setup();
+						render(
+							<AppProvider>
+								<ThemeProvider defaultColorMode="light">
+									<NestedThemedComponent />
+								</ThemeProvider>
+							</AppProvider>,
+						);
+						await user.click(screen.getByRole('button', { name: 'legacy color themes' }));
+						// Verify theme was updated in context
+						await waitFor(() => {
+							expect(screen.getByTestId('theme-light')).toHaveTextContent('legacy-light');
+						});
+					});
+				},
+			);
+
+			ffTest.both(
+				'platform_dst_subtree_theming',
+				'should update theme attributes when color mode changes',
+				() => {
+					it('should update theme attributes when color mode changes', async () => {
+						const user = userEvent.setup();
+						render(
+							<AppProvider>
+								<ThemeProvider defaultColorMode="light">
+									<NestedThemedComponent />
+								</ThemeProvider>
+							</AppProvider>,
+						);
+						expect(screen.getByTestId('color-mode')).toHaveTextContent('light');
+						await user.click(screen.getByRole('button', { name: 'dark color mode' }));
+						expect(screen.getByTestId('color-mode')).toHaveTextContent('dark');
+					});
+				},
+			);
+
+			ffTest.both(
+				'platform_dst_subtree_theming',
+				'should allow nested ThemeProvider hooks to access parent ThemeProvider context',
+				() => {
+					it('should allow useColorMode to read parent ThemeProvider context from within nested ThemeProvider', () => {
+						function ComponentWithBothHooks() {
+							const parentColorMode = useColorMode();
+							const nestedColorMode = useColorMode();
+							const parentTheme = useTheme();
+							const nestedTheme = useTheme();
+
+							return (
+								<div>
+									<div data-testid="parent-color-mode">{parentColorMode}</div>
+									<div data-testid="nested-color-mode">{nestedColorMode || 'undefined'}</div>
+									<div data-testid="parent-theme-light">{parentTheme.light}</div>
+									<div data-testid="nested-theme-light">{nestedTheme?.light || 'undefined'}</div>
+								</div>
+							);
+						}
+
+						render(
+							<ThemeProvider
+								defaultColorMode="dark"
+								defaultTheme={{ light: 'legacy-light', dark: 'legacy-dark' }}
+							>
+								<ThemeProvider
+									defaultColorMode="light"
+									defaultTheme={{ light: 'light', dark: 'dark' }}
+								>
+									<ComponentWithBothHooks />
+								</ThemeProvider>
+							</ThemeProvider>,
+						);
+
+						// Nested ThemeProvider context should be accessible (takes precedence)
+						expect(screen.getByTestId('nested-color-mode')).toHaveTextContent('light');
+						expect(screen.getByTestId('nested-theme-light')).toHaveTextContent('light');
+					});
+
+					it('should allow useSetColorMode to update nested ThemeProvider context independently', async () => {
+						function ComponentWithSetHooks() {
+							const nestedColorMode = useColorMode();
+							const setNestedColorMode = useSetColorMode();
+
+							return (
+								<div>
+									<div data-testid="nested-color-mode">{nestedColorMode || 'undefined'}</div>
+									<button type="button" onClick={() => setNestedColorMode('dark')}>
+										set nested dark
+									</button>
+								</div>
+							);
+						}
+
+						const user = userEvent.setup();
+						render(
+							<ThemeProvider defaultColorMode="dark">
+								<ThemeProvider defaultColorMode="light">
+									<ComponentWithSetHooks />
+								</ThemeProvider>
+							</ThemeProvider>,
+						);
+
+						expect(screen.getByTestId('nested-color-mode')).toHaveTextContent('light');
+
+						// Update nested color mode
+						await user.click(screen.getByRole('button', { name: 'set nested dark' }));
+						expect(screen.getByTestId('nested-color-mode')).toHaveTextContent('dark');
+					});
+
+					it('should allow useSetTheme to update nested ThemeProvider context independently', async () => {
+						function ComponentWithThemeHooks() {
+							const nestedTheme = useTheme();
+							const setNestedTheme = useSetTheme();
+
+							return (
+								<div>
+									<div data-testid="nested-theme-light">{nestedTheme?.light || 'undefined'}</div>
+									<button type="button" onClick={() => setNestedTheme({ light: 'legacy-light' })}>
+										set nested theme
+									</button>
+								</div>
+							);
+						}
+
+						const user = userEvent.setup();
+						render(
+							<ThemeProvider defaultTheme={{ light: 'light', dark: 'dark' }}>
+								<ThemeProvider defaultTheme={{ light: 'light', dark: 'dark' }}>
+									<ComponentWithThemeHooks />
+								</ThemeProvider>
+							</ThemeProvider>,
+						);
+
+						expect(screen.getByTestId('nested-theme-light')).toHaveTextContent('light');
+
+						// Update nested theme
+						await user.click(screen.getByRole('button', { name: 'set nested theme' }));
+						expect(screen.getByTestId('nested-theme-light')).toHaveTextContent('legacy-light');
+					});
+				},
+			);
 		});
 	});
 });

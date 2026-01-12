@@ -122,11 +122,7 @@ export const OverlayButton = withAnalyticsContext()(({
 					<StyledButton
 						onClick={handleConfigureClickWithAnalytics}
 						iconBefore={
-							<PreferencesIcon
-								label={configureLinkLabel}
-								LEGACY_size="small"
-								testId={`${testId}-configure-icon`}
-							/>
+							<PreferencesIcon label={configureLinkLabel} testId={`${testId}-configure-icon`} />
 						}
 					/>
 				</Tooltip>

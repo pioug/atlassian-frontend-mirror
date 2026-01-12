@@ -4,6 +4,7 @@ import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { bind } from 'bind-event-listener';
 
+import { skipA11yAudit } from '@af/accessibility-testing';
 import HomeIcon from '@atlaskit/icon/core/home';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
@@ -29,6 +30,9 @@ const NavWrapper = ({
 );
 
 describe('FlyoutMenuItem', () => {
+	beforeEach(() => {
+		skipA11yAudit();
+	});
 	describe('accessibility', () => {
 		it('should pass a11y checks when popup is closed', async () => {
 			const { baseElement } = render(

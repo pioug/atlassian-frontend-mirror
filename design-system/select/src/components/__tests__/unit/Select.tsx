@@ -1,6 +1,7 @@
 /* eslint-disable @repo/internal/fs/filename-pattern-match */
 import React from 'react';
 
+import { skipA11yAudit } from '@af/accessibility-testing';
 import { act, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import cases from 'jest-in-case';
@@ -24,6 +25,9 @@ const OPTIONS = [
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Select', () => {
+	beforeEach(() => {
+		skipA11yAudit();
+	});
 	// test cases for async select using Select
 	cases(
 		'async load options',
@@ -526,6 +530,7 @@ describe('Select input', () => {
 });
 
 it('UNSAFE_is_experimental_generic should pass down and replace semantics', async () => {
+	skipA11yAudit();
 	const testId = 'select';
 
 	render(

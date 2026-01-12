@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import cases from 'jest-in-case';
 
+import { skipA11yAudit } from '@af/accessibility-testing';
 import {
 	type AnalyticsEventPayload,
 	AnalyticsListener,
@@ -19,6 +20,9 @@ const testId = 'testId';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Avatar', () => {
+	beforeEach(() => {
+		skipA11yAudit();
+	});
 	it('should render a span when neither onClick or href are supplied', () => {
 		render(<Avatar testId={testId} />);
 

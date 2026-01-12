@@ -67,8 +67,7 @@
 		"@atlaskit/lozenge": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
-		"@testing-library/react": "root:*",
-		"@testing-library/react-hooks": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"raw-loader": "root:*",
 		"react-dom": "root:*"
 	},

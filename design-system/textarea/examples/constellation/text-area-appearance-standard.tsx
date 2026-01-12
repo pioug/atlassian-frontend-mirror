@@ -11,7 +11,7 @@ export default function TextAreaAppearanceStandard(): React.JSX.Element {
 				appearance="standard"
 				id="standard-appearance"
 				name="standard-appearance"
-				placeholder="Enter your details here"
+				placeholder=""
 			/>
 		</>
 	);

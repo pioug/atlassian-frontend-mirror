@@ -1,3 +1,7 @@
+import { TrelloIcon as NewTrelloIcon } from '../artifacts/logo-components/trello';
+import { TrelloIcon as LegacyTrelloIcon } from '../legacy-logos/trello';
+import { createFeatureFlaggedComponent } from '../logo-config';
+
 /**
  * __Trello icon__
  *
@@ -7,4 +11,4 @@
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export { TrelloIcon } from '../index';
+export const TrelloIcon = createFeatureFlaggedComponent(LegacyTrelloIcon, NewTrelloIcon);

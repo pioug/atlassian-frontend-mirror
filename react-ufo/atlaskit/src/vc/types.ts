@@ -30,6 +30,21 @@ export type SelectorConfig = {
 	dataVC?: boolean;
 };
 
+export type SearchPageConfig = {
+	/**
+	 * Whether to enable detection of smart answers mutations
+	 */
+	enableSmartAnswersMutations?: boolean;
+
+	/**
+	 * Route of the search page. If this is not specified, then all other VC
+	 * configurations related to the search page will be ignored. This is
+	 * done to ensure that search page specific computations are not performed
+	 * for non-search page interactions.
+	 */
+	searchPageRoute?: string;
+};
+
 export type VCObserverOptions = {
 	heatmapSize?: number | undefined;
 	oldDomUpdates?: boolean | undefined;
@@ -38,6 +53,7 @@ export type VCObserverOptions = {
 	isPostInteraction?: boolean;
 	ssrEnablePageLayoutPlaceholder?: boolean;
 	ssrPlaceholderHandler?: any; // SSRPlaceholderHandlers | null - using any to avoid circular import
+	searchPageConfig?: SearchPageConfig;
 };
 
 export interface VCObserverInterface {

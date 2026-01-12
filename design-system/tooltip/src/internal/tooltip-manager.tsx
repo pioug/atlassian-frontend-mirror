@@ -23,6 +23,7 @@ export type Entry = {
 	hide: (value: { isImmediate: boolean }) => void;
 	delay: number;
 	done: () => void;
+	shouldAlwaysFadeIn: boolean;
 };
 
 export type API = {
@@ -137,7 +138,10 @@ export function show(entry: Entry): API {
 	}
 
 	function start() {
-		const showImmediately: boolean = Boolean(active && active.isVisible());
+		const shouldAlwaysFadeIn = fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')
+			? entry.shouldAlwaysFadeIn
+			: false;
+		const showImmediately: boolean = Boolean(active && active.isVisible()) && !shouldAlwaysFadeIn;
 
 		// If there was an active tooltip; we tell it to remove itself at once!
 		if (active) {

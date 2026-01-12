@@ -5,6 +5,7 @@
 import { jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 
+import { skipA11yAudit } from '@af/accessibility-testing';
 import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
@@ -25,6 +26,9 @@ const styles = cssMap({
 describe('Inline', () => {
 	const testId = 'test';
 
+	beforeEach(() => {
+		skipA11yAudit();
+	});
 	it('should render inline', () => {
 		render(
 			<Inline space="space.050">

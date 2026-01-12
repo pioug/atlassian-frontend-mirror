@@ -1,5 +1,14 @@
 # @atlaskit/app-provider
 
+## 3.3.0
+
+### Minor Changes
+
+- [`a45bf2e086e1d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a45bf2e086e1d) -
+  We are testing AppProvider subtree theming capabilities behind a feature flag. This is still in
+  development but working under minimal conditions. If this change is successful it will be
+  available in a later release.
+
 ## 3.2.10
 
 ### Patch Changes

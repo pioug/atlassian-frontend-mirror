@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::52a4317ab2912be8cb3eefd111662024>>
+ * @codegen <<SignedSource::ca89575f70ae79af2f43113bdc77c0c5>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { Rule } from 'eslint';
@@ -52,7 +52,6 @@ import noUnsafeInlineSnapshot from './no-unsafe-inline-snapshot';
 import noUnsafeStyleOverrides from './no-unsafe-style-overrides';
 import noUnsupportedDragAndDropLibraries from './no-unsupported-drag-and-drop-libraries';
 import noUnusedCssMap from './no-unused-css-map';
-import noUtilityIcons from './no-utility-icons';
 import preferPrimitives from './prefer-primitives';
 import useButtonGroupLabel from './use-button-group-label';
 import useCharacterCounterField from './use-character-counter-field';
@@ -128,7 +127,6 @@ export const rules: Record<string, Rule.RuleModule> = {
 	'no-unsafe-style-overrides': noUnsafeStyleOverrides,
 	'no-unsupported-drag-and-drop-libraries': noUnsupportedDragAndDropLibraries,
 	'no-unused-css-map': noUnusedCssMap,
-	'no-utility-icons': noUtilityIcons,
 	'prefer-primitives': preferPrimitives,
 	'use-button-group-label': useButtonGroupLabel,
 	'use-character-counter-field': useCharacterCounterField,

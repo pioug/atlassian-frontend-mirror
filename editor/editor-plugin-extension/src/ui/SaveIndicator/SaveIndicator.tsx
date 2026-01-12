@@ -76,7 +76,6 @@ export const SaveIndicator = ({ children, duration, visible = true }: SaveIndica
 						<CheckCircleIcon
 							label="Saving"
 							color={token('color.icon.success', G300)}
-							LEGACY_size="small"
 							spacing="none"
 						/>
 						<Box xcss={saveIndicatorTextStyles}>

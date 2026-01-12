@@ -73,7 +73,7 @@ class MultiLineSearchInput extends Component<{}, State> {
 					onChange={this.handleChange}
 					onInputChange={this.handleInputChange}
 					onKeyDown={this.handleKeyDown}
-					placeholder="Type something and press enter..."
+					placeholder=""
 					value={value}
 				/>
 			</>

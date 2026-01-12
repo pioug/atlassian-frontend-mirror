@@ -31,6 +31,6 @@ export default () => (
 		>
 			{message}
 		</span>
-		<UnlockIcon color="currentColor" LEGACY_size="medium" spacing="spacious" label={message} />
+		<UnlockIcon color="currentColor" spacing="spacious" label={message} />
 	</div>
 );

@@ -1,5 +1,23 @@
 # @atlaskit/profilecard
 
+## 24.29.0
+
+### Minor Changes
+
+- [`6eca85628ef71`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6eca85628ef71) -
+  Removed absolute positioning approach to fixing a11y issue with profile card
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.28.0
+
+### Minor Changes
+
+- [`c49e8cb6ddf1d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c49e8cb6ddf1d) -
+  Deprecate the team profile card component
+
 ## 24.27.2
 
 ### Patch Changes

@@ -75,11 +75,7 @@ const RemovableField = ({
 					onClick={onClickCallback}
 				>
 					<Tooltip content={intl.formatMessage(messages.removeField)} position="left">
-						<CrossCircleIcon
-							LEGACY_size="small"
-							spacing="none"
-							label={intl.formatMessage(messages.removeField)}
-						/>
+						<CrossCircleIcon spacing="none" label={intl.formatMessage(messages.removeField)} />
 					</Tooltip>
 				</div>
 			)}

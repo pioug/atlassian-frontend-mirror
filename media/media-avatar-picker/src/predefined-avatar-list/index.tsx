@@ -63,7 +63,7 @@ export const PredefinedAvatarList = forwardRef<HTMLButtonElement, PredefinedAvat
 						showMoreAvatarsButtonLabel || intl.formatMessage(messages.show_more_avatars_btn_label)
 					}
 					appearance="subtle"
-					iconAfter={<EditorMoreIcon label="" LEGACY_size="large" color="currentColor" />}
+					iconAfter={<EditorMoreIcon label="" color="currentColor" />}
 					onClick={onShowMore}
 					css={showMoreButtonStyles}
 					ref={moreRef}

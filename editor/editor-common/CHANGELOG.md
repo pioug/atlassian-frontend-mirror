@@ -1,5 +1,13 @@
 # @atlaskit/editor-common
 
+## 111.7.2
+
+### Patch Changes
+
+- [`819348f0857f5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/819348f0857f5) -
+  [ux] [EDITOR-3769] added shortcut to track changes button
+- Updated dependencies
+
 ## 111.7.1
 
 ### Patch Changes

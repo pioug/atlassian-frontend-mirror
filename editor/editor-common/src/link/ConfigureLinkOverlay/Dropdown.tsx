@@ -97,9 +97,7 @@ const Dropdown = ({
 					// Ignored via go/ees005
 					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...props}
-					iconBefore={
-						<ChevronDownIcon label={configureLinkLabel} LEGACY_size="small" size="small" />
-					}
+					iconBefore={<ChevronDownIcon label={configureLinkLabel} size="small" />}
 					onClick={(e) => {
 						onClick?.(e);
 						fireLinkClickEvent();
@@ -111,14 +109,14 @@ const Dropdown = ({
 		>
 			<DropdownItemGroup>
 				<DropdownItem
-					elemBefore={<LinkExternalIcon label={goToLinkLabel} LEGACY_size="medium" />}
+					elemBefore={<LinkExternalIcon label={goToLinkLabel} />}
 					testId={`${testId}-dropdown-item-open-link`}
 					onClick={onGoToLinkClick}
 				>
 					{goToLinkLabel}
 				</DropdownItem>
 				<DropdownItem
-					elemBefore={<PreferencesIcon label={configureLinkLabel} LEGACY_size="medium" />}
+					elemBefore={<PreferencesIcon label={configureLinkLabel} />}
 					onClick={onConfigureClick}
 					testId={`${testId}-dropdown-item-configure`}
 				>

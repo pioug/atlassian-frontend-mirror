@@ -1,3 +1,7 @@
+import { StatuspageIcon as NewStatuspageIcon } from '../artifacts/logo-components/statuspage';
+import { StatuspageIcon as LegacyStatuspageIcon } from '../legacy-logos/statuspage';
+import { createFeatureFlaggedComponent } from '../logo-config';
+
 /**
  * __Statuspage icon__
  *
@@ -7,4 +11,7 @@
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export { StatuspageIcon } from '../index';
+export const StatuspageIcon = createFeatureFlaggedComponent(
+	LegacyStatuspageIcon,
+	NewStatuspageIcon,
+);

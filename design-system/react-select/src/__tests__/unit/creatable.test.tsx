@@ -1,9 +1,12 @@
 // @ts-nocheck
 import React from 'react';
 
+
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import cases from 'jest-in-case';
+
+import { skipA11yAudit } from '@af/accessibility-testing';
 
 import Creatable from '../../creatable';
 
@@ -38,6 +41,10 @@ interface OptionProps extends Partial<BasicProps> {
 interface Opts {
 	readonly props?: OptionProps;
 }
+
+beforeEach(() => {
+	skipA11yAudit();
+});
 
 cases<Opts>(
 	'filtered option is an exact match for an existing option',

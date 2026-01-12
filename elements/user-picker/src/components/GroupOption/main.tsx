@@ -55,7 +55,7 @@ export class GroupOption extends React.PureComponent<GroupOptionProps> {
 
 	private renderAvatar = () => (
 		<span css={groupOptionIconWrapper}>
-			<PeopleIcon color="currentColor" label="group-icon" LEGACY_size="medium" spacing="spacious" />
+			<PeopleIcon color="currentColor" label="group-icon" spacing="spacious" />
 		</span>
 	);
 

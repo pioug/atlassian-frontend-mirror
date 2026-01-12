@@ -15,13 +15,16 @@ import React, {
 
 import { cssMap as cssMapUnbound, jsx } from '@compiled/react';
 
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { cssMap } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { PopupContent } from '@atlaskit/popup/experimental';
 import { token } from '@atlaskit/tokens';
 
-import { OnCloseProvider, SetIsOpenContext, TitleIdContextProvider } from './flyout-menu-item-context';
+import { OnCloseContext, SetIsOpenContext, TitleIdContextProvider } from './flyout-menu-item-context';
+
+export type FlyoutCloseSource = 'close-button' | 'escape-key' | 'outside-click' | 'other';
 
 /**
  * The vertical offset in px to ensure the flyout container does not exceed the bounds of
@@ -74,6 +77,7 @@ export type FlyoutMenuItemContentProps = {
 	 * If you are controlling the open state of the flyout menu, use this to update your state.
 	 */
 	onClose?: () => void;
+
 	/**
 	 * Whether the flyout menu should be focused when opened.
 	 * @default true
@@ -91,12 +95,55 @@ export const FlyoutMenuItemContent: React.ForwardRefExoticComponent<
 > = forwardRef<HTMLDivElement, FlyoutMenuItemContentProps>(
 	({ children, containerTestId, onClose, autoFocus }, forwardedRef) => {
 		const setIsOpen = useContext(SetIsOpenContext);
+		const onCloseRef = useContext(OnCloseContext);
+		const { createAnalyticsEvent } = useAnalyticsEvents();
 
-		const handleClose = useCallback(() => {
+		// The source of the close is not accessible to the consumer, it is determined within the
+		// handleClose function, or passed in as a parameter in FlyoutMenuItemTrigger (outside-click),
+		// or FlyoutHeader (close-button).
+		const handleClose = useCallback((
+			event: Event | React.MouseEvent<HTMLButtonElement> | KeyboardEvent | MouseEvent | null,
+			source?: FlyoutCloseSource,
+		) => {
+			if (fg("platform_dst_nav4_flyout_menu_slots_close_button")) {
+				// Use the passed source if provided, otherwise determine from event
+				let determinedSource: FlyoutCloseSource = source || 'other';
+
+				if (!source) {
+					if (event instanceof KeyboardEvent) {
+						const keyboardEvent = event as KeyboardEvent;
+						if (keyboardEvent.key === 'Escape' || keyboardEvent.key === 'Esc') {
+							determinedSource = 'escape-key';
+						}
+					} else if (event instanceof MouseEvent) {
+						if (event && 'type' in event && event.type === 'click') {
+							determinedSource = 'outside-click';
+						}
+					}
+				}
+
+				// When flyout menu is closed, fire analytics event
+				const navigationAnalyticsEvent = createAnalyticsEvent({
+					source: 'sideNav',
+					actionSubject: 'flyoutMenu',
+					action: 'closed',
+					attributes: {
+						closeSource: determinedSource,
+					},
+				});
+
+				navigationAnalyticsEvent.fire('navigation');
+			}
+
 			onClose?.();
 			setIsOpen(false);
-		}, [setIsOpen, onClose]);
+		}, [setIsOpen, onClose, createAnalyticsEvent]);
 
+		// Register handleClose in the ref to allow the FlyoutMenuItemTrigger to access it
+		useEffect(() => {
+			onCloseRef.current = handleClose;
+		}, [handleClose, onCloseRef]);
+	
 		const titleId = useId();
 
 		return (
@@ -136,11 +183,9 @@ export const FlyoutMenuItemContent: React.ForwardRefExoticComponent<
 							fg("platform_dst_nav4_flyout_menu_slots_close_button")
 							? (
 								<TitleIdContextProvider value={titleId}>
-									<OnCloseProvider value={() => onClose}>
-										<div css={flyoutMenuItemContentContainerStyles.container}>
-											{children}
-										</div>
-									</OnCloseProvider>
+									<div css={flyoutMenuItemContentContainerStyles.container}>
+										{children}
+									</div>
 								</TitleIdContextProvider>
 							) : (
 								children

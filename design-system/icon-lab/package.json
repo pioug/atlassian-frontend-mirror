@@ -50,7 +50,7 @@
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@compiled/react": "root:*",
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"fs-extra": "root:*",
 		"pkg-dir": "root:*",
 		"react-dom": "root:*",

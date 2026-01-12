@@ -50,7 +50,7 @@ const IconWrapperComponent = (props: WrappedComponentProps) => {
 
 	return (
 		<div css={iconWrapperStyles}>
-			<DocumentFilledIcon label={intl.formatMessage(dropPlaceholderLabel)} LEGACY_size="medium" />
+			<DocumentFilledIcon label={intl.formatMessage(dropPlaceholderLabel)} />
 		</div>
 	);
 };

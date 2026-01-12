@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.0.14
+
+### Patch Changes
+
+- [`3a117b2d76d59`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a117b2d76d59) -
+  [ux] Transform decision -> codeBlock and quote -> headings are disabled.
+- Updated dependencies
+
 ## 6.0.13
 
 ### Patch Changes

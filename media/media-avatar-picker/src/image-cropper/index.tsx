@@ -257,9 +257,7 @@ export class ImageCropper extends Component<ImageCropperProp & WrappedComponentP
 				<Box id="remove-image-container" xcss={removeImageContainerStyles.root}>
 					<IconButton
 						id="remove-image-button"
-						icon={(iconProps) => (
-							<CrossIcon {...iconProps} LEGACY_size="small" color="currentColor" />
-						)}
+						icon={(iconProps) => <CrossIcon {...iconProps} color="currentColor" />}
 						onClick={onRemoveImage}
 						label={formatMessage(messages.remove_image)}
 						spacing="compact"

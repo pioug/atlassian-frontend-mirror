@@ -6,6 +6,7 @@ import { PureComponent } from 'react';
 
 import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
 
 import type { GlyphProps } from '@atlaskit/icon/types';
 
@@ -75,7 +76,11 @@ describe('Element: Icon', () => {
 	});
 
 	it('renders ImageIcon when url is provided', async () => {
-		render(<IconElement icon={IconType.Document} url="src-loaded" />);
+		render(
+			<IntlProvider locale={'en'}>
+				<IconElement icon={IconType.Document} url="src-loaded" />
+			</IntlProvider>
+		);
 
 		const element = await screen.findByTestId('smart-element-icon-image');
 
@@ -83,7 +88,11 @@ describe('Element: Icon', () => {
 	});
 
 	it('should send appearance prop to image icon', async () => {
-		render(<IconElement icon={IconType.Document} url="src-loaded" appearance="round" />);
+		render(
+			<IntlProvider locale={'en'}>
+				<IconElement icon={IconType.Document} url="src-loaded" appearance="round" />
+			</IntlProvider>
+		);
 
 		await screen.findByTestId('smart-element-icon-image');
 
@@ -131,7 +140,10 @@ describe('Element: Icon', () => {
 
 		it('priorities url icon', async () => {
 			const renderCustomIcon = () => undefined;
-			render(<IconElement icon={IconType.Document} render={renderCustomIcon} url="src-loaded" />);
+			render(
+				<IntlProvider locale={'en'}>
+					<IconElement icon={IconType.Document} render={renderCustomIcon} url="src-loaded" />
+				</IntlProvider>);
 
 			const imageIcon = await screen.findByTestId('smart-element-icon-image');
 			const akIcon = screen.queryByTestId('smart-element-icon-icon');
@@ -173,7 +185,11 @@ describe('Element: Icon', () => {
 
 	describe('ImageIcon', () => {
 		it('renders image icon', async () => {
-			render(<IconElement url="src-loaded" />);
+			render(
+				<IntlProvider locale={'en'}>
+					<IconElement url="src-loaded" />
+				</IntlProvider>,
+			);
 
 			const element = await screen.findByTestId('smart-element-icon-image');
 
@@ -182,7 +198,10 @@ describe('Element: Icon', () => {
 
 		describe('when hideLoadingSkeleton is undefined', () => {
 			it('renders shimmer placeholder on loading', async () => {
-				render(<IconElement url="src-loading" />);
+				render(
+					<IntlProvider locale={'en'}>
+						<IconElement url="src-loading" />
+					</IntlProvider>);
 
 				const element = await screen.findByTestId('smart-element-icon-loading');
 
@@ -190,7 +209,10 @@ describe('Element: Icon', () => {
 			});
 
 			it('renders default icon on error', async () => {
-				render(<IconElement url="src-error" />);
+				render(
+					<IntlProvider locale={'en'}>
+						<IconElement url="src-error" />
+					</IntlProvider>);
 
 				const element = await screen.findByTestId('smart-element-icon-default');
 
@@ -200,7 +222,11 @@ describe('Element: Icon', () => {
 
 		describe('when hideLoadingSkeleton is true', () => {
 			it('does not render loading placeholder', async () => {
-				render(<IconElement url="src-loading" hideLoadingSkeleton={true} />);
+				render(
+					<IntlProvider locale={'en'}>
+						<IconElement url="src-loading" hideLoadingSkeleton={true} />
+					</IntlProvider>
+				);
 
 				const loading = screen.queryByTestId('smart-element-icon-loading');
 				expect(loading).not.toBeInTheDocument();
@@ -215,7 +241,11 @@ describe('Element: Icon', () => {
 		const overrideCss = css({
 			backgroundColor: 'blue',
 		});
-		render(<IconElement css={overrideCss} />);
+		render(
+			<IntlProvider locale={'en'}>
+				<IconElement css={overrideCss} />
+			</IntlProvider>
+		);
 
 		const element = await screen.findByTestId('smart-element-icon');
 

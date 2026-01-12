@@ -2,6 +2,7 @@ import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
+import { skipA11yAudit } from '@af/accessibility-testing';
 import noop from '@atlaskit/ds-lib/noop';
 
 import Tabs, { Tab, TabList, TabPanel, useTab } from '../../index';
@@ -21,6 +22,9 @@ const CustomTab = ({ label }: { label: string }) => {
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('@atlaskit/tabs', () => {
+	beforeEach(() => {
+		skipA11yAudit();
+	});
 	describe('tab', () => {
 		it('should error without a context provider', () => {
 			const err = console.error;

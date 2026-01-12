@@ -2,6 +2,9 @@ import React, { Suspense, useState } from 'react';
 
 import { createPortal } from 'react-dom';
 
+import { ThemeProvider, useColorMode } from '@atlaskit/app-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { useIsomorphicLayoutEffect } from '../hooks/use-isomorphic-layout-effect';
 import { createAtlaskitPortal, createPortalParent } from '../utils/portal-dom-utils';
 
@@ -13,6 +16,8 @@ interface InternalPortalProps {
 export default function InternalPortalNew(props: InternalPortalProps): React.ReactPortal | null {
 	const { zIndex, children } = props;
 	const [atlaskitPortal, setAtlaskitPortal] = useState<HTMLDivElement | undefined | null>(null);
+
+	const colorMode = useColorMode();
 
 	useIsomorphicLayoutEffect(() => {
 		const tempPortalContainer = createAtlaskitPortal(zIndex);
@@ -35,7 +40,15 @@ export default function InternalPortalNew(props: InternalPortalProps): React.Rea
 	 * if you suspend from _within_ a portal to a Suspense boundary _outside_ the portal,
 	 * our portal gets in an infinite loop of rendering.
 	 */
-	const suspendedChildren = <Suspense fallback={null}>{children}</Suspense>;
+	const suspendedChildren = (
+		<Suspense fallback={null}>
+			{colorMode && fg('platform_dst_subtree_theming') ? (
+				<ThemeProvider defaultColorMode={colorMode}>{children}</ThemeProvider>
+			) : (
+				children
+			)}
+		</Suspense>
+	);
 
 	return atlaskitPortal ? createPortal(suspendedChildren, atlaskitPortal) : null;
 }

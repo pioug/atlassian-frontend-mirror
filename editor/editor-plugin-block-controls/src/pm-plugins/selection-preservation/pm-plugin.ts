@@ -16,9 +16,12 @@ import { stopPreservingSelection } from './editor-commands';
 import { selectionPreservationPluginKey } from './plugin-key';
 import type { SelectionPreservationPluginState } from './types';
 import {
+	compareSelections,
 	getSelectionPreservationMeta,
 	hasUserSelectionChange,
+	isPreservedSelectionChanged,
 	isSelectionWithinCodeBlock,
+	syncDOMSelection,
 } from './utils';
 
 /**
@@ -77,7 +80,7 @@ export const createSelectionPreservationPlugin =
 						newState.preservedSelection = mapPreservedSelection(newState.preservedSelection, tr);
 					}
 
-					if (newState.preservedSelection !== pluginState.preservedSelection) {
+					if (!compareSelections(newState.preservedSelection, pluginState.preservedSelection)) {
 						if (newState?.preservedSelection) {
 							api?.core.actions.execute(
 								api?.selection?.commands?.setBlockSelection(newState.preservedSelection),
@@ -97,32 +100,29 @@ export const createSelectionPreservationPlugin =
 				newState: EditorState,
 			) {
 				const pluginState = selectionPreservationPluginKey.getState(newState);
-				const savedSel = pluginState?.preservedSelection;
+				const preservedSel = pluginState?.preservedSelection;
+				const stateSel = newState.selection;
 
-				if (!savedSel) {
+				if (!preservedSel) {
 					return null;
 				}
 
 				// Auto-stop if user explicitly changes selection or selection is set within a code block
-				if (
-					hasUserSelectionChange(transactions) ||
-					isSelectionWithinCodeBlock(newState.selection)
-				) {
-					// Auto-stop if user explicitly changes selection
+				if (hasUserSelectionChange(transactions) || isSelectionWithinCodeBlock(stateSel)) {
 					return stopPreservingSelection({ tr: newState.tr });
 				}
 
-				const currSel = newState.selection;
-
-				const selectionUnchanged = currSel.from === savedSel.from && currSel.to === savedSel.to;
-				const selectionInvalid = savedSel.from < 0 || savedSel.to > newState.doc.content.size;
+				const selectionUnchanged =
+					stateSel.from === preservedSel.from && stateSel.to === preservedSel.to;
+				const selectionInvalid =
+					preservedSel.from < 0 || preservedSel.to > newState.doc.content.size;
 
 				if (selectionUnchanged || selectionInvalid) {
 					return null;
 				}
 
 				try {
-					return newState.tr.setSelection(savedSel);
+					return newState.tr.setSelection(preservedSel);
 				} catch (error) {
 					logException(error as Error, {
 						location: 'editor-plugin-block-controls/SelectionPreservationPlugin',
@@ -130,6 +130,16 @@ export const createSelectionPreservationPlugin =
 				}
 
 				return null;
+			},
+
+			view() {
+				return {
+					update(view: EditorView, prevState: EditorState) {
+						if (isPreservedSelectionChanged(view.state, prevState)) {
+							syncDOMSelection(view.state.selection);
+						}
+					},
+				};
 			},
 
 			props: {

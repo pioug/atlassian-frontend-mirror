@@ -5,7 +5,6 @@ import type { HigherOrderCommand, Command } from '@atlaskit/editor-common/types'
 import { areNodesEqualIgnoreAttrs } from '@atlaskit/editor-common/utils/document';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { InputSource } from './enums';
 import { pluginKey as undoPluginKey } from './plugin-key';
@@ -94,25 +93,13 @@ export const attachInputMetaWithAnalytics =
 	(inputSource: InputSource, action: ACTION.UNDO_PERFORMED | ACTION.REDO_PERFORMED) =>
 	(command: Command) =>
 		attachInputMeta(inputSource)(
-			withAnalytics(
-				editorAnalyticsAPI,
-				fg('platform_editor_add_undo_meta_analytics')
-					? ({ doc: before }, { currentDoc: after }) => ({
-							eventType: EVENT_TYPE.TRACK,
-							action,
-							actionSubject: ACTION_SUBJECT.EDITOR,
-							attributes: {
-								inputMethod: inputSourceToInputMethod(inputSource),
-								...getChanges({ before, after }),
-							},
-						})
-					: {
-							eventType: EVENT_TYPE.TRACK,
-							action,
-							actionSubject: ACTION_SUBJECT.EDITOR,
-							attributes: {
-								inputMethod: inputSourceToInputMethod(inputSource),
-							},
-						},
-			)(command),
+			withAnalytics(editorAnalyticsAPI, ({ doc: before }, { currentDoc: after }) => ({
+				eventType: EVENT_TYPE.TRACK,
+				action,
+				actionSubject: ACTION_SUBJECT.EDITOR,
+				attributes: {
+					inputMethod: inputSourceToInputMethod(inputSource),
+					...getChanges({ before, after }),
+				},
+			}))(command),
 		);

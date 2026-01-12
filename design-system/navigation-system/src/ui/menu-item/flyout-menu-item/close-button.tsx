@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { IconButton } from "@atlaskit/button/new";
-import CrossIcon from "@atlaskit/icon/core/cross";
+import { IconButton } from '@atlaskit/button/new';
+import CrossIcon from '@atlaskit/icon/core/cross';
 
 type CloseButtonProps = {
 	/**
@@ -17,7 +17,7 @@ type CloseButtonProps = {
 	 * should trigger the same close logic as the top-level flyout menu
 	 * component.
 	 */
-	onClick?: () => void;
+	onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 
 	/**
 	 * A unique string that appears as data attribute data-testid in the

@@ -5,9 +5,11 @@
 
 import { useEffect, useState } from 'react';
 
+import { defineMessages, useIntl } from 'react-intl-next';
 import ImageLoader from 'react-render-image';
 
 import { cssMap, jsx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { LoadingSkeleton } from '../loading-skeleton';
@@ -19,6 +21,13 @@ const styles = cssMap({
 		borderRadius: token('radius.full'),
 	},
 });
+
+const messages = defineMessages({
+	imageAltText: {
+		id: 'smart-link.image-icon.altText',
+		defaultMessage: 'Link Icon'
+	}
+})
 
 const ImageIcon = ({
 	defaultIcon,
@@ -32,6 +41,7 @@ const ImageIcon = ({
 	hideLoadingSkeleton = false,
 }: ImageIconProps) => {
 	const [hasImageErrored, setHasImageErrored] = useState(false);
+	const { formatMessage } = useIntl();
 
 	// If url changes, reset state
 	useEffect(() => {
@@ -65,7 +75,7 @@ const ImageIcon = ({
 					<img
 						src={url}
 						data-testid={`${testId}-image`}
-						alt=""
+						alt={fg('navx-2811-smart-link-a11y-image-alt') ? formatMessage(messages.imageAltText) : ""}
 						style={{
 							width,
 							height,

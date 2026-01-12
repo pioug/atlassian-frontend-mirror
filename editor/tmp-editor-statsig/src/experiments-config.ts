@@ -18,8 +18,8 @@ export type EditorExperimentsConfig = typeof editorExperimentsConfig;
  */
 export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
-	? true // Boolean: only 'true' is allowed as expected value
-	: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+		? true // Boolean: only 'true' is allowed as expected value
+		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
 
 /**
  * Extract valid default values.
@@ -28,8 +28,8 @@ export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimen
  */
 export type ExperimentDefaultValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
-	? false // Boolean: only 'false' is allowed as default value
-	: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+		? false // Boolean: only 'false' is allowed as default value
+		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
 
 /**
  * When adding a new experiment, you need to add it here.
@@ -134,6 +134,12 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-11-20
 	'company-hub-config-panel-keyboard-nav': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	platform_editor_fix_emoji_paste_html: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -805,13 +811,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-08-26
-	platform_editor_toolbar_migrate_loom: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-08-27
 	platform_editor_toolbar_support_custom_components: {
 		defaultValue: boolean;
@@ -828,6 +827,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-01-05
 	platform_editor_table_update_table_ref: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-01-10
+	platform_editor_task_item_styles: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1613,6 +1619,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-01-10
+	platform_editor_task_item_styles: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_task_item_styles',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-08-17
 	platform_hover_card_preview_panel: createMultivariateExperiment({
 		productKeys: {
@@ -1850,15 +1864,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-08-26
-	platform_editor_toolbar_migrate_loom: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_toolbar_migrate_loom',
-			jira: 'platform_editor_toolbar_migrate_loom',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-09-16
 	platform_editor_prevent_taskitem_remount: createBooleanExperiment({
 		productKeys: {
@@ -2055,6 +2060,14 @@ export const editorExperimentsConfig: {
 	platform_editor_lovability_emoji_scaling: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_lovability_emoji_scaling',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+
+	platform_editor_fix_emoji_paste_html: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_fix_emoji_paste_html',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

@@ -46,10 +46,11 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
+		"@af/accessibility-testing": "workspace:^",
 		"@atlaskit/checkbox": "workspace:^",
 		"@atlaskit/form": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"@testing-library/user-event": "root:*",
 		"jest-in-case": "root:*"
 	},

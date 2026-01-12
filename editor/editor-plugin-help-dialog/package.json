@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-help-dialog",
-	"version": "7.0.1",
+	"version": "7.1.0",
 	"description": "Help Dialog plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -92,9 +92,6 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_fix_help_dialog_color_contrast": {
-			"type": "boolean"
-		},
-		"platform_editor_fix_help_modal_header": {
 			"type": "boolean"
 		}
 	}

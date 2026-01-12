@@ -19,7 +19,7 @@ const SingleExample = (): React.JSX.Element => (
 				{ label: 'Perth', value: 'perth' },
 				{ label: 'Sydney', value: 'sydney' },
 			]}
-			placeholder="Choose a City"
+			placeholder=""
 		/>
 		<Label htmlFor="subtle">Subtle</Label>
 		<Select
@@ -35,7 +35,7 @@ const SingleExample = (): React.JSX.Element => (
 				{ label: 'Perth', value: 'perth' },
 				{ label: 'Sydney', value: 'sydney' },
 			]}
-			placeholder="Choose a City"
+			placeholder=""
 			appearance="subtle"
 		/>
 		<Label htmlFor="none">None</Label>
@@ -52,7 +52,7 @@ const SingleExample = (): React.JSX.Element => (
 				{ label: 'Perth', value: 'perth' },
 				{ label: 'Sydney', value: 'sydney' },
 			]}
-			placeholder="Choose a City"
+			placeholder=""
 			appearance="none"
 		/>
 	</>

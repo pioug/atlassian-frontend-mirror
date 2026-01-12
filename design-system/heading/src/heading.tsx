@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -7,6 +8,7 @@ import { forwardRef, type ReactNode, type Ref } from 'react';
 import { type CompiledStyles, cssMap as unboundedCssMap } from '@compiled/react';
 
 import { cssMap, jsx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { UNSAFE_inverseColorMap } from '@atlaskit/primitives';
 import { UNSAFE_useSurface } from '@atlaskit/primitives/compiled';
@@ -18,13 +20,12 @@ type HeadingColor = 'color.text' | 'color.text.inverse' | 'color.text.warning.in
 
 export type HeadingProps = {
 	/**
-	 * Heading size. This value is detached from the specific heading level applied to allow for more flexibility.
-	 * Use instead of the deprecated `level` prop.
-	 *
+	 * Determines which text styles are applied. A corresponding HTML element is automatically applied from h1 to h6 based on the size.
+	 * This can be overriden using the `as` prop to allow for more flexibility.
 	 */
 	size: HeadingSize;
 	/**
-	 * Allows the component to be rendered as the specified DOM element, overriding a default element set by `level` prop.
+	 * Allows the component to be rendered as the specified HTML element, overriding a default element set by the `size` prop.
 	 */
 	as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'div' | 'span';
 	/**
@@ -38,7 +39,7 @@ export type HeadingProps = {
 	 */
 	children: ReactNode;
 	/**
-	 * Unique identifier for the heading DOM element.
+	 * Unique identifier for the heading HTML element.
 	 */
 	id?: string;
 	/**
@@ -59,6 +60,9 @@ const sizeTagMap = {
 	xxsmall: 'h6',
 } as const;
 
+/**
+ * Remove with `platform-dst-heading-specificity` fg cleanup
+ */
 const styles = unboundedCssMap({
 	reset: {
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
@@ -68,7 +72,10 @@ const styles = unboundedCssMap({
 	},
 });
 
-const headingColorStylesMap = cssMap({
+/**
+ * Remove with `platform-dst-heading-specificity` fg cleanup
+ */
+const headingColorStyles = cssMap({
 	'color.text': {
 		color: token('color.text'),
 	},
@@ -81,12 +88,9 @@ const headingColorStylesMap = cssMap({
 });
 
 /**
- * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::406afb01e5634a0b459f50de660d8c2e>>
- * @codegenId typography
- * @codegenCommand yarn workspace @atlaskit/heading codegen
+ * Remove with `platform-dst-heading-specificity` fg cleanup
  */
-const headingSizeStylesMap: {
+const headingSizeStyles: {
 	readonly xxlarge: CompiledStyles<{
 		font: 'var(--ds-font-heading-xxlarge)';
 	}>;
@@ -118,7 +122,71 @@ const headingSizeStylesMap: {
 	xxsmall: { font: token('font.heading.xxsmall') },
 });
 
-type HeadingSize = keyof typeof headingSizeStylesMap;
+/**
+ * Using '&&' here to increase specificity of Heading styles such that app styles like ".wiki-content h4" cannot override this component.
+ */
+const stylesWithSpecificity = unboundedCssMap({
+	reset: {
+		'&&': {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			letterSpacing: 'normal',
+			marginBlock: 0,
+			textTransform: 'none',
+		},
+	},
+});
+
+/**
+ * Using '&&' here to increase specificity of Heading styles such that app styles like ".wiki-content h4" cannot override this component.
+ */
+const headingColorStylesWithSpecificity = unboundedCssMap({
+	'color.text': {
+		'&&': { color: token('color.text') },
+	},
+	'color.text.inverse': {
+		'&&': { color: token('color.text.inverse') },
+	},
+	'color.text.warning.inverse': {
+		'&&': { color: token('color.text.warning.inverse') },
+	},
+});
+
+/**
+ * Using '&&' here to increase specificity of Heading styles such that app styles like ".wiki-content h4" cannot override this component.
+ */
+const headingSizeWithSpecificityStyles: {
+	readonly xxlarge: CompiledStyles<{
+		'&&': { font: 'var(--ds-font-heading-xxlarge)' };
+	}>;
+	readonly xlarge: CompiledStyles<{
+		'&&': { font: 'var(--ds-font-heading-xlarge)' };
+	}>;
+	readonly large: CompiledStyles<{
+		'&&': { font: 'var(--ds-font-heading-large)' };
+	}>;
+	readonly medium: CompiledStyles<{
+		'&&': { font: 'var(--ds-font-heading-medium)' };
+	}>;
+	readonly small: CompiledStyles<{
+		'&&': { font: 'var(--ds-font-heading-small)' };
+	}>;
+	readonly xsmall: CompiledStyles<{
+		'&&': { font: 'var(--ds-font-heading-xsmall)' };
+	}>;
+	readonly xxsmall: CompiledStyles<{
+		'&&': { font: 'var(--ds-font-heading-xxsmall)' };
+	}>;
+} = unboundedCssMap({
+	xxlarge: { '&&': { font: token('font.heading.xxlarge') } },
+	xlarge: { '&&': { font: token('font.heading.xlarge') } },
+	large: { '&&': { font: token('font.heading.large') } },
+	medium: { '&&': { font: token('font.heading.medium') } },
+	small: { '&&': { font: token('font.heading.small') } },
+	xsmall: { '&&': { font: token('font.heading.xsmall') } },
+	xxsmall: { '&&': { font: token('font.heading.xxsmall') } },
+});
+
+type HeadingSize = keyof typeof headingSizeWithSpecificityStyles;
 
 /**
  * @codegenEnd
@@ -175,7 +243,14 @@ const Heading: React.ForwardRefExoticComponent<
 			data-testid={testId}
 			role={needsAriaRole ? 'heading' : undefined}
 			aria-level={needsAriaRole ? hLevel : undefined}
-			css={[styles.reset, size && headingSizeStylesMap[size], headingColorStylesMap[color]]}
+			css={[
+				styles.reset,
+				fg('platform-dst-heading-specificity') && stylesWithSpecificity.reset,
+				headingSizeStyles[size],
+				fg('platform-dst-heading-specificity') && headingSizeWithSpecificityStyles[size],
+				headingColorStyles[color],
+				fg('platform-dst-heading-specificity') && headingColorStylesWithSpecificity[color],
+			]}
 		>
 			{children}
 		</Component>

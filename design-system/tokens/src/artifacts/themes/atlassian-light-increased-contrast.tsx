@@ -1,11 +1,11 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7f610dbd5ca5bb0c1a6954e538b79e1b>>
+ * @codegen <<SignedSource::327498ca5c7508a9f137be6920c47512>>
  * @codegenCommand yarn build tokens
  */
 export default `
-html[data-color-mode="light"][data-theme~="light:light-increased-contrast"],
-html[data-color-mode="dark"][data-theme~="dark:light-increased-contrast"],
+html[data-color-mode="light"][data-theme~="light:light-increased-contrast"], [data-subtree-theme][data-color-mode="light"][data-theme~="light:light-increased-contrast"],
+html[data-color-mode="dark"][data-theme~="dark:light-increased-contrast"], [data-subtree-theme][data-color-mode="dark"][data-theme~="dark:light-increased-contrast"],
 html[data-color-mode="light"][data-contrast-mode="more"][data-theme~="light:light"],
 html[data-color-mode="dark"][data-contrast-mode="more"][data-theme~="dark:light"] {
   color-scheme: light;

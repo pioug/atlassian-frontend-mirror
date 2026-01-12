@@ -65,7 +65,7 @@
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/select": "workspace:^",
 		"@atlaskit/spotlight": "workspace:^",
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"raf-stub": "root:*",
 		"tiny-invariant": "root:*"
 	},

@@ -605,16 +605,18 @@ describe('useFilePreview', () => {
 				});
 			});
 
-			it('should use ssr preview when ssr is client and there is no preview in global scope', async () => {
+			// Note: The old test "should use ssr preview when ssr is client and there is no preview in global scope"
+			// has been replaced by the test below. With the SSR data check fix, when there's no global SSR data
+			// and ssr='client', we skip SSR preview generation entirely to avoid missingInitialAuth errors
+			// during client-side navigation.
+
+			it('should skip SSR preview generation when ssr=client but no SSR data exists (client-side navigation)', async () => {
 				const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
-				const { MockedMediaClientProvider } = createMockedMediaClientProvider({
+				const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
 					initialItems: fileItem,
 				});
 
-				const mediaBlobUrlAttrs = createMediaBlobUrlAttrsObject({
-					fileItem,
-					identifier,
-				});
+				const getFileImageURLSync = jest.spyOn(mediaApi, 'getFileImageURLSync');
 
 				const { result } = renderHook(useFilePreview, {
 					wrapper: ({ children }) => (
@@ -623,26 +625,45 @@ describe('useFilePreview', () => {
 					initialProps: {
 						identifier,
 						ssr: 'client',
-						mediaBlobUrlAttrs,
+						traceContext: { traceId: 'some-trace' },
 					},
 				});
 
-				expect(result?.current.status).toBe('complete');
-				expect(result?.current.preview).toMatchObject({
-					dataURI: expect.stringContaining(`image-url-sync-${identifier.id}`),
-					source: 'ssr-client',
+				// Should NOT attempt to create SSR client preview when no SSR data exists
+				// This is the expected behavior for client-side navigation where no SSR occurred
+				expect(getFileImageURLSync).not.toHaveBeenCalled();
+
+				// Should not be error status
+				expect(result?.current.status).toBe('loading');
+				expect(result?.current.preview).toBeUndefined();
+
+				// ssrReliability should remain in unknown state (not failed)
+				// because SSR was never actually attempted
+				expect(result?.current.ssrReliability).toMatchObject({
+					server: { status: 'unknown' },
+					client: { status: 'unknown' },
 				});
 
-				// mediaBlobUrlAttrs must be attached to the url
-				expect(result?.current.preview?.dataURI).toContain(
-					addFileAttrsToUrl('', mediaBlobUrlAttrs),
+				// A backend preview should be fetched as fallback
+				await waitFor(() =>
+					expect(result?.current.preview).toMatchObject({
+						dataURI: expect.stringContaining('mock result of URL.createObjectURL()'),
+						source: 'remote',
+					}),
 				);
 			});
 
-			it('should catch the error when creating an SSR client preview', async () => {
+			it('should catch the error when creating an SSR client preview with SSR data present', async () => {
 				const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
 				const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
 					initialItems: fileItem,
+				});
+
+				// Setup SSR data in global scope (but without dataURI to trigger getSSRPreview)
+				const { id, collectionName } = identifier;
+				setGlobalSSRData(`${id}-${collectionName}-crop`, {
+					dimensions: { width: 100, height: 100 },
+					// No dataURI - this will trigger getSSRPreview to be called
 				});
 
 				const getFileImageURLSync = jest
@@ -950,7 +971,9 @@ describe('useFilePreview', () => {
 				expect(getImageSpy).toBeCalledTimes(0);
 			});
 
-			it.each(['server', 'client'] as const)('ssr %s preview', async (ssr) => {
+			// Note: Testing ssr='server' only since ssr='client' without global SSR data now skips
+			// SSR preview generation (this is the expected behavior to avoid missingInitialAuth errors)
+			it('ssr server preview', async () => {
 				const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
 				const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
 					initialItems: fileItem,
@@ -961,7 +984,7 @@ describe('useFilePreview', () => {
 				const initialProps: UseFilePreviewParams = {
 					identifier,
 					skipRemote: true,
-					ssr,
+					ssr: 'server',
 				};
 
 				const { result, rerender } = renderHook(useFilePreview, {
@@ -975,7 +998,48 @@ describe('useFilePreview', () => {
 				expect(result?.current.status).toBe('complete');
 				expect(result?.current.preview).toMatchObject({
 					dataURI: `image-url-sync-${identifier.id}`,
-					source: `ssr-${ssr}`,
+					source: 'ssr-server',
+				});
+
+				// unskip remote
+				rerender({ ...initialProps, skipRemote: false });
+
+				expect(getImageSpy).toBeCalledTimes(0);
+			});
+
+			it('ssr client preview with global SSR data', async () => {
+				const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+				const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
+					initialItems: fileItem,
+				});
+
+				const getImageSpy = jest.spyOn(mediaApi, 'getImage');
+
+				// Setup global SSR data for ssr='client' to work
+				const { id, collectionName } = identifier;
+				setGlobalSSRData(`${id}-${collectionName}-crop`, {
+					dataURI: `global-scope-datauri-${identifier.id}`,
+					source: 'ssr-data',
+				});
+
+				const initialProps: UseFilePreviewParams = {
+					identifier,
+					skipRemote: true,
+					ssr: 'client',
+				};
+
+				const { result, rerender } = renderHook(useFilePreview, {
+					wrapper: ({ children }) => (
+						<MockedMediaClientProvider>{children}</MockedMediaClientProvider>
+					),
+					initialProps,
+				});
+
+				expect(getImageSpy).not.toBeCalled();
+				expect(result?.current.status).toBe('complete');
+				expect(result?.current.preview).toMatchObject({
+					dataURI: `global-scope-datauri-${identifier.id}`,
+					source: 'ssr-data',
 				});
 
 				// unskip remote
@@ -1163,6 +1227,16 @@ describe('useFilePreview', () => {
 					identifier,
 				});
 
+				// Setup global SSR data to enable SSR preview generation
+				// Use 'crop' as the key suffix when resizeMode is undefined (since that's the default in useFilePreview)
+				const { id, collectionName } = identifier;
+				const keyResizeMode = resizeMode ?? 'crop';
+				setGlobalSSRData(`${id}-${collectionName}-${keyResizeMode}`, {
+					dataURI: `global-scope-datauri-${identifier.id}`,
+					source: 'ssr-data',
+					dimensions: { width: 100, height: 100 },
+				});
+
 				const initialProps = {
 					identifier,
 					ssr: 'client',
@@ -1178,11 +1252,10 @@ describe('useFilePreview', () => {
 					initialProps,
 				});
 
-				expect(result?.current.status).toBe('complete');
-				// should use ssr preview
+				// should use ssr preview from global scope (status may be 'loading' without feature flag)
 				expect(result?.current.preview).toMatchObject({
-					dataURI: expect.stringContaining(`image-url-sync-${identifier.id}`),
-					source: 'ssr-client',
+					dataURI: expect.stringContaining(`global-scope-datauri-${identifier.id}`),
+					source: 'ssr-data',
 				});
 
 				// remote preview should not be fetched before unskipping remote
@@ -1369,6 +1442,15 @@ describe('useFilePreview', () => {
 
 					const getImageSpy = jest.spyOn(mediaApi, 'getImage');
 
+					// Setup global SSR data to test SSR preview error handling
+					// Note: When reading from global scope, the hook always returns source: 'ssr-data'
+					const { id, collectionName } = identifier;
+					const ssrPreview = {
+						dataURI: `ssr-datauri-${identifier.id}`,
+						dimensions: { width: 100, height: 100 },
+					};
+					setGlobalSSRData(`${id}-${collectionName}-crop`, ssrPreview);
+
 					const initialProps = {
 						identifier,
 						ssr: 'client',
@@ -1384,10 +1466,10 @@ describe('useFilePreview', () => {
 					});
 
 					expect(result?.current.status).toBe('complete');
-					// should use ssr preview
+					// should use ssr preview from global scope (always returns 'ssr-data' source)
 					expect(result?.current.preview).toMatchObject({
-						dataURI: expect.stringContaining(`image-url-sync-${identifier.id}`),
-						source: 'ssr-client',
+						dataURI: expect.stringContaining(`ssr-datauri-${identifier.id}`),
+						source: 'ssr-data',
 					});
 					// remote preview should not be fetched before unskipping remote
 					expect(getImageSpy).not.toHaveBeenCalled();
@@ -1406,11 +1488,12 @@ describe('useFilePreview', () => {
 						}),
 					);
 					expect(result?.current.status).toBe('complete');
+					// For ssr-data previews, both server and client are marked as failed
 					expect(result?.current.ssrReliability).toMatchObject({
 						client: {
 							error: 'nativeError',
-							errorDetail: 'ssr-client-uri',
-							failReason: 'ssr-client-uri',
+							errorDetail: 'ssr-server-uri',
+							failReason: 'ssr-server-uri',
 							metadataTraceContext: {
 								traceId: 'some-trace',
 							},
@@ -1432,6 +1515,15 @@ describe('useFilePreview', () => {
 
 					const getImageSpy = jest.spyOn(mediaApi, 'getImage');
 
+					// Setup global SSR data to test SSR preview error handling
+					// Note: When reading from global scope, the hook always returns source: 'ssr-data'
+					const { id, collectionName } = identifier;
+					const ssrPreview = {
+						dataURI: `ssr-datauri-${identifier.id}`,
+						dimensions: { width: 100, height: 100 },
+					};
+					setGlobalSSRData(`${id}-${collectionName}-crop`, ssrPreview);
+
 					const initialProps = {
 						identifier,
 						ssr: 'client',
@@ -1446,10 +1538,10 @@ describe('useFilePreview', () => {
 					});
 
 					expect(result?.current.status).toBe('complete');
-					// should use ssr preview
+					// should use ssr preview from global scope (always returns 'ssr-data' source)
 					expect(result?.current.preview).toMatchObject({
-						dataURI: expect.stringContaining(`image-url-sync-${identifier.id}`),
-						source: 'ssr-client',
+						dataURI: expect.stringContaining(`ssr-datauri-${identifier.id}`),
+						source: 'ssr-data',
 					});
 					// remote preview should not be fetched before unskipping remote
 					expect(getImageSpy).not.toHaveBeenCalled();
@@ -1464,11 +1556,12 @@ describe('useFilePreview', () => {
 						}),
 					);
 					expect(result?.current.status).toBe('complete');
+					// For ssr-data previews, both server and client are marked as failed
 					expect(result?.current.ssrReliability).toMatchObject({
 						client: {
 							error: 'nativeError',
-							errorDetail: 'ssr-client-uri',
-							failReason: 'ssr-client-uri',
+							errorDetail: 'ssr-server-uri',
+							failReason: 'ssr-server-uri',
 							metadataTraceContext: {
 								traceId: 'some-trace',
 							},
@@ -1852,30 +1945,23 @@ describe('useFilePreview', () => {
 
 						let initialProps: UseFilePreviewParams;
 
-						if (previewType === 'ssr-data') {
-							// Setup global scope preview for ssr-data type
-							const globalScopePreview = {
-								dataURI: 'global-scope-datauri',
-								source: 'ssr-data',
-								dimensions: { width: 100, height: 100 },
-							};
+						// Setup global scope preview for SSR tests
+						// For ssr-client without global data, the hook now skips SSR preview generation
+						// So we need to set up global scope data for both ssr-data and ssr-client tests
+						const globalScopePreview = {
+							dataURI: 'global-scope-datauri',
+							source: previewType,
+							dimensions: { width: 100, height: 100 },
+						};
 
-							const { id, collectionName } = identifier;
-							setGlobalSSRData(`${id}-${collectionName}-crop`, globalScopePreview);
+						const { id, collectionName } = identifier;
+						setGlobalSSRData(`${id}-${collectionName}-crop`, globalScopePreview);
 
-							initialProps = {
-								identifier,
-								ssr: 'client',
-								dimensions: { width: 100, height: 100 },
-							};
-						} else {
-							// ssr-client will be created directly
-							initialProps = {
-								identifier,
-								ssr: 'client',
-								dimensions: { width: 100, height: 100 },
-							};
-						}
+						initialProps = {
+							identifier,
+							ssr: 'client',
+							dimensions: { width: 100, height: 100 },
+						};
 
 						const { result, rerender } = renderHook(useFilePreview, {
 							wrapper: ({ children }) => (
@@ -1917,30 +2003,23 @@ describe('useFilePreview', () => {
 
 						let initialProps: UseFilePreviewParams;
 
-						if (previewType === 'ssr-data') {
-							// Setup global scope preview for ssr-data type
-							const globalScopePreview = {
-								dataURI: 'global-scope-datauri',
-								source: 'ssr-data',
-								dimensions: { width: 100, height: 100 },
-							};
+						// Setup global scope preview for SSR tests
+						// For ssr-client without global data, the hook now skips SSR preview generation
+						// So we need to set up global scope data for both ssr-data and ssr-client tests
+						const globalScopePreview = {
+							dataURI: 'global-scope-datauri',
+							source: previewType,
+							dimensions: { width: 100, height: 100 },
+						};
 
-							const { id, collectionName } = identifier;
-							setGlobalSSRData(`${id}-${collectionName}-crop`, globalScopePreview);
+						const { id, collectionName } = identifier;
+						setGlobalSSRData(`${id}-${collectionName}-crop`, globalScopePreview);
 
-							initialProps = {
-								identifier,
-								ssr: 'client',
-								dimensions: { width: 100, height: 100 },
-							};
-						} else {
-							// ssr-client will be created directly
-							initialProps = {
-								identifier,
-								ssr: 'client',
-								dimensions: { width: 100, height: 100 },
-							};
-						}
+						initialProps = {
+							identifier,
+							ssr: 'client',
+							dimensions: { width: 100, height: 100 },
+						};
 
 						const { result, rerender } = renderHook(useFilePreview, {
 							wrapper: ({ children }) => (
@@ -1975,6 +2054,16 @@ describe('useFilePreview', () => {
 
 					const getImageSpy = jest.spyOn(mediaApi, 'getImage');
 
+					// Setup global scope preview without dimensions
+					const globalScopePreview = {
+						dataURI: 'global-scope-datauri',
+						source: 'ssr-data',
+						// No dimensions - to test the resize behavior
+					};
+
+					const { id, collectionName } = identifier;
+					setGlobalSSRData(`${id}-${collectionName}-crop`, globalScopePreview);
+
 					const initialProps: UseFilePreviewParams = {
 						identifier,
 						ssr: 'client',
@@ -1989,7 +2078,7 @@ describe('useFilePreview', () => {
 					});
 
 					await waitFor(() => expect(result?.current.status).toBe('complete'));
-					expect(result?.current.preview?.source).toBe('ssr-client');
+					expect(result?.current.preview?.source).toBe('ssr-data');
 					expect(result?.current.preview?.dimensions).toBeUndefined();
 					expect(getImageSpy).not.toHaveBeenCalled();
 

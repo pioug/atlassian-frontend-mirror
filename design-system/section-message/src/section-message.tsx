@@ -115,7 +115,6 @@ const SectionMessage: React.ForwardRefExoticComponent<
 						primaryColor={primaryColor}
 						secondaryColor={secondaryColor}
 						// props for new icon
-						LEGACY_size="medium"
 						color={primaryColor}
 						spacing="spacious"
 					/>

@@ -55,7 +55,7 @@ export const BackButton: React.FC<Props & WrappedComponentProps> = ({
 							}
 						}}
 						appearance="subtle"
-						iconBefore={<ArrowleftIcon color="currentColor" label="" LEGACY_size="medium" />}
+						iconBefore={<ArrowleftIcon color="currentColor" label="" />}
 					>
 						{formatMessage(messages.help_panel_search_back)}
 					</Button>

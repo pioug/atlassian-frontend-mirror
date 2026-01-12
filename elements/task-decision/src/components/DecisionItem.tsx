@@ -48,7 +48,7 @@ const DecisionItem = ({
 }: Props) => {
 	const icon = (
 		<span contentEditable={false} css={[iconStyles, showPlaceholder && iconStylesWithPlaceholder]}>
-			<DecisionIcon label="Decision" spacing="spacious" color="currentColor" LEGACY_size="large" />
+			<DecisionIcon label="Decision" spacing="spacious" color="currentColor" />
 		</span>
 	);
 

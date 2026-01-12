@@ -1,5 +1,12 @@
 # @atlassian/smart-user-picker
 
+## 8.9.0
+
+### Minor Changes
+
+- [`1d3de95b5af00`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d3de95b5af00) -
+  Refactor verifiedTeams filter
+
 ## 8.8.0
 
 ### Minor Changes

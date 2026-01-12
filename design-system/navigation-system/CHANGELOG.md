@@ -1,5 +1,26 @@
 # @atlassian/navigation-system
 
+## 5.26.0
+
+### Minor Changes
+
+- [`05a04a1bfd2f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05a04a1bfd2f9) -
+  Panel splitter tooltips will now always fade in when the
+  `platform_dst_nav4_side_nav_resize_tooltip_feedback` gate is enabled.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.25.0
+
+### Minor Changes
+
+- [`e7b6c5d52b32e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e7b6c5d52b32e) -
+  Adds analytics tracking for flyout menu opening and closing, including the close source (close
+  button, escape key, outside click, other). These additional analytics are behind the
+  `platform_dst_nav4_flyout_menu_slots_close_button` feature gate.
+
 ## 5.24.0
 
 ### Minor Changes

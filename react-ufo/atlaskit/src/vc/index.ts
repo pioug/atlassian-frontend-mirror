@@ -40,6 +40,7 @@ export class VCObserverWrapper implements VCObserverInterface {
 					enablePageLayoutPlaceholder: opts.ssrEnablePageLayoutPlaceholder ?? false,
 				},
 				ssrPlaceholderHandler: this.ssrPlaceholderHandler,
+				searchPageConfig: opts.searchPageConfig,
 			});
 		}
 

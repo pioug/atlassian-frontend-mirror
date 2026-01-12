@@ -123,13 +123,7 @@ const renderPreview = (url: string) => {
 	const titleActions = [
 		{
 			name: ActionName.CustomAction,
-			icon: (
-				<ShortcutIcon
-					label="open in new tab"
-					LEGACY_size="medium"
-					color={token('color.icon', '#44546F')}
-				/>
-			),
+			icon: <ShortcutIcon label="open in new tab" color={token('color.icon', '#44546F')} />,
 			iconPosition: 'before',
 			onClick: () => {},
 			tooltipMessage: 'Go to',

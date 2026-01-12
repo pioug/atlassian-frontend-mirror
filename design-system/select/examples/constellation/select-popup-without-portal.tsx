@@ -20,7 +20,7 @@ const options = [
 const PopupSelectWithoutPortalExample = (): React.JSX.Element => {
 	return (
 		<PopupSelect
-			placeholder="Search labels..."
+			placeholder=""
 			searchThreshold={10}
 			options={options}
 			popperProps={{ strategy: 'fixed' }}

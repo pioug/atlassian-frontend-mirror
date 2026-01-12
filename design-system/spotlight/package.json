@@ -55,11 +55,12 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
+		"@af/accessibility-testing": "workspace:^",
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"react-dom": "root:*"
 	},
 	"platform-feature-flags": {

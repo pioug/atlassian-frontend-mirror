@@ -41,7 +41,11 @@ describe('Element: Badge', () => {
 	});
 
 	it('renders image as badge icon', async () => {
-		render(<Badge label="desc" url="src-loaded" />);
+		render(
+			<IntlProvider locale="en">
+				<Badge label="desc" url="src-loaded" />
+			</IntlProvider>,
+		);
 
 		const element = await screen.findByTestId('smart-element-badge-image');
 

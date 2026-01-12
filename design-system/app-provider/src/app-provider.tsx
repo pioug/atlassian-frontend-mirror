@@ -1,14 +1,17 @@
-import React, { createContext, useContext } from 'react';
+import React from 'react';
 
+import type { ThemeColorModes } from '@atlaskit/tokens';
+
+import { InsideAppProviderContext, useIsInsideAppProvider } from './context';
 import RouterLinkProvider, { type RouterLinkComponent } from './router-link-provider';
-import ThemeProvider, { type ColorMode, type Theme } from './theme-provider';
+import ThemeProvider from './theme-provider';
+import { type Theme } from './theme-provider/context/theme';
 
-const InsideAppProviderContext = createContext(false);
 interface AppProviderProps {
 	/**
 	 * Initial color mode.
 	 */
-	defaultColorMode?: ColorMode;
+	defaultColorMode?: ThemeColorModes;
 
 	/**
 	 * Theme settings.
@@ -50,7 +53,7 @@ function AppProvider({
 	routerLinkComponent,
 	UNSAFE_isThemingDisabled,
 }: AppProviderProps): React.JSX.Element {
-	const isInsideAppProvider = useContext(InsideAppProviderContext);
+	const isInsideAppProvider = useIsInsideAppProvider();
 
 	if (isInsideAppProvider) {
 		throw new Error('App provider should not be nested within another app provider.');

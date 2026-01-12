@@ -73,12 +73,7 @@ export const BasicSearchInput = ({
 							appearance="primary"
 							isLoading={isSearching}
 							icon={(iconProps) => (
-								<SearchIcon
-									{...iconProps}
-									LEGACY_size="medium"
-									spacing="spacious"
-									color="currentColor"
-								/>
+								<SearchIcon {...iconProps} spacing="spacious" color="currentColor" />
 							)}
 							spacing="compact"
 							type="submit"

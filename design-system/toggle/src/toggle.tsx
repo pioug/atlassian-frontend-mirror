@@ -11,7 +11,6 @@ import __noop from '@atlaskit/ds-lib/noop';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import CheckMarkIcon from '@atlaskit/icon/core/check-mark';
 import CloseIcon from '@atlaskit/icon/core/cross';
-import type { Size as IconSize } from '@atlaskit/icon/types';
 import Spinner from '@atlaskit/spinner';
 import { B200, G400, G500, N0, N20, N200, N400, N70 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -168,11 +167,6 @@ const analyticsAttributes = {
 	packageVersion: process.env._PACKAGE_VERSION_ as string,
 };
 
-const iconSizeMap: Record<Size, IconSize> = {
-	regular: 'small',
-	large: 'medium',
-};
-
 /**
  * __Toggle__
  *
@@ -241,8 +235,6 @@ const Toggle = memo(
 			'data-testid': testId ? testId : undefined,
 		};
 
-		const legacyIconSize = iconSizeMap[size];
-
 		const labelId = useId();
 		return (
 			<label {...controlProps} css={[basicStyles, sizeStyles[size]]}>
@@ -275,7 +267,6 @@ const Toggle = memo(
 						<CheckMarkIcon
 							label=""
 							color="currentColor"
-							LEGACY_size={legacyIconSize}
 							testId={testId && `${testId}--toggle-check-icon`}
 							size="small"
 						/>
@@ -288,7 +279,6 @@ const Toggle = memo(
 						<CloseIcon
 							label=""
 							color="currentColor"
-							LEGACY_size={legacyIconSize}
 							testId={testId && `${testId}--toggle-cross-icon`}
 							size="small"
 						/>

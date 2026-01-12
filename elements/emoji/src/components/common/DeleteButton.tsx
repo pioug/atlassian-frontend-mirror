@@ -51,7 +51,6 @@ const DeleteButton = (props: ButtonProps) => (
 					<CrossCircleIcon
 						label={deleteEmojiLabel}
 						color={token('color.text.subtle', N500)}
-						LEGACY_size="small"
 						size="small"
 					/>
 				</Box>

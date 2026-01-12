@@ -1,7 +1,6 @@
 import React, { createRef, useRef } from 'react';
 
-import { render } from '@testing-library/react';
-import { renderHook } from '@testing-library/react-hooks';
+import { render, renderHook } from '@testing-library/react';
 
 import useAutoFocus from '../use-auto-focus';
 

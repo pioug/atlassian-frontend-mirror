@@ -120,9 +120,7 @@ const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
 		[props.intl, props.getItems, onSelectItem, onInsertItem, props.emptyStateHandler],
 	);
 
-	const label = fg('platform_editor_fix_browse_modal_header')
-		? intl.formatMessage(messages.browse)
-		: undefined;
+	const label = intl.formatMessage(messages.browse);
 
 	return (
 		<div data-editor-popup={true}>
@@ -172,20 +170,12 @@ const Footer = ({
 						onClick={onInsert}
 						testId="ModalElementBrowser__insert-button"
 					>
-						{fg('platform_editor_dec_a11y_fixes')
-							? intl.formatMessage(messages.insert)
-							: 'Insert'}
+						{fg('platform_editor_dec_a11y_fixes') ? intl.formatMessage(messages.insert) : 'Insert'}
 					</Button>
 				</div>
 				<div css={actionItemStyles}>
-					<Button
-						appearance="subtle"
-						onClick={onClose}
-						testId="ModalElementBrowser__close-button"
-					>
-						{fg('platform_editor_dec_a11y_fixes')
-							? intl.formatMessage(messages.close)
-							: 'Close'}
+					<Button appearance="subtle" onClick={onClose} testId="ModalElementBrowser__close-button">
+						{fg('platform_editor_dec_a11y_fixes') ? intl.formatMessage(messages.close) : 'Close'}
 					</Button>
 				</div>
 			</div>

@@ -38,7 +38,7 @@
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
 		"@atlassian/codegen": "workspace:^",
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"fs-extra": "root:*",
 		"react-dom": "root:*",
 		"ts-node": "root:*"

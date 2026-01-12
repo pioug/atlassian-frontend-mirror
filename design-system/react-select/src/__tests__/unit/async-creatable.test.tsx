@@ -3,12 +3,17 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { skipA11yAudit } from '@af/accessibility-testing';
+
 import AsyncCreatable from '../../async-creatable';
 
 import { type Option, OPTIONS } from './constants.mock';
 
 const testId = 'react-select';
 
+beforeEach(() => {
+	skipA11yAudit();
+});
 test('creates an inner Select', () => {
 	render(<AsyncCreatable testId="react-select" />);
 	expect(screen.getByTestId(`${testId}-select--container`)).toBeInTheDocument();

@@ -54,9 +54,7 @@ export class FocusedTaskCloseAccount extends React.Component<Props, State> {
 				<Drawer isOpen={isOpen} onClose={onClose} width="full">
 					<DrawerSidebar>
 						<DrawerCloseButton
-							icon={(props: any) => (
-								<CrossIcon color="currentColor" label="" {...props} LEGACY_size="medium" />
-							)}
+							icon={(props: any) => <CrossIcon color="currentColor" label="" {...props} />}
 						/>
 					</DrawerSidebar>
 					<DrawerContent>

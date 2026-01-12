@@ -1,5 +1,5 @@
 {
-	"extends": "../../../../tsconfig.entry-points.confluence.json",
+	"extends": "../../../../tsconfig.local-consumption.json",
 	"compilerOptions": {
 		"declaration": true,
 		"target": "es5",

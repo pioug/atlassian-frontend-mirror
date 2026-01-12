@@ -200,6 +200,7 @@ export type Config = {
 	readonly extraSearchPageInteraction?: {
 		readonly enabled: boolean;
 		readonly searchPageMetricName: string;
+		readonly searchPageRoute: string;
 	};
 	readonly enableVCRawDataRates?: {
 		readonly enabled?: boolean;

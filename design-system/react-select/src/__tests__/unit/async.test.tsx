@@ -5,11 +5,17 @@ import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event';
 import cases from 'jest-in-case';
 
+import { skipA11yAudit } from '@af/accessibility-testing';
+
 import Async from '../../async';
 
 import { type Option, OPTIONS } from './constants.mock';
 
 const testId = 'react-select';
+
+beforeEach(() => {
+	skipA11yAudit();
+});
 
 /**
  * loadOptions with promise is not resolved and it renders loading options

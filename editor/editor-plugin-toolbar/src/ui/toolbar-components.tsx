@@ -365,49 +365,47 @@ export const getToolbarComponents = (
 		},
 	];
 
-	if (expValEquals('platform_editor_toolbar_migrate_loom', 'isEnabled', true)) {
-		components.push(
-			{
-				type: OVERFLOW_SECTION_PRIMARY_TOOLBAR.type,
-				key: OVERFLOW_SECTION_PRIMARY_TOOLBAR.key,
-				parents: [
-					{
-						type: 'toolbar',
-						key: TOOLBARS.PRIMARY_TOOLBAR,
-						rank: TOOLBAR_RANK[OVERFLOW_SECTION_PRIMARY_TOOLBAR.key],
-					},
-				],
-				component: ({ children }) => {
-					return <OverflowSection>{children}</OverflowSection>;
+	components.push(
+		{
+			type: OVERFLOW_SECTION_PRIMARY_TOOLBAR.type,
+			key: OVERFLOW_SECTION_PRIMARY_TOOLBAR.key,
+			parents: [
+				{
+					type: 'toolbar',
+					key: TOOLBARS.PRIMARY_TOOLBAR,
+					rank: TOOLBAR_RANK[OVERFLOW_SECTION_PRIMARY_TOOLBAR.key],
 				},
+			],
+			component: ({ children }) => {
+				return <OverflowSection>{children}</OverflowSection>;
 			},
-			{
-				type: OVERFLOW_GROUP_PRIMARY_TOOLBAR.type,
-				key: OVERFLOW_GROUP_PRIMARY_TOOLBAR.key,
-				parents: [
-					{
-						type: OVERFLOW_SECTION_PRIMARY_TOOLBAR.type,
-						key: OVERFLOW_SECTION_PRIMARY_TOOLBAR.key,
-						rank: OVERFLOW_SECTION_PRIMARY_TOOLBAR_RANK[OVERFLOW_GROUP_PRIMARY_TOOLBAR.key],
-					},
-				],
-			},
-			{
-				type: OVERFLOW_MENU_PRIMARY_TOOLBAR.type,
-				key: OVERFLOW_MENU_PRIMARY_TOOLBAR.key,
-				parents: [
-					{
-						type: OVERFLOW_GROUP_PRIMARY_TOOLBAR.type,
-						key: OVERFLOW_GROUP_PRIMARY_TOOLBAR.key,
-						rank: OVERFLOW_GROUP_PRIMARY_TOOLBAR_RANK[OVERFLOW_MENU_PRIMARY_TOOLBAR.key],
-					},
-				],
-				component: ({ children }) => {
-					return <OverflowMenu>{children}</OverflowMenu>;
+		},
+		{
+			type: OVERFLOW_GROUP_PRIMARY_TOOLBAR.type,
+			key: OVERFLOW_GROUP_PRIMARY_TOOLBAR.key,
+			parents: [
+				{
+					type: OVERFLOW_SECTION_PRIMARY_TOOLBAR.type,
+					key: OVERFLOW_SECTION_PRIMARY_TOOLBAR.key,
+					rank: OVERFLOW_SECTION_PRIMARY_TOOLBAR_RANK[OVERFLOW_GROUP_PRIMARY_TOOLBAR.key],
 				},
+			],
+		},
+		{
+			type: OVERFLOW_MENU_PRIMARY_TOOLBAR.type,
+			key: OVERFLOW_MENU_PRIMARY_TOOLBAR.key,
+			parents: [
+				{
+					type: OVERFLOW_GROUP_PRIMARY_TOOLBAR.type,
+					key: OVERFLOW_GROUP_PRIMARY_TOOLBAR.key,
+					rank: OVERFLOW_GROUP_PRIMARY_TOOLBAR_RANK[OVERFLOW_MENU_PRIMARY_TOOLBAR.key],
+				},
+			],
+			component: ({ children }) => {
+				return <OverflowMenu>{children}</OverflowMenu>;
 			},
-		);
-	}
+		},
+	);
 
 	if (fg('platform_editor_toolbar_aifc_placement_config')) {
 		switch (contextualFormattingEnabled) {

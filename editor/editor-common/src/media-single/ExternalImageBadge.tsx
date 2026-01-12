@@ -65,7 +65,7 @@ export const ExternalImageBadge = ({
 		<Box padding="space.050" xcss={baseStyles} tabIndex={0}>
 			<div data-testid="external-image-badge" />
 			<Tooltip content={message} position="top">
-				<InfoIcon LEGACY_size="small" label={message} />
+				<InfoIcon label={message} />
 			</Tooltip>
 		</Box>
 	);

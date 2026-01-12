@@ -65,7 +65,7 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:*",
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"react-dom": "root:*"
 	},
 	"techstack": {

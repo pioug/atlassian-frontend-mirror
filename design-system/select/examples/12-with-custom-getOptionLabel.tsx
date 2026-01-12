@@ -37,7 +37,7 @@ class WithCustomGetOptionLabel extends Component<{}, State> {
 								value: 'one',
 							},
 						]}
-						placeholder="Choose a City"
+						placeholder=""
 						getOptionLabel={customGetOptionLabel}
 					/>
 				) : (
@@ -49,7 +49,7 @@ class WithCustomGetOptionLabel extends Component<{}, State> {
 								value: 'one',
 							},
 						]}
-						placeholder="Choose a City"
+						placeholder=""
 					/>
 				)}
 

@@ -35,7 +35,7 @@ const SelectGroupedOptionsExample = (): React.JSX.Element => (
 					],
 				},
 			]}
-			placeholder="Choose a city"
+			placeholder=""
 		/>
 	</>
 );

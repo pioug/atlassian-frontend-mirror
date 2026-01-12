@@ -116,13 +116,7 @@ function MenuButtonTrigger({
 				ref={triggerRef}
 				{...props}
 				iconBefore={
-					<MoreIcon
-						spacing="compact"
-						color="currentColor"
-						label="actions"
-						LEGACY_size={size}
-						size="small"
-					/>
+					<MoreIcon spacing="compact" color="currentColor" label="actions" size="small" />
 				}
 				spacing={spacing}
 				css={isOnlyVisibleWhenFocused && !props.isSelected && hiddenStyles}

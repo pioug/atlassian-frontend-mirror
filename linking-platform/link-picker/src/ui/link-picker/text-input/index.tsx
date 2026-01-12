@@ -168,7 +168,6 @@ export const TextInput = ({
 				testId={testIds.clearUrlButton}
 			>
 				<Selectclear
-					LEGACY_size="medium"
 					label={clearLabel || ''}
 					color={token('color.icon.subtle')}
 					spacing="spacious"

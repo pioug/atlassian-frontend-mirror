@@ -1,5 +1,14 @@
 # @atlaskit/logo
 
+## 19.9.8
+
+### Patch Changes
+
+- [`6b0e9efb86b3f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b0e9efb86b3f) -
+  Fixes an issue where Logo Icon entrypoints were importing logos from the package entrypoint,
+  leading to all icons being bundled and bundlesizes for entrypoint consumers to increase by 250kb
+  gzipped. Now these entrypoints only import the minimal amount of code necessary.
+
 ## 19.9.7
 
 ### Patch Changes

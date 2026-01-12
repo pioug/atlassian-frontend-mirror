@@ -1,5 +1,19 @@
 # @atlaskit/tooltip
 
+## 20.13.0
+
+### Minor Changes
+
+- [`05a04a1bfd2f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05a04a1bfd2f9) -
+  Adds the experimental `UNSAFE_shouldAlwaysFadeIn` prop behind the
+  `platform_dst_nav4_side_nav_resize_tooltip_feedback` feature gate. When used, the tooltip will
+  always use the fade in animation, and never use the show immediate behaviour, even when another
+  tooltip is already visible.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.12.0
 
 ### Minor Changes

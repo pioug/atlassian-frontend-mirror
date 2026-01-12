@@ -203,7 +203,7 @@ const CommentEditorConfluence = ({ editorProps, replacementDoc }: Props): React.
 									allowExtension={true}
 									extensionHandlers={extensionHandlers}
 									secondaryToolbarComponents={[
-										<LockCircleIcon key="permission" LEGACY_size="large" label="Permissions" />,
+										<LockCircleIcon key="permission" label="Permissions" />,
 									]}
 									{...editorProps}
 								/>

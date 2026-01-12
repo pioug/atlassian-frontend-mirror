@@ -40,8 +40,16 @@ export default class VCCalculator_FY26_04 extends VCCalculator_FY25_03 {
 		super('fy26.04');
 	}
 
-	protected isEntryIncluded(entry: VCObserverEntry, include3p?: boolean): boolean {
-		const isEntryIncludedInV3 = super.isEntryIncluded(entry, include3p);
+	protected isEntryIncluded(
+		entry: VCObserverEntry,
+		include3p?: boolean,
+		excludeSmartAnswersInSearch?: boolean,
+	): boolean {
+		const isEntryIncludedInV3 = super.isEntryIncluded(
+			entry,
+			include3p,
+			excludeSmartAnswersInSearch,
+		);
 
 		if (isEntryIncludedInV3 && !getExcludedEntryTypes().includes(entry.data.type)) {
 			return true;

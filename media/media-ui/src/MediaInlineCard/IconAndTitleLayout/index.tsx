@@ -67,12 +67,7 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
 
 		return (
 			<IconWrapper>
-				<LinkIcon
-					color="currentColor"
-					label="link"
-					LEGACY_size="small"
-					testId={`${testId}-default`}
-				/>
+				<LinkIcon color="currentColor" label="link" testId={`${testId}-default`} />
 			</IconWrapper>
 		);
 	}

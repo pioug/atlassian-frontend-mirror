@@ -44,9 +44,7 @@ export const EmojiPickerPopup = ({
 						label="Add reaction"
 						{...triggerProps}
 						onClick={() => setEmojiPickerOpen(true)}
-						icon={(iconProps) => (
-							<EmojiAddIcon color="currentColor" {...iconProps} LEGACY_size="small" />
-						)}
+						icon={(iconProps) => <EmojiAddIcon color="currentColor" {...iconProps} />}
 						spacing="compact"
 					/>
 				)}

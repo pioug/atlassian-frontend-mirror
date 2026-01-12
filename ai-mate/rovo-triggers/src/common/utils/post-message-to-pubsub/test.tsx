@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { render, waitFor } from '@testing-library/react';
-import { act, renderHook } from '@testing-library/react-hooks';
+import { act, render, renderHook, waitFor } from '@testing-library/react';
 import { bind } from 'bind-event-listener';
 
 import { usePublish } from '../../../main';

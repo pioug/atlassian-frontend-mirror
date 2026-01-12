@@ -63,7 +63,6 @@ const renderValidatorIcon = (lastValidationResult: AqlValidationResult) => {
 			<CrossCircleIcon
 				label="label"
 				color={token('color.icon.danger', R400)}
-				LEGACY_size="medium"
 				testId="assets-datasource-modal--aql-invalid"
 				spacing="spacious"
 			/>
@@ -74,7 +73,6 @@ const renderValidatorIcon = (lastValidationResult: AqlValidationResult) => {
 			<CheckCircleIcon
 				label="label"
 				color={token('color.icon.success', G300)}
-				LEGACY_size="medium"
 				testId="assets-datasource-modal--aql-valid"
 				spacing="spacious"
 			/>
@@ -83,7 +81,6 @@ const renderValidatorIcon = (lastValidationResult: AqlValidationResult) => {
 	return (
 		<SearchIcon
 			label="label"
-			LEGACY_size="medium"
 			testId="assets-datasource-modal--aql-idle"
 			color="currentColor"
 			spacing="spacious"
@@ -127,7 +124,6 @@ export const AqlSearchInput = ({
 											<QuestionCircleIcon
 												label="label"
 												color={token('color.icon', N500)}
-												LEGACY_size="medium"
 												testId="assets-datasource-modal-help"
 												spacing="spacious"
 											/>
@@ -139,12 +135,7 @@ export const AqlSearchInput = ({
 											appearance="primary"
 											isLoading={isSearching}
 											icon={(iconProps) => (
-												<SearchIcon
-													{...iconProps}
-													LEGACY_size="medium"
-													spacing="spacious"
-													color="currentColor"
-												/>
+												<SearchIcon {...iconProps} spacing="spacious" color="currentColor" />
 											)}
 											spacing="compact"
 											type="submit"

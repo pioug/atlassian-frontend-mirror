@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 7.1.0
+
+### Minor Changes
+
+- [`07f6a9c1146dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/07f6a9c1146dd) -
+  [https://hello.jira.atlassian.cloud/browse/EDITOR-4333](EDITOR-4333) - clean up
+  platform_editor_fix_browse_modal_header
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.1
 
 ### Patch Changes

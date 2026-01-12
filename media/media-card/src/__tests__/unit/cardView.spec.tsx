@@ -711,7 +711,7 @@ describe('CardView', () => {
 		const downloadAction = {
 			label: 'Download',
 			handler: jest.fn(),
-			icon: <DownloadIcon color="currentColor" LEGACY_size="small" label="annotate" />,
+			icon: <DownloadIcon color="currentColor" label="annotate" />,
 		};
 
 		const screen = render(

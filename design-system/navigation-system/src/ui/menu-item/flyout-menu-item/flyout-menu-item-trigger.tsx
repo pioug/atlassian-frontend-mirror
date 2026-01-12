@@ -2,18 +2,25 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, type ReactNode } from 'react';
+import { forwardRef, type ReactNode, useCallback, useContext } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { PopupTrigger } from '@atlaskit/popup/experimental';
 import { token } from '@atlaskit/tokens';
 
 import { MenuItemBase } from '../menu-item';
 import { type COLLAPSE_ELEM_BEFORE_TYPE } from '../menu-item-signals';
 import type { MenuItemCommonProps, MenuItemOnClick } from '../types';
+
+import {
+	IsOpenContext,
+	OnCloseContext,
+} from './flyout-menu-item-context';
 
 const elemAfterStyles = cssMap({
 	root: {
@@ -84,38 +91,58 @@ export const FlyoutMenuItemTrigger: React.ForwardRefExoticComponent<
 			dropIndicator,
 		},
 		forwardedRef,
-	) => (
-		<PopupTrigger>
-			{({
-				ref,
-				'aria-controls': ariaControls,
-				'aria-expanded': ariaExpanded,
-				'aria-haspopup': ariaHasPopup,
-			}) => (
-				<MenuItemBase
-					testId={testId}
-					ref={mergeRefs([ref, forwardedRef])}
-					visualContentRef={visualContentRef}
-					elemBefore={elemBefore}
-					elemAfter={
-						<div css={elemAfterStyles.root}>
-							<ChevronRightIcon label="" color="currentColor" size="small" />
-						</div>
-					}
-					onClick={onClick}
-					ariaControls={ariaControls}
-					ariaExpanded={ariaExpanded}
-					ariaHasPopup={ariaHasPopup}
-					interactionName={interactionName}
-					isContentTooltipDisabled={isContentTooltipDisabled}
-					isSelected={isSelected}
-					isDragging={isDragging}
-					hasDragIndicator={hasDragIndicator}
-					dropIndicator={dropIndicator}
-				>
-					{children}
-				</MenuItemBase>
-			)}
-		</PopupTrigger>
-	),
+	) => {
+		const isOpen = useContext(IsOpenContext);
+		const onCloseRef = useContext(OnCloseContext);
+
+		const handleClick = useCallback((
+			event: React.MouseEvent<HTMLButtonElement>,
+			analyticsEvent: UIAnalyticsEvent,
+		) => {
+			// If the flyout is open and the trigger is clicked, close the flyout and call the onClick
+			// handler with the source information set to 'outside-click'.
+			if (fg('platform_dst_nav4_flyout_menu_slots_close_button')) {
+				if (isOpen && onCloseRef.current) {
+					onCloseRef.current(event, 'outside-click');
+				}
+			}
+
+			onClick?.(event, analyticsEvent);
+		}, [isOpen, onCloseRef, onClick]);
+
+		return (
+			<PopupTrigger>
+				{({
+					ref,
+					'aria-controls': ariaControls,
+					'aria-expanded': ariaExpanded,
+					'aria-haspopup': ariaHasPopup,
+				}) => (
+					<MenuItemBase
+						testId={testId}
+						ref={mergeRefs([ref, forwardedRef])}
+						visualContentRef={visualContentRef}
+						elemBefore={elemBefore}
+						elemAfter={
+							<div css={elemAfterStyles.root}>
+								<ChevronRightIcon label="" color="currentColor" size="small" />
+							</div>
+						}
+						onClick={handleClick}
+						ariaControls={ariaControls}
+						ariaExpanded={ariaExpanded}
+						ariaHasPopup={ariaHasPopup}
+						interactionName={interactionName}
+						isContentTooltipDisabled={isContentTooltipDisabled}
+						isSelected={isSelected}
+						isDragging={isDragging}
+						hasDragIndicator={hasDragIndicator}
+						dropIndicator={dropIndicator}
+					>
+						{children}
+					</MenuItemBase>
+				)}
+			</PopupTrigger>
+		);
+	},
 );

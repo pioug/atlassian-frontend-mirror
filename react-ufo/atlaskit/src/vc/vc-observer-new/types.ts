@@ -17,6 +17,8 @@ export type VCObserverEntryType =
 	| 'mutation:rll-placeholder'
 	| 'mutation:third-party-element'
 	| 'mutation:third-party-attribute'
+	| 'mutation:smart-answers-element'
+	| 'mutation:smart-answers-attribute'
 	| 'mutation:ssr-placeholder'
 	| 'layout-shift'
 	| 'layout-shift:same-rect'

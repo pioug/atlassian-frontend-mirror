@@ -89,7 +89,7 @@ export const deleteAction: {
 	handler: () => {
 		console.log('delete');
 	},
-	icon: <CrossIcon color="currentColor" LEGACY_size="small" label="delete" />,
+	icon: <CrossIcon color="currentColor" label="delete" />,
 };
 
 export const annotateCardAction: CardAction = {

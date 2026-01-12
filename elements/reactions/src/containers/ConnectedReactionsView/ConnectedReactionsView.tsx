@@ -16,7 +16,6 @@ import {
 	type Store,
 } from '../../types';
 import { type ReactionUpdateSuccess } from '../../types/reaction';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 export interface ConnectedReactionsViewProps
 	extends Pick<
@@ -198,9 +197,6 @@ export const ConnectedReactionsView = (
 
 	const resolveStore = useCallback(
 		(store: Store) => {
-			if (!fg('jfp-magma-ssr-issue-view-comment-reactions')) {
-				return;
-			}
 			if (store.setCreateAnalyticsEvent && createAnalyticsEvent) {
 				store.setCreateAnalyticsEvent(createAnalyticsEvent);
 			}
@@ -214,19 +210,13 @@ export const ConnectedReactionsView = (
 	);
 
 	useMemo(() => {
-		if (!fg('jfp-magma-ssr-issue-view-comment-reactions')) {
-			return;
-		}
 		if (!('then' in store)) {
 			// Store is not a Promise
 			resolveStore(store);
 		}
-	}, [, store, resolveStore]);
+	}, [store, resolveStore]);
 
 	useEffect(() => {
-		if (!fg('jfp-magma-ssr-issue-view-comment-reactions')) {
-			return;
-		}
 		(async () => {
 			if ('then' in store) {
 				// Store is a Promise
@@ -235,23 +225,6 @@ export const ConnectedReactionsView = (
 			}
 		})();
 	}, [store, resolveStore]);
-
-	useEffect(() => {
-		if (fg('jfp-magma-ssr-issue-view-comment-reactions')) {
-			return;
-		}
-		(async () => {
-			const _store = await Promise.resolve(store);
-			if (_store.setCreateAnalyticsEvent && createAnalyticsEvent) {
-				_store.setCreateAnalyticsEvent(createAnalyticsEvent);
-			}
-
-			const state = mapStateToProps(_store.getState());
-			const dispatch = mapDispatchToProps(_store);
-			setStateData(state);
-			setDispatchData(dispatch);
-		})();
-	}, [createAnalyticsEvent, store, ari, containerAri, mapStateToProps, mapDispatchToProps]);
 
 	/**
 	 * Listen to changes on the store data.

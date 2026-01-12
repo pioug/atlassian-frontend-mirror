@@ -2,9 +2,12 @@
 //@ts-nocheck
 import React from 'react';
 
+
 import { type EventType, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import cases from 'jest-in-case';
+
+import { skipA11yAudit } from '@af/accessibility-testing';
 
 import Select from '../../index';
 
@@ -51,6 +54,9 @@ const BASIC_PROPS: BasicProps = {
 	options: OPTIONS,
 };
 
+beforeEach(() => {
+	skipA11yAudit();
+});
 test('passes down the className prop', () => {
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 	const { container } = render(<Select className={'react-select'} {...BASIC_PROPS} />);

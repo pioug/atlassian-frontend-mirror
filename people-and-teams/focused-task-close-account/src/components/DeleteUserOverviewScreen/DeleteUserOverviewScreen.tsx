@@ -132,7 +132,7 @@ export class DeleteUserOverviewScreen extends React.Component<DeleteUserOverview
 							</Styled.InlineDialogContent>
 						}
 					>
-						<InfoIcon color="currentColor" label="" LEGACY_size="small" />
+						<InfoIcon color="currentColor" label="" />
 					</StatefulInlineDialog>
 				</Styled.IconHoverWrapper>
 			</li>
@@ -168,7 +168,7 @@ export class DeleteUserOverviewScreen extends React.Component<DeleteUserOverview
 							/>
 						}
 					>
-						<InfoIcon color="currentColor" label="" LEGACY_size="small" />
+						<InfoIcon color="currentColor" label="" />
 					</StatefulInlineDialog>
 				</Styled.IconHoverWrapper>
 			</li>
@@ -199,7 +199,7 @@ export class DeleteUserOverviewScreen extends React.Component<DeleteUserOverview
 							/>
 						}
 					>
-						<InfoIcon color="currentColor" label="" LEGACY_size="small" />
+						<InfoIcon color="currentColor" label="" />
 					</StatefulInlineDialog>
 				</Styled.IconHoverWrapper>
 			</li>

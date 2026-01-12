@@ -139,7 +139,7 @@ export default function CommentWithJiraCardsExample() {
 									onClick={handleClick}
 								>
 									<strong>Details</strong>
-									<ChevronDown label="" LEGACY_size="medium" size="small" />
+									<ChevronDown label="" size="small" />
 								</div>
 								{isOpen && (
 									<div css={detialsContentContainer}>

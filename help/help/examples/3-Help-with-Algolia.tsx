@@ -714,7 +714,6 @@ const Example = (): React.JSX.Element => {
 												icon: (
 													<ShipIcon
 														color={token('color.icon.subtle', colors.N600)}
-														LEGACY_size="medium"
 														spacing="spacious"
 														label=""
 													/>

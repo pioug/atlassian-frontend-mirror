@@ -37,35 +37,30 @@ const closeEmojiUploadButton = css({
 });
 
 const emojiUpload = css({
-	height: '78px',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-	padding: '10px',
+	paddingTop: token('space.100'),
+	paddingRight: token('space.100'),
+	paddingBottom: token('space.100'),
+	paddingLeft: token('space.100'),
 	display: 'flex',
 	flexDirection: 'column',
 	justifyContent: 'space-around',
 });
 
 const emojiUploadTop = css({
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-	paddingBottom: '7px',
+	paddingBottom: token('space.100'),
 	display: 'flex',
 	justifyContent: 'space-between',
 	alignItems: 'flex-end',
 	font: token('font.body.UNSAFE_small'),
 });
 
-const headingH5 = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	'&&': {
-		font: token('font.body.UNSAFE_small'),
-		fontWeight: token('font.weight.semibold', '600'),
-	},
+const labelStyles = css({
+	font: token('font.body.small'),
+	fontWeight: token('font.weight.semibold'),
 });
 
 const uploadChooseFileEmojiName = css({
 	flex: '1 1 auto',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-	marginRight: '5px',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	input: {
 		background: 'transparent',
@@ -92,8 +87,8 @@ const uploadChooseFileMessage = css({
 const uploadChooseFileRow = css({
 	display: 'flex',
 	justifyContent: 'space-between',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-	paddingBottom: '7px',
+	paddingBottom: token('space.100'),
+	columnGap: token('space.075'),
 });
 
 export interface OnUploadEmoji {
@@ -190,7 +185,7 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 	return (
 		<div css={emojiUpload} data-testid={uploadEmojiComponentTestId}>
 			<div css={emojiUploadTop}>
-				<label css={[uploadChooseFileMessage, headingH5]} htmlFor="new-emoji-name-input">
+				<label css={[uploadChooseFileMessage, labelStyles]} htmlFor="new-emoji-name-input">
 					<FormattedMessage {...messages.addCustomEmojiLabel} />
 				</label>
 				<div css={closeEmojiUploadButton}>
@@ -202,7 +197,7 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 						shouldFitContainer={true}
 						testId={cancelEmojiUploadPickerTestId}
 					>
-						<CrossIcon color="currentColor" LEGACY_size="small" label={cancelLabel} />
+						<CrossIcon color="currentColor" label={cancelLabel} />
 					</AkButton>
 				</div>
 			</div>

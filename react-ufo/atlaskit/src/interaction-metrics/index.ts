@@ -1272,6 +1272,14 @@ export function addNewInteraction(
 	const addFeatureFlagsToInteraction = coinflip(getCapabilityRate('feature_flag_access'));
 
 	const config = getConfig();
+
+	const searchPageConfig = fg('rovo_search_page_ttvc_ignoring_smart_answers_fix')
+			? {
+					enableSmartAnswersMutations: config?.extraSearchPageInteraction?.enabled,
+					searchPageRoute: config?.extraSearchPageInteraction?.searchPageRoute,
+				}
+			: undefined;
+
 	if (config && config.vc) {
 		const vcOptions = {
 			heatmapSize: config.vc.heatmapSize,
@@ -1279,6 +1287,7 @@ export function addNewInteraction(
 			devToolsEnabled: config.vc.devToolsEnabled,
 			selectorConfig: config.vc.selectorConfig,
 			ssrEnablePageLayoutPlaceholder: config.vc.ssrEnablePageLayoutPlaceholder,
+			searchPageConfig,
 		};
 		vcObserver = newVCObserver(vcOptions);
 	}

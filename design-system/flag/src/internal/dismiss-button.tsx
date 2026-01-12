@@ -26,26 +26,18 @@ const DismissButtonComponent = ({
 	let ButtonIcon = CrossIcon;
 	let buttonLabel = 'Dismiss';
 
-	let size: 'small' | 'medium' = 'small';
 	let buttonTestId = testId && `${testId}-dismiss`;
 
 	if (isBold) {
 		ButtonIcon = isExpanded ? ChevronUpIcon : ChevronDownIcon;
 		buttonLabel = isExpanded ? 'Collapse' : 'Expand';
-		size = 'medium';
 		buttonTestId = testId && `${testId}-toggle`;
 	}
 
 	return (
 		<IconButton
 			icon={(iconProps) => (
-				<ButtonIcon
-					{...iconProps}
-					LEGACY_size={size}
-					size="small"
-					label=""
-					color={flagTextColorToken[appearance]}
-				/>
+				<ButtonIcon {...iconProps} size="small" label="" color={flagTextColorToken[appearance]} />
 			)}
 			appearance="subtle"
 			spacing="compact"

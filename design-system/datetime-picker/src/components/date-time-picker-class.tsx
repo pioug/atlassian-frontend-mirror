@@ -394,12 +394,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 						tabIndex={-1}
 						type="button"
 					>
-						<SelectClearIcon
-							LEGACY_size="small"
-							color="currentColor"
-							label={clearControlLabel}
-							size="small"
-						/>{' '}
+						<SelectClearIcon color="currentColor" label={clearControlLabel} size="small" />{' '}
 					</button>
 				) : null}
 			</DateTimePickerContainer>

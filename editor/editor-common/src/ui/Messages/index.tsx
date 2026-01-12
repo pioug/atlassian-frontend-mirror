@@ -61,7 +61,6 @@ export const ErrorMessage = ({ children }: Props) => {
 		>
 			<span css={iconWrapperStyle}>
 				<ErrorIcon
-					LEGACY_size="small"
 					label={fg('platform_editor_dec_a11y_fixes') ? intl.formatMessage(commonMessages.error) : "error"}
 					aria-label={fg('platform_editor_dec_a11y_fixes') ? undefined : "error"}
 				/>
@@ -81,8 +80,8 @@ export const ValidMessage = ({ children }: Props) => {
 		>
 			<span css={iconWrapperStyle}>
 				{fg('platform_editor_dec_a11y_fixes')
-					? <SuccessIcon LEGACY_size="small" label={intl.formatMessage(commonMessages.success)} />
-					: <SuccessIcon LEGACY_size="small" label="success" />
+					? <SuccessIcon label={intl.formatMessage(commonMessages.success)} />
+					: <SuccessIcon label="success" />
 				}
 			</span>
 			{children}

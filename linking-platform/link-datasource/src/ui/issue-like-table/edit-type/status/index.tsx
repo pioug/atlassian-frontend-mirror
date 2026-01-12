@@ -91,6 +91,9 @@ const StatusEditType = (props: StatusEditTypeProps): React.JSX.Element => {
 						values: e ? [e] : [],
 					})
 				}
+				shouldPreventEscapePropagation={
+					fg('platform_navx_sllv_dropdown_escape_and_focus_fix') ? true : undefined
+				}
 			/>
 		</Layering>
 	);

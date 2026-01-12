@@ -76,7 +76,6 @@ export const TRANSFORMATION_MATRIX: Record<
 		layoutSection: [wrapMixedContentStep],
 		panel: [unwrapStep, wrapStep],
 		paragraph: [unwrapStep],
-		heading: [unwrapStep, applyTargetTextTypeStep],
 		decisionList: [unwrapStep, wrapBlockquoteToDecisionListStep],
 	},
 	layoutSection: {
@@ -164,7 +163,6 @@ export const TRANSFORMATION_MATRIX: Record<
 		orderedList: [decisionListToListStep],
 		taskList: [decisionListToListStep],
 		blockquote: [unwrapListStep, wrapStep],
-		codeBlock: [unwrapListStep, wrapMixedContentStep],
 		expand: [wrapStep],
 		nestedExpand: [wrapStep],
 		layoutSection: [wrapMixedContentStep],

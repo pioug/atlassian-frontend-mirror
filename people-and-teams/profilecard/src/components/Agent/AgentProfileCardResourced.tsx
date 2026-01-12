@@ -104,8 +104,8 @@ export const AgentProfileCardResourced = (
 						}
 
 						const creatorInfo = await props.resourceClient.getProfile(
-							creatorUserId,
 							props.cloudId,
+							creatorUserId,
 							fireAnalytics,
 							fireEventNext,
 						);

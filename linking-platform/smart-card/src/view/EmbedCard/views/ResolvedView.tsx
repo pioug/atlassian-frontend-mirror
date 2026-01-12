@@ -84,14 +84,7 @@ const EmbedCardResolvedViewOld = React.forwardRef<HTMLIFrameElement, EmbedCardRe
 		const src = typeof iconFromContext === 'string' ? iconFromContext : undefined;
 		const text = title || context?.text;
 		const linkGlyph = React.useMemo(
-			() => (
-				<LinkGlyph
-					label="icon"
-					LEGACY_size="small"
-					testId="embed-card-fallback-icon"
-					color="currentColor"
-				/>
-			),
+			() => <LinkGlyph label="icon" testId="embed-card-fallback-icon" color="currentColor" />,
 			[],
 		);
 
@@ -181,14 +174,7 @@ const EmbedCardResolvedViewUpdated = React.forwardRef<
 		const src = typeof iconFromContext === 'string' ? iconFromContext : undefined;
 		const text = title || context?.text;
 		const linkGlyph = React.useMemo(
-			() => (
-				<LinkGlyph
-					label="icon"
-					LEGACY_size="small"
-					testId="embed-card-fallback-icon"
-					color="currentColor"
-				/>
-			),
+			() => <LinkGlyph label="icon" testId="embed-card-fallback-icon" color="currentColor" />,
 			[],
 		);
 

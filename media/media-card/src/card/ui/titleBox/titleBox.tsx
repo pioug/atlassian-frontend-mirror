@@ -44,7 +44,7 @@ export const TitleBox = injectIntl(
 			</TitleBoxFooter>
 			{titleBoxIcon === 'LockFilledIcon' && (
 				<TitleBoxIcon>
-					<LockFilledIcon color="currentColor" label="" LEGACY_size="small" size="small" />
+					<LockFilledIcon color="currentColor" label="" size="small" />
 				</TitleBoxIcon>
 			)}
 		</TitleBoxWrapper>

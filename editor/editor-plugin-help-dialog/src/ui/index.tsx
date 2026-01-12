@@ -17,7 +17,6 @@ import { helpDialogMessages as messages } from '@atlaskit/editor-common/messages
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import AkModalDialog, { ModalTransition } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { HelpDialogPlugin } from '../helpDialogPluginType';
 import { closeHelpCommand } from '../pm-plugins/commands';
@@ -91,9 +90,7 @@ const HelpDialog = ({
 		aiEnabled,
 	);
 
-	const label = fg('platform_editor_fix_help_modal_header')
-		? intl.formatMessage(messages.editorHelp)
-		: undefined;
+	const label = intl.formatMessage(messages.editorHelp);
 
 	return (
 		<ModalTransition>

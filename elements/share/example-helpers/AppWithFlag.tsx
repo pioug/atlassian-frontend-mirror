@@ -47,7 +47,6 @@ export default class AppWithFlag extends React.PureComponent<Props, State> {
 								icon={
 									<SuccessIcon
 										label="Success"
-										LEGACY_size="medium"
 										spacing="spacious"
 										color={token('color.icon.success', G300)}
 									/>

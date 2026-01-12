@@ -85,6 +85,7 @@ function Tooltip({
 	ignoreTooltipPointerEvents = false,
 	isScreenReaderAnnouncementDisabled = false,
 	shortcut,
+	UNSAFE_shouldAlwaysFadeIn: shouldAlwaysFadeIn = false,
 }: TooltipProps): React.JSX.Element {
 	// Not using a gate for this check. When the gate is disabled `mouse-y` and `mouse-x` are treated as `mouse`.
 	const isMousePosition = position === 'mouse' || position === 'mouse-y' || position === 'mouse-x';
@@ -130,6 +131,7 @@ function Tooltip({
 	const delayStable = useStableRef(delay);
 	const canAppearStable = useStableRef(canAppear);
 	const hasCalledShowHandler = useRef<boolean>(false);
+	const shouldAlwaysFadeInStable = useStableRef(shouldAlwaysFadeIn);
 
 	const start = useCallback((api: API) => {
 		// @ts-ignore
@@ -246,7 +248,7 @@ function Tooltip({
 						hasCalledShowHandler.current = true;
 						onShowHandlerStable.current();
 					}
-					setState(isImmediate ? 'show-immediate' : 'fade-in');
+					setState(!isImmediate ? 'fade-in' : 'show-immediate');
 				},
 				hide: ({ isImmediate }) => {
 					if (isImmediate) {
@@ -256,12 +258,23 @@ function Tooltip({
 					}
 				},
 				done,
+				shouldAlwaysFadeIn: fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')
+					? shouldAlwaysFadeInStable.current
+					: false,
 			};
 
 			const api: API = show(entry);
 			start(api);
 		},
-		[canAppearStable, delayStable, done, start, abort, onShowHandlerStable],
+		[
+			canAppearStable,
+			delayStable,
+			done,
+			start,
+			abort,
+			onShowHandlerStable,
+			shouldAlwaysFadeInStable,
+		],
 	);
 
 	const hideTooltipOnEsc = useCallback(() => {

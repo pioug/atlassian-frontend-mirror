@@ -93,17 +93,12 @@ const grabAreaStyles = cssMap({
 		color: 'transparent',
 		backgroundColor: 'transparent',
 		transitionProperty: 'color',
-		transitionDuration: '100ms',
-		transitionDelay: '0ms',
 		'&:hover': {
 			// We are setting the cursor within the :hover pseudo to ensure the specifity is higher than Pressable's cursor.
 			cursor: 'ew-resize',
-			transitionDelay: '200ms',
 		},
 		'&:hover, &:focus-within': {
 			color: token('color.text.selected'),
-			transitionProperty: 'color',
-			transitionDuration: '200ms',
 		},
 		// We are using the `:active` state to update the line color when dragging, instead of using state. This works as we aren't using
 		// drag previews and instead are moving and styling the dragged element. There were also issues with the Compiled styles in test environments.
@@ -117,6 +112,23 @@ const grabAreaStyles = cssMap({
 		'&:hover': {
 			cursor: 'col-resize',
 		},
+	},
+	oldTransition: {
+		transitionDuration: '100ms',
+		transitionDelay: '0ms',
+		'&:hover': {
+			transitionDelay: '200ms',
+		},
+		'&:hover, &:focus-within': {
+			transitionProperty: 'color',
+			transitionDuration: '200ms',
+		},
+	},
+	newTransition: {
+		// Intent is to align with tooltip timings so the resizer appears in sync with the tooltip
+		transitionDuration: '150ms',
+		transitionDelay: '300ms',
+		transitionTimingFunction: 'ease-in-out',
 	},
 });
 
@@ -231,6 +243,7 @@ const MaybeTooltip = ({ tooltipContent, shortcut, children }: MaybeTooltipProps)
 						? PanelSplitterTooltip
 						: undefined
 				}
+				UNSAFE_shouldAlwaysFadeIn={fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')}
 			>
 				{children}
 			</Tooltip>
@@ -538,7 +551,13 @@ const PortaledPanelSplitter = ({
 				is provided via a dedicated keyboard shortcut elsewhere in the application. */}
 				<div
 					ref={splitterRef}
-					css={[grabAreaStyles.root, isFhsEnabled && grabAreaStyles.fullHeightSidebar]}
+					css={[
+						grabAreaStyles.root,
+						isFhsEnabled && grabAreaStyles.fullHeightSidebar,
+						fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')
+							? grabAreaStyles.newTransition
+							: grabAreaStyles.oldTransition,
+					]}
 					data-testid={testId}
 					onDoubleClick={onDoubleClick}
 				>

@@ -9,8 +9,6 @@ export default (): React.JSX.Element => (
 		link={'http://atlassian.com'}
 		copyLinkButtonText={'Feedback Link Copy'}
 		copiedToClipboardText={'Link copied to clipboard'}
-		iconBefore={
-			<FeedbackIcon color="currentColor" label="" LEGACY_size="medium" spacing="spacious" />
-		}
+		iconBefore={<FeedbackIcon color="currentColor" label="" spacing="spacious" />}
 	/>
 );

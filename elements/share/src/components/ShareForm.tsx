@@ -404,14 +404,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 								onClickHandler={() => this.changeMenuItem('Slack')}
 							/>
 							<ShareMenuItem
-								iconName={
-									<EmailIcon
-										color="currentColor"
-										label=""
-										LEGACY_size="medium"
-										spacing="spacious"
-									/>
-								}
+								iconName={<EmailIcon color="currentColor" label="" spacing="spacious" />}
 								labelId={messages.emailMenuItemText}
 								onClickHandler={() => this.changeMenuItem('default')}
 							/>

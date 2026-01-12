@@ -259,7 +259,6 @@ export const Trigger = React.forwardRef(
 					<EmojiAddIcon
 						testId="emoji-add-icon"
 						color={disabled ? token('color.icon.disabled') : token('color.icon')}
-						LEGACY_size="small"
 						label="Add reaction"
 					/>
 				)}

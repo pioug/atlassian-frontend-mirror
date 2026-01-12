@@ -29,12 +29,7 @@ function ApiFeedback({
 			<AutoDismissFlag
 				id={'success'}
 				icon={
-					<SuccessIcon
-						label="Success"
-						color={token('color.icon.success')}
-						LEGACY_size="medium"
-						spacing="spacious"
-					/>
+					<SuccessIcon label="Success" color={token('color.icon.success')} spacing="spacious" />
 				}
 				key={'success'}
 				title={intl.formatMessage(messages.success)}
@@ -45,14 +40,7 @@ function ApiFeedback({
 		flag = (
 			<AutoDismissFlag
 				id={'error'}
-				icon={
-					<ErrorIcon
-						label="Error"
-						color={token('color.icon.danger')}
-						LEGACY_size="medium"
-						spacing="spacious"
-					/>
-				}
+				icon={<ErrorIcon label="Error" color={token('color.icon.danger')} spacing="spacious" />}
 				key={'error'}
 				title={intl.formatMessage(messages.error)}
 				description={errorDescription}

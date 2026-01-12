@@ -171,14 +171,7 @@ export const IconAndTitleLayout = ({
 	const renderIconPlaceholder = React.useCallback(
 		(testId: string) => {
 			return (
-				defaultIcon || (
-					<LinkIcon
-						label="link"
-						LEGACY_size="small"
-						testId={`${testId}-default`}
-						color="currentColor"
-					/>
-				)
+				defaultIcon || <LinkIcon label="link" testId={`${testId}-default`} color="currentColor" />
 			);
 		},
 		[defaultIcon],

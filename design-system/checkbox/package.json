@@ -59,7 +59,7 @@
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"jscodeshift": "root:*",
 		"react-dom": "root:*",
 		"storybook-addon-performance": "root:*"

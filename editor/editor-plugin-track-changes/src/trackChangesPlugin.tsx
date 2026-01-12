@@ -2,6 +2,7 @@ import React from 'react';
 
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
+import { keymapPlugin } from './pm-plugins/keymaps';
 import { createTrackChangesPlugin, trackChangesPluginKey } from './pm-plugins/main';
 import { TOGGLE_TRACK_CHANGES_ACTION as ACTION } from './pm-plugins/types';
 import type { TrackChangesPlugin } from './trackChangesPluginType';
@@ -30,6 +31,10 @@ export const trackChangesPlugin: TrackChangesPlugin = ({ api, config: options })
 		name: 'trackChanges',
 		pmPlugins() {
 			return [
+				{
+					name: 'trackChangesKeyMap',
+					plugin: () => keymapPlugin(api),
+				},
 				{
 					name: 'trackChangesPlugin',
 					plugin: () => createTrackChangesPlugin(api),

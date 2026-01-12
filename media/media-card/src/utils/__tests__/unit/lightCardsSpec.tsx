@@ -1,6 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import WarningIcon from '@atlaskit/icon/core/status-warning';
+import { shallow } from 'enzyme';
 import SpinnerIcon from '@atlaskit/spinner';
 
 import { CardLoading } from '../../lightCards/cardLoading';
@@ -37,18 +36,6 @@ describe('<CardError />', () => {
 		const fileError = shallow(<CardError />);
 
 		expect(fileError.find(ErrorIcon)).toHaveLength(1);
-	});
-
-	it('should render icon with the right size', () => {
-		const defaultErrorSize = mount(<CardError />);
-		const mediumErrorSize = mount(<CardError size="large" />);
-		expect(defaultErrorSize.find(WarningIcon).props().LEGACY_size).toBe('medium');
-		expect(mediumErrorSize.find(WarningIcon).props().LEGACY_size).toBe('large');
-	});
-
-	it('ErrorIcon should be small by default', () => {
-		const defaultErrorIcon = mount(<ErrorIcon />);
-		expect(defaultErrorIcon.find(WarningIcon).props().LEGACY_size).toBe('small');
 	});
 
 	describe('getDimensionsWithDefault()', () => {

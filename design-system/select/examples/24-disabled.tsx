@@ -18,7 +18,7 @@ const DisabledSelects = (): React.JSX.Element => (
 				{ label: 'Melbourne', value: 'melbourne' },
 				{ label: 'Sydney', value: 'sydney' },
 			]}
-			placeholder="Choose a City"
+			placeholder=""
 		/>
 		<Label htmlFor="disabled-multi">Disabled Multi Select</Label>
 		<Select
@@ -33,7 +33,7 @@ const DisabledSelects = (): React.JSX.Element => (
 			]}
 			isMulti
 			isSearchable={false}
-			placeholder="Choose a City"
+			placeholder=""
 		/>
 		<Label htmlFor="disabled-options-single">Single Select with disabled options</Label>
 		<Select
@@ -45,7 +45,7 @@ const DisabledSelects = (): React.JSX.Element => (
 				{ label: 'Melbourne', value: 'melbourne' },
 				{ label: 'Sydney', value: 'sydney' },
 			]}
-			placeholder="Choose a City"
+			placeholder=""
 		/>
 		<Label htmlFor="disabled-options-multi">Multi Select with disabled options</Label>
 		<Select
@@ -59,7 +59,7 @@ const DisabledSelects = (): React.JSX.Element => (
 			]}
 			isMulti
 			isSearchable={false}
-			placeholder="Choose a City"
+			placeholder=""
 		/>
 		<Label htmlFor="disabled-multi-clear">
 			Disabled Multi Select showing selections have no "clear" icon
@@ -72,7 +72,7 @@ const DisabledSelects = (): React.JSX.Element => (
 			options={cities}
 			isMulti
 			isSearchable={false}
-			placeholder="Choose a City"
+			placeholder=""
 		/>
 		<Label htmlFor="disabled-options-single-displayed">
 			Single Select with disabled options displayed
@@ -86,7 +86,7 @@ const DisabledSelects = (): React.JSX.Element => (
 				{ label: 'Melbourne', value: 'melbourne' },
 				{ label: 'Sydney', value: 'sydney' },
 			]}
-			placeholder="Choose a City"
+			placeholder=""
 		/>
 	</>
 );

@@ -42,7 +42,6 @@ const fallbackIcon = () => {
 		<ErrorIcon
 			color={token('color.icon.danger')}
 			label="error"
-			LEGACY_size="small"
 			testId="errored-view-default-icon"
 		/>
 	);

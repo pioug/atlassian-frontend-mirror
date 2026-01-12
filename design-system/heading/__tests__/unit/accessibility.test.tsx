@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
 
-import Heading from '../../src/heading.partial';
+import Heading from '../../src/heading';
 
 it('Basic Heading should not fail aXe audit', async () => {
 	const { container } = render(

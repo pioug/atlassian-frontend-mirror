@@ -29,7 +29,6 @@ const ErroredView = ({ testId = 'smart-block-errored-view', ...props }: Flexible
 			<WarningIcon
 				label="errored-warning-icon"
 				color={token('color.icon.warning')}
-				LEGACY_size="small"
 				testId={`${testId}-warning-icon`}
 			/>
 			<Text

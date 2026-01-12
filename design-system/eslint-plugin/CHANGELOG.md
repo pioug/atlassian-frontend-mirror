@@ -1,5 +1,17 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.32.0
+
+### Minor Changes
+
+- [`7925336391df8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7925336391df8) -
+  Remove deprecated no-utility-icons ESLint rule as utility icons have been fully removed from
+  @atlaskit/icon package.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.31.0
 
 ### Minor Changes

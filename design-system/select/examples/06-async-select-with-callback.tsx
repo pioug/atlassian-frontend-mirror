@@ -24,7 +24,7 @@ const AsyncExample = (): React.JSX.Element => (
 			testId="react-select"
 			defaultOptions
 			loadOptions={loadOptions}
-			placeholder="Choose a City"
+			placeholder=""
 		/>
 	</>
 );

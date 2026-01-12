@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 
 import { SpotlightContext } from '../../spotlight-manager';
 import useSpotlight from '../../use-spotlight';

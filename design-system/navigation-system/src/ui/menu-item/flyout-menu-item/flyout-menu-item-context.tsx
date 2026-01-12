@@ -2,6 +2,8 @@ import { createContext, useContext } from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
 
+import type { FlyoutCloseSource } from './flyout-menu-item-content';
+
 /**
  * __Is open context__
  *
@@ -21,16 +23,19 @@ export const useSetFlyoutMenuOpen = () => useContext(SetIsOpenContext);
 /**
  * __On close context__
  * 
- * A context for storing the onClose value of the FlyoutMenuItem.
+ * A context for storing a ref to the onClose handler with source information.This
+ * is used by FlyoutMenuItemContent, FlyoutMenuItemTrigger and FlyoutHeader to store
+ * the on close function and source information for closing the flyout menu.
  */
-export const OnCloseContext = createContext<(() => void) | null | undefined>(null);
-
-/**
- * __On close provider__
- * 
- * A context provider for supplying the onClose function to the FlyoutHeader.
- */
-export const OnCloseProvider = OnCloseContext.Provider;
+export const OnCloseContext = createContext<
+	React.MutableRefObject<
+		| ((
+			event: Event | React.MouseEvent<HTMLButtonElement> | KeyboardEvent | MouseEvent | null,
+			source?: FlyoutCloseSource,
+		  ) => void)
+		| null
+	>
+>({ current: null });
 
 /**
  * __Title id context__

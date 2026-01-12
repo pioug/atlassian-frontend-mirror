@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-loom
 
+## 9.0.2
+
+### Patch Changes
+
+- [`1265c260f9bad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1265c260f9bad) -
+  [ED-29455] clean up experiment platform_editor_toolbar_migrate_loom
+- Updated dependencies
+
 ## 9.0.1
 
 ### Patch Changes

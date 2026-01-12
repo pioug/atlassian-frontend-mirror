@@ -1,5 +1,14 @@
 # @atlaskit/link-datasource
 
+## 4.32.2
+
+### Patch Changes
+
+- [`ebd1d53e42731`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ebd1d53e42731) -
+  [ux] Fix a bug where pressing escape when dropdowns inside modal dialog are opened is closing the
+  modal dialog itself. Behind platform_navx_sllv_dropdown_escape_and_focus_fix FG
+- Updated dependencies
+
 ## 4.32.1
 
 ### Patch Changes

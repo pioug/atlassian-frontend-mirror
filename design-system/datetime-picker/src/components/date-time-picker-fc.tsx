@@ -415,12 +415,7 @@ const DateTimePicker: React.ForwardRefExoticComponent<
 							appearance="subtle"
 							label={clearControlLabel}
 							icon={(iconProps) => (
-								<SelectClearIcon
-									{...iconProps}
-									color={token('color.text.subtlest')}
-									LEGACY_size="small"
-									size="small"
-								/>
+								<SelectClearIcon {...iconProps} color={token('color.text.subtlest')} size="small" />
 							)}
 							onClick={onClear}
 							testId={testId && `${testId}--icon--container`}

@@ -1,5 +1,5 @@
 {
-	"extends": "../../../../tsconfig.entry-points.confluence.json",
+	"extends": "../../../../tsconfig.local-consumption.json",
 	"compilerOptions": {
 		"target": "es5",
 		"outDir": "../../../../../confluence/tsDist/@atlaskit__editor-prosemirror",

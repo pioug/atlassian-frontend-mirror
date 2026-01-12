@@ -3,7 +3,10 @@ import type { ReactUFOPayload } from '../../src/common/react-ufo-payload-schema'
 import { expect, test, viewports } from './fixtures';
 import type { WindowWithReactUFOTestGlobals } from './window-type';
 
-const requiredFeatureFlags = ['ufo_payload_use_idle_callback'];
+const requiredFeatureFlags = [
+	'ufo_payload_use_idle_callback',
+	'rovo_search_page_ttvc_ignoring_smart_answers_fix',
+];
 
 const featureFlagsCombos = [[...requiredFeatureFlags]];
 
@@ -128,7 +131,7 @@ test.describe('Search Page with smart answers', () => {
 						viewport,
 					});
 
-					test(`should have an additional payload with slower TTAI and VC90`, async ({
+					test(`should have an additional payload with equal TTAI and VC90`, async ({
 						page,
 						waitForReactUFOPayload,
 						waitForExtraSearchPageInteractionPayload,
@@ -155,6 +158,57 @@ test.describe('Search Page with smart answers', () => {
 
 						expect(regularTTAI).toEqual(extraTTAI!);
 						expect(regularVC90).toEqual(extraVC90!);
+					});
+				});
+			}
+		});
+	}
+
+	for (const featureFlags of featureFlagsCombos) {
+		test.describe(`with feature flags ${featureFlags.join(', ')}`, () => {
+			/**
+			 * Using this example page, we can test if VC90 is correctly calculated
+			 * for scenarios when the mutated element is no longer present in the DOM
+			 * at the time of VC calculation.
+			 */
+			test.use({
+				examplePage: 'search-page-with-slower-smart-answers-class-change',
+				featureFlags,
+			});
+
+			for (const viewport of viewports) {
+				test.describe(`when view port is ${viewport.width}x${viewport.height}`, () => {
+					test.use({
+						viewport,
+					});
+
+					test(`should have an additional payload with faster TTAI and VC90 even though the mutated smart answers element has an invalid query selector at the time of VC calculation`, async ({
+						page,
+						waitForReactUFOPayload,
+						waitForExtraSearchPageInteractionPayload,
+					}) => {
+						const mainDiv = page.locator('[data-testid="main"]');
+						const searchResult = page.locator('[data-testid="search-result"]');
+
+						await expect(mainDiv).toBeVisible();
+						await expect(searchResult).toBeVisible();
+
+						// Expect a regular UFO payload
+						const reactUFOPayload = await waitForReactUFOPayload();
+						expect(reactUFOPayload).toBeDefined();
+
+						// Expect an additional payload from the extra search page interaction
+						const extraInteractionPayload = await waitForExtraSearchPageInteractionPayload();
+						expect(extraInteractionPayload).toBeDefined();
+
+						const regularTTAI = getTTAIFromPayload(reactUFOPayload!);
+						const regularVC90 = getVC90FromPayload(reactUFOPayload!);
+
+						const extraTTAI = getTTAIFromPayload(extraInteractionPayload!);
+						const extraVC90 = getVC90FromPayload(extraInteractionPayload!);
+
+						expect(regularTTAI).toBeGreaterThan(extraTTAI!);
+						expect(regularVC90).toBeGreaterThan(extraVC90!);
 					});
 				});
 			}

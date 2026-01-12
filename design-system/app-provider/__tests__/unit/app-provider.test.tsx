@@ -1,19 +1,12 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
-
-import * as tokens from '@atlaskit/tokens';
+import { render, screen, waitFor } from '@testing-library/react';
 
 import AppProvider from '../../src/app-provider';
 
-jest.mock('@atlaskit/tokens', () => ({
-	__esModule: true,
-	...jest.requireActual('@atlaskit/tokens'),
-}));
-
-const setGlobalThemeSpy = jest.spyOn(tokens, 'setGlobalTheme');
-
 afterEach(() => {
+	document.documentElement.removeAttribute('data-theme');
+	document.documentElement.removeAttribute('data-color-mode');
 	jest.resetAllMocks();
 });
 
@@ -26,7 +19,24 @@ describe('AppProvider', () => {
 
 	it('should disable theming when `UNSAFE_isThemingDisabled` is true', async () => {
 		render(<AppProvider UNSAFE_isThemingDisabled>Hello</AppProvider>);
-		expect(setGlobalThemeSpy).not.toHaveBeenCalled();
+		const htmlElement = document.documentElement;
+		await waitFor(() => {
+			expect(htmlElement).not.toHaveAttribute('data-theme');
+		});
+		await waitFor(() => {
+			expect(htmlElement).not.toHaveAttribute('data-color-mode');
+		});
+	});
+
+	it('should enable theming when `UNSAFE_isThemingDisabled` is not set', async () => {
+		render(<AppProvider>Hello</AppProvider>);
+		const htmlElement = document.documentElement;
+		await waitFor(() => {
+			expect(htmlElement).toHaveAttribute('data-theme');
+		});
+		await waitFor(() => {
+			expect(htmlElement).toHaveAttribute('data-color-mode');
+		});
 	});
 
 	it('should throw when there are nested AppProviders', async () => {

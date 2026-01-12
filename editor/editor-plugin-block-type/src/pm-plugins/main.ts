@@ -216,7 +216,7 @@ export const createPlugin = (
 			 */
 			handleKeyDown: (view: EditorView, event: KeyboardEvent): boolean => {
 				let headingLevel = HEADING_KEYS.indexOf(event.keyCode);
-				if (headingLevel === -1 && fg('platform_editor_heading_from_numpad')) {
+				if (headingLevel === -1) {
 					// Check for numpad keys if not found in digits row
 					headingLevel = HEADING_NUMPAD_KEYS.indexOf(event.keyCode);
 				}

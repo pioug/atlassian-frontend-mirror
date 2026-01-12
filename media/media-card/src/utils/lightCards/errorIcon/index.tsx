@@ -10,21 +10,12 @@ import WarningIcon from '@atlaskit/icon/core/status-warning';
 
 import { errorIconWrapperStyles } from './styles';
 
-export interface ErrorIconProps {
-	readonly size: 'small' | 'medium' | 'large' | 'xlarge';
-}
-export class ErrorIcon extends Component<ErrorIconProps, {}> {
-	static defaultProps = {
-		size: 'small',
-	};
-
+export class ErrorIcon extends Component {
 	render(): React.JSX.Element {
-		const { size } = this.props;
-
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div css={errorIconWrapperStyles}>
-				<WarningIcon color="currentColor" label="Error" LEGACY_size={size} />
+				<WarningIcon color="currentColor" label="Error" />
 			</div>
 		);
 	}

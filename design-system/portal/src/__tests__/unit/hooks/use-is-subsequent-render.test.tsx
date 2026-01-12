@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 
 import useIsSubsequentRender from '../../../internal/hooks/use-is-subsequent-render';
 import * as hooks from '../../../internal/hooks/use-isomorphic-layout-effect';

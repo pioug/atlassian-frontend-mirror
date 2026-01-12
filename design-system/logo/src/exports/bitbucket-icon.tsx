@@ -1,3 +1,7 @@
+import { BitbucketIcon as NewBitbucketIcon } from '../artifacts/logo-components/bitbucket';
+import { BitbucketIcon as LegacyBitbucketIcon } from '../legacy-logos/bitbucket';
+import { createFeatureFlaggedComponent } from '../logo-config';
+
 /**
  * __Bitbucket icon__
  *
@@ -7,4 +11,4 @@
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export { BitbucketIcon } from '../index';
+export const BitbucketIcon = createFeatureFlaggedComponent(LegacyBitbucketIcon, NewBitbucketIcon);

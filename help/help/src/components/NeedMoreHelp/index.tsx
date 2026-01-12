@@ -28,7 +28,7 @@ export const NeedMoreHelp: React.FC<NeedMoreHelpProps> = ({ onNeedMoreHelpClick,
 	return (
 		<NeedMoreHelpContainer>
 			<Inline space="space.050" alignBlock="center" alignInline="center">
-				<LightbulbIcon spacing="none" label={label} LEGACY_size="small" />
+				<LightbulbIcon spacing="none" label={label} />
 				<NeedMoreHelpContent>
 					{formatMessage(messages.help_need_more_help_text)}
 				</NeedMoreHelpContent>

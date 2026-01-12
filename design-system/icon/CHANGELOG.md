@@ -1,5 +1,13 @@
 # @atlaskit/icon
 
+## 29.4.1
+
+### Patch Changes
+
+- [`7925336391df8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7925336391df8) -
+  Remove deprecated no-utility-icons ESLint rule as utility icons have been fully removed from
+  @atlaskit/icon package.
+
 ## 29.4.0
 
 ### Minor Changes

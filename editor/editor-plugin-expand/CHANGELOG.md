@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-expand
 
+## 8.1.0
+
+### Minor Changes
+
+- [`e61bb8b32e4b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e61bb8b32e4b1) -
+  [https://hello.jira.atlassian.cloud/browse/EDITOR-4386](EDITOR-4386) - clean up
+  platform_editor_disable_unnecessary_expand_renders
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.2
 
 ### Patch Changes

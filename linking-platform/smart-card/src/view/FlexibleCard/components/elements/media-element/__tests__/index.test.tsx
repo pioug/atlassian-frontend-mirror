@@ -4,6 +4,7 @@
  */
 import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
 
 import { MediaType } from '../../../../../../constants';
 import MediaElement from '../index';
@@ -25,13 +26,20 @@ describe('Element: Media', () => {
 	const testId = 'smart-element-media';
 
 	it('should capture and report a11y violations', async () => {
-		const { container } = render(<MediaElement type={MediaType.Image} url="src-loaded" />);
+		const { container } = render(
+			<IntlProvider locale={'en'}>
+				<MediaElement type={MediaType.Image} url="src-loaded" />
+			</IntlProvider>);
 
 		await expect(container).toBeAccessible();
 	});
 
 	it('renders element', async () => {
-		render(<MediaElement type={MediaType.Image} url="src-loaded" />);
+		render(
+			<IntlProvider locale={'en'}>
+				<MediaElement type={MediaType.Image} url="src-loaded" />
+			</IntlProvider>
+		);
 
 		const element = await screen.findByTestId(testId);
 		const image = await screen.findByTestId(`${testId}-image`);
@@ -60,7 +68,11 @@ describe('Element: Media', () => {
 		const overrideCss = css({
 			backgroundColor: 'blue',
 		});
-		render(<MediaElement css={overrideCss} type={MediaType.Image} url="src-loaded" />);
+		render(
+			<IntlProvider locale={'en'}>
+				<MediaElement css={overrideCss} type={MediaType.Image} url="src-loaded" />
+			</IntlProvider>
+		);
 
 		const element = await screen.findByTestId(testId);
 
@@ -69,13 +81,21 @@ describe('Element: Media', () => {
 
 	describe('Image', () => {
 		it('should capture and report a11y violations', async () => {
-			const { container } = render(<MediaElement type={MediaType.Image} url="src-error" />);
+			const { container } = render(
+				<IntlProvider locale={'en'}>
+					<MediaElement type={MediaType.Image} url="src-error" />
+				</IntlProvider>
+			);
 
 			await expect(container).toBeAccessible();
 		});
 
 		it('renders nothing on error', async () => {
-			render(<MediaElement type={MediaType.Image} url="src-error" />);
+			render(
+				<IntlProvider locale={'en'}>
+					<MediaElement type={MediaType.Image} url="src-error" />
+				</IntlProvider>
+			);
 			await screen.findByTestId(testId);
 
 			expect(screen.queryByTestId(`${testId}-image`)).toBeNull();

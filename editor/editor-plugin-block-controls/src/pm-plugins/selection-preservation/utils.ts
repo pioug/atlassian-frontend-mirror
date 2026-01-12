@@ -1,4 +1,5 @@
 import type {
+	EditorState,
 	ReadonlyTransaction,
 	Selection,
 	Transaction,
@@ -29,4 +30,59 @@ export const getSelectionPreservationMeta = (tr: Transaction | ReadonlyTransacti
  */
 export const isSelectionWithinCodeBlock = ({ $from, $to }: Selection): boolean => {
 	return $from.sameParent($to) && $from.parent.type.name === 'codeBlock';
+};
+
+/**
+ * Compares two selections for equality based on their from and to positions.
+ *
+ * @param a The first selection to compare.
+ * @param b The second selection to compare.
+ * @returns True if both selections are equal, otherwise false.
+ */
+export const compareSelections = (a?: Selection, b?: Selection): boolean => {
+	return a?.from === b?.from && a?.to === b?.to;
+};
+
+/**
+ * Returns true/false indicating whether the preserved selection
+ * has changed between the old and new editor states.
+ *
+ * @param newState The new editor state.
+ * @param oldState The old editor state.
+ * @returns True if the preserved selection has changed, otherwise false.
+ */
+export const isPreservedSelectionChanged = (
+	newState: EditorState,
+	oldState: EditorState,
+): boolean => {
+	const prev = selectionPreservationPluginKey.getState(oldState)?.preservedSelection;
+	const curr = selectionPreservationPluginKey.getState(newState)?.preservedSelection;
+
+	return !!prev && !!curr && !compareSelections(prev, curr);
+};
+
+/**
+ * Triggers a DOM selection sync by resetting the current native selection range
+ * only if it is out of sync with the provided ProseMirror selection state.
+ *
+ * This is a necessary workaround to ensure the browser's native selection state
+ * stays in sync with the preserved selection, particularly after transactions
+ * that shift document content.
+ *
+ * @param selection The current ProseMirror selection state to compare against.
+ */
+export const syncDOMSelection = (selection: Selection): void => {
+	const domSelection = window.getSelection();
+	const domRange =
+		domSelection && domSelection.rangeCount === 1 && domSelection.getRangeAt(0).cloneRange();
+
+	const isOutOfSync =
+		domRange && (selection.from !== domRange.startOffset || selection.to !== domRange.endOffset);
+
+	if (isOutOfSync) {
+		// Force the DOM selection to refresh, setting it to the same range
+		// This will trigger ProseMirror to re-apply its selection logic based on the current state
+		domSelection.removeAllRanges();
+		domSelection.addRange(domRange);
+	}
 };

@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
-import { renderHook } from '@testing-library/react-hooks';
+import { render, renderHook } from '@testing-library/react';
 import invariant from 'tiny-invariant';
 
 import noop from '@atlaskit/ds-lib/noop';
@@ -25,10 +24,7 @@ const MockLayerComponent = ({ type }: { type?: LayerType }) => {
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('OpenLayerObserver', () => {
 	it('useOpenLayerObserver should not throw an error if used when there is no layer observer', () => {
-		const { result } = renderHook(useOpenLayerObserver);
-
-		expect(result.error).toBeUndefined();
-		expect(result.current).toBeNull();
+		expect(() => renderHook(useOpenLayerObserver)).not.toThrow();
 	});
 
 	it('should throw an error if there are nested layer namespace providers', () => {
@@ -52,7 +48,7 @@ describe('OpenLayerObserver', () => {
 	});
 
 	it('should throw an error when there are nested layer observers', () => {
-		const { result } = renderHook(useOpenLayerObserver, {
+		expect(() => renderHook(useOpenLayerObserver, {
 			wrapper: ({ children }) => (
 				<OpenLayerObserver>
 					{children}
@@ -61,11 +57,9 @@ describe('OpenLayerObserver', () => {
 					</OpenLayerObserver>
 				</OpenLayerObserver>
 			),
-		});
-
-		expect(result.error?.message).toEqual(
-			expect.stringMatching(
-				'`OpenLayerObserver` cannot be nested within another `OpenLayerObserver`.',
+		})).toThrow(
+			new Error(
+				'Invariant failed: `OpenLayerObserver` cannot be nested within another `OpenLayerObserver`.',
 			),
 		);
 	});
@@ -272,6 +266,7 @@ describe('OpenLayerObserver', () => {
 		});
 
 		it('should decrement the layer count when a layer is closed using the `isOpen` hook parameter', () => {
+			let isOpen = true;
 			const LayerComponent = ({ isOpen }: { isOpen: boolean }) => {
 				useNotifyOpenLayerObserver({ isOpen, onClose: noop });
 
@@ -279,8 +274,7 @@ describe('OpenLayerObserver', () => {
 			};
 
 			const { result, rerender } = renderHook(useOpenLayerObserver, {
-				initialProps: { isOpen: true },
-				wrapper: ({ children, isOpen }) => (
+				wrapper: ({ children }) => (
 					<OpenLayerObserver>
 						{children}
 						<LayerComponent isOpen={isOpen} />
@@ -293,12 +287,14 @@ describe('OpenLayerObserver', () => {
 
 			expect(api.getCount()).toBe(1);
 
-			rerender({ isOpen: false });
+			isOpen = false;
+			rerender();
 
 			expect(api.getCount()).toBe(0);
 		});
 
 		it('should decrement the layer count when a layer is closed using the `isOpen` hook parameter and is inside a namespace', () => {
+			let isOpen = true;
 			const LayerComponent = ({ isOpen }: { isOpen: boolean }) => {
 				useNotifyOpenLayerObserver({ isOpen, onClose: noop });
 
@@ -306,8 +302,7 @@ describe('OpenLayerObserver', () => {
 			};
 
 			const { result, rerender } = renderHook(useOpenLayerObserver, {
-				initialProps: { isOpen: true },
-				wrapper: ({ children, isOpen }) => (
+				wrapper: ({ children }) => (
 					<OpenLayerObserver>
 						{children}
 						<OpenLayerObserverNamespaceProvider namespace="test-namespace-1">
@@ -323,19 +318,20 @@ describe('OpenLayerObserver', () => {
 			expect(api.getCount()).toBe(1);
 			expect(api.getCount({ namespace: 'test-namespace-1' })).toBe(1);
 
-			rerender({ isOpen: false });
+			isOpen = false;
+			rerender();
 
 			expect(api.getCount()).toBe(0);
 			expect(api.getCount({ namespace: 'test-namespace-1' })).toBe(0);
 		});
 
 		it('should decrement the layer count when a layer is unmounted', () => {
+			let isOpen = true;
 			const { result, rerender } = renderHook(useOpenLayerObserver, {
-				initialProps: { isOpen: true },
-				wrapper: ({ children, isOpen }) => (
+				wrapper: ({ children }: { children: React.ReactNode }) => (
 					<OpenLayerObserver>
 						{children}
-						{isOpen && <MockLayerComponent />}
+						{isOpen && <MockLayerComponent />}	
 					</OpenLayerObserver>
 				),
 			});
@@ -345,15 +341,16 @@ describe('OpenLayerObserver', () => {
 
 			expect(api.getCount()).toBe(1);
 
-			rerender({ isOpen: false });
+			isOpen = false;
+			rerender();
 
 			expect(api.getCount()).toBe(0);
 		});
 
 		it('should decrement the layer count when a layer is unmounted and is inside a namespace', () => {
+			let isOpen = true;
 			const { result, rerender } = renderHook(useOpenLayerObserver, {
-				initialProps: { isOpen: true },
-				wrapper: ({ children, isOpen }) => (
+				wrapper: ({ children }: { children: React.ReactNode }) => (
 					<OpenLayerObserver>
 						{children}
 						<OpenLayerObserverNamespaceProvider namespace="test-namespace-1">
@@ -368,7 +365,8 @@ describe('OpenLayerObserver', () => {
 
 			expect(api.getCount()).toBe(1);
 			expect(api.getCount({ namespace: 'test-namespace-1' })).toBe(1);
-			rerender({ isOpen: false });
+			isOpen = false;
+			rerender();
 
 			expect(api.getCount()).toBe(0);
 			expect(api.getCount({ namespace: 'test-namespace-1' })).toBe(0);
@@ -377,9 +375,9 @@ describe('OpenLayerObserver', () => {
 
 	describe('on change', () => {
 		it('should run onChange callback when the layer count is increased [no namespaces]', () => {
+			let isOpen = false;
 			const { result, rerender } = renderHook(useOpenLayerObserver, {
-				initialProps: { isOpen: false },
-				wrapper: ({ children, isOpen }) => (
+				wrapper: ({ children }) => (
 					<OpenLayerObserver>
 						{children}
 						{isOpen && <MockLayerComponent />}
@@ -398,7 +396,8 @@ describe('OpenLayerObserver', () => {
 			expect(listener).not.toHaveBeenCalled();
 
 			// Rerender with a layer change to increase the layer count
-			rerender({ isOpen: true });
+			isOpen = true;
+			rerender();
 
 			// The listener should now be called once
 			expect(listener).toHaveBeenCalledTimes(1);
@@ -408,9 +407,9 @@ describe('OpenLayerObserver', () => {
 		});
 
 		it('should run onChange callback when the layer count is decreased [no namespaces]', () => {
+			let isOpen = true;
 			const { result, rerender } = renderHook(useOpenLayerObserver, {
-				initialProps: { isOpen: true },
-				wrapper: ({ children, isOpen }) => (
+				wrapper: ({ children }) => (
 					<OpenLayerObserver>
 						{children}
 						{isOpen && <MockLayerComponent />}
@@ -426,7 +425,8 @@ describe('OpenLayerObserver', () => {
 
 			expect(listener).toHaveBeenCalledTimes(0);
 
-			rerender({ isOpen: false });
+			isOpen = false;
+			rerender();
 
 			expect(listener).toHaveBeenCalledTimes(1);
 			expect(listener).toHaveBeenCalledWith({ count: 0 });
@@ -435,9 +435,9 @@ describe('OpenLayerObserver', () => {
 		});
 
 		it('should run namespaced onChange callback when a layer belonging to the same namespace is opened and when closed', () => {
+			let isOpen = false;
 			const { result, rerender } = renderHook(useOpenLayerObserver, {
-				initialProps: { isOpen: false },
-				wrapper: ({ children, isOpen }) => (
+				wrapper: ({ children }) => (
 					<OpenLayerObserver>
 						{children}
 						<OpenLayerObserverNamespaceProvider namespace="test-namespace-1">
@@ -457,14 +457,16 @@ describe('OpenLayerObserver', () => {
 			expect(listener).not.toHaveBeenCalled();
 
 			// Rerender with the layer opened to increase the layer count
-			rerender({ isOpen: true });
+			isOpen = true;
+			rerender();
 
 			// The listener should now be called once
 			expect(listener).toHaveBeenCalledTimes(1);
 			expect(listener).toHaveBeenCalledWith({ count: 1 });
 
 			// Rerender with the layer closed to decrease the layer count
-			rerender({ isOpen: false });
+			isOpen = false;
+			rerender();
 
 			// The listener should now be called twice
 			expect(listener).toHaveBeenCalledTimes(2);
@@ -474,9 +476,9 @@ describe('OpenLayerObserver', () => {
 		});
 
 		it('should not run namespaced onChange callback when a layer belonging to a different namespace is opened or closed', () => {
+			let isOpen = false;
 			const { result, rerender } = renderHook(useOpenLayerObserver, {
-				initialProps: { isOpen: false },
-				wrapper: ({ children, isOpen }) => (
+				wrapper: ({ children }) => (
 					<OpenLayerObserver>
 						{children}
 						<OpenLayerObserverNamespaceProvider namespace="test-namespace-1">
@@ -495,14 +497,16 @@ describe('OpenLayerObserver', () => {
 
 			expect(listener).not.toHaveBeenCalled();
 
-			// Rerender with the layer opened to increase the layer count
-			rerender({ isOpen: true });
+			// Rerender with the layer opened to increase the layer count	
+			isOpen = true;
+			rerender();
 
 			// The listener should not be called
 			expect(listener).not.toHaveBeenCalled();
 
 			// Rerender with the layer closed to decrease the layer count
-			rerender({ isOpen: false });
+			isOpen = false;
+			rerender();
 
 			// The listener should not be called
 			expect(listener).not.toHaveBeenCalled();
@@ -511,9 +515,9 @@ describe('OpenLayerObserver', () => {
 		});
 
 		it('should not run a namespaced onChange callback when a layer without a namespace is opened or closed', () => {
+			let isOpen = false;
 			const { result, rerender } = renderHook(useOpenLayerObserver, {
-				initialProps: { isOpen: false },
-				wrapper: ({ children, isOpen }) => (
+				wrapper: ({ children }) => (
 					<OpenLayerObserver>
 						{children}
 						{isOpen && <MockLayerComponent />}
@@ -531,13 +535,15 @@ describe('OpenLayerObserver', () => {
 			expect(listener).not.toHaveBeenCalled();
 
 			// Rerender with the layer opened to increase the layer count
-			rerender({ isOpen: true });
+			isOpen = true;
+			rerender();
 
 			// The listener should not be called
 			expect(listener).not.toHaveBeenCalled();
 
 			// Rerender with the layer closed to decrease the layer count
-			rerender({ isOpen: false });
+			isOpen = false;
+			rerender();
 
 			// The listener should not be called
 			expect(listener).not.toHaveBeenCalled();
@@ -546,9 +552,9 @@ describe('OpenLayerObserver', () => {
 		});
 
 		it('should run a non-namespaced onChange callback when a layer in a namespace is opened or closed', () => {
+			let isOpen = false;
 			const { result, rerender } = renderHook(useOpenLayerObserver, {
-				initialProps: { isOpen: false },
-				wrapper: ({ children, isOpen }) => (
+				wrapper: ({ children }) => (
 					<OpenLayerObserver>
 						{children}
 						<OpenLayerObserverNamespaceProvider namespace="test-namespace-1">
@@ -569,14 +575,16 @@ describe('OpenLayerObserver', () => {
 			expect(listener).not.toHaveBeenCalled();
 
 			// Rerender with the layer open to increase the layer count
-			rerender({ isOpen: true });
+			isOpen = true;
+			rerender();
 
 			// The listener should now be called once
 			expect(listener).toHaveBeenCalledTimes(1);
 			expect(listener).toHaveBeenCalledWith({ count: 1 });
 
 			// Rerender with the layer closed to decrease the layer count
-			rerender({ isOpen: false });
+			isOpen = false;
+			rerender();
 
 			// The listener should now be called twice
 			expect(listener).toHaveBeenCalledTimes(2);
@@ -586,9 +594,9 @@ describe('OpenLayerObserver', () => {
 		});
 
 		it('should run a non-namespaced onChange callback with correct args when there is a mix of namespaced and non-namespaced layers', () => {
+			let isOpen = false;
 			const { result, rerender } = renderHook(useOpenLayerObserver, {
-				initialProps: { isOpen: false },
-				wrapper: ({ children, isOpen }) => (
+				wrapper: ({ children }) => (
 					<OpenLayerObserver>
 						{children}
 						<OpenLayerObserverNamespaceProvider namespace="test-namespace-1">
@@ -610,7 +618,8 @@ describe('OpenLayerObserver', () => {
 			expect(listener).not.toHaveBeenCalled();
 
 			// Rerender with the layer open to increase the layer count
-			rerender({ isOpen: true });
+			isOpen = true;
+			rerender();
 
 			// The listener should now be called once
 			expect(listener).toHaveBeenCalledTimes(1);
@@ -618,7 +627,8 @@ describe('OpenLayerObserver', () => {
 			expect(listener).toHaveBeenCalledWith({ count: 2 });
 
 			// Rerender with the layer closed to decrease the layer count
-			rerender({ isOpen: false });
+			isOpen = false;
+			rerender();
 
 			// The listener should now be called twice
 			expect(listener).toHaveBeenCalledTimes(2);
@@ -628,9 +638,9 @@ describe('OpenLayerObserver', () => {
 		});
 
 		it('should run both the non-namespaced onChange callback and namespaced onChange callback when a namespaced layer is opened or closed', () => {
+			let isOpen = false;
 			const { result, rerender } = renderHook(useOpenLayerObserver, {
-				initialProps: { isOpen: false },
-				wrapper: ({ children, isOpen }) => (
+				wrapper: ({ children }) => (
 					<OpenLayerObserver>
 						{children}
 						<OpenLayerObserverNamespaceProvider namespace="test-namespace-1">
@@ -659,7 +669,8 @@ describe('OpenLayerObserver', () => {
 			expect(listenerForSpecificNamespace).not.toHaveBeenCalled();
 
 			// Rerender with the layer open to increase the layer count
-			rerender({ isOpen: true });
+			isOpen = true;
+			rerender();
 
 			// Both listeners should now have been called
 			expect(listenerForAllLayers).toHaveBeenCalledTimes(1);
@@ -670,7 +681,8 @@ describe('OpenLayerObserver', () => {
 			expect(listenerForSpecificNamespace).toHaveBeenCalledWith({ count: 1 });
 
 			// Rerender with the layer closed to decrease the layer count
-			rerender({ isOpen: false });
+			isOpen = false;
+			rerender();
 
 			// Both listeners should now have been called twice
 			expect(listenerForAllLayers).toHaveBeenCalledTimes(2);
@@ -685,9 +697,9 @@ describe('OpenLayerObserver', () => {
 		});
 
 		it('should first call the namespaced onChange listeners before calling the non-namespaced onChange listeners', () => {
+			let isOpen = false;
 			const { result, rerender } = renderHook(useOpenLayerObserver, {
-				initialProps: { isOpen: false },
-				wrapper: ({ children, isOpen }) => (
+				wrapper: ({ children }) => (
 					<OpenLayerObserver>
 						{children}
 						<OpenLayerObserverNamespaceProvider namespace="test-namespace-1">
@@ -721,7 +733,8 @@ describe('OpenLayerObserver', () => {
 			expect(orderedCalls).toEqual([]);
 
 			// Rerender with the layer open to increase the layer count
-			rerender({ isOpen: true });
+			isOpen = true;
+			rerender();
 
 			// Both listeners should now have been called,
 			// but the specific namespace listener should be called first
@@ -732,9 +745,9 @@ describe('OpenLayerObserver', () => {
 		});
 
 		it('should no longer call the onChange callback when the unsubscribe cleanup function has been called', () => {
+			let isOpen = true;
 			const { result, rerender } = renderHook(useOpenLayerObserver, {
-				initialProps: { isOpen: true },
-				wrapper: ({ children, isOpen }) => (
+				wrapper: ({ children }) => (
 					<OpenLayerObserver>
 						{children}
 						{isOpen && <MockLayerComponent />}
@@ -748,20 +761,22 @@ describe('OpenLayerObserver', () => {
 			const listener = jest.fn();
 			const unsubscribe = api.onChange(listener);
 
-			rerender({ isOpen: false });
+			isOpen = false;
+			rerender();
 			expect(listener).toHaveBeenCalledTimes(1);
 
 			listener.mockClear();
 
 			unsubscribe();
-			rerender({ isOpen: true });
+			isOpen = true;
+			rerender();
 			expect(listener).toHaveBeenCalledTimes(0);
 		});
 
 		it('should no longer call the namespaced onChange callback when the unsubscribe function has been called', () => {
-			const { result, rerender } = renderHook(useOpenLayerObserver, {
-				initialProps: { isOpen: true },
-				wrapper: ({ children, isOpen }) => (
+			let isOpen = true;
+			const { result, rerender } = renderHook(useOpenLayerObserver, {	
+				wrapper: ({ children }) => (
 					<OpenLayerObserver>
 						{children}
 						<OpenLayerObserverNamespaceProvider namespace="test-namespace-1">
@@ -777,20 +792,22 @@ describe('OpenLayerObserver', () => {
 			const listener = jest.fn();
 			const unsubscribe = api.onChange(listener, { namespace: 'test-namespace-1' });
 
-			rerender({ isOpen: false });
+			isOpen = false;
+			rerender();
 			expect(listener).toHaveBeenCalledTimes(1);
 
 			listener.mockClear();
 
 			unsubscribe();
-			rerender({ isOpen: true });
+			isOpen = true;
+			rerender();
 			expect(listener).toHaveBeenCalledTimes(0);
 		});
 
 		it('should be able to register an onChange callback to the same namespace after unsubscribing', () => {
+			let isOpen = true;
 			const { result, rerender } = renderHook(useOpenLayerObserver, {
-				initialProps: { isOpen: true },
-				wrapper: ({ children, isOpen }) => (
+				wrapper: ({ children }) => (
 					<OpenLayerObserver>
 						{children}
 						<OpenLayerObserverNamespaceProvider namespace="test-namespace-1">
@@ -806,31 +823,35 @@ describe('OpenLayerObserver', () => {
 			const listener = jest.fn();
 			const unsubscribe = api.onChange(listener, { namespace: 'test-namespace-1' });
 
-			rerender({ isOpen: false });
+			isOpen = false;
+			rerender();
 			expect(listener).toHaveBeenCalledTimes(1);
 
 			listener.mockClear();
 
 			unsubscribe();
-			rerender({ isOpen: true });
+			isOpen = true;
+			rerender();
 			expect(listener).toHaveBeenCalledTimes(0);
 
 			const unsubscribe2 = api.onChange(listener, { namespace: 'test-namespace-1' });
 
-			rerender({ isOpen: false });
+			isOpen = false;
+			rerender();
 			expect(listener).toHaveBeenCalledTimes(1);
 
 			listener.mockClear();
 
 			unsubscribe2();
-			rerender({ isOpen: true });
+			isOpen = true;
+			rerender();
 			expect(listener).toHaveBeenCalledTimes(0);
 		});
 
 		it('should call each registration of a listener callback function when several listeners refer to the same function', () => {
+			let isOpen = true;
 			const { result, rerender } = renderHook(useOpenLayerObserver, {
-				initialProps: { isOpen: true },
-				wrapper: ({ children, isOpen }) => (
+				wrapper: ({ children }) => (
 					<OpenLayerObserver>
 						{children}
 						{isOpen && <MockLayerComponent />}
@@ -845,7 +866,8 @@ describe('OpenLayerObserver', () => {
 			const unsubscribe1 = api.onChange(listener);
 			const unsubscribe2 = api.onChange(listener);
 
-			rerender({ isOpen: false });
+			isOpen = false;
+			rerender();
 			expect(listener).toHaveBeenCalledTimes(2);
 
 			unsubscribe1();
@@ -853,9 +875,9 @@ describe('OpenLayerObserver', () => {
 		});
 
 		it('should only unsubscribe a single instance of a listener function when several listeners refer to the same function', () => {
+			let isOpen = true;
 			const { result, rerender } = renderHook(useOpenLayerObserver, {
-				initialProps: { isOpen: true },
-				wrapper: ({ children, isOpen }) => (
+				wrapper: ({ children }) => (
 					<OpenLayerObserver>
 						{children}
 						{isOpen && <MockLayerComponent />}
@@ -870,26 +892,29 @@ describe('OpenLayerObserver', () => {
 			const unsubscribe1 = api.onChange(listener);
 			const unsubscribe2 = api.onChange(listener);
 
-			rerender({ isOpen: false });
+			isOpen = false;
+			rerender();
 			expect(listener).toHaveBeenCalledTimes(2);
 
 			listener.mockClear();
 
 			unsubscribe1();
-			rerender({ isOpen: true });
+			isOpen = true;
+			rerender();
 			expect(listener).toHaveBeenCalledTimes(1);
 
 			listener.mockClear();
 
 			unsubscribe2();
-			rerender({ isOpen: false });
+			isOpen = false;
+			rerender();
 			expect(listener).toHaveBeenCalledTimes(0);
 		});
 
 		it('should not create an infinite loop when a listener adds another listener', () => {
+			let isOpen = true;
 			const { result, rerender } = renderHook(useOpenLayerObserver, {
-				initialProps: { isOpen: true },
-				wrapper: ({ children, isOpen }) => (
+				wrapper: ({ children }) => (
 					<OpenLayerObserver>
 						{children}
 						{isOpen && <MockLayerComponent />}
@@ -907,9 +932,8 @@ describe('OpenLayerObserver', () => {
 
 			addListener();
 
-			rerender({ isOpen: false });
-
-			expect(result.error).toBeUndefined();
+			isOpen = false;
+			expect(() => rerender()).not.toThrow();
 		});
 	});
 
@@ -1012,6 +1036,7 @@ describe('OpenLayerObserver', () => {
 		});
 
 		it('should only unsubscribe a single instance of an onClose function when several listeners refer to the same function', () => {
+			let isLayerOneOpen = true;
 			const LayerComponent = ({ onClose }: { onClose: () => void }) => {
 				useNotifyOpenLayerObserver({ isOpen: true, onClose });
 
@@ -1022,8 +1047,7 @@ describe('OpenLayerObserver', () => {
 			const onClose = jest.fn();
 
 			const { result, rerender } = renderHook(useOpenLayerObserver, {
-				initialProps: { isLayerOneOpen: true },
-				wrapper: ({ children, isLayerOneOpen }) => (
+				wrapper: ({ children }) => (
 					<OpenLayerObserver>
 						{children}
 						{isLayerOneOpen && <LayerComponent onClose={onClose} />}
@@ -1048,7 +1072,8 @@ describe('OpenLayerObserver', () => {
 			onClose.mockClear();
 
 			// Rerender with the first layer unmounted, which will unsubscribe its onClose listener
-			rerender({ isLayerOneOpen: false });
+			isLayerOneOpen = false;
+			rerender();
 
 			// Should be called once as only one layer is rendered
 			expect(onClose).toHaveBeenCalledTimes(0);

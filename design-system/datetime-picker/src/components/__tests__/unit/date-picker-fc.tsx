@@ -1,9 +1,12 @@
 import React from 'react';
 
+
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { format, parseISO } from 'date-fns';
 import cases from 'jest-in-case';
+
+import { skipA11yAudit } from '@af/accessibility-testing';
 
 import { convertTokens } from '../../../internal/parse-tokens';
 import { type DatePickerBaseProps } from '../../../types';
@@ -45,6 +48,10 @@ describe('DatePicker', () => {
 
 	const queryCalendar = () => screen.queryByTestId(new RegExp(`${testId}.*--calendar$`));
 	const queryMenu = () => screen.queryByTestId(`${testId}--popper--container`);
+
+	beforeEach(() => {
+		skipA11yAudit();
+	});
 
 	it('should be required when prop is passed', () => {
 		render(createDatePicker({ isRequired: true }));

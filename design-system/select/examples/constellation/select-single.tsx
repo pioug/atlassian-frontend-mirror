@@ -19,7 +19,7 @@ const SelectSingleExample = (): React.JSX.Element => (
 				{ label: 'Perth', value: 'perth' },
 				{ label: 'Sydney', value: 'sydney' },
 			]}
-			placeholder="Choose a city"
+			placeholder=""
 		/>
 	</>
 );

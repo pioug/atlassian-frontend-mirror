@@ -1,7 +1,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { LoomPlugin } from './loomPluginType';
 import { insertLoom, recordVideo, setupLoom } from './pm-plugins/commands';
@@ -12,9 +11,7 @@ import { getToolbarComponents } from './ui/toolbar-components';
 
 export const loomPlugin: LoomPlugin = ({ config, api }) => {
 	const editorAnalyticsAPI = api?.analytics?.actions;
-	const isNewToolbarEnabled =
-		Boolean(api?.toolbar) &&
-		expValEquals('platform_editor_toolbar_migrate_loom', 'isEnabled', true);
+	const isNewToolbarEnabled = Boolean(api?.toolbar);
 
 	// Workaround since we want to insert a loom via the `hyperlink` plugin for now.
 	// The hyperlink plugin (and the card plugin) are deeply tied into using the Prosemirror Command

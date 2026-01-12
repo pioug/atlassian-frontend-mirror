@@ -96,6 +96,94 @@ export function taskItemToDom(node: PMNode, placeholder: string, intl: IntlShape
 		contentDomDataAttrs = isContentEmpty(node) ? { 'data-empty': 'true' } : {};
 	}
 
+	const checkboxIcons = expValEquals('platform_editor_task_item_styles', 'isEnabled', true)
+		? [
+				'http://www.w3.org/2000/svg svg',
+				{
+					width: '20',
+					height: '20',
+					viewBox: '2 2 20 20',
+					role: 'presentation',
+					'data-component': 'checkbox-icon',
+				},
+				[
+					'http://www.w3.org/2000/svg g',
+					{
+						'fill-rule': 'evenodd',
+					},
+					[
+						'http://www.w3.org/2000/svg rect',
+						{
+							fill: 'currentcolor',
+							x: '5.5',
+							y: '5.5',
+							width: '13',
+							height: '13',
+							rx: '1.5',
+						},
+					],
+					[
+						'http://www.w3.org/2000/svg path',
+						{
+							'fill-rule': 'evenodd',
+							'clip-rule': 'evenodd',
+							d: 'm16.326 9.48-1.152-.96-4.424 5.308-1.924-2.308-1.152.96 2.5 3a.75.75 0 0 0 1.152 0z',
+							fill: 'inherit',
+						},
+					],
+				],
+			]
+		: [
+				'span',
+				{
+					'aria-hidden': true,
+					'data-component': 'checkbox-icon-wrap',
+				},
+				[
+					'http://www.w3.org/2000/svg svg',
+					{
+						viewBox: `0 0 16 16`,
+						width: '16',
+						height: '16',
+						role: 'presentation',
+						fill: 'none',
+						'data-component': 'checkbox-unchecked-icon',
+					},
+					[
+						'http://www.w3.org/2000/svg rect',
+						{
+							width: '12.5',
+							height: '12.5',
+							x: '1.75',
+							y: '1.75',
+							stroke: 'currentcolor',
+							'stroke-width': '1.5',
+							rx: '1.25',
+						},
+					],
+				],
+				[
+					'http://www.w3.org/2000/svg svg',
+					{
+						viewBox: `0 0 16 16`,
+						width: '16',
+						height: '16',
+						role: 'presentation',
+						fill: 'none',
+						'data-component': 'checkbox-checked-icon',
+					},
+					[
+						'http://www.w3.org/2000/svg path',
+						{
+							fill: 'currentcolor',
+							'fill-rule': 'evenodd',
+							'clip-rule': 'evenodd',
+							d: 'M3 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm9.326 4.48-1.152-.96L6.75 9.828 4.826 7.52l-1.152.96 2.5 3a.75.75 0 0 0 1.152 0z',
+						},
+					],
+				],
+			];
+
 	return [
 		'div',
 		{
@@ -126,56 +214,7 @@ export function taskItemToDom(node: PMNode, placeholder: string, intl: IntlShape
 						role: 'checkbox',
 					},
 				],
-				[
-					'span',
-					{
-						'aria-hidden': true,
-						'data-component': 'checkbox-icon-wrap',
-					},
-					[
-						'http://www.w3.org/2000/svg svg',
-						{
-							viewBox: `0 0 16 16`,
-							width: '16',
-							height: '16',
-							role: 'presentation',
-							fill: 'none',
-							'data-component': 'checkbox-unchecked-icon',
-						},
-						[
-							'http://www.w3.org/2000/svg rect',
-							{
-								width: '12.5',
-								height: '12.5',
-								x: '1.75',
-								y: '1.75',
-								stroke: 'currentcolor',
-								'stroke-width': '1.5',
-								rx: '1.25',
-							},
-						],
-					],
-					[
-						'http://www.w3.org/2000/svg svg',
-						{
-							viewBox: `0 0 16 16`,
-							width: '16',
-							height: '16',
-							role: 'presentation',
-							fill: 'none',
-							'data-component': 'checkbox-checked-icon',
-						},
-						[
-							'http://www.w3.org/2000/svg path',
-							{
-								fill: 'currentcolor',
-								'fill-rule': 'evenodd',
-								'clip-rule': 'evenodd',
-								d: 'M3 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm9.326 4.48-1.152-.96L6.75 9.828 4.826 7.52l-1.152.96 2.5 3a.75.75 0 0 0 1.152 0z',
-							},
-						],
-					],
-				],
+				checkboxIcons,
 			],
 			[
 				'span',

@@ -69,7 +69,6 @@ function typeToIcon(
 			return (
 				<PeopleGroupIcon
 					label={opts.title || 'project'}
-					LEGACY_size="small"
 					testId="project-icon"
 					color="currentColor"
 				/>

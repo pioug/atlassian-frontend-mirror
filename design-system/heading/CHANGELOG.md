@@ -1,5 +1,13 @@
 # @atlaskit/heading
 
+## 5.2.18
+
+### Patch Changes
+
+- [`1791263fbda89`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1791263fbda89) -
+  Increased specificity for font styles to ensure Heading is not affected by unwanted
+  classnameoverrides. This change is applied behind a feature gate and will soon become the default.
+
 ## 5.2.17
 
 ### Patch Changes

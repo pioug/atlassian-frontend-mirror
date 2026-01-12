@@ -41,7 +41,7 @@ export const EmbedCardErroredView = ({
 		isSelected={isSelected}
 		testId={testId}
 	>
-		<ErrorIcon LEGACY_size="small" color={token('color.icon.danger', R300)} label="error-icon" />
+		<ErrorIcon color={token('color.icon.danger', R300)} label="error-icon" />
 		<Box xcss={styles.boxStyles}>
 			<Inline>
 				<FormattedMessage {...messages.could_not_load_link} />

@@ -147,14 +147,7 @@ const MediaFeatureFlagsDropdown = ({
 						{...triggerProps}
 						isSelected={isOpen}
 						onClick={() => setIsOpen(!isOpen)}
-						iconAfter={
-							<HipchatChevronDownIcon
-								color="currentColor"
-								label=""
-								LEGACY_size="small"
-								size="small"
-							/>
-						}
+						iconAfter={<HipchatChevronDownIcon color="currentColor" label="" size="small" />}
 					>
 						Media Feature Flags
 					</Button>
@@ -165,9 +158,7 @@ const MediaFeatureFlagsDropdown = ({
 				<Button
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					style={{ marginLeft: 10 }}
-					iconBefore={
-						<SelectClearIcon color="currentColor" label="Star icon" LEGACY_size="small" />
-					}
+					iconBefore={<SelectClearIcon color="currentColor" label="Star icon" />}
 					onClick={() => {
 						clearAllLocalFeatureFlags();
 						onFlagChanged();

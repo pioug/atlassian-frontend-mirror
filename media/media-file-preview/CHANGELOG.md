@@ -1,5 +1,14 @@
 # @atlaskit/media-file-preview
 
+## 0.15.3
+
+### Patch Changes
+
+- [`71b895a2fd401`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71b895a2fd401) -
+  Fix SSR preview generation to only be attempted in SSR and not in client if the ssr="client" prop
+  is sent
+- Updated dependencies
+
 ## 0.15.2
 
 ### Patch Changes

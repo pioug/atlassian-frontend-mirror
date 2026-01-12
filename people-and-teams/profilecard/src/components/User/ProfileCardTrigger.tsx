@@ -1,13 +1,11 @@
 import React, { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { cssMap } from '@compiled/react';
 import { useIntl } from 'react-intl-next';
 
 import { type AnalyticsEventPayload, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
-import { Box } from '@atlaskit/primitives/compiled';
 import {
 	type FireEventType,
 	useAnalyticsEvents as useAnalyticsEventsNext,
@@ -36,15 +34,6 @@ import { AgentProfileCardResourced } from '../Agent/AgentProfileCardResourced';
 
 import { ProfileCardLazy } from './lazyProfileCard';
 import UserLoadingState from './UserLoadingState';
-
-const styles = cssMap({
-	profileCardTrigger: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'#profile-card-trigger-popup-wrapper': {
-			zIndex: layers.modal(),
-		},
-	},
-});
 
 function ProfileCardContent({
 	profilecardProps,
@@ -458,115 +447,6 @@ export default function ProfilecardTriggerNext({
 	const ssrPlaceholderProp = ssrPlaceholderId
 		? { 'data-ssr-placeholder-replace': ssrPlaceholderId }
 		: {};
-
-	if (fg('enable_absolute_positioning_profile_card')) {
-		return (
-			<>
-				<Box as="span" xcss={styles.profileCardTrigger}>
-					<Popup
-						isOpen={!!visible}
-						onClose={(event: React.KeyboardEvent) => {
-							hideProfilecard();
-							handleKeyboardClose(event);
-						}}
-						placement={position}
-						offset={offset ?? [0, 8]}
-						content={() => (
-							<div {...wrapperProps}>
-								{showLoading ? (
-									<LoadingView
-										fireAnalytics={fireAnalytics}
-										fireAnalyticsNext={fireAnalyticsNext}
-									/>
-								) : (
-									visible && (
-										<ProfileCardContent
-											profilecardProps={profilecardProps}
-											isAgent={!!data?.isAgent}
-											userId={userId}
-											cloudId={cloudId!}
-											resourceClient={resourceClient}
-											viewingUserId={viewingUserId}
-											trigger={trigger}
-											product={product}
-											profileCardAction={filterActions()}
-											errorType={error}
-											hasError={hasError}
-											agentActions={agentActions}
-											addFlag={addFlag}
-											hideAgentMoreActions={hideAgentMoreActions}
-										/>
-									)
-								)}
-							</div>
-						)}
-						trigger={(triggerProps) => {
-							const { ref: callbackRef, ...innerProps } = triggerProps;
-							const ref = (element: HTMLElement | null) => {
-								triggerRef.current = element;
-								if (typeof callbackRef === 'function') {
-									callbackRef(element);
-								}
-							};
-							const { 'aria-expanded': _, 'aria-haspopup': __, ...restInnerProps } = innerProps;
-							return (
-								<span
-									{...(disabledAriaAttributes ? restInnerProps : triggerProps)}
-									{...containerListeners}
-									ref={ref}
-									data-testid={testId}
-									{...(!ariaHideProfileTrigger && { 'aria-labelledby': ariaLabelledBy })}
-									{...(disabledAriaAttributes
-										? {}
-										: {
-												role: 'button',
-												//  aria-hidden cannot contain focusable elements: https://dequeuniversity.com/rules/axe/3.5/aria-hidden-focus
-												tabIndex: ariaHideProfileTrigger ? -1 : 0,
-												'aria-label': ariaHideProfileTrigger
-													? undefined
-													: getLabelMessage(ariaLabel, profilecardProps.fullName, formatMessage),
-											})}
-									{...(ariaHideProfileTrigger && { 'aria-hidden': 'true' })}
-									{...ssrPlaceholderProp}
-								>
-									{children}
-								</span>
-							);
-						}}
-						zIndex={layers.modal()}
-						shouldUseCaptureOnOutsideClick
-						autoFocus={autoFocus ?? trigger === 'click'}
-						shouldRenderToParent={
-							fg('enable_appropriate_reading_order_in_profile_card') ||
-							fg('enable_absolute_positioning_profile_card')
-						}
-						shouldDisableFocusLock={
-							fg('enable_appropriate_reading_order_in_profile_card') ||
-							fg('enable_absolute_positioning_profile_card')
-						}
-						strategy="absolute"
-						id="profile-card-trigger-popup-wrapper"
-					/>
-				</Box>
-				{shouldShowGiveKudos && teamCentralBaseUrl && (
-					<Suspense fallback={null}>
-						<GiveKudosLauncherLazy
-							isOpen={kudosDrawerOpen}
-							recipient={{
-								type: KudosType.INDIVIDUAL,
-								recipientId: userId!,
-							}}
-							analyticsSource="profile-card"
-							teamCentralBaseUrl={teamCentralBaseUrl}
-							cloudId={cloudId!}
-							addFlag={addFlag}
-							onClose={closeKudosDrawer}
-						/>
-					</Suspense>
-				)}
-			</>
-		);
-	}
 
 	return (
 		<>

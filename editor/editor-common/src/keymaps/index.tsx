@@ -17,6 +17,7 @@ import type { EditorCommand } from '../types/editor-command';
 import { browser as browserLegacy, getBrowserInfo } from '../utils/browser';
 
 export const addAltText = makeKeyMapWithCommon('Add Alt Text', 'Mod-Alt-y');
+export const toggleViewChanges = makeKeyMapWithCommon('View changes', 'Mod-Alt-z');
 export const navToEditorToolbar = makeKeyMapWithCommon('Navigate to editor toolbar', 'Alt-F9');
 export const navToFloatingToolbar = makeKeyMapWithCommon('Navigate to floating toolbar', 'Alt-F10');
 export const askAIQuickInsert = makeKeyMapWithCommon('Ask AI', "Mod-'");

@@ -5,10 +5,10 @@
 import { Component } from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { N300 } from '@atlaskit/theme/colors';
 import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import AkButton from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
+import { Text } from '@atlaskit/primitives/compiled';
 import FocusLock from 'react-focus-lock';
 import type { EmojiDescription } from '../../types';
 import { messages } from '../i18n';
@@ -40,8 +40,10 @@ const deleteFooter = css({
 
 const deletePreview = css({
 	height: '100px',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-	padding: '10px',
+	paddingTop: token('space.100'),
+	paddingRight: token('space.100'),
+	paddingBottom: token('space.100'),
+	paddingLeft: token('space.100'),
 	display: 'flex',
 	flexDirection: 'column',
 	justifyContent: 'flex-end',
@@ -49,14 +51,6 @@ const deletePreview = css({
 
 const deleteText = css({
 	height: '64px',
-	font: token('font.body.UNSAFE_small'),
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	'&:first-of-type': {
-		color: token('color.text.subtle', N300),
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		lineHeight: '16px',
-	},
 });
 
 const previewButtonGroup = css({
@@ -130,10 +124,12 @@ class EmojiDeletePreview extends Component<Props & WrappedComponentProps, State>
 						<Heading size="xxsmall">
 							<FormattedMessage {...messages.deleteEmojiTitle} />
 						</Heading>
-						<FormattedMessage
-							{...messages.deleteEmojiDescription}
-							values={{ emojiShortName: emoji.shortName }}
-						/>
+						<Text color="color.text.subtle" size="small">
+							<FormattedMessage
+								{...messages.deleteEmojiDescription}
+								values={{ emojiShortName: emoji.shortName }}
+							/>
+						</Text>
 					</div>
 					<div css={deleteFooter}>
 						<CachingEmoji emoji={emoji} />

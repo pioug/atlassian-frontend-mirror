@@ -11,7 +11,7 @@ import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { CloseButton } from './close-button';
-import { OnCloseContext, SetIsOpenContext, useTitleId } from './flyout-menu-item-context';
+import { OnCloseContext, useTitleId } from './flyout-menu-item-context';
 
 const headerStyles = cssMap({
     root: {
@@ -68,14 +68,13 @@ export const FlyoutHeader = (props: FlyoutHeaderProps) => {
     const { children, testId, title, closeButtonLabel } = props;
 
     const id = useTitleId();
+    const onCloseRef = useContext(OnCloseContext);
 
-    const setIsOpen = useContext(SetIsOpenContext);
-    const onClose = useContext(OnCloseContext);
-
-    const handleClose = useCallback(() => {
-        onClose?.();
-        setIsOpen(false);
-    }, [setIsOpen, onClose]);
+    const handleClose = useCallback((
+        event: React.MouseEvent<HTMLButtonElement>,
+    ) => {
+        onCloseRef.current?.(event, 'close-button');
+    }, [onCloseRef]);
 
     return (
         <div css={headerStyles.root} data-testid={testId}>
@@ -91,7 +90,7 @@ export const FlyoutHeader = (props: FlyoutHeaderProps) => {
                         onClick={handleClose}
                         testId={testId && `${testId}--close-button`}
                     />
-                    <Heading size="xsmall" as="span" id={id}>{title}</Heading>
+                    <Heading size="xsmall" as="h2" id={id}>{title}</Heading>
                 </Flex>
                 {children}
         </div>

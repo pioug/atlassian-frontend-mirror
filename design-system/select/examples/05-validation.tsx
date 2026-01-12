@@ -17,7 +17,7 @@ const ValidationExample = (): React.JSX.Element => (
 		<Field label="City" name="fail-city" validate={validate}>
 			{({ fieldProps: { isInvalid, ...props }, error }: any) => (
 				<Fragment>
-					<Select {...props} options={cities} placeholder="Choose a City" isInvalid={isInvalid} />
+					<Select {...props} options={cities} placeholder="" isInvalid={isInvalid} />
 					<HelperMessage>
 						Trigger a validation error by focusing on this field and pressing tab.
 					</HelperMessage>
@@ -35,13 +35,13 @@ const ValidationExample = (): React.JSX.Element => (
 			validate={validate}
 		>
 			{({ fieldProps: { isInvalid, ...props } }: any) => (
-				<Select {...props} options={cities} placeholder="Choose a City" isInvalid={isInvalid} />
+				<Select {...props} options={cities} placeholder="" isInvalid={isInvalid} />
 			)}
 		</Field>
 
 		<Field label="City Invalid" id="invalid" name="invalid-city">
 			{({ fieldProps: { isInvalid, ...props } }: any) => (
-				<Select {...props} options={cities} placeholder="Choose a City" isInvalid={true} />
+				<Select {...props} options={cities} placeholder="" isInvalid={true} />
 			)}
 		</Field>
 	</Form>

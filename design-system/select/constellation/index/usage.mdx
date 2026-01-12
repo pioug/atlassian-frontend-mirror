@@ -8,13 +8,13 @@ import SelectA11yDont from './images/select-a11y-dont.png';
 ## Usage
 
 Use select to let people choose one or more items from a list of menu items. It’s usually found in
-[forms](/patterns/forms) or [inline edit](/patterns/inline-edit).
+[forms](https://atlassian.design/components/form/usage) or [inline edit](https://atlassian.design/components/inline-edit/usage).
 
 ## Anatomy
 
 ### Single select
 
-![The single-select component is made of four parts. the field label is positioned above the input area, and the menu options open in a dropdown menu below the input area. Placeholder text is optional in the text input area.](images/single-select.png)
+![The single-select component is made of three parts. The field label is positioned above the input area, and the menu options open in a dropdown menu below the input area.](images/single-select.png)
 
 1. **Field label:** Use the field label to indicate what information the field requires. The label
    is usually left-aligned above the input area.
@@ -22,9 +22,6 @@ Use select to let people choose one or more items from a list of menu items. It�
    selected, the option will be shown in the text input.
 3. **Menu:** Contains the list of all selectable items. These can be grouped into sub-categories
    under headings.
-4. **Placeholder text (optional):** Includes information that supports the field label and other
-   contextual cues, for example, _“Start typing to see names”_. It should not be necessary to
-   understand how to use the component.
 
 ### Multi select
 
@@ -45,12 +42,11 @@ Use select to let people choose one or more items from a list of menu items. It�
 
 ### Use labels instead of placeholders
 
-Don’t use placeholder text to clarify field inputs – use the field label and helper text. Use a
-field label to indicate what information goes in the text input. Ensure the label is positioned
-outside the field so it remains visible at all times.
+Don’t use placeholder text to clarify field inputs – use the field label and helper text.
 
-Helper text can explain more about what to enter in the text input field. If the text is necessary
-to understand the field, put it above the text input (below the field label).
+Use a field label to indicate what information goes in the text input. Ensure the label is positioned outside the field so it remains visible at all times.
+
+Use helper text when it’s important to explain or give more information about what to enter in the text field.
 
 <DoDont
 	type="do"
@@ -66,11 +62,10 @@ to understand the field, put it above the text input (below the field label).
 	type="dont"
 	image={{
 		url: SelectA11yDont,
-		alt: 'Select where there is no field label or helper text. The placeholder text is "Search Jira work items"',
+		alt: 'Do not select where there is no field label or helper text.',
 	}}
 >
-	Use placeholder text instead of a field label. When information is entered the context of the
-	field input disappears.
+	Don't use placeholder text instead of a field label. It’s not accessible and disappears when information is entered.
 </DoDont>
 
 ### Removed clear control

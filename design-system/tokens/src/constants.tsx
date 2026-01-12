@@ -1,4 +1,5 @@
 export const THEME_DATA_ATTRIBUTE = 'data-theme';
+export const SUBTREE_THEME_ATTRIBUTE = 'data-subtree-theme';
 export const COLOR_MODE_ATTRIBUTE = 'data-color-mode';
 export const CONTRAST_MODE_ATTRIBUTE = 'data-contrast-mode';
 export const CUSTOM_THEME_ATTRIBUTE = 'data-custom-theme';

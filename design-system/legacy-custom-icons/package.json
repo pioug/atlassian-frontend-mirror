@@ -185,7 +185,7 @@
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
 		"@atlassian/codegen": "workspace:^",
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"enquirer": "root:*",
 		"fs-extra": "root:*",
 		"react-dom": "root:*",

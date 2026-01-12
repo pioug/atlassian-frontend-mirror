@@ -22,7 +22,10 @@ const ABORTING_WINDOW_EVENT = ['wheel', 'scroll', 'keydown', 'resize'] as const;
 
 const REVISION_NO = 'fy25.03';
 
-const getConsideredEntryTypes = (include3p?: boolean): VCObserverEntryType[] => {
+const getConsideredEntryTypes = (
+	include3p?: boolean,
+	excludeSmartAnswersInSearch?: boolean,
+): VCObserverEntryType[] => {
 	const entryTypes: VCObserverEntryType[] = [
 		'mutation:child-element',
 		'mutation:element',
@@ -37,6 +40,11 @@ const getConsideredEntryTypes = (include3p?: boolean): VCObserverEntryType[] => 
 	if (!fg('platform_ufo_exclude_3p_elements_from_ttvc') || include3p) {
 		entryTypes.push('mutation:third-party-element');
 		entryTypes.push('mutation:third-party-attribute');
+	}
+
+	if (!excludeSmartAnswersInSearch && fg('rovo_search_page_ttvc_ignoring_smart_answers_fix')) {
+		entryTypes.push('mutation:smart-answers-element');
+		entryTypes.push('mutation:smart-answers-attribute');
 	}
 
 	if (fg('platform_ufo_enable_media_for_ttvc_v3')) {
@@ -59,11 +67,17 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 		include3p?: boolean,
 		excludeSmartAnswersInSearch?: boolean,
 	): boolean {
-		if (!getConsideredEntryTypes(include3p).includes(entry.data.type)) {
+		if (
+			!getConsideredEntryTypes(include3p, excludeSmartAnswersInSearch).includes(entry.data.type)
+		) {
 			return false;
 		}
 
-		if (excludeSmartAnswersInSearch && isEntrySmartAnswersInSearch(entry)) {
+		if (
+			excludeSmartAnswersInSearch &&
+			isEntrySmartAnswersInSearch(entry) &&
+			!fg('rovo_search_page_ttvc_ignoring_smart_answers_fix')
+		) {
 			return false;
 		}
 

@@ -391,7 +391,6 @@ const TreeItem = memo(function TreeItem({
 							iconBefore={
 								<MoreIcon
 									label="Actions"
-									LEGACY_size="small"
 									color={token('color.icon.subtle', '#626F86')}
 									size="small"
 								/>

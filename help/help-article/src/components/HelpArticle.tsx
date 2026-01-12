@@ -27,7 +27,7 @@ const HelpArticle = (props: HelpArticleType): React.JSX.Element => {
 							<Heading size="large">
 								{title}
 								<Text> </Text>
-								<ShortcutIcon color="currentColor" label="link icon" LEGACY_size="small" />
+								<ShortcutIcon color="currentColor" label="link icon" />
 							</Heading>
 						</ArticleContentTitleLink>
 					) : (

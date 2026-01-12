@@ -66,7 +66,7 @@
 		"@atlaskit/icon-object": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"ast-types": "root:*",
 		"jscodeshift": "root:*"
 	},

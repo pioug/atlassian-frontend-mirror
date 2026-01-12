@@ -2,10 +2,9 @@ import React, { Suspense } from 'react';
 
 import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
-import { type AnalyticsEventPayload, withAnalyticsEvents } from '@atlaskit/analytics-next';
+import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 import Popup from '@atlaskit/popup';
 import { type TriggerProps } from '@atlaskit/popup/types';
 import { Box } from '@atlaskit/primitives/compiled';
@@ -27,12 +26,7 @@ import type {
 	TeamProfileCardTriggerProps,
 	TeamProfileCardTriggerState,
 } from '../../types';
-import {
-	cardTriggered,
-	fireEvent,
-	PACKAGE_META_DATA,
-	profileCardRendered,
-} from '../../util/analytics';
+import { fireEvent, PACKAGE_META_DATA } from '../../util/analytics';
 import { isBasicClick } from '../../util/click';
 import { DELAY_MS_HIDE, DELAY_MS_SHOW } from '../../util/config';
 import { getPageTime } from '../../util/performance';
@@ -137,16 +131,12 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 			this.showProfilecard(0);
 
 			if (!this.state.visible) {
-				if (fg('ptc-enable-profile-card-analytics-refactor')) {
-					this.fireAnalyticsNext('ui.teamProfileCard.triggered', {
-						method: 'click',
-						...PACKAGE_META_DATA,
-						firedAt: Math.round(getPageTime()),
-						teamId: this.props.teamId,
-					});
-				} else {
-					this.fireAnalytics(cardTriggered('team', 'click', this.props.teamId));
-				}
+				this.fireAnalyticsNext('ui.teamProfileCard.triggered', {
+					method: 'click',
+					...PACKAGE_META_DATA,
+					firedAt: Math.round(getPageTime()),
+					teamId: this.props.teamId,
+				});
 			}
 		}
 	};
@@ -159,16 +149,12 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		if (!this.state.visible) {
 			this.openedByHover = true;
 
-			if (fg('ptc-enable-profile-card-analytics-refactor')) {
-				this.fireAnalyticsNext('ui.teamProfileCard.triggered', {
-					method: 'hover',
-					...PACKAGE_META_DATA,
-					firedAt: Math.round(getPageTime()),
-					teamId: this.props.teamId,
-				});
-			} else {
-				this.fireAnalytics(cardTriggered('team', 'hover', this.props.teamId));
-			}
+			this.fireAnalyticsNext('ui.teamProfileCard.triggered', {
+				method: 'hover',
+				...PACKAGE_META_DATA,
+				firedAt: Math.round(getPageTime()),
+				teamId: this.props.teamId,
+			});
 		}
 
 		this.showProfilecard(DELAY_MS_SHOW);
@@ -190,16 +176,12 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 			this.setState({ isTriggeredByKeyboard: true });
 			this.showProfilecard(0);
 			if (!this.state.visible) {
-				if (fg('ptc-enable-profile-card-analytics-refactor')) {
-					this.fireAnalyticsNext('ui.teamProfileCard.triggered', {
-						method: 'click',
-						firedAt: Math.round(getPageTime()),
-						teamId: this.props.teamId,
-						...PACKAGE_META_DATA,
-					});
-				} else {
-					this.fireAnalytics(cardTriggered('team', 'click', this.props.teamId));
-				}
+				this.fireAnalyticsNext('ui.teamProfileCard.triggered', {
+					method: 'click',
+					firedAt: Math.round(getPageTime()),
+					teamId: this.props.teamId,
+					...PACKAGE_META_DATA,
+				});
 			}
 		}
 	};
@@ -327,19 +309,12 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 	};
 
 	onErrorBoundary = () => {
-		if (fg('ptc-enable-profile-card-analytics-refactor')) {
-			this.fireAnalyticsNext('ui.teamProfileCard.rendered.errorBoundary', {
-				...PACKAGE_META_DATA,
-				firedAt: Math.round(getPageTime()),
-				duration: 0,
-			});
-		} else {
-			this.fireAnalytics(
-				profileCardRendered('team', 'errorBoundary', {
-					duration: 0,
-				}),
-			);
-		}
+		this.fireAnalyticsNext('ui.teamProfileCard.rendered.errorBoundary', {
+			...PACKAGE_META_DATA,
+			firedAt: Math.round(getPageTime()),
+			duration: 0,
+		});
+
 		this.setState({
 			renderError: true,
 		});
@@ -532,15 +507,17 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 	}
 }
 
-const TeamProfileCardTriggerWithAnalytics = (
-	props: TeamProfileCardTriggerProps & WrappedComponentProps,
-) => {
+const TeamProfileCardTrigger = (props: TeamProfileCardTriggerProps & WrappedComponentProps) => {
 	const { fireEvent } = useAnalyticsEvents();
+	if (fg('people-teams-deprecate-profilecard-teams')) {
+		return <>{props.children}</>;
+	}
 	return <TeamProfileCardTriggerInternal {...props} fireEvent={fireEvent} />;
 };
 
-export default componentWithFG(
-	'ptc-enable-profile-card-analytics-refactor',
-	injectIntl(TeamProfileCardTriggerWithAnalytics),
-	withAnalyticsEvents()(injectIntl(TeamProfileCardTriggerInternal)),
-);
+/**
+ * @deprecated This component is deprecated and provides no functionality.
+ * It now simply renders its children without any profile card behavior.
+ * Please use `@atlassian/team-profilecard` instead for team profile card functionality.
+ */
+export default injectIntl(TeamProfileCardTrigger);

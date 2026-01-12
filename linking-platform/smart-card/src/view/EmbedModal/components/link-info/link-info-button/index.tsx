@@ -3,6 +3,7 @@ import React from 'react';
 import { type MessageDescriptor, useIntl } from 'react-intl-next';
 
 import { IconButton, type IconProp } from '@atlaskit/button/new';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Tooltip from '@atlaskit/tooltip';
 
 import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
@@ -12,6 +13,7 @@ export type LinkInfoButtonProps = {
 	icon: IconProp;
 	label: MessageDescriptor;
 	onClick?: () => void;
+	role?: string;
 	testId?: string;
 };
 
@@ -21,6 +23,7 @@ const LinkInfoButton = ({
 	label,
 	onClick,
 	testId,
+	role,
 }: LinkInfoButtonProps): React.JSX.Element => {
 	const onMouseDown = useMouseDownEvent();
 	const { formatMessage } = useIntl();
@@ -34,6 +37,7 @@ const LinkInfoButton = ({
 				onClick={onClick}
 				onMouseDown={onMouseDown}
 				testId={`${testId}-button`}
+				{...(fg('navx-2185-smart-link-preview-modal-icon-role') ? { role } : {})}
 			/>
 		</Tooltip>
 	);

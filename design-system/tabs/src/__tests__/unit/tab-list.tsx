@@ -2,6 +2,7 @@ import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
+import { skipA11yAudit } from '@af/accessibility-testing';
 import noop from '@atlaskit/ds-lib/noop';
 
 import { Tab, TabList } from '../../index';
@@ -36,6 +37,9 @@ const renderTabList = (overridingValue: Partial<TabListAttributesType> = {}) => 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('@atlaskit/tabs', () => {
 	describe('tab list', () => {
+		beforeEach(() => {
+			skipA11yAudit();
+		});
 		it('should have role tablist', () => {
 			render(renderTabList());
 

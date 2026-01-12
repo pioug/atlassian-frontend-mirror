@@ -22,9 +22,10 @@ jest.mock('@atlaskit/ufo', () => {
 	const abort = jest.fn();
 	const mark = jest.fn();
 	const addMetadata = jest.fn();
+	const transition = jest.fn();
 
 	// Store references for test assertions (assigned after factory runs)
-	(global as any).__ufoMocks = { start, success, failure, abort, mark, addMetadata };
+	(global as any).__ufoMocks = { start, success, failure, abort, mark, addMetadata, transition };
 
 	return {
 		__esModule: true,
@@ -36,16 +37,21 @@ jest.mock('@atlaskit/ufo', () => {
 			abort,
 			mark,
 			addMetadata,
+			transition,
 		})),
 	};
 });
 
 // Get references to the mock functions after the mock is set up
+let mockUfoTransition: jest.Mock;
+let mockAddMetadata: jest.Mock;
 beforeAll(() => {
 	const mocks = (global as any).__ufoMocks;
 	mockUfoSuccess = mocks.success;
 	mockUfoFailure = mocks.failure;
 	mockUfoAbort = mocks.abort;
+	mockUfoTransition = mocks.transition;
+	mockAddMetadata = mocks.addMetadata;
 });
 
 jest.mock('../utils/ufoExperiences', () => {
@@ -277,7 +283,8 @@ describe('Card ', () => {
 			const { id, collectionName } = identifier;
 			const expectedPreview = { dataURI: tallImage, source: 'ssr-data' };
 
-			setGlobalSSRData(`${id}-${collectionName}`, expectedPreview);
+			// Key format: ${id}-${collectionName}-${resizeMode} (default resizeMode is 'crop')
+			setGlobalSSRData(`${id}-${collectionName}-crop`, expectedPreview);
 
 			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
@@ -302,6 +309,17 @@ describe('Card ', () => {
 				const dimensions = { width: 100, height: 100 };
 
 				const { mediaApi } = createMockedMediaApi([fileItem]);
+
+				const { id, collectionName } = identifier;
+				// For ssr='client', we need to set up global SSR data
+				// For ssr='server', getSSRPreview is called directly without needing global data
+				if (ssr === 'client') {
+					setGlobalSSRData(`${id}-${collectionName}-crop`, {
+						dataURI: 'data:image/png;base64,test',
+						source: 'ssr-data',
+						dimensions,
+					});
+				}
 
 				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
@@ -4074,12 +4092,12 @@ describe('Card ', () => {
 					),
 				);
 
-				expect(mockUfoSuccess).toHaveBeenCalledTimes(1);
-				expect(mockUfoSuccess).toHaveBeenLastCalledWith({
-					metadata: expect.objectContaining({
+				expect(mockUfoTransition).toHaveBeenCalledTimes(1);
+				expect(mockAddMetadata).toHaveBeenLastCalledWith(
+					expect.objectContaining({
 						fileStateFlags: { wasStatusUploading: true, wasStatusProcessing: true },
 					}),
-				});
+				);
 			});
 
 			it('should attach a processing file status flag with value as true', async () => {
@@ -4128,12 +4146,12 @@ describe('Card ', () => {
 					{ timeout: 5_000 },
 				);
 
-				expect(mockUfoSuccess).toHaveBeenCalledTimes(1);
-				expect(mockUfoSuccess).toHaveBeenLastCalledWith({
-					metadata: expect.objectContaining({
+				expect(mockUfoTransition).toHaveBeenCalledTimes(1);
+				expect(mockAddMetadata).toHaveBeenLastCalledWith(
+					expect.objectContaining({
 						fileStateFlags: { wasStatusUploading: false, wasStatusProcessing: true },
 					}),
-				});
+				);
 			});
 
 			it('should attach uploading and processing file status flags with values as false', async () => {
@@ -4164,12 +4182,12 @@ describe('Card ', () => {
 						'complete',
 					),
 				);
-				expect(mockUfoSuccess).toHaveBeenCalledTimes(1);
-				expect(mockUfoSuccess).toHaveBeenLastCalledWith({
-					metadata: expect.objectContaining({
+				expect(mockUfoTransition).toHaveBeenCalledTimes(1);
+				expect(mockAddMetadata).toHaveBeenLastCalledWith(
+					expect.objectContaining({
 						fileStateFlags: { wasStatusUploading: false, wasStatusProcessing: false },
 					}),
-				});
+				);
 			});
 
 			it('should attach uploading and processing file status flags with values as false for external image identifiers', async () => {
@@ -4203,12 +4221,12 @@ describe('Card ', () => {
 						'complete',
 					),
 				);
-				expect(mockUfoSuccess).toHaveBeenCalledTimes(1);
-				expect(mockUfoSuccess).toHaveBeenLastCalledWith({
-					metadata: expect.objectContaining({
+				expect(mockUfoTransition).toHaveBeenCalledTimes(1);
+				expect(mockAddMetadata).toHaveBeenLastCalledWith(
+					expect.objectContaining({
 						fileStateFlags: { wasStatusUploading: false, wasStatusProcessing: false },
 					}),
-				});
+				);
 			});
 		});
 

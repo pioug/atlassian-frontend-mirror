@@ -148,12 +148,7 @@ const QuizWidget = (props: Props): React.JSX.Element => {
 				>
 					<Flex alignItems="center">
 						<Flex xcss={boxWrapperStyles} alignItems="center" justifyContent="center">
-							<ChevronLeftLargeIcon
-								label="prev"
-								color="currentColor"
-								LEGACY_size="large"
-								size="small"
-							/>
+							<ChevronLeftLargeIcon label="prev" color="currentColor" size="small" />
 						</Flex>
 						<NavAction>{isLastSlide && props.score ? 'Review' : 'Previous'}</NavAction>
 					</Flex>
@@ -169,12 +164,7 @@ const QuizWidget = (props: Props): React.JSX.Element => {
 							{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 							<NavAction>Learn More</NavAction>
 							<Flex xcss={boxWrapperStyles} alignItems="center" justifyContent="center">
-								<ChevronRightLargeIcon
-									label="next"
-									color="currentColor"
-									LEGACY_size="large"
-									size="small"
-								/>
+								<ChevronRightLargeIcon label="next" color="currentColor" size="small" />
 							</Flex>
 						</Flex>
 					</NavQuiz>
@@ -184,12 +174,7 @@ const QuizWidget = (props: Props): React.JSX.Element => {
 							{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 							<NavAction>Next</NavAction>
 							<Flex xcss={boxWrapperStyles} alignItems="center" justifyContent="center">
-								<ChevronRightLargeIcon
-									label="next"
-									color="currentColor"
-									LEGACY_size="large"
-									size="small"
-								/>
+								<ChevronRightLargeIcon label="next" color="currentColor" size="small" />
 							</Flex>
 						</Flex>
 					</NavQuiz>

@@ -1,5 +1,16 @@
 # @atlaskit/user-picker
 
+## 11.20.0
+
+### Minor Changes
+
+- [`19a12355991dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19a12355991dc) -
+  update user types to use PendingInviteUser and improve type safety in invite logic
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.19.0
 
 ### Minor Changes

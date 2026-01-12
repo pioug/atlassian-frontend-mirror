@@ -7,6 +7,7 @@ import { cssMap, jsx } from '@compiled/react';
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { skipA11yAudit } from '@af/accessibility-testing';
 import __noop from '@atlaskit/ds-lib/noop';
 import EmojiIcon from '@atlaskit/icon/core/emoji';
 import { token } from '@atlaskit/tokens';
@@ -39,6 +40,7 @@ describe('esc key', () => {
 	beforeEach(() => {
 		jest.spyOn(global.window, 'addEventListener');
 		jest.spyOn(global.window, 'removeEventListener');
+		skipA11yAudit();
 	});
 
 	afterEach(() => {
@@ -65,6 +67,7 @@ describe('esc key', () => {
 
 describe('Drawer Transitions', () => {
 	beforeEach(() => {
+		skipA11yAudit();
 		jest.spyOn(global.window, 'addEventListener');
 		jest.spyOn(global.window, 'removeEventListener');
 	});
@@ -236,6 +239,9 @@ const styles = cssMap({
 });
 
 describe('Drawer panel', () => {
+	beforeEach(() => {
+		skipA11yAudit();
+	});
 	it('should render with narrow width by default', () => {
 		render(
 			<Drawer testId={testId} isOpen>
@@ -332,6 +338,9 @@ describe('Drawer panel', () => {
 });
 
 describe('Drawer sub components usage', () => {
+	beforeEach(() => {
+		skipA11yAudit();
+	});
 	it('should render when sub-components are not provided', () => {
 		render(<Drawer isOpen>Drawer contents</Drawer>);
 		expect(screen.getByText('Drawer contents')).toBeInTheDocument();

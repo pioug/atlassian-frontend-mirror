@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 8.0.7
+
+### Patch Changes
+
+- [`81c5041650743`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81c5041650743) -
+  EDITOR-4284 Fix move down visual selection persisting
+- Updated dependencies
+
 ## 8.0.6
 
 ### Patch Changes

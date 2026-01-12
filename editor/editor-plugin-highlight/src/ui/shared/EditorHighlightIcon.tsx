@@ -17,7 +17,7 @@ export const EditorHighlightIcon = ({
 		<SteppedRainbowIconDecoration
 			selectedColor={selectedColor}
 			disabled={disabled}
-			icon={<EditFilledIcon LEGACY_size="small" label="" />}
+			icon={<EditFilledIcon label="" />}
 		/>
 	</Box>
 );

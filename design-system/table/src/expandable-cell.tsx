@@ -27,7 +27,7 @@ const ExpandableCell = memo((): React.JSX.Element => {
 			<IconButton
 				spacing="compact"
 				appearance="subtle"
-				icon={(iconProps) => <Icon {...iconProps} LEGACY_size="small" size="small" />}
+				icon={(iconProps) => <Icon {...iconProps} size="small" />}
 				label="Expand row"
 				onClick={handleClick}
 				aria-pressed={isExpanded}

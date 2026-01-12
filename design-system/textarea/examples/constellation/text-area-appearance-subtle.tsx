@@ -11,7 +11,7 @@ export default function TextAreaAppearanceSubtle(): React.JSX.Element {
 				appearance="subtle"
 				id="appearance-subtle"
 				name="appearance-subtle"
-				placeholder="Enter your details here"
+				placeholder=""
 			/>
 		</>
 	);

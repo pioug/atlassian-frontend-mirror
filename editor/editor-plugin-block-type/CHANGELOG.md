@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-block-type
 
+## 11.1.0
+
+### Minor Changes
+
+- [`cd8d11632a928`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd8d11632a928) -
+  [https://hello.jira.atlassian.cloud/browse/EDITOR-4390](EDITOR-4390) - clean up
+  platform_editor_heading_from_numpad feature gate
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.3
 
 ### Patch Changes

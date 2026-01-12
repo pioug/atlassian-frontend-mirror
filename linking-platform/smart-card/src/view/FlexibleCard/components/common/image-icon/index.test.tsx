@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { fireEvent, screen } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
 
 import { renderWithIntl } from '@atlaskit/link-test-helpers';
 
@@ -76,11 +77,13 @@ describe('ImageIcon', () => {
 			expect(screen.getByTestId('default-icon')).toBeInTheDocument();
 
 			rerender(
-				<ImageIcon
-					url="https://example.com/image2.png"
-					testId="image-test"
-					hideLoadingSkeleton={true}
-				/>,
+				<IntlProvider locale={'en'}>
+					<ImageIcon
+						url="https://example.com/image2.png"
+						testId="image-test"
+						hideLoadingSkeleton={true}
+					/>,
+				</IntlProvider>
 			);
 			expect(screen.queryByTestId('default-icon')).not.toBeInTheDocument();
 			expect(screen.getByRole('presentation')).toBeInTheDocument();

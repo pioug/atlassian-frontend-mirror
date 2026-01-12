@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { render, screen } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
 
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { getFlexibleCardTestWrapper } from '../../../../../../__tests__/__utils__/unit-testing-library-helpers';
@@ -10,7 +11,10 @@ describe('Element: Preview', () => {
 	const testId = 'smart-element-media';
 
 	it('renders media element with overrideUrl', async () => {
-		render(<Preview overrideUrl="src-loaded" />);
+		render(
+			<IntlProvider locale={'en'}>
+				<Preview overrideUrl="src-loaded" />
+			</IntlProvider>);
 
 		const element = await screen.findByTestId(testId);
 		const image = await screen.findByTestId(`${testId}-image-image`);
@@ -34,7 +38,10 @@ describe('Element: Preview', () => {
 	});
 
 	it('should capture and report a11y violations', async () => {
-		const { container } = render(<Preview overrideUrl="src-loaded" />);
+		const { container } = render(
+			<IntlProvider locale={'en'}>
+				<Preview overrideUrl="src-loaded" />
+			</IntlProvider>);
 		await expect(container).toBeAccessible();
 	});
 });

@@ -11,6 +11,7 @@ import type { Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { getRandomHex } from '@atlaskit/media-common';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type { PastePlugin } from '../pastePluginType';
 
@@ -198,6 +199,14 @@ export const unwrapNestedMediaElements = (html: string) => {
 		// Capture the immediate parent, we may remove the media from here later.
 		const mediaParent = imageTag.parentElement;
 		if (!mediaParent) {
+			return;
+		}
+
+		// Bypass emoji
+		if (
+			imageTag.className.includes('emoji-common-emoji-image') &&
+			expVal('platform_editor_fix_emoji_paste_html', 'isEnabled', false)
+		) {
 			return;
 		}
 

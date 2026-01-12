@@ -3,10 +3,13 @@ import React from 'react';
 import { useIntl } from 'react-intl-next';
 
 import { IconButton } from '@atlaskit/button/new';
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import { toggleViewChanges, ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { trackChangesMessages } from '@atlaskit/editor-common/messages';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarButton, ToolbarTooltip, HistoryIcon } from '@atlaskit/editor-toolbar';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type TrackChangesPlugin } from '../trackChangesPluginType';
 
@@ -41,9 +44,22 @@ export const TrackChangesToolbarButton = ({
 		}
 	}, [api, isDisplayingChanges]);
 
+	const browser = getBrowserInfo();
+	// Exclude Firefox browser from showing keyboard shortcut in tooltip
+	const showShortcut = !browser.gecko && fg('platform_editor_ai_aifc_patch_ga_blockers');
+
+	const tooltipContent = showShortcut ? (
+		<ToolTipContent
+			description={formatMessage(trackChangesMessages.toolbarIconLabel)}
+			keymap={toggleViewChanges}
+		/>
+	) : (
+		formatMessage(trackChangesMessages.toolbarIconLabel)
+	);
+
 	if (!isToolbarAIFCEnabled) {
 		return (
-			<ToolbarTooltip content={formatMessage(trackChangesMessages.toolbarIconLabel)}>
+			<ToolbarTooltip content={tooltipContent}>
 				<IconButton
 					icon={HistoryIcon}
 					label={formatMessage(trackChangesMessages.toolbarIconLabel)}
@@ -57,7 +73,7 @@ export const TrackChangesToolbarButton = ({
 	}
 
 	const button = (
-		<ToolbarTooltip content={formatMessage(trackChangesMessages.toolbarIconLabel)}>
+		<ToolbarTooltip content={tooltipContent}>
 			<ToolbarButton
 				iconBefore={
 					<HistoryIcon label={formatMessage(trackChangesMessages.toolbarIconLabel)} size="small" />

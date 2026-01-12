@@ -1,4 +1,4 @@
-export { default as themeConfig } from './theme-config';
+export { default as themeConfig, themeStateDefaults } from './theme-config';
 
 export { default as token } from './get-token';
 export { default as getTokenValue } from './get-token-value';
@@ -11,6 +11,7 @@ export { default as useThemeObserver } from './use-theme-observer';
 export { default as ThemeMutationObserver } from './theme-mutation-observer';
 export { default as getGlobalTheme } from './get-global-theme';
 export { themeStringToObject, themeObjectToString } from './theme-state-transformer';
+export { default as themeImportMap } from './artifacts/theme-import-map';
 
 export type { CSSToken } from './artifacts/token-names';
 export type { ActiveTokens } from './artifacts/types';
@@ -36,4 +37,9 @@ export type {
 	ShapeToken,
 	TypographyToken,
 } from './types';
-export { CURRENT_SURFACE_CSS_VAR } from './constants';
+export {
+	COLOR_MODE_ATTRIBUTE,
+	CURRENT_SURFACE_CSS_VAR,
+	SUBTREE_THEME_ATTRIBUTE,
+	THEME_DATA_ATTRIBUTE,
+} from './constants';

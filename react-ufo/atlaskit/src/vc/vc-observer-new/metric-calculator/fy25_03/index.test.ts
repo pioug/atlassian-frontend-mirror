@@ -359,6 +359,64 @@ describe('VCCalculator_FY25_03', () => {
 				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
 			});
 		});
+
+		describe('rovo_search_page_ttvc_ignoring_smart_answers_fix is on', () => {
+			beforeEach(() => {
+				mockFg.mockImplementation(
+					(flag) => flag === 'rovo_search_page_ttvc_ignoring_smart_answers_fix',
+				);
+			});
+
+			it('should return true for smart answers entries by default', () => {
+				const addedElementEntry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:smart-answers-element',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+					},
+				};
+
+				const attributeMutationEntry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:smart-answers-attribute',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+					},
+				};
+
+				expect(calculator['isEntryIncluded'](addedElementEntry)).toBe(true);
+				expect(calculator['isEntryIncluded'](attributeMutationEntry)).toBe(true);
+			});
+
+			it('should return false for smart answers entries when excludeSmartAnswersInSearch is true', () => {
+				const addedElementEntry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:smart-answers-element',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+					},
+				};
+
+				const attributeMutationEntry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:smart-answers-attribute',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+					},
+				};
+
+				expect(calculator['isEntryIncluded'](addedElementEntry, undefined, true)).toBe(false);
+				expect(calculator['isEntryIncluded'](attributeMutationEntry, undefined, true)).toBe(false);
+			});
+		});
 	});
 
 	describe('getVCCleanStatus', () => {

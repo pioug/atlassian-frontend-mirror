@@ -311,11 +311,9 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 					scrollableElement={scrollableElement}
 					closeOnTab={false}
 				>
-					{fg('editor_a11y_announce_status_editor_open') && (
-						<VisuallyHidden aria-atomic role="alert">
-							{intl.formatMessage(messages.statusPickerOpenedAlert)}
-						</VisuallyHidden>
-					)}
+					<VisuallyHidden aria-atomic role="alert">
+						{intl.formatMessage(messages.statusPickerOpenedAlert)}
+					</VisuallyHidden>
 					<OutsideClickTargetRefContext.Consumer>
 						{this.renderWithSetOutsideClickTargetRef.bind(this)}
 					</OutsideClickTargetRefContext.Consumer>

@@ -51,14 +51,12 @@ export const StarIconButton = ({
 		>
 			{isStarred || isHovered ? (
 				<StarIconMigration
-					LEGACY_size="medium"
 					spacing="spacious"
 					label={formatMessage(messages.removeFromFavouritesLabel)}
 					color={token('color.icon.accent.orange')}
 				/>
 			) : (
 				<StarUnstarredIconMigration
-					LEGACY_size="medium"
 					spacing="spacious"
 					label={formatMessage(messages.clickToFavouriteLabel)}
 					color={token('color.icon')}

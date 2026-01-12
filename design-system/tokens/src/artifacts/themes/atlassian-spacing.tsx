@@ -1,10 +1,10 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::50b812651f792cc85f9294bc1f28b366>>
+ * @codegen <<SignedSource::2fe6e09ea53e7fa3fa7d8ba2613e2fb7>>
  * @codegenCommand yarn build tokens
  */
 export default `
-html[data-theme~="spacing:spacing"] {
+html[data-theme~="spacing:spacing"], [data-subtree-theme][data-theme~="spacing:spacing"] {
   --ds-space-0: 0rem;
   --ds-space-025: 0.125rem;
   --ds-space-050: 0.25rem;

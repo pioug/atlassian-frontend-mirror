@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import WarningIcon from '@atlaskit/icon/core/status-warning';
 import { UnhandledErrorCard } from '..';
 
 jest.mock('@atlaskit/icon/core/status-warning', () => {
@@ -11,14 +10,6 @@ jest.mock('@atlaskit/icon/core/status-warning', () => {
 describe('<UnhandledErrorCard />', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
-	});
-
-	it('should render icon with the right size', () => {
-		render(<UnhandledErrorCard dimensions={{ width: '50px', height: '50px' }} />);
-		expect(WarningIcon).toHaveBeenCalledWith(
-			expect.objectContaining({ LEGACY_size: 'medium' }),
-			expect.anything(),
-		);
 	});
 
 	it('should fire onClick event when clicked', () => {

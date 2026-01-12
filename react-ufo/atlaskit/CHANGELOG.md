@@ -1,5 +1,15 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.17.0
+
+### Minor Changes
+
+- [`9f645244e3aba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f645244e3aba) -
+  Fixed two related problems:
+  - The additional metric which fires on the search page was not correctly ignoring smart answer
+    mutations
+  - fy26.04 metric was not propagating argument to exclude smart answer mutations
+
 ## 4.16.8
 
 ### Patch Changes

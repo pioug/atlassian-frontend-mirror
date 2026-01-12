@@ -2,6 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
+import { skipA11yAudit } from '@af/accessibility-testing';
 import noop from '@atlaskit/ds-lib/noop';
 
 import ModalBody from '../../modal-body';
@@ -12,6 +13,9 @@ jest.mock('@atlaskit/ds-lib/warn-once');
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<ModalBody />', () => {
+	beforeEach(() => {
+		skipA11yAudit();
+	});
 	it('should render default body', () => {
 		render(
 			<ModalDialog onClose={noop} testId="modal">

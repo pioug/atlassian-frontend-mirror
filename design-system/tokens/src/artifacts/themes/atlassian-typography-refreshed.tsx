@@ -1,10 +1,10 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ab83d5a3ce8c87f1ace527ec1cee1502>>
+ * @codegen <<SignedSource::5112e1231e5f945a4155182352b0e5c9>>
  * @codegenCommand yarn build tokens
  */
 export default `
-html[data-theme~="typography:typography-refreshed"] {
+html[data-theme~="typography:typography-refreshed"], [data-subtree-theme][data-theme~="typography:typography-refreshed"] {
   --ds-UNSAFE-textTransformUppercase: uppercase;
   --ds-font-heading-xxlarge: normal 653 2rem/2.25rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif;
   --ds-font-heading-xlarge: normal 653 1.75rem/2rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif;

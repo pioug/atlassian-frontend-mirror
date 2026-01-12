@@ -27,7 +27,7 @@ describe('CardActions', () => {
 	const deleteAction = {
 		label: 'Delete',
 		handler: jest.fn(),
-		icon: <CrossIcon color="currentColor" LEGACY_size="small" label="delete" />,
+		icon: <CrossIcon color="currentColor" label="delete" />,
 	};
 	const actionButtonTestId = 'media-card-primary-action';
 	const dropdownItemsTestId = 'media-card-actions-menu-item';

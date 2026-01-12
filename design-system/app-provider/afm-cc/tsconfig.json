@@ -1,5 +1,5 @@
 {
-	"extends": "../../../../tsconfig.entry-points.confluence.json",
+	"extends": "../../../../tsconfig.local-consumption.json",
 	"compilerOptions": {
 		"target": "es5",
 		"outDir": "../../../../../confluence/tsDist/@atlaskit__app-provider",
@@ -23,6 +23,9 @@
 		"../src/**/stories/**/*"
 	],
 	"references": [
+		{
+			"path": "../../../helpers/browser-apis/afm-cc/tsconfig.json"
+		},
 		{
 			"path": "../../css/afm-cc/tsconfig.json"
 		},

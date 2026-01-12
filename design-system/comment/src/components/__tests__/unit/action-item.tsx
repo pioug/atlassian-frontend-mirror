@@ -2,6 +2,7 @@ import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
+import { skipA11yAudit } from '@af/accessibility-testing';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import __noop from '@atlaskit/ds-lib/noop';
 
@@ -9,6 +10,9 @@ import ActionItem from '../../action-item';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('ActionItem', () => {
+	beforeEach(() => {
+		skipA11yAudit();
+	});
 	it('should fire an analytics event', () => {
 		const onEvent = jest.fn();
 

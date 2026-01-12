@@ -52,15 +52,10 @@ const IconSizeExample = (): React.JSX.Element => {
 
 			<Inline space="space.100">
 				<IconContainer>
-					<ChevronDownIcon
-						label=""
-						LEGACY_fallbackIcon={HipchatChevronDownOld}
-						LEGACY_size="small"
-						size="small"
-					/>
+					<ChevronDownIcon label="" LEGACY_fallbackIcon={HipchatChevronDownOld} size="small" />
 				</IconContainer>
 				<IconContainer>
-					<AppIcon label="" spacing="none" LEGACY_size="small" LEGACY_fallbackIcon={AppIconOld} />
+					<AppIcon label="" spacing="none" LEGACY_fallbackIcon={AppIconOld} />
 				</IconContainer>
 				<IconContainer>
 					<AppIcon label="" spacing="spacious" LEGACY_fallbackIcon={AppIconOld} />
@@ -70,10 +65,10 @@ const IconSizeExample = (): React.JSX.Element => {
 
 			<Inline space="space.100">
 				<IconContainer>
-					<ChevronDownIconMigration label="" LEGACY_size="small" size="small" />
+					<ChevronDownIconMigration label="" size="small" />
 				</IconContainer>
 				<IconContainer>
-					<AppIconMigration label="" spacing="none" LEGACY_size="small" />
+					<AppIconMigration label="" spacing="none" />
 				</IconContainer>
 				<IconContainer>
 					<AppIconMigration label="" spacing="spacious" />

@@ -54,7 +54,7 @@ const AnnotationSelectionComponentMock = (
 				<div>
 					<Button
 						appearance="subtle"
-						iconBefore={<AddCommentIcon LEGACY_size="medium" label="" />}
+						iconBefore={<AddCommentIcon label="" />}
 						isDisabled={!isAnnotationAllowed}
 						testId="createInlineCommentButton"
 						onClick={onToolbarCreateButtonClick}
@@ -70,6 +70,7 @@ const AnnotationSelectionComponentMock = (
 };
 
 export const SelectionInlineComponentMock =
-	(setNewDocument: Callback) => (props: InlineCommentSelectionComponentProps): React.JSX.Element => {
+	(setNewDocument: Callback) =>
+	(props: InlineCommentSelectionComponentProps): React.JSX.Element => {
 		return <AnnotationSelectionComponentMock setNewDocument={setNewDocument} {...props} />;
 	};

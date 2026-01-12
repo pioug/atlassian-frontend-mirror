@@ -1,3 +1,7 @@
+import { JiraServiceManagementIcon as NewJSIcon } from '../artifacts/logo-components/jira-service-management';
+import { JiraServiceManagementIcon as LegacyJSIcon } from '../legacy-logos/jira-service-management';
+import { createFeatureFlaggedServiceCollectionComponent } from '../logo-config';
+
 /**
  * __Jira service management icon__
  *
@@ -7,4 +11,7 @@
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export { JiraServiceManagementIcon } from '../index';
+export const JiraServiceManagementIcon = createFeatureFlaggedServiceCollectionComponent(
+	LegacyJSIcon,
+	NewJSIcon,
+);

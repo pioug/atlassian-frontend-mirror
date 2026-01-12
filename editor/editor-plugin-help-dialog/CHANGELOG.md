@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 7.1.0
+
+### Minor Changes
+
+- [`15350cca3c907`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/15350cca3c907) -
+  [https://hello.jira.atlassian.cloud/browse/EDITOR-4334](EDITOR-4334) - clean up
+  platform_editor_fix_help_modal_header
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.1
 
 ### Patch Changes

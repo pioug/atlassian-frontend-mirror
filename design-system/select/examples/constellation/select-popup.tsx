@@ -20,7 +20,7 @@ const options = [
 const PopupSelectExample = (): React.JSX.Element => {
 	return (
 		<PopupSelect
-			placeholder="Search labels..."
+			placeholder=""
 			options={options}
 			target={({ isOpen, ...triggerProps }) => (
 				<Button {...triggerProps} iconAfter={ChevronDownIcon}>

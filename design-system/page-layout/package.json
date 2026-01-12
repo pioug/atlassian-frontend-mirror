@@ -70,8 +70,7 @@
 		"@atlaskit/side-navigation": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
-		"@testing-library/react": "root:*",
-		"@testing-library/react-hooks": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"@types/raf-schd": "root:*",
 		"raf-stub": "root:*"
 	},

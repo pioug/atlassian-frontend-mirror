@@ -35,7 +35,7 @@ const regions = [
 const onChange = console.log;
 const defaults = {
 	options: regions,
-	placeholder: 'Choose a City',
+	placeholder: '',
 	onChange,
 };
 

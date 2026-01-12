@@ -96,6 +96,7 @@ export default function Example(): JSX.Element {
 			extraSearchPageInteraction: {
 				enabled: true,
 				searchPageMetricName: 'search-page',
+				searchPageRoute: '/examples.html',
 			},
 		});
 	}, []);

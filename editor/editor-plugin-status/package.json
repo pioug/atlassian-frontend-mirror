@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-status",
-	"version": "8.0.0",
+	"version": "8.1.0",
 	"description": "Status plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -95,9 +95,6 @@
 	},
 	"platform-feature-flags": {
 		"platform-component-visual-refresh": {
-			"type": "boolean"
-		},
-		"editor_a11y_announce_status_editor_open": {
 			"type": "boolean"
 		},
 		"editor_a11y_aria_label_removal_popup": {

@@ -5,6 +5,7 @@
 import { jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 
+import { skipA11yAudit } from '@af/accessibility-testing';
 import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
@@ -25,6 +26,9 @@ const styles = cssMap({
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Flex component', () => {
+	beforeEach(() => {
+		skipA11yAudit();
+	});
 	it('should render with a given test id', () => {
 		render(<Flex testId={testId}>Flex with testid</Flex>);
 		const element = screen.getByTestId(testId);

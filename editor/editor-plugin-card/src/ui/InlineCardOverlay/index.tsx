@@ -13,19 +13,12 @@ import { useIntl } from 'react-intl-next';
 
 import { cardMessages as messages } from '@atlaskit/editor-common/messages';
 import { ZERO_WIDTH_JOINER } from '@atlaskit/editor-common/whitespace';
-import type { Size } from '@atlaskit/icon';
 import CustomizeIcon from '@atlaskit/icon/core/customize';
 import { B100, N0, N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import type { InlineCardOverlayProps } from './types';
-import {
-	getChildElement,
-	getIconSize,
-	getInlineCardAvailableWidth,
-	getOverlayWidths,
-	isOneLine,
-} from './utils';
+import { getChildElement, getInlineCardAvailableWidth, getOverlayWidths, isOneLine } from './utils';
 
 const DEBOUNCE_IN_MS = 5;
 const ESTIMATED_MIN_WIDTH_IN_PX = 16;
@@ -141,7 +134,6 @@ const InlineCardOverlay = ({
 	const maxOverlayWidth = useRef(0);
 	const minOverlayWidth = useRef(ESTIMATED_MIN_WIDTH_IN_PX);
 	const parentWidth = useRef(0);
-	const iconSize = useRef<Size>('small');
 
 	const containerRef = useRef<HTMLSpanElement>(null);
 
@@ -199,8 +191,6 @@ const InlineCardOverlay = ({
 				const { max, min } = getOverlayWidths(iconAndLabel, label);
 				maxOverlayWidth.current = max;
 				minOverlayWidth.current = min;
-
-				iconSize.current = getIconSize(label);
 			}
 		}
 
@@ -279,11 +269,7 @@ const InlineCardOverlay = ({
 								className={ICON_AND_LABEL_CLASSNAME}
 							>
 								<span css={iconStyles}>
-									<CustomizeIcon
-										label={label}
-										LEGACY_size={iconSize.current}
-										testId={`${testId}-icon`}
-									/>
+									<CustomizeIcon label={label} testId={`${testId}-icon`} />
 								</span>
 								{showLabel && (
 									<span

@@ -16,7 +16,7 @@ const options: OptionsType = [
 	{ label: 'Sydney', value: 'sydney' },
 ];
 
-const defaults = { options, placeholder: 'Choose a City' };
+const defaults = { options, placeholder: "" };
 
 interface State {
 	values: OptionsType;
@@ -29,7 +29,7 @@ class MultiPopupSelectExample extends Component<{}, State> {
 	state = {
 		values: [options[0]],
 		valuesString: '',
-		placeholder: 'Choose value...',
+		placeholder: '',
 		controlShouldRenderValue: false,
 	};
 

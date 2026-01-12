@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.20.0",
+	"version": "43.20.2",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -103,6 +103,7 @@
 		"@atlaskit/media-test-helpers": "workspace:^",
 		"@atlaskit/react-ufo": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
+		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/analytics-tooling": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/gemini": "workspace:^",
@@ -249,6 +250,12 @@
 			"type": "boolean"
 		},
 		"navx-2816-a11y-fix-smart-links-headings": {
+			"type": "boolean"
+		},
+		"navx-2811-smart-link-a11y-image-alt": {
+			"type": "boolean"
+		},
+		"navx-2185-smart-link-preview-modal-icon-role": {
 			"type": "boolean"
 		}
 	},

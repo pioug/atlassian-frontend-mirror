@@ -85,7 +85,7 @@ const UnsupportedInlineNode = ({
 			>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 				<span style={style}>
-					<QuestionsIcon label="?" LEGACY_size="small" />
+					<QuestionsIcon label="?" />
 				</span>
 			</Tooltip>
 		</span>

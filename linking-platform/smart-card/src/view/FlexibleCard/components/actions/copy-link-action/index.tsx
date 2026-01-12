@@ -38,9 +38,7 @@ const CopyLinkAction = ({
 	return data ? (
 		<Action
 			content={<FormattedMessage {...messages.copy_url_to_clipboard} />}
-			icon={
-				<LinkIcon color="currentColor" label="copy url" LEGACY_size="medium" spacing="spacious" />
-			}
+			icon={<LinkIcon color="currentColor" label="copy url" spacing="spacious" />}
 			onClick={onClick}
 			testId="smart-action-copy-link-action"
 			tooltipMessage={<FormattedMessage {...tooltipMessage} />}

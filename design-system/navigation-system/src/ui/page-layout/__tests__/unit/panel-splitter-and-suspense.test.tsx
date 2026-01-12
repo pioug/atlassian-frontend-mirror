@@ -32,7 +32,7 @@ expect.extend({
 });
 
 test('panel splitter works with suspense', async () => {
-	expect(() => (
+	await expect(() => (
 		<Root>
 			<SideNav>
 				<SideNavContent>Side navigation content</SideNavContent>

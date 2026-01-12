@@ -111,7 +111,6 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 			>
 				<LinkIcon
 					label={this.getCopyAriaLabel()}
-					LEGACY_size={this.props.level > 3 ? 'small' : 'medium'}
 					color={this.state.isClicked ? token('color.icon.selected') : token('color.icon.subtle')}
 				/>
 			</button>

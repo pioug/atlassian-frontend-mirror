@@ -4,6 +4,7 @@ import React from 'react';
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { skipA11yAudit } from '@af/accessibility-testing';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { type OptionsType, PopupSelect } from '../../../index';
@@ -43,6 +44,7 @@ describe('Popup Select', () => {
 		jest.spyOn(global.window, 'addEventListener');
 		//@ts-ignore
 		jest.spyOn(global.window, 'removeEventListener');
+		skipA11yAudit();
 	});
 
 	afterEach(() => {

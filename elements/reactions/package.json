@@ -131,9 +131,6 @@
 		"platform_optimistic_reaction_emoji": {
 			"type": "boolean"
 		},
-		"jfp-magma-ssr-issue-view-comment-reactions": {
-			"type": "boolean"
-		},
 		"platform-a11y-remove-autofocus-prop": {
 			"type": "boolean"
 		}

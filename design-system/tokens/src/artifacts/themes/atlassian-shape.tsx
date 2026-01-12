@@ -1,10 +1,10 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e425c02a2e774d6f9aa98aa9eb6e1767>>
+ * @codegen <<SignedSource::fd33b381dded5ef628eed8716924678b>>
  * @codegenCommand yarn build tokens
  */
 export default `
-html[data-theme~="shape:shape"] {
+html[data-theme~="shape:shape"], [data-subtree-theme][data-theme~="shape:shape"] {
   --ds-radius-xsmall: 0.125rem;
   --ds-radius-small: 0.25rem;
   --ds-radius-medium: 0.375rem;

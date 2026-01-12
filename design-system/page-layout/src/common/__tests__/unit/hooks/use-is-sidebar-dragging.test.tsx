@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { renderHook } from '@testing-library/react-hooks';
+import { fireEvent, render, renderHook, screen, waitFor } from '@testing-library/react';
 
 import { skipA11yAudit } from '@af/accessibility-testing';
 

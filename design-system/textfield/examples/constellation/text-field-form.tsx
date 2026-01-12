@@ -10,7 +10,7 @@ export default function TextFieldFormExample(): React.JSX.Element {
 			<Field label="Field label" name="example-text">
 				{({ fieldProps }: any) => (
 					<Fragment>
-						<Textfield placeholder="Enter your details here" {...fieldProps} />
+						<Textfield placeholder="" {...fieldProps} />
 						<HelperMessage>Help or instruction text goes here</HelperMessage>
 					</Fragment>
 				)}

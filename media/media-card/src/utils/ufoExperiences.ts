@@ -9,6 +9,7 @@ import {
 import { type CardStatus } from '../types';
 import { type FileAttributes, getFeatureFlagKeysAllProducts } from '@atlaskit/media-common';
 import isValidId from 'uuid-validate';
+import { UFOExperienceState } from '@atlaskit/ufo';
 import {
 	extractErrorInfo,
 	getRenderErrorRequestMetadata,
@@ -386,9 +387,12 @@ export const useMediaCardUfoExperience = ({
 			experienceRef.current = experience;
 			experience.start(startTimeRef.current);
 
+			let endTime = performance.now();
+
 			// Add timing marks and metadata based on strategy
 			if (ssrPreviewInfo?.wasSSRSuccessful && ssrPreviewInfo.dataUri) {
 				if (resourceTimingEntry) {
+					endTime = resourceTimingEntry.responseEnd;
 					addResourceTimingMarks(experience, resourceTimingEntry, interactionStartTime, 'ssr');
 					experience.addMetadata({
 						...createResourceTimingMetadata(resourceTimingEntry),
@@ -418,14 +422,13 @@ export const useMediaCardUfoExperience = ({
 
 			switch (status) {
 				case 'complete':
-					experience.success({
-						metadata: {
-							fileAttributes: sanitisedFileAttributes,
-							ssrReliability,
-							fileStateFlags,
-							...getBasePayloadAttributes(),
-						},
+					experience.addMetadata({
+						fileAttributes: sanitisedFileAttributes,
+						ssrReliability,
+						fileStateFlags,
+						...getBasePayloadAttributes(),
 					});
+					experience.transition(UFOExperienceState.SUCCEEDED, endTime);
 					break;
 				case 'failed-processing':
 					experience.failure({

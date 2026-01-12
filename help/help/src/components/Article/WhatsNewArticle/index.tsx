@@ -80,7 +80,7 @@ export const WhatsNewArticle: React.FC<Props & WrappedComponentProps> = ({
 										{formatMessage(messages.help_whats_new_related_link_support)}
 									</Button>
 									<ExternalLinkIconContainer>
-										<ShortcutIcon color="currentColor" LEGACY_size="small" label="" />
+										<ShortcutIcon color="currentColor" label="" />
 									</ExternalLinkIconContainer>
 								</RelatedLinkContainer>
 							)}
@@ -96,7 +96,7 @@ export const WhatsNewArticle: React.FC<Props & WrappedComponentProps> = ({
 										{formatMessage(messages.help_whats_new_related_link_community)}
 									</Button>
 									<ExternalLinkIconContainer>
-										<ShortcutIcon color="currentColor" LEGACY_size="small" label="" />
+										<ShortcutIcon color="currentColor" label="" />
 									</ExternalLinkIconContainer>
 								</RelatedLinkContainer>
 							)}

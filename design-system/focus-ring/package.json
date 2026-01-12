@@ -60,7 +60,7 @@
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"react-dom": "root:*"
 	},
 	"techstack": {

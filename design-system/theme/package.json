@@ -38,7 +38,7 @@
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@compiled/react": "root:*",
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"@types/color": "root:*",
 		"color": "root:*",
 		"jest-in-case": "root:*",

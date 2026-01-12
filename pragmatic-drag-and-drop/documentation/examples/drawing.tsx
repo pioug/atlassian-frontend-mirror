@@ -97,9 +97,7 @@ function Swatch({
 				onClick={onSelect}
 				style={{ backgroundColor: swatchColorMap[color] }}
 			>
-				{isSelected && (
-					<CheckIcon color="currentColor" label="" LEGACY_size="medium" spacing="spacious" />
-				)}
+				{isSelected && <CheckIcon color="currentColor" label="" spacing="spacious" />}
 			</button>
 		</FocusRing>
 	);

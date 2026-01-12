@@ -23,9 +23,7 @@ export const DrawerCloseButton = ({
 		<IconButton
 			onClick={onClose}
 			testId={testId}
-			icon={
-				Icon ? (iconProps) => <Icon {...iconProps} size="large" LEGACY_size="large" /> : ArrowLeft
-			}
+			icon={Icon ? (iconProps) => <Icon {...iconProps} size="large" /> : ArrowLeft}
 			label={label}
 			shape="circle"
 			appearance="subtle"

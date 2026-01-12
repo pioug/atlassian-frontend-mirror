@@ -8,6 +8,7 @@ import { css, jsx } from '@compiled/react';
 
 import Heading from '@atlaskit/heading';
 import LinkGlyph from '@atlaskit/icon/core/link';
+import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { ExpandedFrame } from '../../components/ExpandedFrame';
@@ -34,11 +35,6 @@ const contentStyles = css({
 	gap: token('space.250', '20px'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	maxWidth: '400px',
-});
-
-const descriptionStyles = css({
-	font: token('font.body'),
-	textAlign: 'center',
 });
 
 const imageStyles = css({
@@ -69,14 +65,7 @@ const UnresolvedView = ({
 		return (
 			<ImageIcon
 				src={typeof iconUrlOrElement === 'string' ? iconUrlOrElement : undefined}
-				default={
-					<LinkGlyph
-						label="icon"
-						LEGACY_size="small"
-						testId="embed-card-fallback-icon"
-						color="currentColor"
-					/>
-				}
+				default={<LinkGlyph label="icon" testId="embed-card-fallback-icon" color="currentColor" />}
 			/>
 		);
 	}, [iconUrlOrElement]);
@@ -124,9 +113,9 @@ const UnresolvedView = ({
 					<Heading size="large" testId={`${testId}-unresolved-title`}>
 						{title}
 					</Heading>
-					<span css={descriptionStyles} data-testid={`${testId}-unresolved-description`}>
+					<Text align="center" testId={`${testId}-unresolved-description`}>
 						{description}
-					</span>
+					</Text>
 					{button}
 				</div>
 			</div>

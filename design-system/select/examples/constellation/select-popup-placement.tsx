@@ -29,7 +29,7 @@ const PopupSelectExample = (): React.JSX.Element => {
 	return (
 		<PopupSelect
 			searchThreshold={10}
-			placeholder="Choose a city"
+			placeholder=""
 			options={options}
 			popperProps={{ placement: 'right-start' }}
 			target={({ isOpen, ...triggerProps }) => (

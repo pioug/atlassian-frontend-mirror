@@ -16,8 +16,8 @@ const colorOptions = [
 
 const Examples = (): React.JSX.Element => (
 	<>
-		<Select options={colorOptions} isMulti placeholder="Select colors" />
-		<Select options={cityOptions} isSearchable placeholder="Search cities..." />
+		<Select options={colorOptions} isMulti placeholder="" />
+		<Select options={cityOptions} isSearchable placeholder="" />
 	</>
 );
 export default Examples;

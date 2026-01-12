@@ -1,4 +1,5 @@
 import { type VCIgnoreReason } from '../../../common/vc/types';
+import type { SearchPageConfig } from '../../types';
 import { isContainedWithinMediaWrapper } from '../media-wrapper/vc-utils';
 
 import isNonVisualStyleMutation from './non-visual-styles/is-non-visual-style-mutation';
@@ -49,6 +50,7 @@ type ConstructorOptions = {
 		enablePageLayoutPlaceholder: boolean;
 	};
 	ssrPlaceholderHandler?: SSRPlaceholderHandlers | null;
+	searchPageConfig?: SearchPageConfig;
 };
 
 function isElementVisible(target: Element): boolean {

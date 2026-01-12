@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { act, fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
 
 import Tooltip from '../../tooltip';
@@ -708,6 +709,217 @@ describe('Tooltip', () => {
 			onShow.mockClear();
 			unmount();
 		}
+	});
+
+	it('should show immediately if another tooltip is already showing', async () => {
+		const user = createUser();
+		const onShow = jest.fn();
+		const wrapped = (
+			<div>
+				<Tooltip testId="tooltip-a" content="Tooltip" onShow={onShow} delay={1000}>
+					<button data-testid="trigger-a" type="button">
+						click me
+					</button>
+				</Tooltip>
+				<Tooltip testId="tooltip-b" content="Tooltip" onShow={onShow} delay={1000}>
+					<button data-testid="trigger-b" type="button">
+						click me
+					</button>
+				</Tooltip>
+			</div>
+		);
+		const renderProp = (
+			<div>
+				<Tooltip testId="tooltip-a" content="Tooltip" onShow={onShow} delay={1000}>
+					{(tooltipProps) => (
+						<button {...tooltipProps} data-testid="trigger-a" type="button">
+							click me
+						</button>
+					)}
+				</Tooltip>
+				<Tooltip testId="tooltip-b" content="Tooltip" onShow={onShow} delay={1000}>
+					{(tooltipProps) => (
+						<button {...tooltipProps} data-testid="trigger-b" type="button">
+							click me
+						</button>
+					)}
+				</Tooltip>
+			</div>
+		);
+
+		for (const jsx of [wrapped, renderProp]) {
+			const { unmount } = render(jsx);
+
+			await user.hover(screen.getByTestId('trigger-a'));
+
+			act(() => {
+				jest.runAllTimers();
+			});
+			expect(onShow).toHaveBeenCalledTimes(1);
+			expect(screen.getByTestId('tooltip-a')).toBeInTheDocument();
+			onShow.mockClear();
+
+			await user.hover(screen.getByTestId('trigger-b'));
+			expect(onShow).toHaveBeenCalledTimes(1);
+			expect(screen.getByTestId('tooltip-b')).toBeInTheDocument();
+
+			unmount();
+			onShow.mockClear();
+		}
+	});
+
+	ffTest.off(
+		'platform_dst_nav4_side_nav_resize_tooltip_feedback',
+		'showImmediate behaviour',
+		() => {
+			it('should show immediately if another tooltip is already showing even with UNSAFE_shouldAlwaysFadeIn set', async () => {
+				const user = createUser();
+				const onShow = jest.fn();
+				const wrapped = (
+					<div>
+						<Tooltip testId="tooltip-a" content="Tooltip" onShow={onShow} delay={1000}>
+							<button data-testid="trigger-a" type="button">
+								click me
+							</button>
+						</Tooltip>
+						<Tooltip
+							testId="tooltip-b"
+							content="Tooltip"
+							onShow={onShow}
+							delay={1000}
+							UNSAFE_shouldAlwaysFadeIn
+						>
+							<button data-testid="trigger-b" type="button">
+								click me
+							</button>
+						</Tooltip>
+					</div>
+				);
+				const renderProp = (
+					<div>
+						<Tooltip testId="tooltip-a" content="Tooltip" onShow={onShow} delay={1000}>
+							{(tooltipProps) => (
+								<button {...tooltipProps} data-testid="trigger-a" type="button">
+									click me
+								</button>
+							)}
+						</Tooltip>
+						<Tooltip
+							testId="tooltip-b"
+							content="Tooltip"
+							onShow={onShow}
+							delay={1000}
+							UNSAFE_shouldAlwaysFadeIn
+						>
+							{(tooltipProps) => (
+								<button {...tooltipProps} data-testid="trigger-b" type="button">
+									click me
+								</button>
+							)}
+						</Tooltip>
+					</div>
+				);
+
+				for (const jsx of [wrapped, renderProp]) {
+					const { unmount } = render(jsx);
+
+					await user.hover(screen.getByTestId('trigger-a'));
+
+					act(() => {
+						jest.runAllTimers();
+					});
+					expect(onShow).toHaveBeenCalledTimes(1);
+					expect(screen.getByTestId('tooltip-a')).toBeInTheDocument();
+					onShow.mockClear();
+
+					await user.hover(screen.getByTestId('trigger-b'));
+					expect(onShow).toHaveBeenCalledTimes(1);
+					expect(screen.getByTestId('tooltip-b')).toBeInTheDocument();
+
+					unmount();
+					onShow.mockClear();
+				}
+			});
+		},
+	);
+
+	ffTest.on('platform_dst_nav4_side_nav_resize_tooltip_feedback', 'showImmediate behaviour', () => {
+		it('should never show immediately if UNSAFE_shouldAlwaysFadeIn is true', async () => {
+			const user = createUser();
+			const onShow = jest.fn();
+			const wrapped = (
+				<div>
+					<Tooltip testId="tooltip-a" content="Tooltip" onShow={onShow} delay={1000}>
+						<button data-testid="trigger-a" type="button">
+							click me
+						</button>
+					</Tooltip>
+					<Tooltip
+						testId="tooltip-b"
+						content="Tooltip"
+						onShow={onShow}
+						delay={1000}
+						UNSAFE_shouldAlwaysFadeIn
+					>
+						<button data-testid="trigger-b" type="button">
+							click me
+						</button>
+					</Tooltip>
+				</div>
+			);
+			const renderProp = (
+				<div>
+					<Tooltip testId="tooltip-a" content="Tooltip" onShow={onShow} delay={1000}>
+						{(tooltipProps) => (
+							<button {...tooltipProps} data-testid="trigger-a" type="button">
+								click me
+							</button>
+						)}
+					</Tooltip>
+					<Tooltip
+						testId="tooltip-b"
+						content="Tooltip"
+						onShow={onShow}
+						delay={1000}
+						UNSAFE_shouldAlwaysFadeIn
+					>
+						{(tooltipProps) => (
+							<button {...tooltipProps} data-testid="trigger-b" type="button">
+								click me
+							</button>
+						)}
+					</Tooltip>
+				</div>
+			);
+
+			for (const jsx of [wrapped, renderProp]) {
+				const { unmount } = render(jsx);
+
+				await user.hover(screen.getByTestId('trigger-a'));
+
+				act(() => {
+					jest.runAllTimers();
+				});
+				expect(onShow).toHaveBeenCalledTimes(1);
+				expect(screen.getByTestId('tooltip-a')).toBeInTheDocument();
+				onShow.mockClear();
+
+				// With UNSAFE_shouldAlwaysFadeIn prop, the tooltip should not show immediately
+				await user.hover(screen.getByTestId('trigger-b'));
+				expect(onShow).not.toHaveBeenCalled();
+				expect(screen.queryByTestId('tooltip-b')).not.toBeInTheDocument();
+
+				// The tooltip should still show after the delay
+				act(() => {
+					jest.runAllTimers();
+				});
+				expect(onShow).toHaveBeenCalledTimes(1);
+				expect(screen.getByTestId('tooltip-b')).toBeInTheDocument();
+
+				unmount();
+				onShow.mockClear();
+			}
+		});
 	});
 
 	it('should wait a configurable delay before showing', async () => {

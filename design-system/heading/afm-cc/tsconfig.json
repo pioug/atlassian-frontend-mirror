@@ -1,5 +1,5 @@
 {
-	"extends": "../../../../tsconfig.entry-points.confluence.json",
+	"extends": "../../../../tsconfig.local-consumption.json",
 	"compilerOptions": {
 		"target": "es5",
 		"outDir": "../../../../../confluence/tsDist/@atlaskit__heading",
@@ -26,6 +26,9 @@
 	"references": [
 		{
 			"path": "../../css/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../primitives/afm-cc/tsconfig.json"

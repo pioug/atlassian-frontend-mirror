@@ -102,81 +102,40 @@ describe('TeamProfileCardTrigger', () => {
 			jest.useFakeTimers();
 		});
 
-		ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
-			it('should open "click" trigger after click', () => {
-				const { getByTestId, queryByTestId, expectEventToBeFired } = renderWithIntl(
-					<>
-						<TeamProfileCardTrigger
-							{...defaultProps}
-							resourceClient={mockResourceClient as ProfileClient}
-							trigger="click"
-						>
-							<span data-testid="test-inner-trigger">This is the trigger</span>
-						</TeamProfileCardTrigger>
-						<span data-testid="outer-content">Hello</span>
-					</>,
-				);
+		it('should open "click" trigger after click', () => {
+			const { getByTestId, queryByTestId, expectEventToBeFired } = renderWithIntl(
+				<>
+					<TeamProfileCardTrigger
+						{...defaultProps}
+						resourceClient={mockResourceClient as ProfileClient}
+						trigger="click"
+					>
+						<span data-testid="test-inner-trigger">This is the trigger</span>
+					</TeamProfileCardTrigger>
+					<span data-testid="outer-content">Hello</span>
+				</>,
+			);
 
-				expect(queryByTestId('team-profilecard')).toBe(null);
+			expect(queryByTestId('team-profilecard')).toBe(null);
 
-				expect(getByTestId('test-inner-trigger')).toBeDefined();
-				expect(getByTestId('team-profilecard-trigger-wrapper')).toBeDefined();
+			expect(getByTestId('test-inner-trigger')).toBeDefined();
+			expect(getByTestId('team-profilecard-trigger-wrapper')).toBeDefined();
 
-				act(() => {
-					fireEvent.click(getByTestId('team-profilecard-trigger-wrapper'));
-					jest.runAllTimers();
-				});
-
-				const { eventType, ...event } = cardTriggeredClickEvent;
-				expectEventToBeFired(eventType, event);
-
-				expect(getByTestId('team-profilecard')).toBeDefined();
-
-				act(() => {
-					fireEvent.click(getByTestId('outer-content'));
-					jest.runAllTimers();
-				});
-
-				expect(queryByTestId('team-profilecard')).toBe(null);
+			act(() => {
+				fireEvent.click(getByTestId('team-profilecard-trigger-wrapper'));
+				jest.runAllTimers();
 			});
-		});
 
-		ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
-			it('should open "click" trigger after click', () => {
-				const { getByTestId, queryByTestId, expectEventToBeFired } = renderWithIntl(
-					<>
-						<TeamProfileCardTrigger
-							{...defaultProps}
-							resourceClient={mockResourceClient as ProfileClient}
-							trigger="click"
-						>
-							<span data-testid="test-inner-trigger">This is the trigger</span>
-						</TeamProfileCardTrigger>
-						<span data-testid="outer-content">Hello</span>
-					</>,
-				);
+			const { eventType, ...event } = cardTriggeredClickEvent;
+			expectEventToBeFired(eventType, event);
+			expect(getByTestId('team-profilecard')).toBeDefined();
 
-				expect(queryByTestId('team-profilecard')).toBe(null);
-
-				expect(getByTestId('test-inner-trigger')).toBeDefined();
-				expect(getByTestId('team-profilecard-trigger-wrapper')).toBeDefined();
-
-				act(() => {
-					fireEvent.click(getByTestId('team-profilecard-trigger-wrapper'));
-					jest.runAllTimers();
-				});
-
-				const { eventType, ...event } = cardTriggeredClickEvent;
-				expectEventToBeFired(eventType, event);
-				expect(getByTestId('team-profilecard')).toBeDefined();
-
-				act(() => {
-					fireEvent.click(getByTestId('outer-content'));
-					jest.runAllTimers();
-				});
-
-				expect(queryByTestId('team-profilecard')).toBe(null);
+			act(() => {
+				fireEvent.click(getByTestId('outer-content'));
+				jest.runAllTimers();
 			});
+
+			expect(queryByTestId('team-profilecard')).toBe(null);
 		});
 
 		it('should open "click" trigger after click (with kudos)', async () => {
@@ -207,76 +166,38 @@ describe('TeamProfileCardTrigger', () => {
 			expect(await findByText('Give kudos')).toBeDefined();
 		});
 
-		ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
-			it('should open "hover" trigger after mouse over', () => {
-				const { getByTestId, queryByTestId, expectEventToBeFired } = renderWithIntl(
-					<TeamProfileCardTrigger
-						{...defaultProps}
-						resourceClient={mockResourceClient as ProfileClient}
-						trigger="hover"
-					>
-						<span data-testid="test-inner-trigger">This is the trigger</span>
-					</TeamProfileCardTrigger>,
-				);
+		it('should open "hover" trigger after mouse over', () => {
+			const { getByTestId, queryByTestId, expectEventToBeFired } = renderWithIntl(
+				<TeamProfileCardTrigger
+					{...defaultProps}
+					resourceClient={mockResourceClient as ProfileClient}
+					trigger="hover"
+				>
+					<span data-testid="test-inner-trigger">This is the trigger</span>
+				</TeamProfileCardTrigger>,
+			);
 
-				expect(queryByTestId('team-profilecard')).toBe(null);
+			expect(queryByTestId('team-profilecard')).toBe(null);
 
-				expect(getByTestId('test-inner-trigger')).toBeDefined();
-				expect(getByTestId('team-profilecard-trigger-wrapper')).toBeDefined();
+			expect(getByTestId('test-inner-trigger')).toBeDefined();
+			expect(getByTestId('team-profilecard-trigger-wrapper')).toBeDefined();
 
-				act(() => {
-					fireEvent.mouseOver(getByTestId('team-profilecard-trigger-wrapper'));
-					jest.runAllTimers();
-				});
-
-				const { eventType, ...event } = cardTriggeredHoverEvent;
-				expectEventToBeFired(eventType, event);
-
-				expect(getByTestId('team-profilecard')).toBeDefined();
-
-				act(() => {
-					fireEvent.mouseLeave(getByTestId('team-profilecard-trigger-wrapper'));
-					jest.runAllTimers();
-				});
-
-				expect(queryByTestId('team-profilecard')).toBe(null);
+			act(() => {
+				fireEvent.mouseOver(getByTestId('team-profilecard-trigger-wrapper'));
+				jest.runAllTimers();
 			});
-		});
 
-		ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
-			it('should open "hover" trigger after mouse over', () => {
-				const { getByTestId, queryByTestId, expectEventToBeFired } = renderWithIntl(
-					<TeamProfileCardTrigger
-						{...defaultProps}
-						resourceClient={mockResourceClient as ProfileClient}
-						trigger="hover"
-					>
-						<span data-testid="test-inner-trigger">This is the trigger</span>
-					</TeamProfileCardTrigger>,
-				);
+			const { eventType, ...event } = cardTriggeredHoverEvent;
+			expectEventToBeFired(eventType, event);
 
-				expect(queryByTestId('team-profilecard')).toBe(null);
+			expect(getByTestId('team-profilecard')).toBeDefined();
 
-				expect(getByTestId('test-inner-trigger')).toBeDefined();
-				expect(getByTestId('team-profilecard-trigger-wrapper')).toBeDefined();
-
-				act(() => {
-					fireEvent.mouseOver(getByTestId('team-profilecard-trigger-wrapper'));
-					jest.runAllTimers();
-				});
-
-				const { eventType, ...event } = cardTriggeredHoverEvent;
-				expectEventToBeFired(eventType, event);
-
-				expect(getByTestId('team-profilecard')).toBeDefined();
-
-				act(() => {
-					fireEvent.mouseLeave(getByTestId('team-profilecard-trigger-wrapper'));
-					jest.runAllTimers();
-				});
-
-				expect(queryByTestId('team-profilecard')).toBe(null);
+			act(() => {
+				fireEvent.mouseLeave(getByTestId('team-profilecard-trigger-wrapper'));
+				jest.runAllTimers();
 			});
+
+			expect(queryByTestId('team-profilecard')).toBe(null);
 		});
 
 		it('should open "hover-click" trigger after click', () => {
@@ -599,93 +520,6 @@ describe('TeamProfileCardTrigger', () => {
 		beforeEach(() => {
 			jest.useFakeTimers();
 			mockRunItLaterSynchronously();
-		});
-
-		ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
-			it('Request success analytics', async () => {
-				const MockTeamClient = getMockTeamClient({
-					team: sampleProfile,
-					timeout: 0,
-					error: undefined,
-					errorRate: 0,
-					traceId: '123',
-				});
-
-				const clientArgs = {
-					cacheSize: 10,
-					cacheMaxAge: 0,
-					url: 'DUMMY',
-				};
-
-				const profileClient = new ProfileClient(clientArgs, {
-					teamClient: new MockTeamClient(clientArgs),
-				});
-
-				const { getByTestId, expectEventToBeFired } = renderWithIntl(
-					<TeamProfileCardTrigger {...defaultProps} resourceClient={profileClient} trigger="click">
-						<span data-testid="test-inner-trigger">This is the trigger</span>
-					</TeamProfileCardTrigger>,
-				);
-
-				act(() => {
-					fireEvent.click(getByTestId('team-profilecard-trigger-wrapper'));
-					jest.runAllTimers();
-				});
-
-				await new Promise(setImmediate);
-
-				const { eventType, ...event } = teamRequestAnalyticsTriggeredEvent;
-				expectEventToBeFired(eventType, event);
-				const { eventType: eventType2, ...event2 } = teamRequestAnalyticsSucceededEvent;
-				expectEventToBeFired(eventType2, event2);
-			});
-
-			it('Request failure analytics', async () => {
-				const error = [
-					{
-						message: 'Bad request',
-						extensions: {
-							statusCode: 400,
-							errorType: 'UNDERLYING_SERVICE',
-						},
-					},
-				];
-				const MockTeamClient = getMockTeamClient({
-					team: sampleProfile,
-					timeout: 0,
-					error,
-					errorRate: 1,
-					traceId: '123',
-				});
-
-				const clientArgs = {
-					cacheSize: 10,
-					cacheMaxAge: 0,
-					url: 'DUMMY',
-				};
-
-				const profileClient = new ProfileClient(clientArgs, {
-					teamClient: new MockTeamClient(clientArgs),
-				});
-
-				const { getByTestId, expectEventToBeFired } = renderWithIntl(
-					<TeamProfileCardTrigger {...defaultProps} resourceClient={profileClient} trigger="click">
-						<span data-testid="test-inner-trigger">This is the trigger</span>
-					</TeamProfileCardTrigger>,
-				);
-
-				act(() => {
-					fireEvent.click(getByTestId('team-profilecard-trigger-wrapper'));
-					jest.runAllTimers();
-				});
-
-				await new Promise(setImmediate);
-
-				const { eventType, ...event } = teamRequestAnalyticsTriggeredEvent;
-				expectEventToBeFired(eventType, event);
-				const { eventType: eventType2, ...event2 } = teamRequestAnalyticsFailedEvent;
-				expectEventToBeFired(eventType2, event2);
-			});
 		});
 
 		ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {

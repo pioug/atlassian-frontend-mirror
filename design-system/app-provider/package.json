@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/app-provider",
-	"version": "3.2.10",
+	"version": "3.3.0",
 	"description": "A top level provider for the Design System.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -38,6 +38,7 @@
 		".": "./src/index.tsx"
 	},
 	"dependencies": {
+		"@atlaskit/browser-apis": "workspace:^",
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
@@ -51,14 +52,18 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"@testing-library/user-event": "root:*",
 		"react-dom": "root:*",
 		"react-resource-router": "root:*"
 	},
 	"platform-feature-flags": {
-		"platform-static-theme-loading": {
+		"platform_dst_subtree_theming": {
+			"type": "boolean"
+		},
+		"platform_increased-contrast-themes": {
 			"type": "boolean"
 		}
 	},

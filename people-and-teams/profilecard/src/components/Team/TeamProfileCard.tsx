@@ -574,6 +574,9 @@ const ErrorMessage = ({
 	);
 };
 
+/**
+ * @deprecated This component is deprecated and will be removed soon. Please use `@atlassian/team-profilecard` instead.
+ */
 const TeamProfileCard = (props: TeamProfilecardProps): React.JSX.Element | null => {
 	const { analytics, analyticsNext, clientFetchProfile, hasError, isLoading, team, errorType } =
 		props;

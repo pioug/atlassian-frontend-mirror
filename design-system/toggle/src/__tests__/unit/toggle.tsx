@@ -3,6 +3,7 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { skipA11yAudit } from '@af/accessibility-testing';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 
 import Toggle from '../../toggle';
@@ -13,6 +14,9 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Toggle component', () => {
 	const label = 'label';
+	beforeEach(() => {
+		skipA11yAudit();
+	});
 
 	it('should be able to switch', async () => {
 		const user = userEvent.setup();

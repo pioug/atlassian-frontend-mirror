@@ -1,3 +1,7 @@
+import { OpsgenieIcon as NewOpsgenieIcon } from '../artifacts/logo-components/opsgenie';
+import { OpsgenieIcon as LegacyOpsgenieIcon } from '../legacy-logos/opsgenie';
+import { createFeatureFlaggedComponent } from '../logo-config';
+
 /**
  * __Opsgenie icon__
  *
@@ -7,4 +11,4 @@
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export { OpsgenieIcon } from '../index';
+export const OpsgenieIcon = createFeatureFlaggedComponent(LegacyOpsgenieIcon, NewOpsgenieIcon);

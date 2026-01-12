@@ -1,5 +1,13 @@
 # @atlaskit/media-card
 
+## 79.13.1
+
+### Patch Changes
+
+- [`71b895a2fd401`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71b895a2fd401) -
+  Fixed the timing of ssr succeded to use resourceTimingEntry instead of mount time
+- Updated dependencies
+
 ## 79.13.0
 
 ### Minor Changes

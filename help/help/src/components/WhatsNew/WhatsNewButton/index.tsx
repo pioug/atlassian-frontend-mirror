@@ -60,7 +60,6 @@ export const WhatsNewButton: React.FC<WrappedComponentProps & WhatsNewButtonProp
 			icon={
 				<LightbulbIcon
 					color={token('color.icon.subtle', colors.N600)}
-					LEGACY_size="medium"
 					spacing="spacious"
 					label=""
 				/>

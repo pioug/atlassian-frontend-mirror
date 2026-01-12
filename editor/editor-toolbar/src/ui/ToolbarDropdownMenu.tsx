@@ -8,7 +8,6 @@ import { jsx, cssMap, cx } from '@compiled/react';
 
 import DropdownMenu, { type OnOpenChangeArgs } from '@atlaskit/dropdown-menu';
 import { Box } from '@atlaskit/primitives/compiled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { useToolbarUI } from '../hooks/ui-context';
@@ -135,8 +134,7 @@ export const ToolbarDropdownMenu = ({
 				xcss={cx(
 					hasSectionMargin && styles.sectionMargin,
 					enableMaxHeight && styles.scrollContainer,
-					expValEquals('platform_editor_toolbar_migrate_loom', 'isEnabled', true) &&
-						styles.firstSectionSeparator,
+					styles.firstSectionSeparator,
 				)}
 				data-toolbar-component="menu"
 			>

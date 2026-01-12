@@ -347,7 +347,10 @@ export const taskItemStyles: SerializedStyles = css({
 		minWidth: 0,
 		flex: '1 1 auto',
 	},
+});
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const taskItemCheckboxStyles: SerializedStyles = css({
 	// copied styles from packages/design-system/icon/src/components/icon-new.tsx
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'[data-prosemirror-node-name="taskItem"] [data-component="checkbox-icon-wrap"]': {
@@ -531,48 +534,7 @@ export const taskItemStyles: SerializedStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const taskItemStylesWithBlockTaskItem: SerializedStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-name="taskItem"], [data-prosemirror-node-name="blockTaskItem"]': {
-		listStyle: 'none',
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-name="taskItem"] [data-component="task-item-main"], [data-prosemirror-node-name="blockTaskItem"] [data-component="task-item-main"]':
-		{
-			display: 'flex',
-			flexDirection: 'row',
-			position: 'relative',
-		},
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-name="taskItem"] [data-component="placeholder"], [data-prosemirror-node-name="blockTaskItem"] [data-component="placeholder"]':
-		{
-			position: 'absolute',
-			color: token('color.text.subtlest'),
-			margin: `0 0 0 calc(${token('space.100', '8px')} * 3)`,
-			pointerEvents: 'none',
-			textOverflow: 'ellipsis',
-			overflow: 'hidden',
-			whiteSpace: 'nowrap',
-			maxWidth: 'calc(100% - 50px)',
-			display: 'none',
-		},
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-	"[data-prosemirror-node-name='taskItem']:has([data-empty]):not(:has([data-type-ahead])) [data-component='placeholder'], [data-prosemirror-node-name='blockTaskItem']:has([data-empty]):not(:has([data-type-ahead])) [data-component='placeholder']":
-		{
-			display: 'block',
-		},
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-name="taskItem"] [data-component="content"], [data-prosemirror-node-name="blockTaskItem"] [data-component="content"]':
-		{
-			margin: 0,
-			wordWrap: 'break-word',
-			minWidth: 0,
-			flex: '1 1 auto',
-		},
-
+export const taskItemCheckboxStylesWithBlockTaskItem: SerializedStyles = css({
 	// copied styles from packages/design-system/icon/src/components/icon-new.tsx
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'[data-prosemirror-node-name="taskItem"] [data-component="checkbox-icon-wrap"], [data-prosemirror-node-name="blockTaskItem"] [data-component="checkbox-icon-wrap"]':
@@ -754,5 +716,174 @@ export const taskItemStylesWithBlockTaskItem: SerializedStyles = css({
 					transform: 'translate(-50%, -50%)',
 				},
 			},
+		},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const taskItemNextCheckboxStyles: SerializedStyles = css({
+	/**
+	 * Background
+	 */
+	'--local-background': token('color.background.input'),
+	'--local-background-active': token('color.background.input.pressed'),
+	'--local-background-checked': token('color.background.selected.bold'),
+	'--local-background-checked-hover': token('color.background.selected.bold.hovered'),
+	'--local-background-disabled': token('color.background.disabled'),
+	'--local-background-hover': token('color.background.input.hovered'),
+	/**
+	 * Border
+	 */
+	'--local-border': token('color.border.input'),
+	'--local-border-active': token('color.border'),
+	'--local-border-checked': token('color.background.selected.bold'),
+	'--local-border-checked-hover': token('color.background.selected.bold.hovered'),
+	'--local-border-checked-invalid': token('color.border.danger'),
+	'--local-border-disabled': token('color.background.disabled'),
+	'--local-border-focus': token('color.border.focused'),
+	'--local-border-hover': token('color.border.input'),
+	'--local-border-invalid': token('color.border.danger'),
+	/**
+	 * Tick
+	 */
+	'--local-tick-active': token('color.icon.inverse'),
+	'--local-tick-checked': token('color.icon.inverse'),
+	'--local-tick-disabled': token('color.icon.disabled'),
+	'--local-tick-rest': 'transparent',
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+	[`[data-prosemirror-node-name="taskItem"] .${TaskDecisionSharedCssClassName.TASK_CHECKBOX_CONTAINER}, [data-prosemirror-node-name="blockTaskItem"] .${TaskDecisionSharedCssClassName.TASK_CHECKBOX_CONTAINER}`]:
+		{
+			flex: '0 0 24px',
+			width: '24px',
+			height: '24px',
+			position: 'relative',
+			alignSelf: 'start',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+			"& > input[type='checkbox']": {
+				opacity: 0,
+				width: '100%',
+				height: '100%',
+				zIndex: 1,
+				cursor: 'pointer',
+				outline: 'none',
+				margin: 0,
+				position: 'absolute',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+				'&[disabled]': {
+					cursor: 'default',
+				},
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+				'& + svg': {
+					'--checkbox-background-color': 'var(--local-background)',
+					'--checkbox-border-color': 'var(--local-border)',
+					'--checkbox-tick-color': 'var(--local-tick-rest)',
+					color: 'var(--checkbox-background-color)',
+					fill: 'var(--checkbox-tick-color)',
+					transition: 'color 0.2s ease-in-out, fill 0.2s ease-in-out',
+					boxSizing: 'border-box',
+					display: 'inline',
+					position: 'absolute',
+					top: '50%',
+					left: '50%',
+					transform: 'translate(-50%, -50%)',
+
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+					'rect:first-of-type': {
+						stroke: 'var(--checkbox-border-color)',
+						strokeWidth: token('border.width', '1px'),
+						transition: 'stroke 0.2s ease-in-out',
+					},
+				},
+
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'&:focus + svg, &:checked:focus + svg': {
+					borderRadius: token('radius.small', '0.25rem'),
+					outline: `${token('border.width.focused', '2px')} solid ${token('color.border.focused', '#2684FF')}`,
+					outlineOffset: token('space.negative.025', '-2px'),
+				},
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'&:hover + svg': {
+					'--checkbox-background-color': 'var(--local-background-hover)',
+					'--checkbox-border-color': 'var(--local-border-hover)',
+				},
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'&:checked:hover + svg': {
+					'--checkbox-background-color': 'var(--local-background-checked-hover)',
+					'--checkbox-border-color': 'var(--local-border-checked-hover)',
+				},
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'&:checked + svg': {
+					'--checkbox-background-color': 'var(--local-background-checked)',
+					'--checkbox-border-color': 'var(--local-border-checked)',
+					'--checkbox-tick-color': 'var(--local-tick-checked)',
+				},
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'&:active + svg': {
+					'--checkbox-background-color': 'var(--local-background-active)',
+					'--checkbox-border-color': 'var(--local-border-active)',
+				},
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'&:checked:active + svg': {
+					'--checkbox-background-color': 'var(--local-background-active)',
+					'--checkbox-border-color': 'var(--local-border-active)',
+					'--checkbox-tick-color': 'var(--local-tick-active)',
+				},
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'&:disabled + svg, &:disabled:hover + svg, &:disabled:focus + svg, &:disabled:active + svg, &:disabled[data-invalid] + svg':
+					{
+						'--checkbox-background-color': 'var(--local-background-disabled)',
+						'--checkbox-border-color': 'var(--local-border-disabled)',
+						cursor: 'not-allowed',
+						pointerEvents: 'none',
+					},
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'&:disabled:checked + svg': {
+					'--checkbox-tick-color': 'var(--local-tick-disabled)',
+				},
+			},
+		},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const taskItemStylesWithBlockTaskItem: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="taskItem"], [data-prosemirror-node-name="blockTaskItem"]': {
+		listStyle: 'none',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="taskItem"] [data-component="task-item-main"], [data-prosemirror-node-name="blockTaskItem"] [data-component="task-item-main"]':
+		{
+			display: 'flex',
+			flexDirection: 'row',
+			position: 'relative',
+		},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="taskItem"] [data-component="placeholder"], [data-prosemirror-node-name="blockTaskItem"] [data-component="placeholder"]':
+		{
+			position: 'absolute',
+			color: token('color.text.subtlest'),
+			margin: `0 0 0 calc(${token('space.100', '8px')} * 3)`,
+			pointerEvents: 'none',
+			textOverflow: 'ellipsis',
+			overflow: 'hidden',
+			whiteSpace: 'nowrap',
+			maxWidth: 'calc(100% - 50px)',
+			display: 'none',
+		},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	"[data-prosemirror-node-name='taskItem']:has([data-empty]):not(:has([data-type-ahead])) [data-component='placeholder'], [data-prosemirror-node-name='blockTaskItem']:has([data-empty]):not(:has([data-type-ahead])) [data-component='placeholder']":
+		{
+			display: 'block',
+		},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="taskItem"] [data-component="content"], [data-prosemirror-node-name="blockTaskItem"] [data-component="content"]':
+		{
+			margin: 0,
+			wordWrap: 'break-word',
+			minWidth: 0,
+			flex: '1 1 auto',
 		},
 });

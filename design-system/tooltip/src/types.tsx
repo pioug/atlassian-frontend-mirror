@@ -176,4 +176,11 @@ export interface TooltipProps {
 	 * Keys will be displayed as individual keyboard key segments after the tooltip content.
 	 */
 	shortcut?: string[];
+
+	/**
+	 * When set to true, the tooltip will always use the fade-in animation
+	 * and never use the show-immediate behavior, even when another tooltip
+	 * is already visible.
+	 */
+	UNSAFE_shouldAlwaysFadeIn?: boolean;
 }

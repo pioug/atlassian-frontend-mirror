@@ -30,7 +30,7 @@ const PopupSelectExample = (): React.JSX.Element => {
 			hideSelectedOptions={false}
 			isMulti
 			label="Filter work types"
-			placeholder="Filter work types..."
+			placeholder=""
 			target={({ isOpen, ...triggerProps }) => (
 				<Button {...triggerProps} isSelected={isOpen} iconAfter={ChevronDownIcon}>
 					Type

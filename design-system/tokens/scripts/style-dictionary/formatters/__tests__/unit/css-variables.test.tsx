@@ -21,8 +21,8 @@ describe('formatter', () => {
 		} as any);
 
 		expect(result).toMatchInlineSnapshot(`
-		"html[data-color-mode="light"][data-theme~="light:dark"],
-		html[data-color-mode="dark"][data-theme~="dark:dark"] {
+		"html[data-color-mode="light"][data-theme~="light:dark"], [data-subtree-theme][data-color-mode="light"][data-theme~="light:dark"],
+		html[data-color-mode="dark"][data-theme~="dark:dark"], [data-subtree-theme][data-color-mode="dark"][data-theme~="dark:dark"] {
 		  color-scheme: dark;
 		  --ds-brand: #ffffff;
 		}
@@ -50,8 +50,8 @@ describe('formatter', () => {
 		} as any);
 
 		expect(result).toMatchInlineSnapshot(`
-		"html[data-color-mode="light"][data-theme~="light:dark"],
-		html[data-color-mode="dark"][data-theme~="dark:dark"] {
+		"html[data-color-mode="light"][data-theme~="light:dark"], [data-subtree-theme][data-color-mode="light"][data-theme~="light:dark"],
+		html[data-color-mode="dark"][data-theme~="dark:dark"], [data-subtree-theme][data-color-mode="dark"][data-theme~="dark:dark"] {
 		  color-scheme: dark;
 		  --ds-colorAccent: #ffffff;
 		}
@@ -81,8 +81,8 @@ describe('formatter', () => {
 		} as any);
 
 		expect(result).toMatchInlineSnapshot(`
-		"html[data-color-mode="light"][data-theme~="light:dark"],
-		html[data-color-mode="dark"][data-theme~="dark:dark"] {
+		"html[data-color-mode="light"][data-theme~="light:dark"], [data-subtree-theme][data-color-mode="light"][data-theme~="light:dark"],
+		html[data-color-mode="dark"][data-theme~="dark:dark"], [data-subtree-theme][data-color-mode="dark"][data-theme~="dark:dark"] {
 		  color-scheme: dark;
 		}
 		"
@@ -109,8 +109,8 @@ describe('formatter', () => {
 		} as any);
 
 		expect(result).toMatchInlineSnapshot(`
-		"html[data-color-mode="light"][data-theme~="light:dark"],
-		html[data-color-mode="dark"][data-theme~="dark:dark"] {
+		"html[data-color-mode="light"][data-theme~="light:dark"], [data-subtree-theme][data-color-mode="light"][data-theme~="light:dark"],
+		html[data-color-mode="dark"][data-theme~="dark:dark"], [data-subtree-theme][data-color-mode="dark"][data-theme~="dark:dark"] {
 		  color-scheme: dark;
 		  --ds-accent: #ffffff;
 		}
@@ -138,8 +138,8 @@ describe('formatter', () => {
 		} as any);
 
 		expect(result).toMatchInlineSnapshot(`
-		"html[data-color-mode="light"][data-theme~="light:dark"],
-		html[data-color-mode="dark"][data-theme~="dark:dark"] {
+		"html[data-color-mode="light"][data-theme~="light:dark"], [data-subtree-theme][data-color-mode="light"][data-theme~="light:dark"],
+		html[data-color-mode="dark"][data-theme~="dark:dark"], [data-subtree-theme][data-color-mode="dark"][data-theme~="dark:dark"] {
 		  color-scheme: dark;
 		  --ds-accent-brand: #ffffff;
 		}
@@ -169,8 +169,8 @@ describe('formatter', () => {
 		} as any);
 
 		expect(result).toMatchInlineSnapshot(`
-		"html[data-color-mode="light"][data-theme~="light:dark"],
-		html[data-color-mode="dark"][data-theme~="dark:dark"] {
+		"html[data-color-mode="light"][data-theme~="light:dark"], [data-subtree-theme][data-color-mode="light"][data-theme~="light:dark"],
+		html[data-color-mode="dark"][data-theme~="dark:dark"], [data-subtree-theme][data-color-mode="dark"][data-theme~="dark:dark"] {
 		  color-scheme: dark;
 		  --ds-background-brand: #ffffff;
 		}
@@ -200,8 +200,8 @@ describe('formatter', () => {
 		} as any);
 
 		expect(result).toMatchInlineSnapshot(`
-		"html[data-color-mode="light"][data-theme~="light:dark"],
-		html[data-color-mode="dark"][data-theme~="dark:dark"] {
+		"html[data-color-mode="light"][data-theme~="light:dark"], [data-subtree-theme][data-color-mode="light"][data-theme~="light:dark"],
+		html[data-color-mode="dark"][data-theme~="dark:dark"], [data-subtree-theme][data-color-mode="dark"][data-theme~="dark:dark"] {
 		  color-scheme: dark;
 		  --ds-background-brand: #ffffff;
 		}
@@ -231,8 +231,8 @@ describe('formatter', () => {
 		} as any);
 
 		expect(result).toMatchInlineSnapshot(`
-		"html[data-color-mode="light"][data-theme~="light:light"],
-		html[data-color-mode="dark"][data-theme~="dark:light"] {
+		"html[data-color-mode="light"][data-theme~="light:light"], [data-subtree-theme][data-color-mode="light"][data-theme~="light:light"],
+		html[data-color-mode="dark"][data-theme~="dark:light"], [data-subtree-theme][data-color-mode="dark"][data-theme~="dark:light"] {
 		  color-scheme: light;
 		  --ds-background-brand-pressed: #ffffff;
 		}
@@ -270,7 +270,7 @@ describe('formatter', () => {
 		} as any);
 
 		expect(result).toMatchInlineSnapshot(`
-		"html[data-theme~="spacing:spacing"] {
+		"html[data-theme~="spacing:spacing"], [data-subtree-theme][data-theme~="spacing:spacing"] {
 		  --ds-FontSize050: 11px;
 		  --ds-space-Space0: 0;
 		}
@@ -298,8 +298,8 @@ describe('formatter', () => {
 		} as any);
 
 		expect(result).toMatchInlineSnapshot(`
-		"html[data-color-mode="light"][data-theme~="light:light"],
-		html[data-color-mode="dark"][data-theme~="dark:light"] {
+		"html[data-color-mode="light"][data-theme~="light:light"], [data-subtree-theme][data-color-mode="light"][data-theme~="light:light"],
+		html[data-color-mode="dark"][data-theme~="dark:light"], [data-subtree-theme][data-color-mode="dark"][data-theme~="dark:light"] {
 		  color-scheme: light;
 		  --ds-brand: #ffffff;
 		}
@@ -327,8 +327,8 @@ describe('formatter', () => {
 		} as any);
 
 		expect(result).toMatchInlineSnapshot(`
-		"html[data-color-mode="light"][data-theme~="light:dark"],
-		html[data-color-mode="dark"][data-theme~="dark:dark"] {
+		"html[data-color-mode="light"][data-theme~="light:dark"], [data-subtree-theme][data-color-mode="light"][data-theme~="light:dark"],
+		html[data-color-mode="dark"][data-theme~="dark:dark"], [data-subtree-theme][data-color-mode="dark"][data-theme~="dark:dark"] {
 		  color-scheme: dark;
 		  --ds-brand: #ffffff;
 		}
@@ -356,7 +356,7 @@ describe('formatter', () => {
 		} as any);
 
 		expect(result).toMatchInlineSnapshot(`
-		"html[data-theme~="spacing:spacing"] {
+		"html[data-theme~="spacing:spacing"], [data-subtree-theme][data-theme~="spacing:spacing"] {
 		  --ds-base: 16px;
 		}
 		"
@@ -398,7 +398,7 @@ describe('formatter', () => {
 		} as any);
 
 		expect(result).toMatchInlineSnapshot(`
-		"html[data-theme~="typography:typography-adg3"] {
+		"html[data-theme~="typography:typography-adg3"], [data-subtree-theme][data-theme~="typography:typography-adg3"] {
 		  --ds-base: normal bold 16px/24px sans-serif;
 		}
 		"

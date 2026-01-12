@@ -114,7 +114,6 @@ export const ArticlesListItem = forwardRef<HTMLAnchorElement, ArticlesListItemPr
 					{href && (
 						<ArticlesListItemLinkIcon>
 							<ShortcutIcon
-								LEGACY_size="small"
 								label="Opens in a new window"
 								color={token('color.icon.subtle', colors.N90)}
 							/>

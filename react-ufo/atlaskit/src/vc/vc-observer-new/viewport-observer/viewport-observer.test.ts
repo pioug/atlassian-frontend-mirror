@@ -1,5 +1,6 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import type { SearchPageConfig } from '../../types';
 import { isContainedWithinMediaWrapper } from '../../vc-observer/media-wrapper/vc-utils';
 import { RLLPlaceholderHandlers } from '../../vc-observer/observers/rll-placeholders';
 import type { VCObserverEntryType } from '../types';
@@ -13,12 +14,19 @@ import createMutationObserver, { type CreateMutationObserverProps } from './muta
 import createPerformanceObserver, {
 	type CreatePerformanceObserverArgs,
 } from './performance-observer';
+import { isContainedWithinSmartAnswers } from './utils/is-contained-within-smart-answers';
 
 import ViewportObserver from './index';
 
 jest.mock('../../vc-observer/media-wrapper/vc-utils', () => ({
 	isContainedWithinMediaWrapper: jest.fn(),
 }));
+
+jest.mock('./utils/is-contained-within-smart-answers', () => ({
+	isContainedWithinSmartAnswers: jest.fn(),
+}));
+
+const isContainedWithinSmartAnswersMock = isContainedWithinSmartAnswers as jest.Mock;
 
 jest.mock('../../vc-observer/observers/rll-placeholders');
 jest.mock('./intersection-observer');
@@ -31,6 +39,7 @@ describe('ViewportObserver', () => {
 	let mockIntersectionObserver: jest.Mocked<VCIntersectionObserver>;
 	let mockMutationObserver: jest.Mocked<MutationObserver>;
 	let mockPerformanceObserver: jest.Mocked<PerformanceObserver>;
+	let searchPageConfigMock: SearchPageConfig;
 	let onChangeMock: jest.Mock;
 
 	let onChildListMutation: CreateMutationObserverProps['onChildListMutation'];
@@ -59,6 +68,10 @@ describe('ViewportObserver', () => {
 			disconnect: jest.fn(),
 			takeRecords: jest.fn(),
 		};
+		searchPageConfigMock = {
+			enableSmartAnswersMutations: false,
+			searchPageRoute: undefined,
+		};
 		onChangeMock = jest.fn();
 		mockIsRLLPlaceholderHydration = jest.fn();
 		(RLLPlaceholderHandlers.getInstance as jest.Mock) = jest.fn().mockReturnValue({
@@ -83,7 +96,10 @@ describe('ViewportObserver', () => {
 			},
 		);
 
-		observer = new ViewportObserver({ onChange: onChangeMock });
+		observer = new ViewportObserver({
+			onChange: onChangeMock,
+			searchPageConfig: searchPageConfigMock,
+		});
 		observer.start();
 	});
 
@@ -295,6 +311,7 @@ describe('ViewportObserver', () => {
 				expect(taggedMutationType).toEqual('mutation:media');
 			});
 		});
+
 		describe('onAttributeMutation', () => {
 			it('should handle attribute mutation', () => {
 				const target = document.createElement('div');
@@ -484,6 +501,7 @@ describe('ViewportObserver', () => {
 			expect(taggedMutationType?.type).toEqual('mutation:media');
 			expect(taggedMutationType?.mutationData.attributeName).toEqual('class');
 		});
+
 		it('should handle media wrapper attribute mutations with previous rect', () => {
 			const target = document.createElement('div');
 			(isContainedWithinMediaWrapper as jest.Mock).mockReturnValue(true);
@@ -517,6 +535,288 @@ describe('ViewportObserver', () => {
 			}
 			expect(taggedMutationType?.type).toEqual('mutation:media');
 			expect(taggedMutationType?.mutationData.attributeName).toEqual('class');
+		});
+
+		describe('smart answers mutations', () => {
+			beforeEach(() => {
+				isContainedWithinSmartAnswersMock.mockClear();
+
+				mockFg.mockImplementation(
+					(flag) => flag === 'rovo_search_page_ttvc_ignoring_smart_answers_fix',
+				);
+
+				searchPageConfigMock.enableSmartAnswersMutations = true;
+				searchPageConfigMock.searchPageRoute = '/search';
+			});
+
+			afterEach(() => {
+				mockFg.mockReset();
+
+				searchPageConfigMock.enableSmartAnswersMutations = false;
+				searchPageConfigMock.searchPageRoute = undefined;
+			});
+
+			describe('on the search page route', () => {
+				beforeEach(() => {
+					global.window = Object.create(window);
+					Object.defineProperty(window, 'location', {
+						value: {
+							...window.location,
+							pathname: '/search',
+						},
+						writable: true,
+					});
+				});
+
+				afterEach(() => {
+					Object.defineProperty(window, 'location', {
+						value: {
+							...window.location,
+							pathname: '/',
+						},
+						writable: true,
+					});
+				});
+
+				describe('onChildListMutation', () => {
+					it('should identify smart answers elements as mutation:smart-answers-element', () => {
+						const targetElement = document.createElement('div');
+						const smartAnswersNode = document.createElement('div');
+						isContainedWithinSmartAnswersMock.mockReturnValue(true);
+						onChildListMutation({
+							target: new WeakRef(targetElement),
+							addedNodes: [new WeakRef(smartAnswersNode)],
+							removedNodes: [],
+							timestamp: 100,
+						});
+						expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
+							smartAnswersNode,
+							expect.any(Function),
+						);
+						const tagFn = mockIntersectionObserver.watchAndTag.mock.calls[0][1];
+						if (typeof tagFn !== 'function') {
+							throw new Error('unexpected error');
+						}
+						const taggedMutationType = tagFn({
+							target: smartAnswersNode,
+							rect: new DOMRect(0, 0, 10, 10),
+						});
+						expect(isContainedWithinSmartAnswers).toHaveBeenCalledWith(smartAnswersNode);
+						expect(taggedMutationType).toEqual('mutation:smart-answers-element');
+					});
+
+					it('should not check elements are smart answers elements if it is disabled', () => {
+						searchPageConfigMock.enableSmartAnswersMutations = false;
+						searchPageConfigMock.searchPageRoute = '/search';
+
+						const targetElement = document.createElement('div');
+						const smartAnswersNode = document.createElement('div');
+						isContainedWithinSmartAnswersMock.mockReturnValue(true);
+						onChildListMutation({
+							target: new WeakRef(targetElement),
+							addedNodes: [new WeakRef(smartAnswersNode)],
+							removedNodes: [],
+							timestamp: 100,
+						});
+						expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
+							smartAnswersNode,
+							expect.any(Function),
+						);
+						const tagFn = mockIntersectionObserver.watchAndTag.mock.calls[0][1];
+						if (typeof tagFn !== 'function') {
+							throw new Error('unexpected error');
+						}
+						const taggedMutationType = tagFn({
+							target: smartAnswersNode,
+							rect: new DOMRect(0, 0, 10, 10),
+						});
+						expect(isContainedWithinSmartAnswers).not.toHaveBeenCalled();
+						expect(taggedMutationType).toEqual('mutation:element');
+					});
+
+					it('should not check elements are smart answers elements if there is no search page route', () => {
+						searchPageConfigMock.enableSmartAnswersMutations = true;
+						searchPageConfigMock.searchPageRoute = undefined;
+
+						const targetElement = document.createElement('div');
+						const smartAnswersNode = document.createElement('div');
+						isContainedWithinSmartAnswersMock.mockReturnValue(true);
+						onChildListMutation({
+							target: new WeakRef(targetElement),
+							addedNodes: [new WeakRef(smartAnswersNode)],
+							removedNodes: [],
+							timestamp: 100,
+						});
+						expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
+							smartAnswersNode,
+							expect.any(Function),
+						);
+						const tagFn = mockIntersectionObserver.watchAndTag.mock.calls[0][1];
+						if (typeof tagFn !== 'function') {
+							throw new Error('unexpected error');
+						}
+						const taggedMutationType = tagFn({
+							target: smartAnswersNode,
+							rect: new DOMRect(0, 0, 10, 10),
+						});
+						expect(isContainedWithinSmartAnswers).not.toHaveBeenCalled();
+						expect(taggedMutationType).toEqual('mutation:element');
+					});
+
+					it('should not identify smart answers elements as mutation:smart-answers-element if not contained within smart answers', () => {
+						const targetElement = document.createElement('div');
+						const smartAnswersNode = document.createElement('div');
+						isContainedWithinSmartAnswersMock.mockReturnValue(false);
+						onChildListMutation({
+							target: new WeakRef(targetElement),
+							addedNodes: [new WeakRef(smartAnswersNode)],
+							removedNodes: [],
+							timestamp: 100,
+						});
+						expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
+							smartAnswersNode,
+							expect.any(Function),
+						);
+						const tagFn = mockIntersectionObserver.watchAndTag.mock.calls[0][1];
+						if (typeof tagFn !== 'function') {
+							throw new Error('unexpected error');
+						}
+						const taggedMutationType = tagFn({
+							target: smartAnswersNode,
+							rect: new DOMRect(0, 0, 10, 10),
+						});
+						expect(isContainedWithinSmartAnswers).toHaveBeenCalledWith(smartAnswersNode);
+						expect(taggedMutationType).toEqual('mutation:element');
+					});
+				});
+
+				describe('onAttributeMutation', () => {
+					it('should identify smart answers elements as mutation:smart-answers-attribute', () => {
+						isContainedWithinSmartAnswersMock.mockReturnValue(true);
+
+						const target = document.createElement('div');
+
+						onAttributeMutation({ target, attributeName: 'style' });
+
+						expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
+							target,
+							expect.any(Function),
+						);
+
+						const tagFn = mockIntersectionObserver.watchAndTag.mock.calls[0][1];
+
+						if (typeof tagFn !== 'function') {
+							// should not come here assertion above already guarantee
+							// this block to make Typescript do type assertion
+							throw new Error('unexpected error');
+						}
+						const taggedMutationType = tagFn({ target, rect: new DOMRect(0, 0, 10, 10) });
+						expect(typeof taggedMutationType).toEqual('object');
+						if (typeof taggedMutationType !== 'object') {
+							// should not come here assertion above already guarantee
+							// this block to make Typescript do type assertion
+							throw new Error('unexpected error');
+						}
+						expect(isContainedWithinSmartAnswers).toHaveBeenCalled();
+						expect(taggedMutationType?.type).toEqual('mutation:smart-answers-attribute');
+						expect(taggedMutationType?.mutationData.attributeName).toEqual('style');
+					});
+
+					it('should not identify smart answers elements as mutation:smart-answers-attribute if not contained within smart answers', () => {
+						isContainedWithinSmartAnswersMock.mockReturnValue(false);
+
+						const target = document.createElement('div');
+
+						onAttributeMutation({ target, attributeName: 'style' });
+
+						expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
+							target,
+							expect.any(Function),
+						);
+
+						const tagFn = mockIntersectionObserver.watchAndTag.mock.calls[0][1];
+
+						if (typeof tagFn !== 'function') {
+							// should not come here assertion above already guarantee
+							// this block to make Typescript do type assertion
+							throw new Error('unexpected error');
+						}
+						const taggedMutationType = tagFn({ target, rect: new DOMRect(0, 0, 10, 10) });
+						expect(typeof taggedMutationType).toEqual('object');
+						if (typeof taggedMutationType !== 'object') {
+							// should not come here assertion above already guarantee
+							// this block to make Typescript do type assertion
+							throw new Error('unexpected error');
+						}
+						expect(isContainedWithinSmartAnswers).toHaveBeenCalled();
+						expect(taggedMutationType?.type).toEqual('mutation:attribute');
+						expect(taggedMutationType?.mutationData.attributeName).toEqual('style');
+					});
+				});
+			});
+
+			describe('not on the search page route', () => {
+				describe('onChildListMutation', () => {
+					it('should not check elements are smart answers elements', () => {
+						const targetElement = document.createElement('div');
+						const smartAnswersNode = document.createElement('div');
+						isContainedWithinSmartAnswersMock.mockReturnValue(true);
+						onChildListMutation({
+							target: new WeakRef(targetElement),
+							addedNodes: [new WeakRef(smartAnswersNode)],
+							removedNodes: [],
+							timestamp: 100,
+						});
+						expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
+							smartAnswersNode,
+							expect.any(Function),
+						);
+						const tagFn = mockIntersectionObserver.watchAndTag.mock.calls[0][1];
+						if (typeof tagFn !== 'function') {
+							throw new Error('unexpected error');
+						}
+						const taggedMutationType = tagFn({
+							target: smartAnswersNode,
+							rect: new DOMRect(0, 0, 10, 10),
+						});
+						expect(isContainedWithinSmartAnswers).not.toHaveBeenCalled();
+						expect(taggedMutationType).toEqual('mutation:element');
+					});
+				});
+
+				describe('onAttributeMutation', () => {
+					it('should not check elements are smart answers elements', () => {
+						isContainedWithinSmartAnswersMock.mockReturnValue(true);
+
+						const target = document.createElement('div');
+
+						onAttributeMutation({ target, attributeName: 'style' });
+
+						expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
+							target,
+							expect.any(Function),
+						);
+
+						const tagFn = mockIntersectionObserver.watchAndTag.mock.calls[0][1];
+
+						if (typeof tagFn !== 'function') {
+							// should not come here assertion above already guarantee
+							// this block to make Typescript do type assertion
+							throw new Error('unexpected error');
+						}
+						const taggedMutationType = tagFn({ target, rect: new DOMRect(0, 0, 10, 10) });
+						expect(typeof taggedMutationType).toEqual('object');
+						if (typeof taggedMutationType !== 'object') {
+							// should not come here assertion above already guarantee
+							// this block to make Typescript do type assertion
+							throw new Error('unexpected error');
+						}
+						expect(isContainedWithinSmartAnswers).not.toHaveBeenCalled();
+						expect(taggedMutationType?.type).toEqual('mutation:attribute');
+						expect(taggedMutationType?.mutationData.attributeName).toEqual('style');
+					});
+				});
+			});
 		});
 	});
 

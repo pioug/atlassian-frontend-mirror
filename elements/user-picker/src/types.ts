@@ -309,7 +309,8 @@ export type UserSource =
 	| 'microsoft'
 	| 'jira'
 	| 'confluence'
-	| 'other-atlassian';
+	| 'other-atlassian'
+	| 'email';
 
 export interface ExternalUser extends User {
 	externalUserType?: 'crossSite' | 'thirdParty';

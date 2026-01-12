@@ -8,7 +8,6 @@ import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { type CustomData, type UFOExperience, UFOExperienceState } from '@atlaskit/ufo';
 import UserPicker, {
 	type OptionData,
-	type Team,
 	isExternalUser,
 	isTeam,
 	isGroup,
@@ -275,7 +274,8 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 			maxNumberOfResults,
 			query,
 			searchEmail: isEmail,
-			verifiedTeams,
+			// Only request verified teams when both the prop is true and the feature flag is enabled
+			verifiedTeams: verifiedTeams && fg('smart-user-picker-managed-teams-gate'),
 			/*
 				For email-based searches, we have decided to filter out apps.
 				Also - because the other 2 filters ((NOT not_mentionable:true) AND (account_status:active)) are included
@@ -350,19 +350,6 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 						option.includeTeamsUpdates = includeTeamsUpdates;
 					}
 				}
-			}
-
-			// Filter to only verified teams when verifiedTeams is true and feature flag is enabled
-			if (verifiedTeams && includeTeams && fg('smart-user-picker-managed-teams-gate')) {
-				recommendedUsers = recommendedUsers.filter((option) => {
-					if (isTeam(option)) {
-						// Only include teams that are verified
-						// The verified property is set by the transformer from the server response
-						const team = option as Team & { verified?: boolean };
-						return team.verified === true;
-					}
-					return true; // Keep non-team options
-				});
 			}
 
 			// Track if email search found matches for conditional allowEmail logic

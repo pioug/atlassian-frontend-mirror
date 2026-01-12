@@ -253,7 +253,6 @@ class FieldsetField extends React.Component<Props, State> {
 								// Ignored via go/ees005
 								// eslint-disable-next-line react/jsx-props-no-spreading
 								{...iconProps}
-								LEGACY_size="small"
 								spacing="none"
 								label={intl.formatMessage(messages.addField)}
 							/>

@@ -1,5 +1,6 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import type { SearchPageConfig } from '../../types';
 import { isContainedWithinMediaWrapper } from '../../vc-observer/media-wrapper/vc-utils';
 import isDnDStyleMutation from '../../vc-observer/observers/non-visual-styles/is-dnd-style-mutation';
 import isNonVisualStyleMutation from '../../vc-observer/observers/non-visual-styles/is-non-visual-style-mutation';
@@ -11,6 +12,7 @@ import createMutationObserver from './mutation-observer';
 import createPerformanceObserver from './performance-observer';
 import { type MutationData } from './types';
 import checkWithinComponent, { cleanupCaches } from './utils/check-within-component';
+import { isContainedWithinSmartAnswers } from './utils/is-contained-within-smart-answers';
 import { isElementVisible } from './utils/is-element-visible';
 import isInVCIgnoreIfNoLayoutShiftMarker from './utils/is-in-vc-ignore-if-no-layout-shift-marker';
 import { isInputNameMutation } from './utils/is-input-name-mutation';
@@ -29,12 +31,14 @@ export type ViewPortObserverConstructorArgs = {
 	}): void;
 	getSSRState?: () => any;
 	getSSRPlaceholderHandler?: () => any;
+	searchPageConfig?: SearchPageConfig;
 };
 
 const createElementMutationsWatcher =
 	(
 		removedNodeRects: (DOMRect | undefined)[],
 		isWithinThirdPartySegment: boolean,
+		isWithinSmartAnswersSegment: boolean,
 		hasSameDeletedNode: boolean,
 		timestamp: number,
 		isTargetReactRoot: boolean,
@@ -105,6 +109,10 @@ const createElementMutationsWatcher =
 			return 'mutation:third-party-element';
 		}
 
+		if (isWithinSmartAnswersSegment) {
+			return 'mutation:smart-answers-element';
+		}
+
 		const isInIgnoreLsMarker = isInVCIgnoreIfNoLayoutShiftMarker(target);
 
 		if (!isInIgnoreLsMarker) {
@@ -133,6 +141,7 @@ export default class ViewportObserver {
 	private mapIs3pResult: WeakMap<HTMLElement, boolean>;
 	private onChange: ViewPortObserverConstructorArgs['onChange'];
 	private isStarted: boolean;
+	private searchPageConfig: SearchPageConfig | undefined;
 
 	// SSR context functions
 	private getSSRState?: () => any;
@@ -142,6 +151,7 @@ export default class ViewportObserver {
 		onChange,
 		getSSRState,
 		getSSRPlaceholderHandler,
+		searchPageConfig,
 	}: ViewPortObserverConstructorArgs) {
 		this.mapVisibleNodeRects = new WeakMap();
 		this.mapIs3pResult = new WeakMap();
@@ -154,6 +164,7 @@ export default class ViewportObserver {
 		// Initialize SSR context functions
 		this.getSSRState = getSSRState;
 		this.getSSRPlaceholderHandler = getSSRPlaceholderHandler;
+		this.searchPageConfig = searchPageConfig;
 	}
 
 	private handleIntersectionEntry = ({
@@ -231,6 +242,10 @@ export default class ViewportObserver {
 				this.mapIs3pResult,
 			);
 
+			const isWithinSmartAnswersSegment = Boolean(
+				this.shouldCheckSmartAnswersMutations() && isContainedWithinSmartAnswers(addedNode),
+			);
+
 			const isTargetReactRoot = targetNode === this.getSSRState?.()?.reactRootElement;
 
 			this.intersectionObserver?.watchAndTag(
@@ -238,6 +253,7 @@ export default class ViewportObserver {
 				createElementMutationsWatcher(
 					removedNodeRects,
 					isWithinThirdPartySegment,
+					isWithinSmartAnswersSegment,
 					!!hasSameDeletedNode,
 					timestamp,
 					isTargetReactRoot,
@@ -287,6 +303,17 @@ export default class ViewportObserver {
 						},
 					};
 				}
+			}
+
+			if (this.shouldCheckSmartAnswersMutations() && isContainedWithinSmartAnswers(target)) {
+				return {
+					type: 'mutation:smart-answers-attribute',
+					mutationData: {
+						attributeName,
+						oldValue,
+						newValue,
+					},
+				};
 			}
 
 			if (isDnDStyleMutation({ target, attributeName, oldValue, newValue })) {
@@ -406,6 +433,16 @@ export default class ViewportObserver {
 			onLayoutShift: this.handleLayoutShift,
 		});
 	}
+
+	private shouldCheckSmartAnswersMutations = () => {
+		return (
+			this.searchPageConfig?.enableSmartAnswersMutations &&
+			this.searchPageConfig?.searchPageRoute &&
+			window?.location?.pathname &&
+			window.location.pathname === this.searchPageConfig.searchPageRoute &&
+			fg('rovo_search_page_ttvc_ignoring_smart_answers_fix')
+		);
+	};
 
 	start(): void {
 		if (this.isStarted) {

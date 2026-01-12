@@ -23,7 +23,7 @@ const GROUP_OPTIONS = [
 const SingleExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="group-example">Which city do you live in?</Label>
-		<Select inputId="group-example" options={GROUP_OPTIONS} placeholder="Choose a City" />
+		<Select inputId="group-example" options={GROUP_OPTIONS} placeholder="" />
 	</>
 );
 

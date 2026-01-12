@@ -10,7 +10,7 @@ export default function TextAreaFormExample(): React.JSX.Element {
 			<Field label="Field label" name="example-text">
 				{({ fieldProps }: any) => (
 					<Fragment>
-						<TextArea placeholder="Enter long form text here" {...fieldProps} />
+						<TextArea placeholder="" {...fieldProps} />
 						<HelperMessage>Help or instruction text goes here</HelperMessage>
 					</Fragment>
 				)}

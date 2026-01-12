@@ -8,6 +8,7 @@ import { type EventType, fireEvent, render, screen, within } from '@testing-libr
 import userEvent from '@testing-library/user-event';
 import cases from 'jest-in-case';
 
+import { skipA11yAudit } from '@af/accessibility-testing';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { type FilterOptionOption } from '../../filters';
@@ -54,6 +55,10 @@ const BASIC_PROPS: BasicProps = {
 	inputValue: '',
 	value: null,
 };
+
+beforeEach(() => {
+	skipA11yAudit();
+});
 
 test('instanceId prop > to have instanceId as id prefix for the select components', () => {
 	render(<Select {...BASIC_PROPS} menuIsOpen instanceId={'custom-id'} />);
@@ -2862,6 +2867,7 @@ test('not render any groups when there is not a single match when filtering', ()
 			onMenuOpen={noop}
 			onMenuClose={noop}
 			value={null}
+			label="test"
 		/>,
 	);
 

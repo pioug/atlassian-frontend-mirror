@@ -1,5 +1,5 @@
 import { fireEvent } from '@testing-library/dom';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 
 import useCloseOnEscapePress from '../use-close-on-escape-press';
 

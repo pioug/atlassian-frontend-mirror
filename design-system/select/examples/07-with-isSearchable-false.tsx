@@ -36,7 +36,7 @@ const SingleExample = (): React.JSX.Element => (
 				{ label: 'Sydney', value: 'sydney' },
 			]}
 			isSearchable={false}
-			placeholder="Choose a City"
+			placeholder=""
 			ariaLiveMessages={ariaLiveMessages}
 			testId="react-select"
 		/>

@@ -73,27 +73,9 @@ const AtlaskitIcon = ({
 			);
 		case IconType.Error:
 		case IconType.Forbidden:
-			return (
-				<ImportedIcon
-					label={label}
-					testId={testId}
-					LEGACY_size={
-						size === SmartLinkSize.Large || size === SmartLinkSize.XLarge ? 'medium' : 'small'
-					}
-					color={token('color.icon.danger')}
-				/>
-			);
+			return <ImportedIcon label={label} testId={testId} color={token('color.icon.danger')} />;
 		default:
-			return (
-				<ImportedIcon
-					label={label}
-					testId={testId}
-					LEGACY_size={
-						size === SmartLinkSize.Large || size === SmartLinkSize.XLarge ? 'medium' : 'small'
-					}
-					size={size}
-				/>
-			);
+			return <ImportedIcon label={label} testId={testId} size={size} />;
 	}
 };
 

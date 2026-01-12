@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 
 import { usePublish, useSubscribe, useSubscribeAll } from './main';
 import type { Payload, Topic } from './types';

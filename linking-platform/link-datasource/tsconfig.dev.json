@@ -123,6 +123,9 @@
 			"path": "../../design-system/radio/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/select/tsconfig.app.json"
+		},
+		{
 			"path": "../smart-card/tsconfig.app.json"
 		},
 		{

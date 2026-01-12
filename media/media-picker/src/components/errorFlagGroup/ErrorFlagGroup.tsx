@@ -56,12 +56,7 @@ const FlagGroupContent = ({ flagData, onFlagDismissed }: ErrorFlagGroupProps) =>
 				<AutoDismissFlag
 					id={i}
 					icon={
-						<FailIcon
-							color={token('color.icon.danger', R300)}
-							label="Fail"
-							LEGACY_size="medium"
-							spacing="spacious"
-						/>
+						<FailIcon color={token('color.icon.danger', R300)} label="Fail" spacing="spacious" />
 					}
 					key={i}
 					title={intl.formatMessage(errorFlagMessages.errorTitle)}

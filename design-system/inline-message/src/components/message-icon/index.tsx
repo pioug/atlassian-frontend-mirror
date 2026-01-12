@@ -68,7 +68,6 @@ const SelectedIcon: FC<MessageIconProps> = ({ appearance, isOpen, label, spacing
 				testId="inline-message-icon"
 				label={label || defaultLabel}
 				color="currentColor"
-				LEGACY_size="medium"
 				spacing={spacing}
 			/>
 		</span>

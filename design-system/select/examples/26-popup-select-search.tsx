@@ -46,7 +46,7 @@ const SelectPopupSearchExample = (): React.JSX.Element => {
 			<PopupSelect
 				options={cities}
 				searchThreshold={parseInt(searchThreshold)}
-				placeholder={'Choose a City'}
+				placeholder={''}
 				isSearchable={isSearchable}
 				target={({ isOpen, ...triggerProps }) => (
 					<Button isSelected={isOpen} {...triggerProps}>

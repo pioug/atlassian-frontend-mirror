@@ -2,6 +2,8 @@ import React, { useRef } from 'react';
 
 import { act, render, screen } from '@testing-library/react';
 
+import { skipA11yAudit } from '@af/accessibility-testing';
+
 import { useFocusWithin } from './index';
 
 // Test component to expose hook behavior
@@ -65,6 +67,9 @@ const TestComponentNoFallback = ({
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('useFocusWithin', () => {
+	beforeEach(() => {
+		skipA11yAudit();
+	});
 	it('returns focused element when focus moves inside the container', () => {
 		const mockFocusChange = jest.fn();
 		render(<TestComponent onFocusChange={mockFocusChange} />);

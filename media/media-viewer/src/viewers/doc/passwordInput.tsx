@@ -91,7 +91,7 @@ export const PasswordInput = ({ onSubmit, hasPasswordError, onRender }: PDFPassw
 			{({ formProps, submitting }) => (
 				<form {...formProps}>
 					<Flex justifyContent="center">
-						<LockIcon label="" LEGACY_size="xlarge" color={COLOR_SHADE as any} />
+						<LockIcon label="" color={COLOR_SHADE as any} />
 					</Flex>
 					<Box xcss={headerStyles}>
 						<div css={headingStyle}>
@@ -117,7 +117,7 @@ export const PasswordInput = ({ onSubmit, hasPasswordError, onRender }: PDFPassw
 								/>
 								{formError && (
 									<div css={errorMessageWrapperStyle} id={`${fieldProps.id}-error`}>
-										<ErrorIcon color="currentColor" LEGACY_size="small" label="" size="small" />
+										<ErrorIcon color="currentColor" label="" size="small" />
 										<div css={errorMessageStyle} id={`${fieldProps.id}-errorMessage`}>
 											<Text as="p">
 												<FormattedMessage {...messages.incorrect_password} />

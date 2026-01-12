@@ -20,7 +20,7 @@ const CheckboxExample = (): React.JSX.Element => (
 					value: 'test',
 				},
 			]}
-			placeholder="Choose a City"
+			placeholder=""
 		/>
 
 		<Label htmlFor="checkbox-selected-example">Which cities have you lived in? (Selected)</Label>
@@ -37,7 +37,7 @@ const CheckboxExample = (): React.JSX.Element => (
 				},
 			]}
 			defaultValue={cities[4]}
-			placeholder="Choose a City (Selected)"
+			placeholder=""
 		/>
 	</>
 );

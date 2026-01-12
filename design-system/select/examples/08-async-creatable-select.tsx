@@ -64,7 +64,7 @@ class AsyncCreatableExample extends Component<{}, State> {
 					loadOptions={this.loadOptions}
 					allowCreateWhileLoading={allowCreateWhileLoading}
 					onCreateOption={this.handleCreateOption}
-					placeholder="Choose a City"
+					placeholder=""
 				/>
 				<Checkbox
 					value="allowCreateWhileLoading"

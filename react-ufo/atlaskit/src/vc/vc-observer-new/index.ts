@@ -3,6 +3,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { type RevisionPayloadEntry } from '../../common/vc/types';
 import { isVCRevisionEnabled } from '../../config';
 import { getActiveInteraction } from '../../interaction-metrics';
+import type { SearchPageConfig } from '../types';
 import { SSRPlaceholderHandlers } from '../vc-observer/observers/ssr-placeholders';
 
 import EntriesTimeline from './entries-timeline';
@@ -23,6 +24,7 @@ export type VCObserverNewConfig = {
 		enablePageLayoutPlaceholder?: boolean;
 	};
 	ssrPlaceholderHandler?: SSRPlaceholderHandlers | null;
+	searchPageConfig?: SearchPageConfig;
 };
 
 const SSRState = {
@@ -119,6 +121,7 @@ export default class VCObserverNew {
 			// Pass SSR context to ViewportObserver
 			getSSRState: () => this.getSSRState(),
 			getSSRPlaceholderHandler: () => this.getSSRPlaceholderHandler(),
+			searchPageConfig: config.searchPageConfig,
 		});
 
 		this.windowEventObserver = new WindowEventObserver({
@@ -301,6 +304,7 @@ export default class VCObserverNew {
 							interactionType,
 							isPostInteraction: this.isPostInteraction,
 							include3p,
+							excludeSmartAnswersInSearch,
 							includeSSRRatio,
 							isPageVisible,
 							interactionAbortReason,
@@ -379,7 +383,7 @@ export default class VCObserverNew {
 				stopTime: rawStopTime,
 				isPageVisible,
 			});
-			results.forEach(result => {
+			results.forEach((result) => {
 				delete result.vcDetails;
 				delete result.ratios;
 			});

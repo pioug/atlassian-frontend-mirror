@@ -22,7 +22,7 @@ const SingleExample = (): React.JSX.Element => (
 				{ label: 'Perth', value: 'perth' },
 				{ label: 'Sydney', value: 'sydney' },
 			]}
-			placeholder="Choose a City"
+			placeholder=""
 			styles={customStyles}
 		/>
 	</>

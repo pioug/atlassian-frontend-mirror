@@ -242,7 +242,7 @@ const CardPrimitive = forwardRef<HTMLDivElement, CardPrimitiveProps>(function Ca
 					</Inline>
 					<Inline space="space.050" alignBlock="center">
 						<Badge>{1}</Badge>
-						<PullRequestIcon color="currentColor" label="" LEGACY_size="small" />
+						<PullRequestIcon color="currentColor" label="" />
 						<svg
 							width="24"
 							height="24"

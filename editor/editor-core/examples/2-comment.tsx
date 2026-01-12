@@ -194,7 +194,7 @@ export class CommentEditorWithFeedback extends React.Component<Props, State> {
 											allowExtension={true}
 											extensionHandlers={extensionHandlers}
 											secondaryToolbarComponents={[
-												<LockCircleIcon key="permission" LEGACY_size="large" label="Permissions" />,
+												<LockCircleIcon key="permission" label="Permissions" />,
 											]}
 											featureFlags={{
 												...this.props.editorProps?.featureFlags,

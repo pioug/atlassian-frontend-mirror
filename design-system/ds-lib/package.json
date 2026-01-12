@@ -68,8 +68,7 @@
 	"devDependencies": {
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@testing-library/dom": "root:*",
-		"@testing-library/react": "root:*",
-		"@testing-library/react-hooks": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"jest-in-case": "root:*"
 	},
 	"techstack": {

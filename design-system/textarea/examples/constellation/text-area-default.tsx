@@ -11,7 +11,7 @@ export default (): React.JSX.Element => (
 			resize="auto"
 			maxHeight="20vh"
 			name="area"
-			defaultValue="Add a message here"
+			defaultValue=""
 		/>
 	</>
 );

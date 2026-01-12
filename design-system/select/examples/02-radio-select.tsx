@@ -19,7 +19,7 @@ const RadioExample = (): React.JSX.Element => (
 					value: 'test',
 				},
 			]}
-			placeholder="Choose a City"
+			placeholder=""
 		/>
 	</>
 );

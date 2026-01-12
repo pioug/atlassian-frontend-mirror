@@ -51,7 +51,7 @@ export const Icon = ({
 	isFlexibleUi = false,
 }: IconProps) => {
 	const placeholder = defaultIcon || (
-		<LinkIcon label="link" LEGACY_size="small" testId={`${testId}-default`} color="currentColor" />
+		<LinkIcon label="link" testId={`${testId}-default`} color="currentColor" />
 	);
 
 	const image = url && (

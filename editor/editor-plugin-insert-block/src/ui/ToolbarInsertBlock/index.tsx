@@ -778,14 +778,6 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 		return true;
 	};
 
-	private openElementBrowser = () => {
-		const { pluginInjectionApi } = this.props;
-
-		pluginInjectionApi?.core?.actions.execute(
-			pluginInjectionApi?.quickInsert?.commands.openElementBrowserModal,
-		);
-	};
-
 	private onItemActivated = ({
 		item,
 		inputMethod,
@@ -837,17 +829,6 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 
 			case 'horizontalrule':
 				this.insertHorizontalRule(inputMethod);
-				break;
-			case 'macro':
-				/**
-				 * Remove 'macro' case when cleaning up platform_editor_refactor_view_more
-				 * along with the 'more' function from platform/packages/editor/editor-plugin-insert-block/src/ui/ToolbarInsertBlock/item.tsx
-				 * as it will no longer be needed for the View More button.
-				 * This will also reduce confusion from the 'macro' naming.
-				 */
-				if (!fg('platform_editor_refactor_view_more')) {
-					this.openElementBrowser();
-				}
 				break;
 			case 'date':
 				this.createDate(inputMethod);

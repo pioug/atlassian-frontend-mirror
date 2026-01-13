@@ -30,7 +30,6 @@ import {
 	link,
 	media,
 	mention,
-	more,
 	panel,
 	placeholder,
 	status,
@@ -110,7 +109,6 @@ const createInsertBlockItems = (
 		availableWrapperBlockTypes,
 		actionSupported,
 		decisionSupported,
-		showElementBrowserLink,
 		linkSupported,
 		linkDisabled,
 		emojiDisabled,
@@ -369,15 +367,6 @@ const createInsertBlockItems = (
 
 	if (insertMenuItems) {
 		items.push(...insertMenuItems);
-	}
-
-	if (showElementBrowserLink && !fg('platform_editor_refactor_view_more')) {
-		items.push(
-			more({
-				content: formatMessage(messages.viewMore),
-				disabled: false,
-			}),
-		);
 	}
 
 	let numButtonsAdjusted = numberOfButtons;

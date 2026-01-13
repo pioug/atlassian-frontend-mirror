@@ -7,11 +7,22 @@ import { css, jsx } from '@compiled/react';
 import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 import { messages } from './i18n';
 import { token } from '@atlaskit/tokens';
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { useIntl } from 'react-intl-next';
+
+const oldListStyles = css({
+	listStyleType: 'none',
+	paddingLeft: 0,
+});
 
 const listStyles = css({
 	listStyleType: 'none',
 	paddingLeft: 0,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'div + div': {
+		marginTop: token('space.050'),
+	},
 });
 
 const taskListStyles = css({
@@ -41,7 +52,7 @@ const TaskList = ({ listId, children }: Props) => {
 	return (
 		<div
 			role="group"
-			css={listStyles}
+			css={[fg('platform_editor_fix_missing_task_id') ? listStyles : oldListStyles]}
 			data-task-list-local-id=""
 			aria-label={formatMessage(messages.fieldsetLabel)}
 		>
@@ -57,9 +68,17 @@ const TaskList = ({ listId, children }: Props) => {
 							position: idx,
 						}}
 					>
-						<div key={idx} data-task-local-id={localId || ''} css={taskListStyles}>
-							{child}
-						</div>
+						{
+							/* The data-task-local-id attribute will be moved to the Editor renderer node
+							as the localId isn't guaranteed to be in the direct React child's props) */
+							fg('platform_editor_fix_missing_task_id') ? (
+								child
+							) : (
+								<div key={idx} data-task-local-id={localId || ''} css={taskListStyles}>
+									{child}
+								</div>
+							)
+						}
 					</FabricElementsAnalyticsContext>
 				);
 			})}

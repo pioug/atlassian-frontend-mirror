@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 8.0.8
+
+### Patch Changes
+
+- [`eb7609ee331ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb7609ee331ab) -
+  [ux] EDITOR-4264 Fix preserved selection mapping
+- Updated dependencies
+
 ## 8.0.7
 
 ### Patch Changes

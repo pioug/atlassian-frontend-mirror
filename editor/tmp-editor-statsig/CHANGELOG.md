@@ -1,5 +1,20 @@
 # @atlaskit/editor-statsig-tmp
 
+## 16.15.0
+
+### Minor Changes
+
+- [`9ee3f2262dfcf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ee3f2262dfcf) -
+  improve performance of table floating toolbar when determine the disabled state of distribute
+  column button
+
+## 16.14.0
+
+### Minor Changes
+
+- [`7c8501566cbe0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c8501566cbe0) -
+  improve task item styles by using 1 inline svg instead of 2
+
 ## 16.13.0
 
 ### Minor Changes

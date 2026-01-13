@@ -33,7 +33,6 @@ import LinkIcon from '@atlaskit/icon/core/link';
 import MentionIcon from '@atlaskit/icon/core/mention';
 import HorizontalRuleIcon from '@atlaskit/icon/core/minus';
 import QuotationMarkIcon from '@atlaskit/icon/core/quotation-mark';
-import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import InformationIcon from '@atlaskit/icon/core/status-information';
 import TaskIcon from '@atlaskit/icon/core/task';
 
@@ -285,22 +284,5 @@ export const status = mem((init: CreateInit) =>
 		disabled: init.disabled,
 		name: 'status',
 		Icon: () => <LozengeIcon label="" color="currentColor" spacing="spacious" />,
-	}),
-);
-
-/**
- * @private
- * @deprecated
- * Deprecated as view more is not an item in the element browser.
- * View more is implemented directly in the ViewMore component inside the StatelessElementBrowser when
- * platform_editor_refactor_view_more is used.
- */
-export const more = mem((init: CreateInit) =>
-	from({
-		content: init.content,
-		tooltipDescription: init.tooltipDescription,
-		disabled: init.disabled,
-		name: 'macro',
-		Icon: () => <ShowMoreHorizontalIcon label="" color="currentColor" />,
 	}),
 );

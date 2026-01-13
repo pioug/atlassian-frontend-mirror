@@ -44,7 +44,7 @@ export class DocViewer extends BaseViewer<string, Props, State> {
 		return propsA.item.status !== propsB.item.status;
 	}
 
-	protected async init() {
+	protected async init(): Promise<void> {
 		const { item } = this.props;
 		this.setState({
 			content: Outcome.successful(item.id),
@@ -54,7 +54,7 @@ export class DocViewer extends BaseViewer<string, Props, State> {
 		}
 	}
 
-	protected release() {
+	protected release(): void {
 		if (!this.isObjectUrl) {
 			return;
 		}

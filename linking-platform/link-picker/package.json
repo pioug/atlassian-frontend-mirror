@@ -101,6 +101,7 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/link-test-helpers": "workspace:^",
+		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@testing-library/dom": "root:*",
 		"@testing-library/jest-dom": "root:*",

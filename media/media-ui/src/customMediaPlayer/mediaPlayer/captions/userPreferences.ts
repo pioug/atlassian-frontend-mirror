@@ -6,14 +6,14 @@ export const getUserCaptionsLocale = (mediaUserPreferences: MediaUserPreferences
 export const setUserCaptionsLocale = (
 	mediaUserPreferences: MediaUserPreferences,
 	locale: string,
-) => {
+): void => {
 	mediaUserPreferences.set('videoCaptionsPreferredLocale', locale);
 };
 
 export const setUserCaptionsEnabled = (
 	mediaUserPreferences: MediaUserPreferences,
 	areCaptionsEnabled: boolean,
-) => {
+): void => {
 	mediaUserPreferences.set('videoCaptionsEnabled', areCaptionsEnabled);
 };
 

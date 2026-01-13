@@ -133,14 +133,14 @@ export class Video extends Component<VideoProps, VideoComponentState> {
 		preload: isSafari ? 'auto' : 'metadata',
 	};
 
-	onLoadedData = () => {
+	onLoadedData = (): void => {
 		const { defaultTime } = this.props;
 		if (this.currentElement) {
 			this.currentElement.currentTime = defaultTime();
 		}
 	};
 
-	componentDidUpdate(prevProps: VideoProps) {
+	componentDidUpdate(prevProps: VideoProps): void {
 		const { src } = this.props;
 		const { currentTime, status } = this.state;
 		const hasSrcChanged = prevProps.src !== src;

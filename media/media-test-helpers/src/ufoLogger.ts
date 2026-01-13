@@ -7,7 +7,7 @@ export interface UfoPayloadPublisher {
 export const enableMediaUfoLogger = (
 	ufoPayloadPublisher: UfoPayloadPublisher,
 	properties: CustomData = {},
-) => {
+): void => {
 	// Added try catch as Performance is not mocked properly in the Ufo packages.
 	// By adding try catch test are successfully passing. Created ticket for the same - MEET-2652
 	const MEDIA_UFO_OPERATIONAL_EVENT = 'Media::UFO::sendOperationalEvent:';

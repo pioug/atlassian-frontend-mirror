@@ -30,7 +30,7 @@ const useSimulationSettings = ({
 		}),
 	);
 
-	const [updateIdentifier] = useState(() => (newMediaType?: MediaType) => {
+	const [updateIdentifier] = useState(() => (newMediaType?: MediaType): void => {
 		const newId = createIdentifier();
 		fileStateFactory.updateIdentifier(
 			newId,

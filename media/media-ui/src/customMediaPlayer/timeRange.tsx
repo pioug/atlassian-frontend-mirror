@@ -69,11 +69,11 @@ export class TimeRangeBase extends Component<
 		});
 	}
 
-	componentDidMount() {
+	componentDidMount(): void {
 		window.addEventListener('resize', this.setWrapperWidth);
 	}
 
-	componentDidUpdate(prevProps: TimeRangeProps & WrappedComponentProps) {
+	componentDidUpdate(prevProps: TimeRangeProps & WrappedComponentProps): void {
 		if (this.props.intl.locale !== prevProps.intl.locale) {
 			this.numberFormatterHours = new Intl.NumberFormat(this.props.intl.locale, {
 				style: 'unit',
@@ -90,7 +90,7 @@ export class TimeRangeBase extends Component<
 		}
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		document.removeEventListener('pointermove', this.onPointerMove);
 		document.removeEventListener('pointerup', this.onPointerUp);
 		window.removeEventListener('resize', this.setWrapperWidth);
@@ -104,7 +104,7 @@ export class TimeRangeBase extends Component<
 		this.wrapperElementWidth = this.wrapperElement.current.getBoundingClientRect().width;
 	};
 
-	onPointerMove = (e: PointerEvent) => {
+	onPointerMove = (e: PointerEvent): void => {
 		const { isDragging, dragStartClientX } = this.state;
 		if (!isDragging) {
 			return;
@@ -138,7 +138,7 @@ export class TimeRangeBase extends Component<
 		}
 	};
 
-	onPointerUp = () => {
+	onPointerUp = (): void => {
 		const { onChanged } = this.props;
 		// As soon as user finished dragging, we should clean up events.
 		document.removeEventListener('pointerup', this.onPointerUp);
@@ -153,7 +153,7 @@ export class TimeRangeBase extends Component<
 		});
 	};
 
-	onPointerDown = (e: React.SyntheticEvent<HTMLDivElement>) => {
+	onPointerDown = (e: React.SyntheticEvent<HTMLDivElement>): void => {
 		e.preventDefault();
 
 		// We need to recalculate every time, because width can change (thanks, editor ;-)
@@ -179,7 +179,7 @@ export class TimeRangeBase extends Component<
 		onChange(currentTime);
 	};
 
-	onTimeLineThumbKeydown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+	onTimeLineThumbKeydown = (event: React.KeyboardEvent<HTMLDivElement>): void => {
 		if (!this.props.skipBackward || !this.props.skipForward) {
 			return;
 		}

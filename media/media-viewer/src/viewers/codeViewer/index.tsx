@@ -43,7 +43,7 @@ export class CodeViewer extends BaseViewer<string, Props> {
 		};
 	}
 
-	protected async init() {
+	protected async init(): Promise<void> {
 		if (!CodeViewer.CodeViewerComponent) {
 			await this.loadCodeViewer();
 		}
@@ -105,7 +105,7 @@ export class CodeViewer extends BaseViewer<string, Props> {
 		return DEFAULT_LANGUAGE;
 	}
 
-	protected release() {}
+	protected release(): void {}
 
 	protected renderSuccessful(content: string): React.JSX.Element {
 		const { item, onClose, onSuccess, onError } = this.props;

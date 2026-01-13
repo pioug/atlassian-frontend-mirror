@@ -1,4 +1,4 @@
-export const requestFullScreen = (element: HTMLVideoElement) => {
+export const requestFullScreen = (element: HTMLVideoElement): void => {
 	const methods = [
 		'requestFullscreen',
 		'webkitRequestFullscreen',

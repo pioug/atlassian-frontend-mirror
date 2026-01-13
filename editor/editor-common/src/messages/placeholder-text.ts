@@ -41,9 +41,9 @@ export const placeholderTextMessages = defineMessages({
 		defaultMessage: ' to insert elements',
 		description: 'Text after slash in long empty node placeholder',
 	},
-	syncBlockPlaceholderText: {
-		id: 'fabric.editor.syncBlockPlaceholderText',
-		defaultMessage: 'Add content then copy this synced block to access it across spaces',
-		description: 'Placeholder text for sync block',
+	sourceSyncBlockPlaceholderText: {
+		id: 'fabric.editor.sourceSyncBlockPlaceholderText',
+		defaultMessage: 'Add content you want to reuse. Copy and paste this block to sync in other locations.',
+		description: 'Placeholder text for source sync block',
 	},
 });

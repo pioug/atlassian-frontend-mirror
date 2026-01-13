@@ -14,7 +14,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles/consts';
-import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import { SyncBlockError, type SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import EditIcon from '@atlaskit/icon/core/edit';
@@ -37,6 +37,13 @@ export const getToolbarConfig = (
 	if (!syncBlockObject) {
 		return;
 	}
+
+	const syncBlockInstance = syncBlockStore.referenceManager.getFromCache(
+		syncBlockObject.node.attrs.resourceId,
+	);
+
+	const isUnsyncedBlock = syncBlockInstance?.error === SyncBlockError.NotFound;
+
 	const {
 		schema: {
 			nodes: { bodiedSyncBlock },
@@ -55,60 +62,73 @@ export const getToolbarConfig = (
 	});
 
 	const items: Array<FloatingToolbarItem<Command>> = [];
-	const copyButton: FloatingToolbarItem<Command> = {
-		id: 'editor.syncedBlock.copy',
-		type: 'button',
-		appearance: 'subtle',
-		icon: CopyIcon,
-		title: formatMessage(messages.copySyncBlockLabel),
-		showTitle: false,
-		tooltipContent: formatMessage(messages.copySyncBlockTooltip),
-		onClick: copySyncedBlockReferenceToClipboard(syncBlockStore, api),
-		...hoverDecorationProps(nodeType, akEditorSelectedNodeClassName),
-	};
-	items.push(copyButton);
 
-	const disabled = !syncBlockStore.referenceManager.getSyncBlockURL(
-		syncBlockObject.node.attrs.resourceId,
-	);
-
-	if (!isBodiedSyncBlock) {
-		const editSourceButton: FloatingToolbarItem<Command> = {
-			id: 'editor.syncedBlock.editSource',
+	if (isUnsyncedBlock) {
+		const deleteButton: FloatingToolbarItem<Command> = {
 			type: 'button',
-			disabled,
-			appearance: 'subtle',
-			icon: EditIcon,
-			title: formatMessage(messages.editSourceLabel),
-			showTitle: false,
-			tooltipContent: disabled
-				? formatMessage(messages.editSourceTooltipDisabled)
-				: formatMessage(messages.editSourceTooltip),
-			onClick: editSyncedBlockSource(syncBlockStore, api),
+			title: formatMessage(commonMessages.delete),
+			onClick: removeSyncedBlock(api),
+			icon: DeleteIcon,
 			...hoverDecorationProps(nodeType, akEditorSelectedNodeClassName),
 		};
-		items.push(editSourceButton);
+
+		items.push(deleteButton);
+	} else {
+		const copyButton: FloatingToolbarItem<Command> = {
+			id: 'editor.syncedBlock.copy',
+			type: 'button',
+			appearance: 'subtle',
+			icon: CopyIcon,
+			title: formatMessage(messages.copySyncBlockLabel),
+			showTitle: false,
+			tooltipContent: formatMessage(messages.copySyncBlockTooltip),
+			onClick: copySyncedBlockReferenceToClipboard(syncBlockStore, api),
+			...hoverDecorationProps(nodeType, akEditorSelectedNodeClassName),
+		};
+		items.push(copyButton);
+
+		const disabled = !syncBlockStore.referenceManager.getSyncBlockURL(
+			syncBlockObject.node.attrs.resourceId,
+		);
+
+		if (!isBodiedSyncBlock) {
+			const editSourceButton: FloatingToolbarItem<Command> = {
+				id: 'editor.syncedBlock.editSource',
+				type: 'button',
+				disabled,
+				appearance: 'subtle',
+				icon: EditIcon,
+				title: formatMessage(messages.editSourceLabel),
+				showTitle: false,
+				tooltipContent: disabled
+					? formatMessage(messages.editSourceTooltipDisabled)
+					: formatMessage(messages.editSourceTooltip),
+				onClick: editSyncedBlockSource(syncBlockStore, api),
+				...hoverDecorationProps(nodeType, akEditorSelectedNodeClassName),
+			};
+			items.push(editSourceButton);
+		}
+
+		// testId is required to show focus on trigger button on ESC key press
+		// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
+		const testId = 'synced-block-overflow-dropdown-trigger';
+
+		const overflowMenuConfig: FloatingToolbarItem<Command>[] = [
+			{
+				type: 'overflow-dropdown',
+				testId,
+				options: [
+					{
+						title: formatMessage(commonMessages.delete),
+						onClick: removeSyncedBlock(api),
+						icon: <DeleteIcon label="" />,
+						...hoverDecorationProps(nodeType),
+					},
+				],
+			},
+		];
+		items.push(...overflowMenuConfig);
 	}
-
-	// testId is required to show focus on trigger button on ESC key press
-	// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
-	const testId = 'synced-block-overflow-dropdown-trigger';
-
-	const overflowMenuConfig: FloatingToolbarItem<Command>[] = [
-		{
-			type: 'overflow-dropdown',
-			testId,
-			options: [
-				{
-					title: formatMessage(commonMessages.delete),
-					onClick: removeSyncedBlock(api),
-					icon: <DeleteIcon label="" />,
-					...hoverDecorationProps(nodeType),
-				},
-			],
-		},
-	];
-	items.push(...overflowMenuConfig);
 
 	const getDomRef = (editorView: EditorView) => {
 		const domAtPos = editorView.domAtPos.bind(editorView);

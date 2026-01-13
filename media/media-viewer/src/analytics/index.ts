@@ -56,7 +56,7 @@ export type MediaViewerFailureAttributes = Omit<FailureAttributes, 'failReason'>
 export function fireAnalytics(
 	payload: MediaViewerEventPayload,
 	createAnalyticsEvent?: CreateUIAnalyticsEvent,
-) {
+): void {
 	if (createAnalyticsEvent) {
 		const ev = createAnalyticsEvent(sanitiseAnalyticsPayload(payload));
 		ev.fire(ANALYTICS_MEDIA_CHANNEL);

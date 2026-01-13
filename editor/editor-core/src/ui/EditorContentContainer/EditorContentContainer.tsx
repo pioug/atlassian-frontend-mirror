@@ -54,10 +54,8 @@ import {
 } from './styles/blockTypeStyles';
 import { codeBidiWarningStyles } from './styles/codeBidiWarningStyles';
 import {
-	codeBgColorStyles,
 	codeBlockStyles,
 	codeBlockStylesWithEmUnits,
-	codeBlockStylesWithNeutralBackground,
 	firstCodeBlockWithNoMargin,
 	firstCodeBlockWithNoMarginOld,
 } from './styles/codeBlockStyles';
@@ -361,8 +359,6 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 						placeholderWrapStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					codeBlockStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					editorExperiment('platform_synced_block', true) && codeBlockStylesWithNeutralBackground,
 					contentMode === 'compact' &&
 						(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
 							// eslint-disable-next-line @atlaskit/platform/no-preconditioning
@@ -371,7 +367,6 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						codeBlockStylesWithEmUnits,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					!fg('platform_editor_fix_code_block_bg_color_in_macro_2') && codeBgColorStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					!fg('platform_editor_typography_ugc') && editorUGCTokensDefault,
 					fg('platform_editor_typography_ugc') &&

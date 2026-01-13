@@ -29,11 +29,12 @@ import { blockDraggingToIFrames } from '@atlaskit/pragmatic-drag-and-drop/elemen
 import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/disable-native-drag-preview';
 import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/prevent-unhandled';
 import { token } from '@atlaskit/tokens';
-import Tooltip, { type TooltipPrimitiveProps, type TooltipProps } from '@atlaskit/tooltip';
-import TooltipContainer from '@atlaskit/tooltip/TooltipContainer';
+import Tooltip, { type TooltipProps } from '@atlaskit/tooltip';
+import TooltipContainer, { type TooltipContainerProps } from '@atlaskit/tooltip/TooltipContainer';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
+import { contentInsetBlockStart } from '../constants';
 
 import {
 	OnDoubleClickContext,
@@ -206,8 +207,35 @@ type MaybeTooltipProps = Pick<PanelSplitterProps, 'tooltipContent'> & {
 	shortcut?: TooltipProps['shortcut'];
 };
 
-const PanelSplitterTooltip = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(
+
+const PanelSplitterTooltip = forwardRef<HTMLDivElement, TooltipContainerProps>(
 	({ children, className, ...props }, ref) => {
+		const style = useMemo(() => {
+			if (!props.style || !props.style.transform) {
+				return props.style;
+			}
+
+			const [translateX, translateY] = props.style.transform.matchAll(/\d+px/g);
+
+			if (!translateY) {
+				// If we can't extract the translateY value we bail out and return the original style
+				return props.style;
+			}
+
+			/**
+			 * Adjusts the translate Y to keep the tooltip within the main content area,
+			 * so that it does not appear over the banner or top navigation.
+			 */
+			const newTranslateY = `max(calc(${contentInsetBlockStart} + ${token('space.100')}), ${translateY})`;
+			const newTransform = `translate3d(${translateX}, ${newTranslateY}, 0)`;
+
+			return {
+				...props.style,
+				transform: newTransform,
+			};
+		}, [props.style]);
+
+
 		return (
 			<TooltipContainer
 				{...props}
@@ -217,6 +245,8 @@ const PanelSplitterTooltip = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(
 				className={className}
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
 				css={tooltipStyles.root}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+				style={style}
 			>
 				{children}
 			</TooltipContainer>
@@ -244,6 +274,7 @@ const MaybeTooltip = ({ tooltipContent, shortcut, children }: MaybeTooltipProps)
 						: undefined
 				}
 				UNSAFE_shouldAlwaysFadeIn={fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')}
+				UNSAFE_shouldRenderToParent={fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')}
 			>
 				{children}
 			</Tooltip>

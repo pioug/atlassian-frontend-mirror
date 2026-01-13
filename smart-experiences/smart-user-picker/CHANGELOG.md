@@ -1,5 +1,12 @@
 # @atlassian/smart-user-picker
 
+## 8.9.1
+
+### Patch Changes
+
+- [`810af5e8434f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/810af5e8434f0) -
+  Fix isVerifiedTeamsFilter
+
 ## 8.9.0
 
 ### Minor Changes

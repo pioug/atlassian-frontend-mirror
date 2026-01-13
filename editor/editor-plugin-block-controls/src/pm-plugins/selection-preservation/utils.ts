@@ -1,5 +1,4 @@
 import type {
-	EditorState,
 	ReadonlyTransaction,
 	Selection,
 	Transaction,
@@ -40,25 +39,7 @@ export const isSelectionWithinCodeBlock = ({ $from, $to }: Selection): boolean =
  * @returns True if both selections are equal, otherwise false.
  */
 export const compareSelections = (a?: Selection, b?: Selection): boolean => {
-	return a?.from === b?.from && a?.to === b?.to;
-};
-
-/**
- * Returns true/false indicating whether the preserved selection
- * has changed between the old and new editor states.
- *
- * @param newState The new editor state.
- * @param oldState The old editor state.
- * @returns True if the preserved selection has changed, otherwise false.
- */
-export const isPreservedSelectionChanged = (
-	newState: EditorState,
-	oldState: EditorState,
-): boolean => {
-	const prev = selectionPreservationPluginKey.getState(oldState)?.preservedSelection;
-	const curr = selectionPreservationPluginKey.getState(newState)?.preservedSelection;
-
-	return !!prev && !!curr && !compareSelections(prev, curr);
+	return (!a && !b) || (!!a && !!b && a.eq(b));
 };
 
 /**

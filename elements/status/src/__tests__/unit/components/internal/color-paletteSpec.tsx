@@ -2,7 +2,6 @@ import React from 'react';
 import ColorPalette from '../../../../components/internal/color-palette';
 import { renderWithIntl } from '../../helpers/_testing-library';
 import { fireEvent, screen } from '@testing-library/react';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 describe('ColorPalette', () => {
 	it('should render 6 colors', () => {
@@ -81,29 +80,27 @@ describe('ColorPalette keyboard navigation', () => {
 		expect(colorButtons[5]).toHaveFocus(); //green
 	});
 
-	ffTest.on('editor_a11y_arrow_key_status_colour_palette', 'fgOn', () => {
-		it('should focus next color on down arrow', () => {
-			renderWithIntl(<ColorPalette onClick={jest.fn()} selectedColor={'neutral'} />);
-			const list = screen.getByRole('list');
-			fireEvent.keyDown(list, {
-				key: 'ArrowDown',
-				code: 'ArrowDown',
-				keyCode: 40,
-			});
-			const colorButtons = screen.getAllByRole('button');
-			expect(colorButtons[1]).toHaveFocus(); // Purple
+	it('should focus next color on down arrow', () => {
+		renderWithIntl(<ColorPalette onClick={jest.fn()} selectedColor={'neutral'} />);
+		const list = screen.getByRole('list');
+		fireEvent.keyDown(list, {
+			key: 'ArrowDown',
+			code: 'ArrowDown',
+			keyCode: 40,
 		});
+		const colorButtons = screen.getAllByRole('button');
+		expect(colorButtons[1]).toHaveFocus(); // Purple
+	});
 
-		it('should select last color on up arrow press at first color', () => {
-			renderWithIntl(<ColorPalette onClick={jest.fn()} selectedColor={'neutral'} />);
-			const list = screen.getByRole('list');
-			fireEvent.keyDown(list, {
-				key: 'ArrowUp',
-				code: 'ArrowUp',
-				keyCode: 38,
-			});
-			const colorButtons = screen.getAllByRole('button');
-			expect(colorButtons[5]).toHaveFocus(); //green
+	it('should select last color on up arrow press at first color', () => {
+		renderWithIntl(<ColorPalette onClick={jest.fn()} selectedColor={'neutral'} />);
+		const list = screen.getByRole('list');
+		fireEvent.keyDown(list, {
+			key: 'ArrowUp',
+			code: 'ArrowUp',
+			keyCode: 38,
 		});
+		const colorButtons = screen.getAllByRole('button');
+		expect(colorButtons[5]).toHaveFocus(); //green
 	});
 });

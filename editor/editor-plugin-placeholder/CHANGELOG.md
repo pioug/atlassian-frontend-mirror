@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 7.1.1
+
+### Patch Changes
+
+- [`38c83ce57623b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38c83ce57623b) -
+  [ux] [EDITOR-3853] Update copy for sync block placeholder and copy flag
+- Updated dependencies
+
 ## 7.1.0
 
 ### Minor Changes

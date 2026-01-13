@@ -1,5 +1,34 @@
 # @atlaskit/editor-core
 
+## 216.6.2
+
+### Patch Changes
+
+- [`171a2e19b6072`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/171a2e19b6072) -
+  Clean up platform_editor_fix_code_block_bg_color_in_macro_2
+- Updated dependencies
+
+## 216.6.1
+
+### Patch Changes
+
+- [`11bd6ea9cb0ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/11bd6ea9cb0ba) -
+  [ux] Clean up platform_editor_refactor_view_more
+- [`4c3e2b0b3f65b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c3e2b0b3f65b) -
+  [ux] Reverts: EDITOR-4252 Fix code block background in Synced Block in Jira
+- Updated dependencies
+
+## 216.6.0
+
+### Minor Changes
+
+- [`7c8501566cbe0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c8501566cbe0) -
+  improve task item styles by using 1 inline svg instead of 2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 216.5.1
 
 ### Patch Changes

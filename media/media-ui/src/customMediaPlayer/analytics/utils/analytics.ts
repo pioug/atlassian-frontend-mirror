@@ -53,7 +53,7 @@ export type CustomMediaPlayerAnalyticsEventPayload =
 export function fireAnalyticsEvent(
 	payload: CustomMediaPlayerAnalyticsEventPayload,
 	createAnalyticsEvent?: CreateUIAnalyticsEvent,
-) {
+): void {
 	if (createAnalyticsEvent) {
 		const event = createAnalyticsEvent(payload);
 		event.fire(ANALYTICS_MEDIA_CHANNEL);

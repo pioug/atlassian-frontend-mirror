@@ -14,19 +14,19 @@ const removePlayer = (player: Pausable) => {
 };
 
 export default {
-	pauseOthers: (player: Pausable) => {
+	pauseOthers: (player: Pausable): void => {
 		players.forEach((otherPlayer) => {
 			if (otherPlayer !== player) {
 				otherPlayer.pause();
 			}
 		});
 	},
-	subscribe: (player: Pausable) => {
+	subscribe: (player: Pausable): void => {
 		if (players.indexOf(player) === -1) {
 			addPlayer(player);
 		}
 	},
-	unsubscribe: (player: Pausable) => {
+	unsubscribe: (player: Pausable): void => {
 		removePlayer(player);
 	},
 };

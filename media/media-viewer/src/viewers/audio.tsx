@@ -154,7 +154,7 @@ export class AudioViewer extends BaseViewer<string, Props, State> {
 		} catch (e) {}
 	};
 
-	protected async init() {
+	protected async init(): Promise<void> {
 		const { mediaClient, item, collectionName } = this.props;
 
 		try {
@@ -191,7 +191,7 @@ export class AudioViewer extends BaseViewer<string, Props, State> {
 			});
 		}
 	}
-	protected release() {
+	protected release(): void {
 		const { content } = this.state;
 		if (!content.data) {
 			return;

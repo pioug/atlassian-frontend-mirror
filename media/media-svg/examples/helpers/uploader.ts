@@ -8,7 +8,7 @@ export const useSvgUploader = (collectionName?: string) => {
 	const [identifier, setIdentifier] = useState<FileIdentifier>();
 	const [status, setStatus] = useState<string>('');
 
-	const uploadFn = async (event: SyntheticEvent<HTMLInputElement>) => {
+	const uploadFn = async (event: SyntheticEvent<HTMLInputElement>): Promise<void> => {
 		if (!event.currentTarget.files || !event.currentTarget.files.length) {
 			return;
 		}

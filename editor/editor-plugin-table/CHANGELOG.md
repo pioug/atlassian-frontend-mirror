@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 16.2.0
+
+### Minor Changes
+
+- [`9ee3f2262dfcf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ee3f2262dfcf) -
+  improve performance of table floating toolbar when determine the disabled state of distribute
+  column button
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.1.9
 
 ### Patch Changes

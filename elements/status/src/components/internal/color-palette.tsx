@@ -115,12 +115,6 @@ interface ColorPaletteProps {
 	selectedColor?: ColorType;
 }
 
-const VK_LEFT = 37; //ArrowLeft
-const VK_RIGHT = 39; //ArrowRight
-const VK_UP = 38; //ArrowUp
-const VK_DOWN = 40; //ArrowDown
-const VK_TAB = 9;
-
 export default ({ cols = 7, onClick, selectedColor, className, onHover }: ColorPaletteProps) => {
 	const palette = getPalette();
 	const colorRefs: React.MutableRefObject<HTMLButtonElement[]> = useRef([]);
@@ -137,38 +131,20 @@ export default ({ cols = 7, onClick, selectedColor, className, onHover }: ColorP
 			const previousColor = () =>
 				currentFocusedColor - 1 < 0 ? palette.length - 1 : currentFocusedColor - 1;
 
-			if (fg('editor_a11y_arrow_key_status_colour_palette')) {
-				switch (e.key) {
-					case 'ArrowRight':
-					case 'ArrowDown':
-						e.preventDefault();
-						newColorIndex = nextColor();
-						break;
-					case 'ArrowLeft':
-					case 'ArrowUp':
-						e.preventDefault();
-						newColorIndex = previousColor();
-						break;
-					case 'Tab':
-						setCurrentFocusedColor(0);
-						break;
-				}
-			} else {
-				switch (e.keyCode) {
-					case VK_RIGHT:
-					case VK_DOWN:
-						e.preventDefault();
-						newColorIndex = nextColor();
-						break;
-					case VK_LEFT:
-					case VK_UP:
-						e.preventDefault();
-						newColorIndex = previousColor();
-						break;
-					case VK_TAB:
-						setCurrentFocusedColor(0);
-						break;
-				}
+			switch (e.key) {
+				case 'ArrowRight':
+				case 'ArrowDown':
+					e.preventDefault();
+					newColorIndex = nextColor();
+					break;
+				case 'ArrowLeft':
+				case 'ArrowUp':
+					e.preventDefault();
+					newColorIndex = previousColor();
+					break;
+				case 'Tab':
+					setCurrentFocusedColor(0);
+					break;
 			}
 			if (newColorIndex === null) {
 				return;

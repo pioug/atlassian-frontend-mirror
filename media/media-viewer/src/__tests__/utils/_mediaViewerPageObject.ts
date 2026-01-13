@@ -37,12 +37,12 @@ export class MediaViewerPageObject {
 		this.zoomOut = page.locator('span[aria-label="zoom out"]');
 	}
 
-	init = async (exampleId: string) => {
+	init = async (exampleId: string): Promise<void> => {
 		await this.page.visitExample('media', 'media-viewer', exampleId);
 		await this.wrapper.waitFor({ state: 'attached' });
 	};
 
-	validateMediaCard = async ({ name, size, type, icon }: validationParameters) => {
+	validateMediaCard = async ({ name, size, type, icon }: validationParameters): Promise<void> => {
 		await expect(this.fileName).toContainText(name);
 		await expect(this.fileType).toContainText(type);
 		if (size) {
@@ -51,19 +51,19 @@ export class MediaViewerPageObject {
 		await expect(this.icon).toHaveAttribute('data-type', icon);
 	};
 
-	navigateNext = async (times = 1) => {
+	navigateNext = async (times = 1): Promise<void> => {
 		for (let i = 0; i < times; i++) {
 			await this.nextButton.click();
 		}
 	};
 
-	navigatePrevious = async (times = 1) => {
+	navigatePrevious = async (times = 1): Promise<void> => {
 		for (let i = 0; i < times; i++) {
 			await this.prevButton.click();
 		}
 	};
 
-	closeMediaViewer = async (closeWithEsc: boolean) => {
+	closeMediaViewer = async (closeWithEsc: boolean): Promise<void> => {
 		if (closeWithEsc) {
 			await this.wrapper.press('Escape');
 		} else {
@@ -72,12 +72,12 @@ export class MediaViewerPageObject {
 		await this.wrapper.waitFor({ state: 'detached' });
 	};
 
-	openSidebar = async () => {
+	openSidebar = async (): Promise<void> => {
 		await this.sidebarButton.click();
 		await this.sidepannelContent.waitFor({ state: 'attached' });
 	};
 
-	closeSidebar = async () => {
+	closeSidebar = async (): Promise<void> => {
 		await this.page.getByLabel('Close panel').click();
 		await this.sidepannelContent.waitFor({ state: 'detached' });
 	};

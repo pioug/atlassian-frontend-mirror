@@ -76,20 +76,20 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
 	private wrapper?: HTMLDivElement;
 	private saveWrapperRef = (ref: HTMLDivElement) => (this.wrapper = ref);
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this.state = initialState;
 		window.addEventListener('resize', this.onResize);
 		document.addEventListener('mousemove', this.panImage);
 		document.addEventListener('mouseup', this.stopDragging);
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		window.removeEventListener('resize', this.onResize);
 		document.removeEventListener('mousemove', this.panImage);
 		document.removeEventListener('mouseup', this.stopDragging);
 	}
 
-	onImageClicked = (e: React.MouseEvent) => {
+	onImageClicked = (e: React.MouseEvent): void => {
 		const { onClose, onBlanketClicked } = this.props;
 		if (e.target === e.currentTarget && onBlanketClicked) {
 			onBlanketClicked();

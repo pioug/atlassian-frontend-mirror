@@ -14,7 +14,7 @@ const attachmentViewedListener = (payload: MediaViewedEventPayload) => {
 	console.log('media-viewed -> globalMediaEventEmitter', { payload });
 };
 
-export const addGlobalEventEmitterListeners = () => {
+export const addGlobalEventEmitterListeners = (): void => {
 	globalMediaEventEmitter.off('file-added', fileAddedListener);
 	globalMediaEventEmitter.off('media-viewed', attachmentViewedListener);
 	globalMediaEventEmitter.on('file-added', fileAddedListener);

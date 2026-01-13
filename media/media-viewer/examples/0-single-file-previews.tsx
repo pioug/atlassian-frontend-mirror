@@ -51,7 +51,7 @@ export type State = {
 export default class Example extends React.Component<{}, State> {
 	state: State = { selectedIdentifier: undefined };
 
-	setItem = (selectedIdentifier: Identifier) => () => {
+	setItem = (selectedIdentifier: Identifier) => (): void => {
 		this.setState({ selectedIdentifier });
 	};
 

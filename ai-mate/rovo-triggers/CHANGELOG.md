@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 5.4.0
+
+### Minor Changes
+
+- [`92866a25d8694`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92866a25d8694) -
+  Added new subpath exports to enable direct imports from source modules instead of root barrel
+  file.
+
 ## 5.3.1
 
 ### Patch Changes

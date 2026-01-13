@@ -24,7 +24,7 @@ export interface LogWsMessageParams {
 	database?: Database<MediaDatabaseSchema>;
 }
 
-export function logRequest(params: LogRequestParams) {
+export function logRequest(params: LogRequestParams): void {
 	const { path, method, request, response, error, database } = params;
 
 	// eslint-disable-next-line no-console
@@ -37,7 +37,7 @@ export function logRequest(params: LogRequestParams) {
 	});
 }
 
-export function logWsMessage(params: LogWsMessageParams) {
+export function logWsMessage(params: LogWsMessageParams): void {
 	const { url, dir, type, payload, database } = params;
 
 	// eslint-disable-next-line no-console

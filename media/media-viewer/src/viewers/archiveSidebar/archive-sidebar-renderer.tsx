@@ -35,7 +35,7 @@ export default class ArchiveSidebarRenderer extends Component<
 		status: 'loading',
 	};
 
-	async componentDidMount() {
+	async componentDidMount(): Promise<void> {
 		const { selectedFileState, mediaClient, collectionName, onError, onSuccess } = this.props;
 
 		try {

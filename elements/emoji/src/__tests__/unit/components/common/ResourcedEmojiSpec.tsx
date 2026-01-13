@@ -576,33 +576,16 @@ describe('<ResourcedEmoji />', () => {
 		});
 	});
 
-	describe('should automatically set width to auto if fitToHeight is true', () => {
-		ffTest(
-			'platform_emoji_width_auto_fittoheight',
-			async () => {
-				renderWithIntl(
-					<ResourcedEmoji
-						emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
-						emojiId={{ shortName: mediaEmoji.id, id: mediaEmoji.id }}
-						fitToHeight={40}
-					/>,
-				);
-				const image = await screen.findByAltText('Media example');
-				expect(image).toHaveAttribute('width', 'auto');
-				expect(image).toHaveAttribute('height', '40');
-			},
-			async () => {
-				renderWithIntl(
-					<ResourcedEmoji
-						emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
-						emojiId={{ shortName: mediaEmoji.id, id: mediaEmoji.id }}
-						fitToHeight={40}
-					/>,
-				);
-				const image = await screen.findByAltText('Media example');
-				expect(image).toHaveAttribute('width', '40');
-				expect(image).toHaveAttribute('height', '40');
-			},
+	it('should automatically set width to auto if fitToHeight is true', async () => {
+		renderWithIntl(
+			<ResourcedEmoji
+				emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
+				emojiId={{ shortName: mediaEmoji.id, id: mediaEmoji.id }}
+				fitToHeight={40}
+			/>,
 		);
+		const image = await screen.findByAltText('Media example');
+		expect(image).toHaveAttribute('width', 'auto');
+		expect(image).toHaveAttribute('height', '40');
 	});
 });

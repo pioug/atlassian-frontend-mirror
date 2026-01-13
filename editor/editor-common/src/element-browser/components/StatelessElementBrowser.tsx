@@ -12,7 +12,6 @@ import type { CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeas
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -20,7 +19,7 @@ import { ACTION, ACTION_SUBJECT, EVENT_TYPE, fireAnalyticsEvent } from '../../an
 import type { QuickInsertItem } from '../../provider-factory';
 import type { EmptyStateHandler } from '../../types';
 import editorUGCToken from '../../ugc-tokens/get-editor-ugc-token';
-import { ViewMore as ViewMoreNext } from '../components/ViewMore';
+import { ViewMore } from '../components/ViewMore';
 import {
 	DEVICE_BREAKPOINT_NUMBERS,
 	ELEMENT_BROWSER_ID,
@@ -33,7 +32,6 @@ import {
 import useContainerWidth from '../hooks/use-container-width';
 import useSelectAndFocusOnArrowNavigation from '../hooks/use-select-and-focus-on-arrow-navigation';
 import type { Category, Modes, SelectedItemProps } from '../types';
-import { ViewMore } from '../ViewMore';
 
 import CategoryList from './CategoryList';
 import ElementList from './ElementList/ElementList';
@@ -58,13 +56,6 @@ export type StatelessElementBrowserProps = {
 	selectedCategory?: string;
 	showCategories: boolean;
 	showSearch: boolean;
-	/**
-	 * @private
-	 * @deprecated
-	 * Deprecated in favour of onViewMore
-	 * Please clean up viewMoreItem when cleaning up platform_editor_refactor_view_more
-	 */
-	viewMoreItem?: QuickInsertItem;
 } & WithAnalyticsEventsProps;
 
 const wrapper = css({
@@ -174,7 +165,6 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 		items,
 		onSelectItem,
 		onInsertItem,
-		viewMoreItem,
 		onViewMore,
 		selectedCategory,
 		onSelectCategory,
@@ -227,7 +217,7 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 	} = useSelectAndFocusOnArrowNavigation(
 		items.length - 1,
 		columnCount,
-		fg('platform_editor_refactor_view_more') ? !!onViewMore : !!viewMoreItem,
+		!!onViewMore,
 		itemIsDisabled,
 		isFocusSearch,
 		autoFocusSearch,
@@ -340,7 +330,6 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 					setFocusOnSearch={setFocusOnSearch}
 					onKeyPress={onItemsEnterTabKeyPress}
 					onKeyDown={onKeyDown}
-					viewMoreItem={viewMoreItem}
 					onViewMore={onViewMore}
 					focusOnViewMore={focusOnViewMore}
 					cache={cache}
@@ -396,7 +385,6 @@ function MobileBrowser({
 	searchTerm,
 	createAnalyticsEvent,
 	emptyStateHandler,
-	viewMoreItem,
 	onViewMore,
 	cache,
 	focusOnEmptyStateButton = false,
@@ -478,12 +466,7 @@ function MobileBrowser({
 					cache={cache}
 				/>
 			</div>
-			{onViewMore && fg('platform_editor_refactor_view_more') && (
-				<ViewMoreNext onViewMore={onViewMore} focus={focusOnViewMore} />
-			)}
-			{viewMoreItem && !fg('platform_editor_refactor_view_more') && (
-				<ViewMore item={viewMoreItem} focus={focusOnViewMore} />
-			)}
+			{onViewMore && <ViewMore onViewMore={onViewMore} focus={focusOnViewMore} />}
 		</div>
 	);
 }

@@ -55,6 +55,7 @@
 		"@atlaskit/codemod-utils": "workspace:^",
 		"@atlaskit/motion": "workspace:^",
 		"@atlaskit/radio": "workspace:^",
+		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@testing-library/dom": "root:*",
 		"@testing-library/react": "^16.3.0",
 		"@testing-library/user-event": "root:*",

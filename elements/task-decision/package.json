@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/task-decision",
-	"version": "19.2.17",
+	"version": "19.2.18",
 	"description": "Tasks and decisions react components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -84,6 +84,11 @@
 			"styling": [
 				"compiled"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform_editor_fix_missing_task_id": {
+			"type": "boolean"
 		}
 	}
 }

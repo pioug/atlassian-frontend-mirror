@@ -183,4 +183,10 @@ export interface TooltipProps {
 	 * is already visible.
 	 */
 	UNSAFE_shouldAlwaysFadeIn?: boolean;
+	/**
+	 * When enabled, the tooltip will be rendered as a sibling to the trigger element instead of being portaled to the document body.
+	 *
+	 * This is an experimental prop and may be removed at any time. It is not yet intended for public use.
+	 */
+	UNSAFE_shouldRenderToParent?: boolean;
 }

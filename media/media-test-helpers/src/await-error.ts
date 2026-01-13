@@ -1,4 +1,4 @@
-export async function awaitError(response: Promise<Error>, expectedMessage: string) {
+export async function awaitError(response: Promise<Error>, expectedMessage: string): Promise<void> {
 	try {
 		await response;
 	} catch (err) {

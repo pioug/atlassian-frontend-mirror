@@ -5,6 +5,7 @@ import {
 	type TaskDecisionProvider,
 	ResourcedTaskItem,
 } from '@atlaskit/task-decision';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 interface Props {
 	children?: ReactNode;
@@ -23,7 +24,7 @@ interface Props {
 }
 
 export default function TaskItemWithProviders(props: Props): React.JSX.Element {
-	const { contextIdentifierProvider, objectAri, isRenderer, ...otherProps } = props;
+	const { objectAri, isRenderer, ...otherProps } = props;
 
 	const [resolvedContextProvider, setResolvedContextProvider] = React.useState<
 		ContextIdentifierProvider | undefined
@@ -36,7 +37,7 @@ export default function TaskItemWithProviders(props: Props): React.JSX.Element {
 					const resolvedContextProvider = await contextIdentifierProvider;
 					setResolvedContextProvider(resolvedContextProvider);
 					return;
-				} catch (err) {}
+				} catch {}
 			}
 
 			setResolvedContextProvider(undefined);
@@ -51,7 +52,13 @@ export default function TaskItemWithProviders(props: Props): React.JSX.Element {
 	const resolvedObjectId =
 		(resolvedContextProvider && resolvedContextProvider.objectId) || objectAri;
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line react/jsx-props-no-spreading
-	return <ResourcedTaskItem {...otherProps} objectAri={resolvedObjectId} isRenderer={isRenderer} />;
+	return fg('platform_editor_fix_missing_task_id') ? (
+		<div data-task-local-id={props.taskId || ''}>
+			{/* eslint-disable-next-line react/jsx-props-no-spreading */}
+			<ResourcedTaskItem {...otherProps} objectAri={resolvedObjectId} isRenderer={isRenderer} />
+		</div>
+	) : (
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<ResourcedTaskItem {...otherProps} objectAri={resolvedObjectId} isRenderer={isRenderer} />
+	);
 }

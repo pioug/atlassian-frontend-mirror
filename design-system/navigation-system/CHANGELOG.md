@@ -1,5 +1,17 @@
 # @atlassian/navigation-system
 
+## 5.27.0
+
+### Minor Changes
+
+- [`9cb76d1d2b1a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9cb76d1d2b1a0) -
+  Changes `PanelSplitter` tooltips to remain vertically within the main content area, behind the
+  `platform_dst_nav4_side_nav_resize_tooltip_feedback` feature gate.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.26.0
 
 ### Minor Changes

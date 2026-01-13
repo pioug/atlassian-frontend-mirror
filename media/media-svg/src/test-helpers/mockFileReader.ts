@@ -21,6 +21,6 @@ const mockFileReader = (e: Error) => {
 	});
 };
 
-export const failDataURIConversionOnce = (e: Error) => {
+export const failDataURIConversionOnce = (e: Error): void => {
 	mockFileReader(e);
 };

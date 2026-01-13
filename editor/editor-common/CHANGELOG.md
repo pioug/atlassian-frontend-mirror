@@ -1,5 +1,15 @@
 # @atlaskit/editor-common
 
+## 111.7.3
+
+### Patch Changes
+
+- [`38c83ce57623b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38c83ce57623b) -
+  [ux] [EDITOR-3853] Update copy for sync block placeholder and copy flag
+- [`11bd6ea9cb0ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/11bd6ea9cb0ba) -
+  [ux] Clean up platform_editor_refactor_view_more
+- Updated dependencies
+
 ## 111.7.2
 
 ### Patch Changes

@@ -25,9 +25,9 @@ export default class DeactivateDrawerExample extends React.Component {
 		isOpen: false,
 	};
 
-	openDrawer = () => this.setState({ isOpen: true });
+	openDrawer = (): void => this.setState({ isOpen: true });
 
-	closeDrawer = () => this.setState({ isOpen: false });
+	closeDrawer = (): void => this.setState({ isOpen: false });
 
 	render(): React.JSX.Element {
 		return (

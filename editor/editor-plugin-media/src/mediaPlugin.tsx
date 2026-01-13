@@ -5,12 +5,15 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
+	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import {
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/hooks';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import { IconImages } from '@atlaskit/editor-common/quick-insert';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type {
@@ -431,7 +434,33 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 		},
 
 		pluginsOptions: {
-			quickInsert: () => [],
+			quickInsert: ({ formatMessage }) =>
+				!api?.mediaInsert && fg('platform_editor_media_insert_check') ?
+					[
+						{
+							id: 'media',
+							title: formatMessage(messages.mediaFiles),
+							description: formatMessage(messages.mediaFilesDescription),
+							priority: 400,
+							keywords: ['attachment', 'gif', 'media', 'picture', 'image', 'video', 'file'],
+							icon: () => <IconImages />,
+							isDisabledOffline: true,
+							action(insert, state) {
+								const pluginState = stateKey.getState(state);
+								pluginState?.showMediaPicker();
+								const tr = insert('');
+								api?.analytics?.actions.attachAnalyticsEvent({
+									action: ACTION.OPENED,
+									actionSubject: ACTION_SUBJECT.PICKER,
+									actionSubjectId: ACTION_SUBJECT_ID.PICKER_CLOUD,
+									attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
+									eventType: EVENT_TYPE.UI,
+								})(tr);
+
+								return tr;
+							},
+						},
+					] : [],
 
 			floatingToolbar: (state, intl, providerFactory) =>
 				floatingToolbar(

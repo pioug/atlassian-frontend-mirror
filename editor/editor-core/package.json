@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "216.5.1",
+	"version": "216.6.2",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -288,10 +288,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_refactor_view_more": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform-dst-jira-web-fonts": {
 			"type": "boolean"
 		},
@@ -302,9 +298,6 @@
 			"type": "boolean"
 		},
 		"cc_editor_focus_before_editor_on_load": {
-			"type": "boolean"
-		},
-		"platform_editor_fix_code_block_bg_color_in_macro_2": {
 			"type": "boolean"
 		},
 		"platform_editor_vanilla_codebidi_warning": {

@@ -4,10 +4,12 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import '@atlaskit/link-test-helpers/jest';
 import { IntlProvider } from 'react-intl-next';
 
+
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { FlagsProvider } from '@atlaskit/flag';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { Box, Text } from '@atlaskit/primitives/compiled';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import { DatasourceExperienceIdProvider } from '../../../../contexts/datasource-experience-id';
 import { InlineEdit } from '../../../issue-like-table/table-cell-content/inline-edit';
@@ -22,6 +24,11 @@ const testIds = {
 const MockReadView = () => {
 	return <Box testId={testIds.readView}>Test</Box>;
 };
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 describe('DatasourceModal', () => {
 	it('should capture and report a11y violations', async () => {

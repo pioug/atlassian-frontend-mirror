@@ -1,5 +1,6 @@
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { CellSelection } from '../cell-selection';
 import { TableMap } from '../table-map';
@@ -195,7 +196,31 @@ export const selectTable = (tr: Transaction): Transaction => {
 	return tr;
 };
 
+export const getTableSelectionClosesToPos = ($pos: ResolvedPos) => {
+	const table = findTableClosestToPos($pos);
+	if (table) {
+		const { map } = TableMap.get(table.node);
+		if (map && map.length) {
+			const head = table.start + map[0];
+			const anchor = table.start + map[map.length - 1];
+			const $head = $pos.doc.resolve(head);
+			const $anchor = $pos.doc.resolve(anchor);
+
+			return new CellSelection($anchor, $head);
+		}
+	}
+};
+
 export const selectTableClosestToPos = (tr: Transaction, $pos: ResolvedPos): Transaction => {
+	if (expValEquals('platform_editor_block_menu', 'isEnabled', true)) {
+		const tableSelection = getTableSelectionClosesToPos($pos);
+		if (tableSelection) {
+			return cloneTr(tr.setSelection(tableSelection));
+		}
+
+		return tr;
+	}
+
 	const table = findTableClosestToPos($pos);
 	if (table) {
 		const { map } = TableMap.get(table.node);

@@ -17,7 +17,7 @@ export default class ArchiveViewerLoader extends React.PureComponent<ArchiveView
 		ArchiveViewer: ArchiveViewerLoader.ArchiveViewer,
 		isErrored: false,
 	};
-	async componentDidMount() {
+	async componentDidMount(): Promise<void> {
 		if (!this.state.ArchiveViewer) {
 			try {
 				const archive = await import(

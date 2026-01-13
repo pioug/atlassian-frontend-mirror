@@ -1,9 +1,8 @@
 import { waitFor } from '@testing-library/react';
-import { act, renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react-hooks';
 
+import { teamsClient } from '@atlaskit/teams-client';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
-
-import { teamsClient } from '../../../services';
 
 import { MOCK_CONNECTED_TEAMS_RESULT, MOCK_TEAM_CONTAINERS, MOCK_TEAM_CONTAINERSV2 } from './mocks';
 
@@ -12,7 +11,7 @@ import { useConnectedTeams, useTeamContainers, useTeamContainersHook } from './i
 const fireEventNext = jest.fn();
 const fireOperationalEvent = jest.fn();
 
-jest.mock('../../../services', () => ({
+jest.mock('@atlaskit/teams-client', () => ({
 	teamsClient: {
 		getTeamContainers: jest.fn(),
 		unlinkTeamContainer: jest.fn(),
@@ -199,9 +198,7 @@ describe('useConnectedTeams', () => {
 
 			const { result } = renderHook(() => useConnectedTeams());
 
-			act(() => {
-				result.current.fetchNumberOfConnectedTeams('mock-container-id');
-			});
+			result.current.fetchNumberOfConnectedTeams('mock-container-id');
 			await waitFor(() => expect(result.current.numberOfTeams).toEqual(2));
 			expect(result.current.isLoading).toBe(false);
 
@@ -218,9 +215,7 @@ describe('useConnectedTeams', () => {
 
 			const { result } = renderHook(() => useConnectedTeams());
 
-			act(() => {
-				result.current.fetchConnectedTeams('mock-container-id');
-			});
+			result.current.fetchConnectedTeams('mock-container-id');
 			await waitFor(() => expect(result.current.teams).toEqual(mockTeams));
 			expect(result.current.isLoading).toBe(false);
 
@@ -236,9 +231,7 @@ describe('useConnectedTeams', () => {
 			(teamsClient.getConnectedTeams as jest.Mock).mockRejectedValueOnce(mockError);
 
 			const { result } = renderHook(() => useConnectedTeams());
-			act(() => {
-				result.current.fetchConnectedTeams('mock-container-id-fail');
-			});
+			result.current.fetchConnectedTeams('mock-container-id-fail');
 			await waitFor(() => expect(result.current.error).toEqual(mockError));
 
 			expect(result.current.isLoading).toBe(false);
@@ -256,9 +249,7 @@ describe('useConnectedTeams', () => {
 
 			const { result } = renderHook(() => useConnectedTeams());
 
-			act(() => {
-				result.current.fetchNumberOfConnectedTeams('mock-container-id');
-			});
+			result.current.fetchNumberOfConnectedTeams('mock-container-id');
 			await waitFor(() => expect(result.current.numberOfTeams).toEqual(2));
 			expect(result.current.isLoading).toBe(false);
 
@@ -276,9 +267,7 @@ describe('useConnectedTeams', () => {
 
 			const { result } = renderHook(() => useConnectedTeams());
 
-			act(() => {
-				result.current.fetchConnectedTeams('mock-container-id');
-			});
+			result.current.fetchConnectedTeams('mock-container-id');
 			await waitFor(() => expect(result.current.teams).toEqual(mockTeams));
 			expect(result.current.isLoading).toBe(false);
 
@@ -295,9 +284,7 @@ describe('useConnectedTeams', () => {
 			(teamsClient.getConnectedTeams as jest.Mock).mockRejectedValueOnce(mockError);
 
 			const { result } = renderHook(() => useConnectedTeams());
-			act(() => {
-				result.current.fetchConnectedTeams('mock-container-id-fail');
-			});
+			result.current.fetchConnectedTeams('mock-container-id-fail');
 			await waitFor(() => expect(result.current.error).toEqual(mockError));
 
 			expect(result.current.isLoading).toBe(false);
@@ -323,9 +310,7 @@ ffTest.off('ptc-enable-teams-public-analytics-refactor', 'false', () => {
 			(teamsClient.getConnectedTeams as jest.Mock).mockResolvedValueOnce(mockTeams);
 			const { result } = renderHook(() => useTeamContainersHook());
 
-			act(() => {
-				result.current[1].fetchConnectedTeams('mock-container-id', fireAnalytics, fireEventNext);
-			});
+			result.current[1].fetchConnectedTeams('mock-container-id', fireAnalytics, fireEventNext);
 			await waitFor(() =>
 				expect(teamsClient.getConnectedTeams).toHaveBeenCalledWith('mock-container-id'),
 			);
@@ -359,9 +344,7 @@ ffTest.off('ptc-enable-teams-public-analytics-refactor', 'false', () => {
 
 			const { result } = renderHook(() => useTeamContainersHook());
 
-			await act(async () =>
-				result.current[1].fetchTeamContainers(teamId, fireAnalytics, fireEventNext),
-			);
+			await result.current[1].fetchTeamContainers(teamId, fireAnalytics, fireEventNext);
 			expect(result.current[0].teamContainers).toEqual([{ id: 'first' }]);
 			expect(fireAnalytics).toHaveBeenNthCalledWith(
 				1,
@@ -369,7 +352,7 @@ ffTest.off('ptc-enable-teams-public-analytics-refactor', 'false', () => {
 				fetchTeamContainersSuccessEvent.actionSubject,
 			);
 
-			await act(async () => result.current[1].refetchTeamContainers(fireAnalytics, fireEventNext));
+			await result.current[1].refetchTeamContainers(fireAnalytics, fireEventNext);
 			expect(result.current[0].teamContainers).toEqual([{ id: 'second' }]);
 			expect(fireAnalytics).toHaveBeenNthCalledWith(
 				2,
@@ -378,7 +361,7 @@ ffTest.off('ptc-enable-teams-public-analytics-refactor', 'false', () => {
 			);
 
 			//@note: running this test alone because react-sweet-state state can conflict when tests run together
-			await act(async () => result.current[1].refetchTeamContainers(fireAnalytics, fireEventNext));
+			await result.current[1].refetchTeamContainers(fireAnalytics, fireEventNext);
 			expect(fireAnalytics).toHaveBeenNthCalledWith(
 				3,
 				refetchTeamContainersFailedEvent.action,
@@ -462,9 +445,7 @@ ffTest.on('ptc-enable-teams-public-analytics-refactor', 'true', () => {
 			(teamsClient.getConnectedTeams as jest.Mock).mockResolvedValue(mockTeams);
 			const { result } = renderHook(() => useTeamContainersHook());
 
-			act(() => {
-				result.current[1].fetchConnectedTeams('mock-container-id-v2', fireAnalytics, fireEventNext);
-			});
+			result.current[1].fetchConnectedTeams('mock-container-id-v2', fireAnalytics, fireEventNext);
 			await waitFor(() =>
 				expect(teamsClient.getConnectedTeams).toHaveBeenCalledWith('mock-container-id-v2'),
 			);
@@ -498,9 +479,7 @@ ffTest.on('ptc-enable-teams-public-analytics-refactor', 'true', () => {
 
 			const { result } = renderHook(() => useTeamContainersHook());
 
-			await act(async () =>
-				result.current[1].fetchTeamContainers(teamId, fireAnalytics, fireEventNext),
-			);
+			await result.current[1].fetchTeamContainers(teamId, fireAnalytics, fireEventNext);
 			expect(result.current[0].teamContainers).toEqual([{ id: 'first' }]);
 			expect(fireEventNext).toHaveBeenNthCalledWith(
 				1,
@@ -510,7 +489,7 @@ ffTest.on('ptc-enable-teams-public-analytics-refactor', 'true', () => {
 				},
 			);
 
-			await act(async () => result.current[1].refetchTeamContainers(fireAnalytics, fireEventNext));
+			await result.current[1].refetchTeamContainers(fireAnalytics, fireEventNext);
 			expect(result.current[0].teamContainers).toEqual([{ id: 'second' }]);
 			expect(fireEventNext).toHaveBeenNthCalledWith(
 				2,
@@ -521,7 +500,7 @@ ffTest.on('ptc-enable-teams-public-analytics-refactor', 'true', () => {
 			);
 
 			//@note: running this test alone because react-sweet-state state can conflict when tests run together
-			await act(async () => result.current[1].refetchTeamContainers(fireAnalytics, fireEventNext));
+			await result.current[1].refetchTeamContainers(fireAnalytics, fireEventNext);
 			expect(fireEventNext).toHaveBeenNthCalledWith(
 				3,
 				`operational.${refetchTeamContainersFailedEvent.actionSubject}.${refetchTeamContainersFailedEvent.action}`,

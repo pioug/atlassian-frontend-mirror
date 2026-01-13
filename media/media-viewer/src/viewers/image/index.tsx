@@ -52,7 +52,7 @@ export class ImageViewer extends BaseViewer<ImageViewerContent, ImageViewerProps
 
 	private cancelImageFetch?: () => void;
 
-	protected async init() {
+	protected async init(): Promise<void> {
 		const { item: fileState, mediaClient, collectionName, traceContext } = this.props;
 		if (isErrorFileState(fileState)) {
 			return;
@@ -133,7 +133,7 @@ export class ImageViewer extends BaseViewer<ImageViewerContent, ImageViewerProps
 		}
 	}
 
-	protected release() {
+	protected release(): void {
 		if (this.cancelImageFetch) {
 			this.cancelImageFetch();
 		}
@@ -144,7 +144,7 @@ export class ImageViewer extends BaseViewer<ImageViewerContent, ImageViewerProps
 	}
 
 	// This method is spied on by some test cases, so don't rename or remove it.
-	public revokeObjectUrl(objectUrl: string) {
+	public revokeObjectUrl(objectUrl: string): void {
 		URL.revokeObjectURL(objectUrl);
 	}
 

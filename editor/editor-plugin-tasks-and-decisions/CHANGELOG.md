@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 10.1.0
+
+### Minor Changes
+
+- [`7c8501566cbe0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c8501566cbe0) -
+  improve task item styles by using 1 inline svg instead of 2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.2
 
 ### Patch Changes

@@ -11,7 +11,7 @@ export const createUploadCaptionsFn =
 		onEnd?: ArtifactUploaderProps['onEnd'],
 		onError?: ArtifactUploaderProps['onError'],
 	) =>
-	async (file: File, locale: string) => {
+	async (file: File, locale: string): Promise<void> => {
 		const context: MediaTraceContext = {
 			traceId: getRandomTelemetryId(),
 		};

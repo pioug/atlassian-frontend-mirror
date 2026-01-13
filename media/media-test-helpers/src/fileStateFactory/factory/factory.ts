@@ -37,11 +37,11 @@ export class MediaClientMock extends MediaClient {
 		this.setHasPreview(!!options.hasPreview);
 	}
 
-	public updateObserbable = (newObservable: ReplaySubject<FileState>) => {
+	public updateObserbable = (newObservable: ReplaySubject<FileState>): void => {
 		this.observable = newObservable;
 	};
 
-	public setHasPreview = (hasPreview: boolean) => {
+	public setHasPreview = (hasPreview: boolean): void => {
 		this.hasPreview = hasPreview;
 	};
 
@@ -102,7 +102,7 @@ export class FileStateFactory {
 		);
 	}
 
-	public updateIdentifier = (identifier: FileIdentifier, fileDetails?: Partial<FileDetails>) => {
+	public updateIdentifier = (identifier: FileIdentifier, fileDetails?: Partial<FileDetails>): void => {
 		this.identifier = identifier;
 		this.fileDetails = fileDetails || createFileDetails(this.identifier.id);
 		this.observable = createMediaSubject();
@@ -110,14 +110,14 @@ export class FileStateFactory {
 	};
 
 	public subscription = {
-		next: (fileState: FileState) => {
+		next: (fileState: FileState): void => {
 			// also set the file state in the media store
 			mediaStore.setState((state) => {
 				state.files[this.identifier.id] = fileState;
 			});
 			this.observable.next(fileState);
 		},
-		error: (error: Error) => {
+		error: (error: Error): void => {
 			// also set the file state in the media store
 			mediaStore.setState((state) => {
 				state.files[this.identifier.id] = {
@@ -135,12 +135,12 @@ export class FileStateFactory {
 			fileDetails: options?.fileDetails || this.fileDetails,
 		});
 
-	public next = (status: FileStateStatus, options?: CreateFileStateOptions) => {
+	public next = (status: FileStateStatus, options?: CreateFileStateOptions): void => {
 		this.mediaClient.setHasPreview(!!options?.withRemotePreview);
 		this.subscription.next(this.createFileState(status, options));
 	};
 
-	public error = (error: Error) => {
+	public error = (error: Error): void => {
 		this.subscription.error(error);
 	};
 }

@@ -1,5 +1,14 @@
 # @atlaskit/tooltip
 
+## 20.14.0
+
+### Minor Changes
+
+- [`9cb76d1d2b1a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9cb76d1d2b1a0) -
+  Adds `UNSAFE_shouldRenderToParent` prop behind the
+  `platform_dst_nav4_side_nav_resize_tooltip_feedback` feature gate. When enabled the tooltip will
+  be rendered as a sibling instead of in a portal.
+
 ## 20.13.0
 
 ### Minor Changes

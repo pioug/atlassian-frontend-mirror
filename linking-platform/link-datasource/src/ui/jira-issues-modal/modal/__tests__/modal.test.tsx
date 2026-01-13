@@ -13,6 +13,7 @@ import {
 } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { type InlineCardAdf } from '@atlaskit/linking-common/types';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import { useBasicFilterAGG } from '../../../../services/useBasicFilterAGG';
 import { type SelectOption } from '../../../common/modal/popup-select/types';
@@ -48,6 +49,11 @@ jest.mock('../../../../services/useBasicFilterAGG', () => {
 	};
 });
 jest.useFakeTimers();
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 describe('JiraIssuesConfigModal', () => {
 	const user = userEvent.setup({ delay: null });

@@ -16,19 +16,19 @@ export class StatefulInlineDialog extends React.Component<Props, State> {
 		isOpen: false,
 	};
 
-	openDialog = () => {
+	openDialog = (): void => {
 		this.setState({ isOpen: true });
 	};
 
-	closeDialog = () => {
+	closeDialog = (): void => {
 		this.setState({ isOpen: false });
 	};
 
-	handleMouseOver = () => {
+	handleMouseOver = (): void => {
 		this.openDialog();
 	};
 
-	handleMouseOut = () => {
+	handleMouseOut = (): void => {
 		this.closeDialog();
 	};
 

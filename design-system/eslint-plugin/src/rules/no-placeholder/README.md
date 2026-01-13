@@ -4,6 +4,10 @@ This can be done natively in Atlaskit forms using the form's field and messaging
 [this example](https://atlassian.design/components/form/examples#building-a-form) in our form's
 documentation.
 
+An exception to this rule is that placeholder text can be used in search fields if it’s accompanied
+by an icon and accessible label. This ensures that people using assistive technologies understand
+what type of field it is.
+
 ## Examples
 
 This rule will find violations for when a placeholder is used on an input element.

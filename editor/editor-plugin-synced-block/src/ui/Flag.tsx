@@ -7,7 +7,7 @@ import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages'
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import AkFlag, { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
-import ImageIcon from '@atlaskit/icon/core/image';
+import StatusSuccessIcon from '@atlaskit/icon/core/status-success';
 import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
 import { token } from '@atlaskit/tokens';
 
@@ -22,7 +22,7 @@ type FlagType = 'error' | 'info';
 
 type FlagConfig = {
 	action?: MessageDescriptor;
-	description: MessageDescriptor;
+	description?: MessageDescriptor;
 	title: MessageDescriptor;
 	type: FlagType;
 };
@@ -50,8 +50,6 @@ const flagMap: Record<FLAG_ID, FlagConfig> = {
 	},
 	[FLAG_ID.SYNC_BLOCK_COPIED]: {
 		title: messages.syncBlockCopiedTitle,
-		description: messages.syncBlockCopiedDescription,
-		action: messages.syncBlockCopiedAction,
 		type: 'info',
 	},
 };
@@ -129,7 +127,7 @@ export const Flag = ({ api }: Props) => {
 			<FlagComponent
 				onDismissed={onDismissed}
 				title={formatMessage(title)}
-				description={formatMessage(description)}
+				description={description ? formatMessage(description) : undefined}
 				id={activeFlag.id}
 				testId={activeFlag.id}
 				icon={typeToIcon(type)}
@@ -143,5 +141,5 @@ const typeToIcon = (type: FlagType) => {
 	if (type === 'error') {
 		return <StatusWarningIcon label="" color={token('color.icon.warning')} />;
 	}
-	return <ImageIcon label="" />;
+	return <StatusSuccessIcon label="" color={token('color.icon.success')} />;
 }

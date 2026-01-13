@@ -1,8 +1,8 @@
 declare var global: any;
 
 class MockFileReader {
-	loadEvent = () => {};
-	errorEvent = (_: {}) => {};
+	loadEvent = (): void => {};
+	errorEvent = (_: {}): void => {};
 	result: string | null | ArrayBuffer;
 
 	constructor(result: string | null | ArrayBuffer = 'mockResult') {

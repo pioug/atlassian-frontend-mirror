@@ -166,7 +166,7 @@ export class CustomMediaPlayerBase extends Component<
 		playbackSpeed: 1,
 	};
 
-	componentDidMount() {
+	componentDidMount(): void {
 		const {
 			type,
 			fileId,
@@ -233,7 +233,7 @@ export class CustomMediaPlayerBase extends Component<
 		);
 	};
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		if (this.videoWrapperRef.current) {
 			this.videoWrapperRef.current.removeEventListener('fullscreenchange', this.onFullScreenChange);
 		}
@@ -567,7 +567,7 @@ export class CustomMediaPlayerBase extends Component<
 		}
 	}
 
-	public pause = () => {
+	public pause = (): void => {
 		if (this.actions) {
 			this.actions.pause();
 		}

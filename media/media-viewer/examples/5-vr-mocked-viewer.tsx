@@ -81,7 +81,7 @@ export default class Example extends React.Component<{}, State> {
 		isMediaViewerActive: true,
 	};
 
-	deactivate = () => {
+	deactivate = (): void => {
 		this.setState({ isMediaViewerActive: false });
 	};
 

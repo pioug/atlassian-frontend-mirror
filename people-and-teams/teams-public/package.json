@@ -75,6 +75,7 @@
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ptc-test-utils": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/react-hooks": "root:*",
 		"@testing-library/user-event": "root:*",
@@ -116,7 +117,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.65.3",
+	"version": "0.65.4",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -141,9 +142,6 @@
 			"type": "boolean"
 		},
 		"ptc-enable-teams-public-analytics-refactor": {
-			"type": "boolean"
-		},
-		"enable_teams_public_migration_using_teams-client": {
 			"type": "boolean"
 		}
 	}

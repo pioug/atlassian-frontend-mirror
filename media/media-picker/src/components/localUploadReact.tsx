@@ -108,7 +108,7 @@ export class LocalUploadComponentReact<
 		});
 	};
 
-	protected dismissErrorFlag = () => {
+	protected dismissErrorFlag = (): void => {
 		this.setState({
 			errorFlags: this.state.errorFlags.slice(1),
 		});
@@ -225,7 +225,7 @@ export class LocalUploadComponentReact<
 		});
 	};
 
-	protected createAndFireAnalyticsEvent = (payload: AnalyticsEventPayload) => {
+	protected createAndFireAnalyticsEvent = (payload: AnalyticsEventPayload): void => {
 		const { createAnalyticsEvent } = this.props;
 
 		if (createAnalyticsEvent) {

@@ -190,11 +190,11 @@ export class RemoteUploadActivityServer implements WebSocketServer {
 			.subscribe();
 	}
 
-	start() {
+	start(): void {
 		this.wsServer.mockWebsocket();
 	}
 
-	stop() {
+	stop(): void {
 		this.msgSubscription.unsubscribe();
 		this.wsServer.restoreWebsocket();
 		this.wsServer.stop();

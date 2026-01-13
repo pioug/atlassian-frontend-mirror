@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 10.0.6
+
+### Patch Changes
+
+- [`2fc345bb747f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2fc345bb747f4) -
+  [ux] Add isHidden check for extensions to be true if no extensions were registered in block menu.
+
 ## 10.0.5
 
 ### Patch Changes

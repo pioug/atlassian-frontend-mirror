@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 8.2.2
+
+### Patch Changes
+
+- [`11bd6ea9cb0ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/11bd6ea9cb0ba) -
+  [ux] Clean up platform_editor_refactor_view_more
+- Updated dependencies
+
+## 8.2.1
+
+### Patch Changes
+
+- [`0457795b04c62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0457795b04c62) -
+  EDITOR-4396 Media toolbar button doesn't when missing the mediaInsert Plugin
+- Updated dependencies
+
 ## 8.2.0
 
 ### Minor Changes

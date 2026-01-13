@@ -1,5 +1,12 @@
 # @atlaskit/editor-tables
 
+## 2.9.23
+
+### Patch Changes
+
+- [`eb7609ee331ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb7609ee331ab) -
+  [ux] EDITOR-4264 Fix preserved selection mapping
+
 ## 2.9.22
 
 ### Patch Changes

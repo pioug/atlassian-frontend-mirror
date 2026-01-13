@@ -29,17 +29,17 @@ export abstract class BaseViewer<
 	state = this.getInitialState();
 	protected mounted: boolean = false;
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this.mounted = true;
 		this.init();
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		this.mounted = false;
 		this.release();
 	}
 
-	protected safeSetState(newState: Partial<State>) {
+	protected safeSetState(newState: Partial<State>): void {
 		if (this.mounted) {
 			this.setState({ ...this.state, ...newState });
 		}
@@ -57,7 +57,7 @@ export abstract class BaseViewer<
 		}
 	}
 
-	componentDidUpdate(prevProps: Props) {
+	componentDidUpdate(prevProps: Props): void {
 		if (this.needsReset(prevProps, this.props)) {
 			this.init();
 		}
@@ -105,7 +105,7 @@ export abstract class BaseViewer<
 		);
 	}
 
-	protected onMediaDisplayed = () => {
+	protected onMediaDisplayed = (): void => {
 		const { item } = this.props;
 		globalMediaEventEmitter.emit('media-viewed', {
 			fileId: item.id,

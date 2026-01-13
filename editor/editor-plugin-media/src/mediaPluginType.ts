@@ -29,6 +29,10 @@ import type { MediaPluginState } from './pm-plugins/types';
 import type { InsertMediaAsMediaSingle } from './pm-plugins/utils/media-single';
 import type { MediaOptions } from './types';
 
+// Import MediaInsertPlugin type dynamically to avoid circular dependency
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type MediaInsertPlugin = NextEditorPlugin<'mediaInsert', any>;
+
 export type MediaPluginDependencies = [
 	OptionalPlugin<AnalyticsPlugin>,
 	OptionalPlugin<ContextIdentifierPlugin>,
@@ -40,6 +44,7 @@ export type MediaPluginDependencies = [
 	FloatingToolbarPlugin,
 	EditorDisabledPlugin,
 	FocusPlugin,
+	OptionalPlugin<MediaInsertPlugin>,
 	OptionalPlugin<InteractionPlugin>,
 	SelectionPlugin,
 	OptionalPlugin<AnnotationPlugin>,

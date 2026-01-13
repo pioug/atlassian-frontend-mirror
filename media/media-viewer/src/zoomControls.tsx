@@ -26,7 +26,7 @@ export type ZoomControlsProps = React.PropsWithChildren<
 >;
 
 export class ZoomControlsBase extends Component<ZoomControlsProps & WrappedComponentProps, {}> {
-	zoomIn = () => {
+	zoomIn = (): void => {
 		const { onChange, zoomLevel, createAnalyticsEvent } = this.props;
 		if (zoomLevel.canZoomIn) {
 			const zoom = zoomLevel.zoomIn();
@@ -36,7 +36,7 @@ export class ZoomControlsBase extends Component<ZoomControlsProps & WrappedCompo
 		}
 	};
 
-	zoomOut = () => {
+	zoomOut = (): void => {
 		const { onChange, zoomLevel, createAnalyticsEvent } = this.props;
 		if (zoomLevel.canZoomOut) {
 			const zoom = zoomLevel.zoomOut();

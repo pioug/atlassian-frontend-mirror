@@ -24,6 +24,6 @@ export const dataURItoBlob = (dataURI: string) => {
 	return blob;
 };
 
-export const fillInResponse = (res: MockResponse, data: ResponseData) => {
+export const fillInResponse = (res: MockResponse, data: ResponseData): void => {
 	Object.keys(data).forEach((key) => (res as any)[key]((data as any)[key]));
 };

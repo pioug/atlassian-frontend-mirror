@@ -144,7 +144,7 @@ export class VideoViewer extends BaseViewer<string, Props, State> {
 		);
 	}
 
-	protected async init(isHDActive: boolean = this.state.isHDActive) {
+	protected async init(isHDActive: boolean = this.state.isHDActive): Promise<void> {
 		const { mediaClient, item, collectionName } = this.props;
 
 		try {
@@ -189,7 +189,7 @@ export class VideoViewer extends BaseViewer<string, Props, State> {
 		}
 	}
 
-	protected release() {}
+	protected release(): void {}
 }
 
 function isHDAvailable(file: FileState): boolean {

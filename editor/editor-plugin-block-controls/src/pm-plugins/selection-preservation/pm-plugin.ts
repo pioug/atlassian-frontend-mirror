@@ -1,16 +1,16 @@
-import { logException } from '@atlaskit/editor-common/monitoring';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { DRAG_HANDLE_SELECTOR } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type {
-	EditorState,
-	ReadonlyTransaction,
-	Transaction,
+import {
+	type EditorState,
+	type ReadonlyTransaction,
+	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
-import { mapPreservedSelection } from '../utils/selection';
+import { key } from '../main';
+import { createPreservedSelection, mapPreservedSelection } from '../utils/selection';
 
 import { stopPreservingSelection } from './editor-commands';
 import { selectionPreservationPluginKey } from './plugin-key';
@@ -19,7 +19,6 @@ import {
 	compareSelections,
 	getSelectionPreservationMeta,
 	hasUserSelectionChange,
-	isPreservedSelectionChanged,
 	isSelectionWithinCodeBlock,
 	syncDOMSelection,
 } from './utils';
@@ -71,12 +70,13 @@ export const createSelectionPreservationPlugin =
 					const newState = { ...pluginState };
 
 					if (meta?.type === 'startPreserving') {
-						newState.preservedSelection = mapPreservedSelection(tr.selection, tr);
+						newState.preservedSelection = createPreservedSelection(
+							tr.doc.resolve(tr.selection.from),
+							tr.doc.resolve(tr.selection.to),
+						);
 					} else if (meta?.type === 'stopPreserving') {
 						newState.preservedSelection = undefined;
-					}
-
-					if (newState.preservedSelection && tr.docChanged) {
+					} else if (newState.preservedSelection && tr.docChanged) {
 						newState.preservedSelection = mapPreservedSelection(newState.preservedSelection, tr);
 					}
 
@@ -121,21 +121,36 @@ export const createSelectionPreservationPlugin =
 					return null;
 				}
 
-				try {
-					return newState.tr.setSelection(preservedSel);
-				} catch (error) {
-					logException(error as Error, {
-						location: 'editor-plugin-block-controls/SelectionPreservationPlugin',
-					});
+				const newSelection = createPreservedSelection(
+					newState.doc.resolve(preservedSel.from),
+					newState.doc.resolve(preservedSel.to),
+				);
+
+				// If selection becomes invalid, stop preserving
+				if (!newSelection) {
+					return stopPreservingSelection({ tr: newState.tr });
 				}
 
-				return null;
+				return newState.tr.setSelection(newSelection);
 			},
 
 			view() {
 				return {
 					update(view: EditorView, prevState: EditorState) {
-						if (isPreservedSelectionChanged(view.state, prevState)) {
+						const prevPreservedSelection =
+							selectionPreservationPluginKey.getState(prevState)?.preservedSelection;
+						const currPreservedSelection = selectionPreservationPluginKey.getState(
+							view.state,
+						)?.preservedSelection;
+						const prevActiveNode = key.getState(prevState)?.activeNode;
+						const currActiveNode = key.getState(view.state)?.activeNode;
+
+						if (
+							currPreservedSelection &&
+							view.hasFocus() &&
+							(!compareSelections(prevPreservedSelection, currPreservedSelection) ||
+								prevActiveNode !== currActiveNode)
+						) {
 							syncDOMSelection(view.state.selection);
 						}
 					},

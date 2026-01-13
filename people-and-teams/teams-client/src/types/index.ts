@@ -24,6 +24,7 @@ export type {
 export type { TeamsClientUser as User, EditableUserFields } from './user';
 export { isEditableUserField } from './user';
 
+export type { UnlinkContainerMutationError } from '../services/agg-client/utils/mutations/unlink-container-mutation';
 export type {
 	InvitedUser,
 	TeamMembership,
@@ -44,6 +45,7 @@ export type {
 	AGGPageInfoVariables,
 } from '../services/agg-client/types';
 
+export type { TeamContainers } from '../services/agg-client';
 export type { ReadMediaTokenResponse } from './media';
 
 export type { TeamInSlack } from './slack';

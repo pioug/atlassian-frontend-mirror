@@ -38,19 +38,19 @@ export default class DeleteUserDrawerExample extends React.Component {
 		isUserDeactivated: false,
 	};
 
-	openDrawer = () => this.setState({ isOpen: true });
+	openDrawer = (): void => this.setState({ isOpen: true });
 
-	closeDrawer = () => this.setState({ isOpen: false });
+	closeDrawer = (): void => this.setState({ isOpen: false });
 
 	handleDeactivateUser = (): React.JSX.Element => <React.Fragment />;
 
-	handlePreferenceSelection = (name: string) => {
+	handlePreferenceSelection = (name: string): void => {
 		// do nothing
 	};
 
-	toggleIsCurrentUser = (event: any) => this.setState({ isCurrentUser: event.target.checked });
+	toggleIsCurrentUser = (event: any): void => this.setState({ isCurrentUser: event.target.checked });
 
-	toggleIsUserDeactivated = (event: any) =>
+	toggleIsUserDeactivated = (event: any): void =>
 		this.setState({ isUserDeactivated: event.target.checked });
 
 	renderDeleteUserOverviewScreen = (): React.JSX.Element => (

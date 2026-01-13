@@ -1,5 +1,12 @@
 # @atlaskit/teams-client
 
+## 4.30.1
+
+### Patch Changes
+
+- [`d0487f184cf07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d0487f184cf07) -
+  Export TeamContainers type
+
 ## 4.30.0
 
 ### Minor Changes

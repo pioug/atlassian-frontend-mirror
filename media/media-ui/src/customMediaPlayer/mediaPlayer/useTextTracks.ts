@@ -67,7 +67,7 @@ export const useTextTracks = ({ fileState, collectionName, type }: UseTextTracks
 	}, [areCaptionsEnabled, selectedTracksIndex]);
 
 	// When video starts playing, user settings might have changed
-	const verifyUserCaptionsEnabled = useCallback(() => {
+	const verifyUserCaptionsEnabled = useCallback((): void => {
 		if (mediaUserPreferences) {
 			setAreCaptionsEnabled(getUserCaptionsEnabled(mediaUserPreferences));
 		}

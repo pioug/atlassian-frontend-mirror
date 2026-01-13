@@ -50,11 +50,11 @@ export class BrowserLoader extends React.PureComponent<BrowserWithMediaClientCon
 		}
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		this.mounted = false;
 	}
 
-	async UNSAFE_componentWillMount() {
+	async UNSAFE_componentWillMount(): Promise<void> {
 		if (!this.state.Browser && !fg('jfp-magma-media-clipboard-init-after-mount')) {
 			const [mediaClient, browserModule] = await Promise.all([
 				import(

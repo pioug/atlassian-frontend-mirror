@@ -77,7 +77,7 @@ export class UploadServiceImpl implements UploadService {
 		);
 	}
 
-	addFile(file: File, replaceFileId?: string) {
+	addFile(file: File, replaceFileId?: string): void {
 		this.addFilesWithSource([{ file, source: LocalFileSource.LocalUpload, replaceFileId }]);
 	}
 
@@ -426,11 +426,11 @@ export class UploadServiceImpl implements UploadService {
 		});
 	};
 
-	onFileEmpty(handler: (fileEmptyData: FileEmptyData) => void) {
+	onFileEmpty(handler: (fileEmptyData: FileEmptyData) => void): void {
 		this.fileEmptyHandler = handler;
 	}
 
-	onFileRejection(handler: (rejectionData: UploadRejectionData) => void) {
+	onFileRejection(handler: (rejectionData: UploadRejectionData) => void): void {
 		this.fileRejectionHandler = handler;
 	}
 }

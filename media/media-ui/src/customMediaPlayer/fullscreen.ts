@@ -19,7 +19,7 @@ export const findVendorSpecificProp = (object: any, propNames: string | string[]
 	}
 };
 
-export const requestFullscreen = (element: HTMLElement) => {
+export const requestFullscreen = (element: HTMLElement): void => {
 	const requestFullscreenProp = findVendorSpecificProp(element, [
 		// The order here is important! Other way will make webkitRequestFullScreen to be picked up in chrome for example.
 		'requestFullscreen',
@@ -31,7 +31,7 @@ export const requestFullscreen = (element: HTMLElement) => {
 	}
 };
 
-export const exitFullscreen = () => {
+export const exitFullscreen = (): void => {
 	const exitFullScreenProp = findVendorSpecificProp(document, [
 		// The order here is important! Other way will make webkitExitFullScreen to be picked up in chrome for example.
 		'exitFullscreen',
@@ -47,7 +47,7 @@ export const getFullscreenElement = (): HTMLElement | undefined => {
 	return findVendorSpecificProp(document, ['fullScreenElement', 'fullscreenElement']);
 };
 
-export const toggleFullscreen = (element?: HTMLElement) => {
+export const toggleFullscreen = (element?: HTMLElement): void => {
 	if (getFullscreenElement()) {
 		exitFullscreen();
 	} else if (element) {

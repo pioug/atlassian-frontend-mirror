@@ -1,5 +1,12 @@
 # @atlaskit/profilecard
 
+## 24.29.1
+
+### Patch Changes
+
+- [`baf9a190910eb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/baf9a190910eb) -
+  [ux] set correct userId and cloudId to getProfile in AgentProfileCard
+
 ## 24.29.0
 
 ### Minor Changes

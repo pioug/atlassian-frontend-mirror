@@ -93,11 +93,11 @@ const initialState: State = {
 export class CodeViewRenderer extends Component<Props, State> {
 	state: State = initialState;
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this.init();
 	}
 
-	componentWillUnmount() {}
+	componentWillUnmount(): void {}
 
 	private async init() {
 		const { src, onSuccess, onError } = this.props;

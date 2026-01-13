@@ -1,5 +1,6 @@
-import { expandToBlockRange } from '@atlaskit/editor-common/selection';
+import { expandToBlockRange, isMultiBlockRange } from '@atlaskit/editor-common/selection';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import {
 	NodeSelection,
 	TextSelection,
@@ -7,9 +8,12 @@ import {
 	type Selection,
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
+import { getTableSelectionClosesToPos } from '@atlaskit/editor-tables/utils';
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
 import { getBlockControlsMeta, key } from '../main';
+
+import { newGetSelection } from './getSelection';
 
 export const getMultiSelectionIfPosInside = (
 	api: ExtractInjectionAPI<BlockControlsPlugin>,
@@ -108,42 +112,60 @@ export const mapPreservedSelection = (
 
 	const mapping = preservedSelectionMapping || tr.mapping;
 
-	if (selection instanceof TextSelection) {
-		const from = mapping.map(selection.from);
-		const to = mapping.map(selection.to);
+	const from = mapping.map(selection.from);
+	const to = mapping.map(selection.to);
 
-		const isSelectionEmpty = from === to;
-		const wasSelectionEmpty = selection.from === selection.to;
+	const isSelectionEmpty = from === to;
+	const wasSelectionEmpty = selection.from === selection.to;
 
-		if (isSelectionEmpty && !wasSelectionEmpty) {
-			// If selection has become empty i.e. content has been deleted, stop preserving
-			return undefined;
-		}
-		// expand the text selection range to block boundaries, so as document changes occur the
-		// selection always includes whole nodes
-		const expanded = expandToBlockRange(tr.doc.resolve(from), tr.doc.resolve(to));
-
-		// If after expanding the selection it is still empty, return a single cursor selection at 'from'
-		const nodeAfter = expanded.$from.nodeAfter;
-		const nodeBefore = expanded.$to.nodeBefore;
-		const expandedSelectionEmpty = nodeAfter === nodeBefore && nodeAfter?.content.size === 0;
-		if (isSelectionEmpty && expandedSelectionEmpty) {
-			return TextSelection.create(tr.doc, from);
-		}
-
-		const { $from, $to } = expanded;
-
-		// stop preserving if preserved selection becomes invalid
-		if ($from.pos < 0 || $to.pos > tr.doc.content.size || $from.pos >= $to.pos) {
-			return undefined;
-		}
-
-		return new TextSelection($from, $to);
-	}
-
-	try {
-		return selection.map(tr.doc, mapping);
-	} catch {
+	if (isSelectionEmpty && !wasSelectionEmpty) {
+		// If selection has become empty i.e. content has been deleted, stop preserving
 		return undefined;
 	}
+
+	return createPreservedSelection(tr.doc.resolve(from), tr.doc.resolve(to));
+};
+
+/**
+ * Creates a preserved selection which is expanded to block boundaries.
+ *
+ * Will return the correct type of selection based on the nodes contained within the
+ * expanded selection range.
+ *
+ * If the selection becomes empty or invalid, it returns undefined.
+ *
+ * @param $from The resolved position of the start of the selection
+ * @param $to The resolved position of the end of the selection
+ * @returns A Selection or undefined if selection is invalid
+ */
+export const createPreservedSelection = ($from: ResolvedPos, $to: ResolvedPos) => {
+	const { doc } = $from;
+
+	// expand the selection range to block boundaries, so selection always includes whole nodes
+	const expanded = expandToBlockRange($from, $to);
+
+	// stop preserving if selection becomes invalid
+	if (
+		expanded.$from.pos < 0 ||
+		expanded.$to.pos > doc.content.size ||
+		expanded.$from.pos >= expanded.$to.pos
+	) {
+		return undefined;
+	}
+
+	// If multiple blocks selected, create TextSelection from start of first node to end of last node
+	if (expanded.range && isMultiBlockRange(expanded.range)) {
+		return new TextSelection(expanded.$from, expanded.$to);
+	}
+
+	const nodeType = doc.nodeAt(expanded.$from.pos)?.type?.name;
+	if (!nodeType) {
+		return undefined;
+	}
+
+	if (nodeType === 'table') {
+		return getTableSelectionClosesToPos($from);
+	}
+
+	return newGetSelection(doc, false, expanded.$from.pos) || undefined;
 };

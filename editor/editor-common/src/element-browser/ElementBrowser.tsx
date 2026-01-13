@@ -24,13 +24,6 @@ export interface Props {
 	onViewMore?: () => void;
 	showCategories: boolean;
 	showSearch: boolean;
-	/**
-	 * @private
-	 * @deprecated
-	 * Deprecated in favour of onViewMore
-	 * Please clean up viewMoreItem when cleaning up platform_editor_refactor_view_more
-	 */
-	viewMoreItem?: QuickInsertItem;
 }
 
 export interface State {
@@ -131,7 +124,6 @@ export default class ElementBrowser extends PureComponent<Props, State> {
 			showCategories,
 			mode,
 			emptyStateHandler,
-			viewMoreItem,
 			onViewMore,
 			cache,
 			autoFocusSearch,
@@ -151,7 +143,6 @@ export default class ElementBrowser extends PureComponent<Props, State> {
 				mode={mode}
 				searchTerm={searchTerm}
 				emptyStateHandler={emptyStateHandler}
-				viewMoreItem={viewMoreItem}
 				cache={cache}
 				onViewMore={onViewMore}
 				autoFocusSearch={autoFocusSearch}

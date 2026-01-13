@@ -6,15 +6,15 @@ type Props = {
 };
 
 let _error: Error | undefined;
-export const setViewerError = (error?: Error) => {
+export const setViewerError = (error?: Error): void => {
 	_error = error;
 };
-export const clearViewerError = () => {
+export const clearViewerError = (): void => {
 	_error = undefined;
 };
 
 export class ImageViewer extends React.Component<Props, {}> {
-	componentDidMount() {
+	componentDidMount(): void {
 		if (_error) {
 			this.props.onError(_error);
 		} else {

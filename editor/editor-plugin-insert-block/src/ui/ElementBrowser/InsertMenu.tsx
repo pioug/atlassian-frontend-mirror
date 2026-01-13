@@ -177,7 +177,6 @@ const InsertMenu = ({
 	onInsert,
 	toggleVisiblity,
 	pluginInjectionApi,
-	isFullPageAppearance,
 }: InsertMenuProps) => {
 	const [itemCount, setItemCount] = useState(0);
 	const [height, setHeight] = useState(DEFAULT_HEIGHT);
@@ -227,12 +226,6 @@ const InsertMenu = ({
 	);
 
 	const quickInsertDropdownItems = dropdownItems.map(transform);
-
-	// Please clean up viewMoreItem when cleaning up platform_editor_refactor_view_more
-	const viewMoreItem =
-		!fg('platform_editor_refactor_view_more') && showElementBrowserLink
-			? quickInsertDropdownItems.pop()
-			: undefined;
 
 	const onInsertItem = useCallback(
 		(item: QuickInsertItem) => {
@@ -316,7 +309,7 @@ const InsertMenu = ({
 
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-		<div css={insertMenuWrapper(height, isFullPageAppearance)}>
+		<div css={insertMenuWrapper(height)}>
 			<ElementBrowserWrapper
 				handleClickOutside={toggleVisiblity}
 				handleEscapeKeydown={toggleVisiblity}
@@ -331,7 +324,6 @@ const InsertMenu = ({
 					showCategories={false}
 					// On page resize we want the InlineElementBrowser to show updated tools/overflow items
 					key={quickInsertDropdownItems.length}
-					viewMoreItem={viewMoreItem}
 					onViewMore={showElementBrowserLink ? onViewMore : undefined}
 					cache={cache}
 				/>
@@ -359,7 +351,7 @@ const getSvgIconForItem = ({ name }: SvgGetterParams): ReactElement | undefined 
 	return Icon ? <Icon label="" /> : undefined;
 };
 
-const insertMenuWrapper = (height: number, isFullPageAppearance?: boolean) => {
+const insertMenuWrapper = (height: number) => {
 	return css({
 		display: 'flex',
 		flexDirection: 'column',

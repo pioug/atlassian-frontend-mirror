@@ -9,12 +9,12 @@ export type Props = {
 
 let _hasError = false;
 
-export const setHasError = (hasError: boolean) => {
+export const setHasError = (hasError: boolean): void => {
 	_hasError = hasError;
 };
 
 export class InteractiveImg extends React.Component<Props, {}> {
-	componentDidMount() {
+	componentDidMount(): void {
 		if (_hasError) {
 			this.props.onError();
 		} else {

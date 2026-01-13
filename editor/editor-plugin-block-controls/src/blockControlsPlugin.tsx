@@ -8,6 +8,7 @@ import {
 	type EditorState,
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
+import { type Mapping } from '@atlaskit/editor-prosemirror/transform';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -20,6 +21,7 @@ import type {
 	TriggerByNode,
 } from './blockControlsPluginType';
 import { handleKeyDownWithPreservedSelection } from './editor-commands/handle-key-down-with-preserved-selection';
+import { mapPreservedSelection } from './editor-commands/map-preserved-selection';
 import { moveNode } from './editor-commands/move-node';
 import { moveNodeWithBlockMenu } from './editor-commands/move-node-with-block-menu';
 import { moveToLayout } from './editor-commands/move-to-layout';
@@ -263,6 +265,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 				const currMeta = tr.getMeta(key);
 				return tr.setMeta(key, { ...currMeta, isSelectedViaDragHandle });
 			},
+		mapPreservedSelection: (mapping: Mapping) => mapPreservedSelection(mapping),
 		moveNodeWithBlockMenu: (direction: DIRECTION.UP | DIRECTION.DOWN) =>
 			moveNodeWithBlockMenu(api, direction),
 		handleKeyDownWithPreservedSelection: handleKeyDownWithPreservedSelection(api),

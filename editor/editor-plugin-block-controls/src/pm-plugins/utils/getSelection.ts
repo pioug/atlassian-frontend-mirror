@@ -102,7 +102,15 @@ const oldGetSelection = (tr: Transaction, start: number) => {
 	}
 };
 
-const newGetSelection = (doc: PMNode, selectionEmpty: boolean, start: number) => {
+/**
+ * Gets the appropriate selection for the node at the given start position.
+ *
+ * @param doc The ProseMirror document.
+ * @param selectionEmpty Indicates if the current selection is empty.
+ * @param start The start position of the node.
+ * @returns The appropriate selection for the node.
+ */
+export const newGetSelection = (doc: PMNode, selectionEmpty: boolean, start: number) => {
 	const node = doc.nodeAt(start);
 	const isNodeSelection = node && NodeSelection.isSelectable(node);
 	const nodeSize = node ? node.nodeSize : 1;

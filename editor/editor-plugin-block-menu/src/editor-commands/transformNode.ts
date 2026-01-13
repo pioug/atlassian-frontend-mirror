@@ -9,6 +9,7 @@ import { expandSelectionToBlockRange } from '@atlaskit/editor-common/selection';
 import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { Mapping, StepMap } from '@atlaskit/editor-prosemirror/transform';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 import { isNestedNode } from '../ui/utils/isNestedNode';
@@ -75,6 +76,17 @@ export const transformNode: (
 			// especially when mediaSingle with caption is at the bottom of the document
 			const insertPos = Math.min(deleteFrom, tr.doc.content.size);
 			tr.insert(insertPos, content);
+
+			// when we replace and insert content, we need to manually map the preserved selection
+			// through the transaction, otherwise it will treat the selection as having been deleted
+			// and stop preserving it
+			const oldSize = slice.size;
+			const newSize = Array.isArray(content)
+				? content.reduce((sum, node) => sum + node.nodeSize, 0)
+				: content.size;
+			api?.blockControls?.commands.mapPreservedSelection(
+				new Mapping([new StepMap([0, oldSize, newSize])]),
+			)({ tr });
 		} else {
 			tr.replaceWith(sliceStart, $to.pos, content);
 		}

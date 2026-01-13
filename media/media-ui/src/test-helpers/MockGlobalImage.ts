@@ -10,11 +10,11 @@ class MockImage extends global.Image {
 	}
 }
 
-export function enableMockGlobalImage(isError: boolean = false) {
+export function enableMockGlobalImage(isError: boolean = false): void {
 	global.Image = MockImage;
 	isErrorInsteadOfLoad = isError;
 }
 
-export function disableMockGlobalImage() {
+export function disableMockGlobalImage(): void {
 	global.Image = globalImage;
 }

@@ -18,11 +18,11 @@ export type ShortcutProps = {
 
 export class Shortcut extends Component<ShortcutProps, {}> {
 	eventType: keyof DocumentEventMap = 'keydown';
-	componentDidMount() {
+	componentDidMount(): void {
 		this.init();
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		this.release();
 	}
 

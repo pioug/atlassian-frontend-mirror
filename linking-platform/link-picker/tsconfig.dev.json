@@ -102,6 +102,9 @@
 			"path": "../../data/ufo-external/tsconfig.app.json"
 		},
 		{
+			"path": "../../accessibility/axe-integration/a11y-jest-testing/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
 		},
 		{

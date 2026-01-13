@@ -89,7 +89,7 @@ export class ErrorMessage extends React.Component<
 		return errorInfo;
 	}
 
-	componentDidMount() {
+	componentDidMount(): void {
 		const { props } = this;
 		const {
 			supressAnalytics,

@@ -15,7 +15,7 @@ export interface FrameViewProps {
 }
 
 export class Frame extends React.Component<FrameViewProps> {
-	handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+	handleClick = (event: React.MouseEvent<HTMLDivElement>): void => {
 		const { onClick } = this.props;
 		if (onClick) {
 			event.preventDefault();
@@ -24,7 +24,7 @@ export class Frame extends React.Component<FrameViewProps> {
 		}
 	};
 
-	handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
+	handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>): void => {
 		if (event.key !== ' ' && event.key !== 'Enter') {
 			return;
 		}

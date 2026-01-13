@@ -24,11 +24,11 @@ export type State = {
 
 export default class Example extends React.Component<{}, State> {
 	state: State = { selectedItem: undefined, isModalOpen: true };
-	setItem = (selectedItem: Identifier) => () => {
+	setItem = (selectedItem: Identifier) => (): void => {
 		this.setState({ selectedItem });
 	};
 
-	toggleModal = () => {
+	toggleModal = (): void => {
 		this.setState({ isModalOpen: !this.state.isModalOpen });
 	};
 

@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 125.3.1
+
+### Patch Changes
+
+- [`b5aad0477b7bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5aad0477b7bb) -
+  EDITOR-3433: Fix missing task item id when using progressive renderer.
+- Updated dependencies
+
 ## 125.3.0
 
 ### Minor Changes

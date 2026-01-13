@@ -47,6 +47,7 @@ export {
 export { removeRowAt, removeSelectedRows, removeRowClosestToPos } from './utils/remove-row';
 export { removeTable } from './utils/remove-table';
 export {
+	getTableSelectionClosesToPos,
 	selectColumn,
 	selectColumns,
 	selectRow,

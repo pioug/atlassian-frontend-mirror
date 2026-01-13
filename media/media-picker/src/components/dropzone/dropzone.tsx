@@ -52,7 +52,7 @@ export class DropzoneBase extends LocalUploadComponentReact<DropzoneProps> {
 		return container || document.body;
 	}
 
-	public componentDidMount() {
+	public componentDidMount(): void {
 		const { onCancelFn } = this.props;
 		this.addContainerListeners(this.getContainer());
 		if (onCancelFn) {

@@ -1,5 +1,12 @@
 # @atlaskit/task-decision
 
+## 19.2.18
+
+### Patch Changes
+
+- [`b5aad0477b7bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5aad0477b7bb) -
+  EDITOR-3433: Fix missing task item id when using progressive renderer.
+
 ## 19.2.17
 
 ### Patch Changes

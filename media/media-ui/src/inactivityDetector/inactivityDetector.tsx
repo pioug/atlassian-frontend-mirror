@@ -67,11 +67,11 @@ export class InactivityDetector extends Component<
 		);
 	};
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this.checkMouseMovement();
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		this.clearTimeout();
 	}
 

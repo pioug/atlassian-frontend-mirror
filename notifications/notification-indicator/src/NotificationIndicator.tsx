@@ -57,7 +57,7 @@ class NotificationIndicator extends Component<Props, State> {
 		count: this.props.ssrInitialValue || null,
 	};
 
-	async componentDidMount() {
+	async componentDidMount(): Promise<void> {
 		this.notificationLogProvider = await this.props.notificationLogProvider;
 		this.refresh('mount');
 		this.updateInterval();
@@ -66,13 +66,13 @@ class NotificationIndicator extends Component<Props, State> {
 		}
 	}
 
-	componentDidUpdate(prevProps: Props) {
+	componentDidUpdate(prevProps: Props): void {
 		if (prevProps.refreshRate !== this.props.refreshRate) {
 			this.updateInterval();
 		}
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		if (this.intervalId) {
 			clearInterval(this.intervalId);
 		}

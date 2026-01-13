@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 7.0.3
+
+### Patch Changes
+
+- [`11bd6ea9cb0ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/11bd6ea9cb0ba) -
+  [ux] Clean up platform_editor_refactor_view_more
+- Updated dependencies
+
 ## 7.0.2
 
 ### Patch Changes

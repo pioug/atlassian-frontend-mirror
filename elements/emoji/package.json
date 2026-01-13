@@ -133,9 +133,6 @@
 		"platform_emoji_ssr_width_auto_allowed": {
 			"type": "boolean"
 		},
-		"platform_emoji_width_auto_fittoheight": {
-			"type": "boolean"
-		},
 		"platform_emoji_prevent_img_src_changing": {
 			"type": "boolean"
 		}

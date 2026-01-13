@@ -167,7 +167,11 @@ export const InsertButton = ({
 				break;
 			case 'media':
 				if (showMediaPicker) {
-					api?.core?.actions.execute(api?.mediaInsert?.commands.showMediaInsertPopup());
+					if (fg('platform_editor_media_insert_check')) {
+						api?.mediaInsert?.commands.showMediaInsertPopup ? api?.core?.actions.execute(api?.mediaInsert?.commands.showMediaInsertPopup()) : showMediaPicker?.();
+					} else {
+						api?.core?.actions.execute(api?.mediaInsert?.commands.showMediaInsertPopup());
+					}
 				}
 				break;
 			case 'mention':
@@ -188,11 +192,6 @@ export const InsertButton = ({
 				break;
 			case 'horizontalrule':
 				api?.rule?.actions.insertHorizontalRule(inputMethod)(state, dispatch);
-				break;
-			case 'macro':
-				if (!fg('platform_editor_refactor_view_more')) {
-					api?.core?.actions.execute(api?.quickInsert?.commands.openElementBrowserModal);
-				}
 				break;
 			case 'date':
 				api?.core?.actions.execute(

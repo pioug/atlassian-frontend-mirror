@@ -1,5 +1,13 @@
 # @atlaskit/teams-public
 
+## 0.65.4
+
+### Patch Changes
+
+- [`d0487f184cf07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d0487f184cf07) -
+  clean up enable_teams_public_migration_using_teams-client
+- Updated dependencies
+
 ## 0.65.3
 
 ### Patch Changes

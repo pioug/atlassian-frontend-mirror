@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media",
-	"version": "9.3.2",
+	"version": "9.3.3",
 	"description": "Media plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -162,6 +162,9 @@
 			"type": "boolean"
 		},
 		"jira_kuro-jjj_disable_auto_focus_after_img_upload": {
+			"type": "boolean"
+		},
+		"platform_editor_media_insert_check": {
 			"type": "boolean"
 		}
 	},

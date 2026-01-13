@@ -529,7 +529,7 @@ function createPlaceHolderStateFrom({
 			editorExperiment('platform_synced_block', true)
 		) {
 			return setPlaceHolderState({
-				placeholderText: intl.formatMessage(messages.syncBlockPlaceholderText),
+				placeholderText: intl.formatMessage(messages.sourceSyncBlockPlaceholderText),
 				pos: $from.pos,
 				placeholderPrompts,
 				typedAndDeleted,

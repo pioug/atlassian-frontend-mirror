@@ -345,7 +345,6 @@ export const getNewResizeStateFromSelectedColumns = (
 	if (!hasTableBeenResized(table.node)) {
 		return;
 	}
-
 	const maybeTable = domAtPos(table.start).node;
 
 	const maybeTableElement = maybeTable instanceof HTMLElement ? maybeTable : null;

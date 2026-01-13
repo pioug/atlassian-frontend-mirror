@@ -853,6 +853,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-01-08
+	platform_editor_table_toolbar_perf_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-08-17
 	platform_hover_card_preview_panel: {
 		defaultValue: 'control' | 'test';
@@ -1868,6 +1875,14 @@ export const editorExperimentsConfig: {
 	platform_editor_prevent_taskitem_remount: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_prevent_taskitem_remount',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-01-08
+	platform_editor_table_toolbar_perf_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_table_toolbar_perf_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

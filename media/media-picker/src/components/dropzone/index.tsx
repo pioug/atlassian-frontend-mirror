@@ -54,7 +54,7 @@ export class DropzoneLoader extends React.PureComponent<DropzoneWithMediaClientC
 		}
 	}
 
-	async UNSAFE_componentWillMount() {
+	async UNSAFE_componentWillMount(): Promise<void> {
 		if (
 			(!this.state.Dropzone || !this.state.MediaPickerErrorBoundary) &&
 			!fg('jfp-magma-media-clipboard-init-after-mount')

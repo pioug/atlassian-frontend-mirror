@@ -140,6 +140,7 @@ export type BlockControlsPlugin = NextEditorPlugin<
 	{
 		commands: {
 			handleKeyDownWithPreservedSelection: (event: KeyboardEvent) => EditorCommand;
+			mapPreservedSelection: (mapping: Mapping) => EditorCommand;
 			moveNode: MoveNode;
 			moveNodeWithBlockMenu: (direction: DIRECTION.UP | DIRECTION.DOWN) => EditorCommand;
 			/**

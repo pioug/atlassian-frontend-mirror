@@ -40,11 +40,11 @@ const getExperience = () => {
 	return ufoExperience;
 };
 
-export const startMediaFileUfoExperience = () => {
+export const startMediaFileUfoExperience = (): void => {
 	getExperience().start();
 };
 
-export const succeedMediaFileUfoExperience = (properties?: UFOSucceedEventPayload) => {
+export const succeedMediaFileUfoExperience = (properties?: UFOSucceedEventPayload): void => {
 	getExperience().success({
 		metadata: {
 			...properties,
@@ -57,7 +57,7 @@ export const succeedMediaFileUfoExperience = (properties?: UFOSucceedEventPayloa
 	});
 };
 
-export const failMediaFileUfoExperience = (properties?: UFOFailedEventPayload) => {
+export const failMediaFileUfoExperience = (properties?: UFOFailedEventPayload): void => {
 	const refinedMetadata = {
 		...properties,
 		packageName,

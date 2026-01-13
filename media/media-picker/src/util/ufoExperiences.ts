@@ -40,11 +40,11 @@ const getExperience = (id: string) => {
 	}
 };
 
-export const startMediaUploadUfoExperience = (id: string, componentName: ComponentName) => {
+export const startMediaUploadUfoExperience = (id: string, componentName: ComponentName): void => {
 	initExperience(id, componentName).start();
 };
 
-export const succeedMediaUploadUfoExperience = (id: string, properties: FileAttributes) => {
+export const succeedMediaUploadUfoExperience = (id: string, properties: FileAttributes): void => {
 	getExperience(id)?.success({
 		metadata: {
 			fileAttributes: properties,
@@ -56,7 +56,7 @@ export const succeedMediaUploadUfoExperience = (id: string, properties: FileAttr
 	});
 };
 
-export const failMediaUploadUfoExperience = (id: string, properties?: UFOFailedEventPayload) => {
+export const failMediaUploadUfoExperience = (id: string, properties?: UFOFailedEventPayload): void => {
 	const refinedMetadata = {
 		...properties,
 		packageName,

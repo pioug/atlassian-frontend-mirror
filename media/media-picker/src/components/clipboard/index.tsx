@@ -49,7 +49,7 @@ export class ClipboardLoader extends React.PureComponent<
 		}
 	}
 
-	async UNSAFE_componentWillMount() {
+	async UNSAFE_componentWillMount(): Promise<void> {
 		if (!this.state.Clipboard && !fg('jfp-magma-media-clipboard-init-after-mount')) {
 			const [mediaClient, clipboardModule] = await Promise.all([
 				import(

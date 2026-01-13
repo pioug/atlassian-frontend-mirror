@@ -48,7 +48,7 @@ export class MediaTable extends Component<
 	private subscriptions: MediaSubscription[] = [];
 	private hasBeenMounted: boolean = false;
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this.hasBeenMounted = true;
 		const { items, mediaClient } = this.props;
 
@@ -79,7 +79,7 @@ export class MediaTable extends Component<
 		this.subscriptions = [];
 	};
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		this.hasBeenMounted = false;
 		this.unsubscribe();
 	}

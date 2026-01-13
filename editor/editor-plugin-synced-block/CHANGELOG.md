@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 5.1.8
+
+### Patch Changes
+
+- [`2f2aca53f492c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f2aca53f492c) -
+  [ux] Remove 'copy synced block' from block menu
+- Updated dependencies
+
+## 5.1.7
+
+### Patch Changes
+
+- [`38c83ce57623b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38c83ce57623b) -
+  [ux] [EDITOR-3853] Update copy for sync block placeholder and copy flag
+- [`8b821f7771cc4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b821f7771cc4) -
+  [ux] Only show delete option when reference sync block unsynced
+- Updated dependencies
+
 ## 5.1.6
 
 ### Patch Changes

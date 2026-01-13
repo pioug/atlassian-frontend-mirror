@@ -85,7 +85,7 @@ class ClipboardImpl {
 		}
 	}
 
-	public onFilesPasted(files: LocalFileWithSource[]) {
+	public onFilesPasted(files: LocalFileWithSource[]): void {
 		this.uploadService.addFilesWithSource(files);
 		this.fireAnalyticsEvent(files);
 	}
@@ -195,11 +195,11 @@ export class ClipboardBase extends LocalUploadComponentReact<ClipboardProps> {
 		config: defaultConfig,
 	};
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this.clipboard.activate();
 	}
 
-	componentDidUpdate(prevProps: ClipboardProps) {
+	componentDidUpdate(prevProps: ClipboardProps): void {
 		if (prevProps.featureFlags !== this.props.featureFlags) {
 			this.clipboard.featureFlags = this.props.featureFlags;
 		}
@@ -209,7 +209,7 @@ export class ClipboardBase extends LocalUploadComponentReact<ClipboardProps> {
 		}
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		this.clipboard.deactivate();
 	}
 

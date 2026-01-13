@@ -113,6 +113,7 @@
 		"@atlaskit/json-ld-types": "workspace:^",
 		"@atlaskit/link-test-helpers": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
+		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@faker-js/faker": "root:*",
 		"@testing-library/dom": "root:*",

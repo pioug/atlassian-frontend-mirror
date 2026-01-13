@@ -1,3 +1,5 @@
+import invariant from 'tiny-invariant';
+
 import { expect, test } from '@af/integration-testing';
 
 // Width greater than 64rem (1024px)
@@ -11,7 +13,8 @@ test.describe('side nav panel splitter', () => {
 	test.beforeEach(async ({ page }) => {
 		await page.visitExample('design-system', 'navigation-system', 'resizable-slots', {
 			// Enabling both feature flags by setting the featureFlag query parameter twice
-			featureFlag: 'navx-full-height-sidebar&featureFlag=platform-dst-side-nav-layering-fixes',
+			featureFlag:
+				'navx-full-height-sidebar&featureFlag=platform-dst-side-nav-layering-fixes&featureFlag=platform_dst_nav4_side_nav_resize_tooltip_feedback',
 		});
 	});
 
@@ -162,6 +165,40 @@ test.describe('side nav panel splitter', () => {
 			// Side nav panel splitter should be hidden
 			const sideNavPanelSplitter = page.getByTestId('side-nav-slot-panel-splitter');
 			await expect(sideNavPanelSplitter).toBeHidden();
+		});
+	});
+
+	test.describe('tooltip', () => {
+		test('should be positioned within the main content area even when hovering above the main content area', async ({
+			page,
+		}) => {
+			await page.getByTestId('side-nav-slot-panel-splitter').hover({ position: { x: 0, y: 0 } });
+
+			const tooltip = page.getByRole('tooltip');
+
+			await tooltip.waitFor({ state: 'visible' });
+
+			const boundingBox = await tooltip.boundingBox();
+			invariant(boundingBox);
+
+			expect(boundingBox.x).toBe(330); // Constant distance from resizer
+			expect(boundingBox.y).toBe(56); // Top-most allowed position -> 8px below top nav
+		});
+
+		test('should be positioned alongside cursor when hovering within main content area', async ({
+			page,
+		}) => {
+			await page.getByTestId('side-nav-slot-panel-splitter').hover({ position: { x: 0, y: 400 } });
+
+			const tooltip = page.getByRole('tooltip');
+
+			await tooltip.waitFor({ state: 'visible' });
+
+			const boundingBox = await tooltip.boundingBox();
+			invariant(boundingBox);
+
+			expect(boundingBox.x).toBe(330); // Constant distance from resizer
+			expect(boundingBox.y).toBe(375); // Centered around cursor Y, so top edge is slightly above the cursor position
 		});
 	});
 });

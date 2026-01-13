@@ -68,7 +68,7 @@ export const getArchiveEntriesFromFileState = async (
 };
 
 export class ArchiveViewerBase extends BaseViewer<Content, Props> {
-	protected async init() {
+	protected async init(): Promise<void> {
 		this.setState(this.initialState);
 	}
 
@@ -82,7 +82,7 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 		};
 	}
 
-	protected release() {
+	protected release(): void {
 		const { content } = this.state;
 		if (!content.data || !content.data.src) {
 			return;

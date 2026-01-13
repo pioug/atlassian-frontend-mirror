@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 
 import type { VirtualElement } from '@popperjs/core';
 import { bind } from 'bind-event-listener';
@@ -86,6 +86,7 @@ function Tooltip({
 	isScreenReaderAnnouncementDisabled = false,
 	shortcut,
 	UNSAFE_shouldAlwaysFadeIn: shouldAlwaysFadeIn = false,
+	UNSAFE_shouldRenderToParent = false,
 }: TooltipProps): React.JSX.Element {
 	// Not using a gate for this check. When the gate is disabled `mouse-y` and `mouse-x` are treated as `mouse`.
 	const isMousePosition = position === 'mouse' || position === 'mouse-y' || position === 'mouse-x';
@@ -542,6 +543,11 @@ function Tooltip({
 		</span>
 	) : null;
 
+	const PopperWrapper =
+		UNSAFE_shouldRenderToParent && fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')
+			? Fragment
+			: TooltipPortal;
+
 	return (
 		<>
 			{typeof children === 'function' ? (
@@ -577,7 +583,7 @@ function Tooltip({
 			)}
 
 			{shouldRenderTooltipPopup ? (
-				<Portal zIndex={tooltipZIndex}>
+				<PopperWrapper>
 					<Popper
 						placement={tooltipPosition}
 						referenceElement={getReferenceElement() as HTMLElement}
@@ -636,10 +642,14 @@ function Tooltip({
 							);
 						}}
 					</Popper>
-				</Portal>
+				</PopperWrapper>
 			) : null}
 		</>
 	);
 }
 
 export default Tooltip;
+
+const TooltipPortal = ({ children }: { children: React.ReactNode }) => {
+	return <Portal zIndex={tooltipZIndex}>{children}</Portal>;
+};

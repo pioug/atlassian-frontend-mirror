@@ -26,7 +26,7 @@ export class FocusedTaskCloseAccount extends React.Component<Props, State> {
 		currentScreenIdx: 0,
 	};
 
-	nextScreen = () => {
+	nextScreen = (): void => {
 		const { screens } = this.props;
 		const { currentScreenIdx } = this.state;
 		const nextScreenIdx =
@@ -34,7 +34,7 @@ export class FocusedTaskCloseAccount extends React.Component<Props, State> {
 		this.setState({ currentScreenIdx: nextScreenIdx });
 	};
 
-	previousScreen = () => {
+	previousScreen = (): void => {
 		const { currentScreenIdx } = this.state;
 		const previousScreenIdx = currentScreenIdx - 1 >= 0 ? currentScreenIdx - 1 : 0;
 		this.setState({ currentScreenIdx: previousScreenIdx });

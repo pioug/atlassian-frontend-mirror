@@ -13,9 +13,9 @@ import { SelectionExtensionMenuItems } from '../menu/SelectionExtensionMenuItems
 import { SelectionExtensionComponentContextProvider } from '../SelectionExtensionComponentContext';
 
 type RegisterBlockMenuItemsOptions = {
-	extensionList: ExtensionConfiguration[];
 	api: ExtractInjectionAPI<SelectionExtensionPlugin> | undefined;
 	editorViewRef?: { current?: EditorView };
+	extensionList: ExtensionConfiguration[];
 };
 
 export function registerBlockMenuItems({
@@ -58,6 +58,7 @@ export function registerBlockMenuItems({
 			{
 				type: 'block-menu-item' as const,
 				key: `selection-extension-${key}`,
+				isHidden: () => blockMenu.getMenuItems().length === 0,
 				parent: {
 					type: 'block-menu-section' as const,
 					key: TRANSFORM_CREATE_MENU_SECTION.key,

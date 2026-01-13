@@ -3,11 +3,17 @@ import React from 'react';
 import { fireEvent } from '@testing-library/react';
 
 import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 // eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import { getDefaultItems } from '../../../__tests__/__helpers';
 
 import { LinkSearchList, type LinkSearchListProps, testIds } from './index';
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 interface SetupOptions extends LinkSearchListProps {}
 

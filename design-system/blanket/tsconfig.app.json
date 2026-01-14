@@ -29,7 +29,6 @@
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__blanket/app"
 	},
-	"files": ["../../../typings/node.d.ts"],
 	"references": [
 		{
 			"path": "../../analytics/analytics-next/tsconfig.app.json"

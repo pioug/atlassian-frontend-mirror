@@ -164,12 +164,12 @@ const deletedTraditionalContentStyleUnbounded = convertToInlineCss({
 	zIndex: 1,
 });
 
-export const getDeletedContentStyleUnbounded = (colourScheme?: 'standard' | 'traditional') =>
+export const getDeletedContentStyleUnbounded = (colourScheme?: 'standard' | 'traditional'): string =>
 	colourScheme === 'traditional'
 		? deletedTraditionalContentStyleUnbounded
 		: deletedContentStyleUnbounded;
 
-export const getDeletedContentStyle = (colourScheme?: 'standard' | 'traditional') =>
+export const getDeletedContentStyle = (colourScheme?: 'standard' | 'traditional'): string =>
 	colourScheme === 'traditional' ? deletedTraditionalContentStyle : deletedContentStyle;
 
 const getNodeClass = (name: string) => {

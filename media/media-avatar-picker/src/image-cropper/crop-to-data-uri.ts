@@ -16,7 +16,7 @@ export const cropToDataURI = (
 	cropRect: Rect,
 	scale: number,
 	imageOrientation: number,
-) => {
+): string => {
 	const { top, left, width, height } = cropRect;
 	const scaleWithDefault = scale || 1;
 	let destinationWidth = Math.max(width - CONTAINER_PADDING * 2, 0);

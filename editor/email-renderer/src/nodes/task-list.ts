@@ -5,7 +5,7 @@ import { createClassName } from '../styles/util';
 const className = createClassName('taskList');
 const nestedClassName = createClassName('nestedTaskList');
 
-export const styles = `
+export const styles: string = `
 .${className} {
   margin-top: 12px;
 }
@@ -16,7 +16,7 @@ export const styles = `
 }
 `;
 
-export default function taskList({ text, parent }: NodeSerializerOpts) {
+export default function taskList({ text, parent }: NodeSerializerOpts): string {
 	return createTag(
 		'div',
 		{

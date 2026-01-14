@@ -7,6 +7,7 @@ import format from '@af/formatting/sync';
 import {
 	AGENT_LOGO_DOCS_ORDER,
 	APP_LOGO_DOCS_ORDER,
+	logoDocsSchema,
 	PROGRAM_LOGO_DOCS_ORDER,
 	SHARED_LOGOS,
 } from '../src/logo-config';
@@ -29,16 +30,21 @@ const MANUAL_EXAMPLES = ['loom', 'loom-blurple'];
 const MANUAL_EXAMPLE_FILES = MANUAL_EXAMPLES.map((name) => `logo-${name}.tsx`);
 
 // Template for individual logo examples
-const generateLogoExampleTemplate = (name: string, shouldUseNewLogoDesign: boolean) => `
+const generateLogoExampleTemplate = (
+	name: string,
+	shouldUseNewLogoDesign: boolean,
+	skipLogo: boolean = false,
+) => `
 import React from 'react';
 
-import { ${name}Icon, ${name}Logo } from '@atlaskit/logo';
+
+import { ${name}Icon${skipLogo ? '' : `, ${name}Logo`} } from '@atlaskit/logo';
 
 import LogoTable from '../utils/logo-table';
 
-export default () =>
+export default (): React.JSX.Element =>
 		<LogoTable
-			logo={<${name}Logo appearance="brand" ${shouldUseNewLogoDesign ? 'shouldUseNewLogoDesign' : ''} />}
+			${skipLogo ? '' : `logo={<${name}Logo appearance="brand" ${shouldUseNewLogoDesign ? 'shouldUseNewLogoDesign' : ''} />}`}
 			icon={<${name}Icon appearance="brand" ${shouldUseNewLogoDesign ? 'shouldUseNewLogoDesign' : ''} />}
 		/>
 `;
@@ -80,6 +86,7 @@ const generateLogoExamples = () => {
 		const content = generateLogoExampleTemplate(
 			componentName,
 			SHARED_LOGOS.find((logo) => logo.name === name)?.type === 'migration',
+			logoDocsSchema.find((logo) => logo.name === name)?.skipLogo,
 		);
 		fs.ensureFileSync(path.join(GENERATED_EXAMPLES_DIR, fileName));
 		fs.writeFileSync(path.join(GENERATED_EXAMPLES_DIR, fileName), format(content, 'tsx'));
@@ -95,9 +102,12 @@ order: 0
 ---
 
 import LogoIcon from '../../examples/constellation/logo-icon';
+import LogoXxsmall from '../../examples/constellation/logo-xxsmall';
+import LogoXsmall from '../../examples/constellation/logo-xsmall';
 import LogoSmall from '../../examples/constellation/logo-small';
 import LogoMedium from '../../examples/constellation/logo-medium';
 import LogoLarge from '../../examples/constellation/logo-large';
+import LogoXlarge from '../../examples/constellation/logo-xlarge';
 import LogoBrand from '../../examples/constellation/logo-brand';
 import LogoInverse from '../../examples/constellation/logo-inverse';
 import LogoNeutral from '../../examples/constellation/logo-neutral';
@@ -160,10 +170,21 @@ Inverse app logos should be used to contrast against bold backgrounds.
 
 ## Size
 
+### Xxsmall
+The \`xxsmall\` size (16px) is the smallest available size.
+
+<Example Component={LogoXxsmall} packageName="@atlaskit/logo" />
+
+### Xsmall
+
+The \`xsmall\` size (20px) can be used in compact UI elements.
+
+<Example Component={LogoXsmall} packageName="@atlaskit/logo" />
+
 ### Small
 
-Use the \`small\` logo in areas with minimal space or that contain many logos in close proximity. For
-example, the icon component, the marketing footer, or the emoji picker.
+The \`small\` size (24px) can be used in areas with minimal space or that contain many logos in close
+proximity. For example, the icon component, the marketing footer, or the emoji picker.
 
 <Example Component={LogoSmall} packageName="@atlaskit/logo" />
 
@@ -175,10 +196,16 @@ The \`medium\` size (32px) is the default size.
 
 ### Large
 
-The \`large\` size (56px) is rarely used. It may be used for a hero piece. For example, Statuspage's
-login.
+The \`large\` size (40px) can be used for prominent placements.
 
 <Example Component={LogoLarge} packageName="@atlaskit/logo" />
+
+### Xlarge
+
+The \`xlarge\` size (48px) is rarely used. It may be used for a hero piece. For example, Statuspage's
+login.
+
+<Example Component={LogoXlarge} packageName="@atlaskit/logo" />
 
 ## Company / Program logos
 

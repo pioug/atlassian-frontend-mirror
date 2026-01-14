@@ -48,7 +48,7 @@ export const getWrapperDimensions = (dimensions?: CardDimensions, appearance?: C
 
 // This is a trick to simulate the blue border without affecting the dimensions.
 // CSS outline has no 'radius', therefore we can't achieve the same effect with it
-export const getWrapperShadow = (disableOverlay: boolean, selected: boolean) => {
+export const getWrapperShadow = (disableOverlay: boolean, selected: boolean): string => {
 	const withOverlayShadow = !disableOverlay
 		? `${token('elevation.shadow.raised', `0 1px 1px ${N60A}, 0 0 1px 0 ${N60A}`)}`
 		: '';
@@ -58,7 +58,7 @@ export const getWrapperShadow = (disableOverlay: boolean, selected: boolean) => 
 	return shadow ? `box-shadow: ${shadow};` : '';
 };
 
-export const getCursorStyle = (cursor: MediaCardCursor | undefined) =>
+export const getCursorStyle = (cursor: MediaCardCursor | undefined): string =>
 	!!cursor ? `cursor: ${cursor};` : '';
 
 export const getClickablePlayButtonStyles = (isPlayButtonClickable: boolean) => {
@@ -72,7 +72,7 @@ export const getClickablePlayButtonStyles = (isPlayButtonClickable: boolean) => 
   `;
 };
 
-export const getSelectableTickBoxStyles = (isTickBoxSelectable: boolean) => {
+export const getSelectableTickBoxStyles = (isTickBoxSelectable: boolean): string => {
 	if (!isTickBoxSelectable) {
 		return '';
 	}

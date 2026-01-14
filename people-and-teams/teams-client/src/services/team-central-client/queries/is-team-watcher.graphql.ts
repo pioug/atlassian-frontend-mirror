@@ -1,7 +1,7 @@
 import { print } from 'graphql';
 import gql from 'graphql-tag';
 
-export const IsTeamWatcherQuery = print(gql`
+export const IsTeamWatcherQuery: string = print(gql`
 	query IsTeamWatcher($teamId: String!, $cloudId: String!) {
 		isTeamWatcher: teamByTeamId(teamId: $teamId, cloudId: $cloudId) {
 			watching

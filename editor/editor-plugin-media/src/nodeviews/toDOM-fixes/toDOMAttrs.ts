@@ -56,7 +56,7 @@ export const getMediaAttrs = (nodeName: string, node: PMNode) => {
 	return attrs;
 };
 
-export const camelCaseToKebabCase = (str: string) =>
+export const camelCaseToKebabCase = (str: string): string =>
 	// Ignored via go/ees005
 	// eslint-disable-next-line require-unicode-regexp
 	str.replace(/([^A-Z]+)([A-Z])/g, (_, x, y) => `${x}-${y.toLowerCase()}`);

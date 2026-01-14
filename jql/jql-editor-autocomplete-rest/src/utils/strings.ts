@@ -30,7 +30,7 @@ export const isQuoted = (maybeQuotedString: string) =>
  * @param maybeQuotedString string to remove surrounding quotes from
  * @returns {string} unquoted, unescaped string
  */
-export const normalize = (maybeQuotedString: string) => {
+export const normalize = (maybeQuotedString: string): string => {
 	if (isQuoted(maybeQuotedString)) {
 		return maybeQuotedString.slice(1, -1).replace(/(?:\\(.))/g, '$1');
 	}

@@ -1,6 +1,6 @@
 import { bind } from 'bind-event-listener';
 
-import { ACTION_SUBJECT, ACTION_SUBJECT_ID, type DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 import {
 	Experience,
 	ExperienceCheckDomMutation,
@@ -10,19 +10,11 @@ import {
 } from '@atlaskit/editor-common/experiences';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+
+import { EXPERIENCE_ABORT_REASON, type ExperienceOptions, type ProviderExperienceOptions } from '../../types'
+import { getAddedResourceIds, getTarget } from '../utils/experience-tracking-utils';
 
 const pluginKey = new PluginKey('createSourceSyncBlockExperience');
-
-type CreateSourceExperienceOptions = {
-	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
-	refs: { containerElement?: HTMLElement, popupsMountPoint?: HTMLElement, wrapperElement?: HTMLElement};
-	syncBlockStore: SyncBlockStoreManager;
-};
-
-const ABORT_REASON = {
-	EDITOR_DESTROYED: 'editor-destroyed',
-};
 
 const START_METHOD = {
 	BLOCK_MENU: 'block-menu',
@@ -46,14 +38,14 @@ const syncedBlockCreateButtonIds = new Set<SyncedBlockCreateButtonId>(
  * This experience tracks when a source sync block is inserted.
  *
  * Start: When user inserts a sync block via block menu, quick insert or pinned toolbar
- * Success: When the sync block is added to the DOM within 2000ms of start
- * Failure: When 500ms passes without the source sync block being added to the DOM
+ * Success: When the sync block is added to the DOM within 3000ms of start
+ * Failure: When 3000ms passes without the source sync block being added to the DOM
  */
 export const getCreateSourceExperiencePlugin = ({
 	refs,
 	dispatchAnalyticsEvent,
 	syncBlockStore,
-}: CreateSourceExperienceOptions) => {
+}: ProviderExperienceOptions) => {
 	let popupsTargetEl: HTMLElement | undefined;
 	let editorViewEl: HTMLElement | undefined;
 
@@ -67,7 +59,7 @@ export const getCreateSourceExperiencePlugin = ({
 		return popupsTargetEl;
 	};
 
-	const experience = getCreateSourceExperience({ refs, dispatchAnalyticsEvent, syncBlockStore });
+	const experience = getCreateSourceExperience({ refs, dispatchAnalyticsEvent });
 	syncBlockStore.sourceManager.setCreateExperience(experience);
 
 	const unbindClickListener = bind(document, {
@@ -122,7 +114,7 @@ export const getCreateSourceExperiencePlugin = ({
 
 			return {
 				destroy: () => {
-					experience.abort({ reason: ABORT_REASON.EDITOR_DESTROYED });
+					experience.abort({ reason: EXPERIENCE_ABORT_REASON.EDITOR_DESTROYED });
 					unbindClickListener();
 					unbindKeydownListener();
 				},
@@ -134,29 +126,27 @@ export const getCreateSourceExperiencePlugin = ({
 const getCreateSourceExperience = ({
 	refs,
 	dispatchAnalyticsEvent,
-}: CreateSourceExperienceOptions) => {
+}: ExperienceOptions) => {
 	return new Experience(ACTION_SUBJECT.SYNCED_BLOCK, {
 		actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_CREATE,
 		dispatchAnalyticsEvent,
 		checks: [
-			new ExperienceCheckTimeout({ durationMs: 2000 }),
+			new ExperienceCheckTimeout({ durationMs: 3000 }),
 			new ExperienceCheckDomMutation({
 				onDomMutation: ({ mutations }) => {
-					if (mutations.some(isSourceSyncBlockAddedInMutation)) {
-						return { status: 'success' };
+					const createdResourceIds = getAddedResourceIds(mutations, '[data-prosemirror-node-name="bodiedSyncBlock"]');
+					if (createdResourceIds.length > 0) {
+						return {
+							status: 'success',
+							metadata: { createdResourceIds }
+						};
 					}
 
 					return undefined;
 				},
 				observeConfig: () => {
-					const proseMirrorElement = refs.containerElement?.querySelector('.ProseMirror');
-
-					if (!proseMirrorElement || !(proseMirrorElement instanceof HTMLElement)) {
-						return null;
-					}
-
 					return {
-						target: proseMirrorElement,
+						target: getTarget(refs.containerElement),
 						options: {
 							childList: true,
 						},
@@ -196,15 +186,4 @@ const handleButtonClick = (
 
 const isEnterKey = (key: string) => {
 	return key === 'Enter';
-};
-
-const isSourceSyncBlockAddedInMutation = ({ type, addedNodes }: MutationRecord): boolean =>
-	type === 'childList' && [...addedNodes].some(isSourceSyncBlockNode);
-
-const isSourceSyncBlockNode = (node?: Node | null): boolean => {
-	if (!(node instanceof HTMLElement)) {
-		return false;
-	}
-
-	return !!node.querySelector('[data-prosemirror-node-name="bodiedSyncBlock"]');
 };

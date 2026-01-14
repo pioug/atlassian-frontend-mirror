@@ -1,7 +1,7 @@
 import { print } from 'graphql';
 import gql from 'graphql-tag';
 
-export const UnlinkContainerMutation = print(gql`
+export const UnlinkContainerMutation: string = print(gql`
 	mutation unlinkTeamToContainerMutation($teamId: ID!, $containerId: ID!) {
 		graphStore @optIn(to: ["GraphStoreMutation"]) {
 			deleteTeamConnectedToContainer(

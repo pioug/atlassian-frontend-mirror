@@ -9,10 +9,7 @@ import { key } from '../pm-plugins/main';
 import { mapPreservedSelection } from '../pm-plugins/utils/selection';
 
 import { moveNode } from './move-node';
-import {
-	canMoveNodeUpOrDown,
-	getCurrentNodePosFromDragHandleSelection,
-} from './utils/move-node-utils';
+import { canMoveNodeUpOrDown, getNodeBoundsFromSelection } from './utils/move-node-utils';
 
 const getSelectionToIndex = (fromIndex: number, $to: ResolvedPos, depth: number) => {
 	const toIndex = $to.index(depth);
@@ -39,13 +36,14 @@ export const moveNodeWithBlockMenu = (
 		const preservedSelection = api?.blockControls.sharedState.currentState()?.preservedSelection;
 		const selection = preservedSelection ?? tr.selection;
 
-		// Nodes like lists nest within themselves, we need to find the top most position
-		const currentNodePos = getCurrentNodePosFromDragHandleSelection({
-			selection,
-			schema: tr.doc.type.schema,
-			resolve: tr.doc.resolve.bind(tr.doc),
-		});
+		// Use getNodeBoundsFromSelection to get the proper block boundaries
+		const nodeBounds = getNodeBoundsFromSelection(selection);
 
+		if (!nodeBounds) {
+			return tr;
+		}
+
+		const currentNodePos = nodeBounds.from;
 		const { $from, $to } = selection;
 
 		const depth = tr.doc.resolve(currentNodePos).depth;

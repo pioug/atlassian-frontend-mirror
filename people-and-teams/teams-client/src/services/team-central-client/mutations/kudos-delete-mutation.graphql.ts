@@ -1,7 +1,7 @@
 import { print } from 'graphql';
 import gql from 'graphql-tag';
 
-export const KudosDeleteMutation = print(gql`
+export const KudosDeleteMutation: string = print(gql`
 	mutation DeleteKudos($id: ID!) {
 		deleteKudos(input: { id: $id }) {
 			success

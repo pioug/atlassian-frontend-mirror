@@ -4,7 +4,7 @@ import { N40, N300 } from '@atlaskit/adf-schema';
 import { createClassName } from '../styles/util';
 
 const className = createClassName('blockquote');
-export const styles = `
+export const styles: string = `
 .${className} {
   border-left: 2px solid ${N40};
   color: ${N300};
@@ -13,6 +13,6 @@ export const styles = `
 }
 `;
 
-export default function blockquote({ text }: NodeSerializerOpts) {
+export default function blockquote({ text }: NodeSerializerOpts): string {
 	return createTag('blockquote', { class: className }, text);
 }

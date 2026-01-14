@@ -152,7 +152,7 @@
 		"jira_update_jql_teams": {
 			"type": "boolean"
 		},
-		"jira_update_jql_membersof_teams": {
+		"jira-membersof-team-support": {
 			"type": "boolean"
 		},
 		"list_lovability_improving_filters": {

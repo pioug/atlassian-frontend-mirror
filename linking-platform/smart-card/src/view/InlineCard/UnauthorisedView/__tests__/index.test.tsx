@@ -3,7 +3,6 @@ import React from 'react';
 import { fireEvent, screen } from '@testing-library/react';
 
 import { renderWithIntl } from '@atlaskit/link-test-helpers';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { InlineCardUnauthorizedView } from '../index';
 
@@ -38,28 +37,12 @@ describe('Unauthorised View', () => {
 		expect(container).toHaveTextContent(`${testUrl}Connect your 3P account`);
 	});
 
-	ffTest.off('navx-2479-sl-fix-inilne-card-show-connect-button', '', () => {
-		it('should show action button when action is not available', () => {
-			const testUrl = 'http://unauthorised-test/';
+	it('should not show action button when action is not available', () => {
+		const testUrl = 'http://unauthorised-test/';
 
-			const { container } = renderWithIntl(
-				<InlineCardUnauthorizedView context="3P" url={testUrl} onAuthorise={jest.fn()} />,
-			);
+		const { container } = renderWithIntl(<InlineCardUnauthorizedView context="3P" url={testUrl} />);
 
-			expect(container).toHaveTextContent(`${testUrl}Connect your 3P account`);
-		});
-	});
-
-	ffTest.on('navx-2479-sl-fix-inilne-card-show-connect-button', '', () => {
-		it('should not show action button when action is not available', () => {
-			const testUrl = 'http://unauthorised-test/';
-
-			const { container } = renderWithIntl(
-				<InlineCardUnauthorizedView context="3P" url={testUrl} />,
-			);
-
-			expect(container).not.toHaveTextContent('Connect');
-		});
+		expect(container).not.toHaveTextContent('Connect');
 	});
 
 	it('should not redirect user if they do not click on the authorize button', () => {

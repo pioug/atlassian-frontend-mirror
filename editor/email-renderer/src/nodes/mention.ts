@@ -3,7 +3,7 @@ import { createClassName } from '../styles/util';
 import type { NodeSerializerOpts } from '../interfaces';
 import { N500 } from '@atlaskit/adf-schema';
 
-export const styles = `
+export const styles: string = `
 .${createClassName('mention')} {
   background: #EFEFF2;
   border: 1px solid transparent;
@@ -35,7 +35,7 @@ const resolveMention = (node: NodeSerializerOpts) => {
 	return node.text || '@unknown';
 };
 
-export default function mention(node: NodeSerializerOpts) {
+export default function mention(node: NodeSerializerOpts): string {
 	const className = ishighlightedMentionNode(node)
 		? createClassName('mention-highlighted')
 		: createClassName('mention');

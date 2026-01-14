@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 
 import { type UserStatus } from '../../../../types/user';
 
-export const TeamsUserQuery = print(gql`
+export const TeamsUserQuery: string = print(gql`
 	query TeamsUserQuery($userId: ID!) {
 		user(accountId: $userId) {
 			id

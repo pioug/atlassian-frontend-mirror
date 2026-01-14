@@ -21,7 +21,9 @@ jest.mock('../../../../hooks/useLoadOptions');
 describe('IconEditType', () => {
 	const testId = 'inline-edit-priority-select--input';
 	const setEditValues = jest.fn();
-	const values = [{ label: 'major', source: 'data:image/svg+xml;base64...', text: 'Major', id: '1' }];
+	const values = [
+		{ label: 'major', source: 'data:image/svg+xml;base64...', text: 'Major', id: '1' },
+	];
 	const options = [
 		...values,
 		{ label: 'blocker', source: 'data:image/svg+xml;base64...', text: 'Blocker', id: '2' },
@@ -75,22 +77,20 @@ describe('IconEditType', () => {
 		expect(await screen.findByTestId(testId)).toBeInTheDocument();
 	});
 
-	ffTest.on('navx-sllv-fix-inline-edit-error', '', () => {
-		it.each([
-			['undefined object', undefined],
-			['empty array', []],
-			['empty item', [{}]],
-			['no text', [{ transitions: [] }]],
-			['wrong text type', [{ text: true }]],
-		])('should not throw error when receives invalid options with %s', async (_, options) => {
-			mockUseLoadOptions.mockReturnValue({
-				options,
-				isLoading: false,
-				hasFailed: false,
-			});
-
-			expect(() => setup()).not.toThrow();
+	it.each([
+		['undefined object', undefined],
+		['empty array', []],
+		['empty item', [{}]],
+		['no text', [{ transitions: [] }]],
+		['wrong text type', [{ text: true }]],
+	])('should not throw error when receives invalid options with %s', async (_, options) => {
+		mockUseLoadOptions.mockReturnValue({
+			options,
+			isLoading: false,
+			hasFailed: false,
 		});
+
+		expect(() => setup()).not.toThrow();
 	});
 
 	ffTest.on(

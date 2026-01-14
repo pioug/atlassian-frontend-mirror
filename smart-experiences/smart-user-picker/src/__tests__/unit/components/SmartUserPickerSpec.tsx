@@ -460,7 +460,6 @@ describe('SmartUserPicker', () => {
 				includeTeams: false,
 				includeUsers: true,
 				includeNonLicensedUsers: false,
-				verifiedTeams: false,
 				maxNumberOfResults: 100,
 				query: '',
 				searchEmail: false,
@@ -2008,8 +2007,9 @@ describe('SmartUserPicker', () => {
 				expect(lastCall[0].verifiedTeams).toBe(true);
 			});
 
-			it('should not filter teams when verifiedTeams is false', async () => {
-				const mockTeamsWithVerified: OptionData[] = [
+			it('should include both teams when verifiedTeams prop is false (treated same as undefined)', async () => {
+				// When verifiedTeams is false, it's treated the same as undefined - include both
+				const mockAllTeams: OptionData[] = [
 					{
 						id: 'verified-team-1',
 						name: 'Verified Team 1',
@@ -2024,7 +2024,7 @@ describe('SmartUserPicker', () => {
 					},
 				];
 
-				getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockTeamsWithVerified));
+				getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockAllTeams));
 
 				renderSmartUserPicker({
 					includeTeams: true,
@@ -2038,6 +2038,12 @@ describe('SmartUserPicker', () => {
 					expect(screen.getByText('Verified Team 1')).toBeInTheDocument();
 					expect(screen.getByText('Unverified Team 1')).toBeInTheDocument();
 				});
+
+				// Verify the API was called with verifiedTeams: undefined (false is treated as "include both")
+				const lastCall = getUserRecommendationsMock.mock.calls[
+					getUserRecommendationsMock.mock.calls.length - 1
+				];
+				expect(lastCall[0].verifiedTeams).toBeUndefined();
 			});
 
 			it('should not filter teams when verifiedTeams is true but includeTeams is false', async () => {
@@ -2141,7 +2147,7 @@ describe('SmartUserPicker', () => {
 				expect(request.includeTeams).toBe(true);
 			});
 
-			it('should pass verifiedTeams as false to backend when feature flag is disabled even if verifiedTeams prop is true', async () => {
+			it('should not pass verifiedTeams to backend when feature flag is disabled even if verifiedTeams prop is true', async () => {
 				const { fg } = require('@atlaskit/platform-feature-flags');
 				fg.mockImplementation((flag: string) => {
 					if (flag === 'smart-user-picker-managed-teams-gate') {
@@ -2183,11 +2189,11 @@ describe('SmartUserPicker', () => {
 					expect(screen.getByText('Unverified Team 1')).toBeInTheDocument();
 				});
 
-				// Verify the API was called with verifiedTeams: false (because feature flag is disabled)
+				// Verify the API was called with verifiedTeams: undefined (because feature flag is disabled)
 				const lastCall = getUserRecommendationsMock.mock.calls[
 					getUserRecommendationsMock.mock.calls.length - 1
 				];
-				expect(lastCall[0].verifiedTeams).toBe(false);
+				expect(lastCall[0].verifiedTeams).toBeUndefined();
 
 				// Reset mock for other tests
 				fg.mockImplementation((flag: string) => {

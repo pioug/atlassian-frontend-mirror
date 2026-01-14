@@ -65,7 +65,7 @@ interface Attachment {
 	url?: string;
 }
 
-export function formatMessage(text: string) {
+export function formatMessage(text: string): string {
 	const lines = text.trim().split('\n');
 	let maxLineLength = 0;
 	lines.forEach((line: string) => (maxLineLength = Math.max(line.length, maxLineLength)));

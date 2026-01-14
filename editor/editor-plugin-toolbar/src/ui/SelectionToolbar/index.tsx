@@ -12,7 +12,11 @@ import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { logException } from '@atlaskit/editor-common/monitoring';
-import { EditorToolbarProvider, EditorToolbarUIProvider, shouldShowSelectionToolbar } from '@atlaskit/editor-common/toolbar';
+import {
+	EditorToolbarProvider,
+	EditorToolbarUIProvider,
+	shouldShowSelectionToolbar,
+} from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
@@ -40,6 +44,7 @@ import type { ToolbarPlugin } from '../../toolbarPluginType';
 import { SELECTION_TOOLBAR_LABEL } from '../consts';
 
 import { getKeyboardNavigationConfig } from './keyboard-config';
+import type { CalculateToolbarPosition, Position } from './types';
 import { getDomRefFromSelection } from './utils';
 
 const isToolbarComponent = (component: RegisterComponent): component is RegisterToolbar => {
@@ -48,6 +53,7 @@ const isToolbarComponent = (component: RegisterComponent): component is Register
 
 type SelectionToolbarProps = {
 	api?: ExtractInjectionAPI<ToolbarPlugin>;
+	calculateToolbarPosition?: CalculateToolbarPosition;
 	disableSelectionToolbarWhenPinned: boolean;
 	editorView: EditorView;
 	mountPoint: HTMLElement | undefined;
@@ -104,40 +110,13 @@ const usePluginState = conditionalHooksFactory(
 	},
 );
 
-const useOnPositionCalculated = conditionalHooksFactory(
-	() => fg('platform_editor_toolbar_aifc_patch_7'),
-	(editorView: EditorView) => {
-		const onPositionCalculated = useCallback(
-			(position: { left?: number; top?: number }) => {
-				try {
-					const toolbarTitle = SELECTION_TOOLBAR_LABEL;
-
-					// Show special position on cell selection only when editor controls experiment is enabled
-					const isEditorControlsEnabled = expValEquals(
-						'platform_editor_controls',
-						'cohort',
-						'variant1',
-					);
-					const isCellSelection = '$anchorCell' in editorView.state.selection;
-					if (isCellSelection && isEditorControlsEnabled) {
-						return calculateToolbarPositionOnCellSelection(toolbarTitle)(editorView, position);
-					}
-					return calculateToolbarPositionTrackHead(toolbarTitle)(editorView, position);
-				} catch (error: unknown) {
-					logException(error as Error, { location: 'editor-plugin-toolbar/selectionToolbar' });
-					return position;
-				}
-			},
-			[editorView],
-		);
-
-		return onPositionCalculated;
-	},
-	(editorView: EditorView) => {
-		const onPositionCalculated = useCallback(
-			(position: { left?: number; top?: number }) => {
-				const toolbarTitle = SELECTION_TOOLBAR_LABEL;
-
+const useOnPositionCalculated = (
+	editorView: EditorView,
+	cachedCalculateToolbarPosition?: CalculateToolbarPosition,
+) => {
+	const onPositionCalculated = useCallback(
+		(position: Position) => {
+			try {
 				// Show special position on cell selection only when editor controls experiment is enabled
 				const isEditorControlsEnabled = expValEquals(
 					'platform_editor_controls',
@@ -146,16 +125,25 @@ const useOnPositionCalculated = conditionalHooksFactory(
 				);
 				const isCellSelection = '$anchorCell' in editorView.state.selection;
 				if (isCellSelection && isEditorControlsEnabled) {
-					return calculateToolbarPositionOnCellSelection(toolbarTitle)(editorView, position);
+					return calculateToolbarPositionOnCellSelection(SELECTION_TOOLBAR_LABEL)(
+						editorView,
+						position,
+					);
 				}
-				return calculateToolbarPositionTrackHead(toolbarTitle)(editorView, position);
-			},
-			[editorView],
-		);
 
-		return onPositionCalculated;
-	},
-);
+				return cachedCalculateToolbarPosition
+					? cachedCalculateToolbarPosition(editorView, position)
+					: calculateToolbarPositionTrackHead(SELECTION_TOOLBAR_LABEL)(editorView, position);
+			} catch (error: unknown) {
+				logException(error as Error, { location: 'editor-plugin-toolbar/selectionToolbar' });
+				return position;
+			}
+		},
+		[editorView, cachedCalculateToolbarPosition],
+	);
+
+	return onPositionCalculated;
+};
 
 export const SelectionToolbar = ({
 	api,
@@ -170,11 +158,15 @@ export const SelectionToolbar = ({
 		shouldShowToolbar,
 		editorViewMode,
 		// @ts-ignore
-		selection,
+		selection: _selection,
 	} = usePluginState(api);
 
-	const contextualFormattingEnabled = api?.toolbar?.actions.contextualFormattingMode() ?? 'always-pinned';
-	const selectionToolbarConfigEnabled = shouldShowSelectionToolbar(contextualFormattingEnabled, editorToolbarDockingPreference);
+	const contextualFormattingEnabled =
+		api?.toolbar?.actions.contextualFormattingMode() ?? 'always-pinned';
+	const selectionToolbarConfigEnabled = shouldShowSelectionToolbar(
+		contextualFormattingEnabled,
+		editorToolbarDockingPreference,
+	);
 
 	const intl = useIntl();
 	const components = api?.toolbar?.actions.getComponents();
@@ -249,11 +241,7 @@ export const SelectionToolbar = ({
 					fireAnalyticsEvent={(payload: unknown) => {
 						api?.analytics?.actions.fireAnalyticsEvent(payload as AnalyticsEventPayload);
 					}}
-					keyboardNavigation={
-						expValEquals('platform_editor_toolbar_aifc_patch_5', 'isEnabled', true)
-							? keyboardNavigation
-							: undefined
-					}
+					keyboardNavigation={keyboardNavigation}
 				>
 					<ToolbarModelRenderer
 						toolbar={toolbar as RegisterToolbar}
@@ -275,6 +263,7 @@ export const SelectionToolbarWithErrorBoundary = ({
 	editorView,
 	mountPoint,
 	disableSelectionToolbarWhenPinned,
+	calculateToolbarPosition,
 }: SelectionToolbarProps): React.JSX.Element => {
 	return (
 		<ErrorBoundary
@@ -288,6 +277,7 @@ export const SelectionToolbarWithErrorBoundary = ({
 				editorView={editorView}
 				mountPoint={mountPoint}
 				disableSelectionToolbarWhenPinned={disableSelectionToolbarWhenPinned}
+				calculateToolbarPosition={calculateToolbarPosition}
 			/>
 		</ErrorBoundary>
 	);

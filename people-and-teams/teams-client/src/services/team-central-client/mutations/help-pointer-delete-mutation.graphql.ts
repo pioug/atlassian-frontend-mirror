@@ -1,7 +1,7 @@
 import { print } from 'graphql';
 import gql from 'graphql-tag';
 
-export const HelpPointerDeleteMutation = print(gql`
+export const HelpPointerDeleteMutation: string = print(gql`
 	mutation DeleteHelpPointer($id: ID!) {
 		deleteHelpPointer(input: { id: $id }) {
 			success

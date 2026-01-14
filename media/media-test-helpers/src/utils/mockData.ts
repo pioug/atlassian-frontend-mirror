@@ -1,6 +1,6 @@
 const hackerNouns = ['system', 'protocol', 'microchip', 'alarm', 'protocol', 'panel', 'pixel'];
 
-export const getHackerNoun = () => hackerNouns[Math.round(Math.random() * hackerNouns.length)];
+export const getHackerNoun = (): string => hackerNouns[Math.round(Math.random() * hackerNouns.length)];
 
 const commonFileName = [
 	'kwanza_industrial_neural',
@@ -11,12 +11,12 @@ const commonFileName = [
 	'music_moratorium',
 ];
 
-export const imageFileTypes = ['.svgz', '.svg'];
-export const textFileTypes = ['.txt', '.in', '.ini', '.text', '.conf', '.list'];
-export const getTextFileType = () =>
+export const imageFileTypes: string[] = ['.svgz', '.svg'];
+export const textFileTypes: string[] = ['.txt', '.in', '.ini', '.text', '.conf', '.list'];
+export const getTextFileType = (): string =>
 	textFileTypes[Math.floor(Math.random() * textFileTypes.length)];
 
-export const getFakeFileName = (ext = imageFileTypes[Math.round(Math.random())]) =>
+export const getFakeFileName = (ext: string = imageFileTypes[Math.round(Math.random())]) =>
 	`${commonFileName[Math.floor(Math.random() * commonFileName.length)]}${ext}`;
 
 export const getFakeFileSize = (maxSize = 1e7) => Math.round(Math.random() * maxSize);
@@ -42,7 +42,7 @@ export const getFutureDate = () => {
 };
 
 // This function is taken directly from Faker
-export const mockDataUri = function (width: string, height: string) {
+export const mockDataUri = function (width: string, height: string): string {
 	const rawPrefix = 'data:image/svg+xml;base64,';
 	const svgString = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" baseProfile="full" width="${width}" height="${height}"> <rect width="100%" height="100%" fill="grey"/>  <text x="0" y="20" font-size="20" text-anchor="start" fill="white">${width}x${height}</text> </svg>`;
 	return rawPrefix + btoa(svgString);

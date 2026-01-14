@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
@@ -19,17 +19,18 @@ describe('useEmoji', () => {
 	const renderHookWithProvider = async (uploadSupported = false) => {
 		const emojiProvider = await getEmojiResource({ uploadSupported });
 
+		const WrapperWithProvider = ({ children }: { children: React.ReactNode }) => (
+			<ContextWrapper emojiProvider={emojiProvider}>{children}</ContextWrapper>
+		);
+
 		return renderHook(() => useEmoji(), {
-			wrapper: ContextWrapper,
-			initialProps: { emojiProvider },
+			wrapper: WrapperWithProvider,
 		});
 	};
 
 	describe('throws', () => {
 		test('when using hook without emoji context', () => {
-			const { result } = renderHook(() => useEmoji());
-
-			expect(result.error?.message).toEqual('useEmoji must be used within EmojiContext');
+			expect(() => renderHook(() => useEmoji())).toThrow('useEmoji must be used within EmojiContext');
 		});
 	});
 
@@ -46,10 +47,10 @@ describe('useEmoji', () => {
 	});
 
 	test('sets upload to true when enabled', async () => {
+		const { result } = await renderHookWithProvider(true);
 		await act(async () => {
-			const { result } = await renderHookWithProvider(true);
 			expect(result.current.emojiProvider).not.toBeNull();
-			await waitFor(() => expect(result.current.isUploadSupported).toBe(true));
 		});
+		await waitFor(() => expect(result.current.isUploadSupported).toBe(true));
 	});
 });

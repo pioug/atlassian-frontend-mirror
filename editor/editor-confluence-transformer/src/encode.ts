@@ -17,7 +17,7 @@ import { AC_XMLNS, FAB_XMLNS, default as encodeCxhtml } from './encode-cxhtml';
 import { mapCodeLanguage } from './languageMap';
 import { getNodeMarkOfType, encodeMacroParams, mapPanelTypeToCxhtml } from './utils';
 
-export default function encode(node: PMNode, schema: Schema) {
+export default function encode(node: PMNode, schema: Schema): string {
 	const docType = document.implementation.createDocumentType(
 		'html',
 		'-//W3C//DTD XHTML 1.0 Strict//EN',

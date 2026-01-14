@@ -7,7 +7,7 @@ export const DEFAULT_BLOCK_LINK_HASH_PREFIX = 'block-';
  * @param prefix The prefix to look for (default is 'block-')
  * @returns True if the hash matches the block link pattern, false otherwise
  */
-export const isBlockLinkHash = (hash: string, prefix = DEFAULT_BLOCK_LINK_HASH_PREFIX): boolean => {
+export const isBlockLinkHash = (hash: string, prefix: string = DEFAULT_BLOCK_LINK_HASH_PREFIX): boolean => {
 	if (!hash || !prefix) {
 		return false;
 	}
@@ -27,7 +27,7 @@ export const isBlockLinkHash = (hash: string, prefix = DEFAULT_BLOCK_LINK_HASH_P
  */
 export const extractBlockIdFromLinkHash = (
 	hash: string,
-	prefix = DEFAULT_BLOCK_LINK_HASH_PREFIX,
+	prefix: string = DEFAULT_BLOCK_LINK_HASH_PREFIX,
 ) => {
 	if (!isBlockLinkHash(hash, prefix)) {
 		return null;
@@ -46,7 +46,7 @@ export const extractBlockIdFromLinkHash = (
  */
 export const createBlockLinkHashValue = (
 	blockId: string,
-	prefix = DEFAULT_BLOCK_LINK_HASH_PREFIX,
+	prefix: string = DEFAULT_BLOCK_LINK_HASH_PREFIX,
 ) => {
 	return `${prefix}${blockId}`;
 };

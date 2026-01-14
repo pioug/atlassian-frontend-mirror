@@ -66,7 +66,7 @@ export class DirectoryClient extends BaseGraphQlClient {
 		super(`${baseUrl}/directory/graphql`, config);
 	}
 
-	setBaseUrl(baseUrl: string) {
+	setBaseUrl(baseUrl: string): void {
 		this.setServiceUrl(`${baseUrl}/directory/graphql`);
 	}
 

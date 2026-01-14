@@ -32,11 +32,11 @@ export const absolute = (top = 0, left = 0) => `
   left: ${left}px;
 `;
 
-export const borderRadius = `
+export const borderRadius: string = `
   border-radius: ${token('radius.small', '3px')};
 `;
 
-export const borderRadiusBottom = `
+export const borderRadiusBottom: string = `
   border-bottom-left-radius: ${token('radius.small', '3px')};
   border-bottom-right-radius: ${token('radius.small', '3px')};
 `;

@@ -12,7 +12,7 @@ export class ActiveAnchorTracker {
 		this.emitter = new EventEmitter();
 	}
 
-	public getActiveAnchor() {
+	public getActiveAnchor(): string {
 		return this.lastActiveAnchor;
 	}
 

@@ -23,7 +23,7 @@ export const flushPromises = () => {
  * Should be used above imports of deprecated packages, or packages that import those deprecated
  * packages (e.g. @forge/ui), since the warning is logged when the code is loaded.
  */
-export const temporarilySilenceActAndAtlaskitDeprecationWarnings = () => {
+export const temporarilySilenceActAndAtlaskitDeprecationWarnings = (): void => {
 	const originalError = console.error;
 	const originalWarn = console.warn;
 
@@ -46,7 +46,7 @@ export const temporarilySilenceActAndAtlaskitDeprecationWarnings = () => {
 	});
 };
 
-export const waitForUpdate = async (wrapper: ReactWrapper) => {
+export const waitForUpdate = async (wrapper: ReactWrapper): Promise<void> => {
 	// Wait for promises to run and component to be updated
 	await new Promise(setImmediate);
 	wrapper.update();
@@ -75,7 +75,7 @@ export class MockConcurrentExperienceInstance extends UFOExperience {
 		this.transitions = [UFOExperienceState.NOT_STARTED.id];
 	}
 
-	async start() {
+	async start(): Promise<void> {
 		super.start();
 		this.startSpy();
 		this.transitions.push(this.state.id);
@@ -102,7 +102,7 @@ export class MockConcurrentExperienceInstance extends UFOExperience {
 		return null;
 	}
 
-	mockReset() {
+	mockReset(): void {
 		this.startSpy.mockReset();
 		this.successSpy.mockReset();
 		this.failureSpy.mockReset();

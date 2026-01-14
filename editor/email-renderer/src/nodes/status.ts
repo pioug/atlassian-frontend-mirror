@@ -31,7 +31,7 @@ const commonStyle = `
   padding: 2px 4px 3px 4px;
 `;
 
-export const styles = `
+export const styles: string = `
 .${createClassName('status-blue')} {
   ${commonStyle}
   background-color: ${B50};
@@ -66,7 +66,7 @@ export const styles = `
 
 const ALLOWED_COLORS = new Set(['blue', 'red', 'yellow', 'green', 'purple', 'neutral']);
 
-export default function status({ attrs, text }: NodeSerializerOpts) {
+export default function status({ attrs, text }: NodeSerializerOpts): string {
 	const color = ALLOWED_COLORS.has(attrs.color) ? attrs.color : 'neutral';
 	return createTag('span', { class: createClassName(`status-${color}`) }, text);
 }

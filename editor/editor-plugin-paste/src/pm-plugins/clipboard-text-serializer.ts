@@ -16,7 +16,7 @@ import type { Slice } from '@atlaskit/editor-prosemirror/model';
  * @todo Remove when `platform_editor_date_to_text` FF is removed.
  *       Also, rename the file to `create-clipboard-text-serializer.ts`.
  */
-export function clipboardTextSerializer(slice: Slice) {
+export function clipboardTextSerializer(slice: Slice): string {
 	const blockSeparator = '\n\n';
 
 	return slice.content.textBetween(0, slice.content.size, blockSeparator, (leafNode) => {
@@ -53,7 +53,7 @@ export function clipboardTextSerializer(slice: Slice) {
  * (see https://prosemirror.net/docs/ref/#view.EditorProps.clipboardTextSerializer)
  */
 export function createClipboardTextSerializer(intl: IntlShape) {
-	return (slice: Slice) => {
+	return (slice: Slice): string => {
 		const blockSeparator = '\n\n';
 
 		return slice.content.textBetween(0, slice.content.size, blockSeparator, (leafNode) => {

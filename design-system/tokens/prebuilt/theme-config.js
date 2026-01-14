@@ -227,12 +227,7 @@ var themeStateDefaults = exports.themeStateDefaults = {
     return undefined;
   },
   spacing: 'spacing',
-  typography: function typography() {
-    if ((0, _platformFeatureFlags.fg)('platform-disable-default-typography')) {
-      return undefined;
-    }
-    return 'typography';
-  },
+  typography: 'typography',
   UNSAFE_themeOptions: undefined
 };
 

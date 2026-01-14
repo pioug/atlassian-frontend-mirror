@@ -65,7 +65,7 @@ export function getUrl(node: Node): string | undefined {
 	return node.attrs?.url ?? getLinkMark(node)?.attrs?.href;
 }
 
-export const getNodeContext = (doc: Node, pos: number) => {
+export const getNodeContext = (doc: Node, pos: number): string => {
 	const $pos = doc.resolve(pos);
 
 	const maxDepth = 3;

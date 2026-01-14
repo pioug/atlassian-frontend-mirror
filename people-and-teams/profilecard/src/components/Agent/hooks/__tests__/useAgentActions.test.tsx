@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react-hooks';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import { useRovoPostMessageToPubsub } from '@atlaskit/rovo-triggers';
+import { useRovoPostMessageToPubsub } from '@atlaskit/rovo-triggers/post-message-to-pubsub';
 import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
@@ -10,7 +10,7 @@ import { encodeParamsToUrl } from '../../../../util/url';
 import { useAgentUrlActions } from '../useAgentActions';
 
 const mockFireEvent = jest.fn();
-jest.mock('@atlaskit/rovo-triggers');
+jest.mock('@atlaskit/rovo-triggers/post-message-to-pubsub');
 jest.mock('@atlaskit/analytics-next');
 jest.mock('@atlaskit/teams-app-config/navigation');
 jest.mock('../../../../util/analytics');
@@ -86,7 +86,7 @@ describe('useAgentUrlActions', () => {
 			href: 'https://example.com/agent/test-agent-id',
 			target: '_blank',
 		});
-		encodeParamsToUrlMock.mockImplementation((url, params) => `${url}?encoded=params`);
+		encodeParamsToUrlMock.mockImplementation((url, _params) => `${url}?encoded=params`);
 
 		// Mock clipboard API
 		Object.defineProperty(navigator, 'clipboard', {

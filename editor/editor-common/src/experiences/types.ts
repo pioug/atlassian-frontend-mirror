@@ -2,7 +2,7 @@
  * Allow any additional custom metadata to be attached to experience events.
  */
 export type CustomExperienceMetadata = {
-	[key: string]: string | number | boolean | CustomExperienceMetadata | undefined;
+	[key: string]: string | number | boolean | CustomExperienceMetadata | (string | number | boolean | CustomExperienceMetadata)[] | undefined;
 };
 
 /**

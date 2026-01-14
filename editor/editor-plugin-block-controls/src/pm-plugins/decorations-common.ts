@@ -15,7 +15,7 @@ export const getNodeAnchor = (node: PMNode) => {
 	return `--node-anchor-${node.type.name}-${handleId}`;
 };
 
-export const getNodeTypeWithLevel = (node: PMNode) => {
+export const getNodeTypeWithLevel = (node: PMNode): string => {
 	const subType = node.attrs.level ? `-${node.attrs.level}` : '';
 	return node.type.name + subType;
 };

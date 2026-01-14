@@ -90,7 +90,7 @@ export class TeamsClient {
 	 * Sets the base URL to be used in the client requests
 	 * @param {string} baseUrl - The new base URL
 	 */
-	setBaseUrl(baseUrl: string) {
+	setBaseUrl(baseUrl: string): void {
 		this._aggClient.setBaseUrl(baseUrl);
 		this._directoryClient.setBaseUrl(baseUrl);
 	}
@@ -98,7 +98,7 @@ export class TeamsClient {
 	/**
 	 * Sets context including CloudId & OrgId to be used for all requests
 	 */
-	setContext(context: ClientContextProps) {
+	setContext(context: ClientContextProps): void {
 		this._aggClient.setContext(context);
 		this._directoryClient.setContext(context);
 		this._legionClient.setContext(context);
@@ -109,7 +109,7 @@ export class TeamsClient {
 		this._replinesClient.setContext(context);
 	}
 
-	setTeamCentralContext(baseUrl: string, context: ClientContextProps) {
+	setTeamCentralContext(baseUrl: string, context: ClientContextProps): void {
 		this._teamCentralClient.setContext(context);
 		this._teamCentralClient.setBaseUrl(baseUrl);
 	}
@@ -118,7 +118,7 @@ export class TeamsClient {
 	 * @private
 	 * @deprecated use setBaseUrl instead
 	 */
-	setDirectoryBaseUrl(baseUrl: string) {
+	setDirectoryBaseUrl(baseUrl: string): void {
 		// eslint-disable-next-line no-console
 		console.warn('setDirectoryBaseUrl is deprecated, use setBaseUrl instead');
 		return this._directoryClient.setBaseUrl(baseUrl);
@@ -271,7 +271,7 @@ export class TeamsClient {
 		return this.measurePerformance('queryUser', () => this._directoryClient.queryUser(...args));
 	}
 
-	setLegionRootUrl(url: string) {
+	setLegionRootUrl(url: string): void {
 		return this._legionClient.setRootUrl(url);
 	}
 
@@ -671,7 +671,7 @@ export class TeamsClient {
 		);
 	}
 
-	trimTeamARI(teamId = '') {
+	trimTeamARI(teamId = ''): string {
 		return this._legionClient.trimTeamARI(teamId);
 	}
 

@@ -30,7 +30,6 @@
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__linking-common/app"
 	},
-	"files": ["../../../typings/fetch-mock.d.ts"],
 	"references": [
 		{
 			"path": "../../analytics/analytics-next/tsconfig.app.json"

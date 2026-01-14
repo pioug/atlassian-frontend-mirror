@@ -31,7 +31,6 @@
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__link-analytics/app"
 	},
-	"files": ["../../../typings/rusha.d.ts"],
 	"references": [
 		{
 			"path": "../../analytics/analytics-next/tsconfig.app.json"

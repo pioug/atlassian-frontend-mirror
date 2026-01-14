@@ -209,9 +209,6 @@ snapshotInformational(ExplicitFontStyles, {
 	prepare: async (page) => {
 		await page.getByRole('button').click();
 	},
-	featureFlags: {
-		platform_ads_explicit_font_styles: [true, false],
-	},
 });
 
 snapshotInformational(ModalBodyWithoutInlinePaddingExample, {

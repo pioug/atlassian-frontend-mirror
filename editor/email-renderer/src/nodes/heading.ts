@@ -13,7 +13,7 @@ margin-bottom: 0;
 
 const rounder = (value: number) => value.toFixed(2);
 
-export const styles = `
+export const styles: string = `
 .${createClassName('h1')} {
   ${commonStyle}
   font-size: ${headingSizes.h800.size}px;
@@ -59,7 +59,7 @@ export const styles = `
 }
 `;
 
-export default function heading({ attrs, marks, text, context }: NodeSerializerOpts) {
+export default function heading({ attrs, marks, text, context }: NodeSerializerOpts): string {
 	const tagName = `h${attrs.level}`;
 
 	const headingTag = createTag(tagName, { class: createClassName(tagName) }, text);

@@ -63,7 +63,7 @@ export default class CachingClient<T> {
 		return cached.profile;
 	}
 
-	flushCache() {
+	flushCache(): void {
 		if (this.cache) {
 			this.cache.clear();
 		}

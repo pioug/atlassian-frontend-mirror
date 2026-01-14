@@ -9,7 +9,7 @@ export const useProfileInfo = <T>({
 	const [error, setError] = useState(null);
 	const [profileData, setProfileData] = useState<T>();
 
-	const getProfileData = async () => {
+	const getProfileData = async (): Promise<void> => {
 		setIsLoading(true);
 		try {
 			const profileData = await fetchUserProfile?.();

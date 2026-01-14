@@ -39,13 +39,13 @@ function getRequestedContainersFromUrl() {
 	return containers || [];
 }
 
-function removeRequestedContainersFromUrl() {
+function removeRequestedContainersFromUrl(): void {
 	const searchParams = new URLSearchParams(window.location.search);
 	searchParams.delete(SEARCH_PARAM_NAME);
 	window.history.replaceState({}, '', `${window.location.pathname}?${searchParams.toString()}`);
 }
 
-function containerDisplayName(container: ContainerTypes) {
+function containerDisplayName(container: ContainerTypes): string {
 	return CONTAINER_HUMAN_NAMES[container];
 }
 
@@ -96,7 +96,7 @@ function useAsyncPolling(
 	const [isPolling, setIsPolling] = useState(false);
 	const [isPending, setIsPending] = useState(false);
 
-	const stopPolling = useCallback(() => {
+	const stopPolling = useCallback((): void => {
 		if (timeoutRef.current) {
 			clearTimeout(timeoutRef.current);
 			timeoutRef.current = null;
@@ -106,7 +106,7 @@ function useAsyncPolling(
 		setIsPending(false);
 	}, []);
 
-	const reset = useCallback(() => {
+	const reset = useCallback((): void => {
 		if (timeoutRef.current) {
 			clearTimeout(timeoutRef.current);
 			timeoutRef.current = null;
@@ -116,7 +116,7 @@ function useAsyncPolling(
 		setIsPending(false);
 	}, []);
 
-	const startPolling = useCallback(() => {
+	const startPolling = useCallback((): void => {
 		if (timeoutRef.current) {
 			clearTimeout(timeoutRef.current);
 			timeoutRef.current = null;

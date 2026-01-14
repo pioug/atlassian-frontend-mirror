@@ -16,7 +16,7 @@ export const BaseUrls = {
 	production: prodBaseUrl,
 };
 
-export const getBaseUrl = (envKey?: EnvironmentsKeys, baseUrlOverride?: string) => {
+export const getBaseUrl = (envKey?: EnvironmentsKeys, baseUrlOverride?: string): string => {
 	// The `custom` environment is used if the full resolver URL is provided by the user.
 	// It could be useful for SSR, where `CardClient` should use direct service URL instead of the Edge Proxy.
 	if (envKey === 'custom') {
@@ -35,7 +35,7 @@ export const getBaseUrl = (envKey?: EnvironmentsKeys, baseUrlOverride?: string) 
 		: '';
 };
 
-export const getResolverUrl = (envKey?: EnvironmentsKeys, baseUrlOverride?: string) => {
+export const getResolverUrl = (envKey?: EnvironmentsKeys, baseUrlOverride?: string): string => {
 	// The `custom` environment is used if the full resolver URL is provided by the user.
 	// It could be useful for SSR, where `CardClient` should use direct service URL instead of the Edge Proxy.
 	if (envKey === 'custom') {

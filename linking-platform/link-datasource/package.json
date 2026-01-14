@@ -184,9 +184,6 @@
 		"navx-1895-new-logo-design": {
 			"type": "boolean"
 		},
-		"navx-sllv-fix-inline-edit-error": {
-			"type": "boolean"
-		},
 		"platform_navx_jira_sllv_rich_text_gate": {
 			"type": "boolean"
 		},

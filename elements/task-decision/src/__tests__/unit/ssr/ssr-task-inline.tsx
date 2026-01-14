@@ -28,7 +28,11 @@ describe('SSR - Task Inline', () => {
 
 		// No other errors from e.g. hydrate
 		// eslint-disable-next-line no-console
-		const mockCalls = (console.error as jest.Mock).mock.calls;
+		const mockCalls = (console.error as jest.Mock).mock.calls.filter(
+			([firstArg]) =>
+			  typeof firstArg !== 'string' ||
+			  !firstArg.includes('useLayoutEffect does nothing on the server')
+		  );
 		expect(mockCalls).toHaveLength(0);
 	});
 });

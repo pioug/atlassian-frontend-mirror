@@ -6,13 +6,11 @@ export const syncBlockMessages = defineMessages({
 		defaultMessage: 'Copy',
 		description: 'Button label for copying the reference of sync block element to your clipboard',
 	},
-	copySyncBlockTooltip: {
-		id: 'fabric.editor.copySyncBlockTooltip',
-		defaultMessage: 'Copy reference to clipboard',
-		description:
-			'Tooltip for the button to copy the reference of sync block element to your clipboard',
+	copySyncedBlockTooltip: {
+		id: 'fabric.editor.copySyncedBlockTooltip',
+		defaultMessage: 'Copy synced block',
+		description: 'Tooltip for the button to copy synced block element ',
 	},
-
 	editSourceLabel: {
 		id: 'fabric.editor.editSourceLabel',
 		defaultMessage: 'Edit source',

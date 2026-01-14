@@ -10,7 +10,7 @@ export default class RefSchemaNode extends SchemaNode {
 		return { $ref: `#/definitions/${this.name}` };
 	}
 
-	toSpec() {
+	toSpec(): string {
 		return getPmName(this.name);
 	}
 }

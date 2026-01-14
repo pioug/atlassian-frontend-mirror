@@ -55,7 +55,7 @@ export class RestClient extends BaseClient {
 
 	serviceUrl: string;
 
-	setServiceUrl(serviceUrl: string) {
+	setServiceUrl(serviceUrl: string): void {
 		this.serviceUrl = serviceUrl;
 	}
 

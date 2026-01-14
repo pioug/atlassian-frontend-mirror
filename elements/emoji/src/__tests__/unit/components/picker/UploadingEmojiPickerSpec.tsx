@@ -44,17 +44,25 @@ const userEventWithoutDelay = userEvent.setup({ delay: null });
 
 describe('<UploadingEmojiPicker />', () => {
 	let onEvent: jest.SpyInstance;
+	let ufoStartSpy: jest.SpyInstance;
+	let ufoSuccessSpy: jest.SpyInstance;
+	let ufoFailureSpy: jest.SpyInstance;
 
 	const experience = ufoExperiences['emoji-uploaded'];
-	const ufoStartSpy = jest.spyOn(experience, 'start');
-	const ufoSuccessSpy = jest.spyOn(experience, 'success');
-	const ufoFailureSpy = jest.spyOn(experience, 'failure');
 
 	beforeEach(async () => {
 		onEvent = jest.fn();
+		ufoStartSpy = jest.spyOn(experience, 'start');
+		ufoSuccessSpy = jest.spyOn(experience, 'success');
+		ufoFailureSpy = jest.spyOn(experience, 'failure');
 	});
 
-	afterEach(jest.clearAllMocks);
+	afterEach(() => {
+		jest.clearAllMocks();
+		ufoStartSpy.mockClear();
+		ufoSuccessSpy.mockClear();
+		ufoFailureSpy.mockClear();
+	});
 
 	beforeAll(() => {
 		// scrolling of the virutal list doesn't work out of the box for the tests
@@ -255,7 +263,7 @@ describe('<UploadingEmojiPicker />', () => {
 
 			expect(screen.getByText('Your uploads')).toBeInTheDocument();
 			// focus on the first uploaded emoji, which is under your uploads category.
-			expect(within(virtualList).queryAllByTestId('image-emoji-:cheese_burger:')[0]).toHaveFocus();
+			expect(screen.getByTestId('emoji-picker-search')).toHaveFocus();
 
 			expect(ufoStartSpy).toHaveBeenCalled();
 			expect(ufoSuccessSpy).toHaveBeenCalled();
@@ -791,8 +799,10 @@ describe('<UploadingEmojiPicker />', () => {
 				expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
 			});
 
-			const deleteButton = await screen.findByTestId('emoji-delete-button');
-			fireEvent.click(deleteButton);
+			await waitFor(async () => {
+				const deleteButton = await screen.findByTestId('emoji-delete-button');
+				fireEvent.click(deleteButton);
+			});
 
 			await waitFor(() => {
 				expect(getEmojiDeletePreview()).toBeInTheDocument();

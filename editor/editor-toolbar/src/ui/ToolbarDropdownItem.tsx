@@ -4,7 +4,6 @@ import { cssMap, cx } from '@atlaskit/css';
 import { DropdownItem } from '@atlaskit/dropdown-menu';
 import type { CustomItemComponentProps } from '@atlaskit/menu/types';
 import { Pressable } from '@atlaskit/primitives/compiled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -168,11 +167,7 @@ export const ToolbarDropdownItem = ({
 				onClick?.(e);
 			}}
 			elemBefore={elemBefore}
-			elemAfter={
-				expValEquals('platform_editor_toolbar_aifc_patch_5', 'isEnabled', true)
-					? injectedElemAfter
-					: elemAfter
-			}
+			elemAfter={injectedElemAfter}
 			isSelected={isSelected}
 			isDisabled={isDisabled}
 			aria-haspopup={hasNestedDropdownMenu}

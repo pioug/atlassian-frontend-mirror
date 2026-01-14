@@ -237,8 +237,10 @@ describe('<EmojiPicker />', () => {
 			});
 			const toneSelector = await screen.getByTestId(toneSelectorTestId);
 
-			expect(toneSelectorButton).toBeVisible();
-			expect(toneSelector).not.toBeVisible();
+			await waitFor(() => {
+				expect(toneSelectorButton).toBeVisible();
+				expect(toneSelector).not.toBeVisible();
+			});
 		});
 
 		it('should adjust picker height if preview is shown', async () => {

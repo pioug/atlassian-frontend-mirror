@@ -5,7 +5,7 @@ export const ALLOWED_LOGGED_MACRO_PARAMS: Record<string, Array<string>> = {
 	excerpt: ['hidden'],
 };
 
-export const ALLOWED_PARAM_TYPES = ['enum', 'number', 'boolean'];
+export const ALLOWED_PARAM_TYPES: string[] = ['enum', 'number', 'boolean'];
 
 export const CONFIG_PANEL_WIDTH = 320;
 export const CONFIG_PANEL_ID = 'extensions-panel';

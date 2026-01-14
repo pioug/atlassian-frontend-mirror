@@ -1,7 +1,7 @@
 import { print } from 'graphql';
 import gql from 'graphql-tag';
 
-export const HelpPointerUpdateMutation = print(gql`
+export const HelpPointerUpdateMutation: string = print(gql`
 	mutation UpdateHelpPointer(
 		$id: ID!
 		$description: String

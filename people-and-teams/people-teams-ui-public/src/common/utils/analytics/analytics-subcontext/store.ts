@@ -58,7 +58,7 @@ export const usePeopleTeamsAnalyticsSubcontext = createHook(AnalyticsSubcontextS
 export const useInjectedEventAttribute = <K extends InjectedEventAttributeKey>(
 	key: K,
 	value: InjectedEventAttributes[K],
-) => {
+): void => {
 	const { setEventAttributes } = usePeopleTeamsAnalyticsSubcontext()[1];
 
 	useEffect(() => {

@@ -66,7 +66,7 @@ export class LinkMatcher {
 /**
  * Adds protocol to url if needed.
  */
-export function normalizeUrl(url?: string | null) {
+export function normalizeUrl(url?: string | null): string {
 	if (!url) {
 		return '';
 	}

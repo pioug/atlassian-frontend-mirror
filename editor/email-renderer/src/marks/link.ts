@@ -2,7 +2,7 @@ import type { MarkSerializerOpts } from '../interfaces';
 import { createTag } from '../create-tag';
 import { createClassName } from '../styles/util';
 
-export const styles = `
+export const styles: string = `
 .${createClassName('mark-link')} {
   border: none;
   background: transparent;
@@ -10,7 +10,7 @@ export const styles = `
   text-decoration: none;
 }
 `;
-export default function link({ mark, text, context }: MarkSerializerOpts) {
+export default function link({ mark, text, context }: MarkSerializerOpts): string {
 	const baseURL = context?.baseURL;
 	const { href, title } = mark.attrs;
 

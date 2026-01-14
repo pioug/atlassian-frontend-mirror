@@ -10,7 +10,7 @@ const DISABLED_INTEGRATIONS = [
 	'Dedupe',
 ];
 
-export async function initialiseSentry(client: SentryClient, options: SentryInstallConfig) {
+export async function initialiseSentry(client: SentryClient, options: SentryInstallConfig): Promise<void> {
 	if (sentryClient) {
 		return;
 	}

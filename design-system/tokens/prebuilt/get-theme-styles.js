@@ -55,7 +55,7 @@ var getThemeStyles = /*#__PURE__*/function () {
               light: (preferences === null || preferences === void 0 ? void 0 : preferences.light) || _themeConfig.themeStateDefaults['light'],
               shape: (preferences === null || preferences === void 0 ? void 0 : preferences.shape) || _themeConfig.themeStateDefaults['shape'](),
               spacing: (preferences === null || preferences === void 0 ? void 0 : preferences.spacing) || _themeConfig.themeStateDefaults['spacing'],
-              typography: (preferences === null || preferences === void 0 ? void 0 : preferences.typography) || _themeConfig.themeStateDefaults['typography']()
+              typography: (preferences === null || preferences === void 0 ? void 0 : preferences.typography) || _themeConfig.themeStateDefaults['typography']
             };
             themePreferences = (0, _getThemePreferences.getThemePreferences)(themeState);
             themeOverridePreferences = (0, _getThemePreferences.getThemeOverridePreferences)(themeState);

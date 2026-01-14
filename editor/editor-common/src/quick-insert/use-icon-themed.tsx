@@ -6,7 +6,7 @@ export const useIconThemed = () => {
 	const { colorMode } = useThemeObserver();
 
 	return {
-		iconThemed: (colors: { dark: string; light: string }) => {
+		iconThemed: (colors: { dark: string; light: string }): string => {
 			return colorMode && colorMode === 'dark' ? colors['dark'] : colors['light'];
 		},
 	};

@@ -25,7 +25,7 @@ const isHeadingElement = (element: Element) => {
 };
 
 // This function replicates the behavior of getNodeTypeWithLevel by returning the same value.
-export const getTypeNameFromDom = (element?: Element | null) => {
+export const getTypeNameFromDom = (element?: Element | null): string => {
 	if (!element) {
 		return '';
 	}

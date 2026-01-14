@@ -92,8 +92,7 @@
 		"@emotion/styled": "root:*",
 		"@testing-library/dom": "root:*",
 		"@testing-library/jest-dom": "root:*",
-		"@testing-library/react": "root:*",
-		"@testing-library/react-hooks": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"@testing-library/user-event": "root:*",
 		"@types/uuid": "root:*",
 		"enzyme": "root:*",
@@ -133,9 +132,6 @@
 			"type": "boolean"
 		},
 		"a11y-create-team-is-not-focusable-and-has-no-btn": {
-			"type": "boolean"
-		},
-		"atlaskit_user_picker_support_icon": {
 			"type": "boolean"
 		}
 	}

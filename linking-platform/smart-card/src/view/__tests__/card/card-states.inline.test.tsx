@@ -12,7 +12,6 @@ import {
 	SmartCardProvider as Provider,
 } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { fakeFactory, mocks, waitFor } from '../../../utils/mocks';
 import { Card } from '../../Card';
@@ -336,9 +335,6 @@ describe('smart-card: card states, inline', () => {
 
 			describe('with auth services not available', () => {
 				it('inline: renders without connect flow', async () => {
-					// Mock the feature flag to enable the fix that only shows connect button when auth is available
-					const mockFg = fg as jest.MockedFunction<typeof fg>;
-					mockFg.mockImplementation((flagName: string) => flagName === 'navx-2479-sl-fix-inilne-card-show-connect-button');
 					mocks.unauthorized.meta.auth = [];
 					mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
 					const { container } = render(
@@ -359,7 +355,6 @@ describe('smart-card: card states, inline', () => {
 						url: mockUrl,
 						status: 'unauthorized',
 					});
-					mockFg.mockReset();
 				});
 			});
 

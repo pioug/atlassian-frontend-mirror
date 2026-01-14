@@ -30,7 +30,6 @@
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__quick-search/app"
 	},
-	"files": ["../../../typings/atlaskit.d.ts"],
 	"references": [
 		{
 			"path": "../../design-system/avatar/tsconfig.app.json"

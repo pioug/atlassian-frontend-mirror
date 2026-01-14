@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 111.7.4
+
+### Patch Changes
+
+- [`db121516e200b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db121516e200b) -
+  [ux] Update hub extention titles and radius slider style
+- [`ba05557f777bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba05557f777bf) -
+  Add support to render selection toolbar in editors which have an ancestor elemenent which has
+  position fixed, most common use case is for the chromeless appearance when rendered inside modals,
+  popups etc.
+- Updated dependencies
+
 ## 111.7.3
 
 ### Patch Changes

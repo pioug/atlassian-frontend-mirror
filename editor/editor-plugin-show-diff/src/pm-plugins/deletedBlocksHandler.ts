@@ -8,11 +8,11 @@ import { token } from '@atlaskit/tokens';
 
 import { getDeletedContentStyle } from './decorations';
 
-export const deletedStyleQuoteNode = convertToInlineCss({
+export const deletedStyleQuoteNode: string = convertToInlineCss({
 	borderLeft: `2px solid ${token('color.border.accent.gray')}`,
 });
 
-export const deletedStyleQuoteNodeWithLozenge = convertToInlineCss({
+export const deletedStyleQuoteNodeWithLozenge: string = convertToInlineCss({
 	marginTop: token('space.150'),
 	paddingTop: token('space.025'),
 	paddingBottom: token('space.025'),
@@ -21,7 +21,7 @@ export const deletedStyleQuoteNodeWithLozenge = convertToInlineCss({
 	borderRadius: token('radius.small'),
 });
 
-export const deletedTraditionalStyleQuoteNode = convertToInlineCss({
+export const deletedTraditionalStyleQuoteNode: string = convertToInlineCss({
 	marginTop: token('space.150'),
 	paddingTop: token('space.025'),
 	paddingBottom: token('space.025'),
@@ -30,22 +30,22 @@ export const deletedTraditionalStyleQuoteNode = convertToInlineCss({
 	borderRadius: token('radius.small'),
 });
 
-export const deletedBlockOutline = convertToInlineCss({
+export const deletedBlockOutline: string = convertToInlineCss({
 	boxShadow: `0 0 0 1px ${token('color.border.accent.gray')}`,
 	borderRadius: token('radius.small'),
 });
 
-export const deletedTraditionalBlockOutline = convertToInlineCss({
+export const deletedTraditionalBlockOutline: string = convertToInlineCss({
 	boxShadow: `0 0 0 1px ${token('color.border.accent.red')}`,
 	borderRadius: token('radius.small'),
 });
 
-export const deletedBlockOutlineRounded = convertToInlineCss({
+export const deletedBlockOutlineRounded: string = convertToInlineCss({
 	boxShadow: `0 0 0 1px ${token('color.border.accent.gray')}`,
 	borderRadius: `calc(${token('radius.xsmall')} + 1px)`,
 });
 
-export const deletedTraditionalBlockOutlineRounded = convertToInlineCss({
+export const deletedTraditionalBlockOutlineRounded: string = convertToInlineCss({
 	boxShadow: `0 0 0 1px ${token('color.border.accent.red')}`,
 	borderRadius: `calc(${token('radius.xsmall')} + 1px)`,
 });

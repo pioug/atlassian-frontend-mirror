@@ -19,7 +19,7 @@ export const i18nConversionGuide: ConversionGuide = {
 **CRITICAL: STRING FILTERING**: When finding eslint-disable comments, you MUST examine the actual string content. Only convert strings that contain **user-facing English text**. Many English strings are technical/non-user-facing and should NOT be converted (e.g., product names like "Jira", URLs like "https://example.com", technical IDs, symbols). Use the ESLint ignore patterns to identify which English strings to skip - strings matching ignore patterns should be LEFT AS-IS with their eslint-disable comments intact.`,
 	implementationChecklist: [
 		'Create message constants using defineMessage (singular) at the top of the file - use defineMessage for each individual message, NOT defineMessages',
-		'Import: Use "@atlassian/jira-intl" for Jira files (with eslint-disable) or "react-intl-next" for non-Jira files',
+		'Import: Use "@atlassian/jira-intl" for Jira files or "react-intl-next" for non-Jira files',
 		'**CRITICAL: i18n ID Format**: For files in `/next/packages/`, i18n ids MUST start with the package name (with dashes). Format: `{package-name}.{component-or-feature}.{message-key}`. Example: For package `comment-extension-handlers`, use `comment-extension-handlers.legacy-content-modal.close-button`. For package `rovo-ai-search`, use `rovo-ai-search.view-profile-text` or `rovo-ai-search.knowledge-cards.copy-email-address`.',
 		'**CRITICAL: ai-non-final Suffix**: ALL new message IDs MUST end with `.ai-non-final` suffix. This applies to ALL newly created messages, regardless of whether existing messages in the file have this suffix. Format: `{message-key}.ai-non-final`. Example: `applinks.administration.list.applinks-table.system-label.ai-non-final`. This suffix indicates the message is AI-generated and may need review before finalization.',
 		'Add useIntl hook: const { formatMessage } = useIntl();',
@@ -35,10 +35,8 @@ export const i18nConversionGuide: ConversionGuide = {
 			before: `<Button style={styles} onClick={onClearVersion}>
   Exit {description.join(' ')}
 </Button>`,
-			after: `// eslint-disable-next-line jira/deprecations/ban-identifiers
-import { useIntl, defineMessage } from '@atlassian/jira-intl';
+			after: `import { useIntl, defineMessage } from '@atlassian/jira-intl';
 
-// eslint-disable-next-line jira/deprecations/ban-identifiers
 const exitButton = defineMessage({
   id: 'rovo-ai-search.exit-button.ai-non-final',
   defaultMessage: 'Exit {version}',
@@ -61,10 +59,8 @@ export function MyComponent() {
 			title: 'Loading States and Status Messages',
 			description: 'Converting hardcoded loading and status messages',
 			before: `return <Box>Loading...</Box>;`,
-			after: `// eslint-disable-next-line jira/deprecations/ban-identifiers
-import { useIntl, defineMessage } from '@atlassian/jira-intl';
+			after: `import { useIntl, defineMessage } from '@atlassian/jira-intl';
 
-// eslint-disable-next-line jira/deprecations/ban-identifiers
 const loading = defineMessage({
   id: 'rovo-ai-search.loading.ai-non-final',
   defaultMessage: 'Loading...',
@@ -94,10 +90,8 @@ export function MyComponent() {
     </Badge>
   )}
 </Box>`,
-			after: `// eslint-disable-next-line jira/deprecations/ban-identifiers
-import { useIntl, defineMessage } from '@atlassian/jira-intl';
+			after: `import { useIntl, defineMessage } from '@atlassian/jira-intl';
 
-// eslint-disable-next-line jira/deprecations/ban-identifiers
 const statusLabel = defineMessage({
   id: 'filter.status-label.ai-non-final',
   defaultMessage: 'Status: {status}',
@@ -129,17 +123,14 @@ export function MyComponent() {
 			title: 'Dynamic Text Content',
 			description: 'Converting conditional hardcoded strings',
 			before: `<Text>{state.hasMore ? 'Show more' : 'Show less'}</Text>`,
-			after: `// eslint-disable-next-line jira/deprecations/ban-identifiers
-import { useIntl, defineMessage } from '@atlassian/jira-intl';
+			after: `import { useIntl, defineMessage } from '@atlassian/jira-intl';
 
-// eslint-disable-next-line jira/deprecations/ban-identifiers
 const showMore = defineMessage({
   id: 'work-item.comments.show-more.ai-non-final',
   defaultMessage: 'Show more',
   description: 'The text is shown as a button when there are more items available to display. Used in the comments section footer to expand and show additional content.',
 });
 
-// eslint-disable-next-line jira/deprecations/ban-identifiers
 const showLess = defineMessage({
   id: 'work-item.comments.show-less.ai-non-final',
   defaultMessage: 'Show less',
@@ -164,10 +155,8 @@ export function MyComponent() {
 			title: 'ICU Format for Numeric Values',
 			description: 'Converting numeric placeholders to ICU plural format',
 			before: `const moreMessage = \`+ \${count} more\`;`,
-			after: `// eslint-disable-next-line jira/deprecations/ban-identifiers
-import { useIntl, defineMessage } from '@atlassian/jira-intl';
+			after: `import { useIntl, defineMessage } from '@atlassian/jira-intl';
 
-// eslint-disable-next-line jira/deprecations/ban-identifiers
 const moreProjectsMessage = defineMessage({
   id: 'app.more-projects.ai-non-final',
   defaultMessage: '{count, plural, one {+ # more} other {+ # more}}',

@@ -48,7 +48,7 @@ const ProfileCardWrapper = ({ children }: { children: React.ReactNode }) => {
 	return <Box xcss={styles.profileCardWrapper}>{children}</Box>;
 };
 
-const handleActionClick = (title: string) => () => {
+const handleActionClick = (title: string) => (): void => {
 	console.log(`${title} button clicked`);
 };
 

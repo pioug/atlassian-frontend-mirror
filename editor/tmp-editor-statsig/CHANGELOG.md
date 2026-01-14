@@ -1,5 +1,38 @@
 # @atlaskit/editor-statsig-tmp
 
+## 16.18.1
+
+### Patch Changes
+
+- [`ba05557f777bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba05557f777bf) -
+  Add support to render selection toolbar in editors which have an ancestor elemenent which has
+  position fixed, most common use case is for the chromeless appearance when rendered inside modals,
+  popups etc.
+
+## 16.18.0
+
+### Minor Changes
+
+- [`8a3fc4137f1b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8a3fc4137f1b4) -
+  [EDITOR-3850] add new experiment to statsig config file
+- [`6f513adef1867`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f513adef1867) -
+  [ux] Replaces @atlaskit/onboarding with @atlaskit/spotlight for dynamic cards search page per
+  enghealth ticket. Uses new experiment gate.
+
+## 16.17.0
+
+### Minor Changes
+
+- [`333b858014e54`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/333b858014e54) -
+  Move content placeholder behind title_on_transition flag
+
+## 16.16.0
+
+### Minor Changes
+
+- [`87da29e26abe0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87da29e26abe0) -
+  Refactoring company hub carousel navigation thumbnails to remove nested interactive elements
+
 ## 16.15.0
 
 ### Minor Changes

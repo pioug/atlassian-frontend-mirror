@@ -5,7 +5,7 @@ import { createClassName } from '../styles/util';
 
 const className = createClassName('tableNode');
 
-export const styles = `
+export const styles: string = `
 .${className} {
   border: 1px solid ${N50};
   border-collapse: collapse;
@@ -20,7 +20,7 @@ export const styles = `
 
 export const numberedColumnWidth = 42;
 
-export default function table({ text, node }: NodeSerializerOpts) {
+export default function table({ text, node }: NodeSerializerOpts): string {
 	let colgroup: string = '';
 	if (node.attrs && node.attrs.isNumberColumnEnabled) {
 		const style = `width: ${numberedColumnWidth}px`;

@@ -72,7 +72,7 @@ ${breakoutInlineScriptContext};
 `;
 }
 
-export const breakoutInlineScriptContext = `
+export const breakoutInlineScriptContext: string = `
   var breakoutConsts = ${JSON.stringify(breakoutConsts)};
   breakoutConsts.mapBreakpointToLayoutMaxWidth = ${breakoutConsts.mapBreakpointToLayoutMaxWidth.toString()};
   breakoutConsts.getBreakpoint = ${breakoutConsts.getBreakpoint.toString()};

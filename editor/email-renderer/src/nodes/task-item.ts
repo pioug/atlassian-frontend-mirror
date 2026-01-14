@@ -11,7 +11,7 @@ enum TaskState {
 
 const className = createClassName('taskItem');
 
-export const styles = `
+export const styles: string = `
 .${className}-img {
   width: 16px;
   height: 16px;
@@ -54,7 +54,7 @@ interface TaskItemAttrs {
 	state: TaskState;
 }
 
-export default function taskItem({ attrs, text }: NodeSerializerOpts) {
+export default function taskItem({ attrs, text }: NodeSerializerOpts): string {
 	// If there is no content, we shouldn't render anything
 	if (!text) {
 		return '';

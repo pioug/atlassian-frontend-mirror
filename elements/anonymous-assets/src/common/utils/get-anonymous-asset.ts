@@ -10,7 +10,7 @@ export const encodeSvgToDataUri = (svgRoot: Element) => {
 	return `data:image/svg+xml;base64,${btoa(new XMLSerializer().serializeToString(svgRoot))}`;
 };
 
-export const objectToStyleString = (cssProperties: Record<string, string>) => {
+export const objectToStyleString = (cssProperties: Record<string, string>): string => {
 	let styleString = '';
 	Object.keys(cssProperties).forEach((key) => {
 		styleString += `${key}: ${cssProperties[key]}; `;

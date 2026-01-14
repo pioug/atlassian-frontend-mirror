@@ -84,16 +84,16 @@ export class PluginState {
 		this.nudgeAnimations = nudgeAnimations;
 	}
 
-	getFullName(sessionId: string) {
+	getFullName(sessionId: string): string {
 		const participant = this.participants.get(sessionId);
 		return participant ? participant.name : 'X';
 	}
 
-	getInitial(sessionId: string) {
+	getInitial(sessionId: string): string {
 		return this.getFullName(sessionId).substring(0, 1).toUpperCase();
 	}
 
-	getPresenceId(sessionId: string) {
+	getPresenceId(sessionId: string): string {
 		const participant = this.participants.get(sessionId);
 
 		return participant?.presenceId ?? sessionId;

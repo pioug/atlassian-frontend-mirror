@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - BoxProps
  *
- * @codegen <<SignedSource::5713a45f955f5850078204892e910b64>>
+ * @codegen <<SignedSource::dfcc0d6cb3a90665d441ef6ac93bcc3f>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/box/index.tsx <<SignedSource::6b375bb57ecf19919f9e1b65e899fd96>>
  */
@@ -78,7 +78,10 @@ const borderRadiusTokens: BorderRadius[] = [
 	'radius.full',
 	'radius.tile',
 ];
-const borderRadiusSupportedValues = [...borderRadiusTokens, 'border.radius'] as unknown as Array<BorderRadius>;
+const borderRadiusSupportedValues = [
+	...borderRadiusTokens,
+	'border.radius',
+] as unknown as Array<BorderRadius>;
 const xcssValidator = makeXCSSValidator({
 	// text related props
 	textAlign: {

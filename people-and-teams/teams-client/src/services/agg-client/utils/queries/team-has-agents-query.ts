@@ -1,7 +1,7 @@
 import { print } from 'graphql';
 import gql from 'graphql-tag';
 
-export const TeamHasAgentsQuery = print(gql`
+export const TeamHasAgentsQuery: string = print(gql`
 	query serviceName_TeamHasAgentsQuery($id: ID!) {
 		graphStore @optIn(to: "GraphStore") {
 			teamHasAgents(id: $id) @optIn(to: "GraphStoreTeamHasAgents") {

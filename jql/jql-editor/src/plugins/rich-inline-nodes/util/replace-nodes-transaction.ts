@@ -37,11 +37,7 @@ export const replaceRichInlineNodes = (
 				let astNodes: Array<ValueOperand | Argument> = getValueNodes(ast, fieldName, value.id);
 
 				// If not found as direct value and it's a team, try to find in membersOf function arguments
-				if (
-					astNodes.length === 0 &&
-					value.type === 'team' &&
-					fg('jira_update_jql_membersof_teams')
-				) {
+				if (astNodes.length === 0 && value.type === 'team' && fg('jira-membersof-team-support')) {
 					astNodes = getMembersOfArgumentNodes(ast, value.id);
 				}
 

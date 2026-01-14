@@ -32,7 +32,7 @@ function decorateScope(scope: Scope, context: Context): Scope {
 	return scope;
 }
 
-export async function logException(ex: Error | unknown, name: string, context: Context = {}) {
+export async function logException(ex: Error | unknown, name: string, context: Context = {}): Promise<void> {
 	try {
 		const sentryClient = await getSentryClient();
 		if (!sentryClient || typeof sentryClient.captureException !== 'function') {
@@ -67,11 +67,11 @@ async function logMessage(severity: SeverityLevel, message: string, context: Con
 	});
 }
 
-export function logErrorMessage(message: string, context: Context = {}) {
+export function logErrorMessage(message: string, context: Context = {}): void {
 	logMessage('error', message, context).catch(() => {});
 }
 
-export function logInfoMessage(message: string, context: Context = {}) {
+export function logInfoMessage(message: string, context: Context = {}): void {
 	logMessage('info', message, context).catch(() => {});
 }
 
@@ -88,7 +88,7 @@ export const createErrorHandler: CreateErrorHandler = (details) => {
 
 export const logExceptionWithPackageContext =
 	(packageContext: { packageName: string; packageVersion: string }) =>
-	(...args: Parameters<typeof logException>) => {
+	(...args: Parameters<typeof logException>): void => {
 		// Intentionally not awaiting the promise here as we don't need the result
 		logException(args[0], args[1], {
 			...args[2],
@@ -99,7 +99,7 @@ export const logExceptionWithPackageContext =
 
 export const logErrorMessageWithPackageContext =
 	(packageContext: { packageName: string; packageVersion: string }) =>
-	(...args: Parameters<typeof logErrorMessage>) => {
+	(...args: Parameters<typeof logErrorMessage>): void => {
 		// Intentionally not awaiting the promise here as we don't need the result
 		logErrorMessage(args[0], {
 			...args[1],
@@ -110,7 +110,7 @@ export const logErrorMessageWithPackageContext =
 
 export const logInfoMessageWithPackageContext =
 	(packageContext: { packageName: string; packageVersion: string }) =>
-	(...args: Parameters<typeof logInfoMessage>) => {
+	(...args: Parameters<typeof logInfoMessage>): void => {
 		// Intentionally not awaiting the promise here as we don't need the result
 		logInfoMessage(args[0], {
 			...args[1],
@@ -128,7 +128,7 @@ export const createErrorHandlerWithPackageContext =
 			packageVersion: packageContext.packageVersion,
 		});
 
-export async function addBreadcrumb(crumb: string | Breadcrumb) {
+export async function addBreadcrumb(crumb: string | Breadcrumb): Promise<void> {
 	const sentryClient = await getSentryClient();
 
 	sentryClient!.withScope((scope) => {

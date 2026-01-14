@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, waitFor } from '@testing-library/react';
 import { useUserSource } from '../../../clients/UserSourceProvider';
 import { type UserSourceResult } from '../../../types';
 import { createMockedSourceProvider } from '../_testUtils';
@@ -38,7 +38,7 @@ describe('UserSourceProvider', () => {
 						]);
 					}),
 			);
-			const { result, rerender, waitForNextUpdate } = renderHook(
+			const { result, rerender } = renderHook(
 				() => useUserSource('1234', true),
 				{
 					wrapper: createMockedSourceProvider(mockFetch),
@@ -48,12 +48,16 @@ describe('UserSourceProvider', () => {
 			expect(mockFetch).toHaveBeenCalled();
 			expect(result.current.loading).toStrictEqual(true);
 			expect(result.current.sources).toHaveLength(0);
-			await waitForNextUpdate();
+
 			rerender();
-			expect(result.current.loading).toStrictEqual(false);
+			await waitFor(() => {
+				expect(result.current.loading).toStrictEqual(false);
+			});
 			rerender();
-			expect(result.current.sources).toHaveLength(1);
-			expect(result.current.sources).toEqual(['microsoft']);
+			await waitFor(() => {
+				expect(result.current.sources).toHaveLength(1);
+				expect(result.current.sources).toEqual(['microsoft']);
+			});
 		});
 		it('sets loading to false and returns an error if thrown', async () => {
 			const mockFetch = jest.fn(
@@ -62,7 +66,7 @@ describe('UserSourceProvider', () => {
 						reject('Unexpected error');
 					}),
 			);
-			const { result, rerender, waitForNextUpdate } = renderHook(
+			const { result, rerender } = renderHook(
 				() => useUserSource('1234', true),
 				{
 					wrapper: createMockedSourceProvider(mockFetch),
@@ -71,12 +75,16 @@ describe('UserSourceProvider', () => {
 
 			expect(mockFetch).toHaveBeenCalled();
 			expect(result.current.loading).toStrictEqual(true);
-			await waitForNextUpdate();
+
 			rerender();
-			expect(result.current.loading).toStrictEqual(false);
+			await waitFor(() => {
+				expect(result.current.loading).toStrictEqual(false);
+			});
 			rerender();
-			expect(result.current.sources).toHaveLength(0);
-			expect(result.current.error).toStrictEqual('Unexpected error');
+			await waitFor(() => {
+				expect(result.current.sources).toHaveLength(0);
+				expect(result.current.error).toStrictEqual('Unexpected error');
+			});
 		});
 	});
 });

@@ -1,5 +1,14 @@
 # @atlaskit/app-provider
 
+## 3.3.1
+
+### Patch Changes
+
+- [`d9d9cbc1507f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9d9cbc1507f6) -
+  Internal change how default theme settings are shared between `@atlaskit/tokens` and
+  `@atlaskit/app-provider`.
+- Updated dependencies
+
 ## 3.3.0
 
 ### Minor Changes

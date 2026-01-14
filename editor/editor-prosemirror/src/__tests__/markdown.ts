@@ -1,4 +1,4 @@
-const internalFunctions = [
+const internalFunctions: string[] = [
 	// see: https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/schema.ts#L4
 	'schema',
 ];

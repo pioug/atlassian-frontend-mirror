@@ -806,7 +806,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 		return this.sessionId;
 	};
 
-	getDocumentAri = () => {
+	getDocumentAri = (): string => {
 		return this.config.documentAri;
 	};
 }

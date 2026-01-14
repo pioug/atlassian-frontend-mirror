@@ -21,4 +21,4 @@ export const VALID_STATES: Record<LinkState, LinkLozengeColor> = {
 	archived: 'default',
 };
 
-export const OMIT_STATES = ['current'];
+export const OMIT_STATES: string[] = ['current'];

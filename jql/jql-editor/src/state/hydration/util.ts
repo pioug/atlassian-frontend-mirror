@@ -70,7 +70,7 @@ export class ValidQueryVisitor extends AbstractJastVisitor<string> {
 		// Only include membersOf function as it has arguments that need hydration
 		// Other functions like currentUser() don't have hydratable arguments
 		const functionName = functionOperand.function.value.toLowerCase();
-		if (functionName !== 'membersof' || !fg('jira_update_jql_membersof_teams')) {
+		if (functionName !== 'membersof' || !fg('jira-membersof-team-support')) {
 			return '';
 		}
 		const args = functionOperand.arguments.map((arg) => arg.text).join(', ');

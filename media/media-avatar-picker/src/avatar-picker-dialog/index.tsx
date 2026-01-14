@@ -47,7 +47,7 @@ export const ERROR = {
 	SIZE: messages.image_size_too_large_error,
 };
 
-export const ACCEPT = ['image/gif', 'image/jpeg', 'image/png'];
+export const ACCEPT: string[] = ['image/gif', 'image/jpeg', 'image/png'];
 
 export const fixedCrop = {
 	x: 0,
@@ -323,7 +323,7 @@ export class AvatarPickerDialog extends PureComponent<
 		);
 	}
 
-	initialiseAltText() {
+	initialiseAltText(): string {
 		const { requireAltText, errorMessage, imageSource, defaultSelectedAvatar } = this.props;
 
 		if (requireAltText) {

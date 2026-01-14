@@ -39,7 +39,7 @@ const mockEndpoints = () => {
 
 // Simple hook for using inside example pages, which sets up the mock API responses, and then
 // un-sets the mock API responses when the example is exited.
-export const useEndpointMocks = () => {
+export const useEndpointMocks = (): void => {
 	useEffect(() => {
 		mockEndpoints();
 		return () => fetchMock.reset();

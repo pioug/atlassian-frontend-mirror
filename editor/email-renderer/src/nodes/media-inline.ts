@@ -11,7 +11,7 @@ const className = createClassName('mediaInline');
 
 const ICON_DIMENSION = 14;
 
-export const styles = `
+export const styles: string = `
 .${className}-lozenge-wrapper {
   margin: 8px 0;
   border-radius: 3px;
@@ -46,7 +46,7 @@ export const styles = `
 }
 `;
 
-export default function mediaInline(node: NodeSerializerOpts) {
+export default function mediaInline(node: NodeSerializerOpts): string {
 	const { context, attrs } = node;
 	const metadata = context?.hydration?.mediaMetaData?.[attrs.id];
 

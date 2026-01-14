@@ -1,5 +1,12 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.5.5
+
+### Patch Changes
+
+- [`a36447029e3c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a36447029e3c3) -
+  Add fetchMediaToken helper function to synced block provider confluence client.
+
 ## 3.5.4
 
 ### Patch Changes

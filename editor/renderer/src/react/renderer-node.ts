@@ -1,11 +1,15 @@
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 
 const isLayoutNode = (node: Node) => node.type.name === 'layoutSection';
+const isExpandNode = (node: Node) => node.type.name === 'expand';
 
 const hasBreakOutMark = (node: Node) => node.marks.some((m) => m.type.name === 'breakout');
 
 export const insideBreakoutLayout = (path: Node[]) =>
 	path.some((item) => isLayoutNode(item) && hasBreakOutMark(item));
+
+export const insideBreakoutExpand = (path: Node[]) =>
+	path.some((item) => isExpandNode(item) && hasBreakOutMark(item));
 
 export const insideBlockNode = (path: Node[], schema: Schema) => {
 	const {

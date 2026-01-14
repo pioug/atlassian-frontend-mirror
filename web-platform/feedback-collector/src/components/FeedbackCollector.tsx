@@ -140,7 +140,7 @@ export default class FeedbackCollector extends Component<Props> {
 		anonymousFeedback: true,
 	};
 
-	async componentDidMount() {
+	async componentDidMount(): Promise<void> {
 		const anonymousFeedback = !(await this.shouldShowOptInCheckboxesNew());
 		this.setState({ anonymousFeedback });
 	}
@@ -173,8 +173,8 @@ export default class FeedbackCollector extends Component<Props> {
 		showTypeField: true,
 		showDefaultTextFields: true,
 		anonymousFeedback: false,
-		onClose: () => {},
-		onSubmit: () => {},
+		onClose: (): void => {},
+		onSubmit: (): void => {},
 	};
 
 	getGatewayUrl(): string {
@@ -189,7 +189,7 @@ export default class FeedbackCollector extends Component<Props> {
 		return FeedbackCollector.defaultProps.url;
 	}
 
-	getFeedbackUrl() {
+	getFeedbackUrl(): string {
 		const { customFeedbackUrl, url } = this.props;
 
 		if (customFeedbackUrl) {
@@ -371,7 +371,7 @@ export default class FeedbackCollector extends Component<Props> {
 		return this.props.name ?? this.props.customerNameDefaultValue;
 	}
 
-	addEmailToContext() {
+	addEmailToContext(): void {
 		const contextField = this.props.additionalFields.find((field) => {
 			return field.id === 'customfield_10047';
 		});
@@ -386,7 +386,7 @@ export default class FeedbackCollector extends Component<Props> {
 		}
 	}
 
-	addAccountIdToContext(atlassianID: string | undefined) {
+	addAccountIdToContext(atlassianID: string | undefined): void {
 		if (atlassianID) {
 			const contextField = this.props.additionalFields.find((field) => {
 				return field.id === 'customfield_10047';
@@ -460,7 +460,7 @@ export default class FeedbackCollector extends Component<Props> {
 		} as FeedbackType;
 	}
 
-	postFeedback = async (formValues: FormFields) => {
+	postFeedback = async (formValues: FormFields): Promise<void> => {
 		const entrypointId: string = this.props.entrypointId;
 		let fetchUrl: string = this.getFeedbackUrl();
 

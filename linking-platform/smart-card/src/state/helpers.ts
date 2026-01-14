@@ -10,7 +10,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { extractVisitUrl } from '../extractors/common/primitives/extractVisitUrl';
 import { type DestinationProduct, type DestinationSubproduct } from '../utils/analytics/types';
 
-export const getByDefinitionId = (definitionId: string | undefined, store: CardStore) => {
+export const getByDefinitionId = (definitionId: string | undefined, store: CardStore): string[] => {
 	const urls = Object.keys(store);
 	return urls.filter((url) => {
 		const { details } = store[url];

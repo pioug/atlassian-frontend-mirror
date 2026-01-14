@@ -41,7 +41,7 @@ const messages = defineMessages({
 
 // Workaround to get alt text for images from url
 // Can be removed when alt={iconAlt} will be available from GraphQL
-export const getCorrectAltByIconUrl = (iconUrl: string, intl: IntlShape) => {
+export const getCorrectAltByIconUrl = (iconUrl: string, intl: IntlShape): string => {
 	let alt = intl.formatMessage(messages.defaultAltText);
 
 	if (iconUrl.includes('story.svg')) {

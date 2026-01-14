@@ -24,7 +24,7 @@ const getNewOptionData = (inputValue: string): Option => ({
 	},
 });
 
-const formatCreateLabel = (inputText?: string) => {
+const formatCreateLabel = (inputText?: string): string => {
 	if (inputText) {
 		return inputText.trim();
 	}

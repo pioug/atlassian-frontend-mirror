@@ -16,7 +16,7 @@ export function generateTeamsAppPath(
 	config: RequireOrgIdOrCloudId,
 	query: URLSearchParams = new URLSearchParams(),
 	anchor?: string,
-) {
+): string {
 	if (config.cloudId) {
 		query.set('cloudId', config.cloudId);
 	}
@@ -51,7 +51,7 @@ export function generatePath(
 		RequireOrgIdOrCloudId,
 	query: URLSearchParams = new URLSearchParams(),
 	anchor?: string,
-) {
+): string {
 	if (isTeamsAppEnabled(config) || config.hostProduct === 'home' || !config.hostProduct) {
 		return generateTeamsAppPath(path, config, query, anchor);
 	}
@@ -61,7 +61,7 @@ export function generatePath(
 
 export const onNavigateBase =
 	(href: string, config: NavigationActionCommon) =>
-	(e?: React.MouseEvent | React.KeyboardEvent) => {
+	(e?: React.MouseEvent | React.KeyboardEvent): void => {
 		if (e) {
 			e.preventDefault();
 		}

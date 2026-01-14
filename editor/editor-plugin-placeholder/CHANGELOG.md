@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 7.2.0
+
+### Minor Changes
+
+- [`333b858014e54`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/333b858014e54) -
+  Move content placeholder behind title_on_transition flag
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.1.1
 
 ### Patch Changes

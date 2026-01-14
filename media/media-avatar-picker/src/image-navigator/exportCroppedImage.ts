@@ -4,7 +4,7 @@ export const exportCroppedImage = (
 	viewport: Viewport,
 	imageElement?: HTMLImageElement,
 	outputSize?: number,
-) => {
+): string => {
 	if (imageElement) {
 		const canvas = renderViewport(
 			viewport,

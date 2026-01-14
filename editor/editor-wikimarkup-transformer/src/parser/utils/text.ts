@@ -72,7 +72,7 @@ export class StringBuffer {
 		this.buffer += value;
 	}
 
-	substring(start: number, end?: number) {
+	substring(start: number, end?: number): string {
 		return this.buffer.substring(start, end);
 	}
 
@@ -80,7 +80,7 @@ export class StringBuffer {
 		this.delete(index, index + 1);
 	}
 
-	toString() {
+	toString(): string {
 		return this.buffer;
 	}
 }

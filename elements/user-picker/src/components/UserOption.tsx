@@ -95,8 +95,7 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
 		} = this.props;
 
 		const appearance = fg('platform-component-visual-refresh') ? 'medium' : 'big';
-		// Only use icon if feature gate is enabled
-		if (icon && fg('atlaskit_user_picker_support_icon')) {
+		if (icon) {
 			return (
 				<AvatarOrIcon
 					appearance={appearance}

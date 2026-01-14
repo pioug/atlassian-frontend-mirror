@@ -1,7 +1,9 @@
 import { type RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
+import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	SyncBlockError,
@@ -18,7 +20,12 @@ import type {
 	SyncBlockRendererProviderCreator,
 	SyncBlockSourceInfo,
 } from '../providers/types';
-import { fetchErrorPayload, getSourceInfoErrorPayload, updateReferenceErrorPayload } from '../utils/errorHandling';
+import {
+	fetchErrorPayload,
+	getSourceInfoErrorPayload,
+	updateReferenceErrorPayload,
+} from '../utils/errorHandling';
+import { parseResourceId } from '../utils/parseResourceId';
 import { resolveSyncBlockInstance } from '../utils/resolveSyncBlockInstance';
 import { createSyncBlockNode } from '../utils/utils';
 
@@ -51,6 +58,10 @@ export class ReferenceSyncBlockStoreManager {
 	// the new component to subscribe and cancel the pending deletion.
 	private pendingCacheDeletions: Map<ResourceId, ReturnType<typeof setTimeout>>;
 
+	public fetchExperience: Experience | undefined;
+	private fetchSourceInfoExperience: Experience | undefined;
+	private saveExperience: Experience | undefined;
+
 	constructor(dataProvider?: SyncBlockDataProvider) {
 		this.syncBlockCache = new Map();
 		this.subscriptions = new Map();
@@ -66,6 +77,15 @@ export class ReferenceSyncBlockStoreManager {
 		fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
 	) {
 		this.fireAnalyticsEvent = fireAnalyticsEvent;
+	}
+
+	public setExperiences(fetchExperience: Experience, fetchSourceInfoExperience: Experience, saveExperience: Experience ) {
+		// don't reset experiences after they have already been set
+		if (!this.fetchExperience || !this.fetchSourceInfoExperience || !this.saveExperience) {
+			this.fetchExperience = fetchExperience;
+			this.fetchSourceInfoExperience = fetchSourceInfoExperience;
+			this.saveExperience = saveExperience;
+		}
 	}
 
 	public generateResourceIdForReference(sourceId: ResourceId): ResourceId {
@@ -115,7 +135,11 @@ export class ReferenceSyncBlockStoreManager {
 			logException(error as Error, {
 				location: 'editor-synced-block-provider/referenceSyncBlockStoreManager',
 			});
-			this.fireAnalyticsEvent?.(fetchErrorPayload((error as Error).message));
+			if (fg('platform_synced_block_dogfooding')) {
+				this.fetchExperience?.failure({ reason:(error as Error).message})
+			} else {
+				this.fireAnalyticsEvent?.(fetchErrorPayload((error as Error).message));
+			}
 		} finally {
 			this.isRefreshingSubscriptions = false;
 		}
@@ -124,6 +148,10 @@ export class ReferenceSyncBlockStoreManager {
 	private fetchSyncBlockSourceInfo(resourceId: ResourceId): void {
 		try {
 			if (!resourceId || !this.dataProvider) {
+				// make sure experience has been started before throwing error
+				if (fg('platform_synced_block_dogfooding')) {
+					this.fetchSourceInfoExperience?.start({});
+				}
 				throw new Error('Data provider or resourceId not set');
 			}
 
@@ -133,6 +161,9 @@ export class ReferenceSyncBlockStoreManager {
 
 			const existingSyncBlock = this.getFromCache(resourceId);
 			if (!existingSyncBlock) {
+				if (fg('platform_synced_block_dogfooding')) {
+					this.fetchSourceInfoExperience?.start({});
+				}
 				throw new Error('No existing sync block to fetch source info for');
 			}
 
@@ -141,11 +172,20 @@ export class ReferenceSyncBlockStoreManager {
 				return;
 			}
 
+			// only start experience if there is data to fetch
+			if (fg('platform_synced_block_dogfooding')) {
+				this.fetchSourceInfoExperience?.start({});
+			}
+
 			const { sourceAri, product, blockInstanceId } = existingSyncBlock.data || {};
 			if (!sourceAri || !product || !blockInstanceId) {
-				this.fireAnalyticsEvent?.(
-					getSourceInfoErrorPayload('SourceAri, product or blockInstanceId missing'),
-				);
+				if (fg('platform_synced_block_dogfooding')) {
+					this.fetchSourceInfoExperience?.failure({ reason: 'SourceAri, product or blockInstanceId missing'});
+				} else {
+					this.fireAnalyticsEvent?.(
+						getSourceInfoErrorPayload('SourceAri, product or blockInstanceId missing'),
+					);
+				}
 				return;
 			}
 
@@ -155,15 +195,30 @@ export class ReferenceSyncBlockStoreManager {
 				.fetchSyncBlockSourceInfo(blockInstanceId, sourceAri, product, this.fireAnalyticsEvent)
 				.then((sourceInfo) => {
 					if (!sourceInfo) {
+						if (fg('platform_synced_block_dogfooding')) {
+							this.fetchSourceInfoExperience?.failure({ reason: 'No source info returned'});
+						}
 						return;
 					}
 					this.updateCacheWithSourceInfo(resourceId, sourceInfo);
 					if (sourceInfo.title) {
 						this.updateSourceTitleSubscriptions(resourceId, sourceInfo.title);
 					}
+
+					if (fg('platform_synced_block_dogfooding')) {
+						if (sourceInfo.title && sourceInfo.url) {
+							this.fetchSourceInfoExperience?.success();
+						} else {
+							this.fetchSourceInfoExperience?.failure({ reason: 'Missing title or url'});
+						}
+					}
 				})
 				.catch((error) => {
-					this.fireAnalyticsEvent?.(getSourceInfoErrorPayload(error.message));
+					if (fg('platform_synced_block_dogfooding')) {
+						this.fetchSourceInfoExperience?.failure({ reason: error.message });
+					} else {
+						this.fireAnalyticsEvent?.(getSourceInfoErrorPayload(error.message));
+					}
 				})
 				.finally(() => {
 					this.syncBlockSourceInfoRequests.delete(resourceId);
@@ -172,7 +227,11 @@ export class ReferenceSyncBlockStoreManager {
 			logException(error as Error, {
 				location: 'editor-synced-block-provider/referenceSyncBlockStoreManager',
 			});
-			this.fireAnalyticsEvent?.(getSourceInfoErrorPayload((error as Error).message));
+			if (fg('platform_synced_block_dogfooding')) {
+				this.fetchSourceInfoExperience?.failure({ reason: (error as Error).message });
+			} else {
+				this.fireAnalyticsEvent?.(getSourceInfoErrorPayload((error as Error).message));
+			}
 		}
 	}
 
@@ -184,10 +243,6 @@ export class ReferenceSyncBlockStoreManager {
 	public async fetchSyncBlocksData(syncBlockNodes: SyncBlockNode[]): Promise<void> {
 		if (syncBlockNodes.length === 0) {
 			return;
-		}
-
-		if (!this.dataProvider) {
-			throw new Error('Data provider not set');
 		}
 
 		// Don't fetch for not_found error since the source is already deleted
@@ -208,6 +263,15 @@ export class ReferenceSyncBlockStoreManager {
 			return;
 		}
 
+		// only start fetch experience if there is data to fetch
+		if (fg('platform_synced_block_dogfooding')) {
+			this.fetchExperience?.start({});
+		}
+
+		if (!this.dataProvider) {
+			throw new Error('Data provider not set');
+		}
+
 		nodesToFetch.forEach((node) => {
 			this.syncBlockFetchDataRequests.set(node.attrs.resourceId, true);
 		});
@@ -219,14 +283,20 @@ export class ReferenceSyncBlockStoreManager {
 		});
 
 		const resolvedData: SyncBlockInstance[] = [];
+		const successfulFetched: string[] = [];
+		const failedFetch: Array<{ reason: string; resourceId?: string; }> = [];
 
 		data.forEach((syncBlockInstance) => {
 			if (!syncBlockInstance.resourceId) {
-				this.fireAnalyticsEvent?.(
-					fetchErrorPayload(
-						syncBlockInstance.error || 'Returned sync block instance does not have resource id',
-					),
-				);
+				if (fg('platform_synced_block_dogfooding')) {
+					failedFetch.push({reason: syncBlockInstance.error || 'Returned sync block instance does not have resource id'})
+				} else {
+					this.fireAnalyticsEvent?.(
+						fetchErrorPayload(
+							syncBlockInstance.error || 'Returned sync block instance does not have resource id',
+						),
+					);
+				}
 				return;
 			}
 
@@ -240,12 +310,25 @@ export class ReferenceSyncBlockStoreManager {
 			resolvedData.push(resolvedSyncBlockInstance);
 
 			if (syncBlockInstance.error) {
-				this.fireAnalyticsEvent?.(fetchErrorPayload(syncBlockInstance.error));
+				if (fg('platform_synced_block_dogfooding')) {
+					failedFetch.push({ reason: syncBlockInstance.error, resourceId: syncBlockInstance.resourceId })
+				} else {
+					this.fireAnalyticsEvent?.(fetchErrorPayload(syncBlockInstance.error));
+				}
 				return;
 			}
 
+			successfulFetched.push(syncBlockInstance.resourceId);
 			this.fetchSyncBlockSourceInfo(resolvedSyncBlockInstance.resourceId);
 		});
+
+		if (fg('platform_synced_block_dogfooding')) {
+			if (data.every((syncBlockInstance) => syncBlockInstance.resourceId && !syncBlockInstance.error)) {
+				this.fetchExperience?.success({ metadata: { successfulFetched } });
+			} else {
+				this.fetchExperience?.failure({ metadata: { successfulFetched, failedFetch } });
+			}
+		}
 	}
 
 	private updateCacheWithSourceInfo(resourceId: ResourceId, sourceInfo: SyncBlockSourceInfo) {
@@ -329,7 +412,11 @@ export class ReferenceSyncBlockStoreManager {
 				logException(error, {
 					location: 'editor-synced-block-provider/referenceSyncBlockStoreManager',
 				});
-				this.fireAnalyticsEvent?.(fetchErrorPayload(error.message));
+				if (fg('platform_synced_block_dogfooding')) {
+					this.fetchExperience?.failure({ reason: error.message })
+				} else {
+					this.fireAnalyticsEvent?.(fetchErrorPayload(error.message));
+				}
 			});
 		}
 
@@ -446,32 +533,31 @@ export class ReferenceSyncBlockStoreManager {
 		const { parentDataProviders, providerCreator } =
 			this.dataProvider.getSyncedBlockRendererProviderOptions();
 
-			let providerFactory: ProviderFactory | undefined = this.providerFactories.get(resourceId);
-			if (!providerFactory) {
-				providerFactory = ProviderFactory.create({
-					mentionProvider: parentDataProviders?.mentionProvider,
-					profilecardProvider: parentDataProviders?.profilecardProvider,
-					taskDecisionProvider: parentDataProviders?.taskDecisionProvider,
-				});
-				this.providerFactories.set(resourceId, providerFactory);
-			} else {
-				if (parentDataProviders?.mentionProvider) {
-					providerFactory.setProvider('mentionProvider', parentDataProviders?.mentionProvider);
-				}
-				if (parentDataProviders?.profilecardProvider) {
-					providerFactory.setProvider(
-						'profilecardProvider',
-						parentDataProviders?.profilecardProvider,
-					);
-				}
-				if (parentDataProviders?.taskDecisionProvider) {
-					providerFactory.setProvider(
-						'taskDecisionProvider',
-						parentDataProviders?.taskDecisionProvider,
-					);
-				}
+		let providerFactory: ProviderFactory | undefined = this.providerFactories.get(resourceId);
+		if (!providerFactory) {
+			providerFactory = ProviderFactory.create({
+				mentionProvider: parentDataProviders?.mentionProvider,
+				profilecardProvider: parentDataProviders?.profilecardProvider,
+				taskDecisionProvider: parentDataProviders?.taskDecisionProvider,
+			});
+			this.providerFactories.set(resourceId, providerFactory);
+		} else {
+			if (parentDataProviders?.mentionProvider) {
+				providerFactory.setProvider('mentionProvider', parentDataProviders?.mentionProvider);
 			}
-
+			if (parentDataProviders?.profilecardProvider) {
+				providerFactory.setProvider(
+					'profilecardProvider',
+					parentDataProviders?.profilecardProvider,
+				);
+			}
+			if (parentDataProviders?.taskDecisionProvider) {
+				providerFactory.setProvider(
+					'taskDecisionProvider',
+					parentDataProviders?.taskDecisionProvider,
+				);
+			}
+		}
 
 		if (providerCreator) {
 			try {
@@ -484,6 +570,49 @@ export class ReferenceSyncBlockStoreManager {
 			}
 		}
 		return providerFactory;
+	}
+
+	public getSSRProviders(resourceId: ResourceId) {
+		if (!fg('platform_synced_block_dogfooding')) {
+			return null;
+		}
+
+		if (!this.dataProvider) {
+			return null;
+		}
+
+		const { providerCreator } = this.dataProvider.getSyncedBlockRendererProviderOptions();
+
+		if (!providerCreator?.createSSRMediaProvider) {
+			return null;
+		}
+
+		const parsedResourceId = parseResourceId(resourceId);
+
+		if (!parsedResourceId) {
+			return null;
+		}
+
+		const { contentId, product: contentProduct } = parsedResourceId;
+
+		try {
+			const mediaProvider = providerCreator.createSSRMediaProvider({
+				contentId,
+				contentProduct,
+			});
+
+			if (mediaProvider) {
+				return {
+					media: mediaProvider,
+				};
+			}
+		} catch (error) {
+			logException(error as Error, {
+				location: 'editor-synced-block-provider/referenceSyncBlockStoreManager',
+			});
+		}
+
+		return null;
 	}
 
 	private retrieveDynamicProviders(
@@ -555,10 +684,6 @@ export class ReferenceSyncBlockStoreManager {
 
 		let success = true;
 		try {
-			if (!this.dataProvider) {
-				throw new Error('Data provider not set');
-			}
-
 			const blocks: SyncBlockAttrs[] = [];
 
 			// Collect all reference synced blocks on the current document
@@ -576,6 +701,14 @@ export class ReferenceSyncBlockStoreManager {
 				return true;
 			}
 
+			if (fg('platform_synced_block_dogfooding')) {
+				this.saveExperience?.start();
+			}
+
+			if (!this.dataProvider) {
+				throw new Error('Data provider not set');
+			}
+
 			// reset isCacheDirty early to prevent race condition
 			// There is a race condition where if a user makes changes (create/delete) to a reference sync block
 			// on a live page and the reference sync block is being saved while the user
@@ -587,22 +720,34 @@ export class ReferenceSyncBlockStoreManager {
 
 			if (!updateResult.success) {
 				success = false;
-				this.fireAnalyticsEvent?.(
-					updateReferenceErrorPayload(
-						updateResult.error || 'Failed to update reference synced blocks on the document',
-					),
-				);
+
+				if (fg('platform_synced_block_dogfooding')) {
+					this.saveExperience?.failure({reason: updateResult.error || 'Failed to update reference synced blocks on the document'});
+				} else {
+					this.fireAnalyticsEvent?.(
+						updateReferenceErrorPayload(
+							updateResult.error || 'Failed to update reference synced blocks on the document',
+						),
+					);
+				}
+
 			}
 		} catch (error) {
 			success = false;
 			logException(error as Error, {
 				location: 'editor-synced-block-provider/referenceSyncBlockStoreManager',
 			});
-			this.fireAnalyticsEvent?.(updateReferenceErrorPayload((error as Error).message));
+			if (fg('platform_synced_block_dogfooding')) {
+				this.saveExperience?.failure({reason: (error as Error).message});
+			} else {
+				this.fireAnalyticsEvent?.(updateReferenceErrorPayload((error as Error).message));
+			}
 		} finally {
 			if (!success) {
 				// set isCacheDirty back to true for cases where it failed to update the reference synced blocks on the BE
 				this.isCacheDirty = true;
+			} else if (fg('platform_synced_block_dogfooding')) {
+				this.saveExperience?.success();
 			}
 		}
 

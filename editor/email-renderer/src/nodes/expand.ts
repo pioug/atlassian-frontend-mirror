@@ -6,7 +6,7 @@ import { createClassName } from '../styles/util';
 
 const className = createClassName('expand');
 
-export const styles = `
+export const styles: string = `
 .${className} {
   border: 1px solid rgba(9,30,66,0.25);
   border-radius: 4px;
@@ -36,7 +36,7 @@ export const styles = `
 }
 `;
 
-export default function expand({ attrs, text }: NodeSerializerOpts) {
+export default function expand({ attrs, text }: NodeSerializerOpts): string {
 	if (!text) {
 		return '';
 	}

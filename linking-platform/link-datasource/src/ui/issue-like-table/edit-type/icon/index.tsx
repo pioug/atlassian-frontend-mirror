@@ -63,14 +63,10 @@ const IconEditType = (props: IconEditTypeProps): React.JSX.Element => {
 				defaultMenuIsOpen
 				// We can't update this field if we don't have an ID - however the ID
 				// is typed optional.
-				options={
-					fg('navx-sllv-fix-inline-edit-error')
-						? options?.filter((option) => option.id)
-						: options.filter((option) => option.id)
-				}
+				options={options?.filter((option) => option.id)}
 				menuPlacement="auto"
 				isLoading={isLoading}
-				filterOption={fg('navx-sllv-fix-inline-edit-error') ? filterOptionNew : filterOptionOld}
+				filterOption={filterOption}
 				testId="inline-edit-priority"
 				value={currentValue?.values?.[0]}
 				labelId={labelId}
@@ -99,13 +95,7 @@ const IconEditType = (props: IconEditTypeProps): React.JSX.Element => {
 	);
 };
 
-/**
- * Remove on navx-sllv-fix-inline-edit-error cleanup
- */
-const filterOptionOld = (option: FilterOptionOption<Icon>, inputValue: string) =>
-	option.label.toLowerCase().includes(inputValue.toLowerCase());
-
-const filterOptionNew = (option: FilterOptionOption<Icon>, inputValue: string) =>
+const filterOption = (option: FilterOptionOption<Icon>, inputValue: string) =>
 	option.label?.toLowerCase?.()?.includes(inputValue?.toLowerCase());
 
 export default IconEditType;

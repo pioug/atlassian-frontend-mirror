@@ -1,4 +1,4 @@
-export { default as themeConfig, themeStateDefaults } from './theme-config';
+export { default as themeConfig } from './theme-config';
 
 export { default as token } from './get-token';
 export { default as getTokenValue } from './get-token-value';

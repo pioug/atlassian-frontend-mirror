@@ -13,7 +13,7 @@ import {
 } from './styled';
 import { token } from '@atlaskit/tokens';
 
-export const controlKeys = ['ArrowUp', 'ArrowDown', 'Enter', 'Tab', 'ArrowRight'];
+export const controlKeys: string[] = ['ArrowUp', 'ArrowDown', 'Enter', 'Tab', 'ArrowRight'];
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const SpinnerParent = styled.div({
@@ -50,7 +50,7 @@ export default class Search extends React.PureComponent<Props> {
 		placeholder: 'Search',
 	};
 
-	onInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+	onInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
 		const { onKeyDown } = this.props;
 		if (!controlKeys.includes(event.key)) {
 			return;
@@ -61,7 +61,7 @@ export default class Search extends React.PureComponent<Props> {
 		event.stopPropagation();
 	};
 
-	setInputRef = (ref: React.Ref<any>) => {
+	setInputRef = (ref: React.Ref<any>): void => {
 		this.inputRef = ref;
 	};
 

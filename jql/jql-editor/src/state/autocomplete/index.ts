@@ -23,7 +23,7 @@ import {
 import { type AutocompleteOptions } from '@atlaskit/jql-editor-common';
 
 // Opinionated order in which we want to render operators
-export const ORDERED_OPERATORS = [
+export const ORDERED_OPERATORS: string[] = [
 	OPERATOR_EQUALS,
 	OPERATOR_NOT_EQUALS,
 	OPERATOR_LIKE,

@@ -29,6 +29,7 @@ export {
 	getConfluencePageAri,
 	getPageIdAndTypeFromConfluencePageAri,
 } from './clients/confluence/ari';
+export { fetchMediaToken } from './clients/confluence/fetchMediaToken';
 export { getJiraWorkItemAri, getJiraWorkItemIdFromAri } from './clients/jira/ari';
 
 // providers
@@ -65,6 +66,7 @@ export {
 
 // utils
 export { resolveSyncBlockInstance } from './utils/resolveSyncBlockInstance';
+export { parseResourceId } from './utils/parseResourceId';
 export {
 	createSyncBlockNode,
 	convertSyncBlockPMNodeToSyncBlockData,

@@ -125,83 +125,59 @@ describe('SingleValueContainer', () => {
 	describe('icon support', () => {
 		const mockIcon = <div data-testid="test-icon">Icon</div>;
 
-		ffTest.on('atlaskit_user_picker_support_icon', 'on', () => {
-			it('should render AvatarOrIcon when feature gate is enabled and icon is provided', () => {
-				const userValueWithIcon: Option = {
-					data: { ...testUser, icon: mockIcon },
-					label: testUser.name,
-					value: '0',
-				};
+		it('should render AvatarOrIcon when icon is provided', () => {
+			const userValueWithIcon: Option = {
+				data: { ...testUser, icon: mockIcon },
+				label: testUser.name,
+				value: '0',
+			};
 
-				const component = shallowValueContainer({
-					hasValue: true,
-					selectProps: {
-						isFocused: true,
-						inputValue: testUser.name,
-						value: userValueWithIcon,
-					},
-				});
-
-				expect(component.find(AvatarOrIcon)).toHaveLength(1);
-				expect(component.find(AvatarOrIcon).prop('icon')).toEqual(mockIcon);
+			const component = shallowValueContainer({
+				hasValue: true,
+				selectProps: {
+					isFocused: true,
+					inputValue: testUser.name,
+					value: userValueWithIcon,
+				},
 			});
 
-			it('should render AvatarOrIcon with iconColor when both icon and iconColor are provided', () => {
-				const iconColor = '#FF0000';
-				const userValueWithIconAndColor: Option = {
-					data: { ...testUser, icon: mockIcon, iconColor },
-					label: testUser.name,
-					value: '0',
-				};
-
-				const component = shallowValueContainer({
-					hasValue: true,
-					selectProps: {
-						isFocused: true,
-						inputValue: testUser.name,
-						value: userValueWithIconAndColor,
-					},
-				});
-
-				expect(component.find(AvatarOrIcon)).toHaveLength(1);
-				expect(component.find(AvatarOrIcon).prop('icon')).toEqual(mockIcon);
-				expect(component.find(AvatarOrIcon).prop('iconColor')).toEqual(iconColor);
-			});
-
-			it('should render SizeableAvatar when feature gate is enabled but no icon is provided', () => {
-				const component = shallowValueContainer({
-					hasValue: true,
-					selectProps: {
-						isFocused: true,
-						inputValue: testUser.name,
-						value: userValue,
-					},
-				});
-
-				expect(component.find(SizeableAvatar)).toHaveLength(1);
-			});
+			expect(component.find(AvatarOrIcon)).toHaveLength(1);
+			expect(component.find(AvatarOrIcon).prop('icon')).toEqual(mockIcon);
 		});
 
-		ffTest.off('atlaskit_user_picker_support_icon', 'off', () => {
-			it('should render SizeableAvatar when feature gate is disabled even if icon is provided', () => {
-				const userValueWithIcon: Option = {
-					data: { ...testUser, icon: mockIcon },
-					label: testUser.name,
-					value: '0',
-				};
+		it('should render AvatarOrIcon with iconColor when both icon and iconColor are provided', () => {
+			const iconColor = '#FF0000';
+			const userValueWithIconAndColor: Option = {
+				data: { ...testUser, icon: mockIcon, iconColor },
+				label: testUser.name,
+				value: '0',
+			};
 
-				const component = shallowValueContainer({
-					hasValue: true,
-					selectProps: {
-						isFocused: true,
-						inputValue: testUser.name,
-						value: userValueWithIcon,
-					},
-				});
-
-				expect(component.find(SizeableAvatar)).toHaveLength(1);
-				expect(component.find(SizeableAvatar).prop('src')).toEqual(testUser.avatarUrl);
+			const component = shallowValueContainer({
+				hasValue: true,
+				selectProps: {
+					isFocused: true,
+					inputValue: testUser.name,
+					value: userValueWithIconAndColor,
+				},
 			});
+
+			expect(component.find(AvatarOrIcon)).toHaveLength(1);
+			expect(component.find(AvatarOrIcon).prop('icon')).toEqual(mockIcon);
+			expect(component.find(AvatarOrIcon).prop('iconColor')).toEqual(iconColor);
+		});
+
+		it('should render SizeableAvatar when no icon is provided', () => {
+			const component = shallowValueContainer({
+				hasValue: true,
+				selectProps: {
+					isFocused: true,
+					inputValue: testUser.name,
+					value: userValue,
+				},
+			});
+
+			expect(component.find(SizeableAvatar)).toHaveLength(1);
 		});
 	});
 });

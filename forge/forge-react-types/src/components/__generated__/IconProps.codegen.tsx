@@ -670,7 +670,7 @@ export type IconReplaced =
 	| 'world'
 	| 'world-small';
 
-type Glyph = IconNext | IconRemoved | IconReplaced;
+type Glyph = IconNext | IconReplaced;
 export type IconColor = Extract<ActiveTokens, `color.${string}`>;
 
 export type IconProps = {

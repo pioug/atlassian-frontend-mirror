@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-local-id
 
+## 5.0.1
+
+### Patch Changes
+
+- [`8d8cdcab50139`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d8cdcab50139) -
+  Use shortened UUIDs to reduce document size.
+- Updated dependencies
+
 ## 5.0.0
 
 ### Patch Changes

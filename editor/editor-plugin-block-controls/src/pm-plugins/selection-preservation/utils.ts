@@ -22,16 +22,6 @@ export const getSelectionPreservationMeta = (tr: Transaction | ReadonlyTransacti
 };
 
 /**
- * Checks if the current selection is within a code block.
- *
- * @param selection The current selection to check.
- * @returns True if the selection is within a code block, otherwise false.
- */
-export const isSelectionWithinCodeBlock = ({ $from, $to }: Selection): boolean => {
-	return $from.sameParent($to) && $from.parent.type.name === 'codeBlock';
-};
-
-/**
  * Compares two selections for equality based on their from and to positions.
  *
  * @param a The first selection to compare.

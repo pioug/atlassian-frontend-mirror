@@ -1,9 +1,11 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
 
+import type { SYNC_BLOCK_PRODUCTS } from './consts';
+
 export type BlockInstanceId = string;
 export type ResourceId = string;
-export type SyncBlockProduct = 'confluence-page' | 'jira-work-item';
+export type SyncBlockProduct = (typeof SYNC_BLOCK_PRODUCTS)[number];
 
 export type SyncBlockAttrs = {
 	localId: BlockInstanceId;
@@ -25,7 +27,7 @@ export enum SyncBlockError {
 	Conflict = 'conflict', // attempt to create block that already exists
 	ServerError = 'server_error',
 	InvalidContent = 'invalid_content', // content is not a valid JSON
-	Offline = "offline",
+	Offline = 'offline',
 }
 
 export interface SyncBlockData {

@@ -60,6 +60,10 @@ export const SelectionExtensionDropdownItem = ({
 				nodePos,
 			});
 
+			// Close the block menu for featured items since they're at top level
+			// and don't have a parent menu context to auto-close
+			api?.blockControls?.commands.toggleBlockMenu({ closeMenu: true })({ tr });
+
 			return tr;
 		});
 

@@ -14,5 +14,5 @@ function setAlpha(color: string, alpha: number): string {
 
 /** this is not new usage - old code extracted from editor-core */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-export const DEFAULT_BORDER_COLOR = setAlpha('#172B4D', 0.12);
+export const DEFAULT_BORDER_COLOR: string = setAlpha('#172B4D', 0.12);
 /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */

@@ -3,14 +3,14 @@ import { type Fragment, type Node } from '@atlaskit/editor-prosemirror/model';
 /**
  * Get all text between positions `from` and `to` with a newline char between block nodes.
  */
-export const getNodeText = (node: Node, from: number, to: number) => {
+export const getNodeText = (node: Node, from: number, to: number): string => {
 	return getFragmentText(node.content, from, to);
 };
 
 /**
  * Get all text between positions `from` and `to` with a newline char between block nodes.
  */
-export const getFragmentText = (fragment: Fragment, from: number, to: number) => {
+export const getFragmentText = (fragment: Fragment, from: number, to: number): string => {
 	return textBetween(fragment, from, to, '\n');
 };
 

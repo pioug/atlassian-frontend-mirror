@@ -18,6 +18,7 @@ import { SyncBlockError, type SyncBlockStoreManager } from '@atlaskit/editor-syn
 import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import EditIcon from '@atlaskit/icon/core/edit';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	copySyncedBlockReferenceToClipboard,
@@ -69,6 +70,9 @@ export const getToolbarConfig = (
 			title: formatMessage(commonMessages.delete),
 			onClick: removeSyncedBlock(api),
 			icon: DeleteIcon,
+			testId: fg('platform_synced_block_dogfooding')
+						? 'reference-synced-block-delete-button'
+						: undefined,
 			...hoverDecorationProps(nodeType, akEditorSelectedNodeClassName),
 		};
 
@@ -81,7 +85,7 @@ export const getToolbarConfig = (
 			icon: CopyIcon,
 			title: formatMessage(messages.copySyncBlockLabel),
 			showTitle: false,
-			tooltipContent: formatMessage(messages.copySyncBlockTooltip),
+			tooltipContent: formatMessage(messages.copySyncedBlockTooltip),
 			onClick: copySyncedBlockReferenceToClipboard(syncBlockStore, api),
 			...hoverDecorationProps(nodeType, akEditorSelectedNodeClassName),
 		};

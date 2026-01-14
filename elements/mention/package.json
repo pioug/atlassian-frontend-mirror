@@ -48,7 +48,7 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/elements-test-helpers": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"@testing-library/user-event": "root:*",
 		"@types/query-string": "root:*",
 		"@types/serialize-javascript": "root:*",

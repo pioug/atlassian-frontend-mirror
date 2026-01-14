@@ -1,49 +1,69 @@
-import { GapCursorSelection } from '@atlaskit/editor-common/selection';
-import type { ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
-import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { NodeSelection, type Selection } from '@atlaskit/editor-prosemirror/state';
+import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import {
+	NodeSelection,
+	type Selection,
+	type Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
-import { getNestedNodePosition } from '../../pm-plugins/utils/getNestedNodePosition';
+import { createPreservedSelection } from '../../pm-plugins/utils/selection';
 
-export const getCurrentNodePosFromDragHandleSelection = ({
-	selection,
-	schema,
-	resolve,
-}: {
-	resolve: (pos: number) => ResolvedPos;
-	schema: Schema;
-	selection: Selection;
-}): number => {
-	let currentNodePos = -1;
-
-	if (selection.empty && expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {
-		currentNodePos = selection.$from.pos;
+/**
+ * Gets the current node position and bounds from the selection using the preserved selection logic.
+ * This ensures consistency with how the block controls plugin handles selection boundaries.
+ *
+ * Special handling for tables: When moving a table as a block, we need the outer table node's
+ * position, not the internal cell selection that createPreservedSelection returns.
+ *
+ * @param selection The current editor selection
+ * @returns An object with from and to positions, or undefined if selection is invalid
+ */
+export const getNodeBoundsFromSelection = (
+	selection: Selection,
+): { from: number; to: number } | undefined => {
+	// Special case: if a table is selected, we want to move the entire table node
+	const tableInfo = findTable(selection);
+	if (tableInfo && isTableSelected(selection)) {
+		const tablePos = tableInfo.pos;
+		const tableTo = tablePos + tableInfo.node.nodeSize;
+		return {
+			from: tablePos,
+			to: tableTo,
+		};
 	}
 
-	if (isTableSelected(selection)) {
-		// We only move table node if it's fully selected
-		// to avoid shortcut collision with table drag and drop
-		currentNodePos = findTable(selection)?.pos ?? currentNodePos;
-	} else if (
+	// Special case: if a media node (file) is selected, we need to get the parent mediaGroup
+	// This handles the case where clicking on a file creates a NodeSelection of the media node
+	// but we want to move the entire mediaGroup that wraps it
+	if (
 		selection instanceof NodeSelection &&
-		selection.node.type === schema.nodes.media &&
+		selection.node.type.name === 'media' &&
 		selection.node.attrs.type === 'file' &&
 		expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
 	) {
-		// When a file is selected, it is actually wrapped in a media group
-		// return the position of the media group , as the group is the node that we want to move up or down
-		currentNodePos = selection.$from.pos - 1;
-	} else if (!(selection instanceof GapCursorSelection)) {
-		// 2. caret cursor is inside the node
-		// 3. the start of the selection is inside the node
-		currentNodePos = selection.$from.before(1);
-		if (selection.$from.depth > 0) {
-			currentNodePos = getNestedNodePosition({ selection, schema, resolve });
+		// The media node is wrapped in a mediaGroup, so we need to get the parent position
+		const mediaGroupPos = selection.$from.pos - 1;
+		const mediaGroupNode = selection.$from.doc.nodeAt(mediaGroupPos);
+		if (mediaGroupNode && mediaGroupNode.type.name === 'mediaGroup') {
+			return {
+				from: mediaGroupPos,
+				to: mediaGroupPos + mediaGroupNode.nodeSize,
+			};
 		}
 	}
-	return currentNodePos;
+
+	// Use createPreservedSelection to get properly expanded block boundaries
+	const preservedSelection = createPreservedSelection(selection.$from, selection.$to);
+
+	if (!preservedSelection) {
+		return undefined;
+	}
+
+	return {
+		from: preservedSelection.from,
+		to: preservedSelection.to,
+	};
 };
 
 export const getPosWhenMoveNodeUp = (
@@ -113,24 +133,22 @@ export const getShouldMoveNode = ({
 };
 
 export const canMoveNodeUpOrDown = (tr: Transaction): { moveDown: boolean; moveUp: boolean } => {
-	const currentNodePos = getCurrentNodePosFromDragHandleSelection({
-		selection: tr.selection,
-		schema: tr.doc.type.schema,
-		resolve: tr.doc.resolve.bind(tr.doc),
-	});
+	const nodeBounds = getNodeBoundsFromSelection(tr.selection);
 
-	if (currentNodePos <= -1) {
+	if (!nodeBounds || nodeBounds.from <= -1) {
 		return {
 			moveUp: false,
 			moveDown: false,
 		};
 	}
 
+	const currentNodePos = nodeBounds.from;
 	const $currentNodePos = tr.doc.resolve(currentNodePos);
-	const nodeAfterPos = $currentNodePos.posAtIndex($currentNodePos.index() + 1);
+	const nodeAfterPos = nodeBounds.to;
 
 	const moveUpPos = getPosWhenMoveNodeUp($currentNodePos, currentNodePos);
 	const moveDownPos = getPosWhenMoveNodeDown({ $currentNodePos, nodeAfterPos, tr });
+
 	return {
 		moveUp: getShouldMoveNode({
 			currentNodePos,

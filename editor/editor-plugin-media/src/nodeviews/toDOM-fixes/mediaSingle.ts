@@ -105,7 +105,7 @@ export const mediaContentWrapperWidthCSSCalc = ({
 	isPixelWidth,
 	childMediaWidth,
 	mediaSingleDimensionWidth,
-}: MediaContentWrapperWidthCSSCalcProps) => {
+}: MediaContentWrapperWidthCSSCalcProps): string => {
 	if (isExternalMedia || !isMediaWrapped) {
 		return 'unset';
 	}

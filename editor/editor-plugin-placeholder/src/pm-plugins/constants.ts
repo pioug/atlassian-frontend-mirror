@@ -7,6 +7,6 @@ export const TYPEWRITER_ERASE_DELAY = 40; // Delay between erasing each characte
 export const TYPEWRITER_CYCLE_DELAY = 500; // Delay before starting next cycle
 export const TYPEWRITER_TYPED_AND_DELETED_DELAY = 1500; // Delay before starting animation after user typed and deleted
 
-export const nodeTypesWithLongPlaceholderText = ['expand', 'panel'];
-export const nodeTypesWithShortPlaceholderText = ['tableCell', 'tableHeader'];
-export const nodeTypesWithSyncBlockPlaceholderText = ['bodiedSyncBlock'];
+export const nodeTypesWithLongPlaceholderText: string[] = ['expand', 'panel'];
+export const nodeTypesWithShortPlaceholderText: string[] = ['tableCell', 'tableHeader'];
+export const nodeTypesWithSyncBlockPlaceholderText: string[] = ['bodiedSyncBlock'];

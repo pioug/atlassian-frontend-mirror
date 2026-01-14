@@ -43,4 +43,4 @@ export const LinkPickerSessionProvider = ({
 	return <SessionContext.Provider value={sessionId}>{children}</SessionContext.Provider>;
 };
 
-export const useLinkPickerSessionId = () => useContext<LinkPickerSessionId>(SessionContext);
+export const useLinkPickerSessionId = (): string => useContext<LinkPickerSessionId>(SessionContext);

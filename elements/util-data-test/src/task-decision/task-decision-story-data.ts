@@ -72,7 +72,7 @@ export const document = {
 	],
 };
 
-export const participants = [
+export const participants: string[] = [
 	'ed5c802ddd0ef7ec9da68da9fa51c186',
 	'ed5c802ddd0ef7ec9da68da9fa51c187',
 	'ed5c802ddd0ef7ec9da68da9fa51c188',
@@ -82,4 +82,4 @@ export const participants = [
 	'4cc5629af38fb272d40446a51f58ab73',
 ];
 
-export const getParticipants = (count: number) => participants.slice(0, count);
+export const getParticipants = (count: number): string[] => participants.slice(0, count);

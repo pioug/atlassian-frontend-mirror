@@ -32,7 +32,7 @@ export class BaseClient {
 			cloudId: 'None',
 		};
 	}
-	setContext(context: ClientContextProps) {
+	setContext(context: ClientContextProps): void {
 		this.context = {
 			...context,
 			cloudId: context.cloudId || 'None',
@@ -48,7 +48,7 @@ export class BaseClient {
 	 * @param localValue is used for backwards compatibility
 	 * @returns
 	 */
-	getOrgId(localValue?: string) {
+	getOrgId(localValue?: string): string {
 		const orgId = localValue || this.getContext().orgId;
 		if (!orgId) {
 			const err = new Error('No orgId set');
@@ -62,7 +62,7 @@ export class BaseClient {
 	 * @param localValue is used for backwards compatibility
 	 * @returns
 	 */
-	getCloudId(localValue?: string) {
+	getCloudId(localValue?: string): string {
 		return localValue || this.getContext().cloudId;
 	}
 
@@ -70,7 +70,7 @@ export class BaseClient {
 		ex: unknown | Error,
 		name: string,
 		context?: NestedContext & { tags?: Record<string, string> },
-	) => {
+	): void => {
 		logException(ex, name, context);
 		this.config.logException(ex, name, context);
 	};
@@ -80,7 +80,7 @@ export class BaseClient {
 	}
 
 	// Default expiration is 5 minutes
-	cacheValue<T>(key: string, value: T, expiryMs: number = 1000 * 60 * 5) {
+	cacheValue<T>(key: string, value: T, expiryMs: number = 1000 * 60 * 5): void {
 		this.cache[this.keyWithContext(key)] = {
 			data: value,
 			expiration: Date.now() + expiryMs,

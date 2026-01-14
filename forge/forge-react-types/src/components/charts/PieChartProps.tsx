@@ -1,3 +1,5 @@
+import type { ThemeElementProps } from '@atlassian/viz-platform-charts/primitives';
+
 export type PieChartProps = {
 	/**
 	 * The static width of the chart in pixels. If this is not specified, the width is responsive.
@@ -42,6 +44,12 @@ export type PieChartProps = {
 	 * Adds a border onto the chart. Defaults to true.
 	 */
 	showBorder?: boolean;
+	/**
+	 * Custom color palette for the chart.
+	 * Can be an array of color strings, or an array of objects with
+	 * key and value properties to map specific data categories to colors.
+	 */
+	colorPalette?: ThemeElementProps['fillStyles'];
 };
 
 /**

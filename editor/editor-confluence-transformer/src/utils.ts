@@ -356,7 +356,7 @@ export const getExtensionMacroParams = (params: Record<string, any>) => {
 	return macroParams;
 };
 
-export const mapPanelTypeToPm = (panelType: string) => {
+export const mapPanelTypeToPm = (panelType: string): string => {
 	switch (panelType) {
 		case 'warning':
 			return 'error';
@@ -368,7 +368,7 @@ export const mapPanelTypeToPm = (panelType: string) => {
 	return panelType;
 };
 
-export const mapPanelTypeToCxhtml = (panelType: string) => {
+export const mapPanelTypeToCxhtml = (panelType: string): string => {
 	switch (panelType) {
 		case 'error':
 			return 'warning';

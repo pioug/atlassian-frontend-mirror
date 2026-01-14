@@ -13,7 +13,7 @@ export function isPathBasedEnabled(): boolean {
 	return fg('platform_media_path_based_route') && !isLocalhost;
 }
 
-export function mapToPathBasedUrl(url: string) {
+export function mapToPathBasedUrl(url: string): string {
 	if (isPathBasedEnabled()) {
 		const parsedUrl = new URL(url);
 

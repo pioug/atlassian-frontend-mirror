@@ -39,7 +39,7 @@ import { styles as underlineStyles } from '../marks/underline';
 import { fontFamily, fontSize, fontWeight, lineHeight } from './common';
 import { createClassName } from './util';
 
-const styles = `
+const styles: string = `
   .${createClassName('wrapper')} {
     font-family: ${fontFamily};
     font-size: ${fontSize};

@@ -287,7 +287,7 @@ export class OverflowParent {
 	/**
 	 *
 	 */
-	get id() {
+	get id(): string {
 		if (this.ref instanceof HTMLElement) {
 			return this.ref.id;
 		}

@@ -17,7 +17,7 @@ export const statusCodeHandlersProvider = {
 		return statusCodeHandlersProvider.handlers;
 	},
 
-	setHandlers(handlers: StatusCodeHandlerMap) {
+	setHandlers(handlers: StatusCodeHandlerMap): void {
 		statusCodeHandlersProvider.handlers = handlers;
 	},
 };

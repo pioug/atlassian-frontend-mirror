@@ -5,6 +5,7 @@ import { useIntl } from 'react-intl-next';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 
+import { JQL_EDITOR_MAIN_ID } from '../../common/constants';
 import {
 	EditorThemeContext,
 	useEditorTheme,
@@ -101,7 +102,7 @@ const JQLEditorLayout = (props: Props): React.JSX.Element => {
 	} = props;
 
 	return (
-		<EditorMain id={mainId} ref={onEditorMainRef}>
+		<EditorMain id={mainId} data-vc={JQL_EDITOR_MAIN_ID} ref={onEditorMainRef}>
 			<EditorViewContainer
 				editorViewHasFocus={editorViewHasFocus}
 				editorViewIsInvalid={editorViewIsInvalid}

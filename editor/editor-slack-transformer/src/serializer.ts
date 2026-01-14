@@ -391,7 +391,7 @@ export const marks = {
 	link: {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		open(_state: MarkdownSerializerState, mark: any) {
+		open(_state: MarkdownSerializerState, mark: any): string {
 			return '<' + mark.attrs.href + '|';
 		},
 		close: '>',

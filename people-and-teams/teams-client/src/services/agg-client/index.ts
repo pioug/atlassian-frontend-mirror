@@ -70,7 +70,7 @@ export class AGGClient extends BaseGraphQlClient {
 	constructor(baseUrl: string, config: ClientConfig) {
 		super(`${baseUrl}/graphql`, config);
 	}
-	setBaseUrl(baseUrl: string) {
+	setBaseUrl(baseUrl: string): void {
 		this.setServiceUrl(`${baseUrl}/graphql`);
 	}
 

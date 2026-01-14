@@ -14,7 +14,7 @@ export class MetadataService {
 
 	getMetaData = () => this.metadata;
 
-	getTitle = () => {
+	getTitle = (): string => {
 		return this.metadata.title?.toString();
 	};
 

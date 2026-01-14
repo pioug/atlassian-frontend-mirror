@@ -5,7 +5,7 @@ import { createClassName } from '../styles/util';
 import { applyMarks } from '../apply-marks';
 
 const className = createClassName('media-single');
-export const styles = `
+export const styles: string = `
 .${className}-wide {
   width: 100%;
 }
@@ -32,7 +32,7 @@ export const styles = `
 }
 `;
 
-export default function mediaSingle({ attrs, marks, text, context }: NodeSerializerOpts) {
+export default function mediaSingle({ attrs, marks, text, context }: NodeSerializerOpts): string {
 	// If not full width or wide
 	const honorWidth = !['wide', 'full-width'].includes(attrs.layout);
 

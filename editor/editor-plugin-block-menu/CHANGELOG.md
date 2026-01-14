@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.0.15
+
+### Patch Changes
+
+- [`2a1bf10d70beb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a1bf10d70beb) -
+  EDITOR-4293 Fix block menu selection highlight issues
+- Updated dependencies
+
 ## 6.0.14
 
 ### Patch Changes

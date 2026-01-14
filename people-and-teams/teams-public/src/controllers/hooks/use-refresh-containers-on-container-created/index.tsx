@@ -16,7 +16,7 @@ type CreatedContainersMap<T extends Record<string, any>> = Partial<
 export const INTERVAL_TIME = 2000;
 export const TIMEOUT_DURATION = 30000;
 
-export const useRefreshOnContainerCreated = (teamId: string) => {
+export const useRefreshOnContainerCreated = (teamId: string): void => {
 	const [containers, { updateContainerLoading, updateContainerCreated }] = useCreateContainers();
 	const { refetchTeamContainers, teamContainers } = useTeamContainers(teamId);
 

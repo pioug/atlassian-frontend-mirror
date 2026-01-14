@@ -199,8 +199,8 @@ export type TextBlockTypes =
 	| 'heading5'
 	| 'heading6';
 
-export const FORMATTING_NODE_TYPES = ['heading', 'blockquote'];
-export const FORMATTING_MARK_TYPES = [
+export const FORMATTING_NODE_TYPES: string[] = ['heading', 'blockquote'];
+export const FORMATTING_MARK_TYPES: string[] = [
 	'em',
 	'code',
 	'strike',

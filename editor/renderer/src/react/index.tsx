@@ -43,6 +43,7 @@ import { isAnnotationMark, toReact as markToReact } from './marks';
 import { isCodeMark } from './marks/code';
 import {
 	insideBlockNode,
+	insideBreakoutExpand,
 	insideBreakoutLayout,
 	insideMultiBodiedExtension,
 	insideTable,
@@ -559,9 +560,20 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		const isInsideMultiBodiedExtension = insideMultiBodiedExtension(path, node.type.schema);
 		const isInsideOfTable = insideTable(path, node.type.schema);
 
-		// TODO: CEMS-1048 - Support sticky headers inside breakout + layout
+		// TODO: EDITOR-3850 - support sticky headers inside breakouts (layouts and expands)
+		const isInsideBreakoutExpand =
+			expValEquals(
+				'platform_editor_table_sticky_header_improvements',
+				'cohort',
+				'test_with_overflow',
+			) &&
+			expValEquals('platform_editor_table_sticky_header_patch_11', 'isEnabled', true) &&
+			insideBreakoutExpand(path);
 		const stickyHeaders =
-			!isInsideOfTable && !insideBreakoutLayout(path) ? this.stickyHeaders : undefined;
+			!isInsideOfTable && !insideBreakoutLayout(path) && !isInsideBreakoutExpand
+				? this.stickyHeaders
+				: undefined;
+
 		return {
 			...this.getProps(node),
 			allowColumnSorting: this.allowColumnSorting,
@@ -900,21 +912,21 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		// currently the only mark which has custom props is the code mark
 		const markSpecificProps = isCodeMark(mark)
 			? {
-					// The appearance being mobile indicates we are in an renderer being
-					// rendered by mobile bridge in a web view.
-					// The tooltip is likely to have unexpected behaviour there, with being cut
-					// off, so we disable it. This is also to keep the behaviour consistent with
-					// the rendering in the mobile Native Renderer.
-					codeBidiWarningTooltipEnabled: false,
-				}
+				// The appearance being mobile indicates we are in an renderer being
+				// rendered by mobile bridge in a web view.
+				// The tooltip is likely to have unexpected behaviour there, with being cut
+				// off, so we disable it. This is also to keep the behaviour consistent with
+				// the rendering in the mobile Native Renderer.
+				codeBidiWarningTooltipEnabled: false,
+			}
 			: {};
 
 		// Add deepLinkTarget for link marks
 		const linkSpecificProps =
 			mark.type.name === 'link'
 				? {
-						onSetLinkTarget: this.onSetLinkTarget,
-					}
+					onSetLinkTarget: this.onSetLinkTarget,
+				}
 				: {};
 
 		const props: MarkMeta = {

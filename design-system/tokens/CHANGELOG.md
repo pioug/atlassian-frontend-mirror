@@ -1,5 +1,15 @@
 # @atlaskit/tokens
 
+## 9.1.2
+
+### Patch Changes
+
+- [`d9d9cbc1507f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9d9cbc1507f6) -
+  Internal change how default theme settings are shared between `@atlaskit/tokens` and
+  `@atlaskit/app-provider`.
+- [`9832107cabf9f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9832107cabf9f) -
+  Removing experimental feature flag to disable the typography theme.
+
 ## 9.1.1
 
 ### Patch Changes

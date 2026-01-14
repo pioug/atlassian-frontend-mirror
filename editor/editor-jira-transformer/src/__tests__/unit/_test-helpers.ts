@@ -12,7 +12,7 @@ export function encode(
 	schema: Schema,
 	customEncoders: JIRACustomEncoders = {},
 	mediaContextInfo?: MediaContextInfo,
-) {
+): string {
 	const transformer = new JIRATransformer(schema, customEncoders, mediaContextInfo);
 	return transformer.encode(node(schema));
 }

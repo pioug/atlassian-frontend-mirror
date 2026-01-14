@@ -49,7 +49,7 @@ const styles = cssMap({
 });
 
 export const DEFAULT_JQL_QUERY = 'ORDER BY created DESC';
-export const ALLOWED_ORDER_BY_KEYS = ['key', 'summary', 'assignee', 'status', 'created'];
+export const ALLOWED_ORDER_BY_KEYS: string[] = ['key', 'summary', 'assignee', 'status', 'created'];
 
 export interface SearchContainerProps {
 	initialSearchMethod: JiraSearchMethod;

@@ -5,7 +5,7 @@ export const convertTypeToTypeName = (type: string, suffix = 'Definition'): stri
 	return `${type.split('_').map(capitalize).join('')}${suffix}`;
 };
 
-export const _codeBlock = (...blocks: string[]) => {
+export const _codeBlock = (...blocks: string[]): string => {
 	return blocks.filter((b) => b !== '').join('\n\n');
 };
 
@@ -71,7 +71,7 @@ export const _namedTypeImport = (pkg: string, ...names: string[]) => {
  * @returns
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function stringifyWithUndefined(obj: any) {
+export function stringifyWithUndefined(obj: any): string {
 	return JSON.stringify(obj, (_key, value) => {
 		return value !== undefined ? value : 'undefined';
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -294,8 +294,8 @@ export const createListAtSelection = (
 	item: NodeType,
 	schema: Schema,
 	state: EditorState,
-	listLocalId = uuid.generate(),
-	itemLocalId = uuid.generate(),
+	listLocalId: string = uuid.generate(),
+	itemLocalId: string = uuid.generate(),
 	itemAttrs?: AddItemAttrs,
 ): Transaction | null => {
 	const { selection } = state;

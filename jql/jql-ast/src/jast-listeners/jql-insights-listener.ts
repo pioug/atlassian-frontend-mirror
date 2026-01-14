@@ -282,8 +282,8 @@ class JastAnalyticsListener implements JastListener {
 				const value = arg.value.toLowerCase();
 				// Check if it's a teamId (starts with "id:") or a group name
 				if (value.startsWith('id:')) {
-					// Extract the UUID part after "id:" and normalize whitespace
-					const teamId = arg.value.replace(/\s*:\s*/g, ':').trim();
+					// Extract the UUID part after "id:" prefix (remove "id:" and normalize whitespace)
+					const teamId = arg.value.replace(/^id\s*:\s*/i, '').trim();
 					this.attributes.membersOfTeamIds.push(teamId);
 					this.attributes.membersOfTeamCount += 1;
 				} else {

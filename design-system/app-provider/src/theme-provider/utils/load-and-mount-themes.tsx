@@ -1,5 +1,7 @@
 import { getDocument } from '@atlaskit/browser-apis';
-import { type ThemeIds, themeImportMap, type ThemeState } from '@atlaskit/tokens';
+import { type ThemeIds, themeImportMap } from '@atlaskit/tokens';
+
+import { type Theme } from '../context/theme';
 
 import { isThemeMounted } from './is-theme-mounted';
 
@@ -50,14 +52,8 @@ const loadAndMountThemeCss = async (themeId: ThemeIds) => {
 	mountThemeCss(themeCss, themeId);
 };
 
-export const loadAndMountThemes = async (themeState: Partial<ThemeState>) => {
-	const themesToLoad = [
-		themeState.light,
-		themeState.dark,
-		themeState.spacing,
-		themeState.shape,
-		themeState.typography,
-	].filter((themeId): themeId is ThemeIds => !!themeId);
+export const loadAndMountThemes = async (theme: Partial<Theme>) => {
+	const themesToLoad = Object.values(theme).filter((themeId): themeId is ThemeIds => !!themeId);
 
 	themesToLoad.forEach(loadAndMountThemeCss);
 };

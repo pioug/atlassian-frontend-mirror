@@ -129,7 +129,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 		);
 	}
 
-	async componentDidMount() {
+	async componentDidMount(): Promise<void> {
 		try {
 			const value = await hydrateDefaultValues(
 				this.props.baseUrl,
@@ -185,7 +185,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 		}
 	}
 
-	abortOptionsShownUfoExperience = () => {
+	abortOptionsShownUfoExperience = (): void => {
 		if (this.optionsShownUfoExperienceInstance.state.id === UFOExperienceState.STARTED.id) {
 			// There may be an existing UFO timing running from previous key entry or focus,
 			// so abort it and restart it just in case.
@@ -193,7 +193,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 		}
 	};
 
-	startOptionsShownUfoExperience = () => {
+	startOptionsShownUfoExperience = (): void => {
 		this.abortOptionsShownUfoExperience();
 		this.optionsShownUfoExperienceInstance.start();
 	};
@@ -212,7 +212,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 
 	memoizedFilterOptions = memoizeOne(this.filterOptions);
 
-	getUsers = debounce(async () => {
+	getUsers = debounce(async (): Promise<void> => {
 		const { query, sessionId, closed } = this.state;
 
 		const {
@@ -274,8 +274,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 			maxNumberOfResults,
 			query,
 			searchEmail: isEmail,
-			// Only request verified teams when both the prop is true and the feature flag is enabled
-			verifiedTeams: verifiedTeams && fg('smart-user-picker-managed-teams-gate'),
+			...(verifiedTeams === true && fg('smart-user-picker-managed-teams-gate') && { verifiedTeams: true }),
 			/*
 				For email-based searches, we have decided to filter out apps.
 				Also - because the other 2 filters ((NOT not_mentionable:true) AND (account_status:active)) are included
@@ -424,7 +423,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 		}
 	}, this.props.debounceTime ?? 0);
 
-	onInputChange = (newQuery?: string, sessionId?: string) => {
+	onInputChange = (newQuery?: string, sessionId?: string): void => {
 		const query = newQuery || '';
 		const { closed } = this.state;
 		if (query === this.state.query) {
@@ -476,7 +475,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 		return filteredUsers;
 	};
 
-	onFocus = (sessionId?: string) => {
+	onFocus = (sessionId?: string): void => {
 		const state: Partial<State> = { closed: false };
 		this.startOptionsShownUfoExperience();
 		if (this.state.users.length === 0) {
@@ -495,7 +494,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 		}
 	};
 
-	onBlur = (sessionId?: string) => {
+	onBlur = (sessionId?: string): void => {
 		this.getUsers.cancel();
 
 		this.abortOptionsShownUfoExperience();

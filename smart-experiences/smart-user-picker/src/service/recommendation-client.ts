@@ -30,7 +30,7 @@ const getUserRecommendations = (
 			maxNumberOfResults: request.maxNumberOfResults,
 			performSearchQueryOnly: false,
 			searchQuery: {
-				isVerifiedTeamFilter: request.verifiedTeams,
+				...(request.verifiedTeams === true && { isVerifiedTeamFilter: true }),
 				cpusQueryHighlights: {
 					query: '',
 					field: '',

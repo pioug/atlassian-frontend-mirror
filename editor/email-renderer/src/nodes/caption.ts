@@ -6,7 +6,7 @@ import { lineHeight, fontSize } from '../styles/common';
 
 const className = createClassName('caption');
 
-export const styles = `
+export const styles: string = `
 .${className} {
   mso-line-height-rule: exactly;
   line-height: ${lineHeight};
@@ -18,7 +18,7 @@ export const styles = `
 }
 `;
 
-export default function caption({ text, marks, context }: NodeSerializerOpts) {
+export default function caption({ text, marks, context }: NodeSerializerOpts): string {
 	const caption = createTag('div', { class: className }, text || '&nbsp;');
 	return applyMarks(marks, caption, context);
 }

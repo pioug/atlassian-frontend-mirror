@@ -4,7 +4,7 @@ import { createClassName } from '../styles/util';
 import { type NodeSerializerOpts } from '../interfaces';
 import { numberedColumnWidth } from './table';
 
-export const styles = `
+export const styles: string = `
 .${createClassName('tableRow-numCol')} {
   background-color: ${N20};
   background-clip: padding-box;
@@ -27,7 +27,7 @@ export const styles = `
 }
 `;
 
-export default function tableRow({ text, attrs }: NodeSerializerOpts) {
+export default function tableRow({ text, attrs }: NodeSerializerOpts): string {
 	let numberedColumn = '';
 	if (attrs && attrs.isNumberColumnEnabled) {
 		const paragraph = createTag('p', { class: createClassName('tableRow-numCol-p') }, attrs.index);

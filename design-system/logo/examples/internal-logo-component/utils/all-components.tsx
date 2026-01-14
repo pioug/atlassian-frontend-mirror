@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0e3f6361d9a58165d04a90e172497bcf>>
+ * @codegen <<SignedSource::1264e71bd7b6f8e3a0287c7aa01c245d>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -56,6 +56,7 @@ import {
 	CustomerServiceManagementLogo,
 	CustomerServiceManagementLogoCS,
 } from '../../../src/artifacts/logo-components/customer-service-management';
+import { DxIcon } from '../../../src/artifacts/logo-components/dx';
 import { FocusIcon, FocusLogo, FocusLogoCS } from '../../../src/artifacts/logo-components/focus';
 import { GoalsIcon, GoalsLogo, GoalsLogoCS } from '../../../src/artifacts/logo-components/goals';
 import { GuardIcon, GuardLogo, GuardLogoCS } from '../../../src/artifacts/logo-components/guard';
@@ -595,6 +596,16 @@ export const rows: Array<{
 		Icon20: (props) => <CustomLinkIcon {...props} size="20" label="Custom Link" />,
 		Icon24: (props) => <CustomLinkIcon {...props} size="24" label="Custom Link" />,
 		Icon32: (props) => <CustomLinkIcon {...props} size="32" label="Custom Link" />,
+		Logo: null,
+		LogoCS: null,
+	},
+	{
+		name: 'Dx',
+		Icon12: (props) => <DxIcon {...props} size="12" />,
+		Icon16: (props) => <DxIcon {...props} size="16" />,
+		Icon20: (props) => <DxIcon {...props} size="20" />,
+		Icon24: (props) => <DxIcon {...props} size="24" />,
+		Icon32: (props) => <DxIcon {...props} size="32" />,
 		Logo: null,
 		LogoCS: null,
 	},

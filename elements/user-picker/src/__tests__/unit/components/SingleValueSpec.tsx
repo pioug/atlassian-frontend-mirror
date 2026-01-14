@@ -343,89 +343,62 @@ describe('SingleValue', () => {
 		const mockIcon = <div data-testid="test-icon">Icon</div>;
 		const iconAsString = '{"type":"div","key":null,"ref":null,"props":{"data-testid":"test-icon","children":"Icon"},"_owner":null,"_store":{}}';
 
-		ffTest.on('atlaskit_user_picker_support_icon', 'on', () => {
-			it('should render AvatarOrIcon when feature gate is enabled and icon is provided', async () => {
-				const userWithIcon = {
-					...data.data,
-					icon: mockIcon,
-				};
+		it('should render AvatarOrIcon when icon is provided', async () => {
+			const userWithIcon = {
+				...data.data,
+				icon: mockIcon,
+			};
 
-				render(
-					<SingleValue
-						{...defaultSingleValueProps}
-						data={{
-							...data,
-							data: userWithIcon,
-						}}
-					/>,
-				);
+			render(
+				<SingleValue
+					{...defaultSingleValueProps}
+					data={{
+						...data,
+						data: userWithIcon,
+					}}
+				/>,
+			);
 
-				expect(
-					await screen.findByText(
-						`AvatarOrIcon - {"icon":${iconAsString},"src":"http://avatars.atlassian.com/jace.png","appearance":"normal","type":"person"}`,
-					),
-				).toBeInTheDocument();
-			});
-
-			it('should render AvatarOrIcon with iconColor when both icon and iconColor are provided', async () => {
-				const iconColor = '#FF0000';
-				const userWithIconAndColor = {
-					...data.data,
-					icon: mockIcon,
-					iconColor,
-				};
-
-				render(
-					<SingleValue
-						{...defaultSingleValueProps}
-						data={{
-							...data,
-							data: userWithIconAndColor,
-						}}
-					/>,
-				);
-
-				expect(
-					await screen.findByText(
-						`AvatarOrIcon - {"icon":${iconAsString},"iconColor":"#FF0000","src":"http://avatars.atlassian.com/jace.png","appearance":"normal","type":"person"}`,
-					),
-				).toBeInTheDocument();
-			});
-
-			it('should render SizeableAvatar when feature gate is enabled but no icon is provided', async () => {
-				render(<SingleValue {...defaultSingleValueProps} />);
-
-				expect(
-					await screen.findByText(
-						'SizeableAvatar - {"src":"http://avatars.atlassian.com/jace.png","appearance":"normal","type":"person"}',
-					),
-				).toBeInTheDocument();
-			});
+			expect(
+				await screen.findByText(
+					`AvatarOrIcon - {"icon":${iconAsString},"src":"http://avatars.atlassian.com/jace.png","appearance":"normal","type":"person"}`,
+				),
+			).toBeInTheDocument();
 		});
 
-		ffTest.off('atlaskit_user_picker_support_icon', 'off', () => {
-			it('should render SizeableAvatar when feature gate is disabled even if icon is provided', async () => {
-				const userWithIcon = {
-					...data.data,
-					icon: mockIcon,
-				};
+		it('should render AvatarOrIcon with iconColor when both icon and iconColor are provided', async () => {
+			const iconColor = '#FF0000';
+			const userWithIconAndColor = {
+				...data.data,
+				icon: mockIcon,
+				iconColor,
+			};
 
-				render(
-					<SingleValue
-						{...defaultSingleValueProps}
-						data={{
-							...data,
-							data: userWithIcon,
-						}}
-					/>,
-				);
+			render(
+				<SingleValue
+					{...defaultSingleValueProps}
+					data={{
+						...data,
+						data: userWithIconAndColor,
+					}}
+				/>,
+			);
 
-				expect(
-					await screen.findByText(
-						'SizeableAvatar - {"src":"http://avatars.atlassian.com/jace.png","appearance":"normal","type":"person"}',
-					),
-				).toBeInTheDocument();
-			});
+			expect(
+				await screen.findByText(
+					`AvatarOrIcon - {"icon":${iconAsString},"iconColor":"#FF0000","src":"http://avatars.atlassian.com/jace.png","appearance":"normal","type":"person"}`,
+				),
+			).toBeInTheDocument();
+		});
+
+		it('should render SizeableAvatar when no icon is provided', async () => {
+			render(<SingleValue {...defaultSingleValueProps} />);
+
+			expect(
+				await screen.findByText(
+					'SizeableAvatar - {"src":"http://avatars.atlassian.com/jace.png","appearance":"normal","type":"person"}',
+				),
+			).toBeInTheDocument();
 		});
 	});
 });

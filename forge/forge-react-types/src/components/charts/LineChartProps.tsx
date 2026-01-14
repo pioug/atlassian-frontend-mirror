@@ -1,4 +1,5 @@
 import { type ActiveTokens } from '@atlaskit/tokens';
+import type { ThemeElementProps } from '@atlassian/viz-platform-charts/primitives';
 
 type MarginValue = Extract<ActiveTokens, `space.${string}`>;
 
@@ -62,6 +63,12 @@ export type LineChartProps = {
 	 * Adds a border onto the chart. Defaults to true.
 	 */
 	showBorder?: boolean;
+	/**
+	 * Custom color palette for the chart.
+	 * Can be an array of color strings, or an array of objects with
+	 * key and value properties to map specific data categories to colors.
+	 */
+	colorPalette?: ThemeElementProps['fillStyles'];
 };
 
 /**

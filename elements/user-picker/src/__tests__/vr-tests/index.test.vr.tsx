@@ -95,7 +95,4 @@ snapshot(SingleUserPickerWithAgentHexagonAvatar, {
 
 snapshot(UserPickerWithIcon, {
 	drawsOutsideBounds: true,
-	featureFlags: {	
-		atlaskit_user_picker_support_icon: true,
-	},
 });

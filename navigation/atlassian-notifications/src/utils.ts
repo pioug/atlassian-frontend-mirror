@@ -14,7 +14,7 @@ export const getNotificationsSrc = ({
 	product,
 	subproduct,
 	isNewExperience,
-}: Args) => {
+}: Args): string => {
 	// if a testing url has been passed through, just use that
 	if (_url) {
 		return _url;

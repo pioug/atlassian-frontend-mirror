@@ -36,7 +36,7 @@ const isEmojiId = (item: EmojiId | string): item is EmojiId => {
 	return (item as EmojiId).id !== undefined;
 };
 
-export const formatStringWithDecimal = (value: string, decimalPlaces: number) => {
+export const formatStringWithDecimal = (value: string, decimalPlaces: number): string => {
 	const decimalIndex = value.indexOf('.');
 
 	if (decimalIndex === -1) {
@@ -57,7 +57,7 @@ export const formatStringWithDecimal = (value: string, decimalPlaces: number) =>
  * If the first decimal number is a zero then it's also truncated.
  * (Ex: 9085 will return 9K, 787555 will return 787.5M)
  */
-export const formatLargeNumber = (value: number) => {
+export const formatLargeNumber = (value: number): string => {
 	// 999M+
 	const maxLimit = 999999999;
 	const thounsandSeparator = 1000;

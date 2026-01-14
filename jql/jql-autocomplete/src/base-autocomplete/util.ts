@@ -8,7 +8,7 @@ export const getMatchedText = (
 	startTokenIndex: number,
 	stopToken: Token,
 	caretSelectionRange: Position,
-) => {
+): string => {
 	const matchedText = tokenStream.getText(Interval.of(startTokenIndex, stopToken.tokenIndex));
 
 	const [caretStartPosition] = caretSelectionRange;

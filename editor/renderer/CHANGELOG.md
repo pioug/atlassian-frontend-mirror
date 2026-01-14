@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 125.3.2
+
+### Patch Changes
+
+- [`8a3fc4137f1b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8a3fc4137f1b4) -
+  [ux] [EDITOR-3850] disable sticky headers for tables in expands in the renderer
+- Updated dependencies
+
 ## 125.3.1
 
 ### Patch Changes

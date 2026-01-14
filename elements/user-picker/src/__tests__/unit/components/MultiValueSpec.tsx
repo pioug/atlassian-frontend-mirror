@@ -3,7 +3,6 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { MultiValue, scrollToValue } from '../../../components/MultiValue';
 import { type Email, EmailType, type User, type Team } from '../../../types';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 jest.mock('@atlaskit/select', () => ({
 	...jest.requireActual('@atlaskit/select'),
@@ -245,71 +244,50 @@ describe('MultiValue', () => {
 	describe('icon support', () => {
 		const mockIcon = <div data-testid="test-icon">Icon</div>;
 
-		ffTest.on('atlaskit_user_picker_support_icon', 'on', () => {
-			it('should render AvatarOrIcon when feature gate is enabled and icon is provided', async () => {
-				const userWithIcon = {
-					...data.data,
-					icon: mockIcon,
-				};
+		it('should render AvatarOrIcon when icon is provided', async () => {
+			const userWithIcon = {
+				...data.data,
+				icon: mockIcon,
+			};
 
-				renderMultiValue({
-					data: { ...data, data: userWithIcon },
-				});
-
-				expect(
-					await screen.findByText(
-						'AvatarOrIcon - {"appearance":"multi","icon":{"type":"div","key":null,"ref":null,"props":{"data-testid":"test-icon","children":"Icon"},"_owner":null,"_store":{}},"src":"http://avatars.atlassian.com/jace.png","type":"person"}',
-					),
-				).toBeInTheDocument();
+			renderMultiValue({
+				data: { ...data, data: userWithIcon },
 			});
 
-			it('should render AvatarOrIcon with iconColor when both icon and iconColor are provided', async () => {
-				const iconColor = '#FF0000';
-				const userWithIconAndColor = {
-					...data.data,
-					icon: mockIcon,
-					iconColor,
-				};
-
-				renderMultiValue({
-					data: { ...data, data: userWithIconAndColor },
-				});
-
-				expect(
-					await screen.findByText(
-						'AvatarOrIcon - {"appearance":"multi","icon":{"type":"div","key":null,"ref":null,"props":{"data-testid":"test-icon","children":"Icon"},"_owner":null,"_store":{}},"iconColor":"#FF0000","src":"http://avatars.atlassian.com/jace.png","type":"person"}',
-					),
-				).toBeInTheDocument();
-			});
-
-			it('should render SizeableAvatar when feature gate is enabled but no icon is provided', async () => {
-				renderMultiValue();
-
-				expect(
-					await screen.findByText(
-						'SizeableAvatar - {"appearance":"multi","src":"http://avatars.atlassian.com/jace.png","type":"person"}',
-					),
-				).toBeInTheDocument();
-			});
+			expect(
+				await screen.findByText(
+					'AvatarOrIcon - {"appearance":"multi","icon":{"type":"div","key":null,"ref":null,"props":{"data-testid":"test-icon","children":"Icon"},"_owner":null,"_store":{}},"src":"http://avatars.atlassian.com/jace.png","type":"person"}',
+				),
+			).toBeInTheDocument();
 		});
 
-		ffTest.off('atlaskit_user_picker_support_icon', 'off', () => {
-			it('should render SizeableAvatar when feature gate is disabled even if icon is provided', async () => {
-				const userWithIcon = {
-					...data.data,
-					icon: mockIcon,
-				};
+		it('should render AvatarOrIcon with iconColor when both icon and iconColor are provided', async () => {
+			const iconColor = '#FF0000';
+			const userWithIconAndColor = {
+				...data.data,
+				icon: mockIcon,
+				iconColor,
+			};
 
-				renderMultiValue({
-					data: { ...data, data: userWithIcon },
-				});
-
-				expect(
-					await screen.findByText(
-						'SizeableAvatar - {"appearance":"multi","src":"http://avatars.atlassian.com/jace.png","type":"person"}',
-					),
-				).toBeInTheDocument();
+			renderMultiValue({
+				data: { ...data, data: userWithIconAndColor },
 			});
+
+			expect(
+				await screen.findByText(
+					'AvatarOrIcon - {"appearance":"multi","icon":{"type":"div","key":null,"ref":null,"props":{"data-testid":"test-icon","children":"Icon"},"_owner":null,"_store":{}},"iconColor":"#FF0000","src":"http://avatars.atlassian.com/jace.png","type":"person"}',
+				),
+			).toBeInTheDocument();
+		});
+
+		it('should render SizeableAvatar when no icon is provided', async () => {
+			renderMultiValue();
+
+			expect(
+				await screen.findByText(
+					'SizeableAvatar - {"appearance":"multi","src":"http://avatars.atlassian.com/jace.png","type":"person"}',
+				),
+			).toBeInTheDocument();
 		});
 	});
 });

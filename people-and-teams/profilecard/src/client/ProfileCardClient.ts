@@ -40,7 +40,7 @@ class ProfileCardClient implements ProfileClient {
 		this.tcClient = maybeCreateTeamCentralClient(withDefaultConfig, clients);
 	}
 
-	flushCache() {
+	flushCache(): void {
 		this.userClient.flushCache();
 		this.teamClient.flushCache();
 		this.tcClient?.flushCache();
@@ -126,7 +126,7 @@ class ProfileCardClient implements ProfileClient {
 		id: string,
 		analytics?: (event: AnalyticsEventPayload) => void,
 		analyticsNext?: FireEventType,
-	) {
+	): Promise<void> {
 		return this.rovoAgentClient?.deleteAgent(id, analytics, analyticsNext);
 	}
 
@@ -135,7 +135,7 @@ class ProfileCardClient implements ProfileClient {
 		isFavourite: boolean,
 		analytics?: (event: AnalyticsEventPayload) => void,
 		analyticsNext?: FireEventType,
-	) {
+	): Promise<void> {
 		return this.rovoAgentClient?.setFavouriteAgent(id, isFavourite, analytics, analyticsNext);
 	}
 }

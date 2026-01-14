@@ -51,6 +51,7 @@ import {
 	CustomerServiceManagementIcon as NewCustomerServiceManagementIcon,
 	CustomerServiceManagementLogoCS as NewCustomerServiceManagementLogo,
 } from './artifacts/logo-components/customer-service-management';
+import { DxIcon as NewDXIcon } from './artifacts/logo-components/dx';
 import {
 	FocusIcon as NewFocusIcon,
 	FocusLogoCS as NewFocusLogo,
@@ -776,7 +777,16 @@ export const CompassIcon = createFeatureFlaggedComponent(LegacyCompassIcon, NewC
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const CompassLogo = createFeatureFlaggedComponent(LegacyCompassLogo, NewCompassLogo);
-
+/**
+ * __DX icon__
+ *
+ * The DX icon without an accompanying wordmark.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
+export const DxIcon = tempSizeWrapper(NewDXIcon);
 /**
  * __Confluence icon__
  *

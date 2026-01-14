@@ -62,9 +62,7 @@ export const TextColorHighlightMenu = ({ children, api }: TextColorHighlightMenu
 	const isHighlightPluginExisted = !!api?.highlight;
 	const isTextColorDisabled = useSharedPluginStateSelector(api, 'textColor.disabled');
 	const { isDisabled: isToolbarDisabled } = useToolbarUI();
-	const isDisabled = expValEquals('platform_editor_toolbar_aifc_patch_5', 'isEnabled', true)
-		? Boolean(isToolbarDisabled || isTextColorDisabled)
-		: isTextColorDisabled;
+	const isDisabled = Boolean(isToolbarDisabled || isTextColorDisabled);
 	const highlightColor = useSharedPluginStateSelector(api, 'highlight.activeColor');
 	const textColor = useSharedPluginStateSelector(api, 'textColor.color');
 	const { formatMessage } = useIntl();

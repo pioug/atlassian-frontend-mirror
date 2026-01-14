@@ -8,7 +8,6 @@ import React from 'react';
 import { cssMap, jsx } from '@compiled/react';
 import { TouchScrollable } from 'react-scrolllock';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { useModal } from './hooks';
@@ -19,8 +18,6 @@ const styles = cssMap({
 	root: {
 		/* This ensures the body fills the whole space between header and footer. */
 		flex: '1 1 auto',
-	},
-	font: {
 		font: token('font.body'),
 	},
 	paddingBlock: {
@@ -72,14 +69,7 @@ const ModalBody = (props: ModalBodyProps) => {
 	const testId = userDefinedTestId || (modalTestId && `${modalTestId}--body`);
 
 	return shouldScrollInViewport ? (
-		<div
-			css={[
-				styles.root,
-				hasInlinePadding && styles.paddingInline,
-				fg('platform_ads_explicit_font_styles') && styles.font,
-			]}
-			data-testid={testId}
-		>
+		<div css={[styles.root, hasInlinePadding && styles.paddingInline]} data-testid={testId}>
 			{children}
 		</div>
 	) : (
@@ -94,7 +84,6 @@ const ModalBody = (props: ModalBodyProps) => {
 						 */
 						styles.paddingBlock,
 						hasInlinePadding && styles.paddingInline,
-						fg('platform_ads_explicit_font_styles') && styles.font,
 					]}
 					data-testid={testId}
 				>

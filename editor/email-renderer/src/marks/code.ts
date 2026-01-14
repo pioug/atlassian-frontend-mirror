@@ -4,7 +4,7 @@ import { createClassName } from '../styles/util';
 import { codeFontFamily } from '../styles/common';
 import { N20 } from '@atlaskit/adf-schema';
 
-export const styles = `
+export const styles: string = `
 .${createClassName('mark-code')} {
   background: ${N20};
   color: rgb(23, 43, 77);
@@ -15,6 +15,6 @@ export const styles = `
   font-family: ${codeFontFamily};
 }`;
 
-export default function code({ text }: MarkSerializerOpts) {
+export default function code({ text }: MarkSerializerOpts): string {
 	return createTag('code', { class: createClassName('mark-code') }, text);
 }

@@ -7,17 +7,17 @@ export type EditorExperimentOverridesMultivariate = {
 	[K in keyof EditorExperimentsConfig as MultivariateConfig<
 		EditorExperimentsConfig[K]['defaultValue']
 	> extends true
-		? K
-		: never]: EditorExperimentsConfig[K]['defaultValue'];
+	? K
+	: never]: EditorExperimentsConfig[K]['defaultValue'];
 };
 
 export type EditorExperimentOverridesBoolean = {
 	[K in keyof EditorExperimentsConfig as BooleanConfig<
 		EditorExperimentsConfig[K]['defaultValue']
 	> extends true
-		? K
-		: // Optional as boolean will default to true if not specified here
-			never]?: EditorExperimentsConfig[K]['defaultValue'];
+	? K
+	: // Optional as boolean will default to true if not specified here
+	never]?: EditorExperimentsConfig[K]['defaultValue'];
 };
 
 export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = {
@@ -42,6 +42,7 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 };
 
 export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
+	confluence_load_editor_title_on_transition: false,
 	cc_editor_hover_link_overlay_css_fix: false,
 	platform_editor_feedback_mandatory_rating: false,
 	platform_editor_preview_panel_responsiveness: false,

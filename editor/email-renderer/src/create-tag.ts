@@ -4,7 +4,7 @@ export const createTag = (
 	tagName: string,
 	attrs?: { [key: string]: string | number | undefined },
 	content?: string | null,
-) => {
+): string => {
 	const attrsList: string[] = [];
 
 	Object.keys(attrs || {}).forEach((key) => {

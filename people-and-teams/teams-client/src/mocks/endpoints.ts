@@ -39,7 +39,7 @@ type MockTeamMembershipConfig = {
 	count?: number;
 };
 
-export const mockTeamsClientEndpoints = (config: MockConfig) => {
+export const mockTeamsClientEndpoints = (config: MockConfig): void => {
 	if (config.restoreFetchMock) {
 		config.fetchMock.restore();
 	}
@@ -66,7 +66,7 @@ export const mockTeamsClientEndpoints = (config: MockConfig) => {
 	mockCatchAll(config);
 };
 
-export const mockTeamsClientRequestingToJoinEndpoints = (config: MockConfig) => {
+export const mockTeamsClientRequestingToJoinEndpoints = (config: MockConfig): void => {
 	if (config.restoreFetchMock) {
 		config.fetchMock.restore();
 	}
@@ -81,7 +81,7 @@ export const mockTeamsClientRequestingToJoinEndpoints = (config: MockConfig) => 
 	mockCatchAll(config);
 };
 
-export const mockTeamsClientNotMemberEndpoints = (config: MockConfig) => {
+export const mockTeamsClientNotMemberEndpoints = (config: MockConfig): void => {
 	if (config.restoreFetchMock) {
 		config.fetchMock.restore();
 	}
@@ -96,7 +96,7 @@ export const mockTeamsClientNotMemberEndpoints = (config: MockConfig) => {
 	mockCatchAll(config);
 };
 
-export const mockTeamsClientAdminEndpoints = (config: MockConfig) => {
+export const mockTeamsClientAdminEndpoints = (config: MockConfig): void => {
 	if (config.restoreFetchMock) {
 		config.fetchMock.restore();
 	}
@@ -111,7 +111,7 @@ export const mockTeamsClientAdminEndpoints = (config: MockConfig) => {
 	mockCatchAll(config);
 };
 
-export const mockTeamsClientInviteOnlyMemberEndpoints = (config: MockConfig) => {
+export const mockTeamsClientInviteOnlyMemberEndpoints = (config: MockConfig): void => {
 	if (config.restoreFetchMock) {
 		config.fetchMock.restore();
 	}

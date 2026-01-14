@@ -217,7 +217,7 @@ function isImageAligned(layout: MediaSingleLayout): string {
  */
 
 // widthValue could be a string in px, rem or percentage, e.g. "800px", "100%", etc.
-export function roundToClosestEvenPxValue(widthValue: string) {
+export function roundToClosestEvenPxValue(widthValue: string): string {
 	try {
 		if (widthValue.endsWith('px')) {
 			const pxWidth = parseInt(widthValue.slice(0, -2));

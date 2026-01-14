@@ -6,7 +6,7 @@ import type { MembershipRole, MembershipState } from '../../../../types/membersh
 import type { TeamMembershipSettings, TeamState } from '../../../../types/team';
 import type { AGGPageInfo } from '../../types';
 
-export const TeamConnectedToContainerQuery = print(gql`
+export const TeamConnectedToContainerQuery: string = print(gql`
 	query getTeamsForContainer($containerId: ID!) {
 		graphStore @optIn(to: "GraphStore") {
 			teamConnectedToContainerInverse(id: $containerId, consistentRead: true)

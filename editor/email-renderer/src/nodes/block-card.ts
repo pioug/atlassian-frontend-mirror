@@ -9,7 +9,7 @@ import { createClassName } from '../styles/util';
 
 const className = createClassName('blockCard');
 
-export const styles = `
+export const styles: string = `
 .${className}-headingUrl {
   overflow: hidden;
   color: #000000;
@@ -125,7 +125,7 @@ const renderBlockCard = (attrs: SmartCardWithUrlAttributes, text?: string | null
 	);
 };
 
-export default function blockCard({ attrs, text }: NodeSerializerOpts) {
+export default function blockCard({ attrs, text }: NodeSerializerOpts): string {
 	if (attrs.data) {
 		const href = attrs.data.url;
 		const card = renderBlockCardWithData(attrs as SmartCardWithDataAttributes);

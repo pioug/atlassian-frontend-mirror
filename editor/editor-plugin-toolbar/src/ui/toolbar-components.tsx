@@ -58,11 +58,7 @@ const getInlineTextToolbarComponents = () => {
 					<Toolbar
 						label={SELECTION_TOOLBAR_LABEL}
 						actionSubjectId={ACTION_SUBJECT_ID.SELECTION_TOOLBAR}
-						testId={
-							expValEquals('platform_editor_toolbar_aifc_patch_5', 'isEnabled', true)
-								? 'editor-floating-toolbar'
-								: undefined
-						}
+						testId={'editor-floating-toolbar'}
 					>
 						{children}
 					</Toolbar>

@@ -52,6 +52,6 @@ export function getRandomHex(byte: number): string {
 	return randomHex;
 }
 
-export function getRandomTelemetryId() {
+export function getRandomTelemetryId(): string {
 	return getRandomHex(8);
 }

@@ -20,7 +20,7 @@ export const getNetworkFields = (error: unknown) => {
 	return { traceId: null, status: null, path: null };
 };
 
-export const getErrorType = (error: unknown) => {
+export const getErrorType = (error: unknown): string => {
 	if (error instanceof Response) {
 		return 'NetworkError';
 	}

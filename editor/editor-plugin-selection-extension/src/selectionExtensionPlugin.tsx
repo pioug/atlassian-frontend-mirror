@@ -148,10 +148,7 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 					return;
 				}
 
-				if (
-					isToolbarAIFCEnabled &&
-					expValEquals('platform_editor_toolbar_aifc_selection_extension', 'isEnabled', true)
-				) {
+				if (isToolbarAIFCEnabled) {
 					api?.toolbar?.actions.registerComponents(getToolbarComponents({ api, config }), true);
 				}
 			});

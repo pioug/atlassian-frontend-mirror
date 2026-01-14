@@ -93,7 +93,7 @@ const UserEditType = (props: UserEditTypeProps): React.JSX.Element => {
 				options={options}
 				isLoading={isLoading}
 				testId="inline-edit-user"
-				filterOption={fg('navx-sllv-fix-inline-edit-error') ? filterOptionNew : filterOptionOld}
+				filterOption={filterOption}
 				menuPlacement="auto"
 				onInputChange={handleUserInputDebounced}
 				value={currentValue?.values?.[0]}
@@ -129,13 +129,7 @@ const UserEditType = (props: UserEditTypeProps): React.JSX.Element => {
 	);
 };
 
-/**
- * Remove on navx-sllv-fix-inline-edit-error cleanup
- */
-const filterOptionOld = (option: FilterOptionOption<User>, inputValue: string) =>
-	option.data.displayName?.toLowerCase().includes(inputValue.toLowerCase()) ?? false;
-
-const filterOptionNew = (option: FilterOptionOption<User>, inputValue: string) =>
+const filterOption = (option: FilterOptionOption<User>, inputValue: string) =>
 	option.data?.displayName?.toLowerCase?.()?.includes(inputValue?.toLowerCase?.()) ?? false;
 
 export default UserEditType;

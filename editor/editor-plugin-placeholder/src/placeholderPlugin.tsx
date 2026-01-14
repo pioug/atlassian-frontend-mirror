@@ -1,5 +1,11 @@
+import React from 'react';
+
+import { cssMap } from '@atlaskit/css';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { Box } from '@atlaskit/primitives/compiled';
+import Spinner from '@atlaskit/spinner/spinner';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { PlaceholderPlugin } from './placeholderPluginType';
 import createPlugin from './pm-plugins/main';
@@ -59,5 +65,34 @@ export const placeholderPlugin: PlaceholderPlugin = ({ config: options, api }) =
 				},
 			];
 		},
+		contentComponent: expValEquals(
+			'confluence_load_editor_title_on_transition',
+			'contentPlaceholder',
+			true,
+		)
+			? (params) => {
+					// @ts-ignore fix which needs follow up to use standard apis
+					const collabEditPluginState = params.editorView?.state?.collabEditPlugin$;
+					if (collabEditPluginState && collabEditPluginState.isReady !== true) {
+						return (
+							<Box xcss={spinnerContainerStyles.spinnerContainer}>
+								<Spinner interactionName="live-pages-loading-spinner" size="medium" />
+							</Box>
+						);
+					}
+
+					return null;
+				}
+			: undefined,
 	};
 };
+
+const spinnerContainerStyles = cssMap({
+	spinnerContainer: {
+		display: 'flex',
+		flexDirection: 'column',
+		justifyContent: 'center',
+		alignItems: 'center',
+		width: '100%',
+	},
+});

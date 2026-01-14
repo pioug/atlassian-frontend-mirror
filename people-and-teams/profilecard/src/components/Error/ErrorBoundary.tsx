@@ -6,7 +6,7 @@ interface ErrorBoundaryProps {
 }
 
 export class ErrorBoundary extends React.Component<ErrorBoundaryProps, {}> {
-	componentDidCatch() {
+	componentDidCatch(): void {
 		// Failure analytics here too
 		this.props.onError();
 	}

@@ -7,7 +7,7 @@ import { className as panelClassName } from './panel';
 
 const className = createClassName('p');
 
-export const styles = `
+export const styles: string = `
 .${className} {
   margin: 0;
   padding: 0px;
@@ -31,7 +31,7 @@ table th > .${className}:last-child {
 }
 `;
 
-export default function paragraph({ text, marks, context }: NodeSerializerOpts) {
+export default function paragraph({ text, marks, context }: NodeSerializerOpts): string {
 	const paragraph = createTag('p', { class: className }, text || '&nbsp;');
 	return applyMarks(marks, paragraph, context);
 }

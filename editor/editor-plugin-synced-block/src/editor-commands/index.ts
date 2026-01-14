@@ -83,7 +83,9 @@ export const createSyncedBlock = ({
 		const conversionInfo = canBeConvertedToSyncBlock(tr.selection);
 		if (!conversionInfo) {
 			if (fg('platform_synced_block_dogfooding')) {
-				syncBlockStore.sourceManager.createExperience?.failure({ reason: 'Selection is not allowed to be converted to sync block'});
+				syncBlockStore.sourceManager.createExperience?.failure({
+					reason: 'Selection is not allowed to be converted to sync block',
+				});
 			}
 			return false;
 		}
@@ -108,8 +110,8 @@ export const createSyncedBlock = ({
 			newBodiedSyncBlockNode,
 		).scrollIntoView();
 
-		// set selection to the end of the previous selection + 1 for the position taken up by the start of the new synced block
-		tr.setSelection(TextSelection.create(tr.doc, conversionInfo.to + 1));
+		// set selection to the start of the previous selection for the position taken up by the start of the new synced block
+		tr.setSelection(TextSelection.create(tr.doc, conversionInfo.from));
 	}
 
 	// This transaction will be intercepted in filterTransaction and dispatched when saving to backend succeeds

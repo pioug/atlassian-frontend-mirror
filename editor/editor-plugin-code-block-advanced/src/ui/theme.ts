@@ -1,91 +1,94 @@
 import { EditorView as CodeMirror } from '@codemirror/view';
 
+import type { EditorContentMode } from '@atlaskit/editor-common/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
-const getLineHeight = () =>
-	expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+const shouldUseCompactTypography = (contentMode?: EditorContentMode) =>
+	contentMode === 'compact' ||
 	(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-		fg('platform_editor_content_mode_button_mvp'))
-		? '1.5em'
-		: '1.5rem';
+		fg('platform_editor_content_mode_button_mvp'));
 
-const getFontSize = () =>
-	expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-	(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-		fg('platform_editor_content_mode_button_mvp'))
-		? '0.875em'
-		: '0.875rem';
+const getLineHeight = (contentMode?: EditorContentMode) =>
+	shouldUseCompactTypography(contentMode) ? '1.5em' : '1.5rem';
 
-export const cmTheme = CodeMirror.theme({
-	'&': {
-		backgroundColor: token('color.background.neutral'),
-		padding: '0',
-		marginTop: token('space.100'),
-		marginBottom: token('space.100'),
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		fontSize: getFontSize(),
-		// Custom syntax styling to match existing styling
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		lineHeight: getLineHeight(),
-	},
-	'&.cm-focused': {
-		outline: 'none',
-	},
-	'.cm-line': {
-		padding: '0',
-	},
-	'&.cm-editor.code-block.danger': {
-		backgroundColor: token('color.background.danger'),
-	},
-	'.cm-content[aria-readonly="true"]': {
-		caretColor: 'transparent',
-	},
-	'.cm-content': {
-		cursor: 'text',
-		caretColor: token('color.text'),
-		margin: token('space.100'),
-		padding: token('space.0'),
-	},
-	'.cm-scroller': {
-		backgroundColor: token('color.background.neutral'),
-		// Custom syntax styling to match existing styling
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		lineHeight: 'unset',
-		fontFamily: token('font.family.code'),
-		borderRadius: token('radius.small'),
-		backgroundImage: overflowShadow({
-			leftCoverWidth: token('space.300'),
-		}),
-		backgroundAttachment: 'local, local, local, local, scroll, scroll, scroll, scroll',
-	},
-	'&.cm-focused .cm-cursor': {
-		borderLeftColor: token('color.text'),
-	},
-	'.cm-gutter': {
-		padding: token('space.100'),
-	},
-	'.cm-gutters': {
-		backgroundColor: token('color.background.neutral'),
-		border: 'none',
-		padding: token('space.0'),
-		color: token('color.text.subtlest'),
-	},
-	'.cm-lineNumbers .cm-gutterElement': {
-		paddingLeft: token('space.0'),
-		paddingRight: token('space.0'),
-		minWidth: 'unset',
-	},
-	// Set the gutter element min height to prevent flicker of styling while
-	// codemirror is calculating (which happens after an animation frame).
-	// Example problem: https://github.com/codemirror/dev/issues/1076
-	// Ignore the first gutter element as it is a special hidden element.
-	'.cm-gutterElement:not(:first-child)': {
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		minHeight: getLineHeight(),
-	},
-});
+const getFontSize = (contentMode?: EditorContentMode) =>
+	shouldUseCompactTypography(contentMode) ? '0.875em' : '0.875rem';
+
+type ThemeOptions = {
+	contentMode?: EditorContentMode;
+};
+
+export const cmTheme = (options?: ThemeOptions) =>
+	CodeMirror.theme({
+		'&': {
+			backgroundColor: token('color.background.neutral'),
+			padding: '0',
+			marginTop: token('space.100'),
+			marginBottom: token('space.100'),
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			fontSize: getFontSize(options?.contentMode),
+			// Custom syntax styling to match existing styling
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			lineHeight: getLineHeight(options?.contentMode),
+		},
+		'&.cm-focused': {
+			outline: 'none',
+		},
+		'.cm-line': {
+			padding: '0',
+		},
+		'&.cm-editor.code-block.danger': {
+			backgroundColor: token('color.background.danger'),
+		},
+		'.cm-content[aria-readonly="true"]': {
+			caretColor: 'transparent',
+		},
+		'.cm-content': {
+			cursor: 'text',
+			caretColor: token('color.text'),
+			margin: token('space.100'),
+			padding: token('space.0'),
+		},
+		'.cm-scroller': {
+			backgroundColor: token('color.background.neutral'),
+			// Custom syntax styling to match existing styling
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			lineHeight: 'unset',
+			fontFamily: token('font.family.code'),
+			borderRadius: token('radius.small'),
+			backgroundImage: overflowShadow({
+				leftCoverWidth: token('space.300'),
+			}),
+			backgroundAttachment: 'local, local, local, local, scroll, scroll, scroll, scroll',
+		},
+		'&.cm-focused .cm-cursor': {
+			borderLeftColor: token('color.text'),
+		},
+		'.cm-gutter': {
+			padding: token('space.100'),
+		},
+		'.cm-gutters': {
+			backgroundColor: token('color.background.neutral'),
+			border: 'none',
+			padding: token('space.0'),
+			color: token('color.text.subtlest'),
+		},
+		'.cm-lineNumbers .cm-gutterElement': {
+			paddingLeft: token('space.0'),
+			paddingRight: token('space.0'),
+			minWidth: 'unset',
+		},
+		// Set the gutter element min height to prevent flicker of styling while
+		// codemirror is calculating (which happens after an animation frame).
+		// Example problem: https://github.com/codemirror/dev/issues/1076
+		// Ignore the first gutter element as it is a special hidden element.
+		'.cm-gutterElement:not(:first-child)': {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			minHeight: getLineHeight(options?.contentMode),
+		},
+	});
 
 export const codeFoldingTheme = CodeMirror.theme({
 	'.cm-gutter': {

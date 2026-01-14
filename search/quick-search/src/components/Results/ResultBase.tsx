@@ -42,20 +42,20 @@ export class ResultBase extends React.PureComponent<DefaultProps & Props> {
 
 	state = { isMouseSelected: false };
 
-	registerResult() {
+	registerResult(): void {
 		const { context } = this.props;
 		context.registerResult(this);
 	}
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this.registerResult();
 	}
 
-	componentDidUpdate() {
+	componentDidUpdate(): void {
 		this.registerResult();
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		const { context } = this.props;
 		context.unregisterResult(this);
 	}
@@ -70,7 +70,7 @@ export class ResultBase extends React.PureComponent<DefaultProps & Props> {
 		};
 	}
 
-	handleClick = (e: MouseEvent) => {
+	handleClick = (e: MouseEvent): void => {
 		const { onClick, resultId, type, context } = this.props;
 
 		if (context.sendAnalytics) {
@@ -86,7 +86,7 @@ export class ResultBase extends React.PureComponent<DefaultProps & Props> {
 		}
 	};
 
-	handleMouseEnter = (event: MouseEvent) => {
+	handleMouseEnter = (event: MouseEvent): void => {
 		this.props.context.onMouseEnter({
 			resultId: this.props.resultId,
 			type: this.props.type,
@@ -95,7 +95,7 @@ export class ResultBase extends React.PureComponent<DefaultProps & Props> {
 		this.setState({ isMouseSelected: true });
 	};
 
-	handleMouseLeave = () => {
+	handleMouseLeave = (): void => {
 		this.props.context.onMouseLeave();
 		this.setState({ isMouseSelected: false });
 	};

@@ -362,57 +362,37 @@ describe('ExternalUserOption', () => {
 	describe('icon support', () => {
 		const mockIcon = <div data-testid="test-icon">Icon</div>;
 
-		ffTest.on('atlaskit_user_picker_support_icon', 'on', () => {
-			it('should render AvatarOrIcon when feature gate is enabled and icon is provided', () => {
-				const userWithIcon = {
-					...user,
-					icon: mockIcon,
-				};
+		it('should render AvatarOrIcon when icon is provided', () => {
+			const userWithIcon = {
+				...user,
+				icon: mockIcon,
+			};
 
-				render(
-					<IntlProvider messages={{}} locale="en">
-						<ExternalUserOption user={userWithIcon} status="approved" isSelected={false} />
-					</IntlProvider>,
-				);
+			render(
+				<IntlProvider messages={{}} locale="en">
+					<ExternalUserOption user={userWithIcon} status="approved" isSelected={false} />
+				</IntlProvider>,
+			);
 
-				// Check that AvatarOrIcon is rendered (it will be in the component tree)
-				expect(screen.getByText(user.name)).toBeInTheDocument();
-			});
-
-			it('should render AvatarOrIcon with iconColor when both icon and iconColor are provided', () => {
-
-				const iconColor = '#FF0000';
-				const userWithIconAndColor = {
-					...user,
-					icon: mockIcon,
-					iconColor,
-				};
-
-				render(
-					<IntlProvider messages={{}} locale="en">
-						<ExternalUserOption user={userWithIconAndColor} status="approved" isSelected={false} />
-					</IntlProvider>,
-				);
-
-				expect(screen.getByText(user.name)).toBeInTheDocument();
-			});
+			// Check that AvatarOrIcon is rendered (it will be in the component tree)
+			expect(screen.getByText(user.name)).toBeInTheDocument();
 		});
 
-		
-		it('should render SizeableAvatar when feature gate is disabled even if icon is provided', async () => {
-				const userWithIcon = {
-					...user,
-					icon: mockIcon,
-				};
+		it('should render AvatarOrIcon with iconColor when both icon and iconColor are provided', () => {
+			const iconColor = '#FF0000';
+			const userWithIconAndColor = {
+				...user,
+				icon: mockIcon,
+				iconColor,
+			};
 
-				render(
-					<IntlProvider messages={{}} locale="en">
-						<ExternalUserOption user={userWithIcon} status="approved" isSelected={false} />
-					</IntlProvider>,
-				);
+			render(
+				<IntlProvider messages={{}} locale="en">
+					<ExternalUserOption user={userWithIconAndColor} status="approved" isSelected={false} />
+				</IntlProvider>,
+			);
 
-				expect(screen.getByRole('img')).toBeInTheDocument();
-				expect(screen.getByText(user.name)).toBeInTheDocument();
-			});
+			expect(screen.getByText(user.name)).toBeInTheDocument();
+		});
 	});
 });

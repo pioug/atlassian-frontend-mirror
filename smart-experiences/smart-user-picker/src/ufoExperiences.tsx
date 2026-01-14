@@ -27,7 +27,7 @@ export const smartUserPickerOptionsShownUfoExperience = new ConcurrentExperience
 	},
 );
 
-export const useUFOConcurrentExperience = (experience: ConcurrentExperience, id: string) => {
+export const useUFOConcurrentExperience = (experience: ConcurrentExperience, id: string): void => {
 	const experienceForId = experience.getInstance(id);
 
 	// Equivalent to componentWillMount - replace with @atlaskit/ufo's
@@ -57,7 +57,7 @@ export const useUFOConcurrentExperience = (experience: ConcurrentExperience, id:
 };
 
 export class UfoErrorBoundary extends React.Component<React.PropsWithChildren<{ id: string }>> {
-	componentDidCatch() {
+	componentDidCatch(): void {
 		smartUserPickerRenderedUfoExperience.getInstance(this.props.id).failure();
 	}
 

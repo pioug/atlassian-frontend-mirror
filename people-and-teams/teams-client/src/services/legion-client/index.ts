@@ -247,7 +247,7 @@ export class LegionClient extends RestClient implements LegionClient {
 		this.serviceUrlRoot = serviceUrl;
 	}
 
-	setRootUrl(url: string) {
+	setRootUrl(url: string): void {
 		if (url === this.serviceUrlRoot) {
 			return;
 		}
@@ -850,7 +850,7 @@ export class LegionClient extends RestClient implements LegionClient {
 	}
 
 	// some Legion APIs return team id with the team ARI
-	trimTeamARI(teamId = '') {
+	trimTeamARI(teamId = ''): string {
 		const OLD_TEAM_ARI_PREFIX = 'ari:cloud:teams::team/';
 		const TEAM_ARI_PREFIX = 'ari:cloud:identity::team/';
 

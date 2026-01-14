@@ -17,7 +17,7 @@ import { type AnchorRectCache } from './anchor-utils';
 
 const STICKY_NODES = ['panel', 'table', 'expand', 'layoutSection', 'bodiedExtension'];
 
-export const getTopPosition = (dom: HTMLElement | null, type?: string) => {
+export const getTopPosition = (dom: HTMLElement | null, type?: string): string => {
 	if (!dom) {
 		return 'auto';
 	}
@@ -56,7 +56,7 @@ export const getLeftPosition = (
 	innerContainer?: HTMLElement | null,
 	macroInteractionUpdates?: boolean,
 	parentType?: string,
-) => {
+): string => {
 	if (!dom) {
 		return 'auto';
 	}

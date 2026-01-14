@@ -103,6 +103,7 @@ const JQLEditorView = ({
 	const getAttributes = useCallback(() => {
 		return {
 			id: editorId,
+			'data-vc': JQL_EDITOR_INPUT_ID,
 			'data-testid': 'jql-editor-input',
 			// Disable grammarly
 			'data-gramm': 'false',

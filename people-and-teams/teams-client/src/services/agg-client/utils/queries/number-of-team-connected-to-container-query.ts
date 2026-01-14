@@ -1,7 +1,7 @@
 import { print } from 'graphql';
 import gql from 'graphql-tag';
 
-export const NumberOfTeamConnectedToContainerQuery = print(gql`
+export const NumberOfTeamConnectedToContainerQuery: string = print(gql`
 	query getNumberOfTeamsForContainer($containerId: ID!) {
 		graphStore @optIn(to: "GraphStore") {
 			teamConnectedToContainerInverse(id: $containerId, consistentRead: true)

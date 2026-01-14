@@ -90,6 +90,15 @@ export const handleMouseOver = (
 		return false;
 	}
 
+	// If the editor view is not in focus when the block menu is open, do not update the drag handle
+	if (
+		!view.hasFocus() &&
+		isMenuOpen &&
+		expValEquals('platform_editor_block_menu', 'isEnabled', true)
+	) {
+		return false;
+	}
+
 	// Most mouseover events don't fire during drag but some can slip through
 	// when the drag begins. This prevents those.
 	if (isDragging) {

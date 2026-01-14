@@ -1,7 +1,7 @@
 import { print } from 'graphql';
 import gql from 'graphql-tag';
 
-export const CreateTagMutation = print(gql`
+export const CreateTagMutation: string = print(gql`
 	mutation createTagForCloudId($name: String!, $cloudId: String!) {
 		createTagForCloudId(input: { name: $name, cloudId: $cloudId }) {
 			tag {

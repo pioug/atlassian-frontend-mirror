@@ -27,7 +27,7 @@ export const mockProfileData = {
 		'https://test-prod-issue-create.atlassian.net/wiki/people/team/8ee37950-7de7-41ec-aee2-2c02c95949f4',
 };
 
-export const mockTeamContainersQueries = () => {
+export const mockTeamContainersQueries = (): void => {
 	fetchMock.post({
 		matcher: (url: string) => url.includes('/gateway/api/graphql?q=TeamContainersQueryV2'),
 		response: () => {

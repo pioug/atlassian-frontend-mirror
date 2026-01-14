@@ -9,9 +9,9 @@ import { fontFamily, fontSize, lineHeight, fontWeight } from '../styles/common';
 
 type PanelType = 'info' | 'note' | 'tip' | 'success' | 'warning' | 'error' | 'custom';
 
-export const className = createClassName('panel');
+export const className: string = createClassName('panel');
 
-export const styles = `
+export const styles: string = `
 .${className} {
   font-family: ${fontFamily};
   font-size: ${fontSize};
@@ -75,7 +75,7 @@ export const styles = `
 }
 `;
 
-export default function panel({ attrs, text }: NodeSerializerOpts) {
+export default function panel({ attrs, text }: NodeSerializerOpts): string {
 	const type: PanelType = attrs.panelType;
 
 	const panelIcon = createTag('img', {

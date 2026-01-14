@@ -1,16 +1,12 @@
-import type { DispatchAnalyticsEvent } from "@atlaskit/editor-common/analytics";
-import type { SyncBlockStoreManager } from "@atlaskit/editor-synced-block-provider";
+import type { ProviderExperienceOptions } from "../../types";
 
 import { getCreateReferenceExperiencePlugin } from "./create-reference-experience"
 import { getCreateSourceExperiencePlugin } from "./create-source-experience"
+import { getDeleteReferenceExperiencePlugin } from "./delete-reference-experience";
+import { getDeleteSourceExperiencePlugin } from "./delete-source-experience";
+import { getProviderOnlyExperiencesPlugin } from "./provider-only-experiences";
 
-type ExperienceTrackingPluginsProps = {
-	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
-	refs: { containerElement?: HTMLElement, popupsMountPoint?: HTMLElement, wrapperElement?: HTMLElement};
-	syncBlockStore: SyncBlockStoreManager;
-}
-
-export const getExperienceTrackingPlugins = ({ refs, dispatchAnalyticsEvent, syncBlockStore}: ExperienceTrackingPluginsProps) => {
+export const getExperienceTrackingPlugins = ({ refs, dispatchAnalyticsEvent, syncBlockStore}: ProviderExperienceOptions) => {
 	return [{
 		name: 'createReferenceSyncedBlockExperiencePlugin',
 		plugin: () =>
@@ -22,6 +18,30 @@ export const getExperienceTrackingPlugins = ({ refs, dispatchAnalyticsEvent, syn
 		name: 'createSourceSyncedBlockExperiencePlugin',
 		plugin: () =>
 			getCreateSourceExperiencePlugin({
+				refs,
+				dispatchAnalyticsEvent,
+				syncBlockStore
+			})
+	}, {
+		name: 'deleteSourceExperiencePlugin',
+		plugin: () =>
+			getDeleteSourceExperiencePlugin({
+				refs,
+				dispatchAnalyticsEvent,
+				syncBlockStore
+			})
+	}, {
+		name: 'deleteReferenceExperiencePlugin',
+		plugin: () =>
+			getDeleteReferenceExperiencePlugin({
+				refs,
+				dispatchAnalyticsEvent,
+				syncBlockStore
+			})
+	}, {
+		name: 'providerOnlySyncedBlockExperiencesPlugin',
+		plugin: () =>
+			getProviderOnlyExperiencesPlugin({
 				refs,
 				dispatchAnalyticsEvent,
 				syncBlockStore

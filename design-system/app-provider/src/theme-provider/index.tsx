@@ -13,8 +13,6 @@ import {
 	setGlobalTheme,
 	SUBTREE_THEME_ATTRIBUTE,
 	type ThemeColorModes,
-	type ThemeState,
-	themeStateDefaults,
 } from '@atlaskit/tokens';
 
 import { useIsInsideAppProvider } from '../context';
@@ -162,15 +160,7 @@ function ThemeProvider({ children, defaultColorMode = 'auto', defaultTheme }: Th
 		} else {
 			// For other theme providers (whether outside AppProvider or nested inside a ThemeProvider),
 			// we treat them as sub-tree themes that do not load global theme state.
-			const themeState: ThemeState = {
-				...theme,
-				colorMode: reconciledColorMode,
-				contrastMode: themeStateDefaults.contrastMode,
-				shape: themeStateDefaults.shape(),
-				typography: themeStateDefaults.typography(),
-			};
-
-			loadAndMountThemes(themeState);
+			loadAndMountThemes(theme);
 		}
 	}, [isInsideAppProvider, isInsideThemeProvider, isRootThemeProvider, reconciledColorMode, theme]);
 

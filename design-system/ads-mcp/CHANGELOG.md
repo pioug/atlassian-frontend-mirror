@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 0.13.3
+
+### Patch Changes
+
+- [`5a1b4e5c8ff80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a1b4e5c8ff80) -
+  Remove eslint disable in i18n mcp guide
+
 ## 0.13.2
 
 ### Patch Changes

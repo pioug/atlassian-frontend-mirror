@@ -99,7 +99,7 @@ export function getPasteSource(event: ClipboardEvent): PasteSource {
  * Tests in platform/packages/editor/editor-plugin-paste-tests/src/__tests__/playwright/paste.spec.ts
  * check behaviour of double quotes in url strings
  */
-export function escapeLinks(text: string) {
+export function escapeLinks(text: string): string {
 	// Ignored via go/ees005
 	// eslint-disable-next-line require-unicode-regexp
 	return text.replace(/(\[([^\]]+)\]\()?((https?|ftp|jamfselfservice):\/\/[^\s>"]+)/g, (str) => {

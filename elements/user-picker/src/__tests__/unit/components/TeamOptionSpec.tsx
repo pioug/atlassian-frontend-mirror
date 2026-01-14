@@ -10,7 +10,6 @@ import { AvatarOrIcon } from '../../../components/AvatarOrIcon';
 import { TeamOption, type TeamOptionProps } from '../../../components/TeamOption/main';
 import { type Team } from '../../../types';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 jest.mock('../../../components/AvatarItemOption', () => ({
 	...(jest.requireActual('../../../components/AvatarItemOption') as any),
@@ -279,59 +278,42 @@ describe('Team Option', () => {
 	describe('icon support', () => {
 		const mockIcon = <div data-testid="test-icon">Icon</div>;
 
-		ffTest.on('atlaskit_user_picker_support_icon', 'on', () => {
-			it('should render AvatarOrIcon when feature gate is enabled and icon is provided', () => {
-				const teamWithIcon = buildTeam({
-						icon: mockIcon,
-					});
-
-				const component = shallowOption({}, teamWithIcon);
-				const avatarItemOption = component.find(AvatarItemOption);
-				const avatar = avatarItemOption.props().avatar as ReactElement;
-
-				expect(avatar.type).toBe(AvatarOrIcon);
-				expect(avatar.props.icon).toEqual(mockIcon);
-				expect(avatar.props.src).toEqual(basicTeam.avatarUrl);
-			});
-
-			it('should render AvatarOrIcon with iconColor when both icon and iconColor are provided', () => {
-				const iconColor = '#FF0000';
-				const teamWithIconAndColor = buildTeam({
+		it('should render AvatarOrIcon when icon is provided', () => {
+			const teamWithIcon = buildTeam({
 					icon: mockIcon,
-					iconColor,
 				});
 
-				const component = shallowOption({}, teamWithIconAndColor);
-				const avatarItemOption = component.find(AvatarItemOption);
-				const avatar = avatarItemOption.props().avatar as ReactElement;
+			const component = shallowOption({}, teamWithIcon);
+			const avatarItemOption = component.find(AvatarItemOption);
+			const avatar = avatarItemOption.props().avatar as ReactElement;
 
-				expect(avatar.type).toBe(AvatarOrIcon);
-				expect(avatar.props.icon).toEqual(mockIcon);
-				expect(avatar.props.iconColor).toEqual(iconColor);
-			});
+			expect(avatar.type).toBe(AvatarOrIcon);
+			expect(avatar.props.icon).toEqual(mockIcon);
+			expect(avatar.props.src).toEqual(basicTeam.avatarUrl);
 		});
 
-		it('should render SizeableAvatar when feature gate is enabled but no icon is provided', () => {
+		it('should render AvatarOrIcon with iconColor when both icon and iconColor are provided', () => {
+			const iconColor = '#FF0000';
+			const teamWithIconAndColor = buildTeam({
+				icon: mockIcon,
+				iconColor,
+			});
+
+			const component = shallowOption({}, teamWithIconAndColor);
+			const avatarItemOption = component.find(AvatarItemOption);
+			const avatar = avatarItemOption.props().avatar as ReactElement;
+
+			expect(avatar.type).toBe(AvatarOrIcon);
+			expect(avatar.props.icon).toEqual(mockIcon);
+			expect(avatar.props.iconColor).toEqual(iconColor);
+		});
+
+		it('should render SizeableAvatar when no icon is provided', () => {
 			const component = shallowOption({}, basicTeam);
 			const avatarItemOption = component.find(AvatarItemOption);
 			const avatar = avatarItemOption.props().avatar as ReactElement;
 
 			expect(avatar.type).toBe(SizeableAvatar);
-		});
-
-		ffTest.off('atlaskit_user_picker_support_icon', 'off', () => {
-			it('should render SizeableAvatar when feature gate is disabled even if icon is provided', () => {
-				const teamWithIcon = buildTeam({
-					icon: mockIcon,
-				});
-
-				const component = shallowOption({}, teamWithIcon);
-				const avatarItemOption = component.find(AvatarItemOption);
-				const avatar = avatarItemOption.props().avatar as ReactElement;
-
-				expect(avatar.type).toBe(SizeableAvatar);
-				expect(avatar.props.src).toEqual(basicTeam.avatarUrl);
-			});
 		});
 	});
 });

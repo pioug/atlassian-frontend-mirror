@@ -23,13 +23,13 @@ export const akEditorCustomIconSize = 20;
 export const akEditorSelectedBorderColor = token('color.border.selected');
 export const akEditorSelectedBorderSize = 1;
 export const akEditorSelectedBorderBoldSize = 2;
-export const akEditorSelectedBorder = `${akEditorSelectedBorderSize}px solid ${token(
+export const akEditorSelectedBorder: string = `${akEditorSelectedBorderSize}px solid ${token(
 	'color.border.selected',
 )}`;
-export const akEditorSelectedBoxShadow = `0 0 0 ${akEditorSelectedBorderSize}px ${token(
+export const akEditorSelectedBoxShadow: string = `0 0 0 ${akEditorSelectedBorderSize}px ${token(
 	'color.border.selected',
 )}`;
-export const akEditorSelectedBoldBoxShadow = `0 0 0 ${akEditorSelectedBorderBoldSize}px ${token('color.border.selected')}`;
+export const akEditorSelectedBoldBoxShadow: string = `0 0 0 ${akEditorSelectedBorderBoldSize}px ${token('color.border.selected')}`;
 
 export const akEditorSelectedBlanketOpacity = 0.3;
 export const akEditorUnitZIndex = 1;
@@ -193,7 +193,7 @@ export const VIEWPORT_SIZES = {
 // to be updated in ED-10790: this should be variable threshold based on how many buttons enabled on main toolbar
 export const akEditorMobileMaxWidth = 0;
 
-export const getTableCellBackgroundDarkModeColors = [
+export const getTableCellBackgroundDarkModeColors: string = [
 	['White', '#000000'],
 	['Light blue', '#0C294F'],
 	['Light teal', '#0C343B'],

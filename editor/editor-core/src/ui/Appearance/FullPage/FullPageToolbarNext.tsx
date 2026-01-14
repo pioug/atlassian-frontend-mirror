@@ -117,8 +117,7 @@ const MainToolbarWrapper = ({
 			css={[
 				styles.mainToolbarWrapper,
 				showKeyline && styles.mainToolbarWithKeyline,
-				expValEquals('platform_editor_toolbar_support_custom_components', 'isEnabled', true) &&
-					styles.mainToolbarNew,
+				styles.mainToolbarNew,
 				expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true) &&
 					styles.mainToolbarZIndex,
 				expValEquals(
@@ -228,89 +227,57 @@ export const FullPageToolbarNext = ({
 									<div
 										css={[
 											styles.mainToolbarIconBefore,
-											expValEquals(
-												'platform_editor_toolbar_support_custom_components',
-												'isEnabled',
-												true,
-											) && styles.mainToolbarIconBeforeNew,
+											styles.mainToolbarIconBeforeNew,
 										]}
 									>
 										{beforeIcon}
 									</div>
 								)}
-								{expValEquals(
-									'platform_editor_toolbar_support_custom_components',
-									'isEnabled',
-									true,
-								) ? (
-									<>
-										<FirstChildWrapper>
-											{primaryToolbarDockingConfigEnabled &&
-												components &&
-												isToolbar(toolbar) &&
-												(!expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true) ||
-													(((expValEquals('platform_editor_ssr_renderer', 'isEnabled', true) &&
-														isSSR()) ||
-														editorView) &&
-														(!expValEquals(
-															'platform_editor_toolbar_delay_render_fix',
-															'isEnabled',
-															true,
-														) ||
-															!isSSR()))) && (
-													<ToolbarNext
-														toolbar={toolbar}
-														components={components}
-														editorView={editorView}
-														editorAPI={editorAPI}
-														popupsMountPoint={mountPoint}
-														editorAppearance="full-page"
-														isDisabled={disabled}
-													/>
+								<>
+									<FirstChildWrapper>
+										{primaryToolbarDockingConfigEnabled &&
+											components &&
+											isToolbar(toolbar) &&
+											(!expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true) ||
+												(((expValEquals('platform_editor_ssr_renderer', 'isEnabled', true) &&
+													isSSR()) ||
+													editorView) &&
+													(!expValEquals(
+														'platform_editor_toolbar_delay_render_fix',
+														'isEnabled',
+														true,
+													) ||
+														!isSSR()))) && (
+												<ToolbarNext
+													toolbar={toolbar}
+													components={components}
+													editorView={editorView}
+													editorAPI={editorAPI}
+													popupsMountPoint={mountPoint}
+													editorAppearance="full-page"
+													isDisabled={disabled}
+												/>
+											)}
+									</FirstChildWrapper>
+									<SecondChildWrapper>
+										<div css={styles.customToolbarWrapperStyle}>
+											{!!customPrimaryToolbarComponents &&
+												'before' in customPrimaryToolbarComponents && (
+													<div
+														css={[styles.beforePrimaryToolbarComponents]}
+														data-testid={'before-primary-toolbar-components-plugin'}
+													>
+														{customPrimaryToolbarComponents.before}
+													</div>
 												)}
-										</FirstChildWrapper>
-										<SecondChildWrapper>
-											<div css={styles.customToolbarWrapperStyle}>
-												{!!customPrimaryToolbarComponents &&
-													'before' in customPrimaryToolbarComponents && (
-														<div
-															css={[styles.beforePrimaryToolbarComponents]}
-															data-testid={'before-primary-toolbar-components-plugin'}
-														>
-															{customPrimaryToolbarComponents.before}
-														</div>
-													)}
-												{!!customPrimaryToolbarComponents &&
-												'after' in customPrimaryToolbarComponents
-													? customPrimaryToolbarComponents.after
-													: customPrimaryToolbarComponents}
-											</div>
-										</SecondChildWrapper>
-										{fg('platform_editor_toolbar_aifc_patch_7') && <ToolbarPortalMountPoint />}
-									</>
-								) : (
-									primaryToolbarDockingConfigEnabled &&
-									components &&
-									isToolbar(toolbar) &&
-									(!expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true) ||
-										(editorView &&
-											(!expValEquals(
-												'platform_editor_toolbar_delay_render_fix',
-												'isEnabled',
-												true,
-											) ||
-												!isSSR()))) && (
-										<ToolbarNext
-											toolbar={toolbar}
-											components={components}
-											editorView={editorView}
-											editorAPI={editorAPI}
-											popupsMountPoint={mountPoint}
-											editorAppearance="full-page"
-											isDisabled={disabled}
-										/>
-									)
-								)}
+											{!!customPrimaryToolbarComponents &&
+											'after' in customPrimaryToolbarComponents
+												? customPrimaryToolbarComponents.after
+												: customPrimaryToolbarComponents}
+										</div>
+									</SecondChildWrapper>
+									{fg('platform_editor_toolbar_aifc_patch_7') && <ToolbarPortalMountPoint />}
+								</>
 							</MainToolbarWrapper>
 						</ToolbarPortal>
 					</ToolbarArrowKeyNavigationProvider>

@@ -30,7 +30,7 @@ export const partsFormatter = ({
 	return `${day} ${month} ${year}, ${hour}:${minute} ${formattedDayPeriod}`;
 };
 
-export const formatDate = (timestamp: number, locale: string = 'en') => {
+export const formatDate = (timestamp: number, locale: string = 'en'): string => {
 	const l10n = createLocalizationProvider(locale, formatterOptions);
 	return partsFormatter(l10n.formatToParts(timestamp));
 };

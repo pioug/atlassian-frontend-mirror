@@ -268,7 +268,7 @@ export function makeHoneyPotFix() {
 		}: {
 			eventName: keyof EventPayloadMap<AllDragTypes>;
 			payload: BaseEventPayload<AllDragTypes>;
-		}) {
+		}): void {
 			// We are adding the honey pot `onDragStart` so we don't
 			// impact the creation of the native drag preview.
 			if (eventName === 'onDragStart') {

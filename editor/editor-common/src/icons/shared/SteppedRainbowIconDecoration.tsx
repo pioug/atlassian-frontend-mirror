@@ -33,14 +33,14 @@ const createSteppedRainbow = (colors: string[]) => {
     )`;
 };
 
-export const rainbow = createSteppedRainbow([
+export const rainbow: string = createSteppedRainbow([
 	token('color.background.accent.purple.bolder'),
 	token('color.background.accent.teal.subtle'),
 	token('color.background.accent.orange.subtle'),
 	token('color.background.accent.red.bolder'),
 ]);
 
-export const disabledRainbow = createSteppedRainbow([
+export const disabledRainbow: string = createSteppedRainbow([
 	token('color.background.accent.gray.subtle'),
 	token('color.background.accent.gray.subtle.hovered'),
 	token('color.background.accent.gray.subtle.pressed'),

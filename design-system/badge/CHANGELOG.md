@@ -1,5 +1,13 @@
 # @atlaskit/badge
 
+## 18.3.2
+
+### Patch Changes
+
+- [`703d32b94540e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/703d32b94540e) -
+  Tidy up rolled out flag to handle negative numbers.
+- Updated dependencies
+
 ## 18.3.1
 
 ### Patch Changes

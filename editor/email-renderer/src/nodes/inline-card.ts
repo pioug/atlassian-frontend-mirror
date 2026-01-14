@@ -9,7 +9,7 @@ import { B400 } from '@atlaskit/adf-schema';
 
 const className = createClassName('inlineCard');
 
-export const styles = `
+export const styles: string = `
 .${className} {
   border-radius: 3px;
   -webkit-border-radius: 3px;
@@ -29,7 +29,7 @@ export const styles = `
 /**
  * Used as both inlineCard and embedCard
  */
-export default function inlineCard({ attrs }: NodeSerializerOpts) {
+export default function inlineCard({ attrs }: NodeSerializerOpts): string {
 	let scAttrs: SmartCardWithDataAttributes | SmartCardWithUrlAttributes;
 	let textContent: string;
 	let href: string;

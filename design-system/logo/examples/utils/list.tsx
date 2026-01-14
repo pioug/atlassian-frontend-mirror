@@ -41,6 +41,7 @@ import {
 	CrowdLogo,
 	CustomerServiceManagementIcon,
 	CustomerServiceManagementLogo,
+	DxIcon,
 	FocusIcon,
 	FocusLogo,
 	GoalsIcon,
@@ -129,6 +130,7 @@ const logoMap: {
 	},
 	{ name: 'bitbucket', logo: BitbucketLogo, icon: BitbucketIcon },
 	{ name: 'compass', logo: CompassLogo, icon: CompassIcon },
+	{ name: 'dx', logo: DxIcon, icon: DxIcon },
 	{ name: 'rovo-dev', logo: RovoDevLogo, icon: RovoDevIcon },
 	{
 		name: 'rovo-dev-agent',

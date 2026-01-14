@@ -9,7 +9,7 @@ enum DecisionState {
 }
 
 const className = createClassName('decision');
-export const styles = `
+export const styles: string = `
 .${className} {
   padding: 4px 0px 4px 0;
 }
@@ -46,7 +46,7 @@ interface DecisionItemAttrs {
 	state: DecisionState;
 }
 
-export default function decisionItem({ attrs, text }: NodeSerializerOpts) {
+export default function decisionItem({ attrs, text }: NodeSerializerOpts): string {
 	// If there is no content, we shouldn't render anything
 	if (!text) {
 		return '';

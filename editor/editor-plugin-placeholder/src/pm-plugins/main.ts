@@ -123,7 +123,9 @@ export default function createPlugin(
 		},
 		props: {
 			decorations(editorState) {
-				if (expValEquals('cc_editor_placeholder_collab_wait', 'isEnabled', true)) {
+				if (
+					expValEquals('confluence_load_editor_title_on_transition', 'contentPlaceholder', true)
+				) {
 					// @ts-ignore quick fix which needs follow up to use standard apis
 					if (editorState.collabEditPlugin$ && editorState.collabEditPlugin$.isReady !== true) {
 						return;

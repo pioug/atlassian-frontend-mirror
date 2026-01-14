@@ -64,7 +64,7 @@ export type SourceInfoFetchData = {
 export type UpdateReferenceSyncBlockResult = {
 	error?: string;
 	success: boolean;
-}
+};
 
 export interface ADFFetchProvider {
 	batchFetchData: (resourceIds: ResourceId[]) => Promise<SyncBlockInstance[]>;
@@ -100,8 +100,15 @@ export type SyncedBlockRendererDataProviders = {
 };
 
 export type SyncBlockRendererProviderCreator = {
-	createEmojiProvider: ((options: MediaEmojiProviderOptions) => Promise<EmojiProvider>) | undefined;
-	createMediaProvider: ((options: MediaEmojiProviderOptions) => Promise<MediaProvider>) | undefined;
+	createEmojiProvider:
+		| ((options: MediaEmojiProviderOptions) => Promise<EmojiProvider> | undefined)
+		| undefined;
+	createMediaProvider:
+		| ((options: MediaEmojiProviderOptions) => Promise<MediaProvider> | undefined)
+		| undefined;
+	createSSRMediaProvider?:
+		| ((options: MediaEmojiProviderOptions) => MediaProvider | undefined)
+		| undefined;
 };
 
 export type SyncedBlockRendererProviderOptions = {

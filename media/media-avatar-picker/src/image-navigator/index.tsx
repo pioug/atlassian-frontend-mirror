@@ -280,7 +280,7 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 		this.exportCrop();
 	};
 
-	exportCroppedImage = (outputSize?: number) => {
+	exportCroppedImage = (outputSize?: number): string => {
 		return exportCroppedImage(this.state.viewport, this.imageElement, outputSize);
 	};
 

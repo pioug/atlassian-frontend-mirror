@@ -19,7 +19,7 @@ type StoreAction = StoreActionApi<State>;
 const actions = {
 	updateContainerLoading:
 		(product: Product, isLoading: boolean) =>
-		({ setState, getState }: StoreAction) => {
+		({ setState, getState }: StoreAction): void => {
 			const containers = getState();
 			const current = containers[product as AcceptedProduct];
 			if (current.isLoading === isLoading) {
@@ -29,7 +29,7 @@ const actions = {
 		},
 	updateContainerCreated:
 		(product: Product, isCreated: boolean) =>
-		({ setState, getState }: StoreAction) => {
+		({ setState, getState }: StoreAction): void => {
 			const containers = getState();
 			const current = containers[product as AcceptedProduct];
 			if (current.isCreated === isCreated) {

@@ -14,7 +14,7 @@ export type TableData = {
 
 const className = createClassName('commonTable');
 
-export const styles = `
+export const styles: string = `
 .${className} {
   font-family: ${fontFamily};
   font-size: ${fontSize};
@@ -36,12 +36,12 @@ export const createTableAttrs = (tableAttrs: Attrs = {}, tableStyle: Style = {})
 	class: `${tableAttrs.class || ''} ${className}`,
 });
 
-export const tableDataMapper = ({ style, text, attrs }: TableData) => {
+export const tableDataMapper = ({ style, text, attrs }: TableData): string => {
 	const css = style ? serializeStyle(style) : '';
 	return createTag('td', { style: css, ...attrs }, text ? text : '');
 };
 
-export const tableRowMapper = (tableRow: TableData[]) => {
+export const tableRowMapper = (tableRow: TableData[]): string => {
 	const tableColumns = tableRow.map(tableDataMapper);
 	return createTag('tr', {}, tableColumns.join(''));
 };

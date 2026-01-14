@@ -6,7 +6,7 @@ export function isPastedFromFabricEditor(pastedFrom: string): boolean {
 
 // @see https://product-fabric.atlassian.net/browse/ED-3159
 // @see https://github.com/markdown-it/markdown-it/issues/38
-export function escapeLinks(text: string) {
+export function escapeLinks(text: string): string {
 	// Ignored via go/ees005
 	// eslint-disable-next-line require-unicode-regexp
 	return text.replace(/(\[([^\]]+)\]\()?((https?|ftp|jamfselfservice):\/\/[^\s"'>]+)/g, (str) => {

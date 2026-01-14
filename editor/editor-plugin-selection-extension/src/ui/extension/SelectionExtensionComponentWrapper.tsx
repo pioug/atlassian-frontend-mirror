@@ -30,9 +30,7 @@ export const SelectionExtensionComponentWrapper = ({
 	editorAnalyticsAPI,
 }: SelectionExtensionComponentWrapperProps): React.JSX.Element | null => {
 	const componentRef = useRef<React.ComponentType<SelectionExtensionComponentProps>>();
-	const isToolbarAIFCEnabled =
-		Boolean(api?.toolbar) &&
-		expValEquals('platform_editor_toolbar_aifc_selection_extension', 'isEnabled', true);
+	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
 
 	const { activeExtension, mode } = useSharedPluginStateWithSelector(
 		api,
@@ -93,7 +91,7 @@ export const SelectionExtensionComponentWrapper = ({
 			}
 			return;
 		}
-		// delete this when cleanup platform_editor_toolbar_aifc_selection_extension
+		// delete this when cleaning up platform_editor_toolbar_aifc
 		if (
 			extension &&
 			'component' in extension &&
@@ -141,7 +139,7 @@ export const SelectionExtensionComponentWrapper = ({
 		);
 	}
 
-	// delete this when cleanup platform_editor_toolbar_aifc_selection_extension
+	// delete this when cleaning up platform_editor_toolbar_aifc
 	if (!('component' in extension) || !extension.component) {
 		return null;
 	}

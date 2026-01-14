@@ -8,7 +8,7 @@ import { createObjectURLCache, type ObjectURLCache } from './objectURLCache';
 // Cache is invalidated when different dimensions are provided.
 type Mode = MediaStoreGetFileImageParams['mode'] | undefined;
 
-export const getCacheKey = (id: string, mode: Mode) => {
+export const getCacheKey = (id: string, mode: Mode): string => {
 	const resizeMode = mode || 'crop';
 	return [id, resizeMode].join('-');
 };

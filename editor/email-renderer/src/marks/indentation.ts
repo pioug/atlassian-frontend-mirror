@@ -2,7 +2,7 @@ import { type MarkSerializerOpts } from '../interfaces';
 import { createTable } from '../table-util';
 import { createClassName } from '../styles/util';
 
-export const styles = `
+export const styles: string = `
 .${createClassName('mark-indentation-1')} {
   padding-left: 30px;
 }
@@ -23,7 +23,7 @@ export const styles = `
 }
 `;
 
-export default function code({ mark, text }: MarkSerializerOpts) {
+export default function code({ mark, text }: MarkSerializerOpts): string {
 	// Outlook accepts padding on <td> element, thus we wrap it with table here
 	return createTable([
 		[

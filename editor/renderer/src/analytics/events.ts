@@ -4,6 +4,7 @@ import type {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	OperationalAEP,
+	ExperienceEventPayload,
 	TABLE_ACTION,
 } from '@atlaskit/editor-common/analytics';
 
@@ -396,6 +397,7 @@ export type AnalyticsEventPayload<_T = void> =
 	| SyncedBlockFetchErrorAEP
 	| SyncedBlockGetSourceInfoErrorAEP
 	| ReferenceSyncedBlockUpdateErrorAEP
+	| ExperienceEventPayload;
 
 export type FireAnalyticsCallback = <T = void>(
 	payload: AnalyticsEventPayload<T>,

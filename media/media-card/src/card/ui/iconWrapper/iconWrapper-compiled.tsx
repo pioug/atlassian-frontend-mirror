@@ -7,7 +7,7 @@ import { jsx, css } from '@compiled/react';
 import { type IconWrapperProps } from './types';
 import { type Breakpoint, getTitleBoxHeight } from '../common';
 
-export function titleBoxHeight(hasTitleBox: boolean, breakpoint: Breakpoint) {
+export function titleBoxHeight(hasTitleBox: boolean, breakpoint: Breakpoint): string {
 	// there is no titlebox
 	if (!hasTitleBox) {
 		return `0px`;

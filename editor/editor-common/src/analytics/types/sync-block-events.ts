@@ -1,4 +1,5 @@
 import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from './enums';
+import type { ExperienceEventPayload } from './experience-events';
 import type { OperationalAEP } from './utils';
 
 type SyncedBlockErrorAttributes = {
@@ -70,8 +71,10 @@ export type SyncBlockEventPayload =
 	| SyncedBlockGetSourceInfoErrorAEP
 	| SyncedBlockFetchErrorAEP
 	| ReferenceSyncedBlockUpdateErrorAEP
+	| ExperienceEventPayload;
 
 export type RendererSyncBlockEventPayload =
 	| SyncedBlockGetSourceInfoErrorAEP
 	| SyncedBlockFetchErrorAEP
-	| ReferenceSyncedBlockUpdateErrorAEP;
+	| ReferenceSyncedBlockUpdateErrorAEP
+	| ExperienceEventPayload;

@@ -6,7 +6,7 @@ const mockCreateTeam = {
 	success: (
 		created: ContainerType[] = [],
 		notCreated: { containerType: ContainerType; reason: string }[] = [],
-	) => {
+	): void => {
 		fetchMock.post({
 			matcher: (url: string) => url.includes('/gateway/api/v4/teams/containers'),
 			response: () => {

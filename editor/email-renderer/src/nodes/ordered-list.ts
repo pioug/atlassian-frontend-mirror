@@ -2,7 +2,7 @@ import { createTag } from '../create-tag';
 import { createClassName } from '../styles/util';
 import { type NodeSerializerOpts } from '../interfaces';
 
-export const styles = `
+export const styles: string = `
 .${createClassName('ol')} {
   margin-top: 12px;
   margin-bottom: 12px;
@@ -44,7 +44,7 @@ export const styles = `
 }
 `;
 
-export default function orderedList({ text, attrs }: NodeSerializerOpts) {
+export default function orderedList({ text, attrs }: NodeSerializerOpts): string {
 	const tagAttrs: { class: string; start?: number } = {
 		class: createClassName('ol'),
 	};

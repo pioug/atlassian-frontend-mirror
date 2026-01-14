@@ -11,18 +11,13 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { LocalIdPlugin } from '../localIdPluginType';
 
+import { generateShortUUID, generatedShortUUIDs } from './generateShortUUID';
+
 export const localIdPluginKey = new PluginKey('localIdPlugin');
 
-const generateUUID = (
-	api: ExtractInjectionAPI<LocalIdPlugin> | undefined,
-	node: PMNode,
-	pos: number,
-) => {
+const generateUUID = () => {
 	if (fg('platform_editor_ai_local_id_short')) {
-		// Use the same technique as the anchor id which is faster and shorter
-		return (
-			api?.core.actions.getAnchorIdForNode(node, pos)?.replace('--anchor-', '') ?? uuid.generate()
-		);
+		return generateShortUUID();
 	}
 	// When the flag is NOT enabled, existing uuid
 	return uuid.generate();
@@ -39,6 +34,9 @@ const requestIdleCallbackWithFallback = (callback: () => void) => {
 };
 
 export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined) => {
+	// Track if we've initialized existing UUIDs for this plugin instance
+	let hasInitializedExistingUUIDs = false;
+
 	return new SafePlugin({
 		key: localIdPluginKey,
 		view: (editorView) => {
@@ -74,10 +72,10 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 						!!node.type.spec.attrs?.localId
 					) {
 						if (fg('platform_editor_localid_improvements')) {
-							nodesToUpdate.set(pos, generateUUID(api, node, pos));
+							nodesToUpdate.set(pos, generateUUID());
 						} else {
 							localIdWasAdded = true;
-							addLocalIdToNode(api, pos, tr, node);
+							addLocalIdToNode(pos, tr);
 						}
 					}
 					return true; // Continue traversing
@@ -105,7 +103,10 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 		 * This ensures uniqueness of localIds on nodes being created or edited
 		 */
 		appendTransaction: (transactions, _oldState, newState) => {
-			if (api?.composition.sharedState.currentState()?.isComposing && expValEquals('platform_editor_localid_ime_composition_fix', 'isEnabled', true)) {
+			if (
+				api?.composition.sharedState.currentState()?.isComposing &&
+				expValEquals('platform_editor_localid_ime_composition_fix', 'isEnabled', true)
+			) {
 				return undefined;
 			}
 
@@ -161,10 +162,10 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 							} else {
 								if (!node?.attrs.localId) {
 									if (fg('platform_editor_localid_improvements')) {
-										nodesToUpdate.set(pos, generateUUID(api, node, pos));
+										nodesToUpdate.set(pos, generateUUID());
 									} else {
 										// Legacy behavior - individual steps
-										addLocalIdToNode(api, pos, tr, node);
+										addLocalIdToNode(pos, tr);
 									}
 								}
 							}
@@ -177,6 +178,13 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 
 			if (addedNodes.size > 0 && fg('platform_editor_use_localid_dedupe')) {
 				newState.doc.descendants((node) => {
+					// Also track existing UUIDs in the global Set for short UUID collision detection
+					if (fg('platform_editor_ai_local_id_short')) {
+						if (node.attrs?.localId && !hasInitializedExistingUUIDs) {
+							generatedShortUUIDs.add(node.attrs.localId);
+						}
+					}
+
 					if (addedNodes.has(node)) {
 						return true;
 					}
@@ -184,6 +192,7 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 					localIds.add(node.attrs.localId);
 					return true;
 				});
+				hasInitializedExistingUUIDs = true;
 				// Also ensure the added have no duplicates
 				const seenIds = new Set<string>();
 
@@ -196,11 +205,11 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 						const pos = addedNodePos.get(node);
 						if (pos !== undefined) {
 							if (fg('platform_editor_localid_improvements')) {
-								const newId = generateUUID(api, node, pos);
+								const newId = generateUUID();
 								nodesToUpdate.set(pos, newId);
 								seenIds.add(newId);
 							} else {
-								addLocalIdToNode(api, pos, tr, node);
+								addLocalIdToNode(pos, tr);
 							}
 							modified = true;
 						}
@@ -230,14 +239,8 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
  * @param tr - The transaction to apply the change to
  * @param node - Node reference for integer ID generator
  */
-export const addLocalIdToNode = (
-	api: ExtractInjectionAPI<LocalIdPlugin> | undefined,
-	pos: number,
-	tr: Transaction,
-	node: PMNode,
-): void => {
-	const targetNode = node || tr.doc.nodeAt(pos);
-	tr.setNodeAttribute(pos, 'localId', generateUUID(api, targetNode, pos));
+export const addLocalIdToNode = (pos: number, tr: Transaction): void => {
+	tr.setNodeAttribute(pos, 'localId', generateUUID());
 	tr.setMeta('addToHistory', false);
 };
 
@@ -246,7 +249,10 @@ export const addLocalIdToNode = (
  * @param nodesToUpdate Map of position -> localId for nodes that need updates
  * @param tr
  */
-export const batchAddLocalIdToNodes = (nodesToUpdate: Map<number, string>, tr: Transaction): void => {
+export const batchAddLocalIdToNodes = (
+	nodesToUpdate: Map<number, string>,
+	tr: Transaction,
+): void => {
 	const batchData = Array.from(nodesToUpdate.entries()).map(([pos, localId]) => {
 		const node = tr.doc.nodeAt(pos);
 		if (!node) {

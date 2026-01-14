@@ -17,7 +17,6 @@ import PeopleIcon from '@atlaskit/icon/core/people-group';
 import { type MultiValueProps } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 export const scrollToValue = (valueContainer: HTMLDivElement, control: HTMLElement): void => {
 	const { top, height } = valueContainer.getBoundingClientRect();
@@ -116,8 +115,7 @@ export class MultiValue extends React.Component<Props> {
 			);
 		}
 
-		// Only use icon if feature gate is enabled
-		if (data.icon && fg('atlaskit_user_picker_support_icon')) {
+		if (data.icon) {
 			return (
 				<AvatarOrIcon
 					appearance="multi"

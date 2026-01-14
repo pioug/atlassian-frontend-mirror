@@ -2,7 +2,7 @@ import { type DatasourceDataResponseItem } from '@atlaskit/linking-types';
 
 import { profile as profileBase64Image } from '../../images';
 
-export const defaultInitialVisibleColumnKeys = ['id', 'title', 'space', 'type', 'ownedBy'];
+export const defaultInitialVisibleColumnKeys: string[] = ['id', 'title', 'space', 'type', 'ownedBy'];
 
 const mockData: Array<DatasourceDataResponseItem> = [
 	{

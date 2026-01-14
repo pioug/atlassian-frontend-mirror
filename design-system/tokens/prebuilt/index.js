@@ -1,7 +1,6 @@
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-var _typeof = require("@babel/runtime/helpers/typeof");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -95,12 +94,6 @@ Object.defineProperty(exports, "themeObjectToString", {
     return _themeStateTransformer.themeObjectToString;
   }
 });
-Object.defineProperty(exports, "themeStateDefaults", {
-  enumerable: true,
-  get: function get() {
-    return _themeConfig.themeStateDefaults;
-  }
-});
 Object.defineProperty(exports, "themeStringToObject", {
   enumerable: true,
   get: function get() {
@@ -119,7 +112,7 @@ Object.defineProperty(exports, "useThemeObserver", {
     return _useThemeObserver.default;
   }
 });
-var _themeConfig = _interopRequireWildcard(require("./theme-config"));
+var _themeConfig = _interopRequireDefault(require("./theme-config"));
 var _getToken = _interopRequireDefault(require("./get-token"));
 var _getTokenValue = _interopRequireDefault(require("./get-token-value"));
 var _setGlobalTheme = _interopRequireDefault(require("./set-global-theme"));
@@ -133,4 +126,3 @@ var _getGlobalTheme = _interopRequireDefault(require("./get-global-theme"));
 var _themeStateTransformer = require("./theme-state-transformer");
 var _themeImportMap = _interopRequireDefault(require("./artifacts/theme-import-map"));
 var _constants = require("./constants");
-function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function _interopRequireWildcard(e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != _typeof(e) && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (var _t in e) "default" !== _t && {}.hasOwnProperty.call(e, _t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, _t)) && (i.get || i.set) ? o(f, _t, i) : f[_t] = e[_t]); return f; })(e, t); }

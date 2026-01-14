@@ -12,7 +12,7 @@ type Props = {
 export const useInlineCommentsFilter = ({
 	annotationIds,
 	filter: { state: stateFilter },
-}: Props) => {
+}: Props): string[] => {
 	const states = useContext(InlineCommentsStateContext);
 	return useMemo(() => {
 		return annotationIds.reduce((acc, id) => {

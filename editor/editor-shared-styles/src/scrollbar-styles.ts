@@ -3,7 +3,7 @@
 
 import { token } from '@atlaskit/tokens';
 
-export const scrollbarStyles = `
+export const scrollbarStyles: string = `
   -ms-overflow-style: -ms-autohiding-scrollbar;
 
   &::-webkit-scrollbar {

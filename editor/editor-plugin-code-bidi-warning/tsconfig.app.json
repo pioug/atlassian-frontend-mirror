@@ -49,6 +49,5 @@
 		{
 			"path": "../tmp-editor-statsig/tsconfig.app.json"
 		}
-	],
-	"files": ["../../../typings/prosemirror-state.d.ts"]
+	]
 }

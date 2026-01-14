@@ -10,7 +10,7 @@ export type SentryClientConfig = {
 
 export let sentryClient: SentryClient | undefined;
 
-export const setSentryClient = (client: SentryClient) => {
+export const setSentryClient = (client: SentryClient): void => {
 	sentryClient = client;
 };
 
@@ -21,7 +21,7 @@ export const getSentryClient = async () => {
 	return sentryClient;
 };
 
-export async function setupSentryClient({ appName, env }: SentryClientConfig) {
+export async function setupSentryClient({ appName, env }: SentryClientConfig): Promise<void> {
 	const sentryClient = await requireSentryLib();
 	if (!sentryClient) {
 		return;

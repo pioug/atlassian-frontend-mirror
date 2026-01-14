@@ -7,7 +7,7 @@ import { transformTimeStamp } from './transformTimeStamp';
 /**
  * Retrieve the data source for a link given the item and the plugin that resolved it
  */
-export const getDataSource = (item: LinkSearchListItemData, plugin?: LinkPickerPlugin) => {
+export const getDataSource = (item: LinkSearchListItemData, plugin?: LinkPickerPlugin): string => {
 	return item.meta?.source ?? plugin?.meta?.source ?? 'unknown';
 };
 

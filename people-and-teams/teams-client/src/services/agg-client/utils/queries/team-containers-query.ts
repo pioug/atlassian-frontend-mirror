@@ -1,7 +1,7 @@
 import { print } from 'graphql';
 import gql from 'graphql-tag';
 
-export const TeamContainersQueryV2 = print(gql`
+export const TeamContainersQueryV2: string = print(gql`
 	query TeamContainersQueryV2($cypherQuery: String!, $params: JSON!) {
 		graphStore @optIn(to: ["GraphStore", "GraphStoreCypherQueryV2"]) {
 			cypherQueryV2(query: $cypherQuery, params: $params) {

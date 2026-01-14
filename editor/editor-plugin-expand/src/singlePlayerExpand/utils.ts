@@ -15,7 +15,7 @@ export const findParentExpandNode = (
 	);
 };
 
-export const findReplaceExpandDecorations = [
+export const findReplaceExpandDecorations: string[] = [
 	darkModeSearchMatchClass,
 	searchMatchExpandTitleClass,
 	selectedSearchMatchClass,

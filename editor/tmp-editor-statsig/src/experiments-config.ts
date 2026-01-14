@@ -98,7 +98,7 @@ export const editorExperimentsConfig: {
 	// Editor Platform experiments
 	// lwoollard experiments
 	// Added 22-12-2025
-	cc_editor_placeholder_collab_wait: {
+	confluence_load_editor_title_on_transition: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -132,6 +132,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2025-12-29
+	company_hub_deprecate_atlaskit_onboarding: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-11-20
 	'company-hub-config-panel-keyboard-nav': {
 		defaultValue: boolean;
@@ -147,6 +154,13 @@ export const editorExperimentsConfig: {
 	};
 	// Addded 2025-12-04
 	confluence_compact_text_format: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-01-05
+	'company_hub_carousel_thumbnails-refactor': {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -776,13 +790,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-09-15
-	platform_editor_toolbar_aifc_patch_5: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-09-26
 	platform_editor_toolbar_aifc_patch_6: {
 		defaultValue: boolean;
@@ -797,22 +804,8 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-09-29
-	platform_editor_toolbar_aifc_selection_extension: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-08-25
 	platform_editor_toolbar_aifc_template_editor: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2025-08-27
-	platform_editor_toolbar_support_custom_components: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1029,6 +1022,12 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	platform_editor_sel_toolbar_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-12-22
 	platform_editor_localid_ime_composition_fix: {
 		defaultValue: boolean;
@@ -1050,6 +1049,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-01-12
+	platform_editor_table_sticky_header_patch_11: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 } = {
 	// new format to avoid collisions with other users when updating the file
 
@@ -1057,11 +1063,11 @@ export const editorExperimentsConfig: {
 	// lwoollard experiments
 
 	// Added 22-12-2025
-	cc_editor_placeholder_collab_wait: createBooleanExperiment({
+	confluence_load_editor_title_on_transition: createBooleanExperiment({
 		productKeys: {
-			confluence: 'cc_editor_placeholder_collab_wait',
+			confluence: 'confluence_load_editor_title_on_transition',
 		},
-		param: 'isEnabled',
+		param: 'contentPlaceholder',
 		defaultValue: false,
 	}),
 	// Added 02-12-2025
@@ -1251,6 +1257,21 @@ export const editorExperimentsConfig: {
 	'company-hub-config-panel-keyboard-nav': createBooleanExperiment({
 		productKeys: {
 			confluence: 'company-hub-config-panel-keyboard-nav',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-01-05
+	'company_hub_carousel_thumbnails-refactor': createBooleanExperiment({
+		productKeys: {
+			confluence: 'company_hub_carousel_thumbnails-refactor',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	company_hub_deprecate_atlaskit_onboarding: createBooleanExperiment({
+		productKeys: {
+			confluence: 'company_hub_deprecate_atlaskit_onboarding',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -1725,15 +1746,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-09-29
-	platform_editor_toolbar_aifc_selection_extension: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_toolbar_aifc_selection_extension',
-			jira: 'platform_editor_toolbar_aifc_selection_extension',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-08-04
 	platform_editor_floating_toolbar_button_aria_label: createBooleanExperiment({
 		productKeys: {
@@ -1855,14 +1867,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-08-27
-	platform_editor_toolbar_support_custom_components: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_toolbar_support_custom_components',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-08-25
 	platform_editor_toolbar_aifc_template_editor: createBooleanExperiment({
 		productKeys: {
@@ -1941,14 +1945,6 @@ export const editorExperimentsConfig: {
 	platform_editor_nested_table_refresh_width_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_nested_table_refresh_width_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-09-15
-	platform_editor_toolbar_aifc_patch_5: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_toolbar_aifc_patch_5',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2206,6 +2202,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	platform_editor_sel_toolbar_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_sel_toolbar_fix',
+			jira: 'platform_editor_sel_toolbar_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-12-30
 	platform_editor_table_sticky_header_patch_9: createBooleanExperiment({
 		productKeys: {
@@ -2235,6 +2239,14 @@ export const editorExperimentsConfig: {
 	platform_editor_sample_renderer_rendered_event: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_sample_renderer_rendered_event',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-01-12
+	platform_editor_table_sticky_header_patch_11: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_table_sticky_header_patch_11',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

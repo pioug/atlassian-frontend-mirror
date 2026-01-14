@@ -90,7 +90,7 @@ export const collabCustomStepPlugin: NextEditorPlugin<'collab-malformed-plugin'>
 	};
 };
 
-export const getRandomUser = () => {
+export const getRandomUser = (): string => {
 	return Math.floor(Math.random() * 10000).toString();
 };
 

@@ -6,7 +6,7 @@ import { createClassName } from '../styles/util';
 
 const className = createClassName(`codeBlock`);
 
-export const styles = `
+export const styles: string = `
 .${className}-pre {
   white-space: pre-wrap;
   font-size: 12px;
@@ -30,7 +30,7 @@ export const styles = `
 }
 `;
 
-export default function codeBlock({ text }: NodeSerializerOpts) {
+export default function codeBlock({ text }: NodeSerializerOpts): string {
 	// Ignored via go/ees005
 	// eslint-disable-next-line require-unicode-regexp
 	const sanitizedText = (text || '').replace(/\n/g, '<br/>');

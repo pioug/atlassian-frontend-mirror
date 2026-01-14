@@ -478,13 +478,6 @@ export const moveNode =
 		if (!convertedNode) {
 			return tr;
 		}
-		if (
-			sourceNode?.type.name === 'taskList' &&
-			sliceFrom > 0 &&
-			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
-		) {
-			sliceFrom = sliceFrom - 1;
-		}
 
 		// Currently we don't support breakout mark for children nodes of bodiedSyncBlock node
 		// Hence strip out the mark for now

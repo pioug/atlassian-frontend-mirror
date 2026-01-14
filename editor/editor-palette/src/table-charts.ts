@@ -79,28 +79,28 @@ export type EditorTableChartsPaletteKey = keyof EditorTableChartsPalette;
  */
 const editorTableChartsPalette = {
 	['#7AB2FF']: {
-		getValue: (fallback: string) => getTokenValue('color.background.accent.blue.subtle', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.background.accent.blue.subtle', fallback),
 		token: token(
 			'color.background.accent.blue.subtle',
 			'#7AB2FF',
 		) as 'var(--ds-background-accent-blue-subtle, #7AB2FF)',
 	},
 	['#60C6D2']: {
-		getValue: (fallback: string) => getTokenValue('color.background.accent.teal.subtle', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.background.accent.teal.subtle', fallback),
 		token: token(
 			'color.background.accent.teal.subtle',
 			'#60C6D2',
 		) as 'var(--ds-background-accent-teal-subtle, #60C6D2)',
 	},
 	['#6BE1B0']: {
-		getValue: (fallback: string) => getTokenValue('color.background.accent.green.subtle', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.background.accent.green.subtle', fallback),
 		token: token(
 			'color.background.accent.green.subtle',
 			'#6BE1B0',
 		) as 'var(--ds-background-accent-green-subtle, #6BE1B0)',
 	},
 	['#FFDB57']: {
-		getValue: (fallback: string) =>
+		getValue: (fallback: string): string =>
 			getTokenValue('color.background.accent.yellow.subtle', fallback),
 		token: token(
 			'color.background.accent.yellow.subtle',
@@ -108,7 +108,7 @@ const editorTableChartsPalette = {
 		) as 'var(--ds-background-accent-yellow-subtle, #FFDB57)',
 	},
 	['#FAA53D']: {
-		getValue: (fallback: string) =>
+		getValue: (fallback: string): string =>
 			getTokenValue('color.background.accent.orange.subtle', fallback),
 		token: token(
 			'color.background.accent.orange.subtle',
@@ -116,14 +116,14 @@ const editorTableChartsPalette = {
 		) as 'var(--ds-background-accent-orange-subtle, #FAA53D)',
 	},
 	['#FF8F73']: {
-		getValue: (fallback: string) => getTokenValue('color.background.accent.red.subtle', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.background.accent.red.subtle', fallback),
 		token: token(
 			'color.background.accent.red.subtle',
 			'#FF8F73',
 		) as 'var(--ds-background-accent-red-subtle, #FF8F73)',
 	},
 	['#E774BB']: {
-		getValue: (fallback: string) =>
+		getValue: (fallback: string): string =>
 			getTokenValue('color.background.accent.magenta.subtle', fallback),
 		token: token(
 			'color.background.accent.magenta.subtle',
@@ -131,7 +131,7 @@ const editorTableChartsPalette = {
 		) as 'var(--ds-background-accent-magenta-subtle, #E774BB)',
 	},
 	['#B5A7FB']: {
-		getValue: (fallback: string) =>
+		getValue: (fallback: string): string =>
 			getTokenValue('color.background.accent.purple.subtle', fallback),
 		token: token(
 			'color.background.accent.purple.subtle',
@@ -139,145 +139,145 @@ const editorTableChartsPalette = {
 		) as 'var(--ds-background-accent-purple-subtle, #B5A7FB)',
 	},
 	['#8993A5']: {
-		getValue: (fallback: string) => getTokenValue('color.background.accent.gray.subtler', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.background.accent.gray.subtler', fallback),
 		token: token(
 			'color.background.accent.gray.subtler',
 			'#8993A5',
 		) as 'var(--ds-background-accent-gray-subtler, #8993A5)',
 	},
 	['#247FFF']: {
-		getValue: (fallback: string) => getTokenValue('color.chart.blue.bold', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.chart.blue.bold', fallback),
 		token: token('color.chart.blue.bold', '#247FFF') as 'var(--ds-chart-blue-bold, #247FFF)',
 	},
 	['#1D9AAA']: {
-		getValue: (fallback: string) => getTokenValue('color.chart.teal.bold', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.chart.teal.bold', fallback),
 		token: token('color.chart.teal.bold', '#1D9AAA') as 'var(--ds-chart-teal-bold, #1D9AAA)',
 	},
 	['#23A971']: {
-		getValue: (fallback: string) => getTokenValue('color.chart.green.bold', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.chart.green.bold', fallback),
 		token: token('color.chart.green.bold', '#23A971') as 'var(--ds-chart-green-bold, #23A971)',
 	},
 	['#FFBE33']: {
-		getValue: (fallback: string) => getTokenValue('color.chart.yellow.bold', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.chart.yellow.bold', fallback),
 		token: token('color.chart.yellow.bold', '#FFBE33') as 'var(--ds-chart-yellow-bold, #FFBE33)',
 	},
 	['#D97008']: {
-		getValue: (fallback: string) => getTokenValue('color.chart.orange.bold', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.chart.orange.bold', fallback),
 		token: token('color.chart.orange.bold', '#D97008') as 'var(--ds-chart-orange-bold, #D97008)',
 	},
 	['#FC552C']: {
-		getValue: (fallback: string) => getTokenValue('color.chart.red.bold', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.chart.red.bold', fallback),
 		token: token('color.chart.red.bold', '#FC552C') as 'var(--ds-chart-red-bold, #FC552C)',
 	},
 	['#DA62AC']: {
-		getValue: (fallback: string) => getTokenValue('color.chart.magenta.bold', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.chart.magenta.bold', fallback),
 		token: token('color.chart.magenta.bold', '#DA62AC') as 'var(--ds-chart-magenta-bold, #DA62AC)',
 	},
 	['#8B77EE']: {
-		getValue: (fallback: string) => getTokenValue('color.chart.purple.bold', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.chart.purple.bold', fallback),
 		token: token('color.chart.purple.bold', '#8B77EE') as 'var(--ds-chart-purple-bold, #8B77EE)',
 	},
 	['#8590A2']: {
-		getValue: (fallback: string) => getTokenValue('color.chart.gray.bold', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.chart.gray.bold', fallback),
 		token: token('color.chart.gray.bold', '#8590A2') as 'var(--ds-chart-gray-bold, #8590A2)',
 	},
 	['#0055CC']: {
-		getValue: (fallback: string) => getTokenValue('color.chart.blue.bolder', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.chart.blue.bolder', fallback),
 		token: token('color.chart.blue.bolder', '#0055CC') as 'var(--ds-chart-blue-bolder, #0055CC)',
 	},
 	['#1D7F8C']: {
-		getValue: (fallback: string) => getTokenValue('color.chart.teal.bolder', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.chart.teal.bolder', fallback),
 		token: token('color.chart.teal.bolder', '#1D7F8C') as 'var(--ds-chart-teal-bolder, #1D7F8C)',
 	},
 	['#177D52']: {
-		getValue: (fallback: string) => getTokenValue('color.chart.green.bolder', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.chart.green.bolder', fallback),
 		token: token('color.chart.green.bolder', '#177D52') as 'var(--ds-chart-green-bolder, #177D52)',
 	},
 	['#FF9D00']: {
-		getValue: (fallback: string) => getTokenValue('color.chart.yellow.bolder', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.chart.yellow.bolder', fallback),
 		token: token(
 			'color.chart.yellow.bolder',
 			'#FF9D00',
 		) as 'var(--ds-chart-yellow-bolder, #FF9D00)',
 	},
 	['#B65C02']: {
-		getValue: (fallback: string) => getTokenValue('color.chart.orange.bolder', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.chart.orange.bolder', fallback),
 		token: token(
 			'color.chart.orange.bolder',
 			'#B65C02',
 		) as 'var(--ds-chart-orange-bolder, #B65C02)',
 	},
 	['#D32D03']: {
-		getValue: (fallback: string) => getTokenValue('color.chart.red.bolder', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.chart.red.bolder', fallback),
 		token: token('color.chart.red.bolder', '#D32D03') as 'var(--ds-chart-red-bolder, #D32D03)',
 	},
 	['#CD519D']: {
-		getValue: (fallback: string) => getTokenValue('color.chart.magenta.bolder', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.chart.magenta.bolder', fallback),
 		token: token(
 			'color.chart.magenta.bolder',
 			'#CD519D',
 		) as 'var(--ds-chart-magenta-bolder, #CD519D)',
 	},
 	['#5A43D0']: {
-		getValue: (fallback: string) => getTokenValue('color.chart.purple.bolder', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.chart.purple.bolder', fallback),
 		token: token(
 			'color.chart.purple.bolder',
 			'#5A43D0',
 		) as 'var(--ds-chart-purple-bolder, #5A43D0)',
 	},
 	['#758195']: {
-		getValue: (fallback: string) => getTokenValue('color.chart.gray.bolder', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.chart.gray.bolder', fallback),
 		token: token('color.chart.gray.bolder', '#758195') as 'var(--ds-chart-gray-bolder, #758195)',
 	},
 	['#003884']: {
-		getValue: (fallback: string) => getTokenValue('color.chart.blue.boldest', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.chart.blue.boldest', fallback),
 		token: token('color.chart.blue.boldest', '#003884') as 'var(--ds-chart-blue-boldest, #003884)',
 	},
 	['#206B74']: {
-		getValue: (fallback: string) => getTokenValue('color.chart.teal.boldest', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.chart.teal.boldest', fallback),
 		token: token('color.chart.teal.boldest', '#206B74') as 'var(--ds-chart-teal-boldest, #206B74)',
 	},
 	['#055C3F']: {
-		getValue: (fallback: string) => getTokenValue('color.chart.green.boldest', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.chart.green.boldest', fallback),
 		token: token(
 			'color.chart.green.boldest',
 			'#055C3F',
 		) as 'var(--ds-chart-green-boldest, #055C3F)',
 	},
 	['#946104']: {
-		getValue: (fallback: string) => getTokenValue('color.chart.yellow.boldest', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.chart.yellow.boldest', fallback),
 		token: token(
 			'color.chart.yellow.boldest',
 			'#946104',
 		) as 'var(--ds-chart-yellow-boldest, #946104)',
 	},
 	['#974F0C']: {
-		getValue: (fallback: string) => getTokenValue('color.chart.orange.boldest', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.chart.orange.boldest', fallback),
 		token: token(
 			'color.chart.orange.boldest',
 			'#974F0C',
 		) as 'var(--ds-chart-orange-boldest, #974F0C)',
 	},
 	['#A32000']: {
-		getValue: (fallback: string) => getTokenValue('color.chart.red.boldest', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.chart.red.boldest', fallback),
 		token: token('color.chart.red.boldest', '#A32000') as 'var(--ds-chart-red-boldest, #A32000)',
 	},
 	['#943D73']: {
-		getValue: (fallback: string) => getTokenValue('color.chart.magenta.boldest', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.chart.magenta.boldest', fallback),
 		token: token(
 			'color.chart.magenta.boldest',
 			'#943D73',
 		) as 'var(--ds-chart-magenta-boldest, #943D73)',
 	},
 	['#44368B']: {
-		getValue: (fallback: string) => getTokenValue('color.chart.purple.boldest', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.chart.purple.boldest', fallback),
 		token: token(
 			'color.chart.purple.boldest',
 			'#44368B',
 		) as 'var(--ds-chart-purple-boldest, #44368B)',
 	},
 	['#44546F']: {
-		getValue: (fallback: string) => getTokenValue('color.chart.gray.boldest', fallback),
+		getValue: (fallback: string): string => getTokenValue('color.chart.gray.boldest', fallback),
 		token: token('color.chart.gray.boldest', '#44546F') as 'var(--ds-chart-gray-boldest, #44546F)',
 	},
 };

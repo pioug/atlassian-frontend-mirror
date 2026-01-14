@@ -24,7 +24,7 @@ interface AGGResult {
 
 const ARI_PREFIX = 'ari:cloud:identity::team/';
 
-export const extractIdFromAri = (ari: string) => {
+export const extractIdFromAri = (ari: string): string => {
 	const slashPos = ari.indexOf('/');
 	const id = ari.slice(slashPos + 1);
 	return id;
@@ -37,7 +37,7 @@ export const idToAri = (teamId: string) => {
 	return `ari:cloud:identity::team/${teamId}`;
 };
 
-export const idToAriSafe = (teamIdOrTeamAri: string) =>
+export const idToAriSafe = (teamIdOrTeamAri: string): string =>
 	teamIdOrTeamAri.startsWith(ARI_PREFIX) ? teamIdOrTeamAri : idToAri(teamIdOrTeamAri);
 
 export const convertTeam = (result: AGGResult): Team => {

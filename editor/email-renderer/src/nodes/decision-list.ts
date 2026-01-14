@@ -4,11 +4,11 @@ import { createClassName } from '../styles/util';
 
 const className = createClassName('decisionList');
 
-export const styles = `
+export const styles: string = `
 .${className} {
   margin-top: 12px;
 }
 `;
-export default function decisionList({ text }: NodeSerializerOpts) {
+export default function decisionList({ text }: NodeSerializerOpts): string {
 	return createTag('div', { class: className }, text);
 }

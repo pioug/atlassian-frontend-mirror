@@ -17,6 +17,7 @@ import type {
 	getPosHandler,
 	getPosHandlerNode,
 	ExtractInjectionAPI,
+	EditorContentMode,
 } from '@atlaskit/editor-common/types';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 import { type EditorSelectionAPI } from '@atlaskit/editor-plugin-selection';
@@ -37,9 +38,6 @@ import type { CodeBlockAdvancedPlugin } from '../codeBlockAdvancedPluginType';
 import { highlightStyle } from '../ui/syntaxHighlightingTheme';
 import { cmTheme, codeFoldingTheme } from '../ui/theme';
 
-// Store last observed heights of code blocks
-const codeBlockHeights = new WeakMap<HTMLElement, number>();
-
 import { syncCMWithPM } from './codemirrorSync/syncCMWithPM';
 import { getCMSelectionChanges } from './codemirrorSync/updateCMSelection';
 import { firstCodeBlockInDocument } from './extensions/firstCodeBlockInDocument';
@@ -49,6 +47,9 @@ import { manageSelectionMarker } from './extensions/manageSelectionMarker';
 import { prosemirrorDecorationPlugin } from './extensions/prosemirrorDecorations';
 import { tripleClickSelectAllExtension } from './extensions/tripleClickExtension';
 import { LanguageLoader } from './languages/loader';
+
+// Store last observed heights of code blocks
+const codeBlockHeights = new WeakMap<HTMLElement, number>();
 
 export interface ConfigProps {
 	allowCodeFolding: boolean;
@@ -66,15 +67,18 @@ class CodeBlockAdvancedNodeView implements NodeView {
 	private languageCompartment = new Compartment();
 	private readOnlyCompartment = new Compartment();
 	private pmDecorationsCompartment = new Compartment();
+	private themeCompartment = new Compartment();
 	private node: PMNode;
 	private getPos: getPosHandlerNode;
 	private cm: CodeMirror;
+	private contentMode: EditorContentMode | undefined;
 	private selectionAPI: EditorSelectionAPI | undefined;
 	private maybeTryingToReachNodeSelection = false;
 	private cleanupDisabledState: (() => void) | undefined;
 	private languageLoader: LanguageLoader;
 	private pmFacet = Facet.define<DecorationSource>();
 	private ro?: ResizeObserver;
+	private unsubscribeContentFormat: (() => void) | undefined;
 
 	constructor(
 		node: PMNode,
@@ -86,12 +90,24 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		this.node = node;
 		this.view = view;
 		this.getPos = getPos;
+		const contentFormatSharedState = expValEquals(
+			'confluence_compact_text_format',
+			'isEnabled',
+			true,
+		)
+			? config.api?.contentFormat?.sharedState
+			: undefined;
+		this.contentMode = expValEquals('confluence_compact_text_format', 'isEnabled', true)
+			? contentFormatSharedState?.currentState?.()?.contentMode
+			: undefined;
+
 		this.selectionAPI = config.api?.selection?.actions;
 		const getNode = () => this.node;
 		const onMaybeNodeSelection = () => (this.maybeTryingToReachNodeSelection = true);
 		this.cleanupDisabledState = config.api?.editorDisabled?.sharedState.onChange(() => {
 			this.updateReadonlyState();
 		});
+
 		this.languageLoader = new LanguageLoader((lang) => {
 			this.updating = true;
 			this.cm.dispatch({
@@ -126,7 +142,13 @@ class CodeBlockAdvancedNodeView implements NodeView {
 				}),
 				// Goes before cmTheme to override styles
 				config.allowCodeFolding ? [codeFoldingTheme] : [],
-				cmTheme,
+				this.themeCompartment.of(
+					cmTheme({
+						contentMode: expValEquals('confluence_compact_text_format', 'isEnabled', true)
+							? this.contentMode
+							: undefined,
+					}),
+				),
 				syntaxHighlighting(highlightStyle),
 				bracketMatching(),
 				lineNumbers({
@@ -163,20 +185,31 @@ class CodeBlockAdvancedNodeView implements NodeView {
 			],
 		});
 
-		// We append an additional element that fixes a selection bug on chrome if the code block
-		// is the first element followed by subsequent code blocks
-		const spaceContainer = document.createElement('span');
-		spaceContainer.innerText = ZERO_WIDTH_SPACE;
-		spaceContainer.style.height = '0';
-		// The editor's outer node is our DOM representation
-		this.dom = this.cm.dom;
-		this.dom.appendChild(spaceContainer);
+		if (contentFormatSharedState) {
+			this.unsubscribeContentFormat = contentFormatSharedState.onChange(
+				({ nextSharedState, prevSharedState }) => {
+					const prevMode = prevSharedState?.contentMode;
+					const nextMode = nextSharedState?.contentMode;
+					if (nextMode === prevMode) {
+						return;
+					}
+
+					this.applyContentModeTheme(nextMode);
+
+					if (this.updating || this.cm.hasFocus) {
+						return;
+					}
+
+					this.cm.requestMeasure();
+				},
+			);
+		}
 
 		// Observe size changes of the CodeMirror DOM and request a measurement pass
 		if (
-			expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-			(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-				fg('platform_editor_content_mode_button_mvp'))
+			!expValEquals('confluence_compact_text_format', 'isEnabled', true) &&
+			expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+			fg('platform_editor_content_mode_button_mvp')
 		) {
 			this.ro = new ResizeObserver((entries) => {
 				// Skip measurements when:
@@ -195,11 +228,21 @@ class CodeBlockAdvancedNodeView implements NodeView {
 					}
 					codeBlockHeights.set(this.cm.contentDOM, currentHeight);
 				}
+
 				// CodeMirror to re-measure when its content size changes
 				this.cm.requestMeasure();
 			});
 			this.ro.observe(this.cm.contentDOM);
 		}
+
+		// We append an additional element that fixes a selection bug on chrome if the code block
+		// is the first element followed by subsequent code blocks
+		const spaceContainer = document.createElement('span');
+		spaceContainer.innerText = ZERO_WIDTH_SPACE;
+		spaceContainer.style.height = '0';
+		// The editor's outer node is our DOM representation
+		this.dom = this.cm.dom;
+		this.dom.appendChild(spaceContainer);
 
 		// This flag is used to avoid an update loop between the outer and
 		// inner editor
@@ -220,10 +263,13 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		// codemirror
 		this.clearProseMirrorDecorations();
 		this.cleanupDisabledState?.();
+		if (expValEquals('confluence_compact_text_format', 'isEnabled', true)) {
+			this.unsubscribeContentFormat?.();
+		}
 		if (
-			expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-			(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-				fg('platform_editor_content_mode_button_mvp'))
+			!expValEquals('confluence_compact_text_format', 'isEnabled', true) &&
+			expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+			fg('platform_editor_content_mode_button_mvp')
 		) {
 			this.ro?.disconnect();
 		}
@@ -305,6 +351,18 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		if (effects) {
 			this.cm.dispatch({ effects });
 		}
+		this.updating = false;
+	}
+
+	private applyContentModeTheme(contentMode: EditorContentMode | undefined) {
+		if (contentMode === this.contentMode) {
+			return;
+		}
+		this.contentMode = contentMode;
+		this.updating = true;
+		this.cm.dispatch({
+			effects: this.themeCompartment.reconfigure(cmTheme({ contentMode })),
+		});
 		this.updating = false;
 	}
 

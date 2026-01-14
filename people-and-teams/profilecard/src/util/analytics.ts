@@ -48,7 +48,7 @@ interface AnalyticsEvent {
 export const fireEvent = (
 	createAnalyticsEvent: CreateUIAnalyticsEvent | undefined,
 	body: AnalyticsEvent,
-) => {
+): void => {
 	if (!createAnalyticsEvent) {
 		return;
 	}

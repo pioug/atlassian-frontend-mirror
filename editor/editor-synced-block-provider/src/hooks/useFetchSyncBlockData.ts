@@ -2,7 +2,8 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { type RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import { logException } from '@atlaskit/editor-common/monitoring';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ProviderFactory, MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SyncBlockError } from '../common/types';
 import type { SyncBlockInstance } from '../providers/types';
@@ -10,10 +11,13 @@ import type { SyncBlockStoreManager } from '../store-manager/syncBlockStoreManag
 import { fetchErrorPayload } from '../utils/errorHandling';
 import { createSyncBlockNode } from '../utils/utils';
 
+type SSRProviders = { media?: MediaProvider | null };
+
 export interface UseFetchSyncBlockDataResult {
 	isLoading: boolean;
 	providerFactory: ProviderFactory | undefined;
 	reloadData: () => Promise<void>;
+	ssrProviders?: SSRProviders | null;
 	syncBlockInstance: SyncBlockInstance | null;
 }
 
@@ -57,7 +61,11 @@ export const useFetchSyncBlockData = (
 			logException(error as Error, {
 				location: 'editor-synced-block-provider/useFetchSyncBlockData',
 			});
-			fireAnalyticsEvent?.(fetchErrorPayload((error as Error).message));
+			if (fg('platform_synced_block_dogfooding')) {
+				manager?.referenceManager?.fetchExperience?.failure({ reason: (error as Error).message });
+			} else {
+				fireAnalyticsEvent?.(fetchErrorPayload((error as Error).message));
+			}
 
 			// Set error state if fetching fails
 			setFetchState({
@@ -88,6 +96,7 @@ export const useFetchSyncBlockData = (
 
 	return {
 		isLoading,
+		ssrProviders: resourceId ? manager.referenceManager.getSSRProviders(resourceId) : null,
 		providerFactory: manager.referenceManager.getProviderFactory(resourceId || ''),
 		reloadData,
 		syncBlockInstance,

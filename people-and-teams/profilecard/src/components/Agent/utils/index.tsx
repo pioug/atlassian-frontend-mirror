@@ -17,12 +17,12 @@ export const getStudioHost = (): string => {
 
 export const getStudioPath = (path: string) => `${getStudioHost()}${path}`;
 
-export const getAtlassianStudioAgentEditUrl = (siteId: string, agentId: string) =>
+export const getAtlassianStudioAgentEditUrl = (siteId: string, agentId: string): string =>
 	getStudioPath(
 		`/s/${siteId}/agents/enrich/rovo/agents/${agentId}?redirect=${encodeURIComponent('/:agentId/overview')}`,
 	);
 
-export const getAtlassianStudioAgentDuplicateUrl = (siteId: string, agentId: string) =>
+export const getAtlassianStudioAgentDuplicateUrl = (siteId: string, agentId: string): string =>
 	getStudioPath(
 		`/s/${siteId}/agents/enrich/rovo/agents/${agentId}?redirect=${encodeURIComponent('/create')}`,
 	);

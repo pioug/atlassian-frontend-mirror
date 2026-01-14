@@ -42,12 +42,12 @@ const setGlobalTheme = async (
 		light = themeStateDefaults['light'],
 		shape = themeStateDefaults['shape'](),
 		spacing = themeStateDefaults['spacing'],
-		typography = themeStateDefaults['typography'](),
+		typography = themeStateDefaults['typography'],
 		UNSAFE_themeOptions = themeStateDefaults['UNSAFE_themeOptions'],
 	} = typeof nextThemeState === 'function'
 		? nextThemeState({
 				...themeStateDefaults,
-				typography: themeStateDefaults['typography'](),
+				typography: themeStateDefaults['typography'],
 				shape: themeStateDefaults['shape'](),
 				...getGlobalTheme(),
 			})

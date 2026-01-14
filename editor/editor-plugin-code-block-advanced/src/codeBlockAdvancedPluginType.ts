@@ -2,6 +2,7 @@ import type { Extension } from '@codemirror/state';
 
 import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { CodeBlockPlugin } from '@atlaskit/editor-plugin-code-block';
+import type { ContentFormatPlugin } from '@atlaskit/editor-plugin-content-format';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type { FindReplacePlugin } from '@atlaskit/editor-plugin-find-replace';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
@@ -16,6 +17,7 @@ export type CodeBlockAdvancedPlugin = NextEditorPlugin<
 			OptionalPlugin<EditorDisabledPlugin>,
 			OptionalPlugin<SelectionMarkerPlugin>,
 			OptionalPlugin<FindReplacePlugin>,
+			OptionalPlugin<ContentFormatPlugin>,
 		];
 		pluginConfiguration: CodeBlockAdvancedPluginOptions | undefined;
 	}

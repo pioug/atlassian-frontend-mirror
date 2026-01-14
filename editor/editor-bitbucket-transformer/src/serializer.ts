@@ -527,7 +527,7 @@ export const marks = {
 		open: '[',
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		close(_state: MarkdownSerializerState, mark: any) {
+		close(_state: MarkdownSerializerState, mark: any): string {
 			return '](' + mark.attrs['href'] + ')';
 		},
 	},

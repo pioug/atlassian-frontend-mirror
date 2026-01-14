@@ -15,8 +15,8 @@ import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import type { ClearFormattingWithAnalyticsEditorCommand } from './types';
 import { cellSelectionNodesBetween } from './utils/cell-selection';
 
-export const FORMATTING_NODE_TYPES = ['heading', 'blockquote'];
-export const FORMATTING_MARK_TYPES = [
+export const FORMATTING_NODE_TYPES: string[] = ['heading', 'blockquote'];
+export const FORMATTING_MARK_TYPES: string[] = [
 	'em',
 	'code',
 	'strike',

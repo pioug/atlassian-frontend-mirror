@@ -1,16 +1,15 @@
 /* eslint-disable @atlaskit/ui-styling-standard/enforce-style-prop */
 import React from 'react';
 
-import { render as rtlRender, screen } from '@testing-library/react';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { render as rtlRender, screen } from '@atlassian/testing-library';
+
+import BadgeNew, { appearanceMapping } from '../../badge-new';
+import Badge from '../../index';
 
 const render = (component: React.ReactNode) => {
 	return rtlRender(<React.StrictMode>{component}</React.StrictMode>);
 };
-
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
-import BadgeNew, { appearanceMapping } from '../../badge-new';
-import Badge from '../../index';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('BadgeNew component (UI uplift)', () => {

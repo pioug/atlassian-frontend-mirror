@@ -1,6 +1,6 @@
 import { N800 } from '@atlaskit/theme/colors';
 
-export const overrideMarks = ['backgroundColor'];
+export const overrideMarks: string[] = ['backgroundColor'];
 
 export const DEFAULT_COLOR = {
 	// TODO: DSP-4137 - Remove usage of N800

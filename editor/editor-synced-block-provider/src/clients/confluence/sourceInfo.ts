@@ -1,6 +1,7 @@
 /* eslint-disable require-unicode-regexp  */
 import { type RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import { logException } from '@atlaskit/editor-common/monitoring';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SyncBlockSourceInfo } from '../../providers/types';
 import { getSourceInfoErrorPayload } from '../../utils/errorHandling';
@@ -83,7 +84,7 @@ const getConfluenceSourceInfo = async (ari: string): Promise<GetSourceInfoResult
 	return (await response.json()) as GetSourceInfoResult;
 };
 
-export const fetchConfluencePageInfo = async (
+export const fetchConfluencePageInfoOld = async (
 	pageAri: string,
 	localId?: string,
 	fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
@@ -121,4 +122,39 @@ export const fetchConfluencePageInfo = async (
 		fireAnalyticsEvent?.(getSourceInfoErrorPayload((error as Error).message));
 		return Promise.resolve(undefined);
 	}
+};
+
+export const fetchConfluencePageInfoNew = async (
+	pageAri: string,
+	localId?: string,
+): Promise<SyncBlockSourceInfo | undefined> => {
+	const { type: pageType } = getPageIdAndTypeFromConfluencePageAri({ ari: pageAri });
+	const response = await getConfluenceSourceInfo(pageAri);
+
+	const contentData = response.data?.content?.nodes?.[0];
+	const title = contentData?.title;
+
+	let url;
+	const { base } = contentData?.links || {};
+	if (base && contentData?.space?.key && contentData?.id) {
+		if (isBlogPageType(pageType)) {
+			url = `${base}/spaces/${contentData.space.key}/blog/edit-v2/${contentData.id}`;
+		} else if (contentData.subType === 'live') {
+			url = `${base}/spaces/${contentData.space.key}/pages/${contentData.id}`;
+		} else {
+			url = `${base}/spaces/${contentData.space.key}/pages/edit-v2/${contentData.id}`;
+		}
+	}
+
+	url = url && localId ? `${url}#block-${localId}` : url;
+
+	return Promise.resolve({ title, url });
+};
+
+export const fetchConfluencePageInfo = async (
+	pageAri: string,
+	localId?: string,
+	fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
+): Promise<SyncBlockSourceInfo | undefined> => {
+	return fg('platform_synced_block_dogfooding') ? await fetchConfluencePageInfoNew(pageAri, localId) : await fetchConfluencePageInfoOld(pageAri, localId, fireAnalyticsEvent)
 };

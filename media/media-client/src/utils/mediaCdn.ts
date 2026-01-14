@@ -22,7 +22,7 @@ export function isCDNEnabled(): boolean {
 	);
 }
 
-export function mapToMediaCdnUrl(url: string, token: string) {
+export function mapToMediaCdnUrl(url: string, token: string): string {
 	const tokenLength = token?.length ?? 0;
 	if (!isCDNEnabled() || tokenLength > MEDIA_TOKEN_LENGTH_LIMIT) {
 		return url;

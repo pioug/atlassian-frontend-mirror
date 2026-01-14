@@ -43,7 +43,7 @@ class ProfileCardResourced extends React.PureComponent<
 		teamCentralBaseUrl: undefined,
 	};
 
-	fireAnalytics = (payload: AnalyticsEventPayload) => {
+	fireAnalytics = (payload: AnalyticsEventPayload): void => {
 		// Don't fire analytics if the component is unmounted
 		if (!this._isMounted) {
 			return;
@@ -64,12 +64,12 @@ class ProfileCardResourced extends React.PureComponent<
 			this.props.fireEvent(eventKey, ...attributes);
 		}
 	};
-	componentDidMount() {
+	componentDidMount(): void {
 		this._isMounted = true;
 		this.clientFetchProfile();
 	}
 
-	componentDidUpdate(prevProps: ProfileCardResourcedProps) {
+	componentDidUpdate(prevProps: ProfileCardResourcedProps): void {
 		const { userId, cloudId, resourceClient } = this.props;
 
 		if (
@@ -86,11 +86,11 @@ class ProfileCardResourced extends React.PureComponent<
 		}
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		this._isMounted = false;
 	}
 
-	clientFetchProfile = () => {
+	clientFetchProfile = (): void => {
 		const { cloudId, userId } = this.props;
 		const { isLoading } = this.state;
 
@@ -136,7 +136,7 @@ class ProfileCardResourced extends React.PureComponent<
 		reportingLinesData: TeamCentralReportingLinesData,
 		shouldShowGiveKudos: boolean,
 		teamCentralBaseUrl?: string,
-	) {
+	): void {
 		if (!this._isMounted) {
 			return;
 		}
@@ -151,7 +151,7 @@ class ProfileCardResourced extends React.PureComponent<
 		});
 	}
 
-	handleClientError(err: any) {
+	handleClientError(err: any): void {
 		if (!this._isMounted) {
 			return;
 		}
@@ -165,11 +165,11 @@ class ProfileCardResourced extends React.PureComponent<
 
 	filterActions = (): ProfileCardAction[] => filterActions(this.props.actions, this.state.data);
 
-	openKudosDrawer = () => {
+	openKudosDrawer = (): void => {
 		this.setState({ kudosDrawerOpen: true });
 	};
 
-	closeKudosDrawer = () => {
+	closeKudosDrawer = (): void => {
 		this.setState({ kudosDrawerOpen: false });
 	};
 

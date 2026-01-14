@@ -104,6 +104,9 @@
 			"path": "../editor-plugin-connectivity/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-content-format/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-content-insertion/tsconfig.app.json"
 		},
 		{

@@ -1,6 +1,7 @@
 import type { ComponentType, PropsWithChildren } from 'react';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
+import type { BlockMenuPlacement } from '@atlaskit/editor-common/block-menu';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -159,15 +160,21 @@ export type ToolbarExtensionConfiguration = {
 
 export type BlockMenuExtensionConfiguration = {
 	getMenuItems: GetMenuItemsFn;
+	/**
+	 * Optional placement hint to control where the menu items appear in the block menu
+	 * - 'default' (or undefined): Items appear in their normal nested location under create section
+	 * - 'featured': Items are promoted to top-level alongside the "Turn into" menu
+	 */
+	placement?: BlockMenuPlacement;
 };
 
 export type ExtensionToolbarItemConfiguration = {
+	icon: ComponentType<PropsWithChildren<{ label: string }>>;
+	isDisabled?: boolean;
 	/**
 	 * Optional key to identify the toolbar item in analytics events
 	 */
 	key?: string;
-	icon: ComponentType<PropsWithChildren<{ label: string }>>;
-	isDisabled?: boolean;
 	label?: string;
 	onClick?: () => void;
 	tooltip: string;
@@ -177,13 +184,13 @@ export type ExtensionToolbarItemConfiguration = {
  * Common fields applicable to all extension menu items
  */
 type ExtensionMenuItemBaseConfiguration = {
+	icon: ComponentType<PropsWithChildren<{ label: string; size?: 'small' | 'medium' }>>;
+	isDisabled?: boolean;
 	/**
 	 * Optional key to identify the menu item in analytics events
 	 */
 	key?: string;
-	icon: ComponentType<PropsWithChildren<{ label: string; size?: 'small' | 'medium' }>>;
 	label: string;
-	isDisabled?: boolean;
 };
 
 /**

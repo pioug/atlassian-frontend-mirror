@@ -15,6 +15,7 @@ import ModalDialog, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
 
 import { syncedBlockPluginKey } from '../pm-plugins/main';
@@ -137,6 +138,7 @@ export const DeleteConfirmationModal = ({
 							autoFocus
 							isDisabled={isOfflineMode(mode)}
 							isLoading={bodiedSyncBlockDeletionStatus === 'processing'}
+							testId={fg('platform_synced_block_dogfooding') ? 'synced-block-delete-confirmation-modal-delete-button' : undefined}
 						>
 							{formatMessage(messages.deleteConfirmationModalDeleteButton)}
 						</Button>

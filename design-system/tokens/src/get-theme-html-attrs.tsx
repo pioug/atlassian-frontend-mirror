@@ -40,7 +40,7 @@ const getThemeHtmlAttrs = ({
 	contrastMode = themeStateDefaults['contrastMode'],
 	shape = themeStateDefaults['shape'](),
 	spacing = themeStateDefaults['spacing'],
-	typography = themeStateDefaults['typography'](),
+	typography = themeStateDefaults['typography'],
 	UNSAFE_themeOptions = themeStateDefaults['UNSAFE_themeOptions'],
 }: Partial<ThemeState> = {}): Record<string, string> => {
 	const themeAttribute = themeObjectToString({

@@ -122,7 +122,7 @@ describe('ValidQueryVisitor', () => {
 
 	describe('membersOf queries with flag ON', () => {
 		ffTest.on(
-			'jira_update_jql_membersof_teams',
+			'jira-membersof-team-support',
 			'membersOf function arguments included in hydration query',
 			() => {
 				membersOfQueriesFlagOn.forEach(({ original, valid }) => {
@@ -140,7 +140,7 @@ describe('ValidQueryVisitor', () => {
 
 	describe('membersOf queries with flag OFF', () => {
 		ffTest.off(
-			'jira_update_jql_membersof_teams',
+			'jira-membersof-team-support',
 			'membersOf function arguments excluded from hydration query',
 			() => {
 				membersOfQueriesFlagOff.forEach(({ original, valid }) => {

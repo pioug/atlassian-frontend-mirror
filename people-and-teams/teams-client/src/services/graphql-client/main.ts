@@ -12,7 +12,7 @@ export class BaseGraphQlClient extends BaseClient {
 		this.serviceUrl = serviceUrl;
 	}
 
-	setServiceUrl(serviceUrl: string) {
+	setServiceUrl(serviceUrl: string): void {
 		this.serviceUrl = serviceUrl;
 	}
 

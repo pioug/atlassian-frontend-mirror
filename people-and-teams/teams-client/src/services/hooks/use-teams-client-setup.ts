@@ -11,7 +11,7 @@ export const useTeamsClientSetup = (
 	cloudId?: string | null,
 	orgId?: string,
 	principalUserId?: string,
-) => {
+): void => {
 	useTeamsClientSetupNext({
 		stargateRoot,
 		cloudId,

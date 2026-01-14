@@ -1,3 +1,5 @@
+import { bind } from 'bind-event-listener';
+
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { DRAG_HANDLE_SELECTOR } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -19,7 +21,6 @@ import {
 	compareSelections,
 	getSelectionPreservationMeta,
 	hasUserSelectionChange,
-	isSelectionWithinCodeBlock,
 	syncDOMSelection,
 } from './utils';
 
@@ -81,7 +82,7 @@ export const createSelectionPreservationPlugin =
 					}
 
 					if (!compareSelections(newState.preservedSelection, pluginState.preservedSelection)) {
-						if (newState?.preservedSelection) {
+						if (newState.preservedSelection) {
 							api?.core.actions.execute(
 								api?.selection?.commands?.setBlockSelection(newState.preservedSelection),
 							);
@@ -107,8 +108,8 @@ export const createSelectionPreservationPlugin =
 					return null;
 				}
 
-				// Auto-stop if user explicitly changes selection or selection is set within a code block
-				if (hasUserSelectionChange(transactions) || isSelectionWithinCodeBlock(stateSel)) {
+				// Auto-stop if user explicitly changes selection
+				if (hasUserSelectionChange(transactions)) {
 					return stopPreservingSelection({ tr: newState.tr });
 				}
 
@@ -134,9 +135,52 @@ export const createSelectionPreservationPlugin =
 				return newState.tr.setSelection(newSelection);
 			},
 
-			view() {
+			view(initialView: EditorView) {
+				let view: EditorView = initialView;
+
+				const unbindDocumentMouseDown = bind(document, {
+					type: 'mousedown',
+					listener: (e) => {
+						if (!(e.target instanceof HTMLElement)) {
+							return;
+						}
+
+						const { preservedSelection } =
+							selectionPreservationPluginKey.getState(view.state) || {};
+
+						// If there is no current preserved selection or the editor is not focused, do nothing
+						if (!preservedSelection) {
+							return;
+						}
+
+						const clickedDragHandle = !!e.target.closest(DRAG_HANDLE_SELECTOR);
+
+						// When mouse down on a drag handle we continue preserving the selection
+						if (clickedDragHandle) {
+							return;
+						}
+
+						const clickedOutsideEditor = !e.target.closest('.ProseMirror');
+
+						// When mouse down outside the editor continue to preserve the selection
+						if (clickedOutsideEditor) {
+							return;
+						}
+
+						// Otherwise mouse down anywhere else in the editor stops preserving the selection
+						const tr = view.state.tr;
+						stopPreservingSelection({ tr });
+						view.dispatch(tr);
+					},
+					// Use capture phase to stop preservation before appendTransaction runs,
+					// preventing unwanted selection restoration when the user clicks into the editor.
+					options: { capture: true },
+				});
+
 				return {
-					update(view: EditorView, prevState: EditorState) {
+					update(updateView: EditorView, prevState: EditorState) {
+						view = updateView;
+
 						const prevPreservedSelection =
 							selectionPreservationPluginKey.getState(prevState)?.preservedSelection;
 						const currPreservedSelection = selectionPreservationPluginKey.getState(
@@ -154,34 +198,13 @@ export const createSelectionPreservationPlugin =
 							syncDOMSelection(view.state.selection);
 						}
 					},
+					destroy() {
+						unbindDocumentMouseDown();
+					},
 				};
 			},
 
 			props: {
-				handleClick: (view: EditorView, pos: number, event: MouseEvent) => {
-					const { preservedSelection } = selectionPreservationPluginKey.getState(view.state) || {};
-
-					// If there is no current preserved selection, do nothing
-					if (!preservedSelection) {
-						return false;
-					}
-
-					const clickedDragHandle =
-						event.target instanceof HTMLElement && event.target.closest(DRAG_HANDLE_SELECTOR);
-
-					// When clicking a drag handle we continue preserving the selection
-					if (!clickedDragHandle) {
-						return false;
-					}
-
-					// Otherwise clicking anywhere else in the editor stops preserving the selection
-					const tr = view.state.tr;
-					stopPreservingSelection({ tr });
-					view.dispatch(tr);
-
-					return false;
-				},
-
 				handleKeyDown: (view: EditorView, event: KeyboardEvent) => {
 					const { preservedSelection } = selectionPreservationPluginKey.getState(view.state) || {};
 

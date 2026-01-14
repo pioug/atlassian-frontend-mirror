@@ -4,7 +4,7 @@ export const DEFAULT_LANGUAGE = 'c';
  * Primarily used for the header in the viewer. Based on the language name, render the appropriate header name
  * i.e .py file would be 'python', whilse .msg would be 'email'
  */
-export function getFormat(language: string, ext: string | undefined) {
+export function getFormat(language: string, ext: string | undefined): string {
 	// some formats have a language we pickfor the code block component,
 	// but this may be a bit vague, so we can override here where needed
 	switch (ext) {
@@ -20,5 +20,5 @@ export function getFormat(language: string, ext: string | undefined) {
 
 export const lineCount = (text: string) => normaliseLineBreaks(text).split(/\n/).length;
 
-export const normaliseLineBreaks = (text: string) =>
+export const normaliseLineBreaks = (text: string): string =>
 	text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');

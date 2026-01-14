@@ -69,7 +69,7 @@ export const randomTeamMemberships =
 
 export const randomHeaderImage =
 	({ faker }: MockConfig) =>
-	() => {
+	(): string => {
 		if (Math.random() > 0.5) {
 			return faker.random.arrayElement(headerImages);
 		} else {

@@ -64,7 +64,7 @@ const StatusEditType = (props: StatusEditTypeProps): React.JSX.Element => {
 				blurInputOnSelect
 				menuPlacement="auto"
 				isLoading={isLoading}
-				filterOption={fg('navx-sllv-fix-inline-edit-error') ? filterOptionNew : filterOptionOld}
+				filterOption={filterOption}
 				testId="inline-edit-status"
 				getOptionValue={(option) => option.text}
 				value={currentValue?.values?.[0]}
@@ -99,13 +99,7 @@ const StatusEditType = (props: StatusEditTypeProps): React.JSX.Element => {
 	);
 };
 
-/**
- * Remove on navx-sllv-fix-inline-edit-error cleanup
- */
-const filterOptionOld = (option: FilterOptionOption<Status>, inputValue: string) =>
-	option.data.text.toLowerCase().includes(inputValue.toLowerCase());
-
-const filterOptionNew = (option: FilterOptionOption<Status>, inputValue: string) =>
+const filterOption = (option: FilterOptionOption<Status>, inputValue: string) =>
 	option.data?.text?.toLowerCase?.()?.includes(inputValue?.toLowerCase?.());
 
 export default StatusEditType;

@@ -4,7 +4,7 @@ import { serializeStyle } from '../serialize-style';
 import { createClassName } from '../styles/util';
 import { type NodeSerializerOpts } from '../interfaces';
 
-export const styles = `
+export const styles: string = `
 .${createClassName('tableHeader')} {
   background-clip: padding-box;
   border: 1px solid ${N50};
@@ -19,7 +19,7 @@ export const styles = `
 }
 `;
 
-export default function tableHeader({ attrs, text }: NodeSerializerOpts) {
+export default function tableHeader({ attrs, text }: NodeSerializerOpts): string {
 	const { colspan, rowspan, background } = attrs;
 	const style = serializeStyle({
 		'background-color': background ? background : N20,

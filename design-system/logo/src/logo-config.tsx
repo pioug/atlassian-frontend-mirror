@@ -121,6 +121,7 @@ type LogoDocsSchema = {
 	type: 'legacy' | 'migration' | 'new' | 'rovo-hex';
 	category: 'program' | 'app' | 'agent';
 	skipExample?: boolean;
+	skipLogo?: boolean;
 	deprecated?: boolean;
 };
 
@@ -148,6 +149,7 @@ export const logoDocsSchema: LogoDocsSchema[] = [
 	// Dev collection
 	{ name: 'bitbucket', type: 'migration', category: 'app' },
 	{ name: 'compass', type: 'migration', category: 'app' },
+	{ name: 'dx', type: 'new', category: 'app', skipLogo: true },
 	{ name: 'rovo-dev', type: 'new', category: 'app' },
 	{ name: 'rovo-dev-agent', type: 'new', category: 'agent' },
 	// Customer collection

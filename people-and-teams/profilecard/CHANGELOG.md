@@ -1,5 +1,12 @@
 # @atlaskit/profilecard
 
+## 24.30.0
+
+### Minor Changes
+
+- [`f81535aba3a58`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f81535aba3a58) -
+  Update imports of rovo-triggers to use subpaths
+
 ## 24.29.1
 
 ### Patch Changes

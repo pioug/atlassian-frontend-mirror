@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { getATLContextUrl } from '@atlaskit/atlassian-context';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { useRovoPostMessageToPubsub } from '@atlaskit/rovo-triggers';
+import { useRovoPostMessageToPubsub } from '@atlaskit/rovo-triggers/post-message-to-pubsub';
 import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
 
@@ -11,7 +11,7 @@ import { fireEvent } from '../../../util/analytics';
 import { encodeParamsToUrl } from '../../../util/url';
 import { getAtlassianStudioAgentDuplicateUrl, getAtlassianStudioAgentEditUrl } from '../utils';
 
-export const firstCharUpper = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
+export const firstCharUpper = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1);
 const ROVO_PARAM_PREFIX = 'rovoChat';
 const createRovoParams = (params: {
 	agentId?: string;
@@ -33,7 +33,7 @@ export const useAgentUrlActions = ({ cloudId, source }: { cloudId: string; sourc
 	const { fireEvent: fireEventNext } = useAnalyticsEventsNext();
 
 	const onEditAgent = useCallback(
-		(agentId: string) => {
+		(agentId: string): void => {
 			const url = getAtlassianStudioAgentEditUrl(cloudId, agentId);
 
 			window.open(url, '_blank', 'noopener, noreferrer');
@@ -55,7 +55,7 @@ export const useAgentUrlActions = ({ cloudId, source }: { cloudId: string; sourc
 		[cloudId, createAnalyticsEvent, fireEventNext, source],
 	);
 
-	const onCopyAgent = (agentId: string) => {
+	const onCopyAgent = (agentId: string): void => {
 		const url = `${window.location.origin}/people/agent/${agentId}`;
 		const urlWithParams = encodeParamsToUrl(url, {
 			cloudId,
@@ -78,7 +78,7 @@ export const useAgentUrlActions = ({ cloudId, source }: { cloudId: string; sourc
 	};
 
 	const onDuplicateAgent = useCallback(
-		(agentId: string) => {
+		(agentId: string): void => {
 			const url = getAtlassianStudioAgentDuplicateUrl(cloudId, agentId);
 			window.open(url, '_blank', 'noopener, noreferrer');
 
@@ -99,7 +99,7 @@ export const useAgentUrlActions = ({ cloudId, source }: { cloudId: string; sourc
 		[cloudId, createAnalyticsEvent, fireEventNext, source],
 	);
 
-	const onConversationStarter = ({ agentId, prompt }: { agentId: string; prompt: string }) => {
+	const onConversationStarter = ({ agentId, prompt }: { agentId: string; prompt: string }): void => {
 		const startConversationInNewTab = () => {
 			const baseUrl = `${getATLContextUrl('home')}/chat`;
 			const urlWithParams = encodeParamsToUrl(baseUrl, {
@@ -127,7 +127,7 @@ export const useAgentUrlActions = ({ cloudId, source }: { cloudId: string; sourc
 		});
 	};
 
-	const onOpenChat = (agentId: string, agentName: string) => {
+	const onOpenChat = (agentId: string, agentName: string): void => {
 		const openChatInNewTab = () => {
 			const baseUrl = `${getATLContextUrl('home')}/chat`;
 			const urlWithParams = encodeParamsToUrl(baseUrl, {
@@ -154,7 +154,7 @@ export const useAgentUrlActions = ({ cloudId, source }: { cloudId: string; sourc
 		});
 	};
 
-	const onViewFullProfile = (agentId: string) => {
+	const onViewFullProfile = (agentId: string): void => {
 		const { onNavigate } = navigateToTeamsApp({
 			type: 'AGENT',
 			payload: {

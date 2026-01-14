@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 4.0.4
+
+### Patch Changes
+
+- [`ba05557f777bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba05557f777bf) -
+  Add support to render selection toolbar in editors which have an ancestor elemenent which has
+  position fixed, most common use case is for the chromeless appearance when rendered inside modals,
+  popups etc.
+- Updated dependencies
+
 ## 4.0.3
 
 ### Patch Changes

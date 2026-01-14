@@ -1,5 +1,12 @@
 # @atlaskit/logo
 
+## 19.10.0
+
+### Minor Changes
+
+- [`3c938a90d73a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c938a90d73a4) -
+  Adding DX product icon
+
 ## 19.9.8
 
 ### Patch Changes

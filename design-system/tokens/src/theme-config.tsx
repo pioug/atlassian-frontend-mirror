@@ -344,8 +344,7 @@ export interface ThemeState {
  * Can't evaluate typography feature flags at the module level,
  * it will always resolve to false when server side rendered or when flags are loaded async.
  */
-interface ThemeStateDefaults extends Omit<ThemeState, 'typography' | 'shape'> {
-	typography: () => ThemeState['typography'];
+interface ThemeStateDefaults extends Omit<ThemeState, 'shape'> {
 	shape: () => ThemeState['shape'];
 }
 
@@ -364,12 +363,7 @@ export const themeStateDefaults: ThemeStateDefaults = {
 		return undefined;
 	},
 	spacing: 'spacing',
-	typography: () => {
-		if (fg('platform-disable-default-typography')) {
-			return undefined;
-		}
-		return 'typography';
-	},
+	typography: 'typography',
 	UNSAFE_themeOptions: undefined,
 };
 

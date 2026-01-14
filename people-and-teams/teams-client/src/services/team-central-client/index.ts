@@ -56,7 +56,7 @@ export class TeamCentralClient extends BaseGraphQlClient {
 	}
 
 	// Team central url is a bit special, that it depends on cloudId.
-	setBaseUrl(baseUrl: string) {
+	setBaseUrl(baseUrl: string): void {
 		const cloudId = this.getCloudId();
 		this.setServiceUrl(
 			cloudId && cloudId !== 'None'

@@ -1,6 +1,7 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 
 import type { DocNode } from '@atlaskit/adf-schema';
+import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { SyncedBlockPlugin } from '@atlaskit/editor-plugin-synced-block';
@@ -8,6 +9,8 @@ import {
 	SyncBlockError,
 	type UseFetchSyncBlockDataResult,
 } from '@atlaskit/editor-synced-block-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
+import type { MediaSSR } from '@atlaskit/renderer';
 
 import type { SyncedBlockRendererOptions } from '../types';
 
@@ -26,19 +29,43 @@ const SyncedBlockRendererComponent = ({
 	syncBlockRendererOptions,
 	api,
 }: SyncedBlockRendererProps): React.JSX.Element => {
-	const { syncBlockInstance, providerFactory, isLoading, reloadData } = useFetchSyncBlockData();
+	const { syncBlockInstance, providerFactory, isLoading, reloadData, ssrProviders } =
+		useFetchSyncBlockData();
+
+	const rendererOptions = useMemo(() => {
+		if (
+			!isSSR() ||
+			syncBlockRendererOptions?.media?.ssr || // already has ssr config
+			!ssrProviders?.media?.viewMediaClientConfig ||
+			!fg('platform_synced_block_dogfooding')
+		) {
+			return syncBlockRendererOptions;
+		}
+
+		const mediaSSR = {
+			mode: 'server' as const,
+			config: ssrProviders?.media.viewMediaClientConfig,
+		} as MediaSSR;
+
+		return {
+			...syncBlockRendererOptions,
+			media: {
+				...(syncBlockRendererOptions?.media || {}),
+				ssr: mediaSSR,
+			},
+		};
+	}, [syncBlockRendererOptions, ssrProviders]);
+
 	const { isInternetOffline } = useSharedPluginStateWithSelector(
 		api,
 		['connectivity'],
 		({ connectivityState }) => ({
-			isInternetOffline: connectivityState?.mode === 'collab-offline'
-		})
+			isInternetOffline: connectivityState?.mode === 'collab-offline',
+		}),
 	);
 
 	if (isInternetOffline) {
-		return (
-			<SyncedBlockErrorComponent error={SyncBlockError.Offline} />
-		);
+		return <SyncedBlockErrorComponent error={SyncBlockError.Offline} />;
 	}
 
 	if (!syncBlockInstance) {
@@ -67,7 +94,7 @@ const SyncedBlockRendererComponent = ({
 		<AKRendererWrapper
 			doc={syncBlockDoc}
 			dataProviders={providerFactory}
-			options={syncBlockRendererOptions}
+			options={rendererOptions}
 		/>
 	);
 };

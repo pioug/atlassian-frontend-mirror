@@ -1,7 +1,7 @@
 import { print } from 'graphql';
 import gql from 'graphql-tag';
 
-export const AddTeamWatcherMutation = print(gql`
+export const AddTeamWatcherMutation: string = print(gql`
 	mutation addTeamWatcher($teamId: String!, $cloudId: String) {
 		addTeamWatcher(input: { teamId: $teamId, cloudId: $cloudId }) {
 			isWatching

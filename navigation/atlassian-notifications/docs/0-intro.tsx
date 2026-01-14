@@ -4,7 +4,7 @@ import { token } from '@atlaskit/tokens';
 
 // This is used by the website generator to define which components are tabs, and the tab order.
 // If this export is not present, tabs are generated in case-sensitive alphabetical-order (not source-code order).
-export const _PageTabs = ['Code', 'Usage'];
+export const _PageTabs: string[] = ['Code', 'Usage'];
 
 export const Code: React.JSX.Element = (
 	<TSProps props={require('!!@af/ts-morph-loader?export=Notifications!../src/Notifications.tsx')} />

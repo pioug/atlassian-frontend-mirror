@@ -10,7 +10,7 @@ import { dateRangeMessages } from './messages';
 export const getDropdownLabel = (
 	option: DateRangeType = 'anyTime',
 	formatMessage: IntlShape['formatMessage'],
-) => {
+): string => {
 	const mapping: {
 		[key in DateRangeType]: keyof typeof dateRangeMessages;
 	} = {
@@ -32,7 +32,7 @@ export const getCurrentOptionLabel = (
 	value?: DateRangeType,
 	to?: string,
 	from?: string,
-) => {
+): string => {
 	const selectedOption = value;
 	if (selectedOption === 'custom') {
 		const hasFromDate = !!from;

@@ -4,7 +4,7 @@ import { serializeStyle } from '../serialize-style';
 import { createClassName } from '../styles/util';
 import { type NodeSerializerOpts } from '../interfaces';
 
-export const styles = `
+export const styles: string = `
 .${createClassName('tableCell')} {
   background-clip: padding-box;
   height: auto;
@@ -16,7 +16,7 @@ export const styles = `
   padding: 8px;
 }
 `;
-export default function tableCell({ attrs, text }: NodeSerializerOpts) {
+export default function tableCell({ attrs, text }: NodeSerializerOpts): string {
 	const { colspan, rowspan, background } = attrs;
 	const style = serializeStyle({
 		'background-color': background || 'white',

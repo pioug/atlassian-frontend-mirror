@@ -7,7 +7,7 @@ export function parseWithSchema(markup: string, schema: Schema) {
 	return transformer.parse(markup);
 }
 
-export function encode(node: (schema: Schema) => Node, schema: Schema) {
+export function encode(node: (schema: Schema) => Node, schema: Schema): string {
 	const transformer = new WikiMarkupTransformer(schema);
 	return transformer.encode(node(schema));
 }

@@ -1,7 +1,7 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
 const mockPermissions = {
-	allow: () => {
+	allow: (): void => {
 		fetchMock.post({
 			matcher: (url: string) => url.includes('/gateway/api/permissions/bulk/permitted'),
 			response: () => [

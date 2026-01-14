@@ -26,9 +26,12 @@ describe('SSR - Resourced Task Item', () => {
 		// Jest 29 - Added assertion to fix: Jest worker encountered 4 child process exceptions, exceeding retry limit
 		await screen.findAllByRole('checkbox');
 
-		// No other errors from e.g. hydrate
+		// No other errors from e.g. hydrate (allow SSR warnings about useLayoutEffect)
 		// eslint-disable-next-line no-console
 		const mockCalls = (console.error as jest.Mock).mock.calls;
-		expect(mockCalls).toHaveLength(0);
+		const actualErrors = mockCalls.filter(([message]) =>
+			!message.includes('useLayoutEffect does nothing on the server')
+		);
+		expect(actualErrors).toHaveLength(0);
 	});
 });

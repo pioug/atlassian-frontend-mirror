@@ -113,11 +113,11 @@ export type State = {
 export class QuickSearch extends React.Component<Props, State> {
 	static defaultProps = {
 		children: [],
-		firePrivateAnalyticsEvent: (_: any) => {},
+		firePrivateAnalyticsEvent: (_: any): void => {},
 		isLoading: false,
-		onSearchBlur: (_: any) => {},
-		onSearchKeyDown: (_: any) => {},
-		onSearchSubmit: (_: any) => {},
+		onSearchBlur: (_: any): void => {},
+		onSearchKeyDown: (_: any): void => {},
+		onSearchSubmit: (_: any): void => {},
 		placeholder: 'Search',
 		value: '',
 	};
@@ -149,21 +149,21 @@ export class QuickSearch extends React.Component<Props, State> {
 		};
 	}
 
-	componentDidMount() {
+	componentDidMount(): void {
 		const { firePrivateAnalyticsEvent } = this.props;
 		if (firePrivateAnalyticsEvent) {
 			firePrivateAnalyticsEvent(QS_ANALYTICS_EV_OPEN, {});
 		}
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		const { firePrivateAnalyticsEvent } = this.props;
 		if (firePrivateAnalyticsEvent) {
 			firePrivateAnalyticsEvent(QS_ANALYTICS_EV_CLOSE, {});
 		}
 	}
 
-	UNSAFE_componentWillReceiveProps(nextProps: Props) {
+	UNSAFE_componentWillReceiveProps(nextProps: Props): void {
 		if (nextProps.children !== this.props.children) {
 			this.setState({
 				selectedResultId: nextProps.selectedResultId || null,
@@ -206,7 +206,7 @@ export class QuickSearch extends React.Component<Props, State> {
 		}
 	}
 
-	fireKeyboardControlEvent(selectedResultId: SelectedResultId) {
+	fireKeyboardControlEvent(selectedResultId: SelectedResultId): void {
 		const { firePrivateAnalyticsEvent } = this.props;
 		if (firePrivateAnalyticsEvent) {
 			const result = getResultById(this.flatResults, selectedResultId);
@@ -230,7 +230,7 @@ export class QuickSearch extends React.Component<Props, State> {
 	 * 2. Increments or decrements this index by the supplied adjustment amount,
 	 * 3. Sets the new selectedResultId based on the modifed index
 	 */
-	adjustSelectedResultIndex = (adjustment: number) => {
+	adjustSelectedResultIndex = (adjustment: number): void => {
 		const currentIndex = getResultIndexById(this.flatResults, this.state.selectedResultId);
 		const newIndex: number | null = adjustIndex(this.flatResults.length, currentIndex, adjustment);
 		const selectedResultId = getResultIdByIndex(this.flatResults, newIndex);
@@ -246,19 +246,19 @@ export class QuickSearch extends React.Component<Props, State> {
 	};
 
 	/** Select next result */
-	selectNext = () => {
+	selectNext = (): void => {
 		this.adjustSelectedResultIndex(+1);
 	};
 
 	/** Select previous result */
-	selectPrevious = () => {
+	selectPrevious = (): void => {
 		this.adjustSelectedResultIndex(-1);
 	};
 
 	/**
 	 * Callback for register results in flatResults
 	 */
-	handleRegisterResult = (result: ResultBase) => {
+	handleRegisterResult = (result: ResultBase): void => {
 		if (!getResultById(this.flatResults, result.props.resultId)) {
 			this.flatResults.push(result);
 		}
@@ -272,7 +272,7 @@ export class QuickSearch extends React.Component<Props, State> {
 	 * 3. All ResultBase components call registerResult() in order to register itself in quick search
 	 * 4. All ResultBase components call unregisterResult() in order to unregister itself in quick search
 	 */
-	handleUnregisterResult = (result: ResultBase) => {
+	handleUnregisterResult = (result: ResultBase): void => {
 		const resultIndex = getResultIndexById(this.flatResults, result.props.resultId);
 		if (resultIndex !== null && +resultIndex >= 0) {
 			this.flatResults.splice(resultIndex, 1);
@@ -283,7 +283,7 @@ export class QuickSearch extends React.Component<Props, State> {
 	 * Callback for mouseEnter events on individual results
 	 * Move selection to hovered result
 	 */
-	handleResultMouseEnter = (resultData: ResultData) => {
+	handleResultMouseEnter = (resultData: ResultData): void => {
 		this.setState({ selectedResultId: resultData && resultData.resultId });
 	};
 
@@ -291,19 +291,19 @@ export class QuickSearch extends React.Component<Props, State> {
 	 * Callback for mouseLeave events on individual results
 	 * Clear result selection
 	 */
-	handleResultMouseLeave = () => {
+	handleResultMouseLeave = (): void => {
 		this.setState({ selectedResultId: null });
 	};
 
 	/**
 	 * Clear result selection when search input is blurred
 	 */
-	handleSearchBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+	handleSearchBlur = (event: React.FocusEvent<HTMLInputElement>): void => {
 		this.props.onSearchBlur!(event);
 		this.setState({ selectedResultId: null });
 	};
 
-	onInput = (event: React.FormEvent<HTMLInputElement>) => {
+	onInput = (event: React.FormEvent<HTMLInputElement>): void => {
 		const { onSearchInput } = this.props;
 		this.setState({ value: event.currentTarget.value });
 		if (onSearchInput) {
@@ -318,7 +318,7 @@ export class QuickSearch extends React.Component<Props, State> {
 	 * Enter - Submit selected result
 	 * Tab / ArrowRight - Accept autocomplete
 	 */
-	handleSearchKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+	handleSearchKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
 		const { firePrivateAnalyticsEvent } = this.props;
 		this.props.onSearchKeyDown!(event);
 
@@ -394,7 +394,7 @@ export class QuickSearch extends React.Component<Props, State> {
 		}
 	};
 
-	acceptAutocomplete = (event: React.KeyboardEvent<HTMLInputElement>, text?: string) => {
+	acceptAutocomplete = (event: React.KeyboardEvent<HTMLInputElement>, text?: string): void => {
 		const { onSearchInput } = this.props;
 		const newValue = `${text} `;
 		if (this.inputSearchRef) {
@@ -409,13 +409,13 @@ export class QuickSearch extends React.Component<Props, State> {
 		}
 	};
 
-	setSearchInputRef = (refs: any) => {
+	setSearchInputRef = (refs: any): void => {
 		if (refs && refs.inputRef) {
 			this.inputSearchRef = refs.inputRef;
 		}
 	};
 
-	focusSearchInput = () => {
+	focusSearchInput = (): void => {
 		if (
 			this.inputSearchRef &&
 			// @ts-ignore unchecked

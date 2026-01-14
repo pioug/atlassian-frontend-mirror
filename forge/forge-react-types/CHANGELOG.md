@@ -1,5 +1,12 @@
 # @atlaskit/forge-react-types
 
+## 0.54.0
+
+### Minor Changes
+
+- [`28a295dd4bf91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28a295dd4bf91) -
+  Updated types for charts to include new colorPalette prop.
+
 ## 0.53.0
 
 ### Minor Changes

@@ -6,4 +6,4 @@ const content = `
 </html>
 `;
 const encodedContent = encodeURIComponent(content);
-export const overrideEmbedContent = `data:text/html;charset=utf-8,${encodedContent}`;
+export const overrideEmbedContent: string = `data:text/html;charset=utf-8,${encodedContent}`;

@@ -1,4 +1,4 @@
-const extractHostname = (url: string) => {
+const extractHostname = (url: string): string => {
 	try {
 		return new URL(url).hostname;
 	} catch {

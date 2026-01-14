@@ -7,7 +7,6 @@ import { CustomOption, type CustomOptionProps } from '../../../components/Custom
 import { type Custom } from '../../../types';
 import { token } from '@atlaskit/tokens';
 import * as colors from '@atlaskit/theme/colors';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 jest.mock('../../../components/AvatarItemOption', () => ({
 	...(jest.requireActual('../../../components/AvatarItemOption') as any),
@@ -55,61 +54,44 @@ describe('Custom Option', () => {
 	describe('icon support', () => {
 		const mockIcon = <div data-testid="test-icon">Icon</div>;
 
-		ffTest.on('atlaskit_user_picker_support_icon', 'on', () => {
-			it('should render AvatarOrIcon when feature gate is enabled and icon is provided', () => {
-				const customWithIcon = {
-					...basicCustomOption,
-					icon: mockIcon,
-				};
+		it('should render AvatarOrIcon when icon is provided', () => {
+			const customWithIcon = {
+				...basicCustomOption,
+				icon: mockIcon,
+			};
 
-				const component = shallowOption({ isSelected: true }, customWithIcon);
-				const avatarItemOption = component.find(AvatarItemOption);
-				const avatar = avatarItemOption.props().avatar as ReactElement;
+			const component = shallowOption({ isSelected: true }, customWithIcon);
+			const avatarItemOption = component.find(AvatarItemOption);
+			const avatar = avatarItemOption.props().avatar as ReactElement;
 
-				expect(avatar.type).toBe(AvatarOrIcon);
-				expect(avatar.props.icon).toEqual(mockIcon);
-				expect(avatar.props.src).toEqual(basicCustomOption.avatarUrl);
-			});
-
-			it('should render AvatarOrIcon with iconColor when both icon and iconColor are provided', () => {
-				const iconColor = '#FF0000';
-				const customWithIconAndColor = {
-					...basicCustomOption,
-					icon: mockIcon,
-					iconColor,
-				};
-
-				const component = shallowOption({ isSelected: true }, customWithIconAndColor);
-				const avatarItemOption = component.find(AvatarItemOption);
-				const avatar = avatarItemOption.props().avatar as ReactElement;
-
-				expect(avatar.type).toBe(AvatarOrIcon);
-				expect(avatar.props.icon).toEqual(mockIcon);
-				expect(avatar.props.iconColor).toEqual(iconColor);
-			});
+			expect(avatar.type).toBe(AvatarOrIcon);
+			expect(avatar.props.icon).toEqual(mockIcon);
+			expect(avatar.props.src).toEqual(basicCustomOption.avatarUrl);
 		});
 
-		it('should render SizeableAvatar no icon is provided', () => {
+		it('should render AvatarOrIcon with iconColor when both icon and iconColor are provided', () => {
+			const iconColor = '#FF0000';
+			const customWithIconAndColor = {
+				...basicCustomOption,
+				icon: mockIcon,
+				iconColor,
+			};
+
+			const component = shallowOption({ isSelected: true }, customWithIconAndColor);
+			const avatarItemOption = component.find(AvatarItemOption);
+			const avatar = avatarItemOption.props().avatar as ReactElement;
+
+			expect(avatar.type).toBe(AvatarOrIcon);
+			expect(avatar.props.icon).toEqual(mockIcon);
+			expect(avatar.props.iconColor).toEqual(iconColor);
+		});
+
+		it('should render SizeableAvatar when no icon is provided', () => {
 			const component = shallowOption({ isSelected: true }, basicCustomOption);
 			const avatarItemOption = component.find(AvatarItemOption);
 			const avatar = avatarItemOption.props().avatar as ReactElement;
 
 			expect(avatar.type).toBe(SizeableAvatar);
 		});
-
-	
-			it('should render SizeableAvatar when feature gate is disabled even if icon is provided', () => {
-				const customWithIcon = {
-					...basicCustomOption,
-					icon: mockIcon,
-				};
-
-				const component = shallowOption({ isSelected: true }, customWithIcon);
-				const avatarItemOption = component.find(AvatarItemOption);
-				const avatar = avatarItemOption.props().avatar as ReactElement;
-
-				expect(avatar.type).toBe(SizeableAvatar);
-				expect(avatar.props.src).toEqual(basicCustomOption.avatarUrl);
-			});
 	});
 });

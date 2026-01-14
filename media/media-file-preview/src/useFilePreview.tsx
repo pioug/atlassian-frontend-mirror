@@ -471,6 +471,22 @@ export const useFilePreview = ({
 						client: { status: 'success' },
 					};
 				}
+
+				/*
+				Handle 'ssr-server' source which is used when:
+				1. ssr='server' is passed to getSSRPreview (server-side rendering)
+				2. DEFAULT_SSR_PREVIEW is used (placeholder during SSR)
+				This ensures ssrReliability is updated to 'success' when the server-rendered image loads.
+			*/
+				if (
+					newPreview.source === 'ssr-server' &&
+					ssrReliabilityRef.current.server.status === 'unknown'
+				) {
+					ssrReliabilityRef.current = {
+						server: { status: 'success' },
+						client: { status: 'success' },
+					};
+				}
 			}
 
 			// If the dataURI has been replaced, we can dismiss this callback

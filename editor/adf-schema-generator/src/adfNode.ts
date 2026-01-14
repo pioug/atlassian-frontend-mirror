@@ -154,14 +154,14 @@ export class ADFNode<
 		return this.#base;
 	}
 
-	getType() {
+	getType(): string {
 		return this.#type;
 	}
 
 	/**
 	 * A full name of the node which includes node type and variant name.
 	 */
-	getName(stage0: boolean = false) {
+	getName(stage0: boolean = false): string {
 		const stage0Suffix = stage0 && this.hasStage0() ? '_stage0' : '';
 		if (this.#variant) {
 			return `${this.#type}_${this.#variant}${stage0Suffix}`;
@@ -208,7 +208,7 @@ export class ADFNode<
 	/**
 	 * Returns the name of the variant.
 	 */
-	getVariant() {
+	getVariant(): string {
 		return this.#variant || 'base';
 	}
 

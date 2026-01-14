@@ -1,7 +1,7 @@
 import { print } from 'graphql';
 import gql from 'graphql-tag';
 
-export const TagListQuery = print(gql`
+export const TagListQuery: string = print(gql`
 	query TagListByCloudId($q: String!, $cloudId: String!, $first: Int) {
 		tagSearchByCloudId(q: $q, cloudId: $cloudId, first: $first) {
 			edges {

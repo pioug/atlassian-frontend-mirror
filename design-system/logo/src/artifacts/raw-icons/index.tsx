@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a39595f055d61f82df721520a672c508>>
+ * @codegen <<SignedSource::300644d316956dfb8d6eb21b0ed204cd>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 export const adminIcon =
@@ -35,6 +35,8 @@ export const customLinkIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%23dddee1' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23101214' fill-rule='evenodd' d='M19 12a7 7 0 1 0-14 0 7 7 0 0 0 14 0m-9.37 4.625.026.074a5.26 5.26 0 0 1-2.833-3.824h2.136c.069 1.426.306 2.73.67 3.75m1.08-3.75c.068 1.255.278 2.353.567 3.162.179.5.37.841.54 1.042a.6.6 0 0 0 .183.165.7.7 0 0 0 .183-.165c.17-.2.361-.543.54-1.042.288-.809.498-1.907.566-3.162zm2.58-1.75h-2.58c.068-1.255.278-2.353.567-3.162.179-.5.37-.841.54-1.042A.7.7 0 0 1 12 6.756a.6.6 0 0 1 .183.165c.17.2.361.543.54 1.042.288.809.498 1.907.566 3.162m1.751 1.75c-.069 1.426-.306 2.73-.67 3.75l-.027.074a5.26 5.26 0 0 0 2.833-3.824zm2.136-1.75H15.04c-.069-1.426-.306-2.73-.67-3.75l-.027-.074a5.26 5.26 0 0 1 2.833 3.824m-8.218 0H6.823a5.26 5.26 0 0 1 2.833-3.824l-.027.074c-.364 1.02-.601 2.324-.67 3.75' clip-rule='evenodd'/> </svg> ";
 export const customerServiceManagementIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%23ffc716' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23101214' d='M16.43 17.42A6.97 6.97 0 0 1 12 19H6.4v-.47l3.84-3.78a3.25 3.25 0 0 0 1.76.52c.65 0 1.25-.19 1.76-.51zm.99-.99A6.97 6.97 0 0 0 19 12a6.97 6.97 0 0 0-1.58-4.43l-2.67 2.67c.33.51.52 1.11.52 1.76s-.19 1.25-.51 1.76zm-.99-9.85-2.67 2.67A3.25 3.25 0 0 0 12 8.73c-.65 0-1.25.19-1.76.52L7.57 6.58A6.97 6.97 0 0 1 12 5c1.68 0 3.22.59 4.43 1.58m-9.85.99A6.97 6.97 0 0 0 5 12c0 1.68.59 3.22 1.58 4.43l2.67-2.67A3.25 3.25 0 0 1 8.73 12c0-.65.19-1.25.52-1.76z'/> </svg> ";
+export const dxIcon =
+	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 48 48'> <path fill='%2394c748' d='M0 12C0 5.373 5.373 0 12 0h24c6.627 0 12 5.373 12 12v24c0 6.627-5.373 12-12 12H12C5.373 48 0 42.627 0 36z'/> <path fill='%23101214' d='m36.22 26.75 4.9 7.25h-4.78c-.52-.6-1.02-1.31-1.47-1.98-.68-1.02-.68-2.41.03-3.41zm-7.3-5.5L24.02 14h4.78c.52.6 1.02 1.31 1.47 1.98.68 1.02.68 2.41-.02 3.41zm6.98-6.02c.5-.84 1.07-1.16 1.95-1.16l3.9-.07-12.68 19.27a1.46 1.46 0 0 1-1.22.67H23.6c4.07-6.25 8.37-12.37 12.31-18.7M8 33.94h6.89c6.16 0 9.92-3.88 9.92-9.94s-3.76-9.94-9.92-9.94H8l4.28 3.9h-1.76C9.13 17.96 8 19.12 8 20.55v13.38m4.41-3.9V17.96h2.46c3.52 0 5.49 2.38 5.49 6.04 0 3.65-1.97 6.04-5.46 6.04z'/> </svg> ";
 export const focusIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%23fb9700' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23101214' d='M20.84 12.21a4.29 4.29 0 0 0-6.05 0l-1.394 1.393c-.77.769-2.02.769-2.789 0L9.45 12.445 6.424 15.47l1.158 1.158a6.25 6.25 0 0 0 8.838 0zm-17.68-.418a4.253 4.253 0 0 0 6.034.017l1.412-1.412a1.973 1.973 0 0 1 2.788 0l1.158 1.158 3.026-3.025-1.158-1.158a6.25 6.25 0 0 0-8.838 0l-4.42 4.419z'/> </svg> ";
 export const goalsIcon =
@@ -109,6 +111,7 @@ export const rawIcons = {
 	crowd: crowdIcon,
 	customLink: customLinkIcon,
 	customerServiceManagement: customerServiceManagementIcon,
+	dx: dxIcon,
 	focus: focusIcon,
 	goals: goalsIcon,
 	guardDetect: guardDetectIcon,

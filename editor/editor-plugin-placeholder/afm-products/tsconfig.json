@@ -27,6 +27,9 @@
 			"path": "../../adf-utils/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/css/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-composition/afm-products/tsconfig.json"
 		},
 		{
@@ -43,6 +46,12 @@
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../tmp-editor-statsig/afm-products/tsconfig.json"

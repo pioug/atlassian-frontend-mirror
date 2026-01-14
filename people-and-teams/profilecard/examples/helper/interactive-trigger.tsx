@@ -57,14 +57,14 @@ export default class InteractiveTrigger extends Component<Props, State> {
 		positionIdx: 0,
 	};
 
-	getPositionDisplayString() {
+	getPositionDisplayString(): string {
 		return positionsOrder[this.state.positionIdx]
 			.toUpperCase()
 			.split('-')
 			.reduce((prev, current) => `${prev}${current.charAt(0)}`, '');
 	}
 
-	changePosition = () => {
+	changePosition = (): void => {
 		this.setState({
 			positionIdx:
 				this.state.positionIdx === positionsOrder.length - 1 ? 0 : this.state.positionIdx + 1,

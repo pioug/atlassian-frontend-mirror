@@ -71,7 +71,7 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	 *
 	 * @returns The data key
 	 */
-	nodeDataKey(node: SyncBlockNode) {
+	nodeDataKey(node: SyncBlockNode): string {
 		return node.attrs.resourceId;
 	}
 
@@ -318,6 +318,7 @@ export const useMemoizedSyncedBlockProvider = ({
 	);
 
 	syncBlockProvider.setProviderOptions(providerOptions);
+
 	const ssrData = getSSRData ? getSSRData() : undefined;
 	if (ssrData) {
 		syncBlockProvider.setSSRData(ssrData);

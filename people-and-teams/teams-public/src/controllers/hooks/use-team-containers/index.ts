@@ -15,6 +15,8 @@ import type {
 import { type TeamContainer } from '../../../common/types';
 import { AnalyticsAction, usePeopleAndTeamAnalytics } from '../../../common/utils/analytics';
 
+import { useConnectedTeams as useConnectedTeamsMulti, useTeamContainers as useTeamContainersMulti } from './multi-team';
+
 type ConnectedTeams = {
 	containerId: string | undefined;
 	isLoading: boolean;
@@ -356,6 +358,7 @@ export const useTeamContainersHook = createHook(Store);
 
 export const useTeamContainers = (teamId: string, enable = true) => {
 	const [state, actions] = useTeamContainersHook();
+	const multiTeamResult = useTeamContainersMulti(teamId, enable);
 	const { fireOperationalEvent } = usePeopleAndTeamAnalytics();
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { fireEvent } = useAnalyticsEventsNext();
@@ -380,15 +383,19 @@ export const useTeamContainers = (teamId: string, enable = true) => {
 	);
 
 	useEffect(() => {
-		if (enable) {
+		if (enable && !fg('enable_multi_team_containers_state')) {
 			actions.fetchTeamContainers(teamId, fireOperationalAnalytics, fireEvent);
 		}
 	}, [teamId, actions, enable, fireOperationalAnalytics, fireEvent]);
 
 	const refetchTeamContainers = useCallback(
-		async () => actions.refetchTeamContainers(fireOperationalAnalytics, fireEvent),
+		async (): Promise<void> => actions.refetchTeamContainers(fireOperationalAnalytics, fireEvent),
 		[actions, fireOperationalAnalytics, fireEvent],
 	);
+
+	if (fg('enable_multi_team_containers_state')) {
+		return multiTeamResult;
+	}
 
 	return {
 		...state,
@@ -399,8 +406,10 @@ export const useTeamContainers = (teamId: string, enable = true) => {
 	};
 };
 
-export const useConnectedTeams = () => {
+export const useConnectedTeams = (teamId?: string) => {
 	const [state, actions] = useTeamContainersHook();
+	// Always call hooks unconditionally - use empty string as fallback for hook call
+	const multiTeamResult = useConnectedTeamsMulti(teamId || '');
 	const { fireOperationalEvent } = usePeopleAndTeamAnalytics();
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { fireEvent } = useAnalyticsEventsNext();
@@ -423,6 +432,10 @@ export const useConnectedTeams = () => {
 		},
 		[fireOperationalEvent, createAnalyticsEvent],
 	);
+
+	if (fg('enable_multi_team_containers_state')) {
+		return multiTeamResult;
+	}
 
 	return {
 		...state.connectedTeams,

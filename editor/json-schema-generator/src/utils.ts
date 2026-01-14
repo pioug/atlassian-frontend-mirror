@@ -140,11 +140,11 @@ export function isAnyType(type: Type): type is Type {
 }
 /* eslint-enable no-bitwise */
 
-export function syntaxKindToName(kind: SyntaxKind) {
+export function syntaxKindToName(kind: SyntaxKind): string {
 	return SyntaxKind[kind];
 }
 
-export function getPmName(name: string) {
+export function getPmName(name: string): string {
 	return (
 		name
 			// Ignored via go/ees005

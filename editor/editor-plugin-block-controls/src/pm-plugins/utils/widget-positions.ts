@@ -10,7 +10,7 @@ export const getLeftPositionForRootElement = (
 	widgetDimensions: { height: number; width: number },
 	innerContainer?: HTMLElement | null,
 	macroInteractionUpdates?: boolean,
-) => {
+): string => {
 	if (!dom) {
 		return 'auto';
 	}

@@ -143,6 +143,9 @@
 		},
 		"ptc-enable-teams-public-analytics-refactor": {
 			"type": "boolean"
+		},
+		"enable_multi_team_containers_state": {
+			"type": "boolean"
 		}
 	}
 }

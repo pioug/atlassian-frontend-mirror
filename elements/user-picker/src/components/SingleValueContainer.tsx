@@ -55,8 +55,7 @@ export class SingleValueContainer extends React.Component<ValueContainerProps<Op
 			const userData = showUserAvatar(inputValue, value as Option<User>)
 				? (value as Option<User>).data
 				: undefined;
-			// Only use icon if feature gate is enabled
-			if (userData?.icon && fg('atlaskit_user_picker_support_icon')) {
+			if (userData?.icon) {
 				return (
 					<AvatarOrIcon
 						appearance={appearance}

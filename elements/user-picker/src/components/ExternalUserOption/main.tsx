@@ -117,8 +117,7 @@ class ExternalUserOptionImpl extends React.PureComponent<ExternalUserOptionProps
 			user: { avatarUrl, appType, icon, iconColor },
 			status,
 		} = this.props;
-		// Only use icon if feature gate is enabled
-		if (icon && fg('atlaskit_user_picker_support_icon')) {
+		if (icon) {
 			return (
 				<AvatarOrIcon
 					appearance="big"

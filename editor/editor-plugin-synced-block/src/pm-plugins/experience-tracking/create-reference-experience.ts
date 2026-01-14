@@ -1,4 +1,4 @@
-import { ACTION_SUBJECT, ACTION_SUBJECT_ID, type DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 import {
 	Experience,
 	ExperienceCheckDomMutation,
@@ -7,23 +7,18 @@ import {
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
+import { type ExperienceOptions, EXPERIENCE_ABORT_REASON } from '../../types'
+import { getAddedResourceIds, wasSyncBlockDeletedOrAddedByHistory, getTarget } from '../utils/experience-tracking-utils';
+
 const isPastedFromFabricEditor = (html?: string): boolean =>
  	!!html && html.indexOf('data-pm-slice="') >= 0;
 
-
 const pluginKey = new PluginKey('createReferenceSyncBlockExperience');
-
-type CreateReferenceExperienceOptions = {
-	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
-	refs: { containerElement?: HTMLElement };
-};
 
 const START_METHOD = {
 	PASTE: 'paste',
-};
-
-const ABORT_REASON = {
-	EDITOR_DESTROYED: 'editor-destroyed',
+	UNDO: 'undo',
+	REDO: 'redo',
 };
 
 /**
@@ -36,7 +31,7 @@ const ABORT_REASON = {
 export const getCreateReferenceExperiencePlugin = ({
 	refs,
 	dispatchAnalyticsEvent,
-}: CreateReferenceExperienceOptions) => {
+}: ExperienceOptions) => {
 	const experience = getCreateReferenceExperience({ refs, dispatchAnalyticsEvent });
 
 	return new SafePlugin({
@@ -44,7 +39,7 @@ export const getCreateReferenceExperiencePlugin = ({
 		view: () => {
 			return {
 				destroy: () => {
-					experience.abort({ reason: ABORT_REASON.EDITOR_DESTROYED });
+					experience.abort({ reason: EXPERIENCE_ABORT_REASON.EDITOR_DESTROYED });
 				},
 			};
 		},
@@ -61,13 +56,24 @@ export const getCreateReferenceExperiencePlugin = ({
 						}
 					});
 				}
-
 			},
-		}
+		},
+		appendTransaction: (transactions, oldState, newState) => {
+			transactions.forEach((tr) => {
+				const { hasAddedSyncBlock, isUndo } = wasSyncBlockDeletedOrAddedByHistory(tr, oldState, newState);
+				if (hasAddedSyncBlock) {
+					experience.start({
+						method: isUndo ? START_METHOD.UNDO : START_METHOD.REDO
+					});
+				}
+			});
+
+			return null;
+		},
 	})
 }
 
-const getCreateReferenceExperience = ({refs, dispatchAnalyticsEvent}: CreateReferenceExperienceOptions) => {
+const getCreateReferenceExperience = ({refs, dispatchAnalyticsEvent}: ExperienceOptions) => {
 	return new Experience(ACTION_SUBJECT.SYNCED_BLOCK, {
 		actionSubjectId: ACTION_SUBJECT_ID.REFERENCE_SYNCED_BLOCK_CREATE,
 		dispatchAnalyticsEvent,
@@ -75,21 +81,19 @@ const getCreateReferenceExperience = ({refs, dispatchAnalyticsEvent}: CreateRefe
 			new ExperienceCheckTimeout({ durationMs: 500 }),
 			new ExperienceCheckDomMutation({
 				onDomMutation: ({ mutations }) => {
-					if (mutations.some(isReferenceSyncBlockAddedInMutation)) {
-						return { status: 'success' };
+					const insertedResourceIds = getAddedResourceIds(mutations, '[data-prosemirror-node-name="syncBlock"]');
+					if (insertedResourceIds.length > 0) {
+						return {
+							status: 'success',
+							metadata: { insertedResourceIds }
+						};
 					}
 
 					return undefined;
 				},
 				observeConfig: () => {
-					const proseMirrorElement = refs.containerElement?.querySelector('.ProseMirror');
-
-					if (!proseMirrorElement || !(proseMirrorElement instanceof HTMLElement)) {
-						return null;
-					}
-
 					return {
-						target: proseMirrorElement,
+						target: getTarget(refs.containerElement),
 						options: {
 							childList: true,
 						},
@@ -100,13 +104,4 @@ const getCreateReferenceExperience = ({refs, dispatchAnalyticsEvent}: CreateRefe
 	});
 };
 
-const isReferenceSyncBlockAddedInMutation = ({ type, addedNodes }: MutationRecord): boolean =>
-	type === 'childList' && [...addedNodes].some(isReferenceSyncBlockNode);
 
-const isReferenceSyncBlockNode = (node?: Node | null): boolean => {
-	if (!(node instanceof HTMLElement)) {
-		return false;
-	}
-
-	return !!node.querySelector('[data-prosemirror-node-name="syncBlock"]');
-};

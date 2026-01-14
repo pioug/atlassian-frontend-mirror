@@ -6,7 +6,7 @@ import { createClassName } from '../styles/util';
 
 const className = createClassName('date');
 
-export const styles = `
+export const styles: string = `
 .${className} {
   border-radius: 3px;
   -webkit-border-radius: 3px;
@@ -31,7 +31,7 @@ export const styles = `
 }
 `;
 
-export default function status({ attrs, parent, ancestors }: NodeSerializerOpts) {
+export default function status({ attrs, parent, ancestors }: NodeSerializerOpts): string {
 	const timestamp: string = attrs.timestamp;
 	let isParentToDoTask: boolean = false;
 

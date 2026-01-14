@@ -2,5 +2,5 @@
 // Entry file in package.json
 
 export { toolbarPlugin } from './toolbarPlugin';
-export type { ToolbarPlugin } from './toolbarPluginType';
-export type { ToolbarPluginOptions } from './types';
+export type { ToolbarPlugin, EditorToolbarPluginState } from './toolbarPluginType';
+export type { ToolbarPluginOptions, RegisterComponentsAction } from './types';

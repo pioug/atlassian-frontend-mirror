@@ -225,9 +225,6 @@
 		"expose-product-details-from-smart-card": {
 			"type": "boolean"
 		},
-		"navx-2479-sl-fix-inilne-card-show-connect-button": {
-			"type": "boolean"
-		},
 		"townsquare-same-tab-alignment-gcko-849": {
 			"type": "boolean"
 		},

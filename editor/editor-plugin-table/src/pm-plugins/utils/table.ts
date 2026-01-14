@@ -31,7 +31,7 @@ export const getAssistiveMessage = (
 	prevTableNode: PmNode,
 	currentTableNode: PmNode,
 	intl: IntlShape,
-) => {
+): string => {
 	const { formatMessage } = intl;
 	const prevTableMap = TableMap.get(prevTableNode);
 	const currentTableMap = TableMap.get(currentTableNode);

@@ -92,22 +92,20 @@ describe('UserEditType', () => {
 		expect(await screen.findByText('Unassigned')).toBeInTheDocument();
 	});
 
-	ffTest.on('navx-sllv-fix-inline-edit-error', '', () => {
-		it.each([
-			['undefined object', undefined],
-			['empty array', []],
-			['empty item', [{}]],
-			['no text', [{ transitions: [] }]],
-			['wrong text type', [{ text: true }]],
-		])('should not throw error when receives invalid options with %s', async (_, options) => {
-			mockUseLoadOptions.mockReturnValue({
-				options,
-				isLoading: false,
-				hasFailed: false,
-			});
-
-			expect(() => setup()).not.toThrow();
+	it.each([
+		['undefined object', undefined],
+		['empty array', []],
+		['empty item', [{}]],
+		['no text', [{ transitions: [] }]],
+		['wrong text type', [{ text: true }]],
+	])('should not throw error when receives invalid options with %s', async (_, options) => {
+		mockUseLoadOptions.mockReturnValue({
+			options,
+			isLoading: false,
+			hasFailed: false,
 		});
+
+		expect(() => setup()).not.toThrow();
 	});
 
 	ffTest.on(

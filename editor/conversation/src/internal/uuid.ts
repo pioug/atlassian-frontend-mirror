@@ -1,5 +1,5 @@
 /* eslint-disable no-bitwise */
-export const generateUuid = () =>
+export const generateUuid = (): string =>
 	// Ignored via go/ees005
 	// eslint-disable-next-line require-unicode-regexp
 	'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
@@ -15,7 +15,7 @@ export const uuid = {
 		staticValue = value;
 	},
 
-	generate() {
+	generate(): string {
 		return String(staticValue) || generateUuid();
 	},
 };

@@ -3,7 +3,7 @@
 const _Date = global.Date;
 
 export default {
-	setToday: function setToday(today: Date = new Date()) {
+	setToday: function setToday(today: Date = new Date()): void {
 		// @ts-ignore
 		function MockDate(y, m, d, h, M, s, ms) {
 			let returnDate;
@@ -49,7 +49,7 @@ export default {
 		global.Date = MockDate;
 	},
 
-	reset: function reset() {
+	reset: function reset(): void {
 		// @ts-ignore
 		global.Date = _Date;
 	},

@@ -1,4 +1,4 @@
-export const escapeHtmlString = (content: string | undefined | null) => {
+export const escapeHtmlString = (content: string | undefined | null): string => {
 	if (!content) {
 		return '';
 	}

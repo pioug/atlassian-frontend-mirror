@@ -179,7 +179,7 @@ function canContainImage(element: HTMLElement | null): boolean {
  * on those scenarios.
  * @param html
  */
-export const unwrapNestedMediaElements = (html: string) => {
+export const unwrapNestedMediaElements = (html: string): string => {
 	const parser = new DOMParser();
 	const doc = parser.parseFromString(html, 'text/html');
 	const wrapper = doc.body;

@@ -123,7 +123,7 @@ const getRelativeDomCellWidths = ({ width, colspan, colwidth }: CellWidthInfo) =
 	return cellColWidths.map((cellColWidth) => width * (cellColWidth / totalCalculatedCellWidth));
 };
 
-export const colWidthsForRow = (tr: HTMLTableRowElement) => {
+export const colWidthsForRow = (tr: HTMLTableRowElement): string => {
 	// get the colspans
 	const rowColSpans = maphElem(tr, (cell) =>
 		Number(cell.getAttribute('colspan') || 1 /* default to span of 1 */),

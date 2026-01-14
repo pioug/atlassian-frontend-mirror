@@ -256,10 +256,7 @@ snapshot(InlineCardUnauthorised, {
 	states: [{ state: 'hovered', selector: { byTestId: 'button-connect-account' } }],
 });
 snapshot(InlineCardUnauthorisedNoAuth, {
-	description: `inline card unauthorised view with no auth`,
-	featureFlags: {
-		'navx-2479-sl-fix-inilne-card-show-connect-button': [true, false],
-	},
+	description: 'inline card unauthorised view with no auth',
 });
 
 snapshot(InlineCardFontSizeDefault, {

@@ -55,7 +55,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 
 	openTime = 0;
 
-	fireAnalytics = (payload: AnalyticsEventPayload) => {
+	fireAnalytics = (payload: AnalyticsEventPayload): void => {
 		// Don't fire any analytics if the component is unmounted
 		if (!this._isMounted) {
 			return;
@@ -75,7 +75,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		}
 	};
 
-	fireAnalyticsWithDuration = (generator: AnalyticsFromDuration) => {
+	fireAnalyticsWithDuration = (generator: AnalyticsFromDuration): void => {
 		const event = generator(getPageTime() - this.openTime);
 		this.fireAnalytics(event);
 	};
@@ -83,13 +83,13 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 	fireAnalyticsWithDurationNext = <K extends keyof AnalyticsEventAttributes>(
 		eventKey: K,
 		generator: (duration: number) => AnalyticsEventAttributes[K],
-	) => {
+	): void => {
 		const duration = getPageTime() - this.openTime;
 		const attributes = generator(duration);
 		this.fireAnalyticsNext(eventKey, attributes);
 	};
 
-	hideProfilecard = (delay = 0) => {
+	hideProfilecard = (delay = 0): void => {
 		clearTimeout(this.showTimer);
 		clearTimeout(this.hideTimer);
 
@@ -98,7 +98,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		}, delay);
 	};
 
-	showProfilecard = (delay = 0) => {
+	showProfilecard = (delay = 0): void => {
 		clearTimeout(this.hideTimer);
 		clearTimeout(this.showTimer);
 
@@ -111,7 +111,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		}, delay);
 	};
 
-	onClick = (event: React.MouseEvent<HTMLElement>) => {
+	onClick = (event: React.MouseEvent<HTMLElement>): void => {
 		if (this.props.triggerLinkType === 'link') {
 			// We want to prevent navigation occurring on basic click, but it's important that
 			// cmd+click, ctrl+click, etc. still work as expected.
@@ -141,7 +141,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		}
 	};
 
-	onMouseEnter = () => {
+	onMouseEnter = (): void => {
 		if (this.props.trigger === 'click') {
 			return;
 		}
@@ -160,7 +160,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		this.showProfilecard(DELAY_MS_SHOW);
 	};
 
-	onMouseLeave = () => {
+	onMouseLeave = (): void => {
 		if (this.props.trigger === 'click') {
 			return;
 		}
@@ -170,7 +170,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		}
 	};
 
-	onKeyPress = (event: React.KeyboardEvent) => {
+	onKeyPress = (event: React.KeyboardEvent): void => {
 		if (event.key === 'Enter' || event.key === ' ') {
 			event.preventDefault();
 			this.setState({ isTriggeredByKeyboard: true });
@@ -186,17 +186,17 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		}
 	};
 
-	onClose = () => {
+	onClose = (): void => {
 		this.hideProfilecard();
 		this.setState({ isTriggeredByKeyboard: false });
 	};
 
-	openKudosDrawer = () => {
+	openKudosDrawer = (): void => {
 		this.hideProfilecard(DELAY_MS_HIDE);
 		this.setState({ kudosDrawerOpen: true });
 	};
 
-	closeKudosDrawer = () => {
+	closeKudosDrawer = (): void => {
 		this.setState({ kudosDrawerOpen: false });
 	};
 
@@ -207,7 +207,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		return `${this.state.teamCentralBaseUrl}/kudos/give?type=team${recipientId}${cloudId}`;
 	};
 
-	stopPropagation = (event: React.MouseEvent<HTMLElement>) => {
+	stopPropagation = (event: React.MouseEvent<HTMLElement>): void => {
 		// We need to stop propagation when users click on the card, so that it
 		// doesn't trigger any special effects that occur when clicking the trigger.
 		event.stopPropagation();
@@ -237,11 +237,11 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		isTriggeredByKeyboard: false,
 	};
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this._isMounted = true;
 	}
 
-	componentDidUpdate(prevProps: TeamProfileCardTriggerProps) {
+	componentDidUpdate(prevProps: TeamProfileCardTriggerProps): void {
 		const { orgId, teamId, resourceClient } = this.props;
 		const { visible } = this.state;
 
@@ -261,13 +261,13 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		}
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount(): void {
 		this._isMounted = false;
 		clearTimeout(this.showTimer);
 		clearTimeout(this.hideTimer);
 	}
 
-	clientFetchProfile = () => {
+	clientFetchProfile = (): void => {
 		const { orgId, teamId } = this.props;
 		const { isLoading } = this.state;
 
@@ -308,7 +308,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		);
 	};
 
-	onErrorBoundary = () => {
+	onErrorBoundary = (): void => {
 		this.fireAnalyticsNext('ui.teamProfileCard.rendered.errorBoundary', {
 			...PACKAGE_META_DATA,
 			firedAt: Math.round(getPageTime()),
@@ -324,7 +324,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		team: Team,
 		shouldShowGiveKudos: boolean,
 		teamCentralBaseUrl: string | undefined,
-	) {
+	): void {
 		if (!this._isMounted) {
 			return;
 		}
@@ -338,7 +338,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		});
 	}
 
-	handleClientError(err: any) {
+	handleClientError(err: any): void {
 		if (!this._isMounted) {
 			return;
 		}

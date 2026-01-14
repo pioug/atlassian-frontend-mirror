@@ -15,7 +15,7 @@ const DatasourceExperienceIdProvider = ({ children }: PropsWithChildren<{}>): Re
 	);
 };
 
-const useDatasourceExperienceId = () => {
+const useDatasourceExperienceId = (): string => {
 	const context = useContext(DatasourceExperienceIdContext);
 	if (!context) {
 		throw Error('useDatasourceExperienceId() must be wrapped in <DatasourceExperienceIdProvider>');

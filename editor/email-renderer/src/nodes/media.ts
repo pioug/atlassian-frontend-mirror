@@ -14,7 +14,7 @@ import { serializeStyle } from '../serialize-style';
 const className = createClassName('media');
 const ICON_DIMENSION = 14;
 
-export default function media(node: NodeSerializerOpts) {
+export default function media(node: NodeSerializerOpts): string {
 	const { context, attrs } = node;
 
 	// We want to render external images even when metadata is not provided
@@ -195,7 +195,7 @@ const renderPreview = (node: NodeSerializerOpts, metadata: MediaMetaDataContextI
 	return createTag('div', { class: `${className}-preview-wrapper` }, previewImg + description);
 };
 
-export const styles = `
+export const styles: string = `
 ${imageStyles}
 ${lozengeStyles}
 ${previewStyles}

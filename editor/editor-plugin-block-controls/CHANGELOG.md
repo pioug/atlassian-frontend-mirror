@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 8.0.10
+
+### Patch Changes
+
+- [`df9b89b4945d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df9b89b4945d1) -
+  Editor-4255: "Fix heading with alignment nested inside layout not showing block menu"
+- Updated dependencies
+
+## 8.0.9
+
+### Patch Changes
+
+- [`2a1bf10d70beb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a1bf10d70beb) -
+  EDITOR-4293 Fix block menu selection highlight issues
+
 ## 8.0.8
 
 ### Patch Changes

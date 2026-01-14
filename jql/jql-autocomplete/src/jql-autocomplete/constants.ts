@@ -5,7 +5,7 @@ export const ORDER_BY_CLAUSE = 'orderBy';
 
 // TODO: do something with this
 
-export const operators = [
+export const operators: string[] = [
 	'=',
 	'!=',
 	'>',
@@ -25,7 +25,7 @@ export const operators = [
 	'changed',
 ];
 
-export const predicateOperators = ['after', 'before', 'on', 'during', 'by', 'from', 'to'];
+export const predicateOperators: string[] = ['after', 'before', 'on', 'during', 'by', 'from', 'to'];
 
 /**
  * Here we maintain an opinionated subset of rules we believe need to leverage context data.

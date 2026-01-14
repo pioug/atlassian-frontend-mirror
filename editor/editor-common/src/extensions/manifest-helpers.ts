@@ -32,7 +32,7 @@ export const getExtensionKeyAndNodeKey = (
 export const buildExtensionKeyAndNodeKey = (
 	extensionKey: ExtensionKey,
 	nodeKey?: ExtensionModuleKey,
-) => {
+): string => {
 	if (!nodeKey || nodeKey === 'default') {
 		return extensionKey;
 	}

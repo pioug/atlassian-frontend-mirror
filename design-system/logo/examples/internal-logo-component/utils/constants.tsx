@@ -18,6 +18,7 @@ export const appOrder: string[] = [
 	'Talent',
 	'Bitbucket',
 	'Compass',
+	'Dx',
 	'Rovo Dev',
 	'Rovo Dev Agent',
 	'Statuspage',

@@ -42,4 +42,4 @@ export const getPositionFromContext = (ctx: ParserRuleContext): Position => [
 export const getPositionsFromTerminalNodes = (terminalNodes: TerminalNode[]): Position[] =>
 	terminalNodes.map((node: TerminalNode) => getPositionFromToken(node.payload));
 
-export const normalizeText = (text: string) => text.toLowerCase().replace(/\s+/g, ' ');
+export const normalizeText = (text: string): string => text.toLowerCase().replace(/\s+/g, ' ');

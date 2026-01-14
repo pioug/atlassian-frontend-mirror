@@ -6,7 +6,7 @@ import { N90A } from '@atlaskit/theme/colors';
 
 export const blanketClassName = 'media-card-blanket';
 
-export const fixedBlanketStyles = `background-color: ${token('color.blanket', N90A)};`;
+export const fixedBlanketStyles: string = `background-color: ${token('color.blanket', N90A)};`;
 
 export const blanketStyles = (isFixed?: boolean) =>
 	css(

@@ -1,7 +1,7 @@
 import { print } from 'graphql';
 import gql from 'graphql-tag';
 
-export const HelpPointerCreateMutation = print(gql`
+export const HelpPointerCreateMutation: string = print(gql`
 	mutation CreateHelpPointer(
 		$cloudId: String!
 		$description: String

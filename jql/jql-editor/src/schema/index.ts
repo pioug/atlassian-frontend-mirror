@@ -72,7 +72,7 @@ const domParser = DOMParser.fromSchema(JQLEditorSchema);
  * Emulate the behaviour of the default https://prosemirror.net/docs/ref/#view.EditorProps.clipboardTextSerializer but
  * preserves consecutive empty block nodes.
  */
-export const clipboardTextSerializer = (slice: Slice) => {
+export const clipboardTextSerializer = (slice: Slice): string => {
 	return getFragmentText(slice.content, 0, slice.content.size);
 };
 

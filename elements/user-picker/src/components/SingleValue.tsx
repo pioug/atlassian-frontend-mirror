@@ -67,8 +67,7 @@ export const SingleValue = (props: Props) => {
 	return !isFocused ? (
 		<components.SingleValue {...(props as any)}>
 			<Flex xcss={styles.avatarItem}>
-				{/* Only use icon if feature gate is enabled */}
-				{data.icon && fg('atlaskit_user_picker_support_icon') ? (
+				{data.icon ? (
 					<AvatarOrIcon
 						icon={data.icon}
 						iconColor={data.iconColor}

@@ -59,7 +59,7 @@ export function makeMonitor<DragType extends AllDragTypes>() {
 	}: {
 		eventName: EventName;
 		payload: EventPayloadMap<DragType>[EventName];
-	}) {
+	}): void {
 		if (eventName === 'onGenerateDragPreview') {
 			dragging = {
 				canMonitorArgs: {

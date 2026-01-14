@@ -27,7 +27,7 @@ export const secondsToTime = (
 	};
 };
 
-export const formatDuration = (seconds: number) => {
+export const formatDuration = (seconds: number): string => {
 	if (isInvalidInput(seconds)) {
 		return '0:00';
 	}

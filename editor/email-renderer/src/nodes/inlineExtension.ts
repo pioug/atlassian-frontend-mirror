@@ -5,7 +5,7 @@ import { createClassName } from '../styles/util';
 
 const className = createClassName('inlineExtension');
 
-export const styles = `
+export const styles: string = `
 .${className}-inner {
   background-color: ${N30};
   border: 3px solid ${N30};
@@ -24,7 +24,7 @@ export const styles = `
 }
 `;
 
-export default function inlineExtension({ attrs }: NodeSerializerOpts) {
+export default function inlineExtension({ attrs }: NodeSerializerOpts): string {
 	const isRedaction = attrs.extensionKey === 'redaction';
 	// redaction extension wants to skip generic extension styling https://atlassian.slack.com/archives/C03QXBHB7GC/p1740471786226069?thread_ts=1740051744.345479&cid=C03QXBHB7GC
 	const classNameFinal = className + (isRedaction ? '-redaction' : '');

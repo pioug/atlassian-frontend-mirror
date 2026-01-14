@@ -49,10 +49,37 @@ const CreateSyncedBlockDropdownItem = ({
 			elemBefore={<SyncBlocksIcon label="" />}
 			onClick={onClick}
 			isDisabled={isOffline}
-			testId={'create-synced-block-block-menu-btn'}
+			testId={"create-synced-block-block-menu-btn"}
 			elemAfter={<Lozenge appearance="new">{formatMessage(blockMenuMessages.newLozenge)}</Lozenge>}
 		>
 			{formatMessage(blockMenuMessages.createSyncedBlock)}
+		</ToolbarDropdownItem>
+	);
+};
+
+const CopySyncedBlockDropdownItem = ({
+	api,
+}: {
+	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined;
+}) => {
+	const { formatMessage } = useIntl();
+	const { mode } = useSharedPluginStateWithSelector(api, ['connectivity'], (states) => ({
+		mode: states.connectivityState?.mode,
+	}));
+
+	const onClick = () => {
+		api?.core?.actions.execute(api?.syncedBlock.commands.copySyncedBlockReferenceToClipboard());
+		api?.core?.actions.execute(api?.blockControls?.commands?.toggleBlockMenu({ closeMenu: true }));
+	};
+
+	return (
+		<ToolbarDropdownItem
+			elemBefore={<SyncBlocksIcon label="" />}
+			onClick={onClick}
+			isDisabled={isOfflineMode(mode)}
+			elemAfter={<Lozenge appearance="new">{formatMessage(blockMenuMessages.newLozenge)}</Lozenge>}
+		>
+			{formatMessage(blockMenuMessages.copySyncedBlock)}
 		</ToolbarDropdownItem>
 	);
 };
@@ -73,9 +100,11 @@ export const CreateOrCopySyncedBlockDropdownItem = ({
 	);
 
 	if (
-		!['syncBlock', 'bodiedSyncBlock'].includes(menuTriggerByNode?.nodeType ?? '') &&
-		enableSourceSyncedBlockCreation
+		menuTriggerByNode?.nodeType === 'syncBlock' ||
+		menuTriggerByNode?.nodeType === 'bodiedSyncBlock'
 	) {
+		return <CopySyncedBlockDropdownItem api={api} />;
+	} else if (enableSourceSyncedBlockCreation) {
 		return <CreateSyncedBlockDropdownItem api={api} />;
 	} else {
 		return null;

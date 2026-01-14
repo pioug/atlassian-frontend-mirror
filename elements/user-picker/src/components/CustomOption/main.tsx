@@ -7,7 +7,6 @@ import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import React from 'react';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { type Custom } from '../../types';
 import { AvatarItemOption, textWrapper } from '../AvatarItemOption';
 import { HighlightText } from '../HighlightText';
@@ -62,8 +61,7 @@ export class CustomOption extends React.PureComponent<CustomOptionProps> {
 		const {
 			data: { avatarUrl, icon, iconColor },
 		} = this.props;
-		// Only use icon if feature gate is enabled
-		if (icon && fg('atlaskit_user_picker_support_icon')) {
+		if (icon) {
 			return <AvatarOrIcon appearance="big" icon={icon} iconColor={iconColor} src={avatarUrl} />;
 		}
 		// Fallback to original behavior

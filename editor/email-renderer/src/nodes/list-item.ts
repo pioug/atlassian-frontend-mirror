@@ -2,7 +2,7 @@ import { createTag } from '../create-tag';
 import { createClassName } from '../styles/util';
 import { type NodeSerializerOpts } from '../interfaces';
 
-export const styles = `
+export const styles: string = `
 .${createClassName('li')} {
   margin-top: 4px;
 }
@@ -12,6 +12,6 @@ export const styles = `
 }
 `;
 
-export default function listItem({ text }: NodeSerializerOpts) {
+export default function listItem({ text }: NodeSerializerOpts): string {
 	return createTag('li', { class: createClassName('li') }, text);
 }

@@ -51,3 +51,16 @@ export const getLocalIdFromBlockResourceId = (ari: string): string => {
 	}
 	throw new Error(`Invalid page ARI: ${ari}`);
 };
+
+export const getProductFromSourceAri = (ari?: string): SyncBlockProduct | undefined => {
+	const jiraMatch = ari?.search(/ari:cloud:jira:.*/);
+	if (jiraMatch !== -1) {
+		return 'jira-work-item';
+	}
+	const confluenceMatch = ari?.search(/ari:cloud:confluence:.*/);
+	if (confluenceMatch !== -1) {
+		return 'confluence-page';
+	}
+
+	return undefined;
+};

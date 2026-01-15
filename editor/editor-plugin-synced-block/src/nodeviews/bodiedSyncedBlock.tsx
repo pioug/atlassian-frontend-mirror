@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
+import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ForwardRef, ReactComponentProps } from '@atlaskit/editor-common/react-node-view';
@@ -13,6 +15,7 @@ import {
 	type Node as PMNode,
 } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 import { BodiedSyncBlockWrapper } from '../ui/BodiedSyncBlockWrapper';
@@ -116,7 +119,17 @@ class BodiedSyncBlock extends ReactNodeView<BodiedSyncBlockNodeViewProps> {
 		}
 
 		return (
-			<BodiedSyncBlockWrapper ref={forwardRef} syncBlockStore={syncBlockStore} node={this.node} />
+			fg('platform_synced_block_dogfooding') ? (
+				<ErrorBoundary
+					component={ACTION_SUBJECT.SYNCED_BLOCK}
+					dispatchAnalyticsEvent={this.api?.analytics?.actions.fireAnalyticsEvent}
+					fallbackComponent={null}
+				>
+					<BodiedSyncBlockWrapper ref={forwardRef} syncBlockStore={syncBlockStore} node={this.node} />
+				</ErrorBoundary>
+			): (
+				<BodiedSyncBlockWrapper ref={forwardRef} syncBlockStore={syncBlockStore} node={this.node} />
+			)
 		);
 	}
 

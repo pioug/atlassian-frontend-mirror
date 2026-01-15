@@ -10,13 +10,15 @@ import {
 	type SyncBlockData as Data,
 	type SyncBlockNode,
 	SyncBlockError,
+	type BlockInstanceId,
 } from '../common/types';
-import type { SyncBlockDataProvider } from '../providers/types';
+import type { SyncBlockDataProvider, SyncBlockSourceInfo } from '../providers/types';
 import {
 	updateErrorPayload,
 	createErrorPayload,
 	deleteErrorPayload,
 	updateCacheErrorPayload,
+	getSourceInfoErrorPayload,
 } from '../utils/errorHandling';
 import { convertSyncBlockPMNodeToSyncBlockData } from '../utils/utils';
 
@@ -299,7 +301,9 @@ export class SourceSyncBlockStoreManager {
 					} else {
 						this.commitPendingCreation(false);
 						if (fg('platform_synced_block_dogfooding')) {
-							this.createExperience?.failure({reason: result.error || 'Failed to create bodied sync block'})
+							this.createExperience?.failure({
+								reason: result.error || 'Failed to create bodied sync block',
+							});
 						} else {
 							this.fireAnalyticsEvent?.(
 								createErrorPayload(result.error || 'Failed to create bodied sync block'),
@@ -313,7 +317,7 @@ export class SourceSyncBlockStoreManager {
 						location: 'editor-synced-block-provider/sourceSyncBlockStoreManager',
 					});
 					if (fg('platform_synced_block_dogfooding')) {
-						this.createExperience?.failure({reason: (error as Error).message})
+						this.createExperience?.failure({ reason: (error as Error).message });
 					} else {
 						this.fireAnalyticsEvent?.(createErrorPayload((error as Error).message));
 					}
@@ -328,7 +332,7 @@ export class SourceSyncBlockStoreManager {
 				location: 'editor-synced-block-provider/sourceSyncBlockStoreManager',
 			});
 			if (fg('platform_synced_block_dogfooding')) {
-				this.createExperience?.failure({reason: (error as Error).message})
+				this.createExperience?.failure({ reason: (error as Error).message });
 			} else {
 				this.fireAnalyticsEvent?.(createErrorPayload((error as Error).message));
 			}
@@ -469,6 +473,28 @@ export class SourceSyncBlockStoreManager {
 			} else {
 				destroyCallback();
 			}
+		}
+	}
+
+	getSyncBlockSourceInfo(localId: BlockInstanceId): Promise<SyncBlockSourceInfo | undefined> {
+		try {
+			if (!this.dataProvider) {
+				throw new Error('Data provider not set');
+			}
+
+			return this.dataProvider.fetchSyncBlockSourceInfo(
+				localId,
+				undefined,
+				undefined,
+				this.fireAnalyticsEvent,
+			);
+		} catch (error) {
+			logException(error as Error, {
+				location: 'editor-synced-block-provider/sourceSyncBlockStoreManager',
+			});
+			this.fireAnalyticsEvent?.(getSourceInfoErrorPayload((error as Error).message));
+
+			return Promise.resolve(undefined);
 		}
 	}
 

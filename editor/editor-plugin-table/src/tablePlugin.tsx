@@ -92,8 +92,14 @@ const TABLE_WIDTH_INFO_TIMEOUT = 10000;
  * Table plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
  * from `@atlaskit/editor-core`.
  */
-const tablePlugin: TablePlugin = ({ config: options, api }) => {
+const tablePlugin: TablePlugin = ({ config, api }) => {
 	const editorViewRef: Record<'current', EditorView | null> = { current: null };
+	const options: TablePluginOptions = {
+		...config,
+		tableOptions: config?.tableOptions ?? {},
+		dragAndDropEnabled: fg('platform_editor_enable_table_dnd') ? true : config?.dragAndDropEnabled,
+	};
+
 	const defaultGetEditorContainerWidth: GetEditorContainerWidth = () => {
 		return (
 			api?.width?.sharedState.currentState() ?? {

@@ -1,6 +1,8 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
 
+import type { SyncBlockSourceInfo } from '../providers/types';
+
 import type { SYNC_BLOCK_PRODUCTS } from './consts';
 
 export type BlockInstanceId = string;
@@ -36,13 +38,41 @@ export interface SyncBlockData {
 	createdAt?: string;
 	createdBy?: string;
 	isSynced?: boolean;
+	/**
+	 * Whether the block is on the same page as the source block
+	 */
+	onSamePage?: boolean;
 	product?: SyncBlockProduct;
 	/**
 	 * The ARI of the block. E.G ari:cloud:blocks:<cloudId>:synced-block/<product>/<pageId>/<resourceId>
 	 */
 	resourceId: ResourceId;
 	sourceAri?: string;
+	sourceSubType?: string | null;
 	sourceTitle?: string;
 	sourceURL?: string;
 	updatedAt?: string;
 }
+
+export interface ReferenceSyncBlockResponse {
+	blockAri: string;
+	blockInstanceId?: BlockInstanceId;
+	createdAt?: string;
+	createdBy?: string;
+	documentAri: string;
+}
+
+export interface ReferenceSyncBlock extends ReferenceSyncBlockResponse {
+	hasAccess: boolean;
+	onSamePage: boolean;
+}
+
+export type ReferenceSyncBlockData = {
+	error?: SyncBlockError;
+	references?: ReferenceSyncBlock[];
+};
+
+export type ReferencesSourceInfo = {
+	error?: SyncBlockError;
+	references?: Array<SyncBlockSourceInfo | undefined>;
+};

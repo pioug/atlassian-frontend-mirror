@@ -93,10 +93,11 @@ function ComposableEditorPage() {
 				profilecardProvider: undefined,
 				taskDecisionProvider: undefined,
 			},
-			providerCreator: {
-				createEmojiProvider: undefined,
-				createMediaProvider: undefined,
-			},
+		providerCreator: {
+			createEmojiProvider: undefined,
+			createMediaProvider: undefined,
+			createSmartLinkProvider: undefined,
+		},
 		},
 	});
 

@@ -1,0 +1,345 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { useState, useEffect } from 'react';
+
+import { css, jsx, cssMap } from '@compiled/react';
+import { type IntlShape } from 'react-intl-next';
+
+import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
+import type {
+	SyncBlockSourceInfo,
+	SyncBlockStoreManager,
+	ReferencesSourceInfo,
+	SyncBlockProduct,
+} from '@atlaskit/editor-synced-block-provider';
+import { IconTile } from '@atlaskit/icon';
+import PageLiveDocIcon from '@atlaskit/icon-lab/core/page-live-doc';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
+import PageIcon from '@atlaskit/icon/core/page';
+import StatusErrorIcon from '@atlaskit/icon/core/status-error';
+import { ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
+import Lozenge from '@atlaskit/lozenge';
+import { Box, Text, Inline, Anchor, Stack } from '@atlaskit/primitives/compiled';
+import Spinner from '@atlaskit/spinner';
+import { token } from '@atlaskit/tokens';
+
+interface Props {
+	intl: IntlShape;
+	isSource: boolean;
+	localId: string;
+	resourceId: string;
+	syncBlockStore: SyncBlockStoreManager;
+}
+
+const headingStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-ds--menu--heading-item]': {
+		color: token('color.text.subtlest'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+		marginBlock: `${token('space.050')} !important`,
+	},
+});
+
+const styles = cssMap({
+	title: {
+		color: token('color.text.subtle'),
+		textOverflow: 'ellipsis',
+		whiteSpace: 'nowrap',
+		overflow: 'hidden',
+	},
+	note: {
+		color: token('color.text.subtlest'),
+		whiteSpace: 'nowrap',
+	},
+	lozenge: {
+		marginInlineStart: token('space.050'),
+		minWidth: '60px',
+	},
+	noResultsContainer: {
+		width: '235px',
+		textAlign: 'center',
+	},
+	dropdownContent: {
+		width: '327px',
+		minHeight: '144px',
+		maxHeight: '304px',
+		paddingBlock: token('space.025'),
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	contentContainer: {
+		width: '100%',
+		alignSelf: 'stretch',
+		overflowY: 'auto',
+	},
+	errorContainer: {
+		width: '235px',
+		display: 'flex',
+	},
+	errorIcon: {
+		marginBlock: token('space.negative.050'),
+	},
+	learnMoreLink: {
+		textDecoration: 'none',
+	},
+});
+
+type FetchStatus = 'none' | 'loading' | 'success' | 'error';
+
+const ItemTitle = ({
+	title,
+	formatMessage,
+	onSamePage,
+	isSource,
+}: {
+	formatMessage: IntlShape['formatMessage'];
+	isSource?: boolean;
+	onSamePage?: boolean;
+	title: string;
+}) => {
+	return (
+		<Inline>
+			<Box as="span" xcss={styles.title}>
+				{title}
+			</Box>
+			{onSamePage && (
+				<Box as="span" xcss={styles.note}>
+					&nbsp;- {formatMessage(messages.syncedLocationDropdownTitleNote)}
+				</Box>
+			)}
+			{isSource && (
+				<Box as="span" xcss={styles.lozenge}>
+					<Lozenge>{formatMessage(messages.syncedLocationDropdownSourceLozenge)}</Lozenge>
+				</Box>
+			)}
+		</Inline>
+	);
+};
+
+const Logo = ({ product }: { product?: SyncBlockProduct }) => {
+	switch (product) {
+		case 'confluence-page':
+			return <ConfluenceIcon size="xsmall" />;
+		case 'jira-work-item':
+			return <JiraIcon size="xsmall" />;
+		default:
+			return null;
+	}
+};
+
+const ItemIcon = ({ reference }: { reference: SyncBlockSourceInfo }) => {
+	const { hasAccess, subType } = reference;
+
+	const icon = hasAccess
+		? subType
+			? PageLiveDocIcon
+			: PageIcon
+		: () => <Logo product={reference.productType} />;
+	return (
+		<IconTile icon={icon} label="" appearance={hasAccess ? 'grayBold' : 'gray'} size="xsmall" />
+	);
+};
+
+export const processReferenceData = (
+	referenceData: ReferencesSourceInfo['references'],
+	intl: IntlShape,
+) => {
+	const { formatMessage } = intl;
+	const sourceInfoMap: SourceInfoMap = new Map();
+	referenceData?.forEach((reference) => {
+		if (!reference) {
+			return;
+		}
+		if (sourceInfoMap.has(reference.sourceAri)) {
+			sourceInfoMap.get(reference.sourceAri)?.push(reference);
+		} else {
+			sourceInfoMap.set(reference.sourceAri, [reference]);
+		}
+	});
+
+	for (const references of sourceInfoMap.values()) {
+		if (references.length > 1) {
+			references.forEach(
+				(reference, index) =>
+					(reference.title = `${reference.title}: ${formatMessage(messages.syncedLocationDropdownTitleBlockIndex, { index: index + 1 })}`),
+			);
+		}
+	}
+
+	const sortedReferences = Array.from(sourceInfoMap.values())
+		.flat()
+		.sort((a, b) => {
+			if (a.isSource !== b.isSource) {
+				return b.isSource ? 1 : -1;
+			}
+
+			if (a.hasAccess !== b.hasAccess) {
+				return a.hasAccess ? -1 : 1;
+			}
+
+			return (a.title || '').localeCompare(b.title || '');
+		});
+
+	return sortedReferences;
+};
+
+export const SyncedLocationDropdown = ({
+	syncBlockStore,
+	resourceId,
+	intl,
+	isSource,
+	localId,
+}: Props): JSX.Element => {
+	const { formatMessage } = intl;
+	const triggerTitle = formatMessage(messages.syncedLocationDropdownTitle);
+	const [isOpen, setIsOpen] = useState(false);
+
+	return (
+		<DropdownMenu
+			isOpen={isOpen}
+			onOpenChange={({ isOpen }) => setIsOpen(isOpen)}
+			trigger={({ triggerRef, ...triggerProps }) => (
+				<Button
+					ref={triggerRef}
+					areAnyNewToolbarFlagsEnabled={true}
+					iconAfter={
+						<ChevronDownIcon color="currentColor" spacing="spacious" label="" size="small" />
+					}
+					// eslint-disable-next-line react/jsx-props-no-spreading
+					{...triggerProps}
+				>
+					{triggerTitle}
+				</Button>
+			)}
+		>
+			{isOpen && (
+				<DropdownContent
+					syncBlockStore={syncBlockStore}
+					resourceId={resourceId}
+					intl={intl}
+					isSource={isSource}
+					localId={localId}
+				/>
+			)}
+		</DropdownMenu>
+	);
+};
+
+type SourceInfoMap = Map<string, SyncBlockSourceInfo[]>;
+
+const DropdownContent = ({ syncBlockStore, resourceId, intl, isSource, localId }: Props) => {
+	const { formatMessage } = intl;
+	const [fetchStatus, setFetchStatus] = useState<FetchStatus>('none');
+	const [referenceData, setReferenceData] = useState<SyncBlockSourceInfo[]>([]);
+
+	useEffect(() => {
+		setFetchStatus('loading');
+
+		const getReferenceData = async () => {
+			const response = await syncBlockStore.fetchReferencesSourceInfo(
+				resourceId,
+				localId,
+				isSource,
+			);
+
+			if (response.error) {
+				setFetchStatus('error');
+				return;
+			}
+			setReferenceData(processReferenceData(response.references, intl));
+			setFetchStatus('success');
+		};
+		getReferenceData();
+	}, [syncBlockStore, intl, isSource, localId, resourceId]);
+
+	const content = () => {
+		switch (fetchStatus) {
+			case 'loading':
+				return <LoadingScreen />;
+			case 'error':
+				return <ErrorScreen formatMessage={formatMessage} />;
+			case 'success':
+				if (referenceData.length > 0) {
+					return (
+						<div
+							css={[styles.contentContainer, headingStyles]}
+							data-testid="synced-locations-dropdown-content"
+						>
+							<DropdownItemGroup
+								title={formatMessage(messages.syncedLocationDropdownHeading, {
+									count: `${referenceData.length > 99 ? '99+' : referenceData.length}`,
+								})}
+							>
+								{referenceData.map((reference) => (
+									<DropdownItem
+										elemBefore={<ItemIcon reference={reference} />}
+										href={reference.url}
+										key={reference.title}
+									>
+										<ItemTitle
+											title={reference.title || reference.url || ''}
+											formatMessage={formatMessage}
+											onSamePage={reference.onSamePage}
+											isSource={reference.isSource}
+										/>
+									</DropdownItem>
+								))}
+							</DropdownItemGroup>
+						</div>
+					);
+				} else {
+					return <NoResultScreen formatMessage={formatMessage} />;
+				}
+		}
+	};
+
+	return <Box xcss={styles.dropdownContent}>{content()}</Box>;
+};
+
+const LoadingScreen = () => {
+	return (
+		<Box>
+			<Spinner></Spinner>
+		</Box>
+	);
+};
+
+const ErrorScreen = ({ formatMessage }: { formatMessage: IntlShape['formatMessage'] }) => {
+	return (
+		<Box xcss={styles.errorContainer}>
+			<Box xcss={styles.errorIcon}>
+				<StatusErrorIcon
+					color={token('color.icon.danger')}
+					spacing="spacious"
+					label=""
+					size="small"
+				/>
+			</Box>
+			<Text as="p" size="medium">
+				{formatMessage(messages.syncedLocationDropdownError)}
+			</Text>
+		</Box>
+	);
+};
+
+const NoResultScreen = ({ formatMessage }: { formatMessage: IntlShape['formatMessage'] }) => {
+	return (
+		<Stack xcss={styles.noResultsContainer} space="space.100">
+			<Text as="p">{formatMessage(messages.syncedLocationDropdownNoResults)}</Text>
+			<Text as="p">
+				<Anchor
+					href="https://hello.atlassian.net/wiki/x/tAtCeAE"
+					target="_blank"
+					xcss={styles.learnMoreLink}
+				>
+					{formatMessage(messages.syncedLocationDropdownLearnMoreLink)}
+				</Anchor>
+			</Text>
+		</Stack>
+	);
+};

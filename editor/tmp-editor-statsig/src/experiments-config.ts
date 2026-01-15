@@ -152,6 +152,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-01-09
+	platform_editor_render_bodied_extension_as_inline: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Addded 2025-12-04
 	confluence_compact_text_format: {
 		defaultValue: boolean;
@@ -804,13 +811,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-08-25
-	platform_editor_toolbar_aifc_template_editor: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-04-23
 	platform_editor_usesharedpluginstateselector: {
 		defaultValue: boolean;
@@ -1051,6 +1051,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-01-12
 	platform_editor_table_sticky_header_patch_11: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-01-08
+	platform_editor_focus_on_chromeless_editor: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1714,7 +1721,6 @@ export const editorExperimentsConfig: {
 	//Added 2025-07-16
 	platform_editor_toolbar_aifc: createBooleanExperiment({
 		productKeys: {
-			jira: 'platform_editor_toolbar_aifc_jira',
 			confluence: 'platform_editor_toolbar_aifc_confluence',
 		},
 		param: 'isEnabled',
@@ -1867,14 +1873,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-08-25
-	platform_editor_toolbar_aifc_template_editor: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_toolbar_aifc_template_editor',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-09-16
 	platform_editor_prevent_taskitem_remount: createBooleanExperiment({
 		productKeys: {
@@ -1899,6 +1897,14 @@ export const editorExperimentsConfig: {
 		param: 'variant',
 		values: ['control', 'test'],
 		defaultValue: 'control',
+	}),
+	// Added 2026-01-09
+	platform_editor_render_bodied_extension_as_inline: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_render_bodied_extension_as_inline',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
 	}),
 	// Added 2025-12-04
 	confluence_compact_text_format: createBooleanExperiment({
@@ -2247,6 +2253,14 @@ export const editorExperimentsConfig: {
 	platform_editor_table_sticky_header_patch_11: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_table_sticky_header_patch_11',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-01-08
+	platform_editor_focus_on_chromeless_editor: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_focus_on_chromeless_editor',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

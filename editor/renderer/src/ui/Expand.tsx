@@ -229,6 +229,7 @@ const ContentContainer = (props: StyleProps) => {
 export interface ExpandProps {
 	children: React.ReactNode;
 	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
+	loadBodyContent?: boolean;
 	localId?: string;
 	nestedHeaderIds?: Array<string>;
 	nodeType: 'expand' | 'nestedExpand';
@@ -267,6 +268,7 @@ function Expand({
 	localId,
 	nestedHeaderIds,
 	rendererContentMode,
+	loadBodyContent,
 }: ExpandProps & WrappedComponentProps) {
 	const [expanded, setExpanded] = React.useState(false);
 	const [focused, setFocused] = React.useState(false);
@@ -358,14 +360,16 @@ function Expand({
 					<WidthProvider>
 						<div css={clearNextSiblingMarginTopStyle} />
 						{fg('hot-121622_lazy_load_expand_content') ? (
-							hasLoadedChildren ? (
-								<Suspense fallback={
-									<div>
-										{fg('platform_editor_dec_a11y_fixes')
-											? intl.formatMessage(expandMessages.loading)
-											: 'Loading...'}
-									</div>
-								}>
+							hasLoadedChildren || loadBodyContent ? (
+								<Suspense
+									fallback={
+										<div>
+											{fg('platform_editor_dec_a11y_fixes')
+												? intl.formatMessage(expandMessages.loading)
+												: 'Loading...'}
+										</div>
+									}
+								>
 									<LazyChildren>{children}</LazyChildren>
 								</Suspense>
 							) : null

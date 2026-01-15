@@ -5,9 +5,7 @@ import { teamsClient } from '@atlaskit/teams-client';
 
 import { type NewTeamWebLink } from '../../../common/types';
 
-import { useTeamWebLinksActions as useTeamWebLinksActionsMulti, useTeamWebLinks as useTeamWebLinksMulti } from './multi-team';
 import { type StoreApi, type TeamWebLinksState } from './types';
-
 
 const initialState: TeamWebLinksState = {
 	teamId: '',
@@ -107,7 +105,7 @@ export const actions = {
 							iconHasLoaded: true,
 						});
 					}
-				} catch {
+				} catch (iconError) {
 					if (getState().teamId === teamId) {
 						setState({
 							iconsLoading: false,
@@ -200,7 +198,7 @@ export const actions = {
 			try {
 				const title = await teamsClient.getWebLinkTitle(url);
 				return title;
-			} catch {
+			} catch (error) {
 				return undefined;
 			}
 		},
@@ -218,32 +216,10 @@ export const actions = {
 const TeamWebLinksStore = createStore<TeamWebLinksState, typeof actions>({
 	initialState,
 	actions,
-	name: 'teamWebLinksStore',
 });
 
-const useTeamWebLinksOriginal = createHook(TeamWebLinksStore);
-const useTeamWebLinksActionsOriginal = createHook(TeamWebLinksStore, {
+export const useTeamWebLinks = createHook(TeamWebLinksStore);
+
+export const useTeamWebLinksActions = createHook(TeamWebLinksStore, {
 	selector: null,
 });
-
-export const useTeamWebLinks = (teamId?: string) => {
-	const originalResult = useTeamWebLinksOriginal();
-	const multiResult = useTeamWebLinksMulti(teamId || '');
-
-	if (fg('enable_multi_team_containers_state')) {
-		return multiResult;
-	}
-
-	return originalResult;
-};
-
-export const useTeamWebLinksActions = () => {
-	const originalResult = useTeamWebLinksActionsOriginal();
-	const multiResult = useTeamWebLinksActionsMulti();
-
-	if (fg('enable_multi_team_containers_state')) {
-		return multiResult;
-	}
-
-	return originalResult;
-};

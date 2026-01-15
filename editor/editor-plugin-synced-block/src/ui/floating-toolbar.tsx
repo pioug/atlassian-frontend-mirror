@@ -28,6 +28,8 @@ import {
 import { findSyncBlockOrBodiedSyncBlock, isBodiedSyncBlockNode } from '../pm-plugins/utils/utils';
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
 
+import { SyncedLocationDropdown } from './SyncedLocationDropdown';
+
 export const getToolbarConfig = (
 	state: EditorState,
 	intl: IntlShape,
@@ -51,6 +53,7 @@ export const getToolbarConfig = (
 		},
 	} = state;
 	const isBodiedSyncBlock = isBodiedSyncBlockNode(syncBlockObject.node, bodiedSyncBlock);
+	const { resourceId, localId } = syncBlockObject.node.attrs;
 
 	const { formatMessage } = intl;
 	const nodeType = syncBlockObject.node.type;
@@ -78,6 +81,26 @@ export const getToolbarConfig = (
 
 		items.push(deleteButton);
 	} else {
+		if (fg('platform_synced_block_dogfooding')) {
+			const syncedLocation: FloatingToolbarItem<Command> = {
+				type: 'custom',
+				fallback: [],
+				render: () => {
+					return (
+						<SyncedLocationDropdown
+							syncBlockStore={syncBlockStore}
+							resourceId={resourceId}
+							localId={localId}
+							intl={intl}
+							isSource={isBodiedSyncBlock}
+						/>
+					);
+				},
+			};
+
+			items.push(syncedLocation);
+		}
+
 		const copyButton: FloatingToolbarItem<Command> = {
 			id: 'editor.syncedBlock.copy',
 			type: 'button',

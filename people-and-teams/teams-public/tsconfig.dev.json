@@ -72,9 +72,6 @@
 		},
 		{
 			"path": "../ptc-test-utils/tsconfig.app.json"
-		},
-		{
-			"path": "../../platform/testing-library/tsconfig.app.json"
 		}
 	]
 }

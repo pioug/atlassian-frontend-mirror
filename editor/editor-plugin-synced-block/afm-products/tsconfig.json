@@ -30,6 +30,9 @@
 			"path": "../../../design-system/button/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/dropdown-menu/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-json-transformer/afm-products/tsconfig.json"
 		},
 		{
@@ -75,6 +78,9 @@
 			"path": "../../../design-system/icon-lab/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/logo/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/lozenge/afm-products/tsconfig.json"
 		},
 		{
@@ -85,6 +91,9 @@
 		},
 		{
 			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../tmp-editor-statsig/afm-products/tsconfig.json"

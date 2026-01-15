@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { screen } from '@testing-library/react';
-import { act } from '@testing-library/react-hooks';
+import { act, screen } from '@testing-library/react';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import {

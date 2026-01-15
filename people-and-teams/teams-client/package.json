@@ -62,8 +62,7 @@
 	"devDependencies": {
 		"@atlassian/codegen": "workspace:^",
 		"@atlassian/ptc-test-utils": "workspace:^",
-		"@testing-library/react": "root:*",
-		"@testing-library/react-hooks": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"@types/faker": "root:*",
 		"react-dom": "root:*",
 		"swagger-typescript-api": "root:*",

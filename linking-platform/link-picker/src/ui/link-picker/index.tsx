@@ -25,7 +25,6 @@ import { HelperMessage } from '@atlaskit/form';
 import { CardClient } from '@atlaskit/link-provider';
 import { isSafeUrl, normalizeUrl } from '@atlaskit/linking-common/url';
 import { browser } from '@atlaskit/linking-common/user-agent';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import LinkUrl from '@atlaskit/smart-card/link-url';
 import { N700 } from '@atlaskit/theme/colors';
@@ -194,11 +193,6 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 			const isEditing = !!initUrl;
 			const selectedItem: LinkSearchListItemData | undefined = items?.[selectedIndex];
 			const isSelectedItem = selectedItem?.url === url;
-			const previewableOnly =
-				fg('platform-linking-link-picker-previewable-only') && previewableLinksOnly;
-
-			const flaggedSubmitOnInputChange =
-				fg('platform-linking-link-picker-previewable-only') && submitOnInputChange;
 
 			const { trackAttribute, getAttributes } = useLinkPickerAnalytics();
 
@@ -321,12 +315,9 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 				[handleInsert, trackAttribute, items, activePlugin, isSubmitting],
 			);
 
-			const handleClearInvalidUrl = fg('platform-linking-link-picker-previewable-only')
-				? // eslint-disable-next-line react-hooks/rules-of-hooks
-					useCallback(() => {
-						dispatch({ invalidUrl: false });
-					}, [dispatch])
-				: () => {};
+			const handleClearInvalidUrl = useCallback(() => {
+				dispatch({ invalidUrl: false });
+			}, [dispatch]);
 
 			const handleSubmit = useCallback(
 				async (event?: FormEvent<HTMLFormElement>): Promise<void> => {
@@ -341,7 +332,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 
 					const normalized = normalizeUrl(url);
 					if (normalized) {
-						if (previewableOnly) {
+						if (previewableLinksOnly) {
 							try {
 								const urlResponse = await client.fetchData(normalized);
 								const responseObject = urlResponse?.data;
@@ -366,7 +357,15 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 						invalidUrl: true,
 					});
 				},
-				[dispatch, handleInsert, isSelectedItem, selectedItem, url, isSubmitting, previewableOnly],
+				[
+					dispatch,
+					handleInsert,
+					isSelectedItem,
+					selectedItem,
+					url,
+					isSubmitting,
+					previewableLinksOnly,
+				],
 			);
 
 			const handleTabChange = useCallback(
@@ -492,10 +491,8 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 				? customMessages.submitButtonLabel
 				: undefined;
 
-			const additionalErrorMessage =
-				fg('platform-linking-link-picker-previewable-only') && additionalError;
 			const errorMessage = invalidUrl ? (
-				previewableOnly && !hasPreview ? (
+				previewableLinksOnly && !hasPreview ? (
 					<FormattedMessage
 						{...formMessages.noEmbedAvailable}
 						values={{
@@ -522,7 +519,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 					onSubmitCapture={handleSubmit}
 				>
 					<TrackMount />
-					{flaggedSubmitOnInputChange && (
+					{submitOnInputChange && (
 						<AutoSubmitOnChange
 							url={url}
 							isSubmitting={isSubmitting}
@@ -568,7 +565,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 						value={url}
 						autoFocus
 						clearLabel={intl.formatMessage(formMessages.clearLink)}
-						error={errorMessage || additionalErrorMessage}
+						error={errorMessage || additionalError}
 						spotlightTargetName="link-picker-search-field-spotlight-target"
 						aria-readonly={isSubmitting}
 						{...a11yList}
@@ -661,7 +658,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 						css={(!queryState || !plugins?.length) && formFooterMargin}
 						customSubmitButtonLabel={customSubmitButtonLabel}
 						submitMessageId={submitMessageId}
-						hideSubmitButton={moveSubmitButton || flaggedSubmitOnInputChange}
+						hideSubmitButton={moveSubmitButton || submitOnInputChange}
 					/>
 				</form>
 			);

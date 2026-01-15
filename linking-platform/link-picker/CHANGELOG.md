@@ -1,5 +1,13 @@
 # @atlaskit/link-picker
 
+## 4.2.3
+
+### Patch Changes
+
+- [`742c41eb2dc54`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/742c41eb2dc54) -
+  feature gate cleanup for platform-linking-link-picker-previewable-only
+- Updated dependencies
+
 ## 4.2.2
 
 ### Patch Changes

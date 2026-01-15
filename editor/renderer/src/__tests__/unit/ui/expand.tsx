@@ -127,5 +127,69 @@ describe('Expand', () => {
 				expect(queryByTestId('expand-children')).toBeInTheDocument();
 			});
 		});
+
+		describe('loadBodyContent prop', () => {
+			beforeEach(() => {
+				mockFg.mockReturnValue(true);
+			});
+
+			it('should render children when loadBodyContent is true even without expanding', async () => {
+				const { queryByTestId } = renderWithIntl(
+					<ExpandWithInt
+						title={'Expand test title'}
+						nodeType={'expand'}
+						rendererAppearance={'full-page'}
+						loadBodyContent={true}
+					>
+						<TestChildren />
+					</ExpandWithInt>,
+				);
+
+				// Children should be rendered immediately due to loadBodyContent=true
+				await waitFor(() => {
+					expect(queryByTestId('expand-children')).toBeInTheDocument();
+				});
+			});
+
+			it('should not render children when loadBodyContent is false and expand is closed', () => {
+				const { queryByTestId } = renderWithIntl(
+					<ExpandWithInt
+						title={'Expand test title'}
+						nodeType={'expand'}
+						rendererAppearance={'full-page'}
+						loadBodyContent={false}
+					>
+						<TestChildren />
+					</ExpandWithInt>,
+				);
+
+				// Children should not be rendered when loadBodyContent is false and expand is closed
+				expect(queryByTestId('expand-children')).not.toBeInTheDocument();
+			});
+
+			it('should render children when loadBodyContent is undefined and expand is opened', async () => {
+				const { getByRole, queryByTestId } = renderWithIntl(
+					<ExpandWithInt
+						title={'Expand test title'}
+						nodeType={'expand'}
+						rendererAppearance={'full-page'}
+					>
+						<TestChildren />
+					</ExpandWithInt>,
+				);
+
+				// Children should not be rendered initially
+				expect(queryByTestId('expand-children')).not.toBeInTheDocument();
+
+				// Click to expand
+				const expandButton = getByRole('button');
+				fireEvent.click(expandButton);
+
+				// Children should be rendered after expanding
+				await waitFor(() => {
+					expect(queryByTestId('expand-children')).toBeInTheDocument();
+				});
+			});
+		});
 	});
 });

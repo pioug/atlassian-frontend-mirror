@@ -13,14 +13,14 @@ const DateTimePickerFormattingExample = (): React.JSX.Element => (
 			clearControlLabel="Clear Appointment date and time"
 			datePickerProps={{
 				dateFormat: 'YYYY-MM-DD',
-				placeholder: '2021-06-10',
+				placeholder: '',
 				parseInputValue: (date: string) => parseISO(date),
 				shouldShowCalendarButton: true,
 				label: 'Appointment date',
 			}}
 			timePickerProps={{
 				timeFormat: 'HH:mm',
-				placeholder: '13:30',
+				placeholder: '',
 				label: 'Appointment time',
 			}}
 		/>

@@ -1,5 +1,25 @@
 # @atlaskit/renderer
 
+## 125.4.1
+
+### Patch Changes
+
+- [`3bc6a51231706`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3bc6a51231706) -
+  [ux] Add 6px top margin to source and reference sync block
+
+## 125.4.0
+
+### Minor Changes
+
+- [`5852113f7c414`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5852113f7c414) -
+  Updates expand content rendering with inline comments to support lazy loading
+
+### Patch Changes
+
+- [`fff45a651440a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fff45a651440a) -
+  EDITOR-1665 add experience tracking analytics for sync block save, fetch and delete
+- Updated dependencies
+
 ## 125.3.2
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-decorations
 
+## 7.0.1
+
+### Patch Changes
+
+- [`0caee373bff2d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0caee373bff2d) -
+  Exported additional types to fix typescript portable annotation errors
+- Updated dependencies
+
 ## 7.0.0
 
 ### Patch Changes

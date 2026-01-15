@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 10.1.0
+
+### Minor Changes
+
+- [`1993b8227cbf3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1993b8227cbf3) -
+  [ux] Update selection extension APIs to allow Snippets to register at parent level
+
+### Patch Changes
+
+- [`c947ea0c83c0e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c947ea0c83c0e) -
+  [ED-29456] clean up platform_editor_toolbar_aifc_selection_extension
+- Updated dependencies
+
 ## 10.0.6
 
 ### Patch Changes

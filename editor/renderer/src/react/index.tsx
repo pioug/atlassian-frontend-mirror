@@ -33,7 +33,7 @@ import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import { getColumnWidths } from '@atlaskit/editor-common/utils';
 import { getMarksByOrder, isSameMark } from '@atlaskit/editor-common/validator';
-import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
+import { findChildrenByMark, findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
 import type { EmojiResourceConfig } from '@atlaskit/emoji/resource';
 import { fg } from '@atlaskit/platform-feature-flags';
 import type { MediaOptions } from '../types/mediaOptions';
@@ -303,6 +303,11 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 				return this.getInlineCardProps(node, path);
 			case 'expand':
 				return this.getExpandProps(node, path);
+			case 'nestedExpand':
+				if (fg('hot-121622_lazy_load_expand_content')) {
+					return this.getExpandProps(node, path);
+				}
+				return this.getProps(node, path);
 			case 'unsupportedBlock':
 			case 'unsupportedInline':
 				return this.getUnsupportedContentProps(node);
@@ -820,8 +825,21 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	}
 
 	private getExpandProps(node: Node, _path: Array<Node> = []) {
+		let loadBodyContent = false;
+		if (fg('hot-121622_lazy_load_expand_content')) {
+			const annotations = findChildrenByMark(node, node.type.schema.marks.annotation, true);
+			// Force rendering children if there are inline comments to support comments navigation
+			// which relies on the HTML node to be present.
+			loadBodyContent = annotations.some((annotation) => {
+				return annotation.node.marks.some((mark) => mark.attrs.annotationType === 'inlineComment');
+			});
+		}
+
 		if (!isNestedHeaderLinksEnabled(this.allowHeadingAnchorLinks)) {
-			return this.getProps(node);
+			return {
+				...this.getProps(node),
+				loadBodyContent,
+			};
 		}
 
 		const nestedHeaderIds = findChildrenByType(node, node.type.schema.nodes.heading).map(
@@ -831,6 +849,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		return {
 			...this.getProps(node),
 			nestedHeaderIds,
+			loadBodyContent,
 		};
 	}
 

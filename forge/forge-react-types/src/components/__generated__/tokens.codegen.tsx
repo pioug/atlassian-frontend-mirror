@@ -1,0 +1,1664 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ *
+ * Shared tokens file for UI Kit components. Contains design token maps for xcss support. Source: `packages/forge/forge-ui/src/components/UIKit/tokens.partial.tsx`
+ *
+ * @codegen <<SignedSource::df459397a72b58ebfabef3aae39cb9cc>>
+ * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/tokens.partial.tsx <<SignedSource::bef0e14a479afe48a4826d95974a80cf>>
+ */
+/* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */
+/* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766 */
+
+/**
+ * Token maps and utilities for Forge UI Kit
+ * 
+ * This file contains both:
+ * 1. Auto-generated design token maps (between @codegen markers) from @atlaskit/primitives
+ * 2. Manually maintained utility functions for working with these tokens
+ * 
+ * @see https://developer.atlassian.com/platform/forge/ui-kit/components/xcss/
+ */
+
+import { token, CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { css } from '@emotion/react';
+import type { SerializedStyles } from '@emotion/serialize';
+
+/**
+ * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::7fdf1ca659cb6ab8a47bc1b32c5d97e0>>
+ * @codegenId forge-tokens
+ * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
+ * @codegenDependency ../../../../../design-system/primitives/scripts/codegen-file-templates/dimensions.tsx <<SignedSource::cc9b3f12104c6ede803da6a42daac0b0>>
+ * @codegenDependency ../../../../../design-system/primitives/scripts/codegen-file-templates/layer.tsx <<SignedSource::92793ca02dbfdad66e53ffbe9f0baa0a>>
+ * @codegenDependency ../../../../../design-system/tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::6ba535fc3d46f6c8a7b6384ed59ec8d6>>
+ * @codegenDependency ../../../../../design-system/tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::07b9c29f8d9f95e43d59a7b7ad4ce7a2>>
+ * @codegenDependency ../../../../../design-system/tokens/src/artifacts/tokens-raw/atlassian-shape.tsx <<SignedSource::6683952932c4ad145144ebc086a2548e>>
+ */
+/* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
+export const dimensionMap = {
+	'100%': '100%',
+	'size.100': '1rem',
+	'size.200': '1.5rem',
+	'size.300': '2rem',
+	'size.400': '2.5rem',
+	'size.500': '3rem',
+	'size.600': '6rem',
+	'size.1000': '12rem',
+} as const;
+export type Dimension = keyof typeof dimensionMap;
+
+
+export const positiveSpaceMap: {
+	'space.0': 'var(--ds-space-0)';
+	'space.025': 'var(--ds-space-025)';
+	'space.050': 'var(--ds-space-050)';
+	'space.075': 'var(--ds-space-075)';
+	'space.100': 'var(--ds-space-100)';
+	'space.150': 'var(--ds-space-150)';
+	'space.200': 'var(--ds-space-200)';
+	'space.250': 'var(--ds-space-250)';
+	'space.300': 'var(--ds-space-300)';
+	'space.400': 'var(--ds-space-400)';
+	'space.500': 'var(--ds-space-500)';
+	'space.600': 'var(--ds-space-600)';
+	'space.800': 'var(--ds-space-800)';
+	'space.1000': 'var(--ds-space-1000)';
+} = {
+	'space.0': token('space.0', '0px'),
+	'space.025': token('space.025', '2px'),
+	'space.050': token('space.050', '4px'),
+	'space.075': token('space.075', '6px'),
+	'space.100': token('space.100', '8px'),
+	'space.150': token('space.150', '12px'),
+	'space.200': token('space.200', '16px'),
+	'space.250': token('space.250', '20px'),
+	'space.300': token('space.300', '24px'),
+	'space.400': token('space.400', '32px'),
+	'space.500': token('space.500', '40px'),
+	'space.600': token('space.600', '48px'),
+	'space.800': token('space.800', '64px'),
+	'space.1000': token('space.1000', '80px'),
+};
+export type Space = keyof typeof positiveSpaceMap;
+
+export const negativeSpaceMap: {
+	'space.negative.025': 'var(--ds-space-negative-025)';
+	'space.negative.050': 'var(--ds-space-negative-050)';
+	'space.negative.075': 'var(--ds-space-negative-075)';
+	'space.negative.100': 'var(--ds-space-negative-100)';
+	'space.negative.150': 'var(--ds-space-negative-150)';
+	'space.negative.200': 'var(--ds-space-negative-200)';
+	'space.negative.250': 'var(--ds-space-negative-250)';
+	'space.negative.300': 'var(--ds-space-negative-300)';
+	'space.negative.400': 'var(--ds-space-negative-400)';
+} = {
+	'space.negative.025': token('space.negative.025', '-2px'),
+	'space.negative.050': token('space.negative.050', '-4px'),
+	'space.negative.075': token('space.negative.075', '-6px'),
+	'space.negative.100': token('space.negative.100', '-8px'),
+	'space.negative.150': token('space.negative.150', '-12px'),
+	'space.negative.200': token('space.negative.200', '-16px'),
+	'space.negative.250': token('space.negative.250', '-20px'),
+	'space.negative.300': token('space.negative.300', '-24px'),
+	'space.negative.400': token('space.negative.400', '-32px'),
+};
+export type NegativeSpace = keyof typeof negativeSpaceMap;
+
+export const allSpaceMap: {
+	'space.0': 'var(--ds-space-0)';
+	'space.025': 'var(--ds-space-025)';
+	'space.050': 'var(--ds-space-050)';
+	'space.075': 'var(--ds-space-075)';
+	'space.100': 'var(--ds-space-100)';
+	'space.150': 'var(--ds-space-150)';
+	'space.200': 'var(--ds-space-200)';
+	'space.250': 'var(--ds-space-250)';
+	'space.300': 'var(--ds-space-300)';
+	'space.400': 'var(--ds-space-400)';
+	'space.500': 'var(--ds-space-500)';
+	'space.600': 'var(--ds-space-600)';
+	'space.800': 'var(--ds-space-800)';
+	'space.1000': 'var(--ds-space-1000)';
+	'space.negative.025': 'var(--ds-space-negative-025)';
+	'space.negative.050': 'var(--ds-space-negative-050)';
+	'space.negative.075': 'var(--ds-space-negative-075)';
+	'space.negative.100': 'var(--ds-space-negative-100)';
+	'space.negative.150': 'var(--ds-space-negative-150)';
+	'space.negative.200': 'var(--ds-space-negative-200)';
+	'space.negative.250': 'var(--ds-space-negative-250)';
+	'space.negative.300': 'var(--ds-space-negative-300)';
+	'space.negative.400': 'var(--ds-space-negative-400)';
+} = { ...positiveSpaceMap, ...negativeSpaceMap };
+
+export type AllSpace = keyof typeof allSpaceMap;
+
+
+export const textColorMap: {
+	'color.text': 'var(--ds-text)';
+	'color.text.accent.lime': 'var(--ds-text-accent-lime)';
+	'color.text.accent.lime.bolder': 'var(--ds-text-accent-lime-bolder)';
+	'color.text.accent.red': 'var(--ds-text-accent-red)';
+	'color.text.accent.red.bolder': 'var(--ds-text-accent-red-bolder)';
+	'color.text.accent.orange': 'var(--ds-text-accent-orange)';
+	'color.text.accent.orange.bolder': 'var(--ds-text-accent-orange-bolder)';
+	'color.text.accent.yellow': 'var(--ds-text-accent-yellow)';
+	'color.text.accent.yellow.bolder': 'var(--ds-text-accent-yellow-bolder)';
+	'color.text.accent.green': 'var(--ds-text-accent-green)';
+	'color.text.accent.green.bolder': 'var(--ds-text-accent-green-bolder)';
+	'color.text.accent.teal': 'var(--ds-text-accent-teal)';
+	'color.text.accent.teal.bolder': 'var(--ds-text-accent-teal-bolder)';
+	'color.text.accent.blue': 'var(--ds-text-accent-blue)';
+	'color.text.accent.blue.bolder': 'var(--ds-text-accent-blue-bolder)';
+	'color.text.accent.purple': 'var(--ds-text-accent-purple)';
+	'color.text.accent.purple.bolder': 'var(--ds-text-accent-purple-bolder)';
+	'color.text.accent.magenta': 'var(--ds-text-accent-magenta)';
+	'color.text.accent.magenta.bolder': 'var(--ds-text-accent-magenta-bolder)';
+	'color.text.accent.gray': 'var(--ds-text-accent-gray)';
+	'color.text.accent.gray.bolder': 'var(--ds-text-accent-gray-bolder)';
+	'color.text.disabled': 'var(--ds-text-disabled)';
+	'color.text.inverse': 'var(--ds-text-inverse)';
+	'color.text.selected': 'var(--ds-text-selected)';
+	'color.text.brand': 'var(--ds-text-brand)';
+	'color.text.danger': 'var(--ds-text-danger)';
+	'color.text.danger.bolder': 'var(--ds-text-danger-bolder)';
+	'color.text.warning': 'var(--ds-text-warning)';
+	'color.text.warning.inverse': 'var(--ds-text-warning-inverse)';
+	'color.text.warning.bolder': 'var(--ds-text-warning-bolder)';
+	'color.text.success': 'var(--ds-text-success)';
+	'color.text.success.bolder': 'var(--ds-text-success-bolder)';
+	'color.text.discovery': 'var(--ds-text-discovery)';
+	'color.text.discovery.bolder': 'var(--ds-text-discovery-bolder)';
+	'color.text.information': 'var(--ds-text-information)';
+	'color.text.information.bolder': 'var(--ds-text-information-bolder)';
+	'color.text.subtlest': 'var(--ds-text-subtlest)';
+	'color.text.subtle': 'var(--ds-text-subtle)';
+	'color.link': 'var(--ds-link)';
+	'color.link.pressed': 'var(--ds-link-pressed)';
+	'color.link.visited': 'var(--ds-link-visited)';
+	'color.link.visited.pressed': 'var(--ds-link-visited-pressed)';
+} = {
+	'color.text': token('color.text', '#172B4D'),
+	'color.text.accent.lime': token('color.text.accent.lime', '#4C6B1F'),
+	'color.text.accent.lime.bolder': token('color.text.accent.lime.bolder', '#37471F'),
+	'color.text.accent.red': token('color.text.accent.red', '#DE350B'),
+	'color.text.accent.red.bolder': token('color.text.accent.red.bolder', '#BF2600'),
+	'color.text.accent.orange': token('color.text.accent.orange', '#F18D13'),
+	'color.text.accent.orange.bolder': token('color.text.accent.orange.bolder', '#B65C02'),
+	'color.text.accent.yellow': token('color.text.accent.yellow', '#FF991F'),
+	'color.text.accent.yellow.bolder': token('color.text.accent.yellow.bolder', '#FF8B00'),
+	'color.text.accent.green': token('color.text.accent.green', '#00875A'),
+	'color.text.accent.green.bolder': token('color.text.accent.green.bolder', '#006644'),
+	'color.text.accent.teal': token('color.text.accent.teal', '#00A3BF'),
+	'color.text.accent.teal.bolder': token('color.text.accent.teal.bolder', '#008DA6'),
+	'color.text.accent.blue': token('color.text.accent.blue', '#0052CC'),
+	'color.text.accent.blue.bolder': token('color.text.accent.blue.bolder', '#0747A6'),
+	'color.text.accent.purple': token('color.text.accent.purple', '#5243AA'),
+	'color.text.accent.purple.bolder': token('color.text.accent.purple.bolder', '#403294'),
+	'color.text.accent.magenta': token('color.text.accent.magenta', '#E774BB'),
+	'color.text.accent.magenta.bolder': token('color.text.accent.magenta.bolder', '#DA62AC'),
+	'color.text.accent.gray': token('color.text.accent.gray', '#505F79'),
+	'color.text.accent.gray.bolder': token('color.text.accent.gray.bolder', '#172B4D'),
+	'color.text.disabled': token('color.text.disabled', '#A5ADBA'),
+	'color.text.inverse': token('color.text.inverse', '#FFFFFF'),
+	'color.text.selected': token('color.text.selected', '#0052CC'),
+	'color.text.brand': token('color.text.brand', '#0065FF'),
+	'color.text.danger': token('color.text.danger', '#DE350B'),
+	'color.text.danger.bolder': token('color.text.danger.bolder', '#BF2600'),
+	'color.text.warning': token('color.text.warning', '#974F0C'),
+	'color.text.warning.inverse': token('color.text.warning.inverse', '#172B4D'),
+	'color.text.warning.bolder': token('color.text.warning.bolder', '#974F0C'),
+	'color.text.success': token('color.text.success', '#006644'),
+	'color.text.success.bolder': token('color.text.success.bolder', '#006644'),
+	'color.text.discovery': token('color.text.discovery', '#403294'),
+	'color.text.discovery.bolder': token('color.text.discovery.bolder', '#403294'),
+	'color.text.information': token('color.text.information', '#0052CC'),
+	'color.text.information.bolder': token('color.text.information.bolder', '#0747A6'),
+	'color.text.subtlest': token('color.text.subtlest', '#7A869A'),
+	'color.text.subtle': token('color.text.subtle', '#42526E'),
+	'color.link': token('color.link', '#0052CC'),
+	'color.link.pressed': token('color.link.pressed', '#0747A6'),
+	'color.link.visited': token('color.link.visited', '#403294'),
+	'color.link.visited.pressed': token('color.link.visited.pressed', '#403294'),
+} as const;
+
+export type TextColor = keyof typeof textColorMap;
+
+export const backgroundColorMap: {
+	'color.background.accent.lime.subtlest': 'var(--ds-background-accent-lime-subtlest)';
+	'color.background.accent.lime.subtlest.hovered': 'var(--ds-background-accent-lime-subtlest-hovered)';
+	'color.background.accent.lime.subtlest.pressed': 'var(--ds-background-accent-lime-subtlest-pressed)';
+	'color.background.accent.lime.subtler': 'var(--ds-background-accent-lime-subtler)';
+	'color.background.accent.lime.subtler.hovered': 'var(--ds-background-accent-lime-subtler-hovered)';
+	'color.background.accent.lime.subtler.pressed': 'var(--ds-background-accent-lime-subtler-pressed)';
+	'color.background.accent.lime.subtle': 'var(--ds-background-accent-lime-subtle)';
+	'color.background.accent.lime.subtle.hovered': 'var(--ds-background-accent-lime-subtle-hovered)';
+	'color.background.accent.lime.subtle.pressed': 'var(--ds-background-accent-lime-subtle-pressed)';
+	'color.background.accent.lime.bolder': 'var(--ds-background-accent-lime-bolder)';
+	'color.background.accent.lime.bolder.hovered': 'var(--ds-background-accent-lime-bolder-hovered)';
+	'color.background.accent.lime.bolder.pressed': 'var(--ds-background-accent-lime-bolder-pressed)';
+	'color.background.accent.red.subtlest': 'var(--ds-background-accent-red-subtlest)';
+	'color.background.accent.red.subtlest.hovered': 'var(--ds-background-accent-red-subtlest-hovered)';
+	'color.background.accent.red.subtlest.pressed': 'var(--ds-background-accent-red-subtlest-pressed)';
+	'color.background.accent.red.subtler': 'var(--ds-background-accent-red-subtler)';
+	'color.background.accent.red.subtler.hovered': 'var(--ds-background-accent-red-subtler-hovered)';
+	'color.background.accent.red.subtler.pressed': 'var(--ds-background-accent-red-subtler-pressed)';
+	'color.background.accent.red.subtle': 'var(--ds-background-accent-red-subtle)';
+	'color.background.accent.red.subtle.hovered': 'var(--ds-background-accent-red-subtle-hovered)';
+	'color.background.accent.red.subtle.pressed': 'var(--ds-background-accent-red-subtle-pressed)';
+	'color.background.accent.red.bolder': 'var(--ds-background-accent-red-bolder)';
+	'color.background.accent.red.bolder.hovered': 'var(--ds-background-accent-red-bolder-hovered)';
+	'color.background.accent.red.bolder.pressed': 'var(--ds-background-accent-red-bolder-pressed)';
+	'color.background.accent.orange.subtlest': 'var(--ds-background-accent-orange-subtlest)';
+	'color.background.accent.orange.subtlest.hovered': 'var(--ds-background-accent-orange-subtlest-hovered)';
+	'color.background.accent.orange.subtlest.pressed': 'var(--ds-background-accent-orange-subtlest-pressed)';
+	'color.background.accent.orange.subtler': 'var(--ds-background-accent-orange-subtler)';
+	'color.background.accent.orange.subtler.hovered': 'var(--ds-background-accent-orange-subtler-hovered)';
+	'color.background.accent.orange.subtler.pressed': 'var(--ds-background-accent-orange-subtler-pressed)';
+	'color.background.accent.orange.subtle': 'var(--ds-background-accent-orange-subtle)';
+	'color.background.accent.orange.subtle.hovered': 'var(--ds-background-accent-orange-subtle-hovered)';
+	'color.background.accent.orange.subtle.pressed': 'var(--ds-background-accent-orange-subtle-pressed)';
+	'color.background.accent.orange.bolder': 'var(--ds-background-accent-orange-bolder)';
+	'color.background.accent.orange.bolder.hovered': 'var(--ds-background-accent-orange-bolder-hovered)';
+	'color.background.accent.orange.bolder.pressed': 'var(--ds-background-accent-orange-bolder-pressed)';
+	'color.background.accent.yellow.subtlest': 'var(--ds-background-accent-yellow-subtlest)';
+	'color.background.accent.yellow.subtlest.hovered': 'var(--ds-background-accent-yellow-subtlest-hovered)';
+	'color.background.accent.yellow.subtlest.pressed': 'var(--ds-background-accent-yellow-subtlest-pressed)';
+	'color.background.accent.yellow.subtler': 'var(--ds-background-accent-yellow-subtler)';
+	'color.background.accent.yellow.subtler.hovered': 'var(--ds-background-accent-yellow-subtler-hovered)';
+	'color.background.accent.yellow.subtler.pressed': 'var(--ds-background-accent-yellow-subtler-pressed)';
+	'color.background.accent.yellow.subtle': 'var(--ds-background-accent-yellow-subtle)';
+	'color.background.accent.yellow.subtle.hovered': 'var(--ds-background-accent-yellow-subtle-hovered)';
+	'color.background.accent.yellow.subtle.pressed': 'var(--ds-background-accent-yellow-subtle-pressed)';
+	'color.background.accent.yellow.bolder': 'var(--ds-background-accent-yellow-bolder)';
+	'color.background.accent.yellow.bolder.hovered': 'var(--ds-background-accent-yellow-bolder-hovered)';
+	'color.background.accent.yellow.bolder.pressed': 'var(--ds-background-accent-yellow-bolder-pressed)';
+	'color.background.accent.green.subtlest': 'var(--ds-background-accent-green-subtlest)';
+	'color.background.accent.green.subtlest.hovered': 'var(--ds-background-accent-green-subtlest-hovered)';
+	'color.background.accent.green.subtlest.pressed': 'var(--ds-background-accent-green-subtlest-pressed)';
+	'color.background.accent.green.subtler': 'var(--ds-background-accent-green-subtler)';
+	'color.background.accent.green.subtler.hovered': 'var(--ds-background-accent-green-subtler-hovered)';
+	'color.background.accent.green.subtler.pressed': 'var(--ds-background-accent-green-subtler-pressed)';
+	'color.background.accent.green.subtle': 'var(--ds-background-accent-green-subtle)';
+	'color.background.accent.green.subtle.hovered': 'var(--ds-background-accent-green-subtle-hovered)';
+	'color.background.accent.green.subtle.pressed': 'var(--ds-background-accent-green-subtle-pressed)';
+	'color.background.accent.green.bolder': 'var(--ds-background-accent-green-bolder)';
+	'color.background.accent.green.bolder.hovered': 'var(--ds-background-accent-green-bolder-hovered)';
+	'color.background.accent.green.bolder.pressed': 'var(--ds-background-accent-green-bolder-pressed)';
+	'color.background.accent.teal.subtlest': 'var(--ds-background-accent-teal-subtlest)';
+	'color.background.accent.teal.subtlest.hovered': 'var(--ds-background-accent-teal-subtlest-hovered)';
+	'color.background.accent.teal.subtlest.pressed': 'var(--ds-background-accent-teal-subtlest-pressed)';
+	'color.background.accent.teal.subtler': 'var(--ds-background-accent-teal-subtler)';
+	'color.background.accent.teal.subtler.hovered': 'var(--ds-background-accent-teal-subtler-hovered)';
+	'color.background.accent.teal.subtler.pressed': 'var(--ds-background-accent-teal-subtler-pressed)';
+	'color.background.accent.teal.subtle': 'var(--ds-background-accent-teal-subtle)';
+	'color.background.accent.teal.subtle.hovered': 'var(--ds-background-accent-teal-subtle-hovered)';
+	'color.background.accent.teal.subtle.pressed': 'var(--ds-background-accent-teal-subtle-pressed)';
+	'color.background.accent.teal.bolder': 'var(--ds-background-accent-teal-bolder)';
+	'color.background.accent.teal.bolder.hovered': 'var(--ds-background-accent-teal-bolder-hovered)';
+	'color.background.accent.teal.bolder.pressed': 'var(--ds-background-accent-teal-bolder-pressed)';
+	'color.background.accent.blue.subtlest': 'var(--ds-background-accent-blue-subtlest)';
+	'color.background.accent.blue.subtlest.hovered': 'var(--ds-background-accent-blue-subtlest-hovered)';
+	'color.background.accent.blue.subtlest.pressed': 'var(--ds-background-accent-blue-subtlest-pressed)';
+	'color.background.accent.blue.subtler': 'var(--ds-background-accent-blue-subtler)';
+	'color.background.accent.blue.subtler.hovered': 'var(--ds-background-accent-blue-subtler-hovered)';
+	'color.background.accent.blue.subtler.pressed': 'var(--ds-background-accent-blue-subtler-pressed)';
+	'color.background.accent.blue.subtle': 'var(--ds-background-accent-blue-subtle)';
+	'color.background.accent.blue.subtle.hovered': 'var(--ds-background-accent-blue-subtle-hovered)';
+	'color.background.accent.blue.subtle.pressed': 'var(--ds-background-accent-blue-subtle-pressed)';
+	'color.background.accent.blue.bolder': 'var(--ds-background-accent-blue-bolder)';
+	'color.background.accent.blue.bolder.hovered': 'var(--ds-background-accent-blue-bolder-hovered)';
+	'color.background.accent.blue.bolder.pressed': 'var(--ds-background-accent-blue-bolder-pressed)';
+	'color.background.accent.purple.subtlest': 'var(--ds-background-accent-purple-subtlest)';
+	'color.background.accent.purple.subtlest.hovered': 'var(--ds-background-accent-purple-subtlest-hovered)';
+	'color.background.accent.purple.subtlest.pressed': 'var(--ds-background-accent-purple-subtlest-pressed)';
+	'color.background.accent.purple.subtler': 'var(--ds-background-accent-purple-subtler)';
+	'color.background.accent.purple.subtler.hovered': 'var(--ds-background-accent-purple-subtler-hovered)';
+	'color.background.accent.purple.subtler.pressed': 'var(--ds-background-accent-purple-subtler-pressed)';
+	'color.background.accent.purple.subtle': 'var(--ds-background-accent-purple-subtle)';
+	'color.background.accent.purple.subtle.hovered': 'var(--ds-background-accent-purple-subtle-hovered)';
+	'color.background.accent.purple.subtle.pressed': 'var(--ds-background-accent-purple-subtle-pressed)';
+	'color.background.accent.purple.bolder': 'var(--ds-background-accent-purple-bolder)';
+	'color.background.accent.purple.bolder.hovered': 'var(--ds-background-accent-purple-bolder-hovered)';
+	'color.background.accent.purple.bolder.pressed': 'var(--ds-background-accent-purple-bolder-pressed)';
+	'color.background.accent.magenta.subtlest': 'var(--ds-background-accent-magenta-subtlest)';
+	'color.background.accent.magenta.subtlest.hovered': 'var(--ds-background-accent-magenta-subtlest-hovered)';
+	'color.background.accent.magenta.subtlest.pressed': 'var(--ds-background-accent-magenta-subtlest-pressed)';
+	'color.background.accent.magenta.subtler': 'var(--ds-background-accent-magenta-subtler)';
+	'color.background.accent.magenta.subtler.hovered': 'var(--ds-background-accent-magenta-subtler-hovered)';
+	'color.background.accent.magenta.subtler.pressed': 'var(--ds-background-accent-magenta-subtler-pressed)';
+	'color.background.accent.magenta.subtle': 'var(--ds-background-accent-magenta-subtle)';
+	'color.background.accent.magenta.subtle.hovered': 'var(--ds-background-accent-magenta-subtle-hovered)';
+	'color.background.accent.magenta.subtle.pressed': 'var(--ds-background-accent-magenta-subtle-pressed)';
+	'color.background.accent.magenta.bolder': 'var(--ds-background-accent-magenta-bolder)';
+	'color.background.accent.magenta.bolder.hovered': 'var(--ds-background-accent-magenta-bolder-hovered)';
+	'color.background.accent.magenta.bolder.pressed': 'var(--ds-background-accent-magenta-bolder-pressed)';
+	'color.background.accent.gray.subtlest': 'var(--ds-background-accent-gray-subtlest)';
+	'color.background.accent.gray.subtlest.hovered': 'var(--ds-background-accent-gray-subtlest-hovered)';
+	'color.background.accent.gray.subtlest.pressed': 'var(--ds-background-accent-gray-subtlest-pressed)';
+	'color.background.accent.gray.subtler': 'var(--ds-background-accent-gray-subtler)';
+	'color.background.accent.gray.subtler.hovered': 'var(--ds-background-accent-gray-subtler-hovered)';
+	'color.background.accent.gray.subtler.pressed': 'var(--ds-background-accent-gray-subtler-pressed)';
+	'color.background.accent.gray.subtle': 'var(--ds-background-accent-gray-subtle)';
+	'color.background.accent.gray.subtle.hovered': 'var(--ds-background-accent-gray-subtle-hovered)';
+	'color.background.accent.gray.subtle.pressed': 'var(--ds-background-accent-gray-subtle-pressed)';
+	'color.background.accent.gray.bolder': 'var(--ds-background-accent-gray-bolder)';
+	'color.background.accent.gray.bolder.hovered': 'var(--ds-background-accent-gray-bolder-hovered)';
+	'color.background.accent.gray.bolder.pressed': 'var(--ds-background-accent-gray-bolder-pressed)';
+	'color.background.disabled': 'var(--ds-background-disabled)';
+	'color.background.input': 'var(--ds-background-input)';
+	'color.background.input.hovered': 'var(--ds-background-input-hovered)';
+	'color.background.input.pressed': 'var(--ds-background-input-pressed)';
+	'color.background.inverse.subtle': 'var(--ds-background-inverse-subtle)';
+	'color.background.inverse.subtle.hovered': 'var(--ds-background-inverse-subtle-hovered)';
+	'color.background.inverse.subtle.pressed': 'var(--ds-background-inverse-subtle-pressed)';
+	'color.background.neutral': 'var(--ds-background-neutral)';
+	'color.background.neutral.hovered': 'var(--ds-background-neutral-hovered)';
+	'color.background.neutral.pressed': 'var(--ds-background-neutral-pressed)';
+	'color.background.neutral.subtle': 'var(--ds-background-neutral-subtle)';
+	'color.background.neutral.subtle.hovered': 'var(--ds-background-neutral-subtle-hovered)';
+	'color.background.neutral.subtle.pressed': 'var(--ds-background-neutral-subtle-pressed)';
+	'color.background.neutral.bold': 'var(--ds-background-neutral-bold)';
+	'color.background.neutral.bold.hovered': 'var(--ds-background-neutral-bold-hovered)';
+	'color.background.neutral.bold.pressed': 'var(--ds-background-neutral-bold-pressed)';
+	'color.background.selected': 'var(--ds-background-selected)';
+	'color.background.selected.hovered': 'var(--ds-background-selected-hovered)';
+	'color.background.selected.pressed': 'var(--ds-background-selected-pressed)';
+	'color.background.selected.bold': 'var(--ds-background-selected-bold)';
+	'color.background.selected.bold.hovered': 'var(--ds-background-selected-bold-hovered)';
+	'color.background.selected.bold.pressed': 'var(--ds-background-selected-bold-pressed)';
+	'color.background.brand.subtlest': 'var(--ds-background-brand-subtlest)';
+	'color.background.brand.subtlest.hovered': 'var(--ds-background-brand-subtlest-hovered)';
+	'color.background.brand.subtlest.pressed': 'var(--ds-background-brand-subtlest-pressed)';
+	'color.background.brand.bold': 'var(--ds-background-brand-bold)';
+	'color.background.brand.bold.hovered': 'var(--ds-background-brand-bold-hovered)';
+	'color.background.brand.bold.pressed': 'var(--ds-background-brand-bold-pressed)';
+	'color.background.brand.boldest': 'var(--ds-background-brand-boldest)';
+	'color.background.brand.boldest.hovered': 'var(--ds-background-brand-boldest-hovered)';
+	'color.background.brand.boldest.pressed': 'var(--ds-background-brand-boldest-pressed)';
+	'color.background.danger': 'var(--ds-background-danger)';
+	'color.background.danger.hovered': 'var(--ds-background-danger-hovered)';
+	'color.background.danger.pressed': 'var(--ds-background-danger-pressed)';
+	'color.background.danger.subtler': 'var(--ds-background-danger-subtler)';
+	'color.background.danger.subtler.hovered': 'var(--ds-background-danger-subtler-hovered)';
+	'color.background.danger.subtler.pressed': 'var(--ds-background-danger-subtler-pressed)';
+	'color.background.danger.bold': 'var(--ds-background-danger-bold)';
+	'color.background.danger.bold.hovered': 'var(--ds-background-danger-bold-hovered)';
+	'color.background.danger.bold.pressed': 'var(--ds-background-danger-bold-pressed)';
+	'color.background.warning': 'var(--ds-background-warning)';
+	'color.background.warning.hovered': 'var(--ds-background-warning-hovered)';
+	'color.background.warning.pressed': 'var(--ds-background-warning-pressed)';
+	'color.background.warning.subtler': 'var(--ds-background-warning-subtler)';
+	'color.background.warning.subtler.hovered': 'var(--ds-background-warning-subtler-hovered)';
+	'color.background.warning.subtler.pressed': 'var(--ds-background-warning-subtler-pressed)';
+	'color.background.warning.bold': 'var(--ds-background-warning-bold)';
+	'color.background.warning.bold.hovered': 'var(--ds-background-warning-bold-hovered)';
+	'color.background.warning.bold.pressed': 'var(--ds-background-warning-bold-pressed)';
+	'color.background.success': 'var(--ds-background-success)';
+	'color.background.success.hovered': 'var(--ds-background-success-hovered)';
+	'color.background.success.pressed': 'var(--ds-background-success-pressed)';
+	'color.background.success.subtler': 'var(--ds-background-success-subtler)';
+	'color.background.success.subtler.hovered': 'var(--ds-background-success-subtler-hovered)';
+	'color.background.success.subtler.pressed': 'var(--ds-background-success-subtler-pressed)';
+	'color.background.success.bold': 'var(--ds-background-success-bold)';
+	'color.background.success.bold.hovered': 'var(--ds-background-success-bold-hovered)';
+	'color.background.success.bold.pressed': 'var(--ds-background-success-bold-pressed)';
+	'color.background.discovery': 'var(--ds-background-discovery)';
+	'color.background.discovery.hovered': 'var(--ds-background-discovery-hovered)';
+	'color.background.discovery.pressed': 'var(--ds-background-discovery-pressed)';
+	'color.background.discovery.subtler': 'var(--ds-background-discovery-subtler)';
+	'color.background.discovery.subtler.hovered': 'var(--ds-background-discovery-subtler-hovered)';
+	'color.background.discovery.subtler.pressed': 'var(--ds-background-discovery-subtler-pressed)';
+	'color.background.discovery.bold': 'var(--ds-background-discovery-bold)';
+	'color.background.discovery.bold.hovered': 'var(--ds-background-discovery-bold-hovered)';
+	'color.background.discovery.bold.pressed': 'var(--ds-background-discovery-bold-pressed)';
+	'color.background.information': 'var(--ds-background-information)';
+	'color.background.information.hovered': 'var(--ds-background-information-hovered)';
+	'color.background.information.pressed': 'var(--ds-background-information-pressed)';
+	'color.background.information.subtler': 'var(--ds-background-information-subtler)';
+	'color.background.information.subtler.hovered': 'var(--ds-background-information-subtler-hovered)';
+	'color.background.information.subtler.pressed': 'var(--ds-background-information-subtler-pressed)';
+	'color.background.information.bold': 'var(--ds-background-information-bold)';
+	'color.background.information.bold.hovered': 'var(--ds-background-information-bold-hovered)';
+	'color.background.information.bold.pressed': 'var(--ds-background-information-bold-pressed)';
+	'color.blanket': 'var(--ds-blanket)';
+	'color.blanket.selected': 'var(--ds-blanket-selected)';
+	'color.blanket.danger': 'var(--ds-blanket-danger)';
+	'color.skeleton': 'var(--ds-skeleton)';
+	'color.skeleton.subtle': 'var(--ds-skeleton-subtle)';
+	'elevation.surface': 'var(--ds-surface)';
+	'elevation.surface.hovered': 'var(--ds-surface-hovered)';
+	'elevation.surface.pressed': 'var(--ds-surface-pressed)';
+	'elevation.surface.overlay': 'var(--ds-surface-overlay)';
+	'elevation.surface.overlay.hovered': 'var(--ds-surface-overlay-hovered)';
+	'elevation.surface.overlay.pressed': 'var(--ds-surface-overlay-pressed)';
+	'elevation.surface.raised': 'var(--ds-surface-raised)';
+	'elevation.surface.raised.hovered': 'var(--ds-surface-raised-hovered)';
+	'elevation.surface.raised.pressed': 'var(--ds-surface-raised-pressed)';
+	'elevation.surface.sunken': 'var(--ds-surface-sunken)';
+	'utility.elevation.surface.current': 'var(--ds-elevation-surface-current)';
+} = {
+	'color.background.accent.lime.subtlest': token(
+		'color.background.accent.lime.subtlest',
+		'#EEFBDA',
+	),
+	'color.background.accent.lime.subtlest.hovered': token(
+		'color.background.accent.lime.subtlest.hovered',
+		'#D3F1A7',
+	),
+	'color.background.accent.lime.subtlest.pressed': token(
+		'color.background.accent.lime.subtlest.pressed',
+		'#B3DF72',
+	),
+	'color.background.accent.lime.subtler': token('color.background.accent.lime.subtler', '#D3F1A7'),
+	'color.background.accent.lime.subtler.hovered': token(
+		'color.background.accent.lime.subtler.hovered',
+		'#B3DF72',
+	),
+	'color.background.accent.lime.subtler.pressed': token(
+		'color.background.accent.lime.subtler.pressed',
+		'#94C748',
+	),
+	'color.background.accent.lime.subtle': token('color.background.accent.lime.subtle', '#94C748'),
+	'color.background.accent.lime.subtle.hovered': token(
+		'color.background.accent.lime.subtle.hovered',
+		'#B3DF72',
+	),
+	'color.background.accent.lime.subtle.pressed': token(
+		'color.background.accent.lime.subtle.pressed',
+		'#D3F1A7',
+	),
+	'color.background.accent.lime.bolder': token('color.background.accent.lime.bolder', '#5B7F24'),
+	'color.background.accent.lime.bolder.hovered': token(
+		'color.background.accent.lime.bolder.hovered',
+		'#37471F',
+	),
+	'color.background.accent.lime.bolder.pressed': token(
+		'color.background.accent.lime.bolder.pressed',
+		'#37471F',
+	),
+	'color.background.accent.red.subtlest': token('color.background.accent.red.subtlest', '#FF8F73'),
+	'color.background.accent.red.subtlest.hovered': token(
+		'color.background.accent.red.subtlest.hovered',
+		'#FF7452',
+	),
+	'color.background.accent.red.subtlest.pressed': token(
+		'color.background.accent.red.subtlest.pressed',
+		'#FF5630',
+	),
+	'color.background.accent.red.subtler': token('color.background.accent.red.subtler', '#FF7452'),
+	'color.background.accent.red.subtler.hovered': token(
+		'color.background.accent.red.subtler.hovered',
+		'#FF5630',
+	),
+	'color.background.accent.red.subtler.pressed': token(
+		'color.background.accent.red.subtler.pressed',
+		'#DE350B',
+	),
+	'color.background.accent.red.subtle': token('color.background.accent.red.subtle', '#DE350B'),
+	'color.background.accent.red.subtle.hovered': token(
+		'color.background.accent.red.subtle.hovered',
+		'#FF5630',
+	),
+	'color.background.accent.red.subtle.pressed': token(
+		'color.background.accent.red.subtle.pressed',
+		'#FF7452',
+	),
+	'color.background.accent.red.bolder': token('color.background.accent.red.bolder', '#DE350B'),
+	'color.background.accent.red.bolder.hovered': token(
+		'color.background.accent.red.bolder.hovered',
+		'#FF5630',
+	),
+	'color.background.accent.red.bolder.pressed': token(
+		'color.background.accent.red.bolder.pressed',
+		'#FF7452',
+	),
+	'color.background.accent.orange.subtlest': token(
+		'color.background.accent.orange.subtlest',
+		'#F18D13',
+	),
+	'color.background.accent.orange.subtlest.hovered': token(
+		'color.background.accent.orange.subtlest.hovered',
+		'#FEC57B',
+	),
+	'color.background.accent.orange.subtlest.pressed': token(
+		'color.background.accent.orange.subtlest.pressed',
+		'#FFE2BD',
+	),
+	'color.background.accent.orange.subtler': token(
+		'color.background.accent.orange.subtler',
+		'#B65C02',
+	),
+	'color.background.accent.orange.subtler.hovered': token(
+		'color.background.accent.orange.subtler.hovered',
+		'#F18D13',
+	),
+	'color.background.accent.orange.subtler.pressed': token(
+		'color.background.accent.orange.subtler.pressed',
+		'#FEC57B',
+	),
+	'color.background.accent.orange.subtle': token(
+		'color.background.accent.orange.subtle',
+		'#5F3811',
+	),
+	'color.background.accent.orange.subtle.hovered': token(
+		'color.background.accent.orange.subtle.hovered',
+		'#974F0C',
+	),
+	'color.background.accent.orange.subtle.pressed': token(
+		'color.background.accent.orange.subtle.pressed',
+		'#B65C02',
+	),
+	'color.background.accent.orange.bolder': token(
+		'color.background.accent.orange.bolder',
+		'#43290F',
+	),
+	'color.background.accent.orange.bolder.hovered': token(
+		'color.background.accent.orange.bolder.hovered',
+		'#5F3811',
+	),
+	'color.background.accent.orange.bolder.pressed': token(
+		'color.background.accent.orange.bolder.pressed',
+		'#974F0C',
+	),
+	'color.background.accent.yellow.subtlest': token(
+		'color.background.accent.yellow.subtlest',
+		'#FFE380',
+	),
+	'color.background.accent.yellow.subtlest.hovered': token(
+		'color.background.accent.yellow.subtlest.hovered',
+		'#FFC400',
+	),
+	'color.background.accent.yellow.subtlest.pressed': token(
+		'color.background.accent.yellow.subtlest.pressed',
+		'#FFAB00',
+	),
+	'color.background.accent.yellow.subtler': token(
+		'color.background.accent.yellow.subtler',
+		'#FFC400',
+	),
+	'color.background.accent.yellow.subtler.hovered': token(
+		'color.background.accent.yellow.subtler.hovered',
+		'#FFAB00',
+	),
+	'color.background.accent.yellow.subtler.pressed': token(
+		'color.background.accent.yellow.subtler.pressed',
+		'#FF991F',
+	),
+	'color.background.accent.yellow.subtle': token(
+		'color.background.accent.yellow.subtle',
+		'#FF991F',
+	),
+	'color.background.accent.yellow.subtle.hovered': token(
+		'color.background.accent.yellow.subtle.hovered',
+		'#FFAB00',
+	),
+	'color.background.accent.yellow.subtle.pressed': token(
+		'color.background.accent.yellow.subtle.pressed',
+		'#FFC400',
+	),
+	'color.background.accent.yellow.bolder': token(
+		'color.background.accent.yellow.bolder',
+		'#FF991F',
+	),
+	'color.background.accent.yellow.bolder.hovered': token(
+		'color.background.accent.yellow.bolder.hovered',
+		'#FFAB00',
+	),
+	'color.background.accent.yellow.bolder.pressed': token(
+		'color.background.accent.yellow.bolder.pressed',
+		'#FFC400',
+	),
+	'color.background.accent.green.subtlest': token(
+		'color.background.accent.green.subtlest',
+		'#79F2C0',
+	),
+	'color.background.accent.green.subtlest.hovered': token(
+		'color.background.accent.green.subtlest.hovered',
+		'#57D9A3',
+	),
+	'color.background.accent.green.subtlest.pressed': token(
+		'color.background.accent.green.subtlest.pressed',
+		'#36B37E',
+	),
+	'color.background.accent.green.subtler': token(
+		'color.background.accent.green.subtler',
+		'#57D9A3',
+	),
+	'color.background.accent.green.subtler.hovered': token(
+		'color.background.accent.green.subtler.hovered',
+		'#36B37E',
+	),
+	'color.background.accent.green.subtler.pressed': token(
+		'color.background.accent.green.subtler.pressed',
+		'#00875A',
+	),
+	'color.background.accent.green.subtle': token('color.background.accent.green.subtle', '#00875A'),
+	'color.background.accent.green.subtle.hovered': token(
+		'color.background.accent.green.subtle.hovered',
+		'#36B37E',
+	),
+	'color.background.accent.green.subtle.pressed': token(
+		'color.background.accent.green.subtle.pressed',
+		'#57D9A3',
+	),
+	'color.background.accent.green.bolder': token('color.background.accent.green.bolder', '#00875A'),
+	'color.background.accent.green.bolder.hovered': token(
+		'color.background.accent.green.bolder.hovered',
+		'#36B37E',
+	),
+	'color.background.accent.green.bolder.pressed': token(
+		'color.background.accent.green.bolder.pressed',
+		'#57D9A3',
+	),
+	'color.background.accent.teal.subtlest': token(
+		'color.background.accent.teal.subtlest',
+		'#79E2F2',
+	),
+	'color.background.accent.teal.subtlest.hovered': token(
+		'color.background.accent.teal.subtlest.hovered',
+		'#00C7E6',
+	),
+	'color.background.accent.teal.subtlest.pressed': token(
+		'color.background.accent.teal.subtlest.pressed',
+		'#00B8D9',
+	),
+	'color.background.accent.teal.subtler': token('color.background.accent.teal.subtler', '#00C7E6'),
+	'color.background.accent.teal.subtler.hovered': token(
+		'color.background.accent.teal.subtler.hovered',
+		'#00B8D9',
+	),
+	'color.background.accent.teal.subtler.pressed': token(
+		'color.background.accent.teal.subtler.pressed',
+		'#00A3BF',
+	),
+	'color.background.accent.teal.subtle': token('color.background.accent.teal.subtle', '#00A3BF'),
+	'color.background.accent.teal.subtle.hovered': token(
+		'color.background.accent.teal.subtle.hovered',
+		'#00B8D9',
+	),
+	'color.background.accent.teal.subtle.pressed': token(
+		'color.background.accent.teal.subtle.pressed',
+		'#00C7E6',
+	),
+	'color.background.accent.teal.bolder': token('color.background.accent.teal.bolder', '#00A3BF'),
+	'color.background.accent.teal.bolder.hovered': token(
+		'color.background.accent.teal.bolder.hovered',
+		'#00B8D9',
+	),
+	'color.background.accent.teal.bolder.pressed': token(
+		'color.background.accent.teal.bolder.pressed',
+		'#00C7E6',
+	),
+	'color.background.accent.blue.subtlest': token(
+		'color.background.accent.blue.subtlest',
+		'#4C9AFF',
+	),
+	'color.background.accent.blue.subtlest.hovered': token(
+		'color.background.accent.blue.subtlest.hovered',
+		'#2684FF',
+	),
+	'color.background.accent.blue.subtlest.pressed': token(
+		'color.background.accent.blue.subtlest.pressed',
+		'#0065FF',
+	),
+	'color.background.accent.blue.subtler': token('color.background.accent.blue.subtler', '#2684FF'),
+	'color.background.accent.blue.subtler.hovered': token(
+		'color.background.accent.blue.subtler.hovered',
+		'#0065FF',
+	),
+	'color.background.accent.blue.subtler.pressed': token(
+		'color.background.accent.blue.subtler.pressed',
+		'#0052CC',
+	),
+	'color.background.accent.blue.subtle': token('color.background.accent.blue.subtle', '#0052CC'),
+	'color.background.accent.blue.subtle.hovered': token(
+		'color.background.accent.blue.subtle.hovered',
+		'#0065FF',
+	),
+	'color.background.accent.blue.subtle.pressed': token(
+		'color.background.accent.blue.subtle.pressed',
+		'#2684FF',
+	),
+	'color.background.accent.blue.bolder': token('color.background.accent.blue.bolder', '#0052CC'),
+	'color.background.accent.blue.bolder.hovered': token(
+		'color.background.accent.blue.bolder.hovered',
+		'#0065FF',
+	),
+	'color.background.accent.blue.bolder.pressed': token(
+		'color.background.accent.blue.bolder.pressed',
+		'#2684FF',
+	),
+	'color.background.accent.purple.subtlest': token(
+		'color.background.accent.purple.subtlest',
+		'#998DD9',
+	),
+	'color.background.accent.purple.subtlest.hovered': token(
+		'color.background.accent.purple.subtlest.hovered',
+		'#8777D9',
+	),
+	'color.background.accent.purple.subtlest.pressed': token(
+		'color.background.accent.purple.subtlest.pressed',
+		'#6554C0',
+	),
+	'color.background.accent.purple.subtler': token(
+		'color.background.accent.purple.subtler',
+		'#8777D9',
+	),
+	'color.background.accent.purple.subtler.hovered': token(
+		'color.background.accent.purple.subtler.hovered',
+		'#6554C0',
+	),
+	'color.background.accent.purple.subtler.pressed': token(
+		'color.background.accent.purple.subtler.pressed',
+		'#5243AA',
+	),
+	'color.background.accent.purple.subtle': token(
+		'color.background.accent.purple.subtle',
+		'#5243AA',
+	),
+	'color.background.accent.purple.subtle.hovered': token(
+		'color.background.accent.purple.subtle.hovered',
+		'#6554C0',
+	),
+	'color.background.accent.purple.subtle.pressed': token(
+		'color.background.accent.purple.subtle.pressed',
+		'#8777D9',
+	),
+	'color.background.accent.purple.bolder': token(
+		'color.background.accent.purple.bolder',
+		'#5243AA',
+	),
+	'color.background.accent.purple.bolder.hovered': token(
+		'color.background.accent.purple.bolder.hovered',
+		'#6554C0',
+	),
+	'color.background.accent.purple.bolder.pressed': token(
+		'color.background.accent.purple.bolder.pressed',
+		'#8777D9',
+	),
+	'color.background.accent.magenta.subtlest': token(
+		'color.background.accent.magenta.subtlest',
+		'#FFECF8',
+	),
+	'color.background.accent.magenta.subtlest.hovered': token(
+		'color.background.accent.magenta.subtlest.hovered',
+		'#FDD0EC',
+	),
+	'color.background.accent.magenta.subtlest.pressed': token(
+		'color.background.accent.magenta.subtlest.pressed',
+		'#F797D2',
+	),
+	'color.background.accent.magenta.subtler': token(
+		'color.background.accent.magenta.subtler',
+		'#FDD0EC',
+	),
+	'color.background.accent.magenta.subtler.hovered': token(
+		'color.background.accent.magenta.subtler.hovered',
+		'#F797D2',
+	),
+	'color.background.accent.magenta.subtler.pressed': token(
+		'color.background.accent.magenta.subtler.pressed',
+		'#E774BB',
+	),
+	'color.background.accent.magenta.subtle': token(
+		'color.background.accent.magenta.subtle',
+		'#E774BB',
+	),
+	'color.background.accent.magenta.subtle.hovered': token(
+		'color.background.accent.magenta.subtle.hovered',
+		'#F797D2',
+	),
+	'color.background.accent.magenta.subtle.pressed': token(
+		'color.background.accent.magenta.subtle.pressed',
+		'#FDD0EC',
+	),
+	'color.background.accent.magenta.bolder': token(
+		'color.background.accent.magenta.bolder',
+		'#AE4787',
+	),
+	'color.background.accent.magenta.bolder.hovered': token(
+		'color.background.accent.magenta.bolder.hovered',
+		'#943D73',
+	),
+	'color.background.accent.magenta.bolder.pressed': token(
+		'color.background.accent.magenta.bolder.pressed',
+		'#50253F',
+	),
+	'color.background.accent.gray.subtlest': token(
+		'color.background.accent.gray.subtlest',
+		'#6B778C',
+	),
+	'color.background.accent.gray.subtlest.hovered': token(
+		'color.background.accent.gray.subtlest.hovered',
+		'#5E6C84',
+	),
+	'color.background.accent.gray.subtlest.pressed': token(
+		'color.background.accent.gray.subtlest.pressed',
+		'#505F79',
+	),
+	'color.background.accent.gray.subtler': token('color.background.accent.gray.subtler', '#5E6C84'),
+	'color.background.accent.gray.subtler.hovered': token(
+		'color.background.accent.gray.subtler.hovered',
+		'#505F79',
+	),
+	'color.background.accent.gray.subtler.pressed': token(
+		'color.background.accent.gray.subtler.pressed',
+		'#42526E',
+	),
+	'color.background.accent.gray.subtle': token('color.background.accent.gray.subtle', '#505F79'),
+	'color.background.accent.gray.subtle.hovered': token(
+		'color.background.accent.gray.subtle.hovered',
+		'#5E6C84',
+	),
+	'color.background.accent.gray.subtle.pressed': token(
+		'color.background.accent.gray.subtle.pressed',
+		'#6B778C',
+	),
+	'color.background.accent.gray.bolder': token('color.background.accent.gray.bolder', '#42526E'),
+	'color.background.accent.gray.bolder.hovered': token(
+		'color.background.accent.gray.bolder.hovered',
+		'#344563',
+	),
+	'color.background.accent.gray.bolder.pressed': token(
+		'color.background.accent.gray.bolder.pressed',
+		'#253858',
+	),
+	'color.background.disabled': token('color.background.disabled', '#091e4289'),
+	'color.background.input': token('color.background.input', '#FAFBFC'),
+	'color.background.input.hovered': token('color.background.input.hovered', '#EBECF0'),
+	'color.background.input.pressed': token('color.background.input.pressed', '#FFFFFF'),
+	'color.background.inverse.subtle': token('color.background.inverse.subtle', '#00000029'),
+	'color.background.inverse.subtle.hovered': token(
+		'color.background.inverse.subtle.hovered',
+		'#0000003D',
+	),
+	'color.background.inverse.subtle.pressed': token(
+		'color.background.inverse.subtle.pressed',
+		'#00000052',
+	),
+	'color.background.neutral': token('color.background.neutral', '#DFE1E6'),
+	'color.background.neutral.hovered': token('color.background.neutral.hovered', '#091e4214'),
+	'color.background.neutral.pressed': token('color.background.neutral.pressed', '#B3D4FF'),
+	'color.background.neutral.subtle': token('color.background.neutral.subtle', 'transparent'),
+	'color.background.neutral.subtle.hovered': token(
+		'color.background.neutral.subtle.hovered',
+		'#091e4214',
+	),
+	'color.background.neutral.subtle.pressed': token(
+		'color.background.neutral.subtle.pressed',
+		'#B3D4FF',
+	),
+	'color.background.neutral.bold': token('color.background.neutral.bold', '#42526E'),
+	'color.background.neutral.bold.hovered': token(
+		'color.background.neutral.bold.hovered',
+		'#505F79',
+	),
+	'color.background.neutral.bold.pressed': token(
+		'color.background.neutral.bold.pressed',
+		'#344563',
+	),
+	'color.background.selected': token('color.background.selected', '#DEEBFF'),
+	'color.background.selected.hovered': token('color.background.selected.hovered', '#B3D4FF'),
+	'color.background.selected.pressed': token('color.background.selected.pressed', '#4C9AFF'),
+	'color.background.selected.bold': token('color.background.selected.bold', '#0052CC'),
+	'color.background.selected.bold.hovered': token(
+		'color.background.selected.bold.hovered',
+		'#2684FF',
+	),
+	'color.background.selected.bold.pressed': token(
+		'color.background.selected.bold.pressed',
+		'#0052CC',
+	),
+	'color.background.brand.subtlest': token('color.background.brand.subtlest', '#B3D4FF'),
+	'color.background.brand.subtlest.hovered': token(
+		'color.background.brand.subtlest.hovered',
+		'#DEEBFF',
+	),
+	'color.background.brand.subtlest.pressed': token(
+		'color.background.brand.subtlest.pressed',
+		'#4C9AFF',
+	),
+	'color.background.brand.bold': token('color.background.brand.bold', '#0052CC'),
+	'color.background.brand.bold.hovered': token('color.background.brand.bold.hovered', '#0065FF'),
+	'color.background.brand.bold.pressed': token('color.background.brand.bold.pressed', '#0747A6'),
+	'color.background.brand.boldest': token('color.background.brand.boldest', '#0747A6'),
+	'color.background.brand.boldest.hovered': token(
+		'color.background.brand.boldest.hovered',
+		'#0052CC',
+	),
+	'color.background.brand.boldest.pressed': token(
+		'color.background.brand.boldest.pressed',
+		'#0747A6',
+	),
+	'color.background.danger': token('color.background.danger', '#FFEBE6'),
+	'color.background.danger.hovered': token('color.background.danger.hovered', '#FFBDAD'),
+	'color.background.danger.pressed': token('color.background.danger.pressed', '#FF8F73'),
+	'color.background.danger.subtler': token('color.background.danger.subtler', '#FFBDAD'),
+	'color.background.danger.subtler.hovered': token(
+		'color.background.danger.subtler.hovered',
+		'#FF8F73',
+	),
+	'color.background.danger.subtler.pressed': token(
+		'color.background.danger.subtler.pressed',
+		'#FF7452',
+	),
+	'color.background.danger.bold': token('color.background.danger.bold', '#DE350B'),
+	'color.background.danger.bold.hovered': token('color.background.danger.bold.hovered', '#FF5630'),
+	'color.background.danger.bold.pressed': token('color.background.danger.bold.pressed', '#BF2600'),
+	'color.background.warning': token('color.background.warning', '#FFFAE6'),
+	'color.background.warning.hovered': token('color.background.warning.hovered', '#FFF0B3'),
+	'color.background.warning.pressed': token('color.background.warning.pressed', '#FFE380'),
+	'color.background.warning.subtler': token('color.background.warning.subtler', '#FFF0B3'),
+	'color.background.warning.subtler.hovered': token(
+		'color.background.warning.subtler.hovered',
+		'#FFE380',
+	),
+	'color.background.warning.subtler.pressed': token(
+		'color.background.warning.subtler.pressed',
+		'#FFC400',
+	),
+	'color.background.warning.bold': token('color.background.warning.bold', '#FFAB00'),
+	'color.background.warning.bold.hovered': token(
+		'color.background.warning.bold.hovered',
+		'#FFC400',
+	),
+	'color.background.warning.bold.pressed': token(
+		'color.background.warning.bold.pressed',
+		'#FF991F',
+	),
+	'color.background.success': token('color.background.success', '#E3FCEF'),
+	'color.background.success.hovered': token('color.background.success.hovered', '#ABF5D1'),
+	'color.background.success.pressed': token('color.background.success.pressed', '#79F2C0'),
+	'color.background.success.subtler': token('color.background.success.subtler', '#ABF5D1'),
+	'color.background.success.subtler.hovered': token(
+		'color.background.success.subtler.hovered',
+		'#79F2C0',
+	),
+	'color.background.success.subtler.pressed': token(
+		'color.background.success.subtler.pressed',
+		'#57D9A3',
+	),
+	'color.background.success.bold': token('color.background.success.bold', '#00875A'),
+	'color.background.success.bold.hovered': token(
+		'color.background.success.bold.hovered',
+		'#57D9A3',
+	),
+	'color.background.success.bold.pressed': token(
+		'color.background.success.bold.pressed',
+		'#00875A',
+	),
+	'color.background.discovery': token('color.background.discovery', '#EAE6FF'),
+	'color.background.discovery.hovered': token('color.background.discovery.hovered', '#C0B6F2'),
+	'color.background.discovery.pressed': token('color.background.discovery.pressed', '#998DD9'),
+	'color.background.discovery.subtler': token('color.background.discovery.subtler', '#C0B6F2'),
+	'color.background.discovery.subtler.hovered': token(
+		'color.background.discovery.subtler.hovered',
+		'#998DD9',
+	),
+	'color.background.discovery.subtler.pressed': token(
+		'color.background.discovery.subtler.pressed',
+		'#8777D9',
+	),
+	'color.background.discovery.bold': token('color.background.discovery.bold', '#5243AA'),
+	'color.background.discovery.bold.hovered': token(
+		'color.background.discovery.bold.hovered',
+		'#8777D9',
+	),
+	'color.background.discovery.bold.pressed': token(
+		'color.background.discovery.bold.pressed',
+		'#5243AA',
+	),
+	'color.background.information': token('color.background.information', '#DEEBFF'),
+	'color.background.information.hovered': token('color.background.information.hovered', '#B3D4FF'),
+	'color.background.information.pressed': token('color.background.information.pressed', '#4C9AFF'),
+	'color.background.information.subtler': token('color.background.information.subtler', '#B3D4FF'),
+	'color.background.information.subtler.hovered': token(
+		'color.background.information.subtler.hovered',
+		'#4C9AFF',
+	),
+	'color.background.information.subtler.pressed': token(
+		'color.background.information.subtler.pressed',
+		'#2684FF',
+	),
+	'color.background.information.bold': token('color.background.information.bold', '#0052CC'),
+	'color.background.information.bold.hovered': token(
+		'color.background.information.bold.hovered',
+		'#2684FF',
+	),
+	'color.background.information.bold.pressed': token(
+		'color.background.information.bold.pressed',
+		'#0052CC',
+	),
+	'color.blanket': token('color.blanket', '#091e4289'),
+	'color.blanket.selected': token('color.blanket.selected', '#388BFF14'),
+	'color.blanket.danger': token('color.blanket.danger', '#EF5C4814'),
+	'color.skeleton': token('color.skeleton', '#F4F5F7'),
+	'color.skeleton.subtle': token('color.skeleton.subtle', '#091e420a'),
+	'elevation.surface': token('elevation.surface', '#FFFFFF'),
+	'elevation.surface.hovered': token('elevation.surface.hovered', '#FAFBFC'),
+	'elevation.surface.pressed': token('elevation.surface.pressed', '#F4F5F7'),
+	'elevation.surface.overlay': token('elevation.surface.overlay', '#FFFFFF'),
+	'elevation.surface.overlay.hovered': token('elevation.surface.overlay.hovered', '#FAFBFC'),
+	'elevation.surface.overlay.pressed': token('elevation.surface.overlay.pressed', '#F4F5F7'),
+	'elevation.surface.raised': token('elevation.surface.raised', '#FFFFFF'),
+	'elevation.surface.raised.hovered': token('elevation.surface.raised.hovered', '#FAFBFC'),
+	'elevation.surface.raised.pressed': token('elevation.surface.raised.pressed', '#F4F5F7'),
+	'elevation.surface.sunken': token('elevation.surface.sunken', '#F4F5F7'),
+	'utility.elevation.surface.current': token('utility.elevation.surface.current', '#FFFFFF'),
+} as const;
+
+export type BackgroundColor = keyof typeof backgroundColorMap;
+
+export const borderColorMap: {
+	'color.border': 'var(--ds-border)';
+	'color.border.accent.lime': 'var(--ds-border-accent-lime)';
+	'color.border.accent.red': 'var(--ds-border-accent-red)';
+	'color.border.accent.orange': 'var(--ds-border-accent-orange)';
+	'color.border.accent.yellow': 'var(--ds-border-accent-yellow)';
+	'color.border.accent.green': 'var(--ds-border-accent-green)';
+	'color.border.accent.teal': 'var(--ds-border-accent-teal)';
+	'color.border.accent.blue': 'var(--ds-border-accent-blue)';
+	'color.border.accent.purple': 'var(--ds-border-accent-purple)';
+	'color.border.accent.magenta': 'var(--ds-border-accent-magenta)';
+	'color.border.accent.gray': 'var(--ds-border-accent-gray)';
+	'color.border.disabled': 'var(--ds-border-disabled)';
+	'color.border.focused': 'var(--ds-border-focused)';
+	'color.border.input': 'var(--ds-border-input)';
+	'color.border.inverse': 'var(--ds-border-inverse)';
+	'color.border.selected': 'var(--ds-border-selected)';
+	'color.border.brand': 'var(--ds-border-brand)';
+	'color.border.danger': 'var(--ds-border-danger)';
+	'color.border.warning': 'var(--ds-border-warning)';
+	'color.border.success': 'var(--ds-border-success)';
+	'color.border.discovery': 'var(--ds-border-discovery)';
+	'color.border.information': 'var(--ds-border-information)';
+	'color.border.bold': 'var(--ds-border-bold)';
+} = {
+	'color.border': token('color.border', '#091e4221'),
+	'color.border.accent.lime': token('color.border.accent.lime', '#6A9A23'),
+	'color.border.accent.red': token('color.border.accent.red', '#FF5630'),
+	'color.border.accent.orange': token('color.border.accent.orange', '#D94008'),
+	'color.border.accent.yellow': token('color.border.accent.yellow', '#FFAB00'),
+	'color.border.accent.green': token('color.border.accent.green', '#36B37E'),
+	'color.border.accent.teal': token('color.border.accent.teal', '#00B8D9'),
+	'color.border.accent.blue': token('color.border.accent.blue', '#0065FF'),
+	'color.border.accent.purple': token('color.border.accent.purple', '#6554C0'),
+	'color.border.accent.magenta': token('color.border.accent.magenta', '#CD519D'),
+	'color.border.accent.gray': token('color.border.accent.gray', '#5E6C84'),
+	'color.border.disabled': token('color.border.disabled', '#FAFBFC'),
+	'color.border.focused': token('color.border.focused', '#2684FF'),
+	'color.border.input': token('color.border.input', '#FAFBFC'),
+	'color.border.inverse': token('color.border.inverse', '#FFFFFF'),
+	'color.border.selected': token('color.border.selected', '#0052CC'),
+	'color.border.brand': token('color.border.brand', '#0052CC'),
+	'color.border.danger': token('color.border.danger', '#FF5630'),
+	'color.border.warning': token('color.border.warning', '#FFC400'),
+	'color.border.success': token('color.border.success', '#00875A'),
+	'color.border.discovery': token('color.border.discovery', '#998DD9'),
+	'color.border.information': token('color.border.information', '#0065FF'),
+	'color.border.bold': token('color.border.bold', '#344563'),
+} as const;
+
+export type BorderColor = keyof typeof borderColorMap;
+
+
+export const inverseColorMap: {
+	'color.background.neutral.bold': 'color.text.inverse';
+	'color.background.neutral.bold.hovered': 'color.text.inverse';
+	'color.background.neutral.bold.pressed': 'color.text.inverse';
+	'color.background.selected.bold': 'color.text.inverse';
+	'color.background.selected.bold.hovered': 'color.text.inverse';
+	'color.background.selected.bold.pressed': 'color.text.inverse';
+	'color.background.brand.bold': 'color.text.inverse';
+	'color.background.brand.bold.hovered': 'color.text.inverse';
+	'color.background.brand.bold.pressed': 'color.text.inverse';
+	'color.background.brand.boldest': 'color.text.inverse';
+	'color.background.brand.boldest.hovered': 'color.text.inverse';
+	'color.background.brand.boldest.pressed': 'color.text.inverse';
+	'color.background.danger.bold': 'color.text.inverse';
+	'color.background.danger.bold.hovered': 'color.text.inverse';
+	'color.background.danger.bold.pressed': 'color.text.inverse';
+	'color.background.warning.bold': 'color.text.warning.inverse';
+	'color.background.warning.bold.hovered': 'color.text.warning.inverse';
+	'color.background.warning.bold.pressed': 'color.text.warning.inverse';
+	'color.background.success.bold': 'color.text.inverse';
+	'color.background.success.bold.hovered': 'color.text.inverse';
+	'color.background.success.bold.pressed': 'color.text.inverse';
+	'color.background.discovery.bold': 'color.text.inverse';
+	'color.background.discovery.bold.hovered': 'color.text.inverse';
+	'color.background.discovery.bold.pressed': 'color.text.inverse';
+	'color.background.information.bold': 'color.text.inverse';
+	'color.background.information.bold.hovered': 'color.text.inverse';
+	'color.background.information.bold.pressed': 'color.text.inverse';
+} = {
+	'color.background.neutral.bold': 'color.text.inverse',
+	'color.background.neutral.bold.hovered': 'color.text.inverse',
+	'color.background.neutral.bold.pressed': 'color.text.inverse',
+	'color.background.selected.bold': 'color.text.inverse',
+	'color.background.selected.bold.hovered': 'color.text.inverse',
+	'color.background.selected.bold.pressed': 'color.text.inverse',
+	'color.background.brand.bold': 'color.text.inverse',
+	'color.background.brand.bold.hovered': 'color.text.inverse',
+	'color.background.brand.bold.pressed': 'color.text.inverse',
+	'color.background.brand.boldest': 'color.text.inverse',
+	'color.background.brand.boldest.hovered': 'color.text.inverse',
+	'color.background.brand.boldest.pressed': 'color.text.inverse',
+	'color.background.danger.bold': 'color.text.inverse',
+	'color.background.danger.bold.hovered': 'color.text.inverse',
+	'color.background.danger.bold.pressed': 'color.text.inverse',
+	'color.background.warning.bold': 'color.text.warning.inverse',
+	'color.background.warning.bold.hovered': 'color.text.warning.inverse',
+	'color.background.warning.bold.pressed': 'color.text.warning.inverse',
+	'color.background.success.bold': 'color.text.inverse',
+	'color.background.success.bold.hovered': 'color.text.inverse',
+	'color.background.success.bold.pressed': 'color.text.inverse',
+	'color.background.discovery.bold': 'color.text.inverse',
+	'color.background.discovery.bold.hovered': 'color.text.inverse',
+	'color.background.discovery.bold.pressed': 'color.text.inverse',
+	'color.background.information.bold': 'color.text.inverse',
+	'color.background.information.bold.hovered': 'color.text.inverse',
+	'color.background.information.bold.pressed': 'color.text.inverse',
+} as const;
+
+
+export const opacityMap: {
+	'opacity.disabled': 'var(--ds-opacity-disabled)';
+	'opacity.loading': 'var(--ds-opacity-loading)';
+} = {
+	'opacity.disabled': token('opacity.disabled', '0.4'),
+	'opacity.loading': token('opacity.loading', '0.2'),
+} as const;
+
+export type Opacity = keyof typeof opacityMap;
+
+export const shadowMap: {
+	'elevation.shadow.overflow': 'var(--ds-shadow-overflow)';
+	'elevation.shadow.overflow.perimeter': 'var(--ds-shadow-overflow-perimeter)';
+	'elevation.shadow.overflow.spread': 'var(--ds-shadow-overflow-spread)';
+	'elevation.shadow.overlay': 'var(--ds-shadow-overlay)';
+	'elevation.shadow.raised': 'var(--ds-shadow-raised)';
+} = {
+	'elevation.shadow.overflow': token(
+		'elevation.shadow.overflow',
+		'0px 0px 8px #091e423f, 0px 0px 1px #091e424f',
+	),
+	'elevation.shadow.overflow.perimeter': token('elevation.shadow.overflow.perimeter', '#091e421f'),
+	'elevation.shadow.overflow.spread': token('elevation.shadow.overflow.spread', '#091e4229'),
+	'elevation.shadow.overlay': token(
+		'elevation.shadow.overlay',
+		'0px 8px 12px #091e423f, 0px 0px 1px #091e424f',
+	),
+	'elevation.shadow.raised': token(
+		'elevation.shadow.raised',
+		'0px 1px 1px #091e423f, 0px 0px 1px #091e4221',
+	),
+} as const;
+
+export type Shadow = keyof typeof shadowMap;
+
+export const surfaceColorMap: {
+	'elevation.surface': 'var(--ds-surface)';
+	'elevation.surface.hovered': 'var(--ds-surface-hovered)';
+	'elevation.surface.pressed': 'var(--ds-surface-pressed)';
+	'elevation.surface.overlay': 'var(--ds-surface-overlay)';
+	'elevation.surface.overlay.hovered': 'var(--ds-surface-overlay-hovered)';
+	'elevation.surface.overlay.pressed': 'var(--ds-surface-overlay-pressed)';
+	'elevation.surface.raised': 'var(--ds-surface-raised)';
+	'elevation.surface.raised.hovered': 'var(--ds-surface-raised-hovered)';
+	'elevation.surface.raised.pressed': 'var(--ds-surface-raised-pressed)';
+	'elevation.surface.sunken': 'var(--ds-surface-sunken)';
+} = {
+	'elevation.surface': token('elevation.surface', '#FFFFFF'),
+	'elevation.surface.hovered': token('elevation.surface.hovered', '#FAFBFC'),
+	'elevation.surface.pressed': token('elevation.surface.pressed', '#F4F5F7'),
+	'elevation.surface.overlay': token('elevation.surface.overlay', '#FFFFFF'),
+	'elevation.surface.overlay.hovered': token('elevation.surface.overlay.hovered', '#FAFBFC'),
+	'elevation.surface.overlay.pressed': token('elevation.surface.overlay.pressed', '#F4F5F7'),
+	'elevation.surface.raised': token('elevation.surface.raised', '#FFFFFF'),
+	'elevation.surface.raised.hovered': token('elevation.surface.raised.hovered', '#FAFBFC'),
+	'elevation.surface.raised.pressed': token('elevation.surface.raised.pressed', '#F4F5F7'),
+	'elevation.surface.sunken': token('elevation.surface.sunken', '#F4F5F7'),
+} as const;
+
+export type SurfaceColor = keyof typeof surfaceColorMap;
+
+
+export const borderWidthMap: {
+	'border.width': 'var(--ds-border-width)';
+	'border.width.selected': 'var(--ds-border-width-selected)';
+	'border.width.focused': 'var(--ds-border-width-focused)';
+} = {
+	'border.width': token('border.width', '1px'),
+	'border.width.selected': token('border.width.selected', '2px'),
+	'border.width.focused': token('border.width.focused', '2px'),
+};
+
+export type BorderWidth = keyof typeof borderWidthMap;
+
+export const borderRadiusMap: {
+	'radius.xsmall': 'var(--ds-radius-xsmall)';
+	'radius.small': 'var(--ds-radius-small)';
+	'radius.medium': 'var(--ds-radius-medium)';
+	'radius.large': 'var(--ds-radius-large)';
+	'radius.xlarge': 'var(--ds-radius-xlarge)';
+	'radius.xxlarge': 'var(--ds-radius-xxlarge)';
+	'radius.full': 'var(--ds-radius-full)';
+	'radius.tile': 'var(--ds-radius-tile)';
+} = {
+	'radius.xsmall': token('radius.xsmall', '2px'),
+	'radius.small': token('radius.small', '3px'),
+	'radius.medium': token('radius.medium', '6px'),
+	'radius.large': token('radius.large', '8px'),
+	'radius.xlarge': token('radius.xlarge', '12px'),
+	'radius.xxlarge': token('radius.xxlarge', '16px'),
+	'radius.full': token('radius.full', '9999px'),
+	'radius.tile': token('radius.tile', '25%'),
+};
+
+export type BorderRadius = keyof typeof borderRadiusMap;
+
+
+export const layerMap = {
+	'1': 1,
+	card: 100,
+	navigation: 200,
+	dialog: 300,
+	layer: 400,
+	blanket: 500,
+	modal: 510,
+	flag: 600,
+	spotlight: 700,
+	tooltip: 800,
+} as const;
+
+export type Layer = keyof typeof layerMap;
+
+
+export const fontMap: {
+	'font.body': 'var(--ds-font-body)';
+	'font.body.UNSAFE_small': 'var(--ds-font-body-UNSAFE_small)';
+	'font.body.large': 'var(--ds-font-body-large)';
+	'font.body.small': 'var(--ds-font-body-small)';
+	'font.code': 'var(--ds-font-code)';
+	'font.heading.large': 'var(--ds-font-heading-large)';
+	'font.heading.medium': 'var(--ds-font-heading-medium)';
+	'font.heading.small': 'var(--ds-font-heading-small)';
+	'font.heading.xlarge': 'var(--ds-font-heading-xlarge)';
+	'font.heading.xsmall': 'var(--ds-font-heading-xsmall)';
+	'font.heading.xxlarge': 'var(--ds-font-heading-xxlarge)';
+	'font.heading.xxsmall': 'var(--ds-font-heading-xxsmall)';
+	'font.metric.large': 'var(--ds-font-metric-large)';
+	'font.metric.medium': 'var(--ds-font-metric-medium)';
+	'font.metric.small': 'var(--ds-font-metric-small)';
+} = {
+	'font.body': token(
+		'font.body',
+		'normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+	'font.body.UNSAFE_small': token(
+		'font.body.UNSAFE_small',
+		'normal 400 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+	'font.body.large': token(
+		'font.body.large',
+		'normal 400 16px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+	'font.body.small': token(
+		'font.body.small',
+		'normal 400 11px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+	'font.code': token(
+		'font.code',
+		'normal 400 0.875em/1 ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace',
+	),
+	'font.heading.large': token(
+		'font.heading.large',
+		'normal 500 24px/28px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+	'font.heading.medium': token(
+		'font.heading.medium',
+		'normal 500 20px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+	'font.heading.small': token(
+		'font.heading.small',
+		'normal 600 16px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+	'font.heading.xlarge': token(
+		'font.heading.xlarge',
+		'normal 600 29px/32px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+	'font.heading.xsmall': token(
+		'font.heading.xsmall',
+		'normal 600 14px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+	'font.heading.xxlarge': token(
+		'font.heading.xxlarge',
+		'normal 500 35px/40px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+	'font.heading.xxsmall': token(
+		'font.heading.xxsmall',
+		'normal 600 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+	'font.metric.large': token(
+		'font.metric.large',
+		'normal 653 28px/32px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+	'font.metric.medium': token(
+		'font.metric.medium',
+		'normal 653 24px/28px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+	'font.metric.small': token(
+		'font.metric.small',
+		'normal 653 16px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+};
+
+export type Font = keyof typeof fontMap;
+
+export const fontWeightMap: {
+	'font.weight.bold': 'var(--ds-font-weight-bold)';
+	'font.weight.medium': 'var(--ds-font-weight-medium)';
+	'font.weight.regular': 'var(--ds-font-weight-regular)';
+	'font.weight.semibold': 'var(--ds-font-weight-semibold)';
+} = {
+	'font.weight.bold': token('font.weight.bold', '700'),
+	'font.weight.medium': token('font.weight.medium', '500'),
+	'font.weight.regular': token('font.weight.regular', '400'),
+	'font.weight.semibold': token('font.weight.semibold', '600'),
+};
+
+export type FontWeight = keyof typeof fontWeightMap;
+
+export const fontFamilyMap: {
+	'font.family.body': 'var(--ds-font-family-body)';
+	'font.family.brand.body': 'var(--ds-font-family-brand-body)';
+	'font.family.brand.heading': 'var(--ds-font-family-brand-heading)';
+	'font.family.code': 'var(--ds-font-family-code)';
+	'font.family.heading': 'var(--ds-font-family-heading)';
+} = {
+	'font.family.body': token(
+		'font.family.body',
+		'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+	'font.family.brand.body': token(
+		'font.family.brand.body',
+		'"Charlie Text", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+	'font.family.brand.heading': token(
+		'font.family.brand.heading',
+		'"Charlie Display", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+	'font.family.code': token(
+		'font.family.code',
+		'ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace',
+	),
+	'font.family.heading': token(
+		'font.family.heading',
+		'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+};
+
+export type FontFamily = keyof typeof fontFamilyMap;
+
+
+export const textSizeMap: {
+	medium: 'var(--ds-font-body)';
+	UNSAFE_small: 'var(--ds-font-body-UNSAFE_small)';
+	large: 'var(--ds-font-body-large)';
+	small: 'var(--ds-font-body-small)';
+} = {
+	medium: token(
+		'font.body',
+		'normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+	UNSAFE_small: token(
+		'font.body.UNSAFE_small',
+		'normal 400 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+	large: token(
+		'font.body.large',
+		'normal 400 16px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+	small: token(
+		'font.body.small',
+		'normal 400 11px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+};
+
+export type TextSize = keyof typeof textSizeMap;
+
+export const textWeightMap: {
+	bold: 'var(--ds-font-weight-bold)';
+	medium: 'var(--ds-font-weight-medium)';
+	regular: 'var(--ds-font-weight-regular)';
+	semibold: 'var(--ds-font-weight-semibold)';
+} = {
+	bold: token('font.weight.bold', '700'),
+	medium: token('font.weight.medium', '500'),
+	regular: token('font.weight.regular', '400'),
+	semibold: token('font.weight.semibold', '600'),
+};
+
+export type TextWeight = keyof typeof textWeightMap;
+
+export const metricTextSizeMap: {
+	large: 'var(--ds-font-metric-large)';
+	medium: 'var(--ds-font-metric-medium)';
+	small: 'var(--ds-font-metric-small)';
+} = {
+	large: token(
+		'font.metric.large',
+		'normal 653 28px/32px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+	medium: token(
+		'font.metric.medium',
+		'normal 653 24px/28px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+	small: token(
+		'font.metric.small',
+		'normal 653 16px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+};
+
+export type MetricTextSize = keyof typeof metricTextSizeMap;
+
+/**
+ * @codegenEnd
+ */
+
+/**
+ * Token utility functions for Forge UI Kit
+ * These utilities work with the codegen'd token maps above
+ */
+
+export const isSurfaceColorToken = (color: unknown): color is SurfaceColor =>
+	surfaceColorMap[color as SurfaceColor] !== undefined;
+
+export const getSerializedStylesMap = <T extends string>(
+	cssProperty: string,
+	tokenMap: Record<T, string>,
+): Record<T, SerializedStyles> => {
+	return Object.keys(tokenMap).reduce(
+		(emotionMap, token) => {
+			emotionMap[token as T] = css({
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+				[cssProperty]: tokenMap[token as T],
+			});
+			return emotionMap;
+		},
+		{} as Record<T, SerializedStyles>,
+	);
+};
+
+export const backgroundColorStylesMap = getSerializedStylesMap('backgroundColor', backgroundColorMap);
+export const surfaceColorStylesMap = getSerializedStylesMap(CURRENT_SURFACE_CSS_VAR, surfaceColorMap);
+
+export const paddingStylesMap = {
+	padding: getSerializedStylesMap('padding', positiveSpaceMap),
+	paddingBlock: getSerializedStylesMap('paddingBlock', positiveSpaceMap),
+	paddingBlockStart: getSerializedStylesMap('paddingBlockStart', positiveSpaceMap),
+	paddingBlockEnd: getSerializedStylesMap('paddingBlockEnd', positiveSpaceMap),
+	paddingInline: getSerializedStylesMap('paddingInline', positiveSpaceMap),
+	paddingInlineStart: getSerializedStylesMap('paddingInlineStart', positiveSpaceMap),
+	paddingInlineEnd: getSerializedStylesMap('paddingInlineEnd', positiveSpaceMap),
+};
+
+/**
+ * Tokens map for xcss prop support.
+ * Maps CSS properties to their corresponding token maps for runtime resolution.
+ * Includes all properties from the Forge XCSS specification:
+ * https://developer.atlassian.com/platform/forge/ui-kit/components/xcss/
+ */
+export const tokensMap = {
+	// Background
+	backgroundColor: backgroundColorMap,
+	
+	// Text color
+	color: textColorMap,
+	
+	// Opacity
+	opacity: opacityMap,
+	
+	// Shadow
+	boxShadow: shadowMap,
+	
+	// Border Color
+	borderColor: borderColorMap,
+	borderBlockColor: borderColorMap,
+	borderBlockEndColor: borderColorMap,
+	borderBlockStartColor: borderColorMap,
+	borderBottomColor: borderColorMap,
+	borderInlineColor: borderColorMap,
+	borderInlineEndColor: borderColorMap,
+	borderInlineStartColor: borderColorMap,
+	borderLeftColor: borderColorMap,
+	borderRightColor: borderColorMap,
+	borderTopColor: borderColorMap,
+	
+	// Border Radius
+	borderRadius: borderRadiusMap,
+	borderBottomLeftRadius: borderRadiusMap,
+	borderBottomRightRadius: borderRadiusMap,
+	borderTopLeftRadius: borderRadiusMap,
+	borderTopRightRadius: borderRadiusMap,
+	borderEndEndRadius: borderRadiusMap,
+	borderEndStartRadius: borderRadiusMap,
+	borderStartEndRadius: borderRadiusMap,
+	borderStartStartRadius: borderRadiusMap,
+	
+	// Border Width
+	borderWidth: borderWidthMap,
+	borderBlockWidth: borderWidthMap,
+	borderBlockEndWidth: borderWidthMap,
+	borderBlockStartWidth: borderWidthMap,
+	borderBottomWidth: borderWidthMap,
+	borderInlineWidth: borderWidthMap,
+	borderInlineEndWidth: borderWidthMap,
+	borderInlineStartWidth: borderWidthMap,
+	borderLeftWidth: borderWidthMap,
+	borderRightWidth: borderWidthMap,
+	borderTopWidth: borderWidthMap,
+	
+	// Padding
+	padding: positiveSpaceMap,
+	paddingBlock: positiveSpaceMap,
+	paddingBlockStart: positiveSpaceMap,
+	paddingBlockEnd: positiveSpaceMap,
+	paddingBottom: positiveSpaceMap,
+	paddingInline: positiveSpaceMap,
+	paddingInlineEnd: positiveSpaceMap,
+	paddingInlineStart: positiveSpaceMap,
+	paddingLeft: positiveSpaceMap,
+	paddingRight: positiveSpaceMap,
+	paddingTop: positiveSpaceMap,
+	
+	// Margin (can be negative)
+	margin: allSpaceMap,
+	marginBlock: allSpaceMap,
+	marginBlockEnd: allSpaceMap,
+	marginBlockStart: allSpaceMap,
+	marginBottom: allSpaceMap,
+	marginInline: allSpaceMap,
+	marginInlineEnd: allSpaceMap,
+	marginInlineStart: allSpaceMap,
+	marginLeft: allSpaceMap,
+	marginRight: allSpaceMap,
+	marginTop: allSpaceMap,
+	
+	// Dimensions
+	width: dimensionMap,
+	height: dimensionMap,
+	minWidth: dimensionMap,
+	maxWidth: dimensionMap,
+	minHeight: dimensionMap,
+	maxHeight: dimensionMap,
+	
+	// Note: display, flexGrow, overflow are NOT token-based and don't need entries here. They accept raw CSS values.
+};
+
+/**
+ * Resolves design token strings in an xcss object to their actual CSS values.
+ * This is necessary because the xcssValidator validates token strings but doesn't resolve them.
+ */
+export const resolveTokens = (styleObj: any): any => {
+	if (!styleObj || typeof styleObj !== 'object') {
+		return styleObj;
+	}
+
+	const resolved: any = {};
+	for (const [key, value] of Object.entries(styleObj)) {
+		if (typeof value === 'string') {
+			// Only try to resolve if it looks like a token (contains a dot and starts with a letter)
+			// This matches @atlaskit/primitives behavior of accepting both tokens and raw CSS
+			const looksLikeToken = value.includes('.') && /^[a-z]/.test(value);
+			
+			if (looksLikeToken) {
+				// Try to resolve as a token
+				const tokenMapForProp = (tokensMap as any)[key];
+				if (tokenMapForProp && tokenMapForProp[value]) {
+					resolved[key] = tokenMapForProp[value];
+				} else {
+					// Token not found - pass through as-is (matches @atlaskit/primitives behavior)
+					// The xcssValidator will catch invalid values if needed
+					resolved[key] = value;
+				}
+			} else {
+				// Raw CSS value - pass through (matches @atlaskit/primitives behavior)
+				resolved[key] = value;
+			}
+		} else if (typeof value === 'object' && value !== null) {
+			// Recursively resolve nested objects
+			resolved[key] = resolveTokens(value);
+		} else {
+			// Numbers and other primitives - pass through (e.g. flexGrow: 1)
+			resolved[key] = value;
+		}
+	}
+	return resolved;
+};
+/**
+ * Media query helpers for responsive styles.
+ * Based on @atlaskit/primitives/src/responsive/media-helper.tsx
+ */
+export const media = {
+	above: {
+		xxs: '@media all',
+		xs: '@media (min-width: 30rem)',
+		sm: '@media (min-width: 48rem)',
+		md: '@media (min-width: 64rem)',
+		lg: '@media (min-width: 90rem)',
+		xl: '@media (min-width: 110.5rem)',
+	} as const,
+};
+
+/**
+ * Breakpoint type for responsive styles.
+ */
+export type Breakpoint = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+/**
+ * All supported media queries for use as keys in xcss.
+ */
+export type MediaQuery = (typeof media.above)[Breakpoint];

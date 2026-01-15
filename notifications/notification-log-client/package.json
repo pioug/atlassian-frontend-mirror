@@ -27,9 +27,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"post-office_enable_fetching_unseen-count_dummy": {
-			"type": "boolean"
-		},
 		"post-office_enable-notification-components-graphql": {
 			"type": "boolean"
 		}

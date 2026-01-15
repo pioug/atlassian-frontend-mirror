@@ -1145,7 +1145,7 @@ describe('<LinkPicker />', () => {
 			});
 
 			expect(await screen.findByTestId(testIds.resultListTitle)).toHaveTextContent(
-				resultsListMessages.titleRecentlyViewed.defaultMessage,
+				resultsListMessages.titleRecentlyViewedFormatted.defaultMessage,
 			);
 		});
 

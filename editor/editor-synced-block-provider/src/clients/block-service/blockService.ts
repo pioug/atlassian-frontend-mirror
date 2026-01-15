@@ -1,4 +1,4 @@
-import type { SyncBlockProduct} from '../../common/types';
+import type { ReferenceSyncBlockResponse, SyncBlockProduct } from '../../common/types';
 import { fetchWithRetry } from '../../utils/retry';
 
 export type BlockContentResponse = {
@@ -13,19 +13,20 @@ export type BlockContentResponse = {
 	version: number;
 };
 
-export type BlockContentErrorResponse = {
+export type ErrorResponse = {
 	blockAri: string;
 	code: string;
+	documentAri: string;
 	reason: string;
 };
 
 type ReferenceSyncedBlockResponse = {
 	blocks?: Array<BlockContentResponse>;
-	errors?: Array<BlockContentErrorResponse>;
+	errors?: Array<ErrorResponse>;
 };
 
 export const isBlockContentResponse = (
-	response: BlockContentResponse | BlockContentErrorResponse,
+	response: BlockContentResponse | ErrorResponse,
 ): response is BlockContentResponse => {
 	const content = (response as BlockContentResponse).content;
 
@@ -151,8 +152,18 @@ export type BatchRetrieveSyncedBlocksRequest = {
 };
 
 export type BatchRetrieveSyncedBlocksResponse = {
-	error?: Array<BlockContentErrorResponse>;
+	error?: Array<ErrorResponse>;
 	success?: Array<BlockContentResponse>;
+};
+
+type GetReferenceSyncedBlocksByBlockAriRequest = {
+	blockAri: string; // the ARI of the block
+};
+
+type GetReferenceSyncedBlocksByBlockAriResponse = {
+	blockAri?: string;
+	errors: Array<ErrorResponse>;
+	references: Array<ReferenceSyncBlockResponse>;
 };
 
 const COMMON_HEADERS = {
@@ -163,9 +174,12 @@ const COMMON_HEADERS = {
 const BLOCK_SERVICE_API_URL = '/gateway/api/blocks/v1';
 const GRAPHQL_ENDPOINT = '/gateway/api/graphql';
 
-const GET_DOCUMENT_REFERENCE_BLOCKS_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_GET_DOCUMENT_REFERENCE_BLOCKS';
+const GET_DOCUMENT_REFERENCE_BLOCKS_OPERATION_NAME =
+	'EDITOR_SYNCED_BLOCK_GET_DOCUMENT_REFERENCE_BLOCKS';
 
-const buildGetDocumentReferenceBlocksQuery = (documentAri: string) => `query ${GET_DOCUMENT_REFERENCE_BLOCKS_OPERATION_NAME} {
+const buildGetDocumentReferenceBlocksQuery = (
+	documentAri: string,
+) => `query ${GET_DOCUMENT_REFERENCE_BLOCKS_OPERATION_NAME} {
 	blockService_getDocumentReferenceBlocks(documentAri: "${documentAri}") {
 		blocks {
 			blockAri
@@ -213,7 +227,7 @@ export const getSyncedBlockContent = async ({
 	}
 
 	return (await response.json()) as BlockContentResponse;
-};;
+};
 
 /**
  * Batch retrieves multiple synced blocks by their ARIs.
@@ -285,7 +299,14 @@ export const createSyncedBlock = async ({
 	content,
 	stepVersion,
 }: CreateSyncedBlockRequest): Promise<BlockContentResponse> => {
-	const requestBody: { blockAri: string; blockInstanceId: string; content: string; product: SyncBlockProduct; sourceAri: string; stepVersion?: number } = {
+	const requestBody: {
+		blockAri: string;
+		blockInstanceId: string;
+		content: string;
+		product: SyncBlockProduct;
+		sourceAri: string;
+		stepVersion?: number;
+	} = {
 		blockAri,
 		blockInstanceId,
 		sourceAri,
@@ -331,7 +352,25 @@ export const updateReferenceSyncedBlockOnDocument = async ({
 	if (!noContent) {
 		return (await response.json()) as {
 			blocks?: Array<BlockContentResponse>;
-			errors?: Array<BlockContentErrorResponse>;
+			errors?: Array<ErrorResponse>;
 		};
 	}
+};
+
+export const getReferenceSyncedBlocksByBlockAri = async ({
+	blockAri,
+}: GetReferenceSyncedBlocksByBlockAriRequest): Promise<GetReferenceSyncedBlocksByBlockAriResponse> => {
+	const response = await fetchWithRetry(
+		`${BLOCK_SERVICE_API_URL}/reference/batch-retrieve/${encodeURIComponent(blockAri)}`,
+		{
+			method: 'GET',
+			headers: COMMON_HEADERS,
+		},
+	);
+
+	if (!response.ok) {
+		throw new BlockError(response.status);
+	}
+
+	return (await response.json()) as GetReferenceSyncedBlocksByBlockAriResponse;
 };

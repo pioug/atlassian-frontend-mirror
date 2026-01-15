@@ -22,39 +22,5 @@
 		"../src/**/stories/*",
 		"../src/**/stories/**/*"
 	],
-	"references": [
-		{
-			"path": "../../../design-system/button/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../design-system/heading/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../design-system/icon/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../design-system/icon-lab/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../design-system/lozenge/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../design-system/menu/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../design-system/textfield/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../design-system/tooltip/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../editor-common/afm-products/tsconfig.json"
-		}
-	]
+	"references": []
 }

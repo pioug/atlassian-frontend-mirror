@@ -61,7 +61,7 @@
 		"react-transition-group": "^4.4.1"
 	},
 	"devDependencies": {
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"enzyme": "root:*"
 	},
 	"keywords": [

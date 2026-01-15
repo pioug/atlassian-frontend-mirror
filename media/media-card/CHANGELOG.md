@@ -1,5 +1,16 @@
 # @atlaskit/media-card
 
+## 79.13.2
+
+### Patch Changes
+
+- [`b611e9165d122`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b611e9165d122) -
+  Correlate auth provider analytics events with MediaCardRender events by emitting them when card
+  reaches final state, ensuring accurate correlation after HTTP retries.
+- [`c09b399aeb198`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c09b399aeb198) -
+  Fix edge cases of ssrReliability remaining unknown
+- Updated dependencies
+
 ## 79.13.1
 
 ### Patch Changes

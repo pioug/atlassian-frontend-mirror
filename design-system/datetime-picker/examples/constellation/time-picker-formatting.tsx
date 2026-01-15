@@ -9,7 +9,7 @@ const TimePickerFormattingExample = (): React.JSX.Element => (
 		<TimePicker
 			clearControlLabel="Clear custom time format"
 			timeFormat="HH:mm"
-			placeholder="13:30"
+			placeholder=""
 			id="timepicker-custom-format"
 		/>
 	</>

@@ -1,5 +1,12 @@
 # @atlaskit/tabs
 
+## 18.3.2
+
+### Patch Changes
+
+- [`d989cffb3cf35`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d989cffb3cf35) -
+  Updated tab indicator height to align with new border styles.
+
 ## 18.3.1
 
 ### Patch Changes

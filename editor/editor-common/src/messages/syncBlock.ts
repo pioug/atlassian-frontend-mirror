@@ -225,4 +225,59 @@ export const syncBlockMessages = defineMessages({
 		defaultMessage: 'Learn more',
 		description: 'Action in flag which appears when a sync block is copied to learn more',
 	},
+	syncedLocationDropdownTitle: {
+		id: 'fabric.editor.syncedLocationDropdownTitle',
+		defaultMessage: 'Synced locations',
+		description:
+			'Title for the dropdown menu that shows the synced (referenced) locations of the source sync block',
+	},
+	syncedLocationDropdownHeading: {
+		id: 'fabric.editor.syncedLocationDropdownHeading',
+		defaultMessage: '{count} locations:',
+		description:
+			'Heading for the dropdown menu that shows the synced (referenced) locations of the source sync block',
+	},
+	syncedLocationDropdownError: {
+		id: 'fabric.editor.syncedLocationDropdownError',
+		defaultMessage:
+			"We can't load locations right now. Please wait a few minutes and refresh your browser.",
+		description:
+			'Error message shown in the synced location dropdown menu when fail to fetch the synced (referenced) locations of the source sync block',
+	},
+	syncedLocationDropdownNoResults: {
+		id: 'fabric.editor.syncedLocationDropdownNoResults',
+		defaultMessage: 'Copy and paste synced blocks to reuse in other locations.',
+		description:
+			'Message shown in the synced location dropdown menu when no shared locations are found',
+	},
+	syncedLocationDropdownLearnMoreLink: {
+		id: 'fabric.editor.syncedLocationDropdownLearnMoreLink',
+		defaultMessage: 'Learn more about synced blocks',
+		description:
+			'Link shown in the synced location dropdown menu to learn more about synced blocks',
+	},
+	syncedLocationDropdownSamePage: {
+		id: 'fabric.editor.syncedLocationDropdownSamePage',
+		defaultMessage: 'This page',
+		description:
+			'Message shown in the synced location dropdown option when the reference sync block is on the same page',
+	},
+	syncedLocationDropdownTitleBlockIndex: {
+		id: 'fabric.editor.syncedLocationDropdownTitleNote',
+		defaultMessage: 'block {index}',
+		description:
+			'Suffix for page title shown in synced location dropdown option when there are multiple references to the same page',
+	},
+	syncedLocationDropdownTitleNote: {
+		id: 'fabric.editor.syncedLocationDropdownTitleNote',
+		defaultMessage: 'This page',
+		description:
+			'Note shown next to the page title in the synced location dropdown option when the sync block is on the current page',
+	},
+	syncedLocationDropdownSourceLozenge: {
+		id: 'fabric.editor.syncedLocationDropdownSourceLozenge',
+		defaultMessage: 'Source',
+		description:
+			'Lozenge label shown in the synced location dropdown option when the sync block is source',
+	},
 });

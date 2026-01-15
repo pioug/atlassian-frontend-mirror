@@ -41,3 +41,5 @@ export const deleteErrorPayload = (error: string): SyncBlockEventPayload =>
 	getErrorPayload(ACTION_SUBJECT_ID.SYNCED_BLOCK_DELETE, error);
 export const updateCacheErrorPayload = (error: string): SyncBlockEventPayload =>
 	getErrorPayload(ACTION_SUBJECT_ID.SYNCED_BLOCK_UPDATE_CACHE, error);
+export const fetchReferencesErrorPayload = (error: string): SyncBlockEventPayload =>
+	getErrorPayload(ACTION_SUBJECT_ID.SYNCED_BLOCK_FETCH_REFERENCES, error);

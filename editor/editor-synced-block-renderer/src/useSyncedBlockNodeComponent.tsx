@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect } from 'react';
 
 import type { DocNode } from '@atlaskit/adf-schema';
-import type { SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
+import { ACTION_SUBJECT, type AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
+import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import type { JSONNode } from '@atlaskit/editor-json-transformer';
 import {
 	convertSyncBlockJSONNodeToSyncBlockNode,
@@ -20,7 +21,7 @@ import {
 } from './ui/SyncedBlockNodeComponentRenderer';
 
 export type GetSyncedBlockNodeComponentProps = {
-	fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void;
+	fireAnalyticsEvent?: (payload: AnalyticsEventPayload) => void;
 	getSSRData?: () => Record<string, SyncBlockInstance> | undefined;
 	syncBlockNodes: SyncBlockNode[];
 	syncBlockProvider: SyncedBlockProvider;
@@ -67,13 +68,28 @@ export const useMemoizedSyncedBlockNodeComponent = ({
 
 	return useCallback(
 		(props: SyncedBlockNodeProps) => (
-			<SyncedBlockNodeComponentRenderer
-				key={props.localId}
-				nodeProps={props}
-				syncBlockStoreManager={syncBlockStoreManager}
-				rendererOptions={syncBlockRendererOptions}
-			/>
+			fg('platform_synced_block_dogfooding') ? (
+				<ErrorBoundary
+					component={ACTION_SUBJECT.SYNCED_BLOCK}
+					dispatchAnalyticsEvent={fireAnalyticsEvent}
+					fallbackComponent={null}
+				>
+					<SyncedBlockNodeComponentRenderer
+						key={props.localId}
+						nodeProps={props}
+						syncBlockStoreManager={syncBlockStoreManager}
+						rendererOptions={syncBlockRendererOptions}
+					/>
+				</ErrorBoundary>
+			) : (
+				<SyncedBlockNodeComponentRenderer
+					key={props.localId}
+					nodeProps={props}
+					syncBlockStoreManager={syncBlockStoreManager}
+					rendererOptions={syncBlockRendererOptions}
+				/>
+			)
 		),
-		[syncBlockStoreManager, syncBlockRendererOptions],
+		[syncBlockStoreManager, syncBlockRendererOptions, fireAnalyticsEvent],
 	);
 };

@@ -1,5 +1,12 @@
 # @atlaskit/progress-bar
 
+## 4.1.2
+
+### Patch Changes
+
+- [`6d0bd85ed7a2f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d0bd85ed7a2f) -
+  [ux] Removed redundant token fallbacks from styling of the progress bar
+
 ## 4.1.1
 
 ### Patch Changes

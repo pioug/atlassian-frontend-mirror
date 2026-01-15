@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.33.0
+
+### Minor Changes
+
+- [`dfd88c3eda55b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dfd88c3eda55b) -
+  Add rule to enforce simplified fields in form implementations.
+
 ## 13.32.0
 
 ### Minor Changes

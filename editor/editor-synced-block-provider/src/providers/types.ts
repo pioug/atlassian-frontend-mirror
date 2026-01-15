@@ -1,5 +1,5 @@
 import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
-import type { MediaProvider, ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
+import type { CardProvider, MediaProvider, ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
 import type { EmojiProvider } from '@atlaskit/emoji';
 import type { MentionProvider } from '@atlaskit/mention/types';
 import { NodeDataProvider } from '@atlaskit/node-data-provider';
@@ -13,6 +13,7 @@ import type {
 	SyncBlockProduct,
 	BlockInstanceId,
 	SyncBlockAttrs,
+	ReferenceSyncBlockData,
 } from '../common/types';
 
 /**
@@ -42,6 +43,15 @@ export type DeleteSyncBlockResult = {
 };
 
 export type SyncBlockSourceInfo = {
+	hasAccess?: boolean;
+	/**
+	 * Whether the source info is for a source synced block
+	 */
+	isSource?: boolean;
+	onSamePage?: boolean;
+	productType?: SyncBlockProduct;
+	sourceAri: string;
+	subType?: string | null;
 	title?: string;
 	url?: string;
 };
@@ -69,6 +79,7 @@ export type UpdateReferenceSyncBlockResult = {
 export interface ADFFetchProvider {
 	batchFetchData: (resourceIds: ResourceId[]) => Promise<SyncBlockInstance[]>;
 	fetchData: (resourceId: ResourceId) => Promise<SyncBlockInstance>;
+	fetchReferences: (referenceResourceId: string) => Promise<ReferenceSyncBlockData>;
 }
 export interface ADFWriteProvider {
 	createData: (data: SyncBlockData) => Promise<WriteSyncBlockResult>;
@@ -80,6 +91,7 @@ export interface ADFWriteProvider {
 	 */
 	deleteData: (resourceId: ResourceId) => Promise<DeleteSyncBlockResult>;
 	generateResourceIdForReference: (sourceId: ResourceId) => ResourceId;
+	parentAri?: string;
 	product: SyncBlockProduct;
 	updateReferenceData: (
 		blocks: SyncBlockAttrs[],
@@ -109,6 +121,7 @@ export type SyncBlockRendererProviderCreator = {
 	createSSRMediaProvider?:
 		| ((options: MediaEmojiProviderOptions) => MediaProvider | undefined)
 		| undefined;
+	createSmartLinkProvider: (() => Promise<CardProvider>) | undefined;
 };
 
 export type SyncedBlockRendererProviderOptions = {
@@ -128,9 +141,11 @@ export abstract class SyncBlockDataProvider extends NodeDataProvider<
 	abstract deleteNodesData(resourceIds: string[]): Promise<Array<DeleteSyncBlockResult>>;
 	abstract fetchSyncBlockSourceInfo(
 		localId: BlockInstanceId,
-		sourceAri: string,
-		sourceProduct: SyncBlockProduct,
+		sourceAri?: string,
+		sourceProduct?: SyncBlockProduct,
 		fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
+		hasAccess?: boolean,
+		urlType?: 'view' | 'edit',
 	): Promise<SyncBlockSourceInfo | undefined>;
 	abstract setProviderOptions(providerOptions: SyncedBlockRendererProviderOptions): void;
 	abstract getSyncedBlockRendererProviderOptions(): SyncedBlockRendererProviderOptions;
@@ -153,6 +168,7 @@ export abstract class SyncBlockDataProvider extends NodeDataProvider<
 		blocks: SyncBlockAttrs[],
 		noContent?: boolean,
 	): Promise<UpdateReferenceSyncBlockResult>;
+	abstract fetchReferences(resourceId: string, isSource: boolean): Promise<ReferenceSyncBlockData>;
 }
 
 export type SubscriptionCallback = (data: SyncBlockInstance) => void;

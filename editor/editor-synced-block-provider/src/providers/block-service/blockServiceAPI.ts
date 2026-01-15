@@ -2,6 +2,7 @@
 import { useMemo } from 'react';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { generateBlockAri, generateBlockAriFromReference } from '../../clients/block-service/ari';
 import {
@@ -10,14 +11,16 @@ import {
 	createSyncedBlock,
 	deleteSyncedBlock,
 	getReferenceSyncedBlocks,
+	getReferenceSyncedBlocksByBlockAri,
 	getSyncedBlockContent,
 	updateReferenceSyncedBlockOnDocument,
 	updateSyncedBlock,
-	type BlockContentErrorResponse,
+	type ErrorResponse,
 	type BlockContentResponse,
 } from '../../clients/block-service/blockService';
 import {
 	SyncBlockError,
+	type ReferenceSyncBlockData,
 	type ResourceId,
 	type SyncBlockAttrs,
 	type SyncBlockData,
@@ -120,7 +123,7 @@ export const fetchReferences = async (
 ): Promise<SyncBlockInstance[] | SyncBlockError> => {
 	let response: {
 		blocks?: BlockContentResponse[] | undefined;
-		errors?: Array<BlockContentErrorResponse>;
+		errors?: Array<ErrorResponse>;
 	};
 
 	try {
@@ -221,6 +224,42 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 				return { error: mapBlockError(error), resourceId };
 			}
 			return { error: SyncBlockError.Errored, resourceId };
+		}
+	}
+
+	async fetchReferences(referenceResourceId: string): Promise<ReferenceSyncBlockData> {
+		try {
+			const blockAri = generateBlockAriFromReference({
+				cloudId: this.cloudId,
+				resourceId: referenceResourceId,
+			});
+			const response = await getReferenceSyncedBlocksByBlockAri({ blockAri });
+
+			const references: ReferenceSyncBlockData['references'] = [];
+			response.references.forEach((reference) => {
+				references.push({
+					...reference,
+					hasAccess: true,
+					onSamePage: this.parentAri === reference.documentAri,
+				});
+			});
+			response.errors.forEach((reference) => {
+				if (reference.code === 'FORBIDDEN') {
+					references.push({
+						blockAri: reference.blockAri,
+						documentAri: reference.documentAri,
+						hasAccess: false,
+						onSamePage: false,
+					});
+				}
+			});
+
+			return { references };
+		} catch (error) {
+			if (error instanceof BlockError) {
+				return { error: mapBlockError(error) };
+			}
+			return { error: SyncBlockError.Errored };
 		}
 	}
 
@@ -340,11 +379,11 @@ interface BlockServiceADFWriteProviderProps {
  */
 class BlockServiceADFWriteProvider implements ADFWriteProvider {
 	private cloudId: string;
-	private parentAri?: string;
 	private parentId?: string;
 	private getVersion?: () => number | undefined;
 
 	product: SyncBlockProduct;
+	parentAri?: string;
 
 	constructor({
 		cloudId,
@@ -502,7 +541,10 @@ const createBlockServiceAPIProviders = ({
 	writeProvider: BlockServiceADFWriteProvider;
 } => {
 	return {
-		fetchProvider: new BlockServiceADFFetchProvider({ cloudId }),
+		fetchProvider: new BlockServiceADFFetchProvider({
+			cloudId,
+			parentAri: fg('platform_synced_block_dogfooding') ? parentAri : undefined,
+		}),
 		writeProvider: new BlockServiceADFWriteProvider({
 			cloudId,
 			parentAri,
@@ -552,4 +594,8 @@ export const useMemoizedBlockServiceFetchOnlyAPIProvider = ({
 }: BlockServiceFetchOnlyAPIProviderProps): {
 	fetchProvider: BlockServiceADFFetchProvider;
 	writeProvider: undefined;
-} => useMemo(() => createBlockServiceFetchOnlyAPIProvider({ cloudId, parentAri }), [cloudId, parentAri]);
+} =>
+	useMemo(
+		() => createBlockServiceFetchOnlyAPIProvider({ cloudId, parentAri }),
+		[cloudId, parentAri],
+	);

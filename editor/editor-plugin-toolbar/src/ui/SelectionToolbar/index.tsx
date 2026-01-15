@@ -157,8 +157,6 @@ export const SelectionToolbar = ({
 		currentUserIntent,
 		shouldShowToolbar,
 		editorViewMode,
-		// @ts-ignore
-		selection: _selection,
 	} = usePluginState(api);
 
 	const contextualFormattingEnabled =
@@ -192,9 +190,7 @@ export const SelectionToolbar = ({
 	const onPositionCalculated = useOnPositionCalculated(editorView);
 
 	if (
-		(expValEquals('platform_editor_toolbar_aifc_template_editor', 'isEnabled', true) &&
-			selectionToolbarConfigEnabled &&
-			disableSelectionToolbarWhenPinned) ||
+		(selectionToolbarConfigEnabled && disableSelectionToolbarWhenPinned) ||
 		!components ||
 		!toolbar
 	) {

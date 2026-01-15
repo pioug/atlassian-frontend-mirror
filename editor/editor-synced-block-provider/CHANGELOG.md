@@ -1,5 +1,26 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.6.1
+
+### Patch Changes
+
+- [`f0124a523d8f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0124a523d8f1) -
+  [ux] [EDITOR-2845] Implement synced location for source and reference sync block
+- Updated dependencies
+
+## 3.6.0
+
+### Minor Changes
+
+- [`8100ae00326b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8100ae00326b4) -
+  EDITOR-2850-add media ssr support for sync blocks
+
+### Patch Changes
+
+- [`fff45a651440a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fff45a651440a) -
+  EDITOR-1665 add experience tracking analytics for sync block save, fetch and delete
+- Updated dependencies
+
 ## 3.5.5
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @atlaskit/media-file-preview
 
+## 0.15.4
+
+### Patch Changes
+
+- [`c09b399aeb198`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c09b399aeb198) -
+  Fix edge cases of ssrReliability remaining unknown
+
 ## 0.15.3
 
 ### Patch Changes

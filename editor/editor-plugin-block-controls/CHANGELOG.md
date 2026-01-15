@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 8.0.11
+
+### Patch Changes
+
+- [`de045021d126d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de045021d126d) -
+  EDITOR-4435 fix code block selection focus
+- [`76afb688dff6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76afb688dff6a) -
+  [ux] Update move function to leverage preserveSelection logic for different types of selection
+- Updated dependencies
+
 ## 8.0.10
 
 ### Patch Changes

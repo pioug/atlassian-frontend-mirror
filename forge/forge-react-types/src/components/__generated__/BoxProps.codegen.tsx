@@ -3,19 +3,17 @@
  *
  * Extract component prop types from UIKit 2 components - BoxProps
  *
- * @codegen <<SignedSource::dfcc0d6cb3a90665d441ef6ac93bcc3f>>
+ * @codegen <<SignedSource::653f98d927e1ec1646db39eca8e994fb>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/box/index.tsx <<SignedSource::6b375bb57ecf19919f9e1b65e899fd96>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/box/index.tsx <<SignedSource::8875ae64ad6c03e0827dd8f8a893ac04>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
+import React from "react";
+import { type BackgroundColor, type Space, type MediaQuery, type BorderRadius, tokensMap } from "./tokens.codegen";
+import type * as CSS from "csstype";
+import { type SerializedStyles, type CSSObject } from "@emotion/serialize";
 
-import React from 'react';
-import type { Box as PlatformBox } from '@atlaskit/primitives';
-
-import type * as CSS from 'csstype';
-import type { MediaQuery } from '@atlaskit/primitives';
-import { tokensMap } from '@atlaskit/primitives';
 type CSSProperties = CSS.PropertiesFallback<number | string>;
 type TokensMap = typeof tokensMap;
 type TokensMapPropKey = keyof TokensMap;
@@ -67,8 +65,16 @@ declare const makeXCSSValidator: <U extends XCSSValidatorParam>(supportedXCSSPro
 } ? Exclude<V[keyof V], number | ((...args: any[]) => any)> : never) | undefined; }>;
 export { makeXCSSValidator };
 export type { SafeCSSObject };
-
-import type { BorderRadius } from '@atlaskit/primitives';
+/**
+ * Generates SerializedStyles from xcss style object.
+ *
+ * Previously we used `&&` specificity hack to ensure Emotion xcss styles could
+ * override Compiled styles when wrapping @atlaskit/primitives/compiled components.
+ *
+ * Now that components like Box and Pressable are reimplemented entirely in Emotion,
+ * we no longer need the specificity increase - Emotion merges styles in array order (last wins).
+ */
+export declare function generateXcss(styleObj: CSSObject): SerializedStyles;
 const borderRadiusTokens: BorderRadius[] = [
 	'radius.xsmall',
 	'radius.small',
@@ -208,9 +214,7 @@ const xcssValidator = makeXCSSValidator({
 });
 type XCSSProp = ReturnType<typeof xcssValidator>;
 
-type PlatformBoxProps = React.ComponentProps<typeof PlatformBox>;
-
-export type BoxProps = Pick<PlatformBoxProps, 'children' | 'ref' | 'testId'> & {
+export type BoxProps = {
 	/**
 	 * A token alias for background color. See: [Design tokens](https://atlassian.design/components/tokens/all-tokens)
 	 * for a list of available colors.
@@ -220,68 +224,75 @@ export type BoxProps = Pick<PlatformBoxProps, 'children' | 'ref' | 'testId'> & {
 	 *
 	 * @type [Background color tokens](https://atlassian.design/components/tokens/all-tokens#color-background)
 	 */
-	backgroundColor?: PlatformBoxProps['backgroundColor'];
+	backgroundColor?: BackgroundColor;
 
 	/**
 	 * @type ForgeComponent
 	 */
-	children?: PlatformBoxProps['children'];
+	children?: React.ReactNode;
 
 	/**
 	 * A shorthand for `paddingBlock` and `paddingInline` together.
 	 *
 	 * @type [Space tokens](https://atlassian.design/components/tokens/all-tokens#space)
 	 */
-	padding?: PlatformBoxProps['padding'];
+	padding?: Space;
 
 	/**
 	 * The logical block start and end padding of an element.
 	 *
 	 * @type [Space tokens](https://atlassian.design/components/tokens/all-tokens#space)
 	 */
-	paddingBlock?: PlatformBoxProps['paddingBlock'];
+	paddingBlock?: Space;
 
 	/**
 	 * The logical block end padding of an element.
 	 *
 	 * @type [Space tokens](https://atlassian.design/components/tokens/all-tokens#space)
 	 */
-	paddingBlockEnd?: PlatformBoxProps['paddingBlockEnd'];
+	paddingBlockEnd?: Space;
 
 	/**
 	 * The logical block start padding of an element.
 	 *
 	 * @type [Space tokens](https://atlassian.design/components/tokens/all-tokens#space)
 	 */
-	paddingBlockStart?: PlatformBoxProps['paddingBlockStart'];
+	paddingBlockStart?: Space;
 
 	/**
 	 * The logical inline start and end padding of an element.
 	 *
 	 * @type [Space tokens](https://atlassian.design/components/tokens/all-tokens#space)
 	 */
-	paddingInline?: PlatformBoxProps['paddingInline'];
+	paddingInline?: Space;
 
 	/**
 	 * The logical inline end padding of an element.
 	 *
 	 * @type [Space tokens](https://atlassian.design/components/tokens/all-tokens#space)
 	 */
-	paddingInlineEnd?: PlatformBoxProps['paddingInlineEnd'];
+	paddingInlineEnd?: Space;
 
 	/**
 	 * The logical inline start padding of an element.
 	 *
 	 * @type [Space tokens](https://atlassian.design/components/tokens/all-tokens#space)
 	 */
-	paddingInlineStart?: PlatformBoxProps['paddingInlineStart'];
+	paddingInlineStart?: Space;
 
 	/**
 	 * Accessible role.
 	 *
 	 * @type string
 	 */
-	role?: PlatformBoxProps['role'];
+	role?: string;
+
+	/**
+	 * Test ID for the box.
+	 *
+	 * @type string
+	 */
+	testId?: string;
 
 	/**
 	 * Apply a subset of permitted styles, powered by Atlassian Design System tokens.

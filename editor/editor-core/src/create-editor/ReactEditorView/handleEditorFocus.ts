@@ -13,10 +13,6 @@ export function handleEditorFocus(view: EditorView | undefined): number | undefi
 		return;
 	}
 
-	if (view?.hasFocus()) {
-		return;
-	}
-
 	if (!window.getSelection) {
 		view?.focus();
 		return;

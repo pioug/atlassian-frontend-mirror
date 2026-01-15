@@ -137,6 +137,38 @@ tester.run('no-unused-cssmap-properties', rule, {
         const MyComponent = (props) => <div css={sizeStyles[props.size]} />;
       `,
 		},
+		{
+			name: 'all properties used inside function component',
+			code: `
+        import { cssMap } from '@compiled/react';
+
+        const styles = cssMap({
+          root: { color: 'red' },
+          active: { background: 'blue' },
+          disabled: { opacity: '0.5' },
+        });
+
+        const MyComponent = ({ isActive, isDisabled }) => (
+          <div css={[styles.root, isActive && styles.active, isDisabled && styles.disabled]} />
+        );
+      `,
+		},
+		{
+			name: 'properties used with ternary inside function component',
+			code: `
+        import { cssMap } from '@compiled/react';
+
+        const styles = cssMap({
+          root: { color: 'red' },
+          first: { borderTop: 'none' },
+          notFirst: { borderTop: '1px solid' },
+        });
+
+        const MyComponent = ({ isFirst }) => (
+          <div css={[styles.root, isFirst ? styles.first : styles.notFirst]} />
+        );
+      `,
+		},
 	],
 	invalid: [
 		{
@@ -249,6 +281,61 @@ tester.run('no-unused-cssmap-properties', rule, {
 				{
 					messageId: 'unused-property',
 					data: { propertyName: 'unused' },
+				},
+			],
+		},
+		{
+			name: 'unused property inside function component',
+			code: `
+        import { cssMap } from '@compiled/react';
+
+        const styles = cssMap({
+          root: { color: 'red' },
+          active: { background: 'blue' },
+          unusedStyle: { display: 'none' },
+        });
+
+        const MyComponent = ({ isActive }) => (
+          <div css={[styles.root, isActive && styles.active]} />
+        );
+      `,
+			errors: [
+				{
+					messageId: 'unused-property',
+					data: { propertyName: 'unusedStyle' },
+				},
+			],
+		},
+		{
+			name: 'multiple unused properties with ternary inside function component',
+			code: `
+        import { cssMap } from '@compiled/react';
+
+        const styles = cssMap({
+          root: { color: 'red' },
+          isFirstZone: { borderTop: 'none' },
+          notFirstZone: { borderTop: '1px solid' },
+          isLastZone: { borderBottom: 'none' },
+          errorMessage: { textAlign: 'center' },
+          unusedStyle: { display: 'none' },
+        });
+
+        const MyComponent = ({ isFirst, isLast }) => (
+          <div css={[
+            styles.root,
+            isFirst ? styles.isFirstZone : styles.notFirstZone,
+            isLast && styles.isLastZone,
+          ]} />
+        );
+      `,
+			errors: [
+				{
+					messageId: 'unused-property',
+					data: { propertyName: 'errorMessage' },
+				},
+				{
+					messageId: 'unused-property',
+					data: { propertyName: 'unusedStyle' },
 				},
 			],
 		},

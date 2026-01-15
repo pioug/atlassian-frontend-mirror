@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "16.2.0",
+	"version": "16.3.0",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -178,6 +178,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_table_less_padding_fix": {
+			"type": "boolean"
+		},
+		"platform_editor_enable_table_dnd": {
 			"type": "boolean"
 		}
 	}

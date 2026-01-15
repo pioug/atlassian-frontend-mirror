@@ -178,9 +178,6 @@
 			"path": "../../monorepo-tooling/gemini/tsconfig.app.json"
 		},
 		{
-			"path": "../../growth-pattern-library/growth-pattern-library-edition-awareness-button/tsconfig.app.json"
-		},
-		{
 			"path": "../../search/search-dialog/tsconfig.app.json"
 		},
 		{

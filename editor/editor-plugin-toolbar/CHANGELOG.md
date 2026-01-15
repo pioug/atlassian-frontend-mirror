@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 4.0.6
+
+### Patch Changes
+
+- [`c9c11b2544f4e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c9c11b2544f4e) -
+  Remove platform_editor_toolbar_aifc_template_editor feature flag
+- Updated dependencies
+
+## 4.0.5
+
+### Patch Changes
+
+- [`0caee373bff2d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0caee373bff2d) -
+  Exported additional types to fix typescript portable annotation errors
+- [`20d29306fb10e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20d29306fb10e) -
+  [ED-29451] clean up platform_editor_toolbar_aifc_patch_5
+- Updated dependencies
+
 ## 4.0.4
 
 ### Patch Changes

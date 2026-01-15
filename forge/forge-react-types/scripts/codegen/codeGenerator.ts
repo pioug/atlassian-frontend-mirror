@@ -9,6 +9,7 @@ import {
 	type VariableDeclaration,
 	SyntaxKind,
 	Node,
+	Project,
 } from 'ts-morph';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import kebabCase from 'lodash/kebabCase';
@@ -184,29 +185,41 @@ class ImportDeclarationProxy implements IImportDeclaration {
 
 	public getText() {
 		const code = this.base.getText();
-		const match = code.match(/^(import |import type ){(.+)} from ['"](.+)['"];$/);
+		
+		const match = code.match(/^(import(?:\s+type)?)\s+(?:(\w+)\s*,?\s*)?(?:\{([^}]*)\})?\s*from\s*['"](.+)['"];?$/);
 		if (!match) {
 			return this.base.getText();
 		}
-		let [_, importStatement, importedNames, packageName] = match;
-		let importedNamesList = importedNames
-			.trim()
-			.split(',')
-			.map((text) => text.trim());
+		
+		let [_, importKeyword, defaultImport, namedImportsStr, packageName] = match;
+		
+		let namedImportsList = namedImportsStr
+			? namedImportsStr.trim().split(',').map((text) => text.trim()).filter(Boolean)
+			: [];
 
-		if (isSharedUIKit2TypesImport(this.base)) {
-			// Map shared UIKit type imports to types.codegen
-			packageName = './types.codegen';
-		}
 
 		if (this.removedNamedImports.size > 0) {
-			importedNamesList = importedNamesList.filter((text) => !this.removedNamedImports.has(text));
+			namedImportsList = namedImportsList.filter((text) => !this.removedNamedImports.has(text));
 		}
 		if (this.addedNamedImports) {
-			importedNamesList = Array.from(new Set([...importedNamesList, ...this.addedNamedImports]));
+			namedImportsList = Array.from(new Set([...namedImportsList, ...this.addedNamedImports]));
 		}
-		importedNames = importedNamesList.sort().join(', ');
-		return `${importStatement}{ ${importedNames} } from '${packageName}';`;
+		
+		// Build the import statement
+		const parts: string[] = [];
+		if (defaultImport) {
+			parts.push(defaultImport);
+		}
+		if (namedImportsList.length > 0) {
+			parts.push(`{ ${namedImportsList.sort().join(', ')} }`);
+		}
+		
+		// If no imports left, don't output anything
+		if (parts.length === 0) {
+			return '';
+		}
+		
+		return `${importKeyword} ${parts.join(', ')} from '${packageName}';`;
 	}
 }
 
@@ -254,6 +267,131 @@ const isSharedUIKit2TypesImport = (importDeclaration: ImportDeclaration) => {
 	);
 };
 
+// Check if a module specifier points to the tokens.partial file
+const isTokensPartialImport = (moduleSpecifier: string): boolean =>
+	moduleSpecifier.includes('tokens.partial') || moduleSpecifier.includes('UIKit/tokens');
+
+// Merge multiple import statements from the same module into one
+// Rewrite module paths for codegen output
+const rewriteModulePath = (module: string): string => {
+	if (isTokensPartialImport(module)) {
+		return './tokens.codegen';
+	}
+	// Rewrite UIKit/types imports to types.codegen
+	if (module.charAt(0) === '.' && module.includes('/types')) {
+		return './types.codegen';
+	}
+	return module;
+};
+
+const mergeImportsFromSameModule = (code: string): string => {
+	const project = new Project({ useInMemoryFileSystem: true });
+	const tempFile = project.createSourceFile('temp.ts', code);
+
+	// Track imports by module specifier
+	interface ModuleImports {
+		typeOnly: Set<string>;
+		regular: Set<string>;
+		defaultImport?: string;
+		namespaceImport?: string;
+		isTypeOnly: boolean;
+	}
+	const importsByModule = new Map<string, ModuleImports>();
+
+	for (const importDecl of tempFile.getImportDeclarations()) {
+		const rawModule = importDecl.getModuleSpecifierValue();
+		const module = rewriteModulePath(rawModule);
+		const isTypeOnly = importDecl.isTypeOnly();
+
+		if (!importsByModule.has(module)) {
+			importsByModule.set(module, { typeOnly: new Set(), regular: new Set(), isTypeOnly: false });
+		}
+
+		const moduleImports = importsByModule.get(module)!;
+
+		// Handle default import: import React from 'react'
+		const defaultImport = importDecl.getDefaultImport();
+		if (defaultImport) {
+			moduleImports.defaultImport = defaultImport.getText();
+		}
+
+		// Handle namespace import: import * as CSS from 'csstype'
+		const namespaceImport = importDecl.getNamespaceImport();
+		if (namespaceImport) {
+			moduleImports.namespaceImport = namespaceImport.getText();
+			if (isTypeOnly) {
+				moduleImports.isTypeOnly = true;
+			}
+		}
+
+		// Handle named imports
+		for (const namedImport of importDecl.getNamedImports()) {
+			const name = namedImport.getName();
+			const alias = namedImport.getAliasNode()?.getText();
+			const importText = alias ? `${name} as ${alias}` : name;
+			const isNamedTypeOnly = namedImport.isTypeOnly();
+
+			if (isTypeOnly || isNamedTypeOnly) {
+				moduleImports.typeOnly.add(importText);
+			} else {
+				moduleImports.regular.add(importText);
+			}
+		}
+
+		importDecl.remove();
+	}
+
+	// Add merged imports back
+	for (const [module, { typeOnly, regular, defaultImport, namespaceImport, isTypeOnly }] of importsByModule) {
+		// Handle namespace imports separately (can't be combined with named imports)
+		if (namespaceImport) {
+			tempFile.addImportDeclaration({
+				moduleSpecifier: module,
+				namespaceImport: namespaceImport,
+				isTypeOnly: isTypeOnly,
+			});
+			continue;
+		}
+
+		const allImports: string[] = [];
+
+		// Add type-only imports with `type` prefix
+		for (const imp of typeOnly) {
+			if (!regular.has(imp)) {
+				allImports.push(`type ${imp}`);
+			} else {
+				// If it's in both, keep it as regular (value import)
+				allImports.push(imp);
+			}
+		}
+
+		// Add regular imports
+		for (const imp of regular) {
+			if (!typeOnly.has(imp)) {
+				allImports.push(imp);
+			}
+		}
+
+		if (allImports.length > 0 || defaultImport) {
+			tempFile.addImportDeclaration({
+				moduleSpecifier: module,
+				defaultImport: defaultImport,
+				namedImports: allImports.length > 0 ? allImports : undefined,
+			});
+		}
+	}
+
+	return tempFile.getFullText();
+};
+
+
+// handles imports from platform/packages/forge/forge-ui/src/components/UIKit/tokens.partial.tsx
+// (can be type-only imports OR mixed value/type imports)
+const isSharedUIKit2TokensImport = (importDeclaration: ImportDeclaration) => {
+	const moduleSpecifier = importDeclaration.getModuleSpecifierValue();
+	return moduleSpecifier.charAt(0) === '.' && isTokensPartialImport(moduleSpecifier);
+};
+
 const extractImportDeclarations = (
 	sourceFile: SourceFile,
 	componentPropSymbol: Symbol,
@@ -273,11 +411,12 @@ const extractImportDeclarations = (
 			// only keep dependencies from
 			// - @atlaskit
 			// - react
-			// - or '../../types'
+			// - or shared UIKit types/tokens files
 			return (
 				moduleSpecifier.startsWith('@atlaskit/') ||
 				moduleSpecifier === 'react' ||
-				isSharedUIKit2TypesImport(declaration)
+				isSharedUIKit2TypesImport(declaration) ||
+				isSharedUIKit2TokensImport(declaration)
 			);
 		})
 		.reduce<ImportDeclarationProxy[]>((declarations, declaration) => {
@@ -866,8 +1005,12 @@ const extractImportsForVariables = (
 
 	for (const importDecl of imports) {
 		const moduleSpecifier = importDecl.getModuleSpecifierValue();
-		// Only extract imports from @atlaskit packages (not local imports)
-		if (moduleSpecifier.startsWith('@atlaskit/')) {
+		
+		// Handle imports from @atlaskit packages or tokens.partial file
+		const isAtlaskitImport = moduleSpecifier.startsWith('@atlaskit/');
+		const isTokensImport = isTokensPartialImport(moduleSpecifier);
+		
+		if (isAtlaskitImport || isTokensImport) {
 			const namedImports = importDecl.getNamedImports();
 			const isTypeOnlyImport = importDecl.isTypeOnly();
 
@@ -894,16 +1037,15 @@ const extractImportsForVariables = (
 
 			// If any imports are used, create an import statement
 			if (usedNamedImports.length > 0 || usedTypeImports.length > 0) {
-				const importParts: string[] = [];
-				if (usedTypeImports.length > 0) {
-					importParts.push(`type { ${usedTypeImports.join(', ')} }`);
-				}
-				if (usedNamedImports.length > 0) {
-					importParts.push(`{ ${usedNamedImports.join(', ')} }`);
-				}
-				if (importParts.length > 0) {
-					importDeclarations.push(`import ${importParts.join(', ')} from '${moduleSpecifier}';`);
-				}
+				// Rewrite tokens.partial imports to tokens.codegen
+				const targetModule = isTokensImport ? './tokens.codegen' : moduleSpecifier;
+				
+				// Combine type and value imports into a single { } block
+				const allImports: string[] = [
+					...usedTypeImports.map((name) => `type ${name}`),
+					...usedNamedImports,
+				];
+				importDeclarations.push(`import { ${allImports.join(', ')} } from '${targetModule}';`);
 			}
 		}
 	}
@@ -948,6 +1090,7 @@ const handleXCSSProp: CodeConsolidator = ({
 		const xcssValidatorDeclarationCode = utilsFile.getEmitOutput({
 			emitOnlyDtsFiles: true,
 		}).compilerObject.outputFiles[0].text;
+		
 		const xcssValidatorVariableDeclarationCode = [
 			xcssValidatorDeclarationCode,
 			variableImportsCode,
@@ -958,7 +1101,7 @@ const handleXCSSProp: CodeConsolidator = ({
 			.filter((code) => !!code)
 			.join('\n');
 
-		return [
+		const allCode = [
 			'/* eslint @repo/internal/codegen/signed-source-integrity: "warn" */\n/* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */',
 			importCode,
 			xcssValidatorVariableDeclarationCode,
@@ -969,6 +1112,9 @@ const handleXCSSProp: CodeConsolidator = ({
 		]
 			.filter((code) => !!code)
 			.join('\n\n');
+		
+		// Merge duplicate imports from the same module (e.g., multiple tokens.codegen imports)
+		return mergeImportsFromSameModule(allCode);
 	} finally {
 		sourceFile.getProject().removeSourceFile(utilsFile);
 	}

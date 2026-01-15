@@ -1,5 +1,35 @@
 # @atlaskit/editor-common
 
+## 111.8.2
+
+### Patch Changes
+
+- [`f0124a523d8f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0124a523d8f1) -
+  [ux] [EDITOR-2845] Implement synced location for source and reference sync block
+
+## 111.8.1
+
+### Patch Changes
+
+- [`1f4c761b661e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f4c761b661e1) -
+  [ux] EDITOR-4174 wrap synced block and bodied sync block with sentry error boundaries
+- Updated dependencies
+
+## 111.8.0
+
+### Minor Changes
+
+- [`1993b8227cbf3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1993b8227cbf3) -
+  [ux] Update selection extension APIs to allow Snippets to register at parent level
+
+### Patch Changes
+
+- [`c975226c67ed8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c975226c67ed8) -
+  [ux] [EDITOR-4472] Update tooltip copy for copy sync block button
+- [`fff45a651440a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fff45a651440a) -
+  EDITOR-1665 add experience tracking analytics for sync block save, fetch and delete
+- Updated dependencies
+
 ## 111.7.4
 
 ### Patch Changes

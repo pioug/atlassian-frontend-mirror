@@ -21,7 +21,7 @@ export default (): React.JSX.Element => {
 				clearControlLabel="Clear custom date format and parseInputValue prop"
 				dateFormat="DD/MM/YY"
 				parseInputValue={parseInputValue}
-				placeholder="e.g. 31/Dec/18"
+				placeholder=""
 				onChange={console.log}
 				shouldShowCalendarButton
 				inputLabelId="custom"

@@ -67,7 +67,9 @@ const defaultOptions: SyncedBlockRendererOptions = {
 		allowCaptions: true,
 		featureFlags: { mediaInline: true },
 	},
-	smartLinks: undefined,
+	smartLinks: {
+		ssr: true,
+	},
 };
 
 export const AKRendererWrapper = memo(

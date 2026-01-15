@@ -70,6 +70,7 @@ import type { EditorNextProps } from '../types/editor-props';
 import { createFeatureFlagsFromProps } from '../utils/feature-flags-from-props';
 import { getNodesCount } from '../utils/getNodesCount';
 import { getNodesVisibleInViewport } from '../utils/getNodesVisibleInViewport';
+import { isChromeless } from '../utils/is-chromeless';
 import { isFullPage } from '../utils/is-full-page';
 import { RenderTracking } from '../utils/performance/components/RenderTracking';
 import measurements from '../utils/performance/measure-enum';
@@ -745,7 +746,15 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 					(__livePage ||
 						expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true)) &&
 					!isEmptyDocument(editorView.state.doc);
+
 				if (!liveDocWithContent) {
+					focusTimeoutId.current = handleEditorFocus(editorView);
+				}
+
+				if (
+					isChromeless(props.editorProps.appearance) &&
+					expValEquals('platform_editor_focus_on_chromeless_editor', 'isEnabled', true)
+				) {
 					focusTimeoutId.current = handleEditorFocus(editorView);
 				}
 
@@ -759,7 +768,14 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				}
 			}
 		}
-	}, [editorView, shouldFocus, __livePage, mitigateScrollJump, disabled]);
+	}, [
+		editorView,
+		shouldFocus,
+		__livePage,
+		mitigateScrollJump,
+		disabled,
+		props.editorProps.appearance,
+	]);
 
 	const scrollElement = React.useRef<Element | null>();
 	const possibleListeners = React.useRef([] as [event: string, handler: () => void][]);

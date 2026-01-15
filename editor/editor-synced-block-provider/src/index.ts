@@ -9,6 +9,8 @@ export type {
 	SyncBlockProduct,
 	BlockInstanceId,
 	SyncBlockAttrs,
+	ReferenceSyncBlockData,
+	ReferencesSourceInfo
 } from './common/types';
 
 // hooks
@@ -55,6 +57,7 @@ export type {
 	UpdateReferenceSyncBlockResult,
 	WriteSyncBlockResult,
 	SyncBlockParentInfo,
+	SyncBlockSourceInfo,
 } from './providers/types';
 
 // store managers

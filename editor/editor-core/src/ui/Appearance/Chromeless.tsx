@@ -199,10 +199,7 @@ export function ChromelessEditorContainer({
 }: ChromelessEditorContainerProps) {
 	return (
 		<div
-			css={[
-				chromelessEditorStylesNew,
-				scrollbarStylesNew,
-			]}
+			css={[chromelessEditorStylesNew, scrollbarStylesNew]}
 			style={{
 				maxHeight: maxHeight ? `${maxHeight}px` : undefined,
 				minHeight: `${minHeight}px`,

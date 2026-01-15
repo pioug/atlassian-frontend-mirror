@@ -8,9 +8,12 @@ import { Fragment, type ReactNode } from 'react';
 import { jsx } from '@compiled/react';
 
 import Badge from '@atlaskit/badge';
+import { cssMap } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import Heading from '@atlaskit/heading';
+import EditionsIcon from '@atlaskit/icon-lab/core/editions';
 import AiChatIcon from '@atlaskit/icon/core/ai-chat';
+import CreditCardIcon from '@atlaskit/icon/core/credit-card';
 import PremiumIcon from '@atlaskit/icon/core/premium';
 import { ConfluenceIcon } from '@atlaskit/logo';
 import { TopNavButton } from '@atlaskit/navigation-system/experimental/top-nav-button';
@@ -33,8 +36,8 @@ import {
 	Profile,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
-import { Stack } from '@atlaskit/primitives/compiled';
-import { EditionAwarenessButton } from '@atlassian/growth-pattern-library-edition-awareness-button';
+import { Box, Pressable, Stack } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import placeholder200x20 from './images/200x20.png';
 import { WithResponsiveViewport } from './utils/example-utils';
@@ -53,6 +56,50 @@ const wideCustomLogo = (
 		label="Home page"
 	/>
 );
+
+const styles = cssMap({
+	buttonStyles: {
+		borderWidth: token('border.width'),
+		fontWeight: token('font.weight.medium'),
+		borderStyle: 'solid',
+		backgroundColor: token('elevation.surface'),
+		borderRadius: token('radius.small'),
+		paddingInline: token('space.150'),
+		paddingBlock: token('space.050'),
+		minHeight: '32px',
+		display: 'flex',
+		gap: token('space.100'),
+		alignItems: 'center',
+		textDecoration: 'none',
+		color: token('color.text.discovery'),
+		borderColor: token('color.border.discovery'),
+	},
+	iconStyles: {
+		display: 'flex',
+	},
+});
+
+// This is a mock button that is used to test the EA button as it is not directly exported
+// Loosely copied from @atlassian/edition-awareness/src/ui/edition-awareness-button.tsx
+function CustomEditionAwarenessButton({
+	icon,
+	children,
+}: {
+	icon: 'credit-card' | 'gem';
+	children: ReactNode;
+}) {
+	return (
+		<Pressable xcss={styles.buttonStyles}>
+			<Box xcss={styles.iconStyles}>
+				{icon === 'credit-card' && (
+					<CreditCardIcon label="" color={token('color.icon.discovery')} />
+				)}
+				{icon === 'gem' && <EditionsIcon label="" color={token('color.icon.discovery')} />}
+			</Box>
+			{children}
+		</Pressable>
+	);
+}
 
 const defaultTopNavEnd = (
 	<Fragment>
@@ -83,9 +130,9 @@ const defaultTopNavEnd = (
 
 const upgradeButton = (
 	<MenuListItem>
-		<EditionAwarenessButton status="default" icon="missing-payment-details">
+		<CustomEditionAwarenessButton icon="credit-card">
 			Add payment details
-		</EditionAwarenessButton>
+		</CustomEditionAwarenessButton>
 	</MenuListItem>
 );
 
@@ -233,9 +280,9 @@ export default function TopNavigationStressExample() {
 						CustomLogo={connieCustomLogo}
 						topNavEnd={
 							<Fragment>
-								<EditionAwarenessButton status="default" icon="upgrade" upgradeIconType="gem">
+								<CustomEditionAwarenessButton icon="gem">
 									Standard trial
-								</EditionAwarenessButton>
+								</CustomEditionAwarenessButton>
 								{defaultTopNavEnd}
 							</Fragment>
 						}

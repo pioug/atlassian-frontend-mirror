@@ -1,5 +1,26 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 5.2.1
+
+### Patch Changes
+
+- [`1f4c761b661e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f4c761b661e1) -
+  [ux] EDITOR-4174 wrap synced block and bodied sync block with sentry error boundaries
+- Updated dependencies
+
+## 5.2.0
+
+### Minor Changes
+
+- [`8100ae00326b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8100ae00326b4) -
+  EDITOR-2850-add media ssr support for sync blocks
+
+### Patch Changes
+
+- [`fff45a651440a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fff45a651440a) -
+  EDITOR-1665 add experience tracking analytics for sync block save, fetch and delete
+- Updated dependencies
+
 ## 5.1.0
 
 ### Minor Changes

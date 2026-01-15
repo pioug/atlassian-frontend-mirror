@@ -14,7 +14,6 @@ import {
 import { css, cssMap, jsx } from '@compiled/react';
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
@@ -71,11 +70,6 @@ const listTitleStyles: CSSProperties = {
 };
 
 export const messages = defineMessages({
-	titleRecentlyViewed: {
-		id: 'fabric.linkPicker.listTitle.recentlyViewed',
-		defaultMessage: 'Recently Viewed',
-		description: 'Describes type of items shown in the list for screen-reader users',
-	},
 	titleRecentlyViewedFormatted: {
 		id: 'fabric.linkPicker.listTitle.recentlyViewedFormatted',
 		defaultMessage: 'Recently viewed',
@@ -152,11 +146,8 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 		let itemsContent;
 		let loadingContent;
 
-		const recentlyViewedMessage = fg('platform-linking-link-picker-previewable-only')
-			? messages.titleRecentlyViewedFormatted
-			: messages.titleRecentlyViewed;
 
-		const linkListTitle = hasSearchTerm ? messages.titleResults : recentlyViewedMessage;
+		const linkListTitle = hasSearchTerm ? messages.titleResults : messages.titleRecentlyViewedFormatted;
 
 		useTrackResultsShown(isLoading, items, hasSearchTerm);
 

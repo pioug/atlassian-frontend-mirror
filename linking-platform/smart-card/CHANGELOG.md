@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 43.20.3
+
+### Patch Changes
+
+- [`9067b62fb8190`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9067b62fb8190) -
+  FG cleanup navx-2479-sl-fix-inilne-card-show-connect-button
+- Updated dependencies
+
 ## 43.20.2
 
 ### Patch Changes

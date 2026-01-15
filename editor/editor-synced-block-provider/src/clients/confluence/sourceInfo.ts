@@ -84,6 +84,31 @@ const getConfluenceSourceInfo = async (ari: string): Promise<GetSourceInfoResult
 	return (await response.json()) as GetSourceInfoResult;
 };
 
+const resolveNoAccessPageInfo = async (ari: string): Promise<SyncBlockSourceInfo> => {
+	const response = await fetch('/gateway/api/object-resolver/resolve/ari', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			Accept: 'application/json',
+		},
+		body: JSON.stringify({ ari }),
+	});
+
+	if (response.ok) {
+		const payload = await response.json();
+		const url = payload?.data?.url;
+		const title = payload?.data?.name;
+
+		return {
+			url: typeof url === 'string' ? url : undefined,
+			title: typeof title === 'string' ? title : undefined,
+			sourceAri: ari,
+		};
+	} else {
+		throw new Error(`Failed to resolve ari: ${response.statusText}`);
+	}
+};
+
 export const fetchConfluencePageInfoOld = async (
 	pageAri: string,
 	localId?: string,
@@ -114,7 +139,7 @@ export const fetchConfluencePageInfoOld = async (
 			fireAnalyticsEvent?.(getSourceInfoErrorPayload('Failed to get confluence page source info'));
 		}
 
-		return Promise.resolve({ title, url });
+		return Promise.resolve({ title, url, sourceAri: pageAri });
 	} catch (error) {
 		logException(error as Error, {
 			location: 'editor-synced-block-provider/sourceInfo',
@@ -126,35 +151,50 @@ export const fetchConfluencePageInfoOld = async (
 
 export const fetchConfluencePageInfoNew = async (
 	pageAri: string,
+	hasAccess: boolean,
+	urlType: 'view' | 'edit',
 	localId?: string,
 ): Promise<SyncBlockSourceInfo | undefined> => {
-	const { type: pageType } = getPageIdAndTypeFromConfluencePageAri({ ari: pageAri });
-	const response = await getConfluenceSourceInfo(pageAri);
+	if (hasAccess) {
+		const { type: pageType } = getPageIdAndTypeFromConfluencePageAri({ ari: pageAri });
+		const response = await getConfluenceSourceInfo(pageAri);
 
-	const contentData = response.data?.content?.nodes?.[0];
-	const title = contentData?.title;
+		const contentData = response.data?.content?.nodes?.[0];
+		const { title, subType } = contentData || {};
 
-	let url;
-	const { base } = contentData?.links || {};
-	if (base && contentData?.space?.key && contentData?.id) {
-		if (isBlogPageType(pageType)) {
-			url = `${base}/spaces/${contentData.space.key}/blog/edit-v2/${contentData.id}`;
-		} else if (contentData.subType === 'live') {
-			url = `${base}/spaces/${contentData.space.key}/pages/${contentData.id}`;
-		} else {
-			url = `${base}/spaces/${contentData.space.key}/pages/edit-v2/${contentData.id}`;
+		let url;
+		const { base } = contentData?.links || {};
+		if (base && contentData?.space?.key && contentData?.id) {
+			if (isBlogPageType(pageType)) {
+				url = `${base}/spaces/${contentData.space.key}/blog${urlType === 'edit' ? '/edit-v2' : ''}/${contentData.id}`;
+			} else if (contentData.subType === 'live') {
+				url = `${base}/spaces/${contentData.space.key}/pages/${contentData.id}`;
+			} else {
+				url = `${base}/spaces/${contentData.space.key}/pages${urlType === 'edit' ? '/edit-v2' : ''}/${contentData.id}`;
+			}
 		}
+
+		url = url && localId ? `${url}#block-${localId}` : url;
+
+		return Promise.resolve({
+			title,
+			url,
+			sourceAri: pageAri,
+			subType,
+		});
+	} else {
+		return await resolveNoAccessPageInfo(pageAri);
 	}
-
-	url = url && localId ? `${url}#block-${localId}` : url;
-
-	return Promise.resolve({ title, url });
 };
 
 export const fetchConfluencePageInfo = async (
 	pageAri: string,
+	hasAccess: boolean,
+	urlType: 'view' | 'edit',
 	localId?: string,
 	fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
 ): Promise<SyncBlockSourceInfo | undefined> => {
-	return fg('platform_synced_block_dogfooding') ? await fetchConfluencePageInfoNew(pageAri, localId) : await fetchConfluencePageInfoOld(pageAri, localId, fireAnalyticsEvent)
+	return fg('platform_synced_block_dogfooding')
+		? await fetchConfluencePageInfoNew(pageAri, hasAccess, urlType, localId)
+		: await fetchConfluencePageInfoOld(pageAri, localId, fireAnalyticsEvent);
 };

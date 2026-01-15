@@ -1,7 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { forwardRef, useCallback, useEffect, useState, type Ref } from 'react';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 import Tooltip, { type TooltipProps } from '@atlaskit/tooltip';
 
@@ -58,39 +60,42 @@ export interface Props {
 	tooltipStyle?: React.ForwardRefExoticComponent<any> | React.ComponentType<any>;
 }
 
-export default ({
-	title,
-	icon,
-	iconAfter,
-	onClick,
-	onKeyDown,
-	onMouseEnter,
-	onMouseLeave,
-	onFocus,
-	onBlur,
-	onMount,
-	onUnmount,
-	selected,
-	disabled,
-	href,
-	target,
-	appearance = 'subtle',
-	children,
-	className,
-	tooltipContent,
-	tooltipStyle,
-	testId,
-	interactionName,
-	hideTooltipOnClick = true,
-	ariaHasPopup,
-	tabIndex,
-	areaControls,
-	ariaLabel,
-	isRadioButton,
-	pulse,
-	spotlightConfig,
-	areAnyNewToolbarFlagsEnabled,
-}: Props): React.JSX.Element => {
+const FloatingToolbarButton = (
+	{
+		title,
+		icon,
+		iconAfter,
+		onClick,
+		onKeyDown,
+		onMouseEnter,
+		onMouseLeave,
+		onFocus,
+		onBlur,
+		onMount,
+		onUnmount,
+		selected,
+		disabled,
+		href,
+		target,
+		appearance = 'subtle',
+		children,
+		className,
+		tooltipContent,
+		tooltipStyle,
+		testId,
+		interactionName,
+		hideTooltipOnClick = true,
+		ariaHasPopup,
+		tabIndex,
+		areaControls,
+		ariaLabel,
+		isRadioButton,
+		pulse,
+		spotlightConfig,
+		areAnyNewToolbarFlagsEnabled,
+	}: Props,
+	forwardedRef?: Ref<HTMLElement>,
+): React.JSX.Element => {
 	// Check if there's only an icon and add additional styles
 	const iconOnly = (icon || iconAfter) && !children;
 	const customSpacing = iconOnly ? iconOnlySpacing : {};
@@ -144,7 +149,22 @@ export default ({
 						<Button
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/no-unsafe-style-overrides -- Ignored via go/DSP-18766
 							className={className}
-							ref={(buttonElement) => setSpotlightReferenceElement(buttonElement)}
+							ref={(buttonElement) => {
+								setSpotlightReferenceElement(buttonElement);
+
+								if (
+									forwardedRef &&
+									editorExperiment('platform_synced_block', true) &&
+									fg('platform_synced_block_dogfooding')
+								) {
+									if (typeof forwardedRef === 'function') {
+										forwardedRef(buttonElement);
+									} else if (typeof forwardedRef === 'object') {
+										(forwardedRef as React.MutableRefObject<HTMLElement | null>).current =
+											buttonElement;
+									}
+								}
+							}}
 							// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
 							theme={(adgTheme, themeProps) => {
 								const { buttonStyles, ...rest } = adgTheme(themeProps);
@@ -206,3 +226,9 @@ export default ({
 		</>
 	);
 };
+
+export default componentWithCondition(
+	() => editorExperiment('platform_synced_block', true) && fg('platform_synced_block_dogfooding'),
+	forwardRef<HTMLElement, Props>(FloatingToolbarButton),
+	FloatingToolbarButton,
+);

@@ -4,11 +4,13 @@ import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/anal
 import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import { getProductFromSourceAri } from '../clients/block-service/ari';
 import { getPageIdAndTypeFromConfluencePageAri } from '../clients/confluence/ari';
 import { fetchConfluencePageInfo } from '../clients/confluence/sourceInfo';
 import {
 	SyncBlockError,
 	type BlockInstanceId,
+	type ReferenceSyncBlockData,
 	type ResourceId,
 	type SyncBlockAttrs,
 	type SyncBlockData,
@@ -207,23 +209,56 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	 *
 	 * @returns The source info
 	 */
-	fetchSyncBlockSourceInfo(
+	async fetchSyncBlockSourceInfo(
 		localId: BlockInstanceId,
-		sourceAri: string,
-		sourceProduct: SyncBlockProduct,
+		sourceAri?: string,
+		sourceProduct?: SyncBlockProduct,
 		fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
+		hasAccess: boolean = true,
+		urlType: 'view' | 'edit' = 'edit',
 	): Promise<SyncBlockSourceInfo | undefined> {
-		if (!sourceAri || !sourceProduct) {
+		let ari = sourceAri,
+			product = sourceProduct;
+
+		if (fg('platform_synced_block_dogfooding')) {
+			ari = sourceAri ?? this.writeProvider?.parentAri;
+			product = sourceProduct ?? getProductFromSourceAri(ari);
+		}
+
+		if (!ari || !product) {
 			return Promise.reject(new Error('Source ari or source product is undefined'));
 		}
 
-		switch (sourceProduct) {
-			case 'confluence-page':
-				return fetchConfluencePageInfo(sourceAri, localId, fireAnalyticsEvent);
+		switch (product) {
+			case 'confluence-page': {
+				const sourceInfo = await fetchConfluencePageInfo(
+					ari,
+					hasAccess,
+					urlType,
+					localId,
+					fireAnalyticsEvent,
+				);
+
+				if (fg('platform_synced_block_dogfooding')) {
+					if (!sourceInfo) {
+						return Promise.resolve(undefined);
+					}
+					return {
+						...sourceInfo,
+						onSamePage: this.writeProvider?.parentAri === ari,
+						productType: product,
+					};
+				} else {
+					return sourceInfo;
+				}
+			}
 			case 'jira-work-item':
+				if (fg('platform_synced_block_dogfooding')) {
+					return Promise.resolve(undefined);
+				}
 				return Promise.reject(new Error('Jira work item source product not supported'));
 			default:
-				return Promise.reject(new Error(`${sourceProduct} source product not supported`));
+				return Promise.reject(new Error(`${product} source product not supported`));
 		}
 	}
 
@@ -286,6 +321,15 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 			throw new Error('Write provider not set');
 		}
 		return this.writeProvider.updateReferenceData(blocks, noContent);
+	}
+
+	fetchReferences(resourceId: string, isSource: boolean): Promise<ReferenceSyncBlockData> {
+		if (!this.fetchProvider) {
+			throw new Error('Fetch provider not set');
+		}
+		return this.fetchProvider.fetchReferences(
+			isSource ? this.generateResourceIdForReference(resourceId) : resourceId,
+		);
 	}
 }
 

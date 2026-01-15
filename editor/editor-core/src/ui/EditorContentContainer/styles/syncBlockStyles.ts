@@ -21,6 +21,7 @@ export const syncBlockStyles: SerializedStyles = css({
 			marginRight: `-18px`,
 			marginLeft: `-18px`,
 			marginBottom: 0,
+			marginTop: token('space.075', '6px'),
 			paddingBlock: token('space.150', '12px'),
 			color: 'inherit',
 
@@ -183,7 +184,7 @@ export const syncBlockStyles: SerializedStyles = css({
 			'.ak-renderer-document > :first-child': {
 				marginTop: 0,
 			},
-		}
+		},
 	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values

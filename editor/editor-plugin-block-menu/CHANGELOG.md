@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.0.16
+
+### Patch Changes
+
+- [`0caee373bff2d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0caee373bff2d) -
+  Exported additional types to fix typescript portable annotation errors
+- Updated dependencies
+
 ## 6.0.15
 
 ### Patch Changes

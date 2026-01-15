@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 4.32.3
+
+### Patch Changes
+
+- [`08c554687a400`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08c554687a400) -
+  FG cleanup navx-sllv-fix-inline-edit-error
+- Updated dependencies
+
 ## 4.32.2
 
 ### Patch Changes

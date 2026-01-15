@@ -1,5 +1,15 @@
 # @atlaskit/modal-dialog
 
+## 14.10.0
+
+### Minor Changes
+
+- [`a6376c3a0cd91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a6376c3a0cd91) -
+  Modal body now explicitly sets the font style to use typography tokens, instead of relying on the
+  CSS reset to be present. This change is no longer behind a feature flag.
+
+  This change was previously reverted and is being redone.
+
 ## 14.9.5
 
 ### Patch Changes

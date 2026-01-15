@@ -62,6 +62,13 @@ export type SyncedBlockFetchErrorAEP = OperationalAEP<
 	SyncedBlockErrorAttributes
 >;
 
+export type SyncedBlockFetchReferencesErrorAEP = OperationalAEP<
+	ACTION.ERROR,
+	ACTION_SUBJECT.SYNCED_BLOCK,
+	ACTION_SUBJECT_ID.SYNCED_BLOCK_FETCH_REFERENCES,
+	SyncedBlockErrorAttributes
+>;
+
 export type SyncBlockEventPayload =
 	| SyncedBlockSourceURLErrorAEP
 	| SyncedBlockUpdateCacheErrorAEP
@@ -71,7 +78,8 @@ export type SyncBlockEventPayload =
 	| SyncedBlockGetSourceInfoErrorAEP
 	| SyncedBlockFetchErrorAEP
 	| ReferenceSyncedBlockUpdateErrorAEP
-	| ExperienceEventPayload;
+	| ExperienceEventPayload
+	| SyncedBlockFetchReferencesErrorAEP;
 
 export type RendererSyncBlockEventPayload =
 	| SyncedBlockGetSourceInfoErrorAEP

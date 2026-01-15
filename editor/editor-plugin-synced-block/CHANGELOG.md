@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 5.1.12
+
+### Patch Changes
+
+- [`f0124a523d8f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0124a523d8f1) -
+  [ux] [EDITOR-2845] Implement synced location for source and reference sync block
+- Updated dependencies
+
+## 5.1.11
+
+### Patch Changes
+
+- [`1f4c761b661e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f4c761b661e1) -
+  [ux] EDITOR-4174 wrap synced block and bodied sync block with sentry error boundaries
+- Updated dependencies
+
+## 5.1.10
+
+### Patch Changes
+
+- [`c975226c67ed8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c975226c67ed8) -
+  [ux] [EDITOR-4472] Update tooltip copy for copy sync block button
+- [`98a4415c99228`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98a4415c99228) -
+  [ux] Set selection to the start of the previous selection when creating new synced block
+- [`fff45a651440a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fff45a651440a) -
+  EDITOR-1665 add experience tracking analytics for sync block save, fetch and delete
+- [`e3856219900ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3856219900ac) -
+  Revert removal of 'copy synced block' from block menu
+- Updated dependencies
+
 ## 5.1.9
 
 ### Patch Changes

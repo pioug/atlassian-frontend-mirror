@@ -105,7 +105,7 @@ export default () => {
 						{ label: 'Friday', value: 5 },
 						{ label: 'Saturday', value: 6 },
 					]}
-					placeholder="Choose start day of the week"
+					placeholder=""
 					onChange={handleWeekStartDayChange}
 				/>
 			</Box>

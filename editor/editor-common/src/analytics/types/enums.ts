@@ -529,6 +529,7 @@ export enum ACTION_SUBJECT_ID {
 	REFERENCE_SYNCED_BLOCK_DELETE = 'referenceSyncedBlockDelete',
 	SYNCED_BLOCK_GET_SOURCE_INFO = 'syncedBlockGetSourceInfo',
 	SYNCED_BLOCK_FETCH = 'syncedBlockFetch',
+	SYNCED_BLOCK_FETCH_REFERENCES = 'syncedBlockFetchReferences',
 	TABLE_STICKY_HEADER = 'tableStickyHeader',
 }
 

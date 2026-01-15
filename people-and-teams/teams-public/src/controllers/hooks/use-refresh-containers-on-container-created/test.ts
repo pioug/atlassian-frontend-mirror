@@ -1,9 +1,9 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { act, renderHook, waitFor } from '@testing-library/react';
 
 import { useCreateContainers } from '../use-create-containers';
 import { useTeamContainers } from '../use-team-containers';
 
-import { INTERVAL_TIME, TIMEOUT_DURATION, useRefreshOnContainerCreated } from './index';
+import { INTERVAL_TIME, useRefreshOnContainerCreated } from './index';
 
 jest.mock('../use-create-containers');
 jest.mock('../use-team-containers');
@@ -48,7 +48,7 @@ function mockTeamContainers() {
 	return { refetchTeamContainers, setTeamContainers, getTeamContainers: () => teamContainersState };
 }
 
-test('will refresh containers when a new container is created', () => {
+test('will refresh containers when a new container is created', async () => {
 	const { updateContainerLoading, setContainers } = mockCreateContainers();
 	const { refetchTeamContainers, setTeamContainers } = mockTeamContainers();
 	const { rerender } = renderHook(() => useRefreshOnContainerCreated(teamId));
@@ -59,20 +59,28 @@ test('will refresh containers when a new container is created', () => {
 	rerender();
 
 	jest.advanceTimersByTime(INTERVAL_TIME);
-	expect(refetchTeamContainers).toHaveBeenCalledTimes(1);
+	await waitFor(() => {
+		expect(refetchTeamContainers).toHaveBeenCalledTimes(1);
+	});
 
 	jest.advanceTimersByTime(INTERVAL_TIME);
-	expect(refetchTeamContainers).toHaveBeenCalledTimes(2);
+	await waitFor(() => {
+		expect(refetchTeamContainers).toHaveBeenCalledTimes(2);
+	});
 
 	jest.advanceTimersByTime(INTERVAL_TIME);
-	expect(refetchTeamContainers).toHaveBeenCalledTimes(3);
+	await waitFor(() => {
+		expect(refetchTeamContainers).toHaveBeenCalledTimes(3);
+	});
 
 	setTeamContainers([{ type: 'JiraProject' }]);
 	rerender();
 
 	jest.advanceTimersByTime(INTERVAL_TIME);
 
-	expect(updateContainerLoading).toHaveBeenCalledWith('Jira', false);
+	await waitFor(() => {
+		expect(updateContainerLoading).toHaveBeenCalledWith('Jira', false);
+	});
 	expect(refetchTeamContainers).toHaveBeenCalledTimes(3);
 });
 
@@ -84,7 +92,7 @@ test('will do nothing if no new containers are created', () => {
 	expect(refetchTeamContainers).not.toHaveBeenCalled();
 });
 
-test('can handle multiple created containers', () => {
+test('can handle multiple created containers', async () => {
 	const { setContainers, updateContainerLoading } = mockCreateContainers();
 	const { refetchTeamContainers, setTeamContainers } = mockTeamContainers();
 	const { rerender } = renderHook(() => useRefreshOnContainerCreated(teamId));
@@ -93,22 +101,30 @@ test('can handle multiple created containers', () => {
 	rerender();
 
 	jest.advanceTimersByTime(INTERVAL_TIME);
-	expect(refetchTeamContainers).toHaveBeenCalledTimes(1);
+	await waitFor(() => {
+		expect(refetchTeamContainers).toHaveBeenCalledTimes(1);
+	});
 
 	setContainers({ Jira: { isCreated: true }, Loom: { isCreated: true } });
 	rerender();
 
 	jest.advanceTimersByTime(INTERVAL_TIME);
-	expect(refetchTeamContainers).toHaveBeenCalledTimes(2);
+	await waitFor(() => {
+		expect(refetchTeamContainers).toHaveBeenCalledTimes(2);
+	});
 
 	jest.advanceTimersByTime(INTERVAL_TIME);
-	expect(refetchTeamContainers).toHaveBeenCalledTimes(3);
+	await waitFor(() => {
+		expect(refetchTeamContainers).toHaveBeenCalledTimes(3);
+	});
 
 	setTeamContainers([{ type: 'JiraProject' }]);
 	rerender();
 
 	jest.advanceTimersByTime(INTERVAL_TIME);
-	expect(refetchTeamContainers).toHaveBeenCalledTimes(4);
+	await waitFor(() => {
+		expect(refetchTeamContainers).toHaveBeenCalledTimes(4);
+	});
 
 	expect(updateContainerLoading).toHaveBeenCalledWith('Jira', false);
 
@@ -117,25 +133,33 @@ test('can handle multiple created containers', () => {
 
 	jest.advanceTimersByTime(INTERVAL_TIME);
 
-	expect(updateContainerLoading).toHaveBeenCalledWith('Loom', false);
+	await waitFor(() => {
+		expect(updateContainerLoading).toHaveBeenCalledWith('Loom', false);
+	});
 
 	jest.advanceTimersByTime(INTERVAL_TIME);
-	expect(refetchTeamContainers).toHaveBeenCalledTimes(4);
+	await waitFor(() => {
+		expect(refetchTeamContainers).toHaveBeenCalledTimes(4);
+	});
 
 	setContainers({ Confluence: { isCreated: true } });
 	rerender();
 
 	jest.advanceTimersByTime(INTERVAL_TIME);
-	expect(refetchTeamContainers).toHaveBeenCalledTimes(5);
+	await waitFor(() => {
+		expect(refetchTeamContainers).toHaveBeenCalledTimes(5);
+	});
 
 	setTeamContainers([{ type: 'ConfluenceSpace' }]);
 	rerender();
 
 	jest.advanceTimersByTime(INTERVAL_TIME);
-	expect(updateContainerLoading).toHaveBeenCalledWith('Confluence', false);
+	await waitFor(() => {
+		expect(updateContainerLoading).toHaveBeenCalledWith('Confluence', false);
+	});
 });
 
-test('will timeout if no new containers are created within the timeout period', () => {
+test('will timeout if no new containers are created within the timeout period', async () => {
 	const { setContainers, updateContainerLoading } = mockCreateContainers();
 	const { refetchTeamContainers } = mockTeamContainers();
 	const { rerender } = renderHook(() => useRefreshOnContainerCreated(teamId));
@@ -143,13 +167,19 @@ test('will timeout if no new containers are created within the timeout period', 
 	setContainers({ Jira: { isCreated: true } });
 	rerender();
 
-	jest.advanceTimersByTime(TIMEOUT_DURATION);
+	for (let i = 0; i < 14; i++) {
+		act(() => {
+		  jest.advanceTimersByTime(INTERVAL_TIME);
+		});
+	  }
 	expect(refetchTeamContainers).toHaveBeenCalledTimes(14);
 
 	jest.advanceTimersByTime(INTERVAL_TIME);
 	expect(refetchTeamContainers).toHaveBeenCalledTimes(14);
 
-	expect(updateContainerLoading).toHaveBeenCalledWith('Jira', false);
+	await waitFor(() => {
+		expect(updateContainerLoading).toHaveBeenCalledWith('Jira', false);
+	});
 
 	jest.advanceTimersByTime(INTERVAL_TIME);
 	expect(updateContainerLoading).toHaveBeenCalledTimes(1);

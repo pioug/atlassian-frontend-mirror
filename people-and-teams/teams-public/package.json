@@ -76,8 +76,7 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ptc-test-utils": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
-		"@testing-library/react": "root:*",
-		"@testing-library/react-hooks": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"@testing-library/user-event": "root:*",
 		"react-dom": "root:*"
 	},
@@ -142,9 +141,6 @@
 			"type": "boolean"
 		},
 		"ptc-enable-teams-public-analytics-refactor": {
-			"type": "boolean"
-		},
-		"enable_multi_team_containers_state": {
 			"type": "boolean"
 		}
 	}

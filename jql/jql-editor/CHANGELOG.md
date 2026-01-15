@@ -1,5 +1,12 @@
 # @atlaskit/jql-editor
 
+## 5.12.1
+
+### Patch Changes
+
+- [`97eb8bff0959d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/97eb8bff0959d) -
+  Add data-vc html attributes to jql editor elements
+
 ## 5.12.0
 
 ### Minor Changes

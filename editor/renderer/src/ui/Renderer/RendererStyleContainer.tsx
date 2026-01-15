@@ -2356,6 +2356,7 @@ const syncBlockStyles = css({
 	[`.${SyncBlockSharedCssClassName.renderer}, .${BodiedSyncBlockSharedCssClassName.renderer}, .${SyncBlockSharedCssClassName.error}, .${SyncBlockSharedCssClassName.loading}`]:
 		{
 			borderRadius: token('radius.small', '3px'),
+			marginTop: token('space.075', '6px'),
 			paddingBlock: token('space.150', '12px'),
 		},
 

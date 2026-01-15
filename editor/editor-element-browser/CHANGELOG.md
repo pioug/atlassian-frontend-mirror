@@ -1,5 +1,12 @@
 # @atlaskit/editor-element-browser
 
+## 7.0.0
+
+### Major Changes
+
+- [`7798c873101e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7798c873101e4) -
+  Converted package to placeholder. All implementation removed pending redesign.
+
 ## 5.0.0
 
 ### Patch Changes

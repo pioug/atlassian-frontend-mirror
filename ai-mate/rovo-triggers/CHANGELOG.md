@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 5.5.0
+
+### Minor Changes
+
+- [`744ed096e08c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/744ed096e08c8) -
+  Add in missing subpath export
+
 ## 5.4.0
 
 ### Minor Changes

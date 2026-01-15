@@ -1,5 +1,12 @@
 # @atlaskit/user-picker
 
+## 11.20.1
+
+### Patch Changes
+
+- [`50a4ae1fff8f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50a4ae1fff8f0) -
+  FG cleanup for Icon as avatar support
+
 ## 11.20.0
 
 ### Minor Changes

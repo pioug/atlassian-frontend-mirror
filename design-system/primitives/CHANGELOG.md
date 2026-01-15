@@ -1,5 +1,12 @@
 # @atlaskit/primitives
 
+## 17.1.0
+
+### Minor Changes
+
+- [`f9c6c17de4114`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f9c6c17de4114) -
+  Cleaning up platform_migrate_to_native_box and removing codegen Box
+
 ## 17.0.0
 
 ### Major Changes

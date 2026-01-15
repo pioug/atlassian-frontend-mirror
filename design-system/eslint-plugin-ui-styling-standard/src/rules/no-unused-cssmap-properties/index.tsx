@@ -1,7 +1,7 @@
 import type { Rule } from 'eslint';
 import type * as ESTree from 'eslint-codemod-utils';
 
-import { getScope } from '@atlaskit/eslint-utils/context-compat';
+import { getScope, getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 import { CSS_IN_JS_IMPORTS, isCssMap } from '@atlaskit/eslint-utils/is-supported-import';
 
 import { createLintRule } from '../utils/create-rule';
@@ -45,26 +45,24 @@ function isExported(
 		return true;
 	}
 
-	// Check if the variable is exported elsewhere in the file
+	// Check if the variable is exported elsewhere in the file via `export { styles }`
 	if (node.id.type === 'Identifier') {
 		const scope = getScope(context, node);
 		const variableName = node.id.name;
 		const variable = scope.variables.find((v) => v.name === variableName);
 
 		if (variable) {
-			// Check if any reference is in an export statement
+			// Check if any reference is a direct export specifier (e.g., `export { styles }`)
 			return variable.references.some((ref) => {
-				let refParent: (Rule.Node & Rule.NodeParentExtension) | undefined = (
-					ref.identifier as ESTree.Identifier & Rule.NodeParentExtension
-				).parent;
-				while (refParent) {
-					if (
-						refParent.type === 'ExportNamedDeclaration' ||
-						refParent.type === 'ExportDefaultDeclaration'
-					) {
-						return true;
-					}
-					refParent = refParent.parent;
+				const refParent = (ref.identifier as ESTree.Identifier & Rule.NodeParentExtension).parent;
+				// Check for direct export: `export { styles }` or `export { styles as something }`
+				// In this case, the identifier's parent is an ExportSpecifier
+				if (refParent && refParent.type === 'ExportSpecifier') {
+					return true;
+				}
+				// Check for default export: `export default styles`
+				if (refParent && refParent.type === 'ExportDefaultDeclaration') {
+					return true;
 				}
 				return false;
 			});
@@ -121,8 +119,11 @@ export const rule = createLintRule({
 				}
 
 				const variableName = node.id.name;
-				const scope = getScope(context, node);
-				const variable = scope.variables.find((v) => v.name === variableName);
+
+				// Use getDeclaredVariables to get the variable with all its references
+				// across all scopes (including nested function components)
+				const declaredVariables = getSourceCode(context).scopeManager?.getDeclaredVariables(node);
+				const variable = declaredVariables?.find((v) => v.name === variableName);
 
 				if (!variable) {
 					return;

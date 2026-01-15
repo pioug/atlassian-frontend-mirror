@@ -201,6 +201,31 @@ const generateSharedTypesFile = (componentOutputDir: string) => {
 	fs.writeFileSync(typesFilePath, signedSourceCode);
 };
 
+/**
+ * This copies the tokens file from UIKit to __generated__ folder.
+ * The tokens file contains design token maps used by xcss components.
+ */
+const generateSharedTokensFile = (componentOutputDir: string) => {
+	// eslint-disable-next-line no-console
+	console.log('Generating shared tokens file');
+
+	const uiKitTokensFile = require.resolve('@atlassian/forge-ui/UIKit/tokens');
+
+	const signedSourceCode = createSignedArtifact(
+		fs.readFileSync(uiKitTokensFile, 'utf8'),
+		'yarn workspace @atlaskit/forge-react-types codegen',
+		{
+			description:
+				'Shared tokens file for UI Kit components. Contains design token maps for xcss support. Source: `packages/forge/forge-ui/src/components/UIKit/tokens.partial.tsx`',
+			dependencies: [uiKitTokensFile],
+			outputFolder: componentOutputDir,
+		},
+	);
+
+	const tokensFilePath = resolve(componentOutputDir, 'tokens.codegen.tsx');
+	fs.writeFileSync(tokensFilePath, signedSourceCode);
+};
+
 const generateComponentPropTypes = (componentNames?: string) => {
 	const componentOutputDir = resolve(__dirname, '..', '..', 'src', 'components', '__generated__');
 	const componentIndexSourceFile = forgeUIProject.addSourceFileAtPath(
@@ -223,6 +248,7 @@ const generateComponentPropTypes = (componentNames?: string) => {
 
 		// generate shared files first
 		generateSharedTypesFile(componentOutputDir);
+		generateSharedTokensFile(componentOutputDir);
 
 		generateComponentPropTypeSourceFiles(componentOutputDir, componentPropTypeSymbols);
 

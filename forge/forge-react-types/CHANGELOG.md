@@ -1,5 +1,16 @@
 # @atlaskit/forge-react-types
 
+## 0.55.0
+
+### Minor Changes
+
+- [`f9c6c17de4114`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f9c6c17de4114) -
+  Cleaning up platform_migrate_to_native_box and removing codegen Box
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.54.0
 
 ### Minor Changes

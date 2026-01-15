@@ -43,19 +43,6 @@ export default class NotificationLogClient implements NotificationLogProvider {
 			},
 		};
 
-		// https://switcheroo.atlassian.com/ui/gates/4fd47923-2911-4f71-86df-f97a5b2b9ed8/key/post-office_enable_fetching_unseen-count_dummy
-		if (fg('post-office_enable_fetching_unseen-count_dummy')) {
-			utils
-				.requestService(
-					{
-						url: '/gateway/api/post-office',
-					},
-					{ ...mergedOptions, path: '/api/v1/in-app-notifications/unseen/count' },
-				)
-				.then(() => {})
-				.catch(() => {});
-		}
-
 		// https://switcheroo.atlassian.com/ui/gates/2bb857fa-a92c-43b4-9f07-79ab8b9f7610/key/post-office_enable-notification-components-graphql
 		if (fg('post-office_enable-notification-components-graphql')) {
 			const query = `

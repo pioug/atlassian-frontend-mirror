@@ -60,7 +60,7 @@ export default (): React.JSX.Element => {
 				id="react-select-custom--input"
 				clearControlLabel="Clear custom date format"
 				dateFormat="DD/MMM/YY"
-				placeholder="e.g. 31/Dec/18"
+				placeholder=""
 				onChange={console.log}
 				shouldShowCalendarButton
 				inputLabelId="custom"

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
+import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import ReactNodeView, { type getPosHandler } from '@atlaskit/editor-common/react-node-view';
@@ -81,20 +83,43 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 
 		// get document node from data provider
 		return (
-			<SyncBlockRendererWrapper
-				localId={this.node.attrs.localId}
-				syncedBlockRenderer={this.options?.syncedBlockRenderer}
-				useFetchSyncBlockTitle={() => useFetchSyncBlockTitle(syncBlockStore, this.node)}
-				useFetchSyncBlockData={() =>
-					useFetchSyncBlockData(
-						syncBlockStore,
-						resourceId,
-						localId,
-						this.api?.analytics?.actions?.fireAnalyticsEvent,
-					)
-				}
-				api={this.api}
-			/>
+			fg('platform_synced_block_dogfooding') ? (
+				<ErrorBoundary
+					component={ACTION_SUBJECT.SYNCED_BLOCK}
+					dispatchAnalyticsEvent={this.api?.analytics?.actions.fireAnalyticsEvent}
+					fallbackComponent={null}
+				>
+					<SyncBlockRendererWrapper
+						localId={this.node.attrs.localId}
+						syncedBlockRenderer={this.options?.syncedBlockRenderer}
+						useFetchSyncBlockTitle={() => useFetchSyncBlockTitle(syncBlockStore, this.node)}
+						useFetchSyncBlockData={() =>
+							useFetchSyncBlockData(
+								syncBlockStore,
+								resourceId,
+								localId,
+								this.api?.analytics?.actions?.fireAnalyticsEvent,
+							)
+						}
+						api={this.api}
+					/>
+				</ErrorBoundary>
+			) : (
+				<SyncBlockRendererWrapper
+					localId={this.node.attrs.localId}
+					syncedBlockRenderer={this.options?.syncedBlockRenderer}
+					useFetchSyncBlockTitle={() => useFetchSyncBlockTitle(syncBlockStore, this.node)}
+					useFetchSyncBlockData={() =>
+						useFetchSyncBlockData(
+							syncBlockStore,
+							resourceId,
+							localId,
+							this.api?.analytics?.actions?.fireAnalyticsEvent,
+						)
+					}
+					api={this.api}
+				/>
+			)
 		);
 	}
 

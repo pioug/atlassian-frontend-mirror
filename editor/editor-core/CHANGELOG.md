@@ -1,5 +1,31 @@
 # @atlaskit/editor-core
 
+## 216.6.5
+
+### Patch Changes
+
+- [`5a01e256502a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a01e256502a0) -
+  [EDITOR-3531] Fixed bug where focus is not set to the Editor for chromeless comments editor in
+  inline comments
+- Updated dependencies
+
+## 216.6.4
+
+### Patch Changes
+
+- [`3bc6a51231706`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3bc6a51231706) -
+  [ux] Add 6px top margin to source and reference sync block
+
+## 216.6.3
+
+### Patch Changes
+
+- [`c8ca7b8cde88d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c8ca7b8cde88d) -
+  Remove platform_editor_toolbar_support_custom_components feature flag
+- [`1993b8227cbf3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1993b8227cbf3) -
+  [ux] Update selection extension APIs to allow Snippets to register at parent level
+- Updated dependencies
+
 ## 216.6.2
 
 ### Patch Changes

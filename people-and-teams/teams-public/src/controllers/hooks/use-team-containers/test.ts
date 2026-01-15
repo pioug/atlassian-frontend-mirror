@@ -1,5 +1,4 @@
-import { waitFor } from '@testing-library/react';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, waitFor } from '@testing-library/react';
 
 import { teamsClient } from '@atlaskit/teams-client';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
@@ -109,36 +108,36 @@ describe('useTeamContainers', () => {
 
 	ffTest.off('ptc-enable-teams-public-analytics-refactor', 'false', () => {
 		it('should fetch and set team containers successfully', async () => {
-			(teamsClient.getTeamContainers as jest.Mock).mockResolvedValueOnce(MOCK_TEAM_CONTAINERS);
+			(teamsClient.getTeamContainers as jest.Mock).mockImplementation(() => Promise.resolve(MOCK_TEAM_CONTAINERS));
 
-			const { result, waitForNextUpdate } = renderHook(() => useTeamContainers('team-id-124'));
+			const { result } = renderHook(() => useTeamContainers('team-id-124'));
 
-			await waitForNextUpdate();
-
-			expect(result.current.loading).toBe(false);
-			expect(result.current.teamContainers).toEqual(MOCK_TEAM_CONTAINERS);
-			expect(result.current.error).toBeNull();
-			expect(fireOperationalEvent).toHaveBeenCalledWith(
-				expect.any(Function),
-				fetchTeamContainersSuccessEvent,
-			);
+			await waitFor(() => {
+				expect(result.current.loading).toBe(false);
+				expect(result.current.teamContainers).toEqual(MOCK_TEAM_CONTAINERS);
+				expect(result.current.error).toBeNull();
+				expect(fireOperationalEvent).toHaveBeenCalledWith(
+					expect.any(Function),
+					fetchTeamContainersSuccessEvent,
+				);
+			});
 		});
 
 		it('should handle errors during fetch', async () => {
 			const mockError = new Error('Failed to fetch');
-			(teamsClient.getTeamContainers as jest.Mock).mockRejectedValueOnce(mockError);
+			(teamsClient.getTeamContainers as jest.Mock).mockImplementation(() => Promise.reject(mockError));
 
-			const { result, waitForNextUpdate } = renderHook(() => useTeamContainers('team-id-125'));
+			const { result } = renderHook(() => useTeamContainers('team-id-125'));
 
-			await waitForNextUpdate();
-
-			expect(result.current.loading).toBe(false);
-			expect(result.current.teamContainers).toEqual([]);
-			expect(result.current.error).toEqual(mockError);
-			expect(fireOperationalEvent).toHaveBeenCalledWith(
-				expect.any(Function),
-				fetchTeamContainersFailedEvent,
-			);
+			await waitFor(() => {
+				expect(result.current.loading).toBe(false);
+				expect(result.current.teamContainers).toEqual([]);
+				expect(result.current.error).toEqual(mockError);
+				expect(fireOperationalEvent).toHaveBeenCalledWith(
+					expect.any(Function),
+					fetchTeamContainersFailedEvent,
+				);
+			});
 		});
 	});
 
@@ -146,34 +145,34 @@ describe('useTeamContainers', () => {
 		it('should fetch and set team containers successfully', async () => {
 			(teamsClient.getTeamContainers as jest.Mock).mockResolvedValueOnce(MOCK_TEAM_CONTAINERS);
 
-			const { result, waitForNextUpdate } = renderHook(() => useTeamContainers('team-id-124'));
+			const { result } = renderHook(() => useTeamContainers('team-id-124'));
 
-			await waitForNextUpdate();
-
-			expect(result.current.loading).toBe(false);
-			expect(result.current.teamContainers).toEqual(MOCK_TEAM_CONTAINERS);
-			expect(result.current.error).toBeNull();
-			expect(fireEventNext).toHaveBeenCalledWith(
-				`operational.${fetchTeamContainersSuccessEvent.actionSubject}.${fetchTeamContainersSuccessEvent.action}`,
-				fetchTeamContainersSuccessEvent.attributes,
-			);
+			await waitFor(() => {
+				expect(result.current.loading).toBe(false);
+				expect(result.current.teamContainers).toEqual(MOCK_TEAM_CONTAINERS);
+				expect(result.current.error).toBeNull();
+				expect(fireEventNext).toHaveBeenCalledWith(
+					`operational.${fetchTeamContainersSuccessEvent.actionSubject}.${fetchTeamContainersSuccessEvent.action}`,
+					fetchTeamContainersSuccessEvent.attributes,
+				);
+			});
 		});
 
 		it('should handle errors during fetch', async () => {
 			const mockError = new Error('Failed to fetch');
 			(teamsClient.getTeamContainers as jest.Mock).mockRejectedValueOnce(mockError);
 
-			const { result, waitForNextUpdate } = renderHook(() => useTeamContainers('team-id-125'));
+			const { result } = renderHook(() => useTeamContainers('team-id-125'));
 
-			await waitForNextUpdate();
-
-			expect(result.current.loading).toBe(false);
-			expect(result.current.teamContainers).toEqual([]);
-			expect(result.current.error).toEqual(mockError);
-			expect(fireEventNext).toHaveBeenCalledWith(
-				`operational.${fetchTeamContainersFailedEvent.actionSubject}.${fetchTeamContainersFailedEvent.action}`,
-				fetchTeamContainersFailedEvent.attributes,
-			);
+			await waitFor(() => {
+				expect(result.current.loading).toBe(false);
+				expect(result.current.teamContainers).toEqual([]);
+				expect(result.current.error).toEqual(mockError);
+				expect(fireEventNext).toHaveBeenCalledWith(
+					`operational.${fetchTeamContainersFailedEvent.actionSubject}.${fetchTeamContainersFailedEvent.action}`,
+					fetchTeamContainersFailedEvent.attributes,
+				);
+			});
 		});
 	});
 });

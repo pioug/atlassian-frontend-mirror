@@ -1,5 +1,44 @@
 # @atlaskit/editor-statsig-tmp
 
+## 16.22.0
+
+### Minor Changes
+
+- [`5a01e256502a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a01e256502a0) -
+  [EDITOR-3531] Fixed bug where focus is not set to the Editor for chromeless comments editor in
+  inline comments
+
+### Patch Changes
+
+- [`25b6f03d52fb3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25b6f03d52fb3) -
+  Remove platform_editor_toolbar_aifc_jira from config
+
+## 16.21.0
+
+### Minor Changes
+
+- [`04d96dd658eea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/04d96dd658eea) -
+  EDITOR-4534 - Inline Bodied Macro: register experiment
+  platform_editor_render_bodied_extension_as_inline
+
+## 16.20.0
+
+### Minor Changes
+
+- [`c9c11b2544f4e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c9c11b2544f4e) -
+  Remove platform_editor_toolbar_aifc_template_editor feature flag
+
+## 16.19.0
+
+### Minor Changes
+
+- [`20d29306fb10e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20d29306fb10e) -
+  [ED-29451] clean up platform_editor_toolbar_aifc_patch_5
+- [`c947ea0c83c0e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c947ea0c83c0e) -
+  [ED-29456] clean up platform_editor_toolbar_aifc_selection_extension
+- [`c8ca7b8cde88d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c8ca7b8cde88d) -
+  Remove platform_editor_toolbar_support_custom_components feature flag
+
 ## 16.18.1
 
 ### Patch Changes

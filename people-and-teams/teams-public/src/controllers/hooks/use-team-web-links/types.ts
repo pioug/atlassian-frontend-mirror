@@ -22,4 +22,4 @@ export interface TeamWebLinksState {
 	iconHasLoaded: boolean;
 }
 
-export type StoreApi<T = TeamWebLinksState> = StoreActionApi<T>;
+export type StoreApi = StoreActionApi<TeamWebLinksState>;

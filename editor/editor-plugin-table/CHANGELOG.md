@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-table
 
+## 16.3.0
+
+### Minor Changes
+
+- [`814909b91111b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/814909b91111b) -
+  [ux] EDITOR-4459 Set dragAndDropEnabled by default in tablesPlugin
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.2.0
 
 ### Minor Changes

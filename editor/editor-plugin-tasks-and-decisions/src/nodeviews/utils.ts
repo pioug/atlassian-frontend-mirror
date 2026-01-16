@@ -1,6 +1,6 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
-export const isContentEmpty = (node: PMNode) => {
+export const isContentEmpty = (node: PMNode): boolean => {
 	if (node.content.childCount === 0) {
 		return true;
 	}

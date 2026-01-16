@@ -3,7 +3,7 @@ import React from 'react';
 import { AtlassianInternalWarning, DevPreviewWarning, Example, md } from '@atlaskit/docs';
 import Stack from '@atlaskit/primitives/stack';
 
-export default md`
+const _default_1: any = md`
   ${(
 		<Stack space="space.200">
 			<AtlassianInternalWarning />
@@ -25,3 +25,4 @@ export default md`
 	)}
 
 `;
+export default _default_1;

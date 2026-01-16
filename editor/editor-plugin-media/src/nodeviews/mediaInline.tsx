@@ -304,7 +304,7 @@ export class MediaInlineNodeView extends SelectionBasedNodeView<MediaInlineNodeV
 		return true;
 	}
 
-	viewShouldUpdate(nextNode: PMNode) {
+	viewShouldUpdate(nextNode: PMNode): boolean {
 		if (this.node.attrs !== nextNode.attrs) {
 			return true;
 		}

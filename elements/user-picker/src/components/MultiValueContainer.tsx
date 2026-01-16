@@ -139,7 +139,7 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
 	};
 
 	//@ts-ignore react-select unsupported props
-	onValueContainerClick = this.props.selectProps.onValueContainerClick;
+	onValueContainerClick: any = this.props.selectProps.onValueContainerClick;
 
 	render() {
 		const { children, innerProps, ...valueContainerProps } = this.props;

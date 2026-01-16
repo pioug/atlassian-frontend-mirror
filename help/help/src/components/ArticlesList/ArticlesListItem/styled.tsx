@@ -42,19 +42,31 @@ const articlesListItemWrapperStyles = css({
 	},
 });
 
-export const ArticlesListItemWrapper = React.forwardRef<
+export const ArticlesListItemWrapper: React.ForwardRefExoticComponent<
+	Omit<
+		{
+			[rest: string]: any;
+			children: React.ReactNode;
+			styles?: React.CSSProperties;
+		},
+		'ref'
+	> &
+		React.RefAttributes<HTMLAnchorElement>
+> = React.forwardRef<
 	HTMLAnchorElement,
 	{
 		[rest: string]: any;
 		children: React.ReactNode;
 		styles?: React.CSSProperties;
 	}
->(({ styles, children, ...rest }, ref): JSX.Element => (
-	// eslint-disable-next-line @atlaskit/design-system/no-html-anchor, @atlaskit/ui-styling-standard/enforce-style-prop
-	<a ref={ref} css={articlesListItemWrapperStyles} style={styles} {...rest}>
-		{children}
-	</a>
-));
+>(
+	({ styles, children, ...rest }, ref): JSX.Element => (
+		// eslint-disable-next-line @atlaskit/design-system/no-html-anchor, @atlaskit/ui-styling-standard/enforce-style-prop
+		<a ref={ref} css={articlesListItemWrapperStyles} style={styles} {...rest}>
+			{children}
+		</a>
+	),
+);
 
 const articlesListItemContainerStyles = css({
 	width: '100%',

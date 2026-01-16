@@ -56,7 +56,104 @@ const iconDOM = [
 	],
 ] satisfies DOMOutputSpec;
 
-export const decisionItemToDOM = (node: PMNode, intl: IntlShape) => {
+export const decisionItemToDOM = (
+	node: PMNode,
+	intl: IntlShape,
+): [
+		string,
+		{
+			class: string;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			'data-decision-local-id': any;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			'data-decision-state': any;
+			'data-prosemirror-node-name': string;
+		},
+		(
+			| string
+			| [
+				string,
+				{
+					contentEditable: boolean;
+					'data-component': string;
+				},
+				(
+					| string
+					| {
+						'aria-label': string;
+						role: string;
+					}
+					| (
+						| string
+						| {
+							'data-icon-source': string;
+							height: string;
+							role: string;
+							viewBox: string;
+							width: string;
+						}
+						| (
+							| string
+							| {
+								d: string;
+								fill: string;
+								'fill-rule': string;
+							}
+						)[]
+					)[]
+					| (
+						| string
+						| {
+							'data-icon-source': string;
+							fill: string;
+							height: string;
+							role: string;
+							viewBox: string;
+							width: string;
+						}
+						| (
+							| string
+							| {
+								d: string;
+								fill: string;
+								'fill-rule': string;
+							}
+						)[]
+					)[]
+				)[],
+			]
+			| {
+				'data-decision-wrapper': boolean;
+				'data-testid': string;
+			}
+			| (
+				| string
+				| {
+					contentEditable: boolean;
+					'data-component': string;
+					'data-testid': string;
+				}
+			)[]
+			| (
+				| string
+				| {
+					'data-component': string;
+				}
+				| (
+					| string
+					| number
+					| {
+						class: string;
+						'data-empty'?: undefined;
+					}
+					| {
+						class: string;
+						'data-empty': string;
+					}
+				)[]
+			)[]
+		)[],
+	] => {
 	const contentDomDataAttrs = node.childCount > 0 ? {} : { 'data-empty': 'true' };
 
 	return [

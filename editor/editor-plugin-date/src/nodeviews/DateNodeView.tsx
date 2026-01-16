@@ -59,7 +59,7 @@ export class DateNodeView implements NodeView {
 	 * @param decorations
 	 * @example
 	 */
-	update(node: PMNode, decorations: ReadonlyArray<Decoration>) {
+	update(node: PMNode, decorations: ReadonlyArray<Decoration>): boolean {
 		// we're only interested in two scenarios to trigger a DOM update:
 		// 		1. the date value (timestamp) has changed
 		// 		2. A wrapping taskitem state (if present) has changed

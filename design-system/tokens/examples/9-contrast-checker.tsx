@@ -240,7 +240,7 @@ export default function ContrastChecker() {
 	setGlobalTheme({
 		colorMode: baseThemeType,
 		spacing: 'spacing',
-		typography: 'typography-adg3',
+		typography: 'typography',
 	});
 
 	if (customTheme) {

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AtlassianInternalWarning, Example, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 ${(<AtlassianInternalWarning />)}
 
   If not using the link picker directly in a popup and instead fitting it in a composition with a width
@@ -41,3 +41,4 @@ ${(<AtlassianInternalWarning />)}
   If you find however that you want to customise these its more likely you'd be better off using these props to disable the padding altogether by providing values of \`'0'\`,
   and then supplying your own padding/margins in a container component.
 `;
+export default _default_1;

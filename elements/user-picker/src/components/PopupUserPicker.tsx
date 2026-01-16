@@ -27,7 +27,15 @@ export class PopupUserPickerWithoutAnalytics extends React.Component<PopupUserPi
 		flipped: false,
 	};
 
-	handleFlipStyle = (data: { flipped: boolean; popper: any; styles: any }) => {
+	handleFlipStyle = (data: {
+		flipped: boolean;
+		popper: any;
+		styles: any;
+	}): {
+		flipped: boolean;
+		popper: any;
+		styles: any;
+	} => {
 		const {
 			flipped,
 			styles: { transform },

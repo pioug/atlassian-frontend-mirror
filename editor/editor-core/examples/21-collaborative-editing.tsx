@@ -244,7 +244,20 @@ const FullPageComposableEditor = (props: EditorProps & { viewMode: 'view' | 'edi
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export default class Example extends React.Component<Props, State> {
-	state = {
+	state: {
+		__livePage: boolean;
+		__liveView: boolean;
+		collabUrl: any;
+		collabUrlInput: undefined;
+		documentId: any;
+		documentIdInput: undefined;
+		draftDoc: any;
+		editorView: undefined;
+		hasError: boolean;
+		isInviteToEditButtonSelected: boolean;
+		need404: any;
+		title: string;
+	} = {
 		isInviteToEditButtonSelected: false,
 		documentId: getQueryParam('documentId'),
 		collabUrl: getQueryParam('collabUrl') || defaultCollabUrl,

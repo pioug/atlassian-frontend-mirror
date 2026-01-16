@@ -198,7 +198,7 @@ function insertNodesWithOptionalParagraphCommand({
 	};
 }
 
-export const isMediaSingle = (schema: Schema, fileMimeType?: string) =>
+export const isMediaSingle = (schema: Schema, fileMimeType?: string): boolean =>
 	!!schema.nodes.mediaSingle && isImage(fileMimeType);
 
 export type InsertMediaAsMediaSingle = (
@@ -543,6 +543,6 @@ const replaceWithMediaSingleNode =
 		return mediaSingle.createChecked(extendedMediaSingleAttrs, copiedMediaNode);
 	};
 
-export const isVideo = memoizeOne((fileType?: string) => {
+export const isVideo = memoizeOne((fileType?: string): boolean => {
 	return !!fileType && fileType.includes('video');
 });

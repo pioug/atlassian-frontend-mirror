@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 8.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.4
+
+### Patch Changes
+
+- [`e1361a964ccd9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1361a964ccd9) -
+  Clean up platform_editor_toolbar_aifc_placement_config feature flag
+- Updated dependencies
+
 ## 8.0.3
 
 ### Patch Changes

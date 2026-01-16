@@ -152,7 +152,8 @@ export function calcResizedWidth(
 	layout: MediaSingleLayout,
 	width: number,
 	containerWidth: number = 0,
-) {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+): any {
 	switch (layout) {
 		case 'wide':
 			return calcWideWidth(containerWidth);
@@ -285,13 +286,13 @@ export const MediaSingleDimensionHelper = ({
 			: mediaSingleWidth
 				? calcResizedWidth(layout, width || 0, containerWidth)
 				: calcLegacyWidth(
-						layout,
-						width || 0,
-						containerWidth,
-						fullWidthMode,
-						isResized,
-						isInsideOfInlineExtension,
-					),
+					layout,
+					width || 0,
+					containerWidth,
+					fullWidthMode,
+					isResized,
+					isInsideOfInlineExtension,
+				),
 	);
 
 	const calculatedMaxWidth = roundToClosestEvenPxValue(
@@ -330,11 +331,11 @@ export const MediaSingleDimensionHelper = ({
 
 		${isInRenderer
 			? css({
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries
-					'@container ak-renderer-wrapper (min-width: 1px)': {
-						maxWidth: '100cqw',
-					},
-				})
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries
+				'@container ak-renderer-wrapper (min-width: 1px)': {
+					maxWidth: '100cqw',
+				},
+			})
 			: expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)
 				? `max-width: ${cssMaxWidth};`
 				: `max-width: ${calculatedMaxWidth};`}
@@ -345,10 +346,9 @@ export const MediaSingleDimensionHelper = ({
       box-shadow: none !important;
     }
 
-    ${
-			!isNestedNode &&
-			nonWrappedLayouts.includes(layout) &&
-			`margin-left: 50%;
+    ${!isNestedNode &&
+		nonWrappedLayouts.includes(layout) &&
+		`margin-left: 50%;
       transform: translateX(-50%);`
 		}
   }`}
@@ -362,10 +362,10 @@ export const MediaSingleDimensionHelper = ({
 
 		&[class*='not-resizing'] {
 			${isNestedNode
-				? /* Make nested node appear responsive when resizing table cell */
-					`max-width: 100%;`
-				: nonWrappedLayouts.includes(layout) &&
-					`margin-left: 50%;
+			? /* Make nested node appear responsive when resizing table cell */
+			`max-width: 100%;`
+			: nonWrappedLayouts.includes(layout) &&
+			`margin-left: 50%;
         transform: translateX(-50%);`}
 		}
 

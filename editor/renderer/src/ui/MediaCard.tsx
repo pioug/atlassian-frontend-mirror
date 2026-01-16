@@ -8,7 +8,6 @@ import type {
 	CardOnClickCallback,
 	NumericalCardDimensions,
 } from '@atlaskit/media-card';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Card as CardAsync, CardSync, CardLoading, CardError } from '@atlaskit/media-card';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import type {
@@ -241,7 +240,7 @@ export class MediaCardView extends Component<
 		// we need this statement for the mandatory mediaClientConfig below
 		const mediaClientConfig = mediaClient?.mediaClientConfig;
 
-		const Card = enableSyncMediaCard && fg('jfp-magma-ssr-iv-editor-media') ? CardSync : CardAsync;
+		const Card = enableSyncMediaCard ? CardSync : CardAsync;
 
 		return (
 			// Ignored via go/ees005
@@ -359,7 +358,7 @@ export class MediaCardView extends Component<
 			occurrenceKey,
 		};
 
-		const Card = enableSyncMediaCard && fg('jfp-magma-ssr-iv-editor-media') ? CardSync : CardAsync;
+		const Card = enableSyncMediaCard ? CardSync : CardAsync;
 
 		// Quick solution to disable lazy loading of images on PDF export pages in Confluence to remedy an issue with images never loading
 		// More robust solution will be implemented as part of CCPDF-233 - Link: https://hello.jira.atlassian.cloud/browse/CCPDF-233

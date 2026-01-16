@@ -98,7 +98,7 @@ export class ExampleMentionResource
 	/**
 	 * Connect your user ID resolver
 	 */
-	supportsMentionNameResolving() {
+	supportsMentionNameResolving(): boolean {
 		const supported = !!this.config.mentionNameResolver;
 		return supported;
 	}

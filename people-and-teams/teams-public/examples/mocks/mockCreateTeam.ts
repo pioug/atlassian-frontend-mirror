@@ -23,7 +23,7 @@ const mockCreateTeam = {
 			},
 		});
 	},
-	error: (status: number = 400) =>
+	error: (status: number = 400): any =>
 		fetchMock.post({
 			matcher: (url: string) => url.includes('/gateway/api/v4/teams/containers'),
 			response: () => ({

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AtlassianInternalWarning, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}
 
   # Smart hooks
@@ -18,3 +18,4 @@ export default md`
   * [useUserRecommendations](https://statlas.prod.atl-paas.net/atlassian-frontend/master#packages/smart-experiences/smart-hooks/docs/useUserRecommendations)
 
 `;
+export default _default_1;

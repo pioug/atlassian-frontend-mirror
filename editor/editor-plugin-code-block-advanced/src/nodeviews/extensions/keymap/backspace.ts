@@ -12,7 +12,7 @@ interface BackspaceProps {
 	view: EditorView;
 }
 
-export const backspaceKeymap = ({ cm, view, getPos, getNode }: BackspaceProps) => {
+export const backspaceKeymap = ({ cm, view, getPos, getNode }: BackspaceProps): boolean => {
 	const ranges = cm.state.selection.ranges;
 
 	if (ranges.length > 1) {

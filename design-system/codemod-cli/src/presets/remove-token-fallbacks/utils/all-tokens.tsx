@@ -3,7 +3,7 @@ import {
 	light as lightTheme,
 	shape as shapeTheme,
 	spacing as spacingTheme,
-	typographyAdg3 as typographyAdg3Theme,
+	typography as typographyTheme,
 } from '@atlaskit/tokens/tokens-raw';
 
 const typographyGroups = ['typography', 'fontWeight', 'fontFamily'];
@@ -24,7 +24,7 @@ function buildCombinedMap(...arrays: Token[][]): Record<string, string> {
 }
 
 // Filter the typography tokens based on predefined groups and exclusions
-const typographyAdg3ThemeFiltered = typographyAdg3Theme
+const typographyThemeFiltered = typographyTheme
 	.filter((token) => typographyGroups.includes(token.attributes.group))
 	.filter((token) => token.cleanName !== 'font.body.UNSAFE_small');
 
@@ -44,7 +44,7 @@ export function getTokenMap(useLegacyTheme: boolean = false): Record<string, str
 			selectedTheme,
 			spacingTheme,
 			shapeTheme,
-			typographyAdg3ThemeFiltered,
+			typographyThemeFiltered,
 		);
 	}
 

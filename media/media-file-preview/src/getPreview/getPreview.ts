@@ -82,21 +82,21 @@ export const getSSRPreview = (
 	}
 };
 
-export const isLocalPreview = (preview: MediaFilePreview) => {
+export const isLocalPreview = (preview: MediaFilePreview): boolean => {
 	const localSources: MediaFilePreviewSource[] = ['local', 'cache-local'];
 	return localSources.includes(preview.source);
 };
 
-export const isRemotePreview = (preview: MediaFilePreview) => {
+export const isRemotePreview = (preview: MediaFilePreview): boolean => {
 	const remoteSources: MediaFilePreviewSource[] = ['remote', 'cache-remote'];
 	return remoteSources.includes(preview.source);
 };
 
-export const isSSRClientPreview = (preview: MediaFilePreview) => preview.source === 'ssr-client';
+export const isSSRClientPreview = (preview: MediaFilePreview): boolean => preview.source === 'ssr-client';
 
-export const isSSRDataPreview = (preview: MediaFilePreview) => preview.source === 'ssr-data';
+export const isSSRDataPreview = (preview: MediaFilePreview): boolean => preview.source === 'ssr-data';
 
-export const isSSRPreview = (preview: MediaFilePreview) => {
+export const isSSRPreview = (preview: MediaFilePreview): boolean => {
 	const ssrClientSources: MediaFilePreviewSource[] = ['ssr-client', 'ssr-server', 'ssr-data'];
 	return ssrClientSources.includes(preview.source);
 };

@@ -47,7 +47,7 @@ const getAncestorResizableNode = (
 
 export const handleKeyDown =
 	(api: ExtractInjectionAPI<BreakoutPlugin> | undefined) =>
-	(view: EditorView, event: KeyboardEvent) => {
+	(view: EditorView, event: KeyboardEvent): boolean => {
 		const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
 			? getBrowserInfo()
 			: browserLegacy;

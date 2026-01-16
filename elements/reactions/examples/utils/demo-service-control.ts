@@ -1,4 +1,4 @@
-export const getReactionsConfig = () => {
+export const getReactionsConfig = (): any => {
 	let reactionsConfig;
 	try {
 		// eslint-disable-next-line @repo/internal/import/no-unresolved

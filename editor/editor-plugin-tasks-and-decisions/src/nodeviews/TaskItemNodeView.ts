@@ -147,7 +147,7 @@ export class TaskItemNodeView implements NodeView {
 		}
 	}
 
-	update(node: PMNode) {
+	update(node: PMNode): boolean {
 		if (!expValEquals('platform_editor_prevent_taskitem_remount', 'isEnabled', true)) {
 			const isValidUpdate =
 				node.type === this.node.type && !!(node.attrs.state === this.node.attrs.state);
@@ -187,7 +187,7 @@ export class TaskItemNodeView implements NodeView {
 		return true;
 	}
 
-	ignoreMutation(mutation: MutationRecord | { target: Node; type: 'selection' }) {
+	ignoreMutation(mutation: MutationRecord | { target: Node; type: 'selection' }): boolean {
 		if (!this.contentDOM) {
 			return true;
 		}

@@ -243,7 +243,7 @@ export class MentionResource extends AbstractMentionResource implements Resolvin
 		}
 	}
 
-	shouldHighlightMention(mention: MentionDescription) {
+	shouldHighlightMention(mention: MentionDescription): boolean {
 		if (this.config.shouldHighlightMention) {
 			return this.config.shouldHighlightMention(mention);
 		}

@@ -2,10 +2,10 @@
 import $ from './dollar';
 
 class ConsumerOptions {
-	_elementExists($el) {
+	_elementExists($el: any): any {
 		return $el && $el.length === 1;
 	}
-	_elementOptions($el) {
+	_elementOptions($el: any): any {
 		return $el.attr('data-options');
 	}
 
@@ -54,7 +54,7 @@ class ConsumerOptions {
 		delete this._options;
 	}
 
-	get(key) {
+	get(key: any): any {
 		if (!this._options) {
 			this._options = this._getConsumerOptions();
 		}

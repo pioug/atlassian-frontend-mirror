@@ -1,7 +1,7 @@
 import { code, md, Props } from '@atlaskit/docs';
 import React from 'react';
 
-export default md`
+const _default_1: any = md`
 
 # CardClient
 
@@ -71,3 +71,4 @@ import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 ${(<Props heading="" props={require('!!extract-react-types-loader!./props/props-client')} />)}
 
 `;
+export default _default_1;

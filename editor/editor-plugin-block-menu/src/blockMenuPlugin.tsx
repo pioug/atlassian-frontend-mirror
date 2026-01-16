@@ -96,7 +96,7 @@ export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 			popupsScrollableElement,
 		}) {
 			return (
-				<BlockMenuProvider api={api}>
+				<BlockMenuProvider api={api} editorView={editorView}>
 					<BlockMenu
 						editorView={editorView}
 						api={api}

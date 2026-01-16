@@ -133,7 +133,7 @@ class JqlClauseCollectingVisitor extends AbstractJastVisitor<ClauseMap> {
 	}
 }
 
-export const isQueryTooComplex = (jql: string) => {
+export const isQueryTooComplex = (jql: string): boolean => {
 	if (!jql) {
 		return false;
 	}

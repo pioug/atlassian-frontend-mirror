@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AtlassianInternalWarning, code, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}
 
   Provides React hooks for easy integration with media client.
@@ -80,3 +80,4 @@ function MyApp() {
 render(<App />, document.getElementById('root'))
 `}
 `;
+export default _default_1;

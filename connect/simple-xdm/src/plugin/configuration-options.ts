@@ -11,11 +11,11 @@ class ConfigurationOptions {
 		this.options = {};
 	}
 
-	get(item) {
+	get(item: any): any {
 		return item ? this.options[item] : this.options;
 	}
 
-	set(data, value): void {
+	set(data: any, value: any): void {
 		if (!data) {
 			return;
 		}

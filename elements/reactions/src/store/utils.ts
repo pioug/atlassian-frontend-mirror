@@ -39,7 +39,7 @@ export const readyState = (reactions: ReactionSummary[]): ReactionsReadyState =>
 	reactions: reactions.filter((reaction) => reaction.count > 0),
 });
 
-export const byEmojiId = (emojiId: string) => (reaction: ReactionSummary) =>
+export const byEmojiId = (emojiId: string) => (reaction: ReactionSummary): boolean =>
 	reaction.emojiId === emojiId;
 
 export const addOne = (reaction: ReactionSummary): ReactionSummary => ({
@@ -68,7 +68,7 @@ export const getReactionsSortFunction = (reactions?: ReactionSummary[]) =>
 
 export const flattenAris = (a: string[], b: string[]): string[] => a.concat(b);
 
-export function isRealErrorFromService(errorCode?: number) {
+export function isRealErrorFromService(errorCode?: number): boolean {
 	// we don't count 401 or 403 as a real error from services
 	return !errorCode || !(errorCode === 401 || errorCode === 403);
 }

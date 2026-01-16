@@ -1,7 +1,7 @@
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 
-export const isSelectionAtPlaceholder = (selection: Selection) => {
+export const isSelectionAtPlaceholder = (selection: Selection): boolean => {
 	if (!(selection instanceof TextSelection) || !selection.$cursor) {
 		return false;
 	}

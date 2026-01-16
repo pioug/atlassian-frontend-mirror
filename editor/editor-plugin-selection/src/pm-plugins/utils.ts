@@ -320,7 +320,7 @@ export const findLastChildNodeToSelect = (parent: PmNode): NodeWithPos | undefin
 	}
 };
 
-export const isSelectionAtStartOfParentNode = ($pos: ResolvedPos, selection: Selection) =>
+export const isSelectionAtStartOfParentNode = ($pos: ResolvedPos, selection: Selection): boolean =>
 	isSelectionAtStartOfNode($pos, findSelectableContainerParent(selection)?.node);
 
 export const isSelectionAtEndOfParentNode = ($pos: ResolvedPos, selection: Selection): boolean => {
@@ -407,7 +407,7 @@ export const isListItemWithinContainerNotAtEnd = (
 /**
  * Determines if the given node is a Container (layoutColumn, panel, expand) node.
  */
-export const isContainerNode = (node: PmNode | null | undefined) => {
+export const isContainerNode = (node: PmNode | null | undefined): boolean => {
 	const { layoutColumn, panel, expand } = node?.type?.schema?.nodes || {};
 	return Boolean(node && node.type && [panel, expand, layoutColumn].includes(node.type));
 };
@@ -470,12 +470,12 @@ export const isSelectionAtEndOfLayoutColumn = ($pos: ResolvedPos): boolean => {
 /**
  * Determines if the given node is a LayoutColumn node.
  */
-export const isLayoutColumnNode = (node: PmNode | null | undefined) => {
+export const isLayoutColumnNode = (node: PmNode | null | undefined): boolean => {
 	const { layoutColumn } = node?.type?.schema?.nodes || {};
 	return Boolean(node && node.type && node.type === layoutColumn);
 };
 
-export const isPanelOrExpandNode = (node: PmNode | null | undefined) => {
+export const isPanelOrExpandNode = (node: PmNode | null | undefined): boolean => {
 	const { panel, expand } = node?.type?.schema?.nodes || {};
 	return Boolean(node && node.type && (node.type === panel || node.type === expand));
 };

@@ -1,23 +1,18 @@
 import React from 'react';
 import defaultMD from 'react-markings';
 import Code from '@atlaskit/code/inline';
-import Heading from '@atlaskit/heading';
 import Link from '@atlaskit/link';
-import { Box } from '@atlaskit/primitives/compiled';
+
+import { HeadingWithSectionLink } from './heading/heading-with-section-link';
 
 // Tweak the styling
 export const md = defaultMD.customize({
 	renderers: {
 		// Add a darker background to code elements
 		code: (props) => <Code>{props.children}</Code>,
-
-		// Improve the spacing for heading elements
+		// Note: this will only replace markdown headings using the `#` syntax, not heading elements like <h1>, <h2>, etc.
 		heading: ({ level, children }) => (
-			<>
-				<Box paddingBlock={levelToSpace[level]} />
-				{/* Using this box as a margin (eeeeek)*/}
-				<Heading size={levelToSize[level]}>{children}</Heading>
-			</>
+			<HeadingWithSectionLink level={level}>{children}</HeadingWithSectionLink>
 		),
 		link: (props) => {
 			const { children, href, ...otherProps } = props;
@@ -33,14 +28,3 @@ export const md = defaultMD.customize({
 		},
 	},
 });
-
-const levelToSize = ['xxlarge', 'xlarge', 'large', 'medium', 'small', 'xsmall', 'xxsmall'];
-const levelToSpace = [
-	'space.200',
-	'space.200',
-	'space.150',
-	'space.100',
-	'space.75',
-	'space.50',
-	'space.25',
-];

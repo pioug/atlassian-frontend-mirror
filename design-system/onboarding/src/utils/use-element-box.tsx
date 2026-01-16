@@ -2,6 +2,7 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } fr
 
 import { bind } from 'bind-event-listener';
 
+import __noop from '@atlaskit/ds-lib/noop';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 export interface ElementBoundingBox {
@@ -62,7 +63,7 @@ const useResizeAwareElementBox = (element: HTMLElement, updateMethod: ResizeUpda
 			});
 		}
 
-		return () => {};
+		return __noop;
 	}, [element, updateMethod]);
 
 	return box;
@@ -177,7 +178,7 @@ export const ElementBox = (props: {
 	element: HTMLElement;
 	children: (box: ElementBoundingBox) => any;
 	resizeUpdateMethod?: ResizeUpdateMethod;
-}) => {
+}): any => {
 	const box = useElementBox(props.element, props.resizeUpdateMethod);
 	return props.children(box);
 };

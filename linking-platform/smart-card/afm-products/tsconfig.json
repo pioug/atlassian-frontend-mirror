@@ -1,5 +1,5 @@
 {
-	"extends": "../../../../tsconfig.entry-points.products.json",
+	"extends": "../../../../tsconfig.local-consumption.json",
 	"compilerOptions": {
 		"declaration": true,
 		"target": "es5",
@@ -128,6 +128,9 @@
 		},
 		{
 			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../react-ufo/atlaskit/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/section-message/afm-products/tsconfig.json"

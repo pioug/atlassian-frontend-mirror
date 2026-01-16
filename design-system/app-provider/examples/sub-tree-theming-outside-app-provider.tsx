@@ -231,13 +231,6 @@ const colorModeOptions: { label: string; value: ThemeColorModes }[] = [
 	{ label: 'Auto', value: 'auto' },
 ];
 
-const typographyThemeOptions: { label: string; value: ThemeIds }[] = [
-	{ label: 'Typography', value: 'typography' },
-	{ label: 'ADG3', value: 'typography-adg3' },
-	{ label: 'Modernized', value: 'typography-modernized' },
-	{ label: 'Refreshed', value: 'typography-refreshed' },
-];
-
 const ControlledSubtreeThemeContent = () => {
 	const colorMode = useColorMode();
 	const setColorMode = useSetColorMode();
@@ -293,27 +286,6 @@ const ControlledSubtreeThemeContent = () => {
 						options={colorModeOptions}
 						value={colorModeOptions.find((option) => option.value === colorMode)}
 						onChange={(option) => (option?.value ? setColorMode(option.value) : undefined)}
-					/>
-				</div>
-				<Heading as="h3" size="medium">
-					Typography
-				</Heading>
-				<Text as="p">
-					Sub-tree theming also supports overriding themes other than color, such as typography.
-				</Text>
-				<div>
-					<Label htmlFor="typography-theme">Typography theme</Label>
-					<Select
-						inputId="typography-theme"
-						options={typographyThemeOptions}
-						value={typographyThemeOptions.find((option) => option.value === colorTheme?.typography)}
-						onChange={(option) =>
-							option?.value
-								? setTheme({
-										typography: option.value as ThemeState['typography'],
-									})
-								: undefined
-						}
 					/>
 				</div>
 			</Stack>

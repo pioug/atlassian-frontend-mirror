@@ -224,7 +224,7 @@ export default class RendererActions
 		});
 	}
 
-	isValidAnnotationRange(range: Range | null) {
+	isValidAnnotationRange(range: Range | null): boolean {
 		if (!range) {
 			return false;
 		}
@@ -291,7 +291,7 @@ export default class RendererActions
 		return false;
 	}
 
-	isValidAnnotationPosition(pos: Position) {
+	isValidAnnotationPosition(pos: Position): boolean {
 		if (!pos || !this.doc) {
 			return false;
 		}

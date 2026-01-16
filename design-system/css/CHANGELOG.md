@@ -1,5 +1,14 @@
 # @atlaskit/css
 
+## 0.19.1
+
+### Patch Changes
+
+- [`f111803c4e253`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f111803c4e253) -
+  Updating typography fallbacks to refreshed typography values as the deprecated legacy typography
+  theme has been removed.
+- Updated dependencies
+
 ## 0.19.0
 
 ### Minor Changes

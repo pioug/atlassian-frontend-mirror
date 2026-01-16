@@ -1,7 +1,7 @@
 import React from 'react';
 import { md, PropsTable } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 # Props
 
 This package utilizes the \`@atlaskit/icon\` component and accepts the following props:
@@ -26,3 +26,4 @@ This package utilizes the \`@atlaskit/icon\` component and accepts the following
 	)}
 
 `;
+export default _default_1;

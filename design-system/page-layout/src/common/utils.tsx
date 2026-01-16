@@ -19,7 +19,7 @@ const mergeGridStateIntoStorage = (key: string, value: any): void => {
 	safeLocalStorage().setItem(PAGE_LAYOUT_LS_KEY, JSON.stringify(storageValue));
 };
 
-const getGridStateFromStorage = (key: string) => {
+const getGridStateFromStorage = (key: string): any => {
 	const storageValue = JSON.parse(safeLocalStorage().getItem(PAGE_LAYOUT_LS_KEY) || '{}');
 
 	return storageValue[key];
@@ -41,7 +41,7 @@ const resolveDimension = (
 	key: DimensionNames,
 	dimension: number = 0,
 	shouldPersist: boolean = false,
-) => {
+): any => {
 	if (shouldPersist) {
 		const cachedGridState = getGridStateFromStorage('gridState');
 

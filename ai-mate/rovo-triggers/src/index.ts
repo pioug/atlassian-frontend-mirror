@@ -50,4 +50,4 @@ export {
 	useRovoPostMessageToPubsub,
 	RovoPostMessagePubsubListener,
 } from './common/utils/post-message-to-pubsub';
-export type { ChatContextState, ChatContextPayload } from './common/utils/chat-context';
+export type { ChatContextState, ChatContextPayload } from './common/utils/chat-context/types';

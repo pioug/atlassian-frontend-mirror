@@ -3,7 +3,7 @@ import { md } from '@atlaskit/docs';
 import { DocsContentTabs } from '@atlaskit/media-test-helpers';
 import dropZoneExamples from './content/dropzone/example';
 import dropZoneProps from './content/dropzone/props';
-export default md`
+const _default_1: any = md`
 
   ### Dropzone
 
@@ -30,3 +30,4 @@ export default md`
 	)}
 
 `;
+export default _default_1;

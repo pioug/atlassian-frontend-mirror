@@ -1,6 +1,6 @@
 import { code, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 
 ## Description
 
@@ -31,3 +31,4 @@ The purpose of the **isSafeUrl** is to identify if a URL matches a white-listed 
   type isSafeUrl = (url: string): boolean
   `}
 `;
+export default _default_1;

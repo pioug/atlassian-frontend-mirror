@@ -383,15 +383,6 @@ describe('getThemeStyles', () => {
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 					{ id: 'shape', attrs: { 'data-theme': 'shape' } },
 					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
-					{ id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
-					{
-						id: 'typography-modernized',
-						attrs: { 'data-theme': 'typography-modernized' },
-					},
-					{
-						id: 'typography-refreshed',
-						attrs: { 'data-theme': 'typography-refreshed' },
-					},
 				]);
 			},
 			() => {
@@ -406,15 +397,6 @@ describe('getThemeStyles', () => {
 						{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 						{ id: 'shape', attrs: { 'data-theme': 'shape' } },
 						{ id: 'typography', attrs: { 'data-theme': 'typography' } },
-						{ id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
-						{
-							id: 'typography-modernized',
-							attrs: { 'data-theme': 'typography-modernized' },
-						},
-						{
-							id: 'typography-refreshed',
-							attrs: { 'data-theme': 'typography-refreshed' },
-						},
 					]);
 				};
 				const testWithVisualRefreshVariation = async (

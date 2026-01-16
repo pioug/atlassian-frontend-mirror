@@ -98,7 +98,7 @@ export const sampledUfoRenderedEmoji = (emojiId: EmojiId) => {
 export const hasUfoMarked = (
 	ufoExperience: UFOExperience | WithSamplingUFOExperience,
 	name: string,
-) => {
+): boolean => {
 	return ufoExperience.metrics.marks.some((mask) => mask.name === name);
 };
 

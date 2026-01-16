@@ -28,7 +28,11 @@ import {
 import TextWrapperComponent from './nodes/text-wrapper';
 import { isNestedHeaderLinksEnabled } from './utils/links';
 
-import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
+import type {
+	ExtensionHandlers,
+	ExtensionParams,
+	Parameters,
+} from '@atlaskit/editor-common/extensions';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import { getColumnWidths } from '@atlaskit/editor-common/utils';
@@ -59,6 +63,8 @@ import type {
 import { renderTextSegments } from './utils/render-text-segments';
 import { segmentText } from './utils/segment-text';
 import { getStandaloneBackgroundColorMarks } from './utils/getStandaloneBackgroundColorMarks';
+import { mergeInlinedExtension } from './utils/merge-inlined-extension';
+
 export interface ReactSerializerInit {
 	allowAltTextOnImages?: boolean;
 	allowAnnotations?: boolean;
@@ -92,6 +98,7 @@ export interface ReactSerializerInit {
 	onSetLinkTarget?: (url: string) => '_blank' | undefined;
 	portal?: HTMLElement;
 	providers?: ProviderFactory;
+	shouldDisplayExtensionAsInline?: (extensionParams: ExtensionParams<Parameters>) => boolean;
 	shouldOpenMediaViewer?: boolean;
 	smartLinks?: SmartLinksOptions;
 	/**
@@ -212,6 +219,9 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	private disableTableOverflowShadow?: boolean;
 	private standaloneBackgroundColorMarks: Mark[] = [];
 	private onSetLinkTarget?: (url: string) => '_blank' | undefined;
+	private shouldDisplayExtensionAsInline?: (
+		extensionParams: ExtensionParams<Parameters>,
+	) => boolean;
 
 	constructor(init: ReactSerializerInit) {
 		if (editorExperiment('comment_on_bodied_extensions', true)) {
@@ -258,6 +268,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		this.isPresentational = init.isPresentational;
 		this.disableTableOverflowShadow = init.disableTableOverflowShadow;
 		this.onSetLinkTarget = init.onSetLinkTarget;
+		this.shouldDisplayExtensionAsInline = init.shouldDisplayExtensionAsInline;
 	}
 
 	private resetState() {
@@ -340,7 +351,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			target,
 			props,
 			key,
-			ReactSerializer.getChildNodes(fragment).map((node, index) => {
+			this.getChildNodes(fragment).map((node, index) => {
 				if (isTextWrapper(node)) {
 					return this.serializeTextWrapper(node.content, { index, parentInfo });
 				}
@@ -662,6 +673,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			...this.getProps(node, path),
 			extensionViewportSizes: this.extensionViewportSizes,
 			nodeHeight: this.getExtensionHeight?.(node),
+			shouldDisplayExtensionAsInline: this.shouldDisplayExtensionAsInline,
 		};
 	}
 
@@ -931,21 +943,21 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		// currently the only mark which has custom props is the code mark
 		const markSpecificProps = isCodeMark(mark)
 			? {
-				// The appearance being mobile indicates we are in an renderer being
-				// rendered by mobile bridge in a web view.
-				// The tooltip is likely to have unexpected behaviour there, with being cut
-				// off, so we disable it. This is also to keep the behaviour consistent with
-				// the rendering in the mobile Native Renderer.
-				codeBidiWarningTooltipEnabled: false,
-			}
+					// The appearance being mobile indicates we are in an renderer being
+					// rendered by mobile bridge in a web view.
+					// The tooltip is likely to have unexpected behaviour there, with being cut
+					// off, so we disable it. This is also to keep the behaviour consistent with
+					// the rendering in the mobile Native Renderer.
+					codeBidiWarningTooltipEnabled: false,
+				}
 			: {};
 
 		// Add deepLinkTarget for link marks
 		const linkSpecificProps =
 			mark.type.name === 'link'
 				? {
-					onSetLinkTarget: this.onSetLinkTarget,
-				}
+						onSetLinkTarget: this.onSetLinkTarget,
+					}
 				: {};
 
 		const props: MarkMeta = {
@@ -964,12 +976,22 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		return props;
 	};
 
-	static getChildNodes(fragment: Fragment): (Node | TextWrapper)[] {
-		const children: Node[] = [];
+	private getChildNodes(fragment: Fragment): (Node | TextWrapper)[] {
+		let children: Node[] = [];
 		fragment.forEach((node) => {
 			children.push(node);
 		});
-		return mergeTextNodes(children) as Node[];
+		children = mergeTextNodes(children) as Node[];
+		if (
+			!!this.shouldDisplayExtensionAsInline &&
+			expValEquals('platform_editor_render_bodied_extension_as_inline', 'isEnabled', true)
+		) {
+			children = mergeInlinedExtension({
+				nodes: children,
+				shouldDisplayExtensionAsInline: this.shouldDisplayExtensionAsInline,
+			});
+		}
+		return children;
 	}
 
 	static getMarks(node: Node): Mark[] {

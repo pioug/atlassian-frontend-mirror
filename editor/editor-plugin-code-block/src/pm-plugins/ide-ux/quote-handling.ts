@@ -6,7 +6,7 @@ export const QUOTE_MAP = {
 
 export type QuoteMapKey = keyof typeof QUOTE_MAP;
 
-export const shouldAutoCloseQuote = (before: string, after: string) => {
+export const shouldAutoCloseQuote = (before: string, after: string): boolean => {
 	// when directly before a closing bracket
 	// Ignored via go/ees005
 	// eslint-disable-next-line require-unicode-regexp

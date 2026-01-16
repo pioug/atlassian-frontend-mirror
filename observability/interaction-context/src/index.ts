@@ -46,6 +46,6 @@ export interface InteractionContextType {
 	tracePress(name: string | undefined, timestamp?: number): void;
 }
 
-const _default_1: Context<InteractionContextType | null> =
+const interactionContext: Context<InteractionContextType | null> =
 	createContext<InteractionContextType | null>(null);
-export default _default_1;
+export default interactionContext;

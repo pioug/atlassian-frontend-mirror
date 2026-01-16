@@ -1,5 +1,5 @@
 {
-	"extends": "../../../../tsconfig.entry-points.products.json",
+	"extends": "../../../../tsconfig.local-consumption.json",
 	"compilerOptions": {
 		"target": "es5",
 		"outDir": "../../../../../tsDist/@atlaskit__townsquare-emoji-provider/app",
@@ -24,7 +24,19 @@
 	],
 	"references": [
 		{
+			"path": "../../../design-system/avatar/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../elements/emoji/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
 		}
 	]
 }

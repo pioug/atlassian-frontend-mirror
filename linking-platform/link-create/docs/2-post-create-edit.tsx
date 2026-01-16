@@ -2,7 +2,7 @@ import React from 'react';
 
 import { code, Example, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   # Post-Create Edit
 
   The post-create edit workflow provides plugins with the opportunity to allow users to edit the newly created object immediately after having created it.
@@ -38,3 +38,4 @@ ${(
 	/>
 )}
 `;
+export default _default_1;

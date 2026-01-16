@@ -31,7 +31,7 @@ export function isFetchNetworkError(err: any): err is TypeError {
 	return err instanceof TypeError;
 }
 
-export function isRateLimitedError(error: Error | undefined) {
+export function isRateLimitedError(error: Error | undefined): boolean {
 	const statusCode = error && getStatusCode(error);
 	return statusCode === 429 || (!!error && !!error.message && error.message.includes('429'));
 }
@@ -152,7 +152,7 @@ export function createMapResponseToBlob(
 	};
 }
 
-export const defaultShouldRetryError = (err: any) => {
+export const defaultShouldRetryError = (err: any): boolean => {
 	const statusCode = getStatusCode(err);
 	return isFetchNetworkError(err) || (statusCode ? statusCode >= 500 : false);
 };

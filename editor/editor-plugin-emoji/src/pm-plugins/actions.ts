@@ -25,7 +25,7 @@ export const setAsciiMap = (asciiMap: Map<string, EmojiDescription>) => (tr: Tra
 
 export const openTypeAhead =
 	(typeaheadHandler: TypeAheadHandler, api?: PublicPluginAPI<EmojiPlugin>) =>
-	(inputMethod: TypeAheadInputMethod) => {
+	(inputMethod: TypeAheadInputMethod): boolean => {
 		return Boolean(
 			api?.typeAhead?.actions.open({
 				triggerHandler: typeaheadHandler,

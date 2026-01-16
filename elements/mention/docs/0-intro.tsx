@@ -6,7 +6,7 @@ const SimpleMentionSource = require('!!raw-loader!../examples/00-simple-mention-
 
 const MentionProps = require('!!extract-react-types-loader!../src/components/Mention');
 
-export default md`
+const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}
   
   The main purpose of the mention component is to provide a mention picker for choosing users to mention within a text field or editor.
@@ -82,3 +82,4 @@ export default md`
   ${(<Props props={MentionProps} />)}
 
 `;
+export default _default_1;

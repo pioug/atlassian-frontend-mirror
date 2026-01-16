@@ -8,11 +8,11 @@ import { type ActiveThemeState, themeObjectToString } from '@atlaskit/tokens';
 import { IconType, SmartLinkSize } from '../constants';
 import extractFileFormatIcon from '../extractors/flexible/icon/extract-file-formatIcon';
 
-export const isSpecialEvent = (evt: React.MouseEvent | React.KeyboardEvent) =>
+export const isSpecialEvent = (evt: React.MouseEvent | React.KeyboardEvent): boolean =>
 	evt.isDefaultPrevented() &&
 	(isIframe() || isSpecialKey(evt) || isSpecialClick(evt as React.MouseEvent));
 
-export const isIframe = () => window.parent !== parent;
+export const isIframe = (): boolean => window.parent !== parent;
 
 /**
  * Meta key = cmd on mac, windows key on windows
@@ -25,13 +25,13 @@ export const isIframe = () => window.parent !== parent;
  * On Windows it will be equivalent to opening a new tab, unless its the Window key that is held
  * in which case typically only a standard clickthrough will occur, this is likely a small portion of events
  */
-export const isSpecialKey = (event: React.MouseEvent | React.KeyboardEvent) => {
+export const isSpecialKey = (event: React.MouseEvent | React.KeyboardEvent): boolean => {
 	return fg('platform-smart-card-shift-key')
 		? event.metaKey || event.ctrlKey || event.shiftKey
 		: event.metaKey || event.ctrlKey;
 };
 
-export const isSpecialClick = (event: React.MouseEvent) => event.button === 1;
+export const isSpecialClick = (event: React.MouseEvent): boolean => event.button === 1;
 
 export const getIconForFileType = (
 	fileMimeType: string,
@@ -292,7 +292,7 @@ export const handleOnClick = (handler: Function) => (e: React.BaseSyntheticEvent
 	handler();
 };
 
-export const isIntersectionObserverSupported = () => typeof IntersectionObserver !== 'undefined';
+export const isIntersectionObserverSupported = (): boolean => typeof IntersectionObserver !== 'undefined';
 
 export const sleep = (ms: number): Promise<void> => {
 	return new Promise((resolve) => setTimeout(resolve, ms));
@@ -370,4 +370,4 @@ export const getPreviewUrlWithTheme = (
 export const isIconSizeLarge = (size?: SmartLinkSize) =>
 	size && [SmartLinkSize.Large, SmartLinkSize.XLarge].includes(size);
 
-export const isProfileType = (type?: string[]) => !!(type && type.includes('Profile'));
+export const isProfileType = (type?: string[]): boolean => !!(type && type.includes('Profile'));

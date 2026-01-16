@@ -1,6 +1,7 @@
 import { md, code } from '@atlaskit/docs';
 
-export default md`
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const _default_1: any = md`
 # Email renderer
 
 This package provides renderer that is capable of rendering email-friendly HTML from ADF documents.
@@ -21,3 +22,4 @@ const result = serializer.serializeFragment(node.content);
 `}
 
 `;
+export default _default_1;

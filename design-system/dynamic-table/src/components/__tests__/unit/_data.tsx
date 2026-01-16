@@ -58,9 +58,9 @@ export const headMock2: HeadType = {
 	],
 };
 
-export const rows = testData;
+export const rows: any = testData;
 
-export const row = rows[0];
+export const row: any = rows[0];
 
 export const rowsWithKeys: Array<RowType> = rows.map((tRow: RowType, rowIndex: number) => {
 	return {

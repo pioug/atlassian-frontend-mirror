@@ -6,7 +6,7 @@ const TaskDecisionSource = require('!!raw-loader!../examples/00-decision-item');
 
 const TaskDecisionProps = require('!!extract-react-types-loader!../src/components/DecisionItem');
 
-export default md`
+const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}
 
   This component provides components for rendering tasks and decisions.
@@ -38,4 +38,5 @@ export default md`
 
   ${(<Props heading="Decision Props" props={TaskDecisionProps} />)}
 `;
+export default _default_1;
 // TODO: Add more information for task.

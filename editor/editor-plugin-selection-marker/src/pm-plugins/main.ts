@@ -59,7 +59,16 @@ export const applyNextPluginState = (
 	tr: ReadonlyTransaction,
 	currentState: PluginState,
 	oldEditorState: EditorState,
-) => {
+):
+	| PluginState
+	| {
+		decorations: DecorationSet;
+		decorationType: 'none' | 'blur';
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		forceHide: any;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		shouldHideDecorations: any;
+	} => {
 	const meta = tr.getMeta(key);
 	if (!meta && !tr.selectionSet) {
 		return currentState;

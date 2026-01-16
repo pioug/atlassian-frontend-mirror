@@ -6,7 +6,7 @@ import { type TypeAheadPlugin } from '../typeAheadPluginType';
 export const itemIsDisabled = (
 	item: TypeAheadItem | undefined,
 	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined,
-) => {
+): boolean => {
 	const isOffline = isOfflineMode(api?.connectivity?.sharedState.currentState()?.mode);
 	return isOffline && item?.isDisabledOffline === true;
 };

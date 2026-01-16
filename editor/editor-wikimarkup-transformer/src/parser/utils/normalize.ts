@@ -138,7 +138,7 @@ function isEmptyTextNode(n: PMNode): boolean {
 	return n.textContent !== undefined && n.textContent.trim().length === 0;
 }
 
-export function isNextLineEmpty(input: string) {
+export function isNextLineEmpty(input: string): boolean {
 	// Line with only spaces is considered an empty line
 	return input.trim().length === 0;
 }

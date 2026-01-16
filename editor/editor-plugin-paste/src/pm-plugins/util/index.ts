@@ -249,7 +249,7 @@ export function isCursorSelectionAtTextStartOrEnd(selection: Selection) {
 	);
 }
 
-export function isPanelNode(node: PMNode | null | undefined) {
+export function isPanelNode(node: PMNode | null | undefined): boolean {
 	return Boolean(node && node.type.name === 'panel');
 }
 

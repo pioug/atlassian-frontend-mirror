@@ -1,7 +1,7 @@
 import React from 'react';
 import { code, Example, md, Props, AtlassianInternalWarning } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}
 
   Popup version of the User Picker. Define a separate target which the menu will display under.
@@ -31,3 +31,4 @@ export default md`
 		/>
 	)}
 `;
+export default _default_1;

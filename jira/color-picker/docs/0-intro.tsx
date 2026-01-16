@@ -18,18 +18,18 @@ const marginTopStyles = xcss({
 	marginBottom: 'space.100',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export default md`
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const _default_1: any = md`
 ${(
-	<>
-		<Box xcss={marginBottomStyles}>
-			<AtlassianInternalWarning />
-		</Box>
-		<Box xcss={marginTopStyles}>
-			<DevPreviewWarning />
-		</Box>
-	</>
-)}
+		<>
+			<Box xcss={marginBottomStyles}>
+				<AtlassianInternalWarning />
+			</Box>
+			<Box xcss={marginTopStyles}>
+				<DevPreviewWarning />
+			</Box>
+		</>
+	)}
 
 This component allows to pick colors from color palette.
 
@@ -40,29 +40,32 @@ ${code`
 `}
 
 ${(
-	<Example
-		packageName="@atlaskit/color-picker"
-		Component={require('../examples/00-color-picker').default}
-		source={require('!!raw-loader!../examples/00-color-picker')}
-		title="Basic Usage"
-		language="jsx"
-	/>
-)}
+		<Example
+			packageName="@atlaskit/color-picker"
+			Component={require('../examples/00-color-picker').default}
+			source={require('!!raw-loader!../examples/00-color-picker')}
+			title="Basic Usage"
+			language="jsx"
+		/>
+	)}
 
 ${(
-	<Example
-		packageName="@atlaskit/color-picker"
-		Component={require('../examples/01-multi-columns-color-picker').default}
-		source={require('!!raw-loader!../examples/01-multi-columns-color-picker')}
-		title="Color picker with multiple columns palette"
-		language="jsx"
-	/>
-)}
+		<Example
+			packageName="@atlaskit/color-picker"
+			Component={require('../examples/01-multi-columns-color-picker').default}
+			source={require('!!raw-loader!../examples/01-multi-columns-color-picker')}
+			title="Color picker with multiple columns palette"
+			language="jsx"
+		/>
+	)}
 
 ${(
-	<Props
-		heading="Color picker props"
-		props={require('!!extract-react-types-loader!../src/components/ColorPicker')}
-	/>
-)}
+		<Props
+			heading="Color picker props"
+			props={require('!!extract-react-types-loader!../src/components/ColorPicker')}
+		/>
+	)}
 `;
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export default _default_1;

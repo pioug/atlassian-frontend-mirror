@@ -142,7 +142,7 @@ export class MockMentionResource
 		}
 	}
 
-	supportsMentionNameResolving() {
+	supportsMentionNameResolving(): boolean {
 		const supported = !!this.config.mentionNameResolver;
 		debug('supportsMentionNameResolving', supported);
 		return supported;

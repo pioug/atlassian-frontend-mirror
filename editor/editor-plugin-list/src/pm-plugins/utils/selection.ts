@@ -10,17 +10,17 @@ import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state'
 import { findWrapping } from '@atlaskit/editor-prosemirror/transform';
 import { findParentNodeOfType, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 
-export const isPosInsideParagraph = ($pos: ResolvedPos) => {
+export const isPosInsideParagraph = ($pos: ResolvedPos): boolean => {
 	return $pos.parent.type.name === 'paragraph';
 };
 
-export const isPosInsideList = ($pos: ResolvedPos) => {
+export const isPosInsideList = ($pos: ResolvedPos): boolean => {
 	const posGrandParent = $pos.node(-1);
 
 	return isListItemNode($pos.parent) || isListNode($pos.parent) || isListItemNode(posGrandParent);
 };
 
-export const isWrappingPossible = (nodeType: NodeType, selection: Selection) => {
+export const isWrappingPossible = (nodeType: NodeType, selection: Selection): boolean => {
 	const { $from, $to } = selection;
 
 	let range;

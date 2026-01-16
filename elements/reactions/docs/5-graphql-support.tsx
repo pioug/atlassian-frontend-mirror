@@ -3,7 +3,7 @@ import { md, code, Props } from '@atlaskit/docs';
 import SectionMessage from '@atlaskit/section-message';
 import { Text } from '@atlaskit/primitives/compiled';
 
-export default md`
+const _default_1: any = md`
 
   ### How to get reactions support GraphQL?
 
@@ -150,3 +150,4 @@ ${(
 	/>
 )}
 `;
+export default _default_1;

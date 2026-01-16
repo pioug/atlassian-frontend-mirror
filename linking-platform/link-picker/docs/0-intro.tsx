@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AtlassianInternalWarning, code, Example, md, Props } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 ${(<AtlassianInternalWarning />)}
 
   The Standalone Link Picker component allows users to insert relevant links without having to leave their current context.
@@ -185,3 +185,4 @@ ${(
 		/>
 	)}
 `;
+export default _default_1;

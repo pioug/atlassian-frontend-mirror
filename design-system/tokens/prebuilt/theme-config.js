@@ -45,7 +45,7 @@ var themeContrastModes = ['more', 'no-preference', 'auto'];
  *
  * These ids must be kebab case
  */
-var themeIds = exports.themeIds = ['light-increased-contrast', 'light', 'light-future', 'dark', 'dark-future', 'dark-increased-contrast', 'legacy-light', 'legacy-dark', 'spacing', 'shape', 'typography', 'typography-adg3', 'typography-modernized', 'typography-refreshed'];
+var themeIds = exports.themeIds = ['light-increased-contrast', 'light', 'light-future', 'dark', 'dark-future', 'dark-increased-contrast', 'legacy-light', 'legacy-dark', 'spacing', 'shape', 'typography'];
 /**
  * Theme override ids: the equivalent of themeIds for theme overrides.
  * Theme overrides are temporary and there may not be any defined at times.
@@ -165,36 +165,12 @@ var themeConfig = {
       type: 'typography'
     }
   },
-  'atlassian-typography-adg3': {
-    id: 'typography-adg3',
-    displayName: 'ADG3 Typography',
-    palette: 'typographyPalette',
-    attributes: {
-      type: 'typography'
-    }
-  },
   'atlassian-shape': {
     id: 'shape',
     displayName: 'Shape',
     palette: 'shapePalette',
     attributes: {
       type: 'shape'
-    }
-  },
-  'atlassian-typography-modernized': {
-    id: 'typography-modernized',
-    displayName: 'Atlassian Typography (Modernized)',
-    palette: 'typographyPalette',
-    attributes: {
-      type: 'typography'
-    }
-  },
-  'atlassian-typography-refreshed': {
-    id: 'typography-refreshed',
-    displayName: 'Atlassian Typography (Refreshed)',
-    palette: 'typographyPalette',
-    attributes: {
-      type: 'typography'
     }
   }
 };

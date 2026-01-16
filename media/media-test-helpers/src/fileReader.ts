@@ -58,6 +58,6 @@ const mockFileReaderWithError = () => {
 	return fileReader;
 };
 
-const unmockFileReader = () => FileReader.mockImplementation(() => new GlobalFileReader());
+const unmockFileReader = (): any => FileReader.mockImplementation(() => new GlobalFileReader());
 
 export { mockFileReader, mockFileReaderWithError, unmockFileReader, mockFileReaderError };

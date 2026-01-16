@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c89a29e7cce7f49704b4559e5f42c4ea>>
+ * @codegen <<SignedSource::71ab6af4453c6807be4d4249ca7614bc>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -422,7 +422,6 @@ const tokens = {
 	'elevation.shadow.raised': '--ds-shadow-raised',
 	'opacity.disabled': '--ds-opacity-disabled',
 	'opacity.loading': '--ds-opacity-loading',
-	'utility.UNSAFE.textTransformUppercase': '--ds-UNSAFE-textTransformUppercase',
 	'utility.UNSAFE.transparent': '--ds-UNSAFE-transparent',
 	'utility.elevation.surface.current': '--ds-elevation-surface-current',
 	'space.0': '--ds-space-0',
@@ -894,7 +893,6 @@ export type CSSTokenMap = {
 	'elevation.shadow.raised': 'var(--ds-shadow-raised)';
 	'opacity.disabled': 'var(--ds-opacity-disabled)';
 	'opacity.loading': 'var(--ds-opacity-loading)';
-	'utility.UNSAFE.textTransformUppercase': 'var(--ds-UNSAFE-textTransformUppercase)';
 	'utility.UNSAFE.transparent': 'var(--ds-UNSAFE-transparent)';
 	'utility.elevation.surface.current': 'var(--ds-elevation-surface-current)';
 	'space.0': 'var(--ds-space-0)';

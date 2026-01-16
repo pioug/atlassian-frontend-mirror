@@ -84,7 +84,7 @@ export default class TableCell extends TableNodeView<HTMLElement> implements Nod
 		}
 	};
 
-	update(node: PMNode) {
+	update(node: PMNode): boolean {
 		const didUpdate = this.updateNodeView(node);
 		if (didUpdate) {
 			this.node = node;

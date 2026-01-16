@@ -44,7 +44,7 @@ export const stepIsValidAttrChange = (
 	step: ProseMirrorStep,
 	beforeDoc: PMNode,
 	afterDoc: PMNode,
-) => {
+): boolean => {
 	try {
 		if (step instanceof AttrStep || step instanceof SetAttrsStep) {
 			const attrStepAfter = afterDoc.nodeAt(step.pos);

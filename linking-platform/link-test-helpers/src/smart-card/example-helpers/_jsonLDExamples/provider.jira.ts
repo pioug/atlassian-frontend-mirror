@@ -149,7 +149,7 @@ export const JiraCustomTaskType = generateJiraTask(
 	'Musician Request',
 	{ name: 'done', appearance: 'success' },
 );
-export const JiraCustomTaskTypeWithIcon = (() => {
+export const JiraCustomTaskTypeWithIcon: any = (() => {
 	const json: any = generateJiraTask(
 		'Perform at the Conga Club',
 		JIRA_CUSTOM_TASK_TYPE,
@@ -172,7 +172,7 @@ export const JiraTaskWithNoEditPermission = generateJiraTask(
 	false,
 );
 
-export const JiraTasks = [
+export const JiraTasks: any[] = [
 	JiraTask,
 	JiraSubTask,
 	JiraStory,

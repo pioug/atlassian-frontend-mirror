@@ -36,19 +36,19 @@ describe('Element: Link', () => {
 		it.each([
 			[
 				SmartLinkSize.XLarge,
-				'var(--ds-font-heading-medium,normal 500 20px/24px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
+				'var(--ds-font-heading-medium,normal 653 20px/24px "Atlassian Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
 			],
 			[
 				SmartLinkSize.Large,
-				'var(--ds-font-body,normal 400 14px/20px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
+				'var(--ds-font-body,normal 400 14px/20px "Atlassian Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
 			],
 			[
 				SmartLinkSize.Medium,
-				'var(--ds-font-body,normal 400 14px/20px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
+				'var(--ds-font-body,normal 400 14px/20px "Atlassian Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
 			],
 			[
 				SmartLinkSize.Small,
-				'var(--ds-font-body-UNSAFE_small,normal 400 9pt/1pc ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
+				'var(--ds-font-body-UNSAFE_small,normal 400 9pt/1pc "Atlassian Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
 			],
 		])('renders element in %s size', async (size: SmartLinkSize, expectedFont) => {
 			render(<BaseLinkElement text={text} url={url} size={size} />);

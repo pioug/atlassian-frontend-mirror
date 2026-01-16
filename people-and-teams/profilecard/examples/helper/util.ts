@@ -10,7 +10,7 @@ export const getMockProfileClient = (
 	cacheMaxAge: number,
 	extraProps: ProfilecardProps = {},
 	extraOptions?: ProfileClientOptions,
-) => {
+): any => {
 	const MockProfileClient = getMockProfileClientUtil(
 		ProfileClient,
 		// @ts-ignore

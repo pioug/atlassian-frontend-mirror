@@ -5,7 +5,7 @@ type JqlValue = {
 	value: string;
 };
 
-export const filterJqlValue = ({ displayName, value }: JqlValue, query?: string) => {
+export const filterJqlValue = ({ displayName, value }: JqlValue, query?: string): boolean => {
 	if (typeof query !== 'string' || query === '') {
 		return true;
 	}

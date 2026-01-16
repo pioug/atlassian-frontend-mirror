@@ -23,7 +23,7 @@ import type { TaskItemData } from './types';
 import { ACTIONS } from './types';
 import { findBlockTaskItem } from './utils';
 
-export const isInsideTaskOrDecisionItem = (state: EditorState) => {
+export const isInsideTaskOrDecisionItem = (state: EditorState): boolean => {
 	const { decisionItem, taskItem, blockTaskItem } = state.schema.nodes;
 	if (blockTaskItem) {
 		return Boolean(
@@ -37,22 +37,22 @@ export const isInsideTaskOrDecisionItem = (state: EditorState) => {
 	return hasParentNodeOfType([decisionItem, taskItem, blockTaskItem])(state.selection);
 };
 
-export const isActionOrDecisionList = (node: Node) => {
+export const isActionOrDecisionList = (node: Node): boolean => {
 	const { taskList, decisionList } = node.type.schema.nodes;
 	return [taskList, decisionList].indexOf(node.type) > -1;
 };
 
-export const isActionOrDecisionItem = (node: Node) => {
+export const isActionOrDecisionItem = (node: Node): boolean => {
 	const { taskItem, decisionItem, blockTaskItem } = node.type.schema.nodes;
 	return [taskItem, decisionItem, blockTaskItem].indexOf(node.type) > -1;
 };
 
-export const isInsideTask = (state: EditorState) => {
+export const isInsideTask = (state: EditorState): boolean => {
 	const { taskItem, blockTaskItem } = state.schema.nodes;
 	return hasParentNodeOfType([taskItem, blockTaskItem])(state.selection);
 };
 
-export const isInsideDecision = (state: EditorState) => {
+export const isInsideDecision = (state: EditorState): boolean => {
 	const { decisionItem } = state.schema.nodes;
 	return hasParentNodeOfType([decisionItem])(state.selection);
 };
@@ -256,7 +256,7 @@ export const subtreeHeight = ($from: ResolvedPos, $to: ResolvedPos, types: NodeT
  * @param state - The current EditorState.
  * @returns `true` if the taskItem, decisionItem, or blockTaskItem is empty; otherwise, `false`.
  */
-export const isEmptyTaskDecision = (state: EditorState) => {
+export const isEmptyTaskDecision = (state: EditorState): boolean => {
 	const { selection, schema } = state;
 	const { paragraph, blockTaskItem, decisionItem, taskItem } = schema.nodes;
 	const { $from } = selection;
@@ -306,7 +306,13 @@ export const liftBlock = (
 	return tr.lift(blockRange, target).scrollIntoView();
 };
 
-export function getTaskItemDataAtPos(view: EditorView) {
+export function getTaskItemDataAtPos(view: EditorView):
+	| {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		localId: any;
+		pos: number;
+	}
+	| undefined {
 	const { state } = view;
 	const { selection, schema } = state;
 	const { $from } = selection;
@@ -395,7 +401,16 @@ export function getCurrentTaskItemIndex(
 	}
 }
 
-export function getTaskItemDataToFocus(view: EditorView, direction: 'next' | 'previous') {
+export function getTaskItemDataToFocus(
+	view: EditorView,
+	direction: 'next' | 'previous',
+):
+	| {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		localId: any;
+		pos: number;
+	}
+	| undefined {
 	const allTaskItems = getAllTaskItemsDataInRootTaskList(view);
 
 	// if not inside task item then allTaskItems will be undefined;
@@ -436,7 +451,10 @@ export function focusCheckbox(view: EditorView, taskItemData?: TaskItemData): vo
 	}
 }
 
-export function focusCheckboxAndUpdateSelection(view: EditorView, taskItemData: TaskItemData): void {
+export function focusCheckboxAndUpdateSelection(
+	view: EditorView,
+	taskItemData: TaskItemData,
+): void {
 	const { pos, localId } = taskItemData;
 	const { state, dispatch } = view;
 	const { doc } = state;

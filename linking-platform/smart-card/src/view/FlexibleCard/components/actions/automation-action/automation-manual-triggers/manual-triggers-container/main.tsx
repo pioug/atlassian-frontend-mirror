@@ -23,7 +23,7 @@ import { invokeManuallyTriggeredRule, searchManuallyTriggeredRules } from './ser
  * @param site - The site to filter on. We map this to just a cloudId to resolve the manual rules API path
  * @param query - Query object containing filter props (container, object(s))
  */
-export const useManualRules = (site: Ari, query: RuleQuery) => {
+export const useManualRules = (site: Ari, query: RuleQuery): any[] => {
 	const [initialised, setInitialised] = useState(false);
 	const [error, setError] = useState<any>(null);
 	const [rules, setRules] = useState<ManualRule[]>([]);

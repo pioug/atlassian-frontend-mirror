@@ -1,7 +1,7 @@
 import React from 'react';
 import { md, AtlassianInternalWarning } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}
 
   ### Note:
@@ -37,3 +37,4 @@ We assume you have a valid \`mediaClientConfig\` and \`authProvider\` object set
 For the sake of brewity, most of the example uses inbuilt helper methods.
 
 `;
+export default _default_1;

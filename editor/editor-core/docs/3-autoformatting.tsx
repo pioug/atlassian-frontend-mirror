@@ -1,6 +1,7 @@
 import { code, md } from '@atlaskit/docs';
 
-export default md`
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const _default_1: any = md`
 # Autoformatting Provider
 
 The custom autoformatting provider lets you specify your own function that triggers on particular regex strings, and asynchronously replace them with some content. More precisely, it returns a Promise containing ADF to replace the trigger text with.
@@ -41,3 +42,4 @@ ${code`export const autoformattingProvider: AutoformattingProvider = {
 
 At the moment, only text or \`inlineCard\` ADF nodes are permitted to be replaced.
 `;
+export default _default_1;

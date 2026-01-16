@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { AtlassianInternalWarning, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}
 
   A React component to display a card with user information.
@@ -28,3 +28,4 @@ ${(
 )}
 
 `;
+export default _default_1;

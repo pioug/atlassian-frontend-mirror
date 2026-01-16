@@ -92,12 +92,12 @@ export const editType = ({
 	return { defaultValue: '', editView: () => <></> };
 };
 
-export const isEditTypeSupported = (type: DatasourceType['type']) => {
+export const isEditTypeSupported = (type: DatasourceType['type']): boolean => {
 	const supportedEditType = ['string', 'status', 'icon', 'user'];
 	return supportedEditType.includes(type);
 };
 
-export const isEditTypeSelectable = (type: DatasourceType['type']) => {
+export const isEditTypeSelectable = (type: DatasourceType['type']): boolean => {
 	const selectEditTypes = ['status', 'icon', 'user'];
 	return selectEditTypes.includes(type);
 };

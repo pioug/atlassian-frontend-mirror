@@ -1373,7 +1373,7 @@ export type BorderRadius = keyof typeof borderRadiusMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ab32bc819d015e7451c245e6a77eba28>>
+ * @codegen <<SignedSource::f81d01fb664f365972ac87a2be86aba6>>
  * @codegenId typography
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["fontSize", "fontWeight", "fontFamily", "lineHeight", "body", "ui"]
@@ -1399,63 +1399,63 @@ export const fontMap: {
 } = {
 	'font.body': token(
 		'font.body',
-		'normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'normal 400 14px/20px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	),
 	'font.body.UNSAFE_small': token(
 		'font.body.UNSAFE_small',
-		'normal 400 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'normal 400 12px/16px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	),
 	'font.body.large': token(
 		'font.body.large',
-		'normal 400 16px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'normal 400 16px/24px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	),
 	'font.body.small': token(
 		'font.body.small',
-		'normal 400 11px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'normal 400 12px/16px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	),
 	'font.code': token(
 		'font.code',
-		'normal 400 0.875em/1 ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace',
+		'normal 400 0.875em/1 "Atlassian Mono", ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace',
 	),
 	'font.heading.large': token(
 		'font.heading.large',
-		'normal 500 24px/28px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'normal 653 24px/28px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	),
 	'font.heading.medium': token(
 		'font.heading.medium',
-		'normal 500 20px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'normal 653 20px/24px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	),
 	'font.heading.small': token(
 		'font.heading.small',
-		'normal 600 16px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'normal 653 16px/20px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	),
 	'font.heading.xlarge': token(
 		'font.heading.xlarge',
-		'normal 600 29px/32px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'normal 653 28px/32px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	),
 	'font.heading.xsmall': token(
 		'font.heading.xsmall',
-		'normal 600 14px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'normal 653 14px/20px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	),
 	'font.heading.xxlarge': token(
 		'font.heading.xxlarge',
-		'normal 500 35px/40px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'normal 653 32px/36px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	),
 	'font.heading.xxsmall': token(
 		'font.heading.xxsmall',
-		'normal 600 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'normal 653 12px/16px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	),
 	'font.metric.large': token(
 		'font.metric.large',
-		'normal 653 28px/32px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'normal 653 28px/32px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	),
 	'font.metric.medium': token(
 		'font.metric.medium',
-		'normal 653 24px/28px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'normal 653 24px/28px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	),
 	'font.metric.small': token(
 		'font.metric.small',
-		'normal 653 16px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'normal 653 16px/20px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	),
 };
 
@@ -1467,7 +1467,7 @@ export const fontWeightMap: {
 	'font.weight.regular': 'var(--ds-font-weight-regular)';
 	'font.weight.semibold': 'var(--ds-font-weight-semibold)';
 } = {
-	'font.weight.bold': token('font.weight.bold', '700'),
+	'font.weight.bold': token('font.weight.bold', '653'),
 	'font.weight.medium': token('font.weight.medium', '500'),
 	'font.weight.regular': token('font.weight.regular', '400'),
 	'font.weight.semibold': token('font.weight.semibold', '600'),
@@ -1484,7 +1484,7 @@ export const fontFamilyMap: {
 } = {
 	'font.family.body': token(
 		'font.family.body',
-		'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'"Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	),
 	'font.family.brand.body': token(
 		'font.family.brand.body',
@@ -1496,11 +1496,11 @@ export const fontFamilyMap: {
 	),
 	'font.family.code': token(
 		'font.family.code',
-		'ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace',
+		'"Atlassian Mono", ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace',
 	),
 	'font.family.heading': token(
 		'font.family.heading',
-		'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'"Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	),
 };
 
@@ -1512,7 +1512,7 @@ export type FontFamily = keyof typeof fontFamilyMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::379f638b84496f34817234c7f3c58f74>>
+ * @codegen <<SignedSource::aeebc24b95e2189021f1d98f1715a6a0>>
  * @codegenId text
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenDependency ../../../primitives/scripts/codegen-file-templates/dimensions.tsx <<SignedSource::cc9b3f12104c6ede803da6a42daac0b0>>
@@ -1526,19 +1526,19 @@ export const textSizeMap: {
 } = {
 	medium: token(
 		'font.body',
-		'normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'normal 400 14px/20px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	),
 	UNSAFE_small: token(
 		'font.body.UNSAFE_small',
-		'normal 400 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'normal 400 12px/16px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	),
 	large: token(
 		'font.body.large',
-		'normal 400 16px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'normal 400 16px/24px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	),
 	small: token(
 		'font.body.small',
-		'normal 400 11px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'normal 400 12px/16px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	),
 };
 
@@ -1550,7 +1550,7 @@ export const textWeightMap: {
 	regular: 'var(--ds-font-weight-regular)';
 	semibold: 'var(--ds-font-weight-semibold)';
 } = {
-	bold: token('font.weight.bold', '700'),
+	bold: token('font.weight.bold', '653'),
 	medium: token('font.weight.medium', '500'),
 	regular: token('font.weight.regular', '400'),
 	semibold: token('font.weight.semibold', '600'),
@@ -1565,15 +1565,15 @@ export const metricTextSizeMap: {
 } = {
 	large: token(
 		'font.metric.large',
-		'normal 653 28px/32px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'normal 653 28px/32px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	),
 	medium: token(
 		'font.metric.medium',
-		'normal 653 24px/28px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'normal 653 24px/28px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	),
 	small: token(
 		'font.metric.small',
-		'normal 653 16px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'normal 653 16px/20px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	),
 };
 

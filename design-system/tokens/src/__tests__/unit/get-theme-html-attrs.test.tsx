@@ -22,13 +22,13 @@ describe('getThemeHtmlAttrs', () => {
 			dark: 'dark',
 			light: 'light',
 			spacing: 'spacing',
-			typography: 'typography-adg3',
+			typography: 'typography',
 			UNSAFE_themeOptions,
 		});
 
 		expect(result).toHaveProperty(
 			THEME_DATA_ATTRIBUTE,
-			'dark:dark light:light spacing:spacing typography:typography-adg3',
+			'dark:dark light:light spacing:spacing typography:typography',
 		);
 
 		// SSR doesn't check the media query

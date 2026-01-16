@@ -43,6 +43,7 @@ import { getCMSelectionChanges } from './codemirrorSync/updateCMSelection';
 import { firstCodeBlockInDocument } from './extensions/firstCodeBlockInDocument';
 import { foldGutterExtension, getCodeBlockFoldStateEffects } from './extensions/foldGutter';
 import { keymapExtension } from './extensions/keymap';
+import { lineSeparatorExtension } from './extensions/lineSeparator';
 import { manageSelectionMarker } from './extensions/manageSelectionMarker';
 import { prosemirrorDecorationPlugin } from './extensions/prosemirrorDecorations';
 import { tripleClickSelectAllExtension } from './extensions/tripleClickExtension';
@@ -182,6 +183,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 				config.allowCodeFolding
 					? [foldGutterExtension({ selectNode, getNode: () => this.node })]
 					: [],
+				lineSeparatorExtension(),
 			],
 		});
 
@@ -366,7 +368,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		this.updating = false;
 	}
 
-	update(node: PMNode, _: readonly Decoration[], innerDecorations: DecorationSource) {
+	update(node: PMNode, _: readonly Decoration[], innerDecorations: DecorationSource): boolean {
 		this.maybeTryingToReachNodeSelection = false;
 
 		if (node.type !== this.node.type) {
@@ -419,7 +421,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		this.updating = false;
 	}
 
-	stopEvent(e: Event) {
+	stopEvent(e: Event): boolean {
 		// If we have selected the node we should not stop these events
 		if (
 			(e instanceof KeyboardEvent || e instanceof ClipboardEvent) &&

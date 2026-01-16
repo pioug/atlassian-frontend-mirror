@@ -8,6 +8,8 @@ import React, {
 	useState,
 } from 'react';
 
+import { bind } from 'bind-event-listener';
+
 import {
 	type CropperCanvasElement,
 	type CropperSelectionElement,
@@ -211,7 +213,6 @@ export const Cropper = forwardRef<CropperRef, CropperProps>(
 		const imageRef = useRef<CropperImageElement>(null);
 		const [isImageReady, setIsImageReady] = useState(false);
 		const [isCropperLoaded, setIsCropperLoaded] = useState(false);
-
 		const getCanvas = useCallback(() => canvasRef.current, []);
 		const getImage = useCallback(() => imageRef.current, []);
 
@@ -248,10 +249,47 @@ export const Cropper = forwardRef<CropperRef, CropperProps>(
 
 				// Apply these to the selection (the stencil)
 				if (typeof selection.$change === 'function') {
-					selection.$change(x, y, width, height);
+					selection.$change(Math.floor(x), Math.floor(y), Math.floor(width), Math.floor(height));
 				}
 			}
 		};
+
+		const handleSelectionChange = useCallback((event: Event) => {
+			const canvas = canvasRef.current;
+			const image = imageRef.current;
+			// Cast to CustomEvent to access detail
+			const customEvent = event as CustomEvent;
+			const selection = customEvent.detail;
+
+			if (!canvas || !image || !selection) {
+				return;
+			}
+
+			// Get bounding rectangles
+			const canvasRect = canvas.getBoundingClientRect();
+			const imageRect = image.getBoundingClientRect();
+
+			// Calculate image boundaries relative to canvas
+			const maxSelection = {
+				x: imageRect.left - canvasRect.left,
+				y: imageRect.top - canvasRect.top,
+				width: imageRect.width,
+				height: imageRect.height,
+			};
+
+			// Check if selection is within image boundaries
+			// Use a tolerance of 1px to avoid floating point precision issues which could cause the cropper to freeze
+			const tolerance = 1;
+			const inSelection =
+				selection.x >= maxSelection.x - tolerance &&
+				selection.y >= maxSelection.y - tolerance &&
+				selection.x + selection.width <= maxSelection.x + maxSelection.width + tolerance &&
+				selection.y + selection.height <= maxSelection.y + maxSelection.height + tolerance;
+
+			if (!inSelection) {
+				event.preventDefault();
+			}
+		}, []);
 
 		// Lazy load cropperjs only on the client to avoid SSR side effects
 		useEffect(() => {
@@ -279,9 +317,12 @@ export const Cropper = forwardRef<CropperRef, CropperProps>(
 			// Wait for the image to be fully loaded
 			if (typeof image.$ready === 'function') {
 				image.$ready(() => {
-					fitStencilToImage();
-					setIsImageReady(true); // Show canvas after positioning
-					onImageReady?.(true);
+					const timer = setTimeout(() => {
+						fitStencilToImage();
+						setIsImageReady(true);
+						onImageReady?.(true);
+					}, 500); // Adding a small timeout as there is a rendering issue with webkit
+					return () => clearTimeout(timer);
 				});
 			} else {
 				// Fallback to timeout if $ready is not available
@@ -292,7 +333,25 @@ export const Cropper = forwardRef<CropperRef, CropperProps>(
 				}, 2000);
 				return () => clearTimeout(timer);
 			}
-		}, [src, isCropperLoaded, onImageReady]); 
+		}, [src, isCropperLoaded, onImageReady]);
+
+		// Attach selection change listener to enforce boundaries (only after image is ready)
+		useEffect(() => {
+			if (!isImageReady) {
+				return;
+			}
+
+			const selection = selectionRef.current;
+			if (!selection) {
+				return;
+			}
+
+			return bind(selection, {
+				type: 'change',
+				listener: handleSelectionChange,
+			});
+		}, [isImageReady, handleSelectionChange]);
+
 		useImperativeHandle(
 			ref,
 			() => ({

@@ -13,7 +13,7 @@ export const headNumeric = {
 	],
 };
 
-export const rowsNumeric = testDataNumeric;
+export const rowsNumeric: any = testDataNumeric;
 
 export const rowsNumericWithKeys: Array<RowType> = rowsNumeric.map(
 	(tRow: RowType, rowIndex: number) => {

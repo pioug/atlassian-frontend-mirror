@@ -583,7 +583,7 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 
 	unsubscribe: (() => void) | undefined;
 
-	viewShouldUpdate(nextNode: PMNode) {
+	viewShouldUpdate(nextNode: PMNode): boolean {
 		if (this.node.attrs !== nextNode.attrs) {
 			return true;
 		}

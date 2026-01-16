@@ -61,7 +61,7 @@ const getIsFormatMenuHidden = (selection: Selection, schema: Schema) => {
 	}
 };
 
-export const checkIsFormatMenuHidden = (api: ExtractInjectionAPI<BlockMenuPlugin> | undefined) => {
+export const checkIsFormatMenuHidden = (api: ExtractInjectionAPI<BlockMenuPlugin> | undefined): boolean => {
 	const selection = api?.selection?.sharedState?.currentState()?.selection;
 	const schema = api?.core.sharedState.currentState()?.schema;
 	const menuTriggerBy = api?.blockControls?.sharedState.currentState()?.menuTriggerBy;

@@ -61,7 +61,7 @@ const doesCompoundClauseContainAllTerminalClauses = (
 	return clauses.every((clauses) => clauses.clauseType === CLAUSE_TYPE_TERMINAL);
 };
 
-export const isClauseTooComplex = (clauses: Clause[], key: string) => {
+export const isClauseTooComplex = (clauses: Clause[], key: string): boolean => {
 	if (key === 'text') {
 		const [clause] = clauses;
 

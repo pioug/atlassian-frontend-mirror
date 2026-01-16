@@ -32,7 +32,7 @@ export const shouldSkipGapCursor = (
 	direction: Direction,
 	state: EditorState,
 	$pos: ResolvedPos,
-) => {
+): boolean => {
 	const { doc, schema } = state;
 
 	switch (direction) {

@@ -22,7 +22,7 @@ export const canParentContainNodeType = (
 	parentNode: PMNode,
 	nodeTypeName: NodeTypeName,
 	nodeTypeAttrs?: Record<string, unknown>,
-) => {
+): boolean => {
 	const adjustedNodeTypeName = getTargetNodeTypeNameInContext(nodeTypeName, true, parentNode);
 	if (!adjustedNodeTypeName) {
 		return false;

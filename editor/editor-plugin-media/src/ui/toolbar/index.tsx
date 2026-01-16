@@ -715,7 +715,9 @@ const generateMediaSingleFloatingToolbar = (
 			) {
 				const selectedMediaSingleNode = getSelectedMediaSingle(state);
 				const mediaNode = selectedMediaSingleNode?.node.content.firstChild;
-				if (!isVideo(mediaNode?.attrs?.__fileMimeType)) {
+				// Disable image editing for external media, as we cannot save changes to external images per CORS policy
+				const isExternal = mediaNode?.attrs?.type === 'external';
+				if (!isVideo(mediaNode?.attrs?.__fileMimeType) && !isExternal) {
 					toolbarButtons.push({
 						id: 'editor.media.edit',
 						testId: 'image-edit-toolbar-button',
@@ -909,7 +911,9 @@ const generateMediaSingleFloatingToolbar = (
 		) {
 			const selectedMediaSingleNode = getSelectedMediaSingle(state);
 			const mediaNode = selectedMediaSingleNode?.node.content.firstChild;
-			if (!isVideo(mediaNode?.attrs?.__fileMimeType)) {
+			// Disable image editing for external media, as we cannot save changes to external images per CORS policy
+			const isExternal = mediaNode?.attrs?.type === 'external';
+			if (!isVideo(mediaNode?.attrs?.__fileMimeType) && !isExternal) {
 				toolbarButtons.push(
 					{
 						id: 'editor.media.edit',

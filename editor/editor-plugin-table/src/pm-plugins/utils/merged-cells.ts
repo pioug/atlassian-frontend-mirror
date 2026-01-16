@@ -82,7 +82,7 @@ export const hasMergedCellsInBetween =
 export const hasMergedCellsWithColumnNextToColumnIndex = (
 	colIndex: number,
 	selection: Selection,
-) => {
+): boolean => {
 	const table = findTable(selection);
 	if (!table) {
 		return false;
@@ -121,7 +121,7 @@ export const hasMergedCellsWithColumnNextToColumnIndex = (
 export const hasMergedCellsWithRowNextToRowIndex = (
 	rowIndex: number, // logical row index in the table. It starts at 0 and goes up to tableMap.height - 1.
 	selection: Selection,
-) => {
+): boolean => {
 	const table = findTable(selection);
 	if (!table) {
 		return false;

@@ -1,7 +1,15 @@
 /**
  * ------------------- Exported Icon tests -------------------
  */
-export const migrationPathTests = [
+export const migrationPathTests: {
+	options: {
+		shouldUseMigrationPath: boolean;
+	}[];
+	name: string;
+	code: string;
+	output: string;
+	errors: any[];
+}[] = [
 	{
 		options: [{ shouldUseMigrationPath: false }],
 		name: 'Basic, auto-migratable icon, migrate from migration path to final core path',

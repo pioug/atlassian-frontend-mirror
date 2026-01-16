@@ -260,7 +260,7 @@ export class BaseAutocomplete<RuleContext extends {} = {}> {
 	 * @param caretToken The token matched for a given caret position.
 	 * @protected
 	 */
-	protected isCaretAtDelimiterOrHiddenToken(caretToken: Token) {
+	protected isCaretAtDelimiterOrHiddenToken(caretToken: Token): boolean {
 		return this.isCaretAtDelimiterToken(caretToken) || caretToken.channel === Token.HIDDEN_CHANNEL;
 	}
 

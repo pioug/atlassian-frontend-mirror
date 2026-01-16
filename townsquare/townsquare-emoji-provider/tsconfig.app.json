@@ -38,7 +38,19 @@
 	},
 	"references": [
 		{
+			"path": "../../design-system/avatar/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/css/tsconfig.app.json"
+		},
+		{
 			"path": "../../elements/emoji/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tokens/tsconfig.app.json"
 		}
 	],
 	"files": []

@@ -1,7 +1,7 @@
 /* eslint-disable @atlaskit/design-system/no-html-button */
 import React from 'react';
 
-import { useRovoPostMessageToPubsub } from '../src';
+import { useRovoPostMessageToPubsub } from '../src/common/utils/post-message-to-pubsub';
 
 export default (): React.JSX.Element => {
 	const [ackTimeoutHappened, setAckTimeoutHappened] = React.useState(false);

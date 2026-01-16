@@ -2,7 +2,7 @@ import React from 'react';
 import { md } from '@atlaskit/docs';
 import IconExplorer from '../../examples/icon-explorer';
 
-export default md`
+const _default_1: any = md`
 ##
 ## Icon Explorer
   ${
@@ -15,3 +15,4 @@ export default md`
 	}
 
 `;
+export default _default_1;

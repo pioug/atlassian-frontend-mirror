@@ -1,6 +1,6 @@
 import type { DocNode } from '@atlaskit/adf-schema';
 import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
-import { browser } from '@atlaskit/editor-common/utils';
+import { browser, ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
@@ -108,6 +108,22 @@ export function createPlaceholderDecoration(
 	// creates issues with quick insert button
 	if (isTargetNested && editorExperiment('platform_editor_controls', 'variant1')) {
 		placeholderDecoration.classList.add('placeholder-decoration-hide-overflow');
+	}
+
+	if (placeholderADF && browser.chrome && fg('platform_editor_ai_aifc_adf_placeholder')) {
+		const fragment = document.createDocumentFragment();
+		// An issue occurs with the caret where it gets bigger when it's next to a non-editable element like a decoration.
+		// See: https://discuss.prosemirror.net/t/chrome-caret-cursor-larger-than-the-text-with-inlined-items/5946/2
+		// Adding a zero-width space seems to fix this issue.
+		fragment.appendChild(document.createTextNode(ZERO_WIDTH_SPACE));
+		fragment.appendChild(placeholderDecoration);
+
+		return DecorationSet.create(editorState.doc, [
+			Decoration.widget(pos, fragment, {
+				side: 0,
+				key: `placeholder ${placeholderText}`,
+			}),
+		]);
 	}
 
 	return DecorationSet.create(editorState.doc, [

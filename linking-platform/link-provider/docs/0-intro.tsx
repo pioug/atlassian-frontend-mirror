@@ -1,7 +1,7 @@
 import { AtlassianInternalWarning, code, md, Props } from '@atlaskit/docs';
 import React from 'react';
 
-export default md`
+const _default_1: any = md`
 
 ${(<AtlassianInternalWarning />)}
 
@@ -45,3 +45,4 @@ ${(
 )}
 
 `;
+export default _default_1;

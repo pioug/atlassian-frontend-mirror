@@ -2,7 +2,8 @@ import React from 'react';
 
 import { AtlassianInternalWarning, code, Example, md } from '@atlaskit/docs';
 
-export default md`
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const _default_1: any = md`
 ${(<AtlassianInternalWarning />)}
 
 This transformer allows encoding ProseMirror Node to Slack markdown.
@@ -30,3 +31,4 @@ This transformer allows encoding ProseMirror Node to Slack markdown.
 		/>
 	)}
 `;
+export default _default_1;

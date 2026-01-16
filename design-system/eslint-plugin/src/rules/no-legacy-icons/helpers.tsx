@@ -463,7 +463,16 @@ const getLiteralStringValue = (value: any): string | undefined => {
 	return;
 };
 
-export const createHelpers = (ctx: Rule.RuleContext) => {
+export const createHelpers = (
+	ctx: Rule.RuleContext,
+): {
+	/**
+	 * Extracts the primaryColor value from a JSXAttribute
+	 */
+	getPrimaryColor(attr: JSXAttribute): string | null;
+	getTokenCallValue: (value: any) => string | undefined;
+	getConfigFlag: (key: string, defaultValue: boolean) => boolean;
+} => {
 	// TODO: JFP-2823 - this type cast was added due to Jira's ESLint v9 migration
 	const context = ctx as unknown as Omit<Rule.RuleContext, 'options'> & {
 		options: [{ [key: string]: boolean }];

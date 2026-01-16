@@ -68,7 +68,7 @@ export class Participants implements ReadOnlyParticipants {
 		return this.participants.size;
 	}
 
-	eq(other: ReadOnlyParticipants) {
+	eq(other: ReadOnlyParticipants): boolean {
 		const left = this.toArray()
 			.map((p) => p.sessionId)
 			.sort((a, b) => (a > b ? -1 : 1))

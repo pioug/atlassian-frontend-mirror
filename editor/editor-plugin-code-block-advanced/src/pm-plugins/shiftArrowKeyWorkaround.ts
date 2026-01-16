@@ -1,7 +1,7 @@
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-export const shiftArrowUpWorkaround = (view: EditorView, event: KeyboardEvent) => {
+export const shiftArrowUpWorkaround = (view: EditorView, event: KeyboardEvent): boolean => {
 	const {
 		doc,
 		selection: { $head, $anchor },
@@ -28,7 +28,7 @@ export const shiftArrowUpWorkaround = (view: EditorView, event: KeyboardEvent) =
 	return false;
 };
 
-export const shiftArrowDownWorkaround = (view: EditorView, event: KeyboardEvent) => {
+export const shiftArrowDownWorkaround = (view: EditorView, event: KeyboardEvent): boolean => {
 	const {
 		doc,
 		selection: { $head, $anchor },

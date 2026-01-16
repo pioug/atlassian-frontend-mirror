@@ -173,7 +173,7 @@ export const removeStatus =
 	};
 
 export const setFocusOnStatusInput =
-	() => (state: EditorState, dispatch: CommandDispatch | undefined) => {
+	() => (state: EditorState, dispatch: CommandDispatch | undefined): boolean => {
 		if (!dispatch) {
 			return false;
 		}

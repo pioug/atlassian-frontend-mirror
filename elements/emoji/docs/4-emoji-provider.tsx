@@ -3,7 +3,7 @@ import { md, code } from '@atlaskit/docs';
 import SectionMessage from '@atlaskit/section-message';
 import { Text } from '@atlaskit/primitives/compiled';
 
-export default md`
+const _default_1: any = md`
 Emoji provider mainly controls what type of emojis you want to support, how to resolve emojis, and how to upload custom emojis if enabled.
 
 This is a basic example of emoji provider, supporting standard, atlassian, and site emojis:
@@ -97,3 +97,4 @@ ${code`
 `}
 
 `;
+export default _default_1;

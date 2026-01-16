@@ -343,7 +343,16 @@ export function parseMacro(node: Element): Macro {
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const getExtensionMacroParams = (params: Record<string, any>) => {
+export const getExtensionMacroParams = (
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	params: Record<string, any>,
+): Record<
+	string,
+	{
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		value: any;
+	}
+> => {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const macroParams: Record<string, { value: any }> = {};

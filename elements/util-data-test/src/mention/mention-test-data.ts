@@ -2,4 +2,4 @@ export const mentionTestData = require('../json-data/mention-data.json') as any;
 
 export const mentionTestResult: any[] = mentionTestData.mentions;
 
-export const mentionTestDataSize = mentionTestData.length;
+export const mentionTestDataSize: any = mentionTestData.length;

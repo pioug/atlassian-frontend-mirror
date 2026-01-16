@@ -5,7 +5,7 @@ import ResourcedEmojiExample from '../examples/23-optimistic-emoji';
 const ResourcedEmojiSource = require('!!raw-loader!../examples/23-optimistic-emoji');
 const ResourcedEmojiProps = require('!!extract-react-types-loader!../src/components/common/ResourcedEmojiComponent');
 
-export default md`
+const _default_1: any = md`
   ## Usage
 
   Import the component in your React app as follows:
@@ -72,3 +72,4 @@ export default md`
 
   ${(<Props props={ResourcedEmojiProps} />)}
 `;
+export default _default_1;

@@ -130,6 +130,9 @@
 			"path": "../../../design-system/primitives/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../react-ufo/atlaskit/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/section-message/afm-jira/tsconfig.json"
 		},
 		{

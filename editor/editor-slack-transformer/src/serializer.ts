@@ -24,7 +24,7 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 	 * Defines the internal atBlank method used in the markdown serializer
 	 * @see https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/to_markdown.ts#L241
 	 */
-	atBlank() {
+	atBlank(): boolean {
 		// Ignored via go/ees005
 		// eslint-disable-next-line require-unicode-regexp
 		return /(^|\n)$/.test(this.out);
@@ -374,7 +374,69 @@ const unsupportedMarks = {
 	},
 };
 
-export const marks = {
+export const marks: {
+	annotation: {
+		close: string;
+		open: string;
+	};
+	backgroundColor: {
+		close: string;
+		open: string;
+	};
+	code: {
+		close: string;
+		escape: boolean;
+		open: string;
+	};
+	confluenceInlineComment: {
+		close: string;
+		open: string;
+	};
+	em: {
+		close: string;
+		expelEnclosingWhitespace: boolean;
+		mixable: boolean;
+		open: string;
+	};
+	link: {
+		close: string;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		open: (_state: MarkdownSerializerState, mark: any) => string;
+	};
+	strike: {
+		close: string;
+		expelEnclosingWhitespace: boolean;
+		mixable: boolean;
+		open: string;
+	};
+	strong: {
+		close: string;
+		expelEnclosingWhitespace: boolean;
+		mixable: boolean;
+		open: string;
+	};
+	subsup: {
+		close: string;
+		open: string;
+	};
+	textColor: {
+		close: string;
+		open: string;
+	};
+	typeAheadQuery: {
+		close: string;
+		open: string;
+	};
+	underline: {
+		close: string;
+		open: string;
+	};
+	unsupportedMark: {
+		close: string;
+		open: string;
+	};
+} = {
 	em: { open: '_', close: '_', mixable: true, expelEnclosingWhitespace: true },
 	strong: {
 		open: '*',

@@ -144,7 +144,7 @@ export const isTableNested = (state: EditorState, tablePos = 0): boolean => {
 	);
 };
 
-export const isTableNestedInMoreThanOneNode = (state: EditorState, tablePos = 0) => {
+export const isTableNestedInMoreThanOneNode = (state: EditorState, tablePos = 0): boolean => {
 	return state.doc.resolve(tablePos).depth > 2;
 };
 

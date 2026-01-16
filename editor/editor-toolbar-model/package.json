@@ -73,15 +73,12 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform_editor_toolbar_aifc_renderer_rewrite": {
-			"type": "boolean"
-		},
 		"platform_editor_toolbar_aifc_overflow_menu_update": {
 			"type": "boolean"
 		}
 	},
 	"name": "@atlaskit/editor-toolbar-model",
-	"version": "0.2.11",
+	"version": "0.3.0",
 	"description": "register and render toolbar component",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

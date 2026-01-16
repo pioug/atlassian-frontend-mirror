@@ -10,7 +10,7 @@ import { default as getAttrsWithChangesRecorder } from './getAttrsWithChangesRec
 import type { IndentationInputMethod } from './utils';
 import { createAnalyticsDispatch } from './utils';
 
-export const isIndentationAllowed = (schema: Schema, node: PmNode) => {
+export const isIndentationAllowed = (schema: Schema, node: PmNode): boolean => {
 	const {
 		nodes: { paragraph, heading },
 		marks: { alignment },

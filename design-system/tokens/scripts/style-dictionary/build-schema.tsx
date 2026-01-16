@@ -30,7 +30,7 @@ const createGlobalConfig = (schemaInputDir: string): Config => ({
 		path.join(THEME_INPUT_DIR, 'atlassian-light/**/*.tsx'),
 		path.join(THEME_INPUT_DIR, 'atlassian-spacing/**/*.tsx'),
 		// TODO this is the temporary 'default'
-		path.join(THEME_INPUT_DIR, 'atlassian-typography-adg3/**/*.tsx'),
+		path.join(THEME_INPUT_DIR, 'atlassian-typography/**/*.tsx'),
 		path.join(THEME_INPUT_DIR, 'atlassian-shape/**/*.tsx'),
 		path.join(THEME_INPUT_DIR, 'default/**/*.tsx'),
 	],

@@ -674,7 +674,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		this.identifierCount.set(key, { identifier, count: count - 1 });
 	};
 
-	isIdentifierInEditorScope = (identifier: Identifier) => {
+	isIdentifierInEditorScope = (identifier: Identifier): boolean => {
 		const key = this.getIdentifierKey(identifier);
 
 		// rely on has instead of count > 0 because if the user cuts and pastes the same media

@@ -1,0 +1,72 @@
+Simple form implementations should be used when extended features or complex implementations are not
+necessary.
+
+## Examples
+
+This rule marks code as a violation when it finds Design System form components that don’t use
+render props or only use the `formProps` render prop.
+
+### Incorrect
+
+```jsx
+import { Field, Form } from '@atlaskit/form';
+
+<Form
+	onSubmit={() => {
+		/* ... */
+	}}
+>
+	{({ formProps }) => (
+		<form {...formProps}>
+			<Field name="username" component={({fieldProps}) => <input {...fieldProps} />}>
+		</form>
+		)}
+</Form>;
+```
+
+```jsx
+import { Field, Form } from '@atlaskit/form';
+
+<Form
+	onSubmit={() => {
+		/* ... */
+	}}
+>
+	{({ formProps }) => (
+		<form {...formProps} name="form" data-testid="testId" data-foo="bar">
+			<Field name="username" component={({fieldProps}) => <input {...fieldProps} />}>
+		</form>
+		)}
+</Form>;
+```
+
+### Correct
+
+```jsx
+import { Field, Form } from '@atlaskit/form';
+
+<Form
+	onSubmit={() => {
+		/* ... */
+	}}
+>
+	<Field name="username" component={({fieldProps}) => <input {...fieldProps} />}>
+</Form>;
+```
+
+```jsx
+import { Field, Form } from '@atlaskit/form';
+
+<Form
+	onSubmit={() => {
+		/* ... */
+	}}
+	name="form"
+	testId="testId"
+	formProps={{
+		'data-foo': "bar"
+	}}
+>
+	<Field name="username" component={({fieldProps}) => <input {...fieldProps} />}>
+</Form>;
+```

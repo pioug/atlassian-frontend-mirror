@@ -9,7 +9,8 @@ export function getUnsupportedContent(
 	prefix: string,
 	node?: PMNode,
 	intl?: IntlShape,
-) {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+): any {
 	const defaultLocale = 'en';
 	let canTranslateToLocale = true;
 	const locale = intl ? intl.locale : defaultLocale;

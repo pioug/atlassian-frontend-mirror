@@ -5,14 +5,14 @@ import { DefaultReactions } from './constants';
  * Is selected mouse event a left click
  * @param event event data
  */
-export const isLeftClick = (event: React.MouseEvent<HTMLElement>) =>
+export const isLeftClick = (event: React.MouseEvent<HTMLElement>): boolean =>
 	event.button === 0 && !event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey;
 
 /**
  * Does provided item part of the default emoji ids
  * @param item selected emoji item
  */
-export const isDefaultReaction = (item: EmojiId) =>
+export const isDefaultReaction = (item: EmojiId): boolean =>
 	DefaultReactions.some((otherEmojiId) => isEqualEmojiId(otherEmojiId, item));
 
 /**

@@ -1,6 +1,6 @@
 import { md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 	# Analytics GAS types
 
 	The main purpose of this component is to provide types to be used when firing analytic events that
@@ -50,3 +50,4 @@ export default md`
 	})(DummyComponent);
 	~~~
 `;
+export default _default_1;

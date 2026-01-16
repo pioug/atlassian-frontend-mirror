@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Example, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   Rating comes with support for motion.
   Using the primitives \`StaggeredEntrance\` and \`ZoomIn\` we can compose motion into rating for a sweet entrance motion.
 
@@ -17,3 +17,4 @@ export default md`
 		/>
 	)}
 `;
+export default _default_1;

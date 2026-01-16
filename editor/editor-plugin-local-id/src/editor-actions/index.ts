@@ -23,7 +23,7 @@ export function findNodeByLocalId(tr: Transform, localId: string): NodeWithPos |
 
 export const replaceNode =
 	(api: ExtractInjectionAPI<LocalIdPlugin> | undefined) =>
-	({ localId, value }: EditorActionProps & { value: Node }) => {
+	({ localId, value }: EditorActionProps & { value: Node }): boolean => {
 		const nodeWithPos = getNode(api)({ localId });
 		if (!nodeWithPos) {
 			return false;

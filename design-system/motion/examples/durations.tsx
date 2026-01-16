@@ -5,7 +5,7 @@ import { durations, easeOut } from '@atlaskit/motion';
 
 import { MovesRightBlock } from './utils/blocks';
 
-export default () => md`
+export default (): any => md`
   ${code`
 <SlideIn duration="small">...</SlideIn>
   `}

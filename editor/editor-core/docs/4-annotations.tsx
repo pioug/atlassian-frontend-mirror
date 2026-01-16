@@ -230,7 +230,8 @@ class SplitExample extends React.Component<{ initialAdf: object }> {
 	}
 }
 
-export default md`
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const _default_1: any = md`
 # Annotations
 
 ## Introduction
@@ -244,20 +245,20 @@ Currently, there is only the \`inlineComment\` type of annotation. In the future
 These denote a comment thread about the given text, and are denoted by a yellow highlight. This is commonly seen within Confluence after selecting some text in View mode.
 
 ${(
-	<div
-		style={{
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			margin: token('space.100', '8px'),
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			padding: token('space.100', '8px'),
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			backgroundColor: N20,
-			border: `${token('border.width')} solid ${N30}`,
-		}}
-	>
-		{inlineCommentEditor(initialExample)}
-	</div>
-)}
+		<div
+			style={{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				margin: token('space.100', '8px'),
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				padding: token('space.100', '8px'),
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				backgroundColor: N20,
+				border: `${token('border.width')} solid ${N30}`,
+			}}
+		>
+			{inlineCommentEditor(initialExample)}
+		</div>
+	)}
 
 ### Example ADF
 
@@ -386,3 +387,4 @@ It is unmounted when exiting a region of text with an annotation.
 
 * [ADF change proposal](https://product-fabric.atlassian.net/wiki/spaces/E/pages/853377081/ADF+Change+38+Annotation+mark)
 `;
+export default _default_1;

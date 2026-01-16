@@ -17,7 +17,21 @@ export const renderWithIntl = (component: React.ReactNode): RenderResult => {
 	return render(<IntlProvider locale="en">{component}</IntlProvider>);
 };
 
-export const setupMultipleRendersTestHelper = () => {
+export const setupMultipleRendersTestHelper = (): {
+	expectAnalyticsEventAfterNthRenders: (
+		Component: (props: any) => JSX.Element,
+		timesToRender: number,
+		propsToChange: any[],
+		eventExpectation: any,
+		done: jest.DoneCallback,
+	) => void;
+	renderNthTimes: (
+		Component: (props: any) => JSX.Element,
+		timesToRender: number,
+		propsToChange: any[],
+		WrapperComponent?: (props: any) => JSX.Element,
+	) => void;
+} => {
 	let container: HTMLElement | null = null;
 	let root: any; // Change to Root once we go full React 18
 

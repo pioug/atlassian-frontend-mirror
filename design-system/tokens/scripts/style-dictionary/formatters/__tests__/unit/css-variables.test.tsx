@@ -393,12 +393,12 @@ describe('formatter', () => {
 				],
 			},
 			options: {
-				themeName: 'atlassian-typography-adg3',
+				themeName: 'atlassian-typography',
 			},
 		} as any);
 
 		expect(result).toMatchInlineSnapshot(`
-		"html[data-theme~="typography:typography-adg3"], [data-subtree-theme][data-theme~="typography:typography-adg3"] {
+		"html[data-theme~="typography:typography"], [data-subtree-theme][data-theme~="typography:typography"] {
 		  --ds-base: normal bold 16px/24px sans-serif;
 		}
 		"

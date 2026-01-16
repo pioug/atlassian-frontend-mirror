@@ -86,9 +86,6 @@ describe('tokens', () => {
 					result.isDirectory() &&
 					result.name !== 'atlassian-spacing' &&
 					result.name !== 'atlassian-typography' &&
-					result.name !== 'atlassian-typography-adg3' &&
-					result.name !== 'atlassian-typography-modernized' &&
-					result.name !== 'atlassian-typography-refreshed' &&
 					result.name !== 'atlassian-shape' &&
 					result.name !== 'default' &&
 					!extensionThemes.includes(result.name) &&

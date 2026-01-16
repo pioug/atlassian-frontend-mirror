@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/task-decision",
-	"version": "19.2.18",
+	"version": "19.2.19",
 	"description": "Tasks and decisions react components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

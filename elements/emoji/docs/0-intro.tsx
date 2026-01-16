@@ -7,7 +7,7 @@ import { Text } from '@atlaskit/primitives/compiled';
 const SimpleEmojiSource = require('!!raw-loader!../examples/00-simple-emoji');
 const EmojiProps = require('!!extract-react-types-loader!../src/components/common/Emoji');
 
-export default md`
+const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}
 
   The main purpose of the emoji package is to provide multiple components for selecting from a list of provided emojis and rendering them.
@@ -102,3 +102,4 @@ export default md`
 
   ${(<Props props={EmojiProps} />)}
 `;
+export default _default_1;

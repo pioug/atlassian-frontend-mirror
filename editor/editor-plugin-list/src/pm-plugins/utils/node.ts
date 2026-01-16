@@ -2,7 +2,7 @@ import { isListItemNode } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 
-export function isListNodeValidContent(node: PMNode) {
+export function isListNodeValidContent(node: PMNode): boolean {
 	const { bulletList } = node.type.schema.nodes;
 	if (!bulletList) {
 		return false;

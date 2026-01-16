@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 16.23.0
+
+### Minor Changes
+
+- [`e91ea1cbba89a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e91ea1cbba89a) -
+  JRACLOUD-96830: Fix navigating and editing codeblocks with CRLF new lines.
+
 ## 16.22.0
 
 ### Minor Changes

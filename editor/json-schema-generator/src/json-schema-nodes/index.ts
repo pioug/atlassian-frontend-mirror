@@ -18,7 +18,7 @@ export default class JSONSchemaNode {
 		this.definitions.set(name, { node: definition, used: false });
 	}
 
-	hasDefinition(name: string) {
+	hasDefinition(name: string): boolean {
 		return this.definitions.has(name);
 	}
 
@@ -39,7 +39,13 @@ export default class JSONSchemaNode {
 		this.updateUsed(name, false);
 	}
 
-	toJSON() {
+	toJSON(): {
+		$ref: string;
+		$schema: string;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		definitions: any;
+		description: string;
+	} {
 		if (!this.definitions.has(this.root)) {
 			throw new Error(`${this.root} not found in the added definitions`);
 		}

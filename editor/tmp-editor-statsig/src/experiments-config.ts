@@ -1049,6 +1049,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-01-15
+	platform_editor_fix_advanced_codeblocks_crlf: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-01-12
 	platform_editor_table_sticky_header_patch_11: {
 		defaultValue: boolean;
@@ -1058,6 +1065,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-01-08
 	platform_editor_focus_on_chromeless_editor: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2025-01-15
+	platform_editor_table_toolbar_icon_ext_fix_exp: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2257,10 +2271,26 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-01-15
+	platform_editor_fix_advanced_codeblocks_crlf: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_fix_advanced_codeblocks_crlf',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-01-08
 	platform_editor_focus_on_chromeless_editor: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_focus_on_chromeless_editor',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-01-15
+	platform_editor_table_toolbar_icon_ext_fix_exp: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_table_toolbar_icon_ext_fix_exp',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

@@ -476,7 +476,7 @@ export function handlePasteNonNestableBlockNodesIntoList(slice: Slice): Command 
 export const doesSelectionWhichStartsOrEndsInListContainEntireList = (
 	selection: Selection,
 	findRootParentListNode: FindRootParentListNode | undefined,
-) => {
+): boolean => {
 	const { $from, $to, from, to } = selection;
 	const selectionParentListItemNodeResolvedPos = findRootParentListNode
 		? findRootParentListNode($from) || findRootParentListNode($to)
@@ -1508,14 +1508,14 @@ export const handleSelectedTable =
 		return false;
 	};
 
-export function checkTaskListInList(state: EditorState, slice: Slice) {
+export function checkTaskListInList(state: EditorState, slice: Slice): boolean {
 	return Boolean(
 		isInListItem(state) &&
 			['taskList', 'taskItem'].includes(slice.content.firstChild?.type?.name || ''),
 	);
 }
 
-export function checkIfSelectionInNestedList(state: EditorState) {
+export function checkIfSelectionInNestedList(state: EditorState): boolean {
 	const { selection, tr } = state;
 	const { orderedList, bulletList, listItem } = state.schema.nodes;
 	const selectionParentListItemNode = findParentNodeOfType(listItem)(selection);

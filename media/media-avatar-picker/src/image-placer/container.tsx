@@ -41,11 +41,11 @@ export class ImagePlacerContainer extends React.Component<ImagePlacerContainerPr
 		}
 	}
 
-	get isDragging() {
+	get isDragging(): boolean {
 		return this.dragClientStart !== undefined;
 	}
 
-	get isTouch() {
+	get isTouch(): boolean {
 		return window.hasOwnProperty('ontouchstart');
 	}
 

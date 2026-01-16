@@ -9,7 +9,8 @@ import Heading from '@atlaskit/heading';
 import { Box, Pressable, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { Subscriber, type Topic, usePublish } from '../src';
+import { Subscriber, usePublish } from '../src/main';
+import { type Topic } from '../src/types';
 
 const styles = cssMap({
 	content: {

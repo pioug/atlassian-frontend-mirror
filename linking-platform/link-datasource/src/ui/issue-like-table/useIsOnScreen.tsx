@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 
 // Hook which tracks if a ref is visible or not. Taken from: https://stackoverflow.com/a/65008608
-export const useIsOnScreen = (el: HTMLElement | null) => {
+export const useIsOnScreen = (el: HTMLElement | null): boolean => {
 	const [isIntersecting, setIntersecting] = useState<boolean>(false);
 
 	const observer = useMemo(

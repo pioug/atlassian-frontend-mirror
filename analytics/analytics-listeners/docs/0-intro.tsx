@@ -1,6 +1,6 @@
 import { md, code } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   # Fabric aggregated listeners for analytics-next API
 
   The main purpose of this component is to provide a high level abstraction of all Fabric listeners used with analytics-next API so
@@ -78,3 +78,4 @@ ${code`
   );
 `}
 `;
+export default _default_1;

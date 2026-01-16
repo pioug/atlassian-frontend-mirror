@@ -182,47 +182,8 @@ const modifiers: Modifier<defaultModifiers>[] = [
 	},
 ];
 
-/**
- * The new defaults match the default modifiers of `@atlaskit/popper`.
- *
- * In the future we should investigate using `@atlaskit/popper` instead of
- * consuming `react-popper` directly.
- *
- * Previously the select popup would slide over the trigger to try to stay visible.
- * This behavior could actually cause it to go offscreen.
- *
- * Now it will stay anchored above / below the trigger and cause the
- * clipping parent to scroll if necessary. This aligns with other popups.
- */
-const newDefaultModifiers: Modifier<defaultModifiers>[] = [
-	{ name: 'offset', options: { offset: [0, 8] } },
-	{
-		name: 'preventOverflow',
-		enabled: true,
-		options: {
-			padding: 5,
-			boundary: 'clippingParents',
-			rootBoundary: 'document',
-		},
-	},
-	{
-		name: 'flip',
-		options: {
-			flipVariations: false,
-			padding: 5,
-			boundary: 'clippingParents',
-			rootBoundary: 'viewport',
-		},
-	},
-];
-
 const defaultPopperProps: PopperPropsNoChildren<defaultModifiers> = {
 	modifiers,
-	placement: 'bottom-start' as Placement,
-};
-
-const newDefaultPopperProps: PopperPropsNoChildren<defaultModifiers> = {
-	modifiers: newDefaultModifiers,
 	placement: 'bottom-start' as Placement,
 };
 
@@ -261,9 +222,7 @@ export default class PopupSelect<
 		focusLockEnabled: false,
 		isOpen: this.defaultOpenState ?? false,
 		mergedComponents: defaultComponents,
-		mergedPopperProps: (fg('platform_dst_nav4_layering_in_main_slot_fixes')
-			? newDefaultPopperProps
-			: defaultPopperProps) as PopperPropsNoChildren<defaultModifiers | string>,
+		mergedPopperProps: defaultPopperProps as PopperPropsNoChildren<defaultModifiers | string>,
 	};
 
 	static defaultProps: PopupSelectProps = {
@@ -288,9 +247,7 @@ export default class PopupSelect<
 
 		// Merge consumer and default popper props
 		const mergedPopperProps = {
-			...(fg('platform_dst_nav4_layering_in_main_slot_fixes')
-				? newDefaultPopperProps
-				: defaultPopperProps),
+			...defaultPopperProps,
 			...props.popperProps,
 		};
 		if (!shallowEqualObjects(mergedPopperProps, state.mergedPopperProps)) {
@@ -367,7 +324,7 @@ export default class PopupSelect<
 			case 'Esc':
 				this.close();
 				if (
-					this.props.shouldPreventEscapePropagation && 
+					this.props.shouldPreventEscapePropagation &&
 					fg('platform_navx_sllv_dropdown_escape_and_focus_fix')
 				) {
 					event.stopPropagation();

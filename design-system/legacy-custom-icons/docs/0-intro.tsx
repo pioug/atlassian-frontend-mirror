@@ -1,6 +1,6 @@
 import { md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 	A centralised place to store legacy custom icons.
 
 	## Usage
@@ -20,3 +20,4 @@ export default md`
 	- Your icon will now be available as:
 	  \`import MyCustomIcon from '@atlaskit/legacy-custom-icons/my-custom-icon'\`
 `;
+export default _default_1;

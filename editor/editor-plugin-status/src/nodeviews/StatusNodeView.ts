@@ -53,7 +53,7 @@ export class StatusNodeView implements NodeView {
 	 * @param node
 	 * @example
 	 */
-	update(node: PMNode) {
+	update(node: PMNode): boolean {
 		if (node.type !== this.node.type) {
 			return false;
 		}

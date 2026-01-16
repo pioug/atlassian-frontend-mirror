@@ -3,7 +3,7 @@ import React from 'react';
 import { Example, md, Props } from '@atlaskit/docs';
 import SectionMessage from '@atlaskit/section-message';
 
-export default md`
+const _default_1: any = md`
 
   A React Hook to fetch and render file previews. It's overloaded with fancy features like SSR, lazy loading, memory cache and local preview.
 
@@ -33,3 +33,4 @@ export default md`
 		/>
 	)}
 `;
+export default _default_1;

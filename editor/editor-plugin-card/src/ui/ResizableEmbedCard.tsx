@@ -70,7 +70,7 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 		}
 	}
 
-	get wrappedLayout() {
+	get wrappedLayout(): boolean {
 		return wrappedLayouts.indexOf(this.props.layout) > -1;
 	}
 
@@ -175,7 +175,7 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 	}
 
 	// check if is inside of a table
-	isNestedInTable() {
+	isNestedInTable(): boolean {
 		const { table } = this.props.view.state.schema.nodes;
 		if (!this.$pos) {
 			return false;

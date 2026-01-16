@@ -1,6 +1,6 @@
 import { md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 # CSS Selectors to help integration testing
 
 Here is the list of available css selectors (\`[data-test-...=""]\`) attributes that you might find
@@ -31,3 +31,4 @@ useful to use in integration/e2e tests available in media-viewer:
   - \`[data-test-is-playing="data-test-is-playing"]\`: Contains 'true' if it media is playing and
     'false' otherwise.
 `;
+export default _default_1;

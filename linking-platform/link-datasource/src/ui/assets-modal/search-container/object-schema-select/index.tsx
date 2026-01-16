@@ -52,9 +52,14 @@ const mapObjectSchemasToOptions = (objectSchemas: ObjectSchema[] | undefined) =>
  * Rendering a `<Select>` in a `<Modal>` results in the select options getting cut off by the bottom of the modal and
  * scrolling. This is a work-around for that, see https://atlassian.slack.com/archives/CFJ9DU39U/p1623179496484100
  */
-export const selectInAModalStyleFixProps = {
+export const selectInAModalStyleFixProps: {
+	menuPortalTarget: HTMLElement;
 	styles: {
-		menuPortal: (base: any) => ({ ...base, zIndex: layers.modal() }),
+		menuPortal: (base: any) => any;
+	};
+} = {
+	styles: {
+		menuPortal: (base: any): any => ({ ...base, zIndex: layers.modal() }),
 	},
 	menuPortalTarget: document.body,
 };

@@ -4,7 +4,7 @@ import { Example, md, Props } from '@atlaskit/docs';
 import Link from '@atlaskit/link';
 import SectionMessage from '@atlaskit/section-message';
 
-export default md`
+const _default_1: any = md`
 
   For fetching and rendering SVGs secure and responsively
 
@@ -34,3 +34,4 @@ ${(
 
   ${(<Props heading="MediaSvg Props" props={require('!!extract-react-types-loader!../src')} />)}
 `;
+export default _default_1;

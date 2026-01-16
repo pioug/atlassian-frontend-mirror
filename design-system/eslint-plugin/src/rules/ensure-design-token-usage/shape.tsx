@@ -25,7 +25,7 @@ const borderSizeProperties = [
 	'borderBlockWidth',
 ];
 
-export const radiusValueToToken = Object.fromEntries(
+export const radiusValueToToken: any = Object.fromEntries(
 	shapeTokens
 		.filter((t) => t.name.startsWith('radius'))
 		.map((t) => {
@@ -39,7 +39,7 @@ export const radiusValueToToken = Object.fromEntries(
 		]),
 );
 
-export const borderWidthValueToToken = Object.fromEntries(
+export const borderWidthValueToToken: any = Object.fromEntries(
 	shapeTokens
 		.filter((t) => t.name.startsWith('border.width'))
 		.map((t) => [t.value, t.cleanName])

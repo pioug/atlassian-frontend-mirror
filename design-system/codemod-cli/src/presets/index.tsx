@@ -14,6 +14,7 @@ import './remove-dark-theme-vr-options/remove-dark-theme-vr-options';
 import './remove-token-fallbacks/remove-token-fallbacks';
 import './lozenge-appearance-semantic-migration/lozenge-appearance-semantic-migration';
 import './lozenge-to-tag-migration/lozenge-to-tag-migration';
+import './lozenge-discovery-to-tag-with-fg/lozenge-discovery-to-tag-with-fg';
 import './badge-appearance-semantic-migration/badge-appearance-semantic-migration';
 import './tag-to-newTag-migration/tag-to-newTag-migration';
 import './migrate-deprecated-icon/migrate-deprecated-icon';
@@ -30,6 +31,7 @@ const presets = [
 	'remove-token-fallbacks',
 	'lozenge-appearance-semantic-migration',
 	'lozenge-to-tag-migration',
+	'lozenge-discovery-to-tag-with-fg',
 	'badge-appearance-semantic-migration',
 	'tag-to-newTag-migration',
 ].map((preset) => path.join(__dirname, preset, `${preset}.@(ts|js|tsx)`));

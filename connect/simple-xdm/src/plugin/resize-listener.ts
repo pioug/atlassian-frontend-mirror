@@ -113,7 +113,7 @@ function attachResizeEvent(element, resized) {
 }
 
 export default {
-	add: function (fn): void {
+	add: function (fn: any): void {
 		var container = documentContainer();
 		attachResizeEvent(container, fn);
 	},

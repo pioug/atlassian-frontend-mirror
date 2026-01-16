@@ -406,7 +406,6 @@ elevation.shadow.overlay, "Use for the box shadow of elements that sit on top of
 elevation.shadow.raised, "Use for the box shadow of raised card elements, such as Jira cards on a Kanban board. Combine with elevation.surface.raised"
 opacity.disabled, "Apply to images when in a disabled state."
 opacity.loading, "Apply to content that sits under a loading spinner."
-utility.UNSAFE.textTransformUppercase, "Text transform uppercase token used for backwards compatibility between new and old theming solutions"
 utility.UNSAFE.transparent, "Transparent token used for backwards compatibility between new and old theming solutions"
 utility.elevation.surface.current, "A dynamic token that represents the current surface color set by a parent element. It defaults to the 'elevation.surface' token value."
 space.0, "Equates to `0`. Use for resetting default spacing styles."

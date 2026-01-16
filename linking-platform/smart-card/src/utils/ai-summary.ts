@@ -8,7 +8,7 @@ import { messages } from '../messages';
 export const getIsAISummaryEnabled = (
 	isAdminHubAIEnabled: boolean = false,
 	response?: JsonLd.Response,
-) => Boolean(isAdminHubAIEnabled && response?.meta?.supportedFeature?.includes('AISummary'));
+): boolean => Boolean(isAdminHubAIEnabled && response?.meta?.supportedFeature?.includes('AISummary'));
 
 export const getAISummaryErrorMessage = (
 	error?: string,

@@ -1,7 +1,8 @@
 import React from 'react';
 import { md, Example, code, AtlassianInternalWarning } from '@atlaskit/docs';
 
-export default md`
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const _default_1: any = md`
 ${(<AtlassianInternalWarning />)}
 
 This package provides a transformation from ProseMirror Node → wikimarkup and from HTML → ProseMirror Node.
@@ -32,3 +33,4 @@ This package provides a transformation from ProseMirror Node → wikimarkup and 
 		/>
 	)}
 `;
+export default _default_1;

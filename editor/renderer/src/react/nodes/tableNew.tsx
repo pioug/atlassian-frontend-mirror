@@ -68,12 +68,12 @@ const stickyContainerAdditionalStyles = {
 	zIndex: 1,
 };
 
-export const isTableResizingEnabled = (appearance: RendererAppearance) =>
+export const isTableResizingEnabled = (appearance: RendererAppearance): boolean =>
 	isFullWidthOrFullPageAppearance(appearance) ||
 	(isCommentAppearance(appearance) &&
 		editorExperiment('support_table_in_comment', true, { exposure: true }));
 
-export const isStickyScrollbarEnabled = (appearance: RendererAppearance) =>
+export const isStickyScrollbarEnabled = (appearance: RendererAppearance): boolean =>
 	isFullWidthOrFullPageAppearance(appearance) &&
 	editorExperiment('platform_renderer_table_sticky_scrollbar', true, { exposure: true });
 
@@ -124,7 +124,7 @@ export const orderChildren = (
 	return sortedTable.map((elem) => elem.rowReact);
 };
 
-export const hasRowspan = (row: PMNode) => {
+export const hasRowspan = (row: PMNode): boolean => {
 	let hasRowspan = false;
 	row.forEach((cell: PMNode) => (hasRowspan = hasRowspan || cell.attrs.rowspan > 1));
 	return hasRowspan;
@@ -139,9 +139,9 @@ export const shouldHeaderStick = (
 	tableTop: number,
 	tableBottom: number,
 	rowHeight: number,
-) => tableTop <= scrollTop && !(tableBottom - rowHeight <= scrollTop);
+): boolean => tableTop <= scrollTop && !(tableBottom - rowHeight <= scrollTop);
 
-export const shouldHeaderPinBottom = (scrollTop: number, tableBottom: number, rowHeight: number) =>
+export const shouldHeaderPinBottom = (scrollTop: number, tableBottom: number, rowHeight: number): boolean =>
 	tableBottom - rowHeight <= scrollTop && !(tableBottom < scrollTop);
 
 export const addSortableColumn = (
@@ -178,7 +178,8 @@ export type TableProps = SharedTableProps & {
 
 export const isHeaderRowEnabled = (
 	rows: (React.ReactChild | React.ReactFragment | React.ReactPortal)[],
-) => {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+): any => {
 	if (!rows.length) {
 		return false;
 	}
@@ -199,7 +200,8 @@ export const isHeaderRowEnabled = (
 export const tableCanBeSticky = (
 	node: PMNode | undefined,
 	children: (React.ReactChild | React.ReactFragment | React.ReactPortal)[],
-) => {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+): any => {
 	return isHeaderRowEnabled(children) && node && node.firstChild && !hasRowspan(node.firstChild);
 };
 
@@ -532,8 +534,8 @@ export class TableContainer extends React.Component<
 		const lineLengthCSS = isFullWidthAppearance(rendererAppearance)
 			? fullWidthLineLengthCSS
 			: isMaxWidthAppearance(rendererAppearance) &&
-				  (expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-						expValEquals('confluence_max_width_content_appearance', 'isEnabled', true))
+				(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+					expValEquals('confluence_max_width_content_appearance', 'isEnabled', true))
 				? maxWidthLineLengthCSS
 				: isCommentAppearanceAndTableAlignmentEnabled
 					? renderWidthCSS
@@ -614,7 +616,7 @@ export class TableContainer extends React.Component<
 			// instead of 760 that was set on tableNode when the table had been published.
 			finalTableContainerWidth =
 				(tableNode?.attrs.layout === 'align-start' || tableNode?.attrs.layout === 'center') &&
-				tableNode?.attrs.width
+					tableNode?.attrs.width
 					? `calc(${tableWidthCSS})`
 					: 'inherit';
 		}
@@ -632,14 +634,13 @@ export class TableContainer extends React.Component<
 			<>
 				<div
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={`${TableSharedCssClassName.TABLE_CONTAINER} ${
-						this.props.shadowClassNames || ''
-					}`}
+					className={`${TableSharedCssClassName.TABLE_CONTAINER} ${this.props.shadowClassNames || ''
+						}`}
 					data-layout={updatedLayout}
 					data-testid="table-container"
 					ref={this.props.handleRef}
 					style={style}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				>
 					{isStickyScrollbarEnabled(this.props.rendererAppearance) && (
 						<div

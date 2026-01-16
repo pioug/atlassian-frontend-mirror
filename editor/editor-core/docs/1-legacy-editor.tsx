@@ -2,7 +2,8 @@ import React from 'react';
 
 import { AtlassianInternalWarning, code, Example, md, Props } from '@atlaskit/docs';
 
-export default md`
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const _default_1: any = md`
 ${(<AtlassianInternalWarning />)}
 
   ### Note:
@@ -250,25 +251,26 @@ ${code`
 `}
 
 ${(
-	<Example
-		packageName="@atlaskit/editor-core"
-		// Ignored via go/ees005
-		// eslint-disable-next-line import/no-commonjs
-		Component={require('../examples/1-basic-composable-editor').default}
-		title="Basic"
-		// Ignored via go/ees005
-		// eslint-disable-next-line import/no-commonjs
-		source={require('!!raw-loader!../examples/1-basic-composable-editor')}
-	/>
-)}
+    <Example
+      packageName="@atlaskit/editor-core"
+      // Ignored via go/ees005
+      // eslint-disable-next-line import/no-commonjs
+      Component={require('../examples/1-basic-composable-editor').default}
+      title="Basic"
+      // Ignored via go/ees005
+      // eslint-disable-next-line import/no-commonjs
+      source={require('!!raw-loader!../examples/1-basic-composable-editor')}
+    />
+  )}
 
   ${(
-		<Props
-			shouldCollapseProps
-			heading="Props"
-			// Ignored via go/ees005
-			// eslint-disable-next-line import/no-commonjs
-			props={require('!!extract-react-types-loader!../src/editor')}
-		/>
-	)}
+    <Props
+      shouldCollapseProps
+      heading="Props"
+      // Ignored via go/ees005
+      // eslint-disable-next-line import/no-commonjs
+      props={require('!!extract-react-types-loader!../src/editor')}
+    />
+  )}
 `;
+export default _default_1;

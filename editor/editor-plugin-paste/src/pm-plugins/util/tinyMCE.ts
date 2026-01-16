@@ -163,7 +163,7 @@ export const tryReconstructTableRows = (doc: Document): string => {
 	return doc.body.innerHTML;
 };
 
-export const htmlHasIncompleteTable = (html: string) => {
+export const htmlHasIncompleteTable = (html: string): boolean => {
 	return !html.includes('<table ') && (html.includes('<td ') || html.includes('<th '));
 };
 

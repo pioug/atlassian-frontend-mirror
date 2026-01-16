@@ -1,5 +1,5 @@
 import format from '@af/formatting/sync';
-import { typographyAdg3 as tokens } from '@atlaskit/tokens/tokens-raw';
+import { typography as tokens } from '@atlaskit/tokens/tokens-raw';
 
 import { capitalize, constructTokenFunctionCall, generateTypeDefs } from './utils';
 

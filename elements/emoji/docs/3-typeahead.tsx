@@ -5,7 +5,7 @@ import TypeAheadiExample from '../examples/03-standard-emoji-typeahead';
 const TypeAheadSource = require('!!raw-loader!../examples/03-standard-emoji-typeahead');
 const TypeAheadProps = require('!!extract-react-types-loader!../src/components/typeahead/EmojiTypeAheadComponent');
 
-export default md`
+const _default_1: any = md`
 
   ${(
 		<Example
@@ -18,3 +18,4 @@ export default md`
 
   ${(<Props props={TypeAheadProps} />)}
 `;
+export default _default_1;

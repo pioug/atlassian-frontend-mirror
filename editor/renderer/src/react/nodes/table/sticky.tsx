@@ -280,7 +280,7 @@ export class OverflowParent {
 	/**
 	 *
 	 */
-	get isElement() {
+	get isElement(): boolean {
 		return this.ref instanceof HTMLElement;
 	}
 

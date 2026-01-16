@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 7.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.2.1
+
+### Patch Changes
+
+- [`5c6dee8d82e9e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c6dee8d82e9e) -
+  Updated adf placeholder to inject zero-width-space character at the start of the placeholder
+  decoration. This is needed to stop the browser caret from getting confused when its placed between
+  and editable and non-editable element
+- Updated dependencies
+
 ## 7.2.0
 
 ### Minor Changes

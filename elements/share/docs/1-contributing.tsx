@@ -1,6 +1,6 @@
 import { md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 ## Notes for contributers (Atlassian internal)
 
 ### Concepts & design
@@ -53,3 +53,4 @@ yarn eslint  --fix '**/*.{js,ts,tsx}'
 yarn stylelint  '**/*.{js,ts,tsx}'
 ~~~
 `;
+export default _default_1;

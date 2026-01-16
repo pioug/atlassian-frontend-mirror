@@ -307,7 +307,7 @@ export const getTableElementMoveTypeBySlice = (slice: Slice, state: EditorState)
 	}
 };
 
-export const isInsideFirstCellOfRowOrColumn = (selection: Selection, type?: 'row' | 'column') => {
+export const isInsideFirstCellOfRowOrColumn = (selection: Selection, type?: 'row' | 'column'): boolean => {
 	const table = findTable(selection);
 
 	if (!table || !type) {
@@ -717,7 +717,7 @@ export const autoSizeTable = (
 	table: HTMLTableElement,
 	basePos: number | undefined,
 	opts: { containerWidth: number },
-) => {
+): boolean => {
 	if (typeof basePos !== 'number') {
 		return false;
 	}

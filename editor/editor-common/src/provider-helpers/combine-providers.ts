@@ -10,7 +10,14 @@ const flatten = <T>(arr: T[][]): T[] => ([] as T[]).concat(...arr);
  * Allow to run methods from the given provider interface across all providers seamlessly.
  * Handles promise racing and discards rejected promises safely.
  */
-export default <P>(providers: (P | Promise<P>)[]) => {
+export default <P>(
+	providers: (P | Promise<P>)[],
+): {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	invokeList: <T>(methodName: keyof P, args?: any[]) => Promise<T[]>;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	invokeSingle: <T>(methodName: keyof P, args?: any[]) => Promise<T>;
+} => {
 	if (providers.length === 0) {
 		throw new Error('At least one provider must be provided');
 	}

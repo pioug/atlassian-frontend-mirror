@@ -1,6 +1,6 @@
 import { md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 	# Util Service Support
 
 	A library of support classes for integrating React components with REST HTTP services, including
@@ -20,3 +20,4 @@ export default md`
 
 	import { AbstractResource } from '@atlaskit/util-service-support';
 `;
+export default _default_1;

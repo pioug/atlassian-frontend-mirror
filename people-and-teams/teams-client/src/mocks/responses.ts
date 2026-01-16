@@ -11,7 +11,39 @@ import avatar5 from './images/avatar-5.png';
 
 const CURRENT_USER_TEST_ID = '60eee7cec94cc20068ac280c';
 
-export const MOCK_ME_RESPONSE = {
+export const MOCK_ME_RESPONSE: {
+	email: string;
+	nickname: string;
+	characteristics: {
+		not_mentionable: null;
+	};
+	extended_profile: {
+		job_title: string;
+		organization: string;
+		department: string;
+		location: string;
+	};
+	account_id: string;
+	name: string;
+	zoneinfo: string;
+	locale: string;
+	privacy_settings: {
+		name: string;
+		nickname: string;
+		picture: string;
+		job_title: string;
+		department: string;
+		organization: string;
+		location: string;
+		zoneinfo: string;
+		email: string;
+		phone_number: string;
+		team_type: string;
+	};
+	picture: any;
+	account_type: string;
+	account_status: string;
+} = {
 	email: 'cypress_test_user@atlassian.com',
 	nickname: 'cypress_test_user',
 	characteristics: {
@@ -45,7 +77,30 @@ export const MOCK_ME_RESPONSE = {
 	account_status: 'active',
 };
 
-export const MOCK_PROFILE_MUTABILITY_RESPONSE = {
+export const MOCK_PROFILE_MUTABILITY_RESPONSE: {
+	account_id: string;
+	account_type: string;
+	account_status: string;
+	characteristics: {
+		not_mentionable: null;
+	};
+	email: string;
+	extended_profile: {
+		job_title: string;
+		organization: string;
+		department: string;
+		location: string;
+	};
+	locale: string;
+	last_updated: string;
+	name: string;
+	nickname: string;
+	not_editable: {
+		field: string;
+		reason: string;
+	}[];
+	picture: any;
+} = {
 	account_id: CURRENT_USER_TEST_ID,
 	account_type: 'atlassian',
 	account_status: 'active',

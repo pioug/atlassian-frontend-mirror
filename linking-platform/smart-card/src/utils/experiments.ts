@@ -3,7 +3,7 @@ import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equ
 
 export const isNewBlockcardUnauthorizedRefreshExperimentEnabled = (
 	fireExperimentExposure: boolean = false,
-) => {
+): boolean => {
 	if (fireExperimentExposure) {
 		return expValEquals(
 			'platform_sl_3p_unauth_paste_as_block_card',

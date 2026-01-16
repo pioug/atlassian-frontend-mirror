@@ -1,4 +1,4 @@
-export const isSingleQuoted = (maybeQuotedString: string) => {
+export const isSingleQuoted = (maybeQuotedString: string): boolean => {
 	if (maybeQuotedString.length < 2) {
 		return false;
 	}
@@ -10,7 +10,7 @@ export const isSingleQuoted = (maybeQuotedString: string) => {
 	);
 };
 
-export const isDoubleQuoted = (maybeQuotedString: string) => {
+export const isDoubleQuoted = (maybeQuotedString: string): boolean => {
 	if (maybeQuotedString.length < 2) {
 		return false;
 	}
@@ -22,7 +22,7 @@ export const isDoubleQuoted = (maybeQuotedString: string) => {
 	);
 };
 
-export const isQuoted = (maybeQuotedString: string) =>
+export const isQuoted = (maybeQuotedString: string): boolean =>
 	isSingleQuoted(maybeQuotedString) || isDoubleQuoted(maybeQuotedString);
 
 /**

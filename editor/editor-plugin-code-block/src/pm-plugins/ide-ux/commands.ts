@@ -116,7 +116,7 @@ export function insertIndent(state: EditorState, dispatch: CommandDispatch) {
 	return true;
 }
 
-export function insertNewlineWithIndent(state: EditorState, dispatch?: CommandDispatch) {
+export function insertNewlineWithIndent(state: EditorState, dispatch?: CommandDispatch): boolean {
 	const { text: textAtStartOfLine } = getStartOfCurrentLine(state);
 	const { indentText } = getLineInfo(textAtStartOfLine);
 	if (indentText && dispatch) {

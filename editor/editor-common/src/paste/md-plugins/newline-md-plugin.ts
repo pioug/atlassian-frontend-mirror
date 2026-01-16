@@ -62,4 +62,4 @@ const newline = (state: any, silent: boolean) => {
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default (md: any) => md.inline.ruler.at('newline', newline);
+export default (md: any): any => md.inline.ruler.at('newline', newline);

@@ -54,7 +54,7 @@ export class PlaceholderTextNodeView implements NodeView {
 		this.getPos = getPos;
 	}
 
-	public stopEvent(e: Event) {
+	public stopEvent(e: Event): boolean {
 		if (e.type === 'mousedown' && typeof this.getPos === 'function') {
 			e.preventDefault();
 
@@ -83,7 +83,7 @@ export class PlaceholderTextNodeView implements NodeView {
 		return false;
 	}
 
-	public ignoreMutation(record: PmMutationRecord) {
+	public ignoreMutation(record: PmMutationRecord): boolean {
 		if (typeof this.getPos !== 'function' || record.type !== 'selection') {
 			return true;
 		}

@@ -72,4 +72,4 @@ const paragraph = (state: any, startLine: number /*, endLine*/) => {
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default (md: any) => md.block.ruler.at('paragraph', paragraph);
+export default (md: any): any => md.block.ruler.at('paragraph', paragraph);

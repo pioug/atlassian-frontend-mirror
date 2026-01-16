@@ -3,7 +3,7 @@ import { md } from '@atlaskit/docs';
 import { DocsContentTabs } from '@atlaskit/media-test-helpers';
 import clipBoardExamples from './content/clipboard/example';
 import clipBoardProps from './content/clipboard/props';
-export default md`
+const _default_1: any = md`
 
   ### Clipboard
 
@@ -21,3 +21,4 @@ export default md`
 	)}
 
 `;
+export default _default_1;

@@ -436,7 +436,7 @@ const customMatchers = {
 
 		return {
 			pass,
-			message: () => {
+			message: (): any => {
 				return !pass ? matcherResult.message : '';
 			},
 		};

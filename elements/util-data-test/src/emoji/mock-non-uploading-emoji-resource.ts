@@ -143,7 +143,7 @@ export class MockNonUploadingEmojiResource
 		return emoji;
 	}
 
-	optimisticMediaRendering(emoji: EmojiDescription) {
+	optimisticMediaRendering(emoji: EmojiDescription): boolean {
 		return emoji && !!this.optimisticRendering;
 	}
 

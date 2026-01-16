@@ -42,7 +42,7 @@ export const clearSampled = (): void => {
  * @returns bool, if it passes or not
  */
 // default sampling function to determine which one to be sampled
-export const isExperienceSampled = (rate: number) => {
+export const isExperienceSampled = (rate: number): boolean => {
 	if (rate === 1) {
 		return true;
 	}

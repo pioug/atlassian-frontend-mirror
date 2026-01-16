@@ -9,7 +9,7 @@ exports.tokens = void 0;
  *
  * Metadata for generation of of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::a85a9bd0f3daa1c66cd9447d776bd89f>>
+ * @codegen <<SignedSource::6c61f13b08f7f4a5c5fb8d55f8ef5c14>>
  * @codegenCommand yarn build tokens
  */
 
@@ -2054,11 +2054,6 @@ var tokens = exports.tokens = [{
   description: 'Apply to content that sits under a loading spinner.',
   exampleValue: 0.2
 }, {
-  name: 'utility.UNSAFE.textTransformUppercase',
-  path: ['utility', 'UNSAFE', 'textTransformUppercase'],
-  description: 'Text transform uppercase token used for backwards compatibility between new and old theming solutions',
-  exampleValue: 'uppercase'
-}, {
   name: 'utility.UNSAFE.transparent',
   path: ['utility', 'UNSAFE', 'transparent'],
   description: 'Transparent token used for backwards compatibility between new and old theming solutions',
@@ -2187,77 +2182,77 @@ var tokens = exports.tokens = [{
   name: 'font.heading.xxlarge',
   path: ['font', 'heading', 'xxlarge'],
   description: 'For overlapping brand with app promotions, such as marketplace content. Migrate instances of H900 to Heading XXL.',
-  exampleValue: 'normal 500 2.1875rem/2.5rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
+  exampleValue: 'normal 653 2rem/2.25rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
 }, {
   name: 'font.heading.xlarge',
   path: ['font', 'heading', 'xlarge'],
   description: 'For overlapping brand with app promotions, such as marketplace content. Migrate instances of H800 to Heading XL.',
-  exampleValue: 'normal 600 1.8125rem/2rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
+  exampleValue: 'normal 653 1.75rem/2rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
 }, {
   name: 'font.heading.large',
   path: ['font', 'heading', 'large'],
   description: 'App page titles, such as forms. Migrate instances of H700 to Heading L.',
-  exampleValue: 'normal 500 1.5rem/1.75rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
+  exampleValue: 'normal 653 1.5rem/1.75rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
 }, {
   name: 'font.heading.medium',
   path: ['font', 'heading', 'medium'],
   description: 'Headers in large components, such as modal dialogs. Migrate instances of H600 to Heading M.',
-  exampleValue: 'normal 500 1.25rem/1.5rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
+  exampleValue: 'normal 653 1.25rem/1.5rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
 }, {
   name: 'font.heading.small',
   path: ['font', 'heading', 'small'],
   description: 'For headers in small components where space is limited. Migrate instances of H500 to Heading S.',
-  exampleValue: 'normal 600 1rem/1.25rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
+  exampleValue: 'normal 653 1rem/1.25rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
 }, {
   name: 'font.heading.xsmall',
   path: ['font', 'heading', 'xsmall'],
   description: 'For headers in small components where space is limited. Migrate instances of H400 to Heading XS.',
-  exampleValue: 'normal 600 0.875rem/1rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
+  exampleValue: 'normal 653 0.875rem/1.25rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
 }, {
   name: 'font.heading.xxsmall',
   path: ['font', 'heading', 'xxsmall'],
   description: 'For headers in fine print or tight spaces. Use sparingly. Migrate instances of H100, H200 and H300 to Heading XXS.',
-  exampleValue: 'normal 600 0.75rem/1rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
+  exampleValue: 'normal 653 0.75rem/1rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
 }, {
   name: 'font.body.large',
   path: ['font', 'body', 'large'],
   description: 'For long-form text, such as in blogs.',
-  exampleValue: 'normal 400 1rem/1.5rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
+  exampleValue: 'normal 400 1rem/1.5rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
 }, {
   name: 'font.body',
   path: ['font', 'body', '[default]'],
   description: 'Use in short descriptions or labels. The default size for text in components. Migrate instances of Paragraph Default and UI Text to Body M.',
-  exampleValue: 'normal 400 0.875rem/1.25rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
+  exampleValue: 'normal 400 0.875rem/1.25rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
 }, {
   name: 'font.body.small',
   path: ['font', 'body', 'small'],
   description: 'Use in secondary level content such as fine print or semantic messaging. Use sparingly. Migrate instances of Small text to Body S.',
-  exampleValue: 'normal 400 0.6875rem/1rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
+  exampleValue: 'normal 400 0.75rem/1rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
 }, {
   name: 'font.body.UNSAFE_small',
   path: ['font', 'body', 'UNSAFE_small'],
   description: 'UNSAFE - Do not use. Temporary 12px fontsize token. Will be deprecated and replaced with stable small token',
-  exampleValue: 'normal 400 0.75rem/1rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
+  exampleValue: 'normal 400 0.75rem/1rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
 }, {
   name: 'font.metric.large',
   path: ['font', 'metric', 'large'],
   description: 'Use to emphasize a number within a large donut.',
-  exampleValue: 'normal 653 1.75rem/2rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
+  exampleValue: 'normal 653 1.75rem/2rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
 }, {
   name: 'font.metric.medium',
   path: ['font', 'metric', 'medium'],
   description: 'Use to emphasize a number within a medium donut.',
-  exampleValue: 'normal 653 1.5rem/1.75rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
+  exampleValue: 'normal 653 1.5rem/1.75rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
 }, {
   name: 'font.metric.small',
   path: ['font', 'metric', 'small'],
   description: 'Use to emphasize a number and words in single-value tiles, or small donuts.',
-  exampleValue: 'normal 653 1rem/1.25rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
+  exampleValue: 'normal 653 1rem/1.25rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
 }, {
   name: 'font.code',
   path: ['font', 'code', '[default]'],
   description: 'For representing code only, either inline or in code blocks.',
-  exampleValue: 'normal 400 0.875em/1 ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace'
+  exampleValue: 'normal 400 0.875em/1 "Atlassian Mono", ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace'
 }, {
   name: 'font.weight.regular',
   path: ['font', 'weight', 'regular'],
@@ -2277,22 +2272,22 @@ var tokens = exports.tokens = [{
   name: 'font.weight.bold',
   path: ['font', 'weight', 'bold'],
   description: 'Use sparingly for emphasising text, such as in a lozenge.',
-  exampleValue: '700'
+  exampleValue: '653'
 }, {
   name: 'font.family.heading',
   path: ['font', 'family', 'heading'],
   description: 'For our default UI heading text.',
-  exampleValue: 'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
+  exampleValue: '"Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
 }, {
   name: 'font.family.body',
   path: ['font', 'family', 'body'],
   description: 'For our default UI body text.',
-  exampleValue: 'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
+  exampleValue: '"Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
 }, {
   name: 'font.family.code',
   path: ['font', 'family', 'code'],
   description: 'For representing code only.',
-  exampleValue: 'ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace'
+  exampleValue: '"Atlassian Mono", ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace'
 }, {
   name: 'font.family.brand.heading',
   path: ['font', 'family', 'brand', 'heading'],

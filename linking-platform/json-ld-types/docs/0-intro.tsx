@@ -1,6 +1,6 @@
 import { code, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 	A set of types for the Atlassian Object Vocabulary defined at
 	[Atlassian Object Vocabulary](https://product-fabric.atlassian.net/wiki/spaces/SL/pages/460753040/Atlassian+Object+Vocabulary+JSON-LD).
 
@@ -33,3 +33,4 @@ const file: JsonLd.Object<JsonLd.Meta.Granted, JsonLd.Data.TextDocument> = {
 		summary: 'This page is within the Smart Links space',
 	},
 };`}`;
+export default _default_1;

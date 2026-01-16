@@ -88,7 +88,7 @@ class FloatingDeleteButton extends Component<Props, State> {
 		};
 	}
 
-	shouldComponentUpdate(_: Props, nextState: State) {
+	shouldComponentUpdate(_: Props, nextState: State): boolean {
 		return (
 			this.state.selectionType !== nextState.selectionType ||
 			this.state.left !== nextState.left ||

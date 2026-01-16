@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.0.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.17
+
+### Patch Changes
+
+- [`2d587fc62431a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d587fc62431a) -
+  [ux] Fix block menu position on move / scroll moved selection back to same position if possible
+- Updated dependencies
+
 ## 6.0.16
 
 ### Patch Changes

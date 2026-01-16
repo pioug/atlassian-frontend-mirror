@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { type RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import { logException } from '@atlaskit/editor-common/monitoring';
@@ -94,9 +94,13 @@ export const useFetchSyncBlockData = (
 		};
 	}, [localId, manager.referenceManager, resourceId]);
 
+	const ssrProviders = useMemo(() => {
+		return resourceId ? manager.referenceManager.getSSRProviders(resourceId) : null;
+	}, [resourceId, manager.referenceManager]);
+
 	return {
 		isLoading,
-		ssrProviders: resourceId ? manager.referenceManager.getSSRProviders(resourceId) : null,
+		ssrProviders,
 		providerFactory: manager.referenceManager.getProviderFactory(resourceId || ''),
 		reloadData,
 		syncBlockInstance,

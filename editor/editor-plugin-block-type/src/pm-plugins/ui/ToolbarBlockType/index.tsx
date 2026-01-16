@@ -68,7 +68,7 @@ export interface State {
 	active: boolean;
 	isOpenedByKeyboard: boolean;
 	observer: ThemeMutationObserver | null;
-	typographyTheme: ThemeState['typography'];
+	typographyTheme?: ThemeState['typography'];
 }
 
 // eslint-disable-next-line @repo/internal/react/no-class-components

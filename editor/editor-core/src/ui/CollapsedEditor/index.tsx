@@ -45,7 +45,8 @@ export default class CollapsedEditor extends React.Component<Props, State> {
 		this.editorComponent = editorRef;
 	};
 
-	render() {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	render(): any {
 		const child = React.Children.only(this.props.children);
 		this.functionalEditor = typeof child.type === 'function';
 

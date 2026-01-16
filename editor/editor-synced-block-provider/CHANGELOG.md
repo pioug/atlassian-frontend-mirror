@@ -1,5 +1,31 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.8.1
+
+### Patch Changes
+
+- [`7b1f7ff1a2235`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b1f7ff1a2235) -
+  [ux] [EDITOR-4536] Update synced location dropdown UI
+- Updated dependencies
+
+## 3.8.0
+
+### Minor Changes
+
+- [`9b427b1878556`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b427b1878556) -
+  EDITOR-2850 create resource-id utils and unify the creation and parse
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.7.0
+
+### Minor Changes
+
+- [`4490bcc4595c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4490bcc4595c4) -
+  Render some smart links loading states in SSR to match Editor's renderer
+
 ## 3.6.1
 
 ### Patch Changes

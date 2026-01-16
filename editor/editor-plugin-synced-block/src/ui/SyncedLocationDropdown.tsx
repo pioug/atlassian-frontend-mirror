@@ -4,7 +4,7 @@
  */
 import { useState, useEffect } from 'react';
 
-import { css, jsx, cssMap } from '@compiled/react';
+import { css, jsx, cssMap, keyframes } from '@compiled/react';
 import { type IntlShape } from 'react-intl-next';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
@@ -20,12 +20,14 @@ import { IconTile } from '@atlaskit/icon';
 import PageLiveDocIcon from '@atlaskit/icon-lab/core/page-live-doc';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import PageIcon from '@atlaskit/icon/core/page';
+import QuotationMarkIcon from '@atlaskit/icon/core/quotation-mark';
 import StatusErrorIcon from '@atlaskit/icon/core/status-error';
-import { ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
+import { ConfluenceIcon, JiraIcon, AtlassianIcon } from '@atlaskit/logo';
 import Lozenge from '@atlaskit/lozenge';
 import { Box, Text, Inline, Anchor, Stack } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip';
 
 interface Props {
 	intl: IntlShape;
@@ -35,6 +37,15 @@ interface Props {
 	syncBlockStore: SyncBlockStoreManager;
 }
 
+const fadeIn = keyframes({
+	from: {
+		opacity: 0,
+	},
+	to: {
+		opacity: 1,
+	},
+});
+
 const headingStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'[data-ds--menu--heading-item]': {
@@ -42,6 +53,25 @@ const headingStyles = css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 		marginBlock: `${token('space.050')} !important`,
 	},
+});
+
+const dropdownItemStyles = css({
+	// Reduce gap between icon and title
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'a > span': {
+		columnGap: `${token('space.075')}`,
+	},
+});
+
+// logo icon does not fit in ADS IconTile, hence we need custom styles to match with other icons
+const logoTileStyles = css({
+	backgroundColor: token('color.background.neutral'),
+	width: '20px',
+	height: '20px',
+	borderRadius: token('radius.tile'),
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
 });
 
 const styles = cssMap({
@@ -56,7 +86,7 @@ const styles = cssMap({
 		whiteSpace: 'nowrap',
 	},
 	lozenge: {
-		marginInlineStart: token('space.050'),
+		marginInlineStart: token('space.075'),
 		minWidth: '60px',
 	},
 	noResultsContainer: {
@@ -64,7 +94,7 @@ const styles = cssMap({
 		textAlign: 'center',
 	},
 	dropdownContent: {
-		width: '327px',
+		width: '342px',
 		minHeight: '144px',
 		maxHeight: '304px',
 		paddingBlock: token('space.025'),
@@ -76,6 +106,7 @@ const styles = cssMap({
 		width: '100%',
 		alignSelf: 'stretch',
 		overflowY: 'auto',
+		animation: `${fadeIn} 700ms ease-in-out`,
 	},
 	errorContainer: {
 		width: '235px',
@@ -87,6 +118,12 @@ const styles = cssMap({
 	learnMoreLink: {
 		textDecoration: 'none',
 	},
+	requestAccess: {
+		width: '106px',
+		whiteSpace: 'nowrap',
+		marginInlineStart: token('space.075'),
+		color: token('color.text.subtlest'),
+	},
 });
 
 type FetchStatus = 'none' | 'loading' | 'success' | 'error';
@@ -96,8 +133,10 @@ const ItemTitle = ({
 	formatMessage,
 	onSamePage,
 	isSource,
+	hasAccess,
 }: {
 	formatMessage: IntlShape['formatMessage'];
+	hasAccess?: boolean;
 	isSource?: boolean;
 	onSamePage?: boolean;
 	title: string;
@@ -117,32 +156,50 @@ const ItemTitle = ({
 					<Lozenge>{formatMessage(messages.syncedLocationDropdownSourceLozenge)}</Lozenge>
 				</Box>
 			)}
+			{!hasAccess && (
+				<Box as="span" xcss={styles.requestAccess}>
+					{formatMessage(messages.syncedLocationDropdownRequestAccess)}
+				</Box>
+			)}
 		</Inline>
 	);
 };
 
-const Logo = ({ product }: { product?: SyncBlockProduct }) => {
-	switch (product) {
-		case 'confluence-page':
-			return <ConfluenceIcon size="xsmall" />;
-		case 'jira-work-item':
-			return <JiraIcon size="xsmall" />;
-		default:
-			return null;
-	}
+const productIconMap = {
+	'confluence-page': ConfluenceIcon,
+	'jira-work-item': JiraIcon,
+};
+
+const subTypeIconMap = {
+	live: PageLiveDocIcon,
+	page: PageIcon,
+	blogpost: QuotationMarkIcon,
+};
+
+const getSubTypeIcon = (subType?: string | null) => {
+	return subType && subType in subTypeIconMap
+		? subTypeIconMap[subType as keyof typeof subTypeIconMap]
+		: PageIcon;
+};
+
+const ProductIcon = ({ product }: { product?: SyncBlockProduct }) => {
+	const ProductIcon = product ? (productIconMap[product] ?? AtlassianIcon) : AtlassianIcon;
+
+	return (
+		<span css={logoTileStyles}>
+			<ProductIcon size="xxsmall" appearance="neutral" />
+		</span>
+	);
 };
 
 const ItemIcon = ({ reference }: { reference: SyncBlockSourceInfo }) => {
 	const { hasAccess, subType } = reference;
 
-	const icon = hasAccess
-		? subType
-			? PageLiveDocIcon
-			: PageIcon
-		: () => <Logo product={reference.productType} />;
-	return (
-		<IconTile icon={icon} label="" appearance={hasAccess ? 'grayBold' : 'gray'} size="xsmall" />
-	);
+	if (hasAccess) {
+		return <IconTile icon={getSubTypeIcon(subType)} label="" appearance={'gray'} size="xsmall" />;
+	}
+
+	return <ProductIcon product={reference.productType} />;
 };
 
 export const processReferenceData = (
@@ -276,18 +333,24 @@ const DropdownContent = ({ syncBlockStore, resourceId, intl, isSource, localId }
 								})}
 							>
 								{referenceData.map((reference) => (
-									<DropdownItem
-										elemBefore={<ItemIcon reference={reference} />}
-										href={reference.url}
-										key={reference.title}
-									>
-										<ItemTitle
-											title={reference.title || reference.url || ''}
-											formatMessage={formatMessage}
-											onSamePage={reference.onSamePage}
-											isSource={reference.isSource}
-										/>
-									</DropdownItem>
+									<div key={reference.title} css={dropdownItemStyles}>
+										<Tooltip content={reference.title || reference.url || ''}>
+											<DropdownItem
+												elemBefore={<ItemIcon reference={reference} />}
+												href={reference.url}
+												target="_blank"
+												key={reference.title}
+											>
+												<ItemTitle
+													title={reference.title || reference.url || ''}
+													formatMessage={formatMessage}
+													onSamePage={reference.onSamePage}
+													isSource={reference.isSource}
+													hasAccess={reference.hasAccess}
+												/>
+											</DropdownItem>
+										</Tooltip>
+									</div>
 								))}
 							</DropdownItemGroup>
 						</div>

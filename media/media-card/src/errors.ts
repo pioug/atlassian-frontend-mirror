@@ -128,7 +128,7 @@ export const isLocalPreviewError = (err: Error): err is LocalPreviewError =>
 export const isRemotePreviewError = (err: Error): err is LocalPreviewError =>
 	err instanceof RemotePreviewError;
 
-export const isUnsupportedLocalPreviewError = (err: Error) =>
+export const isUnsupportedLocalPreviewError = (err: Error): boolean =>
 	isMediaCardError(err) && err.primaryReason === 'local-preview-unsupported';
 
 export function isImageLoadError(err: Error): err is ImageLoadError {

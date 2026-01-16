@@ -2,8 +2,6 @@ import React, { type PropsWithChildren } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { fg } from '@atlaskit/platform-feature-flags';
-// TODO: Package Owner - please fix:
-// eslint-disable-next-line import/no-extraneous-dependencies
 import UFOHoldLoad from '@atlaskit/react-ufo/load-hold';
 
 import { extractRequestAccessContextImproved } from '../../extractors/common/context/extractAccessContext';

@@ -47,7 +47,7 @@ export function clearNodeFormattingOnSelection(
 	nodeName: string,
 	formattingCleared: string[],
 ) {
-	return function (node: Node, pos: number) {
+	return function (node: Node, pos: number): boolean {
 		if (node.type === formattedNodeType) {
 			if (formattedNodeType.isTextblock) {
 				tr.setNodeMarkup(pos, schema.nodes.paragraph);

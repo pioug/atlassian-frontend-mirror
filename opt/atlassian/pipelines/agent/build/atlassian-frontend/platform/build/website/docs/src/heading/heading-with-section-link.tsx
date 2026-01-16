@@ -1,0 +1,110 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import React from 'react';
+import Heading, { type HeadingProps } from '@atlaskit/heading';
+import { cssMap, jsx } from '@compiled/react';
+import { CopyLinkToHeadingButton } from './copy-link-to-heading-button';
+import { token } from '@atlaskit/tokens';
+
+type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
+
+const levelToSize: Record<HeadingLevel, HeadingProps['size']> = {
+	1: 'xlarge',
+	2: 'large',
+	3: 'medium',
+	4: 'small',
+	5: 'xsmall',
+	6: 'xxsmall',
+};
+
+const levelToSpace = cssMap({
+	1: { paddingBlockStart: token('space.400') },
+	2: { paddingBlockStart: token('space.300') },
+	3: { paddingBlockStart: token('space.200') },
+	4: { paddingBlockStart: token('space.150') },
+	5: { paddingBlockStart: token('space.100') },
+	6: { paddingBlockStart: token('space.050') },
+});
+
+/**
+ * To support nested elements in the heading content, we need to extract the text from the node.
+ * e.g.
+ *
+ * ```tsx
+ * <HeadingWithSectionLink level={2}>
+ *   This contains <code>nested</code> elements
+ * </HeadingWithSectionLink>
+ * ```
+ */
+function extractTextFromNode(node: React.ReactNode): string {
+	if (typeof node === 'string') {
+		return node;
+	}
+	if (typeof node === 'number') {
+		return String(node);
+	}
+	if (Array.isArray(node)) {
+		return node.map(extractTextFromNode).join(' ');
+	}
+	if (React.isValidElement(node) && node.props.children) {
+		return extractTextFromNode(node.props.children);
+	}
+	return '';
+}
+
+function getHeadingId(value: React.ReactNode): string | null {
+	if (!value) {
+		return null;
+	}
+
+	const text = extractTextFromNode(value);
+	if (!text.trim()) {
+		return null;
+	}
+
+	return text.replace(/\s+/g, '-').toLowerCase();
+}
+
+const wrapperStyles = cssMap({
+	root: {
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		// These CSS variables are used in the `CopyLinkToHeadingButton` component.
+		// We want to show the button when the user hovers over the wrapper element containing the heading.
+		'--btn-opacity': '0',
+		'--btn-transform': `translateX(${token('space.050')})`,
+		'&:hover': {
+			// @ts-ignore
+			'--btn-opacity': '1',
+			'--btn-transform': 'none',
+		},
+	},
+});
+
+/**
+ * A heading with a button that appears on hover of the heading (or focus of the button),
+ * that allows the user to copy a link to the heading.
+ */
+export function HeadingWithSectionLink({
+	level,
+	children,
+}: {
+	level: HeadingLevel;
+	children: React.ReactNode;
+}) {
+	const headingId = getHeadingId(children);
+
+	return (
+		<div css={[wrapperStyles.root, levelToSpace[level]]}>
+			{/* Only show the copy link icon if the heading has a valid ID */}
+			{headingId && <CopyLinkToHeadingButton headingId={headingId} />}
+
+			<Heading size={levelToSize[level]} id={headingId ?? undefined}>
+				{children}
+			</Heading>
+		</div>
+	);
+}

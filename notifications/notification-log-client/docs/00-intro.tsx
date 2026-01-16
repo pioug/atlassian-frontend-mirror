@@ -1,7 +1,7 @@
 import React from 'react';
 import { md, code, Example, AtlassianInternalWarning } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}
 
   \`notification-log-client\` is a fetch client implementation for making API calls to notification-log service.
@@ -28,3 +28,4 @@ export default md`
 		/>
 	)}
 `;
+export default _default_1;

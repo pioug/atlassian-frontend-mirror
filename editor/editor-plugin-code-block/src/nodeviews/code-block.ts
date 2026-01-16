@@ -196,7 +196,7 @@ export class CodeBlockView {
 		this.dom.style.setProperty('--lineNumberGutterWidth', `${maxDigits}ch`);
 	};
 
-	update(node: PMNode) {
+	update(node: PMNode): boolean {
 		if (node.type !== this.node.type) {
 			return false;
 		}
@@ -220,7 +220,7 @@ export class CodeBlockView {
 		return true;
 	}
 
-	ignoreMutation(record: MutationRecord | { target: Node; type: 'selection' }) {
+	ignoreMutation(record: MutationRecord | { target: Node; type: 'selection' }): boolean {
 		const pluginState = getPluginState(this.view.state);
 		if (pluginState?.shouldIgnoreFollowingMutations) {
 			return true;

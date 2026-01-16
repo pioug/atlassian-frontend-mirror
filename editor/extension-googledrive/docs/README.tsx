@@ -2,7 +2,8 @@ import React from 'react';
 import { md, code } from '@atlaskit/docs';
 import SectionMessage from '@atlaskit/section-message';
 
-export default md`
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const _default_1: any = md`
 This plugin is designed to make it easy to add a Google Drive experience to a
 product. It uses Google Drive's Picker API and then renders a smart link on the
 page after it is used.
@@ -43,12 +44,13 @@ If this has been properly set up, the Google Drive file picker should work
 accordingly.
 
 ${(
-	<>
-		<p />
-		<SectionMessage>
-			You should likely set up two GCPs, one for local testing, and one for production - make sure
-			both are verified and allow External user type under the OAuth consent screen.
-		</SectionMessage>
-	</>
-)}
+		<>
+			<p />
+			<SectionMessage>
+				You should likely set up two GCPs, one for local testing, and one for production - make sure
+				both are verified and allow External user type under the OAuth consent screen.
+			</SectionMessage>
+		</>
+	)}
 `;
+export default _default_1;

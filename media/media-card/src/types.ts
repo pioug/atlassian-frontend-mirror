@@ -67,20 +67,20 @@ export interface CardPreview {
 	srcSet?: string;
 }
 
-export const isSSRPreview = (preview: CardPreview) =>
+export const isSSRPreview = (preview: CardPreview): boolean =>
 	isSSRClientPreview(preview) || isSSRServerPreview(preview) || isSSRDataPreview(preview);
 
-export const isSSRServerPreview = (preview: CardPreview) => {
+export const isSSRServerPreview = (preview: CardPreview): boolean => {
 	const ssrClientSources: CardPreviewSource[] = ['ssr-server', 'cache-ssr-server'];
 	return ssrClientSources.includes(preview.source);
 };
 
-export const isSSRClientPreview = (preview: CardPreview) => {
+export const isSSRClientPreview = (preview: CardPreview): boolean => {
 	const ssrClientSources: CardPreviewSource[] = ['ssr-client', 'cache-ssr-client'];
 	return ssrClientSources.includes(preview.source);
 };
 
-export const isSSRDataPreview = (preview: CardPreview) => preview.source === 'ssr-data';
+export const isSSRDataPreview = (preview: CardPreview): boolean => preview.source === 'ssr-data';
 
 export enum MediaCardCursor {
 	Action = 'pointer',

@@ -1,7 +1,5 @@
 import React, { type PropsWithChildren } from 'react';
 
-// TODO: Package Owner - please fix:
-// eslint-disable-next-line import/no-extraneous-dependencies
 import UFOHoldLoad from '@atlaskit/react-ufo/load-hold';
 
 import { useControlDataExportConfig } from '../../state/hooks/use-control-data-export-config';

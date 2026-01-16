@@ -120,7 +120,7 @@ export const getResolvedAttributesFromStore = (
 	return getResolvedAttributes({ url, displayCategory }, urlState?.details);
 };
 
-export const isDatasourceConfigEditable = (datasourceId: string) => {
+export const isDatasourceConfigEditable = (datasourceId: string): boolean => {
 	const datasourcesWithConfigModal = [
 		JIRA_LIST_OF_LINKS_DATASOURCE_ID,
 		ASSETS_LIST_OF_LINKS_DATASOURCE_ID,

@@ -40,7 +40,10 @@ export class Api {
 		this.channel = channel;
 	}
 
-	async addComment(steps: Step[]) {
+	async addComment(steps: Step[]): Promise<{
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		message: any;
+	}> {
 		const stepVersion = this.documentService.getCurrentPmVersion();
 
 		try {
@@ -93,8 +96,8 @@ export class Api {
 			headers: {
 				...(this.config.permissionTokenRefresh
 					? {
-							'x-token': await this.channel.getChannelToken(),
-						}
+						'x-token': await this.channel.getChannelToken(),
+					}
 					: {}),
 				'x-product': getProduct(this.config.productInfo),
 				'x-subproduct': getSubProduct(this.config.productInfo),

@@ -1,0 +1,305 @@
+import { createCheck } from '../../../__tests__/test-utils';
+import transformer from '../codemods/lozenge-discovery-to-tag-with-fg';
+
+const check = createCheck(transformer);
+
+describe('lozenge-discovery-to-tag-with-fg', () => {
+	describe('basic migration with feature gate', () => {
+		check({
+			it: 'should migrate Lozenge with appearance="new" to feature-gated Tag',
+			original: `
+import Lozenge from '@atlaskit/lozenge';
+
+export default function App() {
+	return <Lozenge appearance="new">New Feature</Lozenge>;
+}
+`,
+			expected: `
+import Lozenge from '@atlaskit/lozenge';
+
+import Tag from '@atlaskit/tag';
+import { fg } from '@atlassian/jira-feature-gating';
+
+export default function App() {
+	return fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? <Tag text="New Feature" color="purple" /> : <Lozenge appearance="new">New Feature</Lozenge>;
+}
+`,
+		});
+
+		check({
+			it: 'should migrate Lozenge with appearance="discovery" to feature-gated Tag',
+			original: `
+import Lozenge from '@atlaskit/lozenge';
+
+export default function App() {
+	return <Lozenge appearance="discovery">Discovery</Lozenge>;
+}
+`,
+			expected: `
+import Lozenge from '@atlaskit/lozenge';
+
+import Tag from '@atlaskit/tag';
+import { fg } from '@atlassian/jira-feature-gating';
+
+export default function App() {
+	return fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? <Tag text="Discovery" color="purple" /> : <Lozenge appearance="discovery">Discovery</Lozenge>;
+}
+`,
+		});
+
+		check({
+			it: 'should migrate Lozenge with appearance="discovery" and isBold={true}',
+			original: `
+import Lozenge from '@atlaskit/lozenge';
+
+export default function App() {
+	return <Lozenge appearance="discovery" isBold={true}>Bold Discovery</Lozenge>;
+}
+`,
+			expected: `
+import Lozenge from '@atlaskit/lozenge';
+
+import Tag from '@atlaskit/tag';
+import { fg } from '@atlassian/jira-feature-gating';
+
+export default function App() {
+	return fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? <Tag text="Bold Discovery" color="purple" /> : <Lozenge appearance="discovery" isBold={true}>Bold Discovery</Lozenge>;
+}
+`,
+		});
+
+		check({
+			it: 'should not migrate Lozenge with other appearances',
+			original: `
+import Lozenge from '@atlaskit/lozenge';
+
+export default function App() {
+	return (
+		<div>
+			<Lozenge appearance="success">Success</Lozenge>
+			<Lozenge appearance="default">Default</Lozenge>
+		</div>
+	);
+}
+`,
+			expected: `
+import Lozenge from '@atlaskit/lozenge';
+
+export default function App() {
+	return (
+		<div>
+			<Lozenge appearance="success">Success</Lozenge>
+			<Lozenge appearance="default">Default</Lozenge>
+		</div>
+	);
+}
+`,
+		});
+	});
+
+	describe('import handling', () => {
+		check({
+			it: 'should not add fg import if already imported',
+			original: `
+import Lozenge from '@atlaskit/lozenge';
+import { fg } from '@atlassian/jira-feature-gating';
+
+export default function App() {
+	return <Lozenge appearance="new">New</Lozenge>;
+}
+`,
+			expected: `
+import Lozenge from '@atlaskit/lozenge';
+import Tag from '@atlaskit/tag';
+import { fg } from '@atlassian/jira-feature-gating';
+
+export default function App() {
+	return fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? <Tag text="New" color="purple" /> : <Lozenge appearance="new">New</Lozenge>;
+}
+`,
+		});
+
+		check({
+			it: 'should not add Tag import if already present',
+			original: `
+import Lozenge from '@atlaskit/lozenge';
+import Tag from '@atlaskit/tag';
+
+export default function App() {
+	return <Lozenge appearance="new">New</Lozenge>;
+}
+`,
+			expected: `
+import Lozenge from '@atlaskit/lozenge';
+import { fg } from '@atlassian/jira-feature-gating';
+import Tag from '@atlaskit/tag';
+
+export default function App() {
+	return fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? <Tag text="New" color="purple" /> : <Lozenge appearance="new">New</Lozenge>;
+}
+`,
+		});
+
+		check({
+			it: 'should handle renamed Lozenge imports',
+			original: `
+import { default as Badge } from '@atlaskit/lozenge';
+
+export default function App() {
+	return <Badge appearance="new">New</Badge>;
+}
+`,
+			expected: `
+import { default as Badge } from '@atlaskit/lozenge';
+
+import Tag from '@atlaskit/tag';
+import { fg } from '@atlassian/jira-feature-gating';
+
+export default function App() {
+	return fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? <Tag text="New" color="purple" /> : <Badge appearance="new">New</Badge>;
+}
+`,
+		});
+	});
+
+	describe('prop handling', () => {
+		check({
+			it: 'should handle JSX expression children (formatMessage)',
+			original: `
+import Lozenge from '@atlaskit/lozenge';
+
+export default function App() {
+	return <Lozenge appearance="new">{formatMessage(messages.beta)}</Lozenge>;
+}
+`,
+			expected: `
+import Lozenge from '@atlaskit/lozenge';
+
+import Tag from '@atlaskit/tag';
+import { fg } from '@atlassian/jira-feature-gating';
+
+export default function App() {
+	return fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? <Tag text={formatMessage(messages.beta)} color="purple" /> : <Lozenge appearance="new">{formatMessage(messages.beta)}</Lozenge>;
+}
+`,
+		});
+
+		check({
+			it: 'should preserve other props on Tag',
+			original: `
+import Lozenge from '@atlaskit/lozenge';
+
+export default function App() {
+	return <Lozenge appearance="new" testId="my-lozenge">New Feature</Lozenge>;
+}
+`,
+			expected: `
+import Lozenge from '@atlaskit/lozenge';
+
+import Tag from '@atlaskit/tag';
+import { fg } from '@atlassian/jira-feature-gating';
+
+export default function App() {
+	return fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? <Tag text="New Feature" color="purple" testId="my-lozenge" /> : <Lozenge appearance="new" testId="my-lozenge">New Feature</Lozenge>;
+}
+`,
+		});
+
+		check({
+			it: 'should handle Lozenge with no children',
+			original: `
+import Lozenge from '@atlaskit/lozenge';
+
+export default function App() {
+	return <Lozenge appearance="new" />;
+}
+`,
+			expected: `
+import Lozenge from '@atlaskit/lozenge';
+
+import Tag from '@atlaskit/tag';
+import { fg } from '@atlassian/jira-feature-gating';
+
+export default function App() {
+	return fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? <Tag color="purple" /> : <Lozenge appearance="new" />;
+}
+`,
+		});
+	});
+
+	describe('multiple migrations', () => {
+		check({
+			it: 'should handle multiple new/discovery Lozenges in one file',
+			original: `
+import Lozenge from '@atlaskit/lozenge';
+
+export default function App() {
+	return (
+		<div>
+			<Lozenge appearance="new">New</Lozenge>
+			<Lozenge appearance="discovery">Discovery</Lozenge>
+			<Lozenge appearance="success">Success</Lozenge>
+		</div>
+	);
+}
+`,
+			expected: `
+import Lozenge from '@atlaskit/lozenge';
+
+import Tag from '@atlaskit/tag';
+import { fg } from '@atlassian/jira-feature-gating';
+
+export default function App() {
+	return (
+		<div>
+			{fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? <Tag text="New" color="purple" /> : <Lozenge appearance="new">New</Lozenge>}
+			{fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? <Tag text="Discovery" color="purple" /> : <Lozenge appearance="discovery">Discovery</Lozenge>}
+			<Lozenge appearance="success">Success</Lozenge>
+		</div>
+	);
+}
+`,
+		});
+	});
+
+	describe('edge cases', () => {
+		check({
+			it: 'should not transform files without Lozenge imports',
+			original: `
+import Button from '@atlaskit/button';
+
+export default function App() {
+	return <Button appearance="primary">Button</Button>;
+}
+`,
+			expected: `
+import Button from '@atlaskit/button';
+
+export default function App() {
+	return <Button appearance="primary">Button</Button>;
+}
+`,
+		});
+
+		check({
+			it: 'should migrate discovery Lozenges regardless of isBold value',
+			original: `
+import Lozenge from '@atlaskit/lozenge';
+
+export default function App() {
+	return <Lozenge appearance="discovery" isBold={false}>Not Bold</Lozenge>;
+}
+`,
+			expected: `
+import Lozenge from '@atlaskit/lozenge';
+
+import Tag from '@atlaskit/tag';
+import { fg } from '@atlassian/jira-feature-gating';
+
+export default function App() {
+	return fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? <Tag text="Not Bold" color="purple" /> : <Lozenge appearance="discovery" isBold={false}>Not Bold</Lozenge>;
+}
+`,
+		});
+	});
+});

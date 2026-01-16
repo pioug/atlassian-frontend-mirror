@@ -248,7 +248,7 @@ export class SourceSyncBlockStoreManager {
 	 *
 	 * @returns true if waiting for the result of saving new bodiedSyncBlock to backend
 	 */
-	public hasPendingCreation() {
+	public hasPendingCreation(): boolean {
 		return !!this.pendingResourceId;
 	}
 

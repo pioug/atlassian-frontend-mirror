@@ -5,7 +5,7 @@ import PubSubExample from '../examples/00-client';
 
 const PubSubdSource = require('!!raw-loader!../examples/00-client');
 
-export default md`
+const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}
   
   This provides components for receiving events from the PubSub service.
@@ -82,3 +82,4 @@ export default md`
   }); `}
 
 `;
+export default _default_1;

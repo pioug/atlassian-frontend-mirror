@@ -61,7 +61,7 @@ const marksArePresent = (state: EditorState) => {
 	return activeMarkTypes.length > 0;
 };
 
-export const checkFormattingIsPresent = (state: EditorState) => {
+export const checkFormattingIsPresent = (state: EditorState): boolean => {
 	return marksArePresent(state) || blockStylingIsPresent(state);
 };
 
@@ -69,5 +69,5 @@ export const compareItemsArrays = (items: MenuIconItem[], prevItems: MenuIconIte
 	return items && items.filter((item) => !prevItems.includes(item));
 };
 
-export const isArrayContainsContent = (items: MenuIconItem[], content: string) =>
+export const isArrayContainsContent = (items: MenuIconItem[], content: string): boolean =>
 	items.filter((item) => item.content === content).length > 0;

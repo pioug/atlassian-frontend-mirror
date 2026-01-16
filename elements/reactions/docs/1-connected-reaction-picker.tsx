@@ -5,7 +5,7 @@ import { Text } from '@atlaskit/primitives/compiled';
 
 import ConnectedReactionPickerExample from '../examples/00-connected-reaction-picker';
 
-export default md`
+const _default_1: any = md`
 
   The ConnectedReactionPicker component renders the Reaction picker custom selector to add a new reaction to the content displayed.
 
@@ -132,3 +132,4 @@ export default md`
 		/>
 	)}
 `;
+export default _default_1;

@@ -10,7 +10,8 @@ export abstract class OverridableMock {
 		constructorMock(...inputs);
 	}
 
-	getMock(key: string) {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	getMock(key: string): any {
 		return OverridableMock.mockOverrides[key] || jest.fn();
 	}
 

@@ -1,7 +1,8 @@
 import React from 'react';
 import { md, Example, code, AtlassianInternalWarning } from '@atlaskit/docs';
 
-export default md`
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const _default_1: any = md`
 ${(<AtlassianInternalWarning />)}
 
 This transformer allows encoding ProseMirror Node to markdown or converting Bitbucket HTML to  ProseMirror Node.
@@ -45,3 +46,4 @@ This transformer allows encoding ProseMirror Node to markdown or converting Bitb
 		/>
 	)}
 `;
+export default _default_1;

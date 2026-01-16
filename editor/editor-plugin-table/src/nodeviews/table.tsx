@@ -284,7 +284,7 @@ export default class TableView extends ReactNodeView<Props> {
 	}
 
 	private hasHoveredRows = false;
-	viewShouldUpdate(nextNode: PmNode) {
+	viewShouldUpdate(nextNode: PmNode): boolean {
 		const { hoveredRows } = getPluginState(this.view.state);
 		const hoveredRowsChanged = !!hoveredRows?.length !== this.hasHoveredRows;
 		if (nextNode.attrs.isNumberColumnEnabled && hoveredRowsChanged) {
@@ -314,7 +314,7 @@ export default class TableView extends ReactNodeView<Props> {
 		});
 	}
 
-	ignoreMutation(mutation: MutationRecord | { target: Node; type: 'selection' }) {
+	ignoreMutation(mutation: MutationRecord | { target: Node; type: 'selection' }): boolean {
 		const {
 			type,
 			target: { nodeName, firstChild },

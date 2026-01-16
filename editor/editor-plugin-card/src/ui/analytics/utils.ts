@@ -5,14 +5,14 @@ import { appearanceForNodeType } from '../../pm-plugins/utils';
 
 import { type Entity, EVENT_SUBJECT } from './types';
 
-export function isDatasourceNode(node: Node) {
+export function isDatasourceNode(node: Node): boolean {
 	return 'datasource' in node.attrs && !!node.attrs.datasource;
 }
 
 /**
  * Determine if a node is considered to be a link
  */
-export const isLinkNode = (node: Node) => {
+export const isLinkNode = (node: Node): boolean => {
 	if (isDatasourceNode(node)) {
 		return false;
 	}
@@ -133,7 +133,7 @@ export const findInNodeRange = (
  * Returns whether or not two sets of links appear to likely be the same set of links
  * That they are in the same order and that both their hrefs and appearances match
  */
-export const areSameNodes = (setA: Entity[], setB: Entity[]) => {
+export const areSameNodes = (setA: Entity[], setB: Entity[]): boolean => {
 	if (setA.length !== setB.length) {
 		return false;
 	}

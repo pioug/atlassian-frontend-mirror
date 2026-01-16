@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 7.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.1
+
+### Patch Changes
+
+- [`e91ea1cbba89a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e91ea1cbba89a) -
+  JRACLOUD-96830: Fix navigating and editing codeblocks with CRLF new lines.
+- Updated dependencies
+
 ## 7.1.0
 
 ### Minor Changes

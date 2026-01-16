@@ -212,7 +212,7 @@ export default class TableRowNativeStickyWithFallback
 	 */
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	update(node: PMNode, ..._args: any[]) {
+	update(node: PMNode, ..._args: any[]): boolean {
 		// do nothing if nodes were identical
 		if (node === this.node) {
 			return true;
@@ -273,7 +273,7 @@ export default class TableRowNativeStickyWithFallback
 		}
 	}
 
-	ignoreMutation(mutationRecord: MutationRecord | { target: Node; type: 'selection' }) {
+	ignoreMutation(mutationRecord: MutationRecord | { target: Node; type: 'selection' }): boolean {
 		/* tableRows are not directly editable by the user
 		 * so it should be safe to ignore mutations that we cause
 		 * by updating styles and classnames on this DOM element

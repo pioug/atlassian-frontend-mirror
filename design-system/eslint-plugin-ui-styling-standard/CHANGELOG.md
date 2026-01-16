@@ -1,5 +1,16 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 1.5.0
+
+### Minor Changes
+
+- [`d2b1c5a27d84a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2b1c5a27d84a) -
+  Fix two bugs in the no-unused-cssmap-properties rule:
+  - Use getDeclaredVariables() instead of scope-based lookup to properly track references across
+    nested scopes
+  - Fix isExported false positive by only checking direct export patterns instead of walking full
+    parent tree
+
 ## 1.4.6
 
 ### Patch Changes

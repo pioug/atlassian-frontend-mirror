@@ -125,7 +125,7 @@ export const isLocalPreviewError = (err: Error): err is LocalPreviewError =>
 export const isRemotePreviewError = (err: Error): err is RemotePreviewError =>
 	err instanceof RemotePreviewError;
 
-export const isUnsupportedLocalPreviewError = (err: Error) =>
+export const isUnsupportedLocalPreviewError = (err: Error): boolean =>
 	isMediaFilePreviewError(err) && err.primaryReason === 'local-preview-unsupported';
 
 // In a try/catch statement, the error caught is the type of unknown.

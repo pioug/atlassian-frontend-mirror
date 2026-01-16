@@ -1,6 +1,7 @@
 import { code, md } from '@atlaskit/docs';
 
-export default md`
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const _default_1: any = md`
   # Editor Labs
 
   Where API changes can sit for experimental use
@@ -108,3 +109,4 @@ ${code`
   )
 `}
 `;
+export default _default_1;

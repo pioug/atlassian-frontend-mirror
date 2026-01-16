@@ -1,5 +1,14 @@
 # @atlaskit/primitives
 
+## 17.1.1
+
+### Patch Changes
+
+- [`f111803c4e253`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f111803c4e253) -
+  Updating typography fallbacks to refreshed typography values as the deprecated legacy typography
+  theme has been removed.
+- Updated dependencies
+
 ## 17.1.0
 
 ### Minor Changes

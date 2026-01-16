@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Example, md, Props } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 
   A spotlight introduces users to various points of interest across Atlassian through focused messages or multi-step tours.
 
@@ -19,3 +19,4 @@ export default md`
 
   ${(<Props heading="Spotlight Props" props={require('!!extract-react-types-loader!../src')} />)}
 `;
+export default _default_1;

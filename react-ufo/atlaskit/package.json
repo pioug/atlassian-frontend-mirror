@@ -263,6 +263,9 @@
 		},
 		"rovo_search_page_ttvc_ignoring_smart_answers_fix": {
 			"type": "boolean"
+		},
+		"jfp-magma-ufo-event-listener-error": {
+			"type": "boolean"
 		}
 	}
 }

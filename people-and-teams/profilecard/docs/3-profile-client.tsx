@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AtlassianInternalWarning, code, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}
 
   A client class used to fetch data about users and teams to be shown in profile cards.
@@ -163,3 +163,4 @@ const profileClient = new ProfileClient(config, {
   the one you need to modify and the ProfileClient will construct the other itself. Or even better,
   hopefully you don't need to override either and the default behaviour works for you.
 `;
+export default _default_1;

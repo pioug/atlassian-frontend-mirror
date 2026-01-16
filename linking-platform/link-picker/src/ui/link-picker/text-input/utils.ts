@@ -5,7 +5,7 @@ import { browser } from '@atlaskit/linking-common/user-agent';
 const KeyZCode = 90;
 const KeyYCode = 89;
 
-export const isUndoEvent = (e: KeyboardEvent<HTMLInputElement>) => {
+export const isUndoEvent = (e: KeyboardEvent<HTMLInputElement>): boolean => {
 	const { mac } = browser();
 
 	return (
@@ -17,7 +17,7 @@ export const isUndoEvent = (e: KeyboardEvent<HTMLInputElement>) => {
 	);
 };
 
-export const isRedoEvent = (e: KeyboardEvent<HTMLInputElement>) => {
+export const isRedoEvent = (e: KeyboardEvent<HTMLInputElement>): boolean => {
 	const { mac } = browser();
 
 	return (

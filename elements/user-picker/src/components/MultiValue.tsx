@@ -72,7 +72,7 @@ export class MultiValue extends React.Component<Props> {
 		}
 	}
 
-	shouldComponentUpdate(nextProps: Props) {
+	shouldComponentUpdate(nextProps: Props): boolean {
 		const {
 			data: { label, data },
 			innerProps,

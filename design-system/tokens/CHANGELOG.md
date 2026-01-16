@@ -1,5 +1,14 @@
 # @atlaskit/tokens
 
+## 10.0.0
+
+### Major Changes
+
+- [`f111803c4e253`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f111803c4e253) -
+  Removed the deprecated typography theme ids (`typography-adg3`, `typography-modernized` and
+  `typography-refreshed`) leaving only the `typography` theme id that is enabled by default.
+  Automatic fallbacks now use refreshed typography values.
+
 ## 9.1.2
 
 ### Patch Changes

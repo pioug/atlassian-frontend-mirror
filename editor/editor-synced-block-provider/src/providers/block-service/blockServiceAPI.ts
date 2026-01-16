@@ -27,6 +27,7 @@ import {
 	type SyncBlockProduct,
 } from '../../common/types';
 import { stringifyError } from '../../utils/errorHandling';
+import { createResourceIdForReference } from '../../utils/resourceId';
 import type {
 	ADFFetchProvider,
 	ADFWriteProvider,
@@ -486,7 +487,7 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 
 	// the sourceId is the resourceId of the source synced block.
 	generateResourceIdForReference(sourceId: ResourceId): ResourceId {
-		return `${this.product}/${this.parentId}/${sourceId}`;
+		return createResourceIdForReference(this.product, this.parentId || '', sourceId);
 	}
 
 	generateResourceId(): ResourceId {

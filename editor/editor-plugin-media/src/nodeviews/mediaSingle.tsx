@@ -157,7 +157,7 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 		return { dom };
 	}
 
-	viewShouldUpdate(nextNode: PMNode) {
+	viewShouldUpdate(nextNode: PMNode): boolean {
 		if (this.forceViewUpdate) {
 			this.forceViewUpdate = false;
 			return true;
@@ -229,7 +229,7 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 		return isNodeSelected;
 	};
 
-	isNodeSelected = () => {
+	isNodeSelected = (): boolean => {
 		this.checkAndUpdateSelectionType();
 		return this.selectionType !== null;
 	};
@@ -261,7 +261,7 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 		decorations: readonly Decoration[],
 		_innerDecorations?: DecorationSource,
 		isValidUpdate?: (currentNode: PMNode, newNode: PMNode) => boolean,
-	) {
+	): boolean {
 		if (!isValidUpdate) {
 			isValidUpdate = (currentNode, newNode) =>
 				this.getNodeMediaId(currentNode) === this.getNodeMediaId(newNode);

@@ -99,7 +99,7 @@ export const createFilterTransaction = (
 	recentTransactionsTimestamps: RecentTransactionTimestamps,
 	trackFilteredTransaction: TrackFilteredTransaction,
 ) => {
-	return (tr: Transaction) => {
+	return (tr: Transaction): boolean => {
 		if (Boolean(tr.getMeta('appendTransaction'))) {
 			return true;
 		}

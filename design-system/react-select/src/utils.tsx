@@ -123,7 +123,10 @@ export const getStyleProps = <
 		StylesProps<Option, IsMulti, Group>[Key],
 	name: Key,
 	classNamesState?: ClassNamesState,
-) => {
+): {
+	css: any;
+	className: string;
+} => {
 	const { cx, getStyles, getClassNames, className } = props;
 
 	return {

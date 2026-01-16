@@ -108,7 +108,7 @@ const ProductNavigation = () => (
 
 const LOCALSTORAGE_renderer_sidebar_key = 'fabric.editor.examples.renderer.sidebar';
 
-export const getDefaultShowSidebarState = (defaultValue = false) => {
+export const getDefaultShowSidebarState = (defaultValue = false): any => {
 	if (localStorage) {
 		const defaultState = localStorage.getItem(LOCALSTORAGE_renderer_sidebar_key);
 		if (defaultState) {
@@ -148,7 +148,7 @@ export default class Sidebar extends React.Component<SidebarProps, { showSidebar
 		}
 	}
 
-	render() {
+	render(): any {
 		if (typeof this.props.children !== 'function') {
 			return this.props.children;
 		}

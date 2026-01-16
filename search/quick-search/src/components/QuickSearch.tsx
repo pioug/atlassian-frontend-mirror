@@ -111,7 +111,16 @@ export type State = {
 };
 
 export class QuickSearch extends React.Component<Props, State> {
-	static defaultProps = {
+	static defaultProps: {
+		children: never[];
+		firePrivateAnalyticsEvent: (_: any) => void;
+		isLoading: boolean;
+		onSearchBlur: (_: any) => void;
+		onSearchKeyDown: (_: any) => void;
+		onSearchSubmit: (_: any) => void;
+		placeholder: string;
+		value: string;
+	} = {
 		children: [],
 		firePrivateAnalyticsEvent: (_: any): void => {},
 		isLoading: false,

@@ -353,7 +353,7 @@ export const calcJoinListScenario = (
 
 export const listBackspace =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-	(state: EditorState, dispatch?: CommandDispatch) => {
+	(state: EditorState, dispatch?: CommandDispatch): boolean => {
 		const {
 			tr,
 			selection: { $head },

@@ -1,5 +1,18 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.34.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.34.0
+
+### Minor Changes
+
+- [`dd764a0fde24c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd764a0fde24c) -
+  Add rule to enforce simple ADS forms.
+
 ## 13.33.0
 
 ### Minor Changes

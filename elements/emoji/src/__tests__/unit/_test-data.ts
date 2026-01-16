@@ -52,25 +52,25 @@ export { mediaEmoji, mediaEmojiId } from '@atlaskit/util-data-test/media-emoji';
 export { mediaServiceEmoji } from '@atlaskit/util-data-test/media-service-emoji';
 export { filterToSearchable } from '@atlaskit/util-data-test/filter-to-searchable';
 
-export const grinEmoji = getGrinEmoji();
-export const atlassianBoomEmoji = getAtlassianBoomEmoji();
-export const openMouthEmoji = getOpenMouthEmoji();
-export const smileyEmoji = getSmileyEmoji();
-export const thumbsdownEmoji = getThumbsDownEmoji();
-export const thumbsupEmoji = getThumbsUpEmoji();
-export const evilburnsEmoji = getEvilburnsEmoji();
-export const blackFlagEmoji = getBlackFlagEmoji();
-export const standardBoomEmoji = getStandardBoomEmoji();
+export const grinEmoji: any = getGrinEmoji();
+export const atlassianBoomEmoji: any = getAtlassianBoomEmoji();
+export const openMouthEmoji: any = getOpenMouthEmoji();
+export const smileyEmoji: any = getSmileyEmoji();
+export const thumbsdownEmoji: any = getThumbsDownEmoji();
+export const thumbsupEmoji: any = getThumbsUpEmoji();
+export const evilburnsEmoji: any = getEvilburnsEmoji();
+export const blackFlagEmoji: any = getBlackFlagEmoji();
+export const standardBoomEmoji: any = getStandardBoomEmoji();
 
 export const emojis = getTestEmojis();
-export const atlassianEmojis = getTestAtlassianEmojis().emojis;
-export const standardEmojis = getTestStandardEmojis().emojis;
+export const atlassianEmojis: any = getTestAtlassianEmojis().emojis;
+export const standardEmojis: any = getTestStandardEmojis().emojis;
 export const siteEmojis = getTestSiteEmojis().emojis;
 
 export const searchableEmojis = getTestSearchableEmojis();
 
-export const atlassianServiceEmojis = getTestAtlassianServiceEmojis();
-export const standardServiceEmojis = getTestStandardServiceEmojis();
+export const atlassianServiceEmojis: any = getTestAtlassianServiceEmojis();
+export const standardServiceEmojis: any = getTestStandardServiceEmojis();
 export const siteServiceEmojis = getTestSiteServiceEmojis;
 
 export const spriteEmoji = getTestSpriteEmoji();

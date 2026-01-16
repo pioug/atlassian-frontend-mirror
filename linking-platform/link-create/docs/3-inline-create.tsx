@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AtlassianInternalWarning, code, Example, md, Props } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}
 
   As an alternative to the default modal experience link create can also be used inline via the exported \`<InlineCreate />\` component.
@@ -47,3 +47,4 @@ export default md`
 		/>
 	)}
 `;
+export default _default_1;

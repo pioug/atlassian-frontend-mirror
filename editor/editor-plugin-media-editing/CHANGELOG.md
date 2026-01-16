@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-media-editing
 
+## 1.2.0
+
+### Minor Changes
+
+- [`f552961081787`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f552961081787) -
+  Removed the editing button from the toolbar for external media Introduced cropping for image
+  editing
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.1.1
 
 ### Patch Changes

@@ -61,7 +61,6 @@ snapshotInformational(LayersInMainShouldForceOpenLayers, {
 	...desktopOnlyOptions,
 	description: 'layers in main slot',
 	featureFlags: {
-		platform_dst_nav4_layering_in_main_slot_fixes: [true, false],
 		'platform-component-visual-refresh': true,
 	},
 });
@@ -70,7 +69,6 @@ snapshotInformational(LayersInMainShouldForceOpenLayers, {
 	...desktopOnlyOptions,
 	description: 'layers in main slot short viewport',
 	featureFlags: {
-		platform_dst_nav4_layering_in_main_slot_fixes: [true, false],
 		'platform-component-visual-refresh': true,
 	},
 	prepare: async (page) => {

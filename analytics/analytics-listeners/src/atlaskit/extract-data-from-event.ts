@@ -5,10 +5,10 @@
 import merge from 'lodash/merge';
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-export const extractFromEventContext = (propertyName: string, event: UIAnalyticsEvent) =>
+export const extractFromEventContext = (propertyName: string, event: UIAnalyticsEvent): any[] =>
 	event.context.map((contextItem: any) => contextItem[propertyName]).filter(Boolean);
 
-export const getActionSubject = (event: UIAnalyticsEvent) => {
+export const getActionSubject = (event: UIAnalyticsEvent): any => {
 	const overrides = extractFromEventContext('actionSubjectOverride', event);
 
 	const closestContext = event.context.length > 0 ? event.context[event.context.length - 1] : {};
@@ -18,18 +18,24 @@ export const getActionSubject = (event: UIAnalyticsEvent) => {
 	return overrides.length > 0 ? overrides[0] : actionSubject;
 };
 
-export const getSources = (event: UIAnalyticsEvent) => extractFromEventContext('source', event);
+export const getSources = (event: UIAnalyticsEvent): any[] =>
+	extractFromEventContext('source', event);
 
-export const getComponents = (event: UIAnalyticsEvent) =>
+export const getComponents = (event: UIAnalyticsEvent): any[] =>
 	extractFromEventContext('component', event);
 
-export const getExtraAttributes = (event: UIAnalyticsEvent) =>
+export const getExtraAttributes = (event: UIAnalyticsEvent): any =>
 	extractFromEventContext('attributes', event).reduce(
 		(result, extraAttributes) => merge(result, extraAttributes),
 		{},
 	);
 
-export const getPackageInfo = (event: UIAnalyticsEvent) =>
+export const getPackageInfo = (
+	event: UIAnalyticsEvent,
+): {
+	packageName: any;
+	packageVersion: any;
+}[] =>
 	event.context
 		.map((contextItem) => ({
 			packageName: contextItem.packageName,
@@ -37,7 +43,7 @@ export const getPackageInfo = (event: UIAnalyticsEvent) =>
 		}))
 		.filter((p) => p.packageName);
 
-export const getPackageVersion = (event: UIAnalyticsEvent) =>
+export const getPackageVersion = (event: UIAnalyticsEvent): any[] =>
 	extractFromEventContext('packageVersion', event);
 
 // This function scans the whole context and looks for context data that includes packageName at the root of the object.

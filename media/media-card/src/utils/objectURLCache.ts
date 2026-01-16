@@ -36,7 +36,7 @@ export class ObjectURLCache {
 		});
 	}
 
-	has(key: string) {
+	has(key: string): boolean {
 		return !!this.cache.find(key);
 	}
 

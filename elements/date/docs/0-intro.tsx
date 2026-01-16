@@ -11,7 +11,7 @@ const CustomFormatSource = require('!!raw-loader!../examples/02-custom-format');
 
 const DateProps = require('!!extract-react-types-loader!../src/components/Date');
 
-export default md`
+const _default_1: any = md`
 ${(<AtlassianInternalWarning />)}
 
 This component is the implementation of the Date element in React.
@@ -58,3 +58,4 @@ This component is the implementation of the Date element in React.
 		/>
 	)}
 `;
+export default _default_1;

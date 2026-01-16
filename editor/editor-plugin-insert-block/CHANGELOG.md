@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 8.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.2.2
 
 ### Patch Changes

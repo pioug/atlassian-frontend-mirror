@@ -110,7 +110,7 @@ export const handleCut = (newState: EditorState, oldState: EditorState) => {
 	}
 };
 
-export const panelContentCheck = (newState: EditorState, oldState: EditorState) => {
+export const panelContentCheck = (newState: EditorState, oldState: EditorState): boolean => {
 	// The following fuctions checks if *
 	//  a. old selection is a NodeSelection.
 	//  b. parent element a panel and does it have only one child

@@ -1,5 +1,5 @@
 // Based on https://en.wikipedia.org/wiki/List_of_archive_formats
-export const isArchive = (mimeType: string) =>
+export const isArchive = (mimeType: string): boolean =>
 	[
 		'application/x-archive',
 		'application/x-cpio',

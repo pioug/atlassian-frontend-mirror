@@ -1,5 +1,22 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 5.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.3.0
+
+### Minor Changes
+
+- [`4490bcc4595c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4490bcc4595c4) -
+  Render some smart links loading states in SSR to match Editor's renderer
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.2.1
 
 ### Patch Changes

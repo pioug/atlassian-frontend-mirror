@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AtlassianInternalWarning, code, Example, md, Props } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}
 
   The Link Create component is the driver component of meta creation flow. It allows users to create new links without having to leave their current context.
@@ -53,3 +53,4 @@ export default md`
 		/>
 	)}
 `;
+export default _default_1;

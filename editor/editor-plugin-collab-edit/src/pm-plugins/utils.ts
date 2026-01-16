@@ -259,7 +259,7 @@ const blockedAttrsList = [
  * @param tr Transaction
  * @returns boolean
  */
-export const isOrganicChange = (tr: ReadonlyTransaction) => {
+export const isOrganicChange = (tr: ReadonlyTransaction): boolean => {
 	// If document has not been marked as `docChanged` by PM, skip the rest of the logic
 	if (!tr.docChanged) {
 		return false;
@@ -301,7 +301,7 @@ export const isOrganicChange = (tr: ReadonlyTransaction) => {
 // it will be cut off due to the removal of the element. We'll persist the animation state in the plugin,
 // so we can keep the expanded version showing even when the telepointer element is recreated.
 export type NudgeAnimationsMap = Map<string, number>;
-export const hasExistingNudge = (sessionId: string, nudgeAnimations: NudgeAnimationsMap) => {
+export const hasExistingNudge = (sessionId: string, nudgeAnimations: NudgeAnimationsMap): boolean => {
 	const nudgeAnimStartTime = nudgeAnimations.get(sessionId);
 	let hasExistingNudge = false;
 	if (nudgeAnimStartTime) {

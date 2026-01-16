@@ -4,4 +4,4 @@ import { userPickerData } from '@atlaskit/util-data-test/user-picker-data';
 const map =
 	typeof jest !== 'undefined' ? (u: any) => ({ ...u, avatarUrl: undefined }) : (id: any) => id;
 
-export const options = userPickerData.map(map);
+export const options: any = userPickerData.map(map);

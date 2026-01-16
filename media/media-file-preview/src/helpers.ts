@@ -9,7 +9,7 @@ import { type MediaFilePreviewDimensions } from './types';
 export const isBigger = (
 	current?: MediaFilePreviewDimensions,
 	next?: MediaFilePreviewDimensions,
-) => {
+): boolean => {
 	const { width: currentWidth, height: currentHeight } = current || {};
 	const { width: nextWidth, height: nextHeight } = next || {};
 
@@ -25,7 +25,7 @@ export const isBigger = (
 export const isWider = (
 	current?: MediaFilePreviewDimensions,
 	next?: MediaFilePreviewDimensions,
-) => {
+): boolean => {
 	if (current === undefined && next !== undefined) {
 		return true;
 	}

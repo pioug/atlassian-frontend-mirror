@@ -165,4 +165,4 @@ const linkify = (state: any) => {
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default (md: any) => md.core.ruler.push('custom-linkify', linkify);
+export default (md: any): any => md.core.ruler.push('custom-linkify', linkify);

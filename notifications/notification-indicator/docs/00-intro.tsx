@@ -1,7 +1,7 @@
 import React from 'react';
 import { md, code, Example, Props, AtlassianInternalWarning } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}
 
   \`\`\`NotificationIndicator\`\`\` is a React component that wraps an existing @atlaskit/badge component with
@@ -30,3 +30,4 @@ export default md`
 		/>
 	)}
 `;
+export default _default_1;

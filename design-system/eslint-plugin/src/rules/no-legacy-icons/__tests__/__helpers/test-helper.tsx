@@ -430,7 +430,26 @@ const DefaultIcon = AddIcon;
 /**
  * ------------------- Old Button tests -------------------
  */
-export const oldButtonTests = [
+export const oldButtonTests: (
+	| {
+			name: string;
+			code: string;
+			output: string;
+			errors: any[];
+	  }
+	| {
+			name: string;
+			code: string;
+			errors: {
+				messageId: string;
+				suggestions: {
+					desc: string;
+					output: string;
+				}[];
+			}[];
+			output?: undefined;
+	  }
+)[] = [
 	{
 		name: 'Icon rendered in legacy buttons',
 		code: `
@@ -748,7 +767,34 @@ export const spreadPropsTests = [
 /**
  * ------------------- Size tests -------------------
  */
-export const sizeTests = [
+export const sizeTests: (
+	| {
+			name: string;
+			code: string;
+			errors: {
+				messageId: string;
+			}[];
+			output?: undefined;
+	  }
+	| {
+			name: string;
+			code: string;
+			output: string;
+			errors: any[];
+	  }
+	| {
+			name: string;
+			code: string;
+			errors: {
+				messageId: string;
+				suggestions: {
+					desc: string;
+					output: string;
+				}[];
+			}[];
+			output?: undefined;
+	  }
+)[] = [
 	{
 		name: 'Size on icon is not deterministic - function call',
 		code: `
@@ -991,7 +1037,22 @@ import AddIcon from '@atlaskit/icon/glyph/add';
 /**
  * ------------------- Color tests -------------------
  */
-export const colorTests = [
+export const colorTests: (
+	| {
+			name: string;
+			code: string;
+			output: string;
+			errors: any[];
+	  }
+	| {
+			name: string;
+			code: string;
+			errors: {
+				messageId: string;
+			}[];
+			output?: undefined;
+	  }
+)[] = [
 	{
 		name: 'Color on icon is supported',
 		code: `

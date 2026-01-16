@@ -1,6 +1,6 @@
 import { md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 # Focus ring
 
 A focus ring is used to visually indicate the currently focused item.
@@ -9,3 +9,4 @@ A focus ring is used to visually indicate the currently focused item.
 
 \`import FocusRing from '@atlaskit/focus-ring';\`
 `;
+export default _default_1;

@@ -1,5 +1,19 @@
 # @atlaskit/user-picker
 
+## 11.20.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.20.2
+
+### Patch Changes
+
+- [`fd3c847f4f947`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd3c847f4f947) -
+  Adding a VR test for when includeTeamsUpdates is true, checking for verified lozenge in
+  SingleValue and MultiValue
+
 ## 11.20.1
 
 ### Patch Changes

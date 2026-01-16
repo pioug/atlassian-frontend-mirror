@@ -82,7 +82,7 @@ jest.mock('../../artifacts/tokens-raw/atlassian-shape', () => ({
 	default: [{ value: '2px', cleanName: 'radius.xsmall' }],
 }));
 
-jest.mock('../../artifacts/tokens-raw/atlassian-typography-adg3', () => ({
+jest.mock('../../artifacts/tokens-raw/atlassian-typography', () => ({
 	__esModule: true,
 	default: [
 		{

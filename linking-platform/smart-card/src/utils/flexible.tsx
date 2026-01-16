@@ -18,7 +18,7 @@ export const isFlexibleUiCard = (children?: React.ReactNode, ui?: FlexibleUiOpti
 
 export const isStyleCacheProvider = (
 	node: React.ReactPortal | React.ReactElement<unknown, string | React.JSXElementConstructor<any>>,
-) => {
+): boolean => {
 	if (
 		typeof node.type !== 'string' &&
 		node.type?.name === 'StyleCacheProvider' &&

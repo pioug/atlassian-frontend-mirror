@@ -11,9 +11,6 @@ snapshotInformational(PopupSelectExample, {
 			device: Device.DESKTOP_CHROME,
 		},
 	],
-	featureFlags: {
-		platform_dst_nav4_layering_in_main_slot_fixes: [true, false],
-	},
 	async prepare(page) {
 		await page.getByRole('button', { name: 'switcher' }).click();
 	},
@@ -28,9 +25,6 @@ snapshotInformational(PopupSelectExample, {
 			device: Device.DESKTOP_CHROME,
 		},
 	],
-	featureFlags: {
-		platform_dst_nav4_layering_in_main_slot_fixes: [true, false],
-	},
 	async prepare(page) {
 		await page.getByRole('button', { name: 'Target3' }).click();
 	},

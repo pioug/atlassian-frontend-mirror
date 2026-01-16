@@ -22,7 +22,7 @@ export const shouldChangeAlignmentToCenterResized = (
 	tableNode: PmNode,
 	lineLength: number | undefined,
 	updatedTableWidth: number,
-) =>
+): boolean =>
 	Boolean(
 		isTableAlignmentEnabled &&
 			tableNode &&

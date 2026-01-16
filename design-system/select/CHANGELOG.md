@@ -1,5 +1,19 @@
 # @atlaskit/select
 
+## 21.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.7.0
+
+### Minor Changes
+
+- [`2ff0f3751e4e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2ff0f3751e4e4) -
+  Clean up the `platform_dst_nav4_layering_in_main_slot_fixes` feature gate. This change was
+  abandoned because it broke usage of fixed positioning in apps.
+
 ## 21.6.4
 
 ### Patch Changes

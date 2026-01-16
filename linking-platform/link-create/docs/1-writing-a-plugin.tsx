@@ -2,7 +2,7 @@ import React from 'react';
 
 import { code, Example, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   # Writing a Link Create Plugin
 
   ## What is a Plugin
@@ -243,3 +243,4 @@ ${(
   - exit-warning when a user attempts to cancel the creation flow with present changes
   - [post-create edit workflow](./post-create-edit) that allows users to edit the newly created object after they have created it
 `;
+export default _default_1;

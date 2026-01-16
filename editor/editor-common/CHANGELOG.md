@@ -1,5 +1,22 @@
 # @atlaskit/editor-common
 
+## 111.8.4
+
+### Patch Changes
+
+- [`7b1f7ff1a2235`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b1f7ff1a2235) -
+  [ux] [EDITOR-4536] Update synced location dropdown UI
+- Updated dependencies
+
+## 111.8.3
+
+### Patch Changes
+
+- [`ef0c088fb17f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef0c088fb17f6) -
+  [ux] Fix the flickering extensions icon issue in the table's floating toolbar `View more` dropdown
+  options.
+- Updated dependencies
+
 ## 111.8.2
 
 ### Patch Changes

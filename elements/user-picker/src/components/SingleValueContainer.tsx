@@ -64,8 +64,7 @@ export class SingleValueContainer extends React.Component<ValueContainerProps<Op
 						type={placeholderAvatar}
 						src={userData.avatarUrl}
 						avatarAppearanceShape={
-							userData &&
-							fg('jira_ai_agent_avatar_user_picker_user_option')
+							userData && fg('jira_ai_agent_avatar_user_picker_user_option')
 								? getAppearanceForAppType(userData.appType)
 								: undefined
 						}
@@ -79,8 +78,7 @@ export class SingleValueContainer extends React.Component<ValueContainerProps<Op
 					type={placeholderAvatar}
 					src={userData?.avatarUrl}
 					avatarAppearanceShape={
-						userData &&
-						fg('jira_ai_agent_avatar_user_picker_user_option')
+						userData && fg('jira_ai_agent_avatar_user_picker_user_option')
 							? getAppearanceForAppType(userData.appType)
 							: undefined
 					}
@@ -91,7 +89,7 @@ export class SingleValueContainer extends React.Component<ValueContainerProps<Op
 	};
 
 	//@ts-ignore react-select unsupported props
-	onValueContainerClick = this.props.selectProps.onValueContainerClick;
+	onValueContainerClick: any = this.props.selectProps.onValueContainerClick;
 
 	Wrapper = ({ children }: { children: React.ReactElement }) => {
 		return this.onValueContainerClick ? (

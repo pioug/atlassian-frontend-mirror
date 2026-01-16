@@ -8,12 +8,12 @@ import { Box, xcss } from '@atlaskit/primitives';
 
 const warnStyles = xcss({ marginTop: 'space.100' });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export default md`
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const _default_1: any = md`
 
   ${createEditorUseOnlyNotice('Editor Plugin Border', [
-		{ name: 'Editor Core', link: '/packages/editor/editor-core' },
-	])}
+	{ name: 'Editor Core', link: '/packages/editor/editor-core' },
+])}
 
   ${(
 		<Box xcss={warnStyles}>
@@ -42,3 +42,6 @@ For internal Atlassian, visit the slack channel [#help-editor](https://atlassian
 ---
  Please see [Atlassian Frontend - License](https://hello.atlassian.net/wiki/spaces/AF/pages/2589099144/Documentation#Platform-License) for more licensing information.
 `;
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export default _default_1;

@@ -375,7 +375,8 @@ export const extractMediaNodes = (doc: ProseMirrorNode) => {
 	return mediaNodes;
 };
 
-export const createMediaIdentifierArray = (mediaNodes: ProseMirrorNode[]) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const createMediaIdentifierArray = (mediaNodes: ProseMirrorNode[]): any[] => {
 	const mediaIdentifierMap = new Map();
 
 	mediaNodes.forEach((item) => {

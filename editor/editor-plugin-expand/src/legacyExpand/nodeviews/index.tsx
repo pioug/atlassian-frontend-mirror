@@ -661,7 +661,7 @@ export class ExpandNodeView implements NodeView {
 		return contentEditable;
 	};
 
-	stopEvent(event: Event) {
+	stopEvent(event: Event): boolean {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		const target = event.target as HTMLElement;
@@ -672,7 +672,7 @@ export class ExpandNodeView implements NodeView {
 		);
 	}
 
-	ignoreMutation(mutationRecord: MutationRecord | { target: Node; type: 'selection' }) {
+	ignoreMutation(mutationRecord: MutationRecord | { target: Node; type: 'selection' }): boolean {
 		// ME-1931: Mobile relies on composition which creates dom mutations. If we ignore them, prosemirror
 		// does not recognise the changes and reverts them.
 		if (
@@ -688,7 +688,7 @@ export class ExpandNodeView implements NodeView {
 		return true;
 	}
 
-	update(node: PmNode, _decorations: readonly Decoration[]) {
+	update(node: PmNode, _decorations: readonly Decoration[]): boolean {
 		if (this.node.type === node.type) {
 			if (this.node.attrs.__expanded !== node.attrs.__expanded) {
 				// Instead of re-rendering the view on an expand toggle

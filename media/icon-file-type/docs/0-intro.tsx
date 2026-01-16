@@ -4,7 +4,7 @@ import { DocsContentTabs } from '@atlaskit/media-test-helpers';
 import UsageTab from './content/usage';
 import PropsDefinitionTab from './content/props-definition';
 
-export default md`
+const _default_1: any = md`
 ### Description
 This package provides the collections of icons for the different types of content used across Atlassian products.
 
@@ -17,3 +17,4 @@ This package provides the collections of icons for the different types of conten
 		/>
 	)}
 `;
+export default _default_1;

@@ -262,7 +262,7 @@ type Props = {
 };
 export const createEditSelectedExtensionAction =
 	({ editorViewRef, editorAnalyticsAPI, applyChangeToContextPanel }: Props) =>
-	() => {
+	(): boolean => {
 		const { current: view } = editorViewRef;
 		if (!view) {
 			return false;

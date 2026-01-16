@@ -33,7 +33,7 @@ const SAMPLE_RATE = 0.05;
  * Determines if performance events should be sampled for this instance.
  * Approximately 5% of instances will be sampled.
  */
-export const shouldPerformanceBeSampled = () => Math.random() < SAMPLE_RATE;
+export const shouldPerformanceBeSampled = (): boolean => Math.random() < SAMPLE_RATE;
 
 /**
  * Gets the UFO interaction start time.

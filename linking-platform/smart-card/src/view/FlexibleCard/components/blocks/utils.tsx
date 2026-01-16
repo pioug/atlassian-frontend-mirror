@@ -78,7 +78,7 @@ const isElementDisplayValid = (name: ElementName, display: ElementDisplaySchemaT
 	return ElementDisplaySchema[name]?.includes(display) ?? false;
 };
 
-export const isJSXElementNull = (children: JSX.Element) => {
+export const isJSXElementNull = (children: JSX.Element): boolean => {
 	return Boolean(children.type() === null);
 };
 

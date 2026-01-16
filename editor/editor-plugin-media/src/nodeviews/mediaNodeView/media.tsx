@@ -81,7 +81,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 		this.mediaPluginState = mediaStateKey.getState(view.state);
 	}
 
-	shouldComponentUpdate(nextProps: MediaNodeProps, nextState: MediaNodeState) {
+	shouldComponentUpdate(nextProps: MediaNodeProps, nextState: MediaNodeState): boolean {
 		const hasNewViewMediaClientConfig =
 			!this.state.viewMediaClientConfig && nextState.viewMediaClientConfig;
 

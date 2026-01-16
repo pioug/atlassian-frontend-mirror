@@ -9,7 +9,7 @@ const LinkComponent = (props: any) =>
 	// eslint-disable-next-line @atlaskit/design-system/no-html-anchor, @atlassian/a11y/anchor-has-content
 	fg('dst-a11y__replace-anchor-with-link__editor-collabo') ? <Link {...props} /> : <a {...props} />;
 
-export default md`
+const _default_1: any = md`
 
   The ReactionsStore is one of the key interfaces that encapsulates all logic needed to maintain internal state of the reaction elements (get latest state and onChange callback events), including different types of Actions required to perform on the store (getReactions, toggleReaction on/off, adding a new reaciton, getting detailed reaction upon hovering the emoji icon).
   It serves as one of the key props passed to the connected HoC used in Reactions: (\`ConnectedReactionPicker\` and \`ConnectedReactions\`).
@@ -75,3 +75,4 @@ export default md`
 		/>
 	)}
 `;
+export default _default_1;

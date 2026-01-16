@@ -1,7 +1,7 @@
 import React from 'react';
 import { md, Example, code } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   ${(
 		<Example
 			Component={require('../../examples/0-basic-example').default}
@@ -21,3 +21,4 @@ export default md`
   }
   `}
 `;
+export default _default_1;

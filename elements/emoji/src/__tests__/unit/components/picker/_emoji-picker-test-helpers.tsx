@@ -49,7 +49,7 @@ export const leftClick = {
 	button: 0,
 };
 
-export const allEmojis = newEmojiRepository().all().emojis;
+export const allEmojis: any = newEmojiRepository().all().emojis;
 
 export const findEmoji = (list: HTMLElement) =>
 	within(list).getAllByRole('button', {
@@ -70,7 +70,7 @@ const findCategoryHeading = (category: CategoryGroupKey) =>
 		name: category.charAt(0) + category.slice(1).toLowerCase(),
 	});
 
-export const categoryVisible = (category: CategoryGroupKey) =>
+export const categoryVisible = (category: CategoryGroupKey): boolean =>
 	findCategoryHeading(category).length > 0;
 
 export const findEmojiInCategory = (

@@ -69,7 +69,7 @@ export {
 
 // utils
 export { resolveSyncBlockInstance } from './utils/resolveSyncBlockInstance';
-export { parseResourceId } from './utils/parseResourceId';
+export { parseResourceId, createResourceIdForReference } from './utils/resourceId';
 export {
 	createSyncBlockNode,
 	convertSyncBlockPMNodeToSyncBlockData,

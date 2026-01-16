@@ -1,6 +1,10 @@
 import type { DocNode } from '@atlaskit/adf-schema';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
+import type {
+	ExtensionHandlers,
+	ExtensionParams,
+	Parameters,
+} from '@atlaskit/editor-common/extensions';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { AnnotationProviders } from '@atlaskit/editor-common/types';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
@@ -160,6 +164,12 @@ export interface RendererProps {
 	portal?: HTMLElement;
 	rendererContext?: RendererContext;
 	schema?: Schema;
+	/**
+	 * Determines if the extension should be displayed as inline based on the extension parameters.
+	 * @param extensionParams - The extension parameters.
+	 * @returns True if the extension should be displayed as inline, false otherwise.
+	 */
+	shouldDisplayExtensionAsInline?: (extensionParams: ExtensionParams<Parameters>) => boolean;
 	shouldOpenMediaViewer?: boolean;
 	// Removes the empty space, lines, hard breaks above and below the comment content
 	shouldRemoveEmptySpaceAroundContent?: boolean;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import type { IntlShape } from 'react-intl-next';
 import Loadable from 'react-loadable';
@@ -6,6 +6,7 @@ import Loadable from 'react-loadable';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type {
 	ExtensionAPI,
@@ -61,9 +62,11 @@ const convertExtensionToDropdownMenuItem = ({
 	disabled,
 	node,
 	extension,
+	IconComponent,
 }: {
 	disabled?: (key: string) => boolean;
 	extension: ExtensionProps;
+	IconComponent?: React.ComponentType<{ label: string }>;
 	item: ExtensionToolbarButton;
 	node: PMNode;
 }): DropdownOptionT<Function> => {
@@ -87,9 +90,17 @@ const convertExtensionToDropdownMenuItem = ({
 
 	item.disabled = disabled?.(item.key) || false;
 
+	const getIcon = () => {
+		const label = item.label || '';
+		if (expValEquals('platform_editor_table_toolbar_icon_ext_fix_exp', 'isEnabled', true)) {
+			return IconComponent ? <IconComponent label={label} /> : undefined;
+		}
+		return ButtonIcon ? <ButtonIcon label={label} /> : undefined;
+	};
+
 	return {
 		title,
-		icon: ButtonIcon ? <ButtonIcon label={item.label || ''} /> : undefined,
+		icon: getIcon(),
 		disabled: item.disabled,
 		onClick: () => {
 			if (typeof item.action !== 'function') {
@@ -119,11 +130,29 @@ const DropdownMenuExtensionItem = ({
 	item: ExtensionToolbarButton;
 	node: PMNode;
 }) => {
+	// Use ref to keep icon component stable across renders
+	const iconRef = useRef<React.ComponentType<{ label: string }> | null>(null);
+	if (
+		!iconRef.current &&
+		item.icon &&
+		expValEquals('platform_editor_table_toolbar_icon_ext_fix_exp', 'isEnabled', true)
+	) {
+		iconRef.current = Loadable<{ label: string }, never>({
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-await
+			loader: async () => resolveExtensionIcon(item.icon),
+			loading: noop,
+		});
+	}
+
 	const dropdownItem = convertExtensionToDropdownMenuItem({
 		item,
 		disabled,
 		node,
 		extension,
+		...(expValEquals('platform_editor_table_toolbar_icon_ext_fix_exp', 'isEnabled', true)
+			? { IconComponent: iconRef.current ?? undefined }
+			: {}),
 	});
 
 	if (!dropdownItem) {

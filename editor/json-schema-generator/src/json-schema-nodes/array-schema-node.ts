@@ -34,7 +34,8 @@ export default class ArraySchemaNode extends SchemaNodeWithValidators<ArrayValid
 		return this.mergeValidationInfo(['minItems', 'maxItems'], obj);
 	}
 
-	toSpec() {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	toSpec(): any {
 		const items = this.items.map((item) => item.toSpec());
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any

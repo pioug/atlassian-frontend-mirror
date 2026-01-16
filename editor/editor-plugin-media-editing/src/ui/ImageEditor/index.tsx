@@ -21,7 +21,7 @@ interface ImageEditModalProps {
 	imageUrl?: string;
 	isOpen: boolean;
 	onClose: () => void;
-	onSave: (imageData: Blob) => void;
+	onSave: (imageData: Blob, width: number, height: number) => void;
 }
 
 const imageWrapper = css({
@@ -62,11 +62,13 @@ export const ImageEditor = ({
 	const handleSave = async () => {
 		try {
 			// Hard coded width to keep image quality high
-			const canvas = await cropperRef.current?.getCroppedCanvas({ width: 2000 });
+			const canvas = await cropperRef.current?.getCroppedCanvas({ width: 1500 });
 			if (canvas) {
+				const outWidth = canvas.width;
+				const outHeight = canvas.height;
 				canvas.toBlob((blob) => {
 					if (blob) {
-						onSave?.(blob);
+						onSave?.(blob, outWidth, outHeight);
 						onClose();
 					}
 				});

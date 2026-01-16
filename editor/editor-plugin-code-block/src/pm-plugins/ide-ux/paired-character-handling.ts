@@ -10,13 +10,13 @@ const PAIRED_CHARACTER_MAP = {
 	...QUOTE_MAP,
 };
 
-export const isCursorBeforeClosingCharacter = (after: string) => {
+export const isCursorBeforeClosingCharacter = (after: string): boolean => {
 	return (Object.keys(PAIRED_CHARACTER_MAP) as Array<PairedCharacterMapKey>).some((leftCharacter) =>
 		after.startsWith(PAIRED_CHARACTER_MAP[leftCharacter]),
 	);
 };
 
-export const isClosingCharacter = (text: string) => {
+export const isClosingCharacter = (text: string): boolean => {
 	return (Object.keys(PAIRED_CHARACTER_MAP) as Array<PairedCharacterMapKey>).some(
 		(leftCharacter) => text === PAIRED_CHARACTER_MAP[leftCharacter],
 	);

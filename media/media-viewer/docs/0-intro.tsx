@@ -4,7 +4,7 @@ import props from './content/props';
 import example from './content/example';
 import { DocsContentTabs } from '@atlaskit/media-test-helpers';
 
-export default md`
+const _default_1: any = md`
 ${(<AtlassianInternalWarning />)}
 
 MediaViewer is Atlassian's powerful solution for viewing files on the web. It's both powerful and extendable yet easy-to-integrate
@@ -18,3 +18,4 @@ MediaViewer is Atlassian's powerful solution for viewing files on the web. It's 
 		/>
 	)}
   `;
+export default _default_1;

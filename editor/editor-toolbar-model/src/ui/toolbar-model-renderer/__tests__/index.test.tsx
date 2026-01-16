@@ -2,8 +2,6 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import type {
 	RegisterToolbar,
 	RegisterToolbarSection,
@@ -218,7 +216,7 @@ const createDefaultFallbacks = (): ToolbarProps['fallbacks'] => ({
 	),
 });
 
-ffTest.both('platform_editor_toolbar_aifc_renderer_rewrite', 'ToolbarModeRenderer', () => {
+describe('ToolbarModeRenderer', () => {
 	it('should render toolbar component correctly', async () => {
 		const toolbar = createTestToolbar();
 		const components = createTestComponents();

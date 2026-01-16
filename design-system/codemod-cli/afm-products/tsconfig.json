@@ -1,5 +1,5 @@
 {
-	"extends": "../../../../tsconfig.entry-points.products.json",
+	"extends": "../../../../tsconfig.local-consumption.json",
 	"compilerOptions": {
 		"declaration": true,
 		"outDir": "../../../../../tsDist/@atlaskit__codemod-cli/app",

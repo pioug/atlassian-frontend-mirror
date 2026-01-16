@@ -2,7 +2,7 @@ import React from 'react';
 
 import { code, Example, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   Use \`LocaleProvider\` to format dates and times, get days of the week/months
   of the year, and parse dates. Under the hood it uses the browser built in
   \`Intl.DateTimeFormat\` API.
@@ -48,3 +48,4 @@ localizationProvider.getLongMonths();
 		/>
 	)}
 `;
+export default _default_1;

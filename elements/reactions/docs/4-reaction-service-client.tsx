@@ -1,7 +1,7 @@
 import React from 'react';
 import { md, code, Props } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 
   The ReactionServiceClient class is another key element used in the Reactions memory state management. It wraps all API calls to the pf-reactions-service required for communicating with the remote API.
 
@@ -40,3 +40,4 @@ export default md`
 		/>
 	)}
 `;
+export default _default_1;

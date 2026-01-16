@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { useIntl, injectIntl } from 'react-intl-next';
 
+import { getDocument } from '@atlaskit/browser-apis';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -20,6 +21,7 @@ import type { BlockMenuPlugin } from '../blockMenuPluginType';
 
 import { useBlockMenu } from './block-menu-provider';
 import { BLOCK_MENU_ITEM_NAME } from './consts';
+import { fixBlockMenuPositionAndScroll } from './utils/fixBlockMenuPositionAndScroll';
 
 type Props = {
 	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined;
@@ -27,7 +29,7 @@ type Props = {
 
 const MoveUpDropdownItemContent = ({ api }: Props & WrappedComponentProps) => {
 	const { formatMessage } = useIntl();
-	const { moveUpRef, moveDownRef } = useBlockMenu();
+	const { moveUpRef, moveDownRef, getFirstSelectedDomNode } = useBlockMenu();
 	const { canMoveUp } = useSharedPluginStateWithSelector(
 		api,
 		['blockControls'],
@@ -39,10 +41,12 @@ const MoveUpDropdownItemContent = ({ api }: Props & WrappedComponentProps) => {
 	);
 
 	useEffect(() => {
+		const doc = getDocument();
 		if (
 			!canMoveUp &&
 			moveUpRef.current &&
-			moveUpRef.current === document.activeElement &&
+			doc &&
+			moveUpRef.current === doc.activeElement &&
 			moveDownRef.current
 		) {
 			moveDownRef.current.focus();
@@ -63,6 +67,11 @@ const MoveUpDropdownItemContent = ({ api }: Props & WrappedComponentProps) => {
 
 			api?.blockControls?.commands?.moveNodeWithBlockMenu(DIRECTION.UP)({ tr });
 			return tr;
+		});
+
+		requestAnimationFrame(() => {
+			const newFirstNode = getFirstSelectedDomNode();
+			fixBlockMenuPositionAndScroll(newFirstNode);
 		});
 	};
 	return (

@@ -7,17 +7,17 @@ export function hasAnyOfMarks(node: PMNode, types: string[]): boolean {
 	return node.marks.findIndex((m) => types.findIndex((t) => m.type.name === t) !== -1) !== -1;
 }
 
-export function isDigit(value: string) {
+export function isDigit(value: string): boolean {
 	// Ignored via go/ees005
 	// eslint-disable-next-line require-unicode-regexp
 	return !!value.match(/^\d$/);
 }
 
-export function isBlank(value: string | null) {
+export function isBlank(value: string | null): boolean {
 	return value === null || value.trim() === '';
 }
 
-export function isNotBlank(value: string | null) {
+export function isNotBlank(value: string | null): boolean {
 	return !isBlank(value);
 }
 

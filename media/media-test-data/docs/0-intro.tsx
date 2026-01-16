@@ -1,6 +1,6 @@
 import { code, md } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   Sample data to be used in Media tests
 
   ## Data for Media Api Mocks
@@ -40,3 +40,4 @@ export function MyExample = () => {
 }
 `}
 `;
+export default _default_1;

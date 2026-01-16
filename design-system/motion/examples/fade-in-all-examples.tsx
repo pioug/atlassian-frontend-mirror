@@ -14,7 +14,7 @@ import { token } from '@atlaskit/tokens';
 
 import { Block, Centered, RetryContainer } from './utils';
 
-export default () => md`
+export default (): any => md`
   ## Single element
 
   ${(

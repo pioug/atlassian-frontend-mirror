@@ -42,6 +42,7 @@ import TableRowDeleteIcon from '@atlaskit/icon/core/table-row-delete';
 import TableRowMoveDownIcon from '@atlaskit/icon/core/table-row-move-down';
 import TableRowMoveUpIcon from '@atlaskit/icon/core/table-row-move-up';
 import type { NewIconProps, IconProps } from '@atlaskit/icon/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { DraggableData, DraggableType, PluginInjectionAPI, TableDirection } from '../../types';
 import { getClosestSelectionRect } from '../../ui/toolbar';
@@ -74,7 +75,7 @@ export const canMove = (
 	totalItemsOfSourceTypeCount: number,
 	selection: Selection,
 	selectionRect?: Rect,
-) => {
+): boolean => {
 	if (!selectionRect) {
 		return false;
 	}
@@ -161,6 +162,7 @@ export const getDragMenuConfig = (
 		ariaLiveElementAttributes?: AriaLiveElementAttributes,
 	) => void,
 	isCommentEditor = false,
+	isColumnSortingEnabled = true,
 ): DragMenuConfig[] => {
 	const { selection } = editorView.state;
 	const { getIntl } = getTablePluginState(editorView.state);
@@ -369,7 +371,7 @@ export const getDragMenuConfig = (
 			title: `Move ${direction} ${label}`,
 			disabled: !canMove,
 			icon: icon,
-			onClick: (state: EditorState, dispatch?: CommandDispatch) => {
+			onClick: (_state: EditorState, _dispatch?: CommandDispatch) => {
 				if (canMove) {
 					requestAnimationFrame(() => {
 						moveSourceWithAnalytics(editorAnalyticsAPI, ariaNotifyPlugin, getIntl)(
@@ -392,7 +394,13 @@ export const getDragMenuConfig = (
 	];
 
 	const allConfigs = [...restConfigs];
-	allConfigs.unshift(...sortConfigs);
+
+	if (
+		(isColumnSortingEnabled && fg('platform_editor_enable_table_dnd')) ||
+		!fg('platform_editor_enable_table_dnd')
+	) {
+		allConfigs.unshift(...sortConfigs);
+	}
 
 	return allConfigs.filter(Boolean) as DragMenuConfig[];
 };

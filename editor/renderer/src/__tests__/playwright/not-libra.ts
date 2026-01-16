@@ -9,7 +9,14 @@ import type { GasPurePayload } from '@atlaskit/analytics-gas-types';
 class AnnotationModel {
 	private constructor(private page: Page) {}
 
-	public async simulateAnnotationAtSelection(annotationId: string) {
+	public async simulateAnnotationAtSelection(annotationId: string): Promise<
+		| false
+		| {
+				doc: any;
+				step: any;
+		  }
+		| undefined
+	> {
 		const result = await this.page.evaluate(
 			({ annotationId }: { annotationId: string }) => {
 				const annotationType: string = 'inlineComment';

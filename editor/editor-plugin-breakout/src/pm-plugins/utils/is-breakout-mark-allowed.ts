@@ -9,7 +9,7 @@ import { findSupportedNodeForBreakout } from './find-breakout-node';
  * Currently breakout of a node is not possible if it's nested in anything but the document, however
  * this logic supports this changing.
  */
-export function isBreakoutMarkAllowed(state: EditorState) {
+export function isBreakoutMarkAllowed(state: EditorState): boolean {
 	if (!state.schema.marks.breakout) {
 		return false;
 	}

@@ -60,10 +60,15 @@ const colorVisualRefresh = {
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const getButtonStyles = (props: any) => ({
-	background: getStyles(
-		backgroundVisualRefresh,
-		props,
-	),
+export const getButtonStyles = (
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	props: any,
+): {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	background: any;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	color: any;
+} => ({
+	background: getStyles(backgroundVisualRefresh, props),
 	color: getStyles(colorVisualRefresh, props),
 });

@@ -68,7 +68,7 @@ describe('Element: Badge', () => {
 
 			expect(text).toHaveCompiledCss(
 				'font',
-				'var(--ds-font-body-small,normal 400 11px/1pc ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
+				'var(--ds-font-body-small,normal 400 9pt/1pc "Atlassian Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
 			);
 		});
 	});

@@ -2,7 +2,23 @@ export const buildAdfTrailingSpaces = ({
 	node,
 }: {
 	node: { attrs: { [key: string]: any }; type: string };
-}) => {
+}): {
+	content: {
+		content: (
+			| {
+					attrs: { [key: string]: any };
+					type: string;
+			  }
+			| {
+					text: string;
+					type: string;
+			  }
+		)[];
+		type: string;
+	}[];
+	type: string;
+	version: number;
+} => {
 	return {
 		version: 1,
 		type: 'doc',
@@ -35,7 +51,17 @@ export const buildAdfNoTrailingSpaces = ({
 	node,
 }: {
 	node: { attrs: { [key: string]: any }; type: string };
-}) => {
+}): {
+	content: {
+		content: {
+			attrs: { [key: string]: any };
+			type: string;
+		}[];
+		type: string;
+	}[];
+	type: string;
+	version: number;
+} => {
 	return {
 		version: 1,
 		type: 'doc',
@@ -52,7 +78,17 @@ export const buildAdfMultipleNodesAcrossLines = ({
 	node,
 }: {
 	node: { attrs: { [key: string]: any }; type: string };
-}) => {
+}): {
+	content: {
+		content: {
+			attrs: { [key: string]: any };
+			type: string;
+		}[];
+		type: string;
+	}[];
+	type: string;
+	version: number;
+} => {
 	return {
 		version: 1,
 		type: 'doc',
@@ -85,7 +121,34 @@ export const buildAdfMultiline = ({
 	node,
 }: {
 	node: { attrs: { [key: string]: any }; type: string };
-}) => {
+}): {
+	content: {
+		attrs: {
+			isNumberColumnEnabled: boolean;
+			layout: string;
+			localId: string;
+		};
+		content: {
+			content: {
+				attrs: {
+					colwidth: number[];
+				};
+				content: {
+					content: {
+						attrs: { [key: string]: any };
+						type: string;
+					}[];
+					type: string;
+				}[];
+				type: string;
+			}[];
+			type: string;
+		}[];
+		type: string;
+	}[];
+	type: string;
+	version: number;
+} => {
 	return {
 		version: 1,
 		type: 'doc',

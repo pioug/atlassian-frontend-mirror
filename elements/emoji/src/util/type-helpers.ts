@@ -33,13 +33,13 @@ export const isEmojiDescription = (
 ): possibleEmojiDescription is EmojiDescription =>
 	possibleEmojiDescription && possibleEmojiDescription.shortName && possibleEmojiDescription.type;
 
-export const isMediaEmoji = (emoji: EmojiDescription) =>
+export const isMediaEmoji = (emoji: EmojiDescription): boolean =>
 	isMediaRepresentation(emoji.representation);
 
-export const hasDataURLImage = (rep: EmojiRepresentation) =>
+export const hasDataURLImage = (rep: EmojiRepresentation): boolean =>
 	isImageRepresentation(rep) && rep.imagePath.indexOf(dataURLPrefix) === 0;
 
-export const isLoadedMediaEmoji = (emoji: EmojiDescription) =>
+export const isLoadedMediaEmoji = (emoji: EmojiDescription): boolean =>
 	emoji.category === customCategory && hasDataURLImage(emoji.representation);
 
 export const isEmojiDescriptionWithVariations = (
@@ -69,7 +69,7 @@ export const toOptionalEmojiId = (emoji: OptionalEmojiDescription): EmojiId | un
 export const isEmojiIdEqual = (l?: EmojiId, r?: EmojiId) =>
 	l === r || (l && r && l.id === r.id && l.shortName === r.shortName);
 
-export const containsEmojiId = (emojis: EmojiDescription[], emojiId: EmojiId | undefined) => {
+export const containsEmojiId = (emojis: EmojiDescription[], emojiId: EmojiId | undefined): boolean => {
 	if (!emojiId) {
 		return false;
 	}

@@ -42,7 +42,8 @@ export default class ObjectSchemaNode extends SchemaNodeWithValidators<ObjectVal
 		}, obj);
 	}
 
-	toSpec() {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	toSpec(): any {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const spec = Object.keys(this.properties).reduce((obj: any, key: string) => {

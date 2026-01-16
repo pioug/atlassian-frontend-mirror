@@ -13,7 +13,7 @@ type Props2 = {
 	getPos: () => number | undefined;
 	isContentNodeEmpty: boolean;
 };
-export const useShowPlaceholder = ({ editorView, api, isContentNodeEmpty, getPos }: Props2) => {
+export const useShowPlaceholder = ({ editorView, api, isContentNodeEmpty, getPos }: Props2): boolean => {
 	const { typeAheadState } = useSharedPluginState(api, ['typeAhead']);
 	const isTypeAheadOpen = Boolean(typeAheadState?.isOpen);
 	const isTypeAheadOpenedInsideItem = useMemo(() => {

@@ -23,11 +23,18 @@ function WrapperEditorComponent(props: EditorProps) {
 	);
 }
 
-export default {
+const _default_1: {
+	component: typeof Editor;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	decorators: ((...args: any) => any)[];
+	title: string;
+} = {
 	title: 'Editor',
 	component: Editor,
 	decorators: [withKnobs],
 };
+export default _default_1;
 
 const groupId = 'GROUP-ID1';
 const Template = (args: EditorProps): React.JSX.Element => (

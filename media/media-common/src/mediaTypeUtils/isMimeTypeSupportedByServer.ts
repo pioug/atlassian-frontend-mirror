@@ -1,5 +1,5 @@
 // Based on https://developer.atlassian.com/platform/media/learning/file-previews/
-export const isImageMimeTypeSupportedByServer = (mimeType: string) =>
+export const isImageMimeTypeSupportedByServer = (mimeType: string): boolean =>
 	[
 		'image/bmp',
 		'image/x-windows-bmp',
@@ -35,7 +35,7 @@ export const isImageMimeTypeSupportedByServer = (mimeType: string) =>
 		'image/heic-sequence',
 	].indexOf(mimeType.toLowerCase()) > -1;
 
-export const isDocumentMimeTypeSupportedByServer = (mimeType: string) =>
+export const isDocumentMimeTypeSupportedByServer = (mimeType: string): boolean =>
 	[
 		// Adobe PDF
 		'application/pdf',
@@ -111,7 +111,7 @@ export const isDocumentMimeTypeSupportedByServer = (mimeType: string) =>
 		'application/postscript',
 	].indexOf(mimeType.toLowerCase()) > -1;
 
-export const isAudioMimeTypeSupportedByServer = (mimeType: string) =>
+export const isAudioMimeTypeSupportedByServer = (mimeType: string): boolean =>
 	[
 		'audio/aac',
 		'audio/x-hx-aac-adts',
@@ -135,7 +135,7 @@ export const isAudioMimeTypeSupportedByServer = (mimeType: string) =>
 		'audio/x-ms-wma',
 	].indexOf(mimeType.toLowerCase()) > -1;
 
-export const isVideoMimeTypeSupportedByServer = (mimeType: string) =>
+export const isVideoMimeTypeSupportedByServer = (mimeType: string): boolean =>
 	[
 		'video/3gpp',
 		'video/3gpp2',
@@ -159,10 +159,10 @@ export const isVideoMimeTypeSupportedByServer = (mimeType: string) =>
 
 // BMPT-620: The backend momentarily returns this mimeType for cloud files imported via dt-api-mediapicker
 // Once these cloud files are processed they are receiving a more relevant mimeType
-export const isUnknownMimeTypeSupportedByServer = (mimeType: string) =>
+export const isUnknownMimeTypeSupportedByServer = (mimeType: string): boolean =>
 	['binary/octet-stream'].indexOf(mimeType.toLowerCase()) > -1;
 
-export const isMimeTypeSupportedByServer = (mimeType: string) =>
+export const isMimeTypeSupportedByServer = (mimeType: string): boolean =>
 	isImageMimeTypeSupportedByServer(mimeType) ||
 	isDocumentMimeTypeSupportedByServer(mimeType) ||
 	isAudioMimeTypeSupportedByServer(mimeType) ||

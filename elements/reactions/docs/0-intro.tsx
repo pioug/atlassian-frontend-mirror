@@ -11,7 +11,7 @@ const LinkComponent = (props: any) =>
 	// eslint-disable-next-line @atlaskit/design-system/no-html-anchor, @atlassian/a11y/anchor-has-content
 	fg('dst-a11y__replace-anchor-with-link__editor-collabo') ? <Link {...props} /> : <a {...props} />;
 
-export default md`
+const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}
 
   The main purpose of the Reactions component is to provide users the ability to react to pieces of content.
@@ -173,3 +173,4 @@ export default md`
 			props={require('!!extract-react-types-loader!../extract-react-type/Reaction')}
 		/>
 	)}`;
+export default _default_1;

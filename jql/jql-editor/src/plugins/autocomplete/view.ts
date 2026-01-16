@@ -61,7 +61,7 @@ export default class AutocompletePluginView extends ReactPluginView<Autocomplete
 		};
 	};
 
-	isSameState(state: EditorState, prevState: EditorState) {
+	isSameState(state: EditorState, prevState: EditorState): boolean {
 		return prevState.doc.eq(state.doc) && prevState.selection.eq(state.selection);
 	}
 

@@ -7,7 +7,7 @@ import { type AvailableSite, type AvailableSitesProductType } from '../types';
  * @param availableSitesProducts
  */
 export const filterSiteProducts = (availableSitesProducts: AvailableSitesProductType[]) => {
-	return (site: AvailableSite) => {
+	return (site: AvailableSite): boolean => {
 		return site.products.some((product) => availableSitesProducts.includes(product));
 	};
 };

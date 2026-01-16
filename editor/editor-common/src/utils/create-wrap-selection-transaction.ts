@@ -49,7 +49,12 @@ export function getWrappingOptions(
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	nodeAttributes?: Record<string, any>,
-) {
+): {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	range: any;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	wrapping: any;
+} {
 	const { $from, $to, from } = state.selection;
 
 	// Ignored via go/ees005

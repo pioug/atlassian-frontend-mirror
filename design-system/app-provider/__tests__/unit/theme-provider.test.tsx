@@ -185,7 +185,7 @@ describe('ThemeProvider', () => {
 				dark: 'dark',
 				spacing: 'spacing',
 				shape: 'shape',
-				typography: 'typography-adg3',
+				typography: 'typography',
 			};
 
 			render(
@@ -200,7 +200,7 @@ describe('ThemeProvider', () => {
 					light: 'light',
 					shape: 'shape',
 					dark: 'dark',
-					typography: 'typography-adg3',
+					typography: 'typography',
 					spacing: 'spacing',
 				}),
 			);

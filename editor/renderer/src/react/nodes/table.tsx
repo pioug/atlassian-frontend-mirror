@@ -54,12 +54,12 @@ export type TableArrayMapped = {
 	rowReact: React.ReactElement;
 };
 
-export const isTableResizingEnabled = (appearance: RendererAppearance) =>
+export const isTableResizingEnabled = (appearance: RendererAppearance): boolean =>
 	isFullWidthOrFullPageAppearance(appearance) ||
 	(isCommentAppearance(appearance) &&
 		editorExperiment('support_table_in_comment', true, { exposure: true }));
 
-export const isStickyScrollbarEnabled = (appearance: RendererAppearance) =>
+export const isStickyScrollbarEnabled = (appearance: RendererAppearance): boolean =>
 	isFullWidthOrFullPageAppearance(appearance) &&
 	editorExperiment('platform_renderer_table_sticky_scrollbar', true, { exposure: true });
 
@@ -110,7 +110,7 @@ export const orderChildren = (
 	return sortedTable.map((elem) => elem.rowReact);
 };
 
-export const hasRowspan = (row: PMNode) => {
+export const hasRowspan = (row: PMNode): boolean => {
 	let hasRowspan = false;
 	row.forEach((cell) => (hasRowspan = hasRowspan || cell.attrs.rowspan > 1));
 	return hasRowspan;
@@ -125,9 +125,9 @@ export const shouldHeaderStick = (
 	tableTop: number,
 	tableBottom: number,
 	rowHeight: number,
-) => tableTop <= scrollTop && !(tableBottom - rowHeight <= scrollTop);
+): boolean => tableTop <= scrollTop && !(tableBottom - rowHeight <= scrollTop);
 
-export const shouldHeaderPinBottom = (scrollTop: number, tableBottom: number, rowHeight: number) =>
+export const shouldHeaderPinBottom = (scrollTop: number, tableBottom: number, rowHeight: number): boolean =>
 	tableBottom - rowHeight <= scrollTop && !(tableBottom < scrollTop);
 
 export const addSortableColumn = (

@@ -82,7 +82,7 @@ export const convertNodesToTargetType = ({
 export const isTransformDisabledBasedOnStepsConfig = (
 	selectedNodeType: NodeTypeName,
 	targetNodeType: NodeTypeName,
-) => {
+): boolean => {
 	const steps = TRANSFORMATION_MATRIX[selectedNodeType][targetNodeType];
 	return !steps || steps.length === 0;
 };

@@ -4,7 +4,7 @@ import { type FieldMetaState } from 'react-final-form';
  * to let a Field know if it should hide the error message until
  * the next submit, or if it returns to the previous error state
  */
-export const shouldShowValidationErrors = (meta: FieldMetaState<any>) => {
+export const shouldShowValidationErrors = (meta: FieldMetaState<any>): boolean => {
 	if (!meta.touched) {
 		return false;
 	}

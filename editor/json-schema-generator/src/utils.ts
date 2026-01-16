@@ -90,15 +90,15 @@ export function isTypeAliasDeclaration(node: Node | Declaration): node is TypeAl
 }
 
 /* eslint-disable no-bitwise */
-export function isStringType(type: Type) {
+export function isStringType(type: Type): boolean {
 	return (type.flags & TypeFlags.String) > 0;
 }
 
-export function isBooleanType(type: Type) {
+export function isBooleanType(type: Type): boolean {
 	return (type.flags & TypeFlags.Boolean) > 0;
 }
 
-export function isNumberType(type: Type) {
+export function isNumberType(type: Type): boolean {
 	return (type.flags & TypeFlags.Number) > 0;
 }
 
@@ -159,7 +159,7 @@ export function getPmName(name: string): string {
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function isObject(value: any) {
+export function isObject(value: any): boolean {
 	return value !== null && typeof value === 'object';
 }
 

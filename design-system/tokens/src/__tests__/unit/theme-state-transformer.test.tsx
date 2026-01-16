@@ -9,11 +9,11 @@ describe('themeObjectToString', () => {
 			dark: 'dark',
 			light: 'legacy-light',
 			spacing: 'spacing',
-			typography: 'typography-adg3',
+			typography: 'typography',
 		};
 
 		const expected =
-			'colorMode:auto dark:dark light:legacy-light spacing:spacing typography:typography-adg3';
+			'colorMode:auto dark:dark light:legacy-light spacing:spacing typography:typography';
 
 		expect(themeObjectToString(themeState)).toBe(expected);
 	});
@@ -25,11 +25,12 @@ describe('themeObjectToString', () => {
 			dark: 'dark',
 			light: 'legacy-light',
 			spacing: 'spacing',
+			typography: 'typography',
 			UNSAFE_themeOptions: { brandColor: '#ff0000' },
 		};
 
 		const expected =
-			'colorMode:auto dark:dark light:legacy-light spacing:spacing UNSAFE_themeOptions:{"brandColor":"#ff0000"}';
+			'colorMode:auto dark:dark light:legacy-light spacing:spacing typography:typography UNSAFE_themeOptions:{"brandColor":"#ff0000"}';
 
 		expect(themeObjectToString(themeState)).toBe(expected);
 	});
@@ -41,12 +42,13 @@ describe('themeObjectToString', () => {
 			dark: 'dark',
 			light: 'light',
 			spacing: 'spacing',
+			typography: 'typography',
 			UNSAFE_themeOptions: { brandColor: '#ff0000' },
 		};
 		const themeStateString = themeObjectToString(themeState);
 
 		const expectedEncodedURI =
-			'colorMode%3Aauto%20dark%3Adark%20light%3Alight%20spacing%3Aspacing%20UNSAFE_themeOptions%3A%7B%22brandColor%22%3A%22%23ff0000%22%7D';
+			'colorMode%3Aauto%20dark%3Adark%20light%3Alight%20spacing%3Aspacing%20typography%3Atypography%20UNSAFE_themeOptions%3A%7B%22brandColor%22%3A%22%23ff0000%22%7D';
 
 		expect(encodeURIComponent(themeStateString)).toBe(expectedEncodedURI);
 		expect(decodeURIComponent(expectedEncodedURI)).toBe(themeStateString);
@@ -86,14 +88,14 @@ describe('themeObjectToString', () => {
 describe('themeStringToObject', () => {
 	it('should convert theme state string to an object', () => {
 		const themeState =
-			'dark:dark light:legacy-light colorMode:light spacing:spacing typography:typography-adg3';
+			'dark:dark light:legacy-light colorMode:light spacing:spacing typography:typography';
 
 		const expected = {
 			dark: 'dark',
 			light: 'legacy-light',
 			colorMode: 'light',
 			spacing: 'spacing',
-			typography: 'typography-adg3',
+			typography: 'typography',
 		};
 
 		expect(themeStringToObject(themeState)).toEqual(expected);

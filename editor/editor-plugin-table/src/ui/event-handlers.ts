@@ -288,7 +288,7 @@ export const handleMouseUp = (view: EditorView, mouseEvent: Event): boolean => {
 
 // Ignore any `mousedown` `event` from control and numbered column buttons
 // PM end up changing selection during shift selection if not prevented
-export const handleMouseDown = (_: EditorView, event: Event) => {
+export const handleMouseDown = (_: EditorView, event: Event): boolean => {
 	const isControl = !!(
 		event.target &&
 		event.target instanceof HTMLElement &&
@@ -464,7 +464,7 @@ const handleMouseMoveDebounce = (nodeViewPortalProviderAPI: PortalProviderAPI) =
 	});
 
 export const handleMouseMove =
-	(nodeViewPortalProviderAPI: PortalProviderAPI) => (view: EditorView, event: Event) => {
+	(nodeViewPortalProviderAPI: PortalProviderAPI) => (view: EditorView, event: Event): boolean => {
 		if (!(event.target instanceof HTMLElement)) {
 			return false;
 		}
@@ -482,7 +482,7 @@ export const handleMouseMove =
 		return false;
 	};
 
-export function handleTripleClick(view: EditorView, pos: number) {
+export function handleTripleClick(view: EditorView, pos: number): boolean {
 	const { state, dispatch } = view;
 	const $cellPos = cellAround(state.doc.resolve(pos));
 	if (!$cellPos) {
@@ -571,7 +571,7 @@ export const handleCut = (
 	return tr;
 };
 
-export const isTableInFocus = (view: EditorView) => {
+export const isTableInFocus = (view: EditorView): boolean => {
 	return !!getPluginState(view.state)?.tableNode && !getResizePluginState(view.state)?.dragging;
 };
 

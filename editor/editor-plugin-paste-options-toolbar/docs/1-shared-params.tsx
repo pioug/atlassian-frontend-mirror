@@ -1,6 +1,7 @@
 import { code, md } from '@atlaskit/docs';
 
-export default md`
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const _default_1: any = md`
 Toolbar Plugin is invoked after the Paste Plugin dispatches the ProseMirror transaction.
 Several parameters are passed from the Paste Plugin to the Paste Options Toolbar Plugin.
 These shared parameters are listed and explained below.
@@ -40,3 +41,4 @@ Here is a brief explanation of each parameter:
 
 This detailed explanation of the parameters should assist developers in understanding the functionality of the Paste Options Toolbar Plugin. It is important to note that some parameters are optional and others are used under specific conditions.
 `;
+export default _default_1;

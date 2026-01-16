@@ -22,7 +22,7 @@ export const createLoggerMock = (): Logger =>
 
 export const createAnalyticsContexts =
 	(contexts: any[]) =>
-	({ children }: { children: React.ReactNode }) =>
+	({ children }: { children: React.ReactNode }): any =>
 		contexts
 			.slice(0)
 			.reverse()

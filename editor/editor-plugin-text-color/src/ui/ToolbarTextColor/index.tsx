@@ -93,7 +93,7 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 	};
 	private toolbarItemRef = React.createRef<HTMLElement>();
 
-	changeColor = (color: string, editorAnalyticsApi: EditorAnalyticsAPI | undefined) =>
+	changeColor = (color: string, editorAnalyticsApi: EditorAnalyticsAPI | undefined): boolean =>
 		changeColorWithAnalytics(
 			color,
 			editorAnalyticsApi,

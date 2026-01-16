@@ -246,7 +246,7 @@ export const transformUserManageConfig = (data: MutabilityContraints) => ({
 		),
 });
 
-export const toManageAPIInput = (input: Partial<UserDetails>) => {
+export const toManageAPIInput = (input: Partial<UserDetails>): any => {
 	const output: any = {
 		extended_profile: {},
 	};

@@ -44,7 +44,7 @@ describe('Element: BaseDateTime', () => {
 		expect(element).toHaveTextContent('Created on Jan 17, 2022');
 		expect(element).toHaveCompiledCss(
 			'font',
-			'var(--ds-font-body-large,normal 400 1pc/24px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
+			'var(--ds-font-body-large,normal 400 1pc/24px "Atlassian Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
 		);
 	});
 

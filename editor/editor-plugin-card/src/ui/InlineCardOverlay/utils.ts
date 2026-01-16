@@ -17,7 +17,7 @@ export const getInlineCardAvailableWidth = (startEl: HTMLElement, endEl: HTMLEle
 	return end - start;
 };
 
-export const isOneLine = (startEl: HTMLElement, endEl: HTMLElement) => {
+export const isOneLine = (startEl: HTMLElement, endEl: HTMLElement): boolean => {
 	const start = startEl.getBoundingClientRect().top;
 	const end = endEl.getBoundingClientRect().top;
 

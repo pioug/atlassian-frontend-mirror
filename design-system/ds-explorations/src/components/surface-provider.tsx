@@ -14,7 +14,7 @@ export const SurfaceContext = createContext<any>('elevation.surface');
  *
  * @see SurfaceContext
  */
-export const useSurface = () => {
+export const useSurface = (): any => {
 	return useContext(SurfaceContext);
 };
 

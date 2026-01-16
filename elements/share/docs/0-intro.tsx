@@ -10,7 +10,7 @@ import {
 } from '@atlaskit/docs';
 import { token } from '@atlaskit/tokens';
 
-export default md`
+const _default_1: any = md`
   ${(
 		<>
 			<div style={{ marginBottom: `${token('space.100', '8px')}` }}>
@@ -58,3 +58,4 @@ export default md`
 
   A click outside the modal will hide it, **but the form state will be retained** (as long as the share is not cancelled).
 `;
+export default _default_1;

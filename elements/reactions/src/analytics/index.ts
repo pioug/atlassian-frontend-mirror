@@ -24,7 +24,7 @@ export type PreviousState = 'new' | 'existingNotReacted' | 'existingReacted';
  * @returns bool, if it passes or not
  */
 // default sampling function to determine which one to be sampled
-export const isSampled = (rate: number) => {
+export const isSampled = (rate: number): boolean => {
 	if (rate === 1) {
 		return true;
 	}
@@ -172,7 +172,7 @@ export const createReactionClickedEvent = (added: boolean, emojiId: string) =>
  * @param error The error could be a service error with {code, reason} or an Error
  * @returns any
  */
-export const extractErrorInfo = (error: any) => {
+export const extractErrorInfo = (error: any): any => {
 	if (error instanceof Error) {
 		return {
 			name: error.name,

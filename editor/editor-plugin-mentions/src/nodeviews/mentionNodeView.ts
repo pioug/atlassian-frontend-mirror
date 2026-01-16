@@ -197,7 +197,7 @@ export class MentionNodeView implements NodeView {
 		return this.node.sameMarkup(nextNode);
 	}
 
-	update(node: PMNode) {
+	update(node: PMNode): boolean {
 		if (!this.nodeIsEqual(node)) {
 			return false;
 		}

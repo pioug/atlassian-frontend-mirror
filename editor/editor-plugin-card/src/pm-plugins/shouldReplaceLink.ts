@@ -6,7 +6,7 @@ export function shouldReplaceLink(
 	node: Node,
 	compareLinkText: boolean = true,
 	compareToUrl?: string,
-) {
+): boolean {
 	const linkMark = node.marks.find((mark) => mark.type.name === 'link');
 	if (!linkMark) {
 		// not a link anymore

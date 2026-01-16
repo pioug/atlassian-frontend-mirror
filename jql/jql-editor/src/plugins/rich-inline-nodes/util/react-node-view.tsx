@@ -110,7 +110,7 @@ export class ReactNodeView<Props> implements NodeView {
 		this.portalActions.onDestroyPortal(this.portalKey);
 	};
 
-	update = (node: Node, decorations: readonly Decoration[]) => {
+	update = (node: Node, decorations: readonly Decoration[]): boolean => {
 		// Update function may be called by ProseMirror with a node that has nothing to do with this node view ¯\_(ツ)_/¯
 		// @see https://prosemirror.net/docs/ref/#view.NodeView.update
 		if (node !== this.node) {

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { AtlassianInternalWarning, code, Example, md, Props } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}
 
   A React component that wraps a trigger, such that when interacted a user profile card pops up.
@@ -70,3 +70,4 @@ const profileClient = new ProfileClient({
 	)}
 
 `;
+export default _default_1;

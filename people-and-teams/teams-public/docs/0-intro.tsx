@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Example, md, Props } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 
   A component to show linked containers to the team
 
@@ -21,3 +21,4 @@ export default md`
 		<Props heading="TeamContainers Props" props={require('!!extract-react-types-loader!../src')} />
 	)}
 `;
+export default _default_1;

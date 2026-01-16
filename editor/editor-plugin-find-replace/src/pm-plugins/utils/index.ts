@@ -530,7 +530,7 @@ export const isMatchAffectedByStep = (
 	match: Match,
 	step: Step & { from: number; slice: Slice; to: number },
 	tr: ReadonlyTransaction,
-) => {
+): boolean => {
 	const { from, to, slice } = step;
 	const sliceSize = slice.content.size;
 	return (

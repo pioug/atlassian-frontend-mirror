@@ -1,5 +1,16 @@
 # @atlaskit/renderer
 
+## 126.0.0
+
+### Major Changes
+
+- [`87c877957a81a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87c877957a81a) -
+  EDITOR-4544 - Inline Bodied Extension: merge inlined extensions with adjacent textblocks
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 125.4.1
 
 ### Patch Changes

@@ -29,7 +29,7 @@ import {
 // Unique namespace to identify JQL autocomplete options!
 const UUID_NAMESPACE = '9a90299c-aa58-494b-b6a1-e93206e3fdd6';
 
-export const getAutocompleteOptionId = (value: string) => uuidv5(value, UUID_NAMESPACE);
+export const getAutocompleteOptionId = (value: string): any => uuidv5(value, UUID_NAMESPACE);
 
 export const tokensToAutocompleteOptions = (
 	tokens: ContextAwareTokenSuggestions,

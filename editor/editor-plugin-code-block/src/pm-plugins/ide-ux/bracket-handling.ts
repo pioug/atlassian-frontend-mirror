@@ -6,7 +6,7 @@ export const BRACKET_MAP = {
 
 export type BracketMapKey = keyof typeof BRACKET_MAP;
 
-export const shouldAutoCloseBracket = (before: string, after: string) => {
+export const shouldAutoCloseBracket = (before: string, after: string): boolean => {
 	// when directly before a closing bracket
 	// Ignored via go/ees005
 	// eslint-disable-next-line require-unicode-regexp

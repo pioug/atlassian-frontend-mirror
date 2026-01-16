@@ -113,7 +113,7 @@ export const trackSyncBlocks = (
  *
  * @returns true if steps modifies children node within bodiedSyncBlock
  */
-export const hasEditInSyncBlock = (tr: Transaction, state: EditorState) => {
+export const hasEditInSyncBlock = (tr: Transaction, state: EditorState): boolean => {
 	const { bodiedSyncBlock } = state.schema.nodes;
 
 	for (const step of tr.steps) {

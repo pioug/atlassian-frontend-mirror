@@ -1,6 +1,7 @@
 import { code, md } from '@atlaskit/docs';
 
-export default md`
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const _default_1: any = md`
 The \`PerformanceMetrics\` component is designed to track and measure the performance of an entire page experience. It's recommended to use this component at the highest level of your application, typically in your main app component.
 
 ## How it Works
@@ -63,3 +64,4 @@ function App() {
 export default App;
 `}
 `;
+export default _default_1;

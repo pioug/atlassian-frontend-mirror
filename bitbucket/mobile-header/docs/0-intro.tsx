@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AtlassianInternalWarning, code, Example, md, Props } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}
   
   The Mobile Header is a way to render a header that hides the Navigation and Sidebar
@@ -28,3 +28,4 @@ export default md`
 		/>
 	)}
 `;
+export default _default_1;

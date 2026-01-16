@@ -64,9 +64,9 @@ export const subscribeToInteractionIdChanges = (listener: InteractionIDListener)
 };
 
 // We use a context to allow modals to have their own lifecycle
-const _default_1: Context<InteractionIDContextType> =
+const interactionContext: Context<InteractionIDContextType> =
 	createContext<InteractionIDContextType>(DefaultInteractionID);
-export default _default_1;
+export default interactionContext;
 
 export const getInteractionId = (): InteractionIDContextType => DefaultInteractionID;
 

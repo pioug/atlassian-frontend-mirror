@@ -1,6 +1,6 @@
 import { md, code } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 # @atlaskit/outbound-auth-flow-client
 
 Autenticate with \`outbound-auth-flow\` service in a popup.
@@ -24,3 +24,4 @@ auth(
 );
 `}
 `;
+export default _default_1;

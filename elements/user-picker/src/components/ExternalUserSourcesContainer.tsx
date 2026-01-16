@@ -21,7 +21,7 @@ export const ExternalUserSourcesContainer = ({
 	accountId,
 	shouldFetchSources,
 	initialSources,
-}: SourcesContainerProps) => {
+}: SourcesContainerProps): any => {
 	const { sources, loading: sourcesLoading } = useUserSource(
 		accountId,
 		shouldFetchSources,

@@ -254,7 +254,7 @@ export const insertColgroupFromNode = (
 	return colgroup.children;
 };
 
-export const hasTableBeenResized = (table: PmNode) => {
+export const hasTableBeenResized = (table: PmNode): boolean => {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	return !!getFragmentBackingArray(table.content.firstChild!.content).find(
@@ -270,7 +270,7 @@ export const hasTableColumnBeenResized = hasTableBeenResized;
  * @param table
  * @returns true if all column width is equal to tableCellMinWidth or null, false otherwise
  */
-export const isMinCellWidthTable = (table: PmNode) => {
+export const isMinCellWidthTable = (table: PmNode): boolean => {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const cellArray = getFragmentBackingArray(table.content.firstChild!.content);

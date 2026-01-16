@@ -27,7 +27,7 @@ export const isNestedExpand = (nodeType: NodeType): Boolean => {
 	return nodeType === nodeType.schema.nodes.nestedExpand;
 };
 
-export const isInSameLayout = ($from: ResolvedPos, $to: ResolvedPos) => {
+export const isInSameLayout = ($from: ResolvedPos, $to: ResolvedPos): boolean => {
 	const fromNode = $from.nodeAfter;
 	const toNode = $to.nodeAfter;
 	return !!(
@@ -99,7 +99,7 @@ export const memoizedTransformExpandToNestedExpand = memoizeOne((node: PMNode) =
 export const canCreateNodeWithContentInsideAnotherNode = (
 	nodeTypesToCreate: NodeType[],
 	nodeWithTargetFragment: Fragment,
-) => {
+): boolean => {
 	try {
 		return !!nodeTypesToCreate.every((nodeTypeToCreate) =>
 			nodeTypeToCreate.createChecked({}, nodeWithTargetFragment),
@@ -115,7 +115,7 @@ export function canMoveNodeToIndex(
 	srcNode: PMNode,
 	$destNodePos: ResolvedPos,
 	destNode?: PMNode,
-) {
+): boolean {
 	let srcNodeType = srcNode.type;
 	const schema = srcNodeType.schema;
 	const {
@@ -204,7 +204,7 @@ export function canMoveSliceToIndex(
 	indexIntoParent: number,
 	$destNodePos: ResolvedPos,
 	destNode?: PMNode,
-) {
+): boolean {
 	let canMoveNodes = true;
 	const doc = $destNodePos.doc;
 	const nodesPos: number[] = [];

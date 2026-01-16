@@ -188,7 +188,7 @@ export function adjustDate(
 	return dateToDateType(newDate);
 }
 
-export function isToday(date: DateType | undefined) {
+export function isToday(date: DateType | undefined): boolean {
 	const today = new Date();
 	return (
 		date !== undefined &&

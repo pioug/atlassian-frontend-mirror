@@ -25,8 +25,8 @@ import {
 	getSourceInfoErrorPayload,
 	updateReferenceErrorPayload,
 } from '../utils/errorHandling';
-import { parseResourceId } from '../utils/parseResourceId';
 import { resolveSyncBlockInstance } from '../utils/resolveSyncBlockInstance';
+import { parseResourceId } from '../utils/resourceId';
 import { createSyncBlockNode } from '../utils/utils';
 
 // A store manager responsible for the lifecycle and state management of reference sync blocks in an editor instance.

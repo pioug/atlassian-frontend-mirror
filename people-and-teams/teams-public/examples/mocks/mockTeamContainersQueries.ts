@@ -80,7 +80,7 @@ const loomSpace = {
 };
 
 export const mockTeamContainersQueries = {
-	data: (containerTypes: ContainerTypes[] = ['JiraProject', 'ConfluenceSpace', 'LoomSpace']) =>
+	data: (containerTypes: ContainerTypes[] = ['JiraProject', 'ConfluenceSpace', 'LoomSpace']): any =>
 		fetchMock.post({
 			matcher: (url: string) => url.includes('/gateway/api/graphql?q=TeamContainersQueryV2'),
 			response: () => {
@@ -109,7 +109,7 @@ export const mockTeamContainersQueries = {
 			name: 'getTeamContainers',
 			overwriteRoutes: true,
 		}),
-	noData: () =>
+	noData: (): any =>
 		fetchMock.post({
 			matcher: (url: string) => url.includes('/gateway/api/graphql?q=TeamContainersQueryV2'),
 			response: () => {

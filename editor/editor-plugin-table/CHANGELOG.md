@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-table
 
+## 16.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.3.1
+
+### Patch Changes
+
+- [`d668a11849163`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d668a11849163) -
+  [ux] EDITOR-4411 Enable sorting by default in column drag menu
+
 ## 16.3.0
 
 ### Minor Changes

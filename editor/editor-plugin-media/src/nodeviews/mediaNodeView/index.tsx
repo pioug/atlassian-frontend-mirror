@@ -154,7 +154,7 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 		return domRef;
 	}
 
-	viewShouldUpdate(nextNode: PMNode, decorations: Decoration[]) {
+	viewShouldUpdate(nextNode: PMNode, decorations: Decoration[]): boolean {
 		const hasMediaNodeSelectedDecoration = decorations.some(
 			(decoration) =>
 				isMediaDecorationSpec(decoration) &&
@@ -174,7 +174,7 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 		return super.viewShouldUpdate(nextNode, decorations);
 	}
 
-	stopEvent(event: Event) {
+	stopEvent(event: Event): boolean {
 		// Don't trap right click events on media node
 		if (['mousedown', 'contextmenu'].indexOf(event.type) !== -1) {
 			const mouseEvent = event as MouseEvent;

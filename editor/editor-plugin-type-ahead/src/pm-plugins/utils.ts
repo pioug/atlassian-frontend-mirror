@@ -28,7 +28,7 @@ export const isTypeAheadHandler = (
 };
 
 /** Is a typeahead plugin open? */
-export const isTypeAheadOpen = (editorState: EditorState) => {
+export const isTypeAheadOpen = (editorState: EditorState): boolean => {
 	return !!typeAheadPluginKey?.getState(editorState)?.decorationSet?.find().length;
 };
 
@@ -44,7 +44,7 @@ export const getTypeAheadQuery = (editorState: EditorState) => {
 	return typeAheadPluginKey.getState(editorState)?.query;
 };
 
-export const isTypeAheadAllowed = (state: EditorState) => {
+export const isTypeAheadAllowed = (state: EditorState): boolean => {
 	const isOpen = isTypeAheadOpen(state);
 	// if the TypeAhead is open
 	// we should not allow it

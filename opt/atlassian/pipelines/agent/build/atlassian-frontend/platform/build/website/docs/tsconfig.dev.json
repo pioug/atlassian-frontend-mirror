@@ -51,6 +51,9 @@
 		},
 		{
 			"path": "../../../packages/design-system/tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../../../packages/platform/testing-library/tsconfig.app.json"
 		}
 	],
 	"files": []

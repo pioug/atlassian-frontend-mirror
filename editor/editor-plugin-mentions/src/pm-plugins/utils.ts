@@ -9,7 +9,7 @@ export function getMentionPluginState(state: EditorState) {
 	return mentionPluginKey.getState(state) as MentionPluginState;
 }
 
-export const canMentionBeCreatedInRange = (from: number, to: number) => (state: EditorState) => {
+export const canMentionBeCreatedInRange = (from: number, to: number) => (state: EditorState): boolean => {
 	const $from = state.doc.resolve(from);
 	const $to = state.doc.resolve(to);
 	const mention = state.schema.nodes.mention.createChecked();

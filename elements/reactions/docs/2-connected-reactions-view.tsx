@@ -5,7 +5,7 @@ import { Text } from '@atlaskit/primitives/compiled';
 
 import ConnectedReactionsViewExample from '../examples/01-connected-reactions-view';
 
-export default md`
+const _default_1: any = md`
 
   The ConnectedReactionsView component renders all existing reactions for given post/comment/etc.. as well as the [ConnectedReactionPicker](/packages/elements/reactions/docs/connected-reaction-picker) to add more reactions.
 
@@ -129,3 +129,4 @@ export default md`
 		/>
 	)}
 `;
+export default _default_1;

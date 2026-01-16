@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/docs",
-	"version": "11.2.8",
+	"version": "11.3.1",
 	"description": "Utilities for building documentation",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -31,6 +31,7 @@
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
+		"@atlaskit/tooltip": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"@emotion/react": "root:*",
@@ -49,6 +50,7 @@
 		"@atlaskit/badge": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/lozenge": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"enzyme": "root:*",

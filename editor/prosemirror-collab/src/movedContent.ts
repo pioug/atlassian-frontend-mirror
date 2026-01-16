@@ -67,7 +67,7 @@ const isReplaceTypeStep = (step: ProseMirrorStep): step is ReplaceStep =>
 export const isMoveSequence = (
 	previousRebaseableStep: Rebaseable,
 	currentStep: ProseMirrorStep,
-) => {
+): boolean => {
 	if (
 		// The both steps are replace
 		isReplaceTypeStep(previousRebaseableStep.step) &&

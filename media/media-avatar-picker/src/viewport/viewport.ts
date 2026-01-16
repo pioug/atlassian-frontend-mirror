@@ -107,7 +107,7 @@ export class Viewport {
 		return new Bounds(x, y, width, height);
 	}
 
-	get isEmpty() {
+	get isEmpty(): boolean {
 		return this.itemSourceRect.width <= 0 && this.itemSourceRect.height <= 0;
 	}
 

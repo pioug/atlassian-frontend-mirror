@@ -1,7 +1,7 @@
 import React from 'react';
 import { code, md, Example, AtlassianInternalWarning } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 ${(<AtlassianInternalWarning />)}
 
 This package is designed to help instrument analytics of link lifecycle events such as link creation and deletion.
@@ -191,3 +191,4 @@ ${(
 )}
 
 `;
+export default _default_1;

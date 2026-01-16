@@ -321,6 +321,7 @@ const DragMenu = React.memo(
 			shouldUseIncreasedScalingPercent,
 			ariaNotifyPlugin,
 			isCommentEditor,
+			pluginConfig?.allowColumnSorting ?? true,
 		);
 
 		const { menuItems, menuCallback } = convertToDropdownItems(

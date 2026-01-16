@@ -153,7 +153,7 @@ function resolveNodePos(node: Node) {
 	return resolvedPos;
 }
 
-export function isRoot(element: HTMLElement | null) {
+export function isRoot(element: HTMLElement | null): boolean {
 	return !!element && element.classList.contains('ak-renderer-document');
 }
 

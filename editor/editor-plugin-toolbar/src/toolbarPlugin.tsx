@@ -96,14 +96,7 @@ export const toolbarPlugin: ToolbarPlugin = ({
 
 	const registry = createComponentRegistry();
 
-	registry.register(
-		getToolbarComponents(
-			contextualFormattingEnabled,
-			api,
-			disableSelectionToolbar,
-			breakpointPreset,
-		),
-	);
+	registry.register(getToolbarComponents(contextualFormattingEnabled, api, breakpointPreset));
 
 	const cachedCalculateToolbarPosition = expValEquals(
 		'platform_editor_sel_toolbar_fix',

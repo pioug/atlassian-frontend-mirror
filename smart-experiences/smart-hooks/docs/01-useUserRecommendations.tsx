@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AtlassianInternalWarning, Example, md, Props } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}
 
   # useUserRecommendations
@@ -44,3 +44,4 @@ export default md`
 	)}
 
 `;
+export default _default_1;

@@ -1,5 +1,5 @@
 {
-	"extends": "../../../../tsconfig.entry-points.products.json",
+	"extends": "../../../../tsconfig.local-consumption.json",
 	"compilerOptions": {
 		"declaration": true,
 		"target": "es5",
@@ -8,7 +8,10 @@
 		"composite": true,
 		"noCheck": true
 	},
-	"include": ["../src/**/*.ts", "../src/**/*.tsx"],
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
 	"exclude": [
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",

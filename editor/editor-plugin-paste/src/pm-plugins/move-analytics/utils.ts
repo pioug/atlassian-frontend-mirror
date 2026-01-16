@@ -24,9 +24,9 @@ const excludedNodes = [
 	'taskItem',
 	'decisionItem',
 ];
-export const isExcludedNode = (nodeName: string) => excludedNodes.includes(nodeName);
+export const isExcludedNode = (nodeName: string): boolean => excludedNodes.includes(nodeName);
 
-export const isCursorSelectionAtTopLevel = (selection: Selection) => {
+export const isCursorSelectionAtTopLevel = (selection: Selection): boolean => {
 	const { from, to, $from } = selection;
 
 	if (from !== to) {
@@ -45,11 +45,11 @@ const inlineNodes = [
 	'inlineCard',
 	'inlineExtension',
 ];
-export const isInlineNode = (nodeName: string) => {
+export const isInlineNode = (nodeName: string): boolean => {
 	return inlineNodes.includes(nodeName);
 };
 
-export const isNestedInlineNode = (selection: Selection) => {
+export const isNestedInlineNode = (selection: Selection): boolean => {
 	if (selection.$from.depth !== 1) {
 		return true;
 	}
@@ -71,7 +71,7 @@ export const isNestedInlineNode = (selection: Selection) => {
 	return true;
 };
 
-export const isNestedInTable = (state: EditorState) => {
+export const isNestedInTable = (state: EditorState): boolean => {
 	const { schema, selection } = state;
 	if (selection instanceof CellSelection) {
 		return false;
@@ -96,13 +96,13 @@ export const getParentNodeDepth = (selection: Selection) => {
 		: parentNode.depth;
 };
 
-export const isEntireNestedParagraphOrHeadingSelected = (selection: Selection) => {
+export const isEntireNestedParagraphOrHeadingSelected = (selection: Selection): boolean => {
 	const { $from, $to } = selection;
 
 	return $from.textOffset === 0 && $to.textOffset === 0;
 };
 
-export const containsExcludedNode = (content: Fragment) => {
+export const containsExcludedNode = (content: Fragment): boolean => {
 	for (let i = 0; i < content.childCount; i++) {
 		const nodeName = content.maybeChild(i)?.type.name || '';
 		if (isExcludedNode(nodeName)) {

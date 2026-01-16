@@ -21,9 +21,6 @@ export type Themes =
 	| 'atlassian-shape'
 	| 'atlassian-spacing'
 	| 'atlassian-typography'
-	| 'atlassian-typography-refreshed'
-	| 'atlassian-typography-modernized'
-	| 'atlassian-typography-adg3';
 export type ThemeFileNames = Themes;
 
 /**
@@ -75,10 +72,7 @@ export const themeIds = [
 	'legacy-dark',
 	'spacing',
 	'shape',
-	'typography',
-	'typography-adg3',
-	'typography-modernized',
-	'typography-refreshed',
+	'typography'
 ] as const;
 
 export type ThemeIds = (typeof themeIds)[number];
@@ -254,36 +248,12 @@ const themeConfig: Record<Themes | ThemeOverrides, ThemeConfig> = {
 			type: 'typography',
 		},
 	},
-	'atlassian-typography-adg3': {
-		id: 'typography-adg3',
-		displayName: 'ADG3 Typography',
-		palette: 'typographyPalette',
-		attributes: {
-			type: 'typography',
-		},
-	},
 	'atlassian-shape': {
 		id: 'shape',
 		displayName: 'Shape',
 		palette: 'shapePalette',
 		attributes: {
 			type: 'shape',
-		},
-	},
-	'atlassian-typography-modernized': {
-		id: 'typography-modernized',
-		displayName: 'Atlassian Typography (Modernized)',
-		palette: 'typographyPalette',
-		attributes: {
-			type: 'typography',
-		},
-	},
-	'atlassian-typography-refreshed': {
-		id: 'typography-refreshed',
-		displayName: 'Atlassian Typography (Refreshed)',
-		palette: 'typographyPalette',
-		attributes: {
-			type: 'typography',
 		},
 	},
 };
@@ -328,15 +298,7 @@ export interface ThemeState {
 	contrastMode: ThemeContrastModes;
 	shape?: Extract<ThemeIds, 'shape'>;
 	spacing: Extract<ThemeIds, 'spacing'>;
-	/**
-	 * @deprecated 'typography-adg3' is deprecated, use 'typography' instead
-	 * @deprecated 'typography-modernized' is deprecated, use 'typography' instead
-	 * @deprecated 'typography-refreshed' is deprecated, use 'typography' instead
-	 */
-	typography?: Extract<
-		ThemeIds,
-		'typography' | 'typography-adg3' | 'typography-modernized' | 'typography-refreshed'
-	>;
+	typography: Extract<ThemeIds, 'typography'>;
 	UNSAFE_themeOptions?: ThemeOptionsSchema;
 }
 

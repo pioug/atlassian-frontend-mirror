@@ -3,7 +3,7 @@ import { md } from '@atlaskit/docs';
 import { DocsContentTabs } from '@atlaskit/media-test-helpers';
 import example from './content/browser/example';
 import props from './content/browser/props';
-export default md`
+const _default_1: any = md`
 ### Browser
 
 The \`Browser\` React component enables the user to select local files via the native browser file dialog.
@@ -26,3 +26,4 @@ There is two ways of integrating the \`Browser\` component:
 		/>
 	)}
 `;
+export default _default_1;

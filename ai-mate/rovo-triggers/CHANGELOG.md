@@ -1,5 +1,15 @@
 # @atlaskit/rovo-triggers
 
+## 5.6.0
+
+### Minor Changes
+
+- [`4ed112b530268`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ed112b530268) -
+  Run lint autofix to address existing lint violations and make internal import statements more
+  specific (bypass barrel files) to optimize dependency graph.
+- [`ec61a217ca99b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec61a217ca99b) -
+  Rovo chat insert urls follow ups
+
 ## 5.5.0
 
 ### Minor Changes

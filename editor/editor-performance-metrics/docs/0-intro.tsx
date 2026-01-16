@@ -2,7 +2,8 @@ import React from 'react';
 
 import { Example, md, Props } from '@atlaskit/docs';
 
-export default md`
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const _default_1: any = md`
 
   Experimental code to track Editor Full Page performance on some particular scenarios
 
@@ -30,3 +31,4 @@ export default md`
 		/>
 	)}
 `;
+export default _default_1;

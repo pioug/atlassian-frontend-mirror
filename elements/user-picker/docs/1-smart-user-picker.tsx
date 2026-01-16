@@ -3,7 +3,7 @@ import React from 'react';
 import { md } from '@atlaskit/docs';
 import SectionMessage from '@atlaskit/section-message';
 
-export default md`
+const _default_1: any = md`
   ${(
 		<SectionMessage
 			appearance="warning"
@@ -18,3 +18,4 @@ export default md`
 		</SectionMessage>
 	)}
 `;
+export default _default_1;

@@ -38,7 +38,7 @@ export const isEmail = (option: OptionData): option is Email => option.type === 
 
 export const isCustom = (option: OptionData): option is Custom => option.type === CustomType;
 
-export const isDefaultValuePopulated = (value?: DefaultValue) =>
+export const isDefaultValuePopulated = (value?: DefaultValue): boolean =>
 	(value && !Array.isArray(value)) || (Array.isArray(value) && value.length > 0);
 
 const isOptionData = (option: any): option is OptionData =>
@@ -139,10 +139,10 @@ export const getAvatarUrl = (optionData: OptionData) => {
 	return undefined;
 };
 
-export const isPopupUserPickerByComponent = (SelectComponent: React.ComponentType<any>) =>
+export const isPopupUserPickerByComponent = (SelectComponent: React.ComponentType<any>): boolean =>
 	SelectComponent === PopupSelect;
 
-export const isPopupUserPickerByProps = (selectProps: any) => selectProps.searchThreshold === -1;
+export const isPopupUserPickerByProps = (selectProps: any): boolean => selectProps.searchThreshold === -1;
 
 export const isLozengeText = (
 	lozengeProp: ReactNode | LozengeProps,

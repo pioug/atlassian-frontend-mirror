@@ -9,7 +9,10 @@ export class OverflowShadowsObserver extends OverridableMock {
 		super(...inputs);
 	}
 
-	observeShadowSentinels = this.getMock('observeShadowSentinels');
-	updateStickyShadows = this.getMock('updateStickyShadows');
-	dispose = this.getMock('dispose');
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	observeShadowSentinels: any = this.getMock('observeShadowSentinels');
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	updateStickyShadows: any = this.getMock('updateStickyShadows');
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	dispose: any = this.getMock('dispose');
 }

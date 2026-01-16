@@ -46,6 +46,7 @@ export const getToolbarConfig = (
 	);
 
 	const isUnsyncedBlock = syncBlockInstance?.error === SyncBlockError.NotFound;
+	const isErroredBlock = syncBlockInstance?.error;
 
 	const {
 		schema: {
@@ -74,14 +75,14 @@ export const getToolbarConfig = (
 			onClick: removeSyncedBlock(api),
 			icon: DeleteIcon,
 			testId: fg('platform_synced_block_dogfooding')
-						? 'reference-synced-block-delete-button'
-						: undefined,
+				? 'reference-synced-block-delete-button'
+				: undefined,
 			...hoverDecorationProps(nodeType, akEditorSelectedNodeClassName),
 		};
 
 		items.push(deleteButton);
 	} else {
-		if (fg('platform_synced_block_dogfooding')) {
+		if (!isErroredBlock && fg('platform_synced_block_dogfooding')) {
 			const syncedLocation: FloatingToolbarItem<Command> = {
 				type: 'custom',
 				fallback: [],

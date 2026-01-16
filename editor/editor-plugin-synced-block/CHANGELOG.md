@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 5.1.13
+
+### Patch Changes
+
+- [`7b1f7ff1a2235`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b1f7ff1a2235) -
+  [ux] [EDITOR-4536] Update synced location dropdown UI
+- Updated dependencies
+
 ## 5.1.12
 
 ### Patch Changes

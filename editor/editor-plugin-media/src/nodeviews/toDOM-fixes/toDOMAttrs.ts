@@ -6,7 +6,35 @@ import { N30 } from '@atlaskit/theme/colors';
  *
  * When we patch adf-schema with media `toDOM` fixes we can remove this.
  */
-export const getMediaAttrs = (nodeName: string, node: PMNode) => {
+export const getMediaAttrs = (
+	nodeName: string,
+	node: PMNode,
+): {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	'data-alt': any;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	'data-collection': any;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	'data-height': any;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	'data-id': any;
+	'data-node-type': string;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	'data-occurrence-key': any;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	'data-type': any;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	'data-url': any;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	'data-width': any;
+	// Manually kept in sync with the style of media cards. The goal is to render a plain gray
+	// rectangle that provides an affordance for media.
+	style: string;
+	// toDOM is used for static rendering as well as editor rendering. This comes into play for
+	// emails, copy/paste, etc, so the title and styling here *is* useful (despite a React-based
+	// node view being used for editing).
+	title: string;
+} => {
 	const copyPrivateAttributes: (
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -24,14 +52,14 @@ export const getMediaAttrs = (nodeName: string, node: PMNode) => {
 		to: Record<string, any>,
 		map?: (str: string) => string,
 	) => {
-		if (node.attrs) {
-			Object.keys(node.attrs).forEach((key) => {
-				if (key[0] === '_' && key[1] === '_' && from[key]) {
-					to[map ? map(key) : key] = from[key];
-				}
-			});
-		}
-	};
+			if (node.attrs) {
+				Object.keys(node.attrs).forEach((key) => {
+					if (key[0] === '_' && key[1] === '_' && from[key]) {
+						to[map ? map(key) : key] = from[key];
+					}
+				});
+			}
+		};
 
 	const attrs = {
 		'data-id': node.attrs.id,
@@ -66,7 +94,14 @@ export const camelCaseToKebabCase = (str: string): string =>
  *
  * When we patch adf-schema with media `toDOM` fixes we can remove this.
  */
-export const getAttrsFromNodeMediaSingle = (withExtendedWidthTypes: boolean, node: PMNode) => {
+export const getAttrsFromNodeMediaSingle = (
+	withExtendedWidthTypes: boolean,
+	node: PMNode,
+): {
+	'data-media-vc-wrapper': string;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	'data-width-type': any;
+} => {
 	const { layout, width } = node.attrs;
 	const attrs: Record<string, string> = {
 		'data-node-type': 'mediaSingle',

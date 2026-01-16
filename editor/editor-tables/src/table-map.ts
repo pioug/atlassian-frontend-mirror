@@ -203,11 +203,11 @@ export class TableMap {
 		return this.map.includes(pos, this.map.indexOf(pos) + 1);
 	}
 
-	isCellMerged(row: number, col: number) {
+	isCellMerged(row: number, col: number): boolean {
 		return this.isCellMergedTopLeft(row, col) || this.isCellMergedBottomRight(row, col);
 	}
 
-	isCellMergedTopLeft(row: number, col: number) {
+	isCellMergedTopLeft(row: number, col: number): boolean {
 		const pos = this.map[row * this.width + col];
 		return (
 			// top
@@ -217,7 +217,7 @@ export class TableMap {
 		);
 	}
 
-	isCellMergedBottomRight(row: number, col: number) {
+	isCellMergedBottomRight(row: number, col: number): boolean {
 		const pos = this.map[row * this.width + col];
 		return (
 			// bottom
@@ -309,7 +309,7 @@ export class TableMap {
 		}
 	}
 
-	hasMergedCells() {
+	hasMergedCells(): boolean {
 		const uniquePositions = new Set(this.map);
 		return uniquePositions.size !== this.map.length;
 	}

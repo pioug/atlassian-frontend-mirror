@@ -41,7 +41,7 @@ export const useLinkWarningModal = () => {
 	/**
 	 * It checks and warns if a link text is a URL and different from an actual link destination
 	 */
-	const isLinkSafe = (event: MouseEvent<HTMLAnchorElement>, href: string | undefined) => {
+	const isLinkSafe = (event: MouseEvent<HTMLAnchorElement>, href: string | undefined): boolean => {
 		if (!href) {
 			return true;
 		}

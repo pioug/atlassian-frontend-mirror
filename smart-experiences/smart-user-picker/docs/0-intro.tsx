@@ -1,7 +1,7 @@
 import React from 'react';
 import { code, md, Props, Example, AtlassianInternalWarning } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}
 
   Smart User Picker extends on [@atlaskit/user-picker](https://statlas.prod.atl-paas.net/atlassian-frontend/master#packages/elements/user-picker) by providing a ML-backed list of suggested users
@@ -44,3 +44,4 @@ export default md`
 	)}
 
 `;
+export default _default_1;

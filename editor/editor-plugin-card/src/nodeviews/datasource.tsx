@@ -253,7 +253,7 @@ export class Datasource extends ReactNodeView<DatasourceProps> {
 	// Need this function to check if the datasource attribute was added or not to a blockCard.
 	// If not, we return false so we can get the node to re-render properly as a block node instead.
 	// Otherwise, the node view will still consider the node as a Datasource and render a such.
-	validUpdate(_: PMNode, newNode: PMNode) {
+	validUpdate(_: PMNode, newNode: PMNode): boolean {
 		return !!newNode.attrs?.datasource;
 	}
 
@@ -261,7 +261,7 @@ export class Datasource extends ReactNodeView<DatasourceProps> {
 		node: PMNode,
 		decorations: ReadonlyArray<Decoration>,
 		_innerDecorations?: DecorationSource,
-	) {
+	): boolean {
 		return super.update(node, decorations, _innerDecorations, this.validUpdate);
 	}
 
@@ -284,7 +284,7 @@ export class Datasource extends ReactNodeView<DatasourceProps> {
 	 * Events for which this returns true are not handled by the editor.
 	 * @see {@link https://prosemirror.net/docs/ref/#view.NodeView.stopEvent}
 	 */
-	stopEvent(event: Event) {
+	stopEvent(event: Event): boolean {
 		const isFormElement = [HTMLButtonElement, HTMLInputElement].some(
 			(element) => event.target instanceof element,
 		);

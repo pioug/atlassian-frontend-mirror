@@ -6,7 +6,7 @@ import legacyLight from '../artifacts/tokens-raw/atlassian-legacy-light';
 import light from '../artifacts/tokens-raw/atlassian-light';
 import shape from '../artifacts/tokens-raw/atlassian-shape';
 import spacing from '../artifacts/tokens-raw/atlassian-spacing';
-import typography from '../artifacts/tokens-raw/atlassian-typography-adg3';
+import typography from '../artifacts/tokens-raw/atlassian-typography';
 
 interface TokenMeta {
 	value:

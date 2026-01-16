@@ -25,7 +25,7 @@ type Attrs = { [key: string]: any };
  * Adapted from https://github.com/ProseMirror/prosemirror-schema-list/blob/master/src/schema-list.js#L64-L89
  */
 export function wrapInList(listType: NodeType, attrs?: Attrs) {
-	return function (tr: Transaction) {
+	return function (tr: Transaction): boolean {
 		const { $from, $to } = tr.selection;
 		let range;
 		if (

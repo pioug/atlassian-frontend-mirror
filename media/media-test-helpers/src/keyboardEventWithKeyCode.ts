@@ -9,6 +9,6 @@ class KeyboardEventWithKeyCode extends (exenv.canUseDOM ? KeyboardEvent : Object
 	}
 }
 
-const Class = exenv.canUseDOM ? KeyboardEventWithKeyCode : (FakeKeyboardEvent as any);
+const Class: any = exenv.canUseDOM ? KeyboardEventWithKeyCode : (FakeKeyboardEvent as any);
 
 export default Class;

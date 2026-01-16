@@ -117,7 +117,7 @@ function extract(newTheme: any, { mode, appearance, state }: Record<string, any>
  * @deprecated
  * Custom button themes are deprecated and will be removed in the future.
  */
-export const spotlightButtonTheme = (current: any, themeProps: Record<string, any>) => {
+export const spotlightButtonTheme = (current: any, themeProps: Record<string, any>): any => {
 	const { buttonStyles, ...rest } = current(themeProps);
 
 	return {
@@ -133,7 +133,7 @@ export const spotlightButtonTheme = (current: any, themeProps: Record<string, an
  * @deprecated
  * Custom button themes are deprecated and will be removed in the future.
  */
-export const modalButtonTheme = (current: any, themeProps: Record<string, any>) => {
+export const modalButtonTheme = (current: any, themeProps: Record<string, any>): any => {
 	const { buttonStyles, ...rest } = current(themeProps);
 	return {
 		buttonStyles: {

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Example, md, Props } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 
   Audit-logs export component
 
@@ -21,3 +21,4 @@ export default md`
 		<Props heading="AuditLogsExport Props" props={require('!!extract-react-types-loader!../src')} />
 	)}
 `;
+export default _default_1;

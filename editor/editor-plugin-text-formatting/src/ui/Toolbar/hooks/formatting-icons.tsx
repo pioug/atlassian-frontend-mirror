@@ -326,7 +326,7 @@ type Props = {
 	iconTypeList: IconTypes[];
 	textFormattingState: TextFormattingState | undefined;
 };
-export const useHasFormattingActived = ({ iconTypeList, textFormattingState }: Props) => {
+export const useHasFormattingActived = ({ iconTypeList, textFormattingState }: Props): boolean => {
 	const hasActiveFormatting = useMemo(() => {
 		if (!textFormattingState?.isInitialised) {
 			return false;

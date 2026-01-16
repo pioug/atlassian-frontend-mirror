@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugins
 
+## 11.3.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.3.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.3.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.3.6
 
 ### Patch Changes

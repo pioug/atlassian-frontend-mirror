@@ -76,7 +76,11 @@ export function getNewImportInfo(
 /**
  * Creates a new default import declaration for the transformed component
  */
-export function createDefaultImportDeclaration(j: any, componentName: string, importPath: string) {
+export function createDefaultImportDeclaration(
+	j: any,
+	componentName: string,
+	importPath: string,
+): any {
 	const defaultSpecifier = j.importDefaultSpecifier(j.identifier(componentName));
 	return j.importDeclaration([defaultSpecifier], j.stringLiteral(importPath));
 }

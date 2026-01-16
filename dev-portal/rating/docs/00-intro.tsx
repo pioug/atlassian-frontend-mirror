@@ -2,7 +2,7 @@ import React from 'react';
 
 import { DevPreviewWarning, Example, md, Props } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 ${(<DevPreviewWarning />)}
 
 ${(
@@ -84,3 +84,4 @@ ${(
 \`RatingGroup\` sets \`font-size\` to \`0\` to work around \`inline-block\` spacing issues (and thus all children get this via the cascade).
 When composing your own rating make sure to explicitly set \`font-size\` if needed like in the example above.
 `;
+export default _default_1;

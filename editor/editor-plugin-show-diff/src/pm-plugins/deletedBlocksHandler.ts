@@ -95,7 +95,7 @@ export const getDeletedStyleNode = (
 	}
 };
 
-export const shouldShowRemovedLozenge = (nodeName: string) => {
+export const shouldShowRemovedLozenge = (nodeName: string): boolean => {
 	switch (nodeName) {
 		case 'expand':
 		case 'codeBlock':
@@ -111,7 +111,7 @@ export const shouldShowRemovedLozenge = (nodeName: string) => {
 	}
 };
 
-export const shouldAddShowDiffDeletedNodeClass = (nodeName: string) => {
+export const shouldAddShowDiffDeletedNodeClass = (nodeName: string): boolean => {
 	switch (nodeName) {
 		case 'mediaSingle':
 		case 'embedCard':

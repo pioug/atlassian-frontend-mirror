@@ -2,7 +2,7 @@ import React from 'react';
 
 import { code, Example, md, Props } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 Feedback collector is a wrapper around feedback form component that collects customer feedback across Atlassian products.
 
 For more information about the Feedback Collector, check out this [page](https://hello.atlassian.net/wiki/spaces/CSX/pages/1478296417/Developers+How+to+integrate+Feedback+Collector).
@@ -49,3 +49,4 @@ ${(
 )}
 
 `;
+export default _default_1;

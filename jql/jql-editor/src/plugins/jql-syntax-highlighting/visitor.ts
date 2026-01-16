@@ -53,7 +53,7 @@ export class SyntaxHighlightingVisitor extends AbstractJastVisitor<Highlight[]> 
 		return this.getHighlightsIfPosition('operator', predicateOperator.position);
 	};
 
-	protected shouldVisitNextChild(node: AstNode) {
+	protected shouldVisitNextChild(node: AstNode): boolean {
 		// Skip visiting operand subtrees, which don't require syntax highlighting and can make a big impact on performance
 		return !isOperandNode(node);
 	}

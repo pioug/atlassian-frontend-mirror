@@ -10,7 +10,7 @@ export class ElementSelection {
 		}
 	}
 
-	public eq(selection?: ElementSelection) {
+	public eq(selection?: ElementSelection): boolean {
 		if (!selection) {
 			return false;
 		}
@@ -27,7 +27,7 @@ export class ElementSelection {
 		return this.type === 'None' && selection.type === 'None';
 	}
 
-	public inside(el: HTMLElement) {
+	public inside(el: HTMLElement): boolean {
 		return el.contains(this.range?.commonAncestorContainer ?? null);
 	}
 

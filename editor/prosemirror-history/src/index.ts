@@ -40,7 +40,7 @@ class Branch {
 	constructor(
 		readonly items: RopeSequence<Item>,
 		readonly eventCount: number,
-	) {}
+	) { }
 
 	// Pop the latest event off the branch's history and apply it
 	// to a document transform.
@@ -339,7 +339,7 @@ class Item {
 		// If this item is the inverse of a previous mapping on the stack,
 		// this points at the inverse's offset
 		readonly mirrorOffset?: number,
-	) {}
+	) { }
 
 	merge(other: Item) {
 		if (this.step && other.step && !other.selection) {
@@ -373,7 +373,7 @@ class HistoryState {
 		 * FORK ADDITION END
 		 * ===
 		 */
-	) {}
+	) { }
 }
 
 const DEPTH_OVERFLOW = 20;
@@ -507,8 +507,8 @@ function applyTransaction(
 					!isAdjacentTo(tr, history.prevRanges!)));
 		const prevRanges = appended
 			? // To match existing behaviour of prosemirror-history
-				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-				mapRanges(history.prevRanges!, tr.mapping)
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			mapRanges(history.prevRanges!, tr.mapping)
 			: rangesFor(tr.mapping.maps);
 		return new HistoryState(
 			history.done.addTransform(
@@ -628,15 +628,15 @@ function histTransaction(
 	 */
 	const newHist = history.historySliceActive
 		? new HistoryState(
-				redo ? added : pop.remaining,
-				redo ? pop.remaining : added,
-				null,
-				0,
-				-1,
-				history.historySliceActive,
-				mapInvertableSteps(history.trackedSteps, pop.transform),
-				history.selectionBookmark?.map(pop.transform.mapping),
-			)
+			redo ? added : pop.remaining,
+			redo ? pop.remaining : added,
+			null,
+			0,
+			-1,
+			history.historySliceActive,
+			mapInvertableSteps(history.trackedSteps, pop.transform),
+			history.selectionBookmark?.map(pop.transform.mapping),
+		)
 		: new HistoryState(redo ? added : pop.remaining, redo ? pop.remaining : added, null, 0, -1);
 	/**
 	 * FORK ADDITION END
@@ -767,13 +767,15 @@ export const undoNoScroll = buildCommand(false, false);
 export const redoNoScroll = buildCommand(true, false);
 
 /// The amount of undoable events available in a given state.
-export function undoDepth(state: EditorState) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function undoDepth(state: EditorState): any {
 	const hist = historyKey.getState(state);
 	return hist ? hist.done.eventCount : 0;
 }
 
 /// The amount of redoable events available in a given editor state.
-export function redoDepth(state: EditorState) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function redoDepth(state: EditorState): any {
 	const hist = historyKey.getState(state);
 	return hist ? hist.undone.eventCount : 0;
 }

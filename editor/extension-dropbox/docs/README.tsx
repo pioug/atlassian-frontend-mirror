@@ -2,7 +2,8 @@ import React from 'react';
 import { md, code } from '@atlaskit/docs';
 import SectionMessage from '@atlaskit/section-message';
 
-export default md`
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const _default_1: any = md`
 This plugin is designed to make it easy to add a dropbox experience to a product. It uses
 dropbox's native picker within a modal, and rendering a smart link on the page after it is
 used.
@@ -50,11 +51,11 @@ In the dropbox form, you will need to add the domains you wish the plugin to run
 
 ### Final important step
 ${(
-	<>
-		<p />
-		<SectionMessage>Without this step, your extension will not render</SectionMessage>
-	</>
-)}
+		<>
+			<p />
+			<SectionMessage>Without this step, your extension will not render</SectionMessage>
+		</>
+	)}
 
 As we are mounting the dropbox picker in an iframe, dropbox needs to whitelist the domains on which it will run. You will need to
 contact Anthony Marnell, or reach out to dropbox in the slack channel \`ext-dropbox-jira\` to dropbox directly. It may take a
@@ -63,12 +64,13 @@ few days to get the domains whitelisted for your app.
 In addition to this, you need to make sure your security permissions for \`X-Frame-Options\` and a \`Content-Security-Policy\`, otherwise dropbox will deny permissiones for the app.
 
 ${(
-	<>
-		<p />
-		<SectionMessage>
-			You should likely set up two apps, one for local testing, and one for production - make sure
-			each has its needed domains allowed.
-		</SectionMessage>
-	</>
-)}
+		<>
+			<p />
+			<SectionMessage>
+				You should likely set up two apps, one for local testing, and one for production - make sure
+				each has its needed domains allowed.
+			</SectionMessage>
+		</>
+	)}
 `;
+export default _default_1;

@@ -1,5 +1,5 @@
 {
-	"extends": "../../../../tsconfig.entry-points.products.json",
+	"extends": "../../../../tsconfig.local-consumption.json",
 	"compilerOptions": {
 		"target": "es5",
 		"outDir": "../../../../../tsDist/@atlaskit__editor-plugin-block-menu/app",
@@ -18,6 +18,9 @@
 		"../src/**/examples.*"
 	],
 	"references": [
+		{
+			"path": "../../../helpers/browser-apis/afm-products/tsconfig.json"
+		},
 		{
 			"path": "../../../design-system/css/afm-products/tsconfig.json"
 		},

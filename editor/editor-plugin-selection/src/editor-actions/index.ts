@@ -88,7 +88,8 @@ export const getSelectionFragment =
 	};
 
 export const getSelectionLocalIds =
-	(api: ExtractInjectionAPI<SelectionPlugin> | undefined) => () => {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	(api: ExtractInjectionAPI<SelectionPlugin> | undefined) => (): any[] | null => {
 		let selection = api?.selection.sharedState?.currentState()?.selection;
 		if (selection?.empty) {
 			// If we have an empty selection the current state might not be correct

@@ -31,7 +31,7 @@ type BooleanCallback<T> = (args: T) => boolean;
 
 export const compose =
 	(...fns: ((...any: any[]) => any)[]) =>
-	(x: any) =>
+	(x: any): any =>
 		fns.reduce((res, fn) => fn(res), x);
 export const pick =
 	<T extends any>(key: keyof T) =>

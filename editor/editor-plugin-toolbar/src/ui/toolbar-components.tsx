@@ -89,7 +89,6 @@ const getPrimaryToolbarComponents = (breakpointPreset?: BreakpointPreset) => {
 export const getToolbarComponents = (
 	contextualFormattingEnabled: ContextualFormattingEnabledOptions,
 	api?: ExtractInjectionAPI<ToolbarPlugin>,
-	disableSelectionToolbar?: boolean,
 	breakpointPreset?: BreakpointPreset,
 ): RegisterComponent[] => {
 	const components: RegisterComponent[] = [
@@ -107,12 +106,7 @@ export const getToolbarComponents = (
 				if (expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)) {
 					return (
 						<Show above="md">
-							<Section
-								parents={parents}
-								api={api}
-								disableSelectionToolbar={disableSelectionToolbar}
-								testId="text-section"
-							>
+							<Section parents={parents} api={api} testId="text-section">
 								{children}
 							</Section>
 						</Show>
@@ -120,12 +114,7 @@ export const getToolbarComponents = (
 				}
 
 				return (
-					<Section
-						parents={parents}
-						api={api}
-						disableSelectionToolbar={disableSelectionToolbar}
-						testId="text-section"
-					>
+					<Section parents={parents} api={api} testId="text-section">
 						{children}
 					</Section>
 				);
@@ -151,12 +140,7 @@ export const getToolbarComponents = (
 				if (expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)) {
 					return (
 						<Show above="md">
-							<Section
-								parents={parents}
-								api={api}
-								disableSelectionToolbar={disableSelectionToolbar}
-								testId="text-section"
-							>
+							<Section parents={parents} api={api} testId="text-section">
 								{children}
 							</Section>
 						</Show>
@@ -164,12 +148,7 @@ export const getToolbarComponents = (
 				}
 
 				return (
-					<Section
-						parents={parents}
-						api={api}
-						disableSelectionToolbar={disableSelectionToolbar}
-						testId="text-section"
-					>
+					<Section parents={parents} api={api} testId="text-section">
 						{children}
 					</Section>
 				);
@@ -196,12 +175,7 @@ export const getToolbarComponents = (
 						component: ({ children, parents }) => {
 							return (
 								<Show below="md">
-									<Section
-										parents={parents}
-										api={api}
-										disableSelectionToolbar={disableSelectionToolbar}
-										testId="text-section"
-									>
+									<Section parents={parents} api={api} testId="text-section">
 										{children}
 									</Section>
 								</Show>
@@ -403,22 +377,17 @@ export const getToolbarComponents = (
 		},
 	);
 
-	if (fg('platform_editor_toolbar_aifc_placement_config')) {
-		switch (contextualFormattingEnabled) {
-			case 'always-inline':
-				components.unshift(...getInlineTextToolbarComponents());
-				break;
-			case 'always-pinned':
-				components.unshift(...getPrimaryToolbarComponents(breakpointPreset));
-				break;
-			case 'controlled':
-				components.unshift(...getInlineTextToolbarComponents());
-				components.unshift(...getPrimaryToolbarComponents(breakpointPreset));
-				break;
-		}
-	} else {
-		components.unshift(...getInlineTextToolbarComponents());
-		components.unshift(...getPrimaryToolbarComponents(breakpointPreset));
+	switch (contextualFormattingEnabled) {
+		case 'always-inline':
+			components.unshift(...getInlineTextToolbarComponents());
+			break;
+		case 'always-pinned':
+			components.unshift(...getPrimaryToolbarComponents(breakpointPreset));
+			break;
+		case 'controlled':
+			components.unshift(...getInlineTextToolbarComponents());
+			components.unshift(...getPrimaryToolbarComponents(breakpointPreset));
+			break;
 	}
 
 	if (fg('platform_editor_toolbar_aifc_undo_redo_confluence')) {

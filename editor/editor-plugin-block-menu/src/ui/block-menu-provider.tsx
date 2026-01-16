@@ -1,6 +1,7 @@
 import React, { useCallback, createContext, useContext, useRef } from 'react';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 
@@ -9,9 +10,11 @@ export type Direction = 'moveUp' | 'moveDown';
 type BlockMenuProviderProps = {
 	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined;
 	children: React.ReactNode;
+	editorView: EditorView | undefined;
 };
 
 export type BlockMenuContextType = {
+	getFirstSelectedDomNode: () => Element | undefined;
 	moveDownRef: React.MutableRefObject<HTMLButtonElement | null>;
 	moveUpRef: React.MutableRefObject<HTMLButtonElement | null>;
 	/**
@@ -26,6 +29,7 @@ const BlockMenuContext = createContext<BlockMenuContextType>({
 	onDropdownOpenChanged: () => {},
 	moveDownRef: React.createRef<HTMLButtonElement>(),
 	moveUpRef: React.createRef<HTMLButtonElement>(),
+	getFirstSelectedDomNode: () => undefined,
 });
 
 export const useBlockMenu = () => {
@@ -38,9 +42,24 @@ export const useBlockMenu = () => {
 	return context;
 };
 
-export const BlockMenuProvider = ({ children, api }: BlockMenuProviderProps): React.JSX.Element => {
+export const BlockMenuProvider = ({
+	children,
+	api,
+	editorView,
+}: BlockMenuProviderProps): React.JSX.Element => {
 	const moveUpRef = useRef<HTMLButtonElement | null>(null);
 	const moveDownRef = useRef<HTMLButtonElement | null>(null);
+
+	const getFirstSelectedDomNode = useCallback(() => {
+		const from = api?.selection?.sharedState.currentState()?.selection?.from;
+
+		if (from !== undefined) {
+			const nodeDOM = editorView?.nodeDOM(from);
+			if (nodeDOM instanceof Element) {
+				return nodeDOM;
+			}
+		}
+	}, [api, editorView]);
 
 	const onDropdownOpenChanged = useCallback(
 		(isOpen: boolean) => {
@@ -64,6 +83,7 @@ export const BlockMenuProvider = ({ children, api }: BlockMenuProviderProps): Re
 				onDropdownOpenChanged,
 				moveDownRef,
 				moveUpRef,
+				getFirstSelectedDomNode,
 			}}
 		>
 			{children}

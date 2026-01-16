@@ -1,12 +1,12 @@
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-export const isNestedNodeSelected = (view: EditorView) => {
+export const isNestedNodeSelected = (view: EditorView): boolean => {
 	const selection = view.state.selection;
 	return selection instanceof NodeSelection && selection.$from.depth > 0;
 };
 
-export const isSelectionInNode = (start: number, view: EditorView) => {
+export const isSelectionInNode = (start: number, view: EditorView): boolean => {
 	const node = view.state.doc.nodeAt(start);
 	if (node === null) {
 		return false;
@@ -30,7 +30,7 @@ export const isInTextSelection = (view: EditorView) => {
 	}
 };
 
-export const isNonEditableBlock = (start: number, view: EditorView) => {
+export const isNonEditableBlock = (start: number, view: EditorView): boolean => {
 	const node = view.state.doc.nodeAt(start);
 	if (node === null) {
 		return false;

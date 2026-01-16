@@ -280,4 +280,10 @@ export const syncBlockMessages = defineMessages({
 		description:
 			'Lozenge label shown in the synced location dropdown option when the sync block is source',
 	},
+	syncedLocationDropdownRequestAccess: {
+		id: 'fabric.editor.syncedLocationDropdownRequestAccess',
+		defaultMessage: 'Request access',
+		description:
+			'Label shown in the synced location dropdown option when the sync block is not accessible to the user',
+	},
 });

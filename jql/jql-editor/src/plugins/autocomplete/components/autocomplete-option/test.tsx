@@ -183,8 +183,8 @@ describe('highlighting', () => {
 		);
 		const highlighted = getByText('Vani');
 		const plain = getByText('lla cheesecake');
-		expect(getComputedStyle(highlighted).fontWeight).toBe('var(--ds-font-weight-bold, 700)');
-		expect(getComputedStyle(plain).fontWeight).not.toBe('var(--ds-font-weight-bold, 700)');
+		expect(getComputedStyle(highlighted).fontWeight).toBe('var(--ds-font-weight-bold, 653)');
+		expect(getComputedStyle(plain).fontWeight).not.toBe('var(--ds-font-weight-bold, 653)');
 	});
 
 	it('ignores case and accents while matching', () => {
@@ -201,8 +201,8 @@ describe('highlighting', () => {
 		);
 		const plain = getByText('Vanilla');
 		const highlighted = getByText('cheesecake');
-		expect(getComputedStyle(plain).fontWeight).not.toBe('var(--ds-font-weight-bold, 700)');
-		expect(getComputedStyle(highlighted).fontWeight).toBe('var(--ds-font-weight-bold, 700)');
+		expect(getComputedStyle(plain).fontWeight).not.toBe('var(--ds-font-weight-bold, 653)');
+		expect(getComputedStyle(highlighted).fontWeight).toBe('var(--ds-font-weight-bold, 653)');
 	});
 
 	it('ignores opening quotes while matching', () => {
@@ -219,8 +219,8 @@ describe('highlighting', () => {
 		);
 		const highlighted = getByText('Vanilla');
 		const plain = getByText('cheesecake');
-		expect(getComputedStyle(highlighted).fontWeight).toBe('var(--ds-font-weight-bold, 700)');
-		expect(getComputedStyle(plain).fontWeight).not.toBe('var(--ds-font-weight-bold, 700)');
+		expect(getComputedStyle(highlighted).fontWeight).toBe('var(--ds-font-weight-bold, 653)');
+		expect(getComputedStyle(plain).fontWeight).not.toBe('var(--ds-font-weight-bold, 653)');
 	});
 
 	it('ignores surrounding quotes while matching', () => {
@@ -237,8 +237,8 @@ describe('highlighting', () => {
 		);
 		const highlighted = getByText('Vanilla');
 		const plain = getByText('cheesecake');
-		expect(getComputedStyle(highlighted).fontWeight).toBe('var(--ds-font-weight-bold, 700)');
-		expect(getComputedStyle(plain).fontWeight).not.toBe('var(--ds-font-weight-bold, 700)');
+		expect(getComputedStyle(highlighted).fontWeight).toBe('var(--ds-font-weight-bold, 653)');
+		expect(getComputedStyle(plain).fontWeight).not.toBe('var(--ds-font-weight-bold, 653)');
 	});
 
 	it('does not highlight text when query is empty', () => {
@@ -253,7 +253,7 @@ describe('highlighting', () => {
 			</OptionsListWrapper>,
 		);
 		const option = getByText(testOption.name);
-		expect(getComputedStyle(option).fontWeight).not.toBe('var(--ds-font-weight-bold, 700)');
+		expect(getComputedStyle(option).fontWeight).not.toBe('var(--ds-font-weight-bold, 653)');
 	});
 
 	it('does not highlight text when there is no match', () => {
@@ -269,7 +269,7 @@ describe('highlighting', () => {
 			</OptionsListWrapper>,
 		);
 		const option = getByText(nonMatchingOption.name);
-		expect(getComputedStyle(option).fontWeight).not.toBe('var(--ds-font-weight-bold, 700)');
+		expect(getComputedStyle(option).fontWeight).not.toBe('var(--ds-font-weight-bold, 653)');
 	});
 });
 

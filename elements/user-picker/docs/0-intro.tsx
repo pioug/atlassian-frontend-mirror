@@ -1,7 +1,7 @@
 import React from 'react';
 import { code, Example, md, Props, AtlassianInternalWarning } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}
 
   This is the platform field for selecting users. On top of that you can also select [Teams](https://developer.atlassian.com/platform/teams/overview/what-are-teams/).
@@ -56,3 +56,4 @@ export default md`
 		/>
 	)}
 `;
+export default _default_1;

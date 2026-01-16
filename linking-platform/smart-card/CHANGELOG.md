@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 43.20.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 43.20.4
+
+### Patch Changes
+
+- [`ed7dce3871915`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed7dce3871915) -
+  Fix react-ufo incorrect dependency listing. No changes to production code.
+- Updated dependencies
+
 ## 43.20.3
 
 ### Patch Changes

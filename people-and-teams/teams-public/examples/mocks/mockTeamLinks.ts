@@ -1,7 +1,7 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
 export const mockTeamLinksQueries = {
-	data: () =>
+	data: (): any =>
 		fetchMock.get({
 			matcher: (url: string) => url.includes('/gateway/api/v4/teams/') && url.includes('/links'),
 			response: () => {

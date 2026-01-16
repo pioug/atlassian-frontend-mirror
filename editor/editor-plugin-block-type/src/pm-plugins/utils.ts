@@ -8,7 +8,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { WRAPPER_BLOCK_TYPES, FORMATTING_NODE_TYPES, FORMATTING_MARK_TYPES } from './block-types';
 import type { BlockType } from './types';
 
-export const isNodeAWrappingBlockNode = (node?: PMNode | null) => {
+export const isNodeAWrappingBlockNode = (node?: PMNode | null): boolean => {
 	if (!node) {
 		return false;
 	}
@@ -168,10 +168,10 @@ const marksArePresent = (state: EditorState) => {
 	return activeMarkTypes.length > 0;
 };
 
-export const checkFormattingIsPresent = (state: EditorState) => {
+export const checkFormattingIsPresent = (state: EditorState): boolean => {
 	return marksArePresent(state) || blockStylingIsPresent(state);
 };
 
-export const hasBlockQuoteInOptions = (dropdownOptions: BlockType[]) => {
+export const hasBlockQuoteInOptions = (dropdownOptions: BlockType[]): boolean => {
 	return !!dropdownOptions.find((blockType) => blockType.name === 'blockquote');
 };

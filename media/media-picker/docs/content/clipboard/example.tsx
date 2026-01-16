@@ -1,6 +1,6 @@
 import React from 'react';
 import { md, Example } from '@atlaskit/docs';
-export default md`
+const _default_1: any = md`
 
 
 ${(
@@ -13,3 +13,4 @@ ${(
 
 
 `;
+export default _default_1;

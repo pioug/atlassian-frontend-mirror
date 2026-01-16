@@ -11,4 +11,4 @@ export function getCanvas(width: number, height: number) {
 	return { canvas, context };
 }
 
-export const isSSR = () => typeof window === 'undefined' || typeof document === 'undefined';
+export const isSSR = (): boolean => typeof window === 'undefined' || typeof document === 'undefined';

@@ -85,7 +85,10 @@ export async function getExtensionModuleNodePrivateProps(
 	extensionProvider: ExtensionProvider,
 	extensionType: ExtensionType,
 	extensionKey: ExtensionKey,
-) {
+): Promise<{
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	[prop: string]: any;
+}> {
 	const moduleNode = await getExtensionModuleNode(extensionProvider, extensionType, extensionKey);
 	return Object.keys(moduleNode)
 		.filter((key) => key.startsWith('__'))
@@ -110,9 +113,10 @@ function ExtensionLoading(props: LoadingComponentProps) {
 		// eslint-disable-next-line no-console
 		console.error('Error rendering extension', props.error);
 		return (
-			<div>{fg('platform_editor_dec_a11y_fixes')
-				? intl.formatMessage(messages.extensionLoadingError)
-				: 'Error loading the extension!'}
+			<div>
+				{fg('platform_editor_dec_a11y_fixes')
+					? intl.formatMessage(messages.extensionLoadingError)
+					: 'Error loading the extension!'}
 			</div>
 		);
 	} else {
@@ -149,7 +153,7 @@ export function getNodeRenderer<T extends Parameters>(
 				// However the out-of-box won't handle this. Confluence uses a custom implementation
 				return preloaded
 					? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-						(resolveImportSync(preloaded) as any)
+					(resolveImportSync(preloaded) as any)
 					: resolveImport(maybePromise.render());
 			}
 		},

@@ -6,7 +6,7 @@ import { md, Example, code, AtlassianInternalWarning } from '@atlaskit/docs';
 import MentionWithEditorExample from '../examples/14-mention-with-editor-extending-abstract-mention-resource';
 const MentionWithEditorExampleSource = require('!!raw-loader!../examples/14-mention-with-editor-extending-abstract-mention-resource');
 
-export default md`
+const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}
 
   ## Using Mentions in AK Editor
@@ -74,3 +74,4 @@ export default md`
   This is only available for internal use.
 
 `;
+export default _default_1;

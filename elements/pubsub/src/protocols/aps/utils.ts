@@ -38,6 +38,6 @@ export const getTimestampBasedSequenceNumber = () => {
 	return Math.floor(new Date().getTime() / 1000); // timestamp in seconds
 };
 
-export const shouldDelayRetry = (isHidden: boolean) => {
+export const shouldDelayRetry = (isHidden: boolean): boolean => {
 	return isHidden;
 };

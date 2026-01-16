@@ -3,7 +3,7 @@ import {
 	type HeadingAnchorLinksConfig,
 } from '../../ui/Renderer/types';
 
-export function isNestedHeaderLinksEnabled(allowHeadingAnchorLinks?: HeadingAnchorLinksProps) {
+export function isNestedHeaderLinksEnabled(allowHeadingAnchorLinks?: HeadingAnchorLinksProps): boolean {
 	// If it's a boolean or undefined, then we don't support nesting.
 	if (!allowHeadingAnchorLinks || typeof allowHeadingAnchorLinks === 'boolean') {
 		return false;

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-table",
-	"version": "18.1.2",
+	"version": "18.1.3",
 	"description": "Table UI component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

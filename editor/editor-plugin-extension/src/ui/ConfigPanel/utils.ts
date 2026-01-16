@@ -76,12 +76,16 @@ export const getSafeParentedName = (name: string, parentName?: string): string =
 // eslint-disable-next-line require-unicode-regexp
 const duplicateFieldRegex = /:[0-9]+$/;
 
-export const isDuplicateField = (key: string) => duplicateFieldRegex.test(key);
+export const isDuplicateField = (key: string): boolean => duplicateFieldRegex.test(key);
 
 export const getNameFromDuplicateField = (key: string): string => key.replace(duplicateFieldRegex, '');
 
 // An overly cautious parser for sanitizing configuration parameters of UGC
-export const parseParamType = (paramValue: Parameters[string], paramField?: FieldDefinition) => {
+export const parseParamType = (
+	paramValue: Parameters[string],
+	paramField?: FieldDefinition,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+): any => {
 	if (paramValue && paramField) {
 		if (paramField.type === 'string') {
 			if (paramField.name === 'types') {

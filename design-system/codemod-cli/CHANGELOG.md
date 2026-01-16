@@ -1,5 +1,22 @@
 # @atlaskit/codemod-cli
 
+## 0.34.1
+
+### Patch Changes
+
+- [`f111803c4e253`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f111803c4e253) -
+  Updating typography fallbacks to refreshed typography values as the deprecated legacy typography
+  theme has been removed.
+- Updated dependencies
+
+## 0.34.0
+
+### Minor Changes
+
+- [`7e8bbc2620251`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e8bbc2620251) -
+  Added a codemod lozenge-discovery-to-tag-with-fg to migrate Lozenge components with
+  appearance='new' or 'discovery' to Tag behind feature gate.
+
 ## 0.33.2
 
 ### Patch Changes

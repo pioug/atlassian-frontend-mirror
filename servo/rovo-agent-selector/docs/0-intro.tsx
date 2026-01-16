@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Example, md, Props } from '@atlaskit/docs';
 
-export default md`
+const _default_1: any = md`
 
   rovo agent selector
 
@@ -24,3 +24,4 @@ export default md`
 		/>
 	)}
 `;
+export default _default_1;

@@ -46,7 +46,7 @@ export const getCustomActionIcon = (): React.JSX.Element => (
 	<PremiumIcon label="" color={token('color.icon', '#44546F')} />
 );
 
-export const getExampleFromLocalStorage = () => {
+export const getExampleFromLocalStorage = (): any => {
 	try {
 		const str = localStorage.getItem(ExampleStorageKey);
 		if (str) {

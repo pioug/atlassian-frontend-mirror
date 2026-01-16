@@ -1,5 +1,5 @@
 // Based on https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types
-export const isImageMimeTypeSupportedByBrowser = (mimeType: string) =>
+export const isImageMimeTypeSupportedByBrowser = (mimeType: string): boolean =>
 	[
 		'image/apng',
 		'image/bmp',
@@ -11,10 +11,10 @@ export const isImageMimeTypeSupportedByBrowser = (mimeType: string) =>
 		//'image/svg+xml', // Removed because of https://product-fabric.atlassian.net/browse/BMPT-625
 	].indexOf(mimeType.toLowerCase()) > -1;
 
-export const isDocumentMimeTypeSupportedByBrowser = (mimeType: string) =>
+export const isDocumentMimeTypeSupportedByBrowser = (mimeType: string): boolean =>
 	mimeType.toLowerCase() === 'application/pdf';
 
-export const isAudioMimeTypeSupportedByBrowser = (mimeType: string) =>
+export const isAudioMimeTypeSupportedByBrowser = (mimeType: string): boolean =>
 	[
 		'audio/aac',
 		'audio/flac',
@@ -35,10 +35,10 @@ export const isAudioMimeTypeSupportedByBrowser = (mimeType: string) =>
  * - https://product-fabric.atlassian.net/browse/EDM-634
  * - https://product-fabric.atlassian.net/browse/EDM-426
  */
-export const isVideoMimeTypeSupportedByBrowser = (mimeType: string) =>
+export const isVideoMimeTypeSupportedByBrowser = (mimeType: string): boolean =>
 	['video/mp4', 'video/quicktime'].indexOf(mimeType.toLowerCase()) > -1;
 
-export const isMimeTypeSupportedByBrowser = (mimeType: string) =>
+export const isMimeTypeSupportedByBrowser = (mimeType: string): boolean =>
 	isDocumentMimeTypeSupportedByBrowser(mimeType) ||
 	isImageMimeTypeSupportedByBrowser(mimeType) ||
 	isAudioMimeTypeSupportedByBrowser(mimeType) ||

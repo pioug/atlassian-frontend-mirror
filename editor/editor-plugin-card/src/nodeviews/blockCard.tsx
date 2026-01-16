@@ -200,7 +200,7 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 	// Need this function to check if the datasource attribute was added or not to a blockCard.
 	// If so, we return false so we can get the node to re-render properly as a datasource node instead.
 	// Otherwise, the node view will still consider the node as a blockCard and render a regular blockCard.
-	validUpdate(currentNode: Node, newNode: Node) {
+	validUpdate(currentNode: Node, newNode: Node): boolean {
 		const isCurrentNodeBlockCard = !isDatasourceNode(currentNode);
 		const isNewNodeDatasource = isDatasourceNode(newNode);
 
@@ -208,7 +208,7 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 		return !(isCurrentNodeBlockCard && isNewNodeDatasource);
 	}
 
-	update(node: Node, decorations: ReadonlyArray<Decoration>, _innerDecorations?: DecorationSource) {
+	update(node: Node, decorations: ReadonlyArray<Decoration>, _innerDecorations?: DecorationSource): boolean {
 		return super.update(node, decorations, _innerDecorations, this.validUpdate);
 	}
 

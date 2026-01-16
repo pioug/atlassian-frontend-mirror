@@ -8,7 +8,7 @@ export const ONE_DAY_IN_MILLISECONDS = 86400000;
 
 const storageClient = new StorageClient(LOCAL_STORAGE_CLIENT_KEY);
 
-export const isLocalStorageKeyDiscovered = (key: string) => {
+export const isLocalStorageKeyDiscovered = (key: string): boolean => {
 	try {
 		const localStorageValue = storageClient.getItem(key);
 		return !!localStorageValue && localStorageValue === LOCAL_STORAGE_DISCOVERED_KEY;

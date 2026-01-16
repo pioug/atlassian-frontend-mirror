@@ -24,7 +24,7 @@ export const triggerInputRule = (
 	from: number,
 	to: number,
 	text: string,
-) => {
+): boolean => {
 	const { state } = view;
 	const $from = state.doc.resolve(from);
 

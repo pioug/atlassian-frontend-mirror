@@ -9,10 +9,11 @@ import type {
 	StudioAutomationBuildUpdatePayload,
 	UpdateAgentConfigurationPayload,
 } from './common/types/solution-architect';
-import type { ChatContextPayload } from './common/utils/chat-context';
+import type { ChatContextPayload } from './common/utils/chat-context/types';
 
 export const Topics = {
 	AI_MATE: 'ai-mate',
+	AI_MATE_INSERT_URLS: 'ai-mate-chat-inserts',
 } as const;
 export type Topic = (typeof Topics)[keyof typeof Topics];
 
@@ -39,13 +40,13 @@ export type ChatClosePayload = PayloadCore<'chat-close', {}>;
 // Can only specify either `agentId` or `agentExternalConfigReference`, not both
 type TargetAgentParam =
 	| {
-			agentId: string;
-			agentExternalConfigReference?: never;
-	  }
+		agentId: string;
+		agentExternalConfigReference?: never;
+	}
 	| {
-			agentId?: never;
-			agentExternalConfigReference: string;
-	  };
+		agentId?: never;
+		agentExternalConfigReference: string;
+	};
 
 type PlaceholderParam = {
 	// Overrides the default placeholder type
@@ -76,53 +77,53 @@ export type ChatNewPayload = PayloadCore<
 		sourceId?: string;
 		minionAlias?: string;
 	} & Partial<TargetAgentParam> &
-		PlaceholderParam
+	PlaceholderParam
 >;
 
 export type EditorContextPayloadData =
 	| {
-			document: {
-				type: 'text/markdown' | 'text/adf';
-				content: string;
-			};
-			selection: {
-				type: 'text/markdown' | 'text/plain';
-				content: string;
-			};
-			selectionFragment?: string;
-			selectionLocalIds?: string;
-			isViewMode?: boolean;
-			useGenericEditorSkill?: boolean;
-			additionalContext?: Record<string, unknown>;
-	  }
+		document: {
+			type: 'text/markdown' | 'text/adf';
+			content: string;
+		};
+		selection: {
+			type: 'text/markdown' | 'text/plain';
+			content: string;
+		};
+		selectionFragment?: string;
+		selectionLocalIds?: string;
+		isViewMode?: boolean;
+		useGenericEditorSkill?: boolean;
+		additionalContext?: Record<string, unknown>;
+	}
 	| undefined;
 
 export type WhiteboardContextPayloadData =
 	| {
-			type: 'image/svg+xml' | 'text/plain';
-			content: string;
-			contentId?: string;
-			isViewMode?: boolean;
-	  }
+		type: 'image/svg+xml' | 'text/plain';
+		content: string;
+		contentId?: string;
+		isViewMode?: boolean;
+	}
 	| undefined;
 
 export type DatabaseContextPayloadData =
 	| {
-			contentId: string;
-			csv: string;
-			title: string;
-			url: string;
-	  }
+		contentId: string;
+		csv: string;
+		title: string;
+		url: string;
+	}
 	| undefined;
 
 export type BrowserContextPayloadData = {
 	context:
-		| {
-				browserUrl: string;
-				htmlBody?: string;
-				canvasText?: string;
-		  }
-		| undefined;
+	| {
+		browserUrl: string;
+		htmlBody?: string;
+		canvasText?: string;
+	}
+	| undefined;
 };
 
 export type WorkflowContextPayloadData = {
@@ -309,9 +310,9 @@ export type JiraWorkflowWizardAction =
 	| { operationType: 'UPDATE_TRANSITION'; payload: UpdateTransitionRovoPayload }
 	// TODO: Remove DeleteTransitionRovoPayloadOld when hix-7888_-_delete_transition_expanded_fields is cleaned up
 	| {
-			operationType: 'DELETE_TRANSITION';
-			payload: DeleteTransitionRovoPayloadOld | DeleteTransitionRovoPayload;
-	  }
+		operationType: 'DELETE_TRANSITION';
+		payload: DeleteTransitionRovoPayloadOld | DeleteTransitionRovoPayload;
+	}
 	| { operationType: 'ADD_RULE'; payload: AddRuleRovoPayload }
 	| { operationType: 'UPDATE_RULE'; payload: UpdateRuleRovoPayload }
 	| { operationType: 'DELETE_RULE'; payload: DeleteRuleRovoPayload };
@@ -349,8 +350,8 @@ export type DashboardInsightsActionsPayload = PayloadCore<'dashboard-insights-ac
 
 export type DashboardInsightsActionsPayloadData =
 	| {
-			content: string;
-	  }
+		content: string;
+	}
 	| undefined;
 
 export type SetChatContextPayload = PayloadCore<'set-message-context', ChatContextPayload>;

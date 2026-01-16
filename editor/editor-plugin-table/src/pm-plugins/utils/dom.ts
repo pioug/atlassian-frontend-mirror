@@ -44,13 +44,13 @@ export const isTableContainerOrWrapper = (node: HTMLElement | null): boolean =>
 	containsClassName(node, ClassName.TABLE_NODE_WRAPPER);
 
 /** drag-and-drop classes */
-export const isDragRowFloatingInsertDot = (node: HTMLElement | null) =>
+export const isDragRowFloatingInsertDot = (node: HTMLElement | null): boolean =>
 	containsClassName(node, ClassName.DRAG_ROW_FLOATING_INSERT_DOT_WRAPPER);
 
-export const isDragColumnFloatingInsertDot = (node: HTMLElement | null) =>
+export const isDragColumnFloatingInsertDot = (node: HTMLElement | null): boolean =>
 	containsClassName(node, ClassName.DRAG_COLUMN_FLOATING_INSERT_DOT_WRAPPER);
 
-export const isDragCornerButton = (node: HTMLElement | null) =>
+export const isDragCornerButton = (node: HTMLElement | null): boolean =>
 	containsClassName(node, ClassName.DRAG_CORNER_BUTTON) ||
 	containsClassName(node, ClassName.DRAG_CORNER_BUTTON_INNER);
 

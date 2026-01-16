@@ -1,5 +1,22 @@
 # @atlaskit/forge-react-types
 
+## 0.56.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.56.0
+
+### Minor Changes
+
+- [`a7751359d45b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a7751359d45b6) -
+  Add fullscreen size for uikit modal component
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.55.0
 
 ### Minor Changes

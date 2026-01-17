@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.0.19
+
+### Patch Changes
+
+- [`5a2e9d04ff4d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a2e9d04ff4d5) -
+  [ux] Shows only available transforms in 'Suggested' section.
+
 ## 6.0.18
 
 ### Patch Changes

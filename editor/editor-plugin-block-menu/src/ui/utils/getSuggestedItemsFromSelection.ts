@@ -37,5 +37,5 @@ export const getSuggestedItemsFromSelection = (
 
 	return sortedKeys
 		.map((key) => menuItemsMap.get(key))
-		.filter((item): item is RegisterBlockMenuItem => item !== undefined);
+		.filter((item): item is RegisterBlockMenuItem => item !== undefined && !item.isHidden?.());
 };

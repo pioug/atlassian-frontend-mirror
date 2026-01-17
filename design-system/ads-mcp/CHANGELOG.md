@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 0.13.5
+
+### Patch Changes
+
+- [`6da0cd3dc1b0f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6da0cd3dc1b0f) -
+  Improve i18n mcp for better detection on existing patterns and save tokens
+
 ## 0.13.4
 
 ### Patch Changes

@@ -5,6 +5,8 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 import { DiProvider, type Injectable } from 'react-magnetic-di';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import { AgentDropdownMenu } from './index';
 
 describe('AgentDropdownMenu', () => {
@@ -344,6 +346,63 @@ describe('AgentDropdownMenu', () => {
 
 		expect(screen.getByRole('menuitem', { name: 'Copy link' })).toBeVisible();
 	});
+
+	it('does not show verify agent option if isAbleToGovernAgents is false', async () => {
+		const user = userEvent.setup();
+
+		renderComponent({ isAbleToGovernAgents: false, isVerified: false });
+
+		await user.click(moreActions());
+
+		const verifyAgentButton = screen.queryByRole('menuitem', {
+			name: 'Verify agent',
+		});
+		expect(verifyAgentButton).toBeNull();
+	});
+
+	ffTest.off('rovo_agents_agent_verification', 'with rovo_agents_agent_verification off', () => {
+		it('does not show verify agent option if feature flag is off', async () => {
+			const user = userEvent.setup();
+
+			renderComponent({ isAbleToGovernAgents: true, isVerified: false });
+
+			await user.click(moreActions());
+
+			const verifyAgentButton = screen.queryByRole('menuitem', {
+				name: 'Verify agent',
+			});
+			expect(verifyAgentButton).toBeNull();
+		});
+	});
+
+	ffTest.on('rovo_agents_agent_verification', 'with rovo_agents_agent_verification on', () => {
+		it('shows "Verify agent" option when isAbleToGovernAgents is true and agent is not verified', async () => {
+			const user = userEvent.setup();
+
+			renderComponent({ isAbleToGovernAgents: true, isVerified: false });
+
+			await user.click(moreActions());
+
+			const verifyAgentButton = screen.queryByRole('menuitem', {
+				name: 'Verify agent',
+			});
+			expect(verifyAgentButton).toBeVisible();
+		});
+
+		it('shows "Unverify agent" option when isAbleToGovernAgents is true and agent is verified', async () => {
+			const user = userEvent.setup();
+
+			renderComponent({ isAbleToGovernAgents: true, isVerified: true });
+
+			await user.click(moreActions());
+
+			const unverifyAgentButton = screen.queryByRole('menuitem', {
+				name: 'Unverify agent',
+			});
+			expect(unverifyAgentButton).toBeVisible();
+		});
+	});
+
 	it('should capture and report a11y violations', async () => {
 		const { container } = render(
 			<DiProvider use={deps}>

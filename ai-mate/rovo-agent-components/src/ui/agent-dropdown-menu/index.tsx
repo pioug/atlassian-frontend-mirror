@@ -11,6 +11,7 @@ import Button, { type ButtonProps, IconButton } from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -110,6 +111,8 @@ type AgentDropdownMenuProps = {
 		isEditEnabled: boolean;
 		isDeleteEnabled: boolean;
 	}>;
+	isVerified?: boolean | null;
+	isAbleToGovernAgents?: boolean | null;
 } & ViewAgentOptionProps &
 	ViewAgentFullProfileProps;
 
@@ -133,6 +136,8 @@ export const AgentDropdownMenu = ({
 	loadPermissionsOnMount,
 	shouldTriggerStopPropagation,
 	agentName,
+	isVerified,
+	isAbleToGovernAgents,
 }: AgentDropdownMenuProps) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const { formatMessage } = useIntl();
@@ -252,6 +257,11 @@ export const AgentDropdownMenu = ({
 						hasBeenCopied ? messages.linkedCopiedToProfile : messages.copyLinkToProfile,
 					)}
 				</DropdownItem>
+				{isAbleToGovernAgents && fg('rovo_agents_agent_verification') && (
+					<DropdownItem onClick={() => {}}>
+						{formatMessage(isVerified ? messages.unverifyAgent : messages.verifyAgent)}
+					</DropdownItem>
+				)}
 			</DropdownItemGroup>
 			{renderEditDelete()}
 		</DropdownMenu>

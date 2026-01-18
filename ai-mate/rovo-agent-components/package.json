@@ -122,6 +122,9 @@
 		},
 		"rovo_agent_empty_state_refresh": {
 			"type": "boolean"
+		},
+		"rovo_agents_agent_verification": {
+			"type": "boolean"
 		}
 	}
 }

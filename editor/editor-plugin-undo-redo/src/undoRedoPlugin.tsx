@@ -4,6 +4,7 @@ import { ACTION } from '@atlaskit/editor-common/analytics';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PMPlugin, ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { redo, undo } from '@atlaskit/prosemirror-history';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -18,7 +19,8 @@ import ToolbarUndoRedo from './ui/ToolbarUndoRedo';
 import { getToolbarComponents } from './ui/ToolbarUndoRedo/toolbar-components';
 import type { UndoRedoPlugin } from './undoRedoPluginType';
 
-export const undoRedoPlugin: UndoRedoPlugin = ({ api }) => {
+export const undoRedoPlugin: UndoRedoPlugin = ({ api, config }) => {
+	const showToolbarButton = config?.showToolbarButton ?? true;
 	const editorViewRef: Record<'current', EditorView | null> = { current: null };
 	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
 
@@ -41,13 +43,26 @@ export const undoRedoPlugin: UndoRedoPlugin = ({ api }) => {
 		);
 	};
 
-	if (isToolbarAIFCEnabled) {
-		api?.toolbar?.actions.registerComponents(getToolbarComponents(api));
+	if (fg('platform_editor_ai_add_undoredo_jira')) {
+		if (showToolbarButton) {
+			if (isToolbarAIFCEnabled) {
+				api?.toolbar?.actions.registerComponents(getToolbarComponents(api));
+			} else {
+				api?.primaryToolbar?.actions.registerComponent({
+					name: 'undoRedoPlugin',
+					component: primaryToolbarComponent,
+				});
+			}
+		}
 	} else {
-		api?.primaryToolbar?.actions.registerComponent({
-			name: 'undoRedoPlugin',
-			component: primaryToolbarComponent,
-		});
+		if (isToolbarAIFCEnabled) {
+			api?.toolbar?.actions.registerComponents(getToolbarComponents(api));
+		} else {
+			api?.primaryToolbar?.actions.registerComponent({
+				name: 'undoRedoPlugin',
+				component: primaryToolbarComponent,
+			});
+		}
 	}
 
 	const handleUndo = (inputSource?: InputSource): boolean => {
@@ -79,6 +94,10 @@ export const undoRedoPlugin: UndoRedoPlugin = ({ api }) => {
 			)(redo),
 		);
 	};
+
+	const showPrimaryToolbarComponent = fg('platform_editor_ai_add_undoredo_jira')
+		? !api?.primaryToolbar && !isToolbarAIFCEnabled && showToolbarButton
+		: !api?.primaryToolbar && !isToolbarAIFCEnabled;
 
 	return {
 		name: 'undoRedoPlugin',
@@ -121,7 +140,6 @@ export const undoRedoPlugin: UndoRedoPlugin = ({ api }) => {
 			return plugins;
 		},
 
-		primaryToolbarComponent:
-			!api?.primaryToolbar && !isToolbarAIFCEnabled ? primaryToolbarComponent : undefined,
+		primaryToolbarComponent: showPrimaryToolbarComponent ? primaryToolbarComponent : undefined,
 	};
 };

@@ -251,9 +251,12 @@ export type InviteFlow = 'mention' | 'assign';
 export type UserRole = 'admin' | 'trusted' | 'basic';
 
 export interface InviteFromMentionProvider {
+	// TODO: to be replaced with shouldEnablInlineInvite during experiment cleanup
+	getShouldEnableInlineInvite?: () => boolean;
 	onInviteItemClick?(flow: InviteFlow): void;
 	productName?: string;
 	shouldEnableInvite?: boolean;
+	userEmailDomain?: string;
 	userRole?: UserRole;
 }
 

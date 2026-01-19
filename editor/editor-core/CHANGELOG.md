@@ -1,5 +1,24 @@
 # @atlaskit/editor-core
 
+## 216.7.0
+
+### Minor Changes
+
+- [`ee5135bafb31d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee5135bafb31d) -
+  [EDITOR-4495] clean up platform_editor_toolbar_aifc_patch_4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 216.6.7
+
+### Patch Changes
+
+- [`a7fd4015da337`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a7fd4015da337) -
+  phase out contextTypes for editor context
+- Updated dependencies
+
 ## 216.6.6
 
 ### Patch Changes

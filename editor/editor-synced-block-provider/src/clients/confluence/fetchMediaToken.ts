@@ -66,12 +66,12 @@ const getContentMediaSession = async (contentId: string): Promise<GetContentMedi
 	return result;
 };
 
-type ConfigData = {
+export type ConfigData = {
 	readonly clientId: string;
 	readonly fileStoreUrl: string;
 };
 
-type TokenData = {
+export type TokenData = {
 	collectionId?: string;
 	config: ConfigData;
 	token: string;

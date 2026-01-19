@@ -87,6 +87,9 @@
 		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../../elements/user-picker/tsconfig.app.json"
 		}
 	]
 }

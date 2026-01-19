@@ -861,6 +861,7 @@ export default {
   'fabric.editor.textColor': '{selectedColorName}的文字顏色',
   'fabric.editor.textColorHighlightTooltip': '文字和醒目提示顏色',
   'fabric.editor.textColorTooltip': '文字顏色',
+  'companyHub.editor.textColor.pickerTitle': '文字顏色',
   'fabric.editor.textFormat': '設定文字格式',
   'fabric.editor.textFormatting': '文字格式設定',
   'fabric.editor.textStyles': '{blockTypeName}的文字樣式',

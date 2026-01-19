@@ -1,5 +1,12 @@
 # @atlaskit/forge-react-types
 
+## 0.56.2
+
+### Patch Changes
+
+- [`6ed2f9f23e3dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ed2f9f23e3dc) -
+  Replace migration glyphs with new icon
+
 ## 0.56.1
 
 ### Patch Changes

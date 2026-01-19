@@ -12,7 +12,10 @@ const getKeyboardEventInfo = (event: KeyboardEvent) => {
 	const isDelete = ['backspace', 'delete'].includes(key);
 	const isCut = isMetaCtrl && key === 'x';
 	const isPaste = isMetaCtrl && key === 'v';
-	const isDestructive = isDelete || isCut || isPaste;
+	const isUndo = isMetaCtrl && key === 'z' && !event.shiftKey;
+	const isRedo = isMetaCtrl && (key === 'y' || (key === 'z' && event.shiftKey));
+
+	const isDestructive = isDelete || isCut || isPaste || isUndo || isRedo;
 
 	const isModifierOnly = ['control', 'meta', 'alt', 'shift'].includes(key) && !isMetaCtrl;
 	const isCopy = isMetaCtrl && key === 'c';
@@ -60,7 +63,7 @@ export const handleKeyDownWithPreservedSelection =
 		const isBlockMenuOpen =
 			api.userIntent?.sharedState.currentState()?.currentUserIntent === 'blockMenuOpen';
 
-		// When selected content is being removed and the block menu is open
+		// When selected content is being removed/modified/undo/redo and the block menu is open
 		// close the block menu and refocus the editor
 		const shouldCloseBlockMenu = isDestructive && isBlockMenuOpen;
 		if (shouldCloseBlockMenu) {
@@ -71,6 +74,7 @@ export const handleKeyDownWithPreservedSelection =
 		// Stop preserving when:
 		// 1. Content is being removed (delete/cut/paste) OR
 		// 2. Menu is closed AND user pressed a non-inert key (i.e. action which modifies selection or content)
+		// 3. undo/redo actions
 		const shouldStopPreservingSelection = isDestructive || (!isBlockMenuOpen && !isInert);
 		if (shouldStopPreservingSelection) {
 			stopPreservingSelection({ tr });

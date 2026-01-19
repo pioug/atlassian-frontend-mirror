@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import type { UnbindFn } from 'bind-event-listener';
 import { bind } from 'bind-event-listener';
+import memoizeOne from 'memoize-one';
 
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
@@ -58,6 +59,7 @@ export interface MediaNodeProps extends ReactNodeProps, ImageLoaderProps {
 	onClick?: CardOnClickCallback;
 	originalDimensions: NumericalCardDimensions;
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
+	syncProvider?: MediaProvider;
 	view: EditorView;
 }
 
@@ -77,8 +79,16 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 
 	constructor(props: MediaNodeProps) {
 		super(props);
-		const { view } = this.props;
+		const { view, syncProvider } = this.props;
 		this.mediaPluginState = mediaStateKey.getState(view.state);
+
+		// Initialize state from syncProvider (available on both server and client for SSR)
+		if (expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true) && syncProvider) {
+			this.state = {
+				viewMediaClientConfig: syncProvider.viewMediaClientConfig,
+				viewAndUploadMediaClientConfig: syncProvider.viewAndUploadMediaClientConfig,
+			};
+		}
 	}
 
 	shouldComponentUpdate(nextProps: MediaNodeProps, nextState: MediaNodeState): boolean {
@@ -97,6 +107,8 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 			this.props.contextIdentifierProvider !== nextProps.contextIdentifierProvider ||
 			this.props.isLoading !== nextProps.isLoading ||
 			this.props.mediaProvider !== nextProps.mediaProvider ||
+			(expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true) &&
+				this.props.syncProvider !== nextProps.syncProvider) ||
 			hasNewViewMediaClientConfig ||
 			hasNewViewAndUploadMediaClientConfig
 		) {
@@ -129,6 +141,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 			this.mediaPluginState?.handleMediaNodeUnmount(prevProps.node);
 			this.handleNewNode(this.props);
 		}
+
 		this.mediaPluginState?.updateElement();
 		this.setViewMediaClientConfig();
 		// this.videoControlsWrapperRef is null on componentDidMount. We need to wait until it has value
@@ -180,15 +193,29 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 	}
 
 	private setViewMediaClientConfig = async () => {
+		// mediaProvider is Promise<MediaProvider>, so await it first to get the actual provider
 		const mediaProvider = await this.props.mediaProvider;
 		if (mediaProvider) {
 			const viewMediaClientConfig = mediaProvider.viewMediaClientConfig;
 			const viewAndUploadMediaClientConfig = mediaProvider.viewAndUploadMediaClientConfig;
-
-			this.setState({
-				viewMediaClientConfig,
-				viewAndUploadMediaClientConfig,
-			});
+			if (expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)) {
+				// Only update state if new configs are available and different from current state
+				if (
+					(viewMediaClientConfig && this.state.viewMediaClientConfig !== viewMediaClientConfig) ||
+					(viewAndUploadMediaClientConfig &&
+						this.state.viewAndUploadMediaClientConfig !== viewAndUploadMediaClientConfig)
+				) {
+					this.setState({
+						viewMediaClientConfig,
+						viewAndUploadMediaClientConfig,
+					});
+				}
+			} else {
+				this.setState({
+					viewMediaClientConfig,
+					viewAndUploadMediaClientConfig,
+				});
+			}
 		}
 	};
 
@@ -240,8 +267,20 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 		}
 	};
 
+	private getMediaSettings = memoizeOne(
+		(viewAndUploadMediaClientConfig: MediaClientConfig | undefined) => ({
+			canUpdateVideoCaptions: fg('platform_media_video_captions')
+				? !!viewAndUploadMediaClientConfig
+				: false,
+		}),
+	);
+
+	private onError = (reason: string) => {
+		this.props.api?.media.actions.handleMediaNodeRenderError(this.props.node, reason);
+	};
+
 	render(): React.JSX.Element {
-		const { node, selected, originalDimensions, isLoading, maxDimensions, mediaOptions, api } =
+		const { node, selected, originalDimensions, isLoading, maxDimensions, mediaOptions } =
 			this.props;
 
 		const borderMark = node.marks.find((m) => m.type.name === 'border');
@@ -250,6 +289,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 			this.state;
 		const { id, type, collection, url, alt } = node.attrs;
 
+		// Check if we have any media client config available (syncProvider, state, or upload config)
 		const hasNoMediaClientConfig =
 			!viewMediaClientConfig &&
 			(fg('platform_media_video_captions') ? !viewAndUploadMediaClientConfig : true);
@@ -339,14 +379,10 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 						alt={alt}
 						videoControlsWrapperRef={this.videoControlsWrapperRef}
 						ssr={ssr}
-						mediaSettings={{
-							canUpdateVideoCaptions: fg('platform_media_video_captions')
-								? !!viewAndUploadMediaClientConfig
-								: false,
-						}}
+						mediaSettings={this.getMediaSettings(viewAndUploadMediaClientConfig)}
 						onError={
 							expValEquals('platform_editor_media_error_analytics', 'isEnabled', true)
-								? (reason: string) => api?.media.actions.handleMediaNodeRenderError(node, reason)
+								? this.onError
 								: undefined
 						}
 					/>

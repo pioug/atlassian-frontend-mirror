@@ -18,7 +18,7 @@ import { token } from '@atlaskit/tokens';
 const labelStyles = css({
 	display: 'inline-block',
 	color: token('color.text.subtlest'),
-	font: token('font.body.UNSAFE_small'),
+	font: token('font.body.small'),
 	fontWeight: token('font.weight.semibold', '600'),
 	marginBlockEnd: token('space.050', '4px'),
 	marginBlockStart: token('space.0', '0px'),

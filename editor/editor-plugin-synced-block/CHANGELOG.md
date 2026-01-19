@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 5.2.0
+
+### Minor Changes
+
+- [`52bc7d7cbabcb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/52bc7d7cbabcb) -
+  Stop flickering of reference block title
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.1.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.1.13
 
 ### Patch Changes

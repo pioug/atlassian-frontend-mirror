@@ -160,7 +160,7 @@ const fontMap = cssMap({
 		font: token('font.body.small'),
 	},
 	large: {
-		font: token('font.body.UNSAFE_small'),
+		font: token('font.body.small'),
 	},
 	xlarge: {
 		font: token('font.body.large'),

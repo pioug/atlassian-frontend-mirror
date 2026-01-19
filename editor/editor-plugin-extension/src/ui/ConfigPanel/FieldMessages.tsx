@@ -33,13 +33,13 @@ function makeMarkup(fragment: Node, key?: string) {
 			return <i key={key}>{children}</i>;
 		case 'STRONG':
 			return (
-				<Text as="strong" color="color.text.subtlest" size="UNSAFE_small" key={key}>
+				<Text as="strong" color="color.text.subtlest" size="small" key={key}>
 					{children}
 				</Text>
 			);
 		case 'EM':
 			return (
-				<Text as="em" color="color.text.subtlest" size="UNSAFE_small" key={key}>
+				<Text as="em" color="color.text.subtlest" size="small" key={key}>
 					{children}
 				</Text>
 			);

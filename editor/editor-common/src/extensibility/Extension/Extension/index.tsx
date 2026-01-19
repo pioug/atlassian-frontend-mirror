@@ -23,6 +23,7 @@ import type { OverflowShadowProps } from '../../../ui';
 import { overflowShadow } from '../../../ui';
 import { calculateBreakoutStyles } from '../../../utils';
 import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags } from '../../types';
+import { shouldExtensionBreakout } from '../../utils/should-extension-breakout';
 import { LegacyContentHeader } from '../LegacyContentHeader';
 import ExtensionLozenge from '../Lozenge';
 import { overlay } from '../styles';
@@ -122,13 +123,27 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 		return typeof pos !== 'undefined' && !isNaN(pos) && view.state.doc.resolve(pos).depth === 0;
 	}, [view, getPos]);
 
-	const shouldBreakout =
-		// Extension should breakout when the layout is set to 'full-width' or 'wide'.
-		['full-width', 'wide'].includes(node.attrs.layout) &&
-		// Extension breakout state should only be respected for top level nodes.
-		isTopLevelNode &&
-		// Extension breakout state should not be respected when the editor appearance is full-width mode
-		editorAppearance !== 'full-width';
+	const layout = node.attrs.layout;
+	const legacyShouldBreakout =
+		['full-width', 'wide'].includes(layout) && isTopLevelNode && editorAppearance !== 'full-width';
+	const tinymceFullWidthModeEnabled = expValEquals(
+		'confluence_max_width_content_appearance',
+		'isEnabled',
+		true,
+	);
+	const breakoutExtensionFixEnabled = expValEquals(
+		'confluence_max_width_breakout_extension_fix',
+		'isEnabled',
+		true,
+	);
+	const shouldUseBreakoutFix = tinymceFullWidthModeEnabled && breakoutExtensionFixEnabled;
+	const shouldBreakout = shouldUseBreakoutFix
+		? shouldExtensionBreakout({
+				layout,
+				isTopLevelNode,
+				editorAppearance,
+			})
+		: legacyShouldBreakout;
 
 	// We don't want to show border for non-empty 1p bodied extensions in live pages
 	const show1PBodiedExtensionBorder = showUpdatedLivePages1PBodiedExtensionUI

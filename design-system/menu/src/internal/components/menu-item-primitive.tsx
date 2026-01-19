@@ -93,7 +93,7 @@ const styles = cssMap({
 	},
 	description: {
 		color: token('color.text.subtlest', '#6B778C'),
-		font: token('font.body.UNSAFE_small'),
+		font: token('font.body.small'),
 	},
 	disabledDescription: {
 		color: token('color.text.disabled', '#6B778C'),

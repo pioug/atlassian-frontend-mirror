@@ -1,5 +1,13 @@
 # @atlaskit/form
 
+## 15.3.2
+
+### Patch Changes
+
+- [`a48fdadce2137`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a48fdadce2137) -
+  Minor internal typography changes.
+- Updated dependencies
+
 ## 15.3.1
 
 ### Patch Changes

@@ -862,6 +862,7 @@ export default {
   'fabric.editor.textColor': '{selectedColorName}文本颜色',
   'fabric.editor.textColorHighlightTooltip': '文本和突出显示颜色',
   'fabric.editor.textColorTooltip': '文本颜色',
+  'companyHub.editor.textColor.pickerTitle': '文本颜色',
   'fabric.editor.textFormat': '设置文本格式',
   'fabric.editor.textFormatting': '文本格式设置',
   'fabric.editor.textStyles': '"{blockTypeName}" 文本样式',

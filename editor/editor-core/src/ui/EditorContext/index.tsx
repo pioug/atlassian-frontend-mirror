@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { EditorContext } from '@atlaskit/editor-common/UNSAFE_do_not_use_editor_context';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import EditorActions from '../../actions';
 
@@ -19,26 +20,22 @@ export const useEditorContext = () => React.useContext<EditorContextProps>(Edito
 export class LegacyEditorContext extends React.Component<EditorContextProps, Object> {
 	constructor(props: EditorContextProps) {
 		super(props);
+		this.editorActions = props.editorActions || new EditorActions();
 	}
+	private editorActions: EditorActions;
 
-	render(): React.JSX.Element {
-		// Ignored via go/ees005
-		// eslint-disable-next-line react/jsx-props-no-spreading
-		return <LegacyEditorContextNew {...this.props}>{this.props.children}</LegacyEditorContextNew>;
-	}
-}
-
-function LegacyEditorContextNew({ children, editorActions }: EditorContextProps) {
-	return (
-		<EditorContext.Provider value={{ editorActions: editorActions ?? new EditorActions() }}>
-			{children}
+	render() {
+		return (
+		<EditorContext.Provider value={{ editorActions: this.editorActions }}>
+			{this.props.children}
 		</EditorContext.Provider>
 	);
+	}
 }
 
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export default class LegacyEditorContextOld extends React.Component<EditorContextProps, Object> {
+export class LegacyEditorContextOld extends React.Component<EditorContextProps, Object> {
 	static childContextTypes = {
 		editorActions: PropTypes.object,
 	};
@@ -56,7 +53,7 @@ export default class LegacyEditorContextOld extends React.Component<EditorContex
 		};
 	}
 
-	render(): React.JSX.Element {
+	render() {
 		return (
 			<EditorContext.Provider value={this.getChildContext()}>
 				{this.props.children}
@@ -64,3 +61,9 @@ export default class LegacyEditorContextOld extends React.Component<EditorContex
 		);
 	}
 }
+
+export default (props: EditorContextProps) => expValEquals('platform_editor_context_context_types_migration', 'isEnabled', true) ? (
+	<LegacyEditorContext editorActions={props.editorActions}>{props.children}</LegacyEditorContext>
+) : (
+	<LegacyEditorContextOld editorActions={props.editorActions}>{props.children}</LegacyEditorContextOld>
+);

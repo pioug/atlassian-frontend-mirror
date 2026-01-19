@@ -1,5 +1,13 @@
 # @atlaskit/table-tree
 
+## 12.2.16
+
+### Patch Changes
+
+- [`a48fdadce2137`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a48fdadce2137) -
+  Minor internal typography changes.
+- Updated dependencies
+
 ## 12.2.15
 
 ### Patch Changes

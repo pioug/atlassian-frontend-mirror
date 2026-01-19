@@ -76,8 +76,13 @@ export type UpdateReferenceSyncBlockResult = {
 	success: boolean;
 };
 
+export type BlockNodeIdentifiers = {
+	blockInstanceId: string;
+	resourceId: string;
+};
+
 export interface ADFFetchProvider {
-	batchFetchData: (resourceIds: ResourceId[]) => Promise<SyncBlockInstance[]>;
+	batchFetchData: (blockNodeIdentifiers: BlockNodeIdentifiers[]) => Promise<SyncBlockInstance[]>;
 	fetchData: (resourceId: ResourceId) => Promise<SyncBlockInstance>;
 	fetchReferences: (referenceResourceId: string) => Promise<ReferenceSyncBlockData>;
 }
@@ -118,10 +123,10 @@ export type SyncBlockRendererProviderCreator = {
 	createMediaProvider:
 		| ((options: MediaEmojiProviderOptions) => Promise<MediaProvider> | undefined)
 		| undefined;
+	createSmartLinkProvider: (() => Promise<CardProvider>) | undefined;
 	createSSRMediaProvider?:
 		| ((options: MediaEmojiProviderOptions) => MediaProvider | undefined)
 		| undefined;
-	createSmartLinkProvider: (() => Promise<CardProvider>) | undefined;
 };
 
 export type SyncedBlockRendererProviderOptions = {

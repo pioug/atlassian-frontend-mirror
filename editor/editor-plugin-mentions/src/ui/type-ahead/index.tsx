@@ -26,6 +26,7 @@ import type { MentionsPlugin } from '../../mentionsPluginType';
 import { getMentionPluginState } from '../../pm-plugins/utils';
 import type { FireElementsChannelEvent, TeamInfoAttrAnalytics } from '../../types';
 import InviteItem, { INVITE_ITEM_DESCRIPTION } from '../InviteItem';
+import InviteItemWithEmailDomain from '../InviteItem/InviteItemWithEmailDomain';
 
 import {
 	buildTypeAheadCancelPayload,
@@ -39,20 +40,34 @@ import { isInviteItem, isTeamStats, isTeamType, shouldKeepInviteItem } from './u
 const createInviteItem = ({
 	mentionProvider,
 	onInviteItemMount,
+	query,
+	emailDomain,
 }: {
+	emailDomain?: string;
 	mentionProvider: MentionProvider;
 	onInviteItemMount: () => void;
+	query?: string;
 }): TypeAheadItem => ({
 	title: INVITE_ITEM_DESCRIPTION.id,
 	render: ({ isSelected, onClick, onHover }) => (
-		<InviteItem
+		mentionProvider.getShouldEnableInlineInvite?.() && fg('jira_invites_auto_tag_new_user_in_mentions_fg') ? (
+		<InviteItemWithEmailDomain
 			productName={mentionProvider ? mentionProvider.productName : undefined}
 			selected={isSelected}
 			onMount={onInviteItemMount}
 			onMouseEnter={onHover}
 			onSelection={onClick}
 			userRole={mentionProvider.userRole}
-		/>
+			query={query}
+			emailDomain={emailDomain}
+		/>) : <InviteItem
+		productName={mentionProvider ? mentionProvider.productName : undefined}
+		selected={isSelected}
+		onMount={onInviteItemMount}
+		onMouseEnter={onHover}
+		onSelection={onClick}
+		userRole={mentionProvider.userRole}
+	/>
 	),
 	mention: INVITE_ITEM_DESCRIPTION,
 });
@@ -63,14 +78,21 @@ const withInviteItem =
 		firstQueryWithoutResults,
 		currentQuery,
 		onInviteItemMount,
+		emailDomain,
 	}: {
 		currentQuery: string;
+		emailDomain?: string;
 		firstQueryWithoutResults: string;
 		mentionProvider: MentionProvider;
 		onInviteItemMount: () => void;
 	}) =>
 	(mentionItems: Array<TypeAheadItem>) => {
-		const inviteItem = createInviteItem({ mentionProvider, onInviteItemMount });
+		const inviteItem = createInviteItem({
+			mentionProvider,
+			onInviteItemMount,
+			query: currentQuery,
+			emailDomain,
+		});
 		const keepInviteItem = shouldKeepInviteItem(currentQuery, firstQueryWithoutResults);
 		if (mentionItems.length === 0) {
 			return keepInviteItem ? [inviteItem] : [];
@@ -273,7 +295,7 @@ export const createTypeAheadConfig = ({
 		// Custom regex must have a capture group around trigger
 		// so it's possible to use it without needing to scan through all triggers again
 		customRegex: '\\(?(@)',
-		getHighlight: (state: EditorState) => {
+		getHighlight: (_state: EditorState) => {
 			const CustomHighlightComponent = HighlightComponent;
 			if (CustomHighlightComponent) {
 				return <CustomHighlightComponent />;
@@ -320,6 +342,8 @@ export const createTypeAheadConfig = ({
 					if (!mentionProvider.shouldEnableInvite || mentionItems.length > 2) {
 						resolve(mentionItems);
 					} else {
+						const emailDomain = mentionProvider.userEmailDomain;
+
 						const items = withInviteItem({
 							mentionProvider,
 							firstQueryWithoutResults: firstQueryWithoutResults || '',
@@ -333,6 +357,7 @@ export const createTypeAheadConfig = ({
 									),
 								);
 							},
+							emailDomain,
 						})(mentionItems);
 
 						resolve(items);

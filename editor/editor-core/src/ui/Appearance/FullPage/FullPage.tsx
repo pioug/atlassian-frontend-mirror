@@ -209,11 +209,7 @@ export const FullPageEditor = (props: ComponentProps) => {
 				{!isEditorToolbarHidden &&
 					(isToolbarAIFCEnabled ? (
 						<FullPageToolbarNext
-							disabled={
-								expValEquals('platform_editor_toolbar_aifc_patch_4', 'isEnabled', true)
-									? !!props.disabled
-									: undefined
-							}
+							disabled={!!props.disabled}
 							toolbarDockingPosition={toolbarDockingPosition ?? toolbarDocking}
 							beforeIcon={props.primaryToolbarIconBefore}
 							editorAPI={editorAPI}

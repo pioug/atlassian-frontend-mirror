@@ -234,7 +234,7 @@ export const PropTable = ({
 				<tbody>
 					<tr>
 						<th scope="row">
-							<Text size="UNSAFE_small" weight="bold" color="color.text.subtlest">
+							<Text size="small" weight="bold" color="color.text.subtlest">
 								Description
 							</Text>
 						</th>
@@ -256,7 +256,7 @@ export const PropTable = ({
 					{defaultValue !== undefined && (
 						<tr>
 							<th scope="row">
-								<Text size="UNSAFE_small" weight="bold" color="color.text.subtlest">
+								<Text size="small" weight="bold" color="color.text.subtlest">
 									Default
 								</Text>
 							</th>
@@ -267,7 +267,7 @@ export const PropTable = ({
 					)}
 					<tr>
 						<th scope="row">
-							<Text size="UNSAFE_small" weight="bold" color="color.text.subtlest">
+							<Text size="small" weight="bold" color="color.text.subtlest">
 								Type
 							</Text>
 						</th>

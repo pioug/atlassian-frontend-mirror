@@ -21,7 +21,7 @@ export interface LegendProps {
 const fieldsetLabelStyles = css({
 	display: 'inline-block',
 	color: token('color.text.subtle'),
-	font: token('font.body.UNSAFE_small'),
+	font: token('font.body.small'),
 	fontWeight: token('font.weight.bold'),
 	marginBlockEnd: token('space.050'),
 	marginBlockStart: token('space.0'),

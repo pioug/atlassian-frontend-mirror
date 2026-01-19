@@ -895,6 +895,7 @@ export default {
   'fabric.editor.textColor': '{selectedColorName} 텍스트 색상',
   'fabric.editor.textColorHighlightTooltip': '텍스트 및 강조 색',
   'fabric.editor.textColorTooltip': '텍스트 색상',
+  'companyHub.editor.textColor.pickerTitle': '텍스트 색상',
   'fabric.editor.textFormat': '텍스트 서식',
   'fabric.editor.textFormatting': '텍스트 서식',
   'fabric.editor.textStyles': '{blockTypeName} 텍스트 스타일',

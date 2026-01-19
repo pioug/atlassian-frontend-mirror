@@ -1006,6 +1006,7 @@ export default {
   'fabric.editor.textColor': '{selectedColorName} barva besedila',
   'fabric.editor.textColorHighlightTooltip': 'Barva besedila in označevanja',
   'fabric.editor.textColorTooltip': 'Barva besedila',
+  'companyHub.editor.textColor.pickerTitle': 'Barva besedila',
   'fabric.editor.textFormat': 'Oblikovanje besedila',
   'fabric.editor.textFormatting': 'Oblikovanje besedila',
   'fabric.editor.textStyles': '{blockTypeName} slogi besedila',

@@ -16,14 +16,14 @@ export const JQLEditorHelp = (): React.JSX.Element => {
 	const { isSearch } = useEditorThemeContext();
 	const [helpContentId] = useScopedId(JQL_EDITOR_HELP_CONTENT_ID);
 	const SearchMessage = (
-		<Text size="UNSAFE_small" color="inherit">
+		<Text size="small" color="inherit">
 			{formatMessage(messages.searchCommand, {
 				b: (text: React.ReactNode[]) => <b>{text}</b>,
 			})}
 		</Text>
 	);
 	const NewLineMessage = (
-		<Text size="UNSAFE_small" color="inherit">
+		<Text size="small" color="inherit">
 			{formatMessage(isSearch ? messages.newLineCommand : messages.fieldNewLineCommand, {
 				b: (text: React.ReactNode[]) => <b>{text}</b>,
 			})}

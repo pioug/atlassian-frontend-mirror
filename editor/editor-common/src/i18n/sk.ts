@@ -872,6 +872,7 @@ export default {
   'fabric.editor.text.formatting.off': 'Formátovanie textu vypnuté',
   'fabric.editor.textColor': 'Farba textu: {selectedColorName}',
   'fabric.editor.textColorTooltip': 'Farba textu',
+  'companyHub.editor.textColor.pickerTitle': 'Farba textu',
   'fabric.editor.textFormat': 'Formátovať text',
   'fabric.editor.textFormatting': 'Formátovanie textu',
   'fabric.editor.textStyles': 'Štýly textu: {blockTypeName}',

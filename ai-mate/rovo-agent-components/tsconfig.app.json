@@ -72,6 +72,9 @@
 		},
 		{
 			"path": "../../design-system/tooltip/tsconfig.app.json"
+		},
+		{
+			"path": "../../atlassian-studio/agent-studio-test-utils/tsconfig.app.json"
 		}
 	],
 	"files": []

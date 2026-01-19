@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media
 
+## 9.4.2
+
+### Patch Changes
+
+- [`688d81c54687e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/688d81c54687e) -
+  fix media client config undefined issue in media node
+- Updated dependencies
+
 ## 9.4.1
 
 ### Patch Changes

@@ -19,7 +19,7 @@ const styles = cssMap({
 		backgroundColor: token('color.background.neutral.bold', '#172B4D'),
 		borderRadius: token('radius.small', '3px'),
 		color: token('color.text.inverse', '#FFFFFF'),
-		font: token('font.body.UNSAFE_small'),
+		font: token('font.body.small'),
 		insetBlockStart: token('space.0', '0px'),
 		insetInlineStart: token('space.0', '0px'),
 		overflowWrap: 'break-word',

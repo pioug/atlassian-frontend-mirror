@@ -69,6 +69,9 @@
 			"path": "../../../design-system/portal/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/primitives/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../people-and-teams/profilecard/afm-cc/tsconfig.json"
 		},
 		{
@@ -79,6 +82,9 @@
 		},
 		{
 			"path": "../../../design-system/tokens/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/user-picker/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../editor-common/afm-cc/tsconfig.json"

@@ -930,6 +930,7 @@ export default {
   'fabric.editor.textColor': '{selectedColorName} szövegszín',
   'fabric.editor.textColorHighlightTooltip': 'Szöveg és kiemelés színe',
   'fabric.editor.textColorTooltip': 'Szövegszín',
+  'companyHub.editor.textColor.pickerTitle': 'Szövegszín',
   'fabric.editor.textFormat': 'Szöveg formázása',
   'fabric.editor.textFormatting': 'Szöveg formázása',
   'fabric.editor.textStyles': '{blockTypeName} jellegű szövegstílusok',

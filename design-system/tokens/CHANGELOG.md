@@ -1,5 +1,12 @@
 # @atlaskit/tokens
 
+## 10.0.1
+
+### Patch Changes
+
+- [`a48fdadce2137`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a48fdadce2137) -
+  Minor internal typography changes.
+
 ## 10.0.0
 
 ### Major Changes

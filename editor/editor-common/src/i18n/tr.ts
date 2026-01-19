@@ -912,6 +912,7 @@ export default {
   'fabric.editor.textColor': '{selectedColorName} Metin rengi',
   'fabric.editor.textColorHighlightTooltip': 'Metin ve Vurgu rengi',
   'fabric.editor.textColorTooltip': 'Metin rengi',
+  'companyHub.editor.textColor.pickerTitle': 'Metin rengi',
   'fabric.editor.textFormat': 'Metni biçimlendir',
   'fabric.editor.textFormatting': 'Metin biçimlendirmesi',
   'fabric.editor.textStyles': '{blockTypeName} Metin stilleri',

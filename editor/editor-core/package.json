@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "216.6.6",
+	"version": "216.7.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -356,6 +356,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_a11y_find_replace_focus_ring": {
+			"type": "boolean"
+		},
+		"platform_editor_context_context_types_migration": {
 			"type": "boolean"
 		}
 	},

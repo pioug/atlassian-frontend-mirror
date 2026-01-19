@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-extension
 
+## 10.0.3
+
+### Patch Changes
+
+- [`db16d1751c5ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db16d1751c5ad) -
+  Internal changes to typography.
+
 ## 10.0.2
 
 ### Patch Changes

@@ -28,4 +28,16 @@ export const mentionMessages = defineMessages({
 		defaultMessage: 'Unknown',
 		description: 'Label to indicate unknown mention node',
 	},
+	inviteTeammateInvalidEmail: {
+		id: 'fabric.editor.inviteItem.invalidEmail',
+		defaultMessage: 'Enter a valid email address',
+		description:
+			'By line text for invite teammate option shown in mentions when the email is invalid. This is a placeholder for the actual error message that will be shown to the user.',
+	},
+	sendInvite: {
+		id: 'fabric.editor.inviteItem.sendInvite',
+		defaultMessage: 'Send request to invite teammate',
+		description:
+			'By line text for send request to invite teammate option shown in mentions.'
+	},
 });

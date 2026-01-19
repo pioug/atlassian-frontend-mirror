@@ -1,5 +1,18 @@
 # @atlaskit/editor-common
 
+## 111.8.5
+
+### Patch Changes
+
+- [`498fc3298e069`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/498fc3298e069) -
+  [ux] EDITOR-3463: Keep extension breakout aligned with page width in full-width and max modes. The
+  rollout is guarded by `confluence_max_width_content_appearance` and the new
+  `confluence_max_width_breakout_extension_fix` experiment so the bugfix can be toggled
+  independently.
+- [`b34b724d67362`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b34b724d67362) -
+  Improve AI analytics by ensuring attributes are set and firing additional free gen events
+- Updated dependencies
+
 ## 111.8.4
 
 ### Patch Changes

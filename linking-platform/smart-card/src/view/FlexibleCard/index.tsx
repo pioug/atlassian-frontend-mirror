@@ -2,6 +2,7 @@ import React, { useEffect, useMemo } from 'react';
 
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
+import UFOHoldLoad from '@atlaskit/react-ufo/load-hold';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { InternalActionName, SmartLinkStatus } from '../../constants';
@@ -144,6 +145,7 @@ const FlexibleCard = ({
 
 	return (
 		<FlexibleCardContext.Provider value={flexibleCardContext}>
+			{PENDING_LINK_STATUSES.includes(status) && !Boolean(placeholderCardState) && fg('ufo_hold_flexible_card') && <UFOHoldLoad name="smart-card-flexible-card" />}
 			<Container
 				testId={testId}
 				{...ui}

@@ -914,6 +914,7 @@ export default {
   'fabric.editor.textColor': '{selectedColorName} tekstin väri',
   'fabric.editor.textColorHighlightTooltip': 'Teksti- ja korostusväri',
   'fabric.editor.textColorTooltip': 'Tekstin väri',
+  'companyHub.editor.textColor.pickerTitle': 'Tekstin väri',
   'fabric.editor.textFormat': 'Muotoile tekstiä',
   'fabric.editor.textFormatting': 'Tekstin muotoilu',
   'fabric.editor.textStyles': 'Tekstityylit: {blockTypeName}',

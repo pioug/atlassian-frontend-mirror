@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 43.20.6
+
+### Patch Changes
+
+- [`db0e269c86197`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db0e269c86197) -
+  Introduce UFO hold when FlexibleCard is used.
+
 ## 43.20.5
 
 ### Patch Changes

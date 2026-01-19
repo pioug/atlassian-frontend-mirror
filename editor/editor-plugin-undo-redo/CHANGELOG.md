@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-undo-redo
 
+## 7.3.0
+
+### Minor Changes
+
+- [`f50f2ef80042c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f50f2ef80042c) -
+  Adds plugin configuration to disable undo redo toolbar items
+
 ## 7.2.1
 
 ### Patch Changes

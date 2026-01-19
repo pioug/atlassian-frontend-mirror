@@ -90,21 +90,17 @@ export const getToolbarComponents = (
 				<TextColorMenuItem api={api} parents={parents} />
 			),
 		},
-		...(expValEquals('platform_editor_toolbar_aifc_patch_4', 'isEnabled', true)
-			? [
-					{
-						...CLEAR_COLOR_MENU_ITEM,
-						parents: [
-							{
-								...TEXT_COLOR_HIGHLIGHT_MENU_SECTION,
-								rank: TEXT_COLOR_HIGHLIGHT_MENU_SECTION_RANK[CLEAR_COLOR_MENU_ITEM.key],
-							},
-						],
-						component: ({ parents }: { parents: ToolbarComponentTypes }) => {
-							return <RemoveColorMenuItem api={api} parents={parents} />;
-						},
-					},
-				]
-			: []),
+		{
+			...CLEAR_COLOR_MENU_ITEM,
+			parents: [
+				{
+					...TEXT_COLOR_HIGHLIGHT_MENU_SECTION,
+					rank: TEXT_COLOR_HIGHLIGHT_MENU_SECTION_RANK[CLEAR_COLOR_MENU_ITEM.key],
+				},
+			],
+			component: ({ parents }: { parents: ToolbarComponentTypes }) => {
+				return <RemoveColorMenuItem api={api} parents={parents} />;
+			},
+		},
 	];
 };

@@ -77,13 +77,13 @@ export default ({ onChange, value }: Props) => (
 			})}
 		</div>
 		<div css={descriptionWrapperStyles} aria-hidden>
-			<Text color="color.text.subtlest" size="UNSAFE_small" weight="semibold" align="start">
+			<Text color="color.text.subtlest" size="small" weight="semibold" align="start">
 				Strongly disagree
 			</Text>
-			<Text color="color.text.subtlest" size="UNSAFE_small" weight="semibold" align="center">
+			<Text color="color.text.subtlest" size="small" weight="semibold" align="center">
 				Neutral
 			</Text>
-			<Text color="color.text.subtlest" size="UNSAFE_small" weight="semibold" align="end">
+			<Text color="color.text.subtlest" size="small" weight="semibold" align="end">
 				Strongly agree
 			</Text>
 		</div>

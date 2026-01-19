@@ -1,5 +1,20 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.10.0
+
+### Minor Changes
+
+- [`7638bd91b6c72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7638bd91b6c72) -
+  The errors should render correctly when using batch-retrieve to fetch synced blocks
+
+## 3.9.0
+
+### Minor Changes
+
+- [`fe0f9c8de91c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe0f9c8de91c3) -
+  The batch retrieve of the blocks must also send document ARI and also the local instance ID of the
+  reference blocks
+
 ## 3.8.1
 
 ### Patch Changes

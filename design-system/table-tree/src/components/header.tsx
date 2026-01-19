@@ -13,7 +13,7 @@ import withColumnWidth from './internal/with-column-width';
 
 const headerStyles = css({
 	color: token('color.text.subtle', N300),
-	font: token('font.body.UNSAFE_small'),
+	font: token('font.body.small'),
 	fontWeight: token('font.weight.bold'),
 });
 

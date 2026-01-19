@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-analytics
 
+## 0.9.0
+
+### Minor Changes
+
+- [`30b1a6e6f786c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30b1a6e6f786c) -
+  [ux] add verify agent in rovo agent landing page dropdown
+
 ## 0.8.0
 
 ### Minor Changes

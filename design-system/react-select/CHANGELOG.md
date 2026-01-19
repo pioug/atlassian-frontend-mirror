@@ -1,5 +1,12 @@
 # @atlaskit/react-select
 
+## 3.13.2
+
+### Patch Changes
+
+- [`4f5ed62b70ffb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f5ed62b70ffb) -
+  Exported type `SelectComponents`
+
 ## 3.13.1
 
 ### Patch Changes

@@ -147,8 +147,14 @@ type UpdateReferenceSyncedBlockOnDocumentRequest = {
 	noContent?: boolean;
 };
 
+type BlockIdentifier = {
+	blockAri: string;
+	blockInstanceId: string;
+}
+
 export type BatchRetrieveSyncedBlocksRequest = {
-	blockAris: string[]; // array of block ARIs to retrieve
+	blockIdentifiers: BlockIdentifier[]; // array of block identifiers to retrieve
+	documentAri: string; // the ARI of the document to retrieve the synced blocks for
 };
 
 export type BatchRetrieveSyncedBlocksResponse = {
@@ -208,7 +214,7 @@ export class BlockError extends Error {
 
 export const getSyncedBlockContent = async ({
 	blockAri,
-	documentAri,
+	// documentAri,
 }: GetSyncedBlockContentRequest): Promise<BlockContentResponse> => {
 	// Disable sending documentAri for now. We'll add it back if we find a way to update references that follows the save & refresh principle.
 	// Slack discussion here: https://atlassian.slack.com/archives/C09DZT1TBNW/p1767836775552099?thread_ts=1767836754.024889&cid=C09DZT1TBNW
@@ -238,12 +244,17 @@ export const getSyncedBlockContent = async ({
  * @returns A promise containing arrays of successfully fetched blocks and any errors encountered
  */
 export const batchRetrieveSyncedBlocks = async ({
-	blockAris,
+	blockIdentifiers,
+	documentAri,
 }: BatchRetrieveSyncedBlocksRequest): Promise<BatchRetrieveSyncedBlocksResponse> => {
 	const response = await fetchWithRetry(`${BLOCK_SERVICE_API_URL}/block/batch-retrieve`, {
 		method: 'POST',
 		headers: COMMON_HEADERS,
-		body: JSON.stringify({ blockAris }),
+		body: JSON.stringify({ 
+			documentAri,
+			blockIdentifiers,
+			blockAris: blockIdentifiers.map((blockIdentifier) => blockIdentifier.blockAri),
+		}),
 	});
 
 	if (!response.ok) {

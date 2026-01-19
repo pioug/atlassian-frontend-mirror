@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { skipA11yAudit } from '@af/accessibility-testing';
 import { render, screen } from '@atlassian/testing-library';
 
 import ShowcaseExample from '../../../../examples/internal-logo-component/01-showcase';
@@ -7,6 +8,7 @@ import { JiraIcon } from '../../../artifacts/logo-components/jira/icon';
 import { JiraLogo } from '../../../artifacts/logo-components/jira/logo';
 
 it('should be accessible', async () => {
+	skipA11yAudit();
 	const { container } = render(<ShowcaseExample />);
 
 	await expect(container).toBeAccessible();

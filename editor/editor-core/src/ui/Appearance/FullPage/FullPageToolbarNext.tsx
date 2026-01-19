@@ -28,7 +28,7 @@ import { ToolbarPortalMountPoint, useToolbarPortal } from '../../Toolbar/Toolbar
 type FullPageToolbarNextProps = {
 	beforeIcon?: React.ReactNode;
 	customPrimaryToolbarComponents?: PrimaryToolbarComponents;
-	disabled?: boolean; // make it required when cleaning up platform_editor_toolbar_aifc_patch_4
+	disabled: boolean;
 	editorAPI?: PublicPluginAPI<[ToolbarPlugin]>;
 	editorView?: EditorView;
 	popupsBoundariesElement?: HTMLElement;

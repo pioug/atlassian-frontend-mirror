@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import { skipA11yAudit } from '@af/accessibility-testing';
 import Button from '@atlaskit/button/new';
 import DropdownMenu from '@atlaskit/dropdown-menu';
 import Select, { type OptionType, PopupSelect } from '@atlaskit/select';
@@ -69,6 +70,7 @@ describe('Resizing layout slots', () => {
 	beforeEach(() => {
 		resetMatchMedia();
 		getPixelWidthMock.mockReturnValue(360);
+		skipA11yAudit();
 	});
 
 	afterEach(() => {

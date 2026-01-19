@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-breakout
 
+## 7.0.2
+
+### Patch Changes
+
+- [`a8536aacb2a53`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8536aacb2a53) -
+  Editor-4461: Fix resize a selected node not working
+
 ## 7.0.1
 
 ### Patch Changes

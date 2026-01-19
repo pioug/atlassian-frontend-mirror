@@ -897,6 +897,7 @@ export default {
   'fabric.editor.textColor': 'Màu văn bản {selectedColorName}',
   'fabric.editor.textColorHighlightTooltip': 'Màu văn bản và phần tô sáng',
   'fabric.editor.textColorTooltip': 'Màu văn bản',
+  'companyHub.editor.textColor.pickerTitle': 'Màu văn bản',
   'fabric.editor.textFormat': 'Định dạng văn bản',
   'fabric.editor.textFormatting': 'Định dang văn bản',
   'fabric.editor.textStyles': 'Kiểu văn bản {blockTypeName}',

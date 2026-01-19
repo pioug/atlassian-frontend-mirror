@@ -97,7 +97,7 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 	const options: TablePluginOptions = {
 		...config,
 		tableOptions: config?.tableOptions ?? {},
-		dragAndDropEnabled: fg('platform_editor_enable_table_dnd') ?? config?.dragAndDropEnabled,
+		dragAndDropEnabled: config?.dragAndDropEnabled || fg('platform_editor_enable_table_dnd'),
 	};
 
 	const defaultGetEditorContainerWidth: GetEditorContainerWidth = () => {

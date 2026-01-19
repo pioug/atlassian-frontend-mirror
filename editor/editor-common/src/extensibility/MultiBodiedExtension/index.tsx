@@ -28,6 +28,7 @@ import {
 import { calculateBreakoutStyles, getExtensionLozengeData } from '../../utils';
 import ExtensionLozenge from '../Extension/Lozenge';
 import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags } from '../types';
+import { shouldExtensionBreakout } from '../utils/should-extension-breakout';
 
 import { useMultiBodiedExtensionActions } from './action-api';
 import { mbeExtensionWrapperCSSStyles, overlayStyles } from './styles';
@@ -214,11 +215,27 @@ const MultiBodiedExtensionWithWidth = ({
 		return tryExtensionHandler(actions);
 	}, [tryExtensionHandler, actions]);
 
-	const shouldBreakout =
-		// Extension should breakout when the layout is set to 'full-width' or 'wide'.
-		['full-width', 'wide'].includes(node.attrs.layout) &&
-		// Extension breakout state should not be respected when the editor appearance is full-width mode
-		editorAppearance !== 'full-width';
+	const layout = node.attrs.layout;
+	const legacyShouldBreakout =
+		['full-width', 'wide'].includes(layout) && editorAppearance !== 'full-width';
+	const tinymceFullWidthModeEnabled = expValEquals(
+		'confluence_max_width_content_appearance',
+		'isEnabled',
+		true,
+	);
+	const breakoutExtensionFixEnabled = expValEquals(
+		'confluence_max_width_breakout_extension_fix',
+		'isEnabled',
+		true,
+	);
+	const shouldUseBreakoutFix = tinymceFullWidthModeEnabled && breakoutExtensionFixEnabled;
+	const shouldBreakout = shouldUseBreakoutFix
+		? shouldExtensionBreakout({
+				layout,
+				editorAppearance,
+				isTopLevelNode: true,
+			})
+		: legacyShouldBreakout;
 
 	let mbeWrapperStyles = {};
 	if (shouldBreakout) {

@@ -1,5 +1,13 @@
 # @atlaskit/blanket
 
+## 15.0.23
+
+### Patch Changes
+
+- [`a48fdadce2137`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a48fdadce2137) -
+  Minor internal typography changes.
+- Updated dependencies
+
 ## 15.0.22
 
 ### Patch Changes

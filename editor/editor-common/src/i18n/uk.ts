@@ -930,6 +930,7 @@ export default {
   'fabric.editor.textColor': 'Колір тексту: {selectedColorName}',
   'fabric.editor.textColorHighlightTooltip': 'Текст і колір його позначення',
   'fabric.editor.textColorTooltip': 'Колір тексту',
+  'companyHub.editor.textColor.pickerTitle': 'Колір тексту',
   'fabric.editor.textFormat': 'Форматувати текст',
   'fabric.editor.textFormatting': 'Форматування у вигляді тексту',
   'fabric.editor.textStyles': 'Стилі тексту: {blockTypeName}',

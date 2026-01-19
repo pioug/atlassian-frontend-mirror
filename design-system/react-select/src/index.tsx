@@ -14,7 +14,7 @@ export type SelectInstance<
 export type { StateManagerProps as Props } from './use-state-manager';
 export { useStateManager };
 
-export type { SelectComponentsConfig } from './components';
+export type { SelectComponentsConfig, SelectComponents } from './components';
 export type {
 	ContainerProps,
 	IndicatorsContainerProps,

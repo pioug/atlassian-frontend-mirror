@@ -195,7 +195,7 @@ const AvatarItem: React.ForwardRefExoticComponent<
 							<Text
 								color="color.text.subtlest"
 								maxLines={isTruncationDisabled! ? undefined : 1}
-								size="UNSAFE_small"
+								size="small"
 							>
 								{secondaryText}
 							</Text>

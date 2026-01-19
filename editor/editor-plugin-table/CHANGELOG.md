@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 16.3.3
+
+### Patch Changes
+
+- [`e225fb5074e28`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e225fb5074e28) -
+  [ux] Update logic for enabling drag and drop in tables
+- Updated dependencies
+
 ## 16.3.2
 
 ### Patch Changes

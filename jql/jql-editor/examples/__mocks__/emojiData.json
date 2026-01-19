@@ -1,0 +1,52 @@
+{
+	"emojis": [
+		{
+			"id": "2728",
+			"name": "sparkles",
+			"shortName": ":sparkles:",
+			"fallback": "✨",
+			"type": "STANDARD",
+			"category": "NATURE",
+			"order": 22202,
+			"representation": {
+				"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/64x64/2728.png",
+				"height": 64,
+				"width": 64
+			},
+			"altRepresentations": {
+				"XXXHDPI": {
+					"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/128x128/2728.png",
+					"height": 128,
+					"width": 128
+				}
+			},
+			"searchable": true
+		},
+		{
+			"id": "1f951",
+			"name": "avocado",
+			"shortName": ":avocado:",
+			"fallback": "🥑",
+			"type": "STANDARD",
+			"category": "FOODS",
+			"order": 32253,
+			"representation": {
+				"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/64x64/1f951.png",
+				"height": 64,
+				"width": 64
+			},
+			"altRepresentations": {
+				"XXXHDPI": {
+					"imagePath": "https://pf-emoji-service--cdn.us-east-1.staging.public.atl-paas.net/standard/ef8b0642-7523-4e13-9fd3-01b65648acf6/128x128/1f951.png",
+					"height": 128,
+					"width": 128
+				}
+			},
+			"searchable": true
+		}
+	],
+	"meta": {
+		"spriteSheets": {}
+	},
+	"links": null
+}

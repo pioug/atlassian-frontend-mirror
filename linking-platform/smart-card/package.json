@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.20.5",
+	"version": "43.20.6",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -253,6 +253,9 @@
 			"type": "boolean"
 		},
 		"navx-2185-smart-link-preview-modal-icon-role": {
+			"type": "boolean"
+		},
+		"ufo_hold_flexible_card": {
 			"type": "boolean"
 		}
 	},

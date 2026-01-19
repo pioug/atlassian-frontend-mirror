@@ -23,5 +23,15 @@ export type UndoRedoPlugin = NextEditorPlugin<
 			OptionalPlugin<AnalyticsPlugin>,
 			OptionalPlugin<ToolbarPlugin>,
 		];
+		pluginConfiguration:
+			| {
+					/**
+					 * Determines whether or not to show the toolbar buttons
+					 * If not it just allows use of the actions + keybindings + analytics etc.
+					 * Defaults to true
+					 */
+					showToolbarButton: boolean;
+			  }
+			| undefined;
 	}
 >;

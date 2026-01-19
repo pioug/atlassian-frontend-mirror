@@ -946,6 +946,7 @@ export default {
   'fabric.editor.textColor': 'Color de texto {selectedColorName}',
   'fabric.editor.textColorHighlightTooltip': 'Color de texto y resaltado',
   'fabric.editor.textColorTooltip': 'Color del texto',
+  'companyHub.editor.textColor.pickerTitle': 'Color del texto',
   'fabric.editor.textFormat': 'Dar formato al texto',
   'fabric.editor.textFormatting': 'Formato de texto',
   'fabric.editor.textStyles': 'Estilos de texto {blockTypeName}',

@@ -1,5 +1,13 @@
 # @atlaskit/toggle
 
+## 15.2.7
+
+### Patch Changes
+
+- [`a48fdadce2137`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a48fdadce2137) -
+  Minor internal typography changes.
+- Updated dependencies
+
 ## 15.2.6
 
 ### Patch Changes

@@ -31,7 +31,11 @@ export {
 	getConfluencePageAri,
 	getPageIdAndTypeFromConfluencePageAri,
 } from './clients/confluence/ari';
-export { fetchMediaToken } from './clients/confluence/fetchMediaToken';
+export {
+	fetchMediaToken,
+	type TokenData,
+	type ConfigData,
+} from './clients/confluence/fetchMediaToken';
 export { getJiraWorkItemAri, getJiraWorkItemIdFromAri } from './clients/jira/ari';
 
 // providers
@@ -48,6 +52,7 @@ export {
 export type {
 	ADFFetchProvider,
 	ADFWriteProvider,
+	BlockNodeIdentifiers,
 	SyncBlockDataProvider,
 	SyncBlockInstance,
 	MediaEmojiProviderOptions,

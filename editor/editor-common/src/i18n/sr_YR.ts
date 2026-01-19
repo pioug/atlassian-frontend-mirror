@@ -986,6 +986,7 @@ export default {
   'fabric.editor.textColor': '{selectedColorName} боја текста',
   'fabric.editor.textColorHighlightTooltip': 'Боја текста и боја за истицање',
   'fabric.editor.textColorTooltip': 'Боја текста',
+  'companyHub.editor.textColor.pickerTitle': 'Боја текста',
   'fabric.editor.textFormat': 'Форматирај текст',
   'fabric.editor.textFormatting': 'Форматирање текста',
   'fabric.editor.textStyles': '{blockTypeName} стилови текста',

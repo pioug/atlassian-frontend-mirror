@@ -27,9 +27,6 @@
 			"path": "../../adf-schema/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/button/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/css/afm-products/tsconfig.json"
 		},
 		{

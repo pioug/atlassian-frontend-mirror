@@ -946,6 +946,7 @@ export default {
   'fabric.editor.textColor': '{selectedColorName} Tekstkleur',
   'fabric.editor.textColorHighlightTooltip': 'Kleur markeren en tekst',
   'fabric.editor.textColorTooltip': 'Tekstkleur',
+  'companyHub.editor.textColor.pickerTitle': 'Tekstkleur',
   'fabric.editor.textFormat': 'Tekst opmaken',
   'fabric.editor.textFormatting': 'Tekstopmaak',
   'fabric.editor.textStyles': '{blockTypeName} Tekststijlen',

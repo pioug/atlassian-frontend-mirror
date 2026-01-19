@@ -40,12 +40,13 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockMenuPlugin> | undefin
 				}
 
 				// Block further handling of key events when block menu is open
-				// Except for backspace/delete/copy/cut/paste which should be handled by the selection preservation plugin
+				// Except for backspace/delete/copy/cut/paste/undo/redo which should be handled by the selection preservation plugin
 				const key = event.key.toLowerCase();
 				const isMetaCtrl = event.metaKey || event.ctrlKey;
 				const isBackspaceDelete = ['backspace', 'delete'].includes(key);
 				const isCopyCutPaste = isMetaCtrl && ['c', 'x', 'v'].includes(key);
-				const suppressNativeHandling = !isCopyCutPaste && !isBackspaceDelete;
+				const isUndoRedo = isMetaCtrl && ['z', 'y'].includes(key);
+				const suppressNativeHandling = !isCopyCutPaste && !isBackspaceDelete && !isUndoRedo;
 				return suppressNativeHandling;
 			},
 		},

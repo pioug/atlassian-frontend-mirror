@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.0.20
+
+### Patch Changes
+
+- [`edb1034803ecf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edb1034803ecf) -
+  Fix undo/redo via keyboard when block menu is open
+- Updated dependencies
+
 ## 6.0.19
 
 ### Patch Changes

@@ -69,6 +69,9 @@
 			"path": "../../../design-system/portal/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/primitives/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../people-and-teams/profilecard/afm-jira/tsconfig.json"
 		},
 		{
@@ -79,6 +82,9 @@
 		},
 		{
 			"path": "../../../design-system/tokens/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/user-picker/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../editor-common/afm-jira/tsconfig.json"

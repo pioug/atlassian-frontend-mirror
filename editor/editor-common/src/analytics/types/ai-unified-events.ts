@@ -53,6 +53,14 @@ type AIInteractionDismissedAEP = TrackAEP<
 	undefined
 >;
 
+type AIInteractionDiscardedAEP = TrackAEP<
+	ACTION.DISCARDED,
+	ACTION_SUBJECT.AI_RESULT,
+	ACTION_SUBJECT_ID.EDITOR_PLUGIN_AI,
+	AIUnifiedCommonAttributes & AIUnifiedAgentAttributes,
+	undefined
+>;
+
 type AIResultViewedAEP = TrackAEP<
 	ACTION.VIEWED,
 	ACTION_SUBJECT.AI_RESULT,
@@ -68,9 +76,11 @@ type AIResultActionedAEP = TrackAEP<
 	AIUnifiedCommonAttributes &
 		AIUnifiedAgentAttributes & {
 			aiActionedType?: string;
+			aiGroupId: string | undefined;
 			aiResultAction: string;
 			promptType?: string;
 			refinementCount?: number;
+			wasRedone?: Boolean;
 		},
 	undefined
 >;
@@ -104,4 +114,5 @@ export type AIUnifiedEventPayload =
 	| AIResultErrorAEP
 	| AIInteractionDismissedAEP
 	| AIResultActionedAEP
-	| AIFeedbackSubmittedAEP;
+	| AIFeedbackSubmittedAEP
+	| AIInteractionDiscardedAEP;

@@ -7,7 +7,6 @@ import { useCallback, useMemo } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
-import Button from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
 import { highlightMessages as messages } from '@atlaskit/editor-common/messages';
 import { getInputMethodFromParentKeys } from '@atlaskit/editor-common/toolbar';
@@ -24,9 +23,7 @@ import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 import Heading from '@atlaskit/heading';
 import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
 import Icon from '@atlaskit/icon/core/text-style';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { Stack, Text, Box } from '@atlaskit/primitives/compiled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { Stack, Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import type { HighlightPlugin } from '../highlightPluginType';
@@ -118,24 +115,6 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 					hexToPaletteColor: hexToEditorTextBackgroundPaletteColor,
 				}}
 			/>
-			{/* moved to editor-plugin-text-color  */}
-			{expValEquals('platform_editor_toolbar_aifc_patch_4', 'isEnabled', true) ? undefined : (
-				<div css={styles.removeHighlightButton}>
-					<Button
-						shouldFitContainer
-						appearance="subtle"
-						onClick={(event: React.MouseEvent) =>
-							handleHighlightColorChange(REMOVE_HIGHLIGHT_COLOR, event)
-						}
-					>
-						<Text weight="medium">
-							{fg('platform_editor_dec_a11y_fixes')
-								? formatMessage(messages.removeHighlight)
-								: 'Remove highlight'}
-						</Text>
-					</Button>
-				</div>
-			)}
 		</Stack>
 	);
 }

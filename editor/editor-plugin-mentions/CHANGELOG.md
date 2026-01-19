@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-mentions
 
+## 9.1.0
+
+### Minor Changes
+
+- [`16a4fadabeff7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/16a4fadabeff7) -
+  [ux] New invite CTA for mentions
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.0.2
 
 ### Patch Changes

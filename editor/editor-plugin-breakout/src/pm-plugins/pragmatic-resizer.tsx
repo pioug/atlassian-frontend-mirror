@@ -7,6 +7,7 @@ import uuid from 'uuid/v4';
 
 import { breakoutMessages as messages } from '@atlaskit/editor-common/messages';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/disable-native-drag-preview';
 import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/prevent-unhandled';
@@ -99,6 +100,9 @@ export const createPragmaticResizer = ({
 
 		const thumb = document.createElement('div');
 		thumb.classList.add('pm-breakout-resize-handle-thumb');
+		if (fg('platform_editor_fix_resize_selected_node')) {
+			thumb.style.pointerEvents = 'none';
+		}
 
 		rail.appendChild(thumb);
 
@@ -183,9 +187,11 @@ export const createPragmaticResizer = ({
 		...registerEvents(leftHandle.rail),
 	];
 
+	const handleElement = fg('platform_editor_fix_resize_selected_node') ? 'rail' : 'handle';
+
 	const destroyFns = [
-		registerHandle(rightHandle.handle, 'right'),
-		registerHandle(leftHandle.handle, 'left'),
+		registerHandle(rightHandle[handleElement], 'right'),
+		registerHandle(leftHandle[handleElement], 'left'),
 		rightHandle.destroyTooltip,
 		leftHandle.destroyTooltip,
 	];

@@ -913,6 +913,7 @@ export default {
   'fabric.editor.textColor': 'Tekstfargen {selectedColorName}',
   'fabric.editor.textColorHighlightTooltip': 'Tekst- og fremhevingsfarge',
   'fabric.editor.textColorTooltip': 'Tekstfarge',
+  'companyHub.editor.textColor.pickerTitle': 'Tekstfarge',
   'fabric.editor.textFormat': 'Formater tekst',
   'fabric.editor.textFormatting': 'Tekstformatering',
   'fabric.editor.textStyles': 'Tekststiler {blockTypeName}',

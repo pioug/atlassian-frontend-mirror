@@ -854,6 +854,7 @@ export default {
   'fabric.editor.text.formatting.off': 'Isključeno formatiranje teksta',
   'fabric.editor.textColor': '{selectedColorName} boja teksta',
   'fabric.editor.textColorTooltip': 'Boja teksta',
+  'companyHub.editor.textColor.pickerTitle': 'Boja teksta',
   'fabric.editor.textFormat': 'Formatiraj tekst',
   'fabric.editor.textFormatting': 'Formatiranje teksta',
   'fabric.editor.textStyles': '{blockTypeName} stilovi teksta',

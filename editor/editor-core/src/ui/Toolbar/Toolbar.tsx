@@ -116,11 +116,7 @@ export const ToolbarNext = ({
 		<EditorToolbarProvider
 			editorView={editorView ?? null}
 			editorAppearance={editorAppearance}
-			editorViewMode={
-				expValEquals('platform_editor_toolbar_aifc_patch_4', 'isEnabled', true)
-					? (editorViewMode ?? 'edit')
-					: editorViewMode
-			}
+			editorViewMode={editorViewMode ?? 'edit'}
 			editorToolbarDockingPreference={editorToolbarDockingPreference}
 			isOffline={isOffline}
 		>

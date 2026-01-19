@@ -1,5 +1,24 @@
 # @atlaskit/editor-statsig-tmp
 
+## 16.25.0
+
+### Minor Changes
+
+- [`ee5135bafb31d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee5135bafb31d) -
+  [EDITOR-4495] clean up platform_editor_toolbar_aifc_patch_4
+
+## 16.24.0
+
+### Minor Changes
+
+- [`498fc3298e069`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/498fc3298e069) -
+  [ux] EDITOR-3463: Keep extension breakout aligned with page width in full-width and max modes. The
+  rollout is guarded by `confluence_max_width_content_appearance` and the new
+  `confluence_max_width_breakout_extension_fix` experiment so the bugfix can be toggled
+  independently.
+- [`a7fd4015da337`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a7fd4015da337) -
+  phase out contextTypes for editor context
+
 ## 16.23.0
 
 ### Minor Changes

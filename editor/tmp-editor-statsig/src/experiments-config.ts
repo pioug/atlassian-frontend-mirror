@@ -239,6 +239,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-01-15
+	confluence_max_width_breakout_extension_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2024-08-08
 	'example-boolean': {
 		defaultValue: boolean;
@@ -790,13 +797,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	//Added 2025-09-09
-	platform_editor_toolbar_aifc_patch_4: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-09-26
 	platform_editor_toolbar_aifc_patch_6: {
 		defaultValue: boolean;
@@ -1077,6 +1077,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-01-14
+	platform_editor_context_context_types_migration: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 } = {
 	// new format to avoid collisions with other users when updating the file
 
@@ -1127,6 +1134,14 @@ export const editorExperimentsConfig: {
 	confluence_max_width_content_appearance: createBooleanExperiment({
 		productKeys: {
 			confluence: 'confluence_max_width_content_appearance',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-01-15
+	confluence_max_width_breakout_extension_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'confluence_max_width_breakout_extension_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -1757,15 +1772,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	//Added 2025-09-09
-	platform_editor_toolbar_aifc_patch_4: createBooleanExperiment({
-		productKeys: {
-			jira: 'platform_editor_toolbar_aifc_patch_4',
-			confluence: 'platform_editor_toolbar_aifc_patch_4',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-08-04
 	platform_editor_floating_toolbar_button_aria_label: createBooleanExperiment({
 		productKeys: {
@@ -2291,6 +2297,15 @@ export const editorExperimentsConfig: {
 	platform_editor_table_toolbar_icon_ext_fix_exp: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_table_toolbar_icon_ext_fix_exp',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-01-14
+	platform_editor_context_context_types_migration: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_context_context_types_migration',
+			jira: 'platform_editor_context_context_types_migration',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

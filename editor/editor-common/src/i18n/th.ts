@@ -877,6 +877,7 @@ export default {
   'fabric.editor.textColor': 'สีข้อความ {selectedColorName}',
   'fabric.editor.textColorHighlightTooltip': 'ข้อความและสีไฮไลท์',
   'fabric.editor.textColorTooltip': 'สีข้อความ',
+  'companyHub.editor.textColor.pickerTitle': 'สีข้อความ',
   'fabric.editor.textFormat': 'รูปแบบข้อความ',
   'fabric.editor.textFormatting': 'การจัดรูปแบบข้อความ',
   'fabric.editor.textStyles': 'รูปแบบข้อความ {blockTypeName}',

@@ -37,6 +37,7 @@ export enum ACTION {
 	DECREMENTED = 'decremented',
 	DELETED = 'deleted',
 	DISCARDED_INVALID_STEPS_FROM_TRANSACTION = 'discardedInvalidStepsFromTransaction',
+	DISCARDED = 'discarded',
 	/** used in @atlassian/editor-referentiality */
 	DISCONNECTED_SOURCE = 'disconnectedSource',
 	/** used in @atlassian/editor-referentiality */

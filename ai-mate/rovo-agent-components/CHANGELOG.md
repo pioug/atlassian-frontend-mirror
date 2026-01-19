@@ -1,5 +1,23 @@
 # @atlaskit/rovo-agent-components
 
+## 3.20.0
+
+### Minor Changes
+
+- [`85b20848660df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85b20848660df) -
+  [ux] Display agent verified icon
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.19.0
+
+### Minor Changes
+
+- [`61adbaa3e8ae1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/61adbaa3e8ae1) -
+  [ux] add agent verfication option in dropdown menu
+
 ## 3.18.1
 
 ### Patch Changes

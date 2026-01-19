@@ -60,6 +60,7 @@ describe('FullPageToolbarNext', () => {
 							toolbarDockingPosition="top"
 							showKeyline={false}
 							editorView={editorView}
+							disabled={false}
 						/>
 					</IntlProvider>,
 				);
@@ -78,6 +79,7 @@ describe('FullPageToolbarNext', () => {
 							toolbarDockingPosition="none"
 							showKeyline={false}
 							editorView={editorView}
+							disabled={false}
 						/>
 					</IntlProvider>,
 				);
@@ -96,6 +98,7 @@ describe('FullPageToolbarNext', () => {
 							toolbarDockingPosition={undefined}
 							showKeyline={false}
 							editorView={editorView}
+							disabled={false}
 						/>
 					</IntlProvider>,
 				);
@@ -116,6 +119,7 @@ describe('FullPageToolbarNext', () => {
 							toolbarDockingPosition="top"
 							showKeyline={false}
 							editorView={editorView}
+							disabled={false}
 						/>
 					</IntlProvider>,
 				);
@@ -134,6 +138,7 @@ describe('FullPageToolbarNext', () => {
 							toolbarDockingPosition="none"
 							showKeyline={false}
 							editorView={editorView}
+							disabled={false}
 						/>
 					</IntlProvider>,
 				);
@@ -152,6 +157,7 @@ describe('FullPageToolbarNext', () => {
 							toolbarDockingPosition={undefined}
 							showKeyline={false}
 							editorView={editorView}
+							disabled={false}
 						/>
 					</IntlProvider>,
 				);
@@ -177,6 +183,7 @@ describe('FullPageToolbarNext', () => {
 							showKeyline={false}
 							customPrimaryToolbarComponents={customComponent}
 							editorView={editorView}
+								disabled={false}
 						/>
 					</IntlProvider>,
 				);
@@ -200,6 +207,7 @@ describe('FullPageToolbarNext', () => {
 								after: afterComponent,
 							}}
 							editorView={editorView}
+								disabled={false}
 						/>
 					</IntlProvider>,
 				);
@@ -223,6 +231,7 @@ describe('FullPageToolbarNext', () => {
 							toolbarDockingPosition="top"
 							showKeyline={false}
 							editorView={editorView}
+								disabled={false}
 						/>
 					</IntlProvider>,
 				);
@@ -245,6 +254,7 @@ describe('FullPageToolbarNext', () => {
 							showKeyline={false}
 							customPrimaryToolbarComponents={customComponent}
 							editorView={editorView}
+								disabled={false}
 						/>
 					</IntlProvider>,
 				);

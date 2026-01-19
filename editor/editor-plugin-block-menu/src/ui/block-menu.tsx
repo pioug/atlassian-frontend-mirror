@@ -29,6 +29,7 @@ import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styl
 import { fg } from '@atlaskit/platform-feature-flags';
 import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react';
 import { Box } from '@atlaskit/primitives/compiled';
+import { redo, undo } from '@atlaskit/prosemirror-history';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -293,10 +294,22 @@ const BlockMenu = ({
 			return;
 		}
 
+		const key = event.key.toLowerCase();
+		const isMetaCtrl = event.metaKey || event.ctrlKey;
+		const isDelete = ['backspace', 'delete'].includes(key);
+		const isUndo = isMetaCtrl && key === 'z' && !event.shiftKey;
+		const isRedo = isMetaCtrl && (key === 'y' || (key === 'z' && event.shiftKey));
+
 		// Necessary to prevent the editor from handling the delete natively
-		if (['backspace', 'delete'].includes(event.key.toLowerCase())) {
+		if (isDelete || isUndo || isRedo) {
 			event.preventDefault();
 			event.stopPropagation();
+		}
+
+		if (isUndo) {
+			undo(editorView.state, editorView.dispatch);
+		} else if (isRedo) {
+			redo(editorView.state, editorView.dispatch);
 		}
 
 		api?.core?.actions.execute(

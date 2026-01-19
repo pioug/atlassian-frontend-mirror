@@ -17,7 +17,7 @@ import { FieldId } from './field-id-context';
 const messageContainerStyles = cssMap({
 	root: {
 		color: token('color.text.danger', '#AE2A19'),
-		font: token('font.body.UNSAFE_small'),
+		font: token('font.body.small'),
 		marginBlockStart: token('space.050', '4px'),
 	},
 });

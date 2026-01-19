@@ -924,6 +924,7 @@ export default {
   'fabric.editor.textColor': 'Barva textu: {selectedColorName}',
   'fabric.editor.textColorHighlightTooltip': 'Barva textu a zvýraznění',
   'fabric.editor.textColorTooltip': 'Barva textu',
+  'companyHub.editor.textColor.pickerTitle': 'Barva textu',
   'fabric.editor.textFormat': 'Formátování textu',
   'fabric.editor.textFormatting': 'Formátování textu',
   'fabric.editor.textStyles': 'Styly textu: {blockTypeName}',

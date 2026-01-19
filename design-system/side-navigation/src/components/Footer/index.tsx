@@ -35,7 +35,7 @@ const styles = cssMap({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'[data-item-title]': {
 			textAlign: 'center',
-			font: token('font.body.UNSAFE_small'),
+			font: token('font.body.small'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'[data-item-description]': {
@@ -114,11 +114,11 @@ const Footer = ({ description, children, iconBefore, testId }: NewFooterProps) =
 			<Stack space="space.100" alignInline="center">
 				<Box xcss={styles.iconContainer}>{iconBefore}</Box>
 				<Stack space="space.075">
-					<Text size="UNSAFE_small" align="center" color="inherit">
+					<Text size="small" align="center" color="inherit">
 						{children}
 					</Text>
 					{description && (
-						<Text size="UNSAFE_small" as="p" align="center" color="color.text.subtlest">
+						<Text size="small" as="p" align="center" color="color.text.subtlest">
 							{description}
 						</Text>
 					)}

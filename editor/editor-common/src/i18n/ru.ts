@@ -958,6 +958,7 @@ export default {
   'fabric.editor.textColor': 'Цвет текста: {selectedColorName}',
   'fabric.editor.textColorHighlightTooltip': 'Цвет текста и выделения',
   'fabric.editor.textColorTooltip': 'Цвет текста',
+  'companyHub.editor.textColor.pickerTitle': 'Цвет текста',
   'fabric.editor.textFormat': 'Форматировать текст',
   'fabric.editor.textFormatting': 'Форматирование текста',
   'fabric.editor.textStyles': 'Стили текста: {blockTypeName}',

@@ -45,6 +45,7 @@ export { contextPanelMessages } from './context-panel';
 export { trackChangesMessages } from './track-changes';
 export { syncBlockMessages } from './syncBlock';
 export { limitedModeMessages } from './limited-mode';
+export { companyHubTextColorMessages } from './company-hub-text-color';
 
 export default defineMessages({
 	layoutFixedWidth: {

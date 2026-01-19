@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 4.0.9
+
+### Patch Changes
+
+- [`ee5135bafb31d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee5135bafb31d) -
+  [EDITOR-4495] clean up platform_editor_toolbar_aifc_patch_4
+- Updated dependencies
+
 ## 4.0.8
 
 ### Patch Changes

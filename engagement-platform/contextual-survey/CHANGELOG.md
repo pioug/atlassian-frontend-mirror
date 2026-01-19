@@ -1,5 +1,12 @@
 # @atlaskit/contextual-survey
 
+## 5.1.2
+
+### Patch Changes
+
+- [`db16d1751c5ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db16d1751c5ad) -
+  Internal changes to typography.
+
 ## 5.1.1
 
 ### Patch Changes

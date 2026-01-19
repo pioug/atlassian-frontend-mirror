@@ -44,7 +44,7 @@ const messageStyles = css({
 	display: 'flex',
 	justifyContent: 'baseline',
 	gap: token('space.075', '6px'),
-	font: token('font.body.UNSAFE_small'),
+	font: token('font.body.small'),
 	marginBlockStart: token('space.050', '4px'),
 });
 

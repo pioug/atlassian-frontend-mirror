@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-agent-components",
-	"version": "3.18.1",
+	"version": "3.20.0",
 	"description": "This package host public components related to rovo agents, the components here are needed for other public atlaskit packages",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -32,7 +32,8 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./agent-verified": "./src/ui/agent-verified/index.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/afm-i18n-platform-ai-mate-rovo-agent-components": "root:*",
@@ -54,7 +55,8 @@
 		"@compiled/react": "root:*",
 		"react-dom": "root:*",
 		"react-intl-next": "root:*",
-		"react-magnetic-di": "root:*"
+		"react-magnetic-di": "root:*",
+		"react-relay": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -63,6 +65,7 @@
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
+		"@atlassian/agent-studio-test-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "^16.3.0",
@@ -106,6 +109,11 @@
 				"import-no-extraneous-disable-for-examples-and-docs"
 			]
 		}
+	},
+	"techstackIgnore": {
+		"stricter": [
+			"@atlassian/tangerine/project-structure"
+		]
 	},
 	"platform-feature-flags": {
 		"rovo_chat_bugfix_agent_avatar_squish": {

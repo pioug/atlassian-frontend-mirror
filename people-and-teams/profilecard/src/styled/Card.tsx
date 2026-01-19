@@ -339,7 +339,7 @@ export const JobTitleLabel = ({ children }: { children: ReactNode }): React.JSX.
 
 export const AppTitleLabel = ({ children }: { children: ReactNode }): React.JSX.Element => (
 	<Box xcss={cx(styles.appTitleLabel)} backgroundColor="color.background.neutral">
-		<Text color="color.text" size="UNSAFE_small" weight="bold">
+		<Text color="color.text" size="small" weight="bold">
 			{children}
 		</Text>
 	</Box>

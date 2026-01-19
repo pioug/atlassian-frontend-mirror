@@ -1006,6 +1006,7 @@ export default {
   'fabric.editor.textColor': '{selectedColorName} Boja teksta',
   'fabric.editor.textColorHighlightTooltip': 'Tekst i istakni boju',
   'fabric.editor.textColorTooltip': 'Boja teksta',
+  'companyHub.editor.textColor.pickerTitle': 'Boja teksta',
   'fabric.editor.textFormat': 'Formatiraj tekst',
   'fabric.editor.textFormatting': 'Formatiranje teksta',
   'fabric.editor.textStyles': '{blockTypeName} Stilovi teksta',

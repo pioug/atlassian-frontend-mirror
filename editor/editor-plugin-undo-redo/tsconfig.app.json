@@ -62,6 +62,9 @@
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
 			"path": "../prosemirror-history/tsconfig.app.json"
 		},
 		{

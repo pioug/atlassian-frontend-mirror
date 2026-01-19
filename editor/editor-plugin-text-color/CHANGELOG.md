@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-text-color
 
+## 7.2.3
+
+### Patch Changes
+
+- [`ee5135bafb31d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee5135bafb31d) -
+  [EDITOR-4495] clean up platform_editor_toolbar_aifc_patch_4
+- Updated dependencies
+
 ## 7.2.2
 
 ### Patch Changes

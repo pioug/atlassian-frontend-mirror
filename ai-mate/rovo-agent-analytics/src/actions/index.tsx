@@ -27,6 +27,10 @@ export enum AgentActions {
 	STAR = 'star',
 	/* Chat with agent clicked */
 	CHAT = 'chat',
+	/* Verify agent clicked */
+	VERIFY = 'verify',
+	/* Unverify agent clicked */
+	UNVERIFY = 'unverify',
 }
 
 type CommonAnalyticsAttributes = {

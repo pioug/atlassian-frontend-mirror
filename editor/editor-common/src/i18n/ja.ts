@@ -908,6 +908,7 @@ export default {
   'fabric.editor.textColor': '「{selectedColorName}」テキスト カラー',
   'fabric.editor.textColorHighlightTooltip': 'テキストとハイライトの色',
   'fabric.editor.textColorTooltip': 'テキストの色',
+  'companyHub.editor.textColor.pickerTitle': 'テキストの色',
   'fabric.editor.textFormat': 'テキストを書式設定',
   'fabric.editor.textFormatting': 'テキスト書式設定',
   'fabric.editor.textStyles': '「{blockTypeName}」テキスト スタイル',

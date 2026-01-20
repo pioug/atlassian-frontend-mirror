@@ -7,6 +7,8 @@ export const PATTERNS: string[] = [
 	'strong-elements',
 	// <em>text</em>
 	'emphasis-elements',
+	// <Text size="UNSAFE_small">text</Text>
+	'unsafe-small-text',
 ];
 
 type Pattern = (typeof PATTERNS)[number];
@@ -21,7 +23,7 @@ export interface RuleConfig {
 
 const defaults: RuleConfig = {
 	failSilently: false,
-	patterns: ['paragraph-elements', 'span-elements', 'strong-elements', 'emphasis-elements'],
+	patterns: ['paragraph-elements', 'span-elements', 'strong-elements', 'emphasis-elements', 'unsafe-small-text'],
 	inheritColor: false,
 	enableUnsafeAutofix: false,
 	enableUnsafeReport: true,

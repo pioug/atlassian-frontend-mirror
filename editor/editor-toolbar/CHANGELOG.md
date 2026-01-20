@@ -1,5 +1,13 @@
 # @atlaskit/editor-toolbar
 
+## 0.19.4
+
+### Patch Changes
+
+- [`d29ff5aa0dcec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d29ff5aa0dcec) -
+  [NO-ISSUE] cleans up experiment platform_editor_reduce_toolbar_vc_impact
+- Updated dependencies
+
 ## 0.19.3
 
 ### Patch Changes

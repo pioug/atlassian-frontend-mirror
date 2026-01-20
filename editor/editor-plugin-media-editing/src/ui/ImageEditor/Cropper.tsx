@@ -1,3 +1,8 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+
 import React, {
 	forwardRef,
 	useImperativeHandle,
@@ -8,6 +13,7 @@ import React, {
 	useState,
 } from 'react';
 
+import { jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
 import {
@@ -111,6 +117,13 @@ type CropperSelectionProps = React.DetailedHTMLProps<
 	zoomable?: boolean;
 };
 
+type CropperShadeProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
+	height?: number;
+	width?: number;
+	x?: number;
+	y?: number;
+};
+
 type CropperGridProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
 	bordered?: boolean;
 	covered?: boolean;
@@ -139,6 +152,7 @@ const CropperImage = 'cropper-image' as unknown as (props: CropperImageProps) =>
 const CropperSelection = 'cropper-selection' as unknown as (
 	props: CropperSelectionProps,
 ) => React.ReactElement;
+const CropperShade = 'cropper-shade' as unknown as (props: CropperShadeProps) => React.ReactElement;
 const CropperGrid = 'cropper-grid' as unknown as (props: CropperGridProps) => React.ReactElement;
 const CropperCrosshair = 'cropper-crosshair' as unknown as (
 	props: CropperCrosshairProps,
@@ -163,6 +177,7 @@ export interface GetCroppedCanvasOptions {
  * Methods exposed via ref
  */
 export interface CropperRef {
+	fitStencilToImage: () => void;
 	getCanvas: () => CropperCanvasElement | null;
 	getCroppedCanvas: (options?: GetCroppedCanvasOptions) => Promise<HTMLCanvasElement | null>;
 	getImage: () => CropperImageElement | null;
@@ -194,7 +209,7 @@ export const Cropper = forwardRef<CropperRef, CropperProps>(
 			aspectRatio,
 			initialAspectRatio,
 			initialCoverage = 1,
-			background = true,
+			background = false,
 			rotatable = true,
 			scalable = true,
 			translatable = true,
@@ -231,7 +246,7 @@ export const Cropper = forwardRef<CropperRef, CropperProps>(
 			[],
 		);
 
-		const fitStencilToImage = () => {
+		const fitStencilToImage = useCallback(() => {
 			const canvas = canvasRef.current;
 			const image = imageRef.current;
 			const selection = selectionRef.current;
@@ -252,7 +267,7 @@ export const Cropper = forwardRef<CropperRef, CropperProps>(
 					selection.$change(Math.floor(x), Math.floor(y), Math.floor(width), Math.floor(height));
 				}
 			}
-		};
+		}, []);
 
 		const handleSelectionChange = useCallback((event: Event) => {
 			const canvas = canvasRef.current;
@@ -333,7 +348,7 @@ export const Cropper = forwardRef<CropperRef, CropperProps>(
 				}, 2000);
 				return () => clearTimeout(timer);
 			}
-		}, [src, isCropperLoaded, onImageReady]);
+		}, [src, isCropperLoaded, onImageReady, fitStencilToImage]);
 
 		// Attach selection change listener to enforce boundaries (only after image is ready)
 		useEffect(() => {
@@ -355,13 +370,109 @@ export const Cropper = forwardRef<CropperRef, CropperProps>(
 		useImperativeHandle(
 			ref,
 			() => ({
+				fitStencilToImage,
 				getCanvas,
 				getCroppedCanvas,
 				getImage,
 				isImageReady,
 			}),
-			[getCanvas, getCroppedCanvas, getImage, isImageReady],
+			[getCanvas, getCroppedCanvas, getImage, isImageReady, fitStencilToImage],
 		);
+
+		// Inject global styles for cropper handles
+		useEffect(() => {
+			const style = document.createElement('style');
+			style.textContent = `
+				cropper-shade {
+					outline-color: rgba(255,255,255,0.5);
+				}
+				cropper-handle[action="move"] {
+					opacity: 0;
+				}
+				cropper-handle[action="ne-resize"] {
+					border-radius: 7px 4px 4px 4px;
+					border-right: 7px solid rgba(255,255,255,0.6);
+					border-top: 7px solid rgba(255,255,255,0.6);
+					height: 15px;
+					width: 15px;
+					background-color: transparent;
+					transform: translate(-4px, 4px); 
+				}
+				cropper-handle[action="ne-resize"]::after {
+					border-radius: 5px 4px 4px 4px;
+					border-right: 5px solid #0052CC;
+					border-top: 5px solid #0052CC;
+					height: 15px;
+					width: 15px;
+					background-color: transparent;
+					transform: translate(-7px, -14px); 
+				}
+				cropper-handle[action="nw-resize"] {
+					border-radius: 4px 7px 4px 4px;
+					border-left: 7px solid rgba(255,255,255,0.6);
+					border-top: 7px solid rgba(255,255,255,0.6);
+					height: 15px;
+					width: 15px;
+					background-color: transparent;
+					transform: translate(4px, 4px); 
+				}
+				cropper-handle[action="nw-resize"]::after {
+					border-radius: 4px 5px 4px 4px;
+					border-left: 5px solid #0052CC;
+					border-top: 5px solid #0052CC;
+					height: 15px;
+					width: 15px;
+					background-color: transparent;
+					transform: translate(-14px, -14px); 
+				}
+				cropper-handle[action="se-resize"] {
+					border-radius: 4px 4px 7px 4px;
+					border-right: 7px solid rgba(255,255,255,0.6);
+					border-bottom: 7px solid rgba(255,255,255,0.6);
+					height: 15px;
+					width: 15px;
+					background-color: transparent;
+					transform: translate(-3px, -3px); 
+				}
+				cropper-handle[action="se-resize"]::after {
+					border-radius: 4px 4px 5px 4px;
+					border-right: 5px solid #0052CC;
+					border-bottom: 5px solid #0052CC;
+					height: 15px;
+					width: 15px;
+					background-color: transparent;
+					transform: translate(-7px, -7px); 
+				}
+				cropper-handle[action="sw-resize"] {
+					border-radius: 4px 4px 4px 7px;
+					border-left: 7px solid rgba(255,255,255,0.6);
+					border-bottom: 7px solid rgba(255,255,255,0.6);
+					height: 15px;
+					width: 15px;
+					background-color: transparent;
+					transform: translate(4px, -4px); 
+				}
+				cropper-handle[action="sw-resize"]::after {
+					border-radius: 4px 4px 4px 5px;
+					border-left: 5px solid #0052CC;
+					border-bottom: 5px solid #0052CC;
+					height: 15px;
+					width: 15px;
+					background-color: transparent;
+					transform: translate(-14px, -7px); 
+				}
+				cropper-selection {
+					outline: none;
+					border-top: 1px solid #0052CC;
+					border-right: 1px solid #0052CC;
+					border-bottom: 1px solid #0052CC;
+					border-left: 1px solid #0052CC;
+					box-sizing: border-box; 
+				}
+			`;
+			document.head.appendChild(style);
+			return () => style.remove();
+		}, []);
 
 		return (
 			<CropperCanvas
@@ -380,6 +491,7 @@ export const Cropper = forwardRef<CropperRef, CropperProps>(
 					translatable={translatable}
 					initial-center-size="contain"
 				/>
+				<CropperShade x={240} y={5} width={160} height={90} />
 				<CropperSelection
 					ref={selectionRef}
 					initial-coverage={initialCoverage}
@@ -391,13 +503,9 @@ export const Cropper = forwardRef<CropperRef, CropperProps>(
 					multiple={multiple}
 					outlined={outlined}
 				>
-					<CropperGrid role="grid" bordered covered />
-					<CropperCrosshair centered />
+					<CropperGrid role="grid" hidden />
+					<CropperCrosshair hidden />
 					<CropperHandle action="move" />
-					<CropperHandle action="n-resize" />
-					<CropperHandle action="e-resize" />
-					<CropperHandle action="s-resize" />
-					<CropperHandle action="w-resize" />
 					<CropperHandle action="ne-resize" />
 					<CropperHandle action="nw-resize" />
 					<CropperHandle action="se-resize" />

@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 43.20.7
+
+### Patch Changes
+
+- [`78b92c67a0c6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/78b92c67a0c6a) -
+  NAVX-3070 cleaning up navx-2816-a11y-fix-smart-links-headings
+
 ## 43.20.6
 
 ### Patch Changes

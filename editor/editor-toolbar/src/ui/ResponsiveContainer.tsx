@@ -632,8 +632,7 @@ export const ResponsiveContainer = ({
 		return (
 			<Box
 				xcss={cx(
-					expValEquals('platform_editor_reduce_toolbar_vc_impact', 'isEnabled', true) &&
-						breakpointPreset === 'fullpage'
+					breakpointPreset === 'fullpage'
 						? styles.responsiveContainerFullPage
 						: styles.responsiveContainer,
 					presetStyleMap[breakpointPreset],
@@ -647,8 +646,7 @@ export const ResponsiveContainer = ({
 	return (
 		<Box
 			xcss={cx(
-				expValEquals('platform_editor_reduce_toolbar_vc_impact', 'isEnabled', true) &&
-					breakpointPreset === 'fullpage'
+				breakpointPreset === 'fullpage'
 					? styles.responsiveContainerFullPage
 					: styles.responsiveContainer,
 				reducedBreakpoints ? styles.responsiveRulesReduced : styles.responsiveRules,

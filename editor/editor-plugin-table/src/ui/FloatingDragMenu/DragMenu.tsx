@@ -47,6 +47,7 @@ import {
 	isSelectionType,
 } from '@atlaskit/editor-tables/utils';
 import PaintBucketIcon from '@atlaskit/icon/core/paint-bucket';
+import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -470,40 +471,64 @@ const DragMenu = React.memo(
 			toggleNumberColumnWithAnalytics(editorAnalyticsAPI)(state, dispatch);
 		};
 
-		const createHeaderRowColumnMenuItem = (direction: TableDirection) => {
+		const HeaderColumnToggle = () => (
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+			<div css={toggleStyles}>
+				<Toggle
+					id="toggle-header-column"
+					label={formatMessage(messages.headerColumn)}
+					onChange={toggleHeaderColumn}
+					isChecked={checkIfHeaderColumnEnabled(selection)}
+				/>
+			</div>
+		);
+
+		const HeaderRowToggle = () => (
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+			<div css={toggleStyles}>
+				<Toggle
+					id="toggle-header-row"
+					label={formatMessage(messages.headerRow)}
+					onChange={toggleHeaderRow}
+					isChecked={checkIfHeaderRowEnabled(selection)}
+				/>
+			</div>
+		);
+
+		const createHeaderRowColumnMenuItemOld = (direction: TableDirection) => {
 			return direction === 'column'
 				? ({
 						key: 'header_column',
 						content: formatMessage(messages.headerColumn),
 						value: { name: 'header_column' },
-						elemAfter: (
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-							<div css={toggleStyles}>
-								<Toggle
-									id="toggle-header-column"
-									label={formatMessage(messages.headerColumn)}
-									onChange={toggleHeaderColumn}
-									isChecked={checkIfHeaderColumnEnabled(selection)}
-								/>
-							</div>
-						),
+						elemAfter: <HeaderColumnToggle />,
 					} as MenuItem)
 				: ({
 						key: 'header_row',
 						content: formatMessage(messages.headerRow),
 						value: { name: 'header_row' },
-						elemAfter: (
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-							<div css={toggleStyles}>
-								<Toggle
-									id="toggle-header-row"
-									label={formatMessage(messages.headerRow)}
-									onChange={toggleHeaderRow}
-									isChecked={checkIfHeaderRowEnabled(selection)}
-								/>
-							</div>
-						),
+						elemAfter: <HeaderRowToggle />,
 					} as MenuItem);
+		};
+
+		const createHeaderRowColumnMenuItem = (direction: TableDirection) => {
+			if (direction === 'column' && (pluginConfig?.advanced || pluginConfig?.allowHeaderColumn)) {
+				return {
+					key: 'header_column',
+					content: formatMessage(messages.headerColumn),
+					value: { name: 'header_column' },
+					elemAfter: <HeaderColumnToggle />,
+				} as MenuItem;
+			}
+
+			if (direction === 'row' && (pluginConfig?.advanced || pluginConfig?.allowHeaderRow)) {
+				return {
+					key: 'header_row',
+					content: formatMessage(messages.headerRow),
+					value: { name: 'header_row' },
+					elemAfter: <HeaderRowToggle />,
+				} as MenuItem;
+			}
 		};
 
 		const createRowNumbersMenuItem = () => {
@@ -649,11 +674,26 @@ const DragMenu = React.memo(
 		// If first row, add toggle for Header row, default is true
 		// If first column, add toggle for Header column, default is false
 		if (index === 0) {
-			menuItems.push({ items: [createHeaderRowColumnMenuItem(direction)] });
+			if (!fg('platform_editor_enable_table_dnd')) {
+				menuItems.push({ items: [createHeaderRowColumnMenuItemOld(direction)] });
+			} else if (
+				(pluginConfig?.advanced ||
+					pluginConfig?.allowHeaderColumn ||
+					pluginConfig?.allowHeaderRow) &&
+				fg('platform_editor_enable_table_dnd')
+			) {
+				const headerRowColumnMenuItem = createHeaderRowColumnMenuItem(direction);
+				headerRowColumnMenuItem && menuItems.push({ items: [headerRowColumnMenuItem] });
+			}
 		}
 
 		// All rows, add toggle for numbered rows, default is false
-		if (direction === 'row') {
+		if (
+			direction === 'row' &&
+			(fg('platform_editor_enable_table_dnd')
+				? pluginConfig?.advanced || pluginConfig?.allowNumberColumn
+				: true)
+		) {
 			index === 0
 				? menuItems[menuItems.length - 1].items.push(createRowNumbersMenuItem())
 				: menuItems.push({ items: [createRowNumbersMenuItem()] });

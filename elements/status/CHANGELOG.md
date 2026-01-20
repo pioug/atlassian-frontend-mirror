@@ -1,5 +1,12 @@
 # @atlaskit/status
 
+## 3.1.2
+
+### Patch Changes
+
+- [`0e641407bbbf8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e641407bbbf8) -
+  Cleanup `editor_a11y_arrow_key_status_colour_palette` feature flag
+
 ## 3.1.1
 
 ### Patch Changes

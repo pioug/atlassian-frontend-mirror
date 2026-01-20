@@ -36,7 +36,11 @@ export interface TablePluginOptions {
 	getEditorFeatureFlags?: GetEditorFeatureFlags;
 	isChromelessEditor?: boolean;
 	isCommentEditor?: boolean;
-	// this option will eventually be removed, and enabled by default
+	/**
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-49683 Internal documentation for deprecation (no external access)}
+	 * Deprecating this prop to enable table scaling by default
+	 * See {@link https://hello.atlassian.net/wiki/spaces/EDITOR/pages/6312469305/Deprecating+legacy+table+controls} for rollout plan
+	**/
 	isTableScalingEnabled?: boolean;
 	maxWidthEnabled?: boolean;
 	tableOptions: PluginConfig;

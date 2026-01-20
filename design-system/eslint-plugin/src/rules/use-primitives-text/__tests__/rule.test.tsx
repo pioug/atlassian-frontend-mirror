@@ -80,6 +80,17 @@ ruleTester.run('use-primitives-text', rule, {
 				<span data-test-id='contentTestId'>content</span>
 			`,
 		},
+		// ignores text elements with allowed size props
+		{
+			code: outdent`
+				import { Text, Stack } from '@atlaskit/primitives';
+				<Stack>
+					<Text size="small">content</Text>
+					<Text size="medium">content</Text>
+					<Text size="large">content</Text>
+				</Stack>
+			`,
+		},
 	],
 	invalid: [
 		// it suggests Text for span elements with only text as children
@@ -426,6 +437,18 @@ ruleTester.run('use-primitives-text', rule, {
 				{ messageId: 'preferPrimitivesText' },
 				{ messageId: 'preferPrimitivesText' },
 			],
+		},
+		// it suggests to change UNSAFE_small to small Text
+		{
+			code: outdent`
+				import { Text } from '@atlaskit/primitives';
+				<Text size="UNSAFE_small">content</Text>
+			`,
+			errors: [{ messageId: 'noUnsafeSmallText' }],
+			output: outdent`
+				import { Text } from '@atlaskit/primitives';
+				<Text size="small">content</Text>
+			`,
 		},
 	],
 });

@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-table
 
+## 16.4.0
+
+### Minor Changes
+
+- [`f2606056e2aa9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2606056e2aa9) -
+  [ux] EDITOR-4516 Deprecate isTableScaling to enable it by default
+
+### Patch Changes
+
+- [`111f223aff3d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/111f223aff3d1) -
+  Clean up platform_editor_table_less_padding_fix
+- Updated dependencies
+
+## 16.3.4
+
+### Patch Changes
+
+- [`275fdae298e95`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/275fdae298e95) -
+  [ux] EDITOR-4412 Show/hide header column/row and numbered column toggles in drag controls based on
+  editor props
+- Updated dependencies
+
 ## 16.3.3
 
 ### Patch Changes

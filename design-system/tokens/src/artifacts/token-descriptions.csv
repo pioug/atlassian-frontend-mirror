@@ -441,7 +441,6 @@ font.heading.xxsmall, "For headers in fine print or tight spaces. Use sparingly.
 font.body.large, "For long-form text, such as in blogs."
 font.body, "Use in short descriptions or labels. The default size for text in components. Migrate instances of Paragraph Default and UI Text to Body M."
 font.body.small, "Use in secondary level content such as fine print or semantic messaging. Use sparingly. Migrate instances of Small text to Body S."
-font.body.UNSAFE_small, "UNSAFE - Do not use. Temporary 12px fontsize token. Will be deprecated and replaced with stable small token"
 font.metric.large, "Use to emphasize a number within a large donut."
 font.metric.medium, "Use to emphasize a number within a medium donut."
 font.metric.small, "Use to emphasize a number and words in single-value tiles, or small donuts."

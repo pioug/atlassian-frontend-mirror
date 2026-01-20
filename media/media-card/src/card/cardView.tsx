@@ -43,8 +43,10 @@ import {
 	CreatingPreview,
 	FailedToUpload,
 	FailedToLoad,
+	CheckInternetConnection,
 } from './ui/iconMessage';
 import { isUploadError, type MediaCardError } from '../errors';
+import { isNetworkError } from '../utils/isNetworkError';
 import { Wrapper, ImageContainer } from './ui/wrapper';
 import { fileCardImageViewSelector } from './classnames';
 import { useBreakpoint } from './useBreakpoint';
@@ -251,6 +253,9 @@ export const CardViewBase = ({
 				if (isUploadError(error)) {
 					iconMessage = <FailedToUpload />;
 					customTitleMessage = messages.failed_to_upload;
+				} else if (isNetworkError(error) && fg('media_card_failed_messaging_ui_revamp')) {
+					iconMessage = <CheckInternetConnection />;
+					customTitleMessage = messages.check_internet_connection;
 				} else if (!metadata) {
 					iconMessage = <FailedToLoad />;
 				} else {

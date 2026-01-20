@@ -3,7 +3,7 @@
  *
  * Structured content for tokens generated from token-metadata.
  *
- * @codegen <<SignedSource::71826c7e9b24620099bd0316f7a0a305>>
+ * @codegen <<SignedSource::44592b6377caa433142db7aab9f15940>>
  * @codegenCommand yarn build structured-docs
  */
 export interface TokenStructuredContent {
@@ -3380,53 +3380,63 @@ export const tokenStructuredContent: TokenStructuredContent[] = [
 	},
 	{
 		content:
-			'# radius.xsmall\n\nUsed for small containers such as badges.\n\nExample Value: `0.125rem`\n',
+			'# radius.xsmall\n\nUse for small detail elements: badges, checkboxes, avatar labels, keyboard shortcuts.\n\nExample Value: `0.125rem`\n',
 		name: 'radius.xsmall',
-		description: 'Used for small containers such as badges.',
+		description:
+			'Use for small detail elements: badges, checkboxes, avatar labels, keyboard shortcuts.',
 		exampleValue: '0.125rem',
 	},
 	{
-		content: '# radius.small\n\nUsed for labels.\n\nExample Value: `0.25rem`\n',
+		content:
+			'# radius.small\n\nUse for supporting elements: labels, lozenges, timestamps, tags, dates, tooltip containers, imagery inside a table, compact buttons.\n\nExample Value: `0.25rem`\n',
 		name: 'radius.small',
-		description: 'Used for labels.',
+		description:
+			'Use for supporting elements: labels, lozenges, timestamps, tags, dates, tooltip containers, imagery inside a table, compact buttons.',
 		exampleValue: '0.25rem',
 	},
 	{
-		content: '# radius.medium\n\nUsed for buttons and inputs.\n\nExample Value: `0.375rem`\n',
+		content:
+			'# radius.medium\n\nUse for interactive elements: buttons, inputs, text areas, selects, navigation items, smart links.\n\nExample Value: `0.375rem`\n',
 		name: 'radius.medium',
-		description: 'Used for buttons and inputs.',
+		description:
+			'Use for interactive elements: buttons, inputs, text areas, selects, navigation items, smart links.',
 		exampleValue: '0.375rem',
 	},
 	{
-		content: '# radius.large\n\nUsed for cards and small containers.\n\nExample Value: `0.5rem`\n',
+		content:
+			'# radius.large\n\nUse for containment elements: cards, in-page containers, floating UI, dropdown menus.\n\nExample Value: `0.5rem`\n',
 		name: 'radius.large',
-		description: 'Used for cards and small containers.',
+		description:
+			'Use for containment elements: cards, in-page containers, floating UI, dropdown menus.',
 		exampleValue: '0.5rem',
 	},
 	{
 		content:
-			'# radius.xlarge\n\nUsed for modals and large containers.\n\nExample Value: `0.75rem`\n',
+			'# radius.xlarge\n\nUse for large page elements: full-page containers, large containers, modals, Kanban columns, tables.\n\nExample Value: `0.75rem`\n',
 		name: 'radius.xlarge',
-		description: 'Used for modals and large containers.',
+		description:
+			'Use for large page elements: full-page containers, large containers, modals, Kanban columns, tables.',
 		exampleValue: '0.75rem',
 	},
 	{
-		content: '# radius.xxlarge\n\nUsed for the largest containers.\n\nExample Value: `1rem`\n',
+		content: '# radius.xxlarge\n\nUse for video player containers.\n\nExample Value: `1rem`\n',
 		name: 'radius.xxlarge',
-		description: 'Used for the largest containers.',
+		description: 'Use for video player containers.',
 		exampleValue: '1rem',
 	},
 	{
 		content:
-			'# radius.full\n\nUsed for circular containers, like a rounded button.\n\nExample Value: `624.9375rem`\n',
+			'# radius.full\n\nUse for circular elements (user/people related): avatars, names, user-related UI, emoji reactions.\n\nExample Value: `624.9375rem`\n',
 		name: 'radius.full',
-		description: 'Used for circular containers, like a rounded button.',
+		description:
+			'Use for circular elements (user/people related): avatars, names, user-related UI, emoji reactions.',
 		exampleValue: '624.9375rem',
 	},
 	{
-		content: '# radius.tile\n\nUsed for tiles only.\n\nExample Value: `25%`\n',
+		content:
+			'# radius.tile\n\nUse this specific radius token exclusively for the tile component system.\n\nExample Value: `25%`\n',
 		name: 'radius.tile',
-		description: 'Used for tiles only.',
+		description: 'Use this specific radius token exclusively for the tile component system.',
 		exampleValue: '25%',
 	},
 	{

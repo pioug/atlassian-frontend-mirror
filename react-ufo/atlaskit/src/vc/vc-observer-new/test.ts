@@ -1,5 +1,6 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import { isVCRevisionEnabled } from '../../config';
 import { getActiveInteraction } from '../../interaction-metrics';
 
 import EntriesTimeline from './entries-timeline';
@@ -23,6 +24,7 @@ jest.mock('./raw-data-handler');
 jest.mock('./get-element-name');
 jest.mock('@atlaskit/platform-feature-flags');
 jest.mock('../../interaction-metrics');
+jest.mock('../../config');
 jest.mock('../vc-observer/observers/ssr-placeholders');
 
 describe('VCObserverNew', () => {
@@ -44,6 +46,11 @@ describe('VCObserverNew', () => {
 
 		// Default getActiveInteraction mock
 		(getActiveInteraction as jest.Mock).mockReturnValue(undefined);
+
+		// Default isVCRevisionEnabled mock - enable both fy25.03 and fy26.04 by default
+		(isVCRevisionEnabled as jest.Mock).mockImplementation((revision: string) => {
+			return revision === 'fy25.03' || revision === 'fy26.04';
+		});
 
 		// Save and clear window.__SSR_ABORT_LISTENERS__ if it exists
 		originalSsrAbortListeners = window.__SSR_ABORT_LISTENERS__;
@@ -427,11 +434,12 @@ describe('VCObserverNew', () => {
 					},
 				},
 			];
-			const mockResult = { revision: 'fy25.03', clean: true, 'metric:vc90': 100 };
+			const mockFy25_03Result = { revision: 'fy25.03', clean: true, 'metric:vc90': 100 };
+			const mockFy26_04Result = { revision: 'fy26.04', clean: true, 'metric:vc90': 100 };
 
 			mockEntriesTimeline.getOrderedEntries.mockReturnValue(mockEntries);
-			(VCCalculator_FY25_03.prototype.calculate as jest.Mock).mockResolvedValue(mockResult);
-			(VCCalculator_FY26_04.prototype.calculate as jest.Mock).mockResolvedValue(mockResult);
+			(VCCalculator_FY25_03.prototype.calculate as jest.Mock).mockResolvedValue(mockFy25_03Result);
+			(VCCalculator_FY26_04.prototype.calculate as jest.Mock).mockResolvedValue(mockFy26_04Result);
 
 			const result = await vcObserver.getVCResult({
 				start: 0,
@@ -457,7 +465,21 @@ describe('VCObserverNew', () => {
 				interactionType: 'page_load',
 				isPageVisible: true,
 			});
-			expect(result).toEqual([mockResult, mockResult]);
+			expect(VCCalculator_FY26_04.prototype.calculate).toHaveBeenCalledWith({
+				orderedEntries: mockEntries,
+				startTime: 0,
+				stopTime: 1000,
+				interactionId: 'test-interaction-id',
+				isPostInteraction: false,
+				excludeSmartAnswersInSearch: undefined,
+				include3p: undefined,
+				interactionAbortReason: undefined,
+				interactionType: 'page_load',
+				isPageVisible: true,
+			});
+			// When platform_ufo_vcnext_for_ttvc_v5 is disabled (default), a 'next' entry is created by copying all fy26.04 data with revision set to 'next'
+			const mockNextResult = { ...mockFy26_04Result, revision: 'next' };
+			expect(result).toEqual([mockFy25_03Result, mockFy26_04Result, mockNextResult]);
 		});
 
 		it('should handle empty calculator results', async () => {
@@ -524,6 +546,11 @@ describe('VCObserverNew', () => {
 					clean: true,
 					'metric:vc90': 100,
 				});
+				(VCCalculator_FY26_04.prototype.calculate as jest.Mock).mockResolvedValue({
+					revision: 'fy26.04',
+					clean: true,
+					'metric:vc90': 100,
+				});
 
 				await vcObserver.getVCResult({
 					start: 0,
@@ -537,6 +564,11 @@ describe('VCObserverNew', () => {
 
 				// VC calculators should use regular stop (100)
 				expect(VCCalculator_FY25_03.prototype.calculate).toHaveBeenCalledWith(
+					expect.objectContaining({
+						stopTime: 100,
+					}),
+				);
+				expect(VCCalculator_FY26_04.prototype.calculate).toHaveBeenCalledWith(
 					expect.objectContaining({
 						stopTime: 100,
 					}),

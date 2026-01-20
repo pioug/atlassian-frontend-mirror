@@ -1,5 +1,21 @@
 # @atlaskit/editor-statsig-tmp
 
+## 16.26.0
+
+### Minor Changes
+
+- [`b1b42a9017633`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b1b42a9017633) -
+  [EDITOR-4562] Set up experiment edit modal for unsupported content
+
+## 16.25.1
+
+### Patch Changes
+
+- [`a5727f82cae80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a5727f82cae80) -
+  [NO-ISSUE] Cleans up experiment platform_editor_scroll_gutter_fix
+- [`d29ff5aa0dcec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d29ff5aa0dcec) -
+  [NO-ISSUE] cleans up experiment platform_editor_reduce_toolbar_vc_impact
+
 ## 16.25.0
 
 ### Minor Changes

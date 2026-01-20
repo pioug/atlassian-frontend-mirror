@@ -52,7 +52,6 @@ export {
 export type {
 	ADFFetchProvider,
 	ADFWriteProvider,
-	BlockNodeIdentifiers,
 	SyncBlockDataProvider,
 	SyncBlockInstance,
 	MediaEmojiProviderOptions,

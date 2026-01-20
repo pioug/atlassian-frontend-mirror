@@ -30,7 +30,9 @@ type HTMLElementBase = typeof HTMLElement extends {prototype: infer T} ? T : Rec
  */
 export interface CropperImageElement extends HTMLImageElementBase {
   $ready: (callback?: () => void) => Promise<CropperImageElement>;
-  $scale: (x: number, y: number) => void;
+  $rotate: (angle: number | string, x?: number, y?: number) => void;
+  $scale: (x: number, y?: number) => void;
+  $zoom: (scale: number, x?: number, y?: number) => void;
   transform?: Partial<CropperTransform>;
 }
 
@@ -48,6 +50,26 @@ export interface CropperCanvasElement extends HTMLElementBase {
   setCropperImage: (image: CropperImageElement) => void;
   src?: string;
   translatable?: boolean;
+}
+
+/**
+ * Cropper shade element properties -
+ * Cropper shade is a custom element that renders a semi-transparent overlay over the image canvas,
+ * masking everything except the active selection area.
+ * * @element cropper-shade
+ * @description
+ * Visual component that "dims" the unselected portions of the image.
+ * It automatically syncs with the geometry of the `cropper-selection` to create
+ * a cutout effect (the clear area).
+ */
+export interface CropperShadeElement extends HTMLElementBase {
+  $change: (x: number, y: number, width?: number, height?: number) => CropperShadeElement | null;
+  $render: () => CropperShadeElement;
+  $reset: () => CropperShadeElement;
+  height?: number;
+  width?: number;
+  x?: number;
+  y?: number;
 }
 
 /**

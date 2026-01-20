@@ -20,5 +20,6 @@ export type LimitedModePlugin = NextEditorPlugin<
 
 export type LimitedModePluginOptions = {
 	contentId?: string;
+	killSwitchEnabled?: boolean;
 	showFlag?: (props: { close: string; description: React.ReactNode; title: string }) => void;
 };

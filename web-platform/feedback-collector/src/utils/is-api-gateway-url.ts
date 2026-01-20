@@ -1,1 +1,1 @@
-export const isApiGatewayUrl = (url: string) => ['/gateway/api'].includes(url);
+export const isApiGatewayUrl = (url: string): boolean => ['/gateway/api'].includes(url);

@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::98ec2ef3c3602f1046b2ecf3775d0f05>>
+ * @codegen <<SignedSource::481346579796e53160811ac193f2a30b>>
  * @codegenCommand yarn build tokens
  */
 

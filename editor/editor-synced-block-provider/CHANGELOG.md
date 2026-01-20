@@ -1,5 +1,12 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.11.0
+
+### Minor Changes
+
+- [`7b4cb91fc67a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b4cb91fc67a6) -
+  Do not immediately show error state on initial load of blocks
+
 ## 3.10.0
 
 ### Minor Changes

@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 0.13.6
+
+### Patch Changes
+
+- [`a51be92772dd1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a51be92772dd1) -
+  Improve Spotlight migration guides.
+
 ## 0.13.5
 
 ### Patch Changes

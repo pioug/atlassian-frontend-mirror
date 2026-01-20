@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-limited-mode
 
+## 4.0.1
+
+### Patch Changes
+
+- [`e0bc30ca14a41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0bc30ca14a41) -
+  EDITOR-4465 - Add killSwitchEnabled option to disable performance/limited mode via Statsig
+  configuration.
+- Updated dependencies
+
 ## 4.0.0
 
 ### Patch Changes

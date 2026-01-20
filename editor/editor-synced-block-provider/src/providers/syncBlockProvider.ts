@@ -85,35 +85,51 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	 * @returns Array of {resourceId?: string, error?: string}.
 	 */
 	async fetchNodesData(nodes: SyncBlockNode[]): Promise<SyncBlockInstance[]> {
-		const blockIdentifiers = nodes.map((node) => ({
-			resourceId: node.attrs.resourceId,
-			blockInstanceId: node.attrs.localId,
-		}));
-		if (blockIdentifiers.length === 0) {
+		const resourceIdSet = new Set<string>(nodes.map((node) => node.attrs.resourceId));
+		const resourceIds = [...resourceIdSet];
+		if (resourceIds.length === 0) {
 			return [];
 		}
 
 		if (fg('platform_synced_block_dogfooding')) {
 			try {
-				return await this.fetchProvider.batchFetchData(blockIdentifiers);
+				return await this.fetchProvider.batchFetchData(resourceIds);
 			} catch {
-				// If batch fetch fails, return error for all resourceIds
-				return blockIdentifiers.map((blockIdentifier) => ({
-					error: SyncBlockError.Errored,
-					resourceId: blockIdentifier.resourceId,
-				}));
+				// If batch fetch fails, fall back to individual fetch behavior
+				// This allows loading states to be shown before errors, matching non-batch behavior
+				return Promise.allSettled(
+					resourceIds.map((resourceId) => {
+						return this.fetchProvider.fetchData(resourceId).then(
+							(data) => {
+								return data;
+							},
+							() => {
+								return {
+									error: SyncBlockError.Errored,
+									resourceId,
+								};
+							},
+						);
+					}),
+				).then((results) => {
+					return results
+						.filter((result): result is PromiseFulfilledResult<SyncBlockInstance> => {
+							return result.status === 'fulfilled';
+						})
+						.map((result) => result.value);
+				});
 			}
 		} else {
 			return Promise.allSettled(
-				blockIdentifiers.map((blockIdentifier) => {
-					return this.fetchProvider.fetchData(blockIdentifier.resourceId).then(
+				resourceIds.map((resourceId) => {
+					return this.fetchProvider.fetchData(resourceId).then(
 						(data) => {
 							return data;
 						},
 						() => {
 							return {
 								error: SyncBlockError.Errored,
-								resourceId: blockIdentifier.resourceId,
+								resourceId,
 							};
 						},
 					);

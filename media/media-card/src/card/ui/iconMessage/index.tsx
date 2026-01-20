@@ -33,3 +33,7 @@ export const FailedToLoad: React.FC = (props) => (
 export const FailedToUpload: React.FC = (props) => (
 	<IconMessage {...props} messageDescriptor={messages.failed_to_upload} />
 );
+
+export const CheckInternetConnection: React.FC = (props) => (
+	<IconMessage {...props} messageDescriptor={messages.check_internet_connection} />
+);

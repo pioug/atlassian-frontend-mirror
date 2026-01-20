@@ -31,7 +31,6 @@ import { createResourceIdForReference } from '../../utils/resourceId';
 import type {
 	ADFFetchProvider,
 	ADFWriteProvider,
-	BlockNodeIdentifiers,
 	DeleteSyncBlockResult,
 	SyncBlockInstance,
 	UpdateReferenceSyncBlockResult,
@@ -297,30 +296,22 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 
 	/**
 	 * Batch fetches multiple synced blocks by their resource IDs.
-	 * @param blockNodeIdentifiers - Array of block node identifiers, containing block instance (local) ID + resource IDs to fetch
+	 * @param resourceIds - Array of resource IDs to fetch
 	 * @returns Array of SyncBlockInstance results
 	 */
-	async batchFetchData(blockNodeIdentifiers: BlockNodeIdentifiers[]): Promise<SyncBlockInstance[]> {
-		const blockIdentifiers = blockNodeIdentifiers.map((blockIdentifier) => ({
-			blockAri: generateBlockAriFromReference({ cloudId: this.cloudId, resourceId: blockIdentifier.resourceId }),
-			blockInstanceId: blockIdentifier.blockInstanceId,
-		}));
+	async batchFetchData(resourceIds: string[]): Promise<SyncBlockInstance[]> {
+		const blockAris = resourceIds.map((resourceId) =>
+			generateBlockAriFromReference({ cloudId: this.cloudId, resourceId }),
+		);
 
 		// Create a set of valid resourceIds for validation
-		const validResourceIds = new Set(blockNodeIdentifiers.map((blockNodeIdentifier) => blockNodeIdentifier.resourceId));
+		const validResourceIds = new Set(resourceIds);
 
 		// Track which resourceIds have been processed
 		const processedResourceIds = new Set<string>();
 
-		if (!this.parentAri) {
-			return blockNodeIdentifiers.map((blockNodeIdentifier) => ({
-				error: SyncBlockError.Errored,
-				resourceId: blockNodeIdentifier.resourceId,
-			}) as SyncBlockInstance);
-		}
-
 		try {
-			const response = await batchRetrieveSyncedBlocks({ documentAri: this.parentAri, blockIdentifiers });
+			const response = await batchRetrieveSyncedBlocks({ blockAris });
 			const results: SyncBlockInstance[] = [];
 
 			// Process successful blocks
@@ -377,11 +368,11 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 			}
 
 			// Ensure all resourceIds have a result - return NotFound for any missing ones
-			for (const blockNodeIdentifier of blockNodeIdentifiers) {
-				if (!processedResourceIds.has(blockNodeIdentifier.resourceId)) {
+			for (const resourceId of resourceIds) {
+				if (!processedResourceIds.has(resourceId)) {
 					results.push({
 						error: SyncBlockError.NotFound,
-						resourceId: blockNodeIdentifier.resourceId,
+						resourceId,
 					});
 				}
 			}
@@ -389,9 +380,9 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 			return results;
 		} catch (error) {
 			// If batch request fails, return error for all resourceIds
-			return blockNodeIdentifiers.map((blockNodeIdentifier) => ({
+			return resourceIds.map((resourceId) => ({
 				error: error instanceof BlockError ? mapBlockError(error) : SyncBlockError.Errored,
-				resourceId: blockNodeIdentifier.resourceId,
+				resourceId,
 			}));
 		}
 	}

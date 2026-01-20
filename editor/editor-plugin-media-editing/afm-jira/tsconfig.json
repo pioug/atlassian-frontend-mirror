@@ -24,16 +24,28 @@
 	],
 	"references": [
 		{
+			"path": "../../../design-system/app-provider/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/button/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/dropdown-menu/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-prosemirror/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../media/media-client/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/modal-dialog/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../editor-common/afm-jira/tsconfig.json"

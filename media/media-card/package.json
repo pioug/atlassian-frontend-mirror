@@ -151,6 +151,9 @@
 		},
 		"jfp-magma-fix-attachments-hydration-error": {
 			"type": "boolean"
+		},
+		"media_card_failed_messaging_ui_revamp": {
+			"type": "boolean"
 		}
 	},
 	"techstack": {

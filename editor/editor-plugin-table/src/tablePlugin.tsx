@@ -98,6 +98,8 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 		...config,
 		tableOptions: config?.tableOptions ?? {},
 		dragAndDropEnabled: config?.dragAndDropEnabled || fg('platform_editor_enable_table_dnd'),
+		isTableScalingEnabled:
+			config?.isTableScalingEnabled || fg('platform_editor_enable_table_scaling'),
 	};
 
 	const defaultGetEditorContainerWidth: GetEditorContainerWidth = () => {

@@ -220,7 +220,8 @@ test.describe('React UFO: Payload integrity - v2.0.0, without TTVC v1 fields', (
 			expect(vcRevision['metric:vc90']! <= interactionMetrics.end).toBe(true);
 			// @ts-ignore
 			expect(vcRevision.vcDetails?.['99'].t <= interactionMetrics.end).toBe(true);
-			expect(vcRevision.revision).toMatch(/fy\d\d\.\d\d/);
+			// Revision names follow fy\d\d\.\d\d pattern or 'next' for experimental features
+			expect(vcRevision.revision).toMatch(/fy\d\d\.\d\d|next/);
 			expect(vcRevision.clean).toBe(true);
 
 			for (let i = 0; i < VCObserver.VCParts.length; i++) {

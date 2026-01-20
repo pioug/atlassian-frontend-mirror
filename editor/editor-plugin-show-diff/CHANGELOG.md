@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 4.0.2
+
+### Patch Changes
+
+- [`917bb70243d23`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/917bb70243d23) -
+  [ux] [ENGHEALTH-43911] increase visual contrast for deleted text when viewing changes
+
 ## 4.0.1
 
 ### Patch Changes

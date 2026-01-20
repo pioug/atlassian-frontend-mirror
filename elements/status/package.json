@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/status",
-	"version": "3.1.1",
+	"version": "3.1.2",
 	"description": "Fabric Status React Components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -86,9 +86,6 @@
 	},
 	"platform-feature-flags": {
 		"platform-component-visual-refresh": {
-			"type": "boolean"
-		},
-		"editor_a11y_arrow_key_status_colour_palette": {
 			"type": "boolean"
 		}
 	}

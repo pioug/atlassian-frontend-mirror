@@ -31,12 +31,16 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
+		"@atlaskit/app-provider": "workspace:^",
 		"@atlaskit/button": "workspace:^",
+		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
+		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/media-client": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
-		"@emotion/react": "root:*",
+		"@compiled/react": "root:*",
 		"bind-event-listener": "root:*",
 		"cropperjs": "root:*",
 		"react-intl-next": "^0.0.1-security"

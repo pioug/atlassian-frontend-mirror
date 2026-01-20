@@ -9,7 +9,7 @@ type Token = {
 };
 
 const activeTokens: Token[] = tokens
-	.filter((t) => t.attributes.state === 'active')
+	.filter((t) => t.attributes.state !== 'deleted')
 	.map((t) => ({
 		name: t.name,
 		fallback: t.value,

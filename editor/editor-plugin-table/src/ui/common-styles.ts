@@ -743,16 +743,12 @@ const baseTableStylesWithoutSharedStyle = (props: {
 			left: calc(100% - 16px);
 		}
 
-		${fg('platform_editor_table_less_padding_fix')
-			? `
-				.${TableSharedCssClassName.TABLE_LEFT_BORDER} {
-					left: 8px;
-				}
-				.${TableSharedCssClassName.TABLE_RIGHT_BORDER} {
-					right: 8px;
-				}
-			`
-			: ''}
+		.${TableSharedCssClassName.TABLE_LEFT_BORDER} {
+			left: 8px;
+		}
+		.${TableSharedCssClassName.TABLE_RIGHT_BORDER} {
+			right: 8px;
+		}
 	}
 
 	> .${ClassName.NODEVIEW_WRAPPER} {

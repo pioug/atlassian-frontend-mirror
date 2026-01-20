@@ -6,13 +6,15 @@ import { capitalize, constructTokenFunctionCall, generateTypeDefs } from './util
 type Token = {
 	name: string;
 	fallback: string;
+	isDeprecated: boolean;
 };
 
 const activeTokens: Token[] = tokens
-	.filter((t) => t.attributes.state === 'active')
+	.filter((t) => t.attributes.state !== 'deleted')
 	.map((t) => ({
 		name: t.name,
 		fallback: t.value,
+		isDeprecated: t.attributes.state === 'deprecated',
 	}));
 
 const typographyProperties = [
@@ -62,8 +64,9 @@ ${activeTokens
 	.sort((a, b) => (a.name < b.name ? -1 : 1))
 	.map((token) => {
 		return `
-      '${token.name}': ${constructTokenFunctionCall(token.name, token.fallback)}
-    `.trim();
+			${token.isDeprecated ? '// @deprecated' : ''}
+			'${token.name}': ${constructTokenFunctionCall(token.name, token.fallback)}
+		`.trim();
 	})
 	.join(',\n\t')}
 };`,

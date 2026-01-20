@@ -4,7 +4,7 @@ import Heading from '@atlaskit/heading';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Stack, Text } from '@atlaskit/primitives';
 
-const sizes = ['small', 'UNSAFE_small', 'medium', 'large'] as const;
+const sizes = ['small', 'medium', 'large'] as const;
 const weights = ['regular', 'medium', 'semibold', 'bold'] as const;
 const alignments = ['start', 'center', 'end'] as const;
 

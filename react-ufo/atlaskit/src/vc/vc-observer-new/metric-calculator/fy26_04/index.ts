@@ -36,8 +36,8 @@ const fy26_04_excluded_attributes = [
 ]
 
 export default class VCCalculator_FY26_04 extends VCCalculator_FY25_03 {
-	constructor() {
-		super('fy26.04');
+	constructor(revisionNo: string = 'fy26.04') {
+		super(revisionNo);
 	}
 
 	protected isEntryIncluded(

@@ -114,6 +114,7 @@ const getTokenAttributes = (tokens: any[]) => {
 	description: string;
 	suggest?: string[];
 	deprecated?: string;
+	replacement?: string;
 };`;
 };
 

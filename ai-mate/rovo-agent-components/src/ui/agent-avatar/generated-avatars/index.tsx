@@ -158,6 +158,14 @@ const TrialGuideAvatar = lazy(
 		import(/* webpackChunkName: "@atlaskit-rovo-avatar-TrialGuideAvatar"*/ './assets/trial-guide'),
 );
 
+const JsmRovoServiceAgentAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-JsmRovoServiceAgentAvatar"*/ './assets/jsm-rovo-service-agent'
+		),
+);
+
+
 type Color = {
 	primary: string;
 	secondary: string;
@@ -366,6 +374,16 @@ const outOfTheBoxAgentAvatar: {
 			/>
 		),
 		color: blueColor,
+	},
+	jsm_rovo_service_agent: {
+		getRender: (size: SizeType) => (
+			<JsmRovoServiceAgentAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor=""
+				secondaryColor=""
+			/>
+		),
+		color: yellowColor,
 	},
 };
 

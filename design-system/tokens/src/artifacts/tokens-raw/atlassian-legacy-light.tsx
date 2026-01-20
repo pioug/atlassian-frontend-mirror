@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::204e63815d0b59fc718211b8c738183b>>
+ * @codegen <<SignedSource::8ba837ec9e96316ec5c338789f9aad1e>>
  * @codegenCommand yarn build tokens
  */
 
@@ -40,6 +40,7 @@ type TokenAttributes = {
 	description: string;
 	suggest?: string[];
 	deprecated?: string;
+	replacement?: string;
 };
 
 

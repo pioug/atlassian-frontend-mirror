@@ -18,9 +18,13 @@ exports.default = void 0;
  * These changes will then be picked up by our tooling which will attempt to
  * migrate as many of these renames as possible.
  *
- * @codegen <<SignedSource::c779b40628532228cae2ec34977f1f8e>>
+ * @codegen <<SignedSource::400f0ecf8657b2dcb96d24d2f0aed049>>
  * @codegenCommand yarn build tokens
  */
 
-var replacementMapper = [];
+var replacementMapper = [{
+  "path": "font.body.UNSAFE_small",
+  "state": "deprecated",
+  "replacement": "font.body.small"
+}];
 var _default = exports.default = replacementMapper;

@@ -138,11 +138,7 @@ const MainToolbarWrapper = ({
 const FirstChildWrapper = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<div
-			css={[
-				styles.firstChildWrapperOneLine,
-				expValEquals('platform_editor_reduce_toolbar_vc_impact', 'isEnabled', true) &&
-					styles.firstChildWrapperContainerContext,
-			]}
+			css={[styles.firstChildWrapperOneLine, styles.firstChildWrapperContainerContext]}
 			data-testid="main-toolbar-first-child-wrapper"
 		>
 			{children}

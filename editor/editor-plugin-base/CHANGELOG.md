@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-base
 
+## 8.0.1
+
+### Patch Changes
+
+- [`a5727f82cae80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a5727f82cae80) -
+  [NO-ISSUE] Cleans up experiment platform_editor_scroll_gutter_fix
+- Updated dependencies
+
 ## 8.0.0
 
 ### Patch Changes

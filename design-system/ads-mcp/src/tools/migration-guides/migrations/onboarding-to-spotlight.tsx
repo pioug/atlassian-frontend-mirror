@@ -1,13 +1,12 @@
 import type { MigrationGuide } from '../types';
 
-const additionalResources = "Visit https://hello.atlassian.net/wiki/spaces/DST/pages/6069774593 or https://atlassian.design/components/spotlight for more context"
-
+const additionalResources =
+	'Visit https://hello.atlassian.net/wiki/spaces/DST/pages/6069774593 or https://atlassian.design/components/spotlight for more context';
 
 export const onboardingSingleStep: MigrationGuide = {
 	id: 'onboarding-single-step',
 	title: 'Single Step Spotlight Migration',
-	description:
-		'Migrate a single step spotlight from @atlaskit/onboarding to @atlaskit/spotlight',
+	description: 'Migrate a single step spotlight from @atlaskit/onboarding to @atlaskit/spotlight',
 	fromPackage: '@atlaskit/onboarding',
 	toPackage: '@atlaskit/spotlight',
 	examples: [
@@ -109,24 +108,163 @@ const Spotlight = () => {
   );
 };`,
 			explanation: `Key changes when migrating a single step spotlight:
-1. Replace SpotlightManager with PopoverProvider - the new context provider
-2. Replace SpotlightTarget with PopoverTarget - wraps the element to highlight
-3. Replace SpotlightTransition and Spotlight with PopoverContent containing SpotlightCard - controls visibility and positioning
-4. The 'heading' prop becomes SpotlightHeadline inside SpotlightHeader
-5. The 'actions' array becomes SpotlightActions with SpotlightPrimaryAction (and optionally SpotlightSecondaryAction)
-6. The children content moves into SpotlightBody wrapped with Text component
-7. Add SpotlightDismissControl inside SpotlightControls for the close button
-8. The 'target' prop is no longer needed - PopoverTarget automatically handles this
-9. The 'dialogPlacement' prop becomes 'placement' on PopoverContent (e.g., 'bottom left' → 'bottom-start')`,
+- PopoverProvider maintains internal Spotlight state. SpotlightManager coordinated multiple @atlaskit/onboarding usages and is no longer needed.
+- Replace SpotlightTarget with PopoverTarget - wraps the element to highlight
+- Replace Spotlight with PopoverContent containing SpotlightCard - controls visibility and positioning
+- The 'heading' prop becomes SpotlightHeadline inside SpotlightHeader
+- The 'actions' array becomes SpotlightActions with SpotlightPrimaryAction (and optionally SpotlightSecondaryAction)
+- The children content moves into SpotlightBody wrapped with Text component
+- Add SpotlightDismissControl inside SpotlightControls for the close button
+- The 'target' and/or 'targetName' prop is replaced with PopoverTarget directly wrapping the target element
+- The 'dialogPlacement' prop becomes 'placement' on PopoverContent. Mapping: "top-right" → "top-start", "top-center" → "top", "top-left" → "top-end", "right-bottom" → "right-start", "right-middle" → "right-start | right-end", "right-top" → "right-end", "bottom-left" → "bottom-end", "bottom-center" → "bottom", "bottom-right" → "bottom-start", "left-top" → "left-end", "left-middle" → "left-start | left-end", "left-bottom" → "left-start"'`,
 		},
 	],
 	bestPractices: [
-		'Use PopoverProvider as the root wrapper for spotlight functionality',
 		'PopoverTarget should wrap exactly one child element that will be highlighted',
 		'Always include SpotlightDismissControl for accessibility - allows users to dismiss via close button',
-		'Use SpotlightPrimaryAction for the main call-to-action button',
+		'SpotlightPrimaryAction is required and wraps the main CTA button',
 		'Wrap body text content in the Text component from @atlaskit/primitives/compiled',
-		'Map old dialogPlacement values: "bottom left" → "bottom-start", "bottom center" → "bottom", "bottom right" → "bottom-end"',
+	],
+	additionalResources,
+};
+
+export const onboardingJiraSpotlight: MigrationGuide = {
+	id: 'onboarding-jira-spotlight',
+	title: 'JiraSpotlight Migration',
+	description: 'Migrate a <JiraSpotlight /> from @atlaskit/onboarding to @atlaskit/spotlight',
+	fromPackage: '@atlassian/jira-spotlight',
+	toPackage: '@atlaskit/spotlight',
+	examples: [
+		{
+			title: 'Migrate <JiraSpotlight />',
+			description:
+				'Replace <JiraSpotlight> with <ChoreographedComponent> and migrate children to @atlaskit/spotlight.',
+			before: `
+import { JiraSpotlight } from '@atlassian/jira-spotlight/src/ui/jira-spotlight.tsx';
+import { SpotlightTarget, SpotlightTransition } from '@atlaskit/onboarding';
+
+export const OnboardingSpotlightWrapper = () => {
+	const { dark, light } = spotlightImageUrls[spotlightId];
+	const imageUrl = colorMode === 'dark' ? dark : light;
+
+	const [isSpotlightVisible, actions] = useListViewOnboarding({
+		projectId: String(projectData.id),
+		id: spotlightId,
+	});
+
+	if (isSpotlightVisible) {
+		return (
+			<>
+				<SpotlightTarget name={spotlightId}>{renderTrigger(isSpotlightVisible)}</SpotlightTarget>
+				<SpotlightTransition>
+					<JiraSpotlight
+						image={imageUrl}
+						actions={[
+							{
+								onClick,
+								text: formatMessage(dismiss),
+							},
+						]}
+						heading={formatMessage(heading)}
+						target={spotlightId}
+						key={spotlightId}
+						targetRadius={3}
+						targetBgColor={token('elevation.surface')}
+						messageId={spotlightId}
+						messageType="transactional"
+						dialogWidth={275}
+					>
+						{formatMessage(body)}
+					</JiraSpotlight>
+				</SpotlightTransition>
+			</>
+		);
+	}
+}
+			`,
+			after: `
+import { Text } from '@atlaskit/primitives/compiled';
+import {
+  PopoverContent,
+  PopoverProvider,
+  PopoverTarget,
+  SpotlightActions,
+  SpotlightBody,
+  SpotlightCard,
+  SpotlightControls,
+  SpotlightDismissControl,
+  SpotlightFooter,
+  SpotlightHeader,
+  SpotlightHeadline,
+  SpotlightPrimaryAction,
+} from '@atlaskit/spotlight';
+import { FadeIn } from '@atlaskit/motion';
+import Image from '@atlaskit/image';
+import { ChoreographedComponent } from '@atlassian/jira-spotlight/src/ui/ChoreographedComponent.tsx';
+
+export const OnboardingSpotlightWrapper = () => {
+	const { dark, light } = spotlightImageUrls[spotlightId];
+
+	const [isSpotlightVisible, actions] = useListViewOnboarding({
+		projectId: String(projectData.id),
+		id: spotlightId,
+	});
+
+	return (
+		<PopoverProvider>
+			<PopoverTarget>{renderTrigger(isSpotlightVisible)}</PopoverTarget>
+			<ChoreographedComponent messageId={spotlightId} messageType="transactional">
+				<PopoverContent isVisible={isSpotlightVisible} placement="bottom-start" dismiss={onClick}>
+					<FadeIn entranceDirection="left">
+						{(props) => (
+							<div {...props}>
+								<SpotlightCard>
+									<SpotlightHeader>
+										<SpotlightHeadline>{formatMessage(heading)}</SpotlightHeadline>
+										<SpotlightControls>
+											<SpotlightDismissControl />
+										</SpotlightControls>
+									</SpotlightHeader>
+									<SpotlightMedia>
+										<Image src={light} srcDark={dark} alt="" />
+									</SpotlightMedia>
+									<SpotlightBody>
+										<Text>{formatMessage(body)}</Text>
+									</SpotlightBody>
+									<SpotlightFooter>
+										<SpotlightActions>
+											<SpotlightPrimaryAction onClick={onClick}>
+												{formatMessage(dismiss)}
+											</SpotlightPrimaryAction>
+										</SpotlightActions>
+									</SpotlightFooter>
+								</SpotlightCard>
+							</div>
+						)}
+					</FadeIn>
+				</PopoverContent>
+			</ChoreographedComponent>
+		</PopoverProvider>
+	);
+};`,
+			explanation: `Key changes when migrating a single step spotlight:
+- Replace JiraSpotlight with ChoreographedComponent from '@atlassian/jira-spotlight'.
+- PopoverProvider maintains internal Spotlight state. SpotlightManager coordinated multiple @atlaskit/onboarding usages and is no longer needed.
+- Replace SpotlightTarget with PopoverTarget - wraps the element to highlight
+- Replace Spotlight with PopoverContent containing SpotlightCard - controls visibility and positioning
+- The 'heading' prop becomes SpotlightHeadline inside SpotlightHeader
+- The 'actions' array becomes SpotlightActions with SpotlightPrimaryAction (and optionally SpotlightSecondaryAction)
+- The children content moves into SpotlightBody wrapped with Text component
+- Add SpotlightDismissControl inside SpotlightControls for the close button
+- The 'target' and/or 'targetName' prop is replaced with PopoverTarget directly wrapping the target element
+- The 'dialogPlacement' prop becomes 'placement' on PopoverContent. Mapping: "top-right" → "top-start", "top-center" → "top", "top-left" → "top-end", "right-bottom" → "right-start", "right-middle" → "right-start | right-end", "right-top" → "right-end", "bottom-left" → "bottom-end", "bottom-center" → "bottom", "bottom-right" → "bottom-start", "left-top" → "left-end", "left-middle" → "left-start | left-end", "left-bottom" → "left-start"'`,
+		},
+	],
+	bestPractices: [
+		'PopoverTarget should wrap exactly one child element that will be highlighted',
+		'Always include SpotlightDismissControl for accessibility - allows users to dismiss via close button',
+		'SpotlightPrimaryAction is required and wraps the main CTA button',
+		'Wrap body text content in the Text component from @atlaskit/primitives/compiled',
 	],
 	additionalResources,
 };
@@ -298,20 +436,19 @@ const SpotlightTour = () => {
   );
 };`,
 			explanation: `Key changes when migrating a multi-step spotlight tour:
-1. Replace the single SpotlightManager with multiple PopoverProvider instances - one for each target element
-2. Each target gets its own PopoverProvider > PopoverTarget > PopoverContent structure
-3. The spotlight array pattern is replaced with individual SpotlightCard components per target
-4. Use a single currentStep state (starting at 0 for hidden, 1+ for active steps) instead of null/index
-5. Control visibility with isVisible={currentStep === n} on each PopoverContent
-6. Add SpotlightStepCount component in SpotlightFooter to show progress (e.g., "1 of 3")
-7. Use SpotlightSecondaryAction for "Back" buttons instead of appearance: 'subtle' in the actions array
-8. Use SpotlightPrimaryAction for "Next" and "Done" buttons
-9. The renderActiveSpotlight pattern is no longer needed - visibility is controlled declaratively
-10. Navigation functions use Math.max/Math.min to bound the step range safely`,
+- SpotlightManager coordinated multiple spotlights in a tour. PopoverProvider manages internal state for a single spotlight.
+- Each target gets its own PopoverProvider > PopoverTarget > PopoverContent structure
+- The spotlight array pattern is replaced with individual SpotlightCard components per target
+- Control visibility with isVisible={currentStep === n} on each PopoverContent
+- Add SpotlightStepCount component in SpotlightFooter to show progress (e.g., "1 of 3")
+- Use SpotlightSecondaryAction for "Back" buttons instead of appearance: 'subtle' in the actions array
+- Use SpotlightPrimaryAction for "Next" and "Done" buttons
+- The renderActiveSpotlight pattern is no longer needed - visibility is controlled declaratively
+- Navigation functions use Math.max/Math.min to bound the step range safely
+- All other migration changes from single step spotlight apply(PopoverProvider, compositional components, etc.)`,
 		},
 	],
 	bestPractices: [
-		'Each target element in a tour needs its own PopoverProvider wrapper',
 		'Use a numeric currentStep state where 0 = hidden, 1+ = active step number',
 		'Always include SpotlightStepCount in multi-step tours for user orientation',
 		'First step should only have "Next" action, middle steps have "Back" and "Next", last step has "Back" and "Done"',
@@ -436,23 +573,16 @@ const SpotlightWithMotion = () => {
   );
 };`,
 			explanation: `Key changes when migrating a spotlight with transition animation:
-1. Replace SpotlightTransition with FadeIn from @atlaskit/motion
-2. Import FadeIn from '@atlaskit/motion' instead of SpotlightTransition from '@atlaskit/onboarding'
-3. FadeIn uses a render props pattern - wrap content in {(props) => <div {...props}>...</div>}
-4. The entranceDirection prop controls animation direction: 'left', 'right', 'top', or 'bottom'
-5. SpotlightCard must be wrapped in a div that receives the animation props
-6. PopoverContent now accepts a 'done' prop in addition to 'dismiss' for completed actions
-7. All other migration changes from single step spotlight apply (PopoverProvider, compositional components, etc.)`,
+- Replace SpotlightTransition with FadeIn from @atlaskit/motion
+- Import FadeIn from '@atlaskit/motion' instead of SpotlightTransition from '@atlaskit/onboarding'
+- FadeIn uses a render props pattern - wrap content in {(props) => <div {...props}>...</div>}
+- The entranceDirection prop controls animation direction: 'left', 'right', 'top', or 'bottom'
+- All other migration changes from single step spotlight apply (PopoverProvider, compositional components, etc.)`,
 		},
 	],
 	bestPractices: [
-		'Use FadeIn from @atlaskit/motion to add entrance animations to spotlights',
 		'Choose entranceDirection based on spotlight placement (e.g., "left" for right-placed spotlights)',
-		'Always wrap SpotlightCard in a div that receives the animation props from FadeIn',
-		'FadeIn uses render props pattern: {(props) => <div {...props}>content</div>}',
-		'Pass both done and dismiss props to PopoverContent when using motion',
 		'Motion is optional - only add if the original onboarding spotlight used SpotlightTransition for entrance effects',
 	],
 	additionalResources,
 };
-

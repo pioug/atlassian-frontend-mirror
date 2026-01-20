@@ -14,6 +14,7 @@ export type MessageKey =
 	| 'retry'
 	| 'failed_to_load'
 	| 'failed_to_upload'
+	| 'check_internet_connection'
 	| 'recent_uploads'
 	| 'upload_file'
 	| 'drag_and_drop_your_files'
@@ -237,6 +238,11 @@ export const messages: Messages = defineMessages({
 		id: 'fabric.media.failed_to_upload',
 		defaultMessage: 'Failed to upload',
 		description: 'We show this message when we have an error uploading a file',
+	},
+	check_internet_connection: {
+		id: 'fabric.media.check_internet_connection',
+		defaultMessage: 'Failed to load. Please check your internet connection',
+		description: 'Message shown when media card fails due to network connectivity issues',
 	},
 	recent_uploads: {
 		id: 'fabric.media.recent_uploads',

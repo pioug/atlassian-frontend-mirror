@@ -6,6 +6,9 @@ jest.mock('../../card/ui/styles', () => {
 		calcBreakpointSize: jest.fn(original.calcBreakpointSize),
 	};
 });
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn(),
+}));
 
 import React from 'react';
 import { CardView, CardViewBase, type CardViewProps } from '../../card/cardView';
@@ -13,7 +16,7 @@ import { type CardStatus } from '../../types';
 import { type FileDetails } from '@atlaskit/media-client';
 import { getDefaultCardDimensions } from '../../utils/cardDimensions';
 import { getElementDimension } from '../../utils/getElementDimension';
-import { createPollingMaxAttemptsError } from '@atlaskit/media-client/test-helpers';
+import { createPollingMaxAttemptsError, createMediaStoreError } from '@atlaskit/media-client/test-helpers';
 import { imgTestId, spinnerTestId, cardTestId, cardBlanketTestId } from '../utils/_testIDs';
 import { MediaCardError } from '../../errors';
 import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -23,6 +26,7 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 import DownloadIcon from '@atlaskit/icon/core/download';
 import { LOCAL_WIDTH_VARIABLE } from '../../card/ui/wrapper/wrapper-compiled';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const identifier = {
 	id: 'some-id',
@@ -52,6 +56,7 @@ const nonErrorStatuses: Array<CardStatus> = [
 const nonLoadingStatuses: Array<CardStatus> = [...nonErrorOrLoadingStatuses, ...errorStatuses];
 
 const previewUnavailableMessage = 'Preview Unavailable';
+const checkInternetConnectionMessage = 'Failed to load. Please check your internet connection';
 
 const renderCardViewBase = (props: Partial<CardViewProps> = {}, renderOptions = {}) =>
 	render(
@@ -59,6 +64,7 @@ const renderCardViewBase = (props: Partial<CardViewProps> = {}, renderOptions = 
 			locale="en"
 			messages={{
 				'fabric.media.preview_unavailable': previewUnavailableMessage,
+				'fabric.media.check_internet_connection': checkInternetConnectionMessage,
 			}}
 		>
 			<CardViewBase
@@ -566,6 +572,169 @@ describe('CardView', () => {
 				disableOverlay: true,
 			});
 			expect(screen.getByText('Failed to upload')).toBeInTheDocument();
+		});
+
+		describe('Network Error', () => {
+			beforeEach(() => {
+				(fg as jest.Mock).mockReturnValue(true);
+			});
+
+			afterEach(() => {
+				(fg as jest.Mock).mockReset();
+			});
+
+			it('should render CheckInternetConnection icon message when error is TypeError and feature flag is enabled', () => {
+				const networkError = new TypeError('Failed to fetch');
+				const error = new MediaCardError('remote-preview-fetch', networkError);
+
+				renderCardViewBase({
+					error,
+					status: 'error',
+					disableOverlay: true,
+				});
+
+				expect(screen.getByText(checkInternetConnectionMessage)).toBeInTheDocument();
+			});
+
+			it('should render CheckInternetConnection icon message when status is error and error is TypeError', () => {
+				const networkError = new TypeError('Failed to fetch');
+				const error = new MediaCardError('preview-fetch', networkError);
+
+				renderCardViewBase({
+					error,
+					status: 'error',
+					metadata: file,
+					disableOverlay: true,
+				});
+
+				expect(screen.getByText(checkInternetConnectionMessage)).toBeInTheDocument();
+			});
+
+			it('should render CheckInternetConnection icon message when status is failed-processing and error is TypeError', () => {
+				const networkError = new TypeError('Failed to fetch');
+				const error = new MediaCardError('remote-preview-fetch', networkError);
+
+				renderCardViewBase({
+					error,
+					status: 'failed-processing',
+					metadata: file,
+					disableOverlay: true,
+				});
+
+				expect(screen.getByText(checkInternetConnectionMessage)).toBeInTheDocument();
+			});
+
+			it('should render CheckInternetConnection icon message when error has nested TypeError in CommonMediaClientError innerError', () => {
+				const typeError = new TypeError('Failed to fetch');
+				const mediaClientError = createMediaStoreError();
+				// Mock the innerError to be a TypeError (simulating the actual error structure)
+				Object.defineProperty(mediaClientError, 'innerError', {
+					value: typeError,
+					writable: true,
+				});
+				const error = new MediaCardError('remote-preview-fetch', mediaClientError);
+
+				renderCardViewBase({
+					error,
+					status: 'error',
+					metadata: file,
+					disableOverlay: true,
+				});
+
+				expect(screen.getByText(checkInternetConnectionMessage)).toBeInTheDocument();
+			});
+
+			it('should not render CheckInternetConnection for non-network errors', () => {
+				const regularError = new Error('Some other error');
+				const error = new MediaCardError('metadata-fetch', regularError);
+
+				renderCardViewBase({
+					error,
+					status: 'error',
+					metadata: file,
+					disableOverlay: true,
+				});
+
+				expect(screen.queryByText(checkInternetConnectionMessage)).not.toBeInTheDocument();
+			});
+
+			it('should prioritize upload error over network error (upload error takes precedence)', () => {
+				const networkError = new TypeError('Failed to fetch');
+				const error = new MediaCardError('upload', networkError);
+
+				renderCardViewBase({
+					error,
+					status: 'error',
+					disableOverlay: true,
+				});
+
+				expect(screen.getByText('Failed to upload')).toBeInTheDocument();
+				expect(screen.queryByText(checkInternetConnectionMessage)).not.toBeInTheDocument();
+			});
+
+			it('should render FailedTitleBox with "Failed to load. Please check your internet connection" message when error is TypeError', () => {
+				const networkError = new TypeError('Failed to fetch');
+				const error = new MediaCardError('remote-preview-fetch', networkError);
+
+				renderCardViewBase({
+					error,
+					status: 'error',
+					metadata: file,
+				});
+
+				expect(screen.getByText(checkInternetConnectionMessage)).toBeInTheDocument();
+			});
+
+			it('should render FailedTitleBox with network error message when status is error and error is TypeError', () => {
+				const networkError = new TypeError('Failed to fetch');
+				const error = new MediaCardError('preview-fetch', networkError);
+
+				renderCardViewBase({
+					error,
+					status: 'error',
+					metadata: {
+						id: 'some-id',
+						name: 'some-file-name',
+						createdAt: 123456,
+					},
+				});
+
+				expect(screen.getByText(checkInternetConnectionMessage)).toBeInTheDocument();
+			});
+
+			it('should not render FailedTitleBox with network error message for non-network errors', () => {
+				const regularError = new Error('Some other error');
+				const error = new MediaCardError('metadata-fetch', regularError);
+
+				renderCardViewBase({
+					error,
+					status: 'error',
+					metadata: {
+						id: 'some-id',
+						name: 'some-file-name',
+						createdAt: 123456,
+					},
+				});
+
+				expect(screen.queryByText(checkInternetConnectionMessage)).not.toBeInTheDocument();
+			});
+
+			it('should not render CheckInternetConnection when feature flag is disabled', () => {
+				(fg as jest.Mock).mockReturnValue(false);
+				const networkError = new TypeError('Failed to fetch');
+				const error = new MediaCardError('remote-preview-fetch', networkError);
+
+				renderCardViewBase({
+					error,
+					status: 'error',
+					metadata: file,
+					disableOverlay: true,
+				});
+
+				expect(screen.queryByText(checkInternetConnectionMessage)).not.toBeInTheDocument();
+				// Should fall back to PreviewUnavailable when flag is off
+				expect(screen.getByText(previewUnavailableMessage)).toBeInTheDocument();
+			});
 		});
 
 		it(`should render Preview Unavailable when status is failed-processing`, () => {

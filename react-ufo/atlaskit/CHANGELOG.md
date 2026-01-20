@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 4.17.1
+
+### Patch Changes
+
+- [`0310b1753d4b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0310b1753d4b1) -
+  FG cleanup - platform_ufo_enable_trimmed_payload
+
 ## 4.17.0
 
 ### Minor Changes

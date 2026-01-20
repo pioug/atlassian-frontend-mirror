@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.35.0
+
+### Minor Changes
+
+- [`0a325377cc8bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a325377cc8bf) -
+  `use-primitives-text` will autofix `<Text size="UNSAFE_small">` to `<Text size="small">.
+
 ## 13.34.1
 
 ### Patch Changes

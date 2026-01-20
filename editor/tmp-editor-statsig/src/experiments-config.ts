@@ -981,13 +981,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-12-08
-	platform_editor_reduce_toolbar_vc_impact: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	platform_editor_toolbar_delay_render_fix: {
 		defaultValue: boolean;
 		param: string;
@@ -996,13 +989,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-03-12
 	platform_editor_nested_media_selection_fix: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2025-12-04
-	platform_editor_scroll_gutter_fix: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1079,6 +1065,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-01-14
 	platform_editor_context_context_types_migration: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-01-16
+	platform_editor_ai_edit_unsupported_content: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2187,27 +2180,10 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-12-04
-	platform_editor_scroll_gutter_fix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_scroll_gutter_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-12-08
 	platform_editor_add_image_editing: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_add_image_editing',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-
-	// Added 2025-12-08
-	platform_editor_reduce_toolbar_vc_impact: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_reduce_toolbar_vc_impact',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2306,6 +2282,14 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_context_context_types_migration',
 			jira: 'platform_editor_context_context_types_migration',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-01-16
+	platform_editor_ai_edit_unsupported_content: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_edit_unsupported_content',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

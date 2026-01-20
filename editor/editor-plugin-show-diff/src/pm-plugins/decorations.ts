@@ -137,6 +137,13 @@ const deletedContentStyle = convertToInlineCss({
 	opacity: 0.6,
 });
 
+const deletedContentStyleNew = convertToInlineCss({
+	color: token('color.text.accent.gray'),
+	textDecoration: 'line-through',
+	position: 'relative',
+	opacity: 0.8,
+});
+
 const deletedContentStyleUnbounded = convertToInlineCss({
 	position: 'absolute',
 	top: '50%',
@@ -170,7 +177,7 @@ export const getDeletedContentStyleUnbounded = (colourScheme?: 'standard' | 'tra
 		: deletedContentStyleUnbounded;
 
 export const getDeletedContentStyle = (colourScheme?: 'standard' | 'traditional'): string =>
-	colourScheme === 'traditional' ? deletedTraditionalContentStyle : deletedContentStyle;
+	colourScheme === 'traditional' ? deletedTraditionalContentStyle : (fg('platform_editor_jan_a11y_fixes') ? deletedContentStyleNew : deletedContentStyle);
 
 const getNodeClass = (name: string) => {
 	switch (name) {

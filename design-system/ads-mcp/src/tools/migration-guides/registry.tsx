@@ -8,6 +8,7 @@
  */
 
 import {
+	onboardingJiraSpotlight,
 	onboardingMultiStep,
 	onboardingSingleStep,
 	onboardingWithMotion,
@@ -15,6 +16,7 @@ import {
 import type { MigrationRegistry } from './types';
 
 export const migrationRegistry: MigrationRegistry = {
+	[onboardingJiraSpotlight.id]: onboardingJiraSpotlight,
 	[onboardingSingleStep.id]: onboardingSingleStep,
 	[onboardingMultiStep.id]: onboardingMultiStep,
 	[onboardingWithMotion.id]: onboardingWithMotion,

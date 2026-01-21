@@ -40,7 +40,6 @@ const Observer = ({ onLoad }: { onLoad: () => void }) => {
 const AutoDevAvatar = lazy(
 	() => import(/* webpackChunkName: "@atlaskit-rovo-avatar-AutoDevAvatar"*/ './assets/auto-dev'),
 );
-
 const AutoFixAvatar = lazy(
 	() => import(/* webpackChunkName: "@atlaskit-rovo-avatar-AutoFixAvatar"*/ './assets/auto-fix'),
 );
@@ -208,6 +207,7 @@ type GeneratedAvatarProps = {
 	agentNamedId?: string;
 	agentId?: string;
 	agentIdentityAccountId?: string | null | undefined;
+	isRovoDev?: boolean;
 	size: SizeType;
 	onLoad?: () => void;
 };
@@ -423,8 +423,16 @@ const getAvatarRender = ({
 	agentNamedId,
 	agentId,
 	agentIdentityAccountId,
+	isRovoDev,
 	size,
 }: GeneratedAvatarProps) => {
+	if (isRovoDev && fg('rovo_dev_themed_identity_card')) {
+		return {
+			render: <RovoDevAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />,
+			color: greenColor,
+		};
+	}
+
 	//@TODO CRCS-3129: Remove Rovo Dev hardcoded icon after TeamEU demos
 	// Handle Rovo Dev agent avatar for TeamEU Demo
 	if (agentId === ROVO_DEV_AGENT_ID && fg('jira_ai_force_rovo_dev_avatar')) {
@@ -488,9 +496,13 @@ export const AgentBanner = ({
 	agentNamedId,
 	agentId,
 	agentIdentityAccountId,
+	isRovoDev,
 	height,
 	fillSpace,
-}: Pick<GeneratedAvatarProps, 'agentId' | 'agentNamedId' | 'agentIdentityAccountId'> & {
+}: Pick<
+	GeneratedAvatarProps,
+	'agentId' | 'agentNamedId' | 'agentIdentityAccountId' | 'isRovoDev'
+> & {
 	height?: number;
 	fillSpace?: boolean;
 }) => {
@@ -498,6 +510,7 @@ export const AgentBanner = ({
 		agentNamedId,
 		agentId,
 		agentIdentityAccountId,
+		isRovoDev,
 		size: 'medium',
 	});
 

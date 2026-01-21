@@ -11,6 +11,7 @@ import BlockSyncedIcon from '@atlaskit/icon-lab/core/block-synced';
 
 import { canBeConvertedToSyncBlock } from '../pm-plugins/utils/utils';
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
+import { SYNCED_BLOCK_BUTTON_TEST_ID } from '../types';
 type CreateSyncedBlockButtonProps = {
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
 };
@@ -48,7 +49,7 @@ export const CreateSyncedBlockButton = ({
 				label={message}
 				iconBefore={<BlockSyncedIcon size="small" label="" />}
 				isDisabled={isDisabled}
-				testId={"create-synced-block-toolbar-btn"}
+				testId={SYNCED_BLOCK_BUTTON_TEST_ID.primaryToolbarCreate}
 				onClick={onClick}
 			/>
 		</ToolbarTooltip>

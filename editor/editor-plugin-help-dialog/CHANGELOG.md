@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 7.1.2
+
+### Patch Changes
+
+- [`18a2414ac34f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18a2414ac34f8) -
+  Clean up fg platform_editor_fix_help_dialog_color_contrast
+- Updated dependencies
+
 ## 7.1.1
 
 ### Patch Changes

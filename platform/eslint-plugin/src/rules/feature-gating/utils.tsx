@@ -8,7 +8,7 @@ export function isIdentifierImportedFrom(
 	sources: Set<string>,
 	context: Rule.RuleContext,
 	node: EstreeNode,
-) {
+): boolean {
 	if (sources.size > 0) {
 		return (
 			getScope(context, node)
@@ -23,7 +23,7 @@ export function isIdentifierImportedFrom(
 	return false;
 }
 
-export function isAPIimport(functionName: string, context: Rule.RuleContext, node: EstreeNode) {
+export function isAPIimport(functionName: string, context: Rule.RuleContext, node: EstreeNode): boolean {
 	return isIdentifierImportedFrom(functionName, FEATURE_API_IMPORT_SOURCES, context, node);
 }
 

@@ -7,8 +7,10 @@ import { SlackMessage } from '@atlaskit/link-test-helpers';
 import { HoverCardComponent } from '../../src/view/HoverCard/components/HoverCardComponent';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
+import '../utils/vr-preload-metadata-icons';
+
 class CustomClient extends Client {
-	fetchData(url: string) {
+	fetchData(_: string) {
 		return Promise.resolve(SlackMessage as JsonLd.Response);
 	}
 }

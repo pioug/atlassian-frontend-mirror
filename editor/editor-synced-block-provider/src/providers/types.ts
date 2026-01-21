@@ -16,6 +16,11 @@ import type {
 	ReferenceSyncBlockData,
 } from '../common/types';
 
+export type BlockNodeIdentifiers = {
+	blockInstanceId: string;
+	resourceId: string;
+};
+
 /**
  * The instance of a sync block, containing its data and metadata.
  * Mainly used for representing the state of a sync block after fetching from a data provider.
@@ -77,7 +82,7 @@ export type UpdateReferenceSyncBlockResult = {
 };
 
 export interface ADFFetchProvider {
-	batchFetchData: (resourceIds: ResourceId[]) => Promise<SyncBlockInstance[]>;
+	batchFetchData: (blockNodeIdentifiers: BlockNodeIdentifiers[]) => Promise<SyncBlockInstance[]>;
 	fetchData: (resourceId: ResourceId) => Promise<SyncBlockInstance>;
 	fetchReferences: (referenceResourceId: string) => Promise<ReferenceSyncBlockData>;
 }

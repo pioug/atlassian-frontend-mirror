@@ -59,6 +59,10 @@ const styles = cssMap({
 	headingWrapper: {
 		position: 'relative',
 	},
+
+	headingContentWrapper: {
+		marginInline: token('space.100'),
+	},
 });
 
 type AgentCreator =
@@ -67,18 +71,18 @@ type AgentCreator =
 			name: string;
 			profileLink: string;
 			status?: 'active' | 'inactive' | 'closed' | string;
-	  }
+		}
 	| {
 			type: 'SYSTEM';
-	  }
+		}
 	| {
 			// THIRD_PARTY is deprecated in convo-ai, use FORGE instead
 			type: 'THIRD_PARTY' | 'FORGE';
 			name: string;
-	  }
+		}
 	| {
 			type: 'OOTB';
-	  };
+		};
 
 export const getAgentCreator = ({
 	creatorType,
@@ -213,17 +217,21 @@ export const AgentProfileInfo = ({
 	agentDescription,
 	creatorRender,
 	starCountRender,
+	headingRender,
 	isStarred,
 	isHidden,
 	onStarToggle,
+	showStarButton = true,
 }: {
 	agentName: string;
 	agentDescription?: string | null;
 	creatorRender: React.ReactNode;
 	starCountRender: React.ReactNode;
+	headingRender?: React.ReactNode;
 	isStarred: boolean;
 	isHidden: boolean;
 	onStarToggle: () => void;
+	showStarButton?: boolean;
 }) => {
 	const { formatMessage } = useIntl();
 	return (
@@ -240,8 +248,9 @@ export const AgentProfileInfo = ({
 							</Tooltip>
 						</Box>
 					)}
+					{headingRender && <Box xcss={styles.headingContentWrapper}>{headingRender}</Box>}
 				</Inline>
-				<StarIconButton isStarred={isStarred} handleToggle={onStarToggle} />
+				{showStarButton && <StarIconButton isStarred={isStarred} handleToggle={onStarToggle} />}
 			</Inline>
 			{creatorRender}
 			{!!agentDescription && (

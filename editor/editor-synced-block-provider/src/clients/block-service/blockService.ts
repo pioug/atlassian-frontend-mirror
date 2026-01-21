@@ -148,7 +148,13 @@ type UpdateReferenceSyncedBlockOnDocumentRequest = {
 };
 
 export type BatchRetrieveSyncedBlocksRequest = {
-	blockAris: string[]; // array of block ARIs to retrieve
+	blockIdentifiers: BlockIdentifier[]; // array of block identifiers to retrieve
+	documentAri: string; // the ARI of the document to retrieve the synced blocks for
+};
+
+type BlockIdentifier = {
+	blockAri: string;
+	blockInstanceId: string;
 };
 
 export type BatchRetrieveSyncedBlocksResponse = {
@@ -238,12 +244,17 @@ export const getSyncedBlockContent = async ({
  * @returns A promise containing arrays of successfully fetched blocks and any errors encountered
  */
 export const batchRetrieveSyncedBlocks = async ({
-	blockAris,
+	blockIdentifiers,
+	documentAri,
 }: BatchRetrieveSyncedBlocksRequest): Promise<BatchRetrieveSyncedBlocksResponse> => {
 	const response = await fetchWithRetry(`${BLOCK_SERVICE_API_URL}/block/batch-retrieve`, {
 		method: 'POST',
 		headers: COMMON_HEADERS,
-		body: JSON.stringify({ blockAris }),
+		body: JSON.stringify({ 
+			documentAri,
+			blockIdentifiers,
+			blockAris: blockIdentifiers.map((blockIdentifier) => blockIdentifier.blockAri),
+		 }),
 	});
 
 	if (!response.ok) {

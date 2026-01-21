@@ -72,6 +72,11 @@ shared:
     packageVersion:
       type: string
       description: version of the package the event was fired from
+  NewUserProfileAttribute: &NewUserProfileAttribute
+    isNewUserProfile:
+      type: boolean
+      required: false
+      description: whether this event is fired from the new user profile page
   AgentProfileCardActionsAttributes: &AgentProfileCardActionsAttributes
     agentId:
       type: string
@@ -2479,6 +2484,7 @@ events:
         nonEmptyFields:
           type: string
           description: the non empty fields
+        <<: *NewUserProfileAttribute
   - privacyPolicyLink clicked:
       type: ui
       description: fired when the privacy policy link is clicked
@@ -2493,6 +2499,7 @@ events:
           type: boolean
           required: false
           description: whether the team profile item is powered by TWG
+        <<: *NewUserProfileAttribute
   - showMore clicked:
       type: ui
       description: fired when the show more button is clicked
@@ -2505,6 +2512,7 @@ events:
           type: boolean
           required: false
           description: whether the search query is present
+        <<: *NewUserProfileAttribute
   - teamCreateDialogTriggerButton clicked:
       type: ui
       description: fired when the team create dialog trigger button is clicked
@@ -2512,6 +2520,7 @@ events:
         trigger:
           type: string
           description: the trigger
+        <<: *NewUserProfileAttribute
   - button clicked (manageAccountButton):
       type: ui
       description: fired when the manage account button is clicked
@@ -2521,6 +2530,8 @@ events:
   - userProfileScreenLoad failed:
       type: track
       description: fired when the user profile screen load fails
+      attributes:
+        <<: *NewUserProfileAttribute
   - userProfileScreen viewed:
       type: screen
       description: fired when the user profile screen is viewed
@@ -2528,6 +2539,7 @@ events:
         isCurrentUser:
           type: boolean
           description: whether the user is the current user
+        <<: *NewUserProfileAttribute
   - viewAllWork clicked:
       type: ui
       description: fired when the view all work button is clicked
@@ -2535,6 +2547,7 @@ events:
         location:
           type: string
           description: the location
+        <<: *NewUserProfileAttribute
   - moreWork clicked:
       type: ui
       description: fired when the more work button is clicked
@@ -2542,6 +2555,7 @@ events:
         numItemsDisplayed:
           type: number
           description: the number of items displayed
+        <<: *NewUserProfileAttribute
   - activityEntry clicked:
       type: ui
       description: fired when the activity entry is clicked
@@ -2552,6 +2566,7 @@ events:
         entryIndex:
           type: number
           description: the index
+        <<: *NewUserProfileAttribute
   - placesLink clicked:
       type: ui
       description: fired when the places link is clicked
@@ -2559,6 +2574,7 @@ events:
         type:
           type: string
           description: the type of the place
+        <<: *NewUserProfileAttribute
   - ViewedTeamProfileFromRequestToJoinNotification viewed:
       type: track
       description: fired when the team profile is viewed from the request to join notification
@@ -3117,6 +3133,7 @@ events:
         teamsCount:
           type: number
           description: how many teams
+        <<: *NewUserProfileAttribute
   - teamAgentsPanel viewed:
       type: screen
       description: fired when team agents panel is viewed

@@ -3,7 +3,7 @@ import { getMediaTypeFromMimeType } from '@atlaskit/media-common';
 
 import { getType } from 'mime';
 
-export const isSameIdentifier = (id1: Identifier, id2: Identifier) => {
+export const isSameIdentifier = (id1: Identifier, id2: Identifier): boolean => {
 	if (isFileIdentifier(id1) && isFileIdentifier(id2)) {
 		return id1.id === id2.id;
 	}

@@ -348,21 +348,28 @@ type SyncedBlockFetchErrorAEP = OperationalAEP<
 	ACTION.ERROR,
 	ACTION_SUBJECT.SYNCED_BLOCK,
 	ACTION_SUBJECT_ID.SYNCED_BLOCK_FETCH,
-	{ error: string }
+	{ error: string, resourceId?: string }
+>;
+
+type SyncedBlockFetchSuccessAEP = OperationalAEP<
+	ACTION.FETCHED,
+	ACTION_SUBJECT.SYNCED_BLOCK,
+	ACTION_SUBJECT_ID.SYNCED_BLOCK_FETCH,
+	{ blockInstanceId?: string; resourceId?: string, sourceProduct?: string; }
 >;
 
 type SyncedBlockGetSourceInfoErrorAEP = OperationalAEP<
 	ACTION.ERROR,
 	ACTION_SUBJECT.SYNCED_BLOCK,
 	ACTION_SUBJECT_ID.SYNCED_BLOCK_GET_SOURCE_INFO,
-	{ error: string }
+	{ error: string, resourceId?: string }
 >;
 
 type ReferenceSyncedBlockUpdateErrorAEP = OperationalAEP<
 	ACTION.ERROR,
 	ACTION_SUBJECT.SYNCED_BLOCK,
 	ACTION_SUBJECT_ID.REFERENCE_SYNCED_BLOCK_UPDATE,
-	{error: string}
+	{error: string, resourceId?: string}
 >;
 
 export type AnalyticsEventPayload<_T = void> =
@@ -397,6 +404,7 @@ export type AnalyticsEventPayload<_T = void> =
 	| SyncedBlockFetchErrorAEP
 	| SyncedBlockGetSourceInfoErrorAEP
 	| ReferenceSyncedBlockUpdateErrorAEP
+	| SyncedBlockFetchSuccessAEP
 	| ExperienceEventPayload;
 
 export type FireAnalyticsCallback = <T = void>(

@@ -194,7 +194,7 @@ export class Bounds extends Rectangle {
 		return new Bounds(this.x + xDelta, this.y + yDelta, this.width, this.height);
 	}
 
-	equals(bounds: Bounds) {
+	equals(bounds: Bounds): boolean {
 		return (
 			this.x === bounds.x &&
 			this.y === bounds.y &&

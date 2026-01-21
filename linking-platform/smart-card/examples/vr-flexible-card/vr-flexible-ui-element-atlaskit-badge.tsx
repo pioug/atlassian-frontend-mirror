@@ -12,6 +12,8 @@ import { getContext } from '../utils/flexible-ui';
 import { HorizontalWrapper } from '../utils/vr-test';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
+import '../utils/vr-preload-metadata-icons';
+
 const context = getContext({
 	storyPoints: 3,
 });

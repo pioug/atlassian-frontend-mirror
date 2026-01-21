@@ -3,6 +3,7 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
+	type DispatchAnalyticsEvent,
 } from '@atlaskit/editor-common/analytics';
 import { copyDomNode, toDOM } from '@atlaskit/editor-common/copy-button';
 import type {
@@ -41,6 +42,7 @@ import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
 import { FLAG_ID } from '../types';
 
 type createSyncedBlockProps = {
+	fireAnalyticsEvent?: DispatchAnalyticsEvent
 	syncBlockStore: SyncBlockStoreManager;
 	tr: Transaction;
 	typeAheadInsert?: TypeAheadInsert;
@@ -50,6 +52,7 @@ export const createSyncedBlock = ({
 	tr,
 	syncBlockStore,
 	typeAheadInsert,
+	fireAnalyticsEvent,
 }: createSyncedBlockProps): false | Transaction => {
 	const {
 		schema: {
@@ -83,9 +86,15 @@ export const createSyncedBlock = ({
 		const conversionInfo = canBeConvertedToSyncBlock(tr.selection);
 		if (!conversionInfo) {
 			if (fg('platform_synced_block_dogfooding')) {
-				syncBlockStore.sourceManager.createExperience?.failure({
-					reason: 'Selection is not allowed to be converted to sync block',
-				});
+				fireAnalyticsEvent?.({
+					action: ACTION.ERROR,
+					actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+					actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_CREATE,
+					attributes: {
+						error: 'Content cannot be converted to sync block'
+					},
+					eventType: EVENT_TYPE.OPERATIONAL,
+				})
 			}
 			return false;
 		}

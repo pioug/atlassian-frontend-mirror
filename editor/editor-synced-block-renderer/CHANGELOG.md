@@ -1,5 +1,14 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 5.3.2
+
+### Patch Changes
+
+- [`7f41011a1b0ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f41011a1b0ff) -
+  EDITOR-1665 update sync block experience events to use general experience ids, keep existing error
+  events and add success events
+- Updated dependencies
+
 ## 5.3.1
 
 ### Patch Changes

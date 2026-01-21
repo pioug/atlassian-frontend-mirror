@@ -85,28 +85,30 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	 * @returns Array of {resourceId?: string, error?: string}.
 	 */
 	async fetchNodesData(nodes: SyncBlockNode[]): Promise<SyncBlockInstance[]> {
-		const resourceIdSet = new Set<string>(nodes.map((node) => node.attrs.resourceId));
-		const resourceIds = [...resourceIdSet];
-		if (resourceIds.length === 0) {
+		const blockIdentifiers = nodes.map((node) => ({
+			resourceId: node.attrs.resourceId,
+			blockInstanceId: node.attrs.localId,
+		}));
+		if (blockIdentifiers.length === 0) {
 			return [];
 		}
 
 		if (fg('platform_synced_block_dogfooding')) {
 			try {
-				return await this.fetchProvider.batchFetchData(resourceIds);
+				return await this.fetchProvider.batchFetchData(blockIdentifiers);
 			} catch {
 				// If batch fetch fails, fall back to individual fetch behavior
 				// This allows loading states to be shown before errors, matching non-batch behavior
 				return Promise.allSettled(
-					resourceIds.map((resourceId) => {
-						return this.fetchProvider.fetchData(resourceId).then(
+					blockIdentifiers.map((blockIdentifier) => {
+						return this.fetchProvider.fetchData(blockIdentifier.resourceId).then(
 							(data) => {
 								return data;
 							},
 							() => {
 								return {
 									error: SyncBlockError.Errored,
-									resourceId,
+									resourceId: blockIdentifier.resourceId,
 								};
 							},
 						);
@@ -121,15 +123,15 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 			}
 		} else {
 			return Promise.allSettled(
-				resourceIds.map((resourceId) => {
-					return this.fetchProvider.fetchData(resourceId).then(
+				blockIdentifiers.map((blockIdentifier) => {
+					return this.fetchProvider.fetchData(blockIdentifier.resourceId).then(
 						(data) => {
 							return data;
 						},
 						() => {
 							return {
 								error: SyncBlockError.Errored,
-								resourceId,
+								resourceId: blockIdentifier.resourceId,
 							};
 						},
 					);

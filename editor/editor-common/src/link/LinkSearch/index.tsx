@@ -5,10 +5,16 @@ import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import { type ActivityItem, type ActivityProvider } from '@atlaskit/activity-provider';
 
 import { INPUT_METHOD } from '../../analytics';
+import type { Providers } from '../../provider-factory';
+import type { Diff } from '../../utils';
+
 
 import LinkSearchList from './LinkSearchList';
 import { type RecentSearchProps, type RecentSearchState } from './types';
-import withActivityProvider, { type WithActivityProviderProps } from './withActivityProvider';
+import withActivityProvider, {
+	type ExpandedActivityProviderProps,
+	type WithActivityProviderProps,
+} from './withActivityProvider';
 
 const DEFAULT_ITEMS_LIMIT = 5;
 
@@ -226,6 +232,239 @@ class RecentLink extends React.Component<
 	}
 }
 
-export default withActivityProvider<RecentSearchProps & WithActivityProviderProps>(
-	injectIntl(RecentLink),
-);
+const _default_1: {
+	new (
+		props: Diff<RecentSearchProps & WithActivityProviderProps, WithActivityProviderProps> &
+			ExpandedActivityProviderProps,
+	): {
+		componentDidCatch?: (error: Error, errorInfo: React.ErrorInfo) => void;
+		componentDidMount?: () => void;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
+		componentDidUpdate?: (
+			prevProps: Readonly<
+				Diff<RecentSearchProps & WithActivityProviderProps, WithActivityProviderProps> &
+					ExpandedActivityProviderProps
+			>,
+			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			prevState: Readonly<{}>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			snapshot?: any,
+		) => void;
+		componentWillMount?: () => void;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		componentWillReceiveProps?: (
+			nextProps: Readonly<
+				Diff<RecentSearchProps & WithActivityProviderProps, WithActivityProviderProps> &
+					ExpandedActivityProviderProps
+			>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => void;
+		componentWillUnmount?: () => void;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
+		componentWillUpdate?: (
+			nextProps: Readonly<
+				Diff<RecentSearchProps & WithActivityProviderProps, WithActivityProviderProps> &
+					ExpandedActivityProviderProps
+			>,
+			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			nextState: Readonly<{}>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => void;
+		context: unknown;
+		forceUpdate: (callback?: (() => void) | undefined) => void;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
+		getSnapshotBeforeUpdate?: (
+			prevProps: Readonly<
+				Diff<RecentSearchProps & WithActivityProviderProps, WithActivityProviderProps> &
+					ExpandedActivityProviderProps
+			>,
+			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			prevState: Readonly<{}>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		) => any;
+		readonly props: Readonly<
+			Diff<RecentSearchProps & WithActivityProviderProps, WithActivityProviderProps> &
+				ExpandedActivityProviderProps
+		>;
+		refs: {
+			[key: string]: React.ReactInstance;
+		};
+		render: () => React.JSX.Element;
+		renderNode: (providers: Providers) => React.JSX.Element;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+		setState: <K extends never>(
+			state: // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			| {}
+				| ((
+						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+						prevState: Readonly<{}>,
+						props: Readonly<
+							Diff<RecentSearchProps & WithActivityProviderProps, WithActivityProviderProps> &
+								ExpandedActivityProviderProps
+						>,
+						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+				  ) => {} | Pick<{}, K> | null)
+				// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+				| Pick<{}, K>
+				| null,
+			callback?: (() => void) | undefined,
+		) => void;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
+		shouldComponentUpdate?: (
+			nextProps: Readonly<
+				Diff<RecentSearchProps & WithActivityProviderProps, WithActivityProviderProps> &
+					ExpandedActivityProviderProps
+			>,
+			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			nextState: Readonly<{}>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => boolean;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+		state: Readonly<{}>;
+		UNSAFE_componentWillMount?: () => void;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		UNSAFE_componentWillReceiveProps?: (
+			nextProps: Readonly<
+				Diff<RecentSearchProps & WithActivityProviderProps, WithActivityProviderProps> &
+					ExpandedActivityProviderProps
+			>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => void;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
+		UNSAFE_componentWillUpdate?: (
+			nextProps: Readonly<
+				Diff<RecentSearchProps & WithActivityProviderProps, WithActivityProviderProps> &
+					ExpandedActivityProviderProps
+			>,
+			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			nextState: Readonly<{}>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => void;
+	};
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	new (
+		props: Diff<RecentSearchProps & WithActivityProviderProps, WithActivityProviderProps> &
+			ExpandedActivityProviderProps,
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		context: any,
+	): {
+		componentDidCatch?: (error: Error, errorInfo: React.ErrorInfo) => void;
+		componentDidMount?: () => void;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
+		componentDidUpdate?: (
+			prevProps: Readonly<
+				Diff<RecentSearchProps & WithActivityProviderProps, WithActivityProviderProps> &
+					ExpandedActivityProviderProps
+			>,
+			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			prevState: Readonly<{}>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			snapshot?: any,
+		) => void;
+		componentWillMount?: () => void;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		componentWillReceiveProps?: (
+			nextProps: Readonly<
+				Diff<RecentSearchProps & WithActivityProviderProps, WithActivityProviderProps> &
+					ExpandedActivityProviderProps
+			>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => void;
+		componentWillUnmount?: () => void;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
+		componentWillUpdate?: (
+			nextProps: Readonly<
+				Diff<RecentSearchProps & WithActivityProviderProps, WithActivityProviderProps> &
+					ExpandedActivityProviderProps
+			>,
+			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			nextState: Readonly<{}>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => void;
+		context: unknown;
+		forceUpdate: (callback?: (() => void) | undefined) => void;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
+		getSnapshotBeforeUpdate?: (
+			prevProps: Readonly<
+				Diff<RecentSearchProps & WithActivityProviderProps, WithActivityProviderProps> &
+					ExpandedActivityProviderProps
+			>,
+			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			prevState: Readonly<{}>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		) => any;
+		readonly props: Readonly<
+			Diff<RecentSearchProps & WithActivityProviderProps, WithActivityProviderProps> &
+				ExpandedActivityProviderProps
+		>;
+		refs: {
+			[key: string]: React.ReactInstance;
+		};
+		render: () => React.JSX.Element;
+		renderNode: (providers: Providers) => React.JSX.Element;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+		setState: <K extends never>(
+			state: // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			| {}
+				| ((
+						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+						prevState: Readonly<{}>,
+						props: Readonly<
+							Diff<RecentSearchProps & WithActivityProviderProps, WithActivityProviderProps> &
+								ExpandedActivityProviderProps
+						>,
+						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+				  ) => {} | Pick<{}, K> | null)
+				// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+				| Pick<{}, K>
+				| null,
+			callback?: (() => void) | undefined,
+		) => void;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
+		shouldComponentUpdate?: (
+			nextProps: Readonly<
+				Diff<RecentSearchProps & WithActivityProviderProps, WithActivityProviderProps> &
+					ExpandedActivityProviderProps
+			>,
+			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			nextState: Readonly<{}>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => boolean;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+		state: Readonly<{}>;
+		UNSAFE_componentWillMount?: () => void;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		UNSAFE_componentWillReceiveProps?: (
+			nextProps: Readonly<
+				Diff<RecentSearchProps & WithActivityProviderProps, WithActivityProviderProps> &
+					ExpandedActivityProviderProps
+			>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => void;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
+		UNSAFE_componentWillUpdate?: (
+			nextProps: Readonly<
+				Diff<RecentSearchProps & WithActivityProviderProps, WithActivityProviderProps> &
+					ExpandedActivityProviderProps
+			>,
+			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			nextState: Readonly<{}>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => void;
+	};
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	contextType?: React.Context<any> | undefined;
+} = withActivityProvider<RecentSearchProps & WithActivityProviderProps>(injectIntl(RecentLink));
+export default _default_1;

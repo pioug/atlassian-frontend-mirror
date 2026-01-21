@@ -146,4 +146,4 @@ const mediaMockControlsBackdoor: MediaMockControlsBackdoor = {
 };
 
 export const mediaMockQueryOptInFlag = 'mediaMock=true';
-export const isMediaMockOptedIn = () => location.search.indexOf(mediaMockQueryOptInFlag) > -1;
+export const isMediaMockOptedIn = (): boolean => location.search.indexOf(mediaMockQueryOptInFlag) > -1;

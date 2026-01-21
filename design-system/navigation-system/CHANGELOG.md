@@ -1,5 +1,26 @@
 # @atlassian/navigation-system
 
+## 5.29.1
+
+### Patch Changes
+
+- [`88290f9d44829`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88290f9d44829) -
+  Update the `Aside` component's description to indicate our intention to deprecate it in the
+  future.
+
+## 5.29.0
+
+### Minor Changes
+
+- [`5b501c4928e72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5b501c4928e72) -
+  Added `ref`, and `onKeyDown`, `onKeyUp`, and `onBlurCapture` props to `FlyoutBody` to support
+  keyboard interaction and infinite scrolling.
+
+  Adjusted spacing for `FlyoutHeader`, `FlyoutBody` and `FlyoutFooter` to fix padding and margins.
+
+  Introduced a `maxHeight` prop on `FlyoutMenuItemContent` (default `760px`) to provide a secondary
+  height clamp for the flyout container.
+
 ## 5.28.1
 
 ### Patch Changes

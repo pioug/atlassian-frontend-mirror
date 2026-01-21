@@ -50,9 +50,6 @@
 			"path": "../json-ld-types/tsconfig.app.json"
 		},
 		{
-			"path": "../link-extractors/tsconfig.app.json"
-		},
-		{
 			"path": "../linking-common/tsconfig.app.json"
 		},
 		{

@@ -360,6 +360,15 @@ export const listSelectedNodeStyles: SerializedStyles = css({
 	},
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const listDangerStyles: SerializedStyles = css({
+	// only apply danger styles to the outermost list to avoid nested danger styles for lists within lists
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+	[`.ProseMirror ${isOuterMostList}${isOuterMostSelectedNode}.danger`]: {
+		background: token('color.background.danger'),
+	},
+});
+
 const isText = `:is(p, h1, h2, h3, h4, h5, h6)`;
 const isRootText = `${isText}:not(${isList} ${isText})`;
 
@@ -380,5 +389,14 @@ export const textSelectedNodeStyles: SerializedStyles = css({
 		'&::-moz-selection, *::-moz-selection': {
 			backgroundColor: 'transparent',
 		},
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const textDangerStyles: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+	[`.ProseMirror ${isRootText}${isOuterMostSelectedNode}.danger`]: {
+		background: token('color.background.danger'),
+		boxShadow: `0 -4px 0 ${token('color.background.danger')}, 0 4px 0 ${token('color.background.danger')}`,
 	},
 });

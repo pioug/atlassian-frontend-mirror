@@ -14,6 +14,8 @@ import FlexibleCard from '../../src/view/FlexibleCard';
 import { getCardState } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
+import '../utils/vr-preload-metadata-icons';
+
 const blockOverrideCss = css({
 	backgroundColor: token('color.background.accent.green.subtlest', '#DBFFF0'),
 	paddingTop: token('space.200', '1rem'),

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.0.21
+
+### Patch Changes
+
+- [`b30d6077b3e91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b30d6077b3e91) -
+  [ux] Suggested section should be hidden when total number to native transfroms is less than 7.
+- [`265980d7959cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/265980d7959cf) -
+  [ux] recursive node decoration and 'selected danger' classname
+- Updated dependencies
+
 ## 6.0.20
 
 ### Patch Changes

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-table
 
+## 16.4.2
+
+### Patch Changes
+
+- [`0a5d4198cf008`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a5d4198cf008) -
+  [ux] Fix numbered column selection style when multiple nodes are selected
+
+## 16.4.1
+
+### Patch Changes
+
+- [`265980d7959cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/265980d7959cf) -
+  [ux] recursive node decoration and 'selected danger' classname
+- Updated dependencies
+
 ## 16.4.0
 
 ### Minor Changes

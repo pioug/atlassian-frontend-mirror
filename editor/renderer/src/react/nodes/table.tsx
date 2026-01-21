@@ -15,6 +15,7 @@ import {
 	convertProsemirrorTableNodeToArrayOfRows,
 	hasMergedCell,
 	compose,
+	type Diff,
 } from '@atlaskit/editor-common/utils';
 import { SortOrder } from '@atlaskit/editor-common/types';
 import {
@@ -127,8 +128,11 @@ export const shouldHeaderStick = (
 	rowHeight: number,
 ): boolean => tableTop <= scrollTop && !(tableBottom - rowHeight <= scrollTop);
 
-export const shouldHeaderPinBottom = (scrollTop: number, tableBottom: number, rowHeight: number): boolean =>
-	tableBottom - rowHeight <= scrollTop && !(tableBottom < scrollTop);
+export const shouldHeaderPinBottom = (
+	scrollTop: number,
+	tableBottom: number,
+	rowHeight: number,
+): boolean => tableBottom - rowHeight <= scrollTop && !(tableBottom < scrollTop);
 
 export const addSortableColumn = (
 	// Ignored via go/ees005
@@ -136,7 +140,9 @@ export const addSortableColumn = (
 	rows: React.ReactElement<any>[],
 	tableOrderStatus: TableOrderStatus | undefined,
 	onSorting: (columnIndex: number, sortOrder: SortOrder) => void,
-) => {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+): React.ReactElement<any, string | React.JSXElementConstructor<any>>[] => {
 	return React.Children.map(rows, (row, index) => {
 		if (index === 0) {
 			return React.cloneElement(React.Children.only(row), {
@@ -165,7 +171,8 @@ export type TableProps = SharedTableProps & {
 
 export const isHeaderRowEnabled = (
 	rows: (React.ReactChild | React.ReactFragment | React.ReactPortal)[],
-) => {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+): any => {
 	if (!rows.length) {
 		return false;
 	}
@@ -228,7 +235,8 @@ const TableWrapper = ({
 export const tableCanBeSticky = (
 	node: PMNode | undefined,
 	children: (React.ReactChild | React.ReactFragment | React.ReactPortal)[],
-) => {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+): any => {
 	return isHeaderRowEnabled(children) && node && node.firstChild && !hasRowspan(node.firstChild);
 };
 
@@ -257,13 +265,13 @@ export class TableContainer extends React.Component<
 		wrapperWidth: 0,
 		headerRowHeight: 0,
 	};
-	tableRef = React.createRef<HTMLTableElement>();
-	stickyHeaderRef = React.createRef<HTMLElement>();
-	stickyScrollbarRef = React.createRef<HTMLDivElement>();
+	tableRef: React.RefObject<HTMLTableElement> = React.createRef<HTMLTableElement>();
+	stickyHeaderRef: React.RefObject<HTMLElement> = React.createRef<HTMLElement>();
+	stickyScrollbarRef: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>();
 
 	// used for sync scroll + copying wrapper width to sticky header
-	stickyWrapperRef = React.createRef<HTMLDivElement>();
-	wrapperRef = React.createRef<HTMLDivElement>();
+	stickyWrapperRef: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>();
+	wrapperRef: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>();
 	stickyScrollbar?: TableStickyScrollbar;
 
 	nextFrame: number | undefined;
@@ -428,7 +436,7 @@ export class TableContainer extends React.Component<
 	/**
 	 *
 	 */
-	get pinTop() {
+	get pinTop(): number | undefined {
 		if (!this.tableRef.current || !this.stickyHeaderRef.current) {
 			return;
 		}
@@ -444,7 +452,7 @@ export class TableContainer extends React.Component<
 	/**
 	 *
 	 */
-	get shouldAddOverflowParentOffsetTop_DO_NOT_USE() {
+	get shouldAddOverflowParentOffsetTop_DO_NOT_USE(): boolean | null | undefined {
 		// IF the StickyHeaderConfig specifies that the default scroll root offsetTop should be added
 		// AND the StickyHeaderConfig specifies a default scroll root id
 		// AND the OverflowParent is the corresponding element
@@ -461,7 +469,7 @@ export class TableContainer extends React.Component<
 	/**
 	 *
 	 */
-	get stickyTop() {
+	get stickyTop(): number | undefined {
 		switch (this.state.stickyMode) {
 			case 'pin-bottom':
 				return this.pinTop;
@@ -1016,4 +1024,198 @@ const TableWithWidth = (
 	}
 };
 
-export default withSmartCardStorage(TableWithWidth);
+const _default_1: {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	new (props: Diff<any, WithSmartCardStorageProps>): {
+		componentDidCatch?: (error: Error, errorInfo: React.ErrorInfo) => void;
+		componentDidMount?: () => void;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
+		componentDidUpdate?: (
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			prevProps: Readonly<Diff<any, WithSmartCardStorageProps>>,
+			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			prevState: Readonly<{}>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			snapshot?: any,
+		) => void;
+		componentWillMount?: () => void;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		componentWillReceiveProps?: (
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextProps: Readonly<Diff<any, WithSmartCardStorageProps>>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => void;
+		componentWillUnmount?: () => void;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
+		componentWillUpdate?: (
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextProps: Readonly<Diff<any, WithSmartCardStorageProps>>,
+			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			nextState: Readonly<{}>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => void;
+		context: unknown;
+		forceUpdate: (callback?: (() => void) | undefined) => void;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
+		getSnapshotBeforeUpdate?: (
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			prevProps: Readonly<Diff<any, WithSmartCardStorageProps>>,
+			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			prevState: Readonly<{}>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		) => any;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		readonly props: Readonly<Diff<any, WithSmartCardStorageProps>>;
+		refs: {
+			[key: string]: React.ReactInstance;
+		};
+		render: () => React.JSX.Element;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
+		setState: <K extends never>(
+			state: // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+				| {}
+				| ((
+						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+						prevState: Readonly<{}>,
+						// eslint-disable-next-line @typescript-eslint/no-explicit-any
+						props: Readonly<Diff<any, WithSmartCardStorageProps>>,
+						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+				  ) => {} | Pick<{}, K> | null)
+				// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+				| Pick<{}, K>
+				| null,
+			callback?: (() => void) | undefined,
+		) => void;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
+		shouldComponentUpdate?: (
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextProps: Readonly<Diff<any, WithSmartCardStorageProps>>,
+			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			nextState: Readonly<{}>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => boolean;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+		state: Readonly<{}>;
+		UNSAFE_componentWillMount?: () => void;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		UNSAFE_componentWillReceiveProps?: (
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextProps: Readonly<Diff<any, WithSmartCardStorageProps>>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => void;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
+		UNSAFE_componentWillUpdate?: (
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextProps: Readonly<Diff<any, WithSmartCardStorageProps>>,
+			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			nextState: Readonly<{}>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => void;
+	};
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	new (
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		props: Diff<any, WithSmartCardStorageProps>,
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		context: any,
+	): {
+		componentDidCatch?: (error: Error, errorInfo: React.ErrorInfo) => void;
+		componentDidMount?: () => void;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
+		componentDidUpdate?: (
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			prevProps: Readonly<Diff<any, WithSmartCardStorageProps>>,
+			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			prevState: Readonly<{}>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			snapshot?: any,
+		) => void;
+		componentWillMount?: () => void;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		componentWillReceiveProps?: (
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextProps: Readonly<Diff<any, WithSmartCardStorageProps>>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => void;
+		componentWillUnmount?: () => void;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
+		componentWillUpdate?: (
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextProps: Readonly<Diff<any, WithSmartCardStorageProps>>,
+			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			nextState: Readonly<{}>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => void;
+		context: unknown;
+		forceUpdate: (callback?: (() => void) | undefined) => void;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
+		getSnapshotBeforeUpdate?: (
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			prevProps: Readonly<Diff<any, WithSmartCardStorageProps>>,
+			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			prevState: Readonly<{}>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		) => any;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		readonly props: Readonly<Diff<any, WithSmartCardStorageProps>>;
+		refs: {
+			[key: string]: React.ReactInstance;
+		};
+		render: () => React.JSX.Element;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
+		setState: <K extends never>(
+			state: // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+				| {}
+				| ((
+						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+						prevState: Readonly<{}>,
+						// eslint-disable-next-line @typescript-eslint/no-explicit-any
+						props: Readonly<Diff<any, WithSmartCardStorageProps>>,
+						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+				  ) => {} | Pick<{}, K> | null)
+				// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+				| Pick<{}, K>
+				| null,
+			callback?: (() => void) | undefined,
+		) => void;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
+		shouldComponentUpdate?: (
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextProps: Readonly<Diff<any, WithSmartCardStorageProps>>,
+			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			nextState: Readonly<{}>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => boolean;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+		state: Readonly<{}>;
+		UNSAFE_componentWillMount?: () => void;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		UNSAFE_componentWillReceiveProps?: (
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextProps: Readonly<Diff<any, WithSmartCardStorageProps>>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => void;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
+		UNSAFE_componentWillUpdate?: (
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextProps: Readonly<Diff<any, WithSmartCardStorageProps>>,
+			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			nextState: Readonly<{}>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => void;
+	};
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	contextType?: React.Context<any> | undefined;
+} = withSmartCardStorage(TableWithWidth);
+export default _default_1;

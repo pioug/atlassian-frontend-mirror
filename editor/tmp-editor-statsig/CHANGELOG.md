@@ -1,5 +1,26 @@
 # @atlaskit/editor-statsig-tmp
 
+## 16.28.0
+
+### Minor Changes
+
+- [`aeb74c52331de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aeb74c52331de) -
+  [EDITOR-4634] remove duplicated toolbar role from toolbar elements behind
+  platform_editor_aifc_remove_duplicate_role
+
+## 16.27.0
+
+### Minor Changes
+
+- [`3dde4e51c90bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3dde4e51c90bf) -
+  Fixed mixed HTML/Editor content copy/paste issue on Date node.
+
+## 16.26.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.26.0
 
 ### Minor Changes

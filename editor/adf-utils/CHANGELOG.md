@@ -1,5 +1,12 @@
 # @atlaskit/adf-utils
 
+## 19.27.0
+
+### Minor Changes
+
+- [`e04e057af7743`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e04e057af7743) -
+  Adds scrubbed localId and commands to analytics to help narrow root cause issues.
+
 ## 19.26.4
 
 ### Patch Changes

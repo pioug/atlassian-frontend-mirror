@@ -11,9 +11,18 @@ import { TemplateReadOnly } from '../examples-utils/template-read-only';
 
 import JQLEditorView from './ui/jql-editor-view';
 
-import { JQLEditor, JQLEditorAsync } from './index';
+import { JQLEditor, JQLEditorAsync, type JQLEditorProps } from './index';
 
-export default {
+const _default_1: {
+	args: {
+		batchUpdates: boolean;
+		query: string;
+	};
+	component: (props: JQLEditorProps) => React.JSX.Element;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	decorators: ((...args: any) => any)[];
+	title: string;
+} = {
 	title: 'JQL Editor',
 	component: JQLEditor,
 	args: {
@@ -22,15 +31,16 @@ export default {
 	},
 	decorators: [withKnobs],
 };
+export default _default_1;
 
-export const SimpleJQL = Template.bind(
+export const SimpleJQL: () => React.JSX.Element = Template.bind(
 	{},
 	{
 		query: 'issuetype = bug order by rank',
 	},
 );
 
-export const SimpleEditorWithDefaultRows = Template.bind(
+export const SimpleEditorWithDefaultRows: () => React.JSX.Element = Template.bind(
 	{},
 	{
 		query: 'issuetype = bug order by rank',
@@ -38,6 +48,7 @@ export const SimpleEditorWithDefaultRows = Template.bind(
 	},
 );
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (SimpleEditorWithDefaultRows as any).decorators = [
 	withKnobs,
 	withPlatformFeatureGates({
@@ -45,7 +56,7 @@ export const SimpleEditorWithDefaultRows = Template.bind(
 	}),
 ];
 
-export const ComplexJQL = Template.bind(
+export const ComplexJQL: () => React.JSX.Element = Template.bind(
 	{},
 	{
 		query:
@@ -53,7 +64,7 @@ export const ComplexJQL = Template.bind(
 	},
 );
 
-export const HugeJQL = Template.bind(
+export const HugeJQL: () => React.JSX.Element = Template.bind(
 	{},
 	{
 		query:
@@ -61,7 +72,7 @@ export const HugeJQL = Template.bind(
 	},
 );
 
-export const RichInlineNodesEnabled = Template.bind(
+export const RichInlineNodesEnabled: () => React.JSX.Element = Template.bind(
 	{},
 	{
 		query:
@@ -69,7 +80,7 @@ export const RichInlineNodesEnabled = Template.bind(
 	},
 );
 
-export const RichInlineNodesDisabled = Template.bind(
+export const RichInlineNodesDisabled: () => React.JSX.Element = Template.bind(
 	{},
 	{
 		query:
@@ -78,7 +89,7 @@ export const RichInlineNodesDisabled = Template.bind(
 	},
 );
 
-export const SyntaxHighlighting = Template.bind(
+export const SyntaxHighlighting: () => React.JSX.Element = Template.bind(
 	{},
 	{
 		query:
@@ -86,7 +97,7 @@ export const SyntaxHighlighting = Template.bind(
 	},
 );
 
-export const ExternalError = Template.bind(
+export const ExternalError: () => React.JSX.Element = Template.bind(
 	{},
 	{
 		query: 'project = "ABC" OR assignee = someFakeFunction()',
@@ -100,7 +111,7 @@ export const ExternalError = Template.bind(
 	},
 );
 
-export const ExternalWarning = Template.bind(
+export const ExternalWarning: () => React.JSX.Element = Template.bind(
 	{},
 	{
 		query: 'project = "ABC" OR assignee = someFakeFunction()',
@@ -118,7 +129,7 @@ export const ExternalWarning = Template.bind(
 	},
 );
 
-export const ExternalInfo = Template.bind(
+export const ExternalInfo: () => React.JSX.Element = Template.bind(
 	{},
 	{
 		query: 'project = "ABC" OR assignee = someFakeFunction()',
@@ -131,14 +142,14 @@ export const ExternalInfo = Template.bind(
 	},
 );
 
-export const ReadOnlySimpleJQL = TemplateReadOnly.bind(
+export const ReadOnlySimpleJQL: () => React.JSX.Element = TemplateReadOnly.bind(
 	{},
 	{
 		query: 'status changed from "To do" to "In progress" after -1w',
 	},
 );
 
-export const ReadOnlyComplexJQL = TemplateReadOnly.bind(
+export const ReadOnlyComplexJQL: () => React.JSX.Element = TemplateReadOnly.bind(
 	{},
 	{
 		query:
@@ -146,7 +157,7 @@ export const ReadOnlyComplexJQL = TemplateReadOnly.bind(
 	},
 );
 
-export const ReadOnlyEmptyLinesJQL = TemplateReadOnly.bind(
+export const ReadOnlyEmptyLinesJQL: () => React.JSX.Element = TemplateReadOnly.bind(
 	{},
 	{
 		query:
@@ -160,7 +171,7 @@ const errorBoundaryDeps = [
 	}),
 ];
 
-export const ErrorBoundary = Template.bind(
+export const ErrorBoundary: () => React.JSX.Element = Template.bind(
 	{},
 	{
 		query: 'issuetype = bug order by rank',
@@ -168,7 +179,7 @@ export const ErrorBoundary = Template.bind(
 	},
 );
 
-export const ErrorBoundaryAsync = Template.bind(
+export const ErrorBoundaryAsync: () => React.JSX.Element = Template.bind(
 	{},
 	{
 		query: 'issuetype = bug order by rank',

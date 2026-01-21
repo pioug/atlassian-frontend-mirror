@@ -18,7 +18,8 @@ const context = getContext({
 	dueOn: '2020-02-04T12:40:12.353+0800',
 	state: { text: 'State' },
 });
-const content = ['Short', 'Very long text, longer than long, long, long'];
+const longText = 'Very long text, longer than long, long, long';
+const content = ['Short', longText];
 const appearances: LozengeAppearance[] = [
 	'default',
 	'inprogress',
@@ -30,6 +31,7 @@ const appearances: LozengeAppearance[] = [
 const overrideCss = css({
 	textDecoration: 'line-through',
 });
+const widths = [50, '100px', 250];
 
 export default () => {
 	return (
@@ -54,12 +56,32 @@ export default () => {
 					<HorizontalWrapper>
 						<DueOn />
 					</HorizontalWrapper>
+					<h5>Max Width</h5>
+					<HorizontalWrapper>
+						{widths.map((maxWidth: number | string, idx: number) => (
+							<State appearance="default" key={idx} maxWidth={maxWidth} text={longText} />
+						))}
+					</HorizontalWrapper>
 					<h5>Override CSS</h5>
-					<State appearance="moved" css={overrideCss} text="override" />
+					<HorizontalWrapper>
+						<State appearance="moved" css={overrideCss} text="override" />
+					</HorizontalWrapper>
 					<h5>Action</h5>
-					<div>
+					<HorizontalWrapper>
 						<State action={LozengeActionExample} text="To Do" testId="vr-test-lozenge-action" />
-					</div>
+					</HorizontalWrapper>
+					<h5>Action & Max Width</h5>
+					<HorizontalWrapper>
+						{widths.map((maxWidth: number | string, idx: number) => (
+							<State
+								action={LozengeActionExample}
+								appearance="default"
+								key={idx}
+								maxWidth={maxWidth}
+								text={longText}
+							/>
+						))}
+					</HorizontalWrapper>
 					<br />
 				</FlexibleCardContext.Provider>
 			</SmartCardProvider>

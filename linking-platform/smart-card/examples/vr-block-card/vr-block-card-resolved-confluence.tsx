@@ -6,6 +6,8 @@ import { ConfluenceBlogPost, ConfluencePage } from '@atlaskit/link-test-helpers'
 
 import VRCardView from '../utils/vr-card-view';
 
+import '../utils/vr-preload-metadata-icons';
+
 const examples = {
 	[ConfluenceBlogPost.data.url]: ConfluenceBlogPost,
 	[ConfluencePage.data.url]: ConfluencePage,

@@ -1,5 +1,27 @@
 # @atlaskit/renderer
 
+## 126.1.1
+
+### Patch Changes
+
+- [`7f41011a1b0ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f41011a1b0ff) -
+  EDITOR-1665 update sync block experience events to use general experience ids, keep existing error
+  events and add success events
+- Updated dependencies
+
+## 126.1.0
+
+### Minor Changes
+
+- [`7386aea2dbc51`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7386aea2dbc51) -
+  [ux] EDITOR-4611 - Inline Bodied Extension: Implement inlined bodied extension style
+
+## 126.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 126.0.0
 
 ### Major Changes

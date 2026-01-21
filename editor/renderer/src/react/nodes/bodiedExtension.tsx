@@ -4,7 +4,11 @@ import type { RendererContext, ExtensionViewportSize } from '../types';
 import type { Serializer } from '../../serializer';
 import type { ExtensionLayout } from '@atlaskit/adf-schema';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
+import type {
+	ExtensionHandlers,
+	ExtensionParams,
+	Parameters,
+} from '@atlaskit/editor-common/extensions';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { renderExtension } from './extension';
 import { ErrorBoundary } from '../../ui/Renderer/ErrorBoundary';
@@ -37,6 +41,7 @@ interface Props {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	serializer: Serializer<any>;
+	shouldDisplayExtensionAsInline?: (extensionParams?: ExtensionParams<Parameters>) => boolean;
 	startPos: number;
 }
 
@@ -50,6 +55,7 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>): React.JSX.Eleme
 		parameters,
 		extensionViewportSizes,
 		localId,
+		shouldDisplayExtensionAsInline,
 	} = props;
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const removeOverflow = React.Children.toArray(children)
@@ -81,7 +87,7 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>): React.JSX.Eleme
 						{...props}
 						type="bodiedExtension"
 					>
-						{({ result }) => {
+						{({ node, result }) => {
 							try {
 								if (result && React.isValidElement(result)) {
 									// Return the content directly if it's a valid JSX.Element
@@ -96,9 +102,11 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>): React.JSX.Eleme
 										extensionViewportSizes,
 										undefined,
 										localId,
+										shouldDisplayExtensionAsInline,
+										node,
 									);
 								}
-							} catch (e) {
+							} catch {
 								/** We don't want this error to block renderer */
 								/** We keep rendering the default content */
 							}
@@ -115,6 +123,8 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>): React.JSX.Eleme
 								extensionViewportSizes,
 								undefined,
 								localId,
+								shouldDisplayExtensionAsInline,
+								node,
 							);
 						}}
 					</ExtensionRenderer>

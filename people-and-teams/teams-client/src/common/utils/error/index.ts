@@ -13,7 +13,7 @@ export enum StatusCode {
 	PAYLOAD_TOO_LARGE = 413,
 }
 
-export function isAuthError(error?: Error | HttpError) {
+export function isAuthError(error?: Error | HttpError): boolean {
 	return (
 		isErrorStatusCode(StatusCode.UNAUTHORIZED, error) ||
 		isErrorStatusCode(StatusCode.FORBIDDEN, error)
@@ -37,7 +37,7 @@ export function isErrorStatusCode(statusCode: number, error?: Error | HttpError)
 	return !!error?.message?.match(reg);
 }
 
-export function doesErrorContainStatus(statusCode: number, message: string) {
+export function doesErrorContainStatus(statusCode: number, message: string): boolean {
 	const reg = new RegExp(`status .*(${statusCode})`);
 	return reg.test(message);
 }

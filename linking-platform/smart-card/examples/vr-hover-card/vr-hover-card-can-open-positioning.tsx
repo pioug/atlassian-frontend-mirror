@@ -16,8 +16,10 @@ import { HoverCard } from '../../src/hoverCard';
 import { mockConfluenceResponse } from '../../src/view/HoverCard/__tests__/__mocks__/mocks';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
+import '../utils/vr-preload-metadata-icons';
+
 class CustomClient extends Client {
-	fetchData(url: string) {
+	fetchData(_: string) {
 		return Promise.resolve(mockConfluenceResponse as JsonLd.Response);
 	}
 }
@@ -42,7 +44,11 @@ export default () => {
 	return (
 		<VRTestWrapper>
 			<Provider client={new CustomClient('staging')}>
-				<HoverCard url="https://www.mockurl.com" canOpen={canOpen}>
+				<HoverCard
+					url="https://www.mockurl.com"
+					canOpen={canOpen}
+					hoverPreviewOptions={{ fadeInDelay: 0 }}
+				>
 					<div css={styles}>
 						<div
 							data-testid="hover-test-can-open-left"

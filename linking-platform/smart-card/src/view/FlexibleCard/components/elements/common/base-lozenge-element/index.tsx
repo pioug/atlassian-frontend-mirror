@@ -34,17 +34,11 @@ export type BaseLozengeElementProps = ElementProps & {
 	 * Callback fired after lozenge value has changed
 	 */
 	onAfterChanged?: () => void;
-
-	/**
-	 * Determines the custom styles of the Atlaskit lozenge.
-	 */
-	style?: AtlaskitLozengeProps['style'];
-
 	/**
 	 * The text to display within the lozenge.
 	 */
 	text?: string | React.ReactNode;
-};
+} & Pick<AtlaskitLozengeProps, 'maxWidth' | 'style'>;
 
 /**
  * A base element that displays a Lozenge.
@@ -55,12 +49,13 @@ export type BaseLozengeElementProps = ElementProps & {
 const BaseLozengeElement = ({
 	action,
 	appearance = 'default',
-	name,
 	className,
+	maxWidth,
+	name,
+	onAfterChanged,
 	style,
 	text,
 	testId = 'smart-element-lozenge',
-	onAfterChanged,
 }: BaseLozengeElementProps) => {
 	const ui = useFlexibleUiOptionContext();
 	if (!text) {
@@ -71,6 +66,7 @@ const BaseLozengeElement = ({
 		<LozengeAction
 			action={action}
 			appearance={appearance}
+			{...(fg('platform_navx_sl_lozenge_max_width') ? { maxWidth } : undefined)}
 			testId={testId}
 			text={text}
 			zIndex={ui?.zIndex}
@@ -80,6 +76,7 @@ const BaseLozengeElement = ({
 		<AtlaskitLozenge
 			appearance={appearance}
 			{...(fg('platform-component-visual-refresh') ? { isBold: true } : undefined)}
+			{...(fg('platform_navx_sl_lozenge_max_width') ? { maxWidth } : undefined)}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={style}
 			testId={`${testId}-lozenge`}

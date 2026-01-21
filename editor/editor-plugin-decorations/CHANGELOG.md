@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-decorations
 
+## 7.0.3
+
+### Patch Changes
+
+- [`265980d7959cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/265980d7959cf) -
+  [ux] recursive node decoration and 'selected danger' classname
+- Updated dependencies
+
 ## 7.0.2
 
 ### Patch Changes

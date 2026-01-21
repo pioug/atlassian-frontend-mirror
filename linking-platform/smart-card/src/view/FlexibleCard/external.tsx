@@ -9,6 +9,7 @@
 import React from 'react';
 
 import type { Prettify } from '@atlaskit/linking-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SmartLinkSize } from '../../constants';
 
@@ -166,7 +167,13 @@ export const SnippetElement = (props?: SnippetElementProps): React.JSX.Element =
 );
 
 export const SourceBranchElement = (): React.JSX.Element => <SourceBranch />;
-export const StateElement = (): React.JSX.Element => <State />;
+
+export type StateElementProps = Prettify<Pick<React.ComponentProps<typeof State>, 'maxWidth'>>;
+export const StateElement = (props?: StateElementProps): React.JSX.Element => (
+	<State
+		{...(fg('platform_navx_sl_lozenge_max_width') ? { maxWidth: props?.maxWidth } : undefined)}
+	/>
+);
 export const StoryPointsElement = (): React.JSX.Element => <StoryPoints />;
 export const SubscriberCountElement = (): React.JSX.Element => <SubscriberCount />;
 export const SubTasksProgressElement = (): React.JSX.Element => <SubTasksProgress />;

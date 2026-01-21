@@ -1,4 +1,4 @@
-export function isZeroDimensionRectangle(rect: DOMRectReadOnly) {
+export function isZeroDimensionRectangle(rect: DOMRectReadOnly): boolean {
 	return (
 		rect.bottom === 0 &&
 		rect.top === 0 &&

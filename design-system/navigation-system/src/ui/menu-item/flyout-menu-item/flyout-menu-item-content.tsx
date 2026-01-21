@@ -40,6 +40,12 @@ export type FlyoutCloseSource = 'close-button' | 'escape-key' | 'outside-click' 
  */
 const FLYOUT_MENU_VERTICAL_OFFSET_PX = 26;
 
+/**
+ * The maximum height of the flyout menu in pixels, following the Confluence standard maximum
+ * height of 760px.
+ */
+const FLYOUT_MENU_MAX_HEIGHT_PX = 760;
+
 const flyoutMenuItemContentStyles = cssMap({
 	root: {
 		// Expanding `padding` shorthand for Compiled: see eslint rule @atlaskit/platform/expand-spacing-shorthand
@@ -57,7 +63,6 @@ const flyoutMenuItemContentContainerStyles = cssMapUnbound({
 	container: {
 		display: 'flex',
 		height: '100%',
-		maxHeight: `calc(100vh - ${FLYOUT_MENU_VERTICAL_OFFSET_PX}px)`,
 		flexDirection: 'column'
 	}
 });
@@ -67,10 +72,12 @@ export type FlyoutMenuItemContentProps = {
 	 * The contents of the flyout menu.
 	 */
 	children: React.ReactNode;
+
 	/**
 	 * A `testId` that is applied to the container element as the `data-testid` attribute.
 	 */
 	containerTestId?: string;
+
 	/**
 	 * Called when the flyout menu is closed.
 	 *
@@ -83,6 +90,13 @@ export type FlyoutMenuItemContentProps = {
 	 * @default true
 	 */
 	autoFocus?: boolean;
+
+	/**
+	 * The maximum height of the flyout menu in pixels.
+	 *
+	 * If not provided, defaults to 760px.
+	 */
+	maxHeight?: number;
 };
 
 /**
@@ -93,7 +107,7 @@ export type FlyoutMenuItemContentProps = {
 export const FlyoutMenuItemContent: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<FlyoutMenuItemContentProps> & React.RefAttributes<HTMLDivElement>
 > = forwardRef<HTMLDivElement, FlyoutMenuItemContentProps>(
-	({ children, containerTestId, onClose, autoFocus }, forwardedRef) => {
+	({ children, containerTestId, onClose, autoFocus, maxHeight = FLYOUT_MENU_MAX_HEIGHT_PX }, forwardedRef) => {
 		const setIsOpen = useContext(SetIsOpenContext);
 		const onCloseRef = useContext(OnCloseContext);
 		const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -143,8 +157,17 @@ export const FlyoutMenuItemContent: React.ForwardRefExoticComponent<
 		useEffect(() => {
 			onCloseRef.current = handleClose;
 		}, [handleClose, onCloseRef]);
-	
+
 		const titleId = useId();
+
+		const computedMaxHeight = useMemo(
+			() =>
+				`min(
+			calc(100vh - ${FLYOUT_MENU_VERTICAL_OFFSET_PX}px),
+			${maxHeight}px
+		)`,
+			[maxHeight],
+		);
 
 		return (
 			<PopupContent
@@ -180,10 +203,13 @@ export const FlyoutMenuItemContent: React.ForwardRefExoticComponent<
 				{({ update }) => (
 					<UpdatePopperOnContentResize ref={forwardedRef} update={update}>
 						{
-							fg("platform_dst_nav4_flyout_menu_slots_close_button")
-							? (
+							fg("platform_dst_nav4_flyout_menu_slots_close_button") ? (
 								<TitleIdContextProvider value={titleId}>
-									<div css={flyoutMenuItemContentContainerStyles.container}>
+									<div
+										css={flyoutMenuItemContentContainerStyles.container}
+										style={{ maxHeight: computedMaxHeight }}
+										data-testid={containerTestId ? `${containerTestId}--container` : undefined}
+									>
 										{children}
 									</div>
 								</TitleIdContextProvider>
@@ -216,7 +242,7 @@ function createResizeObserver(update: ResizeObserverCallback) {
  */
 const UpdatePopperOnContentResize: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<{ update: () => void; children: React.ReactNode }> &
-		React.RefAttributes<HTMLDivElement>
+	React.RefAttributes<HTMLDivElement>
 > = forwardRef(
 	(
 		{ update, children }: { update: () => void; children: React.ReactNode },

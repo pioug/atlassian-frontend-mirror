@@ -988,6 +988,24 @@ const extensionStyle = css({
 		},
 });
 
+const extensionAsInlineStyle = css({
+	'.ak-renderer-document .ak-renderer-extension-as-inline': {
+		display: 'inline-block',
+		// use !important here because the current width has !important applied to it and it's not working when used in React style prop
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+		width: 'auto !important',
+		marginTop: 0,
+	},
+	'.ak-renderer-extension-as-inline .ak-renderer-extension-overflow-container': {
+		display: 'inline-block',
+		overflowX: 'visible',
+		containerType: 'normal',
+	},
+	'.ak-renderer-extension-as-inline div, .ak-renderer-extension-as-inline p': {
+		display: 'inline-block',
+	},
+});
+
 const shadowSharedStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`& .${shadowClassNames.RIGHT_SHADOW}::before, .${shadowClassNames.RIGHT_SHADOW}::after, .${shadowClassNames.LEFT_SHADOW}::before, .${shadowClassNames.LEFT_SHADOW}::after`]:
@@ -2516,6 +2534,9 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 				fg('editor_inline_comments_on_inline_nodes') && rendererAnnotationStylesCommentHeightFix,
 				baseOtherStyles,
+				// this should be placed after baseOtherStyles
+				expValEquals('platform_editor_render_bodied_extension_as_inline', 'isEnabled', true) &&
+					extensionAsInlineStyle,
 				allowNestedHeaderLinks && alignedHeadingAnchorStyle,
 				mediaSingleSharedStyle,
 				// merge firstWrappedMediaStyles with mediaSingleSharedStyle when clean up platform_editor_fix_media_in_renderer

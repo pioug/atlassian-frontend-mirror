@@ -1,5 +1,22 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.12.1
+
+### Patch Changes
+
+- [`7f41011a1b0ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f41011a1b0ff) -
+  EDITOR-1665 update sync block experience events to use general experience ids, keep existing error
+  events and add success events
+- Updated dependencies
+
+## 3.12.0
+
+### Minor Changes
+
+- [`3d9abca1c1cd9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d9abca1c1cd9) -
+  The batch retrieve of the blocks must also send document ARI and also the local instance ID of the
+  reference blocks
+
 ## 3.11.0
 
 ### Minor Changes

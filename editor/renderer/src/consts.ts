@@ -6,6 +6,7 @@ const clPrefix = 'ak-renderer-';
 export const RendererCssClassName = {
 	DOCUMENT: `${clPrefix}document`,
 	EXTENSION: `${clPrefix}extension`,
+	EXTENSION_AS_INLINE: `${clPrefix}extension-as-inline`,
 	EXTENSION_CENTER_ALIGN: `${clPrefix}extension-center-align`,
 	EXTENSION_OVERFLOW_CONTAINER: `${clPrefix}extension-overflow-container`,
 	NUMBER_COLUMN: `${clPrefix}table-number-column`,

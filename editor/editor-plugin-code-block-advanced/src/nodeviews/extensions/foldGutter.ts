@@ -10,6 +10,7 @@ import {
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 // Based on platform/packages/design-system/icon/svgs/utility/add.svg
@@ -100,6 +101,9 @@ export function foldGutterExtension({
 					'data-testid',
 					`code-block-fold-button-${open ? 'open' : 'closed'}`,
 				);
+				if (fg('platform_editor_a11y_code_block_gutter_focus_fix')) {
+					htmlElement.setAttribute('tabindex', '-1');
+				}
 				htmlElement.setAttribute(
 					'style',
 					convertToInlineCss({
@@ -134,9 +138,12 @@ export function foldGutterExtension({
 			},
 		}),
 		codeFolding({
-			placeholderDOM(view, onclick, prepared) {
+			placeholderDOM(view, onclick, _prepared) {
 				const htmlElement = document.createElement('button');
 				htmlElement.setAttribute('data-marker-dom-element', 'true');
+				if (fg('platform_editor_a11y_code_block_gutter_focus_fix')) {
+					htmlElement.setAttribute('tabindex', '-1');
+				}
 				htmlElement.setAttribute(
 					'style',
 					convertToInlineCss({

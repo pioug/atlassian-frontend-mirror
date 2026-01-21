@@ -1,5 +1,12 @@
 # @atlaskit/contextual-survey
 
+## 6.0.0
+
+### Major Changes
+
+- [`6bf206e599731`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6bf206e599731) -
+  [ux] A new Contextual Survey Component with Redesigned UI
+
 ## 5.1.2
 
 ### Patch Changes

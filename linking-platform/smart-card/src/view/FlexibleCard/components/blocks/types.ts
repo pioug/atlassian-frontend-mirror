@@ -1,5 +1,7 @@
 import { type ReactNode, type Ref } from 'react';
 
+import { type LozengeProps as AtlaskitLozengeProps } from '@atlaskit/lozenge';
+
 import {
 	type ActionName,
 	type ElementName,
@@ -476,7 +478,7 @@ export type SourceBranch = {
 export type State = {
 	name: ElementName.State;
 	onAfterChanged?: () => void;
-};
+} & Pick<AtlaskitLozengeProps, 'maxWidth'>;
 /**
  * Represents the props available for a SubscriberCount element.
  * @see SubscriberCount

@@ -26,6 +26,8 @@ import { getContext } from '../utils/flexible-ui';
 import { HorizontalWrapper } from '../utils/vr-test';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
+import '../utils/vr-preload-metadata-icons';
+
 const overrideCss = css({
 	backgroundColor: token('color.background.brand.bold', '#0B66E4'),
 	borderRadius: token('radius.xxlarge'),

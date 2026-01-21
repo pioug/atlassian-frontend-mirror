@@ -16,6 +16,7 @@ snapshot(FlexUiDateTimeTextView, {
 });
 
 snapshot(FlexUiAtlaskitBadgeView, {
+	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 	},

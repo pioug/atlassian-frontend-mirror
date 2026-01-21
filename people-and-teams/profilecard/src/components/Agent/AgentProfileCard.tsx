@@ -199,6 +199,8 @@ const AgentProfileCard = ({
 		);
 	}
 
+	const isRovoDev = agent.creator_type === 'ROVO_DEV';
+
 	return (
 		<AgentProfileCardWrapper>
 			<Box xcss={styles.cardContainerStyles}>
@@ -207,6 +209,7 @@ const AgentProfileCard = ({
 					agentNamedId={agent.external_config_reference ?? agent.named_id}
 					height={fg('rovo_agent_empty_state_refresh') ? 48 : 96}
 					agentIdentityAccountId={agent.identity_account_id}
+					isRovoDev={isRovoDev && fg('rovo_dev_themed_identity_card')}
 				/>
 				<Box xcss={styles.avatarStyles}>
 					<AgentAvatar
@@ -214,6 +217,7 @@ const AgentProfileCard = ({
 						agentNamedId={agent.external_config_reference ?? agent.named_id}
 						agentIdentityAccountId={agent.identity_account_id}
 						size={fg('rovo_agent_empty_state_refresh') ? 'large' : 'xlarge'}
+						isRovoDev={isRovoDev && fg('rovo_dev_themed_identity_card')}
 						isForgeAgent={agent.creator_type === 'FORGE' || agent.creator_type === 'THIRD_PARTY'}
 						forgeAgentIconUrl={agent.icon}
 					/>
@@ -232,6 +236,7 @@ const AgentProfileCard = ({
 							agentName={agent.name}
 							isStarred={isStarred}
 							onStarToggle={handleSetFavourite}
+							showStarButton={!(isRovoDev && fg('rovo_dev_themed_identity_card'))}
 							isHidden={agent.visibility === 'PRIVATE'}
 							creatorRender={
 								agent.creatorInfo?.type && (
@@ -254,38 +259,44 @@ const AgentProfileCard = ({
 							agentDescription={agent.description}
 						/>
 					</Box>
-					<Box
-						xcss={fg('rovo_agent_empty_state_refresh') ? styles.conversationStartersWrapper : null}
-					>
-						<ConversationStarters
-							isAgentDefault={agent.is_default}
-							userDefinedConversationStarters={userDefinedConversationStarters}
-							onConversationStarterClick={(conversationStarter: ConversationStarter) => {
-								onConversationStartersClick
-									? onConversationStartersClick(conversationStarter)
-									: onConversationStarter({
-											agentId: agent.id,
-											prompt: conversationStarter.message,
-										});
-							}}
-						/>
-					</Box>
+					{!(isRovoDev && fg('rovo_dev_themed_identity_card')) && (
+						<Box
+							xcss={
+								fg('rovo_agent_empty_state_refresh') ? styles.conversationStartersWrapper : null
+							}
+						>
+							<ConversationStarters
+								isAgentDefault={agent.is_default}
+								userDefinedConversationStarters={userDefinedConversationStarters}
+								onConversationStarterClick={(conversationStarter: ConversationStarter) => {
+									onConversationStartersClick
+										? onConversationStartersClick(conversationStarter)
+										: onConversationStarter({
+												agentId: agent.id,
+												prompt: conversationStarter.message,
+											});
+								}}
+							/>
+						</Box>
+					)}
 				</Stack>
-				<AgentActions
-					agent={agent}
-					onEditAgent={() => onEditAgent(agent.id)}
-					onCopyAgent={() => onCopyAgent(agent.id)}
-					onDuplicateAgent={() => onDuplicateAgent(agent.id)}
-					onDeleteAgent={handleOnDelete}
-					onChatClick={
-						onChatClick
-							? (event: React.MouseEvent) => onChatClick(event)
-							: () => onOpenChatFullScreen(agent.id, agent.name)
-					}
-					resourceClient={resourceClient}
-					onViewFullProfileClick={() => onViewFullProfile(agent.id)}
-					hideMoreActions={hideMoreActions}
-				/>
+				{!(isRovoDev && fg('rovo_dev_themed_identity_card')) && (
+					<AgentActions
+						agent={agent}
+						onEditAgent={() => onEditAgent(agent.id)}
+						onCopyAgent={() => onCopyAgent(agent.id)}
+						onDuplicateAgent={() => onDuplicateAgent(agent.id)}
+						onDeleteAgent={handleOnDelete}
+						onChatClick={
+							onChatClick
+								? (event: React.MouseEvent) => onChatClick(event)
+								: () => onOpenChatFullScreen(agent.id, agent.name)
+						}
+						resourceClient={resourceClient}
+						onViewFullProfileClick={() => onViewFullProfile(agent.id)}
+						hideMoreActions={hideMoreActions}
+					/>
+				)}
 			</Box>
 		</AgentProfileCardWrapper>
 	);

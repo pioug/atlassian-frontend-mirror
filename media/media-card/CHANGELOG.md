@@ -1,5 +1,19 @@
 # @atlaskit/media-card
 
+## 79.14.0
+
+### Minor Changes
+
+- [`c5bc52b0eb431`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5bc52b0eb431) -
+  Add improved error messaging UI for MediaCard when encountering network errors. Users will now see
+  a "Failed to load. Please check your internet connection" message when network errors occur,
+  providing clearer guidance about what went wrong. This feature is gated behind the
+  `media_card_failed_messaging_ui_revamp` feature flag for gradual rollout.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 79.13.3
 
 ### Patch Changes

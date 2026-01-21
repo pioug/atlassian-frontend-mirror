@@ -1,122 +1,114 @@
+import { getSourceNodesFromSelectionRange } from '@atlaskit/editor-common/selection';
 import type { EditorCommand } from '@atlaskit/editor-common/types';
-import { type Node } from '@atlaskit/editor-prosemirror/model';
+import type { Node, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
-import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { CellSelection, findTable, TableMap } from '@atlaskit/editor-tables';
-import { getSelectionRect } from '@atlaskit/editor-tables/utils';
+import { CellSelection, TableMap } from '@atlaskit/editor-tables';
+import { findTableClosestToPos } from '@atlaskit/editor-tables/utils';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { token } from '@atlaskit/tokens';
 
 import type { HoverDecorationCommand } from '../decorationsPluginType';
 
 import { ACTIONS, decorationStateKey } from './main';
 
 export const hoverDecorationCommand: HoverDecorationCommand =
-	({ nodeType, add, className = 'danger' }) =>
+	({ add, className = 'danger selected' }) =>
 	({ tr }) => {
-		let from: number | undefined;
-		let parentNode: Node | undefined;
+		// Use the provided selection (e.g., preservedSelection) or fall back to tr.selection
+		const selection = tr.selection;
+		const decorations: Decoration[] = [];
 
-		let decoration: Decoration | DecorationSet;
-
-		if (tr.selection instanceof NodeSelection) {
-			const selectedNode = tr.selection.node;
-			const nodeTypes = Array.isArray(nodeType) ? nodeType : [nodeType];
-			const isNodeTypeMatching = nodeTypes.indexOf(selectedNode.type) > -1;
-			// This adds danger styling if the selected node is the one that requires
-			// the decoration to be added, e.g. if a layout is selected and the user
-			// hovers over the layout's delete button.
-			if (isNodeTypeMatching) {
-				from = tr.selection.from;
-				parentNode = selectedNode;
-			}
-		}
-
-		// This adds danger styling if the selection is not a node selection, OR if
-		// the selected node is a child of the one that requires the decoration to
-		// be added, e.g. if a decision item is selected inside a layout and the
-		// user hovers over the layout's delete button.
-		const foundParentNode = findParentNodeOfType(nodeType)(tr.selection);
-		// Override from and parentNode values if foundParentNode is a mediaGroup
-		if (
-			foundParentNode &&
-			(from === undefined || foundParentNode.node.type.name === 'mediaGroup')
-		) {
-			from = foundParentNode.pos;
-			parentNode = foundParentNode.node;
-		}
-
-		// Note: can't use !from as from could be 0, which is falsy but valid
-		if (from === undefined || parentNode === undefined) {
-			return tr;
-		}
-
-		decoration = Decoration.node(
-			from,
-			from + parentNode.nodeSize,
-			{
-				class: className,
-			},
-			{ key: 'decorationNode' },
-		);
-
-		if (tr.selection instanceof TextSelection) {
-			decoration = Decoration.inline(
-				from,
-				tr.selection.to,
-				{
-					class: className,
-					style: `background-color: ${token('color.background.danger')};`,
-				},
-				{ key: 'decorationNode' },
-			);
-		}
-
-		if (tr.selection instanceof CellSelection) {
-			const table = findTable(tr.selection);
+		const handleTableSelection = (pos: ResolvedPos = selection.$from) => {
+			const table = findTableClosestToPos(pos);
 			if (!table) {
 				return tr;
 			}
-			const map = TableMap.get(table.node);
 
-			const rect = getSelectionRect(tr.selection);
-			if (!map || !rect) {
-				return tr;
-			}
-			const tableNodeDec = Decoration.node(
-				table.pos,
-				table.pos + table.node.nodeSize,
-				{
-					class: className,
-				},
-				{ key: 'decorationNode' },
+			const tableNode = table.node;
+			const tablePos = table.pos;
+
+			decorations.push(
+				Decoration.node(
+					tablePos,
+					tablePos + tableNode.nodeSize,
+					{ class: className },
+					{ key: `decorationNode-table-${tablePos}` },
+				),
 			);
 
-			const updatedCells = map.cellsInRect(rect).map((x) => x + table.start);
-			const tableCellDecorations = updatedCells
-				.map((pos) => {
-					const cell = tr.doc.nodeAt(pos);
-					if (!cell) {
-						return;
-					}
-					return Decoration.node(
-						pos,
-						pos + cell.nodeSize,
-						{
-							class: className,
-						},
-						{ key: 'decorationNode' },
-					);
-				})
-				.filter((decoration) => !!decoration);
+			const map = TableMap.get(tableNode);
+			const cellPositions = new Set(map.map);
 
-			decoration = DecorationSet.create(tr.doc, [tableNodeDec, ...tableCellDecorations]);
+			cellPositions.forEach((cellPos) => {
+				const docPos = tablePos + cellPos + 1;
+				const cell = tableNode.nodeAt(cellPos);
+				if (cell) {
+					decorations.push(
+						Decoration.node(
+							docPos,
+							docPos + cell.nodeSize,
+							{ class: className },
+							{ key: `decorationNode-cell-${docPos}` },
+						),
+					);
+				}
+			});
+		};
+
+		const handleNodeSelection = (node: Node, pos: number) => {
+			const from = pos;
+			const to = from + node.nodeSize;
+
+			decorations.push(Decoration.node(from, to, { class: className }, { key: 'decorationNode' }));
+
+			if (node.type.name === 'layoutSection' || node.type.name === 'layoutColumn') {
+				const startOfInsideOfContainer = tr.doc.resolve(from + 1);
+				const endOfInsideOfContainer = tr.doc.resolve(to - 1);
+				handleNodesSelection(startOfInsideOfContainer, endOfInsideOfContainer);
+			}
+		};
+
+		const handleNodesSelection = ($from: ResolvedPos, $to: ResolvedPos) => {
+			let currentPos = $from.pos;
+
+			const sourceNodes = getSourceNodesFromSelectionRange(
+				tr,
+				TextSelection.create(tr.doc, currentPos, $to.pos),
+			);
+
+			sourceNodes.forEach((sourceNode) => {
+				if (sourceNode.type.name === 'table') {
+					const startPosOfTable = tr.doc.resolve(currentPos + 3);
+					handleTableSelection(startPosOfTable);
+				} else {
+					handleNodeSelection(sourceNode, currentPos);
+				}
+				currentPos += sourceNode.nodeSize;
+			});
+		};
+
+		// Selecting a table directly: CellSelection
+		if (selection instanceof CellSelection) {
+			handleTableSelection();
+		}
+
+		// multiselect: TextSelection
+		if (selection instanceof TextSelection) {
+			handleNodesSelection(selection.$from, selection.$to);
+		}
+
+		if (selection instanceof NodeSelection) {
+			handleNodeSelection(selection.node, selection.from);
+		}
+
+		// If no decorations were created, return early
+		if (decorations.length === 0) {
+			return tr;
 		}
 
 		tr.setMeta(decorationStateKey, {
 			action: add ? ACTIONS.DECORATION_ADD : ACTIONS.DECORATION_REMOVE,
-			data: decoration,
+			data: DecorationSet.create(tr.doc, decorations),
 			hasDangerDecorations: expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
 				? className === 'danger'
 				: undefined,

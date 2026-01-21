@@ -11,6 +11,13 @@ import HoverCardWithPreview from '../../../examples/vr-hover-card-standalone/vr-
 
 snapshot(HoverCard, {
 	description: 'standalone hover card default',
+	ignoredErrors: [
+		{
+			pattern: /LoadableComponent uses the legacy contextTypes API/,
+			ignoredBecause: 'react-loadable causing uncaught error to be thrown',
+			jiraIssueId: 'NAVX-3277',
+		},
+	],
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
@@ -28,6 +35,13 @@ snapshot(HoverCardWithPreview, {
 
 snapshot(HoverCardForSlackMessage, {
 	description: 'standalone hover card for Slack message',
+	ignoredErrors: [
+		{
+			pattern: /LoadableComponent uses the legacy contextTypes API/,
+			ignoredBecause: 'react-loadable causing uncaught error to be thrown',
+			jiraIssueId: 'NAVX-3277',
+		},
+	],
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {},
@@ -36,6 +50,13 @@ snapshot(HoverCardForSlackMessage, {
 
 snapshot(HoverCardConfluence, {
 	description: 'standalone hover card for Confluence',
+	ignoredErrors: [
+		{
+			pattern: /LoadableComponent uses the legacy contextTypes API/,
+			ignoredBecause: 'react-loadable causing uncaught error to be thrown',
+			jiraIssueId: 'NAVX-3277',
+		},
+	],
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {

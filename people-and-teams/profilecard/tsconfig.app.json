@@ -120,6 +120,12 @@
 		},
 		{
 			"path": "../../design-system/tooltip/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flag-storybook-utils/tsconfig.app.json"
+		},
+		{
+			"path": "../../helpers/storybook/tsconfig.app.json"
 		}
 	]
 }

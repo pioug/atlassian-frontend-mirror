@@ -78,9 +78,6 @@
 			"path": "../linking-common/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/onboarding/tsconfig.app.json"
-		},
-		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{

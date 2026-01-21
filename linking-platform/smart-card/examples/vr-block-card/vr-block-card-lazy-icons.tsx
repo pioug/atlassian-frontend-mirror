@@ -13,6 +13,8 @@ import {
 	BlockCardLazyIconsFileTypeExample4,
 } from '../utils/block-card-lazy-icons';
 
+import '../utils/vr-preload-link-type-icons';
+
 const generateBlockCardLazyIcons = (Component: React.ComponentType<any>, totalItems: number) =>
 	withWaitForItem(Component, () => {
 		const item = document.body.querySelectorAll('[data-testid="smart-block-title-resolved-view"]');

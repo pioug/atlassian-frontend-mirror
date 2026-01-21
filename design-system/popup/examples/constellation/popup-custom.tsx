@@ -13,6 +13,7 @@ import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const containerStyles = css({
+	zIndex: 400,
 	backgroundColor: token('color.background.brand.bold'),
 	borderRadius: token('radius.small'),
 	color: token('color.text.inverse'),

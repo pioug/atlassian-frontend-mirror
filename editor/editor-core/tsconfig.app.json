@@ -301,13 +301,7 @@
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
-			"path": "../../linking-platform/link-provider/tsconfig.app.json"
-		},
-		{
 			"path": "../../media/media-card/tsconfig.app.json"
-		},
-		{
-			"path": "../../media/media-core/tsconfig.app.json"
 		},
 		{
 			"path": "../../elements/mention/tsconfig.app.json"

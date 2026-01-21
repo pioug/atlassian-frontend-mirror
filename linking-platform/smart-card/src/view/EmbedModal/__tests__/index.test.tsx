@@ -656,7 +656,7 @@ describe('EmbedModal', () => {
 				const list = await screen.findByRole('list');
 
 				expect(list).toBeInTheDocument();
-				expect(within(list).queryAllByRole('button').length).toBe(4);
+				expect(within(list).queryAllByRole('button').length).toBe(3);
 			});
 		});
 	});

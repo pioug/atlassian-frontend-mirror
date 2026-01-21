@@ -38,7 +38,7 @@ export const canMove = (
 	destination: coord,
 	pieceType: PieceType,
 	pieces: PieceRecord[],
-) => {
+): boolean => {
 	const rowDist = Math.abs(start[0] - destination[0]);
 	const colDist = Math.abs(start[1] - destination[1]);
 

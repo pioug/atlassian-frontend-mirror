@@ -1,5 +1,17 @@
 # @atlaskit/profilecard
 
+## 24.31.0
+
+### Minor Changes
+
+- [`04077f2897e0e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/04077f2897e0e) -
+  [ux] Changing the UI for the user identity profile card when the user is the Rovo Dev agent.
+  Change is feature gated.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.30.2
 
 ### Patch Changes

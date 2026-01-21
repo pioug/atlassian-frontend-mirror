@@ -48,9 +48,6 @@
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
-			"path": "../media-core/tsconfig.app.json"
-		},
-		{
 			"path": "../media-test-helpers/tsconfig.app.json"
 		},
 		{

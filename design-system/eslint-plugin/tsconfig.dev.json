@@ -49,12 +49,6 @@
 			"path": "../eslint-utils/tsconfig.app.json"
 		},
 		{
-			"path": "../icon/tsconfig.app.json"
-		},
-		{
-			"path": "../icon-lab/tsconfig.app.json"
-		},
-		{
 			"path": "../tokens/tsconfig.app.json"
 		},
 		{

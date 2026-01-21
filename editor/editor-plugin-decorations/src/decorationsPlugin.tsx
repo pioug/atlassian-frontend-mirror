@@ -33,8 +33,7 @@ export const decorationsPlugin: DecorationsPlugin = () => ({
 
 	commands: {
 		hoverDecoration: expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
-			? ({ nodeType, add, className }: HoverDecorationProps) =>
-					hoverDecorationCommand({ nodeType, add, className })
+			? ({ add, className }: HoverDecorationProps) => hoverDecorationCommand({ add, className })
 			: undefined,
 		removeDecoration: expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
 			? () => removeDecorationCommand()

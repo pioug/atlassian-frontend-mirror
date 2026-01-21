@@ -41,9 +41,6 @@
 			"path": "../media-common/tsconfig.app.json"
 		},
 		{
-			"path": "../media-state/tsconfig.app.json"
-		},
-		{
 			"path": "../media-ui/tsconfig.app.json"
 		},
 		{

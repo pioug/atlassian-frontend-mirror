@@ -1,5 +1,19 @@
 # @atlaskit/editor-core
 
+## 216.7.3
+
+### Patch Changes
+
+- [`e67c337cad289`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e67c337cad289) -
+  Fixes layout shift with toolbar under editor hydration
+- Updated dependencies
+
+## 216.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 216.7.1
 
 ### Patch Changes

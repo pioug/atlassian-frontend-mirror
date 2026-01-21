@@ -170,8 +170,8 @@ const LinkInfo = ({
 					label={messages.viewOriginal}
 					onClick={onViewButtonClick}
 					testId={`${testId}-url`}
-					role={fg('navx-2185-smart-link-preview-modal-icon-role') ? 'link' : ''}
-					aria-label={fg('navx-2185-smart-link-preview-modal-icon-role') ? messages.viewOriginal : ''}
+					role={'link'}
+					aria-label={messages.viewOriginal}
 				/>
 			);
 		}
@@ -293,8 +293,8 @@ const LinkInfoNew = ({
 					label={messages.viewOriginal}
 					onClick={onViewButtonClick}
 					testId={`${testId}-url`}
-					role={fg('navx-2185-smart-link-preview-modal-icon-role') ? 'link' : ''}
-					aria-label={fg('navx-2185-smart-link-preview-modal-icon-role') ? messages.viewOriginal : ''}
+					role={'link'}
+					aria-label={messages.viewOriginal}
 				/>
 			);
 		}

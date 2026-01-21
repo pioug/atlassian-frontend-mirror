@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import debounce from 'lodash/debounce';
-import memoizeOne from 'memoize-one';
+import memoizeOne, { type MemoizedFn } from 'memoize-one';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
@@ -25,7 +25,12 @@ const defaultProps: Partial<UseUserRecommendationsProps> = {
 	includeUsers: true,
 };
 
-export const instrumentFailureOption = [
+export const instrumentFailureOption: {
+    id: string;
+    name: string;
+    entityType: EntityType;
+    avatarUrl: string;
+}[] = [
 	{
 		id: 'not-used',
 		name: 'User Picker is not instrumented correctly',
@@ -34,7 +39,14 @@ export const instrumentFailureOption = [
 	},
 ];
 
-const useUserRecommendations = (props: UseUserRecommendationsProps) => {
+const useUserRecommendations = (props: UseUserRecommendationsProps): {
+    recommendations: {
+        id: string;
+        name: string;
+        entityType: EntityType;
+        avatarUrl: string;
+    }[] | UserSearchItem[]; triggerSearchFactory: MemoizedFn<() => (query?: string) => void>; selectUserFactory: MemoizedFn<() => (userId: string) => void>; isLoading: boolean; error: any;
+} => {
 	const {
 		baseUrl,
 		childObjectId,

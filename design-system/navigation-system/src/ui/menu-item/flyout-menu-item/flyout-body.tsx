@@ -18,8 +18,10 @@ const bodyStyles = cssMap({
         justifyContent: 'start',
         marginInlineStart: token('space.negative.100'),
         marginInlineEnd: token('space.negative.100'),
+        marginBlockEnd: token('space.negative.100'),
         paddingInlineStart: token('space.100'),
-        paddingInlineEnd: token('space.100')
+        paddingInlineEnd: token('space.100'),
+        paddingBlockEnd: token('space.100'),
     }
 });
 
@@ -31,10 +33,25 @@ export interface FlyoutBodyProps {
     children?: React.ReactNode;
 
     /**
-	 * A unique string that appears as data attribute data-testid in the
+     * A unique string that appears as data attribute data-testid in the
      * rendered code, serving as a hook for automated tests.
      */
     testId?: string;
+
+    /**
+     * Handler for key down events.
+     */
+    onKeyDown?: React.KeyboardEventHandler<HTMLObjectElement>;
+
+    /**
+     * Handler for key up events.
+     */
+    onKeyUp?: React.KeyboardEventHandler<HTMLObjectElement>;
+
+    /**
+     * Handler for blur capture events.
+     */
+    onBlurCapture?: React.FocusEventHandler<HTMLObjectElement>;
 }
 
 /**
@@ -45,12 +62,27 @@ export interface FlyoutBodyProps {
  * FlyoutHeader and FlyoutFooter (if present), as is scrollable if the content
  * exceeds the available space.
  */
-export const FlyoutBody = (props: FlyoutBodyProps) => {
-    const { children, testId } = props;
+export const FlyoutBody = React.forwardRef<HTMLDivElement, FlyoutBodyProps>(
+    (props, ref) => {
+        const { children, testId, onKeyDown, onKeyUp, onBlurCapture } = props;
 
-    return (
-        <div css={bodyStyles.root} data-testid={testId}>
-            {children}
-        </div>
-    )
-};
+        return (
+            // The presentation role is used to satisfy the
+            // eslint-plugin-jsx-a11y/no-noninteractive-element-interactions
+            // linting rule. The event handlers (onKeyDown, onKeyUp, onBlurCapture)
+            // are here to capture bubbled events from child elements, not to make
+            // this div itself interactive.
+            <div
+                ref={ref}
+                css={bodyStyles.root}
+                data-testid={testId}
+                onKeyDown={onKeyDown}
+                onKeyUp={onKeyUp}
+                onBlurCapture={onBlurCapture}
+                role="presentation"
+            >
+                {children}
+            </div>
+        );
+    },
+);

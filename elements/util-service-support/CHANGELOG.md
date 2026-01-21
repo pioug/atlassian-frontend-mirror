@@ -1,5 +1,11 @@
 # @atlaskit/util-service-support
 
+## 6.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.3.3
 
 ### Patch Changes
@@ -190,7 +196,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
 
 ## 5.0.0
@@ -373,7 +378,6 @@ Bumped dependencies.
 - [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
   In this PR, we are:
-
   - Re-introducing dist build folders
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
@@ -392,19 +396,16 @@ Bumped dependencies.
 ## 4.0.2
 
 - [patch][0a4ccaafae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a4ccaafae):
-
   - Bump tslib
 
 ## 4.0.1
 
 - [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
-
   - Add npmignore for index.ts to prevent some jest tests from resolving that instead of index.js
 
 ## 4.0.0
 
 - [major][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-
   - Dropped ES5 distributables from the typescript packages
 
 ## 3.1.1
@@ -416,7 +417,6 @@ Bumped dependencies.
 ## 3.1.0
 
 - [minor][1d19234fbd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1d19234fbd):
-
   - Enable noImplicitAny and resolve issues for elements util packages
 
 ## 3.0.5
@@ -427,7 +427,6 @@ Bumped dependencies.
 ## 3.0.4
 
 - [patch][0a297ba](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a297ba):
-
   - Packages should not be shown in the navigation, search and overview
 
 ## 3.0.3

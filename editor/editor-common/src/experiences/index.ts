@@ -3,7 +3,7 @@
 
 export { Experience } from './Experience';
 
-export { EXPERIENCE_ABORT_REASON, EXPERIENCE_FAILURE_REASON } from './consts';
+export { EXPERIENCE_ABORT_REASON, EXPERIENCE_FAILURE_REASON, EXPERIENCE_ID } from './consts';
 
 export { ExperienceCheckComposite } from './ExperienceCheckComposite';
 export { ExperienceCheckDomMutation } from './ExperienceCheckDomMutation';
@@ -25,4 +25,5 @@ export {
 	containsPopupWithNestedElement,
 	popupWithNestedElement,
 	getPopupContainerFromEditorView,
+	getNodeQuery,
 } from './experience-utils';

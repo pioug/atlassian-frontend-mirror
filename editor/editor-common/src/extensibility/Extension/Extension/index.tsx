@@ -19,7 +19,7 @@ import type { ExtensionProvider, ReferenceEntity } from '../../../extensions';
 import { useSharedPluginStateWithSelector } from '../../../hooks';
 import type { ProsemirrorGetPosHandler } from '../../../react-node-view';
 import type { EditorAppearance, EditorContainerWidth } from '../../../types';
-import type { OverflowShadowProps } from '../../../ui';
+import type { OverflowShadowProps, OverflowShadowState, ShadowObserver } from '../../../ui';
 import { overflowShadow } from '../../../ui';
 import { calculateBreakoutStyles } from '../../../utils';
 import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags } from '../../types';
@@ -360,6 +360,179 @@ const Extension = (props: Props & OverflowShadowProps) => {
 	);
 };
 
-export default overflowShadow(Extension, {
+const _default_1: {
+	new (props: Props & OverflowShadowProps): {
+		calcOverflowDiff: () => number;
+		calcScrollableWidth: () => number;
+		componentDidCatch?: (error: Error, errorInfo: React.ErrorInfo) => void;
+		componentDidMount?: () => void;
+		componentDidUpdate: () => void;
+		componentWillMount?: () => void;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		componentWillReceiveProps?: (
+			nextProps: Readonly<Props & OverflowShadowProps>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => void;
+		componentWillUnmount: () => void;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		componentWillUpdate?: (
+			nextProps: Readonly<Props & OverflowShadowProps>,
+			nextState: Readonly<OverflowShadowState>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => void;
+		container?: HTMLElement;
+		context: unknown;
+		diff?: number;
+		forceUpdate: (callback?: (() => void) | undefined) => void;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		getSnapshotBeforeUpdate?: (
+			prevProps: Readonly<Props & OverflowShadowProps>,
+			prevState: Readonly<OverflowShadowState>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		) => any;
+		handleContainer: (container: HTMLElement | null) => void;
+		handleScroll: (event: Event) => void;
+		initShadowObserver: () => void;
+		overflowContainer?: HTMLElement | null;
+		overflowContainerWidth: number;
+		readonly props: Readonly<Props & OverflowShadowProps>;
+		refs: {
+			[key: string]: React.ReactInstance;
+		};
+		render: () => React.JSX.Element;
+		scrollable?: NodeList;
+		setState: <K extends keyof OverflowShadowState>(
+			state:
+				| OverflowShadowState
+				| ((
+						prevState: Readonly<OverflowShadowState>,
+						props: Readonly<Props & OverflowShadowProps>,
+				  ) => OverflowShadowState | Pick<OverflowShadowState, K> | null)
+				| Pick<OverflowShadowState, K>
+				| null,
+			callback?: (() => void) | undefined,
+		) => void;
+		shadowObserver?: ShadowObserver;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		shouldComponentUpdate?: (
+			nextProps: Readonly<Props & OverflowShadowProps>,
+			nextState: Readonly<OverflowShadowState>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => boolean;
+		showLeftShadow: (overflowContainer: HTMLElement | null | undefined) => boolean;
+		state: {
+			showLeftShadow: boolean;
+			showRightShadow: boolean;
+		};
+		UNSAFE_componentWillMount?: () => void;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		UNSAFE_componentWillReceiveProps?: (
+			nextProps: Readonly<Props & OverflowShadowProps>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => void;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		UNSAFE_componentWillUpdate?: (
+			nextProps: Readonly<Props & OverflowShadowProps>,
+			nextState: Readonly<OverflowShadowState>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => void;
+		updateShadows: () => void;
+	};
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	new (
+		props: Props & OverflowShadowProps,
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		context: any,
+	): {
+		calcOverflowDiff: () => number;
+		calcScrollableWidth: () => number;
+		componentDidCatch?: (error: Error, errorInfo: React.ErrorInfo) => void;
+		componentDidMount?: () => void;
+		componentDidUpdate: () => void;
+		componentWillMount?: () => void;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		componentWillReceiveProps?: (
+			nextProps: Readonly<Props & OverflowShadowProps>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => void;
+		componentWillUnmount: () => void;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		componentWillUpdate?: (
+			nextProps: Readonly<Props & OverflowShadowProps>,
+			nextState: Readonly<OverflowShadowState>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => void;
+		container?: HTMLElement;
+		context: unknown;
+		diff?: number;
+		forceUpdate: (callback?: (() => void) | undefined) => void;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		getSnapshotBeforeUpdate?: (
+			prevProps: Readonly<Props & OverflowShadowProps>,
+			prevState: Readonly<OverflowShadowState>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		) => any;
+		handleContainer: (container: HTMLElement | null) => void;
+		handleScroll: (event: Event) => void;
+		initShadowObserver: () => void;
+		overflowContainer?: HTMLElement | null;
+		overflowContainerWidth: number;
+		readonly props: Readonly<Props & OverflowShadowProps>;
+		refs: {
+			[key: string]: React.ReactInstance;
+		};
+		render: () => React.JSX.Element;
+		scrollable?: NodeList;
+		setState: <K extends keyof OverflowShadowState>(
+			state:
+				| OverflowShadowState
+				| ((
+						prevState: Readonly<OverflowShadowState>,
+						props: Readonly<Props & OverflowShadowProps>,
+				  ) => OverflowShadowState | Pick<OverflowShadowState, K> | null)
+				| Pick<OverflowShadowState, K>
+				| null,
+			callback?: (() => void) | undefined,
+		) => void;
+		shadowObserver?: ShadowObserver;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		shouldComponentUpdate?: (
+			nextProps: Readonly<Props & OverflowShadowProps>,
+			nextState: Readonly<OverflowShadowState>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => boolean;
+		showLeftShadow: (overflowContainer: HTMLElement | null | undefined) => boolean;
+		state: {
+			showLeftShadow: boolean;
+			showRightShadow: boolean;
+		};
+		UNSAFE_componentWillMount?: () => void;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		UNSAFE_componentWillReceiveProps?: (
+			nextProps: Readonly<Props & OverflowShadowProps>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => void;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		UNSAFE_componentWillUpdate?: (
+			nextProps: Readonly<Props & OverflowShadowProps>,
+			nextState: Readonly<OverflowShadowState>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => void;
+		updateShadows: () => void;
+	};
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	contextType?: React.Context<any> | undefined;
+} = overflowShadow(Extension, {
 	overflowSelector: '.extension-overflow-wrapper',
 });
+export default _default_1;

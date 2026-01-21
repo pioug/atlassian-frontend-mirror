@@ -38,6 +38,9 @@
 			"path": "../../design-system/checkbox/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/css/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/form/tsconfig.app.json"
 		},
 		{
@@ -45,6 +48,9 @@
 		},
 		{
 			"path": "../../design-system/icon/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/image/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/link/tsconfig.app.json"

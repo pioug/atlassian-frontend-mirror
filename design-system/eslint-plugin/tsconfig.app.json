@@ -32,9 +32,6 @@
 	},
 	"references": [
 		{
-			"path": "../ds-lib/tsconfig.app.json"
-		},
-		{
 			"path": "../eslint-utils/tsconfig.app.json"
 		},
 		{
@@ -44,16 +41,10 @@
 			"path": "../icon-lab/tsconfig.app.json"
 		},
 		{
-			"path": "../theme/tsconfig.app.json"
-		},
-		{
 			"path": "../tokens/tsconfig.app.json"
 		},
 		{
 			"path": "../codegen/tsconfig.app.json"
-		},
-		{
-			"path": "../../monorepo-tooling/ts-loader/tsconfig.app.json"
 		}
 	],
 	"files": []

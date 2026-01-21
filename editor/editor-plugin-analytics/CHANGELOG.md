@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-analytics
 
+## 7.0.1
+
+### Patch Changes
+
+- [`d34e6bd1197a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d34e6bd1197a5) -
+  EDITOR-4178 update document inserted event to have is inside synced block attribute
+- Updated dependencies
+
 ## 7.0.0
 
 ### Patch Changes

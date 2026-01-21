@@ -5,7 +5,10 @@ import {
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
-import { expandSelectionToBlockRange } from '@atlaskit/editor-common/selection';
+import {
+	expandSelectionToBlockRange,
+	getSourceNodesFromSelectionRange,
+} from '@atlaskit/editor-common/selection';
 import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
@@ -42,11 +45,7 @@ export const transformNode: (
 		const isNested = isNestedNode(preservedSelection, '') && !isParentLayout;
 		const isList = isListNode(selectedParent);
 
-		const sliceStart = isList ? $from.pos - 1 : $from.pos;
-		const sliceEnd = isList ? $to.pos + 1 : $to.pos;
-		const slice = tr.doc.slice(sliceStart, sliceEnd);
-
-		const sourceNodes = [...slice.content.content];
+		const sourceNodes = getSourceNodesFromSelectionRange(tr, preservedSelection);
 		const sourceNodeTypes: Record<string, number> = {};
 		sourceNodes.forEach((node) => {
 			const typeName = node.type.name;
@@ -62,7 +61,9 @@ export const transformNode: (
 			parentNode: selectedParent,
 		});
 
-		const content = resultNodes.length > 0 ? resultNodes : slice.content;
+		const content = resultNodes.length > 0 ? resultNodes : sourceNodes;
+
+		const sliceStart = isList ? $from.pos - 1 : $from.pos;
 
 		if (
 			preservedSelection instanceof NodeSelection &&
@@ -80,10 +81,8 @@ export const transformNode: (
 			// when we replace and insert content, we need to manually map the preserved selection
 			// through the transaction, otherwise it will treat the selection as having been deleted
 			// and stop preserving it
-			const oldSize = slice.size;
-			const newSize = Array.isArray(content)
-				? content.reduce((sum, node) => sum + node.nodeSize, 0)
-				: content.size;
+			const oldSize = sourceNodes.reduce((sum, node) => sum + node.nodeSize, 0);
+			const newSize = content.reduce((sum, node) => sum + node.nodeSize, 0);
 			api?.blockControls?.commands.mapPreservedSelection(
 				new Mapping([new StepMap([0, oldSize, newSize])]),
 			)({ tr });

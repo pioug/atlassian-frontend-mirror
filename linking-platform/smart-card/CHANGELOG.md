@@ -1,5 +1,25 @@
 # @atlaskit/smart-card
 
+## 43.21.0
+
+### Minor Changes
+
+- [`1dbb521f75d85`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1dbb521f75d85) -
+  [ux] Add maxWidth prop to FlexibleCard's State Lozenge, behind fg
+  platform_navx_sl_lozenge_max_width.
+
+### Patch Changes
+
+- [`451616e6c693d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/451616e6c693d) -
+  NAVX-3137 cleaning up navx-2185-smart-link-preview-modal-icon-role
+- Updated dependencies
+
+## 43.20.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 43.20.7
 
 ### Patch Changes

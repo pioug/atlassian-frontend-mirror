@@ -11,6 +11,7 @@ import Lozenge from '@atlaskit/lozenge';
 
 import { canBeConvertedToSyncBlock } from '../pm-plugins/utils/utils';
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
+import { SYNCED_BLOCK_BUTTON_TEST_ID } from '../types';
 
 const CreateSyncedBlockDropdownItem = ({
 	api,
@@ -49,7 +50,7 @@ const CreateSyncedBlockDropdownItem = ({
 			elemBefore={<SyncBlocksIcon label="" />}
 			onClick={onClick}
 			isDisabled={isOffline}
-			testId={"create-synced-block-block-menu-btn"}
+			testId={SYNCED_BLOCK_BUTTON_TEST_ID.blockMenuCreate}
 			elemAfter={<Lozenge appearance="new">{formatMessage(blockMenuMessages.newLozenge)}</Lozenge>}
 		>
 			{formatMessage(blockMenuMessages.createSyncedBlock)}

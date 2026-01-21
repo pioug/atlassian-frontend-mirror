@@ -4,11 +4,9 @@ import type { DocNode } from '@atlaskit/adf-schema';
 import { SyncBlockSharedCssClassName, SyncBlockRendererDataAttributeName } from '@atlaskit/editor-common/sync-block';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import { SyncBlockError, useFetchSyncBlockData } from '@atlaskit/editor-synced-block-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { type NodeProps } from '@atlaskit/renderer';
 
 import type { SyncedBlockRendererOptions } from '../types';
-import { setupExperienceTracking } from '../utils/experience-tracking';
 
 import { AKRendererWrapper } from './AKRendererWrapper';
 import { SyncedBlockErrorComponent } from './SyncedBlockErrorComponent';
@@ -35,10 +33,6 @@ export const SyncedBlockNodeComponentRenderer = ({
 	const { resourceId, localId, fireAnalyticsEvent } = nodeProps;
 
 	syncBlockStoreManager.referenceManager.updateFireAnalyticsEvent(fireAnalyticsEvent);
-
-	if (fg('platform_synced_block_dogfooding')) {
-		setupExperienceTracking(syncBlockStoreManager, fireAnalyticsEvent)
-	}
 
 	const { syncBlockInstance, isLoading, reloadData, providerFactory } = useFetchSyncBlockData(
 		syncBlockStoreManager,

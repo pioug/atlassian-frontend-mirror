@@ -39,9 +39,6 @@
 	"references": [
 		{
 			"path": "./tsconfig.app.json"
-		},
-		{
-			"path": "../editor-prosemirror/tsconfig.app.json"
 		}
 	]
 }

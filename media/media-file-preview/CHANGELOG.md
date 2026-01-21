@@ -1,5 +1,11 @@
 # @atlaskit/media-file-preview
 
+## 0.15.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.15.4
 
 ### Patch Changes

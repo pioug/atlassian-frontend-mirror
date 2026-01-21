@@ -1,4 +1,4 @@
-import memorizeOne from 'memoize-one';
+import memorizeOne, { type MemoizedFn } from 'memoize-one';
 
 // eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
 /**
@@ -52,8 +52,8 @@ if (typeof navigator !== 'undefined') {
 	const ie = (result.ie = !!(ieUpTo10 || ie11up || ieEdge));
 	result.ie_version = ieUpTo10
 		? // Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			(document as any).documentMode || 6
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		(document as any).documentMode || 6
 		: ie11up
 			? +ie11up[1]
 			: ieEdge
@@ -86,10 +86,10 @@ if (typeof navigator !== 'undefined') {
 
 	result.safari = Boolean(
 		navigator.vendor &&
-			navigator.vendor.indexOf('Apple') > -1 &&
-			navigator.userAgent &&
-			navigator.userAgent.indexOf('CriOS') === -1 &&
-			navigator.userAgent.indexOf('FxiOS') === -1,
+		navigator.vendor.indexOf('Apple') > -1 &&
+		navigator.userAgent &&
+		navigator.userAgent.indexOf('CriOS') === -1 &&
+		navigator.userAgent.indexOf('FxiOS') === -1,
 	);
 	result.safari_version = parseInt(
 		// Ignored via go/ees005
@@ -168,7 +168,13 @@ const hasResizeObserver = (): boolean => {
 };
 
 // New API to get the browser info on demand
-export const getBrowserInfo = memorizeOne(() => {
+export const getBrowserInfo: MemoizedFn<() => {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	[key: string]: any;
+}> = memorizeOne((): {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	[key: string]: any;
+} => {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const result: { [key: string]: any } = {
 		mac: false,
@@ -219,13 +225,13 @@ export const getBrowserInfo = memorizeOne(() => {
 		// inspired from https://github.com/bowser-js/bowser/blob/master/src/parser-browsers.js
 		result.ie_version = ieEdge
 			? // eslint-disable-next-line require-unicode-regexp
-				parseInt(getFirstMatch(/\sedg\/(\d+(\.?_?\d+)+)/i, userAgent), 10)
+			parseInt(getFirstMatch(/\sedg\/(\d+(\.?_?\d+)+)/i, userAgent), 10)
 			: // eslint-disable-next-line require-unicode-regexp
-				ieEdge2
+			ieEdge2
 				? // eslint-disable-next-line require-unicode-regexp
-					parseInt(getSecondMatch(/edg([ea]|ios)\/(\d+(\.?_?\d+)+)/i, userAgent), 10)
+				parseInt(getSecondMatch(/edg([ea]|ios)\/(\d+(\.?_?\d+)+)/i, userAgent), 10)
 				: // eslint-disable-next-line require-unicode-regexp
-					parseInt(getFirstMatch(/(?:msie |rv:)(\d+(\.?_?\d+)+)/i, userAgent), 10);
+				parseInt(getFirstMatch(/(?:msie |rv:)(\d+(\.?_?\d+)+)/i, userAgent), 10);
 
 		// Ignored via go/ees005
 		// eslint-disable-next-line require-unicode-regexp

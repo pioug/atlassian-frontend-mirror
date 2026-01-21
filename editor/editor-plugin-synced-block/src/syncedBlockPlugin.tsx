@@ -15,10 +15,10 @@ import {
 	copySyncedBlockReferenceToClipboardEditorCommand,
 	createSyncedBlock,
 } from './editor-commands';
-import { getExperienceTrackingPlugins } from './pm-plugins/experience-tracking/get-experience-tracking-plugins';
 import { createPlugin, syncedBlockPluginKey } from './pm-plugins/main';
+import { getMenuAndToolbarExperiencesPlugin } from './pm-plugins/menu-and-toolbar-experiences';
 import type { SyncedBlockPlugin } from './syncedBlockPluginType';
-import type { SyncedBlockSharedState } from './types';
+import { SYNCED_BLOCK_BUTTON_TEST_ID, type SyncedBlockSharedState } from './types';
 import { getBlockMenuComponents } from './ui/block-menu-components';
 import { DeleteConfirmationModal } from './ui/DeleteConfirmationModal';
 import { Flag } from './ui/Flag';
@@ -63,12 +63,14 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 						createPlugin(config, params, syncBlockStore, api),
 				},
 				...(fg('platform_synced_block_dogfooding')
-					? getExperienceTrackingPlugins({
-						refs,
-						dispatchAnalyticsEvent: (payload) => api?.analytics?.actions.fireAnalyticsEvent(payload),
-						syncBlockStore
-					})
-					: []),
+					? [{
+						name: 'menuAndToolbarExperiencesPlugin',
+						plugin: () =>
+							getMenuAndToolbarExperiencesPlugin({
+								refs,
+								dispatchAnalyticsEvent: (payload) => api?.analytics?.actions?.fireAnalyticsEvent(payload),
+							})
+					}]: []),
 			];
 		},
 
@@ -86,6 +88,7 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 						createSyncedBlock({
 							tr,
 							syncBlockStore,
+							fireAnalyticsEvent: api?.analytics?.actions.fireAnalyticsEvent,
 						}) || null
 					);
 				},
@@ -134,9 +137,10 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 								tr: state.tr,
 								syncBlockStore,
 								typeAheadInsert: insert,
+								fireAnalyticsEvent: api?.analytics?.actions.fireAnalyticsEvent,
 							});
 						},
-						testId: fg('platform_synced_block_dogfooding') ? 'create-synced-block-quick-insert-btn' : undefined
+						testId: fg('platform_synced_block_dogfooding') ? SYNCED_BLOCK_BUTTON_TEST_ID.quickInsertCreate : undefined
 					},
 				];
 			},

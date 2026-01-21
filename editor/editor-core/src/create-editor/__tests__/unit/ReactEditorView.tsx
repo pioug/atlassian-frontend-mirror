@@ -124,7 +124,7 @@ import * as useDispatchTransactionModule from '../../ReactEditorView/useDispatch
 const initializeCollab = (view: EditorView) =>
 	view.dispatch(view.state.tr.setMeta('collabInitialised', true));
 
-export const editorAnalyticsChannel = FabricChannel.editor;
+export const editorAnalyticsChannel: FabricChannel.editor = FabricChannel.editor;
 
 const portalProviderAPI: any = {
 	render() {},

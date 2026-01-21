@@ -51,9 +51,6 @@
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
 		},
 		{
-			"path": "../../uip/atlassian-context/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/button/tsconfig.app.json"
 		},
 		{
@@ -87,9 +84,6 @@
 			"path": "../json-ld-types/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/link/tsconfig.app.json"
-		},
-		{
 			"path": "../link-client-extension/tsconfig.app.json"
 		},
 		{
@@ -106,9 +100,6 @@
 		},
 		{
 			"path": "../../design-system/modal-dialog/tsconfig.app.json"
-		},
-		{
-			"path": "../../teamwork-ecosystem/outbound-auth-flow-client/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"

@@ -1,15 +1,57 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey, type ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 
-import { SelectionExtensionActionTypes, type SelectionExtensionPluginState } from '../types';
+import {
+	SelectionExtensionActionTypes,
+	type ExtensionMenuItemConfiguration,
+	type SelectionExtension,
+	type SelectionExtensionCoords,
+	type SelectionExtensionPluginState,
+	type SelectionExtensionSelectionInfo,
+} from '../types';
 
-export const selectionExtensionPluginKey = new PluginKey<SelectionExtensionPluginState>(
-	'selectionExtensionPlugin',
-);
+export const selectionExtensionPluginKey: PluginKey<SelectionExtensionPluginState> =
+	new PluginKey<SelectionExtensionPluginState>('selectionExtensionPlugin');
 
-export const createPlugin = () => {
+export const createPlugin = (): SafePlugin<
+	| SelectionExtensionPluginState
+	| {
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			activeExtension: any;
+			docChangedAfterClick?: boolean;
+			nodePos?: number;
+			selectedNode?: Node;
+			startTrackChanges?: boolean;
+	  }
+	| {
+			activeExtension?: {
+				coords: SelectionExtensionCoords;
+				extension: SelectionExtension | ExtensionMenuItemConfiguration;
+				selection: SelectionExtensionSelectionInfo;
+			};
+			docChangedAfterClick: boolean;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nodePos: any;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			selectedNode: any;
+			startTrackChanges: boolean;
+	  }
+	| {
+			activeExtension?: {
+				coords: SelectionExtensionCoords;
+				extension: SelectionExtension | ExtensionMenuItemConfiguration;
+				selection: SelectionExtensionSelectionInfo;
+			};
+			docChangedAfterClick?: boolean;
+			nodePos?: number;
+			selectedNode?: Node;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			startTrackChanges: any;
+	  }
+> => {
 	return new SafePlugin({
 		key: selectionExtensionPluginKey,
 		state: {

@@ -146,11 +146,11 @@ export class FilmstripView extends React.Component<FilmstripViewProps, Filmstrip
 		return Math.max(this.minOffset, bufferWidth - windowWidth - 1);
 	}
 
-	get canGoLeft() {
+	get canGoLeft(): boolean {
 		return this.offset > this.minOffset;
 	}
 
-	get canGoRight() {
+	get canGoRight(): boolean {
 		return this.offset < this.maxOffset;
 	}
 

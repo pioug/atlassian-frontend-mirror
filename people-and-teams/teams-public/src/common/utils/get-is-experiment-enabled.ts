@@ -31,7 +31,7 @@ export const getIsExperimentEnabled = (
 	variantKey: Cohort = VARIATION,
 	validExperimentCohorts: Cohort[] = DEFAULT_VALID_EXPERIMENT_COHORTS,
 	fireExperimentExposure = true,
-) => {
+): boolean => {
 	if (FeatureGates.initializeCalled()) {
 		const cohort = FeatureGates.getExperimentValue(experimentName, COHORT_PARAMETER, NOT_ENROLLED, {
 			fireExperimentExposure,

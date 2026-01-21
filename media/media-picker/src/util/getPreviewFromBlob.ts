@@ -2,7 +2,7 @@ import { type MediaType, type Dimensions, getDimensionsFromBlob } from '@atlaski
 
 import { type Preview } from '../types';
 
-export const isUnknownDimensions = (dimensions: Dimensions) =>
+export const isUnknownDimensions = (dimensions: Dimensions): boolean =>
 	!dimensions.width && !dimensions.height;
 
 export async function getPreviewFromBlob(mediaType: MediaType, file: Blob): Promise<Preview> {

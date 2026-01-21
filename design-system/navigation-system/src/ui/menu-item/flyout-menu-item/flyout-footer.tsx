@@ -15,7 +15,8 @@ const footerStyles = cssMap({
         borderBlockStartWidth: token('border.width'),
         borderBlockStartStyle: 'solid',
         borderBlockStartColor: token('color.border'),
-        paddingBlockStart: token('space.100')
+        marginBlockStart: token('space.100'),
+        paddingBlockStart: token('space.100'),
     }
 });
 

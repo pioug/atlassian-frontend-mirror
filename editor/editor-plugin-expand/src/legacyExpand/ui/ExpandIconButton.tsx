@@ -4,7 +4,7 @@
  */
 import React, { useCallback } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl-next';
 
@@ -29,7 +29,95 @@ interface ExpandIconButtonWithLabelProps extends ExpandIconButtonProps {
 	label: string;
 }
 
-export const withTooltip = (WrapperComponent: React.ElementType) => {
+export const withTooltip = (
+	WrapperComponent: React.ElementType,
+): {
+	new (props: ExpandIconButtonWithLabelProps): {
+		componentDidCatch?: (error: Error, errorInfo: React.ErrorInfo) => void;
+		componentDidMount?: () => void;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
+		componentDidUpdate?: (
+			prevProps: Readonly<ExpandIconButtonWithLabelProps>,
+			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			prevState: Readonly<{}>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			snapshot?: any,
+		) => void;
+		componentWillMount?: () => void;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		componentWillReceiveProps?: (
+			nextProps: Readonly<ExpandIconButtonWithLabelProps>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => void;
+		componentWillUnmount?: () => void;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
+		componentWillUpdate?: (
+			nextProps: Readonly<ExpandIconButtonWithLabelProps>,
+			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			nextState: Readonly<{}>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => void;
+		context: unknown;
+		forceUpdate: (callback?: (() => void) | undefined) => void;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
+		getSnapshotBeforeUpdate?: (
+			prevProps: Readonly<ExpandIconButtonWithLabelProps>,
+			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			prevState: Readonly<{}>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		) => any;
+		readonly props: Readonly<ExpandIconButtonWithLabelProps>;
+		refs: {
+			[key: string]: React.ReactInstance;
+		};
+		render: () => jsx.JSX.Element;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+		setState: <K extends never>(
+			state: // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			| {}
+				| ((
+						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+						prevState: Readonly<{}>,
+						props: Readonly<ExpandIconButtonWithLabelProps>,
+						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+				  ) => {} | Pick<{}, K> | null)
+				// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+				| Pick<{}, K>
+				| null,
+			callback?: (() => void) | undefined,
+		) => void;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
+		shouldComponentUpdate?: (
+			nextProps: Readonly<ExpandIconButtonWithLabelProps>,
+			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			nextState: Readonly<{}>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => boolean;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+		state: Readonly<{}>;
+		UNSAFE_componentWillMount?: () => void;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		UNSAFE_componentWillReceiveProps?: (
+			nextProps: Readonly<ExpandIconButtonWithLabelProps>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => void;
+		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
+		UNSAFE_componentWillUpdate?: (
+			nextProps: Readonly<ExpandIconButtonWithLabelProps>,
+			// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			nextState: Readonly<{}>,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			nextContext: any,
+		) => void;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	};
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	contextType?: React.Context<any> | undefined;
+} => {
 	return class WithSortableColumn extends React.Component<ExpandIconButtonWithLabelProps> {
 		constructor(props: ExpandIconButtonWithLabelProps) {
 			super(props);
@@ -52,7 +140,7 @@ export const withTooltip = (WrapperComponent: React.ElementType) => {
 	};
 };
 
-export const CustomButton = (props: ExpandIconButtonWithLabelProps) => {
+export const CustomButton = (props: ExpandIconButtonWithLabelProps): jsx.JSX.Element => {
 	const { allowInteractiveExpand, expanded, intl } = props;
 	const useTheme = useCallback(
 		// Ignored via go/ees005
@@ -95,7 +183,7 @@ export const CustomButton = (props: ExpandIconButtonWithLabelProps) => {
 const ButtonWithTooltip = withTooltip(CustomButton);
 const ButtonWithoutTooltip = CustomButton;
 
-export const ExpandIconButton = (props: ExpandIconButtonProps) => {
+export const ExpandIconButton = (props: ExpandIconButtonProps): jsx.JSX.Element => {
 	const { expanded, intl } = props;
 	const message = expanded ? expandMessages.collapseNode : expandMessages.expandNode;
 

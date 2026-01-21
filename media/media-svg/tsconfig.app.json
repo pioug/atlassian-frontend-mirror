@@ -37,9 +37,6 @@
 			"path": "../media-client-react/tsconfig.app.json"
 		},
 		{
-			"path": "../media-state/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/spinner/tsconfig.app.json"
 		}
 	],

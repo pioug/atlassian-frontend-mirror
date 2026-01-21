@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::eb2aa4be20622862a1a866d4af0eeefc>>
+ * @codegen <<SignedSource::69ce17efcdd11244664ecaea57b5d532>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -1155,37 +1155,48 @@ export type ProfileAboutItemEditedAttributesType = {
 };
 export type UserProfileScreenAboutPanelViewedAttributesType = {
 	nonEmptyFields: string;
+	isNewUserProfile: boolean | null;
 };
 export type PrivacyPolicyLinkClickedAttributesType = undefined;
 export type TeamProfileItemClickedAttributesType = {
 	position: number;
 	isPoweredByTWG: boolean | null;
+	isNewUserProfile: boolean | null;
 };
 export type ShowMoreClickedAttributesType = {
 	selectedUser: boolean | null;
 	withSearchQuery: boolean | null;
+	isNewUserProfile: boolean | null;
 };
 export type TeamCreateDialogTriggerButtonClickedAttributesType = {
 	trigger: string;
+	isNewUserProfile: boolean | null;
 };
 export type ButtonClickedManageAccountButtonAttributesType = undefined;
 export type ButtonClickedManageAccessButtonAttributesType = undefined;
-export type UserProfileScreenLoadFailedAttributesType = undefined;
+export type UserProfileScreenLoadFailedAttributesType = {
+	isNewUserProfile: boolean | null;
+};
 export type UserProfileScreenViewedAttributesType = {
 	isCurrentUser: boolean;
+	isNewUserProfile: boolean | null;
 };
 export type ViewAllWorkClickedAttributesType = {
 	location: string;
+	isNewUserProfile: boolean | null;
 };
 export type MoreWorkClickedAttributesType = {
 	numItemsDisplayed: number;
+	isNewUserProfile: boolean | null;
 };
 export type ActivityEntryClickedAttributesType = {
 	provider: string;
 	entryIndex: number;
+	isNewUserProfile: boolean | null;
 };
 export type PlacesLinkClickedAttributesType = {
 	type: string;
+	isNewUserProfile: boolean | null;
 };
 export type ViewedTeamProfileFromRequestToJoinNotificationViewedAttributesType = {
 	status: number | null;
@@ -1385,6 +1396,7 @@ export type AgentProfileAboutTeamsViewedAttributesType = {
 };
 export type UserProfileAboutTeamsViewedAttributesType = {
 	teamsCount: number;
+	isNewUserProfile: boolean | null;
 };
 export type TeamAgentsPanelViewedAttributesType = {
 	activeAgentsCount: number;

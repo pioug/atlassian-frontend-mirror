@@ -7,6 +7,8 @@ order: 4
 import layoutDo from './images/layout-do.png';
 import layoutDont from './images/layout-dont.png';
 
+import SectionMessage from '@atlaskit/section-message';
+
 ## Usage
 
 Use layout to compose the structure of your application. It also defines the page behavior and
@@ -58,7 +60,7 @@ When applying components to the navigational areas,
 	</li>
 	<li>
 		<strong>Aside:</strong> Optional. Use to display supporting or supplementary content. Is
-		resizable.
+		resizable. <em>We plan to deprecate this component, please use Panel instead.</em>
 	</li>
 	<li>
 		<strong>Panel:</strong> Optional. Use to display supporting or supplementary content. Is
@@ -67,6 +69,10 @@ When applying components to the navigational areas,
 </ol>
 
 ### The difference between Aside, Panel and Modal dialog
+
+<SectionMessage appearance="warning" title="Caution">
+	We are planning on deprecating the Aside component. Please use Panel instead.
+</SectionMessage>
 
 The main difference between Aside, Panel and Modal dialog is their behaviours:
 

@@ -30,6 +30,8 @@ import {
 import { type CustomActionItem } from '../../src/view/FlexibleCard/components/blocks/types';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
+import '../utils/vr-preload-metadata-icons';
+
 const listStyles = css({
 	listStyle: 'none',
 	marginTop: 0,

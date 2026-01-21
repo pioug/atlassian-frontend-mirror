@@ -50,6 +50,7 @@
 		"./mock-emoji-resource": "./src/emoji/mock-emoji-resource.ts",
 		"./mock-non-uploading-emoji-resource-factory": "./src/emoji/mock-non-uploading-emoji-resource-factory.ts",
 		"./mock-presence-resource": "./src/mention/mock-presence-resource.ts",
+		"./mock-task-decision-resource": "./src/task-decision/mock-task-decision-resource.ts",
 		"./profilecard-data": "./src/profilecard/profilecard-data.ts",
 		"./task-decision-story-data": "./src/task-decision/task-decision-story-data.ts",
 		"./presence-data": "./src/mention/presence-data.ts",

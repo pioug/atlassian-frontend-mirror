@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-date
 
+## 9.1.2
+
+### Patch Changes
+
+- [`3dde4e51c90bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3dde4e51c90bf) -
+  Fixed mixed HTML/Editor content copy/paste issue on Date node.
+- Updated dependencies
+
 ## 9.1.1
 
 ### Patch Changes

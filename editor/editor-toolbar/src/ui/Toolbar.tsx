@@ -55,17 +55,17 @@ const styles = cssMap({
 			display: 'none',
 		},
 		'[class*="show-above-"]:not(:has([data-toolbar-component="section"] [data-toolbar-component="button"], [data-toolbar-component="button-group"] [data-toolbar-component="button"])), [class*="show-below-"]:not(:has([data-toolbar-component="section"] [data-toolbar-component="button"], [data-toolbar-component="button-group"] [data-toolbar-component="button"]))':
-			{
-				display: 'none',
-			},
+		{
+			display: 'none',
+		},
 	},
 	hiddenSelectorsPatch: {
 		/* separators should be hidden from the ToolbarSection if there is no subsequent ToolbarSection */
 		// @ts-expect-error - container queries are not typed in cssMap
 		'[data-toolbar-component="section"]:not(:has(~ [data-toolbar-component="section"])) [data-toolbar-component="separator"]':
-			{
-				display: 'none',
-			},
+		{
+			display: 'none',
+		},
 	},
 });
 
@@ -100,11 +100,15 @@ export const Toolbar = ({ children, label, actionSubjectId, testId }: ToolbarPro
 				isResponsiveEnabled && styles.toolbarResponsive,
 				isResponsiveEnabled && styles.hiddenSelectors,
 				expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true) &&
-					styles.toolbarSeparator,
+				styles.toolbarSeparator,
 				expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true) &&
-					styles.hiddenSelectorsPatch,
+				styles.hiddenSelectorsPatch,
 			)}
-			role="toolbar"
+			role={
+				expValEquals('platform_editor_aifc_remove_duplicate_role', 'isEnabled', true)
+					? undefined
+					: 'toolbar'
+			}
 			aria-label={label}
 			testId={testId}
 			data-toolbar-type={
@@ -172,7 +176,11 @@ export const PrimaryToolbar = ({
 			>
 				<Box
 					xcss={cx(styles.toolbarBase, styles.primaryToolbar, styles.hiddenSelectors)}
-					role="toolbar"
+					role={
+						expValEquals('platform_editor_aifc_remove_duplicate_role', 'isEnabled', true)
+							? undefined
+							: 'toolbar'
+					}
 					aria-label={label}
 					data-toolbar-type={
 						expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true)
@@ -189,7 +197,11 @@ export const PrimaryToolbar = ({
 	return (
 		<Box
 			xcss={cx(styles.toolbarBase, styles.primaryToolbar)}
-			role="toolbar"
+			role={
+				expValEquals('platform_editor_aifc_remove_duplicate_role', 'isEnabled', true)
+					? undefined
+					: 'toolbar'
+			}
 			aria-label={label}
 			data-toolbar-type={
 				expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true)

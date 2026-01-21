@@ -8,6 +8,8 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 import { NodeSelection, TextSelection, type Selection } from '@atlaskit/editor-prosemirror/state';
 import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 
+import { isListNode } from '../utils';
+
 import { GapCursorSelection } from './gap-cursor/selection';
 
 export const isSelectionAtStartOfNode = ($pos: ResolvedPos, parentNode?: PMNode): boolean => {
@@ -273,4 +275,35 @@ export function isMultiBlockSelection(selection: Selection): boolean {
 		return false;
 	}
 	return isMultiBlockRange(range);
+}
+
+/**
+ * Extracts the source nodes from a selection range.
+ *
+ * This function expands the given selection to its block range boundaries and returns
+ * an array of the nodes contained within that range. It handles special cases like
+ * list nodes, where the slice positions are adjusted to include the list wrapper.
+ *
+ * @param tr - The transaction containing the document
+ * @param selection - The selection to extract nodes from
+ * @returns An array of ProseMirror nodes within the expanded selection range
+ *
+ * @example
+ * ```typescript
+ * const selection = tr.selection;
+ * const nodes = getSourceNodesFromSelectionRange(tr, selection);
+ * // nodes will contain all block-level nodes in the selection
+ * ```
+ */
+export function getSourceNodesFromSelectionRange(tr: Transaction, selection: Selection) {
+	const { $from, $to } = expandSelectionToBlockRange(selection);
+
+	const selectedParent = $from.parent;
+	const isList = isListNode(selectedParent);
+
+	const sliceStart = isList ? $from.pos - 1 : $from.pos;
+	const sliceEnd = isList ? $to.pos + 1 : $to.pos;
+	const slice = tr.doc.slice(sliceStart, sliceEnd);
+
+	return [...slice.content.content];
 }

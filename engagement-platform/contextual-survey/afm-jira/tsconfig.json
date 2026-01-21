@@ -1,5 +1,5 @@
 {
-	"extends": "../../../../tsconfig.entry-points.jira.json",
+	"extends": "../../../../tsconfig.local-consumption.json",
 	"compilerOptions": {
 		"declaration": true,
 		"target": "es5",
@@ -31,6 +31,9 @@
 			"path": "../../../design-system/checkbox/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/css/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/form/afm-jira/tsconfig.json"
 		},
 		{
@@ -38,6 +41,9 @@
 		},
 		{
 			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/image/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/link/afm-jira/tsconfig.json"

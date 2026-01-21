@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.0.0
+
+### Major Changes
+
+- [`f06d1289b0fbd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f06d1289b0fbd) -
+  Decouple fy26.04 and vcNext TTVC revisions, default revision to be fy26.04
+
 ## 4.17.1
 
 ### Patch Changes

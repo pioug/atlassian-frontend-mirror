@@ -59,9 +59,6 @@
 			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
-			"path": "../teams-app-internal-analytics/tsconfig.app.json"
-		},
-		{
 			"path": "../teams-client/tsconfig.app.json"
 		},
 		{

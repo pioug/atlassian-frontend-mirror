@@ -17,5 +17,5 @@ export const setUserCaptionsEnabled = (
 	mediaUserPreferences.set('videoCaptionsEnabled', areCaptionsEnabled);
 };
 
-export const getUserCaptionsEnabled = (mediaUserPreferences: MediaUserPreferences) =>
+export const getUserCaptionsEnabled = (mediaUserPreferences: MediaUserPreferences): boolean =>
 	!!mediaUserPreferences.get('videoCaptionsEnabled');

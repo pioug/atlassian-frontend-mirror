@@ -28,7 +28,7 @@ type Props = {
 
 const DeleteDropdownItemContent = ({ api }: Props) => {
 	const { formatMessage } = useIntl();
-	const nodeTypes = Object.values(api?.core.sharedState.currentState()?.schema?.nodes || {});
+
 	const onClick = () => {
 		api?.core.actions.execute(({ tr }) => {
 			const payload: BlockMenuEventPayload = {
@@ -50,14 +50,11 @@ const DeleteDropdownItemContent = ({ api }: Props) => {
 
 	const onShowHoverDecoration = useCallback(() => {
 		api?.core.actions.execute(({ tr }) => {
-			api?.decorations?.commands?.hoverDecoration?.({
-				nodeType: nodeTypes,
-				add: true,
-			})({ tr });
+			api?.decorations?.commands?.hoverDecoration?.({ add: true })({ tr });
 
 			return tr;
 		});
-	}, [api, nodeTypes]);
+	}, [api]);
 
 	const onRemoveHoverDecoration = useCallback(() => {
 		api?.core.actions.execute(({ tr }) => {

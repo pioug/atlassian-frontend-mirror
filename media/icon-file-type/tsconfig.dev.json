@@ -47,9 +47,6 @@
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/icon/tsconfig.app.json"
-		},
-		{
 			"path": "../media-test-helpers/tsconfig.app.json"
 		},
 		{

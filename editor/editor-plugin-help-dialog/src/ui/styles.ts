@@ -30,18 +30,6 @@ export const header: SerializedStyles = css({
 export const footer: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	zIndex: akEditorUnitZIndex,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	color: token('color.text.subtlest', colors.N300),
-	font: token('font.body'),
-	padding: token('space.300', '24px'),
-	textAlign: 'right',
-	boxShadow: "'none'",
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-export const footerNew: SerializedStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	zIndex: akEditorUnitZIndex,
 	color: token('color.text.subtle'),
 	font: token('font.body'),
 	padding: token('space.300', '24px'),

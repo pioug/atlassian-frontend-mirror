@@ -40,6 +40,7 @@ export {
 	expandSelectionBounds,
 	expandSelectionToBlockRange,
 	expandToBlockRange,
+	getSourceNodesFromSelectionRange,
 	isMultiBlockRange,
 	isMultiBlockSelection,
 	isSelectionAtEndOfNode,

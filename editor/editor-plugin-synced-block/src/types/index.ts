@@ -1,4 +1,3 @@
-import type { DispatchAnalyticsEvent } from "@atlaskit/editor-common/analytics";
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 
@@ -45,17 +44,9 @@ export type SyncBlockMap = {
 	[key: string]: SyncBlockInfo;
 };
 
-
-export type ExperienceOptions = {
-	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
-	refs: { containerElement?: HTMLElement, popupsMountPoint?: HTMLElement, wrapperElement?: HTMLElement};
-};
-
-export type ProviderExperienceOptions = ExperienceOptions & {
-	syncBlockStore: SyncBlockStoreManager;
-}
-
-export const EXPERIENCE_ABORT_REASON = {
-	EDITOR_DESTROYED: 'editor-destroyed',
-};
-
+export const SYNCED_BLOCK_BUTTON_TEST_ID = {
+	primaryToolbarCreate: 'create-synced-block-toolbar-btn',
+	blockMenuCreate: 'create-synced-block-block-menu-btn',
+	quickInsertCreate: 'create-synced-block-quick-insert-btn',
+	syncedBlockToolbarReferenceDelete: 'reference-synced-block-delete-btn',
+} as const;

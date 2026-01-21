@@ -49,7 +49,9 @@ import {
 	blocktypeStyles_fg_platform_editor_nested_dnd_styles_changes,
 	blocktypeStyles_fg_platform_editor_typography_ugc,
 	blocktypeStyles_without_fg_platform_editor_typography_ugc,
+	listDangerStyles,
 	listSelectedNodeStyles,
+	textDangerStyles,
 	textSelectedNodeStyles,
 } from './styles/blockTypeStyles';
 import { codeBidiWarningStyles } from './styles/codeBidiWarningStyles';
@@ -754,6 +756,10 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					expValNoExposure('platform_editor_block_menu', 'isEnabled', false) && [
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						blockquoteDangerStyles,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						textDangerStyles,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						listDangerStyles,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						dangerDateStyles,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

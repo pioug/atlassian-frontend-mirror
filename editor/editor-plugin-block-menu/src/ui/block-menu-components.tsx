@@ -32,6 +32,11 @@ import type {
 	RegisterBlockMenuComponent,
 } from '../blockMenuPluginType';
 
+import {
+	buildChildrenMap,
+	getChildrenMapKey,
+	willComponentRender,
+} from './block-menu-renderer/utils';
 import { CopyLinkDropdownItem } from './copy-link';
 import { CopySection } from './copy-section';
 import { DeleteDropdownItem } from './delete-button';
@@ -44,6 +49,30 @@ import { SuggestedItemsMenuSection } from './suggested-items-menu-section';
 import { SuggestedMenuItems } from './suggested-menu-items';
 import { createMenuItemsMap } from './utils/createMenuItemsMap';
 import { getSuggestedItemsFromSelection } from './utils/getSuggestedItemsFromSelection';
+
+const MIN_NUMBER_OF_AVAILABLE_NATIVE_TRANSFORMS = 7;
+
+const getTotalNumberOfAvailableNativeTransforms = (
+	blockMenuComponents: RegisterBlockMenuComponent[] | undefined,
+) => {
+	if (!blockMenuComponents) {
+		return 0;
+	}
+
+	const childrenMap = buildChildrenMap(blockMenuComponents);
+	const headingsKey = getChildrenMapKey(TRANSFORM_HEADINGS_MENU_SECTION.key, 'block-menu-section');
+	const structureKey = getChildrenMapKey(
+		TRANSFORM_STRUCTURE_MENU_SECTION.key,
+		'block-menu-section',
+	);
+
+	const headingsChildren = childrenMap.get(headingsKey) || [];
+	const structureChildren = childrenMap.get(structureKey) || [];
+
+	return [...headingsChildren, ...structureChildren].filter((c) =>
+		willComponentRender(c, childrenMap),
+	).length;
+};
 
 const getMoveUpMoveDownMenuComponents = (
 	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined,
@@ -111,6 +140,13 @@ const getTurnIntoMenuComponents = (
 			component: () => <SuggestedMenuItems api={api} />,
 			isHidden: () => {
 				const blockMenuComponents = api?.blockMenu?.actions.getBlockMenuComponents();
+				if (
+					getTotalNumberOfAvailableNativeTransforms(blockMenuComponents) <
+					MIN_NUMBER_OF_AVAILABLE_NATIVE_TRANSFORMS
+				) {
+					return true;
+				}
+
 				const menuItemsMap = createMenuItemsMap(blockMenuComponents);
 				const selection = api?.selection?.sharedState.currentState()?.selection;
 				const preservedSelection =

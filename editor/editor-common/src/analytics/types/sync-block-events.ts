@@ -4,6 +4,16 @@ import type { OperationalAEP } from './utils';
 
 type SyncedBlockErrorAttributes = {
 	error: string;
+	resourceId?: string;
+};
+
+type SyncedBlockSuccessAttributes = {
+	resourceId: string;
+};
+
+type FetchSyncedBlockSuccessAttributes = SyncedBlockSuccessAttributes & {
+	blockInstanceId?: string;
+	sourceProduct?: string;
 };
 
 export type SyncedBlockSourceURLErrorAEP = OperationalAEP<
@@ -69,20 +79,53 @@ export type SyncedBlockFetchReferencesErrorAEP = OperationalAEP<
 	SyncedBlockErrorAttributes
 >;
 
+export type SyncedBlockFetchSuccessAEP = OperationalAEP<
+	ACTION.FETCHED,
+	ACTION_SUBJECT.SYNCED_BLOCK,
+	ACTION_SUBJECT_ID.SYNCED_BLOCK_FETCH,
+	FetchSyncedBlockSuccessAttributes
+>;
+
+export type SyncedBlockCreateSuccessAEP = OperationalAEP<
+	ACTION.INSERTED,
+	ACTION_SUBJECT.SYNCED_BLOCK,
+	ACTION_SUBJECT_ID.SYNCED_BLOCK_CREATE,
+	SyncedBlockSuccessAttributes
+>;
+
+export type SyncedBlockUpdateSuccessAEP = OperationalAEP<
+	ACTION.UPDATED,
+	ACTION_SUBJECT.SYNCED_BLOCK,
+	ACTION_SUBJECT_ID.SYNCED_BLOCK_UPDATE,
+	SyncedBlockSuccessAttributes
+>;
+
+export type SyncedBlockDeleteSuccessAEP = OperationalAEP<
+	ACTION.DELETED,
+	ACTION_SUBJECT.SYNCED_BLOCK,
+	ACTION_SUBJECT_ID.SYNCED_BLOCK_DELETE,
+	SyncedBlockSuccessAttributes
+>;
+
 export type SyncBlockEventPayload =
 	| SyncedBlockSourceURLErrorAEP
 	| SyncedBlockUpdateCacheErrorAEP
 	| SyncedBlockUpdateErrorAEP
+	| SyncedBlockUpdateSuccessAEP
 	| SyncedBlockCreateErrorAEP
+	| SyncedBlockCreateSuccessAEP
 	| SyncedBlockDeleteErrorAEP
+	| SyncedBlockDeleteSuccessAEP
 	| SyncedBlockGetSourceInfoErrorAEP
 	| SyncedBlockFetchErrorAEP
+	| SyncedBlockFetchSuccessAEP
 	| ReferenceSyncedBlockUpdateErrorAEP
-	| ExperienceEventPayload
-	| SyncedBlockFetchReferencesErrorAEP;
+	| SyncedBlockFetchReferencesErrorAEP
+	| ExperienceEventPayload;
 
 export type RendererSyncBlockEventPayload =
 	| SyncedBlockGetSourceInfoErrorAEP
 	| SyncedBlockFetchErrorAEP
+	| SyncedBlockFetchSuccessAEP
 	| ReferenceSyncedBlockUpdateErrorAEP
 	| ExperienceEventPayload;

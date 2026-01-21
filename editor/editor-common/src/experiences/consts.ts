@@ -45,3 +45,11 @@ export const EXPERIENCE_ABORT_REASON = {
  * instrumentation, then the sample rate can be tuned up to a safe threshold.
  */
 export const DEFAULT_EXPERIENCE_SAMPLE_RATE = 0.001;
+
+export const EXPERIENCE_ID = {
+	ASYNC_OPERATION: 'asyncOperation',
+	MENU_ACTION: 'menuAction',
+	MENU_OPEN: 'menu-open',
+	TOOLBAR_ACTION: 'toolbarAction',
+	TOOLBAR_OPEN: 'toolbar-open',
+} as const;

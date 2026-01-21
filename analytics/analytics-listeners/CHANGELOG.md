@@ -1,5 +1,12 @@
 # @atlaskit/analytics-listeners
 
+## 9.3.0
+
+### Minor Changes
+
+- [`17ee0925f56fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/17ee0925f56fe) -
+  Add a new teamwork-graph analytics listener
+
 ## 9.2.0
 
 ### Minor Changes

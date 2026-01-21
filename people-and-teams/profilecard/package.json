@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "24.30.2",
+	"version": "24.31.0",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -101,8 +101,12 @@
 	},
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
+		"@atlassian/feature-flags-storybook-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/platform-storybook-helpers": "workspace:^",
 		"@atlassian/ptc-test-utils": "workspace:^",
+		"@storybook/addon-actions": "root:*",
+		"@storybook/test": "root:*",
 		"@testing-library/react": "^16.3.0",
 		"@testing-library/user-event": "root:*",
 		"enzyme": "root:*",
@@ -170,6 +174,9 @@
 			"type": "boolean"
 		},
 		"rovo_agent_empty_state_refresh": {
+			"type": "boolean"
+		},
+		"rovo_dev_themed_identity_card": {
 			"type": "boolean"
 		},
 		"enable_profilecard_text_truncation_tooltip": {

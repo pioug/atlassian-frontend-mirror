@@ -41,6 +41,7 @@ import type {
 	ActiveDropTargetNode,
 	BlockControlsMeta,
 	BlockControlsPlugin,
+	MultiSelectDnD,
 	PluginState,
 } from '../blockControlsPluginType';
 import { getAnchorAttrName } from '../ui/utils/dom-attr-name';
@@ -67,7 +68,7 @@ import { selectNode } from './utils/getSelection';
 import { getSelectedSlicePosition } from './utils/selection';
 import { getTrMetadata } from './utils/transactions';
 
-export const key = new PluginKey<PluginState>('blockControls');
+export const key: PluginKey<PluginState> = new PluginKey<PluginState>('blockControls');
 
 const EDITOR_BLOCKS_DRAG_INIT = 'Editor Blocks Drag Initialization Time';
 const EDITOR_BLOCKS_DROP_INIT = 'Editor Blocks Drop Initialization Time';
@@ -315,7 +316,44 @@ export const apply = (
 	anchorRectCache?: AnchorRectCache,
 	resizeObserverWidth?: ResizeObserver,
 	pragmaticCleanup?: (() => void) | null,
-) => {
+): PluginState | {
+	activeDropTargetNode: ActiveDropTargetNode | undefined;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	activeNode: any;
+	blockMenuOptions: {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		canMoveDown: any;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		canMoveUp: any;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		openedViaKeyboard: any;
+	} | undefined;
+	decorations: DecorationSet;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	editorHeight: any;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	editorWidthLeft: any;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	editorWidthRight: any;
+	isDocSizeLimitEnabled: boolean | null;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	isDragging: any;
+	isMenuOpen: boolean | undefined;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	isPMDragging: any;
+	isResizerResizing: boolean;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	isSelectedViaDragHandle: any;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	isShiftDown: any;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	lastDragCancelled: any;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	menuTriggerBy: any;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	menuTriggerByNode: any;
+	multiSelectDnD: MultiSelectDnD | undefined;
+} => {
 	let { activeNode, decorations, isResizerResizing, multiSelectDnD } = currentState;
 	const {
 		editorHeight,
@@ -704,14 +742,14 @@ export const apply = (
 		// remove isEmptyDoc check and let decorations render and determine their own visibility
 		newActiveNode =
 			!meta?.activeNode &&
-			findHandleDec(decorations, latestActiveNode?.pos, latestActiveNode?.pos).length === 0
+				findHandleDec(decorations, latestActiveNode?.pos, latestActiveNode?.pos).length === 0
 				? null
 				: latestActiveNode;
 	} else {
 		newActiveNode =
 			isEmptyDoc ||
-			(!meta?.activeNode &&
-				findHandleDec(decorations, latestActiveNode?.pos, latestActiveNode?.pos).length === 0)
+				(!meta?.activeNode &&
+					findHandleDec(decorations, latestActiveNode?.pos, latestActiveNode?.pos).length === 0)
 				? null
 				: latestActiveNode;
 	}
@@ -755,7 +793,7 @@ export const apply = (
 		isMenuOpen: isMenuOpenNew,
 		menuTriggerBy:
 			flags.toolbarFlagsEnabled ||
-			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
+				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
 				? meta?.toggleMenu?.anchorName || menuTriggerBy
 				: undefined,
 		menuTriggerByNode: editorExperiment('platform_synced_block', true)
@@ -763,19 +801,19 @@ export const apply = (
 			: undefined,
 		blockMenuOptions: expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
 			? {
-					canMoveUp:
-						meta?.toggleMenu?.moveUp !== undefined
-							? meta?.toggleMenu?.moveUp
-							: blockMenuOptions?.canMoveUp,
-					canMoveDown:
-						meta?.toggleMenu?.moveDown !== undefined
-							? meta?.toggleMenu?.moveDown
-							: blockMenuOptions?.canMoveDown,
-					openedViaKeyboard:
-						meta?.toggleMenu?.openedViaKeyboard !== undefined
-							? meta?.toggleMenu?.openedViaKeyboard
-							: blockMenuOptions?.openedViaKeyboard,
-				}
+				canMoveUp:
+					meta?.toggleMenu?.moveUp !== undefined
+						? meta?.toggleMenu?.moveUp
+						: blockMenuOptions?.canMoveUp,
+				canMoveDown:
+					meta?.toggleMenu?.moveDown !== undefined
+						? meta?.toggleMenu?.moveDown
+						: blockMenuOptions?.canMoveDown,
+				openedViaKeyboard:
+					meta?.toggleMenu?.openedViaKeyboard !== undefined
+						? meta?.toggleMenu?.openedViaKeyboard
+						: blockMenuOptions?.openedViaKeyboard,
+			}
 			: undefined,
 		editorHeight: meta?.editorHeight ?? editorHeight,
 		editorWidthLeft: meta?.editorWidthLeft ?? editorWidthLeft,
@@ -794,7 +832,44 @@ export const createPlugin = (
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined,
 	getIntl: () => IntlShape,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
-) => {
+): SafePlugin<PluginState | {
+	activeDropTargetNode: ActiveDropTargetNode | undefined;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	activeNode: any;
+	blockMenuOptions: {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		canMoveDown: any;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		canMoveUp: any;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		openedViaKeyboard: any;
+	} | undefined;
+	decorations: DecorationSet;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	editorHeight: any;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	editorWidthLeft: any;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	editorWidthRight: any;
+	isDocSizeLimitEnabled: boolean | null;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	isDragging: any;
+	isMenuOpen: boolean | undefined;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	isPMDragging: any;
+	isResizerResizing: boolean;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	isSelectedViaDragHandle: any;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	isShiftDown: any;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	lastDragCancelled: any;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	menuTriggerBy: any;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	menuTriggerByNode: any;
+	multiSelectDnD: MultiSelectDnD | undefined;
+}> => {
 	const { formatMessage } = getIntl();
 	const isAdvancedLayoutEnabled = editorExperiment('advanced_layouts', true, { exposure: true });
 	const isMultiSelectEnabled = editorExperiment(
@@ -1217,7 +1292,7 @@ export const createPlugin = (
 
 			const shouldObserve =
 				expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
-				fg('platform_editor_native_anchor_patch_1')
+					fg('platform_editor_native_anchor_patch_1')
 					? !isAnchorSupported()
 					: true;
 

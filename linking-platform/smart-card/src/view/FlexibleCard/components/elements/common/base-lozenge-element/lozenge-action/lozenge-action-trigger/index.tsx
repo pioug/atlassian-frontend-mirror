@@ -8,7 +8,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { css, cx, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl-next';
 
-
 import { cssMap } from '@atlaskit/css';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import Lozenge from '@atlaskit/lozenge';
@@ -40,6 +39,12 @@ const styles = cssMap({
 		borderColor: token('color.border.focused'),
 		overflow: 'hidden',
 	},
+});
+
+const textStyles = css({
+	overflow: 'hidden',
+	textOverflow: 'ellipsis',
+	whiteSpace: 'nowrap',
 });
 
 const triggerLozengeStyles = css({
@@ -78,6 +83,7 @@ const triggerButtonStyles = css({
 const LozengeActionTrigger = ({
 	appearance,
 	isOpen,
+	maxWidth,
 	testId,
 	text,
 	triggerRef,
@@ -127,6 +133,7 @@ const LozengeActionTrigger = ({
 				<Lozenge
 					appearance={appearance}
 					isBold={fg('platform-component-visual-refresh') ? true : isHovering}
+					{...(fg('platform_navx_sl_lozenge_max_width') ? { maxWidth } : undefined)}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 					style={{
 						backgroundColor: lozengeBackgroundColor,
@@ -134,7 +141,9 @@ const LozengeActionTrigger = ({
 					}}
 				>
 					<span css={triggerLozengeStyles}>
-						<span>{text}</span>
+						<span css={[fg('platform_navx_sl_lozenge_max_width') ? textStyles : undefined]}>
+							{text}
+						</span>
 						<Box as="span" xcss={styles.chevronDown}>
 							<ChevronDownIcon
 								color="currentColor"
@@ -155,6 +164,7 @@ const LozengeActionTrigger = ({
 		isOpen,
 		lozengeBackgroundColor,
 		lozengeForegroundColor,
+		maxWidth,
 	]);
 
 	return (
@@ -165,6 +175,7 @@ const LozengeActionTrigger = ({
 			css={triggerButtonStyles}
 			data-action-open={isOpen}
 			data-testid={`${testId}--trigger`}
+			style={{ maxWidth: fg('platform_navx_sl_lozenge_max_width') ? maxWidth : undefined }}
 			// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 			onMouseEnter={onMouseEnter}
 			// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events

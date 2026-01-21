@@ -19,7 +19,7 @@ const CONTAINER_HUMAN_NAMES: Record<string, string> = {
 
 const SEARCH_PARAM_NAME = 'requestedContainers';
 
-function containersEqual<T>(arr1: T[], arr2: T[]) {
+function containersEqual<T>(arr1: T[], arr2: T[]): boolean {
 	return JSON.stringify([...arr1].sort()) === JSON.stringify([...arr2].sort());
 }
 

@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 
-import { type AnalyticsEventPayload, withAnalyticsEvents } from '@atlaskit/analytics-next';
+import { type AnalyticsEventPayload, withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
 import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 import { type FireEventType, useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
@@ -13,7 +13,11 @@ import {
 	type ProfileCardClientData,
 	type ProfileCardResourcedProps,
 	type ProfileCardResourcedState,
+	type ProfilecardTriggerPosition,
+	type ProfileClient,
+	type ReportingLinesUser,
 	type TeamCentralReportingLinesData,
+    type TriggerType,
 } from '../../types';
 import { fireEvent } from '../../util/analytics';
 import { ErrorMessage } from '../Error';
@@ -250,15 +254,27 @@ class ProfileCardResourced extends React.PureComponent<
 	}
 }
 
-export const ProfileCardResourcedInternal = ProfileCardResourced;
+export const ProfileCardResourcedInternal: typeof ProfileCardResourced = ProfileCardResourced;
 
 const ProfileCardResourcedWithAnalytics = (props: ProfileCardResourcedProps) => {
 	const { fireEvent } = useAnalyticsEvents();
 	return <ProfileCardResourced fireEvent={fireEvent} {...props} />;
 };
 
-export default componentWithFG(
-	'ptc-enable-profile-card-analytics-refactor',
-	ProfileCardResourcedWithAnalytics,
-	withAnalyticsEvents()(ProfileCardResourced),
+const _default_1: React.FC<ProfileCardResourcedProps & Omit<Pick<Omit<ProfileCardResourcedProps, keyof WithAnalyticsEventsProps>, never> & {
+    userId?: string | undefined;
+    cloudId?: string | undefined;
+    resourceClient?: ProfileClient | undefined;
+    actions?: ProfileCardAction[] | undefined;
+    reportingLinesProfileUrl?: string | undefined;
+    onReportingLinesClick?: ((user: ReportingLinesUser) => void) | undefined;
+    position?: ProfilecardTriggerPosition | undefined;
+    trigger?: TriggerType | undefined;
+    children?: React.ReactNode;
+    addFlag?: ((flag: any) => void) | undefined;
+} & {} & React.RefAttributes<any>, "ref"> & React.RefAttributes<any>> = componentWithFG(
+    'ptc-enable-profile-card-analytics-refactor',
+    ProfileCardResourcedWithAnalytics,
+    withAnalyticsEvents()(ProfileCardResourced)
 );
+export default _default_1;

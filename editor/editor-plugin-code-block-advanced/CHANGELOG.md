@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 7.1.3
+
+### Patch Changes
+
+- [`3425184968470`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3425184968470) -
+  Fix aria-hidden-focus a11y violation by adding tabindex=-1 to fold gutter buttons
+- Updated dependencies
+
 ## 7.1.2
 
 ### Patch Changes

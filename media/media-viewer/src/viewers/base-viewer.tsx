@@ -113,7 +113,7 @@ export abstract class BaseViewer<
 		});
 	};
 
-	protected needsReset(propsA: Props, propsB: Props) {
+	protected needsReset(propsA: Props, propsB: Props): boolean {
 		return !deepEqual(propsA.item, propsB.item) || propsA.collectionName !== propsB.collectionName;
 	}
 

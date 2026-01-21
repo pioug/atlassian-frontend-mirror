@@ -134,6 +134,7 @@ export interface NonRequiredAttributes {
 	changeFromLocation?: string;
 	insertedLocation?: string;
 	insertLocation?: string;
+	isInsideSyncedBlock?: boolean;
 	nodeLocation?: string;
 	selectionPosition?: SELECTION_POSITION;
 	selectionType?: SELECTION_TYPE;

@@ -41,9 +41,6 @@
 			"path": "../../../packages/design-system/badge/tsconfig.app.json"
 		},
 		{
-			"path": "../../../packages/design-system/code/tsconfig.app.json"
-		},
-		{
 			"path": "../../../packages/design-system/css/tsconfig.app.json"
 		},
 		{

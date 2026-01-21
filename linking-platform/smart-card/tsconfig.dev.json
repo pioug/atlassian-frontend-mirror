@@ -85,9 +85,6 @@
 			"path": "../../design-system/dropdown-menu/tsconfig.app.json"
 		},
 		{
-			"path": "../../confluence/embedded-confluence-public/tsconfig.app.json"
-		},
-		{
 			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
 		},
 		{
@@ -98,6 +95,9 @@
 		},
 		{
 			"path": "../../design-system/icon/tsconfig.app.json"
+		},
+		{
+			"path": "../../media/icon-file-type/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/inline-message/tsconfig.app.json"
@@ -155,9 +155,6 @@
 		},
 		{
 			"path": "../../design-system/range/tsconfig.app.json"
-		},
-		{
-			"path": "../../react-ufo/atlaskit/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/section-message/tsconfig.app.json"

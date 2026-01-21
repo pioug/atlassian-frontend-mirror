@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { act, fireEvent, type queries, render, type RenderResult } from '@testing-library/react';
+import { act, type ByRoleMatcher, fireEvent, type Matcher, type MatcherOptions, type queries, render, type RenderResult, type SelectorMatcherOptions, type waitForOptions } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import invariant from 'tiny-invariant';
 
@@ -14,9 +14,10 @@ import { type DatasourceParameters } from '@atlaskit/linking-types';
 import SmartLinkClient from '../../../examples-helpers/smartLinkCustomClient';
 import { EVENT_CHANNEL } from '../../analytics';
 import { succeedUfoExperience } from '../../analytics/ufoExperiences';
-import { type ConfigModalProps, type DisplayViewModes } from '../../common/types';
+import { type ConfigModalProps, type DisplayViewModes, type Site } from '../../common/types';
 import {
 	type DatasourceTableState,
+	type DatasourceTableStateProps,
 	useDatasourceTableState,
 } from '../../hooks/useDatasourceTableState';
 import { getAccessibleProducts } from '../../services/getAvailableSites';
@@ -68,10 +69,10 @@ type AnalyticsPayloadOverride = {
 
 export interface ModalProps<ADF, Parameters extends DatasourceParameters>
 	extends ConfigModalProps<ADF, Parameters>,
-		Pick<
-			ConfluenceSearchConfigModalProps,
-			'disableDisplayDropdown' | 'overrideParameters' | 'disableSiteSelector'
-		> {}
+	Pick<
+		ConfluenceSearchConfigModalProps,
+		'disableDisplayDropdown' | 'overrideParameters' | 'disableSiteSelector'
+	> { }
 
 export const setupFactory = <Parameters extends DatasourceParameters, InsertArgs, ADF>(
 	providerType: ProviderType,
@@ -80,7 +81,82 @@ export const setupFactory = <Parameters extends DatasourceParameters, InsertArgs
 		| React.ForwardRefExoticComponent<ModalProps<ADF, Parameters>>,
 	getDefaultParameters: () => Parameters,
 	insertArgs: (args: InsertArgs) => object,
-) => {
+): {
+	getAvailableSites: (product: "jira" | "confluence") => Promise<Site[]>; getDefaultHookState: () => DatasourceTableState; getEmptyHookState: () => DatasourceTableState; getErrorHookState: () => DatasourceTableState; getInsertAnalyticPayload: <T extends AnalyticsPayloadOverride | undefined>(override: T) => {
+		_isAnalyticsEvent: boolean;
+		_isUIAnalyticsEvent: boolean;
+		clone: any;
+		context: any;
+		fire: any;
+		handlers: any;
+		hasFired: boolean;
+		payload: {
+			action: string;
+			actionSubject: string;
+			actionSubjectId: string;
+			eventType: string;
+		} & T & {
+			attributes: {
+				actions: never[];
+				destinationObjectTypes: string[];
+				display: string;
+				displayedColumnCount: number;
+				extensionKey: string;
+				isQueryComplex?: boolean | undefined;
+				searchCount: number;
+				searchMethod: null;
+				totalItemCount: number;
+			};
+		};
+	}; getLoadingHookState: () => DatasourceTableState; getSingleResponseItemHookState: (url?: string) => DatasourceTableState; getUnauthorisedHookState: () => DatasourceTableState; IssueLikeDataTableView: ({ testId, onNextPage, onLoadDatasourceDetails, items, itemIds, columns, renderItem, visibleColumnKeys, onVisibleColumnKeysChange, columnCustomSizes, onColumnResize, wrappedColumnKeys, onWrappedColumnChange, status, hasNextPage, scrollableContainerHeight, extensionKey, }: IssueLikeDataTableViewProps) => JSX.Element; setup: (args?: {
+		columnCustomSizes?: ConfigModalProps<ADF, Parameters>["columnCustomSizes"];
+		disableDisplayDropdown?: ConfluenceSearchConfigModalProps["disableDisplayDropdown"];
+		disableSiteSelector?: ConfluenceSearchConfigModalProps["disableSiteSelector"];
+		dontWaitForSitesToLoad?: boolean;
+		hookState?: DatasourceTableState;
+		mockSiteDataOverride?: {
+			cloudId: string;
+			displayName: string;
+			url: string;
+		}[];
+		overrideParameters?: ConfluenceSearchConfigModalProps["overrideParameters"];
+		parameters?: Parameters;
+		url?: ConfigModalProps<ADF, Parameters>["url"];
+		viewMode?: DisplayViewModes;
+		visibleColumnKeys?: string[];
+		wrappedColumnKeys?: ConfigModalProps<ADF, Parameters>["wrappedColumnKeys"];
+	}) => Promise<{
+		assertAnalyticsAfterButtonClick: (buttonName: string, payload: any) => Promise<void>;
+		assertInsertResult: (args: InsertArgs, analyticsExpectedOverride?: AnalyticsPayloadOverride) => void;
+		component: RenderResult<typeof queries, HTMLElement, HTMLElement>;
+		findByLabelText: (id: Matcher, options?: SelectorMatcherOptions | undefined, waitForElementOptions?: waitForOptions | undefined) => Promise<HTMLElement>;
+		findByRole: (role: ByRoleMatcher, options?: queries.ByRoleOptions | undefined, waitForElementOptions?: waitForOptions | undefined) => Promise<HTMLElement>;
+		findByTestId: (id: Matcher, options?: MatcherOptions | undefined, waitForElementOptions?: waitForOptions | undefined) => Promise<HTMLElement>;
+		findByText: (id: Matcher, options?: SelectorMatcherOptions | undefined, waitForElementOptions?: waitForOptions | undefined) => Promise<HTMLElement>;
+		getByLabelText: (id: Matcher, options?: SelectorMatcherOptions | undefined) => HTMLElement;
+		getByPlaceholderText: (id: Matcher, options?: MatcherOptions | undefined) => HTMLElement;
+		getByRole: (role: ByRoleMatcher, options?: queries.ByRoleOptions | undefined) => HTMLElement;
+		getByTestId: (id: Matcher, options?: MatcherOptions | undefined) => HTMLElement;
+		getByText: (id: Matcher, options?: SelectorMatcherOptions | undefined) => HTMLElement;
+		getConfigModalTitleText: () => Promise<string>;
+		getLatestIssueLikeTableProps: () => IssueLikeDataTableViewProps;
+		getLatestJQLEditorProps: () => JQLEditorProps;
+		getSiteSelectorText: () => Promise<string | undefined>;
+		onAnalyticFireEvent: jest.Mock<any, any, any>;
+		onCancel: jest.Mock<any, any, any>;
+		onInsert: jest.Mock<any, any, any>;
+		queryByRole: (role: ByRoleMatcher, options?: queries.ByRoleOptions | undefined) => HTMLElement | null;
+		queryByTestId: (id: Matcher, options?: MatcherOptions | undefined) => HTMLElement | null;
+		queryByText: (id: Matcher, options?: SelectorMatcherOptions | undefined) => HTMLElement | null;
+		renderComponent: () => RenderResult<typeof queries, HTMLElement, HTMLElement>;
+		rerender: (ui: React.ReactNode) => void;
+		searchWithNewBasic: (keywords?: string) => void;
+		searchWithNewJql: (jql?: string) => void;
+		selectNewInstanceSite: () => Promise<void>;
+		switchMode: (viewMode: DisplayViewModes) => void;
+		updateVisibleColumnList: (newVisibleColumns: string[]) => void;
+	}>; useDatasourceTableState: ({ datasourceId, parameters, fieldKeys, }: DatasourceTableStateProps) => DatasourceTableState;
+} => {
 	const getDefaultHookState: () => DatasourceTableState = () => ({
 		reset: jest.fn(),
 		status: 'resolved',
@@ -186,7 +262,26 @@ export const setupFactory = <Parameters extends DatasourceParameters, InsertArgs
 
 	const getInsertAnalyticPayload = <T extends AnalyticsPayloadOverride | undefined>(
 		override: T,
-	) => {
+	): {
+		_isAnalyticsEvent: boolean; _isUIAnalyticsEvent: boolean; clone: any; context: any; fire: any; handlers: any; hasFired: boolean; payload: {
+			action: string;
+			actionSubject: string;
+			actionSubjectId: string;
+			eventType: string;
+		} & T & {
+			attributes: {
+				actions: never[];
+				destinationObjectTypes: string[];
+				display: string;
+				displayedColumnCount: number;
+				extensionKey: string;
+				isQueryComplex?: boolean | undefined;
+				searchCount: number;
+				searchMethod: null;
+				totalItemCount: number;
+			};
+		};
+	} => {
 		return {
 			_isAnalyticsEvent: true,
 			_isUIAnalyticsEvent: true,
@@ -235,7 +330,37 @@ export const setupFactory = <Parameters extends DatasourceParameters, InsertArgs
 			visibleColumnKeys?: string[];
 			wrappedColumnKeys?: ConfigModalProps<ADF, Parameters>['wrappedColumnKeys'];
 		} = {},
-	) => {
+	): Promise<{
+		assertAnalyticsAfterButtonClick: (buttonName: string, payload: any) => Promise<void>;
+		assertInsertResult: (args: InsertArgs, analyticsExpectedOverride?: AnalyticsPayloadOverride) => void;
+		component: RenderResult<typeof queries, HTMLElement, HTMLElement>;
+		findByLabelText: (id: Matcher, options?: SelectorMatcherOptions | undefined, waitForElementOptions?: waitForOptions | undefined) => Promise<HTMLElement>;
+		findByRole: (role: ByRoleMatcher, options?: queries.ByRoleOptions | undefined, waitForElementOptions?: waitForOptions | undefined) => Promise<HTMLElement>;
+		findByTestId: (id: Matcher, options?: MatcherOptions | undefined, waitForElementOptions?: waitForOptions | undefined) => Promise<HTMLElement>;
+		findByText: (id: Matcher, options?: SelectorMatcherOptions | undefined, waitForElementOptions?: waitForOptions | undefined) => Promise<HTMLElement>;
+		getByLabelText: (id: Matcher, options?: SelectorMatcherOptions | undefined) => HTMLElement;
+		getByPlaceholderText: (id: Matcher, options?: MatcherOptions | undefined) => HTMLElement;
+		getByRole: (role: ByRoleMatcher, options?: queries.ByRoleOptions | undefined) => HTMLElement;
+		getByTestId: (id: Matcher, options?: MatcherOptions | undefined) => HTMLElement;
+		getByText: (id: Matcher, options?: SelectorMatcherOptions | undefined) => HTMLElement;
+		getConfigModalTitleText: () => Promise<string>;
+		getLatestIssueLikeTableProps: () => IssueLikeDataTableViewProps;
+		getLatestJQLEditorProps: () => JQLEditorProps;
+		getSiteSelectorText: () => Promise<string | undefined>;
+		onAnalyticFireEvent: jest.Mock<any, any, any>;
+		onCancel: jest.Mock<any, any, any>;
+		onInsert: jest.Mock<any, any, any>;
+		queryByRole: (role: ByRoleMatcher, options?: queries.ByRoleOptions | undefined) => HTMLElement | null;
+		queryByTestId: (id: Matcher, options?: MatcherOptions | undefined) => HTMLElement | null;
+		queryByText: (id: Matcher, options?: SelectorMatcherOptions | undefined) => HTMLElement | null;
+		renderComponent: () => RenderResult<typeof queries, HTMLElement, HTMLElement>;
+		rerender: (ui: React.ReactNode) => void;
+		searchWithNewBasic: (keywords?: string) => void;
+		searchWithNewJql: (jql?: string) => void;
+		selectNewInstanceSite: () => Promise<void>;
+		switchMode: (viewMode: DisplayViewModes) => void;
+		updateVisibleColumnList: (newVisibleColumns: string[]) => void;
+	}> => {
 		asMock(getAccessibleProducts).mockResolvedValue(args.mockSiteDataOverride || mockSiteData);
 		asMock(useDatasourceTableState).mockReturnValue(args.hookState || getDefaultHookState());
 

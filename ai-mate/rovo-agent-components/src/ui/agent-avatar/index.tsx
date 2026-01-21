@@ -60,6 +60,7 @@ type AgentAvatarProps = {
 	agentIdentityAccountId?: string | null | undefined;
 	agentNamedId?: string;
 	agentId?: string;
+	isRovoDev?: boolean;
 	isForgeAgent?: boolean;
 	forgeAgentIconUrl?: string | null;
 };
@@ -80,6 +81,7 @@ export const AgentAvatar = ({
 	agentIdentityAccountId,
 	agentNamedId,
 	showBorder = true,
+	isRovoDev,
 	isForgeAgent,
 	forgeAgentIconUrl,
 }: AgentAvatarProps) => {
@@ -123,6 +125,7 @@ export const AgentAvatar = ({
 							agentId={agentId}
 							agentNamedId={agentNamedId}
 							agentIdentityAccountId={agentIdentityAccountId}
+							isRovoDev={isRovoDev}
 							size={size}
 						/>
 					)}

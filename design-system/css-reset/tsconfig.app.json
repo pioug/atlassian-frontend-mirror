@@ -35,9 +35,6 @@
 		},
 		{
 			"path": "../tokens/tsconfig.app.json"
-		},
-		{
-			"path": "../../monorepo-tooling/ts-loader/tsconfig.app.json"
 		}
 	]
 }

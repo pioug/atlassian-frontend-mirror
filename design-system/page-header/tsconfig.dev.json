@@ -70,9 +70,6 @@
 			"path": "../link/tsconfig.app.json"
 		},
 		{
-			"path": "../page/tsconfig.app.json"
-		},
-		{
 			"path": "../primitives/tsconfig.app.json"
 		},
 		{

@@ -2,3 +2,4 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 
 export { default as scrubAdf } from './scrub/scrub-adf';
+export { scrubStr } from './scrub/scrub-content';

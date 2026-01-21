@@ -6,7 +6,7 @@ import React, {
 	startTransition,
 } from 'react';
 
-import memoizeOne from 'memoize-one';
+import memoizeOne, { type MemoizedFn } from 'memoize-one';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
@@ -27,11 +27,19 @@ export type GetTargetRef = (
 	name: string,
 ) => TargetRef;
 
-const { Consumer: TargetConsumer, Provider: TargetProvider } = createContext<
-	GetTargetRef | undefined
+const dest = createContext<
+    GetTargetRef | undefined
 >(undefined);
+const TargetConsumer: React.Consumer<GetTargetRef | undefined> = dest.Consumer;
+const TargetProvider: React.Provider<GetTargetRef | undefined> = dest.Provider;
 
-const SpotlightContext = createContext<{
+const SpotlightContext: React.Context<{
+    opened: () => void;
+    closed: () => void;
+    targets: {
+        [key: string]: HTMLElement | undefined;
+    };
+}> = createContext<{
 	opened: () => void;
 	closed: () => void;
 	targets: {
@@ -43,7 +51,20 @@ const SpotlightContext = createContext<{
 	targets: {},
 });
 
-const { Consumer: SpotlightStateConsumer, Provider: SpotlightStateProvider } = SpotlightContext;
+const SpotlightStateConsumer: React.Consumer<{
+    opened: () => void;
+    closed: () => void;
+    targets: {
+        [key: string]: HTMLElement | undefined;
+    };
+}> = SpotlightContext.Consumer;
+const SpotlightStateProvider: React.Provider<{
+    opened: () => void;
+    closed: () => void;
+    targets: {
+        [key: string]: HTMLElement | undefined;
+    };
+}> = SpotlightContext.Provider;
 
 export { TargetConsumer };
 
@@ -129,7 +150,7 @@ export default class SpotlightManager extends PureComponent<
 	 * error happens.
 	 * This is to fix this error by wrapping the state update in startTransition as suggested by React: https://react.dev/errors/421?invariant=421
 	 */
-	getTargetRef = fg('platform_fix_component_state_update_for_suspense')
+	getTargetRef: (name: string) => (element: HTMLElement | null | undefined) => void = fg('platform_fix_component_state_update_for_suspense')
 		? (name: string) => (element: HTMLElement | null | undefined): void => {
 				startTransition(() => {
 					this.setState((state) => ({
@@ -157,7 +178,15 @@ export default class SpotlightManager extends PureComponent<
 		this.setState((state) => ({ spotlightCount: state.spotlightCount - 1 }));
 	};
 
-	getStateProviderValue = memoizeOne((targets) => ({
+	getStateProviderValue: MemoizedFn<(this: any, targets: any) => {
+        opened: () => void;
+        closed: () => void;
+        targets: any;
+    }> = memoizeOne((targets: any): {
+        opened: () => void;
+        closed: () => void;
+        targets: any;
+    } => ({
 		opened: this.spotlightOpen,
 		closed: this.spotlightClose,
 		targets,

@@ -27,6 +27,9 @@ const DummyTownsquareHomeCompWithAnalytics = createComponentWithAnalytics(
 const DummyRovoExtensionCompWithAnalytics = createComponentWithAnalytics(
 	FabricChannel.rovoExtension,
 );
+const DummyTeamworkGraphCompWithAnalytics = createComponentWithAnalytics(
+	FabricChannel.teamworkGraph,
+);
 
 describe('<FabricAnalyticsListeners />', () => {
 	let analyticsWebClientMock: AnalyticsWebClient;
@@ -819,6 +822,46 @@ describe('<FabricAnalyticsListeners />', () => {
 			);
 
 			const dummyComponent = screen.getByRole('button', { name: 'rovoExtension' });
+			expect(dummyComponent).toBeInTheDocument();
+
+			await fireEvent.click(dummyComponent);
+
+			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+
+			await expect(document.body).toBeAccessible();
+		});
+	});
+
+	describe('<TeamworkGraphAnalyticsListener />', () => {
+		it('should listen and fire a UI event with analyticsWebClient', async () => {
+			const compOnClick = jest.fn();
+			render(
+				<FabricAnalyticsListeners client={analyticsWebClientMock}>
+					<DummyTeamworkGraphCompWithAnalytics onClick={compOnClick} />
+				</FabricAnalyticsListeners>,
+			);
+
+			const dummyComponent = screen.getByRole('button', { name: 'teamworkGraph' });
+			expect(dummyComponent).toBeInTheDocument();
+
+			await fireEvent.click(dummyComponent);
+
+			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+
+			await expect(document.body).toBeAccessible();
+		});
+
+		it('should listen and fire a UI event with analyticsWebClient as Promise', async () => {
+			analyticsWebClientMock.sendUIEvent = jest.fn();
+
+			const compOnClick = jest.fn();
+			render(
+				<FabricAnalyticsListeners client={Promise.resolve(analyticsWebClientMock)}>
+					<DummyTeamworkGraphCompWithAnalytics onClick={compOnClick} />
+				</FabricAnalyticsListeners>,
+			);
+
+			const dummyComponent = screen.getByRole('button', { name: 'teamworkGraph' });
 			expect(dummyComponent).toBeInTheDocument();
 
 			await fireEvent.click(dummyComponent);

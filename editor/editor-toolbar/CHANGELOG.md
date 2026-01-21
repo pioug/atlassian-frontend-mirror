@@ -1,5 +1,14 @@
 # @atlaskit/editor-toolbar
 
+## 0.19.5
+
+### Patch Changes
+
+- [`aeb74c52331de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aeb74c52331de) -
+  [EDITOR-4634] remove duplicated toolbar role from toolbar elements behind
+  platform_editor_aifc_remove_duplicate_role
+- Updated dependencies
+
 ## 0.19.4
 
 ### Patch Changes

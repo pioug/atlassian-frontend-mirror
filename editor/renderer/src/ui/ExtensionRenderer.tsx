@@ -12,8 +12,10 @@ import type { ExtensionLayout } from '@atlaskit/adf-schema';
 import { getNodeRenderer } from '@atlaskit/editor-common/extensions';
 import type {
 	ExtensionHandlers,
+	ExtensionParams,
 	ExtensionProvider,
 	MultiBodiedExtensionActions,
+	Parameters,
 } from '@atlaskit/editor-common/extensions';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
@@ -24,7 +26,13 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 interface Props {
 	actions?: MultiBodiedExtensionActions;
-	children: ({ result }: { result?: JSX.Element | null }) => JSX.Element;
+	children: ({
+		node,
+		result,
+	}: {
+		node: ExtensionParams<Parameters>;
+		result?: JSX.Element | null;
+	}) => JSX.Element;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	content?: any;
@@ -152,12 +160,12 @@ export default function ExtensionRenderer(props: Props) {
 						result = <NodeRenderer node={node} />;
 					}
 				}
-			} catch (e) {
+			} catch {
 				/** We don't want this error to block renderer */
 				/** We keep rendering the default content */
 			}
 
-			return children({ result });
+			return children({ node, result });
 		},
 		[
 			actions,

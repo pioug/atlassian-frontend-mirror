@@ -1,4 +1,4 @@
-import type { ThemeAppearance } from '@atlaskit/lozenge';
+import { type LozengeProps, type ThemeAppearance } from '@atlaskit/lozenge';
 
 import type { LinkLozengeInvokeActions } from '../../../../../../../extractors/common/lozenge/types';
 
@@ -15,4 +15,4 @@ export type LozengeActionProps = {
 	testId?: string;
 	text: string | React.ReactNode;
 	zIndex?: number;
-};
+} & Pick<LozengeProps, 'maxWidth'>;

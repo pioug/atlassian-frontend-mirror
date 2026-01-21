@@ -5,7 +5,7 @@
 ### Minor Changes
 
 - [`0a325377cc8bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a325377cc8bf) -
-  `use-primitives-text` will autofix `<Text size="UNSAFE_small">` to `<Text size="small">.
+  `use-primitives-text` will autofix `<Text size="UNSAFE_small">` to `<Text size="small">`.
 
 ## 13.34.1
 

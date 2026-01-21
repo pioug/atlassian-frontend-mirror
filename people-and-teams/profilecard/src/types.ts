@@ -84,7 +84,7 @@ export interface RovoAgent {
 	name: string;
 	description: string | null;
 	system_prompt_template?: string | null;
-	creator_type: 'SYSTEM' | 'CUSTOMER' | 'THIRD_PARTY' | 'FORGE';
+	creator_type: 'SYSTEM' | 'CUSTOMER' | 'THIRD_PARTY' | 'FORGE' | 'ROVO_DEV';
 	creator?: string | null;
 	visibility?: 'PUBLIC' | 'PRIVATE' | null;
 	is_default: boolean;

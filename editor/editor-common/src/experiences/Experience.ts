@@ -9,7 +9,7 @@ import { DEFAULT_EXPERIENCE_SAMPLE_RATE, EXPERIENCE_ABORT_REASON } from './const
 import { canTransition } from './experience-state';
 import type { ExperienceCheck } from './ExperienceCheck';
 import { ExperienceCheckComposite } from './ExperienceCheckComposite';
-import type { CustomExperienceMetadata, ExperienceState } from './types';
+import type { CustomExperienceMetadata, ExperienceId, ExperienceState } from './types';
 
 type ExperienceOptions = {
 	/**
@@ -72,7 +72,7 @@ type ExperienceEndOptions = {
 };
 
 export class Experience {
-	private readonly id: string;
+	private readonly id: ExperienceId;
 	private readonly actionSubjectId: string | undefined;
 	private readonly dispatchAnalyticsEvent: DispatchAnalyticsEvent;
 	private readonly sampleRate: number;
@@ -123,7 +123,7 @@ export class Experience {
 	 * @param options.action - Optional sub identifier for the specific experience action e.g. 'bold' 'insert-table'
 	 * @param options.actionSubjectId - Optional sub identifier for the experience action subject e.g. 'selection-toolbar' 'quick-insert'
 	 */
-	constructor(id: string, options: ExperienceOptions) {
+	constructor(id: ExperienceId, options: ExperienceOptions) {
 		this.id = id;
 		this.actionSubjectId = options.actionSubjectId;
 		this.dispatchAnalyticsEvent = options.dispatchAnalyticsEvent;

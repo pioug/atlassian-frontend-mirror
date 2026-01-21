@@ -27,6 +27,7 @@ import {
 } from '../editor-commands';
 import { findSyncBlockOrBodiedSyncBlock, isBodiedSyncBlockNode } from '../pm-plugins/utils/utils';
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
+import { SYNCED_BLOCK_BUTTON_TEST_ID } from '../types';
 
 import { SyncedLocationDropdown } from './SyncedLocationDropdown';
 
@@ -75,7 +76,7 @@ export const getToolbarConfig = (
 			onClick: removeSyncedBlock(api),
 			icon: DeleteIcon,
 			testId: fg('platform_synced_block_dogfooding')
-				? 'reference-synced-block-delete-button'
+				? SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarReferenceDelete
 				: undefined,
 			...hoverDecorationProps(nodeType, akEditorSelectedNodeClassName),
 		};

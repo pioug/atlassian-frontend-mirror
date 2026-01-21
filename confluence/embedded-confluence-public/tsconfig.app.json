@@ -36,9 +36,6 @@
 		},
 		{
 			"path": "../experience-tracker/tsconfig.app.json"
-		},
-		{
-			"path": "../../../build/monorepo-utils/multi-entry-tools/tsconfig.app.json"
 		}
 	]
 }

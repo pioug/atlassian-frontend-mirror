@@ -1,11 +1,16 @@
 import React from 'react';
 
 import {
+	type ByRoleMatcher,
 	fireEvent,
+	type Matcher,
+	type MatcherOptions,
 	type queries,
 	render,
 	type RenderResult,
+	type SelectorMatcherOptions,
 	waitFor,
+	type waitForOptions,
 } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
@@ -41,7 +46,10 @@ export const getDefaultParameters: () => AssetsDatasourceParameters = () => ({
 	schemaId: '123',
 });
 
-export const defaultAssetsMeta = {
+export const defaultAssetsMeta: {
+	destinationObjectTypes: string[];
+	extensionKey: string;
+} = {
 	destinationObjectTypes: ['assets'],
 	extensionKey: 'jsm-cmdb-gateway',
 };
@@ -218,7 +226,21 @@ export const setup = async (
 		validateAqlTextHookState?: UseValidateAqlTextState;
 		visibleColumnKeys?: string[];
 	} = {},
-) => {
+): Promise<{
+	assertAnalyticsAfterButtonClick: (buttonName: string, payload: any) => Promise<void>;
+	clickSearchButton: () => Promise<void>;
+	component: RenderResult<typeof queries, HTMLElement, HTMLElement>;
+	findByRole: (role: ByRoleMatcher, options?: queries.ByRoleOptions | undefined, waitForElementOptions?: waitForOptions | undefined) => Promise<HTMLElement>;
+	getByRole: (role: ByRoleMatcher, options?: queries.ByRoleOptions | undefined) => HTMLElement;
+	getByTestId: (id: Matcher, options?: MatcherOptions | undefined) => HTMLElement;
+	getByText: (id: Matcher, options?: SelectorMatcherOptions | undefined) => HTMLElement;
+	onAnalyticFireEvent: jest.Mock<any, any, any>;
+	onCancel: jest.Mock<any, any, any>;
+	onInsert: jest.Mock<any, any, any>;
+	queryByTestId: (id: Matcher, options?: MatcherOptions | undefined) => HTMLElement | null;
+	searchWithNewAql: (aqlString: string) => void;
+	selectNewSchema: (option: string) => Promise<void>;
+}> => {
 	asMock(useDatasourceTableState).mockReturnValue(
 		args.datasourceTableHookState || getDefaultDataSourceTableHookState(),
 	);

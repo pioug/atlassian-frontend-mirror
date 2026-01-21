@@ -4,11 +4,15 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/custom-theme-button';
+import type {
+	ContextIdentifierProvider,
+	MediaProvider,
+} from '@atlaskit/editor-common/provider-factory';
 import { toJSON } from '@atlaskit/editor-common/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -21,7 +25,7 @@ import {
 import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
-import { EmojiResource } from '@atlaskit/emoji/resource';
+import { EmojiResource, type EmojiProvider } from '@atlaskit/emoji/resource';
 import Link from '@atlaskit/link';
 import { MentionResource } from '@atlaskit/mention/resource';
 import { TeamMentionResource } from '@atlaskit/mention/team-resource';
@@ -29,6 +33,8 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+import type { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
+import type { MockTaskDecisionResource } from '@atlaskit/util-data-test/mock-task-decision-resource';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 
 import { buttonGroup, content } from './styles';
@@ -52,14 +58,63 @@ const userMentionConfig = {
 	productId: 'micros-group/confluence',
 };
 
-const providers = {
+const providers: {
+	activityProvider: {
+		pending: Promise<unknown>;
+		rejected: Promise<never>;
+		resolved: MockActivityResource;
+		undefined: undefined;
+	};
+	contextIdentifierProvider: {
+		pending: Promise<unknown>;
+		rejected: Promise<never>;
+		resolved: Promise<ContextIdentifierProvider>;
+		undefined: undefined;
+	};
+	emojiProvider: {
+		external: Promise<() => EmojiResource>;
+		pending: Promise<unknown>;
+		rejected: Promise<never>;
+		resolved: Promise<EmojiProvider>;
+		undefined: undefined;
+	};
+	imageUploadProvider: {
+		pending: Promise<unknown>;
+		rejected: Promise<never>;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		resolved: Promise<(e: any, fn: any) => void>;
+		undefined: undefined;
+	};
+	mediaProvider: {
+		pending: Promise<unknown>;
+		rejected: Promise<never>;
+		resolved: Promise<MediaProvider>;
+		'resolved (no auth provider)': Promise<MediaProvider>;
+		undefined: undefined;
+		'view only': Promise<MediaProvider>;
+	};
+	mentionProvider: {
+		external: Promise<() => MentionResource>;
+		pending: Promise<unknown>;
+		rejected: Promise<never>;
+		resolved: Promise<MockMentionResource>;
+		teamMentionResource: Promise<() => TeamMentionResource>;
+		undefined: undefined;
+	};
+	taskDecisionProvider: {
+		pending: Promise<unknown>;
+		rejected: Promise<never>;
+		resolved: Promise<MockTaskDecisionResource>;
+		undefined: undefined;
+	};
+} = {
 	mentionProvider: {
 		resolved: Promise.resolve(mentionResourceProvider),
-		external: Promise.resolve(() => new MentionResource(userMentionConfig)),
+		external: Promise.resolve((): MentionResource => new MentionResource(userMentionConfig)),
 		pending: pendingPromise,
 		rejected: rejectedPromise,
 		teamMentionResource: Promise.resolve(
-			() => new TeamMentionResource(userMentionConfig, teamMentionConfig),
+			(): TeamMentionResource => new TeamMentionResource(userMentionConfig, teamMentionConfig),
 		),
 		undefined: undefined,
 	},
@@ -69,7 +124,7 @@ const providers = {
 			currentUser,
 		}),
 		external: Promise.resolve(
-			() =>
+			(): EmojiResource =>
 				new EmojiResource({
 					providers: [
 						{
@@ -234,7 +289,7 @@ export default class ToolsDrawer extends React.Component<Props, State> {
 		}));
 	};
 
-	render() {
+	render(): jsx.JSX.Element {
 		const {
 			mentionProvider,
 			emojiProvider,

@@ -1,7 +1,8 @@
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { ACTION_SUBJECT_ID, type DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import {
 	containsPopupWithNestedElement,
 	Experience,
+	EXPERIENCE_ID,
 	ExperienceCheckDomMutation,
 	ExperienceCheckTimeout,
 	getPopupContainerFromEditorView,
@@ -52,8 +53,8 @@ export const getQuickInsertOpenExperiencePlugin = ({
 		return targetEl;
 	};
 
-	const experience = new Experience('menu-open', {
-		actionSubjectId: 'quick-insert-menu',
+	const experience = new Experience(EXPERIENCE_ID.MENU_OPEN, {
+		actionSubjectId: ACTION_SUBJECT_ID.QUICK_INSERT,
 		dispatchAnalyticsEvent,
 		checks: [
 			new ExperienceCheckTimeout({ durationMs: 500 }),

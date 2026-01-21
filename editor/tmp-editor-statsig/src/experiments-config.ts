@@ -18,8 +18,8 @@ export type EditorExperimentsConfig = typeof editorExperimentsConfig;
  */
 export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
-		? true // Boolean: only 'true' is allowed as expected value
-		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+	? true // Boolean: only 'true' is allowed as expected value
+	: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
 
 /**
  * Extract valid default values.
@@ -28,8 +28,8 @@ export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimen
  */
 export type ExperimentDefaultValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
-		? false // Boolean: only 'false' is allowed as default value
-		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+	? false // Boolean: only 'false' is allowed as default value
+	: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
 
 /**
  * When adding a new experiment, you need to add it here.
@@ -1072,6 +1072,20 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-01-16
 	platform_editor_ai_edit_unsupported_content: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-01-19
+	platform_editor_copy_paste_issue_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-01-20
+	platform_editor_aifc_remove_duplicate_role: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2290,6 +2304,23 @@ export const editorExperimentsConfig: {
 	platform_editor_ai_edit_unsupported_content: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_edit_unsupported_content',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-01-19
+	platform_editor_copy_paste_issue_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_copy_paste_issue_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-01-20
+	platform_editor_aifc_remove_duplicate_role: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_aifc_remove_duplicate_role',
+			jira: 'platform_editor_aifc_remove_duplicate_role',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

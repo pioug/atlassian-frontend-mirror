@@ -123,9 +123,6 @@
 			"path": "../../linking-platform/json-ld-types/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/link/tsconfig.app.json"
-		},
-		{
 			"path": "../../linking-platform/link-datasource/tsconfig.app.json"
 		},
 		{

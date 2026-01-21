@@ -1,5 +1,30 @@
 # @atlaskit/editor-common
 
+## 111.8.8
+
+### Patch Changes
+
+- [`7f41011a1b0ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f41011a1b0ff) -
+  EDITOR-1665 update sync block experience events to use general experience ids, keep existing error
+  events and add success events
+- Updated dependencies
+
+## 111.8.7
+
+### Patch Changes
+
+- [`d34e6bd1197a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d34e6bd1197a5) -
+  EDITOR-4178 update document inserted event to have is inside synced block attribute
+- [`e04e057af7743`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e04e057af7743) -
+  Adds scrubbed localId and commands to analytics to help narrow root cause issues.
+- Updated dependencies
+
+## 111.8.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 111.8.5
 
 ### Patch Changes

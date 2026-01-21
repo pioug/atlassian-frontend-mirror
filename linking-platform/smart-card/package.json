@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.20.7",
+	"version": "43.21.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -240,6 +240,9 @@
 		"platform_navx_sl_a11y_embed_modal": {
 			"type": "boolean"
 		},
+		"platform_navx_sl_lozenge_max_width": {
+			"type": "boolean"
+		},
 		"platform_navx_send_context_to_ugs_for_rel_links": {
 			"type": "boolean"
 		},
@@ -247,9 +250,6 @@
 			"type": "boolean"
 		},
 		"navx-2811-smart-link-a11y-image-alt": {
-			"type": "boolean"
-		},
-		"navx-2185-smart-link-preview-modal-icon-role": {
 			"type": "boolean"
 		},
 		"ufo_hold_flexible_card": {

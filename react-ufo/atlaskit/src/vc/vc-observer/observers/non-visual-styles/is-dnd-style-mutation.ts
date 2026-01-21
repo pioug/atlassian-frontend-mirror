@@ -58,7 +58,7 @@ function containsDnDMutationInStyle({
 	attributeName?: string | null;
 	oldValue?: string | undefined | null;
 	newValue?: string | undefined | null;
-}) {
+}): boolean {
 	if (attributeName !== 'style') {
 		return false;
 	}

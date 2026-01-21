@@ -38,9 +38,6 @@
 		},
 		{
 			"path": "../codegen/tsconfig.app.json"
-		},
-		{
-			"path": "../../monorepo-tooling/ts-loader/tsconfig.app.json"
 		}
 	],
 	"files": []

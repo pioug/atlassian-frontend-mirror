@@ -5,7 +5,7 @@ import isValid from 'date-fns/isValid';
 
 import { type RelativeDateKeyType } from '../types';
 
-export function isValidDate(date: Date, today: Date = new Date()) {
+export function isValidDate(date: Date, today: Date = new Date()): boolean {
 	return !!date.getTime && isValid(date) && date.getTime() <= today.getTime();
 }
 

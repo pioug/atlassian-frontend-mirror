@@ -19,7 +19,7 @@ const codeViewerMimeTypes: {
 	{ mimetype: 'text/html', language: 'html' },
 ];
 
-export function isCodeViewerItem(name: string, mimetype: string = 'unknown') {
+export function isCodeViewerItem(name: string, mimetype: string = 'unknown'): boolean {
 	return getLanguageType(name, mimetype) !== null;
 }
 

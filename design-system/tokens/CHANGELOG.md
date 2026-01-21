@@ -1,5 +1,12 @@
 # @atlaskit/tokens
 
+## 10.1.0
+
+### Minor Changes
+
+- [`2fdb6040218a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2fdb6040218a1) -
+  Deprecating `font.body.UNSAFE_small` typography token, replace with `font.body.small` token.
+
 ## 10.0.1
 
 ### Patch Changes

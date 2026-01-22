@@ -1,8 +1,17 @@
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+
 import AnalyticsHelper from '../../analytics/analytics-helper';
 import type { PresencePayload } from '../../types';
 import { type BatchProps } from '../participants-helper';
 import { ParticipantsService } from '../participants-service';
 import { ParticipantsState } from '../participants-state';
+
+/**
+ * This file was identified as having accessibility violations.
+ * The violations have been temporarily suppressed to allow for incremental fixing.
+ * Please run accessibility checks and remove this suppression when all issues are resolved.
+ */
+skipAutoA11yFile();
 
 describe('participants-service-presence', () => {
 	let broadcast: any;

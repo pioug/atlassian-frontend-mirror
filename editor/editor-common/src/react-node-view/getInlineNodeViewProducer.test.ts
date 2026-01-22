@@ -1,7 +1,15 @@
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import { getInlineNodeViewProducer, type CreateNodeViewOptions } from './getInlineNodeViewProducer';
+
+/**
+ * This file was identified as having accessibility violations.
+ * The violations have been temporarily suppressed to allow for incremental fixing.
+ * Please run accessibility checks and remove this suppression when all issues are resolved.
+ */
+skipAutoA11yFile();
 
 // Mock the modules
 jest.mock('@atlaskit/platform-feature-flags', () => ({

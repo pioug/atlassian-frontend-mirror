@@ -8,7 +8,6 @@ import type {
 	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { isEmptyParagraph } from './editor-core-utils';
 
@@ -25,14 +24,9 @@ export const getStepRange = (
 			const newStart = transaction.mapping.slice(index).map(oldStart, -1);
 			const newEnd = transaction.mapping.slice(index).map(oldEnd);
 
-			if (fg('platform_editor_ai_generic_prep_for_aifc')) {
-				const docSize = transaction.doc.content.size;
-				from = clamp(newStart < from || from === -1 ? newStart : from, 0, docSize);
-				to = clamp(newEnd > to || to === -1 ? newEnd : to, 0, docSize);
-			} else {
-				from = newStart < from || from === -1 ? newStart : from;
-				to = newEnd > to || to === -1 ? newEnd : to;
-			}
+			const docSize = transaction.doc.content.size;
+			from = clamp(newStart < from || from === -1 ? newStart : from, 0, docSize);
+			to = clamp(newEnd > to || to === -1 ? newEnd : to, 0, docSize);
 		});
 	});
 

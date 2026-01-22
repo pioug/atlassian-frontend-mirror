@@ -1,4 +1,4 @@
-import type { ReferenceSyncBlockResponse, SyncBlockProduct } from '../../common/types';
+import type { ReferenceSyncBlockResponse, SyncBlockProduct, SyncBlockStatus } from '../../common/types';
 import { fetchWithRetry } from '../../utils/retry';
 
 export type BlockContentResponse = {
@@ -9,7 +9,7 @@ export type BlockContentResponse = {
 	createdBy: string;
 	product: SyncBlockProduct;
 	sourceAri: string;
-	status: 'active' | 'deleted';
+	status: SyncBlockStatus;
 	version: number;
 };
 

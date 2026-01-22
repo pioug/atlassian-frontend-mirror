@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import { defineMessages, useIntl } from 'react-intl-next';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Avatar from '@atlaskit/avatar';
 import { IconButton } from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
@@ -10,13 +9,12 @@ import CrossIcon from '@atlaskit/icon/core/cross';
 import Link from '@atlaskit/link';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
-import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
+import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { type ContainerSubTypes, type ContainerTypes } from '../../../common/types';
 import { LoomSpaceAvatar } from '../../../common/ui/loom-avatar';
-import { AnalyticsAction, usePeopleAndTeamAnalytics } from '../../../common/utils/analytics';
 import { getContainerProperties } from '../../../common/utils/get-container-properties';
 
 const messages = defineMessages({
@@ -102,9 +100,7 @@ const LinkedCardWrapper = ({
 		handleMouseEnter();
 		setHovered(true);
 	};
-	const { fireUIEvent } = usePeopleAndTeamAnalytics();
-	const { createAnalyticsEvent } = useAnalyticsEvents();
-	const { fireEvent } = useAnalyticsEventsNext();
+	const { fireEvent } = useAnalyticsEvents();
 
 	const onMouseLeave = () => {
 		handleMouseLeave();
@@ -122,18 +118,9 @@ const LinkedCardWrapper = ({
 				href={href}
 				appearance="subtle"
 				onClick={() => {
-					if (fg('ptc-enable-teams-public-analytics-refactor')) {
-						fireEvent('ui.container.clicked.teamContainer', {
-							containerSelected: { container: containerType, containerId },
-						});
-					} else {
-						fireUIEvent(createAnalyticsEvent, {
-							action: AnalyticsAction.CLICKED,
-							actionSubject: 'container',
-							actionSubjectId: 'teamContainer',
-							attributes: { containerSelected: { container: containerType, containerId } },
-						});
-					}
+					fireEvent('ui.container.clicked.teamContainer', {
+						containerSelected: { container: containerType, containerId },
+					});
 				}}
 			>
 				{children}
@@ -160,7 +147,6 @@ export const LinkedContainerCard = ({
 	containerTypeProperties,
 	onDisconnectButtonClick,
 }: LinkedContainerCardProps): React.JSX.Element => {
-	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { description, icon, containerTypeText } = getContainerProperties({
 		containerType,
 		iconSize: fg('enable_medium_size_icons_for_team_link_cards') ? 'medium' : 'small',
@@ -169,8 +155,7 @@ export const LinkedContainerCard = ({
 
 	const [showCloseIcon, setShowCloseIcon] = useState(false);
 	const { formatMessage } = useIntl();
-	const { fireUIEvent } = usePeopleAndTeamAnalytics();
-	const { fireEvent } = useAnalyticsEventsNext();
+	const { fireEvent } = useAnalyticsEvents();
 
 	return (
 		<LinkedCardWrapper
@@ -213,17 +198,9 @@ export const LinkedContainerCard = ({
 									e.preventDefault();
 									e.stopPropagation();
 									onDisconnectButtonClick();
-									if (fg('ptc-enable-teams-public-analytics-refactor')) {
-										fireEvent('ui.button.clicked.containerUnlinkButton', {
-											containerSelected: null,
-										});
-									} else {
-										fireUIEvent(createAnalyticsEvent, {
-											action: AnalyticsAction.CLICKED,
-											actionSubject: 'button',
-											actionSubjectId: 'containerUnlinkButton',
-										});
-									}
+									fireEvent('ui.button.clicked.containerUnlinkButton', {
+										containerSelected: null,
+									});
 								}}
 							/>
 						</Tooltip>

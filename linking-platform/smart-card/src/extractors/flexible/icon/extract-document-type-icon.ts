@@ -1,5 +1,4 @@
 import { isConfluenceGenerator } from '@atlaskit/link-extractors';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { IconType } from '../../../constants';
 
@@ -27,94 +26,46 @@ const extractDocumentTypeIcon = (
 ): IconDescriptor | undefined => {
 	switch (documentType) {
 		case 'schema:BlogPosting':
-			return fg('navx-2827-eslint-object-translation-smart-links')
-				? {
+			return {
 						icon: IconType.Blog,
 						label
-					}
-				: {
-						icon: IconType.Blog,
-						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-						label: label || 'Blog',
 					};
 		case 'schema:DigitalDocument':
 			if (providerId && isConfluenceGenerator(providerId)) {
-				return fg('navx-2827-eslint-object-translation-smart-links')
-					? {
+				return {
 							icon: IconType.LiveDocument,
 							label
-						}
-					: {
-							icon: IconType.LiveDocument,
-							// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-							label: label || 'Live Document',
 						};
 			} else {
-				return fg('navx-2827-eslint-object-translation-smart-links')
-					? {
+				return {
 							icon: IconType.File,
 							label
-						}
-					: {
-							icon: IconType.File,
-							// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-							label: label || 'File',
 						};
 			}
 		case 'schema:TextDigitalDocument':
-			return fg('navx-2827-eslint-object-translation-smart-links')
-				? {
+			return {
 						icon: IconType.Document,
 						label
-					}
-				: {
-						icon: IconType.Document,
-						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-						label: label || 'Document',
 					};
 		case 'schema:PresentationDigitalDocument':
-			return fg('navx-2827-eslint-object-translation-smart-links')
-				? {
+			return {
 						icon: IconType.Presentation,
 						label
-					}
-				: {
-						icon: IconType.Presentation,
-						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-						label: label || 'Presentation',
 					};
 		case 'schema:SpreadsheetDigitalDocument':
-			return fg('navx-2827-eslint-object-translation-smart-links')
-				? {
+			return {
 						icon: IconType.Spreadsheet,
 						label
-					}
-				: {
-						icon: IconType.Spreadsheet,
-						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-						label: label || 'Spreadsheet',
 					};
 		case 'atlassian:Template':
-			return fg('navx-2827-eslint-object-translation-smart-links')
-				? {
+			return {
 						icon: IconType.Template,
 						label
-					}
-				: {
-						icon: IconType.Template,
-						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-						label: label || 'Template',
 					};
 		case 'atlassian:UndefinedLink':
-			return fg('navx-2827-eslint-object-translation-smart-links')
-				? {
+			return {
 						icon: IconType.Document,
 						label
-					}
-				: {
-						icon: IconType.Document,
-						// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-						label: label || 'Undefined link',
 					};
 		default:
 			return undefined;

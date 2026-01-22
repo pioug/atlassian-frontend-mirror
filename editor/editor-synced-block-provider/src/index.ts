@@ -4,9 +4,11 @@
 export { rebaseTransaction } from './common/rebase-transaction';
 export { SyncBlockError } from './common/types';
 export type {
+	ResourceId,
 	SyncBlockData,
 	SyncBlockNode,
 	SyncBlockProduct,
+	SyncBlockStatus,
 	BlockInstanceId,
 	SyncBlockAttrs,
 	ReferenceSyncBlockData,
@@ -53,12 +55,15 @@ export type {
 	ADFFetchProvider,
 	ADFWriteProvider,
 	BlockNodeIdentifiers,
+	BlockSubscriptionErrorCallback,
+	BlockUpdateCallback,
 	SyncBlockDataProvider,
 	SyncBlockInstance,
 	MediaEmojiProviderOptions,
 	SyncedBlockRendererProviderOptions,
 	SyncBlockRendererProviderCreator,
 	SyncedBlockRendererDataProviders,
+	Unsubscribe,
 	UpdateReferenceSyncBlockResult,
 	WriteSyncBlockResult,
 	SyncBlockParentInfo,

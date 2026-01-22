@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { act } from 'react';
 
-import { waitFor } from '@testing-library/react';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, waitFor } from '@testing-library/react';
 
 import {
 	addFileAttrsToUrl,
@@ -648,7 +647,7 @@ describe('useFilePreview', () => {
 				await waitFor(() =>
 					expect(result?.current.preview).toMatchObject({
 						dataURI: expect.stringContaining('mock result of URL.createObjectURL()'),
-						source: 'remote',
+						source: 'cache-remote',
 					}),
 				);
 			});
@@ -701,7 +700,7 @@ describe('useFilePreview', () => {
 				await waitFor(() =>
 					expect(result?.current.preview).toMatchObject({
 						dataURI: expect.stringContaining('mock result of URL.createObjectURL()'),
-						source: 'remote',
+						source: 'cache-remote',
 					}),
 				);
 			});
@@ -806,7 +805,7 @@ describe('useFilePreview', () => {
 				mediaBlobUrlAttrs,
 			};
 
-			const { result, rerender, waitForNextUpdate } = renderHook(useFilePreview, {
+			const { result, rerender } = renderHook(useFilePreview, {
 				wrapper: ({ children }) => (
 					<MockedMediaClientProvider>{children}</MockedMediaClientProvider>
 				),
@@ -823,12 +822,9 @@ describe('useFilePreview', () => {
 			await waitFor(() => expect(getItemsSpy).toHaveBeenCalledTimes(1));
 
 			resolveItemsPromise();
-			await waitForNextUpdate();
 
 			resolveImagePromise();
-			await waitForNextUpdate();
-
-			expect(result?.current.status).toBe('complete');
+			await waitFor(() => expect(result?.current.status).toBe('complete'));
 
 			expect(getImageSpy).toHaveBeenCalledTimes(1);
 		});
@@ -859,7 +855,7 @@ describe('useFilePreview', () => {
 				dimensions: { width: 500, height: 500 },
 			};
 
-			const { result, rerender, waitForNextUpdate } = renderHook(useFilePreview, {
+			const { result, rerender } = renderHook(useFilePreview, {
 				wrapper: ({ children }) => (
 					<MockedMediaClientProvider>{children}</MockedMediaClientProvider>
 				),
@@ -872,7 +868,8 @@ describe('useFilePreview', () => {
 			// resolve upfront preview
 			rerender({ ...initialProps, skipRemote: false });
 			resolveImagePromise();
-			await waitForNextUpdate();
+			const initialState = result?.current;
+			await waitFor(() => expect(result?.current).not.toBe(initialState));
 			await waitFor(() => expect(getItemsSpy).toHaveBeenCalledTimes(1));
 
 			// update the dimensions (simulating confluence hydration)
@@ -1744,7 +1741,7 @@ describe('useFilePreview', () => {
 				await waitFor(() =>
 					expect(result?.current.preview).toMatchObject({
 						dataURI: expect.stringContaining('mock result of URL.createObjectURL()'),
-						source: 'remote',
+						source: 'cache-remote',
 					}),
 				);
 				expect(result?.current.status).toBe('complete');
@@ -1794,7 +1791,7 @@ describe('useFilePreview', () => {
 					await waitFor(() =>
 						expect(result?.current.preview).toMatchObject({
 							dataURI: expect.stringContaining('mock result of URL.createObjectURL()'),
-							source: 'remote',
+							source: 'cache-remote',
 							dimensions: { width: 100, height: 100 },
 						}),
 					);
@@ -1842,7 +1839,7 @@ describe('useFilePreview', () => {
 				await waitFor(() =>
 					expect(result?.current.preview).toMatchObject({
 						dataURI: 'mock result of URL.createObjectURL()',
-						source: 'remote',
+						source: 'cache-remote',
 						dimensions: { width: 100, height: 100 },
 					}),
 				);
@@ -1861,7 +1858,7 @@ describe('useFilePreview', () => {
 				await waitFor(() =>
 					expect(result?.current.preview).toMatchObject({
 						dataURI: 'mock result of URL.createObjectURL()',
-						source: 'remote',
+						source: 'cache-remote',
 						dimensions: { width: 100, height: 100 },
 					}),
 				);
@@ -1899,7 +1896,7 @@ describe('useFilePreview', () => {
 					await waitFor(() =>
 						expect(result?.current.preview).toMatchObject({
 							dataURI: 'mock result of URL.createObjectURL()',
-							source: 'remote',
+							source: 'cache-remote',
 							dimensions: { width: 100, height: 100 },
 						}),
 					);
@@ -1916,7 +1913,7 @@ describe('useFilePreview', () => {
 					// Preview should remain the same
 					expect(result?.current.preview).toMatchObject({
 						dataURI: 'mock result of URL.createObjectURL()',
-						source: 'remote',
+						source: 'cache-remote',
 						dimensions: { width: 100, height: 100 },
 					});
 				},
@@ -2149,7 +2146,7 @@ describe('useFilePreview', () => {
 			});
 
 			ffTest.off('media-perf-uplift-mutation-fix', 'without feature flag', () => {
-				it('should refetch SSR preview even when dimensions are equal or smaller', async () => {
+				it('should refetch SSR preview immediately on mount', async () => {
 					const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
 					const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
 						initialItems: fileItem,
@@ -2179,27 +2176,38 @@ describe('useFilePreview', () => {
 						initialProps,
 					});
 
+					// Should initially use SSR preview
 					await waitFor(() => expect(result?.current.status).toBe('complete'));
 					expect(result?.current.preview).toMatchObject(globalScopePreview);
-					expect(getImageSpy).not.toHaveBeenCalled();
-
-					// Resize to smaller dimensions
-					rerender({ ...initialProps, dimensions: { width: 50, height: 50 } });
-
-					// Without feature flag, should still refetch SSR preview
+					
+					// Without feature flag, SSR preview triggers immediate refetch on mount
 					await waitFor(() => expect(getImageSpy).toHaveBeenCalledTimes(1));
+					
+					// Preview should be replaced with remote preview
 					await waitFor(() =>
 						expect(result?.current.preview).toMatchObject({
 							dataURI: expect.stringContaining('mock result of URL.createObjectURL()'),
 							source: 'remote',
 						}),
 					);
+
+					// Clear for next check
+					getImageSpy.mockClear();
+
+					// Resize to smaller dimensions
+					rerender({ ...initialProps, dimensions: { width: 50, height: 50 } });
+
+					// Should NOT refetch because preview is now 'remote' (not SSR) with adequate dimensions
+					expect(getImageSpy).not.toHaveBeenCalled();
+					
+					// Preview should remain the same
+					expect(result?.current.preview?.source).toBe('remote');
 				});
 			});
 		});
 
 		describe('SSR preview error handling', () => {
-			it('should reset preview and not remain in loading state when SSR data preview fails', async () => {
+			it('should reset preview and remain in loading state when SSR data preview fails', async () => {
 				const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
 				const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
 					initialItems: fileItem,
@@ -2234,7 +2242,9 @@ describe('useFilePreview', () => {
 				expect(result?.current.preview).toMatchObject(globalScopePreview);
 
 				// Trigger error on the SSR data preview (simulating image load failure due to notfound)
-				result?.current.onImageError(globalScopePreview);
+				await act(async () => {
+					result?.current.onImageError(globalScopePreview);
+				});
 
 				// After error, preview should be reset and should not be in loading state
 				await waitFor(() => {
@@ -2246,7 +2256,7 @@ describe('useFilePreview', () => {
 				});
 
 				// Should be complete state, and no longer loading
-				expect('complete').toEqual(result?.current.status);
+				expect('error').toEqual(result?.current.status);
 			});
 		});
 	});

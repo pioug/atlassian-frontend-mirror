@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { renderHook } from '@testing-library/react-hooks';
+import { fireEvent, render, renderHook, screen, waitFor } from '@testing-library/react';
 
 import { type FileIdentifier, type ResponseFileItem } from '@atlaskit/media-client';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
@@ -109,7 +108,7 @@ describe('useMediaImage', () => {
 		const imgElement: HTMLImageElement = screen.getByRole('img');
 		expect(imgElement).toHaveAttribute('data-test-collection', identifier.collectionName);
 		expect(imgElement).toHaveAttribute('data-test-file-id', identifier.id);
-		expect(imgElement).toHaveAttribute('data-test-preview-source', 'remote');
+		expect(imgElement).toHaveAttribute('data-test-preview-source', 'cache-remote');
 	});
 
 	it('should call onLoad function successfully after rendering an image', async () => {
@@ -264,7 +263,7 @@ describe('useMediaImage', () => {
 		// Assertions
 		const { error } = result?.current;
 		expect(error).toMatchObject({
-			primaryReason: 'remote-uri',
+			primaryReason: 'cache-remote-uri',
 		});
 		expect(onLoad).not.toHaveBeenCalled();
 		expect(onError).toHaveBeenCalled();

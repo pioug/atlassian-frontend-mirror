@@ -24,8 +24,7 @@ export const editorUGCTokensDefault: SerializedStyles = css({
 });
 
 /**
- * Use when fg('platform_editor_typography_ugc') is enabled, but none of the following are enabled:
- * - fg('platform-dst-jira-web-fonts')
+ * Use when fg('platform_editor_typography_ugc') is enabled, but the following are not enabled:
  * - fg('atlas_editor_typography_refreshed')
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
@@ -48,8 +47,7 @@ export const editorUGCTokensModernized: SerializedStyles = css({
 });
 
 /**
- * Use when fg('platform_editor_typography_ugc') is enabled and one of the following are enabled:
- * - fg('platform-dst-jira-web-fonts')
+ * Use when fg('platform_editor_typography_ugc') is enabled and the following is enabled:
  * - fg('atlas_editor_typography_refreshed')
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles

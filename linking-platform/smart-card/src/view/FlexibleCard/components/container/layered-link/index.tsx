@@ -4,8 +4,6 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
 
 import { type LayeredLinkProps } from './types';
@@ -67,8 +65,6 @@ const LayeredLink = ({ onClick, target, testId, text, url }: LayeredLinkProps) =
 			onClick={onClick}
 			onMouseDown={onMouseDown}
 			target={target}
-			tabIndex={fg('platform-linking-smart-card-layered-link-a11y') ? undefined : -1} // Hide tab index and let the title link be the link.
-			aria-hidden={fg('platform-linking-smart-card-layered-link-a11y') ? undefined : true} // This is to avoid screen readers reading out the link twice.
 		>
 			{text}
 		</a>

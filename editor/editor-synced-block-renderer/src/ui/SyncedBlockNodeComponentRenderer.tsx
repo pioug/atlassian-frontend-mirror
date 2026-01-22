@@ -4,6 +4,7 @@ import type { DocNode } from '@atlaskit/adf-schema';
 import { SyncBlockSharedCssClassName, SyncBlockRendererDataAttributeName } from '@atlaskit/editor-common/sync-block';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import { SyncBlockError, useFetchSyncBlockData } from '@atlaskit/editor-synced-block-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type NodeProps } from '@atlaskit/renderer';
 
 import type { SyncedBlockRendererOptions } from '../types';
@@ -45,10 +46,10 @@ export const SyncedBlockNodeComponentRenderer = ({
 		return <SyncedBlockLoadingState />;
 	}
 
-	if (!resourceId || syncBlockInstance?.error || !syncBlockInstance?.data) {
+	if (!resourceId || syncBlockInstance?.error || !syncBlockInstance?.data || (syncBlockInstance.data.status === 'deleted' && fg('platform_synced_block_dogfooding'))) {
 		return (
 			<SyncedBlockErrorComponent
-				error={syncBlockInstance?.error ?? SyncBlockError.Errored}
+				error={syncBlockInstance?.error ?? (syncBlockInstance?.data?.status === 'deleted' && fg('platform_synced_block_dogfooding') ? SyncBlockError.NotFound : SyncBlockError.Errored)}
 				resourceId={syncBlockInstance?.resourceId}
 				onRetry={reloadData}
 				isLoading={isLoading}

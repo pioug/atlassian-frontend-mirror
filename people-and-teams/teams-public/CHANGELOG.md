@@ -1,5 +1,12 @@
 # @atlaskit/teams-public
 
+## 0.66.0
+
+### Minor Changes
+
+- [`f75df2b4b4bc6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f75df2b4b4bc6) -
+  Cleaned up feature gate related to the teams public internal analytics instrumentation
+
 ## 0.65.5
 
 ### Patch Changes

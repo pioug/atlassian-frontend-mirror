@@ -27,6 +27,7 @@ import { findParentDomRefOfType, findParentNodeOfType } from '@atlaskit/editor-p
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables';
 import { findTable } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
@@ -217,13 +218,24 @@ export const createPlugin = (
 					const { selection } = state;
 					const pluginState = getPluginState(state);
 					let tableRef: HTMLTableElement | undefined;
-					if (pluginState.editorHasFocus) {
+					if (fg('platform_editor_enable_table_dnd')) {
 						const parent = findParentDomRefOfType(state.schema.nodes.table, domAtPos)(selection);
 						if (parent) {
 							tableRef =
 								// Ignored via go/ees005
 								// eslint-disable-next-line @atlaskit/editor/no-as-casting
 								(parent as HTMLElement).querySelector<HTMLTableElement>('table') || undefined;
+						}
+					}
+					if (pluginState.editorHasFocus) {
+						if (!fg('platform_editor_enable_table_dnd')) {
+							const parent = findParentDomRefOfType(state.schema.nodes.table, domAtPos)(selection);
+							if (parent) {
+								tableRef =
+									// Ignored via go/ees005
+									// eslint-disable-next-line @atlaskit/editor/no-as-casting
+									(parent as HTMLElement).querySelector<HTMLTableElement>('table') || undefined;
+							}
 						}
 						const tableNode = findTable(state.selection);
 						// when keyboard cursor leaves the table we need to stop column resizing

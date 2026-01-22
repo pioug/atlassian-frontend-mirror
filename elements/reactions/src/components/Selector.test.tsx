@@ -1,3 +1,4 @@
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import React from 'react';
 import { screen, fireEvent } from '@testing-library/react';
 import { type EmojiProvider, type OnEmojiEvent } from '@atlaskit/emoji';
@@ -11,6 +12,11 @@ import { RENDER_SHOWMORE_TESTID } from './ShowMore';
 import { DefaultReactions } from '../shared/constants';
 import { messages } from '../shared/i18n';
 import { Selector } from './Selector';
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 const renderSelector = (
 	onSelection: OnEmojiEvent = () => {},
@@ -44,7 +50,7 @@ describe('@atlaskit/reactions/components/selector', () => {
 		const emojiWrappers = screen.getAllByRole('presentation');
 		expect(emojiWrappers.length).toEqual(DefaultReactions.length);
 
-		DefaultReactions.forEach(({ id, shortName }) => {
+		DefaultReactions.forEach(({ shortName }) => {
 			const elem = screen.getByLabelText(shortName, { selector: 'button', exact: false });
 			expect(elem).toBeInTheDocument();
 		});

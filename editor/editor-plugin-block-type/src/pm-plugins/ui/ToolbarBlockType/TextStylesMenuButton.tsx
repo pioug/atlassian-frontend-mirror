@@ -6,10 +6,7 @@ import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks'
 import { toolbarMessages } from '@atlaskit/editor-common/messages';
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { ToolbarDropdownMenu, ToolbarTooltip, TextIcon } from '@atlaskit/editor-toolbar';
-import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockTypePlugin } from '../../../blockTypePluginType';
 import { toolbarBlockTypesWithRank } from '../../block-types';
@@ -19,23 +16,12 @@ type TextStylesMenuButtonProps = {
 	children: React.ReactNode;
 };
 
-const usePluginState = conditionalHooksFactory(
-	() => expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true),
-	(api?: ExtractInjectionAPI<BlockTypePlugin>) => {
-		return useSharedPluginStateWithSelector(api, ['blockType'], (state) => ({
-			blockTypesDisabled: state.blockTypeState?.blockTypesDisabled,
-			currentBlockType: state.blockTypeState?.currentBlockType,
-		}));
-	},
-	(api?: ExtractInjectionAPI<BlockTypePlugin>) => {
-		const blockTypesDisabled = useSharedPluginStateSelector(api, 'blockType.blockTypesDisabled');
-		const currentBlockType = useSharedPluginStateSelector(api, 'blockType.currentBlockType');
-		return {
-			blockTypesDisabled,
-			currentBlockType,
-		};
-	},
-);
+const usePluginState = (api?: ExtractInjectionAPI<BlockTypePlugin>) => {
+	return useSharedPluginStateWithSelector(api, ['blockType'], (state) => ({
+		blockTypesDisabled: state.blockTypeState?.blockTypesDisabled,
+		currentBlockType: state.blockTypeState?.currentBlockType,
+	}));
+};
 
 export const TextStylesMenuButton = ({ api, children }: TextStylesMenuButtonProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();

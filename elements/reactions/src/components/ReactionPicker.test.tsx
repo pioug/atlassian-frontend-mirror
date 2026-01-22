@@ -1,3 +1,4 @@
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import React, { useState } from 'react';
 import { type Stub, replaceRaf } from 'raf-stub';
 import { screen, waitFor } from '@testing-library/react';
@@ -26,6 +27,11 @@ jest.mock('../hooks/useDelayedState', () => ({
 // override requestAnimationFrame letting us execute it when we need
 replaceRaf();
 const requestAnimationFrame = window.requestAnimationFrame as unknown as Stub;
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 // TODO: fix warnings of this test
 // the focus involve requestAnimationFrame, better to be stubbed

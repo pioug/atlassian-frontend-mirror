@@ -5,13 +5,9 @@ import { useIntl } from 'react-intl-next';
 import { selectionToolbarMessages } from '@atlaskit/editor-common/messages';
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import { PinIcon, PinnedIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
 
@@ -23,32 +19,15 @@ type PinMenuItemProps = {
 	api?: ExtractInjectionAPI<SelectionToolbarPlugin>;
 };
 
-const usePluginState = conditionalHooksFactory(
-	() => expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true),
-	(_api?: ExtractInjectionAPI<SelectionToolbarPlugin> | undefined) => {
-		const { editorViewMode, editorToolbarDockingPreference, isOffline } = useEditorToolbar();
+const usePluginState = (_api?: ExtractInjectionAPI<SelectionToolbarPlugin> | undefined) => {
+	const { editorViewMode, editorToolbarDockingPreference, isOffline } = useEditorToolbar();
 
-		return {
-			editorViewMode,
-			editorToolbarDockingPreference,
-			isOffline,
-		};
-	},
-	(api?: ExtractInjectionAPI<SelectionToolbarPlugin> | undefined) => {
-		const editorViewMode = useSharedPluginStateSelector(api, 'editorViewMode.mode');
-		const editorToolbarDockingPreference = useSharedPluginStateSelector(
-			api,
-			'userPreferences.preferences.toolbarDockingPosition',
-		);
-		const isOffline = isOfflineMode(useSharedPluginStateSelector(api, 'connectivity.mode'));
-
-		return {
-			editorViewMode,
-			editorToolbarDockingPreference,
-			isOffline,
-		};
-	},
-);
+	return {
+		editorViewMode,
+		editorToolbarDockingPreference,
+		isOffline,
+	};
+};
 
 /**
  * The menu-item version of pin only appears in selection toolbar - the primary toolbar will have its own component

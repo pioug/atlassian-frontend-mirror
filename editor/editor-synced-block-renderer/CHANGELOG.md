@@ -1,5 +1,16 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 5.4.0
+
+### Minor Changes
+
+- [`870c3baec758b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/870c3baec758b) -
+  Enable consumers to use GraphQL subscription for fetching the block data when the block changes
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.2
 
 ### Patch Changes

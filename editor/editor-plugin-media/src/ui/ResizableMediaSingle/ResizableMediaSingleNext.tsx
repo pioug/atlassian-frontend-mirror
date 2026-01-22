@@ -7,7 +7,6 @@ import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useSta
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import classnames from 'classnames';
-import type { Mapping } from 'classnames';
 import throttle from 'lodash/throttle';
 
 import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
@@ -37,11 +36,7 @@ import {
 } from '@atlaskit/editor-common/media-single';
 import type { Dimensions, HandleResize, Position, Snap } from '@atlaskit/editor-common/resizer';
 import { ResizerNext } from '@atlaskit/editor-common/resizer';
-import {
-	resizerItemClassName,
-	resizerStyles,
-	richMediaClassName,
-} from '@atlaskit/editor-common/styles';
+import { resizerItemClassName, richMediaClassName } from '@atlaskit/editor-common/styles';
 import type { Command } from '@atlaskit/editor-common/types';
 import {
 	calcPctFromPx,
@@ -365,36 +360,21 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 	const minViewWidth = isResizing ? minWidth : `min(${minWidth}px, 100%)`;
 
 	const resizerNextClassName = useMemo(() => {
-		if (expValEquals('platform_editor_resizer_styles_cleanup', 'isEnabled', true)) {
-			const classNameNext = classnames(
-				richMediaClassName,
-				`image-${layout}`,
-				isResizing ? 'is-resizing' : 'not-resizing',
-				className,
-				resizerItemClassName,
-				{
-					'display-handle': expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)
-						? selected && !disableHandles
-						: selected,
-					'richMedia-selected': selected,
-					'rich-media-wrapped': layout === 'wrap-left' || layout === 'wrap-right',
-				},
-			);
-			return classNameNext;
-		}
-		// TODO: ED-26962 - Clean up where this lives and how it gets generated
 		const classNameNext = classnames(
 			richMediaClassName,
 			`image-${layout}`,
 			isResizing ? 'is-resizing' : 'not-resizing',
 			className,
+			resizerItemClassName,
 			{
+				'display-handle': expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)
+					? selected && !disableHandles
+					: selected,
 				'richMedia-selected': selected,
 				'rich-media-wrapped': layout === 'wrap-left' || layout === 'wrap-right',
 			},
 		);
-
-		return classnames(classNameNext, resizerStyles as unknown as Mapping);
+		return classNameNext;
 	}, [className, disableHandles, isResizing, layout, selected]);
 
 	const isInsideInlineLike = useMemo(() => {

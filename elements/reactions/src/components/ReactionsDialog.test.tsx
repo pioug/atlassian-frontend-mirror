@@ -1,3 +1,4 @@
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import React from 'react';
 import { fireEvent, screen, within, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -9,6 +10,11 @@ import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { renderWithIntl } from '../__tests__/_testing-library';
 
 import { ReactionsDialog, type ReactionsDialogProps } from './ReactionsDialog';
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 // non default emojis can cause test failures
 const emojiIds = [

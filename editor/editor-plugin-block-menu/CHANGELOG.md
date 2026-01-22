@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.0.23
+
+### Patch Changes
+
+- [`0d8216e610e34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d8216e610e34) -
+  [ux] Add cmd-option-a shortcut for copylink to block from block menu
+- Updated dependencies
+
+## 6.0.22
+
+### Patch Changes
+
+- [`33f11753a7104`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/33f11753a7104) -
+  [ux] Added i18n for sections' titles in the Turn into menu.
+- Updated dependencies
+
 ## 6.0.21
 
 ### Patch Changes

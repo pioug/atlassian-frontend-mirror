@@ -268,11 +268,17 @@ export const syncBlockMessages = defineMessages({
 		description:
 			'Suffix for page title shown in synced location dropdown option when there are multiple references to the same page',
 	},
-	syncedLocationDropdownTitleNote: {
-		id: 'fabric.editor.syncedLocationDropdownTitleNote',
+	syncedLocationDropdownTitleNoteForConfluencePage: {
+		id: 'fabric.editor.syncedLocationDropdownTitleNoteForConfluencePage',
 		defaultMessage: 'This page',
 		description:
 			'Note shown next to the page title in the synced location dropdown option when the sync block is on the current page',
+	},
+	syncedLocationDropdownTitleNoteForJiraWorkItem: {
+		id: 'fabric.editor.syncedLocationDropdownTitleNoteForJiraWorkItem',
+		defaultMessage: 'This work item',
+		description:
+			'Note shown next to the work item title in the synced location dropdown option when the sync block is on the current work item',
 	},
 	syncedLocationDropdownSourceLozenge: {
 		id: 'fabric.editor.syncedLocationDropdownSourceLozenge',
@@ -285,5 +291,10 @@ export const syncBlockMessages = defineMessages({
 		defaultMessage: 'Request access',
 		description:
 			'Label shown in the synced location dropdown option when the sync block is not accessible to the user',
+	},
+	unsyncButton: {
+		id: 'fabric.editor.syncedBlock.unsync',
+		defaultMessage: 'Unsync',
+		description: 'Text on the button which unsyncs the sync block',
 	},
 });

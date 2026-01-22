@@ -59,7 +59,7 @@
 		"@atlaskit/media-test-data": "workspace:^",
 		"@atlaskit/media-test-helpers": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"@types/debounce": "root:*",
 		"enzyme": "root:*",
 		"react": "root:*",

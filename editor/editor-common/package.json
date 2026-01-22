@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "111.8.8",
+	"version": "111.8.11",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -224,6 +224,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/media-core": "workspace:^",
+		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@testing-library/dom": "root:*",
 		"@testing-library/jest-dom": "root:*",
 		"@testing-library/react": "^16.3.0",
@@ -276,9 +277,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_blocktaskitem_patch_3": {
-			"type": "boolean"
-		},
-		"platform_editor_ai_generic_prep_for_aifc": {
 			"type": "boolean"
 		},
 		"platform-visual-refresh-icons": {

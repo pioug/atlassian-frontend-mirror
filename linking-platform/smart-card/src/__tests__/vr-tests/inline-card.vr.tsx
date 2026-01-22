@@ -112,16 +112,22 @@ snapshot(InlineCardTextWrap, {
 });
 snapshot(InlineCardError, {
 	description: 'inline card error view',
-	featureFlags: {},
+	featureFlags: {
+		'navx-2565-inline-card-error-state-underline': true
+	},
 });
 snapshot(InlineCardError, {
 	description: 'inline card error view renders correctly when hovering over url in errored view',
-	featureFlags: {},
+	featureFlags: {
+		'navx-2565-inline-card-error-state-underline': true,
+	},
 	states: [{ state: 'hovered', selector: { byTestId: 'inline-card-errored-view' } }],
 });
 snapshot(InlineCardErrorTruncate, {
 	description: 'inline card error view with truncation',
-	featureFlags: {},
+	featureFlags: {
+		'navx-2565-inline-card-error-state-underline': true,
+	},
 });
 snapshot(InlineCardForbidden, {
 	description: 'inline card forbidden view',

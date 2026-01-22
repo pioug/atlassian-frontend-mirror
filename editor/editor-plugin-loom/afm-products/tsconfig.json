@@ -33,9 +33,6 @@
 			"path": "../../editor-plugin-connectivity/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../editor-plugin-editor-viewmode/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../editor-plugin-hyperlink/afm-products/tsconfig.json"
 		},
 		{
@@ -61,12 +58,6 @@
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../platform/feature-flags-react/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../tmp-editor-statsig/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/tokens/afm-products/tsconfig.json"

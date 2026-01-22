@@ -61,13 +61,13 @@ const createInviteItem = ({
 			query={query}
 			emailDomain={emailDomain}
 		/>) : <InviteItem
-		productName={mentionProvider ? mentionProvider.productName : undefined}
-		selected={isSelected}
-		onMount={onInviteItemMount}
-		onMouseEnter={onHover}
-		onSelection={onClick}
-		userRole={mentionProvider.userRole}
-	/>
+				productName={mentionProvider ? mentionProvider.productName : undefined}
+				selected={isSelected}
+				onMount={onInviteItemMount}
+				onMouseEnter={onHover}
+				onSelection={onClick}
+				userRole={mentionProvider.userRole}
+		/>
 	),
 	mention: INVITE_ITEM_DESCRIPTION,
 });

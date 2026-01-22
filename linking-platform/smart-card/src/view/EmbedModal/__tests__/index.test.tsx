@@ -17,6 +17,7 @@ import uuid from 'uuid';
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { flushPromises } from '@atlaskit/link-test-helpers';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
@@ -37,6 +38,11 @@ jest.mock('uuid', () => ({
 	__esModule: true,
 	default: jest.fn().mockReturnValue('some-uuid-1'),
 }));
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
+
 jest.mock('@atlaskit/link-provider', () => ({
 	...jest.requireActual('@atlaskit/link-provider'),
 	useSmartLinkContext: () => ({

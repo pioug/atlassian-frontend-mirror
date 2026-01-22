@@ -352,6 +352,9 @@
 			"path": "../../design-system/width-detector/tsconfig.app.json"
 		},
 		{
+			"path": "../../accessibility/axe-integration/a11y-jest-testing/tsconfig.app.json"
+		},
+		{
 			"path": "../adf-schema-json/tsconfig.app.json"
 		},
 		{

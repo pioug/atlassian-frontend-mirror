@@ -1,5 +1,14 @@
 # @atlaskit/rovo-agent-components
 
+## 3.23.0
+
+### Minor Changes
+
+- [`02eaa9533ad2e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02eaa9533ad2e) -
+  [ux] refactor agent verification dropdown item
+- [`a5540634bb261`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a5540634bb261) -
+  lift the fg check up in agent verfication component
+
 ## 3.22.0
 
 ### Minor Changes

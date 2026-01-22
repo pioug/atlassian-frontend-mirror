@@ -41,7 +41,7 @@ export const resolveSyncBlockInstance = (
 			sourceTitle: newResult.data?.sourceTitle || oldResult.data?.sourceTitle || undefined,
 			...(fg('platform_synced_block_dogfooding') && {
 				sourceSubType: newResult.data?.sourceSubType || oldResult.data?.sourceSubType || undefined,
-				onSamePage: newResult.data?.onSamePage || oldResult.data?.onSamePage || undefined,
+                onSameDocument: newResult.data?.onSameDocument || oldResult.data?.onSameDocument || undefined,
 			}),
 		},
 	};

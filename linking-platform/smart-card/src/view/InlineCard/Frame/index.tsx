@@ -4,6 +4,8 @@ import { useMouseDownEvent } from '../../../state/analytics/useLinkClicked';
 
 import { WrapperAnchor, WrapperSpan } from './styled';
 
+export type ViewType = 'default' | 'unauthorised' | 'errored';
+
 export interface FrameViewProps {
 	children?: React.ReactNode;
 	className?: string;
@@ -19,7 +21,7 @@ export interface FrameViewProps {
 	/** A flag that determines whether a card is truncated to 1 line */
 	truncateInline?: boolean;
 	/** A flag that determines the type of view */
-	viewType?: 'default' | 'unauthorised';
+	viewType?: ViewType;
 	/** A flag that determines whether the card needs a backgorund or not */
 	withoutBackground?: boolean;
 }

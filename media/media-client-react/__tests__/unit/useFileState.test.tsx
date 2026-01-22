@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { waitFor } from '@testing-library/react';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, waitFor } from '@testing-library/react';
 import { disableFetchMocks } from 'jest-fetch-mock';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';

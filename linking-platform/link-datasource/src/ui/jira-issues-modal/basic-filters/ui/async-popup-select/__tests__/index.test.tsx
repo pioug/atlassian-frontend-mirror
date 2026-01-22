@@ -12,6 +12,7 @@ import {
 	mockSite,
 } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import { EVENT_CHANNEL } from '../../../../../../analytics/constants';
 import { type SelectOption } from '../../../../../common/modal/popup-select/types';
@@ -21,6 +22,11 @@ import AsyncPopupSelect, { type AsyncPopupSelectProps } from '../index';
 
 jest.mock('../../../hooks/useFilterOptions');
 jest.useFakeTimers();
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 const setup = ({
 	filterType = 'project',

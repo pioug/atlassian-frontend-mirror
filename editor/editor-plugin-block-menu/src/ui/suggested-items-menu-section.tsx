@@ -1,5 +1,8 @@
 import React from 'react';
 
+import { useIntl } from 'react-intl-next';
+
+import { blockMenuMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
 
@@ -15,13 +18,16 @@ type SuggestedItemsMenuSectionProps = {
 export const SuggestedItemsMenuSection = React.memo<SuggestedItemsMenuSectionProps>(
 	({ api, children }) => {
 		const suggestedItems = useSuggestedItems(api);
+		const { formatMessage } = useIntl();
 
 		if (suggestedItems.length === 0) {
 			return null;
 		}
 
 		return (
-			<ToolbarDropdownItemSection title="Suggested">{children}</ToolbarDropdownItemSection>
+			<ToolbarDropdownItemSection title={formatMessage(blockMenuMessages.suggested)}>
+				{children}
+			</ToolbarDropdownItemSection>
 		);
 	},
 );

@@ -4,11 +4,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import {
-	mockRunItLaterSynchronously,
-	renderWithAnalyticsListener as render,
-} from '@atlassian/ptc-test-utils';
+import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
 
 import { type ContainerTypes } from '../../../../common/types';
 
@@ -30,7 +26,6 @@ jest.mock('../../../../common/utils/get-link-domain', () => ({
 	}),
 }));
 
-mockRunItLaterSynchronously();
 const defaultProps = {
 	containerType: 'ConfluenceSpace' as ContainerTypes,
 	title: 'Test Container',
@@ -72,69 +67,34 @@ describe('TeamLinkCard Analytics', () => {
 		},
 	};
 
-	ffTest.off('ptc-enable-teams-public-analytics-refactor', 'Legacy analytics', () => {
-		it('should fire legacy analytics event when container link is clicked', async () => {
-			const { expectEventToBeFired } = renderWithIntl(<TeamLinkCard {...defaultProps} />);
+	it('should fire legacy analytics event when container link is clicked', async () => {
+		const { expectEventToBeFired } = renderWithIntl(<TeamLinkCard {...defaultProps} />);
 
-			const link = screen.getByTestId('team-link-card-linkable-content');
-			expect(link).toBeInTheDocument();
-			await userEvent.click(link);
+		const link = screen.getByTestId('team-link-card-linkable-content');
+		expect(link).toBeInTheDocument();
+		await userEvent.click(link);
 
-			expectEventToBeFired('ui', event);
-		});
-
-		it('should fire legacy analytics event with linkDomain when WebLink container link is clicked', async () => {
-			const { expectEventToBeFired } = renderWithIntl(
-				<TeamLinkCard
-					{...defaultProps}
-					containerType="WebLink"
-					link="https://www.loom.com/share/123"
-				/>,
-			);
-
-			const link = screen.getByTestId('team-link-card-linkable-content');
-			expect(link).toBeInTheDocument();
-			await userEvent.click(link);
-			expectEventToBeFired('ui', eventWithLinkDomain);
-		});
-
-		it('should capture and report a11y violations', async () => {
-			const { container } = renderWithIntl(<TeamLinkCard {...defaultProps} />);
-			await userEvent.click(screen.getByTestId('team-link-card-linkable-content'));
-			await expect(container).toBeAccessible();
-		});
+		expectEventToBeFired('ui', event);
 	});
 
-	ffTest.on('ptc-enable-teams-public-analytics-refactor', 'New analytics', () => {
-		it('should fire legacy analytics event when container link is clicked', async () => {
-			const { expectEventToBeFired } = renderWithIntl(<TeamLinkCard {...defaultProps} />);
+	it('should fire legacy analytics event with linkDomain when WebLink container link is clicked', async () => {
+		const { expectEventToBeFired } = renderWithIntl(
+			<TeamLinkCard
+				{...defaultProps}
+				containerType="WebLink"
+				link="https://www.loom.com/share/123"
+			/>,
+		);
 
-			const link = screen.getByTestId('team-link-card-linkable-content');
-			expect(link).toBeInTheDocument();
-			await userEvent.click(link);
+		const link = screen.getByTestId('team-link-card-linkable-content');
+		expect(link).toBeInTheDocument();
+		await userEvent.click(link);
+		expectEventToBeFired('ui', eventWithLinkDomain);
+	});
 
-			expectEventToBeFired('ui', event);
-		});
-
-		it('should fire legacy analytics event with linkDomain when WebLink container link is clicked', async () => {
-			const { expectEventToBeFired } = renderWithIntl(
-				<TeamLinkCard
-					{...defaultProps}
-					containerType="WebLink"
-					link="https://www.loom.com/share/123"
-				/>,
-			);
-
-			const link = screen.getByTestId('team-link-card-linkable-content');
-			expect(link).toBeInTheDocument();
-			await userEvent.click(link);
-			expectEventToBeFired('ui', eventWithLinkDomain);
-		});
-
-		it('should capture and report a11y violations', async () => {
-			const { container } = renderWithIntl(<TeamLinkCard {...defaultProps} />);
-			await userEvent.click(screen.getByTestId('team-link-card-linkable-content'));
-			await expect(container).toBeAccessible();
-		});
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderWithIntl(<TeamLinkCard {...defaultProps} />);
+		await userEvent.click(screen.getByTestId('team-link-card-linkable-content'));
+		await expect(container).toBeAccessible();
 	});
 });

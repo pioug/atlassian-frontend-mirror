@@ -49,7 +49,7 @@ export const JSXElementHelper = {
 		return [openingElementFix, closingElementFix];
 	},
 
-	isSelfClosing(node: JSXElement) {
+	isSelfClosing(node: JSXElement): boolean {
 		return node.openingElement.selfClosing;
 	},
 

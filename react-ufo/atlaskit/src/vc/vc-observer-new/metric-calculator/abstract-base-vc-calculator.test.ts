@@ -22,15 +22,15 @@ jest.mock('./percentile-calc/canvas-heatmap/canvas-pixel', () => ({
 
 // Create a concrete implementation for testing
 class TestVCCalculator extends AbstractVCCalculatorBase {
-	protected isEntryIncluded(entry: VCObserverEntry): boolean {
+	protected isEntryIncluded(): boolean {
 		return true; // For testing purposes
 	}
 
-	protected isVCClean(filteredEntries: ReadonlyArray<VCObserverEntry>): boolean {
+	protected isVCClean(): boolean {
 		return true; // For testing purposes
 	}
 
-	protected getVCCleanStatus(filteredEntries: ReadonlyArray<VCObserverEntry>) {
+	protected getVCCleanStatus() {
 		return { isVCClean: true }; // For testing purposes
 	}
 }
@@ -487,6 +487,138 @@ describe('AbstractVCCalculatorBase V1', () => {
 
 			// Verify that devtools callback was not called for post-interaction
 			expect(mockDevToolCallback).not.toHaveBeenCalled();
+		});
+	});
+
+	describe('VC offenders deduplication', () => {
+		it('should deduplicate repeated element names when platform_ufo_dedupe_repeated_vc_offenders is enabled', async () => {
+			mockFg.mockImplementation((key) => {
+				return key === 'platform_ufo_dedupe_repeated_vc_offenders';
+			});
+
+			const mockCalcResult = [
+				{
+					time: 100,
+					viewportPercentage: 90,
+					entries: [
+						{
+							type: 'mutation:element' as const,
+							elementName: 'div1',
+							rect: new DOMRect(),
+							visible: true,
+						},
+						{
+							type: 'mutation:element' as const,
+							elementName: 'div1', // Duplicate
+							rect: new DOMRect(),
+							visible: true,
+						},
+						{
+							type: 'mutation:element' as const,
+							elementName: 'div2',
+							rect: new DOMRect(),
+							visible: true,
+						},
+						{
+							type: 'mutation:element' as const,
+							elementName: 'div1', // Another duplicate
+							rect: new DOMRect(),
+							visible: true,
+						},
+					],
+				},
+			];
+
+			jest
+				.spyOn(percentileCalc, 'calculateTTVCPercentilesWithDebugInfo')
+				.mockResolvedValue(mockCalcResult);
+
+			const mockEntry: VCObserverEntry = {
+				time: 0,
+				data: {
+					type: 'mutation:element',
+					elementName: 'div',
+					rect: new DOMRect(),
+					visible: true,
+				},
+			};
+
+			const result = await calculator.calculate({
+				orderedEntries: [mockEntry],
+				startTime: 0,
+				stopTime: 1000,
+				interactionId: 'test-interaction-id',
+				isPostInteraction: false,
+				interactionType: 'page_load',
+				isPageVisible: true,
+			});
+
+			// Verify that duplicates are removed
+			expect(result?.vcDetails?.['90']?.e).toEqual(['div1', 'div2']);
+		});
+
+		it('should keep duplicate element names when platform_ufo_dedupe_repeated_vc_offenders is disabled', async () => {
+			mockFg.mockImplementation(() => false);
+
+			const mockCalcResult = [
+				{
+					time: 100,
+					viewportPercentage: 90,
+					entries: [
+						{
+							type: 'mutation:element' as const,
+							elementName: 'div1',
+							rect: new DOMRect(),
+							visible: true,
+						},
+						{
+							type: 'mutation:element' as const,
+							elementName: 'div1', // Duplicate
+							rect: new DOMRect(),
+							visible: true,
+						},
+						{
+							type: 'mutation:element' as const,
+							elementName: 'div2',
+							rect: new DOMRect(),
+							visible: true,
+						},
+						{
+							type: 'mutation:element' as const,
+							elementName: 'div1', // Another duplicate
+							rect: new DOMRect(),
+							visible: true,
+						},
+					],
+				},
+			];
+
+			jest
+				.spyOn(percentileCalc, 'calculateTTVCPercentilesWithDebugInfo')
+				.mockResolvedValue(mockCalcResult);
+
+			const mockEntry: VCObserverEntry = {
+				time: 0,
+				data: {
+					type: 'mutation:element',
+					elementName: 'div',
+					rect: new DOMRect(),
+					visible: true,
+				},
+			};
+
+			const result = await calculator.calculate({
+				orderedEntries: [mockEntry],
+				startTime: 0,
+				stopTime: 1000,
+				interactionId: 'test-interaction-id',
+				isPostInteraction: false,
+				interactionType: 'page_load',
+				isPageVisible: true,
+			});
+
+			// Verify that duplicates are kept
+			expect(result?.vcDetails?.['90']?.e).toEqual(['div1', 'div1', 'div2', 'div1']);
 		});
 	});
 });

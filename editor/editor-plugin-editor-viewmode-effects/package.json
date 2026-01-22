@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-editor-viewmode-effects",
-	"version": "7.0.0",
+	"version": "7.0.1",
 	"description": "Editor-Viewmode effects plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -84,9 +84,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform_editor_ai_generic_prep_for_aifc": {
-			"type": "boolean"
-		},
 		"platform_editor_allow_viewmode_transaction": {
 			"type": "boolean"
 		}

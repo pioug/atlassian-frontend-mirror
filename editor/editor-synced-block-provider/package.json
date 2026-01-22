@@ -34,6 +34,7 @@
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
+		"graphql-ws": "root:*",
 		"uuid": "root:*"
 	},
 	"peerDependencies": {
@@ -80,7 +81,7 @@
 		}
 	},
 	"name": "@atlaskit/editor-synced-block-provider",
-	"version": "3.12.1",
+	"version": "3.13.0",
 	"description": "Synced Block Provider for @atlaskit/editor-plugin-synced-block",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

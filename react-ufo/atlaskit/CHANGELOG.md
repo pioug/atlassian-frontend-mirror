@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.0.1
+
+### Patch Changes
+
+- [`60444262e8606`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/60444262e8606) -
+  Deduplicate reported VC offenders in UFO payload
+
 ## 5.0.0
 
 ### Major Changes

@@ -21,3 +21,7 @@ export { AgentAvatar } from './ui/agent-avatar';
 export { AgentBanner, GeneratedAvatar } from './ui/agent-avatar/generated-avatars';
 export { AgentDropdownMenu } from './ui/agent-dropdown-menu';
 export { AgentMenuItemSkeleton } from './ui/agent-menu-item-skeleton';
+export {
+	AgentVerificationDropdownItem,
+	type AgentVerificationDropdownItemProps,
+} from './ui/agent-verification-dropdown-item';

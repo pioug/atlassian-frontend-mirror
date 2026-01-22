@@ -42,6 +42,7 @@
 		"lodash": "root:*"
 	},
 	"devDependencies": {
+		"@atlassian/a11y-jest-testing": "workspace:^",
 		"react": "root:*"
 	},
 	"techstack": {

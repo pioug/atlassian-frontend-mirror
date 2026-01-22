@@ -19,6 +19,7 @@ import type {
 	TitleSubscriptionCallback,
 	SyncBlockRendererProviderCreator,
 	SyncBlockSourceInfo,
+	Unsubscribe,
 } from '../providers/types';
 import {
 	fetchErrorPayload,
@@ -41,7 +42,7 @@ export class ReferenceSyncBlockStoreManager {
 	private syncBlockCache: Map<ResourceId, SyncBlockInstance>;
 	// Keeps track of addition and deletion of reference synced blocks on the document
 	// This starts as true to always flush the cache when document is saved for the first time
-	// to cater the case when a editor seesion is closed without document being updated right after reference block is deleted
+	// to cater the case when a editor session is closed without document being updated right after reference block is deleted
 	private isCacheDirty: boolean = true;
 	private subscriptions: Map<ResourceId, { [localId: BlockInstanceId]: SubscriptionCallback }>;
 	private titleSubscriptions: Map<
@@ -60,6 +61,12 @@ export class ReferenceSyncBlockStoreManager {
 	// causing the cache to be deleted prematurely. We delay deletion to allow
 	// the new component to subscribe and cancel the pending deletion.
 	private pendingCacheDeletions: Map<ResourceId, ReturnType<typeof setTimeout>>;
+	// Track GraphQL subscriptions for real-time block updates
+	private graphqlSubscriptions: Map<ResourceId, Unsubscribe>;
+	// Flag to indicate if real-time subscriptions are enabled
+	private useRealTimeSubscriptions: boolean = false;
+	// Listeners for subscription changes (used by React components to know when to update)
+	private subscriptionChangeListeners: Set<() => void>;
 
 	public fetchExperience: Experience | undefined;
 	private fetchSourceInfoExperience: Experience | undefined;
@@ -75,6 +82,96 @@ export class ReferenceSyncBlockStoreManager {
 		this.syncBlockSourceInfoRequests = new Map();
 		this.providerFactories = new Map();
 		this.pendingCacheDeletions = new Map();
+		this.graphqlSubscriptions = new Map();
+		this.subscriptionChangeListeners = new Set();
+	}
+
+	/**
+	 * Enables or disables real-time GraphQL subscriptions for block updates.
+	 * When enabled, the store manager will subscribe to real-time updates
+	 * instead of relying on polling.
+	 * @param enabled - Whether to enable real-time subscriptions
+	 */
+	public setRealTimeSubscriptionsEnabled(enabled: boolean): void {
+		if (this.useRealTimeSubscriptions === enabled) {
+			return;
+		}
+
+		this.useRealTimeSubscriptions = enabled;
+
+		if (enabled) {
+			// Set up subscriptions for all currently subscribed blocks
+			this.setupGraphQLSubscriptionsForAllBlocks();
+		} else {
+			// Clean up all GraphQL subscriptions
+			this.cleanupAllGraphQLSubscriptions();
+		}
+	}
+
+	/**
+	 * Checks if real-time subscriptions are currently enabled.
+	 */
+	public isRealTimeSubscriptionsEnabled(): boolean {
+		return this.useRealTimeSubscriptions;
+	}
+
+	/**
+	 * Returns all resource IDs that are currently subscribed to.
+	 * Used by React components to render subscription components.
+	 */
+	public getSubscribedResourceIds(): ResourceId[] {
+		return Array.from(this.subscriptions.keys());
+	}
+
+	/**
+	 * Registers a listener that will be called when subscriptions change.
+	 * @param listener - Callback function to invoke when subscriptions change
+	 * @returns Unsubscribe function to remove the listener
+	 */
+	public onSubscriptionsChanged(listener: () => void): () => void {
+		this.subscriptionChangeListeners.add(listener);
+		return () => {
+			this.subscriptionChangeListeners.delete(listener);
+		};
+	}
+
+	/**
+	 * Notifies all subscription change listeners.
+	 */
+	private notifySubscriptionChangeListeners(): void {
+		this.subscriptionChangeListeners.forEach((listener) => {
+			try {
+				listener();
+			} catch (error) {
+				logException(error as Error, {
+					location: 'editor-synced-block-provider/referenceSyncBlockStoreManager/notifySubscriptionChangeListeners',
+				});
+				this.fireAnalyticsEvent?.(fetchErrorPayload((error as Error).message));
+			}
+		});
+	}
+
+	/**
+	 * Handles incoming data from a GraphQL subscription.
+	 * Called by React subscription components when they receive updates.
+	 * @param syncBlockInstance - The updated sync block instance
+	 */
+	public handleSubscriptionUpdate(syncBlockInstance: SyncBlockInstance): void {
+		if (!syncBlockInstance.resourceId) {
+			return;
+		}
+
+		const existingSyncBlock = this.getFromCache(syncBlockInstance.resourceId);
+
+		const resolvedSyncBlockInstance = existingSyncBlock
+			? resolveSyncBlockInstance(existingSyncBlock, syncBlockInstance)
+			: syncBlockInstance;
+
+		this.updateCache(resolvedSyncBlockInstance);
+
+		if (!syncBlockInstance.error) {
+			this.fetchSyncBlockSourceInfo(resolvedSyncBlockInstance.resourceId);
+		}
 	}
 
 	public setFireAnalyticsEvent(
@@ -109,9 +206,15 @@ export class ReferenceSyncBlockStoreManager {
 
 	/**
 	 * Refreshes the subscriptions for all sync blocks.
+	 * This is a fallback polling mechanism when real-time subscriptions are not enabled.
 	 * @returns {Promise<void>}
 	 */
 	public async refreshSubscriptions(): Promise<void> {
+		// Skip polling refresh if real-time subscriptions are enabled
+		if (this.useRealTimeSubscriptions) {
+			return;
+		}
+
 		if (this.isRefreshingSubscriptions) {
 			return;
 		}
@@ -138,6 +241,92 @@ export class ReferenceSyncBlockStoreManager {
 		} finally {
 			this.isRefreshingSubscriptions = false;
 		}
+	}
+
+	/**
+	 * Sets up a GraphQL subscription for a specific block.
+	 * @param resourceId - The resource ID of the block to subscribe to
+	 */
+	private setupGraphQLSubscription(resourceId: ResourceId): void {
+		// Don't set up duplicate subscriptions
+		if (this.graphqlSubscriptions.has(resourceId)) {
+			return;
+		}
+
+		if (!this.dataProvider?.subscribeToBlockUpdates) {
+			return;
+		}
+
+		const unsubscribe = this.dataProvider.subscribeToBlockUpdates(
+			resourceId,
+			(syncBlockInstance) => {
+				// Handle the subscription update
+				this.handleGraphQLSubscriptionUpdate(syncBlockInstance);
+			},
+			(error) => {
+				logException(error, {
+					location: 'editor-synced-block-provider/referenceSyncBlockStoreManager/graphql-subscription',
+				});
+				this.fireAnalyticsEvent?.(fetchErrorPayload(error.message));
+			},
+		);
+
+		if (unsubscribe) {
+			this.graphqlSubscriptions.set(resourceId, unsubscribe);
+		}
+	}
+
+	/**
+	 * Handles updates received from GraphQL subscriptions.
+	 * @param syncBlockInstance - The updated sync block instance
+	 */
+	private handleGraphQLSubscriptionUpdate(syncBlockInstance: SyncBlockInstance): void {
+		if (!syncBlockInstance.resourceId) {
+			return;
+		}
+
+		const existingSyncBlock = this.getFromCache(syncBlockInstance.resourceId);
+
+		const resolvedSyncBlockInstance = existingSyncBlock
+			? resolveSyncBlockInstance(existingSyncBlock, syncBlockInstance)
+			: syncBlockInstance;
+
+		this.updateCache(resolvedSyncBlockInstance);
+
+		if (!syncBlockInstance.error) {
+			this.fetchSyncBlockSourceInfo(resolvedSyncBlockInstance.resourceId);
+		}
+	}
+
+	/**
+	 * Cleans up the GraphQL subscription for a specific block.
+	 * @param resourceId - The resource ID of the block to unsubscribe from
+	 */
+	private cleanupGraphQLSubscription(resourceId: ResourceId): void {
+		const unsubscribe = this.graphqlSubscriptions.get(resourceId);
+		if (unsubscribe) {
+			unsubscribe();
+			this.graphqlSubscriptions.delete(resourceId);
+		}
+	}
+
+	/**
+	 * Sets up GraphQL subscriptions for all currently subscribed blocks.
+	 */
+	private setupGraphQLSubscriptionsForAllBlocks(): void {
+		for (const resourceId of this.subscriptions.keys()) {
+			this.setupGraphQLSubscription(resourceId);
+		}
+	}
+
+	/**
+	 * Cleans up all GraphQL subscriptions.
+	 */
+	private cleanupAllGraphQLSubscriptions(): void {
+		for (const unsubscribe of this.graphqlSubscriptions.values()) {
+			unsubscribe();
+		}
+		this.graphqlSubscriptions.clear();
 	}
 
 	public fetchSyncBlockSourceInfo(
@@ -168,7 +357,7 @@ export class ReferenceSyncBlockStoreManager {
 				blockInstanceId,
 				sourceURL,
 				sourceTitle,
-				onSamePage,
+				onSameDocument,
 				sourceSubType,
 			} = existingSyncBlock.data || {};
 			// skip if source URL and title are already present
@@ -179,7 +368,7 @@ export class ReferenceSyncBlockStoreManager {
 						url: sourceURL,
 						subType: sourceSubType,
 						sourceAri: sourceAri || '',
-						onSamePage,
+						onSameDocument,
 						productType: product,
 					});
 				} else {
@@ -369,7 +558,7 @@ export class ReferenceSyncBlockStoreManager {
 				...existingSyncBlock.data,
 				sourceURL: sourceInfo?.url,
 				sourceTitle: sourceInfo?.title,
-				onSamePage: sourceInfo?.onSamePage,
+				onSameDocument: sourceInfo?.onSameDocument,
 				sourceSubType: sourceInfo?.subType,
 			};
 			this.updateCache(existingSyncBlock);
@@ -425,10 +614,16 @@ export class ReferenceSyncBlockStoreManager {
 
 		// add to subscriptions map
 		const resourceSubscriptions = this.subscriptions.get(resourceId) || {};
+		const isNewResourceSubscription = Object.keys(resourceSubscriptions).length === 0;
 		this.subscriptions.set(resourceId, { ...resourceSubscriptions, [localId]: callback });
 
 		// New subscription means new reference synced block is added to the document
 		this.isCacheDirty = true;
+
+		// Notify listeners if this is a new resource subscription
+		if (isNewResourceSubscription) {
+			this.notifySubscriptionChangeListeners();
+		}
 
 		const syncBlockNode = createSyncBlockNode(localId, resourceId);
 
@@ -448,6 +643,11 @@ export class ReferenceSyncBlockStoreManager {
 			});
 		}
 
+		// Set up GraphQL subscription if real-time subscriptions are enabled
+		if (this.useRealTimeSubscriptions) {
+			this.setupGraphQLSubscription(resourceId);
+		}
+
 		return () => {
 			const resourceSubscriptions = this.subscriptions.get(resourceId);
 			if (resourceSubscriptions) {
@@ -457,6 +657,13 @@ export class ReferenceSyncBlockStoreManager {
 				delete resourceSubscriptions[localId];
 				if (Object.keys(resourceSubscriptions).length === 0) {
 					this.subscriptions.delete(resourceId);
+
+					// Clean up GraphQL subscription when no more local subscribers
+					this.cleanupGraphQLSubscription(resourceId);
+
+					// Notify listeners that subscription was removed
+					this.notifySubscriptionChangeListeners();
+
 					// Delay cache deletion to handle block moves (unmount/remount).
 					// When a block is moved, the old component unmounts before the new one mounts.
 					// By delaying deletion, we give the new component time to subscribe and
@@ -739,9 +946,13 @@ export class ReferenceSyncBlockStoreManager {
 				});
 			});
 
-			if (blocks.length === 0) {
-				this.isCacheDirty = false;
-				return true;
+			if (!fg('platform_synced_block_dogfooding')) {
+				// It's possible that the last reference block on the document was just deleted,
+				// we still want to write to BE to update reference count
+				if (blocks.length === 0) {
+					this.isCacheDirty = false;
+					return true;
+				}
 			}
 
 			if (!this.dataProvider) {
@@ -797,6 +1008,9 @@ export class ReferenceSyncBlockStoreManager {
 	}
 
 	public destroy(): void {
+		// Clean up all GraphQL subscriptions first
+		this.cleanupAllGraphQLSubscriptions();
+
 		this.dataProvider = undefined;
 		this.syncBlockCache.clear();
 		this.subscriptions.clear();
@@ -806,6 +1020,8 @@ export class ReferenceSyncBlockStoreManager {
 		this.syncBlockSourceInfoRequests.clear();
 		this.providerFactories.clear();
 		this.isRefreshingSubscriptions = false;
+		this.useRealTimeSubscriptions = false;
+		this.subscriptionChangeListeners.clear();
 		this.providerFactories.forEach((providerFactory) => {
 			providerFactory.destroy();
 		});

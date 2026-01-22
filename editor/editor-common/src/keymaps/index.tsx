@@ -58,6 +58,7 @@ export const redo = makeKeymap('Redo', 'Ctrl-y', 'Mod-Shift-z');
 export const openHelp = makeKeyMapWithCommon('Open Help', 'Mod-/');
 export const addLink = makeKeyMapWithCommon('Link', 'Mod-k');
 export const addInlineComment = makeKeyMapWithCommon('Annotate', 'Mod-Alt-c');
+export const copyLinkToBlock = makeKeyMapWithCommon('Copy link to block', 'Mod-Alt-a');
 export const submit = makeKeyMapWithCommon('Submit Content', 'Mod-Enter');
 export const enter = makeKeyMapWithCommon('Enter', 'Enter');
 export const shiftEnter = makeKeyMapWithCommon('Shift Enter', 'Shift-Enter');

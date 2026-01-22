@@ -75,6 +75,7 @@
 		"@atlaskit/elements-test-helpers": "workspace:^",
 		"@atlaskit/media-core": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
+		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@emotion/jest": "root:*",
 		"@testing-library/dom": "root:*",

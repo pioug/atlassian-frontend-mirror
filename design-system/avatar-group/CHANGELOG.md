@@ -1,5 +1,20 @@
 # @atlaskit/avatar-group
 
+## 12.4.9
+
+### Patch Changes
+
+- [`6d96b2f268a28`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d96b2f268a28) -
+  Remove external image dependencies from ads examples by using fallback avatars instead of
+  third-party images.
+
+  **Changes:**
+  - Circle avatars now display user initials (semantically correct for person avatars)
+  - Square/hexagon avatars display appropriate fallback icons (correct usage for non-person
+    entities)
+  - Aligns constellation examples with VR test examples which already use fallback only
+  - Improves reliability by removing dependency on third-party image hosting
+
 ## 12.4.8
 
 ### Patch Changes

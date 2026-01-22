@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-card",
-	"version": "12.1.1",
+	"version": "12.1.2",
 	"description": "Card plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -129,9 +129,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_ai_generic_prep_for_aifc_2": {
-			"type": "boolean"
-		},
-		"platform_editor_ai_generic_prep_for_aifc": {
 			"type": "boolean"
 		}
 	},

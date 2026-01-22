@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { render, waitFor } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
 
 import { GiveKudosLauncherLazy } from '@atlaskit/give-kudos';
 
@@ -55,11 +56,13 @@ describe('ProfileCardResourced', () => {
 		mockGetTeamCentralBaseUrl.mockResolvedValue(mockTeamCentralBaseUrl);
 		mockShouldShowGiveKudos.mockResolvedValue(true);
 		const { container } = render(
-			<ProfileCardResourced
-				cloudId={mockCloudId}
-				resourceClient={mockResourceClient}
-				userId={mockUserId}
-			/>,
+			<IntlProvider locale="en">
+				<ProfileCardResourced
+					cloudId={mockCloudId}
+					resourceClient={mockResourceClient}
+					userId={mockUserId}
+				/>
+			</IntlProvider>,
 		);
 
 		await expect(container).toBeAccessible();
@@ -70,11 +73,13 @@ describe('ProfileCardResourced', () => {
 		mockShouldShowGiveKudos.mockResolvedValue(true);
 
 		render(
-			<ProfileCardResourced
-				cloudId={mockCloudId}
-				resourceClient={mockResourceClient}
-				userId={mockUserId}
-			/>,
+			<IntlProvider locale="en">
+				<ProfileCardResourced
+					cloudId={mockCloudId}
+					resourceClient={mockResourceClient}
+					userId={mockUserId}
+				/>
+			</IntlProvider>,
 		);
 
 		await waitFor(() => {

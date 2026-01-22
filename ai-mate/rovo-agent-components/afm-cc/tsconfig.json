@@ -39,6 +39,9 @@
 			"path": "../../../design-system/dropdown-menu/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/flag/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/heading/afm-cc/tsconfig.json"
 		},
 		{
@@ -55,6 +58,9 @@
 		},
 		{
 			"path": "../../../design-system/primitives/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../rovo-agent-analytics/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/skeleton/afm-cc/tsconfig.json"

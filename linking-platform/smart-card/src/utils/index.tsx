@@ -44,7 +44,7 @@ export const getIconForFileType = (
 		return;
 	}
 
-	const [label, importCb] = icon;
+	const [importCb] = icon;
 
 	if (!importCb) {
 		return;
@@ -55,10 +55,10 @@ export const getIconForFileType = (
 		loading: () => null,
 	}) as any; // because we're using dynamic loading here, TS will not be able to infer the type
 
-	return (<Icon label={label} testId="document-file-format-icon" />) as React.ReactNode;
+	return (<Icon testId="document-file-format-icon" />) as React.ReactNode;
 };
 
-type IconLabelMap = [string, (() => Promise<any>) | undefined];
+type IconLabelMap = [(() => Promise<any>) | undefined];
 
 // prettier-ignore
 export const getLazyIcons = (): Partial<
@@ -266,13 +266,13 @@ const getTypeToIconMap = (
 	fileFormat: string,
 ): IconLabelMap | null => {
 	const iconDescriptor = extractFileFormatIcon(fileFormat);
-	if (!iconDescriptor?.icon || !iconDescriptor.label) {
+	if (!iconDescriptor?.icon) {
 		return null;
 	}
 
 	const lazyIcons = getLazyIcons();
 
-	return [iconDescriptor.label, lazyIcons[iconDescriptor.icon]?.default];
+	return [lazyIcons[iconDescriptor.icon]?.default];
 };
 
 export const getIframeSandboxAttribute = (isTrusted: boolean) => {

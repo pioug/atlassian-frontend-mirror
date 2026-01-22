@@ -63,7 +63,7 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@emotion/react": "root:*",
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"enzyme": "root:*"
 	},
 	"platform-feature-flags": {

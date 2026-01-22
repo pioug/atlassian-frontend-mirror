@@ -2,7 +2,6 @@ import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE, type FireAnalyticsCallback } from '../../analytics';
 import type {
@@ -32,12 +31,10 @@ export function createThrottleSchedule<
 		const lastArgsBefore = lastArgs;
 		lastArgs = args;
 		if (frameId) {
-			if (fg('platform_editor_ai_generic_prep_for_aifc')) {
-				if (lastArgsBefore) {
-					const [_v, _c, _t, _f, alwaysFire] = lastArgsBefore;
-					if (alwaysFire) {
-						delayedCallbacks.push(lastArgsBefore);
-					}
+			if (lastArgsBefore) {
+				const [_v, _c, _t, _f, alwaysFire] = lastArgsBefore;
+				if (alwaysFire) {
+					delayedCallbacks.push(lastArgsBefore);
 				}
 			}
 			return;
@@ -50,11 +47,9 @@ export function createThrottleSchedule<
 			() => {
 				frameId = undefined;
 				if (lastArgs) {
-					if (fg('platform_editor_ai_generic_prep_for_aifc')) {
-						delayedCallbacks.forEach((savedArgs) => {
-							callback(...savedArgs);
-						});
-					}
+					delayedCallbacks.forEach((savedArgs) => {
+						callback(...savedArgs);
+					});
 					callback(...lastArgs);
 				}
 			},
@@ -97,7 +92,11 @@ export function returnDocumentRequest<GenericTransformer extends Transformer<any
 				actionSubject: ACTION_SUBJECT.EDITOR,
 				eventType: EVENT_TYPE.OPERATIONAL,
 				attributes: {
-					errorMessage: `${e instanceof Error && e.name === 'NodeNestingTransformError' ? 'NodeNestingTransformError - Failed to transform one or more nested tables' : undefined}`,
+					errorMessage: `${
+						e instanceof Error && e.name === 'NodeNestingTransformError'
+							? 'NodeNestingTransformError - Failed to transform one or more nested tables'
+							: undefined
+					}`,
 				},
 			},
 		});

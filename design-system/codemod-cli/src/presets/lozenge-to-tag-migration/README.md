@@ -4,6 +4,17 @@ This codemod migrates Lozenge components with `isBold={false}` or without the `i
 components, establishing a clear visual hierarchy where Lozenges are used for high-prominence status
 indicators and Tags for lower-prominence categorization.
 
+## Migration Strategy with Fallback Support
+
+This codemod adds **migration-specific props** to all migrated Tag components to support a gradual, 
+feature-flag-controlled rollout:
+
+- `migration_fallback="lozenge"` - Tells the Tag component to render as a Lozenge until the feature flag is enabled
+- `isRemovable={false}` - Ensures Tags are not removable by default (matching Lozenge behavior)
+
+This approach allows Jira teams to migrate their code first, then enable the visual change via feature flag in the Tag source code,
+avoiding surprise visual changes during deployment.
+
 ## What it does
 
 ### 1. Migrates specific Lozenge variants to Tag
@@ -24,9 +35,12 @@ indicators and Tags for lower-prominence categorization.
 <Lozenge isBold={false} appearance="default">Subtle</Lozenge>
 
 // After
-<Tag text="Success" color="lime" />
-<Tag text="Subtle" color="standard" />
+<Tag text="Success" color="lime" isRemovable={false} migration_fallback="lozenge" />
+<Tag text="Subtle" color="standard" isRemovable={false} migration_fallback="lozenge" />
 ```
+
+**Note:** The `migration_fallback="lozenge"` prop ensures the component renders as a Lozenge until 
+the feature flag `platform-dst-lozenge-tag-badge-visual-uplifts` is enabled, allowing for gradual rollout.
 
 ### 2. Maps appearance to color values
 
@@ -50,7 +64,7 @@ The codemod intelligently handles different types of children:
 <Lozenge appearance="success">Success Status</Lozenge>
 
 // After
-<Tag text="Success Status" color="lime" />
+<Tag text="Success Status" color="lime" isRemovable={false} migration_fallback="lozenge" />
 ```
 
 #### Variable children
@@ -64,7 +78,7 @@ const label = 'Dynamic Label';
 const label = 'Dynamic Label';
 /* TODO: FIXME: This Tag component uses a variable as the text prop. 
    Please verify that the variable contains a string value. */
-<Tag text={label} color="lime" />;
+<Tag text={label} color="lime" isRemovable={false} migration_fallback="lozenge" />;
 ```
 
 #### Member expression children
@@ -78,7 +92,7 @@ const data = { title: 'Title' };
 const data = { title: 'Title' };
 /* TODO: FIXME: This Tag component uses a variable as the text prop. 
    Please verify that the variable contains a string value. */
-<Tag text={data.title} color="lime" />;
+<Tag text={data.title} color="lime" isRemovable={false} migration_fallback="lozenge" />;
 ```
 
 #### Complex JSX children (not migrated)
@@ -92,7 +106,7 @@ const data = { title: 'Title' };
 // After (with warning comment)
 /* TODO: FIXME: This Tag component has complex children that couldn't be
    automatically migrated to the text prop. */
-<Tag color="lime" />
+<Tag color="lime" isRemovable={false} migration_fallback="lozenge" />
 ```
 
 ### 4. Removes incompatible props
@@ -116,11 +130,11 @@ but adds a FIXME comment requesting verification:
 
 ```tsx
 // ❌ May not work if variable is not a string
-<Tag text={unknownVariable} color="lime" />;
+<Tag text={unknownVariable} color="lime" isRemovable={false} migration_fallback="lozenge" />;
 
 // ✅ Works because variable is guaranteed to be a string
 const label: string = getLabel();
-<Tag text={label} color="lime" />;
+<Tag text={label} color="lime" isRemovable={false} migration_fallback="lozenge" />;
 ```
 
 **What to do:**
@@ -145,7 +159,7 @@ When children cannot be migrated (JSX elements, complex expressions), the codemo
 
 // After (requires manual migration)
 /* TODO: This Tag component has complex children... */
-<Tag color="lime" />
+<Tag color="lime" isRemovable={false} migration_fallback="lozenge" />
 // You need to manually handle the complex content
 ```
 
@@ -169,7 +183,7 @@ Components with `style` props are migrated but include a warning:
 ```tsx
 // After migration (with warning)
 /* TODO: This Tag component has a style prop that was kept during migration... */
-<Tag text="Styled" color="lime" style={{ backgroundColor: 'red' }} />
+<Tag text="Styled" color="lime" style={{ backgroundColor: 'red' }} isRemovable={false} migration_fallback="lozenge" />
 ```
 
 ### Unknown appearance values
@@ -178,7 +192,7 @@ Invalid appearance values get a warning:
 
 ```tsx
 /* TODO: This Tag component uses an unknown appearance value "custom"... */
-<Tag text="Custom" color="custom" />
+<Tag text="Custom" color="custom" isRemovable={false} migration_fallback="lozenge" />
 ```
 
 ## Usage
@@ -205,11 +219,20 @@ npx @atlaskit/codemod-cli --preset lozenge-to-tag-migration src/components/MyCom
    - Consider if a simpler component would work better
    - Use a different approach if Tag cannot represent the content
 
-3. **Test visual appearance**: Verify that migrated Tags have the expected visual prominence
+3. **Enable the feature flag when ready**: The migrated Tags will render as Lozenges until you enable
+   the `platform-dst-lozenge-tag-badge-visual-uplifts` feature flag, allowing you to:
+   - Complete the code migration across your codebase
+   - Test thoroughly before any visual changes occur
+   - Enable the new visual style in a controlled manner
 
-4. **Update tests**: Test IDs and component references may need updates
+4. **Clean up migration props later**: After the feature flag is fully rolled out and stable, a follow-up
+   codemod can be run to remove the `migration_fallback` and adjust `isRemovable` props as needed
 
-5. **Check accessibility**: Ensure migrated components maintain proper accessibility
+5. **Test visual appearance**: Verify that migrated Tags have the expected visual prominence (after feature flag is enabled)
+
+6. **Update tests**: Test IDs and component references may need updates
+
+7. **Check accessibility**: Ensure migrated components maintain proper accessibility
    - Variables with aria labels should still be accessible
    - Complex children may have had semantic meaning that needs preserving
 
@@ -256,7 +279,7 @@ Files without Lozenge imports or only using bold Lozenges will remain unchanged.
 ```tsx
 // ✅ No action needed
 <Lozenge appearance="success">Status</Lozenge>
-→ <Tag text="Status" color="lime" />
+→ <Tag text="Status" color="lime" isRemovable={false} migration_fallback="lozenge" />
 ```
 
 ### Scenario 2: Variable text - Review type
@@ -265,7 +288,7 @@ Files without Lozenge imports or only using bold Lozenges will remain unchanged.
 // ⚠️ Verify the variable is a string
 const status = getStatus(); // Make sure this returns a string
 <Lozenge>{status}</Lozenge>
-→ <Tag text={status} color="standard" /> /* FIXME: Verify... */
+→ <Tag text={status} color="standard" isRemovable={false} migration_fallback="lozenge" /> /* FIXME: Verify... */
 ```
 
 ### Scenario 3: Complex JSX - Manual migration
@@ -275,7 +298,7 @@ const status = getStatus(); // Make sure this returns a string
 <Lozenge appearance="success">
   <Icon /> <span>Custom</span>
 </Lozenge>
-→ <Tag color="lime" /> /* TODO: Manually convert... */
+→ <Tag color="lime" isRemovable={false} migration_fallback="lozenge" /> /* TODO: Manually convert... */
 ```
 
 ### Scenario 4: Bold variants - No migration
@@ -292,7 +315,7 @@ const status = getStatus(); // Make sure this returns a string
 ### "Tag component uses a variable as the text prop" warning
 
 - **Cause**: You have variable or member expression children
-- **Fix**: Verify the variable is a string type, or convert it: `<Tag text={String(variable)} />`
+- **Fix**: Verify the variable is a string type, or convert it: `<Tag text={String(variable)} isRemovable={false} migration_fallback="lozenge" />`
 
 ### "complex children that couldn't be automatically migrated" warning
 

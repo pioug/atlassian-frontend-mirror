@@ -12,6 +12,7 @@ import type {
 	FormatNodeTargetType,
 	TransformNodeMetadata,
 } from './editor-commands/transforms/types';
+import { keymapPlugin } from './pm-plugins/keymap';
 import { blockMenuPluginKey, createPlugin } from './pm-plugins/main';
 import BlockMenu from './ui/block-menu';
 import { getBlockMenuComponents } from './ui/block-menu-components';
@@ -29,6 +30,10 @@ export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 				{
 					name: 'blockMenuPlugin',
 					plugin: () => createPlugin(api),
+				},
+				{
+					name: 'blockMenuKeymap',
+					plugin: () => keymapPlugin(api, config),
 				},
 			];
 		},

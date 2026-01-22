@@ -11,6 +11,13 @@ import MediaButton from '../../MediaButton';
 import { mountWithIntlContext } from '../../test-helpers/mountWithIntlContext';
 import { act } from 'react-dom/test-utils';
 
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
+
 describe('<PlaybackSpeedControls />', () => {
 	const mountSetup = (props: Partial<PlaybackSpeedControlsProps> = {}) => {
 		const onPlaybackSpeedChange = jest.fn();

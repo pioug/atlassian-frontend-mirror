@@ -80,7 +80,7 @@ export function insertTokensImport(fixer: Rule.RuleFixer) {
 	return insertAtStartOfFile(fixer, `${insertImportDeclaration('@atlaskit/tokens', ['token'])}\n`);
 }
 
-export const isSpacingProperty = (propertyName: string) => {
+export const isSpacingProperty = (propertyName: string): boolean => {
 	return properties.includes(propertyName);
 };
 
@@ -401,7 +401,7 @@ const invalidSpacingUnitRegex = /(\d+rem$)|(vw$)|(vh$)/;
 export const isValidSpacingValue = (
 	value: string | number | boolean | RegExp | null | undefined | any[] | bigint,
 	fontSize?: number | null | undefined,
-) => {
+): boolean => {
 	if (typeof value === 'string') {
 		if (invalidSpacingUnitRegex.test(value)) {
 			return false;
@@ -425,7 +425,7 @@ const calcRegex = /(^calc)/;
 
 export const isCalc = (
 	value: string | number | boolean | RegExp | null | undefined | any[] | bigint,
-) => {
+): boolean => {
 	if (typeof value === 'string') {
 		if (calcRegex.test(value)) {
 			return true;
@@ -436,7 +436,7 @@ export const isCalc = (
 
 export const isZero = (
 	value: string | number | boolean | RegExp | null | undefined | any[] | bigint,
-) => {
+): boolean => {
 	if (typeof value === 'string') {
 		if (value === '0px' || value === '0') {
 			return true;
@@ -452,7 +452,7 @@ export const isZero = (
 
 export const isAuto = (
 	value: string | number | boolean | RegExp | null | undefined | any[] | bigint,
-) => {
+): boolean => {
 	if (typeof value === 'string') {
 		if (value === 'auto') {
 			return true;

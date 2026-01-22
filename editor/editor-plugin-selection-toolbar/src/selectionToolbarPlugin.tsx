@@ -187,7 +187,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 				? getToolbarDockingV2(
 						contextualFormattingEnabled,
 						api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition,
-					)
+				  )
 				: getToolbarDocking(contextualFormattingEnabled, userPreferencesProvider);
 
 			return [
@@ -260,24 +260,22 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 										const editorViewModePlugin = api?.editorViewMode?.sharedState.currentState();
 										const isViewModeEnabled = editorViewModePlugin?.mode === 'view';
 
-										if (fg('platform_editor_ai_generic_prep_for_aifc')) {
-											const target = event.target;
-											if (target && target instanceof Element) {
-												const isRovoChangeToneButton =
-													(target.tagName === 'BUTTON' &&
-														hasNestedSpanWithText(target, 'Change tone')) ||
-													target.getAttribute('aria-label') === 'Change tone' ||
-													target.innerHTML === 'Change tone';
+										const target = event.target;
+										if (target && target instanceof Element) {
+											const isRovoChangeToneButton =
+												(target.tagName === 'BUTTON' &&
+													hasNestedSpanWithText(target, 'Change tone')) ||
+												target.getAttribute('aria-label') === 'Change tone' ||
+												target.innerHTML === 'Change tone';
 
-												const isRovoTranslateButton =
-													(target.tagName === 'BUTTON' &&
-														hasNestedSpanWithText(target, 'Translate options')) ||
-													target.getAttribute('aria-label') === 'Translate options' ||
-													target.innerHTML === 'Translate options';
+											const isRovoTranslateButton =
+												(target.tagName === 'BUTTON' &&
+													hasNestedSpanWithText(target, 'Translate options')) ||
+												target.getAttribute('aria-label') === 'Translate options' ||
+												target.innerHTML === 'Translate options';
 
-												if (isRovoChangeToneButton || isRovoTranslateButton) {
-													return null;
-												}
+											if (isRovoChangeToneButton || isRovoTranslateButton) {
+												return null;
 											}
 										}
 
@@ -479,7 +477,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 							onPositionCalculated,
 						};
 					},
-				},
+			  },
 
 		contentComponent:
 			editorExperiment('platform_editor_controls', 'variant1') &&
@@ -487,7 +485,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 			fg('platform_editor_user_preferences_provider_update')
 				? () => (
 						<PageVisibilityWatcher api={api} userPreferencesProvider={userPreferencesProvider} />
-					)
+				  )
 				: undefined,
 
 		primaryToolbarComponent:

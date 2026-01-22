@@ -46,19 +46,19 @@ export const borderWidthValueToToken: any = Object.fromEntries(
 		.concat([['2px', 'border.width']]),
 );
 
-export function isRadiusProperty(propertyName: string) {
+export function isRadiusProperty(propertyName: string): boolean {
 	return shapeProperties.includes(propertyName);
 }
 
-export function isBorderSizeProperty(propertyName: string) {
+export function isBorderSizeProperty(propertyName: string): boolean {
 	return borderSizeProperties.includes(propertyName);
 }
 
-export function isShapeProperty(propertyName: string) {
+export function isShapeProperty(propertyName: string): boolean {
 	return isRadiusProperty(propertyName) || isBorderSizeProperty(propertyName);
 }
 
-export function isBorderRadius(node: EslintNode) {
+export function isBorderRadius(node: EslintNode): boolean {
 	return (
 		isNodeOfType(node, 'CallExpression') &&
 		isNodeOfType(node.callee, 'Identifier') &&

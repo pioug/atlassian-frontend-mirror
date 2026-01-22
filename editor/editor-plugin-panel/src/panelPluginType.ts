@@ -26,6 +26,7 @@ export type DomPanelAtrrs = {
 	class: string;
 	'data-local-id'?: string;
 	'data-panel-color'?: string;
+	'data-panel-icon'?: string;
 	'data-panel-icon-id'?: string;
 	'data-panel-icon-text'?: string;
 	'data-panel-type': string;

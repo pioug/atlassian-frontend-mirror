@@ -548,8 +548,8 @@ describe('DocumentViewer', () => {
 			expect(page).toBeInTheDocument();
 
 			// Should use content dimensions (800x600 from mockPageContent)
-			const expectedWidth = 'calc(var(--document-viewer-zoom) * 842px)';
-			const expectedHeight = 'calc(var(--document-viewer-zoom) * 595px)';
+			const expectedWidth = 'calc(var(--document-viewer-zoom) * 800px)';
+			const expectedHeight = 'calc(var(--document-viewer-zoom) * 600px)';
 
 			expect(page).toHaveStyle(`width: ${expectedWidth}`);
 			expect(page).toHaveStyle(`height: ${expectedHeight}`);

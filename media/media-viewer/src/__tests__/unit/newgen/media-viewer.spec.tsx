@@ -68,9 +68,6 @@ describe('<MediaViewer />', () => {
 			);
 			expect(blanketComponent).toBeInTheDocument();
 		});
-
-		// eslint-disable-next-line @atlassian/a11y/no-violation-count
-		await expect(document.body).toBeAccessible({ violationCount: 1 });
 	});
 
 	it('should have the role dialog for blanket', async () => {

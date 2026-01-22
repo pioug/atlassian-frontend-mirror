@@ -6,7 +6,6 @@ import type { EditorToolbarContextType } from '@atlaskit/editor-common/toolbar';
 import { EditorToolbarProvider, EditorToolbarUIProvider } from '@atlaskit/editor-common/toolbar';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -18,7 +17,6 @@ import {
 } from '@atlaskit/editor-toolbar';
 import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model';
 import type { RegisterComponent, RegisterToolbar } from '@atlaskit/editor-toolbar-model';
-import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ToolbarProps } from './toolbar-types';
@@ -61,32 +59,20 @@ type NewToolbarProps = Pick<
 		toolbar: RegisterToolbar;
 	};
 
-const usePluginState = conditionalHooksFactory(
-	() => expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true),
-	(api?: PublicPluginAPI<[ToolbarPlugin]>) => {
-		return useSharedPluginStateWithSelector(
-			api,
-			['connectivity', 'editorViewMode', 'userPreferences'],
-			(state) => {
-				return {
-					connectivityStateMode: state.connectivityState?.mode,
-					editorViewMode: state.editorViewModeState?.mode,
-					editorToolbarDockingPreference:
-						state.userPreferencesState?.preferences?.toolbarDockingPosition,
-				};
-			},
-		);
-	},
-	(api?: PublicPluginAPI<[ToolbarPlugin]>) => {
-		const connectivityStateMode = useSharedPluginStateSelector(api, 'connectivity.mode');
-
-		return {
-			connectivityStateMode,
-			editorViewMode: undefined,
-			editorToolbarDockingPreference: undefined,
-		};
-	},
-);
+const usePluginState = (api?: PublicPluginAPI<[ToolbarPlugin]>) => {
+	return useSharedPluginStateWithSelector(
+		api,
+		['connectivity', 'editorViewMode', 'userPreferences'],
+		(state) => {
+			return {
+				connectivityStateMode: state.connectivityState?.mode,
+				editorViewMode: state.editorViewModeState?.mode,
+				editorToolbarDockingPreference:
+					state.userPreferencesState?.preferences?.toolbarDockingPosition,
+			};
+		},
+	);
+};
 
 /**
  * Renders a primary toolbar, driven by components registed by `editor-plugin-toolbar`. `ToolbarModelRenderer` will just

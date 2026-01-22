@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { RegisterToolbar, RegisterComponent, ToolbarComponentTypes } from '../../types';
 
 import { getSortedChildren, isSection, NoOp } from './common';
@@ -98,20 +96,8 @@ const ComponentRenderer = ({
 		component.key,
 	);
 
-	if (fg('platform_editor_toolbar_aifc_overflow_menu_update')) {
-		if (shouldHideEmptyComponent(component, children, allComponents)) {
-			return null;
-		}
-	} else {
-		if (
-			(component.type === 'menu' ||
-				component.type === 'group' ||
-				component.type === 'nested-menu' ||
-				component.type === 'menu-section') &&
-			children.length === 0
-		) {
-			return null;
-		}
+	if (shouldHideEmptyComponent(component, children, allComponents)) {
+		return null;
 	}
 
 	const Component = component.component || getFallbackComponent(component.type, fallbacks);
@@ -137,7 +123,11 @@ const ComponentRenderer = ({
 	);
 };
 
-export const ToolbarModelRenderer = ({ toolbar, components, fallbacks }: ToolbarProps): React.JSX.Element => {
+export const ToolbarModelRenderer = ({
+	toolbar,
+	components,
+	fallbacks,
+}: ToolbarProps): React.JSX.Element => {
 	const ToolbarComponent = toolbar.component || NoOp;
 
 	const sections = getSortedChildren(components.filter(isSection), toolbar.key);

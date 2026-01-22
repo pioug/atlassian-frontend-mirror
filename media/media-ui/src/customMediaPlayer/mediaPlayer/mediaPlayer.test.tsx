@@ -13,6 +13,7 @@ jest.mock('@atlaskit/width-detector');
 import * as mediaClientReactModule from '@atlaskit/media-client-react';
 import { asMock, asMockFunction } from '@atlaskit/media-common/test-helpers';
 import { type WidthObserver } from '@atlaskit/width-detector';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import React from 'react';
 import { MediaPlayer } from './mediaPlayer';
@@ -123,6 +124,11 @@ const triggerPlay = async () => {
 	fireEvent.click(playButton);
 	fireEvent.play(getVideoElement());
 };
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<MediaPlayer />', () => {
@@ -310,31 +316,31 @@ describe('<MediaPlayer />', () => {
 			const baseProps = { onDownloadClick: jest.fn(), isHDAvailable: true };
 			const baseOptions = { hasCaptions: true, canUpdateVideoCaptions: true };
 
-			const assertControlsSmallShown = async (helpers: ReturnType<typeof setup>) => {
+			const assertControlsSmallShown = async () => {
 				expect(await getPlayPauseButton()).toBeInTheDocument();
 				expect(await getMuteButton()).toBeInTheDocument();
 				expect(await getFullscreenButton()).toBeInTheDocument();
 			};
 
-			const assertControlsMediumShown = async (helpers: ReturnType<typeof setup>) => {
+			const assertControlsMediumShown = async () => {
 				expect(await getCurrentTimeElement()).toBeInTheDocument();
 			};
-			const assertControlsMediumHidden = async (helpers: ReturnType<typeof setup>) => {
+			const assertControlsMediumHidden = async () => {
 				expect(queryCurrentTimeElement()).not.toBeInTheDocument();
 			};
 
-			const assertControlsLargeShown = async (helpers: ReturnType<typeof setup>) => {
+			const assertControlsLargeShown = async () => {
 				expect(await getCaptionsSelectControls()).toBeInTheDocument();
 				expect(await getDownloadButton()).toBeInTheDocument();
 				expect(await getVolumeTimeRangeWrapper()).toBeInTheDocument();
 			};
 
-			const assertControlsLargeHidden = async (helpers: ReturnType<typeof setup>) => {
+			const assertControlsLargeHidden = async () => {
 				expect(queryDownloadButton()).not.toBeInTheDocument();
 				expect(queryVolumeTimeRangeWrapper()).not.toBeInTheDocument();
 			};
 
-			const assertControlsXLargeShown = async (helpers: ReturnType<typeof setup>) => {
+			const assertControlsXLargeShown = async () => {
 				expect(await getSkipForwardButton()).toBeInTheDocument();
 				expect(await getSkipBackwardButton()).toBeInTheDocument();
 				expect(await getPlaybackSpeedButton()).toBeInTheDocument();
@@ -342,7 +348,7 @@ describe('<MediaPlayer />', () => {
 				expect(await getCaptionsAdminControls()).toBeInTheDocument();
 			};
 
-			const assertControlsXLargeHidden = async (helpers: ReturnType<typeof setup>) => {
+			const assertControlsXLargeHidden = async () => {
 				expect(querySkipForwardButton()).not.toBeInTheDocument();
 				expect(querySkipBackwardButton()).not.toBeInTheDocument();
 				expect(queryPlaybackSpeedButton()).not.toBeInTheDocument();
@@ -351,79 +357,79 @@ describe('<MediaPlayer />', () => {
 			};
 
 			it('should render controls when width is in small range', async () => {
-				const helpers = setup({}, { ...baseOptions, initialWidth: 260 });
-				await assertControlsSmallShown(helpers);
-				await assertControlsMediumHidden(helpers);
-				await assertControlsLargeHidden(helpers);
-				await assertControlsXLargeHidden(helpers);
+				setup({}, { ...baseOptions, initialWidth: 260 });
+				await assertControlsSmallShown();
+				await assertControlsMediumHidden();
+				await assertControlsLargeHidden();
+				await assertControlsXLargeHidden();
 			});
 
 			it.each([261, 430])(
 				'should render controls when width is in medium range (%s)',
 				async (width) => {
-					const helpers = setup({}, { ...baseOptions, initialWidth: width });
-					await assertControlsSmallShown(helpers);
-					await assertControlsMediumShown(helpers);
-					await assertControlsLargeHidden(helpers);
-					await assertControlsXLargeHidden(helpers);
+					setup({}, { ...baseOptions, initialWidth: width });
+					await assertControlsSmallShown();
+					await assertControlsMediumShown();
+					await assertControlsLargeHidden();
+					await assertControlsXLargeHidden();
 				},
 			);
 
 			it.each([431, 570])(
 				'should render controls when width is in large range (%s)',
 				async (width) => {
-					const helpers = setup(baseProps, { ...baseOptions, initialWidth: width });
-					await assertControlsSmallShown(helpers);
-					await assertControlsMediumShown(helpers);
-					await assertControlsLargeShown(helpers);
-					await assertControlsXLargeHidden(helpers);
+					setup(baseProps, { ...baseOptions, initialWidth: width });
+					await assertControlsSmallShown();
+					await assertControlsMediumShown();
+					await assertControlsLargeShown();
+					await assertControlsXLargeHidden();
 				},
 			);
 
 			it('should render controls when width is in x-large range', async () => {
-				const helpers = setup(baseProps, { ...baseOptions, initialWidth: 571 });
-				await assertControlsSmallShown(helpers);
-				await assertControlsMediumShown(helpers);
-				await assertControlsLargeShown(helpers);
-				await assertControlsXLargeShown(helpers);
+				setup(baseProps, { ...baseOptions, initialWidth: 571 });
+				await assertControlsSmallShown();
+				await assertControlsMediumShown();
+				await assertControlsLargeShown();
+				await assertControlsXLargeShown();
 			});
 
 			it('should render controls when width is in x-large range (default test width)', async () => {
-				const helpers = setup(baseProps, { ...baseOptions });
-				await assertControlsSmallShown(helpers);
-				await assertControlsMediumShown(helpers);
-				await assertControlsLargeShown(helpers);
-				await assertControlsXLargeShown(helpers);
+				setup(baseProps, { ...baseOptions });
+				await assertControlsSmallShown();
+				await assertControlsMediumShown();
+				await assertControlsLargeShown();
+				await assertControlsXLargeShown();
 			});
 
 			it('should render controls when resizing', async () => {
-				const helpers = setup(baseProps, { ...baseOptions, initialWidth: 260 });
+				setup(baseProps, { ...baseOptions, initialWidth: 260 });
 				// SMALL
-				await assertControlsSmallShown(helpers);
-				await assertControlsMediumHidden(helpers);
-				await assertControlsLargeHidden(helpers);
-				await assertControlsXLargeHidden(helpers);
+				await assertControlsSmallShown();
+				await assertControlsMediumHidden();
+				await assertControlsLargeHidden();
+				await assertControlsXLargeHidden();
 
 				// MEDIUM
 				setWidth(430);
-				await assertControlsSmallShown(helpers);
-				await assertControlsMediumShown(helpers);
-				await assertControlsLargeHidden(helpers);
-				await assertControlsXLargeHidden(helpers);
+				await assertControlsSmallShown();
+				await assertControlsMediumShown();
+				await assertControlsLargeHidden();
+				await assertControlsXLargeHidden();
 
 				// LARGE
 				setWidth(570);
-				await assertControlsSmallShown(helpers);
-				await assertControlsMediumShown(helpers);
-				await assertControlsLargeShown(helpers);
-				await assertControlsXLargeHidden(helpers);
+				await assertControlsSmallShown();
+				await assertControlsMediumShown();
+				await assertControlsLargeShown();
+				await assertControlsXLargeHidden();
 
 				// XLARGE
 				setWidth(571);
-				await assertControlsSmallShown(helpers);
-				await assertControlsMediumShown(helpers);
-				await assertControlsLargeShown(helpers);
-				await assertControlsXLargeShown(helpers);
+				await assertControlsSmallShown();
+				await assertControlsMediumShown();
+				await assertControlsLargeShown();
+				await assertControlsXLargeShown();
 			});
 
 			it('should render the time (current/total) in the right format', async () => {

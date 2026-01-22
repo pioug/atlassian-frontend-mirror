@@ -1,5 +1,34 @@
 # @atlaskit/editor-statsig-tmp
 
+## 16.30.0
+
+### Minor Changes
+
+- [`6e8029473620b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e8029473620b) -
+  [EDITOR-4496] clean up experiment platform_editor_toolbar_aifc_patch_3 and remove view-mode plugin
+  dependency from loom plugin
+
+### Patch Changes
+
+- [`75dab6838b95f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/75dab6838b95f) -
+  [ux] EDITOR-3718: Fix Rovo loading modal max-width overflow on small screens (gated)
+- [`0a9962a3aa24c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a9962a3aa24c) -
+  tidy up experiment platform_editor_resizer_styles_cleanup
+
+## 16.29.0
+
+### Minor Changes
+
+- [`f662f3b30ee2e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f662f3b30ee2e) -
+  Adds new experiment to set selection to the element that attributes are being set of to match
+  previous behaviour.
+- [`2c3c92548bb9c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c3c92548bb9c) -
+  EDITOR-4639 cleanup cc_editor_limited_mode, cc_editor_limited_mode_include_lcm and unshipped code.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.28.0
 
 ### Minor Changes

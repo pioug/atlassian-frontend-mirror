@@ -9,6 +9,7 @@ import type {
 	FloatingToolbarConfig,
 	FloatingToolbarItem,
 } from '@atlaskit/editor-common/types';
+import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
@@ -18,12 +19,14 @@ import { SyncBlockError, type SyncBlockStoreManager } from '@atlaskit/editor-syn
 import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import EditIcon from '@atlaskit/icon/core/edit';
+import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	copySyncedBlockReferenceToClipboard,
 	editSyncedBlockSource,
 	removeSyncedBlock,
+	unsync,
 } from '../editor-commands';
 import { findSyncBlockOrBodiedSyncBlock, isBodiedSyncBlockNode } from '../pm-plugins/utils/utils';
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
@@ -100,7 +103,21 @@ export const getToolbarConfig = (
 				},
 			};
 
-			items.push(syncedLocation);
+			const unsyncButton: FloatingToolbarItem<Command> = {
+				type: 'custom',
+				fallback: [],
+				render: (view) => {
+					return (
+						<Button
+							areAnyNewToolbarFlagsEnabled={true}
+							icon={<LinkBrokenIcon label="" />}
+							title={formatMessage(messages.unsyncButton)}
+							onClick={() => unsync(syncBlockStore, isBodiedSyncBlock, view)}
+						/>
+					);
+				},
+			};
+			items.push(syncedLocation, unsyncButton);
 		}
 
 		const copyButton: FloatingToolbarItem<Command> = {

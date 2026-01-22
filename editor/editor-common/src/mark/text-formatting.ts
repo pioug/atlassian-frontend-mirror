@@ -1,7 +1,6 @@
 import { Mark, type MarkType, type Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, SelectionRange } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 /**
  * Determine if a mark of a specific type exists anywhere in the selection.
@@ -146,11 +145,7 @@ const wholeRangeHasMarks = (
 		}
 	});
 
-	if (expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true)) {
-		return isTextContent ? hasMarks : hasNoMarks;
-	}
-
-	return hasMarks;
+	return isTextContent ? hasMarks : hasNoMarks;
 };
 
 export const isMarkAllowedInRange = (

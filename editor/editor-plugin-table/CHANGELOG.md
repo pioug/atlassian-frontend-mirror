@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 16.4.3
+
+### Patch Changes
+
+- [`b68e8044e4394`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b68e8044e4394) -
+  [ux] EDITOR-4416 Set tableRef to fix drop targets not appearing when editor is not focused
+- Updated dependencies
+
 ## 16.4.2
 
 ### Patch Changes

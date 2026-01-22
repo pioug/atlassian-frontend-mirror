@@ -24,7 +24,7 @@ function isIOS() {
 	return isIPhone() || isIPad();
 }
 
-export function isSafari() {
+export function isSafari(): boolean {
 	if (typeof window !== 'undefined' && window.navigator != null) {
 		const ua = window.navigator.userAgent?.toLowerCase();
 		return ua ? ua.includes('safari') && !ua.includes('chrome') : false;
@@ -32,6 +32,6 @@ export function isSafari() {
 	return false;
 }
 
-export function isAppleDevice() {
+export function isAppleDevice(): boolean {
 	return isMac() || isIOS();
 }

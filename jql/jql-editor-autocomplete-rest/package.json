@@ -47,6 +47,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/docs": "workspace:^",
+		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@testing-library/jest-dom": "root:*",
 		"@testing-library/react": "^16.3.0",
 		"react-dom": "root:*",

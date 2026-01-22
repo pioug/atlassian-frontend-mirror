@@ -10,9 +10,10 @@ import {
 	type BlockMenuEventPayload,
 } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import { copyLinkToBlock, formatShortcut } from '@atlaskit/editor-common/keymaps';
 import { blockMenuMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
+import { ToolbarDropdownItem, ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar';
 import LinkIcon from '@atlaskit/icon/core/link';
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -33,6 +34,8 @@ const CopyLinkDropdownItemContent = ({ api, config }: Props & WrappedComponentPr
 	const { formatMessage } = useIntl();
 	const { onDropdownOpenChanged } = useBlockMenu();
 	const { getLinkPath, blockLinkHashPrefix } = config || {};
+
+	const shortcut = formatShortcut(copyLinkToBlock);
 
 	const { preservedSelection, defaultSelection } = useSharedPluginStateWithSelector(
 		api,
@@ -86,7 +89,12 @@ const CopyLinkDropdownItemContent = ({ api, config }: Props & WrappedComponentPr
 	}
 
 	return (
-		<ToolbarDropdownItem onClick={handleClick} elemBefore={<LinkIcon label="" />}>
+		<ToolbarDropdownItem
+			onClick={handleClick}
+			elemBefore={<LinkIcon label="" />}
+			elemAfter={shortcut ? <ToolbarKeyboardShortcutHint shortcut={shortcut} /> : undefined}
+			ariaKeyshortcuts={shortcut}
+		>
 			{formatMessage(messages.copyLinkToBlock)}
 		</ToolbarDropdownItem>
 	);

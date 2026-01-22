@@ -1,13 +1,11 @@
 import React from 'react';
 
 import {
-	SELECTION_EXTENSION_MENU_SECTION,
 	APPS_SECTION,
 	OVERFLOW_EXTENSIONS_MENU_SECTION,
 } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginType';
 import type { ExtensionConfiguration } from '../../types';
@@ -117,11 +115,7 @@ export const registerInlineToolbar = ({ api, extension, index }: RegisterExtensi
 				{
 					type: 'menu-section',
 					// if we have a custom menu, place items in there, otherwise in the overflow menu
-					key: getToolbarItem
-						? menuSectionKey
-						: fg('platform_editor_toolbar_aifc_overflow_menu_update')
-							? OVERFLOW_EXTENSIONS_MENU_SECTION.key
-							: SELECTION_EXTENSION_MENU_SECTION.key,
+					key: getToolbarItem ? menuSectionKey : OVERFLOW_EXTENSIONS_MENU_SECTION.key,
 					rank: (index + 1) * EXTENSION_RANK_MULTIPLIER,
 				},
 			],

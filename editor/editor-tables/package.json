@@ -32,6 +32,9 @@
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
+	"devDependencies": {
+		"@atlassian/a11y-jest-testing": "workspace:^"
+	},
 	"techstack": {
 		"@atlassian/frontend": {
 			"circular-dependencies": [

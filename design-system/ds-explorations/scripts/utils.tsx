@@ -37,15 +37,15 @@ export const pick =
 	<T extends any>(key: keyof T) =>
 	(obj: T) =>
 		obj[key];
-export const isAccent = (str: string) => str.includes('accent');
-export const isPressed = (str: string) => str.includes('pressed');
-export const isHovered = (str: string) => str.includes('hovered');
+export const isAccent = (str: string): boolean => str.includes('accent');
+export const isPressed = (str: string): boolean => str.includes('pressed');
+export const isHovered = (str: string): boolean => str.includes('hovered');
 export const not =
 	<T extends any>(cb: BooleanCallback<T>) =>
-	(val: T) =>
+	(val: T): boolean =>
 		!cb(val);
 export const or =
 	<T extends any>(...fns: BooleanCallback<T>[]) =>
-	(val: T) =>
+	(val: T): boolean =>
 		fns.some((fn) => fn(val));
 export const capitalize = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1);

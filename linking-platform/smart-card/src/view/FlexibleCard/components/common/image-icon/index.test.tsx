@@ -39,7 +39,7 @@ describe('ImageIcon', () => {
 	it('should render with round appearance', () => {
 		setup({ appearance: 'round' });
 
-		const image = screen.getByRole('presentation');
+		const image = screen.getByTestId('image-test-image');
 		const style = window.getComputedStyle(image);
 
 		expect(style.borderRadius).toContain('--ds-radius-full');
@@ -48,7 +48,7 @@ describe('ImageIcon', () => {
 	it('should not render with round appearance', () => {
 		setup();
 
-		const image = screen.getByRole('presentation');
+		const image = screen.getByTestId('image-test-image');
 		const style = window.getComputedStyle(image);
 
 		expect(style.borderRadius).toBe('');

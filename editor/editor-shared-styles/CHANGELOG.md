@@ -1,5 +1,14 @@
 # @atlaskit/editor-shared-styles
 
+## 3.10.7
+
+### Patch Changes
+
+- [`6e8029473620b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e8029473620b) -
+  [EDITOR-4496] clean up experiment platform_editor_toolbar_aifc_patch_3 and remove view-mode plugin
+  dependency from loom plugin
+- Updated dependencies
+
 ## 3.10.6
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @atlaskit/quick-search
 
+## 10.1.0
+
+### Minor Changes
+
+- [`e20304c9a9ac2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e20304c9a9ac2) -
+  auto-fix relative imports to use more complete paths and avoid barrel files using eslint rule
+
 ## 10.0.26
 
 ### Patch Changes

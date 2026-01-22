@@ -13,12 +13,12 @@ const colors = {
 	text: {
 		prefix: 'color.text.',
 		cssProperty: 'color',
-		filterFn: <T extends Token>(t: T) => t.token.startsWith(colors.text.prefix),
+		filterFn: <T extends Token>(t: T): boolean => t.token.startsWith(colors.text.prefix),
 	},
 	background: {
 		prefix: 'color.background.',
 		cssProperty: 'backgroundColor',
-		filterFn: <T extends Token>(t: T) =>
+		filterFn: <T extends Token>(t: T): boolean =>
 			t.token.startsWith(colors.background.prefix) ||
 			t.token.startsWith('elevation.surface') ||
 			t.token.startsWith('color.blanket'),
@@ -26,7 +26,7 @@ const colors = {
 	border: {
 		prefix: 'color.border.',
 		cssProperty: 'borderColor',
-		filterFn: <T extends Token>(t: T) => t.token.startsWith(colors.border.prefix),
+		filterFn: <T extends Token>(t: T): boolean => t.token.startsWith(colors.border.prefix),
 	},
 } as const;
 

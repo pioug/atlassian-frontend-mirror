@@ -27,11 +27,13 @@ export const CardWrapper = ({
 	role,
 	testId,
 	labelledBy,
+	ariaLabel,
 }: {
 	children: ReactNode;
 	role?: string;
 	testId?: string;
 	labelledBy?: string;
+	ariaLabel?: string;
 }): React.JSX.Element => (
 	<Box
 		xcss={cx(styles.cardWrapper)}
@@ -39,6 +41,7 @@ export const CardWrapper = ({
 		role={role}
 		testId={testId}
 		aria-labelledby={labelledBy}
+		aria-label={ariaLabel}
 	>
 		{children}
 	</Box>

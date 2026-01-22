@@ -2,19 +2,16 @@ import React from 'react';
 
 import { defineMessages, useIntl } from 'react-intl-next';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { IconButton } from '@atlaskit/button/new';
 import { cssMap, cx } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
-import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
+import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
 import Tooltip from '@atlaskit/tooltip';
 
 import { type ContainerTypes } from '../../types';
-import { AnalyticsAction, usePeopleAndTeamAnalytics } from '../../utils/analytics';
 
 const styles = cssMap({
 	crossIconWrapper: {
@@ -80,10 +77,8 @@ export const TeamLinkCardActions = ({
 	onEditLinkClick,
 	onDropdownOpenChange,
 }: TeamLinkCardActionsProps): React.JSX.Element => {
-	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { formatMessage } = useIntl();
-	const { fireUIEvent } = usePeopleAndTeamAnalytics();
-	const { fireEvent } = useAnalyticsEventsNext();
+	const { fireEvent } = useAnalyticsEvents();
 
 	// Show icons when:
 	// 1. Hovering over the card
@@ -95,38 +90,18 @@ export const TeamLinkCardActions = ({
 		e.preventDefault();
 		e.stopPropagation();
 		onDisconnectButtonClick();
-		if (fg('ptc-enable-teams-public-analytics-refactor')) {
-			fireEvent('ui.button.clicked.containerUnlinkButton', {
-				containerSelected: { container: containerType, containerId },
-			});
-		} else {
-			fireUIEvent(createAnalyticsEvent, {
-				action: AnalyticsAction.CLICKED,
-				actionSubject: 'button',
-				actionSubjectId: 'containerUnlinkButton',
-				attributes: { containerSelected: { container: containerType, containerId } },
-			});
-		}
+		fireEvent('ui.button.clicked.containerUnlinkButton', {
+			containerSelected: { container: containerType, containerId },
+		});
 	};
 
 	const handleEditLinkClick = (e: React.MouseEvent | React.KeyboardEvent) => {
 		e.preventDefault();
 		e.stopPropagation();
 		onEditLinkClick?.();
-		if (fg('ptc-enable-teams-public-analytics-refactor')) {
-			fireEvent('ui.button.clicked.containerEditLinkButton', {
-				containerSelected: { container: containerType, containerId },
-			});
-		} else {
-			fireUIEvent(createAnalyticsEvent, {
-				action: AnalyticsAction.CLICKED,
-				actionSubject: 'button',
-				actionSubjectId: 'containerEditLinkButton',
-				attributes: {
-					containerSelected: { container: containerType, containerId },
-				},
-			});
-		}
+		fireEvent('ui.button.clicked.containerEditLinkButton', {
+			containerSelected: { container: containerType, containerId },
+		});
 	};
 
 	if (containerType === 'WebLink') {

@@ -106,6 +106,7 @@ If isBold is typically false, consider migrating to <Tag /> from '@atlaskit/tag'
 		// Process children to extract text
 		let hasVariableChild = false;
 		let variableChildExpression: any = null;
+		let isFormatMessageCall = false;
 
 		if (element.children && element.children.length > 0) {
 			if (element.children.length === 1) {
@@ -122,7 +123,7 @@ If isBold is typically false, consider migrating to <Tag /> from '@atlaskit/tag'
 				) {
 					textContent = child.expression.value;
 				} else if (j.JSXExpressionContainer.check(child)) {
-					// Check if it's a simple identifier (variable) or member expression
+					// Check if it's a simple identifier (variable), member expression, or call expression
 					if (j.Identifier.check(child.expression)) {
 						hasVariableChild = true;
 						variableChildExpression = child.expression;
@@ -130,6 +131,17 @@ If isBold is typically false, consider migrating to <Tag /> from '@atlaskit/tag'
 						// Handle member expressions like obj.prop
 						hasVariableChild = true;
 						variableChildExpression = child.expression;
+					} else if (j.CallExpression.check(child.expression)) {
+						// Handle call expressions like formatMessage(messages.label)
+						hasVariableChild = true;
+						variableChildExpression = child.expression;
+						// Check if it's a formatMessage call (which always returns a string)
+						if (
+							j.Identifier.check(child.expression.callee) &&
+							child.expression.callee.name === 'formatMessage'
+						) {
+							isFormatMessageCall = true;
+						}
 					} else {
 						// Complex expression or JSX element
 						hasComplexChildren = true;
@@ -196,7 +208,7 @@ If isBold is typically false, consider migrating to <Tag /> from '@atlaskit/tag'
 			}
 		});
 
-		// Assemble attributes in correct order: text, other props, color
+		// Assemble attributes in correct order: text, other props, color, migration props
 		if (textContent && !hasComplexChildren && !hasVariableChild) {
 			newAttributes.push(j.jsxAttribute(j.jsxIdentifier('text'), j.stringLiteral(textContent)));
 		} else if (hasVariableChild && variableChildExpression) {
@@ -209,13 +221,24 @@ If isBold is typically false, consider migrating to <Tag /> from '@atlaskit/tag'
 		// Add other attributes
 		newAttributes.push(...otherAttributes);
 
-		// Add color attribute last (default to 'standard' if no appearance was found)
+		// Add color attribute (default to 'standard' if no appearance was found)
 		if (colorAttribute) {
 			newAttributes.push(colorAttribute);
 		} else {
 			// Default color when no appearance is specified
 			newAttributes.push(j.jsxAttribute(j.jsxIdentifier('color'), j.stringLiteral('standard')));
 		}
+
+		// Add migration-specific props
+		newAttributes.push(
+			j.jsxAttribute(
+				j.jsxIdentifier('isRemovable'),
+				j.jsxExpressionContainer(j.booleanLiteral(false)),
+			),
+		);
+		newAttributes.push(
+			j.jsxAttribute(j.jsxIdentifier('migration_fallback'), j.stringLiteral('lozenge')),
+		);
 
 		// Create new Tag element
 		const newElement = j.jsxElement(
@@ -233,7 +256,7 @@ If isBold is typically false, consider migrating to <Tag /> from '@atlaskit/tag'
 			);
 		}
 
-		if (hasVariableChild) {
+		if (hasVariableChild && !isFormatMessageCall) {
 			warnings.push(
 				'FIXME: This Tag component uses a variable as the text prop. Please verify that the variable contains a string value.',
 			);

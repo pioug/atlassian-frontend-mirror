@@ -4,7 +4,6 @@ import { isMultiBlockSelection } from '@atlaskit/editor-common/selection';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -86,7 +85,7 @@ export const handleMouseOver = (
 	const toolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
 
 	// We shouldn't be firing mouse over transactions when the editor is disabled
-	if (editorDisabled && fg('platform_editor_ai_generic_prep_for_aifc')) {
+	if (editorDisabled) {
 		return false;
 	}
 

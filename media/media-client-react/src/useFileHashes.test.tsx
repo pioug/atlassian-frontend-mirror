@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { renderHook } from '@testing-library/react-hooks/dom';
+import { renderHook, waitFor } from '@testing-library/react';
 
 import { mapMediaItemToFileState } from '@atlaskit/media-client';
 import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
@@ -31,7 +31,7 @@ describe('useFileHashes', () => {
 				{children}
 			</MockedMediaClientProvider>
 		);
-		const { result, waitFor } = renderHook(useFileHashes, { wrapper, initialProps: [identifier] });
+		const { result } = renderHook(useFileHashes, { wrapper, initialProps: [identifier] });
 
 		await waitFor(() => {
 			expect(result.current[identifier.id]).toEqual('some-hash');
@@ -68,7 +68,7 @@ describe('useFileHashes', () => {
 				{children}
 			</MockedMediaClientProvider>
 		);
-		const { result, rerender, waitFor } = renderHook(useFileHashes, {
+		const { result, rerender } = renderHook(useFileHashes, {
 			wrapper,
 			initialProps: [identifier],
 		});
@@ -114,7 +114,7 @@ describe('useFileHashes', () => {
 				{children}
 			</MockedMediaClientProvider>
 		);
-		const { result, waitFor } = renderHook(useFileHashes, {
+		const { result } = renderHook(useFileHashes, {
 			wrapper,
 			initialProps: [identifier, identifier2],
 		});
@@ -164,7 +164,7 @@ describe('useFileHashes', () => {
 				{children}
 			</MockedMediaClientProvider>
 		);
-		const { result, waitFor } = renderHook(useFileHashes, {
+		const { result } = renderHook(useFileHashes, {
 			wrapper,
 			initialProps: [identifier, identifier2],
 		});
@@ -204,7 +204,7 @@ describe('useFileHashes', () => {
 				{children}
 			</MockedMediaClientProvider>
 		);
-		const { result, waitFor } = renderHook(useFileHashes, {
+		const { result } = renderHook(useFileHashes, {
 			wrapper,
 			initialProps: [identifier, identifier2],
 		});

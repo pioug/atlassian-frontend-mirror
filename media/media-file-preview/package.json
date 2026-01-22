@@ -55,8 +55,7 @@
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@testing-library/react": "root:*",
-		"@testing-library/react-hooks": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"react-dom": "root:*",
 		"wait-for-expect": "root:*"
 	},

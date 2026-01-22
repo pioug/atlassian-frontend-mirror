@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-collab-edit",
-	"version": "8.0.0",
+	"version": "8.0.1",
 	"description": "Collab Edit plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -92,9 +92,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform_editor_ai_generic_prep_for_aifc": {
-			"type": "boolean"
-		},
 		"platform_editor_inorganic_batchattrsstep_localid": {
 			"type": "boolean"
 		},

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-list
 
+## 9.0.3
+
+### Patch Changes
+
+- [`6e8029473620b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e8029473620b) -
+  [EDITOR-4496] clean up experiment platform_editor_toolbar_aifc_patch_3 and remove view-mode plugin
+  dependency from loom plugin
+- Updated dependencies
+
 ## 9.0.2
 
 ### Patch Changes

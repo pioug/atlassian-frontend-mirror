@@ -492,7 +492,10 @@ const blockquoteSharedStyles = css({
 		display: 'inline-block',
 		paddingLeft: token('space.200', '16px'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		borderLeft: `${token('border.width.selected')} solid ${token('color.border', akEditorBlockquoteBorderColor)}`,
+		borderLeft: `${token('border.width.selected')} solid ${token(
+			'color.border',
+			akEditorBlockquoteBorderColor,
+		)}`,
 		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		margin: `${blockNodesVerticalMargin} 0 0 0`,
 		marginRight: 0,
@@ -1549,7 +1552,10 @@ const tableSharedStyle = css({
 	.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table,
 	.${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`]: {
 		borderCollapse: 'collapse',
-		border: `${tableCellBorderWidth}px solid ${token('color.background.accent.gray.subtler', akEditorTableBorder)}`,
+		border: `${tableCellBorderWidth}px solid ${token(
+			'color.background.accent.gray.subtler',
+			akEditorTableBorder,
+		)}`,
 		tableLayout: 'fixed',
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		fontSize: '1em',
@@ -1690,7 +1696,10 @@ const tableRendererHeaderStylesForTableCellOnly = css({
 			minWidth: `${tableCellMinWidth}px`,
 			fontWeight: token('font.weight.regular'),
 			verticalAlign: 'top',
-			border: `${token('border.width')} solid ${token('color.background.accent.gray.subtler', akEditorTableBorder)}`,
+			border: `${token('border.width')} solid ${token(
+				'color.background.accent.gray.subtler',
+				akEditorTableBorder,
+			)}`,
 			borderRightWidth: 0,
 			borderBottomWidth: 0,
 			padding: token('space.100', '8px'),
@@ -1983,8 +1992,14 @@ const stickyHeaderStyles = css({
 		overflow: 'hidden',
 		zIndex: `${akEditorStickyHeaderZIndex}`,
 
-		borderRight: `${token('border.width')} solid ${token('color.background.accent.gray.subtler', akEditorTableBorder)}`,
-		borderBottom: `${token('border.width')} solid ${token('color.background.accent.gray.subtler', akEditorTableBorder)}`,
+		borderRight: `${token('border.width')} solid ${token(
+			'color.background.accent.gray.subtler',
+			akEditorTableBorder,
+		)}`,
+		borderBottom: `${token('border.width')} solid ${token(
+			'color.background.accent.gray.subtler',
+			akEditorTableBorder,
+		)}`,
 
 		/* this is to compensate for the table border */
 		transform: 'translateX(-1px)',
@@ -2197,7 +2212,10 @@ const rendererAnnotationStyles = css({
 	"& [data-mark-type='annotation'][data-mark-annotation-state='active'] [data-annotation-mark], & [data-annotation-draft-mark][data-annotation-inline-node]":
 		{
 			background: token('color.background.accent.yellow.subtler', Y75),
-			borderBottom: `${token('border.width.selected')} solid ${token('color.border.accent.yellow', Y300)}`,
+			borderBottom: `${token('border.width.selected')} solid ${token(
+				'color.border.accent.yellow',
+				Y300,
+			)}`,
 			boxShadow: token('elevation.shadow.overlay', `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`),
 			cursor: 'pointer',
 			padding: `${token('space.050', '4px')} ${token('space.025', '2px')}`,
@@ -2507,8 +2525,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 						? paragraphStylesUGCScaledMargin
 						: paragraphSharedStylesWithEditorUGC
 					: isCompactModeSupported
-						? paragraphSharedStyleScaledMargin
-						: paragraphSharedStyles,
+					? paragraphSharedStyleScaledMargin
+					: paragraphSharedStyles,
 				listsSharedStyles,
 				browser.gecko && listsSharedStylesForGekko,
 				indentationSharedStyles,
@@ -2578,8 +2596,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 						? scaledDenseEmojiStyles
 						: scaledEmojiStyles
 					: isCompactModeEnabled
-						? denseStyles
-						: undefined,
+					? denseStyles
+					: undefined,
 				expValEquals('platform_synced_block', 'isEnabled', true) && syncBlockStyles,
 			]}
 			data-testid={testId}

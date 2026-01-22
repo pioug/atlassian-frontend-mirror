@@ -11,6 +11,7 @@ import {
 	findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { DomPanelAtrrs } from '../../panelPluginType';
 
@@ -55,6 +56,14 @@ export const panelAttrsToDom = (
 			'data-panel-color': panelColor,
 			'data-panel-icon-id': panelIconId,
 			'data-panel-icon-text': panelIconText,
+		};
+	}
+	// Required for parseDOM to correctly parse custom panel when NodeView DOM is copied directly
+	// Schema's parseDOM expects data-panel-icon on all custom panels, not just ones with color
+	if (isCustomPanel && expValEquals('platform_editor_copy_paste_issue_fix', 'isEnabled', true)) {
+		panelAttrs = {
+			...panelAttrs,
+			'data-panel-icon': panelIcon,
 		};
 	}
 	if (fg('platform_editor_adf_with_localid')) {

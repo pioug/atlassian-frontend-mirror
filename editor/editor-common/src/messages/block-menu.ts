@@ -87,4 +87,24 @@ export const messages = defineMessages({
 		defaultMessage: 'Wrap',
 		description: 'Aria label for the wrap icon in code block toolbar',
 	},
+	create: {
+		id: 'fabric.editor.block.menu.create',
+		defaultMessage: 'Create',
+		description: 'Menu section title',
+	},
+	headings: {
+		id: 'fabric.editor.block.menu.headings',
+		defaultMessage: 'Headings',
+		description: 'Menu section title',
+	},
+	suggested: {
+		id: 'fabric.editor.block.menu.suggested',
+		defaultMessage: 'Suggested',
+		description: 'Menu section title',
+	},
+	structure: {
+		id: 'fabric.editor.block.menu.structure',
+		defaultMessage: 'Structure',
+		description: 'Menu section title',
+	},
 });

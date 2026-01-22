@@ -70,7 +70,7 @@ function createPlugin(
 				? (state: EditorState) => {
 						const { disabledByPlugin } = pluginKey.getState(state) ?? { disabledByPlugin: false };
 						return disabledByPlugin ? false : undefined;
-					}
+				  }
 				: undefined,
 		},
 		view: (view) => {
@@ -104,7 +104,7 @@ function createPlugin(
  * .add(editorDisabledPlugin, { initialDisabledState: true })
  * ```
  */
-export const editorDisabledPlugin: EditorDisabledPlugin = ({ config: options = {}, api }) => ({
+export const editorDisabledPlugin: EditorDisabledPlugin = ({ config: options = {} }) => ({
 	name: 'editorDisabled',
 
 	getSharedState(editorState) {
@@ -146,7 +146,7 @@ export const editorDisabledPlugin: EditorDisabledPlugin = ({ config: options = {
 					? tr.setMeta(pluginKey, {
 							action: ACTION.TOGGLE_DISABLED,
 							disabled,
-						})
+					  })
 					: null;
 			},
 	},

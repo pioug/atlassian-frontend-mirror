@@ -9,7 +9,6 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
-import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import {
@@ -19,7 +18,6 @@ import {
 } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import {
 	calculateToolbarPositionTrackHead,
 	calculateToolbarPositionOnCellSelection,
@@ -36,7 +34,6 @@ import {
 import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model';
 import type { RegisterToolbar, RegisterComponent } from '@atlaskit/editor-toolbar-model';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
@@ -59,56 +56,24 @@ type SelectionToolbarProps = {
 	mountPoint: HTMLElement | undefined;
 };
 
-const usePluginState = conditionalHooksFactory(
-	() => expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true),
-	(api?: ExtractInjectionAPI<ToolbarPlugin>) => {
-		return useSharedPluginStateWithSelector(
-			api,
-			['connectivity', 'userPreferences', 'toolbar', 'selection', 'userIntent', 'editorViewMode'],
-			(state) => {
-				return {
-					connectivityStateMode: state.connectivityState?.mode,
-					editorToolbarDockingPreference:
-						state.userPreferencesState?.preferences?.toolbarDockingPosition,
-					shouldShowToolbar: state.toolbarState?.shouldShowToolbar,
-					selectedNode: state.toolbarState?.selectedNode,
-					selection: state.selectionState?.selection,
-					currentUserIntent: state.userIntentState?.currentUserIntent,
-					editorViewMode: state.editorViewModeState?.mode,
-				};
-			},
-		);
-	},
-	(api?: ExtractInjectionAPI<ToolbarPlugin>) => {
-		const connectivityStateMode = useSharedPluginStateSelector(api, 'connectivity.mode');
-		const editorToolbarDockingPreference = useSharedPluginStateSelector(
-			api,
-			'userPreferences.preferences.toolbarDockingPosition',
-		);
-		const currentUserIntent = useSharedPluginStateSelector(api, 'userIntent.currentUserIntent');
-		const selection = useSharedPluginStateSelector(api, 'selection.selection');
-		const { shouldShowToolbar, selectedNode } = useSharedPluginStateWithSelector(
-			api,
-			['toolbar'],
-			(state: NamedPluginStatesFromInjectionAPI<ExtractInjectionAPI<ToolbarPlugin>, 'toolbar'>) => {
-				return {
-					shouldShowToolbar: state.toolbarState?.shouldShowToolbar,
-					selectedNode: state.toolbarState?.selectedNode,
-				};
-			},
-		);
-
-		return {
-			connectivityStateMode,
-			editorToolbarDockingPreference,
-			currentUserIntent,
-			shouldShowToolbar,
-			selection,
-			editorViewMode: undefined,
-			selectedNode,
-		};
-	},
-);
+const usePluginState = (api?: ExtractInjectionAPI<ToolbarPlugin>) => {
+	return useSharedPluginStateWithSelector(
+		api,
+		['connectivity', 'userPreferences', 'toolbar', 'selection', 'userIntent', 'editorViewMode'],
+		(state) => {
+			return {
+				connectivityStateMode: state.connectivityState?.mode,
+				editorToolbarDockingPreference:
+					state.userPreferencesState?.preferences?.toolbarDockingPosition,
+				shouldShowToolbar: state.toolbarState?.shouldShowToolbar,
+				selectedNode: state.toolbarState?.selectedNode,
+				selection: state.selectionState?.selection,
+				currentUserIntent: state.userIntentState?.currentUserIntent,
+				editorViewMode: state.editorViewModeState?.mode,
+			};
+		},
+	);
+};
 
 const useOnPositionCalculated = (
 	editorView: EditorView,

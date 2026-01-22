@@ -21,14 +21,11 @@
 		}
 	},
 	"scripts": {
-		"ak-postbuild": "mkdir -p dist && cp src/bundle.css dist/bundle.css && cp src/icons-sprite.svg dist/icons-sprite.svg",
-		"update": "yarn build-css && yarn run sprite",
-		"sprite": "node ./bin/buildSprite.js",
+		"ak-postbuild": "mkdir -p dist && cp src/bundle.css dist/bundle.css",
 		"build-css": "ts-node --transpile-only --project ./tsconfig.build.json build/js-to-css.js"
 	},
 	"files": [
-		"dist/bundle.css",
-		"dist/icons-sprite.svg"
+		"dist/bundle.css"
 	],
 	"dependencies": {
 		"@atlaskit/theme": "workspace:^"
@@ -38,18 +35,12 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/yarn-utils": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
-		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"css-loader": "root:*",
-		"glob": "root:*",
-		"jsdom": "root:*",
 		"mkdirp": "root:*",
-		"raw-loader": "root:*",
 		"react": "root:*",
 		"style-loader": "root:*",
-		"svg-sprite": "root:*",
 		"ts-node": "root:*"
 	},
 	"exports": {

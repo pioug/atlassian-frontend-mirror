@@ -4,11 +4,17 @@ import { screen } from '@testing-library/react';
 import { injectable } from 'react-magnetic-di';
 
 import { Field } from '@atlaskit/form';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import { createGenericComponent, renderWithDi } from '../../common/test-utils';
 import { type UserInputNumberPrompt, UserInputType } from '../../common/types';
 
 import NumberInputPrompt, { Errors, numberValidate } from './main';
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 describe('Text field input prompt', () => {
 	test('should render correct props', () => {

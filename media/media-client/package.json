@@ -59,6 +59,7 @@
 		"@atlaskit/media-state": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
+		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@emotion/react": "root:*",
 		"@types/deep-equal": "root:*",

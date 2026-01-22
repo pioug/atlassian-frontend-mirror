@@ -232,6 +232,31 @@ describe('ProfileCard analytics', () => {
 			const { container } = renderProfileCard();
 			await expect(container).toBeAccessible();
 		});
+
+		it('should capture and report a11y violations in error state', async () => {
+			const { container } = renderProfileCard({
+				hasError: true,
+				errorType: { reason: 'default' },
+			});
+			await expect(container).toBeAccessible();
+		});
+
+		it('should capture and report a11y violations in error state with NotFound', async () => {
+			const { container } = renderProfileCard({
+				hasError: true,
+				errorType: { reason: 'NotFound' },
+				clientFetchProfile: jest.fn(),
+			});
+			await expect(container).toBeAccessible();
+		});
+
+		it('should capture and report a11y violations in loading state', async () => {
+			const { container } = renderProfileCard({
+				isLoading: true,
+				fullName: undefined,
+			});
+			await expect(container).toBeAccessible();
+		});
 	});
 
 	ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
@@ -330,6 +355,31 @@ describe('ProfileCard analytics', () => {
 
 		it('should capture and report a11y violations', async () => {
 			const { container } = renderProfileCard();
+			await expect(container).toBeAccessible();
+		});
+
+		it('should capture and report a11y violations in error state', async () => {
+			const { container } = renderProfileCard({
+				hasError: true,
+				errorType: { reason: 'default' },
+			});
+			await expect(container).toBeAccessible();
+		});
+
+		it('should capture and report a11y violations in error state with NotFound', async () => {
+			const { container } = renderProfileCard({
+				hasError: true,
+				errorType: { reason: 'NotFound' },
+				clientFetchProfile: jest.fn(),
+			});
+			await expect(container).toBeAccessible();
+		});
+
+		it('should capture and report a11y violations in loading state', async () => {
+			const { container } = renderProfileCard({
+				isLoading: true,
+				fullName: undefined,
+			});
 			await expect(container).toBeAccessible();
 		});
 	});

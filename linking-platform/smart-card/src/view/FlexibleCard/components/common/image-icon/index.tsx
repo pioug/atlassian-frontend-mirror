@@ -9,7 +9,6 @@ import { defineMessages, useIntl } from 'react-intl-next';
 import ImageLoader from 'react-render-image';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { LoadingSkeleton } from '../loading-skeleton';
@@ -75,7 +74,7 @@ const ImageIcon = ({
 					<img
 						src={url}
 						data-testid={`${testId}-image`}
-						alt={fg('navx-2811-smart-link-a11y-image-alt') ? formatMessage(messages.imageAltText) : ""}
+						alt={formatMessage(messages.imageAltText)}
 						style={{
 							width,
 							height,

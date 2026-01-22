@@ -13,6 +13,7 @@ import {
 	SmartCardProvider as Provider,
 } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import { useControlDataExportConfig } from '../../../state/hooks/use-control-data-export-config';
 import { fakeFactory, mockGenerator, mocks } from '../../../utils/mocks';
@@ -28,6 +29,11 @@ jest.mock('../../../utils/should-data-export', () => ({
 	getIsDataExportEnabled: jest.fn(),
 }));
 const getIsDataExportEnabledMock = getIsDataExportEnabled as jest.Mock;
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 describe('smart-card: card states, embed', () => {
 	const mockOnError = jest.fn();

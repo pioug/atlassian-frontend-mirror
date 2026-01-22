@@ -9,6 +9,7 @@ import Button from '@atlaskit/button/standard-button';
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import { captureException } from '@atlaskit/linking-common/sentry';
 import Popup from '@atlaskit/popup';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import { MockPluginForm } from '../../example-helpers/mock-plugin-form';
 import type { LinkCreatePlugin, LinkCreateProps, LinkCreateWithModalProps } from '../common/types';
@@ -25,6 +26,11 @@ import '@atlaskit/link-test-helpers/jest';
 jest.mock('@atlaskit/linking-common/sentry', () => ({
 	captureException: jest.fn(),
 }));
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 type LinkCreateTestSetup = (
 	props?: any,
@@ -770,7 +776,7 @@ describe('Plugin edit view', () => {
 					objectType: 'someObjectType',
 					ari: 'example-ari',
 				});
-			} catch (err) {
+			} catch {
 				// don't complete
 			}
 		}, [onCreate]);

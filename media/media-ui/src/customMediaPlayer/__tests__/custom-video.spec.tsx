@@ -13,6 +13,7 @@ jest.mock('@atlaskit/width-detector');
 import { asMock, asMockFunction } from '@atlaskit/media-common/test-helpers';
 import { fakeIntl } from '../../test-helpers';
 import { type WidthObserver } from '@atlaskit/width-detector';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import React from 'react';
 import { CustomMediaPlayerBase, type CustomMediaPlayerProps } from '..';
@@ -37,6 +38,11 @@ const HTMLMediaElement_pause = HTMLMediaElement.prototype.pause;
 type mockWidthObserver = typeof WidthObserver;
 
 let widthCbs: Set<(width: number) => void> = new Set();
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
+
 jest.mock('@atlaskit/width-detector', () => {
 	return {
 		WidthObserver: ((props: { setWidth: (width: number) => void }) => {

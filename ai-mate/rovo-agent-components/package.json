@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-agent-components",
-	"version": "3.22.0",
+	"version": "3.23.0",
 	"description": "This package host public components related to rovo agents, the components here are needed for other public atlaskit packages",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -33,7 +33,8 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
-		"./agent-verified": "./src/ui/agent-verified/index.tsx"
+		"./agent-verified": "./src/ui/agent-verified/index.tsx",
+		"./agent-verification-dropdown-item": "./src/ui/agent-verification-dropdown-item/index.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/afm-i18n-platform-ai-mate-rovo-agent-components": "root:*",
@@ -42,12 +43,14 @@
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",
+		"@atlaskit/flag": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/logo": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/rovo-agent-analytics": "workspace:^",
 		"@atlaskit/skeleton": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
@@ -70,6 +73,8 @@
 		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "^16.3.0",
 		"@testing-library/user-event": "root:*",
+		"@types/relay-test-utils": "root:*",
+		"relay-test-utils": "^14.1.0",
 		"wait-for-expect": "root:*"
 	},
 	"techstack": {

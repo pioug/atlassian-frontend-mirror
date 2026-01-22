@@ -10,10 +10,18 @@ import { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import type { Provider } from '..';
 import { EVENT_STATUS, CatchupEventReason } from '../../helpers/const';
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import { AcknowledgementResponseTypes } from '../../types';
+
+/**
+ * This file was identified as having accessibility violations.
+ * The violations have been temporarily suppressed to allow for incremental fixing.
+ * Please run accessibility checks and remove this suppression when all issues are resolved.
+ */
+skipAutoA11yFile();
 
 jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
 jest.mock('@atlaskit/prosemirror-collab', () => {

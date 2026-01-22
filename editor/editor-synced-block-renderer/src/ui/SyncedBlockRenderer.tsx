@@ -72,10 +72,10 @@ const SyncedBlockRendererComponent = ({
 		return <SyncedBlockLoadingState />;
 	}
 
-	if (syncBlockInstance.error || !syncBlockInstance.data) {
+	if (syncBlockInstance.error || !syncBlockInstance.data || (syncBlockInstance.data.status === 'deleted' && fg('platform_synced_block_dogfooding'))) {
 		return (
 			<SyncedBlockErrorComponent
-				error={syncBlockInstance.error ?? SyncBlockError.Errored}
+				error={syncBlockInstance.error ?? (syncBlockInstance?.data?.status === 'deleted' && fg('platform_synced_block_dogfooding') ? SyncBlockError.NotFound : SyncBlockError.Errored)}
 				resourceId={syncBlockInstance.resourceId}
 				onRetry={reloadData}
 				isLoading={isLoading}

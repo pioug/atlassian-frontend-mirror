@@ -23,43 +23,47 @@ describe('extractors.icon.document', () => {
 	});
 
 	it('returns blog icon for BlogPosting', async () => {
-		const icon = extractIconFromDocument('schema:BlogPosting', {});
+		const icon = extractIconFromDocument('schema:BlogPosting', { title: 'blog-icon' });
 		render(withIntl(icon));
 		expect(await screen.findByTestId('blog-icon')).toBeVisible();
 	});
 
 	it('returns file icon for DigitalDocument', async () => {
-		const icon = extractIconFromDocument('schema:DigitalDocument', {});
+		const icon = extractIconFromDocument('schema:DigitalDocument', { title: 'file-icon' });
 		render(withIntl(icon));
 		expect(await screen.findByTestId('file-icon')).toBeVisible();
 	});
 
 	it('returns document icon for TextDigitalDocument', async () => {
-		const icon = extractIconFromDocument('schema:TextDigitalDocument', {});
+		const icon = extractIconFromDocument('schema:TextDigitalDocument', { title: 'document-icon' });
 		render(withIntl(icon));
 		expect(await screen.findByTestId('document-icon')).toBeVisible();
 	});
 
 	it('returns document icon for UndefinedLink', async () => {
-		const icon = extractIconFromDocument('atlassian:UndefinedLink', {});
+		const icon = extractIconFromDocument('atlassian:UndefinedLink', { title: 'document-icon' });
 		render(withIntl(icon));
 		expect(await screen.findByTestId('document-icon')).toBeVisible();
 	});
 
 	it('returns presentation icon for PresentationDigitalDocument', async () => {
-		const icon = extractIconFromDocument('schema:PresentationDigitalDocument', {});
+		const icon = extractIconFromDocument('schema:PresentationDigitalDocument', {
+			title: 'presentation-icon',
+		});
 		render(withIntl(icon));
 		expect(await screen.findByTestId('presentation-icon')).toBeVisible();
 	});
 
 	it('returns spreadsheet icon for SpreadsheetDigitalDocument', async () => {
-		const icon = extractIconFromDocument('schema:SpreadsheetDigitalDocument', {});
+		const icon = extractIconFromDocument('schema:SpreadsheetDigitalDocument', {
+			title: 'spreadsheet-icon',
+		});
 		render(withIntl(icon));
 		expect(await screen.findByTestId('spreadsheet-icon')).toBeVisible();
 	});
 
 	it('returns document filled icon for Template', async () => {
-		const icon = extractIconFromDocument('atlassian:Template', {});
+		const icon = extractIconFromDocument('atlassian:Template', { title: 'document-filled-icon' });
 		render(withIntl(icon));
 		expect(await screen.findByTestId('document-filled-icon')).toBeVisible();
 	});

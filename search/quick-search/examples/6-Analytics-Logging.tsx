@@ -1,7 +1,9 @@
 import React from 'react';
 import { AnalyticsListener } from '@atlaskit/analytics';
 import { randomJiraIconUrl, randomConfluenceIconUrl } from './utils/mockData';
-import { QuickSearch, ResultItemGroup, ObjectResult } from '../src';
+import QuickSearch from '../src/components/QuickSearch';
+import ResultItemGroup from '../src/components/ResultItem/ResultItemGroup';
+import ObjectResult from '../src/components/Results/ObjectResult';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component {

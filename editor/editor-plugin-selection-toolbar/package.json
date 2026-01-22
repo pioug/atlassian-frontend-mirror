@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection-toolbar",
-	"version": "8.0.5",
+	"version": "8.1.0",
 	"description": "@atlaskit/editor-plugin-selection-toolbar for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -48,7 +48,6 @@
 		"@atlaskit/icon-lab": "workspace:^",
 		"@atlaskit/menu": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
@@ -101,9 +100,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_use_preferences_plugin": {
-			"type": "boolean"
-		},
-		"platform_editor_ai_generic_prep_for_aifc": {
 			"type": "boolean"
 		},
 		"platform_editor_toolbar_aifc_patch_7": {

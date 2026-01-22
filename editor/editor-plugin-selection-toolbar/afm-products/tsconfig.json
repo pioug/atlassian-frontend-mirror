@@ -72,9 +72,6 @@
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-flags-react/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../tmp-editor-statsig/afm-products/tsconfig.json"
 		},
 		{

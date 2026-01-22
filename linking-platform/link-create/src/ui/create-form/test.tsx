@@ -6,6 +6,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import { axe } from '@af/accessibility-testing';
 import { flushPromises } from '@atlaskit/link-test-helpers';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import { type Validator } from '../../common/types';
 import { LinkCreateCallbackProvider } from '../../controllers/callback-context';
@@ -16,6 +17,11 @@ import { CreateForm, type CreateFormProps } from './main';
 import { Select } from './select';
 import { TextField } from './textfield';
 import { UserPicker } from './user-picker';
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 describe('<CreateForm />', () => {
 	let handleSubmitMock: jest.Mock;

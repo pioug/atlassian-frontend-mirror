@@ -5,11 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import { Text } from '@atlaskit/primitives/compiled';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import {
-	mockRunItLaterSynchronously,
-	renderWithAnalyticsListener as render,
-} from '@atlassian/ptc-test-utils';
+import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 
@@ -29,8 +25,6 @@ jest.mock('react-intl-next', () => {
 		})),
 	};
 });
-
-mockRunItLaterSynchronously();
 
 const containerUnlinkEvent = {
 	action: 'clicked',
@@ -154,90 +148,43 @@ describe('LinkedContainerCard', () => {
 		).not.toBeInTheDocument();
 	});
 
-	ffTest.on('ptc-enable-teams-public-analytics-refactor', 'New analytics', () => {
-		it('should fire an analytics event when the cross icon button is clicked', async () => {
-			const { expectEventToBeFired } = render(
-				<Router>
-					<LinkedContainerCard
-						containerType={'ConfluenceSpace'}
-						title="Test Title"
-						containerIcon="test-icon-url"
-						link={testLink}
-						onDisconnectButtonClick={jest.fn()}
-					/>
-				</Router>,
-			);
+	it('should fire an analytics event when the cross icon button is clicked', async () => {
+		const { expectEventToBeFired } = render(
+			<Router>
+				<LinkedContainerCard
+					containerType={'ConfluenceSpace'}
+					title="Test Title"
+					containerIcon="test-icon-url"
+					link={testLink}
+					onDisconnectButtonClick={jest.fn()}
+				/>
+			</Router>,
+		);
 
-			const containerElement = screen.getByTestId('linked-container-card-inner');
-			await userEvent.hover(containerElement);
-			const crossIconButton = screen.getByRole('button');
-			await userEvent.click(crossIconButton);
-			expectEventToBeFired('ui', containerUnlinkEvent);
-		});
+		const containerElement = screen.getByTestId('linked-container-card-inner');
+		await userEvent.hover(containerElement);
+		const crossIconButton = screen.getByRole('button');
+		await userEvent.click(crossIconButton);
+		expectEventToBeFired('ui', containerUnlinkEvent);
 	});
 
-	ffTest.off('ptc-enable-teams-public-analytics-refactor', 'Legacy analytics', () => {
-		it('should fire an analytics event when the cross icon button is clicked', async () => {
-			const { expectEventToBeFired } = render(
-				<Router>
-					<LinkedContainerCard
-						containerType={'ConfluenceSpace'}
-						title="Test Title"
-						containerIcon="test-icon-url"
-						link={testLink}
-						onDisconnectButtonClick={jest.fn()}
-					/>
-				</Router>,
-			);
+	it('should fire an analytics event when the container is clicked', async () => {
+		const { expectEventToBeFired } = render(
+			<Router>
+				<LinkedContainerCard
+					containerType={'ConfluenceSpace'}
+					title="Test Title"
+					containerIcon="test-icon-url"
+					link={testLink}
+					containerId="test-container-id"
+					onDisconnectButtonClick={jest.fn()}
+				/>
+			</Router>,
+		);
 
-			const containerElement = screen.getByTestId('linked-container-card-inner');
-			await userEvent.hover(containerElement);
-			const crossIconButton = screen.getByRole('button');
-			await userEvent.click(crossIconButton);
-			expectEventToBeFired('ui', containerUnlinkEvent);
-		});
-	});
-
-	ffTest.on('ptc-enable-teams-public-analytics-refactor', 'New analytics', () => {
-		it('should fire an analytics event when the container is clicked', async () => {
-			const { expectEventToBeFired } = render(
-				<Router>
-					<LinkedContainerCard
-						containerType={'ConfluenceSpace'}
-						title="Test Title"
-						containerIcon="test-icon-url"
-						link={testLink}
-						containerId="test-container-id"
-						onDisconnectButtonClick={jest.fn()}
-					/>
-				</Router>,
-			);
-
-			const containerLink = screen.getByRole('link');
-			await userEvent.click(containerLink);
-			expectEventToBeFired('ui', containerClickEvent);
-		});
-	});
-
-	ffTest.off('ptc-enable-teams-public-analytics-refactor', 'Legacy analytics', () => {
-		it('should fire an analytics event when the container is clicked', async () => {
-			const { expectEventToBeFired } = render(
-				<Router>
-					<LinkedContainerCard
-						containerType={'ConfluenceSpace'}
-						title="Test Title"
-						containerIcon="test-icon-url"
-						link={testLink}
-						containerId="test-container-id"
-						onDisconnectButtonClick={jest.fn()}
-					/>
-				</Router>,
-			);
-
-			const containerLink = screen.getByRole('link');
-			await userEvent.click(containerLink);
-			expectEventToBeFired('ui', containerClickEvent);
-		});
+		const containerLink = screen.getByRole('link');
+		await userEvent.click(containerLink);
+		expectEventToBeFired('ui', containerClickEvent);
 	});
 
 	it('should capture and report a11y violations', async () => {

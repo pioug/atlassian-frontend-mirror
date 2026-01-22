@@ -123,8 +123,8 @@ export const corePlugin: CorePlugin = ({ config }) => {
 				const content = options?.skipValidation
 					? processRawValueWithoutValidation(schema, replaceValue)
 					: Array.isArray(replaceValue)
-						? processRawFragmentValue(schema, replaceValue)
-						: processRawValue(schema, replaceValue);
+					? processRawFragmentValue(schema, replaceValue)
+					: processRawValue(schema, replaceValue);
 
 				// Don't replace the document if it's the same document, as full size
 				// replace transactions cause issues for collaborative editing and
@@ -143,9 +143,7 @@ export const corePlugin: CorePlugin = ({ config }) => {
 					if (options?.scrollIntoView ?? true) {
 						editorView.dispatch(tr.scrollIntoView());
 					} else {
-						if (fg('platform_editor_ai_generic_prep_for_aifc')) {
-							editorView.dispatch(tr.setMeta('scrollIntoView', false));
-						}
+						editorView.dispatch(tr.setMeta('scrollIntoView', false));
 					}
 					return true;
 				}

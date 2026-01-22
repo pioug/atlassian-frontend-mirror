@@ -13,20 +13,19 @@ afterEach(jest.clearAllMocks);
 
 describe('extractDocumentTypeIcon', () => {
 	describe.each([
-		['blog', 'schema:BlogPosting', IconType.Blog, 'Blog'],
-		['file', 'schema:DigitalDocument', IconType.File, 'File'],
-		['document', 'schema:TextDigitalDocument', IconType.Document, 'Document'],
-		['presentation', 'schema:PresentationDigitalDocument', IconType.Presentation, 'Presentation'],
-		['spreadsheet', 'schema:SpreadsheetDigitalDocument', IconType.Spreadsheet, 'Spreadsheet'],
-		['template', 'atlassian:Template', IconType.Template, 'Template'],
-		['presentation', 'schema:PresentationDigitalDocument', IconType.Presentation, 'Presentation'],
-		['document', 'atlassian:UndefinedLink', IconType.Document, 'Undefined link'],
-	])('%s icon', (_, documentType, expectedIconType, expectedLabel) => {
+		['blog', 'schema:BlogPosting', IconType.Blog],
+		['file', 'schema:DigitalDocument', IconType.File],
+		['document', 'schema:TextDigitalDocument', IconType.Document],
+		['presentation', 'schema:PresentationDigitalDocument', IconType.Presentation],
+		['spreadsheet', 'schema:SpreadsheetDigitalDocument', IconType.Spreadsheet],
+		['template', 'atlassian:Template', IconType.Template],
+		['presentation', 'schema:PresentationDigitalDocument', IconType.Presentation],
+		['document', 'atlassian:UndefinedLink', IconType.Document],
+	])('%s icon', (_, documentType, expectedIconType) => {
 		it(`returns ${expectedIconType} with default label`, () => {
-			const { icon, label } = extractDocumentTypeIcon(documentType) || {};
+			const { icon } = extractDocumentTypeIcon(documentType) || {};
 
 			expect(icon).toEqual(expectedIconType);
-			expect(label).toEqual(expectedLabel);
 		});
 
 		it(`returns ${expectedIconType} with custom label`, () => {
@@ -42,14 +41,14 @@ describe('extractDocumentTypeIcon', () => {
 		jest.mocked(isConfluenceGenerator).mockReturnValue(true);
 
 		const iconDescriptor = extractDocumentTypeIcon('schema:DigitalDocument', '', 'confluence');
-		expect(iconDescriptor).toEqual({ icon: IconType.LiveDocument, label: 'Live Document' });
+		expect(iconDescriptor).toEqual({ icon: IconType.LiveDocument, label: '' });
 	});
 
 	it('returns file icon by default', () => {
 		jest.mocked(isConfluenceGenerator).mockReturnValue(true);
 
 		const iconDescriptor = extractDocumentTypeIcon('schema:DigitalDocument', '');
-		expect(iconDescriptor).toEqual({ icon: IconType.File, label: 'File' });
+		expect(iconDescriptor).toEqual({ icon: IconType.File, label: '' });
 	});
 
 	it('returns undefined if document type does not match', () => {

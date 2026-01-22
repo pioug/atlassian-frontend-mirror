@@ -39,6 +39,9 @@
 			"path": "../../../design-system/dropdown-menu/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/flag/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/heading/afm-jira/tsconfig.json"
 		},
 		{
@@ -55,6 +58,9 @@
 		},
 		{
 			"path": "../../../design-system/primitives/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../rovo-agent-analytics/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/skeleton/afm-jira/tsconfig.json"

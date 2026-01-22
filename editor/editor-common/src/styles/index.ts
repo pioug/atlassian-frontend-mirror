@@ -43,7 +43,6 @@ export {
 } from './shared/layout';
 export { EXTENSION_PADDING, BODIED_EXT_PADDING } from './shared/extension';
 export {
-	resizerStyles,
 	resizerItemClassName,
 	resizerHandleClassName,
 	resizerHandleTrackClassName,

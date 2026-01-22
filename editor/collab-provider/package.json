@@ -70,6 +70,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/adf-schema": "workspace:^",
+		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^"
 	},
 	"platform-feature-flags": {

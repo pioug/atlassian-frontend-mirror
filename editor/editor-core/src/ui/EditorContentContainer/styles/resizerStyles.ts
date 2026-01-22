@@ -1,7 +1,10 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, type SerializedStyles } from '@emotion/react';
 
-import { akEditorFullPageNarrowBreakout } from '@atlaskit/editor-shared-styles';
+import {
+	akEditorFullPageNarrowBreakout,
+	akEditorSelectedNodeClassName,
+} from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
 export const resizerItemClassName = 'resizer-item';
@@ -207,8 +210,8 @@ export const resizerStyles: SerializedStyles = css({
 		},
 	},
 
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
-	'.ak-editor-selected-node': {
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+	[`.${akEditorSelectedNodeClassName}`]: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
 		[`& .${resizerHandleThumbClassName}`]: {
 			background: token('color.border.focused'),

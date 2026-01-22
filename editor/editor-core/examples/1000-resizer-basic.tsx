@@ -10,10 +10,11 @@ import { jsx } from '@emotion/react';
 
 import { ResizerNext } from '@atlaskit/editor-common/resizer';
 import type { HandleResize, HandleSize } from '@atlaskit/editor-common/resizer';
-import { resizerStyles } from '@atlaskit/editor-common/styles';
 import { RadioGroup } from '@atlaskit/radio';
 import type { OptionsPropType } from '@atlaskit/radio/types';
 import { token } from '@atlaskit/tokens';
+
+import { resizerStyles } from '../src/ui/EditorContentContainer/styles/resizerStyles';
 
 const options: OptionsPropType = [
 	{ name: 'small', value: 'small', label: 'Small handler' },
@@ -35,7 +36,7 @@ function Parent(props: {
 
 	const handleResizeStart = () => {};
 
-	const handleResize: HandleResize = (stateOriginal, delta) => {};
+	const handleResize: HandleResize = (_stateOriginal, _delta) => {};
 
 	const handleResizeStop: HandleResize = (stateOriginal, delta) => {
 		const newWidth = stateOriginal.width + delta.width;

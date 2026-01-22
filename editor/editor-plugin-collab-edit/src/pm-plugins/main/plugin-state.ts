@@ -12,10 +12,8 @@ import type {
 } from '@atlaskit/editor-common/collab';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
-import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ReadOnlyParticipants } from '../../types';
@@ -42,8 +40,8 @@ export const getValidPos = (tr: ReadonlyTransaction, pos: number) => {
 		return backwardSelection
 			? backwardSelection.from
 			: forwardSelection
-				? forwardSelection.from
-				: pos;
+			? forwardSelection.from
+			: pos;
 	}
 	return endOfDocPos;
 };
@@ -230,25 +228,6 @@ export class PluginState {
 				});
 			} catch (err) {
 				this.onError(err as Error);
-			}
-
-			if (!fg('platform_editor_ai_generic_prep_for_aifc')) {
-				// Remove any selection decoration within the change range,
-				// takes care of the issue when after pasting we end up with a dead selection
-				tr.steps.filter(isReplaceStep).forEach((s: Step) => {
-					// Ignored via go/ees005
-					// eslint-disable-next-line @typescript-eslint/no-explicit-any
-					const { from, to } = s as any;
-					// Ignored via go/ees005
-					// eslint-disable-next-line @typescript-eslint/no-explicit-any
-					this.decorationSet.find(from, to).forEach((deco: any) => {
-						// `type` is private, `from` and `to` are public in latest version
-						// `from` != `to` means it's a selection
-						if (deco.from !== deco.to) {
-							remove.push(deco);
-						}
-					});
-				});
 			}
 		}
 

@@ -33,9 +33,6 @@
 			"path": "../../editor-plugin-connectivity/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../editor-plugin-editor-viewmode/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../editor-plugin-hyperlink/afm-jira/tsconfig.json"
 		},
 		{
@@ -61,12 +58,6 @@
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../../platform/feature-flags-react/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../tmp-editor-statsig/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/tokens/afm-jira/tsconfig.json"

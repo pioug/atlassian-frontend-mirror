@@ -68,7 +68,7 @@
 		"@babel/plugin-proposal-numeric-separator": "root:*",
 		"@emotion/react": "root:*",
 		"@testing-library/dom": "root:*",
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"@testing-library/user-event": "root:*",
 		"@types/enzyme": "root:*",
 		"@types/exenv": "root:*",

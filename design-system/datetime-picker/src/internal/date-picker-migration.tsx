@@ -24,7 +24,7 @@ import { convertTokens } from './parse-tokens';
 
 import { defaultDateFormat, padToTwo, placeholderDatetime } from './index';
 
-export const isDateDisabled = (date: string, di: { disabled: string[] }) => {
+export const isDateDisabled = (date: string, di: { disabled: string[] }): boolean => {
 	const { disabled } = di;
 	return disabled.indexOf(date) > -1;
 };

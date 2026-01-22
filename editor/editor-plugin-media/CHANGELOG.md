@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media
 
+## 9.4.3
+
+### Patch Changes
+
+- [`0a9962a3aa24c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a9962a3aa24c) -
+  tidy up experiment platform_editor_resizer_styles_cleanup
+- Updated dependencies
+
 ## 9.4.2
 
 ### Patch Changes

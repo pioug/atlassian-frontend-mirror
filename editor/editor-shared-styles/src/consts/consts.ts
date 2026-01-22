@@ -1,5 +1,4 @@
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import { token } from '@atlaskit/tokens';
@@ -119,11 +118,8 @@ export const FULL_PAGE_EDITOR_TOOLBAR_HEIGHT = (isToolbarAIFCEnabled?: boolean) 
 	if (
 		// if value is undefined assume this is being called outside of editor where the experiment can be checked
 		isToolbarAIFCEnabled === undefined
-			? (editorExperiment('platform_editor_toolbar_aifc', true) ||
-					fg('platform_editor_ai_aifc_streaming')) &&
-				expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true)
-			: isToolbarAIFCEnabled &&
-				expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true)
+			? (editorExperiment('platform_editor_toolbar_aifc', true) || fg('platform_editor_ai_aifc_streaming'))
+			: isToolbarAIFCEnabled
 	) {
 		return '44px';
 	}

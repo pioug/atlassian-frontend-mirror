@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-limited-mode
 
+## 4.0.2
+
+### Patch Changes
+
+- [`2c3c92548bb9c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c3c92548bb9c) -
+  EDITOR-4639 cleanup cc_editor_limited_mode, cc_editor_limited_mode_include_lcm and unshipped code.
+- Updated dependencies
+
 ## 4.0.1
 
 ### Patch Changes

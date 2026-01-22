@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-panel
 
+## 9.0.4
+
+### Patch Changes
+
+- [`549df2f66099e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/549df2f66099e) -
+  Fixed mixed HTML/Editor content copy/paste issue on Custom Panel node.
+
 ## 9.0.3
 
 ### Patch Changes

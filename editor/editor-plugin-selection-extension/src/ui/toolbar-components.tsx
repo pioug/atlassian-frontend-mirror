@@ -6,15 +6,11 @@ import {
 	FIRST_PARTY_EXTENSIONS_MENU_ITEM,
 	OVERFLOW_EXTENSIONS_MENU_SECTION,
 	OVERFLOW_EXTENSIONS_MENU_SECTION_RANK,
-	OVERFLOW_MENU,
-	OVERFLOW_MENU_RANK,
-	SELECTION_EXTENSION_MENU_SECTION,
 	TOOLBAR_RANK,
 	TOOLBARS,
 } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SelectionExtensionPlugin } from '../selectionExtensionPluginType';
 import type { ExtensionMenuItemConfiguration } from '../types';
@@ -71,22 +67,6 @@ export const getToolbarComponents: GetToolbarComponents = ({ api, config }) => {
 				},
 			],
 		},
-		...(fg('platform_editor_toolbar_aifc_overflow_menu_update')
-			? []
-			: [
-					// also register a section inside the overflow menu for extensions which only have menu items
-					{
-						type: SELECTION_EXTENSION_MENU_SECTION.type,
-						key: SELECTION_EXTENSION_MENU_SECTION.key,
-						parents: [
-							{
-								key: OVERFLOW_MENU.key,
-								type: OVERFLOW_MENU.type,
-								rank: OVERFLOW_MENU_RANK[SELECTION_EXTENSION_MENU_SECTION.key],
-							},
-						],
-					},
-				]),
 		...extensionToolbarComponents,
 		...registerFirstPartyExtensions(api, firstPartyExtensions),
 		...registerExternalExtensions(api, externalExtensions),
@@ -99,33 +79,14 @@ const registerFirstPartyExtensions = (
 ) => {
 	const components: RegisterComponent[] = [];
 
-	if (fg('platform_editor_toolbar_aifc_overflow_menu_update')) {
-		components.push({
-			type: FIRST_PARTY_EXTENSIONS_MENU_ITEM.type,
-			key: FIRST_PARTY_EXTENSIONS_MENU_ITEM.key,
-			parents: [
-				{
-					type: OVERFLOW_EXTENSIONS_MENU_SECTION.type,
-					key: OVERFLOW_EXTENSIONS_MENU_SECTION.key,
-					rank: OVERFLOW_EXTENSIONS_MENU_SECTION_RANK[FIRST_PARTY_EXTENSIONS_MENU_ITEM.key],
-				},
-			],
-			component: () => {
-				return <MenuItem api={api} extensionMenuItems={extensions} />;
-			},
-		});
-
-		return components;
-	}
-
 	components.push({
-		type: 'menu-item',
-		key: 'first-party-extensions-menu-item',
+		type: FIRST_PARTY_EXTENSIONS_MENU_ITEM.type,
+		key: FIRST_PARTY_EXTENSIONS_MENU_ITEM.key,
 		parents: [
 			{
-				type: 'menu-section',
-				key: SELECTION_EXTENSION_MENU_SECTION.key,
-				rank: 100,
+				type: OVERFLOW_EXTENSIONS_MENU_SECTION.type,
+				key: OVERFLOW_EXTENSIONS_MENU_SECTION.key,
+				rank: OVERFLOW_EXTENSIONS_MENU_SECTION_RANK[FIRST_PARTY_EXTENSIONS_MENU_ITEM.key],
 			},
 		],
 		component: () => {
@@ -142,33 +103,14 @@ const registerExternalExtensions = (
 ) => {
 	const components: RegisterComponent[] = [];
 
-	if (fg('platform_editor_toolbar_aifc_overflow_menu_update')) {
-		components.push({
-			type: EXTERNAL_EXTENSIONS_MENU_ITEM.type,
-			key: EXTERNAL_EXTENSIONS_MENU_ITEM.key,
-			parents: [
-				{
-					type: OVERFLOW_EXTENSIONS_MENU_SECTION.type,
-					key: OVERFLOW_EXTENSIONS_MENU_SECTION.key,
-					rank: OVERFLOW_EXTENSIONS_MENU_SECTION_RANK[EXTERNAL_EXTENSIONS_MENU_ITEM.key],
-				},
-			],
-			component: () => {
-				return <MenuItem api={api} extensionMenuItems={extensions} />;
-			},
-		});
-
-		return components;
-	}
-
 	components.push({
-		type: 'menu-item',
-		key: 'external-extensions-menu-item',
+		type: EXTERNAL_EXTENSIONS_MENU_ITEM.type,
+		key: EXTERNAL_EXTENSIONS_MENU_ITEM.key,
 		parents: [
 			{
-				type: 'menu-section',
-				key: SELECTION_EXTENSION_MENU_SECTION.key,
-				rank: 200,
+				type: OVERFLOW_EXTENSIONS_MENU_SECTION.type,
+				key: OVERFLOW_EXTENSIONS_MENU_SECTION.key,
+				rank: OVERFLOW_EXTENSIONS_MENU_SECTION_RANK[EXTERNAL_EXTENSIONS_MENU_ITEM.key],
 			},
 		],
 		component: () => {

@@ -245,6 +245,16 @@ const messages = defineMessages({
 		defaultMessage: 'Try again',
 		description: 'Label for the button to retry loading the profile card after an error',
 	},
+	errorDialogLabel: {
+		id: 'pt.profile-card.error.dialog-label',
+		defaultMessage: 'Profile card error',
+		description: 'Accessible label for the profile card dialog when in error state',
+	},
+	loadingDialogLabel: {
+		id: 'pt.profile-card.loading.dialog-label',
+		defaultMessage: 'Loading profile card',
+		description: 'Accessible label for the profile card dialog when loading',
+	},
 	serviceAccountLabel: {
 		id: 'pt.profile-card.service-account.label',
 		defaultMessage: 'SERVICE ACCOUNT',

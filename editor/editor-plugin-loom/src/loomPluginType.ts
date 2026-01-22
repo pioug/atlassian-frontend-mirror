@@ -7,7 +7,6 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
-import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { HyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import { type QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
@@ -56,7 +55,6 @@ export type LoomPlugin = NextEditorPlugin<
 			OptionalPlugin<QuickInsertPlugin>,
 			OptionalPlugin<ConnectivityPlugin>,
 			OptionalPlugin<ToolbarPlugin>,
-			OptionalPlugin<EditorViewModePlugin>,
 		];
 		pluginConfiguration: LoomPluginOptions;
 		sharedState: LoomPluginState | undefined;

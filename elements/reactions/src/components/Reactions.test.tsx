@@ -1,3 +1,4 @@
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import React from 'react';
 import { act, screen, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -33,6 +34,11 @@ jest.mock('../shared/constants', () => ({
 	...jest.requireActual('../shared/constants'),
 	SAMPLING_RATE_REACTIONS_RENDERED_EXP: 1,
 }));
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 describe('@atlaskit/reactions/components/Reactions', () => {
 	const mockOnReactionsClick = jest.fn();

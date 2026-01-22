@@ -18,7 +18,7 @@ export default function App() {
 import Tag from '@atlaskit/tag';
 
 export default function App() {
-	return <Tag text="Success" color="lime" />;
+	return <Tag text="Success" color="lime" isRemovable={false} migration_fallback="lozenge" />;
 }
 `,
 		});
@@ -36,7 +36,7 @@ export default function App() {
 import Tag from '@atlaskit/tag';
 
 export default function App() {
-	return <Tag text="Default" color="standard" />;
+	return <Tag text="Default" color="standard" isRemovable={false} migration_fallback="lozenge" />;
 }
 `,
 		});
@@ -103,12 +103,12 @@ import Tag from '@atlaskit/tag';
 export default function App() {
 	return (
 		<div>
-			<Tag text="Success" color="lime" />
-			<Tag text="Default" color="standard" />
-			<Tag text="Removed" color="red" />
-			<Tag text="In Progress" color="blue" />
-			<Tag text="New" color="purple" />
-			<Tag text="Moved" color="orange" />
+			<Tag text="Success" color="lime" isRemovable={false} migration_fallback="lozenge" />
+			<Tag text="Default" color="standard" isRemovable={false} migration_fallback="lozenge" />
+			<Tag text="Removed" color="red" isRemovable={false} migration_fallback="lozenge" />
+			<Tag text="In Progress" color="blue" isRemovable={false} migration_fallback="lozenge" />
+			<Tag text="New" color="purple" isRemovable={false} migration_fallback="lozenge" />
+			<Tag text="Moved" color="orange" isRemovable={false} migration_fallback="lozenge" />
 		</div>
 	);
 }
@@ -131,7 +131,7 @@ export default function App() {
 	return (
 		/* TODO: (from codemod) FIXME: This Tag component uses an unknown appearance value "unknown".
         Please update to a valid Tag color: standard, green, lime, blue, red, purple, magenta, grey, teal, orange, yellow. */
-		<Tag text="Unknown" color="unknown" />
+		<Tag text="Unknown" color="unknown" isRemovable={false} migration_fallback="lozenge" />
 	);
 }
 `,
@@ -155,7 +155,7 @@ export default function App() {
 	return (
 		/* TODO: (from codemod) FIXME: This Tag component uses a dynamic \`appearance\` prop that has been renamed to \`color\`.
         Please verify that the values being passed are valid color values (semantic: default, inprogress, moved, new, removed, success). */
-		<Tag text="Dynamic" color={status} />
+		<Tag text="Dynamic" color={status} isRemovable={false} migration_fallback="lozenge" />
 	);
 }
 `,
@@ -179,7 +179,7 @@ export default function App() {
 	return (
 		/* TODO: (from codemod) FIXME: maxWidth prop was removed during migration from Lozenge to Tag.
         Tag component does not support maxWidth. Please review if width constraints are needed. */
-		<Tag text="Success" color="lime" />
+		<Tag text="Success" color="lime" isRemovable={false} migration_fallback="lozenge" />
 	);
 }
 `,
@@ -198,7 +198,7 @@ export default function App() {
 import Tag from '@atlaskit/tag';
 
 export default function App() {
-	return <Tag text="Success" testId="my-lozenge" color="lime" />;
+	return <Tag text="Success" testId="my-lozenge" color="lime" isRemovable={false} migration_fallback="lozenge" />;
 }
 `,
 		});
@@ -219,7 +219,7 @@ export default function App() {
 	return (
 		/* TODO: (from codemod) FIXME: This Tag component has a style prop that was kept during migration.
         Tag component has limited style support. Please review if custom styles are compatible. */
-		<Tag text="Success" style={{ backgroundColor: 'red' }} color="lime"/>
+		<Tag text="Success" style={{ backgroundColor: 'red' }} color="lime" isRemovable={false} migration_fallback="lozenge" />
 	);
 }
 `,
@@ -266,7 +266,7 @@ export default function App() {
 import Tag from '@atlaskit/tag';
 
 export default function App() {
-	return <Tag text="Success" color="lime" />;
+	return <Tag text="Success" color="lime" isRemovable={false} migration_fallback="lozenge" />;
 }
 `,
 		});
@@ -293,7 +293,7 @@ export default function App() {
 	return (
 		<div>
 			<Tag text="Existing" color="blue" />
-			<Tag text="To Migrate" color="lime" />
+			<Tag text="To Migrate" color="lime" isRemovable={false} migration_fallback="lozenge" />
 		</div>
 	);
 }
@@ -315,7 +315,7 @@ export default function App() {
 import Tag from '@atlaskit/tag';
 
 export default function App() {
-	return <Tag text="Simple Text" color="lime" />;
+	return <Tag text="Simple Text" color="lime" isRemovable={false} migration_fallback="lozenge" />;
 }
 `,
 		});
@@ -340,7 +340,7 @@ export default function App() {
 	return (
 		/* TODO: (from codemod) FIXME: This Tag component has complex children that couldn't be automatically migrated to the text prop.
         Tag component only supports simple text via the text prop. Please manually convert the children content. */
-		<Tag color="lime" />
+		<Tag color="lime" isRemovable={false} migration_fallback="lozenge" />
 	);
 }
 `,
@@ -359,7 +359,7 @@ export default function App() {
 import Tag from '@atlaskit/tag';
 
 export default function App() {
-	return <Tag color="lime" />;
+	return <Tag color="lime" isRemovable={false} migration_fallback="lozenge" />;
 }
 `,
 		});
@@ -377,7 +377,7 @@ export default function App() {
 import Tag from '@atlaskit/tag';
 
 export default function App() {
-	return <Tag text="Simple String" color="lime" />;
+	return <Tag text="Simple String" color="lime" isRemovable={false} migration_fallback="lozenge" />;
 }
 `,
 		});
@@ -398,7 +398,7 @@ export default function App() {
 	return (
 		/* TODO: (from codemod) FIXME: This Tag component has complex children that couldn't be automatically migrated to the text prop.
         Tag component only supports simple text via the text prop. Please manually convert the children content. */
-		<Tag color="lime" />
+		<Tag color="lime" isRemovable={false} migration_fallback="lozenge" />
 	);
 }
 `,
@@ -421,7 +421,7 @@ export default function App() {
 	const label = 'Dynamic Label';
 	return (
 		/* TODO: (from codemod) FIXME: This Tag component uses a variable as the text prop. Please verify that the variable contains a string value. */
-		<Tag text={label} color="lime" />
+		<Tag text={label} color="lime" isRemovable={false} migration_fallback="lozenge" />
 	);
 }
 `,
@@ -444,7 +444,7 @@ export default function App() {
 	const data = { title: 'Member Title' };
 	return (
 		/* TODO: (from codemod) FIXME: This Tag component uses a variable as the text prop. Please verify that the variable contains a string value. */
-		<Tag text={data.title} color="lime" />
+		<Tag text={data.title} color="lime" isRemovable={false} migration_fallback="lozenge" />
 	);
 }
 `,
@@ -467,8 +467,28 @@ export default function App() {
 	const config = { ui: { label: 'Nested Label' } };
 	return (
 		/* TODO: (from codemod) FIXME: This Tag component uses a variable as the text prop. Please verify that the variable contains a string value. */
-		<Tag text={config.ui.label} color="lime" />
+		<Tag text={config.ui.label} color="lime" isRemovable={false} migration_fallback="lozenge" />
 	);
+}
+`,
+		});
+
+		check({
+			it: 'should migrate formatMessage call expression as children without warning',
+			original: `
+import Lozenge from '@atlaskit/lozenge';
+import { formatMessage } from '@atlassian/jira-intl';
+
+export default function App() {
+	return <Lozenge appearance="success">{formatMessage(messages.label)}</Lozenge>;
+}
+`,
+			expected: `
+import Tag from '@atlaskit/tag';
+import { formatMessage } from '@atlassian/jira-intl';
+
+export default function App() {
+	return <Tag text={formatMessage(messages.label)} color="lime" isRemovable={false} migration_fallback="lozenge" />;
 }
 `,
 		});
@@ -516,7 +536,7 @@ export default function App() {
 	return (
 		<div>
 			<Button appearance="primary">Button</Button>
-			<Tag text="Lozenge" color="lime" />
+			<Tag text="Lozenge" color="lime" isRemovable={false} migration_fallback="lozenge" />
 		</div>
 	);
 }
@@ -536,7 +556,7 @@ export default function App() {
 import Tag from '@atlaskit/tag';
 
 export default function App() {
-	return <Tag color="lime" />;
+	return <Tag color="lime" isRemovable={false} migration_fallback="lozenge" />;
 }
 `,
 		});
@@ -565,8 +585,8 @@ import Tag from '@atlaskit/tag';
 export default function App() {
 	return (
 		<div>
-			<Tag text="Should migrate" color="lime" />
-			<Tag text="Should migrate" color="standard" />
+			<Tag text="Should migrate" color="lime" isRemovable={false} migration_fallback="lozenge" />
+			<Tag text="Should migrate" color="standard" isRemovable={false} migration_fallback="lozenge" />
 			<Lozenge isBold={true} appearance="new">Should NOT migrate</Lozenge>
 			<Lozenge isBold appearance="moved">Should NOT migrate</Lozenge>
 		</div>

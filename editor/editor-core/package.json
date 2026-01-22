@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "216.7.3",
+	"version": "216.7.4",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -112,6 +112,7 @@
 		"@atlaskit/synchrony-test-helpers": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
 		"@atlaskit/util-data-test": "workspace:^",
+		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/adf-schema-json": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/search-provider": "workspace:^",
@@ -196,9 +197,6 @@
 		"platform-component-visual-refresh": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"platform_editor_ai_generic_prep_for_aifc": {
-			"type": "boolean"
 		},
 		"platform_editor_use_preferences_plugin": {
 			"type": "boolean",
@@ -287,9 +285,6 @@
 		"platform_editor_bordered_panel_nested_in_table": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"platform-dst-jira-web-fonts": {
-			"type": "boolean"
 		},
 		"atlas_editor_typography_refreshed": {
 			"type": "boolean"

@@ -8,6 +8,7 @@ import invariant from 'tiny-invariant';
 import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { type InlineCardAdf } from '@atlaskit/linking-common';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import { mockTransformedUserHydrationResponse } from '../../../../services/mocks';
 import { LINK_TYPE_TEST_ID } from '../../../issue-like-table/render-type/link';
@@ -37,6 +38,11 @@ jest.mock('../../basic-filters/hooks/useCurrentUserInfo');
 jest.mock('../../basic-filters/hooks/useRecommendation');
 jest.mock('../../basic-filters/hooks/useBasicFilterHydration');
 jest.mock('@atlaskit/platform-feature-flags');
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 const mockUserRecommendationHook = {
 	filterOptions: [

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import { type AnalyticsEventPayload, withAnalyticsEvents } from '@atlaskit/analytics-next';
 import Avatar from '@atlaskit/avatar';
@@ -89,8 +89,13 @@ const useKudos = (
 	};
 };
 
-const Wrapper = (props: { children: React.ReactNode }) => (
-	<CardWrapper testId="profilecard" role="dialog" labelledBy="profilecard-name-label">
+const Wrapper = (props: { children: React.ReactNode; ariaLabel?: string; labelledBy?: string }) => (
+	<CardWrapper
+		testId="profilecard"
+		role="dialog"
+		labelledBy={props.labelledBy}
+		ariaLabel={props.ariaLabel}
+	>
 		{props.children}
 	</CardWrapper>
 );
@@ -99,6 +104,7 @@ export const ProfilecardInternal = (
 	props: ProfilecardProps & AnalyticsProps,
 ): React.JSX.Element | null => {
 	const [openTime] = useState<number>(getPageTime());
+	const intl = useIntl();
 
 	const { createAnalyticsEvent } = props;
 	const { fireEvent: fireEventNext } = useAnalyticsEvents();
@@ -176,7 +182,7 @@ export const ProfilecardInternal = (
 
 	if (hasError) {
 		return (
-			<Wrapper>
+			<Wrapper ariaLabel={intl.formatMessage(messages.errorDialogLabel)}>
 				<ErrorMessage
 					reload={props.clientFetchProfile}
 					errorType={props.errorType || null}
@@ -189,7 +195,7 @@ export const ProfilecardInternal = (
 
 	if (isLoading) {
 		return (
-			<Wrapper>
+			<Wrapper ariaLabel={intl.formatMessage(messages.loadingDialogLabel)}>
 				<LoadingView
 					fireAnalyticsWithDuration={fireAnalyticsWithDuration}
 					fireAnalyticsWithDurationNext={fireAnalyticsWithDurationNext}
@@ -205,7 +211,7 @@ export const ProfilecardInternal = (
 	const isDisabledUser = status === 'inactive' || status === 'closed';
 
 	return (
-		<Wrapper>
+		<Wrapper labelledBy="profilecard-name-label">
 			<CardContainer isDisabledUser={isDisabledUser} withoutElevation={props.withoutElevation}>
 				<ProfileImage>
 					<Avatar

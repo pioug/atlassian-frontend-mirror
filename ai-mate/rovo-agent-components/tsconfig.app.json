@@ -47,6 +47,9 @@
 			"path": "../../design-system/dropdown-menu/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/flag/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/heading/tsconfig.app.json"
 		},
 		{
@@ -63,6 +66,9 @@
 		},
 		{
 			"path": "../../design-system/primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../rovo-agent-analytics/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/skeleton/tsconfig.app.json"

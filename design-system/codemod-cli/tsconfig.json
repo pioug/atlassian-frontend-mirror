@@ -5,7 +5,6 @@
     "target": "es6",
     "esModuleInterop": true,
 		"verbatimModuleSyntax": false,
-    "moduleResolution": "node",
     "lib": [
       "es5",
       "scripthost",

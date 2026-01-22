@@ -2,7 +2,9 @@ import React from 'react';
 import { mount, type ReactWrapper } from 'enzyme';
 import keycode from 'keycode';
 import PropTypes from 'prop-types';
-import { QuickSearch, ResultItemGroup, PersonResult } from '../..';
+import QuickSearch from '../../components/QuickSearch';
+import ResultItemGroup from '../../components/ResultItem/ResultItemGroup';
+import PersonResult from '../../components/Results/PersonResult';
 import AkSearch from '../../components/Search/Search';
 import ResultItem from '../../components/ResultItem/ResultItem';
 

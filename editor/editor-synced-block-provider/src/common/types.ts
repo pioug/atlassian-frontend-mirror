@@ -8,6 +8,7 @@ import type { SYNC_BLOCK_PRODUCTS } from './consts';
 export type BlockInstanceId = string;
 export type ResourceId = string;
 export type SyncBlockProduct = (typeof SYNC_BLOCK_PRODUCTS)[number];
+export type SyncBlockStatus = 'active' | 'deleted' | 'unpublished';
 
 export type SyncBlockAttrs = {
 	localId: BlockInstanceId;
@@ -41,7 +42,7 @@ export interface SyncBlockData {
 	/**
 	 * Whether the block is on the same page as the source block
 	 */
-	onSamePage?: boolean;
+    onSameDocument?: boolean;
 	product?: SyncBlockProduct;
 	/**
 	 * The ARI of the block. E.G ari:cloud:blocks:<cloudId>:synced-block/<product>/<pageId>/<resourceId>
@@ -52,6 +53,7 @@ export interface SyncBlockData {
 	sourceTitle?: string;
 	sourceURL?: string;
 	updatedAt?: string;
+	status?: SyncBlockStatus;
 }
 
 export interface ReferenceSyncBlockResponse {
@@ -64,7 +66,7 @@ export interface ReferenceSyncBlockResponse {
 
 export interface ReferenceSyncBlock extends ReferenceSyncBlockResponse {
 	hasAccess: boolean;
-	onSamePage: boolean;
+    onSameDocument: boolean;
 }
 
 export type ReferenceSyncBlockData = {

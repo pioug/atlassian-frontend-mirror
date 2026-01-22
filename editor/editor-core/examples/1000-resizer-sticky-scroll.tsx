@@ -9,8 +9,9 @@ import { css, jsx } from '@emotion/react';
 
 import { ResizerNext } from '@atlaskit/editor-common/resizer';
 import type { HandleResize, HandleSize } from '@atlaskit/editor-common/resizer';
-import { resizerStyles } from '@atlaskit/editor-common/styles';
 import { token } from '@atlaskit/tokens';
+
+import { resizerStyles } from '../src/ui/EditorContentContainer/styles/resizerStyles';
 
 function Parent(props: { handleSize?: HandleSize; height: number; text?: string }): JSX.Element {
 	const [width, setWidth] = useState(80);

@@ -45,7 +45,7 @@
 		"@babel/runtime": "root:*",
 		"@emotion/react": "root:*",
 		"@emotion/styled": "root:*",
-		"@testing-library/react": "root:*",
+		"@testing-library/react": "^16.3.0",
 		"enzyme": "root:*",
 		"exenv": "root:*",
 		"kakapo": "root:*",

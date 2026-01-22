@@ -1,5 +1,13 @@
 # @atlaskit/codemod-cli
 
+## 0.34.2
+
+### Patch Changes
+
+- [`1aa97b0f3b4a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1aa97b0f3b4a8) -
+  update lozenge-to-tag-migration to include the migration_fallback prop so that teams can adopt the
+  Tag API without triggering an immediate visual change.
+
 ## 0.34.1
 
 ### Patch Changes

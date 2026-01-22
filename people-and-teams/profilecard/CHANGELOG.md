@@ -1,5 +1,16 @@
 # @atlaskit/profilecard
 
+## 24.32.0
+
+### Minor Changes
+
+- [`94416ff80721d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/94416ff80721d) -
+  Add aria-dialog-name for profile card component
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.31.0
 
 ### Minor Changes

@@ -1,5 +1,28 @@
 # @atlaskit/smart-card
 
+## 43.22.1
+
+### Patch Changes
+
+- [`abf524088c01a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/abf524088c01a) -
+  NAVX-3072 cleaning up navx-2811-smart-link-a11y-image-alt
+- Updated dependencies
+
+## 43.22.0
+
+### Minor Changes
+
+- [`e3582a7070d57`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3582a7070d57) -
+  NAVX-2565 Adding underline to inline card error/fallback states to align with ADS links
+
+### Patch Changes
+
+- [`c3c46453e8e85`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c3c46453e8e85) -
+  FG cleanup: platform-linking-smart-card-layered-link-a11y
+- [`70da902901b72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70da902901b72) -
+  NAVX-2946 cleaning up navx-2827-eslint-object-translation-smart-links
+- Updated dependencies
+
 ## 43.21.0
 
 ### Minor Changes

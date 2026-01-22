@@ -6,6 +6,8 @@ import { type AuthProvider, type Auth } from '@atlaskit/media-core';
 import { asMockFunction, asMockFunctionResolvedValue } from '@atlaskit/media-common/test-helpers';
 import { Subscription } from 'rxjs/Subscription';
 
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+
 import {
 	MediaClient,
 	type MediaStore,
@@ -31,6 +33,11 @@ const auth = {
 	baseUrl: 'http://some-base-url',
 };
 const authProvider: AuthProvider = () => Promise.resolve(auth);
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 const createMediaClient = (initialAuth?: Auth) => {
 	const mediaClient = new MediaClient({ authProvider, initialAuth });

@@ -2,14 +2,13 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/new';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Grid, Inline, Stack } from '@atlaskit/primitives';
-import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
+import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
 import {
 	hasProductPermission,
 	useProductPermissions,
@@ -19,7 +18,6 @@ import { token } from '@atlaskit/tokens';
 
 import { type ContainerTypes, type TeamContainer } from '../../common/types';
 import { TeamContainersSkeleton } from '../../common/ui/team-containers-skeleton';
-import { AnalyticsAction, usePeopleAndTeamAnalytics } from '../../common/utils/analytics';
 import { hasProductPermission as hasProductPermissionOld } from '../../controllers';
 import { useCreateContainers } from '../../controllers/hooks/use-create-containers';
 import { useProductPermissions as useProductPermissionsOld } from '../../controllers/hooks/use-product-permission';
@@ -63,7 +61,6 @@ export const TeamContainers = ({
 	elemBeforeCards,
 	hideSubTextIcon,
 }: TeamContainerProps): React.JSX.Element => {
-	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { unlinkError } = useTeamContainers(teamId);
 	const {
 		teamLinks,
@@ -93,9 +90,7 @@ export const TeamContainers = ({
 	});
 
 	const [containers] = useCreateContainers();
-
-	const { fireTrackEvent } = usePeopleAndTeamAnalytics();
-	const { fireEvent } = useAnalyticsEventsNext();
+	const { fireEvent } = useAnalyticsEvents();
 
 	const { data: productPermissions, loading: productPermissionIsLoading } = useProductPermissions({
 		userId,
@@ -210,20 +205,11 @@ export const TeamContainers = ({
 		(containerDetails: SelectedContainerDetails) => {
 			setSelectedContainerDetails(containerDetails);
 			setIsDisconnectDialogOpen(true);
-
-			if (fg('ptc-enable-teams-public-analytics-refactor')) {
-				fireEvent('track.unlinkContainerDialog.opened', {
-					teamId,
-				});
-			} else {
-				fireTrackEvent(createAnalyticsEvent, {
-					action: AnalyticsAction.OPENED,
-					actionSubject: 'unlinkContainerDialog',
-					attributes: { teamId },
-				});
-			}
+			fireEvent('track.unlinkContainerDialog.opened', {
+				teamId,
+			});
 		},
-		[createAnalyticsEvent, fireTrackEvent, teamId, fireEvent],
+		[teamId, fireEvent],
 	);
 
 	const handleEditContainerClick = useCallback(
@@ -249,48 +235,18 @@ export const TeamContainers = ({
 
 			setIsDisconnectDialogOpen(false);
 			if (unlinkError) {
-				if (fg('ptc-enable-teams-public-analytics-refactor')) {
-					fireEvent('track.teamContainerUnlinked.failed', {});
-				} else {
-					fireTrackEvent(createAnalyticsEvent, {
-						action: AnalyticsAction.FAILED,
-						actionSubject: 'teamContainerUnlinked',
-					});
-				}
+				fireEvent('track.teamContainerUnlinked.failed', {});
 			} else {
-				if (fg('ptc-enable-teams-public-analytics-refactor')) {
-					fireEvent('track.teamContainerUnlinked.succeeded', {
-						containerRemoved: {
-							containerId: removedContainer?.id,
-							container: removedContainer?.type,
-						},
-						teamId,
-					});
-				} else {
-					fireTrackEvent(createAnalyticsEvent, {
-						action: AnalyticsAction.SUCCEEDED,
-						actionSubject: 'teamContainerUnlinked',
-						attributes: {
-							containerRemoved: {
-								containerId: removedContainer?.id,
-								container: removedContainer?.type,
-							},
-							teamId,
-						},
-					});
-				}
+				fireEvent('track.teamContainerUnlinked.succeeded', {
+					containerRemoved: {
+						containerId: removedContainer?.id,
+						container: removedContainer?.type,
+					},
+					teamId,
+				});
 			}
 		},
-		[
-			actions,
-			createAnalyticsEvent,
-			fireTrackEvent,
-			filteredTeamLinks,
-			removeTeamLink,
-			teamId,
-			unlinkError,
-			fireEvent,
-		],
+		[actions, filteredTeamLinks, removeTeamLink, teamId, unlinkError, fireEvent],
 	);
 
 	const TeamContainersSkeletonComponent =

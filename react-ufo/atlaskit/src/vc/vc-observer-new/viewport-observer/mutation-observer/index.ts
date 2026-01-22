@@ -56,13 +56,13 @@ function createMutationObserver({
 
 			if (mut.type === 'attributes') {
 				/*
-							"MutationObserver was explicitly designed to work that way, but I can't now recall the reasoning.
-							I think it might have been something along the lines that for consistency every setAttribute call should create a record.
-							Conceptually there is after all a mutation: there is an old value replaced with a new one,
-							and whether or not they are the same doesn't really matter.
-							And Custom elements should work the same way as MutationObserver."
-							https://github.com/whatwg/dom/issues/520#issuecomment-336574796
-						*/
+					"MutationObserver was explicitly designed to work that way, but I can't now recall the reasoning.
+					I think it might have been something along the lines that for consistency every setAttribute call should create a record.
+					Conceptually there is after all a mutation: there is an old value replaced with a new one,
+					and whether or not they are the same doesn't really matter.
+					And Custom elements should work the same way as MutationObserver."
+					https://github.com/whatwg/dom/issues/520#issuecomment-336574796
+				*/
 				const oldValue = mut.oldValue ?? undefined;
 				const newValue = mut.attributeName ? mut.target.getAttribute(mut.attributeName) : undefined;
 				if (oldValue !== newValue) {

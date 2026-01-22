@@ -68,7 +68,7 @@ export class SyncBlockStoreManager {
 				}
 				return {
 					...sourceInfo,
-					onSamePage: reference.onSamePage,
+					onSameDocument: reference.onSameDocument,
 					hasAccess: reference.hasAccess,
 					productType: sourceInfo.productType,
 				};
@@ -82,7 +82,7 @@ export class SyncBlockStoreManager {
 			if (sourceSyncBlockData) {
 				sourceInfos.push({
 					...sourceSyncBlockData,
-					onSamePage: Boolean(sourceSyncBlockData?.onSamePage),
+					onSameDocument: Boolean(sourceSyncBlockData?.onSameDocument),
 					hasAccess: true,
 					isSource: true,
 					productType: sourceSyncBlockData?.productType,

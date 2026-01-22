@@ -6,7 +6,7 @@ import { cssMap } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { appearances, getFreeToUseAvatarImage, RANDOM_USERS } from '../../examples-util/data';
+import { appearances, RANDOM_USERS } from '../../examples-util/data';
 
 const styles = cssMap({
 	container: {
@@ -28,7 +28,6 @@ const AvatarGroupOverridesExample = (): React.JSX.Element => {
 		name: d.name,
 		href: '#',
 		appearance: appearances[i % appearances.length],
-		src: getFreeToUseAvatarImage(i),
 	}));
 
 	useEffect(() => {

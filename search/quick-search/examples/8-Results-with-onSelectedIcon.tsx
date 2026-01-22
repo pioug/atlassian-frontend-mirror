@@ -5,7 +5,11 @@ import {
 	getContainerAvatarUrl,
 	getPersonAvatarUrl,
 } from './utils/mockData';
-import { QuickSearch, ObjectResult, ContainerResult, PersonResult, ResultItemGroup } from '../src';
+import QuickSearch from '../src/components/QuickSearch';
+import ObjectResult from '../src/components/Results/ObjectResult';
+import ContainerResult from '../src/components/Results/ContainerResult';
+import PersonResult from '../src/components/Results/PersonResult';
+import ResultItemGroup from '../src/components/ResultItem/ResultItemGroup';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component {

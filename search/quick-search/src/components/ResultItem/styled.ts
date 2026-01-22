@@ -17,13 +17,13 @@ export const ResultItemAfterWrapper = styled.div({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const ResultItemCaption = styled.span({
 	color: N200,
-	font: token('font.body.UNSAFE_small'),
+	font: token('font.body.small'),
 	marginLeft: token('space.100', '8px'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const ResultItemSubText = styled.span({
-	font: token('font.body.UNSAFE_small'),
+	font: token('font.body.small'),
 	color: N200,
 });
 

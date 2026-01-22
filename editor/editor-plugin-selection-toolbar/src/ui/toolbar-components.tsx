@@ -14,7 +14,6 @@ import {
 } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
 
@@ -37,11 +36,9 @@ export const getToolbarComponents = (
 					rank: OVERFLOW_MENU_RANK[PIN_MENU_SECTION.key],
 				},
 			],
-			component: expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true)
-				? ({ children }) => {
-						return <MenuSection api={api}>{children}</MenuSection>;
-					}
-				: undefined,
+			component: ({ children }) => {
+				return <MenuSection api={api}>{children}</MenuSection>;
+			},
 		},
 		{
 			type: PIN_MENU_ITEM.type,

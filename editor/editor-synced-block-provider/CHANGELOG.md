@@ -1,5 +1,21 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.13.0
+
+### Minor Changes
+
+- [`870c3baec758b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/870c3baec758b) -
+  Enable consumers to use GraphQL subscription for fetching the block data when the block changes
+
+### Patch Changes
+
+- [`5c522f81f181e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c522f81f181e) -
+  [ux] EDITOR-4369 Support synced location for references on Jira in source and reference synced
+  block
+- [`058065aadf69f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/058065aadf69f) -
+  [ux] [EDITOR-2851] Support reference sync block unsyc
+- Updated dependencies
+
 ## 3.12.1
 
 ### Patch Changes

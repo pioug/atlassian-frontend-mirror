@@ -18,6 +18,7 @@ import {
 	type ErrorResponse,
 	type BlockContentResponse,
 } from '../../clients/block-service/blockService';
+import { subscribeToBlockUpdates as subscribeToBlockUpdatesWS } from '../../clients/block-service/blockSubscription';
 import {
 	SyncBlockError,
 	type ReferenceSyncBlockData,
@@ -25,6 +26,7 @@ import {
 	type SyncBlockAttrs,
 	type SyncBlockData,
 	type SyncBlockProduct,
+	type SyncBlockStatus,
 } from '../../common/types';
 import { stringifyError } from '../../utils/errorHandling';
 import { createResourceIdForReference } from '../../utils/resourceId';
@@ -138,6 +140,7 @@ export const convertToSyncBlockData = (
 		product: data.product,
 		resourceId,
 		sourceAri: data.sourceAri,
+		status: data.status,
 	};
 };
 
@@ -239,6 +242,7 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 					blockInstanceId: blockContentResponse.blockInstanceId, // this was the node's localId, but has become the resourceId.
 					sourceAri: blockContentResponse.sourceAri,
 					product: blockContentResponse.product,
+					status: blockContentResponse.status,
 				},
 				resourceId,
 			};
@@ -263,7 +267,7 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 				references.push({
 					...reference,
 					hasAccess: true,
-					onSamePage: this.parentAri === reference.documentAri,
+                    onSameDocument: this.parentAri === reference.documentAri,
 				});
 			});
 			response.errors.forEach((reference) => {
@@ -272,7 +276,7 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 						blockAri: reference.blockAri,
 						documentAri: reference.documentAri,
 						hasAccess: false,
-						onSamePage: false,
+                        onSameDocument: false,
 					});
 				}
 			});
@@ -349,6 +353,7 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 								blockInstanceId: blockContentResponse.blockInstanceId,
 								sourceAri: blockContentResponse.sourceAri,
 								product: blockContentResponse.product,
+								status: blockContentResponse.status,
 							},
 							resourceId,
 						});
@@ -394,6 +399,43 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 				resourceId: blockNodeIdentifier.resourceId,
 			}));
 		}
+	}
+
+	/**
+	 * Subscribes to real-time updates for a specific block using GraphQL WebSocket subscriptions.
+	 * @param resourceId - The resource ID of the block to subscribe to
+	 * @param onUpdate - Callback function invoked when the block is updated
+	 * @param onError - Optional callback function invoked on subscription errors
+	 * @returns Unsubscribe function to stop receiving updates
+	 */
+	subscribeToBlockUpdates(
+		resourceId: ResourceId,
+		onUpdate: (data: SyncBlockInstance) => void,
+		onError?: (error: Error) => void,
+	): () => void {
+		const blockAri = generateBlockAriFromReference({ cloudId: this.cloudId, resourceId });
+
+		return subscribeToBlockUpdatesWS(
+			blockAri,
+			(parsedData) => {
+				// Convert ParsedBlockSubscriptionData to SyncBlockInstance
+				const syncBlockInstance: SyncBlockInstance = {
+					data: {
+						content: parsedData.content,
+						resourceId: parsedData.blockAri,
+						blockInstanceId: parsedData.blockInstanceId,
+						sourceAri: parsedData.sourceAri,
+						product: parsedData.product,
+						createdAt: parsedData.createdAt,
+						createdBy: parsedData.createdBy,
+						status: parsedData.status as SyncBlockStatus,
+					},
+					resourceId: parsedData.resourceId,
+				};
+				onUpdate(syncBlockInstance);
+			},
+			onError,
+		);
 	}
 }
 

@@ -44,26 +44,22 @@ const createFilterStepsPlugin =
 				}, []);
 
 				if (viewModeSteps.length === 0 || !api) {
-					// Editor should not allow local edits in view mode (except for comments) which are handled
-					// via ViewModeSteps. If we have no ViewModeSteps, we should block the transaction.
-					if (fg('platform_editor_ai_generic_prep_for_aifc')) {
-						if (
-							tr.docChanged &&
-							// Check if the transaction contains any steps that modify the document (view mode steps do not)
-							tr.steps.filter(
-								(s) =>
-									s instanceof ReplaceAroundStep ||
-									s instanceof ReplaceStep ||
-									s instanceof AddMarkStep ||
-									s instanceof AddNodeMarkStep ||
-									s instanceof RemoveMarkStep ||
-									s instanceof RemoveNodeMarkStep,
-							).length
-						) {
-							return false;
-						}
-						return true;
+					if (
+						tr.docChanged &&
+						// Check if the transaction contains any steps that modify the document (view mode steps do not)
+						tr.steps.filter(
+							(s) =>
+								s instanceof ReplaceAroundStep ||
+								s instanceof ReplaceStep ||
+								s instanceof AddMarkStep ||
+								s instanceof AddNodeMarkStep ||
+								s instanceof RemoveMarkStep ||
+								s instanceof RemoveNodeMarkStep,
+						).length
+					) {
+						return false;
 					}
+					return true;
 					return true;
 				}
 

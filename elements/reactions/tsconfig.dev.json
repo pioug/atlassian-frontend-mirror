@@ -86,6 +86,9 @@
 			"path": "../util-data-test/tsconfig.app.json"
 		},
 		{
+			"path": "../../accessibility/axe-integration/a11y-jest-testing/tsconfig.app.json"
+		},
+		{
 			"path": "../../data/ufo-internal/tsconfig.app.json"
 		}
 	]

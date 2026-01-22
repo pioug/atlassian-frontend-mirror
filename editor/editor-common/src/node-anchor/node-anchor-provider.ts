@@ -1,7 +1,6 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { isEmptyDocument } from '../utils';
 
@@ -76,30 +75,19 @@ export class NodeAnchorProvider {
 
 const nodeIdProviderMap = new WeakMap<EditorView, NodeAnchorProvider>();
 
+const LIMITED_MODE_NODE_SIZE_THRESHOLD = 40000;
+
 // This is duplicate from the limited mode plugin to avoid circular dependency
 // We can refactor this later to have a shared util package
 const isLimitedModeEnabled = (editorView: EditorView): boolean => {
-	const nodeSizeLimit = expVal('cc_editor_limited_mode', 'nodeSize', 100);
-	let limitedMode = false;
-	// some tests have nodeSizeLimit as boolean
-	if (typeof nodeSizeLimit === 'number') {
-		// duplicate logic from limited mode plugin to determine if we're in limited mode
-		// @ts-expect-error - true is not allowed as a default value
-		if (expVal('cc_editor_limited_mode_include_lcm', 'isEnabled', true)) {
-			let customDocSize = editorView.state.doc.nodeSize;
-			editorView.state.doc.descendants((node) => {
-				if (node.attrs?.extensionKey === 'legacy-content') {
-					customDocSize += node.attrs?.parameters?.adf?.length ?? 0;
-				}
-			});
-
-			limitedMode = customDocSize > nodeSizeLimit;
-		} else {
-			limitedMode = editorView.state.doc.nodeSize > nodeSizeLimit;
+	let customDocSize = editorView.state.doc.nodeSize;
+	editorView.state.doc.descendants((node: PMNode) => {
+		if (node.attrs?.extensionKey === 'legacy-content') {
+			customDocSize += node.attrs?.parameters?.adf?.length ?? 0;
 		}
-	}
+	});
 
-	return limitedMode;
+	return customDocSize > LIMITED_MODE_NODE_SIZE_THRESHOLD;
 };
 
 // Get the NodeIdProvider for a specific EditorView instance.

@@ -1,7 +1,8 @@
 import React from 'react';
 import Avatar from '@atlaskit/avatar';
 import { getContainerAvatarUrl } from './utils/mockData';
-import { ContainerResult, ResultItemGroup } from '../src';
+import ContainerResult from '../src/components/Results/ContainerResult';
+import ResultItemGroup from '../src/components/ResultItem/ResultItemGroup';
 
 const defaultProps = {
 	resultId: 'result_id',

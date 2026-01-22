@@ -18,7 +18,6 @@ import type {
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ListPlugin } from '../listPluginType';
 import type { ListState } from '../types';
@@ -38,8 +37,8 @@ const initialState: ListState = {
 
 export const getDecorations = (
 	doc: Node,
-	state: EditorState,
-	featureFlags: FeatureFlags,
+	_state: EditorState,
+	_featureFlags: FeatureFlags,
 ): DecorationSet => {
 	const decorations: Decoration[] = [];
 
@@ -166,8 +165,7 @@ const createInitialState =
 		return {
 			// When plugin is initialised, editor state is defined with selection
 			// hence returning the list state based on the selection to avoid list button in primary toolbar flickering during initial load
-			...(isToolbarAIFCEnabled &&
-			expValEquals('platform_editor_toolbar_aifc_patch_3', 'isEnabled', true)
+			...(isToolbarAIFCEnabled
 				? getListState(state.doc, state.selection)
 				: initialState),
 			decorationSet: getDecorations(state.doc, state, featureFlags),

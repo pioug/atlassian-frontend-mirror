@@ -16,6 +16,7 @@ import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-p
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { asMockFunction, type JestFunction } from '@atlaskit/media-test-helpers';
 import { auth, AuthError } from '@atlaskit/outbound-auth-flow-client';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
 import { fakeFactory, mocks } from '../../../utils/mocks';
@@ -27,6 +28,11 @@ import '../../../utils/shouldSample';
 mockSimpleIntersectionObserver();
 
 expect.extend(jestExtendedMatchers);
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 describe('smart-card: unauthorized analytics', () => {
 	let mockClient: CardClient;

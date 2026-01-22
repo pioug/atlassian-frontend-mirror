@@ -4,17 +4,11 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import {
-	mockRunItLaterSynchronously,
-	renderWithAnalyticsListener as render,
-} from '@atlassian/ptc-test-utils';
+import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
 
 import { type ContainerTypes } from '../../types';
 
 import { TeamLinkCardActions } from './index';
-
-mockRunItLaterSynchronously();
 
 const defaultProps = {
 	containerType: 'ConfluenceSpace' as ContainerTypes,
@@ -180,110 +174,55 @@ describe('TeamLinkCardActions', () => {
 			},
 		};
 
-		ffTest.off('ptc-enable-teams-public-analytics-refactor', 'false', () => {
-			it('should fire analytics event when disconnect button is clicked', async () => {
-				const { user, expectEventToBeFired } = renderWithIntl(
-					<TeamLinkCardActions {...defaultProps} />,
-				);
+		it('should fire analytics event when disconnect button is clicked', async () => {
+			const { user, expectEventToBeFired } = renderWithIntl(
+				<TeamLinkCardActions {...defaultProps} />,
+			);
 
-				const disconnectButton = screen.getByRole('button', {
-					name: /disconnect the container Test Container/i,
-				});
-
-				await user.click(disconnectButton);
-				expectEventToBeFired('ui', containerUnlinkButtonEvent);
+			const disconnectButton = screen.getByRole('button', {
+				name: /disconnect the container Test Container/i,
 			});
 
-			it('should fire analytics event when edit link button is clicked', async () => {
-				const webLinkProps = {
-					...defaultProps,
-					containerType: 'WebLink' as ContainerTypes,
-				};
-
-				const { user, expectEventToBeFired } = renderWithIntl(
-					<TeamLinkCardActions {...webLinkProps} />,
-				);
-
-				const moreButton = screen.getByRole('button', { name: /more options for Test Container/i });
-				await user.click(moreButton);
-
-				const editButton = screen.getByText('Edit link');
-				await user.click(editButton);
-
-				expectEventToBeFired('ui', containerEditLinkButtonEvent);
-			});
-
-			it('should fire analytics event when remove button is clicked from dropdown', async () => {
-				const webLinkProps = {
-					...defaultProps,
-					containerType: 'WebLink' as ContainerTypes,
-				};
-
-				const { user, expectEventToBeFired } = renderWithIntl(
-					<TeamLinkCardActions {...webLinkProps} />,
-				);
-
-				const moreButton = screen.getByRole('button', { name: /more options for Test Container/i });
-				await user.click(moreButton);
-
-				const removeButton = screen.getByText('Remove');
-				await user.click(removeButton);
-
-				expectEventToBeFired('ui', containerUnlinkButtonEventWebLink);
-			});
+			await user.click(disconnectButton);
+			expectEventToBeFired('ui', containerUnlinkButtonEvent);
 		});
 
-		ffTest.on('ptc-enable-teams-public-analytics-refactor', 'true', () => {
-			it('should fire analytics event when disconnect button is clicked', async () => {
-				const { user, expectEventToBeFired } = renderWithIntl(
-					<TeamLinkCardActions {...defaultProps} />,
-				);
+		it('should fire analytics event when edit link button is clicked', async () => {
+			const webLinkProps = {
+				...defaultProps,
+				containerType: 'WebLink' as ContainerTypes,
+			};
 
-				const disconnectButton = screen.getByRole('button', {
-					name: /disconnect the container Test Container/i,
-				});
+			const { user, expectEventToBeFired } = renderWithIntl(
+				<TeamLinkCardActions {...webLinkProps} />,
+			);
 
-				await user.click(disconnectButton);
-				expectEventToBeFired('ui', containerUnlinkButtonEvent);
-			});
+			const moreButton = screen.getByRole('button', { name: /more options for Test Container/i });
+			await user.click(moreButton);
 
-			it('should fire analytics event when edit link button is clicked', async () => {
-				const webLinkProps = {
-					...defaultProps,
-					containerType: 'WebLink' as ContainerTypes,
-				};
+			const editButton = screen.getByText('Edit link');
+			await user.click(editButton);
 
-				const { user, expectEventToBeFired } = renderWithIntl(
-					<TeamLinkCardActions {...webLinkProps} />,
-				);
+			expectEventToBeFired('ui', containerEditLinkButtonEvent);
+		});
 
-				const moreButton = screen.getByRole('button', { name: /more options for Test Container/i });
-				await user.click(moreButton);
+		it('should fire analytics event when remove button is clicked from dropdown', async () => {
+			const webLinkProps = {
+				...defaultProps,
+				containerType: 'WebLink' as ContainerTypes,
+			};
 
-				const editButton = screen.getByText('Edit link');
-				await user.click(editButton);
+			const { user, expectEventToBeFired } = renderWithIntl(
+				<TeamLinkCardActions {...webLinkProps} />,
+			);
 
-				expectEventToBeFired('ui', containerEditLinkButtonEvent);
-			});
+			const moreButton = screen.getByRole('button', { name: /more options for Test Container/i });
+			await user.click(moreButton);
 
-			it('should fire analytics event when remove button is clicked from dropdown', async () => {
-				const webLinkProps = {
-					...defaultProps,
-					containerType: 'WebLink' as ContainerTypes,
-				};
+			const removeButton = screen.getByText('Remove');
+			await user.click(removeButton);
 
-				const { user, expectEventToBeFired } = renderWithIntl(
-					<TeamLinkCardActions {...webLinkProps} />,
-				);
-
-				const moreButton = screen.getByRole('button', { name: /more options for Test Container/i });
-				await user.click(moreButton);
-
-				const removeButton = screen.getByText('Remove');
-				await user.click(removeButton);
-
-				expectEventToBeFired('ui', containerUnlinkButtonEventWebLink);
-			});
+			expectEventToBeFired('ui', containerUnlinkButtonEventWebLink);
 		});
 	});
 });

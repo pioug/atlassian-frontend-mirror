@@ -156,7 +156,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 	// All state needs to be accessed via this function so that the state is mapped from props
 	// correctly to allow controlled/uncontrolled usage.
 	getValue = (): string => this.props.value ?? this.state.value;
-	getIsOpen = () => this.props.isOpen ?? this.state.isOpen;
+	getIsOpen = (): boolean => this.props.isOpen ?? this.state.isOpen;
 
 	onCalendarChange = ({ iso }: { iso: string }): void => {
 		this.setState({ calendarValue: getParsedISO({ iso }) });

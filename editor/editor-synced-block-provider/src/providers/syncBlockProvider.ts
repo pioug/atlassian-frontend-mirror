@@ -7,6 +7,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { getProductFromSourceAri } from '../clients/block-service/ari';
 import { getPageIdAndTypeFromConfluencePageAri } from '../clients/confluence/ari';
 import { fetchConfluencePageInfo } from '../clients/confluence/sourceInfo';
+import { fetchJiraWorkItemInfo } from '../clients/jira/sourceInfo';
 import {
 	SyncBlockError,
 	type BlockInstanceId,
@@ -22,11 +23,14 @@ import {
 	SyncBlockDataProvider,
 	type ADFFetchProvider,
 	type ADFWriteProvider,
+	type BlockSubscriptionErrorCallback,
+	type BlockUpdateCallback,
 	type DeleteSyncBlockResult,
 	type SyncBlockInstance,
 	type SyncBlockParentInfo,
 	type SyncBlockSourceInfo,
 	type SyncedBlockRendererProviderOptions,
+	type Unsubscribe,
 	type UpdateReferenceSyncBlockResult,
 	type WriteSyncBlockResult,
 } from './types';
@@ -265,7 +269,7 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 					}
 					return {
 						...sourceInfo,
-						onSamePage: this.writeProvider?.parentAri === ari,
+						onSameDocument: this.writeProvider?.parentAri === ari,
 						productType: product,
 					};
 				} else {
@@ -274,7 +278,15 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 			}
 			case 'jira-work-item':
 				if (fg('platform_synced_block_dogfooding')) {
-					return Promise.resolve(undefined);
+					const sourceInfo: SyncBlockSourceInfo | undefined = await fetchJiraWorkItemInfo(ari, hasAccess);
+					if (!sourceInfo) {
+						return Promise.resolve(undefined);
+					}
+					return {
+						...sourceInfo,
+						onSameDocument: this.writeProvider?.parentAri === ari,
+						productType: product,
+					};
 				}
 				return Promise.reject(new Error('Jira work item source product not supported'));
 			default:
@@ -350,6 +362,24 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 		return this.fetchProvider.fetchReferences(
 			isSource ? this.generateResourceIdForReference(resourceId) : resourceId,
 		);
+	}
+	
+	/**
+	 * Subscribes to real-time updates for a specific block.
+	 * @param resourceId - The resource ID of the block to subscribe to
+	 * @param onUpdate - Callback function invoked when the block is updated
+	 * @param onError - Optional callback function invoked on subscription errors
+	 * @returns Unsubscribe function to stop receiving updates, or undefined if not supported
+	 */
+	subscribeToBlockUpdates(
+		resourceId: string,
+		onUpdate: BlockUpdateCallback,
+		onError?: BlockSubscriptionErrorCallback,
+	): Unsubscribe | undefined {
+		if (this.fetchProvider.subscribeToBlockUpdates) {
+			return this.fetchProvider.subscribeToBlockUpdates(resourceId, onUpdate, onError);
+		}
+		return undefined;
 	}
 }
 

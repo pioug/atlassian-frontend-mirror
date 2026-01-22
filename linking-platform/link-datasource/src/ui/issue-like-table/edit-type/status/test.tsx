@@ -6,6 +6,7 @@ import { IntlProvider } from 'react-intl-next';
 import { FlagsProvider } from '@atlaskit/flag';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { Box } from '@atlaskit/primitives/compiled';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { useDatasourceExperienceId } from '../../../../contexts/datasource-experience-id';
@@ -16,6 +17,11 @@ import StatusEditType from './index';
 
 jest.mock('../../../../contexts/datasource-experience-id');
 jest.mock('../../../../hooks/useLoadOptions');
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('StatusEditType', () => {

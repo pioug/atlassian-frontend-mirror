@@ -131,24 +131,26 @@ type FetchStatus = 'none' | 'loading' | 'success' | 'error';
 const ItemTitle = ({
 	title,
 	formatMessage,
-	onSamePage,
+	onSameDocument,
 	isSource,
 	hasAccess,
+	productType,
 }: {
 	formatMessage: IntlShape['formatMessage'];
 	hasAccess?: boolean;
 	isSource?: boolean;
-	onSamePage?: boolean;
-	title: string;
+		onSameDocument?: boolean;
+		productType?: SyncBlockProduct;
+		title: string;
 }) => {
 	return (
 		<Inline>
 			<Box as="span" xcss={styles.title}>
 				{title}
 			</Box>
-			{onSamePage && (
+			{onSameDocument && (
 				<Box as="span" xcss={styles.note}>
-					&nbsp;- {formatMessage(messages.syncedLocationDropdownTitleNote)}
+					&nbsp;- {formatMessage(productType === 'confluence-page' ? messages.syncedLocationDropdownTitleNoteForConfluencePage : messages.syncedLocationDropdownTitleNoteForJiraWorkItem)}
 				</Box>
 			)}
 			{isSource && (
@@ -176,7 +178,7 @@ const subTypeIconMap = {
 	blogpost: QuotationMarkIcon,
 };
 
-const getSubTypeIcon = (subType?: string | null) => {
+const getConfluenceSubTypeIcon = (subType?: string | null) => {
 	return subType && subType in subTypeIconMap
 		? subTypeIconMap[subType as keyof typeof subTypeIconMap]
 		: PageIcon;
@@ -193,13 +195,13 @@ const ProductIcon = ({ product }: { product?: SyncBlockProduct }) => {
 };
 
 const ItemIcon = ({ reference }: { reference: SyncBlockSourceInfo }) => {
-	const { hasAccess, subType } = reference;
+	const { hasAccess, subType, productType } = reference;
 
-	if (hasAccess) {
-		return <IconTile icon={getSubTypeIcon(subType)} label="" appearance={'gray'} size="xsmall" />;
+	if (productType === 'confluence-page' && hasAccess) {
+		return <IconTile icon={getConfluenceSubTypeIcon(subType)} label="" appearance={'gray'} size="xsmall" />;
 	}
 
-	return <ProductIcon product={reference.productType} />;
+	return <ProductIcon product={productType} />;
 };
 
 export const processReferenceData = (
@@ -344,9 +346,10 @@ const DropdownContent = ({ syncBlockStore, resourceId, intl, isSource, localId }
 												<ItemTitle
 													title={reference.title || reference.url || ''}
 													formatMessage={formatMessage}
-													onSamePage={reference.onSamePage}
+													onSameDocument={reference.onSameDocument}
 													isSource={reference.isSource}
 													hasAccess={reference.hasAccess}
+													productType={reference.productType}
 												/>
 											</DropdownItem>
 										</Tooltip>

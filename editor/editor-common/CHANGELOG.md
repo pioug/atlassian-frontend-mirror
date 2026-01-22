@@ -1,5 +1,41 @@
 # @atlaskit/editor-common
 
+## 111.8.11
+
+### Patch Changes
+
+- [`5c522f81f181e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c522f81f181e) -
+  [ux] EDITOR-4369 Support synced location for references on Jira in source and reference synced
+  block
+- [`6e8029473620b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e8029473620b) -
+  [EDITOR-4496] clean up experiment platform_editor_toolbar_aifc_patch_3 and remove view-mode plugin
+  dependency from loom plugin
+- [`0a9962a3aa24c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a9962a3aa24c) -
+  tidy up experiment platform_editor_resizer_styles_cleanup
+- [`0d8216e610e34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d8216e610e34) -
+  [ux] Add cmd-option-a shortcut for copylink to block from block menu
+- [`7080196995b11`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7080196995b11) -
+  Cleaning up FG platform_editor_ai_generic_prep_for_aifc
+- [`058065aadf69f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/058065aadf69f) -
+  [ux] [EDITOR-2851] Support reference sync block unsyc
+- Updated dependencies
+
+## 111.8.10
+
+### Patch Changes
+
+- [`2c3c92548bb9c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c3c92548bb9c) -
+  EDITOR-4639 cleanup cc_editor_limited_mode, cc_editor_limited_mode_include_lcm and unshipped code.
+- Updated dependencies
+
+## 111.8.9
+
+### Patch Changes
+
+- [`33f11753a7104`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/33f11753a7104) -
+  [ux] Added i18n for sections' titles in the Turn into menu.
+- Updated dependencies
+
 ## 111.8.8
 
 ### Patch Changes

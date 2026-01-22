@@ -1,5 +1,9 @@
 import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
-import type { CardProvider, MediaProvider, ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
+import type {
+	CardProvider,
+	MediaProvider,
+	ProfilecardProvider,
+} from '@atlaskit/editor-common/provider-factory';
 import type { EmojiProvider } from '@atlaskit/emoji';
 import type { MentionProvider } from '@atlaskit/mention/types';
 import { NodeDataProvider } from '@atlaskit/node-data-provider';
@@ -15,11 +19,6 @@ import type {
 	SyncBlockAttrs,
 	ReferenceSyncBlockData,
 } from '../common/types';
-
-export type BlockNodeIdentifiers = {
-	blockInstanceId: string;
-	resourceId: string;
-};
 
 /**
  * The instance of a sync block, containing its data and metadata.
@@ -53,7 +52,7 @@ export type SyncBlockSourceInfo = {
 	 * Whether the source info is for a source synced block
 	 */
 	isSource?: boolean;
-	onSamePage?: boolean;
+	onSameDocument?: boolean;
 	productType?: SyncBlockProduct;
 	sourceAri: string;
 	subType?: string | null;
@@ -81,10 +80,26 @@ export type UpdateReferenceSyncBlockResult = {
 	success: boolean;
 };
 
+export type BlockNodeIdentifiers = {
+	blockInstanceId: string;
+	resourceId: string;
+};
+export type BlockUpdateCallback = (data: SyncBlockInstance) => void;
+export type BlockSubscriptionErrorCallback = (error: Error) => void;
+export type Unsubscribe = () => void;
+
 export interface ADFFetchProvider {
 	batchFetchData: (blockNodeIdentifiers: BlockNodeIdentifiers[]) => Promise<SyncBlockInstance[]>;
 	fetchData: (resourceId: ResourceId) => Promise<SyncBlockInstance>;
 	fetchReferences: (referenceResourceId: string) => Promise<ReferenceSyncBlockData>;
+	/**
+	 * Subscribes to real-time updates for a specific block.
+	 */
+	subscribeToBlockUpdates?: (
+		resourceId: ResourceId,
+		onUpdate: BlockUpdateCallback,
+		onError?: BlockSubscriptionErrorCallback,
+	) => Unsubscribe;
 }
 export interface ADFWriteProvider {
 	createData: (data: SyncBlockData) => Promise<WriteSyncBlockResult>;
@@ -123,10 +138,10 @@ export type SyncBlockRendererProviderCreator = {
 	createMediaProvider:
 		| ((options: MediaEmojiProviderOptions) => Promise<MediaProvider> | undefined)
 		| undefined;
+	createSmartLinkProvider: (() => Promise<CardProvider>) | undefined;
 	createSSRMediaProvider?:
 		| ((options: MediaEmojiProviderOptions) => MediaProvider | undefined)
 		| undefined;
-	createSmartLinkProvider: (() => Promise<CardProvider>) | undefined;
 };
 
 export type SyncedBlockRendererProviderOptions = {
@@ -174,6 +189,19 @@ export abstract class SyncBlockDataProvider extends NodeDataProvider<
 		noContent?: boolean,
 	): Promise<UpdateReferenceSyncBlockResult>;
 	abstract fetchReferences(resourceId: string, isSource: boolean): Promise<ReferenceSyncBlockData>;
+	/**
+	 * Subscribes to real-time updates for a specific block.
+	 * Returns undefined if subscriptions are not supported.
+	 * @param resourceId - The resource ID of the block to subscribe to
+	 * @param onUpdate - Callback function invoked when the block is updated
+	 * @param onError - Optional callback function invoked on subscription errors
+	 * @returns Unsubscribe function to stop receiving updates, or undefined if not supported
+	 */
+	subscribeToBlockUpdates?(
+		resourceId: ResourceId,
+		onUpdate: BlockUpdateCallback,
+		onError?: BlockSubscriptionErrorCallback,
+	): Unsubscribe | undefined;
 }
 
 export type SubscriptionCallback = (data: SyncBlockInstance) => void;

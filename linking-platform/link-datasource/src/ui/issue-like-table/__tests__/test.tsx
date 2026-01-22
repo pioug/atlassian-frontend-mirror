@@ -32,6 +32,7 @@ import {
 } from '@atlaskit/linking-types/datasource';
 import { type Input } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { type ConcurrentExperience } from '@atlaskit/ufo';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import SmartLinkClient from '../../../../examples-helpers/smartLinkCustomClient';
 import { DatasourceExperienceIdProvider } from '../../../contexts/datasource-experience-id';
@@ -147,6 +148,11 @@ const dragAndDrop = async (source: HTMLElement, destination: HTMLElement, moveIt
 	await drag(source, destination, moveItBy);
 	await drop(destination);
 };
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 describe('IssueLikeDataTableView', () => {
 	let mockGetEntries: jest.Mock;

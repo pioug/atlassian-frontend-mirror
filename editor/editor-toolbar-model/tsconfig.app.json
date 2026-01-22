@@ -36,9 +36,5 @@
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__editor-toolbar-model/app"
 	},
-	"references": [
-		{
-			"path": "../../platform/feature-flags/tsconfig.app.json"
-		}
-	]
+	"references": []
 }

@@ -1,3 +1,4 @@
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -14,7 +15,7 @@ import type {
 	TypeAheadInsert,
 } from '@atlaskit/editor-common/types';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { DOMSerializer, Fragment, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
 	type EditorState,
 	type Transaction,
@@ -40,6 +41,8 @@ import {
 } from '../pm-plugins/utils/utils';
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
 import { FLAG_ID } from '../types';
+
+import { pasteSyncBlockHTMLContent } from './utils';
 
 type createSyncedBlockProps = {
 	fireAnalyticsEvent?: DispatchAnalyticsEvent
@@ -278,3 +281,40 @@ export const removeSyncedBlock =
 
 		return true;
 	};
+
+/**
+ * Deletes (bodied)SyncBlock node and paste its content to the editor
+ */
+export const unsync = (
+	storeManager: SyncBlockStoreManager,
+	isBodiedSyncBlock: boolean,
+	view?: EditorView,
+) => {
+	if (!view) {
+		return false;
+	}
+	const { state } = view;
+	const syncBlock = findSyncBlockOrBodiedSyncBlock(state.schema, state.selection);
+
+	if (!syncBlock) {
+		return false;
+	}
+
+	if (isBodiedSyncBlock) {
+		return true;
+	}
+
+	// handle syncBlock unsync
+	const syncBlockContent = storeManager.referenceManager.getFromCache(
+		syncBlock.node.attrs.resourceId,
+	)?.data?.content;
+	if (!syncBlockContent) {
+		return false;
+	}
+
+	// use defaultSchema for serialization so we can serialize any type of nodes and marks despite current editor's schema might not allow it
+	const contentFragment = Fragment.fromJSON(defaultSchema, syncBlockContent);
+	const contentDOM = DOMSerializer.fromSchema(defaultSchema).serializeFragment(contentFragment);
+
+	return pasteSyncBlockHTMLContent(contentDOM, view);
+};

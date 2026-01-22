@@ -6,6 +6,8 @@ import * as calculateTTVCPercentiles from './percentile-calc';
 import * as getViewportHeight from './utils/get-viewport-height';
 import * as getViewportWidth from './utils/get-viewport-width';
 
+jest.mock('@atlaskit/platform-feature-flags');
+
 // Mock canvas functionality for tests
 jest.mock('./percentile-calc/canvas-heatmap/canvas-pixel', () => ({
 	ViewportCanvas: jest.fn().mockImplementation(() => ({
@@ -17,15 +19,15 @@ jest.mock('./percentile-calc/canvas-heatmap/canvas-pixel', () => ({
 
 // Create a concrete implementation for testing
 class TestVCCalculator extends AbstractVCCalculatorBase {
-	protected isEntryIncluded(entry: VCObserverEntry): boolean {
+	protected isEntryIncluded(): boolean {
 		return true; // For testing purposes
 	}
 
-	protected isVCClean(filteredEntries: ReadonlyArray<VCObserverEntry>): boolean {
+	protected isVCClean(): boolean {
 		return true; // For testing purposes
 	}
 
-	protected getVCCleanStatus(filteredEntries: ReadonlyArray<VCObserverEntry>) {
+	protected getVCCleanStatus() {
 		return { isVCClean: true }; // For testing purposes
 	}
 }

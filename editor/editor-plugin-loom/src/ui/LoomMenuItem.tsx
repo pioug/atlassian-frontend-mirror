@@ -7,7 +7,6 @@ import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { LoomIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { LoomPlugin } from '../loomPluginType';
 import { executeRecordVideo } from '../pm-plugins/commands';
@@ -37,7 +36,7 @@ export const LoomMenuItem = ({
 	const loomEnabled = useLoomEnabled(api);
 	const { editorViewMode } = useEditorToolbar();
 
-	if (editorViewMode !== 'edit' && fg('platform_editor_toolbar_aifc_overflow_menu_update')) {
+	if (editorViewMode !== 'edit') {
 		return null;
 	}
 

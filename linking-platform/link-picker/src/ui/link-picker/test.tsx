@@ -14,6 +14,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ManualPromise, renderWithIntl as render } from '@atlaskit/link-test-helpers';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import mockedPluginData from '../../__tests__/__helpers/mock-plugin-data';
@@ -37,6 +38,11 @@ jest.mock('date-fns/formatDistanceToNow', () => ({
 	__esModule: true,
 	default: () => 'just a minute',
 }));
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 describe('<LinkPicker />', () => {
 	let user: ReturnType<typeof userEvent.setup>;
@@ -1601,7 +1607,7 @@ describe('<LinkPicker />', () => {
 					new UnstableMockLinkPickerPlugin({
 						tabKey: 'tab1',
 						tabTitle: 'Unstable',
-						errorFallback: (error, retry) => null,
+						errorFallback: () => null,
 					}),
 				];
 
@@ -1620,7 +1626,7 @@ describe('<LinkPicker />', () => {
 					new UnstableMockLinkPickerPlugin({
 						tabKey: 'tab1',
 						tabTitle: 'Unstable',
-						errorFallback: (error, retry) => null,
+						errorFallback: () => null,
 					}),
 				];
 

@@ -78,6 +78,7 @@
 		"@atlaskit/drawer": "workspace:^",
 		"@atlaskit/link-test-helpers": "workspace:^",
 		"@atlaskit/popup": "workspace:^",
+		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@testing-library/react": "^16.3.0",
 		"@testing-library/user-event": "root:*",

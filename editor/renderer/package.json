@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "126.1.1",
+	"version": "126.1.2",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -92,6 +92,7 @@
 		"@atlaskit/navigation-next": "root:*",
 		"@atlaskit/profilecard": "workspace:^",
 		"@atlaskit/util-data-test": "workspace:^",
+		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@testing-library/react": "^16.3.0",
 		"@testing-library/user-event": "root:*",

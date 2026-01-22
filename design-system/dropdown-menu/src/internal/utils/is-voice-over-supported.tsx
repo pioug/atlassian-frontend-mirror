@@ -6,6 +6,6 @@ const canUseDOM = () =>
  * we would using menuitemcheckbox / menuitemradio for these that supports voice over, and
  * will fallback to checkbox / radio for these doesn't
  */
-const isVoiceOverSupported = () => /Mac OS X/.test(canUseDOM() ? navigator.userAgent : '');
+const isVoiceOverSupported = (): boolean => /Mac OS X/.test(canUseDOM() ? navigator.userAgent : '');
 
 export default isVoiceOverSupported;

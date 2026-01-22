@@ -71,6 +71,7 @@
 		"@atlaskit/editor-test-helpers": "workspace:^",
 		"@atlaskit/elements-test-helpers": "workspace:^",
 		"@atlaskit/util-data-test": "workspace:^",
+		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@testing-library/dom": "root:*",
 		"@testing-library/jest-dom": "root:*",

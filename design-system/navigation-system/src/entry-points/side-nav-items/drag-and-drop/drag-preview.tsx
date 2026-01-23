@@ -1,1 +1,1 @@
-export { DragPreview } from '../../../ui/menu-item/drag-and-drop/drag-preview';
+export { DragPreview } from '@atlaskit/side-nav-items/drag-and-drop/drag-preview';

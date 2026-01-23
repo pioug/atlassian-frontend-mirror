@@ -55,7 +55,7 @@ export type SyncedBlockEditorProps = {
 
 export type SyncedBlockRendererProps = {
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
-	useFetchSyncBlockData: () => UseFetchSyncBlockDataResult;
+	syncBlockFetchResult: UseFetchSyncBlockDataResult;
 };
 export interface SyncedBlockPluginOptions extends LongPressSelectionPluginOptions {
 	enableSourceCreation?: boolean;

@@ -723,13 +723,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-05-26
-	platform_editor_stop_width_reflows: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-10-27
 	platform_editor_table_sticky_header_improvements: {
 		defaultValue: 'control' | 'test_with_overflow' | 'test_without_overflow';
@@ -1464,14 +1457,6 @@ export const editorExperimentsConfig: {
 	platform_renderer_fix_analytics_memo_callback: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_renderer_fix_analytics_memo_callback',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-05-26
-	platform_editor_stop_width_reflows: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_stop_width_reflows',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { VCObserverEntryType } from '../../types';
 import type { MutationData } from '../types';
 import { isZeroDimensionRectangle } from '../utils/is-zero-dimension-rectangle';
@@ -79,10 +81,30 @@ export function createIntersectionObserver({
 						typeof tagOrCallbackResult !== 'string' &&
 						tagOrCallbackResult.type === 'mutation:attribute'
 					) {
-						return {
-							type: 'mutation:display-contents-children-attribute',
-							mutationData: tagOrCallbackResult.mutationData,
-						};
+						if (fg('platform_ufo_vc_ignore_display_none_mutations')) {
+							const { attributeName, oldValue, newValue } = tagOrCallbackResult.mutationData;
+							const isRoutingMutation =
+								attributeName === 'style' &&
+								((!oldValue && newValue === 'display: none !important;') ||
+									(oldValue === 'display: none !important;' && !newValue));
+
+							if (isRoutingMutation) {
+								return {
+									type: 'mutation:attribute:framework-routing',
+									mutationData: tagOrCallbackResult.mutationData,
+								};
+							}
+
+							return {
+								type: 'mutation:display-contents-children-attribute',
+								mutationData: tagOrCallbackResult.mutationData,
+							};
+						} else {
+							return {
+								type: 'mutation:display-contents-children-attribute',
+								mutationData: tagOrCallbackResult.mutationData,
+							};
+						}
 					}
 
 					return tagOrCallbackResult;

@@ -88,6 +88,11 @@ export const syncBlockMessages = defineMessages({
 		defaultMessage: 'Synced from: {title}',
 		description: 'Tooltip that shows the source page title of the synced block',
 	},
+	referenceSyncBlockLastEdited: {
+		id: 'fabric.editor.referenceSyncBlockLastEdited',
+		defaultMessage: 'Last edited: ',
+		description: 'Tooltip that shows the last edited time of the synced block',
+	},
 	taskInDestinationSyncedBlockTooltip: {
 		id: 'fabric.editor.taskInDestinationSyncedBlockTooltip',
 		defaultMessage: 'This content is synced. Edit it at the source.',

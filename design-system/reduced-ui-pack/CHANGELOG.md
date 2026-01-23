@@ -1,5 +1,12 @@
 # @atlaskit/reduced-ui-pack
 
+## 19.1.0
+
+### Minor Changes
+
+- [`6b7eea7d98729`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b7eea7d98729) -
+  Removing spite generation as it is buggy and not used anywhere.
+
 ## 19.0.7
 
 ### Patch Changes

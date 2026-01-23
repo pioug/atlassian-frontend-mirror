@@ -7,7 +7,6 @@ import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import { PinIcon, PinnedIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
 
@@ -34,10 +33,8 @@ const usePluginState = (_api?: ExtractInjectionAPI<SelectionToolbarPlugin> | und
  */
 export const PinMenuItem = ({ api }: PinMenuItemProps): React.JSX.Element | null => {
 	const intl = useIntl();
-	const { editorViewMode, editorToolbarDockingPreference, isOffline } = usePluginState(api);
+	const { editorViewMode, editorToolbarDockingPreference, isOffline: isDisabled } = usePluginState(api);
 	const isToolbarDocked = editorToolbarDockingPreference === 'top';
-
-	const isDisabled = fg('platform_editor_toolbar_aifc_patch_7') ? isOffline : false;
 
 	if (!shouldShowPinMenuItem(editorViewMode)) {
 		return null;

@@ -1,44 +1,52 @@
 {
-	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx", "codemods", "schema-generators/**/*.ts"],
-	"exclude": [
-		"**/docs/**/*",
-		"**/__tests__/**/*",
-		"**/vr-tests/**/*",
-		"**/__perf__/**/*",
-		"**/*.test.*",
-		"**/test.*",
-		"**/test-*",
-		"**/examples.ts",
-		"**/examples.tsx",
-		"**/examples/*.ts",
-		"**/examples/*.tsx",
-		"**/examples/**/*.ts",
-		"**/examples/**/*.tsx",
-		"**/storybook/**/*",
-		"**/constellation/**/*",
-		".storybook/*",
-		"./__fixtures__/**/*",
-		"./__generated__/**/*",
-		"./mocks/**/*",
-		"./__mocks__/**/*",
-		"**/mock.*",
-		"**/codemods/**/*.ts",
-		"**/codemods/**/*.tsx"
-	],
-	"compilerOptions": {
-		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__adf-schema/app"
-	},
-	"references": [
-		{
-			"path": "../adf-schema-generator/tsconfig.app.json"
-		},
-		{
-			"path": "../editor-prosemirror/tsconfig.app.json"
-		},
-		{
-			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
-		}
-	]
+  "extends": "../../../tsconfig.base.json",
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "codemods",
+    "schema-generators/**/*.ts"
+  ],
+  "exclude": [
+    "**/docs/**/*",
+    "**/__tests__/**/*",
+    "**/vr-tests/**/*",
+    "**/__perf__/**/*",
+    "**/*.test.*",
+    "**/test.*",
+    "**/test-*",
+    "**/examples.ts",
+    "**/examples.tsx",
+    "**/examples/*.ts",
+    "**/examples/*.tsx",
+    "**/examples/**/*.ts",
+    "**/examples/**/*.tsx",
+    "**/storybook/**/*",
+    "**/constellation/**/*",
+    ".storybook/*",
+    "./__fixtures__/**/*",
+    "./__generated__/**/*",
+    "./mocks/**/*",
+    "./__mocks__/**/*",
+    "**/mock.*",
+    "**/codemods/**/*.ts",
+    "**/codemods/**/*.tsx"
+  ],
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "../../../tsDist/@atlaskit__adf-schema/app"
+  },
+  "references": [
+    {
+      "path": "../adf-schema-generator/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-prosemirror/tsconfig.app.json"
+    },
+    {
+      "path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
+    },
+    {
+      "path": "../tmp-editor-statsig/tsconfig.app.json"
+    }
+  ]
 }

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 17.0.0
+
+### Major Changes
+
+- [`c774e8b6231c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c774e8b6231c2) -
+  EDITOR-4549 Removing allowCellOptionsInFloatingToolbar as a prop as the functionality has been
+  removed and changing this prop doesn't do anything
+
+## 16.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.4.3
 
 ### Patch Changes

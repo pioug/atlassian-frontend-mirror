@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 16.31.0
+
+### Minor Changes
+
+- [`d4d2a325144b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4d2a325144b8) -
+  [EDITOR-4646](https://hello.jira.atlassian.cloud/browse/EDITOR-4646) - clean up
+  platform_editor_stop_width_reflows
+
 ## 16.30.0
 
 ### Minor Changes

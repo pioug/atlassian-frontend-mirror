@@ -7,7 +7,7 @@ import { css, jsx } from '@compiled/react';
 import Avatar from '@atlaskit/avatar';
 import Heading from '@atlaskit/heading';
 import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
-import { AvatarTag, RemovableTag, SimpleTag } from '@atlaskit/tag';
+import Tag, { AvatarTag, RemovableTag, SimpleTag } from '@atlaskit/tag';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import TagNew from '../src/tag-new/tag-new';
@@ -25,6 +25,12 @@ const sectionStyles = css({
 	backgroundColor: 'var(--ds-surface-sunken, #F7F8F9)',
 	borderRadius: 'var(--ds-border-radius-200, 8px)',
 });
+
+const lozengeStyle = {
+	style: {
+		color: 'pink',
+	},
+};
 
 export default function TagVisualUplifts() {
 	return (
@@ -195,6 +201,92 @@ export default function TagVisualUplifts() {
 								href="https://atlassian.com"
 								removeButtonLabel="Remove"
 								testId="avatar-tag-linked-removable"
+							/>
+						</Inline>
+					</Stack>
+				</div>
+
+				{/* Migration Fallback Example */}
+				<div css={sectionStyles}>
+					<Stack space="space.200">
+						<Text weight="bold">Migration Fallback (Lozenge → Tag)</Text>
+						<Text size="small">
+							When <code>migration_fallback="lozenge"</code> is set and the feature flag is OFF,
+							these Tags render as Lozenges. When the flag is ON, they render as Tags.
+						</Text>
+						<Inline space="space.100" alignBlock="center">
+							{/* Before: <Lozenge appearance="default">Standard</Lozenge> */}
+							<SimpleTag
+								text="Standard"
+								color="gray"
+								migration_fallback="lozenge"
+								testId="migration-standard"
+							/>
+							{/* Before: <Lozenge appearance="success">Success</Lozenge> */}
+							<SimpleTag
+								text="Success"
+								color="lime"
+								migration_fallback="lozenge"
+								testId="migration-success"
+							/>
+							{/* Before: <Lozenge appearance="inprogress">In Progress</Lozenge> */}
+							<SimpleTag
+								text="In Progress"
+								color="blue"
+								migration_fallback="lozenge"
+								testId="migration-inprogress"
+							/>
+							{/* Before: <Lozenge appearance="removed">Removed</Lozenge> */}
+							<SimpleTag
+								text="Removed"
+								color="red"
+								migration_fallback="lozenge"
+								testId="migration-removed"
+							/>
+							{/* Before: <Lozenge appearance="new">New</Lozenge> */}
+							<SimpleTag
+								text="New"
+								color="purple"
+								migration_fallback="lozenge"
+								testId="migration-new"
+							/>
+							{/* Before: <Lozenge appearance="moved">Moved</Lozenge> */}
+							<SimpleTag
+								text="Moved"
+								color="yellow"
+								migration_fallback="lozenge"
+								testId="migration-moved"
+							/>
+						</Inline>
+						<Stack space="space.050">
+							<Text size="small" weight="bold">
+								Lozenge → Tag Color Mapping:
+							</Text>
+							<Text size="small">• default → gray</Text>
+							<Text size="small">• success → lime</Text>
+							<Text size="small">• inprogress → blue</Text>
+							<Text size="small">• removed → red</Text>
+							<Text size="small">• new → purple</Text>
+							<Text size="small">• moved → yellow</Text>
+						</Stack>
+					</Stack>
+				</div>
+
+				{/* Style Prop Preservation */}
+				<div css={sectionStyles}>
+					<Stack space="space.200">
+						<Text weight="bold">Style Prop Preservation (Lozenge → Tag Migration)</Text>
+						<Text size="small">
+							When migrating from Lozenge to Tag, the <code>style</code> prop is preserved.
+						</Text>
+						<Inline space="space.100" alignBlock="center">
+							{/* Before: <Lozenge appearance="success" style={{ color: 'pink' }}>With maxWidth</Lozenge> */}
+							<Tag
+								text="With style prop of color pink"
+								color="lime"
+								migration_fallback="lozenge"
+								testId="migration-style-maxwidth"
+								{...lozengeStyle}
 							/>
 						</Inline>
 					</Stack>

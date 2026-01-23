@@ -1,5 +1,22 @@
 # @atlaskit/editor-core
 
+## 216.7.6
+
+### Patch Changes
+
+- [`9041ec452a104`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9041ec452a104) -
+  [EDITOR-4515] clean up fg platform_editor_toolbar_aifc_patch_7
+- Updated dependencies
+
+## 216.7.5
+
+### Patch Changes
+
+- [`f9ab3b2b9d564`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f9ab3b2b9d564) -
+  [ux] [ENGHEALTH-43911] update styles for show diff deleted nodes behind
+  platform_editor_jan_a11y_fixes
+- Updated dependencies
+
 ## 216.7.4
 
 ### Patch Changes

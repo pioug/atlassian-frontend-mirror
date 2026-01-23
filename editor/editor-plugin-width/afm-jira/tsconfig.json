@@ -27,15 +27,6 @@
 			"path": "../../editor-prosemirror/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../editor-shared-styles/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../../platform/feature-flags-react/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../tmp-editor-statsig/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../editor-common/afm-jira/tsconfig.json"
 		}
 	]

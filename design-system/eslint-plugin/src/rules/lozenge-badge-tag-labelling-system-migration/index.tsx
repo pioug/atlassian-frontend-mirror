@@ -16,7 +16,8 @@ const rule = createLintRule({
 		},
 		messages: {
 			updateAppearance: 'Update appearance value to new semantic value.',
-			migrateTag: 'Non-bold <Lozenge> variants should migrate to <Tag> component.',
+			migrateTag:
+				'Non-bold <Lozenge> variants should migrate to <Tag> component. For safe, staged rollout, use the `migration_fallback="lozenge"` prop which renders as Lozenge when the feature flag is off.',
 			manualReview: "Dynamic 'isBold' props require manual review before migration.",
 			dynamicLozengeAppearance:
 				"Dynamic 'appearance' prop values require manual review before migrating to Tag. Please verify the appearance value and manually convert it to the appropriate color prop value.",
@@ -412,6 +413,11 @@ const rule = createLintRule({
 			// Add isRemovable={false} for SimpleTag migrations and Lozenge migrations
 			if (options.isSimpleTag || options.isLozengeMigration) {
 				newAttributes.push('isRemovable={false}');
+			}
+
+			// Add migration_fallback="lozenge" for Lozenge migrations to enable safe staged rollout
+			if (options.isLozengeMigration) {
+				newAttributes.push('migration_fallback="lozenge"');
 			}
 
 			const attributesText = newAttributes.length > 0 ? ` ${newAttributes.join(' ')}` : '';

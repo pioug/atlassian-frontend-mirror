@@ -8,41 +8,37 @@ export { useIsFhsEnabled } from './ui/fhs-rollout/use-is-fhs-enabled';
 export {
 	ExpandableMenuItem,
 	type ExpandableMenuItemProps,
-} from './ui/menu-item/expandable-menu-item/expandable-menu-item';
-export {
 	ExpandableMenuItemTrigger,
 	type ExpandableMenuItemTriggerProps,
-} from './ui/menu-item/expandable-menu-item/expandable-menu-item-trigger';
-export {
 	ExpandableMenuItemContent,
 	type ExpandableMenuItemContentProps,
-} from './ui/menu-item/expandable-menu-item/expandable-menu-item-content';
-export { useIsExpanded } from './ui/menu-item/expandable-menu-item/expandable-menu-item-context';
+	useIsExpanded,
+} from '@atlaskit/side-nav-items/expandable-menu-item';
 
 export {
 	FlyoutMenuItem,
 	type FlyoutMenuItemProps,
-} from './ui/menu-item/flyout-menu-item/flyout-menu-item';
-export {
 	FlyoutMenuItemContent,
 	type FlyoutMenuItemContentProps,
-} from './ui/menu-item/flyout-menu-item/flyout-menu-item-content';
-export {
 	FlyoutMenuItemTrigger,
 	type FlyoutMenuItemTriggerProps,
-} from './ui/menu-item/flyout-menu-item/flyout-menu-item-trigger';
+} from '@atlaskit/side-nav-items/flyout-menu-item';
 
-export { ButtonMenuItem, type ButtonMenuItemProps } from './ui/menu-item/button-menu-item';
-export { LinkMenuItem, type LinkMenuItemProps } from './ui/menu-item/link-menu-item';
-export { COLLAPSE_ELEM_BEFORE } from './ui/menu-item/menu-item-signals';
-export { MenuListItem } from './ui/menu-item/menu-list-item';
-export { ContainerAvatar, type ContainerAvatarProps } from './ui/menu-item/container-avatar';
-export { MenuList } from './ui/menu-item/menu-list';
-export { TopLevelSpacer } from './ui/menu-item/top-level-spacer';
+export {
+	ButtonMenuItem,
+	type ButtonMenuItemProps,
+	COLLAPSE_ELEM_BEFORE,
+} from '@atlaskit/side-nav-items/button-menu-item';
+export { LinkMenuItem, type LinkMenuItemProps } from '@atlaskit/side-nav-items/link-menu-item';
+export { MenuListItem } from '@atlaskit/side-nav-items/menu-list-item';
+export {
+	ContainerAvatar,
+	type ContainerAvatarProps,
+} from '@atlaskit/side-nav-items/container-avatar';
+export { MenuList } from '@atlaskit/side-nav-items/menu-list';
+export { TopLevelSpacer } from '@atlaskit/side-nav-items/top-level-spacer';
 
-export { MenuSection } from './ui/menu-section/menu-section';
-export { MenuSectionHeading } from './ui/menu-section/menu-section-heading';
-export { Divider } from './ui/menu-section/divider';
+export { MenuSection, MenuSectionHeading, Divider } from '@atlaskit/side-nav-items/menu-section';
 
 export { Aside } from './ui/page-layout/aside';
 export { Banner } from './ui/page-layout/banner';

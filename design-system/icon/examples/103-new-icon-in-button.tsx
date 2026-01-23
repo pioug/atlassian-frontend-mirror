@@ -8,8 +8,6 @@ import { Inline, Stack, xcss } from '@atlaskit/primitives';
 
 import AddIcon from '../core/add';
 import ChevronDownIcon from '../core/chevron-down';
-import AddIconMigration from '../core/migration/add';
-import ChevronDownIconMigration from '../core/migration/chevron-down--hipchat-chevron-down';
 import AddIconOld from '../glyph/add';
 import HipchatChevronDownIconOld from '../glyph/hipchat/chevron-down';
 
@@ -48,42 +46,6 @@ const IconSizeExample = (): React.JSX.Element => {
 						</Button>
 						<IconButton label="add" isSelected={isSelected} icon={AddIconOld} />
 						New button, old icon
-					</Inline>
-					<Inline space="space.100" alignBlock="center">
-						<OldButton
-							isSelected={isSelected}
-							iconBefore={<AddIconMigration label="" color="currentColor" />}
-							iconAfter={<ChevronDownIconMigration label="" color="currentColor" size="small" />}
-						>
-							Button
-						</OldButton>
-						<OldButton
-							isSelected={isSelected}
-							iconBefore={<AddIconMigration label="" color="currentColor" />}
-						>
-							Button
-						</OldButton>
-						<OldButton
-							isSelected={isSelected}
-							iconBefore={<AddIconMigration label="add" spacing="spacious" color="currentColor" />}
-						/>
-						Old button, new icon - with legacy fallback (feature flagged)
-					</Inline>
-					<Inline space="space.100" alignBlock="center">
-						<Button
-							isSelected={isSelected}
-							iconBefore={AddIconMigration}
-							iconAfter={(iconProps) => (
-								<ChevronDownIconMigration {...iconProps} size="small" color="currentColor" />
-							)}
-						>
-							Button
-						</Button>
-						<Button isSelected={isSelected} iconBefore={AddIconMigration}>
-							Button
-						</Button>
-						<IconButton isSelected={isSelected} label="add" icon={AddIconMigration} />
-						New button, new icon - with legacy fallback (feature flagged)
 					</Inline>
 					<Inline space="space.100" alignBlock="center">
 						<OldButton

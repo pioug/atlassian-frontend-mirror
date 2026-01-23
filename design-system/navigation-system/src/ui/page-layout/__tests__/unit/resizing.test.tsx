@@ -4,14 +4,16 @@ import { skipA11yAudit } from '@af/accessibility-testing';
 import Button from '@atlaskit/button/new';
 import DropdownMenu from '@atlaskit/dropdown-menu';
 import Select, { type OptionType, PopupSelect } from '@atlaskit/select';
+import {
+	FlyoutMenuItem,
+	FlyoutMenuItemContent,
+	FlyoutMenuItemTrigger,
+} from '@atlaskit/side-nav-items/flyout-menu-item';
+import { MenuList } from '@atlaskit/side-nav-items/menu-list';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { resetMatchMedia } from '@atlassian/test-utils';
 import { fireEvent, render, screen } from '@atlassian/testing-library';
 
-import { FlyoutMenuItem } from '../../../menu-item/flyout-menu-item/flyout-menu-item';
-import { FlyoutMenuItemContent } from '../../../menu-item/flyout-menu-item/flyout-menu-item-content';
-import { FlyoutMenuItemTrigger } from '../../../menu-item/flyout-menu-item/flyout-menu-item-trigger';
-import { MenuList } from '../../../menu-item/menu-list';
 import { Aside } from '../../aside';
 import { Main } from '../../main/main';
 import { Panel } from '../../panel';

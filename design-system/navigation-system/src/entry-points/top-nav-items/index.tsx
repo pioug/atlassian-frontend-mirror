@@ -11,4 +11,5 @@ export { Profile } from '../../ui/top-nav-items/profile';
 export { Settings } from '../../ui/top-nav-items/settings';
 export { LogIn } from '../../ui/top-nav-items/log-in';
 export { CustomTitle } from '../../ui/top-nav-items/custom-title';
-export { MenuListItem } from '../../ui/menu-item/menu-list-item';
+// TODO: revisit this export. Should top-nav-items have its own menu list item?
+export { MenuListItem } from '@atlaskit/side-nav-items/menu-list-item';

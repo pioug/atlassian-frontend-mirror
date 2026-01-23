@@ -1,5 +1,11 @@
 # @atlaskit/people-teams-ui-public
 
+## 3.7.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.7.3
 
 ### Patch Changes

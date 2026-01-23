@@ -2,6 +2,7 @@ import { useCallback, useEffect } from 'react';
 
 import { type Action, createHook, createStore } from 'react-sweet-state';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
 import { teamsClient } from '@atlaskit/teams-client';
 import type {
@@ -11,6 +12,8 @@ import type {
 } from '@atlaskit/teams-client/types';
 
 import { type TeamContainer } from '../../../common/types';
+
+import { useConnectedTeams as useConnectedTeamsMulti, useTeamContainers as useTeamContainersMulti } from './multi-team';
 
 type ConnectedTeams = {
 	containerId: string | undefined;
@@ -285,18 +288,24 @@ export const useTeamContainersHook = createHook(Store);
 
 export const useTeamContainers = (teamId: string, enable = true) => {
 	const [state, actions] = useTeamContainersHook();
+	const useMultiTeam = fg('enable_multi_team_containers_state');
+	const multiTeamResult = useTeamContainersMulti(teamId, useMultiTeam ? enable : false);
 	const { fireEvent } = useAnalyticsEvents();
 
 	useEffect(() => {
-		if (enable) {
+		if (enable && !useMultiTeam) {
 			actions.fetchTeamContainers(teamId, fireEvent);
 		}
-	}, [teamId, actions, enable, fireEvent]);
+	}, [teamId, actions, enable, fireEvent, useMultiTeam]);
 
 	const refetchTeamContainers = useCallback(
 		async (): Promise<void> => actions.refetchTeamContainers(fireEvent),
 		[actions, fireEvent],
 	);
+
+	if (useMultiTeam) {
+		return multiTeamResult;
+	}
 
 	return {
 		...state,
@@ -307,9 +316,16 @@ export const useTeamContainers = (teamId: string, enable = true) => {
 	};
 };
 
-export const useConnectedTeams = () => {
+export const useConnectedTeams = (teamId?: string) => {
 	const [state, actions] = useTeamContainersHook();
+	const useMultiTeam = fg('enable_multi_team_containers_state');
+	const multiTeamResult = useConnectedTeamsMulti(useMultiTeam ? (teamId || '') : '');
+
 	const { fireEvent } = useAnalyticsEvents();
+
+	if (useMultiTeam) {
+		return multiTeamResult;
+	}
 
 	return {
 		...state.connectedTeams,

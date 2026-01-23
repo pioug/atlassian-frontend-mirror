@@ -103,6 +103,63 @@ export const showDiffDeletedNodeStyles: SerializedStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const showDiffDeletedNodeStylesNew: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values,@atlaskit/ui-styling-standard/no-nested-selectors
+	[`.${SmartCardSharedCssClassName.EMBED_CARD_CONTAINER}`]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values,@atlaskit/ui-styling-standard/no-nested-selectors
+		[`&.show-diff-deleted-node .${SmartCardSharedCssClassName.LOADER_WRAPPER} > div::after`]: {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
+			boxShadow: `0 0 0 1px ${token('color.border.accent.gray')}`,
+			borderColor: 'transparent',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values,@atlaskit/ui-styling-standard/no-nested-selectors
+		[`&.show-diff-deleted-node-traditional .${SmartCardSharedCssClassName.LOADER_WRAPPER} > div::after`]:
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 1px ${token('color.border.accent.red')}`,
+				borderColor: 'transparent',
+			},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values,@atlaskit/ui-styling-standard/no-nested-selectors
+		[`&.show-diff-deleted-node .${SmartCardSharedCssClassName.LOADER_WRAPPER}`]: {
+			opacity: 0.8,
+		},
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.show-diff-deleted-node .media-card-wrapper': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'& > div': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
+			boxShadow: `0 0 0 1px ${token('color.border.accent.gray')}`,
+			borderRadius: token('radius.small'),
+			opacity: 0.8,
+		},
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.show-diff-deleted-node-traditional .media-card-wrapper': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'& > div': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
+			boxShadow: `0 0 0 1px ${token('color.border.accent.red')}`,
+			borderRadius: token('radius.small'),
+		},
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="blockquote"].show-diff-deleted-node': {
+		textDecoration: 'line-through',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="blockquote"].show-diff-deleted-node-traditional': {
+		textDecoration: 'line-through',
+		textDecorationColor: token('color.border.accent.red'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="embedCard"].show-diff-deleted-node-traditional': {
+		textDecoration: 'line-through',
+		textDecorationColor: token('color.border.accent.red'),
+	},
+});
+
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const smartCardStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
 	[`.${SmartCardSharedCssClassName.INLINE_CARD_CONTAINER}`]: {

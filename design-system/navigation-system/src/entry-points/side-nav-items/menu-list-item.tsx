@@ -1,1 +1,1 @@
-export { MenuListItem } from '../../ui/menu-item/menu-list-item';
+export { MenuListItem } from '@atlaskit/side-nav-items/menu-list-item';

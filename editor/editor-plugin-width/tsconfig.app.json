@@ -36,15 +36,6 @@
 		},
 		{
 			"path": "../editor-prosemirror/tsconfig.app.json"
-		},
-		{
-			"path": "../editor-shared-styles/tsconfig.app.json"
-		},
-		{
-			"path": "../../platform/feature-flags-react/tsconfig.app.json"
-		},
-		{
-			"path": "../tmp-editor-statsig/tsconfig.app.json"
 		}
 	]
 }

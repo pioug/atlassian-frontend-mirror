@@ -1,5 +1,20 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.0.3
+
+### Patch Changes
+
+- [`0c485e6a6efa4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0c485e6a6efa4) -
+  round off reported VC ratios
+
+## 5.0.2
+
+### Patch Changes
+
+- [`a394e2061cccd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a394e2061cccd) -
+  classify attribute changes from routing as mutation:attribute:framework-routing in VC observer,
+  and exclude it from TTVC v3 onwards
+
 ## 5.0.1
 
 ### Patch Changes

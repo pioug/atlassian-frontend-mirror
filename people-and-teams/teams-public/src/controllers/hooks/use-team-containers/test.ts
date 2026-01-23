@@ -23,6 +23,16 @@ jest.mock('@atlaskit/teams-app-internal-analytics', () => ({
 	})),
 }));
 
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn().mockReturnValue(false),
+}));
+
+jest.mock('@atlaskit/analytics-next', () => ({
+	useAnalyticsEvents: jest.fn().mockImplementation(() => ({
+		createAnalyticsEvent: jest.fn(),
+	})),
+}));
+
 const fetchTeamContainersSuccessEvent = {
 	action: 'succeeded',
 	actionSubject: 'fetchTeamContainers',

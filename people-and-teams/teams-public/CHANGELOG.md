@@ -1,5 +1,18 @@
 # @atlaskit/teams-public
 
+## 0.67.0
+
+### Minor Changes
+
+- [`06a4db25b0965`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06a4db25b0965) -
+  Support multi team state management for teams and containers
+
+## 0.66.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.66.0
 
 ### Minor Changes

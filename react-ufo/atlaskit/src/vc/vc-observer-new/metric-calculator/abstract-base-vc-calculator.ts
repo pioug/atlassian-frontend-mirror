@@ -36,6 +36,12 @@ type EnhancedVcLogEntry = {
 	entries: EnhancedViewportEntryData[];
 };
 
+// Helper function for reporting ratios
+function roundDecimal(value: number, decimals: number = 3): number {
+  const factor = Math.pow(10, decimals);
+  return Math.round(value * factor) / factor;
+}
+
 export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 	private revisionNo: string;
 	constructor(revisionNo: string) {
@@ -85,7 +91,12 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 
 		for (const [elementName, rect] of elementRects) {
 			const elementArea = rect.width * rect.height;
-			ratios[elementName] = elementArea / totalViewportArea;
+
+			if (fg('platform_ufo_round_vc_ratios')) {
+				ratios[elementName] = roundDecimal(elementArea / totalViewportArea);
+			} else {
+				ratios[elementName] = elementArea / totalViewportArea;
+			}
 		}
 
 		return ratios;

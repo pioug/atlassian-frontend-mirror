@@ -15,7 +15,6 @@ import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -272,7 +271,7 @@ export const FullPageToolbarNext = ({
 													: customPrimaryToolbarComponents}
 											</div>
 										</SecondChildWrapper>
-										{fg('platform_editor_toolbar_aifc_patch_7') && <ToolbarPortalMountPoint />}
+										<ToolbarPortalMountPoint />
 									</>
 							</MainToolbarWrapper>
 						</ToolbarPortal>

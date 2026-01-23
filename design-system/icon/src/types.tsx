@@ -162,35 +162,7 @@ export interface IconProps extends GlyphProps, IconInternalGlyphProps {
 	glyph?: ComponentType<CustomGlyphProps>;
 }
 
-interface BaseNewIconProps {
-	/**
-	 * Legacy icon component to render when the icon refresh feature flag is turned off.
-	 * The legacy icon defaults to "medium" size, with `primaryColor` set to the value of the `color` prop.
-	 */
-	LEGACY_fallbackIcon?: ComponentType<IconProps>;
-	/**
-	 * Optional custom primary color to be rendered by the fallback icon, only to be use when a different color than the `color` prop is required.
-	 * @default Use the `color` prop value.
-	 */
-	LEGACY_primaryColor?: string;
-	/**
-	 * Secondary color to be rendered by the legacy fallback icon
-	 */
-	LEGACY_secondaryColor?: string;
-	/**
-	 * Size of the legacy fallback icon. Legacy icons default to "medium".
-	 */
-	LEGACY_size?: Size;
-	/**
-	 * Sets a margin on the fallback legacy icon.
-	 */
-	LEGACY_margin?: string;
-}
-
-export interface UNSAFE_NewCoreGlyphProps
-	extends BaseNewIconProps,
-		NewCoreGlyphProps,
-		IconInternalGlyphProps {
+export interface UNSAFE_NewCoreGlyphProps extends NewCoreGlyphProps, IconInternalGlyphProps {
 	shouldRecommendSmallIcon?: boolean;
 	/**
 	 * Display name of the icon.

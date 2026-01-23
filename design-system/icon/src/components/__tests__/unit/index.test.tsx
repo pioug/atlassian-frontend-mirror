@@ -1,11 +1,14 @@
+import fs from 'fs';
+import path from 'path';
+
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 
-import path from 'path';
-import fs from 'fs';
-import { size } from '../../..';
+
 import BookIcon from '../../../../glyph/book';
-import { size as defaultSize } from '../../..';
+import { size as defaultSize } from '../../../index';
+import { size } from '../../../index';
 import metadata from '../../../metadata';
 import metadataCore from '../../../metadata-core';
 
@@ -478,21 +481,6 @@ describe('@atlaskit/icon', () => {
 				expect(screen.getByRole('img')).toBeInTheDocument();
 				expect(Icon).toBeInstanceOf(Function);
 			});
-
-			const oldNames = metadataCore[key].oldName;
-			if (oldNames) {
-				oldNames.forEach((oldName) => {
-					it(`should be possible to create the ${oldName} -> ${key} migration icon component`, async () => {
-						const componentName = key === oldName ? key : `${key}--${oldName.replace('/', '-')}`;
-						const component = await import(`../../../../core/migration/${componentName}`);
-
-						const Icon = component.default;
-						render(<Icon label={Icon.name} />);
-						expect(screen.getByRole('img')).toBeInTheDocument();
-						expect(Icon).toBeInstanceOf(Function);
-					});
-				});
-			}
 		});
 	});
 

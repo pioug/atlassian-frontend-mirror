@@ -40,9 +40,6 @@
 			"path": "../../ds-lib/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../heading/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../icon/afm-products/tsconfig.json"
 		},
 		{
@@ -61,13 +58,10 @@
 			"path": "../../../pragmatic-drag-and-drop/core/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../pragmatic-drag-and-drop/hitbox/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../pragmatic-drag-and-drop/react-drop-indicator/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../primitives/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../navigation/side-nav-items/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../tokens/afm-products/tsconfig.json"

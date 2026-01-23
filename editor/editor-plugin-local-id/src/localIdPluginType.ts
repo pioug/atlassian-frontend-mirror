@@ -27,6 +27,6 @@ export type LocalIdPlugin = NextEditorPlugin<
 			 */
 			replaceNode: (props: ActionProps & { value: Node }) => boolean;
 		};
-		dependencies: [CompositionPlugin],
+		dependencies: [CompositionPlugin];
 	}
 >;

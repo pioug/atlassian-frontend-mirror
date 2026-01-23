@@ -1,3 +1,6 @@
-export { LinkMenuItem, type LinkMenuItemProps } from '../../ui/menu-item/link-menu-item';
-export { COLLAPSE_ELEM_BEFORE } from '../../ui/menu-item/menu-item-signals';
-export type { MenuItemOnClick } from '../../ui/menu-item/types';
+export {
+	LinkMenuItem,
+	COLLAPSE_ELEM_BEFORE,
+	type LinkMenuItemProps,
+	type MenuItemOnClick,
+} from '@atlaskit/side-nav-items/link-menu-item';

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 5.3.1
+
+### Patch Changes
+
+- [`87abc5dda86fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87abc5dda86fe) -
+  [ux] Show last edited time in sync block tooltip
+- Updated dependencies
+
 ## 5.3.0
 
 ### Minor Changes

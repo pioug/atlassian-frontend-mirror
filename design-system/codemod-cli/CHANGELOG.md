@@ -1,5 +1,11 @@
 # @atlaskit/codemod-cli
 
+## 0.34.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.34.2
 
 ### Patch Changes

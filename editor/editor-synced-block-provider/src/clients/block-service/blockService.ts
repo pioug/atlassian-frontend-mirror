@@ -5,6 +5,7 @@ export type BlockContentResponse = {
 	blockAri: string;
 	blockInstanceId: string;
 	content: string;
+	contentUpdatedAt: number;
 	createdAt: number;
 	createdBy: string;
 	product: SyncBlockProduct;
@@ -68,7 +69,7 @@ type GetDocumentReferenceBlocksGraphQLResponse = {
  *       "status": "active",
  *       "createdAt": "2025-10-08T10:30:00.000Z",
  *       "createdBy": "557058:xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx",
- *       "updatedAt": "2025-10-08T10:30:00.000Z"
+ *       "contentUpdatedAt": "2025-10-08T10:30:00.000Z"
  *     }
  *   ],
  *   "errors": [
@@ -191,6 +192,7 @@ const buildGetDocumentReferenceBlocksQuery = (
 			blockAri
 			blockInstanceId
 			content
+			contentUpdatedAt
 			createdAt
 			createdBy
 			product
@@ -213,8 +215,7 @@ export class BlockError extends Error {
 }
 
 export const getSyncedBlockContent = async ({
-	blockAri,
-	documentAri,
+	blockAri
 }: GetSyncedBlockContentRequest): Promise<BlockContentResponse> => {
 	// Disable sending documentAri for now. We'll add it back if we find a way to update references that follows the save & refresh principle.
 	// Slack discussion here: https://atlassian.slack.com/archives/C09DZT1TBNW/p1767836775552099?thread_ts=1767836754.024889&cid=C09DZT1TBNW

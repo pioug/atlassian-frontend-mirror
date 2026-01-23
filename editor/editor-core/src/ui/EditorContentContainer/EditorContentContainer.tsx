@@ -178,6 +178,7 @@ import {
 	editorControlsSmartCardStyles,
 	linkingVisualRefreshV1Styles,
 	showDiffDeletedNodeStyles,
+	showDiffDeletedNodeStylesNew,
 	smartCardDiffStyles,
 	smartCardStyles,
 	smartCardStylesWithSearchMatch,
@@ -427,8 +428,13 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					ruleStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					smartCardDiffStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					fg('platform_editor_ai_generic_prep_for_aifc_2') && showDiffDeletedNodeStyles,
+					fg('platform_editor_ai_generic_prep_for_aifc_2') && (
+						fg('platform_editor_jan_a11y_fixes')
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							? showDiffDeletedNodeStylesNew
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							: showDiffDeletedNodeStyles
+					),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					mediaStyles,
 					contentMode === 'compact' &&

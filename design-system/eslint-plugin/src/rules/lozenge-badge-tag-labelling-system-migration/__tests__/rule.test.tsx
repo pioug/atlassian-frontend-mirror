@@ -163,7 +163,7 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 			`,
 			output: `
 				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="lime" isRemovable={false}>Test</Tag>
+				<Tag color="lime" isRemovable={false} migration_fallback="lozenge">Test</Tag>
 			`,
 			errors: [
 				{
@@ -180,7 +180,7 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 			`,
 			output: `
 				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="yellow" isRemovable={false}>Test</Tag>
+				<Tag color="yellow" isRemovable={false} migration_fallback="lozenge">Test</Tag>
 			`,
 			errors: [
 				{
@@ -197,7 +197,7 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 			`,
 			output: `
 				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="lime" isRemovable={false} />
+				<Tag color="lime" isRemovable={false} migration_fallback="lozenge" />
 			`,
 			errors: [
 				{
@@ -214,7 +214,7 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 			`,
 			output: `
 				import Lozenge from '@atlaskit/lozenge';
-				<Tag isRemovable={false}>Test</Tag>
+				<Tag isRemovable={false} migration_fallback="lozenge">Test</Tag>
 			`,
 			errors: [
 				{
@@ -231,7 +231,7 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 			`,
 			output: `
 				import Lozenge from '@atlaskit/lozenge';
-				<Tag isRemovable={false}>Test</Tag>
+				<Tag isRemovable={false} migration_fallback="lozenge">Test</Tag>
 			`,
 			errors: [
 				{
@@ -274,7 +274,7 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 			`,
 			output: `
 				import { Lozenge } from '@atlaskit/lozenge';
-				<Tag color="purple" isRemovable={false}>Test</Tag>
+				<Tag color="purple" isRemovable={false} migration_fallback="lozenge">Test</Tag>
 			`,
 			errors: [
 				{
@@ -293,7 +293,7 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 			`,
 			output: `
 				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="blue" testId="test-lozenge" className="custom-class" isRemovable={false}>
+				<Tag color="blue" testId="test-lozenge" className="custom-class" isRemovable={false} migration_fallback="lozenge">
 					Complex content
 				</Tag>
 			`,
@@ -314,7 +314,24 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 			output: `
 				import Lozenge from '@atlaskit/lozenge';
 				const props = { testId: 'test' };
-				<Tag {...props} color="lime" isRemovable={false}>Test</Tag>
+				<Tag {...props} color="lime" isRemovable={false} migration_fallback="lozenge">Test</Tag>
+			`,
+			errors: [
+				{
+					messageId: 'migrateTag',
+				},
+			],
+		},
+		// Test case 10b: Lozenge with style prop should migrate to Tag preserving style
+		{
+			name: 'Lozenge with style prop migrates to Tag preserving style',
+			code: `
+				import Lozenge from '@atlaskit/lozenge';
+				<Lozenge appearance="success" style={{ color: 'pink' }}>Test with style</Lozenge>
+			`,
+			output: `
+				import Lozenge from '@atlaskit/lozenge';
+				<Tag color="lime" style={{ color: 'pink' }} isRemovable={false} migration_fallback="lozenge">Test with style</Tag>
 			`,
 			errors: [
 				{
@@ -331,7 +348,7 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 			`,
 			output: `
 				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="gray" isRemovable={false}>Default</Tag>
+				<Tag color="gray" isRemovable={false} migration_fallback="lozenge">Default</Tag>
 			`,
 			errors: [
 				{
@@ -348,7 +365,7 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 			`,
 			output: `
 				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="red" isRemovable={false}>Removed</Tag>
+				<Tag color="red" isRemovable={false} migration_fallback="lozenge">Removed</Tag>
 			`,
 			errors: [
 				{
@@ -365,7 +382,7 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 			`,
 			output: `
 				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="blue" isRemovable={false}>In Progress</Tag>
+				<Tag color="blue" isRemovable={false} migration_fallback="lozenge">In Progress</Tag>
 			`,
 			errors: [
 				{
@@ -382,7 +399,7 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 			`,
 			output: `
 				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="purple" isRemovable={false}>New</Tag>
+				<Tag color="purple" isRemovable={false} migration_fallback="lozenge">New</Tag>
 			`,
 			errors: [
 				{
@@ -399,7 +416,7 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 			`,
 			output: `
 				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="yellow" isRemovable={false}>Moved</Tag>
+				<Tag color="yellow" isRemovable={false} migration_fallback="lozenge">Moved</Tag>
 			`,
 			errors: [
 				{

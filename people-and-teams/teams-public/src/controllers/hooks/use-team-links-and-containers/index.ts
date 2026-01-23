@@ -52,7 +52,7 @@ export const useTeamLinksAndContainers = (
 			iconHasLoaded,
 		},
 		{ getTeamWebLinks, createTeamWebLink, updateTeamWebLink, removeWebLink },
-	] = useTeamWebLinks();
+	] = useTeamWebLinks(teamId);
 
 	useEffect(() => {
 		getTeamWebLinks(teamId);

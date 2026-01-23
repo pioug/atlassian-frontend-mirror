@@ -1,6 +1,13 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { VCObserverEntryType } from '../../types';
 
 import { createIntersectionObserver } from './index';
+
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn(),
+}));
+const mockFg = fg as jest.Mock;
 
 describe('createIntersectionObserver', () => {
 	let mockObserver: IntersectionObserver;
@@ -19,7 +26,7 @@ describe('createIntersectionObserver', () => {
 			disconnect: jest.fn(),
 		} as unknown as IntersectionObserver;
 
-		jest.spyOn(window, 'IntersectionObserver').mockImplementation((callback) => {
+		jest.spyOn(window, 'IntersectionObserver').mockImplementation(() => {
 			return mockObserver;
 		});
 
@@ -31,6 +38,7 @@ describe('createIntersectionObserver', () => {
 
 	afterEach(() => {
 		jest.clearAllMocks();
+		mockFg.mockReset();
 	});
 
 	it('should return a VCIntersectionObserver object if supported', () => {
@@ -192,5 +200,243 @@ describe('createIntersectionObserver', () => {
 		});
 
 		expect(onObservedMock).toHaveBeenCalled();
+	});
+
+	describe('framework routing mutations with display:none style changes', () => {
+		const zeroRect: DOMRectReadOnly = {
+			width: 0,
+			height: 0,
+			x: 0,
+			y: 0,
+			top: 0,
+			left: 0,
+			bottom: 0,
+			right: 0,
+			toJSON: () => ({}),
+		};
+
+		describe('when platform_ufo_vc_ignore_display_none_mutations feature flag is enabled', () => {
+			beforeEach(() => {
+				mockFg.mockImplementation(
+					(flag) => flag === 'platform_ufo_vc_ignore_display_none_mutations',
+				);
+			});
+
+			it('should classify mutation:attribute as mutation:attribute:framework-routing when style changes from empty string to display:none', () => {
+				const element = document.createElement('div');
+				const childElement = document.createElement('div');
+				element.appendChild(childElement);
+
+				observer?.watchAndTag(element, () => ({
+					type: 'mutation:attribute',
+					mutationData: {
+						attributeName: 'style',
+						oldValue: '',
+						newValue: 'display: none !important;',
+					},
+				}));
+
+				const callback = (window.IntersectionObserver as jest.Mock).mock.calls[0][0];
+
+				// Simulate zero dimension rectangle which triggers display-contents children handling
+				callback([
+					{ target: element, isIntersecting: false, intersectionRect: zeroRect, time: 123 },
+				]);
+
+				// Since element has zero dimensions, it should observe children with the zeroDimensionRectangleTagCallback
+				expect(mockObserver.observe).toHaveBeenCalledWith(childElement);
+			});
+
+			it('should classify mutation:attribute as mutation:attribute:framework-routing when style changes from null to display:none', () => {
+				const element = document.createElement('div');
+				const childElement = document.createElement('div');
+				element.appendChild(childElement);
+
+				observer?.watchAndTag(element, () => ({
+					type: 'mutation:attribute',
+					mutationData: {
+						attributeName: 'style',
+						oldValue: null,
+						newValue: 'display: none !important;',
+					},
+				}));
+
+				const callback = (window.IntersectionObserver as jest.Mock).mock.calls[0][0];
+
+				callback([
+					{ target: element, isIntersecting: false, intersectionRect: zeroRect, time: 123 },
+				]);
+
+				expect(mockObserver.observe).toHaveBeenCalledWith(childElement);
+			});
+
+			it('should classify mutation:attribute as mutation:attribute:framework-routing when style changes from undefined to display:none', () => {
+				const element = document.createElement('div');
+				const childElement = document.createElement('div');
+				element.appendChild(childElement);
+
+				observer?.watchAndTag(element, () => ({
+					type: 'mutation:attribute',
+					mutationData: {
+						attributeName: 'style',
+						oldValue: undefined,
+						newValue: 'display: none !important;',
+					},
+				}));
+
+				const callback = (window.IntersectionObserver as jest.Mock).mock.calls[0][0];
+
+				callback([
+					{ target: element, isIntersecting: false, intersectionRect: zeroRect, time: 123 },
+				]);
+
+				expect(mockObserver.observe).toHaveBeenCalledWith(childElement);
+			});
+
+			it('should classify mutation:attribute as mutation:attribute:framework-routing when style changes from display:none to empty string', () => {
+				const element = document.createElement('div');
+				const childElement = document.createElement('div');
+				element.appendChild(childElement);
+
+				observer?.watchAndTag(element, () => ({
+					type: 'mutation:attribute',
+					mutationData: {
+						attributeName: 'style',
+						oldValue: 'display: none !important;',
+						newValue: '',
+					},
+				}));
+
+				const callback = (window.IntersectionObserver as jest.Mock).mock.calls[0][0];
+
+				// Simulate zero dimension rectangle
+				callback([
+					{ target: element, isIntersecting: false, intersectionRect: zeroRect, time: 123 },
+				]);
+
+				expect(mockObserver.observe).toHaveBeenCalledWith(childElement);
+			});
+
+			it('should classify mutation:attribute as mutation:attribute:framework-routing when style changes from display:none to null', () => {
+				const element = document.createElement('div');
+				const childElement = document.createElement('div');
+				element.appendChild(childElement);
+
+				observer?.watchAndTag(element, () => ({
+					type: 'mutation:attribute',
+					mutationData: {
+						attributeName: 'style',
+						oldValue: 'display: none !important;',
+						newValue: null,
+					},
+				}));
+
+				const callback = (window.IntersectionObserver as jest.Mock).mock.calls[0][0];
+
+				callback([
+					{ target: element, isIntersecting: false, intersectionRect: zeroRect, time: 123 },
+				]);
+
+				expect(mockObserver.observe).toHaveBeenCalledWith(childElement);
+			});
+
+			it('should classify mutation:attribute as mutation:attribute:framework-routing when style changes from display:none to undefined', () => {
+				const element = document.createElement('div');
+				const childElement = document.createElement('div');
+				element.appendChild(childElement);
+
+				observer?.watchAndTag(element, () => ({
+					type: 'mutation:attribute',
+					mutationData: {
+						attributeName: 'style',
+						oldValue: 'display: none !important;',
+						newValue: undefined,
+					},
+				}));
+
+				const callback = (window.IntersectionObserver as jest.Mock).mock.calls[0][0];
+
+				callback([
+					{ target: element, isIntersecting: false, intersectionRect: zeroRect, time: 123 },
+				]);
+
+				expect(mockObserver.observe).toHaveBeenCalledWith(childElement);
+			});
+
+			it('should classify as mutation:display-contents-children-attribute for non-routing style mutations', () => {
+				const element = document.createElement('div');
+				const childElement = document.createElement('div');
+				element.appendChild(childElement);
+
+				observer?.watchAndTag(element, () => ({
+					type: 'mutation:attribute',
+					mutationData: {
+						attributeName: 'style',
+						oldValue: 'color: red;',
+						newValue: 'color: blue;',
+					},
+				}));
+
+				const callback = (window.IntersectionObserver as jest.Mock).mock.calls[0][0];
+
+				callback([
+					{ target: element, isIntersecting: false, intersectionRect: zeroRect, time: 123 },
+				]);
+
+				expect(mockObserver.observe).toHaveBeenCalledWith(childElement);
+			});
+
+			it('should classify as mutation:display-contents-children-attribute for non-style attribute mutations', () => {
+				const element = document.createElement('div');
+				const childElement = document.createElement('div');
+				element.appendChild(childElement);
+
+				observer?.watchAndTag(element, () => ({
+					type: 'mutation:attribute',
+					mutationData: {
+						attributeName: 'class',
+						oldValue: 'old-class',
+						newValue: 'new-class',
+					},
+				}));
+
+				const callback = (window.IntersectionObserver as jest.Mock).mock.calls[0][0];
+
+				callback([
+					{ target: element, isIntersecting: false, intersectionRect: zeroRect, time: 123 },
+				]);
+
+				expect(mockObserver.observe).toHaveBeenCalledWith(childElement);
+			});
+		});
+
+		describe('when platform_ufo_vc_ignore_display_none_mutations feature flag is disabled', () => {
+			beforeEach(() => {
+				mockFg.mockImplementation(() => false);
+			});
+
+			it('should classify as mutation:display-contents-children-attribute even for routing style mutations', () => {
+				const element = document.createElement('div');
+				const childElement = document.createElement('div');
+				element.appendChild(childElement);
+
+				observer?.watchAndTag(element, () => ({
+					type: 'mutation:attribute',
+					mutationData: {
+						attributeName: 'style',
+						oldValue: '',
+						newValue: 'display: none !important;',
+					},
+				}));
+
+				const callback = (window.IntersectionObserver as jest.Mock).mock.calls[0][0];
+
+				callback([
+					{ target: element, isIntersecting: false, intersectionRect: zeroRect, time: 123 },
+				]);
+
+				expect(mockObserver.observe).toHaveBeenCalledWith(childElement);
+			});
+		});
 	});
 });

@@ -1,5 +1,11 @@
 # @atlaskit/react-select
 
+## 3.13.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.13.2
 
 ### Patch Changes

@@ -43,6 +43,9 @@
 			"path": "../../link/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../lozenge/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../motion/afm-products/tsconfig.json"
 		},
 		{

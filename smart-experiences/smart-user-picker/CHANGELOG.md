@@ -1,5 +1,12 @@
 # @atlassian/smart-user-picker
 
+## 8.9.3
+
+### Patch Changes
+
+- [`fdfc2acd47acd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fdfc2acd47acd) -
+  Add @atlassian/a11y-jest-testing to devDependencies.
+
 ## 8.9.2
 
 ### Patch Changes

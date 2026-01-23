@@ -8,14 +8,10 @@ import { Inline, Stack, xcss } from '@atlaskit/primitives';
 
 import AddIcon from '../../core/add';
 import ChevronDownIcon from '../../core/chevron-down';
-import AddIconOld from '../../glyph/add';
-import ChevronDownOld from '../../glyph/hipchat/chevron-down';
-
 
 const FFAddIcon = (props: ComponentProps<typeof AddIcon>) => (
 	<AddIcon
 		spacing="none"
-		LEGACY_fallbackIcon={AddIconOld}
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		{...props}
 	/>
@@ -24,7 +20,6 @@ const FFAddIcon = (props: ComponentProps<typeof AddIcon>) => (
 const FFChevronDownIcon = (props: ComponentProps<typeof AddIcon>) => (
 	<ChevronDownIcon
 		spacing="none"
-		LEGACY_fallbackIcon={ChevronDownOld}
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		{...props}
 		size="small"

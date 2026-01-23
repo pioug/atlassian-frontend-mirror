@@ -53,7 +53,7 @@ export default class ResizableMediaSingle extends React.Component<Props, State> 
 			this.props.view.dom,
 			undefined,
 		),
-		isVideoFile: !fg('platform_editor_media_video_check_fix'),
+		isVideoFile: !fg('platform_editor_media_video_check_fix_new'),
 	};
 
 	componentDidUpdate(prevProps: Props) {

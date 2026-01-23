@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/mobile-header",
-	"version": "7.0.26",
+	"version": "7.0.27",
 	"description": "A React component rendering a mobile header",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import type { DocNode } from '@atlaskit/adf-schema';
-import { SyncBlockSharedCssClassName, SyncBlockRendererDataAttributeName } from '@atlaskit/editor-common/sync-block';
+import { isSSR } from '@atlaskit/editor-common/core-utils';
+import {
+	SyncBlockSharedCssClassName,
+	SyncBlockRendererDataAttributeName,
+} from '@atlaskit/editor-common/sync-block';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import { SyncBlockError, useFetchSyncBlockData } from '@atlaskit/editor-synced-block-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { type NodeProps } from '@atlaskit/renderer';
+import { type MediaSSR, type NodeProps } from '@atlaskit/renderer';
 
 import type { SyncedBlockRendererOptions } from '../types';
 
@@ -35,21 +39,51 @@ export const SyncedBlockNodeComponentRenderer = ({
 
 	syncBlockStoreManager.referenceManager.updateFireAnalyticsEvent(fireAnalyticsEvent);
 
-	const { syncBlockInstance, isLoading, reloadData, providerFactory } = useFetchSyncBlockData(
-		syncBlockStoreManager,
-		resourceId,
-		localId,
-		fireAnalyticsEvent,
-	);
+	const { syncBlockInstance, isLoading, reloadData, providerFactory, ssrProviders } =
+		useFetchSyncBlockData(syncBlockStoreManager, resourceId, localId, fireAnalyticsEvent);
+
+	const finalRendererOptions = useMemo(() => {
+		if (
+			!isSSR() ||
+			rendererOptions?.media?.ssr || // already has ssr config
+			!ssrProviders?.media?.viewMediaClientConfig ||
+			!fg('platform_synced_block_dogfooding')
+		) {
+			return rendererOptions;
+		}
+
+		const mediaSSR = {
+			mode: 'server' as const,
+			config: ssrProviders?.media.viewMediaClientConfig,
+		} as MediaSSR;
+
+		return {
+			...rendererOptions,
+			media: {
+				...(rendererOptions?.media || {}),
+				ssr: mediaSSR,
+			},
+		};
+	}, [rendererOptions, ssrProviders]);
 
 	if (isLoading && !syncBlockInstance) {
 		return <SyncedBlockLoadingState />;
 	}
 
-	if (!resourceId || syncBlockInstance?.error || !syncBlockInstance?.data || (syncBlockInstance.data.status === 'deleted' && fg('platform_synced_block_dogfooding'))) {
+	if (
+		!resourceId ||
+		syncBlockInstance?.error ||
+		!syncBlockInstance?.data ||
+		(syncBlockInstance.data.status === 'deleted' && fg('platform_synced_block_dogfooding'))
+	) {
 		return (
 			<SyncedBlockErrorComponent
-				error={syncBlockInstance?.error ?? (syncBlockInstance?.data?.status === 'deleted' && fg('platform_synced_block_dogfooding') ? SyncBlockError.NotFound : SyncBlockError.Errored)}
+				error={
+					syncBlockInstance?.error ??
+					(syncBlockInstance?.data?.status === 'deleted' && fg('platform_synced_block_dogfooding')
+						? SyncBlockError.NotFound
+						: SyncBlockError.Errored)
+				}
 				resourceId={syncBlockInstance?.resourceId}
 				onRetry={reloadData}
 				isLoading={isLoading}
@@ -74,7 +108,7 @@ export const SyncedBlockNodeComponentRenderer = ({
 			<AKRendererWrapper
 				doc={syncBlockDoc}
 				dataProviders={providerFactory}
-				options={rendererOptions}
+				options={finalRendererOptions}
 			/>
 		</div>
 	);

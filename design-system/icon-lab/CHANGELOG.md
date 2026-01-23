@@ -1,5 +1,11 @@
 # @atlaskit/icon-lab
 
+## 5.14.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.14.0
 
 ### Minor Changes

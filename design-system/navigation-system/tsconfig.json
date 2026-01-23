@@ -15,6 +15,6 @@
     "**/stories/*.tsx",
     "**/stories/**/*.ts",
     "**/stories/**/*.tsx"
-  ],
+, "../../navigation/side-nav-items/examples/side-nav-with-menu-sections.tsx"  ],
   "compilerOptions": {}
 }

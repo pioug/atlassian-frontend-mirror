@@ -1,5 +1,39 @@
 # @atlassian/navigation-system
 
+## 5.30.0
+
+### Minor Changes
+
+- [`357e243a8b514`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/357e243a8b514) -
+  Side nav item components have moved to a new package `@atlaskit/side-nav-items`.
+
+  The `@atlaskit/navigation-system` package will re-export them from the new package during the
+  migration period. They will eventually be removed from the `@atlaskit/navigation-system` package.
+
+  This includes all exports from the entrypoints beginning with
+  `@atlaskit/navigation-system/side-nav-items/`:
+  - ContainerAvatar
+  - ExpandableMenuItem, ExpandableMenuItemTrigger, ExpandableMenuItemContentg
+  - FlyoutMenuItem, FlyoutMenuItemTrigger, FlyoutMenuItemContent, FlyoutHeader, FlyoutBody,
+    FlyoutFooter
+  - ButtonMenuItem
+  - LinkMenuItem
+  - MenuList
+  - MenuListItem
+  - MenuSection, MenuSectionHeading, Divider
+  - TopLevelSpacer
+  - LazyDragHandle, DragPreview, DropIndicator, GroupDropIndicator, useMenuItemDragAndDrop
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.29.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.29.1
 
 ### Patch Changes

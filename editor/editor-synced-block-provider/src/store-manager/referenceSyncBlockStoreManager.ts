@@ -868,11 +868,11 @@ export class ReferenceSyncBlockStoreManager {
 		}
 
 		const syncBlock = this.getFromCache(resourceId);
-		if (!syncBlock) {
+		if (!syncBlock?.data) {
 			return;
 		}
 
-		if (!syncBlock.data?.sourceAri || !syncBlock.data?.product) {
+		if (!syncBlock.data.sourceAri || !syncBlock.data.product) {
 			this.fireAnalyticsEvent?.(fetchErrorPayload('Sync block source ari or product not found'));
 			return;
 		}

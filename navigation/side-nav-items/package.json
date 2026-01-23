@@ -1,0 +1,138 @@
+{
+	"name": "@atlaskit/side-nav-items",
+	"version": "1.0.0",
+	"description": "Menu items and elements for the navigation side nav area.",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Navigation Experiences",
+		"docsPageStructure": "tabs"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <5.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": [
+		"*.compiled.css"
+	],
+	"atlaskit:src": "src/index.ts",
+	"exports": {
+		"./container-avatar": "./src/entry-points/container-avatar.tsx",
+		"./expandable-menu-item": "./src/entry-points/expandable-menu-item.tsx",
+		"./flyout-menu-item": "./src/entry-points/flyout-menu-item.tsx",
+		"./button-menu-item": "./src/entry-points/button-menu-item.tsx",
+		"./link-menu-item": "./src/entry-points/link-menu-item.tsx",
+		"./menu-list": "./src/entry-points/menu-list.tsx",
+		"./menu-list-item": "./src/entry-points/menu-list-item.tsx",
+		"./menu-section": "./src/entry-points/menu-section.tsx",
+		"./top-level-spacer": "./src/entry-points/top-level-spacer.tsx",
+		"./drag-and-drop/hitbox": "./src/entry-points/drag-and-drop/hitbox.tsx",
+		"./drag-and-drop/drag-handle": "./src/entry-points/drag-and-drop/drag-handle.tsx",
+		"./drag-and-drop/drag-preview": "./src/entry-points/drag-and-drop/drag-preview.tsx",
+		"./drag-and-drop/drop-indicator": "./src/entry-points/drag-and-drop/drop-indicator.tsx",
+		"./drag-and-drop/group-drop-indicator": "./src/entry-points/drag-and-drop/group-drop-indicator.tsx",
+		"./drag-and-drop/use-menu-item-drag-and-drop": "./src/entry-points/drag-and-drop/use-menu-item-drag-and-drop.tsx"
+	},
+	"dependencies": {
+		"@atlaskit/analytics-next": "workspace:^",
+		"@atlaskit/avatar": "workspace:^",
+		"@atlaskit/button": "workspace:^",
+		"@atlaskit/css": "workspace:^",
+		"@atlaskit/ds-lib": "workspace:^",
+		"@atlaskit/heading": "workspace:^",
+		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/popup": "workspace:^",
+		"@atlaskit/pragmatic-drag-and-drop": "workspace:^",
+		"@atlaskit/pragmatic-drag-and-drop-hitbox": "workspace:^",
+		"@atlaskit/pragmatic-drag-and-drop-react-drop-indicator": "workspace:^",
+		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
+		"@atlaskit/tooltip": "workspace:^",
+		"@babel/runtime": "root:*",
+		"@compiled/react": "root:*",
+		"tiny-invariant": "root:*"
+	},
+	"peerDependencies": {
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
+	},
+	"devDependencies": {
+		"@af/accessibility-testing": "workspace:^",
+		"@af/integration-testing": "workspace:^",
+		"@af/visual-regression": "workspace:^",
+		"@atlaskit/app-provider": "workspace:^",
+		"@atlaskit/lozenge": "workspace:^",
+		"@atlaskit/navigation-system": "workspace:^",
+		"@atlaskit/ssr": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
+		"@testing-library/react": "root:*",
+		"bind-event-listener": "root:*",
+		"react-dom": "root:*"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": [
+				"no-deprecated-imports"
+			],
+			"styling": [
+				"static",
+				"compiled"
+			],
+			"imports": [
+				"import-no-extraneous-disable-for-examples-and-docs"
+			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform-dst-buttonmenuitem-selected-state-support": {
+			"type": "boolean"
+		},
+		"platform-dst-shape-theme-default": {
+			"type": "boolean"
+		},
+		"platform_dst_nav4_flyout_menu_slots_close_button": {
+			"type": "boolean"
+		},
+		"platform-dst-menu-item-description-selected": {
+			"type": "boolean"
+		},
+		"platform_dst_nav4_flyoutmenuitem_render_to_parent": {
+			"type": "boolean"
+		}
+	}
+}

@@ -23,18 +23,17 @@ import {
 	SideNavToggleButton,
 } from '@atlaskit/navigation-system/layout/side-nav';
 import { TopNav, TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
-import { ButtonMenuItem } from '@atlaskit/navigation-system/side-nav-items/button-menu-item';
-import { MenuList } from '@atlaskit/navigation-system/side-nav-items/menu-list';
 import { AppLogo, AppSwitcher } from '@atlaskit/navigation-system/top-nav-items';
 import {
 	draggable,
 	dropTargetForElements,
 } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Stack } from '@atlaskit/primitives';
+import { Stack } from '@atlaskit/primitives/compiled';
+import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
+import { MenuList } from '@atlaskit/side-nav-items/menu-list';
 import { token } from '@atlaskit/tokens';
 
-import { WithResponsiveViewport } from './utils/example-utils';
+import { WithResponsiveViewport } from './utils/example-utils'
 
 const headingStyles = cssMap({
 	root: {

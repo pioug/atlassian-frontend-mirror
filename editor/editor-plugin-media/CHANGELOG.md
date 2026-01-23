@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-media
 
+## 9.4.5
+
+### Patch Changes
+
+- [`23b8923f86fb9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/23b8923f86fb9) -
+  swap feature gate platform_editor_media_video_check_fix with
+  platform_editor_media_video_check_fix_new
+
+## 9.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.4.3
 
 ### Patch Changes

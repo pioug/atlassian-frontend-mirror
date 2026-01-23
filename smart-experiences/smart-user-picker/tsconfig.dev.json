@@ -72,6 +72,9 @@
 			"path": "../../elements/util-data-test/tsconfig.app.json"
 		},
 		{
+			"path": "../../accessibility/axe-integration/a11y-jest-testing/tsconfig.app.json"
+		},
+		{
 			"path": "../../growth/integrations/tsconfig.app.json"
 		}
 	]

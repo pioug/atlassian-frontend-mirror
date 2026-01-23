@@ -1,1 +1,1 @@
-export { GroupDropIndicator } from '../../../ui/menu-item/drag-and-drop/group-drop-indicator';
+export { GroupDropIndicator } from '@atlaskit/side-nav-items/drag-and-drop/group-drop-indicator';

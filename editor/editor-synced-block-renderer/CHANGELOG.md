@@ -1,5 +1,18 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 5.5.0
+
+### Minor Changes
+
+- [`10cc4958a1511`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/10cc4958a1511) -
+  EDITOR-2849 add media ssr options to renderer
+
+## 5.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.4.0
 
 ### Minor Changes

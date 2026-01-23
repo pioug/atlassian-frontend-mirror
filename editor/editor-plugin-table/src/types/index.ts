@@ -109,7 +109,6 @@ export interface PluginConfig {
 	advanced?: boolean;
 	allowAddColumnWithCustomStep?: boolean;
 	allowBackgroundColor?: boolean;
-	allowCellOptionsInFloatingToolbar?: boolean;
 	allowCollapse?: boolean;
 	allowColumnResizing?: boolean;
 	allowColumnSorting?: boolean;
@@ -222,140 +221,140 @@ export type TablePluginAction =
 	| { type: 'TOGGLE_HEADER_COLUMN' }
 	| { data: { ordering: TableColumnOrdering }; type: 'SORT_TABLE' }
 	| {
-			data: {
-				isHeaderColumnEnabled: boolean;
-				isHeaderRowEnabled: boolean;
-				tableNode?: PmNode;
-				tableRef?: HTMLTableElement;
-				tableWrapperTarget?: HTMLElement;
-			};
-			type: 'SET_TABLE_REF';
-	  }
+		data: {
+			isHeaderColumnEnabled: boolean;
+			isHeaderRowEnabled: boolean;
+			tableNode?: PmNode;
+			tableRef?: HTMLTableElement;
+			tableWrapperTarget?: HTMLElement;
+		};
+		type: 'SET_TABLE_REF';
+	}
 	| {
-			data: {
-				decorationSet: DecorationSet;
-				hoveredRows: number[];
-				isInDanger?: boolean;
-			};
-			type: 'HOVER_ROWS';
-	  }
+		data: {
+			decorationSet: DecorationSet;
+			hoveredRows: number[];
+			isInDanger?: boolean;
+		};
+		type: 'HOVER_ROWS';
+	}
 	| {
-			data: {
-				decorationSet: DecorationSet;
-			};
-			type: 'HOVER_MERGED_CELLS';
-	  }
+		data: {
+			decorationSet: DecorationSet;
+		};
+		type: 'HOVER_MERGED_CELLS';
+	}
 	| {
-			data: {
-				decorationSet: DecorationSet;
-				hoveredColumns: number[];
-				isInDanger?: boolean;
-			};
-			type: 'HOVER_COLUMNS';
-	  }
+		data: {
+			decorationSet: DecorationSet;
+			hoveredColumns: number[];
+			isInDanger?: boolean;
+		};
+		type: 'HOVER_COLUMNS';
+	}
 	| {
-			data: {
-				decorationSet: DecorationSet;
-				hoveredColumns: number[];
-				hoveredRows: number[];
-				isInDanger?: boolean;
-			};
-			type: 'HOVER_TABLE';
-	  }
+		data: {
+			decorationSet: DecorationSet;
+			hoveredColumns: number[];
+			hoveredRows: number[];
+			isInDanger?: boolean;
+		};
+		type: 'HOVER_TABLE';
+	}
 	| {
-			data: {
-				decorationSet: DecorationSet;
-				isKeyboardResize?: boolean;
-				resizeHandleColumnIndex: number;
-				resizeHandleIncludeTooltip: boolean;
-				resizeHandleRowIndex: number;
-			};
-			type: 'START_KEYBOARD_COLUMN_RESIZE';
-	  }
+		data: {
+			decorationSet: DecorationSet;
+			isKeyboardResize?: boolean;
+			resizeHandleColumnIndex: number;
+			resizeHandleIncludeTooltip: boolean;
+			resizeHandleRowIndex: number;
+		};
+		type: 'START_KEYBOARD_COLUMN_RESIZE';
+	}
 	| {
-			data: {
-				decorationSet: DecorationSet;
-				isKeyboardResize?: boolean;
-				resizeHandleColumnIndex: number;
-				resizeHandleIncludeTooltip: boolean;
-				resizeHandleRowIndex: number;
-			};
-			type: 'ADD_RESIZE_HANDLE_DECORATIONS';
-	  }
+		data: {
+			decorationSet: DecorationSet;
+			isKeyboardResize?: boolean;
+			resizeHandleColumnIndex: number;
+			resizeHandleIncludeTooltip: boolean;
+			resizeHandleRowIndex: number;
+		};
+		type: 'ADD_RESIZE_HANDLE_DECORATIONS';
+	}
 	| {
-			data: {
-				decorationSet: DecorationSet;
-				resizeHandleColumnIndex: number | undefined;
-				resizeHandleIncludeTooltip: boolean | undefined;
-				resizeHandleRowIndex: number | undefined;
-			};
-			type: 'UPDATE_RESIZE_HANDLE_DECORATIONS';
-	  }
+		data: {
+			decorationSet: DecorationSet;
+			resizeHandleColumnIndex: number | undefined;
+			resizeHandleIncludeTooltip: boolean | undefined;
+			resizeHandleRowIndex: number | undefined;
+		};
+		type: 'UPDATE_RESIZE_HANDLE_DECORATIONS';
+	}
 	| {
-			data: {
-				widthToWidest: WidthToWidest | undefined;
-			};
-			type: 'UPDATE_TABLE_WIDTH_TO_WIDEST';
-	  }
+		data: {
+			widthToWidest: WidthToWidest | undefined;
+		};
+		type: 'UPDATE_TABLE_WIDTH_TO_WIDEST';
+	}
 	| {
-			data: { decorationSet: DecorationSet };
-			type: 'REMOVE_RESIZE_HANDLE_DECORATIONS';
-	  }
+		data: { decorationSet: DecorationSet };
+		type: 'REMOVE_RESIZE_HANDLE_DECORATIONS';
+	}
 	| {
-			data: { decorationSet: DecorationSet };
-			type: 'STOP_KEYBOARD_COLUMN_RESIZE';
-	  }
+		data: { decorationSet: DecorationSet };
+		type: 'STOP_KEYBOARD_COLUMN_RESIZE';
+	}
 	| { data: { decorationSet: DecorationSet }; type: 'CLEAR_HOVER_SELECTION' }
 	| { data: { decorationSet: DecorationSet }; type: 'SHOW_RESIZE_HANDLE_LINE' }
 	| { data: { decorationSet: DecorationSet }; type: 'HIDE_RESIZE_HANDLE_LINE' }
 	| {
-			data: {
-				hoveredCell: CellHoverMeta;
-			};
-			type: 'HOVER_CELL';
-	  }
+		data: {
+			hoveredCell: CellHoverMeta;
+		};
+		type: 'HOVER_CELL';
+	}
 	| {
-			data: {
-				isTableHovered: boolean;
-			};
-			type: 'TABLE_HOVERED';
-	  }
+		data: {
+			isTableHovered: boolean;
+		};
+		type: 'TABLE_HOVERED';
+	}
 	| { data: { targetCellPosition?: number }; type: 'SET_TARGET_CELL_POSITION' }
 	| {
-			data: { decorationSet: DecorationSet; targetCellPosition: number };
-			type: 'SELECT_COLUMN';
-	  }
+		data: { decorationSet: DecorationSet; targetCellPosition: number };
+		type: 'SELECT_COLUMN';
+	}
 	| { data: { insertRowButtonIndex: number }; type: 'SHOW_INSERT_ROW_BUTTON' }
 	| {
-			data: { insertColumnButtonIndex: number };
-			type: 'SHOW_INSERT_COLUMN_BUTTON';
-	  }
+		data: { insertColumnButtonIndex: number };
+		type: 'SHOW_INSERT_COLUMN_BUTTON';
+	}
 	| {
-			type: 'HIDE_INSERT_COLUMN_OR_ROW_BUTTON';
-	  }
+		type: 'HIDE_INSERT_COLUMN_OR_ROW_BUTTON';
+	}
 	| { type: 'TOGGLE_CONTEXTUAL_MENU' }
 	| {
-			data: {
-				isCellMenuOpenByKeyboard: boolean;
-			};
-			type: 'SET_CELL_MENU_OPEN';
-	  }
+		data: {
+			isCellMenuOpenByKeyboard: boolean;
+		};
+		type: 'SET_CELL_MENU_OPEN';
+	}
 	| { data: { editorViewportHeight: number }; type: 'UPDATE_EDITOR_VIEWPORT_HEIGHT' };
 
 export type ColumnResizingPluginAction =
 	| {
-			data: { resizeHandlePos: number | null };
-			type: 'SET_RESIZE_HANDLE_POSITION';
-	  }
+		data: { resizeHandlePos: number | null };
+		type: 'SET_RESIZE_HANDLE_POSITION';
+	}
 	| { type: 'STOP_RESIZING' }
 	| {
-			data: { dragging: { startWidth: number; startX: number } | null };
-			type: 'SET_DRAGGING';
-	  }
+		data: { dragging: { startWidth: number; startX: number } | null };
+		type: 'SET_DRAGGING';
+	}
 	| {
-			data: { lastClick: { time: number; x: number; y: number } | null };
-			type: 'SET_LAST_CLICK';
-	  };
+		data: { lastClick: { time: number; x: number; y: number } | null };
+		type: 'SET_LAST_CLICK';
+	};
 
 export enum TableDecorations {
 	/** Classic controls */

@@ -1,5 +1,17 @@
 # @atlaskit/icon
 
+## 30.0.0
+
+### Major Changes
+
+- [`3079b06c049d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3079b06c049d4) -
+  [ux] Removed LEGACY icon props and `@atlaskit/icon/core/migration` entry point. Users should use
+  icons directly from `@atlaskit/icon/core`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 29.4.2
 
 ### Patch Changes

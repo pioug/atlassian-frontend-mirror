@@ -4,6 +4,7 @@ import { statusMessages as messages } from '@atlaskit/editor-common/messages';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { NodeView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { statusToDOM } from './statusNodeSpec';
 
@@ -60,10 +61,26 @@ export class StatusNodeView implements NodeView {
 
 		if (this.textContainer && node.attrs.text !== this.node.attrs.text) {
 			this.textContainer.textContent = node.attrs.text;
+			// Also update data-text on outer wrapper for parseDOM extraction when copying
+			if (expValEquals(
+				'platform_editor_copy_paste_issue_fix',
+				'isEnabled',
+				true,
+			)) {
+				this.domElement?.setAttribute('data-text', node.attrs.text);
+			}
 		}
 
 		if (node.attrs.color !== this.node.attrs.color) {
 			this.box?.setAttribute('data-color', node.attrs.color);
+			// Also update data-color on outer wrapper for parseDOM extraction when copying
+			if (expValEquals(
+				'platform_editor_copy_paste_issue_fix',
+				'isEnabled',
+				true,
+			)) {
+				this.domElement?.setAttribute('data-color', node.attrs.color);
+			}
 		}
 
 		if (!node.attrs.text) {

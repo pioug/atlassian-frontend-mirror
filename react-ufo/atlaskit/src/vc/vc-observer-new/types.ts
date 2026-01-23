@@ -12,6 +12,7 @@ export type VCObserverEntryType =
 	| 'mutation:attribute:no-layout-shift'
 	| 'mutation:attribute:non-visual-style'
 	| 'mutation:attribute:non-visual-input-name'
+	| 'mutation:attribute:framework-routing'
 	| 'mutation:attribute'
 	| 'mutation:media'
 	| 'mutation:rll-placeholder'

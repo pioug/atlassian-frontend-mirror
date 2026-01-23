@@ -606,6 +606,89 @@ describe('VCCalculator_FY26_04', () => {
 		});
 	});
 
+	describe('mutation:attribute:framework-routing entries with platform_ufo_vc_ignore_display_none_mutations feature flag', () => {
+		describe('when fg platform_ufo_vc_ignore_display_none_mutations is true', () => {
+			beforeEach(() => {
+				mockFg.mockImplementation(
+					(flag) => flag === 'platform_ufo_vc_ignore_display_none_mutations',
+				);
+			});
+
+			it('should exclude mutation:attribute:framework-routing entries', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:attribute:framework-routing',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+					},
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
+			});
+
+			it('should still include other valid entry types', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:element',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+					},
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
+			});
+
+			it('should still include mutation:attribute entries', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:attribute',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+						attributeName: 'class',
+					} as ViewportEntryData,
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
+			});
+
+			it('should still include mutation:display-contents-children-element entries', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:display-contents-children-element',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+					} as ViewportEntryData,
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
+			});
+		});
+
+		describe('when fg platform_ufo_vc_ignore_display_none_mutations is false', () => {
+			beforeEach(() => {
+				mockFg.mockImplementation(() => false);
+			});
+
+			it('should not exclude mutation:attribute:framework-routing entries (they are not in considered types)', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:attribute:framework-routing',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+					},
+				};
+				// When flag is off, the entry is excluded because it's not in the considered entry types list
+				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
+			});
+		});
+	});
+
 	describe('backward compatibility', () => {
 		it('should still process entries that parent class includes', () => {
 			mockFg.mockImplementation(() => false);

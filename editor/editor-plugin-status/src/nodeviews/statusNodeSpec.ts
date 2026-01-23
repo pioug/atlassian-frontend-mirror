@@ -16,21 +16,33 @@ export const statusToDOM = (node: PMNode): DOMOutputSpec => {
 		: browserLegacy;
 	const { text, color, style, localId } = node.attrs;
 
-	const editorNodeWrapperAttrs = {
+	const editorNodeWrapperAttrs: Record<string, string> = {
 		class: 'statusView-content-wrap inlineNodeView',
 		'data-testid': 'statusContainerView',
 		'data-prosemirror-node-name': 'status',
 		localid: localId,
+		// Required for parseDOM to correctly parse status when NodeView DOM is copied directly
+		...(expValEquals(
+			'platform_editor_copy_paste_issue_fix',
+			'isEnabled',
+			true,
+		)
+			? {
+				'data-node-type': 'status',
+				'data-color': color,
+				'data-text': text, // Text stored as attribute for parseDOM extraction
+			}
+			: {}),
 	};
 
 	const statusElementAttrs = {
 		style: convertToInlineCss(
 			isAndroidChromium
 				? {
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-						display: 'inline-block !important',
-						verticalAlign: 'middle',
-					}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+					display: 'inline-block !important',
+					verticalAlign: 'middle',
+				}
 				: {},
 		),
 		class: 'status-lozenge-span',
@@ -48,9 +60,9 @@ export const statusToDOM = (node: PMNode): DOMOutputSpec => {
 		style: convertToInlineCss({
 			...(fg('platform-lozenge-custom-letterspacing')
 				? {
-						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-						letterSpacing: '0.165px',
-					}
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					letterSpacing: '0.165px',
+				}
 				: {}),
 		}),
 	};
@@ -66,10 +78,10 @@ export const statusToDOM = (node: PMNode): DOMOutputSpec => {
 		['span', statusElementAttrs, ['span', lozengeWrapperAttrs, ['span', lozengeTextAttrs, text]]],
 		browser.android
 			? [
-					'span',
-					{ class: 'zeroWidthSpaceContainer', contentEditable: 'false' },
-					['span', { class: 'inlineNodeViewAddZeroWidthSpace' }, ZERO_WIDTH_SPACE],
-				]
+				'span',
+				{ class: 'zeroWidthSpaceContainer', contentEditable: 'false' },
+				['span', { class: 'inlineNodeViewAddZeroWidthSpace' }, ZERO_WIDTH_SPACE],
+			]
 			: ['span', { class: 'inlineNodeViewAddZeroWidthSpace' }, ''],
 	];
 };

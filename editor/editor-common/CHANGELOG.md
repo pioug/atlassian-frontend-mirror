@@ -1,5 +1,15 @@
 # @atlaskit/editor-common
 
+## 111.8.12
+
+### Patch Changes
+
+- [`87abc5dda86fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87abc5dda86fe) -
+  [ux] Show last edited time in sync block tooltip
+- [`9041ec452a104`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9041ec452a104) -
+  [EDITOR-4515] clean up fg platform_editor_toolbar_aifc_patch_7
+- Updated dependencies
+
 ## 111.8.11
 
 ### Patch Changes

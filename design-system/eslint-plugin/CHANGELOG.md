@@ -1,5 +1,19 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.36.0
+
+### Minor Changes
+
+- [`3147ae92ea7bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3147ae92ea7bd) -
+  Updates lozenge-badge-tag-labelling-system-migration eslint rule to include the migration_fallback
+  prop so that teams can adopt the Tag API without triggering an immediate visual change.
+
+## 13.35.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.35.0
 
 ### Minor Changes

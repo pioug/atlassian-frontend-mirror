@@ -547,6 +547,76 @@ describe('VCCalculator_FY25_03', () => {
 		});
 	});
 
+	describe('mutation:attribute:framework-routing entries with platform_ufo_vc_ignore_display_none_mutations feature flag', () => {
+		describe('when fg platform_ufo_vc_ignore_display_none_mutations is true', () => {
+			beforeEach(() => {
+				mockFg.mockImplementation(
+					(flag) => flag === 'platform_ufo_vc_ignore_display_none_mutations',
+				);
+			});
+
+			it('should exclude mutation:attribute:framework-routing entries', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:attribute:framework-routing',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+					},
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
+			});
+
+			it('should still include other valid entry types', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:element',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+					},
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
+			});
+
+			it('should still include mutation:attribute entries', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:attribute',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+						attributeName: 'class',
+					} as ViewportEntryData,
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
+			});
+		});
+
+		describe('when fg platform_ufo_vc_ignore_display_none_mutations is false', () => {
+			beforeEach(() => {
+				mockFg.mockImplementation(() => false);
+			});
+
+			it('should not exclude mutation:attribute:framework-routing entries (they are not in considered types)', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:attribute:framework-routing',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+					},
+				};
+				// When flag is off, the entry is excluded because it's not in the considered entry types list
+				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
+			});
+		});
+	});
+
 	describe('mutation:media entries with media-perf-uplift-mutation-fix feature flag', () => {
 		describe('when fg media-perf-uplift-mutation-fix is true', () => {
 			beforeEach(() => {

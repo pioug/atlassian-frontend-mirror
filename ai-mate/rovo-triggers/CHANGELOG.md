@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 5.6.1
+
+### Patch Changes
+
+- [`4a11592a1a45a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4a11592a1a45a) -
+  Add @atlassian/a11y-jest-testing to devDependencies.
+
 ## 5.6.0
 
 ### Minor Changes

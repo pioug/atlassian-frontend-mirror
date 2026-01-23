@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-status
 
+## 8.1.2
+
+### Patch Changes
+
+- [`8eca3ae04714e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8eca3ae04714e) -
+  Fixed mixed HTML/Editor content copy/paste issue on Status node.
+- Updated dependencies
+
 ## 8.1.1
 
 ### Patch Changes

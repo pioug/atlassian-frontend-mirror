@@ -36,6 +36,7 @@ export enum SyncBlockError {
 export interface SyncBlockData {
 	blockInstanceId: BlockInstanceId;
 	content: Array<ADFEntity>;
+	contentUpdatedAt?: string;
 	createdAt?: string;
 	createdBy?: string;
 	isSynced?: boolean;
@@ -52,13 +53,13 @@ export interface SyncBlockData {
 	sourceSubType?: string | null;
 	sourceTitle?: string;
 	sourceURL?: string;
-	updatedAt?: string;
 	status?: SyncBlockStatus;
 }
 
 export interface ReferenceSyncBlockResponse {
 	blockAri: string;
 	blockInstanceId?: BlockInstanceId;
+	contentUpdatedAt?: string;
 	createdAt?: string;
 	createdBy?: string;
 	documentAri: string;

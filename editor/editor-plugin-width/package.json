@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-width",
-	"version": "8.0.0",
+	"version": "8.1.0",
 	"description": "Width plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -23,9 +23,6 @@
 	},
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "workspace:^",
-		"@atlaskit/editor-shared-styles": "workspace:^",
-		"@atlaskit/platform-feature-flags-react": "workspace:^",
-		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*",
 		"bind-event-listener": "root:*"
 	},

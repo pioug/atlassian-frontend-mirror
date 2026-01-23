@@ -4,4 +4,4 @@ export {
 	type Availability,
 	type Operation,
 	type Instruction,
-} from '../../../ui/menu-item/drag-and-drop/hitbox';
+} from '@atlaskit/side-nav-items/drag-and-drop/hitbox';

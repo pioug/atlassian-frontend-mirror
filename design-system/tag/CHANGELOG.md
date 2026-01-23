@@ -1,5 +1,19 @@
 # @atlaskit/tag
 
+## 14.3.0
+
+### Minor Changes
+
+- [`3147ae92ea7bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3147ae92ea7bd) -
+  Adding an migration_fallback internal prop so that teams can adopt the Tag API without triggering
+  an immediate visual change.
+
+## 14.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.2.5
 
 ### Patch Changes

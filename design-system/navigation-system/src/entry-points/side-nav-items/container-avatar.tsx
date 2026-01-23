@@ -1,1 +1,4 @@
-export { ContainerAvatar, type ContainerAvatarProps } from '../../ui/menu-item/container-avatar';
+export {
+	ContainerAvatar,
+	type ContainerAvatarProps,
+} from '@atlaskit/side-nav-items/container-avatar';

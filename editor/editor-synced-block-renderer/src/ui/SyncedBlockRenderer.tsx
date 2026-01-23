@@ -20,17 +20,17 @@ import { SyncedBlockLoadingState } from './SyncedBlockLoadingState';
 
 export type SyncedBlockRendererProps = {
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
-	syncBlockRendererOptions: SyncedBlockRendererOptions | undefined;
-	useFetchSyncBlockData: () => UseFetchSyncBlockDataResult;
+	syncBlockFetchResult: UseFetchSyncBlockDataResult;
+	syncBlockRendererOptions?: SyncedBlockRendererOptions;
 };
 
 const SyncedBlockRendererComponent = ({
-	useFetchSyncBlockData,
 	syncBlockRendererOptions,
+	syncBlockFetchResult,
 	api,
 }: SyncedBlockRendererProps): React.JSX.Element => {
-	const { syncBlockInstance, providerFactory, isLoading, reloadData, ssrProviders } =
-		useFetchSyncBlockData();
+	const { isLoading, providerFactory, reloadData, ssrProviders, syncBlockInstance } =
+		syncBlockFetchResult;
 
 	const rendererOptions = useMemo(() => {
 		if (

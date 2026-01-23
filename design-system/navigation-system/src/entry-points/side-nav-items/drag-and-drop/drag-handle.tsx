@@ -1,1 +1,1 @@
-export { LazyDragHandle } from '../../../ui/menu-item/drag-handle/lazy-drag-handle';
+export { LazyDragHandle } from '@atlaskit/side-nav-items/drag-and-drop/drag-handle';

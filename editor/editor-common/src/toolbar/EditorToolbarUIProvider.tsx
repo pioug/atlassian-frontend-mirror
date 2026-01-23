@@ -3,7 +3,6 @@ import React, { useCallback } from 'react';
 import type { OnOpenChangeArgs } from '@atlaskit/dropdown-menu';
 import type { ToolbarUIContextType } from '@atlaskit/editor-toolbar';
 import { ToolbarUIProvider } from '@atlaskit/editor-toolbar';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ExtractInjectionAPI, NextEditorPlugin } from '../types';
 
@@ -33,13 +32,12 @@ export const EditorToolbarUIProvider = ({
 	const onDropdownOpenChanged = useCallback(
 		({ isOpen, event }: OnOpenChangeArgs) => {
 			if (!isOpen) {
-				if (fg('platform_editor_toolbar_aifc_patch_7')) {
-					// Only refocus the editor when the dropdown closes via mouse or programmatic close.
-					// When closed via keyboard Escape, keep focus on the trigger for better keyboard UX.
-					const isKeyboardEscape = event instanceof KeyboardEvent && event.key === 'Escape';
-					const shouldFocusEditor = !isKeyboardEscape;
+				// Only refocus the editor when the dropdown closes via mouse or programmatic close.
+				// When closed via keyboard Escape, keep focus on the trigger for better keyboard UX.
+				const isKeyboardEscape = event instanceof KeyboardEvent && event.key === 'Escape';
+				const shouldFocusEditor = !isKeyboardEscape;
 
-					if (shouldFocusEditor) {
+				if (shouldFocusEditor) {
 						// On Dropdown closed, focus is returned to trigger button by default in requestAnimationFrame
 						// Hence, `.focus()` should also be called in requestAnimationFrame
 						setTimeout(
@@ -50,18 +48,7 @@ export const EditorToolbarUIProvider = ({
 							1,
 						);
 					}
-				} else {
-					// On Dropdown closed, focus is returned to trigger button by default in requestAnimationFrame
-					// Hence, `.focus()` should also be called in requestAnimationFrame
-					setTimeout(
-						() =>
-							requestAnimationFrame(() => {
-								api?.core.actions.focus({ scrollIntoView: false });
-							}),
-						1,
-					);
-				}
-			}
+			};
 		},
 		[api],
 	);

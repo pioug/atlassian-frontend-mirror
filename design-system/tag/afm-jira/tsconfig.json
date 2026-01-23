@@ -43,6 +43,9 @@
 			"path": "../../link/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../lozenge/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../motion/afm-jira/tsconfig.json"
 		},
 		{

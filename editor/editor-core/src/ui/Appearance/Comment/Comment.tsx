@@ -243,41 +243,26 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 						isNewToolbarEnabled={isToolbarAIFCEnabled}
 					>
 						{isToolbarAIFCEnabled ? (
-							fg('platform_editor_toolbar_aifc_patch_7') ? (
-								<ToolbarArrowKeyNavigationProvider
+							<ToolbarArrowKeyNavigationProvider
+								editorView={editorView}
+								childComponentSelector={"[data-testid='ak-editor-main-toolbar']"}
+								isShortcutToFocusToolbar={isShortcutToFocusToolbar}
+								handleEscape={handleEscape}
+								editorAppearance={appearance}
+								useStickyToolbar={useStickyToolbar}
+								intl={intl}
+							>
+								<CommentToolbar
+									editorAPI={editorAPI}
 									editorView={editorView}
-									childComponentSelector={"[data-testid='ak-editor-main-toolbar']"}
-									isShortcutToFocusToolbar={isShortcutToFocusToolbar}
-									handleEscape={handleEscape}
 									editorAppearance={appearance}
-									useStickyToolbar={useStickyToolbar}
-									intl={intl}
-								>
-									<CommentToolbar
-										editorAPI={editorAPI}
-										editorView={editorView}
-										editorAppearance={appearance}
-										disabled={patch6Enabled ? !!disabled : undefined}
-										popupsBoundariesElement={popupsBoundariesElement}
-										popupsScrollableElement={popupsScrollableElement}
-										popupsMountPoint={popupsMountPoint}
-									/>
-									{customPrimaryToolbarComponents ? customToolbarSlot : null}
-								</ToolbarArrowKeyNavigationProvider>
-							) : (
-								<React.Fragment>
-									<CommentToolbar
-										editorAPI={editorAPI}
-										editorView={editorView}
-										editorAppearance={appearance}
-										disabled={patch6Enabled ? !!disabled : undefined}
-										popupsBoundariesElement={popupsBoundariesElement}
-										popupsScrollableElement={popupsScrollableElement}
-										popupsMountPoint={popupsMountPoint}
-									/>
-									{customPrimaryToolbarComponents ? customToolbarSlot : null}
-								</React.Fragment>
-							)
+									disabled={patch6Enabled ? !!disabled : undefined}
+									popupsBoundariesElement={popupsBoundariesElement}
+									popupsScrollableElement={popupsScrollableElement}
+									popupsMountPoint={popupsMountPoint}
+								/>
+								{customPrimaryToolbarComponents ? customToolbarSlot : null}
+							</ToolbarArrowKeyNavigationProvider>
 						) : (
 							<ToolbarArrowKeyNavigationProvider
 								editorView={editorView}

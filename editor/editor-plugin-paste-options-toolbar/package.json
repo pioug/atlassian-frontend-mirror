@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-paste-options-toolbar",
-	"version": "8.0.1",
+	"version": "8.0.2",
 	"description": "Paste options toolbar for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

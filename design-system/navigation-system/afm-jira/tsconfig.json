@@ -40,9 +40,6 @@
 			"path": "../../ds-lib/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../heading/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../icon/afm-jira/tsconfig.json"
 		},
 		{
@@ -61,13 +58,10 @@
 			"path": "../../../pragmatic-drag-and-drop/core/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../../pragmatic-drag-and-drop/hitbox/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../../pragmatic-drag-and-drop/react-drop-indicator/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../primitives/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../navigation/side-nav-items/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../tokens/afm-jira/tsconfig.json"

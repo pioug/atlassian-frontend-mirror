@@ -111,7 +111,6 @@ export const blockAriToResourceId = (blockAri: string): ResourceId | null => {
 // convert BlockContentResponse to SyncBlockData
 // throws exception if JSON parsing fails
 // what's missing from BlockContentResponse to SyncBlockData:
-// - updatedAt
 // - sourceURL
 // - sourceTitle
 // - isSynced
@@ -132,9 +131,19 @@ export const convertToSyncBlockData = (
 		}
 	}
 
+	let contentUpdatedAt: string | undefined;
+	if (typeof data.contentUpdatedAt === 'number' && fg('platform_synced_block_dogfooding')) {
+		try {
+			contentUpdatedAt = new Date(data.contentUpdatedAt).toISOString();
+		} catch (e) {
+			contentUpdatedAt = undefined;
+		}
+	}
+
 	return {
 		blockInstanceId: data.blockInstanceId,
 		content: JSON.parse(data.content),
+		contentUpdatedAt,
 		createdAt,
 		createdBy: data.createdBy,
 		product: data.product,
@@ -201,7 +210,7 @@ export const fetchReferences = async (
 
 interface BlockServiceADFFetchProviderProps {
 	cloudId: string; // the cloudId of the block. E.G the cloudId of the confluence page, or the cloudId of the Jira instance
-	parentAri?: string; // the ARI of the parent of the block. E.G the ARI of the confluence page, or the ARI of the Jira work item
+	parentAri: string | undefined; // the ARI of the parent of the block. E.G the ARI of the confluence page, or the ARI of the Jira work item
 }
 
 /**
@@ -209,7 +218,7 @@ interface BlockServiceADFFetchProviderProps {
  */
 class BlockServiceADFFetchProvider implements ADFFetchProvider {
 	private cloudId: string;
-	private parentAri?: string;
+	private parentAri: string | undefined;
 
 	constructor({ cloudId, parentAri }: BlockServiceADFFetchProviderProps) {
 		this.cloudId = cloudId;
@@ -235,11 +244,20 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 			// Parse the synced block content from the response's content
 			const syncedBlockData = JSON.parse(value) as Array<ADFEntity>;
 
+			let contentUpdatedAt: string | undefined;
+			if (typeof blockContentResponse.contentUpdatedAt === 'number' && fg('platform_synced_block_dogfooding')) {
+				try {
+					contentUpdatedAt = new Date(blockContentResponse.contentUpdatedAt).toISOString();
+				} catch (e) {
+					contentUpdatedAt = undefined;
+				}
+			}
 			return {
 				data: {
 					content: syncedBlockData,
 					resourceId: blockAri,
 					blockInstanceId: blockContentResponse.blockInstanceId, // this was the node's localId, but has become the resourceId.
+					contentUpdatedAt,
 					sourceAri: blockContentResponse.sourceAri,
 					product: blockContentResponse.product,
 					status: blockContentResponse.status,
@@ -346,10 +364,20 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 
 					try {
 						const syncedBlockData = JSON.parse(value) as Array<ADFEntity>;
+						let contentUpdatedAt: string | undefined;
+						if (typeof blockContentResponse.contentUpdatedAt === 'number' && fg('platform_synced_block_dogfooding')) {
+							try {
+								contentUpdatedAt = new Date(blockContentResponse.contentUpdatedAt).toISOString();
+							} catch (e) {
+								contentUpdatedAt = undefined;
+							}
+						}
+
 						results.push({
 							data: {
 								content: syncedBlockData,
 								resourceId: blockContentResponse.blockAri,
+								contentUpdatedAt,
 								blockInstanceId: blockContentResponse.blockInstanceId,
 								sourceAri: blockContentResponse.sourceAri,
 								product: blockContentResponse.product,
@@ -442,7 +470,7 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 interface BlockServiceADFWriteProviderProps {
 	cloudId: string; // the cloudId of the block. E.G the cloudId of the confluence page, or the cloudId of the Jira instance
 	getVersion?: () => number | undefined; // get the version of the block. E.G the version of the confluence page, or the version of the Jira work item
-	parentAri?: string; // the ARI of the parent of the block. E.G the ARI of the confluence page, or the ARI of the Jira work item
+	parentAri: string | undefined; // the ARI of the parent of the block. E.G the ARI of the confluence page, or the ARI of the Jira work item
 	parentId?: string; // the parentId of the block. E.G the pageId for a confluence page, or the issueId for a Jira work item
 	product: SyncBlockProduct; // the product of the block. E.G 'confluence-page', 'jira-work-item'
 }
@@ -456,7 +484,7 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 	private getVersion?: () => number | undefined;
 
 	product: SyncBlockProduct;
-	parentAri?: string;
+	parentAri: string | undefined;
 
 	constructor({
 		cloudId,
@@ -598,7 +626,7 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 interface BlockServiceAPIProvidersProps {
 	cloudId: string; // the cloudId of the block. E.G the cloudId of the confluence page, or the cloudId of the Jira instance
 	getVersion?: () => number | undefined; // get the version of the block. E.G the version of the confluence page, or the version of the Jira work item
-	parentAri?: string; // the ARI of the parent of the block. E.G the ARI of the confluence page, or the ARI of the Jira work item
+	parentAri: string | undefined; // the ARI of the parent of the block. E.G the ARI of the confluence page, or the ARI of the Jira work item
 	parentId?: string; // the parentId of the block. E.G the pageId for a confluence page, or the issueId for a Jira work item
 	product: SyncBlockProduct; // the product of the block. E.G 'confluence-page', 'jira-work-item'
 }
@@ -616,7 +644,7 @@ const createBlockServiceAPIProviders = ({
 	return {
 		fetchProvider: new BlockServiceADFFetchProvider({
 			cloudId,
-			parentAri: fg('platform_synced_block_dogfooding') ? parentAri : undefined,
+			parentAri,
 		}),
 		writeProvider: new BlockServiceADFWriteProvider({
 			cloudId,
@@ -645,7 +673,7 @@ export const useMemoizedBlockServiceAPIProviders = ({
 
 interface BlockServiceFetchOnlyAPIProviderProps {
 	cloudId: string; // the cloudId of the block. E.G the cloudId of the confluence page, or the cloudId of the Jira instance
-	parentAri?: string; // the ARI of the parent of the block. E.G the ARI of the confluence page, or the ARI of the Jira work item
+	parentAri: string | undefined; // the ARI of the parent of the block. E.G the ARI of the confluence page, or the ARI of the Jira work item
 }
 
 const createBlockServiceFetchOnlyAPIProvider = ({
@@ -661,6 +689,9 @@ const createBlockServiceFetchOnlyAPIProvider = ({
 	};
 };
 
+/**
+ * If the parentAri is not a valid ARI, pass in an empty string.
+ */
 export const useMemoizedBlockServiceFetchOnlyAPIProvider = ({
 	cloudId,
 	parentAri,

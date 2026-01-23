@@ -21,10 +21,14 @@ const SyncBlockRendererWrapperDataId = 'sync-block-plugin-renderer-wrapper';
 const SyncBlockRendererWrapperComponent = ({
 	syncedBlockRenderer,
 	useFetchSyncBlockData,
-	localId,
 	useFetchSyncBlockTitle,
+	localId,
 	api,
 }: Props): React.JSX.Element => {
+	const syncBlockFetchResult = useFetchSyncBlockData();
+
+	const contentUpdatedAt = syncBlockFetchResult?.syncBlockInstance?.data?.contentUpdatedAt;
+
 	return (
 		<div>
 			<div
@@ -33,13 +37,14 @@ const SyncBlockRendererWrapperComponent = ({
 				className={SyncBlockSharedCssClassName.renderer}
 			>
 				{syncedBlockRenderer({
-					useFetchSyncBlockData,
+					syncBlockFetchResult,
 					api,
 				})}
 			</div>
 			<SyncBlockLabel
 				isSource={false}
 				useFetchSyncBlockTitle={useFetchSyncBlockTitle}
+				contentUpdatedAt={contentUpdatedAt}
 				localId={localId}
 			/>
 		</div>

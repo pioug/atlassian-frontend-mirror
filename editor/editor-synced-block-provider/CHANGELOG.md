@@ -1,5 +1,27 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.14.0
+
+### Minor Changes
+
+- [`55d9a4080dfa8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55d9a4080dfa8) -
+  parentAri field for fetch/write providers are mandatory
+
+## 3.13.2
+
+### Patch Changes
+
+- [`87abc5dda86fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87abc5dda86fe) -
+  [ux] Show last edited time in sync block tooltip
+- Updated dependencies
+
+## 3.13.1
+
+### Patch Changes
+
+- [`ab11bedd7f6e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab11bedd7f6e6) -
+  Fix over logging of source ari not found error
+
 ## 3.13.0
 
 ### Minor Changes

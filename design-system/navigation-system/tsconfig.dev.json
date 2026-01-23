@@ -49,9 +49,6 @@
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
 		},
 		{
-			"path": "../app-provider/tsconfig.app.json"
-		},
-		{
 			"path": "../avatar/tsconfig.app.json"
 		},
 		{
@@ -109,9 +106,6 @@
 			"path": "../lozenge/tsconfig.app.json"
 		},
 		{
-			"path": "../menu/tsconfig.app.json"
-		},
-		{
 			"path": "../modal-dialog/tsconfig.app.json"
 		},
 		{
@@ -154,7 +148,7 @@
 			"path": "../select/tsconfig.app.json"
 		},
 		{
-			"path": "../skeleton/tsconfig.app.json"
+			"path": "../../navigation/side-nav-items/tsconfig.app.json"
 		},
 		{
 			"path": "../tabs/tsconfig.app.json"

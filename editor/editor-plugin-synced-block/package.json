@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-synced-block",
-	"version": "5.3.0",
+	"version": "5.3.1",
 	"description": "SyncedBlock plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -62,6 +62,7 @@
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"bind-event-listener": "root:*",
+		"date-fns": "root:*",
 		"react-intl-next": "root:*"
 	},
 	"peerDependencies": {

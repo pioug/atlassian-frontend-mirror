@@ -8,13 +8,15 @@ import DropdownMenu from '@atlaskit/dropdown-menu';
 import noop from '@atlaskit/ds-lib/noop';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 import { Popup } from '@atlaskit/popup';
+import {
+	FlyoutMenuItem,
+	FlyoutMenuItemContent,
+	FlyoutMenuItemTrigger,
+} from '@atlaskit/side-nav-items/flyout-menu-item';
 import Tooltip from '@atlaskit/tooltip';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
 
-import { FlyoutMenuItem } from '../../../menu-item/flyout-menu-item/flyout-menu-item';
-import { FlyoutMenuItemContent } from '../../../menu-item/flyout-menu-item/flyout-menu-item-content';
-import { FlyoutMenuItemTrigger } from '../../../menu-item/flyout-menu-item/flyout-menu-item-trigger';
 import { Main } from '../../main/main';
 import { Root } from '../../root';
 import { SideNav } from '../../side-nav/side-nav';

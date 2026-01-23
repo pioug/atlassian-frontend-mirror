@@ -49,9 +49,6 @@
 			"path": "../ds-lib/tsconfig.app.json"
 		},
 		{
-			"path": "../heading/tsconfig.app.json"
-		},
-		{
 			"path": "../icon/tsconfig.app.json"
 		},
 		{
@@ -73,10 +70,10 @@
 			"path": "../../pragmatic-drag-and-drop/hitbox/tsconfig.app.json"
 		},
 		{
-			"path": "../../pragmatic-drag-and-drop/react-drop-indicator/tsconfig.app.json"
+			"path": "../primitives/tsconfig.app.json"
 		},
 		{
-			"path": "../primitives/tsconfig.app.json"
+			"path": "../../navigation/side-nav-items/tsconfig.app.json"
 		},
 		{
 			"path": "../tokens/tsconfig.app.json"

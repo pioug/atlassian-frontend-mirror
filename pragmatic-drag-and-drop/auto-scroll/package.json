@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/pragmatic-drag-and-drop-auto-scroll",
-	"version": "2.1.2",
+	"version": "2.1.4",
 	"description": "An optional Pragmatic drag and drop package that enables automatic scrolling during a drag operation",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -50,6 +50,7 @@
 	},
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
+		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@testing-library/dom": "root:*",
 		"bind-event-listener": "root:*",
 		"raf-stub": "root:*",

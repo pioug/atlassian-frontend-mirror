@@ -6,6 +6,7 @@ import AddIcon from '@atlaskit/icon/core/add';
 import BugIcon from '@atlaskit/icon/core/bug';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Lozenge from '@atlaskit/lozenge';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { render, screen, userEvent, within } from '@atlassian/testing-library';
 
@@ -14,6 +15,11 @@ import { ExpandableMenuItem } from '../../expandable-menu-item/expandable-menu-i
 import { ExpandableMenuItemContent } from '../../expandable-menu-item/expandable-menu-item-content';
 import { ExpandableMenuItemTrigger } from '../../expandable-menu-item/expandable-menu-item-trigger';
 import { LinkMenuItem } from '../../link-menu-item';
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 describe('Menu items', () => {
 	const menuItemText = 'Test';

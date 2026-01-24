@@ -1,5 +1,13 @@
 # @atlaskit/collab-provider
 
+## 15.0.3
+
+### Patch Changes
+
+- [`64f80db3e663a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64f80db3e663a) -
+  Add @atlassian/a11y-jest-testing to devDependencies.
+- Updated dependencies
+
 ## 15.0.2
 
 ### Patch Changes

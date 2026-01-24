@@ -1,5 +1,20 @@
 # @atlaskit/smart-card
 
+## 43.22.4
+
+### Patch Changes
+
+- [`e4b717d8304e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e4b717d8304e8) -
+  Add @atlassian/a11y-jest-testing to devDependencies.
+
+## 43.22.3
+
+### Patch Changes
+
+- [`64f80db3e663a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64f80db3e663a) -
+  Add @atlassian/a11y-jest-testing to devDependencies.
+- Updated dependencies
+
 ## 43.22.2
 
 ### Patch Changes

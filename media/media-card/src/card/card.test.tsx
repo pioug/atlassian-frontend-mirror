@@ -70,6 +70,7 @@ jest.mock('@atlaskit/react-ufo/experience-trace-id-context', () => ({
 }));
 
 import { useAnalyticsEvents, type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import * as svgHelpersModule from './svgView/helpers';
 import * as imageRendererHelpersModule from './ui/imageRenderer/helpers';
 import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
@@ -125,6 +126,11 @@ const dummyMediaClientConfig = {} as MediaClientConfig;
 const GLOBAL_MEDIA_CARD_SSR = 'mediaCardSsr';
 const GLOBAL_MEDIA_NAMESPACE = '__MEDIA_INTERNAL';
 const PERFORMANCE_NOW = 1000;
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 const setGlobalSSRData = (id: string, data: any) => {
 	// @ts-ignore

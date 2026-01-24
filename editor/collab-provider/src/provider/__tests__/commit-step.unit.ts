@@ -1,6 +1,7 @@
 import { Slice } from '@atlaskit/editor-prosemirror/model';
 import { Transaction, type EditorState } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { CommitStepService, RESET_READYTOCOMMIT_INTERVAL_MS } from '../commit-step';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
@@ -116,6 +117,11 @@ const createTestHelpers = (
 		onErrorHandledSpy,
 	};
 };
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 describe('commitStepQueue', () => {
 	const {

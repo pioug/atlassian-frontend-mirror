@@ -1,5 +1,12 @@
 # @atlaskit/teams-public
 
+## 0.67.1
+
+### Patch Changes
+
+- [`5ebf0ce5b3f25`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ebf0ce5b3f25) -
+  [ux] Fix for empty container height issues in New team profile right panel
+
 ## 0.67.0
 
 ### Minor Changes

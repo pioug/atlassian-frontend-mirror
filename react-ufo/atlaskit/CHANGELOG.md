@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.0.4
+
+### Patch Changes
+
+- [`461f1fb9cf949`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/461f1fb9cf949) -
+  FG cleanup - platform_ufo_add_segment_names_to_dom_offenders
+
 ## 5.0.3
 
 ### Patch Changes

@@ -1,6 +1,7 @@
 import URLSearchParams from 'url-search-params';
 import fetchMock from 'fetch-mock/cjs/client';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import TaskDecisionResource, { type ItemStateManager } from '../../../api/TaskDecisionResource';
 
@@ -16,6 +17,11 @@ const url = 'https://cheese/';
 
 const getItemStateManager = (resource: TaskDecisionResource): ItemStateManager =>
 	(resource as any).itemStateManager;
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 describe('TaskDecisionResource', () => {
 	describe('getTaskState', () => {

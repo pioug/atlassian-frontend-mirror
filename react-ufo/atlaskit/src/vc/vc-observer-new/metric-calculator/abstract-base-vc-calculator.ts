@@ -114,7 +114,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 						segment: entry.data.labelStacks.segment,
 						labelStack: entry.data.labelStacks.labelStack,
 					};
-				} else if (fg('platform_ufo_add_segment_names_to_dom_offenders')) {
+				} else {
 					labelStacks[entry.data.elementName] = entry.data.labelStacks.labelStack;
 				}
 			}
@@ -444,9 +444,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 			result.ssrRatio = ssrRatio;
 		}
 
-		if (isPostInteraction || fg('platform_ufo_add_segment_names_to_dom_offenders')) {
-			result.labelStacks = this.getLabelStacks(filteredEntries, isPostInteraction);
-		}
+		result.labelStacks = this.getLabelStacks(filteredEntries, isPostInteraction);
 
 		return result;
 	}

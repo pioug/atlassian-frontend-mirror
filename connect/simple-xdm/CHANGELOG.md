@@ -1,5 +1,13 @@
 # @atlaskit/simple-xdm
 
+## 1.1.1
+
+### Patch Changes
+
+- [`64f80db3e663a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64f80db3e663a) -
+  Add @atlassian/a11y-jest-testing to devDependencies.
+- Updated dependencies
+
 ## 1.1.0
 
 ### Minor Changes

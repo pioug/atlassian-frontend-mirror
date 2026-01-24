@@ -106,6 +106,7 @@ describe('AbstractVCCalculatorBase WithDebugInfo', () => {
 		expect(result).toEqual({
 			revision: 'test-revision',
 			clean: true,
+			labelStacks: {},
 			'metric:vc90': 100,
 			ratios: {
 				div: 0,

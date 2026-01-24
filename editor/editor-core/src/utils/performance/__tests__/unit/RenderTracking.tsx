@@ -5,6 +5,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import { RenderTracking } from '../../components/RenderTracking';
 
@@ -16,6 +17,11 @@ type ComponentProps = {
 
 jest.useFakeTimers();
 jest.unmock('lodash/debounce');
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 describe('RenderTracking', () => {
 	let mockHandleAnalyticsEvent: jest.Mock;

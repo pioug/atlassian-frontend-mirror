@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { cssMap } from '@atlaskit/css';
+import { cssMap, cx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Pressable, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -12,6 +13,13 @@ const styles = cssMap({
 	card: {
 		alignItems: 'center',
 		width: '100%',
+	},
+	cardHeight: {
+		height: '36px',
+	},
+	smallCardContainer: {
+		paddingTop: token('space.050'),
+		paddingBottom: token('space.050'),
 	},
 	container: {
 		paddingTop: token('space.150'),
@@ -47,7 +55,7 @@ const AddContainerCardWrapper = ({
 	isDisabled?: boolean;
 }) => {
 	return (
-		<Pressable xcss={styles.container} isDisabled={isDisabled} onClick={onClick}>
+		<Pressable xcss={cx(styles.container, fg('enable-fix-team-container-height') ? styles.smallCardContainer : null)} isDisabled={isDisabled} onClick={onClick}>
 			{children}
 		</Pressable>
 	);
@@ -70,7 +78,7 @@ export const AddContainerCard = ({
 
 	return (
 		<AddContainerCardWrapper onClick={onAddAContainerClick} isDisabled={isDisabled}>
-			<Inline space="space.100" xcss={styles.card}>
+			<Inline space="space.100" xcss={cx(styles.card, fg('enable-fix-team-container-height') ? styles.cardHeight : null)}>
 				<Box xcss={styles.iconWrapper}>{icon}</Box>
 				<Text maxLines={1} color="color.text.subtlest">
 					{title}

@@ -1,5 +1,12 @@
 # @atlaskit/platform-feature-flags
 
+## 1.1.3
+
+### Patch Changes
+
+- [`aa9ff75020fcb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa9ff75020fcb) -
+  Add @atlassian/a11y-jest-testing to devDependencies.
+
 ## 1.1.2
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @atlaskit/media-svg
 
+## 2.1.14
+
+### Patch Changes
+
+- [`e4b717d8304e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e4b717d8304e8) -
+  Add @atlassian/a11y-jest-testing to devDependencies.
+
 ## 2.1.13
 
 ### Patch Changes

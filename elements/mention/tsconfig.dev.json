@@ -101,6 +101,9 @@
 		},
 		{
 			"path": "../util-service-support/tsconfig.app.json"
+		},
+		{
+			"path": "../../accessibility/axe-integration/a11y-jest-testing/tsconfig.app.json"
 		}
 	]
 }

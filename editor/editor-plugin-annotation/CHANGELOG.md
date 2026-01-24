@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-annotation
 
+## 7.1.0
+
+### Minor Changes
+
+- [`2e81b0a120444`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e81b0a120444) -
+  Removing platform_editor_annotation_selected_annotation as a part of clean up
+
 ## 7.0.4
 
 ### Patch Changes

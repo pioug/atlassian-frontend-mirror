@@ -104,10 +104,7 @@ export default class VCObserverNew {
 					newValue: mutationData?.newValue,
 				};
 
-				if (
-					element &&
-					(this.isPostInteraction || fg('platform_ufo_add_segment_names_to_dom_offenders'))
-				) {
+				if (element) {
 					const labelStacks = getLabelStacks(element);
 					if (labelStacks) {
 						Object.assign(data, { labelStacks });

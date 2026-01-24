@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 24.32.3
+
+### Patch Changes
+
+- [`a8c98414d62ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8c98414d62ec) -
+  Add @atlassian/a11y-jest-testing to devDependencies.
+- Updated dependencies
+
 ## 24.32.2
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-ufo",
-	"version": "5.0.4",
+	"version": "5.0.5",
 	"description": "Parts of React UFO that are publicly available",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -93,6 +93,7 @@
 	},
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
+		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@testing-library/react": "^16.3.0",
 		"@types/is-ci": "root:*",

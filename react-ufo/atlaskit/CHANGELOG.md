@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.0.5
+
+### Patch Changes
+
+- [`d3ed1b65a2181`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3ed1b65a2181) -
+  Add @atlassian/a11y-jest-testing to devDependencies.
+
 ## 5.0.4
 
 ### Patch Changes

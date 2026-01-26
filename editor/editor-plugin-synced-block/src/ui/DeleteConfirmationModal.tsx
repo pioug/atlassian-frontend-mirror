@@ -1,13 +1,18 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
-import { useIntl } from 'react-intl-next';
+import { cssMap } from '@compiled/react';
+import { useIntl, type IntlShape, type MessageDescriptor } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
-import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import type {
+	DeletionReason,
+	SyncBlockAttrs,
+	SyncBlockStoreManager,
+} from '@atlaskit/editor-synced-block-provider';
 import ModalDialog, {
 	ModalBody,
 	ModalFooter,
@@ -16,10 +21,44 @@ import ModalDialog, {
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text, Box } from '@atlaskit/primitives/compiled';
+import Spinner from '@atlaskit/spinner';
 
 import { syncedBlockPluginKey } from '../pm-plugins/main';
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
+
+type ModalContent = {
+	confirmButtonLabel: MessageDescriptor;
+	descriptionMultiple: MessageDescriptor;
+	descriptionSingle: MessageDescriptor;
+	titleMultiple: MessageDescriptor;
+	titleSingle: MessageDescriptor;
+};
+const modalContentMap: Record<'source-block-deleted' | 'source-block-unsynced', ModalContent> = {
+	'source-block-deleted': {
+		titleMultiple: messages.deleteConfirmationModalTitleSingle,
+		titleSingle: messages.deleteConfirmationModalTitleSingle,
+		descriptionSingle: messages.deleteConfirmationModalDescriptionNoRef,
+		descriptionMultiple: messages.deleteConfirmationModalDescription,
+		confirmButtonLabel: messages.deleteConfirmationModalDeleteButton,
+	},
+	'source-block-unsynced': {
+		titleMultiple: messages.unsyncConfirmationModalTitle,
+		titleSingle: messages.unsyncConfirmationModalTitle,
+		descriptionSingle: messages.unsyncConfirmationModalDescriptionSingle,
+		descriptionMultiple: messages.unsyncConfirmationModalDescriptionMultiple,
+		confirmButtonLabel: messages.deleteConfirmationModalUnsyncButton,
+	},
+};
+
+type FetchStatus = 'none' | 'loading' | 'success' | 'error';
+
+const styles = cssMap({
+	spinner: {
+		marginBlock: 'auto',
+		marginInline: 'auto',
+	},
+});
 
 export const DeleteConfirmationModal = ({
 	syncBlockStoreManager,
@@ -29,7 +68,10 @@ export const DeleteConfirmationModal = ({
 	syncBlockStoreManager: SyncBlockStoreManager;
 }): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
-	const [syncBlockCount, setSyncBlockCount] = useState(1);
+	const [syncBlockIds, setSyncBlockIds] = useState<SyncBlockAttrs[] | undefined>(undefined);
+	const [referenceCount, setReferenceCount] = useState<number | undefined>(undefined);
+	const [deleteReason, setDeleteReason] = useState<DeletionReason>('source-block-deleted');
+	const [fetchStatus, setFetchStatus] = useState<FetchStatus>('none');
 	const { mode, bodiedSyncBlockDeletionStatus, activeFlag } = useSharedPluginStateWithSelector(
 		api,
 		['connectivity', 'syncedBlock'],
@@ -55,6 +97,8 @@ export const DeleteConfirmationModal = ({
 
 			if (!confirm) {
 				setIsOpen(false);
+				setFetchStatus('none');
+				setReferenceCount(undefined);
 			}
 
 			api?.core?.actions.execute(({ tr }) => {
@@ -68,9 +112,13 @@ export const DeleteConfirmationModal = ({
 	);
 
 	const confirmationCallback = useCallback(
-		(syncBlockCount: number) => {
+		(syncBlockIds: SyncBlockAttrs[], deleteReason: DeletionReason | undefined) => {
 			setIsOpen(true);
-			setSyncBlockCount(syncBlockCount);
+			setSyncBlockIds(syncBlockIds);
+
+			if (deleteReason) {
+				setDeleteReason(deleteReason);
+			}
 
 			const confirmedPromise = new Promise<boolean>((resolve) => {
 				resolverRef.current = resolve;
@@ -103,6 +151,7 @@ export const DeleteConfirmationModal = ({
 		if (bodiedSyncBlockDeletionStatus === 'completed' && isOpen) {
 			// auto close modal once deletion is successful
 			setIsOpen(false);
+			setFetchStatus('none');
 			api?.core?.actions.execute(({ tr }) => {
 				return tr.setMeta(syncedBlockPluginKey, {
 					// Reset deletion status to have a clean state for next deletion
@@ -112,39 +161,155 @@ export const DeleteConfirmationModal = ({
 		}
 	}, [api?.core?.actions, bodiedSyncBlockDeletionStatus, isOpen]);
 
+	useEffect(() => {
+		if (isOpen && syncBlockIds !== undefined && fg('platform_synced_block_dogfooding')) {
+			let referenceCount = 0;
+			setFetchStatus('loading');
+
+			let fetchFailed = false;
+			syncBlockIds.forEach(async (syncBlockId) => {
+				if (fetchFailed) {
+					return;
+				}
+				const references = await syncBlockStoreManager.sourceManager.fetchReferences(
+					syncBlockId.resourceId,
+				);
+				if (references.error) {
+					// Consider fetch fails as soon as one of the fetches fails
+					setFetchStatus('error');
+					fetchFailed = true;
+					return;
+				} else {
+					referenceCount += references.references?.length ?? 0;
+				}
+			});
+
+			if (!fetchFailed) {
+				setReferenceCount(referenceCount);
+				setFetchStatus('success');
+			}
+		}
+	}, [isOpen, syncBlockIds, syncBlockStoreManager.sourceManager]);
+
 	return (
 		<ModalTransition>
 			{isOpen && (
-				<ModalDialog onClose={handleClick(false)} testId="sync-block-delete-confirmation">
-					<ModalHeader hasCloseButton>
-						<ModalTitle appearance="warning">
-							{formatMessage(messages.deleteConfirmationModalTitle)}
-						</ModalTitle>
-					</ModalHeader>
-					<ModalBody>
-						<Text>
-							{formatMessage(messages.deleteConfirmationModalDescription, {
-								syncBlockCount,
-							})}
-						</Text>
-					</ModalBody>
-					<ModalFooter>
-						<Button appearance="subtle" onClick={handleClick(false)}>
-							{formatMessage(messages.deleteConfirmationModalCancelButton)}
-						</Button>
-						<Button
-							appearance="warning"
-							onClick={handleClick(true)}
-							autoFocus
-							isDisabled={isOfflineMode(mode)}
-							isLoading={bodiedSyncBlockDeletionStatus === 'processing'}
-							testId={fg('platform_synced_block_dogfooding') ? 'synced-block-delete-confirmation-modal-delete-button' : undefined}
-						>
-							{formatMessage(messages.deleteConfirmationModalDeleteButton)}
-						</Button>
-					</ModalFooter>
+				<ModalDialog
+					onClose={handleClick(false)}
+					testId="sync-block-delete-confirmation"
+					height={184}
+				>
+					{fg('platform_synced_block_dogfooding') ? (
+						<>
+							{referenceCount === undefined ? (
+								<Box xcss={styles.spinner}>
+									<Spinner size="large" />
+								</Box>
+							) : (
+								<ModalContent
+									content={modalContentMap[deleteReason]}
+									referenceCount={referenceCount}
+									handleClick={handleClick}
+									formatMessage={formatMessage}
+									isDeleting={bodiedSyncBlockDeletionStatus === 'processing'}
+									isDisabled={isOfflineMode(mode)}
+									deleteReason={deleteReason}
+									failToFetch={fetchStatus === 'error'}
+								/>
+							)}
+						</>
+					) : (
+						<>
+							<ModalHeader hasCloseButton>
+								<ModalTitle appearance="warning">
+									{formatMessage(messages.deleteConfirmationModalTitleSingle)}
+								</ModalTitle>
+							</ModalHeader>
+							<ModalBody>
+								<Text>
+									{formatMessage(messages.deleteConfirmationModalDescription, {
+										syncBlockCount: syncBlockIds?.length ?? 1,
+									})}
+								</Text>
+							</ModalBody>
+							<ModalFooter>
+								<Button appearance="subtle" onClick={handleClick(false)}>
+									{formatMessage(messages.deleteConfirmationModalCancelButton)}
+								</Button>
+								<Button
+									appearance="warning"
+									onClick={handleClick(true)}
+									autoFocus
+									isDisabled={isOfflineMode(mode)}
+									isLoading={bodiedSyncBlockDeletionStatus === 'processing'}
+								>
+									{formatMessage(messages.deleteConfirmationModalDeleteButton)}
+								</Button>
+							</ModalFooter>
+						</>
+					)}
 				</ModalDialog>
 			)}
 		</ModalTransition>
+	);
+};
+
+const ModalContent = ({
+	content,
+	referenceCount,
+	handleClick,
+	formatMessage,
+	isDeleting,
+	isDisabled,
+	deleteReason,
+	failToFetch,
+}: {
+	content: ModalContent;
+	deleteReason: DeletionReason;
+	failToFetch: boolean;
+	formatMessage: IntlShape['formatMessage'];
+	handleClick: (confirm: boolean) => () => void;
+	isDeleting: boolean;
+	isDisabled: boolean;
+	referenceCount: number;
+}) => {
+	const { titleMultiple, titleSingle, descriptionSingle, descriptionMultiple, confirmButtonLabel } =
+		content;
+
+	const hasNoReferenceOrFailToFetch = referenceCount === 0 || failToFetch;
+	return (
+		<>
+			<ModalHeader hasCloseButton>
+				<ModalTitle appearance="warning">
+					{hasNoReferenceOrFailToFetch
+						? formatMessage(titleSingle)
+						: formatMessage(titleMultiple, { count: referenceCount })}
+				</ModalTitle>
+			</ModalHeader>
+			<ModalBody>
+				<Text>
+					{hasNoReferenceOrFailToFetch
+						? formatMessage(descriptionSingle)
+						: formatMessage(descriptionMultiple, {
+								syncBlockCount: referenceCount,
+							})}
+				</Text>
+			</ModalBody>
+			<ModalFooter>
+				<Button appearance="subtle" onClick={handleClick(false)}>
+					{formatMessage(messages.deleteConfirmationModalCancelButton)}
+				</Button>
+				<Button
+					appearance="warning"
+					onClick={handleClick(true)}
+					autoFocus
+					isDisabled={isDisabled}
+					isLoading={isDeleting}
+					testId={`synced-block-delete-confirmation-modal-${deleteReason}-button`}
+				>
+					{formatMessage(confirmButtonLabel)}
+				</Button>
+			</ModalFooter>
+		</>
 	);
 };

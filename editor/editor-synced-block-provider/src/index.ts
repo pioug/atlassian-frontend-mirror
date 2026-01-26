@@ -12,7 +12,8 @@ export type {
 	BlockInstanceId,
 	SyncBlockAttrs,
 	ReferenceSyncBlockData,
-	ReferencesSourceInfo
+	ReferencesSourceInfo,
+	DeletionReason,
 } from './common/types';
 
 // hooks

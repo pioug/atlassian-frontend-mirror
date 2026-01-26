@@ -20,6 +20,7 @@ import {
 	syncBlockGenericErrorAdf,
 	syncBlockLoadingStateAdf,
 	syncBlockInvalidRequestErrorAdf,
+	syncBlockUnsyncNotFoundAdf,
 } from './__fixtures__/sync-block.adf';
 
 export const SyncBlockRenderer = ({
@@ -48,7 +49,6 @@ export const SyncBlockRenderer = ({
 		/>
 	);
 
-
 	if (mockRelayEnvironment) {
 		return (
 			<RelayEnvironmentProvider environment={mockEnvironment}>
@@ -70,6 +70,10 @@ export const SyncBlockWithPermissionDenied = () => {
 
 export const SyncBlockNotFound = () => {
 	return <SyncBlockRenderer doc={syncBlockNotFoundAdf} />;
+};
+
+export const SyncBlockUnsyncNotFound = () => {
+	return <SyncBlockRenderer doc={syncBlockUnsyncNotFoundAdf} />;
 };
 
 export const SyncBlockGenericError = () => {

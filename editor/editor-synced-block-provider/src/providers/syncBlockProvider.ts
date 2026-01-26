@@ -11,6 +11,7 @@ import { fetchJiraWorkItemInfo } from '../clients/jira/sourceInfo';
 import {
 	SyncBlockError,
 	type BlockInstanceId,
+	type DeletionReason,
 	type ReferenceSyncBlockData,
 	type ResourceId,
 	type SyncBlockAttrs,
@@ -111,7 +112,7 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 							},
 							() => {
 								return {
-									error: SyncBlockError.Errored,
+									error: { type: SyncBlockError.Errored },
 									resourceId: blockIdentifier.resourceId,
 								};
 							},
@@ -134,7 +135,7 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 						},
 						() => {
 							return {
-								error: SyncBlockError.Errored,
+								error: { type: SyncBlockError.Errored },
 								resourceId: blockIdentifier.resourceId,
 							};
 						},
@@ -203,7 +204,10 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	 *
 	 * @returns Array of {resourceId?: string, error?: string}.
 	 */
-	async deleteNodesData(resourceIds: ResourceId[]): Promise<Array<DeleteSyncBlockResult>> {
+	async deleteNodesData(
+		resourceIds: ResourceId[],
+		deletionReason: DeletionReason | undefined,
+	): Promise<Array<DeleteSyncBlockResult>> {
 		if (!this.writeProvider) {
 			return Promise.reject(new Error('Write provider not set'));
 		}
@@ -212,7 +216,7 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 				if (!this.writeProvider) {
 					return Promise.reject('Write provider not set');
 				}
-				return this.writeProvider.deleteData(resourceId);
+				return this.writeProvider.deleteData(resourceId, deletionReason);
 			}),
 		);
 		return results.map((result, index) => {
@@ -278,7 +282,10 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 			}
 			case 'jira-work-item':
 				if (fg('platform_synced_block_dogfooding')) {
-					const sourceInfo: SyncBlockSourceInfo | undefined = await fetchJiraWorkItemInfo(ari, hasAccess);
+					const sourceInfo: SyncBlockSourceInfo | undefined = await fetchJiraWorkItemInfo(
+						ari,
+						hasAccess,
+					);
 					if (!sourceInfo) {
 						return Promise.resolve(undefined);
 					}
@@ -363,7 +370,7 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 			isSource ? this.generateResourceIdForReference(resourceId) : resourceId,
 		);
 	}
-	
+
 	/**
 	 * Subscribes to real-time updates for a specific block.
 	 * @param resourceId - The resource ID of the block to subscribe to

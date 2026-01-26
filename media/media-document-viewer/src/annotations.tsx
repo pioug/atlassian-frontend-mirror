@@ -8,8 +8,6 @@ import React from 'react';
 import { css } from '@compiled/react';
 
 import { jsx } from '@atlaskit/css';
-import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type ComboBoxField, type PageAnnotations, type TextField } from './types';
 
@@ -62,11 +60,7 @@ type TextInputProps = {
 const TextInput = ({ as: Component, value, style }: TextInputProps) => (
 	<Component
 		{...foreignObjectProps}
-		css={[
-			formInputBaseStyles,
-			textInputStyles,
-			fg('media-document-viewer-annotations') ? invisibleInputStyles : undefined,
-		]}
+		css={[formInputBaseStyles, textInputStyles, invisibleInputStyles]}
 		style={style}
 		onKeyUp={(e: React.KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>) => {
 			// stop propagation of the arrow key events because they can be used to navigate viewports
@@ -133,11 +127,7 @@ export const ComboBoxFormField = ({
 		>
 			<div {...foreignObjectProps} css={comboBoxStyles}>
 				<input
-					css={[
-						formInputBaseStyles,
-						comboBoxInputStyles,
-						fg('media-document-viewer-annotations') ? invisibleInputStyles : undefined,
-					]}
+					css={[formInputBaseStyles, comboBoxInputStyles, invisibleInputStyles]}
 					style={{ ['fontSize']: `${field.f}px` }}
 					type="text"
 					value={field.text}
@@ -149,7 +139,6 @@ export const ComboBoxFormField = ({
 					}}
 					readOnly
 				/>
-				{!fg('media-document-viewer-annotations') && <ChevronDownIcon label="" size="small" />}
 			</div>
 		</foreignObject>
 	);

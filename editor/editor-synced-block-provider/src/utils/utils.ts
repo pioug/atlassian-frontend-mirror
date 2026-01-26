@@ -2,6 +2,7 @@
 
 import type { JSONNode } from '@atlaskit/editor-json-transformer';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SyncBlockData, BlockInstanceId, ResourceId, SyncBlockNode, SyncBlockProduct } from '../common/types';
 
@@ -80,3 +81,14 @@ export const getContentIdAndProductFromResourceId = (resourceId: string) => {
 	}
 	throw new Error(`Invalid resourceId: ${resourceId}`);
 }
+
+export const convertContentUpdatedAt = (contentUpdatedAt: number | undefined): string | undefined => {
+	if (typeof contentUpdatedAt === 'number' && fg('platform_synced_block_dogfooding')) {
+		try {
+			return new Date(contentUpdatedAt).toISOString();
+		} catch {
+			return undefined;
+		}
+	}
+	return undefined;
+};

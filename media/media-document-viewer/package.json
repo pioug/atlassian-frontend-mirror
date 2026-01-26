@@ -29,7 +29,6 @@
 	"dependencies": {
 		"@atlaskit/browser-apis": "workspace:^",
 		"@atlaskit/css": "workspace:^",
-		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/media-common": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
@@ -53,9 +52,6 @@
 	},
 	"platform-feature-flags": {
 		"media-document-viewer-clear-render": {
-			"type": "boolean"
-		},
-		"media-document-viewer-annotations": {
 			"type": "boolean"
 		}
 	},

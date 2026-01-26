@@ -11,6 +11,8 @@ import {
 	type SyncBlockNode,
 	SyncBlockError,
 	type BlockInstanceId,
+	type DeletionReason,
+	type ReferenceSyncBlockData,
 } from '../common/types';
 import type { SyncBlockDataProvider, SyncBlockSourceInfo } from '../providers/types';
 import {
@@ -22,11 +24,19 @@ import {
 	updateSuccessPayload,
 	createSuccessPayload,
 	deleteSuccessPayload,
+	fetchReferencesErrorPayload,
 } from '../utils/errorHandling';
-import { getCreateSourceExperience, getDeleteSourceExperience, getSaveSourceExperience } from '../utils/experienceTracking';
+import {
+	getCreateSourceExperience,
+	getDeleteSourceExperience,
+	getSaveSourceExperience,
+} from '../utils/experienceTracking';
 import { convertSyncBlockPMNodeToSyncBlockData } from '../utils/utils';
 
-export type ConfirmationCallback = (syncBlockCount: number) => Promise<boolean>;
+export type ConfirmationCallback = (
+	syncBlockIds: SyncBlockAttrs[],
+	deleteReason: DeletionReason | undefined,
+) => Promise<boolean>;
 type OnDelete = () => void;
 type OnDeleteCompleted = (success: boolean) => void;
 type DestroyCallback = () => void;
@@ -56,6 +66,7 @@ export class SourceSyncBlockStoreManager {
 
 	private confirmationCallback?: ConfirmationCallback;
 	private deletionRetryInfo?: {
+		deletionReason: DeletionReason | undefined;
 		destroyCallback: DestroyCallback;
 		onDelete: OnDelete;
 		onDeleteCompleted: OnDeleteCompleted;
@@ -155,8 +166,8 @@ export class SourceSyncBlockStoreManager {
 			}
 
 			if (fg('platform_synced_block_dogfooding')) {
-				this.saveExperience?.start({})
-			};
+				this.saveExperience?.start({});
+			}
 
 			const writeResults = await this.dataProvider.writeNodesData(
 				bodiedSyncBlockNodes,
@@ -175,17 +186,17 @@ export class SourceSyncBlockStoreManager {
 
 			if (writeResults.every((result) => result.resourceId && !result.error)) {
 				if (fg('platform_synced_block_dogfooding')) {
-					this.saveExperience?.success()
+					this.saveExperience?.success();
 					writeResults.forEach((result) => {
 						if (result.resourceId && !result.error) {
 							this.fireAnalyticsEvent?.(updateSuccessPayload(result.resourceId, false));
 						}
 					});
-				};
+				}
 				return true;
 			} else {
 				if (fg('platform_synced_block_dogfooding')) {
-					this.saveExperience?.failure()
+					this.saveExperience?.failure();
 				}
 				writeResults
 					.filter((result) => !result.resourceId || result.error)
@@ -228,8 +239,10 @@ export class SourceSyncBlockStoreManager {
 			if (fg('platform_synced_block_dogfooding')) {
 				this.fireAnalyticsEvent?.(createSuccessPayload(this.pendingResourceId || ''));
 			}
-		} else if (success && !this.creationCallback && fg('platform_synced_block_dogfooding')){
-			this.fireAnalyticsEvent?.(createErrorPayload('creation callback missing', this.pendingResourceId));
+		} else if (success && !this.creationCallback && fg('platform_synced_block_dogfooding')) {
+			this.fireAnalyticsEvent?.(
+				createErrorPayload('creation callback missing', this.pendingResourceId),
+			);
 		}
 		this.pendingResourceId = undefined;
 		this.creationCallback = undefined;
@@ -279,7 +292,7 @@ export class SourceSyncBlockStoreManager {
 
 			const { resourceId, localId: blockInstanceId } = attrs;
 
-			this.createExperience?.start({})
+			this.createExperience?.start({});
 			this.dataProvider
 				.createNodeData({
 					content: [],
@@ -339,6 +352,7 @@ export class SourceSyncBlockStoreManager {
 		syncBlockIds: SyncBlockAttrs[],
 		onDelete: OnDelete,
 		onDeleteCompleted: OnDeleteCompleted,
+		reason: DeletionReason | undefined,
 	): Promise<boolean> {
 		try {
 			if (!this.dataProvider) {
@@ -355,6 +369,7 @@ export class SourceSyncBlockStoreManager {
 
 			const results = await this.dataProvider.deleteNodesData(
 				syncBlockIds.map((attrs) => attrs.resourceId),
+				reason,
 			);
 
 			let callback;
@@ -368,7 +383,7 @@ export class SourceSyncBlockStoreManager {
 				if (fg('platform_synced_block_dogfooding')) {
 					this.deleteExperience?.success();
 					results.forEach((result) => {
-						this.fireAnalyticsEvent?.(deleteSuccessPayload(result.resourceId))
+						this.fireAnalyticsEvent?.(deleteSuccessPayload(result.resourceId));
 					});
 				}
 			} else {
@@ -380,9 +395,14 @@ export class SourceSyncBlockStoreManager {
 					this.deleteExperience?.failure();
 					results.forEach((result) => {
 						if (result.success) {
-							this.fireAnalyticsEvent?.(deleteSuccessPayload(result.resourceId))
+							this.fireAnalyticsEvent?.(deleteSuccessPayload(result.resourceId));
 						} else {
-							this.fireAnalyticsEvent?.(deleteErrorPayload(result.error || 'Failed to delete synced block', result.resourceId));
+							this.fireAnalyticsEvent?.(
+								deleteErrorPayload(
+									result.error || 'Failed to delete synced block',
+									result.resourceId,
+								),
+							);
 						}
 					});
 				} else {
@@ -419,10 +439,10 @@ export class SourceSyncBlockStoreManager {
 		if (!this.deletionRetryInfo) {
 			return Promise.resolve();
 		}
-		const { syncBlockIds, onDelete, onDeleteCompleted } = this.deletionRetryInfo;
+		const { syncBlockIds, onDelete, onDeleteCompleted, deletionReason } = this.deletionRetryInfo;
 
 		if (this.confirmationCallback) {
-			await this.delete(syncBlockIds, onDelete, onDeleteCompleted);
+			await this.delete(syncBlockIds, onDelete, onDeleteCompleted, deletionReason);
 		}
 	}
 
@@ -440,14 +460,20 @@ export class SourceSyncBlockStoreManager {
 	 */
 	public async deleteSyncBlocksWithConfirmation(
 		syncBlockIds: SyncBlockAttrs[],
+		deletionReason: DeletionReason | undefined,
 		onDelete: OnDelete,
 		onDeleteCompleted: OnDeleteCompleted,
 		destroyCallback: DestroyCallback,
 	): Promise<void> {
 		if (this.confirmationCallback) {
-			const confirmed = await this.confirmationCallback(syncBlockIds.length);
+			const confirmed = await this.confirmationCallback(syncBlockIds, deletionReason);
 			if (confirmed) {
-				const isDeleteSuccessful = await this.delete(syncBlockIds, onDelete, onDeleteCompleted);
+				const isDeleteSuccessful = await this.delete(
+					syncBlockIds,
+					onDelete,
+					onDeleteCompleted,
+					deletionReason,
+				);
 
 				if (!isDeleteSuccessful) {
 					// If deletion failed, save deletion info for potential retry
@@ -456,6 +482,7 @@ export class SourceSyncBlockStoreManager {
 						onDelete,
 						onDeleteCompleted,
 						destroyCallback,
+						deletionReason,
 					};
 				} else {
 					destroyCallback();
@@ -485,6 +512,23 @@ export class SourceSyncBlockStoreManager {
 			this.fireAnalyticsEvent?.(getSourceInfoErrorPayload((error as Error).message));
 
 			return Promise.resolve(undefined);
+		}
+	}
+
+	fetchReferences(resourceId: string): Promise<ReferenceSyncBlockData> {
+		try {
+			if (!this.dataProvider) {
+				throw new Error('Data provider not set');
+			}
+
+			return this.dataProvider.fetchReferences(resourceId, true);
+		} catch (error) {
+			logException(error as Error, {
+				location: 'editor-synced-block-provider/sourceSyncBlockStoreManager',
+			});
+			this.fireAnalyticsEvent?.(fetchReferencesErrorPayload((error as Error).message));
+
+			return Promise.resolve({ error: SyncBlockError.Errored });
 		}
 	}
 

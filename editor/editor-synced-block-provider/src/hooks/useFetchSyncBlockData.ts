@@ -71,7 +71,7 @@ export const useFetchSyncBlockData = (
 			setFetchState({
 				syncBlockInstance: {
 					resourceId: resourceId || '',
-					error: SyncBlockError.Errored,
+					error: { type: SyncBlockError.Errored },
 				},
 				isLoading: false,
 			});

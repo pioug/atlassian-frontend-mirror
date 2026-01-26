@@ -1,5 +1,23 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 5.6.1
+
+### Patch Changes
+
+- [`28434cbe03f1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28434cbe03f1e) -
+  [ux] [EDITOR-2851]
+  - Implement unsync feature for source sync block
+  - Update deletion confirmation modal and reference block UI after source deletion
+
+- Updated dependencies
+
+## 5.6.0
+
+### Minor Changes
+
+- [`f998026c7a01a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f998026c7a01a) -
+  EDITOR-2849 fix editor SSR
+
 ## 5.5.0
 
 ### Minor Changes

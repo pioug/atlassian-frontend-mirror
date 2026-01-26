@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-local-id
 
+## 5.0.2
+
+### Patch Changes
+
+- [`0bae952cf6885`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0bae952cf6885) -
+  Cleanup feature gate which prevents initial localid loading on collab editors
+
 ## 5.0.1
 
 ### Patch Changes

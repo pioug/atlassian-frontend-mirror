@@ -19,4 +19,5 @@ export type {
 	ToolbarExtensionConfiguration,
 	SelectionAdfResult,
 	SelectionExtensionCallbackOptions,
+	SelectionRange,
 } from './types';

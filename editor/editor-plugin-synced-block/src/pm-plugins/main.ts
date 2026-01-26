@@ -8,12 +8,13 @@ import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/edito
 import { mapSlice, pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet, Decoration } from '@atlaskit/editor-prosemirror/view';
 import {
 	convertPMNodesToSyncBlockNodes,
 	rebaseTransaction,
+	type DeletionReason,
 	type SyncBlockStoreManager,
 } from '@atlaskit/editor-synced-block-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -51,6 +52,14 @@ const showCopiedFlag = (api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined)
 			});
 		});
 	}, 0);
+};
+
+const getDeleteReason = (tr: Transaction): DeletionReason => {
+	const reason = tr.getMeta('deletionReason');
+	if (!reason) {
+		return 'source-block-deleted';
+	}
+	return reason as DeletionReason;
 };
 
 export const createPlugin = (
@@ -255,11 +264,11 @@ export const createPlugin = (
 				if (bodiedSyncBlockRemoved.length > 0) {
 					confirmationTransactionRef.current = tr;
 					return handleBodiedSyncBlockRemoval(
-						tr,
 						bodiedSyncBlockRemoved,
 						syncBlockStore,
 						api,
 						confirmationTransactionRef,
+						fg('platform_synced_block_dogfooding') ? getDeleteReason(tr) : undefined,
 					);
 				}
 

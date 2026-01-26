@@ -4,7 +4,7 @@
  */
 import { useState, useEffect } from 'react';
 
-import { css, jsx, cssMap, keyframes } from '@compiled/react';
+import { css, jsx, cssMap, keyframes, cx } from '@compiled/react';
 import { type IntlShape } from 'react-intl-next';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
@@ -95,12 +95,14 @@ const styles = cssMap({
 	},
 	dropdownContent: {
 		width: '342px',
-		minHeight: '144px',
 		maxHeight: '304px',
 		paddingBlock: token('space.025'),
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
+	},
+	containerWithMinHeight: {
+		minHeight: '144px',
 	},
 	contentContainer: {
 		width: '100%',
@@ -128,6 +130,11 @@ const styles = cssMap({
 
 type FetchStatus = 'none' | 'loading' | 'success' | 'error';
 
+const shouldApplyMinHeight = (fetchStatus: FetchStatus, itemCount: number) => {
+	// When there are 1/2 items, dropdown height is less than minHeight 144px
+	return !(fetchStatus === 'success' && itemCount > 0);
+};
+
 const ItemTitle = ({
 	title,
 	formatMessage,
@@ -139,9 +146,9 @@ const ItemTitle = ({
 	formatMessage: IntlShape['formatMessage'];
 	hasAccess?: boolean;
 	isSource?: boolean;
-		onSameDocument?: boolean;
-		productType?: SyncBlockProduct;
-		title: string;
+	onSameDocument?: boolean;
+	productType?: SyncBlockProduct;
+	title: string;
 }) => {
 	return (
 		<Inline>
@@ -150,7 +157,12 @@ const ItemTitle = ({
 			</Box>
 			{onSameDocument && (
 				<Box as="span" xcss={styles.note}>
-					&nbsp;- {formatMessage(productType === 'confluence-page' ? messages.syncedLocationDropdownTitleNoteForConfluencePage : messages.syncedLocationDropdownTitleNoteForJiraWorkItem)}
+					&nbsp;-{' '}
+					{formatMessage(
+						productType === 'confluence-page'
+							? messages.syncedLocationDropdownTitleNoteForConfluencePage
+							: messages.syncedLocationDropdownTitleNoteForJiraWorkItem,
+					)}
 				</Box>
 			)}
 			{isSource && (
@@ -185,7 +197,7 @@ const getConfluenceSubTypeIcon = (subType?: string | null) => {
 };
 
 const ProductIcon = ({ product }: { product?: SyncBlockProduct }) => {
-	const ProductIcon = product ? (productIconMap[product] ?? AtlassianIcon) : AtlassianIcon;
+	const ProductIcon = product ? productIconMap[product] ?? AtlassianIcon : AtlassianIcon;
 
 	return (
 		<span css={logoTileStyles}>
@@ -198,7 +210,14 @@ const ItemIcon = ({ reference }: { reference: SyncBlockSourceInfo }) => {
 	const { hasAccess, subType, productType } = reference;
 
 	if (productType === 'confluence-page' && hasAccess) {
-		return <IconTile icon={getConfluenceSubTypeIcon(subType)} label="" appearance={'gray'} size="xsmall" />;
+		return (
+			<IconTile
+				icon={getConfluenceSubTypeIcon(subType)}
+				label=""
+				appearance={'gray'}
+				size="xsmall"
+			/>
+		);
 	}
 
 	return <ProductIcon product={productType} />;
@@ -225,7 +244,10 @@ export const processReferenceData = (
 		if (references.length > 1) {
 			references.forEach(
 				(reference, index) =>
-					(reference.title = `${reference.title}: ${formatMessage(messages.syncedLocationDropdownTitleBlockIndex, { index: index + 1 })}`),
+					(reference.title = `${reference.title}: ${formatMessage(
+						messages.syncedLocationDropdownTitleBlockIndex,
+						{ index: index + 1 },
+					)}`),
 			);
 		}
 	}
@@ -364,7 +386,16 @@ const DropdownContent = ({ syncBlockStore, resourceId, intl, isSource, localId }
 		}
 	};
 
-	return <Box xcss={styles.dropdownContent}>{content()}</Box>;
+	return (
+		<Box
+			xcss={cx(
+				styles.dropdownContent,
+				shouldApplyMinHeight(fetchStatus, referenceData.length) && styles.containerWithMinHeight,
+			)}
+		>
+			{content()}
+		</Box>
+	);
 };
 
 const LoadingScreen = () => {

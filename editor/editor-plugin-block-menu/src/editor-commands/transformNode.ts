@@ -1,8 +1,8 @@
 import {
 	ACTION,
 	ACTION_SUBJECT,
-	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
+	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
 import {
@@ -94,17 +94,18 @@ export const transformNode: (
 			api?.analytics?.actions?.fireAnalyticsEvent({
 				action: ACTION.TRANSFORMED,
 				actionSubject: ACTION_SUBJECT.ELEMENT,
-				actionSubjectId: ACTION_SUBJECT_ID.TRANSFORM,
 				attributes: {
 					duration,
 					isList,
 					isNested,
-					nodeCount: sourceNodes.length,
-					sourceNodeTypes,
+					sourceNodesCount: sourceNodes.length,
+					sourceNodesCountByType: sourceNodeTypes,
 					startTime,
 					targetNodeType: targetType.name,
+					outputNodesCount: content.length,
+					inputMethod: INPUT_METHOD.BLOCK_MENU,
 				},
-				eventType: EVENT_TYPE.OPERATIONAL,
+				eventType: EVENT_TYPE.TRACK,
 			});
 		});
 

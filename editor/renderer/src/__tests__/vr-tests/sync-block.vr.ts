@@ -4,6 +4,7 @@ import {
 	SyncBlockInvalidRequestError,
 	SyncBlockLoadingState,
 	SyncBlockNotFound,
+	SyncBlockUnsyncNotFound,
 	SyncBlockWithParagraphAndPanelRenderer,
 	SyncBlockWithPermissionDenied,
 } from './sync-block.fixture';
@@ -34,31 +35,43 @@ const mockRequest = [
 ];
 
 snapshot(SyncBlockWithParagraphAndPanelRenderer, {
+	featureFlags: { platform_synced_block_dogfooding: true },
 	description: 'should render sync block with paragraph and panel',
 	mockRequests: mockRequest,
 });
 
 snapshot(SyncBlockWithPermissionDenied, {
+	featureFlags: { platform_synced_block_dogfooding: true },
 	description: 'should render sync block with permission denied error',
 	mockRequests: mockRequest,
 });
 
 snapshot(SyncBlockNotFound, {
-	description: 'should render sync block not found error',
+	featureFlags: { platform_synced_block_dogfooding: true },
+	description: 'should render sync block not found error - delete',
+	mockRequests: mockRequest,
+});
+
+snapshot(SyncBlockUnsyncNotFound, {
+	featureFlags: { platform_synced_block_dogfooding: true },
+	description: 'should render sync block not found error - unsync',
 	mockRequests: mockRequest,
 });
 
 snapshot(SyncBlockGenericError, {
+	featureFlags: { platform_synced_block_dogfooding: true },
 	description: 'should render sync block generic error',
 	mockRequests: mockRequest,
 });
 
 snapshot(SyncBlockInvalidRequestError, {
+	featureFlags: { platform_synced_block_dogfooding: true },
 	description: 'should render sync block invalid request error',
 	mockRequests: mockRequest,
 });
 
 snapshot(SyncBlockLoadingState, {
+	featureFlags: { platform_synced_block_dogfooding: true },
 	description: 'should render sync block loading state',
 	mockRequests: mockRequest,
 });

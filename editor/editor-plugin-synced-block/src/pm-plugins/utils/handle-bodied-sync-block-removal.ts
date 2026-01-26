@@ -1,7 +1,7 @@
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import type { DeletionReason, SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 
 import type { SyncedBlockPlugin } from '../../syncedBlockPluginType';
 import { FLAG_ID, type ActiveFlag, type SyncBlockInfo } from '../../types';
@@ -32,11 +32,11 @@ const onDismissed = (syncBlockStore: SyncBlockStoreManager) => (tr: Transaction)
 };
 
 export const handleBodiedSyncBlockRemoval = (
-	tr: Transaction,
 	bodiedSyncBlockRemoved: SyncBlockInfo[],
 	syncBlockStore: SyncBlockStoreManager,
 	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined,
 	confirmationTransactionRef: ConfirmationTransactionRef,
+	deletionReason: DeletionReason | undefined,
 ) => {
 	// Clear potential old pending deletion to retreat the deletion as first attempt
 	syncBlockStore.sourceManager.clearPendingDeletion();
@@ -47,6 +47,7 @@ export const handleBodiedSyncBlockRemoval = (
 	// proceed with deletion.
 	syncBlockStore.sourceManager.deleteSyncBlocksWithConfirmation(
 		bodiedSyncBlockRemoved.map((node) => node.attrs),
+		deletionReason,
 		() => {
 			const confirmationTransaction = confirmationTransactionRef.current;
 			if (!confirmationTransaction) {

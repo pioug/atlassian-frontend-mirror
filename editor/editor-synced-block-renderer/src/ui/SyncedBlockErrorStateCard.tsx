@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { type ReactNode } from 'react';
 
 import { cssMap } from '@atlaskit/css';
 import WarningOutlineIcon from '@atlaskit/icon-lab/core/warning-outline';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -19,17 +21,23 @@ const styles = cssMap({
 });
 
 interface SyncedBlockErrorStateCardProps {
-	children?: React.ReactNode;
-	description: string;
+	children?: ReactNode;
+	closeButton?: ReactNode;
+	description: ReactNode;
+	icon?: (props: NewCoreIconProps) => JSX.Element;
 }
 
 export const SyncedBlockErrorStateCard = ({
 	children,
 	description,
+	icon,
 }: SyncedBlockErrorStateCardProps): React.JSX.Element => {
+	const Icon = fg('platform_synced_block_dogfooding')
+		? (icon ?? WarningOutlineIcon)
+		: WarningOutlineIcon;
 	return (
 		<Box xcss={styles.wrapper}>
-			<WarningOutlineIcon color={token("color.icon.subtle")} label=""/>
+			<Icon color={token('color.icon.subtle')} label="" />
 			<Text color="color.text.subtle">{description}</Text>
 			{children}
 		</Box>

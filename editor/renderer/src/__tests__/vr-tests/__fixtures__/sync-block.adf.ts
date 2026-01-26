@@ -42,6 +42,20 @@ export const syncBlockNotFoundAdf: DocNode = {
 	],
 };
 
+export const syncBlockUnsyncNotFoundAdf: DocNode = {
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'syncBlock',
+			attrs: {
+				resourceId: 'ari:cloud:confluence:test-sync-block-not-found-unsync:page/1234/abc',
+				localId: 'dadba259-8f2c-45cb-9140-ce23278c5bbc',
+			},
+		},
+	],
+};
+
 export const syncBlockGenericErrorAdf: DocNode = {
 	version: 1,
 	type: 'doc',

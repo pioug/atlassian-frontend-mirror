@@ -81,8 +81,8 @@ export const SyncedBlockNodeComponentRenderer = ({
 				error={
 					syncBlockInstance?.error ??
 					(syncBlockInstance?.data?.status === 'deleted' && fg('platform_synced_block_dogfooding')
-						? SyncBlockError.NotFound
-						: SyncBlockError.Errored)
+						? { type: SyncBlockError.NotFound }
+						: { type: SyncBlockError.Errored })
 				}
 				resourceId={syncBlockInstance?.resourceId}
 				onRetry={reloadData}

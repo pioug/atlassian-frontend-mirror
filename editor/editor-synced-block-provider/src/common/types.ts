@@ -39,6 +39,7 @@ export interface SyncBlockData {
 	contentUpdatedAt?: string;
 	createdAt?: string;
 	createdBy?: string;
+	deletionReason?: DeletionReason;
 	isSynced?: boolean;
 	/**
 	 * Whether the block is on the same page as the source block
@@ -54,6 +55,7 @@ export interface SyncBlockData {
 	sourceTitle?: string;
 	sourceURL?: string;
 	status?: SyncBlockStatus;
+	updatedAt?: string;
 }
 
 export interface ReferenceSyncBlockResponse {
@@ -79,3 +81,6 @@ export type ReferencesSourceInfo = {
 	error?: SyncBlockError;
 	references?: Array<SyncBlockSourceInfo | undefined>;
 };
+
+export type DeletionReason = 'source-block-deleted' | 'source-block-unsynced';
+export type DeletionReasonResponse = DeletionReason | 'source-document-deleted';

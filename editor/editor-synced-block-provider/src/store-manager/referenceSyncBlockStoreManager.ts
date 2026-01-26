@@ -27,7 +27,11 @@ import {
 	getSourceInfoErrorPayload,
 	updateReferenceErrorPayload,
 } from '../utils/errorHandling';
-import { getFetchExperience, getFetchSourceInfoExperience, getSaveReferenceExperience } from '../utils/experienceTracking';
+import {
+	getFetchExperience,
+	getFetchSourceInfoExperience,
+	getSaveReferenceExperience,
+} from '../utils/experienceTracking';
 import { resolveSyncBlockInstance } from '../utils/resolveSyncBlockInstance';
 import { parseResourceId } from '../utils/resourceId';
 import { createSyncBlockNode } from '../utils/utils';
@@ -144,7 +148,8 @@ export class ReferenceSyncBlockStoreManager {
 				listener();
 			} catch (error) {
 				logException(error as Error, {
-					location: 'editor-synced-block-provider/referenceSyncBlockStoreManager/notifySubscriptionChangeListeners',
+					location:
+						'editor-synced-block-provider/referenceSyncBlockStoreManager/notifySubscriptionChangeListeners',
 				});
 				this.fireAnalyticsEvent?.(fetchErrorPayload((error as Error).message));
 			}
@@ -265,7 +270,8 @@ export class ReferenceSyncBlockStoreManager {
 			},
 			(error) => {
 				logException(error, {
-					location: 'editor-synced-block-provider/referenceSyncBlockStoreManager/graphql-subscription',
+					location:
+						'editor-synced-block-provider/referenceSyncBlockStoreManager/graphql-subscription',
 				});
 				this.fireAnalyticsEvent?.(fetchErrorPayload(error.message));
 			},
@@ -393,7 +399,9 @@ export class ReferenceSyncBlockStoreManager {
 					if (!sourceInfo) {
 						if (fg('platform_synced_block_dogfooding')) {
 							this.fetchSourceInfoExperience?.failure({ reason: 'No source info returned' });
-							this.fireAnalyticsEvent?.(getSourceInfoErrorPayload('No source info returned', resourceId));
+							this.fireAnalyticsEvent?.(
+								getSourceInfoErrorPayload('No source info returned', resourceId),
+							);
 						}
 						return undefined;
 					}
@@ -408,7 +416,9 @@ export class ReferenceSyncBlockStoreManager {
 							this.fetchSourceInfoExperience?.success();
 						} else {
 							this.fetchSourceInfoExperience?.failure({ reason: 'Missing title or url' });
-							this.fireAnalyticsEvent?.(getSourceInfoErrorPayload('Missing title or url', resourceId));
+							this.fireAnalyticsEvent?.(
+								getSourceInfoErrorPayload('Missing title or url', resourceId),
+							);
 						}
 
 						return sourceInfo;
@@ -463,7 +473,7 @@ export class ReferenceSyncBlockStoreManager {
 				return;
 			}
 			const existingSyncBlock = this.getFromCache(node.attrs.resourceId);
-			if (existingSyncBlock?.error === SyncBlockError.NotFound) {
+			if (existingSyncBlock?.error?.type === SyncBlockError.NotFound) {
 				return;
 			}
 			nodesToFetch.push(node);
@@ -491,8 +501,6 @@ export class ReferenceSyncBlockStoreManager {
 			});
 		});
 
-		const resolvedData: SyncBlockInstance[] = [];
-
 		let hasUnexpectedError = false;
 		let hasExpectedError = false;
 
@@ -500,7 +508,8 @@ export class ReferenceSyncBlockStoreManager {
 			if (!syncBlockInstance.resourceId) {
 				this.fireAnalyticsEvent?.(
 					fetchErrorPayload(
-						syncBlockInstance.error || 'Returned sync block instance does not have resource id',
+						syncBlockInstance.error?.type ||
+							'Returned sync block instance does not have resource id',
 					),
 				);
 				return;
@@ -513,18 +522,16 @@ export class ReferenceSyncBlockStoreManager {
 				: syncBlockInstance;
 
 			this.updateCache(resolvedSyncBlockInstance);
-			resolvedData.push(resolvedSyncBlockInstance);
 
 			if (syncBlockInstance.error) {
 				this.fireAnalyticsEvent?.(
-					fetchErrorPayload(
-						syncBlockInstance.error,
-						syncBlockInstance.resourceId,
-					),
+					fetchErrorPayload(syncBlockInstance.error.type, syncBlockInstance.resourceId),
 				);
 
-				if (syncBlockInstance.error === SyncBlockError.NotFound ||
-					syncBlockInstance.error === SyncBlockError.Forbidden) {
+				if (
+					syncBlockInstance.error.type === SyncBlockError.NotFound ||
+					syncBlockInstance.error.type === SyncBlockError.Forbidden
+				) {
 					hasExpectedError = true;
 				} else if (syncBlockInstance.error) {
 					hasUnexpectedError = true;
@@ -532,7 +539,11 @@ export class ReferenceSyncBlockStoreManager {
 				return;
 			} else if (fg('platform_synced_block_dogfooding')) {
 				this.fireAnalyticsEvent?.(
-					fetchSuccessPayload(syncBlockInstance.resourceId, syncBlockInstance.data?.blockInstanceId, syncBlockInstance.data?.product),
+					fetchSuccessPayload(
+						syncBlockInstance.resourceId,
+						syncBlockInstance.data?.blockInstanceId,
+						syncBlockInstance.data?.product,
+					),
 				);
 			}
 

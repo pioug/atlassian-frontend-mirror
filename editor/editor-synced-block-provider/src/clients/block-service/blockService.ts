@@ -1,4 +1,11 @@
-import type { ReferenceSyncBlockResponse, SyncBlockProduct, SyncBlockStatus } from '../../common/types';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import type {
+	ReferenceSyncBlockResponse,
+	SyncBlockProduct,
+	SyncBlockStatus,
+	DeletionReason,
+} from '../../common/types';
 import { fetchWithRetry } from '../../utils/retry';
 
 export type BlockContentResponse = {
@@ -8,6 +15,7 @@ export type BlockContentResponse = {
 	contentUpdatedAt: number;
 	createdAt: number;
 	createdBy: string;
+	deletionReason: DeletionReason;
 	product: SyncBlockProduct;
 	sourceAri: string;
 	status: SyncBlockStatus;
@@ -120,6 +128,7 @@ export type GetSyncedBlockContentRequest = {
 
 export type DeleteSyncedBlockRequest = {
 	blockAri: string; // the ARI of the block. E.G ari:cloud:blocks:site-123:synced-block/uuid-456
+	deleteReason: string | undefined; // the reason for the deletion, e.g. 'source-block-unsynced', 'source-block-deleted'
 };
 
 export type UpdateSyncedBlockRequest = {
@@ -251,11 +260,11 @@ export const batchRetrieveSyncedBlocks = async ({
 	const response = await fetchWithRetry(`${BLOCK_SERVICE_API_URL}/block/batch-retrieve`, {
 		method: 'POST',
 		headers: COMMON_HEADERS,
-		body: JSON.stringify({ 
+		body: JSON.stringify({
 			documentAri,
 			blockIdentifiers,
 			blockAris: blockIdentifiers.map((blockIdentifier) => blockIdentifier.blockAri),
-		 }),
+		}),
 	});
 
 	if (!response.ok) {
@@ -265,14 +274,18 @@ export const batchRetrieveSyncedBlocks = async ({
 	return (await response.json()) as BatchRetrieveSyncedBlocksResponse;
 };
 
-export const deleteSyncedBlock = async ({ blockAri }: DeleteSyncedBlockRequest): Promise<void> => {
-	const response = await fetchWithRetry(
-		`${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}`,
-		{
-			method: 'DELETE',
-			headers: COMMON_HEADERS,
-		},
-	);
+export const deleteSyncedBlock = async ({
+	blockAri,
+	deleteReason,
+}: DeleteSyncedBlockRequest): Promise<void> => {
+	const url =
+		deleteReason && fg('platform_synced_block_dogfooding')
+			? `${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}?deletionReason=${encodeURIComponent(deleteReason)}`
+			: `${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}`;
+	const response = await fetchWithRetry(url, {
+		method: 'DELETE',
+		headers: COMMON_HEADERS,
+	});
 
 	if (!response.ok) {
 		throw new BlockError(response.status);

@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 5.3.2
+
+### Patch Changes
+
+- [`41d5a8796f3e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41d5a8796f3e1) -
+  [EDITOR-4472] Update content copy for sync block
+- [`28434cbe03f1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28434cbe03f1e) -
+  [ux] [EDITOR-2851]
+  - Implement unsync feature for source sync block
+  - Update deletion confirmation modal and reference block UI after source deletion
+
+- Updated dependencies
+
 ## 5.3.1
 
 ### Patch Changes

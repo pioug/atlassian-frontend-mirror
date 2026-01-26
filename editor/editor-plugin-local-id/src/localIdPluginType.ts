@@ -1,4 +1,5 @@
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { CollabEditPlugin } from '@atlaskit/editor-plugin-collab-edit';
 import type { CompositionPlugin } from '@atlaskit/editor-plugin-composition';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
@@ -27,6 +28,6 @@ export type LocalIdPlugin = NextEditorPlugin<
 			 */
 			replaceNode: (props: ActionProps & { value: Node }) => boolean;
 		};
-		dependencies: [CompositionPlugin];
+		dependencies: [CompositionPlugin, OptionalPlugin<CollabEditPlugin>];
 	}
 >;

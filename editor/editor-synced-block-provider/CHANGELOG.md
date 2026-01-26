@@ -1,5 +1,23 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.14.2
+
+### Patch Changes
+
+- [`28434cbe03f1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28434cbe03f1e) -
+  [ux] [EDITOR-2851]
+  - Implement unsync feature for source sync block
+  - Update deletion confirmation modal and reference block UI after source deletion
+
+- Updated dependencies
+
+## 3.14.1
+
+### Patch Changes
+
+- [`838e5da4cc27d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/838e5da4cc27d) -
+  Refactor SyncBlockLabel and BlockServiceAPI provider
+
 ## 3.14.0
 
 ### Minor Changes

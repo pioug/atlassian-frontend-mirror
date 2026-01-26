@@ -45,9 +45,7 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 			 * to nodes that don't have them. It's designed to run only once per
 			 * editor instance to avoid performance issues.
 			 */
-			// @ts-expect-error - This is an experiment to see if we can improve performance - if successful
-			// we will add the plugin as a dependency
-			if (api?.collabEdit && fg('platform_editor_ai_aifc_avoid_initial_localId')) {
+			if (api?.collabEdit) {
 				return {
 					update: () => {},
 				};

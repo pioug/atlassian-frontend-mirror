@@ -3,6 +3,7 @@ import { type Client, createClient } from 'graphql-ws';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
 import type { SyncBlockProduct } from '../../common/types';
+import { convertContentUpdatedAt } from '../../utils/utils';
 
 const GRAPHQL_WS_ENDPOINT = '/gateway/api/graphql/subscriptions';
 
@@ -45,6 +46,7 @@ export type ParsedBlockSubscriptionData = {
 	blockAri: string;
 	blockInstanceId: string;
 	content: ADFEntity[];
+	contentUpdatedAt?: string;
 	createdAt?: string;
 	createdBy: string;
 	product: SyncBlockProduct;
@@ -114,6 +116,7 @@ const parseSubscriptionPayload = (
 			blockAri: payload.blockAri,
 			blockInstanceId: payload.blockInstanceId,
 			content: JSON.parse(payload.content) as ADFEntity[],
+			contentUpdatedAt: convertContentUpdatedAt(payload.contentUpdatedAt),
 			createdAt,
 			createdBy: payload.createdBy,
 			product: payload.product as SyncBlockProduct,

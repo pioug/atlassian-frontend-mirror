@@ -2,7 +2,6 @@
 import { useMemo } from 'react';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { generateBlockAri, generateBlockAriFromReference } from '../../clients/block-service/ari';
 import {
@@ -30,6 +29,7 @@ import {
 } from '../../common/types';
 import { stringifyError } from '../../utils/errorHandling';
 import { createResourceIdForReference } from '../../utils/resourceId';
+import { convertContentUpdatedAt } from '../../utils/utils';
 import type {
 	ADFFetchProvider,
 	ADFWriteProvider,
@@ -124,26 +124,17 @@ export const convertToSyncBlockData = (
 			// BE returns microseconds, convert to milliseconds
 			// BE should fix this in the future
 			createdAt = new Date(data.createdAt / 1000).toISOString();
-		} catch (e) {
+		} catch {
 			// fallback to undefined
 			// as we don't want to block the whole process due to invalid date
 			createdAt = undefined;
 		}
 	}
 
-	let contentUpdatedAt: string | undefined;
-	if (typeof data.contentUpdatedAt === 'number' && fg('platform_synced_block_dogfooding')) {
-		try {
-			contentUpdatedAt = new Date(data.contentUpdatedAt).toISOString();
-		} catch (e) {
-			contentUpdatedAt = undefined;
-		}
-	}
-
 	return {
 		blockInstanceId: data.blockInstanceId,
 		content: JSON.parse(data.content),
-		contentUpdatedAt,
+		contentUpdatedAt: convertContentUpdatedAt(data.contentUpdatedAt),
 		createdAt,
 		createdBy: data.createdBy,
 		product: data.product,
@@ -179,7 +170,7 @@ export const fetchReferences = async (
 			if (!resourceId) {
 				// could not extract resourceId from blockAri, return InvalidContent error
 				return {
-					error: SyncBlockError.InvalidContent,
+					error: { type: SyncBlockError.InvalidContent },
 					resourceId: blockContentResponse.blockAri,
 				} as SyncBlockInstance;
 			}
@@ -191,7 +182,7 @@ export const fetchReferences = async (
 		} catch {
 			// JSON parsing error, return InvalidContent error
 			return {
-				error: SyncBlockError.InvalidContent,
+				error: { type: SyncBlockError.InvalidContent },
 				resourceId: blockContentResponse.blockAri,
 			} as SyncBlockInstance;
 		}
@@ -200,7 +191,7 @@ export const fetchReferences = async (
 	const errorInstances = (errors || []).map(
 		(errorBlock) =>
 			({
-				error: SyncBlockError.Errored,
+				error: { type: SyncBlockError.Errored },
 				resourceId: errorBlock.blockAri,
 			}) as SyncBlockInstance,
 	);
@@ -238,37 +229,33 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 			const value = blockContentResponse.content;
 
 			if (!value) {
-				return { error: SyncBlockError.NotFound, resourceId };
+				return {
+					error: { type: SyncBlockError.NotFound, reason: blockContentResponse.deletionReason },
+					resourceId,
+				};
 			}
 
 			// Parse the synced block content from the response's content
 			const syncedBlockData = JSON.parse(value) as Array<ADFEntity>;
 
-			let contentUpdatedAt: string | undefined;
-			if (typeof blockContentResponse.contentUpdatedAt === 'number' && fg('platform_synced_block_dogfooding')) {
-				try {
-					contentUpdatedAt = new Date(blockContentResponse.contentUpdatedAt).toISOString();
-				} catch (e) {
-					contentUpdatedAt = undefined;
-				}
-			}
 			return {
 				data: {
 					content: syncedBlockData,
 					resourceId: blockAri,
 					blockInstanceId: blockContentResponse.blockInstanceId, // this was the node's localId, but has become the resourceId.
-					contentUpdatedAt,
+					contentUpdatedAt: convertContentUpdatedAt(blockContentResponse.contentUpdatedAt),
 					sourceAri: blockContentResponse.sourceAri,
 					product: blockContentResponse.product,
 					status: blockContentResponse.status,
+					deletionReason: blockContentResponse.deletionReason,
 				},
 				resourceId,
 			};
 		} catch (error) {
 			if (error instanceof BlockError) {
-				return { error: mapBlockError(error), resourceId };
+				return { error: { type: mapBlockError(error) }, resourceId };
 			}
-			return { error: SyncBlockError.Errored, resourceId };
+			return { error: { type: SyncBlockError.Errored }, resourceId };
 		}
 	}
 
@@ -285,7 +272,7 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 				references.push({
 					...reference,
 					hasAccess: true,
-                    onSameDocument: this.parentAri === reference.documentAri,
+					onSameDocument: this.parentAri === reference.documentAri,
 				});
 			});
 			response.errors.forEach((reference) => {
@@ -294,7 +281,7 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 						blockAri: reference.blockAri,
 						documentAri: reference.documentAri,
 						hasAccess: false,
-                        onSameDocument: false,
+						onSameDocument: false,
 					});
 				}
 			});
@@ -324,25 +311,36 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 	 */
 	async batchFetchData(blockNodeIdentifiers: BlockNodeIdentifiers[]): Promise<SyncBlockInstance[]> {
 		const blockIdentifiers = blockNodeIdentifiers.map((blockIdentifier) => ({
-			blockAri: generateBlockAriFromReference({ cloudId: this.cloudId, resourceId: blockIdentifier.resourceId }),
+			blockAri: generateBlockAriFromReference({
+				cloudId: this.cloudId,
+				resourceId: blockIdentifier.resourceId,
+			}),
 			blockInstanceId: blockIdentifier.blockInstanceId,
 		}));
 
 		// Create a set of valid resourceIds for validation
-		const validResourceIds = new Set(blockNodeIdentifiers.map((blockNodeIdentifier) => blockNodeIdentifier.resourceId));
+		const validResourceIds = new Set(
+			blockNodeIdentifiers.map((blockNodeIdentifier) => blockNodeIdentifier.resourceId),
+		);
 
 		// Track which resourceIds have been processed
 		const processedResourceIds = new Set<string>();
 
 		if (!this.parentAri) {
-			return blockNodeIdentifiers.map((blockNodeIdentifier) => ({
-				error: SyncBlockError.Errored,
-				resourceId: blockNodeIdentifier.resourceId,
-			}) as SyncBlockInstance);
+			return blockNodeIdentifiers.map(
+				(blockNodeIdentifier) =>
+					({
+						error: { type: SyncBlockError.Errored },
+						resourceId: blockNodeIdentifier.resourceId,
+					}) as SyncBlockInstance,
+			);
 		}
 
 		try {
-			const response = await batchRetrieveSyncedBlocks({ documentAri: this.parentAri, blockIdentifiers });
+			const response = await batchRetrieveSyncedBlocks({
+				documentAri: this.parentAri,
+				blockIdentifiers,
+			});
 			const results: SyncBlockInstance[] = [];
 
 			// Process successful blocks
@@ -358,35 +356,31 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 
 					const value = blockContentResponse.content;
 					if (!value) {
-						results.push({ error: SyncBlockError.NotFound, resourceId });
+						results.push({
+							error: { type: SyncBlockError.NotFound, reason: blockContentResponse.deletionReason },
+							resourceId,
+						});
 						continue;
 					}
 
 					try {
 						const syncedBlockData = JSON.parse(value) as Array<ADFEntity>;
-						let contentUpdatedAt: string | undefined;
-						if (typeof blockContentResponse.contentUpdatedAt === 'number' && fg('platform_synced_block_dogfooding')) {
-							try {
-								contentUpdatedAt = new Date(blockContentResponse.contentUpdatedAt).toISOString();
-							} catch (e) {
-								contentUpdatedAt = undefined;
-							}
-						}
 
 						results.push({
 							data: {
 								content: syncedBlockData,
 								resourceId: blockContentResponse.blockAri,
-								contentUpdatedAt,
+								contentUpdatedAt: convertContentUpdatedAt(blockContentResponse.contentUpdatedAt),
 								blockInstanceId: blockContentResponse.blockInstanceId,
 								sourceAri: blockContentResponse.sourceAri,
 								product: blockContentResponse.product,
 								status: blockContentResponse.status,
+								deletionReason: blockContentResponse.deletionReason,
 							},
 							resourceId,
 						});
 					} catch {
-						results.push({ error: SyncBlockError.Errored, resourceId });
+						results.push({ error: { type: SyncBlockError.Errored }, resourceId });
 					}
 				}
 			}
@@ -403,7 +397,7 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 					processedResourceIds.add(resourceId);
 
 					results.push({
-						error: mapErrorResponseCode(errorResponse.code),
+						error: { type: mapErrorResponseCode(errorResponse.code) },
 						resourceId,
 					});
 				}
@@ -413,7 +407,7 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 			for (const blockNodeIdentifier of blockNodeIdentifiers) {
 				if (!processedResourceIds.has(blockNodeIdentifier.resourceId)) {
 					results.push({
-						error: SyncBlockError.NotFound,
+						error: { type: SyncBlockError.NotFound },
 						resourceId: blockNodeIdentifier.resourceId,
 					});
 				}
@@ -423,7 +417,9 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 		} catch (error) {
 			// If batch request fails, return error for all resourceIds
 			return blockNodeIdentifiers.map((blockNodeIdentifier) => ({
-				error: error instanceof BlockError ? mapBlockError(error) : SyncBlockError.Errored,
+				error: {
+					type: error instanceof BlockError ? mapBlockError(error) : SyncBlockError.Errored,
+				},
 				resourceId: blockNodeIdentifier.resourceId,
 			}));
 		}
@@ -455,6 +451,7 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 						sourceAri: parsedData.sourceAri,
 						product: parsedData.product,
 						createdAt: parsedData.createdAt,
+						contentUpdatedAt: parsedData.contentUpdatedAt,
 						createdBy: parsedData.createdBy,
 						status: parsedData.status as SyncBlockStatus,
 					},
@@ -559,7 +556,10 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 	}
 
 	// soft deletes the source synced block
-	async deleteData(resourceId: string): Promise<DeleteSyncBlockResult> {
+	async deleteData(
+		resourceId: string,
+		deleteReason: string | undefined,
+	): Promise<DeleteSyncBlockResult> {
 		if (!this.parentId) {
 			return { resourceId, success: false, error: SyncBlockError.Errored };
 		}
@@ -570,7 +570,7 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 			resourceId,
 		});
 		try {
-			await deleteSyncedBlock({ blockAri });
+			await deleteSyncedBlock({ blockAri, deleteReason });
 			return { resourceId, success: true, error: undefined };
 		} catch (error) {
 			if (error instanceof BlockError) {

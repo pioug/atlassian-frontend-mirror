@@ -1069,6 +1069,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-01-26
+	platform_editor_ai_fix_streaming_json_escape: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 } = {
 	// new format to avoid collisions with other users when updating the file
 
@@ -2273,6 +2280,14 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_ai_loading_responsive_width',
 			jira: 'platform_editor_ai_loading_responsive_width',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-01-26
+	platform_editor_ai_fix_streaming_json_escape: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_fix_streaming_json_escape',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

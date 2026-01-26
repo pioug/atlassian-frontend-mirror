@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 10.3.0
+
+### Minor Changes
+
+- [`88fd7b57c2c76`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88fd7b57c2c76) -
+  Export SelectionRange type
+
 ## 10.2.1
 
 ### Patch Changes

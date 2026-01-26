@@ -49,7 +49,7 @@ export const getToolbarConfig = (
 		syncBlockObject.node.attrs.resourceId,
 	);
 
-	const isUnsyncedBlock = syncBlockInstance?.error === SyncBlockError.NotFound;
+	const isUnsyncedBlock = syncBlockInstance?.error?.type === SyncBlockError.NotFound;
 	const isErroredBlock = syncBlockInstance?.error;
 
 	const {

@@ -56,26 +56,37 @@ const SyncedBlockRendererComponent = ({
 		};
 	}, [syncBlockRendererOptions, ssrProviders]);
 
-	const { isInternetOffline } = useSharedPluginStateWithSelector(
+	const { isCollabOffline } = useSharedPluginStateWithSelector(
 		api,
 		['connectivity'],
 		({ connectivityState }) => ({
-			isInternetOffline: connectivityState?.mode === 'collab-offline',
+			isCollabOffline: connectivityState?.mode === 'collab-offline',
 		}),
 	);
 
-	if (isInternetOffline) {
-		return <SyncedBlockErrorComponent error={SyncBlockError.Offline} />;
+	// Show offline error only when collaboration is offline and not in SSR mode
+	// In SSR, we should always attempt to render content
+	if (isCollabOffline && !isSSR()) {
+		return <SyncedBlockErrorComponent error={{ type: SyncBlockError.Offline }} />;
 	}
 
 	if (!syncBlockInstance) {
 		return <SyncedBlockLoadingState />;
 	}
 
-	if (syncBlockInstance.error || !syncBlockInstance.data || (syncBlockInstance.data.status === 'deleted' && fg('platform_synced_block_dogfooding'))) {
+	if (
+		syncBlockInstance.error ||
+		!syncBlockInstance.data ||
+		(syncBlockInstance.data.status === 'deleted' && fg('platform_synced_block_dogfooding'))
+	) {
 		return (
 			<SyncedBlockErrorComponent
-				error={syncBlockInstance.error ?? (syncBlockInstance?.data?.status === 'deleted' && fg('platform_synced_block_dogfooding') ? SyncBlockError.NotFound : SyncBlockError.Errored)}
+				error={
+					syncBlockInstance.error ??
+					(syncBlockInstance?.data?.status === 'deleted' && fg('platform_synced_block_dogfooding')
+						? { type: SyncBlockError.NotFound }
+						: { type: SyncBlockError.Errored })
+				}
 				resourceId={syncBlockInstance.resourceId}
 				onRetry={reloadData}
 				isLoading={isLoading}

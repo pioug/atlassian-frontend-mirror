@@ -30,9 +30,6 @@
 			"path": "../../../design-system/css/afm-cc/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/icon/afm-cc/tsconfig.json"
-		},
-		{
 			"path": "../../media-common/afm-cc/tsconfig.json"
 		},
 		{

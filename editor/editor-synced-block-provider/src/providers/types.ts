@@ -18,6 +18,7 @@ import type {
 	BlockInstanceId,
 	SyncBlockAttrs,
 	ReferenceSyncBlockData,
+	DeletionReason,
 } from '../common/types';
 
 /**
@@ -33,7 +34,7 @@ export type SyncBlockInstance = {
 	/*
 	 * Current state/error of the sync block, if any
 	 */
-	error?: SyncBlockError;
+	error?: { reason?: string; type: SyncBlockError };
 	/**
 	 *  The resourceId in the attrs of the block
 	 */
@@ -106,10 +107,15 @@ export interface ADFWriteProvider {
 	/**
 	 * Delete source block.
 	 * @param resourceId the resourceId of the block to be deleted
+	 * @param deleteReason the reason for the deletion, e.g. 'source-block-unsynced', 'source-block-deleted'
 	 * @returns Object representing the result of the deletion. {resourceId: string, success: boolean, error?: string}.
 	 * User should not be blocked by not_found error when deleting, so successful result should be returned for 404 error
 	 */
-	deleteData: (resourceId: ResourceId) => Promise<DeleteSyncBlockResult>;
+	deleteData: (
+		resourceId: ResourceId,
+		// Remove undefined when clean up platform_synced_block_dogfooding
+		deleteReason: string | undefined,
+	) => Promise<DeleteSyncBlockResult>;
 	generateResourceIdForReference: (sourceId: ResourceId) => ResourceId;
 	parentAri?: string;
 	product: SyncBlockProduct;
@@ -158,7 +164,10 @@ export abstract class SyncBlockDataProvider extends NodeDataProvider<
 		data: SyncBlockData[],
 	): Promise<Array<WriteSyncBlockResult>>;
 	abstract createNodeData(data: SyncBlockData): Promise<WriteSyncBlockResult>;
-	abstract deleteNodesData(resourceIds: string[]): Promise<Array<DeleteSyncBlockResult>>;
+	abstract deleteNodesData(
+		resourceIds: string[],
+		deleteReason: DeletionReason | undefined,
+	): Promise<Array<DeleteSyncBlockResult>>;
 	abstract fetchSyncBlockSourceInfo(
 		localId: BlockInstanceId,
 		sourceAri?: string,

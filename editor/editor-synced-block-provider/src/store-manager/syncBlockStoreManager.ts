@@ -56,7 +56,7 @@ export class SyncBlockStoreManager {
 
 			const sourceInfoPromises = response.references.map(async (reference) => {
 				const sourceInfo = await this.dataProvider?.fetchSyncBlockSourceInfo(
-					blockInstanceId,
+					reference.blockInstanceId || '',
 					reference.documentAri,
 					getProductFromSourceAri(reference.documentAri),
 					this.fireAnalyticsEvent,

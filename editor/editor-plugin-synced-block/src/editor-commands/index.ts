@@ -301,6 +301,14 @@ export const unsync = (
 	}
 
 	if (isBodiedSyncBlock) {
+		const content = syncBlock?.node.content;
+		const tr = state.tr;
+		tr.replaceWith(syncBlock.pos, syncBlock.pos + syncBlock.node.nodeSize, content).setMeta(
+			'deletionReason',
+			'source-block-unsynced',
+		);
+		view.dispatch(tr);
+
 		return true;
 	}
 

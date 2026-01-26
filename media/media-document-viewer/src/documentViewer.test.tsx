@@ -745,38 +745,16 @@ describe('DocumentViewer', () => {
 			// await expect(document.body).toBeAccessible({ violationCount: 2 });
 		});
 
-		ffTest.on(
-			'media-document-viewer-annotations',
-			'should utilise pdfium server side rendered inputs when feature flag is enabled',
-			() => {
-				it('should utilise pdfium server side rendered inputs when feature flag is enabled', async () => {
-					const props = createMockProps();
-					render(<DocumentViewer {...props} />);
-					await waitFor(async () => await makeAllIntersectionObserversVisible());
+		it('should utilise pdfium server side rendered inputs', async () => {
+			const props = createMockProps();
+			render(<DocumentViewer {...props} />);
+			await waitFor(async () => await makeAllIntersectionObserversVisible());
 
-					// Transparent font
-					expect(screen.queryByTestId('text-form-field-0')?.querySelector('input')).toHaveStyle(
-						'color: rgba(0, 0, 0, 0)',
-					);
-				});
-			},
-		);
-		ffTest.off(
-			'media-document-viewer-annotations',
-			'should not utilise pdfium server side rendered inputs when feature flag is enabled',
-			() => {
-				it('should not render annotations when annotations feature flag is disabled', async () => {
-					const props = createMockProps();
-					render(<DocumentViewer {...props} />);
-					await waitFor(async () => await makeAllIntersectionObserversVisible());
-
-					// Will always render over pdfium server side rendered input
-					expect(screen.queryByTestId('text-form-field-0')?.querySelector('input')).not.toHaveStyle(
-						'color: rgba(0, 0, 0, 0)',
-					);
-				});
-			},
-		);
+			// Transparent font
+			expect(screen.queryByTestId('text-form-field-0')?.querySelector('input')).toHaveStyle(
+				'color: rgba(0, 0, 0, 0)',
+			);
+		});
 	});
 
 	describe('Document Links', () => {

@@ -132,6 +132,7 @@ const mountTableWithFF = (
 	isTopLevelRenderer: RendererContextProps['isTopLevelRenderer'] = true,
 	isInsideOfTable = false,
 	allowTableResizing = false,
+	allowFixedColumnWidthOption?: boolean,
 ) => {
 	return mountWithIntl(
 		<RendererContextProvider value={{ featureFlags, isTopLevelRenderer }}>
@@ -145,6 +146,7 @@ const mountTableWithFF = (
 				isInsideOfBlockNode={isInsideOfBlockNode}
 				isInsideOfTable={isInsideOfTable}
 				allowTableResizing={allowTableResizing}
+				allowFixedColumnWidthOption={allowFixedColumnWidthOption}
 			>
 				<TableRow>
 					<TableHeader />
@@ -779,7 +781,7 @@ describe('Renderer - React/Nodes/Table', () => {
 				attrs: { isNumberColumnEnabled: true },
 			};
 			const TableRowWithOriginalPos = ({
-				originalIndex,
+				originalIndex: _originalIndex,
 				...tableRowProps
 			}: React.PropsWithChildren<
 				React.ComponentProps<typeof TableRow> & { originalIndex: number }
@@ -1311,10 +1313,16 @@ describe('Renderer - React/Nodes/Table', () => {
 			const rendererWidth = 700;
 
 			const wrap = mountTableWithFF(
-				{ tableWithFixedColumnWidthsOption: true },
+				undefined,
 				tableNode,
 				rendererWidth,
 				[420, 220, 620],
+				undefined,
+				undefined,
+				undefined,
+				undefined,
+				undefined,
+				true,
 			);
 
 			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
@@ -1332,10 +1340,16 @@ describe('Renderer - React/Nodes/Table', () => {
 			const expectedScaleWidths = colWidths.map((w) => w * scale);
 
 			const wrap = mountTableWithFF(
-				{ tableWithFixedColumnWidthsOption: false },
+				undefined,
 				tableNode,
 				rendererWidth,
 				[420, 220, 620],
+				undefined,
+				undefined,
+				undefined,
+				undefined,
+				undefined,
+				false,
 			);
 
 			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);

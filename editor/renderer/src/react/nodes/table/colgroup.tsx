@@ -306,6 +306,13 @@ export const Colgroup = (props: SharedTableProps): React.JSX.Element | null => {
 		return null;
 	}
 
+	const isTableFixedColumnWidthsOptionEnabled =
+		(fg('platform_editor_table_fixed_column_width_prop')
+			? props.allowFixedColumnWidthOption
+			: flags &&
+				'tableWithFixedColumnWidthsOption' in flags &&
+				flags.tableWithFixedColumnWidthsOption) ?? false;
+
 	const colStyles = renderScaleDownColgroup({
 		...props,
 		isTopLevelRenderer,
@@ -320,11 +327,7 @@ export const Colgroup = (props: SharedTableProps): React.JSX.Element | null => {
 			(props.rendererAppearance === 'comment' &&
 				editorExperiment('support_table_in_comment_jira', true, { exposure: true })),
 		isTableFixedColumnWidthsOptionEnabled:
-			!!(
-				flags &&
-				'tableWithFixedColumnWidthsOption' in flags &&
-				flags.tableWithFixedColumnWidthsOption
-			) &&
+			isTableFixedColumnWidthsOptionEnabled &&
 			(props.rendererAppearance === 'full-page' ||
 				props.rendererAppearance === 'full-width' ||
 				(props.rendererAppearance === 'max' &&

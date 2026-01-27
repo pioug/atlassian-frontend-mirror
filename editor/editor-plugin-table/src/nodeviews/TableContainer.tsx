@@ -183,6 +183,7 @@ const AlignmentTableContainerWrapper = ({
 };
 
 type ResizableTableContainerProps = {
+	allowFixedColumnWidthOption?: boolean;
 	className: string;
 	containerWidth: number;
 	editorView: EditorView;
@@ -192,7 +193,6 @@ type ResizableTableContainerProps = {
 	isResizing?: boolean;
 	isTableAlignmentEnabled?: boolean;
 	isTableScalingEnabled?: boolean;
-	isTableWithFixedColumnWidthsOptionEnabled?: boolean;
 	isWholeTableInDanger?: boolean;
 
 	lineLength: number;
@@ -239,7 +239,7 @@ export const ResizableTableContainer = React.memo(
 		tableWrapperHeight,
 		isWholeTableInDanger,
 		isTableScalingEnabled,
-		isTableWithFixedColumnWidthsOptionEnabled,
+		allowFixedColumnWidthOption,
 		isTableAlignmentEnabled,
 		shouldUseIncreasedScalingPercent,
 		isCommentEditor,
@@ -450,7 +450,7 @@ export const ResizableTableContainer = React.memo(
 			isTableAlignmentEnabled,
 			isFullWidthModeEnabled,
 			isTableScalingEnabled,
-			isTableWithFixedColumnWidthsOptionEnabled,
+			allowFixedColumnWidthOption,
 			isWholeTableInDanger,
 			shouldUseIncreasedScalingPercent,
 			pluginInjectionApi,
@@ -502,6 +502,7 @@ export const ResizableTableContainer = React.memo(
 );
 
 type TableContainerProps = {
+	allowFixedColumnWidthOption?: boolean;
 	className: string;
 	containerWidth: EditorContainerWidth;
 	editorView: EditorView;
@@ -513,7 +514,6 @@ type TableContainerProps = {
 	isTableAlignmentEnabled?: boolean;
 	isTableResizingEnabled: boolean | undefined;
 	isTableScalingEnabled?: boolean;
-	isTableWithFixedColumnWidthsOptionEnabled?: boolean;
 
 	isWholeTableInDanger?: boolean;
 	node: PMNode;
@@ -538,7 +538,7 @@ export const TableContainer = ({
 	isWholeTableInDanger,
 	isTableResizingEnabled,
 	isTableScalingEnabled,
-	isTableWithFixedColumnWidthsOptionEnabled,
+	allowFixedColumnWidthOption,
 	isTableAlignmentEnabled,
 	shouldUseIncreasedScalingPercent,
 	isCommentEditor,
@@ -563,7 +563,7 @@ export const TableContainer = ({
 				isResizing={isResizing}
 				pluginInjectionApi={pluginInjectionApi}
 				isTableScalingEnabled={isTableScalingEnabled}
-				isTableWithFixedColumnWidthsOptionEnabled={isTableWithFixedColumnWidthsOptionEnabled}
+				allowFixedColumnWidthOption={allowFixedColumnWidthOption}
 				isWholeTableInDanger={isWholeTableInDanger}
 				isTableAlignmentEnabled={isTableAlignmentEnabled}
 				shouldUseIncreasedScalingPercent={shouldUseIncreasedScalingPercent}

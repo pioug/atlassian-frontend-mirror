@@ -52,6 +52,7 @@ import { textColorPlugin } from '@atlaskit/editor-plugins/text-color';
 import { toolbarListsIndentationPlugin } from '@atlaskit/editor-plugins/toolbar-lists-indentation';
 import { ufoPlugin } from '@atlaskit/editor-plugins/ufo';
 import type { BreakpointPreset } from '@atlaskit/editor-toolbar';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -222,8 +223,8 @@ export default function createUniversalPresetInternal({
 			guidelinePlugin,
 			Boolean(
 				(!isComment && !isChromeless && (props.media || props.allowTables)) ||
-					(editorExperiment('platform_editor_breakout_resizing', true, { exposure: true }) &&
-						(props.allowExpand || props.allowLayouts || props.codeBlock)),
+				(editorExperiment('platform_editor_breakout_resizing', true, { exposure: true }) &&
+					(props.allowExpand || props.allowLayouts || props.codeBlock)),
 			),
 		)
 		.maybeAdd([gridPlugin, { shouldCalcBreakoutGridLines: isFullPage }], Boolean(props.media))
@@ -315,6 +316,7 @@ export default function createUniversalPresetInternal({
 					getEditorFeatureFlags,
 					isCommentEditor: isComment,
 					isChromelessEditor: isChromeless,
+					allowFixedColumnWidthOption: fg('platform_editor_table_fixed_column_width_prop') ? props.allowTables && typeof props.allowTables !== 'boolean' && props.allowTables.allowFixedColumnWidthOption : false,
 				},
 			],
 			Boolean(props.allowTables),
@@ -513,7 +515,7 @@ export default function createUniversalPresetInternal({
 			],
 			Boolean(
 				hasBeforePrimaryToolbar(props.primaryToolbarComponents) &&
-					!featureFlags.twoLineEditorToolbar,
+				!featureFlags.twoLineEditorToolbar,
 			),
 		)
 		.add([

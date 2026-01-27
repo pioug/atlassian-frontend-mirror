@@ -76,19 +76,13 @@ export const getListsIndentationMenu = (
 					key: LISTS_INDENTATION_MENU.key,
 					rank: LISTS_INDENTATION_MENU_RANK[LISTS_INDENTATION_MENU_SECTION.key],
 				},
-				...(expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)
-					? [
-							{
-								type: TEXT_COLLAPSED_MENU.type,
-								key: TEXT_COLLAPSED_MENU.key,
-								rank: TEXT_COLLAPSED_MENU_RANK[LISTS_INDENTATION_MENU_SECTION.key],
-							},
-						]
-					: []),
+				{
+					type: TEXT_COLLAPSED_MENU.type,
+					key: TEXT_COLLAPSED_MENU.key,
+					rank: TEXT_COLLAPSED_MENU_RANK[LISTS_INDENTATION_MENU_SECTION.key],
+				},
 			],
-			component: expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)
-				? MenuSection
-				: undefined,
+			component: MenuSection,
 		},
 		{
 			type: BULLETED_LIST_MENU_ITEM.type,

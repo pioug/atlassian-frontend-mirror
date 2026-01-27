@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 7.2.3
+
+### Patch Changes
+
+- [`3d0b3f8b4d802`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d0b3f8b4d802) -
+  Remove platform_editor_toolbar_aifc_responsive experiment
+- Updated dependencies
+
 ## 7.2.2
 
 ### Patch Changes

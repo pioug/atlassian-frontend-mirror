@@ -111,8 +111,9 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 	};
 	const editorAnalyticsAPI = api?.analytics?.actions;
 
-	const isTableFixedColumnWidthsOptionEnabled =
-		options?.getEditorFeatureFlags?.().tableWithFixedColumnWidthsOption || false;
+	const isTableFixedColumnWidthsOptionEnabled = fg('platform_editor_table_fixed_column_width_prop')
+		? options?.allowFixedColumnWidthOption
+		: options?.getEditorFeatureFlags?.().tableWithFixedColumnWidthsOption || false;
 
 	const shouldUseIncreasedScalingPercent =
 		options?.isTableScalingEnabled &&
@@ -294,7 +295,9 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 			const isNestingSupported = Boolean(options?.tableOptions?.allowNestedTables);
 
 			const isTableFixedColumnWidthsOptionEnabled =
-				options?.getEditorFeatureFlags?.().tableWithFixedColumnWidthsOption || false;
+				(fg('platform_editor_table_fixed_column_width_prop')
+					? options?.allowFixedColumnWidthOption
+					: options?.getEditorFeatureFlags?.().tableWithFixedColumnWidthsOption) || false;
 
 			const shouldUseIncreasedScalingPercent =
 				options?.isTableScalingEnabled &&
@@ -411,6 +414,7 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 							shouldUseIncreasedScalingPercent,
 							isCommentEditor,
 							isChromelessEditor,
+							options?.allowFixedColumnWidthOption,
 						);
 					},
 				},

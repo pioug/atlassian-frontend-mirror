@@ -15,7 +15,6 @@ import {
 } from '@atlaskit/editor-common/toolbar';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { type AlignmentPlugin } from '../alignmentPluginType';
 import type { AlignmentState } from '../pm-plugins/types';
@@ -97,19 +96,13 @@ export const getToolbarComponents = (
 					key: ALIGNMENT_MENU.key,
 					rank: ALIGNMENT_MENU_RANK[ALIGNMENT_MENU_SECTION.key],
 				},
-				...(expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)
-					? [
-							{
-								type: TEXT_COLLAPSED_MENU.type,
-								key: TEXT_COLLAPSED_MENU.key,
-								rank: TEXT_COLLAPSED_MENU_RANK[ALIGNMENT_MENU_SECTION.key],
-							},
-						]
-					: []),
+				{
+					type: TEXT_COLLAPSED_MENU.type,
+					key: TEXT_COLLAPSED_MENU.key,
+					rank: TEXT_COLLAPSED_MENU_RANK[ALIGNMENT_MENU_SECTION.key],
+				},
 			],
-			component: expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)
-				? MenuSection
-				: undefined,
+			component: MenuSection,
 		},
 		...getAlignmentMenuItems(api),
 	];

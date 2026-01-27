@@ -1,5 +1,27 @@
 # @atlaskit/media-viewer
 
+## 52.7.1
+
+### Patch Changes
+
+- [`b46b74a9cc24e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b46b74a9cc24e) -
+  Fixed heading styles in MediaViewer that were broken by increased Heading component specificity
+  (commit 1791263fbda). Replaced Heading component usage with styled h1 elements to avoid
+  specificity conflicts.
+
+## 52.7.0
+
+### Minor Changes
+
+- [`4b1149e96b0e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b1149e96b0e1) -
+  Add five new entry points (/command, /command-creator, /singleton, /client-types, /bridge-api) to
+  enable granular imports for better tree-shaking and performance. Existing barrel imports continue
+  to work; this is a foundational change that enables future debarreling work.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 52.6.3
 
 ### Patch Changes

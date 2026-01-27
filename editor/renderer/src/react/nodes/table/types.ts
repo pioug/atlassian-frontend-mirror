@@ -3,6 +3,7 @@ import type { TableLayout } from '@atlaskit/adf-schema';
 import type { RendererAppearance } from '../../../ui/Renderer/types';
 
 export type SharedTableProps = {
+	allowFixedColumnWidthOption?: boolean;
 	allowTableResizing?: boolean;
 	columnWidths?: Array<number>;
 	isinsideMultiBodiedExtension?: boolean;

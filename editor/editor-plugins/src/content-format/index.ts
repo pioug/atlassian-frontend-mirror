@@ -2,4 +2,7 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 export { contentFormatPlugin } from '@atlaskit/editor-plugin-content-format';
-export type { ContentFormatPlugin } from '@atlaskit/editor-plugin-content-format';
+export type {
+	ContentFormatPlugin,
+	ContentFormatPluginOptions,
+} from '@atlaskit/editor-plugin-content-format';

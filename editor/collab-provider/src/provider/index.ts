@@ -4,6 +4,7 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import { Emitter } from '../emitter';
 import { Channel } from '../channel';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import type { Config, InitialDraft, PresenceData } from '../types';
 import type {
 	CollabEditProvider,
@@ -243,11 +244,13 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 					});
 				}
 				// If already initialized, `connected` means reconnected
+				const shouldBypassOutOfSyncPeriod = expValEquals('collab_bypass_out_of_sync_period_experiment', 'isEnabled', true, false);
+
 				if (
 					initialized &&
 					this.disconnectedAt &&
 					// Offline longer than `OUT_OF_SYNC_PERIOD`
-					Date.now() - this.disconnectedAt >= OUT_OF_SYNC_PERIOD
+					(shouldBypassOutOfSyncPeriod || Date.now() - this.disconnectedAt >= OUT_OF_SYNC_PERIOD)
 				) {
 					this.documentService.throttledCatchupv2(
 						CatchupEventReason.RECONNECTED,
@@ -358,12 +361,12 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 	 */
 	setup({
 		getState,
-		editorApi,
+		_editorApi, // eslint says unused vars should start with _
 		onSyncUpError,
 	}: {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		editorApi?: any;
+		_editorApi?: any;
 		getState: () => EditorState;
 		onSyncUpError?: SyncUpErrorFunction;
 	}): this {

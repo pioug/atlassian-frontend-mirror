@@ -40,4 +40,9 @@ export {
 	 * This export will be removed in the next major release.
 	 */
 	undoNoScroll,
+	/**
+	 * @deprecated use `@atlaskit/prosemirror-history` instead.
+	 * This export will be removed in the next major release.
+	 */
+	isHistoryTransaction,
 } from 'prosemirror-history';

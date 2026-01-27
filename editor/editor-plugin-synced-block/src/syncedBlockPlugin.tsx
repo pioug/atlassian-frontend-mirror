@@ -27,7 +27,11 @@ import { SyncBlockRefresher } from './ui/SyncBlockRefresher';
 import { getToolbarComponents } from './ui/toolbar-components';
 
 export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
-	const refs: { containerElement?: HTMLElement, popupsMountPoint?: HTMLElement; wrapperElement?: HTMLElement, } = {};
+	const refs: {
+		containerElement?: HTMLElement;
+		popupsMountPoint?: HTMLElement;
+		wrapperElement?: HTMLElement;
+	} = {};
 
 	const syncBlockStore = new SyncBlockStoreManager(config?.syncBlockDataProvider);
 	syncBlockStore.setFireAnalyticsEvent(api?.analytics?.actions?.fireAnalyticsEvent);
@@ -63,14 +67,18 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 						createPlugin(config, params, syncBlockStore, api),
 				},
 				...(fg('platform_synced_block_dogfooding')
-					? [{
-						name: 'menuAndToolbarExperiencesPlugin',
-						plugin: () =>
-							getMenuAndToolbarExperiencesPlugin({
-								refs,
-								dispatchAnalyticsEvent: (payload) => api?.analytics?.actions?.fireAnalyticsEvent(payload),
-							})
-					}]: []),
+					? [
+							{
+								name: 'menuAndToolbarExperiencesPlugin',
+								plugin: () =>
+									getMenuAndToolbarExperiencesPlugin({
+										refs,
+										dispatchAnalyticsEvent: (payload) =>
+											api?.analytics?.actions?.fireAnalyticsEvent(payload),
+									}),
+							},
+						]
+					: []),
 			];
 		},
 
@@ -140,7 +148,9 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 								fireAnalyticsEvent: api?.analytics?.actions.fireAnalyticsEvent,
 							});
 						},
-						testId: fg('platform_synced_block_dogfooding') ? SYNCED_BLOCK_BUTTON_TEST_ID.quickInsertCreate : undefined
+						testId: fg('platform_synced_block_dogfooding')
+							? SYNCED_BLOCK_BUTTON_TEST_ID.quickInsertCreate
+							: undefined,
 					},
 				];
 			},

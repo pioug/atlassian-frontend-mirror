@@ -104,7 +104,7 @@ export const AuditLogExportButton = ({
 			await onExport({ orgId, to, from, q, action, actor, ip, location, product });
 
 			onSuccess?.();
-		} catch (error) {
+		} catch {
 			onError?.();
 		} finally {
 			closeModal();
@@ -174,8 +174,7 @@ export const AuditLogExportButton = ({
 										isDisabled={isLoading}
 										isChecked={isTermsChecked}
 										isInvalid={hasTermsError}
-										// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
-										aria-label="checkbox"
+										aria-label={formatMessage(defaultMessages.ariaLabelCheckbox)}
 										aria-describedby={hasTermsError ? 'audit-log-export-terms-error' : undefined}
 										name="audit-log-export-terms-checkbox"
 										type="checkbox"

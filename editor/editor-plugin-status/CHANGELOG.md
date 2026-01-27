@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-status
 
+## 8.1.3
+
+### Patch Changes
+
+- [`baf7b89a7b895`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/baf7b89a7b895) -
+  Give colour picker menu an accessible label
+- Updated dependencies
+
 ## 8.1.2
 
 ### Patch Changes

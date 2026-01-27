@@ -71,6 +71,7 @@ export interface ReactSerializerInit {
 	allowColumnSorting?: boolean;
 	allowCopyToClipboard?: boolean;
 	allowCustomPanels?: boolean;
+	allowFixedColumnWidthOption?: boolean;
 	allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
 	allowMediaLinking?: boolean;
 	allowPlaceholderText?: boolean;
@@ -215,6 +216,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	private textHighlighter?: TextHighlighter;
 	private allowTableAlignment?: boolean;
 	private allowTableResizing?: boolean;
+	private allowFixedColumnWidthOption?: boolean;
 	private isPresentational?: boolean;
 	private disableTableOverflowShadow?: boolean;
 	private standaloneBackgroundColorMarks: Mark[] = [];
@@ -265,6 +267,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		this.textHighlighter = init.textHighlighter;
 		this.allowTableAlignment = init.allowTableAlignment;
 		this.allowTableResizing = init.allowTableResizing;
+		this.allowFixedColumnWidthOption = init.allowFixedColumnWidthOption;
 		this.isPresentational = init.isPresentational;
 		this.disableTableOverflowShadow = init.disableTableOverflowShadow;
 		this.onSetLinkTarget = init.onSetLinkTarget;
@@ -603,6 +606,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			allowTableResizing: this.allowTableResizing,
 			isPresentational: fg('platform_renderer_isPresentational') ? this.isPresentational : false,
 			disableTableOverflowShadow: this.disableTableOverflowShadow,
+			allowFixedColumnWidthOption: this.allowFixedColumnWidthOption,
 		};
 	}
 

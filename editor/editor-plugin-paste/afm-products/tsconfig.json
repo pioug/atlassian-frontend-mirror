@@ -63,6 +63,12 @@
 			"path": "../../editor-tables/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/flag/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../insm/afm-products/tsconfig.json"
 		},
 		{
@@ -79,6 +85,9 @@
 		},
 		{
 			"path": "../../tmp-editor-statsig/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../editor-common/afm-products/tsconfig.json"

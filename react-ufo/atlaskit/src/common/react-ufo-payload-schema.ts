@@ -139,6 +139,7 @@ export type ReactUFOPayload = {
 			'ufo:errors:globalCount': number;
 			'ufo:errors:count': number;
 			'ufo:payloadTime'?: number;
+			'ufo:pageVisibilityHiddenTimestamp'?: number;
 			// TODO: align this better with `InteractionMetrics` type - that is outdated now, this is the type as sent by the UFO payload as of 10th April 2025
 			interactionMetrics: {
 				namePrefix: string;

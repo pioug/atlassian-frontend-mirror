@@ -1,5 +1,12 @@
 # @atlaskit/audit-logs-export
 
+## 1.4.0
+
+### Minor Changes
+
+- [`24a1a6fdfb0f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24a1a6fdfb0f9) -
+  Edited the aria label due to an ENGHEALTH ticket for this component
+
 ## 1.3.2
 
 ### Patch Changes

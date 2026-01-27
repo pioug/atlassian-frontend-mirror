@@ -28,15 +28,9 @@ import {
 	OVERFLOW_MENU_RANK,
 } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import {
-	PrimaryToolbar as PrimaryToolbarBase,
-	Show,
-	Toolbar,
-	type BreakpointPreset,
-} from '@atlaskit/editor-toolbar';
+import { Show, Toolbar, type BreakpointPreset } from '@atlaskit/editor-toolbar';
 import { type RegisterComponent, type ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ToolbarPlugin } from '../toolbarPluginType';
 
@@ -73,15 +67,9 @@ const getPrimaryToolbarComponents = (breakpointPreset?: BreakpointPreset) => {
 		{
 			type: 'toolbar',
 			key: TOOLBARS.PRIMARY_TOOLBAR,
-			component: expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)
-				? ({ children }) => (
-						<PrimaryToolbar breakpointPreset={breakpointPreset}>{children}</PrimaryToolbar>
-					)
-				: ({ children }) => (
-						<PrimaryToolbarBase label="Primary Toolbar" testId="primary-toolbar">
-							{children}
-						</PrimaryToolbarBase>
-					),
+			component: ({ children }) => (
+				<PrimaryToolbar breakpointPreset={breakpointPreset}>{children}</PrimaryToolbar>
+			),
 		},
 	] as RegisterComponent[];
 };
@@ -103,20 +91,12 @@ export const getToolbarComponents = (
 				},
 			],
 			component: ({ children, parents }) => {
-				if (expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)) {
-					return (
-						<Show above="md">
-							<Section parents={parents} api={api} testId="text-section">
-								{children}
-							</Section>
-						</Show>
-					);
-				}
-
 				return (
-					<Section parents={parents} api={api} testId="text-section">
-						{children}
-					</Section>
+					<Show above="md">
+						<Section parents={parents} api={api} testId="text-section">
+							{children}
+						</Section>
+					</Show>
 				);
 			},
 		},
@@ -137,76 +117,65 @@ export const getToolbarComponents = (
 				children: React.ReactNode;
 				parents: ToolbarComponentTypes;
 			}) => {
-				if (expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)) {
-					return (
-						<Show above="md">
-							<Section parents={parents} api={api} testId="text-section">
-								{children}
-							</Section>
-						</Show>
-					);
-				}
-
 				return (
-					<Section parents={parents} api={api} testId="text-section">
-						{children}
-					</Section>
+					<Show above="md">
+						<Section parents={parents} api={api} testId="text-section">
+							{children}
+						</Section>
+					</Show>
 				);
 			},
 		},
-		...(expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)
-			? ([
-					{
-						type: TEXT_SECTION_COLLAPSED.type,
-						key: TEXT_SECTION_COLLAPSED.key,
-						parents: [
-							{
-								type: 'toolbar' as const,
-								key: TOOLBARS.PRIMARY_TOOLBAR,
-								rank: TOOLBAR_RANK[TEXT_SECTION_COLLAPSED.key],
-							},
 
-							expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true) && {
-								type: 'toolbar',
-								key: TOOLBARS.INLINE_TEXT_TOOLBAR,
-								rank: TOOLBAR_RANK[TEXT_SECTION_COLLAPSED.key],
-							},
-						],
-						component: ({ children, parents }) => {
-							return (
-								<Show below="md">
-									<Section parents={parents} api={api} testId="text-section">
-										{children}
-									</Section>
-								</Show>
-							);
-						},
-					},
-					{
-						type: TEXT_COLLAPSED_GROUP.type,
-						key: TEXT_COLLAPSED_GROUP.key,
-						parents: [
-							{
-								type: TEXT_SECTION_COLLAPSED.type,
-								key: TEXT_SECTION_COLLAPSED.key,
-								rank: 100,
-							},
-						],
-					},
-					{
-						type: TEXT_COLLAPSED_MENU.type,
-						key: TEXT_COLLAPSED_MENU.key,
-						parents: [
-							{
-								type: TEXT_COLLAPSED_GROUP.type,
-								key: TEXT_COLLAPSED_GROUP.key,
-								rank: 100,
-							},
-						],
-						component: TextCollapsedMenu,
-					},
-				] as RegisterComponent[])
-			: []),
+		{
+			type: TEXT_SECTION_COLLAPSED.type,
+			key: TEXT_SECTION_COLLAPSED.key,
+			parents: [
+				{
+					type: 'toolbar' as const,
+					key: TOOLBARS.PRIMARY_TOOLBAR,
+					rank: TOOLBAR_RANK[TEXT_SECTION_COLLAPSED.key],
+				},
+
+				{
+					type: 'toolbar',
+					key: TOOLBARS.INLINE_TEXT_TOOLBAR,
+					rank: TOOLBAR_RANK[TEXT_SECTION_COLLAPSED.key],
+				},
+			],
+			component: ({ children, parents }) => {
+				return (
+					<Show below="md">
+						<Section parents={parents} api={api} testId="text-section">
+							{children}
+						</Section>
+					</Show>
+				);
+			},
+		},
+		{
+			type: TEXT_COLLAPSED_GROUP.type,
+			key: TEXT_COLLAPSED_GROUP.key,
+			parents: [
+				{
+					type: TEXT_SECTION_COLLAPSED.type,
+					key: TEXT_SECTION_COLLAPSED.key,
+					rank: 100,
+				},
+			],
+		},
+		{
+			type: TEXT_COLLAPSED_MENU.type,
+			key: TEXT_COLLAPSED_MENU.key,
+			parents: [
+				{
+					type: TEXT_COLLAPSED_GROUP.type,
+					key: TEXT_COLLAPSED_GROUP.key,
+					rank: 100,
+				},
+			],
+			component: TextCollapsedMenu,
+		},
 
 		{
 			type: INSERT_BLOCK_SECTION.type,

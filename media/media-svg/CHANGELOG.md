@@ -1,5 +1,14 @@
 # @atlaskit/media-svg
 
+## 2.2.0
+
+### Minor Changes
+
+- [`4b1149e96b0e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b1149e96b0e1) -
+  Add five new entry points (/command, /command-creator, /singleton, /client-types, /bridge-api) to
+  enable granular imports for better tree-shaking and performance. Existing barrel imports continue
+  to work; this is a foundational change that enables future debarreling work.
+
 ## 2.1.14
 
 ### Patch Changes

@@ -222,6 +222,8 @@ export type { SelectionToolbarGroup, SelectionToolbarHandler } from './selection
 
 export type { FeedbackInfo } from './feedback-dialog';
 
+import type { MessageDescriptor } from 'react-intl-next';
+
 // eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 /**
  *  @deprecated
@@ -241,3 +243,12 @@ export type ExtractPublicEditorAPI<T extends EditorPresetBuilder<any, any>> = Ex
 export type { UserPreferencesProvider, UserPreferences } from './user-preferences';
 
 export { DIRECTION } from './block-controls';
+
+export type PasteWarningOptions = {
+	cannotPasteSyncedBlock?: {
+		description: MessageDescriptor;
+		title: MessageDescriptor;
+		urlHref: string;
+		urlText: MessageDescriptor;
+	};
+};

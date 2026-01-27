@@ -50,6 +50,7 @@ export function getDefaultPresetOptionsFromEditorProps(
 		paste: {
 			cardOptions,
 			sanitizePrivateContent: props.sanitizePrivateContent,
+			pasteWarningOptions: props.pasteWarningOptions,
 		},
 		base: {
 			allowInlineCursorTarget: true,

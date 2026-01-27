@@ -2,7 +2,6 @@ import React, { useCallback, useEffect } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
-import { cssMap } from '@atlaskit/css';
 import { toggleHighlightPalette, ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { textColorMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -19,19 +18,12 @@ import {
 	ToolbarTooltip,
 	useToolbarUI,
 } from '@atlaskit/editor-toolbar';
-import { Box } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import { type IconColor } from '@atlaskit/tokens/css-type-schema';
 
 import type { TextColorPlugin } from '../textColorPluginType';
 
-const styles = cssMap({
-	menu: {
-		paddingBlock: token('space.025'),
-		paddingInline: token('space.100'),
-	},
-});
 
 interface TextColorHighlightMenuProps {
 	api: ExtractInjectionAPI<TextColorPlugin> | undefined;
@@ -134,11 +126,7 @@ export const TextColorHighlightMenu = ({ children, api }: TextColorHighlightMenu
 					testId="text-color-highlight-menu"
 					hasSectionMargin={false}
 				>
-					{expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true) ? (
-						children
-					) : (
-						<Box xcss={styles.menu}>{children}</Box>
-					)}
+					{children}
 				</ToolbarDropdownMenu>
 			</ToolbarDropdownMenuProvider>
 		</ToolbarTooltip>

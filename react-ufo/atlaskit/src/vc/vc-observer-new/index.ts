@@ -290,58 +290,34 @@ export default class VCObserverNew {
 		}
 
 		const calculator_fy26_04 = new VCCalculator_FY26_04();
+		const calculator_next = new VCCalculator_Next()
 
-		const fy26_04 =
-			isVCRevisionEnabled('fy26.04')
-				? await calculator_fy26_04.calculate({
-						orderedEntries,
-						startTime: start,
-						stopTime: stop,
-						interactionId,
-						interactionType,
-						isPostInteraction: this.isPostInteraction,
-						include3p,
-						excludeSmartAnswersInSearch,
-						includeSSRRatio,
-						isPageVisible,
-						interactionAbortReason,
-					})
-				: null;
+		const calculatorParams = {
+			orderedEntries,
+			startTime: start,
+			stopTime: stop,
+			interactionId,
+			interactionType,
+			isPostInteraction: this.isPostInteraction,
+			include3p,
+			excludeSmartAnswersInSearch,
+			includeSSRRatio,
+			isPageVisible,
+			interactionAbortReason,
+		}
+
+		const [fy26_04, vcNext] = await Promise.all([
+			isVCRevisionEnabled('fy26.04') ? calculator_fy26_04.calculate(calculatorParams) : null,
+			isVCRevisionEnabled('next') ? calculator_next.calculate(calculatorParams) : null
+		]);
 
 		if (fy26_04) {
 			results.push(fy26_04);
+		};
 
-			if (fg('platform_ufo_vcnext_for_ttvc_v5')) {
-				const calculator_next = new VCCalculator_Next()
-
-				const vcNext = isVCRevisionEnabled('next') ? await calculator_next.calculate({
-					orderedEntries,
-					startTime: start,
-					stopTime: stop,
-					interactionId,
-					interactionType,
-					isPostInteraction: this.isPostInteraction,
-					include3p,
-					excludeSmartAnswersInSearch,
-					includeSSRRatio,
-					isPageVisible,
-					interactionAbortReason,
-				}) : null;
-
-				if (vcNext) {
-					results.push(vcNext);
-				}
-			} else {
-				const vcNext: RevisionPayloadEntry = {
-					...fy26_04,
-					revision: 'next',
-				};
-
-				results.push(vcNext);
-			}
+		if (vcNext) {
+			results.push(vcNext);
 		}
-
-
 
 		const feVCCalculationEndTime = performance.now();
 

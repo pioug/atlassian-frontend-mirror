@@ -18,7 +18,6 @@ import {
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
 import { type RegisterComponent } from '@atlaskit/editor-toolbar-model';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { type TextFormattingPlugin } from '../../../textFormattingPluginType';
 import type { FormatOptions } from '../types';
@@ -91,19 +90,13 @@ export const textFormattingMenuGroup = (
 				key: TEXT_FORMATTING_MENU.key,
 				rank: TEXT_FORMAT_MENU_RANK[TEXT_FORMATTING_MENU_SECTION.key],
 			},
-			...(expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)
-				? [
-						{
-							type: TEXT_COLLAPSED_MENU.type,
-							key: TEXT_COLLAPSED_MENU.key,
-							rank: TEXT_COLLAPSED_MENU_RANK[TEXT_FORMATTING_MENU_SECTION.key],
-						},
-					]
-				: []),
+			{
+				type: TEXT_COLLAPSED_MENU.type,
+				key: TEXT_COLLAPSED_MENU.key,
+				rank: TEXT_COLLAPSED_MENU_RANK[TEXT_FORMATTING_MENU_SECTION.key],
+			},
 		],
-		component: expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)
-			? MenuSection
-			: undefined,
+		component: MenuSection,
 	},
 	...getFormatMenuItems(api),
 	{
@@ -115,15 +108,11 @@ export const textFormattingMenuGroup = (
 				key: TEXT_FORMATTING_MENU.key,
 				rank: TEXT_FORMAT_MENU_RANK[CLEAR_FORMARTTING_MENU_SECTION.key],
 			},
-			...(expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)
-				? [
-						{
-							type: TEXT_COLLAPSED_MENU.type,
-							key: TEXT_COLLAPSED_MENU.key,
-							rank: TEXT_COLLAPSED_MENU_RANK[CLEAR_FORMARTTING_MENU_SECTION.key],
-						},
-					]
-				: []),
+			{
+				type: TEXT_COLLAPSED_MENU.type,
+				key: TEXT_COLLAPSED_MENU.key,
+				rank: TEXT_COLLAPSED_MENU_RANK[CLEAR_FORMARTTING_MENU_SECTION.key],
+			},
 		],
 		component: ({ children }) => {
 			return <ToolbarDropdownItemSection hasSeparator>{children}</ToolbarDropdownItemSection>;

@@ -28,6 +28,7 @@ type ForwardRef = (node: HTMLElement | null) => any;
 type TableComponentWithSharedStateProps = {
 	allowColumnResizing?: boolean;
 	allowControls?: boolean;
+	allowFixedColumnWidthOption?: boolean;
 	allowTableAlignment?: boolean;
 	allowTableResizing?: boolean;
 	api?: PluginInjectionAPI;
@@ -58,6 +59,7 @@ export const TableComponentWithSharedState = ({
 	forwardRef,
 	allowTableAlignment,
 	allowTableResizing,
+	allowFixedColumnWidthOption,
 }: TableComponentWithSharedStateProps): React.JSX.Element => {
 	const {
 		isTableResizing,
@@ -153,6 +155,7 @@ export const TableComponentWithSharedState = ({
 			isTableScalingEnabled={options?.isTableScalingEnabled}
 			allowTableAlignment={allowTableAlignment}
 			allowTableResizing={allowTableResizing}
+			allowFixedColumnWidthOption={allowFixedColumnWidthOption}
 			tableActive={tableActive && !isLivePageViewMode && interaction !== 'hasNotHadInteraction'}
 			ordering={ordering}
 			isResizing={isResizing}

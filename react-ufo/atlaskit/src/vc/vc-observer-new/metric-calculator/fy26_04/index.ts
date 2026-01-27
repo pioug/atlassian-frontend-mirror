@@ -13,10 +13,6 @@ const getConsideredEntryTypes = () => {
 		'mutation:display-contents-children-element',
 	];
 
-	if (fg('platform_ufo_remove_ssr_placeholder_in_ttvc_v4')) {
-		consideredEntryTypes.push('mutation:ssr-placeholder');
-	}
-
 	consideredEntryTypes.push('mutation:display-contents-children-attribute');
 
 	return consideredEntryTypes;

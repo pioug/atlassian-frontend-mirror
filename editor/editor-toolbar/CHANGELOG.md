@@ -1,5 +1,13 @@
 # @atlaskit/editor-toolbar
 
+## 0.19.7
+
+### Patch Changes
+
+- [`3d0b3f8b4d802`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d0b3f8b4d802) -
+  Remove platform_editor_toolbar_aifc_responsive experiment
+- Updated dependencies
+
 ## 0.19.6
 
 ### Patch Changes

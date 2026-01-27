@@ -29,6 +29,7 @@ export const Table = React.memo(
 		allowTableResizing,
 		isPresentational,
 		fixTableSSRResizing = false,
+		allowFixedColumnWidthOption = false,
 	}: TableProps): React.JSX.Element => {
 		let tableWidth: number | 'inherit' = tableNode
 			? getTableContainerWidth(tableNode)
@@ -88,6 +89,7 @@ export const Table = React.memo(
 					isInsideOfTable={isInsideOfTable}
 					isinsideMultiBodiedExtension={isinsideMultiBodiedExtension}
 					allowTableResizing={allowTableResizing}
+					allowFixedColumnWidthOption={allowFixedColumnWidthOption}
 				/>
 				<tbody>{children}</tbody>
 			</table>

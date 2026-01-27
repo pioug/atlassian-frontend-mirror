@@ -282,8 +282,8 @@ const metadataWrapperStyles = css({
 });
 
 const metadataFileNameStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	h1: {
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- increased specificity to override Heading component
+	'&& h1': {
 		maxWidth: '100%',
 		overflow: 'hidden',
 		textOverflow: 'ellipsis',

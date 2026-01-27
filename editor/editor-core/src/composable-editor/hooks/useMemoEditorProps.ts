@@ -112,6 +112,7 @@ export const useMemoEditorProps = (
 			skipValidation: passedProps.skipValidation,
 			syncBlock: passedProps.syncBlock,
 			syncedBlockProvider: passedProps.syncedBlockProvider,
+			pasteWarningOptions: passedProps.pasteWarningOptions,
 		};
 
 		const defaultProps: Partial<EditorNextProps> = {
@@ -223,6 +224,7 @@ export const useMemoEditorProps = (
 		passedProps.skipValidation,
 		passedProps.syncBlock,
 		passedProps.syncedBlockProvider,
+		passedProps.pasteWarningOptions,
 	]);
 
 	return memodProps;

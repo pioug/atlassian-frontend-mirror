@@ -157,7 +157,7 @@ export const previewScaleTable = (
 	options: ScaleOptions,
 	domAtPos: DomAtPos,
 	isTableScalingEnabled: boolean = false,
-	isTableWithFixedColumnWidthsOptionEnabled: boolean = false,
+	allowFixedColumnWidthOption: boolean = false,
 	isCommentEditor: boolean = false,
 ): void => {
 	const { node, start, parentWidth } = options;
@@ -176,7 +176,7 @@ export const previewScaleTable = (
 
 	let isTableScalingEnabledOnCurrentTable = isTableScalingEnabled;
 	const isTableScalingWithFixedColumnWidthsOptionEnabled =
-		isTableScalingEnabled && isTableWithFixedColumnWidthsOptionEnabled;
+		isTableScalingEnabled && allowFixedColumnWidthOption;
 
 	if (isTableScalingWithFixedColumnWidthsOptionEnabled) {
 		isTableScalingEnabledOnCurrentTable =

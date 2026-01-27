@@ -22,6 +22,7 @@ import type {
 	LinkingOptions,
 	PerformanceTracking,
 	QuickInsertOptions,
+	PasteWarningOptions,
 	Transformer,
 } from '@atlaskit/editor-common/types';
 import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
@@ -268,9 +269,9 @@ export interface EditorSharedPropsWithPlugins {
 
 export interface EditorProps
 	extends EditorBaseProps,
-		EditorPluginFeatureProps,
-		EditorSharedPropsWithPlugins,
-		EditorProviderProps {
+	EditorPluginFeatureProps,
+	EditorSharedPropsWithPlugins,
+	EditorProviderProps {
 	// Editor assitive describedby. Set aria-describedby to make the editor announcement to include the information
 	// the associated component's content
 	assistiveDescribedBy?: string;
@@ -278,8 +279,8 @@ export interface EditorProps
 
 export interface EditorNextProps
 	extends EditorBaseProps,
-		EditorSharedPropsWithPlugins,
-		EditorProviderProps {
+	EditorSharedPropsWithPlugins,
+	EditorProviderProps {
 	// Editor assitive describedby. Set aria-describedby to make the editor announcement to include the information
 	// the associated component's content
 	assistiveDescribedBy?: string;
@@ -420,10 +421,10 @@ export interface EditorPluginFeatureProps {
 
 	// Enable status, if menuDisabled is passed then plugin is enabled by default
 	allowStatus?:
-		| boolean
-		| {
-				menuDisabled: boolean;
-		  };
+	| boolean
+	| {
+		menuDisabled: boolean;
+	};
 
 	// Enables tables. You can enable individual table features like table header rows and cell background colour.
 	// You will most likely need backend ADF storage for the advanced table features.
@@ -491,6 +492,18 @@ export interface EditorPluginFeatureProps {
 	 * @deprecated Use mention.mentionInsertDisplayName instead
 	 */
 	mentionInsertDisplayName?: boolean;
+
+	// Set to configure the paste warning options.
+	// For example, to configure the synced block paste warning options, pass the following:
+	// pasteWarningOptions={
+	//   { cannotPasteSyncedBlock: {
+	// 	     title: messages.cannotPasteSyncedBlockTitle,
+	// 	     description: messages.cannotPasteSyncedBlockDescription,
+	// 	     urlText: messages.cannotPasteSyncedBlockAction,
+	// 	     urlHref: 'https://hello.atlassian.net/wiki/x/tAtCeAE'
+	//   }}
+	//}
+	pasteWarningOptions?: PasteWarningOptions;
 
 	// Default placeholder text to be displayed if the document content is empty. e.g. 'Add a comment...'
 	placeholder?: string;

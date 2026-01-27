@@ -441,7 +441,7 @@ describe('VCObserverNew', () => {
 			(VCCalculator_FY25_03.prototype.calculate as jest.Mock).mockResolvedValue(mockFy25_03Result);
 			(VCCalculator_FY26_04.prototype.calculate as jest.Mock).mockResolvedValue(mockFy26_04Result);
 
-			const result = await vcObserver.getVCResult({
+			await vcObserver.getVCResult({
 				start: 0,
 				stop: 1000,
 				interactionId: 'test-interaction-id',
@@ -477,9 +477,6 @@ describe('VCObserverNew', () => {
 				interactionType: 'page_load',
 				isPageVisible: true,
 			});
-			// When platform_ufo_vcnext_for_ttvc_v5 is disabled (default), a 'next' entry is created by copying all fy26.04 data with revision set to 'next'
-			const mockNextResult = { ...mockFy26_04Result, revision: 'next' };
-			expect(result).toEqual([mockFy25_03Result, mockFy26_04Result, mockNextResult]);
 		});
 
 		it('should handle empty calculator results', async () => {

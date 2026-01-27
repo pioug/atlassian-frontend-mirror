@@ -25,6 +25,13 @@ function isPageHidden() {
 const SIZE = 50;
 let insertIndex = 0;
 
+export function getEarliestHiddenTiming(startTime: DOMHighResTimeStamp, endTime: DOMHighResTimeStamp) {
+	const earliestHiddenTiming = timings.find(({ hidden, time }) => hidden && time > 0 && time >= startTime && time <= endTime)?.time;
+	if (typeof earliestHiddenTiming === 'number') {
+		return Math.round(earliestHiddenTiming - startTime);
+	}
+}
+
 function pushHidden(isPageHiddenFlag: boolean, time?: number) {
 	timings[insertIndex] = {
 		time: time ?? performance.now(),

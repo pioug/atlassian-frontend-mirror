@@ -1,5 +1,12 @@
 # @atlaskit/teams-public
 
+## 0.67.2
+
+### Patch Changes
+
+- [`b747588709139`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b747588709139) -
+  [ux] Added i18n exports using the common i18n import pattern
+
 ## 0.67.1
 
 ### Patch Changes

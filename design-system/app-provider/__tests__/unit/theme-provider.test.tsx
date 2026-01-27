@@ -1,8 +1,7 @@
 /* eslint-disable import/order */
 import React from 'react';
 
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import * as tokens from '@atlaskit/tokens';
@@ -104,6 +103,25 @@ describe('ThemeProvider', () => {
 			}),
 		);
 	});
+
+	ffTest.both(
+		'platform_dst_subtree_theming',
+		'should not add sub-tree theme container for top-level ThemeProvider',
+		() => {
+			it('should not add sub-tree theme container for top-level ThemeProvider', () => {
+				render(
+					<AppProvider>
+						<div data-testid="content"></div>
+					</AppProvider>,
+				);
+				const content = screen.getByTestId('content');
+				// eslint-disable-next-line testing-library/no-node-access
+				const wrapper = content.parentElement;
+				expect(wrapper).toBeInTheDocument();
+				expect(wrapper).not.toHaveAttribute('data-subtree-theme');
+			});
+		},
+	);
 
 	describe('useSetTheme', () => {
 		it('should change the theme', async () => {

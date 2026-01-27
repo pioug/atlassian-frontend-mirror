@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 216.7.9
+
+### Patch Changes
+
+- [`baf7b89a7b895`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/baf7b89a7b895) -
+  Give colour picker menu an accessible label
+- Updated dependencies
+
+## 216.7.8
+
+### Patch Changes
+
+- [`9068b92adf796`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9068b92adf796) -
+  [ux] EDITOR-4439 Implement option to raise warn flag on paste for unsupported content
+- Updated dependencies
+
 ## 216.7.7
 
 ### Patch Changes

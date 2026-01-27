@@ -351,6 +351,7 @@ export const RendererFunctionalComponent = (
 				allowTableAlignment: props.UNSTABLE_allowTableAlignment,
 				allowTableResizing: props.UNSTABLE_allowTableResizing,
 				disableTableOverflowShadow: props.disableTableOverflowShadow,
+				allowFixedColumnWidthOption: props.allowFixedColumnWidthOption,
 				shouldDisplayExtensionAsInline: props.shouldDisplayExtensionAsInline,
 			};
 		},
@@ -771,6 +772,7 @@ export type RendererWrapperProps = {
 	isTopLevelRenderer?: boolean;
 	onClick?: (event: React.MouseEvent) => void;
 	onMouseDown?: (event: React.MouseEvent) => void;
+	product?: string;
 	shouldRemoveEmptySpaceAroundContent?: boolean;
 	ssr?: MediaSSR;
 	useBlockRenderForCodeBlock: boolean;
@@ -850,37 +852,15 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 					 * Telepointer changes will also cause a childList mutation, so we manually ignore it.
 					 * Telepointer changes are always a singular node-adds or node-removes.
 					 */
-					const isAdfStreamingEnabled =
-						fg('platform_editor_ai_adf_prompts_in_all_products') ||
-						expValEqualsNoExposure(
-							'platform_editor_ai_iw_adf_streaming',
-							'cohort',
-							'adf_gpt41mini',
-						) ||
-						expValEqualsNoExposure(
-							'platform_editor_ai_iw_adf_streaming',
-							'cohort',
-							'adf_gemini25flash',
-						) ||
-						expValEqualsNoExposure(
-							'platform_editor_ai_non_iw_adf_streaming',
-							'cohort',
-							'adf_gpt41mini',
-						) ||
-						expValEqualsNoExposure(
-							'platform_editor_ai_non_iw_adf_streaming',
-							'cohort',
-							'adf_gemini25flash',
-						);
 					if (
-						isAdfStreamingEnabled &&
 						mutation.type === 'childList' &&
 						!(
 							(mutation.addedNodes.length === 1 &&
 								(mutation.addedNodes[0] as Element)?.id === TELEPOINTER_ID) ||
 							(mutation.removedNodes.length === 1 &&
 								(mutation.removedNodes[0] as Element)?.id === TELEPOINTER_ID)
-						)
+						) &&
+						fg('platform_editor_ai_adf_prompts_in_all_products')
 					) {
 						const lastChild = renderer.lastChild;
 						if (lastChild) {

@@ -2,4 +2,9 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 export { toolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
-export type { ToolbarPlugin, ToolbarPluginOptions } from '@atlaskit/editor-plugin-toolbar';
+export type {
+	ToolbarPlugin,
+	EditorToolbarPluginState,
+	ToolbarPluginOptions,
+	RegisterComponentsAction,
+} from '@atlaskit/editor-plugin-toolbar';

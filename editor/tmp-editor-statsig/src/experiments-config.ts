@@ -18,8 +18,8 @@ export type EditorExperimentsConfig = typeof editorExperimentsConfig;
  */
 export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
-		? true // Boolean: only 'true' is allowed as expected value
-		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+	? true // Boolean: only 'true' is allowed as expected value
+	: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
 
 /**
  * Extract valid default values.
@@ -28,8 +28,8 @@ export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimen
  */
 export type ExperimentDefaultValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
-		? false // Boolean: only 'false' is allowed as default value
-		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+	? false // Boolean: only 'false' is allowed as default value
+	: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
 
 /**
  * When adding a new experiment, you need to add it here.
@@ -120,13 +120,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-12-29
 	company_hub_deprecate_atlaskit_onboarding: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2025-11-20
-	'company-hub-config-panel-keyboard-nav': {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -283,22 +276,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-06-18
-	platform_editor_ai_iw_adf_streaming: {
-		defaultValue: 'control' | 'adf_gemini25flash' | 'adf_gpt41mini';
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: (value: unknown) => value is 'control' | 'adf_gemini25flash' | 'adf_gpt41mini';
-		values: ('control' | 'adf_gemini25flash' | 'adf_gpt41mini')[];
-	};
-	// Added 2025-08-20
-	platform_editor_ai_non_iw_adf_streaming: {
-		defaultValue: 'control' | 'adf_gemini25flash' | 'adf_gpt41mini';
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: (value: unknown) => value is 'control' | 'adf_gemini25flash' | 'adf_gpt41mini';
-		values: ('control' | 'adf_gemini25flash' | 'adf_gpt41mini')[];
-	};
 	// Added 2025-05-07
 	platform_editor_ai_quickstart_command: {
 		defaultValue: boolean;
@@ -322,6 +299,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-11-20
 	platform_editor_annotations_sync_on_docchange: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-01-26
+	platform_editor_ai_create_use_new_parser: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -775,13 +759,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-08-27
-	platform_editor_toolbar_aifc_responsive: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-04-23
 	platform_editor_usesharedpluginstateselector: {
 		defaultValue: boolean;
@@ -1069,6 +1046,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-01-23
+	collab_bypass_out_of_sync_period_experiment: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-01-26
 	platform_editor_ai_fix_streaming_json_escape: {
 		defaultValue: boolean;
@@ -1076,6 +1060,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-01-27
+	platform_editor_table_cell_colour_change: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	}
 } = {
 	// new format to avoid collisions with other users when updating the file
 
@@ -1190,6 +1181,15 @@ export const editorExperimentsConfig: {
 		defaultValue: false,
 	}),
 
+	// Added 2026-01-26
+	platform_editor_ai_create_use_new_parser: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_create_use_new_parser',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+
 	// Added 2025-05-27
 	platform_editor_reduce_noisy_steps_ncs: createBooleanExperiment({
 		productKeys: {
@@ -1260,14 +1260,6 @@ export const editorExperimentsConfig: {
 	platform_renderer_table_sticky_scrollbar: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_renderer_table_sticky_scrollbar',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-11-20
-	'company-hub-config-panel-keyboard-nav': createBooleanExperiment({
-		productKeys: {
-			confluence: 'company-hub-config-panel-keyboard-nav',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -1549,24 +1541,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-06-18
-	platform_editor_ai_iw_adf_streaming: createMultivariateExperiment({
-		productKeys: {
-			confluence: 'platform_editor_ai_iw_adf_streaming',
-		},
-		param: 'cohort',
-		values: ['control', 'adf_gemini25flash', 'adf_gpt41mini'],
-		defaultValue: 'control',
-	}),
-	// Added 2025-08-20
-	platform_editor_ai_non_iw_adf_streaming: createMultivariateExperiment({
-		productKeys: {
-			confluence: 'platform_editor_ai_non_iw_adf_streaming',
-		},
-		param: 'cohort',
-		values: ['control', 'adf_gemini25flash', 'adf_gpt41mini'],
-		defaultValue: 'control',
-	}),
 	//Added 2025-07-25
 	platform_editor_extension_styles: createBooleanExperiment({
 		productKeys: {
@@ -1742,15 +1716,6 @@ export const editorExperimentsConfig: {
 	platform_editor_breakout_interaction_rerender: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_breakout_interaction_rerender',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-08-27
-	platform_editor_toolbar_aifc_responsive: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_toolbar_aifc_responsive',
-			jira: 'platform_editor_toolbar_aifc_responsive',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2284,10 +2249,26 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-01-23
+	collab_bypass_out_of_sync_period_experiment: createBooleanExperiment({
+		productKeys: {
+			confluence: 'collab_bypass_out_of_sync_period_experiment',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-01-26
 	platform_editor_ai_fix_streaming_json_escape: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_fix_streaming_json_escape',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-01-27
+	platform_editor_table_cell_colour_change: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_table_cell_colour_change',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

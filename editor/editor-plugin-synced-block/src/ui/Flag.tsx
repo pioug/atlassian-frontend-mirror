@@ -101,12 +101,12 @@ export const Flag = ({ api }: Props) => {
 	const typeToActions = () => {
 		if (type === 'error') {
 			if (onRetry) {
-				return  [
+				return [
 					{
 						content: formatMessage(messages.deleteRetryButton),
 						onClick: onRetry,
 					},
-				]
+				];
 			}
 		} else if (type === 'info' && action) {
 			return [
@@ -114,11 +114,11 @@ export const Flag = ({ api }: Props) => {
 					content: formatMessage(action),
 					href: 'https://atlaskit.atlassian.com/',
 					target: '_blank',
-				}
+				},
 			];
 		}
 		return undefined;
-	}
+	};
 
 	const FlagComponent = type === 'info' ? AutoDismissFlag : AkFlag;
 
@@ -142,4 +142,4 @@ const typeToIcon = (type: FlagType) => {
 		return <StatusWarningIcon label="" color={token('color.icon.warning')} />;
 	}
 	return <StatusSuccessIcon label="" color={token('color.icon.success')} />;
-}
+};

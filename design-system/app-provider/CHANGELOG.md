@@ -1,5 +1,13 @@
 # @atlaskit/app-provider
 
+## 3.3.3
+
+### Patch Changes
+
+- [`e40fc5834a899`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e40fc5834a899) -
+  Further iteration of subtree theming implementation behind feature gate. Removing unnecessary
+  subtree theming container `div` for top-level theme providers.
+
 ## 3.3.2
 
 ### Patch Changes

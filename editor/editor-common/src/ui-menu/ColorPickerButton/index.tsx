@@ -203,7 +203,7 @@ const ColorPickerButton = (props: Props) => {
 				// we need an index of > 500 to display over it
 				zIndex={props.setDisableParentScroll ? 600 : undefined}
 				ariaLabel={
-					fg('editor_a11y_aria_label_removal_popup')
+					fg('_editor_a11y_aria_label_removal_popup')
 						? formatMessage(colorPickerButtonMessages.colorPickerMenuLabel)
 						: 'Color picker popup'
 				}

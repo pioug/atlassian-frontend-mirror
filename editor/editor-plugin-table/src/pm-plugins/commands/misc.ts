@@ -33,6 +33,7 @@ import {
 	selectRow as selectRowTransform,
 	setCellAttrs,
 } from '@atlaskit/editor-tables/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { WidthToWidest } from '../../types';
 import { TableCssClassName as ClassName, TableDecorations } from '../../types';
@@ -302,7 +303,7 @@ export const getTableElementMoveTypeBySlice = (slice: Slice, state: EditorState)
 			: map.height === slicedMap.height
 				? 'column'
 				: undefined;
-	} catch (e) {
+	} catch {
 		return undefined;
 	}
 };
@@ -452,11 +453,16 @@ export const setMultipleCellAttrs =
 
 		if (tr.docChanged && cursorPos !== undefined) {
 			if (dispatch) {
-				if (cursorPos !== undefined) {
+				if (expValEquals('platform_editor_table_cell_colour_change', 'isEnabled', true)) {
 					editorView?.focus();
-					tr.setSelection(new TextSelection(tr.doc.resolve(cursorPos)));
+					dispatch(tr);
+				} else {
+					if (cursorPos !== undefined) {
+						editorView?.focus();
+						tr.setSelection(new TextSelection(tr.doc.resolve(cursorPos)));
+					}
+					dispatch(tr);
 				}
-				dispatch(tr);
 			}
 			return true;
 		}

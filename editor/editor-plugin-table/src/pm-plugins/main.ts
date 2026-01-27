@@ -102,6 +102,7 @@ export const createPlugin = (
 	shouldUseIncreasedScalingPercent?: boolean,
 	isCommentEditor?: boolean,
 	isChromelessEditor?: boolean,
+	allowFixedColumnWidthOption?: boolean,
 ) => {
 	const state = createPluginState(dispatch, {
 		pluginConfig,
@@ -146,6 +147,7 @@ export const createPlugin = (
 				pluginInjectionApi,
 				isCommentEditor,
 				isChromelessEditor,
+				allowFixedColumnWidthOption
 			}),
 			tableRow: tableRowView({
 				eventDispatcher,

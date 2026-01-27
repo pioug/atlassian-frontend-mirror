@@ -48,6 +48,7 @@ export interface RendererProps {
 	allowColumnSorting?: boolean;
 	allowCopyToClipboard?: boolean;
 	allowCustomPanels?: boolean;
+	allowFixedColumnWidthOption?: boolean;
 	allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
 	allowPlaceholderText?: boolean;
 	allowRendererContainerStyles?: boolean;
@@ -70,6 +71,7 @@ export interface RendererProps {
 	- `chromeless` - is essentially the `comment` editor but without the editor chrome, like toolbar & save/cancel buttons
 	*/
 	appearance?: RendererAppearance;
+
 	// Note: this comment is replicated in packages/editor/editor-core/src/types/editor-props.ts
 	// any changes should be made in both locations
 	/**
@@ -84,7 +86,6 @@ export interface RendererProps {
 	 * @deprecated this attribute is not supported outside of Confluence Full Page editors
 	 */
 	contentMode?: RendererContentMode;
-
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 	/**
 	 * Creates a new `Serializer` to transform the ADF `document` into `JSX.Element`.
@@ -177,7 +178,6 @@ export interface RendererProps {
 	stickyHeaders?: StickyHeaderProps;
 	textHighlighter?: TextHighlighter;
 	truncated?: boolean;
-
 	UNSTABLE_allowTableAlignment?: boolean;
 
 	UNSTABLE_allowTableResizing?: boolean;

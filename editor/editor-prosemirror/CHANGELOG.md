@@ -1,5 +1,12 @@
 # @atlaskit/editor-prosemirror
 
+## 7.2.3
+
+### Patch Changes
+
+- [`fafd3de4c5880`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fafd3de4c5880) -
+  Update tests to account for version bump
+
 ## 7.2.2
 
 ### Patch Changes

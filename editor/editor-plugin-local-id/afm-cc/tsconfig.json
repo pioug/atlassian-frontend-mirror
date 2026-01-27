@@ -22,6 +22,9 @@
 			"path": "../../adf-schema/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-limited-mode/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-prosemirror/afm-cc/tsconfig.json"
 		},
 		{

@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugins
 
+## 11.3.36
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.3.35
+
+### Patch Changes
+
+- [`79401b181112e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79401b181112e) -
+  Add sideEffects false to the plugin package.json
+
+## 11.3.34
+
+### Patch Changes
+
+- [`9068b92adf796`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9068b92adf796) -
+  [ux] EDITOR-4439 Implement option to raise warn flag on paste for unsupported content
+- Updated dependencies
+
+## 11.3.33
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.3.32
 
 ### Patch Changes

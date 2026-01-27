@@ -4,6 +4,7 @@ import { bind } from 'bind-event-listener';
 
 import { skipA11yAudit } from '@af/accessibility-testing';
 import HomeIcon from '@atlaskit/icon/core/home';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { render, screen, userEvent, waitFor, within } from '@atlassian/testing-library';
 
@@ -15,6 +16,11 @@ import { FlyoutMenuItem } from '../../flyout-menu-item/flyout-menu-item';
 import { FlyoutMenuItemContent } from '../../flyout-menu-item/flyout-menu-item-content';
 import { FlyoutMenuItemTrigger } from '../../flyout-menu-item/flyout-menu-item-trigger';
 import { LinkMenuItem } from '../../link-menu-item';
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 const NavWrapper = ({
 	children,

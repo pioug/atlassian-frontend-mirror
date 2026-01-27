@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 5.3.4
+
+### Patch Changes
+
+- [`2d1d47b369e5a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d1d47b369e5a) -
+  [ux] EDITOR-4766 Use correct selection when transforming to synced block
+- [`3d0b3f8b4d802`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d0b3f8b4d802) -
+  Remove platform_editor_toolbar_aifc_responsive experiment
+- Updated dependencies
+
+## 5.3.3
+
+### Patch Changes
+
+- [`9068b92adf796`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9068b92adf796) -
+  [ux] EDITOR-4439 Implement option to raise warn flag on paste for unsupported content
+- Updated dependencies
+
 ## 5.3.2
 
 ### Patch Changes

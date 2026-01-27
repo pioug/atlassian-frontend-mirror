@@ -114,6 +114,7 @@ export interface PluginConfig {
 	allowColumnSorting?: boolean;
 	allowControls?: boolean;
 	allowDistributeColumns?: boolean;
+	allowFixedColumnWidthOption?: boolean;
 	allowHeaderColumn?: boolean;
 	allowHeaderRow?: boolean;
 	allowMergeCells?: boolean;

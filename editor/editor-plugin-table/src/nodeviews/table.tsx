@@ -17,6 +17,7 @@ import { type EditorState, type SelectionBookmark } from '@atlaskit/editor-prose
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { pluginConfig as getPluginConfig } from '../pm-plugins/create-plugin-config';
 import { getPluginState } from '../pm-plugins/plugin-factory';
@@ -129,11 +130,15 @@ export default class TableView extends ReactNodeView<Props> {
 			const tableElement = rendered.dom.querySelector('table');
 			this.table = tableElement ? tableElement : rendered.dom;
 			this.renderedDOM = rendered.dom;
+			const allowFixedColumnWidthOption =
+				(fg('platform_editor_table_fixed_column_width_prop')
+					? this.reactComponentProps?.allowFixedColumnWidthOption
+					: this.getEditorFeatureFlags?.().tableWithFixedColumnWidthsOption) || false;
 
 			if (
 				!this.options?.isTableScalingEnabled ||
 				(this.options?.isTableScalingEnabled &&
-					this.getEditorFeatureFlags?.().tableWithFixedColumnWidthsOption &&
+					allowFixedColumnWidthOption &&
 					this.node.attrs.displayMode === 'fixed')
 			) {
 				const tableInlineWidth = getInlineWidth(
@@ -235,11 +240,15 @@ export default class TableView extends ReactNodeView<Props> {
 			this.table!.setAttribute(attr, attrs[attr]);
 		});
 
+		const isTableFixedColumnWidthsOptionEnabled =
+			(fg('platform_editor_table_fixed_column_width_prop')
+				? this.reactComponentProps?.allowFixedColumnWidthOption
+				: this.getEditorFeatureFlags?.().tableWithFixedColumnWidthsOption) || false;
 		// Preserve Table Width cannot have inline width set on the table
 		if (
 			!this.options?.isTableScalingEnabled ||
 			(this.options?.isTableScalingEnabled &&
-				this.getEditorFeatureFlags?.().tableWithFixedColumnWidthsOption &&
+				isTableFixedColumnWidthsOptionEnabled &&
 				node.attrs.displayMode === 'fixed')
 		) {
 			// handle inline style when table been resized
@@ -279,6 +288,7 @@ export default class TableView extends ReactNodeView<Props> {
 				getPos={props.getPos}
 				getEditorFeatureFlags={props.getEditorFeatureFlags}
 				dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
+				allowFixedColumnWidthOption={props.allowFixedColumnWidthOption}
 			/>
 		);
 	}
@@ -368,6 +378,7 @@ export const createTableView = (
 	pluginInjectionApi?: PluginInjectionAPI,
 	isCommentEditor?: boolean,
 	isChromelessEditor?: boolean,
+	allowFixedColumnWidthOption?: boolean,
 ): NodeView => {
 	const {
 		pluginConfig,
@@ -382,7 +393,9 @@ export const createTableView = (
 		getPluginConfig(pluginConfig);
 
 	const isTableFixedColumnWidthsOptionEnabled =
-		getEditorFeatureFlags?.().tableWithFixedColumnWidthsOption || false;
+		(fg('platform_editor_table_fixed_column_width_prop')
+			? allowFixedColumnWidthOption
+			: getEditorFeatureFlags?.().tableWithFixedColumnWidthsOption) || false;
 
 	const shouldUseIncreasedScalingPercent =
 		isTableScalingEnabled && (isTableFixedColumnWidthsOptionEnabled || isCommentEditor);
@@ -410,5 +423,6 @@ export const createTableView = (
 		getEditorFeatureFlags,
 		dispatchAnalyticsEvent,
 		pluginInjectionApi,
+		allowFixedColumnWidthOption,
 	}).init();
 };

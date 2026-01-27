@@ -113,33 +113,40 @@ describe('reconnection analytics', () => {
 	});
 
 	afterEach(jest.clearAllMocks);
-	it('Should not reconnecting analytics after being disconnected for less than 3s', async () => {
-		const fakeAnalyticsWebClient = {
-			sendOperationalEvent: jest.fn(),
-			sendScreenEvent: jest.fn(),
-			sendTrackEvent: jest.fn(),
-			sendUIEvent: jest.fn(),
-		};
-		const provider = createSocketIOCollabProvider({
-			...testProviderConfig,
-			analyticsClient: fakeAnalyticsWebClient,
-		});
-		provider.initialize(() => editorState);
 
-		jest.spyOn(Date, 'now').mockReturnValueOnce(Date.now() - 2 * 1000); // Time travel 3s to the past
-		channel.emit('disconnect', {
-			reason: 'Testing - Faking that we got disconnected 3s ago, HAHAHA, take that code',
+	eeTest.describe('collab_bypass_out_of_sync_period_experiment', 'experiment disabled')
+		.variant(false, () => {
+			it('Should not reconnecting analytics after being disconnected for less than 3s', async () => {
+				const fakeAnalyticsWebClient = {
+					sendOperationalEvent: jest.fn(),
+					sendScreenEvent: jest.fn(),
+					sendTrackEvent: jest.fn(),
+					sendUIEvent: jest.fn(),
+				};
+				const provider = createSocketIOCollabProvider({
+					...testProviderConfig,
+					analyticsClient: fakeAnalyticsWebClient,
+				});
+				provider.initialize(() => editorState);
+
+				jest.spyOn(Date, 'now').mockReturnValueOnce(Date.now() - 2 * 1000); // Time travel 2s to the past
+				channel.emit('disconnect', {
+					reason: 'Testing - Faking that we got disconnected 2s ago',
+				});
+
+				channel.emit('connected', {
+					sid: 'pweq3Q7NOPY4y88QAGyr',
+					initialized: true,
+				});
+
+				(requestAnimationFrame as any).step();
+				// With experiment disabled, catchupv2 should NOT be called for < 3s disconnection
+				expect(catchupv2).not.toHaveBeenCalled();
+				expect(fakeAnalyticsWebClient.sendOperationalEvent).toHaveBeenCalledTimes(0);
+				provider.destroy();
+			});
 		});
 
-		channel.emit('connected', {
-			sid: 'pweq3Q7NOPY4y88QAGyr',
-			initialized: true,
-		});
-
-		(requestAnimationFrame as any).step();
-		expect(fakeAnalyticsWebClient.sendOperationalEvent).toHaveBeenCalledTimes(0);
-		provider.destroy();
-	});
 	it('Should trigger reconnecting analytics after being disconnected for more than 3s', async () => {
 		const fakeAnalyticsWebClient = {
 			sendOperationalEvent: jest.fn(),
@@ -342,6 +349,64 @@ describe('reconnection analytics', () => {
 		});
 		provider.destroy();
 	});
+
+	eeTest.describe('collab_bypass_out_of_sync_period_experiment', 'experiment enabled')
+		.variant(true, () => {
+			it('Should trigger reconnecting analytics after being disconnected for less than 3s when experiment is enabled', async () => {
+				// Reset catchupv2 mock to return empty steps for this test
+				(catchupv2 as jest.Mock).mockImplementation(({ onCatchupComplete }) => {
+					onCatchupComplete([]);
+					return Promise.resolve();
+				});
+
+				const fakeAnalyticsWebClient = {
+					sendOperationalEvent: jest.fn(),
+					sendScreenEvent: jest.fn(),
+					sendTrackEvent: jest.fn(),
+					sendUIEvent: jest.fn(),
+				};
+				const provider = createSocketIOCollabProvider({
+					...testProviderConfig,
+					analyticsClient: fakeAnalyticsWebClient,
+				});
+				provider.initialize(() => editorState);
+
+				jest.spyOn(Date, 'now').mockReturnValueOnce(Date.now() - 2 * 1000);
+				channel.emit('disconnect', {
+					reason: 'Testing - Faking that we got disconnected 2s ago',
+				});
+
+				channel.emit('connected', {
+					sid: 'pweq3Q7NOPY4y88QAGyr',
+					initialized: true,
+				});
+
+				(requestAnimationFrame as any).step();
+				// With experiment enabled, catchupv2 should be called even for < 3s disconnection
+				expect(fakeAnalyticsWebClient.sendOperationalEvent).toHaveBeenCalledTimes(1);
+				expect(fakeAnalyticsWebClient.sendOperationalEvent).toHaveBeenCalledWith({
+					action: 'providerReconnection',
+					actionSubject: 'collab',
+					attributes: {
+						collabService: 'ncs',
+						disconnectionPeriodSeconds: 2,
+						remoteStepsLength: 0,
+						unconfirmedStepsLength: undefined,
+						documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+						eventStatus: 'INFO',
+						network: {
+							status: 'ONLINE',
+						},
+						packageName: '@product/platform',
+						packageVersion: '0.0.0',
+						subProduct: undefined,
+					},
+					source: 'unknown',
+					tags: ['editor'],
+				});
+				provider.destroy();
+			});
+		})
 
 	eeTest
 		.describe('platform_editor_offline_editing_web', 'With experiment enabled')

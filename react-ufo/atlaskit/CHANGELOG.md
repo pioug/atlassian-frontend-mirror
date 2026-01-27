@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.0.6
+
+### Patch Changes
+
+- [`32b7ffaaecbca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/32b7ffaaecbca) -
+  add page visibility hidden timestamp field in UFO payload
+
 ## 5.0.5
 
 ### Patch Changes

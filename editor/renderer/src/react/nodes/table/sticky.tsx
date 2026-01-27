@@ -111,12 +111,13 @@ const FixedTableDiv = (props: FixedProps) => {
 };
 
 type StickyTableProps = {
+	allowFixedColumnWidthOption?: boolean;
 	allowTableResizing?: boolean;
 	children: React.ReactNode[];
 	columnWidths?: number[];
 	fixTableSSRResizing?: boolean;
-	innerRef: React.RefObject<HTMLDivElement>;
 
+	innerRef: React.RefObject<HTMLDivElement>;
 	isNumberColumnEnabled: boolean;
 	layout: TableLayout;
 	left?: number;
@@ -148,6 +149,7 @@ export const StickyTable = ({
 	rendererAppearance,
 	allowTableResizing,
 	fixTableSSRResizing = false,
+	allowFixedColumnWidthOption,
 }: StickyTableProps) => {
 	let styles;
 	/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
@@ -205,6 +207,7 @@ export const StickyTable = ({
 							tableNode={tableNode}
 							rendererAppearance={rendererAppearance}
 							fixTableSSRResizing={fixTableSSRResizing}
+							allowFixedColumnWidthOption={allowFixedColumnWidthOption}
 						>
 							{
 								/**

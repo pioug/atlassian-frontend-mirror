@@ -41,5 +41,5 @@ export {
 	getSupportedListTypesSet,
 	convertBlockToInlineContent,
 } from './list-utils';
-export { transformSyncBlock, removeBreakoutFromRendererSyncBlockHTML } from './sync-block';
+export { removeBreakoutFromRendererSyncBlockHTML } from './sync-block';
 export type { TransformContext, TransformFunction } from './list-types';

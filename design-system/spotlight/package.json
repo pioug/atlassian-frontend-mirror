@@ -60,6 +60,7 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
+		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@testing-library/react": "^16.3.0",
 		"react-dom": "root:*"
 	},

@@ -3,8 +3,14 @@ import React, { useRef } from 'react';
 import { act, render, screen } from '@testing-library/react';
 
 import { skipA11yAudit } from '@af/accessibility-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import { useFocusWithin } from './index';
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 // Test component to expose hook behavior
 const TestComponent = ({
@@ -64,6 +70,11 @@ const TestComponentNoFallback = ({
 		</div>
 	);
 };
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('useFocusWithin', () => {

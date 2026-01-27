@@ -5,7 +5,13 @@ type AILocalIdNotFoundErrorAEP = OperationalAEP<
 	ACTION.LOCAL_ID_NOT_FOUND,
 	ACTION_SUBJECT.AI_STREAMING,
 	ACTION_SUBJECT_ID.EXPERIENCE_APPLICATION,
-	{ docSize: number | undefined; localIdLength: number; scrubbedLocalId: string }
+	{
+		docSize: number | undefined;
+		localIdLength: number;
+		localIdStatus: string;
+		localIdStatusSize: number;
+		scrubbedLocalId: string;
+	}
 >;
 
 type AIStreamingNoDocChangeAEP = OperationalAEP<

@@ -45,7 +45,7 @@ import { FLAG_ID } from '../types';
 import { pasteSyncBlockHTMLContent } from './utils';
 
 type createSyncedBlockProps = {
-	fireAnalyticsEvent?: DispatchAnalyticsEvent
+	fireAnalyticsEvent?: DispatchAnalyticsEvent;
 	syncBlockStore: SyncBlockStoreManager;
 	tr: Transaction;
 	typeAheadInsert?: TypeAheadInsert;
@@ -94,10 +94,10 @@ export const createSyncedBlock = ({
 					actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
 					actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_CREATE,
 					attributes: {
-						error: 'Content cannot be converted to sync block'
+						error: 'Content cannot be converted to sync block',
 					},
 					eventType: EVENT_TYPE.OPERATIONAL,
-				})
+				});
 			}
 			return false;
 		}
@@ -116,11 +116,7 @@ export const createSyncedBlock = ({
 		// This is so that the node can be copied and referenced without the source being saved/published
 		syncBlockStore.sourceManager.createBodiedSyncBlockNode(attrs);
 
-		tr.replaceWith(
-			conversionInfo.from > 0 ? conversionInfo.from - 1 : 0,
-			conversionInfo.to,
-			newBodiedSyncBlockNode,
-		).scrollIntoView();
+		tr.replaceWith(conversionInfo.from, conversionInfo.to, newBodiedSyncBlockNode).scrollIntoView();
 
 		// set selection to the start of the previous selection for the position taken up by the start of the new synced block
 		tr.setSelection(TextSelection.create(tr.doc, conversionInfo.from));

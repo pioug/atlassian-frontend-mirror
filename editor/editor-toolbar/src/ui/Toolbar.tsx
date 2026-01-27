@@ -55,17 +55,17 @@ const styles = cssMap({
 			display: 'none',
 		},
 		'[class*="show-above-"]:not(:has([data-toolbar-component="section"] [data-toolbar-component="button"], [data-toolbar-component="button-group"] [data-toolbar-component="button"])), [class*="show-below-"]:not(:has([data-toolbar-component="section"] [data-toolbar-component="button"], [data-toolbar-component="button-group"] [data-toolbar-component="button"]))':
-		{
-			display: 'none',
-		},
+			{
+				display: 'none',
+			},
 	},
 	hiddenSelectorsPatch: {
 		/* separators should be hidden from the ToolbarSection if there is no subsequent ToolbarSection */
 		// @ts-expect-error - container queries are not typed in cssMap
 		'[data-toolbar-component="section"]:not(:has(~ [data-toolbar-component="section"])) [data-toolbar-component="separator"]':
-		{
-			display: 'none',
-		},
+			{
+				display: 'none',
+			},
 	},
 });
 
@@ -85,24 +85,23 @@ type ToolbarProps = {
  *
  * @note: Responsiveness support replies on container query with container editor-area and media query
  */
-export const Toolbar = ({ children, label, actionSubjectId, testId }: ToolbarProps): React.JSX.Element => {
-	const isResponsiveEnabled = expValEquals(
-		'platform_editor_toolbar_aifc_responsive',
-		'isEnabled',
-		true,
-	);
-
+export const Toolbar = ({
+	children,
+	label,
+	actionSubjectId,
+	testId,
+}: ToolbarProps): React.JSX.Element => {
 	const toolbar = (
 		<Box
 			xcss={cx(
 				styles.toolbarBase,
 				styles.toolbar,
-				isResponsiveEnabled && styles.toolbarResponsive,
-				isResponsiveEnabled && styles.hiddenSelectors,
+				styles.toolbarResponsive,
+				styles.hiddenSelectors,
 				expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true) &&
-				styles.toolbarSeparator,
+					styles.toolbarSeparator,
 				expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true) &&
-				styles.hiddenSelectorsPatch,
+					styles.hiddenSelectorsPatch,
 			)}
 			role={
 				expValEquals('platform_editor_aifc_remove_duplicate_role', 'isEnabled', true)
@@ -125,6 +124,7 @@ export const Toolbar = ({ children, label, actionSubjectId, testId }: ToolbarPro
 	let wrappedToolbar = toolbar;
 
 	const { keyboardNavigation } = useToolbarUI();
+
 	if (keyboardNavigation) {
 		const {
 			childComponentSelector,
@@ -150,11 +150,7 @@ export const Toolbar = ({ children, label, actionSubjectId, testId }: ToolbarPro
 		);
 	}
 
-	if (isResponsiveEnabled) {
-		return <ResponsiveWrapper>{wrappedToolbar}</ResponsiveWrapper>;
-	}
-
-	return wrappedToolbar;
+	return <ResponsiveWrapper>{wrappedToolbar}</ResponsiveWrapper>;
 };
 
 type PrimaryToolbarProps = ToolbarProps & ResponsiveContainerProps;
@@ -168,48 +164,27 @@ export const PrimaryToolbar = ({
 	breakpointPreset,
 	reducedBreakpoints,
 }: PrimaryToolbarProps): React.JSX.Element => {
-	if (expValEquals('platform_editor_toolbar_aifc_responsive', 'isEnabled', true)) {
-		return (
-			<ResponsiveContainer
-				breakpointPreset={breakpointPreset}
-				reducedBreakpoints={reducedBreakpoints}
-			>
-				<Box
-					xcss={cx(styles.toolbarBase, styles.primaryToolbar, styles.hiddenSelectors)}
-					role={
-						expValEquals('platform_editor_aifc_remove_duplicate_role', 'isEnabled', true)
-							? undefined
-							: 'toolbar'
-					}
-					aria-label={label}
-					data-toolbar-type={
-						expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true)
-							? 'primary'
-							: undefined
-					}
-				>
-					{children}
-				</Box>
-			</ResponsiveContainer>
-		);
-	}
-
 	return (
-		<Box
-			xcss={cx(styles.toolbarBase, styles.primaryToolbar)}
-			role={
-				expValEquals('platform_editor_aifc_remove_duplicate_role', 'isEnabled', true)
-					? undefined
-					: 'toolbar'
-			}
-			aria-label={label}
-			data-toolbar-type={
-				expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true)
-					? 'primary'
-					: undefined
-			}
+		<ResponsiveContainer
+			breakpointPreset={breakpointPreset}
+			reducedBreakpoints={reducedBreakpoints}
 		>
-			{children}
-		</Box>
+			<Box
+				xcss={cx(styles.toolbarBase, styles.primaryToolbar, styles.hiddenSelectors)}
+				role={
+					expValEquals('platform_editor_aifc_remove_duplicate_role', 'isEnabled', true)
+						? undefined
+						: 'toolbar'
+				}
+				aria-label={label}
+				data-toolbar-type={
+					expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true)
+						? 'primary'
+						: undefined
+				}
+			>
+				{children}
+			</Box>
+		</ResponsiveContainer>
 	);
 };

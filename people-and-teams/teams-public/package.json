@@ -28,6 +28,10 @@
 		"./team-containers": "./src/ui/team-containers/index.ts",
 		"./loom-avatar": "./src/common/ui/loom-avatar/index.ts",
 		"./i18n": "./src/i18n/index.ts",
+		"./i18n/*": {
+			"publish": null,
+			"default": "./src/i18n/*.ts"
+		},
 		"./next": "./src/next/index.ts"
 	},
 	"dependencies": {
@@ -116,7 +120,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.67.1",
+	"version": "0.67.2",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -16,6 +16,7 @@ import TableRow from './TableRow';
 import TableRowNativeStickyWithFallback from './TableRowNativeStickyWithFallback';
 
 type TableViewOptions = {
+	allowFixedColumnWidthOption?: boolean;
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
 	eventDispatcher: EventDispatcher;
 	getEditorContainerWidth: GetEditorContainerWidth;
@@ -40,6 +41,7 @@ export const tableView = (options: TableViewOptions) => {
 			options.pluginInjectionApi,
 			options.isCommentEditor,
 			options.isChromelessEditor,
+			options?.allowFixedColumnWidthOption,
 		);
 	};
 };

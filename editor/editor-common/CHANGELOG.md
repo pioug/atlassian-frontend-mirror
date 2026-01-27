@@ -1,5 +1,27 @@
 # @atlaskit/editor-common
 
+## 111.9.0
+
+### Minor Changes
+
+- [`c082975fb2a0c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c082975fb2a0c) -
+  Added a new watchment plugin to the localId editror plugin for it to keep track of all localIds
+  created/updated since the start of the editor session. This is needed so the orchestrator is able
+  to identify when it cant lookup a localId, what the reason is for the localId being missing.
+
+### Patch Changes
+
+- [`baf7b89a7b895`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/baf7b89a7b895) -
+  Give colour picker menu an accessible label
+- Updated dependencies
+
+## 111.8.14
+
+### Patch Changes
+
+- [`9068b92adf796`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9068b92adf796) -
+  [ux] EDITOR-4439 Implement option to raise warn flag on paste for unsupported content
+
 ## 111.8.13
 
 ### Patch Changes

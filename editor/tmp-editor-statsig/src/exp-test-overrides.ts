@@ -29,8 +29,6 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 	confluence_whiteboards_quick_insert_localised_aa: 'control',
 	cc_editor_ai_content_mode: 'control',
 	platform_editor_add_orange_highlight_color: 'control',
-	platform_editor_ai_iw_adf_streaming: 'control',
-	platform_editor_ai_non_iw_adf_streaming: 'control',
 	platform_hover_card_preview_panel: 'control',
 	platform_hover_card_preview_panel_modal: 'control',
 	smart_link_confluence_short_link_analytics: 'control',

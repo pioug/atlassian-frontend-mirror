@@ -56,6 +56,12 @@ const Palette = () => {
 	);
 };
 
+const PlainElement = () => {
+	return (
+		<p>I'm a plain paragraph. I rely on global styles from the CSS reset.</p>
+	);
+};
+
 export function SubTreeThemingExample(): JSX.Element {
 	return (
 		<AppProvider defaultColorMode="auto">
@@ -63,6 +69,7 @@ export function SubTreeThemingExample(): JSX.Element {
 				<Heading as="h1" size="xxlarge">
 					Sub-tree theming inside AppProvider
 				</Heading>
+				<PlainElement />
 				<Stack space="space.150">
 					<Text as="p">
 						This example uses an AppProvider, which renders a root ThemeProvider, and nested
@@ -75,6 +82,7 @@ export function SubTreeThemingExample(): JSX.Element {
 							<Heading as="h2" size="large">
 								Welcome to Sub-tree Theming
 							</Heading>
+							<PlainElement />
 							<Palette />
 							<Text as="p">
 								This area should be completely in Dark Theme while the rest is Light Theme
@@ -112,6 +120,7 @@ export function SubTreeThemingExample(): JSX.Element {
 										<Heading as="h2" size="large">
 											Welcome to deeply-nested Sub-tree Theming
 										</Heading>
+										<PlainElement />
 										<Palette />
 										<Text as="p">
 											This area should be completely in Light Theme while the rest is Dark Theme
@@ -148,7 +157,6 @@ export function SubTreeThemingExample(): JSX.Element {
 						</Stack>
 					</Box>
 				</ThemeProvider>
-
 				<InvertedColorMode />
 				<ControlledSubtreeTheme />
 			</Stack>
@@ -169,6 +177,7 @@ const InvertedColorModeContent = ({ parentColorMode }: { parentColorMode: ThemeC
 				<Heading as="h2" size="large">
 					This section will invert the root theme
 				</Heading>
+				<PlainElement />
 				<Palette />
 				<Text as="p">
 					It will swap to be the opposite of the color mode, so it always stands out. Currently the
@@ -252,6 +261,7 @@ const ControlledSubtreeThemeContent = ({
 				<Heading as="h3" size="medium">
 					Color
 				</Heading>
+				<PlainElement />
 				<Palette />
 				<div>
 					<Label htmlFor="light-color-theme">Light theme</Label>
@@ -262,8 +272,8 @@ const ControlledSubtreeThemeContent = ({
 						onChange={(option) =>
 							option?.value
 								? setTheme({
-										light: option.value as ThemeState['light'],
-									})
+									light: option.value as ThemeState['light'],
+								})
 								: undefined
 						}
 					/>
@@ -277,8 +287,8 @@ const ControlledSubtreeThemeContent = ({
 						onChange={(option) =>
 							option?.value
 								? setTheme({
-										dark: option.value as ThemeState['dark'],
-									})
+									dark: option.value as ThemeState['dark'],
+								})
 								: undefined
 						}
 					/>

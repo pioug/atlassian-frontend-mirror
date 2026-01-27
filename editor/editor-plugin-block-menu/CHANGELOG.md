@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.0.25
+
+### Patch Changes
+
+- [`ba6391ff5fd6b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba6391ff5fd6b) -
+  update block menu transformed analytics event
+- Updated dependencies
+
 ## 6.0.24
 
 ### Patch Changes

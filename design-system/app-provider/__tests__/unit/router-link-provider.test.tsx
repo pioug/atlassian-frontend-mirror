@@ -1,6 +1,6 @@
 import React, { forwardRef, type Ref } from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { render, screen } from '@atlassian/testing-library';
 
 import RouterLinkProvider, { type RouterLinkComponentProps } from '../../src/router-link-provider';
 import useRouterLink from '../../src/router-link-provider/hooks/use-router-link';
@@ -12,7 +12,7 @@ type MyRouterLinkConfig = {
 
 const MyRouterLinkComponent: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<RouterLinkComponentProps<MyRouterLinkConfig>> &
-		React.RefAttributes<HTMLAnchorElement>
+	React.RefAttributes<HTMLAnchorElement>
 > = forwardRef(
 	(
 		{ href, children, ...rest }: RouterLinkComponentProps<MyRouterLinkConfig>,

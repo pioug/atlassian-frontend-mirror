@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "216.7.7",
+	"version": "216.7.9",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -274,7 +274,7 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"editor_a11y_aria_label_removal_popup": {
+		"_editor_a11y_aria_label_removal_popup": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
@@ -348,6 +348,9 @@
 			"type": "boolean"
 		},
 		"rovo_chat_enable_skills_ui_m1": {
+			"type": "boolean"
+		},
+		"platform_editor_table_fixed_column_width_prop": {
 			"type": "boolean"
 		},
 		"platform_editor_a11y_find_replace_focus_ring": {

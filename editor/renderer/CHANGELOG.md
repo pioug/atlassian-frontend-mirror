@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 126.2.0
+
+### Minor Changes
+
+- [`6e018ece82be1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e018ece82be1) -
+  Cleaned two ADF experiments but ADF prompt will still be enabled only when
+  platform_editor_ai_adf_prompts_in_all_products is turned on.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 126.1.4
 
 ### Patch Changes

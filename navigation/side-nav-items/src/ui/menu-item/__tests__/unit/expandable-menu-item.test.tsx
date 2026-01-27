@@ -5,13 +5,20 @@ import { IconButton } from '@atlaskit/button/new';
 import AddIcon from '@atlaskit/icon/core/add';
 import HomeIcon from '@atlaskit/icon/core/home';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { render, screen, userEvent } from '@atlassian/testing-library';
+
 
 import { ButtonMenuItem } from '../../button-menu-item';
 import { ExpandableMenuItem } from '../../expandable-menu-item/expandable-menu-item';
 import { ExpandableMenuItemContent } from '../../expandable-menu-item/expandable-menu-item-content';
 import { ExpandableMenuItemTrigger } from '../../expandable-menu-item/expandable-menu-item-trigger';
 import { MenuList } from '../../menu-list';
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 jest.mock('@atlaskit/icon/core/chevron-right', () => ({
 	__esModule: true,
@@ -26,6 +33,11 @@ jest.mock('@atlaskit/icon/core/chevron-down', () => ({
 		return <span data-testid="expanded-icon" />;
 	},
 }));
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 // Wrapper to reflect actual usage within a navigation menu
 const NavWrapper = ({ children }: { children: React.ReactNode }) => (

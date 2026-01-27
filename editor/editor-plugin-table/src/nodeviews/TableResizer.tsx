@@ -79,6 +79,7 @@ import {
 } from '../ui/consts';
 
 interface TableResizerProps {
+	allowFixedColumnWidthOption?: boolean;
 	attachAnalyticsEvent: (payload: TableEventPayload) => ((tr: Transaction) => boolean) | undefined;
 	containerWidth: number;
 	disabled?: boolean;
@@ -90,7 +91,6 @@ interface TableResizerProps {
 	isFullWidthModeEnabled?: boolean;
 	isTableAlignmentEnabled?: boolean;
 	isTableScalingEnabled?: boolean;
-	isTableWithFixedColumnWidthsOptionEnabled?: boolean;
 	isWholeTableInDanger?: boolean;
 	lineLength: number;
 	maxWidth: number | string;
@@ -219,7 +219,7 @@ export const TableResizer = ({
 	attachAnalyticsEvent,
 	displayGapCursor,
 	isTableScalingEnabled,
-	isTableWithFixedColumnWidthsOptionEnabled,
+	allowFixedColumnWidthOption,
 	isTableAlignmentEnabled,
 	isWholeTableInDanger,
 	shouldUseIncreasedScalingPercent,
@@ -558,7 +558,7 @@ export const TableResizer = ({
 				},
 				editorView.domAtPos.bind(editorView),
 				isTableScalingEnabled,
-				isTableWithFixedColumnWidthsOptionEnabled,
+				allowFixedColumnWidthOption,
 				isCommentEditor,
 			);
 
@@ -579,7 +579,7 @@ export const TableResizer = ({
 			countFrames,
 			isCommentEditor,
 			isTableScalingEnabled,
-			isTableWithFixedColumnWidthsOptionEnabled,
+			allowFixedColumnWidthOption,
 			isFullWidthModeEnabled,
 			excludeGuidelineConfig,
 			tableRef,

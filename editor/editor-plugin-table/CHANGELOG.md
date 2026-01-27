@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 17.0.1
+
+### Patch Changes
+
+- [`2bd7dcf49bbf2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2bd7dcf49bbf2) -
+  [ux] [EDITOR-4452] remove the selection change after setting the background color on multiple
+  table cells behind platform_editor_table_cell_colour_change
+- Updated dependencies
+
 ## 17.0.0
 
 ### Major Changes

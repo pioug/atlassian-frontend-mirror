@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@atlassian/testing-library';
 
 import AppProvider from '../../src/app-provider';
 
@@ -41,7 +41,7 @@ describe('AppProvider', () => {
 
 	it('should throw when there are nested AppProviders', async () => {
 		// @ts-ignore
-		jest.spyOn(global.console, 'error').mockImplementation(() => {});
+		jest.spyOn(global.console, 'error').mockImplementation(() => { });
 
 		const app = (
 			<AppProvider>

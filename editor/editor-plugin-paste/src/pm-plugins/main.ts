@@ -27,10 +27,13 @@ import {
 	transformSliceToJoinAdjacentCodeBlocks,
 	transformSliceToRemoveLegacyContentMacro,
 	transformSliceToRemoveMacroId,
-	transformSyncBlock,
 	removeBreakoutFromRendererSyncBlockHTML,
 } from '@atlaskit/editor-common/transforms';
-import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
+import type {
+	ExtractInjectionAPI,
+	FeatureFlags,
+	PasteWarningOptions,
+} from '@atlaskit/editor-common/types';
 import {
 	containsAnyAnnotations,
 	extractSliceFromStep,
@@ -100,6 +103,7 @@ import {
 	handleParagraphBlockMarks,
 	handleTableContentPasteInBodiedExtension,
 } from './util/handlers';
+import { handleSyncBlocksPaste } from './util/sync-block';
 import {
 	htmlHasIncompleteTable,
 	isPastedFromTinyMCEConfluence,
@@ -151,6 +155,7 @@ export function createPlugin(
 	cardOptions?: CardOptions,
 	sanitizePrivateContent?: boolean,
 	providerFactory?: ProviderFactory,
+	pasteWarningOptions?: PasteWarningOptions,
 ) {
 	const editorAnalyticsAPI = pluginInjectionApi?.analytics?.actions;
 	const atlassianMarkDownParser = new MarkdownTransformer(schema, md);
@@ -194,6 +199,7 @@ export function createPlugin(
 	return new SafePlugin({
 		key: stateKey,
 		state: createPluginState(dispatch, {
+			activeFlag: null,
 			pastedMacroPositions: {},
 			lastContentPasted: null,
 		}),
@@ -405,7 +411,14 @@ export function createPlugin(
 				slice = handleVSCodeBlock({ state, slice, event, text });
 
 				if (editorExperiment('platform_synced_block', true)) {
-					slice = transformSyncBlock(slice, schema, getPasteSource(event));
+					slice = handleSyncBlocksPaste(
+						slice,
+						schema,
+						getPasteSource(event),
+						html,
+						pasteWarningOptions,
+						pluginInjectionApi,
+					);
 				}
 
 				const plainTextPasteSlice = linkifyContent(state.schema)(slice);

@@ -351,4 +351,20 @@ export const syncBlockMessages = defineMessages({
 		description:
 			'Description of unsync confirmation modal that appears when user tries to unsync source synced block with multiple references',
 	},
+	cannotPasteSyncedBlockTitle: {
+		id: 'fabric.editor.cannotPasteSyncedBlockTitle',
+		defaultMessage: 'Unable to paste',
+		description: 'Title in flag which appears when a synced block cannot be pasted',
+	},
+	cannotPasteSyncedBlockDescription: {
+		id: 'fabric.editor.cannotPasteSyncedBlockDescription',
+		defaultMessage:
+			'We’re still building this feature. Currently, you can only paste synced content once your work item has been created. ',
+		description: 'Description in flag which appears when a synced block cannot be pasted',
+	},
+	cannotPasteSyncedBlockAction: {
+		id: 'fabric.editor.cannotPasteSyncedBlockAction',
+		defaultMessage: 'Learn more',
+		description: 'Action in flag which appears when a synced block cannot be pasted to learn more',
+	},
 });

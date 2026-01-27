@@ -4,6 +4,8 @@
 export { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 export type {
 	DecorationsPlugin,
+	HoverDecorationProps,
+	HoverDecorationCommand,
 	HoverDecorationHandler,
 	DecorationState,
 } from '@atlaskit/editor-plugin-decorations';

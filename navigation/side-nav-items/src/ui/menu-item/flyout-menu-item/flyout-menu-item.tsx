@@ -1,5 +1,6 @@
-import React, { forwardRef, type ReactNode, useEffect } from 'react';
+import React, { forwardRef, type ReactNode, useEffect, useRef } from 'react';
 
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import useControlled from '@atlaskit/ds-lib/use-controlled';
 import usePreviousValue from '@atlaskit/ds-lib/use-previous-value';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -7,7 +8,12 @@ import { Popup } from '@atlaskit/popup/experimental';
 
 import { MenuListItem } from '../menu-list-item';
 
-import { IsOpenContext, SetIsOpenContext } from './flyout-menu-item-context';
+import type { FlyoutCloseSource } from './flyout-menu-item-content';
+import {
+	IsOpenContext,
+	OnCloseContext,
+	SetIsOpenContext,
+} from './flyout-menu-item-context';
 
 export type FlyoutMenuItemProps = {
 	/**
@@ -70,6 +76,14 @@ export const FlyoutMenuItem: React.ForwardRefExoticComponent<
 		const [isOpen, setIsOpen] = useControlled(isOpenControlled, () => isDefaultOpen);
 
 		const previousIsOpen = usePreviousValue(isOpen);
+		const onCloseRef = useRef<
+			(
+				event: Event | React.MouseEvent<HTMLButtonElement> | KeyboardEvent | MouseEvent | null,
+				source?: FlyoutCloseSource,
+			) => void
+		>(null);
+
+		const { createAnalyticsEvent } = useAnalyticsEvents();
 
 		useEffect(() => {
 			if (previousIsOpen === undefined || previousIsOpen === isOpen) {
@@ -83,21 +97,36 @@ export const FlyoutMenuItem: React.ForwardRefExoticComponent<
 				return;
 			}
 
+			// When flyout menu is opened, fire analytics event
+			if (isOpen && previousIsOpen === false) {
+				if (fg('platform_dst_nav4_flyout_menu_slots_close_button')) {
+					const navigationAnalyticsEvent = createAnalyticsEvent({
+						source: 'sideNav',
+						actionSubject: 'flyoutMenu',
+						action: 'opened',
+					});
+
+					navigationAnalyticsEvent.fire('navigation');
+				}
+			}
+
 			onOpenChange?.(isOpen);
-		}, [isOpen, onOpenChange, previousIsOpen]);
+		}, [isOpen, onOpenChange, previousIsOpen, createAnalyticsEvent]);
 
 		return (
 			<IsOpenContext.Provider value={isOpen}>
 				<SetIsOpenContext.Provider value={setIsOpen}>
-					<MenuListItem ref={forwardedRef}>
-						<Popup
-							id={id}
-							isOpen={isOpen}
-							role={fg('platform_dst_nav4_flyout_menu_slots_close_button') ? 'dialog' : undefined}
-						>
-							{children}
-						</Popup>
-					</MenuListItem>
+					<OnCloseContext.Provider value={onCloseRef}>
+						<MenuListItem ref={forwardedRef}>
+							<Popup
+								id={id}
+								isOpen={isOpen}
+								role={fg('platform_dst_nav4_flyout_menu_slots_close_button') ? 'dialog' : undefined}
+							>
+								{children}
+							</Popup>
+						</MenuListItem>
+					</OnCloseContext.Provider>
 				</SetIsOpenContext.Provider>
 			</IsOpenContext.Provider>
 		);

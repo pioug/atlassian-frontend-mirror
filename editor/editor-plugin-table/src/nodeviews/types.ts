@@ -20,6 +20,7 @@ export type TableOptions = {
 export interface Props {
 	allowColumnResizing?: boolean;
 	allowControls?: boolean;
+	allowFixedColumnWidthOption?: boolean;
 	allowTableAlignment?: boolean;
 	allowTableResizing?: boolean;
 	cellMinWidth?: number;

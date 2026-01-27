@@ -29,7 +29,7 @@ import {
 import { getExperimentalVCMetrics } from '../create-experimental-interaction-metrics-payload';
 import { getBm3Timings } from '../custom-timings';
 import { getGlobalErrorCount } from '../global-error-handler';
-import { getPageVisibilityState } from '../hidden-timing';
+import { getEarliestHiddenTiming, getPageVisibilityState } from '../hidden-timing';
 import * as initialPageLoadExtraTiming from '../initial-page-load-extra-timing';
 import type { LabelStack } from '../interaction-context';
 import { interactionSpans as atlaskitInteractionSpans } from '../interaction-metrics';
@@ -700,6 +700,12 @@ async function createInteractionMetricsPayload(
 					? {
 							'ufo:multipayload': true,
 							'ufo:criticalPayloadCount': criticalPayloadCount,
+						}
+					: {}),
+
+				...(fg('platform_ufo_browser_backgrounded_abort_timestamp')
+					? {
+						'ufo:pageVisibilityHiddenTimestamp': getEarliestHiddenTiming(interaction.start, interaction.end)
 						}
 					: {}),
 

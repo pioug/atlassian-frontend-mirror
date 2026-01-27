@@ -227,7 +227,7 @@ const useLatestMediaNode = (nextMediaNode: PMNode) => {
 	const [mediaNode, setMediaNode] = React.useState(nextMediaNode);
 
 	React.useEffect(() => {
-		if (!previousMediaNode) {
+		if (!previousMediaNode || typeof previousMediaNode.eq !== 'function') {
 			return;
 		}
 

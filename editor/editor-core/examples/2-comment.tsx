@@ -7,6 +7,7 @@ import { IntlProvider } from 'react-intl-next';
 import { DevTools, getTranslations, LanguagePicker } from '@af/editor-examples-helpers/utils';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+import { syncBlockMessages } from '@atlaskit/editor-common/messages';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { type HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
@@ -140,7 +141,6 @@ export class CommentEditorWithFeedback extends React.Component<Props, State> {
 								contextIdentifierProvider,
 								onChange,
 								disabled,
-								enabledFeatures,
 							}: any) => (
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 								<div style={{ padding: token('space.250', '20px') }}>
@@ -201,6 +201,14 @@ export class CommentEditorWithFeedback extends React.Component<Props, State> {
 												'table-drag-and-drop': true,
 											}}
 											{...this.props.editorProps}
+											pasteWarningOptions={{
+												cannotPasteSyncedBlock: {
+													title: syncBlockMessages.cannotPasteSyncedBlockTitle,
+													description: syncBlockMessages.cannotPasteSyncedBlockDescription,
+													urlHref: 'https://hello.atlassian.net/wiki/x/tAtCeAE',
+													urlText: syncBlockMessages.cannotPasteSyncedBlockAction,
+												},
+											}}
 										/>
 									</CollapsedEditor>
 								</div>

@@ -6,6 +6,7 @@ describe('prosemirror-keymap', () => {
 	it('should export the same public functions', () => {
 		const originalPublicFunctions = Object.keys(original)
 			.filter((f) => !f.startsWith('__'))
+			.filter((f)=> f !== 'default')
 			.sort();
 		const wrapperFunctions = Object.keys(wrapper).sort();
 

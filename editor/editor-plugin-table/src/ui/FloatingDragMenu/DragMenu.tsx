@@ -583,6 +583,8 @@ const DragMenu = React.memo(
 			if (shouldCloseMenu(state)) {
 				if (target && focusTarget === 'handle') {
 					(target as HTMLElement | null)?.focus();
+				} else if (expValEquals('platform_editor_table_cell_colour_change', 'isEnabled', true)) {
+					editorView.focus();
 				} else {
 					editorView.dom.focus();
 				}

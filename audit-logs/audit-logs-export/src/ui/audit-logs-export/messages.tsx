@@ -69,4 +69,9 @@ export const defaultMessages = defineMessages({
 		defaultMessage: 'Try again later',
 		description: 'Error flag description when export fails',
 	},
+	ariaLabelCheckbox: {
+		id: 'organization.audit.log.export.modal.aria.label.checkbox',
+		defaultMessage: 'checkbox',
+		description: 'Aria label for checkbox',
+	},
 });

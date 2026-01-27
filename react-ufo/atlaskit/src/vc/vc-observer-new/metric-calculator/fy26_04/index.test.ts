@@ -51,38 +51,6 @@ describe('VCCalculator_FY26_04', () => {
 			});
 		});
 
-		describe('platform_ufo_remove_ssr_placeholder_in_ttvc_v4 feature flag', () => {
-			it('should not include mutation:ssr-placeholder when feature flag is disabled', () => {
-				mockFg.mockImplementation(() => false);
-				const entry: VCObserverEntry = {
-					time: 0,
-					data: {
-						type: 'mutation:ssr-placeholder',
-						elementName: 'div',
-						rect: new DOMRect(),
-						visible: true,
-					} as ViewportEntryData,
-				};
-				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
-			});
-
-			it('should include mutation:ssr-placeholder when feature flag is enabled', () => {
-				mockFg.mockImplementation(
-					(flag) => flag === 'platform_ufo_remove_ssr_placeholder_in_ttvc_v4',
-				);
-				const entry: VCObserverEntry = {
-					time: 0,
-					data: {
-						type: 'mutation:ssr-placeholder',
-						elementName: 'div',
-						rect: new DOMRect(),
-						visible: true,
-					} as ViewportEntryData,
-				};
-				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
-			});
-		});
-
 		describe('mutation:display-contents-children-attribute', () => {
 			it('should include mutation:display-contents-children-attribute with visual attribute', () => {
 				mockFg.mockImplementation((flag) =>
@@ -468,25 +436,6 @@ describe('VCCalculator_FY26_04', () => {
 				time: 0,
 				data: {
 					type: 'mutation:display-contents-children-element',
-					elementName: 'div',
-					rect: new DOMRect(),
-					visible: true,
-				} as ViewportEntryData,
-			};
-			expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
-		});
-
-		it('should handle mutation:ssr-placeholder when flag is enabled', () => {
-			mockFg.mockImplementation((flag) => {
-				if (flag === 'platform_ufo_remove_ssr_placeholder_in_ttvc_v4') {
-					return true;
-				}
-				return false;
-			});
-			const entry: VCObserverEntry = {
-				time: 0,
-				data: {
-					type: 'mutation:ssr-placeholder',
 					elementName: 'div',
 					rect: new DOMRect(),
 					visible: true,

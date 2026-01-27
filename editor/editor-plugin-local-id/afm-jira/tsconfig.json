@@ -22,6 +22,9 @@
 			"path": "../../adf-schema/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-limited-mode/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-prosemirror/afm-jira/tsconfig.json"
 		},
 		{

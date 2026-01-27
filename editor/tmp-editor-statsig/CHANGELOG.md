@@ -1,5 +1,44 @@
 # @atlaskit/editor-statsig-tmp
 
+## 16.35.0
+
+### Minor Changes
+
+- [`e4a01f3fe5601`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e4a01f3fe5601) -
+  Uses the new parser only on creation in the bridge to fix some issues caused by the old parser.
+
+## 16.34.0
+
+### Minor Changes
+
+- [`3d0b3f8b4d802`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d0b3f8b4d802) -
+  Remove platform_editor_toolbar_aifc_responsive experiment
+- [`6e018ece82be1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e018ece82be1) -
+  Cleaned two ADF experiments but ADF prompt will still be enabled only when
+  platform_editor_ai_adf_prompts_in_all_products is turned on.
+- [`2bd7dcf49bbf2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2bd7dcf49bbf2) -
+  [EDITOR-4451] add new experiment to statsig config file
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.33.0
+
+### Minor Changes
+
+- [`989213ce3c890`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/989213ce3c890) -
+  fg cleanup: company-hub-config-panel-keyboard-nav
+
+## 16.32.0
+
+### Minor Changes
+
+- [`64f281a2f3086`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64f281a2f3086) -
+  Introduces a new fix to adf streaming sanitizer, before it could be too aggressive with the
+  patterns of fixing some cases of streaming by escaping characters that it would break key/value
+  pairs.
+
 ## 16.31.0
 
 ### Minor Changes

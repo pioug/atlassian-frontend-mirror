@@ -27,8 +27,8 @@ const COLOR_SHADE = '#b6c2cf';
 const ERROR_COLOR = '#FD9891';
 
 const headingStyle = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	h1: {
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- increased specificity to override Heading component
+	'&& h1': {
 		font: token('font.body'),
 		fontWeight: token('font.weight.bold'),
 		color: COLOR_SHADE,
@@ -37,7 +37,7 @@ const headingStyle = css({
 
 const errorMessageWrapperStyle = css({
 	marginTop: token('space.050', '4px'),
-	font: token('font.body.UNSAFE_small'),
+	font: token('font.body.small'),
 	display: 'flex',
 	alignItems: 'center',
 	color: ERROR_COLOR,
@@ -93,13 +93,13 @@ export const PasswordInput = ({ onSubmit, hasPasswordError, onRender }: PDFPassw
 					<Flex justifyContent="center">
 						<LockIcon label="" color={COLOR_SHADE as any} />
 					</Flex>
-					<Box xcss={headerStyles}>
-						<div css={headingStyle}>
-							<Heading as="h1" size="medium">
-								<FormattedMessage {...messages.password_protected_pdf} />
-							</Heading>
-						</div>
-					</Box>
+				<Box xcss={headerStyles}>
+					<div css={headingStyle}>
+						<Heading as="h1" size="medium">
+							<FormattedMessage {...messages.password_protected_pdf} />
+						</Heading>
+					</div>
+				</Box>
 					<Field name="password" defaultValue="" isRequired>
 						{({ fieldProps }) => (
 							<Box xcss={inputStyle}>

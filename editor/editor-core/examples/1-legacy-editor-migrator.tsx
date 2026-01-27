@@ -121,7 +121,7 @@ function converter(props: EditorProps) {
 		.map((plugin, idx) => {
 			const pluginName = Object.keys(pluginNameExceptions).includes(plugins[idx].name)
 				? // @ts-expect-error
-					pluginNameExceptions[plugins[idx].name]
+				  pluginNameExceptions[plugins[idx].name]
 				: plugins[idx].name + 'Plugin';
 			if (Array.isArray(plugin) && plugin[1] && Object.keys(plugin[1]).length > 0) {
 				const parsedPluginOptions =
@@ -136,9 +136,11 @@ function converter(props: EditorProps) {
 		.map((_, idx) => {
 			const pluginName = Object.keys(pluginNameExceptions).includes(plugins[idx].name)
 				? // @ts-expect-error
-					pluginNameExceptions[plugins[idx].name]
+				  pluginNameExceptions[plugins[idx].name]
 				: plugins[idx].name + 'Plugin';
-			return `import { ${pluginName} } from '@atlaskit/editor-plugins/${camelToKebabCase(plugins[idx].name)}';`;
+			return `import { ${pluginName} } from '@atlaskit/editor-plugins/${camelToKebabCase(
+				plugins[idx].name,
+			)}';`;
 		})
 		.join('\n');
 

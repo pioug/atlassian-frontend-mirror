@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-paste
 
+## 8.1.0
+
+### Minor Changes
+
+- [`9068b92adf796`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9068b92adf796) -
+  [ux] EDITOR-4439 Implement option to raise warn flag on paste for unsupported content
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.3
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/side-nav-items",
-	"version": "1.0.1",
+	"version": "1.2.0",
 	"description": "Menu items and elements for the navigation side nav area.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

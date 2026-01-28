@@ -52,6 +52,11 @@ const flagMap: Record<FLAG_ID, FlagConfig> = {
 		title: messages.syncBlockCopiedTitle,
 		type: 'info',
 	},
+	[FLAG_ID.UNPUBLISHED_SYNC_BLOCK_PASTED]: {
+		title: messages.unpublishedSyncBlockPastedTitle,
+		description: messages.unpublishedSyncBlockPastedDescription,
+		type: 'info',
+	},
 };
 
 export const Flag = ({ api }: Props) => {

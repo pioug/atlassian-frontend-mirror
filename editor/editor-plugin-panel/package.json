@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-panel",
-	"version": "9.0.5",
+	"version": "9.0.7",
 	"description": "Panel plugin for @atlaskit/editor-core.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -94,9 +94,6 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_nested_dnd_styles_changes": {
-			"type": "boolean"
-		},
-		"platform_editor_ai_generic_prep_for_aifc_2": {
 			"type": "boolean"
 		},
 		"platform_editor_adf_with_localid": {

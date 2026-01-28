@@ -1,5 +1,12 @@
 # @atlaskit/datetime-picker
 
+## 17.4.4
+
+### Patch Changes
+
+- [`14d2eba104d4b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14d2eba104d4b) -
+  Add bugfix for state values not updating correctly in date picker.
+
 ## 17.4.3
 
 ### Patch Changes

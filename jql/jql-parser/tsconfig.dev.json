@@ -25,6 +25,7 @@
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx",
 		"./test-utils/**/*",
+		"./test-utils/**/*.json",
 		"**/stories.ts",
 		"**/stories.tsx",
 		"**/stories/*.ts",

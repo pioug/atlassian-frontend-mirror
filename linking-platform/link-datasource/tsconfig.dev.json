@@ -25,6 +25,7 @@
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx",
 		"./examples-helpers/**/*",
+		"./examples-helpers/**/*.json",
 		"**/stories.ts",
 		"**/stories.tsx",
 		"**/stories/*.ts",

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tmp-editor-statsig",
-	"version": "16.35.0",
+	"version": "17.0.0",
 	"description": "Temp plugin to ease use of statsig feature flags until platform feature flags are available",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -14,7 +14,7 @@
 			"category": "Components"
 		},
 		"prTasks": [
-			"New experiments added to tmp-editor-statsig configuration have been marked as a MINOR change",
+			"New experiments added to the tmp-editor-statsig configuration have been marked as a MINOR change OR any cleanup/removal of experiments has been marked as a MAJOR change",
 			"I updated the table on https://hello.atlassian.net/wiki/spaces/EDITOR/pages/5257593537/Libra+testing+FG+override+expectations, tested my changes, and confirm that adding/removing the override is safe"
 		]
 	},

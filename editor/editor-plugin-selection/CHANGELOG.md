@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-selection
 
+## 7.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.3
+
+### Patch Changes
+
+- [`5c3f8d87c2290`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c3f8d87c2290) -
+  Cleanup general AIFC bug fix feature gate
+- Updated dependencies
+
 ## 7.0.2
 
 ### Patch Changes

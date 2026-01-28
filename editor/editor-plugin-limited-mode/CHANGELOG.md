@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-limited-mode
 
+## 4.0.3
+
+### Patch Changes
+
+- [`256b4fc86bae0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/256b4fc86bae0) -
+  [ux] EDITOR-4464 Limited Mode: Change threshold to activate limited mode to use the node count
+  rather than the raw document size.
+- Updated dependencies
+
 ## 4.0.2
 
 ### Patch Changes

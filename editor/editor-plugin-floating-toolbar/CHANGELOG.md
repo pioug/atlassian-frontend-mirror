@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 9.1.4
+
+### Patch Changes
+
+- [`e00b363b9fa30`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e00b363b9fa30) -
+  [ux] EDITOR-4481 Clean up platform_editor_toolbar_aifc_user_intent_fix
+- Updated dependencies
+
 ## 9.1.3
 
 ### Patch Changes

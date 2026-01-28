@@ -61,7 +61,7 @@ export const SyncedBlockErrorComponent = ({
 			case SyncBlockError.Forbidden:
 				return getForbiddenErrorContent(resourceId, fireAnalyticsEvent);
 			case SyncBlockError.NotFound:
-				return <SyncedBlockNotFoundError reason={error.reason} />;
+				return <SyncedBlockNotFoundError reason={error.reason} sourceAri={error.sourceAri} />;
 			case SyncBlockError.Errored:
 			case SyncBlockError.RateLimited:
 			case SyncBlockError.ServerError:

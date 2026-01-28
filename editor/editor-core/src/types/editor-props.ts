@@ -99,7 +99,8 @@ interface EditorBaseProps {
   */
 	appearance?: EditorAppearance;
 
-	// Editor assitive label. Assistive label is hard coded to "Main content area, start typing to enter text.",
+	// Editor assitive label. Assistive label is hard coded to "Page editing area, start typing to enter text." for full page appearances
+	// and "Main content area, start typing to enter text." for all others,
 	//  defined in "packages/editor/editor-core/src/create-editor/messages.ts"
 	// When this prop is set, it will override default one.
 	assistiveLabel?: string;

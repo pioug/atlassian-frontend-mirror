@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "24.32.3",
+	"version": "24.34.0",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -67,6 +67,7 @@
 		"@atlaskit/give-kudos": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/link": "workspace:*",
 		"@atlaskit/lozenge": "workspace:^",
 		"@atlaskit/menu": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
@@ -187,6 +188,9 @@
 			"type": "boolean"
 		},
 		"people-teams-deprecate-profilecard-teams": {
+			"type": "boolean"
+		},
+		"rovo_display_ai_disclaimer_on_agent_profile_card": {
 			"type": "boolean"
 		}
 	},

@@ -72,6 +72,11 @@ export const placeholderPlugin: PlaceholderPlugin = ({ config: options, api }) =
 			true,
 		)
 			? (params) => {
+					// If loading spinner is explicitly disabled (e.g., for DiffEditor/version history), skip
+					if (options?.enableLoadingSpinner === false) {
+						return null;
+					}
+
 					const doc = params.editorView?.state.doc;
 
 					// @ts-ignore fix which needs follow up to use standard apis

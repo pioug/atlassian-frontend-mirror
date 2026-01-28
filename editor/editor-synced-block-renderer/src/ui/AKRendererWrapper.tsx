@@ -38,13 +38,8 @@ const DisabledTaskWithTooltip = <T extends keyof typeof defaultNodeComponents>({
 	const Component = defaultNodeComponents[componentKey];
 	return (
 		<Tooltip content={tooltipContent} position="auto-start">
-			{(tooltipProps) => (
-				// eslint-disable-next-line react/jsx-props-no-spreading
-				<div {...tooltipProps}>
-					{/* eslint-disable-next-line react/jsx-props-no-spreading */}
-					<Component {...props} disableOnChange={true} />
-				</div>
-			)}
+			{/* eslint-disable-next-line react/jsx-props-no-spreading */}
+			<Component {...props} disableOnChange={true} />
 		</Tooltip>
 	);
 };

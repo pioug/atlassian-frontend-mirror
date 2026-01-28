@@ -116,39 +116,6 @@ describe('ProfileCardTrigger', () => {
 			jest.spyOn(performance, 'now').mockReturnValue(1000);
 		});
 
-		ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
-			it('should fire analytics hover profile card event', async () => {
-				const { user } = renderWithIntl({ trigger: 'hover' });
-				await user.hover(screen.getByTestId('profile-card-testid'));
-				await waitFor(() => {
-					expect(screen.getByTestId('profile-card--trigger-content')).toBeInTheDocument();
-				});
-				await user.hover(screen.getByTestId('profile-card--trigger-content'));
-				expect(fireAnalytics).toHaveBeenCalledWith(expect.objectContaining(hoverProfileCardEvent));
-			});
-			it('should fire analytics click profile card event', async () => {
-				const { user } = renderWithIntl({ trigger: 'click' });
-				await user.click(screen.getByTestId('profile-card-testid'));
-				expect(fireAnalytics).toHaveBeenCalledWith(expect.objectContaining(clickProfileCardEvent));
-			});
-			it('should fire loading profile card event', async () => {
-				const mockFetchProfile = jest.fn(() => new Promise(() => {}));
-
-				const { user } = renderWithIntl({
-					trigger: 'hover',
-					fetchProfile: mockFetchProfile,
-				});
-
-				await user.hover(screen.getByTestId('profile-card-testid'));
-				await waitFor(() => {
-					expect(screen.getByTestId('profilecard.profilecardtrigger.loading')).toBeInTheDocument();
-				});
-				expect(fireAnalytics).toHaveBeenCalledWith(
-					expect.objectContaining(loadingProfileCardEvent),
-				);
-			});
-		});
-
 		ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
 			it('should fire analytics hover profile card event', async () => {
 				const { user } = renderWithIntl({ trigger: 'hover' });

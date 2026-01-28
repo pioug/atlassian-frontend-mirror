@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 7.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.3
+
+### Patch Changes
+
+- [`81230b670d02c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81230b670d02c) -
+  ED-29744 camel case experience attributes
+- Updated dependencies
+
 ## 7.1.2
 
 ### Patch Changes

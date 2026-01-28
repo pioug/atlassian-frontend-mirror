@@ -1,6 +1,6 @@
 import { AGGError, AGGErrors, DirectoryGraphQLError, DirectoryGraphQLErrors } from '../util/errors';
 
-import { type DEPRECATED_ErrorAttributes, type ErrorAttributes } from './types';
+import { type ErrorAttributes } from './types';
 
 const IGNORED_ERROR_REASONS_DIRECTORY = [
 	// Error categories from pf-directory
@@ -31,69 +31,6 @@ function isIgnoredError(error?: DirectoryGraphQLError | AGGError): boolean {
 
 	return false;
 }
-
-export const DEPRECATED_getErrorAttributes = (
-	error?: DirectoryGraphQLErrors | Error | unknown | DirectoryGraphQLError | AGGError | AGGErrors,
-): DEPRECATED_ErrorAttributes => {
-	if (error instanceof DirectoryGraphQLErrors) {
-		return {
-			errorMessage: error.message,
-			errorCount: error.errors.length,
-			errorDetails: error.errors.map(DEPRECATED_getErrorAttributes),
-			isSLOFailure: !error.errors.every(isIgnoredError),
-			traceId: error.traceId,
-		};
-	} else if (error instanceof DirectoryGraphQLError) {
-		return {
-			errorMessage: error.message,
-			errorCategory: error.category,
-			errorType: error.type,
-			errorPath: error.path,
-			errorNumber: error.errorNumber,
-			isSLOFailure: !isIgnoredError(error),
-		};
-	} else if (error instanceof AGGErrors) {
-		return {
-			errorMessage: error.message,
-			errorCount: error.errors.length,
-			errorDetails: error.errors.map(DEPRECATED_getErrorAttributes),
-			isSLOFailure: !error.errors.every(isIgnoredError),
-			traceId: error.traceId,
-		};
-	} else if (error instanceof AGGError) {
-		return {
-			errorMessage: error.message,
-			errorType: error.errorType,
-			errorStatusCode: error.statusCode,
-			isSLOFailure: !isIgnoredError(error),
-			errorCategory: error.classification,
-		};
-	} else if (error instanceof Error) {
-		// Jira custom profile card client error, they wrap the error & put the underlying error in the cause property
-		if (error.message.startsWith('Unable to fetch user:')) {
-			if (error.hasOwnProperty('cause')) {
-				const causeError = (error as any).cause;
-				if (causeError instanceof DirectoryGraphQLErrors || causeError instanceof AGGErrors) {
-					return DEPRECATED_getErrorAttributes(causeError);
-				}
-			}
-			return {
-				errorMessage: error.message,
-				isSLOFailure: false,
-			};
-		}
-		return {
-			errorMessage: error.message,
-			isSLOFailure: true,
-		};
-	}
-
-	// Unknown
-	return {
-		errorMessage: 'Unknown error',
-		isSLOFailure: true,
-	};
-};
 
 export const getErrorAttributes = (
 	error?: DirectoryGraphQLErrors | Error | unknown | DirectoryGraphQLError | AGGError | AGGErrors,

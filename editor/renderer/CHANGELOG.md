@@ -1,5 +1,32 @@
 # @atlaskit/renderer
 
+## 126.2.3
+
+### Patch Changes
+
+- [`dac15aa628811`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dac15aa628811) -
+  [ux] fix wrapped media/embed link is displayed out of border in synced block
+- Updated dependencies
+
+## 126.2.2
+
+### Patch Changes
+
+- [`a90e1c030d692`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a90e1c030d692) -
+  Fix display of inline insert excerpt macro width in Confluence
+- [`5c3f8d87c2290`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c3f8d87c2290) -
+  Cleanup general AIFC bug fix feature gate
+- Updated dependencies
+
+## 126.2.1
+
+### Patch Changes
+
+- [`a218bead9e6a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a218bead9e6a7) -
+  EDITOR-4542 Make isTableWithFixedColumnWidthsOptionEnabled an editor prop instead of using FG
+  value
+- Updated dependencies
+
 ## 126.2.0
 
 ### Minor Changes

@@ -140,7 +140,7 @@ export const dragHandleDecoration = ({
 			const getPos = () => {
 				try {
 					return getPosUnsafe();
-				} catch (e) {
+				} catch {
 					// Ignore errors from getPosUnsafe
 					return undefined;
 				}

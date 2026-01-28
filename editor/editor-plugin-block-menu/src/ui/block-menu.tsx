@@ -26,8 +26,6 @@ import {
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react';
 import { Box } from '@atlaskit/primitives/compiled';
 import { redo, undo } from '@atlaskit/prosemirror-history';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -81,9 +79,40 @@ type BlockMenuEffectParams = {
 	selectedByShortcutOrDragHandle: boolean;
 };
 
-const useConditionalBlockMenuEffect = conditionalHooksFactory(
-	() => fg('platform_editor_toolbar_aifc_user_intent_fix'),
-	({
+const useConditionalBlockMenuEffect = ({
+	api,
+	isMenuOpen,
+	menuTriggerBy,
+	selectedByShortcutOrDragHandle,
+	hasFocus,
+	openedViaKeyboard,
+	prevIsMenuOpenRef,
+}: BlockMenuEffectParams) => {
+	/**
+	 * NOTE: do not add `currentUserIntent` to dependency array as it causes unnecessary re-renders and messes with the user intent state
+	 */
+	useEffect(() => {
+		if (!isMenuOpen || !menuTriggerBy || !selectedByShortcutOrDragHandle || !hasFocus) {
+			return;
+		}
+
+		// Fire analytics event when block menu opens (only on first transition from closed to open)
+		if (!prevIsMenuOpenRef.current && isMenuOpen) {
+			api?.analytics?.actions.fireAnalyticsEvent({
+				action: ACTION.OPENED,
+				actionSubject: ACTION_SUBJECT.BLOCK_MENU,
+				eventType: EVENT_TYPE.UI,
+				attributes: {
+					inputMethod: openedViaKeyboard ? INPUT_METHOD.KEYBOARD : INPUT_METHOD.MOUSE,
+				},
+			});
+		}
+
+		// Update the previous state
+		prevIsMenuOpenRef.current = isMenuOpen;
+
+		api?.core.actions.execute(api?.userIntent?.commands.setCurrentUserIntent('blockMenuOpen'));
+	}, [
 		api,
 		isMenuOpen,
 		menuTriggerBy,
@@ -91,91 +120,8 @@ const useConditionalBlockMenuEffect = conditionalHooksFactory(
 		hasFocus,
 		openedViaKeyboard,
 		prevIsMenuOpenRef,
-	}: BlockMenuEffectParams) => {
-		/**
-		 * NOTE: do not add `currentUserIntent` to dependency array as it causes unnecessary re-renders and messes with the user intent state
-		 */
-		useEffect(() => {
-			if (!isMenuOpen || !menuTriggerBy || !selectedByShortcutOrDragHandle || !hasFocus) {
-				return;
-			}
-
-			// Fire analytics event when block menu opens (only on first transition from closed to open)
-			if (!prevIsMenuOpenRef.current && isMenuOpen) {
-				api?.analytics?.actions.fireAnalyticsEvent({
-					action: ACTION.OPENED,
-					actionSubject: ACTION_SUBJECT.BLOCK_MENU,
-					eventType: EVENT_TYPE.UI,
-					attributes: {
-						inputMethod: openedViaKeyboard ? INPUT_METHOD.KEYBOARD : INPUT_METHOD.MOUSE,
-					},
-				});
-			}
-
-			// Update the previous state
-			prevIsMenuOpenRef.current = isMenuOpen;
-
-			api?.core.actions.execute(api?.userIntent?.commands.setCurrentUserIntent('blockMenuOpen'));
-		}, [
-			api,
-			isMenuOpen,
-			menuTriggerBy,
-			selectedByShortcutOrDragHandle,
-			hasFocus,
-			openedViaKeyboard,
-			prevIsMenuOpenRef,
-		]);
-	},
-
-	({
-		api,
-		isMenuOpen,
-		menuTriggerBy,
-		selectedByShortcutOrDragHandle,
-		hasFocus,
-		currentUserIntent,
-		openedViaKeyboard,
-		prevIsMenuOpenRef,
-	}: BlockMenuEffectParams) => {
-		useEffect(() => {
-			if (
-				!isMenuOpen ||
-				!menuTriggerBy ||
-				!selectedByShortcutOrDragHandle ||
-				!hasFocus ||
-				['resizing', 'dragging'].includes(currentUserIntent || '')
-			) {
-				return;
-			}
-
-			// Fire analytics event when block menu opens (only on first transition from closed to open)
-			if (!prevIsMenuOpenRef.current && isMenuOpen) {
-				api?.analytics?.actions.fireAnalyticsEvent({
-					action: ACTION.OPENED,
-					actionSubject: ACTION_SUBJECT.BLOCK_MENU,
-					eventType: EVENT_TYPE.UI,
-					attributes: {
-						inputMethod: openedViaKeyboard ? INPUT_METHOD.KEYBOARD : INPUT_METHOD.MOUSE,
-					},
-				});
-			}
-
-			// Update the previous state
-			prevIsMenuOpenRef.current = isMenuOpen;
-
-			api?.core.actions.execute(api?.userIntent?.commands.setCurrentUserIntent('blockMenuOpen'));
-		}, [
-			api,
-			isMenuOpen,
-			menuTriggerBy,
-			selectedByShortcutOrDragHandle,
-			hasFocus,
-			currentUserIntent,
-			openedViaKeyboard,
-			prevIsMenuOpenRef,
-		]);
-	},
-);
+	]);
+};
 
 export type BlockMenuProps = {
 	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined;
@@ -275,9 +221,6 @@ const BlockMenu = ({
 		menuTriggerBy,
 		selectedByShortcutOrDragHandle,
 		hasFocus,
-		currentUserIntent: fg('platform_editor_toolbar_aifc_user_intent_fix')
-			? undefined
-			: currentUserIntent,
 		openedViaKeyboard,
 		prevIsMenuOpenRef,
 	});

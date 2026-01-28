@@ -115,6 +115,85 @@ describe('default-value-hydration-client', () => {
 	});
 });
 
+describe('search recommendations with teams', () => {
+	afterEach(() => {
+		jest.clearAllMocks();
+		fetchMock.restore();
+	});
+
+	it('should transform team with type.name to teamTypeName', async () => {
+		const teamResponse = {
+			status: 200,
+			body: JSON.stringify({
+				recommendedUsers: [
+					{
+						entityType: 'TEAM',
+						id: 'team-123',
+						displayName: 'Engineering Team',
+						largeAvatarImageUrl: 'https://avatars.atlassian.com/team.png',
+						memberCount: 10,
+						includesYou: true,
+						verified: true,
+						type: {
+							name: 'Managed team',
+						},
+					},
+				],
+			}),
+		};
+
+		fetchMock.post(URS_URL, teamResponse);
+
+		const users = await getUserRecommendations(exampleRequest, intl);
+
+		expect(fetchMock.called()).toBeTruthy();
+		expect(users).toHaveLength(1);
+		expect(users[0]).toEqual(
+			expect.objectContaining({
+				id: 'team-123',
+				name: 'Engineering Team',
+				type: 'team',
+				verified: true,
+				teamTypeName: 'Managed team',
+			}),
+		);
+	});
+
+	it('should handle team without type.name (teamTypeName should be undefined)', async () => {
+		const teamResponse = {
+			status: 200,
+			body: JSON.stringify({
+				recommendedUsers: [
+					{
+						entityType: 'TEAM',
+						id: 'team-456',
+						displayName: 'Product Team',
+						largeAvatarImageUrl: 'https://avatars.atlassian.com/team.png',
+						memberCount: 5,
+						verified: true,
+					},
+				],
+			}),
+		};
+
+		fetchMock.post(URS_URL, teamResponse);
+
+		const users = await getUserRecommendations(exampleRequest, intl);
+
+		expect(fetchMock.called()).toBeTruthy();
+		expect(users).toHaveLength(1);
+		expect(users[0]).toEqual(
+			expect.objectContaining({
+				id: 'team-456',
+				name: 'Product Team',
+				type: 'team',
+				verified: true,
+				teamTypeName: undefined,
+			}),
+		);
+	});
+});
+
 describe('search recommendations with Confluence guests', () => {
 	afterEach(() => {
 		jest.clearAllMocks();

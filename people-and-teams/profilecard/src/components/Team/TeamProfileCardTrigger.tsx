@@ -2,7 +2,6 @@ import React, { Suspense } from 'react';
 
 import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
-import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
@@ -18,7 +17,6 @@ import { layers } from '@atlaskit/theme/constants';
 import filterActions from '../../internal/filterActions';
 import messages from '../../messages';
 import type {
-	AnalyticsFromDuration,
 	AnalyticsProps,
 	ProfileCardAction,
 	Team,
@@ -26,7 +24,7 @@ import type {
 	TeamProfileCardTriggerProps,
 	TeamProfileCardTriggerState,
 } from '../../types';
-import { fireEvent, PACKAGE_META_DATA } from '../../util/analytics';
+import { PACKAGE_META_DATA } from '../../util/analytics';
 import { isBasicClick } from '../../util/click';
 import { DELAY_MS_HIDE, DELAY_MS_SHOW } from '../../util/config';
 import { getPageTime } from '../../util/performance';
@@ -55,17 +53,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 
 	openTime = 0;
 
-	fireAnalytics = (payload: AnalyticsEventPayload): void => {
-		// Don't fire any analytics if the component is unmounted
-		if (!this._isMounted) {
-			return;
-		}
-		if (this.props.createAnalyticsEvent) {
-			fireEvent(this.props.createAnalyticsEvent, payload);
-		}
-	};
-
-	fireAnalyticsNext: FireEventType = (eventKey, ...attributes) => {
+	fireAnalytics: FireEventType = (eventKey, ...attributes) => {
 		// Don't fire any analytics if the component is unmounted
 		if (!this._isMounted) {
 			return;
@@ -75,18 +63,13 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		}
 	};
 
-	fireAnalyticsWithDuration = (generator: AnalyticsFromDuration): void => {
-		const event = generator(getPageTime() - this.openTime);
-		this.fireAnalytics(event);
-	};
-
-	fireAnalyticsWithDurationNext = <K extends keyof AnalyticsEventAttributes>(
+	fireAnalyticsWithDuration = <K extends keyof AnalyticsEventAttributes>(
 		eventKey: K,
 		generator: (duration: number) => AnalyticsEventAttributes[K],
 	): void => {
 		const duration = getPageTime() - this.openTime;
 		const attributes = generator(duration);
-		this.fireAnalyticsNext(eventKey, attributes);
+		this.fireAnalytics(eventKey, attributes);
 	};
 
 	hideProfilecard = (delay = 0): void => {
@@ -131,7 +114,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 			this.showProfilecard(0);
 
 			if (!this.state.visible) {
-				this.fireAnalyticsNext('ui.teamProfileCard.triggered', {
+				this.fireAnalytics('ui.teamProfileCard.triggered', {
 					method: 'click',
 					...PACKAGE_META_DATA,
 					firedAt: Math.round(getPageTime()),
@@ -149,7 +132,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		if (!this.state.visible) {
 			this.openedByHover = true;
 
-			this.fireAnalyticsNext('ui.teamProfileCard.triggered', {
+			this.fireAnalytics('ui.teamProfileCard.triggered', {
 				method: 'hover',
 				...PACKAGE_META_DATA,
 				firedAt: Math.round(getPageTime()),
@@ -176,7 +159,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 			this.setState({ isTriggeredByKeyboard: true });
 			this.showProfilecard(0);
 			if (!this.state.visible) {
-				this.fireAnalyticsNext('ui.teamProfileCard.triggered', {
+				this.fireAnalytics('ui.teamProfileCard.triggered', {
 					method: 'click',
 					firedAt: Math.round(getPageTime()),
 					teamId: this.props.teamId,
@@ -282,15 +265,8 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 				data: null,
 			},
 			() => {
-				const fireEvent = (event: AnalyticsEventPayload) => {
-					this.fireAnalytics(event);
-				};
-				const fireAnalyticsNext: FireEventType = (eventKey, ...attributes) => {
-					this.fireAnalyticsNext(eventKey, ...attributes);
-				};
-
 				const requests = Promise.all([
-					this.props.resourceClient.getTeamProfile(teamId, orgId, fireEvent, fireAnalyticsNext),
+					this.props.resourceClient.getTeamProfile(teamId, orgId, this.fireAnalytics),
 					this.props.resourceClient.shouldShowGiveKudos(),
 					this.props.resourceClient.getTeamCentralBaseUrl({
 						withOrgContext: true,
@@ -308,8 +284,8 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		);
 	};
 
-	onErrorBoundary = (): void => {
-		this.fireAnalyticsNext('ui.teamProfileCard.rendered.errorBoundary', {
+	onErrorBoundary = () => {
+		this.fireAnalytics('ui.teamProfileCard.rendered.errorBoundary', {
 			...PACKAGE_META_DATA,
 			firedAt: Math.round(getPageTime()),
 			duration: 0,
@@ -374,8 +350,8 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		const newProps: TeamProfilecardProps = {
 			clientFetchProfile: this.clientFetchProfile,
 			actions: this.filterActions(),
-			analytics: this.fireAnalyticsWithDuration,
-			analyticsNext: this.fireAnalyticsWithDurationNext,
+			analytics: () => {},
+			analyticsNext: this.fireAnalyticsWithDuration,
 			team: data || undefined,
 			generateUserLink,
 			onUserClick,
@@ -390,8 +366,8 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 					<Suspense
 						fallback={
 							<TeamLoadingState
-								analytics={this.fireAnalyticsWithDuration}
-								analyticsNext={this.fireAnalyticsWithDurationNext}
+								analytics={() => {}}
+								analyticsNext={this.fireAnalyticsWithDuration}
 							/>
 						}
 					>

@@ -3,7 +3,6 @@ import React from 'react';
 import { act, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
 
 import ProfileClient from '../../client/ProfileCardClient';
@@ -51,7 +50,6 @@ describe('Fetching data', () => {
 			defaultProps.cloudId,
 			defaultProps.userId,
 			expect.any(Function),
-			expect.any(Function),
 		);
 		expect(defaultProps.resourceClient.getReportingLines).toHaveBeenCalledWith(defaultProps.userId);
 	});
@@ -65,7 +63,6 @@ describe('Fetching data', () => {
 		expect(defaultProps.resourceClient.getProfile).toHaveBeenCalledWith(
 			defaultProps.cloudId,
 			'new-test-user-id',
-			expect.any(Function),
 			expect.any(Function),
 		);
 		expect(defaultProps.resourceClient.getReportingLines).toHaveBeenCalledWith('new-test-user-id');
@@ -84,7 +81,6 @@ describe('Fetching data', () => {
 		expect(newClient.getProfile).toHaveBeenCalledWith(
 			defaultProps.cloudId,
 			'test-user-id',
-			expect.any(Function),
 			expect.any(Function),
 		);
 		expect(defaultProps.resourceClient.getReportingLines).toHaveBeenCalledWith('test-user-id');
@@ -105,49 +101,24 @@ describe('ProfileCardResourced', () => {
 			});
 		});
 
-		ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
-			it('should trigger analytics', async () => {
-				const expectedErrorEvent = flexiTime(
-					profileCardRendered('user', 'error', {
-						hasRetry: true,
-						errorType: 'default',
-					}),
-				);
+		it('should trigger analytics', async () => {
+			const expectedErrorEvent = flexiTime(
+				profileCardRendered('user', 'error', {
+					hasRetry: true,
+					errorType: 'default',
+				}),
+			);
 
-				jest.spyOn(client, 'getProfile').mockRejectedValue({
-					message: 'test-error',
-					reason: 'default',
-				});
-				const { expectEventToBeFired } = renderComponent();
-
-				const { eventType, ...event } = expectedErrorEvent;
-
-				await waitFor(() => {
-					expectEventToBeFired(eventType, event);
-				});
+			jest.spyOn(client, 'getProfile').mockRejectedValue({
+				message: 'test-error',
+				reason: 'default',
 			});
-		});
+			const { expectEventToBeFired } = renderComponent();
 
-		ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
-			it('should trigger analytics', async () => {
-				const expectedErrorEvent = flexiTime(
-					profileCardRendered('user', 'error', {
-						hasRetry: true,
-						errorType: 'default',
-					}),
-				);
+			const { eventType, ...event } = expectedErrorEvent;
 
-				jest.spyOn(client, 'getProfile').mockRejectedValue({
-					message: 'test-error',
-					reason: 'default',
-				});
-				const { expectEventToBeFired } = renderComponent();
-
-				const { eventType, ...event } = expectedErrorEvent;
-
-				await waitFor(() => {
-					expectEventToBeFired(eventType, event);
-				});
+			await waitFor(() => {
+				expectEventToBeFired(eventType, event);
 			});
 		});
 	});

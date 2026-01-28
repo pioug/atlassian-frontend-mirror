@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { IconButton } from '@atlaskit/button/new';
-import RoadmapsPlanIcon from '@atlaskit/icon-lab/core/roadmaps-plan';
+import PlanIcon from '@atlaskit/icon-lab/core/plan';
 import AddIcon from '@atlaskit/icon/core/add';
 import AlignTextLeftIcon from '@atlaskit/icon/core/align-text-left';
 import AngleBracketsIcon from '@atlaskit/icon/core/angle-brackets';
@@ -104,7 +104,7 @@ export function MenuSectionExample(): React.JSX.Element {
 
 						<LinkMenuItem
 							href={exampleHref}
-							elemBefore={<RoadmapsPlanIcon label="" color="currentColor" spacing="spacious" />}
+							elemBefore={<PlanIcon label="" color="currentColor" spacing="spacious" />}
 						>
 							Plans
 						</LinkMenuItem>

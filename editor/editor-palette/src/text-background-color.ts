@@ -1,4 +1,3 @@
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 // This import will be stripped on build
 import { token } from '@atlaskit/tokens';
 
@@ -67,15 +66,6 @@ export function hexToEditorTextBackgroundPaletteColor<HexColor extends string>(
 	? /** If the hexColor is an template literal matching a hex color -- we know what string will be returned  */
 		TextBackgroundColorPalette[HexColor]
 	: string | undefined {
-	if (!expValEquals('platform_editor_add_orange_highlight_color', 'cohort', 'test')) {
-		// @ts-expect-error Expect type error. Will modify production type
-		// if experiment proceeds post-results.
-		textBackgroundColorPalette['#FEDEC8'] = token(
-			'color.background.accent.yellow.subtler',
-			'#F8E6A0',
-		);
-	}
-
 	// Ts ignore was used to allow use of conditional return type
 	// (preferring better type on consumption over safety in implementation)
 	// @ts-ignore

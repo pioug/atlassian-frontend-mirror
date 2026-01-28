@@ -1,9 +1,8 @@
-import React, { forwardRef, Suspense, useCallback } from 'react';
+import React, { forwardRef, Suspense } from 'react';
 
-import { type AnalyticsEventPayload, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';
-import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
+import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
 
 import {
 	type AgentProfileCardTriggerProps,
@@ -11,27 +10,16 @@ import {
 	type RovoAgentAgg,
 	type RovoAgentProfileCardInfo,
 } from '../../types';
-import { fireEvent } from '../../util/analytics';
 import { getAAIDFromARI } from '../../util/rovoAgentUtils';
 import ProfileCardTrigger, { type ProfileCardHandle } from '../common/ProfileCardTrigger';
 
 import { AgentProfileCardLazy } from './lazyAgentProfileCard';
 
 export const AgentProfileCardTrigger = forwardRef<ProfileCardHandle, AgentProfileCardTriggerProps>(
-	({ trigger = 'hover', viewingUserId, product, ...props }, ref) => {
+	({ ...props }, ref) => {
 		const { resourceClient, agentId: userId, cloudId } = props;
 
-		const { createAnalyticsEvent } = useAnalyticsEvents();
-		const { fireEvent: fireEventNext } = useAnalyticsEventsNext();
-
-		const fireAnalytics = useCallback(
-			(payload: AnalyticsEventPayload) => {
-				if (createAnalyticsEvent) {
-					fireEvent(createAnalyticsEvent, payload);
-				}
-			},
-			[createAnalyticsEvent],
-		);
+		const { fireEvent } = useAnalyticsEvents();
 
 		/**
 		 * @TODO replace with `getAgentCreator` from `@atlassian/rovo-agent-components`
@@ -81,12 +69,7 @@ export const AgentProfileCardTrigger = forwardRef<ProfileCardHandle, AgentProfil
 							},
 							cloudId,
 						});
-						const creatorInfo = await props.resourceClient.getProfile(
-							cloudId,
-							userId,
-							fireAnalytics,
-							fireEventNext,
-						);
+						const creatorInfo = await props.resourceClient.getProfile(cloudId, userId, fireEvent);
 
 						return {
 							type: 'CUSTOMER' as const,
@@ -108,8 +91,7 @@ export const AgentProfileCardTrigger = forwardRef<ProfileCardHandle, AgentProfil
 		const fetchAgentProfile = async (): Promise<RovoAgentProfileCardInfo> => {
 			const agentProfileResult = await resourceClient.getRovoAgentProfile(
 				{ type: 'agent', value: userId },
-				fireAnalytics,
-				fireEventNext,
+				fireEvent,
 			);
 
 			const agentInfo = agentProfileResult.restData;
@@ -154,8 +136,7 @@ export const AgentProfileCardTrigger = forwardRef<ProfileCardHandle, AgentProfil
 				trigger="hover"
 				renderProfileCard={renderProfileCard}
 				fetchProfile={fetchAgentProfile}
-				fireAnalytics={fireAnalytics}
-				fireAnalyticsNext={fireEventNext}
+				fireAnalyticsNext={fireEvent}
 				profileCardType="agent"
 			/>
 		);

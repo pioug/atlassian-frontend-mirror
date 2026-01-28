@@ -4,10 +4,7 @@ import { screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
-import {
-	mockRunItLaterSynchronously,
-	renderWithAnalyticsListener,
-} from '@atlassian/ptc-test-utils';
+import { renderWithAnalyticsListener } from '@atlassian/ptc-test-utils';
 
 import { ProfileClient } from '../../../index';
 import { getMockProfileClient } from '../../../mocks';
@@ -53,10 +50,12 @@ describe('ProfileCardTrigger', () => {
 		isLoading = false,
 		hasError = false,
 		hideMoreActions = false,
+		hideAiDisclaimer = false,
 	}: {
 		isLoading?: boolean;
 		hasError?: boolean;
 		hideMoreActions?: boolean;
+		hideAiDisclaimer?: boolean;
 	}) => {
 		return renderWithAnalyticsListener(
 			<IntlProvider locale="en">
@@ -66,6 +65,7 @@ describe('ProfileCardTrigger', () => {
 					isLoading={isLoading}
 					hasError={hasError}
 					hideMoreActions={hideMoreActions}
+					hideAiDisclaimer={hideAiDisclaimer}
 				/>
 			</IntlProvider>,
 		);
@@ -105,20 +105,17 @@ describe('ProfileCardTrigger', () => {
 			},
 		};
 		beforeEach(() => {
-			mockRunItLaterSynchronously();
 			jest.spyOn(performance, 'now').mockReturnValue(1000);
 		});
 
-		ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
-			it('should fire analytics hover profile card event', async () => {
-				const { expectEventToBeFired } = renderWithIntl({ isLoading: true });
-				expectEventToBeFired('ui', loadingProfileCardEvent);
-			});
-			it('should fire analytics hover profile card event', async () => {
-				const { expectEventToBeFired } = renderWithIntl({ isLoading: false, hasError: true });
-				expectEventToBeFired('ui', errorProfileCardEvent);
-				expectEventToBeFired('ui', profileCardEvent);
-			});
+		it('should fire analytics hover profile card event', async () => {
+			const { expectEventToBeFired } = renderWithIntl({ isLoading: true });
+			expectEventToBeFired('ui', loadingProfileCardEvent);
+		});
+		it('should fire analytics hover profile card event', async () => {
+			const { expectEventToBeFired } = renderWithIntl({ isLoading: false, hasError: true });
+			expectEventToBeFired('ui', errorProfileCardEvent);
+			expectEventToBeFired('ui', profileCardEvent);
 		});
 	});
 
@@ -145,5 +142,67 @@ describe('ProfileCardTrigger', () => {
 			// When hideMoreActions is not provided, the dropdown menu should be present
 			expect(screen.getByTestId('agent-dropdown-menu--trigger')).toBeInTheDocument();
 		});
+	});
+
+	describe('hideAiDisclaimer', () => {
+		ffTest.on(
+			'rovo_display_ai_disclaimer_on_agent_profile_card',
+			'display work item disclosure',
+			() => {
+				it.each([
+					{
+						hideAiDisclaimer: false,
+						description: 'by default (hideAiDisclaimer is false)',
+						shouldRender: true,
+					},
+					{
+						hideAiDisclaimer: undefined,
+						description: 'when hideAiDisclaimer is undefined',
+						shouldRender: true,
+					},
+					{
+						hideAiDisclaimer: true,
+						description: 'when hideAiDisclaimer is true',
+						shouldRender: false,
+					},
+				])(
+					'should $<shouldRender ? "" : "not ">render disclosure item $description',
+					({ hideAiDisclaimer, shouldRender }) => {
+						renderWithIntl({ hideAiDisclaimer });
+						const disclaimer = screen.queryByText('Uses AI. Verify results.');
+
+						if (shouldRender) {
+							expect(disclaimer).toBeInTheDocument();
+						} else {
+							expect(disclaimer).not.toBeInTheDocument();
+						}
+					},
+				);
+			},
+		);
+
+		ffTest.off(
+			'rovo_display_ai_disclaimer_on_agent_profile_card',
+			'display work item disclosure',
+			() => {
+				it.each([
+					{
+						hideAiDisclaimer: true,
+						description: 'when feature flag is off',
+					},
+					{
+						hideAiDisclaimer: false,
+						description: 'when hideAiDisclaimer is false and feature flag is off',
+					},
+					{
+						hideAiDisclaimer: undefined,
+						description: 'when hideAiDisclaimer is not provided and FG is off',
+					},
+				])('should not render disclosure item $description', ({ hideAiDisclaimer }) => {
+					renderWithIntl(hideAiDisclaimer !== undefined ? { hideAiDisclaimer } : {});
+					expect(screen.queryByText('Uses AI. Verify results.')).not.toBeInTheDocument();
+				});
+			},
+		);
 	});
 });

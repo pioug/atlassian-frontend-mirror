@@ -21,4 +21,9 @@ export const messages = defineMessages({
 		defaultMessage: 'Something went wrong while deleting the agent. Try again in a few moments.',
 		description: 'Flag message description displayed when there is an error deleting agent',
 	},
+	aiDisclaimer: {
+		id: 'profilecard.agent-profile-card.ai-disclaimer',
+		defaultMessage: 'Uses AI. Verify results.',
+		description: 'Disclaimer text warning users to verify AI-generated content with a link to https://www.atlassian.com/trust/atlassian-intelligence',
+	},
 });

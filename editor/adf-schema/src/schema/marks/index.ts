@@ -53,6 +53,5 @@ export type { BorderMarkAttributes, BorderMarkDefinition } from './border';
 export {
 	backgroundColor,
 	backgroundColorPalette,
-	backgroundColorPaletteNext,
 } from './background-color';
 export type { BackgroundColorDefinition } from './background-color';

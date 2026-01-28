@@ -6,8 +6,15 @@ import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import ReactNodeView, { type getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import type { ReactComponentProps } from '@atlaskit/editor-common/react-node-view';
-import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
-import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
+import {
+	SyncBlockSharedCssClassName,
+	SyncBlockActionsProvider,
+} from '@atlaskit/editor-common/sync-block';
+import type {
+	ExtractInjectionAPI,
+	getPosHandlerNode,
+	PMPluginFactoryParams,
+} from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -17,13 +24,14 @@ import {
 } from '@atlaskit/editor-synced-block-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import { removeSyncedBlockAtPos } from '../editor-commands';
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 import { SyncBlockRendererWrapper } from '../ui/SyncBlockRendererWrapper';
 
 export interface SyncBlockNodeViewProps extends ReactComponentProps {
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
 	eventDispatcher: EventDispatcher;
-	getPos: getPosHandler;
+	getPos: getPosHandlerNode;
 	isNodeNested?: boolean;
 	node: PMNode;
 	options: SyncedBlockPluginOptions | undefined;
@@ -59,7 +67,7 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 		return domRef;
 	}
 
-	render() {
+	render({ getPos }: SyncBlockNodeViewProps) {
 		if (!this.options?.syncedBlockRenderer) {
 			return null;
 		}
@@ -82,12 +90,22 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 		}
 
 		// get document node from data provider
-		return (
-			fg('platform_synced_block_dogfooding') ? (
-				<ErrorBoundary
-					component={ACTION_SUBJECT.SYNCED_BLOCK}
-					dispatchAnalyticsEvent={this.api?.analytics?.actions.fireAnalyticsEvent}
-					fallbackComponent={null}
+		return fg('platform_synced_block_dogfooding') ? (
+			<ErrorBoundary
+				component={ACTION_SUBJECT.SYNCED_BLOCK}
+				dispatchAnalyticsEvent={this.api?.analytics?.actions.fireAnalyticsEvent}
+				fallbackComponent={null}
+			>
+				<SyncBlockActionsProvider
+					removeSyncBlock={() => {
+						const pos = getPos();
+						if (pos !== undefined) {
+							removeSyncedBlockAtPos(this.api, pos);
+						}
+					}}
+					fetchSyncBlockSourceInfo={(sourceAri: string) =>
+						syncBlockStore.referenceManager.fetchSyncBlockSourceInfoBySourceAri(sourceAri)
+					}
 				>
 					<SyncBlockRendererWrapper
 						localId={this.node.attrs.localId}
@@ -103,23 +121,23 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 						}
 						api={this.api}
 					/>
-				</ErrorBoundary>
-			) : (
-				<SyncBlockRendererWrapper
-					localId={this.node.attrs.localId}
-					syncedBlockRenderer={this.options?.syncedBlockRenderer}
-					useFetchSyncBlockTitle={() => useFetchSyncBlockTitle(syncBlockStore, this.node)}
-					useFetchSyncBlockData={() =>
-						useFetchSyncBlockData(
-							syncBlockStore,
-							resourceId,
-							localId,
-							this.api?.analytics?.actions?.fireAnalyticsEvent,
-						)
-					}
-					api={this.api}
-				/>
-			)
+				</SyncBlockActionsProvider>
+			</ErrorBoundary>
+		) : (
+			<SyncBlockRendererWrapper
+				localId={this.node.attrs.localId}
+				syncedBlockRenderer={this.options?.syncedBlockRenderer}
+				useFetchSyncBlockTitle={() => useFetchSyncBlockTitle(syncBlockStore, this.node)}
+				useFetchSyncBlockData={() =>
+					useFetchSyncBlockData(
+						syncBlockStore,
+						resourceId,
+						localId,
+						this.api?.analytics?.actions?.fireAnalyticsEvent,
+					)
+				}
+				api={this.api}
+			/>
 		);
 	}
 
@@ -143,20 +161,20 @@ export const syncBlockNodeView: (
 	getPos: getPosHandler,
 ) => ReactNodeView<SyncBlockNodeViewProps> =
 	({ options, pmPluginFactoryParams, api }: SyncBlockNodeViewProperties) =>
-	(
-		node: PMNode,
-		view: EditorView,
-		getPos: getPosHandler,
-	): ReactNodeView<SyncBlockNodeViewProps> => {
-		const { portalProviderAPI, eventDispatcher } = pmPluginFactoryParams;
+		(
+			node: PMNode,
+			view: EditorView,
+			getPos: getPosHandler,
+		): ReactNodeView<SyncBlockNodeViewProps> => {
+			const { portalProviderAPI, eventDispatcher } = pmPluginFactoryParams;
 
-		return new SyncBlock({
-			api,
-			options,
-			node,
-			view,
-			getPos,
-			portalProviderAPI,
-			eventDispatcher,
-		}).init();
-	};
+			return new SyncBlock({
+				api,
+				options,
+				node,
+				view,
+				getPos: getPos as getPosHandlerNode,
+				portalProviderAPI,
+				eventDispatcher,
+			}).init();
+		};

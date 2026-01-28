@@ -1,7 +1,7 @@
 import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 
-import { type DEPRECATED_ErrorAttributes, type ErrorAttributes } from '../client/types';
+import { type ErrorAttributes } from '../client/types';
 import { type ProfileType } from '../types';
 
 import { getPageTime } from './performance';
@@ -29,9 +29,7 @@ const runItLater = (cb: (arg: any) => void) => {
 
 type GenericAttributes =
 	| Record<string, string | number | boolean | undefined | string[]>
-	| ErrorAttributes
-	| DEPRECATED_ErrorAttributes;
-
+	| ErrorAttributes;
 interface AnalyticsEvent {
 	action?: string;
 	actionSubject?: string;

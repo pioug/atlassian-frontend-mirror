@@ -87,6 +87,7 @@ import {
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { measureRender, SEVERITY, toJSON } from '@atlaskit/editor-common/utils';
+import type { EditorProps } from '@atlaskit/editor-core/editor';
 import { replaceDocument } from '@atlaskit/editor-plugin-collab-edit/src/pm-plugins/utils';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -146,15 +147,15 @@ const getPromiseResolver = () => {
 	};
 };
 
-const requiredProps = () => ({
+const requiredProps = (props: EditorProps = {}) => ({
 	providerFactory: ProviderFactory.create({}),
 	portalProviderAPI,
 	nodeViewPortalProviderAPI,
 	onEditorCreated: () => {},
 	onEditorDestroyed: () => {},
-	editorProps: {},
+	editorProps: props,
 	intl: createIntl({ locale: 'en' }),
-	preset: createUniversalPreset({ props: {} }),
+	preset: createUniversalPreset({ props }),
 	editorAPI: {},
 });
 
@@ -335,7 +336,7 @@ describe('@atlaskit/editor-core', () => {
 
 						await userEvent.tab();
 						expect(
-							result.getByLabelText('Main content area, start typing to enter text.'),
+							result.getByLabelText('Page editing area, start typing to enter text.'),
 						).toHaveFocus();
 					});
 				});
@@ -1198,6 +1199,38 @@ describe('@atlaskit/editor-core', () => {
 						expect(editor).not.toBeEmptyDOMElement();
 					});
 				});
+		});
+	});
+
+	describe('assistive label', () => {
+		const editorProps = {
+			appearance: 'full-page' as const,
+		};
+
+		const props = {
+			...requiredProps(editorProps),
+		};
+
+		ffTest.on('platform_editor_a11y_9262', '', () => {
+			it('should use default assistive label for the full page editor - page content area', () => {
+				renderWithIntl(<ReactEditorView {...props} />);
+
+				const editor = screen.getByRole('textbox');
+				expect(editor.getAttribute('aria-label')).toBe(
+					'Page editing area, start typing to enter text.',
+				);
+			});
+		});
+
+		ffTest.off('platform_editor_a11y_9262', '', () => {
+			it('should use default assistive label for the full page editor - main content area', () => {
+				renderWithIntl(<ReactEditorView {...props} />);
+
+				const editor = screen.getByRole('textbox');
+				expect(editor.getAttribute('aria-label')).toBe(
+					'Main content area, start typing to enter text.',
+				);
+			});
 		});
 	});
 });

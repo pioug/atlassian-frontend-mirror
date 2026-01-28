@@ -1,6 +1,5 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { parseAndTestGraphQLQueries } from '@atlassian/ptc-test-utils/graphql-jest';
 
 import { AGGErrors } from '../../util/errors';
@@ -21,7 +20,6 @@ jest.mock('../graphqlUtils');
 );
 
 const mockAnalytics = jest.fn();
-const mockAnalyticsNext = jest.fn();
 
 const mockAggError = new AGGErrors([{ message: 'Test error', extensions: {} }], 'test-id');
 
@@ -98,32 +96,18 @@ describe('UserProfileCardClient', () => {
 		expect(result).toEqual(expect.objectContaining({ id: userId }));
 	});
 
-	ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
-		it('should make a request if profile is not cached', async () => {
-			const spy = jest.spyOn(client, 'makeRequest');
-			await client.getProfile(cloudId, userId, mockAnalytics, mockAnalyticsNext);
-			expect(spy).toHaveBeenCalledWith(cloudId, userId);
-			expect(mockAnalyticsNext).not.toHaveBeenCalled();
-			expect(mockAnalytics).toHaveBeenCalledWith(triggeredEvent);
-			expect(mockAnalytics).toHaveBeenCalledWith(successEvent);
-		});
-	});
-
-	ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
-		it('should make a request if profile is not cached', async () => {
-			const spy = jest.spyOn(client, 'makeRequest');
-			await client.getProfile(cloudId, userId, mockAnalytics, mockAnalyticsNext);
-			expect(spy).toHaveBeenCalledWith(cloudId, userId);
-			expect(mockAnalytics).not.toHaveBeenCalled();
-			expect(mockAnalyticsNext).toHaveBeenCalledWith(
-				`${triggeredEvent.eventType}.${triggeredEvent.actionSubject}.${triggeredEvent.action}.${triggeredEvent.actionSubjectId}`,
-				triggeredEvent.attributes,
-			);
-			expect(mockAnalyticsNext).toHaveBeenCalledWith(
-				`${successEvent.eventType}.${successEvent.actionSubject}.${successEvent.action}.${successEvent.actionSubjectId}`,
-				successEvent.attributes,
-			);
-		});
+	it('should make a request if profile is not cached', async () => {
+		const spy = jest.spyOn(client, 'makeRequest');
+		await client.getProfile(cloudId, userId, mockAnalytics);
+		expect(spy).toHaveBeenCalledWith(cloudId, userId);
+		expect(mockAnalytics).toHaveBeenCalledWith(
+			`${triggeredEvent.eventType}.${triggeredEvent.actionSubject}.${triggeredEvent.action}.${triggeredEvent.actionSubjectId}`,
+			triggeredEvent.attributes,
+		);
+		expect(mockAnalytics).toHaveBeenCalledWith(
+			`${successEvent.eventType}.${successEvent.actionSubject}.${successEvent.action}.${successEvent.actionSubjectId}`,
+			successEvent.attributes,
+		);
 	});
 	describe('makeRequest', () => {
 		beforeEach(() => {
@@ -142,77 +126,48 @@ describe('UserProfileCardClient', () => {
 			fetchMock.restore();
 		});
 
-		ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
-			it('should handle request errors', async () => {
-				(AGGQuery as jest.Mock).mockRejectedValue(mockAggError);
+		it('should handle request errors', async () => {
+			(AGGQuery as jest.Mock).mockRejectedValue(mockAggError);
 
-				await expect(
-					client.getProfile(cloudId, userId, mockAnalytics, mockAnalyticsNext),
-				).rejects.toThrow('AGGErrors');
-			});
-
-			it('should call analytics when makeRequest throws an error', async () => {
-				(AGGQuery as jest.Mock).mockRejectedValue(mockAggError);
-
-				await expect(
-					client.getProfile(cloudId, userId, mockAnalytics, mockAnalyticsNext),
-				).rejects.toThrow('AGGErrors');
-
-				expect(mockAnalyticsNext).not.toHaveBeenCalled();
-				expect(mockAnalytics).toHaveBeenCalledWith(triggeredEvent);
-				expect(mockAnalytics).toHaveBeenCalledWith(failedEvent);
-			});
+			await expect(client.getProfile(cloudId, userId, mockAnalytics)).rejects.toThrow('AGGErrors');
 		});
 
-		ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
-			it('should handle request errors', async () => {
-				(AGGQuery as jest.Mock).mockRejectedValue(mockAggError);
+		it('should call analytics when makeRequest throws an error', async () => {
+			(AGGQuery as jest.Mock).mockRejectedValue(mockAggError);
 
-				await expect(
-					client.getProfile(cloudId, userId, mockAnalytics, mockAnalyticsNext),
-				).rejects.toThrow('AGGErrors');
-			});
+			await expect(client.getProfile(cloudId, userId, mockAnalytics)).rejects.toThrow('AGGErrors');
 
-			it('should call analytics when makeRequest throws an error', async () => {
-				(AGGQuery as jest.Mock).mockRejectedValue(mockAggError);
+			expect(mockAnalytics).toHaveBeenCalledWith(
+				`${triggeredEvent.eventType}.${triggeredEvent.actionSubject}.${triggeredEvent.action}.${triggeredEvent.actionSubjectId}`,
+				triggeredEvent.attributes,
+			);
 
-				await expect(
-					client.getProfile(cloudId, userId, mockAnalytics, mockAnalyticsNext),
-				).rejects.toThrow('AGGErrors');
-
-				expect(mockAnalytics).not.toHaveBeenCalled();
-				expect(mockAnalyticsNext).toHaveBeenCalledWith(
-					`${triggeredEvent.eventType}.${triggeredEvent.actionSubject}.${triggeredEvent.action}.${triggeredEvent.actionSubjectId}`,
-					triggeredEvent.attributes,
-				);
-
-				expect(mockAnalyticsNext).toHaveBeenCalledWith(
-					`${failedEvent.eventType}.${failedEvent.actionSubject}.${failedEvent.action}.${failedEvent.actionSubjectId}`,
-					{
-						...failedEvent.attributes,
-						errorNumber: null,
-						errorStatusCode: null,
-						errorType: null,
-						errorPath: null,
-						errorCategory: null,
-						errorStack: null,
-						errorDetails: [
-							{
-								...failedEvent.attributes.errorDetails[0],
-								errorNumber: null,
-								errorStatusCode: null,
-								errorType: null,
-								errorPath: null,
-								errorCategory: null,
-								errorCount: null,
-								traceId: null,
-								errorDetails: null,
-								errorStack: null,
-							},
-						],
-					},
-				);
-			});
+			expect(mockAnalytics).toHaveBeenCalledWith(
+				`${failedEvent.eventType}.${failedEvent.actionSubject}.${failedEvent.action}.${failedEvent.actionSubjectId}`,
+				{
+					...failedEvent.attributes,
+					errorNumber: null,
+					errorStatusCode: null,
+					errorType: null,
+					errorPath: null,
+					errorCategory: null,
+					errorStack: null,
+					errorDetails: [
+						{
+							...failedEvent.attributes.errorDetails[0],
+							errorNumber: null,
+							errorStatusCode: null,
+							errorType: null,
+							errorPath: null,
+							errorCategory: null,
+							errorCount: null,
+							traceId: null,
+							errorDetails: null,
+							errorStack: null,
+						},
+					],
+				},
+			);
 		});
 	});
 });

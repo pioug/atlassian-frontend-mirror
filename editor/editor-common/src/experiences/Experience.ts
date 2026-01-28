@@ -114,14 +114,14 @@ export class Experience {
 	/**
 	 * Creates a new Experience instance for tracking user experiences.
 	 *
-	 * @param id - Unique identifier for the experience e.g. 'toolbar-open' 'menu-action'
+	 * @param id - Unique identifier for the experience e.g. 'toolbarOpen' 'menuAction'
 	 * @param options - Configuration options for the experience
 	 * @param options.checks - Experience checks to monitor for completion
 	 * @param options.dispatchAnalyticsEvent - Function to dispatch analytics events
 	 * @param options.sampleRate - Sample rate for experienceSampled events
 	 * @param options.metadata - Global metadata to attach to all events
-	 * @param options.action - Optional sub identifier for the specific experience action e.g. 'bold' 'insert-table'
-	 * @param options.actionSubjectId - Optional sub identifier for the experience action subject e.g. 'selection-toolbar' 'quick-insert'
+	 * @param options.action - Optional sub identifier for the specific experience action e.g. 'bold' 'insertTable'
+	 * @param options.actionSubjectId - Optional sub identifier for the experience action subject e.g. 'selectionToolbar' 'quickInsert'
 	 */
 	constructor(id: ExperienceId, options: ExperienceOptions) {
 		this.id = id;

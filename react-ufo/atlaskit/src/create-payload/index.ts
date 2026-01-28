@@ -29,7 +29,7 @@ import {
 import { getExperimentalVCMetrics } from '../create-experimental-interaction-metrics-payload';
 import { getBm3Timings } from '../custom-timings';
 import { getGlobalErrorCount } from '../global-error-handler';
-import { getEarliestHiddenTiming, getPageVisibilityState } from '../hidden-timing';
+import { getEarliestHiddenTiming, getHasHiddenTimingBeforeSetup, getPageVisibilityState } from '../hidden-timing';
 import * as initialPageLoadExtraTiming from '../initial-page-load-extra-timing';
 import type { LabelStack } from '../interaction-context';
 import { interactionSpans as atlaskitInteractionSpans } from '../interaction-metrics';
@@ -708,6 +708,10 @@ async function createInteractionMetricsPayload(
 						'ufo:pageVisibilityHiddenTimestamp': getEarliestHiddenTiming(interaction.start, interaction.end)
 						}
 					: {}),
+
+				...(fg('platform_ufo_native_pagevisibility_monitoring') ? {
+						'ufo:wasPageHiddenBeforeInit': getHasHiddenTimingBeforeSetup()
+					}: {}),
 
 				// root
 				...getBrowserMetadataToLegacyFormat(),

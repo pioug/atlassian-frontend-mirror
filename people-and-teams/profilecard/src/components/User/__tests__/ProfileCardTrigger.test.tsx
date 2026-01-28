@@ -6,10 +6,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import { GiveKudosLauncherLazy } from '@atlaskit/give-kudos';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
-import {
-	mockRunItLaterSynchronously,
-	renderWithAnalyticsListener,
-} from '@atlassian/ptc-test-utils';
+import { renderWithAnalyticsListener } from '@atlassian/ptc-test-utils';
 
 import ProfileClient from '../../../client/ProfileCardClient';
 import { getMockProfileClient } from '../../../mocks';
@@ -428,10 +425,6 @@ describe('Profile card trigger', () => {
 			},
 		};
 
-		beforeEach(() => {
-			mockRunItLaterSynchronously();
-		});
-
 		const renderProfileCardTrigger = (props: Partial<ProfileCardTriggerProps>) => {
 			return renderWithAnalyticsListener(
 				<IntlProvider locale="en">
@@ -442,56 +435,28 @@ describe('Profile card trigger', () => {
 			);
 		};
 
-		ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
-			it('should fire analytics hover profile card event', async () => {
-				const { user, expectEventToBeFired } = renderProfileCardTrigger({
-					testId: 'profile-card-testid',
-				});
-				await user.hover(screen.getByTestId('profile-card-testid'));
-				expectEventToBeFired('ui', hoverProfileCardEvent);
+		it('should fire analytics hover profile card event', async () => {
+			const { user, expectEventToBeFired } = renderProfileCardTrigger({
+				testId: 'profile-card-testid',
 			});
-			it('should fire analytics click profile card event', async () => {
-				const { user, expectEventToBeFired } = renderProfileCardTrigger({
-					testId: 'profile-card-testid',
-					trigger: 'click',
-				});
-				await user.click(screen.getByTestId('profile-card-testid'));
-				expectEventToBeFired('ui', clickProfileCardEvent);
-			});
-			it('should fire analytics keyboard profile card event on Enter key', async () => {
-				const { user, expectEventToBeFired } = renderProfileCardTrigger({
-					testId: 'profile-card-testid',
-				});
-				await user.click(screen.getByTestId('profile-card-testid'));
-				await user.keyboard('{Enter}');
-				expectEventToBeFired('ui', clickProfileCardEvent);
-			});
+			await user.hover(screen.getByTestId('profile-card-testid'));
+			expectEventToBeFired('ui', hoverProfileCardEvent);
 		});
-
-		ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
-			it('should fire analytics hover profile card event', async () => {
-				const { user, expectEventToBeFired } = renderProfileCardTrigger({
-					testId: 'profile-card-testid',
-				});
-				await user.hover(screen.getByTestId('profile-card-testid'));
-				expectEventToBeFired('ui', hoverProfileCardEvent);
+		it('should fire analytics click profile card event', async () => {
+			const { user, expectEventToBeFired } = renderProfileCardTrigger({
+				testId: 'profile-card-testid',
+				trigger: 'click',
 			});
-			it('should fire analytics click profile card event', async () => {
-				const { user, expectEventToBeFired } = renderProfileCardTrigger({
-					testId: 'profile-card-testid',
-					trigger: 'click',
-				});
-				await user.click(screen.getByTestId('profile-card-testid'));
-				expectEventToBeFired('ui', clickProfileCardEvent);
+			await user.click(screen.getByTestId('profile-card-testid'));
+			expectEventToBeFired('ui', clickProfileCardEvent);
+		});
+		it('should fire analytics keyboard profile card event on Enter key', async () => {
+			const { user, expectEventToBeFired } = renderProfileCardTrigger({
+				testId: 'profile-card-testid',
 			});
-			it('should fire analytics keyboard profile card event on Enter key', async () => {
-				const { user, expectEventToBeFired } = renderProfileCardTrigger({
-					testId: 'profile-card-testid',
-				});
-				await user.click(screen.getByTestId('profile-card-testid'));
-				await user.keyboard('{Enter}');
-				expectEventToBeFired('ui', clickProfileCardEvent);
-			});
+			await user.click(screen.getByTestId('profile-card-testid'));
+			await user.keyboard('{Enter}');
+			expectEventToBeFired('ui', clickProfileCardEvent);
 		});
 	});
 

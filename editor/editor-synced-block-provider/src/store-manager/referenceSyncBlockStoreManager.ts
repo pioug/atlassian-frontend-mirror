@@ -71,6 +71,10 @@ export class ReferenceSyncBlockStoreManager {
 	private useRealTimeSubscriptions: boolean = false;
 	// Listeners for subscription changes (used by React components to know when to update)
 	private subscriptionChangeListeners: Set<() => void>;
+	// Track newly added sync blocks (resourceIds that were just subscribed to without cached data)
+	private newlyAddedSyncBlocks: Set<ResourceId>;
+	// Callback to notify when an unpublished sync block is detected
+	private onUnpublishedSyncBlockDetected?: (resourceId: ResourceId) => void;
 
 	public fetchExperience: Experience | undefined;
 	private fetchSourceInfoExperience: Experience | undefined;
@@ -88,6 +92,7 @@ export class ReferenceSyncBlockStoreManager {
 		this.pendingCacheDeletions = new Map();
 		this.graphqlSubscriptions = new Map();
 		this.subscriptionChangeListeners = new Set();
+		this.newlyAddedSyncBlocks = new Set();
 	}
 
 	/**
@@ -189,6 +194,19 @@ export class ReferenceSyncBlockStoreManager {
 		this.saveExperience = getSaveReferenceExperience(fireAnalyticsEvent);
 	}
 
+	public setOnUnpublishedSyncBlockDetected(callback?: (resourceId: ResourceId) => void): void {
+		this.onUnpublishedSyncBlockDetected = callback;
+	}
+
+	/**
+	 * Mark a sync block as newly added to the document.
+	 * This should be called when a sync block node is added via a transaction.
+	 * @param resourceId - The resource ID of the newly added sync block
+	 */
+	public markAsNewlyAdded(resourceId: ResourceId): void {
+		this.newlyAddedSyncBlocks.add(resourceId);
+	}
+
 	public generateResourceIdForReference(sourceId: ResourceId): ResourceId {
 		if (!this.dataProvider) {
 			throw new Error('Data provider not set');
@@ -288,7 +306,9 @@ export class ReferenceSyncBlockStoreManager {
 	 */
 	private handleGraphQLSubscriptionUpdate(syncBlockInstance: SyncBlockInstance): void {
 		if (!syncBlockInstance.resourceId) {
-			return;
+			throw new Error(
+				'Sync block instance provided to graphql subscription update missing resource id',
+			);
 		}
 
 		const existingSyncBlock = this.getFromCache(syncBlockInstance.resourceId);
@@ -300,7 +320,18 @@ export class ReferenceSyncBlockStoreManager {
 		this.updateCache(resolvedSyncBlockInstance);
 
 		if (!syncBlockInstance.error) {
+			this.fireAnalyticsEvent?.(
+				fetchSuccessPayload(
+					syncBlockInstance?.resourceId,
+					syncBlockInstance?.data?.blockInstanceId,
+					syncBlockInstance?.data?.product,
+				),
+			);
 			this.fetchSyncBlockSourceInfo(resolvedSyncBlockInstance.resourceId);
+		} else {
+			this.fireAnalyticsEvent?.(
+				fetchErrorPayload(syncBlockInstance.error?.type, syncBlockInstance.resourceId),
+			);
 		}
 	}
 
@@ -333,6 +364,37 @@ export class ReferenceSyncBlockStoreManager {
 			unsubscribe();
 		}
 		this.graphqlSubscriptions.clear();
+	}
+
+	public fetchSyncBlockSourceInfoBySourceAri(
+		sourceAri: string,
+		hasAccess: boolean = true,
+		urlType: 'view' | 'edit' = 'view',
+	) {
+		try {
+			if (!this.dataProvider) {
+				throw new Error('Data provider not set');
+			}
+
+			const sourceInfo = this.dataProvider.fetchSyncBlockSourceInfo(
+				undefined,
+				sourceAri,
+				undefined,
+				undefined,
+				hasAccess,
+				urlType,
+			);
+
+			return sourceInfo;
+		} catch (error) {
+			logException(error as Error, {
+				location:
+					'editor-synced-block-provider/referenceSyncBlockStoreManager/fetchSyncBlockSourceInfoBySourceAri',
+			});
+			this.fireAnalyticsEvent?.(getSourceInfoErrorPayload((error as Error).message));
+
+			return Promise.resolve(undefined);
+		}
 	}
 
 	public fetchSyncBlockSourceInfo(
@@ -522,6 +584,23 @@ export class ReferenceSyncBlockStoreManager {
 				: syncBlockInstance;
 
 			this.updateCache(resolvedSyncBlockInstance);
+
+			// Check if this is a newly added unpublished sync block and notify
+			// Only trigger for sync blocks that were just added (not refreshed or loaded on page init)
+			if (
+				!syncBlockInstance.error &&
+				resolvedSyncBlockInstance.data?.status === 'unpublished' &&
+				this.newlyAddedSyncBlocks.has(syncBlockInstance.resourceId) &&
+				this.onUnpublishedSyncBlockDetected &&
+				fg('platform_synced_block_dogfooding')
+			) {
+				// Remove from newly added set after checking to prevent duplicate flags
+				this.newlyAddedSyncBlocks.delete(syncBlockInstance.resourceId);
+				this.onUnpublishedSyncBlockDetected(resolvedSyncBlockInstance.resourceId);
+			} else if (this.newlyAddedSyncBlocks.has(syncBlockInstance.resourceId)) {
+				// Remove from newly added set even if not unpublished (to clean up)
+				this.newlyAddedSyncBlocks.delete(syncBlockInstance.resourceId);
+			}
 
 			if (syncBlockInstance.error) {
 				this.fireAnalyticsEvent?.(
@@ -1037,9 +1116,9 @@ export class ReferenceSyncBlockStoreManager {
 			providerFactory.destroy();
 		});
 		this.providerFactories.clear();
-		this.saveExperience?.abort({ reason: 'editor-destroyed' });
-		this.fetchExperience?.abort({ reason: 'editor-destroyed' });
-		this.fetchSourceInfoExperience?.abort({ reason: 'editor-destroyed' });
+		this.saveExperience?.abort({ reason: 'editorDestroyed' });
+		this.fetchExperience?.abort({ reason: 'editorDestroyed' });
+		this.fetchSourceInfoExperience?.abort({ reason: 'editorDestroyed' });
 		this.fireAnalyticsEvent = undefined;
 	}
 }

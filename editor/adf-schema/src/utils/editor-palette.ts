@@ -1,6 +1,3 @@
-// @ts-ignore TS2307: Cannot find module '@atlaskit/feature-gate-js-client' or its corresponding type declarations.
-import FeatureGates from '@atlaskit/feature-gate-js-client';
-
 /**
  * This takes an adf hex color and returns a matching border palette color.
  *
@@ -138,16 +135,6 @@ export function hexToEditorTextBackgroundPaletteColor<HexColor extends string>(
 	? /** If the hexColor is an template literal matching a hex color -- we know what string will be returned  */
 		TextBackgroundColorPalette[HexColor]
 	: string | undefined {
-	if (
-		FeatureGates.getExperimentValue<'control' | 'test'>(
-			'platform_editor_add_orange_highlight_color',
-			'cohort',
-			'control',
-		) !== 'test'
-	) {
-		textBackgroundColorPalette['#FEDEC8'] = 'var(--ds-background-accent-yellow-subtler, #F8E6A0)';
-	}
-
 	// Ts ignore was used to allow use of conditional return type
 	// (preferring better type on consumption over safety in implementation)
 	// @ts-expect-error

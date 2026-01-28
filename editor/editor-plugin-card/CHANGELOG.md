@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-card
 
+## 12.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.4
+
+### Patch Changes
+
+- [`5c3f8d87c2290`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c3f8d87c2290) -
+  Cleanup general AIFC bug fix feature gate
+- Updated dependencies
+
 ## 12.1.3
 
 ### Patch Changes

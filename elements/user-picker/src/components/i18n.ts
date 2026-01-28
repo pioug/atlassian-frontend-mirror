@@ -33,20 +33,20 @@ export const messages = defineMessages({
 	},
 	officialTeamByline: {
 		id: 'fabric.elements.user-picker.team.byline.official',
-		defaultMessage: 'Official team {verifiedIcon}',
-		description: 'Byline for official team',
+		defaultMessage: '{teamTypeName} {verifiedIcon}',
+		description: 'Byline for official/verified team with dynamic team type name',
 	},
 	officialMemberCountWithoutYou: {
 		id: 'fabric.elements.user-picker.team.member.count.official',
 		defaultMessage:
-			'Official team {verifiedIcon} • {count} {count, plural, one {member} other {members}}',
+			'{teamTypeName} {verifiedIcon} • {count} {count, plural, one {member} other {members}}',
 		description:
 			'Byline to show the number of members in the team when the current user is not a member of the team',
 	},
 	officialMemberCountWithYou: {
 		id: 'fabric.elements.user-picker.team.member.count.official.including.you',
 		defaultMessage:
-			'Official team {verifiedIcon} • {count} {count, plural, one {member} other {members}}, including you',
+			'{teamTypeName} {verifiedIcon} • {count} {count, plural, one {member} other {members}}, including you',
 		description:
 			'Byline to show the number of members in the team when the current user is also a member of the team',
 	},
@@ -64,12 +64,12 @@ export const messages = defineMessages({
 	},
 	officialPlus50MembersWithoutYou: {
 		id: 'fabric.elements.user-picker.team.member.50plus.official',
-		defaultMessage: 'Official team {verifiedIcon} • 50+ members',
+		defaultMessage: '{teamTypeName} {verifiedIcon} • 50+ members',
 		description: 'Byline to show the number of members in the team when the number exceeds 50',
 	},
 	officialPlus50MembersWithYou: {
 		id: 'fabric.elements.user-picker.team.member.50plus.official.including.you',
-		defaultMessage: 'Official team {verifiedIcon} • 50+ members, including you',
+		defaultMessage: '{teamTypeName} {verifiedIcon} • 50+ members, including you',
 		description:
 			'Byline to show the number of members in the team when the number exceeds 50 and also includes the current user',
 	},

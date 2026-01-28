@@ -1,5 +1,20 @@
 # @atlassian/navigation-system
 
+## 5.31.0
+
+### Minor Changes
+
+- [`c50f9ea3221b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c50f9ea3221b7) -
+  The `description` of menu items will now use the selected state token when the menu item is
+  selected.
+
+  This change was previously behind the feature gate `platform-dst-menu-item-description-selected`,
+  which has now been cleaned up.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.30.0
 
 ### Minor Changes

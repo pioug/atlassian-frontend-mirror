@@ -25,8 +25,13 @@ function isPageHidden() {
 const SIZE = 50;
 let insertIndex = 0;
 
-export function getEarliestHiddenTiming(startTime: DOMHighResTimeStamp, endTime: DOMHighResTimeStamp) {
-	const earliestHiddenTiming = timings.find(({ hidden, time }) => hidden && time > 0 && time >= startTime && time <= endTime)?.time;
+export function getEarliestHiddenTiming(
+	startTime: DOMHighResTimeStamp,
+	endTime: DOMHighResTimeStamp,
+) {
+	const earliestHiddenTiming = timings.find(
+		({ hidden, time }) => hidden && time > 0 && time >= startTime && time <= endTime,
+	)?.time;
 	if (typeof earliestHiddenTiming === 'number') {
 		return Math.round(earliestHiddenTiming - startTime);
 	}
@@ -56,14 +61,27 @@ function handleChange() {
 	}
 }
 
+let hasHiddenTimingBeforeSetup = false;
+
+export function getHasHiddenTimingBeforeSetup() {
+	return hasHiddenTimingBeforeSetup;
+}
+
 function setup() {
 	try {
-		if (fg('platform_ufo_use_native_page_visibility_api')) {
-			const results = performance.getEntriesByType('visibility-state');
-			results?.forEach((result) => {
-				pushHidden(result.name === 'hidden', result.startTime)
-			});
-		}
+		const results = performance.getEntriesByType('visibility-state');
+
+		results?.forEach((result) => {
+			if (fg('platform_ufo_use_native_page_visibility_api')) {
+				pushHidden(result.name === 'hidden', result.startTime);
+			}
+
+			if (fg('platform_ufo_native_pagevisibility_monitoring')) {
+				if (result.name === 'hidden') {
+					hasHiddenTimingBeforeSetup = true;
+				}
+			}
+		});
 	} catch {
 		/* do nothing */
 		/* note: visibility-state entry types are not available in Firefox/Safari: https://developer.mozilla.org/en-US/docs/Web/API/VisibilityStateEntry#browser_compatibility */

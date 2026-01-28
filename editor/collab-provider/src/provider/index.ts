@@ -244,13 +244,13 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 					});
 				}
 				// If already initialized, `connected` means reconnected
-				const shouldBypassOutOfSyncPeriod = expValEquals('collab_bypass_out_of_sync_period_experiment', 'isEnabled', true, false);
+				const shouldBypassOutOfSyncGracePeriod = expValEquals('collab_bypass_out_of_sync_period_experiment', 'isEnabled', true, false);
 
 				if (
 					initialized &&
 					this.disconnectedAt &&
 					// Offline longer than `OUT_OF_SYNC_PERIOD`
-					(shouldBypassOutOfSyncPeriod || Date.now() - this.disconnectedAt >= OUT_OF_SYNC_PERIOD)
+					(shouldBypassOutOfSyncGracePeriod || Date.now() - this.disconnectedAt >= OUT_OF_SYNC_PERIOD)
 				) {
 					this.documentService.throttledCatchupv2(
 						CatchupEventReason.RECONNECTED,

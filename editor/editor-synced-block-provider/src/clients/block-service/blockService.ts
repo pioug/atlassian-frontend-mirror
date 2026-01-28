@@ -143,6 +143,7 @@ export type CreateSyncedBlockRequest = {
 	content: string;
 	product: SyncBlockProduct;
 	sourceAri: string; // the ARI of the source document (the ARI of the page or blog post)
+	status?: SyncBlockStatus; // the status of the block. 'unpublished' if the page is unpublished, 'active' otherwise
 	stepVersion?: number; // the current NCS step version number
 };
 
@@ -224,7 +225,7 @@ export class BlockError extends Error {
 }
 
 export const getSyncedBlockContent = async ({
-	blockAri
+	blockAri,
 }: GetSyncedBlockContentRequest): Promise<BlockContentResponse> => {
 	// Disable sending documentAri for now. We'll add it back if we find a way to update references that follows the save & refresh principle.
 	// Slack discussion here: https://atlassian.slack.com/archives/C09DZT1TBNW/p1767836775552099?thread_ts=1767836754.024889&cid=C09DZT1TBNW
@@ -323,6 +324,7 @@ export const createSyncedBlock = async ({
 	product,
 	content,
 	stepVersion,
+	status,
 }: CreateSyncedBlockRequest): Promise<BlockContentResponse> => {
 	const requestBody: {
 		blockAri: string;
@@ -330,6 +332,7 @@ export const createSyncedBlock = async ({
 		content: string;
 		product: SyncBlockProduct;
 		sourceAri: string;
+		status?: SyncBlockStatus;
 		stepVersion?: number;
 	} = {
 		blockAri,
@@ -341,6 +344,10 @@ export const createSyncedBlock = async ({
 
 	if (stepVersion !== undefined) {
 		requestBody.stepVersion = stepVersion;
+	}
+
+	if (status !== undefined && fg('platform_synced_block_dogfooding')) {
+		requestBody.status = status;
 	}
 
 	const response = await fetchWithRetry(`${BLOCK_SERVICE_API_URL}/block`, {

@@ -36,10 +36,10 @@ type ModalContent = {
 };
 const modalContentMap: Record<'source-block-deleted' | 'source-block-unsynced', ModalContent> = {
 	'source-block-deleted': {
-		titleMultiple: messages.deleteConfirmationModalTitleSingle,
+		titleMultiple: messages.deleteConfirmationModalTitleMultiple,
 		titleSingle: messages.deleteConfirmationModalTitleSingle,
 		descriptionSingle: messages.deleteConfirmationModalDescriptionNoRef,
-		descriptionMultiple: messages.deleteConfirmationModalDescription,
+		descriptionMultiple: messages.deleteConfirmationModalDescriptionMultiple,
 		confirmButtonLabel: messages.deleteConfirmationModalDeleteButton,
 	},
 	'source-block-unsynced': {
@@ -50,8 +50,6 @@ const modalContentMap: Record<'source-block-deleted' | 'source-block-unsynced', 
 		confirmButtonLabel: messages.deleteConfirmationModalUnsyncButton,
 	},
 };
-
-type FetchStatus = 'none' | 'loading' | 'success' | 'error';
 
 const styles = cssMap({
 	spinner: {
@@ -71,7 +69,6 @@ export const DeleteConfirmationModal = ({
 	const [syncBlockIds, setSyncBlockIds] = useState<SyncBlockAttrs[] | undefined>(undefined);
 	const [referenceCount, setReferenceCount] = useState<number | undefined>(undefined);
 	const [deleteReason, setDeleteReason] = useState<DeletionReason>('source-block-deleted');
-	const [fetchStatus, setFetchStatus] = useState<FetchStatus>('none');
 	const { mode, bodiedSyncBlockDeletionStatus, activeFlag } = useSharedPluginStateWithSelector(
 		api,
 		['connectivity', 'syncedBlock'],
@@ -97,7 +94,6 @@ export const DeleteConfirmationModal = ({
 
 			if (!confirm) {
 				setIsOpen(false);
-				setFetchStatus('none');
 				setReferenceCount(undefined);
 			}
 
@@ -151,7 +147,6 @@ export const DeleteConfirmationModal = ({
 		if (bodiedSyncBlockDeletionStatus === 'completed' && isOpen) {
 			// auto close modal once deletion is successful
 			setIsOpen(false);
-			setFetchStatus('none');
 			api?.core?.actions.execute(({ tr }) => {
 				return tr.setMeta(syncedBlockPluginKey, {
 					// Reset deletion status to have a clean state for next deletion
@@ -163,31 +158,29 @@ export const DeleteConfirmationModal = ({
 
 	useEffect(() => {
 		if (isOpen && syncBlockIds !== undefined && fg('platform_synced_block_dogfooding')) {
-			let referenceCount = 0;
-			setFetchStatus('loading');
+			const fetchReferences = async () => {
+				try {
+					const references = await Promise.all(
+						syncBlockIds.map(async (syncBlockId) => {
+							const references = await syncBlockStoreManager.sourceManager.fetchReferences(
+								syncBlockId.resourceId,
+							);
+							if (references?.error) {
+								// Consider fetch fails as soon as one of the fetches fails
+								throw new Error();
+							}
+							return references.references?.length ?? 0;
+						}),
+					);
 
-			let fetchFailed = false;
-			syncBlockIds.forEach(async (syncBlockId) => {
-				if (fetchFailed) {
-					return;
+					const totalCount = references.reduce((sum, count) => sum + count, 0);
+					setReferenceCount(totalCount);
+				} catch {
+					setReferenceCount(0);
 				}
-				const references = await syncBlockStoreManager.sourceManager.fetchReferences(
-					syncBlockId.resourceId,
-				);
-				if (references.error) {
-					// Consider fetch fails as soon as one of the fetches fails
-					setFetchStatus('error');
-					fetchFailed = true;
-					return;
-				} else {
-					referenceCount += references.references?.length ?? 0;
-				}
-			});
+			};
 
-			if (!fetchFailed) {
-				setReferenceCount(referenceCount);
-				setFetchStatus('success');
-			}
+			fetchReferences();
 		}
 	}, [isOpen, syncBlockIds, syncBlockStoreManager.sourceManager]);
 
@@ -214,7 +207,7 @@ export const DeleteConfirmationModal = ({
 									isDeleting={bodiedSyncBlockDeletionStatus === 'processing'}
 									isDisabled={isOfflineMode(mode)}
 									deleteReason={deleteReason}
-									failToFetch={fetchStatus === 'error'}
+									sourceCount={syncBlockIds?.length || 0}
 								/>
 							)}
 						</>
@@ -262,28 +255,31 @@ const ModalContent = ({
 	isDeleting,
 	isDisabled,
 	deleteReason,
-	failToFetch,
+	sourceCount,
 }: {
 	content: ModalContent;
 	deleteReason: DeletionReason;
-	failToFetch: boolean;
 	formatMessage: IntlShape['formatMessage'];
 	handleClick: (confirm: boolean) => () => void;
 	isDeleting: boolean;
 	isDisabled: boolean;
 	referenceCount: number;
+	sourceCount: number;
 }) => {
 	const { titleMultiple, titleSingle, descriptionSingle, descriptionMultiple, confirmButtonLabel } =
 		content;
 
-	const hasNoReferenceOrFailToFetch = referenceCount === 0 || failToFetch;
+	const hasNoReferenceOrFailToFetch = referenceCount === 0;
+	const syncBlockCount =
+		deleteReason === 'source-block-deleted' ? referenceCount + sourceCount : referenceCount;
+
 	return (
 		<>
 			<ModalHeader hasCloseButton>
 				<ModalTitle appearance="warning">
 					{hasNoReferenceOrFailToFetch
 						? formatMessage(titleSingle)
-						: formatMessage(titleMultiple, { count: referenceCount })}
+						: formatMessage(titleMultiple, { count: syncBlockCount })}
 				</ModalTitle>
 			</ModalHeader>
 			<ModalBody>
@@ -291,7 +287,7 @@ const ModalContent = ({
 					{hasNoReferenceOrFailToFetch
 						? formatMessage(descriptionSingle)
 						: formatMessage(descriptionMultiple, {
-								syncBlockCount: referenceCount,
+								syncBlockCount,
 							})}
 				</Text>
 			</ModalBody>

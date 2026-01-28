@@ -1,5 +1,35 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.14.5
+
+### Patch Changes
+
+- [`f11ff647ea458`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f11ff647ea458) -
+  [ux] [EDITOR-4521] Implement source deleted reference UI, update block deleted/unsynced reference
+  UI to add delete button, unsynced label and source title/url
+- Updated dependencies
+
+## 3.14.4
+
+### Patch Changes
+
+- [`5ec143ea91476`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ec143ea91476) -
+  Do not re-convert already converted timestamps
+- [`aa5302b457078`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa5302b457078) -
+  [ux] EDITOR-4763 Ensure initial source sync block data are always registered
+- Updated dependencies
+
+## 3.14.3
+
+### Patch Changes
+
+- [`7702ea47c5329`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7702ea47c5329) -
+  [ux] Show editor flag when unpublished sync block is pasted
+- [`2a9dfb4b326e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a9dfb4b326e6) -
+  EDITOR-4698 add missing analytics for fetch references, graphql subsciption update, reference sync
+  block insert and delete success
+- Updated dependencies
+
 ## 3.14.2
 
 ### Patch Changes

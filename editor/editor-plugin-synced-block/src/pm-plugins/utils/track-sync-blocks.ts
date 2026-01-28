@@ -2,6 +2,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SyncBlockAttrs, SyncBlockMap } from '../../types';
 
@@ -26,16 +27,18 @@ export const trackSyncBlocks = (
 	) as (ReplaceStep | ReplaceAroundStep)[];
 
 	// this is a quick check to see if any insertion/deletion of bodiedSyncBlock happened
-	const hasBodiedSyncBlockChanges = replaceSteps.some((step) => {
+	const hasBodiedSyncBlockChanges = replaceSteps.some((step, idx) => {
 		const { from, to } = step;
+
+		const docAtStep = fg('platform_synced_block_dogfooding') ? tr.docs[idx] : state.doc;
 
 		let hasChange = false;
 		if (from !== to) {
 			step.getMap().forEach((oldStart, oldEnd) => {
 				if (oldStart !== oldEnd && !hasChange) {
-					const deletedSlice = state.doc.slice(
+					const deletedSlice = docAtStep.slice(
 						Math.max(0, oldStart),
-						Math.min(state.doc.content.size, oldEnd),
+						Math.min(docAtStep.content.size, oldEnd),
 					);
 
 					deletedSlice.content.forEach((node) => {

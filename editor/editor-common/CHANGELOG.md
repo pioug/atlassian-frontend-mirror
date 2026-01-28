@@ -1,5 +1,38 @@
 # @atlaskit/editor-common
 
+## 111.9.3
+
+### Patch Changes
+
+- [`f11ff647ea458`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f11ff647ea458) -
+  [ux] [EDITOR-4521] Implement source deleted reference UI, update block deleted/unsynced reference
+  UI to add delete button, unsynced label and source title/url
+
+## 111.9.2
+
+### Patch Changes
+
+- [`256b4fc86bae0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/256b4fc86bae0) -
+  [ux] EDITOR-4464 Limited Mode: Change threshold to activate limited mode to use the node count
+  rather than the raw document size.
+- [`25c388e0f807a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25c388e0f807a) -
+  EDITOR-4684 Clean up platform_editor_add_orange_highlight_color experiment - orange highlight
+  color is now permanently enabled
+- Updated dependencies
+
+## 111.9.1
+
+### Patch Changes
+
+- [`81230b670d02c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81230b670d02c) -
+  ED-29744 camel case experience attributes
+- [`7702ea47c5329`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7702ea47c5329) -
+  Add messages for synced block unpublished flag
+- [`2a9dfb4b326e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a9dfb4b326e6) -
+  EDITOR-4698 add missing analytics for fetch references, graphql subsciption update, reference sync
+  block insert and delete success
+- Updated dependencies
+
 ## 111.9.0
 
 ### Minor Changes

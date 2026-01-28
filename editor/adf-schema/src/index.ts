@@ -142,7 +142,6 @@ export {
 	multiBodiedExtension,
 	backgroundColor,
 	backgroundColorPalette,
-	backgroundColorPaletteNext,
 	syncBlock,
 	bodiedSyncBlock,
 	tableWithNestedTable,

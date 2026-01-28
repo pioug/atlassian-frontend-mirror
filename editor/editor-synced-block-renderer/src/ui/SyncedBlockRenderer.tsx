@@ -74,6 +74,12 @@ const SyncedBlockRendererComponent = ({
 		return <SyncedBlockLoadingState />;
 	}
 
+	// In SSR, if server returned error, we should render loading state instead of error state
+	// since  FE will do another fetch and render the error state or proper data then
+	if (isSSR() && syncBlockInstance.error && fg('platform_synced_block_dogfooding')) {
+		return <SyncedBlockLoadingState />;
+	}
+
 	if (
 		syncBlockInstance.error ||
 		!syncBlockInstance.data ||

@@ -63,11 +63,7 @@ export const EmojiButton = ({ api }: BaseToolbarButtonProps): React.JSX.Element 
 			/>
 			<ToolbarTooltip
 				content={
-					expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true) ? (
-						<ToolTipContent description={formatMessage(messages.emoji)} keymap={insertEmoji} />
-					) : (
-						formatMessage(messages.emoji)
-					)
+					<ToolTipContent description={formatMessage(messages.emoji)} keymap={insertEmoji} />
 				}
 			>
 				<ToolbarButton

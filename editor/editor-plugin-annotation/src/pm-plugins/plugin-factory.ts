@@ -80,9 +80,13 @@ const createHandleDocChanged = () => {
 		});
 
 		// Update annotations to match document state, preserving resolved states through delete/undo
+		// Only include annotations that have a known resolved state - don't default new annotations to false
+		// as this would cause them to briefly appear as unresolved before the provider sets their actual state
 		annotationIdsInDocument.forEach((id) => {
-			updatedAnnotations[id] =
-				prevPluginState.annotations[id] ?? deletedAnnotationsCache[id] ?? false;
+			const knownState = prevPluginState.annotations[id] ?? deletedAnnotationsCache[id];
+			if (knownState !== undefined) {
+				updatedAnnotations[id] = knownState;
+			}
 		});
 
 		return { ...updatedState, annotations: updatedAnnotations };

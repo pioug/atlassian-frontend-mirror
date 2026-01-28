@@ -233,12 +233,7 @@ export function Card(
 				 * We cache fatal errors by position to avoid retrying the same errors
 				 * on the same links at the same position.
 				 */
-				if (
-					url &&
-					pos &&
-					fatalErrorPositionMap.get(url) === pos &&
-					fg('platform_editor_ai_generic_prep_for_aifc_2')
-				) {
+				if (url && pos && fatalErrorPositionMap.get(url) === pos) {
 					return null;
 				}
 				changeSelectedCardToLinkFallback(
@@ -249,7 +244,7 @@ export function Card(
 					getPos(),
 					pluginInjectionApi?.analytics?.actions,
 				)(view.state, view.dispatch);
-				if (url && pos && fg('platform_editor_ai_generic_prep_for_aifc_2')) {
+				if (url && pos) {
 					fatalErrorPositionMap.set(url, pos);
 				}
 				return null;

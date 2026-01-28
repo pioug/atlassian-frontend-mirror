@@ -254,7 +254,6 @@ export {
 	borderColorPalette,
 	backgroundColor,
 	backgroundColorPalette,
-	backgroundColorPaletteNext,
 } from './marks';
 export type {
 	AlignmentAttributes,

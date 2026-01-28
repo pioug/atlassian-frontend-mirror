@@ -28,7 +28,6 @@ import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import type { Breakpoint } from '@atlaskit/editor-toolbar';
 import { ToolbarButton, ToolbarTooltip, AddIcon, useToolbarUI } from '@atlaskit/editor-toolbar';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { InsertBlockPlugin } from '../../insertBlockPluginType';
 import type { ToolbarInsertBlockButtonsConfig } from '../../types';
@@ -277,14 +276,10 @@ export const InsertButton = ({
 			)}
 			<ToolbarTooltip
 				content={
-					expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true) ? (
-						<ToolTipContent
-							description={formatMessage(messages.insertMenu)}
-							keymap={insertElements}
-						/>
-					) : (
-						formatMessage(messages.insertMenu)
-					)
+					<ToolTipContent
+						description={formatMessage(messages.insertMenu)}
+						keymap={insertElements}
+					/>
 				}
 			>
 				<ToolbarButton

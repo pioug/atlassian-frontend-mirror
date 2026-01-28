@@ -15,7 +15,6 @@ import { IntlProvider } from 'react-intl-next';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ManualPromise, renderWithIntl as render } from '@atlaskit/link-test-helpers';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import mockedPluginData from '../../__tests__/__helpers/mock-plugin-data';
 import {
@@ -1664,55 +1663,27 @@ describe('<LinkPicker />', () => {
 				expect(insertButton).toHaveAttribute('disabled');
 			});
 
-			ffTest.on('fix_invalid_aria_attr_in_link_picker_search_error', '', () => {
-				it('should capture and report a11y violations with multiple tabs', async () => {
-					const unstablePlugin = new UnstableMockLinkPickerPlugin({
-						tabKey: 'tab1',
-						tabTitle: 'Unstable',
-					});
-
-					const { container } = render(
-						<LinkPicker
-							url=""
-							onSubmit={jest.fn()}
-							plugins={[unstablePlugin, unstablePlugin]}
-							onContentResize={jest.fn()}
-							featureFlags={{}}
-						/>,
-					);
-
-					await waitFor(() => {
-						expect(screen.getByTestId(testIds.searchError)).toBeInTheDocument();
-					});
-
-					await expect(container).toBeAccessible();
+			it('should capture and report a11y violations with multiple tabs', async () => {
+				const unstablePlugin = new UnstableMockLinkPickerPlugin({
+					tabKey: 'tab1',
+					tabTitle: 'Unstable',
 				});
-			});
 
-			ffTest.off('fix_invalid_aria_attr_in_link_picker_search_error', '', () => {
-				it('should capture and report a11y violations with multiple tabs', async () => {
-					const unstablePlugin = new UnstableMockLinkPickerPlugin({
-						tabKey: 'tab1',
-						tabTitle: 'Unstable',
-					});
+				const { container } = render(
+					<LinkPicker
+						url=""
+						onSubmit={jest.fn()}
+						plugins={[unstablePlugin, unstablePlugin]}
+						onContentResize={jest.fn()}
+						featureFlags={{}}
+					/>,
+				);
 
-					const { container } = render(
-						<LinkPicker
-							url=""
-							onSubmit={jest.fn()}
-							plugins={[unstablePlugin, unstablePlugin]}
-							onContentResize={jest.fn()}
-							featureFlags={{}}
-						/>,
-					);
-
-					await waitFor(() => {
-						expect(screen.getByTestId(testIds.searchError)).toBeInTheDocument();
-					});
-
-					// eslint-disable-next-line @atlassian/a11y/no-violation-count
-					await expect(container).toBeAccessible({ violationCount: 1 });
+				await waitFor(() => {
+					expect(screen.getByTestId(testIds.searchError)).toBeInTheDocument();
 				});
+
+				await expect(container).toBeAccessible();
 			});
 
 			it('should capture and report a11y violations with one tab', async () => {

@@ -5,7 +5,6 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { pluginFactory } from '@atlaskit/editor-common/utils';
 import { PluginKey, type EditorState, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { EditorDisabledPlugin, EditorDisabledPluginState } from './editorDisabledPluginType';
 import { ACTION, reducer } from './pm-plugins/reducer';
@@ -50,10 +49,8 @@ function createPlugin(
 			apply: (tr, pluginState) => {
 				const meta = tr.getMeta(pluginKey);
 				if (meta) {
-					if (fg('platform_editor_ai_generic_prep_for_aifc_2')) {
-						if ('action' in meta) {
-							return reducer(pluginState, meta);
-						}
+					if ('action' in meta) {
+						return reducer(pluginState, meta);
 					}
 					return pluginState.editorDisabled !== meta.editorDisabled
 						? { ...pluginState, ...meta }
@@ -66,12 +63,10 @@ function createPlugin(
 			// If we set to undefined it respects the previous value.
 			// Prosemirror doesn't have this typed correctly for this type of behaviour
 			// @ts-expect-error
-			editable: fg('platform_editor_ai_generic_prep_for_aifc_2')
-				? (state: EditorState) => {
-						const { disabledByPlugin } = pluginKey.getState(state) ?? { disabledByPlugin: false };
-						return disabledByPlugin ? false : undefined;
-				  }
-				: undefined,
+			editable: (state: EditorState) => {
+				const { disabledByPlugin } = pluginKey.getState(state) ?? { disabledByPlugin: false };
+				return disabledByPlugin ? false : undefined;
+			},
 		},
 		view: (view) => {
 			// schedule on mount
@@ -122,13 +117,9 @@ export const editorDisabledPlugin: EditorDisabledPlugin = ({ config: options = {
 			};
 		}
 
-		if (fg('platform_editor_ai_generic_prep_for_aifc_2')) {
-			return {
-				editorDisabled: pluginState.disabledByPlugin || pluginState.editorDisabled,
-			};
-		}
-
-		return pluginState;
+		return {
+			editorDisabled: pluginState.disabledByPlugin || pluginState.editorDisabled,
+		};
 	},
 
 	pmPlugins: () => [
@@ -142,12 +133,10 @@ export const editorDisabledPlugin: EditorDisabledPlugin = ({ config: options = {
 		toggleDisabled:
 			(disabled: boolean) =>
 			({ tr }: { tr: Transaction }) => {
-				return fg('platform_editor_ai_generic_prep_for_aifc_2')
-					? tr.setMeta(pluginKey, {
-							action: ACTION.TOGGLE_DISABLED,
-							disabled,
-					  })
-					: null;
+				return tr.setMeta(pluginKey, {
+					action: ACTION.TOGGLE_DISABLED,
+					disabled,
+				});
 			},
 	},
 });

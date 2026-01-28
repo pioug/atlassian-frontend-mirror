@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::9daf513a3a0db2d77693e71ed1893fda>>
+ * @codegen <<SignedSource::c00a9689b8756addd1a889f5f3535450>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -69,6 +69,34 @@ interface metadata {
 }
 
 const metadata: Record<string, metadata> = {
+	'ai-bot': {
+		keywords: ['ai-bot', 'aibot', 'icon', 'icon-lab', 'AI', 'chat bot'],
+		componentName: 'AiBotIcon',
+		package: '@atlaskit/icon-lab/core/ai-bot',
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing AI bots.',
+		team: 'Design System Team',
+		status: 'published',
+	},
+	'ai-compute': {
+		keywords: [
+			'ai-compute',
+			'aicompute',
+			'icon',
+			'icon-lab',
+			'AI',
+			'brain',
+			'circuit',
+			'memory',
+			'compute',
+		],
+		componentName: 'AiComputeIcon',
+		package: '@atlaskit/icon-lab/core/ai-compute',
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing AI compute and memory.',
+		team: 'Design System Team',
+		status: 'published',
+	},
 	'ai-generative-audio-briefing': {
 		keywords: [
 			'ai-generative-audio-briefing',
@@ -220,6 +248,26 @@ const metadata: Record<string, metadata> = {
 		usage: 'Reserved for representing large language and reasoning models.',
 		team: 'Compass',
 		status: 'published',
+	},
+	'ai-search': {
+		keywords: [
+			'ai-search',
+			'aisearch',
+			'icon',
+			'icon-lab',
+			'search sparkle',
+			'rovo sparkle',
+			'search',
+			'rovo',
+			'AI search',
+		],
+		componentName: 'AiSearchIcon',
+		package: '@atlaskit/icon-lab/core/ai-search',
+		categorization: 'single-purpose',
+		usage: 'Reserved for search interactions powered by Rovo/AI.',
+		team: 'Rovo and AI Design Team',
+		status: 'published',
+		slackChannel: '#rad-design',
 	},
 	'align-content-bottom': {
 		keywords: [
@@ -1326,6 +1374,23 @@ const metadata: Record<string, metadata> = {
 		status: 'published',
 		slackChannel: '#forge-sql',
 	},
+	'diagram-architecture-map': {
+		keywords: [
+			'diagram-architecture-map',
+			'diagramarchitecturemap',
+			'icon',
+			'icon-lab',
+			'diagram',
+			'architecture map',
+			'cloud',
+		],
+		componentName: 'DiagramArchitectureMapIcon',
+		package: '@atlaskit/icon-lab/core/diagram-architecture-map',
+		categorization: 'single-purpose',
+		usage: 'Reserved for architecture map diagram type in Whiteboards.',
+		team: 'Whiteboards',
+		status: 'published',
+	},
 	'diagram-arrowhead-aggregation-left': {
 		keywords: [
 			'diagram-arrowhead-aggregation-left',
@@ -2014,6 +2079,42 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon-lab/core/diagram-arrowhead-zero-or-one-up-right',
 		categorization: 'single-purpose',
 		usage: 'Reserved for zero or one diagram in Whiteboards.',
+		team: 'Whiteboards',
+		status: 'published',
+	},
+	'diagram-object-boundary': {
+		keywords: [
+			'diagram-object-boundary',
+			'diagramobjectboundary',
+			'icon',
+			'icon-lab',
+			'Diagram',
+			'object',
+			'boundary',
+			'Whiteboards',
+		],
+		componentName: 'DiagramObjectBoundaryIcon',
+		package: '@atlaskit/icon-lab/core/diagram-object-boundary',
+		categorization: 'single-purpose',
+		usage: 'Reserved for Diagram object boundary in Whiteboards',
+		team: 'Whiteboards',
+		status: 'published',
+	},
+	'diagram-object-entity': {
+		keywords: [
+			'diagram-object-entity',
+			'diagramobjectentity',
+			'icon',
+			'icon-lab',
+			'Diagram',
+			'Whiteboards',
+			'entity',
+			'object',
+		],
+		componentName: 'DiagramObjectEntityIcon',
+		package: '@atlaskit/icon-lab/core/diagram-object-entity',
+		categorization: 'single-purpose',
+		usage: 'Reserved for diagram symbol entity object in Whiteboards',
 		team: 'Whiteboards',
 		status: 'published',
 	},
@@ -3754,6 +3855,14 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon-lab/core/field-text',
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose',
+		team: 'Design System Team',
+		status: 'published',
+	},
+	flower: {
+		keywords: ['flower', 'icon', 'icon-lab', 'flower', 'daisy', 'growth', 'plant'],
+		componentName: 'FlowerIcon',
+		package: '@atlaskit/icon-lab/core/flower',
+		categorization: 'multi-purpose',
 		team: 'Design System Team',
 		status: 'published',
 	},
@@ -5569,6 +5678,24 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Farewell feed in hello.',
 		team: 'confluence insights',
+		status: 'published',
+	},
+	survey: {
+		keywords: [
+			'survey',
+			'icon',
+			'icon-lab',
+			'survey',
+			'intake form',
+			'clipboard',
+			'questionnaire',
+			'research',
+		],
+		componentName: 'SurveyIcon',
+		package: '@atlaskit/icon-lab/core/survey',
+		categorization: 'single-purpose',
+		usage: 'Reserved for surveys.',
+		team: 'Jira Service Management',
 		status: 'published',
 	},
 	swap: {

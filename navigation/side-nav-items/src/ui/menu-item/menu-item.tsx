@@ -629,13 +629,7 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 				</Text>
 				{description && (
 					<Text
-						color={
-							fg('platform-dst-menu-item-description-selected')
-								? getTextColor({ isDisabled, isSelected })
-								: isDisabled
-									? 'color.text.disabled'
-									: 'color.text.subtle'
-						}
+						color={getTextColor({ isDisabled, isSelected })}
 						size="small"
 						maxLines={1}
 						ref={descriptionRef}

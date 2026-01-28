@@ -2,6 +2,7 @@
 import { useMemo } from 'react';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { generateBlockAri, generateBlockAriFromReference } from '../../clients/block-service/ari';
 import {
@@ -121,9 +122,7 @@ export const convertToSyncBlockData = (
 	let createdAt: string | undefined;
 	if (data.createdAt !== undefined && data.createdAt !== null) {
 		try {
-			// BE returns microseconds, convert to milliseconds
-			// BE should fix this in the future
-			createdAt = new Date(data.createdAt / 1000).toISOString();
+			createdAt = new Date(data.createdAt).toISOString();
 		} catch {
 			// fallback to undefined
 			// as we don't want to block the whole process due to invalid date
@@ -226,28 +225,37 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 				blockAri,
 				documentAri: this.parentAri,
 			});
-			const value = blockContentResponse.content;
 
-			if (!value) {
+			const {
+				content,
+				sourceAri,
+				deletionReason,
+				blockInstanceId,
+				contentUpdatedAt,
+				product,
+				status,
+			} = blockContentResponse;
+
+			if (!content) {
 				return {
-					error: { type: SyncBlockError.NotFound, reason: blockContentResponse.deletionReason },
+					error: { type: SyncBlockError.NotFound, reason: deletionReason, sourceAri },
 					resourceId,
 				};
 			}
 
 			// Parse the synced block content from the response's content
-			const syncedBlockData = JSON.parse(value) as Array<ADFEntity>;
+			const syncedBlockData = JSON.parse(content) as Array<ADFEntity>;
 
 			return {
 				data: {
 					content: syncedBlockData,
 					resourceId: blockAri,
-					blockInstanceId: blockContentResponse.blockInstanceId, // this was the node's localId, but has become the resourceId.
-					contentUpdatedAt: convertContentUpdatedAt(blockContentResponse.contentUpdatedAt),
-					sourceAri: blockContentResponse.sourceAri,
-					product: blockContentResponse.product,
-					status: blockContentResponse.status,
-					deletionReason: blockContentResponse.deletionReason,
+					blockInstanceId: blockInstanceId, // this was the node's localId, but has become the resourceId.
+					contentUpdatedAt: convertContentUpdatedAt(contentUpdatedAt),
+					sourceAri: sourceAri,
+					product: product,
+					status: status,
+					deletionReason: deletionReason,
 				},
 				resourceId,
 			};
@@ -354,28 +362,41 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 
 					processedResourceIds.add(resourceId);
 
-					const value = blockContentResponse.content;
-					if (!value) {
+					const {
+						content,
+						deletionReason,
+						sourceAri,
+						blockAri,
+						contentUpdatedAt,
+						blockInstanceId,
+						product,
+						status,
+					} = blockContentResponse;
+					if (!content) {
 						results.push({
-							error: { type: SyncBlockError.NotFound, reason: blockContentResponse.deletionReason },
+							error: {
+								type: SyncBlockError.NotFound,
+								reason: deletionReason,
+								sourceAri,
+							},
 							resourceId,
 						});
 						continue;
 					}
 
 					try {
-						const syncedBlockData = JSON.parse(value) as Array<ADFEntity>;
+						const syncedBlockData = JSON.parse(content) as Array<ADFEntity>;
 
 						results.push({
 							data: {
 								content: syncedBlockData,
-								resourceId: blockContentResponse.blockAri,
-								contentUpdatedAt: convertContentUpdatedAt(blockContentResponse.contentUpdatedAt),
-								blockInstanceId: blockContentResponse.blockInstanceId,
-								sourceAri: blockContentResponse.sourceAri,
-								product: blockContentResponse.product,
-								status: blockContentResponse.status,
-								deletionReason: blockContentResponse.deletionReason,
+								resourceId: blockAri,
+								contentUpdatedAt: convertContentUpdatedAt(contentUpdatedAt),
+								blockInstanceId: blockInstanceId,
+								sourceAri: sourceAri,
+								product: product,
+								status: status,
+								deletionReason: deletionReason,
 							},
 							resourceId,
 						});
@@ -467,6 +488,7 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 interface BlockServiceADFWriteProviderProps {
 	cloudId: string; // the cloudId of the block. E.G the cloudId of the confluence page, or the cloudId of the Jira instance
 	getVersion?: () => number | undefined; // get the version of the block. E.G the version of the confluence page, or the version of the Jira work item
+	isParentUnpublished?: () => boolean; // function to check if the parent is unpublished
 	parentAri: string | undefined; // the ARI of the parent of the block. E.G the ARI of the confluence page, or the ARI of the Jira work item
 	parentId?: string; // the parentId of the block. E.G the pageId for a confluence page, or the issueId for a Jira work item
 	product: SyncBlockProduct; // the product of the block. E.G 'confluence-page', 'jira-work-item'
@@ -479,6 +501,7 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 	private cloudId: string;
 	private parentId?: string;
 	private getVersion?: () => number | undefined;
+	private isParentUnpublished?: () => boolean;
 
 	product: SyncBlockProduct;
 	parentAri: string | undefined;
@@ -489,12 +512,14 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 		parentId,
 		product,
 		getVersion,
+		isParentUnpublished,
 	}: BlockServiceADFWriteProviderProps) {
 		this.cloudId = cloudId;
 		this.parentAri = parentAri;
 		this.parentId = parentId;
 		this.product = product;
 		this.getVersion = getVersion;
+		this.isParentUnpublished = isParentUnpublished;
 	}
 
 	// it will first try to update and if it can't (404) then it will try to create
@@ -535,6 +560,11 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 			resourceId,
 		});
 		const stepVersion = this.getVersion ? this.getVersion() : undefined;
+		const status = fg('platform_synced_block_dogfooding')
+			? this.isParentUnpublished?.()
+				? 'unpublished'
+				: data.status || 'active'
+			: undefined;
 
 		try {
 			await createSyncedBlock({
@@ -544,6 +574,7 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 				product: this.product,
 				content: JSON.stringify(data.content),
 				stepVersion,
+				status,
 			});
 
 			return { resourceId };
@@ -626,6 +657,7 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 interface BlockServiceAPIProvidersProps {
 	cloudId: string; // the cloudId of the block. E.G the cloudId of the confluence page, or the cloudId of the Jira instance
 	getVersion?: () => number | undefined; // get the version of the block. E.G the version of the confluence page, or the version of the Jira work item
+	isParentUnpublished?: () => boolean; // function to check if the parent is unpublished
 	parentAri: string | undefined; // the ARI of the parent of the block. E.G the ARI of the confluence page, or the ARI of the Jira work item
 	parentId?: string; // the parentId of the block. E.G the pageId for a confluence page, or the issueId for a Jira work item
 	product: SyncBlockProduct; // the product of the block. E.G 'confluence-page', 'jira-work-item'
@@ -637,6 +669,7 @@ const createBlockServiceAPIProviders = ({
 	parentId,
 	product,
 	getVersion,
+	isParentUnpublished,
 }: BlockServiceAPIProvidersProps): {
 	fetchProvider: BlockServiceADFFetchProvider;
 	writeProvider: BlockServiceADFWriteProvider;
@@ -652,6 +685,7 @@ const createBlockServiceAPIProviders = ({
 			parentId,
 			product,
 			getVersion,
+			isParentUnpublished,
 		}),
 	};
 };
@@ -662,13 +696,21 @@ export const useMemoizedBlockServiceAPIProviders = ({
 	parentId,
 	product,
 	getVersion,
+	isParentUnpublished,
 }: BlockServiceAPIProvidersProps): {
 	fetchProvider: BlockServiceADFFetchProvider;
 	writeProvider: BlockServiceADFWriteProvider;
 } => {
 	return useMemo(() => {
-		return createBlockServiceAPIProviders({ cloudId, parentAri, parentId, product, getVersion });
-	}, [cloudId, parentAri, parentId, product, getVersion]);
+		return createBlockServiceAPIProviders({
+			cloudId,
+			parentAri,
+			parentId,
+			product,
+			getVersion,
+			isParentUnpublished,
+		});
+	}, [cloudId, parentAri, parentId, product, getVersion, isParentUnpublished]);
 };
 
 interface BlockServiceFetchOnlyAPIProviderProps {

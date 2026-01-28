@@ -1,5 +1,46 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 5.3.8
+
+### Patch Changes
+
+- [`f11ff647ea458`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f11ff647ea458) -
+  [ux] [EDITOR-4521] Implement source deleted reference UI, update block deleted/unsynced reference
+  UI to add delete button, unsynced label and source title/url
+- Updated dependencies
+
+## 5.3.7
+
+### Patch Changes
+
+- [`dac15aa628811`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dac15aa628811) -
+  [ux] fix wrapped media/embed link is displayed out of border in synced block
+- [`aa5302b457078`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa5302b457078) -
+  [ux] EDITOR-4763 Ensure initial source sync block data are always registered
+- Updated dependencies
+
+## 5.3.6
+
+### Patch Changes
+
+- [`e2542bcabe129`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2542bcabe129) -
+  [ux] EDITOR-4753 fix sync block label styles and border styles when it is in error state
+
+## 5.3.5
+
+### Patch Changes
+
+- [`81230b670d02c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81230b670d02c) -
+  ED-29744 camel case experience attributes
+- [`7702ea47c5329`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7702ea47c5329) -
+  [ux] Show editor flag when unpublished sync block is pasted
+- [`515026ad93e46`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/515026ad93e46) -
+  [ux] EDITOR-4772 fix synced block label tooltip not showing
+- [`acc0b8da50cdc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/acc0b8da50cdc) -
+  [ux] EDITOR-4708 fix sync block step tracking to consider doc at that step rather than previous
+  doc step
+- Updated dependencies
+
 ## 5.3.4
 
 ### Patch Changes

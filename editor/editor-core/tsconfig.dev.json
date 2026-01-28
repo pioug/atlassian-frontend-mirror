@@ -3,6 +3,7 @@
 	"include": [
 		"**/docs/**/*",
 		"**/__tests__/**/*",
+		"**/__tests__/**/*.json",
 		"**/vr-tests/**/*",
 		"**/__perf__/**/*",
 		"**/*.test.*",
@@ -24,7 +25,9 @@
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx",
 		"./example-helpers/**/*",
-		"./src/plugins/media/nodeviews/__mocks__/**/*"
+		"./example-helpers/**/*.json",
+		"./src/plugins/media/nodeviews/__mocks__/**/*",
+		"./package.json"
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {

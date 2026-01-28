@@ -13,6 +13,7 @@
 		"**/examples/*.tsx",
 		"**/examples/**/*.ts",
 		"**/examples/**/*.tsx",
+		"**/examples/**/*.json",
 		"**/storybook/**/*",
 		"**/constellation/**/*",
 		".storybook/*",

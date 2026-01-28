@@ -156,8 +156,7 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
 
 	if (
-		isToolbarAIFCEnabled &&
-		expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true)
+		isToolbarAIFCEnabled
 	) {
 		api?.toolbar?.actions.registerComponents(getTasksAndDecisionsToolbarComponents({ api }));
 	}

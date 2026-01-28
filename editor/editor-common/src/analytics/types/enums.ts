@@ -119,6 +119,7 @@ export enum ACTION {
 	SYNCED_BLOCK_CREATE = 'syncedBlockCreate',
 	SYNCED_BLOCK_UPDATE = 'syncedBlockUpdate',
 	SYNCED_BLOCK_FETCH = 'syncedBlockFetch',
+	SYNCED_BLOCK_FETCH_REFERENCES = 'syncedBlockFetchReferences',
 	SYNCED_BLOCK_DELETE = 'syncedBlockDelete',
 	SYNCED_BLOCK_GET_SOURCE_INFO = 'syncedBlockGetSourceInfo',
 	SYNCHRONY_DISCONNECTED = 'synchronyDisconnected',

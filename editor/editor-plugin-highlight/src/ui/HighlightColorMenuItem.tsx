@@ -14,7 +14,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
 import {
 	REMOVE_HIGHLIGHT_COLOR,
-	highlightColorPaletteNext,
+	highlightColorPalette,
 } from '@atlaskit/editor-common/ui-color';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
@@ -94,7 +94,7 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 
 	const colorPalette: PaletteColor[] = useMemo(() => {
 		const isSelected = (color: PaletteColor) => color.value === activeColor;
-		return highlightColorPaletteNext
+		return highlightColorPalette
 			.filter((color) => color.value !== REMOVE_HIGHLIGHT_COLOR)
 			.map((color) => ({
 				...color,

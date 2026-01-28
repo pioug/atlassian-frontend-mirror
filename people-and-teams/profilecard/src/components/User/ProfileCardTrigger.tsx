@@ -2,14 +2,10 @@ import React, { Suspense, useCallback, useEffect, useMemo, useRef, useState } fr
 
 import { useIntl } from 'react-intl-next';
 
-import { type AnalyticsEventPayload, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
-import {
-	type FireEventType,
-	useAnalyticsEvents as useAnalyticsEventsNext,
-} from '@atlaskit/teams-app-internal-analytics';
+import { type FireEventType, useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
 import { layers } from '@atlaskit/theme/constants';
 
 import filterActionsInner from '../../internal/filterActions';
@@ -27,7 +23,7 @@ import {
 	type TeamCentralReportingLinesData,
 	type TriggerType,
 } from '../../types';
-import { cardTriggered, fireEvent, PACKAGE_META_DATA } from '../../util/analytics';
+import { PACKAGE_META_DATA } from '../../util/analytics';
 import { DELAY_MS_HIDE, DELAY_MS_SHOW } from '../../util/config';
 import { getPageTime } from '../../util/performance';
 import { AgentProfileCardResourced } from '../Agent/AgentProfileCardResourced';
@@ -48,6 +44,7 @@ function ProfileCardContent({
 	agentActions,
 	addFlag,
 	hideAgentMoreActions,
+	hideAiDisclaimer,
 }: {
 	profilecardProps: ProfilecardProps;
 	userId: string;
@@ -63,6 +60,7 @@ function ProfileCardContent({
 	agentActions?: AgentActionsType;
 	addFlag?: (flag: Flag) => void;
 	hideAgentMoreActions?: boolean;
+	hideAiDisclaimer?: boolean;
 }) {
 	if (isAgent) {
 		return (
@@ -75,6 +73,7 @@ function ProfileCardContent({
 				onConversationStartersClick={agentActions?.onConversationStartersClick}
 				addFlag={addFlag}
 				hideMoreActions={fg('jira_ai_profilecard_hide_agent_actions') && !!hideAgentMoreActions}
+				hideAiDisclaimer={hideAiDisclaimer}
 			/>
 		);
 	} else {
@@ -113,13 +112,13 @@ export default function ProfilecardTriggerNext({
 	product,
 	agentActions,
 	hideAgentMoreActions,
+	hideAiDisclaimer,
 	ariaHideProfileTrigger = false,
 	isVisible: propsIsVisible,
 	ssrPlaceholderId,
 	showDelay: customShowDelay,
 	hideDelay: customHideDelay,
 }: ProfileCardTriggerProps): React.JSX.Element {
-	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { formatMessage } = useIntl();
 
 	const isMounted = useRef(false);
@@ -150,7 +149,7 @@ export default function ProfilecardTriggerNext({
 	const [kudosDrawerOpen, setKudosDrawerOpen] = useState(false);
 	const [isTriggeredUsingKeyboard, setTriggeredUsingKeyboard] = useState(false);
 	const triggerRef = useRef<HTMLElement | null>(null);
-	const { fireEvent: fireEventNext } = useAnalyticsEventsNext();
+	const { fireEvent } = useAnalyticsEvents();
 
 	useEffect(() => {
 		isMounted.current = true;
@@ -172,27 +171,14 @@ export default function ProfilecardTriggerNext({
 		setTeamCentralBaseUrl(undefined);
 	}, [userId]);
 
-	// Create a wrapper function that has the same interface as fireEventNext but includes isMounted check
-	const fireAnalyticsNext: FireEventType = useCallback(
+	const fireAnalytics: FireEventType = useCallback(
 		(eventKey, ...attributes) => {
 			if (!isMounted.current) {
 				return;
 			}
-			fireEventNext(eventKey, ...attributes);
+			fireEvent(eventKey, ...attributes);
 		},
-		[fireEventNext],
-	);
-
-	const fireAnalytics = useCallback(
-		(payload: AnalyticsEventPayload) => {
-			// Don't fire any analytics if the component is unmounted
-			if (!isMounted.current) {
-				return;
-			}
-
-			fireEvent(createAnalyticsEvent, payload);
-		},
-		[createAnalyticsEvent],
+		[fireEvent],
 	);
 
 	const hideProfilecard = useCallback(() => {
@@ -268,7 +254,7 @@ export default function ProfilecardTriggerNext({
 
 		try {
 			const requests = Promise.all([
-				resourceClient.getProfile(cloudId || '', userId, fireAnalytics, fireAnalyticsNext),
+				resourceClient.getProfile(cloudId || '', userId, fireAnalytics),
 				resourceClient.getReportingLines(userId),
 				resourceClient.shouldShowGiveKudos(),
 				resourceClient.getTeamCentralBaseUrl({
@@ -285,7 +271,6 @@ export default function ProfilecardTriggerNext({
 	}, [
 		cloudId,
 		fireAnalytics,
-		fireAnalyticsNext,
 		isLoading,
 		resourceClient,
 		userId,
@@ -315,35 +300,27 @@ export default function ProfilecardTriggerNext({
 			showProfilecard();
 
 			if (!visible) {
-				if (fg('ptc-enable-profile-card-analytics-refactor')) {
-					fireAnalyticsNext('ui.profilecard.triggered', {
-						method: 'click',
-						firedAt: Math.round(getPageTime()),
-						...PACKAGE_META_DATA,
-					});
-				} else {
-					fireAnalytics(cardTriggered('user', 'click'));
-				}
+				fireAnalytics('ui.profilecard.triggered', {
+					method: 'click',
+					firedAt: Math.round(getPageTime()),
+					...PACKAGE_META_DATA,
+				});
 			}
 		},
-		[fireAnalytics, fireAnalyticsNext, showProfilecard, visible],
+		[fireAnalytics, showProfilecard, visible],
 	);
 
 	const onMouseEnter = useCallback(() => {
 		showProfilecard();
 
 		if (!visible) {
-			if (fg('ptc-enable-profile-card-analytics-refactor')) {
-				fireAnalyticsNext('ui.profilecard.triggered', {
-					method: 'hover',
-					firedAt: Math.round(getPageTime()),
-					...PACKAGE_META_DATA,
-				});
-			} else {
-				fireAnalytics(cardTriggered('user', 'hover'));
-			}
+			fireAnalytics('ui.profilecard.triggered', {
+				method: 'hover',
+				firedAt: Math.round(getPageTime()),
+				...PACKAGE_META_DATA,
+			});
 		}
-	}, [fireAnalytics, fireAnalyticsNext, showProfilecard, visible]);
+	}, [fireAnalytics, showProfilecard, visible]);
 
 	const onKeyPress = useCallback(
 		(event: React.KeyboardEvent) => {
@@ -352,19 +329,15 @@ export default function ProfilecardTriggerNext({
 				setTriggeredUsingKeyboard(true);
 				showProfilecard();
 				if (!visible) {
-					if (fg('ptc-enable-profile-card-analytics-refactor')) {
-						fireAnalyticsNext('ui.profilecard.triggered', {
-							method: 'click',
-							firedAt: Math.round(getPageTime()),
-							...PACKAGE_META_DATA,
-						});
-					} else {
-						fireAnalytics(cardTriggered('user', 'click'));
-					}
+					fireAnalytics('ui.profilecard.triggered', {
+						method: 'click',
+						firedAt: Math.round(getPageTime()),
+						...PACKAGE_META_DATA,
+					});
 				}
 			}
 		},
-		[fireAnalytics, fireAnalyticsNext, showProfilecard, visible],
+		[fireAnalytics, showProfilecard, visible],
 	);
 
 	const onFocus = useCallback(() => {
@@ -461,7 +434,7 @@ export default function ProfilecardTriggerNext({
 				content={() => (
 					<div {...wrapperProps}>
 						{showLoading ? (
-							<LoadingView fireAnalytics={fireAnalytics} fireAnalyticsNext={fireAnalyticsNext} />
+							<LoadingView fireAnalytics={fireAnalytics} />
 						) : (
 							visible && (
 								<ProfileCardContent
@@ -479,6 +452,7 @@ export default function ProfilecardTriggerNext({
 									agentActions={agentActions}
 									addFlag={addFlag}
 									hideAgentMoreActions={hideAgentMoreActions}
+									hideAiDisclaimer={hideAiDisclaimer}
 								/>
 							)
 						)}
@@ -543,14 +517,8 @@ export default function ProfilecardTriggerNext({
 		</>
 	);
 }
-const LoadingView = ({
-	fireAnalytics,
-	fireAnalyticsNext,
-}: {
-	fireAnalytics: (payload: AnalyticsEventPayload) => void;
-	fireAnalyticsNext: FireEventType;
-}) => (
+const LoadingView = ({ fireAnalytics }: { fireAnalytics: FireEventType }) => (
 	<CardWrapper testId="profilecard.profilecardtrigger.loading">
-		<UserLoadingState fireAnalytics={fireAnalytics} fireAnalyticsNext={fireAnalyticsNext} />
+		<UserLoadingState fireAnalytics={fireAnalytics} />
 	</CardWrapper>
 );

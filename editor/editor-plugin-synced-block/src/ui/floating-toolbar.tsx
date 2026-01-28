@@ -81,7 +81,10 @@ export const getToolbarConfig = (
 			testId: fg('platform_synced_block_dogfooding')
 				? SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarReferenceDelete
 				: undefined,
-			...hoverDecorationProps(nodeType, akEditorSelectedNodeClassName),
+			...hoverDecorationProps(
+				nodeType,
+				fg('platform_synced_block_dogfooding') ? undefined : akEditorSelectedNodeClassName,
+			),
 		};
 
 		items.push(deleteButton);

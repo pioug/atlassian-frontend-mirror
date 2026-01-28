@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-panel
 
+## 9.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.6
+
+### Patch Changes
+
+- [`5c3f8d87c2290`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c3f8d87c2290) -
+  Cleanup general AIFC bug fix feature gate
+- Updated dependencies
+
 ## 9.0.5
 
 ### Patch Changes

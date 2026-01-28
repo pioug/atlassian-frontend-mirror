@@ -1,5 +1,39 @@
 # @atlaskit/icon-lab
 
+## 5.15.0
+
+### Minor Changes
+
+- [`88301765253b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88301765253b1) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+  - `ai-bot`
+  - `ai-compute`
+  - `ai-search`
+  - `diagram-architecture-map`
+  - `diagram-object-boundary`
+  - `diagram-object-entity`
+  - `flower`
+  - `survey`
+
+- [`88301765253b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88301765253b1) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+  - `ai-bot`
+  - `ai-compute`
+  - `ai-search`
+  - `diagram-architecture-map`
+  - `diagram-object-boundary`
+  - `diagram-object-entity`
+  - `flower`
+  - `survey`
+
 ## 5.14.1
 
 ### Patch Changes

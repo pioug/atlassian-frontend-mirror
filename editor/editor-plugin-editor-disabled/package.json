@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-editor-disabled",
-	"version": "7.0.1",
+	"version": "7.0.2",
 	"description": "Editor disabled plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -20,11 +20,6 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts"
-	},
-	"platform-feature-flags": {
-		"platform_editor_ai_generic_prep_for_aifc_2": {
-			"type": "boolean"
-		}
 	},
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "workspace:^",

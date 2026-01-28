@@ -2,10 +2,11 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
-import { type AnalyticsEventPayload, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { cssMap } from '@atlaskit/css';
+import InformationCircleIcon from '@atlaskit/icon/core/information-circle';
+import Link from '@atlaskit/link';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Box, Flex, Stack, Text } from '@atlaskit/primitives/compiled';
 import {
 	AgentAvatar,
 	AgentBanner,
@@ -18,7 +19,7 @@ import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-ap
 import { token } from '@atlaskit/tokens';
 
 import { type AgentProfileCardProps } from '../../types';
-import { fireEvent, PACKAGE_META_DATA, profileCardRendered } from '../../util/analytics';
+import { PACKAGE_META_DATA } from '../../util/analytics';
 import { getPageTime } from '../../util/performance';
 import { LoadingState } from '../common/LoadingState';
 import { ErrorMessage } from '../Error';
@@ -50,6 +51,15 @@ const styles = cssMap({
 	conversationStartersWrapper: {
 		paddingInline: token('space.150'),
 	},
+	disclosureWrapperRefresh: {
+		paddingBlockStart: token('space.150'),
+		paddingBlockEnd: token('space.150'),
+		paddingInline: token('space.200'),
+		gap: token('space.050'),
+	},
+	disclosureWrapper: {
+		paddingBlockEnd: token('space.150'),
+	},
 });
 
 const AgentProfileCard = ({
@@ -64,6 +74,7 @@ const AgentProfileCard = ({
 	addFlag,
 	onDeleteAgent,
 	hideMoreActions,
+	hideAiDisclaimer = false,
 }: AgentProfileCardProps): React.JSX.Element => {
 	const {
 		onEditAgent,
@@ -80,7 +91,7 @@ const AgentProfileCard = ({
 	const [isStarred, setIsStarred] = useState(false);
 	const [starCount, setStarCount] = useState<number | undefined>();
 	const { formatMessage } = useIntl();
-	const { fireEvent: fireAnalyticsNext } = useAnalyticsEventsNext();
+	const { fireEvent } = useAnalyticsEventsNext();
 
 	const userDefinedConversationStarters: ConversationStarter[] | undefined =
 		agent?.user_defined_conversation_starters?.map((starter) => {
@@ -95,25 +106,10 @@ const AgentProfileCard = ({
 		setStarCount(agent?.favourite_count);
 	}, [agent?.favourite, agent?.favourite_count]);
 
-	const { createAnalyticsEvent } = useAnalyticsEvents();
-
-	const fireAnalytics = useCallback(
-		(payload: AnalyticsEventPayload) => {
-			if (createAnalyticsEvent) {
-				fireEvent(createAnalyticsEvent, payload);
-			}
-		},
-		[createAnalyticsEvent],
-	);
 	const handleSetFavourite = useCallback(async () => {
 		if (agent?.id) {
 			try {
-				await resourceClient.setFavouriteAgent(
-					agent.id,
-					!isStarred,
-					fireAnalytics,
-					fireAnalyticsNext,
-				);
+				await resourceClient.setFavouriteAgent(agent.id, !isStarred, fireEvent);
 				if (isStarred) {
 					setStarCount(starCount ? starCount - 1 : 0);
 				} else {
@@ -122,7 +118,7 @@ const AgentProfileCard = ({
 				setIsStarred(!isStarred);
 			} catch {}
 		}
-	}, [agent?.id, fireAnalytics, fireAnalyticsNext, isStarred, resourceClient, starCount]);
+	}, [agent?.id, fireEvent, isStarred, resourceClient, starCount]);
 
 	const handleOnDelete = useCallback(async () => {
 		if (agent && onDeleteAgent) {
@@ -130,7 +126,7 @@ const AgentProfileCard = ({
 			const { restore } = onDeleteAgent(agent.id);
 
 			try {
-				await resourceClient.deleteAgent(agent.id, fireAnalytics, fireAnalyticsNext);
+				await resourceClient.deleteAgent(agent.id, fireEvent);
 
 				addFlag?.({
 					title: formatMessage(messages.agentDeletedSuccessFlagTitle),
@@ -152,37 +148,21 @@ const AgentProfileCard = ({
 				});
 			}
 		}
-	}, [
-		addFlag,
-		agent,
-		formatMessage,
-		onDeleteAgent,
-		resourceClient,
-		fireAnalytics,
-		fireAnalyticsNext,
-	]);
+	}, [addFlag, agent, formatMessage, onDeleteAgent, resourceClient, fireEvent]);
 
 	useEffect(() => {
 		if (!isLoading && agent) {
-			if (fg('ptc-enable-profile-card-analytics-refactor')) {
-				fireAnalyticsNext(`ui.rovoAgentProfilecard.rendered.content`, {
-					...PACKAGE_META_DATA,
-					firedAt: Math.round(getPageTime()),
-				});
-			} else {
-				fireAnalytics(profileCardRendered('agent', 'content'));
-			}
+			fireEvent(`ui.rovoAgentProfilecard.rendered.content`, {
+				...PACKAGE_META_DATA,
+				firedAt: Math.round(getPageTime()),
+			});
 		}
-	}, [agent, fireAnalytics, isLoading, fireAnalyticsNext]);
+	}, [agent, fireEvent, isLoading]);
 
 	if (isLoading) {
 		return (
 			<AgentProfileCardWrapper>
-				<LoadingState
-					profileType="agent"
-					fireAnalytics={fireAnalytics}
-					fireAnalyticsNext={fireAnalyticsNext}
-				/>
+				<LoadingState profileType="agent" fireAnalytics={fireEvent} />
 			</AgentProfileCardWrapper>
 		);
 	}
@@ -190,11 +170,7 @@ const AgentProfileCard = ({
 	if (hasError || !agent) {
 		return (
 			<AgentProfileCardWrapper>
-				<ErrorMessage
-					fireAnalyticsNext={fireAnalyticsNext}
-					errorType={errorType}
-					fireAnalytics={fireAnalytics}
-				/>
+				<ErrorMessage errorType={errorType} fireAnalytics={fireEvent} />
 			</AgentProfileCardWrapper>
 		);
 	}
@@ -259,6 +235,31 @@ const AgentProfileCard = ({
 							agentDescription={agent.description}
 						/>
 					</Box>
+					{!hideAiDisclaimer && fg('rovo_display_ai_disclaimer_on_agent_profile_card') && (
+						<Flex
+							alignItems="start"
+							direction="column"
+							gap="space.050"
+							xcss={
+								fg('rovo_agent_empty_state_refresh')
+									? styles.disclosureWrapperRefresh
+									: styles.disclosureWrapper
+							}
+						>
+							<Link
+								href="https://www.atlassian.com/trust/atlassian-intelligence"
+								target="_blank"
+								rel="noopener noreferrer"
+								appearance="subtle"
+							>
+								<InformationCircleIcon color={token('color.icon.subtlest')} label="" size="small" />
+								{` `}
+								<Text size="small" color="color.text.subtlest">
+									{formatMessage(messages.aiDisclaimer)}
+								</Text>
+							</Link>
+						</Flex>
+					)}
 					{!(isRovoDev && fg('rovo_dev_themed_identity_card')) && (
 						<Box
 							xcss={

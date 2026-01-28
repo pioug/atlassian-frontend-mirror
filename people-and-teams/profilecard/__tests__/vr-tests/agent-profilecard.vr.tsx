@@ -7,3 +7,11 @@ snapshot(AgentProfileCardExample, {
 		rovo_agent_empty_state_refresh: [true, false],
 	},
 });
+
+snapshot(AgentProfileCardExample, {
+	description: 'Agent profile card with AI disclaimer',
+	featureFlags: {
+		rovo_agent_empty_state_refresh: [true, false],
+		rovo_display_ai_disclaimer_on_agent_profile_card: [true],
+	},
+});

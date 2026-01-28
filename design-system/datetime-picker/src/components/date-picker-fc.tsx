@@ -639,7 +639,7 @@ const DatePicker: React.ForwardRefExoticComponent<
 				<Box
 					xcss={cx(
 						styles.iconContainerStyles,
-						value && !hideIcon
+						getterValue && !hideIcon
 							? styles.iconSpacingWithClearButtonStyles
 							: styles.iconSpacingWithoutClearButtonStyles,
 					)}

@@ -1,6 +1,5 @@
 import React, { Suspense, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { type AnalyticsEventPayload, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
@@ -13,7 +12,6 @@ import {
 	type RovoAgentProfileCardInfo,
 	type TriggerType,
 } from '../../types';
-import { fireEvent } from '../../util/analytics';
 import { getAAIDFromARI } from '../../util/rovoAgentUtils';
 import ErrorMessage from '../Error/ErrorMessage';
 
@@ -30,6 +28,8 @@ export type AgentProfileCardResourcedProps = {
 	onDeleteAgent?: (agentId: string) => { restore: () => void };
 	/** Hide the Agent more actions dropdown when true */
 	hideMoreActions?: boolean;
+	/** Hide the AI disclaimer. Defaults to false (disclaimer is shown by default). */
+	hideAiDisclaimer?: boolean;
 } & AgentActionsType;
 
 export const AgentProfileCardResourced = (
@@ -39,17 +39,7 @@ export const AgentProfileCardResourced = (
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [error, setError] = useState();
 
-	const { createAnalyticsEvent } = useAnalyticsEvents();
-	const { fireEvent: fireEventNext } = useAnalyticsEventsNext();
-	const fireAnalytics = useCallback(
-		(payload: AnalyticsEventPayload) => {
-			if (createAnalyticsEvent) {
-				fireEvent(createAnalyticsEvent, payload);
-			}
-		},
-		[createAnalyticsEvent],
-	);
-
+	const { fireEvent } = useAnalyticsEventsNext();
 	const creatorUserId = useMemo(
 		() =>
 			agentData?.creator_type === 'CUSTOMER' && agentData.creator
@@ -106,8 +96,7 @@ export const AgentProfileCardResourced = (
 						const creatorInfo = await props.resourceClient.getProfile(
 							props.cloudId,
 							creatorUserId,
-							fireAnalytics,
-							fireEventNext,
+							fireEvent,
 						);
 
 						return {
@@ -118,7 +107,7 @@ export const AgentProfileCardResourced = (
 								: `/people/${creatorUserId}`,
 							id: creatorUserId,
 						};
-					} catch (error) {
+					} catch {
 						return undefined;
 					}
 
@@ -126,7 +115,7 @@ export const AgentProfileCardResourced = (
 					return undefined;
 			}
 		},
-		[creatorUserId, fireAnalytics, fireEventNext, props.cloudId, props.resourceClient, profileHref],
+		[creatorUserId, fireEvent, props.cloudId, props.resourceClient, profileHref],
 	);
 
 	const fetchData = useCallback(async () => {
@@ -134,8 +123,7 @@ export const AgentProfileCardResourced = (
 		try {
 			const profileResult = await props.resourceClient.getRovoAgentProfile(
 				{ type: 'identity', value: props.accountId },
-				fireAnalytics,
-				fireEventNext,
+				fireEvent,
 			);
 
 			const profileData = profileResult.restData;
@@ -153,7 +141,7 @@ export const AgentProfileCardResourced = (
 		} finally {
 			setIsLoading(false);
 		}
-	}, [fireAnalytics, fireEventNext, getCreator, props.accountId, props.resourceClient]);
+	}, [fireEvent, getCreator, props.accountId, props.resourceClient]);
 
 	useEffect(() => {
 		fetchData();
@@ -167,8 +155,7 @@ export const AgentProfileCardResourced = (
 						fetchData();
 					}}
 					errorType={error || null}
-					fireAnalytics={() => {}}
-					fireAnalyticsNext={fireEventNext}
+					fireAnalytics={fireEvent}
 				/>
 			</AgentProfileCardWrapper>
 		);
@@ -187,6 +174,7 @@ export const AgentProfileCardResourced = (
 				cloudId={props.cloudId}
 				onDeleteAgent={props.onDeleteAgent}
 				hideMoreActions={props.hideMoreActions}
+				hideAiDisclaimer={props.hideAiDisclaimer}
 			/>
 		</Suspense>
 	);

@@ -1,3 +1,4 @@
+import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
 import {
@@ -72,6 +73,25 @@ export const createPlugin = (
 	const confirmationTransactionRef: ConfirmationTransactionRef = { current: undefined };
 	// Track if a copy event occurred to distinguish copy from drag and drop
 	let isCopyEvent: boolean = false;
+	// Track which sync blocks have already triggered the unpublished flag
+	const unpublishedFlagShown = new Set<string>();
+
+	// Set up callback to detect unpublished sync blocks when they're fetched
+	fg('platform_synced_block_dogfooding') &&
+		syncBlockStore.referenceManager.setOnUnpublishedSyncBlockDetected((resourceId: string) => {
+			// Only show the flag once per sync block
+			if (!unpublishedFlagShown.has(resourceId)) {
+				unpublishedFlagShown.add(resourceId);
+				// Use setTimeout to dispatch transaction in next tick and avoid re-entrant dispatch
+				setTimeout(() => {
+					api?.core.actions.execute(({ tr }) => {
+						return tr.setMeta(syncedBlockPluginKey, {
+							activeFlag: { id: FLAG_ID.UNPUBLISHED_SYNC_BLOCK_PASTED },
+						});
+					});
+				}, 0);
+			}
+		});
 
 	return new SafePlugin<SyncedBlockPluginState>({
 		key: syncedBlockPluginKey,
@@ -239,6 +259,18 @@ export const createPlugin = (
 		filterTransaction: (tr, state) => {
 			const isOffline = isOfflineMode(api?.connectivity?.sharedState.currentState()?.mode);
 			const isConfirmedSyncBlockDeletion = Boolean(tr.getMeta('isConfirmedSyncBlockDeletion'));
+
+			// Track newly added reference sync blocks before processing the transaction
+			if (tr.docChanged && !tr.getMeta('isRemote') && fg('platform_synced_block_dogfooding')) {
+				const { added } = trackSyncBlocks((node) => node.type.name === 'syncBlock', tr, state);
+				// Mark newly added sync blocks so we can detect unpublished status when data is fetched
+				added.forEach((nodeInfo) => {
+					if (nodeInfo.attrs?.resourceId) {
+						syncBlockStore.referenceManager.markAsNewlyAdded(nodeInfo.attrs.resourceId);
+					}
+				});
+			}
+
 			// Ignore transactions that don't change the document
 			// or are from remote (collab) or already confirmed sync block deletion
 			// We only care about local changes that change the document
@@ -261,6 +293,40 @@ export const createPlugin = (
 			);
 
 			if (!isOffline) {
+				if (fg('platform_synced_block_dogfooding')) {
+					const { removed: syncBlockRemoved, added: syncBlockAdded } = trackSyncBlocks(
+						(node) => node.type.name === 'syncBlock',
+						tr,
+						state,
+					);
+
+					syncBlockRemoved.forEach((syncBlock) => {
+						api?.analytics?.actions?.fireAnalyticsEvent({
+							action: ACTION.DELETED,
+							actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+							actionSubjectId: ACTION_SUBJECT_ID.REFERENCE_SYNCED_BLOCK_DELETE,
+							attributes: {
+								resourceId: syncBlock.attrs.resourceId,
+								blockInstanceId: syncBlock.attrs.localId,
+							},
+							eventType: EVENT_TYPE.OPERATIONAL,
+						});
+					})
+
+					syncBlockAdded.forEach((syncBlock) => {
+						api?.analytics?.actions?.fireAnalyticsEvent({
+							action: ACTION.INSERTED,
+							actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+							actionSubjectId: ACTION_SUBJECT_ID.REFERENCE_SYNCED_BLOCK_CREATE,
+							attributes: {
+								resourceId: syncBlock.attrs.resourceId,
+								blockInstanceId: syncBlock.attrs.localId,
+							},
+							eventType: EVENT_TYPE.OPERATIONAL,
+						});
+					});
+				};
+
 				if (bodiedSyncBlockRemoved.length > 0) {
 					confirmationTransactionRef.current = tr;
 					return handleBodiedSyncBlockRemoval(

@@ -1,6 +1,10 @@
 import { bind } from 'bind-event-listener';
 
-import { ACTION, ACTION_SUBJECT_ID, type DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import {
+	ACTION,
+	ACTION_SUBJECT_ID,
+	type DispatchAnalyticsEvent,
+} from '@atlaskit/editor-common/analytics';
 import {
 	Experience,
 	EXPERIENCE_ID,
@@ -23,16 +27,18 @@ const SYNCED_BLOCK_BUTTON_TEST_IDS = Object.values(SYNCED_BLOCK_BUTTON_TEST_ID);
 
 type SyncedBlockButtonId = (typeof SYNCED_BLOCK_BUTTON_TEST_IDS)[number];
 
-const syncedBlockButtonIds = new Set<SyncedBlockButtonId>(
-	SYNCED_BLOCK_BUTTON_TEST_IDS,
-);
+const syncedBlockButtonIds = new Set<SyncedBlockButtonId>(SYNCED_BLOCK_BUTTON_TEST_IDS);
 
 let targetEl: HTMLElement | undefined;
 
 type ExperienceOptions = {
-	dispatchAnalyticsEvent: DispatchAnalyticsEvent,
-	refs: { containerElement?: HTMLElement, popupsMountPoint?: HTMLElement, wrapperElement?: HTMLElement };
-}
+	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
+	refs: {
+		containerElement?: HTMLElement;
+		popupsMountPoint?: HTMLElement;
+		wrapperElement?: HTMLElement;
+	};
+};
 
 export const getMenuAndToolbarExperiencesPlugin = ({
 	refs,
@@ -51,10 +57,22 @@ export const getMenuAndToolbarExperiencesPlugin = ({
 		return popupsTargetEl;
 	};
 
-	const createSourcePrimaryToolbarExperience = getCreateSourcePrimaryToolbarExperience({ refs, dispatchAnalyticsEvent });
-	const createSourceBlockMenuExperience = getCreateSourceBlockMenuExperience({ refs, dispatchAnalyticsEvent });
-	const createSourceQuickInsertMenuExperience = getCreateSourceQuickInsertMenuExperience({ refs, dispatchAnalyticsEvent });
-	const deleteReferenceSyncedBlockExperience = getDeleteReferenceSyncedBlockToolbarExperience({ refs, dispatchAnalyticsEvent })
+	const createSourcePrimaryToolbarExperience = getCreateSourcePrimaryToolbarExperience({
+		refs,
+		dispatchAnalyticsEvent,
+	});
+	const createSourceBlockMenuExperience = getCreateSourceBlockMenuExperience({
+		refs,
+		dispatchAnalyticsEvent,
+	});
+	const createSourceQuickInsertMenuExperience = getCreateSourceQuickInsertMenuExperience({
+		refs,
+		dispatchAnalyticsEvent,
+	});
+	const deleteReferenceSyncedBlockExperience = getDeleteReferenceSyncedBlockToolbarExperience({
+		refs,
+		dispatchAnalyticsEvent,
+	});
 
 	const unbindClickListener = bind(document, {
 		type: 'click',
@@ -79,16 +97,19 @@ export const getMenuAndToolbarExperiencesPlugin = ({
 				createSourcePrimaryToolbarExperience,
 				createSourceBlockMenuExperience,
 				createSourceQuickInsertMenuExperience,
-				deleteReferenceSyncedBlockExperience
+				deleteReferenceSyncedBlockExperience,
 			});
-		}
+		},
 	});
 
 	const unbindKeydownListener = bind(document, {
 		type: 'keydown',
 		listener: (event: KeyboardEvent) => {
 			if (isEnterKey(event.key)) {
-				const typeaheadPopup = popupWithNestedElement(getPopupsTarget(),'.fabric-editor-typeahead');
+				const typeaheadPopup = popupWithNestedElement(
+					getPopupsTarget(),
+					'.fabric-editor-typeahead',
+				);
 				if (!typeaheadPopup || !(typeaheadPopup instanceof HTMLElement)) {
 					return;
 				}
@@ -104,8 +125,8 @@ export const getMenuAndToolbarExperiencesPlugin = ({
 				}
 			}
 		},
-		options: { capture: true }
-	})
+		options: { capture: true },
+	});
 
 	return new SafePlugin({
 		key: pluginKey,
@@ -114,17 +135,17 @@ export const getMenuAndToolbarExperiencesPlugin = ({
 
 			return {
 				destroy: () => {
-					createSourcePrimaryToolbarExperience.abort({ reason: 'editor-destroyed' });
-					createSourceBlockMenuExperience.abort({ reason: 'editor-destroyed' });
-					createSourceQuickInsertMenuExperience.abort({ reason: 'editor-destroyed' });
-					deleteReferenceSyncedBlockExperience.abort({ reason: 'editor-destroyed' })
+					createSourcePrimaryToolbarExperience.abort({ reason: 'editorDestroyed' });
+					createSourceBlockMenuExperience.abort({ reason: 'editorDestroyed' });
+					createSourceQuickInsertMenuExperience.abort({ reason: 'editorDestroyed' });
+					deleteReferenceSyncedBlockExperience.abort({ reason: 'editorDestroyed' });
 					unbindClickListener();
 					unbindKeydownListener();
 				},
 			};
 		},
-	})
-}
+	});
+};
 
 const getCreateSourcePrimaryToolbarExperience = ({
 	refs,
@@ -165,7 +186,7 @@ const getCreateSourceQuickInsertMenuExperience = ({
 		actionSubjectId: ACTION_SUBJECT_ID.QUICK_INSERT,
 		dispatchAnalyticsEvent,
 		checks: [
-			new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION}),
+			new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
 			syncedBlockAddedToDomCheck(refs),
 		],
 	});
@@ -188,7 +209,7 @@ const getDeleteReferenceSyncedBlockToolbarExperience = ({
 
 const isSyncedBlockButtonId = (value: string | undefined): value is SyncedBlockButtonId => {
 	return !!value && syncedBlockButtonIds.has(value as SyncedBlockButtonId);
-}
+};
 
 type HandleButtonClickProps = {
 	createSourceBlockMenuExperience: Experience;
@@ -196,13 +217,13 @@ type HandleButtonClickProps = {
 	createSourceQuickInsertMenuExperience: Experience;
 	deleteReferenceSyncedBlockExperience: Experience;
 	testId: SyncedBlockButtonId;
-}
+};
 const handleButtonClick = ({
 	testId,
 	createSourcePrimaryToolbarExperience,
 	createSourceBlockMenuExperience,
 	createSourceQuickInsertMenuExperience,
-	deleteReferenceSyncedBlockExperience
+	deleteReferenceSyncedBlockExperience,
 }: HandleButtonClickProps) => {
 	switch (testId) {
 		case SYNCED_BLOCK_BUTTON_TEST_ID.primaryToolbarCreate:
@@ -224,7 +245,7 @@ const handleButtonClick = ({
 			return _exhaustiveCheck;
 		}
 	}
-}
+};
 
 const isEnterKey = (key: string) => {
 	return key === 'Enter';
@@ -244,28 +265,27 @@ const getTarget = (containerElement: HTMLElement | undefined): HTMLElement | nul
 	return targetEl;
 };
 
-const syncedBlockAddedToDomCheck = (
-	refs: {
-		containerElement?: HTMLElement,
-		popupsMountPoint?: HTMLElement,
-		wrapperElement?: HTMLElement
-	}
-) => new ExperienceCheckDomMutation({
-	onDomMutation: ({ mutations }) => {
-		if (mutations.some(isBodiedSyncBlockAddedInMutation)) {
-			return { status: 'success' };
-		}
-		return undefined;
-	},
-	observeConfig: () => {
-		return {
-			target: getTarget(refs.containerElement),
-			options: {
-				childList: true,
-			},
-		};
-	},
-});
+const syncedBlockAddedToDomCheck = (refs: {
+	containerElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
+	wrapperElement?: HTMLElement;
+}) =>
+	new ExperienceCheckDomMutation({
+		onDomMutation: ({ mutations }) => {
+			if (mutations.some(isBodiedSyncBlockAddedInMutation)) {
+				return { status: 'success' };
+			}
+			return undefined;
+		},
+		observeConfig: () => {
+			return {
+				target: getTarget(refs.containerElement),
+				options: {
+					childList: true,
+				},
+			};
+		},
+	});
 
 const isBodiedSyncBlockAddedInMutation = ({ type, addedNodes }: MutationRecord) => {
 	return type === 'childList' && [...addedNodes].some(isBodiedSyncBlockWithinNode);
@@ -274,28 +294,27 @@ const isBodiedSyncBlockAddedInMutation = ({ type, addedNodes }: MutationRecord) 
 const isBodiedSyncBlockWithinNode = (node?: Node | null) =>
 	getNodeQuery('[data-prosemirror-node-name="bodiedSyncBlock"]')(node);
 
-const referenceSyncBlockRemovedFromDomCheck = (
-	refs: {
-		containerElement?: HTMLElement,
-		popupsMountPoint?: HTMLElement,
-		wrapperElement?: HTMLElement
-	}
-) => new ExperienceCheckDomMutation({
-	onDomMutation: ({ mutations }) => {
-		if (mutations.some(isSyncBlockRemovedInMutation)) {
-			return { status: 'success' };
-		}
-		return undefined;
-	},
-	observeConfig: () => {
-		return {
-			target: getTarget(refs.containerElement),
-			options: {
-				childList: true,
-			},
-		};
-	},
-});
+const referenceSyncBlockRemovedFromDomCheck = (refs: {
+	containerElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
+	wrapperElement?: HTMLElement;
+}) =>
+	new ExperienceCheckDomMutation({
+		onDomMutation: ({ mutations }) => {
+			if (mutations.some(isSyncBlockRemovedInMutation)) {
+				return { status: 'success' };
+			}
+			return undefined;
+		},
+		observeConfig: () => {
+			return {
+				target: getTarget(refs.containerElement),
+				options: {
+					childList: true,
+				},
+			};
+		},
+	});
 
 const isSyncBlockRemovedInMutation = ({ type, removedNodes }: MutationRecord) => {
 	return type === 'childList' && [...removedNodes].some(isSyncBlockWithinNode);

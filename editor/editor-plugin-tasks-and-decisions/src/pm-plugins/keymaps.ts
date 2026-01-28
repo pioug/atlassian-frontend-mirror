@@ -529,7 +529,7 @@ const deleteForwards = autoJoin(
 	['taskList', 'decisionList'],
 );
 
-const deleteExtraListItem = (tr: Transaction, $from: ResolvedPos) => {
+const deleteExtraListItem = (tr: Transaction, _$from: ResolvedPos) => {
 	/*
     After we replace actionItem with empty list item if there's the anomaly of extra empty list item
     the cursor moves inside the first taskItem of splitted taskList
@@ -902,7 +902,7 @@ const cmdOptEnter: Command = filter(isInsideTaskOrDecisionItem, (state, dispatch
 });
 
 export function keymapPlugin(
-	schema: Schema,
+	_schema: Schema,
 	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined,
 	allowNestedTasks?: boolean,
 	consumeTabs?: boolean,
@@ -932,9 +932,6 @@ export function keymapPlugin(
 		: {};
 
 	const toggleTaskListShortcut = (state: EditorState, dispatch?: (tr: Transaction) => void) => {
-		if (!expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true)) {
-			return false;
-		}
 
 		if (!state.schema.nodes.taskItem) {
 			return false;

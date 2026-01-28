@@ -358,6 +358,7 @@ export interface Team extends OptionData {
 	includeTeamsUpdates?: boolean;
 	memberCount?: number;
 	members?: TeamMember[];
+	teamTypeName?: string;
 	type: 'team';
 	verified?: boolean;
 }

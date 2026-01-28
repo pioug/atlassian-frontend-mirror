@@ -1,5 +1,16 @@
 # @atlaskit/util-data-test
 
+## 18.5.0
+
+### Minor Changes
+
+- [`aa50fab3471f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa50fab3471f9) -
+  Updated simpleMockProfilecardClient functions to match updated API
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.4.2
 
 ### Patch Changes

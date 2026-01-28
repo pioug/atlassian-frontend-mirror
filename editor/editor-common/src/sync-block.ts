@@ -8,3 +8,7 @@ export {
 	SyncBlockStateCssClassName,
 	SyncBlockRendererDataAttributeName,
 } from './styles/shared/sync-block';
+export {
+	SyncBlockActionsProvider,
+	useSyncBlockActions,
+} from './sync-block/SyncBlockActionsContext';

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-annotation
 
+## 7.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.1
+
+### Patch Changes
+
+- [`1398a2c3501f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1398a2c3501f1) -
+  fix flash of resolved comments issue
+- Updated dependencies
+
 ## 7.1.0
 
 ### Minor Changes

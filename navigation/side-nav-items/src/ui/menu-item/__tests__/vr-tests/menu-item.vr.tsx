@@ -50,27 +50,19 @@ snapshot(ButtonMenuItemExample, {
 	variants: workaround(),
 	featureFlags: {
 		'platform-dst-buttonmenuitem-selected-state-support': true,
-		'platform-dst-menu-item-description-selected': true,
 	},
 });
 snapshot(LinkMenuItemExample, {
 	variants: workaround(),
-	featureFlags: {
-		'platform-dst-menu-item-description-selected': true,
-	},
 });
 snapshot(ButtonMenuItemRTLExample, {
 	variants: workaround(),
 	featureFlags: {
 		'platform-dst-buttonmenuitem-selected-state-support': true,
-		'platform-dst-menu-item-description-selected': true,
 	},
 });
 snapshot(LinkMenuItemRTLExample, {
 	variants: workaround(),
-	featureFlags: {
-		'platform-dst-menu-item-description-selected': true,
-	},
 });
 snapshot(ButtonMenuItemWithPopup, {
 	variants: workaround(),

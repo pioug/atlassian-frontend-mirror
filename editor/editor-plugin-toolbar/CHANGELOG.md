@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 4.1.4
+
+### Patch Changes
+
+- [`e00b363b9fa30`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e00b363b9fa30) -
+  [ux] EDITOR-4481 Clean up platform_editor_toolbar_aifc_user_intent_fix
+- Updated dependencies
+
+## 4.1.3
+
+### Patch Changes
+
+- [`81230b670d02c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81230b670d02c) -
+  ED-29744 camel case experience attributes
+- Updated dependencies
+
 ## 4.1.2
 
 ### Patch Changes

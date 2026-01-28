@@ -12,7 +12,6 @@ import {
 import { getMockTeamClient } from '../../../examples/helper/util';
 import ProfileClient from '../../client/ProfileCardClient';
 import TeamProfileCardTrigger from '../../components/Team/TeamProfileCardTrigger';
-import { cardTriggered, teamRequestAnalytics } from '../../util/analytics';
 
 import { createAnalyticsEvent, flexiTime } from './helper/_mock-analytics';
 
@@ -68,33 +67,64 @@ const mockResourceClient: unknown = {
 };
 
 describe('TeamProfileCardTrigger', () => {
-	const cardTriggeredClickEvent = flexiTime(cardTriggered('team', 'click', defaultProps.teamId));
-	const cardTriggeredHoverEvent = flexiTime(cardTriggered('team', 'hover', defaultProps.teamId));
-	const teamRequestAnalyticsTriggeredEvent = flexiTime(teamRequestAnalytics('triggered'));
-	const teamRequestAnalyticsSucceededEvent = flexiTime(
-		teamRequestAnalytics('succeeded', {
+	const cardTriggeredClickEvent = flexiTime({
+		eventType: 'ui',
+		action: 'triggered',
+		actionSubject: 'teamProfileCard',
+		attributes: {
+			method: 'click',
+			teamId: defaultProps.teamId,
+		},
+	});
+	const cardTriggeredHoverEvent = flexiTime({
+		eventType: 'ui',
+		action: 'triggered',
+		actionSubject: 'teamProfileCard',
+		attributes: {
+			method: 'hover',
+			teamId: defaultProps.teamId,
+		},
+	});
+	const teamRequestAnalyticsTriggeredEvent = flexiTime({
+		eventType: 'operational',
+		action: 'triggered',
+		actionSubject: 'teamProfileCard',
+		actionSubjectId: 'request',
+		attributes: {},
+	});
+	const teamRequestAnalyticsSucceededEvent = flexiTime({
+		eventType: 'operational',
+		action: 'succeeded',
+		actionSubject: 'teamProfileCard',
+		actionSubjectId: 'request',
+		attributes: {
 			duration: expect.anything(),
 			gateway: true,
-		}),
-	);
-	const teamRequestAnalyticsFailedEvent = flexiTime(
-		teamRequestAnalytics('failed', {
+		},
+	});
+
+	const teamRequestAnalyticsFailedEvent = flexiTime({
+		eventType: 'operational',
+		action: 'failed',
+		actionSubject: 'teamProfileCard',
+		actionSubjectId: 'request',
+		attributes: {
 			duration: expect.anything(),
 			errorCount: 1,
 			errorMessage: 'AGGErrors',
-			errorDetails: [
-				{
+			errorDetails: expect.arrayContaining([
+				expect.objectContaining({
 					errorMessage: 'Bad request',
 					errorType: 'UNDERLYING_SERVICE',
 					errorStatusCode: 400,
 					isSLOFailure: true,
-				},
-			],
+				}),
+			]),
 			gateway: true,
 			isSLOFailure: true,
 			traceId: '123',
-		}),
-	);
+		},
+	});
 	describe('Open and close conditions', () => {
 		beforeEach(() => {
 			jest.clearAllMocks();

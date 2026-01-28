@@ -126,6 +126,56 @@ export const mapPreservedSelection = (
 	return createPreservedSelection(tr.doc.resolve(from), tr.doc.resolve(to));
 };
 
+const isInsideEmptyTextblock = ($pos: ResolvedPos) =>
+	$pos.parent.isTextblock && $pos.parent.content.size === 0;
+
+const isAtEndOfParent = ($pos: ResolvedPos) => $pos.parentOffset === $pos.parent.content.size;
+
+const isAtStartOfParent = ($pos: ResolvedPos) => $pos.parentOffset === 0;
+
+/**
+ * Adjust selection bounds to exclude nodes where the selection only touches
+ * the edge position without selecting any content.
+ *
+ * Exception: Don't adjust if the selection is inside an empty textblock,
+ * as we want to include empty paragraphs in block operations.
+ *
+ * @param $from The resolved position of the start of the selection
+ * @param $to The resolved position of the end of the selection
+ * @returns Adjusted $from and $to positions
+ */
+export const adjustSelectionBoundsForEdgePositions = (
+	$from: ResolvedPos,
+	$to: ResolvedPos,
+): { $from: ResolvedPos; $to: ResolvedPos } => {
+	const { doc } = $from;
+
+	// Walk $from forward while at end of ancestors
+	let adjustedFrom = $from;
+	if (!isInsideEmptyTextblock($from)) {
+		while (adjustedFrom.depth > 0 && isAtEndOfParent(adjustedFrom)) {
+			const nextPos = adjustedFrom.after();
+			if (nextPos > doc.content.size || nextPos === adjustedFrom.pos) {
+				break;
+			}
+			adjustedFrom = doc.resolve(nextPos);
+		}
+	}
+
+	// Walk $to backward while at start of ancestors
+	let adjustedTo = $to;
+	if (!isInsideEmptyTextblock($to)) {
+		while (adjustedTo.depth > 0 && isAtStartOfParent(adjustedTo)) {
+			const prevPos = adjustedTo.before();
+			if (prevPos < 0 || prevPos === adjustedTo.pos) {
+				break;
+			}
+			adjustedTo = doc.resolve(prevPos);
+		}
+	}
+
+	return { $from: adjustedFrom, $to: adjustedTo };
+};
 /**
  * Creates a preserved selection which is expanded to block boundaries.
  *
@@ -141,8 +191,14 @@ export const mapPreservedSelection = (
 export const createPreservedSelection = ($from: ResolvedPos, $to: ResolvedPos) => {
 	const { doc } = $from;
 
+	const isCollapsed = $from.pos === $to.pos;
+	const adjusted = isCollapsed ? { $from, $to } : adjustSelectionBoundsForEdgePositions($from, $to);
+	if (!isCollapsed && adjusted.$from.pos >= adjusted.$to.pos) {
+		return undefined;
+	}
+
 	// expand the selection range to block boundaries, so selection always includes whole nodes
-	const expanded = expandToBlockRange($from, $to);
+	const expanded = expandToBlockRange(adjusted.$from, adjusted.$to);
 
 	// stop preserving if selection becomes invalid
 	if (

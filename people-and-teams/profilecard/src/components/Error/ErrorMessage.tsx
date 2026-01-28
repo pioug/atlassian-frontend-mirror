@@ -2,53 +2,39 @@ import React, { useEffect } from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
-import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/new';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
-import type { AnalyticsEventAttributes } from '@atlaskit/teams-app-internal-analytics';
+import type { FireEventType } from '@atlaskit/teams-app-internal-analytics';
 
 import messages from '../../messages';
 import { ErrorTitle, ErrorWrapper } from '../../styled/Error';
 import { type ProfileCardErrorType } from '../../types';
-import { PACKAGE_META_DATA, profileCardRendered } from '../../util/analytics';
+import { PACKAGE_META_DATA } from '../../util/analytics';
 
 interface Props {
 	reload?: () => void | undefined;
 	errorType?: ProfileCardErrorType;
-	fireAnalytics: (payload: AnalyticsEventPayload) => void;
-	fireAnalyticsNext: <K extends keyof AnalyticsEventAttributes>(
-		eventKey: K,
-		attributes: AnalyticsEventAttributes[K],
-	) => void;
+	fireAnalytics: FireEventType;
 }
 
 const ErrorMessage = (props: Props): React.JSX.Element => {
 	const errorType = props.errorType || { reason: 'default' };
 	const errorReason = errorType.reason;
 
-	const { fireAnalytics, fireAnalyticsNext, reload } = props;
+	const { fireAnalytics, reload } = props;
 
 	const hasRetry = !!reload;
 
 	useEffect(() => {
-		if (fg('ptc-enable-profile-card-analytics-refactor')) {
-			fireAnalyticsNext('ui.profilecard.rendered.error', {
-				hasRetry,
-				errorType: errorReason,
-				firedAt: Math.round(performance.now()),
-				...PACKAGE_META_DATA,
-			});
-		} else {
-			fireAnalytics(
-				profileCardRendered('user', 'error', {
-					hasRetry,
-					errorType: errorReason,
-				}),
-			);
-		}
-	}, [errorReason, fireAnalytics, fireAnalyticsNext, hasRetry]);
+		fireAnalytics('ui.profilecard.rendered.error', {
+			hasRetry,
+			errorType: errorReason,
+			firedAt: Math.round(performance.now()),
+			...PACKAGE_META_DATA,
+		});
+	}, [errorReason, fireAnalytics, hasRetry]);
 
 	const errorContent = () => {
 		if (errorReason === 'NotFound') {

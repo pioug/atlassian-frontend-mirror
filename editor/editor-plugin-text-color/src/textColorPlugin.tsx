@@ -7,7 +7,6 @@ import {
 	type ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { changeColor as changeColorCommand } from './editor-commands/change-color';
@@ -98,8 +97,7 @@ export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api 
 		},
 
 		pmPlugins() {
-			return isToolbarAIFCEnabled &&
-				expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true)
+			return isToolbarAIFCEnabled
 				? [
 						{
 							name: 'textColor',

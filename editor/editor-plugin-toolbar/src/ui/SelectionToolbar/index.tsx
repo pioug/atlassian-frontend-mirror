@@ -33,7 +33,6 @@ import {
 } from '@atlaskit/editor-toolbar';
 import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model';
 import type { RegisterToolbar, RegisterComponent } from '@atlaskit/editor-toolbar-model';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
@@ -141,7 +140,6 @@ export const SelectionToolbar = ({
 
 	const { isDisabled } = useToolbarUI();
 
-	const patch6Enabled = expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true);
 	const isOffline = isOfflineMode(connectivityStateMode);
 	const isTextSelection =
 		!editorView.state.selection.empty && editorView.state.selection instanceof TextSelection;
@@ -168,12 +166,10 @@ export const SelectionToolbar = ({
 		!shouldShowToolbar ||
 		(currentUserIntent === 'blockMenuOpen' &&
 			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) ||
-		(fg('platform_editor_toolbar_aifc_user_intent_fix')
-			? // hide toolbar when user intent is not default, except when it's dragHandleSelected without cell selection
-				currentUserIntent &&
-				currentUserIntent !== 'default' &&
-				!(currentUserIntent === 'dragHandleSelected' && !isCellSelection)
-			: currentUserIntent && currentUserIntent !== 'default') ||
+		// hide toolbar when user intent is not default, except when it's dragHandleSelected without cell selection
+		(currentUserIntent &&
+			currentUserIntent !== 'default' &&
+			!(currentUserIntent === 'dragHandleSelected' && !isCellSelection)) ||
 		isSSR()
 	) {
 		return null;
@@ -194,7 +190,7 @@ export const SelectionToolbar = ({
 			>
 				<EditorToolbarUIProvider
 					api={api}
-					isDisabled={patch6Enabled ? isDisabled : isOffline}
+					isDisabled={isDisabled}
 					fireAnalyticsEvent={(payload: unknown) => {
 						api?.analytics?.actions.fireAnalyticsEvent(payload as AnalyticsEventPayload);
 					}}

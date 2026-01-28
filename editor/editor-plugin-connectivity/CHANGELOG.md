@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-connectivity
 
+## 7.0.1
+
+### Patch Changes
+
+- [`874aa2a0589a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/874aa2a0589a2) -
+  Clean up platform_synced_blocks_offline_check_for_block FG
+- Updated dependencies
+
 ## 7.0.0
 
 ### Patch Changes

@@ -72,6 +72,7 @@ import {
 } from '../pm-plugins/utils/drag-handle-positions';
 import { isHandleCorrelatedToSelection, selectNode } from '../pm-plugins/utils/getSelection';
 import {
+	adjustSelectionBoundsForEdgePositions,
 	alignAnchorHeadInDirectionOfPos,
 	expandSelectionHeadToNodeAtPos,
 } from '../pm-plugins/utils/selection';
@@ -88,6 +89,7 @@ import {
 	STICKY_CONTROLS_TOP_MARGIN_FOR_STICKY_HEADER,
 	topPositionAdjustment,
 } from './consts';
+import { DragHandleNestedIcon } from './drag-handle-nested-icon';
 import type { DragPreviewContent } from './drag-preview';
 import { dragPreview } from './drag-preview';
 import { refreshAnchorName } from './utils/anchor-name';
@@ -478,7 +480,11 @@ const getExpandedSelectionRange = ({
 	const $from = isShiftPressed && selectUp ? resolvedStartPos : selection.$from;
 	const $to = isShiftPressed && !selectUp ? doc.resolve(resolvedStartPos.pos + 1) : selection.$to;
 
-	return expandToBlockRange($from, $to);
+	const adjusted = isShiftPressed
+		? { $from, $to }
+		: adjustSelectionBoundsForEdgePositions($from, $to);
+
+	return expandToBlockRange(adjusted.$from, adjusted.$to);
 };
 
 type ExpandAndUpdateSelectionOptions = {
@@ -566,6 +572,30 @@ export const DragHandle = ({
 	const start = getPos();
 	const isLayoutColumn = nodeType === 'layoutColumn';
 	const isMultiSelect = editorExperiment('platform_editor_element_drag_and_drop_multiselect', true);
+
+	// Dynamically calculate if node is top-level based on current position (gated by experiment)
+	const isTopLevelNodeDynamic = useMemo(() => {
+		if (!expValEquals('platform_editor_nested_drag_handle_icon', 'isEnabled', true)) {
+			return isTopLevelNode;
+		}
+		const pos = getPos();
+		if (typeof pos === 'number') {
+			const $pos = view.state.doc.resolve(pos);
+			return $pos?.parent.type.name === 'doc';
+		}
+		return true;
+	}, [getPos, view.state.doc, isTopLevelNode]);
+
+	// Use the dynamic value when experiment is on, otherwise use the prop
+	// When cleaning up the experiment, you can safely remove the isTopLevelNode as an prop and
+	// just rely on the dynamic value (rename it to isTopLevelNode for simplicitiy)
+	const isTopLevelNodeValue = expValEquals(
+		'platform_editor_nested_drag_handle_icon',
+		'isEnabled',
+		true,
+	)
+		? isTopLevelNodeDynamic
+		: isTopLevelNode;
 
 	useEffect(() => {
 		if (editorExperiment('platform_editor_block_control_optimise_render', true)) {
@@ -663,7 +693,7 @@ export const DragHandle = ({
 				if (!isMultiSelect || tr.selection.empty || !e.shiftKey) {
 					tr = selectNode(tr, startPos, nodeType, api);
 				} else if (
-					isTopLevelNode &&
+					isTopLevelNodeValue &&
 					$anchor.depth <= DRAG_HANDLE_MAX_SHIFT_CLICK_DEPTH &&
 					e.shiftKey &&
 					fg('platform_editor_elements_dnd_shift_click_select')
@@ -695,7 +725,7 @@ export const DragHandle = ({
 
 			view.focus();
 		},
-		[isMultiSelect, api, view, dragHandleSelected, getPos, isTopLevelNode, nodeType],
+		[isMultiSelect, api, view, dragHandleSelected, getPos, isTopLevelNodeValue, nodeType],
 	);
 
 	const handleKeyDown = useCallback(
@@ -1026,7 +1056,7 @@ export const DragHandle = ({
 
 		if (supportsAnchor) {
 			const bottom = editorExperiment('platform_editor_controls', 'variant1')
-				? getControlBottomCSSValue(safeAnchorName, isSticky, isTopLevelNode, isLayoutColumn)
+				? getControlBottomCSSValue(safeAnchorName, isSticky, isTopLevelNodeValue, isLayoutColumn)
 				: {};
 
 			return {
@@ -1053,7 +1083,7 @@ export const DragHandle = ({
 			? getControlHeightCSSValue(
 					getNodeHeight(dom, safeAnchorName, anchorRectCache) || 0,
 					isSticky,
-					isTopLevelNode,
+					isTopLevelNodeValue,
 					`${DRAG_HANDLE_HEIGHT}`,
 					isLayoutColumn,
 				)
@@ -1072,7 +1102,7 @@ export const DragHandle = ({
 		nodeType,
 		macroInteractionUpdates,
 		anchorRectCache,
-		isTopLevelNode,
+		isTopLevelNodeValue,
 		isLayoutColumn,
 		recalculatePosition,
 	]);
@@ -1126,7 +1156,7 @@ export const DragHandle = ({
 
 		if (supportsAnchor) {
 			const bottom = editorExperiment('platform_editor_controls', 'variant1')
-				? getControlBottomCSSValue(safeAnchorName, isSticky, isTopLevelNode, isLayoutColumn)
+				? getControlBottomCSSValue(safeAnchorName, isSticky, isTopLevelNodeValue, isLayoutColumn)
 				: {};
 
 			return {
@@ -1153,7 +1183,7 @@ export const DragHandle = ({
 			? getControlHeightCSSValue(
 					getNodeHeight(dom, safeAnchorName, anchorRectCache) || 0,
 					isSticky,
-					isTopLevelNode,
+					isTopLevelNodeValue,
 					`${DRAG_HANDLE_HEIGHT}`,
 					isLayoutColumn,
 				)
@@ -1173,7 +1203,7 @@ export const DragHandle = ({
 		blockCardWidth,
 		macroInteractionUpdates,
 		anchorRectCache,
-		isTopLevelNode,
+		isTopLevelNodeValue,
 		isLayoutColumn,
 	]);
 
@@ -1273,13 +1303,14 @@ export const DragHandle = ({
 				: view.state.selection.$anchor;
 		if (
 			isShiftDown &&
-			(!isTopLevelNode || (isTopLevelNode && $anchor.depth > DRAG_HANDLE_MAX_SHIFT_CLICK_DEPTH))
+			(!isTopLevelNodeValue ||
+				(isTopLevelNodeValue && $anchor.depth > DRAG_HANDLE_MAX_SHIFT_CLICK_DEPTH))
 		) {
 			setDragHandleDisabled(true);
 		} else {
 			setDragHandleDisabled(false);
 		}
-	}, [api?.blockControls.sharedState, isMultiSelect, isShiftDown, isTopLevelNode, view]);
+	}, [api?.blockControls.sharedState, isMultiSelect, isShiftDown, isTopLevelNodeValue, view]);
 
 	const dragHandleMessage = expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
 		? formatMessage(blockControlsMessages.dragToMoveClickToOpen, { br: <br /> })
@@ -1294,7 +1325,7 @@ export const DragHandle = ({
 		? formatMessage(blockControlsMessages.dragToMoveClickToOpen, { br: ' ' })
 		: formatMessage(blockControlsMessages.dragToMove);
 
-	let helpDescriptors = isTopLevelNode
+	let helpDescriptors = isTopLevelNodeValue
 		? [
 				{
 					description: dragHandleMessage,
@@ -1332,7 +1363,7 @@ export const DragHandle = ({
 
 	let isParentNodeOfTypeLayout;
 
-	if (!isTopLevelNode) {
+	if (!isTopLevelNodeValue) {
 		const pos = getPos();
 		if (typeof pos === 'number') {
 			const $pos = view.state.doc.resolve(pos);
@@ -1481,7 +1512,12 @@ export const DragHandle = ({
 				// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
 				onDragStart={handleIconDragStart}
 			>
-				<DragHandleVerticalIcon spacing="spacious" label="" size="small" />
+				{expValEquals('platform_editor_nested_drag_handle_icon', 'isEnabled', true) &&
+				!isTopLevelNodeValue ? (
+					<DragHandleNestedIcon />
+				) : (
+					<DragHandleVerticalIcon spacing="spacious" label="" size="small" />
+				)}
 			</Box>
 		</button>
 	);
@@ -1501,7 +1537,7 @@ export const DragHandle = ({
 			<span
 				css={[
 					tooltipContainerStyles,
-					shouldMaskNodeControls(nodeType, isTopLevelNode) &&
+					shouldMaskNodeControls(nodeType, isTopLevelNodeValue) &&
 						(expValEquals(
 							'platform_editor_table_sticky_header_improvements',
 							'cohort',
@@ -1509,7 +1545,7 @@ export const DragHandle = ({
 						) && fg('platform_editor_table_sticky_header_patch_6')
 							? tooltipContainerStylesImprovedStickyHeaderWithMask
 							: tooltipContainerStylesStickyHeaderWithMask),
-					!shouldMaskNodeControls(nodeType, isTopLevelNode) &&
+					!shouldMaskNodeControls(nodeType, isTopLevelNodeValue) &&
 						tooltipContainerStylesStickyHeaderWithoutMask,
 				]}
 			>
@@ -1523,7 +1559,7 @@ export const DragHandle = ({
 				>
 					<span
 						css={[
-							shouldMaskNodeControls(nodeType, isTopLevelNode) && buttonWrapperStyles,
+							shouldMaskNodeControls(nodeType, isTopLevelNodeValue) && buttonWrapperStyles,
 							buttonWrapperStylesPatch,
 						]}
 					>
@@ -1549,15 +1585,15 @@ export const DragHandle = ({
 			<span
 				css={[
 					tooltipContainerStyles,
-					shouldMaskNodeControls(nodeType, isTopLevelNode) &&
+					shouldMaskNodeControls(nodeType, isTopLevelNodeValue) &&
 						tooltipContainerStylesStickyHeaderWithMask,
-					!shouldMaskNodeControls(nodeType, isTopLevelNode) &&
+					!shouldMaskNodeControls(nodeType, isTopLevelNodeValue) &&
 						tooltipContainerStylesStickyHeaderWithoutMask,
 				]}
 			>
 				<span
 					css={[
-						shouldMaskNodeControls(nodeType, isTopLevelNode) && buttonWrapperStyles,
+						shouldMaskNodeControls(nodeType, isTopLevelNodeValue) && buttonWrapperStyles,
 						buttonWrapperStylesPatch,
 					]}
 				>
@@ -1594,6 +1630,7 @@ export const DragHandleWithVisibility = ({
 	anchorName,
 	nodeType,
 	handleOptions,
+	isTopLevelNode,
 	anchorRectCache,
 }: DragHandleProps) => {
 	return (
@@ -1606,6 +1643,7 @@ export const DragHandleWithVisibility = ({
 				anchorName={anchorName}
 				nodeType={nodeType}
 				handleOptions={handleOptions}
+				isTopLevelNode={isTopLevelNode}
 				anchorRectCache={anchorRectCache}
 			/>
 		</VisibilityContainer>

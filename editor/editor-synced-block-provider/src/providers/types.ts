@@ -21,6 +21,8 @@ import type {
 	DeletionReason,
 } from '../common/types';
 
+type SyncBlockErrorInfo = { reason?: string; sourceAri?: string; type: SyncBlockError };
+
 /**
  * The instance of a sync block, containing its data and metadata.
  * Mainly used for representing the state of a sync block after fetching from a data provider.
@@ -34,7 +36,7 @@ export type SyncBlockInstance = {
 	/*
 	 * Current state/error of the sync block, if any
 	 */
-	error?: { reason?: string; type: SyncBlockError };
+	error?: SyncBlockErrorInfo;
 	/**
 	 *  The resourceId in the attrs of the block
 	 */
@@ -169,7 +171,7 @@ export abstract class SyncBlockDataProvider extends NodeDataProvider<
 		deleteReason: DeletionReason | undefined,
 	): Promise<Array<DeleteSyncBlockResult>>;
 	abstract fetchSyncBlockSourceInfo(
-		localId: BlockInstanceId,
+		localId?: BlockInstanceId,
 		sourceAri?: string,
 		sourceProduct?: SyncBlockProduct,
 		fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,

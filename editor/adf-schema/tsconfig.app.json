@@ -4,7 +4,8 @@
     "./src/**/*.ts",
     "./src/**/*.tsx",
     "codemods",
-    "schema-generators/**/*.ts"
+    "schema-generators/**/*.ts",
+    "json-schema/**/*.json"
   ],
   "exclude": [
     "**/docs/**/*",
@@ -41,9 +42,6 @@
     },
     {
       "path": "../editor-prosemirror/tsconfig.app.json"
-    },
-    {
-      "path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
     },
     {
       "path": "../tmp-editor-statsig/tsconfig.app.json"

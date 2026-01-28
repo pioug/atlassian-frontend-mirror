@@ -14,13 +14,13 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 const pluginKey = new PluginKey('quickInsertOpenExperience');
 
 const START_METHOD = {
-	QUICK_INSERT_BUTTON: 'quick-insert-button',
+	QUICK_INSERT_BUTTON: 'quickInsertButton',
 	TYPEAHEAD: 'typeahead',
 };
 
 const ABORT_REASON = {
-	USER_CANCELED: 'user-canceled',
-	EDITOR_DESTROYED: 'editor-destroyed',
+	USER_CANCELED: 'userCanceled',
+	EDITOR_DESTROYED: 'editorDestroyed',
 };
 
 type QuickInsertOpenExperienceOptions = {

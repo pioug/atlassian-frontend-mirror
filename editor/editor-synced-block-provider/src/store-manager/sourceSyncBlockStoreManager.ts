@@ -30,6 +30,7 @@ import {
 	getCreateSourceExperience,
 	getDeleteSourceExperience,
 	getSaveSourceExperience,
+	getFetchSourceInfoExperience,
 } from '../utils/experienceTracking';
 import { convertSyncBlockPMNodeToSyncBlockData } from '../utils/utils';
 
@@ -79,6 +80,7 @@ export class SourceSyncBlockStoreManager {
 	private createExperience: Experience | undefined;
 	private saveExperience: Experience | undefined;
 	private deleteExperience: Experience | undefined;
+	private fetchSourceInfoExperience: Experience | undefined;
 
 	constructor(dataProvider?: SyncBlockDataProvider) {
 		this.dataProvider = dataProvider;
@@ -91,6 +93,7 @@ export class SourceSyncBlockStoreManager {
 		this.createExperience = getCreateSourceExperience(fireAnalyticsEvent);
 		this.saveExperience = getSaveSourceExperience(fireAnalyticsEvent);
 		this.deleteExperience = getDeleteSourceExperience(fireAnalyticsEvent);
+		this.fetchSourceInfoExperience = getFetchSourceInfoExperience(fireAnalyticsEvent);
 	}
 
 	public isSourceBlock(node: PMNode): boolean {
@@ -284,7 +287,7 @@ export class SourceSyncBlockStoreManager {
 	 * Create a bodiedSyncBlock node with empty content to backend
 	 * @param attrs attributes Ids of the node
 	 */
-	public createBodiedSyncBlockNode(attrs: SyncBlockAttrs): void {
+	public createBodiedSyncBlockNode(attrs: SyncBlockAttrs, nodeData?: PMNode): void {
 		try {
 			if (!this.dataProvider) {
 				throw new Error('Data provider not set');
@@ -305,6 +308,12 @@ export class SourceSyncBlockStoreManager {
 						this.commitPendingCreation(true);
 						if (fg('platform_synced_block_dogfooding')) {
 							this.createExperience?.success();
+						}
+
+						// Update the sync block data with the node data if it is provided
+						// to avoid any race conditions where the data could be missed during a render operation
+						if (nodeData) {
+							this.updateSyncBlockData(nodeData);
 						}
 					} else {
 						this.commitPendingCreation(false);
@@ -499,12 +508,22 @@ export class SourceSyncBlockStoreManager {
 				throw new Error('Data provider not set');
 			}
 
-			return this.dataProvider.fetchSyncBlockSourceInfo(
-				localId,
-				undefined,
-				undefined,
-				this.fireAnalyticsEvent,
-			);
+			if (fg('platform_synced_block_dogfooding')) {
+				this.fetchSourceInfoExperience?.start();
+			}
+			return this.dataProvider
+				.fetchSyncBlockSourceInfo(localId, undefined, undefined, this.fireAnalyticsEvent)
+				.then((sourceInfo) => {
+					if (fg('platform_synced_block_dogfooding')) {
+						if (!sourceInfo) {
+							this.fetchSourceInfoExperience?.failure({ reason: 'No source info returned' });
+						} else {
+							this.fetchSourceInfoExperience?.success();
+						}
+					}
+
+					return sourceInfo;
+				});
 		} catch (error) {
 			logException(error as Error, {
 				location: 'editor-synced-block-provider/sourceSyncBlockStoreManager',
@@ -538,9 +557,10 @@ export class SourceSyncBlockStoreManager {
 		this.pendingResourceId = undefined;
 		this.creationCallback = undefined;
 		this.dataProvider = undefined;
-		this.saveExperience?.abort({ reason: 'editor-destroyed' });
-		this.createExperience?.abort({ reason: 'editor-destroyed' });
-		this.deleteExperience?.abort({ reason: 'editor-destroyed' });
+		this.saveExperience?.abort({ reason: 'editorDestroyed' });
+		this.createExperience?.abort({ reason: 'editorDestroyed' });
+		this.deleteExperience?.abort({ reason: 'editorDestroyed' });
+		this.fetchSourceInfoExperience?.abort({ reason: 'editorDestroyed' });
 		this.clearPendingDeletion();
 	}
 }

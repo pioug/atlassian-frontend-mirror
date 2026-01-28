@@ -3,11 +3,8 @@ import React from 'react';
 import { type WithOutsideClickProps } from '@atlaskit/editor-common/ui';
 import {
 	ColorPalette,
-	type PaletteColor,
-	colorPaletteMessages,
 	getSelectedRowAndColumnFromPalette,
 	highlightColorPalette,
-	highlightColorPaletteNext,
 } from '@atlaskit/editor-common/ui-color';
 import {
 	ArrowKeyNavigationType,
@@ -15,7 +12,6 @@ import {
 } from '@atlaskit/editor-common/ui-menu';
 import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 type PaletteDropdownProps = {
 	activeColor: string | null;
@@ -43,37 +39,15 @@ export const PaletteDropdown = (props: PaletteDropdownProps): React.JSX.Element 
 		handleClickOutside,
 		handleEscapeKeydown,
 	} = props;
-	const isOrangeHighlightEnabled = expValEquals(
-		'platform_editor_add_orange_highlight_color',
-		'cohort',
-		'test',
-	);
 
 	// pixels, used to determine where to horizontally position the dropdown when space is limited
 	// this should reflect the width of the dropdown when fully populated with colors, including translations due to layering
-	const fitWidth = isOrangeHighlightEnabled ? 274 : 242;
-
-	let colorPalette: PaletteColor[];
-
-	if (isOrangeHighlightEnabled) {
-		colorPalette = highlightColorPaletteNext;
-	} else {
-		colorPalette = highlightColorPalette.map((item) => {
-			if (item.label === 'Orange') {
-				return {
-					...item,
-					label: 'Yellow' as const,
-					message: colorPaletteMessages.yellow,
-				};
-			}
-			return item;
-		});
-	}
+	const fitWidth = 274;
 
 	const { selectedRowIndex, selectedColumnIndex } = getSelectedRowAndColumnFromPalette(
-		colorPalette,
+		highlightColorPalette,
 		activeColor,
-		isOrangeHighlightEnabled ? HIGHLIGHT_COLOR_PICKER_COLUMNS : undefined,
+		HIGHLIGHT_COLOR_PICKER_COLUMNS,
 	);
 
 	return (
@@ -98,11 +72,11 @@ export const PaletteDropdown = (props: PaletteDropdownProps): React.JSX.Element 
 		>
 			<div data-testid="highlight-color-palette">
 				<ColorPalette
-					cols={isOrangeHighlightEnabled ? HIGHLIGHT_COLOR_PICKER_COLUMNS : undefined}
+					cols={HIGHLIGHT_COLOR_PICKER_COLUMNS}
 					onClick={onColorChange}
 					selectedColor={activeColor}
 					paletteOptions={{
-						palette: colorPalette,
+						palette: highlightColorPalette,
 						hexToPaletteColor: hexToEditorTextBackgroundPaletteColor,
 					}}
 				/>

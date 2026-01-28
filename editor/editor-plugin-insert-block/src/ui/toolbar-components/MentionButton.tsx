@@ -8,7 +8,6 @@ import { ToolTipContent, insertMention } from '@atlaskit/editor-common/keymaps';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarButton, ToolbarTooltip, MentionIcon } from '@atlaskit/editor-toolbar';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { InsertBlockPlugin } from '../../insertBlockPluginType';
 
@@ -36,11 +35,7 @@ export const MentionButton = ({ api }: MentionButtonProps): React.JSX.Element | 
 	return (
 		<ToolbarTooltip
 			content={
-				expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true) ? (
-					<ToolTipContent description={formatMessage(messages.mention)} keymap={insertMention} />
-				) : (
-					formatMessage(messages.mention)
-				)
+				<ToolTipContent description={formatMessage(messages.mention)} keymap={insertMention} />
 			}
 		>
 			<ToolbarButton

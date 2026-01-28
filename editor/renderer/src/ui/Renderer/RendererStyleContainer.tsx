@@ -400,40 +400,6 @@ const rendererFullWidthStylesForTableResizing = css({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
-const telepointerStyles = css({
-	[`#${TELEPOINTER_ID}`]: {
-		display: 'inline-block',
-		position: 'relative',
-		width: '1.5px',
-		height: '25px',
-		backgroundColor: token('color.background.brand.bold'),
-		marginLeft: token('space.025', '2px'),
-
-		'&::after': {
-			content: '"AI"',
-			position: 'absolute',
-			display: 'block',
-			top: 0,
-			left: 0,
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-			fontSize: '10px',
-			fontWeight: token('font.weight.bold'),
-			width: '12.5px',
-			height: '13px',
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			paddingTop: '1px',
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			paddingLeft: '1.5px',
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-			lineHeight: 'initial',
-			borderRadius: `0px ${token('radius.xsmall')} ${token('radius.xsmall')} 0px`,
-			color: token('color.text.inverse', 'white'),
-			backgroundColor: token('color.background.brand.bold'),
-		},
-	},
-});
-
 const rovoTelepointerStyles = css({
 	[`#${TELEPOINTER_ID}`]: {
 		display: 'inline-block',
@@ -2419,6 +2385,14 @@ const syncBlockStyles = css({
 	},
 });
 
+const syncBlockOverflowStyles = css({
+	[`.${SyncBlockSharedCssClassName.renderer}, .${BodiedSyncBlockSharedCssClassName.renderer}, .${SyncBlockSharedCssClassName.error}, .${SyncBlockSharedCssClassName.loading}`]:
+		{
+			// Contain floated elements (wrap-left/wrap-right) within synced block borders
+			overflow: 'hidden',
+		},
+});
+
 type RendererStyleContainerProps = Pick<
 	RendererWrapperProps,
 	| 'onClick'
@@ -2510,8 +2484,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 					(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
 						expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)) &&
 					rendererMaxWidthStyles,
-				!fg('platform_editor_ai_generic_prep_for_aifc_2') && telepointerStyles,
-				fg('platform_editor_ai_generic_prep_for_aifc_2') && rovoTelepointerStyles,
+				rovoTelepointerStyles,
 				whitespaceSharedStyles,
 				blockquoteSharedStyles,
 				fg('platform_editor_typography_ugc')
@@ -2525,8 +2498,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 						? paragraphStylesUGCScaledMargin
 						: paragraphSharedStylesWithEditorUGC
 					: isCompactModeSupported
-					? paragraphSharedStyleScaledMargin
-					: paragraphSharedStyles,
+						? paragraphSharedStyleScaledMargin
+						: paragraphSharedStyles,
 				listsSharedStyles,
 				browser.gecko && listsSharedStylesForGekko,
 				indentationSharedStyles,
@@ -2596,9 +2569,12 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 						? scaledDenseEmojiStyles
 						: scaledEmojiStyles
 					: isCompactModeEnabled
-					? denseStyles
-					: undefined,
+						? denseStyles
+						: undefined,
 				expValEquals('platform_synced_block', 'isEnabled', true) && syncBlockStyles,
+				expValEquals('platform_synced_block', 'isEnabled', true) &&
+					fg('platform_synced_block_dogfooding') &&
+					syncBlockOverflowStyles,
 			]}
 			data-testid={testId}
 		>

@@ -14,7 +14,6 @@ import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarButton, ToolbarTooltip, TableIcon } from '@atlaskit/editor-toolbar';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { InsertBlockPlugin } from '../../insertBlockPluginType';
 
@@ -49,11 +48,7 @@ export const TableButton = ({ api }: TableButtonProps): React.JSX.Element | null
 	return (
 		<ToolbarTooltip
 			content={
-				expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true) ? (
-					<ToolTipContent description={formatMessage(messages.table)} keymap={toggleTable} />
-				) : (
-					formatMessage(messages.table)
-				)
+				<ToolTipContent description={formatMessage(messages.table)} keymap={toggleTable} />
 			}
 		>
 			<ToolbarButton

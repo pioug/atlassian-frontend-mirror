@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::14df0d1e70d703adc6cae007acfd6adb>>
+ * @codegen <<SignedSource::cdeefee845e33f315da48ad1a0c0764f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -18,6 +18,8 @@ import { cssMap, jsx } from '@compiled/react';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline } from '@atlaskit/primitives';
 
+import AiBotIcon from '../../../../core/ai-bot';
+import AiComputeIcon from '../../../../core/ai-compute';
 import AiGenerativeAudioBriefingIcon from '../../../../core/ai-generative-audio-briefing';
 import AiGenerativeChaptersIcon from '../../../../core/ai-generative-chapters';
 import AiGenerativeCleanupIcon from '../../../../core/ai-generative-cleanup';
@@ -26,6 +28,7 @@ import AiGenerativeRemoveSilenceIcon from '../../../../core/ai-generative-remove
 import AiGenerativeTextIcon from '../../../../core/ai-generative-text';
 import AiGenerativeTextTitleIcon from '../../../../core/ai-generative-text-title';
 import AiModelIcon from '../../../../core/ai-model';
+import AiSearchIcon from '../../../../core/ai-search';
 import AlignContentBottomIcon from '../../../../core/align-content-bottom';
 import AlignContentCenterHorizontalIcon from '../../../../core/align-content-center-horizontal';
 import AlignContentCenterVerticalIcon from '../../../../core/align-content-center-vertical';
@@ -97,6 +100,7 @@ import DataVisualizationMetricIcon from '../../../../core/data-visualization-met
 import DataZeroFillIcon from '../../../../core/data-zero-fill';
 import DatabaseStorageIcon from '../../../../core/database-storage';
 import DatabaseStorageCacheIcon from '../../../../core/database-storage-cache';
+import DiagramArchitectureMapIcon from '../../../../core/diagram-architecture-map';
 import DiagramArrowheadAggregationLeftIcon from '../../../../core/diagram-arrowhead-aggregation-left';
 import DiagramArrowheadAggregationRightIcon from '../../../../core/diagram-arrowhead-aggregation-right';
 import DiagramArrowheadAggregationUpRightIcon from '../../../../core/diagram-arrowhead-aggregation-up-right';
@@ -136,6 +140,8 @@ import DiagramArrowheadZeroOrManyUpRightIcon from '../../../../core/diagram-arro
 import DiagramArrowheadZeroOrOneLeftIcon from '../../../../core/diagram-arrowhead-zero-or-one-left';
 import DiagramArrowheadZeroOrOneRightIcon from '../../../../core/diagram-arrowhead-zero-or-one-right';
 import DiagramArrowheadZeroOrOneUpRightIcon from '../../../../core/diagram-arrowhead-zero-or-one-up-right';
+import DiagramObjectBoundaryIcon from '../../../../core/diagram-object-boundary';
+import DiagramObjectEntityIcon from '../../../../core/diagram-object-entity';
 import DiagramSymbolActionIcon from '../../../../core/diagram-symbol-action';
 import DiagramSymbolActivationIcon from '../../../../core/diagram-symbol-activation';
 import DiagramSymbolActorIcon from '../../../../core/diagram-symbol-actor';
@@ -236,6 +242,7 @@ import ExpandElementIcon from '../../../../core/expand-element';
 import EyedropperIcon from '../../../../core/eyedropper';
 import FieldSelectIcon from '../../../../core/field-select';
 import FieldTextIcon from '../../../../core/field-text';
+import FlowerIcon from '../../../../core/flower';
 import FolderSharedIcon from '../../../../core/folder-shared';
 import GenerativeDateIcon from '../../../../core/generative-date';
 import GenerativeIndicatorIcon from '../../../../core/generative-indicator';
@@ -357,6 +364,7 @@ import StrokeStyleSolidIcon from '../../../../core/stroke-style-solid';
 import StudioIcon from '../../../../core/studio';
 import SuggestedEditIcon from '../../../../core/suggested-edit';
 import SunsetIcon from '../../../../core/sunset';
+import SurveyIcon from '../../../../core/survey';
 import SwapIcon from '../../../../core/swap';
 import SwitchCaseIcon from '../../../../core/switch-case';
 import SyncIcon from '../../../../core/sync';
@@ -865,6 +873,14 @@ const Icons = [
 	VideoFastForwardOverlayIcon,
 	VideoRewindIcon,
 	JourneysIcon,
+	AiBotIcon,
+	AiComputeIcon,
+	AiSearchIcon,
+	DiagramArchitectureMapIcon,
+	DiagramObjectBoundaryIcon,
+	DiagramObjectEntityIcon,
+	FlowerIcon,
+	SurveyIcon,
 ];
 
 const groupSize = 50;

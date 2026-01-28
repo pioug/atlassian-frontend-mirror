@@ -1,6 +1,6 @@
 import { type RovoAgent, type RovoAgentAgg } from '../types';
 
-const agentData: RovoAgent = {
+export const agentData: RovoAgent = {
 	id: 'agentId',
 	name: 'Profile card agent',
 	description: 'this is a agent to use in profile card',

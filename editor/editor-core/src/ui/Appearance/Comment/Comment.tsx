@@ -25,7 +25,6 @@ import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-tool
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { EditorAppearanceComponentProps } from '../../../types';
@@ -219,7 +218,6 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 		</div>
 	);
 
-	const patch6Enabled = expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true);
 
 	return (
 		<WithFlash animate={maxContentSizeReached}>
@@ -256,7 +254,7 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 									editorAPI={editorAPI}
 									editorView={editorView}
 									editorAppearance={appearance}
-									disabled={patch6Enabled ? !!disabled : undefined}
+									disabled={!!disabled}
 									popupsBoundariesElement={popupsBoundariesElement}
 									popupsScrollableElement={popupsScrollableElement}
 									popupsMountPoint={popupsMountPoint}

@@ -93,11 +93,7 @@ export function simpleMockProfilecardClient(props?: ProfileCardClientProps): Pro
 			});
 		},
 
-		getTeamProfile: (
-			_teamId: string,
-			_orgId?: string,
-			_analytics?: (event: Record<string, any>) => void,
-		): Promise<Team> => {
+		getTeamProfile: (_teamId: string, _orgId?: string, _analytics?): Promise<Team> => {
 			return Promise.reject({ reason: 'not built yet' });
 		},
 
@@ -122,17 +118,13 @@ export function simpleMockProfilecardClient(props?: ProfileCardClientProps): Pro
 
 		shouldShowGiveKudos: () => Promise.resolve(true),
 
-		getRovoAgentProfile: (_Id: AgentIdType, _analytics?: (event: Record<string, any>) => void) => {
+		getRovoAgentProfile: (_Id: AgentIdType, _analytics?) => {
 			return Promise.reject({ reason: 'not built yet' });
 		},
-		deleteAgent: (_id: string, _analytics?: (event: Record<string, any>) => void) => {
+		deleteAgent: (_id: string, _analytics?) => {
 			return Promise.reject({ reason: 'not built yet' });
 		},
-		setFavouriteAgent: (
-			_id: string,
-			_isFavourite: boolean,
-			_analytics?: (event: Record<string, any>) => void,
-		) => {
+		setFavouriteAgent: (_id: string, _isFavourite: boolean, _analytics?) => {
 			return Promise.reject({ reason: 'not built yet' });
 		},
 		getRovoAgentPermissions: () => {

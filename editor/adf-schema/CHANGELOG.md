@@ -1,5 +1,14 @@
 # @atlaskit/adf-schema
 
+## 51.5.7
+
+### Patch Changes
+
+- [`25c388e0f807a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25c388e0f807a) -
+  EDITOR-4684 Clean up platform_editor_add_orange_highlight_color experiment - orange highlight
+  color is now permanently enabled
+- Updated dependencies
+
 ## 51.5.6
 
 ### Patch Changes

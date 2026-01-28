@@ -9,20 +9,20 @@ import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	wrapper: {
-		paddingTop: token('space.100'),
-		paddingBottom: token('space.100'),
-		paddingLeft: token('space.200'),
-		paddingRight: token('space.200'),
+		paddingBlock: token('space.075'),
+		paddingInlineStart: token('space.200'),
 		display: 'flex',
 		justifyContent: 'start',
 		alignItems: 'center',
 		gap: token('space.200'),
 	},
+	container: {
+		display: 'flex',
+	},
 });
 
 interface SyncedBlockErrorStateCardProps {
 	children?: ReactNode;
-	closeButton?: ReactNode;
 	description: ReactNode;
 	icon?: (props: NewCoreIconProps) => JSX.Element;
 }
@@ -36,10 +36,13 @@ export const SyncedBlockErrorStateCard = ({
 		? (icon ?? WarningOutlineIcon)
 		: WarningOutlineIcon;
 	return (
-		<Box xcss={styles.wrapper}>
-			<Icon color={token('color.icon.subtle')} label="" />
-			<Text color="color.text.subtle">{description}</Text>
-			{children}
+		<Box xcss={styles.container}>
+			<Box xcss={styles.wrapper}>
+				<Icon color={token('color.icon.subtle')} label="" />
+				<Text color="color.text.subtle">{description}</Text>
+				{!fg('platform_synced_block_dogfooding') && children}
+			</Box>
+			{fg('platform_synced_block_dogfooding') && children}
 		</Box>
 	);
 };

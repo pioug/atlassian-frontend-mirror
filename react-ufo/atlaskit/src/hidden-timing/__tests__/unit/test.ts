@@ -176,3 +176,180 @@ describe('hidden-timing with timings which is smaller than 50(SIZE)', () => {
 		visibilitySpy.mockRestore();
 	});
 });
+
+describe('getHasHiddenTimingBeforeSetup', () => {
+	it('should return false by default when setupHiddenTimingCapture is not called', () => {
+		jest.isolateModules(() => {
+			const { getHasHiddenTimingBeforeSetup: isolatedGetHasHiddenTimingBeforeSetup } = require('../../index');
+			expect(isolatedGetHasHiddenTimingBeforeSetup()).toBe(false);
+		});
+	});
+
+	it('should return false when no visibility entries exist before setup with feature flag enabled', () => {
+		jest.isolateModules(() => {
+			const { getHasHiddenTimingBeforeSetup: isolatedGetHasHiddenTimingBeforeSetup, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+			const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
+
+			getEntriesSpy.mockReturnValue([]);
+			mockedFg.mockImplementation((flag: string) => {
+				return flag === 'platform_ufo_native_pagevisibility_monitoring';
+			});
+
+			isolatedSetup();
+
+			expect(isolatedGetHasHiddenTimingBeforeSetup()).toBe(false);
+
+			getEntriesSpy.mockRestore();
+		});
+	});
+
+	it('should return false when only visible entries exist before setup with feature flag enabled', () => {
+		jest.isolateModules(() => {
+			const { getHasHiddenTimingBeforeSetup: isolatedGetHasHiddenTimingBeforeSetup, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+			const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
+
+			const visibilityEntries = [
+				createVisibilityEntry('visible', 10),
+				createVisibilityEntry('visible', 20),
+			];
+			getEntriesSpy.mockReturnValue(visibilityEntries);
+			mockedFg.mockImplementation((flag: string) => {
+				return flag === 'platform_ufo_native_pagevisibility_monitoring';
+			});
+
+			isolatedSetup();
+
+			expect(isolatedGetHasHiddenTimingBeforeSetup()).toBe(false);
+
+			getEntriesSpy.mockRestore();
+		});
+	});
+
+	it('should return true when hidden entry exists before setup with feature flag enabled', () => {
+		jest.isolateModules(() => {
+			const { getHasHiddenTimingBeforeSetup: isolatedGetHasHiddenTimingBeforeSetup, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+			const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
+
+			const visibilityEntries = [
+				createVisibilityEntry('hidden', 10),
+				createVisibilityEntry('visible', 20),
+			];
+			getEntriesSpy.mockReturnValue(visibilityEntries);
+			mockedFg.mockImplementation((flag: string) => {
+				return flag === 'platform_ufo_native_pagevisibility_monitoring';
+			});
+
+			isolatedSetup();
+
+			expect(isolatedGetHasHiddenTimingBeforeSetup()).toBe(true);
+
+			getEntriesSpy.mockRestore();
+		});
+	});
+
+	it('should return true when multiple hidden entries exist before setup with feature flag enabled', () => {
+		jest.isolateModules(() => {
+			const { getHasHiddenTimingBeforeSetup: isolatedGetHasHiddenTimingBeforeSetup, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+			const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
+
+			const visibilityEntries = [
+				createVisibilityEntry('hidden', 5),
+				createVisibilityEntry('visible', 10),
+				createVisibilityEntry('hidden', 15),
+				createVisibilityEntry('visible', 20),
+			];
+			getEntriesSpy.mockReturnValue(visibilityEntries);
+			mockedFg.mockImplementation((flag: string) => {
+				return flag === 'platform_ufo_native_pagevisibility_monitoring';
+			});
+
+			isolatedSetup();
+
+			expect(isolatedGetHasHiddenTimingBeforeSetup()).toBe(true);
+
+			getEntriesSpy.mockRestore();
+		});
+	});
+
+	it('should return false when feature flag platform_ufo_native_pagevisibility_monitoring is disabled', () => {
+		jest.isolateModules(() => {
+			const { getHasHiddenTimingBeforeSetup: isolatedGetHasHiddenTimingBeforeSetup, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+			const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
+
+			const visibilityEntries = [
+				createVisibilityEntry('hidden', 10),
+				createVisibilityEntry('visible', 20),
+			];
+			getEntriesSpy.mockReturnValue(visibilityEntries);
+			mockedFg.mockReturnValue(false);
+
+			isolatedSetup();
+
+			expect(isolatedGetHasHiddenTimingBeforeSetup()).toBe(false);
+
+			getEntriesSpy.mockRestore();
+		});
+	});
+
+	it('should work correctly with both platform_ufo_use_native_page_visibility_api and platform_ufo_native_pagevisibility_monitoring enabled', () => {
+		jest.isolateModules(() => {
+			const { getHasHiddenTimingBeforeSetup: isolatedGetHasHiddenTimingBeforeSetup, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+			const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
+
+			const visibilityEntries = [
+				createVisibilityEntry('hidden', 10),
+				createVisibilityEntry('visible', 40),
+			];
+			getEntriesSpy.mockReturnValue(visibilityEntries);
+			mockedFg.mockReturnValue(true);
+
+			isolatedSetup();
+
+			expect(isolatedGetHasHiddenTimingBeforeSetup()).toBe(true);
+			expect(getEntriesSpy).toHaveBeenCalledWith('visibility-state');
+
+			getEntriesSpy.mockRestore();
+		});
+	});
+
+	it('should handle performance.getEntriesByType throwing an error gracefully', () => {
+		jest.isolateModules(() => {
+			const { getHasHiddenTimingBeforeSetup: isolatedGetHasHiddenTimingBeforeSetup, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+			const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
+
+			getEntriesSpy.mockImplementation(() => {
+				throw new Error('Browser does not support visibility-state');
+			});
+			mockedFg.mockImplementation((flag: string) => {
+				return flag === 'platform_ufo_native_pagevisibility_monitoring';
+			});
+
+			expect(() => isolatedSetup()).not.toThrow();
+			expect(isolatedGetHasHiddenTimingBeforeSetup()).toBe(false);
+
+			getEntriesSpy.mockRestore();
+		});
+	});
+
+	it('should track only the first hidden entry when feature flag is enabled', () => {
+		jest.isolateModules(() => {
+			const { getHasHiddenTimingBeforeSetup: isolatedGetHasHiddenTimingBeforeSetup, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+			const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
+
+			const visibilityEntries = [
+				createVisibilityEntry('visible', 5),
+				createVisibilityEntry('hidden', 10),
+			];
+			getEntriesSpy.mockReturnValue(visibilityEntries);
+			mockedFg.mockImplementation((flag: string) => {
+				return flag === 'platform_ufo_native_pagevisibility_monitoring';
+			});
+
+			isolatedSetup();
+
+			expect(isolatedGetHasHiddenTimingBeforeSetup()).toBe(true);
+
+			getEntriesSpy.mockRestore();
+		});
+	});
+});

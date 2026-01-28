@@ -3,6 +3,7 @@
 	"include": [
 		"**/docs/**/*",
 		"**/__tests__/**/*",
+		"**/__tests__/**/*.json",
 		"**/vr-tests/**/*",
 		"**/*.test.*",
 		"**/test.*",

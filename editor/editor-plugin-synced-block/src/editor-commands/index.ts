@@ -114,7 +114,7 @@ export const createSyncedBlock = ({
 
 		// Save the new node with empty content to backend
 		// This is so that the node can be copied and referenced without the source being saved/published
-		syncBlockStore.sourceManager.createBodiedSyncBlockNode(attrs);
+		syncBlockStore.sourceManager.createBodiedSyncBlockNode(attrs, newBodiedSyncBlockNode);
 
 		tr.replaceWith(conversionInfo.from, conversionInfo.to, newBodiedSyncBlockNode).scrollIntoView();
 
@@ -278,6 +278,19 @@ export const removeSyncedBlock =
 		return true;
 	};
 
+export const removeSyncedBlockAtPos = (
+	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined,
+	pos: number,
+) => {
+	api?.core.actions.execute(({ tr }) => {
+		const node = tr.doc.nodeAt(pos);
+
+		if (node?.type.name === 'syncBlock') {
+			return tr.replace(pos, pos + (node?.nodeSize ?? 0));
+		}
+		return tr;
+	});
+};
 /**
  * Deletes (bodied)SyncBlock node and paste its content to the editor
  */

@@ -2,7 +2,10 @@ import React from 'react';
 
 import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { type UseFetchSyncBlockDataResult } from '@atlaskit/editor-synced-block-provider';
+import {
+	SyncBlockError,
+	type UseFetchSyncBlockDataResult,
+} from '@atlaskit/editor-synced-block-provider';
 
 import type { SyncedBlockPlugin, SyncedBlockRendererProps } from '../syncedBlockPluginType';
 
@@ -29,6 +32,8 @@ const SyncBlockRendererWrapperComponent = ({
 	const title = useFetchSyncBlockTitle?.();
 
 	const contentUpdatedAt = syncBlockFetchResult?.syncBlockInstance?.data?.contentUpdatedAt;
+	const isUnsyncedBlock =
+		syncBlockFetchResult?.syncBlockInstance?.error?.type === SyncBlockError.NotFound;
 
 	return (
 		<div>
@@ -47,6 +52,7 @@ const SyncBlockRendererWrapperComponent = ({
 				title={title}
 				contentUpdatedAt={contentUpdatedAt}
 				localId={localId}
+				isUnsyncedBlock={isUnsyncedBlock}
 			/>
 		</div>
 	);

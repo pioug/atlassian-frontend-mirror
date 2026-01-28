@@ -171,10 +171,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 					currentUserIntent === 'blockMenuOpen'
 				) {
 					const state = api?.blockControls.sharedState.currentState();
-					if (
-						state?.isSelectedViaDragHandle &&
-						fg('platform_editor_toolbar_aifc_user_intent_fix')
-					) {
+					if (state?.isSelectedViaDragHandle) {
 						api?.userIntent?.commands.setCurrentUserIntent('dragHandleSelected')({ tr });
 					} else {
 						// Toggled from drag handle

@@ -35,6 +35,7 @@ interface Props {
 	extensionKey: string;
 	extensionType: string;
 	extensionViewportSizes?: ExtensionViewportSize[];
+	isInsideOfInlineExtension?: boolean;
 	layout?: ExtensionLayout;
 	localId?: string;
 	marks?: PMMark[];
@@ -105,6 +106,7 @@ export const renderExtension = (
 	localId?: string,
 	shouldDisplayExtensionAsInline?: (extensionParams?: ExtensionParams<Parameters>) => boolean,
 	node?: ExtensionParams<Parameters>,
+	isInsideOfInlineExtension?: boolean,
 ): React.JSX.Element => {
 	const overflowContainerClass = !removeOverflow
 		? RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER
@@ -139,9 +141,9 @@ export const renderExtension = (
 					width: isInline
 						? undefined
 						: isTopLevel
-							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								calcBreakoutWidthCss(layout as ExtensionLayout)
-							: '100%',
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						  calcBreakoutWidthCss(layout as ExtensionLayout)
+						: '100%',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 					minHeight: isInline ? undefined : extensionHeight && `${extensionHeight}px`,
 				}}
@@ -154,7 +156,14 @@ export const renderExtension = (
 					tabIndex={fg('platform_editor_dec_a11y_fixes') ? options.tabIndex : undefined}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 					className={overflowContainerClass}
-					css={[fg('platform_fix_macro_renders_in_layouts') && containerStyle]}
+					css={[
+						!(
+							isInsideOfInlineExtension &&
+							expValEquals('confluence_inline_insert_excerpt_width_bugfix', 'isEnabled', true)
+						) &&
+							fg('platform_fix_macro_renders_in_layouts') &&
+							containerStyle,
+					]}
 				>
 					{content}
 				</div>
@@ -182,7 +191,14 @@ export const renderExtension = (
 						tabIndex={fg('platform_editor_dec_a11y_fixes') ? options.tabIndex : undefined}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 						className={overflowContainerClass}
-						css={[fg('platform_fix_macro_renders_in_layouts') && containerStyle]}
+						css={[
+							!(
+								isInsideOfInlineExtension &&
+								expValEquals('confluence_inline_insert_excerpt_width_bugfix', 'isEnabled', true)
+							) &&
+								fg('platform_fix_macro_renders_in_layouts') &&
+								containerStyle,
+						]}
 					>
 						{content}
 					</div>
@@ -203,6 +219,7 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 		parameters,
 		nodeHeight,
 		localId,
+		isInsideOfInlineExtension,
 	} = props;
 
 	return (
@@ -232,6 +249,7 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 							localId,
 							undefined,
 							undefined,
+							isInsideOfInlineExtension,
 						);
 					}
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -256,6 +274,7 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 					localId,
 					undefined,
 					undefined,
+					isInsideOfInlineExtension,
 				);
 			}}
 		</ExtensionRenderer>

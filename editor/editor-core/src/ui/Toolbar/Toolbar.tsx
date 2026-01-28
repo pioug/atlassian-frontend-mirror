@@ -17,7 +17,6 @@ import {
 } from '@atlaskit/editor-toolbar';
 import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model';
 import type { RegisterComponent, RegisterToolbar } from '@atlaskit/editor-toolbar-model';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ToolbarProps } from './toolbar-types';
 import { ToolbarInner } from './ToolbarInner';
@@ -96,7 +95,6 @@ export const ToolbarNext = ({
 	// remove offline check when patch6Enabled is cleaned up
 	const isOffline = isOfflineMode(connectivityStateMode);
 
-	const patch6Enabled = expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true);
 
 	return (
 		<EditorToolbarProvider
@@ -108,7 +106,7 @@ export const ToolbarNext = ({
 		>
 			<EditorToolbarUIProvider
 				api={editorAPI}
-				isDisabled={patch6Enabled ? isDisabled : isOffline || isDisabled}
+				isDisabled={isDisabled}
 				popupsMountPoint={popupsMountPoint}
 				popupsBoundariesElement={popupsBoundariesElement}
 				popupsScrollableElement={popupsScrollableElement}

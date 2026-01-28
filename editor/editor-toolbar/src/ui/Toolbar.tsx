@@ -98,10 +98,8 @@ export const Toolbar = ({
 				styles.toolbar,
 				styles.toolbarResponsive,
 				styles.hiddenSelectors,
-				expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true) &&
-					styles.toolbarSeparator,
-				expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true) &&
-					styles.hiddenSelectorsPatch,
+				styles.toolbarSeparator,
+				styles.hiddenSelectorsPatch,
 			)}
 			role={
 				expValEquals('platform_editor_aifc_remove_duplicate_role', 'isEnabled', true)
@@ -110,11 +108,7 @@ export const Toolbar = ({
 			}
 			aria-label={label}
 			testId={testId}
-			data-toolbar-type={
-				expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true)
-					? 'inline'
-					: undefined
-			}
+			data-toolbar-type="inline"
 		>
 			<ViewEventEmitter actionSubject={ACTION_SUBJECT.TOOLBAR} actionSubjectId={actionSubjectId} />
 			{children}
@@ -177,11 +171,7 @@ export const PrimaryToolbar = ({
 						: 'toolbar'
 				}
 				aria-label={label}
-				data-toolbar-type={
-					expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true)
-						? 'primary'
-						: undefined
-				}
+				data-toolbar-type="primary"
 			>
 				{children}
 			</Box>

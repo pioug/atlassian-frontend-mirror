@@ -8,7 +8,6 @@ import type { AllowedStyles, ApplySchema, CompiledStyles } from '@compiled/react
 import { cssMap, cx } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, type MediaQuery } from '@atlaskit/primitives/compiled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import type { DesignTokenStyles } from '@atlaskit/tokens/css-type-schema';
 
 const styles = cssMap({
@@ -650,9 +649,7 @@ export const ResponsiveContainer = ({
 					? styles.responsiveContainerFullPage
 					: styles.responsiveContainer,
 				reducedBreakpoints ? styles.responsiveRulesReduced : styles.responsiveRules,
-				reducedBreakpoints &&
-					expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true) &&
-					styles.responsiveRulesReducedOverridden,
+				reducedBreakpoints && styles.responsiveRulesReducedOverridden,
 			)}
 		>
 			{children}

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 17.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.0
+
+### Minor Changes
+
+- [`a218bead9e6a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a218bead9e6a7) -
+  EDITOR-4542 Make isTableWithFixedColumnWidthsOptionEnabled an editor prop instead of using FG
+  value
+
 ## 17.0.1
 
 ### Patch Changes

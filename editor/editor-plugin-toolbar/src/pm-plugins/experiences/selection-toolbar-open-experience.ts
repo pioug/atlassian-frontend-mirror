@@ -1,6 +1,7 @@
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import {
 	Experience,
+	EXPERIENCE_ID,
 	ExperienceCheckDomMutation,
 	ExperienceCheckTimeout,
 	containsPopupWithNestedElement,
@@ -13,14 +14,14 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 const pluginKey = new PluginKey('selectionToolbarOpenExperience');
 
 const START_METHOD = {
-	MOUSE_UP: 'mouse-up',
-	KEY_DOWN: 'key-down',
+	MOUSE_UP: 'mouseUp',
+	KEY_DOWN: 'keyDown',
 };
 
 const ABORT_REASON = {
-	SELECTION_CLEARED: 'selection-cleared',
-	BLOCK_MENU_OPENED: 'block-menu-opened',
-	EDITOR_DESTROYED: 'editor-destroyed',
+	SELECTION_CLEARED: 'selectionCleared',
+	BLOCK_MENU_OPENED: 'blockMenuOpened',
+	EDITOR_DESTROYED: 'editorDestroyed',
 };
 
 type SelectionToolbarOpenExperienceOptions = {
@@ -54,8 +55,8 @@ export const getSelectionToolbarOpenExperiencePlugin = ({
 		return targetEl;
 	};
 
-	const experience = new Experience('toolbar-open', {
-		actionSubjectId: 'selection-toolbar',
+	const experience = new Experience(EXPERIENCE_ID.TOOLBAR_OPEN, {
+		actionSubjectId: 'selectionToolbar',
 		dispatchAnalyticsEvent,
 		checks: [
 			new ExperienceCheckTimeout({

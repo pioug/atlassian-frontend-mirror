@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-connectivity",
-	"version": "7.0.0",
+	"version": "7.0.1",
 	"description": "Connectivity plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -31,7 +31,6 @@
 	},
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "workspace:^",
-		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*",
 		"bind-event-listener": "root:*"
 	},

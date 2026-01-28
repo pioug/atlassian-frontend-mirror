@@ -127,3 +127,20 @@ export const getCreateSourceExperience = (fireAnalyticsEvent?: (payload: SyncBlo
 		],
 	});
 };
+
+/**
+ * This experience tracks when a source sync block is created and registered to the BE.
+ *
+ * Start: When the fetchSourceInfo function is called.
+ * Success: When the fetching the data is successful within the timeout duration of start.
+ * Failure: When the timeout duration passes without the data being successfully fetched, or the fetch fails
+ */
+export const getFetchReferencesExperience = (fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void) => {
+	return new Experience(EXPERIENCE_ID.ASYNC_OPERATION, {
+		action: ACTION.SYNCED_BLOCK_FETCH_REFERENCES,
+		dispatchAnalyticsEvent: createExperienceDispatcher(fireAnalyticsEvent),
+		checks: [
+			new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
+		],
+	});
+};

@@ -2,12 +2,9 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import { LoadingState } from '../LoadingState';
 
 const mockFireAnalytics = jest.fn();
-const mockFireAnalyticsNext = jest.fn();
 
 jest.mock('../../../util/performance', () => ({
 	getPageTime: jest.fn().mockImplementation(() => 1000),
@@ -34,54 +31,18 @@ describe('ErrorMessage', () => {
 		jest.clearAllMocks();
 	});
 
-	ffTest.off('ptc-enable-profile-card-analytics-refactor', 'legacy analytics', () => {
-		it('should render the error message', () => {
-			render(
-				<LoadingState
-					fireAnalytics={mockFireAnalytics}
-					fireAnalyticsNext={mockFireAnalyticsNext}
-					profileType="user"
-				/>,
-			);
-			expect(mockFireAnalytics).toHaveBeenCalledWith(event);
-			expect(mockFireAnalyticsNext).not.toHaveBeenCalled();
-		});
-		it('should capture and report a11y violations', async () => {
-			const { container } = render(
-				<LoadingState
-					fireAnalytics={mockFireAnalytics}
-					fireAnalyticsNext={mockFireAnalyticsNext}
-					profileType="user"
-				/>,
-			);
-			await expect(container).toBeAccessible();
-		});
+	it('should render the error message', () => {
+		render(<LoadingState fireAnalytics={mockFireAnalytics} profileType="user" />);
+		expect(mockFireAnalytics).toHaveBeenCalledWith(
+			`${event.eventType}.${event.actionSubject}.${event.action}.${event.actionSubjectId}`,
+			event.attributes,
+		);
 	});
 
-	ffTest.on('ptc-enable-profile-card-analytics-refactor', 'new analytics', () => {
-		it('should render the error message', () => {
-			render(
-				<LoadingState
-					fireAnalytics={mockFireAnalytics}
-					fireAnalyticsNext={mockFireAnalyticsNext}
-					profileType="user"
-				/>,
-			);
-			expect(mockFireAnalyticsNext).toHaveBeenCalledWith(
-				`${event.eventType}.${event.actionSubject}.${event.action}.${event.actionSubjectId}`,
-				event.attributes,
-			);
-			expect(mockFireAnalytics).not.toHaveBeenCalled();
-		});
-		it('should capture and report a11y violations', async () => {
-			const { container } = render(
-				<LoadingState
-					fireAnalytics={mockFireAnalytics}
-					fireAnalyticsNext={mockFireAnalyticsNext}
-					profileType="user"
-				/>,
-			);
-			await expect(container).toBeAccessible();
-		});
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<LoadingState fireAnalytics={mockFireAnalytics} profileType="user" />,
+		);
+		await expect(container).toBeAccessible();
 	});
 });

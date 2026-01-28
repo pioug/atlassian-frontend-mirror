@@ -147,11 +147,7 @@ function ProfileCardTriggerInner<T>(
 				>
 					{isLoading ? (
 						<ProfileCardWrapper testId="profilecard.profilecardtrigger.loading">
-							<LoadingState
-								fireAnalytics={fireAnalytics}
-								fireAnalyticsNext={fireAnalyticsNext}
-								profileType={profileCardType}
-							/>
+							<LoadingState fireAnalytics={fireAnalyticsNext} profileType={profileCardType} />
 						</ProfileCardWrapper>
 					) : (
 						renderProfileCard({ profileData, error })

@@ -8,11 +8,11 @@ type SyncedBlockErrorAttributes = {
 };
 
 type SyncedBlockSuccessAttributes = {
+	blockInstanceId?: string;
 	resourceId: string;
 };
 
 type FetchSyncedBlockSuccessAttributes = SyncedBlockSuccessAttributes & {
-	blockInstanceId?: string;
 	sourceProduct?: string;
 };
 
@@ -107,6 +107,20 @@ export type SyncedBlockDeleteSuccessAEP = OperationalAEP<
 	SyncedBlockSuccessAttributes
 >;
 
+export type ReferenceSyncedBlockCreateSuccessAEP = OperationalAEP<
+	ACTION.INSERTED,
+	ACTION_SUBJECT.SYNCED_BLOCK,
+	ACTION_SUBJECT_ID.REFERENCE_SYNCED_BLOCK_CREATE,
+	SyncedBlockSuccessAttributes
+>;
+
+export type ReferenceSyncedBlockDeleteSuccessAEP = OperationalAEP<
+	ACTION.DELETED,
+	ACTION_SUBJECT.SYNCED_BLOCK,
+	ACTION_SUBJECT_ID.REFERENCE_SYNCED_BLOCK_DELETE,
+	SyncedBlockSuccessAttributes
+>;
+
 export type SyncBlockEventPayload =
 	| SyncedBlockSourceURLErrorAEP
 	| SyncedBlockUpdateCacheErrorAEP
@@ -121,7 +135,9 @@ export type SyncBlockEventPayload =
 	| SyncedBlockFetchSuccessAEP
 	| ReferenceSyncedBlockUpdateErrorAEP
 	| SyncedBlockFetchReferencesErrorAEP
-	| ExperienceEventPayload;
+	| ExperienceEventPayload
+	| ReferenceSyncedBlockCreateSuccessAEP
+	| ReferenceSyncedBlockDeleteSuccessAEP;
 
 export type RendererSyncBlockEventPayload =
 	| SyncedBlockGetSourceInfoErrorAEP

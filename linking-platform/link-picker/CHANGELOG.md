@@ -1,5 +1,12 @@
 # @atlaskit/link-picker
 
+## 4.2.6
+
+### Patch Changes
+
+- [`2128f8d4e866d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2128f8d4e866d) -
+  feature gate cleanup for fix_invalid_aria_attr_in_link_picker_search_error
+
 ## 4.2.5
 
 ### Patch Changes

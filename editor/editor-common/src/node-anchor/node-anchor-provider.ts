@@ -1,10 +1,51 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { isEmptyDocument } from '../utils';
 
 import { DynamicBitArray } from './dynamic-bit-array';
+
+/**
+ * Counts nodes in the document.
+ *
+ * Note: legacy-content macros add a damped contribution based on ADF length to avoid
+ * parsing nested ADF on every check, which is inefficient.
+ */
+const countNodesInDoc = (doc: PMNode, lcmDampingFactor: number): number => {
+	let nodeCount = 0;
+	doc.descendants((node: PMNode) => {
+		nodeCount += 1;
+
+		if (node.attrs?.extensionKey === 'legacy-content') {
+			const adfLength = node.attrs?.parameters?.adf?.length;
+
+			if (typeof adfLength === 'number' && lcmDampingFactor > 0) {
+				nodeCount += Math.ceil(adfLength / lcmDampingFactor);
+			}
+		}
+	});
+
+	return nodeCount;
+};
+
+/**
+ * Guard against test overrides returning booleans for numeric params.
+ */
+const getNumericExperimentParam = (
+	experimentName: 'cc_editor_limited_mode_expanded',
+	paramName: 'lcmNodeCountDampingFactor' | 'nodeCountThreshold',
+	fallbackValue: number,
+): number => {
+	const rawValue = expVal(experimentName, paramName, fallbackValue);
+
+	if (typeof rawValue === 'number') {
+		return rawValue;
+	}
+
+	return fallbackValue;
+};
 
 export class NodeAnchorProvider {
 	private cache = new WeakMap<object, string>();
@@ -80,14 +121,35 @@ const LIMITED_MODE_NODE_SIZE_THRESHOLD = 40000;
 // This is duplicate from the limited mode plugin to avoid circular dependency
 // We can refactor this later to have a shared util package
 const isLimitedModeEnabled = (editorView: EditorView): boolean => {
-	let customDocSize = editorView.state.doc.nodeSize;
-	editorView.state.doc.descendants((node: PMNode) => {
-		if (node.attrs?.extensionKey === 'legacy-content') {
-			customDocSize += node.attrs?.parameters?.adf?.length ?? 0;
-		}
-	});
 
-	return customDocSize > LIMITED_MODE_NODE_SIZE_THRESHOLD;
+	if (expVal('cc_editor_limited_mode_expanded', 'isEnabled', false)) {
+		const lcmNodeCountDampingFactor = getNumericExperimentParam(
+			'cc_editor_limited_mode_expanded',
+			'lcmNodeCountDampingFactor',
+			10,
+		);
+		const nodeCountThreshold = getNumericExperimentParam(
+			'cc_editor_limited_mode_expanded',
+			'nodeCountThreshold',
+			1000,
+		);
+		const nodeCount = countNodesInDoc(
+			editorView.state.doc,
+			lcmNodeCountDampingFactor,
+		);
+
+		return nodeCount > nodeCountThreshold;
+	} else {
+		let customDocSize = editorView.state.doc.nodeSize;
+
+		editorView.state.doc.descendants((node: PMNode) => {
+			if (node.attrs?.extensionKey === 'legacy-content') {
+				customDocSize += node.attrs?.parameters?.adf?.length ?? 0;
+			}
+		});
+
+		return customDocSize > LIMITED_MODE_NODE_SIZE_THRESHOLD;
+	}
 };
 
 // Get the NodeIdProvider for a specific EditorView instance.
@@ -95,7 +157,7 @@ const isLimitedModeEnabled = (editorView: EditorView): boolean => {
 export const getNodeIdProvider: (editorView: EditorView) => NodeAnchorProvider = (editorView) => {
 	if (!nodeIdProviderMap.has(editorView)) {
 		if (fg('platform_editor_native_anchor_patch_2')) {
-			// if the limited mode flag is on, enable limited mode based on document size
+			// if the limited mode flag is on, enable limited mode based on the threshold
 			// only for the first time
 			const limitedMode = isLimitedModeEnabled(editorView);
 			const isEmptyDoc = isEmptyDocument(editorView.state.doc);

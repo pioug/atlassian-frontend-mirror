@@ -910,6 +910,8 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 		],
 	);
 
+	const isPageAppearance = isFullPage(nextAppearance) || nextAppearance === 'max';
+
 	const createEditor = useCallback(
 		(assistiveLabel?: string, assistiveDescribedBy?: string) => {
 			return (
@@ -927,7 +929,10 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 						key="ProseMirror"
 						ref={handleEditorViewRef}
 						aria-label={
-							assistiveLabel || props.intl.formatMessage(editorMessages.editorAssistiveLabel)
+							assistiveLabel ||
+							(isPageAppearance && fg('platform_editor_a11y_9262')
+								? props.intl.formatMessage(editorMessages.fullPageEditorAssistiveLabel)
+								: props.intl.formatMessage(editorMessages.editorAssistiveLabel))
 						}
 						// setting aria-multiline to true when not mobile appearance.
 						//  because somehow mobile tests are failing when it set.
@@ -950,7 +955,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				</>
 			);
 		},
-		[handleEditorViewRef, props.intl],
+		[handleEditorViewRef, isPageAppearance, props.intl],
 	);
 
 	const previousPreset = usePreviousState(preset);
@@ -1064,7 +1069,12 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={`ProseMirror ${getUAPrefix()}`}
 				key="ProseMirror"
-				aria-label={assistiveLabel || props.intl.formatMessage(editorMessages.editorAssistiveLabel)}
+				aria-label={
+					assistiveLabel ||
+					(isPageAppearance && fg('platform_editor_a11y_9262')
+						? props.intl.formatMessage(editorMessages.fullPageEditorAssistiveLabel)
+						: props.intl.formatMessage(editorMessages.editorAssistiveLabel))
+				}
 				id={EDIT_AREA_ID}
 				aria-describedby={assistiveDescribedBy}
 				data-editor-id={editorId.current}
@@ -1078,7 +1088,14 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				}}
 			/>
 		);
-	}, [ssrDeps, props.intl, props.portalProviderAPI, assistiveLabel, assistiveDescribedBy]);
+	}, [
+		ssrDeps,
+		props.intl,
+		props.portalProviderAPI,
+		assistiveLabel,
+		assistiveDescribedBy,
+		isPageAppearance,
+	]);
 
 	const editor = useMemo(
 		() => {

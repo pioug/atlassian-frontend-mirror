@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
@@ -18,6 +18,7 @@ const SyncBlockLabelDataId = 'sync-block-label';
 type SyncBlockLabelProps = {
 	contentUpdatedAt?: string;
 	isSource: boolean;
+	isUnsyncedBlock?: boolean;
 	localId: string;
 	title?: string;
 };
@@ -27,6 +28,7 @@ const SyncBlockLabelComponent = ({
 	isSource,
 	localId,
 	title,
+	isUnsyncedBlock,
 }: SyncBlockLabelProps): React.JSX.Element => {
 	const intl = useIntl();
 	const { formatMessage } = intl;
@@ -71,30 +73,46 @@ const SyncBlockLabelComponent = ({
 	}, [contentUpdatedAt, formatMessage, intl, tooltipMessage]);
 
 	const ariaDescribedById = `sync-block-label-description-${localId}`;
-	const LabelComponent = () => (
-		<>
-			<div
-				data-testid={SyncBlockLabelDataId}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-				className={SyncBlockLabelSharedCssClassName.labelClassName}
-				aria-describedby={ariaDescribedById}
-			>
-				<BlockSyncedIcon color={token('color.icon.subtle')} size="small" label="" />
-				{isSource || !title ? (
-					<Text size="small" color="color.text.subtle">
-						{formatMessage(messages.syncedBlockLabel)}
-					</Text>
-				) : (
-					<Text maxLines={1} size="small" color="color.text.subtle">
-						{title}
-					</Text>
-				)}
-			</div>
-			<VisuallyHidden id={ariaDescribedById}>{tooltipContent}</VisuallyHidden>
-		</>
+
+	const getLabelContent = useMemo(() => {
+		if (isUnsyncedBlock && fg('platform_synced_block_dogfooding')) {
+			return (
+				<Text size="small" color="color.text.subtle">
+					{formatMessage(messages.unsyncedBlockLabel)}
+				</Text>
+			);
+		}
+		if (isSource || !title) {
+			return (
+				<Text size="small" color="color.text.subtle">
+					{formatMessage(messages.syncedBlockLabel)}
+				</Text>
+			);
+		}
+		return (
+			<Text maxLines={1} size="small" color="color.text.subtle">
+				{title}
+			</Text>
+		);
+	}, [formatMessage, isSource, isUnsyncedBlock, title]);
+
+	const label = (
+		<div
+			data-testid={SyncBlockLabelDataId}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={SyncBlockLabelSharedCssClassName.labelClassName}
+			aria-describedby={ariaDescribedById}
+		>
+			<BlockSyncedIcon color={token('color.icon.subtle')} size="small" label="" />
+			{getLabelContent}
+		</div>
 	);
 
-	const LabelWithTooltip = () => (
+	if ((isSource || isUnsyncedBlock) && fg('platform_synced_block_dogfooding')) {
+		return label;
+	}
+
+	return (
 		<Tooltip
 			position="top"
 			content={fg('platform_synced_block_dogfooding') ? tooltipContent : tooltipMessage}
@@ -105,18 +123,9 @@ const SyncBlockLabelComponent = ({
 			// using this to ensure that the 'last edited' time is updated when the tooltip is opened
 			onShow={updateTooltipContent}
 		>
-			<LabelComponent />
+			{label}
+			<VisuallyHidden id={ariaDescribedById}>{tooltipContent}</VisuallyHidden>
 		</Tooltip>
-	);
-
-	return fg('platform_synced_block_dogfooding') ? (
-		isSource ? (
-			<LabelComponent />
-		) : (
-			<LabelWithTooltip />
-		)
-	) : (
-		<LabelWithTooltip />
 	);
 };
 

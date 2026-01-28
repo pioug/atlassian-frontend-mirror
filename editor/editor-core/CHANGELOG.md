@@ -1,5 +1,40 @@
 # @atlaskit/editor-core
 
+## 216.7.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 216.7.12
+
+### Patch Changes
+
+- [`e2542bcabe129`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2542bcabe129) -
+  [ux] EDITOR-4753 fix sync block label styles and border styles when it is in error state
+- Updated dependencies
+
+## 216.7.11
+
+### Patch Changes
+
+- [`cb86382757a72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb86382757a72) -
+  Cleanup stale flag confluence_floating_toolbar_animation
+- [`4641b85ef8eab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4641b85ef8eab) -
+  Update the default aria-lable for page appearance editors
+- [`5c3f8d87c2290`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c3f8d87c2290) -
+  Cleanup general AIFC bug fix feature gate
+- Updated dependencies
+
+## 216.7.10
+
+### Patch Changes
+
+- [`a218bead9e6a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a218bead9e6a7) -
+  EDITOR-4542 Make isTableWithFixedColumnWidthsOptionEnabled an editor prop instead of using FG
+  value
+- Updated dependencies
+
 ## 216.7.9
 
 ### Patch Changes

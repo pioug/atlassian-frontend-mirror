@@ -1,5 +1,4 @@
 import type { EditorCommand, NextEditorPlugin } from '@atlaskit/editor-common/types';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 export type ConnectivityPlugin = NextEditorPlugin<
 	'connectivity',
@@ -44,10 +43,5 @@ export type Mode = 'offline' | 'online' | 'collab-offline' | 'internet-offline';
  * Check if the connectivity mode represents ANY offline state
  */
 export const isOfflineMode = (mode: Mode | undefined): boolean => {
-	if (editorExperiment('platform_synced_blocks_offline_check_for_block', true)) {
-		return mode === 'offline' || mode === 'collab-offline' || mode === 'internet-offline';
-	}
-
-	// Original behaviour: only "offline" is offline
-	return mode === 'offline';
+	return mode === 'offline' || mode === 'collab-offline' || mode === 'internet-offline';
 };

@@ -238,7 +238,7 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	 * @returns The source info
 	 */
 	async fetchSyncBlockSourceInfo(
-		localId: BlockInstanceId,
+		localId?: BlockInstanceId,
 		sourceAri?: string,
 		sourceProduct?: SyncBlockProduct,
 		fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,

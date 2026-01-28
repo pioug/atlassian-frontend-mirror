@@ -115,22 +115,10 @@ export const syncBlockStyles: SerializedStyles = css({
 			},
 
 			/* Error state */
-			/* In error state sync block should not have hover styles or show the label */
+			/* In error state sync block should have disabled background colour */
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 			[`:has(.${SyncBlockSharedCssClassName.error})`]: {
 				backgroundColor: token('color.background.disabled'),
-				boxShadow: `0 0 0 1px ${token('color.border')}`,
-
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-				[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
-					opacity: 1,
-					visibility: 'visible',
-					backgroundColor: token('elevation.surface'),
-
-					'&::before': {
-						border: 'none',
-					},
-				},
 			},
 
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
@@ -207,5 +195,22 @@ export const syncBlockStyles: SerializedStyles = css({
 		right: token('space.150', '12px'),
 		backgroundColor: token('elevation.surface'),
 		maxWidth: '140px',
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const syncBlockOverflowStyles: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		[`.${BodiedSyncBlockSharedCssClassName.content}`]: {
+			// Contain floated elements (wrap-left/wrap-right) within synced block borders
+			overflow: 'hidden',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		[`.${SyncBlockSharedCssClassName.renderer}`]: {
+			// Contain floated elements (wrap-left/wrap-right) within synced block borders
+			overflow: 'hidden',
+		},
 	},
 });

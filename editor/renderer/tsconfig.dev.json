@@ -3,6 +3,7 @@
 	"include": [
 		"**/docs/**/*",
 		"**/__tests__/**/*",
+		"**/__tests__/**/*.json",
 		"**/vr-tests/**/*",
 		"**/__perf__/**/*",
 		"**/*.test.*",
@@ -14,6 +15,7 @@
 		"**/examples/*.tsx",
 		"**/examples/**/*.ts",
 		"**/examples/**/*.tsx",
+		"**/examples/**/*.json",
 		"**/storybook/**/*",
 		"**/constellation/**/*",
 		".storybook/*",

@@ -186,8 +186,7 @@ export const ProfilecardInternal = (
 				<ErrorMessage
 					reload={props.clientFetchProfile}
 					errorType={props.errorType || null}
-					fireAnalytics={fireAnalytics}
-					fireAnalyticsNext={fireEventNext}
+					fireAnalytics={fireEventNext}
 				/>
 			</Wrapper>
 		);

@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 8.1.0
+
+### Minor Changes
+
+- [`1d31a4729ab09`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d31a4729ab09) -
+  [ux] Implement nested block menu icon (flagged)
+
+### Patch Changes
+
+- [`e00b363b9fa30`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e00b363b9fa30) -
+  [ux] EDITOR-4481 Clean up platform_editor_toolbar_aifc_user_intent_fix
+- Updated dependencies
+
+## 8.0.15
+
+### Patch Changes
+
+- [`131735fb6ad06`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/131735fb6ad06) -
+  [ux] EDITOR-4281 Expand preserved selection edge case
+- Updated dependencies
+
 ## 8.0.14
 
 ### Patch Changes

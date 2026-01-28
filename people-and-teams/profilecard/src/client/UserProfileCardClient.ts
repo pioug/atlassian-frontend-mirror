@@ -1,7 +1,6 @@
 import { print } from 'graphql';
 import gql from 'graphql-tag';
 
-import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { type FireEventType } from '@atlaskit/teams-app-internal-analytics';
 
@@ -11,12 +10,12 @@ import type {
 	ProfileClientOptions,
 	TeamsUserQueryResponse,
 } from '../types';
-import { PACKAGE_META_DATA, userRequestAnalytics } from '../util/analytics';
+import { PACKAGE_META_DATA } from '../util/analytics';
 import { localTime } from '../util/date';
 import { getPageTime } from '../util/performance';
 
 import CachingClient from './CachingClient';
-import { DEPRECATED_getErrorAttributes, getErrorAttributes } from './errorUtils';
+import { getErrorAttributes } from './errorUtils';
 import { AGGQuery } from './graphqlUtils';
 
 /**
@@ -171,12 +170,7 @@ export default class UserProfileCardClient extends CachingClient<any> {
 		};
 	}
 
-	getProfile(
-		cloudId: string,
-		userId: string,
-		analytics?: (event: AnalyticsEventPayload) => void,
-		analyticsNext?: FireEventType,
-	): Promise<any> {
+	getProfile(cloudId: string, userId: string, analytics?: FireEventType): Promise<any> {
 		if (!userId) {
 			return Promise.reject(new Error('userId missing'));
 		}
@@ -191,17 +185,11 @@ export default class UserProfileCardClient extends CachingClient<any> {
 		return new Promise((resolve, reject) => {
 			const startTime = getPageTime();
 
-			if (fg('ptc-enable-profile-card-analytics-refactor')) {
-				if (analyticsNext) {
-					analyticsNext('operational.profilecard.triggered.request', {
-						firedAt: Math.round(getPageTime()),
-						...PACKAGE_META_DATA,
-					});
-				}
-			} else {
-				if (analytics) {
-					analytics(userRequestAnalytics('triggered'));
-				}
+			if (analytics) {
+				analytics('operational.profilecard.triggered.request', {
+					firedAt: Math.round(getPageTime()),
+					...PACKAGE_META_DATA,
+				});
 			}
 
 			this.makeRequest(cloudId, userId)
@@ -209,45 +197,26 @@ export default class UserProfileCardClient extends CachingClient<any> {
 					if (this.cache) {
 						this.setCachedProfile(cacheIdentifier, data);
 					}
-					if (fg('ptc-enable-profile-card-analytics-refactor')) {
-						if (analyticsNext) {
-							analyticsNext('operational.profilecard.succeeded.request', {
-								duration: getPageTime() - startTime,
-								firedAt: Math.round(getPageTime()),
-								...PACKAGE_META_DATA,
-							});
-						}
-					} else {
-						if (analytics) {
-							analytics(
-								userRequestAnalytics('succeeded', {
-									duration: getPageTime() - startTime,
-								}),
-							);
-						}
+					if (analytics) {
+						analytics('operational.profilecard.succeeded.request', {
+							duration: getPageTime() - startTime,
+							firedAt: Math.round(getPageTime()),
+							...PACKAGE_META_DATA,
+						});
 					}
+
 					resolve(data);
 				})
 				.catch((error: any) => {
-					if (fg('ptc-enable-profile-card-analytics-refactor')) {
-						if (analyticsNext) {
-							analyticsNext('operational.profilecard.failed.request', {
-								duration: getPageTime() - startTime,
-								...getErrorAttributes(error),
-								firedAt: Math.round(getPageTime()),
-								...PACKAGE_META_DATA,
-							});
-						}
-					} else {
-						if (analytics) {
-							analytics(
-								userRequestAnalytics('failed', {
-									duration: getPageTime() - startTime,
-									...DEPRECATED_getErrorAttributes(error),
-								}),
-							);
-						}
+					if (analytics) {
+						analytics('operational.profilecard.failed.request', {
+							duration: getPageTime() - startTime,
+							...getErrorAttributes(error),
+							firedAt: Math.round(getPageTime()),
+							...PACKAGE_META_DATA,
+						});
 					}
+
 					reject(error);
 				});
 		});

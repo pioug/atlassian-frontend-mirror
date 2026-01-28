@@ -18,12 +18,10 @@ import {
 	ToolbarTooltip,
 	useToolbarUI,
 } from '@atlaskit/editor-toolbar';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import { type IconColor } from '@atlaskit/tokens/css-type-schema';
 
 import type { TextColorPlugin } from '../textColorPluginType';
-
 
 interface TextColorHighlightMenuProps {
 	api: ExtractInjectionAPI<TextColorPlugin> | undefined;
@@ -49,7 +47,10 @@ const getHighlightColorIcon = (highlightColor: string | null | undefined) => {
 	return undefined;
 };
 
-export const TextColorHighlightMenu = ({ children, api }: TextColorHighlightMenuProps): React.JSX.Element => {
+export const TextColorHighlightMenu = ({
+	children,
+	api,
+}: TextColorHighlightMenuProps): React.JSX.Element => {
 	const isHighlightPluginExisted = !!api?.highlight;
 	const isTextColorDisabled = useSharedPluginStateSelector(api, 'textColor.disabled');
 	const { isDisabled: isToolbarDisabled } = useToolbarUI();
@@ -74,10 +75,8 @@ export const TextColorHighlightMenu = ({ children, api }: TextColorHighlightMenu
 
 	useEffect(() => {
 		return () => {
-			if (expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true)) {
-				if (isPaletteOpen) {
-					setIsPaletteOpen(false);
-				}
+			if (isPaletteOpen) {
+				setIsPaletteOpen(false);
 			}
 		};
 	}, [setIsPaletteOpen, isPaletteOpen]);
@@ -97,18 +96,7 @@ export const TextColorHighlightMenu = ({ children, api }: TextColorHighlightMenu
 				/>
 			}
 		>
-			<ToolbarDropdownMenuProvider
-				isOpen={
-					expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true)
-						? isPaletteOpen
-						: undefined
-				}
-				setIsOpen={
-					expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true)
-						? setIsPaletteOpen
-						: undefined
-				}
-			>
+			<ToolbarDropdownMenuProvider isOpen={isPaletteOpen} setIsOpen={setIsPaletteOpen}>
 				<ToolbarDropdownMenu
 					iconBefore={
 						<ToolbarColorSwatch highlightColor={getHighlightColorIcon(highlightColor)}>

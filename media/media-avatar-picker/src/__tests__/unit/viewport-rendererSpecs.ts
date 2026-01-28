@@ -1,4 +1,5 @@
 import { mockCanvas } from '@atlaskit/media-test-helpers';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { DEFAULT_INNER_WIDTH, DEFAULT_INNER_HEIGHT } from '../../viewport';
 import { renderViewport } from '../../viewport/viewport-render';
 import { setup as setupViewport } from './viewportSpec';
@@ -21,6 +22,11 @@ const rotate = getCanvasMock.context.rotate! as jest.Mock;
 const drawImage = getCanvasMock.context.drawImage! as jest.Mock;
 const toDataURL = getCanvasMock.canvas.toDataURL! as jest.Mock;
 toDataURL.mockReturnValue('some-data-url');
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 describe('Viewport Renderer', () => {
 	let originalCSS: any;

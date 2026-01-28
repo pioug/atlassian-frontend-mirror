@@ -1,5 +1,33 @@
 # @atlaskit/editor-statsig-tmp
 
+## 17.0.0
+
+### Major Changes
+
+- [`25c388e0f807a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25c388e0f807a) -
+  EDITOR-4684 Clean up platform_editor_add_orange_highlight_color experiment - orange highlight
+  color is now permanently enabled
+
+### Minor Changes
+
+- [`874aa2a0589a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/874aa2a0589a2) -
+  Clean up platform_synced_blocks_offline_check_for_block FG
+- [`256b4fc86bae0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/256b4fc86bae0) -
+  [ux] EDITOR-4464 Limited Mode: Change threshold to activate limited mode to use the node count
+  rather than the raw document size.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.36.0
+
+### Minor Changes
+
+- [`7726e6522167d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7726e6522167d) -
+  Implemented a bypass for the grace period to allow reconnection when the catchup call is skipped
+  following a socket disconnect in the collab-provider.
+
 ## 16.35.0
 
 ### Minor Changes

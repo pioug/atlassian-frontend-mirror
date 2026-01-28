@@ -27,9 +27,6 @@
 			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../measurement/feature-gate-js-client/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../tmp-editor-statsig/afm-products/tsconfig.json"
 		}
 	]

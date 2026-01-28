@@ -1,5 +1,23 @@
 # @atlaskit/collab-provider
 
+## 15.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.0
+
+### Minor Changes
+
+- [`7726e6522167d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7726e6522167d) -
+  Implemented a bypass for the grace period to allow reconnection when the catchup call is skipped
+  following a socket disconnect in the collab-provider.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.0.3
 
 ### Patch Changes

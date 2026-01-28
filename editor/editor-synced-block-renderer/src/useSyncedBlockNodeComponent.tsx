@@ -3,6 +3,7 @@ import React, { useCallback, useEffect } from 'react';
 import type { DocNode } from '@atlaskit/adf-schema';
 import { ACTION_SUBJECT, type AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
+import { SyncBlockActionsProvider } from '@atlaskit/editor-common/sync-block';
 import type { JSONNode } from '@atlaskit/editor-json-transformer';
 import {
 	convertSyncBlockJSONNodeToSyncBlockNode,
@@ -67,19 +68,25 @@ export const useMemoizedSyncedBlockNodeComponent = ({
 	}, [syncBlockNodes, syncBlockStoreManager.referenceManager]);
 
 	return useCallback(
-		(props: SyncedBlockNodeProps) => (
+		(props: SyncedBlockNodeProps) =>
 			fg('platform_synced_block_dogfooding') ? (
 				<ErrorBoundary
 					component={ACTION_SUBJECT.SYNCED_BLOCK}
 					dispatchAnalyticsEvent={fireAnalyticsEvent}
 					fallbackComponent={null}
 				>
-					<SyncedBlockNodeComponentRenderer
-						key={props.localId}
-						nodeProps={props}
-						syncBlockStoreManager={syncBlockStoreManager}
-						rendererOptions={syncBlockRendererOptions}
-					/>
+					<SyncBlockActionsProvider
+						fetchSyncBlockSourceInfo={(sourceAri: string) =>
+							syncBlockStoreManager.referenceManager.fetchSyncBlockSourceInfoBySourceAri(sourceAri)
+						}
+					>
+						<SyncedBlockNodeComponentRenderer
+							key={props.localId}
+							nodeProps={props}
+							syncBlockStoreManager={syncBlockStoreManager}
+							rendererOptions={syncBlockRendererOptions}
+						/>
+					</SyncBlockActionsProvider>
 				</ErrorBoundary>
 			) : (
 				<SyncedBlockNodeComponentRenderer
@@ -88,8 +95,7 @@ export const useMemoizedSyncedBlockNodeComponent = ({
 					syncBlockStoreManager={syncBlockStoreManager}
 					rendererOptions={syncBlockRendererOptions}
 				/>
-			)
-		),
+			),
 		[syncBlockStoreManager, syncBlockRendererOptions, fireAnalyticsEvent],
 	);
 };

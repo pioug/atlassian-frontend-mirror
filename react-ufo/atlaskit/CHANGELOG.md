@@ -1,5 +1,21 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.0.8
+
+### Patch Changes
+
+- [`eeb197f1a3f0c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eeb197f1a3f0c) -
+  Track whether event would be dropped by native page visibility monitoring before setup
+
+## 5.0.7
+
+### Patch Changes
+
+- [`d962c32704964`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d962c32704964) -
+  FG cleanup - platform_ufo_remove_ssr_placeholder_in_ttvc_v4
+- [`6367a096e4f17`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6367a096e4f17) -
+  FG cleanup - platform_ufo_vcnext_for_ttvc_v5
+
 ## 5.0.6
 
 ### Patch Changes

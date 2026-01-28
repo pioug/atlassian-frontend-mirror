@@ -24,6 +24,7 @@
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx",
 		"./examples-helpers/**/*",
+		"./examples-helpers/**/*.json",
 		"./src/__fixtures__/**/*",
 		"./src/extractors/common/__mocks__/**/*",
 		"./src/utils/analytics/__mocks__/**/*",

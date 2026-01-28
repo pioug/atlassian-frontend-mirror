@@ -20,10 +20,7 @@ export interface BackgroundColorMark extends Mark {
 	attrs: TextColorAttributes;
 }
 
-// Remove this when cleaning up platform_editor_add_orange_highlight_color
-export type BackgroundColorKey = 'Gray' | 'Teal' | 'Lime' | 'Orange' | 'Magenta' | 'Purple';
-
-export type BackgroundColorKeyNext =
+export type BackgroundColorKey =
 	| 'Gray'
 	| 'Teal'
 	| 'Lime'
@@ -34,15 +31,6 @@ export type BackgroundColorKeyNext =
 
 const colorArrayPalette: Array<[string, BackgroundColorKey]> = [
 	[Neutral300, 'Gray'], // token: color.background.accent.gray.subtler
-	[T200, 'Teal'], // token: color.background.accent.teal.subtler
-	[L200, 'Lime'], // token: color.background.accent.lime.subtler
-	[O200, 'Orange'], // token: color.background.accent.orange.subtler
-	[M200, 'Magenta'], // token: color.background.accent.magenta.subtler
-	[P200, 'Purple'], // token: color.background.accent.purple.subtler
-];
-
-const colorArrayPaletteNext: Array<[string, BackgroundColorKeyNext]> = [
-	[Neutral300, 'Gray'], // token: color.background.accent.gray.subtler
 	[P200, 'Purple'], // token: color.background.accent.purple.subtler
 	[M200, 'Magenta'], // token: color.background.accent.magenta.subtler
 	[O200, 'Orange'], // token: color.background.accent.orange.subtler
@@ -52,19 +40,9 @@ const colorArrayPaletteNext: Array<[string, BackgroundColorKeyNext]> = [
 ];
 
 // @see https://product-fabric.atlassian.net/wiki/spaces/E/pages/55979455/Colour+picker+decisions#Colourpickerdecisions-Visualdesigndecisions
-// Remove this when cleaning up platform_editor_add_orange_highlight_color
-// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
-/**
- * @deprecated use backgroundColorPaletteNext instead, which in addition supports yellow highlight
- */
 export const backgroundColorPalette = new Map<string, BackgroundColorKey>();
 colorArrayPalette.forEach(([color, label]) =>
 	backgroundColorPalette.set(color.toLowerCase(), label),
-);
-
-export const backgroundColorPaletteNext = new Map<string, BackgroundColorKeyNext>();
-colorArrayPaletteNext.forEach(([color, label]) =>
-	backgroundColorPaletteNext.set(color.toLowerCase(), label),
 );
 
 export const backgroundColor: MarkSpec = backgroundColorFactory({

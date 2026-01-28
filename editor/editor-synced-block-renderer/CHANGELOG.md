@@ -1,5 +1,25 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 5.6.3
+
+### Patch Changes
+
+- [`f11ff647ea458`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f11ff647ea458) -
+  [ux] [EDITOR-4521] Implement source deleted reference UI, update block deleted/unsynced reference
+  UI to add delete button, unsynced label and source title/url
+- Updated dependencies
+
+## 5.6.2
+
+### Patch Changes
+
+- [`74c826b26352b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74c826b26352b) -
+  [ux] EDITOR-4765 In SSR, if server returned error, we should render loading state instead of error
+  state
+- [`a372f642e42a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a372f642e42a5) -
+  [ux] EDITOR-4716 Fix content shifting when tooltip is shown for tasks in Synced Block
+- Updated dependencies
+
 ## 5.6.1
 
 ### Patch Changes

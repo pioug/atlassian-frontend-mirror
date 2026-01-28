@@ -1,5 +1,19 @@
 # @atlaskit/profilecard
 
+## 24.34.0
+
+### Minor Changes
+
+- [`f10295ea8dbb8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f10295ea8dbb8) -
+  allow option to display work item disclosure for AgentProfileCard
+
+## 24.33.0
+
+### Minor Changes
+
+- [`aa50fab3471f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa50fab3471f9) -
+  Cleaned up profile card internal analytics instrumentation for profile client
+
 ## 24.32.3
 
 ### Patch Changes

@@ -7,7 +7,6 @@ import {
 } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TasksAndDecisionsPlugin } from '../tasksAndDecisionsPluginType';
 
@@ -20,9 +19,6 @@ type GetTasksAndDecisionsToolbarComponentsProps = {
 export const getTasksAndDecisionsToolbarComponents = ({
 	api,
 }: GetTasksAndDecisionsToolbarComponentsProps): RegisterComponent[] => {
-	if (!expValEquals('platform_editor_toolbar_aifc_patch_6', 'isEnabled', true)) {
-		return [];
-	}
 
 	return [
 		{

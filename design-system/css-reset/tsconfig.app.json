@@ -27,7 +27,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__css-reset/app"
+		"outDir": "../../../tsDist/@atlaskit__css-reset/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

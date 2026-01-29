@@ -30,7 +30,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__media-image/app"
+		"outDir": "../../../tsDist/@atlaskit__media-image/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

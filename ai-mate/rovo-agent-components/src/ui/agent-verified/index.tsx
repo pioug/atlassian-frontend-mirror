@@ -11,15 +11,15 @@ import Tooltip from '@atlaskit/tooltip';
 import type { agentVerified_AtlaskitRovoAgentComponents$key } from './__generated__/agentVerified_AtlaskitRovoAgentComponents.graphql';
 import messages from './messages';
 
+export type AgentVerifiedProps = {
+	agentRef: agentVerified_AtlaskitRovoAgentComponents$key | null;
+	size?: IconSize;
+}
+
 export const AgentVerified = ({
 	agentRef,
 	size = 'small',
-}: {
-	agentRef: agentVerified_AtlaskitRovoAgentComponents$key | null;
-	size?: IconSize;
-}) => {
-	const { formatMessage } = useIntl();
-
+}: AgentVerifiedProps) => {
 	const data = useFragment(
 		graphql`
 			fragment agentVerified_AtlaskitRovoAgentComponents on AgentStudioAssistant {
@@ -33,6 +33,15 @@ export const AgentVerified = ({
 		return null;
 	}
 
+	return <AgentVerifiedIcon size={size} />
+};
+
+export type AgentVerifiedIconProps = {
+	size?: IconSize;
+}
+
+export const AgentVerifiedIcon = ({ size = 'small' }: AgentVerifiedIconProps) => {
+	const { formatMessage } = useIntl();
 	return (
 		<Tooltip content={formatMessage(messages.verifiedAgentTooltip)}>
 			<VerifiedIcon
@@ -42,4 +51,4 @@ export const AgentVerified = ({
 			/>
 		</Tooltip>
 	);
-};
+}

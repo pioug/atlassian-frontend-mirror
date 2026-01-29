@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 7.1.5
+
+### Patch Changes
+
+- [`7bed98c6b4881`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7bed98c6b4881) -
+  ED-29747 Fix menu open experience tracking
+- Updated dependencies
+
 ## 7.1.4
 
 ### Patch Changes

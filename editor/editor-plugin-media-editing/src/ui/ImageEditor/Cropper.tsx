@@ -44,6 +44,8 @@ export interface CropperProps {
 	initialAspectRatio?: number;
 	/** Initial coverage of the image (0-1) */
 	initialCoverage?: number;
+	/** Whether to render as circular crop (1:1 aspect ratio constraint) */
+	isCircle?: boolean;
 	/** Enable selection movement */
 	movable?: boolean;
 	/** Enable multiple selections */
@@ -181,6 +183,7 @@ export interface CropperRef {
 	getCanvas: () => CropperCanvasElement | null;
 	getCroppedCanvas: (options?: GetCroppedCanvasOptions) => Promise<HTMLCanvasElement | null>;
 	getImage: () => CropperImageElement | null;
+	getSelection: () => CropperSelectionElement | null;
 	isImageReady: boolean;
 }
 
@@ -209,7 +212,7 @@ export const Cropper = forwardRef<CropperRef, CropperProps>(
 			aspectRatio,
 			initialAspectRatio,
 			initialCoverage = 1,
-			background = false,
+			background = true,
 			rotatable = true,
 			scalable = true,
 			translatable = true,
@@ -220,6 +223,7 @@ export const Cropper = forwardRef<CropperRef, CropperProps>(
 			outlined = true,
 			className,
 			onImageReady,
+			isCircle = false,
 		},
 		ref,
 	) => {
@@ -230,6 +234,7 @@ export const Cropper = forwardRef<CropperRef, CropperProps>(
 		const [isCropperLoaded, setIsCropperLoaded] = useState(false);
 		const getCanvas = useCallback(() => canvasRef.current, []);
 		const getImage = useCallback(() => imageRef.current, []);
+		const getSelection = useCallback(() => selectionRef.current, []);
 
 		const getCroppedCanvas = useCallback(
 			(options?: GetCroppedCanvasOptions): Promise<HTMLCanvasElement | null> => {
@@ -241,9 +246,27 @@ export const Cropper = forwardRef<CropperRef, CropperProps>(
 				if (typeof selection.$toCanvas !== 'function') {
 					return Promise.resolve(null);
 				}
+
+				// If circular crop, we need to apply a circular mask
+				if (isCircle) {
+					return selection.$toCanvas({
+						beforeDraw: (context: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => {
+							// Apply circular clipping to the canvas
+							const radius = Math.min(canvas.width, canvas.height) / 2;
+							const centerX = canvas.width / 2;
+							const centerY = canvas.height / 2;
+
+							// Create a circular clipping path
+							context.beginPath();
+							context.arc(centerX, centerY, radius, 0, Math.PI * 2);
+							context.clip();
+						},
+					});
+				}
+
 				return selection.$toCanvas(options);
 			},
-			[],
+			[isCircle],
 		);
 
 		const fitStencilToImage = useCallback(() => {
@@ -257,15 +280,17 @@ export const Cropper = forwardRef<CropperRef, CropperProps>(
 				const imageRect = image.getBoundingClientRect();
 
 				// Calculate coordinates relative to the canvas
-				const x = imageRect.left - canvasRect.left;
-				const y = imageRect.top - canvasRect.top;
-				const width = imageRect.width;
-				const height = imageRect.height;
+				requestAnimationFrame(() => {
+					const x = imageRect.left - canvasRect.left;
+					const y = imageRect.top - canvasRect.top;
+					const width = imageRect.width;
+					const height = imageRect.height;
 
-				// Apply these to the selection (the stencil)
-				if (typeof selection.$change === 'function') {
-					selection.$change(Math.floor(x), Math.floor(y), Math.floor(width), Math.floor(height));
-				}
+					// Apply these to the selection (the stencil)
+					if (typeof selection.$change === 'function') {
+						selection.$change(Math.floor(x), Math.floor(y), Math.floor(width), Math.floor(height));
+					}
+				})
 			}
 		}, []);
 
@@ -367,6 +392,35 @@ export const Cropper = forwardRef<CropperRef, CropperProps>(
 			});
 		}, [isImageReady, handleSelectionChange]);
 
+		useEffect(() => {
+			if (!canvasRef.current || !imageRef.current) {return;}
+
+			const observer = new ResizeObserver(() => {
+				// This forces the image to recalculate its "contain" logic
+				// whenever the canvas wrapper changes size
+				if (typeof imageRef.current?.$center === 'function') {
+					imageRef.current?.$center('contain');
+				}
+			});
+
+			observer.observe(canvasRef.current);
+
+			return () => observer.disconnect();
+		}, [canvasRef, imageRef]);
+
+		useEffect(() => {
+			if (!canvasRef.current) {return;}
+
+			const observer = new ResizeObserver(() => {
+				selectionRef.current?.removeAttribute('aspect-ratio');
+				fitStencilToImage();
+			});
+
+			observer.observe(canvasRef.current);
+
+			return () => observer.disconnect();
+		}, [fitStencilToImage]);
+
 		useImperativeHandle(
 			ref,
 			() => ({
@@ -375,14 +429,43 @@ export const Cropper = forwardRef<CropperRef, CropperProps>(
 				getCroppedCanvas,
 				getImage,
 				isImageReady,
+				getSelection,
 			}),
-			[getCanvas, getCroppedCanvas, getImage, isImageReady, fitStencilToImage],
+			[getCanvas, getCroppedCanvas, getImage, isImageReady, fitStencilToImage, getSelection],
 		);
 
 		// Inject global styles for cropper handles
 		useEffect(() => {
 			const style = document.createElement('style');
+			const circularStyle = isCircle
+				? `
+			cropper-selection {
+				outline: none;
+				border-top: 1px solid #0052CC;
+				border-right: 1px solid #0052CC;
+				border-bottom: 1px solid #0052CC;
+				border-left: 1px solid #0052CC;
+				box-sizing: border-box;
+				border-radius: 50%;
+				box-shadow: 0 0 0 9999px rgba(255, 255, 255, 0.6);
+			}
+		`
+				: `
+			cropper-selection {
+				outline: none;
+				border-top: 1px solid #0052CC;
+				border-right: 1px solid #0052CC;
+				border-bottom: 1px solid #0052CC;
+				border-left: 1px solid #0052CC;
+				box-sizing: border-box; 
+			}
+		`;
+
 			style.textContent = `
+				cropper-canvas {
+					background-color: #F8F8F8;
+					background-image: none;
+				}
 				cropper-shade {
 					outline-color: rgba(255,255,255,0.5);
 				}
@@ -432,7 +515,7 @@ export const Cropper = forwardRef<CropperRef, CropperProps>(
 					height: 15px;
 					width: 15px;
 					background-color: transparent;
-					transform: translate(-3px, -3px); 
+					transform: translate(-4px, -4px); 
 				}
 				cropper-handle[action="se-resize"]::after {
 					border-radius: 4px 4px 5px 4px;
@@ -461,19 +544,11 @@ export const Cropper = forwardRef<CropperRef, CropperProps>(
 					background-color: transparent;
 					transform: translate(-14px, -7px); 
 				}
-				cropper-selection {
-					outline: none;
-					border-top: 1px solid #0052CC;
-					border-right: 1px solid #0052CC;
-					border-bottom: 1px solid #0052CC;
-					border-left: 1px solid #0052CC;
-					box-sizing: border-box; 
-				}
+				${circularStyle}
 			`;
 			document.head.appendChild(style);
 			return () => style.remove();
-		}, []);
-
+		}, [isCircle]);
 		return (
 			<CropperCanvas
 				ref={canvasRef}

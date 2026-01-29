@@ -27,7 +27,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__textfield/app"
+		"outDir": "../../../tsDist/@atlaskit__textfield/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

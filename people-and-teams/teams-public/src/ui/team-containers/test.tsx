@@ -125,7 +125,7 @@ describe('TeamContainers', () => {
 
 		renderTeamContainers(teamId);
 
-		expect(screen.getByText(messages.addJiraProjectTitle.defaultMessage)).toBeInTheDocument();
+		expect(screen.getByText(messages.addJiraProject.defaultMessage)).toBeInTheDocument();
 		expect(
 			screen.getByText(messages.addConfluenceContainerTitle.defaultMessage),
 		).toBeInTheDocument();
@@ -175,7 +175,7 @@ describe('TeamContainers', () => {
 		});
 		renderTeamContainers(teamId);
 
-		expect(screen.queryByText(messages.addJiraProjectTitle.defaultMessage)).toBeNull();
+		expect(screen.queryByText(messages.addJiraProject.defaultMessage)).toBeNull();
 		expect(screen.queryByText(messages.addConfluenceContainerTitle.defaultMessage)).toBeNull();
 		expect(screen.getByText(JiraProject.name)).toBeInTheDocument();
 		expect(screen.getByText(ConfluenceSpace.name)).toBeInTheDocument();
@@ -189,7 +189,7 @@ describe('TeamContainers', () => {
 		const isDisplayedOnProfileCard = true;
 		renderTeamContainers(teamId, mockFilterContainerId, isDisplayedOnProfileCard);
 
-		expect(screen.queryByText(messages.addJiraProjectTitle.defaultMessage)).toBeNull();
+		expect(screen.queryByText(messages.addJiraProject.defaultMessage)).toBeNull();
 		expect(screen.queryByText(messages.addConfluenceContainerTitle.defaultMessage)).toBeNull();
 		expect(screen.getByText(JiraProject.name)).toBeInTheDocument();
 		expect(screen.getByText(ConfluenceSpace.name)).toBeInTheDocument();
@@ -201,7 +201,7 @@ describe('TeamContainers', () => {
 		});
 		renderTeamContainers(teamId);
 
-		expect(screen.getByText(messages.addJiraProjectTitle.defaultMessage)).toBeInTheDocument();
+		expect(screen.getByText(messages.addJiraProject.defaultMessage)).toBeInTheDocument();
 		expect(screen.queryByText(messages.addConfluenceContainerTitle.defaultMessage)).toBeNull();
 		expect(screen.getByText(ConfluenceSpace.name)).toBeInTheDocument();
 	});
@@ -215,7 +215,7 @@ describe('TeamContainers', () => {
 		expect(
 			screen.getByText(messages.addConfluenceContainerTitle.defaultMessage),
 		).toBeInTheDocument();
-		expect(screen.queryByText(messages.addJiraProjectTitle.defaultMessage)).toBeNull();
+		expect(screen.queryByText(messages.addJiraProject.defaultMessage)).toBeNull();
 		expect(screen.getByText(JiraProject.name)).toBeInTheDocument();
 	});
 
@@ -512,7 +512,7 @@ describe('TeamLinks', () => {
 		});
 		renderTeamContainers(teamId);
 
-		expect(screen.getByText(messages.addJiraProjectTitle.defaultMessage)).toBeInTheDocument();
+		expect(screen.getByText(messages.addJiraProject.defaultMessage)).toBeInTheDocument();
 		expect(
 			screen.getByText(messages.addConfluenceContainerTitle.defaultMessage),
 		).toBeInTheDocument();
@@ -527,7 +527,7 @@ describe('TeamLinks', () => {
 		});
 		renderTeamContainers(teamId);
 
-		expect(screen.getByText(messages.addJiraProjectTitle.defaultMessage)).toBeInTheDocument();
+		expect(screen.getByText(messages.addJiraProject.defaultMessage)).toBeInTheDocument();
 		expect(screen.queryByText(messages.addConfluenceContainerTitle.defaultMessage)).toBeNull();
 		expect(screen.getByText(ConfluenceSpace.name)).toBeInTheDocument();
 		expect(
@@ -544,7 +544,7 @@ describe('TeamLinks', () => {
 		expect(
 			screen.getByText(messages.addConfluenceContainerTitle.defaultMessage),
 		).toBeInTheDocument();
-		expect(screen.queryByText(messages.addJiraProjectTitle.defaultMessage)).toBeNull();
+		expect(screen.queryByText(messages.addJiraProject.defaultMessage)).toBeNull();
 		expect(screen.getByText(JiraProject.name)).toBeInTheDocument();
 		expect(
 			screen.getByText(messages.emptyLinkContainerDescription.defaultMessage),
@@ -557,7 +557,7 @@ describe('TeamLinks', () => {
 		});
 		renderTeamContainers(teamId);
 
-		expect(screen.queryByText(messages.addJiraProjectTitle.defaultMessage)).toBeNull();
+		expect(screen.queryByText(messages.addJiraProject.defaultMessage)).toBeNull();
 		expect(screen.queryByText(messages.addConfluenceContainerTitle.defaultMessage)).toBeNull();
 		expect(screen.queryByText(messages.emptyLinkContainerDescription.defaultMessage)).toBeNull();
 		expect(screen.getByText(JiraProject.name)).toBeInTheDocument();

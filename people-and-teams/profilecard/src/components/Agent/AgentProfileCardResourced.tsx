@@ -1,6 +1,7 @@
 import React, { Suspense, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+import { getAgentCreator } from '@atlaskit/rovo-agent-components';
 import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
 
@@ -59,7 +60,7 @@ export const AgentProfileCardResourced = (
 	 * @TODO replace with `getAgentCreator` from `@atlassian/rovo-agent-components`
 	 * @deprecated use `getAgentCreator` from `@atlassian/rovo-agent-components`
 	 */
-	const getCreator = useCallback(
+	const getCreatorDeprecated = useCallback(
 		async ({
 			creator_type,
 			creator,
@@ -118,6 +119,53 @@ export const AgentProfileCardResourced = (
 		[creatorUserId, fireEvent, props.cloudId, props.resourceClient, profileHref],
 	);
 
+	const getCreator = useCallback(
+		async ({
+			creator_type,
+			creator,
+			authoringTeam,
+		}: {
+			creator_type: string;
+			creator?: string;
+			authoringTeam?: RovoAgentAgg['authoringTeam'];
+		}) => {
+			try {
+				let userCreatorInfo;
+				if (creatorUserId && props.cloudId) {
+					userCreatorInfo = await props.resourceClient.getProfile(
+						props.cloudId,
+						creatorUserId,
+						fireEvent,
+					);
+				}
+
+				const creatorInfo = getAgentCreator({
+					creatorType: creator_type ?? '',
+					authoringTeam: authoringTeam
+						? {
+								displayName: authoringTeam.displayName ?? '',
+								profileLink: authoringTeam.profileUrl ?? undefined,
+							}
+						: undefined,
+					userCreator: userCreatorInfo
+						? {
+								name: userCreatorInfo.fullName ?? '',
+								profileLink: fg('platform-adopt-teams-nav-config')
+									? profileHref
+									: `/people/${creatorUserId}`,
+							}
+						: undefined,
+					forgeCreator: creator ?? undefined,
+				});
+
+				return creatorInfo;
+			} catch {
+				return undefined;
+			}
+		},
+		[creatorUserId, fireEvent, props.cloudId, props.resourceClient, profileHref],
+	);
+
 	const fetchData = useCallback(async () => {
 		setIsLoading(true);
 		try {
@@ -127,21 +175,32 @@ export const AgentProfileCardResourced = (
 			);
 
 			const profileData = profileResult.restData;
-			const agentCreatorInfo = await getCreator({
+
+			const creatorInfoProps = {
 				creator_type: profileData?.creator_type,
 				creator: profileData?.creator || undefined,
 				authoringTeam: profileResult.aggData?.authoringTeam ?? undefined,
-			});
-			setAgentData({
-				...profileData,
-				creatorInfo: agentCreatorInfo,
-			});
+			};
+
+			if (fg('rovo_agent_show_creator_on_profile_card_fix')) {
+				const agentCreatorInfo = await getCreator(creatorInfoProps);
+				setAgentData({
+					...profileData,
+					creatorInfo: agentCreatorInfo,
+				});
+			} else {
+				const agentCreatorInfoDeprecated = await getCreatorDeprecated(creatorInfoProps);
+				setAgentData({
+					...profileData,
+					creatorInfo: agentCreatorInfoDeprecated,
+				});
+			}
 		} catch (err: any) {
 			setError(err);
 		} finally {
 			setIsLoading(false);
 		}
-	}, [fireEvent, getCreator, props.accountId, props.resourceClient]);
+	}, [fireEvent, getCreator, props.accountId, props.resourceClient, getCreatorDeprecated]);
 
 	useEffect(() => {
 		fetchData();

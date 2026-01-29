@@ -1,5 +1,44 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.17.0
+
+### Minor Changes
+
+- [`251219994ffd0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/251219994ffd0) -
+  Retrieve NCS step version from the editor actions
+
+### Patch Changes
+
+- [`87775069f24dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87775069f24dc) -
+  Update update sync block references endpoint to be keepalive
+- Updated dependencies
+
+## 3.16.0
+
+### Minor Changes
+
+- [`ff4d035bb0bda`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff4d035bb0bda) -
+  EDITOR-2849 fix editor and live page ssr
+
+## 3.15.0
+
+### Minor Changes
+
+- [`04b96fcb2ac43`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/04b96fcb2ac43) -
+  Use existing function to check if SSR
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.14.6
+
+### Patch Changes
+
+- [`faddbf566c913`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/faddbf566c913) -
+  [ux] Add error message in reference sync block when source is unpublished
+- Updated dependencies
+
 ## 3.14.5
 
 ### Patch Changes

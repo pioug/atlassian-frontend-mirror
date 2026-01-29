@@ -34,7 +34,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-toolbar-model/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-toolbar-model/app",
+		"moduleResolution": "bundler"
 	},
 	"references": []
 }

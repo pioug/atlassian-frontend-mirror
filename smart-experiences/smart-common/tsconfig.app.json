@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__smart-common/app"
+		"outDir": "../../../tsDist/@atlaskit__smart-common/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [],
 	"files": []

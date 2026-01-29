@@ -34,7 +34,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__insm/dev"
+		"outDir": "../../../tsDist/@atlaskit__insm/dev",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{
@@ -45,6 +46,6 @@
 		},
 		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
-		},
+		}
 	]
 }

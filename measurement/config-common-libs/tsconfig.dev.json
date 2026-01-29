@@ -34,7 +34,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__config-common-libs/dev"
+		"outDir": "../../../tsDist/@atlaskit__config-common-libs/dev",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

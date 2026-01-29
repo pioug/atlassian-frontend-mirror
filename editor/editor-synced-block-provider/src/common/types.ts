@@ -31,6 +31,7 @@ export enum SyncBlockError {
 	ServerError = 'server_error',
 	InvalidContent = 'invalid_content', // content is not a valid JSON
 	Offline = 'offline',
+	Unpublished = 'unpublished',
 }
 
 export interface SyncBlockData {

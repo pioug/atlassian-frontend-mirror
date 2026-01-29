@@ -27,7 +27,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__navigation-system/app"
+		"outDir": "../../../tsDist/@atlaskit__navigation-system/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

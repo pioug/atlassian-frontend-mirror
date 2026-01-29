@@ -29,6 +29,7 @@ type HTMLElementBase = typeof HTMLElement extends {prototype: infer T} ? T : Rec
  * Cropper image element
  */
 export interface CropperImageElement extends HTMLImageElementBase {
+  $center: (size?: string) => CropperImageElement;
   $ready: (callback?: () => void) => Promise<CropperImageElement>;
   $rotate: (angle: number | string, x?: number, y?: number) => void;
   $scale: (x: number, y?: number) => void;

@@ -34,7 +34,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugin-save-on-enter/dev"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-save-on-enter/dev",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

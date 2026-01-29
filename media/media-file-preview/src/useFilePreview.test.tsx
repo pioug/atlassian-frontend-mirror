@@ -2207,7 +2207,7 @@ describe('useFilePreview', () => {
 		});
 
 		describe('SSR preview error handling', () => {
-			it('should reset preview and remain in loading state when SSR data preview fails', async () => {
+			it('should reset preview and not remain in loading state when SSR data preview fails', async () => {
 				const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
 				const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
 					initialItems: fileItem,

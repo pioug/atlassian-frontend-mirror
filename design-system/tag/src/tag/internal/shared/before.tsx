@@ -15,7 +15,7 @@ interface BeforeProps {
 
 const beforeElementStyles = css({
 	display: 'flex',
-	height: '16px',
+	height: '1rem',
 	alignItems: 'center',
 	justifyContent: 'center',
 	insetBlockStart: token('space.0', '0px'),

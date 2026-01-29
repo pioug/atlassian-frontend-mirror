@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugin-ufo/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-ufo/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

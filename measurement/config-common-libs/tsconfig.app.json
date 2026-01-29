@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__config-common-libs/app"
+		"outDir": "../../../tsDist/@atlaskit__config-common-libs/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [],
 	"files": []

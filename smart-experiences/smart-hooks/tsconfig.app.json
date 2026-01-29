@@ -29,7 +29,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__smart-hooks/app"
+		"outDir": "../../../tsDist/@atlaskit__smart-hooks/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

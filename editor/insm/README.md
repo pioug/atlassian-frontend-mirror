@@ -43,7 +43,22 @@ tracked on the resulting session event.
 
 ### Adding additional information to the session
 
-Additional session information can be added through the `addProperties` api.
+Additional session information can be added through either the `setProperty` or the `addProperties`
+api.
+
+#### setProperty
+
+```ts
+insm.session.setProperty(key: string, value: string | number | boolean): void
+```
+
+This api is an alternative to addProperties for scenarios such as where you have a hot path that
+will repeatedly fire throughout a session.
+
+The last value for a given key will be used, and if there is a matching key from addProperties, the
+addProperties value will be used.
+
+#### addProperties
 
 ```ts
 type ValidProperty = string | number | boolean;

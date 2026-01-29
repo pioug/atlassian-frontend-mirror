@@ -374,6 +374,7 @@ export const updateReferenceSyncedBlockOnDocument = async ({
 			method: 'PUT',
 			headers: COMMON_HEADERS,
 			body: JSON.stringify({ blocks }),
+			...(fg('platform_synced_block_dogfooding') ? { keepalive: true } : {}),
 		},
 	);
 

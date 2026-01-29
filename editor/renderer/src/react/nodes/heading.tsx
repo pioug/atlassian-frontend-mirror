@@ -82,7 +82,15 @@ function Heading(
 		showAnchorLink?: boolean;
 	}>,
 ): React.JSX.Element {
-	const { headingId, dataAttributes, allowHeadingAnchorLinks, marks, invisible, localId } = props;
+	const {
+		headingId,
+		dataAttributes,
+		allowHeadingAnchorLinks,
+		marks,
+		invisible,
+		localId,
+		asInline,
+	} = props;
 	const HX = `h${props.level}` as 'h1';
 	const mouseEntered = React.useRef(false);
 	const showAnchorLink = !!props.showAnchorLink;
@@ -108,6 +116,7 @@ function Heading(
 				id={headingIdToUse}
 				data-local-id={localId}
 				data-renderer-start-pos={dataAttributes['data-renderer-start-pos']}
+				data-as-inline={asInline}
 				onMouseEnter={mouseEnterHandler}
 			>
 				<>

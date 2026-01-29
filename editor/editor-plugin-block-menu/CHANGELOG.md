@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.0.28
+
+### Patch Changes
+
+- [`957d9e1880c62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/957d9e1880c62) -
+  EDITOR-3806 Block menu action experience tracking
+- Updated dependencies
+
+## 6.0.27
+
+### Patch Changes
+
+- [`4cafa94a73e1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4cafa94a73e1e) -
+  Add delete track event for block menu
+- Updated dependencies
+
 ## 6.0.26
 
 ### Patch Changes

@@ -30,6 +30,7 @@ export interface NodeMeta {
 	allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
 	allowPlaceholderText?: boolean;
 	allowWrapCodeBlock?: boolean;
+	asInline?: 'on' | undefined;
 	content?: {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any

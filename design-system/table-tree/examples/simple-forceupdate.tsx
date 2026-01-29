@@ -62,7 +62,7 @@ function fetchChildrenOf() {
 	return Promise.resolve(CHILDREN);
 }
 
-// eslint-disable-next-line import/no-anonymous-default-export
+// eslint-disable-next-line import/no-anonymous-default-export, @repo/internal/react/no-class-components
 export default class extends Component {
 	state = {
 		roots: [] as any[],

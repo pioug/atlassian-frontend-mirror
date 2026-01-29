@@ -27,7 +27,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__toggle/app"
+		"outDir": "../../../tsDist/@atlaskit__toggle/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

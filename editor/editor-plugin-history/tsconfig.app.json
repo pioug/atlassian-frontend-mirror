@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugin-history/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-history/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

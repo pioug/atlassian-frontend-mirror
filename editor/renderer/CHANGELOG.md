@@ -1,5 +1,12 @@
 # @atlaskit/renderer
 
+## 126.2.4
+
+### Patch Changes
+
+- [`16e318bcceb16`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/16e318bcceb16) -
+  [ux] EDITOR-4603 - Inline Bodied Extension: Can not create inline comments on merged text nodes
+
 ## 126.2.3
 
 ### Patch Changes

@@ -29,7 +29,8 @@
 	"compilerOptions": {
 		"strict": true,
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__feature-flag-client/app"
+		"outDir": "../../../tsDist/@atlaskit__feature-flag-client/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [],
 	"files": []

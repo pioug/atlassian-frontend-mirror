@@ -24,7 +24,6 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { selectionPluginKey } from '../types';
@@ -443,28 +442,15 @@ export const isSelectionAtEndOfLayoutColumn = ($pos: ResolvedPos): boolean => {
 	const panelOrExpandParent = findParentNodeClosestToPos($pos, isPanelOrExpandNode);
 	if (
 		panelOrExpandParent &&
-		panelOrExpandParent.pos > layoutColumnParent.pos &&
-		fg('platform_editor_fix_list_item_nav_bug_in_layout')
+		panelOrExpandParent.pos > layoutColumnParent.pos
 	) {
 		return false;
 	}
 
-	const grandParentDepth = $pos.depth - 1;
-	if (grandParentDepth < 0) {
-		return false;
-	}
-
-	const { layoutColumn } = $pos.doc.type.schema.nodes;
-
-	const grandParent = $pos.node(grandParentDepth);
 	const afterPos = layoutColumnParent.pos + layoutColumnParent.node.nodeSize;
 	const $after = $pos.doc.resolve(afterPos);
 
-	if (fg('platform_editor_fix_list_item_nav_bug_in_layout')) {
-		return Boolean($after.nodeAfter);
-	}
-
-	return Boolean($after.nodeAfter) && grandParent.type === layoutColumn;
+	return Boolean($after.nodeAfter);
 };
 
 /**

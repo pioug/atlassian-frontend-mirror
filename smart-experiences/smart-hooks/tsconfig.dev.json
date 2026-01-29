@@ -35,7 +35,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__smart-hooks/dev"
+		"outDir": "../../../tsDist/@atlaskit__smart-hooks/dev",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

@@ -34,7 +34,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__rovo-agent-selector/app"
+		"outDir": "../../../tsDist/@atlaskit__rovo-agent-selector/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

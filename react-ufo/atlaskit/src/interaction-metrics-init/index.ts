@@ -19,6 +19,11 @@ import {
 } from '../interaction-metrics';
 import { getPerformanceObserver } from '../interactions-performance-observer';
 import { initialiseMemoryObserver, initialisePressureObserver } from '../machine-utilisation';
+import {
+	sinkTerminalErrorHandler,
+	type TerminalErrorContext,
+	type TerminalErrorData,
+} from '../set-terminal-error';
 
 import scheduleIdleCallback from './schedule-idle-callback';
 
@@ -132,6 +137,28 @@ function sinkPostInteractionLog(
 					}
 				}
 
+				instance.sendOperationalEvent(payload);
+			}
+		});
+	});
+}
+
+function sinkTerminalErrors(
+	instance: GenericAnalyticWebClientInstance,
+	createTerminalErrorPayload: (errorData: TerminalErrorData, context: TerminalErrorContext) => any,
+) {
+	sinkTerminalErrorHandler((errorData: TerminalErrorData, context: TerminalErrorContext) => {
+		scheduleIdleCallback(() => {
+			const payload = createTerminalErrorPayload(errorData, context);
+			if (payload) {
+				if (fg('enable_ufo_devtools_api_for_extra_events')) {
+					const devToolObserver = (globalThis as unknown as WindowWithUfoDevToolExtension)
+						.__ufo_devtool_onUfoPayload;
+
+					if (typeof devToolObserver === 'function') {
+						devToolObserver?.(payload);
+					}
+				}
 				instance.sendOperationalEvent(payload);
 			}
 		});
@@ -273,17 +300,25 @@ export function init(
 		import(
 			/* webpackChunkName: "create-interaction-extra-metrics-payload" */ '../create-interaction-extra-metrics-payload'
 		),
+		import(
+			/* webpackChunkName: "create-terminal-error-payload@atlaskit-internal_terminal_errors" */ '../create-terminal-error-payload'
+		),
 	]).then(
 		([
 			awc,
 			payloadPackage,
 			createPostInteractionLogPayloadPackage,
 			createInteractionExtraMetricsPayloadPackage,
+			createTerminalErrorPayloadPackage,
 		]) => {
 			if ((awc as GenericAnalyticWebClientPromise).getAnalyticsWebClientPromise) {
 				(awc as GenericAnalyticWebClientPromise).getAnalyticsWebClientPromise().then((client) => {
 					const instance = client.getInstance();
 					sinkInteraction(instance, payloadPackage);
+					// TODO: make this configurable
+					if (fg('platform_ufo_enable_terminal_errors')) {
+						sinkTerminalErrors(instance, createTerminalErrorPayloadPackage.default);
+					}
 					if (config?.experimentalInteractionMetrics?.enabled) {
 						sinkExperimentalInteractionMetrics(instance, payloadPackage);
 					}
@@ -302,6 +337,13 @@ export function init(
 				});
 			} else if ((awc as GenericAnalyticWebClientInstance).sendOperationalEvent) {
 				sinkInteraction(awc as GenericAnalyticWebClientInstance, payloadPackage);
+				// TODO: make this configurable
+				if (fg('platform_ufo_enable_terminal_errors')) {
+					sinkTerminalErrors(
+						awc as GenericAnalyticWebClientInstance,
+						createTerminalErrorPayloadPackage.default,
+					);
+				}
 				if (config?.experimentalInteractionMetrics?.enabled) {
 					sinkExperimentalInteractionMetrics(
 						awc as GenericAnalyticWebClientInstance,

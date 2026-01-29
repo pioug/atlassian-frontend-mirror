@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "24.34.0",
+	"version": "24.34.2",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -191,6 +191,9 @@
 			"type": "boolean"
 		},
 		"rovo_display_ai_disclaimer_on_agent_profile_card": {
+			"type": "boolean"
+		},
+		"rovo_agent_show_creator_on_profile_card_fix": {
 			"type": "boolean"
 		}
 	},

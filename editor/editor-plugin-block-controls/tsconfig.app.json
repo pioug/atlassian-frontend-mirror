@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugin-block-controls/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-block-controls/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

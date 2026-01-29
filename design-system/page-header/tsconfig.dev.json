@@ -33,7 +33,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__page-header/dev"
+		"outDir": "../../../tsDist/@atlaskit__page-header/dev",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

@@ -143,7 +143,7 @@ export { RESOLVE_METHOD, VIEW_METHOD } from './types/inline-comment-events';
 
 export { LAYOUT_TYPE, SMART_LINK_TYPE } from './types/node-events';
 
-export type { NodeEventPayload } from './types/node-events';
+export type { NodeDeletedAEP, NodeEventPayload } from './types/node-events';
 
 export type {
 	SelectNodeAEP,

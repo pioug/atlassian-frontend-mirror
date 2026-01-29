@@ -1,4 +1,5 @@
 import { type RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
+import { isSSR } from '@atlaskit/editor-common/core-utils';
 import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -222,6 +223,14 @@ export class ReferenceSyncBlockStoreManager {
 
 	public getInitialSyncBlockData(resourceId: ResourceId): SyncBlockInstance | undefined {
 		const syncBlockNode = createSyncBlockNode('', resourceId);
+
+		if (isSSR() && fg('platform_synced_block_dogfooding')) {
+			// In SSR, prefer data from data provider cache
+			// should not take from store manager cache as it may be in incomplete state
+			// will be unified to the same cache later.
+			return this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data;
+		}
+
 		return (
 			this.getFromCache(resourceId) || this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data
 		);
@@ -720,7 +729,11 @@ export class ReferenceSyncBlockStoreManager {
 		// call the callback immediately if we have cached data
 		// prefer cache from store manager first, should update data provider to use the same cache
 		const cachedData =
-			this.getFromCache(resourceId) || this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data;
+			isSSR() && fg('platform_synced_block_dogfooding') // in SSR, prefer data provider cache
+				? this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data ||
+					this.getFromCache(resourceId)
+				: this.getFromCache(resourceId) ||
+					this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data;
 
 		if (cachedData) {
 			callback(cachedData);

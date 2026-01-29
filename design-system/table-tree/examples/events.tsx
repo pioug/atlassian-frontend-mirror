@@ -4,7 +4,7 @@ import TableTree, { Cell, Header, Headers, Row, Rows } from '@atlaskit/table-tre
 
 import staticData from './data-cleancode-toc.json';
 
-// eslint-disable-next-line import/no-anonymous-default-export
+// eslint-disable-next-line import/no-anonymous-default-export, @repo/internal/react/no-class-components
 export default class extends PureComponent {
 	state = {
 		lastEvent: '',

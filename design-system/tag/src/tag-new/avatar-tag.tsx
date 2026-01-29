@@ -64,8 +64,8 @@ const styles = cssMapUnbound({
 	baseStyles: {
 		display: 'inline-flex',
 		boxSizing: 'border-box',
-		minWidth: '0px',
-		height: token('space.250', '20px'),
+		minWidth: '0rem',
+		height: '1.25rem',
 		position: 'relative',
 		alignItems: 'center',
 		gap: token('space.025', '2px'),
@@ -78,12 +78,12 @@ const styles = cssMapUnbound({
 		font: token('font.body.small'),
 		marginBlock: token('space.050', '4px'),
 		marginInline: token('space.050', '4px'),
-		paddingInlineEnd: '5px',
+		paddingInlineEnd: '0.3125rem',
 		paddingInlineStart: token('space.0', '0px'),
 		paddingBlock: token('space.0', '0px'),
 	},
 	removableStyles: {
-		paddingInlineEnd: '3px',
+		paddingInlineEnd: '0.1875rem',
 	},
 	avatarStyles: {
 		display: 'inline-flex',
@@ -92,8 +92,8 @@ const styles = cssMapUnbound({
 		textDecoration: 'none',
 		borderRadius: token('radius.full'),
 		overflow: 'hidden',
-		marginInlineStart: '-1px',
-		marginInlineEnd: '-1px',
+		marginInlineStart: '-0.0625rem',
+		marginInlineEnd: '-0.0625rem',
 	},
 	textStyles: {
 		overflow: 'hidden',
@@ -101,7 +101,7 @@ const styles = cssMapUnbound({
 		whiteSpace: 'nowrap',
 		flexGrow: 1,
 		minWidth: 0,
-		maxWidth: '180px',
+		maxWidth: '11.25rem',
 		color: token('color.text'),
 	},
 	afterStyles: {

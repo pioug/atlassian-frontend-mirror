@@ -187,4 +187,43 @@ describe('<Heading />', () => {
 		fireEvent.mouseEnter(heading);
 		expect(abortAll).toHaveBeenCalledTimes(1);
 	});
+
+	it('should render data-as-inline attribute when asInline is on', async () => {
+		const reactSerializer = new ReactSerializer({});
+		const screen = renderWithIntl(
+			<Heading
+				level={1}
+				headingId="heading-id"
+				dataAttributes={{ 'data-renderer-start-pos': 1 }}
+				marks={[]}
+				nodeType=""
+				serializer={reactSerializer}
+				asInline="on"
+			>
+				Inline Heading
+			</Heading>,
+		);
+
+		const heading = await screen.findByRole('heading');
+		expect(heading).toHaveAttribute('data-as-inline', 'on');
+	});
+
+	it('should not render data-as-inline attribute when asInline is not provided', async () => {
+		const reactSerializer = new ReactSerializer({});
+		const screen = renderWithIntl(
+			<Heading
+				level={1}
+				headingId="heading-id"
+				dataAttributes={{ 'data-renderer-start-pos': 1 }}
+				marks={[]}
+				nodeType=""
+				serializer={reactSerializer}
+			>
+				Regular Heading
+			</Heading>,
+		);
+
+		const heading = await screen.findByRole('heading');
+		expect(heading).not.toHaveAttribute('data-as-inline');
+	});
 });

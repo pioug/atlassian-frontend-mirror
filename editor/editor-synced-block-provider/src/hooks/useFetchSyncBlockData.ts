@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { type RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
+import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ProviderFactory, MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -81,6 +82,12 @@ export const useFetchSyncBlockData = (
 	}, [isLoading, localId, manager.referenceManager, resourceId, fireAnalyticsEvent]);
 
 	useEffect(() => {
+		if (isSSR()) {
+			// in SSR, we don't need to subscribe to updates,
+			// instead we rely on pre-fetched data ONLY, see initialization of syncBlockInstance above
+			return;
+		}
+
 		const unsubscribe = manager.referenceManager.subscribeToSyncBlock(
 			resourceId || '',
 			localId || '',

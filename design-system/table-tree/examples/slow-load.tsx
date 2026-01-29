@@ -4,6 +4,7 @@ import TableTree, { Cell, Header, Headers, Row, Rows } from '@atlaskit/table-tre
 
 import staticData from './data-freeform-nodes.json';
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class SlowLoad extends Component {
 	state = {
 		tableData: [] as any[],

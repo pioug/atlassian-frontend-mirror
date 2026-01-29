@@ -15,7 +15,7 @@ type MediaPluginForwardRef = NextEditorPlugin<
 	'media',
 	{
 		sharedState: {
-			mediaClientConfig?: MediaClientConfig;
+			uploadMediaClientConfig?: MediaClientConfig;
 		} | null;
 	}
 >;

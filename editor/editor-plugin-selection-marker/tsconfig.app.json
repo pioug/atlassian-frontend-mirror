@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugin-selection-marker/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-selection-marker/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

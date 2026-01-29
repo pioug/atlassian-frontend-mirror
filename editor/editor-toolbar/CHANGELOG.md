@@ -1,5 +1,21 @@
 # @atlaskit/editor-toolbar
 
+## 0.19.10
+
+### Patch Changes
+
+- [`e170ad8b5a383`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e170ad8b5a383) -
+  [EDTIOR-4501] add optional id prop to ToolbarDropdownMenu
+- Updated dependencies
+
+## 0.19.9
+
+### Patch Changes
+
+- [`653c0c803b286`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/653c0c803b286) -
+  EDITOR-4620 Clean up platform_editor_toolbar_aifc_patch_6
+- Updated dependencies
+
 ## 0.19.8
 
 ### Patch Changes

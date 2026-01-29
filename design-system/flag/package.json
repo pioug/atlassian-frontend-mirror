@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/flag",
-	"version": "17.8.2",
+	"version": "17.8.3",
 	"description": "A flag is used for confirmations, alerts, and acknowledgments that require minimal user interaction, often displayed using a flag group.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -50,6 +50,7 @@
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/motion": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/portal": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
@@ -73,6 +74,7 @@
 		"@atlaskit/spinner": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@testing-library/react": "^16.3.0",
+		"@testing-library/user-event": "root:*",
 		"react-dom": "root:*"
 	},
 	"keywords": [

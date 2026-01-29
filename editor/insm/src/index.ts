@@ -26,7 +26,7 @@ export const insm: Pick<
 	'start' | 'stopEarly' | 'startHeavyTask' | 'endHeavyTask' | 'overrideExperienceKey'
 > & {
 	session:
-		| Pick<INSMSession, 'details' | 'startFeature' | 'endFeature' | 'addProperties'>
+		| Pick<INSMSession, 'details' | 'startFeature' | 'endFeature' | 'addProperties' | 'setProperty'>
 		| undefined;
 } = {
 	startHeavyTask(heavyTaskName: string) {
@@ -61,7 +61,7 @@ export const insm: Pick<
 	// as the other properties are internals for the insm and InsmPeriod
 	// to interact with the running session.
 	get session():
-		| Pick<INSMSession, 'details' | 'startFeature' | 'endFeature' | 'addProperties'>
+		| Pick<INSMSession, 'details' | 'startFeature' | 'endFeature' | 'addProperties' | 'setProperty'>
 		| undefined {
 		if (insmInitialised()) {
 			return initialisedInsm.runningSession;

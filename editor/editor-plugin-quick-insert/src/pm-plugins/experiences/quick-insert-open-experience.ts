@@ -13,6 +13,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 const pluginKey = new PluginKey('quickInsertOpenExperience');
 
+const TIMEOUT_DURATION = 1000;
+
 const START_METHOD = {
 	QUICK_INSERT_BUTTON: 'quickInsertButton',
 	TYPEAHEAD: 'typeahead',
@@ -42,6 +44,7 @@ export const getQuickInsertOpenExperiencePlugin = ({
 }: QuickInsertOpenExperienceOptions) => {
 	let targetEl: HTMLElement | undefined;
 	let editorViewEl: HTMLElement | undefined;
+	let mouseDownPos: { x: number; y: number } | undefined;
 
 	const getTarget = () => {
 		if (!targetEl) {
@@ -57,7 +60,7 @@ export const getQuickInsertOpenExperiencePlugin = ({
 		actionSubjectId: ACTION_SUBJECT_ID.QUICK_INSERT,
 		dispatchAnalyticsEvent,
 		checks: [
-			new ExperienceCheckTimeout({ durationMs: 500 }),
+			new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
 			new ExperienceCheckDomMutation({
 				onDomMutation: ({ mutations }) => {
 					if (mutations.some(isQuickInsertMenuAddedInMutation)) {
@@ -78,14 +81,29 @@ export const getQuickInsertOpenExperiencePlugin = ({
 		key: pluginKey,
 		props: {
 			handleDOMEvents: {
-				click: (_view, event) => {
+				mousedown: (_view: EditorView, event: MouseEvent) => {
 					if (isTargetQuickInsertButton(event.target)) {
-						experience.start({ method: START_METHOD.QUICK_INSERT_BUTTON });
+						mouseDownPos = { x: event.clientX, y: event.clientY };
 					}
 				},
+				mouseup: (_view: EditorView, event: MouseEvent) => {
+					if (
+						mouseDownPos &&
+						isTargetQuickInsertButton(event.target) &&
+						event.clientX === mouseDownPos.x &&
+						event.clientY === mouseDownPos.y
+					) {
+						experience.start({ method: START_METHOD.QUICK_INSERT_BUTTON });
+					}
+					mouseDownPos = undefined;
+				},
 				beforeinput: (view, event) => {
-					if (isQuickInsertTrigger(event) && isSelectionWhichSupportsTypeahead(view)) {
-						experience.start({ method: START_METHOD.TYPEAHEAD });
+					if (
+						isQuickInsertTrigger(event) &&
+						isSelectionWhichSupportsTypeahead(view) &&
+						!isQuickInsertMenuWithinNode(getTarget())
+					) {
+						experience.start({ method: START_METHOD.TYPEAHEAD, forceRestart: true });
 					}
 				},
 				keydown: (_view, event) => {

@@ -34,7 +34,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__dynamic-table/dev"
+		"outDir": "../../../tsDist/@atlaskit__dynamic-table/dev",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

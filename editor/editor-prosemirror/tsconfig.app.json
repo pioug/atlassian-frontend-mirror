@@ -28,11 +28,9 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-prosemirror/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-prosemirror/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [],
-	"files": [
-		"typings/prosemirror-markdown.d.ts",
-		"typings/prosemirror-state.d.ts"
-	]
+	"files": ["typings/prosemirror-markdown.d.ts", "typings/prosemirror-state.d.ts"]
 }

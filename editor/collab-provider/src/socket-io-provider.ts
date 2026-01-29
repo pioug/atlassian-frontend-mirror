@@ -24,8 +24,8 @@ export function createSocketIOSocket(
 	let transports = ['polling', 'websocket'];
 	let usePMR = false;
 
-	// Limit this change to Presence only
 	if (isPresenceOnly) {
+		// Presence-specific configuration
 		if (fg('platform-editor-presence-websocket-only')) {
 			// https://socket.io/docs/v4/client-options/#transports
 			// WebSocket first, if fails, try polling
@@ -33,6 +33,7 @@ export function createSocketIOSocket(
 		}
 		socketIOOptions = SOCKET_IO_OPTIONS_WITH_HIGH_JITTER;
 
+		// PMR routing for presence traffic
 		if (
 			(isIsolatedCloud() &&
 				expValEquals(
@@ -48,6 +49,13 @@ export function createSocketIOSocket(
 					true,
 					false,
 				))
+		) {
+			usePMR = true;
+		}
+	} else {
+		// PMR routing for edit traffic
+		if (
+			expValEquals('platform_editor_to_use_pmr_for_collab_edit_none_ic', 'isEnabled', true, false)
 		) {
 			usePMR = true;
 		}

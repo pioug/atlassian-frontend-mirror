@@ -26,15 +26,21 @@ const imageEditorStateSelector = (
 	return {
 		isImageEditorVisible: states.mediaEditingState?.isImageEditorVisible,
 		imageEditorSelectedMedia: states.mediaEditingState?.imageEditorSelectedMedia,
-		mediaClientConfig: states.mediaState?.mediaClientConfig,
+		uploadMediaClientConfig: states.mediaState?.uploadMediaClientConfig,
 	};
 };
 
-const ImageEditorFunctionalComponent = ({ api, editorView }: ImageEditorFunctionalComponentProps) => {
-	const { isImageEditorVisible, imageEditorSelectedMedia, mediaClientConfig } =
-		useSharedPluginStateWithSelector(api, ['mediaEditing', 'media'], imageEditorStateSelector);
+const ImageEditorFunctionalComponent = ({
+	api,
+	editorView,
+}: ImageEditorFunctionalComponentProps) => {
+	const {
+		isImageEditorVisible,
+		imageEditorSelectedMedia,
+		uploadMediaClientConfig,
+	} = useSharedPluginStateWithSelector(api, ['mediaEditing', 'media'], imageEditorStateSelector);
 
-	if (!isImageEditorVisible || !imageEditorSelectedMedia || !mediaClientConfig) {
+	if (!isImageEditorVisible || !imageEditorSelectedMedia || !uploadMediaClientConfig) {
 		return null;
 	}
 
@@ -44,7 +50,7 @@ const ImageEditorFunctionalComponent = ({ api, editorView }: ImageEditorFunction
 
 	return (
 		<RenderImageEditor
-			mediaClientConfig={mediaClientConfig}
+			mediaClientConfig={uploadMediaClientConfig}
 			onClose={handleOnClose}
 			selectedNodeAttrs={imageEditorSelectedMedia}
 			editorView={editorView}

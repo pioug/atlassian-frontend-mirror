@@ -34,7 +34,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__teams-app-internal-product-permissions/dev"
+		"outDir": "../../../tsDist/@atlaskit__teams-app-internal-product-permissions/dev",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

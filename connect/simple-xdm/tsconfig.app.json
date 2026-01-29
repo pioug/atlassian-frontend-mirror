@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__simple-xdm/app"
+		"outDir": "../../../tsDist/@atlaskit__simple-xdm/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__browser-apis/app"
+		"outDir": "../../../tsDist/@atlaskit__browser-apis/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [],
 	"files": []

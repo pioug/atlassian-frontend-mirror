@@ -46,6 +46,9 @@
 			"path": "../../motion/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../portal/afm-products/tsconfig.json"
 		},
 		{

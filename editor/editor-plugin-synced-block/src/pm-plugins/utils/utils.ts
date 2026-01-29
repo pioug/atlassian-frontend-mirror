@@ -1,9 +1,11 @@
+import { expandSelectionToBlockRange } from '@atlaskit/editor-common/selection';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { NodeType, Node as PMNode, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection, type Selection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { CellSelection, findTable } from '@atlaskit/editor-tables';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export const findSyncBlock = (
 	schema: Schema,
@@ -58,6 +60,12 @@ const UNSUPPORTED_NODE_TYPES = new Set([
 export const canBeConvertedToSyncBlock = (
 	selection: Selection,
 ): SyncBlockConversionInfo | false => {
+	return fg('platform_synced_block_dogfooding') ? canBeConvertedToSyncBlockNew(selection) : canBeConvertedToSyncBlockOld(selection)
+};
+
+export const canBeConvertedToSyncBlockOld = (
+	selection: Selection,
+): SyncBlockConversionInfo | false => {
 	const schema = selection.$from.doc.type.schema;
 	const { nodes } = schema;
 
@@ -101,6 +109,39 @@ export const canBeConvertedToSyncBlock = (
 	}
 
 	contentToInclude = removeBreakoutMarks(contentToInclude);
+
+	return {
+		contentToInclude,
+		from,
+		to,
+	};
+};
+
+export const canBeConvertedToSyncBlockNew = (
+	selection: Selection,
+): SyncBlockConversionInfo | false => {
+	const { $from, range } = expandSelectionToBlockRange(selection);
+
+	if (!range) {
+		return false;
+	}
+
+	const from = range.start;
+	const to = range.end;
+
+	let canBeConverted = true;
+	$from.doc.nodesBetween(from, to, (node) => {
+		if (UNSUPPORTED_NODE_TYPES.has(node.type.name)) {
+			canBeConverted = false;
+			return false;
+		}
+	});
+
+	if (!canBeConverted) {
+		return false;
+	}
+
+	const contentToInclude = removeBreakoutMarks($from.doc.slice(from, to).content);
 
 	return {
 		contentToInclude,

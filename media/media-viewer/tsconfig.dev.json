@@ -35,7 +35,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__media-viewer/dev"
+		"outDir": "../../../tsDist/@atlaskit__media-viewer/dev",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

@@ -23,6 +23,7 @@ export class INSMSession {
 	insm: INSM;
 	private running = true;
 	private addedProperties: AddedProperties[] = [];
+	private staticProperties: Record<string, number | string | boolean> = {};
 
 	runningFeatures: Set<string> = new Set();
 	periodTracking: PeriodTracking;
@@ -84,6 +85,21 @@ export class INSMSession {
 			 */
 			running: this.running,
 		};
+	}
+
+	/**
+	 * This api is an alternative to addProperties for scenarios
+	 * such as where you have a hot path that will repeatedly fire
+	 * throughout a session.
+	 * The last value for a given key will be used, and if there is a
+	 * matching key from addProperties, the addProperties value will be used.
+	 *
+	 * ```ts
+	 * insm.session.addProperties('custom:lcm', true)
+	 * ```
+	 */
+	setProperty(key: string, value: number | string | boolean) {
+		this.staticProperties[key] = value;
 	}
 
 	/**
@@ -168,6 +184,7 @@ export class INSMSession {
 			action: 'measured',
 			attributes: {
 				// Added first to ensure these don't overwrite any insm properties
+				...this.staticProperties,
 				...evaluatedAddedProperties,
 				'event:population': this.insm.options.population,
 				experienceKey: this.experienceKey,
@@ -186,7 +203,7 @@ export class INSMSession {
 							longScripts: this.longAnimationFrameMeasurer.current,
 							pageLoadTime: this.pageLoadTime,
 							deviceDetails: getDeviceDetails(),
-						}
+					  }
 					: {}),
 				// these health attributes drive our SLOs
 				healthAFPS: periodResults.active.measurements.afps?.average

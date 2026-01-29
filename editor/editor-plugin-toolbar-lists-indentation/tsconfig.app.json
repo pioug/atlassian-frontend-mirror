@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugin-toolbar-lists-indentation/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-toolbar-lists-indentation/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

@@ -7,7 +7,7 @@ import { jsx } from '@emotion/react';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { type EmojiResourceConfig } from '@atlaskit/emoji/resource';
 import { ResourcedEmoji } from '@atlaskit/emoji/element';
-import { PureComponent, memo } from 'react';
+import { PureComponent, memo, type FC } from 'react';
 import {
 	ProviderFactory,
 	WithProviders,
@@ -100,7 +100,7 @@ class EmojiNode extends PureComponent<EmojiProps, Object> {
 	}
 }
 
-function EmojiItem(props: EmojiProps) {
+export const EmojiItemComponent: FC<EmojiProps> = (props) => {
 	const { id, providers, shortName, text, fitToHeight, resourceConfig } = props;
 
 	const inlineAnnotationProps = useInlineAnnotationProps(props);
@@ -136,8 +136,4 @@ function EmojiItem(props: EmojiProps) {
 	);
 }
 
-// Working around an issue with pre existing tests using react-test-renderer
-// https://github.com/facebook/react/issues/17301#issuecomment-557765213
-EmojiItem.defaultProps = {};
-
-export default memo(EmojiItem);
+export default memo(EmojiItemComponent);

@@ -3,10 +3,10 @@ import React, { type ReactNode } from 'react';
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
 import { cssMap, cx } from '@atlaskit/css';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import LinkIcon from '@atlaskit/icon/core/link';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import Image from '@atlaskit/image';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -16,8 +16,6 @@ import JiraProjectDiscovery from '../assets/JiraProjectDiscovery.svg';
 import JiraServiceManagement from '../assets/JiraServiceManagement.svg';
 import LoomIcon from '../assets/LoomIcon.svg';
 import { type ContainerSubTypes, type ContainerTypes } from '../types';
-
-import { getIsExperimentEnabled } from './get-is-experiment-enabled';
 
 interface ContainerProperties {
 	description: ReactNode;
@@ -29,10 +27,6 @@ interface ContainerProperties {
 
 type IconSize = 'small' | 'medium';
 const styles = cssMap({
-	iconWrapper: {
-		width: '12px',
-		height: '12px',
-	},
 	avatarWrapper: {
 		width: '24px',
 		height: '24px',
@@ -43,9 +37,13 @@ const styles = cssMap({
 		marginBottom: token('space.025', '2px'),
 		marginLeft: token('space.025', '2px'),
 	},
-	mediumIconWrapper: {
+	smallAvatarWrapper: {
 		width: '16px',
 		height: '16px',
+	},
+	smallAvatarMargin: {
+		marginInline: 0,
+		marginBlock: 0,
 	},
 	linkIconWrapper: {
 		width: '16px',
@@ -74,35 +72,15 @@ export const messages = defineMessages({
 		defaultMessage: 'Add space',
 		description: 'Title of the card to add a Confluence space to a team',
 	},
-	addConfluenceSpace: {
-		id: 'ptc-directory.team-profile-page.team-containers.add-confluence-space',
-		defaultMessage: 'Add Confluence Space',
-		description: 'Title of the card to add a Confluence space to a team',
-	},
 	confluenceContainerDescription: {
 		id: 'ptc-directory.team-profile-page.team-containers.add-confluence-space-description',
 		defaultMessage: 'Confluence',
 		description: 'Description of the card to add a Confluence space to a team',
 	},
-	addLoomContainerTitle: {
-		id: 'ptc-directory.team-profile-page.team-containers.add-loom-space-title',
-		defaultMessage: 'Add space',
-		description: 'Title of the card to add a Loom space to a team',
-	},
 	addLoomSpace: {
 		id: 'ptc-directory.team-profile-page.team-containers.add-loom-space',
 		defaultMessage: 'Add Loom Space',
 		description: 'Title of the card to add a Loom space to a team',
-	},
-	confluenceLoomDescription: {
-		id: 'ptc-directory.team-profile-page.team-containers.add-loom-space-description',
-		defaultMessage: 'Loom',
-		description: 'Description of the card to add a Loom space to a team',
-	},
-	addJiraProjectTitle: {
-		id: 'ptc-directory.team-profile-page.team-containers.add-jira-project-title',
-		defaultMessage: 'Add project',
-		description: 'Title of the card to add a Jira project to a team',
 	},
 	addJiraProject: {
 		id: 'ptc-directory.team-profile-page.team-containers.add-jira-project',
@@ -114,25 +92,10 @@ export const messages = defineMessages({
 		defaultMessage: 'Jira',
 		description: 'Description of the card to add a Jira project to a team',
 	},
-	addLoomSpaceTitle: {
-		id: 'ptc-directory.team-profile-page.team-containers.add-loom-space-title',
-		defaultMessage: 'Add space',
-		description: 'Title of the card to add a Loom space to a team',
-	},
 	loomSpaceDescription: {
 		id: 'ptc-directory.team-profile-page.team-containers.add-loom-space-description',
 		defaultMessage: 'Loom',
 		description: 'Description of the card to add a Loom space to a team',
-	},
-	projectContainerText: {
-		id: 'ptc-directory.team-profile-page.team-containers.project-container-text',
-		defaultMessage: 'project',
-		description: 'Text for project type containers',
-	},
-	spaceContainerText: {
-		id: 'ptc-directory.team-profile-page.team-containers.space-container-text',
-		defaultMessage: 'space',
-		description: 'Text for space type containers',
 	},
 	spaceContainerTextOverride: {
 		id: 'ptc-directory.team-profile-page.team-containers.space-container-text-override',
@@ -177,37 +140,28 @@ interface GetJiraContainerPropertiesParams {
 
 const getJiraContainerProperties = ({
 	containerTypeProperties,
-	iconSize = 'small',
+	iconSize = fg('ptc-fix-containers-after-icon-size') ? 'medium' : 'small',
 }: GetJiraContainerPropertiesParams): ContainerProperties => {
-	const newTeamProfilePage = FeatureGates.getExperimentValue(
-		'new_team_profile',
-		'isEnabled',
-		false,
-	);
-	const isTeamLensInHomeEnabled = getIsExperimentEnabled('team_lens_in_atlassian_home');
 	const { subType, name } = containerTypeProperties || {};
+	const isAfterIconSizeFixEnabled = fg('ptc-fix-containers-after-icon-size');
 	const baseProperties = {
 		description: <FormattedMessage {...messages.jiraProjectDescription} />,
-		icon: newTeamProfilePage ? (
-			<Flex xcss={cx(styles.avatarWrapper, styles.avatarMargin)}>
-				<Image src={getJiraIcon(subType)} alt="" testId="jira-project-container-icon" />
-			</Flex>
-		) : (
-			<Flex xcss={iconSize === 'medium' ? styles.mediumIconWrapper : styles.iconWrapper}>
+		icon: (
+			<Flex
+				xcss={cx(
+					iconSize === 'small' && isAfterIconSizeFixEnabled
+						? styles.smallAvatarWrapper
+						: styles.avatarWrapper,
+					iconSize === 'small' && isAfterIconSizeFixEnabled
+						? styles.smallAvatarMargin
+						: styles.avatarMargin,
+				)}
+			>
 				<Image src={getJiraIcon(subType)} alt="" testId="jira-project-container-icon" />
 			</Flex>
 		),
-		title: newTeamProfilePage ? (
-			<FormattedMessage {...messages.addJiraProject} />
-		) : (
-			<FormattedMessage {...messages.addJiraProjectTitle} />
-		),
-		containerTypeText:
-			newTeamProfilePage || isTeamLensInHomeEnabled ? (
-				<FormattedMessage {...messages.spaceContainerTextOverride} />
-			) : (
-				<FormattedMessage {...messages.projectContainerText} />
-			),
+		title: <FormattedMessage {...messages.addJiraProject} />,
+		containerTypeText: <FormattedMessage {...messages.spaceContainerTextOverride} />,
 	};
 
 	switch (subType) {
@@ -232,11 +186,6 @@ const getWebLinkContainerProperties = ({
 	isEmptyContainer,
 	isDisplayedOnProfileCard,
 }: GetWebLinkContainerPropertiesParams) => {
-	const newTeamProfilePage = FeatureGates.getExperimentValue(
-		'new_team_profile',
-		'isEnabled',
-		false,
-	);
 	return {
 		description: isEmptyContainer ? (
 			<Text size="medium" weight="medium">
@@ -247,7 +196,7 @@ const getWebLinkContainerProperties = ({
 		),
 		icon: isEmptyContainer ? (
 			<Box
-				xcss={cx(styles.linkAvatarWrapper, newTeamProfilePage && styles.avatarMargin)}
+				xcss={cx(styles.linkAvatarWrapper, styles.avatarMargin)}
 				testId="team-link-card-globe-icon"
 			>
 				<LinkIcon label="" size="medium" />
@@ -259,7 +208,7 @@ const getWebLinkContainerProperties = ({
 				<LinkIcon label="" size="small" />
 			</Box>
 		),
-		title: newTeamProfilePage ? <FormattedMessage {...messages.addLink} /> : null,
+		title: <FormattedMessage {...messages.addLink} />,
 		containerTypeText: null,
 	};
 };
@@ -277,65 +226,52 @@ interface GetContainerPropertiesParams {
 
 export const getContainerProperties = ({
 	containerType,
-	iconSize = 'small',
+	iconSize = fg('ptc-fix-containers-after-icon-size') ? 'medium' : 'small',
 	containerTypeProperties,
 	isEmptyContainer,
 	isDisplayedOnProfileCard,
 }: GetContainerPropertiesParams): ContainerProperties => {
-	const newTeamProfilePage = FeatureGates.getExperimentValue(
-		'new_team_profile',
-		'isEnabled',
-		false,
-	);
-	const isTeamLensInHomeEnabled = getIsExperimentEnabled('team_lens_in_atlassian_home');
+	const isAfterIconSizeFixEnabled = fg('ptc-fix-containers-after-icon-size');
 	switch (containerType) {
 		case 'ConfluenceSpace':
 			return {
 				description: <FormattedMessage {...messages.confluenceContainerDescription} />,
-				icon: newTeamProfilePage ? (
-					<Flex xcss={cx(styles.avatarWrapper, styles.avatarMargin)}>
-						<Image src={ConfluenceIcon} alt="" testId="confluence-space-container-icon" />
-					</Flex>
-				) : (
-					<Flex xcss={iconSize === 'medium' ? styles.mediumIconWrapper : styles.iconWrapper}>
+				icon: (
+					<Flex
+						xcss={cx(
+							iconSize === 'small' && isAfterIconSizeFixEnabled
+								? styles.smallAvatarWrapper
+								: styles.avatarWrapper,
+							iconSize === 'small' && isAfterIconSizeFixEnabled
+								? styles.smallAvatarMargin
+								: styles.avatarMargin,
+						)}
+					>
 						<Image src={ConfluenceIcon} alt="" testId="confluence-space-container-icon" />
 					</Flex>
 				),
-				title: newTeamProfilePage ? (
-					<FormattedMessage {...messages.addConfluenceSpace} />
-				) : (
-					<FormattedMessage {...messages.addConfluenceContainerTitle} />
-				),
-				containerTypeText:
-					newTeamProfilePage || isTeamLensInHomeEnabled ? (
-						<FormattedMessage {...messages.spaceContainerTextOverride} />
-					) : (
-						<FormattedMessage {...messages.spaceContainerText} />
-					),
+				title: <FormattedMessage {...messages.addConfluenceContainerTitle} />,
+				containerTypeText: <FormattedMessage {...messages.spaceContainerTextOverride} />,
 			};
 		case 'LoomSpace':
 			return {
 				description: <FormattedMessage {...messages.loomSpaceDescription} />,
-				icon: newTeamProfilePage ? (
-					<Flex xcss={cx(styles.avatarWrapper, styles.avatarMargin)}>
-						<Image src={LoomIcon} alt="" testId="loom-space-container-icon" />
-					</Flex>
-				) : (
-					<Flex xcss={iconSize === 'medium' ? styles.mediumIconWrapper : styles.iconWrapper}>
+				icon: (
+					<Flex
+						xcss={cx(
+							iconSize === 'small' && isAfterIconSizeFixEnabled
+								? styles.smallAvatarWrapper
+								: styles.avatarWrapper,
+							iconSize === 'small' && isAfterIconSizeFixEnabled
+								? styles.smallAvatarMargin
+								: styles.avatarMargin,
+						)}
+					>
 						<Image src={LoomIcon} alt="" testId="loom-space-container-icon" />
 					</Flex>
 				),
-				title: newTeamProfilePage ? (
-					<FormattedMessage {...messages.addLoomSpace} />
-				) : (
-					<FormattedMessage {...messages.addLoomContainerTitle} />
-				),
-				containerTypeText:
-					newTeamProfilePage || isTeamLensInHomeEnabled ? (
-						<FormattedMessage {...messages.spaceContainerTextOverride} />
-					) : (
-						<FormattedMessage {...messages.spaceContainerText} />
-					),
+				title: <FormattedMessage {...messages.addLoomSpace} />,
+				containerTypeText: <FormattedMessage {...messages.spaceContainerTextOverride} />,
 			};
 		case 'JiraProject':
 			return getJiraContainerProperties({

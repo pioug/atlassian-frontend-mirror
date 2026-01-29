@@ -34,7 +34,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__avatar-group/dev"
+		"outDir": "../../../tsDist/@atlaskit__avatar-group/dev",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

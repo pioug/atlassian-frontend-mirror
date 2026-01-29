@@ -1,5 +1,21 @@
 # @atlaskit/profilecard
 
+## 24.34.2
+
+### Patch Changes
+
+- [`daa158d9edf95`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/daa158d9edf95) -
+  Updated test due to change in team containers text
+- Updated dependencies
+
+## 24.34.1
+
+### Patch Changes
+
+- [`02b328ec2dc7c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02b328ec2dc7c) -
+  [ux] Bug fix for showing creator information on agent profile cards.
+- Updated dependencies
+
 ## 24.34.0
 
 ### Minor Changes

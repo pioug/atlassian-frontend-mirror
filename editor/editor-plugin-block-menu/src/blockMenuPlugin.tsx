@@ -12,6 +12,7 @@ import type {
 	FormatNodeTargetType,
 	TransformNodeMetadata,
 } from './editor-commands/transforms/types';
+import { getBlockMenuExperiencesPlugin } from './pm-plugins/experiences/block-menu-experiences';
 import { keymapPlugin } from './pm-plugins/keymap';
 import { blockMenuPluginKey, createPlugin } from './pm-plugins/main';
 import BlockMenu from './ui/block-menu';
@@ -22,6 +23,10 @@ import { Flag } from './ui/flag';
 export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 	const registry = createBlockMenuRegistry();
 	registry.register(getBlockMenuComponents({ api, config }));
+
+	const refs: {
+		popupsMountPoint?: HTMLElement;
+	} = {};
 
 	return {
 		name: 'blockMenu',
@@ -34,6 +39,15 @@ export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 				{
 					name: 'blockMenuKeymap',
 					plugin: () => keymapPlugin(api, config),
+				},
+				{
+					name: 'blockMenuExperiences',
+					plugin: () =>
+						getBlockMenuExperiencesPlugin({
+							refs,
+							dispatchAnalyticsEvent: (payload) =>
+								api?.analytics?.actions?.fireAnalyticsEvent(payload),
+						}),
 				},
 			];
 		},
@@ -100,6 +114,8 @@ export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 			popupsBoundariesElement,
 			popupsScrollableElement,
 		}) {
+			refs.popupsMountPoint = popupsMountPoint || undefined;
+
 			return (
 				<BlockMenuProvider api={api} editorView={editorView}>
 					<BlockMenu

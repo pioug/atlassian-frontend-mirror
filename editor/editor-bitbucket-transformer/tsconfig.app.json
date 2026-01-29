@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-bitbucket-transformer/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-bitbucket-transformer/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

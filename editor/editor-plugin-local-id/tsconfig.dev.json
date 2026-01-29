@@ -28,7 +28,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugin-local-id/dev"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-local-id/dev",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

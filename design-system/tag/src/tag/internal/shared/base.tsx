@@ -50,7 +50,7 @@ const baseStyles = css({
 	display: 'inline-flex',
 	boxSizing: 'border-box',
 	minWidth: 0,
-	height: token('space.250'),
+	height: '1.25rem',
 	position: 'relative',
 	alignItems: 'center',
 	gap: token('space.050'),

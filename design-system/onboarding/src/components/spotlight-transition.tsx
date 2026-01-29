@@ -41,6 +41,7 @@ const hasChildren = (children: ReactNode) =>
  *
  * @deprecated Use `@atlaskit/spotlight` instead.
  */
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class SpotlightTransition extends React.Component<SpotlightTransitionProps, State> {
 	static getDerivedStateFromProps(props: SpotlightTransitionProps, state: State) {
 		const { currentChildren: previousChildren } = state;
@@ -83,4 +84,5 @@ class SpotlightTransition extends React.Component<SpotlightTransitionProps, Stat
  */
 export const SpotlightTransitionConsumer = SpotlightTransitionContext.Consumer;
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default SpotlightTransition;

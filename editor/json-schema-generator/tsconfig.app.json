@@ -30,7 +30,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__json-schema-generator/app"
+		"outDir": "../../../tsDist/@atlaskit__json-schema-generator/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [],
 	"files": []

@@ -1,4 +1,4 @@
-/* eslint-disable @atlaskit/ui-styling-standard/no-important-styles */
+/* eslint-disable @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-unsafe-selectors */
 /* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values */
 /* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values */
 /**
@@ -958,21 +958,26 @@ const extensionStyle = css({
 });
 
 const extensionAsInlineStyle = css({
-	'.ak-renderer-document .ak-renderer-extension-as-inline': {
+	[`.${RendererCssClassName.DOCUMENT} [data-as-inline="on"]`]: {
+		display: 'inline-block',
+	},
+	[`.${RendererCssClassName.DOCUMENT} .${RendererCssClassName.EXTENSION_AS_INLINE}`]: {
 		display: 'inline-block',
 		// use !important here because the current width has !important applied to it and it's not working when used in React style prop
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 		width: 'auto !important',
 		marginTop: 0,
 	},
-	'.ak-renderer-extension-as-inline .ak-renderer-extension-overflow-container': {
-		display: 'inline-block',
-		overflowX: 'visible',
-		containerType: 'normal',
-	},
-	'.ak-renderer-extension-as-inline div, .ak-renderer-extension-as-inline p': {
-		display: 'inline-block',
-	},
+	[`.${RendererCssClassName.EXTENSION_AS_INLINE} .${RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER}`]:
+		{
+			display: 'inline-block',
+			overflowX: 'visible',
+			containerType: 'normal',
+		},
+	[`.${RendererCssClassName.EXTENSION_AS_INLINE} div, .${RendererCssClassName.EXTENSION_AS_INLINE} p`]:
+		{
+			display: 'inline-block',
+		},
 });
 
 const shadowSharedStyle = css({

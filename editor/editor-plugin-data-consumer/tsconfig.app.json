@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugin-data-consumer/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-data-consumer/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

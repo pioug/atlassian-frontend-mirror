@@ -27,7 +27,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__breadcrumbs/app"
+		"outDir": "../../../tsDist/@atlaskit__breadcrumbs/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

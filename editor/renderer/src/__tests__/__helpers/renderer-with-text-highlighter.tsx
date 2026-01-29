@@ -152,7 +152,7 @@ const doc = {
 function TextHighliterComponent({ match, marks }: { marks: Set<string>; match: string }) {
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		<span style={{ color: 'red', border: `${token('border.width', '1px')} solid red` }}>
+		<span style={{ color: '#BF2600', border: `${token('border.width', '1px')} solid #BF2600` }}>
 			{match}
 		</span>
 	);
@@ -163,7 +163,7 @@ function FilteredTextHighliterComponent({ match, marks }: { marks: Set<string>; 
 		<Fragment>{match}</Fragment>
 	) : (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		<span style={{ color: 'red', border: `${token('border.width', '1px')} solid red` }}>
+		<span style={{ color: '#BF2600', border: `${token('border.width', '1px')} solid #BF2600` }}>
 			{match}
 		</span>
 	);

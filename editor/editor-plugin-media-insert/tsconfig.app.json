@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugin-media-insert/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-media-insert/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

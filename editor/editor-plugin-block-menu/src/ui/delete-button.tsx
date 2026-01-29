@@ -3,14 +3,19 @@ import React, { useCallback, useEffect } from 'react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl, useIntl } from 'react-intl-next';
 
+import type { BlockMenuEventPayload, NodeDeletedAEP } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	EVENT_TYPE,
-	type BlockMenuEventPayload,
+	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import { BLOCK_MENU_ACTION_TEST_ID } from '@atlaskit/editor-common/block-menu';
 import { blockMenuMessages } from '@atlaskit/editor-common/messages';
-import { deleteSelectedRange } from '@atlaskit/editor-common/selection';
+import {
+	deleteSelectedRange,
+	getSourceNodesFromSelectionRange,
+} from '@atlaskit/editor-common/selection';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import DeleteIcon from '@atlaskit/icon/core/delete';
@@ -41,7 +46,31 @@ const DeleteDropdownItemContent = ({ api }: Props) => {
 			};
 			api?.analytics?.actions?.attachAnalyticsEvent(payload)(tr);
 
-			deleteSelectedRange(tr, api?.blockControls?.sharedState.currentState()?.preservedSelection);
+			// Extract node information before deletion
+			const preservedSelection = api?.blockControls?.sharedState.currentState()?.preservedSelection;
+			const selection = preservedSelection || tr.selection;
+			const sourceNodes = getSourceNodesFromSelectionRange(tr, selection);
+
+			const nodeCount = sourceNodes.length;
+
+			// Fire node deletion analytics event if nodes are being deleted
+			if (nodeCount > 0) {
+				const nodeType = sourceNodes.length === 1 ? sourceNodes[0].type.name : 'multiple';
+
+				const nodeDeletedPayload: NodeDeletedAEP = {
+					action: ACTION.DELETED,
+					actionSubject: ACTION_SUBJECT.ELEMENT,
+					attributes: {
+						inputMethod: INPUT_METHOD.BLOCK_MENU,
+						nodeType,
+						nodeCount,
+					},
+					eventType: EVENT_TYPE.TRACK,
+				};
+				api?.analytics?.actions?.attachAnalyticsEvent(nodeDeletedPayload)(tr);
+			}
+
+			deleteSelectedRange(tr, preservedSelection);
 			api?.blockControls?.commands?.toggleBlockMenu({ closeMenu: true })({ tr });
 			return tr;
 		});
@@ -80,6 +109,7 @@ const DeleteDropdownItemContent = ({ api }: Props) => {
 			<ToolbarDropdownItem
 				elemBefore={<DeleteIcon color={token('color.icon.danger')} label="" />}
 				onClick={onClick}
+				testId={BLOCK_MENU_ACTION_TEST_ID.DELETE}
 			>
 				<Text as="span" color="color.text.danger">
 					{formatMessage(blockMenuMessages.deleteBlock)}

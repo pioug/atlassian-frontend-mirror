@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection
 
+## 7.0.5
+
+### Patch Changes
+
+- [`c39074cee52e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c39074cee52e9) -
+  [ux] [EDITOR-3095] platform_editor_fix_list_item_nav_bug_in_layout fg cleanup
+- Updated dependencies
+
 ## 7.0.4
 
 ### Patch Changes

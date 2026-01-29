@@ -1,14 +1,11 @@
+jest.mock('../../util');
+
 import { mockCanvas } from '@atlaskit/media-test-helpers';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { DEFAULT_INNER_WIDTH, DEFAULT_INNER_HEIGHT } from '../../viewport';
 import { renderViewport } from '../../viewport/viewport-render';
 import { setup as setupViewport } from './viewportSpec';
-
-const getCanvasMock = mockCanvas();
-const mockImagePlacerUtil = {
-	getCanvas: jest.fn().mockReturnValue(getCanvasMock),
-};
-jest.mock('../../util', () => mockImagePlacerUtil);
+import { getCanvas } from '../../util';
 
 export const radians = (deg: number) => deg * (Math.PI / 180);
 
@@ -16,12 +13,11 @@ const mockImage = {
 	naturalWidth: 1,
 	naturalHeight: 2,
 } as HTMLImageElement;
-const translate = getCanvasMock.context.translate! as jest.Mock;
-const scale = getCanvasMock.context.scale! as jest.Mock;
-const rotate = getCanvasMock.context.rotate! as jest.Mock;
-const drawImage = getCanvasMock.context.drawImage! as jest.Mock;
-const toDataURL = getCanvasMock.canvas.toDataURL! as jest.Mock;
-toDataURL.mockReturnValue('some-data-url');
+
+let getCanvasMock: ReturnType<typeof mockCanvas>;
+let translate: jest.Mock;
+let scale: jest.Mock;
+let rotate: jest.Mock;
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
 // be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
@@ -43,10 +39,16 @@ describe('Viewport Renderer', () => {
 	});
 
 	beforeEach(() => {
-		translate.mockClear();
-		scale.mockClear();
-		rotate.mockClear();
-		drawImage.mockClear();
+		getCanvasMock = mockCanvas();
+		translate = getCanvasMock.context.translate! as jest.Mock;
+		scale = getCanvasMock.context.scale! as jest.Mock;
+		rotate = getCanvasMock.context.rotate! as jest.Mock;
+		const toDataURL = getCanvasMock.canvas.toDataURL! as jest.Mock;
+		toDataURL.mockReturnValue('some-data-url');
+
+		jest.mocked(getCanvas).mockImplementation(() =>
+			getCanvasMock as any,
+		);
 	});
 
 	/* test the combinations of translate, scale, rotate required to achieve the orientation transforms */
@@ -54,9 +56,9 @@ describe('Viewport Renderer', () => {
 	const setup = (orientation: number, outputSize?: number) => {
 		const viewport = setupViewport();
 		viewport.orientation = orientation;
-		const { canvas, context } = mockImagePlacerUtil.getCanvas();
+		const { canvas, context } = jest.mocked(getCanvas)(0, 0);
 
-		renderViewport(viewport, mockImage, canvas, outputSize);
+		renderViewport(viewport, mockImage, canvas as HTMLCanvasElement, outputSize);
 
 		return {
 			viewport,

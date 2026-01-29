@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugin-clear-marks-on-empty-doc/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-clear-marks-on-empty-doc/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

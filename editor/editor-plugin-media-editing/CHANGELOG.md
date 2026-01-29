@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-media-editing
 
+## 1.3.0
+
+### Minor Changes
+
+- [`2473ffe68a12a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2473ffe68a12a) -
+  Added 'cropping by aspect ratio' into image editing, added mediaEditingPlugin into confluence
+  preset (experiment gated) for shipping to hello
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.1
 
 ### Patch Changes

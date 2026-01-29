@@ -3,12 +3,18 @@ import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { ReactSerializer } from '../../../index';
 import { emojiList } from './__fixtures__/emoji';
-import Emoji from '../../../react/nodes/emoji';
+import Emoji, { EmojiItemComponent } from '../../../react/nodes/emoji';
 import { type EmojiId } from '@atlaskit/emoji';
 
 describe('Renderer - ReactSerializer - Emoji', () => {
 	let docFromSchema: PMNode;
 	let reactRenderer: ReactTestRenderer;
+
+	beforeAll(() => {
+		// Working around an issue with pre existing tests using react-test-renderer
+		// https://github.com/facebook/react/issues/17301#issuecomment-557765213
+		EmojiItemComponent.defaultProps = {};
+	});
 
 	describe('when emojiResourceConfig is null', () => {
 		beforeAll(() => {

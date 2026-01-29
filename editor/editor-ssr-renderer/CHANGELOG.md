@@ -1,5 +1,16 @@
 # @atlaskit/editor-ssr-renderer
 
+## 2.1.0
+
+### Minor Changes
+
+- [`04b96fcb2ac43`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/04b96fcb2ac43) -
+  Use existing function to check if SSR
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.1
 
 ### Patch Changes

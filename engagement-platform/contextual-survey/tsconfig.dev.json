@@ -34,7 +34,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__contextual-survey/dev"
+		"outDir": "../../../tsDist/@atlaskit__contextual-survey/dev",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

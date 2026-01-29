@@ -7,20 +7,9 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getContainerProperties, messages } from '../get-container-properties';
-
-jest.mock('@atlaskit/feature-gate-js-client', () => ({
-	...jest.requireActual('@atlaskit/feature-gate-js-client'),
-	initialize: jest.fn(),
-	initializeCalled: jest.fn(),
-	initializeFromValues: jest.fn(),
-	getExperimentValue: jest.fn(),
-	checkGate: jest.fn(),
-	initializeCompleted: () => true,
-}));
 
 const renderWithIntl = (node: React.ReactNode) => {
 	return render(<IntlProvider locale="en">{node}</IntlProvider>);
@@ -28,7 +17,7 @@ const renderWithIntl = (node: React.ReactNode) => {
 
 describe('getContainerProperties', () => {
 	beforeEach(() => {
-		(fg as jest.Mock).mockReturnValue(false);
+		(fg as jest.Mock).mockReturnValue(true);
 	});
 
 	it('should return correct properties for confluence container type', async () => {
@@ -56,7 +45,7 @@ describe('getContainerProperties', () => {
 		expect(screen.getByText(messages.jiraProjectDescription.defaultMessage)).toBeInTheDocument();
 		expect(properties.icon).toBeTruthy();
 		renderWithIntl(properties.title);
-		expect(screen.getByText(messages.addJiraProjectTitle.defaultMessage)).toBeInTheDocument();
+		expect(screen.getByText(messages.addJiraProject.defaultMessage)).toBeInTheDocument();
 
 		await expect(document.body).toBeAccessible();
 	});
@@ -116,34 +105,20 @@ describe('getContainerProperties', () => {
 		await expect(document.body).toBeAccessible();
 	});
 
-	it('should use new title for confluence when new team profile is on', async () => {
-		(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
-			exp === 'new_team_profile' ? true : false,
-		);
-		(fg as jest.Mock).mockReturnValue(true);
+	it('should use new title for confluence', async () => {
 		const properties = getContainerProperties({
 			containerType: 'ConfluenceSpace',
 		});
 		renderWithIntl(properties.title);
-		expect(screen.getByText(messages.addConfluenceSpace.defaultMessage)).toBeInTheDocument();
+		expect(
+			screen.getByText(messages.addConfluenceContainerTitle.defaultMessage),
+		).toBeInTheDocument();
 
 		await expect(document.body).toBeAccessible();
 	});
 
-	it('should return correct titles for loom container type when flag off and on', async () => {
-		// Off by default from beforeEach
-		(FeatureGates.getExperimentValue as jest.Mock).mockReturnValue(false);
-		let properties = getContainerProperties({
-			containerType: 'LoomSpace',
-		});
-		renderWithIntl(properties.title);
-		expect(screen.getByText(messages.addLoomContainerTitle.defaultMessage)).toBeInTheDocument();
-
-		// Turn flag on
-		(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
-			exp === 'new_team_profile' ? true : false,
-		);
-		properties = getContainerProperties({
+	it('should return correct titles for loom container type', async () => {
+		const properties = getContainerProperties({
 			containerType: 'LoomSpace',
 		});
 		renderWithIntl(properties.title);
@@ -152,10 +127,7 @@ describe('getContainerProperties', () => {
 		await expect(document.body).toBeAccessible();
 	});
 
-	it('should use new title for jira when new team profile is on', async () => {
-		(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
-			exp === 'new_team_profile' ? true : false,
-		);
+	it('should use new title for jira', async () => {
 		const properties = getContainerProperties({
 			containerType: 'JiraProject',
 		});
@@ -165,18 +137,8 @@ describe('getContainerProperties', () => {
 		await expect(document.body).toBeAccessible();
 	});
 
-	it('should set weblink title to null when flag is off and to Add Web Link when flag is on', async () => {
-		// Off
-		(FeatureGates.getExperimentValue as jest.Mock).mockReturnValue(false);
-		let properties = getContainerProperties({
-			containerType: 'WebLink',
-		});
-		expect(properties.title).toBeNull();
-
-		(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
-			exp === 'new_team_profile' ? true : false,
-		);
-		properties = getContainerProperties({
+	it('should set weblink title to Add Web Link', async () => {
+		const properties = getContainerProperties({
 			containerType: 'WebLink',
 		});
 		renderWithIntl(properties.title);

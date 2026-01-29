@@ -76,7 +76,7 @@ export const RenderImageEditor = ({
 
 		// Ensure blob has MIME type
 		const typedBlob = blob.type ? blob : new Blob([blob], { type: 'image/png' });
-
+		
 		// Upload the edited image as a new file
 		const uploadSubscription = mediaClient.file
 			.upload({

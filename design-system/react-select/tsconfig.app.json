@@ -27,7 +27,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__react-select/app"
+		"outDir": "../../../tsDist/@atlaskit__react-select/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

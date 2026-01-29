@@ -22,7 +22,7 @@ const styles = cssMap({
 		display: 'inline-flex',
 		alignItems: 'center',
 		boxSizing: 'border-box',
-		height: '20px',
+		height: '1.25rem',
 		borderRadius: token('radius.small', '4px'),
 		overflow: 'hidden',
 		paddingBlock: token('space.025'),

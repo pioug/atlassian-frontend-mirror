@@ -142,7 +142,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 				layout,
 				isTopLevelNode,
 				editorAppearance,
-			})
+		  })
 		: legacyShouldBreakout;
 
 	// We don't want to show border for non-empty 1p bodied extensions in live pages
@@ -168,7 +168,9 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 			: showMacroInteractionDesignUpdates && isNodeHovered,
 		'with-danger-overlay': showMacroInteractionDesignUpdates,
 		'without-frame': removeBorder,
-		'legacy-content': showLegacyContentHeader,
+		'legacy-content': expValEquals('cc_editor_lcm_readonly_initial', 'isEnabled', true)
+			? undefined
+			: showLegacyContentHeader,
 		[widerLayoutClassName]: shouldBreakout,
 	});
 
@@ -202,6 +204,8 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 	let newContentStyles = {};
 
 	if (shouldBreakout) {
+		// type is destructured so that breakout styles does not include it
+		// eslint-disable-next-line no-unused-vars
 		const { type, ...breakoutStyles } = calculateBreakoutStyles({
 			mode: node.attrs.layout,
 			widthStateWidth: widthState.width,
@@ -230,14 +234,16 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 
 	return (
 		<Fragment>
-			{showLegacyContentHeader && (
-				<LegacyContentHeader
-					isNodeSelected={isNodeSelected}
-					isNodeHovered={isNodeHovered}
-					onMouseEnter={() => handleMouseEvent(true)}
-					onMouseLeave={() => handleMouseEvent(false)}
-				/>
-			)}
+			{expValEquals('cc_editor_lcm_readonly_initial', 'isEnabled', true)
+				? null
+				: showLegacyContentHeader && (
+						<LegacyContentHeader
+							isNodeSelected={isNodeSelected}
+							isNodeHovered={isNodeHovered}
+							onMouseEnter={() => handleMouseEvent(true)}
+							onMouseLeave={() => handleMouseEvent(false)}
+						/>
+				  )}
 			{!showLegacyContentHeader && showMacroInteractionDesignUpdates && !isLivePageViewMode && (
 				<ExtensionLozenge
 					isNodeSelected={isNodeSelected}

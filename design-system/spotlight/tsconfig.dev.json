@@ -33,7 +33,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__spotlight/dev"
+		"outDir": "../../../tsDist/@atlaskit__spotlight/dev",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

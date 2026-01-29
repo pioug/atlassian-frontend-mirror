@@ -1,5 +1,13 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 5.6.4
+
+### Patch Changes
+
+- [`faddbf566c913`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/faddbf566c913) -
+  [ux] Add error message in reference sync block when source is unpublished
+- Updated dependencies
+
 ## 5.6.3
 
 ### Patch Changes

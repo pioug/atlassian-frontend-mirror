@@ -1,5 +1,13 @@
 # @atlaskit/tag
 
+## 14.3.1
+
+### Patch Changes
+
+- [`a0e326c1b7fcd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0e326c1b7fcd) -
+  Refactored scaling to use rem units to maintain a 20px computed height for accessibility.
+- Updated dependencies
+
 ## 14.3.0
 
 ### Minor Changes

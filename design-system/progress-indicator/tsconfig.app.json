@@ -27,7 +27,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__progress-indicator/app"
+		"outDir": "../../../tsDist/@atlaskit__progress-indicator/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

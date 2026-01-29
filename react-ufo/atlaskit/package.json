@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-ufo",
-	"version": "5.0.8",
+	"version": "5.0.9",
 	"description": "Parts of React UFO that are publicly available",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -61,6 +61,7 @@
 		"./route-name-context": "./src/route-name-context/index.ts",
 		"./segment": "./src/segment/index.ts",
 		"./set-interaction-error": "./src/set-interaction-error/index.ts",
+		"./set-terminal-error": "./src/set-terminal-error/index.ts",
 		"./short-id": "./src/short-id/index.ts",
 		"./ssr": "./src/ssr/index.ts",
 		"./ssr-scripts": "./src/vc/vc-observer/observers/ssr-placeholders/ssr-scripts/index.ts",
@@ -269,6 +270,9 @@
 			"type": "boolean"
 		},
 		"jfp-magma-ufo-event-listener-error": {
+			"type": "boolean"
+		},
+		"platform_ufo_enable_terminal_errors": {
 			"type": "boolean"
 		}
 	}

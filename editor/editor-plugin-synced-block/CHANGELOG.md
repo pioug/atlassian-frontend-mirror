@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 5.3.9
+
+### Patch Changes
+
+- [`8782c30447091`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8782c30447091) -
+  [ux] EDITOR-4756 Fix convert to synced block logic by expanding selection to block range before
+  conversion
+- Updated dependencies
+
 ## 5.3.8
 
 ### Patch Changes

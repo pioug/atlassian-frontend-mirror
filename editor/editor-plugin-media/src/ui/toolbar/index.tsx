@@ -867,6 +867,40 @@ const generateMediaSingleFloatingToolbar = (
 			}
 		}
 
+		if (
+			allowAdvancedToolBarOptions &&
+			allowImageEditing && expValEquals('platform_editor_add_image_editing', 'isEnabled', true)
+		) {
+			const selectedMediaSingleNode = getSelectedMediaSingle(state);
+			const mediaNode = selectedMediaSingleNode?.node.content.firstChild;
+			// Disable image editing for external media, as we cannot save changes to external images per CORS policy
+			const isExternal = mediaNode?.attrs?.type === 'external';
+			if (!isVideo(mediaNode?.attrs?.__fileMimeType) && !isExternal) {
+				toolbarButtons.push(
+					{
+						id: 'editor.media.edit',
+						testId: 'image-edit-toolbar-button',
+						type: 'button',
+						icon: ImageCropIcon,
+						title: intl.formatMessage(commonMessages.imageEdit),
+						onClick: () => {
+							return (
+								handleShowImageEditor({
+									api: pluginInjectionApi,
+									mediaPluginState: pluginState,
+								}) ?? false
+							);
+						},
+						supportsViewMode: false,
+					},
+					{
+						type: 'separator',
+						supportsViewMode: false,
+					},
+				);
+			}
+		}
+
 		// open link
 		if (
 			allowLinking &&
@@ -902,41 +936,6 @@ const generateMediaSingleFloatingToolbar = (
 		if (allowAdvancedToolBarOptions && allowCommentsOnMedia) {
 			updateToFullHeightSeparator(toolbarButtons);
 			toolbarButtons.push(commentButton(intl, state, pluginInjectionApi, onCommentButtonMount));
-		}
-
-		if (
-			allowAdvancedToolBarOptions &&
-			allowImageEditing &&
-			expValEquals('platform_editor_add_image_editing', 'isEnabled', true)
-		) {
-			const selectedMediaSingleNode = getSelectedMediaSingle(state);
-			const mediaNode = selectedMediaSingleNode?.node.content.firstChild;
-			// Disable image editing for external media, as we cannot save changes to external images per CORS policy
-			const isExternal = mediaNode?.attrs?.type === 'external';
-			if (!isVideo(mediaNode?.attrs?.__fileMimeType) && !isExternal) {
-				toolbarButtons.push(
-					{
-						id: 'editor.media.edit',
-						testId: 'image-edit-toolbar-button',
-						type: 'button',
-						icon: ImageCropIcon,
-						title: intl.formatMessage(commonMessages.imageEdit),
-						onClick: () => {
-							return (
-								handleShowImageEditor({
-									api: pluginInjectionApi,
-									mediaPluginState: pluginState,
-								}) ?? false
-							);
-						},
-						supportsViewMode: false,
-					},
-					{
-						type: 'separator',
-						supportsViewMode: false,
-					},
-				);
-			}
 		}
 
 		return toolbarButtons;

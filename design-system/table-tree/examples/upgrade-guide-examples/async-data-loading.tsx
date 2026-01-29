@@ -23,6 +23,7 @@ interface State {
 }
 
 const tableTreeDataHelper = new TableTreeDataHelper<Item>({ key: 'title' });
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class WithStaticData extends Component<any, State> {
 	state: State = {
 		items: [],

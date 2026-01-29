@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__quiz-widget/app"
+		"outDir": "../../../tsDist/@atlaskit__quiz-widget/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

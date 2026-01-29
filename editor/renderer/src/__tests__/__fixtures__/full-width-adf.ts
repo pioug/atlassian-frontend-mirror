@@ -139,7 +139,7 @@ export const paragraphNodeAdf: DocNode = {
 						{
 							type: 'textColor',
 							attrs: {
-								color: '#ff0000',
+								color: '#BF2600',
 							},
 						},
 					] as const,
@@ -151,7 +151,7 @@ export const paragraphNodeAdf: DocNode = {
 						{
 							type: 'textColor',
 							attrs: {
-								color: '#ff0000',
+								color: '#BF2600',
 							},
 						},
 						{
@@ -166,7 +166,7 @@ export const paragraphNodeAdf: DocNode = {
 						{
 							type: 'textColor',
 							attrs: {
-								color: '#ff0000',
+								color: '#BF2600',
 							},
 						},
 					] as const,
@@ -178,7 +178,7 @@ export const paragraphNodeAdf: DocNode = {
 						{
 							type: 'textColor',
 							attrs: {
-								color: '#ff0000',
+								color: '#BF2600',
 							},
 						},
 						{
@@ -193,7 +193,7 @@ export const paragraphNodeAdf: DocNode = {
 						{
 							type: 'textColor',
 							attrs: {
-								color: '#ff0000',
+								color: '#BF2600',
 							},
 						},
 					] as const,
@@ -208,7 +208,7 @@ export const paragraphNodeAdf: DocNode = {
 						{
 							type: 'textColor',
 							attrs: {
-								color: '#ff0000',
+								color: '#BF2600',
 							},
 						},
 						{
@@ -943,7 +943,7 @@ export const panelNodeAdf: DocNode = {
 			type: 'panel',
 			attrs: {
 				panelType: PanelType.CUSTOM,
-				panelColor: '#FF0000',
+				panelColor: '#FDD0EC',
 			},
 			content: [
 				{

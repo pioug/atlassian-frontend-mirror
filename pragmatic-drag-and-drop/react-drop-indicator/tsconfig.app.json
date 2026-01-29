@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__pragmatic-drag-and-drop-react-drop-indicator/app"
+		"outDir": "../../../tsDist/@atlaskit__pragmatic-drag-and-drop-react-drop-indicator/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

@@ -104,6 +104,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 20-01-2026
+	cc_editor_lcm_readonly_initial: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 02-12-2025
 	cc_fix_hydration_ttvc: {
 		defaultValue: boolean;
@@ -541,6 +548,12 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	platform_editor_primary_toolbar_early_exit: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-11-19
 	platform_editor_lovability_navigation_fixes: {
 		defaultValue: boolean;
@@ -914,6 +927,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2025-01-23
+	platform_editor_to_use_pmr_for_collab_edit_none_ic: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2024-08-08
 	'test-new-experiments-package': {
 		defaultValue: boolean;
@@ -1065,6 +1085,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-01-29
+	platform_editor_renderer_toolbar_updates: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 } = {
 	// new format to avoid collisions with other users when updating the file
 
@@ -1077,6 +1104,14 @@ export const editorExperimentsConfig: {
 			confluence: 'confluence_load_editor_title_on_transition',
 		},
 		param: 'contentPlaceholder',
+		defaultValue: false,
+	}),
+	// Added 20-01-2026
+	cc_editor_lcm_readonly_initial: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_editor_lcm_readonly_initial',
+		},
+		param: 'isEnabled',
 		defaultValue: false,
 	}),
 	// Added 02-12-2025
@@ -2004,6 +2039,15 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-28-01
+	platform_editor_primary_toolbar_early_exit: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_primary_toolbar_early_exit',
+			jira: 'platform_editor_primary_toolbar_early_exit',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-11-05
 	platform_editor_lovability_emoji_scaling: createBooleanExperiment({
 		productKeys: {
@@ -2078,6 +2122,14 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_use_pmr_for_collab_presence_in_ic',
 			jira: 'platform_editor_use_pmr_for_collab_presence_in_ic',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-01-23
+	platform_editor_to_use_pmr_for_collab_edit_none_ic: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_to_use_pmr_for_collab_edit_none_ic',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2264,6 +2316,14 @@ export const editorExperimentsConfig: {
 	confluence_inline_insert_excerpt_width_bugfix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'confluence_inline_insert_excerpt_width_bugfix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-01-29
+	platform_editor_renderer_toolbar_updates: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_renderer_toolbar_updates',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

@@ -27,7 +27,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__ds-lib/app"
+		"outDir": "../../../tsDist/@atlaskit__ds-lib/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

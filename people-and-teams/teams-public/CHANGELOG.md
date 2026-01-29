@@ -1,5 +1,16 @@
 # @atlaskit/teams-public
 
+## 0.68.0
+
+### Minor Changes
+
+- [`daa158d9edf95`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/daa158d9edf95) -
+  Updated team container properties icon sizing
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.67.2
 
 ### Patch Changes

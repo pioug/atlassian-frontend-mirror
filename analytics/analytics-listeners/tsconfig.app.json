@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__analytics-listeners/app"
+		"outDir": "../../../tsDist/@atlaskit__analytics-listeners/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

@@ -27,7 +27,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__navigation-system/dev"
+		"outDir": "../../../tsDist/@atlaskit__navigation-system/dev",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

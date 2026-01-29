@@ -31,7 +31,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__email-renderer/app"
+		"outDir": "../../../tsDist/@atlaskit__email-renderer/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

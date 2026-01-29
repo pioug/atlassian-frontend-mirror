@@ -88,7 +88,7 @@ function getData(parentItem?: Item) {
 
 const tableTreeHelper = new TableTreeDataHelper<Item>({ key: 'id' });
 
-// eslint-disable-next-line import/no-anonymous-default-export
+// eslint-disable-next-line import/no-anonymous-default-export, @repo/internal/react/no-class-components
 export default class extends Component {
 	state = {
 		items: [],

@@ -27,7 +27,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__progress-tracker/app"
+		"outDir": "../../../tsDist/@atlaskit__progress-tracker/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

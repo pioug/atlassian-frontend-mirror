@@ -101,6 +101,21 @@ const SyncedBlockRendererComponent = ({
 		);
 	}
 
+		// Check for unpublished status
+		if (
+			syncBlockInstance.data?.status === 'unpublished' &&
+			fg('platform_synced_block_dogfooding')
+		) {
+			return (
+				<SyncedBlockErrorComponent
+					error={{ type: SyncBlockError.Unpublished }}
+					resourceId={syncBlockInstance.resourceId}
+					sourceURL={syncBlockInstance.data?.sourceURL}
+					fireAnalyticsEvent={api?.analytics?.actions.fireAnalyticsEvent}
+				/>
+			);
+		}
+
 	const syncBlockDoc: DocNode = {
 		content: syncBlockInstance.data.content,
 		version: 1,

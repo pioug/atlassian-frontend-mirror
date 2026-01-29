@@ -29,7 +29,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__media-picker/app"
+		"outDir": "../../../tsDist/@atlaskit__media-picker/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

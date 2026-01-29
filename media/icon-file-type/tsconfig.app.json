@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__icon-file-type/app"
+		"outDir": "../../../tsDist/@atlaskit__icon-file-type/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

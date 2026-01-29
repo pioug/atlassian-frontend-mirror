@@ -145,3 +145,12 @@ export const DELETE_MENU_SECTION = {
 export const DELETE_MENU_ITEM = {
 	key: 'delete-menu-item',
 };
+
+// Experience tracking test IDs
+// Used by experience tracking to detect menu action clicks
+
+export const BLOCK_MENU_ACTION_TEST_ID = {
+	MOVE_UP: 'block-menu-move-up',
+	MOVE_DOWN: 'block-menu-move-down',
+	DELETE: 'block-menu-delete',
+} as const;

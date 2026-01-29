@@ -33,7 +33,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__focus-ring/dev"
+		"outDir": "../../../tsDist/@atlaskit__focus-ring/dev",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

@@ -115,7 +115,7 @@ export type RovoAgentCardClientResult = {
 };
 
 export interface RovoAgentCreatorInfo {
-	type: 'CUSTOMER' | 'SYSTEM' | 'THIRD_PARTY' | 'FORGE';
+	type: 'CUSTOMER' | 'SYSTEM' | 'THIRD_PARTY' | 'FORGE' | 'OOTB';
 	name?: string;
 	profileLink?: string;
 	id?: string;
@@ -618,8 +618,10 @@ export type TeamProfileCardErrorType = {
 	reason: 'default' | 'NotFound' | 'TEAMS_FORBIDDEN';
 } | null;
 
-export interface ProfileClientOptions
-	extends Omit<TeamCentralCardClientOptions, 'gatewayGraphqlUrl'> {
+export interface ProfileClientOptions extends Omit<
+	TeamCentralCardClientOptions,
+	'gatewayGraphqlUrl'
+> {
 	gatewayGraphqlUrl?: string;
 	url?: string;
 	cacheSize?: number;

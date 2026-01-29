@@ -73,6 +73,17 @@ export const createSyncedBlock = ({
 		);
 
 		if (!newBodiedSyncBlockNode) {
+			if (fg('platform_synced_block_dogfooding')) {
+				fireAnalyticsEvent?.({
+					action: ACTION.ERROR,
+					actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+					actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_CREATE,
+					attributes: {
+						error: 'Create and fill for empty content failed',
+					},
+					eventType: EVENT_TYPE.OPERATIONAL,
+				});
+			}
 			return false;
 		}
 
@@ -109,6 +120,17 @@ export const createSyncedBlock = ({
 		);
 
 		if (!newBodiedSyncBlockNode) {
+			if (fg('platform_synced_block_dogfooding')) {
+				fireAnalyticsEvent?.({
+					action: ACTION.ERROR,
+					actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+					actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_CREATE,
+					attributes: {
+						error: 'Create and fill for content failed',
+					},
+					eventType: EVENT_TYPE.OPERATIONAL,
+				});
+			}
 			return false;
 		}
 

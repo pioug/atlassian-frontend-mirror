@@ -10,6 +10,7 @@ interface ValueChangedProps {
 // On update, it checks whether the current value prop is equal to the previous value prop.
 // If they are different, it calls the onChange function.
 // We use this for updating Popper when the SpotlightDialog width changes.
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class ValueChanged extends React.Component<ValueChangedProps> {
 	componentDidUpdate(prevProps: ValueChangedProps): void {
 		if (prevProps.value !== this.props.value) {

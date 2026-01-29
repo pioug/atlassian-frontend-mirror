@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__platform-feature-flags/app"
+		"outDir": "../../../tsDist/@atlaskit__platform-feature-flags/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

@@ -271,6 +271,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 					actionOptions={actionOptions}
 					onClick={onClick}
 				/>
+				{CompetitorPromptComponent}
 			</AnalyticsContext>
 		);
 	} else if (

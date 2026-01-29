@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugin-text-formatting/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-text-formatting/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

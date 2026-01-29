@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__jql-editor-common/app"
+		"outDir": "../../../tsDist/@atlaskit__jql-editor-common/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

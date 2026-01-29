@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugin-tasks-and-decisions/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-tasks-and-decisions/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

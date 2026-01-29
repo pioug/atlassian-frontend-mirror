@@ -34,7 +34,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__charlie-hierarchy/dev"
+		"outDir": "../../../tsDist/@atlaskit__charlie-hierarchy/dev",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

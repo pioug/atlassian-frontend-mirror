@@ -100,6 +100,7 @@ export const transformNode: (
 					isNested,
 					sourceNodesCount: sourceNodes.length,
 					sourceNodesCountByType: sourceNodeTypes,
+					sourceNodeType: sourceNodes.length === 1 ? sourceNodes[0].type.name : 'multiple',
 					startTime,
 					targetNodeType: targetType.name,
 					outputNodesCount: content.length,

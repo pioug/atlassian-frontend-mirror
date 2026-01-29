@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugin-editor-viewmode-effects/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-editor-viewmode-effects/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

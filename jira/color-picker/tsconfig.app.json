@@ -29,7 +29,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__color-picker/app"
+		"outDir": "../../../tsDist/@atlaskit__color-picker/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

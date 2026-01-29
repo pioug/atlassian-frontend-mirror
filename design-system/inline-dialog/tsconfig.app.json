@@ -27,7 +27,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__inline-dialog/app"
+		"outDir": "../../../tsDist/@atlaskit__inline-dialog/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

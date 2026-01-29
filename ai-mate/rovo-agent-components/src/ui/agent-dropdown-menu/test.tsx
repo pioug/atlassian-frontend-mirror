@@ -1,11 +1,10 @@
 import React, { type ComponentPropsWithoutRef } from 'react';
 
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 import { DiProvider, type Injectable } from 'react-magnetic-di';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
 import { AgentDropdownMenu } from './index';
 
@@ -347,59 +346,35 @@ describe('AgentDropdownMenu', () => {
 		expect(screen.getByRole('menuitem', { name: 'Copy link' })).toBeVisible();
 	});
 
-	it('does not show verify agent option if isAbleToGovernAgents is false', async () => {
+	it('does not show verify agent option if agentRef is null', async () => {
 		const user = userEvent.setup();
 
-		renderComponent({ isAbleToGovernAgents: false, isVerified: false });
+		renderComponent({ agentRef: null, userPermissionsRef: {} as any });
 
 		await user.click(moreActions());
 
-		const verifyAgentButton = screen.queryByRole('menuitem', {
-			name: 'Verify agent',
-		});
-		expect(verifyAgentButton).toBeNull();
+		expect(screen.queryByTestId('agent-actions-menu-verification')).toBeNull();
+	});
+
+	it('does not show verify agent option if userPermissionsRef is null', async () => {
+		const user = userEvent.setup();
+
+		renderComponent({ agentRef: {} as any, userPermissionsRef: null });
+
+		await user.click(moreActions());
+
+		expect(screen.queryByTestId('agent-actions-menu-verification')).toBeNull();
 	});
 
 	ffTest.off('rovo_agents_agent_verification', 'with rovo_agents_agent_verification off', () => {
 		it('does not show verify agent option if feature flag is off', async () => {
 			const user = userEvent.setup();
 
-			renderComponent({ isAbleToGovernAgents: true, isVerified: false });
+			renderComponent({ agentRef: {} as any, userPermissionsRef: {} as any });
 
 			await user.click(moreActions());
 
-			const verifyAgentButton = screen.queryByRole('menuitem', {
-				name: 'Verify agent',
-			});
-			expect(verifyAgentButton).toBeNull();
-		});
-	});
-
-	ffTest.on('rovo_agents_agent_verification', 'with rovo_agents_agent_verification on', () => {
-		it('shows "Verify agent" option when isAbleToGovernAgents is true and agent is not verified', async () => {
-			const user = userEvent.setup();
-
-			renderComponent({ isAbleToGovernAgents: true, isVerified: false });
-
-			await user.click(moreActions());
-
-			const verifyAgentButton = screen.queryByRole('menuitem', {
-				name: 'Verify agent',
-			});
-			expect(verifyAgentButton).toBeVisible();
-		});
-
-		it('shows "Unverify agent" option when isAbleToGovernAgents is true and agent is verified', async () => {
-			const user = userEvent.setup();
-
-			renderComponent({ isAbleToGovernAgents: true, isVerified: true });
-
-			await user.click(moreActions());
-
-			const unverifyAgentButton = screen.queryByRole('menuitem', {
-				name: 'Unverify agent',
-			});
-			expect(unverifyAgentButton).toBeVisible();
+			expect(screen.queryByTestId('agent-actions-menu-verification')).toBeNull();
 		});
 	});
 

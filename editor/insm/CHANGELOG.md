@@ -1,5 +1,16 @@
 # @atlaskit/insm
 
+## 0.3.0
+
+### Minor Changes
+
+- [`707c5a42b5358`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/707c5a42b5358) -
+  [ux] Updates LCM for new Read only mode. Also adds a new static property setter to the insm api.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.2.4
 
 ### Patch Changes

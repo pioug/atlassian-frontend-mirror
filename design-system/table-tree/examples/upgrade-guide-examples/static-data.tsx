@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import TableTree, { Cell, Header, Headers, Row, Rows } from '@atlaskit/table-tree';
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class WithStaticData extends Component<{ tableData: typeof tableData }> {
 	render() {
 		return (

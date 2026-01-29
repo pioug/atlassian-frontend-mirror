@@ -34,7 +34,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__feature-gate-single-fetch-provider/dev"
+		"outDir": "../../../tsDist/@atlaskit__feature-gate-single-fetch-provider/dev",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

@@ -60,6 +60,7 @@ interface State {
  *
  * @internal
  */
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 	static defaultProps = {
 		dialogWidth: 400,
@@ -221,4 +222,5 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 	}
 }
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default SpotlightInner;

@@ -33,7 +33,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__lozenge/dev"
+		"outDir": "../../../tsDist/@atlaskit__lozenge/dev",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

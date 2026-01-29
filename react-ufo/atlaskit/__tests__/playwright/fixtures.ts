@@ -22,6 +22,7 @@ import type {
 	ReactUFOPayload,
 } from '../../src/common/react-ufo-payload-schema';
 import { type CriticalMetricsPayload } from '../../src/create-payload/critical-metrics-payload/types';
+import type { TerminalErrorPayload } from '../../src/create-terminal-error-payload';
 
 import type { WindowWithReactUFOTestGlobals } from './window-type';
 
@@ -82,6 +83,8 @@ export const test: TestType<
 			waitForPostInteractionLogPayload: () => Promise<PostInteractionLogPayload | null>;
 			waitForInteractionExtraMetricsPayload: () => Promise<ReactUFOPayload | null>;
 			waitForExtraSearchPageInteractionPayload: () => Promise<ReactUFOPayload | null>;
+			waitForTerminalErrorPayload: () => Promise<TerminalErrorPayload | null>;
+			waitForAllTerminalErrorPayloads: (expectedCount: number) => Promise<TerminalErrorPayload[]>;
 			/*
 			 * ATTENTION: This function uses a `performance.now()` from the DOMMutation callback.
 			 * This is not valid for the last ReactUFO TTVC version,
@@ -138,6 +141,8 @@ export const test: TestType<
 	waitForPostInteractionLogPayload: () => Promise<PostInteractionLogPayload | null>;
 	waitForInteractionExtraMetricsPayload: () => Promise<ReactUFOPayload | null>;
 	waitForExtraSearchPageInteractionPayload: () => Promise<ReactUFOPayload | null>;
+	waitForTerminalErrorPayload: () => Promise<TerminalErrorPayload | null>;
+	waitForAllTerminalErrorPayloads: (expectedCount: number) => Promise<TerminalErrorPayload[]>;
 	/*
 	 * ATTENTION: This function uses a `performance.now()` from the DOMMutation callback.
 	 * This is not valid for the last ReactUFO TTVC version,
@@ -532,6 +537,41 @@ export const test: TestType<
 		};
 
 		await use(reset);
+	},
+	waitForAllTerminalErrorPayloads: async ({ page }, use) => {
+		const getPayloads = async (expectedCount: number) => {
+			// This is hardcoded applied when the `sendOperationalEvent` is called
+			// See: website/src/metrics.ts
+			const mainDivAfterTTVCFinished = page.locator('[data-is-ttvc-ready="true"]');
+
+			await expect(mainDivAfterTTVCFinished).toBeVisible({ timeout: 20000 });
+
+			let terminalErrorPayloads: TerminalErrorPayload[] = [];
+			await expect
+				.poll(
+					async () => {
+						const value = await page.evaluate(() => {
+							const payloads =
+								(window as WindowWithReactUFOTestGlobals).__websiteReactUfoTerminalErrors || [];
+							return Promise.resolve(payloads);
+						});
+
+						terminalErrorPayloads = value;
+
+						return terminalErrorPayloads.length;
+					},
+					{
+						message: `Expected ${expectedCount} terminal error payloads but received ${terminalErrorPayloads.length}.`,
+						intervals: [500],
+						timeout: 10000,
+					},
+				)
+				.toBeGreaterThanOrEqual(expectedCount);
+
+			return terminalErrorPayloads;
+		};
+
+		await use(getPayloads);
 	},
 	getSectionDOMAddedAt: async ({ page }, use) => {
 		const getValue = async (sectionTestId: string) => {

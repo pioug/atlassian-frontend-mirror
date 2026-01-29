@@ -34,7 +34,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__analytics-gas-types/dev"
+		"outDir": "../../../tsDist/@atlaskit__analytics-gas-types/dev",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

@@ -2,7 +2,6 @@ import { B100, N0, N10, N20, N30, N100, R50, R400, N90 } from '@atlaskit/theme/c
 import { token } from '@atlaskit/tokens';
 import memoizeOne from 'memoize-one';
 import { mergeStyles, type StylesConfig } from '@atlaskit/select';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 export const BORDER_PADDING = token('space.075', '6px');
 export const AVATAR_PADDING = 6;
@@ -72,10 +71,10 @@ export const getStyles = memoizeOne(
 										: token('color.background.input.hovered', N30),
 					},
 					padding: 0,
-					minHeight: (height && fg('jifjam_bulk_operations')) || isCompact ? 'none' : 44,
+					minHeight: (height) || isCompact ? 'none' : 44,
 					/* IE 11 needs to set height explicitly to be vertical align when being in not compact mode */
 					height:
-						height && fg('jifjam_bulk_operations') ? height : isCompact || isMulti ? '100%' : 44,
+						height ? height : isCompact || isMulti ? '100%' : 44,
 					maxWidth: '100%',
 				};
 			},

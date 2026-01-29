@@ -27,7 +27,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__lozenge/app"
+		"outDir": "../../../tsDist/@atlaskit__lozenge/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

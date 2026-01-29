@@ -27,7 +27,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__progress-bar/app"
+		"outDir": "../../../tsDist/@atlaskit__progress-bar/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

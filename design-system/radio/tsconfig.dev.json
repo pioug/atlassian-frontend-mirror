@@ -33,7 +33,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__radio/dev"
+		"outDir": "../../../tsDist/@atlaskit__radio/dev",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

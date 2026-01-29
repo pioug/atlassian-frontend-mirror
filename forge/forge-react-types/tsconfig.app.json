@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__forge-react-types/app"
+		"outDir": "../../../tsDist/@atlaskit__forge-react-types/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{
@@ -60,6 +61,9 @@
 		},
 		{
 			"path": "../../design-system/navigation-system/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/object/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/popup/tsconfig.app.json"

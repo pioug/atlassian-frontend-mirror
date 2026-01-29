@@ -1,33 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { PanelType } from '@atlaskit/adf-schema';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import {
-	p as pAdf,
-	panel as panelAdf,
-	bodiedExtension as bodiedExtensionAdf,
-} from '@atlaskit/adf-utils/builders';
 import { doc, p, bodiedExtension, panel } from '@atlaskit/editor-test-helpers/doc-builder';
-import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import ReactSerializer from '../../../../react';
 
 const schema = defaultSchema;
-const transformer = new JSONTransformer();
 
-// Helper to encode the result from getChildNodes to ADF for comparison
-function encodeResult(nodes: any[]) {
-	return nodes.map((node) => {
-		const docNode = schema.node('doc', null, [node]);
-		return transformer.encode(docNode).content[0];
+// Helper to extract child nodes from a document
+function getDocChildNodes(document: PMNode): PMNode[] {
+	const nodes: PMNode[] = [];
+	document.content.forEach((node) => {
+		nodes.push(node);
 	});
+	return nodes;
 }
 
-describe('ReactSerializer - getChildNodes integration with inline bodied extension merging', () => {
+describe('ReactSerializer - getChildNodes integration with inline bodied extension marking', () => {
 	eeTest
 		.describe('platform_editor_render_bodied_extension_as_inline', 'experiment disabled')
 		.variant(false, () => {
-			it('should NOT merge inline bodied extensions and should not call callback when experiment is disabled even if shouldDisplayExtensionAsInline is provided', () => {
+			it('should NOT mark positions and should not call callback when experiment is disabled even if shouldDisplayExtensionAsInline is provided', () => {
 				const mockCallback = jest.fn(() => true);
 
 				const document = doc(
@@ -40,6 +34,8 @@ describe('ReactSerializer - getChildNodes integration with inline bodied extensi
 					p('World'),
 				)(schema);
 
+				const expectedNodes = getDocChildNodes(document);
+
 				const serializer = new ReactSerializer({
 					shouldDisplayExtensionAsInline: mockCallback,
 				});
@@ -51,16 +47,8 @@ describe('ReactSerializer - getChildNodes integration with inline bodied extensi
 				expect(getChildNodesSpy).toHaveBeenCalled();
 				const result = getChildNodesSpy.mock.results[0].value;
 
-				// Should NOT merge when experiment is disabled - returns 3 separate nodes
-				expect(encodeResult(result)).toEqual([
-					pAdf('Hello'),
-					bodiedExtensionAdf({
-						extensionType: 'com.atlassian.test',
-						extensionKey: 'test-extension',
-						layout: 'default',
-					})(pAdf('Extension content')),
-					pAdf('World'),
-				]);
+				// Nodes should remain unchanged
+				expect(result).toEqual(expectedNodes);
 
 				// Callback should NOT be called when experiment is disabled
 				expect(mockCallback).not.toHaveBeenCalled();
@@ -72,7 +60,7 @@ describe('ReactSerializer - getChildNodes integration with inline bodied extensi
 	eeTest
 		.describe('platform_editor_render_bodied_extension_as_inline', 'experiment enabled')
 		.variant(true, () => {
-			it('should serialize fragments normally without merging extensions when shouldDisplayExtensionAsInline is not provided', () => {
+			it('should not mark positions when shouldDisplayExtensionAsInline is not provided', () => {
 				const document = doc(
 					p('Hello'),
 					bodiedExtension({
@@ -83,8 +71,14 @@ describe('ReactSerializer - getChildNodes integration with inline bodied extensi
 					p('World'),
 				)(schema);
 
+				const expectedNodes = getDocChildNodes(document);
+
 				const serializer = new ReactSerializer({});
 
+				const inlinePositionsSpy = jest.spyOn(
+					(serializer as any).inlinePositions as Set<number>,
+					'add',
+				);
 				const getChildNodesSpy = jest.spyOn(serializer as any, 'getChildNodes');
 
 				serializer.serializeFragment(document.content);
@@ -92,21 +86,17 @@ describe('ReactSerializer - getChildNodes integration with inline bodied extensi
 				expect(getChildNodesSpy).toHaveBeenCalled();
 				const result = getChildNodesSpy.mock.results[0].value;
 
-				// Should return 3 separate nodes (no merging)
-				expect(encodeResult(result)).toEqual([
-					pAdf('Hello'),
-					bodiedExtensionAdf({
-						extensionType: 'com.atlassian.test',
-						extensionKey: 'test-extension',
-						layout: 'default',
-					})(pAdf('Extension content')),
-					pAdf('World'),
-				]);
+				// Nodes should remain unchanged
+				expect(result).toEqual(expectedNodes);
+
+				// Should not mark any positions
+				expect(inlinePositionsSpy).not.toHaveBeenCalled();
 
 				getChildNodesSpy.mockRestore();
+				inlinePositionsSpy.mockRestore();
 			});
 
-			it('should call mergeInlinedExtension when experiment is enabled and shouldDisplayExtensionAsInline is provided', () => {
+			it('should mark inline positions when experiment is enabled and shouldDisplayExtensionAsInline returns true', () => {
 				const document = doc(
 					p('Hello'),
 					bodiedExtension({
@@ -116,11 +106,17 @@ describe('ReactSerializer - getChildNodes integration with inline bodied extensi
 					})(p('Extension content')),
 					p('World'),
 				)(schema);
+
+				const expectedNodes = getDocChildNodes(document);
 
 				const serializer = new ReactSerializer({
 					shouldDisplayExtensionAsInline: () => true,
 				});
 
+				const inlinePositionsSpy = jest.spyOn(
+					(serializer as any).inlinePositions as Set<number>,
+					'add',
+				);
 				const getChildNodesSpy = jest.spyOn(serializer as any, 'getChildNodes');
 
 				serializer.serializeFragment(document.content);
@@ -128,20 +124,52 @@ describe('ReactSerializer - getChildNodes integration with inline bodied extensi
 				expect(getChildNodesSpy).toHaveBeenCalled();
 				const result = getChildNodesSpy.mock.results[0].value;
 
-				// Should merge into a single paragraph
-				expect(encodeResult(result)).toEqual([
-					pAdf(
-						'Hello',
-						bodiedExtensionAdf({
-							extensionType: 'com.atlassian.test',
-							extensionKey: 'test-extension',
-							layout: 'default',
-						})(pAdf('Extension content')) as any,
-						'World',
-					),
-				]);
+				// Nodes should remain unchanged
+				expect(result).toEqual(expectedNodes);
+
+				// Should mark positions for inline display
+				expect(inlinePositionsSpy).toHaveBeenCalled();
 
 				getChildNodesSpy.mockRestore();
+				inlinePositionsSpy.mockRestore();
+			});
+
+			it('should not mark positions when shouldDisplayExtensionAsInline returns false', () => {
+				const document = doc(
+					p('Hello'),
+					bodiedExtension({
+						extensionType: 'com.atlassian.test',
+						extensionKey: 'test-extension',
+						layout: 'default',
+					})(p('Extension content')),
+					p('World'),
+				)(schema);
+
+				const expectedNodes = getDocChildNodes(document);
+
+				const serializer = new ReactSerializer({
+					shouldDisplayExtensionAsInline: () => false,
+				});
+
+				const inlinePositionsSpy = jest.spyOn(
+					(serializer as any).inlinePositions as Set<number>,
+					'add',
+				);
+				const getChildNodesSpy = jest.spyOn(serializer as any, 'getChildNodes');
+
+				serializer.serializeFragment(document.content);
+
+				expect(getChildNodesSpy).toHaveBeenCalled();
+				const result = getChildNodesSpy.mock.results[0].value;
+
+				// Nodes should remain unchanged
+				expect(result).toEqual(expectedNodes);
+
+				// Should not mark any positions when callback returns false
+				expect(inlinePositionsSpy).not.toHaveBeenCalled();
+
+				getChildNodesSpy.mockRestore();
+				inlinePositionsSpy.mockRestore();
 			});
 		});
 
@@ -155,6 +183,8 @@ describe('ReactSerializer - getChildNodes integration with inline bodied extensi
 					panel({ panelType: 'info' })(p('Panel content')),
 				)(schema);
 
+				const expectedNodes = getDocChildNodes(document);
+
 				const serializer = new ReactSerializer({
 					shouldDisplayExtensionAsInline: () => true,
 				});
@@ -166,12 +196,8 @@ describe('ReactSerializer - getChildNodes integration with inline bodied extensi
 				expect(getChildNodesSpy).toHaveBeenCalled();
 				const result = getChildNodesSpy.mock.results[0].value;
 
-				// Should merge paragraph + extension, but not merge with panel
-				expect(encodeResult(result)).toEqual([
-					pAdf('Hello'),
-					pAdf('World'),
-					panelAdf({ panelType: PanelType.INFO })(pAdf('Panel content')),
-				]);
+				// Nodes should remain unchanged
+				expect(result).toEqual(expectedNodes);
 
 				getChildNodesSpy.mockRestore();
 			});

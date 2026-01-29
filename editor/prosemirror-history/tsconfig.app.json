@@ -34,7 +34,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__prosemirror-history/app"
+		"outDir": "../../../tsDist/@atlaskit__prosemirror-history/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

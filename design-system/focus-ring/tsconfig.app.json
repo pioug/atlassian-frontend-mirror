@@ -27,7 +27,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__focus-ring/app"
+		"outDir": "../../../tsDist/@atlaskit__focus-ring/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

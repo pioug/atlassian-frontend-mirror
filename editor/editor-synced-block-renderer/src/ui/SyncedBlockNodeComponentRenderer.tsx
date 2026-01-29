@@ -98,6 +98,20 @@ export const SyncedBlockNodeComponentRenderer = ({
 		);
 	}
 
+	if (
+		syncBlockInstance?.data?.status === 'unpublished' &&
+		fg('platform_synced_block_dogfooding')
+	) {
+		return (
+			<SyncedBlockErrorComponent
+				error={{ type: SyncBlockError.Unpublished }}
+				resourceId={syncBlockInstance?.resourceId}
+				sourceURL={syncBlockInstance.data?.sourceURL}
+				fireAnalyticsEvent={fireAnalyticsEvent}
+			/>
+		);
+	}
+
 	const syncBlockDoc = {
 		content: syncBlockInstance.data.content,
 		version: 1,

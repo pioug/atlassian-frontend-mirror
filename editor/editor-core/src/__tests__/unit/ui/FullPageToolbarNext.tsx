@@ -8,6 +8,7 @@ import type { PublicPluginAPI, DocBuilder } from '@atlaskit/editor-common/types'
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 import { FullPageToolbarNext } from '../../../../src/ui/Appearance/FullPage/FullPageToolbarNext';
 
@@ -33,7 +34,7 @@ const getMockEditorAPIWithToolbar = () =>
 				contextualFormattingMode: () => 'controlled',
 			},
 		},
-	} as PublicPluginAPI<ToolbarPlugin>);
+	}) as PublicPluginAPI<ToolbarPlugin>;
 
 const getMockEditorAPIEmptyToolbar = () =>
 	({
@@ -43,13 +44,15 @@ const getMockEditorAPIEmptyToolbar = () =>
 				contextualFormattingMode: () => 'controlled',
 			},
 		},
-	} as PublicPluginAPI<ToolbarPlugin>);
+	}) as PublicPluginAPI<ToolbarPlugin>;
 
 describe('FullPageToolbarNext', () => {
 	let editorView: EditorView;
+
 	beforeEach(() => {
 		editorView = editor().editorView;
 	});
+
 	describe('when primary toolbar is registered', () => {
 		describe('and toolbarDockingPosition is "top"', () => {
 			it('should render the primary toolbar', async () => {
@@ -183,7 +186,7 @@ describe('FullPageToolbarNext', () => {
 							showKeyline={false}
 							customPrimaryToolbarComponents={customComponent}
 							editorView={editorView}
-								disabled={false}
+							disabled={false}
 						/>
 					</IntlProvider>,
 				);
@@ -207,13 +210,11 @@ describe('FullPageToolbarNext', () => {
 								after: afterComponent,
 							}}
 							editorView={editorView}
-								disabled={false}
+							disabled={false}
 						/>
 					</IntlProvider>,
 				);
-				expect(
-					screen.getByTestId('before-primary-toolbar-components-plugin'),
-				).toBeInTheDocument();
+				expect(screen.getByTestId('before-primary-toolbar-components-plugin')).toBeInTheDocument();
 				expect(screen.getByTestId('before-component')).toBeInTheDocument();
 				expect(screen.getByTestId('primary-toolbar')).toBeInTheDocument();
 				expect(screen.getByTestId('after-component')).toBeInTheDocument();
@@ -231,7 +232,7 @@ describe('FullPageToolbarNext', () => {
 							toolbarDockingPosition="top"
 							showKeyline={false}
 							editorView={editorView}
-								disabled={false}
+							disabled={false}
 						/>
 					</IntlProvider>,
 				);
@@ -254,7 +255,7 @@ describe('FullPageToolbarNext', () => {
 							showKeyline={false}
 							customPrimaryToolbarComponents={customComponent}
 							editorView={editorView}
-								disabled={false}
+							disabled={false}
 						/>
 					</IntlProvider>,
 				);
@@ -265,4 +266,103 @@ describe('FullPageToolbarNext', () => {
 			});
 		});
 	});
+
+	eeTest
+		.describe('platform_editor_primary_toolbar_early_exit', 'toolbar early exit')
+		.variant(true, () => {
+			describe('and primary toolbar is not registered', () => {
+				describe('and no custom components', () => {
+					it('should not render toolbar region', () => {
+						const { container } = render(
+							<IntlProvider locale="en">
+								<FullPageToolbarNext
+									editorAPI={getMockEditorAPIEmptyToolbar()}
+									toolbarDockingPosition={undefined}
+									showKeyline={false}
+									editorView={editorView}
+									disabled={false}
+								/>
+							</IntlProvider>,
+						);
+
+						// Component returns null, so container should be empty
+						expect(container.firstChild).toBeNull();
+					});
+				});
+
+				describe('and has custom components as React element', () => {
+					it('should render the toolbar region when primary toolbar component is a react component', () => {
+						const customComponent = <div data-testid="after-component">After Component</div>;
+						const screen = render(
+							<IntlProvider locale="en">
+								<FullPageToolbarNext
+									editorAPI={getMockEditorAPIEmptyToolbar()}
+									toolbarDockingPosition={undefined}
+									showKeyline={false}
+									customPrimaryToolbarComponents={customComponent}
+									editorView={editorView}
+									disabled={false}
+								/>
+							</IntlProvider>,
+						);
+
+						expect(screen.getByTestId('ak-editor-main-toolbar')).toBeInTheDocument();
+						expect(
+							screen.queryByTestId('before-primary-toolbar-components-plugin'),
+						).not.toBeInTheDocument();
+						expect(screen.getByTestId('after-component')).toBeInTheDocument();
+						expect(screen.queryByTestId('primary-toolbar')).not.toBeInTheDocument();
+					});
+
+					it('should render the toolbar region when both after and before custom components are react components', () => {
+						const beforeComponent = <div data-testid="before-component">Before Component</div>;
+						const afterComponent = <div data-testid="after-component">After Component</div>;
+						const screen = render(
+							<IntlProvider locale="en">
+								<FullPageToolbarNext
+									editorAPI={getMockEditorAPIEmptyToolbar()}
+									toolbarDockingPosition={undefined}
+									showKeyline={false}
+									customPrimaryToolbarComponents={{
+										before: beforeComponent,
+										after: afterComponent,
+									}}
+									editorView={editorView}
+									disabled={false}
+								/>
+							</IntlProvider>,
+						);
+
+						// Should not early exit when custom components with before/after exist
+						expect(screen.getByTestId('ak-editor-main-toolbar')).toBeInTheDocument();
+						expect(
+							screen.getByTestId('before-primary-toolbar-components-plugin'),
+						).toBeInTheDocument();
+						expect(screen.getByTestId('before-component')).toBeInTheDocument();
+						expect(screen.getByTestId('after-component')).toBeInTheDocument();
+						expect(screen.queryByTestId('primary-toolbar')).not.toBeInTheDocument();
+					});
+				});
+			});
+
+			describe('and primary toolbar is registered', () => {
+				it('should render the toolbar region normally', () => {
+					const screen = render(
+						<IntlProvider locale="en">
+							<FullPageToolbarNext
+								editorAPI={getMockEditorAPIWithToolbar()}
+								toolbarDockingPosition="top"
+								showKeyline={false}
+								editorView={editorView}
+								disabled={false}
+							/>
+						</IntlProvider>,
+					);
+
+					// Should render the toolbar region
+					expect(screen.getByTestId('ak-editor-main-toolbar')).toBeInTheDocument();
+					expect(screen.getByTestId('primary-toolbar')).toBeInTheDocument();
+				});
+			});
+		});
 });

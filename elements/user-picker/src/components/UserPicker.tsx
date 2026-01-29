@@ -120,7 +120,7 @@ export class UserPickerWithoutAnalytics extends React.Component<UserPickerProps>
 								this.props.styles,
 								fg('platform-component-visual-refresh'),
 								false,
-								fg('jifjam_bulk_operations') ? this.props.height : undefined,
+								this.props.height,
 							)}
 							components={getComponents(
 								isMulti,

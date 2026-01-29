@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__teams-app-internal-product-permissions/app"
+		"outDir": "../../../tsDist/@atlaskit__teams-app-internal-product-permissions/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [],
 	"files": []

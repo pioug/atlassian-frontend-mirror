@@ -34,7 +34,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__audit-log-events-query-controller/app"
+		"outDir": "../../../tsDist/@atlaskit__audit-log-events-query-controller/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

@@ -3,6 +3,7 @@ import type {
 	ReactUFOPayload,
 } from '../../src/common/react-ufo-payload-schema';
 import { type CriticalMetricsPayload } from '../../src/create-payload/critical-metrics-payload/types';
+import type { TerminalErrorPayload } from '../../src/create-terminal-error-payload';
 
 export type WindowWithReactUFOTestGlobals = typeof window & {
 	__websiteReactUfoShadowMode: Array<ReactUFOPayload>;
@@ -11,6 +12,7 @@ export type WindowWithReactUFOTestGlobals = typeof window & {
 	__websiteReactUfoCriticalMetrics: Array<CriticalMetricsPayload>;
 	__websiteReactUfoExtraMetrics: Array<ReactUFOPayload>;
 	__websiteReactUfoExtraSearchPageInteraction: Array<ReactUFOPayload>;
+	__websiteReactUfoTerminalErrors: Array<TerminalErrorPayload>;
 	// Best way to found out when a DOM was "rendered"
 	// We are adding a Mutation Observer inside the `./fixtures.ts`
 	// using the `page.addInitScript`.

@@ -34,7 +34,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__teams-app-internal-analytics/app"
+		"outDir": "../../../tsDist/@atlaskit__teams-app-internal-analytics/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

@@ -35,7 +35,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__focused-task-close-account/dev"
+		"outDir": "../../../tsDist/@atlaskit__focused-task-close-account/dev",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

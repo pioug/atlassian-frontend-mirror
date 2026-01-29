@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugin-track-changes/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-track-changes/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

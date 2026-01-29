@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import type { WrappedComponentProps } from 'react-intl-next';
-import { useIntl, injectIntl } from 'react-intl-next';
+import { injectIntl, useIntl } from 'react-intl-next';
 
 import { getDocument } from '@atlaskit/browser-apis';
 import {
@@ -10,6 +10,7 @@ import {
 	EVENT_TYPE,
 	type BlockMenuEventPayload,
 } from '@atlaskit/editor-common/analytics';
+import { BLOCK_MENU_ACTION_TEST_ID } from '@atlaskit/editor-common/block-menu';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { blockMenuMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -80,6 +81,7 @@ const MoveUpDropdownItemContent = ({ api }: Props & WrappedComponentProps) => {
 			onClick={handleClick}
 			elemBefore={<ArrowUpIcon label="" />}
 			isDisabled={!canMoveUp}
+			testId={BLOCK_MENU_ACTION_TEST_ID.MOVE_UP}
 		>
 			{formatMessage(messages.moveUpBlock)}
 		</ToolbarDropdownItem>

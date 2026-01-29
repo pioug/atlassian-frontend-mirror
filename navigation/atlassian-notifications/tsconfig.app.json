@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__atlassian-notifications/app"
+		"outDir": "../../../tsDist/@atlaskit__atlassian-notifications/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [],
 	"files": []

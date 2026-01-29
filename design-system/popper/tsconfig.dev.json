@@ -32,7 +32,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__popper/dev"
+		"outDir": "../../../tsDist/@atlaskit__popper/dev",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

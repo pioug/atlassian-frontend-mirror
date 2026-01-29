@@ -5,4 +5,5 @@ export interface MediaEditingPluginState {
 	imageEditorSelectedMedia?: MediaADFAttrs;
 	isImageEditorVisible?: boolean;
 	mediaClientConfig?: MediaClientConfig;
+	uploadMediaClientConfig?: MediaClientConfig;
 }

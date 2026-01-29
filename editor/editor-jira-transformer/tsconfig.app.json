@@ -29,7 +29,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-jira-transformer/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-jira-transformer/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

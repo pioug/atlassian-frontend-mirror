@@ -27,7 +27,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__media-client-react/app"
+		"outDir": "../../../tsDist/@atlaskit__media-client-react/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

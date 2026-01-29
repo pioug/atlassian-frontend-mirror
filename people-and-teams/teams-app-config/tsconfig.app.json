@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__teams-app-config/app"
+		"outDir": "../../../tsDist/@atlaskit__teams-app-config/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

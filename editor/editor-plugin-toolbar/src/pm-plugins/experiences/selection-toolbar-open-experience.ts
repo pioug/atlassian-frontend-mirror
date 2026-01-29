@@ -1,10 +1,10 @@
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { ACTION_SUBJECT_ID, type DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import {
+	containsPopupWithNestedElement,
 	Experience,
 	EXPERIENCE_ID,
 	ExperienceCheckDomMutation,
 	ExperienceCheckTimeout,
-	containsPopupWithNestedElement,
 	getPopupContainerFromEditorView,
 } from '@atlaskit/editor-common/experiences';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -56,7 +56,7 @@ export const getSelectionToolbarOpenExperiencePlugin = ({
 	};
 
 	const experience = new Experience(EXPERIENCE_ID.TOOLBAR_OPEN, {
-		actionSubjectId: 'selectionToolbar',
+		actionSubjectId: ACTION_SUBJECT_ID.SELECTION_TOOLBAR,
 		dispatchAnalyticsEvent,
 		checks: [
 			new ExperienceCheckTimeout({

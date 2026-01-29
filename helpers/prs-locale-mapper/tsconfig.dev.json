@@ -34,7 +34,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__prs-locale-mapper/dev"
+		"outDir": "../../../tsDist/@atlaskit__prs-locale-mapper/dev",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

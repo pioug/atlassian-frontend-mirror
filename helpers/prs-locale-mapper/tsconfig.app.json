@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__prs-locale-mapper/app"
+		"outDir": "../../../tsDist/@atlaskit__prs-locale-mapper/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [],
 	"files": []

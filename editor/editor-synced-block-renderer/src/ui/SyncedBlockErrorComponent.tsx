@@ -15,6 +15,7 @@ import { SyncedBlockLoadError } from './SyncedBlockLoadError';
 import { SyncedBlockNotFoundError } from './SyncedBlockNotFoundError';
 import { SyncedBlockOfflineError } from './SyncedBlockOfflineError';
 import { SyncedBlockPermissionDenied } from './SyncedBlockPermissionDenied';
+import { SyncedBlockUnpublishedError } from './SyncedBlockUnpublishedError';
 
 const getForbiddenErrorContent = (
 	resourceId?: string,
@@ -47,12 +48,14 @@ export const SyncedBlockErrorComponent = ({
 	onRetry,
 	resourceId,
 	fireAnalyticsEvent,
+	sourceURL,
 }: {
 	error: SyncBlockInstance['error'];
 	fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void;
 	isLoading?: boolean;
 	onRetry?: () => void;
 	resourceId?: string;
+	sourceURL?: string;
 }): React.JSX.Element => {
 	const getErrorContent = useMemo(() => {
 		switch (error?.type) {
@@ -62,6 +65,8 @@ export const SyncedBlockErrorComponent = ({
 				return getForbiddenErrorContent(resourceId, fireAnalyticsEvent);
 			case SyncBlockError.NotFound:
 				return <SyncedBlockNotFoundError reason={error.reason} sourceAri={error.sourceAri} />;
+			case SyncBlockError.Unpublished:
+				return <SyncedBlockUnpublishedError sourceURL={sourceURL} />;
 			case SyncBlockError.Errored:
 			case SyncBlockError.RateLimited:
 			case SyncBlockError.ServerError:
@@ -69,7 +74,7 @@ export const SyncedBlockErrorComponent = ({
 			default:
 				return <SyncedBlockGenericError />;
 		}
-	}, [error, isLoading, onRetry, resourceId, fireAnalyticsEvent]);
+	}, [error, isLoading, onRetry, resourceId, fireAnalyticsEvent, sourceURL]);
 
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop

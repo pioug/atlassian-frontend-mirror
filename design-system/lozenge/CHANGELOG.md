@@ -1,5 +1,12 @@
 # @atlaskit/lozenge
 
+## 13.3.3
+
+### Patch Changes
+
+- [`a0e326c1b7fcd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0e326c1b7fcd) -
+  Refactored scaling to use rem units to maintain a 20px computed height for accessibility.
+
 ## 13.3.2
 
 ### Patch Changes

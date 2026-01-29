@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugin-loom/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-loom/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 216.7.15
+
+### Patch Changes
+
+- [`b17f23c9e3a68`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b17f23c9e3a68) -
+  Avoid rendering entire primary toolbar container when primary toolbar is not registered
+- Updated dependencies
+
+## 216.7.14
+
+### Patch Changes
+
+- [`653c0c803b286`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/653c0c803b286) -
+  EDITOR-4620 Clean up platform_editor_toolbar_aifc_patch_6
+- Updated dependencies
+
 ## 216.7.13
 
 ### Patch Changes

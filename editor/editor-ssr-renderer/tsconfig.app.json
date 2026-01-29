@@ -29,7 +29,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-ssr-renderer/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-ssr-renderer/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

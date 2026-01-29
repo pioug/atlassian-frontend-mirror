@@ -26,7 +26,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__popper/app"
+		"outDir": "../../../tsDist/@atlaskit__popper/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [],
 	"files": []

@@ -27,7 +27,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__media-svg/app"
+		"outDir": "../../../tsDist/@atlaskit__media-svg/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

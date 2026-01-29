@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__link-test-helpers/app"
+		"outDir": "../../../tsDist/@atlaskit__link-test-helpers/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

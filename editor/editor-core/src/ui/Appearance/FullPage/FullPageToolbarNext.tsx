@@ -15,6 +15,7 @@ import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -162,6 +163,13 @@ const ToolbarPlaceholder = () => {
 	return <div css={styles.toolbarPlaceholder} data-testid="ak-editor-main-toolbar-placeholder" />;
 };
 
+const shouldShowToolbarContainer = (
+	toolbar?: RegisterComponent,
+	customPrimaryToolbarComponents?: PrimaryToolbarComponents,
+) => {
+	return !!toolbar || !!customPrimaryToolbarComponents;
+};
+
 export const FullPageToolbarNext = ({
 	editorAPI,
 	beforeIcon,
@@ -203,6 +211,16 @@ export const FullPageToolbarNext = ({
 		[editorView],
 	);
 
+	if (expValEquals('platform_editor_primary_toolbar_early_exit', 'isEnabled', true)) {
+		// Remove entire primary toolbar region if:
+		// - primary toolbar isn't registered
+		// - no custom primary toolbar components to render
+		// note: primary toolbar must render if toolbar docking preference is set to "controlled" to avoid SSR conflicts
+		if (!shouldShowToolbarContainer(toolbar, customPrimaryToolbarComponents)) {
+			return <ToolbarPortal>{null}</ToolbarPortal>;
+		}
+	}
+
 	return (
 		<ContextPanelConsumer>
 			{({ width: ContextPanelWidth }) => (
@@ -220,59 +238,53 @@ export const FullPageToolbarNext = ({
 								showKeyline={showKeyline || ContextPanelWidth > 0}
 							>
 								{beforeIcon && (
-									<div
-										css={[
-											styles.mainToolbarIconBefore,
-											styles.mainToolbarIconBeforeNew,
-										]}
-									>
+									<div css={[styles.mainToolbarIconBefore, styles.mainToolbarIconBeforeNew]}>
 										{beforeIcon}
 									</div>
 								)}
-									<>
-										<FirstChildWrapper>
-											{primaryToolbarDockingConfigEnabled &&
-												components &&
-												isToolbar(toolbar) &&
-											(((expValEquals('platform_editor_ssr_renderer', 'isEnabled', true) &&
-														isSSR()) ||
-														editorView) &&
-														(!expValEquals(
-															'platform_editor_toolbar_delay_render_fix',
-															'isEnabled',
-															true,
-														) ||
-															!isSSR())) && (
-													<ToolbarNext
-														toolbar={toolbar}
-														components={components}
-														editorView={editorView}
-														editorAPI={editorAPI}
-														popupsMountPoint={mountPoint}
-														editorAppearance="full-page"
-														isDisabled={disabled}
-													/>
+								<>
+									<FirstChildWrapper>
+										{primaryToolbarDockingConfigEnabled &&
+											components &&
+											isToolbar(toolbar) &&
+											((expValEquals('platform_editor_ssr_renderer', 'isEnabled', true) &&
+												isSSR()) ||
+												editorView) &&
+											(!expValEquals(
+												'platform_editor_toolbar_delay_render_fix',
+												'isEnabled',
+												true,
+											) ||
+												!isSSR()) && (
+												<ToolbarNext
+													toolbar={toolbar}
+													components={components}
+													editorView={editorView}
+													editorAPI={editorAPI}
+													popupsMountPoint={mountPoint}
+													editorAppearance="full-page"
+													isDisabled={disabled}
+												/>
+											)}
+									</FirstChildWrapper>
+									<SecondChildWrapper>
+										<div css={styles.customToolbarWrapperStyle}>
+											{!!customPrimaryToolbarComponents &&
+												'before' in customPrimaryToolbarComponents && (
+													<div
+														css={[styles.beforePrimaryToolbarComponents]}
+														data-testid={'before-primary-toolbar-components-plugin'}
+													>
+														{customPrimaryToolbarComponents.before}
+													</div>
 												)}
-										</FirstChildWrapper>
-										<SecondChildWrapper>
-											<div css={styles.customToolbarWrapperStyle}>
-												{!!customPrimaryToolbarComponents &&
-													'before' in customPrimaryToolbarComponents && (
-														<div
-															css={[styles.beforePrimaryToolbarComponents]}
-															data-testid={'before-primary-toolbar-components-plugin'}
-														>
-															{customPrimaryToolbarComponents.before}
-														</div>
-													)}
-												{!!customPrimaryToolbarComponents &&
-												'after' in customPrimaryToolbarComponents
-													? customPrimaryToolbarComponents.after
-													: customPrimaryToolbarComponents}
-											</div>
-										</SecondChildWrapper>
-										<ToolbarPortalMountPoint />
-									</>
+											{!!customPrimaryToolbarComponents && 'after' in customPrimaryToolbarComponents
+												? customPrimaryToolbarComponents.after
+												: customPrimaryToolbarComponents}
+										</div>
+									</SecondChildWrapper>
+									<ToolbarPortalMountPoint />
+								</>
 							</MainToolbarWrapper>
 						</ToolbarPortal>
 					</ToolbarArrowKeyNavigationProvider>

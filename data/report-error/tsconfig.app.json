@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__report-error/app"
+		"outDir": "../../../tsDist/@atlaskit__report-error/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

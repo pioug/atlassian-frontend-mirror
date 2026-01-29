@@ -256,6 +256,12 @@ export const syncBlockMessages = defineMessages({
 		defaultMessage: `We're unable to display synced blocks when you're offline`,
 		description: 'Error message which is shown over sync block when the editor is offline',
 	},
+	unpublishedError: {
+		id: 'fabric.editor.error.description.reference.unpublished',
+		defaultMessage: 'Synced content will display <link>when the page is published</link>',
+		description:
+			'Error message which is shown over sync block when the source page is unpublished.',
+	},
 	syncBlockCopiedTitle: {
 		id: 'fabric.editor.syncBlockCopiedTitle',
 		defaultMessage: 'Synced block copied to clipboard',

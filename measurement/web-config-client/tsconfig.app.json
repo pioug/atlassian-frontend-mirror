@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__web-config-client/app"
+		"outDir": "../../../tsDist/@atlaskit__web-config-client/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

@@ -70,11 +70,12 @@ interface ElementTransformAttr {
 	outputNodesCount: number;
 	sourceNodesCount: number;
 	sourceNodesCountByType: Record<string, number>;
+	sourceNodeType: string;
 	startTime: number;
 	targetNodeType: string;
 }
 
-export type ElementTransformPerformanceAEP = TrackAEP<
+export type ElementTransformAEP = TrackAEP<
 	ACTION.TRANSFORMED,
 	ACTION_SUBJECT.ELEMENT,
 	undefined,
@@ -87,4 +88,4 @@ export type BlockMenuEventPayload =
 	| BlockMenuItemClickedAEP
 	| ElementConvertedAEP
 	| ElementTransformErrorAEP
-	| ElementTransformPerformanceAEP;
+	| ElementTransformAEP;

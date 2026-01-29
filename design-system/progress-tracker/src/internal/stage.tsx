@@ -107,6 +107,7 @@ const titleStyles = css({
 	},
 });
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class ProgressTrackerStage extends PureComponent<ProgressTrackerStageProps, State> {
 	nodeRefMarker = createRef<HTMLElement>();
 	nodeRefBar = createRef<HTMLElement>();

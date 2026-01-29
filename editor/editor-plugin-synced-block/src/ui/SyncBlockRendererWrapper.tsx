@@ -32,7 +32,9 @@ const SyncBlockRendererWrapperComponent = ({
 	const title = useFetchSyncBlockTitle?.();
 
 	const contentUpdatedAt = syncBlockFetchResult?.syncBlockInstance?.data?.contentUpdatedAt;
+	const isUnpublishedBlock = syncBlockFetchResult.syncBlockInstance?.data?.status === 'unpublished';
 	const isUnsyncedBlock =
+		isUnpublishedBlock ||
 		syncBlockFetchResult?.syncBlockInstance?.error?.type === SyncBlockError.NotFound;
 
 	return (

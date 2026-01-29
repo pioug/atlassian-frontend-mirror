@@ -1,5 +1,49 @@
 # @atlaskit/editor-common
 
+## 111.10.0
+
+### Minor Changes
+
+- [`707c5a42b5358`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/707c5a42b5358) -
+  [ux] Updates LCM for new Read only mode. Also adds a new static property setter to the insm api.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 111.9.7
+
+### Patch Changes
+
+- [`957d9e1880c62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/957d9e1880c62) -
+  EDITOR-3806 Block menu action experience tracking
+- Updated dependencies
+
+## 111.9.6
+
+### Patch Changes
+
+- [`2a8eefb911fb8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a8eefb911fb8) -
+  Update i18n NPM package versions for editor-common
+- Updated dependencies
+
+## 111.9.5
+
+### Patch Changes
+
+- [`85fd7142cb5e7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85fd7142cb5e7) -
+  EDITOR-3806 Block menu open experience tracking
+- [`4cafa94a73e1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4cafa94a73e1e) -
+  Add delete track event for block menu
+- Updated dependencies
+
+## 111.9.4
+
+### Patch Changes
+
+- [`faddbf566c913`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/faddbf566c913) -
+  [ux] Add error message in reference sync block when source is unpublished
+
 ## 111.9.3
 
 ### Patch Changes

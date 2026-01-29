@@ -1,5 +1,12 @@
 # @atlaskit/flag
 
+## 17.8.3
+
+### Patch Changes
+
+- [`321eec6bd9b1d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/321eec6bd9b1d) -
+  Add missing dev dependencies
+
 ## 17.8.2
 
 ### Patch Changes

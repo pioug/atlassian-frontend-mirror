@@ -22,7 +22,9 @@ const expValEqualsMock = expValEquals as jest.Mock;
 
 describe('Socket io provider', () => {
 	const url = 'http://localhost:8080/ccollab/sessionId/123';
-	const path = '/ncs-presence/mock-cloud-id/mock-activation-id/confluence';
+	const presenceUrl = 'http://localhost:8080/collab-presence-confluence/sessionId/123';
+	const presencePath = '/ncs-presence/mock-cloud-id/mock-activation-id/confluence';
+	const editPath = '/ncs/mock-cloud-id/mock-activation-id/confluence';
 
 	describe('Socket io client path', () => {
 		it('return io with correct path for ccollab', () => {
@@ -31,97 +33,184 @@ describe('Socket io provider', () => {
 			expect((socket as any).io.engine.opts.path).toEqual('/ccollab/socket.io/');
 		});
 
-		describe.each([true, false])(
-			'return io with correct path outside IC for FG states for presence only %s',
-			(isPresenceOnly) => {
-				const permutations = [
-					[true, true, true],
-					[true, false, true],
-					[false, true, false],
-					[false, false, false],
-				];
+		describe('PMR routing for presence traffic', () => {
+			describe.each([true, false])(
+				'return io with correct path outside IC for FG states for presence only %s',
+				(isPresenceOnly) => {
+					const permutations = [
+						[true, true, true],
+						[true, false, true],
+						[false, true, false],
+						[false, false, false],
+					];
 
-				beforeEach(() => {
-					isIsolatedCloudMock.mockReturnValue(false);
-				});
+					beforeEach(() => {
+						isIsolatedCloudMock.mockReturnValue(false);
+					});
 
-				afterEach(() => {
-					jest.restoreAllMocks();
-				});
+					afterEach(() => {
+						jest.restoreAllMocks();
+					});
 
-				it.each(permutations)(
-					'when nonIc FG %s and ic FG %s, PMR url should be used %s',
-					(nonIcFG, icFG, shouldUsePMR) => {
-						expValEqualsMock.mockImplementation(
-							(flag: string) =>
-								(nonIcFG && flag === 'platform_editor_use_pmr_for_collab_presence_non_ic') ||
-								(icFG && flag === 'platform_editor_use_pmr_for_collab_presence_in_ic'),
-						);
+					it.each(permutations)(
+						'when nonIc FG %s and ic FG %s, PMR url should be used %s',
+						(nonIcFG, icFG, shouldUsePMR) => {
+							expValEqualsMock.mockImplementation(
+								(flag: string) =>
+									(nonIcFG && flag === 'platform_editor_use_pmr_for_collab_presence_non_ic') ||
+									(icFG && flag === 'platform_editor_use_pmr_for_collab_presence_in_ic'),
+							);
 
-						const socket = createSocketIOSocket(
-							url,
-							undefined,
-							undefined,
-							isPresenceOnly,
-							undefined,
-							path,
-						);
+							const socket = createSocketIOSocket(
+								presenceUrl,
+								undefined,
+								undefined,
+								isPresenceOnly,
+								undefined,
+								presencePath,
+							);
 
-						expect((socket as any).io.engine.opts.path).toEqual(
-							isPresenceOnly && shouldUsePMR
-								? '/ncs-presence/mock-cloud-id/mock-activation-id/confluence/socket.io/'
-								: '/ccollab/socket.io/',
-						);
-					},
+							expect((socket as any).io.engine.opts.path).toEqual(
+								isPresenceOnly && shouldUsePMR
+									? '/ncs-presence/mock-cloud-id/mock-activation-id/confluence/socket.io/'
+									: '/collab-presence-confluence/socket.io/',
+							);
+						},
+					);
+				},
+			);
+
+			describe.each([true, false])(
+				'return io with correct path inside IC for FG states for presence only %s',
+				(isPresenceOnly) => {
+					const permutations = [
+						[true, true, true],
+						[true, false, false],
+						[false, true, true],
+						[false, false, false],
+					];
+
+					beforeEach(() => {
+						isIsolatedCloudMock.mockReturnValue(true);
+					});
+
+					afterEach(() => {
+						jest.restoreAllMocks();
+					});
+
+					it.each(permutations)(
+						'when nonIc FG %s and ic FG %s, PMR url should be used %s',
+						(nonIcFG, icFG, shouldUsePMR) => {
+							expValEqualsMock.mockImplementation(
+								(flag: string) =>
+									(nonIcFG && flag === 'platform_editor_use_pmr_for_collab_presence_non_ic') ||
+									(icFG && flag === 'platform_editor_use_pmr_for_collab_presence_in_ic'),
+							);
+
+							const socket = createSocketIOSocket(
+								presenceUrl,
+								undefined,
+								undefined,
+								isPresenceOnly,
+								undefined,
+								presencePath,
+							);
+
+							expect((socket as any).io.engine.opts.path).toEqual(
+								isPresenceOnly && shouldUsePMR
+									? '/ncs-presence/mock-cloud-id/mock-activation-id/confluence/socket.io/'
+									: '/collab-presence-confluence/socket.io/',
+							);
+						},
+					);
+				},
+			);
+		});
+
+		describe('PMR routing for edit traffic', () => {
+			it('should use PMR for edit traffic when experiment is enabled and path is provided', () => {
+				expValEqualsMock.mockImplementation(
+					(flag: string) => flag === 'platform_editor_to_use_pmr_for_collab_edit_none_ic',
 				);
-			},
-		);
 
-		describe.each([true, false])(
-			'return io with correct path inside IC for FG states for presence only %s',
-			(isPresenceOnly) => {
-				const permutations = [
-					[true, true, true],
-					[true, false, false],
-					[false, true, true],
-					[false, false, false],
-				];
-
-				beforeEach(() => {
-					isIsolatedCloudMock.mockReturnValue(true);
-				});
-
-				afterEach(() => {
-					jest.restoreAllMocks();
-				});
-
-				it.each(permutations)(
-					'when nonIc FG %s and ic FG %s, PMR url should be used %s',
-					(nonIcFG, icFG, shouldUsePMR) => {
-						expValEqualsMock.mockImplementation(
-							(flag: string) =>
-								(nonIcFG && flag === 'platform_editor_use_pmr_for_collab_presence_non_ic') ||
-								(icFG && flag === 'platform_editor_use_pmr_for_collab_presence_in_ic'),
-						);
-
-						const socket = createSocketIOSocket(
-							url,
-							undefined,
-							undefined,
-							isPresenceOnly,
-							undefined,
-							path,
-						);
-
-						expect((socket as any).io.engine.opts.path).toEqual(
-							isPresenceOnly && shouldUsePMR
-								? '/ncs-presence/mock-cloud-id/mock-activation-id/confluence/socket.io/'
-								: '/ccollab/socket.io/',
-						);
-					},
+				const socket = createSocketIOSocket(
+					url,
+					undefined,
+					undefined,
+					false, // isPresenceOnly = false for edit traffic
+					undefined,
+					editPath,
 				);
-			},
-		);
+
+				expect((socket as any).io.engine.opts.path).toEqual(
+					'/ncs/mock-cloud-id/mock-activation-id/confluence/socket.io/',
+				);
+			});
+
+			it('should not use PMR for edit traffic when experiment is disabled', () => {
+				expValEqualsMock.mockReturnValue(false);
+
+				const socket = createSocketIOSocket(
+					url,
+					undefined,
+					undefined,
+					false, // isPresenceOnly = false for edit traffic
+					undefined,
+					editPath,
+				);
+
+				expect((socket as any).io.engine.opts.path).toEqual('/ccollab/socket.io/');
+			});
+
+			it('should not use PMR for edit traffic when path is not provided', () => {
+				expValEqualsMock.mockReturnValue(true);
+
+				const socket = createSocketIOSocket(
+					url,
+					undefined,
+					undefined,
+					false, // isPresenceOnly = false for edit traffic
+					undefined,
+					undefined, // no path provided
+				);
+
+				expect((socket as any).io.engine.opts.path).toEqual('/ccollab/socket.io/');
+			});
+
+			it('should not use PMR for edit traffic when isPresenceOnly is undefined and experiment is disabled', () => {
+				expValEqualsMock.mockReturnValue(false);
+
+				const socket = createSocketIOSocket(
+					url,
+					undefined,
+					undefined,
+					undefined, // isPresenceOnly is undefined (defaults to edit traffic)
+					undefined,
+					editPath,
+				);
+
+				expect((socket as any).io.engine.opts.path).toEqual('/ccollab/socket.io/');
+			});
+
+			it('should use PMR for edit traffic when isPresenceOnly is undefined and experiment is enabled', () => {
+				expValEqualsMock.mockImplementation(
+					(flag: string) => flag === 'platform_editor_to_use_pmr_for_collab_edit_none_ic',
+				);
+
+				const socket = createSocketIOSocket(
+					url,
+					undefined,
+					undefined,
+					undefined, // isPresenceOnly is undefined (defaults to edit traffic)
+					undefined,
+					editPath,
+				);
+
+				expect((socket as any).io.engine.opts.path).toEqual(
+					'/ncs/mock-cloud-id/mock-activation-id/confluence/socket.io/',
+				);
+			});
+		});
 	});
 
 	it('attach `auth` tokenRefresh if tokenRefresh function exist', (done) => {

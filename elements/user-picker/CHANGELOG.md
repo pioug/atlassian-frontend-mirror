@@ -1,5 +1,12 @@
 # @atlaskit/user-picker
 
+## 11.21.0
+
+### Minor Changes
+
+- [`9889f45fc6eca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9889f45fc6eca) -
+  fix optionData.data type for user type
+
 ## 11.20.4
 
 ### Patch Changes

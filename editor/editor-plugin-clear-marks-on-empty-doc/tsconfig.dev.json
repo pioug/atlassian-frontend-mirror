@@ -34,7 +34,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugin-clear-marks-on-empty-doc/dev"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-clear-marks-on-empty-doc/dev",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

@@ -27,7 +27,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__datetime-picker/app"
+		"outDir": "../../../tsDist/@atlaskit__datetime-picker/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

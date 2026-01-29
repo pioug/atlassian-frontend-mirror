@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugin-list/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-list/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

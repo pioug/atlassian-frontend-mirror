@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-json-transformer/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-json-transformer/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

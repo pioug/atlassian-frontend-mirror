@@ -487,7 +487,7 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 
 interface BlockServiceADFWriteProviderProps {
 	cloudId: string; // the cloudId of the block. E.G the cloudId of the confluence page, or the cloudId of the Jira instance
-	getVersion?: () => number | undefined; // get the version of the block. E.G the version of the confluence page, or the version of the Jira work item
+	getVersion?: () => Promise<number | undefined>; // get the version of the block. E.G the version of the confluence page, or the version of the Jira work item
 	isParentUnpublished?: () => boolean; // function to check if the parent is unpublished
 	parentAri: string | undefined; // the ARI of the parent of the block. E.G the ARI of the confluence page, or the ARI of the Jira work item
 	parentId?: string; // the parentId of the block. E.G the pageId for a confluence page, or the issueId for a Jira work item
@@ -500,7 +500,7 @@ interface BlockServiceADFWriteProviderProps {
 class BlockServiceADFWriteProvider implements ADFWriteProvider {
 	private cloudId: string;
 	private parentId?: string;
-	private getVersion?: () => number | undefined;
+	private getVersion?: () => Promise<number | undefined>;
 	private isParentUnpublished?: () => boolean;
 
 	product: SyncBlockProduct;
@@ -534,7 +534,7 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 			product: this.product,
 			resourceId,
 		});
-		const stepVersion = this.getVersion ? this.getVersion() : undefined;
+		const stepVersion = this.getVersion ? await this.getVersion() : undefined;
 
 		try {
 			// Try update existing block's content
@@ -559,7 +559,7 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 			product: this.product,
 			resourceId,
 		});
-		const stepVersion = this.getVersion ? this.getVersion() : undefined;
+		const stepVersion = this.getVersion ? await this.getVersion() : undefined;
 		const status = fg('platform_synced_block_dogfooding')
 			? this.isParentUnpublished?.()
 				? 'unpublished'
@@ -656,7 +656,7 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 
 interface BlockServiceAPIProvidersProps {
 	cloudId: string; // the cloudId of the block. E.G the cloudId of the confluence page, or the cloudId of the Jira instance
-	getVersion?: () => number | undefined; // get the version of the block. E.G the version of the confluence page, or the version of the Jira work item
+	getVersion?: () => Promise<number | undefined>; // get the version of the block. E.G the version of the confluence page, or the version of the Jira work item
 	isParentUnpublished?: () => boolean; // function to check if the parent is unpublished
 	parentAri: string | undefined; // the ARI of the parent of the block. E.G the ARI of the confluence page, or the ARI of the Jira work item
 	parentId?: string; // the parentId of the block. E.G the pageId for a confluence page, or the issueId for a Jira work item

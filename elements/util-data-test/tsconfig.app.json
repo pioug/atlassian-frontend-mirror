@@ -27,7 +27,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__util-data-test/app"
+		"outDir": "../../../tsDist/@atlaskit__util-data-test/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

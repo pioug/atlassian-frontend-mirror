@@ -27,7 +27,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__dynamic-table/app"
+		"outDir": "../../../tsDist/@atlaskit__dynamic-table/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

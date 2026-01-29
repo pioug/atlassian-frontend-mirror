@@ -1,5 +1,44 @@
 import type { CropperRef } from './Cropper';
 
+export type AspectRatioOption =
+	| 'original'
+	| 'custom'
+	| 'square'
+	| 'circle'
+	| 'landscape'
+	| 'portrait'
+	| 'wide';
+
+interface AspectRatioValue {
+	x: number;
+	y: number;
+}
+
+const ASPECT_RATIOS: Record<AspectRatioOption, AspectRatioValue | null> = {
+	original: null,
+	custom: null,
+	square: { x: 1, y: 1 },
+	circle: { x: 1, y: 1 },
+	landscape: { x: 4, y: 3 },
+	portrait: { x: 3, y: 4 },
+	wide: { x: 16, y: 9 },
+};
+
+export const useImageAspectRatio = () => {
+	// no ratio = undefined = custom cropping selection
+	const getAspectRatioValue = (ratio: AspectRatioOption): number | undefined => {
+		const aspectRatioValue = ASPECT_RATIOS[ratio];
+		if (aspectRatioValue) {
+			return aspectRatioValue.x / aspectRatioValue.y;
+		}
+		return undefined;
+	};
+
+	return {
+		getAspectRatioValue,
+	};
+};
+
 export const useImageFlip = (cropperRef: React.RefObject<CropperRef>) => {
 	const flipHorizontal = () => {
 		const image = cropperRef.current?.getImage();
@@ -22,9 +61,10 @@ export const useImageFlip = (cropperRef: React.RefObject<CropperRef>) => {
 };
 
 export const useImageRotate = (cropperRef: React.RefObject<CropperRef>) => {
-	const rotateLeft = async () => {
+	const rotateRight = () => {
 		const canvas = cropperRef.current?.getCanvas();
-		if (!canvas) {
+		const image = cropperRef.current?.getImage();
+		if (!canvas || !image) {
 			return;
 		}
 
@@ -33,26 +73,8 @@ export const useImageRotate = (cropperRef: React.RefObject<CropperRef>) => {
 			selectionEl.style.opacity = '0';
 		}
 
-		await rotateAndFit(-90, cropperRef);
-
-		cropperRef.current?.fitStencilToImage();
-		if (selectionEl instanceof HTMLElement) {
-			selectionEl.style.opacity = '1';
-		}
-	};
-
-	const rotateRight = async () => {
-		const canvas = cropperRef.current?.getCanvas();
-		if (!canvas) {
-			return;
-		}
-
-		const selectionEl = canvas.querySelector('cropper-selection');
-		if (selectionEl instanceof HTMLElement) {
-			selectionEl.style.opacity = '0';
-		}
-
-		await rotateAndFit(90, cropperRef);
+		image.$rotate('90deg');
+		image.$center('contain');
 
 		cropperRef.current?.fitStencilToImage();
 		if (selectionEl instanceof HTMLElement) {
@@ -61,38 +83,6 @@ export const useImageRotate = (cropperRef: React.RefObject<CropperRef>) => {
 	};
 
 	return {
-		rotateLeft,
 		rotateRight,
 	};
 };
-
-async function rotateAndFit(deg: number, cropperRef: React.RefObject<CropperRef>) {
-	const canvas = cropperRef.current?.getCanvas();
-	const image = cropperRef.current?.getImage();
-
-	if (!image || !canvas) {
-		return;
-	}
-
-	// Wait for the DOM/Matrix to update
-	await new Promise(requestAnimationFrame);
-
-	// Get Dimensions
-	const containerRect = canvas.getBoundingClientRect();
-	const imgRect = image.getBoundingClientRect();
-
-	const naturalWidth = imgRect.width;
-	const naturalHeight = imgRect.height;
-
-	image.$rotate(`${deg}deg`);
-
-	// Swap dimensions after each rotation
-	const effectiveWidth = naturalHeight;
-	const effectiveHeight = naturalWidth;
-
-	const scaleX = containerRect.width / effectiveWidth;
-	const scaleY = containerRect.height / effectiveHeight;
-	const minScale = Math.min(scaleX, scaleY);
-
-	image.$scale(minScale);
-}

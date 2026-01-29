@@ -29,7 +29,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__custom-steps/app"
+		"outDir": "../../../tsDist/@atlaskit__custom-steps/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

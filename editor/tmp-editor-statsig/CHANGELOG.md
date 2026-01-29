@@ -1,5 +1,44 @@
 # @atlaskit/editor-statsig-tmp
 
+## 17.5.0
+
+### Minor Changes
+
+- [`707c5a42b5358`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/707c5a42b5358) -
+  [ux] Updates LCM for new Read only mode. Also adds a new static property setter to the insm api.
+
+## 17.4.0
+
+### Minor Changes
+
+- [`b855c9d819b09`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b855c9d819b09) -
+  Support sharded routing for collab edit socket connections
+
+## 17.3.0
+
+### Minor Changes
+
+- [`e170ad8b5a383`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e170ad8b5a383) -
+  [EDITOR-4501] add new experiment to statsig config
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.0
+
+### Minor Changes
+
+- [`b17f23c9e3a68`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b17f23c9e3a68) -
+  Avoid rendering entire primary toolbar container when primary toolbar is not registered
+
+## 17.1.0
+
+### Minor Changes
+
+- [`653c0c803b286`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/653c0c803b286) -
+  EDITOR-4620 Clean up platform_editor_toolbar_aifc_patch_6
+
 ## 17.0.0
 
 ### Major Changes

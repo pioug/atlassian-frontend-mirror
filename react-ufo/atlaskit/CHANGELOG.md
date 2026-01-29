@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.0.9
+
+### Patch Changes
+
+- [`ff09fea96cf45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff09fea96cf45) -
+  Add custom terminal error reporting metric
+
 ## 5.0.8
 
 ### Patch Changes

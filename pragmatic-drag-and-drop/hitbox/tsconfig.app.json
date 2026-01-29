@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__pragmatic-drag-and-drop-hitbox/app"
+		"outDir": "../../../tsDist/@atlaskit__pragmatic-drag-and-drop-hitbox/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

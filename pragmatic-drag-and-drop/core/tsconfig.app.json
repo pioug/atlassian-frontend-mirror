@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__pragmatic-drag-and-drop/app"
+		"outDir": "../../../tsDist/@atlaskit__pragmatic-drag-and-drop/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [],
 	"files": []

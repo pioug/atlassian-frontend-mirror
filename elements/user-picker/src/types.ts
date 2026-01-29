@@ -286,6 +286,8 @@ export interface CustomHighlight {
 export interface OptionData {
 	appType?: string | null;
 	avatarUrl?: any;
+	// react-select sometimes wraps data in a `data` property, and the data is of type OptionData, and we are avoiding a circular dependency by not setting the User type here
+	data?: any;
 	fixed?: boolean;
 	icon?: ReactNode;
 	iconColor?: string;

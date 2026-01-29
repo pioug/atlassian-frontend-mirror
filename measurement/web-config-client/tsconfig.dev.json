@@ -34,7 +34,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__web-config-client/dev"
+		"outDir": "../../../tsDist/@atlaskit__web-config-client/dev",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

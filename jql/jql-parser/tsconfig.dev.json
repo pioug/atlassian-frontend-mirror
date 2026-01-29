@@ -36,7 +36,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__jql-parser/dev"
+		"outDir": "../../../tsDist/@atlaskit__jql-parser/dev",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

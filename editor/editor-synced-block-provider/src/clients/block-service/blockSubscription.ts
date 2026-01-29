@@ -1,6 +1,7 @@
 import { type Client, createClient } from 'graphql-ws';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
+import { isSSR } from '@atlaskit/editor-common/core-utils';
 
 import type { SyncBlockProduct } from '../../common/types';
 import { convertContentUpdatedAt } from '../../utils/utils';
@@ -11,7 +12,7 @@ let blockServiceClient: Client | null = null;
 
 const getBlockServiceClient = (): Client | null => {
 	// Don't create client during SSR
-	if (typeof window === 'undefined') {
+	if (isSSR()) {
 		return null;
 	}
 

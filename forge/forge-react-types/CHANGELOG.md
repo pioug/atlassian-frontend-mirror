@@ -1,5 +1,12 @@
 # @atlaskit/forge-react-types
 
+## 0.57.0
+
+### Minor Changes
+
+- [`853671f92994c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/853671f92994c) -
+  Adding AtlassianTile component
+
 ## 0.56.2
 
 ### Patch Changes

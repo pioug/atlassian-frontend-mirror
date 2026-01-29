@@ -34,7 +34,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__prosemirror-input-rules/dev"
+		"outDir": "../../../tsDist/@atlaskit__prosemirror-input-rules/dev",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

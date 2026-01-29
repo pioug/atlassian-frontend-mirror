@@ -3,24 +3,18 @@ import React from 'react';
 import { cssMap } from '@atlaskit/css';
 import { isEmptyDocument } from '@atlaskit/editor-common/utils/document';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner/spinner';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { PlaceholderPlugin } from './placeholderPluginType';
 import createPlugin from './pm-plugins/main';
-import { placeholderPluginLegacy } from './pm-plugins/placeholderPluginLegacy';
 
 export const EMPTY_PARAGRAPH_TIMEOUT_DELAY = 2000; // Delay before showing placeholder on empty paragraph
 
 export const pluginKey = new PluginKey('placeholderPlugin');
 
 export const placeholderPlugin: PlaceholderPlugin = ({ config: options, api }) => {
-	if (!fg('platform_editor_placeholder_plugin_tidying')) {
-		return placeholderPluginLegacy({ config: options, api });
-	}
-
 	let currentPlaceholder = options?.placeholder;
 
 	return {

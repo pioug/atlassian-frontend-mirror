@@ -28,8 +28,8 @@ export type RemoveButtonProps = {
 const removeButtonStyles = cssMap({
 	root: {
 		display: 'flex',
-		height: '16px',
-		width: '16px',
+		height: '1rem',
+		width: '1rem',
 		marginInline: token('space.0'),
 		marginBlock: token('space.0'),
 		paddingInline: token('space.0'),

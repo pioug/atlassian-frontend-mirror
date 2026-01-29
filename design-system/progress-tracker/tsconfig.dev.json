@@ -33,7 +33,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__progress-tracker/dev"
+		"outDir": "../../../tsDist/@atlaskit__progress-tracker/dev",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

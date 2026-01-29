@@ -27,7 +27,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__badge/app"
+		"outDir": "../../../tsDist/@atlaskit__badge/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

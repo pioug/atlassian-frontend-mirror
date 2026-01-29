@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugin-avatar-group/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-avatar-group/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

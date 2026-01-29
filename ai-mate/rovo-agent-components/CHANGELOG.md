@@ -1,5 +1,27 @@
 # @atlaskit/rovo-agent-components
 
+## 3.26.0
+
+### Minor Changes
+
+- [`d0e843139fc33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d0e843139fc33) -
+  [ux] use agent verification dropdown item for view agent in browse agent
+
+## 3.25.0
+
+### Minor Changes
+
+- [`7dcb34bc033ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7dcb34bc033ba) -
+  Created new component `AgentVerifiedIcon`
+
+## 3.24.0
+
+### Minor Changes
+
+- [`9d1c583109828`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d1c583109828) -
+  Part of de-barreling TREX-67. Ran auto export subpath generation and sorting. Last 3 packages were
+  updated from afm ts generate
+
 ## 3.23.1
 
 ### Patch Changes

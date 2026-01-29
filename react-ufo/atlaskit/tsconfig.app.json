@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__react-ufo/app"
+		"outDir": "../../../tsDist/@atlaskit__react-ufo/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

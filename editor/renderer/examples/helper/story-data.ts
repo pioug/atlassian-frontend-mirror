@@ -436,7 +436,7 @@ export const validDocument = {
 						{
 							type: 'textColor',
 							attrs: {
-								color: '#ff0000',
+								color: '#c9372c',
 							},
 						},
 					],
@@ -2753,7 +2753,7 @@ export const document = {
 					marks: [
 						{
 							type: 'textColor',
-							attrs: { color: '#ff0000' },
+							attrs: { color: '#c9372c' },
 						},
 					],
 				},
@@ -4623,7 +4623,7 @@ map.put(3, 10);`,
 				{
 					text: 'Custom: black',
 					type: 'text',
-					marks: [{ type: 'backgroundColor', attrs: { color: '#000000' } }],
+					marks: [{ type: 'backgroundColor', attrs: { color: '#000000' } }, { type: 'textColor', attrs: { color: '#ffffff' } },],
 				},
 				{ text: ', ', type: 'text' },
 				{
@@ -4635,7 +4635,7 @@ map.put(3, 10);`,
 				{
 					text: 'Custom: red',
 					type: 'text',
-					marks: [{ type: 'backgroundColor', attrs: { color: '#c9372c' } }],
+					marks: [{ type: 'backgroundColor', attrs: { color: '#F8B3AD' } }],
 				},
 				{ text: ', ', type: 'text' },
 				{

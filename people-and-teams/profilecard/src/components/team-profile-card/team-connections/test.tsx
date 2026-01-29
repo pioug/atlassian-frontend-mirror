@@ -3,18 +3,11 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import {
 	mockRunItLaterSynchronously,
 	renderWithAnalyticsListener as render,
 } from '@atlassian/ptc-test-utils';
-
-jest.mock('@atlaskit/feature-gate-js-client', () => ({
-	...jest.requireActual('@atlaskit/feature-gate-js-client'),
-	getExperimentValue: jest.fn(),
-	initializeCalled: jest.fn().mockReturnValue(true),
-}));
 
 mockRunItLaterSynchronously();
 
@@ -56,7 +49,7 @@ describe('TeamConnections', () => {
 		renderComponent();
 
 		expect(screen.getByText('Confluence')).toBeInTheDocument();
-		expect(screen.getByText('space')).toBeInTheDocument();
+		expect(screen.getByText('Space')).toBeInTheDocument();
 	});
 
 	it('should display the right container type icon for a Confluence space', () => {
@@ -67,13 +60,10 @@ describe('TeamConnections', () => {
 	});
 
 	it('should render a link with the item', async () => {
-		(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
-			exp === 'new_team_profile' || exp === 'team_lens_in_atlassian_home' ? false : true,
-		);
 		renderComponent();
 
 		const downloadCsvLink = screen.getByRole('link', {
-			name: 'Test Confluence Space Confluence space',
+			name: 'Test Confluence Space Confluence Space',
 		});
 		expect(downloadCsvLink).toHaveAttribute('href', 'https://test-dev.com');
 	});

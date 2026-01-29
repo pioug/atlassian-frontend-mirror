@@ -34,7 +34,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__pragmatic-drag-and-drop/dev"
+		"outDir": "../../../tsDist/@atlaskit__pragmatic-drag-and-drop/dev",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

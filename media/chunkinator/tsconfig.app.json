@@ -29,7 +29,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__chunkinator/app"
+		"outDir": "../../../tsDist/@atlaskit__chunkinator/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [],
 	"files": []

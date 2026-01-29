@@ -14,6 +14,12 @@
               "attrs": {
                 "color": "#000000"
               }
+            },
+            {
+              "type": "textColor",
+              "attrs": {
+                "color": "#ffffff"
+              }
             }
           ]
         },
@@ -44,7 +50,7 @@
             {
               "type": "backgroundColor",
               "attrs": {
-                "color": "#c9372c"
+                "color": "#F8B3AD"
               }
             }
           ]

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-agent-components",
-	"version": "3.23.1",
+	"version": "3.26.0",
 	"description": "This package host public components related to rovo agents, the components here are needed for other public atlaskit packages",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,7 +34,20 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./agent-verified": "./src/ui/agent-verified/index.tsx",
-		"./agent-verification-dropdown-item": "./src/ui/agent-verification-dropdown-item/index.tsx"
+		"./agent-verification-dropdown-item": "./src/ui/agent-verification-dropdown-item/index.tsx",
+		"./ui/AgentProfileInfo": "./src/ui/agent-profile-info/index.tsx",
+		"./ui/agent-profile-info/AgentStarCount": "./src/ui/agent-profile-info/agent-star-count/index.tsx",
+		"./common/ui/StarIconButton": "./src/common/ui/star-icon-button/index.tsx",
+		"./common/ui/LinkIconButton": "./src/common/ui/link-icon-button/index.tsx",
+		"./ui/AgentConversationStarters": "./src/ui/agent-conversation-starters/index.tsx",
+		"./common/ui/ChatPill": "./src/common/ui/chat-pill/index.tsx",
+		"./common/ui/ChatIcon": "./src/common/ui/chat-icon/index.tsx",
+		"./common/ui/ShowIcon": "./src/common/ui/show-icon/index.tsx",
+		"./common/ui/HiddenIcon": "./src/common/ui/hidden-icon/index.tsx",
+		"./ui/AgentAvatar": "./src/ui/agent-avatar/index.tsx",
+		"./ui/agent-avatar/GeneratedAvatar": "./src/ui/agent-avatar/generated-avatars/index.tsx",
+		"./ui/AgentDropdownMenu": "./src/ui/agent-dropdown-menu/index.tsx",
+		"./ui/AgentMenuItemSkeleton": "./src/ui/agent-menu-item-skeleton/index.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/afm-i18n-platform-ai-mate-rovo-agent-components": "root:*",
@@ -79,9 +92,6 @@
 	},
 	"techstack": {
 		"@atlassian/frontend": {
-			"code-structure": [
-				"tangerine-next"
-			],
 			"import-structure": [
 				"atlassian-conventions"
 			],

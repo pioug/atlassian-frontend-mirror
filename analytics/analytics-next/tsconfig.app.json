@@ -29,7 +29,8 @@
 	"compilerOptions": {
 		"types": ["node"],
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__analytics-next/app"
+		"outDir": "../../../tsDist/@atlaskit__analytics-next/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [],
 	"files": []

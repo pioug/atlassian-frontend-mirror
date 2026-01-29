@@ -27,7 +27,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__avatar-group/app"
+		"outDir": "../../../tsDist/@atlaskit__avatar-group/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

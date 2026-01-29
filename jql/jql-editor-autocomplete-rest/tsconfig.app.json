@@ -29,7 +29,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__jql-editor-autocomplete-rest/app"
+		"outDir": "../../../tsDist/@atlaskit__jql-editor-autocomplete-rest/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

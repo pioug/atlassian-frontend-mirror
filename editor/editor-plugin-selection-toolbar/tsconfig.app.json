@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugin-selection-toolbar/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-selection-toolbar/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

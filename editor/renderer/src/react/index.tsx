@@ -63,7 +63,7 @@ import type {
 import { renderTextSegments } from './utils/render-text-segments';
 import { segmentText } from './utils/segment-text';
 import { getStandaloneBackgroundColorMarks } from './utils/getStandaloneBackgroundColorMarks';
-import { mergeInlinedExtension } from './utils/merge-inlined-extension';
+import { markBlockAsInline } from './utils/markBlockAsInline';
 
 export interface ReactSerializerInit {
 	allowAltTextOnImages?: boolean;
@@ -224,6 +224,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	private shouldDisplayExtensionAsInline?: (
 		extensionParams: ExtensionParams<Parameters>,
 	) => boolean;
+	private inlinePositions: Set<number> = new Set();
 
 	constructor(init: ReactSerializerInit) {
 		if (editorExperiment('comment_on_bodied_extensions', true)) {
@@ -785,6 +786,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		const startPos = this.startPos + path.length;
 
 		return {
+			asInline: this.inlinePositions.has(startPos) ? 'on' : undefined,
 			text: node.text,
 			providers: this.providers,
 			eventHandlers: this.eventHandlers,
@@ -990,8 +992,12 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			!!this.shouldDisplayExtensionAsInline &&
 			expValEquals('platform_editor_render_bodied_extension_as_inline', 'isEnabled', true)
 		) {
-			children = mergeInlinedExtension({
+			markBlockAsInline({
 				nodes: children,
+				onMark: ({ pos }) => {
+					this.inlinePositions.add(pos);
+				},
+				parentPos: this.startPos,
 				shouldDisplayExtensionAsInline: this.shouldDisplayExtensionAsInline,
 			});
 		}

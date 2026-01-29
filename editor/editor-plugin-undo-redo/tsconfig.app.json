@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugin-undo-redo/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-undo-redo/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

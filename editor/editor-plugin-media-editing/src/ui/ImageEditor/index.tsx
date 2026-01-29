@@ -3,25 +3,27 @@
  * @jsx jsx
  */
 
-import { useRef, useState } from 'react';
-
 import { css, jsx } from '@compiled/react';
-import { FormattedMessage, IntlProvider } from 'react-intl-next';
+import { IntlProvider } from 'react-intl-next';
 
 import AtlassianProvider from '@atlaskit/app-provider';
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import type { ErrorReporter } from '@atlaskit/editor-common/error-reporter';
+import { mediaEditingMessages } from '@atlaskit/editor-common/messages';
+import CheckMarkIcon from '@atlaskit/icon/core/check-mark';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import Modal, { ModalBody, ModalFooter, ModalTransition } from '@atlaskit/modal-dialog';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { Cropper, type CropperRef } from './Cropper';
+import { Cropper } from './Cropper';
 import { FlipHorizontalIcon } from './icons/FlipHorizontalIcon';
 import { FlipVerticalIcon } from './icons/FlipVerticalIcon';
 import { RatioIcon } from './icons/RatioIcon';
 import { RotateIcon } from './icons/RotateIcon';
-import { useImageFlip, useImageRotate } from './imageEditActions';
+import { useImageEditor } from './useImageEditor';
 
 interface ImageEditModalProps {
 	errorReporter?: ErrorReporter;
@@ -32,7 +34,7 @@ interface ImageEditModalProps {
 }
 
 const imageWrapper = css({
-	height: 'calc(100vh - 250px)',
+	height: '100%',
 	width: '100%',
 	overflow: 'hidden',
 	display: 'flex',
@@ -43,7 +45,6 @@ const imageWrapper = css({
 
 const cropper = css({
 	maxWidth: '100%',
-	maxHeight: 'calc(100vh - 250px)',
 	width: '100%',
 	height: '100%',
 });
@@ -61,6 +62,33 @@ const ratioBtn = css({
 	gap: token('space.100', '8px'),
 });
 
+const ratioSelect = css({
+	display: 'flex',
+	justifyContent: 'space-between',
+	alignItems: 'center',
+});
+
+const dropdownItemGroup = css({
+	minWidth: '200px',
+});
+
+const btnGroupStyle = cssMap({
+	box: {
+		display: 'flex',
+		gap: token('space.100', '8px'),
+	},
+});
+
+const aspectRatioLabelMap: Record<string, keyof typeof mediaEditingMessages> = {
+	original: 'aspectRatioSelectionOriginal',
+	custom: 'aspectRatioSelectionCustom',
+	square: 'aspectRatioSelectionSquare',
+	circle: 'aspectRatioSelectionCircle',
+	landscape: 'aspectRatioSelectionLandscape',
+	portrait: 'aspectRatioSelectionPortrait',
+	wide: 'aspectRatioSelectionWide',
+};
+
 export const ImageEditor = ({
 	imageUrl,
 	isOpen,
@@ -68,31 +96,20 @@ export const ImageEditor = ({
 	onSave,
 	errorReporter,
 }: ImageEditModalProps) => {
-	const cropperRef = useRef<CropperRef>(null);
-	const [isImageReady, setIsImageReady] = useState(false);
-	const { flipHorizontal, flipVertical } = useImageFlip(cropperRef);
-	const { rotateRight } = useImageRotate(cropperRef);
-
-	const handleSave = async () => {
-		try {
-			// Hard coded width to keep image quality high
-			const canvas = await cropperRef.current?.getCroppedCanvas({ width: 1500 });
-			if (canvas) {
-				const outWidth = canvas.width;
-				const outHeight = canvas.height;
-				canvas.toBlob((blob) => {
-					if (blob) {
-						onSave?.(blob, outWidth, outHeight);
-						onClose();
-					}
-				});
-			}
-		} catch (error) {
-			if (errorReporter) {
-				errorReporter.captureException(error instanceof Error ? error : new Error(String(error)));
-			}
-		}
-	};
+	const {
+		cropperRef,
+		doneButtonRef,
+		isImageReady,
+		setIsImageReady,
+		currentAspectRatio,
+		aspectRatioSelection,
+		flipHorizontal,
+		flipVertical,
+		handleSave,
+		setSelectionArea,
+		formatMessage,
+		rotateRight,
+	} = useImageEditor();
 
 	return (
 		<IntlProvider locale="en">
@@ -101,7 +118,8 @@ export const ImageEditor = ({
 					{isOpen && (
 						<Modal
 							onClose={onClose}
-							width={1800}
+							height={800}
+							width="x-large"
 							testId="image-editor-modal"
 							label="Image editor modal"
 						>
@@ -117,6 +135,8 @@ export const ImageEditor = ({
 											crossOrigin="anonymous"
 											css={cropper}
 											initialCoverage={1}
+											aspectRatio={currentAspectRatio}
+											isCircle={aspectRatioSelection === 'circle'}
 											onImageReady={setIsImageReady}
 										/>
 									)}
@@ -132,75 +152,82 @@ export const ImageEditor = ({
 													ref={triggerRef}
 													appearance="subtle"
 													isDisabled={!isImageReady}
+													isSelected={props.isSelected}
 													onClick={props.onClick}
-													onBlur={props.onBlur}
 													onFocus={props.onFocus}
+													onBlur={props.onBlur}
+													aria-expanded={props['aria-expanded']}
+													aria-haspopup={props['aria-haspopup']}
+													aria-controls={props['aria-controls']}
+													testId={props.testId}
 												>
 													<div css={ratioBtn}>
-														<RatioIcon label='change aspect ratio button' isDisabled={!isImageReady} />
-														<FormattedMessage
-															id="editor.imageEditor.aspectRatio"
-															defaultMessage="Aspect Ratio"
+														<RatioIcon
+															label="change aspect ratio button"
+															isDisabled={!isImageReady}
 														/>
+														{aspectRatioSelection &&
+															formatMessage(
+																mediaEditingMessages[aspectRatioLabelMap[aspectRatioSelection]],
+															)}
 														<ChevronDownIcon label="" size="small" />
 													</div>
 												</Button>
 											)}
 										>
-											<DropdownItemGroup>
-												<DropdownItem>
-													<FormattedMessage
-														id="editor.imageEditor.aspectRatio.original"
-														defaultMessage="Original"
-													/>
-												</DropdownItem>
-												<DropdownItem>
-													<FormattedMessage
-														id="editor.imageEditor.aspectRatio.custom"
-														defaultMessage="Custom"
-													/>
-												</DropdownItem>
-											</DropdownItemGroup>
-											<DropdownItemGroup hasSeparator>
-												<DropdownItem>
-													<FormattedMessage
-														id="editor.imageEditor.aspectRatio.square"
-														defaultMessage="Square 1:1"
-													/>
-												</DropdownItem>
-												<DropdownItem>
-													<FormattedMessage
-														id="editor.imageEditor.aspectRatio.circle"
-														defaultMessage="Circle 1:1"
-													/>
-												</DropdownItem>
-												<DropdownItem>
-													<FormattedMessage
-														id="editor.imageEditor.aspectRatio.landscape"
-														defaultMessage="Landscape 4:3"
-													/>
-												</DropdownItem>
-												<DropdownItem>
-													<FormattedMessage
-														id="editor.imageEditor.aspectRatio.portrait"
-														defaultMessage="Portrait 3:4"
-													/>
-												</DropdownItem>
-												<DropdownItem>
-													<FormattedMessage
-														id="editor.imageEditor.aspectRatio.wide"
-														defaultMessage="Wide 16:9"
-													/>
-												</DropdownItem>
-											</DropdownItemGroup>
+											<div css={dropdownItemGroup}>
+												<DropdownItemGroup>
+													{(['original', 'custom'] as const).map((item) => (
+														<DropdownItem
+															key={item}
+															onClick={() => {
+																setSelectionArea(item);
+															}}
+														>
+															<div css={ratioSelect}>
+																{formatMessage(mediaEditingMessages[aspectRatioLabelMap[item]])}
+																{aspectRatioSelection === item && (
+																	<CheckMarkIcon label="selected" />
+																)}
+															</div>
+														</DropdownItem>
+													))}
+												</DropdownItemGroup>
+												<DropdownItemGroup hasSeparator>
+													{(['square', 'circle', 'landscape', 'portrait', 'wide'] as const).map(
+														(item) => (
+															<DropdownItem
+																key={item}
+																onClick={() => {
+																	setSelectionArea(item);
+																}}
+															>
+																<div css={ratioSelect}>
+																	{formatMessage(
+																		mediaEditingMessages[
+																			`${item}Button` as keyof typeof mediaEditingMessages
+																		],
+																	)}
+																	{aspectRatioSelection === item && (
+																		<CheckMarkIcon label="selected" />
+																	)}
+																</div>
+															</DropdownItem>
+														),
+													)}
+												</DropdownItemGroup>
+											</div>
 										</DropdownMenu>
 										<Button
-											onClick={rotateRight}
+											onClick={() => {
+												rotateRight();
+												setSelectionArea('original');
+											}}
 											isDisabled={!isImageReady}
 											testId="image-editor-rotate-right-btn"
 											appearance="subtle"
 										>
-											<RotateIcon label='rotate right button' isDisabled={!isImageReady} />
+											<RotateIcon label="rotate right button" isDisabled={!isImageReady} />
 										</Button>
 										<Button
 											onClick={flipVertical}
@@ -208,7 +235,7 @@ export const ImageEditor = ({
 											testId="image-editor-flip-vertical-btn"
 											appearance="subtle"
 										>
-											<FlipVerticalIcon label='flip vertical button' isDisabled={!isImageReady} />
+											<FlipVerticalIcon label="flip vertical button" isDisabled={!isImageReady} />
 										</Button>
 										<Button
 											onClick={flipHorizontal}
@@ -216,17 +243,25 @@ export const ImageEditor = ({
 											testId="image-editor-flip-horizontal-btn"
 											appearance="subtle"
 										>
-											<FlipHorizontalIcon label='flip horizontal button' isDisabled={!isImageReady} />
+											<FlipHorizontalIcon
+												label="flip horizontal button"
+												isDisabled={!isImageReady}
+											/>
 										</Button>
 									</div>
-									<div>
+									<Box xcss={btnGroupStyle.box}>
 										<Button appearance="subtle" onClick={onClose}>
-											<FormattedMessage id="editor.imageEditor.cancel" defaultMessage="Cancel" />
+											{formatMessage(mediaEditingMessages.cancelButton)}
 										</Button>
-										<Button appearance="primary" onClick={handleSave} isDisabled={!isImageReady}>
-											<FormattedMessage id="editor.imageEditor.done" defaultMessage="Done" />
+										<Button
+											appearance="primary"
+											onClick={() => handleSave(onSave, onClose, errorReporter)}
+											isDisabled={!isImageReady}
+											ref={doneButtonRef}
+										>
+											{formatMessage(mediaEditingMessages.doneButton)}
 										</Button>
-									</div>
+									</Box>
 								</div>
 							</ModalFooter>
 						</Modal>

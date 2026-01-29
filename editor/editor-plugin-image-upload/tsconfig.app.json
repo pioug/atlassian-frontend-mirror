@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugin-image-upload/app"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-image-upload/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

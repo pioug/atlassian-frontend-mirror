@@ -29,7 +29,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__jql-parser/app"
+		"outDir": "../../../tsDist/@atlaskit__jql-parser/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [],
 	"files": []

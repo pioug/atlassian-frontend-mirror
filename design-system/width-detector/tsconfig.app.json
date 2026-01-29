@@ -27,7 +27,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__width-detector/app"
+		"outDir": "../../../tsDist/@atlaskit__width-detector/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [],
 	"files": []

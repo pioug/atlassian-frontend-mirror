@@ -27,7 +27,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__storybook-addon-design-system/app"
+		"outDir": "../../../tsDist/@atlaskit__storybook-addon-design-system/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

@@ -8,6 +8,7 @@ import { jsx, cssMap, cx } from '@compiled/react';
 
 import DropdownMenu, { type OnOpenChangeArgs } from '@atlaskit/dropdown-menu';
 import { Box } from '@atlaskit/primitives/compiled';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { useToolbarUI } from '../hooks/ui-context';
@@ -44,6 +45,7 @@ type ToolbarDropdownMenuProps = {
 	 */
 	hasSectionMargin?: boolean;
 	iconBefore: React.ReactNode;
+	id?: string;
 	isDisabled?: boolean;
 	label?: string;
 	onClick?: (event: React.MouseEvent<HTMLButtonElement>, isOpen: boolean) => void;
@@ -54,6 +56,7 @@ const ToolbarDropdownMenuContent = ({
 	iconBefore,
 	children,
 	isDisabled,
+	id,
 	testId,
 	label,
 	onClick,
@@ -98,6 +101,7 @@ const ToolbarDropdownMenuContent = ({
 						triggerProps.onClick && triggerProps.onClick(e);
 					}}
 					onFocus={triggerProps.onFocus}
+					id={expValEquals('platform_editor_renderer_toolbar_updates', 'isEnabled', true) ? id : undefined}
 					testId={testId}
 					iconBefore={iconBefore}
 					isDisabled={isDisabled}
@@ -116,6 +120,7 @@ export const ToolbarDropdownMenu = ({
 	iconBefore,
 	children,
 	isDisabled,
+	id,
 	testId,
 	label,
 	hasSectionMargin = true,
@@ -126,6 +131,7 @@ export const ToolbarDropdownMenu = ({
 		<ToolbarDropdownMenuContent
 			iconBefore={iconBefore}
 			isDisabled={isDisabled}
+			id={expValEquals('platform_editor_renderer_toolbar_updates', 'isEnabled', true) ? id : undefined}
 			testId={testId}
 			label={label}
 			onClick={onClick}

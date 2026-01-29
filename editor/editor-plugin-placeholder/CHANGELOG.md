@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 7.2.4
+
+### Patch Changes
+
+- [`4a4392c5bdf9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4a4392c5bdf9d) -
+  [EDITOR-4807] fg cleanup platform_editor_placeholder_plugin_tidying
+- Updated dependencies
+
 ## 7.2.3
 
 ### Patch Changes

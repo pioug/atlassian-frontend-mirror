@@ -33,7 +33,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__smart-card/app"
+		"outDir": "../../../tsDist/@atlaskit__smart-card/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

@@ -72,7 +72,7 @@ function isExported(
 	return false;
 }
 
-export const rule = createLintRule({
+export const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'no-unused-cssmap-properties',
 		docs: {

@@ -151,7 +151,11 @@ export const getToolbarMenuConfig = (
 		},
 		{
 			id: 'editor.table.numberedColumn',
-			title: formatMessage(messages.numberedColumn),
+			title: formatMessage(
+				fg('platform_editor_rename_numbered_rows_label')
+					? messages.numberedRows
+					: messages.numberedColumn,
+			),
 			onClick: toggleNumberColumnWithAnalytics(editorAnalyticsAPI),
 			selected: state.isNumberColumnEnabled,
 			hidden: !config.allowNumberColumn,

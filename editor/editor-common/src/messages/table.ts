@@ -123,6 +123,11 @@ export const messages = defineMessages({
 		defaultMessage: 'Row numbers',
 		desciption: 'Adds a number to each row except header row',
 	},
+	numberedRows: {
+		id: 'fabrid.editor.numberedRows',
+		defaultMessage: 'Numbered rows',
+		desciption: 'Adds a number to each row except header row',
+	},
 	rowsAreInserted: {
 		id: 'fabric.editor.rowsAreInserted',
 		defaultMessage: '{count, plural, one {A row has been} other {{count} rows have been}} inserted',

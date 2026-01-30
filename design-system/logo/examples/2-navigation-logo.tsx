@@ -111,7 +111,7 @@ const Wrapper = (props: WrapperDivProps) => (
 	</Fragment>
 );
 
-export default () => (
+const _default: () => JSX.Element = () => (
 	<Fragment>
 		{logoOptions.map((Child, index) => (
 			<div
@@ -128,3 +128,4 @@ export default () => (
 		))}
 	</Fragment>
 );
+export default _default;

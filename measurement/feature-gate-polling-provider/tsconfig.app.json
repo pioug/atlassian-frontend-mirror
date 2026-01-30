@@ -28,7 +28,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__feature-gate-polling-provider/app"
+		"outDir": "../../../tsDist/@atlaskit__feature-gate-polling-provider/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

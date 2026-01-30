@@ -29,7 +29,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => {
+const _default: () => JSX.Element = () => {
 	const data = RANDOM_USERS.slice(0, presenceOptions.length + statusOptions.length).map(
 		(user, i) => {
 			const presence = presenceOptions[i % presenceOptions.length];
@@ -138,3 +138,4 @@ export default () => {
 		</div>
 	);
 };
+export default _default;

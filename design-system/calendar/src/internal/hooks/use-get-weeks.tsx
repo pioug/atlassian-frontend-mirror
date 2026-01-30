@@ -67,7 +67,7 @@ export default function useGetWeeks({
 	selected: string[];
 	previouslySelected: string[];
 	weekStartDay: WeekDay;
-}) {
+}): Week[] {
 	const calendar = useMemo(
 		() => getBaseCalendar(year, month - 1, { weekStartDay }),
 		[month, weekStartDay, year],

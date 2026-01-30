@@ -9,6 +9,18 @@ export const headingAnchorLinkMessages = defineMessages({
 		defaultMessage: 'Copy link to heading',
 		description: 'Copy heading link to clipboard',
 	},
+	copyLinkToClipboard: {
+		id: 'fabric.editor.headingLink.copyAnchorLinkTo',
+		defaultMessage: 'Copy link to',
+		description:
+			'Copy heading link to clipboard. Will be used as part of a 2-part a11y label ("Copy link to", "{heading text}")',
+	},
+	copyHeadingLinkLabelledBy: {
+		id: 'fabric.editor.headingLink.copyAnchorLinkLabelledBy',
+		defaultMessage: '{copyLink} {heading}',
+		description:
+			'The order in which to read the parts of the aria-labelledby for the copy heading link button depending on the grammar of the language. {copyLink} will be replaced with the "Copy link to" text and {heading} will be replaced with the actual heading text',
+	},
 	copiedHeadingLinkToClipboard: {
 		id: 'fabric.editor.headingLink.copied',
 		defaultMessage: 'Copied!',

@@ -1,5 +1,22 @@
 # @atlaskit/editor-core
 
+## 216.7.17
+
+### Patch Changes
+
+- [`e98a16b48e245`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e98a16b48e245) -
+  Fix a suspected bug where cross-origin selections would throw a dom security error when testing
+  whether to set focus
+- Updated dependencies
+
+## 216.7.16
+
+### Patch Changes
+
+- [`e504eea6e1d3f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e504eea6e1d3f) -
+  EDITOR-4665: Clean up platform_editor_toolbar_aifc_responsive_improve feature flag
+- Updated dependencies
+
 ## 216.7.15
 
 ### Patch Changes

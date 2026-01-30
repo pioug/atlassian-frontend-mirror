@@ -32,7 +32,7 @@ const data = RANDOM_USERS.map((d, i) => ({
 	appearance: appearances[i % appearances.length],
 }));
 
-export default function VRStackingContextExample() {
+export default function VRStackingContextExample(): JSX.Element {
 	return (
 		<div css={containerStyles} data-testid="container">
 			<div css={mockTopNavStyles} />

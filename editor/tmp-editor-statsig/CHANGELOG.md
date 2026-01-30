@@ -1,5 +1,35 @@
 # @atlaskit/editor-statsig-tmp
 
+## 17.8.0
+
+### Minor Changes
+
+- [`e98a16b48e245`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e98a16b48e245) -
+  Fix a suspected bug where cross-origin selections would throw a dom security error when testing
+  whether to set focus
+- [`d88e2cfa7371b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d88e2cfa7371b) -
+  [ux] fix copy heading link button a11y behaviours by only having one button, that is outside the
+  heading element
+
+## 17.7.0
+
+### Minor Changes
+
+- [`fe3cbbba3c6d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe3cbbba3c6d6) -
+  [EDITOR-4877](https://hello.jira.atlassian.cloud/browse/EDITOR-4877) - remove
+  queryCommandSupported from TableComponent
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.6.0
+
+### Minor Changes
+
+- [`26a5ec6dab84e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26a5ec6dab84e) -
+  Adjust vertical spacing for inline extensions in the renderer
+
 ## 17.5.0
 
 ### Minor Changes

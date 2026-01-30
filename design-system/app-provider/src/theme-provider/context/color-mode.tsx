@@ -7,11 +7,11 @@ export type ReconciledColorMode = Exclude<ThemeColorModes, 'auto'>;
 /**
  * __Color mode context__
  */
-export const ColorModeContext = createContext<ReconciledColorMode | undefined>(undefined);
+export const ColorModeContext: import("react").Context<ReconciledColorMode | undefined> = createContext<ReconciledColorMode | undefined>(undefined);
 
 /**
  * __Set color mode context__
  */
-export const SetColorModeContext = createContext<((value: ThemeColorModes) => void) | undefined>(
+export const SetColorModeContext: import("react").Context<((value: ThemeColorModes) => void) | undefined> = createContext<((value: ThemeColorModes) => void) | undefined>(
 	undefined,
 );

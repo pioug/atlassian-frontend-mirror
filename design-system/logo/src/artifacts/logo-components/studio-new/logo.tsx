@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a0b5470c82030d9d3a7e702619013b64>>
+ * @codegen <<SignedSource::0abfbd5b683dba06bd63da5e2017cda0>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -29,7 +29,7 @@ export function StudioNewLogo({
 	appearance = 'brand',
 	label = 'Studio',
 	testId,
-}: AppLogoProps) {
+}: AppLogoProps): React.JSX.Element {
 	return (
 		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);

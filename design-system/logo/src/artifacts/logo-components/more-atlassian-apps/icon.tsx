@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2872aa1947c414233b22f1d9339f860e>>
+ * @codegen <<SignedSource::710b2ced0f3f7a71776e2929f7b34c84>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -29,7 +29,7 @@ export function MoreAtlassianAppsIcon({
 	appearance = 'brand',
 	label = 'More Atlassian Apps',
 	testId,
-}: UtilityIconProps) {
+}: UtilityIconProps): React.JSX.Element {
 	return (
 		<IconWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);

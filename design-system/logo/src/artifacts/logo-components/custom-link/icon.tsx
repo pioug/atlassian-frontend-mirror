@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3aed5dbcf1f8e790e0762dd330779417>>
+ * @codegen <<SignedSource::bd5c71bab469281827ff670fac1e8f28>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -29,7 +29,7 @@ export function CustomLinkIcon({
 	appearance = 'brand',
 	label = 'Custom Link',
 	testId,
-}: UtilityIconProps) {
+}: UtilityIconProps): React.JSX.Element {
 	return (
 		<IconWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);

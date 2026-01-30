@@ -35,7 +35,7 @@ const fieldsetLabelStyles = css({
  * It's recommended that a label has a `space.050` spacing above its associated
  * control element.
  */
-export const Label = ({ children, htmlFor, id, testId }: LabelProps) => (
+export const Label: ({ children, htmlFor, id, testId }: LabelProps) => JSX.Element = ({ children, htmlFor, id, testId }: LabelProps) => (
 	<label css={fieldsetLabelStyles} id={id} htmlFor={htmlFor} data-testid={testId}>
 		{children}
 	</label>
@@ -46,6 +46,6 @@ export const Label = ({ children, htmlFor, id, testId }: LabelProps) => (
  *
  * A Legend represents a caption for a fieldset in a user interface.
  */
-export const Legend = ({ children }: LegendProps) => {
+export const Legend: ({ children }: LegendProps) => JSX.Element = ({ children }: LegendProps) => {
 	return <legend css={fieldsetLabelStyles}>{children}</legend>;
 };

@@ -31,7 +31,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__emoji/app"
+		"outDir": "../../../tsDist/@atlaskit__emoji/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

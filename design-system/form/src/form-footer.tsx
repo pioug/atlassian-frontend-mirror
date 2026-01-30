@@ -38,7 +38,7 @@ const justifyContentStyles = css({
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/form/docs/layout)
  * - [Usage](https://atlaskit.atlassian.com/packages/design-system/form/docs/layout)
  */
-export default function FormFooter({ align = 'end', children }: FormFooterProps) {
+export default function FormFooter({ align = 'end', children }: FormFooterProps): JSX.Element {
 	return (
 		<footer css={[formFooterWrapperStyles, align === 'start' && justifyContentStyles]}>
 			{children}

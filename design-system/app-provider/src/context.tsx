@@ -5,8 +5,8 @@ import { createContext, useContext } from 'react';
  *
  * A context that indicates if the current component is inside an AppProvider.
  */
-export const InsideAppProviderContext = createContext(false);
+export const InsideAppProviderContext: import("react").Context<boolean> = createContext(false);
 
-export const useIsInsideAppProvider = () => {
+export const useIsInsideAppProvider: () => boolean = () => {
 	return useContext(InsideAppProviderContext);
 };

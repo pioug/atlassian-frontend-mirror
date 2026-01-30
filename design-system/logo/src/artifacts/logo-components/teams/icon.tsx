@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::679db22f20a8bcb2df3bd71c0103c3c9>>
+ * @codegen <<SignedSource::7cfe9311dc5f8070530ce9772b12f3fc>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -24,7 +24,12 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  * to enable the new design by default.
  *
  */
-export function TeamsIcon({ size, appearance = 'brand', label = 'Teams', testId }: AppIconProps) {
+export function TeamsIcon({
+	size,
+	appearance = 'brand',
+	label = 'Teams',
+	testId,
+}: AppIconProps): React.JSX.Element {
 	return (
 		<IconWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);

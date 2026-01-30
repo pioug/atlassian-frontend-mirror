@@ -123,7 +123,7 @@ const paddingMap = {
  *
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  */
-export const Icon = memo(function Icon(props: UNSAFE_NewGlyphProps) {
+export const Icon: import("react").NamedExoticComponent<import("../types").UNSAFE_NewCoreGlyphProps> = memo(function Icon(props: UNSAFE_NewGlyphProps) {
 	const {
 		color = 'currentColor',
 		testId,

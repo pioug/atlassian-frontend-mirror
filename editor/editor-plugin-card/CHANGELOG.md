@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-card
 
+## 12.2.0
+
+### Minor Changes
+
+- [`110cf61eebfdd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/110cf61eebfdd) -
+  [ux] Cleanup prompt_whiteboard_competitor_link_gate
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.5
 
 ### Patch Changes

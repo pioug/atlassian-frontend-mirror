@@ -1,5 +1,18 @@
 # @atlaskit/editor-common
 
+## 111.11.0
+
+### Minor Changes
+
+- [`5dfede89f8ccc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5dfede89f8ccc) -
+  [EDITOR-4601](https://hello.jira.atlassian.cloud/browse/EDITOR-4601) - rename table Numbered rows
+  label
+
+### Patch Changes
+
+- [`7b1f3cc37e760`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b1f3cc37e760) -
+  Fire `element undid` event after undo transform
+
 ## 111.10.0
 
 ### Minor Changes

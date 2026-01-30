@@ -33,7 +33,9 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__stylelint-design-system/dev"
+		"outDir": "../../../tsDist/@atlaskit__stylelint-design-system/dev",
+		"module": "nodenext",
+		"moduleResolution": "nodenext"
 	},
 	"references": [
 		{

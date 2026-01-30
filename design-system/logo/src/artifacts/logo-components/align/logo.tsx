@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::594e5a862d6bc87ae00c57315dfddef4>>
+ * @codegen <<SignedSource::9625b55921f3d4ed260ed79bd2f27b2b>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -23,7 +23,12 @@ const svg = `<svg height="100%" viewBox="0 0 66 24">
  * A temporary component to represent the logo for Align.
  *
  */
-export function AlignLogo({ size, appearance = 'brand', label = 'Align', testId }: AppLogoProps) {
+export function AlignLogo({
+	size,
+	appearance = 'brand',
+	label = 'Align',
+	testId,
+}: AppLogoProps): React.JSX.Element {
 	return (
 		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);

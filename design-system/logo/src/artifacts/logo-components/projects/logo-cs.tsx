@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3a0db3f343269e63fd1e6e69f81074bb>>
+ * @codegen <<SignedSource::820b1edb3bac4a2b82da6f532724cb11>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -28,7 +28,7 @@ export function ProjectsLogoCS({
 	appearance = 'brand',
 	label = 'Projects',
 	testId,
-}: AppLogoProps) {
+}: AppLogoProps): React.JSX.Element {
 	return (
 		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);

@@ -17,7 +17,10 @@ const useHeadingLevel = (): HeadingLevel => {
 /**
  * Infers the correct heading markup based on the current heading level context.
  */
-export const useHeading = (fallback: HeadingElement) => {
+export const useHeading: (fallback: HeadingElement) => readonly [
+    HeadingLevel,
+    HeadingElement
+] = (fallback: HeadingElement) => {
 	const hLevel = useHeadingLevel();
 	/**
 	 * Order here is important, we for now apply

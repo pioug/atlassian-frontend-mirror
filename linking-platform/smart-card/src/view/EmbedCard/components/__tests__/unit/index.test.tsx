@@ -4,7 +4,6 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { Box } from '@atlaskit/primitives/compiled';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { expectElementWithText } from '../../../../../__tests__/__utils__/unit-helpers';
 import { ExpandedFrame } from '../../../components/ExpandedFrame';
@@ -139,43 +138,18 @@ describe('ExpandedFrame', () => {
 describe('ExpandedFrame with CompetitorPrompt', () => {
 	const CompetitorPrompt = () => <Box testId="competitor-prompt">Prompt</Box>;
 
-	ffTest.on('prompt_whiteboard_competitor_link_gate', '', () => {
-		it('should render CompetitorPrompt when provided and conditions are met', async () => {
-			render(
-				<ExpandedFrame
-					text="foobar"
-					href="https://example.com"
-					CompetitorPrompt={CompetitorPrompt}
-					isPlaceholder={false}
-				/>,
-			);
+	it('should render CompetitorPrompt when provided and conditions are met', async () => {
+		render(
+			<ExpandedFrame
+				text="foobar"
+				href="https://example.com"
+				CompetitorPrompt={CompetitorPrompt}
+				isPlaceholder={false}
+			/>,
+		);
 
-			const competitorPrompt = await screen.findByTestId('competitor-prompt');
-			expect(competitorPrompt).toBeInTheDocument();
-			expect(competitorPrompt).toHaveTextContent('Prompt');
-		});
-
-		it('should not render CompetitorPrompt when href is not provided', async () => {
-			render(
-				<ExpandedFrame text="foobar" CompetitorPrompt={CompetitorPrompt} isPlaceholder={false} />,
-			);
-
-			expect(screen.queryByTestId('competitor-prompt')).not.toBeInTheDocument();
-		});
-	});
-
-	ffTest.off('prompt_whiteboard_competitor_link_gate', '', () => {
-		it('should not render CompetitorPrompt when feature flag is off', async () => {
-			render(
-				<ExpandedFrame
-					text="foobar"
-					href="https://example.com"
-					CompetitorPrompt={CompetitorPrompt}
-					isPlaceholder={false}
-				/>,
-			);
-
-			expect(screen.queryByTestId('competitor-prompt')).not.toBeInTheDocument();
-		});
+		const competitorPrompt = await screen.findByTestId('competitor-prompt');
+		expect(competitorPrompt).toBeInTheDocument();
+		expect(competitorPrompt).toHaveTextContent('Prompt');
 	});
 });

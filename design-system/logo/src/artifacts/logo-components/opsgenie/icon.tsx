@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::beefaa24a87f689ce1de7425b081e3a3>>
+ * @codegen <<SignedSource::2bf4732a418598faff0fcffc57f4a7b7>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -29,7 +29,7 @@ export function OpsgenieIcon({
 	appearance = 'brand',
 	label = 'Opsgenie',
 	testId,
-}: AppIconProps) {
+}: AppIconProps): React.JSX.Element {
 	return (
 		<IconWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);

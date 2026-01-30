@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c6f8c58524f6eb3c46b44db30a332384>>
+ * @codegen <<SignedSource::e33f9e6e953de047c668f4543ae85124>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -29,7 +29,7 @@ export function GuardDetectIcon({
 	appearance = 'brand',
 	label = 'Guard Detect',
 	testId,
-}: AppIconProps) {
+}: AppIconProps): React.JSX.Element {
 	return (
 		<IconWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);

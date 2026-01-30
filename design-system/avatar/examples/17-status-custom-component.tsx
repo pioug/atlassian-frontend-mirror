@@ -25,7 +25,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => (
+const _default: () => JSX.Element = () => (
 	<Block heading="Custom div as status">
 		<Avatar
 			name="xxlarge"
@@ -65,3 +65,4 @@ export default () => (
 		/>
 	</Block>
 );
+export default _default;

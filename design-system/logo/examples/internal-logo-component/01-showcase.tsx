@@ -30,7 +30,7 @@ export default function ShowcaseExample({
 	apps?: typeof rows;
 	iconColor?: string;
 	textColor?: string;
-}) {
+}): JSX.Element {
 	const [appearance, setAppearance] = useState<'brand' | 'legacy' | 'inverse' | 'neutral'>(
 		providedAppearance,
 	);

@@ -248,9 +248,7 @@ export const InlineCardWithAwareness = memo(
 							// otherwise a use can click on smartlink itself to open the link in a new tab.
 							const isPreviewAvailable = isPreviewPanelAvailable || isPreviewModalAvailable;
 							// When inside preview panel iframe, hide the overlay button
-							const isInPreviewPanel =
-								expValEquals('platform_hover_card_preview_panel_modal', 'cohort', 'test') &&
-								isWithinPreviewPanelIFrame();
+							const isInPreviewPanel = isWithinPreviewPanelIFrame();
 							const showPanelButton = isInPreviewPanel
 								? isPreviewPanelAvailable
 								: isPreviewAvailable;

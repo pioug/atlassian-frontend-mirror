@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cd83e9aeafaa2f880babb870f3c31a26>>
+ * @codegen <<SignedSource::37c59c3ee979ff8acaf7525e576da094>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -29,7 +29,7 @@ export function StatuspageIcon({
 	appearance = 'brand',
 	label = 'Statuspage',
 	testId,
-}: AppIconProps) {
+}: AppIconProps): React.JSX.Element {
 	return (
 		<IconWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);

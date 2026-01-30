@@ -15,7 +15,7 @@ const styles = cssMap({
 	},
 });
 
-export default function ExplicitFontStyles() {
+export default function ExplicitFontStyles(): JSX.Element {
 	return (
 		<div css={styles.root}>
 			<Flag

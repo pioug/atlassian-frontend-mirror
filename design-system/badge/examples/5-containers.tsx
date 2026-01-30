@@ -26,7 +26,7 @@ const smallContainerStyles = css({
 	backgroundColor: token('color.background.accent.lime.subtlest'),
 });
 
-export default function ContainersExample() {
+export default function ContainersExample(): JSX.Element {
 	return (
 		<Stack space="space.200">
 			<div css={wrapperStyles}>

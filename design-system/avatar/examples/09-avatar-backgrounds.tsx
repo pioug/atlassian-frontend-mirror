@@ -70,7 +70,7 @@ const ColorColumn = ({ key, src, borderColor, presence, status, appearance }: Co
 	</div>
 );
 
-export default () => (
+const _default: () => JSX.Element = () => (
 	<Stack space="space.200">
 		<Heading as="h2" size="large">
 			Coloured Backgrounds
@@ -129,3 +129,4 @@ export default () => (
 		</Grid>
 	</Stack>
 );
+export default _default;

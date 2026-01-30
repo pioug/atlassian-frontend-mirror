@@ -4,11 +4,11 @@ import { render } from '@testing-library/react';
 
 import { autoA11yCheck } from '@af/accessibility-testing';
 
-import SVG from '../../../entry-points/svg';
-import LikeIcon from '../../../../glyph/like';
 import AddIcon from '../../../../core/add';
-import type { CustomGlyphProps, SVGProps } from '../../../types';
+import LikeIcon from '../../../../glyph/like';
+import SVG from '../../../entry-points/svg';
 import Icon from '../../../index';
+import type { CustomGlyphProps, SVGProps } from '../../../types';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Old icons', () => {

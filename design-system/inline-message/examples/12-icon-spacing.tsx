@@ -19,7 +19,7 @@ const styles = cssMap({
 	},
 });
 
-export default function InlineMessageIconSpacingExample() {
+export default function InlineMessageIconSpacingExample(): JSX.Element {
 	return (
 		<div css={styles.root}>
 			<Inline space="space.100">

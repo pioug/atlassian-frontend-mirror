@@ -105,7 +105,7 @@ export default function CharacterCounterField<
 	elementAfterLabel,
 	name,
 	testId,
-}: CharacterCounterFieldProps<FieldValue, Element>) {
+}: CharacterCounterFieldProps<FieldValue, Element>): JSX.Element {
 	// Default validation function for character limits
 	// __TOO_SHORT__ and __TOO_LONG__ are default error codes recognised by the CharacterCounter component
 	const validateCharacterCount = (value: FieldValue | undefined): string | void => {

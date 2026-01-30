@@ -22,7 +22,7 @@ function getParentJSXAttribute(node: Rule.Node): JSXAttribute | null {
 	return null;
 }
 
-export const rule = createLintRule({
+export const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'local-cx-xcss',
 		docs: {

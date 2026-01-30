@@ -202,7 +202,7 @@ function isShallowEqual<FieldValue>(previousValue: FieldValue, currentValue: Fie
 export default function Field<
 	FieldValue = string,
 	Element extends SupportedElements = HTMLInputElement,
->(props: FieldComponentProps<FieldValue, Element>) {
+>(props: FieldComponentProps<FieldValue, Element>): JSX.Element {
 	const { children = () => null, component } = props;
 	const { registerField, getCurrentValue } = useContext(FormContext);
 	const isDisabled = useContext(IsDisabledContext) || props.isDisabled || false;

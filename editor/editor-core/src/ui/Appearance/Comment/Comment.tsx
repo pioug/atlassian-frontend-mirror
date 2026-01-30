@@ -24,7 +24,6 @@ import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import type { EditorAppearanceComponentProps } from '../../../types';
@@ -209,9 +208,7 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 			css={[
 				mainToolbarCustomComponentsSlotStyleNew,
 				isTwoLineToolbarEnabled && mainToolbarCustomComponentsSlotStyleTwoLineToolbarNew,
-				isToolbarAIFCEnabled &&
-					fg('platform_editor_toolbar_aifc_responsive_improve') &&
-					mainToolbarCustomComponentsSlotStylePaddingOverride,
+				isToolbarAIFCEnabled && mainToolbarCustomComponentsSlotStylePaddingOverride,
 			]}
 		>
 			{customPrimaryToolbarComponents as React.ReactNode}

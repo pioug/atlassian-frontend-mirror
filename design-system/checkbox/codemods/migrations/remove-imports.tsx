@@ -1,6 +1,6 @@
 import { createRemoveImportsFor } from '../utils';
 
-export const removeThemeImports = createRemoveImportsFor({
+export const removeThemeImports: (j: import("jscodeshift/src/core").JSCodeshift, source: import("jscodeshift/src/Collection").Collection<Node>) => void = createRemoveImportsFor({
 	importsToRemove: ['ComponentTokens', 'ThemeFn'],
 	packagePath: '@atlaskit/checkbox/types',
 	comment: `This file uses exports used to help theme @atlaskit/checkbox which

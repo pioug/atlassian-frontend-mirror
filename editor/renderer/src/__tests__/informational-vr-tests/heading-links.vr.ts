@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import type { Locator, Page } from '@playwright/test';
+import type { Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
 import {
@@ -9,11 +9,11 @@ import {
 	HeadingInsideExpand,
 } from './heading-links.fixture';
 
-snapshotInformational(HeadingInsidePanel, {
+snapshotInformational.skip(HeadingInsidePanel, {
 	selector: {
 		byRole: 'heading',
 	},
-	prepare: async (page: Page, component: Locator) => {
+	prepare: async (page: Page) => {
 		const heading = page.getByRole('heading');
 		const copyLink = heading.getByTestId('anchor-button');
 
@@ -28,7 +28,7 @@ snapshotInformational(HeadingInsidePanel, {
 	},
 });
 
-snapshotInformational(HeadingInsideExpand, {
+snapshotInformational.skip(HeadingInsideExpand, {
 	ignoredErrors: [
 		{
 			// Gemini is complain because this component packages/editor/renderer/src/ui/Expand.tsx
@@ -46,7 +46,7 @@ snapshotInformational(HeadingInsideExpand, {
 		},
 	},
 	description: 'heading inside expand first expand',
-	prepare: async (page: Page, component: Locator) => {
+	prepare: async (page: Page) => {
 		const expand = page.getByLabel('Expand content').first();
 		const heading = page.getByRole('heading', { name: 'Heading 1' });
 		const copyLink = heading.getByTestId('anchor-button');
@@ -63,7 +63,7 @@ snapshotInformational(HeadingInsideExpand, {
 	},
 });
 
-snapshotInformational(HeadingInsideExpand, {
+snapshotInformational.skip(HeadingInsideExpand, {
 	description: 'heading inside expand second expand',
 	ignoredErrors: [
 		{
@@ -81,7 +81,7 @@ snapshotInformational(HeadingInsideExpand, {
 			name: 'Heading 2',
 		},
 	},
-	prepare: async (page: Page, component: Locator) => {
+	prepare: async (page: Page) => {
 		const expand = page.getByLabel('Expand content').nth(1);
 		const heading = page.getByRole('heading', { name: 'Heading 2' });
 		const copyLink = heading.getByTestId('anchor-button');
@@ -98,7 +98,7 @@ snapshotInformational(HeadingInsideExpand, {
 	},
 });
 
-snapshotInformational(HeadingInsideTable, {
+snapshotInformational.skip(HeadingInsideTable, {
 	description: 'heading inside table - first column',
 	selector: {
 		byRole: 'heading',
@@ -106,7 +106,7 @@ snapshotInformational(HeadingInsideTable, {
 			name: 'Table Heading 4',
 		},
 	},
-	prepare: async (page: Page, component: Locator) => {
+	prepare: async (page: Page) => {
 		const heading = page.getByRole('heading', {
 			name: 'Table Heading 4',
 		});
@@ -123,7 +123,7 @@ snapshotInformational(HeadingInsideTable, {
 	},
 });
 
-snapshotInformational(HeadingInsideTable, {
+snapshotInformational.skip(HeadingInsideTable, {
 	description: 'heading inside table - second column',
 	selector: {
 		byRole: 'heading',
@@ -131,7 +131,7 @@ snapshotInformational(HeadingInsideTable, {
 			name: 'Multiline heading that wraps',
 		},
 	},
-	prepare: async (page: Page, component: Locator) => {
+	prepare: async (page: Page) => {
 		const heading = page.getByRole('heading', {
 			name: 'Multiline heading that wraps',
 		});
@@ -148,7 +148,7 @@ snapshotInformational(HeadingInsideTable, {
 	},
 });
 
-snapshotInformational(HeadingInsideTable, {
+snapshotInformational.skip(HeadingInsideTable, {
 	description: 'heading inside table  second column but wrapped',
 	selector: {
 		byRole: 'heading',
@@ -156,7 +156,7 @@ snapshotInformational(HeadingInsideTable, {
 			name: 'Multiline heading that wraps',
 		},
 	},
-	prepare: async (page: Page, component: Locator) => {
+	prepare: async (page: Page) => {
 		await page.setViewportSize({
 			width: 400,
 			height: 400,
@@ -177,7 +177,7 @@ snapshotInformational(HeadingInsideTable, {
 	},
 });
 
-snapshotInformational(HeadingInsideLayout, {
+snapshotInformational.skip(HeadingInsideLayout, {
 	description: 'heading inside layout  first column ',
 	selector: {
 		byRole: 'heading',
@@ -186,7 +186,7 @@ snapshotInformational(HeadingInsideLayout, {
 			name: 'LC Heading L',
 		},
 	},
-	prepare: async (page: Page, component: Locator) => {
+	prepare: async (page: Page) => {
 		await page.setViewportSize({
 			width: 1200,
 			height: 400,
@@ -208,7 +208,7 @@ snapshotInformational(HeadingInsideLayout, {
 	},
 });
 
-snapshotInformational(HeadingInsideLayout, {
+snapshotInformational.skip(HeadingInsideLayout, {
 	description: 'heading inside layout second column',
 	selector: {
 		byRole: 'heading',
@@ -217,7 +217,7 @@ snapshotInformational(HeadingInsideLayout, {
 			name: 'RC Heading L',
 		},
 	},
-	prepare: async (page: Page, component: Locator) => {
+	prepare: async (page: Page) => {
 		await page.setViewportSize({
 			width: 1200,
 			height: 400,

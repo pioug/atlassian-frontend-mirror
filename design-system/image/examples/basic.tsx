@@ -14,8 +14,9 @@ const containerStyles = xcss({
 	height: '100%',
 });
 
-export default () => (
+const _default: () => JSX.Element = () => (
 	<Inline alignBlock="center" alignInline="center" xcss={containerStyles}>
 		<Image src={ExampleImage} alt="Simple example" testId="image" />
 	</Inline>
 );
+export default _default;

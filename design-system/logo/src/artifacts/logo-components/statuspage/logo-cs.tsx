@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e27288819df7a1e20b51bb337bc50dec>>
+ * @codegen <<SignedSource::4e31a509778b74933bf91345a74560c5>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -28,7 +28,7 @@ export function StatuspageLogoCS({
 	appearance = 'brand',
 	label = 'Statuspage',
 	testId,
-}: AppLogoProps) {
+}: AppLogoProps): React.JSX.Element {
 	return (
 		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);

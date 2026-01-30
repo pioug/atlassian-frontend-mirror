@@ -759,3 +759,106 @@ export const viewports: {
 		height: 1117,
 	},
 ];
+
+/**
+ * Custom test fixture that allows simulating a page opened in a background tab.
+ * This is done by injecting a script before page load that overrides visibilityState.
+ */
+export const testWithBackgroundTab = base.extend<{
+	simulateBackgroundTab: boolean;
+	featureFlags: string[];
+	waitForReactUFOPayload: () => Promise<ReactUFOPayload | null>;
+}>({
+	simulateBackgroundTab: false,
+	featureFlags: [],
+	page: async ({ browser, baseURL, simulateBackgroundTab, featureFlags }, use) => {
+		const context = await browser.newContext();
+		const page = await context.newPage();
+
+		// If simulating background tab, inject script to override visibilityState BEFORE page loads
+		if (simulateBackgroundTab) {
+			await page.addInitScript(() => {
+				// Override visibilityState to 'hidden' before any other code runs
+				// This simulates the page being opened in a background tab
+				Object.defineProperty(document, 'visibilityState', {
+					configurable: true,
+					get: () => 'hidden',
+				});
+
+				// Also mock the visibility-state Performance API entries for Chromium
+				const originalGetEntriesByType = performance.getEntriesByType.bind(performance);
+				performance.getEntriesByType = (type: string) => {
+					if (type === 'visibility-state') {
+						// Return a mock entry indicating the page was hidden from the start
+						return [{
+							name: 'hidden',
+							entryType: 'visibility-state',
+							startTime: 0,
+							duration: 0,
+							toJSON: () => ({ name: 'hidden', entryType: 'visibility-state', startTime: 0, duration: 0 }),
+						}] as unknown as PerformanceEntryList;
+					}
+					return originalGetEntriesByType(type);
+				};
+
+				// Set up test globals for payload capture
+				(window as WindowWithReactUFOTestGlobals).__websiteReactUfo = [];
+			});
+		}
+
+		// Build URL with feature flags
+		const params: Record<string, string> = {
+			groupId: 'react-ufo',
+			packageId: 'atlaskit',
+			exampleId: 'basic',
+			isTestRunner: 'true',
+			mode: 'light',
+		};
+
+		const searchParams = new URLSearchParams(params);
+		let url = `${baseURL}/examples.html?${searchParams.toString()}`;
+
+		if (featureFlags.length > 0) {
+			url += `&featureFlag=${featureFlags.join('&featureFlag=')}`;
+		}
+
+		await page.setViewportSize({ width: 1920, height: 1080 });
+		await page.goto(url, { waitUntil: 'domcontentloaded' });
+
+		await use(page);
+	},
+	waitForReactUFOPayload: async ({ page }, use) => {
+		const getPayload = async () => {
+			const mainDivAfterTTVCFinished = page.locator('[data-is-ttvc-ready="true"]');
+			await expect(mainDivAfterTTVCFinished).toBeVisible({ timeout: 20000 });
+
+			let reactUFOPayload: ReactUFOPayload | null = null;
+			await expect
+				.poll(
+					async () => {
+						const value = await page.evaluate(() => {
+							const payloads = (window as WindowWithReactUFOTestGlobals).__websiteReactUfo || [];
+							if (payloads.length < 1) {
+								return Promise.resolve(null);
+							}
+							const firstPayload = payloads.shift() ?? null;
+							return Promise.resolve(firstPayload);
+						});
+
+						reactUFOPayload = value;
+						return reactUFOPayload;
+					},
+					{
+						message: `React UFO payload never received.`,
+						intervals: [500],
+						timeout: 10000,
+					},
+				)
+				.not.toBeNull();
+
+			return reactUFOPayload;
+		};
+
+		await use(getPayload);
+	},
+});

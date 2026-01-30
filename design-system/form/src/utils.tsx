@@ -1,7 +1,7 @@
 import { getIn } from 'final-form';
 import type { FocusableInput } from 'final-form-focus';
 
-export const getFirstErrorField = (inputs: FocusableInput[], errors: Object) => {
+export const getFirstErrorField: (inputs: FocusableInput[], errors: Object) => HTMLInputElement | undefined = (inputs: FocusableInput[], errors: Object) => {
 	// Guaranteed to be of type HTMLInputElement[] due to getInputs function overrided in createDecorator
 	let htmlInputs = inputs as HTMLInputElement[];
 

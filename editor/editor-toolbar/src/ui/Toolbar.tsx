@@ -156,13 +156,9 @@ export const PrimaryToolbar = ({
 	children,
 	label,
 	breakpointPreset,
-	reducedBreakpoints,
 }: PrimaryToolbarProps): React.JSX.Element => {
 	return (
-		<ResponsiveContainer
-			breakpointPreset={breakpointPreset}
-			reducedBreakpoints={reducedBreakpoints}
-		>
+		<ResponsiveContainer breakpointPreset={breakpointPreset}>
 			<Box
 				xcss={cx(styles.toolbarBase, styles.primaryToolbar, styles.hiddenSelectors)}
 				role={

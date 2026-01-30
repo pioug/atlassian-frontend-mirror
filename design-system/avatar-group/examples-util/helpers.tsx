@@ -34,7 +34,10 @@ const styles = cssMap({
 	},
 });
 
-export const ExampleGroup = ({ children, heading }: { children?: ReactNode; heading?: string }) => (
+export const ExampleGroup: ({ children, heading }: {
+    children?: ReactNode;
+    heading?: string;
+}) => JSX.Element = ({ children, heading }: { children?: ReactNode; heading?: string }) => (
 	<div css={styles.container}>
 		{heading ? <div css={styles.heading}>{heading}</div> : null}
 		<div css={styles.wrapper}>{children}</div>

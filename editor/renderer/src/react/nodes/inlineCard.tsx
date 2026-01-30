@@ -139,9 +139,7 @@ const OverlayWithCardContext = ({
 			: undefined;
 
 	// When inside preview panel iframe, hide the overlay button
-	const isInPreviewPanel =
-		expValEquals('platform_hover_card_preview_panel_modal', 'cohort', 'test') &&
-		isWithinPreviewPanelIFrame();
+	const isInPreviewPanel = isWithinPreviewPanelIFrame();
 	const showPanelButton = isInPreviewPanel ? isPreviewPanelAvailable : isPreviewAvailable;
 
 	const Overlay = isPreviewAvailable ? HoverLinkOverlayWithCondition : HoverLinkOverlayNoop;
@@ -221,7 +219,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 
 	const CompetitorPrompt = smartLinks?.CompetitorPrompt;
 	const CompetitorPromptComponent =
-		CompetitorPrompt && url && fg('prompt_whiteboard_competitor_link_gate') ? (
+		CompetitorPrompt && url ? (
 			<CompetitorPrompt sourceUrl={url} linkType="inline" />
 		) : null;
 	const onError = ({ err }: { err?: Error }) => {

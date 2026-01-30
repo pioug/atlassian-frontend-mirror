@@ -46,7 +46,7 @@ import { ToolbarTooltip } from '../../../src/ui/ToolbarTooltip';
 import { useExampleToolbarState } from './useExampleToolbarState';
 
 interface FullToolbarWithPresetProps {
-	breakpointPreset?: BreakpointPreset;
+	breakpointPreset: BreakpointPreset;
 }
 
 type TextStyle =
@@ -685,8 +685,6 @@ const ConfluenceCommentToolbar = ({
 // JSM preset toolbar
 const JSMToolbar = ({
 	onClick,
-	textStyle,
-	onSetTextStyle,
 	formatting,
 	onToggleFormatting,
 	listOrAlignment,

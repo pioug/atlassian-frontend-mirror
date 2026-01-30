@@ -13,7 +13,7 @@ import { type AppIconProps, type AppLogoProps } from './utils/types';
  * @param NewComponent - The new logo component.
  * @returns A feature flagged component that renders the legacy logo or the new logo.
  */
-export const createFeatureFlaggedComponent = (
+export const createFeatureFlaggedComponent: (LegacyComponent: React.ComponentType<LogoProps>, NewComponent: React.ComponentType<AppLogoProps> | React.ComponentType<AppIconProps>) => ({ size, shouldUseNewLogoDesign, ...props }: LogoProps) => React.JSX.Element = (
 	LegacyComponent: React.ComponentType<LogoProps>,
 	NewComponent: React.ComponentType<AppLogoProps> | React.ComponentType<AppIconProps>,
 ) => {
@@ -37,7 +37,7 @@ export const createFeatureFlaggedComponent = (
  * @param NewComponent - The new logo component.
  * @returns A feature flagged component that renders the legacy logo or the new logo.
  */
-export const createFeatureFlaggedServiceCollectionComponent = (
+export const createFeatureFlaggedServiceCollectionComponent: (LegacyComponent: React.ComponentType<LogoProps>, NewComponent: React.ComponentType<AppLogoProps> | React.ComponentType<AppIconProps>) => ({ size, shouldUseNewLogoDesign, ...props }: LogoProps) => React.JSX.Element = (
 	LegacyComponent: React.ComponentType<LogoProps>,
 	NewComponent: React.ComponentType<AppLogoProps> | React.ComponentType<AppIconProps>,
 ) => {
@@ -57,7 +57,17 @@ export const createFeatureFlaggedServiceCollectionComponent = (
 	};
 };
 
-export const createFeatureFlaggedRovoComponent = (
+export const createFeatureFlaggedRovoComponent: (LegacyComponent: React.ComponentType<LogoProps>, NewComponent: React.ComponentType<AppLogoProps> | React.ComponentType<AppIconProps>, NewHexComponent: React.ComponentType<AppLogoProps> | React.ComponentType<AppIconProps>) => ({ shouldUseHexLogo, ...props }: LogoProps & {
+    /**
+     * When the feature flag `platform-logo-rebrand-rovo-hex` is set to false, this flag changes the rovo logo to a tile.
+     * After the hex design is rolled out, this prop will do nothing - it is maintained for now to enable backwards compatibility and safe roll-out
+     */
+    shouldUseNewLogoDesign?: boolean;
+    /**
+     * Forces the new rovo hex logo to be used.
+     */
+    shouldUseHexLogo?: boolean;
+}) => React.JSX.Element = (
 	LegacyComponent: React.ComponentType<LogoProps>,
 	NewComponent: React.ComponentType<AppLogoProps> | React.ComponentType<AppIconProps>,
 	NewHexComponent: React.ComponentType<AppLogoProps> | React.ComponentType<AppIconProps>,
@@ -96,7 +106,7 @@ export const createFeatureFlaggedRovoComponent = (
  *
  * @param NewComponent - The new logo or icon component.
  */
-export const tempSizeWrapper = (
+export const tempSizeWrapper: (NewComponent: React.ComponentType<AppLogoProps> | React.ComponentType<AppIconProps>) => ({ size, ...props }: LogoProps) => React.JSX.Element = (
 	NewComponent: React.ComponentType<AppLogoProps> | React.ComponentType<AppIconProps>,
 ) => {
 	return ({ size, ...props }: LogoProps): React.JSX.Element => {
@@ -104,7 +114,7 @@ export const tempSizeWrapper = (
 	};
 };
 
-export const teamEUFlaggedIcon = (
+export const teamEUFlaggedIcon: (LegacyComponent: React.ComponentType<AppIconProps> | React.ComponentType<AppLogoProps>, NewComponent: React.ComponentType<AppIconProps> | React.ComponentType<AppLogoProps>) => (props: LogoProps) => React.JSX.Element = (
 	LegacyComponent: React.ComponentType<AppIconProps> | React.ComponentType<AppLogoProps>,
 	NewComponent: React.ComponentType<AppIconProps> | React.ComponentType<AppLogoProps>,
 ) => {
@@ -215,6 +225,6 @@ export const AGENT_LOGO_DOCS_ORDER: string[] =
 		.filter((logo) => logo.category === 'agent' && !logo.skipExample)
 		.map((logo) => logo.name) || [];
 
-export const LEGACY_ONLY_LOGOS = logoDocsSchema.filter((logo) => logo.type === 'legacy');
-export const SHARED_LOGOS = logoDocsSchema.filter((logo) => logo.type === 'migration');
-export const NEW_ONLY_LOGOS = logoDocsSchema.filter((logo) => logo.type === 'new');
+export const LEGACY_ONLY_LOGOS: LogoDocsSchema[] = logoDocsSchema.filter((logo) => logo.type === 'legacy');
+export const SHARED_LOGOS: LogoDocsSchema[] = logoDocsSchema.filter((logo) => logo.type === 'migration');
+export const NEW_ONLY_LOGOS: LogoDocsSchema[] = logoDocsSchema.filter((logo) => logo.type === 'new');

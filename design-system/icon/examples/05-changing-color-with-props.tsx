@@ -39,7 +39,7 @@ const exampleIcons = [
 	[ArrowRightIcon, 'ArrowRightIcon'],
 ] as const;
 
-export default () => {
+const _default: () => JSX.Element = () => {
 	const [isColorFlipped, setIsColorFlipped] = useState(false);
 
 	return (
@@ -74,3 +74,4 @@ export default () => {
 		</div>
 	);
 };
+export default _default;

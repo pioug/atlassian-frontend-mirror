@@ -27,7 +27,9 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__stylelint-design-system/app"
+		"outDir": "../../../tsDist/@atlaskit__stylelint-design-system/app",
+		"module": "nodenext",
+		"moduleResolution": "nodenext"
 	},
 	"references": [
 		{

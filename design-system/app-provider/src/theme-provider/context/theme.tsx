@@ -7,11 +7,11 @@ export type Theme = Omit<ThemeState, 'colorMode' | 'contrastMode'>;
 /**
  * __Theme context__
  */
-export const ThemeContext = createContext<Theme | undefined>(undefined);
+export const ThemeContext: import("react").Context<Theme | undefined> = createContext<Theme | undefined>(undefined);
 
 /**
  * __Set theme context__
  */
-export const SetThemeContext = createContext<((value: Partial<Theme>) => void) | undefined>(
+export const SetThemeContext: import("react").Context<((value: Partial<Theme>) => void) | undefined> = createContext<((value: Partial<Theme>) => void) | undefined>(
 	undefined,
 );

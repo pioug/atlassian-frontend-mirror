@@ -15,7 +15,6 @@ import type { agentVerificationDropdownItem_AtlaskitRovoAgentComponents_userPerm
 import messages from './messages';
 
 export type AgentVerificationDropdownItemProps = {
-	agentId: string;
 	agentRef: agentVerificationDropdownItem_AtlaskitRovoAgentComponents_agentRef$key | null;
 	userPermissionsRef: agentVerificationDropdownItem_AtlaskitRovoAgentComponents_userPermissionsRef$key | null;
 	/**
@@ -34,7 +33,6 @@ export type AgentVerificationDropdownItemProps = {
  * Returns null if the user doesn't have permission to govern agents or the feature flag is off.
  */
 export const AgentVerificationDropdownItem = ({
-	agentId,
 	agentRef,
 	userPermissionsRef,
 	onClick,
@@ -46,6 +44,7 @@ export const AgentVerificationDropdownItem = ({
 	const agentData = useFragment(
 		graphql`
 			fragment agentVerificationDropdownItem_AtlaskitRovoAgentComponents_agentRef on AgentStudioAssistant {
+				id
 				isVerified
 			}
 		`,
@@ -63,6 +62,7 @@ export const AgentVerificationDropdownItem = ({
 
 	const isAbleToGovernAgents = userPermissions?.isAbleToGovernAgents ?? false;
 	const isVerified = agentData?.isVerified ?? false;
+	const agentId = agentData?.id;
 
 	const { trackAgentAction, trackAgentActionError } = useRovoAgentActionAnalytics({
 		touchPoint: 'agent-verification-dropdown-item',
@@ -71,26 +71,28 @@ export const AgentVerificationDropdownItem = ({
 	});
 
 	const [commitUpdateVerification] =
-		useMutation<agentVerificationDropdownItem_AtlaskitRovoAgentComponents_updateAgentVerificationMutation>(graphql`
-			mutation agentVerificationDropdownItem_AtlaskitRovoAgentComponents_updateAgentVerificationMutation(
-				$id: ID!
-				$verified: Boolean!
-			) {
-				agentStudio_updateAgentVerification(id: $id, verified: $verified)
-				@optIn(to: "AgentStudio") {
-					success
-					errors {
-						message
-					}
-					agent {
-						... on AgentStudioAssistant {
-							id
-							isVerified
+		useMutation<agentVerificationDropdownItem_AtlaskitRovoAgentComponents_updateAgentVerificationMutation>(
+			graphql`
+				mutation agentVerificationDropdownItem_AtlaskitRovoAgentComponents_updateAgentVerificationMutation(
+					$id: ID!
+					$verified: Boolean!
+				) {
+					agentStudio_updateAgentVerification(id: $id, verified: $verified)
+						@optIn(to: "AgentStudio") {
+						success
+						errors {
+							message
+						}
+						agent {
+							... on AgentStudioAssistant {
+								id
+								isVerified
+							}
 						}
 					}
 				}
-			}
-		`);
+			`,
+		);
 
 	const handleError = useCallback(
 		(verified: boolean, errorMessage: string) => {
@@ -106,8 +108,8 @@ export const AgentVerificationDropdownItem = ({
 
 	const handleUpdateVerification = useCallback(
 		(verified: boolean) => {
+			if (!agentId) return;
 			onClick?.();
-
 			commitUpdateVerification({
 				variables: {
 					id: agentId,
@@ -155,16 +157,17 @@ export const AgentVerificationDropdownItem = ({
 		],
 	);
 
-	// Don't render if user doesn't have permission
-	if (!isAbleToGovernAgents) {
+	if (
+		// Don't render if agent ID is not available
+		!agentId ||
+		// Don't render if user doesn't have permission
+		!isAbleToGovernAgents
+	) {
 		return null;
 	}
 
 	return (
-		<DropdownItem
-			testId={testId}
-			onClick={() => handleUpdateVerification(!isVerified)}
-		>
+		<DropdownItem testId={testId} onClick={() => handleUpdateVerification(!isVerified)}>
 			{formatMessage(isVerified ? messages.unverifyAgentLabel : messages.verifyAgentLabel)}
 		</DropdownItem>
 	);

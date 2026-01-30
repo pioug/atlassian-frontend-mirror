@@ -25,6 +25,7 @@ export type {
 	DashboardInsightsActionsPayloadData,
 	OpenChatDebugModalPayload,
 	OpenChatFeedbackModalPayload,
+	SelectActionPayload,
 } from './types';
 export type {
 	SolutionArchitectHandoffPayload,

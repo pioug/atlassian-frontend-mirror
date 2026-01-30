@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0d61eb22cff5da1c656082efc821f6f1>>
+ * @codegen <<SignedSource::f61715fd61f2481e52a0f7c7611f421f>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -23,7 +23,12 @@ const svg = `<svg height="100%" viewBox="0 0 121 32">
  * A temporary component to represent the logo for Home.
  *
  */
-export function HomeLogoCS({ size, appearance = 'brand', label = 'Home', testId }: AppLogoProps) {
+export function HomeLogoCS({
+	size,
+	appearance = 'brand',
+	label = 'Home',
+	testId,
+}: AppLogoProps): React.JSX.Element {
 	return (
 		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);

@@ -18,7 +18,7 @@ type SplitButtonContextProps = NavigationSplitButtonContextProps | MainSplitButt
 /**
  * TODO: Add jsdoc
  */
-export const SplitButtonContext = createContext<SplitButtonContextProps | undefined>(undefined);
+export const SplitButtonContext: import("react").Context<SplitButtonContextProps | undefined> = createContext<SplitButtonContextProps | undefined>(undefined);
 
 type UseSplitButtonContext = {
 	appearance: SplitButtonAppearance | 'subtle';
@@ -52,7 +52,7 @@ type MainSplitButtonContext = UseSplitButtonContext & {
 	isHighlighted: false;
 };
 
-export const useSplitButtonContext = () => {
+export const useSplitButtonContext: () => NavigationSplitButtonContext | MainSplitButtonContext | undefined = () => {
 	const context = useContext(SplitButtonContext);
 
 	if (!context) {

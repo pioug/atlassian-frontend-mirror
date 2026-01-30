@@ -3,7 +3,7 @@ import React from 'react';
 
 import { code, md } from '@atlaskit/docs';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { N20, N30 } from '@atlaskit/theme/colors';
+import { N20 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { Editor } from '../src';
@@ -204,7 +204,7 @@ class SplitExample extends React.Component<{ initialAdf: object }> {
 						padding: token('space.100', '8px'),
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						backgroundColor: N20,
-						border: `${token('border.width')} solid ${N30}`,
+						border: `${token('border.width')} solid ${token('color.border.accent.gray')}`,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						flex: 1,
 					}}
@@ -245,20 +245,20 @@ Currently, there is only the \`inlineComment\` type of annotation. In the future
 These denote a comment thread about the given text, and are denoted by a yellow highlight. This is commonly seen within Confluence after selecting some text in View mode.
 
 ${(
-		<div
-			style={{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				margin: token('space.100', '8px'),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				padding: token('space.100', '8px'),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				backgroundColor: N20,
-				border: `${token('border.width')} solid ${N30}`,
-			}}
-		>
-			{inlineCommentEditor(initialExample)}
-		</div>
-	)}
+	<div
+		style={{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			margin: token('space.100', '8px'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			padding: token('space.100', '8px'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			backgroundColor: N20,
+			border: `${token('border.width')} solid ${token('color.border.accent.gray')}`,
+		}}
+	>
+		{inlineCommentEditor(initialExample)}
+	</div>
+)}
 
 ### Example ADF
 

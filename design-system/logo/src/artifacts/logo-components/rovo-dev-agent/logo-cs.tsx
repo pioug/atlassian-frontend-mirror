@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1097e9235bd2bf7714fe3af3e77f7fcd>>
+ * @codegen <<SignedSource::ca2d332c134816706ee434029a355d3c>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -29,7 +29,7 @@ export function RovoDevAgentLogoCS({
 	appearance = 'brand',
 	label = 'Rovo Dev Agent',
 	testId,
-}: AppLogoProps) {
+}: AppLogoProps): React.JSX.Element {
 	return (
 		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);

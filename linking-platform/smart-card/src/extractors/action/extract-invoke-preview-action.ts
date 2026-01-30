@@ -106,11 +106,7 @@ export const extractInvokePreviewAction = (
 	const src = extractPreviewData(data, 'web')?.src;
 
 	// disallow preview modals within preview panels
-	if (
-		!hasPreviewPanel &&
-		isInPreviewPanel &&
-		expValEquals('platform_hover_card_preview_panel_modal', 'cohort', 'test')
-	) {
+	if (!hasPreviewPanel && isInPreviewPanel) {
 		return;
 	}
 

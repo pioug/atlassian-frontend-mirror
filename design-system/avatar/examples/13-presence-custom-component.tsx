@@ -38,7 +38,7 @@ const Tick = () => (
 	/>
 );
 
-export default () => (
+const _default: () => JSX.Element = () => (
 	<Stack space="space.200">
 		<Text as="p">
 			You are able to provide a react element to the <code>presence</code> property. For best
@@ -61,3 +61,4 @@ export default () => (
 		</Stack>
 	</Stack>
 );
+export default _default;

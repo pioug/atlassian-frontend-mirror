@@ -33,7 +33,7 @@ const styles = cssMap({
 	},
 });
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	return (
 		<React.StrictMode>
 			<div data-testid="badge">

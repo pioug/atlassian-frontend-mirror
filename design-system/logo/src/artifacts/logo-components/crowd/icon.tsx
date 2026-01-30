@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::25ef791c6b8e2aa654d6c789ba21ad2c>>
+ * @codegen <<SignedSource::9928c9b96accda0f9234a11fc7ddaca0>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -25,7 +25,12 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  * to enable the new design by default.
  *
  */
-export function CrowdIcon({ size, appearance = 'brand', label = 'Crowd', testId }: AppIconProps) {
+export function CrowdIcon({
+	size,
+	appearance = 'brand',
+	label = 'Crowd',
+	testId,
+}: AppIconProps): React.JSX.Element {
 	return (
 		<IconWrapper
 			svg={svg}

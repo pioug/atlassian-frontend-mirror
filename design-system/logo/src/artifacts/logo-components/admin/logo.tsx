@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2828a23fb0bd3ea60b2195a18ef5090d>>
+ * @codegen <<SignedSource::eb9aeb5356c94e49f5de53d842e3d0d4>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -23,7 +23,12 @@ const svg = `<svg height="100%" viewBox="0 0 73 24">
  * A temporary component to represent the logo for Admin.
  *
  */
-export function AdminLogo({ size, appearance = 'brand', label = 'Admin', testId }: AppLogoProps) {
+export function AdminLogo({
+	size,
+	appearance = 'brand',
+	label = 'Admin',
+	testId,
+}: AppLogoProps): React.JSX.Element {
 	return (
 		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);

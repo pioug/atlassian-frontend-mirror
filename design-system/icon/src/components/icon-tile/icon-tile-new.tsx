@@ -84,7 +84,7 @@ const backgroundColorMap: Record<IconTileAppearance, TileProps['backgroundColor'
  *
  * An icon with background shape, color, and size properties determined by Tile.
  */
-export default function IconTileNew(props: IconTileProps) {
+export default function IconTileNew(props: IconTileProps): JSX.Element {
 	const { icon: Icon, label, appearance, size = 'small', testId } = props;
 
 	const ExpandedIcon = Icon as ComponentType<InternalIconPropsNew>;

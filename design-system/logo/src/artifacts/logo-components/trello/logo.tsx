@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a743a1ee5b0965c2ad0958e51d3b12a4>>
+ * @codegen <<SignedSource::dff46b351231c4807dc736034a787a0d>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -35,7 +35,7 @@ export function TrelloLogo({
 	appearance = 'brand',
 	label = 'Trello',
 	testId,
-}: ThemedLogoProps) {
+}: ThemedLogoProps): React.JSX.Element {
 	return (
 		<LogoWrapper
 			svg={svg}

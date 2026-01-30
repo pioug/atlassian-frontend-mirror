@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d6e69e54d35c5132352d2d869cff6623>>
+ * @codegen <<SignedSource::fe1275028f179c85adabcde30f1dc14d>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -24,7 +24,12 @@ const svg = `<svg height="100%" viewBox="0 0 48 48">
  * to enable the new design by default.
  *
  */
-export function DxIcon({ size, appearance = 'brand', label = 'Dx', testId }: AppIconProps) {
+export function DxIcon({
+	size,
+	appearance = 'brand',
+	label = 'Dx',
+	testId,
+}: AppIconProps): React.JSX.Element {
 	return (
 		<IconWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);

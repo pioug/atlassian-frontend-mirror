@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2a64207aa98bf2c864c574bfcd5d3858>>
+ * @codegen <<SignedSource::2f4aa85be1e202363c2a55b5355afa38>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -23,7 +23,12 @@ const svg = `<svg height="100%" viewBox="0 0 79 24">
  * A temporary component to represent the logo for Search.
  *
  */
-export function SearchLogo({ size, appearance = 'brand', label = 'Search', testId }: AppLogoProps) {
+export function SearchLogo({
+	size,
+	appearance = 'brand',
+	label = 'Search',
+	testId,
+}: AppLogoProps): React.JSX.Element {
 	return (
 		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);

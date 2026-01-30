@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.0.29
+
+### Patch Changes
+
+- [`7b1f3cc37e760`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b1f3cc37e760) -
+  Fire `element undid` event after undo transform
+- Updated dependencies
+
 ## 6.0.28
 
 ### Patch Changes

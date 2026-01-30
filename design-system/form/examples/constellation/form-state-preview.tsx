@@ -45,7 +45,7 @@ const FormPreview = () => {
 	);
 };
 
-export default function StateSubscriptionExample() {
+export default function StateSubscriptionExample(): JSX.Element {
 	return (
 		<Form
 			onSubmit={(data) => {

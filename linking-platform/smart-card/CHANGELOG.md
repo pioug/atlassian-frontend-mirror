@@ -1,5 +1,16 @@
 # @atlaskit/smart-card
 
+## 43.23.0
+
+### Minor Changes
+
+- [`110cf61eebfdd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/110cf61eebfdd) -
+  [ux] Cleanup prompt_whiteboard_competitor_link_gate
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 43.22.5
 
 ### Patch Changes

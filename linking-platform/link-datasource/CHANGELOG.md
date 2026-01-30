@@ -1,5 +1,18 @@
 # @atlaskit/link-datasource
 
+## 4.33.0
+
+### Minor Changes
+
+- [`52e8d22762662`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/52e8d22762662) -
+  Adding functionality to update JQL search with latest JQL query input (if valid) before inserting
+  using Jira Work Items Modal in confluence - Insert button remains disabled until search input is
+  valid/well-formed. Gated behind navx-1345-issues-modal-jql-submit-fix
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.32.5
 
 ### Patch Changes

@@ -35,7 +35,9 @@
 	"compilerOptions": {
 		"lib": ["ES2021.String"],
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__eslint-plugin-platform/dev"
+		"outDir": "../../../tsDist/@atlaskit__eslint-plugin-platform/dev",
+		"module": "nodenext",
+		"moduleResolution": "nodenext"
 	},
 	"references": [
 		{

@@ -32,7 +32,6 @@ export const PrimaryToolbar = ({ children, breakpointPreset }: PrimaryToolbarPro
 	return (
 		<PrimaryToolbarBase
 			label="Primary Toolbar"
-			reducedBreakpoints={editorAppearance !== 'full-page'}
 			breakpointPreset={getBreakpointPreset(breakpointPreset, editorAppearance)}
 		>
 			{children}

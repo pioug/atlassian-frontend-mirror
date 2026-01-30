@@ -61,10 +61,7 @@ export default class VCCalculator_FY26_04 extends VCCalculator_FY25_03 {
 			return false;
 		}
 
-		if (
-			entryData.type === 'mutation:display-contents-children-attribute' &&
-			fg('platform_ufo_fix_ttvc_v4_attribute_exclusions')
-		) {
+		if (entryData.type === 'mutation:display-contents-children-attribute') {
 			if (
 				!attributeName ||
 				attributeName.startsWith('data-test') ||

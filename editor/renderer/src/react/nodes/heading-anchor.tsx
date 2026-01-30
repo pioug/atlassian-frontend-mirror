@@ -10,6 +10,7 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import LinkIcon from '@atlaskit/icon/core/link';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import Tooltip from '@atlaskit/tooltip';
 import { token } from '@atlaskit/tokens';
 
@@ -62,6 +63,19 @@ type HeadingAnchorState = { isClicked: boolean; tooltipMessage?: string };
 class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAnchorState> {
 	state = { tooltipMessage: '', isClicked: false };
 
+	copyLinkId: string | undefined;
+
+	constructor(props: HeadingAnchorProps) {
+		super(props);
+		this.copyLinkId = expValEquals(
+			'platform_editor_copy_link_a11y_inconsistency_fix',
+			'isEnabled',
+			true,
+		)
+			? crypto.randomUUID()
+			: undefined;
+	}
+
 	componentDidMount() {
 		this.resetMessage();
 	}
@@ -85,28 +99,57 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 		try {
 			await this.props.onCopyText();
 			this.setTooltipState(copiedHeadingLinkToClipboard, true);
-		} catch (e) {
+		} catch {
 			this.setTooltipState(failedToCopyHeadingLink);
 		}
 	};
 
 	resetMessage = () => {
-		this.setTooltipState(headingAnchorLinkMessages.copyHeadingLinkToClipboard);
+		const tooltip = expValEquals(
+			'platform_editor_copy_link_a11y_inconsistency_fix',
+			'isEnabled',
+			true,
+		)
+			? headingAnchorLinkMessages.copyLinkToClipboard
+			: headingAnchorLinkMessages.copyHeadingLinkToClipboard;
+		this.setTooltipState(tooltip);
 	};
 
 	renderAnchorButton = () => {
 		const { hideFromScreenReader = false, headingId } = this.props;
+		const labelledBy = expValEquals(
+			'platform_editor_copy_link_a11y_inconsistency_fix',
+			'isEnabled',
+			true,
+		)
+			? this.props.intl.formatMessage(headingAnchorLinkMessages.copyHeadingLinkLabelledBy, {
+					copyLink: this.copyLinkId,
+					heading: headingId,
+				})
+			: headingId;
+
+		const tabIndex = expValEquals(
+			'platform_editor_copy_link_a11y_inconsistency_fix',
+			'isEnabled',
+			true,
+		)
+			? 0
+			: hideFromScreenReader
+				? undefined
+				: -1;
+
 		return (
 			<button
 				data-testid="anchor-button"
+				id={this.copyLinkId}
 				css={copyAnchorButtonStyles}
 				// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 				onMouseLeave={this.resetMessage}
 				onClick={this.copyToClipboard}
 				aria-hidden={hideFromScreenReader}
-				tabIndex={hideFromScreenReader ? undefined : -1}
+				tabIndex={tabIndex}
 				aria-label={hideFromScreenReader ? undefined : this.state.tooltipMessage}
-				aria-labelledby={hideFromScreenReader ? undefined : headingId}
+				aria-labelledby={hideFromScreenReader ? undefined : labelledBy}
 				type="button"
 			>
 				<LinkIcon

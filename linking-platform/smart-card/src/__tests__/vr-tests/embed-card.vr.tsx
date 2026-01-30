@@ -84,16 +84,7 @@ snapshot(EmbedCardNotFoundSiteAccessExists, {
 });
 snapshot(EmbedCardResolvedSmall);
 snapshot(EmbedCardResolvedView);
-snapshot(EmbedCardResolvedView, {
-	featureFlags: {
-		prompt_whiteboard_competitor_link_gate: [true, false],
-	},
-});
-snapshot(EmbedCardResolvedViewCompetitorPrompt, {
-	featureFlags: {
-		prompt_whiteboard_competitor_link_gate: [true, false],
-	},
-});
+snapshot(EmbedCardResolvedViewCompetitorPrompt);
 snapshot(EmbedCardResolvedViewNoPreview);
 snapshot(EmbedCardResolvingView);
 snapshot(EmbedCardSelected);

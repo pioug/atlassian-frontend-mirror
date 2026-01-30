@@ -19,8 +19,7 @@ import { Box, Inline, Stack } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
-import IconExplorerCell from './utils/new-icon-explorer-cell';
-import type { IconExplorerCellProps } from './utils/new-icon-explorer-cell';
+import IconExplorerCell, { type IconExplorerCellProps } from './utils/new-icon-explorer-cell';
 
 type IconsList = Record<string, IconExplorerCellProps>;
 

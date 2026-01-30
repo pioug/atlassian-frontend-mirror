@@ -5,7 +5,7 @@ export default function useOverflowable(
 	truncationWidth: number | undefined,
 	buttonRefCurrent: HTMLButtonElement | HTMLAnchorElement | null,
 	iconWidthAllowance: number,
-) {
+): boolean[] {
 	const shouldCheckWidth = truncationWidth && buttonRefCurrent;
 
 	// Default to true to match hasOverflow = true default in Step component.

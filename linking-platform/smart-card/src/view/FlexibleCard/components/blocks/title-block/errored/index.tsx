@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import { InternalActionName, SmartLinkAlignment } from '../../../../../../constants';
@@ -31,7 +30,7 @@ const styles = cssMap({
 const TitleBlockErroredView = ({
 	actionGroup,
 	hideRetry,
-	retry,
+	retry: _retry,
 	position,
 	testId,
 	title,
@@ -44,7 +43,7 @@ const TitleBlockErroredView = ({
 	const showRetry = !hideRetry && Boolean(context?.actions?.[InternalActionName.UnresolvedAction]);
 
 	const competitorPrompt =
-		CompetitorPrompt && context?.url && fg('prompt_whiteboard_competitor_link_gate') ? (
+		CompetitorPrompt && context?.url ? (
 			<CompetitorPrompt sourceUrl={context?.url} linkType={'card'} />
 		) : null;
 

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::75130c29b2f378bebaec50386a50a8f1>>
+ * @codegen <<SignedSource::88ee37f21199df8c4f6de50b597bc415>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -24,7 +24,12 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  * to enable the new design by default.
  *
  */
-export function SearchIcon({ size, appearance = 'brand', label = 'Search', testId }: AppIconProps) {
+export function SearchIcon({
+	size,
+	appearance = 'brand',
+	label = 'Search',
+	testId,
+}: AppIconProps): React.JSX.Element {
 	return (
 		<IconWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);

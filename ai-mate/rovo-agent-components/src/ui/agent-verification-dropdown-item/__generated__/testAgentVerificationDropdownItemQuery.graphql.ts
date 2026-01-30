@@ -1,6 +1,6 @@
 /**
- * @generated SignedSource<<251e7c171e33da0a0b2e0e8041d77493>>
- * @relayHash 79a628a32ef254ccf6142a38adf8ecca
+ * @generated SignedSource<<b3f6a07649eb82e75b49c0affe972388>>
+ * @relayHash c95a4b89f332b56ac41d44591442026c
  * @lightSyntaxTransform
  * @nogrep
  * @codegen-command: yarn relay
@@ -10,7 +10,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-// @relayRequestID 790e12806b8a31f23c8834d4c00327ae778a10fab62bf682c07e39e2b2349465
+// @relayRequestID 8de69dcbcbaf21d9b6c334ea3f571232b1f22ba3798b5f801731c6faaf2bfb78
 
 import type { ConcreteRequest, Query } from 'relay-runtime';
 import type { FragmentRefs } from "relay-runtime";
@@ -50,12 +50,16 @@ v2 = {
   "name": "__typename"
 },
 v3 = {
+  "kind": "ScalarField",
+  "name": "id"
+},
+v4 = {
   "enumValues": null,
   "nullable": false,
   "plural": false,
   "type": "String"
 },
-v4 = {
+v5 = {
   "enumValues": null,
   "nullable": true,
   "plural": false,
@@ -137,6 +141,7 @@ return {
           {
             "kind": "InlineFragment",
             "selections": [
+              (v3/*: any*/),
               {
                 "kind": "ScalarField",
                 "name": "isVerified"
@@ -147,10 +152,7 @@ return {
           {
             "kind": "InlineFragment",
             "selections": [
-              {
-                "kind": "ScalarField",
-                "name": "id"
-              }
+              (v3/*: any*/)
             ],
             "type": "Node",
             "abstractKey": "__isNode"
@@ -189,7 +191,7 @@ return {
     ]
   },
   "params": {
-    "id": "790e12806b8a31f23c8834d4c00327ae778a10fab62bf682c07e39e2b2349465",
+    "id": "8de69dcbcbaf21d9b6c334ea3f571232b1f22ba3798b5f801731c6faaf2bfb78",
     "metadata": {
       "relayTestingSelectionTypeInfo": {
         "agentStudio_agentById": {
@@ -198,29 +200,29 @@ return {
           "plural": false,
           "type": "AgentStudioAgentResult"
         },
-        "agentStudio_agentById.__isNode": (v3/*: any*/),
-        "agentStudio_agentById.__typename": (v3/*: any*/),
+        "agentStudio_agentById.__isNode": (v4/*: any*/),
+        "agentStudio_agentById.__typename": (v4/*: any*/),
         "agentStudio_agentById.id": {
           "enumValues": null,
           "nullable": false,
           "plural": false,
           "type": "ID"
         },
-        "agentStudio_agentById.isVerified": (v4/*: any*/),
+        "agentStudio_agentById.isVerified": (v5/*: any*/),
         "atlassianStudio_userSiteContext": {
           "enumValues": null,
           "nullable": true,
           "plural": false,
           "type": "AtlassianStudioUserSiteContextResult"
         },
-        "atlassianStudio_userSiteContext.__typename": (v3/*: any*/),
+        "atlassianStudio_userSiteContext.__typename": (v4/*: any*/),
         "atlassianStudio_userSiteContext.userPermissions": {
           "enumValues": null,
           "nullable": true,
           "plural": false,
           "type": "AtlassianStudioUserProductPermissions"
         },
-        "atlassianStudio_userSiteContext.userPermissions.isAbleToGovernAgents": (v4/*: any*/)
+        "atlassianStudio_userSiteContext.userPermissions.isAbleToGovernAgents": (v5/*: any*/)
       }
     },
     "name": "testAgentVerificationDropdownItemQuery",

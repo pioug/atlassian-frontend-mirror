@@ -33,7 +33,7 @@ const supportedImports: readonly SupportedNameChecker[] = [
 	isStyled,
 ];
 
-export const rule = createLintRule({
+export const rule: import("eslint").Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'no-exported-styles',
 		docs: {

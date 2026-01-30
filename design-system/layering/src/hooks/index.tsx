@@ -70,7 +70,11 @@ export function useCloseOnEscapePress({ onClose, isDisabled }: UseCloseOnEscapeP
  * Layering hook to get layering info like the current level, the top level of the given component
  *
  */
-export function useLayering() {
+export function useLayering(): {
+    currentLevel: number;
+    isLayerDisabled: () => boolean;
+    getTopLevel: () => number | null;
+} {
 	const currentLevel = useContext(LevelContext);
 
 	const layerNode = useContext(LevelNodeContext);

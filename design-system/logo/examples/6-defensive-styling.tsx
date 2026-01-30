@@ -22,7 +22,7 @@ const inlineStyles = css({
 	gap: token('space.050', '4px'),
 });
 
-export default () => (
+const _default: () => JSX.Element = () => (
 	<div css={ancestorStyles}>
 		<p>Logo should be resilient against inherited styles.</p>
 		<hr role="presentation" />
@@ -38,3 +38,4 @@ export default () => (
 		</div>
 	</div>
 );
+export default _default;

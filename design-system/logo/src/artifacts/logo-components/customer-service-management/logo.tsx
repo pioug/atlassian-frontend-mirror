@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::63c8c4171640f1c48f20584ad1c68e2b>>
+ * @codegen <<SignedSource::392efb90243b970840f8c509d2a28ebb>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -35,7 +35,7 @@ export function CustomerServiceManagementLogo({
 	appearance = 'brand',
 	label = 'Customer Service Management',
 	testId,
-}: ThemedLogoProps) {
+}: ThemedLogoProps): React.JSX.Element {
 	return (
 		<LogoWrapper
 			svg={svg}

@@ -1,8 +1,10 @@
+import fs from 'fs';
+import path from 'path';
+
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 
-import path from 'path';
-import fs from 'fs';
 import metadataCore from '../../metadata-core';
 
 // List all files in a directory in Node.js recursively in a synchronous fashion

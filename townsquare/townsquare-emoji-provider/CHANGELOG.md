@@ -1,5 +1,12 @@
 # @atlaskit/townsquare-emoji-provider
 
+## 1.0.4
+
+### Patch Changes
+
+- [`1d6dc826f01b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d6dc826f01b7) -
+  [ux] Correct fallbak space not used
+
 ## 1.0.3
 
 ### Patch Changes

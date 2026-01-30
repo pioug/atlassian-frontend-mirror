@@ -20,7 +20,7 @@ const colorOptions = [
 	{ label: 'Red', value: 'red' },
 ] as const;
 
-export default function ShowcaseLegacyExample() {
+export default function ShowcaseLegacyExample(): JSX.Element {
 	const [iconColor, setIconColor] = useState<string | undefined>('black');
 	const [textColor, setTextColor] = useState<string | undefined>('black');
 

@@ -353,3 +353,222 @@ describe('getHasHiddenTimingBeforeSetup', () => {
 		});
 	});
 });
+
+describe('isOpenedInBackground', () => {
+	it('should return false for non-page_load interaction types', () => {
+		jest.isolateModules(() => {
+			const { isOpenedInBackground: isolatedIsOpenedInBackground } = require('../../index');
+			const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
+
+			getEntriesSpy.mockReturnValue([createVisibilityEntry('hidden', 0)]);
+
+			expect(isolatedIsOpenedInBackground('press')).toBe(false);
+			expect(isolatedIsOpenedInBackground('typing')).toBe(false);
+			expect(isolatedIsOpenedInBackground('transition')).toBe(false);
+			expect(isolatedIsOpenedInBackground('segment')).toBe(false);
+
+			getEntriesSpy.mockRestore();
+		});
+	});
+
+	describe('using native visibility-state API', () => {
+		it('should return true when native API shows hidden entry at time 0', () => {
+			jest.isolateModules(() => {
+				const { isOpenedInBackground: isolatedIsOpenedInBackground } = require('../../index');
+				const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
+
+				getEntriesSpy.mockReturnValue([createVisibilityEntry('hidden', 0)]);
+
+				expect(isolatedIsOpenedInBackground('page_load')).toBe(true);
+
+				getEntriesSpy.mockRestore();
+			});
+		});
+
+		it('should return true when native API shows hidden entry within threshold (< 100ms)', () => {
+			jest.isolateModules(() => {
+				const { isOpenedInBackground: isolatedIsOpenedInBackground } = require('../../index');
+				const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
+
+				getEntriesSpy.mockReturnValue([createVisibilityEntry('hidden', 50)]);
+
+				expect(isolatedIsOpenedInBackground('page_load')).toBe(true);
+
+				getEntriesSpy.mockRestore();
+			});
+		});
+
+		it('should return true when native API shows hidden entry at exactly threshold (100ms)', () => {
+			jest.isolateModules(() => {
+				const { isOpenedInBackground: isolatedIsOpenedInBackground } = require('../../index');
+				const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
+
+				getEntriesSpy.mockReturnValue([createVisibilityEntry('hidden', 100)]);
+
+				expect(isolatedIsOpenedInBackground('page_load')).toBe(true);
+
+				getEntriesSpy.mockRestore();
+			});
+		});
+
+		it('should return false when native API shows visible entry at time 0', () => {
+			jest.isolateModules(() => {
+				const { isOpenedInBackground: isolatedIsOpenedInBackground } = require('../../index');
+				const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
+
+				getEntriesSpy.mockReturnValue([createVisibilityEntry('visible', 0)]);
+
+				expect(isolatedIsOpenedInBackground('page_load')).toBe(false);
+
+				getEntriesSpy.mockRestore();
+			});
+		});
+
+		it('should return false when native API shows hidden entry beyond threshold (> 100ms)', () => {
+			jest.isolateModules(() => {
+				const { isOpenedInBackground: isolatedIsOpenedInBackground } = require('../../index');
+				const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
+
+				getEntriesSpy.mockReturnValue([
+					createVisibilityEntry('visible', 0),
+					createVisibilityEntry('hidden', 150),
+				]);
+
+				expect(isolatedIsOpenedInBackground('page_load')).toBe(false);
+
+				getEntriesSpy.mockRestore();
+			});
+		});
+	});
+
+	describe('fallback with time threshold', () => {
+		it('should return true when setup runs early (< 100ms) and page is hidden', () => {
+			jest.isolateModules(() => {
+				const { isOpenedInBackground: isolatedIsOpenedInBackground, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+				const visibilitySpy = jest.spyOn(window.document, 'visibilityState', 'get');
+				const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
+				const performanceNowSpy = jest.spyOn(window.performance, 'now');
+
+				getEntriesSpy.mockReturnValue([]);
+				visibilitySpy.mockReturnValue('hidden');
+				performanceNowSpy.mockReturnValue(50); // Setup runs at 50ms (within threshold)
+
+				isolatedSetup();
+
+				expect(isolatedIsOpenedInBackground('page_load')).toBe(true);
+
+				performanceNowSpy.mockRestore();
+				getEntriesSpy.mockRestore();
+				visibilitySpy.mockRestore();
+			});
+		});
+
+		it('should return false when setup runs late (>= 100ms) even if page is hidden', () => {
+			jest.isolateModules(() => {
+				const { isOpenedInBackground: isolatedIsOpenedInBackground, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+				const visibilitySpy = jest.spyOn(window.document, 'visibilityState', 'get');
+				const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
+				const performanceNowSpy = jest.spyOn(window.performance, 'now');
+
+				getEntriesSpy.mockReturnValue([]);
+				visibilitySpy.mockReturnValue('hidden');
+				performanceNowSpy.mockReturnValue(150); // Setup runs at 150ms (beyond threshold)
+
+				isolatedSetup();
+
+				expect(isolatedIsOpenedInBackground('page_load')).toBe(false);
+
+				performanceNowSpy.mockRestore();
+				getEntriesSpy.mockRestore();
+				visibilitySpy.mockRestore();
+			});
+		});
+
+		it('should return false when setup runs early but page is visible', () => {
+			jest.isolateModules(() => {
+				const { isOpenedInBackground: isolatedIsOpenedInBackground, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+				const visibilitySpy = jest.spyOn(window.document, 'visibilityState', 'get');
+				const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
+				const performanceNowSpy = jest.spyOn(window.performance, 'now');
+
+				getEntriesSpy.mockReturnValue([]);
+				visibilitySpy.mockReturnValue('visible');
+				performanceNowSpy.mockReturnValue(50); // Setup runs at 50ms (within threshold)
+
+				isolatedSetup();
+
+				expect(isolatedIsOpenedInBackground('page_load')).toBe(false);
+
+				performanceNowSpy.mockRestore();
+				getEntriesSpy.mockRestore();
+				visibilitySpy.mockRestore();
+			});
+		});
+
+		it('should return false when page is hidden later after setup', () => {
+			jest.isolateModules(() => {
+				const { isOpenedInBackground: isolatedIsOpenedInBackground, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+				const visibilitySpy = jest.spyOn(window.document, 'visibilityState', 'get');
+				const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
+				const performanceNowSpy = jest.spyOn(window.performance, 'now');
+
+				getEntriesSpy.mockReturnValue([]);
+				visibilitySpy.mockReturnValue('visible');
+				performanceNowSpy.mockReturnValue(50);
+
+				isolatedSetup();
+
+				// Later, page becomes hidden
+				performanceNowSpy.mockReturnValue(500);
+				visibilitySpy.mockReturnValue('hidden');
+				document.dispatchEvent(new Event('visibilitychange'));
+
+				expect(isolatedIsOpenedInBackground('page_load')).toBe(false);
+
+				performanceNowSpy.mockRestore();
+				getEntriesSpy.mockRestore();
+				visibilitySpy.mockRestore();
+			});
+		});
+
+		it('should handle getEntriesByType throwing an error gracefully', () => {
+			jest.isolateModules(() => {
+				const { isOpenedInBackground: isolatedIsOpenedInBackground, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+				const visibilitySpy = jest.spyOn(window.document, 'visibilityState', 'get');
+				const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
+				const performanceNowSpy = jest.spyOn(window.performance, 'now');
+
+				getEntriesSpy.mockImplementation((type: string) => {
+					if (type === 'visibility-state') {
+						throw new Error('Not supported');
+					}
+					return [];
+				});
+				visibilitySpy.mockReturnValue('hidden');
+				performanceNowSpy.mockReturnValue(50); // Within threshold
+
+				isolatedSetup();
+
+				expect(() => isolatedIsOpenedInBackground('page_load')).not.toThrow();
+				expect(isolatedIsOpenedInBackground('page_load')).toBe(true);
+
+				performanceNowSpy.mockRestore();
+				getEntriesSpy.mockRestore();
+				visibilitySpy.mockRestore();
+			});
+		});
+
+		it('should return false without setup even if native API is unavailable', () => {
+			jest.isolateModules(() => {
+				const { isOpenedInBackground: isolatedIsOpenedInBackground } = require('../../index');
+				const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
+
+				getEntriesSpy.mockReturnValue([]);
+
+				expect(isolatedIsOpenedInBackground('page_load')).toBe(false);
+
+				getEntriesSpy.mockRestore();
+			});
+		});
+	});
+});

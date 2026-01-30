@@ -9,7 +9,6 @@ import { cssMap, jsx } from '@compiled/react';
 
 import Heading from '@atlaskit/heading';
 import AddIcon from '@atlaskit/icon/core/add';
-import ChevronIcon from '@atlaskit/icon/core/chevron-down';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import Lozenge from '@atlaskit/lozenge';
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
@@ -30,13 +29,13 @@ const IconSpacingExample = () => {
 			<Heading size="small">Core icons (small):</Heading>
 			<Inline space="space.100">
 				<IconContainer>
-					<ChevronIcon label="" size="small" />
+					<ChevronDownIcon label="" size="small" />
 				</IconContainer>
 				<IconContainer>
-					<ChevronIcon label="" size="small" spacing="compact" />
+					<ChevronDownIcon label="" size="small" spacing="compact" />
 				</IconContainer>
 				<IconContainer>
-					<ChevronIcon label="" size="small" spacing="spacious" />
+					<ChevronDownIcon label="" size="small" spacing="spacious" />
 				</IconContainer>
 			</Inline>
 			<Heading size="small">

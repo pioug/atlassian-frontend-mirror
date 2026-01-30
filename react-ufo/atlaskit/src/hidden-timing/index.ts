@@ -2,6 +2,7 @@ import { bind } from 'bind-event-listener';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import type { InteractionType } from '../common';
 import type { PageVisibility } from '../common/react-ufo-payload-schema';
 
 export type HiddenTimingItem = {
@@ -12,6 +13,11 @@ export type HiddenTimingItem = {
 const timings: Array<HiddenTimingItem> = [];
 let wasHiddenFlag: boolean;
 let setupFlag = false;
+
+// Threshold for determining if page was opened in background.
+// If setup runs within this time and page is hidden, we assume it was opened in a background tab.
+const OPENED_IN_BACKGROUND_THRESHOLD_MS = 100;
+let openedInBackground: boolean | null = null;
 
 function isPageHidden() {
 	if ('visibilityState' in document) {
@@ -35,6 +41,25 @@ export function getEarliestHiddenTiming(
 	if (typeof earliestHiddenTiming === 'number') {
 		return Math.round(earliestHiddenTiming - startTime);
 	}
+}
+
+export function isOpenedInBackground(interactionType: InteractionType): boolean {
+	if (interactionType !== 'page_load') {
+		return false;
+	}
+
+	// Check native visibility-state entries first (most reliable, Chromium only)
+	try {
+		const entries = performance.getEntriesByType('visibility-state');
+		if (entries.length > 0) {
+			return entries.some((entry) => entry.name === 'hidden' && entry.startTime <= OPENED_IN_BACKGROUND_THRESHOLD_MS);
+		}
+	} catch {
+		// visibility-state not supported (Firefox/Safari)
+	}
+
+	// Fallback to cached value from setup (determined using time threshold)
+	return openedInBackground === true;
 }
 
 function pushHidden(isPageHiddenFlag: boolean, time?: number) {
@@ -106,6 +131,15 @@ function setup() {
 export function setupHiddenTimingCapture(): void {
 	if (!setupFlag) {
 		const isPageHiddenFlag = isPageHidden();
+		const setupTime = performance.now();
+
+		// Determine if page was opened in background.
+		// If we're early in page lifecycle (< threshold) and page is hidden,
+		// it's likely the page was opened in a background tab.
+		if (openedInBackground === null) {
+			openedInBackground = isPageHiddenFlag && setupTime < OPENED_IN_BACKGROUND_THRESHOLD_MS;
+		}
+
 		pushHidden(isPageHiddenFlag, 0);
 		setup();
 		setupFlag = true;

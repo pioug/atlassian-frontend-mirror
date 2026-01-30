@@ -15,7 +15,7 @@ function isRestrictedImportSource(importSource: string): importSource is Restric
 	return importSource in restrictedImports;
 }
 
-export const rule = createLintRule({
+export const rule: import("eslint").Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'no-global-styles',
 		docs: {

@@ -6,7 +6,7 @@ import { importSources } from '@atlaskit/eslint-utils/schema';
 
 import { createLintRuleWithTypedConfig } from '../utils/create-rule-with-typed-config';
 
-export const rule = createLintRuleWithTypedConfig({
+export const rule: import("eslint").Rule.RuleModule = createLintRuleWithTypedConfig({
 	meta: {
 		name: 'no-important-styles',
 		docs: {

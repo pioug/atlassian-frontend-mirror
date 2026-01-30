@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6bce70ee3b947e0126577758400fc4f1>>
+ * @codegen <<SignedSource::daf8acf7c1707ab5f837689f4e92f4a5>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -30,7 +30,7 @@ export function ConfluenceDataCenterIcon({
 	appearance = 'brand',
 	label = 'Confluence Data Center',
 	testId,
-}: AppIconProps) {
+}: AppIconProps): React.JSX.Element {
 	return (
 		<IconWrapper
 			svg={svg}

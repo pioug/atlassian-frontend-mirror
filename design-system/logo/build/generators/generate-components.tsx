@@ -208,7 +208,7 @@ ${customThemeSvg ? `const customThemeSvg = \`${customThemeSvg}\`;\n` : ''}
 export function ${componentName}({
 		${customThemeSvg ? 'iconColor, ' : ''}
 		${customThemeSvg && (type === 'logo' || type === 'logo-cs') ? 'textColor,' : ''} size, appearance = "brand", label = "${productLabel}", testId
-	}: ${propType}) {
+	}: ${propType}): React.JSX.Element {
 	return <${WrapperName}
 			svg={svg} ${customThemeSvg ? 'customThemeSvg={customThemeSvg}' : ''}
 			${customThemeSvg ? 'iconColor={iconColor}' : ''}

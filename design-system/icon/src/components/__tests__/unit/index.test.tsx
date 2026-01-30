@@ -5,10 +5,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-
 import BookIcon from '../../../../glyph/book';
-import { size as defaultSize } from '../../../index';
-import { size } from '../../../index';
 import metadata from '../../../metadata';
 import metadataCore from '../../../metadata-core';
 
@@ -429,12 +426,6 @@ describe('@atlaskit/icon', () => {
 			// If we were to auto-generate this list, then renaming, adding or removing would NOT
 			// break any tests and thus not hint the developer at what kind of change they are making
 		});
-
-		describe('bundle', () => {
-			it('has size export', () => {
-				expect(defaultSize).toEqual(size);
-			});
-		});
 	});
 
 	describe('new icon exports', () => {
@@ -451,12 +442,6 @@ describe('@atlaskit/icon', () => {
 			);
 
 			expect(actualPaths.sort()).toEqual(expectedPaths.sort());
-		});
-	});
-
-	describe('bundle', () => {
-		it('has size export', () => {
-			expect(defaultSize).toEqual(size);
 		});
 	});
 

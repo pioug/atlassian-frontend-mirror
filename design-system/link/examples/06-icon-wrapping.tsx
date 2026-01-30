@@ -12,7 +12,7 @@ const styles = cssMap({
 	},
 });
 
-export default function IconWrappingExample() {
+export default function IconWrappingExample(): JSX.Element {
 	return (
 		// Both link text and icon should be `color.link.visited`.
 		<Box xcss={styles.container}>

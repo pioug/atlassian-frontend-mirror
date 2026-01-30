@@ -144,7 +144,7 @@ const migrateDataTestIdToTestIdProp = (j: JSCodeshift, collection: Collection<an
 	return;
 };
 
-export default function transformer(fileInfo: FileInfo, { jscodeshift: j }: API, options: Options) {
+export default function transformer(fileInfo: FileInfo, { jscodeshift: j }: API, options: Options): string {
 	const { source } = fileInfo;
 	const collection = j(source);
 

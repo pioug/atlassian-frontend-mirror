@@ -12,7 +12,7 @@ const requiredIndicatorStyles = css({
 	paddingInlineStart: token('space.025'),
 });
 
-export default function RequiredAsterisk() {
+export default function RequiredAsterisk(): JSX.Element {
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
 		<span css={requiredIndicatorStyles} aria-hidden="true" title="required">

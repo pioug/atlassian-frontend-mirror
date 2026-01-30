@@ -15,7 +15,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => (
+const _default: () => JSX.Element = () => (
 	<Stack space="space.200">
 		<Block heading="Circle" testId="example-block">
 			<Skeleton size="xxlarge" />
@@ -69,3 +69,4 @@ export default () => (
 		</Block>
 	</Stack>
 );
+export default _default;

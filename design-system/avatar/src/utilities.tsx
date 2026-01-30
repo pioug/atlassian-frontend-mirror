@@ -2,7 +2,7 @@ import { type MouseEventHandler } from 'react';
 
 import type { AppearanceType } from './types';
 
-export const getCustomElement = (
+export const getCustomElement: (isDisabled?: boolean, href?: string, onClick?: MouseEventHandler) => "a" | "button" | "span" = (
 	isDisabled?: boolean,
 	href?: string,
 	onClick?: MouseEventHandler,

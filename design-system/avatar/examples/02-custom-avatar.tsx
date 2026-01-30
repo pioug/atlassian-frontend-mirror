@@ -18,7 +18,7 @@ const styles = {
 	}),
 };
 
-export default () => (
+const _default: () => JSX.Element = () => (
 	<Block heading="Circle">
 		<Tooltip content="Mike Cannon-Brookes">
 			<Avatar
@@ -47,3 +47,4 @@ export default () => (
 		</Tooltip>
 	</Block>
 );
+export default _default;

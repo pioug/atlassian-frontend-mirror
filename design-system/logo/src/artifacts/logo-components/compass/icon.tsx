@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9070ed1fb6d25ad0943826ab7bba1e15>>
+ * @codegen <<SignedSource::e5ce5248a23a237688e2341559569305>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -30,7 +30,7 @@ export function CompassIcon({
 	appearance = 'brand',
 	label = 'Compass',
 	testId,
-}: AppIconProps) {
+}: AppIconProps): React.JSX.Element {
 	return (
 		<IconWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);

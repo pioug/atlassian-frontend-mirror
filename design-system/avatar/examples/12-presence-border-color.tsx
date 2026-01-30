@@ -20,7 +20,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => (
+const _default: () => JSX.Element = () => (
 	<Stack space="space.200">
 		<Heading as="h2" size="large">
 			Custom background color
@@ -51,3 +51,4 @@ export default () => (
 		</Box>
 	</Stack>
 );
+export default _default;

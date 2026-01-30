@@ -35,6 +35,8 @@ export type Props = {
 };
 
 export const ProjectIcon = ({ emoji, isPrivate, height }: Props) => {
+	const iconSize = height ?? 16;
+
 	const emojiProvider = useMemo<Promise<EmojiProvider> | undefined>(() => {
 		if (!emoji) {
 			return undefined;
@@ -46,13 +48,21 @@ export const ProjectIcon = ({ emoji, isPrivate, height }: Props) => {
 		() => (emoji ? { shortName: emoji } : undefined),
 		[emoji],
 	);
-	if (!emojiProvider || !emojiId) {
+
+	if (!emojiId) {
 		return null;
 	}
 
+	// Reserve width even while emojiProvider is loading using the style prop for dynamic values
+	const containerInlineStyle = { width: `${iconSize}px` };
+
+	if (!emojiProvider) {
+		return <Box xcss={styles.container} style={containerInlineStyle} />;
+	}
+
 	return (
-		<Box xcss={styles.container}>
-			<ResourcedEmoji emojiId={emojiId} emojiProvider={emojiProvider} fitToHeight={height ?? 16} />
+		<Box xcss={styles.container} style={containerInlineStyle}>
+			<ResourcedEmoji emojiId={emojiId} emojiProvider={emojiProvider} fitToHeight={iconSize} />
 			{isPrivate && (
 				<Box xcss={styles.emoji}>
 					<Status status="locked" />

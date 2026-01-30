@@ -5,7 +5,15 @@ import { zodToJsonSchema } from '../../helpers';
 
 import { i18nConversionGuide } from './guide';
 
-export const i18nConversionInputSchema = z.object({
+export const i18nConversionInputSchema: z.ZodObject<{
+    guide: z.ZodEnum<[
+        "hardcoded-string-to-formatmessage"
+    ]>;
+}, "strip", z.ZodTypeAny, {
+    guide: "hardcoded-string-to-formatmessage";
+}, {
+    guide: "hardcoded-string-to-formatmessage";
+}> = z.object({
 	guide: z
 		.enum(['hardcoded-string-to-formatmessage'])
 		.describe('The i18n conversion guide to retrieve.'),
@@ -36,7 +44,12 @@ This tool helps LLM agents systematically convert hardcoded strings while respec
 	inputSchema: zodToJsonSchema(i18nConversionInputSchema),
 };
 
-export const i18nConversionTool = async (_params: z.infer<typeof i18nConversionInputSchema>) => {
+export const i18nConversionTool: (_params: z.infer<typeof i18nConversionInputSchema>) => Promise<{
+    content: {
+        type: string;
+        text: string;
+    }[];
+}> = async (_params: z.infer<typeof i18nConversionInputSchema>) => {
 	return {
 		content: [
 			{

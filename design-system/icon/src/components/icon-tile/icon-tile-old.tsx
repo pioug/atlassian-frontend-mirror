@@ -158,7 +158,7 @@ const iconTileStyles = css({
  *
  * An icon with background shape, color, and size properties determined by Tile.
  */
-export default function IconTile(props: IconTileProps) {
+export default function IconTile(props: IconTileProps): JSX.Element {
 	const { icon: Icon, label, appearance, size = '24', shape = 'square', testId } = props;
 
 	const ExpandedIcon = Icon as ComponentType<InternalIconPropsNew>;

@@ -29,7 +29,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__collab-provider/app"
+		"outDir": "../../../tsDist/@atlaskit__collab-provider/app",
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

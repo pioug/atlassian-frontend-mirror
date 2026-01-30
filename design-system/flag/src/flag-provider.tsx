@@ -36,7 +36,7 @@ const FlagContext = React.createContext<FlagAPI | null>(null);
  * useFlags is used to access the `showFlags` function which can be used to programatically display flags.
  * - [Examples](https://atlassian.design/components/flag/flags-provider/examples#using-showflags)
  */
-export function useFlags() {
+export function useFlags(): FlagAPI {
 	const api: FlagAPI | null = useContext(FlagContext);
 	if (api == null) {
 		throw new Error('Unable to find FlagProviderContext');
@@ -109,6 +109,6 @@ export function FlagsProvider({
 	);
 }
 
-export const withFlagsProvider = (fn: () => React.ReactNode): React.JSX.Element => (
+export const withFlagsProvider: (fn: () => React.ReactNode) => React.JSX.Element = (fn: () => React.ReactNode): React.JSX.Element => (
 	<FlagsProvider>{fn()}</FlagsProvider>
 );

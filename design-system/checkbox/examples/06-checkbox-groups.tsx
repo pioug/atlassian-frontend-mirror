@@ -23,7 +23,7 @@ const resultStyles = css({
 	paddingInlineStart: token('space.100', '8px'),
 });
 
-export default function CheckboxGroups() {
+export default function CheckboxGroups(): JSX.Element {
 	const [flexDirection, setFlexDirection] = useState<'column' | 'row' | undefined>('column');
 
 	const onChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {

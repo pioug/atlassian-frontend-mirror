@@ -65,7 +65,7 @@ export type ElementTransformErrorAEP = OperationalAEP<
 interface ElementTransformAttr {
 	duration: number;
 	inputMethod: INPUT_METHOD.BLOCK_MENU;
-	isList: boolean;
+	isEmptyLine: boolean;
 	isNested: boolean;
 	outputNodesCount: number;
 	sourceNodesCount: number;

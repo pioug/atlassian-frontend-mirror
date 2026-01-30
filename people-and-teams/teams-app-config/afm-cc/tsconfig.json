@@ -27,9 +27,6 @@
 			"path": "../../../uip/atlassian-context/afm-cc/tsconfig.json"
 		},
 		{
-			"path": "../../../measurement/feature-gate-js-client/afm-cc/tsconfig.json"
-		},
-		{
 			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
 		}
 	]

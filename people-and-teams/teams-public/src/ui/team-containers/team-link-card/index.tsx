@@ -21,7 +21,6 @@ import { ContainerIcon } from '../../../common/ui/container-icon';
 import { Separator } from '../../../common/ui/separator';
 import { TeamLinkCardActions } from '../../../common/ui/team-link-card-actions';
 import { getContainerProperties } from '../../../common/utils/get-container-properties';
-import { getIsExperimentEnabled } from '../../../common/utils/get-is-experiment-enabled';
 import { getDomainFromLinkUri } from '../../../common/utils/get-link-domain';
 
 import { TeamLinkCardTitle } from './team-link-card-title';
@@ -174,14 +173,14 @@ export const TeamLinkCard = ({
 	const [showKeyboardFocus, setShowKeyboardFocus] = useState(false);
 	const { formatMessage } = useIntl();
 	const { fireEvent } = useAnalyticsEvents();
-	const isTeamLensInHomeEnabled: boolean = getIsExperimentEnabled('team_lens_in_atlassian_home');
+
 	const isNewTeamProfilePageEnabled = FeatureGates.getExperimentValue(
 		'new_team_profile',
 		'isEnabled',
 		false,
 	);
 	const isOpenWebLinkInNewTabEnabled =
-		containerType === 'WebLink' && (isNewTeamProfilePageEnabled || isTeamLensInHomeEnabled);
+		containerType === 'WebLink' && isNewTeamProfilePageEnabled;
 
 	const handleMouseEnter = () => {
 		if (isReadOnly) {
@@ -272,7 +271,7 @@ export const TeamLinkCard = ({
 						<Anchor
 							xcss={cx(
 								styles.anchor,
-								isTeamLensInHomeEnabled && styles.anchorNoUnderline,
+								styles.anchorNoUnderline,
 								isOpenWebLinkInNewTabEnabled && styles.anchorWithExternalLinkIcon,
 							)}
 							href={link || '#'}
@@ -282,7 +281,7 @@ export const TeamLinkCard = ({
 						>
 							<Stack>
 								<TeamLinkCardTitle
-									isTeamLensInHomeEnabled={isTeamLensInHomeEnabled}
+									isTeamLensInHomeEnabled
 									isOpenWebLinkInNewTabEnabled={isOpenWebLinkInNewTabEnabled}
 									link={link || '#'}
 									handleLinkClick={handleLinkClick}
@@ -291,7 +290,7 @@ export const TeamLinkCard = ({
 								<Flex gap="space.050" alignItems="center">
 									{!hideSubTextIcon ? icon : null}
 									<Inline space="space.050" alignBlock="center">
-										{isNewTeamProfilePageEnabled || isTeamLensInHomeEnabled ? (
+										{isNewTeamProfilePageEnabled ? (
 											renderContainerTypeTextWithSeparator(containerTypeText, description)
 										) : (
 											<>
@@ -343,7 +342,7 @@ export const TeamLinkCard = ({
 							<Link href={link || '#'} appearance="subtle" onClick={handleLinkClick}>
 								<Stack>
 									<TeamLinkCardTitle
-										isTeamLensInHomeEnabled={isTeamLensInHomeEnabled}
+										isTeamLensInHomeEnabled
 										isOpenWebLinkInNewTabEnabled={isOpenWebLinkInNewTabEnabled}
 										link={link || '#'}
 										handleLinkClick={handleLinkClick}
@@ -352,7 +351,7 @@ export const TeamLinkCard = ({
 									<Flex gap="space.050" alignItems="center">
 										{!hideSubTextIcon ? icon : null}
 										<Inline space="space.050" alignBlock="center">
-											{isNewTeamProfilePageEnabled || isTeamLensInHomeEnabled ? (
+											{isNewTeamProfilePageEnabled ? (
 												renderContainerTypeTextWithSeparator(containerTypeText, description)
 											) : (
 												<>

@@ -8,7 +8,15 @@ type Definition = Scope.Definition;
 type Callee = CallExpression['callee'];
 type Reference = Scope.Reference;
 
-export const CSS_IN_JS_IMPORTS = {
+export const CSS_IN_JS_IMPORTS: {
+    readonly compiled: "@compiled/react";
+    readonly emotionReact: "@emotion/react";
+    readonly emotionCore: "@emotion/core";
+    readonly emotionStyled: "@emotion/styled";
+    readonly styledComponents: "styled-components";
+    readonly atlaskitCss: "@atlaskit/css";
+    readonly atlaskitPrimitives: "@atlaskit/primitives";
+} = {
 	compiled: '@compiled/react',
 	emotionReact: '@emotion/react',
 	emotionCore: '@emotion/core',
@@ -41,7 +49,7 @@ export const DEFAULT_IMPORT_SOURCES: ImportSource[] = Object.values(CSS_IN_JS_IM
  * @returns An array of strings representing what CSS-in-JS packages that should be checked, based
  *          on the rule options configuration.
  */
-export const getImportSources = (context: Rule.RuleContext): ImportSource[] => {
+export const getImportSources: (context: Rule.RuleContext) => ImportSource[] = (context: Rule.RuleContext): ImportSource[] => {
 	// TODO: JFP-2823 - this type cast was added due to Jira's ESLint v9 migration
 	const { options } = context as Omit<Rule.RuleContext, 'options'> & {
 		options: Array<{ importSources?: ImportSource[] }>;
@@ -130,16 +138,16 @@ const isSupportedImportWrapper = (
 // Unused functions have been commented out until we implement corresponding
 // eslint rules which use them
 //
-export const isCss = isSupportedImportWrapper('css');
-export const isCxFunction = isSupportedImportWrapper('cx');
-export const isCssMap = isSupportedImportWrapper('cssMap');
-export const isKeyframes = isSupportedImportWrapper('keyframes');
+export const isCss: SupportedNameChecker = isSupportedImportWrapper('css');
+export const isCxFunction: SupportedNameChecker = isSupportedImportWrapper('cx');
+export const isCssMap: SupportedNameChecker = isSupportedImportWrapper('cssMap');
+export const isKeyframes: SupportedNameChecker = isSupportedImportWrapper('keyframes');
 // `styled` is also the explicit default of `styled-components` and `@emotion/styled`, so we also match on default imports generally
-export const isStyled = isSupportedImportWrapper('styled', [
+export const isStyled: SupportedNameChecker = isSupportedImportWrapper('styled', [
 	'styled-components',
 	'@emotion/styled',
 ]);
-export const isXcss = isSupportedImportWrapper('xcss');
+export const isXcss: SupportedNameChecker = isSupportedImportWrapper('xcss');
 
 export const hasStyleObjectArguments: SupportedNameChecker = (node, references, importSources) =>
 	[isCss, isCssMap, isKeyframes, isStyled, isXcss].some((checker) => {
@@ -166,7 +174,12 @@ export const hasStyleObjectArguments: SupportedNameChecker = (node, references, 
 		return checker(node, references, importSources);
 	});
 
-export const isImportedFrom =
+export const isImportedFrom: (moduleName: string, exactMatch?: boolean) => (nodeToCheck: Callee, referencesInScope: Reference[], 
+/**
+ * If we strictly have specific import sources in the config scope, pass them to make this more performant.
+ * Pass `null` if you don't care if its configured or not.
+ */
+importSources?: ImportSource[] | null) => boolean =
 	(moduleName: string, exactMatch = true) =>
 	(
 		nodeToCheck: Callee,
@@ -214,7 +227,7 @@ export const isImportedFrom =
  *
  * This can be cleaned up when `'styled-components'` is no longer a valid ImportSource.
  */
-export const isStyledComponents = isImportedFrom('styled-components');
-export const isCompiled = isImportedFrom('@compiled/', false);
-export const isEmotion = isImportedFrom('@emotion/', false);
-export const isAtlasKitCSS = isImportedFrom('@atlaskit/css', false);
+export const isStyledComponents: (nodeToCheck: Callee, referencesInScope: Reference[], importSources?: ImportSource[] | null) => boolean = isImportedFrom('styled-components');
+export const isCompiled: (nodeToCheck: Callee, referencesInScope: Reference[], importSources?: ImportSource[] | null) => boolean = isImportedFrom('@compiled/', false);
+export const isEmotion: (nodeToCheck: Callee, referencesInScope: Reference[], importSources?: ImportSource[] | null) => boolean = isImportedFrom('@emotion/', false);
+export const isAtlasKitCSS: (nodeToCheck: Callee, referencesInScope: Reference[], importSources?: ImportSource[] | null) => boolean = isImportedFrom('@atlaskit/css', false);

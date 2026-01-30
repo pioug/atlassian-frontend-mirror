@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bd99e7df03b30b911749d7e6bfb13bd2>>
+ * @codegen <<SignedSource::5cef7cd15b993acbd62bdd24b600aafa>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -35,7 +35,7 @@ export function BitbucketLogo({
 	appearance = 'brand',
 	label = 'Bitbucket',
 	testId,
-}: ThemedLogoProps) {
+}: ThemedLogoProps): React.JSX.Element {
 	return (
 		<LogoWrapper
 			svg={svg}

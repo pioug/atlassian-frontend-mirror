@@ -1,5 +1,19 @@
 # @atlaskit/rovo-triggers
 
+## 5.8.0
+
+### Minor Changes
+
+- [`7b27558330c14`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b27558330c14) -
+  Adds a pub-sub event to trigger a conversation action from outside Rovo
+
+## 5.7.0
+
+### Minor Changes
+
+- [`7bc2893010341`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7bc2893010341) -
+  auto add subpath exports and sort them
+
 ## 5.6.1
 
 ### Patch Changes

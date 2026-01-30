@@ -19,7 +19,7 @@ const styles = cssMap({
 	},
 });
 
-export default function InlineMessageFallbackPlacementsExample() {
+export default function InlineMessageFallbackPlacementsExample(): JSX.Element {
 	return (
 		<div css={styles.root}>
 			<InlineMessage

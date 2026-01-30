@@ -25,7 +25,7 @@ type WeekStartDayOption = {
 	label: string;
 };
 
-export default () => {
+const _default: () => JSX.Element = () => {
 	const [locale, setLocale] = useState('en-AU');
 	const [weekStartDay, setWeekStartDay] = useState<WeekDay>(0);
 
@@ -73,3 +73,4 @@ export default () => {
 		</Box>
 	);
 };
+export default _default;

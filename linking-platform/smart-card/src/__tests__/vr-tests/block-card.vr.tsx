@@ -212,7 +212,4 @@ snapshot(VRBlockProfileCard, {
 
 snapshot(FlexibleUiErroredTitleBlockCompetitorPrompt, {
 	description: 'block-card-errored-title-block-competitor-prompt',
-	featureFlags: {
-		prompt_whiteboard_competitor_link_gate: [true, false],
-	},
 });

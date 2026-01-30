@@ -61,7 +61,7 @@ const styles = cssMap({
 	},
 });
 
-export default function BadgeVisualUplifts() {
+export default function BadgeVisualUplifts(): JSX.Element {
 	return (
 		<div css={styles.container}>
 			<div css={styles.card}>

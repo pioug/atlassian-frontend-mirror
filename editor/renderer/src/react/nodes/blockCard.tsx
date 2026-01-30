@@ -149,6 +149,14 @@ export default function BlockCard(props: {
 	if (
 		smartLinks?.ssr &&
 		url &&
+		// Clean up feature gates when both are fully rolled out.
+		// - platform_ssr_smartlink_cards: Controls SSR smart links for confluence (100% rolled out)
+		// - jfp-magma-ssr-iv-editor-links: Controls SSR smart links for jira (at time of comment: 50% rolled out)
+		// Once both gates are 100% rolled out, remove this condition entirely and make
+		// smart link SSR behavior the default.
+		// NOTE: This is a temporary solution to allow for the gradual rollout of SSR smart links for jira and keep it
+		// fully rolled out for confluence since both gates target different products keep only one gate to control the behavior
+		// isnt correct.
 		(fg('platform_ssr_smartlink_cards') || fg('jfp-magma-ssr-iv-editor-links'))
 	) {
 		cardComponent = (

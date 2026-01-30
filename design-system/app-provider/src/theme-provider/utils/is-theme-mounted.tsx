@@ -7,7 +7,7 @@ import { THEME_DATA_ATTRIBUTE, type ThemeIds } from '@atlaskit/tokens';
  * Eventually this won't be necessary as we'll utilise AppProvider context
  * to track theme loading.
  */
-export function isThemeMounted(themeId: ThemeIds) {
+export function isThemeMounted(themeId: ThemeIds): false | Element | null {
 	const doc = getDocument();
 	if (!doc) {
 		return false;

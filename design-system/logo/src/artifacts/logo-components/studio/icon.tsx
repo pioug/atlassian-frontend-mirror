@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::557dd965c02920b468bc15d2f1c373a3>>
+ * @codegen <<SignedSource::2be4b98bf6f70e39467c5c4d0f75c6d5>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -25,7 +25,12 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  * to enable the new design by default.
  *
  */
-export function StudioIcon({ size, appearance = 'brand', label = 'Studio', testId }: AppIconProps) {
+export function StudioIcon({
+	size,
+	appearance = 'brand',
+	label = 'Studio',
+	testId,
+}: AppIconProps): React.JSX.Element {
 	return (
 		<IconWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);

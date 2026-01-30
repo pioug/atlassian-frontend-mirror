@@ -10,7 +10,6 @@ import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { type ContainerTypes } from '../../types';
-import { getIsExperimentEnabled } from '../../utils/get-is-experiment-enabled';
 import { LoomSpaceAvatar } from '../loom-avatar';
 
 const styles = cssMap({
@@ -93,7 +92,7 @@ export const ContainerIcon = ({
 	iconHasLoaded = true,
 }: ContainerIconProps): React.JSX.Element => {
 	const isMedium = size === 'medium';
-	const isTeamLensInHomeEnabled = getIsExperimentEnabled('team_lens_in_atlassian_home');
+
 	const isNewTeamProfilePageEnabled = FeatureGates.getExperimentValue(
 		'new_team_profile',
 		'isEnabled',
@@ -112,7 +111,7 @@ export const ContainerIcon = ({
 
 	// This is a fallback icon for WebLink if the containerIcon is not present
 	if (containerType === 'WebLink' && !containerIcon) {
-		if (isTeamLensInHomeEnabled || isNewTeamProfilePageEnabled) {
+		if (isNewTeamProfilePageEnabled) {
 			return (
 				<Box xcss={cx(!isMedium && styles.linkIconWrapperSmall)}>
 					<IconButton

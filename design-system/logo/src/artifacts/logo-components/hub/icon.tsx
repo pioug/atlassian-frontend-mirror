@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::62c4afc29c8c7e7934b1ed03e01bed0a>>
+ * @codegen <<SignedSource::459e9cba95b1e0b094b9b0a89db30ecd>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -36,7 +36,12 @@ const svg = `<svg height="100%" viewBox="0 0 32 32">
  * to enable the new design by default.
  *
  */
-export function HubIcon({ size, appearance = 'brand', label = 'Hub', testId }: AppIconProps) {
+export function HubIcon({
+	size,
+	appearance = 'brand',
+	label = 'Hub',
+	testId,
+}: AppIconProps): React.JSX.Element {
 	return (
 		<IconWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);

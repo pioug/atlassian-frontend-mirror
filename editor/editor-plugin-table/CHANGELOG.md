@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-table
 
+## 17.3.0
+
+### Minor Changes
+
+- [`fe3cbbba3c6d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe3cbbba3c6d6) -
+  [EDITOR-4877](https://hello.jira.atlassian.cloud/browse/EDITOR-4877) - remove
+  queryCommandSupported from TableComponent
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.0
+
+### Minor Changes
+
+- [`5dfede89f8ccc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5dfede89f8ccc) -
+  [EDITOR-4601](https://hello.jira.atlassian.cloud/browse/EDITOR-4601) - rename table Numbered rows
+  label
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.1.2
 
 ### Patch Changes

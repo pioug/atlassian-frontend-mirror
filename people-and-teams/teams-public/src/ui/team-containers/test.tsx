@@ -247,6 +247,7 @@ describe('TeamContainers', () => {
 	});
 
 	it('should only render three containers if maxNumberOfContainersToShow is 3', () => {
+		mockFg.mockImplementation((flag: string) => flag === 'fix_team_link_card_a11y' ? true : false);
 		const teamContainers = Array.from({ length: 5 }, (_, index) => ({
 			id: index.toString(),
 			type: 'ConfluenceSpace',
@@ -258,8 +259,8 @@ describe('TeamContainers', () => {
 			teamLinks: teamContainers,
 		});
 		renderTeamContainers(teamId, '', true, undefined, 3);
-
-		expect(screen.getAllByRole('link')).toHaveLength(3);
+		// changing to 6 (double of main 3 rendered links) since we link tags are duplicated due to wrapper Link tag for A11Y
+		expect(screen.getAllByRole('link')).toHaveLength(6);
 		expect(screen.getByText('Show more')).toBeInTheDocument();
 	});
 

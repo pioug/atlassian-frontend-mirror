@@ -7,6 +7,7 @@ import type {
 	RequireOrgIdOrCloudId,
 } from '../../common/types';
 import { hostname, openInNewTab, pathname, redirect } from '../../common/utils';
+import { isTeamsAppEnabled } from '../../common/utils/is-teams-app-enabled';
 
 import {
 	generatePath,
@@ -33,6 +34,10 @@ jest.mock('../../common/utils', () => ({
 	hostname: jest.fn(() => 'hello.atlassian.net'),
 	origin: jest.fn(() => 'https://hello.atlassian.net'),
 	pathname: jest.fn(() => '/jira/somepath'),
+}));
+
+jest.mock('../../common/utils/is-teams-app-enabled', () => ({
+	isTeamsAppEnabled: jest.fn(() => true),
 }));
 
 const orgAndCloudId: RequireOrgIdOrCloudId = {
@@ -111,7 +116,13 @@ describe('teams app navigation utils', () => {
 		});
 	});
 	describe('generatePath', () => {
-		ffTest.off('should-redirect-directory-to-teams-app', 'without Teams app redirect', () => {
+		describe('teams app disabled', () => {
+			beforeEach(() => {
+				(isTeamsAppEnabled as jest.Mock).mockReturnValue(false);
+			});
+			afterAll(() => {
+				(isTeamsAppEnabled as jest.Mock).mockReturnValue(true);
+			});
 			it('should generate the correct path for Jira', () => {
 				const config = {
 					...baseConfig,
@@ -162,7 +173,10 @@ describe('teams app navigation utils', () => {
 			});
 		});
 
-		ffTest.on('should-redirect-directory-to-teams-app', 'with Teams app redirect', () => {
+		describe('teams app enabled', () => {
+			beforeEach(() => {
+				(isTeamsAppEnabled as jest.Mock).mockReturnValue(true);
+			});
 			it('should generate the correct path for Jira', () => {
 				const config = {
 					...baseConfig,
@@ -278,7 +292,13 @@ describe('teams app navigation utils', () => {
 		});
 	});
 	describe('onNavigateBase', () => {
-		ffTest.off('should-redirect-directory-to-teams-app', 'without Teams app redirect', () => {
+		describe('teams app disabled', () => {
+			beforeEach(() => {
+				(isTeamsAppEnabled as jest.Mock).mockReturnValue(false);
+			});
+			afterAll(() => {
+				(isTeamsAppEnabled as jest.Mock).mockReturnValue(true);
+			});
 			it('should call push with the correct href when push is provided', () => {
 				const pushMock = jest.fn();
 				const config = {
@@ -328,7 +348,10 @@ describe('teams app navigation utils', () => {
 				expect(redirectMock).toHaveBeenCalledWith(href);
 			});
 		});
-		ffTest.on('should-redirect-directory-to-teams-app', 'with Teams app redirect', () => {
+		describe('teams app enabled', () => {
+			beforeEach(() => {
+				(isTeamsAppEnabled as jest.Mock).mockReturnValue(true);
+			});
 			it('should call redirect with the correct href when shouldOpenInSameTab is true', () => {
 				const pushMock = jest.fn();
 				const config = {

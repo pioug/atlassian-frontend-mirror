@@ -95,7 +95,7 @@ describe('ContainerIcon', () => {
 
 	it('should render IconSkeleton when iconsLoading is true (loading state)', () => {
 		(FeatureGate.getExperimentValue as jest.Mock).mockImplementation((exp) =>
-			exp === 'new_team_profile' || exp === 'team_lens_in_atlassian_home' ? false : true,
+			exp === 'new_team_profile' ? false : true,
 		);
 		render(
 			<ContainerIcon
@@ -112,7 +112,7 @@ describe('ContainerIcon', () => {
 
 	it('should render different icon for link when experiment is enabled', () => {
 		(FeatureGate.getExperimentValue as jest.Mock).mockImplementation((exp) =>
-			exp === 'new_team_profile' || exp === 'team_lens_in_atlassian_home' ? true : false,
+			exp === 'new_team_profile' ? true : false,
 		);
 		render(
 			<ContainerIcon
@@ -129,7 +129,7 @@ describe('ContainerIcon', () => {
 
 	it('should render LinkIcon when icons have loaded and no containerIcon for WebLink', () => {
 		(FeatureGate.getExperimentValue as jest.Mock).mockImplementation((exp) =>
-			exp === 'new_team_profile' || exp === 'team_lens_in_atlassian_home' ? false : true,
+			exp === 'new_team_profile' ? false : true,
 		);
 		render(
 			<ContainerIcon
@@ -147,7 +147,7 @@ describe('ContainerIcon', () => {
 
 	it('should rendernew LinkIcon when icons have loaded and no containerIcon for WebLink when experiment is enabled', () => {
 		(FeatureGate.getExperimentValue as jest.Mock).mockImplementation((exp) =>
-			exp === 'new_team_profile' || exp === 'team_lens_in_atlassian_home' ? true : false,
+			exp === 'new_team_profile' ? true : false,
 		);
 		render(
 			<ContainerIcon
@@ -165,7 +165,7 @@ describe('ContainerIcon', () => {
 
 	it('should render containerIcon when icons have loaded and containerIcon is provided for WebLink', () => {
 		(FeatureGate.getExperimentValue as jest.Mock).mockImplementation((exp) =>
-			exp === 'new_team_profile' || exp === 'team_lens_in_atlassian_home' ? false : true,
+			exp === 'new_team_profile' ? false : true,
 		);
 		render(
 			<ContainerIcon

@@ -37,7 +37,7 @@ const baseImageStyles = css({
  * - [Code](https://atlassian.design/components/image/code)
  * - [Usage](https://atlassian.design/components/image/usage)
  */
-export default function Image({ src, srcDark, alt, testId, className, ...props }: ImageProps) {
+export default function Image({ src, srcDark, alt, testId, className, ...props }: ImageProps): JSX.Element {
 	const imgRef = useRef<HTMLImageElement>(null);
 	const providedColorMode = UNSAFE_useColorModeForMigration();
 	const { colorMode: observedColorMode } = useThemeObserver();

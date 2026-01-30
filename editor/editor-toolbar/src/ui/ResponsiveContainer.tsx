@@ -6,7 +6,6 @@ import React, { type ReactNode } from 'react';
 import type { AllowedStyles, ApplySchema, CompiledStyles } from '@compiled/react';
 
 import { cssMap, cx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, type MediaQuery } from '@atlaskit/primitives/compiled';
 import type { DesignTokenStyles } from '@atlaskit/tokens/css-type-schema';
 
@@ -340,133 +339,6 @@ const styles = cssMap({
 			},
 		},
 	},
-	// Legacy styles - kept for backward compatibility with reducedBreakpoints prop
-	responsiveRules: {
-		// @ts-expect-error - container queries are not typed in cssMap
-		'@container toolbar-container (max-width: 410px)': {
-			'.show-above-sm': {
-				display: 'none',
-			},
-			'.show-below-sm': {
-				display: 'block',
-			},
-		},
-		'@container toolbar-container (min-width: 411px) and (max-width: 476px)': {
-			'.show-only-sm': {
-				display: 'block',
-			},
-		},
-		'@container toolbar-container (max-width: 476px)': {
-			'.show-above-md': {
-				display: 'none',
-			},
-			'.show-below-md': {
-				display: 'block',
-			},
-		},
-		'@container toolbar-container (min-width: 477px) and (max-width: 768px)': {
-			'.show-only-md': {
-				display: 'block',
-			},
-		},
-		'@container toolbar-container (max-width: 768px)': {
-			'.show-above-lg': {
-				display: 'none',
-			},
-			'.show-below-lg': {
-				display: 'block',
-			},
-		},
-		'@container toolbar-container (min-width: 768px) and (max-width: 1024px)': {
-			'.show-only-lg': {
-				display: 'block',
-			},
-		},
-		'@container toolbar-container (max-width: 1024px)': {
-			'.show-above-xl': {
-				display: 'none',
-			},
-			'.show-below-xl': {
-				display: 'block',
-			},
-		},
-		'@container toolbar-container (min-width: 1024px)': {
-			'.show-only-xl': {
-				display: 'block',
-			},
-		},
-	},
-	responsiveRulesReduced: {
-		// @ts-expect-error - container queries are not typed in cssMap
-		'&&': {
-			'@container toolbar-container (max-width: 210px)': {
-				'.show-above-sm': {
-					display: 'none',
-				},
-				'.show-below-sm': {
-					display: 'block',
-				},
-			},
-			'@container toolbar-container (min-width: 211px) and (max-width: 408px)': {
-				'.show-only-sm': {
-					display: 'block',
-				},
-			},
-			'@container toolbar-container (max-width: 408px)': {
-				'.show-above-md': {
-					display: 'none',
-				},
-				'.show-below-md': {
-					display: 'block',
-				},
-			},
-			'@container toolbar-container (min-width: 408px) and (max-width: 575px)': {
-				'.show-only-md': {
-					display: 'block',
-				},
-			},
-			'@container toolbar-container (max-width: 575px)': {
-				'.show-above-lg': {
-					display: 'none',
-				},
-				'.show-below-lg': {
-					display: 'block',
-				},
-			},
-			'@container toolbar-container (min-width: 576px) and (max-width: 1024px)': {
-				'.show-only-lg': {
-					display: 'block',
-				},
-			},
-			'@container toolbar-container (max-width: 1024px)': {
-				'.show-above-xl': {
-					display: 'none',
-				},
-				'.show-below-xl': {
-					display: 'block',
-				},
-			},
-			'@container toolbar-container (min-width: 1024px)': {
-				'.show-only-xl': {
-					display: 'block',
-				},
-			},
-		},
-	},
-	// combine with responsiveRulesReduced when patch_6 is cleaned up
-	responsiveRulesReducedOverridden: {
-		// @ts-expect-error - container queries are not typed in cssMap
-		'&&&': {
-			'@container toolbar-container (max-width: 648px)': {
-				'.show-above-lg': {
-					display: 'none',
-				},
-				'.show-below-lg': {
-					display: 'block',
-				},
-			},
-		},
-	},
 	responsiveRulesWrapper: {
 		// @ts-expect-error
 		'.show-above-sm, .show-above-md, .show-above-lg, .show-above-xl': {
@@ -567,13 +439,8 @@ export type ResponsiveContainerProps = {
 	 *
 	 * @default 'fullpage'
 	 */
-	breakpointPreset?: BreakpointPreset;
+	breakpointPreset: BreakpointPreset;
 	children: ReactNode;
-	/**
-	 * Use `preset` prop instead. This flag changes the breakpoint definitions, which reduces them to cater for smaller editor widths.
-	 * Usages - for smaller editors such as comments
-	 */
-	reducedBreakpoints?: boolean;
 };
 
 /**
@@ -616,40 +483,20 @@ export type ResponsiveContainerProps = {
  * </ResponsiveContainer>
  * ```
  *
- * @param preset - Selects the breakpoint preset for the responsive container
- *
- * @param reducedBreakpoints - Legacy prop for reduced breakpoints (deprecated, use preset instead)
+ * @param breakpointPreset - Selects the breakpoint preset for the responsive container
  * @returns A Box component with container query styles applied
  */
 export const ResponsiveContainer = ({
 	children,
 	breakpointPreset,
-	reducedBreakpoints,
 }: ResponsiveContainerProps): React.JSX.Element => {
-	// Use new preset-based logic when preset is provided and feature gate is enabled
-	if (breakpointPreset && fg('platform_editor_toolbar_aifc_responsive_improve')) {
-		return (
-			<Box
-				xcss={cx(
-					breakpointPreset === 'fullpage'
-						? styles.responsiveContainerFullPage
-						: styles.responsiveContainer,
-					presetStyleMap[breakpointPreset],
-				)}
-			>
-				{children}
-			</Box>
-		);
-	}
-
 	return (
 		<Box
 			xcss={cx(
 				breakpointPreset === 'fullpage'
 					? styles.responsiveContainerFullPage
 					: styles.responsiveContainer,
-				reducedBreakpoints ? styles.responsiveRulesReduced : styles.responsiveRules,
-				reducedBreakpoints && styles.responsiveRulesReducedOverridden,
+				presetStyleMap[breakpointPreset],
 			)}
 		>
 			{children}

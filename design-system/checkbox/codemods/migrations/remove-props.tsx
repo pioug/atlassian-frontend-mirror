@@ -1,8 +1,8 @@
 import { createRemoveFuncFor } from '../utils';
 
-export const removeFullWidth = createRemoveFuncFor('@atlaskit/checkbox', 'Checkbox', 'isFullWidth');
+export const removeFullWidth: (j: import("jscodeshift/src/core").JSCodeshift, source: import("jscodeshift/src/Collection").Collection<Node>) => void = createRemoveFuncFor('@atlaskit/checkbox', 'Checkbox', 'isFullWidth');
 
-export const removeOverrides = createRemoveFuncFor(
+export const removeOverrides: (j: import("jscodeshift/src/core").JSCodeshift, source: import("jscodeshift/src/Collection").Collection<Node>) => void = createRemoveFuncFor(
 	'@atlaskit/checkbox',
 	'Checkbox',
 	'overrides',
@@ -13,7 +13,7 @@ export const removeOverrides = createRemoveFuncFor(
   of Checkbox will have likely changed.`,
 );
 
-export const removeTheme = createRemoveFuncFor(
+export const removeTheme: (j: import("jscodeshift/src/core").JSCodeshift, source: import("jscodeshift/src/Collection").Collection<Node>) => void = createRemoveFuncFor(
 	'@atlaskit/checkbox',
 	'Checkbox',
 	'theme',
@@ -24,4 +24,4 @@ export const removeTheme = createRemoveFuncFor(
   The appearance of Checkbox will have likely changed.`,
 );
 
-export const removeSize = createRemoveFuncFor('@atlaskit/checkbox', 'Checkbox', 'size');
+export const removeSize: (j: import("jscodeshift/src/core").JSCodeshift, source: import("jscodeshift/src/Collection").Collection<Node>) => void = createRemoveFuncFor('@atlaskit/checkbox', 'Checkbox', 'size');

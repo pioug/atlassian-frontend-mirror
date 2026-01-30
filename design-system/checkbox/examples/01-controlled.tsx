@@ -23,7 +23,7 @@ const resultStyles = css({
 	paddingInlineStart: token('space.100', '8px'),
 });
 
-export default function ControlledExample() {
+export default function ControlledExample(): JSX.Element {
 	const [isChecked, setIsChecked] = useState(false);
 	const [onChangeResult, setOnChangeResult] = useState('Check & Uncheck to trigger onChange');
 	const [onClickResult, setOnClickResult] = useState(

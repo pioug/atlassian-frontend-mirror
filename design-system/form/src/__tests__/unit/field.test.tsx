@@ -17,7 +17,7 @@ type FieldStateProps<T> = {
 	children: (value: T, setValue: (value: T) => void) => ReactNode;
 };
 
-export function WithState<T>({ defaultState, children }: FieldStateProps<T>) {
+export function WithState<T>({ defaultState, children }: FieldStateProps<T>): React.ReactNode {
 	const [currentState, setCurrentState] = React.useState<T>(defaultState);
 
 	return children(currentState, setCurrentState);

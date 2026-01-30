@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9817b3677a18810cda2656cb77948845>>
+ * @generated SignedSource<<357f24b825d89a67284b9e7ef5d78f83>>
  * @lightSyntaxTransform
  * @nogrep
  * @codegen-command: yarn relay
@@ -12,6 +12,7 @@
 import type { Fragment, ReaderFragment } from 'relay-runtime';
 import type { FragmentRefs } from "relay-runtime";
 export type agentVerificationDropdownItem_AtlaskitRovoAgentComponents_agentRef$data = {
+  readonly id: string;
   readonly isVerified: boolean | null | undefined;
   readonly " $fragmentType": "agentVerificationDropdownItem_AtlaskitRovoAgentComponents_agentRef";
 };
@@ -27,12 +28,16 @@ const node: ReaderFragment = {
   "selections": [
     {
       "kind": "ScalarField",
+      "name": "id"
+    },
+    {
+      "kind": "ScalarField",
       "name": "isVerified"
     }
   ],
   "type": "AgentStudioAssistant"
 };
 
-(node as any).hash = "1635a55a6ff272864bba57326c99a315";
+(node as any).hash = "176b570bcbf4e92ccef358e70f74443d";
 
 export default node;

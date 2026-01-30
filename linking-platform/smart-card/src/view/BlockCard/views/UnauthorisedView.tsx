@@ -8,7 +8,6 @@ import { css, cssMap, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -192,7 +191,7 @@ const NewUnauthorisedBlock = ({
 	) : null;
 
 	const competitorPrompt =
-		CompetitorPrompt && data?.url && fg('prompt_whiteboard_competitor_link_gate') ? (
+		CompetitorPrompt && data?.url ? (
 			<CompetitorPrompt sourceUrl={data?.url} linkType={'card'} />
 		) : null;
 

@@ -304,7 +304,7 @@ const convertToSimpleForm = (j: JSCodeshift, collection: Collection<any>, featur
 	return transformationsMade;
 };
 
-export default function transformer(fileInfo: FileInfo, { jscodeshift: j }: API, options: Options) {
+export default function transformer(fileInfo: FileInfo, { jscodeshift: j }: API, options: Options): string {
 	const { source, path } = fileInfo;
 
 	// Skip test files

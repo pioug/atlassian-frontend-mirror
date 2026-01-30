@@ -22,7 +22,10 @@ export default function useHandleDateSelect({
 	previous: [unknown, (newValue: string[]) => void];
 	onSelect: (event: SelectEvent) => void;
 	navigate: (type: ArrowKeys) => void;
-}) {
+}): {
+    handleClickDay: ({ year, month, day }: DateObj) => void;
+    handleContainerKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
+} {
 	const dateRef = useRef({
 		day: dayValue,
 		month: monthValue,

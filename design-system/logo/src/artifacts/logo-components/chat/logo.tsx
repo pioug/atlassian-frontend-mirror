@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a435e0ebbafaeb61c2aed0acfb1e70b9>>
+ * @codegen <<SignedSource::e27297f59f230292dd890a2b2969021d>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -23,7 +23,12 @@ const svg = `<svg height="100%" viewBox="0 0 63 24">
  * A temporary component to represent the logo for Chat.
  *
  */
-export function ChatLogo({ size, appearance = 'brand', label = 'Chat', testId }: AppLogoProps) {
+export function ChatLogo({
+	size,
+	appearance = 'brand',
+	label = 'Chat',
+	testId,
+}: AppLogoProps): React.JSX.Element {
 	return (
 		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);

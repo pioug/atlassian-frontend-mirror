@@ -1,5 +1,19 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.0.11
+
+### Patch Changes
+
+- [`1818e2c8ca066`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1818e2c8ca066) -
+  FG cleanup - platform_ufo_fix_ttvc_v4_attribute_exclusions
+
+## 5.0.10
+
+### Patch Changes
+
+- [`fd0346f95f6bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd0346f95f6bd) -
+  Distinguish events opened in background vs opened in foreground and later backgrounded
+
 ## 5.0.9
 
 ### Patch Changes

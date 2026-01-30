@@ -28,7 +28,7 @@ const wrapperStyles = cssMap({
 	},
 });
 
-export default function ShowcaseExample() {
+export default function ShowcaseExample(): JSX.Element {
 	const [appearance, setAppearance] = useState<'brand' | 'neutral' | 'inverse' | 'legacy'>('brand');
 
 	const [showLogos, setShowLogos] = useState(false);

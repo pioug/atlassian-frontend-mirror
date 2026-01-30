@@ -42,7 +42,13 @@ export const flagTextColor: Record<AppearanceTypes, HeadingColor> = {
 	warning: 'color.text.warning.inverse',
 };
 
-export const flagTextColorToken = {
+export const flagTextColorToken: {
+    error: "var(--ds-text-inverse)";
+    info: "var(--ds-text-inverse)";
+    normal: "var(--ds-text)";
+    success: "var(--ds-text-inverse)";
+    warning: "var(--ds-text-warning-inverse)";
+} = {
 	error: token('color.text.inverse', N0),
 	info: token('color.text.inverse', N0),
 	normal: token('color.text', N800),

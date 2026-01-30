@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::eb2b70bfad61d30e19bb65dd0ce89de7>>
+ * @codegen <<SignedSource::74f0ca66b8bc3995f7a9817f08a67d6f>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -25,7 +25,12 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  * to enable the new design by default.
  *
  */
-export function BambooIcon({ size, appearance = 'brand', label = 'Bamboo', testId }: AppIconProps) {
+export function BambooIcon({
+	size,
+	appearance = 'brand',
+	label = 'Bamboo',
+	testId,
+}: AppIconProps): React.JSX.Element {
 	return (
 		<IconWrapper
 			svg={svg}

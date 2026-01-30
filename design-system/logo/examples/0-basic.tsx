@@ -105,7 +105,7 @@ const LogoTable = ({
 	</div>
 );
 
-export default () => {
+const _default: () => JSX.Element = () => {
 	return (
 		<div>
 			<LogoTable title="Program Logos" logos={legacyOnlyLogosAndIcons} />
@@ -125,3 +125,4 @@ export default () => {
 		</div>
 	);
 };
+export default _default;

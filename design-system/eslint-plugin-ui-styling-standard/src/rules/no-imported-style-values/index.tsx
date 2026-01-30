@@ -111,7 +111,7 @@ const checkIdentifier = (
 	}
 };
 
-export const rule = createLintRule({
+export const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'no-imported-style-values',
 		docs: {

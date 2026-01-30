@@ -12,7 +12,7 @@ import { makeGetJqlSuggestionsData } from '../../../services/makeGetJqlSuggestio
 export interface JiraJQLEditorProps {
 	cloudId: string;
 	isSearching?: boolean;
-	onChange?: (query: string) => void;
+	onChange?: (query: string, jast: Jast) => void;
 	onSearch: () => void;
 	query: string;
 }

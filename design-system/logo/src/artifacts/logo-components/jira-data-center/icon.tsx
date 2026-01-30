@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::02b69897dd1f526e42aaff5e30bc839d>>
+ * @codegen <<SignedSource::61edfa3e375524991498620530471e0e>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -30,7 +30,7 @@ export function JiraDataCenterIcon({
 	appearance = 'brand',
 	label = 'Jira Data Center',
 	testId,
-}: AppIconProps) {
+}: AppIconProps): React.JSX.Element {
 	return (
 		<IconWrapper
 			svg={svg}

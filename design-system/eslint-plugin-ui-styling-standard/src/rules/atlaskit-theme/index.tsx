@@ -64,7 +64,7 @@ const checkIdentifier = (
 	}
 };
 
-export const rule = createLintRule({
+export const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'atlaskit-theme',
 		docs: {

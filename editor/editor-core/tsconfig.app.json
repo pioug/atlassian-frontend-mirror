@@ -30,7 +30,8 @@
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__editor-core/app",
-		"types": ["@emotion/react/types/css-prop"]
+		"types": ["@emotion/react/types/css-prop"],
+		"moduleResolution": "bundler"
 	},
 	"references": [
 		{

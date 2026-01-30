@@ -4,7 +4,7 @@ import { UNSAFE_BREAKPOINTS_CONFIG } from '@atlaskit/primitives/responsive';
 import { Table, TBody, TD, TH, THead, TR } from '@atlaskit/table/primitives';
 
 // TODO: This needs a new home.  We may want to show this here, but where does this live?
-export const BreakpointsTable = () => (
+export const BreakpointsTable: () => React.JSX.Element = () => (
 	<Table>
 		<THead>
 			<TR isBodyRow={false}>

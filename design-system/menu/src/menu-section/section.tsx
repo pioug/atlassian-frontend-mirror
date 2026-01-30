@@ -71,7 +71,10 @@ const styles = cssMap({
 		flexShrink: 0,
 	},
 	thinSeparator: {
-		borderBlockStart: `${token('border.width')} solid var(--ds-menu-seperator-color, ${token('color.border', 'rgba(9, 30, 66, 0.08)')})`,
+		borderBlockStart: `${token('border.width')} solid var(--ds-menu-seperator-color, ${token(
+			'color.border',
+			'rgba(9, 30, 66, 0.08)',
+		)})`,
 	},
 	noSeparator: {
 		// this is to ensure that adjacent sections without separators don't get additional margins.
@@ -107,6 +110,7 @@ const Section: React.ForwardRefExoticComponent<
 			id,
 			isList = false,
 			isSideNavSection = false,
+			label,
 			// Although this isn't defined on props it is available because we've used
 			// Spread props below and on the jsx element. To forcibly block usage I've
 			// picked it out and supressed the expected type error.
@@ -170,7 +174,7 @@ const Section: React.ForwardRefExoticComponent<
 					isScrollable ? styles.scrollable : styles.unscrollable,
 					hasSeparator ? styles.thinSeparator : styles.noSeparator,
 				]}
-				aria-label={title}
+				aria-label={title || label}
 				aria-labelledby={titleId}
 				data-testid={testId}
 				role="group"

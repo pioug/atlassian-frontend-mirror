@@ -1,6 +1,9 @@
 import { Children, type ReactNode } from 'react';
 
-export const getActions = (children: ReactNode) => {
+export const getActions: (children: ReactNode) => {
+    PrimaryAction: string | number | import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>> | Iterable<ReactNode> | import("react").ReactPortal;
+    SecondaryAction: string | number | import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>> | Iterable<ReactNode> | import("react").ReactPortal;
+} = (children: ReactNode) => {
 	const [PrimaryAction, SecondaryAction] = Children.toArray(children);
 
 	if (

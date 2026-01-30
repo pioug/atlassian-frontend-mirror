@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e83f6d17c5b6eba5ad68ecde5076be91>>
+ * @codegen <<SignedSource::e2ccfbc327ccfbe5e001bd2c762bf85f>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -24,7 +24,12 @@ const svg = `<svg height="100%" viewBox="0 0 74 24">
  * A temporary component to represent the logo for Studio.
  *
  */
-export function StudioLogo({ size, appearance = 'brand', label = 'Studio', testId }: AppLogoProps) {
+export function StudioLogo({
+	size,
+	appearance = 'brand',
+	label = 'Studio',
+	testId,
+}: AppLogoProps): React.JSX.Element {
 	return (
 		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);

@@ -40,7 +40,7 @@ function buildToken(j: core.JSCodeshift, tokenId: string = '', fallback: string)
 	return callExpr;
 }
 
-export default function transformer(file: FileInfo, api: API) {
+export default function transformer(file: FileInfo, api: API): string {
 	const j = api.jscodeshift;
 	const source = j(file.source);
 

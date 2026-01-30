@@ -5,4 +5,4 @@ import { createContext } from 'react';
  *
  * This is useful for determining the number of layers open within a section of the page, e.g. the SideNav.
  */
-export const OpenLayerObserverNamespaceContext = createContext<string | null>(null);
+export const OpenLayerObserverNamespaceContext: import("react").Context<string | null> = createContext<string | null>(null);

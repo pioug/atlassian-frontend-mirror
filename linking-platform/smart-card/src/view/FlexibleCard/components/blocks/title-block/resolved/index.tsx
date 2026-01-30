@@ -5,7 +5,6 @@
 import { css, jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -45,7 +44,7 @@ const TitleBlockResolvedView = ({
 	position,
 	subtitle = [],
 	testId,
-	text,
+	text: _text,
 	icon,
 	title,
 	metadataPosition,
@@ -75,7 +74,7 @@ const TitleBlockResolvedView = ({
 				css={style}
 				size={blockProps.size}
 			>
-				{CompetitorPrompt && url && fg('prompt_whiteboard_competitor_link_gate') ? (
+				{CompetitorPrompt && url ? (
 					<Box xcss={styles.titleBox}>
 						{title}
 						<CompetitorPrompt sourceUrl={url} linkType={'card'} />

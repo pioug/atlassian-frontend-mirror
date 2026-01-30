@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 3.27.0
+
+### Minor Changes
+
+- [`f308049ef65c0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f308049ef65c0) -
+  Removed `id` property from `AgentVerificationDropdownItemProps` and refactored usage. The ID
+  property now comes from graqhql fragment.
+
 ## 3.26.0
 
 ### Minor Changes

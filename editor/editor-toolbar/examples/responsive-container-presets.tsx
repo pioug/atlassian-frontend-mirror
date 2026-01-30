@@ -96,13 +96,7 @@ export default function ResponsiveContainerPresetsExample() {
 				</div>
 			</div>
 
-			<div css={containerStyles}>
-				<h2 css={headingStyles}>Legacy: Using reducedBreakpoints (Deprecated)</h2>
-				<p>The old API still works but logs a deprecation warning in development</p>
-				<div css={toolbarWrapperStyles}>
-					<FullToolbarWithPreset breakpointPreset="reduced" />
-				</div>
-			</div>
+	
 		</div>
 	);
 }

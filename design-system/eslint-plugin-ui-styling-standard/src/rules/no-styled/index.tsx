@@ -5,7 +5,7 @@ import { getImportSources, isStyled } from '@atlaskit/eslint-utils/is-supported-
 
 import { createLintRule } from '../utils/create-rule';
 
-export const rule = createLintRule({
+export const rule: import("eslint").Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'no-styled',
 		docs: {

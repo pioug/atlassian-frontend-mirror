@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"version": "0.19.10",
+	"version": "0.19.11",
 	"description": "Common UI for Toolbars across the platform",
 	"atlassian": {
 		"team": "Editor: Jenga",
@@ -84,9 +84,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform_editor_toolbar_aifc_responsive_improve": {
-			"type": "boolean"
-		},
 		"platform_editor_toolbar_aifc_undo_redo_confluence": {
 			"type": "boolean"
 		},

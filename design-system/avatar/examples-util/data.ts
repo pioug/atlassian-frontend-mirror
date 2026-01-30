@@ -1,5 +1,8 @@
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
-export const RANDOM_USERS = [
+export const RANDOM_USERS: {
+    email: string;
+    name: string;
+}[] = [
 	{ email: 'chaki@me.com', name: 'Chaki Caronni' },
 	{ email: 'nanop@outlook.com', name: 'Nanop Rgiersig' },
 	{ email: 'dowdy@outlook.com', name: 'Dowdy Metzzo' },
@@ -22,7 +25,7 @@ export const RANDOM_USERS = [
 	{ email: 'caronni@optonline.net', name: 'Caronni Chaki' },
 ];
 
-export function getAdorableAvatar(id: string, size: number = 80) {
+export function getAdorableAvatar(id: string, size: number = 80): string {
 	return `https://api.adorable.io/avatars/${size}/${id}.png`;
 }
 export const avatarUrl: string =

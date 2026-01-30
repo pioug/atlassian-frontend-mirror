@@ -34,7 +34,7 @@ const options12Hour = {
 	hour12: true,
 };
 
-export default () => {
+const _default: () => JSX.Element = () => {
 	const [l10n, setL10n] = useState(
 		// @ts-ignore @fixme TypeScript 4.2.4 upgrade
 		createLocalizationProvider('en-AU', options),
@@ -82,3 +82,4 @@ export default () => {
 		</Box>
 	);
 };
+export default _default;

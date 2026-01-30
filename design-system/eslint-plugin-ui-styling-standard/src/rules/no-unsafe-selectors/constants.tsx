@@ -74,7 +74,7 @@ const cssPseudos = [
 	'&::-webkit-details-marker',
 ] as const;
 
-export const allowedPseudos = new Set(
+export const allowedPseudos: Set<string> = new Set(
 	/**
 	 * The `&` is included above for type checking reasons,
 	 * but we don't actually want it when consuming the values.
@@ -82,9 +82,9 @@ export const allowedPseudos = new Set(
 	cssPseudos.map((pseudo) => pseudo.slice(1)),
 );
 
-export const legacyPseudoElements = new Set([':after', ':before', ':first-letter', ':first-line']);
+export const legacyPseudoElements: Set<string> = new Set([':after', ':before', ':first-letter', ':first-line']);
 
-export const ignoredAtRules = new Set([
+export const ignoredAtRules: Set<string> = new Set([
 	'@container', // ignored because it's covered by `no-container-queries`
 	'@media', // ignored because it's covered by `no-nested-styles`
 	'@supports',

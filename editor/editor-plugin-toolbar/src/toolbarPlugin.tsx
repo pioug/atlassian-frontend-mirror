@@ -9,7 +9,6 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 import { createComponentRegistry } from '@atlaskit/editor-toolbar-model';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getSelectionToolbarOpenExperiencePlugin } from './pm-plugins/experiences/selection-toolbar-open-experience';
@@ -127,7 +126,7 @@ export const toolbarPlugin: ToolbarPlugin = ({
 			},
 
 			getBreakpointPreset: () => {
-				return fg('platform_editor_toolbar_aifc_responsive_improve') ? breakpointPreset : undefined;
+				return breakpointPreset;
 			},
 		},
 

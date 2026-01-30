@@ -128,6 +128,11 @@ export interface SectionProps {
 	 * @deprecated This API exists to support functionality in `@atlaskit/side-navigation` and should not be used. Once the new navigation is fully rolled out, this prop will be removed.
 	 */
 	isSideNavSection?: boolean;
+
+	/**
+	 * Provide an accessible label for the section via `aria-label` for assistive technology.
+	 */
+	label?: string;
 }
 
 export interface MenuItemPrimitiveProps {

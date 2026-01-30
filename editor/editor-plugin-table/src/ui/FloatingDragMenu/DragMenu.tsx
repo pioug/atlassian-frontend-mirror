@@ -534,14 +534,22 @@ const DragMenu = React.memo(
 		const createRowNumbersMenuItem = () => {
 			return {
 				key: 'row_numbers',
-				content: formatMessage(messages.rowNumbers),
+				content: formatMessage(
+					fg('platform_editor_rename_numbered_rows_label')
+						? messages.numberedRows
+						: messages.rowNumbers,
+				),
 				value: { name: 'row_numbers' },
 				elemAfter: (
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					<div css={toggleStyles}>
 						<Toggle
 							id="toggle-row-numbers"
-							label={formatMessage(messages.numberedColumn)}
+							label={formatMessage(
+								fg('platform_editor_rename_numbered_rows_label')
+									? messages.numberedRows
+									: messages.numberedColumn,
+							)}
 							onChange={toggleRowNumbers}
 							isChecked={checkIfNumberColumnEnabled(selection)}
 						/>

@@ -42,7 +42,6 @@ const TestWrapper = (props: RenderProps) => {
 	return (
 		<div role="menu">
 			<AgentVerificationDropdownItem
-				agentId="test-agent-id"
 				agentRef={data.agentStudio_agentById}
 				userPermissionsRef={data.atlassianStudio_userSiteContext?.userPermissions ?? null}
 				onClick={props.onClick}
@@ -58,6 +57,7 @@ const renderComponent = (props: RenderProps = {}) => {
 	environment.mock.queueOperationResolver((operation) =>
 		MockPayloadGenerator.generate(operation, {
 			AgentStudioAssistant: () => ({
+				id: 'test-agent-id',
 				isVerified: props.isVerified ?? false,
 			}),
 			AtlassianStudioUserSiteContextOutput: () => ({

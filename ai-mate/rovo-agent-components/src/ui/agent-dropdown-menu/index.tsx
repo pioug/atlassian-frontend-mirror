@@ -16,7 +16,10 @@ import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { ChatPillIcon } from '../../common/ui/chat-icon';
-import { AgentVerificationDropdownItem, type AgentVerificationDropdownItemProps } from '../agent-verification-dropdown-item';
+import {
+	AgentVerificationDropdownItem,
+	type AgentVerificationDropdownItemProps,
+} from '../agent-verification-dropdown-item';
 
 import messages from './messages';
 
@@ -260,7 +263,6 @@ export const AgentDropdownMenu = ({
 				</DropdownItem>
 				{agentRef && userPermissionsRef && fg('rovo_agents_agent_verification') && (
 					<AgentVerificationDropdownItem
-						agentId={agentId}
 						agentRef={agentRef ?? null}
 						userPermissionsRef={userPermissionsRef ?? null}
 						testId="agent-actions-menu-verification"

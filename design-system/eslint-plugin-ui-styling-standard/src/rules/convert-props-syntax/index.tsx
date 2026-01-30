@@ -353,7 +353,7 @@ const fixPropsObjectUsages = (
 	return fixers;
 };
 
-export const rule = createLintRule({
+export const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'convert-props-syntax',
 		docs: {

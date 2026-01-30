@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 4.1.6
+
+### Patch Changes
+
+- [`e504eea6e1d3f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e504eea6e1d3f) -
+  EDITOR-4665: Clean up platform_editor_toolbar_aifc_responsive_improve feature flag
+- Updated dependencies
+
 ## 4.1.5
 
 ### Patch Changes

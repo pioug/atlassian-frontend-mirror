@@ -13,6 +13,7 @@ import type { ChatContextPayload } from './common/utils/chat-context/types';
 
 export const Topics = {
 	AI_MATE: 'ai-mate',
+	AI_MATE_ACTIONS: 'ai-mate-actions',
 	AI_MATE_INSERT_URLS: 'ai-mate-chat-inserts',
 } as const;
 export type Topic = (typeof Topics)[keyof typeof Topics];
@@ -220,6 +221,18 @@ export type InsertUrlsPayload = PayloadCore<
 	}
 >;
 
+/** Selects a conversation action by ID
+ * - Used to programmatically open a specific action in the conversation actions list
+ * - The action screen must be already open, and the actions list populated
+ * - The action must exist in the current actions list
+ */
+export type SelectActionPayload = PayloadCore<
+	'select-action',
+	{
+		actionId: string;
+	}
+>;
+
 export type TransitionId = string;
 export type StatusId = string;
 export type StatusCategory = 'TODO' | 'IN_PROGRESS' | 'DONE' | 'UNDEFINED';
@@ -385,6 +398,7 @@ export type Payload =
 	| DashboardInsightsActionsPayload
 	| SetChatContextPayload
 	| InsertUrlsPayload
+	| SelectActionPayload
 	| GenericExternalActionErrorPayload
 	| OpenChatDebugModalPayload
 	| OpenChatFeedbackModalPayload

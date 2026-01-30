@@ -19,7 +19,7 @@ const data = RANDOM_USERS.map((d, i) => ({
 	appearance: appearances[i % appearances.length],
 }));
 
-export default () => {
+const _default: () => JSX.Element = () => {
 	return (
 		<div css={styles.container}>
 			<ExampleGroup heading="Display as a Stack">
@@ -45,3 +45,4 @@ export default () => {
 		</div>
 	);
 };
+export default _default;

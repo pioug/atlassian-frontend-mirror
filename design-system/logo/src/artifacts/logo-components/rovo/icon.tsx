@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::381f7987563be8499a0e54ff3032bfd7>>
+ * @codegen <<SignedSource::c09aee6cc96e54887271dd42a7eae172>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -25,7 +25,12 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  * to enable the new design by default.
  *
  */
-export function RovoIcon({ size, appearance = 'brand', label = 'Rovo', testId }: AppIconProps) {
+export function RovoIcon({
+	size,
+	appearance = 'brand',
+	label = 'Rovo',
+	testId,
+}: AppIconProps): React.JSX.Element {
 	return (
 		<IconWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);

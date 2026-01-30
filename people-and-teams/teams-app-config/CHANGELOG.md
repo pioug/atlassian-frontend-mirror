@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-config
 
+## 1.12.11
+
+### Patch Changes
+
+- [`e215e91d9c2fb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e215e91d9c2fb) -
+  Clean up teams app enabled fg
+
 ## 1.12.10
 
 ### Patch Changes

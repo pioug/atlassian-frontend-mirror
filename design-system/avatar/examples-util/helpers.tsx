@@ -16,11 +16,17 @@ const styles = cssMap({
 	},
 });
 
-export const ShrinkWrap = ({ children }: { children?: ReactNode }) => (
+export const ShrinkWrap: ({ children }: {
+    children?: ReactNode;
+}) => JSX.Element = ({ children }: { children?: ReactNode }) => (
 	<Box xcss={styles.shrinkWrap}>{children}</Box>
 );
 
-export const Block = ({
+export const Block: ({ children, heading, testId, }: {
+    children?: ReactNode;
+    heading?: string;
+    testId?: string;
+}) => JSX.Element = ({
 	children,
 	heading,
 	testId,

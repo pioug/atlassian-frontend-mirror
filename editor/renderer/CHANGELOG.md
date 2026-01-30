@@ -1,5 +1,46 @@
 # @atlaskit/renderer
 
+## 126.5.0
+
+### Minor Changes
+
+- [`d88e2cfa7371b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d88e2cfa7371b) -
+  [ux] fix copy heading link button a11y behaviours by only having one button, that is outside the
+  heading element
+
+### Patch Changes
+
+- Updated dependencies
+
+## 126.4.0
+
+### Minor Changes
+
+- [`26a5ec6dab84e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26a5ec6dab84e) -
+  Adjust vertical spacing for inline extensions in the renderer
+
+### Patch Changes
+
+- Updated dependencies
+
+## 126.3.0
+
+### Minor Changes
+
+- [`110cf61eebfdd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/110cf61eebfdd) -
+  [ux] Cleanup prompt_whiteboard_competitor_link_gate
+
+### Patch Changes
+
+- Updated dependencies
+
+## 126.2.5
+
+### Patch Changes
+
+- [`4547a732e1d15`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4547a732e1d15) -
+  add comment for block card ssr gate logic
+
 ## 126.2.4
 
 ### Patch Changes

@@ -7,7 +7,6 @@ import { type MouseEvent } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { cssMap, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -86,9 +85,8 @@ const ExpandedFrame = ({
 	const handleClick = (event: MouseEvent) => handleClickCommon(event, onClick);
 	const handleMouseDown = useMouseDownEvent();
 
-	// Note: cleanup fg based on results of prompt_whiteboard_competitor_link experiment
 	const CompetitorPromptComponent =
-		CompetitorPrompt && href && fg('prompt_whiteboard_competitor_link_gate') ? (
+		CompetitorPrompt && href ? (
 			<CompetitorPrompt sourceUrl={href} linkType="embed" />
 		) : null;
 
@@ -312,9 +310,8 @@ const ExpandedFrameUpdated = ({
 	const handleClick = (event: MouseEvent) => handleClickCommon(event, onClick);
 	const handleMouseDown = useMouseDownEvent();
 
-	// Note: cleanup fg based on results of prompt_whiteboard_competitor_link experiment
 	const CompetitorPromptComponent =
-		CompetitorPrompt && href && fg('prompt_whiteboard_competitor_link_gate') ? (
+		CompetitorPrompt && href ? (
 			<CompetitorPrompt sourceUrl={href} linkType="embed" />
 		) : null;
 

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::32c8cc77dbc747e248bed2af48cc0f06>>
+ * @codegen <<SignedSource::ae52a924e4e7dfd935c84ea07ee923b8>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -23,7 +23,12 @@ const svg = `<svg height="100%" viewBox="0 0 72 24">
  * A temporary component to represent the logo for Focus.
  *
  */
-export function FocusLogo({ size, appearance = 'brand', label = 'Focus', testId }: AppLogoProps) {
+export function FocusLogo({
+	size,
+	appearance = 'brand',
+	label = 'Focus',
+	testId,
+}: AppLogoProps): React.JSX.Element {
 	return (
 		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);

@@ -18,7 +18,7 @@ import { LayerNode } from '../classes/layer-node';
  * LevelContext which maintains the current level of nested layers
  * Default is 0
  */
-export const LevelContext = createContext(0);
+export const LevelContext: React.Context<number> = createContext(0);
 
 /**
  *
@@ -26,7 +26,7 @@ export const LevelContext = createContext(0);
  * LevelNodeContext maintains the current layer node of nested layers.
  * Default ref value is null
  */
-export const LevelNodeContext = createContext<MutableRefObject<LayerNode | null>>({
+export const LevelNodeContext: React.Context<React.MutableRefObject<LayerNode | null>> = createContext<MutableRefObject<LayerNode | null>>({
 	current: null,
 });
 
@@ -36,7 +36,7 @@ export const LevelNodeContext = createContext<MutableRefObject<LayerNode | null>
  * RootNodeContext maintains the root node of the layer tree.
  * Default ref value is null
  */
-export const RootNodeContext = createContext<MutableRefObject<LayerNode | null>>({
+export const RootNodeContext: React.Context<React.MutableRefObject<LayerNode | null>> = createContext<MutableRefObject<LayerNode | null>>({
 	current: null,
 });
 
@@ -78,7 +78,10 @@ const LevelProvider: FC<{
  * For more information on the implementation: https://hello.atlassian.net/wikix/x/FQCDQwE
  *
  */
-export const Layering = ({
+export const Layering: ({ children, isDisabled, }: {
+    children: ReactNode;
+    isDisabled?: boolean;
+}) => React.JSX.Element = ({
 	children,
 	isDisabled = true,
 }: {

@@ -8,6 +8,8 @@ import { cssMap, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl-next';
 import { useDebouncedCallback } from 'use-debounce';
 
+import { type Jast } from '@atlaskit/jql-ast';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -30,6 +32,7 @@ import {
 
 import { buildJQL } from './buildJQL';
 import { modeSwitcherMessages } from './messages';
+
 
 const styles = cssMap({
 	basicSearchInputBoxStyles: {
@@ -68,6 +71,7 @@ export interface SearchContainerProps {
 	onSearchMethodChange: (searchMethod: JiraSearchMethod) => void;
 	parameters?: JiraIssueDatasourceParameters;
 	searchBarJql?: string;
+	setHasJqlSyntaxErrors?: (hasErrors: boolean) => void;
 	setSearchBarJql: (jql: string) => void;
 	site?: Site;
 }
@@ -82,6 +86,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
 		setSearchBarJql,
 		searchBarJql = DEFAULT_JQL_QUERY,
 		site,
+		setHasJqlSyntaxErrors,
 	} = props;
 	const { cloudId: currentCloudId } = parameters || {};
 
@@ -150,7 +155,10 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
 	);
 
 	const onQueryChange = useCallback(
-		(query: string) => {
+		(query: string, jast: Jast) => {
+			if (fg('navx-1345-issues-modal-jql-submit-fix')) {
+				setHasJqlSyntaxErrors?.(jast.errors.length > 0);
+			}
 			// determine if order keys have been set so they can be saved and persisted when changes occur in basic search
 			const fragments =
 				query
@@ -170,7 +178,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
 
 			setSearchBarJql(query);
 		},
-		[setSearchBarJql],
+		[setSearchBarJql, setHasJqlSyntaxErrors],
 	);
 
 	const handleSearch = useCallback(() => {

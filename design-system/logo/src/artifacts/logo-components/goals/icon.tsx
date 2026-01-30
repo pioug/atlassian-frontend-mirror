@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7d4207f3a6122eec8b52c0ed3ab03186>>
+ * @codegen <<SignedSource::691ffc068fd79d2f7585ba74e9375893>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -25,7 +25,12 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  * to enable the new design by default.
  *
  */
-export function GoalsIcon({ size, appearance = 'brand', label = 'Goals', testId }: AppIconProps) {
+export function GoalsIcon({
+	size,
+	appearance = 'brand',
+	label = 'Goals',
+	testId,
+}: AppIconProps): React.JSX.Element {
 	return (
 		<IconWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);

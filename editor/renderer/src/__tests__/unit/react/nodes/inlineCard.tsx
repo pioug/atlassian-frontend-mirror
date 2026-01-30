@@ -14,7 +14,6 @@ import InlineCard from '../../../../react/nodes/inlineCard';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { MockCardComponent } from './card.mock';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 jest.mock('@atlaskit/smart-card', () => {
 	const originalModule = jest.requireActual('@atlaskit/smart-card');
@@ -166,7 +165,7 @@ describe('Renderer - React/Nodes/InlineCard (RTL)', () => {
 		};
 
 		class CustomClient extends Client {
-			fetchData(url: string) {
+			fetchData() {
 				return Promise.resolve({
 					data,
 					meta: {
@@ -259,42 +258,22 @@ describe('Renderer - React/Nodes/InlineCard - CompetitorPrompt', () => {
 		MockCompetitorPrompt.mockClear();
 	});
 
-	ffTest.on('prompt_whiteboard_competitor_link_gate', '', () => {
-		it('should render when CompetitorPrompt provided and feature gate is on', () => {
-			render(
-				<Provider client={new Client('staging')}>
-					<InlineCard
-						url={'test.com'}
-						smartLinks={{
-							CompetitorPrompt: MockCompetitorPrompt,
-						}}
-					/>
-				</Provider>,
-			);
+	it('should render when CompetitorPrompt provided', () => {
+		render(
+			<Provider client={new Client('staging')}>
+				<InlineCard
+					url={'test.com'}
+					smartLinks={{
+						CompetitorPrompt: MockCompetitorPrompt,
+					}}
+				/>
+			</Provider>,
+		);
 
-			const competitorPrompt = screen.getByRole('button', { name: 'competitor prompt' });
-			expect(competitorPrompt).toBeInTheDocument();
-			expect(competitorPrompt).toHaveTextContent('test.com');
-			expect(competitorPrompt).toHaveTextContent('inline');
-			expect(MockCompetitorPrompt).toHaveBeenCalled();
-		});
-	});
-
-	ffTest.off('prompt_whiteboard_competitor_link_gate', '', () => {
-		it('should not render CompetitorPrompt when feature gate is off', () => {
-			render(
-				<Provider client={new Client('staging')}>
-					<InlineCard
-						url={'test.com'}
-						smartLinks={{
-							CompetitorPrompt: MockCompetitorPrompt,
-						}}
-					/>
-				</Provider>,
-			);
-
-			expect(screen.queryByRole('button', { name: 'competitor prompt' })).not.toBeInTheDocument();
-			expect(MockCompetitorPrompt).not.toHaveBeenCalled();
-		});
+		const competitorPrompt = screen.getByRole('button', { name: 'competitor prompt' });
+		expect(competitorPrompt).toBeInTheDocument();
+		expect(competitorPrompt).toHaveTextContent('test.com');
+		expect(competitorPrompt).toHaveTextContent('inline');
+		expect(MockCompetitorPrompt).toHaveBeenCalled();
 	});
 });

@@ -25,6 +25,6 @@ test.describe('heading', () => {
 	test('should capture and report a11y violations', async ({ renderer }) => {
 		renderer.page.getByRole('heading');
 
-		await expect(renderer.page).toBeAccessible({ violationCount: 1 });
+		await expect(renderer.page).toBeAccessible();
 	});
 });

@@ -142,7 +142,7 @@ const secondaryTransparentHcmStyles = css({
  *
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  */
-export const Icon = memo(function Icon(props: IconProps) {
+export const Icon: import("react").NamedExoticComponent<IconProps> = memo(function Icon(props: IconProps) {
 	const {
 		glyph: Glyph,
 		dangerouslySetGlyph,

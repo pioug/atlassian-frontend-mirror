@@ -8,7 +8,6 @@ import { useMemo } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { browser } from '@atlaskit/linking-common/user-agent';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import FlexibleCard from '../../../FlexibleCard';
@@ -88,7 +87,7 @@ const UnresolvedView = ({
 				hideIcon={!!title}
 				text={title}
 				css={[titleBlockCss]}
-				{...(fg('prompt_whiteboard_competitor_link_gate') ? { CompetitorPrompt } : undefined)}
+				CompetitorPrompt={CompetitorPrompt}
 			/>
 			<CustomBlock css={[customBlockStyles]}>{children}</CustomBlock>
 			{showPreview && <PreviewBlock {...PreviewBlockOptions} />}

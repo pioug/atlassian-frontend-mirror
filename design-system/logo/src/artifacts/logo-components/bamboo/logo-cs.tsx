@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2321f2dda4d95bdf7f57b6fa4abea572>>
+ * @codegen <<SignedSource::5436ab9ea17c11b656095d6ae713006c>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -29,7 +29,7 @@ export function BambooLogoCS({
 	appearance = 'brand',
 	label = 'Bamboo',
 	testId,
-}: AppLogoProps) {
+}: AppLogoProps): React.JSX.Element {
 	return (
 		<LogoWrapper
 			svg={svg}

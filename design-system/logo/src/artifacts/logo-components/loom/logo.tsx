@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::19a909f55590d1317b32c0d93263eb6d>>
+ * @codegen <<SignedSource::c1a30aacfe49f3eedc55a3472ec9dafc>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -23,7 +23,12 @@ const svg = `<svg height="100%" viewBox="0 0 69 24">
  * A temporary component to represent the logo for Loom.
  *
  */
-export function LoomLogo({ size, appearance = 'brand', label = 'Loom', testId }: AppLogoProps) {
+export function LoomLogo({
+	size,
+	appearance = 'brand',
+	label = 'Loom',
+	testId,
+}: AppLogoProps): React.JSX.Element {
 	return (
 		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);

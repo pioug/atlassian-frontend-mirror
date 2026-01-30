@@ -38,7 +38,7 @@ const styles = cssMap({
 
 const formTestUrl = '//httpbin.org/get';
 
-export default function CheckboxGroupExample() {
+export default function CheckboxGroupExample(): JSX.Element {
 	return (
 		<Box xcss={styles.container}>
 			<form action={formTestUrl} method="get" target="submitFrame">

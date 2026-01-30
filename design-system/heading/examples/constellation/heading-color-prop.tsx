@@ -23,7 +23,7 @@ const containerStylesWarningBold = css({
 	paddingInlineStart: token('space.200'),
 });
 
-export default () => {
+const _default: () => JSX.Element = () => {
 	return (
 		<Stack space="space.100">
 			{/* Purposefully not using a Box in order to show manually setting Heading color */}
@@ -40,3 +40,4 @@ export default () => {
 		</Stack>
 	);
 };
+export default _default;

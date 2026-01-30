@@ -17,7 +17,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { UnsupportedInline, findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -283,7 +282,7 @@ export function InlineCardNodeView(
 				{...(enableInlineUpgradeFeatures &&
 					getAwarenessProps(view.state, getPos, allowEmbeds, allowBlockCards, mode === 'view'))}
 			/>
-			{fg('prompt_whiteboard_competitor_link_gate') && CompetitorPromptComponent}
+			{CompetitorPromptComponent}
 		</>
 	);
 }

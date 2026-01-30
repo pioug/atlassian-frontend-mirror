@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::746df89d4e9f9114099c723d030eeb4f>>
+ * @codegen <<SignedSource::3a833c6410fabd244b1134a630f9a005>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -24,7 +24,12 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  * to enable the new design by default.
  *
  */
-export function ChatIcon({ size, appearance = 'brand', label = 'Chat', testId }: AppIconProps) {
+export function ChatIcon({
+	size,
+	appearance = 'brand',
+	label = 'Chat',
+	testId,
+}: AppIconProps): React.JSX.Element {
 	return (
 		<IconWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);

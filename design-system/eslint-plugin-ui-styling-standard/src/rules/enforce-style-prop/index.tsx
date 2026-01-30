@@ -169,7 +169,7 @@ function isPropertyValueAllowed(property: ObjProperty, context: Rule.RuleContext
 	return true;
 }
 
-export const rule = createLintRule({
+export const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'enforce-style-prop',
 		docs: {

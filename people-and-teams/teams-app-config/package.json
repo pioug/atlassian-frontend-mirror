@@ -33,7 +33,6 @@
 	},
 	"dependencies": {
 		"@atlaskit/atlassian-context": "workspace:^",
-		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*"
@@ -88,7 +87,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-app-config",
-	"version": "1.12.10",
+	"version": "1.12.11",
 	"description": "Teams App related config",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

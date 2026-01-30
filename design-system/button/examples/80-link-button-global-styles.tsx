@@ -27,7 +27,7 @@ const styles = cssMap({
 	},
 });
 
-export default function LinkButtonGlobalStylesExample() {
+export default function LinkButtonGlobalStylesExample(): JSX.Element {
 	return (
 		<Box xcss={styles.root}>
 			<GlobalStyleSimulator />

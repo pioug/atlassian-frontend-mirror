@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/pragmatic-drag-and-drop-flourish",
-	"version": "2.0.11",
+	"version": "2.0.12",
 	"description": "An optional Pragmatic drag and drop package for adding visual flourish to drag and drop experiences",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -41,7 +41,7 @@
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
-		"@testing-library/react": "^16.3.0",
+		"@testing-library/react": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*",
 		"wait-for-expect": "root:*"

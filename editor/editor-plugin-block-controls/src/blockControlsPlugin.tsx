@@ -122,10 +122,17 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 
 				const currMeta = tr.getMeta(key);
 				const currentUserIntent = api?.userIntent?.sharedState.currentState()?.currentUserIntent;
+				const isMenuCurrentlyOpen = api?.blockControls?.sharedState.currentState()?.isMenuOpen;
+
 				if (options?.closeMenu) {
 					tr.setMeta(key, { ...currMeta, closeMenu: true });
 					if (currentUserIntent === 'blockMenuOpen') {
 						api?.userIntent?.commands.setCurrentUserIntent('default')({ tr });
+					}
+
+					// When closing the menu, restart the active session timer
+					if (isMenuCurrentlyOpen && fg('platform_editor_ease_of_use_metrics')) {
+						api?.metrics?.commands.startActiveSessionTimer()({ tr });
 					}
 
 					return tr;
@@ -137,6 +144,12 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 						api?.userIntent?.commands.setCurrentUserIntent('default')({ tr });
 					}
 					tr.setMeta(key, { ...currMeta, closeMenu: true });
+
+					// When closing the menu, restart the active session timer
+					if (isMenuCurrentlyOpen && fg('platform_editor_ease_of_use_metrics')) {
+						api?.metrics?.commands.startActiveSessionTimer()({ tr });
+					}
+
 					return tr;
 				}
 
@@ -176,6 +189,19 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 					} else {
 						// Toggled from drag handle
 						api?.userIntent?.commands.setCurrentUserIntent('default')({ tr });
+					}
+
+					// When closing the menu, restart the active session timer
+					if (fg('platform_editor_ease_of_use_metrics')) {
+						api?.metrics?.commands.startActiveSessionTimer()({ tr });
+					}
+				} else if (!isMenuCurrentlyOpen) {
+					// When opening the menu, pause the active session timer
+					if (fg('platform_editor_ease_of_use_metrics')) {
+						api?.metrics?.commands.handleIntentToStartEdit({
+							shouldStartTimer: false,
+							shouldPersistActiveSession: true,
+						})({ tr });
 					}
 				}
 

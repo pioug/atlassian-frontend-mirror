@@ -10,8 +10,7 @@ const DARK_THEME_OUTPUT = 'dark-theme-output';
 const COLOR_MODE_OUTPUT = 'color-mode-output';
 const SET_LIGHT_COLOR_MODE = 'set-light-color-mode';
 const SET_DARK_COLOR_MODE = 'set-dark-color-mode';
-const SET_LIGHT_THEME = 'set-light-theme';
-const SET_DARK_THEME = 'set-dark-theme';
+const SET_INVERTED_THEME = 'set-inverted-theme';
 
 type HookWrapperProps = {
 	isAuto?: boolean;
@@ -46,18 +45,11 @@ const ThemedComponent = () => {
 				Set dark color mode
 			</button>
 			<button
-				data-testid={SET_LIGHT_THEME}
+				data-testid={SET_INVERTED_THEME}
 				type="button"
-				onClick={() => setGlobalTheme({ light: 'legacy-light' })}
+				onClick={() => setGlobalTheme({ dark: 'light', light: 'dark' })}
 			>
-				Set light theme
-			</button>
-			<button
-				data-testid={SET_DARK_THEME}
-				type="button"
-				onClick={() => setGlobalTheme({ dark: 'legacy-dark' })}
-			>
-				Set dark theme
+				Set inverted theme
 			</button>
 			<p data-testid={COLOR_MODE_OUTPUT}>{theme.colorMode}</p>
 			<p data-testid={LIGHT_THEME_OUTPUT}>{theme.light}</p>
@@ -122,8 +114,7 @@ describe('useThemeObserver', () => {
 
 		const lightOutput = screen.getByTestId(LIGHT_THEME_OUTPUT);
 		const darkOutput = screen.getByTestId(DARK_THEME_OUTPUT);
-		const setLightButton = screen.getByTestId(SET_LIGHT_THEME);
-		const setDarkButton = screen.getByTestId(SET_DARK_THEME);
+		const setInvertedButton = screen.getByTestId(SET_INVERTED_THEME);
 
 		// Light theme should initially be 'light'
 		await waitFor(() => expect(lightOutput).toHaveTextContent('light'));
@@ -132,11 +123,8 @@ describe('useThemeObserver', () => {
 		await waitFor(() => expect(darkOutput).toHaveTextContent('dark'));
 
 		// Change light theme
-		fireEvent.click(setLightButton);
-		await waitFor(() => expect(lightOutput).toHaveTextContent('legacy-light'));
-
-		// Change dark theme
-		fireEvent.click(setDarkButton);
-		await waitFor(() => expect(darkOutput).toHaveTextContent('legacy-dark'));
+		fireEvent.click(setInvertedButton);
+		await waitFor(() => expect(lightOutput).toHaveTextContent('dark'));
+		await waitFor(() => expect(darkOutput).toHaveTextContent('light'));
 	});
 });

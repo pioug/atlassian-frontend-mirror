@@ -230,8 +230,6 @@ const InvertedColorMode = () => {
 const colorThemeOptions: { label: string; value: ThemeIds }[] = [
 	{ label: 'Light', value: 'light' },
 	{ label: 'Dark', value: 'dark' },
-	{ label: 'Dark Legacy', value: 'legacy-dark' },
-	{ label: 'Light Legacy', value: 'legacy-light' },
 ];
 
 const colorModeOptions: { label: string; value: ThemeColorModes }[] = [

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tooltip",
-	"version": "20.14.2",
+	"version": "20.14.3",
 	"description": "A tooltip describes an interactive element on mouse hover or keyboard focus.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -72,7 +72,7 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
-		"@testing-library/react": "^16.3.0",
+		"@testing-library/react": "root:*",
 		"react-dom": "root:*",
 		"tiny-invariant": "root:*"
 	},

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-ufo",
-	"version": "5.0.11",
+	"version": "5.0.13",
 	"description": "Parts of React UFO that are publicly available",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -96,7 +96,7 @@
 		"@af/integration-testing": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@testing-library/react": "^16.3.0",
+		"@testing-library/react": "root:*",
 		"@types/is-ci": "root:*",
 		"@types/scheduler": "root:*",
 		"is-ci": "root:*"
@@ -161,22 +161,13 @@
 		"platform_ufo_assets_check_for_nan": {
 			"type": "boolean"
 		},
-		"platform_ufo_fix_post_interaction_check_vc_debug": {
-			"type": "boolean"
-		},
 		"platform_ufo_data-is-hovered-v4-exclusion": {
 			"type": "boolean"
 		},
 		"platform_ufo_critical_metrics_payload": {
 			"type": "boolean"
 		},
-		"platform_ufo_disable_vcnext_observations": {
-			"type": "boolean"
-		},
 		"platform_ufo_exclude_3p_elements_from_ttai": {
-			"type": "boolean"
-		},
-		"platform_ufo_round_vc_ratios": {
 			"type": "boolean"
 		},
 		"platform_ufo_exclude_3p_elements_from_ttvc": {
@@ -234,9 +225,6 @@
 			"type": "boolean"
 		},
 		"platform_ufo_exclude_3p_attribute_changes": {
-			"type": "boolean"
-		},
-		"platform_ufo_auto_add_ssr_entry_in_ttvc_v4": {
 			"type": "boolean"
 		},
 		"platform_ufo_use_native_page_visibility_api": {

@@ -44,7 +44,7 @@
 	"devDependencies": {
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@storybook/addon-knobs": "root:*",
-		"@testing-library/react": "^16.3.0",
+		"@testing-library/react": "root:*",
 		"@welldone-software/why-did-you-render": "root:*",
 		"enzyme": "root:*",
 		"fetch-mock": "root:*",

@@ -1,1 +1,1 @@
-export { default, SelectWithoutAnalytics } from '../Select';
+export { default, SelectWithoutAnalytics } from '../select';

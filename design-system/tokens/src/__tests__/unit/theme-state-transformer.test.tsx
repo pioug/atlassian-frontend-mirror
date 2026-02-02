@@ -7,13 +7,12 @@ describe('themeObjectToString', () => {
 			colorMode: 'auto',
 			contrastMode: 'auto',
 			dark: 'dark',
-			light: 'legacy-light',
+			light: 'light',
 			spacing: 'spacing',
 			typography: 'typography',
 		};
 
-		const expected =
-			'colorMode:auto dark:dark light:legacy-light spacing:spacing typography:typography';
+		const expected = 'colorMode:auto dark:dark light:light spacing:spacing typography:typography';
 
 		expect(themeObjectToString(themeState)).toBe(expected);
 	});
@@ -23,14 +22,14 @@ describe('themeObjectToString', () => {
 			colorMode: 'auto',
 			contrastMode: 'auto',
 			dark: 'dark',
-			light: 'legacy-light',
+			light: 'light',
 			spacing: 'spacing',
 			typography: 'typography',
 			UNSAFE_themeOptions: { brandColor: '#ff0000' },
 		};
 
 		const expected =
-			'colorMode:auto dark:dark light:legacy-light spacing:spacing typography:typography UNSAFE_themeOptions:{"brandColor":"#ff0000"}';
+			'colorMode:auto dark:dark light:light spacing:spacing typography:typography UNSAFE_themeOptions:{"brandColor":"#ff0000"}';
 
 		expect(themeObjectToString(themeState)).toBe(expected);
 	});
@@ -56,10 +55,10 @@ describe('themeObjectToString', () => {
 
 	it('should convert partial theme state object to a formatted string', () => {
 		const themeState: Partial<ThemeState> = {
-			dark: 'legacy-dark',
+			dark: 'dark',
 		};
 
-		const expected = 'dark:legacy-dark';
+		const expected = 'dark:dark';
 
 		expect(themeObjectToString(themeState)).toBe(expected);
 	});
@@ -88,11 +87,11 @@ describe('themeObjectToString', () => {
 describe('themeStringToObject', () => {
 	it('should convert theme state string to an object', () => {
 		const themeState =
-			'dark:dark light:legacy-light colorMode:light spacing:spacing typography:typography';
+			'dark:dark light:light colorMode:light spacing:spacing typography:typography';
 
 		const expected = {
 			dark: 'dark',
-			light: 'legacy-light',
+			light: 'light',
 			colorMode: 'light',
 			spacing: 'spacing',
 			typography: 'typography',
@@ -121,10 +120,10 @@ describe('themeStringToObject', () => {
 	});
 
 	it('should convert partial theme state string to an object', () => {
-		const themeState = 'dark:legacy-dark light:light';
+		const themeState = 'dark:dark light:light';
 
 		const expected = {
-			dark: 'legacy-dark',
+			dark: 'dark',
 			light: 'light',
 		};
 

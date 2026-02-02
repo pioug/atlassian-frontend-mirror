@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/spinner",
-	"version": "19.0.9",
+	"version": "19.0.10",
 	"description": "A spinner is an animated spinning icon that lets users know content is being loaded.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -49,7 +49,7 @@
 		"@atlaskit/select": "workspace:^",
 		"@atlaskit/visually-hidden": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
-		"@testing-library/react": "^16.3.0",
+		"@testing-library/react": "root:*",
 		"react-dom": "root:*"
 	},
 	"techstack": {

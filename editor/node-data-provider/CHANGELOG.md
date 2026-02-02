@@ -1,5 +1,16 @@
 # @atlaskit/node-data-provider
 
+## 8.1.0
+
+### Minor Changes
+
+- [`cfea9d4edb5f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cfea9d4edb5f0) -
+  EDITOR-2849 refactor to use unify cache
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.0
 
 ### Patch Changes

@@ -33,7 +33,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/editor-toolbar": "workspace:^",
-		"@testing-library/react": "^16.3.0",
+		"@testing-library/react": "root:*",
 		"react-dom": "root:*"
 	},
 	"techstack": {
@@ -72,7 +72,7 @@
 		}
 	},
 	"name": "@atlaskit/editor-toolbar-model",
-	"version": "0.3.1",
+	"version": "0.3.2",
 	"description": "register and render toolbar component",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

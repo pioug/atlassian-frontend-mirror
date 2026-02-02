@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/theme",
-	"version": "21.0.4",
+	"version": "21.0.5",
 	"description": "Theme contains solutions for global theming, colors, and other useful mixins.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -38,7 +38,7 @@
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@compiled/react": "root:*",
-		"@testing-library/react": "^16.3.0",
+		"@testing-library/react": "root:*",
 		"@types/color": "root:*",
 		"color": "root:*",
 		"jest-in-case": "root:*",

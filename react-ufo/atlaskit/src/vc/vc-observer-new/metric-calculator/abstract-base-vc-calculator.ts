@@ -91,12 +91,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 
 		for (const [elementName, rect] of elementRects) {
 			const elementArea = rect.width * rect.height;
-
-			if (fg('platform_ufo_round_vc_ratios')) {
-				ratios[elementName] = roundDecimal(elementArea / totalViewportArea);
-			} else {
-				ratios[elementName] = elementArea / totalViewportArea;
-			}
+			ratios[elementName] = roundDecimal(elementArea / totalViewportArea);
 		}
 
 		return ratios;
@@ -230,18 +225,12 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		// If 3p metric enabled - calculate the debug details
 		const shouldCalculate3p = include3p && fg('platform_ufo_enable_ttai_with_3p');
 		// Only calculate enhanced debug details if devtool callbacks exist
-		let shouldCalculateDebugDetails =
-			(!isPostInteraction || shouldCalculate3p) &&
-			(typeof window?.__ufo_devtool_onVCRevisionReady__ === 'function' ||
-				typeof window?.__on_ufo_vc_debug_data_ready === 'function');
 
-		if (fg('platform_ufo_fix_post_interaction_check_vc_debug')) {
-			shouldCalculateDebugDetails =
+		const shouldCalculateDebugDetails =
 				!isPostInteraction &&
 				(typeof window?.__ufo_devtool_onVCRevisionReady__ === 'function' ||
 					typeof window?.__on_ufo_vc_debug_data_ready === 'function' ||
 					typeof window?.__ufo_devtool_vc_3p_debug_data === 'function');
-		}
 
 		if (shouldCalculateDebugDetails && allEntries && vcLogs) {
 			// Pre-sort vcLogs by time for efficient lookups

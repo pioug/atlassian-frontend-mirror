@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-expand
 
+## 8.2.0
+
+### Minor Changes
+
+- [`25991b4c801ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25991b4c801ab) -
+  [EDITOR-4884](https://hello.jira.atlassian.cloud/browse/EDITOR-4884) - set `display: none` for
+  collapsed Expand
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.3
 
 ### Patch Changes

@@ -16,6 +16,7 @@ const createOption = (inputValue: string) => ({
 	value: inputValue.toLowerCase().replace(/\W/g, ''),
 });
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class AsyncCreatableExample extends Component<{}, State> {
 	state = {
 		allowCreateWhileLoading: false,

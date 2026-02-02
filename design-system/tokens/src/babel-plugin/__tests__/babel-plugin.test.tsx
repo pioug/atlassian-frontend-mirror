@@ -61,14 +61,6 @@ jest.mock('../../artifacts/tokens-raw/atlassian-light', () => ({
 	],
 }));
 
-jest.mock('../../artifacts/tokens-raw/atlassian-legacy-light', () => ({
-	__esModule: true,
-	default: [
-		{ value: '#cccccc', cleanName: 'test-token' },
-		{ value: '#111111', cleanName: 'test-token-escape' },
-	],
-}));
-
 jest.mock('../../artifacts/tokens-raw/atlassian-spacing', () => ({
 	__esModule: true,
 	default: [
@@ -416,19 +408,6 @@ const getStyles = css => css\`
 
 			expect(actual).toMatchInlineSnapshot(`""var(--test-token, #ffffff)";"`);
 		});
-
-		it('converts 1-argument usage correctly when shouldUseAutoFallback set to true AND fallback is legacy-light', () => {
-			const actual = transform({
-				shouldUseAutoFallback: true,
-				transformTemplateLiterals: false,
-				defaultTheme: 'legacy-light',
-			})`
-        import { token } from '@atlaskit/tokens';
-        token('test-token');
-      `;
-
-			expect(actual).toMatchInlineSnapshot(`""var(--test-token, #cccccc)";"`);
-		});
 	});
 
 	describe('shouldForceAutoFallback === true', () => {
@@ -441,18 +420,6 @@ const getStyles = css => css\`
 			expect(actual).toMatchInlineSnapshot(`""var(--test-token, #ffffff)";"`);
 		});
 
-		it('override manual fallback usage AND fallback is legacy-light', () => {
-			const actual = transform({
-				shouldForceAutoFallback: true,
-				defaultTheme: 'legacy-light',
-			})`
-        import { token } from '@atlaskit/tokens';
-        token('test-token', 'red');
-      `;
-
-			expect(actual).toMatchInlineSnapshot(`""var(--test-token, #cccccc)";"`);
-		});
-
 		it('converts 1-argument usage correctly', () => {
 			const actual = transform({ shouldForceAutoFallback: true })`
         import { token } from '@atlaskit/tokens';
@@ -460,18 +427,6 @@ const getStyles = css => css\`
       `;
 
 			expect(actual).toMatchInlineSnapshot(`""var(--test-token, #ffffff)";"`);
-		});
-
-		it('converts 1-argument usage correctly AND fallback is legacy-light', () => {
-			const actual = transform({
-				shouldForceAutoFallback: true,
-				defaultTheme: 'legacy-light',
-			})`
-        import { token } from '@atlaskit/tokens';
-        token('test-token');
-      `;
-
-			expect(actual).toMatchInlineSnapshot(`""var(--test-token, #cccccc)";"`);
 		});
 
 		it('converts expression second arguments', () => {
@@ -541,7 +496,7 @@ const getStyles = css => css\`
 			const actual = transform({
 				shouldUseAutoFallback: true,
 				transformTemplateLiterals: false,
-				defaultTheme: 'legacy-light',
+				defaultTheme: 'light',
 			})`
         import { token } from '@atlaskit/tokens';
         token('space.075');

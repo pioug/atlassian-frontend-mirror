@@ -290,10 +290,6 @@ export class SSRPlaceholderHandlers {
 	 * by collecting dimensions from their children instead
 	 */
 	private getEffectiveBoundingRect(el: HTMLElement): DOMRectReadOnly {
-		if (fg('platform_ufo_disable_vcnext_observations')) {
-			return el.getBoundingClientRect();
-		}
-
 		const computedStyle = window.getComputedStyle(el);
 
 		// If element has display: contents, collect bounding rect from children

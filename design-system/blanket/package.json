@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/blanket",
-	"version": "15.0.23",
+	"version": "15.0.24",
 	"description": "A blanket covers the underlying UI for a layered component, such as a modal dialog or a tooltip.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -62,7 +62,7 @@
 		"@atlaskit/toggle": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@testing-library/dom": "root:*",
-		"@testing-library/react": "^16.3.0",
+		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"bind-event-listener": "root:*",
 		"jscodeshift": "root:*",

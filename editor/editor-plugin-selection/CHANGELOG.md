@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-selection
 
+## 7.0.7
+
+### Patch Changes
+
+- [`cbd94bd913e71`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cbd94bd913e71) -
+  [ux] EDITOR-4514 fix gap cursor positioning after paste by adding request animation frame to wait
+  for new content to be inserted into dom
+- Updated dependencies
+
+## 7.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.5
 
 ### Patch Changes

@@ -222,7 +222,8 @@ export const createPlugin = (
 					let tableRef: HTMLTableElement | undefined;
 					if (fg('platform_editor_enable_table_dnd')) {
 						const parent = findParentDomRefOfType(state.schema.nodes.table, domAtPos)(selection);
-						if (parent) {
+						const shouldSetTableRef = fg('platform_editor_enable_table_dnd_patch_1') ? parent && pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode !== 'view' : parent;
+						if (shouldSetTableRef) {
 							tableRef =
 								// Ignored via go/ees005
 								// eslint-disable-next-line @atlaskit/editor/no-as-casting

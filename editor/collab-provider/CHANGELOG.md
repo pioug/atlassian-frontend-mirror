@@ -1,5 +1,22 @@
 # @atlaskit/collab-provider
 
+## 15.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.3.0
+
+### Minor Changes
+
+- [`b2780992bdc66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2780992bdc66) -
+  Send x-client-platform header when establishing socketio connection
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.2.0
 
 ### Minor Changes

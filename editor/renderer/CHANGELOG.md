@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 126.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 126.5.1
+
+### Patch Changes
+
+- [`1c91357f0c2e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c91357f0c2e8) -
+  Confcloud-83420: Fixed edge cases, unskipped tests
+
 ## 126.5.0
 
 ### Minor Changes

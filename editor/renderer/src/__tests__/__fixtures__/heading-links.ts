@@ -31,6 +31,33 @@ export const adfHeadingsNestedPanel: DocNode = {
 	],
 };
 
+export const adfHeadingNestedExpand: DocNode = {
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'expand',
+			attrs: {
+				title: 'Expand A',
+			},
+			content: [
+				{
+					type: 'heading',
+					attrs: {
+						level: 1,
+					},
+					content: [
+						{
+							type: 'text',
+							text: 'Heading 1',
+						},
+					],
+				},
+			],
+		},
+	],
+};
+
 export const adfHeadingsNestedExpands: DocNode = {
 	version: 1,
 	type: 'doc',
@@ -135,6 +162,65 @@ export const adfHeadingsNestedExpands: DocNode = {
 	],
 };
 
+export const adfHeadingInsideTable: DocNode = {
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'table',
+			attrs: {
+				isNumberColumnEnabled: false,
+				layout: 'default',
+			},
+			content: [
+				{
+					type: 'tableRow',
+					content: [
+						{
+							type: 'tableHeader',
+							attrs: {},
+							content: [
+								{
+									type: 'heading',
+									attrs: {
+										level: 4,
+									},
+									content: [
+										{
+											type: 'text',
+											text: 'Table Heading 4',
+										},
+									],
+								},
+							],
+						},
+						{
+							type: 'tableHeader',
+							attrs: {},
+							content: [],
+						},
+					],
+				},
+				{
+					type: 'tableRow',
+					content: [
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [],
+						},
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [],
+						},
+					],
+				},
+			],
+		},
+	],
+};
+
 export const adfHeadingsInsideTable: DocNode = {
 	version: 1,
 	type: 'doc',
@@ -221,6 +307,45 @@ export const adfHeadingsInsideTable: DocNode = {
 							],
 						},
 					],
+				},
+			],
+		},
+	],
+};
+
+export const adfHeadingNestedLayout: DocNode = {
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'layoutSection',
+			content: [
+				{
+					type: 'layoutColumn',
+					attrs: {
+						width: 50,
+					},
+					content: [
+						{
+							type: 'heading',
+							attrs: {
+								level: 4,
+							},
+							content: [
+								{
+									type: 'text',
+									text: 'LC Heading L',
+								},
+							],
+						},
+					],
+				},
+				{
+					type: 'layoutColumn',
+					attrs: {
+						width: 50,
+					},
+					content: [],
 				},
 			],
 		},

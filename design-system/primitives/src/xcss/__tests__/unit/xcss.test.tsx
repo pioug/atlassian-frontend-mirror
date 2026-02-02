@@ -31,8 +31,8 @@ describe('xcss()', () => {
 		expect(styles).toMatchInlineSnapshot(`
 		{
 		  Symbol(UNSAFE_INTERNAL_styles): {
-		    "boxShadow": "var(--ds-shadow-overflow, 0px 0px 8px #091e423f, 0px 0px 1px #091e424f)",
-		    "color": "var(--ds-text, #172B4D)",
+		    "boxShadow": "var(--ds-shadow-overflow, 0px 0px 8px #1E1F21, 0px 0px 1px #1E1F21)",
+		    "color": "var(--ds-text, #292A2E)",
 		    "font": "var(--ds-font-body-small, normal 400 12px/16px "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif)",
 		    "fontFamily": "var(--ds-font-family-code, "Atlassian Mono", ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace)",
 		    "fontWeight": "var(--ds-font-weight-bold, 653)",
@@ -54,7 +54,7 @@ describe('xcss()', () => {
 		expect(styles).toMatchInlineSnapshot(`
 		{
 		  Symbol(UNSAFE_INTERNAL_styles): {
-		    "borderColor": "var(--ds-border, #091e4221)",
+		    "borderColor": "var(--ds-border, #0B120E24)",
 		    "justifyContent": "center",
 		  },
 		}
@@ -122,7 +122,7 @@ describe('xcss()', () => {
 		    },
 		    "@media (min-width: 110.5rem)": {
 		      ":hover": {
-		        "color": "var(--ds-text, #172B4D)",
+		        "color": "var(--ds-text, #292A2E)",
 		      },
 		    },
 		  },

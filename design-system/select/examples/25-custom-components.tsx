@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 
 import { Label } from '@atlaskit/form';
-import Select, { components } from '@atlaskit/select';
-import type { OptionProps, SingleValueProps, ValueType } from '@atlaskit/select';
+import Select, {
+	components,
+	type OptionProps,
+	type SingleValueProps,
+	type ValueType,
+} from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
 interface Option {
@@ -49,6 +53,7 @@ type ColorOption = (typeof colors)[number];
  * If you declare inline you'll have issues with refs
  */
 const CustomColorOption = ({ children, ...props }: OptionProps<ColorOption>) => (
+	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 	<components.Option {...props}>
 		<ColorBox color={children as string} /> {children}
 	</components.Option>
@@ -59,6 +64,7 @@ const CustomColorOption = ({ children, ...props }: OptionProps<ColorOption>) => 
  * If you declare inline you'll have issues with refs
  */
 const CustomValueOption = ({ children, ...props }: SingleValueProps<ColorOption, false>) => (
+	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 	<components.SingleValue {...props}>
 		<ColorBox color={children as string} /> {children}
 	</components.SingleValue>

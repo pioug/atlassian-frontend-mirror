@@ -1,5 +1,13 @@
 # @atlaskit/icon-lab
 
+## 5.15.1
+
+### Patch Changes
+
+- [`5217ed510493f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5217ed510493f) -
+  Remove af:export
+- Updated dependencies
+
 ## 5.15.0
 
 ### Minor Changes

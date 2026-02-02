@@ -88,6 +88,7 @@ interface CustomSelectProps extends WithAnalyticsEventsProps {
 	 */
 	validationState?: ValidationState;
 	descriptionId?: string;
+	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	onClickPreventDefault?: boolean;
 }
 

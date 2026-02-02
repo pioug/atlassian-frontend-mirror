@@ -41,7 +41,7 @@
 		"@atlaskit/tag": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
-		"@testing-library/react": "^16.3.0",
+		"@testing-library/react": "root:*",
 		"react-dom": "root:*"
 	},
 	"techstack": {

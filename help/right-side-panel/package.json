@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/right-side-panel",
-	"version": "3.0.13",
+	"version": "3.0.14",
 	"description": "A cross-product right-side-panel component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -48,7 +48,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/page": "workspace:^",
-		"@testing-library/react": "^16.3.0",
+		"@testing-library/react": "root:*",
 		"@types/exenv": "root:*",
 		"@types/react-transition-group": "root:*",
 		"enzyme": "root:*",

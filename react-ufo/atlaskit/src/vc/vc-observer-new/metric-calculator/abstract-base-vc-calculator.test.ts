@@ -271,8 +271,8 @@ describe('AbstractVCCalculatorBase V1', () => {
 		// Total viewport area = 1024 * 768 = 786432
 		// element1 area = 100 * 50 = 5000, ratio = 5000/786432 ≈ 0.00636
 		// element2 area = 200 * 100 = 20000, ratio = 20000/786432 ≈ 0.02544
-		expect(result?.ratios?.element1).toBeCloseTo(5000 / (1024 * 768), 5);
-		expect(result?.ratios?.element2).toBeCloseTo(20000 / (1024 * 768), 5);
+		expect(result?.ratios?.element1).toBeCloseTo(0.006);
+		expect(result?.ratios?.element2).toBeCloseTo(0.025);
 	});
 
 	describe('Debug info calculation optimization', () => {

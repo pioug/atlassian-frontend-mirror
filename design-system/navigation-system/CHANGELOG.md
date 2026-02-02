@@ -1,5 +1,23 @@
 # @atlassian/navigation-system
 
+## 5.32.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.32.0
+
+### Minor Changes
+
+- [`ea028d2a58383`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea028d2a58383) -
+  Implemented the SkeletonMenuItem and SkeletonMenuSectionHeading components to match the
+  corresponding components they represent.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.31.0
 
 ### Minor Changes

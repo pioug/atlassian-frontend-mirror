@@ -1,6 +1,7 @@
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import type { JSONNode } from '@atlaskit/editor-json-transformer';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 /**
  * Represents the SSR data for a single provider.
@@ -13,6 +14,8 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
  * }
  */
 type SSRData<Data> = { [dataKey: string]: Data };
+
+type CacheRecords<Data> = SSRData<Data>;
 
 /**
  * Represents the cached data for a Node Data Provider.
@@ -112,6 +115,11 @@ export abstract class NodeDataProvider<Node extends JSONNode, Data> {
 	 * @param ssrData A map of node data keys to their corresponding data.
 	 */
 	setSSRData(ssrData: SSRData<Data> = {}): void {
+		if (fg('platform_synced_block_patch1')) {
+			this.updateCache(ssrData, { strategy: 'replace', source: 'ssr' });
+			return;
+		}
+
 		this.cacheVersion++;
 		this.cache = Object.fromEntries(
 			Object.entries(ssrData).map(([key, data]) => [key, { data, source: 'ssr' }]),
@@ -234,10 +242,14 @@ export abstract class NodeDataProvider<Node extends JSONNode, Data> {
 				// because it could be stale data.
 				if (cacheVersionBeforeRequest === this.cacheVersion) {
 					// Replace promise with the resolved data in the cache
-					this.cache[dataKey] = {
-						source: 'network',
-						data,
-					};
+					if (fg('platform_synced_block_patch1')) {
+						this.updateCache({ [dataKey]: data }, { strategy: 'merge', source: 'network' });
+					} else {
+						this.cache[dataKey] = {
+							data,
+							source: 'network',
+						};
+					}
 				}
 			} catch (error) {
 				// If an error occurs, we call the callback with the error
@@ -315,5 +327,61 @@ export abstract class NodeDataProvider<Node extends JSONNode, Data> {
 
 		const dataKey = this.nodeDataKey(jsonNode as Node);
 		return this.cache[dataKey];
+	}
+
+	/**
+	 * Updates the cache with new records using merge or replace strategies.
+	 * This method should be the only way to modify the cache directly.
+	 * This allow subclasses to use it when needed. e.g. abstract fetchNodesData implementation.
+	 *
+	 * @example
+	 * ```
+	 * const newRecords = {
+	 *   'node-id-1': { value: 'updated data' },
+	 *   'node-id-3': { value: 'new data' }
+	 * };
+	 * nodeDataProvider.updateCache(newRecords, { strategy: 'merge', source: 'network' });
+	 * ```
+	 *
+	 * Supports two strategies:
+	 * - 'merge' (default): Merges new records into the existing cache.
+	 * - 'replace': Replaces the entire cache with the new records, invalidating any in-flight requests.
+	 *
+	 * @param records A map of node data keys to their corresponding data.
+	 * @param options Optional settings for the update operation.
+	 * @param options.strategy The strategy to use for updating the cache ('merge' or 'replace'). Defaults to 'merge'.
+	 * @param options.source The source of the data being added ('ssr' or 'network'). Defaults to 'network'.
+	 */
+	public updateCache(
+		records: CacheRecords<Data> = {},
+		options?: { source?: 'ssr' | 'network'; strategy?: 'merge' | 'replace' },
+	): void {
+		const strategy = options?.strategy ?? 'merge';
+		const source = options?.source ?? 'network';
+
+		if (strategy === 'merge') {
+			for (const [key, data] of Object.entries(records)) {
+				this.cache[key] = { data, source };
+			}
+			return;
+		} else if (strategy === 'replace') {
+			// Replace the entire cache with the new records
+			// This will increase the cache version to invalidate any in-flight requests
+			this.resetCache();
+			this.cache = Object.fromEntries(
+				Object.entries(records).map(([key, data]) => [key, { data, source }]),
+			);
+		}
+	}
+
+	/**
+	 * Removes one or more entries from the cache.
+	 *
+	 * @param keys A single data key or array of data keys to remove from the cache.
+	 */
+	public removeFromCache(keys: string[]): void {
+		keys.forEach((key) => {
+			delete this.cache[key];
+		});
 	}
 }

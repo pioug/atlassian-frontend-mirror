@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-table
 
+## 17.3.2
+
+### Patch Changes
+
+- [`e910a57bdc437`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e910a57bdc437) -
+  [ux] EDITOR-4880 Fix cell option menu showing in view mode
+- Updated dependencies
+
+## 17.3.1
+
+### Patch Changes
+
+- [`afb6165b36773`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/afb6165b36773) -
+  [ux] Add new gate for missing cell option menu fix for atlas"
+
 ## 17.3.0
 
 ### Minor Changes

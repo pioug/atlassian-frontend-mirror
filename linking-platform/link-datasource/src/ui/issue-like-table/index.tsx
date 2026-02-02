@@ -14,7 +14,6 @@ import {
 	type DatasourceResponseSchemaProperty,
 	type DatasourceType,
 } from '@atlaskit/linking-types/datasource';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
 import { reorderWithEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/reorder-with-edge';
 import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll';
@@ -242,7 +241,7 @@ const noDefaultBorderStyles = css({
 
 const headerStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	font: token('font.body.UNSAFE_small', fontFallback.body.UNSAFE_small),
+	font: token('font.body.small', fontFallback.body.UNSAFE_small),
 	fontWeight: token('font.weight.medium', '500'),
 });
 
@@ -343,10 +342,7 @@ export const IssueLikeDataTableView = ({
 	const [lastRowElement, setLastRowElement] = useState<HTMLTableRowElement | null>(null);
 	const [hasFullSchema, setHasFullSchema] = useState(false);
 
-	const isInPDFRender = fg('lp_disable_datasource_table_max_height_restriction')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useIsInPDFRender()
-		: false;
+	const isInPDFRender = useIsInPDFRender();
 
 	const isBottomOfTableVisibleRaw = useIsOnScreen(lastRowElement) && !isInPDFRender;
 

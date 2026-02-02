@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-bidi-warning
 
+## 7.0.2
+
+### Patch Changes
+
+- [`d5b15f4306afb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5b15f4306afb) -
+  Remove redundant vanilla codebidi warning experiment
+- Updated dependencies
+
 ## 7.0.1
 
 ### Patch Changes

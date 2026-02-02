@@ -30,6 +30,8 @@ import { css, jsx } from '@emotion/react';
 
 export type HeadingLevels = 1 | 2 | 3 | 4 | 5 | 6;
 
+const RENDERER_HEADING_WRAPPER = 'renderer-heading-wrapper';
+
 const getCurrentUrlWithHash = (hash: string = ''): string => {
 	const url = new URL(window.location.href);
 	url.search = ''; // clear any query params so that the page will correctly scroll to the anchor
@@ -45,8 +47,11 @@ function hasRightAlignmentMark(marks?: PMNode['marks']) {
 }
 
 const wrapperStyles = css({
-	display: 'flex',
-	alignItems: 'baseline',
+	// Important: do NOT use flex here.
+	// With flex + baseline alignment, the anchor aligns to the *first line* of a multi-line heading,
+	// which visually places it at the top-right. We want the anchor to sit immediately after the
+	// last character of the heading (i.e. after the final wrapped line), so we use normal inline flow.
+	display: 'block',
 });
 
 function WrappedHeadingAnchor({
@@ -209,8 +214,13 @@ function HeadingWithWrapper(props: HeadingProps): React.JSX.Element {
 		}
 	};
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-		<div className="renderer-heading-wrapper" data-level={props.level} css={wrapperStyles}>
+		<div
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={RENDERER_HEADING_WRAPPER}
+			data-testid={RENDERER_HEADING_WRAPPER}
+			data-level={props.level}
+			css={wrapperStyles}
+		>
 			{showAnchorLink && headingId && isRightAligned && (
 				<WrappedHeadingAnchor
 					level={props.level}

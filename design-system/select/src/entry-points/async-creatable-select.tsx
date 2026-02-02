@@ -1,1 +1,1 @@
-export { default } from '../AsyncCreatableSelect';
+export { default } from '../async-creatable-select';

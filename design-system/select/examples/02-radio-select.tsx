@@ -9,6 +9,7 @@ import { cities } from './common/data';
 const RadioExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="radio-select-example">What city do you live in?</Label>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<RadioSelect
 			inputId="radio-select-example"
 			testId="react-select"

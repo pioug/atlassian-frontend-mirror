@@ -277,13 +277,13 @@ describe('setGlobalTheme style loading', () => {
 	});
 
 	it('Should not unset initialised themes when updating theme settings', async () => {
-		await setGlobalTheme({ light: 'legacy-light', dark: 'legacy-dark' });
+		await setGlobalTheme({ light: 'light', dark: 'dark' });
 
 		const htmlElement = document.getElementsByTagName('html')[0];
 		expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
 		expect(htmlElement).toHaveAttribute(
 			THEME_DATA_ATTRIBUTE,
-			'dark:legacy-dark light:legacy-light spacing:spacing typography:typography',
+			'dark:dark light:light spacing:spacing typography:typography',
 		);
 
 		// Updating theme color mode using the function argument to only update color mode
@@ -292,7 +292,7 @@ describe('setGlobalTheme style loading', () => {
 		expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'dark');
 		expect(htmlElement).toHaveAttribute(
 			THEME_DATA_ATTRIBUTE,
-			'dark:legacy-dark light:legacy-light spacing:spacing typography:typography',
+			'dark:dark light:light spacing:spacing typography:typography',
 		);
 
 		// Updating theme color mode using the object argument overrides non-defined theme settings to defaults
@@ -449,8 +449,8 @@ describe('setGlobalTheme style loading', () => {
 			async () => {
 				await setGlobalTheme(
 					{
-						light: 'legacy-light',
-						dark: 'legacy-dark',
+						light: 'light',
+						dark: 'dark',
 						spacing: 'spacing',
 						typography: 'typography',
 						colorMode: 'light',
@@ -463,7 +463,7 @@ describe('setGlobalTheme style loading', () => {
 
 				expect(htmlElement).toHaveAttribute(
 					THEME_DATA_ATTRIBUTE,
-					'dark:legacy-dark light:legacy-light spacing:spacing typography:typography',
+					'dark:dark light:light spacing:spacing typography:typography',
 				);
 
 				expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
@@ -472,8 +472,8 @@ describe('setGlobalTheme style loading', () => {
 			async () => {
 				await setGlobalTheme(
 					{
-						light: 'legacy-light',
-						dark: 'legacy-dark',
+						light: 'light',
+						dark: 'dark',
 						spacing: 'spacing',
 						typography: 'typography',
 						colorMode: 'light',
@@ -486,7 +486,7 @@ describe('setGlobalTheme style loading', () => {
 
 				expect(htmlElement).toHaveAttribute(
 					THEME_DATA_ATTRIBUTE,
-					'dark:legacy-dark light:legacy-light spacing:spacing typography:typography',
+					'dark:dark light:light spacing:spacing typography:typography',
 				);
 
 				expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
@@ -498,8 +498,8 @@ describe('setGlobalTheme style loading', () => {
 	it('should NOT add style elements by default when a theme loader is provided', async () => {
 		await setGlobalTheme(
 			{
-				light: 'legacy-light',
-				dark: 'legacy-dark',
+				light: 'light',
+				dark: 'dark',
 				spacing: 'spacing',
 				typography: 'typography',
 				colorMode: 'light',
@@ -661,8 +661,8 @@ it('should load only necessary color modes on repeat calls', async () => {
 				'platform_increased-contrast-themes',
 				async () => {
 					await themeSetter({
-						light: 'legacy-light',
-						dark: 'legacy-dark',
+						light: 'light',
+						dark: 'dark',
 						shape: 'shape',
 						spacing: 'spacing',
 						typography: 'typography',
@@ -672,15 +672,15 @@ it('should load only necessary color modes on repeat calls', async () => {
 					const htmlElement = document.getElementsByTagName('html')[0];
 					expect(htmlElement).toHaveAttribute(
 						THEME_DATA_ATTRIBUTE,
-						'dark:legacy-dark light:legacy-light shape:shape spacing:spacing typography:typography',
+						'dark:dark light:light shape:shape spacing:spacing typography:typography',
 					);
 					expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
 					expect(htmlElement).toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more');
 				},
 				async () => {
 					await themeSetter({
-						light: 'legacy-light',
-						dark: 'legacy-dark',
+						light: 'light',
+						dark: 'dark',
 						shape: 'shape',
 						spacing: 'spacing',
 						typography: 'typography',
@@ -690,7 +690,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 					const htmlElement = document.getElementsByTagName('html')[0];
 					expect(htmlElement).toHaveAttribute(
 						THEME_DATA_ATTRIBUTE,
-						'dark:legacy-dark light:legacy-light shape:shape spacing:spacing typography:typography',
+						'dark:dark light:light shape:shape spacing:spacing typography:typography',
 					);
 					expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
 					expect(htmlElement).not.toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more');
@@ -703,8 +703,8 @@ it('should load only necessary color modes on repeat calls', async () => {
 				'platform_increased-contrast-themes',
 				async () => {
 					await themeSetter({
-						light: 'legacy-light',
-						dark: 'legacy-dark',
+						light: 'light',
+						dark: 'dark',
 						shape: 'shape',
 						spacing: 'spacing',
 						typography: 'typography',
@@ -715,7 +715,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 					const htmlElement = document.getElementsByTagName('html')[0];
 					expect(htmlElement).toHaveAttribute(
 						THEME_DATA_ATTRIBUTE,
-						'dark:legacy-dark light:legacy-light shape:shape spacing:spacing typography:typography',
+						'dark:dark light:light shape:shape spacing:spacing typography:typography',
 					);
 					expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
 					expect(htmlElement).toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more');
@@ -723,8 +723,8 @@ it('should load only necessary color modes on repeat calls', async () => {
 				},
 				async () => {
 					await themeSetter({
-						light: 'legacy-light',
-						dark: 'legacy-dark',
+						light: 'light',
+						dark: 'dark',
 						shape: 'shape',
 						spacing: 'spacing',
 						typography: 'typography',
@@ -735,7 +735,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 					const htmlElement = document.getElementsByTagName('html')[0];
 					expect(htmlElement).toHaveAttribute(
 						THEME_DATA_ATTRIBUTE,
-						'dark:legacy-dark light:legacy-light shape:shape spacing:spacing typography:typography',
+						'dark:dark light:light shape:shape spacing:spacing typography:typography',
 					);
 					expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
 					expect(htmlElement).not.toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more');
@@ -879,8 +879,8 @@ it('should load only necessary color modes on repeat calls', async () => {
 				async () => {
 					await themeSetter(
 						{
-							light: 'legacy-light',
-							dark: 'legacy-dark',
+							light: 'light',
+							dark: 'dark',
 							spacing: 'spacing',
 							typography: 'typography',
 							colorMode: 'light',
@@ -893,7 +893,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 
 					expect(htmlElement).toHaveAttribute(
 						THEME_DATA_ATTRIBUTE,
-						'dark:legacy-dark light:legacy-light spacing:spacing typography:typography',
+						'dark:dark light:light spacing:spacing typography:typography',
 					);
 
 					expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
@@ -902,8 +902,8 @@ it('should load only necessary color modes on repeat calls', async () => {
 				async () => {
 					await themeSetter(
 						{
-							light: 'legacy-light',
-							dark: 'legacy-dark',
+							light: 'light',
+							dark: 'dark',
 							spacing: 'spacing',
 							typography: 'typography',
 							colorMode: 'light',
@@ -916,7 +916,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 
 					expect(htmlElement).toHaveAttribute(
 						THEME_DATA_ATTRIBUTE,
-						'dark:legacy-dark light:legacy-light spacing:spacing typography:typography',
+						'dark:dark light:light spacing:spacing typography:typography',
 					);
 
 					expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');

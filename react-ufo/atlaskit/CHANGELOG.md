@@ -1,5 +1,23 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.0.13
+
+### Patch Changes
+
+- [`3f0729c82ac47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f0729c82ac47) -
+  FG cleanup - platform_ufo_disable_vcnext_observations, remove getMutatedElements fn
+
+## 5.0.12
+
+### Patch Changes
+
+- [`898be43686c8a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/898be43686c8a) -
+  FG cleanup - platform_ufo_fix_post_interaction_check_vc_debug
+- [`36667747cf1b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/36667747cf1b8) -
+  FG cleanup - platform_ufo_auto_add_ssr_entry_in_ttvc_v4
+- [`18a9917b5d23d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18a9917b5d23d) -
+  FG cleanup - platform_ufo_round_vc_ratios
+
 ## 5.0.11
 
 ### Patch Changes

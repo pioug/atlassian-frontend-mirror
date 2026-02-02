@@ -16,8 +16,6 @@ export type Themes =
 	| 'atlassian-dark'
 	| 'atlassian-dark-future'
 	| 'atlassian-dark-increased-contrast'
-	| 'atlassian-legacy-light'
-	| 'atlassian-legacy-dark'
 	| 'atlassian-shape'
 	| 'atlassian-spacing'
 	| 'atlassian-typography'
@@ -68,8 +66,6 @@ export const themeIds = [
 	'dark',
 	'dark-future',
 	'dark-increased-contrast',
-	'legacy-light',
-	'legacy-dark',
 	'spacing',
 	'shape',
 	'typography'
@@ -101,12 +97,7 @@ type ExtensionThemeId = ThemeIds;
  * For example: legacy light & dark themes use the "legacyPalette" containing colors from our
  * previous color set.
  */
-export type Palettes =
-	| 'defaultPalette'
-	| 'legacyPalette'
-	| 'spacingScale'
-	| 'shapePalette'
-	| 'typographyPalette';
+export type Palettes = 'defaultPalette' | 'spacingScale' | 'shapePalette' | 'typographyPalette';
 
 /**
  * ThemeConfig: the source of truth for all theme meta-data.
@@ -214,24 +205,6 @@ const themeConfig: Record<Themes | ThemeOverrides, ThemeConfig> = {
 		extends: 'dark',
 		increasesContrastFor: 'dark',
 	},
-	'atlassian-legacy-light': {
-		id: 'legacy-light',
-		displayName: 'Light Theme (legacy)',
-		palette: 'legacyPalette',
-		attributes: {
-			type: 'color',
-			mode: 'light',
-		},
-	},
-	'atlassian-legacy-dark': {
-		id: 'legacy-dark',
-		displayName: 'Dark Theme (legacy)',
-		palette: 'legacyPalette',
-		attributes: {
-			type: 'color',
-			mode: 'dark',
-		},
-	},
 	'atlassian-spacing': {
 		id: 'spacing',
 		displayName: 'Atlassian Spacing',
@@ -278,8 +251,6 @@ export interface ThemeState {
 		| 'light-future'
 		| 'dark'
 		| 'dark-future'
-		| 'legacy-dark'
-		| 'legacy-light'
 		| 'light-increased-contrast'
 		| 'dark-increased-contrast'
 	>;
@@ -289,8 +260,6 @@ export interface ThemeState {
 		| 'light-future'
 		| 'dark'
 		| 'dark-future'
-		| 'legacy-dark'
-		| 'legacy-light'
 		| 'light-increased-contrast'
 		| 'dark-increased-contrast'
 	>;

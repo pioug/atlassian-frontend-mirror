@@ -1,5 +1,19 @@
 # @atlaskit/editor-core
 
+## 216.7.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 216.7.18
+
+### Patch Changes
+
+- [`d5b15f4306afb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5b15f4306afb) -
+  Remove redundant vanilla codebidi warning experiment
+- Updated dependencies
+
 ## 216.7.17
 
 ### Patch Changes

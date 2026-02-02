@@ -899,7 +899,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 								if (
 									this.table &&
 									this.props.view &&
-									expValEquals('platform_editor_table_update_table_ref', 'isEnabled', true)
+									(expValEquals('platform_editor_table_update_table_ref', 'isEnabled', true) ||
+										fg('platform_editor_enable_table_update_ref_atlas'))
 								) {
 									setTableRef(this.table)(this.props.view.state, this.props.view.dispatch);
 								}

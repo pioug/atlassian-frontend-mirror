@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/css",
-	"version": "0.19.1",
+	"version": "0.19.2",
 	"description": "Style components backed by Atlassian Design System design tokens powered by Compiled CSS-in-JS.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -61,7 +61,7 @@
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@emotion/react": "root:*",
-		"@testing-library/react": "^16.3.0",
+		"@testing-library/react": "root:*",
 		"@types/jscodeshift": "root:*",
 		"jscodeshift": "root:*",
 		"react-dom": "root:*"

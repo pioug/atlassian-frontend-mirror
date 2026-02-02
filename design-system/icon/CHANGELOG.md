@@ -1,5 +1,18 @@
 # @atlaskit/icon
 
+## 30.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.1
+
+### Patch Changes
+
+- [`5217ed510493f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5217ed510493f) -
+  Remove af:export
+
 ## 30.0.0
 
 ### Major Changes

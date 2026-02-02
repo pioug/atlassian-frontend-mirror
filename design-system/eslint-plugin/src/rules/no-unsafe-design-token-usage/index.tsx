@@ -182,6 +182,15 @@ token('color.background.blanket');
 				} else if (node.arguments.length > 1 && config.fallbackUsage === 'none') {
 					if (node.arguments[0].type === 'Literal') {
 						const { value } = node.arguments[0];
+
+						/**
+						 * This check allows ADS tokens to be passed in via UNSAFE_ignoreTokens and allow fallbacks even if `fallbackUsage` is set to 'none'.
+						 * Temporary solution introduced to allow fallbacks for shape tokens in Jira during migration
+						 */
+						if (value && UNSAFE_ignoreTokens.has(value as string)) {
+							return;
+						}
+
 						context.report({
 							messageId: 'tokenFallbackRestricted',
 							node: node.arguments[1],

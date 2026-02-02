@@ -1,9 +1,10 @@
+/* eslint-disable @repo/internal/fs/filename-pattern-match */
 import {
-	withAnalyticsEvents,
-	withAnalyticsContext,
 	createAndFireEvent,
+	withAnalyticsContext,
+	withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
-import '../../../Select';
+import '../../../select';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;

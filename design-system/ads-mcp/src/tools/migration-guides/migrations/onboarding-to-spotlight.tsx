@@ -4,61 +4,63 @@ const additionalResources =
 	'Visit https://hello.atlassian.net/wiki/spaces/DST/pages/6069774593 or https://atlassian.design/components/spotlight for more context';
 
 export const onboardingSingleStep: MigrationGuide = {
-	id: 'onboarding-single-step',
+	id: 'single-step',
 	title: 'Single Step Spotlight Migration',
-	description: 'Migrate a single step spotlight from @atlaskit/onboarding to @atlaskit/spotlight',
+	description: 'Use when code ONLY has `Spotlight` from `@atlaskit/onboarding` (no JiraSpotlight)',
 	fromPackage: '@atlaskit/onboarding',
 	toPackage: '@atlaskit/spotlight',
 	examples: [
 		{
 			title: 'Migrate single step spotlight',
 			description:
-				'Replace SpotlightManager, SpotlightTarget, SpotlightTransition, and Spotlight with the new compositional @atlaskit/spotlight components',
-			before: `import React, { useState } from 'react';
+				'Replace SpotlightTarget, and Spotlight with the new compositional @atlaskit/spotlight components',
+			before: `
+// file1.tsx
+import React, { useState } from 'react';
 import Button from '@atlaskit/button/new';
-import {
-  Spotlight,
-  SpotlightManager,
-  SpotlightTarget,
-  SpotlightTransition,
-} from '@atlaskit/onboarding';
+import { Spotlight } from '@atlaskit/onboarding';
 
 const OnboardingSpotlight = () => {
-  const [isSpotlightActive, setIsSpotlightActive] = useState(false);
+  const [isSpotlightActive, setIsSpotlightActive] = useState(true);
   const start = () => setIsSpotlightActive(true);
   const end = () => setIsSpotlightActive(false);
 
   return (
-    <SpotlightManager>
-      <SpotlightTarget name="my-target">
-        <Button>Target Element</Button>
-      </SpotlightTarget>
-      <div>
-        <Button appearance="primary" onClick={start}>
-          Show spotlight
-        </Button>
-      </div>
-      <SpotlightTransition>
-        {isSpotlightActive && (
-          <Spotlight
-            actions={[
-              {
-                onClick: end,
-                text: 'Got it',
-              },
-            ]}
-            heading="Feature Heading"
-            target="my-target"
-            key="my-target"
-          >
-            This is the spotlight body content describing the feature.
-          </Spotlight>
-        )}
-      </SpotlightTransition>
-    </SpotlightManager>
+		{isSpotlightActive && (
+			<Spotlight
+				dialogPlacement='bottom right'
+				actions={[
+					{
+						onClick: end,
+						text: 'Got it',
+					},
+				]}
+				heading="Feature Heading"
+				target="my-target"
+			>
+				This is the spotlight body content describing the feature.
+			</Spotlight>
+		)}
   );
-};`,
-			after: `import React, { useState } from 'react';
+};
+
+// file2.tsx
+import React from 'react';
+import Button from '@atlaskit/button/new';
+import { Spotlight } from '@atlaskit/onboarding';
+
+const SomeFeature = () => {
+
+  return (
+		<SpotlightTarget name="my-target">
+			<Button>Target Element</Button>
+		</SpotlightTarget>
+  );
+};
+`,
+			after: `
+// file2.tsx -- the Spotlight has been co-located to the targeted element.
+import React, { useState } from 'react';
 import Button from '@atlaskit/button/new';
 import { Text } from '@atlaskit/primitives/compiled';
 import {
@@ -108,6 +110,7 @@ const Spotlight = () => {
   );
 };`,
 			explanation: `Key changes when migrating a single step spotlight:
+- Do not use this migration guide for JiraSpotlight. Use 'jira-spotlight' instead.
 - PopoverProvider maintains internal Spotlight state. SpotlightManager coordinated multiple @atlaskit/onboarding usages and is no longer needed.
 - Replace SpotlightTarget with PopoverTarget - wraps the element to highlight
 - Replace Spotlight with PopoverContent containing SpotlightCard - controls visibility and positioning
@@ -116,7 +119,7 @@ const Spotlight = () => {
 - The children content moves into SpotlightBody wrapped with Text component
 - Add SpotlightDismissControl inside SpotlightControls for the close button
 - The 'target' and/or 'targetName' prop is replaced with PopoverTarget directly wrapping the target element
-- The 'dialogPlacement' prop becomes 'placement' on PopoverContent. Mapping: "top-right" → "top-start", "top-center" → "top", "top-left" → "top-end", "right-bottom" → "right-start", "right-middle" → "right-start | right-end", "right-top" → "right-end", "bottom-left" → "bottom-end", "bottom-center" → "bottom", "bottom-right" → "bottom-start", "left-top" → "left-end", "left-middle" → "left-start | left-end", "left-bottom" → "left-start"'`,
+- The 'dialogPlacement' prop becomes 'placement' on PopoverContent. Mapping: "top right" → "top-start", "top center" → "top", "top left" → "top-end", "right bottom" → "right-start", "right middle" → "right-start | right-end", "right top" → "right-end", "bottom left" → "bottom-end", "bottom center" → "bottom", "bottom right" → "bottom-start", "left top" → "left-end", "left middle" → "left-start | left-end", "left bottom" → "left-start"'`,
 		},
 	],
 	bestPractices: [
@@ -129,60 +132,165 @@ const Spotlight = () => {
 };
 
 export const onboardingJiraSpotlight: MigrationGuide = {
-	id: 'onboarding-jira-spotlight',
+	id: 'jira-spotlight',
 	title: 'JiraSpotlight Migration',
-	description: 'Migrate a <JiraSpotlight /> from @atlaskit/onboarding to @atlaskit/spotlight',
+	description: 'Use when code contains `JiraSpotlight` import from `@atlassian/jira-spotlight`',
 	fromPackage: '@atlassian/jira-spotlight',
 	toPackage: '@atlaskit/spotlight',
 	examples: [
 		{
-			title: 'Migrate <JiraSpotlight />',
-			description:
-				'Replace <JiraSpotlight> with <ChoreographedComponent> and migrate children to @atlaskit/spotlight.',
+			title: 'Internal <JiraSpotlight /> migration',
+			description: 'Internal migrations are possible for JiraSpotlight usages which only pass simple/textual content to JiraSpotlight children',
 			before: `
+// file1.tsx
 import { JiraSpotlight } from '@atlassian/jira-spotlight/src/ui/jira-spotlight.tsx';
-import { SpotlightTarget, SpotlightTransition } from '@atlaskit/onboarding';
 
 export const OnboardingSpotlightWrapper = () => {
+	const spotlightId = 'some-unique-identifier'
 	const { dark, light } = spotlightImageUrls[spotlightId];
 	const imageUrl = colorMode === 'dark' ? dark : light;
 
-	const [isSpotlightVisible, actions] = useListViewOnboarding({
-		projectId: String(projectData.id),
-		id: spotlightId,
-	});
+	return (
+		<JiraSpotlight
+			image={imageUrl}
+			actions={[
+				{
+					onClick,
+					text: formatMessage(dismiss),
+				},
+			]}
+			heading={formatMessage(heading)}
+			target={spotlightId}
+			key={spotlightId}
+			targetRadius={3}
+			targetBgColor={token('elevation.surface')}
+			messageId={spotlightId}
+			messageType="transactional"
+			dialogWidth={275}
+		>
+			{formatMessage(body)}
+		</JiraSpotlight>
+	);
+}
 
-	if (isSpotlightVisible) {
-		return (
-			<>
-				<SpotlightTarget name={spotlightId}>{renderTrigger(isSpotlightVisible)}</SpotlightTarget>
-				<SpotlightTransition>
-					<JiraSpotlight
-						image={imageUrl}
-						actions={[
-							{
-								onClick,
-								text: formatMessage(dismiss),
-							},
-						]}
-						heading={formatMessage(heading)}
-						target={spotlightId}
-						key={spotlightId}
-						targetRadius={3}
-						targetBgColor={token('elevation.surface')}
-						messageId={spotlightId}
-						messageType="transactional"
-						dialogWidth={275}
-					>
-						{formatMessage(body)}
-					</JiraSpotlight>
-				</SpotlightTransition>
-			</>
-		);
-	}
+// file2.tsx
+import { SpotlightTarget } from '@atlaskit/onboarding';
+
+const spotlightId = 'some-unique-identifier'
+
+export const SomeFeature = () => {
+	return (
+		<SpotlightTarget name={spotlightId}>
+			// Target code
+		</SpotlightTarget>
+	);
+}
+`,
+			after: `
+// file1.tsx
+import { JiraSpotlight } from '@atlassian/jira-spotlight/src/ui/jira-spotlight.tsx';
+
+export const OnboardingSpotlightWrapper = () => {
+	const spotlightId = 'some-unique-identifier'
+	const { dark, light } = spotlightImageUrls[spotlightId];
+	const imageUrl = colorMode === 'dark' ? dark : light;
+
+	return (
+		<JiraSpotlight
+			isMigrated // isMigrated prop passed
+			image={imageUrl}
+			actions={[
+				{
+					onClick,
+					text: formatMessage(dismiss),
+				},
+			]}
+			heading={formatMessage(heading)}
+			target={spotlightId}
+			key={spotlightId}
+			targetRadius={3}
+			targetBgColor={token('elevation.surface')}
+			messageId={spotlightId}
+			messageType="transactional"
+			dialogWidth={275}
+		>
+			{formatMessage(body)}
+		</JiraSpotlight>
+	);
+}
+
+// file2.tsx
+// Updated SpotlightTarget import statement
+import { SpotlightTarget } from '@atlassian/jira-spotlight/src/ui/SpotlightTarget.tsx';
+
+export const SomeFeature = () => {
+	const spotlightId = 'some-unique-identifier'
+
+	return (
+		<SpotlightTarget name={spotlightId}>
+			// Target code
+		</SpotlightTarget>
+	);
 }
 			`,
+			explanation: `Key changes when migrating a JiraSpotlight:
+- A JiraSpotlight and a SpotlightTarget are part of the same usage if they share a spotlightId value - Referenced in JiraSpotlight.target and SpotlightTarget.name props
+- Pass isMigrated={true} to JiraSpotlight.
+- Update SpotlightTarget import statment from '@atlaskit/onboarding' to '@atlassian/jira-spotlight/src/ui/SpotlightTarget.tsx';
+- These changes allow switching the internal implementation to '@atlaskit/spotlight' via a feature flag.
+- This internal migration is only possible for usages that don't rely too heavily on the 'children' prop, as complex values, like heading, images, etc passed to 'children' are difficult to parse.
+`,
+		},
+
+		{
+			title: 'Complex <JiraSpotlight /> migration',
+			description: 'Complex migrations are necessary for JiraSpotlight usages that make heavy use of the `children` prop to achieve customisation instead of relying on the `heading`, `body`, `image`, and/or `actions` props.',
+			before: `
+// file1.tsx
+import { JiraSpotlight } from '@atlassian/jira-spotlight/src/ui/jira-spotlight.tsx';
+
+export const OnboardingSpotlightWrapper = () => {
+	const spotlightId = 'some-unique-identifier'
+	const { dark, light } = spotlightImageUrls[spotlightId];
+	const imageUrl = colorMode === 'dark' ? dark : light;
+
+	return (
+		<JiraSpotlight
+			target={spotlightId}
+			targetRadius={3}
+			dialogPlacement=''
+			targetBgColor={token('elevation.surface')}
+			messageId={spotlightId}
+			messageType="transactional"
+			dialogWidth={275}
+		>
+			<CustomSpotlightInner>
+				{imageUrl}
+				{formatMessage(heading)}
+				{formatMessage(body)}
+				<CustomSpotlightAction>
+					{formatMessage(dismiss)}
+				</CustomSpotlightAction>
+			</CustomSpotlightInner>
+		</JiraSpotlight>
+	);
+}
+
+// file2.tsx
+import { SpotlightTarget } from '@atlaskit/onboarding';
+
+const spotlightId = 'some-unique-identifier'
+
+export const SomeFeature = () => {
+	return (
+		<SpotlightTarget name={spotlightId}>
+			// Target code
+		</SpotlightTarget>
+	);
+}
+`,
 			after: `
+// file2.tsx - Spotlight code has been co-located to the targeted element
 import { Text } from '@atlaskit/primitives/compiled';
 import {
   PopoverContent,
@@ -198,11 +306,10 @@ import {
   SpotlightHeadline,
   SpotlightPrimaryAction,
 } from '@atlaskit/spotlight';
-import { FadeIn } from '@atlaskit/motion';
 import Image from '@atlaskit/image';
 import { ChoreographedComponent } from '@atlassian/jira-spotlight/src/ui/ChoreographedComponent.tsx';
 
-export const OnboardingSpotlightWrapper = () => {
+export const SomeFeature = () => {
 	const { dark, light } = spotlightImageUrls[spotlightId];
 
 	const [isSpotlightVisible, actions] = useListViewOnboarding({
@@ -215,33 +322,27 @@ export const OnboardingSpotlightWrapper = () => {
 			<PopoverTarget>{renderTrigger(isSpotlightVisible)}</PopoverTarget>
 			<ChoreographedComponent messageId={spotlightId} messageType="transactional">
 				<PopoverContent isVisible={isSpotlightVisible} placement="bottom-start" dismiss={onClick}>
-					<FadeIn entranceDirection="left">
-						{(props) => (
-							<div {...props}>
-								<SpotlightCard>
-									<SpotlightHeader>
-										<SpotlightHeadline>{formatMessage(heading)}</SpotlightHeadline>
-										<SpotlightControls>
-											<SpotlightDismissControl />
-										</SpotlightControls>
-									</SpotlightHeader>
-									<SpotlightMedia>
-										<Image src={light} srcDark={dark} alt="" />
-									</SpotlightMedia>
-									<SpotlightBody>
-										<Text>{formatMessage(body)}</Text>
-									</SpotlightBody>
-									<SpotlightFooter>
-										<SpotlightActions>
-											<SpotlightPrimaryAction onClick={onClick}>
-												{formatMessage(dismiss)}
-											</SpotlightPrimaryAction>
-										</SpotlightActions>
-									</SpotlightFooter>
-								</SpotlightCard>
-							</div>
-						)}
-					</FadeIn>
+					<SpotlightCard>
+						<SpotlightHeader>
+							<SpotlightHeadline>{formatMessage(heading)}</SpotlightHeadline>
+							<SpotlightControls>
+								<SpotlightDismissControl />
+							</SpotlightControls>
+						</SpotlightHeader>
+						<SpotlightMedia>
+							<Image src={light} srcDark={dark} alt="" />
+						</SpotlightMedia>
+						<SpotlightBody>
+							<Text>{formatMessage(body)}</Text>
+						</SpotlightBody>
+						<SpotlightFooter>
+							<SpotlightActions>
+								<SpotlightPrimaryAction onClick={onClick}>
+									{formatMessage(dismiss)}
+								</SpotlightPrimaryAction>
+							</SpotlightActions>
+						</SpotlightFooter>
+					</SpotlightCard>
 				</PopoverContent>
 			</ChoreographedComponent>
 		</PopoverProvider>
@@ -249,28 +350,23 @@ export const OnboardingSpotlightWrapper = () => {
 };`,
 			explanation: `Key changes when migrating a single step spotlight:
 - Replace JiraSpotlight with ChoreographedComponent from '@atlassian/jira-spotlight'.
-- PopoverProvider maintains internal Spotlight state. SpotlightManager coordinated multiple @atlaskit/onboarding usages and is no longer needed.
+- PopoverProvider maintains internal Spotlight state.
 - Replace SpotlightTarget with PopoverTarget - wraps the element to highlight
 - Replace Spotlight with PopoverContent containing SpotlightCard - controls visibility and positioning
-- The 'heading' prop becomes SpotlightHeadline inside SpotlightHeader
-- The 'actions' array becomes SpotlightActions with SpotlightPrimaryAction (and optionally SpotlightSecondaryAction)
-- The children content moves into SpotlightBody wrapped with Text component
+- 'heading' becomes SpotlightHeadline inside SpotlightHeader
+- 'actions' becomes SpotlightActions with SpotlightPrimaryAction (and optionally SpotlightSecondaryAction)
+- 'body' content moves into SpotlightBody wrapped with Text component
 - Add SpotlightDismissControl inside SpotlightControls for the close button
 - The 'target' and/or 'targetName' prop is replaced with PopoverTarget directly wrapping the target element
-- The 'dialogPlacement' prop becomes 'placement' on PopoverContent. Mapping: "top-right" → "top-start", "top-center" → "top", "top-left" → "top-end", "right-bottom" → "right-start", "right-middle" → "right-start | right-end", "right-top" → "right-end", "bottom-left" → "bottom-end", "bottom-center" → "bottom", "bottom-right" → "bottom-start", "left-top" → "left-end", "left-middle" → "left-start | left-end", "left-bottom" → "left-start"'`,
+- 'dialogPlacement' prop becomes 'placement' on PopoverContent. Mapping: "top right" → "top-start", "top center" → "top", "top left" → "top-end", "right bottom" → "right-start", "right middle" → "right-start | right-end", "right top" → "right-end", "bottom left" → "bottom-end", "bottom center" → "bottom", "bottom right" → "bottom-start", "left top" → "left-end", "left middle" → "left-start | left-end", "left bottom" → "left-start"'`,
 		},
 	],
-	bestPractices: [
-		'PopoverTarget should wrap exactly one child element that will be highlighted',
-		'Always include SpotlightDismissControl for accessibility - allows users to dismiss via close button',
-		'SpotlightPrimaryAction is required and wraps the main CTA button',
-		'Wrap body text content in the Text component from @atlaskit/primitives/compiled',
-	],
+	bestPractices: [],
 	additionalResources,
 };
 
 export const onboardingMultiStep: MigrationGuide = {
-	id: 'onboarding-multi-step',
+	id: 'multi-step',
 	title: 'Multi Step Spotlight Tour Migration',
 	description:
 		'Migrate a multi-step spotlight tour from @atlaskit/onboarding to @atlaskit/spotlight',
@@ -445,7 +541,7 @@ const SpotlightTour = () => {
 - Use SpotlightPrimaryAction for "Next" and "Done" buttons
 - The renderActiveSpotlight pattern is no longer needed - visibility is controlled declaratively
 - Navigation functions use Math.max/Math.min to bound the step range safely
-- All other migration changes from single step spotlight apply(PopoverProvider, compositional components, etc.)`,
+- All other migration changes from single step spotlight migration guide apply.`,
 		},
 	],
 	bestPractices: [
@@ -461,7 +557,7 @@ const SpotlightTour = () => {
 };
 
 export const onboardingWithMotion: MigrationGuide = {
-	id: 'onboarding-with-motion',
+	id: 'motion',
 	title: 'Single Step Spotlight with Motion Migration',
 	description:
 		'Migrate a single step spotlight with entrance animation from @atlaskit/onboarding to @atlaskit/spotlight using @atlaskit/motion',

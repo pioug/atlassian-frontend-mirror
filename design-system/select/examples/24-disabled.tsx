@@ -8,6 +8,7 @@ import { cities } from './common/data';
 const DisabledSelects = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="disabled-single">Disabled Single Select</Label>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<Select
 			inputId="disabled-single"
 			isDisabled
@@ -21,6 +22,7 @@ const DisabledSelects = (): React.JSX.Element => (
 			placeholder=""
 		/>
 		<Label htmlFor="disabled-multi">Disabled Multi Select</Label>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<Select
 			inputId="disabled-multi"
 			isDisabled
@@ -36,6 +38,7 @@ const DisabledSelects = (): React.JSX.Element => (
 			placeholder=""
 		/>
 		<Label htmlFor="disabled-options-single">Single Select with disabled options</Label>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<Select
 			inputId="disabled-options-single"
 			testId="react-select-single-disabled-options"
@@ -48,6 +51,7 @@ const DisabledSelects = (): React.JSX.Element => (
 			placeholder=""
 		/>
 		<Label htmlFor="disabled-options-multi">Multi Select with disabled options</Label>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<Select
 			inputId="disabled-options-multi"
 			testId="react-select-multi-disabled-options"
@@ -64,6 +68,7 @@ const DisabledSelects = (): React.JSX.Element => (
 		<Label htmlFor="disabled-multi-clear">
 			Disabled Multi Select showing selections have no "clear" icon
 		</Label>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<Select
 			inputId="disabled-multi-clear"
 			isDisabled
@@ -77,6 +82,7 @@ const DisabledSelects = (): React.JSX.Element => (
 		<Label htmlFor="disabled-options-single-displayed">
 			Single Select with disabled options displayed
 		</Label>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<Select
 			inputId="disabled-options-single-displayed"
 			menuIsOpen

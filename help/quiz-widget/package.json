@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/quiz-widget",
-	"version": "3.0.22",
+	"version": "3.0.23",
 	"description": "A React component that gives a possibility to pass quizzes",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -48,7 +48,7 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@testing-library/react": "^16.3.0",
+		"@testing-library/react": "root:*",
 		"enzyme": "root:*",
 		"wait-for-expect": "root:*"
 	}

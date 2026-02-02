@@ -61,6 +61,22 @@ export function createSocketIOSocket(
 		}
 	}
 
+	const extraHeaders: Record<string, string> = {
+		'x-product': getProduct(productInfo),
+		'x-subproduct': getSubProduct(productInfo),
+	};
+
+	if (
+		expValEquals(
+			'platform_editor_send_client_platform_header',
+			'isEnabled',
+			true,
+			false,
+		)
+	) {
+		extraHeaders['x-client-platform'] = 'web';
+	}
+
 	const client = io(url, {
 		reconnectionDelayMax: socketIOOptions.RECONNECTION_DELAY_MAX,
 		reconnectionDelay: socketIOOptions.RECONNECTION_DELAY,
@@ -70,10 +86,7 @@ export function createSocketIOSocket(
 		transports,
 		path: usePMR && path ? `${path}/socket.io` : `/${pathname.split('/')[1]}/socket.io`,
 		auth,
-		extraHeaders: {
-			'x-product': getProduct(productInfo),
-			'x-subproduct': getSubProduct(productInfo),
-		},
+		extraHeaders,
 	});
 
 	return client;

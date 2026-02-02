@@ -4,7 +4,6 @@ import { useIntl } from 'react-intl-next';
 
 import VerifiedIcon from '@atlaskit/icon/core/status-verified';
 import type { IconSpacing } from '@atlaskit/icon/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -47,12 +46,7 @@ export const VerifiedTeamIcon = ({
 }: VerifiedTeamIconProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const tooltipContent = showTooltip
-		? customTooltipContent ||
-			formatMessage(
-				fg('people-teams-update-verified-team-tooltip')
-					? messages.verifiedIconDefaultTooltipNext
-					: messages.verifiedIconDefaultTooltip,
-			)
+		? customTooltipContent || formatMessage(messages.verifiedIconDefaultTooltip)
 		: undefined;
 
 	return tooltipContent ? (

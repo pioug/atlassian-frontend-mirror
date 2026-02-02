@@ -43,9 +43,6 @@ function ThemeSwitcher() {
       </Box>
       <DropdownMenu trigger="Change light theme">
         <DropdownItemGroup>
-          <DropdownItem onClick={() => setTheme({ light: 'legacy-light' })}>
-            Legacy light theme
-          </DropdownItem>
           <DropdownItem onClick={() => setTheme({ light: 'light' })}>
             Light theme
           </DropdownItem>
@@ -95,9 +92,6 @@ function ThemeSwitcher() {
 			</Box>
 			<DropdownMenu shouldRenderToParent trigger="Change light theme">
 				<DropdownItemGroup>
-					<DropdownItem onClick={() => setTheme({ light: 'legacy-light' })}>
-						Legacy light theme
-					</DropdownItem>
 					<DropdownItem onClick={() => setTheme({ light: 'light' })}>Light theme</DropdownItem>
 				</DropdownItemGroup>
 			</DropdownMenu>
@@ -115,7 +109,7 @@ function AppProviderTheme(): React.JSX.Element {
 }
 
 const _default_1: {
-    example: typeof AppProviderTheme;
-    code: string;
+	example: typeof AppProviderTheme;
+	code: string;
 } = { example: AppProviderTheme, code: AppProviderThemeCodeBlock };
 export default _default_1;

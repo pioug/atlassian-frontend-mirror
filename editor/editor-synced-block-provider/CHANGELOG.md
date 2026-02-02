@@ -1,5 +1,16 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.18.0
+
+### Minor Changes
+
+- [`cfea9d4edb5f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cfea9d4edb5f0) -
+  EDITOR-2849 refactor to use unify cache
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.17.0
 
 ### Minor Changes

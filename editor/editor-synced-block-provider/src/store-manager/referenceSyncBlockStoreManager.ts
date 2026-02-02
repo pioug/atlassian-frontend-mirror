@@ -224,7 +224,7 @@ export class ReferenceSyncBlockStoreManager {
 	public getInitialSyncBlockData(resourceId: ResourceId): SyncBlockInstance | undefined {
 		const syncBlockNode = createSyncBlockNode('', resourceId);
 
-		if (isSSR() && fg('platform_synced_block_dogfooding')) {
+		if ((isSSR() && fg('platform_synced_block_dogfooding')) || fg('platform_synced_block_patch1')) {
 			// In SSR, prefer data from data provider cache
 			// should not take from store manager cache as it may be in incomplete state
 			// will be unified to the same cache later.
@@ -547,6 +547,7 @@ export class ReferenceSyncBlockStoreManager {
 			if (existingSyncBlock?.error?.type === SyncBlockError.NotFound) {
 				return;
 			}
+
 			nodesToFetch.push(node);
 		});
 
@@ -668,7 +669,15 @@ export class ReferenceSyncBlockStoreManager {
 		const { resourceId } = syncBlock;
 
 		if (resourceId) {
-			this.syncBlockCache.set(resourceId, syncBlock);
+			if (fg('platform_synced_block_patch1')) {
+				// Use the cache in dataProvider
+				this.dataProvider?.updateCache(
+					{ [resourceId]: syncBlock },
+					{ strategy: 'merge', source: 'network' },
+				);
+			} else {
+				this.syncBlockCache.set(resourceId, syncBlock);
+			}
 			const callbacks = this.subscriptions.get(resourceId);
 			if (callbacks) {
 				Object.values(callbacks).forEach((callback) => {
@@ -688,11 +697,22 @@ export class ReferenceSyncBlockStoreManager {
 	}
 
 	public getFromCache(resourceId: ResourceId): SyncBlockInstance | undefined {
+		if (fg('platform_synced_block_patch1')) {
+			// Use the cache in dataProvider
+			const syncBlockNode = createSyncBlockNode('', resourceId);
+			return this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data;
+		}
 		return this.syncBlockCache.get(resourceId);
 	}
 
 	private deleteFromCache(resourceId: ResourceId) {
-		this.syncBlockCache.delete(resourceId);
+		if (fg('platform_synced_block_patch1')) {
+			// For dataProvider cache, we update with empty/deleted state
+			// The cache is managed per-node basis via resetCache if needed
+			// For now, we don't explicitly delete from dataProvider cache
+			// as the cache is meant to persist for cache-first-then-network strategy
+			this.dataProvider?.removeFromCache([resourceId]);
+		}
 		this.providerFactories.delete(resourceId);
 	}
 
@@ -727,9 +747,10 @@ export class ReferenceSyncBlockStoreManager {
 		const syncBlockNode = createSyncBlockNode(localId, resourceId);
 
 		// call the callback immediately if we have cached data
-		// prefer cache from store manager first, should update data provider to use the same cache
-		const cachedData =
-			isSSR() && fg('platform_synced_block_dogfooding') // in SSR, prefer data provider cache
+		const cachedData = fg('platform_synced_block_patch1')
+			? // When feature flag is enabled, use dataProvider cache only
+				this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data
+			: isSSR() && fg('platform_synced_block_dogfooding') // in SSR, prefer data provider cache
 				? this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data ||
 					this.getFromCache(resourceId)
 				: this.getFromCache(resourceId) ||
@@ -1114,8 +1135,13 @@ export class ReferenceSyncBlockStoreManager {
 		// Clean up all GraphQL subscriptions first
 		this.cleanupAllGraphQLSubscriptions();
 
+		if (fg('platform_synced_block_patch1')) {
+			// Reset cache in dataProvider
+			this.dataProvider?.resetCache();
+		} else {
+			this.syncBlockCache.clear();
+		}
 		this.dataProvider = undefined;
-		this.syncBlockCache.clear();
 		this.subscriptions.clear();
 		this.titleSubscriptions.clear();
 		this.syncBlockFetchDataRequests.clear();

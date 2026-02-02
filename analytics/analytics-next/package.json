@@ -62,7 +62,7 @@
 	"devDependencies": {
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
-		"@testing-library/react": "^16.3.0",
+		"@testing-library/react": "root:*",
 		"storybook-addon-performance": "root:*"
 	},
 	"overrides": {

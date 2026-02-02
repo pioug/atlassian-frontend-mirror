@@ -1,5 +1,19 @@
 # @atlaskit/side-nav-items
 
+## 1.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.4.0
+
+### Minor Changes
+
+- [`ea028d2a58383`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea028d2a58383) -
+  Implemented the SkeletonMenuItem and SkeletonMenuSectionHeading components to match the
+  corresponding components they represent.
+
 ## 1.3.0
 
 ### Minor Changes

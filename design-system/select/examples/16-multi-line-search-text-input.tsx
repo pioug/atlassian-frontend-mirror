@@ -17,6 +17,7 @@ interface State {
 	value: OptionsType;
 }
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class MultiLineSearchInput extends Component<{}, State> {
 	state = {
 		inputValue: '',

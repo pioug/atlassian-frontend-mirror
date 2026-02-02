@@ -17,6 +17,10 @@ import {
 } from '../utils/analytics';
 import { type CardStatus } from '../types';
 import { MediaCardError } from '../errors';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+// Sampling rate for mediaCardRender success events (10%)
+const MEDIA_CARD_RENDER_SUCCESS_SAMPLE_RATE = 0.1;
 
 export const fireOperationalEvent = (
 	createAnalyticsEvent: CreateUIAnalyticsEvent,
@@ -33,17 +37,24 @@ export const fireOperationalEvent = (
 
 	switch (status) {
 		case 'complete':
-			fireEvent(
-				getRenderSucceededEventPayload(
-					fileAttributes,
-					performanceAttributes,
-					ssrReliability,
-					traceContext,
-					metadataTraceContext,
-				),
-			);
+			// Sample success events at 10% when feature flag is enabled - failures are never sampled
+			// If flag is disabled, all success events fire (no sampling)
+			const isSamplingEnabled = fg('enable_sampling_mediacardrender_succeeded');
+			if (!isSamplingEnabled || Math.random() < MEDIA_CARD_RENDER_SUCCESS_SAMPLE_RATE) {
+				fireEvent(
+					getRenderSucceededEventPayload(
+						fileAttributes,
+						performanceAttributes,
+						ssrReliability,
+						traceContext,
+						metadataTraceContext,
+						isSamplingEnabled ? MEDIA_CARD_RENDER_SUCCESS_SAMPLE_RATE : undefined,
+					),
+				);
+			}
 			break;
 		case 'failed-processing':
+			// Always emit failed events (no sampling)
 			fireEvent(
 				getRenderFailedFileStatusPayload(
 					fileAttributes,
@@ -55,6 +66,7 @@ export const fireOperationalEvent = (
 			);
 			break;
 		case 'error':
+			// Always emit error events (no sampling)
 			fireEvent(
 				getRenderErrorEventPayload(
 					fileAttributes,

@@ -2,6 +2,7 @@ import type { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { Side } from '@atlaskit/editor-common/selection';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getComputedStyleForLayoutMode, getLayoutModeFromTargetNode, isLeftCursor } from '../utils';
 
@@ -85,7 +86,7 @@ const mutateElementStyle = (element: HTMLElement, style: CSSStyleDeclaration, si
 	}
 };
 
-export const toDOM = (view: EditorView, getPos: () => number | undefined) => {
+export const toDOMOld = (view: EditorView, getPos: () => number | undefined) => {
 	const selection = view.state.selection as GapCursorSelection;
 	const { $from, side } = selection;
 	const isRightCursor = side === Side.RIGHT;
@@ -125,4 +126,65 @@ export const toDOM = (view: EditorView, getPos: () => number | undefined) => {
 	}
 
 	return element;
+};
+
+export const toDOMNew = (view: EditorView, getPos: () => number | undefined) => {
+	const selection = view.state.selection as GapCursorSelection;
+	const { $from, side } = selection;
+	const isRightCursor = side === Side.RIGHT;
+	const node = isRightCursor ? $from.nodeBefore : $from.nodeAfter;
+
+	const element = document.createElement('span');
+	element.className = `ProseMirror-gapcursor ${isRightCursor ? '-right' : '-left'}`;
+	element.appendChild(document.createElement('span'));
+
+	if (element.firstChild) {
+		const gapCursor = element.firstChild as HTMLSpanElement;
+
+		// The DOM from view.nodeDOM() might be stale after paste
+		// Use requestAnimationFrame to wait for DOM to update, then fetch and measure
+		requestAnimationFrame(() => {
+			const nodeStart = getPos();
+			if (nodeStart === undefined) {
+				return;
+			}
+
+			// if selection has changed, we no longer need to compute the styles for the gapcursor
+			if (!view.state.selection.eq(selection)) {
+				return;
+			}
+
+			const dom = view.nodeDOM(nodeStart);
+
+			if (dom instanceof HTMLElement) {
+				const style = computeNestedStyle(dom) || window.getComputedStyle(dom);
+				gapCursor.style.height = `${measureHeight(style)}px`;
+
+				const layoutMode = node && getLayoutModeFromTargetNode(node);
+				if (nodeStart !== 0 || layoutMode || node?.type.name === 'table') {
+					gapCursor.style.marginTop = style.getPropertyValue('margin-top');
+				}
+
+				const isNestedTable = fg('platform_editor_nested_tables_gap_cursor')
+					? node?.type.name === 'table' && selection.$to.depth > 0
+					: false;
+
+				if (layoutMode && !isNestedTable) {
+					gapCursor.setAttribute('layout', layoutMode);
+					const breakoutModeStyle = getComputedStyleForLayoutMode(dom, node, style);
+					gapCursor.style.width = `${measureWidth(breakoutModeStyle)}px`;
+				} else {
+					mutateElementStyle(gapCursor, style, selection.side);
+				}
+			}
+		});
+	}
+
+	return element;
+};
+
+export const toDOM = (view: EditorView, getPos: () => number | undefined) => {
+	return expValEquals('platform_editor_fix_gapcursor_on_paste', 'isEnabled', true)
+		? toDOMNew(view, getPos)
+		: toDOMOld(view, getPos);
 };

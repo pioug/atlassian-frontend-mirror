@@ -80,7 +80,7 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ptc-test-utils": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
-		"@testing-library/react": "^16.3.0",
+		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"react-dom": "root:*"
 	},
@@ -120,7 +120,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.68.0",
+	"version": "0.68.1",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

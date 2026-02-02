@@ -20,6 +20,9 @@ import { MenuSectionExample } from '../../examples/constellation/side-nav-items/
 import { MenuDividerExample } from '../../examples/constellation/side-nav-items/menu-divider';
 import { TopLevelSpacerExample } from '../../examples/constellation/side-nav-items/top-level-spacer';
 import { RightToLeftExample } from '../../examples/constellation/side-nav-items/right-to-left';
+import { SkeletonMenuItemDescriptionExample } from '../../examples/constellation/side-nav-items/skeleton-menu-item-description';
+import { SkeletonMenuItemElemBeforeExample } from '../../examples/constellation/side-nav-items/skeleton-menu-item-elem-before';
+import { SkeletonMenuSectionHeadingExample } from '../../examples/constellation/side-nav-items/skeleton-menu-section-heading';
 
 These components can be used within
 the [side nav](/components/navigation-system/layout/examples#side-nav).
@@ -208,3 +211,25 @@ A 12px space to separate level 0 menu items or sections.
 All side nav items support right to left languages.
 
 <Example Component={RightToLeftExample} />
+
+## Loading states
+
+### Menu item skeleton
+
+#### With description
+
+Menu item skeletons can include a description, a secondary line of text. Use the `hasDescription`
+prop to match the corresponding menu item that will be loaded.
+
+<Example Component={SkeletonMenuItemDescriptionExample} backgroundColor="white" />
+
+#### With icon
+
+Menu item skeletons can include an icon or avatar before the label. Use the `hasElemBefore` prop to
+match the corresponding menu item that will be loaded.
+
+<Example Component={SkeletonMenuItemElemBeforeExample} backgroundColor="white" />
+
+### Menu section heading skeleton
+
+<Example Component={SkeletonMenuSectionHeadingExample} backgroundColor="white" />

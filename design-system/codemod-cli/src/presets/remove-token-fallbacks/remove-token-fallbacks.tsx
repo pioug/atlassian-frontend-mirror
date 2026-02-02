@@ -109,7 +109,7 @@ export default async function transformer(
 		}
 	}
 
-	const tokenMap = getTokenMap(options.useLegacyColorTheme ?? false);
+	const tokenMap = getTokenMap();
 	const teamInfo = await getTeamInfo(fileInfo.path);
 
 	const transformPromises = source

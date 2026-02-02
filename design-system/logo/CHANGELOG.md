@@ -1,5 +1,11 @@
 # @atlaskit/logo
 
+## 19.10.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.10.1
 
 ### Patch Changes

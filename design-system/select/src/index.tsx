@@ -16,11 +16,11 @@ export { default as AsyncCreatableSelect } from './entry-points/async-creatable-
 
 export { isOptionsGrouped } from './utils/grouped-options-announcement';
 
-export { default as CheckboxSelect } from './CheckboxSelect';
-export { default as CountrySelect } from './CountrySelect';
-export { default as RadioSelect } from './RadioSelect';
-export { default as PopupSelect } from './PopupSelect';
-export type { PopupSelectProps, ModifierList } from './PopupSelect';
+export { default as CheckboxSelect } from './checkbox-select';
+export { default as CountrySelect } from './country-select';
+export { default as RadioSelect } from './radio-select';
+export { default as PopupSelect } from './popup-select';
+export type { PopupSelectProps, ModifierList } from './popup-select';
 
 export type {
 	SelectInstance,

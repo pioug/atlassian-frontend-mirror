@@ -282,6 +282,12 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	platform_editor_display_none_to_expand: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-05-07
 	platform_editor_ai_quickstart_command: {
 		defaultValue: boolean;
@@ -1090,6 +1096,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2025-01-29
+	platform_editor_send_client_platform_header: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-01-29
 	platform_editor_renderer_toolbar_updates: {
 		defaultValue: boolean;
@@ -1104,6 +1117,12 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	platform_editor_fix_cross_origin_editor_focus: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	platform_editor_fix_gapcursor_on_paste: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1595,6 +1614,13 @@ export const editorExperimentsConfig: {
 	platform_editor_extension_styles: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_extension_styles',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	platform_editor_display_none_to_expand: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_display_none_to_expand',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2343,6 +2369,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-01-29
+	platform_editor_send_client_platform_header: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_send_client_platform_header',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-01-29
 	platform_editor_renderer_toolbar_updates: createBooleanExperiment({
 		productKeys: {
@@ -2362,6 +2396,15 @@ export const editorExperimentsConfig: {
 	platform_editor_fix_cross_origin_editor_focus: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_fix_cross_origin_editor_focus',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-02-02
+	platform_editor_fix_gapcursor_on_paste: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_fix_gapcursor_on_paste',
+			jira: 'platform_editor_fix_gapcursor_on_paste',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

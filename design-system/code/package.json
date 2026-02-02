@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/code",
-	"version": "17.4.2",
+	"version": "17.4.3",
 	"description": "Code highlights short strings of code snippets inline with body text.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -55,7 +55,7 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
-		"@testing-library/react": "^16.3.0",
+		"@testing-library/react": "root:*",
 		"@types/jscodeshift": "root:*",
 		"@types/refractor": "root:*",
 		"color-contrast-checker": "root:*",

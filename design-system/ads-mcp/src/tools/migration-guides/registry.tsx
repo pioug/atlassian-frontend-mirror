@@ -33,8 +33,7 @@ export const getAvailableMigrationIds = (): string[] => {
  * Get a formatted list of available migrations with descriptions
  * Useful for tool descriptions and help text
  */
-export const getAvailableMigrationsDescription = (): string => {
+export const getAvailableMigrationsDescription = (): string[] => {
 	return Object.values(migrationRegistry)
 		.map((m) => `- "${m.id}": ${m.description}`)
-		.join('\n');
 };

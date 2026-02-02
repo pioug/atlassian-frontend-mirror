@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/form",
-	"version": "15.3.3",
+	"version": "15.3.4",
 	"description": "A form allows people to input information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -66,7 +66,7 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
-		"@testing-library/react": "^16.3.0",
+		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"@types/final-form-focus": "root:*",
 		"jest-in-case": "root:*",

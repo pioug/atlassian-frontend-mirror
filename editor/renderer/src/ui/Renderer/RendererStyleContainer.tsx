@@ -601,7 +601,7 @@ const blockquoteSharedStyles = css({
 	},
 });
 
-const headingsSharedStylesWithEditorUGC = css({
+const headingsSharedStyles = css({
 	'& h1': {
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		font: `var(--ak-renderer-editor-font-heading-h1)`,
@@ -669,6 +669,53 @@ const headingsSharedStylesWithEditorUGC = css({
 	},
 });
 
+/**
+ * When the copy-link a11y fix is enabled, the heading copy-link button is a sibling of the heading
+ * text within `.renderer-heading-wrapper`. To ensure the button sits immediately after the last
+ * rendered character (including when the heading wraps), the heading itself needs to participate in
+ * inline layout.
+ *
+ * Since inline elements don't support vertical margins in normal flow, we migrate the UGC heading
+ * `marginTop` values (from `headingsSharedStyles`) onto the wrapper.
+ */
+const headingWrapperInlineFlowStyles = css({
+	// Ensure heading and copy-link button participate in inline flow so the button sits after the final wrapped line of text.
+	'& .renderer-heading-wrapper > h1, & .renderer-heading-wrapper > h2, & .renderer-heading-wrapper > h3, & .renderer-heading-wrapper > h4, & .renderer-heading-wrapper > h5, & .renderer-heading-wrapper > h6':
+		{
+			display: 'inline',
+		},
+
+	[`& .renderer-heading-wrapper > .${HeadingAnchorWrapperClassName}`]: {
+		display: 'inline',
+		verticalAlign: 'baseline',
+	},
+
+	'& .renderer-heading-wrapper[data-level="1"]': {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+		marginTop: '1.45833em',
+	},
+	'& .renderer-heading-wrapper[data-level="2"]': {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+		marginTop: '1.4em',
+	},
+	'& .renderer-heading-wrapper[data-level="3"]': {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+		marginTop: '1.31249em',
+	},
+	'& .renderer-heading-wrapper[data-level="4"]': {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+		marginTop: '1.25em',
+	},
+	'& .renderer-heading-wrapper[data-level="5"]': {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+		marginTop: '1.45833em',
+	},
+	'& .renderer-heading-wrapper[data-level="6"]': {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+		marginTop: '1.59091em',
+	},
+});
+
 const headingWithAlignmentStylesDuplicateAnchor = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'.fabric-editor-block-mark.fabric-editor-alignment:not(:first-child)': {
@@ -715,43 +762,23 @@ const headingWithAlignmentStylesDuplicateAnchor = css({
 });
 
 const headingWithAlignmentStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'.fabric-editor-block-mark.fabric-editor-alignment:not(:first-child)': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'> .renderer-heading-wrapper:first-child': {
-			h1: {
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-				marginTop: '1.667em',
-			},
-			h2: {
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-				marginTop: '1.8em',
-			},
-			h3: {
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-				marginTop: '2em',
-			},
-			h4: {
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-				marginTop: '1.357em',
-			},
-			h5: {
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-				marginTop: '1.667em',
-			},
-			h6: {
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-				marginTop: '1.455em',
-			},
-		},
+	// Center alignment for heading wrapper - flex container needs justify-content instead of text-align
+	'.fabric-editor-block-mark[data-align="center"] > .renderer-heading-wrapper': {
+		justifyContent: 'center',
 	},
+	// Right/end alignment for heading wrapper - flex container needs justify-content instead of text-align
+	'.fabric-editor-block-mark[data-align="end"] > .renderer-heading-wrapper': {
+		justifyContent: 'flex-end',
+	},
+
 	// Set marginTop: 0 if alignment block is next to a gap cursor or widget that is first child
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'.ProseMirror-gapcursor:first-child + .fabric-editor-block-mark.fabric-editor-alignment, .ProseMirror-widget:first-child + .fabric-editor-block-mark.fabric-editor-alignment, .ProseMirror-widget:first-child + .ProseMirror-widget:nth-child(2) + .fabric-editor-block-mark.fabric-editor-alignment':
 		{
+			// With inline headings, apply marginTop to the wrapper (not the h1-h6).
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-			'> .renderer-heading-wrapper:first-child > :is(h1, h2, h3, h4, h5, h6)': {
-				marginTop: '0',
+			'> .renderer-heading-wrapper:first-child': {
+				marginTop: 0,
 			},
 		},
 });
@@ -2238,11 +2265,12 @@ const rendererTableHeaderEqualHeightStylesAllowNestedHeaderLinks = css({
 						[`.${HeadingAnchorWrapperClassName}`]: {
 							position: 'unset',
 						},
-						'> .renderer-heading-wrapper >': {
-							'h1, h2, h3, h4, h5, h6': {
-								// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-								marginRight: '30px',
-							},
+						'> .renderer-heading-wrapper': {
+							// Reserve space for the sortable-column icon so the heading+anchor wrapper never overlaps it.
+							// Use padding (instead of margin on the heading) so we don't create a gap between the heading
+							// text and the copy-link anchor button
+							// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+							paddingRight: '30px',
 						},
 					},
 				},
@@ -2799,7 +2827,9 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				rovoTelepointerStyles,
 				whitespaceSharedStyles,
 				blockquoteSharedStyles,
-				headingsSharedStylesWithEditorUGC,
+				headingsSharedStyles,
+				expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true) &&
+					headingWrapperInlineFlowStyles,
 				expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)
 					? headingWithAlignmentStyles
 					: headingWithAlignmentStylesDuplicateAnchor,

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/drawer",
-	"version": "11.0.25",
+	"version": "11.0.26",
 	"description": "A drawer is a panel that slides in from the left side of the screen.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -79,7 +79,7 @@
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
-		"@testing-library/react": "^16.3.0",
+		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"@types/exenv": "root:*",
 		"react-dom": "root:*",

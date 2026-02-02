@@ -1,6 +1,6 @@
 import format from '@af/formatting/sync';
 import { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens';
-import { legacyLightTokens as legacyTokens, light as tokens } from '@atlaskit/tokens/tokens-raw';
+import { light as tokens } from '@atlaskit/tokens/tokens-raw';
 
 import {
 	capitalize,
@@ -37,15 +37,12 @@ const tokenStyles = {
 	},
 } as const;
 
-const bothTokens = tokens.map((t, i) => [t, legacyTokens[i]]);
-
-const activeTokens = bothTokens
-	.filter(([t]) => t.attributes.state !== 'deleted')
-	.map((t) => t)
+const activeTokens = tokens
+	.filter((t) => t.attributes.state !== 'deleted')
 	.map(
-		([t, legacy]): Token => ({
+		(t): Token => ({
 			token: t.name,
-			fallback: legacy.value as string | ShadowDefinition,
+			fallback: t.value as string | ShadowDefinition,
 			isDeprecated: t.attributes.state === 'deprecated',
 		}),
 	);

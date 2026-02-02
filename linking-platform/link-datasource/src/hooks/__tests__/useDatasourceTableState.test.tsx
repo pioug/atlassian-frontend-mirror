@@ -16,7 +16,6 @@ import { CardClient, SmartCardProvider, useSmartCardContext } from '@atlaskit/li
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { captureException } from '@atlaskit/linking-common/sentry';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { EVENT_CHANNEL } from '../../analytics';
 import { Store } from '../../state';
@@ -99,9 +98,10 @@ describe('useDatasourceTableState', () => {
 		getDatasourceDetails = jest.fn().mockResolvedValue(mockDatasourceDetailsResponse);
 		getDatasourceData = jest.fn().mockResolvedValue(mockDatasourceDataResponse);
 		getDatasourceActionsAndPermissions = jest.fn().mockResolvedValue(mockActionsDiscoveryResponse);
+		// Default to non-PDF render; individual tests can override this.
 		asMock(useSmartCardContext).mockReturnValue({
 			value: {
-				shouldControlDataExport: true,
+				shouldControlDataExport: false,
 			},
 		} as any);
 	});
@@ -424,55 +424,43 @@ describe('useDatasourceTableState', () => {
 			});
 		});
 
-		ffTest.off('lp_disable_datasource_table_max_height_restriction', '', () => {
-			it('should use default page size when feature flag is off', async () => {
-				setup();
+		it('should use increased page size when feature flag is on and shouldControlDataExport is true', async () => {
+			asMock(useSmartCardContext).mockReturnValue({
+				value: {
+					shouldControlDataExport: true,
+				},
+			} as any);
 
-				await waitFor(() => {
-					expect(getDatasourceData).toHaveBeenCalledWith(
-						mockDatasourceId,
-						expect.objectContaining({
-							pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
-						}),
-						false,
-					);
-				});
+			setup();
+
+			await waitFor(() => {
+				expect(getDatasourceData).toHaveBeenCalledWith(
+					mockDatasourceId,
+					expect.objectContaining({
+						pageSize: INCREASED_DATASOURCE_DATA_PAGE_SIZE,
+					}),
+					false,
+				);
 			});
 		});
 
-		ffTest.on('lp_disable_datasource_table_max_height_restriction', '', () => {
-			it('should use increased page size when feature flag is on and shouldControlDataExport is true', async () => {
-				setup();
+		it('should use default page size when feature flag is on but shouldControlDataExport is false', async () => {
+			asMock(useSmartCardContext).mockReturnValue({
+				value: {
+					shouldControlDataExport: false,
+				},
+			} as any);
 
-				await waitFor(() => {
-					expect(getDatasourceData).toHaveBeenCalledWith(
-						mockDatasourceId,
-						expect.objectContaining({
-							pageSize: INCREASED_DATASOURCE_DATA_PAGE_SIZE,
-						}),
-						false,
-					);
-				});
-			});
+			setup();
 
-			it('should use default page size when feature flag is on but shouldControlDataExport is false', async () => {
-				asMock(useSmartCardContext).mockReturnValue({
-					value: {
-						shouldControlDataExport: false,
-					},
-				} as any);
-
-				setup();
-
-				await waitFor(() => {
-					expect(getDatasourceData).toHaveBeenCalledWith(
-						mockDatasourceId,
-						expect.objectContaining({
-							pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
-						}),
-						false,
-					);
-				});
+			await waitFor(() => {
+				expect(getDatasourceData).toHaveBeenCalledWith(
+					mockDatasourceId,
+					expect.objectContaining({
+						pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
+					}),
+					false,
+				);
 			});
 		});
 	});
@@ -907,7 +895,7 @@ describe('useDatasourceTableState', () => {
 			act(() => {
 				result.current.loadDatasourceDetails();
 			});
-			
+
 			await waitFor(() => {
 				expect(result.current.columns).toEqual([
 					...(mockDatasourceDataResponseWithSchema?.data.schema?.properties || []),
@@ -1175,13 +1163,9 @@ describe('useDatasourceTableState', () => {
 			await waitFor(() => {
 				expect(getDatasourceData.mock.calls).toEqual(
 					expect.arrayContaining([
-					  [
-						mockDatasourceId,
-						expect.objectContaining({ pageCursor: undefined }),
-						false,
-					  ],
-					])
-				  );
+						[mockDatasourceId, expect.objectContaining({ pageCursor: undefined }), false],
+					]),
+				);
 			});
 
 			rerender({
@@ -1415,7 +1399,7 @@ describe('useDatasourceTableState', () => {
 				...mockDatasourceDataResponseWithSchema,
 			});
 			setup();
-			
+
 			await waitFor(() => {
 				// One event is fired for success of action discovery
 				expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
@@ -1427,7 +1411,7 @@ describe('useDatasourceTableState', () => {
 					},
 				});
 				expect(captureException).toHaveBeenCalledTimes(0);
-			});	
+			});
 		});
 
 		it('should not log an operational event or a sentry event when getDatasourceDetails succeeds', async () => {
@@ -1463,7 +1447,7 @@ describe('useDatasourceTableState', () => {
 					},
 				});
 				expect(captureException).toHaveBeenCalledTimes(0);
-			});	
+			});
 		});
 	});
 });

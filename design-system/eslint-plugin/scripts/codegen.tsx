@@ -7,15 +7,11 @@ import { Legacy } from '@eslint/eslintrc';
 import type { Linter } from 'eslint';
 import camelCase from 'lodash/camelCase';
 import outdent from 'outdent';
-// @ts-expect-error - platform needs to change module resolution
-// eslint-disable-next-line import/default
-import tsxApi from 'tsx/cjs/api';
+import tsx from 'tsx/cjs/api';
 
 import format from '@af/formatting/sync';
 import type { LintRule } from '@atlaskit/eslint-utils/create-rule';
 import { createSignedArtifact } from '@atlassian/codegen';
-
-const tsx = tsxApi as typeof import('tsx/dist/cjs/api/index.mjs');
 
 const { naming }: { naming: ESLintRCNaming } = Legacy;
 

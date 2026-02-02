@@ -273,6 +273,7 @@ export const getRenderSucceededEventPayload = (
 	ssrReliability: SSRStatus,
 	traceContext: MediaTraceContext,
 	metadataTraceContext?: MediaTraceContext,
+	samplingRate?: number,
 ): RenderSucceededEventPayload => ({
 	eventType: 'operational',
 	action: 'succeeded',
@@ -285,6 +286,7 @@ export const getRenderSucceededEventPayload = (
 		ssrReliability,
 		traceContext,
 		metadataTraceContext,
+		...(samplingRate !== undefined && { samplingRate }),
 	},
 });
 

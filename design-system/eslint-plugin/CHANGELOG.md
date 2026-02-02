@@ -1,5 +1,20 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.36.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.36.1
+
+### Patch Changes
+
+- [`3c3757717bc78`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c3757717bc78) -
+  Introduced a temporary feature to the `no-unsafe-design-token-usage` rule to allow token fallbacks
+  for tokens specified in `UNSAFE_ignoreTokens` even if `fallbackUsage` is set to 'none'. This
+  should not be used and exists only to aid migration. It will be removed in the near future.
+
 ## 13.36.0
 
 ### Minor Changes

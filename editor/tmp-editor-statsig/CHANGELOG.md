@@ -1,5 +1,33 @@
 # @atlaskit/editor-statsig-tmp
 
+## 17.10.1
+
+### Patch Changes
+
+- [`cbd94bd913e71`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cbd94bd913e71) -
+  [ux] EDITOR-4514 fix gap cursor positioning after paste by adding request animation frame to wait
+  for new content to be inserted into dom
+- Updated dependencies
+
+## 17.10.0
+
+### Minor Changes
+
+- [`25991b4c801ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25991b4c801ab) -
+  [EDITOR-4884](https://hello.jira.atlassian.cloud/browse/EDITOR-4884) - set `display: none` for
+  collapsed Expand
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.9.0
+
+### Minor Changes
+
+- [`b2780992bdc66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2780992bdc66) -
+  Send x-client-platform header when establishing socketio connection
+
 ## 17.8.0
 
 ### Minor Changes

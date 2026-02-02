@@ -1,5 +1,5 @@
 import format from '@af/formatting/sync';
-import { legacyLightTokens as legacyTokens, light as tokens } from '@atlaskit/tokens/tokens-raw';
+import { light as tokens } from '@atlaskit/tokens/tokens-raw';
 
 import {
 	capitalize,
@@ -49,14 +49,12 @@ const tokenStyles = {
 	},
 } as const;
 
-const bothTokens = tokens.map((t, i) => [t, legacyTokens[i]]);
-
-const activeTokens = bothTokens
-	.filter(([t]) => t.attributes.state !== 'deleted' && t.attributes.state !== 'deprecated')
+const activeTokens = tokens
+	.filter((t) => t.attributes.state !== 'deleted' && t.attributes.state !== 'deprecated')
 	.map(
-		([t, legacy]): Token => ({
+		(t): Token => ({
 			token: t.name,
-			fallback: legacy.value as string | ShadowDefintion,
+			fallback: t.value as string | ShadowDefintion,
 		}),
 	)
 	.filter(compose(pick('token'), not(isAccent)))

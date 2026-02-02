@@ -1,5 +1,18 @@
 # @atlaskit/people-teams-ui-public
 
+## 3.7.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.7.5
+
+### Patch Changes
+
+- [`50f0a90dc9d25`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50f0a90dc9d25) -
+  Clean up people-teams-update-verified-team-tooltip feature gate
+
 ## 3.7.4
 
 ### Patch Changes

@@ -7,26 +7,35 @@ import { getAvailableMigrationIds, getAvailableMigrationsDescription, migrationR
 
 // Build the enum dynamically from the registry
 const migrationIds = getAvailableMigrationIds();
+const migrationDescriptions = getAvailableMigrationsDescription();
 
 export const migrationGuidesInputSchema: z.ZodObject<{
-    migration: z.ZodEnum<[string, ...string[]]>;
+	migration: z.ZodEnum<[string]>;
+	description: z.ZodEnum<[string]>;
 }, "strip", z.ZodTypeAny, {
-    migration: string;
+	migration: string;
+	description: string;
 }, {
-    migration: string;
+	migration: string;
+	description: string;
 }> = z.object({
 	migration: z
-		.enum(migrationIds as [string, ...string[]])
+		.enum(migrationIds as [string])
 		.describe(
 			`The specific migration to perform.\n`,
+		),
+	description: z
+		.enum(migrationDescriptions as [string])
+		.describe(
+			`Description of the migration type.\n`,
 		),
 });
 
 export const listMigrationGuidesTool: Tool = {
 	name: 'ads_migration_guides',
-	description: `Provides migration guides for deprecated Atlassian Design System components. Returns before/after examples, best practices, and step-by-step migration instructions.
+	description: `Migration guides for Atlassian Design System components.
 
-Available migrations:\n${getAvailableMigrationsDescription()}`,
+	Available migrations:\n${getAvailableMigrationsDescription()}`,
 	annotations: {
 		title: 'ADS Migration Guides',
 		readOnlyHint: true,
@@ -40,11 +49,11 @@ Available migrations:\n${getAvailableMigrationsDescription()}`,
 export const migrationGuidesTool = async (
 	params: z.infer<typeof migrationGuidesInputSchema>,
 ): Promise<{
-        content: {
-            type: string;
-            text: string;
-        }[];
-    }> => {
+	content: {
+		type: string;
+		text: string;
+	}[];
+}> => {
 	const { migration } = params;
 
 	const guide = migrationRegistry[migration];

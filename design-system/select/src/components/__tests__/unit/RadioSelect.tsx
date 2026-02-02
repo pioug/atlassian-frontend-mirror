@@ -4,7 +4,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import AtlaskitRadioSelect from '../../../RadioSelect';
+import AtlaskitRadioSelect from '../../../radio-select';
 
 const user = userEvent.setup();
 

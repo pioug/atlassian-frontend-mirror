@@ -1,1 +1,1 @@
-export { default } from '../CreatableSelect';
+export { default } from '../creatable-select';

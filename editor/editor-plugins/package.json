@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugins",
-	"version": "11.3.48",
+	"version": "11.3.53",
 	"description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -246,7 +246,7 @@
 		"@af/formatting": "workspace:^",
 		"@atlassian/ts-loader": "workspace:^",
 		"@manypkg/find-root": "root:*",
-		"@testing-library/react": "^16.3.0",
+		"@testing-library/react": "root:*",
 		"typescript": "root:*",
 		"wait-for-expect": "root:*",
 		"yargs": "root:*"

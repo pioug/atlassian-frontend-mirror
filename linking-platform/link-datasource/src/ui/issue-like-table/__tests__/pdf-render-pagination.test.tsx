@@ -14,7 +14,6 @@ import {
 	type DatasourceDataResponseItem,
 	type DatasourceResponseSchemaProperty,
 } from '@atlaskit/linking-types/datasource';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import SmartLinkClient from '../../../../examples-helpers/smartLinkCustomClient';
 import { DatasourceExperienceIdProvider } from '../../../contexts/datasource-experience-id';
@@ -111,137 +110,29 @@ describe('IssueLikeDataTableView - PDF render pagination', () => {
 		jest.useRealTimers();
 	});
 
-	ffTest.on('lp_disable_datasource_table_max_height_restriction', '', () => {
-		describe('when in PDF render mode', () => {
-			beforeEach(() => {
-				asMock(useSmartCardContext).mockReturnValue({
-					value: {
-						shouldControlDataExport: true,
-					},
-				});
-			});
-
-			it('should automatically call onNextPage when hasNextPage is true and status is resolved', async () => {
-				const { onNextPage } = setup({
-					hasNextPage: true,
-					status: 'resolved',
-				});
-
-				act(() => {
-					jest.advanceTimersByTime(20);
-				});
-
-				expect(onNextPage).toHaveBeenCalledTimes(1);
-				expect(onNextPage).toHaveBeenCalledWith({
-					isSchemaFromData: false,
-					shouldRequestFirstPage: false,
-				});
-			});
-
-			it('should not call onNextPage when hasNextPage is false', async () => {
-				const { onNextPage } = setup({
-					hasNextPage: false,
-					status: 'resolved',
-				});
-
-				act(() => {
-					jest.advanceTimersByTime(20);
-				});
-
-				expect(onNextPage).not.toHaveBeenCalled();
-			});
-
-			it('should not call onNextPage when status is loading', async () => {
-				const { onNextPage } = setup({
-					hasNextPage: true,
-					status: 'loading',
-				});
-
-				act(() => {
-					jest.advanceTimersByTime(20);
-				});
-
-				expect(onNextPage).not.toHaveBeenCalled();
-			});
-
-			it('should not trigger scroll-based pagination when in PDF render mode', async () => {
-				const { onNextPage } = setup({
-					hasNextPage: true,
-					status: 'resolved',
-				});
-
-				// Simulate scroll to bottom
-				mockGetEntries.mockImplementation(() => [{ isIntersecting: true }]);
-
-				// Clear the mock after PDF auto-pagination call
-				onNextPage.mockClear();
-
-				act(() => {
-					jest.runOnlyPendingTimers();
-				});
-
-				// Should NOT have scroll-based calls (shouldForceRequest: true)
-				expect(onNextPage).not.toHaveBeenCalledWith(
-					expect.objectContaining({ shouldForceRequest: true }),
-				);
-			});
-		});
-
-		describe('when not in PDF render mode', () => {
-			beforeEach(() => {
-				asMock(useSmartCardContext).mockReturnValue({
-					value: {
-						shouldControlDataExport: false,
-					},
-				});
-			});
-
-			it('should not automatically call onNextPage from PDF effect', async () => {
-				const { onNextPage } = setup({
-					hasNextPage: true,
-					status: 'resolved',
-				});
-
-				act(() => {
-					jest.advanceTimersByTime(20);
-				});
-
-				// No calls from PDF render effect (shouldRequestFirstPage: false)
-				expect(onNextPage).not.toHaveBeenCalledWith(
-					expect.objectContaining({ shouldRequestFirstPage: false }),
-				);
-			});
-
-			it('should call onNextPage when scrolled to bottom (normal pagination)', async () => {
-				const { onNextPage } = setup({
-					hasNextPage: true,
-					status: 'resolved',
-				});
-
-				// Simulate scroll to bottom
-				mockGetEntries.mockImplementation(() => [{ isIntersecting: true }]);
-
-				act(() => {
-					jest.runOnlyPendingTimers();
-				});
-
-				expect(onNextPage).toHaveBeenCalledWith({
-					isSchemaFromData: false,
-					shouldForceRequest: true,
-				});
-			});
-		});
-	});
-
-	ffTest.off('lp_disable_datasource_table_max_height_restriction', '', () => {
-		it('should not trigger PDF render pagination when feature flag is off', async () => {
-			// Even with shouldControlDataExport true, the flag being off means isInPDFRender is always false
+	describe('when in PDF render mode', () => {
+		beforeEach(() => {
 			asMock(useSmartCardContext).mockReturnValue({
 				value: {
 					shouldControlDataExport: true,
 				},
 			});
+		});
 
+		it('should capture and report a11y violations', async () => {
+			const { container } = setup({
+				hasNextPage: false,
+				status: 'resolved',
+			});
+
+			act(() => {
+				jest.runOnlyPendingTimers();
+			});
+
+			await expect(container).toBeAccessible();
+		});
+
+		it('should automatically call onNextPage when hasNextPage is true and status is resolved', async () => {
 			const { onNextPage } = setup({
 				hasNextPage: true,
 				status: 'resolved',
@@ -251,19 +142,88 @@ describe('IssueLikeDataTableView - PDF render pagination', () => {
 				jest.advanceTimersByTime(20);
 			});
 
-			// No PDF render effect calls when feature flag is off
+			expect(onNextPage).toHaveBeenCalledTimes(1);
+			expect(onNextPage).toHaveBeenCalledWith({
+				isSchemaFromData: false,
+				shouldRequestFirstPage: false,
+			});
+		});
+
+		it('should not call onNextPage when hasNextPage is false', async () => {
+			const { onNextPage } = setup({
+				hasNextPage: false,
+				status: 'resolved',
+			});
+
+			act(() => {
+				jest.advanceTimersByTime(20);
+			});
+
+			expect(onNextPage).not.toHaveBeenCalled();
+		});
+
+		it('should not call onNextPage when status is loading', async () => {
+			const { onNextPage } = setup({
+				hasNextPage: true,
+				status: 'loading',
+			});
+
+			act(() => {
+				jest.advanceTimersByTime(20);
+			});
+
+			expect(onNextPage).not.toHaveBeenCalled();
+		});
+
+		it('should not trigger scroll-based pagination when in PDF render mode', async () => {
+			const { onNextPage } = setup({
+				hasNextPage: true,
+				status: 'resolved',
+			});
+
+			// Simulate scroll to bottom
+			mockGetEntries.mockImplementation(() => [{ isIntersecting: true }]);
+
+			// Clear the mock after PDF auto-pagination call
+			onNextPage.mockClear();
+
+			act(() => {
+				jest.runOnlyPendingTimers();
+			});
+
+			// Should NOT have scroll-based calls (shouldForceRequest: true)
+			expect(onNextPage).not.toHaveBeenCalledWith(
+				expect.objectContaining({ shouldForceRequest: true }),
+			);
+		});
+	});
+
+	describe('when not in PDF render mode', () => {
+		beforeEach(() => {
+			asMock(useSmartCardContext).mockReturnValue({
+				value: {
+					shouldControlDataExport: false,
+				},
+			});
+		});
+
+		it('should not automatically call onNextPage from PDF effect', async () => {
+			const { onNextPage } = setup({
+				hasNextPage: true,
+				status: 'resolved',
+			});
+
+			act(() => {
+				jest.advanceTimersByTime(20);
+			});
+
+			// No calls from PDF render effect (shouldRequestFirstPage: false)
 			expect(onNextPage).not.toHaveBeenCalledWith(
 				expect.objectContaining({ shouldRequestFirstPage: false }),
 			);
 		});
 
-		it('should still call onNextPage when scrolled to bottom (normal pagination)', async () => {
-			asMock(useSmartCardContext).mockReturnValue({
-				value: {
-					shouldControlDataExport: true,
-				},
-			});
-
+		it('should call onNextPage when scrolled to bottom (normal pagination)', async () => {
 			const { onNextPage } = setup({
 				hasNextPage: true,
 				status: 'resolved',

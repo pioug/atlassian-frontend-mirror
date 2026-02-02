@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 8.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.1.1
+
+### Patch Changes
+
+- [`5acb6a79c09f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5acb6a79c09f2) -
+  Pause the EOU active session counter when block menu is opened
+
 ## 8.1.0
 
 ### Minor Changes

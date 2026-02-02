@@ -106,6 +106,11 @@ const toDOM = (
 		{
 			// prettier-ignore
 			class: expandClassNames.content,
+			style: expValEquals('platform_editor_display_none_to_expand', 'isEnabled', true)
+				? `display: ${
+						__livePage ? !node.attrs.__expanded : node.attrs.__expanded ? 'flow-root' : 'none'
+					}`
+				: undefined,
 			contenteditable:
 				contentEditable !== undefined ? (contentEditable ? 'true' : 'false') : undefined,
 		},
@@ -230,6 +235,10 @@ export class ExpandNodeView implements NodeView {
 							'contenteditable',
 							this.getContentEditable(this.node) ? 'true' : 'false',
 						);
+					}
+
+					if (expValEquals('platform_editor_display_none_to_expand', 'isEnabled', true)) {
+						this.updateDisplayStyle(this.node);
 					}
 				},
 			);
@@ -431,7 +440,7 @@ export class ExpandNodeView implements NodeView {
 		}
 	};
 
-	private deleteExpand = (event: KeyboardEvent) => {
+	private deleteExpand = (_event: KeyboardEvent) => {
 		if (!this.input) {
 			return;
 		}
@@ -661,6 +670,14 @@ export class ExpandNodeView implements NodeView {
 		return contentEditable;
 	};
 
+	private updateDisplayStyle(node: PmNode): void {
+		if (this.content) {
+			const isCollapsed = this.__livePage ? node.attrs.__expanded : !node.attrs.__expanded;
+
+			this.content.style.display = isCollapsed ? 'none' : 'flow-root';
+		}
+	}
+
 	stopEvent(event: Event): boolean {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @atlaskit/editor/no-as-casting
@@ -708,6 +725,10 @@ export class ExpandNodeView implements NodeView {
 						'contenteditable',
 						this.getContentEditable(node) ? 'true' : 'false',
 					);
+				}
+
+				if (expValEquals('platform_editor_display_none_to_expand', 'isEnabled', true)) {
+					this.updateDisplayStyle(node);
 				}
 			}
 

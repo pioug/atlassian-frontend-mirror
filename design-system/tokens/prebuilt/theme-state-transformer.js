@@ -31,8 +31,8 @@ var isColorMode = function isColorMode(modeId) {
  *
  * @example
  * ```
- * themeStringToObject('dark:dark light:legacy-light spacing:spacing');
- * // returns { dark: 'dark', light: 'legacy-light', spacing: 'spacing' }
+ * themeStringToObject('dark:dark light:light spacing:spacing');
+ * // returns { dark: 'dark', light: 'light', spacing: 'spacing' }
  * ```
  */
 var themeStringToObject = exports.themeStringToObject = function themeStringToObject(themeState) {
@@ -69,8 +69,8 @@ var themeStringToObject = exports.themeStringToObject = function themeStringToOb
  *
  * @example
  * ```
- * themeObjectToString({ dark: 'dark', light: 'legacy-light', spacing: 'spacing' });
- * // returns 'dark:dark light:legacy-light spacing:spacing'
+ * themeObjectToString({ dark: 'dark', light: 'light', spacing: 'spacing' });
+ * // returns 'dark:dark light:light spacing:spacing'
  * ```
  */
 var themeObjectToString = exports.themeObjectToString = function themeObjectToString(themeState) {

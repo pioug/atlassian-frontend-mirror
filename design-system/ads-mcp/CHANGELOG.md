@@ -1,5 +1,18 @@
 # @atlaskit/ads-mcp
 
+## 0.13.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.13.8
+
+### Patch Changes
+
+- [`52fd42ed97a9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/52fd42ed97a9d) -
+  Rework migration guidance for `@atlaskit/onboarding`.
+
 ## 0.13.7
 
 ### Patch Changes

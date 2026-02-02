@@ -1,11 +1,12 @@
 /* eslint-disable @repo/internal/fs/filename-pattern-match */
 import React from 'react';
 
-import { skipA11yAudit } from '@af/accessibility-testing';
 import { act, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import cases from 'jest-in-case';
 import selectEvent from 'react-select-event';
+
+import { skipA11yAudit } from '@af/accessibility-testing';
 
 import AtlaskitSelect from '../../../index';
 interface Option {

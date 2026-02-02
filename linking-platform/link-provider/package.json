@@ -52,7 +52,7 @@
 		"@atlaskit/linking-types": "workspace:^",
 		"@atlaskit/media-test-helpers": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@testing-library/react": "^16.3.0",
+		"@testing-library/react": "root:*",
 		"@types/async-retry": "root:*",
 		"@types/redux": "root:*",
 		"react-dom": "root:*",

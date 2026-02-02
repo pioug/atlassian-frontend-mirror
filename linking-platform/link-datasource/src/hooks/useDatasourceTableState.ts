@@ -16,7 +16,6 @@ import {
 	type DatasourceResponseSchemaProperty,
 	type DatasourceTableStatusType,
 } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useDatasourceAnalyticsEvents } from '../analytics';
 import { useDatasourceActions } from '../state';
@@ -91,11 +90,8 @@ export const useDatasourceTableState = ({
 	const { captureError } = useErrorLogger({ datasourceId });
 	const { onAddItems } = useDatasourceActions();
 	const { discoverActions } = useDiscoverActions({ captureError, fireEvent });
-	// eslint-disable-next-line react-hooks/rules-of-hooks
-	const isInPDFRender = fg('lp_disable_datasource_table_max_height_restriction')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useIsInPDFRender()
-		: false;
+
+	const isInPDFRender = useIsInPDFRender();
 	const idFieldCount = 1;
 	const keyFieldCount = 1;
 

@@ -66,16 +66,16 @@ function ThemedComponent() {
 				type="button"
 				onClick={() =>
 					setTheme({
-						light: 'legacy-light',
-						dark: 'legacy-dark',
+						light: 'light-increased-contrast',
+						dark: 'dark-increased-contrast',
 						spacing: 'spacing',
 					})
 				}
 			>
-				legacy color themes
+				increased contrast color themes
 			</button>
-			<button type="button" onClick={() => setTheme({ light: 'legacy-light' })}>
-				legacy light theme
+			<button type="button" onClick={() => setTheme({ light: 'light-increased-contrast' })}>
+				increased contrast light theme
 			</button>
 		</div>
 	);
@@ -131,11 +131,11 @@ describe('ThemeProvider', () => {
 					<ThemedComponent />,
 				</ThemeProvider>,
 			);
-			await user.click(screen.getByRole('button', { name: 'legacy color themes' }));
+			await user.click(screen.getByRole('button', { name: 'increased contrast color themes' }));
 			expect(setGlobalThemeSpy).toHaveBeenCalledWith({
 				colorMode: 'light',
-				light: 'legacy-light',
-				dark: 'legacy-dark',
+				light: 'light-increased-contrast',
+				dark: 'dark-increased-contrast',
 				spacing: 'spacing',
 				typography: 'typography',
 			});
@@ -145,7 +145,7 @@ describe('ThemeProvider', () => {
 			const user = userEvent.setup();
 			const defaultTheme: Theme = {
 				light: 'light',
-				dark: 'legacy-dark',
+				dark: 'dark-increased-contrast',
 				spacing: 'spacing',
 				typography: 'typography',
 			};
@@ -154,11 +154,11 @@ describe('ThemeProvider', () => {
 					<ThemedComponent />,
 				</ThemeProvider>,
 			);
-			await user.click(screen.getByRole('button', { name: 'legacy light theme' }));
+			await user.click(screen.getByRole('button', { name: 'increased contrast light theme' }));
 			expect(setGlobalThemeSpy).toHaveBeenCalledWith({
 				colorMode: 'light',
-				light: 'legacy-light',
-				dark: 'legacy-dark',
+				light: 'light-increased-contrast',
+				dark: 'dark-increased-contrast',
 				spacing: 'spacing',
 				typography: 'typography',
 			});
@@ -316,8 +316,8 @@ describe('ThemeProvider', () => {
 
 		it('should return the theme from context when provided', async () => {
 			const customTheme = {
-				light: 'legacy-light' as const,
-				dark: 'legacy-dark' as const,
+				light: 'light-increased-contrast' as const,
+				dark: 'dark-increased-contrast' as const,
 				spacing: 'spacing' as const,
 			};
 
@@ -327,8 +327,8 @@ describe('ThemeProvider', () => {
 				</ThemeProvider>,
 			);
 
-			expect(screen.getByTestId('theme-light')).toHaveTextContent('legacy-light');
-			expect(screen.getByTestId('theme-dark')).toHaveTextContent('legacy-dark');
+			expect(screen.getByTestId('theme-light')).toHaveTextContent('light-increased-contrast');
+			expect(screen.getByTestId('theme-dark')).toHaveTextContent('dark-increased-contrast');
 			expect(screen.getByTestId('theme-spacing')).toHaveTextContent('spacing');
 		});
 
@@ -346,8 +346,8 @@ describe('ThemeProvider', () => {
 
 		it('should merge partial theme updates with existing theme', async () => {
 			const initialTheme = {
-				light: 'legacy-light' as const,
-				dark: 'legacy-dark' as const,
+				light: 'light-increased-contrast' as const,
+				dark: 'dark-increased-contrast' as const,
 				spacing: 'spacing' as const,
 			};
 
@@ -375,7 +375,7 @@ describe('ThemeProvider', () => {
 				</ThemeProvider>,
 			);
 
-			expect(screen.getByTestId('theme-light')).toHaveTextContent('legacy-light');
+			expect(screen.getByTestId('theme-light')).toHaveTextContent('light-increased-contrast');
 			expect(screen.getByTestId('theme-dark')).toHaveTextContent('dark');
 			expect(screen.getByTestId('theme-spacing')).toHaveTextContent('spacing');
 		});
@@ -437,16 +437,16 @@ describe('ThemeProvider', () => {
 						type="button"
 						onClick={() =>
 							setTheme({
-								light: 'legacy-light',
-								dark: 'legacy-dark',
+								light: 'light-increased-contrast',
+								dark: 'dark-increased-contrast',
 								spacing: 'spacing',
 							})
 						}
 					>
-						legacy color themes
+						increased contrast color themes
 					</button>
-					<button type="button" onClick={() => setTheme({ light: 'legacy-light' })}>
-						legacy light theme
+					<button type="button" onClick={() => setTheme({ light: 'light-increased-contrast' })}>
+						increased contrast light theme
 					</button>
 				</div>
 			);
@@ -551,7 +551,7 @@ describe('ThemeProvider', () => {
 			ffTest.both('platform_dst_subtree_theming', 'should apply custom defaultTheme', () => {
 				it('should apply custom defaultTheme', () => {
 					const customTheme: Partial<Theme> = {
-						dark: 'legacy-dark',
+						dark: 'dark-increased-contrast',
 						spacing: 'spacing',
 					};
 					render(
@@ -561,7 +561,7 @@ describe('ThemeProvider', () => {
 					);
 					// Should merge with defaults
 					expect(screen.getByTestId('theme-light')).toHaveTextContent('light');
-					expect(screen.getByTestId('theme-dark')).toHaveTextContent('legacy-dark');
+					expect(screen.getByTestId('theme-dark')).toHaveTextContent('dark-increased-contrast');
 					expect(screen.getByTestId('theme-spacing')).toHaveTextContent('spacing');
 					expect(screen.getByTestId('theme-typography')).toHaveTextContent('typography');
 				});
@@ -575,8 +575,8 @@ describe('ThemeProvider', () => {
 				() => {
 					it('should load and mount themes when feature flag is enabled and nested', async () => {
 						const customTheme: Partial<Theme> = {
-							light: 'legacy-light',
-							dark: 'legacy-dark',
+							light: 'light-increased-contrast',
+							dark: 'dark-increased-contrast',
 						};
 						render(
 							<AppProvider>
@@ -590,8 +590,8 @@ describe('ThemeProvider', () => {
 						});
 						expect(loadAndMountThemesSpy).toHaveBeenCalledWith(
 							expect.objectContaining({
-								light: 'legacy-light',
-								dark: 'legacy-dark',
+								light: 'light-increased-contrast',
+								dark: 'dark-increased-contrast',
 								spacing: 'spacing',
 								typography: 'typography',
 							}),
@@ -614,7 +614,9 @@ describe('ThemeProvider', () => {
 							</AppProvider>,
 						);
 						loadAndMountThemesSpy.mockClear();
-						await user.click(screen.getByRole('button', { name: 'legacy color themes' }));
+						await user.click(
+							screen.getByRole('button', { name: 'increased contrast color themes' }),
+						);
 						await waitFor(() => {
 							expect(loadAndMountThemesSpy).toHaveBeenCalled();
 						});
@@ -840,8 +842,8 @@ describe('ThemeProvider', () => {
 				() => {
 					it('should apply correct theme attributes to wrapper div when feature flag enabled', () => {
 						const customTheme: Partial<Theme> = {
-							light: 'legacy-light',
-							dark: 'legacy-dark',
+							light: 'light-increased-contrast',
+							dark: 'dark-increased-contrast',
 						};
 						render(
 							<AppProvider>
@@ -893,10 +895,14 @@ describe('ThemeProvider', () => {
 								</ThemeProvider>
 							</AppProvider>,
 						);
-						await user.click(screen.getByRole('button', { name: 'legacy color themes' }));
+						await user.click(
+							screen.getByRole('button', { name: 'increased contrast color themes' }),
+						);
 						// Verify theme was updated in context
 						await waitFor(() => {
-							expect(screen.getByTestId('theme-light')).toHaveTextContent('legacy-light');
+							expect(screen.getByTestId('theme-light')).toHaveTextContent(
+								'light-increased-contrast',
+							);
 						});
 					});
 				},
@@ -946,7 +952,10 @@ describe('ThemeProvider', () => {
 						render(
 							<ThemeProvider
 								defaultColorMode="dark"
-								defaultTheme={{ light: 'legacy-light', dark: 'legacy-dark' }}
+								defaultTheme={{
+									light: 'light-increased-contrast',
+									dark: 'dark-increased-contrast',
+								}}
 							>
 								<ThemeProvider
 									defaultColorMode="light"
@@ -1001,7 +1010,10 @@ describe('ThemeProvider', () => {
 							return (
 								<div>
 									<div data-testid="nested-theme-light">{nestedTheme?.light || 'undefined'}</div>
-									<button type="button" onClick={() => setNestedTheme({ light: 'legacy-light' })}>
+									<button
+										type="button"
+										onClick={() => setNestedTheme({ light: 'light-increased-contrast' })}
+									>
 										set nested theme
 									</button>
 								</div>
@@ -1021,7 +1033,9 @@ describe('ThemeProvider', () => {
 
 						// Update nested theme
 						await user.click(screen.getByRole('button', { name: 'set nested theme' }));
-						expect(screen.getByTestId('nested-theme-light')).toHaveTextContent('legacy-light');
+						expect(screen.getByTestId('nested-theme-light')).toHaveTextContent(
+							'light-increased-contrast',
+						);
 					});
 				},
 			);

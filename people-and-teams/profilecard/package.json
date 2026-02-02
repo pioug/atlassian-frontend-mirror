@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "24.34.2",
+	"version": "24.34.3",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -109,7 +109,7 @@
 		"@atlassian/ptc-test-utils": "workspace:^",
 		"@storybook/addon-actions": "root:*",
 		"@storybook/test": "root:*",
-		"@testing-library/react": "^16.3.0",
+		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"enzyme": "root:*",
 		"es6-promise": "root:*",

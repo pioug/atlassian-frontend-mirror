@@ -1,5 +1,11 @@
 # @atlaskit/progress-indicator
 
+## 12.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.0.14
 
 ### Patch Changes

@@ -6,14 +6,14 @@ import DeleteIcon from '@atlaskit/icon/core/delete';
 import type { ExpandPlugin } from '../types';
 
 import { deleteExpand } from './commands';
-import { findParentExpandNode } from './utils';
+import { findSelectedParentExpandNode } from './utils';
 
 export const getToolbarConfig =
 	(api: ExtractInjectionAPI<ExpandPlugin> | undefined): FloatingToolbarHandler =>
 	(state, { formatMessage }) => {
 		const { hoverDecoration } = api?.decorations?.actions ?? {};
 		const editorAnalyticsAPI = api?.analytics?.actions;
-		const selectedExpandNode = findParentExpandNode(state);
+		const selectedExpandNode = findSelectedParentExpandNode(state);
 
 		if (selectedExpandNode) {
 			const { nestedExpand, expand } = state.schema.nodes;

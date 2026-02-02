@@ -7,9 +7,97 @@ import {
 	HeadingInsideLayout,
 	HeadingInsideTable,
 	HeadingInsideExpand,
+	SimpleHeadingInsideExpand,
+	SimpleHeadingInsideTable,
+	SimpleHeadingInsideLayout,
 } from './heading-links.fixture';
 
-snapshotInformational.skip(HeadingInsidePanel, {
+const RENDERER_HEADING_WRAPPER = 'renderer-heading-wrapper';
+
+snapshotInformational(HeadingInsidePanel, {
+	selector: {
+		byTestId: RENDERER_HEADING_WRAPPER,
+	},
+	prepare: async (page: Page) => {
+		const headingWrapper = page.getByTestId(RENDERER_HEADING_WRAPPER);
+		const copyLink = headingWrapper.getByTestId('anchor-button');
+
+		await headingWrapper.hover({
+			position: {
+				x: 0,
+				y: 0,
+			},
+		});
+
+		await copyLink.waitFor({ state: 'visible' });
+	},
+});
+
+snapshotInformational(SimpleHeadingInsideTable, {
+	description: 'heading inside table - first column',
+	selector: {
+		byTestId: RENDERER_HEADING_WRAPPER,
+	},
+	prepare: async (page: Page) => {
+		const headingWrapper = page.getByTestId(RENDERER_HEADING_WRAPPER);
+		const copyLink = headingWrapper.getByTestId('anchor-button');
+		await headingWrapper.hover({
+			position: {
+				x: 0,
+				y: 0,
+			},
+		});
+
+		await copyLink.waitFor({ state: 'visible' });
+	},
+});
+
+snapshotInformational(SimpleHeadingInsideLayout, {
+	description: 'heading inside layout  first column ',
+	selector: {
+		byTestId: RENDERER_HEADING_WRAPPER,
+	},
+	prepare: async (page: Page) => {
+		const headingWrapper = page.getByTestId(RENDERER_HEADING_WRAPPER);
+		const copyLink = headingWrapper.getByTestId('anchor-button');
+		await headingWrapper.hover({
+			position: {
+				x: 0,
+				y: 0,
+			},
+		});
+
+		await copyLink.waitFor({ state: 'visible' });
+	},
+});
+
+snapshotInformational(SimpleHeadingInsideExpand, {
+	selector: {
+		byTestId: RENDERER_HEADING_WRAPPER,
+	},
+	description: 'heading inside expand first expand',
+	prepare: async (page: Page) => {
+		const expand = page.getByLabel('Expand content').first();
+		const headingWrapper = page.getByTestId(RENDERER_HEADING_WRAPPER);
+		const copyLink = headingWrapper.getByTestId('anchor-button');
+
+		await expand.click();
+		await headingWrapper.hover({
+			position: {
+				x: 0,
+				y: 0,
+			},
+		});
+
+		await copyLink.waitFor({ state: 'visible' });
+	},
+});
+
+snapshotInformational(HeadingInsidePanel, {
+	featureFlags: {
+		platform_editor_copy_link_a11y_inconsistency_fix: false,
+	},
+	description: 'heading inside panel - platform_editor_copy_link_a11y_inconsistency_fix: false',
 	selector: {
 		byRole: 'heading',
 	},
@@ -28,7 +116,10 @@ snapshotInformational.skip(HeadingInsidePanel, {
 	},
 });
 
-snapshotInformational.skip(HeadingInsideExpand, {
+snapshotInformational(HeadingInsideExpand, {
+	featureFlags: {
+		platform_editor_copy_link_a11y_inconsistency_fix: false,
+	},
 	ignoredErrors: [
 		{
 			// Gemini is complain because this component packages/editor/renderer/src/ui/Expand.tsx
@@ -45,7 +136,8 @@ snapshotInformational.skip(HeadingInsideExpand, {
 			name: 'Heading 1',
 		},
 	},
-	description: 'heading inside expand first expand',
+	description:
+		'heading inside expand first expand - platform_editor_copy_link_a11y_inconsistency_fix: false',
 	prepare: async (page: Page) => {
 		const expand = page.getByLabel('Expand content').first();
 		const heading = page.getByRole('heading', { name: 'Heading 1' });
@@ -63,8 +155,12 @@ snapshotInformational.skip(HeadingInsideExpand, {
 	},
 });
 
-snapshotInformational.skip(HeadingInsideExpand, {
-	description: 'heading inside expand second expand',
+snapshotInformational(HeadingInsideExpand, {
+	featureFlags: {
+		platform_editor_copy_link_a11y_inconsistency_fix: false,
+	},
+	description:
+		'heading inside expand second expand - platform_editor_copy_link_a11y_inconsistency_fix: false',
 	ignoredErrors: [
 		{
 			// Gemini is complain because this component packages/editor/renderer/src/ui/Expand.tsx
@@ -98,8 +194,12 @@ snapshotInformational.skip(HeadingInsideExpand, {
 	},
 });
 
-snapshotInformational.skip(HeadingInsideTable, {
-	description: 'heading inside table - first column',
+snapshotInformational(HeadingInsideTable, {
+	featureFlags: {
+		platform_editor_copy_link_a11y_inconsistency_fix: false,
+	},
+	description:
+		'heading inside table - first column - platform_editor_copy_link_a11y_inconsistency_fix: false',
 	selector: {
 		byRole: 'heading',
 		options: {
@@ -123,8 +223,12 @@ snapshotInformational.skip(HeadingInsideTable, {
 	},
 });
 
-snapshotInformational.skip(HeadingInsideTable, {
-	description: 'heading inside table - second column',
+snapshotInformational(HeadingInsideTable, {
+	featureFlags: {
+		platform_editor_copy_link_a11y_inconsistency_fix: false,
+	},
+	description:
+		'heading inside table - second column - platform_editor_copy_link_a11y_inconsistency_fix: false',
 	selector: {
 		byRole: 'heading',
 		options: {
@@ -148,8 +252,12 @@ snapshotInformational.skip(HeadingInsideTable, {
 	},
 });
 
-snapshotInformational.skip(HeadingInsideTable, {
-	description: 'heading inside table  second column but wrapped',
+snapshotInformational(HeadingInsideTable, {
+	featureFlags: {
+		platform_editor_copy_link_a11y_inconsistency_fix: false,
+	},
+	description:
+		'heading inside table  second column but wrapped - platform_editor_copy_link_a11y_inconsistency_fix: false',
 	selector: {
 		byRole: 'heading',
 		options: {
@@ -177,8 +285,12 @@ snapshotInformational.skip(HeadingInsideTable, {
 	},
 });
 
-snapshotInformational.skip(HeadingInsideLayout, {
-	description: 'heading inside layout  first column ',
+snapshotInformational(HeadingInsideLayout, {
+	featureFlags: {
+		platform_editor_copy_link_a11y_inconsistency_fix: false,
+	},
+	description:
+		'heading inside layout  first column  - platform_editor_copy_link_a11y_inconsistency_fix: false',
 	selector: {
 		byRole: 'heading',
 		options: {
@@ -208,8 +320,12 @@ snapshotInformational.skip(HeadingInsideLayout, {
 	},
 });
 
-snapshotInformational.skip(HeadingInsideLayout, {
-	description: 'heading inside layout second column',
+snapshotInformational(HeadingInsideLayout, {
+	featureFlags: {
+		platform_editor_copy_link_a11y_inconsistency_fix: false,
+	},
+	description:
+		'heading inside layout second column - platform_editor_copy_link_a11y_inconsistency_fix: false',
 	selector: {
 		byRole: 'heading',
 		options: {

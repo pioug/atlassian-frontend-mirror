@@ -36,7 +36,7 @@
 	"devDependencies": {
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
-		"@testing-library/react": "^16.3.0",
+		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*"
 	},
 	"techstack": {

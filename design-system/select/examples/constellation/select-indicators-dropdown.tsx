@@ -8,6 +8,7 @@ import { cities } from '../common/data';
 
 const DropdownIndicator = (props: DropdownIndicatorProps<OptionType, true>) => {
 	return (
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		<components.DropdownIndicator {...props}>
 			<EmojiIcon label="Emoji" />
 		</components.DropdownIndicator>

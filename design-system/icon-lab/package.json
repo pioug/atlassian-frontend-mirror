@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon-lab",
-	"version": "5.15.0",
+	"version": "5.15.1",
 	"description": "An icon package for public icon contributions",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -50,7 +50,7 @@
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@compiled/react": "root:*",
-		"@testing-library/react": "^16.3.0",
+		"@testing-library/react": "root:*",
 		"fs-extra": "root:*",
 		"pkg-dir": "root:*",
 		"react-dom": "root:*",
@@ -85,17 +85,11 @@
 			]
 		}
 	},
-	"af:exports": {
-		"./deprecated-map": "./src/entry-points/deprecated-map.tsx",
-		"./metadata": "./src/entry-points/metadata.tsx",
-		"./migration-map": "./src/migration-map.tsx",
-		"./core": "./core",
-		".": "./src/index.tsx"
-	},
 	"exports": {
 		"./deprecated-map": "./src/entry-points/deprecated-map.tsx",
 		"./metadata": "./src/entry-points/metadata.tsx",
 		"./migration-map": "./src/migration-map.tsx",
+		"./core": "./core",
 		"./core/*": {
 			"types": "./core/*.d.ts",
 			"default": "./core/*.js"

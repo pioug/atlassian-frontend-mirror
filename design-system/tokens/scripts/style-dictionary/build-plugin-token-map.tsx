@@ -93,15 +93,11 @@ function getThemeValues(theme: Token[]): FormattedTokens {
 async function main() {
 	const tokenNames = requireJsonish(path.join(prebuiltRoot, 'token-names.js'));
 	const light = requireJsonish(path.join(prebuiltRoot, 'tokens-raw', 'atlassian-light.js'));
-	const legacyLight = requireJsonish(
-		path.join(prebuiltRoot, 'tokens-raw', 'atlassian-legacy-light.js'),
-	);
 	const shape = requireJsonish(path.join(prebuiltRoot, 'tokens-raw', 'atlassian-shape.js'));
 	const spacing = requireJsonish(path.join(prebuiltRoot, 'tokens-raw', 'atlassian-spacing.js'));
 	const typography = requireJsonish(path.join(prebuiltRoot, 'tokens-raw', 'atlassian-typography.js'));
 
 	const lightValues = getThemeValues(light);
-	const legacyLightValues = getThemeValues(legacyLight);
 	const shapeValues = getThemeValues(shape);
 	const spacingValues = getThemeValues(spacing);
 	const typographyValues = getThemeValues(typography);
@@ -110,7 +106,6 @@ async function main() {
 	const tokens = {
 		tokenNames,
 		light: lightValues,
-		legacyLight: legacyLightValues,
 		shape: shapeValues,
 		spacing: spacingValues,
 		typography: typographyValues,

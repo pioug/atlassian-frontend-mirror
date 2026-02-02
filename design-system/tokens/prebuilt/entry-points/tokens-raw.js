@@ -10,12 +10,6 @@ Object.defineProperty(exports, "dark", {
     return _atlassianDark.default;
   }
 });
-Object.defineProperty(exports, "legacyLightTokens", {
-  enumerable: true,
-  get: function get() {
-    return _atlassianLegacyLight.default;
-  }
-});
 Object.defineProperty(exports, "light", {
   enumerable: true,
   get: function get() {
@@ -41,7 +35,6 @@ Object.defineProperty(exports, "typography", {
   }
 });
 var _atlassianLight = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-light"));
-var _atlassianLegacyLight = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-legacy-light"));
 var _atlassianDark = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-dark"));
 var _atlassianSpacing = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-spacing"));
 var _atlassianTypography = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-typography"));

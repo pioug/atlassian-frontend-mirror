@@ -24,7 +24,7 @@
 		"**/mock.*"
 	],
 	"compilerOptions": {
-		"module": "commonjs",
+		"module": "nodenext",
 		"target": "es6",
 		"esModuleInterop": true,
 		"lib": [
@@ -40,7 +40,8 @@
 		],
 		"composite": true,
 		"verbatimModuleSyntax": false,
-		"outDir": "../../../tsDist/@atlaskit__codemod-cli/app"
+		"outDir": "../../../tsDist/@atlaskit__codemod-cli/app",
+		"moduleResolution": "nodenext"
 	},
 	"references": [
 		{

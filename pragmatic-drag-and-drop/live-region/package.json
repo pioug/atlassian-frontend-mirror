@@ -29,7 +29,7 @@
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@emotion/react": "root:*",
 		"@testing-library/dom": "root:*",
-		"@testing-library/react": "^16.3.0",
+		"@testing-library/react": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*",
 		"wait-for-expect": "root:*"

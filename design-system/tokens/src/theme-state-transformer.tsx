@@ -24,8 +24,8 @@ const isColorMode = (modeId: string): modeId is ThemeColorModes => {
  *
  * @example
  * ```
- * themeStringToObject('dark:dark light:legacy-light spacing:spacing');
- * // returns { dark: 'dark', light: 'legacy-light', spacing: 'spacing' }
+ * themeStringToObject('dark:dark light:light spacing:spacing');
+ * // returns { dark: 'dark', light: 'light', spacing: 'spacing' }
  * ```
  */
 export const themeStringToObject = (themeState: string): Partial<ThemeState> => {
@@ -64,8 +64,8 @@ export const themeStringToObject = (themeState: string): Partial<ThemeState> => 
  *
  * @example
  * ```
- * themeObjectToString({ dark: 'dark', light: 'legacy-light', spacing: 'spacing' });
- * // returns 'dark:dark light:legacy-light spacing:spacing'
+ * themeObjectToString({ dark: 'dark', light: 'light', spacing: 'spacing' });
+ * // returns 'dark:dark light:light spacing:spacing'
  * ```
  */
 export const themeObjectToString = (themeState: Partial<ThemeState>): string =>

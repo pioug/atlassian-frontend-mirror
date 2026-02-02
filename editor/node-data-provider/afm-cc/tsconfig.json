@@ -30,6 +30,9 @@
 			"path": "../../editor-prosemirror/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-cc/tsconfig.json"
 		}
 	]

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "5.31.0",
+	"version": "5.32.1",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -164,7 +164,7 @@
 		"@atlassian/test-utils": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@axe-core/playwright": "root:*",
-		"@testing-library/react": "^16.3.0",
+		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"raf-stub": "root:*",
 		"react-dom": "root:*"

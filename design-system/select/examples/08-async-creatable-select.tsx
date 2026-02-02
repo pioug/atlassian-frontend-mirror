@@ -16,6 +16,7 @@ const createOption = (inputValue: string) => ({
 	value: inputValue.toLowerCase().replace(/\W/g, ''),
 });
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class AsyncCreatableExample extends Component<{}, State> {
 	state = {
 		allowCreateWhileLoading: false,
@@ -58,6 +59,7 @@ class AsyncCreatableExample extends Component<{}, State> {
 		return (
 			<>
 				<Label htmlFor="async-creatable-example">Which city do you live in?</Label>
+				{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 				<AsyncCreatable
 					testId="react-select"
 					inputId="async-creatable-example"

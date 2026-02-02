@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-guideline",
-	"version": "7.0.1",
+	"version": "7.0.2",
 	"description": "guideline plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -38,7 +38,7 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@testing-library/react": "^16.3.0",
+		"@testing-library/react": "root:*",
 		"wait-for-expect": "root:*"
 	},
 	"techstack": {

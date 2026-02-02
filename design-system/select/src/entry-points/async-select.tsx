@@ -1,1 +1,1 @@
-export { default } from '../AsyncSelect';
+export { default } from '../async-select';

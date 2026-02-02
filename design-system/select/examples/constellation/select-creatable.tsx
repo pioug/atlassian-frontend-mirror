@@ -25,6 +25,7 @@ interface State {
 	value?: ValueType<OptionType>;
 }
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class CreatableAdvanced extends Component<{}, State> {
 	state: State = {
 		isLoading: false,

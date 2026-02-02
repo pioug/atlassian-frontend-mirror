@@ -19,6 +19,7 @@ const loadOptions = (inputValue: string, callback: (options: OptionsType) => voi
 const AsyncExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="async-select-with-callback-example">Which country do you live in?</Label>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<Select
 			inputId="async-select-with-callback-example"
 			testId="react-select"

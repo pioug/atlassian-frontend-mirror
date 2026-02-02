@@ -3,7 +3,6 @@ import path from 'path';
 
 import { type Config, type Core } from 'style-dictionary';
 
-import legacyPalette from '../../schema/palettes/legacy-palette';
 import defaultPalette from '../../schema/palettes/palette';
 import shapePalette from '../../schema/palettes/shape-palette';
 import spacingScale from '../../schema/palettes/spacing-scale';
@@ -34,8 +33,6 @@ const getPalette = (paletteId: Palettes) => {
 			return spacingScale;
 		case 'typographyPalette':
 			return typographyPalette;
-		case 'legacyPalette':
-			return legacyPalette;
 		case 'shapePalette':
 			return shapePalette;
 		case 'defaultPalette':

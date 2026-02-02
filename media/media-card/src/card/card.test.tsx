@@ -4466,6 +4466,13 @@ describe('Card ', () => {
 		});
 
 		describe('should fire an operational event', () => {
+			beforeEach(() => {
+				// Feature flag defaults to false (disabled), so all events fire
+				// Mock Math.random to always return a value < 0.1 (within sample rate)
+				// This ensures success events always fire in tests, preventing flakiness
+				jest.spyOn(Math, 'random').mockReturnValue(0.05);
+			});
+
 			it('when the card status changes (file identifier)', async () => {
 				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 				const { MockedMediaClientProvider, processItem } = createMockedMediaClientProvider({
@@ -5156,6 +5163,13 @@ describe('Card ', () => {
 	});
 
 	describe.each([true, false])('SVG (disableOverlay: %p )', (disableOverlay) => {
+		beforeEach(() => {
+			// Feature flag defaults to false (disabled), so all events fire
+			// Mock Math.random to always return a value < 0.1 (within sample rate)
+			// This ensures success events always fire in tests, preventing flakiness
+			jest.spyOn(Math, 'random').mockReturnValue(0.05);
+		});
+
 		it('should render SVG natively', async () => {
 			const [fileItem, identifier] = generateSampleFileItem.svg();
 			const { mediaApi } = createMockedMediaApi(fileItem);

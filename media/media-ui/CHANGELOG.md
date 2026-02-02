@@ -1,5 +1,11 @@
 # @atlaskit/media-ui
 
+## 28.7.27
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 28.7.26
 
 ### Patch Changes

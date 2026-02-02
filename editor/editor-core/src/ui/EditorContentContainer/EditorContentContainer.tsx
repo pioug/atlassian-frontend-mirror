@@ -54,7 +54,6 @@ import {
 	textDangerStyles,
 	textSelectedNodeStyles,
 } from './styles/blockTypeStyles';
-import { codeBidiWarningStyles } from './styles/codeBidiWarningStyles';
 import {
 	codeBlockStyles,
 	codeBlockStylesWithEmUnits,
@@ -755,11 +754,9 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					expValEquals('platform_editor_ssr_renderer', 'isEnabled', true) && tableEmptyRowStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-			hyperLinkFloatingToolbarStyles,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-			selectionToolbarAnimationStyles,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-			fg('platform_editor_vanilla_codebidi_warning') && codeBidiWarningStyles,
+					hyperLinkFloatingToolbarStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					selectionToolbarAnimationStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					expValNoExposure('platform_editor_block_menu', 'isEnabled', false) && [
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

@@ -1,5 +1,13 @@
 # @atlaskit/select
 
+## 21.7.3
+
+### Patch Changes
+
+- [`e966e6a5ef441`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e966e6a5ef441) -
+  Internal refactoring and declaring undeclared dependencies.
+- Updated dependencies
+
 ## 21.7.2
 
 ### Patch Changes

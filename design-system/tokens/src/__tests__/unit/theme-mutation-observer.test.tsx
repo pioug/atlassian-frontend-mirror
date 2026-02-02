@@ -13,7 +13,7 @@ describe('ThemeMutationObserver', () => {
 
 		await waitFor(() => expect(callbackSpy).toHaveBeenCalledTimes(1));
 
-		setGlobalTheme({ dark: 'legacy-dark' });
+		setGlobalTheme({ dark: 'dark-increased-contrast' });
 
 		await waitFor(() => expect(callbackSpy).toHaveBeenCalledTimes(2));
 	});
@@ -39,14 +39,14 @@ describe('ThemeMutationObserver', () => {
 		expect(callbackSpy2).toHaveBeenCalledWith(
 			expect.objectContaining({ dark: 'dark', colorMode: 'dark' }),
 		);
-		setGlobalTheme({ dark: 'legacy-dark' });
+		setGlobalTheme({ dark: 'light' });
 
 		await waitFor(() => {
 			expect(callbackSpy1).toHaveBeenCalledTimes(2);
 		});
 		expect(callbackSpy2).toHaveBeenCalledTimes(2);
-		expect(callbackSpy1).toHaveBeenCalledWith(expect.objectContaining({ dark: 'legacy-dark' }));
-		expect(callbackSpy2).toHaveBeenCalledWith(expect.objectContaining({ dark: 'legacy-dark' }));
+		expect(callbackSpy1).toHaveBeenCalledWith(expect.objectContaining({ dark: 'light' }));
+		expect(callbackSpy2).toHaveBeenCalledWith(expect.objectContaining({ dark: 'light' }));
 	});
 
 	it('should not call observer callbacks once disconnected', async () => {

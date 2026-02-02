@@ -5,6 +5,7 @@ import { expandClassNames } from '@atlaskit/editor-common/styles';
 import { expandMessages } from '@atlaskit/editor-common/ui';
 import type { DOMOutputSpec, Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 export const buildExpandClassName = (type: string, expanded: boolean) => {
@@ -75,6 +76,9 @@ export const toDOM = (
 		{
 			// prettier-ignore
 			class: expandClassNames.content,
+			style: expValEquals('platform_editor_display_none_to_expand', 'isEnabled', true)
+				? `display: ${expandedState.get(node) ? 'flow-root' : 'none'}`
+				: undefined,
 			contenteditable:
 				contentEditable !== undefined ? (contentEditable ? 'true' : 'false') : undefined,
 		},

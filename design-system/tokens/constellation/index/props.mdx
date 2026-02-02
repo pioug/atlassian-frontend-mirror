@@ -309,17 +309,17 @@ import { themeObjectToString } from '@atlaskit/tokens';
 const theme = {
 	colorMode: 'auto',
 	dark: 'dark',
-	light: 'legacy-light',
+	light: 'light',
 	spacing: 'spacing',
 };
 
 const themeString = themeObjectToString(theme);
 console.log(themeString);
-// 'colorMode:auto dark:dark light:legacy-light spacing:spacing'
+// 'colorMode:auto dark:dark light:light spacing:spacing'
 
 const themeQueryString = encodeURIComponent(themeString);
 console.log(themeQueryString);
-// 'colorMode%3Aauto%20dark%3Adark%20light%3Alegacy-light%20spacing%3Aspacing'
+// 'colorMode%3Aauto%20dark%3Adark%20light%3Alight%20spacing%3Aspacing'
 ```
 
 ### themeStringToObject(themes)
@@ -331,12 +331,12 @@ object that:
 - can be used for parsing a URL query parameters from a stringified theme state object.
 
 An example of the expected formatting of the `themes` string is
-`'dark:dark light:legacy-light spacing:spacing'`.
+`'dark:dark light:light spacing:spacing'`.
 
 <TokenPropsTable
 	propName={'themes'}
 	description={
-		'A string in the format used by the `data-theme` html attribute; or a stringigied theme state object as a URL qeury string'
+		'A string in the format used by the `data-theme` html attribute; or a stringified theme state object as a URL query string'
 	}
 	typing={`string`}
 	required={true}
@@ -358,7 +358,7 @@ An example of the expected formatting of the `themes` string is
 ```tsx
 import { setGlobalTheme, themeStringToObject } from '@atlaskit/tokens';
 
-const newTheme = 'colorMode:auto dark:dark light:legacy-light spacing:spacing';
+const newTheme = 'colorMode:auto dark:dark light:light spacing:spacing';
 function onThemeChangeHandler(newTheme) {
 	setGlobalTheme(themeStringToObject(newTheme));
 }
@@ -366,8 +366,7 @@ function onThemeChangeHandler(newTheme) {
 const parsedUrlProps = {
 	contentId: 'contentId',
 	hostname: 'hostname',
-	themeState:
-		'colorMode:auto dark:dark light:legacy-light UNSAFE_themeOptions:{"brandColor":"#ff0000"}',
+	themeState: 'colorMode:auto dark:dark light:light UNSAFE_themeOptions:{"brandColor":"#ff0000"}',
 };
 parsedThemeState = themeStringToObject(decodeURIComponent(parsedUrlProps.themeState));
 ```

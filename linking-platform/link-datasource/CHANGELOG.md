@@ -1,5 +1,18 @@
 # @atlaskit/link-datasource
 
+## 4.33.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.33.1
+
+### Patch Changes
+
+- [`ea409a683cd48`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea409a683cd48) -
+  fg cleanup: lp_disable_datasource_table_max_height_restriction
+
 ## 4.33.0
 
 ### Minor Changes

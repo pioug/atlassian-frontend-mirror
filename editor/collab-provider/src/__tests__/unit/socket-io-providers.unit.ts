@@ -230,13 +230,24 @@ describe('Socket io provider', () => {
 	});
 
 	describe('Product Information headers', () => {
-		it('should set the product header on the socket.io client', () => {
+		beforeEach(() => {
+			// default to OFF for these tests unless explicitly enabled
+			expValEqualsMock.mockReturnValue(false);
+		});
+
+		it('should omit x-client-platform header when platform_editor_send_client_platform_header is OFF', () => {
+			const socket = createSocketIOSocket(url);
+			expect(socket?.io?.opts.extraHeaders).not.toHaveProperty('x-client-platform');
+		});
+
+		it('should set x-client-platform header when platform_editor_send_client_platform_header is ON', () => {
+			expValEqualsMock.mockImplementation(
+				(experimentName: string, param: string) =>
+					experimentName === 'platform_editor_send_client_platform_header'
+			);
 			const socket = createSocketIOSocket(url);
 
-			expect(socket?.io?.opts.extraHeaders).toEqual({
-				'x-product': 'unknown',
-				'x-subproduct': 'unknown',
-			});
+			expect(socket?.io?.opts.extraHeaders).toHaveProperty('x-client-platform', 'web');
 		});
 
 		// Ignored via go/ees005

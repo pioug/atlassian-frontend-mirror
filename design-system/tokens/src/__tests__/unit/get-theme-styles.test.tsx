@@ -25,7 +25,7 @@ describe('getThemeStyles', () => {
 			'platform_increased-contrast-themes',
 			async () => {
 				let results = await getThemeStyles({
-					light: 'legacy-light',
+					light: 'light',
 					spacing: 'spacing',
 					typography: 'typography',
 				});
@@ -36,8 +36,9 @@ describe('getThemeStyles', () => {
 				});
 
 				expect(getThemeData(results)).toEqual([
-					{ id: 'legacy-light', attrs: { 'data-theme': 'legacy-light' } },
+					{ id: 'light', attrs: { 'data-theme': 'light' } },
 					{ id: 'dark', attrs: { 'data-theme': 'dark' } },
+					{ id: 'light-increased-contrast', attrs: { 'data-theme': 'light-increased-contrast' } },
 					{
 						id: 'dark-increased-contrast',
 						attrs: { 'data-theme': 'dark-increased-contrast' },
@@ -48,7 +49,7 @@ describe('getThemeStyles', () => {
 			},
 			async () => {
 				let results = await getThemeStyles({
-					light: 'legacy-light',
+					light: 'light',
 					spacing: 'spacing',
 					typography: 'typography',
 				});
@@ -59,7 +60,7 @@ describe('getThemeStyles', () => {
 				});
 
 				expect(getThemeData(results)).toEqual([
-					{ id: 'legacy-light', attrs: { 'data-theme': 'legacy-light' } },
+					{ id: 'light', attrs: { 'data-theme': 'light' } },
 					{ id: 'dark', attrs: { 'data-theme': 'dark' } },
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
@@ -378,8 +379,6 @@ describe('getThemeStyles', () => {
 						id: 'dark-increased-contrast',
 						attrs: { 'data-theme': 'dark-increased-contrast' },
 					},
-					{ id: 'legacy-light', attrs: { 'data-theme': 'legacy-light' } },
-					{ id: 'legacy-dark', attrs: { 'data-theme': 'legacy-dark' } },
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 					{ id: 'shape', attrs: { 'data-theme': 'shape' } },
 					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
@@ -392,8 +391,6 @@ describe('getThemeStyles', () => {
 						{ id: 'light-future', attrs: { 'data-theme': 'light-future' } },
 						{ id: 'dark', attrs: { 'data-theme': 'dark' } },
 						{ id: 'dark-future', attrs: { 'data-theme': 'dark-future' } },
-						{ id: 'legacy-light', attrs: { 'data-theme': 'legacy-light' } },
-						{ id: 'legacy-dark', attrs: { 'data-theme': 'legacy-dark' } },
 						{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 						{ id: 'shape', attrs: { 'data-theme': 'shape' } },
 						{ id: 'typography', attrs: { 'data-theme': 'typography' } },

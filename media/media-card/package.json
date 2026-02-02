@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-card",
-	"version": "79.15.0",
+	"version": "79.15.1",
 	"description": "Includes all media card related components, CardView, CardViewSmall, Card...",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -91,7 +91,7 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ufo": "workspace:^",
 		"@testing-library/dom": "root:*",
-		"@testing-library/react": "^16.3.0",
+		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"@types/classnames": "root:*",
 		"@types/react-loadable": "root:*",
@@ -104,6 +104,9 @@
 		"wait-for-expect": "root:*"
 	},
 	"platform-feature-flags": {
+		"enable_sampling_mediacardrender_succeeded": {
+			"type": "boolean"
+		},
 		"platform_media_auth_provider_analytics": {
 			"type": "boolean"
 		},

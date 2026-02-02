@@ -75,11 +75,7 @@ const DatasourceTableViewWithoutAnalytics = ({
 		fieldKeys: visibleColumnKeys,
 	});
 
-	// eslint-disable-next-line react-hooks/rules-of-hooks
-	const isInPDFRender = fg('lp_disable_datasource_table_max_height_restriction')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useIsInPDFRender()
-		: false;
+	const isInPDFRender = useIsInPDFRender();
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 	const experienceId = useDatasourceExperienceId();
 

@@ -2,6 +2,9 @@ import React from 'react';
 import Renderer from '../../ui/Renderer';
 
 import {
+	adfHeadingInsideTable,
+	adfHeadingNestedExpand,
+	adfHeadingNestedLayout,
 	adfHeadingsInsideTable,
 	adfHeadingsNestedExpands,
 	adfHeadingsNestedLayout,
@@ -21,6 +24,19 @@ export const HeadingInsidePanel = (): React.JSX.Element => {
 	);
 };
 
+export const SimpleHeadingInsideExpand = (): React.JSX.Element => {
+	return (
+		<Renderer
+			allowHeadingAnchorLinks={{
+				allowNestedHeaderLinks: true,
+			}}
+			adfStage={'stage0'}
+			appearance={'full-page'}
+			document={adfHeadingNestedExpand}
+		/>
+	);
+};
+
 export const HeadingInsideExpand = (): React.JSX.Element => {
 	return (
 		<Renderer
@@ -34,6 +50,19 @@ export const HeadingInsideExpand = (): React.JSX.Element => {
 	);
 };
 
+export const SimpleHeadingInsideTable = (): React.JSX.Element => {
+	return (
+		<Renderer
+			allowHeadingAnchorLinks={{
+				allowNestedHeaderLinks: true,
+			}}
+			adfStage={'stage0'}
+			appearance={'full-page'}
+			allowColumnSorting={true}
+			document={adfHeadingInsideTable}
+		/>
+	);
+};
 export const HeadingInsideTable = (): React.JSX.Element => {
 	return (
 		<Renderer
@@ -48,6 +77,18 @@ export const HeadingInsideTable = (): React.JSX.Element => {
 	);
 };
 
+export const SimpleHeadingInsideLayout = (): React.JSX.Element => {
+	return (
+		<Renderer
+			allowHeadingAnchorLinks={{
+				allowNestedHeaderLinks: true,
+			}}
+			adfStage={'stage0'}
+			appearance={'full-page'}
+			document={adfHeadingNestedLayout}
+		/>
+	);
+};
 export const HeadingInsideLayout = (): React.JSX.Element => {
 	return (
 		<Renderer

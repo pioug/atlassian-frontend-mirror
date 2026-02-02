@@ -25,6 +25,7 @@ interface State {
 	controlShouldRenderValue: boolean;
 }
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class MultiPopupSelectExample extends Component<{}, State> {
 	state = {
 		values: [options[0]],

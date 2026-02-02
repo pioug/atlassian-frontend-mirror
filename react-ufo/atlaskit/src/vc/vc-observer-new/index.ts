@@ -284,8 +284,7 @@ export default class VCObserverNew {
 		}
 
 		// From TTVC v4 onwards, ensuring that SSR entry is always auto-added, whenever it is configured.
-		// From the next major version release (where TTVC v4 becomes the default TTVC version), the config for `includeSSRInV3` will be deprecated
-		if (param.ssr && !param.includeSSRInV3 && fg('platform_ufo_auto_add_ssr_entry_in_ttvc_v4')) {
+		if (param.ssr) {
 			this.addSSR(param.ssr);
 		}
 

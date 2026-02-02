@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-date",
-	"version": "9.1.4",
+	"version": "9.1.5",
 	"description": "Date plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -57,7 +57,7 @@
 		"react-loadable": "root:*"
 	},
 	"devDependencies": {
-		"@testing-library/react": "^16.3.0"
+		"@testing-library/react": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",

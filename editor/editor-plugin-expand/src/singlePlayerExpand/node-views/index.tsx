@@ -214,6 +214,10 @@ export class ExpandNodeView implements NodeView {
 			})(this.view.state, this.view.dispatch);
 			this.updateExpandToggleIcon(this.node);
 
+			if (expValEquals('platform_editor_display_none_to_expand', 'isEnabled', true)) {
+				this.updateDisplayStyle(this.node);
+			}
+
 			return;
 		}
 
@@ -344,6 +348,10 @@ export class ExpandNodeView implements NodeView {
 				node: this.node,
 			})(state, dispatch);
 			this.updateExpandToggleIcon(this.node);
+
+			if (expValEquals('platform_editor_display_none_to_expand', 'isEnabled', true)) {
+				this.updateDisplayStyle(this.node);
+			}
 		}
 	};
 
@@ -598,10 +606,15 @@ export class ExpandNodeView implements NodeView {
 				const hasChanged = this.isExpanded !== expandedState.get(node);
 				if (hasChanged) {
 					this.updateExpandToggleIcon(node);
+
+					if (expValEquals('platform_editor_display_none_to_expand', 'isEnabled', true)) {
+						this.updateDisplayStyle(node);
+					}
 				}
 			} else {
 				this.node = node;
 			}
+
 			return true;
 		}
 		return false;
@@ -632,6 +645,12 @@ export class ExpandNodeView implements NodeView {
 		this.updateExpandBodyContentEditable();
 		if (expValEquals('platform_editor_toggle_expand_on_match_found', 'isEnabled', true)) {
 			this.isExpanded = expanded;
+		}
+	}
+
+	private updateDisplayStyle(node: PmNode): void {
+		if (this.content) {
+			this.content.style.display = isExpandCollapsed(node) ? 'none' : 'flow-root';
 		}
 	}
 

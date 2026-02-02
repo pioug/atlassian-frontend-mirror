@@ -48,6 +48,7 @@ const footerStyles = xcss({
 const CustomOption = ({ children, ...props }: OptionProps<Option>) => {
 	const appearance = props.data.appearance ? props.data.appearance : 'default';
 	return (
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		<components.Option {...props}>
 			<Inline alignBlock="center" spread="space-between" role="group">
 				<Pressable backgroundColor="color.background.neutral.subtle">
@@ -66,6 +67,7 @@ const CustomOption = ({ children, ...props }: OptionProps<Option>) => {
 
 const CustomMenu = (props: MenuProps<Option>) => {
 	return (
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		<components.Menu {...props}>
 			<Stack>
 				{props.children}

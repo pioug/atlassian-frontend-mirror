@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-type
 
+## 11.2.5
+
+### Patch Changes
+
+- [`38dee2c85c456`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38dee2c85c456) -
+  [ux] [EDITOR-4486] render tooltips for ToolbarDropdownMenu using new TooltipComponent prop behind
+  platform_editor_hide_toolbar_tooltips_fix
+- Updated dependencies
+
 ## 11.2.4
 
 ### Patch Changes

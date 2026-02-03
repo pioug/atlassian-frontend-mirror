@@ -1,5 +1,23 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.20.0
+
+### Minor Changes
+
+- [`9034cc60b8989`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9034cc60b8989) -
+  Use the GraphQL endpoint for delete block
+
+## 3.19.0
+
+### Minor Changes
+
+- [`1e7ebf4e1bf2d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e7ebf4e1bf2d) -
+  Use the GraphQL endpoint for update block
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.18.0
 
 ### Minor Changes

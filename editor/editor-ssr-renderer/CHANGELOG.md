@@ -1,5 +1,13 @@
 # @atlaskit/editor-ssr-renderer
 
+## 2.1.1
+
+### Patch Changes
+
+- [`3242cbd5e88b9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3242cbd5e88b9) -
+  Update packages to match prosemirror library updates
+- Updated dependencies
+
 ## 2.1.0
 
 ### Minor Changes

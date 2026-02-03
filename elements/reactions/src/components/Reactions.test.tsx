@@ -17,6 +17,7 @@ import { RENDER_REACTIONPICKER_TESTID } from './ReactionPicker';
 import { RENDER_REACTION_TESTID } from './Reaction';
 import { RENDER_MODAL_TESTID } from './ReactionsDialog';
 import { RENDER_SELECTOR_TESTID } from './Selector';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { RENDER_SHOWMORE_TESTID } from './ShowMore';
 import { RENDER_REACTIONPICKERPANEL_TESTID } from './ReactionPicker';
 import { RENDER_SUMMARY_BUTTON_TESTID } from './ReactionSummaryButton';
@@ -352,6 +353,30 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 		const popperPortal = screen.getByTestId(RENDER_REACTIONPICKERPANEL_TESTID).parentElement;
 		expect(popperPortal).toHaveStyle({ zIndex: 700 });
 		expect(popper).toHaveStyle({ zIndex: 700 });
+	});
+
+	ffTest.on('jfp_a11y_team_comment_actions_semantic', 'with gate ON', () => {
+		it('should render reactions with <ul> and <li>', async () => {
+			renderReactions();
+
+			const list = await screen.findByRole('list');
+			expect(list).toBeInTheDocument();
+
+			const items = await screen.findAllByRole('listitem');
+			expect(items.length).toEqual(reactions.length);
+		});
+	});
+
+	ffTest.off('jfp_a11y_team_comment_actions_semantic', 'with gate OFF', () => {
+		it('should not render reactions with <ul> and <li>', async () => {
+			renderReactions();
+
+			const list = await screen.queryByRole('list');
+			expect(list).not.toBeInTheDocument();
+
+			const items = await screen.queryAllByRole('listitem');
+			expect(items.length).not.toEqual(reactions.length);
+		});
 	});
 
 	describe('with analytics', () => {

@@ -18,12 +18,11 @@ export function renderTextSegments(
 		}
 
 		return (
-			<span data-highlighted data-vc="highlighted-text">
+			<span data-highlighted data-vc="highlighted-text" key={`${segment.text}_${startPos}_${idx}`}>
 				<Component
 					match={segment.text}
 					groups={segment.groups}
 					marks={marks}
-					key={`${segment.text}_${startPos}_${idx}`}
 					startPos={startPos + idx}
 				>
 					{segment.text}

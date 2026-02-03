@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.24.0
+
+### Minor Changes
+
+- [`2f0921abc9f22`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f0921abc9f22) -
+  Added requestedContainers analytics events from teams-public
+
 ## 1.23.2
 
 ### Patch Changes

@@ -18,6 +18,7 @@ import { type NewLozengeProps } from './types';
  */
 const Lozenge = ({
 	appearance = 'neutral',
+	spacing = 'default',
 	maxWidth = 200,
 	style,
 	testId,
@@ -27,6 +28,7 @@ const Lozenge = ({
 	return (
 		<LozengeBase
 			appearance={appearance}
+			spacing={spacing}
 			iconBefore={iconBefore}
 			maxWidth={maxWidth}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

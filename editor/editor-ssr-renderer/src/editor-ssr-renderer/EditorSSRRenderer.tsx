@@ -5,7 +5,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet, type NodeView } from '@atlaskit/editor-prosemirror/view';
 import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer, type Mark, type Schema } from '@atlaskit/editor-prosemirror/model';
 import type { PMPluginFactoryParams, EditorPlugin } from '@atlaskit/editor-common/types';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -102,6 +102,15 @@ class SSREditorView implements Pick<EditorView, keyof EditorView> {
 	}
 	someProp() {
 		return undefined;
+	}
+
+	serializeForClipboard(slice: Slice): { dom: HTMLElement; slice: Slice; text: string } {
+		// No-op in SSR - clipboard operations are not supported
+		return {
+			dom: document.createElement('div'),
+			text: '',
+			slice,
+		};
 	}
 
 	constructor(place: null, props: { state: EditorState }) {

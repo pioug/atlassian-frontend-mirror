@@ -49,19 +49,12 @@ const styles = cssMap({
 		marginBottom: token('space.100'),
 	},
 
-	tooltipWrapper: {
-		display: 'inline-flex',
-		marginInline: token('space.100'),
-		position: 'relative',
-		bottom: token('space.025'),
-	},
-
 	headingWrapper: {
 		position: 'relative',
 	},
 
-	headingContentWrapper: {
-		marginInline: token('space.100'),
+	hiddenIconWrapper: {
+		marginTop: token('space.025'),
 	},
 });
 
@@ -71,18 +64,18 @@ type AgentCreator =
 			name: string;
 			profileLink: string;
 			status?: 'active' | 'inactive' | 'closed' | string;
-		}
+	  }
 	| {
 			type: 'SYSTEM';
-		}
+	  }
 	| {
 			// THIRD_PARTY is deprecated in convo-ai, use FORGE instead
 			type: 'THIRD_PARTY' | 'FORGE';
 			name: string;
-		}
+	  }
 	| {
 			type: 'OOTB';
-		};
+	  };
 
 export const getAgentCreator = ({
 	creatorType,
@@ -237,18 +230,18 @@ export const AgentProfileInfo = ({
 	return (
 		<Stack space="space.100" xcss={fg('rovo_agent_empty_state_refresh') ? null : styles.wrapper}>
 			<Inline xcss={styles.name} space="space.100" alignBlock="center">
-				<Inline xcss={styles.headingWrapper} alignBlock="end">
+				<Inline space="space.100" xcss={styles.headingWrapper}>
 					<Heading as="h2" size={fg('rovo_agent_empty_state_refresh') ? 'medium' : 'xlarge'}>
 						{agentName}
 					</Heading>
+					{headingRender}
 					{isHidden && (
-						<Box xcss={styles.tooltipWrapper}>
+						<Box xcss={styles.hiddenIconWrapper}>
 							<Tooltip content={formatMessage(messages.hiddenTooltip)} position="top">
 								<HiddenIcon label={formatMessage(messages.hiddenIcon)} />
 							</Tooltip>
 						</Box>
 					)}
-					{headingRender && <Box xcss={styles.headingContentWrapper}>{headingRender}</Box>}
 				</Inline>
 				{showStarButton && <StarIconButton isStarred={isStarred} handleToggle={onStarToggle} />}
 			</Inline>

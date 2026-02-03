@@ -204,6 +204,7 @@ export const SideNavToggleButton = ({
 	 */
 	const icon = (props: NewCoreIconProps) => (
 		<span css={silentIconStyles}>
+			{/* eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props */}
 			{isSideNavExpanded ? <SidebarCollapseIcon {...props} /> : <SidebarExpandIcon {...props} />}
 		</span>
 	);

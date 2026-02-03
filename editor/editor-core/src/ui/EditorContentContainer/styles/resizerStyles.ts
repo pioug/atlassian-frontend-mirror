@@ -291,8 +291,10 @@ export const pragmaticStylesLayoutFirstNodeResizeHandleFix: SerializedStyles = c
 	},
 });
 
+// Code block resizer position: legacy selector (matches any descendant code block).
+// When synced block contains a code block, this incorrectly applies -5px and the handle appears inside the border.
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const pragmaticResizerStyles: SerializedStyles = css({
+export const pragmaticResizerStylesCodeBlockLegacy: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.fabric-editor-breakout-mark': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
@@ -310,6 +312,54 @@ export const pragmaticResizerStyles: SerializedStyles = css({
 				height: 'calc(100% - 12px)',
 			},
 		},
+		// the first node in the document always has margin-top = 0
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:has(.first-node-in-document)': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'> .pm-breakout-resize-handle-container': {
+				height: '100%',
+			},
+		},
+	},
+});
+
+// Code block resizer position: only when breakout directly wraps a code block (platform_synced_block_patch_1).
+// Synced block containing code block keeps -24px from pragmaticResizerStylesSyncedBlock so the handle stays outside.
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const pragmaticResizerStylesCodeBlockSyncedBlockPatch: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.fabric-editor-breakout-mark': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="codeBlock"])': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'> .pm-breakout-resize-handle-container--left': {
+				left: '-5px',
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'> .pm-breakout-resize-handle-container--right': {
+				right: '-5px',
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'> .pm-breakout-resize-handle-container': {
+				height: 'calc(100% - 12px)',
+			},
+		},
+		// the first node in the document always has margin-top = 0
+		// class name is duplicated to boost specificity
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:has(.first-node-in-document.first-node-in-document)': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'> .pm-breakout-resize-handle-container': {
+				height: '100%',
+			},
+		},
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const pragmaticResizerStyles: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.fabric-editor-breakout-mark': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'&:has([data-prosemirror-node-name="expand"]), &:has([data-prosemirror-node-name="layoutSection"])':
 			{

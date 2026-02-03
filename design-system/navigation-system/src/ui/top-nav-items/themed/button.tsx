@@ -65,6 +65,7 @@ type IgnoredPrimitiveProps =
  *
  * It removes the props which apply styles.
  */
+// eslint-disable no-unused-vars
 function getPrimitiveSpreadProps<Props extends Record<string, unknown>>({
 	style,
 	xcss,
@@ -80,6 +81,7 @@ function getPrimitiveSpreadProps<Props extends Record<string, unknown>>({
 }: Props): Omit<Props, IgnoredPrimitiveProps> {
 	return props;
 }
+// eslint-enable no-unused-vars
 
 /**
  * Props present in underlying primitives but we want to override,
@@ -423,6 +425,7 @@ function ThemedLinkButtonFn<RouterLinkConfig extends Record<string, any> = never
 	ref: React.Ref<HTMLAnchorElement>,
 ) {
 	return (
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		<ThemedAnchor {...props} ref={ref}>
 			{IconBefore && (
 				<span css={textButtonStyles.iconBefore}>

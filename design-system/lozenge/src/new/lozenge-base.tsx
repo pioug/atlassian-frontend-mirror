@@ -32,6 +32,13 @@ const styles = cssMap({
 		borderStyle: 'solid',
 		borderColor: 'transparent',
 	},
+	containerSpacious: {
+		minHeight: '2rem',
+		borderRadius: token('radius.medium', '6px'),
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.150'),
+		gap: token('space.075'),
+	},
 	containerInteractive: {
 		cursor: 'pointer',
 		'&:focus-visible': {
@@ -52,10 +59,16 @@ const styles = cssMap({
 		},
 	},
 	text: {
+		// eslint-disable-next-line @compiled/shorthand-property-sorting
 		font: token('font.body.small'),
 		overflow: 'hidden',
 		textOverflow: 'ellipsis',
 		whiteSpace: 'nowrap',
+	},
+	textSpacious: {
+		font: token('font.body'),
+		// eslint-disable-next-line @compiled/shorthand-property-sorting
+		fontWeight: token('font.weight.medium'),
 	},
 	textSelected: {
 		color: token('color.text.selected'),
@@ -430,6 +443,7 @@ const LozengeBase = memo(
 				appearance,
 				iconBefore,
 				maxWidth = 200,
+				spacing = 'default',
 				isSelected, // for dropdown trigger
 				onClick, // for dropdown trigger
 				style,
@@ -458,6 +472,7 @@ const LozengeBase = memo(
 				<Fragment>
 					{iconBefore && (
 						<IconRenderer
+							size={spacing === 'spacious' ? 'medium' : 'small'}
 							icon={iconBefore}
 							color={resolvedColor}
 							isSelected={isInteractive ? isSelected : undefined}
@@ -465,7 +480,7 @@ const LozengeBase = memo(
 						/>
 					)}
 					<span
-						css={styles.text}
+						css={[styles.text, spacing === 'spacious' && styles.textSpacious]}
 						style={{
 							maxWidth: maxWidthIsPc
 								? '100%'
@@ -493,6 +508,7 @@ const LozengeBase = memo(
 						ref={ref as Ref<HTMLButtonElement>}
 						xcss={cx(
 							styles.container,
+							spacing === 'spacious' && styles.containerSpacious,
 							!isSelected && styles.iconBorderFilter,
 							!isSelected && styles.iconBorderInteractiveFilter,
 							styles[colorStyleKey],
@@ -520,7 +536,12 @@ const LozengeBase = memo(
 			return (
 				<span
 					ref={ref}
-					css={[styles.container, styles[colorStyleKey], styles.iconBorderFilter]}
+					css={[
+						styles.container,
+						spacing === 'spacious' && styles.containerSpacious,
+						styles[colorStyleKey],
+						styles.iconBorderFilter,
+					]}
 					style={commonStyleOverrides}
 					data-testid={testId}
 				>

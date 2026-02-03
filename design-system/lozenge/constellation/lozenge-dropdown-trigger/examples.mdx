@@ -12,6 +12,7 @@ import LozengeDropdownTriggerSelected from '../../examples/constellation/lozenge
 import LozengeDropdownTriggerSemantic from '../../examples/constellation/lozenge-dropdown-trigger-semantic';
 import LozengeDropdownTriggerAccent from '../../examples/constellation/lozenge-dropdown-trigger-accent';
 import LozengeDropdownTriggerMaxWidth from '../../examples/constellation/lozenge-dropdown-trigger-max-width';
+import LozengeDropdownTriggerSpacing from '../../examples/constellation/lozenge-dropdown-trigger-spacing';
 
 ## Basic
 
@@ -54,10 +55,16 @@ labeling and visual organization.
 
 <Example Component={LozengeDropdownTriggerAccent} packageName="@atlaskit/lozenge" />
 
+## Spacing
+
+Use `spacing="spacious"` to increase padding and trigger height (32px).
+
+<Example Component={LozengeDropdownTriggerSpacing} packageName="@atlaskit/lozenge" />
+
 ## Max width
 
 When the text in the lozenge exceeds the maximum width, it will be truncated with an ellipsis. By
-default, the maximum width of a lozenge is 200px. You can use the maxWidth prop to customize the
+default, the maximum width of a lozenge is `200px`. You can use the `maxWidth` prop to customize the
 width of the lozenge.
 
 Avoid truncation wherever possible by using shorter text in lozenges. The truncated text is not

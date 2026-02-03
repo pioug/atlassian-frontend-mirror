@@ -1,5 +1,12 @@
 # @atlaskit/reactions
 
+## 33.8.12
+
+### Patch Changes
+
+- [`2fb6fe3d37cd3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2fb6fe3d37cd3) -
+  Added appropriate list markup for comment reactions
+
 ## 33.8.11
 
 ### Patch Changes

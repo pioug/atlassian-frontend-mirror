@@ -1,5 +1,19 @@
 # @atlaskit/rovo-agent-components
 
+## 3.28.0
+
+### Minor Changes
+
+- [`8ca108f4ddc19`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ca108f4ddc19) -
+  Improved alignment of verified icon badge
+- [`e93d0946c0929`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e93d0946c0929) -
+  Auto sort for export path for last remaining ai-mate packages. Part of de-barreling effort of
+  TREX-67
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.27.1
 
 ### Patch Changes

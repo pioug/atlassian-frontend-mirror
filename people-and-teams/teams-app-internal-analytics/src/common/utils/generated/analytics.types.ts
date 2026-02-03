@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::69ce17efcdd11244664ecaea57b5d532>>
+ * @codegen <<SignedSource::08bbe83a9568b2ddda9eb5332ffdf047>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -1449,6 +1449,15 @@ export type FeatureExposedAttributesType = {
 export type InvitePromptShowContainerAddedFlagFailedAttributesType = {
 	error: string;
 };
+export type RequestedContainersTryAgainAttributesType = {
+	containers: unknown[];
+	teamId: string;
+};
+export type RequestedContainersFailedAttributesType = {
+	containers: unknown[];
+	teamId: string;
+	tryAgainCount: number | null;
+};
 
 export type AnalyticsEventAttributes = {
 	/**
@@ -2467,6 +2476,12 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * Fired when something fails horribly inside of showContainerAddedFlagFailed */
 	'operational.invitePrompt.showContainerAddedFlagFailed': InvitePromptShowContainerAddedFlagFailedAttributesType;
+	/**
+	 * Fired when the user tries to add requested containers again */
+	'track.requestedContainers.tryAgain': RequestedContainersTryAgainAttributesType;
+	/**
+	 * Fired when the user fails to add requested containers */
+	'track.requestedContainers.failed': RequestedContainersFailedAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

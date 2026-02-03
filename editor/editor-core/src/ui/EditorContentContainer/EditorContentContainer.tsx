@@ -98,6 +98,7 @@ import { InlineNodeViewSharedStyles } from './styles/inlineNodeViewSharedStyles'
 import {
 	layoutBaseStyles,
 	layoutBaseStylesAdvanced,
+	layoutBaseStylesWithTableExcerptsFix,
 	layoutBaseStylesFixesUnderNestedDnDFG,
 	layoutColumnMartinTopFixesNew,
 	layoutColumnMartinTopFixesOld,
@@ -158,6 +159,8 @@ import {
 } from './styles/placeholderStyles';
 import {
 	pragmaticResizerStyles,
+	pragmaticResizerStylesCodeBlockLegacy,
+	pragmaticResizerStylesCodeBlockSyncedBlockPatch,
 	pragmaticResizerStylesForTooltip,
 	pragmaticResizerStylesSyncedBlock,
 	pragmaticResizerStylesWithReducedEditorGutter,
@@ -237,20 +240,20 @@ const alignMultipleWrappedImageInLayoutStyles = {
 		// apply marginTop to wrapped mediaSingle that has preceding wrapped mediaSingle (even when there's gap cursor in between them)
 		// Given the first wrapped mediaSingle in layout has 0 marginTop, this is needed to make sure fellow wrapped mediaSingle align with it horizontally
 		'.mediaSingleView-content-wrap[layout^=wrap] + .mediaSingleView-content-wrap[layout^=wrap], .mediaSingleView-content-wrap[layout^=wrap] + .ProseMirror-gapcursor + .mediaSingleView-content-wrap[layout^=wrap]':
-			{
-				'.rich-media-item': {
-					marginTop: 0,
-				},
+		{
+			'.rich-media-item': {
+				marginTop: 0,
 			},
+		},
 
 		// Due to the above rule, wrapped mediaSingle (not the first node in layout) that are followed by wrapped mediaSingle should also have 0 marginTop
 		// so it's aligned with the following wrapped mediaSingle
 		'.mediaSingleView-content-wrap[layout^=wrap]:has( + .mediaSingleView-content-wrap[layout^=wrap])':
-			{
-				'.rich-media-item': {
-					marginTop: 0,
-				},
+		{
+			'.rich-media-item': {
+				marginTop: 0,
 			},
+		},
 	},
 };
 
@@ -258,12 +261,12 @@ const firstWrappedMediaStyles = {
 	'.ProseMirror': {
 		// Remove gap between first wrapped mediaSingle and its fellow wrapped mediaSingle
 		"& [layout^='wrap-']:has(+ [layout^='wrap-']), & [layout^='wrap-']:has(+ .ProseMirror-gapcursor + [layout^='wrap-'])":
-			{
-				[`& .${richMediaClassName}`]: {
-					marginLeft: 0,
-					marginRight: 0,
-				},
+		{
+			[`& .${richMediaClassName}`]: {
+				marginLeft: 0,
+				marginRight: 0,
 			},
+		},
 	},
 };
 
@@ -294,15 +297,15 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 			exposure: true,
 		})
 			? {
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					'--ak-editor-base-font-size': `${editorFontSize({ theme })}px`,
-				}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				'--ak-editor-base-font-size': `${editorFontSize({ theme })}px`,
+			}
 			: {
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					'--ak-editor-base-font-size': `${editorFontSize({ theme })}px`,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					'--ak-editor--large-gutter-padding': `${akEditorGutterPaddingDynamic()}px`,
-				};
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				'--ak-editor-base-font-size': `${editorFontSize({ theme })}px`,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				'--ak-editor--large-gutter-padding': `${akEditorGutterPaddingDynamic()}px`,
+			};
 
 		const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
 			? getBrowserInfo()
@@ -317,20 +320,20 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					baseStyles,
 					expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						baseStylesMaxContainerWidthFixes,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					baseStylesMaxContainerWidthFixes,
 					// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 					fg('platform_editor_controls_increase_full_page_gutter') &&
-					editorExperiment('platform_editor_controls', 'variant1')
+						editorExperiment('platform_editor_controls', 'variant1')
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							editorLargeGutterPuddingBaseStylesEditorControls
+						editorLargeGutterPuddingBaseStylesEditorControls
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							editorLargeGutterPuddingBaseStyles,
+						editorLargeGutterPuddingBaseStyles,
 					editorExperiment('platform_editor_preview_panel_responsiveness', true, {
 						exposure: true,
 					}) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						editorLargeGutterPuddingReducedBaseStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					editorLargeGutterPuddingReducedBaseStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					whitespaceStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -356,48 +359,48 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					editorExperiment('platform_editor_controls', 'variant1') && placeholderOverflowStyles,
 					editorExperiment('platform_editor_controls', 'variant1') &&
-						fg('platform_editor_quick_insert_placeholder') &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						placeholderWrapStyles,
+					fg('platform_editor_quick_insert_placeholder') &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					placeholderWrapStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					codeBlockStyles,
 					contentMode === 'compact' &&
-						(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-							// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-							(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-								fg('platform_editor_content_mode_button_mvp'))) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						codeBlockStylesWithEmUnits,
+					(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+						(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+							fg('platform_editor_content_mode_button_mvp'))) &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					codeBlockStylesWithEmUnits,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					!fg('platform_editor_typography_ugc') && editorUGCTokensDefault,
 					fg('platform_editor_typography_ugc') &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						editorUGCTokensRefreshed,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					editorUGCTokensRefreshed,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					blocktypeStyles,
 					expValEquals('platform_editor_block_menu', 'isEnabled', true) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						blockquoteSelectedNodeStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					blockquoteSelectedNodeStyles,
 					expValEquals('platform_editor_block_menu', 'isEnabled', true) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						listSelectedNodeStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					listSelectedNodeStyles,
 					expValEquals('platform_editor_block_menu', 'isEnabled', true) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						textSelectedNodeStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					textSelectedNodeStyles,
 					expVal('platform_editor_blockquote_zero_padding', 'isEnabled', false)
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							blockquoteZeroPadding
+						blockquoteZeroPadding
 						: null,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					fg('platform_editor_typography_ugc')
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							blocktypeStyles_fg_platform_editor_typography_ugc
+						blocktypeStyles_fg_platform_editor_typography_ugc
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							blocktypeStyles_without_fg_platform_editor_typography_ugc,
+						blocktypeStyles_without_fg_platform_editor_typography_ugc,
 					fg('platform_editor_nested_dnd_styles_changes') &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						blocktypeStyles_fg_platform_editor_nested_dnd_styles_changes,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					blocktypeStyles_fg_platform_editor_nested_dnd_styles_changes,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					codeMarkStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -405,42 +408,42 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					backgroundColorStyles,
 					expValEquals('platform_editor_text_highlight_padding', 'isEnabled', true) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						textHighlightPaddingStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					textHighlightPaddingStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					listsStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					diffListStyles,
 					// Condense vertical spacing between list items when content mode dense is active
 					contentMode === 'compact' &&
-						(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-							// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-							(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-								fg('platform_editor_content_mode_button_mvp'))) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						getDenseListStyles(baseFontSize),
+					(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+						(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+							fg('platform_editor_content_mode_button_mvp'))) &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					getDenseListStyles(baseFontSize),
 					expValEquals('cc_editor_ttvc_release_bundle_one', 'listLayoutShiftFix', true) &&
-						isFullPage &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						listsStylesMarginLayoutShiftFix,
+					isFullPage &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					listsStylesMarginLayoutShiftFix,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					ruleStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					smartCardDiffStyles,
 					fg('platform_editor_jan_a11y_fixes')
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							showDiffDeletedNodeStylesNew
+						showDiffDeletedNodeStylesNew
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							showDiffDeletedNodeStyles,
+						showDiffDeletedNodeStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					mediaStyles,
 					contentMode === 'compact' &&
-						(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-							// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-							(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-								fg('platform_editor_content_mode_button_mvp'))) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						mediaCaptionStyles,
+					(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+						(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+							fg('platform_editor_content_mode_button_mvp'))) &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					mediaCaptionStyles,
 					// merge firstWrappedMediaStyles with mediaStyles when clean up platform_editor_fix_media_in_renderer
 					fg('platform_editor_fix_media_in_renderer') && firstWrappedMediaStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -455,8 +458,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					nestedPanelBorderStylesMixin,
 					fg('platform_editor_nested_dnd_styles_changes') &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						panelStylesMixin_fg_platform_editor_nested_dnd_styles_changes,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					panelStylesMixin_fg_platform_editor_nested_dnd_styles_changes,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					panelStylesMixin,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -465,12 +468,12 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					tasksAndDecisionsStyles,
 					// condense vertical spacing between tasks/decisions items when content mode dense is active
 					contentMode === 'compact' &&
-						(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-							// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-							(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-								fg('platform_editor_content_mode_button_mvp'))) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						getDenseTasksAndDecisionsStyles(baseFontSize),
+					(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+						(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+							fg('platform_editor_content_mode_button_mvp'))) &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					getDenseTasksAndDecisionsStyles(baseFontSize),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					gridStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -484,36 +487,36 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					expandStyles,
 					contentMode === 'compact' &&
-						(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-							// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-							(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-								fg('platform_editor_content_mode_button_mvp'))) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						getDenseExpandTitleStyles(baseFontSize),
+					(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+						(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+							fg('platform_editor_content_mode_button_mvp'))) &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					getDenseExpandTitleStyles(baseFontSize),
 					fg('platform_editor_nested_dnd_styles_changes')
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes
+						expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes,
+						expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					expandStylesMixin_fg_platform_visual_refresh_icons,
 					expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							fg('platform_editor_a11y_find_replace_focus_ring')
+						fg('platform_editor_a11y_find_replace_focus_ring')
 							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								findReplaceStylesNewWithA11Y
+							findReplaceStylesNewWithA11Y
 							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								findReplaceStylesNew
+							findReplaceStylesNew
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							findReplaceStyles,
+						findReplaceStyles,
 					expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
-						fg('platform_editor_find_codeblock_color_contrast_fix') &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						findReplaceStylesNewWithCodeblockColorContrastFix,
+					fg('platform_editor_find_codeblock_color_contrast_fix') &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					findReplaceStylesNewWithCodeblockColorContrastFix,
 					!expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) &&
-						fg('platform_editor_find_codeblock_color_contrast_fix') &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						findReplaceStylesWithCodeblockColorContrastFix,
+					fg('platform_editor_find_codeblock_color_contrast_fix') &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					findReplaceStylesWithCodeblockColorContrastFix,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					textHighlightStyle,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -521,61 +524,61 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					expValEqualsNoExposure('platform_editor_blocktaskitem_node_tenantid', 'isEnabled', true)
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							taskItemStylesWithBlockTaskItem
+						taskItemStylesWithBlockTaskItem
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							taskItemStyles,
+						taskItemStyles,
 					expValEquals('platform_editor_task_item_styles', 'isEnabled', true)
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							taskItemNextCheckboxStyles
+						taskItemNextCheckboxStyles
 						: expValEqualsNoExposure(
-									'platform_editor_blocktaskitem_node_tenantid',
-									'isEnabled',
-									true,
-							  )
+							'platform_editor_blocktaskitem_node_tenantid',
+							'isEnabled',
+							true,
+						)
 							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								taskItemCheckboxStylesWithBlockTaskItem
+							taskItemCheckboxStylesWithBlockTaskItem
 							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								taskItemCheckboxStyles,
+							taskItemCheckboxStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					decisionIconWithVisualRefresh,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					statusStyles,
 					fg('platform-component-visual-refresh')
 						? expValEqualsNoExposure(
-								'platform_editor_find_and_replace_improvements',
-								'isEnabled',
-								true,
-							)
+							'platform_editor_find_and_replace_improvements',
+							'isEnabled',
+							true,
+						)
 							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								statusStylesMixin_fg_platform_component_visual_refresh_with_search_match
+							statusStylesMixin_fg_platform_component_visual_refresh_with_search_match
 							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								statusStylesMixin_fg_platform_component_visual_refresh
+							statusStylesMixin_fg_platform_component_visual_refresh
 						: expValEqualsNoExposure(
-									'platform_editor_find_and_replace_improvements',
-									'isEnabled',
-									true,
-							  )
+							'platform_editor_find_and_replace_improvements',
+							'isEnabled',
+							true,
+						)
 							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								statusStylesMixin_without_fg_platform_component_visual_refresh_with_search_match
+							statusStylesMixin_without_fg_platform_component_visual_refresh_with_search_match
 							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								statusStylesMixin_without_fg_platform_component_visual_refresh,
+							statusStylesMixin_without_fg_platform_component_visual_refresh,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					annotationStyles,
 					expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 						? expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
 							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								smartCardStylesWithSearchMatchAndBlockMenuDangerStyles
+							smartCardStylesWithSearchMatchAndBlockMenuDangerStyles
 							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								smartCardStylesWithSearchMatch
+							smartCardStylesWithSearchMatch
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							smartCardStyles,
+						smartCardStyles,
 					editorExperiment('platform_editor_preview_panel_responsiveness', true) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						smartCardStylesWithSearchMatchAndPreviewPanelResponsiveness,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					smartCardStylesWithSearchMatchAndPreviewPanelResponsiveness,
 					(expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1') ||
 						editorExperiment('platform_editor_preview_panel_linking_exp', true)) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						editorControlsSmartCardStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					editorControlsSmartCardStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					embedCardStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -584,45 +587,48 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					resizerStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					layoutBaseStyles,
+					expValEquals('platform_editor_table_excerpts_fix', 'isEnabled', true) &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					layoutBaseStylesWithTableExcerptsFix,
 					// merge alignMultipleWrappedImageInLayoutStyles with layoutBaseStyles when clean up platform_editor_fix_media_in_renderer
 					fg('platform_editor_fix_media_in_renderer') && alignMultipleWrappedImageInLayoutStyles,
 					editorExperiment('platform_synced_block', true) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						syncBlockStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					syncBlockStyles,
 					editorExperiment('platform_synced_block', true) &&
-						fg('platform_synced_block_dogfooding') &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						syncBlockOverflowStyles,
+					fg('platform_synced_block_dogfooding') &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					syncBlockOverflowStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					editorExperiment('advanced_layouts', true) && layoutBaseStylesAdvanced,
 					editorExperiment('advanced_layouts', true)
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							layoutSectionStylesAdvanced
+						layoutSectionStylesAdvanced
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							layoutSectionStylesNotAdvanced,
+						layoutSectionStylesNotAdvanced,
 					editorExperiment('advanced_layouts', true)
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							layoutColumnStylesAdvanced
+						layoutColumnStylesAdvanced
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							layoutColumnStylesNotAdvanced,
+						layoutColumnStylesNotAdvanced,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					editorExperiment('advanced_layouts', true)
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							layoutSelectedStylesAdvanced
+						layoutSelectedStylesAdvanced
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							layoutSelectedStylesNotAdvanced,
+						layoutSelectedStylesNotAdvanced,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					editorExperiment('advanced_layouts', true) && layoutColumnResponsiveStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					editorExperiment('advanced_layouts', true) && layoutResponsiveBaseStyles,
 					fg('platform_editor_nested_dnd_styles_changes') &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						layoutBaseStylesFixesUnderNestedDnDFG,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					layoutBaseStylesFixesUnderNestedDnDFG,
 					fg('platform_editor_nested_dnd_styles_changes')
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							layoutColumnMartinTopFixesNew
+						layoutColumnMartinTopFixesNew
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							layoutColumnMartinTopFixesOld,
+						layoutColumnMartinTopFixesOld,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					smartLinksInLivePagesStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -631,48 +637,55 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					dateVanillaStyles,
 					fg('platform_editor_typography_ugc')
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							contentMode === 'compact' &&
+						contentMode === 'compact' &&
 							(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
 								// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 								(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
 									fg('platform_editor_content_mode_button_mvp')))
 							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								paragraphStylesWithScaledMargin
+							paragraphStylesWithScaledMargin
 							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								paragraphStylesUGCRefreshed
+							paragraphStylesUGCRefreshed
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							contentMode === 'compact' &&
-							  (expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-									// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-									(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-										fg('platform_editor_content_mode_button_mvp')))
+						contentMode === 'compact' &&
+							(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+								// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+								(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+									fg('platform_editor_content_mode_button_mvp')))
 							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								paragraphStylesOldWithScaledMargin
+							paragraphStylesOldWithScaledMargin
 							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								paragraphStylesOld,
+							paragraphStylesOld,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					linkStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					browser.safari && listsStylesSafariFix,
 					editorExperiment('platform_synced_block', true) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						pragmaticResizerStylesSyncedBlock,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					pragmaticResizerStylesSyncedBlock,
 					expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true)
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							pragmaticResizerStyles
+						pragmaticResizerStyles
+						: undefined,
+					expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) ?
+						(fg('platform_synced_block_patch_1')
+							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								pragmaticResizerStylesCodeBlockSyncedBlockPatch
+							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								pragmaticResizerStylesCodeBlockLegacy)
 						: undefined,
 					editorExperiment('advanced_layouts', true) &&
-						expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						pragmaticStylesLayoutFirstNodeResizeHandleFix,
 					expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						pragmaticResizerStylesForTooltip,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					pragmaticStylesLayoutFirstNodeResizeHandleFix,
+					expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					pragmaticResizerStylesForTooltip,
 					editorExperiment('platform_editor_preview_panel_responsiveness', true) &&
-						(editorExperiment('advanced_layouts', true) ||
-							expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true)) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						pragmaticResizerStylesWithReducedEditorGutter,
+					(editorExperiment('advanced_layouts', true) ||
+						expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true)) &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					pragmaticResizerStylesWithReducedEditorGutter,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					aiPanelBaseStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -685,17 +698,17 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					viewMode === 'view' && layoutStylesForView,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					viewMode === 'view' &&
-						editorExperiment('advanced_layouts', true) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						layoutSelectedStylesForViewAdvanced,
+					editorExperiment('advanced_layouts', true) &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					layoutSelectedStylesForViewAdvanced,
 					viewMode === 'view' &&
-						editorExperiment('advanced_layouts', false) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						layoutSelectedStylesForViewNotAdvanced,
+					editorExperiment('advanced_layouts', false) &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					layoutSelectedStylesForViewNotAdvanced,
 					viewMode === 'view' &&
-						editorExperiment('advanced_layouts', true) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						layoutResponsiveStylesForView,
+					editorExperiment('advanced_layouts', true) &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					layoutResponsiveStylesForView,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					isComment && commentEditorStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -706,35 +719,35 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					isFullPage && scrollbarStyles,
 					fg('platform_editor_nested_dnd_styles_changes')
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							firstCodeBlockWithNoMargin
+						firstCodeBlockWithNoMargin
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							firstCodeBlockWithNoMarginOld,
+						firstCodeBlockWithNoMarginOld,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					firstBlockNodeStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					mentionNodeStyles,
 					expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							mentionsSelectionStylesWithSearchMatch
+						mentionsSelectionStylesWithSearchMatch
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							mentionsSelectionStyles,
+						mentionsSelectionStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true)
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							scaledEmojiStyles
+						scaledEmojiStyles
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							emojiStyles,
+						emojiStyles,
 					// Dense emoji scaling based on base font size
 					contentMode === 'compact' &&
-					(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-						(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-							fg('platform_editor_content_mode_button_mvp')))
+						(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
+							// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+							(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
+								fg('platform_editor_content_mode_button_mvp')))
 						? expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true)
 							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								getScaledDenseEmojiStyles(baseFontSize)
+							getScaledDenseEmojiStyles(baseFontSize)
 							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								getDenseEmojiStyles(baseFontSize)
+							getDenseEmojiStyles(baseFontSize)
 						: undefined,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					panelViewStyles,
@@ -749,8 +762,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					!fg('platform_editor_table_container_y_overflow_fix') && tableContainerOverflowY,
 					expValEquals('platform_editor_ssr_renderer', 'isEnabled', true) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						tableSharedStyle(),
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					tableSharedStyle(),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					expValEquals('platform_editor_ssr_renderer', 'isEnabled', true) && tableEmptyRowStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

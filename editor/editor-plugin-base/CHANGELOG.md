@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-base
 
+## 8.0.3
+
+### Patch Changes
+
+- [`3242cbd5e88b9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3242cbd5e88b9) -
+  Update packages to match prosemirror library updates
+- Updated dependencies
+
 ## 8.0.2
 
 ### Patch Changes

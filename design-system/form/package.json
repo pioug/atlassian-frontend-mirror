@@ -123,9 +123,6 @@
 	},
 	"homepage": "https://atlassian.design/components/form/",
 	"platform-feature-flags": {
-		"platform_dst_form_screenreader_message_fix": {
-			"type": "boolean"
-		},
 		"platform-form-reset-field-state": {
 			"type": "boolean"
 		},

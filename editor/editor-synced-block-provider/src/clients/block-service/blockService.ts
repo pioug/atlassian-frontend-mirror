@@ -49,6 +49,22 @@ type GetDocumentReferenceBlocksGraphQLResponse = {
 	errors?: Array<{ message: string }>;
 };
 
+type UpdateBlockGraphQLResponse = {
+	data?: {
+		blockService_updateBlock: void;
+	};
+	errors?: Array<{ message: string }>;
+};
+
+type DeleteBlockGraphQLResponse = {
+	data?: {
+		blockService_deleteBlock: {
+			deleted: boolean;
+		};
+	};
+	errors?: Array<{ message: string }>;
+};
+
 /**
  * Retrieves all synced blocks referenced in a document.
  *
@@ -193,6 +209,8 @@ const GRAPHQL_ENDPOINT = '/gateway/api/graphql';
 
 const GET_DOCUMENT_REFERENCE_BLOCKS_OPERATION_NAME =
 	'EDITOR_SYNCED_BLOCK_GET_DOCUMENT_REFERENCE_BLOCKS';
+const UPDATE_BLOCK_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_UPDATE_BLOCK';
+const DELETE_BLOCK_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_DELETE_BLOCK';
 
 const buildGetDocumentReferenceBlocksQuery = (
 	documentAri: string,
@@ -217,6 +235,42 @@ const buildGetDocumentReferenceBlocksQuery = (
 		}
 	}
 }`;
+
+const buildUpdateBlockMutation = (
+	blockAri: string,
+	content: string,
+	stepVersion?: number,
+) => {
+	const inputParts = [
+		`blockAri: ${JSON.stringify(blockAri)}`,
+		`content: ${JSON.stringify(content)}`,
+	];
+	if (stepVersion !== undefined) {
+		inputParts.push(`stepVersion: ${stepVersion}`);
+	}
+	const inputArgs = inputParts.join(', ');
+	return `mutation ${UPDATE_BLOCK_OPERATION_NAME} {
+	blockService_updateBlock(input: { ${inputArgs} }) {
+		__typename
+	}
+}`;
+};
+
+const buildDeleteBlockMutation = (
+	blockAri: string,
+	deletionReason?: string,
+) => {
+	const inputParts = [`blockAri: ${JSON.stringify(blockAri)}`];
+	if (deletionReason !== undefined) {
+		inputParts.push(`deletionReason: ${JSON.stringify(deletionReason)}`);
+	}
+	const inputArgs = inputParts.join(', ');
+	return `mutation ${DELETE_BLOCK_OPERATION_NAME} {
+	blockService_deleteBlock(input: { ${inputArgs} }) {
+		deleted
+	}
+}`;
+};
 
 export class BlockError extends Error {
 	constructor(public readonly status: number) {
@@ -279,6 +333,35 @@ export const deleteSyncedBlock = async ({
 	blockAri,
 	deleteReason,
 }: DeleteSyncedBlockRequest): Promise<void> => {
+	if (fg('platform_synced_block_patch_1')) {
+		const bodyData = {
+			query: buildDeleteBlockMutation(blockAri, deleteReason),
+			operationName: DELETE_BLOCK_OPERATION_NAME,
+		};
+
+		const response = await fetchWithRetry(GRAPHQL_ENDPOINT, {
+			method: 'POST',
+			headers: COMMON_HEADERS,
+			body: JSON.stringify(bodyData),
+		});
+
+		if (!response.ok) {
+			throw new BlockError(response.status);
+		}
+
+		const result: DeleteBlockGraphQLResponse = await response.json();
+
+		if (result.errors && result.errors.length > 0) {
+			throw new Error(result.errors.map((e) => e.message).join(', '));
+		}
+
+		if (!result.data?.blockService_deleteBlock.deleted) {
+			throw new Error('Block deletion failed; deleted flag is false');
+		}
+
+		return;
+	}
+
 	const url =
 		deleteReason && fg('platform_synced_block_dogfooding')
 			? `${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}?deletionReason=${encodeURIComponent(deleteReason)}`
@@ -298,6 +381,31 @@ export const updateSyncedBlock = async ({
 	content,
 	stepVersion,
 }: UpdateSyncedBlockRequest): Promise<void> => {
+	if (fg('platform_synced_block_patch_1')) {
+		const bodyData = {
+			query: buildUpdateBlockMutation(blockAri, content, stepVersion),
+			operationName: UPDATE_BLOCK_OPERATION_NAME,
+		};
+
+		const response = await fetchWithRetry(GRAPHQL_ENDPOINT, {
+			method: 'POST',
+			headers: COMMON_HEADERS,
+			body: JSON.stringify(bodyData),
+		});
+
+		if (!response.ok) {
+			throw new BlockError(response.status);
+		}
+
+		const result: UpdateBlockGraphQLResponse = await response.json();
+
+		if (result.errors && result.errors.length > 0) {
+			throw new Error(result.errors.map((e) => e.message).join(', '));
+		}
+
+		return;
+	}
+
 	const requestBody: { content: string; stepVersion?: number } = { content };
 	if (stepVersion !== undefined) {
 		requestBody.stepVersion = stepVersion;

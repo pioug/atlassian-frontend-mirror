@@ -23,6 +23,7 @@ import {
 	ToolbarDropdownItemSection,
 } from '@atlaskit/editor-toolbar';
 import type { CommonComponentProps } from '@atlaskit/editor-toolbar-model';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { clearFormattingWithAnalyticsNext } from '../../../editor-commands/clear-formatting';
 
@@ -145,6 +146,19 @@ export const ClearFormatMenuItem = ({
 export const MoreFormattingMenu = ({ children }: { children?: ReactNode }): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const content = formatMessage(toolbarMessages.moreFormatting);
+
+	if (expValEquals('platform_editor_hide_toolbar_tooltips_fix', 'isEnabled', true)) {
+		return (
+			<ToolbarDropdownMenu
+				iconBefore={<MoreItemsIcon label="" testId="more-formatting" />}
+				label={content}
+				tooltipComponent={<ToolbarTooltip content={formatMessage(toolbarMessages.textFormat)}/>}
+			>
+				{children}
+			</ToolbarDropdownMenu>
+		);
+	}
+
 	return (
 		<ToolbarTooltip content={formatMessage(toolbarMessages.textFormat)}>
 			<ToolbarDropdownMenu

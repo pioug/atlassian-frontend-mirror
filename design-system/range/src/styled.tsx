@@ -204,16 +204,16 @@ const stylesT26Shape = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&::-webkit-slider-runnable-track': {
 		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-		borderRadius: 0,
+		borderRadius: token('radius.full'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&::-moz-range-progress': {
 		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-		borderRadius: 0,
+		borderRadius: token('radius.full'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Required for this browser styling
 	'&::-moz-range-track': {
-		borderRadius: 0,
+		borderRadius: token('radius.full'),
 	},
 });
 

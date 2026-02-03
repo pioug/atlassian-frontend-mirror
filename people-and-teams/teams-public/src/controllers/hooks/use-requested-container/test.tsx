@@ -7,6 +7,7 @@ import { IntlProvider } from 'react-intl-next';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { type FlagProps } from '@atlaskit/flag';
 import { ContainerType } from '@atlaskit/teams-client/types';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { type ContainerTypes } from '../../../common/types';
 import { useTeamContainers } from '../use-team-containers';
@@ -17,6 +18,27 @@ import { useRequestedContainers } from './index';
 
 jest.mock('../use-team-containers');
 jest.mock('@atlaskit/feature-gate-js-client');
+
+const mockFireEvent = jest.fn();
+jest.mock('@atlaskit/teams-app-internal-analytics', () => ({
+	useAnalyticsEvents: jest.fn().mockImplementation(() => ({
+		fireEvent: mockFireEvent,
+	})),
+}));
+
+const mockFireTrackEvent = jest.fn();
+const mockCreateAnalyticsEvent = jest.fn();
+jest.mock('../../../common/utils/analytics', () => ({
+	usePeopleAndTeamAnalytics: jest.fn().mockImplementation(() => ({
+		fireTrackEvent: mockFireTrackEvent,
+	})),
+}));
+
+jest.mock('@atlaskit/analytics-next', () => ({
+	useAnalyticsEvents: jest.fn().mockImplementation(() => ({
+		createAnalyticsEvent: mockCreateAnalyticsEvent,
+	})),
+}));
 
 const teamId = 'abc-123';
 const cloudId = '123-abc';
@@ -82,6 +104,9 @@ beforeEach(() => {
 beforeEach(() => {
 	(FeatureGates.initializeCalled as jest.Mock).mockReturnValue(true);
 	(FeatureGates.getExperimentValue as jest.Mock).mockReturnValue('profile_page');
+	mockFireEvent.mockClear();
+	mockFireTrackEvent.mockClear();
+	mockCreateAnalyticsEvent.mockClear();
 });
 
 afterEach(() => {
@@ -256,5 +281,152 @@ describe('on timeout', () => {
 
 		expect(renderToString(flags[0].actions?.[0].content)).toContain('Try again');
 		expect(renderToString(flags[1].actions?.[0].content)).toContain('Contact support');
+	});
+});
+
+describe('analytics', () => {
+	const failedEvent = {
+		action: 'failed',
+		actionSubject: 'requestedContainers',
+		attributes: {
+			containers: ['ConfluenceSpace'],
+			teamId,
+			tryAgainCount: 0,
+		},
+	};
+	// The stopgap failure (refetch errors exceed threshold) doesn't include tryAgainCount
+	const stopgapFailedEvent = {
+		action: 'failed',
+		actionSubject: 'requestedContainers',
+		attributes: {
+			containers: ['ConfluenceSpace'],
+			teamId,
+		},
+	};
+	const tryAgainEvent = {
+		action: 'tryAgain',
+		actionSubject: 'requestedContainers',
+		attributes: {
+			containers: ['ConfluenceSpace'],
+			teamId,
+		},
+	};
+
+	ffTest.on('ptc-missed-analytics-migration-events', 'new analytics', () => {
+		test('fires failed event on timeout', async () => {
+			urlSearchParams(`?requestedContainers=${ContainerType.CONFLUENCE_SPACE}`);
+			renderHook();
+
+			await advancePollingTimeout();
+
+			expect(mockFireEvent).toHaveBeenCalledWith(
+				`track.${failedEvent.actionSubject}.${failedEvent.action}`,
+				expect.objectContaining(failedEvent.attributes),
+			);
+		});
+
+		test('fires tryAgain event when user clicks try again', async () => {
+			urlSearchParams(`?requestedContainers=${ContainerType.CONFLUENCE_SPACE}`);
+			const { onRequestedContainerTimeout } = renderHook();
+
+			onRequestedContainerTimeout.mockImplementation((createFlag) => {
+				const flag = createFlag({ onAction: jest.fn() });
+				flag.actions[0].onClick?.({ flagId: flag.id });
+			});
+
+			await advancePollingTimeout();
+
+			expect(mockFireEvent).toHaveBeenCalledWith(
+				`track.${tryAgainEvent.actionSubject}.${tryAgainEvent.action}`,
+				expect.objectContaining(tryAgainEvent.attributes),
+			);
+		});
+
+		test('fires failed event when refetch errors exceed threshold', async () => {
+			const refetchTeamContainers = jest.fn().mockRejectedValue(new Error('Network error'));
+			(useTeamContainers as jest.Mock).mockReturnValue({
+				refetchTeamContainers,
+				teamContainers: [],
+			});
+			urlSearchParams(`?requestedContainers=${ContainerType.CONFLUENCE_SPACE}`);
+			renderHook();
+
+			// Trigger 3 refetch errors (threshold not yet exceeded)
+			await advancePolling();
+			await advancePolling();
+			await advancePolling();
+
+			expect(mockFireEvent).not.toHaveBeenCalledWith(
+				`track.${stopgapFailedEvent.actionSubject}.${stopgapFailedEvent.action}`,
+				expect.objectContaining(stopgapFailedEvent.attributes),
+			);
+
+			// 4th error exceeds the threshold of 3
+			await advancePolling();
+
+			expect(mockFireEvent).toHaveBeenCalledWith(
+				`track.${stopgapFailedEvent.actionSubject}.${stopgapFailedEvent.action}`,
+				expect.objectContaining(stopgapFailedEvent.attributes),
+			);
+		});
+	});
+
+	ffTest.off('ptc-missed-analytics-migration-events', 'deprecated analytics', () => {
+		test('fires deprecated fireTrackEvent on timeout', async () => {
+			urlSearchParams(`?requestedContainers=${ContainerType.CONFLUENCE_SPACE}`);
+			renderHook();
+
+			await advancePollingTimeout();
+
+			expect(mockFireTrackEvent).toHaveBeenCalledWith(
+				mockCreateAnalyticsEvent,
+				expect.objectContaining(failedEvent),
+			);
+		});
+
+		test('fires deprecated fireTrackEvent when user clicks try again', async () => {
+			urlSearchParams(`?requestedContainers=${ContainerType.CONFLUENCE_SPACE}`);
+			const { onRequestedContainerTimeout } = renderHook();
+
+			onRequestedContainerTimeout.mockImplementation((createFlag) => {
+				const flag = createFlag({ onAction: jest.fn() });
+				flag.actions[0].onClick?.({ flagId: flag.id });
+			});
+
+			await advancePollingTimeout();
+
+			expect(mockFireTrackEvent).toHaveBeenCalledWith(
+				mockCreateAnalyticsEvent,
+				expect.objectContaining(tryAgainEvent),
+			);
+		});
+
+		test('fires deprecated fireTrackEvent when refetch errors exceed threshold', async () => {
+			const refetchTeamContainers = jest.fn().mockRejectedValue(new Error('Network error'));
+			(useTeamContainers as jest.Mock).mockReturnValue({
+				refetchTeamContainers,
+				teamContainers: [],
+			});
+			urlSearchParams(`?requestedContainers=${ContainerType.CONFLUENCE_SPACE}`);
+			renderHook();
+
+			// Trigger 3 refetch errors (threshold not yet exceeded)
+			await advancePolling();
+			await advancePolling();
+			await advancePolling();
+
+			expect(mockFireTrackEvent).not.toHaveBeenCalledWith(
+				mockCreateAnalyticsEvent,
+				expect.objectContaining(stopgapFailedEvent),
+			);
+
+			// 4th error exceeds the threshold of 3
+			await advancePolling();
+
+			expect(mockFireTrackEvent).toHaveBeenCalledWith(
+				mockCreateAnalyticsEvent,
+				expect.objectContaining(stopgapFailedEvent),
+			);
+		});
 	});
 });

@@ -1,5 +1,13 @@
 # @atlaskit/editor-common
 
+## 111.11.2
+
+### Patch Changes
+
+- [`4de30defb09c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4de30defb09c5) -
+  Fix overflow of table inside multi-column layouts.
+- Updated dependencies
+
 ## 111.11.1
 
 ### Patch Changes

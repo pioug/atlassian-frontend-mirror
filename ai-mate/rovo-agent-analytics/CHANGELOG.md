@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-analytics
 
+## 0.10.0
+
+### Minor Changes
+
+- [`e93d0946c0929`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e93d0946c0929) -
+  Auto sort for export path for last remaining ai-mate packages. Part of de-barreling effort of
+  TREX-67
+
 ## 0.9.0
 
 ### Minor Changes

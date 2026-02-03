@@ -158,3 +158,5 @@ export type {
 } from './components/editor';
 
 export type { ChartColorTokens } from './types';
+
+export type { FrameProps } from './components/frame';

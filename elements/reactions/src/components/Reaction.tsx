@@ -18,6 +18,7 @@ import { type ReactionSummary, type ReactionClick, type ReactionMouseEnter } fro
 import { Counter } from './Counter';
 import { ReactionParticleEffect } from './ReactionParticleEffect';
 import { ReactionTooltip } from './ReactionTooltip';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { messages } from '../shared/i18n';
 import { isLeftClick } from '../shared/utils';
 import { RESOURCED_EMOJI_COMPACT_HEIGHT } from '../shared/constants';
@@ -215,7 +216,10 @@ export const Reaction = ({
 	}
 
 	return (
-		<Box xcss={styles.container}>
+		<Box
+			xcss={styles.container}
+			as={fg('jfp_a11y_team_comment_actions_semantic') ? 'li' : undefined}
+		>
 			{showParticleEffect && (
 				<ReactionParticleEffect emojiId={emojiId} emojiProvider={emojiProvider} />
 			)}

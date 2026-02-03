@@ -8,12 +8,18 @@ import { css } from '@compiled/react';
 
 import type { RouterLinkComponentProps } from '@atlaskit/app-provider';
 import { cssMap, cx, jsx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor, type AnchorProps, Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
-	visitedLink: {
+	base: {
 		fontFamily: token('font.family.body'),
+	},
+	baseT26Shape: {
+		borderRadius: token('radius.xsmall'),
+	},
+	visitedLink: {
 		'&:visited': {
 			color: token('color.link.visited'),
 		},
@@ -32,7 +38,6 @@ const styles = cssMap({
 	defaultAppearance: {
 		textDecoration: 'underline',
 		color: token('color.link'),
-		fontFamily: token('font.family.body'),
 		'&:hover': {
 			color: token('color.link'),
 			textDecoration: 'none',
@@ -50,7 +55,6 @@ const styles = cssMap({
 	},
 
 	subtleAppearance: {
-		fontFamily: token('font.family.body'),
 		textDecoration: 'none',
 		color: token('color.text.subtle'),
 
@@ -72,7 +76,6 @@ const styles = cssMap({
 	},
 
 	inverseAppearance: {
-		fontFamily: token('font.family.body'),
 		textDecoration: 'underline',
 		color: token('color.text.inverse'),
 
@@ -158,6 +161,8 @@ const LinkWithoutRef = <RouterLinkConfig extends Record<string, any> = never>(
 			target={target}
 			ref={ref}
 			xcss={cx(
+				styles.base,
+				fg('platform-dst-shape-theme-default') && styles.baseT26Shape,
 				appearance === 'default' && styles.defaultAppearance,
 				appearance === 'subtle' && styles.subtleAppearance,
 				appearance === 'inverse' && styles.inverseAppearance,

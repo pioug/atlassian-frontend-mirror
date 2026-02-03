@@ -1,5 +1,26 @@
 # @atlaskit/editor-statsig-tmp
 
+## 17.13.0
+
+### Minor Changes
+
+- [`38dee2c85c456`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38dee2c85c456) -
+  [EDITOR-4486] add new experiment to config
+
+## 17.12.0
+
+### Minor Changes
+
+- [`d39135b9aecb7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d39135b9aecb7) -
+  Adds a fix to avoid initialising the bridge if the ai plugin is unavailable.
+
+## 17.11.0
+
+### Minor Changes
+
+- [`4de30defb09c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4de30defb09c5) -
+  Fix overflow of table inside multi-column layouts.
+
 ## 17.10.1
 
 ### Patch Changes

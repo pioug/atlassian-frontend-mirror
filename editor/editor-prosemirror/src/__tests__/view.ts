@@ -6,9 +6,8 @@ describe('prosemirror-view', () => {
 		const wrapper = require('../view');
 		const originalPublicFunctions = [
 			...Object.keys(original).filter((f) => !f.startsWith('__')),
-			// We are using those two prviate properties on Editor code :(
+			// We are using this private property in Editor code :(
 			'__parseFromClipboard',
-			'__serializeForClipboard',
 		].sort();
 		const wrapperFunctions = Object.keys(wrapper).sort();
 

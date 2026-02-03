@@ -1,5 +1,24 @@
 # @atlaskit/renderer
 
+## 126.6.1
+
+### Patch Changes
+
+- [`5ca694e67a86f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ca694e67a86f) -
+  Use React key properly and fix React warning
+- Updated dependencies
+
+## 126.6.0
+
+### Minor Changes
+
+- [`b807f548e1c99`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b807f548e1c99) -
+  Update defult renderer line-height to fix hydration mismatch with inline extensions
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 126.5.2
 
 ### Patch Changes

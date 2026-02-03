@@ -1,5 +1,13 @@
 # @atlaskit/lozenge
 
+## 13.4.0
+
+### Minor Changes
+
+- [`2828d1ffb6a1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2828d1ffb6a1e) -
+  Added a `spacing` prop which takes `default` and `spacious`. `spacious` increases padding and sets
+  the lozenge height to 32px.
+
 ## 13.3.4
 
 ### Patch Changes

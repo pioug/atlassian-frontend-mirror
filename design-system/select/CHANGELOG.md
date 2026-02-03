@@ -1,5 +1,12 @@
 # @atlaskit/select
 
+## 21.7.4
+
+### Patch Changes
+
+- [`e976346cb86df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e976346cb86df) -
+  Update checkbox border color for accessibility.
+
 ## 21.7.3
 
 ### Patch Changes

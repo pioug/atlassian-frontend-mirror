@@ -10,6 +10,7 @@ import { MockSearch } from '../../utils/mock-search';
 
 const ThemedSearch = () => {
 	const searchTheme = useLegacySearchTheme();
+	// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 	return <MockSearch theme={searchTheme} />;
 };
 

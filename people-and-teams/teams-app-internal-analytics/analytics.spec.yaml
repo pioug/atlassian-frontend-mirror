@@ -3268,3 +3268,27 @@ events:
         error:
           type: string
           description: The error that was thrown
+  - requestedContainers tryAgain:
+      type: track
+      description: Fired when the user tries to add requested containers again
+      attributes:
+        containers:
+          type: []
+          description: The containers that the user tried to add
+        teamId:
+          type: string
+          description: The id of the team
+  - requestedContainers failed:
+      type: track
+      description: Fired when the user fails to add requested containers
+      attributes:
+        containers:
+          type: []
+          description: The containers that the user tried to add
+        teamId:
+          type: string
+          description: The id of the team
+        tryAgainCount:
+          required: false
+          type: number
+          description: The number of times the user has tried to add requested containers

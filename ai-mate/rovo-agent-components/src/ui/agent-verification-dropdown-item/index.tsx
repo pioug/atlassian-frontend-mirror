@@ -108,34 +108,32 @@ export const AgentVerificationDropdownItem = ({
 
 	const handleUpdateVerification = useCallback(
 		(verified: boolean) => {
-			if (!agentId) return;
+			if (!agentId) {return;}
 			onClick?.();
 			commitUpdateVerification({
 				variables: {
 					id: agentId,
 					verified,
 				},
-				onCompleted: (_, errors) => {
-					if (errors && errors.length > 0) {
-						const errorMessage = errors[0].message;
-						trackAgentActionError(
-							verified ? AgentActions.VERIFY : AgentActions.UNVERIFY,
-							new Error(errorMessage),
-							{ agentId },
-						);
-						handleError(verified, errorMessage);
-						return;
+				onCompleted: (response) => {
+					const payload = response?.agentStudio_updateAgentVerification;
+					if (payload?.success) {
+						trackAgentAction(verified ? AgentActions.VERIFY : AgentActions.UNVERIFY, {});
+						showFlag({
+							title: formatMessage(
+								verified ? messages.verifySuccessTitle : messages.unverifySuccessTitle,
+							),
+							appearance: 'success',
+							isAutoDismiss: true,
+							icon: <SuccessIcon spacing="spacious" label="" />,
+						});
+					} else {
+						const errorMessage = payload?.errors?.[0]?.message;
+						if (errorMessage) {
+							trackAgentActionError(verified ? AgentActions.VERIFY : AgentActions.UNVERIFY, new Error(errorMessage), { agentId });
+							handleError(verified, errorMessage);
+						}
 					}
-
-					trackAgentAction(verified ? AgentActions.VERIFY : AgentActions.UNVERIFY, {});
-					showFlag({
-						title: formatMessage(
-							verified ? messages.verifySuccessTitle : messages.unverifySuccessTitle,
-						),
-						appearance: 'success',
-						isAutoDismiss: true,
-						icon: <SuccessIcon spacing="spacious" label="" />,
-					});
 				},
 				onError: (error) => {
 					trackAgentActionError(verified ? AgentActions.VERIFY : AgentActions.UNVERIFY, error, {

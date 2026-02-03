@@ -90,7 +90,7 @@ const iconStyles = cssMap({
 	default: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'& svg rect, & svg circle:first-of-type': {
-			stroke: token('color.border.input'),
+			stroke: token('color.border.bold'),
 		},
 	},
 });
@@ -201,7 +201,7 @@ const CheckboxIcon = (props: IconProps) => {
 			role={label ? 'img' : 'presentation'}
 		>
 			<g fillRule="evenodd">
-				<rect x="5.5" y="5.5" width="13" height="13" rx="1.5" fill="currentColor" />
+				<rect x="5.5" y="5.5" width="13" height="13" rx="1.5" fill="currentColor"/>
 				<path
 					fillRule="evenodd"
 					clipRule="evenodd"

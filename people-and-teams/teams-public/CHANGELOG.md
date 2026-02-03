@@ -1,5 +1,16 @@
 # @atlaskit/teams-public
 
+## 0.69.0
+
+### Minor Changes
+
+- [`2f0921abc9f22`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f0921abc9f22) -
+  Migrated requested containers analytics events to teams-app-internal-analytics package
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.68.1
 
 ### Patch Changes

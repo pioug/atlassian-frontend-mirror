@@ -211,12 +211,13 @@ function handleTextInputInsideCursorTargetDecoration({
 	event.stopPropagation();
 	event.preventDefault();
 	const content = event.data || '';
-	const tr = view.state.tr;
 
 	// ensure any custom handleTextInput handlers are called for the input event
 	// ie. type ahead, emoji shortcuts.
+	const defaultTransaction = () =>
+		view.state.tr.insertText(content, cursorTarget.positions.from, cursorTarget.positions.to);
 	const potentiallyHandleByHandleTextInput = view.someProp('handleTextInput', (f) =>
-		f(view, cursorTarget.positions.from, cursorTarget.positions.to, content),
+		f(view, cursorTarget.positions.from, cursorTarget.positions.to, content, defaultTransaction),
 	);
 
 	if (potentiallyHandleByHandleTextInput) {
@@ -224,6 +225,5 @@ function handleTextInputInsideCursorTargetDecoration({
 		// manually update the document.
 		return;
 	}
-	tr.insertText(content);
-	view.dispatch(tr);
+	view.dispatch(defaultTransaction());
 }

@@ -13,6 +13,7 @@ import NewLozengeNeutral from '../../examples/constellation/new-lozenge-neutral'
 import NewLozengeWithIcon from '../../examples/constellation/new-lozenge-with-icon';
 import NewLozengeAccentColors from '../../examples/constellation/new-lozenge-accent-colors';
 import NewLozengeMaxWidth from '../../examples/constellation/new-lozenge-max-width';
+import NewLozengeSpacing from '../../examples/constellation/new-lozenge-spacing';
 
 ## Appearance
 
@@ -76,10 +77,16 @@ Lozenges can include an icon before the text to provide additional visual contex
 
 <Example Component={NewLozengeWithIcon} packageName="@atlaskit/lozenge" />
 
+## Spacing
+
+Use `spacing="spacious"` to increase padding and lozenge height (32px).
+
+<Example Component={NewLozengeSpacing} packageName="@atlaskit/lozenge" />
+
 ## Max width
 
 When the text in the lozenge exceeds the maximum width, it will be truncated with an ellipsis. By
-default, the maximum width of a lozenge is 200px. You can use the maxWidth prop to customize the
+default, the maximum width of a lozenge is `200px`. You can use the `maxWidth` prop to customize the
 width of the lozenge.
 
 Avoid truncation wherever possible by using shorter text in lozenges. The truncated text is not

@@ -29,6 +29,7 @@ const LozengeDropdownTrigger = memo(
 				children,
 				testId,
 				appearance = 'neutral',
+				spacing = 'default',
 				iconBefore,
 				isSelected = false,
 				maxWidth = 200,
@@ -43,6 +44,7 @@ const LozengeDropdownTrigger = memo(
 				<LozengeBase
 					ref={ref}
 					appearance={appearance}
+					spacing={spacing}
 					iconBefore={iconBefore}
 					isSelected={isSelected}
 					maxWidth={maxWidth}

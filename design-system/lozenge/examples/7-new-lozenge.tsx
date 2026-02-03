@@ -96,6 +96,9 @@ export default function NewLozengeExample() {
 								<Lozenge appearance={color} iconBefore={ImageIcon}>
 									{color}
 								</Lozenge>
+								<Lozenge appearance={color} spacing="spacious">
+									{color}
+								</Lozenge>
 							</Box>
 						</Box>
 					))}
@@ -114,9 +117,26 @@ export default function NewLozengeExample() {
 								<Lozenge appearance={color} iconBefore={ImageIcon}>
 									{color}
 								</Lozenge>
+								<Lozenge appearance={color} spacing="spacious">
+									{color}
+								</Lozenge>
 							</Box>
 						</Box>
 					))}
+				</Box>
+			</Box>
+
+			<Box>
+				<Heading size="medium">Spacing</Heading>
+				<Text>Default vs spacious spacing variants.</Text>
+				<Box xcss={styles.group}>
+					<Lozenge appearance="information">default</Lozenge>
+					<Lozenge appearance="information" spacing="spacious">
+						spacious
+					</Lozenge>
+					<Lozenge appearance="information" spacing="spacious" iconBefore={ImageIcon}>
+						spacious w/ icon
+					</Lozenge>
 				</Box>
 			</Box>
 

@@ -3,12 +3,11 @@
  * @jsx jsx
  */
 
-import { createContext, Fragment, type ReactNode, useContext, useEffect, useState } from 'react';
+import { createContext, type ReactNode, useContext, useEffect, useRef, useState } from 'react';
 
 import { css, cssMap, jsx } from '@atlaskit/css';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { FieldId } from './field-id-context';
@@ -79,23 +78,15 @@ const messageIcons: Partial<Record<MessageAppearance, JSX.Element>> = {
 
 const Message = ({ children, appearance = 'default', fieldId, testId }: InternalMessageProps) => {
 	const icon = messageIcons[appearance];
+	const messageRef = useRef<HTMLDivElement>(null);
+	const [hasMessageWrapper, setHasMessageWrapper] = useState(false);
 	const { isWrapper } = useContext(MessageWrapperContext);
-	const [shouldRenderAfterDelay, setShouldRenderAfterDelay] = useState(false);
-
-	// TODO: DSP-23603 - To clean up when removing "platform_dst_form_screenreader_message_fix" feature flag
-	const isDelayRenderEnabled = fg('platform_dst_form_screenreader_message_fix') && !isWrapper;
 
 	useEffect(() => {
-		if (isDelayRenderEnabled) {
-			// Only delay rendering if there is no wrapper and feature flag is enabled
-			const timer = setTimeout(() => {
-				setShouldRenderAfterDelay(true);
-			}, 10);
-			return () => clearTimeout(timer);
+		if (messageRef.current) {
+			setHasMessageWrapper(isWrapper);
 		}
-
-		return;
-	}, [isDelayRenderEnabled]);
+	}, [isWrapper]);
 
 	/**
 	 * The wrapping span is necessary to preserve spaces between children.
@@ -107,23 +98,17 @@ const Message = ({ children, appearance = 'default', fieldId, testId }: Internal
 	 */
 	const content = typeof children === 'string' ? children : <span>{children}</span>;
 
-	const childrenToRender = (
-		<Fragment>
-			{icon && <IconWrapper>{icon}</IconWrapper>}
-			{content}
-		</Fragment>
-	);
 	return (
 		<div
 			css={[messageStyles, messageAppearanceStyles[appearance]]}
 			data-testid={testId}
 			id={fieldId}
+			ref={messageRef}
 			// For backwards compatability, if there is a wrapper, aria-live is not needed
-			// TODO: DSP-23603 - To clean up when removing "platform_dst_form_screenreader_message_fix" feature flag
-			aria-live={!isWrapper ? 'polite' : undefined}
+			aria-live={!hasMessageWrapper ? 'polite' : undefined}
 		>
-			{/* TODO: DSP-23603 - To clean up when removing "platform_dst_form_screenreader_message_fix" feature flag */}
-			{isDelayRenderEnabled ? shouldRenderAfterDelay && childrenToRender : childrenToRender}
+			{icon && <IconWrapper>{icon}</IconWrapper>}
+			{content}
 		</div>
 	);
 };

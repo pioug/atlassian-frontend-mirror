@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "126.5.2",
+	"version": "126.6.1",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -251,6 +251,9 @@
 			"type": "boolean"
 		},
 		"confluence_insert_excerpt_inline_vertical_align": {
+			"type": "boolean"
+		},
+		"confluence_ttvc_inline_extensions": {
 			"type": "boolean"
 		}
 	},

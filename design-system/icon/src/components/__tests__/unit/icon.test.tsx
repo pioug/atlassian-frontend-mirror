@@ -8,20 +8,28 @@ import Icon, { type CustomGlyphProps, IconNew, type IconProps, size } from '../.
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('@atlaskit/icon', () => {
+	const iconName = 'icon';
 	describe('Icon', () => {
 		const secretContent = 'secret content';
 		const secretWrapper = ({ role }: CustomGlyphProps) => <svg role={role}>{secretContent}</svg>;
-		const empty = ({ role }: CustomGlyphProps) => <svg role={role}>Icon</svg>;
+		const empty = ({ role }: CustomGlyphProps) => <svg role={role}>{iconName}</svg>;
 		const MyIcon = (props: IconProps) => (
 			// This is not ideal but is easier for testing
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 			<Icon glyph={secretWrapper} {...props} />
 		);
 
-		it('should match the DOM Snapshot', () => {
-			render(<Icon glyph={empty} label="My icon" />);
+		it('should have proper construction', () => {
+			const name = 'name';
+			render(<Icon glyph={empty} label={name} />);
 
-			expect(screen.getByRole('img')).toMatchSnapshot();
+			const img = screen.getByRole('img');
+			expect(img.tagName).toBe('SPAN');
+			expect(img).toHaveAccessibleName(name);
+			expect(img).toHaveAttribute('data-vc', 'icon-undefined');
+			expect(img).toHaveAttribute('style');
+			const innerSvg = screen.getByRole('presentation');
+			expect(innerSvg).toHaveTextContent(iconName);
 		});
 
 		describe('glyph prop', () => {
@@ -129,17 +137,25 @@ describe('@atlaskit/icon', () => {
 			jest.resetAllMocks();
 		});
 
-		const label = 'test-label';
-		const glyph = <AddIcon label={label} />;
+		const name = 'test-label';
+		const glyph = <AddIcon label={name} />;
 
-		it('should match snapshot', () => {
+		it('should match desired construction', () => {
 			render(glyph);
-			expect(screen.getByRole('img')).toMatchSnapshot();
+
+			const img = screen.getByRole('img');
+			expect(img.tagName).toBe('SPAN');
+			expect(img).toHaveAttribute('data-vc', 'icon-undefined');
+			expect(img).toHaveAttribute('style');
+			const innerSvg = screen.getByRole('presentation');
+			expect(innerSvg).toHaveAttribute('height');
+			expect(innerSvg).toHaveAttribute('viewBox');
+			expect(innerSvg).toHaveAttribute('width');
 		});
 
 		it('should have the correct label', () => {
 			render(glyph);
-			expect(screen.getByRole('img')).toHaveAccessibleName(label);
+			expect(screen.getByRole('img')).toHaveAccessibleName(name);
 		});
 	});
 });
@@ -187,7 +203,13 @@ describe('Glyph', () => {
 
 	it('should match snapshot', () => {
 		render(glyph);
-		expect(screen.getByRole('img')).toMatchSnapshot();
+
+		const img = screen.getByRole('img');
+		expect(img.tagName).toBe('SPAN');
+		expect(img).toHaveAttribute('style');
+		const innerSvg = screen.getByRole('presentation');
+		expect(innerSvg).toHaveAttribute('fill');
+		expect(innerSvg).toHaveAttribute('viewBox');
 	});
 
 	it('should have the correct label', () => {

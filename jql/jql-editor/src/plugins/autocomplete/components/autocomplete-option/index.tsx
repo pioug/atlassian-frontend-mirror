@@ -4,6 +4,7 @@ import deburr from 'lodash/deburr';
 import noop from 'lodash/noop';
 
 import { type NewCoreIconProps } from '@atlaskit/icon';
+import DataFormulaIcon from '@atlaskit/icon-lab/core/data-formula';
 import AlignTextLeftIcon from '@atlaskit/icon/core/align-text-left';
 import CalendarIcon from '@atlaskit/icon/core/calendar';
 import ClockIcon from '@atlaskit/icon/core/clock';
@@ -73,6 +74,8 @@ const getFieldTypeIcon = (type: string) => {
 			return <ResizedIcon Icon={TextIcon} />;
 		case 'Time stamp':
 			return <ResizedIcon Icon={ClockIcon} />;
+		case 'Formula':
+			return <ResizedIcon Icon={DataFormulaIcon} />;
 		default:
 			return null;
 	}

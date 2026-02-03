@@ -6,39 +6,7 @@ import PageHeader from '../../../index';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('@atlaskit/page-header', () => {
-	it('should render correctly', () => {
-		const BreadCrumbs = () => <div>Breadcrumb</div>;
-		const Actions = () => <div>Action</div>;
-		const Bar = () => <div>Bar</div>;
-
-		const wrapper = (
-			<PageHeader breadcrumbs={<BreadCrumbs />} actions={<Actions />} bottomBar={<Bar />}>
-				Test
-			</PageHeader>
-		);
-		const { container } = render(wrapper);
-		expect(container).toMatchSnapshot();
-	});
-
-	it('should render correctly with disableTitleStyles prop', () => {
-		const BreadCrumbs = () => <div>Breadcrumb</div>;
-		const Actions = () => <div>Action</div>;
-		const Bar = () => <div>Bar</div>;
-
-		const wrapper = (
-			<PageHeader
-				breadcrumbs={<BreadCrumbs />}
-				actions={<Actions />}
-				bottomBar={<Bar />}
-				disableTitleStyles
-			>
-				Test
-			</PageHeader>
-		);
-
-		const { container } = render(wrapper);
-		expect(container).toMatchSnapshot();
-	});
+	const text = 'text';
 
 	it('should render component as <h1> level heading', () => {
 		render(<PageHeader>Title</PageHeader>);
@@ -47,9 +15,9 @@ describe('@atlaskit/page-header', () => {
 	});
 
 	it('should render passed children', () => {
-		render(<PageHeader>Title</PageHeader>);
+		render(<PageHeader>{text}</PageHeader>);
 
-		expect(screen.getByText('Title')).toBeInTheDocument();
+		expect(screen.getByText(text)).toBeInTheDocument();
 	});
 
 	it('should render all passed children components', () => {
@@ -69,21 +37,20 @@ describe('@atlaskit/page-header', () => {
 	});
 
 	it('should render custom component without the StyledTitle when disableTitleStyles is true', () => {
-		const CustomTitle = () => <span>Custom component</span>;
 		render(
 			<PageHeader disableTitleStyles>
-				<CustomTitle />
+				<span>{text}</span>
 			</PageHeader>,
 		);
 
-		expect(screen.getByText('Custom component')).toBeInTheDocument();
+		expect(screen.getByText(text)).toBeInTheDocument();
 		expect(screen.queryByRole('heading', { level: 1 })).not.toBeInTheDocument();
 	});
 
 	it('should truncate with truncateTitle prop', () => {
-		render(<PageHeader truncateTitle>Long heading text</PageHeader>);
+		render(<PageHeader truncateTitle>{text}</PageHeader>);
 
-		const element = screen.getByText('Long heading text');
+		const element = screen.getByText(text);
 
 		expect(element).toHaveCompiledCss('white-space', 'nowrap');
 		expect(element).toHaveCompiledCss('text-overflow', 'ellipsis');
@@ -91,8 +58,8 @@ describe('@atlaskit/page-header', () => {
 	});
 
 	it('should set received id prop as id of inner h1 element', () => {
-		render(<PageHeader id="page-heading">Title</PageHeader>);
+		render(<PageHeader id="page-heading">{text}</PageHeader>);
 
-		expect(screen.getByText('Title')).toHaveAttribute('id', 'page-heading');
+		expect(screen.getByText(text)).toHaveAttribute('id', 'page-heading');
 	});
 });

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f85c969d3da219604d3c96becb27e7c9>>
+ * @generated SignedSource<<9008dd06ba11a7ec23e19aa1d7c635e4>>
  * @relayHash 10df1400fe5f08dbb71223dbeb55d5d0
  * @lightSyntaxTransform
  * @nogrep
@@ -15,11 +15,13 @@
 import type { ConcreteRequest, Query } from 'relay-runtime';
 import type { FragmentRefs } from "relay-runtime";
 export type AgentStudioAgentQueryInput = {
+  includeDraftAgents?: boolean | null | undefined;
   name?: string | null | undefined;
   onlyEditableAgents?: boolean | null | undefined;
   onlyFavouriteAgents?: boolean | null | undefined;
   onlyMyAgents?: boolean | null | undefined;
   onlyTemplateAgents?: boolean | null | undefined;
+  onlyVerifiedAgents?: boolean | null | undefined;
 };
 export type rovoAgentSelectorInternal_AtlaskitRovoAgentSelectorPaginationQuery$variables = {
   after?: string | null | undefined;

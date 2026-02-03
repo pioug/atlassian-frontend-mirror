@@ -36,7 +36,7 @@ const containerStyles = css({
 });
 
 const containerStylesT26Shape = css({
-	borderRadius: 0,
+	borderRadius: token('radius.full'),
 });
 
 const containerAppearance = cssMap({
@@ -61,7 +61,7 @@ const barStyles = css({
 });
 
 const barStylesT26Shape = css({
-	borderRadius: 0,
+	borderRadius: token('radius.full'),
 });
 
 const determinateBarStyles = css({

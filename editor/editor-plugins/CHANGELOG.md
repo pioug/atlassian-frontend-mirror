@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugins
 
+## 11.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.4.0
+
+### Minor Changes
+
+- [`97e373e31a1bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/97e373e31a1bd) -
+  Set up AI Suggestions Plugin for Suggested Edits.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.3.53
 
 ### Patch Changes

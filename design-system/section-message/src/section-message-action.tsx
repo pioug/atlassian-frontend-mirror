@@ -7,6 +7,7 @@ import { Fragment, memo } from 'react';
 import Button from '@atlaskit/button/standard-button';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import Link from '@atlaskit/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -36,6 +37,9 @@ const styles = cssMap({
 		'&:active': {
 			color: token('color.link.pressed'),
 		},
+	},
+	pressableT26Shape: {
+		borderRadius: token('radius.xsmall'),
 	},
 });
 
@@ -69,7 +73,15 @@ const SectionMessageAction = memo(function SectionMessageAction({
 
 		if (onClick) {
 			return (
-				<Pressable testId={testId} onClick={onClick} xcss={cx(styles.common, styles.pressable)}>
+				<Pressable
+					testId={testId}
+					onClick={onClick}
+					xcss={cx(
+						styles.common,
+						styles.pressable,
+						fg('platform-dst-shape-theme-default') && styles.pressableT26Shape,
+					)}
+				>
 					{children}
 				</Pressable>
 			);

@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 216.7.21
+
+### Patch Changes
+
+- [`9552556113c53`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9552556113c53) -
+  Fix breakout mark style on code blocks within synced blocks
+- Updated dependencies
+
+## 216.7.20
+
+### Patch Changes
+
+- [`4de30defb09c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4de30defb09c5) -
+  Fix overflow of table inside multi-column layouts.
+- Updated dependencies
+
 ## 216.7.19
 
 ### Patch Changes

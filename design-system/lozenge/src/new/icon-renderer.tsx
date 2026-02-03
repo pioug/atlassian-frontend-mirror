@@ -24,6 +24,10 @@ export interface IconRendererProps {
 	 * Test ID for the icon
 	 */
 	testId?: string;
+	/**
+	 * Size of the icon
+	 */
+	size?: 'small' | 'medium';
 }
 
 // Map lozenge colors to appropriate icon colors
@@ -77,10 +81,16 @@ const getIconColor = (color: LozengeColor | ThemeAppearance, isSelected?: boolea
  * Icon renderer for lozenge components
  * Handles proper sizing and color theming for icons
  */
-export const IconRenderer = ({ icon: Icon, color, isSelected, testId }: IconRendererProps) => {
+export const IconRenderer = ({
+	icon: Icon,
+	color,
+	isSelected,
+	testId,
+	size,
+}: IconRendererProps) => {
 	const iconColor = getIconColor(color, isSelected);
 
-	return <Icon color={iconColor} label="" size="small" testId={testId} />;
+	return <Icon color={iconColor} label="" size={size} testId={testId} />;
 };
 
 export default IconRenderer;

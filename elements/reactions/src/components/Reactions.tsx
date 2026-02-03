@@ -1,6 +1,7 @@
 /**
  * @jsxRuntime classic
  * @jsx jsx
+ * @jsxFrag React.Fragment
  */
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { css, jsx } from '@compiled/react';
@@ -15,6 +16,7 @@ import {
 import { type Placement } from '@atlaskit/popper';
 import UFOSegment from '@atlaskit/react-ufo/segment';
 import { token } from '@atlaskit/tokens';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	createAndFireSafe,
@@ -63,6 +65,18 @@ const noContainerPositionStyles = css({
 const reactionPickerStyle = css({
 	display: 'inline-block',
 	marginTop: token('space.050', '4px'),
+});
+
+const listContainerStyles = css({
+	display: 'flex',
+	flexWrap: 'wrap',
+	alignItems: 'center',
+	position: 'relative',
+	listStyle: 'none',
+	margin: 0,
+	padding: 0,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'> li': { margin: 0, padding: 0 },
 });
 
 /**
@@ -598,24 +612,46 @@ export const Reactions = React.memo(
 									}
 								/>
 							</div>
+						) : fg('jfp_a11y_team_comment_actions_semantic') ? (
+							<ul css={listContainerStyles}>
+								{memorizedReactions.map((reaction) => (
+									<Reaction
+										key={reaction.emojiId}
+										reaction={reaction}
+										emojiProvider={emojiProvider}
+										onClick={onReactionClick}
+										onMouseEnter={handleReactionMouseEnter}
+										onFocused={handleReactionFocused}
+										flash={flash[reaction.emojiId]}
+										showParticleEffect={particleEffectByEmoji[reaction.emojiId]}
+										showOpaqueBackground={showOpaqueBackground}
+										allowUserDialog={allowUserDialog && hasEmojiWithFivePlusReactions}
+										handleOpenReactionsDialog={handleOpenReactionsDialog}
+										isViewOnly={isViewOnly}
+										showSubtleStyle={showSubtleDefaultReactions && reactions.length === 0}
+									/>
+								))}
+							</ul>
 						) : (
-							memorizedReactions.map((reaction) => (
-								<Reaction
-									key={reaction.emojiId}
-									reaction={reaction}
-									emojiProvider={emojiProvider}
-									onClick={onReactionClick}
-									onMouseEnter={handleReactionMouseEnter}
-									onFocused={handleReactionFocused}
-									flash={flash[reaction.emojiId]}
-									showParticleEffect={particleEffectByEmoji[reaction.emojiId]}
-									showOpaqueBackground={showOpaqueBackground}
-									allowUserDialog={allowUserDialog && hasEmojiWithFivePlusReactions}
-									handleOpenReactionsDialog={handleOpenReactionsDialog}
-									isViewOnly={isViewOnly}
-									showSubtleStyle={showSubtleDefaultReactions && reactions.length === 0}
-								/>
-							))
+							<>
+								{memorizedReactions.map((reaction) => (
+									<Reaction
+										key={reaction.emojiId}
+										reaction={reaction}
+										emojiProvider={emojiProvider}
+										onClick={onReactionClick}
+										onMouseEnter={handleReactionMouseEnter}
+										onFocused={handleReactionFocused}
+										flash={flash[reaction.emojiId]}
+										showParticleEffect={particleEffectByEmoji[reaction.emojiId]}
+										showOpaqueBackground={showOpaqueBackground}
+										allowUserDialog={allowUserDialog && hasEmojiWithFivePlusReactions}
+										handleOpenReactionsDialog={handleOpenReactionsDialog}
+										isViewOnly={isViewOnly}
+										showSubtleStyle={showSubtleDefaultReactions && reactions.length === 0}
+									/>
+								))}
+							</>
 						))}
 					{/* Don't render the picker if:
 					   1. Component is view only, thus disabling adding reactions

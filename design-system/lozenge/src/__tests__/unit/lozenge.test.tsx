@@ -30,6 +30,17 @@ describe('Lozenge', () => {
 			expect(lozenge).toHaveAttribute('class', expect.stringMatching(/^(_[a-z0-9]{8}\s?)+$/));
 		});
 
+		it('should support spacing prop', () => {
+			render(
+				<Lozenge testId="spacious" appearance="neutral" spacing="spacious">
+					Spacious
+				</Lozenge>,
+			);
+
+			const lozenge = screen.getByTestId('spacious');
+			expect(lozenge).toBeInTheDocument();
+		});
+
 		it('should render with semantic color', () => {
 			render(
 				<LozengeDropdownTrigger appearance="success" isSelected={false} onClick={__noop}>

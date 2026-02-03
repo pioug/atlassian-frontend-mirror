@@ -19,6 +19,8 @@ describe('generateTheme', () => {
 					expect(Object.keys(componentTheme).sort()).toEqual(
 						Object.keys(themes[i].mode[component as Component]).sort(),
 					);
+					// Jest: Multiple inline snapshots for the same call are not supported.
+					// eslint-disable-next-line @atlaskit/design-system/no-to-match-snapshot
 					expect(componentTheme).toMatchSnapshot();
 				});
 			});

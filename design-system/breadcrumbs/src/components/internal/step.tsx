@@ -7,6 +7,7 @@ import { forwardRef, Fragment } from 'react';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import __noop from '@atlaskit/ds-lib/noop';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor, Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -58,6 +59,9 @@ const styles = cssMap({
 			// @ts-expect-error
 			color: token('color.text'),
 		},
+	},
+	rootT26Shape: {
+		borderRadius: token('radius.xsmall'),
 	},
 	withoutTruncation: {
 		minWidth: '0px',
@@ -116,7 +120,11 @@ const Step: React.ForwardRefExoticComponent<
 					onClick={handleClick}
 					target={target}
 					testId={testId}
-					xcss={cx(styles.root, !truncationWidth && styles.withoutTruncation)}
+					xcss={cx(
+						styles.root,
+						!truncationWidth && styles.withoutTruncation,
+						fg('platform-dst-shape-theme-default') && styles.rootT26Shape,
+					)}
 					style={{
 						maxWidth: truncationWidth,
 					}}
@@ -130,7 +138,11 @@ const Step: React.ForwardRefExoticComponent<
 			<Pressable
 				onClick={handleClick}
 				testId={testId}
-				xcss={cx(styles.root, !truncationWidth && styles.withoutTruncation)}
+				xcss={cx(
+					styles.root,
+					!truncationWidth && styles.withoutTruncation,
+					fg('platform-dst-shape-theme-default') && styles.rootT26Shape,
+				)}
 				style={{
 					maxWidth: truncationWidth,
 				}}

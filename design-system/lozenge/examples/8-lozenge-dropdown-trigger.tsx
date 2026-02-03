@@ -108,6 +108,13 @@ export default function LozengeDropdownTriggerExample() {
 								>
 									With icon
 								</LozengeDropdownTrigger>
+								<LozengeDropdownTrigger
+									appearance={color}
+									spacing="spacious"
+									testId={`semantic-${color}-spacious`}
+								>
+									{color}
+								</LozengeDropdownTrigger>
 							</Box>
 						</Box>
 					))}
@@ -132,6 +139,13 @@ export default function LozengeDropdownTriggerExample() {
 								>
 									With icon
 								</LozengeDropdownTrigger>
+								<LozengeDropdownTrigger
+									appearance={color}
+									spacing="spacious"
+									testId={`accent-${color}-spacious`}
+								>
+									{color}
+								</LozengeDropdownTrigger>
 							</Box>
 						</Box>
 					))}
@@ -146,6 +160,27 @@ export default function LozengeDropdownTriggerExample() {
 					</LozengeDropdownTrigger>
 					<LozengeDropdownTrigger appearance="accent-blue" isSelected iconBefore={ImageIcon}>
 						Selected with icon
+					</LozengeDropdownTrigger>
+					<LozengeDropdownTrigger appearance="accent-blue" isSelected spacing="spacious">
+						Selected spacious
+					</LozengeDropdownTrigger>
+				</Box>
+			</Box>
+
+			<Box>
+				<Heading size="medium">Spacing</Heading>
+				<Text>Default vs spacious spacing variants.</Text>
+				<Box xcss={styles.group}>
+					<LozengeDropdownTrigger appearance="information">default</LozengeDropdownTrigger>
+					<LozengeDropdownTrigger appearance="information" spacing="spacious">
+						spacious
+					</LozengeDropdownTrigger>
+					<LozengeDropdownTrigger
+						appearance="information"
+						spacing="spacious"
+						iconBefore={ImageIcon}
+					>
+						spacious w/ icon
 					</LozengeDropdownTrigger>
 				</Box>
 			</Box>

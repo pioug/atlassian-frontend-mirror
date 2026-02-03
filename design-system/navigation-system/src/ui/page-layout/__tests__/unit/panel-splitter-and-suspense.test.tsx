@@ -1,5 +1,6 @@
 import React from 'react';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { toBeSuspendable } from '@af/react-unit-testing';
 import { resetMatchMedia } from '@atlassian/test-utils';
 

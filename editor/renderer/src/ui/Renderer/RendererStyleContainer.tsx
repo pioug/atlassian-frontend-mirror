@@ -113,13 +113,20 @@ const isBackgroundClipBrowserFixNeeded = () => {
 	return browser.isGecko || browser.isIE || (browser.isMac && browser.isChrome);
 };
 
+const baseFontStyle = css({
+	font: editorUGCToken('editor.font.body'),
+});
+
+const originalBaseFontLineHeight = css({
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+	lineHeight: '1.5rem',
+});
+
 // styles are copied from ./style.tsx
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage
 const baseStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontSize: 'var(--ak-renderer-base-font-size)',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	lineHeight: '1.5rem',
 	color: token('color.text', N800),
 
 	'--ak-editor--full-width-layout-width': `${akEditorFullWidthLayoutWidth}px`,
@@ -397,7 +404,6 @@ const responsiveBreakoutWidthWithReducedPadding = css({
 
 	// Corresponds to the legacyContentStyles from `@atlaskit/editor-core` meant to introduce responsive breakout width.
 	'--ak-editor--breakout-wide-layout-width': `${akEditorCalculatedWideLayoutWidthSmallViewport}px`,
-
 	[`@media (min-width: ${akEditorBreakpointForSmallDevice})`]: {
 		'--ak-editor--breakout-wide-layout-width': `${akEditorCalculatedWideLayoutWidth}px`,
 	},
@@ -2802,6 +2808,9 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				} as React.CSSProperties
 			}
 			css={[
+				expValEquals('confluence_ttvc_inline_extensions', 'isEnabled', true)
+					? baseFontStyle
+					: originalBaseFontLineHeight,
 				baseStyles,
 				expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)
 					? headingAnchorStyles
@@ -2840,8 +2849,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 						? paragraphStylesUGCScaledMargin
 						: paragraphSharedStylesWithEditorUGC
 					: isCompactModeSupported
-						? paragraphSharedStyleScaledMargin
-						: paragraphSharedStyles,
+					? paragraphSharedStyleScaledMargin
+					: paragraphSharedStyles,
 				listsSharedStyles,
 				browser.gecko && listsSharedStylesForGekko,
 				indentationSharedStyles,
@@ -2922,8 +2931,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 						? scaledDenseEmojiStyles
 						: scaledEmojiStyles
 					: isCompactModeEnabled
-						? denseStyles
-						: undefined,
+					? denseStyles
+					: undefined,
 				expValEquals('platform_synced_block', 'isEnabled', true) && syncBlockStyles,
 				expValEquals('platform_synced_block', 'isEnabled', true) &&
 					fg('platform_synced_block_dogfooding') &&

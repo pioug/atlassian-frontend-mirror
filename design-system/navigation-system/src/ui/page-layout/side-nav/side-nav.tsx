@@ -393,6 +393,7 @@ type SideNavProps = CommonSlotProps & {
 	 * __Note:__ If using this prop, ensure that it is also provided to the `SideNavToggleButton`.
 	 * This is to ensure the state is in sync before post-SSR hydration.
 	 */
+	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	defaultCollapsed?: boolean;
 	/**
 	 * The default width of the side nav layout area.

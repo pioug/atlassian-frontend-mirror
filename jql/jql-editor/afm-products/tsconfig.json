@@ -51,6 +51,9 @@
 			"path": "../../../design-system/icon/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/icon-lab/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../jql-ast/afm-products/tsconfig.json"
 		},
 		{

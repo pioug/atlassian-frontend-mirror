@@ -2,10 +2,12 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { defineMessages, useIntl } from 'react-intl-next';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents as useAnalyticsEventsDEPRECATED } from '@atlaskit/analytics-next';
 import { type FlagProps } from '@atlaskit/flag';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives/compiled';
+import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
 import { HttpError, teamsClient } from '@atlaskit/teams-client';
 import { type ApiTeamContainerCreationPayload } from '@atlaskit/teams-client/types';
 
@@ -54,7 +56,8 @@ function useRequestedContainers({
 	const tryAgainCountRef = useRef(0);
 	const [refetchErrorCount, setRefetchErrorCount] = useState(0);
 	const { fireTrackEvent } = usePeopleAndTeamAnalytics();
-	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const { createAnalyticsEvent } = useAnalyticsEventsDEPRECATED();
+	const { fireEvent } = useAnalyticsEvents();
 
 	const [requestedContainers, setRequestedContainers] = useState<ContainerTypes[]>([]);
 	const requestedContainersRef = useRef<ContainerTypes[]>([]);
@@ -130,12 +133,19 @@ function useRequestedContainers({
 					})
 					.filter(({ type }) => Boolean(type)) as ApiTeamContainerCreationPayload['containers'];
 
-				fireTrackEvent(createAnalyticsEvent, {
-					action: 'tryAgain',
-					actionSubject: 'requestedContainers',
-					// @ts-ignore
-					attributes: { containers: reqContainers, teamId },
-				});
+				if (fg('ptc-missed-analytics-migration-events')) {
+					fireEvent('track.requestedContainers.tryAgain', {
+						containers: reqContainers,
+						teamId,
+					});
+				} else {
+					fireTrackEvent(createAnalyticsEvent, {
+						action: 'tryAgain',
+						actionSubject: 'requestedContainers',
+						// @ts-ignore
+						attributes: { containers: reqContainers, teamId },
+					});
+				}
 
 				try {
 					const response = await teamsClient.createTeamContainers({ teamId, containers });
@@ -173,16 +183,24 @@ function useRequestedContainers({
 				}
 			};
 
-			fireTrackEvent(createAnalyticsEvent, {
-				action: 'failed',
-				actionSubject: 'requestedContainers',
-				attributes: {
-					// @ts-ignore
+			if (fg('ptc-missed-analytics-migration-events')) {
+				fireEvent('track.requestedContainers.failed', {
 					containers: reqContainers,
 					teamId,
 					tryAgainCount: tryAgainCountRef.current,
-				},
-			});
+				});
+			} else {
+				fireTrackEvent(createAnalyticsEvent, {
+					action: 'failed',
+					actionSubject: 'requestedContainers',
+					attributes: {
+						// @ts-ignore
+						containers: reqContainers,
+						teamId,
+						tryAgainCount: tryAgainCountRef.current,
+					},
+				});
+			}
 
 			removeRequestedContainersFromUrl();
 			onRequestedContainerTimeout(
@@ -197,6 +215,7 @@ function useRequestedContainers({
 			teamId,
 			createAnalyticsEvent,
 			fireTrackEvent,
+			fireEvent,
 		],
 	);
 
@@ -221,15 +240,24 @@ function useRequestedContainers({
 		//stop gap to prevent sending too many failed errors
 		if (refetchErrorCount > 3) {
 			stopPolling();
-			fireTrackEvent(createAnalyticsEvent, {
-				action: 'failed',
-				actionSubject: 'requestedContainers',
-				attributes: {
-					// @ts-ignore
+			if (fg('ptc-missed-analytics-migration-events')) {
+				fireEvent('track.requestedContainers.failed', {
 					containers: requestedContainers,
 					teamId,
-				},
-			});
+					tryAgainCount: null,
+				});
+			} else {
+				fireTrackEvent(createAnalyticsEvent, {
+					action: 'failed',
+					actionSubject: 'requestedContainers',
+					attributes: {
+						// @ts-ignore
+						containers: requestedContainers,
+						teamId,
+					},
+				});
+			}
+
 			return;
 		}
 
@@ -255,6 +283,7 @@ function useRequestedContainers({
 		teamId,
 		createAnalyticsEvent,
 		fireTrackEvent,
+		fireEvent,
 	]);
 
 	useEffect(() => {

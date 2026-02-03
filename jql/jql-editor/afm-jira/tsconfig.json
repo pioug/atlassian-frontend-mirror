@@ -51,6 +51,9 @@
 			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/icon-lab/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../jql-ast/afm-jira/tsconfig.json"
 		},
 		{

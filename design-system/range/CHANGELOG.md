@@ -1,5 +1,12 @@
 # @atlaskit/range
 
+## 9.3.5
+
+### Patch Changes
+
+- [`629119f34f212`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/629119f34f212) -
+  Updated border radius behind a feature gate.
+
 ## 9.3.4
 
 ### Patch Changes

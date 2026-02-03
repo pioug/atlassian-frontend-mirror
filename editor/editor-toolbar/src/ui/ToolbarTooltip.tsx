@@ -4,7 +4,7 @@ import type { PositionType } from '@atlaskit/tooltip';
 import Tooltip from '@atlaskit/tooltip';
 
 type ToolbarTooltipProps = {
-	children: React.ReactNode;
+	children?: React.ReactNode;
 	content: React.ReactNode;
 	delay?: number;
 	position?: PositionType;

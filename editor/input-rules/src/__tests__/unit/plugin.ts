@@ -20,7 +20,8 @@ describe('input-tule/plugin/createInputRulePlugin', () => {
 
 	function insertText(view: EditorView, text: string) {
 		const { $from, $to } = view.state.selection;
-		view.someProp('handleTextInput', (f) => f(view, $from.pos, $to.pos, text));
+		const defaultTransaction = () => view.state.tr.insertText(text, $from.pos, $to.pos);
+		view.someProp('handleTextInput', (f) => f(view, $from.pos, $to.pos, text, defaultTransaction));
 	}
 
 	function createEditorView(lol: DocBuilder, customInputRule: SafePlugin) {
@@ -64,7 +65,7 @@ describe('input-tule/plugin/createInputRulePlugin', () => {
 		describe('when the handler is called', () => {
 			describe('during the textInput flow', () => {
 				it('should call the handler only once', () => {
-					jest.spyOn(editorView, 'dispatch').mockImplementation((tr) => {});
+					jest.spyOn(editorView, 'dispatch').mockImplementation((_tr) => {});
 					insertText(editorView, '`');
 
 					expect(handlerMock).toHaveBeenCalledTimes(1);
@@ -132,7 +133,7 @@ describe('input-tule/plugin/createInputRulePlugin', () => {
 		describe('when the handler is called', () => {
 			describe('during the textInput flow', () => {
 				it('should call the handler only once', () => {
-					jest.spyOn(editorView, 'dispatch').mockImplementation((tr) => {});
+					jest.spyOn(editorView, 'dispatch').mockImplementation((_tr) => {});
 					insertText(editorView, '```');
 
 					expect(handlerMock).toHaveBeenCalledTimes(1);
@@ -200,7 +201,7 @@ describe('input-tule/plugin/createInputRulePlugin', () => {
 		});
 
 		it('should call the handler on blur with appended text', () => {
-			jest.spyOn(editorView, 'dispatch').mockImplementation((tr) => {});
+			jest.spyOn(editorView, 'dispatch').mockImplementation((_tr) => {});
 			editorView.dom.dispatchEvent(new FocusEvent('blur'));
 
 			expect(handlerMock).toHaveBeenCalledTimes(1);

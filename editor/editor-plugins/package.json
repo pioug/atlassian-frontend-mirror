@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugins",
-	"version": "11.3.53",
+	"version": "11.4.1",
 	"description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -28,6 +28,7 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		"./accessibility-utils": "./src/accessibility-utils/index.ts",
+		"./ai-suggestions": "./src/ai-suggestions/index.ts",
 		"./alignment": "./src/alignment/index.ts",
 		"./analytics": "./src/analytics/index.ts",
 		"./annotation": "./src/annotation/index.ts",
@@ -138,6 +139,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/editor-plugin-accessibility-utils": "workspace:*",
+		"@atlaskit/editor-plugin-ai-suggestions": "workspace:*",
 		"@atlaskit/editor-plugin-alignment": "workspace:*",
 		"@atlaskit/editor-plugin-analytics": "workspace:*",
 		"@atlaskit/editor-plugin-annotation": "workspace:*",

@@ -44,6 +44,8 @@ export type IconProp = ComponentType<Omit<NewIconProps, 'spacing'>>;
 /**
  * Props for the NewLozenge component
  */
+export type LozengeSpacing = 'default' | 'spacious';
+
 export interface NewLozengeProps {
 	/**
 	 * The appearance of the lozenge. Supports both legacy semantic appearances and new accent/semantic colors.
@@ -60,6 +62,14 @@ export interface NewLozengeProps {
 	 * Icon to display before the text content. Should be an ADS icon component.
 	 */
 	iconBefore?: IconProp;
+
+	/**
+	 * Controls the overall spacing (padding + height) of the lozenge.
+	 *
+	 * - `default` matches the current visual appearance.
+	 * - `spacious` increases padding and sets the lozenge height to 32px.
+	 */
+	spacing?: LozengeSpacing;
 
 	/**
 	 * max-width of lozenge container. Default to 200px.

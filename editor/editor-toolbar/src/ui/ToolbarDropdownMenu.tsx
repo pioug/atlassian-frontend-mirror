@@ -37,7 +37,7 @@ const styles = cssMap({
 type ToolbarDropdownMenuProps = {
 	children?: ReactNode;
 	/**
-	 * Enforeces a max height of 320px for menus - when menu is larger a scroll is introduced
+	 * Enforces a max height of 320px for menus - when menu is larger a scroll is introduced
 	 */
 	enableMaxHeight?: boolean;
 	/**
@@ -50,10 +50,12 @@ type ToolbarDropdownMenuProps = {
 	label?: string;
 	onClick?: (event: React.MouseEvent<HTMLButtonElement>, isOpen: boolean) => void;
 	testId?: string;
+	tooltipComponent?: React.ReactNode;
 };
 
 const ToolbarDropdownMenuContent = ({
 	iconBefore,
+	tooltipComponent,
 	children,
 	isDisabled,
 	id,
@@ -87,27 +89,37 @@ const ToolbarDropdownMenuContent = ({
 
 	return (
 		<DropdownMenu<HTMLButtonElement>
-			trigger={(triggerProps) => (
-				<ToolbarButton
-					ref={triggerProps.triggerRef}
-					isSelected={triggerProps.isSelected}
-					aria-expanded={triggerProps['aria-expanded']}
-					aria-haspopup={triggerProps['aria-haspopup']}
-					aria-controls={triggerProps['aria-controls']}
-					onBlur={triggerProps.onBlur}
-					onClick={(e) => {
-						onClick && onClick(e, !menuContext?.isOpen);
-						handleClick(e);
-						triggerProps.onClick && triggerProps.onClick(e);
-					}}
-					onFocus={triggerProps.onFocus}
-					id={expValEquals('platform_editor_renderer_toolbar_updates', 'isEnabled', true) ? id : undefined}
-					testId={testId}
-					iconBefore={iconBefore}
-					isDisabled={isDisabled}
-					label={label}
-				/>
-			)}
+			trigger={(triggerProps) => {
+				const toolbarButton = (
+					<ToolbarButton
+						ref={triggerProps.triggerRef}
+						isSelected={triggerProps.isSelected}
+						aria-expanded={triggerProps['aria-expanded']}
+						aria-haspopup={triggerProps['aria-haspopup']}
+						aria-controls={triggerProps['aria-controls']}
+						onBlur={triggerProps.onBlur}
+						onClick={(e) => {
+							onClick && onClick(e, !menuContext?.isOpen);
+							handleClick(e);
+							triggerProps.onClick && triggerProps.onClick(e);
+						}}
+						onFocus={triggerProps.onFocus}
+						id={expValEquals('platform_editor_renderer_toolbar_updates', 'isEnabled', true) ? id : undefined}
+						testId={testId}
+						iconBefore={iconBefore}
+						isDisabled={isDisabled}
+						label={label}
+					/>
+				);
+
+				if (tooltipComponent && expValEquals('platform_editor_hide_toolbar_tooltips_fix', 'isEnabled', true)) {
+					return React.cloneElement(tooltipComponent as React.ReactElement, {
+						children: toolbarButton,
+					});
+				}
+				
+				return toolbarButton;
+			}}
 			onOpenChange={handleOpenChange}
 			isOpen={menuContext?.isOpen}
 		>
@@ -126,6 +138,7 @@ export const ToolbarDropdownMenu = ({
 	hasSectionMargin = true,
 	enableMaxHeight = false,
 	onClick,
+	tooltipComponent,
 }: ToolbarDropdownMenuProps) => {
 	return (
 		<ToolbarDropdownMenuContent
@@ -135,6 +148,7 @@ export const ToolbarDropdownMenu = ({
 			testId={testId}
 			label={label}
 			onClick={onClick}
+			tooltipComponent={expValEquals('platform_editor_hide_toolbar_tooltips_fix', 'isEnabled', true) ? tooltipComponent : undefined}
 		>
 			<Box
 				xcss={cx(

@@ -49,7 +49,7 @@ const DismissButtonComponent = ({
 	);
 };
 
-const DismissButton = memo(DismissButtonComponent);
+const DismissButton: React.MemoExoticComponent<({ appearance, onClick, isBold, isExpanded, testId, }: DismissButtonProps) => React.JSX.Element> = memo(DismissButtonComponent);
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default DismissButton;

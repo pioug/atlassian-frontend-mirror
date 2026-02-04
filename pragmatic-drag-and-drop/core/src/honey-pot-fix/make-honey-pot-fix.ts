@@ -237,7 +237,12 @@ function mountHoneyPot({ initial }: { initial: Position }): FinishHoneyPotFn {
 	};
 }
 
-export function makeHoneyPotFix() {
+export function makeHoneyPotFix(): {
+    bindEvents: () => CleanupFn; getOnPostDispatch: () => ({ eventName, payload, }: {
+        eventName: keyof EventPayloadMap<AllDragTypes>;
+        payload: BaseEventPayload<AllDragTypes>;
+    }) => void;
+} {
 	let latestPointerMove: Position | null = null;
 	function bindEvents(): CleanupFn {
 		// For sanity, only collecting this value from when events are first bound.

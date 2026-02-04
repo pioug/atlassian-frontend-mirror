@@ -14,7 +14,7 @@ import Lozenge from '@atlaskit/lozenge';
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-const IconSpacingExample = () => {
+const IconSpacingExample = (): JSX.Element => {
 	return (
 		<Stack space="space.100">
 			<Heading size="small">Core icons (medium):</Heading>

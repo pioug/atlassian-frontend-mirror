@@ -28,8 +28,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__task-decision/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__task-decision/app"
 	},
 	"references": [
 		{

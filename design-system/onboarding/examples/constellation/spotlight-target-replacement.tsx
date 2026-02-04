@@ -39,7 +39,7 @@ const Image = ({ alt, src }: ImgHTMLAttributes<HTMLImageElement>) => (
 	<img src={src} alt={alt} css={imageStyles} />
 );
 
-const SpotlightTargetReplacementExample = () => {
+const SpotlightTargetReplacementExample = (): JSX.Element => {
 	const [isSpotlightActive, setIsSpotlightActive] = useState(false);
 	const start = () => setIsSpotlightActive(true);
 	const end = () => setIsSpotlightActive(false);

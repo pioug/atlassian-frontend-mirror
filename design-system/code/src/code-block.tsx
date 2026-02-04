@@ -4,7 +4,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { memo, type NamedExoticComponent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
@@ -255,7 +255,7 @@ const getCodeBlockStyles = cssMap({
  * - [Code](https://atlassian.design/components/code/code-block/code)
  * - [Usage](https://atlassian.design/components/code/code-block/usage)
  */
-const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
+const CodeBlock: NamedExoticComponent<CodeBlockProps> = memo<CodeBlockProps>(function CodeBlock({
 	showLineNumbers = true,
 	shouldShowLineNumbers,
 	firstLineNumber = 1,

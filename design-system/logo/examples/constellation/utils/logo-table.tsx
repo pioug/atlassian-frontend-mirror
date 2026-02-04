@@ -15,7 +15,7 @@ const LogoTable = ({
 }: {
 	logo?: React.ReactNode | React.ReactNode[];
 	icon: React.ReactNode | React.ReactNode[];
-}) => {
+}): JSX.Element => {
 	return (
 		<div>
 			<table>

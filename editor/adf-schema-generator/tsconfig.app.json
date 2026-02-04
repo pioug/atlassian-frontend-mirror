@@ -28,8 +28,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__adf-schema-generator/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__adf-schema-generator/app"
 	},
 	"references": [
 		{

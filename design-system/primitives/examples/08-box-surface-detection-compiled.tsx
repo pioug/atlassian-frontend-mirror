@@ -25,7 +25,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<Box backgroundColor="elevation.surface.raised" padding="space.200" xcss={styles.container}>
 			<Box

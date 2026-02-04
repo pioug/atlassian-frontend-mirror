@@ -21,7 +21,7 @@ const contentStyles = cssMap({
 	},
 });
 
-const PopupFullWidth = () => {
+const PopupFullWidth = (): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (

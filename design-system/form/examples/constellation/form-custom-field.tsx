@@ -61,7 +61,7 @@ const ColorButtons = ({ colors, changeHandler }: ColorButtonsProps) => (
 
 const paragraphStyles = css({ margin: '10px 0' });
 
-const FormCustomFieldExample = () => {
+const FormCustomFieldExample = (): JSX.Element => {
 	return (
 		<Flex direction="column">
 			<Form onSubmit={(data) => console.log(data)}>

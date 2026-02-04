@@ -1,9 +1,7 @@
 {
-  "extends": "../../../tsconfig.json",
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx"
-  ],
-  "compilerOptions": {
-  }
+	"extends": "../../../tsconfig.json",
+	"include": ["src/**/*.ts", "src/**/*.tsx"],
+	"compilerOptions": {
+		"moduleResolution": "node"
+	}
 }

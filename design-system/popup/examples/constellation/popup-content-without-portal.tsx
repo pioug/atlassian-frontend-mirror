@@ -21,7 +21,7 @@ const contentStyles = cssMap({
 	},
 });
 
-const PopupContentWithoutPortalExample = () => {
+const PopupContentWithoutPortalExample = (): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (

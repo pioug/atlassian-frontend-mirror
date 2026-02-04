@@ -1,5 +1,25 @@
 # @atlaskit/renderer
 
+## 126.6.4
+
+### Patch Changes
+
+- [`d20e0e448e8b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d20e0e448e8b7) -
+  Cleanup experiment for style changes to prevent the numbered column from growing too big
+- Updated dependencies
+
+## 126.6.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 126.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 126.6.1
 
 ### Patch Changes

@@ -34,7 +34,7 @@ function getResizeBounds(): ResizeBounds {
 	return { min: '150px', max: '400px' };
 }
 
-const PanelSplitterWithTooltipAndShortcut = () => {
+const PanelSplitterWithTooltipAndShortcut = (): JSX.Element => {
 	const panelSplitterParentRef = useRef<HTMLDivElement | null>(null);
 	const [width, setWidth] = useState(300);
 

@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-panel
 
+## 9.0.11
+
+### Patch Changes
+
+- [`ef378e27dc43d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef378e27dc43d) -
+  Clean up platform_editor_fix_quick_insert_consistency_exp
+- Updated dependencies
+
+## 9.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.0.8
 
 ### Patch Changes

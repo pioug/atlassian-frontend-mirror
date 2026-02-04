@@ -67,7 +67,7 @@ export interface ThemeProviderProps {
  *
  * Provides global theming configuration.
  */
-function ThemeProvider({ children, defaultColorMode = 'auto', defaultTheme }: ThemeProviderProps) {
+function ThemeProvider({ children, defaultColorMode = 'auto', defaultTheme }: ThemeProviderProps): JSX.Element {
 	const [chosenColorMode, setChosenColorMode] = useState<ThemeColorModes>(defaultColorMode);
 	const [reconciledColorMode, setReconciledColorMode] = useState<ReconciledColorMode>(
 		getReconciledColorMode(defaultColorMode),

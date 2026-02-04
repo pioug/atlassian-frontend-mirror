@@ -28,8 +28,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugin-decorations/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-decorations/app"
 	},
 	"references": [
 		{

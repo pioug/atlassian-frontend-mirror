@@ -28,8 +28,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__pragmatic-drag-and-drop-flourish/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__pragmatic-drag-and-drop-flourish/app"
 	},
 	"references": [
 		{

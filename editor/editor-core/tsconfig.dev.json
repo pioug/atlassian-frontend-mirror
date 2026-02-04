@@ -33,7 +33,8 @@
 	"compilerOptions": {
 		"types": ["@emotion/react/types/css-prop", "@types/testing-library__jest-dom"],
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-core/dev"
+		"outDir": "../../../tsDist/@atlaskit__editor-core/dev",
+		"moduleResolution": "node"
 	},
 	"references": [
 		{

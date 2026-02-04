@@ -164,7 +164,7 @@ const getMissingKeys = (current: ElementWithKey[], previous: ElementWithKey[]) =
  *
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/motion/docs/entering-motions)
  */
-const ExitingPersistence = memo(
+const ExitingPersistence: React.MemoExoticComponent<({ appear, children, exitThenEnter }: ExitingPersistenceProps) => any> = memo(
 	({ appear = false, children, exitThenEnter }: ExitingPersistenceProps): any => {
 		const [stateChildren, setChildren] = useState<[React.ReactNode | null, React.ReactNode]>([
 			null,
@@ -246,7 +246,7 @@ const ExitingPersistence = memo(
 	},
 );
 
-export const useExitingPersistence = () => {
+export const useExitingPersistence = (): ExitingChildContext => {
 	return useContext(ExitingContext);
 };
 

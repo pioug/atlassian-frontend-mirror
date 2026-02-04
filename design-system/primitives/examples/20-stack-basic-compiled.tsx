@@ -25,7 +25,7 @@ const styles = cssMap({
 	},
 });
 
-export default function StackBasicCompiled() {
+export default function StackBasicCompiled(): JSX.Element {
 	return (
 		<div data-testid="stack-example" css={styles.container}>
 			<Stack>

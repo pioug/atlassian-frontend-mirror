@@ -20,7 +20,7 @@ const animationStyles = css({
 	},
 });
 
-export default function Alignment() {
+export default function Alignment(): JSX.Element {
 	return (
 		<div data-testid="spinner-text-container" css={animationStyles}>
 			<h1>

@@ -35,7 +35,7 @@ const randRemove = <T extends Array<TItem>, TItem>(arr: T) => {
 	return newArr;
 };
 
-export default () => {
+export default (): JSX.Element => {
 	const [items, setItems] = useState(logos);
 
 	return (

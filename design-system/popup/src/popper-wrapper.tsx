@@ -156,7 +156,7 @@ function PopperWrapper({
 	modifiers,
 	shouldFitViewport,
 	appearance = 'default',
-}: PopperWrapperProps) {
+}: PopperWrapperProps): JSX.Element {
 	const [popupRef, setPopupRef] = useState<HTMLDivElement | null>(null);
 	const [initialFocusRef, setInitialFocusRef] = useState<HTMLElement | null>(null);
 	// We have cases where we need to close the Popup on Tab press, e.g. DropdownMenu

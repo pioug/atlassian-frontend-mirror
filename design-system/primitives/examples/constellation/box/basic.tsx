@@ -15,7 +15,7 @@ const styles = cssMap({
 	},
 });
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	return (
 		<Box padding="space.400" backgroundColor="color.background.discovery" xcss={styles.box}></Box>
 	);

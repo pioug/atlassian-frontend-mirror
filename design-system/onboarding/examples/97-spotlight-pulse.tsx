@@ -13,7 +13,7 @@ import { SpotlightManager, SpotlightPulse, SpotlightTarget } from '@atlaskit/onb
  * This example shows how to use <SpotlightPulse />. This can be used when you want a pulse keyframe
  * on a target that is not active. Note that the pulse prop here is different to the one in <Spotlight />.
  */
-const SpotlightPulseExample = () => {
+const SpotlightPulseExample = (): JSX.Element => {
 	return (
 		<div data-testid="spotlight-pulse-example">
 			<SpotlightManager>

@@ -68,4 +68,9 @@ export const reduceMotionAsPerUserPreference = {
  * This is not compatible with Compiled CSS and will be removed in the future.
  * You should hardcode the `prefers-reduced-motion` media query in your file instead.
  */
-export const prefersReducedMotion = () => reduceMotionAsPerUserPreference;
+export const prefersReducedMotion = (): {
+    readonly '@media (prefers-reduced-motion: reduce)': {
+        readonly animation: "none";
+        readonly transition: "none";
+    };
+} => reduceMotionAsPerUserPreference;

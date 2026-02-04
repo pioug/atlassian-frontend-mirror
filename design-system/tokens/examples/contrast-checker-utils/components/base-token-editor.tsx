@@ -119,7 +119,7 @@ const BaseTokenEditor = ({
 	 * Called when the user edits the base token set; returns only custom values
 	 */
 	onChange: (baseTokens: BaseTokens) => void;
-}) => {
+}): JSX.Element => {
 	return (
 		<Box xcss={styles.overflow}>
 			<Inline space="space.100" grow="fill" shouldWrap={true}>

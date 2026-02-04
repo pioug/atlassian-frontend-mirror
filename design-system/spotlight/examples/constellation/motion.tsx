@@ -23,7 +23,7 @@ import {
 	SpotlightPrimaryAction,
 } from '@atlaskit/spotlight';
 
-export default () => {
+export default (): JSX.Element => {
 	const [isVisible, setIsVisible] = useState<boolean>(false);
 	const dismiss = () => setIsVisible(false);
 	const done = () => setIsVisible(false);

@@ -15,7 +15,7 @@ export const buildNodeTypeDefinition = (
 	nodeType: string,
 	nodeMarks: Array<string>,
 	content: Array<ContentVisitorReturnType>,
-) => {
+): NodeTypeDefinition => {
 	const nodeTypeDefinition: NodeTypeDefinition = {
 		type: nodeType,
 	};

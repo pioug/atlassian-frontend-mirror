@@ -77,7 +77,7 @@ export default class SpotlightDialogWidthExample extends Component<{}, State> {
 
 	finish = (): void => this.setState({ value: null });
 
-	render() {
+	render(): JSX.Element {
 		const { value } = this.state;
 		const deltaButtons = (
 			<div css={buttonGroupStyles}>

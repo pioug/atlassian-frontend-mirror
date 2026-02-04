@@ -22,7 +22,7 @@ const contrastModeMql = isMatchMediaAvailable && window.matchMedia(moreContrastM
 class ContrastModeObserver {
 	unbindContrastChangeListener: UnbindFn | null = null;
 
-	getContrastMode() {
+	getContrastMode(): "more" | "no-preference" {
 		if (!contrastModeMql) {
 			return 'no-preference';
 		}
@@ -51,6 +51,6 @@ class ContrastModeObserver {
  * A singleton contrast mode observer - binds "auto" switching logic to a single `mediaQueryList` listener
  * that can be unbound by any consumer when no longer needed.
  */
-const SingletonContrastModeObserver = new ContrastModeObserver();
+const SingletonContrastModeObserver: ContrastModeObserver = new ContrastModeObserver();
 
 export default SingletonContrastModeObserver;

@@ -1,3 +1,5 @@
+import { context } from '@opentelemetry/api';
+
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { startLighthouseObserver } from '../additional-payload';
@@ -9,6 +11,7 @@ import {
 	sinkExperimentalHandler,
 } from '../create-experimental-interaction-metrics-payload';
 import { sinkExtraSearchPageInteractionHandler } from '../create-extra-search-page-interaction-payload';
+import { setContextManager, UFOContextManager } from '../experience-trace-id-context/context-manager';
 import { setupHiddenTimingCapture } from '../hidden-timing';
 import {
 	interactionExtraMetrics,
@@ -258,6 +261,16 @@ export function init(
 
 	setUFOConfig(config);
 
+	if (fg('platform_ufo_enable_otel_context_manager')) {
+		// Configure global OTel context manager
+		const contextManager = new UFOContextManager();
+		// set the contextmanager somewhere we can reference it later
+		setContextManager(contextManager);
+		// Register the context manager with the global OTel API
+		contextManager.enable();
+		context.setGlobalContextManager(contextManager);
+	}
+
 	if (config.vc?.enabled) {
 		const vcOptions = {
 			heatmapSize: config.vc.heatmapSize,
@@ -315,8 +328,7 @@ export function init(
 				(awc as GenericAnalyticWebClientPromise).getAnalyticsWebClientPromise().then((client) => {
 					const instance = client.getInstance();
 					sinkInteraction(instance, payloadPackage);
-					// TODO: make this configurable
-					if (fg('platform_ufo_enable_terminal_errors')) {
+					if (config?.terminalErrors?.enabled && fg('platform_ufo_enable_terminal_errors')) {
 						sinkTerminalErrors(instance, createTerminalErrorPayloadPackage.default);
 					}
 					if (config?.experimentalInteractionMetrics?.enabled) {
@@ -337,8 +349,7 @@ export function init(
 				});
 			} else if ((awc as GenericAnalyticWebClientInstance).sendOperationalEvent) {
 				sinkInteraction(awc as GenericAnalyticWebClientInstance, payloadPackage);
-				// TODO: make this configurable
-				if (fg('platform_ufo_enable_terminal_errors')) {
+				if (config?.terminalErrors?.enabled && fg('platform_ufo_enable_terminal_errors')) {
 					sinkTerminalErrors(
 						awc as GenericAnalyticWebClientInstance,
 						createTerminalErrorPayloadPackage.default,

@@ -31,8 +31,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-wikimarkup-transformer/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__editor-wikimarkup-transformer/app"
 	},
 	"references": [
 		{

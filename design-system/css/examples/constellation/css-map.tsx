@@ -34,7 +34,7 @@ const styles = cssMap({
 
 const appearances = ['primary', 'discovery', 'success'] as const;
 
-export default function CssMapExample({ isDisabled }: { isDisabled?: boolean }) {
+export default function CssMapExample({ isDisabled }: { isDisabled?: boolean }): JSX.Element {
 	const [appearanceIndex, setAppearanceIndex] = useState(0);
 
 	const cycleAppearance = () => {

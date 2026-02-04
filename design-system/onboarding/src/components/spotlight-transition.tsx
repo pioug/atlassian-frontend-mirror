@@ -43,7 +43,9 @@ const hasChildren = (children: ReactNode) =>
  */
 // eslint-disable-next-line @repo/internal/react/no-class-components
 class SpotlightTransition extends React.Component<SpotlightTransitionProps, State> {
-	static getDerivedStateFromProps(props: SpotlightTransitionProps, state: State) {
+	static getDerivedStateFromProps(props: SpotlightTransitionProps, state: State): {
+        currentChildren: React.ReactNode;
+    } {
 		const { currentChildren: previousChildren } = state;
 		const exiting = hasChildren(previousChildren) && !hasChildren(props.children);
 		return {
@@ -82,7 +84,7 @@ class SpotlightTransition extends React.Component<SpotlightTransitionProps, Stat
  *
  * @internal
  */
-export const SpotlightTransitionConsumer = SpotlightTransitionContext.Consumer;
+export const SpotlightTransitionConsumer: React.Consumer<SpotlightTransitionContextModel> = SpotlightTransitionContext.Consumer;
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default SpotlightTransition;

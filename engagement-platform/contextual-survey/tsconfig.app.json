@@ -28,8 +28,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__contextual-survey/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__contextual-survey/app"
 	},
 	"references": [
 		{

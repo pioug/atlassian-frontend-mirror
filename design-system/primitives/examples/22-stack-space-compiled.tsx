@@ -41,7 +41,7 @@ const spaceItems = [
 	'space.1000',
 ] as const;
 
-export default () => (
+export default (): JSX.Element => (
 	<div data-testid="stack-example" css={styles.container}>
 		<Inline space="space.100">
 			{spaceItems.map((space) => (

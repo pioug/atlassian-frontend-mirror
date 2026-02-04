@@ -49,7 +49,7 @@ const styles = cssMap({
 
 const sizes = ['100%', '75%', '50%', '25%'];
 
-const OnResizeExample = () => {
+const OnResizeExample = (): JSX.Element => {
 	const [containerWidth, setContainerWidth] = useState(0);
 	const [bgColor, setBgColor] = useState('#fff');
 

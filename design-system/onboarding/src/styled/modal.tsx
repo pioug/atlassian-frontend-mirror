@@ -71,7 +71,7 @@ const modalActionItemStyles = cssMap({
  *
  * @internal
  */
-export const ModalBody = ({ children }: { children: ReactNode }) => (
+export const ModalBody = ({ children }: { children: ReactNode }): JSX.Element => (
 	<div css={modalBodyStyles}>{children}</div>
 );
 
@@ -80,7 +80,7 @@ export const ModalBody = ({ children }: { children: ReactNode }) => (
  *
  * @internal
  */
-export const ModalHeading = ({ children, id }: { children: ReactNode; id: string }) => {
+export const ModalHeading = ({ children, id }: { children: ReactNode; id: string }): JSX.Element => {
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/use-heading
 		<h1 css={modalHeadingStyles} id={id}>
@@ -94,7 +94,7 @@ export const ModalHeading = ({ children, id }: { children: ReactNode; id: string
  *
  * @internal
  */
-export const ModalImage = ({ alt, src }: ModalImageProps) => (
+export const ModalImage = ({ alt, src }: ModalImageProps): JSX.Element => (
 	<img css={modalImageStyles} alt={alt} src={src} />
 );
 
@@ -106,7 +106,7 @@ export const ModalImage = ({ alt, src }: ModalImageProps) => (
 export const ModalActionContainer = ({
 	children,
 	shouldReverseButtonOrder,
-}: ModalActionContainerProps) => (
+}: ModalActionContainerProps): JSX.Element => (
 	<div
 		css={[
 			modalActionContainerStyles,
@@ -122,6 +122,6 @@ export const ModalActionContainer = ({
  *
  * @internal
  */
-export const ModalActionItem = ({ children }: { children: ReactNode }) => (
+export const ModalActionItem = ({ children }: { children: ReactNode }): JSX.Element => (
 	<Box xcss={modalActionItemStyles.root}>{children}</Box>
 );

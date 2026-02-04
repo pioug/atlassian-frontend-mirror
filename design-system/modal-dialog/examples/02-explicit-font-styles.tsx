@@ -25,7 +25,7 @@ const fontStyles = cssMap({
 	},
 });
 
-export default function ExplicitFontStyles() {
+export default function ExplicitFontStyles(): JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const open = useCallback(() => setIsOpen(true), []);
 	const close = useCallback(() => setIsOpen(false), []);

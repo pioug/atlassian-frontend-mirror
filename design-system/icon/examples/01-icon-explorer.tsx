@@ -139,7 +139,7 @@ const filterIcons = (icons: IconsList, query: string) => {
 
 const allIconsPromise = getAllIcons();
 
-const IconAllExample = () => {
+const IconAllExample = (): JSX.Element => {
 	const [allIcons, setAllIcons] = useState<IconsList>();
 	const [query, setQuery] = useState('');
 	const [areIconsShowing, setIconsShowing] = useState(false);

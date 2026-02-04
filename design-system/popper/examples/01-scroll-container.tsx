@@ -82,7 +82,7 @@ const popperWrapperStyles = css({
 	justifyContent: 'center',
 });
 
-export default () => (
+export default (): JSX.Element => (
 	<div css={containerStyles}>
 		<div css={innerStyles}>
 			<h2>Scroll down halfway, then across to see the popper</h2>

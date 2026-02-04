@@ -12,7 +12,7 @@ import { buildVisitor } from './adfToJsonVisitor';
 import type { JSONSchema4 } from 'json-schema';
 import flow from 'lodash/flow';
 
-export function transform(adf: ADFNode<[string], ADFNodeSpec>, fullSchema: boolean) {
+export function transform(adf: ADFNode<[string], ADFNodeSpec>, fullSchema: boolean): JSONSchema4 {
 	const result: Record<string, NodeVisitorReturnType> = {};
 
 	traverse<NodeVisitorReturnType, GroupVisitorReturnType, ContentVisitorReturnType>(

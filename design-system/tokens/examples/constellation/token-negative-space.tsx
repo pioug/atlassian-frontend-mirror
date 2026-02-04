@@ -33,7 +33,7 @@ const styles = cssMap({
 	},
 });
 
-const TokenNegativeSpace = () => {
+const TokenNegativeSpace = (): JSX.Element => {
 	return (
 		<div css={styles.container}>
 			<p>A container with an inset</p>
@@ -44,7 +44,11 @@ const TokenNegativeSpace = () => {
 	);
 };
 
-export default {
-	example: TokenNegativeSpace,
-	code: TokenNegativeSpaceCodeBlock,
+const _default_1: {
+    example: () => JSX.Element;
+    code: string;
+} = {
+    example: TokenNegativeSpace,
+    code: TokenNegativeSpaceCodeBlock,
 };
+export default _default_1;

@@ -58,7 +58,7 @@ type TooltipShortcutProps = {
  * An internal component that is used to display a keyboard shortcut within a tooltip, showing each key
  * as a styled segment after the main tooltip content.
  */
-export const TooltipShortcut = ({ shortcut }: TooltipShortcutProps) => {
+export const TooltipShortcut = ({ shortcut }: TooltipShortcutProps): JSX.Element => {
 	return (
 		<div css={styles.shortcutSegmentsContainer}>
 			{shortcut.map((segment, index) => (

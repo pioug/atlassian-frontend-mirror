@@ -13,7 +13,7 @@ import { token } from '@atlaskit/tokens';
 
 import { Block, Centered } from '../utils';
 
-const MotionShrinkOutExample = () => {
+const MotionShrinkOutExample = (): JSX.Element => {
 	const [actualApps, setApps] = useState(apps);
 
 	return (

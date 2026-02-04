@@ -28,8 +28,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugin-text-color/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-text-color/app"
 	},
 	"references": [
 		{

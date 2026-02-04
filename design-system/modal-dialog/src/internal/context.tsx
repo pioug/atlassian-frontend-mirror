@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { type Context, createContext } from 'react';
 
 import { type ModalDialogProps, type OnCloseHandler } from '../types';
 
@@ -34,5 +34,5 @@ export type ModalAttributes = {
 };
 
 /* eslint-disable @repo/internal/react/require-jsdoc */
-export const ModalContext = createContext<ModalAttributes | null>(null);
-export const ScrollContext = createContext<boolean | null>(null);
+export const ModalContext: Context<ModalAttributes | null> = createContext<ModalAttributes | null>(null);
+export const ScrollContext: Context<boolean | null> = createContext<boolean | null>(null);

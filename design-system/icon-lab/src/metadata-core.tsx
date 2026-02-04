@@ -6972,7 +6972,7 @@ const metadata: Record<string, metadata> = {
 		usage: 'Known uses: Intro blog feed picker on Hello',
 		team: 'Insights',
 		status: 'published',
-		slackChannel: '#cc-insights-and-reporting',
+		slackChannel: '#cc-performance-insights',
 	},
 	'work-item-add': {
 		keywords: [

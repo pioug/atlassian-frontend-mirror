@@ -60,7 +60,7 @@ const Values = ({ onUpdate }: { onUpdate: () => void }) => {
 	);
 };
 
-const PopupContentUpdateExample = () => {
+const PopupContentUpdateExample = (): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isUpdateOn, setIsUpdateOn] = useState(true);
 

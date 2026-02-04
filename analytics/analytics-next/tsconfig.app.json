@@ -29,9 +29,12 @@
 	"compilerOptions": {
 		"types": ["node"],
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__analytics-next/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__analytics-next/app"
 	},
-	"references": [],
+	"references": [
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		}
+	],
 	"files": []
 }

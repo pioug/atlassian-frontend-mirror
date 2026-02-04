@@ -23,4 +23,8 @@ const TokenButton = (): React.JSX.Element => {
 	return <Button appearance="primary">Default button</Button>;
 };
 
-export default { example: TokenButton, code: TokenButtonCodeBlock };
+const _default_1: {
+    example: () => React.JSX.Element;
+    code: string;
+} = { example: TokenButton, code: TokenButtonCodeBlock };
+export default _default_1;

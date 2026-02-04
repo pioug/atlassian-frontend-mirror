@@ -18,7 +18,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => (
+export default (): JSX.Element => (
 	<div data-testid="inline-example" css={styles.container}>
 		<Inline space="space.150" separator="/">
 			<Link href="/">breadcrumbs</Link>

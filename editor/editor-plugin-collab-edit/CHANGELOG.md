@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 8.0.5
+
+### Patch Changes
+
+- [`d771f5e84f24b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d771f5e84f24b) -
+  Cleanup fg platform_editor_inorganic_batchattrsstep_localid
+- Updated dependencies
+
+## 8.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.2
 
 ### Patch Changes

@@ -28,7 +28,7 @@ const SurfaceAwareBox = () => {
 	);
 };
 
-const PopupSurfaceDetectionExample = () => {
+const PopupSurfaceDetectionExample = (): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (

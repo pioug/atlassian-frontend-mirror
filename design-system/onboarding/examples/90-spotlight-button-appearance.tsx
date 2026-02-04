@@ -36,7 +36,7 @@ export default class SpotlightButtonAppearanceExample extends Component<{}, Stat
 
 	finish = (): void => this.setState({ active: false });
 
-	render() {
+	render(): JSX.Element {
 		const { active } = this.state;
 
 		return (

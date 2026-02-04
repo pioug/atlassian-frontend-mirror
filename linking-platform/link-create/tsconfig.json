@@ -1,23 +1,24 @@
 {
-  "extends": "../../../tsconfig.json",
-  "include": [
-    "__tests__/**/*.ts",
-    "__tests__/**/*.tsx",
-    "docs/**/*.ts",
-    "docs/**/*.tsx",
-    "examples/**/*.ts",
-    "examples/**/*.tsx",
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "**/stories.ts",
-    "**/stories.tsx",
-    "**/stories/*.ts",
-    "**/stories/*.tsx",
-    "**/stories/**/*.ts",
-    "**/stories/**/*.tsx"
-  ],
-  "compilerOptions": {
-    "strictNullChecks": true,
-    "noUncheckedIndexedAccess": true
-  }
+	"extends": "../../../tsconfig.json",
+	"include": [
+		"__tests__/**/*.ts",
+		"__tests__/**/*.tsx",
+		"docs/**/*.ts",
+		"docs/**/*.tsx",
+		"examples/**/*.ts",
+		"examples/**/*.tsx",
+		"src/**/*.ts",
+		"src/**/*.tsx",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx"
+	],
+	"compilerOptions": {
+		"strictNullChecks": true,
+		"noUncheckedIndexedAccess": true,
+		"moduleResolution": "node"
+	}
 }

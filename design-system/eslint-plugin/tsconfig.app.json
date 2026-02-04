@@ -28,9 +28,7 @@
 	"compilerOptions": {
 		"lib": ["ES2021.String", "ES2022.Array", "ES2022.String"],
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__eslint-plugin-design-system/app",
-		"module": "nodenext",
-		"moduleResolution": "nodenext"
+		"outDir": "../../../tsDist/@atlaskit__eslint-plugin-design-system/app"
 	},
 	"references": [
 		{

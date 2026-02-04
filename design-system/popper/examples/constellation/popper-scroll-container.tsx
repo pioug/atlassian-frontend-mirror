@@ -83,7 +83,7 @@ const instructionStyles = css({
 	marginBlockEnd: token('space.400'),
 });
 
-const ScrollContainerExample = () => (
+const ScrollContainerExample = (): JSX.Element => (
 	<div css={containerStyles}>
 		<div css={innerStyles}>
 			<b css={instructionStyles}>

@@ -45,7 +45,7 @@ const modalContentStyles = cssMap({
 	},
 });
 
-export default function NestedModalExample() {
+export default function NestedModalExample(): JSX.Element {
 	const [shouldScrollInViewport, setShouldScrollInViewPort] = useState(false);
 	const [hasLongContent, setHasLongContent] = useState(false);
 	const [isFullScreen, setIsFullScreen] = useState(false);

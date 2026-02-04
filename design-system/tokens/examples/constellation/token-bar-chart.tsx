@@ -98,4 +98,8 @@ const TokenBarChart = (): React.JSX.Element => {
 	return <ReactECharts option={chartOptions} />;
 };
 
-export default { example: TokenBarChart, code: TokenBarChartCodeBlock };
+const _default_1: {
+    example: () => React.JSX.Element;
+    code: string;
+} = { example: TokenBarChart, code: TokenBarChartCodeBlock };
+export default _default_1;

@@ -20,7 +20,7 @@ const bigFontStyles = css({
 	},
 });
 
-export default function TextFieldCustomizationExample() {
+export default function TextFieldCustomizationExample(): JSX.Element {
 	return (
 		<Textfield
 			aria-label="customized text field"

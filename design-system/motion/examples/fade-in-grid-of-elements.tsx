@@ -35,7 +35,7 @@ const logos = [
 	<TrelloIcon size="xlarge" />,
 ];
 
-export default () => {
+export default (): JSX.Element => {
 	const [state, setState] = useState(() => ({
 		size: 'medium' as any,
 		numOfChildren: 9,

@@ -29,7 +29,7 @@ const contentStyles = cssMap({
 	},
 });
 
-export default function ModalBodyWithoutInlinePaddingExample() {
+export default function ModalBodyWithoutInlinePaddingExample(): JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const open = useCallback(() => setIsOpen(true), []);
 	const close = useCallback(() => setIsOpen(false), []);

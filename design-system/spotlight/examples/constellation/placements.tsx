@@ -49,7 +49,7 @@ const cardPlacements: Placement[] = [
 	'right-end',
 ] as const;
 
-const Example = () => {
+const Example = (): JSX.Element => {
 	const [placement, setPlacement] = useState<(typeof cardPlacements)[number]>('top-end');
 	const [isVisible, setIsVisible] = useState<boolean>(false);
 

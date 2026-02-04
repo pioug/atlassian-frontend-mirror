@@ -71,7 +71,7 @@ export default function Accordion({
 	appearance?: 'information' | 'warning' | 'danger' | 'success';
 	size?: number;
 	children: any;
-}) {
+}): JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const appearanceMapping = {
 		information: 'inprogress',

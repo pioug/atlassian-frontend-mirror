@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/node-data-provider",
-	"version": "8.1.0",
+	"version": "8.2.0",
 	"description": "Node data provider for @atlaskit/editor-core plugins and @atlaskit/renderer",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -54,7 +54,7 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform_synced_block_patch1": {
+		"platform_synced_block_patch_1": {
 			"type": "boolean"
 		}
 	},

@@ -95,7 +95,7 @@ export const TargetInner = ({
 	testId,
 	// Thes rest of these are from `HTMLDivElement`
 	...props
-}: TargetProps) => (
+}: TargetProps): JSX.Element => (
 	<Base
 		bgColor={bgColor}
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
@@ -128,7 +128,7 @@ const targetOverlayStyles = css({
  *
  * @internal
  */
-export const TargetOverlay = ({ onClick, ...props }: HTMLAttributes<HTMLDivElement>) => (
+export const TargetOverlay = ({ onClick, ...props }: HTMLAttributes<HTMLDivElement>): JSX.Element => (
 	// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
 	<div
 		onClick={onClick}
@@ -162,7 +162,7 @@ export const Pulse = ({
 	pulse = true,
 	testId,
 	...props
-}: TargetProps) => (
+}: TargetProps): JSX.Element => (
 	<Base
 		bgColor={bgColor}
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop

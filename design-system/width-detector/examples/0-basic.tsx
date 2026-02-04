@@ -35,7 +35,7 @@ const styles = cssMap({
 
 let n = 0;
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	return (
 		<div css={styles.box}>
 			<p css={styles.text}>Inside a parent with set height1</p>

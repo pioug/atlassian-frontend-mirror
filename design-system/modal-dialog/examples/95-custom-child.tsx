@@ -55,7 +55,7 @@ const borderRadiusMap = cssMap({
 	more: { borderRadius: token('radius.large') },
 });
 
-export function ModalWithCustomChildExample() {
+export function ModalWithCustomChildExample(): JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const [selectedBorderRadius, setSelectedBorderRadius] = useState<BorderRadius>('same');
 	const open = useCallback(() => setIsOpen(true), []);

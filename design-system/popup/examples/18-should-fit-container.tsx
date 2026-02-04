@@ -52,11 +52,11 @@ const ShouldFitContainerExample = ({ isOpenInitial }: ExampleProps) => {
 	);
 };
 
-const ShouldFitContainerExampleWithInitialClosed = () => (
+const ShouldFitContainerExampleWithInitialClosed = (): JSX.Element => (
 	<ShouldFitContainerExample isOpenInitial={false} />
 );
 
-export const ShouldFitContainerExampleWithInitialOpen = () => (
+export const ShouldFitContainerExampleWithInitialOpen = (): JSX.Element => (
 	<ShouldFitContainerExample isOpenInitial />
 );
 

@@ -8,8 +8,10 @@ import {
 	adfNode,
 	adfNodeGroup,
 } from '../../index';
+import type { ADFNode } from '../../adfNode';
+import type { ADFCommonNodeSpec } from '../../types/ADFNodeSpec';
 
-export const getTestAdfNode = () => {
+export const getTestAdfNode = (): ADFNode<[string], ADFCommonNodeSpec> => {
 	const em = adfMark('em').define({
 		inclusive: true,
 	});

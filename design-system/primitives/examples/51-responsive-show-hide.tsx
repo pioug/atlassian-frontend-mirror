@@ -4,14 +4,14 @@
  */
 import { Fragment } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives';
 import { Hide, Show, UNSAFE_BREAKPOINTS_ORDERED_LIST } from '@atlaskit/primitives/responsive';
 
-export default () => {
+export default (): jsx.JSX.Element => {
 	return (
 		<Box>
 			<h4>

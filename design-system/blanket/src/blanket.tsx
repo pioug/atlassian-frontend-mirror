@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, memo, type MouseEvent, useCallback, useRef } from 'react';
+import { forwardRef, type ForwardRefExoticComponent, memo, type MemoExoticComponent, type MouseEvent, type RefAttributes, useCallback, useRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
@@ -47,7 +47,7 @@ const invisibleStyles = css({
  *
  * - [Examples](https://atlaskit.atlassian.com/examples/design-system/blanket/basic-usage)
  */
-const Blanket = memo(
+const Blanket: MemoExoticComponent<ForwardRefExoticComponent<BlanketProps & RefAttributes<HTMLDivElement>>> = memo(
 	forwardRef<HTMLDivElement, BlanketProps>(function Blanket(
 		{
 			shouldAllowClickThrough = false,

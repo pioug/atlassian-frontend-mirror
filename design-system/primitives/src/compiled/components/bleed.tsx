@@ -73,7 +73,7 @@ const styles = cssMap({
  * - [Examples](https://atlassian.design/components/primitives/bleed/examples)
  * - [Code](https://atlassian.design/components/primitives/bleed/code)
  */
-const Bleed = React.memo(({ children, testId, inline, block, all, xcss }: BleedProps) => {
+const Bleed: React.MemoExoticComponent<({ children, testId, inline, block, all, xcss }: BleedProps) => JSX.Element> = React.memo(({ children, testId, inline, block, all, xcss }: BleedProps): JSX.Element => {
 	return (
 		<div
 			className={xcss}

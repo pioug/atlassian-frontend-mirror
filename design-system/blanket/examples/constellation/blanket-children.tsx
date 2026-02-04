@@ -23,7 +23,7 @@ const blanketChildStyles = cssMap({
 	},
 });
 
-const BlanketWithChildrenExample = () => {
+const BlanketWithChildrenExample = (): JSX.Element => {
 	const [isBlanketVisible, setIsBlanketVisible] = useState(false);
 	const [shouldAllowClickThrough, setShouldAllowClickThrough] = useState(true);
 

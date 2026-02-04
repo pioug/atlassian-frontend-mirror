@@ -70,7 +70,9 @@ export const ToolbarNestedDropdownMenu = ({
 				</ToolbarDropdownItem>
 			)}
 		>
-			<Box xcss={cx(enableMaxHeight && styles.scrollContainer)}>{children}</Box>
+			<Box xcss={cx(enableMaxHeight && styles.scrollContainer)} data-toolbar-nested-dropdown-menu>
+				{children}
+			</Box>
 		</DropdownMenu>
 	);
 };

@@ -34,7 +34,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => (
+export default (): JSX.Element => (
 	<div data-testid="stack-example" css={styles.wrapper}>
 		<Inline space="space.200">
 			{alignBlockItems.map((alignBlock) => (

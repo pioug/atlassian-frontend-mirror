@@ -19,7 +19,7 @@ const styles = cssMap({
 	},
 });
 
-const IconTileLegacyExample = () => {
+const IconTileLegacyExample = (): JSX.Element => {
 	const [NewFeatureIconObject, setNewFeatureIconObject] = useState<
 		FunctionComponent<NewCoreIconProps> | undefined
 	>(undefined);

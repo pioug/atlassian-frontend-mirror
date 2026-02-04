@@ -100,7 +100,10 @@ function stop(): void {
 	cleanup();
 }
 
-export const preventUnhandled = {
+export const preventUnhandled: {
+    start: typeof start;
+    stop: typeof stop;
+} = {
 	start,
 	stop,
 };

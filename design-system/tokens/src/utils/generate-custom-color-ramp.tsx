@@ -21,7 +21,7 @@ type Token = keyof typeof tokens;
 type TokenMap = { [key in Token]?: number | string };
 type Mode = 'light' | 'dark';
 
-export const getClosestColorIndex = (themeRamp: CSSColor[], brandColor: CSSColor) => {
+export const getClosestColorIndex = (themeRamp: CSSColor[], brandColor: CSSColor): number => {
 	// Iterate over themeRamp and find whichever color is closest to brandColor
 	let closestColorIndex = 0;
 	let closestColorDistance: number | null = null;

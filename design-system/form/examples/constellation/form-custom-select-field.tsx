@@ -66,7 +66,7 @@ const ownerValidation = (data: Category, errors?: Record<string, string>) => {
 	return errors;
 };
 
-const FormCustomSelectFieldExample = () => {
+const FormCustomSelectFieldExample = (): JSX.Element => {
 	return (
 		<Flex direction="column">
 			<Form<Category>

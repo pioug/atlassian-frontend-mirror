@@ -37,7 +37,7 @@ const styles = cssMap({
 	},
 });
 
-export default function Disabled() {
+export default function Disabled(): JSX.Element {
 	const handleClick = useCallback(() => {
 		console.log('Clicked');
 	}, []);

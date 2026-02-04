@@ -49,7 +49,7 @@ const styles = cssMap({
 	},
 });
 
-const Card = ({ tokenSet }: { tokenSet: Record<string, string> }) => {
+const Card = ({ tokenSet }: { tokenSet: Record<string, string> }): JSX.Element => {
 	const isInteractive = tokenSet.activeBackgroundColor || tokenSet.activeShadow;
 	return (
 		<span

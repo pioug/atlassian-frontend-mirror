@@ -17,6 +17,26 @@ interface LozengeBaseProps extends NewLozengeProps, LozengeDropdownTriggerProps 
 	ref?: Ref<HTMLElement | HTMLButtonElement>;
 }
 
+// Get the pressed background color for the selected lozenge dropdown trigger
+const pressedBackgroundMapping = {
+	success: token('color.background.success.subtler.pressed'),
+	warning: token('color.background.warning.subtler.pressed'),
+	danger: token('color.background.danger.subtler.pressed'),
+	information: token('color.background.information.subtler.pressed'),
+	neutral: token('color.background.neutral.pressed'),
+	discovery: token('color.background.discovery.subtler.pressed'),
+	'accent-red': token('color.background.accent.red.subtler.pressed'),
+	'accent-orange': token('color.background.accent.orange.subtler.pressed'),
+	'accent-yellow': token('color.background.accent.yellow.subtler.pressed'),
+	'accent-lime': token('color.background.accent.lime.subtler.pressed'),
+	'accent-green': token('color.background.accent.green.subtler.pressed'),
+	'accent-teal': token('color.background.accent.teal.subtler.pressed'),
+	'accent-blue': token('color.background.accent.blue.subtler.pressed'),
+	'accent-purple': token('color.background.accent.purple.subtler.pressed'),
+	'accent-magenta': token('color.background.accent.magenta.subtler.pressed'),
+	'accent-gray': token('color.background.accent.gray.subtlest.pressed'),
+};
+
 const styles = cssMap({
 	container: {
 		display: 'inline-flex',
@@ -46,16 +66,6 @@ const styles = cssMap({
 			outlineOffset: token('space.025'),
 			outlineStyle: 'solid',
 			outlineWidth: token('border.width.focused'),
-		},
-	},
-	containerSelected: {
-		backgroundColor: token('color.background.selected'),
-		color: token('color.text.selected'),
-		'&:hover': {
-			backgroundColor: token('color.background.selected.hovered'),
-		},
-		'&:active': {
-			backgroundColor: token('color.background.selected.pressed'),
 		},
 	},
 	text: {
@@ -316,16 +326,6 @@ const styles = cssMap({
 			backgroundColor: token('color.background.accent.gray.subtlest.pressed'),
 		},
 	},
-	// Selected interactive styles - when lozenge is both selected and interactive
-	selectedInteractive: {
-		'&:hover': {
-			backgroundColor: token('color.background.selected.hovered'),
-		},
-		'&:active': {
-			backgroundColor: token('color.background.selected.pressed'),
-		},
-	},
-
 	// Icon and border filter for darkening or lightening the icon color and border color
 	/* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-important-styles */
 	iconBorderFilter: {
@@ -426,6 +426,14 @@ const styles = cssMap({
 			},
 		},
 	},
+	// Selected state icons should retain semantic/accent colors.
+	// We treat "selected" as "pressed" for the current appearance.
+	containerSelected: {
+		// @ts-expect-error -- CSS variables not valid in cssMap types
+		'& > span:first-of-type > svg': {
+			color: 'oklch(from var(--icon-color) calc(l * var(--icon-pressed-l-factor)) c h) !important',
+		},
+	},
 });
 
 /**
@@ -475,7 +483,6 @@ const LozengeBase = memo(
 							size={spacing === 'spacious' ? 'medium' : 'small'}
 							icon={iconBefore}
 							color={resolvedColor}
-							isSelected={isInteractive ? isSelected : undefined}
 							testId={testId && `${testId}--icon`}
 						/>
 					)}
@@ -495,7 +502,7 @@ const LozengeBase = memo(
 						<ChevronDownIcon
 							label=""
 							size="small"
-							color={isSelected ? token('color.icon.selected') : 'currentColor'}
+							color={'currentColor'}
 							testId={testId && `${testId}--chevron`}
 						/>
 					)}
@@ -510,7 +517,7 @@ const LozengeBase = memo(
 							styles.container,
 							spacing === 'spacious' && styles.containerSpacious,
 							!isSelected && styles.iconBorderFilter,
-							!isSelected && styles.iconBorderInteractiveFilter,
+							styles.iconBorderInteractiveFilter,
 							styles[colorStyleKey],
 							styles[interactiveStyleKey],
 							isSelected && styles.containerSelected,
@@ -521,7 +528,12 @@ const LozengeBase = memo(
 							...commonStyleOverrides,
 							// Specified because Pressable has a default border:none which overrides the border specified on the container
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-							border: `solid ${token('border.width')} ${isSelected ? token('color.border.selected') : 'transparent'}`,
+							border: `solid ${token('border.width')} ${
+								isSelected
+									? 'oklch(from var(--border-color) calc(l * var(--border-pressed-l-factor)) c h) !important'
+									: 'transparent'
+							}`,
+							backgroundColor: isSelected ? pressedBackgroundMapping[resolvedColor] : undefined,
 						}}
 						testId={testId}
 						analyticsContext={analyticsContext}

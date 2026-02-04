@@ -28,8 +28,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__outbound-auth-flow-client/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__outbound-auth-flow-client/app"
 	},
 	"references": [],
 	"files": []

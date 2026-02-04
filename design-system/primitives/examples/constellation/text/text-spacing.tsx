@@ -16,7 +16,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<Box backgroundColor="elevation.surface.overlay" padding="space.300" xcss={styles.card}>
 			<Stack space="space.200">

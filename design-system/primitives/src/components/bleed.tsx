@@ -4,7 +4,7 @@
  */
 import React, { type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled
 import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
@@ -85,7 +85,9 @@ const inlineBleedMap = {
  * - [Examples](https://atlassian.design/components/primitives/bleed/examples)
  * - [Code](https://atlassian.design/components/primitives/bleed/code)
  */
-const Bleed = React.memo(({ children, testId, inline, block, all, xcss }: BleedProps) => {
+const Bleed: React.MemoExoticComponent<
+	({ children, testId, inline, block, all, xcss }: BleedProps) => jsx.JSX.Element
+> = React.memo(({ children, testId, inline, block, all, xcss }: BleedProps): jsx.JSX.Element => {
 	const resolvedStyles = parseXcss(xcss);
 
 	return (

@@ -6,9 +6,12 @@ import {
 	type AriaAttributes,
 	type ElementType,
 	forwardRef,
+	type ForwardRefExoticComponent,
 	memo,
+	type MemoExoticComponent,
 	type ReactNode,
 	type Ref,
+    type RefAttributes,
 } from 'react';
 
 import { jsx } from '@compiled/react';
@@ -168,7 +171,7 @@ const styles = cssMap({
  * )
  * ```
  */
-const Flex = memo(
+const Flex: MemoExoticComponent<ForwardRefExoticComponent<Omit<FlexProps<ElementType>, "ref"> & RefAttributes<any>>> = memo(
 	forwardRef(
 		<T extends ElementType = 'div'>(
 			{

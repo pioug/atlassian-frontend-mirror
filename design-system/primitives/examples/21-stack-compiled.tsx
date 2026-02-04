@@ -78,7 +78,7 @@ const Block = (props: { compact?: boolean; style?: CSSProperties; children?: Rea
 /**
  * Stack permutations.
  */
-export default () => (
+export default (): JSX.Element => (
 	<div css={styles.exampleWrapper}>
 		<Stack space="space.400">
 			<Stack space="space.300" alignInline="start">

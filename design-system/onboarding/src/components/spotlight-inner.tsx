@@ -96,7 +96,7 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 		this.props.onClosed();
 	}
 
-	getTargetNodeStyle = (box: ElementBoundingBox) => {
+	getTargetNodeStyle = (box: ElementBoundingBox): {} => {
 		if (!canUseDOM) {
 			return {};
 		}

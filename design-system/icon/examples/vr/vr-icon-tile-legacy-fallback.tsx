@@ -5,7 +5,7 @@ import { IconTile } from '@atlaskit/icon';
 import AddIcon from '../../core/add';
 import AddIconOld from '../../glyph/add';
 
-const IconTileLegacyFallbackExample = () => {
+const IconTileLegacyFallbackExample = (): React.JSX.Element => {
 	return (
 		<IconTile
 			icon={AddIcon}

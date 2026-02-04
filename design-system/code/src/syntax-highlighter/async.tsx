@@ -58,7 +58,7 @@ const generator = (options: GeneratorOptions): typeof SyntaxHighlighter => {
 	return AsyncHighlighter;
 };
 
-const asyncGenerator = generator({
+const asyncGenerator: typeof SyntaxHighlighter = generator({
 	loader: () =>
 		import(
 			/* webpackChunkName: "@atlaskit-internal_refractor-import" */

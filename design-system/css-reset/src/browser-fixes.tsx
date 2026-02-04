@@ -1,6 +1,6 @@
 import evaluateInner from './utils/evaluate-inner';
 
-export default evaluateInner`
+const _default_1: string = evaluateInner`
   /* IE11 and some older browsers don't support these elements yet and treat them as display: inline; */
   article,
   aside,
@@ -35,3 +35,4 @@ button {
   font-family: inherit;
 }
 `;
+export default _default_1;

@@ -28,8 +28,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__feature-gate-single-fetch-provider/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__feature-gate-single-fetch-provider/app"
 	},
 	"references": [
 		{

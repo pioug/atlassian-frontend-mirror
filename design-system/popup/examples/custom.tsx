@@ -39,7 +39,7 @@ const CustomPopupContainer: React.ForwardRefExoticComponent<
 	</div>
 ));
 
-export default () => {
+export default (): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (

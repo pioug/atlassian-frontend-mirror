@@ -33,7 +33,7 @@ const headerStyles = css({
 	paddingInlineStart: token('space.100', '8px'),
 });
 
-const PopupSurfaceDetectionExample = () => {
+const PopupSurfaceDetectionExample = (): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(true);
 
 	return (

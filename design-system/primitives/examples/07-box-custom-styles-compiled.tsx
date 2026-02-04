@@ -12,7 +12,7 @@ const styles = cssMap({
 	solid: { borderStyle: 'solid', width: '600px' },
 });
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<Stack space="space.400" alignInline="start">
 			<Heading size="medium">Custom width</Heading>

@@ -53,7 +53,7 @@ const resolveDimension = (
 	return dimension;
 };
 
-const getLeftPanelWidth = () => {
+const getLeftPanelWidth = (): number => {
 	if (typeof window === 'undefined') {
 		return 0;
 	}
@@ -66,7 +66,7 @@ const getLeftPanelWidth = () => {
 	);
 };
 
-const getLeftSidebarPercentage = (currentWidth: number, maxWidth: number) => {
+const getLeftSidebarPercentage = (currentWidth: number, maxWidth: number): number => {
 	const total =
 		(currentWidth - DEFAULT_LEFT_SIDEBAR_WIDTH) / (maxWidth - DEFAULT_LEFT_SIDEBAR_WIDTH);
 
@@ -80,7 +80,9 @@ const getLeftSidebarPercentage = (currentWidth: number, maxWidth: number) => {
 	return Math.floor(total * 100);
 };
 
-const getPageLayoutSlotSelector = (slotName: string) => ({
+const getPageLayoutSlotSelector = (slotName: string): {
+    "data-ds--page-layout--slot": string;
+} => ({
 	[PAGE_LAYOUT_SLOT_SELECTOR]: slotName,
 });
 

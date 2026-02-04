@@ -46,7 +46,7 @@ const NestedPopup = ({ shouldRenderToParent }: { shouldRenderToParent?: boolean 
 	);
 };
 
-export const PopupPortal = ({ title }: { title: string }) => {
+export const PopupPortal = ({ title }: { title: string }): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 	return (
 		<Popup
@@ -70,7 +70,7 @@ export const PopupPortal = ({ title }: { title: string }) => {
 	);
 };
 
-export const PopupDOM = ({ title }: { title: string }) => {
+export const PopupDOM = ({ title }: { title: string }): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 	return (
 		<Popup
@@ -94,7 +94,7 @@ export const PopupDOM = ({ title }: { title: string }) => {
 	);
 };
 
-export default () => {
+export default (): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isOpenDOM, setIsOpenDOM] = useState(false);
 

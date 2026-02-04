@@ -4,7 +4,7 @@
  */
 import type { ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 import { easeOut, prefersReducedMotion } from '@atlaskit/motion';
@@ -102,7 +102,7 @@ const LeftSidebarInner = ({
 	children,
 	isFixed = false,
 	isFlyoutOpen = false,
-}: LeftSidebarInnerProps) => {
+}: LeftSidebarInnerProps): jsx.JSX.Element => {
 	const isDragging = useIsSidebarDragging();
 
 	return (

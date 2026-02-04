@@ -7,7 +7,7 @@ const fontFamily = `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Ox
 const codeFontFamily = `ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace`;
 
 /* TODO body line height should be 1.25rem */
-export default evaluateInner`
+const _default_1: string = evaluateInner`
   body,
   html {
     height: 100%;
@@ -54,34 +54,34 @@ export default evaluateInner`
   }
   a:focus-visible {
     outline: ${token('border.width.focused', '2px')} solid ${token(
-			'color.border.focused',
-			colors.B200,
-		)};
+    'color.border.focused',
+    colors.B200
+)};
     outline-offset: ${token('space.025', '2px')};
   }
   @supports not selector(*:focus-visible) {
     a:focus {
       outline: ${token('border.width.focused', '2px')} solid ${token(
-				'color.border.focused',
-				colors.B100,
-			)};
+    'color.border.focused',
+    colors.B100
+)};
       outline-offset: ${token('space.025', '2px')};
     }
   }
   /* Headings */
   h1 {
     font: ${token(
-			'font.heading.xlarge',
-			`600 2.0714285714285716em/1.103448275862069 ${fontFamily}`,
-		)};
+    'font.heading.xlarge',
+    `600 2.0714285714285716em/1.103448275862069 ${fontFamily}`
+)};
     color: ${token('color.text')};
     margin-top: ${token('space.500')};
   }
   h2 {
     font: ${token(
-			'font.heading.large',
-			`500 1.7142857142857142em/1.1666666666666667 ${fontFamily}`,
-		)};
+    'font.heading.large',
+    `500 1.7142857142857142em/1.1666666666666667 ${fontFamily}`
+)};
     color: ${token('color.text')};
     margin-top: ${token('space.500')};
   }
@@ -102,9 +102,9 @@ export default evaluateInner`
   }
   h6 {
     font: ${token(
-			'font.heading.xxsmall',
-			`600 0.8571428571428571em/1.3333333333333333 ${fontFamily}`,
-		)};
+    'font.heading.xxsmall',
+    `600 0.8571428571428571em/1.3333333333333333 ${fontFamily}`
+)};
     color: ${token('color.text')};
     margin-top: ${token('space.250')};
     text-transform: uppercase;
@@ -238,3 +238,4 @@ export default evaluateInner`
     }
   }
 `;
+export default _default_1;

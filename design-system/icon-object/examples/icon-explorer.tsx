@@ -77,7 +77,7 @@ const filterIcons = (icons: Record<string, Icon>, query: string) => {
 		);
 };
 
-function IconAllExample() {
+function IconAllExample(): JSX.Element {
 	const [query, setQuery] = useState('');
 	const [showIcons, setShowIcons] = useState(true);
 

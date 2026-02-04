@@ -72,7 +72,7 @@ const labelStyles = css({
 	'--local-tick-rest': 'transparent',
 });
 
-export default function Label({ children, isDisabled, testId, label, id, xcss }: LabelProps) {
+export default function Label({ children, isDisabled, testId, label, id, xcss }: LabelProps): JSX.Element {
 	return (
 		<label
 			className={xcss}

@@ -42,7 +42,7 @@ const styles = cssMap({
 	},
 });
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	return (
 		<Stack as="ul" xcss={styles.list}>
 			<Box xcss={styles.box} as="li" backgroundColor="color.background.discovery">

@@ -21,7 +21,7 @@ const contentStyles = cssMap({
 	},
 });
 
-const PopupWithRoleExample = () => {
+const PopupWithRoleExample = (): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (

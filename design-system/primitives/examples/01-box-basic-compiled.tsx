@@ -14,7 +14,7 @@ const boxStyles = cssMap({
 	},
 });
 
-export default function Basic() {
+export default function Basic(): JSX.Element {
 	return (
 		<Box
 			backgroundColor="color.background.brand.bold"

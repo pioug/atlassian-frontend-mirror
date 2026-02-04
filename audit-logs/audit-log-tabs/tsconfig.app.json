@@ -34,8 +34,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__audit-log-tabs/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__audit-log-tabs/app"
 	},
 	"references": [
 		{

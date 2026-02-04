@@ -1,5 +1,32 @@
 # @atlaskit/editor-toolbar
 
+## 0.19.16
+
+### Patch Changes
+
+- [`2d81bc503e714`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d81bc503e714) -
+  [ux] [EDITOR-4500] export AppIcon, add optional title prop to ToolbarDropdownItem and create the
+  CustomDropdownMenuItemAnchor component for DropdownMenuItems that render anchor elements
+- [`3b3aa281c8524`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b3aa281c8524) -
+  Editor 4149 Fix keyboard navigation inside turn into
+- [`d4b2e174e207c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4b2e174e207c) -
+  [EDITOR-4500] apply a11y fix to new custom ToolbarDropdownItem component
+- Updated dependencies
+
+## 0.19.15
+
+### Patch Changes
+
+- [`9b8e6a65567af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b8e6a65567af) -
+  ENGHEALTH-48871: Fix aria-required-children a11y issue with Editor toolbar.
+- Updated dependencies
+
+## 0.19.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.19.13
 
 ### Patch Changes

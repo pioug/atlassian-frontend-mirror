@@ -39,7 +39,11 @@ const StaggeredEntranceContext = createContext<
 	(id: string) => { isReady: boolean; delay: number; ref: Ref<any> }
 >(() => ({ isReady: true, delay: 0, ref: noop }));
 
-export const useStaggeredEntrance = () => {
+export const useStaggeredEntrance = (): {
+    isReady: boolean;
+    delay: number;
+    ref: Ref<any>;
+} => {
 	const indentifier = useUniqueId();
 	const context = useContext(StaggeredEntranceContext);
 	return context(indentifier);

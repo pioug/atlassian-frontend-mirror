@@ -29,8 +29,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-ssr-renderer/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__editor-ssr-renderer/app"
 	},
 	"references": [
 		{
@@ -38,6 +37,9 @@
 		},
 		{
 			"path": "../editor-prosemirror/tsconfig.app.json"
+		},
+		{
+			"path": "../tmp-editor-statsig/tsconfig.app.json"
 		}
 	]
 }

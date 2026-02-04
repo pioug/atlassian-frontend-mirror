@@ -31,7 +31,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => (
+export default (): JSX.Element => (
 	<div data-testid="inline-example" css={styles.container}>
 		<div css={styles.fixedContainer}>
 			<Stack space="space.200">

@@ -36,8 +36,7 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__json-schema-generator/dev",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__json-schema-generator/dev"
 	},
 	"references": [
 		{

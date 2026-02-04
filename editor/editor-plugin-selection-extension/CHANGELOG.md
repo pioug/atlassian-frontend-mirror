@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 10.3.6
+
+### Patch Changes
+
+- [`e779ee38a7d18`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e779ee38a7d18) -
+  Update toolbar rendering logic to use SelectionExtensionMenuItems component
+- Updated dependencies
+
+## 10.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.3.3
 
 ### Patch Changes

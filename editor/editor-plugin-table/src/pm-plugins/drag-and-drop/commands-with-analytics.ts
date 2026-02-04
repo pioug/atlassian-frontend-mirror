@@ -15,12 +15,14 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { findCellRectClosestToPos, getSelectionRect } from '@atlaskit/editor-tables/utils';
 
-import type { DraggableData, DraggableType } from '../../types';
+import type { DraggableData, DraggableType, TableDirection } from '../../types';
 import { getSelectedTableInfo, withEditorAnalyticsAPI } from '../utils/analytics';
 import { canMove, getTargetIndex } from '../utils/drag-menu';
 import { getSelectedColumnIndexes, getSelectedRowIndexes } from '../utils/selection';
 
-import { clearDropTarget, cloneSource, moveSource } from './commands';
+import { clearDropTarget, cloneSource, moveSource, toggleDragMenu } from './commands';
+import { getPluginState } from './plugin-factory';
+import type { TriggerType } from './types';
 
 export const clearDropTargetWithAnalytics =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
@@ -216,6 +218,71 @@ export const cloneSourceWithAnalytics =
 		})(editorAnalyticsAPI)((state, dispatch) => {
 			if (dispatch) {
 				cloneSource(sourceType, sourceIndexes, targetIndex, targetDirection, tr)(state, dispatch);
+			}
+			return true;
+		});
+	};
+
+export const toggleDragMenuWithAnalytics =
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
+	(
+		isDragMenuOpen: boolean | undefined,
+		direction?: TableDirection,
+		index?: number,
+		trigger: TriggerType = 'mouse',
+	) => {
+		return withEditorAnalyticsAPI((state) => {
+			const {
+				isDragMenuOpen: previousOpenState,
+				dragMenuDirection: previousDragMenuDirection,
+				dragMenuIndex: previousDragMenuIndex,
+			} = getPluginState(state);
+
+			if (
+				previousOpenState === isDragMenuOpen &&
+				previousDragMenuDirection === direction &&
+				previousDragMenuIndex === index
+			) {
+				return undefined;
+			}
+
+			let updatedMenuOpenState;
+			if (isDragMenuOpen !== undefined) {
+				updatedMenuOpenState = isDragMenuOpen;
+			} else {
+				// menu open but menu direction changed, means user clicked on drag handle of different row/column
+				// menu open menu direction not changed, but index changed, means user clicked on drag handle of same row/column, different cells.
+				// 2 scenarios above , menu should remain open.
+				if (
+					(previousOpenState === true && previousDragMenuDirection !== direction) ||
+					(previousOpenState === true &&
+						previousDragMenuDirection === direction &&
+						previousDragMenuIndex !== index)
+				) {
+					updatedMenuOpenState = true;
+				} else {
+					updatedMenuOpenState = !previousOpenState;
+				}
+			}
+
+			if (updatedMenuOpenState) {
+				// We only want to fire analytics when the menu is opened
+				return {
+					action: TABLE_ACTION.DRAG_MENU_OPENED,
+					actionSubject: ACTION_SUBJECT.TABLE,
+					actionSubjectId: null,
+					eventType: EVENT_TYPE.TRACK,
+					attributes: {
+						inputMethod: trigger === 'keyboard' ? INPUT_METHOD.KEYBOARD : INPUT_METHOD.MOUSE,
+						direction: direction ?? previousDragMenuDirection ?? 'column',
+					},
+				};
+			}
+
+			return undefined;
+		})(editorAnalyticsAPI)((state, dispatch) => {
+			if (dispatch) {
+				toggleDragMenu(isDragMenuOpen, direction, index, trigger)(state, dispatch);
 			}
 			return true;
 		});

@@ -82,7 +82,7 @@ const ProjectStatus = ({
 	);
 };
 
-export default function Styled() {
+export default function Styled(): JSX.Element {
 	return (
 		<Stack space="space.150">
 			<Text weight="bold" size="large">

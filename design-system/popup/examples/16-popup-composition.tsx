@@ -8,7 +8,7 @@ import { jsx } from '@compiled/react';
 
 import { Popup, PopupContent, PopupTrigger } from '@atlaskit/popup/experimental';
 
-const PopupDefaultExample = () => {
+const PopupDefaultExample = (): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (

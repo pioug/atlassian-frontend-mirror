@@ -15,7 +15,7 @@ import { token } from '@atlaskit/tokens';
 import { type Fade } from '../../src/entering/types';
 import { Block, Centered, RetryContainer } from '../utils';
 
-const MotionSlideInExample = () => {
+const MotionSlideInExample = (): JSX.Element => {
 	const [fromIndex, setFromIndex] = useState(0);
 	const [fadeIndex, setFadeIndex] = useState(0);
 

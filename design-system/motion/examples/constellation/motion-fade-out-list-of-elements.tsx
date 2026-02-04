@@ -20,7 +20,7 @@ import { token } from '@atlaskit/tokens';
 
 import { Block } from '../utils';
 
-const MotionFadeOutListOfElementsExample = () => {
+const MotionFadeOutListOfElementsExample = (): JSX.Element => {
 	const [items, setItems] = useState(logos);
 
 	return (

@@ -44,7 +44,7 @@ export default class SpotlightTargetBackgroundExample extends Component<Object, 
 
 	finish = (): void => this.setState({ active: null });
 
-	renderActiveSpotlight() {
+	renderActiveSpotlight(): JSX.Element | null {
 		const variants = [
 			<Spotlight
 				actions={[
@@ -78,7 +78,7 @@ export default class SpotlightTargetBackgroundExample extends Component<Object, 
 		return this.state.active == null ? null : variants[this.state.active];
 	}
 
-	render() {
+	render(): JSX.Element {
 		return (
 			<div css={wrapperStyles}>
 				<SpotlightManager>

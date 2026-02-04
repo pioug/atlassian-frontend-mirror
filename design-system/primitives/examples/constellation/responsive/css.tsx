@@ -35,7 +35,7 @@ const cardStyles = css({
 	},
 });
 
-export default () => (
+export default (): JSX.Element => (
 	<div css={cardStyles}>
 		Border becomes narrower at smaller breakpoints. Try it out by resizing the browser window.
 	</div>

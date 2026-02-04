@@ -27,8 +27,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__textarea/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__textarea/app"
 	},
 	"references": [
 		{

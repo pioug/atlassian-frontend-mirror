@@ -23,7 +23,7 @@ const targetElementStyles = cssMap({
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export default class SpotlightNodeExample extends Component<Object, State> {
-	drawer = React.createRef<HTMLElement>();
+	drawer: React.RefObject<HTMLElement> = React.createRef<HTMLElement>();
 	state = { drawerIsVisible: false, spotlightIsVisible: false };
 
 	showDrawer = (): void => {

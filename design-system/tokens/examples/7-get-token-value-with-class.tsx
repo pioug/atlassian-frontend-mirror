@@ -28,7 +28,7 @@ const ExampleDiv = () => (
 	</p>
 );
 
-export default () => {
+export default (): JSX.Element => {
 	const [theme, setTheme] = useState<Partial<ThemeState>>(getGlobalTheme());
 	const observer = new ThemeMutationObserver((newTheme) => {
 		setTheme(newTheme);

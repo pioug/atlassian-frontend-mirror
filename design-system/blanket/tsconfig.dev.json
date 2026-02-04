@@ -34,8 +34,7 @@
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__blanket/dev",
-		"types": ["@types/testing-library__jest-dom"],
-		"moduleResolution": "bundler"
+		"types": ["@types/testing-library__jest-dom"]
 	},
 	"references": [
 		{

@@ -74,7 +74,7 @@ const positionExampleStyles = css({
 	insetInlineEnd: token('space.100', '8px'),
 });
 
-export default function CssPositionExample() {
+export default function CssPositionExample(): JSX.Element {
 	const panel = useRef<HTMLDivElement>(null);
 	const [pinned, setPinned] = useState(false);
 	const [top, setTop] = useState(0);

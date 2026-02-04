@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-media
 
+## 9.4.10
+
+### Patch Changes
+
+- [`5e2874bf0d495`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e2874bf0d495) -
+  Cleanup exp platform_editor_nested_media_selection_fix
+- Updated dependencies
+
+## 9.4.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.4.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.4.7
 
 ### Patch Changes

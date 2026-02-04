@@ -14,4 +14,6 @@ const styles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export default [<div css={styles}>Styled content</div>];
+const _default_1: JSX.Element[] = [<div css={styles}>Styled content</div>];
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export default _default_1;

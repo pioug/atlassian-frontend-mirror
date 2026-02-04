@@ -56,7 +56,7 @@ const NestedPopup = () => {
 	);
 };
 
-const PopupNestedExample = () => {
+const PopupNestedExample = (): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (

@@ -1,6 +1,6 @@
 import evaluateInner from './utils/evaluate-inner';
 
-export default evaluateInner`
+const _default_1: string = evaluateInner`
   html,
   body,
   p,
@@ -26,3 +26,4 @@ export default evaluateInner`
     border: 0;
   }
 `;
+export default _default_1;

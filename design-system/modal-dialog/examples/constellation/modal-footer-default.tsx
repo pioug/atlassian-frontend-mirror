@@ -20,7 +20,7 @@ const styles = cssMap({
 	footer: { flex: '1' },
 });
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const openModal = useCallback(() => setIsOpen(true), []);

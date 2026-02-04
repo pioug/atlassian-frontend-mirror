@@ -94,7 +94,7 @@ const filterIcons = (icons: IconsList, query: string) => {
 
 const localIconPromise = localIconInfo;
 
-const IconAllExample = () => {
+const IconAllExample = (): JSX.Element => {
 	const [singlePurposeLabIcons, setSinglePurposeLabIcons] = useState<IconsList>();
 	const [multiPurposeLabIcons, setMultiPurposeLabIcons] = useState<IconsList>();
 	const [query, setQuery] = useState('');

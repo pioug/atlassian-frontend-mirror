@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, useEffect, useState } from 'react';
+import { forwardRef, type ForwardRefExoticComponent, type RefAttributes, useEffect, useState } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
@@ -49,7 +49,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => {
+export default (): JSX.Element => {
 	const [isVisible, setIsVisible] = useState(true);
 	const dismiss = () => setIsVisible(false);
 	const done = () => setIsVisible(false);
@@ -95,7 +95,9 @@ export default () => {
 	);
 };
 
-export const AsyncLoadedContent = forwardRef<HTMLDivElement, { timeout: number }>(
+export const AsyncLoadedContent: ForwardRefExoticComponent<{
+    timeout: number;
+} & RefAttributes<HTMLDivElement>> = forwardRef<HTMLDivElement, { timeout: number }>(
 	({ timeout }, ref) => {
 		const [isLoading, setIsLoading] = useState(true);
 

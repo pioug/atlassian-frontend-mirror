@@ -7,10 +7,7 @@
 		"composite": true,
 		"noCheck": true
 	},
-	"include": [
-		"../src/**/*.ts",
-		"../src/**/*.tsx"
-	],
+	"include": ["../src/**/*.ts", "../src/**/*.tsx"],
 	"exclude": [
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
@@ -25,9 +22,6 @@
 	"references": [
 		{
 			"path": "../../editor-plugin-accessibility-utils/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../editor-plugin-ai-suggestions/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-alignment/afm-products/tsconfig.json"

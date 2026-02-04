@@ -11,7 +11,7 @@ import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
 
 import { Block, Centered, RetryContainer } from '../utils';
 
-const MotionFadeOutSingleElementExample = () => {
+const MotionFadeOutSingleElementExample = (): JSX.Element => {
 	const directions = [
 		undefined,
 		'top' as const,

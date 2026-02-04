@@ -430,7 +430,7 @@ const Box = ({ background, text }: { background: string; text: string }) => (
 	</div>
 );
 
-export default () => {
+export default (): JSX.Element => {
 	useVrGlobalTheme();
 
 	return (

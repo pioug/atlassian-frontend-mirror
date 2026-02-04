@@ -22,7 +22,6 @@ import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { getParticipantColor } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 export const findPointers = (id: string, decorations: DecorationSet): Decoration[] =>
 	decorations
@@ -277,7 +276,7 @@ export const isOrganicChange = (tr: ReadonlyTransaction): boolean => {
 		}
 
 		// editor-plugin-local-id uses BatchAttrStep to set the localId attribute
-		if (step instanceof BatchAttrsStep && fg('platform_editor_inorganic_batchattrsstep_localid')) {
+		if (step instanceof BatchAttrsStep) {
 			const allAttributes = step.data.map((data) => Object.keys(data.attrs)).flat();
 			return (
 				allAttributes.some((attr) => !blockedAttrsList.includes(attr)) && !tr.doc.eq(tr.before)
@@ -301,7 +300,10 @@ export const isOrganicChange = (tr: ReadonlyTransaction): boolean => {
 // it will be cut off due to the removal of the element. We'll persist the animation state in the plugin,
 // so we can keep the expanded version showing even when the telepointer element is recreated.
 export type NudgeAnimationsMap = Map<string, number>;
-export const hasExistingNudge = (sessionId: string, nudgeAnimations: NudgeAnimationsMap): boolean => {
+export const hasExistingNudge = (
+	sessionId: string,
+	nudgeAnimations: NudgeAnimationsMap,
+): boolean => {
 	const nudgeAnimStartTime = nudgeAnimations.get(sessionId);
 	let hasExistingNudge = false;
 	if (nudgeAnimStartTime) {

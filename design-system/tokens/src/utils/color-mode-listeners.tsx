@@ -21,7 +21,7 @@ const darkModeMql = isMatchMediaAvailable && window.matchMedia(darkModeMediaQuer
 class ColorModeObserver {
 	unbindThemeChangeListener: UnbindFn | null = null;
 
-	getColorMode() {
+	getColorMode(): "dark" | "light" {
 		if (!darkModeMql) {
 			return 'light';
 		}
@@ -49,6 +49,6 @@ class ColorModeObserver {
  * A singleton color mode observer - binds "auto" switching logic to a single `mediaQueryList` listener
  * that can be unbound by any consumer when no longer needed.
  */
-const SingletonColorModeObserver = new ColorModeObserver();
+const SingletonColorModeObserver: ColorModeObserver = new ColorModeObserver();
 
 export default SingletonColorModeObserver;

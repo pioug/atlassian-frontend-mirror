@@ -28,7 +28,7 @@ const TestInput = ({ onCancel }: { onCancel: () => void }) => {
 	return <input ref={ref} onKeyDown={onKeyDown} placeholder="Input" />;
 };
 
-export default () => {
+export default (): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isInputVisible, setIsInputVisible] = useState(false);
 

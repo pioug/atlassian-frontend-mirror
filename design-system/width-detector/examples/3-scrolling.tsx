@@ -41,7 +41,7 @@ const Lorem = () => (
 	</p>
 );
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	const [width, setWidth] = React.useState<number>(0);
 	const [offscreen, setOffscreen] = React.useState(false);
 	const onChange = React.useCallback(

@@ -15,7 +15,7 @@ const copyMessages = {
 	success: 'Copied!',
 };
 
-const CopyButton = ({ content, label }: { content: string | (() => string); label: string }) => {
+const CopyButton = ({ content, label }: { content: string | (() => string); label: string }): JSX.Element => {
 	const [isCopied, setIsCopied] = useState<boolean>(false);
 
 	function onCopy() {

@@ -22,7 +22,7 @@ const animationStyles = css({
 	},
 });
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	return (
 		<div data-testid="spinner-sizes-container">
 			{sizes.map((size: Size) => (

@@ -111,7 +111,7 @@ function getScrollBehavior({
 	return 'body';
 }
 
-const Positioner = (props: PositionerProps) => {
+const Positioner = (props: PositionerProps): JSX.Element => {
 	const { children, stackIndex, shouldScrollInViewport, testId, isFullScreen } = props;
 
 	const scrollBehavior = getScrollBehavior({ isFullScreen, shouldScrollInViewport });

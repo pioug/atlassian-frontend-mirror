@@ -32,7 +32,7 @@ export function Button({
 }: {
 	children: React.ReactNode;
 	xcss?: XCSSProp<'color' | 'backgroundColor', '&:hover' | '&:active'>;
-}) {
+}): JSX.Element {
 	return (
 		<button type="button" css={buttonStyles.container} className={xcss}>
 			{children}

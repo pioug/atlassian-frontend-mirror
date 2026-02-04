@@ -37,7 +37,7 @@ const triggerStyle = cssMap({
 	},
 });
 
-export default function PositionMouseExample() {
+export default function PositionMouseExample(): JSX.Element {
 	return (
 		<div css={containerStyle.root}>
 			<Tooltip

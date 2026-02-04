@@ -27,7 +27,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => (
+export default (): JSX.Element => (
 	<Stack testId="inline-example" space="space.100" alignInline="start">
 		<Stack space="space.100">
 			{growItems.map((grow) => (

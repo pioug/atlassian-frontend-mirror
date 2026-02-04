@@ -134,7 +134,7 @@ const bodyScrollStyles = css({
 	},
 });
 
-const ModalDialog = (props: InternalModalDialogProps) => {
+const ModalDialog = (props: InternalModalDialogProps): JSX.Element => {
 	const {
 		width = 'medium',
 		shouldScrollInViewport = false,

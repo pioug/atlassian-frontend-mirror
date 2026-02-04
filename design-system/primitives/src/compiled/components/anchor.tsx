@@ -112,7 +112,7 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 		...htmlAttributes
 	}: AnchorProps<RouterLinkConfig>,
 	ref?: Ref<HTMLAnchorElement>,
-) => {
+): JSX.Element => {
 	const interactionContext = useContext<InteractionContextType | null>(InteractionContext);
 	const handleClick = useCallback(
 		(e: React.MouseEvent<HTMLAnchorElement>, analyticsEvent: UIAnalyticsEvent) => {

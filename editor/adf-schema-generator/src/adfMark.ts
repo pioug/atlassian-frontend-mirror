@@ -20,7 +20,7 @@ export class ADFMark<TMarkSpec extends ADFMarkSpec> {
 	/**
 	 * Checks whether the mark is ignored by a given transformer.
 	 */
-	isIgnored(transformerName: TransformerNames) {
+	isIgnored(transformerName: TransformerNames): boolean | undefined {
 		if (!this.#spec) {
 			throw new Error('Mark is not defined');
 		}
@@ -56,7 +56,7 @@ export class ADFMark<TMarkSpec extends ADFMarkSpec> {
 		return `${this.#type}_mark`;
 	}
 
-	setGroup(group: string) {
+	setGroup(group: string): this {
 		if (this.#group) {
 			throw new Error('Cannot re-define a group');
 		}
@@ -64,7 +64,7 @@ export class ADFMark<TMarkSpec extends ADFMarkSpec> {
 		return this;
 	}
 
-	getGroup() {
+	getGroup(): string | null {
 		return this.#group;
 	}
 }

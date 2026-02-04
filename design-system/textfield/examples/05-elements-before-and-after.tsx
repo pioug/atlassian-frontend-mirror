@@ -24,7 +24,7 @@ const beforeStyle = css({
 	paddingInlineStart: token('space.075'),
 });
 
-export default function ElementsBeforeAfterExample() {
+export default function ElementsBeforeAfterExample(): JSX.Element {
 	return (
 		<Fragment>
 			<label htmlFor="after-input">After input</label>

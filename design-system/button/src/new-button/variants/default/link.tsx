@@ -348,7 +348,7 @@ const LinkButtonBase = <RouterLinkConfig extends Record<string, any> = never>(
 		...unsafeRest
 	}: LinkButtonProps<RouterLinkConfig>,
 	ref: React.Ref<HTMLAnchorElement>,
-) => {
+): JSX.Element => {
 	// @ts-expect-error
 	const { className: _className, css: _css, as: _as, style: _style, ...saferRest } = unsafeRest;
 	const hasIconAfter = Boolean(iconAfter);

@@ -14,7 +14,7 @@ const popupStyles = css({
 	width: 175,
 	height: 250,
 });
-export default () => {
+export default (): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (

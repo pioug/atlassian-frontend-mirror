@@ -140,7 +140,7 @@ const positions: Placement[] = [
 	'auto-end',
 ];
 
-export default () => {
+export default (): JSX.Element => {
 	const [idx, setIdx] = useState(0);
 	const [isOpen, setIsOpen] = useState(false);
 	const [buttonWidth, setButtonWidth] = useState(0);

@@ -4,7 +4,7 @@
  */
 import { useEffect } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
 import { VAR_LEFT_SIDEBAR_WIDTH } from '../../common/constants';
@@ -24,7 +24,7 @@ import SlotDimensions from './slot-dimensions';
  * - [Examples](https://atlassian.design/components/page-layout/examples)
  * - [Code](https://atlassian.design/components/page-layout/code)
  */
-const LeftSidebarWithoutResize = (props: SlotWidthProps) => {
+const LeftSidebarWithoutResize = (props: SlotWidthProps): jsx.JSX.Element => {
 	const { children, id, width, isFixed, shouldPersistWidth, testId, skipLinkTitle } = props;
 
 	const leftSidebarWidth = resolveDimension(VAR_LEFT_SIDEBAR_WIDTH, width, shouldPersistWidth);

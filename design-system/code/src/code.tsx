@@ -38,7 +38,7 @@ const styles = cssMap({
  * - [Code](https://atlassian.design/components/code/code)
  * - [Usage](https://atlassian.design/components/code/usage)
  */
-const Code = memo(
+const Code: React.MemoExoticComponent<React.ForwardRefExoticComponent<Omit<CodeProps, "ref"> & React.RefAttributes<HTMLElement>>> = memo(
 	forwardRef<HTMLElement, CodeProps>(function Code({ testId, ...props }, ref) {
 		const {
 			children,

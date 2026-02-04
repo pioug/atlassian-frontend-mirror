@@ -29,7 +29,7 @@ const styles = cssMap({
 	},
 });
 
-export default function Basic() {
+export default function Basic(): JSX.Element {
 	const handleClick = useCallback(() => {
 		console.log('Clicked');
 	}, []);

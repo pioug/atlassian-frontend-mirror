@@ -11,3 +11,7 @@ export type ToolbarKeyboardNavigationProviderConfig = {
 	handleFocus: (event: KeyboardEvent) => void;
 	isShortcutToFocusToolbar: (event: KeyboardEvent) => boolean;
 };
+
+export type DataAttributes = {
+	[K in `data-${string}`]?: string | number | boolean | undefined;
+  };

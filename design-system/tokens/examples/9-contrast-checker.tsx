@@ -230,7 +230,7 @@ const initialColorMode = ['light', 'dark'].includes(colorModeFromUrl) ? colorMod
  * Color contrast checking app - allows you to configure a custom theme and see how contrasts
  * change over time
  */
-export default function ContrastChecker() {
+export default function ContrastChecker(): JSX.Element {
 	const [customTheme, setCustomTheme] = useState<Theme>([]);
 	const [customBaseTokens, setCustomBaseTokens] = useState<typeof baseTokens>({});
 

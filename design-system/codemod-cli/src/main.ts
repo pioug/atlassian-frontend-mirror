@@ -281,7 +281,12 @@ const parseArgs = async (input: string[], flags: Flags) => {
 	};
 };
 
-const defaultFlags = {
+const defaultFlags: {
+    parser: "babel";
+    extensions: string;
+    ignorePattern: string;
+    logger: Console;
+} = {
 	parser: 'babel' as const,
 	extensions: 'js',
 	ignorePattern: 'node_modules',
@@ -307,7 +312,16 @@ async function processLifecycleHook(
 	}
 }
 
-export default async function main(input: string[], userFlags: UserFlags) {
+export default async function main(input: string[], userFlags: UserFlags): Promise<{
+    transforms: {
+        module: string;
+        root: string;
+        dir: string;
+        base: string;
+        ext: string;
+        name: string;
+    }[];
+}> {
 	const flags: Flags = { ...defaultFlags, ...userFlags };
 	const logger = flags.logger;
 

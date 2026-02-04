@@ -34,8 +34,7 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__ufo/dev",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__ufo/dev"
 	},
 	"references": [
 		{

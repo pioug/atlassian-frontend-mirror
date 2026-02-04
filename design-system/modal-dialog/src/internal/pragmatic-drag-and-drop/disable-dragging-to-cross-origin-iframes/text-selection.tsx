@@ -109,6 +109,6 @@ const api = makeFixForAdapter({
 	watchForInteractionEnd,
 });
 
-export function disableDraggingToCrossOriginIFramesForTextSelection() {
+export function disableDraggingToCrossOriginIFramesForTextSelection(): CleanupFn {
 	return api.registerUsage();
 }

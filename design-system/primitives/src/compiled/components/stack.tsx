@@ -6,9 +6,12 @@ import {
 	type AriaAttributes,
 	type ElementType,
 	forwardRef,
+	type ForwardRefExoticComponent,
 	memo,
+	type MemoExoticComponent,
 	type ReactNode,
 	type Ref,
+    type RefAttributes,
 } from 'react';
 
 import { jsx } from '@compiled/react';
@@ -82,7 +85,7 @@ const styles = cssMap({
  * ```
  *
  */
-const Stack = memo(
+const Stack: MemoExoticComponent<ForwardRefExoticComponent<Omit<StackProps<ElementType>, "ref"> & RefAttributes<any>>> = memo(
 	forwardRef(
 		<T extends ElementType = 'div'>(
 			{

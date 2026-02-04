@@ -24,4 +24,8 @@ export const TokenTag = (): React.JSX.Element => {
 	);
 };
 
-export default { example: TokenTag, code: TokenTagCodeBlock };
+const _default_1: {
+    example: () => React.JSX.Element;
+    code: string;
+} = { example: TokenTag, code: TokenTagCodeBlock };
+export default _default_1;

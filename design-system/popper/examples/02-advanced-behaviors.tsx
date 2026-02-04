@@ -179,7 +179,7 @@ const contentWrapperStyles = css({
 	overflow: 'auto',
 });
 
-export default () => (
+export default (): JSX.Element => (
 	<div css={scrollContainerStyles}>
 		<Test />
 		{/* eslint-disable-next-line @atlaskit/design-system/use-primitives */}

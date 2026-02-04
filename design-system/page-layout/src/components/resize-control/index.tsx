@@ -15,7 +15,7 @@ import {
 	useState,
 } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/no-global-styles, @atlaskit/ui-styling-standard/use-compiled
 import { css, Global, jsx } from '@emotion/react';
 import { bindAll, type UnbindFn } from 'bind-event-listener';
 import rafSchd from 'raf-schd';
@@ -94,7 +94,7 @@ const ResizeControl = ({
 	resizeGrabAreaLabel = 'Resize Current Project Sidebar',
 	onResizeStart,
 	onResizeEnd,
-}: ResizeControlProps) => {
+}: ResizeControlProps): jsx.JSX.Element => {
 	const { toggleLeftSidebar, collapseLeftSidebar, leftSidebarState, setLeftSidebarState } =
 		useContext(SidebarResizeContext);
 	const { isLeftSidebarCollapsed } = leftSidebarState;
@@ -192,6 +192,7 @@ const ResizeControl = ({
 							COLLAPSED_LEFT_SIDEBAR_WIDTH,
 						);
 
+						// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 						document.documentElement.style.setProperty(
 							`--${VAR_LEFT_SIDEBAR_WIDTH}`,
 							`${sidebarWidth.current}px`,
@@ -201,6 +202,7 @@ const ResizeControl = ({
 				},
 			},
 		]);
+		// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 		document.documentElement.setAttribute(IS_SIDEBAR_DRAGGING, 'true');
 
 		const newLeftbarState = {
@@ -216,6 +218,7 @@ const ResizeControl = ({
 		onUpdateResize.cancel();
 		unbindEvents.current?.();
 		unbindEvents.current = null;
+		// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 		document.documentElement.removeAttribute(IS_SIDEBAR_DRAGGING);
 		offset.current = 0;
 
@@ -252,6 +255,7 @@ const ResizeControl = ({
 				COLLAPSED_LEFT_SIDEBAR_WIDTH,
 			);
 
+			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 			document.documentElement.style.setProperty(
 				`--${VAR_LEFT_SIDEBAR_WIDTH}`,
 				`${sidebarWidth.current}px`,
@@ -264,6 +268,7 @@ const ResizeControl = ({
 			return;
 		}
 
+		// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 		document.documentElement.removeAttribute(IS_SIDEBAR_DRAGGING);
 
 		// TODO: the control flow is pretty strange as the first codepath which calls `collapseLeftSidebar()`
@@ -274,6 +279,7 @@ const ResizeControl = ({
 		// collapse the navigation
 		if (sidebarWidth.current < MIN_LEFT_SIDEBAR_DRAG_THRESHOLD) {
 			// TODO: for this codepath, `onCollapse` occurs before `onResizeEnd` which seems wrong
+			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 			document.documentElement.style.setProperty(
 				`--${VAR_LEFT_SIDEBAR_WIDTH}`,
 				`${COLLAPSED_LEFT_SIDEBAR_WIDTH}px`,
@@ -287,6 +293,7 @@ const ResizeControl = ({
 			sidebarWidth.current > MIN_LEFT_SIDEBAR_DRAG_THRESHOLD &&
 			sidebarWidth.current < DEFAULT_LEFT_SIDEBAR_WIDTH
 		) {
+			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 			document.documentElement.style.setProperty(
 				`--${VAR_LEFT_SIDEBAR_WIDTH}`,
 				`${DEFAULT_LEFT_SIDEBAR_WIDTH}px`,
@@ -354,12 +361,14 @@ const ResizeControl = ({
 
 			if (width <= DEFAULT_LEFT_SIDEBAR_WIDTH) {
 				width = DEFAULT_LEFT_SIDEBAR_WIDTH;
+				// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 				document.documentElement.style.setProperty(
 					`--${VAR_LEFT_SIDEBAR_WIDTH}`,
 					`${DEFAULT_LEFT_SIDEBAR_WIDTH - 20}px`,
 				);
 			} else if (width > maxWidth) {
 				width = maxWidth;
+				// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 				document.documentElement.style.setProperty(
 					`--${VAR_LEFT_SIDEBAR_WIDTH}`,
 					`${maxWidth + 20}px`,
@@ -374,6 +383,7 @@ const ResizeControl = ({
 				keyboardEventTimeout.current = window.setTimeout(() => {
 					keyboardEventTimeout.current && clearTimeout(keyboardEventTimeout.current);
 
+					// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 					document.documentElement.style.setProperty(`--${VAR_LEFT_SIDEBAR_WIDTH}`, `${width}px`);
 
 					const updatedLeftSidebarState = {

@@ -67,7 +67,7 @@ export const Show = ({
 	children,
 	as: AsElement = 'div',
 	xcss,
-}: ResponsiveShowProps) => {
+}: ResponsiveShowProps): JSX.Element => {
 	return (
 		<AsElement
 			className={xcss}

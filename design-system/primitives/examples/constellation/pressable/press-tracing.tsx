@@ -194,7 +194,7 @@ const ColorPaletteButtons = () => {
 	);
 };
 
-export default function PressTracing() {
+export default function PressTracing(): JSX.Element {
 	return (
 		<FlagsProvider>
 			<ColorPaletteButtons />

@@ -18,8 +18,8 @@ export type EditorExperimentsConfig = typeof editorExperimentsConfig;
  */
 export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
-	? true // Boolean: only 'true' is allowed as expected value
-	: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+		? true // Boolean: only 'true' is allowed as expected value
+		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
 
 /**
  * Extract valid default values.
@@ -28,8 +28,8 @@ export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimen
  */
 export type ExperimentDefaultValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
-	? false // Boolean: only 'false' is allowed as default value
-	: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+		? false // Boolean: only 'false' is allowed as default value
+		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
 
 /**
  * When adding a new experiment, you need to add it here.
@@ -166,14 +166,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-06-24
-	confluence_whiteboards_quick_insert: {
-		defaultValue: 'control' | 'test_blank' | 'test_diagram';
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: (value: unknown) => value is 'control' | 'test_blank' | 'test_diagram';
-		values: ('control' | 'test_blank' | 'test_diagram')[];
-	};
 	// Added 2025-10-20
 	confluence_whiteboards_quick_insert_localised: {
 		defaultValue: 'control' | 'test_blank' | 'test_diagram';
@@ -204,13 +196,7 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-07-24
-	editor_prevent_numbered_column_too_big_jira_1: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
+
 	// Added 2025-09-04
 	editor_refactor_backspace_task_and_decisions: {
 		defaultValue: boolean;
@@ -510,13 +496,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 20205-07-28
-	platform_editor_fix_quick_insert_consistency_exp: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-08-04
 	platform_editor_floating_toolbar_button_aria_label: {
 		defaultValue: boolean;
@@ -804,13 +783,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-11-18
-	platform_editor_wait_for_space_after_ascii_emoji: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-12-08
 	platform_editor_add_image_editing: {
 		defaultValue: boolean;
@@ -953,13 +925,6 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	platform_editor_toolbar_delay_render_fix: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2025-03-12
-	platform_editor_nested_media_selection_fix: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1156,6 +1121,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-02-03
+	platform_editor_enghealth_a11y_jan_fixes: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 } = {
 	// new format to avoid collisions with other users when updating the file
 
@@ -1295,14 +1267,7 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-07-24
-	editor_prevent_numbered_column_too_big_jira_1: createBooleanExperiment({
-		productKeys: {
-			jira: 'editor_prevent_numbered_column_too_big_jira_1',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
+
 	// Added 2025-06-02
 	platform_editor_block_control_optimise_render: createBooleanExperiment({
 		productKeys: {
@@ -1668,15 +1633,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-06-24
-	confluence_whiteboards_quick_insert: createMultivariateExperiment({
-		productKeys: {
-			confluence: 'confluence_whiteboards_quick_insert',
-		},
-		param: 'cohort',
-		values: ['control', 'test_blank', 'test_diagram'],
-		defaultValue: 'control',
-	}),
 	// Added 2025-06-26
 	platform_editor_feedback_mandatory_rating: createBooleanExperiment({
 		productKeys: {
@@ -1817,14 +1773,6 @@ export const editorExperimentsConfig: {
 	platform_editor_breakout_interaction_rerender: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_breakout_interaction_rerender',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 20205-07-28
-	platform_editor_fix_quick_insert_consistency_exp: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_fix_quick_insert_consistency_exp',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2177,14 +2125,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-11-18
-	platform_editor_wait_for_space_after_ascii_emoji: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_wait_for_space_after_ascii_emoji',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-12-03
 	platform_editor_use_pmr_for_collab_presence_non_ic: createBooleanExperiment({
 		productKeys: {
@@ -2215,14 +2155,6 @@ export const editorExperimentsConfig: {
 	platform_editor_toolbar_delay_render_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_toolbar_delay_render_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-12-03
-	platform_editor_nested_media_selection_fix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_nested_media_selection_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2464,6 +2396,14 @@ export const editorExperimentsConfig: {
 	platform_editor_hide_toolbar_tooltips_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_hide_toolbar_tooltips_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-02-03
+	platform_editor_enghealth_a11y_jan_fixes: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_enghealth_a11y_jan_fixes',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

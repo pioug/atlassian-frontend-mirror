@@ -100,7 +100,7 @@ const styles = cssMap({
 
 type HEX = `#${string}`;
 
-export default () => {
+export default (): JSX.Element => {
 	const [customTheme, setCustomTheme] = useState<ThemeOptionsSchema>({
 		brandColor: '#65D26E',
 	});

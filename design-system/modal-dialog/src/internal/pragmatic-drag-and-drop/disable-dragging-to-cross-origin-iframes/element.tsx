@@ -88,6 +88,6 @@ const api = makeFixForAdapter({
 	watchForInteractionEnd,
 });
 
-export function disableDraggingToCrossOriginIFramesForElement() {
+export function disableDraggingToCrossOriginIFramesForElement(): CleanupFn {
 	return api.registerUsage();
 }

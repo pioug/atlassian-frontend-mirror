@@ -1,5 +1,38 @@
 # @atlaskit/editor-statsig-tmp
 
+## 20.0.0
+
+### Major Changes
+
+- [`d20e0e448e8b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d20e0e448e8b7) -
+  Cleanup experiment for style changes to prevent the numbered column from growing too big
+- [`ef378e27dc43d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef378e27dc43d) -
+  Clean up platform_editor_fix_quick_insert_consistency_exp
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.0
+
+### Major Changes
+
+- [`b30e41f7bbb3b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b30e41f7bbb3b) -
+  Cleanup platform_editor_wait_for_space_after_ascii_emoji
+
+### Minor Changes
+
+- [`9b8e6a65567af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b8e6a65567af) -
+  ENGHEALTH-48871: Fix aria-required-children a11y issue with Editor toolbar.
+
+## 18.0.0
+
+### Major Changes
+
+- [`e97bcf6a8bbf4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e97bcf6a8bbf4) -
+  [ux] Productionizes the experiment confluence_whiteboards_quick_insert by productionizing the
+  DIAGRAM variation of the experiment
+
 ## 17.13.0
 
 ### Minor Changes

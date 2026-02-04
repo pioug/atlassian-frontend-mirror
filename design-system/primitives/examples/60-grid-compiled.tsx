@@ -41,7 +41,7 @@ const Block = ({ style }: { style?: BoxProps<'div'>['style'] }) => (
 	/>
 );
 
-export default function Basic() {
+export default function Basic(): JSX.Element {
 	return (
 		<Grid gap="space.200" alignItems="center">
 			<Grid testId="grid-basic" rowGap="space.200" columnGap="space.400" xcss={styles.columns}>

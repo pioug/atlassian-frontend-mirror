@@ -76,7 +76,7 @@ const placements: Placement[] = [
 	'auto-end',
 ];
 
-const PopupPlacementExample = () => {
+const PopupPlacementExample = (): JSX.Element => {
 	const [idx, setIdx] = useState(0);
 	const [isOpen, setIsOpen] = useState(false);
 

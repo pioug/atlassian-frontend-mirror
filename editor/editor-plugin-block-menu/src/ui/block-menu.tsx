@@ -28,6 +28,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { Box } from '@atlaskit/primitives/compiled';
 import { redo, undo } from '@atlaskit/prosemirror-history';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -148,10 +149,27 @@ const BlockMenuContent = ({
 		setOutsideClickTargetRef(el);
 		setRef?.(el);
 	};
+	const shouldDisableArrowKeyNavigation = (event: KeyboardEvent) => {
+		if (event.key !== 'ArrowUp' && event.key !== 'ArrowDown') {
+			return false;
+		}
+
+		const target = event.target;
+		if (!(target instanceof HTMLElement)) {
+			return false;
+		}
+
+		return target.closest('[data-toolbar-nested-dropdown-menu]') !== null;
+	};
 
 	return (
 		<Box
 			testId="editor-block-menu"
+			role={
+				expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
+					? 'menu'
+					: undefined
+			}
 			ref={ref}
 			xcss={cx(
 				styles.base,
@@ -161,6 +179,7 @@ const BlockMenuContent = ({
 			<ArrowKeyNavigationProvider
 				type={ArrowKeyNavigationType.MENU}
 				handleClose={(e) => e.preventDefault()}
+				disableArrowKeyNavigation={shouldDisableArrowKeyNavigation}
 			>
 				<BlockMenuRenderer allRegisteredComponents={blockMenuComponents || []} />
 			</ArrowKeyNavigationProvider>

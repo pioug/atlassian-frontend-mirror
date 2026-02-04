@@ -90,7 +90,7 @@ function MaxSizeExample({ children, placement }: { children: ReactNode; placemen
 	);
 }
 
-export function MaxSizeRightExample() {
+export function MaxSizeRightExample(): JSX.Element {
 	return (
 		<MaxSizeExample placement="right">
 			<div css={[contentStyles.root, contentStyles.wide]}>This popup is very wide</div>
@@ -98,7 +98,7 @@ export function MaxSizeRightExample() {
 	);
 }
 
-export function MaxSizeLeftExample() {
+export function MaxSizeLeftExample(): JSX.Element {
 	return (
 		<div css={containerStyles.left}>
 			<MaxSizeExample placement="left">
@@ -108,7 +108,7 @@ export function MaxSizeLeftExample() {
 	);
 }
 
-export function MaxSizeTopExample() {
+export function MaxSizeTopExample(): JSX.Element {
 	return (
 		<div css={containerStyles.top}>
 			<MaxSizeExample placement="top">
@@ -118,7 +118,7 @@ export function MaxSizeTopExample() {
 	);
 }
 
-export function MaxSizeBottomExample() {
+export function MaxSizeBottomExample(): JSX.Element {
 	return (
 		<MaxSizeExample placement="bottom">
 			<div css={[contentStyles.root, contentStyles.tall]}>This popup is very tall</div>

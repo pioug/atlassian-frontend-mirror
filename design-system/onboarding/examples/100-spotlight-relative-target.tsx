@@ -36,7 +36,7 @@ const relativeDivStyles = css({
 export default class SpotlightRelativeTarget extends Component<Object, State> {
 	state: State = { active: false };
 
-	render() {
+	render(): JSX.Element {
 		const { active } = this.state;
 		return (
 			<SpotlightManager>

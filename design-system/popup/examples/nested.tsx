@@ -74,7 +74,7 @@ const NestedPopup: FC<NestedPopupProps> = ({ level }) => {
 	);
 };
 
-export default () => {
+export default (): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (

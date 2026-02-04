@@ -48,7 +48,7 @@ const StackLayout = ({
 	direction = 'VERTICAL',
 	size = 'MEDIUM',
 	testId,
-}: StackLayoutProps) => {
+}: StackLayoutProps): JSX.Element => {
 	return (
 		<div
 			css={[

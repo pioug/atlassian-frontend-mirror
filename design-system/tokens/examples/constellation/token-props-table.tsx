@@ -98,7 +98,7 @@ const TokenPropsTable = ({
 	required?: boolean;
 	defaultValue?: any;
 	deprecated?: boolean;
-}) => {
+}): JSX.Element => {
 	return (
 		<div css={styles.container}>
 			<table css={styles.table}>

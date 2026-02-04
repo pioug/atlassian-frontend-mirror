@@ -24,7 +24,7 @@ import { token } from '@atlaskit/tokens';
 
 import { Block, RetryContainer } from '../utils';
 
-const MotionFadeInGridOfElementsExample = () => {
+const MotionFadeInGridOfElementsExample = (): JSX.Element => {
 	const [state, setState] = useState(() => ({
 		size: 'medium' as any,
 		numOfChildren: 9,

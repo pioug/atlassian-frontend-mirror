@@ -31,8 +31,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-synced-block-renderer/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__editor-synced-block-renderer/app"
 	},
 	"references": [
 		{

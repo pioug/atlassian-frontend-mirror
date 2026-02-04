@@ -4,7 +4,7 @@
  */
 import { type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
 import { type BasePrimitiveProps } from '../components/types';
@@ -76,7 +76,7 @@ export const Hide = ({
 	children,
 	as: AsElement = 'div',
 	xcss,
-}: ResponsiveHideProps) => {
+}: ResponsiveHideProps): jsx.JSX.Element => {
 	const resolvedStyles = parseXcss(xcss);
 
 	return (

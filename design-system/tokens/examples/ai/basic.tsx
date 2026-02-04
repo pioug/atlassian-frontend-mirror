@@ -21,4 +21,4 @@ const styles = css({
 	paddingInlineStart: token('space.100'),
 });
 
-export default () => <div css={styles} />;
+export default (): JSX.Element => <div css={styles} />;

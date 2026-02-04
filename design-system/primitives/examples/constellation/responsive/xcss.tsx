@@ -38,7 +38,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => (
+export default (): JSX.Element => (
 	<Box xcss={styles.card}>
 		Border becomes narrower at smaller breakpoints. Try it out by resizing the browser window.
 	</Box>

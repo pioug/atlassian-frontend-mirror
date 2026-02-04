@@ -1,5 +1,32 @@
 # @atlaskit/editor-common
 
+## 111.11.5
+
+### Patch Changes
+
+- [`7f6ca0d7b6afc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f6ca0d7b6afc) -
+  Updated the table drag menu to fire a track analytic event when the menu is opened
+- [`1ce3b7e203e89`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ce3b7e203e89) -
+  Add traceid attribute to noDocChange event
+- [`3b3aa281c8524`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b3aa281c8524) -
+  Editor 4149 Fix keyboard navigation inside turn into
+- [`49dad8567c387`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49dad8567c387) -
+  EDITOR-4948 - Change performance mode threshold condition to include doc size, node count, and LCM
+  check.
+- Updated dependencies
+
+## 111.11.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 111.11.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 111.11.2
 
 ### Patch Changes

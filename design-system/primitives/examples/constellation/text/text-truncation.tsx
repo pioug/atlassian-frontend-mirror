@@ -11,7 +11,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<Box xcss={styles.box}>
 			<Stack space="space.300">

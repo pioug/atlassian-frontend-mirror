@@ -36,7 +36,7 @@ const searchTerm: { [key: string]: string } = {
 	s5: 'all',
 };
 
-export default () => {
+export default (): JSX.Element => {
 	const [num, setNum] = useState(1);
 
 	return (

@@ -17,10 +17,6 @@ export interface IconRendererProps {
 	 */
 	color: LozengeColor;
 	/**
-	 * Whether the lozenge is in a selected state
-	 */
-	isSelected?: boolean;
-	/**
 	 * Test ID for the icon
 	 */
 	testId?: string;
@@ -31,13 +27,8 @@ export interface IconRendererProps {
 }
 
 // Map lozenge colors to appropriate icon colors
-const getIconColor = (color: LozengeColor | ThemeAppearance, isSelected?: boolean): IconColor => {
-	// When lozenge is selected and interactive, use selected text color for consistency
-	if (isSelected) {
-		return token('color.icon.selected');
-	}
-
-	// For semantic colors, use corresponding semantic text colors
+const getIconColor = (color: LozengeColor | ThemeAppearance): IconColor => {
+	// For semantic colors, use corresponding semantic icon colors
 	switch (color) {
 		case 'success':
 			return token('color.icon.success');
@@ -81,14 +72,8 @@ const getIconColor = (color: LozengeColor | ThemeAppearance, isSelected?: boolea
  * Icon renderer for lozenge components
  * Handles proper sizing and color theming for icons
  */
-export const IconRenderer = ({
-	icon: Icon,
-	color,
-	isSelected,
-	testId,
-	size,
-}: IconRendererProps) => {
-	const iconColor = getIconColor(color, isSelected);
+export const IconRenderer = ({ icon: Icon, color, testId, size }: IconRendererProps) => {
+	const iconColor = getIconColor(color);
 
 	return <Icon color={iconColor} label="" size={size} testId={testId} />;
 };

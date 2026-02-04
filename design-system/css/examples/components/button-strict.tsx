@@ -32,7 +32,7 @@ export function Button({
 }: {
 	children: React.ReactNode;
 	xcss?: StrictXCSSProp<'color' | 'backgroundColor', '&:hover' | '&:active'>;
-}) {
+}): JSX.Element {
 	return (
 		<button
 			type="button"

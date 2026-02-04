@@ -1,6 +1,10 @@
 import { useCallback, useRef } from 'react';
 
-export const useAnimationFrame = () => {
+export const useAnimationFrame = (): {
+    requestFrame: (callback: () => void) => number;
+    cancelFrame: (id: number) => void;
+    cancelAllFrames: () => void;
+} => {
 	const animationsRef = useRef<Array<number>>([]);
 
 	const requestFrame = useCallback((callback: () => void): number => {

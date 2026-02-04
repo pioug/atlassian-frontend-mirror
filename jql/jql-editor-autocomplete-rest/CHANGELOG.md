@@ -1,5 +1,13 @@
 # @atlaskit/jql-editor-autocomplete-rest
 
+## 3.0.3
+
+### Patch Changes
+
+- [`eb7f33162d948`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb7f33162d948) -
+  Fixes a bug where no autocompleted suggestions were being shown for fields with special characters
+  (such as "&") in the name.
+
 ## 3.0.2
 
 ### Patch Changes

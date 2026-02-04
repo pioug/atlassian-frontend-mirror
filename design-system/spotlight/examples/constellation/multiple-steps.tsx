@@ -43,7 +43,7 @@ const styles = cssMap({
 	},
 });
 
-const Example = () => {
+const Example = (): JSX.Element => {
 	const [currentStep, setCurrentStep] = useState<number>(0);
 
 	const dismiss = () => setCurrentStep(0);

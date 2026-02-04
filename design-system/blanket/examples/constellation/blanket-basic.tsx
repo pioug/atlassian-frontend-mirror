@@ -9,7 +9,7 @@ import Button from '@atlaskit/button/new';
 import { jsx } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
 
-const BlanketBasicExample = () => {
+const BlanketBasicExample = (): JSX.Element => {
 	const [isBlanketVisible, setIsBlanketVisible] = useState(false);
 	const [shouldAllowClickThrough, setShouldAllowClickThrough] = useState(true);
 

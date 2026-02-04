@@ -13,7 +13,7 @@ import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
 
 import { Block, Centered, RetryContainer } from '../utils';
 
-const MotionFadeBetweenElements = () => {
+const MotionFadeBetweenElements = (): JSX.Element => {
 	const [index, setIndex] = useState(0);
 	const [appear, setAppear] = useState(true);
 	const [exitThenEnter, setExitThenEnter] = useState(false);

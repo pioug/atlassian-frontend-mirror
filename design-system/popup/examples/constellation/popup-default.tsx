@@ -21,7 +21,7 @@ const contentStyles = cssMap({
 	},
 });
 
-const PopupDefaultExample = () => {
+const PopupDefaultExample = (): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (

@@ -16,7 +16,7 @@ import { Block, Centered, RetryContainer } from './utils';
 const froms: Direction[] = ['top', 'right', 'bottom', 'left'];
 const fades: Fade[] = ['none', 'in', 'out', 'inout'];
 
-export default () => {
+export default (): JSX.Element => {
 	const [isIn, setIsIn] = useState(true);
 	const [fromIndex, setFromIndex] = useState(0);
 	const [fadeIndex, setFadeIndex] = useState(0);

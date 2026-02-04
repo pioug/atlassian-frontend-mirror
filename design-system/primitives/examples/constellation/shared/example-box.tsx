@@ -30,7 +30,7 @@ const Block = ({
 	padding?: Space;
 	backgroundColor?: BackgroundColor;
 	children?: ReactNode;
-}) => (
+}): JSX.Element => (
 	<Box
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		style={style}

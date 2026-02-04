@@ -46,7 +46,7 @@ const CustomTooltip: React.ForwardRefExoticComponent<
 	);
 });
 
-export default function TooltipComponentPropExample() {
+export default function TooltipComponentPropExample(): JSX.Element {
 	return (
 		<Tooltip component={CustomTooltip} content="This is a customized tooltip">
 			{(tooltipProps) => <Button {...tooltipProps}>Hover or keyboard focus on me</Button>}

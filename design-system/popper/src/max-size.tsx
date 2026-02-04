@@ -1,4 +1,4 @@
-import type { Modifier } from '@popperjs/core';
+import type { Modifier, ModifierArguments } from '@popperjs/core';
 
 type MaxSizeData = {
 	viewport: {
@@ -7,7 +7,25 @@ type MaxSizeData = {
 	};
 };
 
-export function getMaxSizeModifiers({ viewportPadding }: { viewportPadding: number }) {
+export function getMaxSizeModifiers({ viewportPadding }: { viewportPadding: number }): [{
+    /**
+     * Performing DOM measurements in the 'read' phase,
+     * which is the convention for popper modifiers
+     */
+    readonly name: "maxSizeData";
+    readonly enabled: true;
+    readonly phase: "read";
+    readonly fn: ({ state, name }: ModifierArguments<any>) => void;
+}, {
+    /**
+     * Applying max size CSS
+     */
+    readonly name: "maxSize";
+    readonly enabled: true;
+    readonly phase: "beforeWrite";
+    readonly requiresIfExists: ["offset", "preventOverflow", "flip"];
+    readonly fn: ({ state }: ModifierArguments<any>) => void;
+}] {
 	return [
 		{
 			/**

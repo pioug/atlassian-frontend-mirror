@@ -22,7 +22,7 @@ const styles = cssMap({
 	},
 });
 
-const ResponsiveGrid = () => {
+const ResponsiveGrid = (): JSX.Element => {
 	return (
 		<Grid xcss={styles.responsive} gap="space.200" alignItems="center">
 			<ExampleBox />

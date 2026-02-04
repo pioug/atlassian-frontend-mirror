@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { memo } from 'react';
+import { memo, type NamedExoticComponent } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 
@@ -45,7 +45,7 @@ const sizeStyles = cssMap({
 /**
  * __Skeleton__
  */
-const Skeleton = memo(function Skeleton({
+const Skeleton: NamedExoticComponent<SkeletonProps> = memo(function Skeleton({
 	testId,
 	size = 'medium',
 	color = 'currentColor',

@@ -11,7 +11,7 @@ import { ExitingPersistence, StaggeredEntrance, ZoomIn } from '@atlaskit/motion'
 
 import { Block, Centered, RetryContainer } from './utils';
 
-export default () => {
+export default (): JSX.Element => {
 	const [isIn, setIsIn] = useState(true);
 
 	return (

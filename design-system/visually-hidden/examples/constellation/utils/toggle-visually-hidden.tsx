@@ -25,7 +25,7 @@ const ToggleVisuallyHidden = ({
 }: {
 	id: string;
 	children(isVisible: boolean): ReactNode;
-}) => {
+}): JSX.Element => {
 	const [isVisible, setIsVisible] = useState(false);
 
 	return (

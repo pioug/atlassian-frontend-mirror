@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { memo } from 'react';
+import { memo, type NamedExoticComponent } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 
@@ -53,7 +53,7 @@ const svgStyles = css({
  *
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  */
-const SVG = memo(function SVG({
+const SVG: NamedExoticComponent<SVGProps> = memo(function SVG({
 	size = 'medium',
 	label,
 	primaryColor = 'currentColor',

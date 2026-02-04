@@ -26,7 +26,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<Stack space="space.300">
 			<section>

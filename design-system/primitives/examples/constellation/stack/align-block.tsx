@@ -15,7 +15,7 @@ const styles = cssMap({
 	},
 });
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	return (
 		<Box testId="stack-example" padding="space.100">
 			<Inline space="space.200" spread="space-between">

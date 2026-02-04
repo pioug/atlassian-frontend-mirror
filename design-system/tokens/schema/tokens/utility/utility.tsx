@@ -1,5 +1,5 @@
 import type { AttributeSchema, UtilTokenSchema } from '../../../src/types';
-import type { BaseToken } from '../../palettes/palette';
+import type { BaseToken, PaletteValues } from '../../palettes/palette';
 
 const utility: AttributeSchema<UtilTokenSchema<BaseToken>> = {
 	UNSAFE: {
@@ -37,4 +37,7 @@ const utility: AttributeSchema<UtilTokenSchema<BaseToken>> = {
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { utility };
+const _default_1: {
+    utility: AttributeSchema<UtilTokenSchema<PaletteValues>>;
+} = { utility };
+export default _default_1;

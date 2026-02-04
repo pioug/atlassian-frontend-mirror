@@ -4,7 +4,7 @@
  */
 import { useEffect } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 import {
@@ -66,7 +66,7 @@ const fixedOuterStyles = css({
  * - [Examples](https://atlassian.design/components/page-layout/examples)
  * - [Code](https://atlassian.design/components/page-layout/code)
  */
-const RightSidebar = (props: SlotWidthProps) => {
+const RightSidebar = (props: SlotWidthProps): jsx.JSX.Element => {
 	const {
 		children,
 		width = DEFAULT_RIGHT_SIDEBAR_WIDTH,

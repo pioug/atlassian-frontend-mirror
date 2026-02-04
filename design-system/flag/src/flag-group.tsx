@@ -126,7 +126,7 @@ const flagGroupContainerStyles = css({
  * - [Examples](https://atlassian.design/components/flag/flag-group/examples)
  * - [Code](https://atlassian.design/components/flag/flag-group/code)
  */
-const FlagGroup = (props: FlagGroupProps) => {
+const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 	const {
 		id,
 		label = 'Flag notifications',

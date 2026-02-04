@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 8.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.3
 
 ### Patch Changes

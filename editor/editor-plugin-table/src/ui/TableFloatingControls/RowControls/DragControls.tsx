@@ -3,7 +3,6 @@ import type { MouseEvent } from 'react';
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -14,21 +13,25 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { clearHoverSelection } from '../../../pm-plugins/commands';
-import { toggleDragMenu } from '../../../pm-plugins/drag-and-drop/commands';
+import { toggleDragMenuWithAnalytics } from '../../../pm-plugins/drag-and-drop/commands-with-analytics';
 import type { TriggerType } from '../../../pm-plugins/drag-and-drop/types';
 import { getPluginState as getTablePluginState } from '../../../pm-plugins/plugin-factory';
 import { getRowHeights, getRowsParams } from '../../../pm-plugins/utils/row-controls';
 import { getSelectedRowIndexes } from '../../../pm-plugins/utils/selection';
-import type { TablePlugin } from '../../../tablePluginType';
 import { TableCssClassName as ClassName } from '../../../types';
-import type { CellHoverMeta, DraggableSourceData, HandleTypes } from '../../../types';
+import type {
+	CellHoverMeta,
+	DraggableSourceData,
+	HandleTypes,
+	PluginInjectionAPI,
+} from '../../../types';
 import { dragRowControlsWidth, dropTargetExtendedWidth } from '../../consts';
 import type { DragHandleAppearance } from '../../DragHandle';
 import { DragHandle } from '../../DragHandle';
 import RowDropTarget from '../RowDropTarget';
 
 type DragControlsProps = {
-	api?: ExtractInjectionAPI<TablePlugin>;
+	api?: PluginInjectionAPI;
 	editorView: EditorView;
 	hoveredCell?: CellHoverMeta;
 	hoverRows: (rows: number[], danger?: boolean) => void;
@@ -111,14 +114,14 @@ export const DragControls = ({
 			if (event?.shiftKey) {
 				return;
 			}
-			toggleDragMenu(
+			toggleDragMenuWithAnalytics(api?.analytics?.actions)(
 				undefined,
 				'row',
 				hoveredCell?.rowIndex,
 				trigger,
 			)(editorView.state, editorView.dispatch);
 		},
-		[editorView, hoveredCell?.rowIndex],
+		[editorView, hoveredCell?.rowIndex, api?.analytics?.actions],
 	);
 
 	const rowIndex = hoveredCell?.rowIndex;
@@ -298,13 +301,13 @@ export const DragControls = ({
 				gridTemplateRows: heights,
 				gridTemplateColumns: isDragging
 					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						`${dropTargetExtendedWidth}px ${dragRowControlsWidth}px ${tableWidth}px`
+					  `${dropTargetExtendedWidth}px ${dragRowControlsWidth}px ${tableWidth}px`
 					: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						`0px ${dragRowControlsWidth}px 0px`,
+					  `0px ${dragRowControlsWidth}px 0px`,
 				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 				left: isDragging
 					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						`-${dropTargetExtendedWidth + 2}px`
+					  `-${dropTargetExtendedWidth + 2}px`
 					: token('space.negative.025', '-2px'),
 			}}
 			onMouseMove={handleMouseMove}

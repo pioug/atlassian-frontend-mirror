@@ -16,7 +16,7 @@ const styles = cssMap({
 	root: { paddingBlock: token('space.200'), paddingInline: token('space.200') },
 });
 
-const IconTileNewExample = () => {
+const IconTileNewExample = (): JSX.Element => {
 	const sizes: IconTileProps['size'][] = [
 		undefined,
 		'xsmall',

@@ -24,7 +24,7 @@ const contentStyles = cssMap({
 	},
 });
 
-export default function FullScreenModalExample() {
+export default function FullScreenModalExample(): JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const open = useCallback(() => setIsOpen(true), []);
 	const close = useCallback(() => setIsOpen(false), []);

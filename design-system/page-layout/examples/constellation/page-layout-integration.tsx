@@ -4,7 +4,7 @@
  */
 import { useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
 import {
@@ -29,7 +29,7 @@ import {
 
 import { SlotLabel, SlotWrapper } from '../common';
 
-export default function ProductLayout() {
+export default function ProductLayout(): jsx.JSX.Element {
 	return (
 		<PageLayout>
 			<TopNavigation
@@ -104,7 +104,7 @@ const SideNavigationContent = () => {
  * Components for composing top and side navigation
  */
 
-export const DefaultCreate = () => (
+export const DefaultCreate = (): jsx.JSX.Element => (
 	<Create buttonTooltip="Create" iconButtonTooltip="Create" onClick={noop} text="Create" />
 );
 
@@ -112,7 +112,7 @@ const ProductHomeExample = () => (
 	<ProductHome onClick={console.log} icon={ConfluenceIcon} logo={ConfluenceLogo} siteTitle="App" />
 );
 
-export const HelpPopup = () => {
+export const HelpPopup = (): jsx.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const onClick = () => {

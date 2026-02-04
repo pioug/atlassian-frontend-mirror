@@ -21,7 +21,7 @@ const styles = cssMap({
 	},
 });
 
-export default function KeyboardShortcutExample() {
+export default function KeyboardShortcutExample(): JSX.Element {
 	return (
 		<div css={styles.container}>
 			<Tooltip content="Single key" shortcut={['[']}>

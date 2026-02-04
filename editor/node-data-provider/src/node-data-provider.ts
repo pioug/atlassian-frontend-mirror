@@ -115,7 +115,7 @@ export abstract class NodeDataProvider<Node extends JSONNode, Data> {
 	 * @param ssrData A map of node data keys to their corresponding data.
 	 */
 	setSSRData(ssrData: SSRData<Data> = {}): void {
-		if (fg('platform_synced_block_patch1')) {
+		if (fg('platform_synced_block_patch_1')) {
 			this.updateCache(ssrData, { strategy: 'replace', source: 'ssr' });
 			return;
 		}
@@ -242,7 +242,7 @@ export abstract class NodeDataProvider<Node extends JSONNode, Data> {
 				// because it could be stale data.
 				if (cacheVersionBeforeRequest === this.cacheVersion) {
 					// Replace promise with the resolved data in the cache
-					if (fg('platform_synced_block_patch1')) {
+					if (fg('platform_synced_block_patch_1')) {
 						this.updateCache({ [dataKey]: data }, { strategy: 'merge', source: 'network' });
 					} else {
 						this.cache[dataKey] = {

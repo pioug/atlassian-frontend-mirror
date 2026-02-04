@@ -36,6 +36,7 @@ export enum TABLE_ACTION {
 	MOVED_COLUMN = 'movedColumn',
 	CLONED_ROW = 'clonedRow',
 	CLONED_COLUMN = 'clonedColumn',
+	DRAG_MENU_OPENED = 'dragMenuOpened',
 	/**
 	 * This is a unique action that's used to track legacy table move behaviour flow of insert+copy+paste. Please use
 	 * the MOVED_ROW | MOVED_COLUMN actions if you want to track events which move row/cols in a single step.
@@ -131,7 +132,6 @@ export type OverflowStateInfo = {
 	width: number;
 };
 
-
 type TableDeleteAEP = TableAEP<
 	TABLE_ACTION.DELETED,
 	{
@@ -144,12 +144,12 @@ type TableClearAEP = TableAEP<
 	TABLE_ACTION.CLEARED,
 	{
 		inputMethod:
-		| INPUT_METHOD.KEYBOARD
-		| INPUT_METHOD.CONTEXT_MENU
-		| INPUT_METHOD.FLOATING_TB
-		| INPUT_METHOD.TABLE_CONTEXT_MENU;
+			| INPUT_METHOD.KEYBOARD
+			| INPUT_METHOD.CONTEXT_MENU
+			| INPUT_METHOD.FLOATING_TB
+			| INPUT_METHOD.TABLE_CONTEXT_MENU;
 	} & HorizontalAndVerticalCells &
-	TotalRowAndColCount,
+		TotalRowAndColCount,
 	undefined
 >;
 
@@ -165,9 +165,9 @@ type TableColorAEP = TableAEP<
 	TABLE_ACTION.COLORED,
 	{
 		inputMethod:
-		| INPUT_METHOD.CONTEXT_MENU
-		| INPUT_METHOD.FLOATING_TB
-		| INPUT_METHOD.TABLE_CONTEXT_MENU;
+			| INPUT_METHOD.CONTEXT_MENU
+			| INPUT_METHOD.FLOATING_TB
+			| INPUT_METHOD.TABLE_CONTEXT_MENU;
 	} & { cellColor: string } & AllCellInfo,
 	undefined
 >;
@@ -196,12 +196,12 @@ type TableAddRowOrColumnAEP = TableAEP<
 	TABLE_ACTION.ADDED_ROW | TABLE_ACTION.ADDED_COLUMN,
 	{
 		inputMethod:
-		| INPUT_METHOD.SHORTCUT
-		| INPUT_METHOD.CONTEXT_MENU
-		| INPUT_METHOD.BUTTON
-		| INPUT_METHOD.KEYBOARD
-		| INPUT_METHOD.FLOATING_TB
-		| INPUT_METHOD.TABLE_CONTEXT_MENU;
+			| INPUT_METHOD.SHORTCUT
+			| INPUT_METHOD.CONTEXT_MENU
+			| INPUT_METHOD.BUTTON
+			| INPUT_METHOD.KEYBOARD
+			| INPUT_METHOD.FLOATING_TB
+			| INPUT_METHOD.TABLE_CONTEXT_MENU;
 		position: number;
 	} & TotalRowAndColCount,
 	undefined
@@ -212,11 +212,11 @@ type TableDeleteRowOrColumnAEP = TableAEP<
 	{
 		count: number;
 		inputMethod:
-		| INPUT_METHOD.CONTEXT_MENU
-		| INPUT_METHOD.BUTTON
-		| INPUT_METHOD.FLOATING_TB
-		| INPUT_METHOD.SHORTCUT
-		| INPUT_METHOD.TABLE_CONTEXT_MENU;
+			| INPUT_METHOD.CONTEXT_MENU
+			| INPUT_METHOD.BUTTON
+			| INPUT_METHOD.FLOATING_TB
+			| INPUT_METHOD.SHORTCUT
+			| INPUT_METHOD.TABLE_CONTEXT_MENU;
 		position: number;
 	} & TotalRowAndColCount,
 	undefined
@@ -227,9 +227,9 @@ type TableDistributeColumnsWidthsAEP = TableAEP<
 	{
 		count: number;
 		inputMethod:
-		| INPUT_METHOD.CONTEXT_MENU
-		| INPUT_METHOD.FLOATING_TB
-		| INPUT_METHOD.TABLE_CONTEXT_MENU;
+			| INPUT_METHOD.CONTEXT_MENU
+			| INPUT_METHOD.FLOATING_TB
+			| INPUT_METHOD.TABLE_CONTEXT_MENU;
 		position: number;
 	} & TotalRowAndColCount,
 	undefined
@@ -239,15 +239,15 @@ type TableSortColumnAEP = TableAEP<
 	TABLE_ACTION.SORTED_COLUMN,
 	{
 		inputMethod:
-		| INPUT_METHOD.SHORTCUT
-		| INPUT_METHOD.CONTEXT_MENU
-		| INPUT_METHOD.TABLE_CONTEXT_MENU
-		| INPUT_METHOD.BUTTON
-		| INPUT_METHOD.FLOATING_TB
-		| INPUT_METHOD.KEYBOARD;
+			| INPUT_METHOD.SHORTCUT
+			| INPUT_METHOD.CONTEXT_MENU
+			| INPUT_METHOD.TABLE_CONTEXT_MENU
+			| INPUT_METHOD.BUTTON
+			| INPUT_METHOD.FLOATING_TB
+			| INPUT_METHOD.KEYBOARD;
 		position: number;
 	} & TotalRowAndColCount &
-	SortColumn,
+		SortColumn,
 	undefined
 >;
 
@@ -264,6 +264,15 @@ type TableAttemptedResizeAEP = UIAEP<
 	ACTION_SUBJECT.TABLE,
 	null,
 	AttemptedResizeInfo,
+	undefined
+>;
+
+type TableDragMenuOpenedAEP = TableAEP<
+	TABLE_ACTION.DRAG_MENU_OPENED,
+	{
+		direction: 'row' | 'column';
+		inputMethod: INPUT_METHOD.KEYBOARD | INPUT_METHOD.MOUSE;
+	},
 	undefined
 >;
 
@@ -318,9 +327,9 @@ type TableMovedRowOrColumnAEP = TableAEP<
 		count: number;
 		distance: number;
 		inputMethod:
-		| INPUT_METHOD.TABLE_CONTEXT_MENU
-		| INPUT_METHOD.DRAG_AND_DROP
-		| INPUT_METHOD.SHORTCUT;
+			| INPUT_METHOD.TABLE_CONTEXT_MENU
+			| INPUT_METHOD.DRAG_AND_DROP
+			| INPUT_METHOD.SHORTCUT;
 		status: TABLE_STATUS.SUCCESS | TABLE_STATUS.CANCELLED | TABLE_STATUS.INVALID;
 	} & TotalRowAndColCount,
 	undefined
@@ -333,9 +342,9 @@ type TableClonedRowOrColumnAEP = TableAEP<
 		count: number;
 		distance: number;
 		inputMethod:
-		| INPUT_METHOD.TABLE_CONTEXT_MENU
-		| INPUT_METHOD.DRAG_AND_DROP
-		| INPUT_METHOD.SHORTCUT;
+			| INPUT_METHOD.TABLE_CONTEXT_MENU
+			| INPUT_METHOD.DRAG_AND_DROP
+			| INPUT_METHOD.SHORTCUT;
 		status: TABLE_STATUS.SUCCESS | TABLE_STATUS.CANCELLED | TABLE_STATUS.INVALID;
 	} & TotalRowAndColCount,
 	undefined
@@ -419,9 +428,14 @@ type TableHeightInfoAEP = TableAEP<
 >;
 
 type TableStickyHeaderEnabledAEP = UIAEP<
-	TABLE_ACTION.STICKY_HEADER_METHOD_TOGGLED, ACTION_SUBJECT.TABLE, ACTION_SUBJECT_ID.TABLE_STICKY_HEADER, {
+	TABLE_ACTION.STICKY_HEADER_METHOD_TOGGLED,
+	ACTION_SUBJECT.TABLE,
+	ACTION_SUBJECT_ID.TABLE_STICKY_HEADER,
+	{
 		nativeStickyHeaderEnabled: boolean;
-	}, undefined>
+	},
+	undefined
+>;
 
 export type TableEventPayload =
 	| TableDeleteAEP
@@ -438,6 +452,7 @@ export type TableEventPayload =
 	| TableAttemptedResizeAEP
 	| TableDistributeColumnsWidthsAEP
 	| TableCollapsedAEP
+	| TableDragMenuOpenedAEP
 	| TableFixedAEP
 	| TableOverflowChangedAEP
 	| TableInitialOverflowCapturedAEP

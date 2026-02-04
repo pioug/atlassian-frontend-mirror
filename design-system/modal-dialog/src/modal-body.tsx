@@ -61,7 +61,7 @@ export interface ModalBodyProps {
  * - [Code](https://atlassian.design/components/modal-dialog/code#modal-body-props)
  * - [Usage](https://atlassian.design/components/modal-dialog/usage)
  */
-const ModalBody = (props: ModalBodyProps) => {
+const ModalBody = (props: ModalBodyProps): JSX.Element => {
 	const { children, testId: userDefinedTestId, hasInlinePadding = true } = props;
 	const { testId: modalTestId } = useModal();
 	const shouldScrollInViewport = useScroll();

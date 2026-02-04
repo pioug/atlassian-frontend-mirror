@@ -54,7 +54,7 @@ const Wrapper = ({
 	textColor,
 	testId: userDefinedTestId,
 	...rest
-}: WrapperProps) => {
+}: WrapperProps): JSX.Element => {
 	// Only required for old logos with gradients, which set gradient values to `inherit` when no appearance is provided
 	const shouldApplyStopColor = appearance === undefined;
 

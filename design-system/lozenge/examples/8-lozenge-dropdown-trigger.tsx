@@ -153,39 +153,6 @@ export default function LozengeDropdownTriggerExample() {
 			</Box>
 
 			<Box>
-				<Heading size="medium">Selected</Heading>
-				<Box xcss={styles.group}>
-					<LozengeDropdownTrigger appearance="accent-blue" isSelected testId={`accent-blue}`}>
-						Selected
-					</LozengeDropdownTrigger>
-					<LozengeDropdownTrigger appearance="accent-blue" isSelected iconBefore={ImageIcon}>
-						Selected with icon
-					</LozengeDropdownTrigger>
-					<LozengeDropdownTrigger appearance="accent-blue" isSelected spacing="spacious">
-						Selected spacious
-					</LozengeDropdownTrigger>
-				</Box>
-			</Box>
-
-			<Box>
-				<Heading size="medium">Spacing</Heading>
-				<Text>Default vs spacious spacing variants.</Text>
-				<Box xcss={styles.group}>
-					<LozengeDropdownTrigger appearance="information">default</LozengeDropdownTrigger>
-					<LozengeDropdownTrigger appearance="information" spacing="spacious">
-						spacious
-					</LozengeDropdownTrigger>
-					<LozengeDropdownTrigger
-						appearance="information"
-						spacing="spacious"
-						iconBefore={ImageIcon}
-					>
-						spacious w/ icon
-					</LozengeDropdownTrigger>
-				</Box>
-			</Box>
-
-			<Box>
 				<Heading size="medium">Status switcher</Heading>
 				<Text>
 					A practical example using LozengeDropdownTrigger with DropdownMenu to create a status
@@ -217,6 +184,52 @@ export default function LozengeDropdownTriggerExample() {
 							))}
 						</DropdownItemGroup>
 					</DropdownMenu>
+				</Box>
+			</Box>
+
+			<Box>
+				<Heading size="medium">Selected</Heading>
+				<Text>
+					Dropdown trigger lozenges with selected state. Pressed background/icon/border colors are
+					applied.
+				</Text>
+				<Box xcss={styles.group}>
+					<LozengeDropdownTrigger appearance="success" isSelected iconBefore={ImageIcon}>
+						success
+					</LozengeDropdownTrigger>
+					<LozengeDropdownTrigger appearance="information" isSelected iconBefore={ImageIcon}>
+						information
+					</LozengeDropdownTrigger>
+					<LozengeDropdownTrigger appearance="danger" isSelected iconBefore={ImageIcon}>
+						danger
+					</LozengeDropdownTrigger>
+					<LozengeDropdownTrigger appearance="warning" isSelected iconBefore={ImageIcon}>
+						warning
+					</LozengeDropdownTrigger>
+					<LozengeDropdownTrigger appearance="discovery" isSelected iconBefore={ImageIcon}>
+						discovery
+					</LozengeDropdownTrigger>
+					<LozengeDropdownTrigger appearance="neutral" isSelected iconBefore={ImageIcon}>
+						neutral
+					</LozengeDropdownTrigger>
+				</Box>
+			</Box>
+
+			<Box>
+				<Heading size="medium">Spacing</Heading>
+				<Text>Default vs spacious spacing variants.</Text>
+				<Box xcss={styles.group}>
+					<LozengeDropdownTrigger appearance="information">default</LozengeDropdownTrigger>
+					<LozengeDropdownTrigger appearance="information" spacing="spacious">
+						spacious
+					</LozengeDropdownTrigger>
+					<LozengeDropdownTrigger
+						appearance="information"
+						spacing="spacious"
+						iconBefore={ImageIcon}
+					>
+						spacious w/ icon
+					</LozengeDropdownTrigger>
 				</Box>
 			</Box>
 

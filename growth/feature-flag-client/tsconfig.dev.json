@@ -35,8 +35,7 @@
 	"compilerOptions": {
 		"strict": true,
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__feature-flag-client/dev",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__feature-flag-client/dev"
 	},
 	"references": [
 		{

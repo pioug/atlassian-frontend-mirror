@@ -30,7 +30,7 @@ const wrapperStyles = css({
 const copy =
 	'Quickly switch between your most recent projects by selecting the project name and icon.';
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<div css={wrapperStyles} data-testid="spotlight-examples">
 			<SpotlightCard

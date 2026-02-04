@@ -4379,7 +4379,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '32051:1614',
 		usage: 'Known uses: Intro blog feed picker on Hello',
-		slackChannel: '#cc-insights-and-reporting',
+		slackChannel: '#cc-performance-insights',
 		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'work-item-add': {

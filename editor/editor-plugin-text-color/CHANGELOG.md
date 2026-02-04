@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-text-color
 
+## 7.2.12
+
+### Patch Changes
+
+- [`f46584e5ebc44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f46584e5ebc44) -
+  Add gate to target jsm-portal_web
+- Updated dependencies
+
+## 7.2.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.2.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.2.9
 
 ### Patch Changes

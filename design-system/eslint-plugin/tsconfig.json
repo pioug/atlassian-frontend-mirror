@@ -1,24 +1,26 @@
 {
-  "extends": "../../../tsconfig.node.json",
-  "include": [
-    "__tests__/**/*.ts",
-    "__tests__/**/*.tsx",
-    "docs/**/*.ts",
-    "docs/**/*.tsx",
-    "examples/**/*.ts",
-    "examples/**/*.tsx",
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "scripts"
-  ],
-  "exclude": [],
-  "compilerOptions": {
-    "lib": ["ES2021.String"]
-  },
-  "ts-node": {
-    // It is faster to skip typechecking.
-    "transpileOnly": true,
-    // We must load files for third party defs - https://typestrong.org/ts-node/docs/types
-    "files": true
-  }
+	"extends": "../../../tsconfig.node.json",
+	"include": [
+		"__tests__/**/*.ts",
+		"__tests__/**/*.tsx",
+		"docs/**/*.ts",
+		"docs/**/*.tsx",
+		"examples/**/*.ts",
+		"examples/**/*.tsx",
+		"src/**/*.ts",
+		"src/**/*.tsx",
+		"scripts"
+	],
+	"exclude": [],
+	"compilerOptions": {
+		"lib": ["ES2021.String", "ES2022.String", "ES2022.Array"],
+		"module": "commonjs",
+		"moduleResolution": "node"
+	},
+	"ts-node": {
+		// It is faster to skip typechecking.
+		"transpileOnly": true,
+		// We must load files for third party defs - https://typestrong.org/ts-node/docs/types
+		"files": true
+	}
 }

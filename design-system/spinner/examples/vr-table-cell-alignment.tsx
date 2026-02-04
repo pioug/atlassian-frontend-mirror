@@ -34,7 +34,7 @@ const tableCellStyles = css({
 	textAlign: 'center',
 });
 
-export default function TableCellAlignment() {
+export default function TableCellAlignment(): JSX.Element {
 	return (
 		<table data-testid="spinner-table" css={[tableStyles, animationStyles]}>
 			<tr>

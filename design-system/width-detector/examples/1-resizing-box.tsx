@@ -57,7 +57,7 @@ const styles = cssMap({
 
 const displayResults = (width?: number) => <div css={styles.resultBox}>Width: {width}</div>;
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	return (
 		<div>
 			<p>

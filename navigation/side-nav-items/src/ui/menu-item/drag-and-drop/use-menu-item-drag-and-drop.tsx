@@ -7,7 +7,6 @@ import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } fro
 
 import { jsx } from '@compiled/react';
 import { createPortal } from 'react-dom';
-import invariant from 'tiny-invariant';
 
 import { type Instruction } from '@atlaskit/pragmatic-drag-and-drop-hitbox/list-item';
 import {
@@ -104,7 +103,14 @@ export function useMenuItemDragAndDrop({
 			return;
 		}
 		const element = getDraggableElement();
-		invariant(element, `draggableAnchorRef or draggableButtonRef not set`);
+
+		// Some elements may initially want to use DnD, then decide not to render.
+		// In that case, we don't want to throw an error, but show a warning.
+		if (!element) {
+			// eslint-disable-next-line no-console
+			console.warn(`draggableAnchorRef or draggableButtonRef not set`);
+			return;
+		}
 
 		return draggable({
 			element,
@@ -151,7 +157,14 @@ export function useMenuItemDragAndDrop({
 		const draggableElement = getDraggableElement();
 
 		const dropTarget = dropTargetRef.current;
-		invariant(dropTarget, `dropTargetRef was not set`);
+
+		// Some elements may initially want to use DnD, then decide not to render.
+		// In that case, we don't want to throw an error, but show a warning.
+		if (!dropTarget) {
+			// eslint-disable-next-line no-console
+			console.warn(`dropTargetRef was not set`);
+			return;
+		}
 
 		return dropTargetForElements({
 			element: dropTarget,

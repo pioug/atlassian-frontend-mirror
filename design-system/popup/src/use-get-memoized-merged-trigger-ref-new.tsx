@@ -1,6 +1,6 @@
 import { type Dispatch, type SetStateAction, useState } from 'react';
 
-import memoizeOne from 'memoize-one';
+import memoizeOne, { type MemoizedFn } from 'memoize-one';
 
 /**
  * Here setting ref is not dependent on isOpen flag which is failing in React 18 strict mode
@@ -8,7 +8,7 @@ import memoizeOne from 'memoize-one';
  * Compositional popup always uses this variant.
  * @returns Function to set trigger ref
  */
-export const useGetMemoizedMergedTriggerRefNew = () => {
+export const useGetMemoizedMergedTriggerRefNew = (): MemoizedFn<(ref: React.RefCallback<HTMLElement> | React.MutableRefObject<HTMLElement> | null, setTriggerRef: Dispatch<SetStateAction<HTMLElement | null>>) => (node: HTMLElement | null) => void> => {
 	const [getMemoizedMergedTriggerRefNew] = useState(() =>
 		memoizeOne(
 			(

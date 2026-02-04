@@ -7,8 +7,6 @@ import {
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as createUUID } from 'uuid';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import coinflip from '../coinflip';
 import { getInteractionRate, getTypingPerformanceTracingMethod } from '../config';
 import { addMetadata, addNewInteraction, tryComplete } from '../interaction-metrics';
@@ -97,16 +95,13 @@ function typingPerformanceTracingTimeout(element: HTMLElement, name: string, rat
 		}, 0);
 	};
 
-	if (typeof element?.addEventListener !== 'function' && fg('jfp-magma-ufo-event-listener-error')) {
+	if (typeof element?.addEventListener !== 'function') {
 		return;
 	}
 	// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 	element.addEventListener('keypress', onKeyPressHandler);
 	return () => {
-		if (
-			typeof element?.removeEventListener !== 'function' &&
-			fg('jfp-magma-ufo-event-listener-error')
-		) {
+		if (typeof element?.removeEventListener !== 'function') {
 			return;
 		}
 		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
@@ -184,16 +179,13 @@ function typingPerformanceTracingTimeoutNoAlloc(element: HTMLElement, name: stri
 		}, 0);
 	};
 
-	if (typeof element?.addEventListener !== 'function' && fg('jfp-magma-ufo-event-listener-error')) {
+	if (typeof element?.addEventListener !== 'function') {
 		return;
 	}
 	// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 	element.addEventListener('keypress', onKeyPressHandler);
 	return () => {
-		if (
-			typeof element?.removeEventListener !== 'function' &&
-			fg('jfp-magma-ufo-event-listener-error')
-		) {
+		if (typeof element?.removeEventListener !== 'function') {
 			return;
 		}
 		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
@@ -296,23 +288,17 @@ function typingPerformanceTracingMutationObserver(
 		subtree: true,
 	});
 
-	if (typeof element?.addEventListener !== 'function' && fg('jfp-magma-ufo-event-listener-error')) {
+	if (typeof element?.addEventListener !== 'function') {
 		return () => mo.disconnect();
 	}
 	// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 	element.addEventListener('keypress', onKeyPressHandler);
 	return () => {
-		if (fg('jfp-magma-ufo-event-listener-error')) {
-			if (typeof element?.removeEventListener === 'function') {
-				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-				element.removeEventListener('keypress', onKeyPressHandler);
-			}
-			mo.disconnect();
-		} else {
+		if (typeof element?.removeEventListener === 'function') {
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			element.removeEventListener('keypress', onKeyPressHandler);
-			mo.disconnect();
 		}
+		mo.disconnect();
 	};
 }
 

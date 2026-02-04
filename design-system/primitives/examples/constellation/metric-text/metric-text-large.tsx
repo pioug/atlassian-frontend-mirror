@@ -7,7 +7,7 @@ import { cssMap, jsx } from '@compiled/react';
 import { MetricText, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<Stack space="space.100">
 			<div css={styles.innerCircle}>

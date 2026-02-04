@@ -28,8 +28,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-prosemirror/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__editor-prosemirror/app"
 	},
 	"references": [],
 	"files": ["typings/prosemirror-markdown.d.ts", "typings/prosemirror-state.d.ts"]

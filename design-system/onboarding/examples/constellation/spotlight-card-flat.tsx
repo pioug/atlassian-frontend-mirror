@@ -40,7 +40,7 @@ const optionStyles = cssMap({
 const Option = ({ children }: { children: ReactNode }) => (
 	<Box xcss={optionStyles.root}>{children}</Box>
 );
-const SpotlightCardIsFlat = () => {
+const SpotlightCardIsFlat = (): JSX.Element => {
 	return (
 		<div css={wrapperStyles}>
 			<div>

@@ -50,7 +50,7 @@ const props = {
 	tertiaryAction,
 };
 
-export default () => (
+export default (): JSX.Element => (
 	<Container>
 		<EmptyState {...props} />
 	</Container>

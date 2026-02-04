@@ -1,5 +1,19 @@
 # @atlaskit/forge-react-types
 
+## 0.59.0
+
+### Minor Changes
+
+- [`e5e1ada56ae7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5e1ada56ae7f) -
+  New component AtlassianIcon added.
+
+## 0.58.0
+
+### Minor Changes
+
+- [`8f4d9a7764877`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f4d9a7764877) -
+  Pass through height and width props to UI Kit Frame
+
 ## 0.57.1
 
 ### Patch Changes

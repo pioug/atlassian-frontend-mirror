@@ -37,7 +37,7 @@ const formatMessage = (
 	return message;
 };
 
-const FormCharacterCounterExample = () => (
+const FormCharacterCounterExample = (): React.JSX.Element => (
 	<Flex direction="column">
 		<Form
 			noValidate

@@ -87,7 +87,31 @@ const getThemeValues = (theme: TokenMeta[]): { [x: string]: string } => {
 
 type DefaultColorTheme = 'light';
 
-export default function plugin() {
+export default function plugin(): {
+    visitor: {
+        Program?: undefined;
+    };
+} | {
+    visitor: {
+        Program: {
+            enter(path: NodePath<t.Program>, state: {
+                opts: {
+                    /**
+                     * @default true
+                     */
+                    shouldUseAutoFallback?: boolean;
+                    /**
+                     * @default true
+                     */
+                    shouldForceAutoFallback?: boolean;
+                    forceAutoFallbackExemptions?: string[];
+                    defaultTheme?: DefaultColorTheme;
+                };
+            }): void;
+            exit(path: NodePath<t.Program>): void;
+        };
+    };
+} {
 	// If the `TOKENS_SKIP_BABEL` environment variable is set, skip this
 	// plugin entirely. This will be enabled when the native Tokens transformer is enabled.
 	// This allows us to control this based on rollout gates.

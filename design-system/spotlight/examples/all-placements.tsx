@@ -49,7 +49,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<div css={styles.root}>
 			<div css={styles.content}>

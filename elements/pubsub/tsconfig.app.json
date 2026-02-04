@@ -29,8 +29,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__pubsub/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__pubsub/app"
 	},
 	"references": [
 		{

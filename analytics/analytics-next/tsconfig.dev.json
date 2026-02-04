@@ -35,8 +35,7 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__analytics-next/dev",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__analytics-next/dev"
 	},
 	"references": [
 		{
@@ -56,6 +55,9 @@
 		},
 		{
 			"path": "../../design-system/textfield/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
 		},
 		{
 			"path": "../../uip/ssr-tests/tsconfig.app.json"

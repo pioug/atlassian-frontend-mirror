@@ -64,7 +64,7 @@ const PopupContent: FC<PopupProps> = ({ buttonToFocus, setInitialFocusRef }) => 
 	);
 };
 
-export default () => {
+export default (): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [buttonToFocus, setButtonToFocus] = useState('-1');
 

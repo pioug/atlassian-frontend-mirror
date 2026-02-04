@@ -3,7 +3,7 @@ import { token } from '@atlaskit/tokens';
 
 import evaluateInner from './utils/evaluate-inner';
 
-export default evaluateInner`
+const _default_1: string = evaluateInner`
   table {
     border-collapse: collapse;
     width: 100%;
@@ -47,3 +47,4 @@ export default evaluateInner`
     text-align: left;
   }
 `;
+export default _default_1;

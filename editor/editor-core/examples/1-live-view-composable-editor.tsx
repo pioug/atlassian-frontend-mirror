@@ -205,6 +205,7 @@ function ComposableEditorPage() {
 			},
 			toolbarPlugin: {
 				enableNewToolbarExperience: true,
+				contextualFormattingEnabled: 'controlled',
 			},
 		},
 	});

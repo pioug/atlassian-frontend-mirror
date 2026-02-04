@@ -41,7 +41,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => {
+export default (): JSX.Element => {
 	const [isVisible, setIsVisible] = useState<boolean>(false);
 	const dismiss = () => setIsVisible(false);
 	const done = () => setIsVisible(false);

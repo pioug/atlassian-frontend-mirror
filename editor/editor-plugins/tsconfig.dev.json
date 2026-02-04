@@ -28,8 +28,7 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-plugins/dev",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__editor-plugins/dev"
 	},
 	"references": [
 		{
@@ -37,9 +36,6 @@
 		},
 		{
 			"path": "../editor-plugin-accessibility-utils/tsconfig.app.json"
-		},
-		{
-			"path": "../editor-plugin-ai-suggestions/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-alignment/tsconfig.app.json"

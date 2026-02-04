@@ -48,7 +48,8 @@
 		],
 		"composite": true,
 		"verbatimModuleSyntax": false,
-		"outDir": "../../../tsDist/@atlaskit__codemod-cli/dev"
+		"outDir": "../../../tsDist/@atlaskit__codemod-cli/dev",
+		"moduleResolution": "node"
 	},
 	"references": [
 		{

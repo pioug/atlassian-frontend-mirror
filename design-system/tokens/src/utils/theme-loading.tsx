@@ -25,7 +25,7 @@ export const loadAndAppendThemeCss = async (themeId: ThemeIdsWithOverrides): Pro
 	document.head.appendChild(style);
 };
 
-export const loadThemeCss = async (themeId: ThemeIdsWithOverrides) => {
+export const loadThemeCss = async (themeId: ThemeIdsWithOverrides): Promise<string> => {
 	const { default: themeCss } = await themeImportMap[themeId]();
 
 	return themeCss;

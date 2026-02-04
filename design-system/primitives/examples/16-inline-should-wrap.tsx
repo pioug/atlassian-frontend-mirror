@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
@@ -11,7 +11,7 @@ import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 const fixedSizeContainerStyles = css({ maxWidth: '300px' });
 const blockStyles = xcss({ borderRadius: 'radius.xsmall' });
 
-export default () => (
+export default (): jsx.JSX.Element => (
 	<Box testId="inline-example" padding="space.100">
 		<div css={fixedSizeContainerStyles}>
 			<Stack space="space.200">

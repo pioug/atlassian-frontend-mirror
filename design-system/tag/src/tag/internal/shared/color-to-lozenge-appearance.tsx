@@ -8,6 +8,7 @@ import { type TagColor } from '../../../types';
  */
 const colorToLozengeAppearanceMap: Record<string, ThemeAppearance> = {
 	gray: 'default',
+	grey: 'default',
 	lime: 'success',
 	green: 'success',
 	blue: 'inprogress',
@@ -17,6 +18,17 @@ const colorToLozengeAppearanceMap: Record<string, ThemeAppearance> = {
 	orange: 'moved',
 	magenta: 'new',
 	teal: 'inprogress',
+	grayLight: 'default',
+	greyLight: 'default',
+	limeLight: 'success',
+	greenLight: 'success',
+	blueLight: 'inprogress',
+	redLight: 'removed',
+	purpleLight: 'new',
+	yellowLight: 'moved',
+	orangeLight: 'moved',
+	magentaLight: 'new',
+	tealLight: 'inprogress',
 };
 
 /**
@@ -25,4 +37,3 @@ const colorToLozengeAppearanceMap: Record<string, ThemeAppearance> = {
 export function getLozengeAppearance(color: TagColor | undefined): ThemeAppearance {
 	return colorToLozengeAppearanceMap[color || 'gray'] || 'default';
 }
-

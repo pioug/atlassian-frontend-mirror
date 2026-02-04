@@ -144,7 +144,7 @@ function CompositionalPopupExample() {
 	);
 }
 
-export default function FocusManagementLazyLoadedContentExample() {
+export default function FocusManagementLazyLoadedContentExample(): JSX.Element {
 	return (
 		<div css={exampleContainerStyles.root}>
 			<RegularPopupExample />

@@ -46,7 +46,7 @@ const PopupContent = () => {
 	);
 };
 
-export default () => {
+export default (): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (

@@ -1,6 +1,6 @@
 import evaluateInner from './utils/evaluate-inner';
 
-export default evaluateInner`
+const _default_1: string = evaluateInner`
   .assistive {
     border: 0 !important;
     clip: rect(1px, 1px, 1px, 1px) !important;
@@ -12,3 +12,4 @@ export default evaluateInner`
     white-space: nowrap !important;
   }
 `;
+export default _default_1;

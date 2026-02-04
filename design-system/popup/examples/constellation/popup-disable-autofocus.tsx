@@ -32,7 +32,7 @@ const contentStyles = cssMap({
 	},
 });
 
-const PopupDisableAutofocusExample = () => {
+const PopupDisableAutofocusExample = (): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (

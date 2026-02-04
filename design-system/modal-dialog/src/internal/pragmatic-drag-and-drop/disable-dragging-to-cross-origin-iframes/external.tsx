@@ -24,6 +24,6 @@ const api = makeFixForAdapter({
 	watchForInteractionEnd,
 });
 
-export function disableDraggingToCrossOriginIFramesForExternal() {
+export function disableDraggingToCrossOriginIFramesForExternal(): CleanupFn {
 	return api.registerUsage();
 }

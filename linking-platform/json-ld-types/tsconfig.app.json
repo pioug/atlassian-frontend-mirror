@@ -28,8 +28,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__json-ld-types/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__json-ld-types/app"
 	},
 	"references": [],
 	"files": []

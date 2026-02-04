@@ -20,7 +20,7 @@ const CanonicalGlyph = ({ label, size, primaryColor }: SVGProps) => (
 	</SVG>
 );
 
-const CustomSVG = () => (
+const CustomSVG = (): JSX.Element => (
 	<span css={containerStyles} id="svg">
 		<CanonicalGlyph primaryColor={B500} size="small" label="spinner" />
 		<CanonicalGlyph primaryColor={B500} size="medium" label="spinner" />

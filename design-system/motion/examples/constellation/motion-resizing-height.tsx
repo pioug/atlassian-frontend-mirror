@@ -80,7 +80,7 @@ const inputContainerStyles = css({
 	textAlign: 'start',
 });
 
-const MotionResizeHeightExample = () => {
+const MotionResizeHeightExample = (): JSX.Element => {
 	const [num, setNum] = useState(1);
 
 	return (

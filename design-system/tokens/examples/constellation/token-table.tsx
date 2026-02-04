@@ -157,7 +157,7 @@ const rows = presidents.map((president: President, index: number) => ({
 	],
 }));
 
-const TokenTable = () => {
+const TokenTable = (): JSX.Element => {
 	const [shadowLeft, setShadowLeft] = useState(false);
 	const [shadowRight, setShadowRight] = useState(false);
 
@@ -198,4 +198,8 @@ const TokenTable = () => {
 	);
 };
 
-export default { example: TokenTable, code: TokenTableCodeBlock };
+const _default_1: {
+    example: () => JSX.Element;
+    code: string;
+} = { example: TokenTable, code: TokenTableCodeBlock };
+export default _default_1;

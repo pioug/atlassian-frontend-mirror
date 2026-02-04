@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 const ANCESTOR_LOOKUP_LIMIT = 10;
 const PAGE_LAYOUT_ID = 'page-layout.root';
 
@@ -192,7 +190,7 @@ export class SSRPlaceholderHandlers {
 
 	findNearestPlaceholderOrContainer(
 		element: HTMLElement,
-		limit = ANCESTOR_LOOKUP_LIMIT,
+		limit: number = ANCESTOR_LOOKUP_LIMIT,
 	): HTMLElement {
 		let ancestor = element;
 		if (this.isPlaceholderIgnored(element) && element.parentElement) {
@@ -262,9 +260,7 @@ export class SSRPlaceholderHandlers {
 	}
 
 	validateReactComponentMatchToPlaceholderV4(el: HTMLElement): boolean {
-		el = fg('platform_ufo_v4_fix_nested_ssr_placeholder')
-			? this.findNearestPlaceholderOrContainer(el, 2) // We are using 2 due to over-eagerness of the default, only check itself and 1 ancestor
-			: this.findNearestPlaceholderContainerIfIgnored(el);
+		el = this.findNearestPlaceholderOrContainer(el, 2); // We are using 2 due to over-eagerness of the default, only check itself and 1 ancestor
 		const id = this.getPlaceholderReplacementId(el);
 		return this.staticPlaceholders.has(id);
 	}

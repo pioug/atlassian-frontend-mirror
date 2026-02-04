@@ -49,7 +49,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => {
+export default (): JSX.Element => {
 	const cardRef = useRef<HTMLDivElement | null>(null);
 
 	useEffect(() => {

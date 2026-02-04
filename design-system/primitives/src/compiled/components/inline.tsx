@@ -8,10 +8,13 @@ import {
 	type ElementType,
 	type FC,
 	forwardRef,
+	type ForwardRefExoticComponent,
 	Fragment,
 	memo,
+	type MemoExoticComponent,
 	type ReactNode,
 	type Ref,
+    type RefAttributes,
 } from 'react';
 
 import { jsx } from '@compiled/react';
@@ -113,7 +116,7 @@ const Separator: FC<{ children: string }> = ({ children }) => (
  * ```
  *
  */
-const Inline = memo(
+const Inline: MemoExoticComponent<ForwardRefExoticComponent<Omit<InlineProps<ElementType>, "ref"> & RefAttributes<any>>> = memo(
 	forwardRef(
 		<T extends ElementType = 'div'>(
 			{

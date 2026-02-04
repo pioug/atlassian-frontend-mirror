@@ -67,7 +67,7 @@ const borderRadiusMap = cssMap({
 /**
  * Box permutations
  */
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<Stack space="space.400" alignInline="start">
 			<Stack space="space.200" testId="box-with-borderWidth">

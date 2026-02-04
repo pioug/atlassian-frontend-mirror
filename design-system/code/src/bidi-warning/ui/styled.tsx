@@ -51,7 +51,7 @@ export function Decorator({
 	bidiCharacter: string;
 	children: ReactNode;
 	testId?: string;
-}) {
+}): JSX.Element {
 	const bidiCharacterCode = getBidiCharacterCode(bidiCharacter);
 	return (
 		<Fragment>

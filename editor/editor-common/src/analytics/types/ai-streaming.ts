@@ -22,6 +22,7 @@ type AIStreamingNoDocChangeAEP = OperationalAEP<
 		command: string;
 		isSameDoc: boolean;
 		isSameDocIgnoreAttrs: boolean;
+		traceId: string | undefined;
 	}
 >;
 

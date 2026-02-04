@@ -10,7 +10,7 @@ import { Hide, Show } from '@atlaskit/primitives/responsive';
 
 const breakpoints = ['xxs', 'xs', 'sm', 'md', 'lg', 'xl'] as const;
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<div>
 			<h4>

@@ -34,8 +34,7 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__tmp-editor-statsig/dev",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__tmp-editor-statsig/dev"
 	},
 	"references": [
 		{

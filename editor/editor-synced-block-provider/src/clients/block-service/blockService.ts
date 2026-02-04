@@ -65,6 +65,20 @@ type DeleteBlockGraphQLResponse = {
 	errors?: Array<{ message: string }>;
 };
 
+type CreateBlockGraphQLResponse = {
+	data?: {
+		blockService_createBlock: BlockContentResponse;
+	};
+	errors?: Array<{ message: string }>;
+};
+
+type UpdateDocumentReferencesGraphQLResponse = {
+	data?: {
+		blockService_updateDocumentReferences: ReferenceSyncedBlockResponse;
+	};
+	errors?: Array<{ message: string }>;
+};
+
 /**
  * Retrieves all synced blocks referenced in a document.
  *
@@ -211,6 +225,9 @@ const GET_DOCUMENT_REFERENCE_BLOCKS_OPERATION_NAME =
 	'EDITOR_SYNCED_BLOCK_GET_DOCUMENT_REFERENCE_BLOCKS';
 const UPDATE_BLOCK_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_UPDATE_BLOCK';
 const DELETE_BLOCK_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_DELETE_BLOCK';
+const CREATE_BLOCK_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_CREATE_BLOCK';
+const UPDATE_DOCUMENT_REFERENCES_OPERATION_NAME =
+	'EDITOR_SYNCED_BLOCK_UPDATE_DOCUMENT_REFERENCES';
 
 const buildGetDocumentReferenceBlocksQuery = (
 	documentAri: string,
@@ -268,6 +285,94 @@ const buildDeleteBlockMutation = (
 	return `mutation ${DELETE_BLOCK_OPERATION_NAME} {
 	blockService_deleteBlock(input: { ${inputArgs} }) {
 		deleted
+	}
+}`;
+};
+
+/**
+ * Converts product string to GraphQL enum format
+ * 'confluence-page' -> 'CONFLUENCE_PAGE'
+ * 'jira-work-item' -> 'JIRA_WORK_ITEM'
+ */
+const convertProductToGraphQLEnum = (product: SyncBlockProduct): string => {
+	if (product === 'confluence-page') {
+		return 'CONFLUENCE_PAGE';
+	}
+	// product must be 'jira-work-item' at this point
+	return 'JIRA_WORK_ITEM';
+};
+
+const buildCreateBlockMutation = (
+	blockAri: string,
+	blockInstanceId: string,
+	content: string,
+	product: SyncBlockProduct,
+	sourceAri: string,
+	stepVersion?: number,
+	status?: SyncBlockStatus,
+) => {
+	const inputParts = [
+		`blockAri: ${JSON.stringify(blockAri)}`,
+		`blockInstanceId: ${JSON.stringify(blockInstanceId)}`,
+		`content: ${JSON.stringify(content)}`,
+		`product: ${convertProductToGraphQLEnum(product)}`,
+		`sourceAri: ${JSON.stringify(sourceAri)}`,
+	];
+	if (stepVersion !== undefined) {
+		inputParts.push(`stepVersion: ${stepVersion}`);
+	}
+	if (status !== undefined) {
+		inputParts.push(`status: ${JSON.stringify(status)}`);
+	}
+	const inputArgs = inputParts.join(', ');
+	return `mutation ${CREATE_BLOCK_OPERATION_NAME} {
+	blockService_createBlock(input: { ${inputArgs} }) {
+		blockAri
+		blockInstanceId
+		content
+		contentUpdatedAt
+		createdAt
+		createdBy
+		deletionReason
+		product
+		sourceAri
+		status
+		version
+	}
+}`;
+};
+
+const buildUpdateDocumentReferencesMutation = (
+	documentAri: string,
+	blocks: Array<{ blockAri: string; blockInstanceId: string }>,
+	noContent: boolean,
+) => {
+	const blocksArray = blocks
+		.map(
+			(block) =>
+				`{ blockAri: ${JSON.stringify(block.blockAri)}, blockInstanceId: ${JSON.stringify(block.blockInstanceId)} }`,
+		)
+		.join(', ');
+	const inputArgs = `documentAri: ${JSON.stringify(documentAri)}, blocks: [${blocksArray}], noContent: ${noContent}`;
+	return `mutation ${UPDATE_DOCUMENT_REFERENCES_OPERATION_NAME} {
+	blockService_updateDocumentReferences(input: { ${inputArgs} }) {
+		blocks {
+			blockAri
+			blockInstanceId
+			content
+			contentUpdatedAt
+			createdAt
+			createdBy
+			product
+			sourceAri
+			status
+			version
+		}
+		errors {
+			blockAri
+			code
+			reason
+		}
 	}
 }`;
 };
@@ -434,6 +539,43 @@ export const createSyncedBlock = async ({
 	stepVersion,
 	status,
 }: CreateSyncedBlockRequest): Promise<BlockContentResponse> => {
+	if (fg('platform_synced_block_patch_1')) {
+		const bodyData = {
+			query: buildCreateBlockMutation(
+				blockAri,
+				blockInstanceId,
+				content,
+				product,
+				sourceAri,
+				stepVersion,
+				status !== undefined && fg('platform_synced_block_dogfooding') ? status : undefined,
+			),
+			operationName: CREATE_BLOCK_OPERATION_NAME,
+		};
+
+		const response = await fetchWithRetry(GRAPHQL_ENDPOINT, {
+			method: 'POST',
+			headers: COMMON_HEADERS,
+			body: JSON.stringify(bodyData),
+		});
+
+		if (!response.ok) {
+			throw new BlockError(response.status);
+		}
+
+		const result: CreateBlockGraphQLResponse = await response.json();
+
+		if (result.errors && result.errors.length > 0) {
+			throw new Error(result.errors.map((e) => e.message).join(', '));
+		}
+
+		if (!result.data?.blockService_createBlock) {
+			throw new Error('No data returned from GraphQL mutation');
+		}
+
+		return result.data.blockService_createBlock;
+	}
+
 	const requestBody: {
 		blockAri: string;
 		blockInstanceId: string;
@@ -476,6 +618,38 @@ export const updateReferenceSyncedBlockOnDocument = async ({
 	blocks,
 	noContent = true,
 }: UpdateReferenceSyncedBlockOnDocumentRequest): Promise<ReferenceSyncedBlockResponse | void> => {
+	if (fg('platform_synced_block_patch_1')) {
+		const bodyData = {
+			query: buildUpdateDocumentReferencesMutation(documentAri, blocks, noContent),
+			operationName: UPDATE_DOCUMENT_REFERENCES_OPERATION_NAME,
+		};
+
+		const response = await fetchWithRetry(GRAPHQL_ENDPOINT, {
+			method: 'POST',
+			headers: COMMON_HEADERS,
+			body: JSON.stringify(bodyData),
+			...(fg('platform_synced_block_dogfooding') ? { keepalive: true } : {}),
+		});
+
+		if (!response.ok) {
+			throw new BlockError(response.status);
+		}
+
+		const result: UpdateDocumentReferencesGraphQLResponse = await response.json();
+
+		if (result.errors && result.errors.length > 0) {
+			throw new Error(result.errors.map((e) => e.message).join(', '));
+		}
+
+		if (!noContent) {
+			if (!result.data?.blockService_updateDocumentReferences) {
+				throw new Error('No data returned from GraphQL mutation');
+			}
+			return result.data.blockService_updateDocumentReferences;
+		}
+		return;
+	}
+
 	const response = await fetchWithRetry(
 		`${BLOCK_SERVICE_API_URL}/block/document/${encodeURIComponent(documentAri)}/references?noContent=${noContent}`,
 		{

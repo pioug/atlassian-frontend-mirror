@@ -5,8 +5,9 @@ import DeleteIcon from '@atlaskit/icon/core/delete';
 import StarIcon from '@atlaskit/icon/core/star-starred';
 import { token } from '@atlaskit/tokens';
 
-export default [
-	<AddIcon label="Add" />,
-	<StarIcon label="Star" color="currentColor" />,
-	<DeleteIcon label="Delete" color={token('color.icon.danger')} />,
+const _default_1: React.JSX.Element[] = [
+    <AddIcon label="Add" />,
+    <StarIcon label="Star" color="currentColor" />,
+    <DeleteIcon label="Delete" color={token('color.icon.danger')} />,
 ];
+export default _default_1;

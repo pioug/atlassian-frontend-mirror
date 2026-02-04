@@ -91,7 +91,7 @@ const buttonGridStyles = css({
 	justifyItems: 'stretch',
 });
 
-const PopupPlacementExample = () => {
+const PopupPlacementExample = (): JSX.Element => {
 	const [openPlacement, setOpenPlacement] = useState<Placement | null>(null);
 
 	return (

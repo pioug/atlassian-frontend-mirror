@@ -27,12 +27,15 @@ const spanStyles = css({
  * @param {ReactElement} props.getTargetRef - Setting up Target Node in Spotlight Manager.
  * @returns {ReactElement} The children wrapped with NodeResolver if hasNodeResolver is true, wrape the children in a div setting innerRef with ref to the div.
  */
-const NodeResolverSpotlightTarget = ({
+const NodeResolverSpotlightTarget: {
+    ({ hasNodeResolver, children, getTargetRef, name, }: NodeResolverSpotlightTargetProps): JSX.Element;
+    displayName: string;
+} = ({
 	hasNodeResolver,
 	children,
 	getTargetRef,
 	name,
-}: NodeResolverSpotlightTargetProps) => {
+}: NodeResolverSpotlightTargetProps): JSX.Element => {
 	const divRef = useRef<HTMLDivElement>(null);
 	useEffect(() => {
 		const targetRef = getTargetRef(name);

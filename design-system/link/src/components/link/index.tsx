@@ -153,7 +153,7 @@ const LinkWithoutRef = <RouterLinkConfig extends Record<string, any> = never>(
 		...htmlAttributes
 	}: LinkProps<RouterLinkConfig>,
 	ref: Ref<HTMLAnchorElement>,
-) => {
+): JSX.Element => {
 	return (
 		<Anchor
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

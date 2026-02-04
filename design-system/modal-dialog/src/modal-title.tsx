@@ -108,7 +108,7 @@ export interface ModalTitleProps {
  * - [Code](https://atlassian.design/components/modal-dialog/code)
  * - [Usage](https://atlassian.design/components/modal-dialog/usage)
  */
-const ModalTitle = (props: ModalTitleProps) => {
+const ModalTitle = (props: ModalTitleProps): JSX.Element => {
 	const { appearance, children, isMultiline = true, testId: userDefinedTestId } = props;
 	const { titleId, testId: modalTestId } = useModal();
 

@@ -30,7 +30,7 @@ ReactDOM.render(
   mountNode
 );`;
 
-export default function Component() {
+export default function Component(): JSX.Element {
 	return (
 		<div css={backgroundColorOverride}>
 			<Text as="p">

@@ -41,8 +41,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__adf-schema/dev",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__adf-schema/dev"
 	},
 	"references": [
 		{

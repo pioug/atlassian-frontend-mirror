@@ -43,7 +43,7 @@ const WidthBox = ({ borderWidth }: { borderWidth: CSSToken }) => (
 	<Box xcss={cx(styles.baseBox, styles.widthBox)} style={{ borderWidth: borderWidth }} />
 );
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<div data-testid="shape">
 			<h1>Shape scale</h1>

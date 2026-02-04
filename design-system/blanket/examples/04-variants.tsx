@@ -43,7 +43,7 @@ const behindOffsetStyles = css({
 	marginInlineStart: '144px' as any,
 });
 
-const BasicExample = () => {
+const BasicExample = (): JSX.Element => {
 	const [isTinted, setIsTinted] = useState(false);
 	const toggleIsTinted = useCallback(() => {
 		setIsTinted((isTinted) => !isTinted);

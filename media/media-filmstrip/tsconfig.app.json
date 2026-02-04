@@ -29,8 +29,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__media-filmstrip/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__media-filmstrip/app"
 	},
 	"references": [
 		{

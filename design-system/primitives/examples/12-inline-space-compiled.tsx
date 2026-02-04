@@ -44,7 +44,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => (
+export default (): JSX.Element => (
 	<div data-testid="inline-example" css={styles.padded}>
 		<Inline space="space.1000">
 			<Stack space="space.100" testId="inline-space">

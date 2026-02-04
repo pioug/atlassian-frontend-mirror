@@ -11,6 +11,7 @@ import type { PMPluginFactoryParams, EditorPlugin } from '@atlaskit/editor-commo
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { EventDispatcher, createDispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 // The copy of type from prosemirror-view.
 // Probably, we need to fix this package exports and add `NodeViewConstructor` and `MarkViewConstructor` types here.
@@ -367,6 +368,12 @@ export function EditorSSRRenderer({
 			aria-describedby={divProps['aria-describedby']}
 			data-editor-id={divProps['data-editor-id']}
 			data-vc-ignore-if-no-layout-shift={true}
+			data-ssr-placeholder={
+				expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) ? 'editor-view' : undefined
+			}
+			data-ssr-placeholder-replace={
+				expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) ? 'editor-view' : undefined
+			}
 			aria-multiline={true}
 			role="textbox"
 			// @ts-expect-error - contenteditable is not exist in div attributes

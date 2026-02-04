@@ -214,4 +214,4 @@ function Example() {
 	);
 }
 
-export default () => <Example />;
+export default (): JSX.Element => <Example />;

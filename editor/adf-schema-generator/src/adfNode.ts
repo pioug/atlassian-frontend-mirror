@@ -1,4 +1,6 @@
+import type { ADFMark } from './adfMark';
 import type { TransformerNames } from './transforms/transformerNames';
+import type { ADFMarkSpec } from './types/ADFMarkSpec';
 import type { ADFNodeSpec } from './types/ADFNodeSpec';
 
 export class ADFNode<
@@ -38,7 +40,7 @@ export class ADFNode<
 	/**
 	 * Checks whether the node is ignored by a given transformer.
 	 */
-	isIgnored(transformerName: TransformerNames) {
+	isIgnored(transformerName: TransformerNames): boolean | undefined {
 		if (!this.#spec) {
 			throw new Error('Node is not defined');
 		}
@@ -49,7 +51,7 @@ export class ADFNode<
 	 * If true, the node doesn't allow marks to be set.
 	 * This is stricter than simply having an empty marks list.
 	 */
-	hasNoMarks() {
+	hasNoMarks(): boolean | undefined {
 		// @ts-expect-error
 		return this.#spec.noMarks;
 	}
@@ -150,7 +152,7 @@ export class ADFNode<
 	/**
 	 * For a variant node, returns the base node from which the variant was created.
 	 */
-	getBase() {
+	getBase(): ADFNode<TVariantsNames, TNodeSpecType> | null {
 		return this.#base;
 	}
 
@@ -197,7 +199,7 @@ export class ADFNode<
 		return this.#spec?.stage0 === true;
 	}
 
-	getMarks(stage0: boolean = false) {
+	getMarks(stage0: boolean = false): ADFMark<ADFMarkSpec>[] {
 		return this.getSpec(stage0)?.marks ?? [];
 	}
 
@@ -215,7 +217,8 @@ export class ADFNode<
 	/**
 	 * Returns all variants of the node.
 	 */
-	getVariants() {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	getVariants(): Map<ToLiteralUnion<TVariantsNames>, ADFNode<any, TNodeSpecType>> {
 		return this.#variants;
 	}
 
@@ -233,7 +236,7 @@ export class ADFNode<
 	/**
 	 * Private method to set the variant name. Used when creating a variant.
 	 */
-	setVariant(variant: string) {
+	setVariant(variant: string): this {
 		this.#variant = variant;
 		return this;
 	}
@@ -246,7 +249,7 @@ export class ADFNode<
 		return this.#variants.get(variantName) as ADFNode;
 	}
 
-	setGroup(group: string) {
+	setGroup(group: string): this {
 		if (!this.#groups.includes(group)) {
 			this.#groups.push(group);
 		}

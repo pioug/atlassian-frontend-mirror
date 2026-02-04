@@ -24,7 +24,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => (
+export default (): JSX.Element => (
 	<div data-testid="inline-example" css={styles.container}>
 		<Inline>
 			<Box xcss={styles.block} backgroundColor="color.background.discovery.bold" />

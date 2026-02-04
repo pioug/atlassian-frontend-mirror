@@ -28,7 +28,7 @@ const blanketChildStyles = cssMap({
 	},
 });
 
-const BasicExample = () => {
+const BasicExample = (): JSX.Element => {
 	const [isBlanketVisible, setIsBlanketVisible] = useState(false);
 	const [shouldAllowClickThrough, setShouldAllowClickThrough] = useState(true);
 

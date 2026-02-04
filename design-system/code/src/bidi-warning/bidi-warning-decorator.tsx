@@ -1,4 +1,4 @@
-export const bidiCharacterRegex = /[\u202A-\u202E\u2066-\u2069]/g;
+export const bidiCharacterRegex: RegExp = /[\u202A-\u202E\u2066-\u2069]/g;
 
 /**
  * __Code Bidi Warning Decorator__
@@ -10,7 +10,7 @@ export const bidiCharacterRegex = /[\u202A-\u202E\u2066-\u2069]/g;
 export default function codeBidiWarningDecorator<DecoratorOutput>(
 	originalText: string,
 	decorate: (options: { bidiCharacter: string; index?: number }) => DecoratorOutput,
-) {
+): string | (string | DecoratorOutput)[] {
 	const matches = [...originalText.matchAll(bidiCharacterRegex)];
 
 	if (matches.length === 0) {

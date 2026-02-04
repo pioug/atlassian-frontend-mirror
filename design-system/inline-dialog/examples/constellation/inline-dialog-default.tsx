@@ -32,7 +32,7 @@ export default class InlineDialogDefaultExample extends Component<{}, State> {
 
 	toggleDialog = (): void => this.setState({ dialogOpen: !this.state.dialogOpen });
 
-	render() {
+	render(): JSX.Element {
 		return (
 			<Box xcss={styles.container}>
 				<InlineDialog

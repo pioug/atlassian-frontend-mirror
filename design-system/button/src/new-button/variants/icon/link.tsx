@@ -264,7 +264,7 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 		...unsafeRest
 	}: LinkIconButtonProps<RouterLinkConfig>,
 	ref: Ref<HTMLAnchorElement>,
-) => {
+): JSX.Element => {
 	// @ts-expect-error
 	const { className: _className, css: _css, as: _as, style: _style, ...saferRest } = unsafeRest;
 	const localRef = useRef<HTMLAnchorElement>(null);

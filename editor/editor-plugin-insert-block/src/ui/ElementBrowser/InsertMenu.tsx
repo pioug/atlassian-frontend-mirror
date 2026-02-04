@@ -85,14 +85,8 @@ export const filterForPinWhiteboardsExperiment = (
 				featuredItem.description = formatMessage(messages.featuredWhiteboardDescription);
 				return [featuredItem, ...filteredList];
 			};
-			if (expValEquals('confluence_whiteboards_quick_insert', 'cohort', 'test_blank')) {
-				return pinWhiteboardActionToTop(featuredItems, BLANK_TITLE);
-			}
-			if (expValEquals('confluence_whiteboards_quick_insert', 'cohort', 'test_diagram')) {
-				return pinWhiteboardActionToTop(featuredItems, DIAGRAM_TITLE);
-			}
-			// NOTE this is not desirable/the OG behaviour, but given we've shipped the test_diagram variant,
-			return featuredItems.filter((item) => ![DIAGRAM_TITLE, BLANK_TITLE].includes(item.title));
+			
+			return pinWhiteboardActionToTop(featuredItems, DIAGRAM_TITLE);
 		} else {
 			if (fg('confluence-whiteboards-quick-insert-l10n-eligible')) {
 				// Fire exposure for confluence_whiteboards_quick_insert_localised_aa

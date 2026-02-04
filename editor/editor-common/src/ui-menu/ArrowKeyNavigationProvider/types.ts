@@ -30,7 +30,13 @@ export type ColorPaletteArrowKeyNavigationProps = ColorPaletteArrowKeyNavigation
 
 export type MenuArrowKeyNavigationOptions = {
 	children?: React.ReactNode;
-	disableArrowKeyNavigation?: boolean;
+	/**
+	 * Disable keyboard handling for this provider.
+	 *
+	 * - `true`: disables all key handling (backwards compatible with previous behaviour)
+	 * - `(event) => boolean`: disables handling for specific events (return `true` to bypass handling)
+	 */
+	disableArrowKeyNavigation?: boolean | ((event: KeyboardEvent) => boolean);
 	disableCloseOnArrowClick?: boolean;
 	keyDownHandlerContext?: KeyDownHandlerContext;
 	type: ArrowKeyNavigationType.MENU;

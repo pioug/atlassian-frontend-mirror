@@ -27,7 +27,7 @@ const logos = [
 	[<StatuspageIcon size="small" />, 'Statuspage'],
 ];
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<RetryContainer>
 			<ul

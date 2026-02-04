@@ -32,7 +32,7 @@ const styles = cssMap({
 	},
 });
 
-export default function Basic() {
+export default function Basic(): JSX.Element {
 	return (
 		<div css={styles.root}>
 			<SpotlightCard testId="spotlight">

@@ -51,4 +51,8 @@ const TokenDanger = (): React.JSX.Element => {
 	);
 };
 
-export default { example: TokenDanger, code: TokenDangerCodeBlock };
+const _default_1: {
+    example: () => React.JSX.Element;
+    code: string;
+} = { example: TokenDanger, code: TokenDangerCodeBlock };
+export default _default_1;

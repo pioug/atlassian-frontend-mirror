@@ -29,8 +29,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__focused-task-close-account/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__focused-task-close-account/app"
 	},
 	"references": [
 		{

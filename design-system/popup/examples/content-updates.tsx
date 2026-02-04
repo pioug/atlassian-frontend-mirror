@@ -60,7 +60,7 @@ const Quotes = ({ onUpdate }: { onUpdate: () => void }) => {
 	);
 };
 
-export default () => {
+export default (): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isUpdateOn, setIsUpdateOn] = useState(true);
 

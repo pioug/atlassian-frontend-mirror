@@ -16,7 +16,7 @@ const isLocalStorageSupported = () => {
 };
 
 declare var window: { __localStorageFallback: Storage };
-const safeLocalStorage = () => {
+const safeLocalStorage = (): Storage => {
 	if (isLocalStorageSupported()) {
 		return localStorage;
 	}

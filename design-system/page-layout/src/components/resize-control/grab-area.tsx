@@ -75,7 +75,18 @@ const lineStyles = css({
 const grabAreaLineSelector = { [GRAB_AREA_LINE_SELECTOR]: true };
 const grabAreaSelector = { [GRAB_AREA_SELECTOR]: true };
 
-const GrabArea = React.forwardRef<HTMLButtonElement, GrabAreaProps & Partial<LeftSidebarProps>>(
+const GrabArea: React.ForwardRefExoticComponent<{
+    isDisabled: boolean;
+    isLeftSidebarCollapsed: boolean;
+    label: string;
+    leftSidebarPercentageExpanded: number;
+    onBlur: (event: FocusEvent) => void;
+    onFocus: (event: FocusEvent) => void;
+    onKeyDown: (event: KeyboardEvent<HTMLButtonElement>) => void;
+    onMouseDown: (event: MouseEvent<HTMLButtonElement>) => void;
+    testId?: string;
+    valueTextLabel?: string;
+} & Omit<React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "ref"> & Partial<LeftSidebarProps> & React.RefAttributes<HTMLButtonElement>> = React.forwardRef<HTMLButtonElement, GrabAreaProps & Partial<LeftSidebarProps>>(
 	(
 		{
 			testId,

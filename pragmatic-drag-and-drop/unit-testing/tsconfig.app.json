@@ -28,8 +28,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__pragmatic-drag-and-drop-unit-testing/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__pragmatic-drag-and-drop-unit-testing/app"
 	},
 	"references": [],
 	"files": []

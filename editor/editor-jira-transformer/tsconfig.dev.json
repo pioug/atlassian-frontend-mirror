@@ -35,8 +35,7 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__editor-jira-transformer/dev",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__editor-jira-transformer/dev"
 	},
 	"references": [
 		{

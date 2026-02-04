@@ -4,7 +4,7 @@
  */
 import { Fragment, useCallback, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
 import {
@@ -60,7 +60,7 @@ const initialState = {
 	isRightPanelScrollable: false,
 };
 
-const BasicGrid = () => {
+const BasicGrid = (): jsx.JSX.Element => {
 	const [gridState, setGridState] = useState(initialState);
 
 	const ToggleFixed = useCallback(
@@ -128,6 +128,7 @@ const BasicGrid = () => {
 					Toggle extra-wide content
 				</Toggle>
 				{gridState.isMainExtraWide && (
+					// eslint-disable-next-line @atlaskit/design-system/no-html-image
 					<img
 						src="https://picsum.photos/seed/picsum/1600"
 						alt="wide placeholder"

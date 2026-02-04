@@ -27,7 +27,7 @@ const spacingValues = [
 /**
  * Box permutations
  */
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<Stack space="space.400" alignInline="start" testId="box-padding">
 			<Stack space="space.200" testId="box-with-background-and-padding">

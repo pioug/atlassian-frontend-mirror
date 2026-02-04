@@ -28,7 +28,7 @@ const styles = cssMap({
 
 const Block = () => <Box backgroundColor="color.background.discovery.bold" xcss={styles.block} />;
 
-export default function Basic() {
+export default function Basic(): JSX.Element {
 	return (
 		<HeadingContextProvider>
 			<Stack space="space.200">

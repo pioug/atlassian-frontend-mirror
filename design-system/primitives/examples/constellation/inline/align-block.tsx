@@ -25,7 +25,7 @@ const styles = cssMap({
 	},
 });
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	return (
 		<Flex xcss={styles.flex} justifyContent="space-between">
 			<Stack alignInline="center">

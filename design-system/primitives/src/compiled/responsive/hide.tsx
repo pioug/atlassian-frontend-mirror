@@ -67,7 +67,7 @@ export const Hide = ({
 	children,
 	as: AsElement = 'div',
 	xcss,
-}: ResponsiveHideProps) => {
+}: ResponsiveHideProps): JSX.Element => {
 	return (
 		<AsElement
 			className={xcss}

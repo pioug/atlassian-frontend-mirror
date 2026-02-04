@@ -52,7 +52,7 @@ const styles = cssMap({
 /**
  * This example ensures Tile behaves correctly in a flex container, maintaining its aspect ratio and not shrinking or growing.
  */
-export default function TestingFlex() {
+export default function TestingFlex(): JSX.Element {
 	return (
 		<Stack space="space.200" xcss={styles.root}>
 			<Heading size="small">flexGrow: 0 tests (containers with extra space)</Heading>

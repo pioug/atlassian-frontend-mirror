@@ -45,7 +45,7 @@ const PopupExample: FC<PopupExampleProps> = ({ index }) => {
 	);
 };
 
-const PopupMultipleExample = () => (
+const PopupMultipleExample = (): JSX.Element => (
 	<ButtonGroup label="Open required popup">
 		{Array.from(Array(3)).map((_, index) => (
 			<PopupExample index={index} />

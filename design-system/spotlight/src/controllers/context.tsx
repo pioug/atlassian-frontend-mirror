@@ -3,6 +3,7 @@
  * @jsx jsx
  */
 import {
+    type Context,
 	createContext,
 	type Dispatch,
 	type MutableRefObject,
@@ -48,7 +49,7 @@ export interface SpotlightContextType {
 }
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const SpotlightContext = createContext<SpotlightContextType>({
+export const SpotlightContext: Context<SpotlightContextType> = createContext<SpotlightContextType>({
 	card: {
 		ref: null,
 		setRef: () => undefined,
@@ -78,7 +79,7 @@ export const SpotlightContext = createContext<SpotlightContextType>({
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const SpotlightContextProvider = ({ children }: { children: ReactNode }) => {
+export const SpotlightContextProvider = ({ children }: { children: ReactNode }): JSX.Element => {
 	const id = useId();
 	const [placement, setPlacement] = useState<Placement>('bottom-end');
 	const [headingId, setHeadingId] = useState<string>(`${id}-heading`);

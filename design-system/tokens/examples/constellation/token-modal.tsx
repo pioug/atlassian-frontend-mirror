@@ -57,7 +57,7 @@ const styles = cssMap({
 	},
 });
 
-export const TokenModal = () => {
+export const TokenModal = (): JSX.Element => {
 	return (
 		<div css={styles.dialog}>
 			<div css={styles.header}>
@@ -81,4 +81,8 @@ export const TokenModal = () => {
 	);
 };
 
-export default { example: TokenModal, code: TokenModalCodeBlock };
+const _default_1: {
+    example: () => JSX.Element;
+    code: string;
+} = { example: TokenModal, code: TokenModalCodeBlock };
+export default _default_1;

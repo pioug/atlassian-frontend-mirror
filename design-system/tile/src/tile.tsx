@@ -289,7 +289,7 @@ const backgroundColorMap = cssMap({
  * A tile is a rounded square that takes an asset and represents a noun.
  *
  */
-export default function Tile(props: TileProps) {
+export default function Tile(props: TileProps): JSX.Element {
 	const {
 		children,
 		label,

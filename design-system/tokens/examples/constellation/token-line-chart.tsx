@@ -113,4 +113,8 @@ export const TokenLineChart = (): React.JSX.Element => {
 	return <ReactECharts option={chartOptions} />;
 };
 
-export default { example: TokenLineChart, code: TokenLineChartCodeBlock };
+const _default_1: {
+    example: () => React.JSX.Element;
+    code: string;
+} = { example: TokenLineChart, code: TokenLineChartCodeBlock };
+export default _default_1;

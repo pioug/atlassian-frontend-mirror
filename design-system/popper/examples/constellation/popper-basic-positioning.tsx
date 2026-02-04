@@ -20,7 +20,7 @@ const popupStyles = css({
 	paddingInlineStart: token('space.100'),
 });
 
-const BasicPositioningExample = () => (
+const BasicPositioningExample = (): JSX.Element => (
 	<Manager>
 		<Reference>
 			{({ ref }) => (

@@ -69,7 +69,7 @@ const SpotlightTourExample = (props: { children: React.ReactNode; onModalReady: 
 	);
 };
 
-export default function ModalWithSpotlight() {
+export default function ModalWithSpotlight(): JSX.Element {
 	const [isModalAnimationComplete, setIsModalAnimationComplete] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(true);
 	const close = useCallback(() => setIsModalOpen(false), []);

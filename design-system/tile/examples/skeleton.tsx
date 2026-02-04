@@ -9,7 +9,7 @@ import { Inline, Stack } from '@atlaskit/primitives/compiled';
 import Skeleton from '@atlaskit/tile/skeleton';
 import { token } from '@atlaskit/tokens';
 
-export default () => (
+export default (): JSX.Element => (
 	<Stack space="space.200">
 		<Heading size="small">Tile Skeleton</Heading>
 

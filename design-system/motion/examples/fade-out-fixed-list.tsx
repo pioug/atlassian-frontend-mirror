@@ -70,7 +70,7 @@ const Card = ({ icon, text }: { icon: React.ReactNode; text: React.ReactNode }) 
 	</FadeIn>
 );
 
-export default () => {
+export default (): JSX.Element => {
 	const [count, setItems] = useState(6);
 
 	return (

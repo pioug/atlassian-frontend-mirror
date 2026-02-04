@@ -215,6 +215,13 @@ export type ReactUFOPayload = {
 			'metric:vc90'?: number;
 			'ufo:next:speedIndex'?: number;
 			'ufo:vc:updates:next'?: Array<{ time: number; vc: number; elements: string[] }>;
+
+			// Tracing context
+			'ufo:tracingContext'?: {
+				'X-B3-TraceId': string;
+				'X-B3-SpanId': string;
+				browserTimeOrigin: number;
+			};
 		};
 	};
 };

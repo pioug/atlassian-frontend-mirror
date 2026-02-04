@@ -28,8 +28,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__charlie-hierarchy/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__charlie-hierarchy/app"
 	},
 	"references": [
 		{

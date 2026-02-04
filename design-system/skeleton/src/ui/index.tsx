@@ -73,7 +73,7 @@ const Skeleton = ({
 	isShimmering = false,
 	groupName,
 	testId,
-}: SkeletonProps) => {
+}: SkeletonProps): JSX.Element => {
 	const groupDataAttribute = groupName && `data-${groupName}`;
 
 	return (

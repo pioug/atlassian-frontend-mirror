@@ -15,7 +15,7 @@ const styles = cssMap({
 	root: { alignItems: 'center' },
 });
 
-export default function MultilineLabelExample() {
+export default function MultilineLabelExample(): JSX.Element {
 	return (
 		<Fragment>
 			<Checkbox

@@ -70,7 +70,7 @@ const cardPlacements = [
 	'right-end',
 ] as const;
 
-export default () => {
+export default (): JSX.Element => {
 	const [placement, setPlacement] = useState<(typeof cardPlacements)[number]>('bottom-start');
 	const [isVisible, setIsVisible] = useState(true);
 

@@ -30,7 +30,7 @@ type HighlightGroupProps = HTMLAttributes<HTMLDivElement> & {
 export const HighlightGroup = (
 	props: HighlightGroupProps,
 	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-) => <div {...props} css={highlightGroupStyles} />;
+): JSX.Element => <div {...props} css={highlightGroupStyles} />;
 
 interface HighlightProps {
 	color: string;

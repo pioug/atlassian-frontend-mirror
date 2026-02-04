@@ -68,7 +68,7 @@ const CustomThemeEditor = ({
 }: {
 	theme: Theme;
 	onChange: (theme: Theme) => void;
-}) => {
+}): JSX.Element => {
 	return (
 		<Stack space="space.100">
 			{theme.map((token, index) => (

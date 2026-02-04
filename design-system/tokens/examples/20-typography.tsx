@@ -8,7 +8,7 @@ import { jsx } from '@compiled/react';
 import { Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<Stack space="space.100" testId="typography">
 			<span style={{ font: token('font.heading.xxlarge') }}>font.heading.xxlarge</span>

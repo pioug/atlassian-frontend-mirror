@@ -21,7 +21,7 @@ const PopupContent: FC = () => {
 		</div>
 	);
 };
-const ContentWithoutPortal = () => {
+const ContentWithoutPortal = (): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 	return (
 		<Popup

@@ -19,6 +19,6 @@ interface PopoverTargetProps {
  *
  * A target is the element that the popover content will be positioned in relation to.
  */
-export const PopoverTarget = ({ children }: PopoverTargetProps) => {
+export const PopoverTarget = ({ children }: PopoverTargetProps): JSX.Element => {
 	return <Reference>{({ ref }) => <div ref={ref}>{children}</div>}</Reference>;
 };

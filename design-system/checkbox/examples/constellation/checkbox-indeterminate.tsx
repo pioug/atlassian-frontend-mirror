@@ -27,7 +27,7 @@ const getInitialCheckedItems = (): Checkboxes => {
 	return initialChildCheckboxes;
 };
 
-const IndeterminateCheckboxExample = () => {
+const IndeterminateCheckboxExample = (): JSX.Element => {
 	const [childCheckboxes, setChildCheckboxes] = useState(getInitialCheckedItems());
 
 	const getAllChildren = () => Object.keys(childCheckboxes);

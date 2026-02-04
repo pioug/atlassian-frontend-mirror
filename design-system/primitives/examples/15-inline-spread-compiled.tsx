@@ -33,7 +33,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => (
+export default (): JSX.Element => (
 	<div data-testid="inline-example" css={styles.wrapper}>
 		<Stack alignInline="center">
 			space-between

@@ -5,4 +5,4 @@
  *
  * PM spec transformer should flatten these groups.
  */
-export const PSEUDO_GROUPS = new Set(['non_nestable_block_content']);
+export const PSEUDO_GROUPS: Set<string> = new Set(['non_nestable_block_content']);

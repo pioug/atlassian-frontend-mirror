@@ -15,7 +15,7 @@ const containerStyles = xcss({
 	height: '100%',
 });
 
-const ImageThemedExample = () => {
+const ImageThemedExample = (): JSX.Element => {
 	return (
 		<Inline alignBlock="center" alignInline="center" xcss={containerStyles}>
 			<Image src={Light} srcDark={Dark} alt="Theming in action" testId="image" />

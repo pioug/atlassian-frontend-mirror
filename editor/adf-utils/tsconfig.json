@@ -1,19 +1,21 @@
 {
-  "extends": "../../../tsconfig.json",
-  "compilerOptions": {},
-  "include": [
-    "./src/**/*.ts",
-    "./src/**/*.tsx",
-    "./docs/**/*.ts",
-    "./docs/**/*.tsx",
-    "./examples/**/*.ts",
-    "./examples/**/*.tsx",
-    "codemods",
-    "**/stories.ts",
-    "**/stories.tsx",
-    "**/stories/*.ts",
-    "**/stories/*.tsx",
-    "**/stories/**/*.ts",
-    "**/stories/**/*.tsx"
-  ]
+	"extends": "../../../tsconfig.json",
+	"compilerOptions": {
+		"moduleResolution": "node"
+	},
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
+		"./docs/**/*.ts",
+		"./docs/**/*.tsx",
+		"./examples/**/*.ts",
+		"./examples/**/*.tsx",
+		"codemods",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx"
+	]
 }

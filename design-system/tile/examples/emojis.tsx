@@ -17,7 +17,7 @@ const containerStyles = css({
 	maxWidth: '600px',
 });
 
-export default function Emojis() {
+export default function Emojis(): JSX.Element {
 	// Mock emoji service response to prevent external resources affecting VR test
 	const blueStar: EmojiDescription = {
 		shortName: ':blue_star:',

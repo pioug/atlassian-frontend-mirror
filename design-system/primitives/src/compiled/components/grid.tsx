@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ElementType, forwardRef, memo, type ReactNode, type Ref } from 'react';
+import { type ElementType, forwardRef, type ForwardRefExoticComponent, memo, type MemoExoticComponent, type ReactNode, type Ref, type RefAttributes } from 'react';
 
 import { jsx } from '@compiled/react';
 
@@ -180,7 +180,7 @@ const gridAutoFlowMap = cssMap({
  * )
  * ```
  */
-const Grid = memo(
+const Grid: MemoExoticComponent<ForwardRefExoticComponent<Omit<GridProps<ElementType>, "ref"> & RefAttributes<any>>> = memo(
 	forwardRef(
 		<T extends ElementType = 'div'>(
 			{

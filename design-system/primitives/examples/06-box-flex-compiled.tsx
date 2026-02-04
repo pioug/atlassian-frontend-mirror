@@ -16,7 +16,7 @@ const styles = cssMap({
 	grow1: { borderStyle: 'solid', flexGrow: '1' },
 });
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<Stack space="space.400" alignInline="start">
 			<Stack space="space.200" testId="box-with-flex">

@@ -1,6 +1,7 @@
 export type {
 	AdfRendererProps,
 	AtlassianTileProps,
+	AtlassianIconProps,
 	BadgeProps,
 	BoxProps,
 	ButtonGroupProps,
@@ -131,6 +132,7 @@ export type {
 	TFilePicker,
 	TTile,
 	TAtlassianTile,
+	TAtlassianIcon,
 } from './components/__generated__';
 
 export type {

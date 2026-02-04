@@ -14,7 +14,7 @@ const Icon = () => (
 	</Tooltip>
 );
 
-export default function NestingExample() {
+export default function NestingExample(): JSX.Element {
 	return (
 		<Tooltip content="Outer tooltip" testId="outer-nesting-tooltip">
 			{(tooltipProps) => (

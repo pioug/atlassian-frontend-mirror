@@ -3,9 +3,12 @@ import React, { type ReactNode, forwardRef, type Ref, isValidElement, cloneEleme
 import { cssMap, cx } from '@atlaskit/css';
 import { DropdownItem } from '@atlaskit/dropdown-menu';
 import type { CustomItemComponentProps } from '@atlaskit/menu/types';
-import { Pressable } from '@atlaskit/primitives/compiled';
+import { Anchor, Pressable } from '@atlaskit/primitives/compiled';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
+
+import type { DataAttributes } from '../types';
 
 import { useToolbarDropdownMenu } from './ToolbarDropdownMenuContext';
 
@@ -34,6 +37,16 @@ const styles = cssMap({
 			outlineOffset: token('space.negative.025'),
 			borderRadius: token('radius.small'),
 		},
+	},
+	anchor: {
+		textDecoration: 'none',
+		'&:hover': {
+			color: token('color.text.subtle'),
+			textDecoration: 'none',
+		},
+		'&:visited': {
+			color: token('color.text.subtle'),
+		}
 	},
 	enabled: {
 		'&:hover': {
@@ -64,6 +77,7 @@ export type CustomDropdownMenuItemButtonProps = CustomItemComponentProps & {
 	'aria-haspopup'?: boolean;
 	'aria-keyshortcuts'?: string;
 	'aria-pressed'?: boolean;
+	title?: string;
 };
 
 const CustomDropdownMenuItemButton = forwardRef<
@@ -80,11 +94,17 @@ const CustomDropdownMenuItemButton = forwardRef<
 			'aria-keyshortcuts': ariaKeyshortcuts,
 			onClick,
 			tabIndex,
+			title,
 		},
 		ref,
 	) => (
 		<Pressable
-			testId={testId}
+			role={
+				expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
+					? 'menuitem'
+					: undefined
+			}
+			testId={testId as string}
 			xcss={cx(
 				styles.toolbarDropdownItem,
 				ariaDisabled ? styles.disabled : ariaPressed ? styles.selected : styles.enabled,
@@ -93,13 +113,19 @@ const CustomDropdownMenuItemButton = forwardRef<
 			tabIndex={tabIndex}
 			aria-haspopup={ariaHasPopup}
 			aria-expanded={ariaHasPopup ? (ariaPressed ? true : false) : undefined}
-			aria-pressed={ariaPressed}
+			// platform_editor_enghealth_a11y_jan_fixes: menuitem roles cannot have aria-pressed attribute
+			aria-pressed={
+				expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
+					? undefined
+					: ariaPressed
+			}
 			aria-disabled={ariaDisabled}
 			aria-keyshortcuts={ariaKeyshortcuts}
 			data-toolbar-component={
 				editorExperiment('platform_synced_block', true) ? 'menu-item' : undefined
 			}
 			ref={ref}
+			title={expValEquals('platform_editor_renderer_toolbar_updates', 'isEnabled', true) ? title : undefined}
 		>
 			{children}
 		</Pressable>
@@ -121,8 +147,80 @@ type ToolbarDropdownItemProps = {
 	target?: string;
 	testId?: string;
 	textStyle?: TextStyle;
+	title?: string;
 	triggerRef?: Ref<HTMLButtonElement>;
-};
+} & DataAttributes;
+
+type CustomDropdownMenuItemAnchorProps = CustomItemComponentProps & {
+	'aria-disabled'?: boolean;
+	'aria-haspopup'?: boolean;
+	'aria-keyshortcuts'?: string;
+	'aria-pressed'?: boolean;
+	href: string;
+	rel?: string;
+	target?: string;
+	title?: string;
+} & DataAttributes;
+
+const CustomDropdownMenuItemAnchor = forwardRef<
+	HTMLAnchorElement,
+	CustomDropdownMenuItemAnchorProps
+>(
+	(
+		{
+			children,
+			'data-testid': testId,
+			'aria-haspopup': ariaHasPopup,
+			'aria-disabled': ariaDisabled,
+			'aria-pressed': ariaPressed,
+			'aria-keyshortcuts': ariaKeyshortcuts,
+			onClick,
+			tabIndex,
+			href,
+			target,
+			rel,
+			title,
+			...dataAttributes
+		},
+		ref,
+	) => (
+		<Anchor
+			role={
+				expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
+					? 'menuitem'
+					: undefined
+			}	
+			testId={testId as string}
+			xcss={cx(
+				styles.toolbarDropdownItem,
+				styles.anchor,
+				ariaDisabled ? styles.disabled : ariaPressed ? styles.selected : styles.enabled,
+			)}
+			onClick={onClick}
+			tabIndex={tabIndex}
+			aria-haspopup={ariaHasPopup}
+			aria-expanded={ariaHasPopup ? (ariaPressed ? true : false) : undefined}
+			// platform_editor_enghealth_a11y_jan_fixes: menuitem roles cannot have aria-pressed attribute
+			aria-pressed={
+				expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
+					? undefined
+					: ariaPressed
+			}
+			aria-disabled={ariaDisabled}
+			aria-keyshortcuts={ariaKeyshortcuts}
+			data-toolbar-component="menu-item"
+			ref={ref}
+			href={href}
+			target={target}
+			rel={rel}
+			title={title}
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			{...dataAttributes}
+		>
+			{children}
+		</Anchor>
+	),
+);
 
 export const ToolbarDropdownItem = ({
 	onClick,
@@ -133,12 +231,14 @@ export const ToolbarDropdownItem = ({
 	isDisabled,
 	hasNestedDropdownMenu,
 	triggerRef,
+	title,
 	shouldTitleWrap = true,
 	testId,
 	ariaKeyshortcuts,
 	href,
 	target,
 	rel,
+	...dataAttributes
 }: ToolbarDropdownItemProps): React.JSX.Element => {
 	const parentContext = useToolbarDropdownMenu();
 
@@ -180,12 +280,17 @@ export const ToolbarDropdownItem = ({
 			// @ts-ignore -- This `CustomDropdownMenuItemButton` has type conflicts with the `DropdownItem` component in a way that cannot be reconciled (ignored as it fails types in Jira and should in Platform)
 			component={
 				href
-					? undefined
+					? expValEquals('platform_editor_renderer_toolbar_updates', 'isEnabled', true)
+						? CustomDropdownMenuItemAnchor
+						: undefined
 					: CustomDropdownMenuItemButton
 			}
 			testId={testId}
 			data-toolbar-component="menu-item"
+			title={title}
 			shouldTitleWrap={shouldTitleWrap}
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			{...(expValEquals('platform_editor_renderer_toolbar_updates', 'isEnabled', true) ? dataAttributes : {})}
 		>
 			{children}
 		</DropdownItem>

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { memo, useMemo } from 'react';
+import { memo, type NamedExoticComponent, useMemo } from 'react';
 
 import { css, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
@@ -48,7 +48,10 @@ function getIcon(isIndeterminate: boolean, isChecked: boolean) {
  *
  * @internal
  */
-const CheckboxIcon = memo<{
+const CheckboxIcon: NamedExoticComponent<{
+    isIndeterminate: boolean;
+    isChecked: boolean;
+}> = memo<{
 	isIndeterminate: boolean;
 	isChecked: boolean;
 }>(({ isIndeterminate, isChecked }) => {

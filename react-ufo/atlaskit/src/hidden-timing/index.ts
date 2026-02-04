@@ -34,7 +34,7 @@ let insertIndex = 0;
 export function getEarliestHiddenTiming(
 	startTime: DOMHighResTimeStamp,
 	endTime: DOMHighResTimeStamp,
-) {
+): number | undefined {
 	const earliestHiddenTiming = timings.find(
 		({ hidden, time }) => hidden && time > 0 && time >= startTime && time <= endTime,
 	)?.time;
@@ -88,7 +88,7 @@ function handleChange() {
 
 let hasHiddenTimingBeforeSetup = false;
 
-export function getHasHiddenTimingBeforeSetup() {
+export function getHasHiddenTimingBeforeSetup(): boolean {
 	return hasHiddenTimingBeforeSetup;
 }
 

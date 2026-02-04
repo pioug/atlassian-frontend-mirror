@@ -1,5 +1,19 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.1.0
+
+### Minor Changes
+
+- [`c4ed6da74c937`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4ed6da74c937) -
+  OBSRVE-2971 Adding the OTel Context Manager to handle trace context for React UFO tracing
+
+### Patch Changes
+
+- [`cd27ffb264a01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd27ffb264a01) -
+  Added config option for sending the terminal error metric
+- [`ac82093b2419b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac82093b2419b) -
+  bugfixes with disabling TTVC v3
+
 ## 5.0.13
 
 ### Patch Changes

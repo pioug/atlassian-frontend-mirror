@@ -48,7 +48,7 @@ export function determineItems(
 	name: string,
 	adfNodeContent: Array<ADFNodeContentSpec>,
 	fullSchema: boolean,
-) {
+): JSONSchema4 | (JSONSchema4 | undefined)[] | undefined {
 	// @DSLCompatibilityException Special case for doc_node.
 	// It flattens the groups using the nodes themselves instead of the group name in the content.
 	if (name === 'doc') {
@@ -87,7 +87,7 @@ export function determineItems(
 	return flattenArray(processedContentGroups);
 }
 
-export function processContentTypes(contentTypes: string[]) {
+export function processContentTypes(contentTypes: string[]): JSONSchema4 | undefined {
 	const itemsArray: JSONSchema4[] = [];
 	contentTypes.forEach((piece) => {
 		itemsArray.push({ $ref: `#/definitions/${resolveName(piece)}` });
@@ -105,11 +105,11 @@ export function processContentTypes(contentTypes: string[]) {
 	}
 }
 
-export function processContentGroups(content: Array<ContentVisitorReturnType>) {
+export function processContentGroups(content: Array<ContentVisitorReturnType>): (JSONSchema4 | undefined)[] {
 	return content.map((item) => processContentTypes(item.contentTypes)).filter(Boolean);
 }
 
-export function determineMinItems(content: Array<ContentVisitorReturnType>) {
+export function determineMinItems(content: Array<ContentVisitorReturnType>): number | null {
 	// Despite it being possible for there to be multiple content groups on one node in DSL,
 	// the JSON schema has only one minItem value for all content on a node.
 	if (!content) {
@@ -131,7 +131,7 @@ export function determineMinItems(content: Array<ContentVisitorReturnType>) {
 }
 
 // This function is not comprehensive, it is only defined for certain inputs
-export function determineMaxItems(content: Array<ContentVisitorReturnType>) {
+export function determineMaxItems(content: Array<ContentVisitorReturnType>): number | null {
 	// Despite it being possible for there to be multiple content groups on one node in DSL,
 	// the JSON schema has only one maxItem value for all content on a node.
 
@@ -167,7 +167,7 @@ export function determineMaxItems(content: Array<ContentVisitorReturnType>) {
 	return maxItems > 0 ? maxItems : null;
 }
 
-export function flattenArray<T>(array: Array<T>) {
+export function flattenArray<T>(array: Array<T>): T | T[] {
 	if (array.length === 1) {
 		return array[0];
 	} else {

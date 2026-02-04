@@ -32,6 +32,7 @@ export { AITranslateIcon } from './ui/icons/AITranslateIcon';
 export { NestedDropdownRightIcon } from './ui/icons/NestedDropdownRightIcon';
 export { AICommandIcon } from './ui/icons/AICommandIcon';
 export { AddIcon } from './ui/icons/AddIcon';
+export { AppIcon } from './ui/icons/AppIcon';
 export { AppsIcon } from './ui/icons/AppsIcon';
 export { BoldIcon } from './ui/icons/BoldIcon';
 export { CommentIcon } from './ui/icons/CommentIcon';

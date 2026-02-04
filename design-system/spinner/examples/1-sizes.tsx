@@ -25,7 +25,7 @@ const itemStyles = css({
 	flexDirection: 'column',
 });
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	return (
 		<div css={containerStyles}>
 			{sizes.map((size: Size) => (

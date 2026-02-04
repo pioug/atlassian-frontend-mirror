@@ -51,4 +51,8 @@ export const TokenSuccess = (): React.JSX.Element => {
 	);
 };
 
-export default { example: TokenSuccess, code: TokenSuccessCodeBlock };
+const _default_1: {
+    example: () => React.JSX.Element;
+    code: string;
+} = { example: TokenSuccess, code: TokenSuccessCodeBlock };
+export default _default_1;

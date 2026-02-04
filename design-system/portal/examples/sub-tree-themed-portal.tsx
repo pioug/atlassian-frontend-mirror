@@ -41,7 +41,7 @@ const contentStyles = cssMap({
  * This example demonstrates how portals inherit the sub-tree theme of the
  * parent they are launched from.
  */
-export function SubTreeThemedPortalExample() {
+export function SubTreeThemedPortalExample(): JSX.Element {
 	return (
 		<AppProvider defaultColorMode="light">
 			<Stack xcss={contentStyles.body} space="space.400">

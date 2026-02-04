@@ -1,17 +1,13 @@
-import { PanelType } from '@atlaskit/adf-schema';
+import type { PanelType } from '@atlaskit/adf-schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,
-	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import { getPanelTypeBackgroundNoTokens } from '@atlaskit/editor-common/panel';
 import type { Command } from '@atlaskit/editor-common/types';
-import { wrapSelectionIn } from '@atlaskit/editor-common/utils';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import {
 	findParentNodeOfType,
@@ -130,26 +126,3 @@ export const changePanelType =
 		}
 		return true;
 	};
-
-// Delete with 'platform_editor_fix_quick_insert_consistency_exp'
-export function insertPanelWithAnalytics(
-	inputMethod: INPUT_METHOD,
-	analyticsAPI?: EditorAnalyticsAPI,
-) {
-	return withAnalytics(analyticsAPI, {
-		action: ACTION.INSERTED,
-		actionSubject: ACTION_SUBJECT.DOCUMENT,
-		actionSubjectId: ACTION_SUBJECT_ID.PANEL,
-		attributes: {
-			inputMethod: inputMethod as INPUT_METHOD.TOOLBAR,
-			panelType: PanelType.INFO, // only info panels can be inserted via this action
-		},
-		eventType: EVENT_TYPE.TRACK,
-	})(function (state: EditorState, dispatch) {
-		const { nodes } = state.schema;
-		if (nodes.panel && nodes.paragraph) {
-			return wrapSelectionIn(nodes.panel)(state, dispatch);
-		}
-		return false;
-	});
-}

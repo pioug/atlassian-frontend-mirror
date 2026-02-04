@@ -21,7 +21,7 @@ import { token } from '@atlaskit/tokens';
 
 import { Block } from '../utils';
 
-const MotionFadeInListOfElementsExample = () => {
+const MotionFadeInListOfElementsExample = (): JSX.Element => {
 	const [items, setItems] = useState(logos);
 
 	return (

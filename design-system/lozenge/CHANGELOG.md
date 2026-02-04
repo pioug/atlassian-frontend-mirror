@@ -1,5 +1,13 @@
 # @atlaskit/lozenge
 
+## 13.4.1
+
+### Patch Changes
+
+- [`396504e5d05d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/396504e5d05d4) -
+  [ux] Changed to use pressed state colors on selected lozenge dropdown trigger to keep the semantic
+  colors.
+
 ## 13.4.0
 
 ### Minor Changes

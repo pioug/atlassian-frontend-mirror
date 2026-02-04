@@ -27,8 +27,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__portal/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__portal/app"
 	},
 	"references": [
 		{

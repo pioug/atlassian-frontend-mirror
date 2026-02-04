@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-table
 
+## 17.3.5
+
+### Patch Changes
+
+- [`7f6ca0d7b6afc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f6ca0d7b6afc) -
+  Updated the table drag menu to fire a track analytic event when the menu is opened
+- Updated dependencies
+
+## 17.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.3.2
 
 ### Patch Changes

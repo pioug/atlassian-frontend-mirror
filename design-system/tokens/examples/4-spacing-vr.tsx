@@ -86,7 +86,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => {
+export default (): JSX.Element => {
 	useVrGlobalTheme();
 	return (
 		<Box testId="spacing" xcss={styles.root}>

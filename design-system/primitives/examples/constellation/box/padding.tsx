@@ -39,7 +39,7 @@ const spacingValues: Space[] = [
 	'space.1000',
 ];
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	const [padding, setPadding] = useState(6);
 	const [paddingInline, setPaddingInline] = useState(6);
 	const [paddingInlineStart, setPaddingInlineStart] = useState(6);

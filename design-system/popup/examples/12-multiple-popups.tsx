@@ -58,7 +58,7 @@ const containerStyles = css({
 	display: 'flex',
 });
 
-export default () => (
+export default (): JSX.Element => (
 	<div css={containerStyles}>
 		<PopupExample name="foo" />
 		<PopupExample name="bar" />

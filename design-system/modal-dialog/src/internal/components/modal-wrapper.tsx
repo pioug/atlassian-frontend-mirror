@@ -63,7 +63,7 @@ const allowlistElements = (element: HTMLElement, callback?: (element: HTMLElemen
  * - [Code](https://atlassian.design/components/modal-dialog/code)
  * - [Usage](https://atlassian.design/components/modal-dialog/usage)
  */
-const InternalModalWrapper = (props: InternalModalWrapperProps) => {
+const InternalModalWrapper = (props: InternalModalWrapperProps): JSX.Element => {
 	const {
 		autoFocus = true,
 		focusLockAllowlist,

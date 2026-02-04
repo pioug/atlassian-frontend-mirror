@@ -677,7 +677,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 												return '50000+';
 										}
 									})(),
-								}
+							  }
 							: {};
 
 						dispatchAnalyticsEvent({
@@ -945,6 +945,16 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 						aria-describedby={assistiveDescribedBy}
 						data-editor-id={editorId.current}
 						data-vc-ignore-if-no-layout-shift={true}
+						data-ssr-placeholder={
+							expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+								? 'editor-view'
+								: undefined
+						}
+						data-ssr-placeholder-replace={
+							expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+								? 'editor-view'
+								: undefined
+						}
 						// eslint-disable-next-line react/no-danger -- needed for SSR and hydration so react keeps the HTML untouched
 						dangerouslySetInnerHTML={
 							expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
@@ -1137,7 +1147,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 			)}
 
 			{props.render
-				? (props.render?.({
+				? props.render?.({
 						editor,
 						view: viewRef.current,
 						config: config.current,
@@ -1148,7 +1158,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 						editorAPI: expVal('platform_editor_no_state_plugin_injection_api', 'isEnabled', false)
 							? pluginInjectionAPI.current.api()
 							: editorAPI,
-					}) ?? editor)
+				  }) ?? editor
 				: editor}
 		</ReactEditorViewContext.Provider>
 	);

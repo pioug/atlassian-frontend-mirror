@@ -21,7 +21,7 @@ const styles = cssMap({
 	},
 });
 
-const ModalPopupCompositionalAPI = () => {
+const ModalPopupCompositionalAPI = (): JSX.Element => {
 	return (
 		<Fragment>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -35,7 +35,7 @@ const ModalPopupCompositionalAPI = () => {
 	);
 };
 
-export const ModalPopupCompositionalAPILong = () => {
+export const ModalPopupCompositionalAPILong = (): JSX.Element => {
 	return (
 		<Fragment>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0" />

@@ -51,7 +51,7 @@ const elements = [
 	),
 ];
 
-export default () => {
+export default (): JSX.Element => {
 	const [index, setIndex] = useState(0);
 	const [appear, setAppear] = useState(true);
 	const [exitThenEnter, setExitThenEnter] = useState(false);

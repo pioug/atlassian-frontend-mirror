@@ -26,7 +26,7 @@ const DEFAULT_LOADING_TIMEOUT = 1500;
 const MAX_LOADING_TIMEOUT = 5000;
 const STEP_LOADING_TIMEOUT = 100;
 
-const ButtonLoadingWithTimeoutExample = () => {
+const ButtonLoadingWithTimeoutExample = (): React.JSX.Element => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [isRefreshing, setIsRefreshing] = useState(false);
 	const [isSaving, setIsSaving] = useState(false);

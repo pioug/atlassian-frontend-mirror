@@ -6,14 +6,17 @@ import {
 	type CSSProperties,
 	type ElementType,
 	forwardRef,
+	type ForwardRefExoticComponent,
 	memo,
+	type MemoExoticComponent,
 	type ReactNode,
 	type Ref,
+	type RefAttributes,
 	useMemo,
 } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 import { type Space, spaceStylesMap } from '../xcss/style-maps.partial';
 import { parseXcss } from '../xcss/xcss';
@@ -108,7 +111,7 @@ const gridTemplateAreasVar = '--ds-grid--grid-template-areas';
 const gridTemplateColumnsVar = '--ds-grid--grid-template-columns';
 const gridTemplateRowsVar = '--ds-grid--grid-template-rows';
 
-const justifyContentMap = {
+const justifyContentMap: { readonly start: SerializedStyles; readonly center: SerializedStyles; readonly end: SerializedStyles; readonly 'space-between': SerializedStyles; readonly 'space-around': SerializedStyles; readonly 'space-evenly': SerializedStyles; readonly stretch: SerializedStyles; } = {
 	start: css({ justifyContent: 'start' }),
 	center: css({ justifyContent: 'center' }),
 	end: css({ justifyContent: 'end' }),
@@ -118,14 +121,19 @@ const justifyContentMap = {
 	stretch: css({ justifyContent: 'stretch' }),
 } as const;
 
-const justifyItemsMap = {
+const justifyItemsMap: {
+    readonly start: SerializedStyles;
+    readonly center: SerializedStyles;
+    readonly end: SerializedStyles;
+    readonly stretch: SerializedStyles;
+} = {
 	start: css({ justifyItems: 'start' }),
 	center: css({ justifyItems: 'center' }),
 	end: css({ justifyItems: 'end' }),
 	stretch: css({ justifyItems: 'stretch' }),
 } as const;
 
-const alignContentMap = {
+const alignContentMap: { readonly start: SerializedStyles; readonly center: SerializedStyles; readonly end: SerializedStyles; readonly 'space-between': SerializedStyles; readonly 'space-around': SerializedStyles; readonly 'space-evenly': SerializedStyles; readonly stretch: SerializedStyles; } = {
 	start: css({ alignContent: 'start' }),
 	center: css({ alignContent: 'center' }),
 	end: css({ alignContent: 'end' }),
@@ -135,7 +143,12 @@ const alignContentMap = {
 	stretch: css({ alignContent: 'stretch' }),
 } as const;
 
-const alignItemsMap = {
+const alignItemsMap: {
+    readonly start: SerializedStyles;
+    readonly center: SerializedStyles;
+    readonly baseline: SerializedStyles;
+    readonly end: SerializedStyles;
+} = {
 	start: css({ alignItems: 'start' }),
 	center: css({ alignItems: 'center' }),
 	baseline: css({ alignItems: 'baseline' }),
@@ -152,7 +165,7 @@ const baseStyles = css({
 
 type AutoFlow = keyof typeof gridAutoFlowMap;
 
-const gridAutoFlowMap = {
+const gridAutoFlowMap: { readonly row: SerializedStyles; readonly column: SerializedStyles; readonly dense: SerializedStyles; readonly 'row dense': SerializedStyles; readonly 'column dense': SerializedStyles; } = {
 	row: css({ gridAutoFlow: 'row' }),
 	column: css({ gridAutoFlow: 'column' }),
 	dense: css({ gridAutoFlow: 'dense' }),
@@ -181,7 +194,7 @@ const gridAutoFlowMap = {
  * )
  * ```
  */
-const Grid = memo(
+const Grid: MemoExoticComponent<ForwardRefExoticComponent<Omit<GridProps<ElementType>, "ref"> & RefAttributes<any>>> = memo(
 	forwardRef(
 		<T extends ElementType = 'div'>(
 			{

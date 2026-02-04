@@ -45,7 +45,11 @@ export function hasRequiredAttributes(attrs: ADFAttributes): boolean {
 	return required;
 }
 
-export function buildVariantRequired(content: ContentVisitorReturnType[]) {
+export function buildVariantRequired(content: ContentVisitorReturnType[]): {
+    required: string[];
+} | {
+    required?: undefined;
+} {
 	if (
 		(typeof content[0]?.minItems === 'number' && content[0]?.minItems >= 1) ||
 		Boolean(content[0]?.range?.type)

@@ -12,6 +12,6 @@ const labelTextStyles = css({
 	gridArea: '1 / 2 / 2 / 3',
 });
 
-export default function LabelText({ children }: LabelTextProps) {
+export default function LabelText({ children }: LabelTextProps): JSX.Element {
 	return <span css={labelTextStyles}>{children}</span>;
 }

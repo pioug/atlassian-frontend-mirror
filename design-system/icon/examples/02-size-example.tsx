@@ -54,7 +54,7 @@ const demoIcons = [
 
 const sizes: Size[] = ['small', 'medium', 'large', 'xlarge'];
 
-const IconSizeExample = ({ defaultSize = 'medium' }: { defaultSize: Size }) => {
+const IconSizeExample = ({ defaultSize = 'medium' }: { defaultSize: Size }): JSX.Element => {
 	const [size, setSize] = useState<Size>(defaultSize);
 
 	return (

@@ -144,7 +144,7 @@ const Box = ({ text, style }: { text: string; style: Record<string, string> }) =
 	);
 };
 
-export default () => {
+export default (): JSX.Element => {
 	useVrGlobalTheme();
 
 	return (

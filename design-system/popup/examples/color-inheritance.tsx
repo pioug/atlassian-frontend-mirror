@@ -51,7 +51,7 @@ function Item({ shouldRenderToParent = false }: { shouldRenderToParent?: boolean
 	);
 }
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	return (
 		<Box padding="space.100">
 			<Box xcss={containerStyles.root}>

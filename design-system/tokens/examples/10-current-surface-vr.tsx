@@ -32,7 +32,7 @@ const SurfaceAwareBox = () => (
 	<div css={[styles.box, styles.currentSurface]}>This box uses the current surface value.</div>
 );
 
-export default () => {
+export default (): JSX.Element => {
 	useVrGlobalTheme();
 	return (
 		<div>

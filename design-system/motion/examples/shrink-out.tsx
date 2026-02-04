@@ -22,7 +22,7 @@ const apps = [
 	'Jira Software',
 ];
 
-export default () => {
+export default (): JSX.Element => {
 	const [actualApps, setApps] = useState(apps);
 
 	return (

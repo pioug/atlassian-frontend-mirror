@@ -5,7 +5,13 @@ import { useEffect, useRef, useState } from 'react';
  * The `bindFocus` function returned provides two event handlers:
  * - `onFocus` and `onBlur` which when triggered set `isFocused` accordingly.
  */
-export default function useFocus() {
+export default function useFocus(): {
+    isFocused: boolean;
+    bindFocus: {
+        onFocus: () => void;
+        onBlur: () => void;
+    };
+} {
 	const [isFocused, setIsFocused] = useState(false);
 
 	// ensure bindFocus has a stable ref

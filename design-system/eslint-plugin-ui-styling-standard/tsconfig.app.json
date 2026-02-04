@@ -28,9 +28,7 @@
 	"compilerOptions": {
 		"lib": ["ES2021.String", "ES2022"],
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__eslint-plugin-ui-styling-standard/app",
-		"module": "nodenext",
-		"moduleResolution": "nodenext"
+		"outDir": "../../../tsDist/@atlaskit__eslint-plugin-ui-styling-standard/app"
 	},
 	"references": [
 		{

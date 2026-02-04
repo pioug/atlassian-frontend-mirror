@@ -34,9 +34,7 @@ export function inputRulePlugin(
 	if (schema.nodes.emoji) {
 		initMatcher(pluginInjectionApi);
 		const asciiEmojiRule = createRule(
-			expValEquals('platform_editor_wait_for_space_after_ascii_emoji', 'isEnabled', true)
-				? AsciiEmojiMatcher.REGEX_WITH_WHITESPACE
-				: AsciiEmojiMatcher.REGEX_LEGACY,
+			AsciiEmojiMatcher.REGEX,
 			inputRuleHandler(editorAnalyticsAPI),
 		);
 
@@ -139,15 +137,8 @@ class AsciiEmojiMatcher {
 	// New behavior: All emoticons require whitespace after them
 	// Ignored via go/ees005
 	// eslint-disable-next-line require-unicode-regexp
-	static REGEX_WITH_WHITESPACE = new RegExp(
+	static REGEX = new RegExp(
 		`((?:^|[\\s${leafNodeReplacementCharacter}])(?:\\(*?))(\\(?)([^:\\s${leafNodeReplacementCharacter}\\(]\\S{1,3}|:\\S{1,3})([\\s\\t\\n])$`,
-	);
-
-	// Legacy behavior: Non-colon emoticons don't require whitespace
-	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp
-	static REGEX_LEGACY = new RegExp(
-		`((?:^|[\\s${leafNodeReplacementCharacter}])(?:\\(*?))(\\(?)([^:\\s${leafNodeReplacementCharacter}\\(]\\S{1,3}|:\\S{1,3}( ))$`,
 	);
 
 	private asciiToEmojiMap: Map<string, EmojiDescription>;

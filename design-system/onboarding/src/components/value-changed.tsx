@@ -18,7 +18,7 @@ export default class ValueChanged extends React.Component<ValueChangedProps> {
 		}
 	}
 
-	render() {
+	render(): React.ReactNode {
 		return this.props.children;
 	}
 }

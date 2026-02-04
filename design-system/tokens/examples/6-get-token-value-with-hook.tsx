@@ -20,7 +20,7 @@ const ExampleDiv = () => (
 	</p>
 );
 
-export default () => {
+export default (): JSX.Element => {
 	const theme = useThemeObserver();
 
 	const themeName = theme.colorMode === 'dark' ? theme.dark : theme.light;

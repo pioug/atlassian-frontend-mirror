@@ -47,7 +47,7 @@ const HighlightPopup = (props: { children: React.ReactNode }) => (
 	/>
 );
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<main>
 			Thanks to soaring electricity costs and the potentially-enormous power drain of cooling

@@ -24,7 +24,7 @@ type LozengeElement = {
  * 4. Converts to Tag with color="purple" when feature gate is off
  * 5. Adds necessary imports (Tag, fg)
  */
-export default function transformer(file: FileInfo, api: API) {
+export default function transformer(file: FileInfo, api: API): any {
 	const j = api.jscodeshift;
 	let source: any;
 

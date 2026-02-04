@@ -51,4 +51,8 @@ const TokenInformation = (): React.JSX.Element => {
 	);
 };
 
-export default { example: TokenInformation, code: TokenInformationCodeBlock };
+const _default_1: {
+    example: () => React.JSX.Element;
+    code: string;
+} = { example: TokenInformation, code: TokenInformationCodeBlock };
+export default _default_1;

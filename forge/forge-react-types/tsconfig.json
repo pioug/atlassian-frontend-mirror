@@ -2,6 +2,7 @@
 	"extends": "../../../tsconfig.json",
 	"include": ["./src/**/*", "./scripts/*"],
 	"compilerOptions": {
-		"removeComments": false
+		"removeComments": false,
+		"moduleResolution": "node"
 	}
 }

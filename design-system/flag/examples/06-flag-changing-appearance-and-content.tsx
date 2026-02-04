@@ -78,7 +78,7 @@ const getIcon = (key: string) => {
 	return iconMap(key) as ReactElement;
 };
 
-const ConnectionDemo = () => {
+const ConnectionDemo = (): JSX.Element => {
 	const [appearance, setAppearance] = useState<AppearanceTypes>(appearanceTypes[0]);
 
 	return (

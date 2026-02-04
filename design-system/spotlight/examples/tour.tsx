@@ -56,7 +56,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => {
+export default (): JSX.Element => {
 	const [currentStep, setCurrentStep] = useState<number>(0);
 
 	const dismiss = () => setCurrentStep(0);

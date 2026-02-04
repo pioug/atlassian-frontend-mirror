@@ -35,4 +35,8 @@ const TokenBrand = (): React.JSX.Element => {
 	);
 };
 
-export default { example: TokenBrand, code: TokenBrandCodeBlock };
+const _default_1: {
+    example: () => React.JSX.Element;
+    code: string;
+} = { example: TokenBrand, code: TokenBrandCodeBlock };
+export default _default_1;

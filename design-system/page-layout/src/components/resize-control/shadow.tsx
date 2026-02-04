@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 import { easeOut } from '@atlaskit/motion';
@@ -44,7 +44,7 @@ const draggingStyles = css({
 	opacity: 0.8,
 });
 
-const Shadow = ({ testId }: { testId?: string }) => {
+const Shadow = ({ testId }: { testId?: string }): jsx.JSX.Element => {
 	const isDragging = useIsSidebarDragging();
 
 	return <div data-testid={testId} css={[shadowStyles, isDragging && draggingStyles]} />;

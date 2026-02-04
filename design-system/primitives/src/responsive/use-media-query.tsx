@@ -81,7 +81,7 @@ const queries: Queries = {
 export const UNSAFE_useMediaQuery = (
 	queryString: NestedQueryString,
 	listener?: (event: MediaQueryListEvent) => void,
-) => {
+): MediaQueryList | null => {
 	const listenerRef = useRef<typeof listener>(listener);
 	useEffect(() => {
 		// Bind the listener if changed so it's called on the next change event; no guarantee on timing.

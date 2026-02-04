@@ -43,7 +43,7 @@ const formHeaderDescriptionStyles = css({
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/form/docs/layout)
  * - [Usage](https://atlaskit.atlassian.com/packages/design-system/form/docs/layout).
  */
-const FormHeader = ({ children, description, title }: FormHeaderProps) => {
+const FormHeader = ({ children, description, title }: FormHeaderProps): JSX.Element => {
 	return (
 		<div>
 			{title && <Heading size="large">{title}</Heading>}

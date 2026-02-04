@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
@@ -18,7 +18,7 @@ const truncateStyles = css({
 
 const blockStyles = xcss({ borderRadius: 'radius.xsmall' });
 
-export default () => (
+export default (): jsx.JSX.Element => (
 	<Stack testId="inline-example" space="space.100" alignInline="start">
 		<Stack space="space.100">
 			{growItems.map((grow) => (

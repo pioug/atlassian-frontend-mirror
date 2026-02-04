@@ -1,5 +1,12 @@
 # @atlaskit/analytics-next
 
+## 11.1.4
+
+### Patch Changes
+
+- [`0ca7d810bc817`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ca7d810bc817) -
+  Re-implement legacy analytics context and listener behind a feature gate
+
 ## 11.1.3
 
 ### Patch Changes
@@ -394,11 +401,9 @@
 - [#4749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4749)
   [`0e2a914932`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e2a914932) - ###
   Additions
-
   - Added a new hook `useAnalyticsEventHandler` for sole use in Atlaskit components
 
   ### Removals
-
   - Removed some entry points that were unintentionally exposed
     - `AnalyticsContextConsumer`
     - `withAnalyticsHook`
@@ -408,7 +413,6 @@
     - `AnalyticsEventMap`
 
   ### Improvements
-
   - Optimization of components to prevent unnecessary re-renders via inline callbacks or jsons
   - Conversion to Function Components where possible
   - Preparation for dropping legacy React context in a future major release (see note below)
@@ -515,7 +519,6 @@
 
   Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
   [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
-
   - @atlaskit/docs@8.3.2
   - @atlaskit/button@13.3.7
   - @atlaskit/textfield@3.1.6
@@ -540,7 +543,6 @@
 
   Fixes data type to Object- Updated dependencies
   [24865cfaff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/24865cfaff):
-
   - @atlaskit/field-text@9.0.14
 
 ## 6.3.2
@@ -574,7 +576,6 @@
 ### Minor Changes
 
 - [minor][42fd897e16](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/42fd897e16):
-
   - Introduces a new custom React hook, `useAnalyticsEvents_experimental`, for creating analytics
     events within functional components. This hook replaces the need for the `withAnalyticsEvents`
     HOC. See the
@@ -627,12 +628,10 @@
   safety. Flow types are no longer provided. No behavioural changes.
 
   **Breaking changes**
-
   - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
   - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
   **Breaking changes to TypeScript annotations**
-
   - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
     props as a generic type.
   - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
@@ -663,7 +662,6 @@
 ### Minor Changes
 
 - [minor][e1f8aaf33b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e1f8aaf33b):
-
   - Adding entry point for `AnalyticsErrorBoundary` package
 
   ```
@@ -700,7 +698,6 @@
   ```
 
   Notes on new API:
-
   - Plug-and-play component. As soon and it's wrapping a component it's fully integrated.
   - It has Analytics context and events integrated already. Keep in mind it requires
     `AnalyticsListener` as a top level component to work properly, otherwise it won't trigger
@@ -790,27 +787,23 @@
 ### Patch Changes
 
 - [patch][47acb57783](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/47acb57783):
-
   - Avoid unnecessary re-renders on components that use withAnalytics
 
 ## 5.0.0
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
-
   - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
     this package, please ensure you use at least this version of react and react-dom.
 
 ## 4.0.5
 
 - [patch][3f28e6443c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3f28e6443c):
-
   - @atlaskit/analytics-next-types is deprecated. Now you can use types for @atlaskit/analytics-next
     supplied from itself.
 
 ## 4.0.4
 
 - [patch][9321da655d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9321da655d):
-
   - Update AnalyticsEventMap, as per major inline edit rewrite
 
 ## 4.0.3
@@ -824,7 +817,6 @@
 ## 4.0.2
 
 - [patch][98e11001ff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/98e11001ff):
-
   - Removes duplicate babel-runtime dependency
 
 ## 4.0.1
@@ -838,7 +830,6 @@
 ## 4.0.0
 
 - [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-
   - Drop ES5 from all the flow modules
 
   ### Dropping CJS support in all @atlaskit packages
@@ -883,13 +874,11 @@
 ## 3.2.1
 
 - [patch][8de4c3f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8de4c3f):
-
   - Added missing export
 
 ## 3.2.0
 
 - [minor][c3fa0b6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c3fa0b6):
-
   - Added support for props of Sum type
 
 ## 3.1.2
@@ -909,7 +898,6 @@
 ## 3.1.0
 
 - [minor][cffeed0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cffeed0):
-
   - Type `withAnalyticsEvents` and `withAnalyticsContext` HOCs so that they do not lose flow types
     of the components they wrap when chained together.
 
@@ -925,7 +913,6 @@
 ## 3.0.11
 
 - [patch][d903ab5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d903ab5):
-
   - Updates list of instrumented components
 
 ## 3.0.10

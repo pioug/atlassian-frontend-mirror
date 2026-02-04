@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-emoji
 
+## 8.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.1.6
+
+### Patch Changes
+
+- [`b30e41f7bbb3b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b30e41f7bbb3b) -
+  Cleanup platform_editor_wait_for_space_after_ascii_emoji
+- Updated dependencies
+
+## 8.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.4
 
 ### Patch Changes

@@ -23,7 +23,7 @@ const styles = cssMap({
 
 const Block = () => <Box xcss={styles.block} backgroundColor="color.background.neutral" />;
 
-export default function Basic() {
+export default function Basic(): JSX.Element {
 	return (
 		<Grid gap="space.200" alignItems="center">
 			<Grid testId="grid-basic" gap="space.100">

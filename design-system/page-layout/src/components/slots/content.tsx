@@ -4,7 +4,7 @@
  */
 import { type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 import { CONTENT } from '../../common/constants';
@@ -36,7 +36,7 @@ const contentStyles = css({
  * - [Examples](https://atlassian.design/components/page-layout/examples)
  * - [Code](https://atlassian.design/components/page-layout/code)
  */
-const Content = (props: ContentProps) => {
+const Content = (props: ContentProps): jsx.JSX.Element => {
 	const { children, testId } = props;
 
 	return (

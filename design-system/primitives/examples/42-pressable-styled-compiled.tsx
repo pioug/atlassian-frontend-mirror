@@ -20,7 +20,7 @@ const styles = cssMap({
 	},
 });
 
-export default function Styled() {
+export default function Styled(): JSX.Element {
 	return (
 		<Pressable testId="pressable-styled" xcss={styles.root}>
 			Press me

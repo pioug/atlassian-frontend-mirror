@@ -227,7 +227,7 @@ export function IconWrapper({
 	iconColor: customIconColor,
 	isAssets = false,
 	type = 'tile',
-}: IconWrapperProps) {
+}: IconWrapperProps): JSX.Element {
 	const testId = userDefinedTestId && `${userDefinedTestId}--wrapper`;
 
 	const isCustomThemed = customThemeSvg && customIconColor;

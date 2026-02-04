@@ -215,7 +215,7 @@ const Box = ({ text, style }: { text: string; style: Record<string, string> }) =
 	</button>
 );
 
-export default () => {
+export default (): JSX.Element => {
 	useVrGlobalTheme();
 
 	return (

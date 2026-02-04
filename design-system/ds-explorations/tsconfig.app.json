@@ -27,8 +27,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__ds-explorations/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__ds-explorations/app"
 	},
 	"references": [
 		{

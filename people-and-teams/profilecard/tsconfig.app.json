@@ -28,8 +28,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__profilecard/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__profilecard/app"
 	},
 	"references": [
 		{

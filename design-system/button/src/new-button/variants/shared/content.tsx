@@ -67,7 +67,7 @@ type ContentProps = {
  *
  * Used for slots within a Button, including icons and text content.
  */
-const Content = ({ children, type = 'text', isLoading, position }: ContentProps) => {
+const Content = ({ children, type = 'text', isLoading, position }: ContentProps): JSX.Element => {
 	return (
 		<span
 			css={[

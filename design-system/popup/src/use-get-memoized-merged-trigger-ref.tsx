@@ -1,6 +1,6 @@
 import { type Dispatch, type SetStateAction, useState } from 'react';
 
-import memoizeOne from 'memoize-one';
+import memoizeOne, { type MemoizedFn } from 'memoize-one';
 
 /*
  * Get a memoized functional ref for use within a Popup's Trigger.
@@ -12,7 +12,7 @@ import memoizeOne from 'memoize-one';
  *  - `useState.setTriggerRef`
  *  - `renderProps.ref`
  */
-export const useGetMemoizedMergedTriggerRef = () => {
+export const useGetMemoizedMergedTriggerRef = (): MemoizedFn<(ref: React.RefCallback<HTMLElement> | React.MutableRefObject<HTMLElement> | null, setTriggerRef: Dispatch<SetStateAction<HTMLElement | null>>, isOpen: boolean) => (node: HTMLElement | null) => void> => {
 	const [getMemoizedMergedTriggerRef] = useState(() =>
 		memoizeOne(
 			(

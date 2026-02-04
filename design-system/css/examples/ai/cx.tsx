@@ -19,7 +19,7 @@ const styles = cssMap({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-invalid-css-map
-export default ({ hasBlock, hasInline }: { hasBlock: boolean; hasInline: boolean }) => (
+export default ({ hasBlock, hasInline }: { hasBlock: boolean; hasInline: boolean }): JSX.Element => (
 	<Box xcss={cx(styles.container, hasBlock && styles.block, hasInline && styles.inline)}>
 		Container
 		<div css={[styles.inline, styles.block]}>Native doesn't use `cx`</div>

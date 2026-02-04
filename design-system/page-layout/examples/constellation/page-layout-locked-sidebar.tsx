@@ -4,7 +4,7 @@
  */
 import { useCallback, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
 import { IconButton } from '@atlaskit/button/new';
@@ -73,7 +73,7 @@ const Menu = () => {
 	);
 };
 
-const App = () => {
+const App = (): jsx.JSX.Element => {
 	return (
 		<PageLayout>
 			<Content>

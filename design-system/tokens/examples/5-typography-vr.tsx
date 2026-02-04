@@ -83,7 +83,7 @@ const fontFamilies = [
 	// },
 ];
 
-export default () => {
+export default (): JSX.Element => {
 	useVrGlobalTheme();
 	return (
 		<div data-testid="typography">

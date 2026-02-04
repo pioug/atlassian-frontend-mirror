@@ -35,8 +35,7 @@
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__editor-extension-googledrive/dev",
-		"types": ["node", "jest", "@testing-library/jest-dom", "gapi"],
-		"moduleResolution": "bundler"
+		"types": ["node", "jest", "@testing-library/jest-dom", "gapi"]
 	},
 	"references": [
 		{

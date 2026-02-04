@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, type Provider, useContext } from 'react';
 
 const HasTextAncestorContext = createContext(false);
 /**
@@ -8,4 +8,4 @@ export const useHasTextAncestor = (): boolean => useContext(HasTextAncestorConte
 /**
  * @internal
  */
-export const HasTextAncestorProvider = HasTextAncestorContext.Provider;
+export const HasTextAncestorProvider: Provider<boolean> = HasTextAncestorContext.Provider;

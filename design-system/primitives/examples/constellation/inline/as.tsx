@@ -38,7 +38,7 @@ const Definition = ({ children }: { children: ReactNode }) => (
 	</Box>
 );
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	return (
 		<Stack space="space.200">
 			<Box>

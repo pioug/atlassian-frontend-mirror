@@ -47,7 +47,7 @@ const styles = cssMap({
 	},
 });
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	const [width, setWidth] = useState(0);
 
 	return (

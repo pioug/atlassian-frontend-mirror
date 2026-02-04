@@ -28,8 +28,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__teams-avatar/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__teams-avatar/app"
 	},
 	"references": [
 		{

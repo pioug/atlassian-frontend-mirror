@@ -9,8 +9,10 @@ import { type ThemeModes } from '@atlaskit/theme/types';
 import ButtonBase from '../shared/button-base';
 import getIsOnlySingleIcon from '../shared/get-is-only-single-icon';
 import LoadingSpinner from '../shared/loading-spinner';
+import type { BaseProps } from '../types';
 
 import {
+    type CustomThemeButtonOwnProps,
 	type InteractionState,
 	type CustomThemeButtonProps as Props,
 } from './custom-theme-button-types';
@@ -65,7 +67,7 @@ const initial: State = { isHover: false, isActive: false, isFocus: false };
  *
  * - [Examples](https://atlassian.design/components/button/examples#custom-theme-button)
  */
-const CustomThemeButton = React.memo(
+const CustomThemeButton: React.MemoExoticComponent<React.ForwardRefExoticComponent<Omit<BaseProps, "overlay"> & CustomThemeButtonOwnProps & React.RefAttributes<HTMLElement>>> = React.memo(
 	React.forwardRef<HTMLElement, Props>(function CustomThemeButton(
 		{
 			// Calculate default props for use in custom themes

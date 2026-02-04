@@ -253,11 +253,7 @@ const renderScaleDownColgroup = (
 			isNumberColumnEnabled: isNumberColumnEnabled,
 		});
 	}
-	if (
-		isNumberColumnEnabled &&
-		(tableWidth < maxTableWidth || maxTableWidth === 0) &&
-		expValEquals('editor_prevent_numbered_column_too_big_jira_1', 'isEnabled', true)
-	) {
+	if (isNumberColumnEnabled && (tableWidth < maxTableWidth || maxTableWidth === 0)) {
 		const fixedColWidths = targetWidths.map(
 			(width) =>
 				fixColumnWidth({ columnWidth: width, zeroWidthColumnsCount, scaleDownPercent }) ||
@@ -284,10 +280,7 @@ const renderScaleDownColgroup = (
 		});
 	}
 
-	/**
-	 * When cleaning up editor_prevent_numbered_column_too_big_jira_1 experiment,
-	 * resuse the fixedColWidths const to avoid code duplication.
-	 */
+
 	return targetWidths.map((colWidth) => {
 		const width =
 			fixColumnWidth({ columnWidth: colWidth, zeroWidthColumnsCount, scaleDownPercent }) ||

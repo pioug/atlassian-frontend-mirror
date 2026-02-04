@@ -12,7 +12,7 @@ import TextField from '@atlaskit/textfield';
  * that CharacterCounterField does not provide. Generally speaking, it is
  * recommended to use CharacterCounterField for consistent styling.
  */
-const StandaloneCharacterCounterExample = () => {
+const StandaloneCharacterCounterExample = (): React.JSX.Element => {
 	const [textFieldValue, setTextFieldValue] = useState('');
 	const [textAreaValue, setTextAreaValue] = useState('');
 

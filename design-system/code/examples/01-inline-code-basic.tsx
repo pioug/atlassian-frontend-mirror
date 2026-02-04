@@ -29,7 +29,7 @@ const containerStyles = cssMap({
 	},
 });
 
-export default function Component() {
+export default function Component(): JSX.Element {
 	return (
 		<div id="inline-examples" css={containerStyles.root}>
 			<p>h1 w/ code</p>

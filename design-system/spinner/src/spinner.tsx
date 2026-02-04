@@ -95,7 +95,7 @@ const useLayoutEffect = typeof window === 'undefined' ? useEffect : useRealLayou
  * - [Code](https://atlassian.design/components/spinner/code)
  * - [Usage](https://atlassian.design/components/spinner/usage)
  */
-const Spinner = React.memo(
+const Spinner: React.MemoExoticComponent<React.ForwardRefExoticComponent<SpinnerProps & React.RefAttributes<SVGSVGElement>>> = React.memo(
 	React.forwardRef<SVGSVGElement, SpinnerProps>(function Spinner(
 		{
 			appearance = 'inherit',

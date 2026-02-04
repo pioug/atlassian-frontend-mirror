@@ -38,8 +38,7 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__email-renderer/dev",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__email-renderer/dev"
 	},
 	"references": [
 		{

@@ -65,4 +65,8 @@ export const TokenElevation = (): React.JSX.Element => {
 	);
 };
 
-export default { example: TokenElevation, code: TokenElevationCodeBlock };
+const _default_1: {
+    example: () => React.JSX.Element;
+    code: string;
+} = { example: TokenElevation, code: TokenElevationCodeBlock };
+export default _default_1;

@@ -114,7 +114,7 @@ const CharacterCounter = ({
 	shouldShowAsError = true,
 	inputId,
 	testId,
-}: CharacterCounterProps) => {
+}: CharacterCounterProps): JSX.Element | null => {
 	const [announcementText, setAnnouncementText] = useState('');
 	const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 

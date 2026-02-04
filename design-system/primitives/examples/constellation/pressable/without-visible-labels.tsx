@@ -67,7 +67,7 @@ const ReactionButton = ({ emoji, name, reactions }: ReactionButtonProps) => {
 	);
 };
 
-export default function IconButtons() {
+export default function IconButtons(): JSX.Element {
 	return (
 		<ButtonGroup label="Reactions">
 			<ReactionButton emoji="👏" name="Clap" reactions={26} />

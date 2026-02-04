@@ -172,6 +172,12 @@ export type Config = {
 		readonly kind?: Record<InteractionType, number>;
 	};
 	/**
+	 * Option to enable terminal error tracking
+	 */
+	readonly terminalErrors?: {
+		readonly enabled?: boolean;
+	};
+	/**
 	 * @private
 	 * @deprecated - to be removed on next major version
 	 */

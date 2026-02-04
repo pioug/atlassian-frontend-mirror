@@ -41,7 +41,7 @@ const styles = cssMap({
 	},
 });
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	return (
 		<Stack xcss={styles.container} space="space.100">
 			<Text as="span">

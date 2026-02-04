@@ -19,7 +19,7 @@ const styles = cssMap({
 
 const Block = () => <Box backgroundColor="color.background.neutral" xcss={styles.block} />;
 
-export default function Basic() {
+export default function Basic(): JSX.Element {
 	return (
 		<Flex testId="flex-basic" wrap="wrap" gap="space.200">
 			<Block />

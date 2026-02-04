@@ -51,7 +51,7 @@ const FormSectionDescription = ({ children }: { children: ReactNode }) => {
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/form/docs/layout)
  * - [Usage](https://atlaskit.atlassian.com/packages/design-system/form/docs/layout).
  */
-const FormSection = ({ children, description, title }: FormSectionProps) => {
+const FormSection = ({ children, description, title }: FormSectionProps): JSX.Element => {
 	return (
 		<FormSectionWrapper>
 			{title && <Heading size="medium">{title}</Heading>}

@@ -58,7 +58,7 @@ export class Hct {
 	internalChroma: number;
 	internalTone: number;
 
-	static from(hue: number, chroma: number, tone: number) {
+	static from(hue: number, chroma: number, tone: number): Hct {
 		return new Hct(HctSolver.solveToInt(hue, chroma, tone));
 	}
 
@@ -66,7 +66,7 @@ export class Hct {
 	 * @param argb ARGB representation of a color.
 	 * @return HCT representation of a color in default viewing conditions
 	 */
-	static fromInt(argb: number) {
+	static fromInt(argb: number): Hct {
 		return new Hct(argb);
 	}
 
@@ -1033,7 +1033,7 @@ export class ViewingConditions {
 	/**
 	 * sRGB-like viewing conditions.
 	 */
-	static DEFAULT = ViewingConditions.make();
+	static DEFAULT: ViewingConditions = ViewingConditions.make();
 
 	/**
 	 * Create ViewingConditions from a simple, physically relevant, set of
@@ -1058,8 +1058,8 @@ export class ViewingConditions {
 	 *       self-luminous objects like displays.
 	 */
 	static make(
-		whitePoint = utils.whitePointD65(),
-		adaptingLuminance = ((200.0 / Math.PI) * utils.yFromLstar(50.0)) / 100.0,
+		whitePoint: number[] = utils.whitePointD65(),
+		adaptingLuminance: number = ((200.0 / Math.PI) * utils.yFromLstar(50.0)) / 100.0,
 		backgroundLstar = 50.0,
 		surround = 2.0,
 		discountingIlluminant = false,

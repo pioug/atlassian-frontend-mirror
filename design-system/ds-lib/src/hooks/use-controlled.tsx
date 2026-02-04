@@ -16,7 +16,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 export default function useControlled<T>(
 	propValue: T | undefined,
 	getDefaultPropValue: () => T = () => propValue as T,
-) {
+): readonly [T, (newValue: T) => void] {
 	const isControlled = propValue !== undefined;
 	const [valueState, setValue] = useState(getDefaultPropValue);
 	const isControlledRef = useRef(isControlled);

@@ -16,7 +16,7 @@ const getSSRAutoScript = (
 	colorMode: ThemeState['colorMode'],
 	// TODO: This should be marked as required once safe to roll out.
 	contrastMode?: ThemeState['contrastMode'],
-) => {
+): string | undefined => {
 	if (colorMode !== 'auto' && contrastMode !== 'auto') {
 		return undefined;
 	}

@@ -20,7 +20,7 @@ const animationStyles = css({
 	},
 });
 
-export default () => (
+export default (): JSX.Element => (
 	<div css={animationStyles}>
 		<Spinner testId="spinner" label="Loading" />
 	</div>

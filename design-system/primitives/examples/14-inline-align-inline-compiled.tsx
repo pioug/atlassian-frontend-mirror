@@ -34,7 +34,7 @@ const styles = cssMap({
 
 const alignInlineItems = ['start', 'center', 'end'] as const;
 
-export default () => (
+export default (): JSX.Element => (
 	<div data-testid="inline-example" css={styles.wrapper}>
 		<Inline space="space.100">
 			{alignInlineItems.map((alignInline) => (

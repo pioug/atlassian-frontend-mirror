@@ -1,5 +1,10 @@
 import React, { Component, type ReactNode } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import isModernContextEnabledEnv from '../utils/isModernContextEnabledEnv';
+
+import LegacyAnalyticsContext from './AnalyticsContext/LegacyAnalyticsContext';
 import ModernAnalyticsContext from './AnalyticsContext/ModernAnalyticsContext';
 
 type AnalyticsErrorBoundaryErrorInfo = {
@@ -41,22 +46,33 @@ export default class AnalyticsErrorBoundary extends Component<
 		this.setState({ hasError: true });
 	}
 
-	render(): React.JSX.Element | null {
+	render() {
 		const { data, children, ErrorComponent } = this.props;
 		const { hasError } = this.state;
+		const isModernContext =
+			isModernContextEnabledEnv || fg('analytics-next-use-legacy-context') === false;
 
 		if (hasError) {
 			if (ErrorComponent) {
+				if (isModernContext) {
+					return (
+						<ModernAnalyticsContext data={data}>
+							<ErrorComponent />
+						</ModernAnalyticsContext>
+					);
+				}
 				return (
-					<ModernAnalyticsContext data={data}>
+					<LegacyAnalyticsContext data={data}>
 						<ErrorComponent />
-					</ModernAnalyticsContext>
+					</LegacyAnalyticsContext>
 				);
 			}
-
 			return null;
 		}
+		if (isModernContext) {
+			return <ModernAnalyticsContext data={data}>{children}</ModernAnalyticsContext>;
+		}
 
-		return <ModernAnalyticsContext data={data}>{children}</ModernAnalyticsContext>;
+		return <LegacyAnalyticsContext data={data}>{children}</LegacyAnalyticsContext>;
 	}
 }

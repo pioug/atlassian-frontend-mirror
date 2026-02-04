@@ -21,7 +21,7 @@ const elemStyles = cssMap({
 	},
 });
 
-export default function TextFieldElementsBeforeAndAfterExample() {
+export default function TextFieldElementsBeforeAndAfterExample(): JSX.Element {
 	return (
 		<Form
 			onSubmit={(formData) => console.log('form data', formData)}

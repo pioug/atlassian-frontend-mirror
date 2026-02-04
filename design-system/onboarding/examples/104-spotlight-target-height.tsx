@@ -35,7 +35,7 @@ const targetStyles = css({
 	paddingInlineStart: token('space.100'),
 });
 
-function SpotlightTargetHeight() {
+function SpotlightTargetHeight(): JSX.Element {
 	const [active, setActive] = useState(true);
 
 	return (

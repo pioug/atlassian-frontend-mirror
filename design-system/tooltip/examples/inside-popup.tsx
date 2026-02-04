@@ -13,7 +13,7 @@ import Popup, { type ContentProps, type TriggerProps } from '@atlaskit/popup';
 import { Box, xcss } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 
-export default function InsidePopupExample() {
+export default function InsidePopupExample(): JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const renderContent = ({ setInitialFocusRef }: ContentProps) => (

@@ -38,7 +38,7 @@ const styles = cssMap({
 	},
 });
 
-const Example = () => {
+const Example = (): JSX.Element => {
 	const [isVisible, setIsVisible] = useState<boolean>(false);
 	const dismiss = () => setIsVisible(false);
 	const done = () => setIsVisible(false);

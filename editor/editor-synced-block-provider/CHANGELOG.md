@@ -1,5 +1,34 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.22.0
+
+### Minor Changes
+
+- [`c9e2a2b390abf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c9e2a2b390abf) -
+  Batch retrieve should batch retrieve block calls in renderer
+- [`1d1696511a8a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d1696511a8a3) -
+  Do not throw error if no data returned for update references, if noContent is specified
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.21.0
+
+### Minor Changes
+
+- [`5a25a439411b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a25a439411b3) -
+  Use the GraphQL endpoint for setting references on a document
+- [`7e2af504cc8ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e2af504cc8ad) -
+  Use the GraphQL endpoint for create block
+
+### Patch Changes
+
+- [`f00a10013820a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f00a10013820a) -
+  [ux] Update synced block fetch success events to send reference local id instead of source local
+  id
+- Updated dependencies
+
 ## 3.20.0
 
 ### Minor Changes

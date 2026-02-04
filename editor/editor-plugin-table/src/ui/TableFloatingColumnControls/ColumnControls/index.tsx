@@ -4,7 +4,6 @@ import React, { useCallback, useMemo, useRef } from 'react';
 
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
@@ -18,12 +17,11 @@ import {
 	selectColumn,
 	selectColumns,
 } from '../../../pm-plugins/commands';
-import { toggleDragMenu } from '../../../pm-plugins/drag-and-drop/commands';
+import { toggleDragMenuWithAnalytics } from '../../../pm-plugins/drag-and-drop/commands-with-analytics';
 import type { TriggerType } from '../../../pm-plugins/drag-and-drop/types';
 import { getRowsParams } from '../../../pm-plugins/utils/row-controls';
 import { getSelectedColumnIndexes } from '../../../pm-plugins/utils/selection';
-import type { TablePlugin } from '../../../tablePluginType';
-import type { CellHoverMeta, HandleTypes } from '../../../types';
+import type { CellHoverMeta, HandleTypes, PluginInjectionAPI } from '../../../types';
 import { TableCssClassName as ClassName } from '../../../types';
 import type { DragHandleAppearance } from '../../DragHandle';
 import { DragHandle } from '../../DragHandle';
@@ -73,7 +71,7 @@ export const ColumnControls = ({
 	isDragging,
 	getScrollOffset,
 	api,
-}: ColumnControlsProps & { api?: ExtractInjectionAPI<TablePlugin> }): React.JSX.Element => {
+}: ColumnControlsProps & { api?: PluginInjectionAPI }): React.JSX.Element => {
 	const columnControlsRef = useRef<HTMLDivElement>(null);
 	const { selection } = useSharedPluginStateWithSelector(api, ['selection'], (states) => ({
 		selection: states.selectionState?.selection,
@@ -96,7 +94,7 @@ export const ColumnControls = ({
 	const hasHeaderRow = firstRow ? firstRow.getAttribute('data-header-row') : false;
 
 	const rowControlStickyTop = 45;
-	const marginTop = hasHeaderRow && stickyTop !== undefined ? (rowControlStickyTop ?? 0) : 0;
+	const marginTop = hasHeaderRow && stickyTop !== undefined ? rowControlStickyTop ?? 0 : 0;
 
 	const handleClick = useCallback(
 		(event: MouseEvent) => {
@@ -174,9 +172,12 @@ export const ColumnControls = ({
 			if (event?.shiftKey) {
 				return;
 			}
-			toggleDragMenu(undefined, 'column', colIndex, trigger)(state, dispatch);
+			toggleDragMenuWithAnalytics(api?.analytics?.actions)(undefined, 'column', colIndex, trigger)(
+				state,
+				dispatch,
+			);
 		},
-		[editorView, colIndex],
+		[editorView, colIndex, api?.analytics?.actions],
 	);
 
 	const colIndexes = useMemo(() => {

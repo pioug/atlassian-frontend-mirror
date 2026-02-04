@@ -26,7 +26,7 @@ const styles = cssMap({
 	},
 });
 
-export default function Default() {
+export default function Default(): JSX.Element {
 	return (
 		<Anchor testId="anchor-styled" href="/home" xcss={styles.root}>
 			I am an anchor

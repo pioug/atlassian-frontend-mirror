@@ -9,7 +9,7 @@ import {
 	type ReactNode,
 } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 import Link from '@atlaskit/link';
@@ -78,7 +78,9 @@ const assignIndex = (num: number, arr: number[]): number => {
  * default label will still be used in `title` attribute of the skip links
  * themselves.
  */
-export const SkipLinkWrapper = ({ skipLinksLabel }: SkipLinkWrapperProps) => {
+export const SkipLinkWrapper = ({
+	skipLinksLabel,
+}: SkipLinkWrapperProps): jsx.JSX.Element | null => {
 	const { skipLinksData } = useSkipLinks();
 
 	if (skipLinksData.length === 0) {
@@ -112,6 +114,7 @@ export const SkipLinkWrapper = ({ skipLinksLabel }: SkipLinkWrapperProps) => {
 		if (event.keyCode === 27) {
 			const container = document.querySelector(
 				`[${PAGE_LAYOUT_CONTAINER_SELECTOR}="true"]`,
+				// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 			) as HTMLElement;
 			if (container !== null) {
 				container.focus();
@@ -158,6 +161,7 @@ const focusTargetRef = (href: string) => (event: ReactMouseEvent | ReactKeyboard
 	event.preventDefault();
 	const targetRef = document.querySelector(href);
 
+	// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 	// @ts-ignore
 	const key = event.which || event.keycode;
 	// if it is a keypress and the key is not
@@ -174,7 +178,9 @@ const focusTargetRef = (href: string) => (event: ReactMouseEvent | ReactKeyboard
 		targetRef.focus();
 		document.activeElement &&
 			document.activeElement.scrollIntoView({
+				// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 				behavior: 'smooth',
+				// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 			});
 		window.scrollTo(0, 0);
 	}
@@ -191,7 +197,7 @@ export const SkipLink = ({
 	href: string;
 	children: ReactNode;
 	isFocusable: boolean;
-}) => {
+}): jsx.JSX.Element => {
 	return (
 		<li css={skipLinkListItemStyles}>
 			<Link tabIndex={isFocusable ? 0 : -1} href={href} onClick={focusTargetRef(href)}>

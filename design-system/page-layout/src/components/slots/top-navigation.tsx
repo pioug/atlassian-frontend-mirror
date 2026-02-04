@@ -4,7 +4,7 @@
  */
 import { useEffect } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 import {
@@ -49,7 +49,7 @@ const fixedStyles = css({
  * - [Examples](https://atlassian.design/components/page-layout/examples)
  * - [Code](https://atlassian.design/components/page-layout/code)
  */
-const TopNavigation = (props: SlotHeightProps) => {
+const TopNavigation = (props: SlotHeightProps): jsx.JSX.Element => {
 	const {
 		children,
 		height = DEFAULT_TOP_NAVIGATION_HEIGHT,

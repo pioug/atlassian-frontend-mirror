@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 4.0.4
+
+### Patch Changes
+
+- [`bdd272290540a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bdd272290540a) -
+  Migrate platform_editor_jan_a11y_fixes flag to platform_editor_enghealth_a11y_jan_fixes
+  experiment.
+- Updated dependencies
+
 ## 4.0.3
 
 ### Patch Changes

@@ -30,7 +30,7 @@ const contentStyles = cssMap({
 	},
 });
 
-const PopupFocusExample = () => {
+const PopupFocusExample = (): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [buttonToFocus, setButtonToFocus] = useState('0');
 

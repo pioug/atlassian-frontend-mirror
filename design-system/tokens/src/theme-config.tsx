@@ -81,7 +81,7 @@ const themeOverrideIds = [] as const;
 
 export type ThemeOverrideIds = (typeof themeOverrideIds)[number];
 
-export const themeIdsWithOverrides = [...themeIds, ...themeOverrideIds] as const;
+export const themeIdsWithOverrides: readonly ["light-increased-contrast", "light", "light-future", "dark", "dark-future", "dark-increased-contrast", "spacing", "shape", "typography"] = [...themeIds, ...themeOverrideIds] as const;
 
 export type ThemeIdsWithOverrides = (typeof themeIdsWithOverrides)[number];
 

@@ -27,8 +27,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__eslint-utils/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__eslint-utils/app"
 	},
 	"references": [],
 	"files": []

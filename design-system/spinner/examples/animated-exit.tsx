@@ -136,7 +136,7 @@ function Animated() {
 	);
 }
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	return (
 		<div css={layoutStyles}>
 			<NotAnimated />

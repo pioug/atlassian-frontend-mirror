@@ -28,8 +28,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__interaction-context/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__interaction-context/app"
 	},
 	"references": [],
 	"files": []

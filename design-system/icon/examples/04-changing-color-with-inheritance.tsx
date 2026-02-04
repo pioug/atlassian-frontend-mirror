@@ -30,7 +30,7 @@ const textStyles = css({
 	textAlign: 'center',
 });
 
-const ChangingColorWithInheritance = () => {
+const ChangingColorWithInheritance = (): JSX.Element => {
 	const [isColorFlipped, setIsColorFlipped] = useState(false);
 
 	return (

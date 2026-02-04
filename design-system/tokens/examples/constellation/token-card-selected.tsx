@@ -51,4 +51,8 @@ export const TokenSelected = (): React.JSX.Element => {
 	);
 };
 
-export default { example: TokenSelected, code: TokenSelectedCodeBlock };
+const _default_1: {
+    example: () => React.JSX.Element;
+    code: string;
+} = { example: TokenSelected, code: TokenSelectedCodeBlock };
+export default _default_1;

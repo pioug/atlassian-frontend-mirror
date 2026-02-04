@@ -33,7 +33,7 @@ const unboundedStyles = cssMap({
 	},
 });
 
-export default ({ children, testId }: ContainerProps) => (
+export default ({ children, testId }: ContainerProps): JSX.Element => (
 	<div css={unboundedStyles.container} data-testid={testId}>
 		Hover over me
 		{children}

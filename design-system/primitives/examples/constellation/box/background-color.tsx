@@ -69,7 +69,7 @@ const colorMap = {
 	},
 };
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	const [color, setColor]: [keyof typeof colorMap, Function] = useState('discovery');
 
 	return (

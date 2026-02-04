@@ -28,8 +28,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__notification-log-client/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__notification-log-client/app"
 	},
 	"references": [
 		{

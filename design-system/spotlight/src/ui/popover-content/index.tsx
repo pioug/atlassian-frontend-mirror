@@ -155,7 +155,7 @@ const popperPlacementMap: Record<
  *
  * A `PopoverContent` is the element that is shown as a popover.
  */
-export const PopoverContent = (props: PopoverContentProps) => {
+export const PopoverContent = (props: PopoverContentProps): JSX.Element => {
 	const {
 		children,
 		placement,

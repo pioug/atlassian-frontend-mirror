@@ -12,7 +12,7 @@ import {
 	useRef,
 } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 import useCloseOnEscapePress from '@atlaskit/ds-lib/use-close-on-escape-press';
@@ -72,7 +72,7 @@ const hiddenBackdropStyles = css({
  * - [Examples](https://atlassian.design/components/page-layout/examples)
  * - [Code](https://atlassian.design/components/page-layout/code)
  */
-const LeftSidebar = (props: LeftSidebarProps) => {
+const LeftSidebar = (props: LeftSidebarProps): jsx.JSX.Element => {
 	const {
 		children,
 		width,
@@ -126,6 +126,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
 				mouseXRef.current = event.clientX;
 			};
 
+			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 			document.addEventListener('mousemove', handlerRef.current);
 		}
 
@@ -133,12 +134,14 @@ const LeftSidebar = (props: LeftSidebarProps) => {
 			if (mouseXRef.current >= lastLeftSidebarWidth) {
 				setLeftSidebarState((current) => ({ ...current, isFlyoutOpen: false }));
 			}
+			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 			document.removeEventListener('mousemove', handlerRef.current);
 			handlerRef.current = null;
 		}
 
 		return () => {
 			if (handlerRef.current) {
+				// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 				document.removeEventListener('mousemove', handlerRef.current);
 			}
 		};
@@ -255,6 +258,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
 			};
 		}
 
+		// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 		document.addEventListener(
 			'mouseover',
 			mouseOverEventRef.current as EventListener,
@@ -275,6 +279,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
 
 	const removeMouseOverListener = () => {
 		mouseOverEventRef.current &&
+			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 			document.removeEventListener(
 				'mouseover',
 				mouseOverEventRef.current as EventListener,

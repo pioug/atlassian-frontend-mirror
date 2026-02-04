@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 
-import { ModalContext } from './internal/context';
+import { type ModalAttributes, ModalContext } from './internal/context';
 
-export const useModal = () => {
+export const useModal = (): ModalAttributes => {
 	const modalContext = useContext(ModalContext);
 	if (modalContext == null) {
 		throw Error(

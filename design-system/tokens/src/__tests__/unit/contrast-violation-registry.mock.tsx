@@ -1,4 +1,7 @@
-export const lightViolations = [
+export const lightViolations: {
+    foreground: string;
+    background: string;
+}[] = [
 	{
 		foreground: 'color.text.subtlest',
 		background: 'color.background.accent.red.subtlest',
@@ -241,7 +244,10 @@ export const lightViolations = [
 	},
 ];
 
-export const lightViolationsVisualRefresh = [
+export const lightViolationsVisualRefresh: {
+    foreground: string;
+    background: string;
+}[] = [
 	{
 		foreground: 'color.text.subtlest',
 		background: 'color.background.accent.red.subtlest',
@@ -455,7 +461,10 @@ export const lightViolationsVisualRefresh = [
 		background: 'elevation.surface.sunken',
 	},
 ];
-export const darkViolations = [
+export const darkViolations: {
+    foreground: string;
+    background: string;
+}[] = [
 	{
 		foreground: 'color.text.accent.gray',
 		background: 'color.background.accent.gray.subtler',
@@ -578,7 +587,10 @@ export const darkViolations = [
 	},
 ];
 
-export const darkViolationsVisualRefresh = [
+export const darkViolationsVisualRefresh: {
+    foreground: string;
+    background: string;
+}[] = [
 	{
 		foreground: 'color.text.accent.gray',
 		background: 'color.background.accent.gray.subtler',

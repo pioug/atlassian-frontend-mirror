@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 import Heading from '@atlaskit/heading';
@@ -31,7 +31,7 @@ const spaceValueStyles = css({ minWidth: token('space.1000', '80px') });
 const blockStyles = xcss({ borderRadius: 'radius.xsmall' });
 const containerStyles = xcss({ width: 'size.300' });
 
-export default () => (
+export default (): jsx.JSX.Element => (
 	<Box testId="inline-example" padding="space.100">
 		<Inline space="space.1000">
 			<Stack space="space.100" testId="inline-space">

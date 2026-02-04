@@ -20,7 +20,7 @@ describe('VCObserverWrapper', () => {
 		jest.clearAllMocks();
 
 		// Mock feature flags
-		(fg as jest.Mock).mockImplementation((flag: string) => {
+		(fg as jest.Mock).mockImplementation(() => {
 			// Default all flags to false except as specified in individual tests
 			return false;
 		});
@@ -90,9 +90,9 @@ describe('VCObserverWrapper', () => {
 			},
 		};
 
-		// Mock isVCRevisionEnabled to disable fy25.03 (VCObserverNew)
+		// Mock isVCRevisionEnabled to only enable fy25.01 and fy25.02 (VCObserverNew)
 		(configModule.isVCRevisionEnabled as jest.Mock).mockImplementation((revision) => {
-			return revision !== 'fy25.03';
+			return revision === 'fy25.01' || revision === 'fy25.02';
 		});
 
 		// Create VCObserverWrapper and start observers

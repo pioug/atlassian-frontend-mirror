@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 8.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.3.0
+
+### Minor Changes
+
+- [`e97bcf6a8bbf4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e97bcf6a8bbf4) -
+  [ux] Productionizes the experiment confluence_whiteboards_quick_insert by productionizing the
+  DIAGRAM variation of the experiment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.2.9
 
 ### Patch Changes

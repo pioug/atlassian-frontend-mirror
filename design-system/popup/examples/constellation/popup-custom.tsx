@@ -40,7 +40,7 @@ const CustomPopupContainer: React.ForwardRefExoticComponent<
 	),
 );
 
-const PopupCustomExample = () => {
+const PopupCustomExample = (): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (

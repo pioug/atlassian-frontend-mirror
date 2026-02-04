@@ -46,7 +46,7 @@ export interface ModalFooterProps {
  * - [Code](https://atlassian.design/components/modal-dialog/code#modal-footer-props)
  * - [Usage](https://atlassian.design/components/modal-dialog/usage)
  */
-const ModalFooter = (props: ModalFooterProps) => {
+const ModalFooter = (props: ModalFooterProps): JSX.Element => {
 	const { children, testId: userDefinedTestId } = props;
 	const { testId: modalTestId } = useModal();
 

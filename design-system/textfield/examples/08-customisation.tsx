@@ -26,7 +26,7 @@ const overrideStyles = css({
 	},
 });
 
-export default function OverrideStyleExample() {
+export default function OverrideStyleExample(): JSX.Element {
 	return (
 		<div>
 			<Label htmlFor="custom">Customized textfield</Label>

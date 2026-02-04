@@ -17,7 +17,7 @@ const containerStyles = css({
 export const Centered = ({
 	as: As = 'div',
 	...props
-}: React.HTMLProps<HTMLDivElement> & { as?: keyof JSX.IntrinsicElements }) => (
+}: React.HTMLProps<HTMLDivElement> & { as?: keyof JSX.IntrinsicElements }): JSX.Element => (
 	<As
 		css={containerStyles}
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
@@ -29,7 +29,7 @@ export const Centered = ({
 	</As>
 );
 
-export const RetryContainer = (props: { children: React.ReactNode }) => {
+export const RetryContainer = (props: { children: React.ReactNode }): JSX.Element => {
 	const [count, setCount] = useState(0);
 	const increment = () => setCount((prev) => prev + 1);
 

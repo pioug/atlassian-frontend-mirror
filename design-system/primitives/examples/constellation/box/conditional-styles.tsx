@@ -25,7 +25,7 @@ const styles = cssMap({
 	},
 });
 
-export default function ConditionalStyles() {
+export default function ConditionalStyles(): JSX.Element {
 	const [isEnabled, setEnabled] = useState(false);
 
 	return (

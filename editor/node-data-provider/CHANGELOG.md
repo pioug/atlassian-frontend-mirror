@@ -1,5 +1,12 @@
 # @atlaskit/node-data-provider
 
+## 8.2.0
+
+### Minor Changes
+
+- [`c9e2a2b390abf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c9e2a2b390abf) -
+  Batch retrieve should batch retrieve block calls in renderer
+
 ## 8.1.0
 
 ### Minor Changes

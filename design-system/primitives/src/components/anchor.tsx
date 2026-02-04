@@ -11,7 +11,7 @@ import {
 	useContext,
 } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
@@ -56,6 +56,7 @@ type BaseAnchorProps = {
 	 * Additional information to be included in the `context` of Atlaskit analytics events that come from anchor.
 	 */
 	analyticsContext?: Record<string, any>;
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
 	/**
 	 * Token representing background color with a built-in fallback value.
 	 * @deprecated Please pass via `props.xcss`, eg. `xcss({ backgroundColor: '…' })` instead and include states such as hover values as well.
@@ -196,7 +197,7 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 		...htmlAttributes
 	}: AnchorProps<RouterLinkConfig>,
 	ref?: Ref<HTMLAnchorElement>,
-) => {
+): jsx.JSX.Element => {
 	const interactionContext = useContext<InteractionContextType | null>(InteractionContext);
 	const handleClick = useCallback(
 		(e: React.MouseEvent<HTMLAnchorElement>, analyticsEvent: UIAnalyticsEvent) => {

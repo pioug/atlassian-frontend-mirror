@@ -29,8 +29,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__smart-user-picker/app",
-		"moduleResolution": "bundler"
+		"outDir": "../../../tsDist/@atlaskit__smart-user-picker/app"
 	},
 	"references": [
 		{

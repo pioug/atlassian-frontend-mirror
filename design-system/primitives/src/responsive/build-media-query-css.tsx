@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, type CSSObject } from '@emotion/react';
+import { css, type CSSObject, type SerializedStyles } from '@emotion/react';
 
 import { UNSAFE_BREAKPOINTS_ORDERED_LIST } from './constants';
 import { media, UNSAFE_media } from './media-helper';
@@ -36,7 +36,7 @@ export const UNSAFE_buildAboveMediaQueryCSS = (
 	 * This can either be a css object directly or functional with `breakpoint` as the arg to return a css object.
 	 */
 	input: CSSObject | ((breakpoint: Breakpoint) => CSSObject),
-) => {
+): Required<Partial<Record<Breakpoint, SerializedStyles>>> => {
 	return UNSAFE_BREAKPOINTS_ORDERED_LIST.reduce(
 		(acc, breakpoint) => ({
 			...acc,
@@ -79,7 +79,7 @@ export const UNSAFE_buildBelowMediaQueryCSS = (
 	 * This can either be a css object directly or functional with `breakpoint` as the arg to return a css object.
 	 */
 	input: CSSObject | ((breakpoint: Breakpoint) => CSSObject),
-) => {
+): Required<Partial<Record<Breakpoint, SerializedStyles>>> => {
 	return UNSAFE_BREAKPOINTS_ORDERED_LIST.reduce((acc, breakpoint) => {
 		if (breakpoint === 'xxs') {
 			return acc;

@@ -45,7 +45,7 @@ const content = {
 	second: 'No tooltip shown as this item is not being concatenated',
 };
 
-export default function Example() {
+export default function Example(): JSX.Element {
 	const firstRef = useRef<HTMLElement | null>(null);
 	const secondRef = useRef<HTMLElement | null>(null);
 

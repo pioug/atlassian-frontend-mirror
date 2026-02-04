@@ -24,7 +24,7 @@ const popupContentStyles = cssMap({
 	},
 });
 
-export default function PopupShouldFitViewportExample() {
+export default function PopupShouldFitViewportExample(): JSX.Element {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const [shouldFitViewport, setShouldFitViewport] = useState(true);
 	const [shouldRenderToParent, setShouldRenderToParent] = useState(true);

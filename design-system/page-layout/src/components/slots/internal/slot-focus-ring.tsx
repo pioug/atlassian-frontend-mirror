@@ -4,7 +4,7 @@
  */
 import type { ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { ClassNames, css, jsx } from '@emotion/react';
 
 import { B100 } from '@atlaskit/theme/colors';
@@ -52,7 +52,7 @@ const sidebarFocusStyles = css({
  * 2. We cannot wrap `children` in `FocusRing`,
  *    because there's no guarantee the passed child takes `className`.
  */
-const SlotFocusRing = ({ children, isSidebar = false }: SlotFocusRingProps) => {
+const SlotFocusRing = ({ children, isSidebar = false }: SlotFocusRingProps): jsx.JSX.Element => {
 	return (
 		<ClassNames>
 			{({ css }) =>

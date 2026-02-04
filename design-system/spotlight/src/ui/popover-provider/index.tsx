@@ -22,7 +22,7 @@ interface PopoverProviderProps {
  * A popover provider provides necesary context for the `PopoverContent` and `PopoverTarget` components.
  *
  */
-export const PopoverProvider = ({ children }: PopoverProviderProps) => {
+export const PopoverProvider = ({ children }: PopoverProviderProps): JSX.Element => {
 	return (
 		<SpotlightContextProvider>
 			<Manager>{children}</Manager>

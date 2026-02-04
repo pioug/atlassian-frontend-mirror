@@ -80,6 +80,7 @@
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"@types/raf-schd": "root:*",
+		"jscodeshift": "root:*",
 		"react-dom": "root:*",
 		"react-lorem-component": "root:*",
 		"react-sweet-state": "root:*",

@@ -51,4 +51,8 @@ const TokenDiscovery = (): React.JSX.Element => {
 	);
 };
 
-export default { example: TokenDiscovery, code: TokenDiscoveryCodeBlock };
+const _default_1: {
+    example: () => React.JSX.Element;
+    code: string;
+} = { example: TokenDiscovery, code: TokenDiscoveryCodeBlock };
+export default _default_1;

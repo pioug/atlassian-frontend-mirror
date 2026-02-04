@@ -57,7 +57,7 @@ export default class SpotlightDialogPlacementExample extends Component<{}, State
 
 	finish = (): void => this.setState({ index: undefined });
 
-	render() {
+	render(): JSX.Element {
 		const { index } = this.state;
 		const placement = isNaN(index as number) ? null : options[(index || 0) % options.length];
 

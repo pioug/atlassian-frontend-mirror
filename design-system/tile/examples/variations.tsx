@@ -13,7 +13,7 @@ const containerStyles = css({
 	maxWidth: '600px',
 });
 
-export default function Variations() {
+export default function Variations(): JSX.Element {
 	const colorMode = useColorMode();
 
 	const gitHubInsetSVG = (

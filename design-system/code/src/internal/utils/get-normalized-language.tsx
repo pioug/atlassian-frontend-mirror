@@ -1,9 +1,9 @@
-import memoizeOne from 'memoize-one';
+import memoizeOne, { type MemoizedFn } from 'memoize-one';
 
 import { SUPPORTED_LANGUAGES } from '../../constants';
 import { type LanguageAlias, type SupportedLanguages } from '../types';
 
-export const normalizeLanguage = memoizeOne((language?: SupportedLanguages): string => {
+export const normalizeLanguage: MemoizedFn<(language?: SupportedLanguages) => string> = memoizeOne((language?: SupportedLanguages): string => {
 	if (!language) {
 		return '';
 	}

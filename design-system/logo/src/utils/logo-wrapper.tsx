@@ -261,7 +261,7 @@ export function LogoWrapper({
 	textColor: customTextColor,
 	isAssets = false,
 	type = 'tile',
-}: LogoWrapperProps) {
+}: LogoWrapperProps): JSX.Element {
 	const { colorMode } = useThemeObserver();
 	const testId = userDefinedTestId && `${userDefinedTestId}--wrapper`;
 	const isCustomThemed = customThemeSvg && (customIconColor || customTextColor);

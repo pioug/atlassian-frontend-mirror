@@ -6,7 +6,7 @@
  */
 import { type MouseEvent } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 import ChevronRight from '@atlaskit/icon/core/chevron-right';
@@ -89,7 +89,7 @@ const ResizeButton = ({
 	onClick,
 	testId,
 	...props
-}: ResizeButtonProps) => {
+}: ResizeButtonProps): jsx.JSX.Element => {
 	// Extract css from props if it exists to avoid conflicts
 	const { css: _ignoredCss, ...restProps } = props as any;
 

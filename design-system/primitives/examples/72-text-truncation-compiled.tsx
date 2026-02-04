@@ -13,7 +13,7 @@ const styles = cssMap({
 	truncated: { width: '140px', backgroundColor: token('color.background.accent.lime.subtlest') },
 });
 
-export default () => {
+export default (): JSX.Element => {
 	return (
 		<Stack space="space.100">
 			<Inline space="space.100">

@@ -764,7 +764,13 @@ export const viewports: {
  * Custom test fixture that allows simulating a page opened in a background tab.
  * This is done by injecting a script before page load that overrides visibilityState.
  */
-export const testWithBackgroundTab = base.extend<{
+export const testWithBackgroundTab: TestType<PlaywrightTestArgs & PlaywrightTestOptions & {
+    skipAxeCheck: () => void;
+} & PlaywrightCoverageOptions & {
+    simulateBackgroundTab: boolean;
+    featureFlags: string[];
+    waitForReactUFOPayload: () => Promise<ReactUFOPayload | null>;
+}, PlaywrightWorkerArgs & PlaywrightWorkerOptions> = base.extend<{
 	simulateBackgroundTab: boolean;
 	featureFlags: string[];
 	waitForReactUFOPayload: () => Promise<ReactUFOPayload | null>;

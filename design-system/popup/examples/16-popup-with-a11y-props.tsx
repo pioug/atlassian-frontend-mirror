@@ -94,7 +94,7 @@ const PopupExampleWithTitleId = () => {
 	);
 };
 
-export default () => (
+export default (): JSX.Element => (
 	<Box xcss={spacerStyles.root}>
 		<Button appearance="subtle">Button 1</Button>
 		<PopupExampleWithLabel />

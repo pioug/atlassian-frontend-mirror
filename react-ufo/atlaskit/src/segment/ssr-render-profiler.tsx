@@ -10,7 +10,7 @@ type SpanState = { span: Span; latestEndTime?: number };
 // restarting the start marker from a suspense and losing the initial render
 const startTimes: Map<string, number[]> = new Map();
 const spanStates: Map<string, SpanState> = new Map();
-export const clearState = () => {
+export const clearState = (): void => {
 	startTimes.clear();
 	spanStates.clear();
 };
@@ -64,7 +64,7 @@ const ProfilerMarker = ({ onRender }: { onRender?: () => void }) => {
 const ParentSpanContext = createContext<SpanContext | null>(null);
 
 // For profiler spans in SSR, we 'end' any with their latest end times set, we need to do this at UFO-interaction-end since until then the component could rerender/remount again and spans fundamentally don't use the last 'end' but the first
-export const flushSsrRenderProfilerTraces = () => {
+export const flushSsrRenderProfilerTraces = (): void => {
 	spanStates.forEach((spanState) => {
 		if (spanState.latestEndTime != null) {
 			spanState.span.end(spanState.latestEndTime);
@@ -81,7 +81,7 @@ export const SsrRenderProfilerInner = ({
 	children?: ReactNode | undefined;
 	labelStack: ReactProfilerTiming['labelStack'];
 	onRender: EnhancedUFOInteractionContextType['onRender'];
-}) => {
+}): React.JSX.Element => {
 	const reactProfilerId = useMemo(() => labelStack.map((l) => l.name).join('/'), [labelStack]);
 
 	checkActiveInteractionAndResetStartMarksIfSet();
@@ -125,7 +125,7 @@ export const SsrRenderProfilerInner = ({
 	);
 };
 
-const SsrRenderProfiler = (props: Parameters<typeof SsrRenderProfilerInner>[0]) => {
+const SsrRenderProfiler = (props: Parameters<typeof SsrRenderProfilerInner>[0]): React.JSX.Element => {
 	if (isInSSR) {
 		return <SsrRenderProfilerInner {...props} />;
 	}

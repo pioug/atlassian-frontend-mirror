@@ -5,6 +5,7 @@ import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -171,13 +172,19 @@ const deletedTraditionalContentStyleUnbounded = convertToInlineCss({
 	zIndex: 1,
 });
 
-export const getDeletedContentStyleUnbounded = (colourScheme?: 'standard' | 'traditional'): string =>
+export const getDeletedContentStyleUnbounded = (
+	colourScheme?: 'standard' | 'traditional',
+): string =>
 	colourScheme === 'traditional'
 		? deletedTraditionalContentStyleUnbounded
 		: deletedContentStyleUnbounded;
 
 export const getDeletedContentStyle = (colourScheme?: 'standard' | 'traditional'): string =>
-	colourScheme === 'traditional' ? deletedTraditionalContentStyle : (fg('platform_editor_jan_a11y_fixes') ? deletedContentStyleNew : deletedContentStyle);
+	colourScheme === 'traditional'
+		? deletedTraditionalContentStyle
+		: expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
+			? deletedContentStyleNew
+			: deletedContentStyle;
 
 const getNodeClass = (name: string) => {
 	switch (name) {

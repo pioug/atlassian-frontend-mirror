@@ -75,7 +75,16 @@ export const visuallyHidden = () => {
  * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
  * Please use `@atlaskit/visually-hidden`
  */
-export const assistive = visuallyHidden;
+export const assistive: () => {
+    border: string;
+    clip: string;
+    height: string;
+    overflow: "hidden";
+    padding: string;
+    position: "absolute";
+    width: string;
+    whiteSpace: "nowrap";
+} = visuallyHidden;
 
 /**
  * These styles are mirrored in:
@@ -83,7 +92,22 @@ export const assistive = visuallyHidden;
  *
  * Please update both.
  */
-export const skeletonShimmer = () =>
+export const skeletonShimmer = (): {
+    readonly css: {
+        readonly backgroundColor: "var(--ds-skeleton)";
+        readonly animationDuration: "1.5s";
+        readonly animationIterationCount: "infinite";
+        readonly animationTimingFunction: "linear";
+        readonly animationDirection: "alternate";
+    }; readonly keyframes: {
+        readonly from: {
+            readonly backgroundColor: "var(--ds-skeleton)";
+        };
+        readonly to: {
+            readonly backgroundColor: "var(--ds-skeleton-subtle)";
+        };
+    };
+} =>
 	({
 		css: {
 			backgroundColor: token('color.skeleton', N20A),

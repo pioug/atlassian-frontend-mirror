@@ -41,7 +41,7 @@ const optionStyles = cssMap({
 const Option = ({ children }: { children: ReactNode }) => (
 	<Box xcss={optionStyles.root}>{children}</Box>
 );
-const NewUser = () => (
+const NewUser = (): JSX.Element => (
 	<div css={wrapperStyles}>
 		<div>
 			<div css={headingStyles}>

@@ -36,6 +36,7 @@ export type { ModalHeaderProps, TModalHeader } from './ModalHeaderProps.codegen'
 export type { ModalProps, TModal } from './ModalProps.codegen';
 export type { ModalTitleProps, TModalTitle } from './ModalTitleProps.codegen';
 export type { ModalTransitionProps, TModalTransition } from './ModalTransitionProps.codegen';
+export type { AtlassianIconProps, TAtlassianIcon } from './AtlassianIconProps.codegen';
 export type { ProgressBarProps, TProgressBar } from './ProgressBarProps.codegen';
 export type { ProgressTrackerProps, TProgressTracker } from './ProgressTrackerProps.codegen';
 export type { RadioGroupProps, TRadioGroup } from './RadioGroupProps.codegen';

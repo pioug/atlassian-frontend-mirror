@@ -42,7 +42,7 @@ export default class Example extends React.Component {
 		bgColor: '#fff',
 	};
 
-	onResize = debounce(
+	onResize: () => void = debounce(
 		(width: Number) => {
 			console.log('[onResize] width:', width);
 
@@ -56,7 +56,7 @@ export default class Example extends React.Component {
 		true,
 	);
 
-	render() {
+	render(): JSX.Element {
 		return (
 			<div>
 				<div css={styles.container}>

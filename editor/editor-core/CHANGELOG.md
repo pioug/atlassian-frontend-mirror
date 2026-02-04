@@ -1,5 +1,32 @@
 # @atlaskit/editor-core
 
+## 216.7.25
+
+### Patch Changes
+
+- [`bdd272290540a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bdd272290540a) -
+  Migrate platform_editor_jan_a11y_fixes flag to platform_editor_enghealth_a11y_jan_fixes
+  experiment.
+- Updated dependencies
+
+## 216.7.24
+
+### Patch Changes
+
+- Updated dependencies
+
+## 216.7.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 216.7.22
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 216.7.21
 
 ### Patch Changes

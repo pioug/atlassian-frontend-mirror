@@ -58,7 +58,7 @@ export interface ModalHeaderProps {
  * - [Code](https://atlassian.design/components/modal-dialog/code#modal-header-props)
  * - [Usage](https://atlassian.design/components/modal-dialog/usage)
  */
-const ModalHeader = (props: ModalHeaderProps) => {
+const ModalHeader = (props: ModalHeaderProps): JSX.Element => {
 	const { children, testId: userDefinedTestId, hasCloseButton = false } = props;
 	const { hasProvidedOnClose, onClose, testId: modalTestId } = useModal();
 

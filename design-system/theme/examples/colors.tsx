@@ -77,7 +77,7 @@ export const ColorPill = ({
 	primary: string;
 	secondary: string;
 	name: string;
-}) => (
+}): JSX.Element => (
 	<span
 		style={{
 			color: secondary,
@@ -117,7 +117,7 @@ export const Heading: FC<HeadingProps> = ({ children, className }) => (
 	</h6>
 );
 
-export default () => (
+export default (): JSX.Element => (
 	<div id="colors">
 		{Object.entries(colorGroups).map(([groupName, groupColors], index) => (
 			<div key={groupName}>

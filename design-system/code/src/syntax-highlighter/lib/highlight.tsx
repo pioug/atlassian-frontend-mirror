@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, type NamedExoticComponent } from 'react';
 
 import {
 	type CodeBidiWarningConfig,
@@ -17,7 +17,7 @@ import ReactRenderer from './react-renderer';
  *
  * In future, the final step could have a custom renderer.
  */
-const Highlight = memo(function Highlight({
+const Highlight: NamedExoticComponent<SyntaxHighlighterProps> = memo(function Highlight({
 	language = 'text',
 	testId,
 	text = '',

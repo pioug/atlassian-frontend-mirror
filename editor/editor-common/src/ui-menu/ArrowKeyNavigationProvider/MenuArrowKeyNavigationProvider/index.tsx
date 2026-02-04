@@ -79,7 +79,10 @@ export const MenuArrowKeyNavigationProvider = ({
 	}, [currentSelectedItemIndex, onSelection, incrementIndex, decrementIndex]);
 
 	useLayoutEffect(() => {
-		if (disableArrowKeyNavigation) {
+		// Backwards compatible behaviour:
+		// - `true` disables all key handling (no listeners attached)
+		// - a function is evaluated per event inside the handler
+		if (disableArrowKeyNavigation === true) {
 			return;
 		}
 
@@ -88,6 +91,10 @@ export const MenuArrowKeyNavigationProvider = ({
 		 * @param event
 		 */
 		const handleKeyDown = (event: KeyboardEvent): void => {
+			if (typeof disableArrowKeyNavigation === 'function' && disableArrowKeyNavigation(event)) {
+				return;
+			}
+
 			const targetElement = event.target;
 
 			// Tab key on menu items can be handled in the parent components of dropdown menus with KeydownHandlerContext

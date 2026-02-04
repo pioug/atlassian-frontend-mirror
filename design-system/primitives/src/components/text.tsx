@@ -11,7 +11,7 @@ import {
 } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
 import { token } from '@atlaskit/tokens';
@@ -96,7 +96,11 @@ const emStyles = css({
 });
 
 type TextAlign = keyof typeof textAlignMap;
-const textAlignMap = {
+const textAlignMap: {
+    center: SerializedStyles;
+    end: SerializedStyles;
+    start: SerializedStyles;
+} = {
 	center: css({ textAlign: 'center' }),
 	end: css({ textAlign: 'end' }),
 	start: css({ textAlign: 'start' }),

@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugins
 
+## 12.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.0
+
+### Major Changes
+
+- [`d7d5c764d05d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d7d5c764d05d1) -
+  EDITOR-4942: Remove AI Suggestions plugin from editor-plugins. AI Suggestions Editor Plugin was
+  unintentionally added to the editor-plugins package.
+
+## 11.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.4.1
 
 ### Patch Changes

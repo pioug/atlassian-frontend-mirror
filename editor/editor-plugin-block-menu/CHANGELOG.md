@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.0.33
+
+### Patch Changes
+
+- [`3b3aa281c8524`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b3aa281c8524) -
+  Editor 4149 Fix keyboard navigation inside turn into
+- Updated dependencies
+
+## 6.0.32
+
+### Patch Changes
+
+- [`9b8e6a65567af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b8e6a65567af) -
+  ENGHEALTH-48871: Add missing menu role to block menu.
+- Updated dependencies
+
+## 6.0.31
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.30
 
 ### Patch Changes

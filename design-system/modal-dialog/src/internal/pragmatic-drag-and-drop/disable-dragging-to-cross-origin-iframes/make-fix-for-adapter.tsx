@@ -105,7 +105,9 @@ export function makeFixForAdapter({
 }: {
 	watchForInteractionStart: ({ start }: { start: () => void }) => CleanupFn;
 	watchForInteractionEnd: ({ stop }: { stop: () => void }) => CleanupFn;
-}) {
+}): {
+    registerUsage: () => CleanupFn;
+} {
 	let registrationCount = 0;
 	let stopWatchingInteractionStart: CleanupFn | null = null;
 

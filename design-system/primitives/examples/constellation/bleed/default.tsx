@@ -30,7 +30,7 @@ const styles = cssMap({
 	},
 });
 
-export default function Basic() {
+export default function Basic(): JSX.Element {
 	return (
 		<Stack space="space.100">
 			<Inline>

@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-limited-mode
 
+## 4.0.6
+
+### Patch Changes
+
+- [`49dad8567c387`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49dad8567c387) -
+  EDITOR-4948 - Change performance mode threshold condition to include doc size, node count, and LCM
+  check.
+- Updated dependencies
+
+## 4.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.3
 
 ### Patch Changes

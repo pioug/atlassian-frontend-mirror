@@ -70,7 +70,10 @@ export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api 
 	};
 
 	if (isToolbarAIFCEnabled) {
-		if (fg('platform_editor_toolbar_aifc_text_color_config')) {
+		if (
+			fg('platform_editor_toolbar_aifc_text_color_config') ||
+			fg('platform_editor_toolbar_aifc_text_color_config_jsm')
+		) {
 			if (
 				api?.toolbar?.actions.registerComponents &&
 				isToolbarComponentEnabled(pluginConfig(textColorConfig))

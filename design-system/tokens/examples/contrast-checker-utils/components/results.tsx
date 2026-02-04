@@ -172,7 +172,55 @@ export function getCustomTheme(
 	customTheme: Theme,
 	customBaseTokens: typeof baseTokens,
 	baseThemeType: ColorMode,
-) {
+): {
+    value: string | number | {
+        radius: number;
+        offset: {
+            x: number;
+            y: number;
+        };
+        color: string;
+        opacity: number;
+        spread?: number;
+        inset?: boolean;
+    }[];
+    filePath: string;
+    isSource: boolean;
+    attributes: {
+        group: string;
+        state: string;
+        introduced: string;
+        description: string;
+        suggest?: string[];
+        deprecated?: string;
+        replacement?: string;
+    };
+    original: {
+        value: string | {
+            radius: number;
+            offset: {
+                x: number;
+                y: number;
+            };
+            color: string;
+            opacity: number;
+            spread?: number;
+            inset?: boolean;
+        }[];
+        attributes: {
+            group: string;
+            state: string;
+            introduced: string;
+            description: string;
+            suggest?: string[];
+            deprecated?: string;
+            replacement?: string;
+        };
+    };
+    name: string;
+    path: string[];
+    cleanName: string;
+}[] {
 	const baseRawTokens = baseThemeType === 'light' ? rawTokensLight : rawTokensDark;
 
 	const rawTokens: typeof rawTokensLight = JSON.parse(JSON.stringify(baseRawTokens));
@@ -213,7 +261,7 @@ const Results = ({
 	customTheme: Theme;
 	customBaseTokens: typeof baseTokens;
 	baseThemeType: ColorMode;
-}) => {
+}): JSX.Element => {
 	const [includeTransparencies, setIncludeTransparencies] = useState<boolean>(false);
 	const [includeInteractions, setIncludeInteractions] = useState<boolean>(true);
 	const [useAAA, setUseAAA] = useState<boolean>(false);

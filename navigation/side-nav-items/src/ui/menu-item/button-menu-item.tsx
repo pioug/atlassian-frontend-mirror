@@ -1,7 +1,5 @@
 import React, { forwardRef } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { MenuItemBase } from './menu-item';
 import { MenuListItem } from './menu-list-item';
 import type { MenuItemLinkOrButtonCommonProps, MenuItemOnClick } from './types';
@@ -93,18 +91,10 @@ export const ButtonMenuItem: React.ForwardRefExoticComponent<
 					actions={isDisabled ? undefined : actions}
 					actionsOnHover={isDisabled ? undefined : actionsOnHover}
 					onClick={onClick}
-					ariaControls={
-						fg('platform-dst-buttonmenuitem-selected-state-support') ? ariaControls : undefined
-					}
-					ariaExpanded={
-						fg('platform-dst-buttonmenuitem-selected-state-support') ? ariaExpanded : undefined
-					}
-					ariaHasPopup={
-						fg('platform-dst-buttonmenuitem-selected-state-support') ? ariaHasPopup : undefined
-					}
-					isSelected={
-						fg('platform-dst-buttonmenuitem-selected-state-support') ? isSelected : undefined
-					}
+					ariaControls={ariaControls}
+					ariaExpanded={ariaExpanded}
+					ariaHasPopup={ariaHasPopup}
+					isSelected={isSelected}
 					ref={forwardedRef}
 					visualContentRef={visualContentRef}
 					interactionName={interactionName}

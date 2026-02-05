@@ -11,7 +11,5 @@ export type {
 } from './blockMenuPluginType';
 export type {
 	TransformNodeMetadata,
-	FormatNodeAnalyticsAttrs,
 	TransfromNodeTargetType,
-	FormatNodeTargetType,
 } from './editor-commands/transforms/types';

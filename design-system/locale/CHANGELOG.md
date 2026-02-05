@@ -1,5 +1,12 @@
 # @atlaskit/locale
 
+## 3.0.4
+
+### Patch Changes
+
+- [`c7412e3af015c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c7412e3af015c) -
+  Internal refactoring.
+
 ## 3.0.3
 
 ### Patch Changes

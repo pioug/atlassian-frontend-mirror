@@ -452,9 +452,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		const currentPath = (parentInfo && parentInfo.path) || [];
 		const nodePosition = (parentInfo && parentInfo.pos) || 1;
 
-		if (expValEquals('platform_editor_text_highlight_padding', 'isEnabled', true)) {
-			this.standaloneBackgroundColorMarks.push(...getStandaloneBackgroundColorMarks(content));
-		}
+		this.standaloneBackgroundColorMarks.push(...getStandaloneBackgroundColorMarks(content));
 
 		return ReactSerializer.buildMarkStructure(content).map((mark, _index) => {
 			return this.serializeMark({
@@ -489,9 +487,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const content = ((mark as any).content || []).map(serializeContent);
 			const markKey = `${mark.type.name}-component__${this.startPos}__${parentMark.path.length}`;
-			const isStandalone =
-				expValEquals('platform_editor_text_highlight_padding', 'isEnabled', true) &&
-				this.standaloneBackgroundColorMarks.some((m) => mark.eq(m));
+			const isStandalone = this.standaloneBackgroundColorMarks.some((m) => mark.eq(m));
 			return this.renderMark(
 				markToReact(mark),
 				{

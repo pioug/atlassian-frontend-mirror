@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/jql-ast",
-	"version": "3.3.3",
+	"version": "3.4.0",
 	"description": "JQL Abstract Syntax Tree",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,6 +34,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/jql-parser": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "root:*",
 		"antlr4ts": "root:*",
 		"lodash": "root:*",
@@ -41,6 +42,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/docs": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"fast-csv": "root:*",
 		"wait-for-expect": "root:*"
 	},
@@ -72,6 +74,11 @@
 				"static",
 				"emotion"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"queue-setting-page-jql-bug": {
+			"type": "boolean"
 		}
 	}
 }

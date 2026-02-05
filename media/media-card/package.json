@@ -131,9 +131,6 @@
 		"platform_media_card_image_render": {
 			"type": "boolean"
 		},
-		"dst-a11y__replace-anchor-with-link__media-exif": {
-			"type": "boolean"
-		},
 		"platform_media_video_captions": {
 			"type": "boolean"
 		},

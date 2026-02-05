@@ -1,5 +1,12 @@
 # @atlaskit/jql-editor
 
+## 5.12.6
+
+### Patch Changes
+
+- [`a683937d723cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a683937d723cb) -
+  Update JQL editor view radius
+
 ## 5.12.5
 
 ### Patch Changes

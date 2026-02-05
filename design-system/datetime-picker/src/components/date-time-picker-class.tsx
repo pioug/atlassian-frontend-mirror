@@ -14,25 +14,17 @@ import {
 	withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 import SelectClearIcon from '@atlaskit/icon/core/cross-circle';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { mergeStyles, type StylesConfig } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
 import { formatDateTimeZoneIntoIso } from '../internal';
 import { DateTimePickerContainer } from '../internal/date-time-picker-container';
-import { componentWithCondition } from '../internal/ff-component';
 import { convertTokens } from '../internal/parse-tokens';
 import { type DateTimePickerBaseProps } from '../types';
 
-import DatePickerOld from './date-picker-class';
-import DatePickerNew from './date-picker-fc';
+import DatePicker from './date-picker';
 import TimePicker from './time-picker';
 
-const DatePicker = componentWithCondition(
-	() => fg('dst-date-picker-use-functional-component'),
-	DatePickerNew,
-	DatePickerOld,
-);
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 

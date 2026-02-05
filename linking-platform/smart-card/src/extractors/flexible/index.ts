@@ -138,9 +138,7 @@ const extractFlexibleUiContext = ({
 		subTasksProgress: extractSubTasksProgress(data),
 		storyPoints: extractStoryPoints(data),
 		targetBranch: extractTargetBranch(data as JsonLd.Data.SourceCodePullRequest),
-		...(fg('platform-linking-user-attributes-component') && {
-			userAttributes: extractUserAttributes(data),
-		}),
+		userAttributes: extractUserAttributes(data),
 		...(fg('platform-linking-team-member-count-component') && {
 			teamMemberCount: extractTeamMemberCount(data),
 		}),

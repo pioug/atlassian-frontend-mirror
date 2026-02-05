@@ -45,7 +45,17 @@ export const applyTargetTextTypeStep: TransformStep = (nodes, context) => {
 				const level = typeof targetAttrs?.level === 'number' ? targetAttrs.level : 1;
 				attrs = { level };
 			}
-			return targetType.create(attrs, node.content, node.marks);
+			// Filter out marks that aren't allowed on paragraph/heading nodes
+			// Remove 'breakout' mark when converting to paragraph/heading as these nodes don't support breakout
+			const filteredMarks = node.marks.filter((mark) => {
+				// breakout marks should be removed when converting to paragraph or heading
+				if (mark.type.name === 'breakout') {
+					return false;
+				}
+				// Keep all other marks (alignment, indentation, etc.)
+				return true;
+			});
+			return targetType.create(attrs, node.content, filteredMarks);
 		}
 		// Non-textblock nodes are left unchanged
 		return node;

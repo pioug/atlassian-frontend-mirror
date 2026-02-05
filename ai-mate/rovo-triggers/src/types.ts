@@ -314,6 +314,11 @@ export type DeleteRuleRovoPayload = {
 	ruleDescription: string;
 	transitionId: TransitionId;
 };
+export type RedirectToWorkflowRovoPayload = {
+	messageId: string;
+	conversationId: string;
+	url: string;
+};
 
 export type JiraWorkflowWizardAction =
 	| { operationType: 'ADD_STATUS'; payload: AddStatusRovoPayload }
@@ -328,7 +333,8 @@ export type JiraWorkflowWizardAction =
 	}
 	| { operationType: 'ADD_RULE'; payload: AddRuleRovoPayload }
 	| { operationType: 'UPDATE_RULE'; payload: UpdateRuleRovoPayload }
-	| { operationType: 'DELETE_RULE'; payload: DeleteRuleRovoPayload };
+	| { operationType: 'DELETE_RULE'; payload: DeleteRuleRovoPayload }
+	| { operationType: 'REDIRECT_TO_WORKFLOW'; payload: RedirectToWorkflowRovoPayload };
 
 export type JiraWorkflowWizardActionsPayload = PayloadCore<
 	'jira-workflow-wizard-actions',

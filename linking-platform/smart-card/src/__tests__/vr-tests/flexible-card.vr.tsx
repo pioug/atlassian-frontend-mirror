@@ -263,7 +263,6 @@ snapshot(FlexibleUiElementTeamMemberCount, {
 snapshot(FlexibleUiElementUserAttributes, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-linking-user-attributes-component': true,
 	},
 	waitForReactLazy: true,
 });

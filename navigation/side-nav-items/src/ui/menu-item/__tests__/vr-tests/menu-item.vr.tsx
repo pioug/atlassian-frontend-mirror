@@ -48,18 +48,12 @@ function workaround(): SnapshotTestOptions<Hooks>['variants'] {
 
 snapshot(ButtonMenuItemExample, {
 	variants: workaround(),
-	featureFlags: {
-		'platform-dst-buttonmenuitem-selected-state-support': true,
-	},
 });
 snapshot(LinkMenuItemExample, {
 	variants: workaround(),
 });
 snapshot(ButtonMenuItemRTLExample, {
 	variants: workaround(),
-	featureFlags: {
-		'platform-dst-buttonmenuitem-selected-state-support': true,
-	},
 });
 snapshot(LinkMenuItemRTLExample, {
 	variants: workaround(),
@@ -220,25 +214,16 @@ snapshot(ButtonMenuItemDisabledWithActions, {
 snapshot(ButtonMenuItemSelected, {
 	description: 'Button menu item - selected',
 	variants: workaround(),
-	featureFlags: {
-		'platform-dst-buttonmenuitem-selected-state-support': true,
-	},
 });
 
 snapshot(ButtonMenuItemSelectedDisabled, {
 	description: 'Button menu item - selected and disabled',
 	variants: workaround(),
-	featureFlags: {
-		'platform-dst-buttonmenuitem-selected-state-support': true,
-	},
 });
 
 snapshot(ButtonMenuItemSelectedDisabled, {
 	description: 'Button menu item - selected and disabled - hovered',
 	variants: workaround(),
-	featureFlags: {
-		'platform-dst-buttonmenuitem-selected-state-support': true,
-	},
 	states: [
 		{
 			state: 'hovered',

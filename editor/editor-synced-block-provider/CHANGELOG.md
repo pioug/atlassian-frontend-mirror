@@ -1,5 +1,18 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.23.0
+
+### Minor Changes
+
+- [`a4080dd63bfbf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4080dd63bfbf) -
+  Enable graphQL subscriptions in the sync block store manager
+
+### Patch Changes
+
+- [`0023ac8318940`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0023ac8318940) -
+  [ux] Set unpublished as default create state for synced blocks
+- Updated dependencies
+
 ## 3.22.0
 
 ### Minor Changes

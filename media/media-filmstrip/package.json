@@ -76,9 +76,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"dst-a11y__replace-anchor-with-link__media-exif": {
-			"type": "boolean"
-		},
 		"platform_editor_disable_trigger_scroll_event": {
 			"type": "boolean"
 		}

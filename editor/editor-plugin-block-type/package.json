@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-type",
-	"version": "11.2.8",
+	"version": "11.2.9",
 	"description": "BlockType plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -57,6 +57,7 @@
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
+		"@compiled/react": "root:*",
 		"@emotion/react": "root:*"
 	},
 	"peerDependencies": {

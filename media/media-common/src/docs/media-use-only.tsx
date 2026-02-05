@@ -1,5 +1,4 @@
 import Link from '@atlaskit/link';
-import { fg } from '@atlaskit/platform-feature-flags';
 import React from 'react';
 import SectionMessage from '@atlaskit/section-message';
 
@@ -16,13 +15,7 @@ function AlternativePackagesMessage({
 			// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
 			<p>
 				Consider using{' '}
-				{fg('dst-a11y__replace-anchor-with-link__media-exif') ? (
-					<Link href={alternatePackages[0].link}>{alternatePackages[0].name}</Link>
-				) : (
-					// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
-					<a href={alternatePackages[0].link}>{alternatePackages[0].name}</a>
-				)}
-				instead.
+				<Link href={alternatePackages[0].link}>{alternatePackages[0].name}</Link> instead.
 			</p>
 		);
 	}
@@ -33,12 +26,7 @@ function AlternativePackagesMessage({
 			<ul>
 				{alternatePackages.map((p) => (
 					<li>
-						{fg('dst-a11y__replace-anchor-with-link__media-exif') ? (
-							<Link href={p.link}>{p.name}</Link>
-						) : (
-							// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
-							<a href={p.link}>{p.name}</a>
-						)}
+						<Link href={p.link}>{p.name}</Link>
 					</li>
 				))}
 			</ul>

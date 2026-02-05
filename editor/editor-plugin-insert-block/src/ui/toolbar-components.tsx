@@ -70,9 +70,7 @@ export const getToolbarComponents = ({
 	// Helper function to create responsive wrapper component
 	const createResponsiveComponent = (showAt?: Breakpoint) => {
 		return ({ children }: { children: React.ReactNode }) => (
-			<Show
-				above={fg('platform_editor_toolbar_aifc_undo_redo_confluence') ? showAt || 'lg' : 'lg'}
-			>
+			<Show above={fg('platform_editor_toolbar_aifc_undo_redo_confluence') ? showAt || 'lg' : 'lg'}>
 				<ToolbarButtonGroup>{children}</ToolbarButtonGroup>
 			</Show>
 		);
@@ -318,193 +316,155 @@ export const getToolbarComponents = ({
 			);
 		};
 
-		if (fg('platform_editor_toolbar_aifc_ga_blockers')) {
-			components.push({
-				type: INSERT_GROUP.type,
-				key: `${INSERT_GROUP.key}-none`,
-				parents: [
-					{
-						type: INSERT_BLOCK_SECTION.type,
-						key: INSERT_BLOCK_SECTION.key,
-						rank: INSERT_BLOCK_SECTION_RANK[INSERT_GROUP.key],
-					},
-				],
-				component: ({ children }) => (
-					<Show below="sm">
-						<ToolbarButtonGroup>{children}</ToolbarButtonGroup>
-					</Show>
-				),
-			});
+		components.push({
+			type: INSERT_GROUP.type,
+			key: `${INSERT_GROUP.key}-none`,
+			parents: [
+				{
+					type: INSERT_BLOCK_SECTION.type,
+					key: INSERT_BLOCK_SECTION.key,
+					rank: INSERT_BLOCK_SECTION_RANK[INSERT_GROUP.key],
+				},
+			],
+			component: ({ children }) => (
+				<Show below="sm">
+					<ToolbarButtonGroup>{children}</ToolbarButtonGroup>
+				</Show>
+			),
+		});
 
-			components.push({
-				type: INSERT_BUTTON.type,
-				key: INSERT_BUTTON.key,
-				parents: [
-					{
-						type: INSERT_GROUP.type,
-						key: `${INSERT_GROUP.key}-none`,
-						rank: INSERT_GROUP_RANK[INSERT_BUTTON.key],
-					},
-				],
-				component: createInsertButtonComponent(null),
-			});
+		components.push({
+			type: INSERT_BUTTON.type,
+			key: INSERT_BUTTON.key,
+			parents: [
+				{
+					type: INSERT_GROUP.type,
+					key: `${INSERT_GROUP.key}-none`,
+					rank: INSERT_GROUP_RANK[INSERT_BUTTON.key],
+				},
+			],
+			component: createInsertButtonComponent(null),
+		});
 
-			components.push({
-				type: INSERT_GROUP.type,
-				key: `${INSERT_GROUP.key}-sm`,
-				parents: [
-					{
-						type: INSERT_BLOCK_SECTION.type,
-						key: INSERT_BLOCK_SECTION.key,
-						rank: INSERT_BLOCK_SECTION_RANK[INSERT_GROUP.key],
-					},
-				],
-				component: ({ children }) => (
-					<Show only="sm">
-						<ToolbarButtonGroup>{children}</ToolbarButtonGroup>
-					</Show>
-				),
-			});
+		components.push({
+			type: INSERT_GROUP.type,
+			key: `${INSERT_GROUP.key}-sm`,
+			parents: [
+				{
+					type: INSERT_BLOCK_SECTION.type,
+					key: INSERT_BLOCK_SECTION.key,
+					rank: INSERT_BLOCK_SECTION_RANK[INSERT_GROUP.key],
+				},
+			],
+			component: ({ children }) => (
+				<Show only="sm">
+					<ToolbarButtonGroup>{children}</ToolbarButtonGroup>
+				</Show>
+			),
+		});
 
-			components.push({
-				type: INSERT_BUTTON.type,
-				key: INSERT_BUTTON.key,
-				parents: [
-					{
-						type: INSERT_GROUP.type,
-						key: `${INSERT_GROUP.key}-sm`,
-						rank: INSERT_GROUP_RANK[INSERT_BUTTON.key],
-					},
-				],
-				component: createInsertButtonComponent('sm'),
-			});
+		components.push({
+			type: INSERT_BUTTON.type,
+			key: INSERT_BUTTON.key,
+			parents: [
+				{
+					type: INSERT_GROUP.type,
+					key: `${INSERT_GROUP.key}-sm`,
+					rank: INSERT_GROUP_RANK[INSERT_BUTTON.key],
+				},
+			],
+			component: createInsertButtonComponent('sm'),
+		});
 
-			components.push({
-				type: INSERT_GROUP.type,
-				key: `${INSERT_GROUP.key}-md`,
-				parents: [
-					{
-						type: INSERT_BLOCK_SECTION.type,
-						key: INSERT_BLOCK_SECTION.key,
-						rank: INSERT_BLOCK_SECTION_RANK[INSERT_GROUP.key],
-					},
-				],
-				component: ({ children }) => (
-					<Show only="md">
-						<ToolbarButtonGroup>{children}</ToolbarButtonGroup>
-					</Show>
-				),
-			});
+		components.push({
+			type: INSERT_GROUP.type,
+			key: `${INSERT_GROUP.key}-md`,
+			parents: [
+				{
+					type: INSERT_BLOCK_SECTION.type,
+					key: INSERT_BLOCK_SECTION.key,
+					rank: INSERT_BLOCK_SECTION_RANK[INSERT_GROUP.key],
+				},
+			],
+			component: ({ children }) => (
+				<Show only="md">
+					<ToolbarButtonGroup>{children}</ToolbarButtonGroup>
+				</Show>
+			),
+		});
 
-			components.push({
-				type: INSERT_BUTTON.type,
-				key: INSERT_BUTTON.key,
-				parents: [
-					{
-						type: INSERT_GROUP.type,
-						key: `${INSERT_GROUP.key}-md`,
-						rank: INSERT_GROUP_RANK[INSERT_BUTTON.key],
-					},
-				],
-				component: createInsertButtonComponent('md'),
-			});
+		components.push({
+			type: INSERT_BUTTON.type,
+			key: INSERT_BUTTON.key,
+			parents: [
+				{
+					type: INSERT_GROUP.type,
+					key: `${INSERT_GROUP.key}-md`,
+					rank: INSERT_GROUP_RANK[INSERT_BUTTON.key],
+				},
+			],
+			component: createInsertButtonComponent('md'),
+		});
 
-			components.push({
-				type: INSERT_GROUP.type,
-				key: `${INSERT_GROUP.key}-lg`,
-				parents: [
-					{
-						type: INSERT_BLOCK_SECTION.type,
-						key: INSERT_BLOCK_SECTION.key,
-						rank: INSERT_BLOCK_SECTION_RANK[INSERT_GROUP.key],
-					},
-				],
-				component: ({ children }) => (
-					<Show only="lg">
-						<ToolbarButtonGroup>{children}</ToolbarButtonGroup>
-					</Show>
-				),
-			});
+		components.push({
+			type: INSERT_GROUP.type,
+			key: `${INSERT_GROUP.key}-lg`,
+			parents: [
+				{
+					type: INSERT_BLOCK_SECTION.type,
+					key: INSERT_BLOCK_SECTION.key,
+					rank: INSERT_BLOCK_SECTION_RANK[INSERT_GROUP.key],
+				},
+			],
+			component: ({ children }) => (
+				<Show only="lg">
+					<ToolbarButtonGroup>{children}</ToolbarButtonGroup>
+				</Show>
+			),
+		});
 
-			components.push({
-				type: INSERT_BUTTON.type,
-				key: INSERT_BUTTON.key,
-				parents: [
-					{
-						type: INSERT_GROUP.type,
-						key: `${INSERT_GROUP.key}-lg`,
-						rank: INSERT_GROUP_RANK[INSERT_BUTTON.key],
-					},
-				],
-				component: createInsertButtonComponent('lg'),
-			});
+		components.push({
+			type: INSERT_BUTTON.type,
+			key: INSERT_BUTTON.key,
+			parents: [
+				{
+					type: INSERT_GROUP.type,
+					key: `${INSERT_GROUP.key}-lg`,
+					rank: INSERT_GROUP_RANK[INSERT_BUTTON.key],
+				},
+			],
+			component: createInsertButtonComponent('lg'),
+		});
 
-			components.push({
-				type: INSERT_GROUP.type,
-				key: `${INSERT_GROUP.key}-xl`,
-				parents: [
-					{
-						type: INSERT_BLOCK_SECTION.type,
-						key: INSERT_BLOCK_SECTION.key,
-						rank: INSERT_BLOCK_SECTION_RANK[INSERT_GROUP.key],
-					},
-				],
-				component: ({ children }) => (
-					<Show only="xl">
-						<ToolbarButtonGroup>{children}</ToolbarButtonGroup>
-					</Show>
-				),
-			});
+		components.push({
+			type: INSERT_GROUP.type,
+			key: `${INSERT_GROUP.key}-xl`,
+			parents: [
+				{
+					type: INSERT_BLOCK_SECTION.type,
+					key: INSERT_BLOCK_SECTION.key,
+					rank: INSERT_BLOCK_SECTION_RANK[INSERT_GROUP.key],
+				},
+			],
+			component: ({ children }) => (
+				<Show only="xl">
+					<ToolbarButtonGroup>{children}</ToolbarButtonGroup>
+				</Show>
+			),
+		});
 
-			components.push({
-				type: INSERT_BUTTON.type,
-				key: INSERT_BUTTON.key,
-				parents: [
-					{
-						type: INSERT_GROUP.type,
-						key: `${INSERT_GROUP.key}-xl`,
-						rank: INSERT_GROUP_RANK[INSERT_BUTTON.key],
-					},
-				],
-				component: createInsertButtonComponent('xl'),
-			});
-		} else {
-			components.push({
-				type: INSERT_GROUP.type,
-				key: INSERT_GROUP.key,
-				parents: [
-					{
-						type: INSERT_BLOCK_SECTION.type,
-						key: INSERT_BLOCK_SECTION.key,
-						rank: INSERT_BLOCK_SECTION_RANK[INSERT_GROUP.key],
-					},
-				],
-			});
-
-			components.push({
-				type: INSERT_BUTTON.type,
-				key: INSERT_BUTTON.key,
-				parents: [
-					{
-						type: INSERT_GROUP.type,
-						key: INSERT_GROUP.key,
-						rank: INSERT_GROUP_RANK[INSERT_BUTTON.key],
-					},
-				],
-				component: () => <InsertButton
-					api={api}
-					toolbarConfig={config}
-					showElementBrowserLink={options.showElementBrowserLink}
-					tableSelectorSupported={options.tableSelectorSupported}
-					onInsertBlockType={onInsertBlockType}
-					nativeStatusSupported={options.nativeStatusSupported}
-					horizontalRuleEnabled={options.horizontalRuleEnabled}
-					expandEnabled={options.allowExpand}
-					insertMenuItems={options.insertMenuItems}
-					numberOfButtons={7} // TODO: ED-28759 - Default to 7 buttons - Remove this once we have a proper way to do toolbar responsiveness
-				/>,
-			});
-		}
+		components.push({
+			type: INSERT_BUTTON.type,
+			key: INSERT_BUTTON.key,
+			parents: [
+				{
+					type: INSERT_GROUP.type,
+					key: `${INSERT_GROUP.key}-xl`,
+					rank: INSERT_GROUP_RANK[INSERT_BUTTON.key],
+				},
+			],
+			component: createInsertButtonComponent('xl'),
+		});
 	}
 
 	return components;

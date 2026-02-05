@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 17.3.6
+
+### Patch Changes
+
+- [`d3b00bd311c9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3b00bd311c9d) -
+  Improves an edge case where users may face unexpected cursor jumps collaboratively
+- Updated dependencies
+
 ## 17.3.5
 
 ### Patch Changes

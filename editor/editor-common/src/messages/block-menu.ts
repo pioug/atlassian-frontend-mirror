@@ -14,12 +14,12 @@ export const messages = defineMessages({
 	moveUpBlock: {
 		id: 'fabric.editor.block.menu.move.up',
 		defaultMessage: 'Move up',
-		description: 'Move the selected block up',
+		description: 'Move the selected block up in the document',
 	},
 	moveDownBlock: {
 		id: 'fabric.editor.block.menu.move.down',
 		defaultMessage: 'Move down',
-		description: 'Move the selected block down',
+		description: 'Move the selected block down in the document',
 	},
 	copyLink: {
 		id: 'fabric.editor.block.menu.copy.link',
@@ -44,17 +44,17 @@ export const messages = defineMessages({
 	codeBlock: {
 		id: 'fabric.editor.block.menu.codeblock',
 		defaultMessage: 'Code block',
-		description: 'Convert to a code block',
+		description: 'Convert the selected block to a code block',
 	},
 	layout: {
 		id: 'fabric.editor.block.menu.layout',
 		defaultMessage: 'Layout',
-		description: 'Convert to a layout node',
+		description: 'Convert the selected block to a layout node',
 	},
 	deleteBlock: {
 		id: 'fabric.editor.block.menu.delete.block',
 		defaultMessage: 'Delete',
-		description: 'Delete the selected block',
+		description: 'Delete the selected block from the document',
 	},
 	turnInto: {
 		id: 'fabric.editor.block.menu.turn.into',
@@ -90,21 +90,33 @@ export const messages = defineMessages({
 	create: {
 		id: 'fabric.editor.block.menu.create',
 		defaultMessage: 'Create',
-		description: 'Menu section title',
+		description: 'Menu section title for creating new block types',
 	},
 	headings: {
 		id: 'fabric.editor.block.menu.headings',
 		defaultMessage: 'Headings',
-		description: 'Menu section title',
+		description: 'Menu section title for heading block types',
 	},
 	suggested: {
 		id: 'fabric.editor.block.menu.suggested',
 		defaultMessage: 'Suggested',
-		description: 'Menu section title',
+		description: 'Menu section title for suggested block types',
 	},
 	structure: {
 		id: 'fabric.editor.block.menu.structure',
 		defaultMessage: 'Structure',
-		description: 'Menu section title',
+		description: 'Menu section title for structural block types',
+	},
+	fallbackNestedMenu: {
+		id: 'fabric.editor.block.menu.fallback.nested.menu',
+		defaultMessage: 'Nested Menu',
+		description:
+			'Fallback text displayed for nested menu component in block menu when proper component is not available',
+	},
+	fallbackMenuItem: {
+		id: 'fabric.editor.block.menu.fallback.menu.item',
+		defaultMessage: 'Block Menu Item',
+		description:
+			'Fallback text displayed for menu item component in block menu when proper component is not available',
 	},
 });

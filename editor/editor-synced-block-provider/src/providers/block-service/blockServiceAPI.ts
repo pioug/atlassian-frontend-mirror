@@ -560,11 +560,13 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 			resourceId,
 		});
 		const stepVersion = this.getVersion ? await this.getVersion() : undefined;
-		const status = fg('platform_synced_block_dogfooding')
-			? this.isParentUnpublished?.()
-				? 'unpublished'
-				: data.status || 'active'
-			: undefined;
+		const status = fg('platform_synced_block_patch_1')
+			? 'unpublished'
+			: fg('platform_synced_block_dogfooding')
+				? this.isParentUnpublished?.()
+					? 'unpublished'
+					: data.status || 'active'
+				: undefined;
 
 		try {
 			await createSyncedBlock({

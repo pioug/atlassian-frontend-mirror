@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-emoji
 
+## 8.1.8
+
+### Patch Changes
+
+- [`508384bef9a9b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/508384bef9a9b) -
+  [ux] [EDITOR-4774] add title attribute to emoji container element so that tooltips appear on hover
+  in the editor
+- Updated dependencies
+
 ## 8.1.7
 
 ### Patch Changes

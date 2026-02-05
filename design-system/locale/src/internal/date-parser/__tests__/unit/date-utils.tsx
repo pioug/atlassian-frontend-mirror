@@ -1,4 +1,4 @@
-import { getDaysInMonth, isLeapYear, isValid, type DateObj } from '../../utils';
+import { type DateObj, getDaysInMonth, isLeapYear, isValid } from '../../utils';
 
 describe('date-parser/utils', () => {
 	it.each<[number, boolean]>([

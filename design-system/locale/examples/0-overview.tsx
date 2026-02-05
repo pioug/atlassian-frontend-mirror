@@ -14,6 +14,7 @@ type State = {
 	l10n: LocalizationProvider;
 };
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class Example extends Component<any, State> {
 	constructor(props: any) {
 		super(props);

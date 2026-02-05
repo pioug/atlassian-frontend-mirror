@@ -145,7 +145,7 @@ const FlexibleCard = ({
 
 	return (
 		<FlexibleCardContext.Provider value={flexibleCardContext}>
-			{PENDING_LINK_STATUSES.includes(status) && !Boolean(placeholderCardState) && fg('ufo_hold_flexible_card') && <UFOHoldLoad name="smart-card-flexible-card" />}
+			{PENDING_LINK_STATUSES.includes(status) && !Boolean(placeholderCardState) && <UFOHoldLoad name="smart-card-flexible-card" />}
 			<Container
 				testId={testId}
 				{...ui}

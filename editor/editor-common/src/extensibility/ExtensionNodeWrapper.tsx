@@ -27,53 +27,45 @@ const styles = css({
 	},
 });
 
-// on exp cleanup, merge this style to the one above
-const inlineExtensionFixStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'&.inline-extension': {
-		maxWidth: '100%',
-	},
-});
-
 const hoverStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	':has(.extension-label:hover) .extension-container, :has(.extension-edit-toggle-container:hover) .extension-container':
-	{
-		boxShadow: `0 0 0 1px ${token('color.border.input')}`,
-	},
+		{
+			boxShadow: `0 0 0 1px ${token('color.border.input')}`,
+		},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	':has(.extension-container:hover) .extension-label, :has(.extension-edit-toggle-container:hover) .extension-label, .extension-label:hover':
-	{
-		opacity: 1,
-		backgroundColor: token('color.background.accent.gray.subtlest'),
-		boxShadow: 'none',
-		cursor: 'pointer',
+		{
+			opacity: 1,
+			backgroundColor: token('color.background.accent.gray.subtlest'),
+			boxShadow: 'none',
+			cursor: 'pointer',
 
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'&.always-hide-label': {
-			opacity: 0,
-			cursor: 'auto',
-		},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'&.always-hide-label': {
+				opacity: 0,
+				cursor: 'auto',
+			},
 
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'&.with-bodied-macro-live-page-styles': {
-			backgroundColor: token('color.background.input'),
-			boxShadow: `0 0 0 1px ${token('color.border')}`,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'&.with-bodied-macro-live-page-styles': {
+				backgroundColor: token('color.background.input'),
+				boxShadow: `0 0 0 1px ${token('color.border')}`,
+			},
 		},
-	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	':has(.extension-label:hover) .extension-icon, :has(.extension-container:hover) .extension-icon, :has(.extension-edit-toggle-container:hover) .extension-icon':
-	{
-		display: 'inline',
-	},
+		{
+			display: 'inline',
+		},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	':has(.extension-label:hover) .extension-edit-toggle-container, :has(.extension-container:hover) .extension-edit-toggle-container, .extension-edit-toggle-container:hover':
-	{
-		opacity: 1,
-	},
+		{
+			opacity: 1,
+		},
 });
 
 type Props = {
@@ -108,9 +100,8 @@ export const ExtensionNodeWrapper = ({
 			className={wrapperClassNames}
 			css={[
 				styles,
-				expValEquals('platform_editor_table_excerpts_fix', 'isEnabled', true) && inlineExtensionFixStyles,
 				expValEquals('cc_editor_ttvc_release_bundle_one', 'extensionHoverRefactor', true) &&
-				hoverStyles,
+					hoverStyles,
 			]}
 		>
 			{children}

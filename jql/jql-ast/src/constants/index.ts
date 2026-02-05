@@ -107,3 +107,5 @@ export {
 	PROJECT_FIELD,
 	REPORTER_FIELD,
 } from './privacy-safe-fields';
+
+export { RESERVED_WORDS, RESERVED_CHARACTERS_REGEX } from './reserved-words';

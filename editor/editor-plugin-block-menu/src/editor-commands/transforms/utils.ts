@@ -3,10 +3,10 @@ import type { Mark, Node as PMNode, NodeType, Schema } from '@atlaskit/editor-pr
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import type { FormatNodeTargetType } from './types';
+import type { TransfromNodeTargetType } from './types';
 
 export const getTargetNodeInfo = (
-	targetType: FormatNodeTargetType,
+	targetType: TransfromNodeTargetType,
 	nodes: Record<string, NodeType>,
 ): { attrs?: Record<string, unknown>; nodeType: NodeType } | null => {
 	switch (targetType) {

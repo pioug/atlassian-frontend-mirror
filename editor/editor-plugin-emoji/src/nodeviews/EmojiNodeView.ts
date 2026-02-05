@@ -266,6 +266,9 @@ export class EmojiNodeView implements NodeView {
 		// Add wrapper for the emoji
 		const containerElement = document.createElement('span');
 		containerElement.setAttribute('role', 'img');
+		if (expValEquals('platform_editor_emoji_tooltips_on_hover', 'isEnabled', true)) {
+			containerElement.setAttribute('title', description.shortName);
+		}
 		containerElement.classList.add(EmojiSharedCssClassName.EMOJI_CONTAINER);
 		containerElement.setAttribute('data-testid', `${emojiType}-emoji-${description.shortName}`);
 		containerElement.setAttribute('data-emoji-type', emojiType);

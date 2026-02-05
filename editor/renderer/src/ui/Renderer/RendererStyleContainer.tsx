@@ -2864,9 +2864,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				dateSharedStyle,
 				textColorStyles,
 				backgroundColorStyles,
-				expValEquals('platform_editor_text_highlight_padding', 'isEnabled', true) &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					textHighlightPaddingStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				textHighlightPaddingStyles,
 				tasksAndDecisionsStyles,
 				smartCardStyles,
 				smartCardStylesAvatarFix,

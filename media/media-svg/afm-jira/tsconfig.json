@@ -33,9 +33,6 @@
 			"path": "../../media-client-react/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/spinner/afm-jira/tsconfig.json"
 		}
 	]

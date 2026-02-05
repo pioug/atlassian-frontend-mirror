@@ -7,7 +7,6 @@ import type {
 	ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { changeColor } from './editor-commands/change-color';
@@ -19,7 +18,7 @@ import { FloatingToolbarHighlightColorWithIntl as FloatingToolbarHighlightColor 
 import { PrimaryToolbarHighlightColorWithIntl as PrimaryToolbarHighlightColor } from './ui/PrimaryToolbarHighlightColor';
 import { getToolbarComponent } from './ui/toolbar-component';
 
-export const highlightPlugin: HighlightPlugin = ({ api, config: options }) => {
+export const highlightPlugin: HighlightPlugin = ({ api }) => {
 	const editorAnalyticsAPI = api?.analytics?.actions;
 	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
 
@@ -81,14 +80,11 @@ export const highlightPlugin: HighlightPlugin = ({ api, config: options }) => {
 					name: 'highlightKeymap',
 					plugin: () => keymapPlugin({ api }),
 				},
-			];
-
-			if (expValEquals('platform_editor_text_highlight_padding', 'isEnabled', true)) {
-				plugins.push({
+				{
 					name: 'highlightPadding',
 					plugin: () => createHighlightPaddingPlugin(),
-				});
-			}
+				},
+			];
 			return plugins;
 		},
 		getSharedState(editorState) {

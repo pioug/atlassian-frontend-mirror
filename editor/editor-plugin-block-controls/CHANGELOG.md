@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 8.1.6
+
+### Patch Changes
+
+- [`31dd2018db24b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31dd2018db24b) -
+  [ux] Ultra minor update to nested drag handle dots
+- Updated dependencies
+
 ## 8.1.5
 
 ### Patch Changes

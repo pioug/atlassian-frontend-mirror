@@ -35,15 +35,15 @@ export const DragHandleNestedIcon = () => {
 			<svg
 				width={24}
 				height={24}
-				viewBox="-4 -4 24 24"
+				viewBox="-8 -8 32 32"
 				fill="none"
 				xmlns="http://www.w3.org/2000/svg"
 				role="presentation"
 				css={[svgStyles, svgSizeStyles]}
 			>
-				<circle cx="8" cy="4" r="1.5" fill="currentColor" />
-				<circle cx="8" cy="8" r="1.5" fill="currentColor" />
-				<circle cx="8" cy="12" r="1.5" fill="currentColor" />
+				<circle cx="8" cy="2.75" r="1.75" fill="currentColor" />
+				<circle cx="8" cy="8" r="1.75" fill="currentColor" />
+				<circle cx="8" cy="13.25" r="1.75" fill="currentColor" />
 			</svg>
 		</span>
 	);

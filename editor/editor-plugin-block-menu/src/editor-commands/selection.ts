@@ -1,6 +1,6 @@
 import { NodeSelection, TextSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
 
-import type { FormatNodeTargetType } from './transforms/types';
+import type { TransfromNodeTargetType } from './transforms/types';
 
 /**
  * Sets the appropriate selection after transforming a node to a target type
@@ -12,7 +12,7 @@ import type { FormatNodeTargetType } from './transforms/types';
 export const setSelectionAfterTransform = (
 	newTr: Transaction,
 	nodePos: number,
-	targetType: FormatNodeTargetType,
+	targetType: TransfromNodeTargetType,
 ): Transaction => {
 	// Find the actual node that was transformed to get its positioning
 	const transformedNodePos = newTr.doc.resolve(nodePos);

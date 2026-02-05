@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.1.1
+
+### Patch Changes
+
+- [`4ebbeaeb5454b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ebbeaeb5454b) -
+  FG cleanup - platform_ufo_is_opened_in_background
+
 ## 5.1.0
 
 ### Minor Changes

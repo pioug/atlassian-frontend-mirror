@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-type
 
+## 11.2.9
+
+### Patch Changes
+
+- [`0a4441336cdd0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a4441336cdd0) -
+  Add platform_editor_toolbar_aifc_use_editor_typography experiment, and use editor custom
+  typography tokens in dropdown menus
+- Updated dependencies
+
 ## 11.2.8
 
 ### Patch Changes

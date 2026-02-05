@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 7.2.0
+
+### Minor Changes
+
+- [`761ce84c554a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/761ce84c554a0) -
+  Adding removeQuickInsertItem method to the quick-insert editor plugin.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.1.9
 
 ### Patch Changes

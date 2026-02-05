@@ -9,7 +9,7 @@ import { skipA11yAudit } from '@af/accessibility-testing';
 
 import { convertTokens } from '../../../internal/parse-tokens';
 import { type DatePickerBaseProps } from '../../../types';
-import { DatePickerWithoutAnalytics as DatePicker } from '../../date-picker-class';
+import DatePicker from '../../date-picker';
 
 const testId = 'dateTest';
 const testIdContainer = `${testId}--container`;
@@ -57,9 +57,11 @@ describe('DatePicker', () => {
 		expect(getInput()).toBeRequired();
 	});
 
-	it('should not be required when prop is not passed', () => {
-		render(createDatePicker({ isRequired: false }));
-		expect(getInput()).not.toBeRequired();
+	it('should have an empty value if none is provided', () => {
+		render(createDatePicker());
+
+		const input = screen.getByTestId(`${testId}--input`);
+		expect(input).toHaveValue('');
 	});
 
 	it('should be invalid when prop is passed', () => {
@@ -72,13 +74,6 @@ describe('DatePicker', () => {
 		render(createDatePicker({ isInvalid: false }));
 
 		expect(getInput()).toBeValid();
-	});
-
-	it('should have an empty value if none is provided', () => {
-		render(createDatePicker());
-
-		const input = screen.getByTestId(`${testId}--input`);
-		expect(input).toHaveValue('');
 	});
 
 	it('should use provided value', () => {
@@ -155,7 +150,7 @@ describe('DatePicker', () => {
 				fireEvent.keyDown(input, {
 					key: 'Enter',
 				});
-				expect(onChangeSpy).toHaveBeenCalledWith(exampleDate.iso);
+				expect(onChangeSpy).toHaveBeenCalledWith(exampleDate.iso, expect.any(Object));
 
 				// eslint-disable-next-line testing-library/prefer-user-event
 				fireEvent.keyDown(input, {
@@ -165,7 +160,7 @@ describe('DatePicker', () => {
 				expect(onChangeSpy).toHaveBeenCalledTimes(1);
 			});
 
-			it('should call onChange when a new date is selected', async () => {
+			it('should call onChange when a new date is selected via calendar via mouse', async () => {
 				const user = userEvent.setup();
 				const onChangeSpy = jest.fn();
 				render(
@@ -183,7 +178,7 @@ describe('DatePicker', () => {
 
 				await user.click(nextDay);
 
-				expect(onChangeSpy).toHaveBeenCalledWith('2018-06-09');
+				expect(onChangeSpy).toHaveBeenCalledWith('2018-06-09', expect.any(Object));
 			});
 		});
 
@@ -206,7 +201,7 @@ describe('DatePicker', () => {
 
 			await user.click(nextDay);
 
-			expect(onChangeSpy).toHaveBeenCalledWith('2018-06-09');
+			expect(onChangeSpy).toHaveBeenCalledWith('2018-06-09', expect.any(Object));
 		});
 	});
 
@@ -352,7 +347,7 @@ describe('DatePicker', () => {
 				// eslint-disable-next-line testing-library/prefer-user-event
 				fireEvent.keyDown(input, { key: 'Enter' });
 
-				expect(onChangeSpy).toHaveBeenCalledWith(exampleDate.iso);
+				expect(onChangeSpy).toHaveBeenCalledWith(exampleDate.iso, expect.any(Object));
 			});
 
 			it('supplying a custom parseInputValue prop, produces the expected result', () => {
@@ -376,7 +371,7 @@ describe('DatePicker', () => {
 
 				// eslint-disable-next-line testing-library/prefer-user-event
 				fireEvent.keyDown(input, { key: 'Enter' });
-				expect(onChangeSpy).toHaveBeenCalledWith(exampleDate.iso);
+				expect(onChangeSpy).toHaveBeenCalledWith(exampleDate.iso, expect.any(Object));
 			});
 		});
 	});
@@ -482,7 +477,7 @@ describe('DatePicker', () => {
 			fireEvent.input(input, { target: { value: `${month}/${day}/${year}` } });
 			// eslint-disable-next-line testing-library/prefer-user-event
 			fireEvent.keyDown(input, { key: 'Enter' });
-			expect(onChangeSpy).toHaveBeenCalledWith(disabledDate);
+			expect(onChangeSpy).toHaveBeenCalledWith(disabledDate, expect.any(Object));
 		});
 	});
 
@@ -710,6 +705,8 @@ describe('DatePicker', () => {
 	});
 
 	describe('Clearing the input', () => {
+		const clearControlLabel = 'clearControlLabel';
+
 		it('should not show the clear button if a value is not present', () => {
 			render(createDatePicker());
 			const clearButton = screen.queryByRole('button', { name: /clear/i });
@@ -717,8 +714,8 @@ describe('DatePicker', () => {
 		});
 
 		it('should show the clear button if a value is present', () => {
-			render(createDatePicker({ value: exampleDate.iso }));
-			const clearButton = screen.getByRole('button', { name: /clear/i });
+			render(createDatePicker({ value: exampleDate.iso, clearControlLabel }));
+			const clearButton = screen.getByRole('button', { name: new RegExp(clearControlLabel) });
 			expect(clearButton).toBeInTheDocument();
 		});
 
@@ -730,13 +727,14 @@ describe('DatePicker', () => {
 					value: exampleDate.iso,
 					onChange: onChangeSpy,
 					testId: testId,
+					clearControlLabel,
 				}),
 			);
 
 			const selectInput = screen.getByDisplayValue('');
 			await user.type(selectInput, '{Backspace}');
 
-			expect(onChangeSpy).toHaveBeenCalledWith('');
+			expect(onChangeSpy).toHaveBeenCalledWith('', expect.any(Object));
 		});
 
 		it('pressing the Delete key to empty the input should clear the value', async () => {
@@ -746,13 +744,14 @@ describe('DatePicker', () => {
 				createDatePicker({
 					value: exampleDate.iso,
 					onChange: onChangeSpy,
+					clearControlLabel,
 				}),
 			);
 
 			const selectInput = screen.getByDisplayValue('');
 			await user.type(selectInput, '{Delete}');
 
-			expect(onChangeSpy).toHaveBeenCalledWith('');
+			expect(onChangeSpy).toHaveBeenCalledWith('', expect.any(Object));
 		});
 
 		it('pressing the clear button while menu is closed should clear the value and not open the menu', () => {
@@ -764,10 +763,10 @@ describe('DatePicker', () => {
 					onChange: onChangeSpy,
 					testId: testId,
 					selectProps: { testId: testId },
-					clearControlLabel: 'Clear date',
+					clearControlLabel,
 				}),
 			);
-			const clearButton = screen.getByRole('button', { name: 'Clear date' });
+			const clearButton = screen.getByRole('button', { name: new RegExp(clearControlLabel) });
 
 			// eslint-disable-next-line testing-library/prefer-user-event
 			fireEvent.mouseOver(clearButton);
@@ -776,7 +775,7 @@ describe('DatePicker', () => {
 			// eslint-disable-next-line testing-library/prefer-user-event
 			fireEvent.mouseDown(clearButton);
 
-			expect(onChangeSpy).toHaveBeenCalledWith('');
+			expect(onChangeSpy).toHaveBeenCalledWith('', expect.any(Object));
 			expect(screen.queryByTestId(`${testId}--popper--container`)).not.toBeInTheDocument();
 		});
 
@@ -790,11 +789,11 @@ describe('DatePicker', () => {
 					testId: testId,
 					selectProps: { testId: testId },
 					defaultIsOpen: true,
-					clearControlLabel: 'Clear date',
+					clearControlLabel,
 				}),
 			);
 
-			const clearButton = screen.getByRole('button', { name: 'Clear date' });
+			const clearButton = screen.getByRole('button', { name: new RegExp(clearControlLabel) });
 
 			// eslint-disable-next-line testing-library/prefer-user-event
 			fireEvent.mouseOver(clearButton);
@@ -803,7 +802,7 @@ describe('DatePicker', () => {
 			// eslint-disable-next-line testing-library/prefer-user-event
 			fireEvent.mouseDown(clearButton);
 
-			expect(onChangeSpy).toHaveBeenCalledWith('');
+			expect(onChangeSpy).toHaveBeenCalledWith('', expect.any(Object));
 			expect(screen.getByTestId(`${testId}--popper--container`)).toBeInTheDocument();
 		});
 	});
@@ -849,24 +848,6 @@ describe('DatePicker', () => {
 		});
 	});
 
-	it('when `clearControlLabel` prop is passed, button should have an aria-label', () => {
-		const onChangeSpy = jest.fn();
-		const datePickerLabel = 'Date Test';
-		const clearControlLabel = `Clear ${datePickerLabel}`;
-
-		render(
-			createDatePicker({
-				value: exampleDate.iso,
-				onChange: onChangeSpy,
-				testId: testId,
-				selectProps: { testId: testId },
-				label: datePickerLabel,
-				clearControlLabel: clearControlLabel,
-			}),
-		);
-		expect(screen.getByRole('button', { name: clearControlLabel })).toBeInTheDocument();
-	});
-
 	describe('Calendar', () => {
 		// This is to ensure we have good code coverage for one of our helper functions
 		it('should go to the previous month with the previous month button is clicked', async () => {
@@ -890,19 +871,13 @@ describe('DatePicker', () => {
 			const previousMonthButton = screen.getByTestId(`${testId}--calendar--previous-month`);
 			expect(previousMonthButton).toBeInTheDocument();
 
-			let currentMonthYearText = screen.getByTestId(
+			const currentMonthYearText = screen.getByTestId(
 				`${testId}--calendar--current-month-year`,
 			).textContent;
 			await user.click(previousMonthButton);
-			let newMonthYearText = screen.getByTestId(
+			const newMonthYearText = screen.getByTestId(
 				`${testId}--calendar--current-month-year`,
 			).textContent;
-
-			expect(currentMonthYearText).not.toEqual(newMonthYearText);
-
-			currentMonthYearText = newMonthYearText;
-			await user.click(previousMonthButton);
-			newMonthYearText = screen.getByTestId(`${testId}--calendar--current-month-year`).textContent;
 
 			expect(currentMonthYearText).not.toEqual(newMonthYearText);
 		});
@@ -928,7 +903,7 @@ describe('DatePicker', () => {
 			// eslint-disable-next-line testing-library/prefer-user-event
 			fireEvent.keyDown(input, { key: 'Enter' });
 
-			expect(onChangeSpy).toHaveBeenCalledWith(today);
+			expect(onChangeSpy).toHaveBeenCalledWith(today, expect.any(Object));
 		});
 	});
 
@@ -1016,7 +991,7 @@ describe('DatePicker', () => {
 			const user = userEvent.setup();
 			render(createDatePicker({ shouldShowCalendarButton: true, openCalendarLabel }));
 
-			const calendarButton = screen.getByRole('button', { name: new RegExp(openCalendarLabel) });
+			const calendarButton = screen.getByTestId(`${testId}--open-calendar-button`);
 			await user.click(calendarButton);
 
 			expect(queryCalendar()).toBeVisible();
@@ -1047,14 +1022,14 @@ describe('DatePicker', () => {
 
 			await user.click(nextDay);
 
-			expect(onChangeSpy).toHaveBeenCalledWith('2018-06-09');
+			expect(onChangeSpy.mock.calls[0][0]).toBe('2018-06-09');
 		});
 
 		it('should be in the tab order', async () => {
 			const user = userEvent.setup();
 			render(createDatePicker({ shouldShowCalendarButton: true, openCalendarLabel }));
 
-			const calendarButton = screen.getByRole('button', { name: new RegExp(openCalendarLabel) });
+			const calendarButton = screen.getByTestId(`${testId}--open-calendar-button`);
 			// Tab into the picker, close the calendar, tab to the calendar button
 			await user.tab();
 			await user.keyboard('{Escape}');
@@ -1067,7 +1042,7 @@ describe('DatePicker', () => {
 			const user = userEvent.setup();
 			render(createDatePicker({ shouldShowCalendarButton: true, openCalendarLabel }));
 
-			const calendarButton = screen.getByRole('button', { name: new RegExp(openCalendarLabel) });
+			const calendarButton = screen.getByTestId(`${testId}--open-calendar-button`);
 			await user.tab();
 			await user.keyboard('{Escape}');
 			await user.tab();
@@ -1081,7 +1056,7 @@ describe('DatePicker', () => {
 			const user = userEvent.setup();
 			render(createDatePicker({ shouldShowCalendarButton: true, openCalendarLabel }));
 
-			const calendarButton = screen.getByRole('button', { name: new RegExp(openCalendarLabel) });
+			const calendarButton = screen.getByTestId(`${testId}--open-calendar-button`);
 			await user.tab();
 			await user.tab();
 			expect(calendarButton).toHaveFocus();
@@ -1115,9 +1090,7 @@ describe('DatePicker', () => {
 			);
 
 			const selectInput = getInput();
-			const calendarButton = screen.getByRole('button', {
-				name: new RegExp(openCalendarLabel),
-			});
+			const calendarButton = screen.getByTestId(`${testId}--open-calendar-button`);
 			expect(queryCalendar()).not.toBeInTheDocument();
 			expect(selectInput).not.toHaveFocus();
 

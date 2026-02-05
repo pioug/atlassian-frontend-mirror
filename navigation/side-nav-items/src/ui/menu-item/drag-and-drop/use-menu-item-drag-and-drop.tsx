@@ -105,10 +105,8 @@ export function useMenuItemDragAndDrop({
 		const element = getDraggableElement();
 
 		// Some elements may initially want to use DnD, then decide not to render.
-		// In that case, we don't want to throw an error, but show a warning.
+		// In that case, we don't want to throw an error.
 		if (!element) {
-			// eslint-disable-next-line no-console
-			console.warn(`draggableAnchorRef or draggableButtonRef not set`);
 			return;
 		}
 
@@ -159,10 +157,8 @@ export function useMenuItemDragAndDrop({
 		const dropTarget = dropTargetRef.current;
 
 		// Some elements may initially want to use DnD, then decide not to render.
-		// In that case, we don't want to throw an error, but show a warning.
+		// In that case, we don't want to throw an error
 		if (!dropTarget) {
-			// eslint-disable-next-line no-console
-			console.warn(`dropTargetRef was not set`);
 			return;
 		}
 

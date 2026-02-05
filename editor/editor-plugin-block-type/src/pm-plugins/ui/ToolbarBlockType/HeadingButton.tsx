@@ -1,8 +1,13 @@
-import React from 'react';
-
+/* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values */
+/* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { css } from '@compiled/react';
 import { useIntl } from 'react-intl-next';
 
-import { cssMap } from '@atlaskit/css';
+import { jsx, cssMap } from '@atlaskit/css';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
 	formatShortcut,
@@ -16,9 +21,11 @@ import {
 	toggleHeading6,
 } from '@atlaskit/editor-common/keymaps';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { editorUGCToken } from '@atlaskit/editor-common/ugc-tokens';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { ToolbarDropdownItem, ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar';
 import { Box } from '@atlaskit/primitives/compiled';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { BlockTypePlugin } from '../../../blockTypePluginType';
@@ -38,6 +45,59 @@ type HeadingName =
 	| 'heading4'
 	| 'heading5'
 	| 'heading6';
+
+const normalStyle = css({
+	font: editorUGCToken('editor.font.body'),
+});
+
+const heading1Style = css({
+	font: editorUGCToken('editor.font.heading.h1'),
+});
+
+const heading2Style = css({
+	font: editorUGCToken('editor.font.heading.h2'),
+});
+
+const heading3Style = css({
+	font: editorUGCToken('editor.font.heading.h3'),
+});
+
+const heading4Style = css({
+	font: editorUGCToken('editor.font.heading.h4'),
+});
+
+const heading5Style = css({
+	font: editorUGCToken('editor.font.heading.h5'),
+});
+
+const heading6Style = css({
+	font: editorUGCToken('editor.font.heading.h6'),
+});
+
+type HeadingTextProps = {
+	children: React.ReactNode;
+	headingType: HeadingName;
+};
+
+const HeadingText = ({ children, headingType }: HeadingTextProps): React.JSX.Element => {
+	switch (headingType) {
+		case 'heading1':
+			return <div css={heading1Style}>{children}</div>;
+		case 'heading2':
+			return <div css={heading2Style}>{children}</div>;
+		case 'heading3':
+			return <div css={heading3Style}>{children}</div>;
+		case 'heading4':
+			return <div css={heading4Style}>{children}</div>;
+		case 'heading5':
+			return <div css={heading5Style}>{children}</div>;
+		case 'heading6':
+			return <div css={heading6Style}>{children}</div>;
+		case 'normal':
+		default:
+			return <div css={normalStyle}>{children}</div>;
+	}
+};
 
 const headingSizeStylesMap = cssMap({
 	normal: {
@@ -110,9 +170,15 @@ export const HeadingButton = ({ blockType, api }: HeadingButtonProps): React.JSX
 			isSelected={isSelected}
 			ariaKeyshortcuts={shortcut}
 		>
-			<Box xcss={headingSizeStylesMap[blockType.name as HeadingName]}>
-				{formatMessage(blockType.title)}
-			</Box>
+			{expValEquals('platform_editor_toolbar_aifc_use_editor_typography', 'isEnabled', true) ? (
+				<HeadingText headingType={blockType.name as HeadingName}>
+					{formatMessage(blockType.title)}
+				</HeadingText>
+			) : (
+				<Box xcss={headingSizeStylesMap[blockType.name as HeadingName]}>
+					{formatMessage(blockType.title)}
+				</Box>
+			)}
 		</ToolbarDropdownItem>
 	);
 };

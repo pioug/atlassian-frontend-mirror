@@ -1,5 +1,12 @@
 # @atlaskit/datetime-picker
 
+## 17.5.0
+
+### Minor Changes
+
+- [`2d81fca9ecf1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d81fca9ecf1e) -
+  Clean up flag to convert date picker from a class component to a functional component.
+
 ## 17.4.5
 
 ### Patch Changes

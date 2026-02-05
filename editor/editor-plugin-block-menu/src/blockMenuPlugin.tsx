@@ -5,13 +5,8 @@ import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { BlockMenuPlugin, RegisterBlockMenuComponent } from './blockMenuPluginType';
 import { createBlockMenuRegistry } from './editor-actions';
 import { isTransformToTargetDisabled } from './editor-actions/isTransformToTargetDisabled';
-import { formatNode } from './editor-commands/formatNode';
 import { transformNode } from './editor-commands/transformNode';
-import type {
-	FormatNodeAnalyticsAttrs,
-	FormatNodeTargetType,
-	TransformNodeMetadata,
-} from './editor-commands/transforms/types';
+import type { TransformNodeMetadata } from './editor-commands/transforms/types';
 import { getBlockMenuExperiencesPlugin } from './pm-plugins/experiences/block-menu-experiences';
 import { keymapPlugin } from './pm-plugins/keymap';
 import { blockMenuPluginKey, createPlugin } from './pm-plugins/main';
@@ -81,9 +76,6 @@ export const blockMenuPlugin: BlockMenuPlugin = ({ api, config }) => {
 			},
 		},
 		commands: {
-			formatNode: (targetType: FormatNodeTargetType, analyticsAttrs?: FormatNodeAnalyticsAttrs) => {
-				return formatNode(api)(targetType, analyticsAttrs);
-			},
 			transformNode: (targetType: NodeType, metadata?: TransformNodeMetadata) => {
 				return transformNode(api)(targetType, metadata);
 			},

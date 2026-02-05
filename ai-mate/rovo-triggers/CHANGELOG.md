@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 5.9.0
+
+### Minor Changes
+
+- [`f91239ef9383c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f91239ef9383c) -
+  [ux] Update the workflow wizard UI action component to render a redirection button when outside of
+  context.
+
 ## 5.8.0
 
 ### Minor Changes

@@ -230,7 +230,6 @@ export const messages = defineMessages({
 	shareSuccessMessage: {
 		id: 'fabric.elements.share.success.message',
 		defaultMessage:
-			// eslint-disable-next-line @atlassian/i18n/no-complex-selectors
 			'{object, select,' +
 			'blogpost {Blog post shared}' +
 			'board {Board shared}' +

@@ -96,6 +96,8 @@ export {
 	RESOLVED_FIELD,
 	PROJECT_FIELD,
 	REPORTER_FIELD,
+	RESERVED_WORDS,
+	RESERVED_CHARACTERS_REGEX,
 } from './constants';
 
 export { default as creators } from './creators';

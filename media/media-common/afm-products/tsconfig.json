@@ -37,9 +37,6 @@
 			"path": "../../../design-system/link/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/section-message/afm-products/tsconfig.json"
 		}
 	]

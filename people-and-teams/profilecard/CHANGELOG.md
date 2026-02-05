@@ -1,5 +1,12 @@
 # @atlaskit/profilecard
 
+## 24.34.6
+
+### Patch Changes
+
+- [`78e5eb6e30716`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/78e5eb6e30716) -
+  Add aria-label to manager section wrapper
+
 ## 24.34.5
 
 ### Patch Changes

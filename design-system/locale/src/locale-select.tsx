@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Select, { components, type SingleValueProps } from '@atlaskit/select';
 
 export type Locale = {
@@ -46,6 +47,7 @@ export const defaultLocales: Locale[] = [
 const SingleValue = ({ children, ...props }: SingleValueProps<Locale, false>) => {
 	const selectedLang = props.data.value;
 	return (
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		<components.SingleValue {...props} innerProps={{ lang: selectedLang }}>
 			{children}
 		</components.SingleValue>
@@ -57,6 +59,7 @@ const LocaleSelect = ({
 	locales = defaultLocales,
 	locale,
 	defaultLocale = defaultLocales[0],
+	// eslint-disable-next-line @repo/internal/react/use-noop
 	onLocaleChange = () => {},
 }: LocaleSelectProps): React.JSX.Element => (
 	<Select<Locale>
@@ -74,4 +77,5 @@ const LocaleSelect = ({
 	/>
 );
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default LocaleSelect;

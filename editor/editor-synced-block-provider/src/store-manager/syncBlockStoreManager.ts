@@ -39,6 +39,7 @@ export class SyncBlockStoreManager {
 		this.sourceSyncBlockStoreManager = new SourceSyncBlockStoreManager(dataProvider);
 		this.referenceSyncBlockStoreManager = new ReferenceSyncBlockStoreManager(dataProvider);
 		this.dataProvider = dataProvider;
+		this.referenceSyncBlockStoreManager.setRealTimeSubscriptionsEnabled(fg('platform_synced_block_patch_1'));
 	}
 
 	public async fetchReferencesSourceInfo(

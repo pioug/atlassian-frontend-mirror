@@ -1,8 +1,8 @@
-jest.mock('../toFormattedParts');
+jest.mock('../to-formatted-parts');
 jest.mock('../../date-parser');
 import { createDateParser } from '../../date-parser';
 import { createLocalizationProvider, type LocalizationProvider } from '../localization-provider';
-import { toFormattedParts } from '../toFormattedParts';
+import { toFormattedParts } from '../to-formatted-parts';
 
 type getDaysCase = [string, Parameters<LocalizationProvider['getDaysShort']>[0], Array<string>];
 

@@ -158,6 +158,9 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps): React.JSX.Ele
 							}
 							isDisabled={!onReportingLinesClick}
 							xcss={styles.reportingLinesButton}
+							aria-label={formatMessage(messages.viewManagerProfile, {
+								name: manager.pii?.name,
+							})}
 						>
 							<ManagerSection>
 								<Avatar size="xsmall" src={manager.pii?.picture} />

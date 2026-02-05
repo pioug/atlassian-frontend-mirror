@@ -7,7 +7,6 @@ import BugIcon from '@atlaskit/icon/core/bug';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Lozenge from '@atlaskit/lozenge';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { render, screen, userEvent, within } from '@atlassian/testing-library';
 
 import { ButtonMenuItem } from '../../button-menu-item';
@@ -52,34 +51,28 @@ describe('Menu items', () => {
 			await expect(screen.getByRole('button', { name: menuItemText })).toBeAccessible();
 		});
 
-		ffTest.on(
-			'platform-dst-buttonmenuitem-selected-state-support',
-			'button selected state support on',
-			() => {
-				it('supports trigger-related aria attributes', () => {
-					render(
-						<ButtonMenuItem aria-expanded={true} aria-haspopup={true} aria-controls="some-popup-id">
-							{menuItemText}
-						</ButtonMenuItem>,
-					);
+		it('supports trigger-related aria attributes', () => {
+			render(
+				<ButtonMenuItem aria-expanded={true} aria-haspopup={true} aria-controls="some-popup-id">
+					{menuItemText}
+				</ButtonMenuItem>,
+			);
 
-					expect(screen.getByRole('button', { name: menuItemText })).toHaveAttribute(
-						'aria-expanded',
-						'true',
-					);
+			expect(screen.getByRole('button', { name: menuItemText })).toHaveAttribute(
+				'aria-expanded',
+				'true',
+			);
 
-					expect(screen.getByRole('button', { name: menuItemText })).toHaveAttribute(
-						'aria-haspopup',
-						'true',
-					);
+			expect(screen.getByRole('button', { name: menuItemText })).toHaveAttribute(
+				'aria-haspopup',
+				'true',
+			);
 
-					expect(screen.getByRole('button', { name: menuItemText })).toHaveAttribute(
-						'aria-controls',
-						'some-popup-id',
-					);
-				});
-			},
-		);
+			expect(screen.getByRole('button', { name: menuItemText })).toHaveAttribute(
+				'aria-controls',
+				'some-popup-id',
+			);
+		});
 
 		it('should render a description if provided', () => {
 			render(<ButtonMenuItem description={descriptionText}>{menuItemText}</ButtonMenuItem>);
@@ -203,74 +196,40 @@ describe('Menu items', () => {
 		});
 
 		describe('selected state', () => {
-			ffTest.on(
-				'platform-dst-buttonmenuitem-selected-state-support',
-				'selected state support FG on',
-				() => {
-					it('should render without the data attribute for selected state when isSelected is not set', () => {
-						render(<ButtonMenuItem testId="test-item">Menu item label</ButtonMenuItem>);
+			it('should render without the data attribute for selected state when isSelected is not set', () => {
+				render(<ButtonMenuItem testId="test-item">Menu item label</ButtonMenuItem>);
 
-						const item = screen.getByRole('listitem');
-						const innerWrapper = within(item).getByTestId('test-item-container');
+				const item = screen.getByRole('listitem');
+				const innerWrapper = within(item).getByTestId('test-item-container');
 
-						expect(innerWrapper).not.toHaveAttribute('data-selected');
-					});
+				expect(innerWrapper).not.toHaveAttribute('data-selected');
+			});
 
-					it('should render with the expected data attribute for selected state when isSelected is true', () => {
-						render(
-							<ButtonMenuItem testId="test-item" isSelected>
-								Menu item label
-							</ButtonMenuItem>,
-						);
+			it('should render with the expected data attribute for selected state when isSelected is true', () => {
+				render(
+					<ButtonMenuItem testId="test-item" isSelected>
+						Menu item label
+					</ButtonMenuItem>,
+				);
 
-						const item = screen.getByRole('listitem');
-						const innerWrapper = within(item).getByTestId('test-item-container');
+				const item = screen.getByRole('listitem');
+				const innerWrapper = within(item).getByTestId('test-item-container');
 
-						expect(innerWrapper).toHaveAttribute('data-selected', 'true');
-					});
+				expect(innerWrapper).toHaveAttribute('data-selected', 'true');
+			});
 
-					it('should render with the expected data attribute for selected state when isSelected is explicitly false', () => {
-						render(
-							<ButtonMenuItem testId="test-item" isSelected={false}>
-								Menu item label
-							</ButtonMenuItem>,
-						);
+			it('should render with the expected data attribute for selected state when isSelected is explicitly false', () => {
+				render(
+					<ButtonMenuItem testId="test-item" isSelected={false}>
+						Menu item label
+					</ButtonMenuItem>,
+				);
 
-						const item = screen.getByRole('listitem');
-						const innerWrapper = within(item).getByTestId('test-item-container');
+				const item = screen.getByRole('listitem');
+				const innerWrapper = within(item).getByTestId('test-item-container');
 
-						expect(innerWrapper).toHaveAttribute('data-selected', 'false');
-					});
-				},
-			);
-
-			ffTest.off(
-				'platform-dst-buttonmenuitem-selected-state-support',
-				'selected state support FG off',
-				() => {
-					it('should render without the data attribute for selected state by default', () => {
-						render(<ButtonMenuItem testId="test-item">Menu item label</ButtonMenuItem>);
-
-						const item = screen.getByRole('listitem');
-						const innerWrapper = within(item).getByTestId('test-item-container');
-
-						expect(innerWrapper).not.toHaveAttribute('data-selected');
-					});
-
-					it('should ignore isSelected if provided', () => {
-						render(
-							<ButtonMenuItem testId="test-item" isSelected>
-								Menu item label
-							</ButtonMenuItem>,
-						);
-
-						const item = screen.getByRole('listitem');
-						const innerWrapper = within(item).getByTestId('test-item-container');
-
-						expect(innerWrapper).not.toHaveAttribute('data-selected');
-					});
-				},
-			);
+				expect(innerWrapper).toHaveAttribute('data-selected', 'false');
+			});
 		});
 
 		it('should call click handler when clicked', async () => {

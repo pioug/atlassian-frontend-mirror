@@ -473,14 +473,14 @@ export const layoutBaseStyles: SerializedStyles = css({
 					},
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 					'> .ProseMirror-gapcursor.-right:first-child + .mediaSingleView-content-wrap .rich-media-item, > style:first-child + .ProseMirror-gapcursor.-right + .mediaSingleView-content-wrap .rich-media-item, > .ProseMirror-gapcursor.-right:first-of-type + .embedCardView-content-wrap .rich-media-item':
-					{
-						marginTop: 0,
-					},
+						{
+							marginTop: 0,
+						},
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 					'> .ProseMirror-gapcursor:first-child + span + .mediaSingleView-content-wrap .rich-media-item, > style:first-child + .ProseMirror-gapcursor + span + .mediaSingleView-content-wrap .rich-media-item':
-					{
-						marginTop: 0,
-					},
+						{
+							marginTop: 0,
+						},
 					// Prevent first DecisionWrapper's margin-top: 8px from shifting decisions down and shrinking layout's node selectable area (leniency margin)
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 					"> [data-node-type='decisionList']": {
@@ -536,8 +536,9 @@ export const layoutBaseStylesWithTableExcerptsFix: SerializedStyles = css({
 				'> div': {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 					'.pm-table-container': {
-						maxWidth: '100%',
-					}
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+						width: '100% !important',
+					},
 				},
 			},
 		},

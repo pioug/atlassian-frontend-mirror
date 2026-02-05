@@ -1,7 +1,6 @@
-import escapeRegExp from 'lodash/escapeRegExp';
+import { fg } from '@atlaskit/platform-feature-flags';
 
-// Derived from JQLLexer#VALID_UNQUOTED_CHARS
-const CHARS_TO_QUOTE = new RegExp(`[\\s${escapeRegExp(`"'=!<>()~,[]|&{}*/%+^$#@?;`)}]`);
+import { RESERVED_CHARACTERS_REGEX, RESERVED_WORDS } from '../constants/reserved-words';
 
 /**
  * Quote the provided JQL string (and escape any existing quotes) if the input string uses reserved characters.
@@ -9,8 +8,16 @@ const CHARS_TO_QUOTE = new RegExp(`[\\s${escapeRegExp(`"'=!<>()~,[]|&{}*/%+^$#@?
  * @param jqlString String to sanitise
  */
 export const sanitiseJqlString = (jqlString: string): string => {
-	if (CHARS_TO_QUOTE.test(jqlString)) {
+	// If the string contains special characters, perform a proper escape
+	if (RESERVED_CHARACTERS_REGEX.test(jqlString)) {
 		return `"${jqlString.replace(/"/g, '\\"')}"`;
 	}
+
+	// If the string matches a reserved word, wrap it in quotes since any
+	// special characters would have been caught above already
+	if (RESERVED_WORDS.has(jqlString.toLowerCase()) && fg('queue-setting-page-jql-bug')) {
+		return `"${jqlString}"`;
+	}
+
 	return jqlString;
 };

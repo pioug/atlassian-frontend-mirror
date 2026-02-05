@@ -60,6 +60,9 @@ export const editorUGCTokensModernized: EditorUGCTokens = {
 	'editor.font.weight.heading.h6.bold': '700',
 };
 
+/**
+ * These styles are duplicated in packages/editor/editor-plugin-block-type/src/pm-plugins/ui/ToolbarBlockType/HeadingButton.tsx
+ */
 export const editorUGCTokensRefreshed: EditorUGCTokens = {
 	'editor.font.heading.h1':
 		'normal 600 1.71429em/1.16667 "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',

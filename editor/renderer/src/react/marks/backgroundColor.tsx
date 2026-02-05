@@ -5,7 +5,6 @@ import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette'
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import type { MarkProps } from '../types';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 export default function BackgroundColor(props: MarkProps<TextColorAttributes>): React.JSX.Element {
 	const { colorMode } = useThemeObserver();
@@ -44,14 +43,11 @@ export default function BackgroundColor(props: MarkProps<TextColorAttributes>): 
 		() =>
 			({
 				['--custom-palette-color']: paletteColorValue,
-			}) as React.CSSProperties,
+			} as React.CSSProperties),
 		[paletteColorValue],
 	);
 
-	if (
-		props.isStandalone &&
-		expValEquals('platform_editor_text_highlight_padding', 'isEnabled', true)
-	) {
+	if (props.isStandalone) {
 		return (
 			<span
 				data-block-mark={props.dataAttributes['data-block-mark']}

@@ -9,16 +9,21 @@ snapshot(EmbedModal, {
 	featureFlags: {
 		'navx-1895-new-logo-design': [true, false],
 		platform_navx_sl_a11y_embed_modal: true,
+		'platform-dst-shape-theme-default': true,
 	},
 });
 
 snapshot(EmbedModalWithFlexibleUiIcon, {
 	description: 'renders embed modal with flexible ui icon',
+	featureFlags: {
+		'platform-dst-shape-theme-default': true,
+	},
 });
 
 snapshot(EmbedModalConfluence, {
 	description: 'renders embed modal with Confluence icon',
 	featureFlags: {
 		'navx-1895-new-logo-design': [true, false],
+		'platform-dst-shape-theme-default': true,
 	},
 });

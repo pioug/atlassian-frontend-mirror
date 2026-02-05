@@ -4,7 +4,6 @@ import { render, screen } from '@testing-library/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { type CardState } from '@atlaskit/linking-common';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { getCardTestWrapper } from '../../../__tests__/__utils__/unit-testing-library-helpers';
 import { SmartLinkStatus } from '../../../constants';
@@ -485,95 +484,80 @@ describe('FlexibleCard', () => {
 			},
 		};
 
-		ffTest.on('ufo_hold_flexible_card', 'flag enabled', () => {
-			it('should render UFOHoldLoad when status is pending and no placeholder', () => {
-				render(
-					<FlexibleCard cardState={pendingCardState} url={url}>
-						<TitleBlock />
-					</FlexibleCard>,
-					{ wrapper: getCardTestWrapper() },
-				);
-	
-				const ufoHoldLoad = screen.getByTestId('ufo-hold-load');
-				expect(ufoHoldLoad).toBeInTheDocument();
-				expect(ufoHoldLoad).toHaveAttribute('data-name', 'smart-card-flexible-card');
-			});
-	
-			it('should render UFOHoldLoad when status is resolving and no placeholder', () => {
-				render(
-					<FlexibleCard cardState={resolvingCardState} url={url}>
-						<TitleBlock />
-					</FlexibleCard>,
-					{ wrapper: getCardTestWrapper() },
-				);
-	
-				const ufoHoldLoad = screen.getByTestId('ufo-hold-load');
-				expect(ufoHoldLoad).toBeInTheDocument();
-				expect(ufoHoldLoad).toHaveAttribute('data-name', 'smart-card-flexible-card');
-			});
+		it('should render UFOHoldLoad when status is pending and no placeholder', () => {
+			render(
+				<FlexibleCard cardState={pendingCardState} url={url}>
+					<TitleBlock />
+				</FlexibleCard>,
+				{ wrapper: getCardTestWrapper() },
+			);
 
-			it('should not render UFOHoldLoad when placeholder data is provided', () => {
-				const placeholderData: CardState['details'] = {
-					meta: {
-						access: 'granted',
-						visibility: 'public',
-					},
-					data: {
-						'@type': 'Object',
-						'@context': {
-							'@vocab': 'https://www.w3.org/ns/activitystreams#',
-							atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
-							schema: 'http://schema.org/',
-						},
-						url: 'http://placeholder-url.com',
-						name: 'placeholder-title',
-					},
-				};
-	
-				render(
-					<FlexibleCard cardState={pendingCardState} url={url} placeholderData={placeholderData}>
-						<TitleBlock />
-					</FlexibleCard>,
-					{ wrapper: getCardTestWrapper() },
-				);
-	
-				expect(screen.queryByTestId('ufo-hold-load')).not.toBeInTheDocument();
-			});
-	
-			it('should not render UFOHoldLoad when status is resolved', () => {
-				render(
-					<FlexibleCard cardState={resolvedCardState} url={url}>
-						<TitleBlock />
-					</FlexibleCard>,
-					{ wrapper: getCardTestWrapper() },
-				);
-	
-				expect(screen.queryByTestId('ufo-hold-load')).not.toBeInTheDocument();
-			});
-	
-			it('should not render UFOHoldLoad when status is errored', () => {
-				render(
-					<FlexibleCard cardState={erroredCardState} url={url}>
-						<TitleBlock />
-					</FlexibleCard>,
-					{ wrapper: getCardTestWrapper() },
-				);
-	
-				expect(screen.queryByTestId('ufo-hold-load')).not.toBeInTheDocument();
-			});
+			const ufoHoldLoad = screen.getByTestId('ufo-hold-load');
+			expect(ufoHoldLoad).toBeInTheDocument();
+			expect(ufoHoldLoad).toHaveAttribute('data-name', 'smart-card-flexible-card');
 		});
 
-		ffTest.off('ufo_hold_flexible_card', 'flag disabled', () => {
-			it('should not render UFOHoldLoad', () => {
-				render(
-					<FlexibleCard cardState={pendingCardState} url={url}>
-						<TitleBlock />
-					</FlexibleCard>,
-					{ wrapper: getCardTestWrapper() },
-				);
-	
-				expect(screen.queryByTestId('ufo-hold-load')).not.toBeInTheDocument();
-			});
+		it('should render UFOHoldLoad when status is resolving and no placeholder', () => {
+			render(
+				<FlexibleCard cardState={resolvingCardState} url={url}>
+					<TitleBlock />
+				</FlexibleCard>,
+				{ wrapper: getCardTestWrapper() },
+			);
+
+			const ufoHoldLoad = screen.getByTestId('ufo-hold-load');
+			expect(ufoHoldLoad).toBeInTheDocument();
+			expect(ufoHoldLoad).toHaveAttribute('data-name', 'smart-card-flexible-card');
+		});
+
+		it('should not render UFOHoldLoad when placeholder data is provided', () => {
+			const placeholderData: CardState['details'] = {
+				meta: {
+					access: 'granted',
+					visibility: 'public',
+				},
+				data: {
+					'@type': 'Object',
+					'@context': {
+						'@vocab': 'https://www.w3.org/ns/activitystreams#',
+						atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+						schema: 'http://schema.org/',
+					},
+					url: 'http://placeholder-url.com',
+					name: 'placeholder-title',
+				},
+			};
+
+			render(
+				<FlexibleCard cardState={pendingCardState} url={url} placeholderData={placeholderData}>
+					<TitleBlock />
+				</FlexibleCard>,
+				{ wrapper: getCardTestWrapper() },
+			);
+
+			expect(screen.queryByTestId('ufo-hold-load')).not.toBeInTheDocument();
+		});
+
+		it('should not render UFOHoldLoad when status is resolved', () => {
+			render(
+				<FlexibleCard cardState={resolvedCardState} url={url}>
+					<TitleBlock />
+				</FlexibleCard>,
+				{ wrapper: getCardTestWrapper() },
+			);
+
+			expect(screen.queryByTestId('ufo-hold-load')).not.toBeInTheDocument();
+		});
+
+		it('should not render UFOHoldLoad when status is errored', () => {
+			render(
+				<FlexibleCard cardState={erroredCardState} url={url}>
+					<TitleBlock />
+				</FlexibleCard>,
+				{ wrapper: getCardTestWrapper() },
+			);
+
+			expect(screen.queryByTestId('ufo-hold-load')).not.toBeInTheDocument();
 		});
 	});
 });

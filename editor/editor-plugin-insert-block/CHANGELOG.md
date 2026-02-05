@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 8.3.3
+
+### Patch Changes
+
+- [`6431f5f6492ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6431f5f6492ae) -
+  Remove unused platform_editor_toolbar_aifc_ga_blockers feature gate
+- Updated dependencies
+
 ## 8.3.2
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/jql-ast
 
+## 3.4.0
+
+### Minor Changes
+
+- [`1b3dcf5b8abc9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b3dcf5b8abc9) -
+  Updates the JQL Sanitisation used by creator functions to ensure that reserved words are properly
+  wrapped in quotes when needed.
+
 ## 3.3.3
 
 ### Patch Changes

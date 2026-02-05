@@ -5,14 +5,13 @@
 import { expect, test, testWithBackgroundTab } from './fixtures';
 
 test.describe('React UFO: isOpenedInBackground detection', () => {
-	test.describe('when feature flag is enabled and page is opened in foreground', () => {
+	test.describe('when page is opened in foreground', () => {
 		test.use({
 			examplePage: 'basic',
 			viewport: {
 				width: 1920,
 				height: 1080,
 			},
-			featureFlags: ['platform_ufo_is_opened_in_background'],
 		});
 
 		test('should report isOpenedInBackground as false when page is always visible', async ({
@@ -30,21 +29,19 @@ test.describe('React UFO: isOpenedInBackground detection', () => {
 
 			const ufoProperties = reactUFOPayload!.attributes.properties;
 
-			// The field should be present when feature flag is enabled
 			expect('ufo:isOpenedInBackground' in ufoProperties).toBe(true);
 			// Page was opened in foreground and stayed visible
 			expect(ufoProperties['ufo:isOpenedInBackground']).toBe(false);
 		});
 	});
 
-	test.describe('when feature flag is enabled and user switches tabs after page load', () => {
+	test.describe('when user switches tabs after page load', () => {
 		test.use({
 			examplePage: 'interactions-simple-button',
 			viewport: {
 				width: 1920,
 				height: 1080,
 			},
-			featureFlags: ['platform_ufo_is_opened_in_background'],
 		});
 
 		test('should report isOpenedInBackground as false when user switches tabs after page loads (tab switching scenario)', async ({
@@ -130,36 +127,6 @@ test.describe('React UFO: isOpenedInBackground detection', () => {
 		});
 	});
 
-	test.describe('when feature flag is disabled', () => {
-		test.use({
-			examplePage: 'basic',
-			viewport: {
-				width: 1920,
-				height: 1080,
-			},
-			featureFlags: [],
-		});
-
-		test('should not include ufo:isOpenedInBackground in payload', async ({
-			page,
-			waitForReactUFOPayload,
-		}) => {
-			const mainDiv = page.locator('[data-testid="main"]');
-			const sections = page.locator('[data-testid="main"] > div');
-
-			await expect(mainDiv).toBeVisible();
-			await expect(sections.nth(9)).toBeVisible();
-
-			const reactUFOPayload = await waitForReactUFOPayload();
-			expect(reactUFOPayload).toBeDefined();
-
-			const ufoProperties = reactUFOPayload!.attributes.properties;
-
-			// The field should not be present when feature flag is disabled
-			expect('ufo:isOpenedInBackground' in ufoProperties).toBe(false);
-		});
-	});
-
 	test.describe('interaction type handling', () => {
 		test.use({
 			examplePage: 'interactions-simple-button',
@@ -167,7 +134,6 @@ test.describe('React UFO: isOpenedInBackground detection', () => {
 				width: 1920,
 				height: 1080,
 			},
-			featureFlags: ['platform_ufo_is_opened_in_background'],
 		});
 
 		test('should report isOpenedInBackground as false for press interactions (non-page_load)', async ({
@@ -203,56 +169,61 @@ test.describe('React UFO: isOpenedInBackground detection', () => {
  * Tests for detecting when a page is opened in a new background tab.
  * These tests use a custom fixture that simulates the page being hidden from the very start.
  */
-testWithBackgroundTab.describe('React UFO: isOpenedInBackground detection - background tab scenario', () => {
-	testWithBackgroundTab.describe('when page is opened in a new background tab (simulated)', () => {
-		testWithBackgroundTab.use({
-			simulateBackgroundTab: true,
-			featureFlags: ['platform_ufo_is_opened_in_background'],
-		});
+testWithBackgroundTab.describe(
+	'React UFO: isOpenedInBackground detection - background tab scenario',
+	() => {
+		testWithBackgroundTab.describe(
+			'when page is opened in a new background tab (simulated)',
+			() => {
+				testWithBackgroundTab.use({
+					simulateBackgroundTab: true,
+				});
 
-		testWithBackgroundTab('should report isOpenedInBackground as true when page is hidden from the start', async ({
-			page,
-			waitForReactUFOPayload,
-		}) => {
-			// The page was "opened in background" via the init script that sets visibilityState to hidden
-			// Wait for the page to render (even though it's "hidden")
-			const mainDiv = page.locator('[data-testid="main"]');
-			await expect(mainDiv).toBeVisible({ timeout: 20000 });
+				testWithBackgroundTab(
+					'should report isOpenedInBackground as true when page is hidden from the start',
+					async ({ page, waitForReactUFOPayload }) => {
+						// The page was "opened in background" via the init script that sets visibilityState to hidden
+						// Wait for the page to render (even though it's "hidden")
+						const mainDiv = page.locator('[data-testid="main"]');
+						await expect(mainDiv).toBeVisible({ timeout: 20000 });
 
-			const reactUFOPayload = await waitForReactUFOPayload();
-			expect(reactUFOPayload).toBeDefined();
+						const reactUFOPayload = await waitForReactUFOPayload();
+						expect(reactUFOPayload).toBeDefined();
 
-			const ufoProperties = reactUFOPayload!.attributes.properties;
+						const ufoProperties = reactUFOPayload!.attributes.properties;
 
-			// The field should be present when feature flag is enabled
-			expect('ufo:isOpenedInBackground' in ufoProperties).toBe(true);
-			// Page was opened in background tab (hidden from start)
-			expect(ufoProperties['ufo:isOpenedInBackground']).toBe(true);
-		});
-	});
+						expect('ufo:isOpenedInBackground' in ufoProperties).toBe(true);
+						// Page was opened in background tab (hidden from start)
+						expect(ufoProperties['ufo:isOpenedInBackground']).toBe(true);
+					},
+				);
+			},
+		);
 
-	testWithBackgroundTab.describe('control case: when page is opened normally (not in background)', () => {
-		testWithBackgroundTab.use({
-			simulateBackgroundTab: false,
-			featureFlags: ['platform_ufo_is_opened_in_background'],
-		});
+		testWithBackgroundTab.describe(
+			'control case: when page is opened normally (not in background)',
+			() => {
+				testWithBackgroundTab.use({
+					simulateBackgroundTab: false,
+				});
 
-		testWithBackgroundTab('should report isOpenedInBackground as false when page is visible from the start', async ({
-			page,
-			waitForReactUFOPayload,
-		}) => {
-			const mainDiv = page.locator('[data-testid="main"]');
-			await expect(mainDiv).toBeVisible({ timeout: 20000 });
+				testWithBackgroundTab(
+					'should report isOpenedInBackground as false when page is visible from the start',
+					async ({ page, waitForReactUFOPayload }) => {
+						const mainDiv = page.locator('[data-testid="main"]');
+						await expect(mainDiv).toBeVisible({ timeout: 20000 });
 
-			const reactUFOPayload = await waitForReactUFOPayload();
-			expect(reactUFOPayload).toBeDefined();
+						const reactUFOPayload = await waitForReactUFOPayload();
+						expect(reactUFOPayload).toBeDefined();
 
-			const ufoProperties = reactUFOPayload!.attributes.properties;
+						const ufoProperties = reactUFOPayload!.attributes.properties;
 
-			// The field should be present when feature flag is enabled
-			expect('ufo:isOpenedInBackground' in ufoProperties).toBe(true);
-			// Page was opened in foreground (visible from start)
-			expect(ufoProperties['ufo:isOpenedInBackground']).toBe(false);
-		});
-	});
-});
+						expect('ufo:isOpenedInBackground' in ufoProperties).toBe(true);
+						// Page was opened in foreground (visible from start)
+						expect(ufoProperties['ufo:isOpenedInBackground']).toBe(false);
+					},
+				);
+			},
+		);
+	},
+);

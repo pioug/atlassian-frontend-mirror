@@ -1,5 +1,25 @@
 # @atlaskit/smart-card
 
+## 43.23.6
+
+### Patch Changes
+
+- [`055b067a0080c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/055b067a0080c) -
+  Remove feature gate ufo_hold_flexible_card - No functional changes.
+- [`28c8da4e5e645`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28c8da4e5e645) -
+  Update border radius token for ExpandedFrame video player embed
+- [`548d9bf84d0f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/548d9bf84d0f6) -
+  Feature gate cleanup for user attribute in smart card
+- Updated dependencies
+
+## 43.23.5
+
+### Patch Changes
+
+- [`2184b26931733`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2184b26931733) -
+  fix React prop warning
+- Updated dependencies
+
 ## 43.23.4
 
 ### Patch Changes

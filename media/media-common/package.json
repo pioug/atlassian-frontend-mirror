@@ -42,7 +42,6 @@
 		"@atlaskit/analytics-namespaced-context": "workspace:^",
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/link": "workspace:^",
-		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@babel/runtime": "root:*",
 		"immer": "root:*",
@@ -63,10 +62,5 @@
 		"enzyme": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*"
-	},
-	"platform-feature-flags": {
-		"dst-a11y__replace-anchor-with-link__media-exif": {
-			"type": "boolean"
-		}
 	}
 }

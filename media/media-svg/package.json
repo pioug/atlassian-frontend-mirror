@@ -39,7 +39,6 @@
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/media-client": "workspace:^",
 		"@atlaskit/media-client-react": "workspace:^",
-		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
@@ -99,11 +98,6 @@
 			"imports": [
 				"import-no-extraneous-disable-for-examples-and-docs"
 			]
-		}
-	},
-	"platform-feature-flags": {
-		"dst-a11y__replace-anchor-with-link__media-exif": {
-			"type": "boolean"
 		}
 	}
 }

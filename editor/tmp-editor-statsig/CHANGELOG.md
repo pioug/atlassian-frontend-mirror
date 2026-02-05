@@ -1,5 +1,35 @@
 # @atlaskit/editor-statsig-tmp
 
+## 20.3.0
+
+### Minor Changes
+
+- [`0a4441336cdd0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a4441336cdd0) -
+  Add platform_editor_toolbar_aifc_use_editor_typography experiment, and use editor custom
+  typography tokens in dropdown menus
+- [`c986619215b4c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c986619215b4c) -
+  Cleanup minor AIFC flags
+
+## 20.2.0
+
+### Minor Changes
+
+- [`9da7abaf781fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9da7abaf781fa) -
+  [ux] clean up platform_editor_text_highlight_padding
+- [`508384bef9a9b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/508384bef9a9b) -
+  [EDITOR-4774] add experiment to config
+
+## 20.1.0
+
+### Minor Changes
+
+- [`d3b00bd311c9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3b00bd311c9d) -
+  Improves an edge case where users may face unexpected cursor jumps collaboratively
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.0.0
 
 ### Major Changes

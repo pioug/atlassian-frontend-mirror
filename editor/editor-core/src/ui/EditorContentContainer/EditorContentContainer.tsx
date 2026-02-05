@@ -407,9 +407,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					textColorStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					backgroundColorStyles,
-					expValEquals('platform_editor_text_highlight_padding', 'isEnabled', true) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						textHighlightPaddingStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					textHighlightPaddingStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					listsStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

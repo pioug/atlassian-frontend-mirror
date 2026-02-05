@@ -13,11 +13,16 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
-import { type EditorState, type SelectionBookmark } from '@atlaskit/editor-prosemirror/state';
+import {
+	TextSelection,
+	type EditorState,
+	type SelectionBookmark,
+} from '@atlaskit/editor-prosemirror/state';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { pluginConfig as getPluginConfig } from '../pm-plugins/create-plugin-config';
 import { getPluginState } from '../pm-plugins/plugin-factory';
@@ -188,8 +193,20 @@ export default class TableView extends ReactNodeView<Props> {
 
 			// Store the current selection state if there is a visible selection
 			// This lets us restore it after DOM changes
-			if (this.view.state.selection.visible) {
-				selectionBookmark = this.view.state.selection.getBookmark();
+			if (expValEquals('platform_editor_fix_cursor_flickering', 'isEnabled', true)) {
+				const { selection } = this.view.state;
+				const tablePos = this.getPos();
+				if (
+					selection.empty &&
+					tablePos &&
+					TextSelection.near(this.view.state.doc.resolve(tablePos)).from === selection.from
+				) {
+					selectionBookmark = this.view.state.selection.getBookmark();
+				}
+			} else {
+				if (this.view.state.selection.visible) {
+					selectionBookmark = this.view.state.selection.getBookmark();
+				}
 			}
 
 			if (this.dom) {
@@ -218,11 +235,41 @@ export default class TableView extends ReactNodeView<Props> {
 				// - The bookmarked selection is different from the current selection.
 				if (selectionBookmark && mutationsIgnored) {
 					const resolvedSelection = selectionBookmark.resolve(this.view.state.tr.doc);
-					// Don't set the selection if it's the same as the current selection.
-					if (!resolvedSelection.eq(this.view.state.selection)) {
-						const tr = this.view.state.tr.setSelection(resolvedSelection);
-						tr.setMeta('source', 'TableNodeView:_handleTableRef:selection-resync');
-						this.view.dispatch(tr);
+
+					if (expValEquals('platform_editor_fix_cursor_flickering', 'isEnabled', true)) {
+						/**
+						 * This handles a very specific case only -> insertion by the user of a new
+						 * table
+						 * Since it's behind a RAF it's possible the user has clicked elsewhere or
+						 * it affects collaborative users (which selection changes shouldn't ever)
+						 *
+						 * This ensures that the selectionBookmark *before* is inside the first
+						 * position in the table and that after it is the text position directly
+						 * before the table
+						 * Ideally we want to remove this RAF entirely but that would require removing
+						 * the DOM manipulation and is a more complex effort
+						 */
+						if (
+							!resolvedSelection.eq(this.view.state.selection) &&
+							resolvedSelection.empty &&
+							// Ensure that the *next* valid text position matches the first position
+							// in the table
+							TextSelection.findFrom(
+								this.view.state.doc.resolve(this.view.state.selection.from + 1),
+								1,
+								true,
+							)?.eq(resolvedSelection)
+						) {
+							const tr = this.view.state.tr.setSelection(resolvedSelection);
+							tr.setMeta('source', 'TableNodeView:_handleTableRef:selection-resync');
+							this.view.dispatch(tr);
+						}
+					} else {
+						if (!resolvedSelection.eq(this.view.state.selection)) {
+							const tr = this.view.state.tr.setSelection(resolvedSelection);
+							tr.setMeta('source', 'TableNodeView:_handleTableRef:selection-resync');
+							this.view.dispatch(tr);
+						}
 					}
 				}
 			});

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.0.34
+
+### Patch Changes
+
+- [`8cdbba82920a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8cdbba82920a6) -
+  [ux] Remove unsupported marks when transforming to text
+- [`9d0d19d5018ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d0d19d5018ae) -
+  Remove jsx literal strings in block menu fall back components
+- Updated dependencies
+
 ## 6.0.33
 
 ### Patch Changes

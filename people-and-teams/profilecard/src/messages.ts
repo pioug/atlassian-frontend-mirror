@@ -265,6 +265,11 @@ const messages = defineMessages({
 		defaultMessage: 'APP',
 		description: 'Label to indicate that the user is a bot account',
 	},
+	viewManagerProfile: {
+		id: 'pt.profile-card.view-manager-profile',
+		defaultMessage: 'View {name} profile',
+		description: "Accessible label for the button to view the manager's profile",
+	},
 });
 
 export default messages;

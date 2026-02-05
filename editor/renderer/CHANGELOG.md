@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 126.6.5
+
+### Patch Changes
+
+- [`9da7abaf781fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9da7abaf781fa) -
+  [ux] clean up platform_editor_text_highlight_padding
+- Updated dependencies
+
 ## 126.6.4
 
 ### Patch Changes

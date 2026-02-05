@@ -204,6 +204,16 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 						lazyDefaultItems: () => [...defaultItems, ...memoisedNewItems],
 					});
 				},
+			removeQuickInsertItem:
+				(key: string): EditorCommand =>
+				({ tr }) => {
+					const { providedItems, lazyDefaultItems } = api?.quickInsert?.sharedState.currentState() ?? {};
+					const defaultItems = lazyDefaultItems ? lazyDefaultItems() : [];
+					return tr.setMeta(pluginKey, {
+						providedItems: providedItems?.filter((item) => item.key !== key) ?? [],
+						lazyDefaultItems: () => defaultItems.filter((item) => item.key !== key),
+					});
+				},
 		},
 
 		usePluginHook: () => {

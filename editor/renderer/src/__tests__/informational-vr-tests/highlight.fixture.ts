@@ -10,7 +10,4 @@ export const BackgroundColorYellow = generateRendererComponent({
 export const HighlightPadding = generateRendererComponent({
 	document: adfHighlightPadding,
 	appearance: 'comment',
-	featureFlags: {
-		platform_editor_text_highlight_padding: true,
-	},
 });

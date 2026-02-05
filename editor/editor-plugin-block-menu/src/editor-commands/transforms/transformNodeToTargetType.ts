@@ -6,7 +6,7 @@ import { transformBlockNode } from './block-transforms';
 import { transformContainerNode, unwrapAndConvertToList } from './container-transforms';
 import { convertToLayout, transformLayoutNode } from './layout-transforms';
 import { transformListNode } from './list-transforms';
-import type { FormatNodeTargetType } from './types';
+import type { TransfromNodeTargetType } from './types';
 import {
 	getTargetNodeInfo,
 	isBlockNode,
@@ -31,7 +31,7 @@ export function transformNodeToTargetType(
 	tr: Transaction,
 	sourceNode: PMNode,
 	sourcePos: number,
-	targetType: FormatNodeTargetType,
+	targetType: TransfromNodeTargetType,
 ): Transaction | null {
 	const { nodes } = tr.doc.type.schema;
 

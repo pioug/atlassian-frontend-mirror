@@ -1,5 +1,15 @@
 # @atlaskit/editor-common
 
+## 111.11.6
+
+### Patch Changes
+
+- [`9d0d19d5018ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d0d19d5018ae) -
+  Remove jsx literal strings in block menu fall back components
+- [`9030267782d4c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9030267782d4c) -
+  Re-do fix for table overflow in inline excerpt.
+- Updated dependencies
+
 ## 111.11.5
 
 ### Patch Changes

@@ -8,12 +8,13 @@ type State = {
 	l10n: LocalizationProvider;
 };
 
-type Props = {
+type ExampleProps = {
 	l10n?: LocalizationProvider;
 };
 
-export default class Example extends Component<Props, State> {
-	constructor(props: any) {
+// eslint-disable-next-line @repo/internal/react/no-class-components
+export default class Example extends Component<ExampleProps, State> {
+	constructor(props: ExampleProps) {
 		super(props);
 		this.interval = -1;
 		this.state = {

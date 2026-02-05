@@ -1,4 +1,4 @@
-import { toFormattedParts } from '../toFormattedParts';
+import { toFormattedParts } from '../to-formatted-parts';
 
 describe('toFormattedParts', () => {
 	it('converts output of DateTimeFormat.formatToParts into indexed object', () => {

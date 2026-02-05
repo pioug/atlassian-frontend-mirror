@@ -89,5 +89,6 @@ export {
 	getContentIdAndProductFromResourceId,
 } from './utils/utils';
 export { fetchErrorPayload } from './utils/errorHandling';
+export { normaliseSyncBlockProduct, normaliseSyncBlockStatus } from './utils/validValue';
 
 export { fetchReferences } from './providers/block-service/blockServiceAPI';

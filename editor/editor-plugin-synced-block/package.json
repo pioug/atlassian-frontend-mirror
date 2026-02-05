@@ -110,6 +110,9 @@
 	"platform-feature-flags": {
 		"platform_synced_block_dogfooding": {
 			"type": "boolean"
+		},
+		"platform_synced_block_patch_1": {
+			"type": "boolean"
 		}
 	}
 }

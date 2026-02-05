@@ -29,6 +29,7 @@ export const WrapperSpan = forwardRef<HTMLSpanElement, WrapperProps>(
 			truncateInline,
 			withoutBackground,
 			isHovered,
+			isInteractive: _isInteractive,
 			isSelected,
 			viewType,
 			...props

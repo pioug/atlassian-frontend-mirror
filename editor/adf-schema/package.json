@@ -77,7 +77,7 @@
 		"prettier": "root:*",
 		"prop-types": "root:*",
 		"react": "^16.8.0",
-		"react-dom": "^16.8.0",
+		"react-dom": "root:*",
 		"react-magnetic-di": "root:*",
 		"rxjs": "root:*",
 		"styled-components": "root:*",

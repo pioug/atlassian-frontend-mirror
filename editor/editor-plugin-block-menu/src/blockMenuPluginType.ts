@@ -10,20 +10,11 @@ import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 
-import type {
-	FormatNodeAnalyticsAttrs,
-	FormatNodeTargetType,
-	TransformNodeMetadata,
-} from './editor-commands/transforms/types';
+import type { TransformNodeMetadata } from './editor-commands/transforms/types';
 
 export enum FLAG_ID {
 	LINK_COPIED_TO_CLIPBOARD = 'link-copied-to-clipboard',
 }
-
-type FormatNodeCommand = (
-	targetType: FormatNodeTargetType,
-	analyticsAttrs?: FormatNodeAnalyticsAttrs,
-) => EditorCommand;
 
 type TransformNodeCommand = (
 	targetType: NodeType,
@@ -42,7 +33,6 @@ export type BlockMenuPlugin = NextEditorPlugin<
 			registerBlockMenuComponents: (blockMenuComponents: Array<RegisterBlockMenuComponent>) => void;
 		};
 		commands: {
-			formatNode: FormatNodeCommand;
 			transformNode: TransformNodeCommand;
 		};
 		dependencies: [

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-highlight
 
+## 7.3.8
+
+### Patch Changes
+
+- [`9da7abaf781fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9da7abaf781fa) -
+  [ux] clean up platform_editor_text_highlight_padding
+- Updated dependencies
+
 ## 7.3.7
 
 ### Patch Changes

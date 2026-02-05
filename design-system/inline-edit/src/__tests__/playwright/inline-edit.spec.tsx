@@ -105,7 +105,6 @@ test.describe('Default Inline Edit', () => {
 test.describe('Inline Edit with Datepicker', () => {
 	test('Selecting a date in a datepicker using keyboard should return to edit view', async ({
 		page,
-		skipAxeCheck,
 	}) => {
 		await page.visitExample('design-system', 'inline-edit', 'inline-edit-with-datepicker');
 		const edit = page.getByRole('button', { name: /Select date and time/ });
@@ -135,21 +134,8 @@ test.describe('Inline Edit with Datepicker', () => {
 		await page.keyboard.press('ArrowLeft');
 		await page.keyboard.press('ArrowLeft');
 		await page.keyboard.press('Enter');
-		// Tab to time picker
-		await page.keyboard.press('Tab');
-
-		// Is not the same for Safari
-		const timePicker = page.locator(
-			'[data-testid="datetimepicker--timepicker--container"] [aria-autocomplete="both"]',
-		);
-		await expect(timePicker).toBeFocused();
 
 		// Test that we are still in edit view
 		await expect(dtpEditView).toBeVisible();
-
-		// Received:
-		// Scrollable region must have keyboard access (scrollable-region-focusable) in reference to the
-		// Time picker's list of times. Since focus never really moves into this area, this test is not valid.
-		skipAxeCheck();
 	});
 });

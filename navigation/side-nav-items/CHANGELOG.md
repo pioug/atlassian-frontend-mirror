@@ -1,5 +1,12 @@
 # @atlaskit/side-nav-items
 
+## 1.4.2
+
+### Patch Changes
+
+- [`20e1df968ddc7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20e1df968ddc7) -
+  Clean up feature gate platform-dst-buttonmenuitem-selected-state-support
+
 ## 1.4.1
 
 ### Patch Changes

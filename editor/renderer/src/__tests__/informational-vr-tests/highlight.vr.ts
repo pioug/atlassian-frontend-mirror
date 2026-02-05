@@ -36,7 +36,4 @@ async function partialSelectTextOnRenderer(locator: Locator) {
 snapshotInformational(HighlightPadding, {
 	description:
 		'should add padding around standalone highlight while should not add padding for non-standalone highlight',
-	featureFlags: {
-		platform_editor_text_highlight_padding: true,
-	},
 });

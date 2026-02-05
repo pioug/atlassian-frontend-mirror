@@ -33,9 +33,6 @@
 			"path": "../../media-client-react/afm-cc/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/spinner/afm-cc/tsconfig.json"
 		}
 	]

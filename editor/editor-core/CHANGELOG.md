@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 216.7.27
+
+### Patch Changes
+
+- [`9030267782d4c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9030267782d4c) -
+  Re-do fix for table overflow in inline excerpt.
+- Updated dependencies
+
+## 216.7.26
+
+### Patch Changes
+
+- [`9da7abaf781fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9da7abaf781fa) -
+  [ux] clean up platform_editor_text_highlight_padding
+- Updated dependencies
+
 ## 216.7.25
 
 ### Patch Changes

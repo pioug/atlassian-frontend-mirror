@@ -7,6 +7,7 @@ import {
 } from '../utils/analytics';
 import { MediaCardError } from '../errors';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type ProcessingFailedState, type ProcessingFailReason } from '@atlaskit/media-state';
 
 export const getSucceededStatusPayload = (
 	fileState?: FileState,
@@ -51,6 +52,7 @@ export const getErrorStatusPayload = (
 export const getFailedProcessingStatusPayload = (
 	fileId: string,
 	fileState?: FileState,
+	processingFailReason?: ProcessingFailReason,
 ): RenderInlineCardFailedEventPayload => {
 	return {
 		eventType: 'operational',
@@ -63,6 +65,8 @@ export const getFailedProcessingStatusPayload = (
 				fileStatus: fileState?.status,
 			},
 			failReason: 'failed-processing',
+			// 'not-available' is used for cases before processingFailReason implementation (backward compatibility)
+			processingFailReason: processingFailReason || 'not-available',
 		},
 	};
 };
@@ -73,8 +77,14 @@ export const fireFailedOperationalEvent = (
 	failReason?: 'failed-processing',
 	createAnalyticsEvent?: CreateUIAnalyticsEvent,
 ): void => {
+	// Extract processingFailReason from fileState if available
+	const processingFailReason =
+		fileState?.status === 'failed-processing'
+			? (fileState as ProcessingFailedState).failReason
+			: undefined;
+
 	const payload = failReason
-		? getFailedProcessingStatusPayload(fileState?.id || 'unknown-id', fileState)
+		? getFailedProcessingStatusPayload(fileState?.id || 'unknown-id', fileState, processingFailReason)
 		: getErrorStatusPayload(fileState?.id || 'unknown-id', error, fileState);
 
 	fireMediaCardEvent(payload, createAnalyticsEvent);

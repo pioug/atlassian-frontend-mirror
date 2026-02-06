@@ -166,22 +166,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-10-20
-	confluence_whiteboards_quick_insert_localised: {
-		defaultValue: 'control' | 'test_blank' | 'test_diagram';
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: (value: unknown) => value is 'control' | 'test_blank' | 'test_diagram';
-		values: ('control' | 'test_blank' | 'test_diagram')[];
-	};
-	// Added 2025-10-28
-	confluence_whiteboards_quick_insert_localised_aa: {
-		defaultValue: 'control' | 'test_diagram';
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: (value: unknown) => value is 'control' | 'test_diagram';
-		values: ('control' | 'test_diagram')[];
-	};
 	// Added 2025-08-28
 	editor_enable_image_alignment_in_expand: {
 		defaultValue: boolean;
@@ -301,6 +285,13 @@ export const editorExperimentsConfig: {
 		typeGuard: (value: unknown) => value is 'control' | 'test';
 		values: ('control' | 'test')[];
 	};
+	// Added 2026-02-03
+	platform_editor_aifc_fix_button_viewed_analytics: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-11-20
 	platform_editor_annotations_sync_on_docchange: {
 		defaultValue: boolean;
@@ -338,6 +329,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025--8-05
 	platform_editor_block_menu: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-01-30
+	platform_editor_expand_on_scroll_to_block: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1089,6 +1087,12 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	platform_editor_comment_rovoinlinechat_improvement: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	confluence_insert_excerpt_inline_vertical_align: {
 		defaultValue: boolean;
 		param: string;
@@ -1423,6 +1427,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-02-03
+	platform_editor_aifc_fix_button_viewed_analytics: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_aifc_fix_button_viewed_analytics',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2024-12-05
 	platform_editor_blockquote_in_text_formatting_menu: createBooleanExperiment({
 		productKeys: {
@@ -1743,6 +1755,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-01-30
+	platform_editor_expand_on_scroll_to_block: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_expand_on_scroll_to_block',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-07-23
 	// Added 2025-07-24
 	editor_enghealth_hyperlink_toolbar_aria_values: createBooleanExperiment({
@@ -2004,24 +2024,6 @@ export const editorExperimentsConfig: {
 		},
 		param: 'isEnabled',
 		defaultValue: false,
-	}),
-	// Added 2025-10-20
-	confluence_whiteboards_quick_insert_localised: createMultivariateExperiment({
-		productKeys: {
-			confluence: 'confluence_whiteboards_quick_insert_localised',
-		},
-		param: 'cohort',
-		values: ['control', 'test_blank', 'test_diagram'],
-		defaultValue: 'control',
-	}),
-	// Added 2025-10-28
-	confluence_whiteboards_quick_insert_localised_aa: createMultivariateExperiment({
-		productKeys: {
-			confluence: 'confluence_whiteboards_quick_insert_localised_aa',
-		},
-		param: 'cohort',
-		values: ['control', 'test_diagram'],
-		defaultValue: 'control',
 	}),
 	// Added 2025-10-22
 	platform_editor_remove_bidi_char_warning: createBooleanExperiment({
@@ -2380,6 +2382,13 @@ export const editorExperimentsConfig: {
 	platform_editor_fix_cross_origin_editor_focus: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_fix_cross_origin_editor_focus',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	platform_editor_comment_rovoinlinechat_improvement: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_comment_rovoinlinechat_improvement',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

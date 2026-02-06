@@ -1,5 +1,13 @@
 # @atlaskit/heading
 
+## 5.3.0
+
+### Minor Changes
+
+- [`2751faf4f808f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2751faf4f808f) -
+  Increased specificity for font styles previously introduced behind a feature flag are now the
+  default.
+
 ## 5.2.20
 
 ### Patch Changes

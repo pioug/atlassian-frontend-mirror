@@ -79,6 +79,7 @@ import { AbuseModal } from '@atlaskit/media-ui/abuseModal';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { getActiveTrace } from '@atlaskit/react-ufo/experience-trace-id-context';
 import usePressTracing from '@atlaskit/react-ufo/use-press-tracing';
+import type { SsrItemDetails } from './types';
 
 export interface FileCardProps extends CardEventProps {
 	/** Overlay the media file. */
@@ -129,6 +130,8 @@ export interface FileCardProps extends CardEventProps {
 	readonly viewerOptions?: ViewerOptionsProps;
 	/** Sets options for viewer **/
 	readonly includeHashForDuplicateFiles?: boolean;
+	/** Optional file details to render straight away **/
+	readonly ssrItemDetails?: SsrItemDetails;
 	/** General Error handling include status errors and display errors*/
 	readonly onError?: (
 		reason: MediaFilePreviewErrorPrimaryReason | MediaCardErrorPrimaryReason,
@@ -176,6 +179,7 @@ export const FileCard = ({
 	videoControlsWrapperRef,
 	viewerOptions,
 	includeHashForDuplicateFiles,
+	ssrItemDetails,
 	onError,
 }: FileCardProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
@@ -343,20 +347,43 @@ export const FileCard = ({
 			}
 		};
 
-		if (fileStateValue) {
-			return {
-				id: fileStateValue.id,
-				name: fileStateValue.name,
-				size: fileStateValue.size,
-				mimeType: fileStateValue.mimeType,
-				createdAt: fileStateValue.createdAt,
-				mediaType: fileStateValue.mediaType,
-				processingStatus: getProcessingStatusFromFileState(fileStateValue.status),
-			};
+		if (fg('dfo_attachments_late_render_fix')) {
+			if (fileStateValue) {
+				return {
+					id: fileStateValue.id,
+					name: fileStateValue.name || (ssrItemDetails && ssrItemDetails.filename),
+					size: fileStateValue.size,
+					mimeType: fileStateValue.mimeType || (ssrItemDetails && ssrItemDetails.mimetype),
+					createdAt: fileStateValue.createdAt || (ssrItemDetails && ssrItemDetails.createdDate),
+					mediaType: fileStateValue.mediaType,
+					processingStatus: getProcessingStatusFromFileState(fileStateValue.status),
+				};
+			} else {
+				return {
+					id: identifier.id,
+					name: ssrItemDetails && ssrItemDetails.filename,
+					mimeType: ssrItemDetails && ssrItemDetails.mimetype,
+					createdAt: ssrItemDetails && ssrItemDetails.createdDate,
+				};
+			}
 		} else {
-			return { id: identifier.id };
+			if (fileStateValue) {
+				return {
+					id: fileStateValue.id,
+					name: fileStateValue.name,
+					size: fileStateValue.size,
+					mimeType: fileStateValue.mimeType,
+					createdAt: fileStateValue.createdAt,
+					mediaType: fileStateValue.mediaType,
+					processingStatus: getProcessingStatusFromFileState(fileStateValue.status),
+				};
+			} else {
+				return {
+					id: identifier.id,
+				};
+			}
 		}
-	}, [fileStateValue, identifier.id]);
+	}, [fileStateValue, identifier.id, ssrItemDetails]);
 
 	const fileAttributes = useMemo(() => {
 		return {
@@ -457,6 +484,7 @@ export const FileCard = ({
 				finalError,
 				traceContext,
 				fileStateValue?.metadataTraceContext,
+				metadata.failReason,
 			);
 
 		// Emit stored auth provider events when card reaches final state

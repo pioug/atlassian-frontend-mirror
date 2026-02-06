@@ -1,5 +1,6 @@
 export type {
 	MediaFileProcessingStatus,
+	ProcessingFailReason,
 	MediaRepresentations,
 	MediaFileArtifact,
 	MediaUserArtifact,

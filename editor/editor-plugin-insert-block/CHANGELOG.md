@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 8.4.0
+
+### Minor Changes
+
+- [`7b679117f4605`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b679117f4605) -
+  [ux] Productionizes `confluence-whiteboards-quick-insert-eligible` and
+  `confluence-whiteboards-quick-insert-l10n-eligible` feature gates and
+  `confluence_whiteboards_quick_insert_localised` experiment. Ship "Diagram" variant.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.3.3
 
 ### Patch Changes

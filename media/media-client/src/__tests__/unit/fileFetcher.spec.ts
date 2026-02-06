@@ -835,6 +835,62 @@ describe('FileFetcher', () => {
 				representations: {},
 				size: 1,
 				createdAt: -1,
+				failReason: undefined,
+			};
+			expect(copiedFileState).toEqual(expectedFileState);
+
+			const storedFileState = fileStateStore.getState().files['copied-file-id'];
+			expect(storedFileState).toEqual(expectedFileState);
+		});
+
+		it('should populate cache with failReason when copied file "processingStatus" is failed with failReason', async () => {
+			const { items, fileFetcher, mockAuthProvider } = setup();
+			const copiedFile: MediaFile = {
+				id: 'copied-file-id',
+				name: 'copied-file-name',
+				processingStatus: 'failed',
+				failReason: 'timeout',
+				artifacts: {},
+				mediaType: 'archive',
+				mimeType: 'application/zip',
+				representations: {},
+				size: 1,
+				createdAt: -1,
+			};
+			const mediaStore = createMockMediaStore(jest.fn());
+			asMock(mediaStore.copyFileWithToken).mockResolvedValue({
+				data: copiedFile,
+			});
+			const source = {
+				id: items[0].id,
+				collection: 'someCollectionName',
+				authProvider: mockAuthProvider,
+			};
+			const destination = {
+				collection: RECENTS_COLLECTION,
+				authProvider: mockAuthProvider,
+				mediaStore,
+			};
+
+			await fileFetcher.copyFile(source, destination);
+
+			const copiedFileObservable = getFileStreamsCache().get('copied-file-id');
+			if (!copiedFileObservable) {
+				return expect(copiedFileObservable).toBeDefined();
+			}
+
+			const copiedFileState = await toPromise(fromObservable(copiedFileObservable));
+			const expectedFileState = {
+				id: 'copied-file-id',
+				name: 'copied-file-name',
+				status: 'failed-processing',
+				artifacts: {},
+				mediaType: 'archive',
+				mimeType: 'application/zip',
+				representations: {},
+				size: 1,
+				createdAt: -1,
+				failReason: 'timeout',
 			};
 			expect(copiedFileState).toEqual(expectedFileState);
 

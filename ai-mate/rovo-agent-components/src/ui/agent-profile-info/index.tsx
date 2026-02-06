@@ -230,7 +230,7 @@ export const AgentProfileInfo = ({
 	return (
 		<Stack space="space.100" xcss={fg('rovo_agent_empty_state_refresh') ? null : styles.wrapper}>
 			<Inline xcss={styles.name} space="space.100" alignBlock="center">
-				<Inline space="space.100" xcss={styles.headingWrapper}>
+				<Inline space="space.075" xcss={styles.headingWrapper}>
 					<Heading as="h2" size={fg('rovo_agent_empty_state_refresh') ? 'medium' : 'xlarge'}>
 						{agentName}
 					</Heading>

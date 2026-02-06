@@ -87,6 +87,13 @@ describe('ADS MCP Server E2E', () => {
 		);
 	});
 
+	it('Lists the ads_get_lint_rules tool with feature flags enabled', async () => {
+		const listedTools = (await client.listTools()).tools;
+		expect(listedTools).toEqual(
+			expect.arrayContaining([expect.objectContaining({ name: 'ads_get_lint_rules' })]),
+		);
+	});
+
 	it('Gets all the tokens', async () => {
 		const expectedTokenNames = allTokens.map(({ name }) => expect.objectContaining({ name }));
 		const listedTokens = (
@@ -201,6 +208,49 @@ describe('ADS MCP Server E2E', () => {
 		expect(markdown).toContain('Keywords');
 		expect(markdown).toContain('Import statement:');
 		expect(markdown).toContain('Sizes:');
+		expect(markdown.length).toBeGreaterThan(100); // Should have substantial content
+
+		// Should not be valid JSON (since it's markdown)
+		expect(() => JSON.parse(markdown)).toThrow();
+	});
+
+	it('Returns markdown content for ads_get_lint_rules tool with feature flags enabled', async () => {
+		const result = (
+			await client.callTool({
+				name: 'ads_get_lint_rules',
+				arguments: {
+					terms: ['icon-label'],
+					limit: 1,
+					exactName: true,
+				},
+			})
+		).content as { text: string }[];
+
+		expect(result).toHaveLength(1);
+		const markdown = result[0].text;
+
+		// Validate markdown structure - should contain rule heading and content
+		expect(markdown).toContain('# icon-label');
+		expect(markdown).toContain('Icon labels');
+		expect(markdown.length).toBeGreaterThan(50);
+
+		// Should not be valid JSON (since it's markdown)
+		expect(() => JSON.parse(markdown)).toThrow();
+	});
+
+	it('Returns all lint rules as markdown when no search terms provided for ads_get_lint_rules tool with feature flags enabled', async () => {
+		const result = (
+			await client.callTool({
+				name: 'ads_get_lint_rules',
+				arguments: {},
+			})
+		).content as { text: string }[];
+
+		expect(result).toHaveLength(1);
+		const markdown = result[0].text;
+
+		// Should contain multiple rules (at least one)
+		expect(markdown).toContain('#');
 		expect(markdown.length).toBeGreaterThan(100); // Should have substantial content
 
 		// Should not be valid JSON (since it's markdown)

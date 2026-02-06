@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { blockMenuMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -69,7 +70,9 @@ const CopySyncedBlockDropdownItem = ({
 	}));
 
 	const onClick = () => {
-		api?.core?.actions.execute(api?.syncedBlock.commands.copySyncedBlockReferenceToClipboard());
+		api?.core?.actions.execute(
+			api?.syncedBlock.commands.copySyncedBlockReferenceToClipboard(INPUT_METHOD.BLOCK_MENU),
+		);
 		api?.core?.actions.execute(api?.blockControls?.commands?.toggleBlockMenu({ closeMenu: true }));
 	};
 

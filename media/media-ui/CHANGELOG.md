@@ -1,5 +1,12 @@
 # @atlaskit/media-ui
 
+## 28.7.28
+
+### Patch Changes
+
+- [`4785b4823f2b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4785b4823f2b6) -
+  Removed platform_media_disable_video_640p_artifact_usage FG
+
 ## 28.7.27
 
 ### Patch Changes

@@ -13,9 +13,8 @@ import Grid, { GridItem } from '@atlaskit/grid';
 import Heading from '@atlaskit/heading';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import LinkIcon from '@atlaskit/icon/core/link';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Popup } from '@atlaskit/popup';
-import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
 import Select from '@atlaskit/select';
 import TextArea from '@atlaskit/textarea';
@@ -78,7 +77,6 @@ const ThemePicker = ({
 				}}
 				value={themeSelectOptions.find((option) => option.value === value)}
 				options={themeSelectOptions.filter((option) => option)}
-				placeholder="Choose a base theme"
 			/>
 		</Fragment>
 	);
@@ -130,10 +128,10 @@ const ImportPopup = ({ onImport }: { onImport: (theme: ThemeExportFormat) => voi
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				<Stack space="space.100" xcss={styles.stack}>
 					<Heading size="medium">Import a custom theme</Heading>
-					<p>
+					<Text>
 						Paste in a JSON string of a custom theme to import it. This will overwrite your current
 						custom theme.
-					</p>
+					</Text>
 					<TextArea onChange={(e) => setImportValue(e.target.value)} value={importValue} />
 					<Button
 						onClick={() => {
@@ -182,11 +180,7 @@ const CustomThemeActions = ({
 }) => (
 	<ButtonGroup label="Export options">
 		<ImportPopup onImport={onImport} />
-		<DropdownMenu
-			trigger="Export"
-			placement="bottom-start"
-			shouldRenderToParent={fg('should-render-to-parent-should-be-true-design-syst')}
-		>
+		<DropdownMenu trigger="Export" placement="bottom-start" shouldRenderToParent>
 			<DropdownItem
 				description="Format for import, and engineering handoff"
 				onClick={() =>

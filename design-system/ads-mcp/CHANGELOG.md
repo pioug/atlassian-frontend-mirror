@@ -1,5 +1,13 @@
 # @atlaskit/ads-mcp
 
+## 0.14.0
+
+### Minor Changes
+
+- [`9450f7060eda0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9450f7060eda0) -
+  Created "lint rule" tool that documents lint rules in ADS MCP. It sources its content from the
+  structured docs.
+
 ## 0.13.9
 
 ### Patch Changes

@@ -14,7 +14,6 @@ import DropdownMenu, {
 	DropdownItemGroup,
 } from '@atlaskit/dropdown-menu';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { usePreventScrollingFromArrowKeys } from '../hooks/use-prevent-scrolling-from-arrow-keys';
 import type { ReorderItem } from '../subtasks/hooks/use-top-level-wiring';
@@ -69,11 +68,7 @@ export function MenuButton({
 	);
 
 	return (
-		<DropdownMenu
-			trigger={renderTrigger}
-			placement="bottom-start"
-			shouldRenderToParent={fg('should-render-to-parent-should-be-true-design-syst')}
-		>
+		<DropdownMenu trigger={renderTrigger} placement="bottom-start" shouldRenderToParent>
 			<DropdownItemGroup>
 				<DropdownItem onClick={moveUp} isDisabled={isMoveUpDisabled}>
 					Move up

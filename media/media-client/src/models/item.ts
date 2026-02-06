@@ -1,4 +1,5 @@
 import { type MediaType } from './media';
+import { type ProcessingFailReason } from '@atlaskit/media-state';
 export type MediaItemType = 'file' | 'external-image';
 
 export interface FileItem {
@@ -25,4 +26,5 @@ export interface FileDetails {
 	processingStatus?: FileProcessingStatus;
 	artifacts?: Artifacts;
 	createdAt?: number;
+	failReason?: ProcessingFailReason;
 }

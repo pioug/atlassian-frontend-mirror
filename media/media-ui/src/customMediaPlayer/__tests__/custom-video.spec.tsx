@@ -14,7 +14,6 @@ import { asMock, asMockFunction } from '@atlaskit/media-common/test-helpers';
 import { fakeIntl } from '../../test-helpers';
 import { type WidthObserver } from '@atlaskit/width-detector';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import React from 'react';
 import { CustomMediaPlayerBase, type CustomMediaPlayerProps } from '..';
 import { toggleFullscreen, getFullscreenElement } from '../fullscreen';
@@ -96,7 +95,6 @@ describe('<CustomMediaPlayer />', () => {
 		};
 
 		const getDownloadButton = () => screen.queryByTestId('custom-media-player-download-button');
-		const getHdButton = () => screen.queryByTestId('custom-media-player-hd-button');
 		const getFullscreenButton = () => screen.getByTestId('custom-media-player-fullscreen-button');
 		const getPlayPauseButton = () => screen.getByTestId('custom-media-player-play-toggle-button');
 		const getMuteButton = () => screen.getByTestId('custom-media-player-volume-toggle-button');
@@ -182,7 +180,6 @@ describe('<CustomMediaPlayer />', () => {
 			rerender,
 			createAnalyticsEventHandler,
 			getDownloadButton,
-			getHdButton,
 			getFullscreenButton,
 			getPlayPauseButton,
 			getMuteButton,
@@ -305,65 +302,6 @@ describe('<CustomMediaPlayer />', () => {
 			expect(getVideoElement().poster).toContain(poster);
 		});
 
-		describe('when hd is available', () => {
-			it('should render hd button when available', () => {
-				const { getHdButton } = setup({
-					isHDAvailable: true,
-				});
-				expect(getHdButton()).toBeInTheDocument();
-			});
-
-			it('should fire callback when hd button is clicked', () => {
-				const onHDToggleClick = jest.fn();
-				const { getHdButton } = setup({
-					isHDAvailable: true,
-					onHDToggleClick,
-				});
-
-				const hdButton = getHdButton();
-				if (!hdButton) {
-					throw new Error('hdButton does not exist');
-				}
-				fireEvent.click(hdButton);
-				expect(onHDToggleClick).toHaveBeenCalledTimes(1);
-			});
-
-			it('should have aria-pressed true when HD is active', () => {
-				const { getHdButton } = setup({
-					isHDAvailable: true,
-					isHDActive: true,
-				});
-				const hdButton = getHdButton();
-				expect(hdButton).toHaveAttribute('aria-pressed', 'true');
-			});
-
-			ffTest(
-				'platform_media_disable_video_640p_artifact_usage',
-				() => {
-					const { getHdButton } = setup({
-						isHDAvailable: true,
-					});
-					expect(getHdButton()).not.toBeInTheDocument();
-				},
-				() => {
-					const { getHdButton } = setup({
-						isHDAvailable: true,
-					});
-					expect(getHdButton()).toBeInTheDocument();
-				},
-			);
-		});
-
-		describe('when hd is not available', () => {
-			it('should not render hd button when not available', () => {
-				const { getHdButton } = setup({
-					isHDAvailable: false,
-				});
-
-				expect(getHdButton()).not.toBeInTheDocument();
-			});
-		});
-
 		it('should render spinner when the video is in loading state', () => {
 			const { simulateWaiting, container } = setup();
 
@@ -447,21 +385,6 @@ describe('<CustomMediaPlayer />', () => {
 			triggerKeydown(keyCodes.m);
 
 			expect(showControls).toHaveBeenCalledTimes(2);
-		});
-
-		it('should fire callback when hd button is clicked', () => {
-			const onHDToggleClick = jest.fn();
-			const { getHdButton } = setup({
-				isHDAvailable: true,
-				onHDToggleClick,
-			});
-
-			const hdButton = getHdButton();
-			if (!hdButton) {
-				throw new Error('hdButton should exist');
-			}
-			fireEvent.click(hdButton);
-			expect(onHDToggleClick).toHaveBeenCalledTimes(1);
 		});
 
 		it('should request full screen when fullscreen button is clicked', () => {
@@ -1201,37 +1124,6 @@ describe('<CustomMediaPlayer />', () => {
 					action: 'clicked',
 					actionSubject: 'button',
 					actionSubjectId: 'downloadButton',
-				},
-				{
-					type: 'video',
-					fileAttributes: {
-						fileId: 'some-file-id',
-					},
-				},
-			);
-		});
-
-		it('should fire clicked event when HD button is clicked', () => {
-			const onHDToggleClick = jest.fn();
-			const { getHdButton, getUIAnalyticsEventDetails } = setup({
-				isHDAvailable: true,
-				onHDToggleClick,
-			});
-
-			const hdButton = getHdButton();
-			if (!hdButton) {
-				throw new Error('HD button missing');
-			}
-			fireEvent.click(hdButton);
-
-			const { payload } = getUIAnalyticsEventDetails();
-
-			assertPayload(
-				payload,
-				{
-					action: 'clicked',
-					actionSubject: 'button',
-					actionSubjectId: 'HDButton',
 				},
 				{
 					type: 'video',

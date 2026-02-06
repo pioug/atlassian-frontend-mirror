@@ -11,7 +11,6 @@ export interface MediaPlayerProps extends WithPlaybackProps, WithShowControlMeth
 	readonly type: CustomMediaPlayerType;
 	readonly src: string;
 	readonly identifier: FileIdentifier;
-	readonly onHDToggleClick?: () => void;
 	readonly isShortcutEnabled?: boolean;
 	readonly lastWatchTimeConfig?: TimeSaverConfig;
 	readonly onCanPlay?: () => void;

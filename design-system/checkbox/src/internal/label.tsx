@@ -4,6 +4,7 @@
  */
 import { css, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	B200,
 	B300,
@@ -22,7 +23,120 @@ import { token } from '@atlaskit/tokens';
 
 import { type LabelProps } from '../types';
 
+/**
+ * Base state styles with CSS custom properties.
+ * Pseudo-selectors (:hover, :focus-within, :active) on the label element
+ * update CSS variables that cascade to the CheckboxIcon.
+ * This avoids nested sibling selectors.
+ *
+ * Uses `css` over `cssMap` to work around a bug in Compiled types when
+ * using CSS variables in pseudo-selectors.
+ */
 const baseStyles = css({
+	display: 'grid',
+	gridAutoColumns: '1fr',
+	gridAutoRows: 'min-content',
+	'--checkbox-background-color': token('color.background.input'),
+	'--checkbox-border-color': token('color.border.input'),
+	'--checkbox-outline': 'none',
+	'--checkbox-tick-color': 'transparent',
+	color: token('color.text'),
+	cursor: 'default',
+	font: token('font.body'),
+	'&:hover': {
+		'--checkbox-background-color': token('color.background.input.hovered'),
+	},
+	'&:focus-within': {
+		'--checkbox-outline': `${token('border.width.focused')} solid ${token('color.border.focused')}`,
+	},
+	'&:active': {
+		'--checkbox-background-color': token('color.background.input.pressed'),
+		'--checkbox-border-color': token('color.border'),
+	},
+	'@media screen and (forced-colors: active)': {
+		'--checkbox-background-color': 'Canvas',
+		'--checkbox-border-color': 'CanvasText',
+		'--checkbox-tick-color': 'CanvasText',
+	},
+});
+
+const textLabelLayoutStyles = css({
+	gap: `${token('space.0', '0px')} ${token('space.050', '4px')}`,
+	gridTemplateColumns: 'min-content auto',
+});
+
+// Checked/Indeterminate state
+const checkedStyles = css({
+	'--checkbox-background-color': token('color.background.selected.bold'),
+	'--checkbox-border-color': token('color.background.selected.bold'),
+	'--checkbox-tick-color': token('color.icon.inverse'),
+	'&:hover': {
+		'--checkbox-background-color': token('color.background.selected.bold.hovered'),
+		'--checkbox-border-color': token('color.background.selected.bold.hovered'),
+	},
+	'&:active': {
+		'--checkbox-background-color': token('color.background.input.pressed'),
+		'--checkbox-border-color': token('color.border'),
+		'--checkbox-tick-color': token('color.icon.inverse'),
+	},
+	'@media screen and (forced-colors: active)': {
+		'--checkbox-background-color': 'Canvas',
+		'--checkbox-border-color': 'CanvasText',
+		'--checkbox-tick-color': 'CanvasText',
+	},
+});
+
+// Invalid state - must override hover/active to maintain red border
+const invalidStyles = css({
+	'--checkbox-border-color': token('color.border.danger'),
+	'&:hover': {
+		'--checkbox-border-color': token('color.border.danger'),
+	},
+	'&:active': {
+		'--checkbox-border-color': token('color.border.danger'),
+	},
+	'@media screen and (forced-colors: active)': {
+		'--checkbox-border-color': 'Highlight',
+	},
+});
+
+// Disabled state - must override hover/active to maintain disabled appearance
+const disabledStyles = css({
+	'--checkbox-background-color': token('color.background.disabled'),
+	'--checkbox-border-color': token('color.background.disabled'),
+	color: token('color.text.disabled', '#97A0AF'),
+	cursor: 'not-allowed',
+	'&:hover': {
+		'--checkbox-background-color': token('color.background.disabled'),
+		'--checkbox-border-color': token('color.background.disabled'),
+	},
+	'&:active': {
+		'--checkbox-background-color': token('color.background.disabled'),
+		'--checkbox-border-color': token('color.background.disabled'),
+	},
+	'@media screen and (forced-colors: active)': {
+		'--checkbox-background-color': 'Canvas',
+		'--checkbox-border-color': 'GrayText',
+		'--checkbox-tick-color': 'GrayText',
+	},
+});
+
+// Disabled + Checked/Indeterminate
+const disabledCheckedStyles = css({
+	'--checkbox-tick-color': token('color.icon.disabled'),
+	'&:hover': {
+		'--checkbox-tick-color': token('color.icon.disabled'),
+	},
+	'&:active': {
+		'--checkbox-tick-color': token('color.icon.disabled'),
+	},
+});
+
+/**
+ * Legacy label styles with --local-* CSS custom properties.
+ * These are consumed by the nested sibling selectors in checkbox.tsx.
+ */
+const legacyBaseStyles = css({
 	display: 'grid',
 	gridAutoColumns: '1fr',
 	gridAutoRows: 'min-content',
@@ -31,17 +145,17 @@ const baseStyles = css({
 	font: token('font.body'),
 });
 
-const textLabelLayoutStyles = css({
+const legacyTextLabelLayoutStyles = css({
 	gap: `${token('space.0', '0px')} ${token('space.050', '4px')}`,
 	gridTemplateColumns: 'min-content auto',
 });
 
-const disabledStyles = css({
+const legacyDisabledStyles = css({
 	color: token('color.text.disabled', N80),
 	cursor: 'not-allowed',
 });
 
-const labelStyles = css({
+const legacyLabelStyles = css({
 	/**
 	 * Background
 	 */
@@ -72,11 +186,47 @@ const labelStyles = css({
 	'--local-tick-rest': 'transparent',
 });
 
-export default function Label({ children, isDisabled, testId, label, id, xcss }: LabelProps): JSX.Element {
+export default function Label({
+	children,
+	isDisabled,
+	isChecked,
+	isIndeterminate,
+	isInvalid,
+	testId,
+	label,
+	id,
+	xcss,
+}: LabelProps): JSX.Element {
+	if (fg('platform-checkbox-atomic-styles')) {
+		return (
+			<label
+				className={xcss}
+				css={[
+					baseStyles,
+					label && textLabelLayoutStyles,
+					(isChecked || isIndeterminate) && checkedStyles,
+					isInvalid && invalidStyles,
+					isDisabled && disabledStyles,
+					isDisabled && (isChecked || isIndeterminate) && disabledCheckedStyles,
+				]}
+				data-testid={testId}
+				data-disabled={isDisabled || undefined}
+				id={id}
+			>
+				{children}
+			</label>
+		);
+	}
+
 	return (
 		<label
 			className={xcss}
-			css={[baseStyles, label && textLabelLayoutStyles, isDisabled && disabledStyles, labelStyles]}
+			css={[
+				legacyBaseStyles,
+				label && legacyTextLabelLayoutStyles,
+				isDisabled && legacyDisabledStyles,
+				legacyLabelStyles,
+			]}
 			data-testid={testId}
 			data-disabled={isDisabled || undefined}
 			id={id}

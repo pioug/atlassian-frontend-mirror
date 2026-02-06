@@ -1,5 +1,38 @@
 # @atlaskit/renderer
 
+## 126.8.0
+
+### Minor Changes
+
+- [`41941e55fa9b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41941e55fa9b1) -
+  [ux] Block link scroll behavior now expands collapsed parent expand/nestedExpand nodes before
+  scrolling. New feature gate `platform_editor_expand_on_scroll_to_block` controls this behavior:
+  - When enabled: Expands parent expand nodes before scrolling (new behavior with better UX)
+  - When disabled: Simple scroll without expand handling (safe fallback to original behavior)
+
+  This ensures the "Copy link to block" feature works correctly when the target block is inside a
+  collapsed expand.
+
+### Patch Changes
+
+- [`b296c8dca4192`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b296c8dca4192) -
+  EDITOR-4991 add new value to renderer context to track nested renderer type, used in analytics
+  event to track what renderer we are in for synced blocks
+- Updated dependencies
+
+## 126.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 126.7.0
+
+### Minor Changes
+
+- [`c6437bbb1f7c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6437bbb1f7c9) -
+  Feature gate clean up
+
 ## 126.6.5
 
 ### Patch Changes

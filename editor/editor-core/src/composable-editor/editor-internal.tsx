@@ -117,8 +117,14 @@ export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.E
 					<div
 						css={editorContainerStyles}
 						// eslint-disable-next-line react/jsx-props-no-spreading
-						{...(expValEquals('cc_fix_hydration_ttvc', 'isEnabled', true)
-							? { 'data-vc-ignore-if-no-layout-shift': true }
+						{...(expValEquals('cc_fix_hydration_ttvc', 'isEnabled', true) &&
+						!expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+							? process.env.REACT_SSR
+								? { 'data-vc-ignore-if-no-layout-shift': true, 'data-ssr-placeholder': 'fallback' }
+								: {
+										'data-vc-ignore-if-no-layout-shift': true,
+										'data-ssr-placeholder-replace': 'fallback',
+								  }
 							: {})}
 					>
 						<EditorContext editorActions={editorActions}>

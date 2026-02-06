@@ -142,9 +142,6 @@
 		"platform_increased-contrast-themes": {
 			"type": "boolean"
 		},
-		"should-render-to-parent-should-be-true-design-syst": {
-			"type": "boolean"
-		},
 		"platform-dst-shape-theme-default": {
 			"type": "boolean"
 		},

@@ -63,6 +63,9 @@
 		},
 		"media-perf-uplift-mutation-fix": {
 			"type": "boolean"
+		},
+		"dfo_attachments_late_render_fix": {
+			"type": "boolean"
 		}
 	},
 	"techstack": {

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { getDocument } from '@atlaskit/browser-apis';
 import { DEFAULT_BLOCK_LINK_HASH_PREFIX } from '@atlaskit/editor-common/block-menu';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 // Find editor node dom with localId - similar to confluence useScrollOnUrlChange.ts
 const getLocalIdSelector = (localId: string, container: HTMLElement) => {
@@ -37,6 +38,15 @@ const getLocalIdSelector = (localId: string, container: HTMLElement) => {
 	return null;
 };
 
+/**
+ * useScrollToLocalId - Handler for block link scrolling in the renderer (traditional pages)
+ *
+ * This hook is deprecated in favor of useScrollToBlock which supports expanding parent nodes.
+ * This hook will be removed when the platform_editor_expand_on_scroll_to_block experiment is cleaned up.
+ *
+ * @param containerRef - Optional ref to the renderer container (RendererStyleContainer).
+ * @param shouldScrollToLocalId - Whether scroll-to-block functionality should be enabled
+ */
 export const useScrollToLocalId = (
 	containerRef?: React.RefObject<HTMLDivElement>,
 	shouldScrollToLocalId?: boolean,
@@ -44,6 +54,10 @@ export const useScrollToLocalId = (
 	useEffect(() => {
 		// Only run in browser environment
 		if (typeof window === 'undefined' || !containerRef?.current || !shouldScrollToLocalId) {
+			return;
+		}
+
+		if (expValEquals('platform_editor_expand_on_scroll_to_block', 'isEnabled', true)) {
 			return;
 		}
 

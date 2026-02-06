@@ -1,5 +1,6 @@
 export type RendererAppearance = 'comment' | 'full-page' | 'full-width' | 'max' | undefined;
 export type RendererContentMode = 'standard' | 'compact' | undefined;
+export type NestedRendererType = 'syncedBlock' | undefined;
 
 /**
  * DO NOT USE THESE OPTIONS

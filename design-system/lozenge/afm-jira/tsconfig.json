@@ -43,6 +43,9 @@
 			"path": "../../primitives/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../spinner/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../tokens/afm-jira/tsconfig.json"
 		}
 	]

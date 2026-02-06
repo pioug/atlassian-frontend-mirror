@@ -2,6 +2,7 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl-next';
 
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import commonMessages, { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type {
 	Command,
@@ -101,6 +102,7 @@ export const getToolbarConfig = (
 							localId={localId}
 							intl={intl}
 							isSource={isBodiedSyncBlock}
+							api={api}
 						/>
 					);
 				},
@@ -116,6 +118,13 @@ export const getToolbarConfig = (
 							icon={<LinkBrokenIcon label="" />}
 							title={formatMessage(messages.unsyncButton)}
 							onClick={() => unsync(syncBlockStore, isBodiedSyncBlock, view)}
+							testId={
+								fg('platform_synced_block_patch_1')
+									? isBodiedSyncBlock
+										? SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarSourceUnsync
+										: SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarReferenceUnsync
+									: undefined
+							}
 						/>
 					);
 				},
@@ -131,7 +140,11 @@ export const getToolbarConfig = (
 			title: formatMessage(messages.copySyncBlockLabel),
 			showTitle: false,
 			tooltipContent: formatMessage(messages.copySyncedBlockTooltip),
-			onClick: copySyncedBlockReferenceToClipboard(syncBlockStore, api),
+			onClick: copySyncedBlockReferenceToClipboard(
+				syncBlockStore,
+				INPUT_METHOD.SYNCED_BLOCK_TB,
+				api,
+			),
 			...hoverDecorationProps(nodeType, akEditorSelectedNodeClassName),
 		};
 		items.push(copyButton);
@@ -171,6 +184,11 @@ export const getToolbarConfig = (
 						title: formatMessage(commonMessages.delete),
 						onClick: removeSyncedBlock(api),
 						icon: <DeleteIcon label="" />,
+						testId: fg('platform_synced_block_patch_1')
+							? isBodiedSyncBlock
+								? SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarSourceDelete
+								: SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarReferenceDelete
+							: undefined,
 						...hoverDecorationProps(nodeType),
 					},
 				],

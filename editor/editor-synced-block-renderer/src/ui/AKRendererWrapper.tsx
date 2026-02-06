@@ -5,12 +5,14 @@ import { useIntl } from 'react-intl-next';
 import type { DocNode } from '@atlaskit/adf-schema';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	ReactRenderer,
 	ValidationContextProvider,
 	defaultNodeComponents,
 } from '@atlaskit/renderer';
 import { RendererActionsContext } from '@atlaskit/renderer/actions';
+import { RendererContextProvider } from '@atlaskit/renderer/renderer-context';
 import Tooltip from '@atlaskit/tooltip';
 
 import type { SyncedBlockRendererOptions } from '../types';
@@ -116,31 +118,61 @@ export const AKRendererWrapper = memo(
 		return (
 			<RendererActionsContext>
 				<ValidationContextWrapper>
-					<div data-testid="sync-block-renderer-wrapper">
-						<ReactRenderer
-							appearance={appearance}
-							adfStage="stage0"
-							document={doc}
-							disableHeadingIDs={true}
-							dataProviders={dataProviders}
-							nodeComponents={nodeComponents}
-							allowAltTextOnImages={allowAltTextOnImages}
-							allowAnnotations={allowAnnotations}
-							allowColumnSorting={allowColumnSorting}
-							allowCopyToClipboard={allowCopyToClipboard}
-							allowCustomPanels={allowCustomPanels}
-							allowHeadingAnchorLinks={allowHeadingAnchorLinks}
-							allowPlaceholderText={allowPlaceholderText}
-							allowRendererContainerStyles={allowRendererContainerStyles}
-							allowSelectAllTrap={allowSelectAllTrap}
-							allowUgcScrubber={allowUgcScrubber}
-							allowWrapCodeBlock={allowWrapCodeBlock}
-							emojiResourceConfig={emojiResourceConfig}
-							media={media}
-							smartLinks={smartLinks}
-							stickyHeaders={stickyHeaders}
-						/>
-					</div>
+					{fg('platform_synced_block_patch_1') ? (
+						<RendererContextProvider value={{ nestedRendererType: 'syncedBlock' }}>
+							<div data-testid="sync-block-renderer-wrapper">
+								<ReactRenderer
+									appearance={appearance}
+									adfStage="stage0"
+									document={doc}
+									disableHeadingIDs={true}
+									dataProviders={dataProviders}
+									nodeComponents={nodeComponents}
+									allowAltTextOnImages={allowAltTextOnImages}
+									allowAnnotations={allowAnnotations}
+									allowColumnSorting={allowColumnSorting}
+									allowCopyToClipboard={allowCopyToClipboard}
+									allowCustomPanels={allowCustomPanels}
+									allowHeadingAnchorLinks={allowHeadingAnchorLinks}
+									allowPlaceholderText={allowPlaceholderText}
+									allowRendererContainerStyles={allowRendererContainerStyles}
+									allowSelectAllTrap={allowSelectAllTrap}
+									allowUgcScrubber={allowUgcScrubber}
+									allowWrapCodeBlock={allowWrapCodeBlock}
+									emojiResourceConfig={emojiResourceConfig}
+									media={media}
+									smartLinks={smartLinks}
+									stickyHeaders={stickyHeaders}
+								/>
+							</div>
+						</RendererContextProvider>
+					) : (
+						<div data-testid="sync-block-renderer-wrapper">
+							<ReactRenderer
+								appearance={appearance}
+								adfStage="stage0"
+								document={doc}
+								disableHeadingIDs={true}
+								dataProviders={dataProviders}
+								nodeComponents={nodeComponents}
+								allowAltTextOnImages={allowAltTextOnImages}
+								allowAnnotations={allowAnnotations}
+								allowColumnSorting={allowColumnSorting}
+								allowCopyToClipboard={allowCopyToClipboard}
+								allowCustomPanels={allowCustomPanels}
+								allowHeadingAnchorLinks={allowHeadingAnchorLinks}
+								allowPlaceholderText={allowPlaceholderText}
+								allowRendererContainerStyles={allowRendererContainerStyles}
+								allowSelectAllTrap={allowSelectAllTrap}
+								allowUgcScrubber={allowUgcScrubber}
+								allowWrapCodeBlock={allowWrapCodeBlock}
+								emojiResourceConfig={emojiResourceConfig}
+								media={media}
+								smartLinks={smartLinks}
+								stickyHeaders={stickyHeaders}
+							/>
+						</div>
+					)}
 				</ValidationContextWrapper>
 			</RendererActionsContext>
 		);

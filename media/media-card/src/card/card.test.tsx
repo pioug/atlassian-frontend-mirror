@@ -4784,6 +4784,7 @@ describe('Card ', () => {
 							},
 							status: 'fail',
 							failReason: 'failed-processing',
+							processingFailReason: 'not-available',
 							ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
 							traceContext: expect.objectContaining({ traceId: expect.any(String) }),
 							metadataTraceContext: { traceId: expect.any(String), spanId: expect.any(String) },

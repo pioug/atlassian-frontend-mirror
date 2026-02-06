@@ -19,6 +19,7 @@ describe('isErrorFileState()', () => {
 		mediaType: 'image',
 		mimeType: 'some-mime-type',
 		representations: {},
+		failReason: undefined,
 	};
 
 	const errorState: ErrorFileState = {
@@ -88,6 +89,7 @@ describe('isImageRepresentationReady()', () => {
 			representations: {
 				image: {},
 			},
+			failReason: undefined,
 		};
 
 		expect(isImageRepresentationReady(processingFailedWithImage)).toBe(true);

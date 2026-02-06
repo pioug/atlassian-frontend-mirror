@@ -244,6 +244,7 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 		fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
 		hasAccess: boolean = true,
 		urlType: 'view' | 'edit' = 'edit',
+		isUnpublished?: boolean,
 	): Promise<SyncBlockSourceInfo | undefined> {
 		let ari = sourceAri,
 			product = sourceProduct;
@@ -265,6 +266,7 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 					urlType,
 					localId,
 					fireAnalyticsEvent,
+					isUnpublished,
 				);
 
 				if (fg('platform_synced_block_dogfooding')) {

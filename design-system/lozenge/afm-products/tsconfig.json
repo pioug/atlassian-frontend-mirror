@@ -43,6 +43,9 @@
 			"path": "../../primitives/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../spinner/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../tokens/afm-products/tsconfig.json"
 		}
 	]

@@ -1,5 +1,36 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.26.0
+
+### Minor Changes
+
+- [`a18ce28559c45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a18ce28559c45) -
+  Get block uses GraphQL endpoint
+- [`bbe398b495d85`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bbe398b495d85) -
+  Use the Rest API for fetching page URL when page is unpublished
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.25.0
+
+### Minor Changes
+
+- [`1ded312f31a41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ded312f31a41) -
+  Fetch references by blockAri uses GraphQL endpoint
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.24.0
+
+### Minor Changes
+
+- [`79754ae4abb79`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79754ae4abb79) -
+  Use GraphQL query for batch retrieve blocks
+
 ## 3.23.0
 
 ### Minor Changes

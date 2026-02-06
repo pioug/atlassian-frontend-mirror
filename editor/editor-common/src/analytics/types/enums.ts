@@ -105,6 +105,8 @@ export enum ACTION {
 	REACT_NODEVIEW_RENDERED = 'reactNodeViewRendered',
 	REFERENCE_SYNCED_BLOCK_DELETE = 'referenceSyncedBlockDelete',
 	REFERENCE_SYNCED_BLOCK_UPDATE = 'referenceSyncedBlockUpdate',
+	REFERENCE_SYNCED_BLOCK_UNSYNC = 'referenceSyncedBlockUnsync',
+	REFERENCE_SYNCED_BLOCK_COPY = 'referenceSyncedBlockCopy',
 	REPLACED_ALL = 'replacedAll',
 	REPLACED_ONE = 'replacedOne',
 	RESOLVED = 'resolved',
@@ -122,6 +124,9 @@ export enum ACTION {
 	SYNCED_BLOCK_FETCH_REFERENCES = 'syncedBlockFetchReferences',
 	SYNCED_BLOCK_DELETE = 'syncedBlockDelete',
 	SYNCED_BLOCK_GET_SOURCE_INFO = 'syncedBlockGetSourceInfo',
+	SYNCED_BLOCK_UNSYNC = 'syncedBlockUnsync',
+	SYNCED_BLOCK_EDIT_SOURCE = 'syncedBlockEditSource',
+	SYNCED_BLOCK_VIEW_SYNCED_LOCATIONS = 'syncedBlockViewSyncedLocations',
 	SYNCHRONY_DISCONNECTED = 'synchronyDisconnected',
 	SYNCHRONY_ENTITY_ERROR = 'synchronyEntityError',
 	SYNCHRONY_ERROR = 'synchronyError',
@@ -249,6 +254,7 @@ export enum INPUT_METHOD {
 	DOUBLE_CLICK = 'doubleClick',
 	META_CLICK = 'metaClick',
 	INLINE_SUGGESTION_FLOATING_TB = 'inlineSuggestionFloatingToolbar',
+	SYNCED_BLOCK_TB = 'syncedBlockToolbar',
 	BLOCK_MENU = 'blockMenu',
 	SMART_LINK = 'smartLink',
 }
@@ -533,6 +539,7 @@ export enum ACTION_SUBJECT_ID {
 	EDITOR_PLUGIN_SELECTION_EXTENSION_COMPONENT = 'editorPluginSelectionExtensionComponent',
 	TRANSFORM = 'transform',
 	SYNCED_BLOCK_TOOLBAR = 'syncedBlockToolbar',
+	SYNCED_BLOCK_COPY = 'syncedBlockCopy',
 	SYNCED_BLOCK_SOURCE_URL = 'syncedBlockSourceUrl',
 	SYNCED_BLOCK_UPDATE_CACHE = 'syncedBlockUpdateCache',
 	SYNCED_BLOCK_UPDATE = 'syncedBlockUpdate',
@@ -544,6 +551,7 @@ export enum ACTION_SUBJECT_ID {
 	SYNCED_BLOCK_GET_SOURCE_INFO = 'syncedBlockGetSourceInfo',
 	SYNCED_BLOCK_FETCH = 'syncedBlockFetch',
 	SYNCED_BLOCK_FETCH_REFERENCES = 'syncedBlockFetchReferences',
+	SYNCED_BLOCK_CLICK_SYNCED_LOCATION = 'syncedBlockClickSyncedLocation',
 	TABLE_STICKY_HEADER = 'tableStickyHeader',
 }
 

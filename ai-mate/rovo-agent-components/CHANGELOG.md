@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-components
 
+## 3.29.0
+
+### Minor Changes
+
+- [`de588876854b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de588876854b6) -
+  Improved horizontal alignment of verified icon badge
+
 ## 3.28.0
 
 ### Minor Changes

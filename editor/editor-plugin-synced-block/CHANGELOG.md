@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 5.3.12
+
+### Patch Changes
+
+- [`011b84236ffaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/011b84236ffaa) -
+  EDITOR-4175 add analytics events for the synced block toolbar buttons
+- Updated dependencies
+
 ## 5.3.11
 
 ### Patch Changes

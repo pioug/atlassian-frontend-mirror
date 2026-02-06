@@ -10,6 +10,15 @@ import { fetchWithRetry } from '../../utils/retry';
 import { getPageIdAndTypeFromConfluencePageAri } from './ari';
 import { isBlogPageType } from './utils';
 
+type UnpublishedPageResponse = {
+	_links?: {
+		base?: string;
+		edituiv2?: string;
+	};
+	title?: string;
+	subtype?: string | null;
+};
+
 const COMMON_HEADERS = {
 	'Content-Type': 'application/json',
 	Accept: 'application/json',
@@ -109,6 +118,56 @@ const resolveNoAccessPageInfo = async (ari: string): Promise<SyncBlockSourceInfo
 	}
 };
 
+/**
+ * Fetches unpublished page info from the v2 pages API
+ * Used when the GraphQL query returns empty content.nodes for unpublished pages
+ * @param pageAri - The page ARI
+ * @param localId - Optional local ID to append as block anchor
+ * @returns Source info with URL, title, and optional subtype
+ */
+const fetchUnpublishedConfluencePageInfo = async (
+	pageAri: string,
+	localId?: string,
+): Promise<SyncBlockSourceInfo | undefined> => {
+	try {
+		const { id: pageId } = getPageIdAndTypeFromConfluencePageAri({ ari: pageAri });
+
+		const response = await fetchWithRetry(`/wiki/api/v2/pages/${pageId}?draft=true`, {
+			method: 'GET',
+			headers: COMMON_HEADERS,
+		});
+
+		if (!response.ok) {
+			throw new Error(`Failed to get unpublished page info: ${response.statusText}`);
+		}
+
+		const pageData = (await response.json()) as UnpublishedPageResponse;
+
+		const base = pageData._links?.base;
+		const edituiv2 = pageData._links?.edituiv2;
+		const title = pageData.title;
+		const subType = pageData.subtype;
+
+		let url: string | undefined;
+		if (base && edituiv2) {
+			url = `${base}${edituiv2}`;
+			url = url && localId ? `${url}#block-${localId}` : url;
+		}
+
+		return {
+			title,
+			url,
+			sourceAri: pageAri,
+			subType,
+		};
+	} catch (error) {
+		logException(error as Error, {
+			location: 'editor-synced-block-provider/sourceInfo/fetchUnpublishedConfluencePageInfo',
+		});
+		return Promise.resolve(undefined);
+	}
+};
+
 export const fetchConfluencePageInfoOld = async (
 	pageAri: string,
 	localId?: string,
@@ -154,7 +213,13 @@ export const fetchConfluencePageInfoNew = async (
 	hasAccess: boolean,
 	urlType: 'view' | 'edit',
 	localId?: string,
+	isUnpublished?: boolean,
 ): Promise<SyncBlockSourceInfo | undefined> => {
+	// For unpublished pages, use the v2 pages API as GraphQL returns empty content.nodes
+	if (isUnpublished && fg('platform_synced_block_patch_1')) {
+		return await fetchUnpublishedConfluencePageInfo(pageAri, localId);
+	}
+
 	if (hasAccess) {
 		const { type: pageType } = getPageIdAndTypeFromConfluencePageAri({ ari: pageAri });
 		const response = await getConfluenceSourceInfo(pageAri);
@@ -193,8 +258,9 @@ export const fetchConfluencePageInfo = async (
 	urlType: 'view' | 'edit',
 	localId?: string,
 	fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
+	isUnpublished?: boolean,
 ): Promise<SyncBlockSourceInfo | undefined> => {
 	return fg('platform_synced_block_dogfooding')
-		? await fetchConfluencePageInfoNew(pageAri, hasAccess, urlType, localId)
+		? await fetchConfluencePageInfoNew(pageAri, hasAccess, urlType, localId, isUnpublished)
 		: await fetchConfluencePageInfoOld(pageAri, localId, fireAnalyticsEvent);
 };

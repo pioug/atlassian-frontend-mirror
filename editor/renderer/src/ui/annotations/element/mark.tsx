@@ -275,7 +275,7 @@ export const MarkComponent = ({
 					markStyles,
 					markStylesLayeringFix,
 					fg('editor_inline_comments_on_inline_nodes') && markStylesWithInlineComments,
-					fg('confluence-frontend-comments-panel') && markStylesWithCommentsPanel,
+					markStylesWithCommentsPanel,
 					!isMobile() && accessibilityStyles,
 					markStylesWithUpdatedShadow,
 				],

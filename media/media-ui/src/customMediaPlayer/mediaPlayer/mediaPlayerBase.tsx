@@ -9,8 +9,6 @@ import PauseIcon from '@atlaskit/icon/core/video-pause';
 import FullScreenIconOn from '@atlaskit/icon/core/fullscreen-enter';
 import FullScreenIconOff from '@atlaskit/icon/core/shrink-diagonal';
 import SoundIcon from '@atlaskit/icon/core/volume-high';
-import VideoHdIcon from '@atlaskit/icon-lab/core/video-hd';
-import VideoHdFilledIcon from '@atlaskit/icon-lab/core/video-hd-filled';
 import DownloadIcon from '@atlaskit/icon/core/download';
 import { injectIntl } from 'react-intl-next';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
@@ -102,7 +100,6 @@ const breakpointControls: Record<string, BreakpointControlResolver> = {
 	volumeSlider: (playerWidth) => playerWidth > breakpoints.MEDIUM_VIDEO_MAX_WIDTH,
 	skipButtons: (playerWidth) => playerWidth > breakpoints.LARGE_VIDEO_MAX_WIDTH,
 	speedControls: (playerWidth) => playerWidth > breakpoints.LARGE_VIDEO_MAX_WIDTH,
-	hdButton: (playerWidth) => playerWidth > breakpoints.LARGE_VIDEO_MAX_WIDTH,
 	captionsAdminControls: (playerWidth) => playerWidth > breakpoints.LARGE_VIDEO_MAX_WIDTH,
 };
 
@@ -320,35 +317,6 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 			<CurrentTime draggable={false} data-testid="current-time">
 				{formatDuration(this.videoState.currentTime)} / {formatDuration(this.videoState.duration)}
 			</CurrentTime>
-		);
-	};
-
-	private shouldRenderHdButton = () => {
-		const { type, isHDAvailable } = this.props;
-		return (
-			!fg('platform_media_disable_video_640p_artifact_usage') &&
-			breakpointControls.hdButton(this.state.playerWidth) &&
-			type !== 'audio' &&
-			!!isHDAvailable
-		);
-	};
-
-	private renderHDButton = () => {
-		const { isHDActive, onHDToggleClick } = this.props;
-
-		return (
-			<MediaButton
-				testId="custom-media-player-hd-button"
-				onClick={
-					!!onHDToggleClick
-						? this.getMediaButtonClickHandler(onHDToggleClick, 'HDButton')
-						: undefined
-				}
-				iconBefore={
-					isHDActive ? <VideoHdFilledIcon label="hd active" /> : <VideoHdIcon label="hd inactive" />
-				}
-				aria-pressed={isHDActive}
-			/>
 		);
 	};
 
@@ -1087,7 +1055,6 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 											{this.shouldRenderCurrentTime() && this.renderCurrentTime()}
 											{this.shouldRenderCaptionsControls() && this.renderCaptionsControls()}
 											{this.shouldRenderSpeedControls() && this.renderSpeedControls()}
-											{this.shouldRenderHdButton() && this.renderHDButton()}
 											{this.shouldRenderDownloadButton() && this.renderDownloadButton()}
 											{this.shouldRenderFullScreenButton() && this.renderFullScreenButton()}
 											{this.shouldRenderCaptionsAdminControls() &&

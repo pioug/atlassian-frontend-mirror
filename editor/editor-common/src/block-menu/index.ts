@@ -102,4 +102,16 @@ export {
 	isBlockLinkHash,
 } from './block-link';
 
+export {
+	expandAllParentsThenScroll,
+	findParentExpands,
+	isExpandCollapsed,
+	expandElement,
+	findNodeWithExpandParents,
+	SCROLL_TO_BLOCK_TIMING,
+	getLocalIdSelector,
+} from './scroll-to-block-utils';
+
+export type { NodeWithExpandParents } from './scroll-to-block-utils';
+
 export type { BlockMenuPlacement } from './placement';

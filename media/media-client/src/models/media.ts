@@ -1,5 +1,5 @@
 import { type MediaTraceContext, type MediaType } from '@atlaskit/media-common';
-import { type MediaFileArtifacts } from '@atlaskit/media-state';
+import { type MediaFileArtifacts, type ProcessingFailReason } from '@atlaskit/media-state';
 
 // Warning! You can't add new media file processing status!
 // See packages/media/media-core/src/__tests__/cache-backward-compatibility.spec.ts
@@ -35,6 +35,7 @@ export type MediaFile = {
 	readonly metadataTraceContext?: MediaTraceContext;
 	readonly abuseClassification?: AbuseClassification;
 	readonly mediaMetadata?: FileMediaMetadata;
+	readonly failReason?: ProcessingFailReason;
 };
 
 export type MediaItemDetails = {
@@ -50,6 +51,7 @@ export type MediaItemDetails = {
 	readonly metadataTraceContext?: MediaTraceContext;
 	readonly abuseClassification?: AbuseClassification;
 	readonly mediaMetadata?: FileMediaMetadata;
+	readonly failReason?: ProcessingFailReason;
 };
 
 export type NotFoundMediaItemDetails = {

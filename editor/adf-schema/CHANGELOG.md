@@ -1,5 +1,19 @@
 # @atlaskit/adf-schema
 
+## 51.5.12
+
+### Patch Changes
+
+- [`47dce55fed533`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/47dce55fed533) -
+  Add option to filter out marks if they don't have all required attrs and therefore are invalid
+- Updated dependencies
+
+## 51.5.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 51.5.10
 
 ### Patch Changes

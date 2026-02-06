@@ -1,5 +1,12 @@
 # @atlaskit/teams-avatar
 
+## 2.4.10
+
+### Patch Changes
+
+- [`c95c07e8ef6ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c95c07e8ef6ab) -
+  Fix border radius in FallbackAvatar
+
 ## 2.4.9
 
 ### Patch Changes

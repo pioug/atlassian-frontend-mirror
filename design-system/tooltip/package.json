@@ -108,9 +108,6 @@
 		"platform-component-visual-refresh": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"should-render-to-parent-should-be-true-design-syst": {
-			"type": "boolean"
 		}
 	}
 }

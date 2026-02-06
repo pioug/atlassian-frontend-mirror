@@ -1,5 +1,12 @@
 # @atlaskit/media-card
 
+## 79.15.2
+
+### Patch Changes
+
+- [`596f3124f234d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/596f3124f234d) -
+  [ux] Border radius changes -> small to large
+
 ## 79.15.1
 
 ### Patch Changes

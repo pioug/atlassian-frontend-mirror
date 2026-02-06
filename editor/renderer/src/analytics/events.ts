@@ -18,6 +18,7 @@ import type {
 	UnsupportedContentTooltipPayload,
 } from '@atlaskit/editor-common/utils';
 import type { EditorBreakpointKey } from '@atlaskit/editor-common/utils/analytics';
+import type { NestedRendererType } from '../ui/Renderer/types';
 
 export enum PLATFORM {
 	NATIVE = 'mobileNative',
@@ -45,6 +46,8 @@ type RendererRenderedAEP = AEP<
 	{
 		distortedDuration: boolean;
 		duration: number;
+		// the type of nested renderer it is (if it is one) e.g. syncBlock
+		nestedRendererType?: NestedRendererType;
 		nodes: Record<string, number>;
 		platform: PLATFORM.WEB;
 		severity?: SEVERITY;
@@ -60,6 +63,8 @@ type RendererRenderedSampledAEP = AEP<
 	{
 		distortedDuration: boolean;
 		duration: number;
+		// the type of nested renderer it is (if it is one) e.g. syncBlock
+		nestedRendererType?: NestedRendererType;
 		nodes: Record<string, number>;
 		platform: PLATFORM.WEB;
 		severity?: SEVERITY;
@@ -348,28 +353,28 @@ type SyncedBlockFetchErrorAEP = OperationalAEP<
 	ACTION.ERROR,
 	ACTION_SUBJECT.SYNCED_BLOCK,
 	ACTION_SUBJECT_ID.SYNCED_BLOCK_FETCH,
-	{ error: string, resourceId?: string }
+	{ error: string; resourceId?: string }
 >;
 
 type SyncedBlockFetchSuccessAEP = OperationalAEP<
 	ACTION.FETCHED,
 	ACTION_SUBJECT.SYNCED_BLOCK,
 	ACTION_SUBJECT_ID.SYNCED_BLOCK_FETCH,
-	{ blockInstanceId?: string; resourceId?: string, sourceProduct?: string; }
+	{ blockInstanceId?: string; resourceId?: string; sourceProduct?: string }
 >;
 
 type SyncedBlockGetSourceInfoErrorAEP = OperationalAEP<
 	ACTION.ERROR,
 	ACTION_SUBJECT.SYNCED_BLOCK,
 	ACTION_SUBJECT_ID.SYNCED_BLOCK_GET_SOURCE_INFO,
-	{ error: string, resourceId?: string }
+	{ error: string; resourceId?: string }
 >;
 
 type ReferenceSyncedBlockUpdateErrorAEP = OperationalAEP<
 	ACTION.ERROR,
 	ACTION_SUBJECT.SYNCED_BLOCK,
 	ACTION_SUBJECT_ID.REFERENCE_SYNCED_BLOCK_UPDATE,
-	{error: string, resourceId?: string}
+	{ error: string; resourceId?: string }
 >;
 
 export type AnalyticsEventPayload<_T = void> =

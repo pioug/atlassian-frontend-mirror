@@ -79,6 +79,33 @@ type UpdateDocumentReferencesGraphQLResponse = {
 	errors?: Array<{ message: string }>;
 };
 
+type BatchRetrieveBlocksGraphQLResponse = {
+	data?: {
+		blockService_batchRetrieveBlocks: {
+			success?: Array<BlockContentResponse>;
+			error?: Array<ErrorResponse>;
+		};
+	};
+	errors?: Array<{ message: string }>;
+};
+
+type GetBlockReferencesGraphQLResponse = {
+	data?: {
+		blockService_getReferences: {
+			references?: Array<ReferenceSyncBlockResponse>;
+			errors?: Array<ErrorResponse>;
+		};
+	};
+	errors?: Array<{ message: string }>;
+};
+
+type GetBlockGraphQLResponse = {
+	data?: {
+		blockService_getBlock: BlockContentResponse;
+	};
+	errors?: Array<{ message: string }>;
+};
+
 /**
  * Retrieves all synced blocks referenced in a document.
  *
@@ -228,6 +255,9 @@ const DELETE_BLOCK_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_DELETE_BLOCK';
 const CREATE_BLOCK_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_CREATE_BLOCK';
 const UPDATE_DOCUMENT_REFERENCES_OPERATION_NAME =
 	'EDITOR_SYNCED_BLOCK_UPDATE_DOCUMENT_REFERENCES';
+const BATCH_RETRIEVE_BLOCKS_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_BATCH_RETRIEVE_BLOCKS';
+const GET_BLOCK_REFERENCES_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_GET_REFERENCES';
+const GET_BLOCK_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_GET_BLOCK';
 
 const buildGetDocumentReferenceBlocksQuery = (
 	documentAri: string,
@@ -250,6 +280,22 @@ const buildGetDocumentReferenceBlocksQuery = (
 			code
 			reason
 		}
+	}
+}`;
+
+const buildGetBlockQuery = (blockAri: string) => `query ${GET_BLOCK_OPERATION_NAME} {
+	blockService_getBlock(blockAri: ${JSON.stringify(blockAri)}) {
+		blockAri
+		blockInstanceId
+		content
+		contentUpdatedAt
+		createdAt
+		createdBy
+		deletionReason
+		product
+		sourceAri
+		status
+		version
 	}
 }`;
 
@@ -377,6 +423,52 @@ const buildUpdateDocumentReferencesMutation = (
 }`;
 };
 
+const buildBatchRetrieveBlocksQuery = (blockAris: string[]) => {
+	const blockArisArray = blockAris.map((ari) => JSON.stringify(ari)).join(', ');
+	const inputArgs = `blockAris: [${blockArisArray}]`;
+	return `query ${BATCH_RETRIEVE_BLOCKS_OPERATION_NAME} {
+	blockService_batchRetrieveBlocks(input: { ${inputArgs} }) {
+		success {
+			blockAri
+			blockInstanceId
+			content
+			contentUpdatedAt
+			createdAt
+			createdBy
+			deletionReason
+			product
+			sourceAri
+			status
+			version
+		}
+		error {
+			blockAri
+			code
+			reason
+		}
+	}
+}`;
+};
+
+const buildGetBlockReferencesQuery = (blockAri: string) => {
+	return `query ${GET_BLOCK_REFERENCES_OPERATION_NAME} {
+	blockService_getReferences(blockAri: ${JSON.stringify(blockAri)}) {
+		references {
+			blockAri
+			blockInstanceId
+			createdAt
+			createdBy
+			documentAri
+		}
+		errors {
+			blockAri
+			code
+			reason
+		}
+	}
+}`;
+};
+
 export class BlockError extends Error {
 	constructor(public readonly status: number) {
 		super(`Block error`);
@@ -386,6 +478,35 @@ export class BlockError extends Error {
 export const getSyncedBlockContent = async ({
 	blockAri,
 }: GetSyncedBlockContentRequest): Promise<BlockContentResponse> => {
+	if (fg('platform_synced_block_patch_1')) {
+		const bodyData = {
+			query: buildGetBlockQuery(blockAri),
+			operationName: GET_BLOCK_OPERATION_NAME,
+		};
+
+		const response = await fetchWithRetry(GRAPHQL_ENDPOINT, {
+			method: 'POST',
+			headers: COMMON_HEADERS,
+			body: JSON.stringify(bodyData),
+		});
+
+		if (!response.ok) {
+			throw new BlockError(response.status);
+		}
+
+		const result = (await response.json()) as GetBlockGraphQLResponse;
+
+		if (result.errors && result.errors.length > 0) {
+			throw new Error(result.errors.map((e) => e.message).join(', '));
+		}
+
+		if (!result.data?.blockService_getBlock) {
+			throw new Error('No data returned from GraphQL query');
+		}
+
+		return result.data.blockService_getBlock;
+	}
+
 	// Disable sending documentAri for now. We'll add it back if we find a way to update references that follows the save & refresh principle.
 	// Slack discussion here: https://atlassian.slack.com/archives/C09DZT1TBNW/p1767836775552099?thread_ts=1767836754.024889&cid=C09DZT1TBNW
 	// const queryParams = documentAri ? `?documentAri=${encodeURIComponent(documentAri)}` : '';
@@ -409,6 +530,7 @@ export const getSyncedBlockContent = async ({
  * Batch retrieves multiple synced blocks by their ARIs.
  *
  * Calls the Block Service API endpoint: `POST /v1/block/batch-retrieve`
+ * or GraphQL query `blockService_batchRetrieveBlocks` when feature flag is enabled
  *
  * @param blockAris - Array of block ARIs to retrieve
  * @returns A promise containing arrays of successfully fetched blocks and any errors encountered
@@ -417,6 +539,40 @@ export const batchRetrieveSyncedBlocks = async ({
 	blockIdentifiers,
 	documentAri,
 }: BatchRetrieveSyncedBlocksRequest): Promise<BatchRetrieveSyncedBlocksResponse> => {
+	if (fg('platform_synced_block_patch_1')) {
+		const blockAris = blockIdentifiers.map((blockIdentifier) => blockIdentifier.blockAri);
+		const bodyData = {
+			query: buildBatchRetrieveBlocksQuery(blockAris),
+			operationName: BATCH_RETRIEVE_BLOCKS_OPERATION_NAME,
+		};
+
+		const response = await fetchWithRetry(GRAPHQL_ENDPOINT, {
+			method: 'POST',
+			headers: COMMON_HEADERS,
+			body: JSON.stringify(bodyData),
+		});
+
+		if (!response.ok) {
+			throw new BlockError(response.status);
+		}
+
+		const result: BatchRetrieveBlocksGraphQLResponse = await response.json();
+
+		if (result.errors && result.errors.length > 0) {
+			throw new Error(result.errors.map((e) => e.message).join(', '));
+		}
+
+		if (!result.data?.blockService_batchRetrieveBlocks) {
+			throw new Error('No data returned from GraphQL query');
+		}
+
+		const graphqlResponse = result.data.blockService_batchRetrieveBlocks;
+		return {
+			success: graphqlResponse.success,
+			error: graphqlResponse.error,
+		};
+	}
+
 	const response = await fetchWithRetry(`${BLOCK_SERVICE_API_URL}/block/batch-retrieve`, {
 		method: 'POST',
 		headers: COMMON_HEADERS,
@@ -675,6 +831,40 @@ export const updateReferenceSyncedBlockOnDocument = async ({
 export const getReferenceSyncedBlocksByBlockAri = async ({
 	blockAri,
 }: GetReferenceSyncedBlocksByBlockAriRequest): Promise<GetReferenceSyncedBlocksByBlockAriResponse> => {
+	if (fg('platform_synced_block_patch_1')) {
+		const bodyData = {
+			query: buildGetBlockReferencesQuery(blockAri),
+			operationName: GET_BLOCK_REFERENCES_OPERATION_NAME,
+		};
+
+		const response = await fetchWithRetry(GRAPHQL_ENDPOINT, {
+			method: 'POST',
+			headers: COMMON_HEADERS,
+			body: JSON.stringify(bodyData),
+		});
+
+		if (!response.ok) {
+			throw new BlockError(response.status);
+		}
+
+		const result: GetBlockReferencesGraphQLResponse = await response.json();
+
+		if (result.errors && result.errors.length > 0) {
+			throw new Error(result.errors.map((e) => e.message).join(', '));
+		}
+
+		if (!result.data?.blockService_getReferences) {
+			throw new Error('No data returned from GraphQL query');
+		}
+
+		const graphqlResponse = result.data.blockService_getReferences;
+		return {
+			blockAri,
+			references: graphqlResponse.references || [],
+			errors: graphqlResponse.errors || [],
+		};
+	}
+
 	const response = await fetchWithRetry(
 		`${BLOCK_SERVICE_API_URL}/reference/batch-retrieve/${encodeURIComponent(blockAri)}`,
 		{

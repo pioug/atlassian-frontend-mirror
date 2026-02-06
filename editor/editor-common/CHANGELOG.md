@@ -1,5 +1,18 @@
 # @atlaskit/editor-common
 
+## 111.11.8
+
+### Patch Changes
+
+- [`011b84236ffaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/011b84236ffaa) -
+  EDITOR-4175 add analytics events for the synced block toolbar buttons
+
+## 111.11.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 111.11.6
 
 ### Patch Changes

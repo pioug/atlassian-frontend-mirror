@@ -105,6 +105,12 @@ export interface LozengeDropdownTriggerProps extends NewLozengeProps {
 	isSelected?: boolean;
 
 	/**
+	 * Whether the dropdown trigger is in a loading state.
+	 * When true, a spinner is shown and the trigger becomes non-interactive.
+	 */
+	isLoading?: boolean;
+
+	/**
 	 * Callback fired when the trigger is clicked. The second argument provides an Atlaskit UI analytics event that can be fired to a listening channel. See the [analytics-next documentation](https://atlaskit.atlassian.com/packages/analytics/analytics-next) for more information.
 	 */
 	onClick?: (event: React.MouseEvent<HTMLButtonElement>, analyticsEvent: UIAnalyticsEvent) => void;

@@ -4,10 +4,44 @@
  */
 import { memo, type NamedExoticComponent, useMemo } from 'react';
 
-import { css, jsx } from '@atlaskit/css';
+import { css, cssMap, jsx } from '@compiled/react';
+
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-const svgStyles = css({
+/**
+ * Styles for the checkbox icon.
+ * CSS custom properties for colors are set by the parent Label element
+ * and consumed directly in these styles.
+ */
+const svgStyles = cssMap({
+	root: {
+		// Grid positioning (same area as the hidden input)
+		gridArea: '1 / 1 / 2 / 2',
+		overflow: 'hidden',
+		pointerEvents: 'none',
+		// Transitions for smooth state changes
+		transition: 'color 0.2s ease-in-out, fill 0.2s ease-in-out',
+		borderRadius: token('radius.small'),
+		// Consume CSS variables set by parent Label
+		color: 'var(--checkbox-background-color)',
+		fill: `var(--checkbox-tick-color, ${token('elevation.surface')})`,
+		outline: 'var(--checkbox-outline)',
+		outlineOffset: token('space.negative.025'),
+	},
+	// Rect (checkbox box) styles for the border stroke.
+	rect: {
+		strokeWidth: token('border.width'),
+		stroke: 'var(--checkbox-border-color)',
+		transition: 'stroke 0.2s ease-in-out',
+	},
+});
+
+/**
+ * Legacy SVG styles.
+ * Used when the `platform-checkbox-atomic-styles` feature gate is disabled.
+ */
+const svgStylesLegacy = css({
 	fill: token('elevation.surface'),
 	overflow: 'hidden',
 	pointerEvents: 'none',
@@ -40,6 +74,11 @@ function getIcon(isIndeterminate: boolean, isChecked: boolean) {
 	return null;
 }
 
+type CheckboxIconProps = {
+	isIndeterminate: boolean;
+	isChecked: boolean;
+};
+
 /**
  * __Checkbox icon__
  *
@@ -48,35 +87,51 @@ function getIcon(isIndeterminate: boolean, isChecked: boolean) {
  *
  * @internal
  */
-const CheckboxIcon: NamedExoticComponent<{
-    isIndeterminate: boolean;
-    isChecked: boolean;
-}> = memo<{
-	isIndeterminate: boolean;
-	isChecked: boolean;
-}>(({ isIndeterminate, isChecked }) => {
-	const icon = useMemo(() => getIcon(isIndeterminate, isChecked), [isIndeterminate, isChecked]);
+const CheckboxIcon: NamedExoticComponent<CheckboxIconProps> = memo<CheckboxIconProps>(
+	({ isIndeterminate, isChecked }) => {
+		const icon = useMemo(() => getIcon(isIndeterminate, isChecked), [isIndeterminate, isChecked]);
 
-	return (
-		<svg
-			width={24}
-			height={24}
-			viewBox="0 0 24 24"
-			style={{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-				color: 'var(--checkbox-background-color)',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-				fill: 'var(--checkbox-tick-color)',
-			}}
-			css={svgStyles}
-			role="presentation"
-		>
-			<g fillRule="evenodd">
-				<rect fill="currentColor" x="5.5" y="5.5" width="13" height="13" rx="1.5" />
-				{icon}
-			</g>
-		</svg>
-	);
-});
+		if (fg('platform-checkbox-atomic-styles')) {
+			return (
+				<svg width={24} height={24} viewBox="0 0 24 24" css={svgStyles.root} role="presentation">
+					<g fillRule="evenodd">
+						<rect
+							css={svgStyles.rect}
+							fill="currentColor"
+							x="5.5"
+							y="5.5"
+							width="13"
+							height="13"
+							rx="1.5"
+						/>
+						{icon}
+					</g>
+				</svg>
+			);
+		}
+
+		// Legacy rendering with inline style props for CSS variable consumption
+		return (
+			<svg
+				width={24}
+				height={24}
+				viewBox="0 0 24 24"
+				style={{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+					color: 'var(--checkbox-background-color)',
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+					fill: 'var(--checkbox-tick-color)',
+				}}
+				css={svgStylesLegacy}
+				role="presentation"
+			>
+				<g fillRule="evenodd">
+					<rect fill="currentColor" x="5.5" y="5.5" width="13" height="13" rx="1.5" />
+					{icon}
+				</g>
+			</svg>
+		);
+	},
+);
 
 export default CheckboxIcon;

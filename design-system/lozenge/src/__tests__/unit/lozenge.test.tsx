@@ -224,6 +224,37 @@ describe('LozengeDropdownTrigger', () => {
 		expect(handleClick).toHaveBeenCalledTimes(1);
 	});
 
+	it('should render a spinner and be non-interactive when loading', () => {
+		const handleClick = jest.fn();
+
+		render(
+			<LozengeDropdownTrigger
+				appearance="success"
+				isSelected={false}
+				isLoading
+				onClick={handleClick}
+				testId="loading-trigger"
+			>
+				Status
+			</LozengeDropdownTrigger>,
+		);
+
+		const trigger = screen.getByTestId('loading-trigger');
+		expect(trigger).toBeDisabled();
+		expect(trigger).toHaveAttribute('aria-busy', 'true');
+		expect(trigger).toHaveAttribute('aria-label', 'Loading');
+
+		// Text remains rendered (to avoid width changes)
+		expect(screen.getByText('Status')).toBeInTheDocument();
+
+		// Spinner is rendered in the overlay
+		expect(screen.getByTestId('loading-trigger--loading-spinner')).toBeInTheDocument();
+		expect(screen.getByTestId('loading-trigger--loading-spinner-wrapper')).toBeInTheDocument();
+
+		fireEvent.click(trigger);
+		expect(handleClick).not.toHaveBeenCalled();
+	});
+
 	it('should have selected state styling when isSelected is true', () => {
 		const { rerender } = render(
 			<LozengeDropdownTrigger appearance="success" isSelected={false} onClick={__noop}>

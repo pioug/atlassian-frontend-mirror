@@ -32,6 +32,7 @@ const LozengeDropdownTrigger = memo(
 				spacing = 'default',
 				iconBefore,
 				isSelected = false,
+				isLoading = false,
 				maxWidth = 200,
 				onClick = __noop,
 				style,
@@ -47,6 +48,7 @@ const LozengeDropdownTrigger = memo(
 					spacing={spacing}
 					iconBefore={iconBefore}
 					isSelected={isSelected}
+					isLoading={isLoading}
 					maxWidth={maxWidth}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 					style={style}

@@ -24,8 +24,6 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 	'example-multivariate': 'one',
 	'platform_editor_ai-prompts-placeholder': 'control',
 	platform_editor_controls: 'control',
-	confluence_whiteboards_quick_insert_localised: 'control',
-	confluence_whiteboards_quick_insert_localised_aa: 'control',
 	cc_editor_ai_content_mode: 'control',
 	platform_hover_card_preview_panel: 'control',
 	smart_link_confluence_short_link_analytics: 'control',

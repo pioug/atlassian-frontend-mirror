@@ -362,8 +362,10 @@ export function EditorSSRRenderer({
 		<div
 			ref={containerRef}
 			id={divProps.id}
+			// For some reason on SSR, the result `class` has a trailing space, that broke UFO,
+			// because ReactEditorView produces a div with `class` without space.
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className={divProps.className}
+			className={divProps.className.trim()}
 			aria-label={divProps['aria-label']}
 			aria-describedby={divProps['aria-describedby']}
 			data-editor-id={divProps['data-editor-id']}

@@ -9,8 +9,6 @@ import PauseIcon from '@atlaskit/icon/core/video-pause';
 import FullScreenIconOn from '@atlaskit/icon/core/fullscreen-enter';
 import FullScreenIconOff from '@atlaskit/icon/core/shrink-diagonal';
 import SoundIcon from '@atlaskit/icon/core/volume-high';
-import VideoHdIcon from '@atlaskit/icon-lab/core/video-hd';
-import VideoHdFilledIcon from '@atlaskit/icon-lab/core/video-hd-filled';
 import DownloadIcon from '@atlaskit/icon/core/download';
 import { type MediaFeatureFlags, type NumericalCardDimensions } from '@atlaskit/media-common';
 
@@ -70,7 +68,6 @@ export interface CustomMediaPlayerProps extends WithPlaybackProps, WithShowContr
 	readonly type: CustomMediaPlayerType;
 	readonly src: string;
 	readonly fileId?: string;
-	readonly onHDToggleClick?: () => void;
 	readonly isShortcutEnabled?: boolean;
 	readonly lastWatchTimeConfig?: TimeSaverConfig;
 	readonly onCanPlay?: () => void;
@@ -289,29 +286,6 @@ export class CustomMediaPlayerBase extends Component<
 			{formatDuration(currentTime)} / {formatDuration(duration)}
 		</CurrentTime>
 	);
-
-	private renderHDButton = () => {
-		const { type, isHDAvailable, isHDActive, onHDToggleClick } = this.props;
-
-		if (type === 'audio' || !isHDAvailable) {
-			return;
-		}
-
-		return (
-			<MediaButton
-				testId="custom-media-player-hd-button"
-				onClick={
-					!!onHDToggleClick
-						? this.getMediaButtonClickHandler(onHDToggleClick, 'HDButton')
-						: undefined
-				}
-				iconBefore={
-					isHDActive ? <VideoHdFilledIcon label="hd active" /> : <VideoHdIcon label="hd inactive" />
-				}
-				aria-pressed={isHDActive}
-			/>
-		);
-	};
 
 	private onPlaybackSpeedChange = (playbackSpeed: number) => {
 		if (!this.actions) {
@@ -823,9 +797,6 @@ export class CustomMediaPlayerBase extends Component<
 										</LeftControls>
 										<RightControls>
 											{(isMediumPlayer || isLargePlayer) && this.renderCurrentTime(videoState)}
-											{isLargePlayer &&
-												!fg('platform_media_disable_video_640p_artifact_usage') &&
-												this.renderHDButton()}
 											{isLargePlayer && this.renderSpeedControls()}
 											{this.renderFullScreenButton()}
 											{isLargePlayer && this.renderDownloadButton()}

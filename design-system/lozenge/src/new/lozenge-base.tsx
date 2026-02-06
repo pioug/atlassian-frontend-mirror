@@ -2,11 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, Fragment, memo, type Ref } from 'react';
+import { forwardRef, memo, type Ref } from 'react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import Pressable from '@atlaskit/primitives/pressable';
+import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 
 import IconRenderer from './icon-renderer';
@@ -39,6 +40,7 @@ const pressedBackgroundMapping = {
 
 const styles = cssMap({
 	container: {
+		position: 'relative',
 		display: 'inline-flex',
 		alignItems: 'center',
 		boxSizing: 'border-box',
@@ -47,7 +49,6 @@ const styles = cssMap({
 		overflow: 'hidden',
 		paddingBlock: token('space.025'),
 		paddingInline: token('space.050'),
-		gap: token('space.050'),
 		borderWidth: token('border.width'),
 		borderStyle: 'solid',
 		borderColor: 'transparent',
@@ -83,6 +84,21 @@ const styles = cssMap({
 	textSelected: {
 		color: token('color.text.selected'),
 	},
+
+	loadingOverlay: {
+		display: 'flex',
+		position: 'absolute',
+		alignItems: 'center',
+		justifyContent: 'center',
+		overflow: 'hidden',
+		insetBlockEnd: token('space.0'),
+		insetBlockStart: token('space.0'),
+		insetInlineEnd: token('space.0'),
+		insetInlineStart: token('space.0'),
+		pointerEvents: 'none',
+		// Force Spinner to follow the lozenge icon color.
+	},
+
 	// Semantic colors
 	'semantic.success': {
 		// @ts-expect-error -- CSS variables not valid in cssMap types
@@ -434,6 +450,14 @@ const styles = cssMap({
 			color: 'oklch(from var(--icon-color) calc(l * var(--icon-pressed-l-factor)) c h) !important',
 		},
 	},
+	content: {
+		gap: token('space.050'),
+		display: 'inline-flex',
+		alignItems: 'center',
+	},
+	loadingContent: {
+		opacity: 0,
+	},
 });
 
 /**
@@ -453,6 +477,7 @@ const LozengeBase = memo(
 				maxWidth = 200,
 				spacing = 'default',
 				isSelected, // for dropdown trigger
+				isLoading = false, // for dropdown trigger
 				onClick, // for dropdown trigger
 				style,
 				analyticsContext,
@@ -477,7 +502,7 @@ const LozengeBase = memo(
 			};
 
 			const innerContent = (
-				<Fragment>
+				<span css={[styles.content, isLoading && styles.loadingContent]}>
 					{iconBefore && (
 						<IconRenderer
 							size={spacing === 'spacious' ? 'medium' : 'small'}
@@ -506,7 +531,7 @@ const LozengeBase = memo(
 							testId={testId && `${testId}--chevron`}
 						/>
 					)}
-				</Fragment>
+				</span>
 			);
 
 			if (isInteractive) {
@@ -517,12 +542,14 @@ const LozengeBase = memo(
 							styles.container,
 							spacing === 'spacious' && styles.containerSpacious,
 							!isSelected && styles.iconBorderFilter,
-							styles.iconBorderInteractiveFilter,
+							!isLoading && styles.iconBorderInteractiveFilter,
 							styles[colorStyleKey],
-							styles[interactiveStyleKey],
+							!isLoading && styles[interactiveStyleKey],
 							isSelected && styles.containerSelected,
 						)}
-						onClick={onClick}
+						{...(isLoading && { 'aria-busy': true, 'aria-disabled': true, isDisabled: true })}
+						aria-label={isLoading ? 'Loading' : undefined}
+						onClick={isLoading ? undefined : onClick}
 						style={{
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 							...commonStyleOverrides,
@@ -534,6 +561,7 @@ const LozengeBase = memo(
 									: 'transparent'
 							}`,
 							backgroundColor: isSelected ? pressedBackgroundMapping[resolvedColor] : undefined,
+							cursor: isLoading ? 'progress' : 'pointer',
 						}}
 						testId={testId}
 						analyticsContext={analyticsContext}
@@ -541,6 +569,15 @@ const LozengeBase = memo(
 						componentName="LozengeDropdownTrigger"
 					>
 						{innerContent}
+						{isLoading && (
+							<span css={styles.loadingOverlay}>
+								<Spinner
+									size={spacing === 'spacious' ? 'small' : 'xsmall'}
+									label=", Loading"
+									testId={testId ? `${testId}--loading-spinner` : undefined}
+								/>
+							</span>
+						)}
 					</Pressable>
 				);
 			}

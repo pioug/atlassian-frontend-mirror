@@ -5,10 +5,8 @@
  */
 import { forwardRef, type ReactNode, type Ref } from 'react';
 
-import { type CompiledStyles, cssMap as unboundedCssMap } from '@compiled/react';
+import { type CompiledStyles, jsx, cssMap as unboundedCssMap } from '@compiled/react';
 
-import { cssMap, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { UNSAFE_inverseColorMap } from '@atlaskit/primitives';
 import { UNSAFE_useSurface } from '@atlaskit/primitives/compiled';
@@ -61,71 +59,9 @@ const sizeTagMap = {
 } as const;
 
 /**
- * Remove with `platform-dst-heading-specificity` fg cleanup
- */
-const styles = unboundedCssMap({
-	reset: {
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		letterSpacing: 'normal',
-		marginBlock: 0,
-		textTransform: 'none',
-	},
-});
-
-/**
- * Remove with `platform-dst-heading-specificity` fg cleanup
- */
-const headingColorStyles = cssMap({
-	'color.text': {
-		color: token('color.text'),
-	},
-	'color.text.inverse': {
-		color: token('color.text.inverse'),
-	},
-	'color.text.warning.inverse': {
-		color: token('color.text.warning.inverse'),
-	},
-});
-
-/**
- * Remove with `platform-dst-heading-specificity` fg cleanup
- */
-const headingSizeStyles: {
-	readonly xxlarge: CompiledStyles<{
-		font: 'var(--ds-font-heading-xxlarge)';
-	}>;
-	readonly xlarge: CompiledStyles<{
-		font: 'var(--ds-font-heading-xlarge)';
-	}>;
-	readonly large: CompiledStyles<{
-		font: 'var(--ds-font-heading-large)';
-	}>;
-	readonly medium: CompiledStyles<{
-		font: 'var(--ds-font-heading-medium)';
-	}>;
-	readonly small: CompiledStyles<{
-		font: 'var(--ds-font-heading-small)';
-	}>;
-	readonly xsmall: CompiledStyles<{
-		font: 'var(--ds-font-heading-xsmall)';
-	}>;
-	readonly xxsmall: CompiledStyles<{
-		font: 'var(--ds-font-heading-xxsmall)';
-	}>;
-} = cssMap({
-	xxlarge: { font: token('font.heading.xxlarge') },
-	xlarge: { font: token('font.heading.xlarge') },
-	large: { font: token('font.heading.large') },
-	medium: { font: token('font.heading.medium') },
-	small: { font: token('font.heading.small') },
-	xsmall: { font: token('font.heading.xsmall') },
-	xxsmall: { font: token('font.heading.xxsmall') },
-});
-
-/**
  * Using '&&' here to increase specificity of Heading styles such that app styles like ".wiki-content h4" cannot override this component.
  */
-const stylesWithSpecificity = unboundedCssMap({
+const styles = unboundedCssMap({
 	reset: {
 		'&&': {
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
@@ -139,7 +75,7 @@ const stylesWithSpecificity = unboundedCssMap({
 /**
  * Using '&&' here to increase specificity of Heading styles such that app styles like ".wiki-content h4" cannot override this component.
  */
-const headingColorStylesWithSpecificity = unboundedCssMap({
+const headingColorStyles = unboundedCssMap({
 	'color.text': {
 		'&&': { color: token('color.text') },
 	},
@@ -154,7 +90,7 @@ const headingColorStylesWithSpecificity = unboundedCssMap({
 /**
  * Using '&&' here to increase specificity of Heading styles such that app styles like ".wiki-content h4" cannot override this component.
  */
-const headingSizeWithSpecificityStyles: {
+const headingSizeStyles: {
 	readonly xxlarge: CompiledStyles<{
 		'&&': { font: 'var(--ds-font-heading-xxlarge)' };
 	}>;
@@ -186,7 +122,7 @@ const headingSizeWithSpecificityStyles: {
 	xxsmall: { '&&': { font: token('font.heading.xxsmall') } },
 });
 
-type HeadingSize = keyof typeof headingSizeWithSpecificityStyles;
+type HeadingSize = keyof typeof headingSizeStyles;
 
 /**
  * @codegenEnd
@@ -245,11 +181,8 @@ const Heading: React.ForwardRefExoticComponent<
 			aria-level={needsAriaRole ? hLevel : undefined}
 			css={[
 				styles.reset,
-				fg('platform-dst-heading-specificity') && stylesWithSpecificity.reset,
 				headingSizeStyles[size],
-				fg('platform-dst-heading-specificity') && headingSizeWithSpecificityStyles[size],
 				headingColorStyles[color],
-				fg('platform-dst-heading-specificity') && headingColorStylesWithSpecificity[color],
 			]}
 		>
 			{children}

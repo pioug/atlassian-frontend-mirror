@@ -88,6 +88,7 @@ export const mapMediaFileToFileState = (mediaFile: MediaStoreResponse<MediaFile>
 		hash,
 		abuseClassification,
 		mediaMetadata,
+		failReason,
 	} = mediaFile.data;
 	const baseState = {
 		id,
@@ -120,6 +121,7 @@ export const mapMediaFileToFileState = (mediaFile: MediaStoreResponse<MediaFile>
 			return {
 				...baseState,
 				status: 'failed-processing',
+				failReason,
 			};
 	}
 };

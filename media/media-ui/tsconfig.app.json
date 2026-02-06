@@ -57,9 +57,6 @@
 			"path": "../icon-file-type/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/icon-lab/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/locale/tsconfig.app.json"
 		},
 		{

@@ -177,6 +177,7 @@ export abstract class SyncBlockDataProvider extends NodeDataProvider<
 		fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
 		hasAccess?: boolean,
 		urlType?: 'view' | 'edit',
+		isUnpublished?: boolean,
 	): Promise<SyncBlockSourceInfo | undefined>;
 	abstract setProviderOptions(providerOptions: SyncedBlockRendererProviderOptions): void;
 	abstract getSyncedBlockRendererProviderOptions(): SyncedBlockRendererProviderOptions;

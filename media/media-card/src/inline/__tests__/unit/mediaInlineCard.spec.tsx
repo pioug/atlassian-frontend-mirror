@@ -356,6 +356,7 @@ describe('<MediaInlineCard />', () => {
 							fileStatus: 'failed-processing',
 						},
 						failReason: 'failed-processing',
+						processingFailReason: 'not-available',
 					},
 				},
 				expect.any(Function),

@@ -1,4 +1,6 @@
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+import type {
+	INPUT_METHOD} from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -151,15 +153,21 @@ export const createSyncedBlock = ({
 
 export const copySyncedBlockReferenceToClipboardEditorCommand: (
 	syncBlockStore: SyncBlockStoreManager,
+	inputMethod: INPUT_METHOD,
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>,
 ) => EditorCommand =
-	(syncBlockStore: SyncBlockStoreManager, api?: ExtractInjectionAPI<SyncedBlockPlugin>) =>
+	(
+		syncBlockStore: SyncBlockStoreManager,
+		inputMethod: INPUT_METHOD,
+		api?: ExtractInjectionAPI<SyncedBlockPlugin>,
+	) =>
 	({ tr }) => {
 		if (
 			copySyncedBlockReferenceToClipboardInternal(
 				tr.doc.type.schema,
 				tr.selection,
 				syncBlockStore,
+				inputMethod,
 				api,
 			)
 		) {
@@ -171,14 +179,20 @@ export const copySyncedBlockReferenceToClipboardEditorCommand: (
 
 export const copySyncedBlockReferenceToClipboard: (
 	syncBlockStore: SyncBlockStoreManager,
+	inputMethod: INPUT_METHOD,
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>,
 ) => Command =
-	(syncBlockStore: SyncBlockStoreManager, api?: ExtractInjectionAPI<SyncedBlockPlugin>) =>
+	(
+		syncBlockStore: SyncBlockStoreManager,
+		inputMethod: INPUT_METHOD,
+		api?: ExtractInjectionAPI<SyncedBlockPlugin>,
+	) =>
 	(state: EditorState, _dispatch?: CommandDispatch, _view?: EditorView) => {
 		return copySyncedBlockReferenceToClipboardInternal(
 			state.tr.doc.type.schema,
 			state.tr.selection,
 			syncBlockStore,
+			inputMethod,
 			api,
 		);
 	};
@@ -187,10 +201,23 @@ const copySyncedBlockReferenceToClipboardInternal = (
 	schema: Schema,
 	selection: Selection,
 	syncBlockStore: SyncBlockStoreManager,
+	inputMethod: INPUT_METHOD,
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>,
 ): boolean => {
 	const syncBlockFindResult = findSyncBlockOrBodiedSyncBlock(schema, selection);
 	if (!syncBlockFindResult) {
+		if (fg('platform_synced_block_patch_1')) {
+			api?.analytics?.actions?.fireAnalyticsEvent({
+				eventType: EVENT_TYPE.OPERATIONAL,
+				action: ACTION.ERROR,
+				actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+				actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_COPY,
+				attributes: {
+					error: 'No sync block found in selection',
+					inputMethod,
+				},
+			});
+		}
 		return false;
 	}
 
@@ -212,6 +239,19 @@ const copySyncedBlockReferenceToClipboardInternal = (
 			),
 		});
 		if (!referenceSyncBlockNode) {
+			if (fg('platform_synced_block_patch_1')) {
+				api?.analytics?.actions?.fireAnalyticsEvent({
+					eventType: EVENT_TYPE.OPERATIONAL,
+					action: ACTION.ERROR,
+					actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+					actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_COPY,
+					attributes: {
+						error: 'Failed to create reference sync block node',
+						resourceId: syncBlockFindResult.node.attrs.resourceId,
+						inputMethod,
+					},
+				});
+			}
 			return false;
 		}
 	} else {
@@ -219,6 +259,18 @@ const copySyncedBlockReferenceToClipboardInternal = (
 	}
 
 	if (!referenceSyncBlockNode) {
+		if (fg('platform_synced_block_patch_1')) {
+			api?.analytics?.actions?.fireAnalyticsEvent({
+				eventType: EVENT_TYPE.OPERATIONAL,
+				action: ACTION.ERROR,
+				actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+				actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_COPY,
+				attributes: {
+					error: 'No reference sync block node available',
+					inputMethod,
+				},
+			});
+		}
 		return false;
 	}
 
@@ -228,6 +280,19 @@ const copySyncedBlockReferenceToClipboardInternal = (
 	// Use setTimeout to dispatch transaction in next tick and avoid re-entrant dispatch
 	setTimeout(() => {
 		api?.core.actions.execute(({ tr }) => {
+			if (fg('platform_synced_block_patch_1')) {
+				api?.analytics?.actions?.fireAnalyticsEvent({
+					eventType: EVENT_TYPE.OPERATIONAL,
+					action: ACTION.COPIED,
+					actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+					actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_COPY,
+					attributes: {
+						resourceId: referenceSyncBlockNode.attrs.resourceId,
+						inputMethod,
+					},
+				});
+			}
+
 			return tr.setMeta(syncedBlockPluginKey, {
 				activeFlag: { id: FLAG_ID.SYNC_BLOCK_COPIED },
 			});
@@ -250,6 +315,18 @@ export const editSyncedBlockSource =
 		const syncBlockURL = syncBlockStore.referenceManager.getSyncBlockURL(resourceId);
 
 		if (syncBlockURL) {
+			if (fg('platform_synced_block_patch_1')) {
+				api?.analytics?.actions.fireAnalyticsEvent({
+					eventType: EVENT_TYPE.OPERATIONAL,
+					action: ACTION.SYNCED_BLOCK_EDIT_SOURCE,
+					actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+					actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_SOURCE_URL,
+					attributes: {
+						resourceId: resourceId,
+					},
+				});
+			}
+
 			window.open(syncBlockURL, '_blank');
 		} else {
 			const tr = state.tr;

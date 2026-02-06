@@ -21,21 +21,45 @@ import { cssMap, jsx } from '@compiled/react';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { CheckboxIcon, Label, LabelText, RequiredIndicator } from './internal';
 import type { CheckboxProps } from './types';
 
 /**
+ * The input is visually hidden but remains in the DOM for accessibility.
+ * State-based styling is handled by the Label component using CSS custom properties
+ * that cascade to the CheckboxIcon, avoiding nested sibling selectors.
+ */
+const checkboxStyles = cssMap({
+	root: {
+		width: '100%',
+		height: '100%',
+		appearance: 'none',
+		border: 'none',
+		// Positions the input in the same grid cell as the CheckboxIcon (which comes after in DOM order).
+		// The icon appears on top (pointer-events: none) while the input sits below, invisible but interactive.
+		gridArea: '1 / 1 / 2 / 2',
+		marginBlockEnd: token('space.0'),
+		marginBlockStart: token('space.0'),
+		marginInlineEnd: token('space.0'),
+		marginInlineStart: token('space.0'),
+		opacity: 0,
+		outline: 'none',
+	},
+});
+
+/**
+ * Legacy hidden input styles with nested sibling selectors.
+ * Used when the `platform-checkbox-atomic-styles` feature gate is disabled.
  * Using `cssMap` to avoid a Compiled bug with the transformed styles.
  * It was using a CSS variable for the outline template string,
  * which broke because of the use of a sibling selector.
  *
  * Related to: https://github.com/atlassian-labs/compiled/pull/1795
- *
- * Using `cssMap` seems to be a workaround for this.
  */
-const checkboxStyles = cssMap({
+const checkboxStylesLegacy = cssMap({
 	root: {
 		width: '100%',
 		height: '100%',
@@ -236,6 +260,9 @@ const Checkbox: MemoExoticComponent<
 		return (
 			<Label
 				isDisabled={isDisabled}
+				isChecked={fg('platform-checkbox-atomic-styles') ? isChecked : undefined}
+				isIndeterminate={fg('platform-checkbox-atomic-styles') ? isIndeterminate : undefined}
+				isInvalid={fg('platform-checkbox-atomic-styles') ? isInvalid : undefined}
 				label={label as string}
 				id={rest.id ? `${rest.id}-label` : undefined}
 				testId={testId && `${testId}--checkbox-label`}
@@ -255,7 +282,10 @@ const Checkbox: MemoExoticComponent<
 					value={value}
 					name={name}
 					required={isRequired}
-					css={checkboxStyles.root}
+					css={[
+						fg('platform-checkbox-atomic-styles') && checkboxStyles.root,
+						!fg('platform-checkbox-atomic-styles') && checkboxStylesLegacy.root,
+					]}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 					className={className}
 					onChange={onChangeAnalytics}

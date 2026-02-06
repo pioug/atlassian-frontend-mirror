@@ -31,6 +31,11 @@ import { getAllIconsTool, listGetAllIconsTool } from './tools/get-all-icons';
 import { getAllTokensTool, listGetAllTokensTool } from './tools/get-all-tokens';
 import { getComponentsTool, listGetComponentsTool } from './tools/get-components';
 import { getIconsInputSchema, getIconsTool, listGetIconsTool } from './tools/get-icons';
+import {
+	getLintRulesInputSchema,
+	getLintRulesTool,
+	listGetLintRulesTool,
+} from './tools/get-lint-rules';
 import { getTokensInputSchema, getTokensTool, listGetTokensTool } from './tools/get-tokens';
 import {
 	i18nConversionInputSchema,
@@ -164,6 +169,11 @@ export const getToolRegistry = (): Record<
 			handler: getIconsTool,
 			inputSchema: getIconsInputSchema,
 			tool: listGetIconsTool,
+		} as (typeof baseTools)[string];
+		baseTools[listGetLintRulesTool.name] = {
+			handler: getLintRulesTool,
+			inputSchema: getLintRulesInputSchema,
+			tool: listGetLintRulesTool,
 		} as (typeof baseTools)[string];
 	} else {
 		baseTools[listGetAllTokensTool.name] = {

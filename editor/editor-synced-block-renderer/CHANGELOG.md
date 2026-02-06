@@ -1,5 +1,14 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 5.6.6
+
+### Patch Changes
+
+- [`b296c8dca4192`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b296c8dca4192) -
+  EDITOR-4991 add new value to renderer context to track nested renderer type, used in analytics
+  event to track what renderer we are in for synced blocks
+- Updated dependencies
+
 ## 5.6.5
 
 ### Patch Changes

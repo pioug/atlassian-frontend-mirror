@@ -496,8 +496,21 @@ export class ReferenceSyncBlockStoreManager {
 				this.fetchSourceInfoExperience?.start({});
 			}
 
+			// Only use unpublished endpoint if feature flag is enabled
+			const isUnpublished =
+				fg('platform_synced_block_patch_1') &&
+				existingSyncBlock.data?.status === 'unpublished';
+
 			const sourceInfoPromise = this.dataProvider
-				.fetchSyncBlockSourceInfo(blockInstanceId, sourceAri, product, this.fireAnalyticsEvent)
+				.fetchSyncBlockSourceInfo(
+					blockInstanceId,
+					sourceAri,
+					product,
+					this.fireAnalyticsEvent,
+					true, // hasAccess
+					'edit', // urlType
+					isUnpublished,
+				)
 				.then((sourceInfo) => {
 					if (!sourceInfo) {
 						if (fg('platform_synced_block_dogfooding')) {

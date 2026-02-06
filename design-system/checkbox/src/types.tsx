@@ -109,6 +109,21 @@ export interface LabelTextProps extends React.HTMLProps<HTMLSpanElement> {
 export interface LabelProps extends React.HTMLProps<HTMLInputElement> {
 	isDisabled?: boolean;
 	/**
+	 * Whether the checkbox is checked.
+	 * Used for conditional styling of the label.
+	 */
+	isChecked?: boolean;
+	/**
+	 * Whether the checkbox is in an indeterminate state.
+	 * Used for conditional styling of the label.
+	 */
+	isIndeterminate?: boolean;
+	/**
+	 * Whether the checkbox is in an invalid state.
+	 * Used for conditional styling of the label.
+	 */
+	isInvalid?: boolean;
+	/**
 	 * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
 	 */
 	testId?: string;

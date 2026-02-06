@@ -12,6 +12,10 @@ import { createRateLimitedError } from '@atlaskit/media-client/test-helpers';
 import { MediaCardError } from '../../../errors';
 
 const getRenderErrorEventPayload = jest.spyOn(analyticsModule, 'getRenderErrorEventPayload');
+const getRenderFailedFileStatusPayload = jest.spyOn(
+	analyticsModule,
+	'getRenderFailedFileStatusPayload',
+);
 
 const event = { fire: jest.fn() };
 const createAnalyticsEventMock = jest.fn(() => event);
@@ -41,6 +45,7 @@ describe('fireOperationalEvent', () => {
 	beforeEach(() => {
 		event.fire.mockClear();
 		createAnalyticsEventMock.mockClear();
+		jest.clearAllMocks();
 	});
 
 	it('should fire failed event if status is error with a default Error if the error was not provided', () => {
@@ -156,6 +161,59 @@ describe('fireOperationalEvent', () => {
 			},
 			eventType: 'operational',
 		});
+		expect(event.fire).toBeCalledTimes(1);
+		expect(event.fire).toBeCalledWith(ANALYTICS_MEDIA_CHANNEL);
+	});
+
+	it('should fire failed event for failed-processing status with processingFailReason', () => {
+		fireOperationalEvent(
+			createAnalyticsEvent,
+			'failed-processing',
+			fileAttributes,
+			performanceAttributes,
+			ssrReliability,
+			undefined,
+			traceContext,
+			metadataTraceContext,
+			'timeout',
+		);
+
+		expect(getRenderFailedFileStatusPayload).toBeCalledWith(
+			fileAttributes,
+			performanceAttributes,
+			ssrReliability,
+			traceContext,
+			metadataTraceContext,
+			'timeout',
+		);
+		expect(event.fire).toBeCalledTimes(1);
+		expect(event.fire).toBeCalledWith(ANALYTICS_MEDIA_CHANNEL);
+	});
+
+	it('should fire failed event for failed-processing status with undefined processingFailReason and default to not-available', () => {
+		fireOperationalEvent(
+			createAnalyticsEvent,
+			'failed-processing',
+			fileAttributes,
+			performanceAttributes,
+			ssrReliability,
+			undefined,
+			traceContext,
+			metadataTraceContext,
+			undefined,
+		);
+
+		expect(getRenderFailedFileStatusPayload).toBeCalledWith(
+			fileAttributes,
+			performanceAttributes,
+			ssrReliability,
+			traceContext,
+			metadataTraceContext,
+			undefined,
+		);
+		// Verify the payload includes 'not-available' as fallback
+		const payload = getRenderFailedFileStatusPayload.mock.results[0].value;
+		expect(payload.attributes.processingFailReason).toBe('not-available');
 		expect(event.fire).toBeCalledTimes(1);
 		expect(event.fire).toBeCalledWith(ANALYTICS_MEDIA_CHANNEL);
 	});

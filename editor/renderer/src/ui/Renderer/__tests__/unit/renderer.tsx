@@ -1,4 +1,6 @@
 import React from 'react';
+import createStub from 'raf-stub';
+
 import { act } from '@testing-library/react';
 import type { AnnotationId, DocNode } from '@atlaskit/adf-schema';
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
@@ -21,11 +23,14 @@ import RendererDefaultComponent, {
 	RendererFunctionalComponent as Renderer,
 } from '../../';
 import { ValidationContextProvider } from '../../ValidationContext';
+import { RendererContextProvider } from '../../../../renderer-context';
 import { Paragraph } from '../../../../react/nodes';
 import { AnnotationsContextWrapper } from '../../../annotations/wrapper';
 import type { RendererAppearance } from '../../types';
 import { IntlProvider } from 'react-intl-next';
 import { adfNestedTableData } from '../__fixtures__/mockData';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const mockCreateAnalyticsEvent = jest.fn(() => ({ fire() {} }));
 
@@ -751,14 +756,17 @@ describe('unsupported content levels severity', () => {
 	});
 });
 
-describe('severity', () => {
+let rafStub: {
+	add: (cb: Function) => number;
+	flush: () => void;
+	step: (steps?: number) => void;
+};
+let rafSpy: jest.SpyInstance;
+
+describe('renderer rendered analytics event', () => {
 	const createAnalyticsEvent: CreateUIAnalyticsEvent = jest.fn(
 		() => ({ fire() {} }) as UIAnalyticsEvent,
 	);
-
-	jest
-		.spyOn(window, 'requestAnimationFrame')
-		.mockImplementation((callback: FrameRequestCallback) => callback(1) as any);
 
 	const doc = {
 		type: 'doc',
@@ -776,41 +784,47 @@ describe('severity', () => {
 		],
 	} as DocNode;
 
+	beforeAll(() => {
+		rafStub = createStub();
+		rafSpy = jest.spyOn(window, 'requestAnimationFrame').mockImplementation(rafStub.add);
+	});
+
+	afterAll(() => {
+		rafSpy.mockRestore();
+	});
+
 	beforeEach(() => {
 		jest.clearAllMocks();
 	});
 
-	// Ignored via go/ees007
-	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
-	// FIXME: Jest upgrade
-	// Assertion error
-	it.skip.each`
+	it.each`
 		condition                                                                         | threshold                          | severity
 		${'when duration <= NORMAL_SEVERITY_THRESHOLD'}                                   | ${NORMAL_SEVERITY_THRESHOLD}       | ${SEVERITY.NORMAL}
 		${'when duration > NORMAL_SEVERITY_THRESHOLD and <= DEGRADED_SEVERITY_THRESHOLD'} | ${NORMAL_SEVERITY_THRESHOLD + 1}   | ${SEVERITY.DEGRADED}
 		${'when duration > DEGRADED_SEVERITY_THRESHOLD'}                                  | ${DEGRADED_SEVERITY_THRESHOLD + 1} | ${SEVERITY.BLOCKING}
 	`(
 		'should fire event with $severity severity when $condition',
-		({ condition, threshold, severity }) => {
-			act(() => {
-				(stopMeasure as any).mockImplementation((name: any, callback: any) => {
-					callback && callback(threshold, 1);
-				});
-
-				shallow(
-					<Renderer
-						document={doc}
-						analyticsEventSeverityTracking={{
-							enabled: true,
-							severityNormalThreshold: NORMAL_SEVERITY_THRESHOLD,
-							severityDegradedThreshold: DEGRADED_SEVERITY_THRESHOLD,
-						}}
-						createAnalyticsEvent={createAnalyticsEvent}
-					/>,
-				);
+		({ _condition, threshold, severity }) => {
+			(stopMeasure as any).mockImplementation((name: any, callback: any) => {
+				callback(threshold, 1);
 			});
 
-			expect(createAnalyticsEvent).toHaveBeenLastCalledWith(
+			mount(
+				<Renderer
+					document={doc}
+					analyticsEventSeverityTracking={{
+						enabled: true,
+						severityNormalThreshold: NORMAL_SEVERITY_THRESHOLD,
+						severityDegradedThreshold: DEGRADED_SEVERITY_THRESHOLD,
+					}}
+					createAnalyticsEvent={createAnalyticsEvent}
+				/>,
+			);
+
+			// Flush RAF callbacks to trigger the analytics event
+			rafStub.flush();
+
+			expect(createAnalyticsEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
 					action: 'rendered',
 					actionSubject: 'renderer',
@@ -848,6 +862,35 @@ describe('severity', () => {
 				actionSubject: 'renderer',
 			}),
 		);
+	});
+
+	eeTest.describe('platform_synced_block', 'nestedRendererType analytics').variant(true, () => {
+		ffTest.on('platform_synced_block_patch_1', '', () => {
+			it('should include nestedRendererType in rendered event when context is provided', () => {
+				(stopMeasure as any).mockImplementation((name: any, callback: any) => {
+					callback(NORMAL_SEVERITY_THRESHOLD, 1);
+				});
+
+				mount(
+					<RendererContextProvider value={{ nestedRendererType: 'syncedBlock' }}>
+						<Renderer document={doc} createAnalyticsEvent={createAnalyticsEvent} />
+					</RendererContextProvider>,
+				);
+
+				// Flush RAF callbacks to trigger the analytics event
+				rafStub.flush();
+
+				expect(createAnalyticsEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						action: 'rendered',
+						actionSubject: 'renderer',
+						attributes: expect.objectContaining({
+							nestedRendererType: 'syncedBlock',
+						}),
+					}),
+				);
+			});
+		});
 	});
 });
 

@@ -31,6 +31,7 @@ import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-commo
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
 import { getDistortedDurationMonitor } from '@atlaskit/editor-common/performance/measure-render';
 import { getResponseEndTime } from '@atlaskit/editor-common/performance/navigation';
+import { useScrollToBlock } from '../hooks/useScrollToBlock';
 import {
 	getAnalyticsAppearance,
 	getAnalyticsEventSeverity,
@@ -237,7 +238,7 @@ export const RendererFunctionalComponent = (
 		[props.dataProviders],
 	);
 
-	const { contentMode: parentContextContentMode } = useRendererContext();
+	const { contentMode: parentContextContentMode, nestedRendererType } = useRendererContext();
 
 	const createRendererContext = useMemo(
 		() =>
@@ -465,6 +466,11 @@ export const RendererFunctionalComponent = (
 								distortedDuration: renderedMeasurementDistortedDurationMonitor!.distortedDuration,
 								ttfb: getResponseEndTime(),
 								nodes: countNodes(props.document),
+								nestedRendererType:
+									editorExperiment('platform_synced_block', true) &&
+									fg('platform_synced_block_patch_1')
+										? nestedRendererType
+										: undefined,
 								severity,
 							},
 							eventType: EVENT_TYPE.OPERATIONAL,
@@ -553,6 +559,8 @@ export const RendererFunctionalComponent = (
 		[props.featureFlags, props.isTopLevelRenderer, createRendererContext, props.contentMode],
 	);
 
+	useScrollToBlock(editorRef, props.document);
+
 	try {
 		const schema = getSchema(props.schema, props.adfStage);
 		const { result, stat, pmDoc } = renderDocument(
@@ -571,6 +579,7 @@ export const RendererFunctionalComponent = (
 			props.skipValidation,
 			props.validationOverrides,
 		);
+
 		if (props.onComplete) {
 			props.onComplete(stat);
 		}

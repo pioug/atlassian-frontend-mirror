@@ -50,4 +50,8 @@ export const SYNCED_BLOCK_BUTTON_TEST_ID = {
 	blockMenuCreate: 'create-synced-block-block-menu-btn',
 	quickInsertCreate: 'create-synced-block-quick-insert-btn',
 	syncedBlockToolbarReferenceDelete: 'reference-synced-block-delete-btn',
+	syncedBlockToolbarSourceDelete: 'source-synced-block-delete-btn',
+	syncedBlockToolbarReferenceUnsync: 'reference-synced-block-unsync-btn',
+	syncedBlockToolbarSourceUnsync: 'source-synced-block-unsync-btn',
+	syncedBlockToolbarSyncedLocationsTrigger: 'synced-block-synced-locations-dropdown--trigger',
 } as const;

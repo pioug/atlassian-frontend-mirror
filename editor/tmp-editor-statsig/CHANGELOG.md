@@ -1,5 +1,32 @@
 # @atlaskit/editor-statsig-tmp
 
+## 21.1.0
+
+### Minor Changes
+
+- [`985c77b3ec4c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/985c77b3ec4c7) -
+  [ux] [EDITOR-410] fixed rovo chat loading screen width and content message in chromeless comment
+  editor
+- [`f55112e3afcb3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f55112e3afcb3) -
+  Fix Rovo button viewed event multiple firing
+- [`41941e55fa9b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41941e55fa9b1) -
+  [ux] Block link scroll behavior now expands collapsed parent expand/nestedExpand nodes before
+  scrolling. New feature gate `platform_editor_expand_on_scroll_to_block` controls this behavior:
+  - When enabled: Expands parent expand nodes before scrolling (new behavior with better UX)
+  - When disabled: Simple scroll without expand handling (safe fallback to original behavior)
+
+  This ensures the "Copy link to block" feature works correctly when the target block is inside a
+  collapsed expand.
+
+## 21.0.0
+
+### Major Changes
+
+- [`7b679117f4605`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b679117f4605) -
+  [ux] Productionizes `confluence-whiteboards-quick-insert-eligible` and
+  `confluence-whiteboards-quick-insert-l10n-eligible` feature gates and
+  `confluence_whiteboards_quick_insert_localised` experiment. Ship "Diagram" variant.
+
 ## 20.3.0
 
 ### Minor Changes

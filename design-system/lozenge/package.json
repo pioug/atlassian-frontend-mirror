@@ -59,6 +59,7 @@
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/spinner": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*"

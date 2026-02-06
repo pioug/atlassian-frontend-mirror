@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "126.6.5",
+	"version": "126.8.0",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -148,9 +148,6 @@
 		"platform-component-visual-refresh": {
 			"type": "boolean"
 		},
-		"confluence-frontend-comments-panel": {
-			"type": "boolean"
-		},
 		"platform_editor_querySelector_fix_table_renderer": {
 			"type": "boolean"
 		},
@@ -251,6 +248,9 @@
 			"type": "boolean"
 		},
 		"confluence_ttvc_inline_extensions": {
+			"type": "boolean"
+		},
+		"platform_synced_block_patch_1": {
 			"type": "boolean"
 		}
 	},

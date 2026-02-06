@@ -17,6 +17,7 @@ import {
 } from '../utils/analytics';
 import { type CardStatus } from '../types';
 import { MediaCardError } from '../errors';
+import { type ProcessingFailReason } from '@atlaskit/media-state';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 // Sampling rate for mediaCardRender success events (10%)
@@ -31,6 +32,7 @@ export const fireOperationalEvent = (
 	error: MediaCardError = new MediaCardError('missing-error-data'),
 	traceContext: MediaTraceContext,
 	metadataTraceContext?: MediaTraceContext,
+	processingFailReason?: ProcessingFailReason,
 ): void => {
 	const fireEvent = (payload: MediaCardAnalyticsEventPayload) =>
 		fireMediaCardEvent(payload, createAnalyticsEvent);
@@ -62,6 +64,7 @@ export const fireOperationalEvent = (
 					ssrReliability,
 					traceContext,
 					metadataTraceContext,
+					processingFailReason,
 				),
 			);
 			break;

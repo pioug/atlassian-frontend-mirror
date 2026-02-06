@@ -4,6 +4,7 @@ import {
 	type FileState,
 	type ErrorFileState,
 } from '@atlaskit/media-client';
+import { type ProcessingFailedState } from '@atlaskit/media-state';
 import { getFileDetails } from '../../metadata';
 
 const fileIdentifier: FileIdentifier = {
@@ -78,6 +79,45 @@ describe('getFileDetails', () => {
 		const name = 'some-file.name';
 		expect(getFileDetails({ ...externalImageIdentifier, name })).toEqual(
 			expect.objectContaining({ id: mediaItemType, name, mediaType: 'image' }),
+		);
+	});
+
+	it(`should return failReason when FileState is ProcessingFailedState with failReason`, () => {
+		const failedFileState: ProcessingFailedState = {
+			status: 'failed-processing',
+			id: 'some-file-id',
+			mimeType: 'image/png',
+			mediaType: 'image',
+			name: 'file-name',
+			size: 1,
+			artifacts: {},
+			failReason: 'timeout',
+		};
+		expect(getFileDetails(fileIdentifier, failedFileState)).toEqual(
+			expect.objectContaining({
+				id: 'some-file-id',
+				processingStatus: 'failed',
+				failReason: 'timeout',
+			}),
+		);
+	});
+
+	it(`should return undefined failReason when FileState is ProcessingFailedState without failReason`, () => {
+		const failedFileState: ProcessingFailedState = {
+			status: 'failed-processing',
+			id: 'some-file-id',
+			mimeType: 'image/png',
+			mediaType: 'image',
+			name: 'file-name',
+			size: 1,
+			artifacts: {},
+		};
+		expect(getFileDetails(fileIdentifier, failedFileState)).toEqual(
+			expect.objectContaining({
+				id: 'some-file-id',
+				processingStatus: 'failed',
+				failReason: undefined,
+			}),
 		);
 	});
 });

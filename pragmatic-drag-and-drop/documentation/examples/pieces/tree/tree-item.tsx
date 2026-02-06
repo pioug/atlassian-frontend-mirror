@@ -20,7 +20,6 @@ import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { ModalTransition } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { type Instruction } from '@atlaskit/pragmatic-drag-and-drop-hitbox/list-item';
 import { GroupDropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/group';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
@@ -402,7 +401,7 @@ const TreeItem = memo(function TreeItem({
 							appearance="subtle"
 						/>
 					)}
-					shouldRenderToParent={fg('should-render-to-parent-should-be-true-design-syst')}
+					shouldRenderToParent
 				>
 					<DropdownItemGroup>
 						<DropdownItem onClick={openMoveDialog}>Move</DropdownItem>

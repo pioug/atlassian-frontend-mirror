@@ -338,15 +338,7 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 	});
 
 	describe('key parsing & passthrough via `getItems()`', () => {
-		it('should include key property when feature gate is enabled', async () => {
-			const mockFg = fg as jest.MockedFunction<typeof fg>;
-			mockFg.mockImplementation((gateName) => {
-				if (gateName === 'confluence-whiteboards-quick-insert-l10n-eligible') {
-					return true;
-				}
-				return false;
-			});
-
+		it('should include key property', async () => {
 			const quickInsertProvider = await extensionProviderToQuickInsertProvider(
 				dummyExtensionProvider,
 				{} as EditorActions,
@@ -357,28 +349,6 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 
 			expect(items[0]).toHaveProperty('key', 'first:default');
 			expect(items[1]).toHaveProperty('key', 'second:default');
-		});
-
-		// Negative case to ensure the FF guard works; this is the _current_ behaviour
-		it('should not include key property when feature gate is disabled', async () => {
-			const mockFg = fg as jest.MockedFunction<typeof fg>;
-			mockFg.mockImplementation((gateName) => {
-				if (gateName === 'confluence-whiteboards-quick-insert-l10n-eligible') {
-					return false;
-				}
-				return false;
-			});
-
-			const quickInsertProvider = await extensionProviderToQuickInsertProvider(
-				dummyExtensionProvider,
-				{} as EditorActions,
-				{ current: undefined },
-			);
-
-			const items = await quickInsertProvider.getItems();
-
-			expect(items[0]).not.toHaveProperty('key');
-			expect(items[1]).not.toHaveProperty('key');
 		});
 	});
 

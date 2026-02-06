@@ -17,7 +17,6 @@ import {
 	expectToEqual,
 	asMockFunction,
 } from '@atlaskit/media-test-helpers';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { VideoViewer, type Props } from '../../../../../viewers/video';
 
 const token = 'some-token';
@@ -38,21 +37,6 @@ const videoItem: ProcessedFileState = {
 		},
 		'video_1280.mp4': {
 			url: '/video_hd',
-			processingStatus: 'succeeded',
-		},
-	},
-	representations: {},
-};
-const sdVideoItem: ProcessedFileState = {
-	id: 'some-id',
-	status: 'processed',
-	name: 'my video',
-	size: 11222,
-	mediaType: 'video',
-	mimeType: 'mp4',
-	artifacts: {
-		'video_640.mp4': {
-			url: '/video',
 			processingStatus: 'succeeded',
 		},
 	},
@@ -145,100 +129,15 @@ describe('Video viewer', () => {
 		expectToEqual(asMockFunction(mediaClient.file.getArtifactURL).mock.calls[0][2], collectionName);
 	});
 
-	it('should toggle hd when button is clicked', async () => {
-		setup();
-
-		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
-
-		expect(screen.getByTestId('custom-media-player-hd-button')).toBeInTheDocument();
-
-		fireEvent.click(screen.getByTestId('custom-media-player-hd-button'));
-
-		await waitFor(() => {
-			expect(screen.getByLabelText('hd inactive')).toBeInTheDocument();
-		});
-	});
-
-	it('should show hd button if available', async () => {
-		setup();
-		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
-		expect(screen.getByTestId('custom-media-player-hd-button')).toBeInTheDocument();
-	});
-
-	it('should not show hd button if hd is not available', async () => {
-		setup({
-			item: sdVideoItem,
-		});
-		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
-		expect(screen.queryByTestId('custom-media-player-hd-button')).toBeNull();
-	});
-
-	describe('should not show hd button if hd is not available when disable_video_640p_artifact feature flag is on', () => {
-		ffTest(
-			'platform_media_disable_video_640p_artifact_usage',
-			async () => {
-				setup();
-				await waitFor(() =>
-					expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
-				);
-				expect(screen.queryByTestId('custom-media-player-hd-button')).toBeNull();
-			},
-			async () => {
-				setup();
-				await waitFor(() =>
-					expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
-				);
-				expect(screen.getByTestId('custom-media-player-hd-button')).toBeInTheDocument();
-			},
+	it('should always use HD artifact when available', async () => {
+		const { mediaClient } = setup({ item: videoItem });
+		await waitFor(() =>
+			expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
 		);
-	});
 
-	it('should save video quality when changes', async () => {
-		setup();
-		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
-		expect(screen.getByTestId('custom-media-player-hd-button')).toBeInTheDocument();
-
-		fireEvent.click(screen.getByTestId('custom-media-player-hd-button'));
-
-		expect(localStorage.setItem).toHaveBeenCalledWith('mv_video_player_quality', 'sd');
-		expect(localStorage.setItem).toHaveBeenCalledTimes(1);
-	});
-
-	it('should default to sd if previous quality was sd', async () => {
-		localStorage.setItem('mv_video_player_quality', 'sd');
-		setup();
-		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
-
-		expect(screen.getByLabelText('hd inactive')).toBeInTheDocument();
-	});
-
-	describe('should use hd video artifact when available even if previous quality was sd when disable_video_640p_artifact feature flag is on', () => {
-		ffTest(
-			'platform_media_disable_video_640p_artifact_usage',
-			async () => {
-				localStorage.setItem('mv_video_player_quality', 'sd');
-				const { mediaClient } = setup({ item: videoItem });
-				await waitFor(() =>
-					expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
-				);
-
-				expectToEqual(
-					asMockFunction(mediaClient.file.getArtifactURL).mock.calls[0][1],
-					'video_1280.mp4',
-				);
-			},
-			async () => {
-				localStorage.setItem('mv_video_player_quality', 'sd');
-				const { mediaClient } = setup({ item: videoItem });
-				await waitFor(() =>
-					expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
-				);
-
-				expectToEqual(
-					asMockFunction(mediaClient.file.getArtifactURL).mock.calls[0][1],
-					'video_640.mp4',
-				);
-			},
+		expectToEqual(
+			asMockFunction(mediaClient.file.getArtifactURL).mock.calls[0][1],
+			'video_1280.mp4',
 		);
 	});
 

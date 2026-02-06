@@ -6,13 +6,14 @@ import { useState } from 'react';
 
 import { cssMap } from '@compiled/react';
 
+import Button from '@atlaskit/button/new';
 import { jsx } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import Heading from '@atlaskit/heading';
 import ImageIcon from '@atlaskit/icon/core/image';
 import Lozenge, { type LozengeDropdownTriggerProps, type NewLozengeColor } from '@atlaskit/lozenge';
 import LozengeDropdownTrigger from '@atlaskit/lozenge/lozenge-dropdown-trigger';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
@@ -35,6 +36,12 @@ const styles = cssMap({
 		gap: token('space.100'),
 		flexWrap: 'wrap',
 		alignItems: 'center',
+	},
+	stackGroup: {
+		display: 'flex',
+		gap: token('space.100'),
+		flexWrap: 'wrap',
+		alignItems: 'flex-start',
 	},
 	label: {
 		font: token('font.body'),
@@ -75,6 +82,8 @@ export default function LozengeDropdownTriggerExample() {
 	// Status switcher state
 	const [currentStatus, setCurrentStatus] = useState<NewLozengeColor>('success');
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+	const [isLoadingTrigger, setIsLoadingTrigger] = useState(false);
+	const [isSpaciousTrigger, setIsSpaciousTrigger] = useState(false);
 	const statusOptions: { label: string; value: NewLozengeColor }[] = [
 		{ label: 'Success', value: 'success' },
 		{ label: 'Warning', value: 'warning' },
@@ -158,15 +167,25 @@ export default function LozengeDropdownTriggerExample() {
 					A practical example using LozengeDropdownTrigger with DropdownMenu to create a status
 					switcher. Click the lozenge to change the current status.
 				</Text>
-				<Box xcss={styles.group}>
+				<Stack xcss={styles.stackGroup}>
+					<Inline space="space.100">
+						<Button onClick={() => setIsLoadingTrigger((prev) => !prev)}>
+							{isLoadingTrigger ? 'Hide loading' : 'Show loading'}
+						</Button>
+						<Button onClick={() => setIsSpaciousTrigger((prev) => !prev)}>
+							{isSpaciousTrigger ? 'Show default' : 'Show spacious'}
+						</Button>
+					</Inline>
 					<DropdownMenu
 						trigger={({ triggerRef, ...props }) => (
 							<LozengeDropdownTrigger
 								ref={triggerRef}
+								isLoading={isLoadingTrigger}
 								appearance={currentStatus}
 								isSelected={isDropdownOpen}
 								onClick={() => setIsDropdownOpen(!isDropdownOpen)}
 								iconBefore={ImageIcon}
+								spacing={isSpaciousTrigger ? 'spacious' : 'default'}
 								{...props}
 							>
 								{statusOptions.find((opt) => opt.value === currentStatus)?.label}
@@ -184,7 +203,7 @@ export default function LozengeDropdownTriggerExample() {
 							))}
 						</DropdownItemGroup>
 					</DropdownMenu>
-				</Box>
+				</Stack>
 			</Box>
 
 			<Box>

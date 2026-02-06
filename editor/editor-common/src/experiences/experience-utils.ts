@@ -46,7 +46,6 @@ export const popupWithNestedElement = (
 	return node.querySelector(`:scope > [data-editor-popup="true"] ${nestedElementQuery}`);
 };
 
-
 /**
  * Searches for the popup container element relative to the provided editor view element.
  *
@@ -72,4 +71,4 @@ export const getNodeQuery = (query: string) => (node?: Node | null) => {
 		return false;
 	}
 	return node.matches(query) || node.querySelector(query) !== null;
-}
+};

@@ -95,9 +95,6 @@
 			"path": "../lozenge/tsconfig.app.json"
 		},
 		{
-			"path": "../../platform/feature-flags/tsconfig.app.json"
-		},
-		{
 			"path": "../popup/tsconfig.app.json"
 		},
 		{

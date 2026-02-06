@@ -1,12 +1,3 @@
-jest.mock('@atlaskit/analytics-next', () => {
-	const actualModule = jest.requireActual('@atlaskit/analytics-next');
-	return {
-		__esModule: true,
-		...actualModule,
-		createAndFireEvent: jest.fn(actualModule.createAndFireEvent),
-	};
-});
-
 import React from 'react';
 import { mount } from 'enzyme';
 import {
@@ -38,7 +29,17 @@ import {
 } from '@atlaskit/media-common';
 import { createMediaStoreError, createRateLimitedError } from '@atlaskit/media-client/test-helpers';
 import { getMediaClientErrorReason } from '@atlaskit/media-client';
+import { getRenderFailedFileStatusPayload } from './analytics';
 import { MediaCardError } from '../../errors';
+
+jest.mock('@atlaskit/analytics-next', () => {
+	const actualModule = jest.requireActual('@atlaskit/analytics-next');
+	return {
+		__esModule: true,
+		...actualModule,
+		createAndFireEvent: jest.fn(actualModule.createAndFireEvent),
+	};
+});
 
 const somePayload: MediaCardAnalyticsEventPayload = {
 	eventType: 'ui',
@@ -152,6 +153,64 @@ describe('Media Analytics', () => {
 					traceContext,
 				},
 			});
+		});
+	});
+
+	describe('getRenderFailedFileStatusPayload', () => {
+		const fileAttributes: FileAttributes = {
+			fileId: 'some-id',
+			fileSize: 10,
+			fileMediatype: 'image',
+			fileMimetype: 'image/png',
+			fileStatus: 'failed-processing',
+		};
+		const performanceAttributes: PerformanceAttributes = {
+			overall: {
+				durationSinceCommenced: 100,
+				durationSincePageStart: 1000,
+			},
+		};
+		const traceContext: MediaTraceContext = { traceId: 'some-trace-id' };
+		const ssrReliability: SSRStatus = {
+			server: { status: 'unknown' },
+			client: { status: 'unknown' },
+		};
+
+		it('should include processingFailReason in payload when provided', () => {
+			const payload = getRenderFailedFileStatusPayload(
+				fileAttributes,
+				performanceAttributes,
+				ssrReliability,
+				traceContext,
+				undefined,
+				'timeout',
+			);
+
+			expect(payload).toMatchObject({
+				eventType: 'operational',
+				action: 'failed',
+				actionSubject: 'mediaCardRender',
+				attributes: {
+					fileAttributes,
+					performanceAttributes,
+					status: 'fail',
+					failReason: 'failed-processing',
+					processingFailReason: 'timeout',
+					ssrReliability,
+					traceContext,
+				},
+			});
+		});
+
+		it('should default processingFailReason to not-available when undefined', () => {
+			const payload = getRenderFailedFileStatusPayload(
+				fileAttributes,
+				performanceAttributes,
+				ssrReliability,
+				traceContext,
+			);
+
+			expect(payload.attributes.processingFailReason).toBe('not-available');
 		});
 	});
 

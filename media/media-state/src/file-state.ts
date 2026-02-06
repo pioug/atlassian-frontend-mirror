@@ -2,6 +2,12 @@ import { type MediaTraceContext, type MediaType } from '@atlaskit/media-common';
 
 export type MediaFileProcessingStatus = 'pending' | 'succeeded' | 'failed';
 
+export type ProcessingFailReason =
+	| 'operation-failed'
+	| 'timeout'
+	| 'unsupported-file-type'
+	| 'unknown';
+
 export type MediaRepresentations = {
 	image?: object;
 };
@@ -104,6 +110,7 @@ export interface ProcessingFailedState extends NonErrorBaseFileState {
 	status: 'failed-processing';
 	artifacts: object;
 	representations?: MediaRepresentations;
+	failReason?: ProcessingFailReason;
 }
 export interface ErrorFileState extends BaseFileState {
 	status: 'error';

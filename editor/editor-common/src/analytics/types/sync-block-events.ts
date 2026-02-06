@@ -1,4 +1,4 @@
-import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from './enums';
+import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, INPUT_METHOD } from './enums';
 import type { ExperienceEventPayload } from './experience-events';
 import type { OperationalAEP } from './utils';
 
@@ -14,6 +14,14 @@ type SyncedBlockSuccessAttributes = {
 
 type FetchSyncedBlockSuccessAttributes = SyncedBlockSuccessAttributes & {
 	sourceProduct?: string;
+};
+
+type SyncedBlockCopySuccessAttributes = SyncedBlockSuccessAttributes & {
+	inputMethod: INPUT_METHOD;
+};
+
+type SyncedBlockCopyErrorAttributes = SyncedBlockErrorAttributes & {
+	inputMethod: INPUT_METHOD;
 };
 
 export type SyncedBlockSourceURLErrorAEP = OperationalAEP<
@@ -121,6 +129,34 @@ export type ReferenceSyncedBlockDeleteSuccessAEP = OperationalAEP<
 	SyncedBlockSuccessAttributes
 >;
 
+export type SyncedBlockEditSourceAEP = OperationalAEP<
+	ACTION.SYNCED_BLOCK_EDIT_SOURCE,
+	ACTION_SUBJECT.SYNCED_BLOCK,
+	ACTION_SUBJECT_ID.SYNCED_BLOCK_SOURCE_URL,
+	SyncedBlockSuccessAttributes
+>;
+
+export type SyncedBlockCopyAEP = OperationalAEP<
+	ACTION.COPIED,
+	ACTION_SUBJECT.SYNCED_BLOCK,
+	ACTION_SUBJECT_ID.SYNCED_BLOCK_COPY,
+	SyncedBlockCopySuccessAttributes
+>;
+
+export type SyncedBlockCopyErrorAEP = OperationalAEP<
+	ACTION.ERROR,
+	ACTION_SUBJECT.SYNCED_BLOCK,
+	ACTION_SUBJECT_ID.SYNCED_BLOCK_COPY,
+	SyncedBlockCopyErrorAttributes
+>;
+
+export type SyncedLocationClickAEP = OperationalAEP<
+	ACTION.CLICKED,
+	ACTION_SUBJECT.SYNCED_BLOCK,
+	ACTION_SUBJECT_ID.SYNCED_BLOCK_CLICK_SYNCED_LOCATION,
+	SyncedBlockSuccessAttributes
+>;
+
 export type SyncBlockEventPayload =
 	| SyncedBlockSourceURLErrorAEP
 	| SyncedBlockUpdateCacheErrorAEP
@@ -137,7 +173,11 @@ export type SyncBlockEventPayload =
 	| SyncedBlockFetchReferencesErrorAEP
 	| ExperienceEventPayload
 	| ReferenceSyncedBlockCreateSuccessAEP
-	| ReferenceSyncedBlockDeleteSuccessAEP;
+	| ReferenceSyncedBlockDeleteSuccessAEP
+	| SyncedBlockEditSourceAEP
+	| SyncedBlockCopyAEP
+	| SyncedBlockCopyErrorAEP
+	| SyncedLocationClickAEP;
 
 export type RendererSyncBlockEventPayload =
 	| SyncedBlockGetSourceInfoErrorAEP

@@ -16,4 +16,10 @@ export type InlinePlayerWrapperProps = {
 	children?: JSX.Element[] | ReactElement<any, any> | null | any;
 };
 
+export type SsrItemDetails = {
+	filename: string;
+	mimetype: string;
+	createdDate: number;
+};
+
 export type CardWithMediaClientConfigProps = WithMediaClientConfigProps<CardBaseProps>;

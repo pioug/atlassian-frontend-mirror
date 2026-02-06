@@ -6,6 +6,7 @@ import {
 	isFileIdentifier,
 	type ErrorFileState,
 } from '@atlaskit/media-client';
+import { type ProcessingFailedState } from '@atlaskit/media-state';
 
 const getProcessingStatusFromFileState = (status: FileState['status']) => {
 	switch (status) {
@@ -26,6 +27,8 @@ const getFileDetailsFromFileState = (state: Exclude<FileState, ErrorFileState>):
 	createdAt: state.createdAt,
 	mediaType: state.mediaType,
 	processingStatus: getProcessingStatusFromFileState(state.status),
+	failReason:
+		state.status === 'failed-processing' ? (state as ProcessingFailedState).failReason : undefined,
 });
 
 export const getFileDetails = (identifier: Identifier, fileState?: FileState): FileDetails => {

@@ -26,8 +26,29 @@ export const Default = {
 	render: () => <AgentVerified agentRef={{} as agentVerified_AtlaskitRovoAgentComponents$key} />,
 };
 
-export const MediumSize = {
+export const TextLarge = {
 	render: () => (
-		<AgentVerified agentRef={{} as agentVerified_AtlaskitRovoAgentComponents$key} size="medium" />
+		<AgentVerified
+			agentRef={{} as agentVerified_AtlaskitRovoAgentComponents$key}
+			adjacentTextSize="textLarge"
+		/>
+	),
+};
+
+export const HeadingMedium = {
+	render: () => (
+		<AgentVerified
+			agentRef={{} as agentVerified_AtlaskitRovoAgentComponents$key}
+			adjacentTextSize="headingMedium"
+		/>
+	),
+};
+
+export const HeadingLarge = {
+	render: () => (
+		<AgentVerified
+			agentRef={{} as agentVerified_AtlaskitRovoAgentComponents$key}
+			adjacentTextSize="headingLarge"
+		/>
 	),
 };

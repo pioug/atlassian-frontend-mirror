@@ -1,5 +1,13 @@
 # @atlaskit/media-viewer
 
+## 52.7.3
+
+### Patch Changes
+
+- [`4785b4823f2b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4785b4823f2b6) -
+  Removed platform_media_disable_video_640p_artifact_usage FG
+- Updated dependencies
+
 ## 52.7.2
 
 ### Patch Changes

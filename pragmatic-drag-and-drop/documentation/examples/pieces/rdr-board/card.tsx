@@ -29,7 +29,6 @@ import StoryIcon16 from '@atlaskit/icon-object/glyph/story/16';
 import PullRequestIcon from '@atlaskit/icon/core/pull-request';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import StoryIcon from '@atlaskit/icon/core/story';
-import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	attachClosestEdge,
 	type Edge,
@@ -223,7 +222,7 @@ const CardPrimitive = forwardRef<HTMLDivElement, CardPrimitiveProps>(function Ca
 									{...triggerProps}
 								/>
 							)}
-							shouldRenderToParent={fg('should-render-to-parent-should-be-true-design-syst')}
+							shouldRenderToParent
 						>
 							<LazyDropdownItems item={item} />
 						</DropdownMenu>

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/popup",
-	"version": "4.13.2",
+	"version": "4.13.3",
 	"description": "A popup displays brief content in an overlay.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -125,6 +125,9 @@
 			"type": "boolean"
 		},
 		"platform_dst_nav4_flyoutmenuitem_render_to_parent": {
+			"type": "boolean"
+		},
+		"platform_dst_nested_escape": {
 			"type": "boolean"
 		}
 	},

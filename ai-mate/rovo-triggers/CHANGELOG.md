@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 5.10.0
+
+### Minor Changes
+
+- [`15228c9272ac3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/15228c9272ac3) -
+  Added overrideAutoSend param to insert-prompt payload to allow for overriding default auto-send
+  behavior for prompts
+
 ## 5.9.0
 
 ### Minor Changes

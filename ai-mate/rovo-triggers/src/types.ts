@@ -206,6 +206,14 @@ export type InsertPromptPayload = PayloadCore<
 	'insert-prompt',
 	{
 		prompt: string;
+		/**
+		 * Overrides the default auto-send behavior for prompts.
+		 * By default, prompts with backticks (`) are inserted as placeholders into the chat input
+		 * (backticks indicate a placeholder), while prompts without backticks are sent immediately.
+		 * Set this to true to insert prompts not containing backticks into the chat input for dynamic
+		 * user completion, rather than sending them immediately.
+		 */
+		overrideAutoSend?: boolean;
 	} & PlaceholderParam
 >;
 

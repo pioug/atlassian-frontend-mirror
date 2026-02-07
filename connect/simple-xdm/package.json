@@ -31,7 +31,9 @@
 		}
 	},
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./host": "./src/host/index.ts",
+		"./plugin": "./src/plugin/index.ts"
 	},
 	"scripts": {
 		"lint": "(cd ../../.. && yarn eslint 'packages/connect/simple-xdm/**/*.{ts,tsx}')",
@@ -88,7 +90,7 @@
 		}
 	},
 	"name": "@atlaskit/simple-xdm",
-	"version": "1.1.1",
+	"version": "1.2.0",
 	"description": "A simple library that allows to expose host API to an embedded iframe through the `postMessage` protocol.",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {

@@ -47,7 +47,7 @@ export const useFocusManager = ({
 
 		const trapConfig = {
 			clickOutsideDeactivates: true,
-			escapeDeactivates: true,
+			escapeDeactivates: fg('platform_dst_nested_escape') ? false : true,
 			initialFocus: initialFocusRef || popupRef,
 			fallbackFocus: popupRef,
 			returnFocusOnDeactivate: shouldReturnFocus,

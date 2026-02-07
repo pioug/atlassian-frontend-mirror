@@ -1,5 +1,13 @@
 # @atlaskit/popup
 
+## 4.13.3
+
+### Patch Changes
+
+- [`77f2151e059b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/77f2151e059b7) -
+  Ensure focus returns to nested dropdown trigger instead of popup trigger when ESCAPE is used to
+  dismiss the dropdown.
+
 ## 4.13.2
 
 ### Patch Changes

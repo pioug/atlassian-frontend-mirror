@@ -1,5 +1,13 @@
 # @atlaskit/embedded-confluence
 
+## 4.4.0
+
+### Minor Changes
+
+- [`963b9761f89e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/963b9761f89e5) -
+  Migrate embedded confluence to @atlaskit/simple-xdm due to deprecation of simple-xdm standalone
+  repository
+
 ## 4.3.3
 
 ## 4.3.2
@@ -71,10 +79,9 @@
 
 - [#147926](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147926)
   [`4c5a404f45416`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c5a404f45416) - 1.
-  This upgrade migrates css styles from using `@emotion/react` to use `@compiled/react`.
-  2. In addition to some dependency changes, **the embedded `ViewPage` and `Page` components will no
-     longer accept the `className` prop because of the interference it causes with SSR.**
-
+  This upgrade migrates css styles from using `@emotion/react` to use `@compiled/react`. 2. In
+  addition to some dependency changes, **the embedded `ViewPage` and `Page` components will no
+  longer accept the `className` prop because of the interference it causes with SSR.**
   3. As an alternative, styles should be applied to a wrapping container placed around the
      `ViewPage` component.
 

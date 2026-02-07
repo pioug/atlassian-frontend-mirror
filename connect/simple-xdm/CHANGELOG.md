@@ -1,5 +1,13 @@
 # @atlaskit/simple-xdm
 
+## 1.2.0
+
+### Minor Changes
+
+- [`963b9761f89e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/963b9761f89e5) -
+  Migrate embedded confluence to @atlaskit/simple-xdm due to deprecation of simple-xdm standalone
+  repository
+
 ## 1.1.1
 
 ### Patch Changes

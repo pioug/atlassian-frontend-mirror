@@ -427,6 +427,72 @@ describe('Popup', () => {
 		expect(onClose).toHaveBeenCalledTimes(1);
 	});
 
+	ffTest(
+		'platform_dst_nested_escape',
+		async () => {
+			const onClose = jest.fn();
+			render(
+				<Popup
+					{...defaultProps}
+					isOpen
+					onClose={onClose}
+					shouldRenderToParent
+					role="dialog"
+					label="Popup with nested overlay"
+					content={() => (
+						<div data-ds--level="2">
+							<button type="button" data-testid="nested-overlay-trigger">
+								nested overlay
+							</button>
+						</div>
+					)}
+					trigger={(props: TriggerProps) => (
+						<button {...props} type="button" data-testid="popup-trigger-escape-test">
+							Open popup
+						</button>
+					)}
+				/>,
+			);
+
+			const nestedTrigger = screen.getByTestId('nested-overlay-trigger');
+			nestedTrigger.focus();
+			await userEvent.keyboard('{Escape}');
+
+			expect(onClose).not.toHaveBeenCalled();
+		},
+		async () => {
+			const onClose = jest.fn();
+			render(
+				<Popup
+					{...defaultProps}
+					isOpen
+					onClose={onClose}
+					shouldRenderToParent
+					role="dialog"
+					label="Popup with nested overlay"
+					content={() => (
+						<div data-ds--level="2">
+							<button type="button" data-testid="nested-overlay-trigger">
+								nested overlay
+							</button>
+						</div>
+					)}
+					trigger={(props: TriggerProps) => (
+						<button {...props} type="button" data-testid="popup-trigger-escape-test">
+							Open popup
+						</button>
+					)}
+				/>,
+			);
+
+			const nestedTrigger = screen.getByTestId('nested-overlay-trigger');
+			nestedTrigger.focus();
+			await userEvent.keyboard('{Escape}');
+
+			expect(onClose).toHaveBeenCalledTimes(1);
+		},
+	);
+
 	it('calls onClose after clicking on the trigger when the popup is open', async () => {
 		const onClose = jest.fn();
 		render(

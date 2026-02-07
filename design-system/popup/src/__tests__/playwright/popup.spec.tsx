@@ -513,6 +513,82 @@ test.describe('Popup focus behavior', () => {
 		await expect(popupTrigger).toBeFocused();
 	});
 
+	test('Popup with dropdown: first Escape closes dropdown and returns focus to dropdown trigger, second Escape closes popup', async ({
+		page,
+	}) => {
+		await page.visitExample('design-system', 'popup', 'testing-popup-with-dropdown-escape', {
+			featureFlag: 'platform_dst_nested_escape',
+		});
+
+		const popupTrigger = page.getByRole('button', { name: 'Open popup' });
+		const dropdownTrigger = page.getByTestId('dropdown-inside-popup--trigger');
+		const dropdownContent = page.getByTestId('dropdown-inside-popup--content');
+		const popupContent = page.getByTestId('popup-content');
+
+		await popupTrigger.click();
+		await expect(popupContent).toBeVisible();
+
+		await dropdownTrigger.click();
+		await expect(dropdownContent).toBeVisible();
+
+		await expect(dropdownContent).toBeVisible();
+		await dropdownContent.click({ trial: true });
+		await page.keyboard.press('Escape');
+		await expect(dropdownContent).toBeHidden();
+		await expect(dropdownTrigger).toBeFocused();
+		await expect(popupContent).toBeVisible();
+
+		await expect(dropdownTrigger).toBeFocused();
+		await expect(popupContent).toBeVisible();
+		await dropdownTrigger.click({ trial: true });
+		await page.keyboard.press('Escape');
+		await expect(popupContent).toBeHidden();
+		await expect(popupTrigger).toBeFocused();
+	});
+
+	test('Popup with nested dropdown: Escape at each level closes that level and returns focus to its trigger', async ({
+		page,
+	}) => {
+		await page.visitExample('design-system', 'popup', 'testing-popup-with-dropdown-escape', {
+			featureFlag: 'platform_dst_nested_escape',
+		});
+
+		const popupTrigger = page.getByRole('button', { name: 'Open popup' });
+		const nestedDropdownTrigger = page.getByTestId('nested-dropdown-inside-popup--trigger');
+		const nestedDropdownContent = page.getByTestId('nested-dropdown-inside-popup--content');
+		const popupContent = page.getByTestId('popup-content');
+
+		await popupTrigger.click();
+		await nestedDropdownTrigger.click();
+		await expect(nestedDropdownContent).toBeVisible();
+
+		await page.getByRole('menuitem', { name: 'Nested Menu' }).press('Enter');
+		const nestedOptionOne = page.getByRole('menuitem', { name: 'Nested option one' });
+		const nestedMenuItem = page.getByRole('menuitem', { name: 'Nested Menu' });
+		await expect(nestedOptionOne).toBeVisible();
+
+		await expect(nestedOptionOne).toBeVisible();
+		await nestedOptionOne.click({ trial: true });
+		await page.keyboard.press('Escape');
+		await expect(nestedOptionOne).toBeHidden();
+		await expect(nestedMenuItem).toBeFocused();
+
+		await expect(nestedMenuItem).toBeFocused();
+		await expect(nestedDropdownContent).toBeVisible();
+		await nestedMenuItem.click({ trial: true });
+		await page.keyboard.press('Escape');
+		await expect(nestedDropdownContent).toBeHidden();
+		await expect(nestedDropdownTrigger).toBeFocused();
+		await expect(popupContent).toBeVisible();
+
+		await expect(nestedDropdownTrigger).toBeFocused();
+		await expect(popupContent).toBeVisible();
+		await nestedDropdownTrigger.click({ trial: true });
+		await page.keyboard.press('Escape');
+		await expect(popupContent).toBeHidden();
+		await expect(popupTrigger).toBeFocused();
+	});
+
 	test('should respect initial focus ref for setting initial focus', async ({ page }) => {
 		await page.visitExample('design-system', 'popup', 'setting-focus');
 

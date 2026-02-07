@@ -122,8 +122,19 @@ export const useCloseManager = ({
 		};
 
 		const onKeyDown = (event: KeyboardEvent | React.KeyboardEvent) => {
+			const key = event.key;
+
+			if ((key === 'Escape' || key === 'Esc') && fg('platform_dst_nested_escape')) {
+				const eventTarget = event.target instanceof HTMLElement ? event.target : null;
+				const layeredAncestor = eventTarget?.closest?.('[data-ds--level]');
+				const levelStr = layeredAncestor?.getAttribute('data-ds--level');
+				if (levelStr && Number(levelStr) > currentLevel) {
+					return;
+				}
+			}
+
 			if (fg('platform_dst_popup-disable-focuslock')) {
-				const { key, shiftKey } = event;
+				const { shiftKey } = event;
 				if (shiftKey && key === 'Tab' && !shouldRenderToParent) {
 					if (isLayerDisabled()) {
 						return;
@@ -192,7 +203,6 @@ export const useCloseManager = ({
 				if (isLayerDisabled()) {
 					return;
 				}
-				const { key } = event;
 				if (key === 'Escape' || key === 'Esc' || (shouldCloseOnTab && key === 'Tab')) {
 					closePopup(event);
 				}

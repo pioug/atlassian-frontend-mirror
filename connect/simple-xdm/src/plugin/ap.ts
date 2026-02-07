@@ -108,11 +108,7 @@ class AP extends PostMessage {
 	_isEmbeddedConfluenceUsage() {
 		try {
 			const uniqueKey = new URL(window.location.href).searchParams.get('uniqueKey');
-			return (
-				uniqueKey !== null &&
-				uniqueKey.includes('embedded-confluence-iframe') &&
-				fg('platform_deprecate_lp_cc_embed')
-			);
+			return uniqueKey !== null && uniqueKey.includes('embedded-confluence-iframe');
 		} catch (e) {
 			return false;
 		}

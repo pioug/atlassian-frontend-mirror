@@ -11,6 +11,7 @@
 		"popup-disable-autofocus.tsx",
 		"surface-detection.tsx",
 		"should-not-return-focus.tsx",
+		"testing-popup-with-dropdown-escape.tsx"
 	],
 	"exampleDependencies": [],
 }

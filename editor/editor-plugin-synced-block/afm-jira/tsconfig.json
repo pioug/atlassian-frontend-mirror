@@ -63,9 +63,6 @@
 			"path": "../../editor-synced-block-provider/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../editor-tables/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../editor-toolbar/afm-jira/tsconfig.json"
 		},
 		{

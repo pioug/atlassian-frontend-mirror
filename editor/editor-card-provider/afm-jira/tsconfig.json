@@ -30,6 +30,9 @@
 			"path": "../../../measurement/feature-gate-js-client/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../helpers/frontend-utilities/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../linking-platform/json-ld-types/afm-jira/tsconfig.json"
 		},
 		{

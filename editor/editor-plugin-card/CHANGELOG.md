@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-card
 
+## 12.3.2
+
+### Patch Changes
+
+- [`7ba3979b92b42`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ba3979b92b42) -
+  Remove platform_synced_block_dogfooding feature gate
+- Updated dependencies
+
+## 12.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.3.0
+
+### Minor Changes
+
+- [`506d872ef2503`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/506d872ef2503) -
+  Add smartlink response caching to browser storage to reduce layoutshift on transition and page
+  load
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.2.5
 
 ### Patch Changes

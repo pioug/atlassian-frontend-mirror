@@ -1,8 +1,18 @@
 import { EditorCardProvider } from '../../provider';
 import { CardClient } from '@atlaskit/link-provider';
-import { type BlockCardAdf, type EmbedCardAdf, type InlineCardAdf } from '@atlaskit/linking-common';
+import type { SmartCardLocalCacheClient } from '../../smart-card-local-cache-client';
+import {
+	type BlockCardAdf,
+	type EmbedCardAdf,
+	type InlineCardAdf,
+	type DatasourceAdfTableView,
+} from '@atlaskit/linking-common';
 import { type JSONNode } from '@atlaskit/editor-json-transformer';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
+import type { SmartLinkResponse } from '@atlaskit/linking-types';
+import type { CallbackPayload } from '@atlaskit/node-data-provider';
+import type { JsonLd } from '@atlaskit/json-ld-types';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 jest.spyOn(CardClient.prototype, 'fetchData').mockRejectedValue({});
 
@@ -77,6 +87,215 @@ describe('EditorCardProvider', () => {
 			expect(provider.isNodeSupported(node)).toBe(false);
 		});
 	});
+
+	eeTest
+		.describe('platform_editor_smartlink_local_cache', 'platform_editor_smartlink_local_cache')
+		.variant(true, () => {
+			describe('getData', () => {
+				it('should return null for unsupported nodes', async () => {
+					const node: DatasourceAdfTableView = { type: 'table' };
+					const noop = () => {};
+
+					const data = provider.getData(node as any, noop);
+					expect(data).toBeUndefined();
+				});
+
+				it('should return the card data for supported nodes', async () => {
+					const callback = jest.fn(() => {});
+					const setItemSpy = jest.spyOn(
+						// @ts-ignore accessing private property for test
+						provider.smartCardLocalCacheClient as SmartCardLocalCacheClient,
+						'getItem',
+					);
+
+					const node: InlineCardAdf = {
+						type: 'inlineCard',
+						attrs: { url: 'https://atlassian.com' },
+					};
+					const mockCardData: SmartLinkResponse = {
+						data: {
+							'@type': 'Page',
+							'@context': {
+								'@vocab': 'https://www.w3.org/ns/activitystreams#',
+								atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+								schema: 'http://schema.org/',
+							},
+							url: 'https://example.com',
+						},
+						meta: {
+							access: 'granted',
+							visibility: 'public',
+						},
+					};
+					setItemSpy.mockReturnValue(mockCardData);
+
+					provider.getData(node, callback);
+					expect(setItemSpy).toHaveBeenCalledWith('https://atlassian.com');
+					expect(callback).toHaveBeenCalledTimes(1);
+					expect(callback).toHaveBeenCalledWith({ data: mockCardData });
+					setItemSpy.mockRestore();
+				});
+
+				it('should update cache via setItem when getDataAsync returns data and no error', async () => {
+					const callback = jest.fn(() => {});
+					const getItemSpy = jest.spyOn(
+						// @ts-ignore accessing private property for test
+						provider.smartCardLocalCacheClient as SmartCardLocalCacheClient,
+						'getItem',
+					);
+					const setItemSpy = jest.spyOn(
+						// @ts-ignore accessing private property for test
+						provider.smartCardLocalCacheClient as SmartCardLocalCacheClient,
+						'setItem',
+					);
+					getItemSpy.mockReturnValue(undefined);
+
+					const node: InlineCardAdf = {
+						type: 'inlineCard',
+						attrs: { url: 'https://atlassian.com' },
+					};
+					const mockCardData: SmartLinkResponse = {
+						data: {
+							'@type': 'Page',
+							'@context': {
+								'@vocab': 'https://www.w3.org/ns/activitystreams#',
+								atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+								schema: 'http://schema.org/',
+							},
+							url: 'https://example.com',
+						},
+						meta: {
+							access: 'granted',
+							visibility: 'public',
+						},
+					};
+					const getDataAsyncSpy = jest.spyOn(provider as any, 'getDataAsync');
+					const mockGetDataAsync = (
+						_: unknown,
+						cb: (payload: CallbackPayload<JsonLd.Response>) => void,
+					) => {
+						cb({ data: mockCardData });
+						return Promise.resolve();
+					};
+					getDataAsyncSpy.mockImplementation(mockGetDataAsync as any);
+
+					provider.getData(node, callback);
+
+					expect(getDataAsyncSpy).toHaveBeenCalledTimes(1);
+					expect(getDataAsyncSpy).toHaveBeenCalledWith(node, expect.any(Function));
+					expect(setItemSpy).toHaveBeenCalledTimes(1);
+					expect(setItemSpy).toHaveBeenCalledWith('https://atlassian.com', mockCardData);
+					// one call from async branch (no cache)
+					expect(callback).toHaveBeenCalledTimes(1);
+					expect(callback).toHaveBeenCalledWith({ data: mockCardData });
+				});
+
+				it('should call callback twice when cache hit happens (cached first, then async payload)', async () => {
+					const callback = jest.fn(() => {});
+					const getItemSpy = jest.spyOn(
+						// @ts-ignore accessing private property for test
+						provider.smartCardLocalCacheClient as SmartCardLocalCacheClient,
+						'getItem',
+					);
+					const setItemSpy = jest.spyOn(
+						// @ts-ignore accessing private property for test
+						provider.smartCardLocalCacheClient as SmartCardLocalCacheClient,
+						'setItem',
+					);
+
+					const node: InlineCardAdf = {
+						type: 'inlineCard',
+						attrs: { url: 'https://atlassian.com' },
+					};
+					const cached: SmartLinkResponse = {
+						data: {
+							'@type': 'Page',
+							'@context': {
+								'@vocab': 'https://www.w3.org/ns/activitystreams#',
+								atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+								schema: 'http://schema.org/',
+							},
+							url: 'https://cached.example.com',
+						},
+						meta: { access: 'granted', visibility: 'public' },
+					};
+					const fresh: SmartLinkResponse = {
+						data: {
+							'@type': 'Page',
+							'@context': {
+								'@vocab': 'https://www.w3.org/ns/activitystreams#',
+								atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+								schema: 'http://schema.org/',
+							},
+							url: 'https://fresh.example.com',
+						},
+						meta: { access: 'granted', visibility: 'public' },
+					};
+
+					getItemSpy.mockReturnValue(cached);
+
+					const getDataAsyncSpy = jest.spyOn(provider as any, 'getDataAsync');
+					const mockGetDataAsync = (
+						_: unknown,
+						cb: (payload: CallbackPayload<JsonLd.Response>) => void,
+					) => {
+						cb({ data: fresh });
+						return Promise.resolve();
+					};
+					getDataAsyncSpy.mockImplementation(mockGetDataAsync as any);
+
+					provider.getData(node, callback);
+
+					expect(getDataAsyncSpy).toHaveBeenCalledTimes(1);
+					expect(getDataAsyncSpy).toHaveBeenCalledWith(node, expect.any(Function));
+					expect(setItemSpy).toHaveBeenCalledTimes(1);
+					expect(setItemSpy).toHaveBeenCalledWith('https://atlassian.com', fresh);
+					expect(callback).toHaveBeenCalledTimes(2);
+					expect(callback).toHaveBeenNthCalledWith(1, { data: cached });
+					expect(callback).toHaveBeenNthCalledWith(2, { data: fresh });
+				});
+
+				it('should not update cache via setItem when getDataAsync returns an error', async () => {
+					const callback = jest.fn(() => {});
+					const getItemSpy = jest.spyOn(
+						// @ts-ignore accessing private property for test
+						provider.smartCardLocalCacheClient as SmartCardLocalCacheClient,
+						'getItem',
+					);
+					const setItemSpy = jest.spyOn(
+						// @ts-ignore accessing private property for test
+						provider.smartCardLocalCacheClient as SmartCardLocalCacheClient,
+						'setItem',
+					);
+					getItemSpy.mockReturnValue(undefined);
+
+					const node: InlineCardAdf = {
+						type: 'inlineCard',
+						attrs: { url: 'https://atlassian.com' },
+					};
+					const getDataAsyncSpy = jest.spyOn(provider as any, 'getDataAsync');
+					const mockGetDataAsync = (
+						_: unknown,
+						cb: (payload: CallbackPayload<JsonLd.Response>) => void,
+					) => {
+						cb({ error: new Error('boom'), data: { some: 'data' } as any });
+						return Promise.resolve();
+					};
+					getDataAsyncSpy.mockImplementation(mockGetDataAsync as any);
+
+					provider.getData(node, callback);
+
+					expect(setItemSpy).not.toHaveBeenCalled();
+					expect(callback).toHaveBeenCalledTimes(1);
+					expect(callback.mock.calls[0].at(0)).toEqual(
+						expect.objectContaining({
+							error: expect.any(Error),
+							data: { some: 'data' },
+						}),
+					);
+				});
+			});
+		});
 
 	describe('nodeDataKey', () => {
 		it('should return the url from the node attributes', () => {

@@ -10,8 +10,6 @@ import CrossIcon from '@atlaskit/icon/core/cross';
 import EyeOpenStrikethroughIcon from '@atlaskit/icon/core/eye-open-strikethrough';
 import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
 import type { NewCoreIconProps } from '@atlaskit/icon/types';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react';
 import { Anchor, Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
@@ -58,49 +56,31 @@ const errorMap: Record<string, ErrorInfo> = {
 	},
 };
 
-const useSyncBlockInfo = conditionalHooksFactory(
-	() => fg('platform_synced_block_dogfooding'),
-	() => {
-		const { deleteSyncBlock, fetchSourceInfo } = useSyncBlockActions() ?? {};
-		return { deleteSyncBlock, fetchSourceInfo };
-	},
-	() => {
-		return { deleteSyncBlock: undefined, fetchSourceInfo: undefined };
-	},
-);
+const useErrorInfo = (reason?: string, url?: string, title?: string) => {
+	const { formatMessage } = useIntl();
+	if (reason === 'source-document-deleted') {
+		const { icon, description } = errorMap['source-document-deleted'];
+		return { description: formatMessage(description), icon };
+	}
 
-const useErrorInfo = conditionalHooksFactory(
-	() => fg('platform_synced_block_dogfooding'),
-	(reason?: string, url?: string, title?: string) => {
-		const { formatMessage } = useIntl();
-		if (reason === 'source-document-deleted') {
-			const { icon, description } = errorMap['source-document-deleted'];
-			return { description: formatMessage(description), icon };
-		}
+	if (!url || !title) {
+		const { icon, description } = errorMap['generic'];
+		return { description: formatMessage(description), icon };
+	}
 
-		if (!url || !title) {
-			const { icon, description } = errorMap['generic'];
-			return { description: formatMessage(description), icon };
-		}
-
-		const { icon, description } = errorMap[reason || 'generic'];
-		return {
-			description: formatMessage(description, {
-				title,
-				a: (chunk: ReactNode) => (
-					<Anchor href={url} target="_blank" xcss={styles.link}>
-						{chunk}
-					</Anchor>
-				),
-			}),
-			icon,
-		};
-	},
-	(_?: string) => {
-		const { formatMessage } = useIntl();
-		return { description: formatMessage(messages.notFoundDescription), icon: undefined };
-	},
-);
+	const { icon, description } = errorMap[reason || 'generic'];
+	return {
+		description: formatMessage(description, {
+			title,
+			a: (chunk: ReactNode) => (
+				<Anchor href={url} target="_blank" xcss={styles.link}>
+					{chunk}
+				</Anchor>
+			),
+		}),
+		icon,
+	};
+};
 
 export const SyncedBlockNotFoundError = ({
 	reason = 'source-block-deleted',
@@ -109,7 +89,7 @@ export const SyncedBlockNotFoundError = ({
 	reason?: string;
 	sourceAri?: string;
 }): React.JSX.Element => {
-	const { deleteSyncBlock, fetchSourceInfo } = useSyncBlockInfo();
+	const { deleteSyncBlock, fetchSourceInfo } = useSyncBlockActions() ?? {};
 	const [sourceInfo, setSourceInfo] = useState<{ title?: string; url?: string } | undefined>(
 		undefined,
 	);
@@ -117,7 +97,6 @@ export const SyncedBlockNotFoundError = ({
 
 	useEffect(() => {
 		if (
-			!fg('platform_synced_block_dogfooding') ||
 			!sourceAri ||
 			// Only fetch source info for these 2 cases
 			!['source-block-deleted', 'source-block-unsynced'].includes(reason)
@@ -138,29 +117,23 @@ export const SyncedBlockNotFoundError = ({
 
 	return (
 		<>
-			{fg('platform_synced_block_dogfooding') ? (
-				<>
-					{sourceInfo === undefined ? (
-						<Box xcss={styles.spinner}>
-							<Spinner />
-						</Box>
-					) : (
-						<SyncedBlockErrorStateCard description={description} icon={icon}>
-							{deleteSyncBlock && (
-								<Box xcss={styles.closeButton}>
-									<IconButton
-										appearance="subtle"
-										icon={CrossIcon}
-										label={formatMessage(commonMessages.delete)}
-										onClick={deleteSyncBlock}
-									/>
-								</Box>
-							)}
-						</SyncedBlockErrorStateCard>
-					)}
-				</>
+			{sourceInfo === undefined ? (
+				<Box xcss={styles.spinner}>
+					<Spinner />
+				</Box>
 			) : (
-				<SyncedBlockErrorStateCard description={description} icon={icon} />
+				<SyncedBlockErrorStateCard description={description} icon={icon}>
+					{deleteSyncBlock && (
+						<Box xcss={styles.closeButton}>
+							<IconButton
+								appearance="subtle"
+								icon={CrossIcon}
+								label={formatMessage(commonMessages.delete)}
+								onClick={deleteSyncBlock}
+							/>
+						</Box>
+					)}
+				</SyncedBlockErrorStateCard>
 			)}
 		</>
 	);

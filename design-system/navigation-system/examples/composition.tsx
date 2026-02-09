@@ -255,7 +255,7 @@ export default function Composition({
 
 	return (
 		<WithResponsiveViewport>
-			<Root testId="root">
+			<Root testId="root" isSideNavShortcutEnabled>
 				{isBannerVisible && <Banner xcss={bannerStyles.root}> </Banner>}
 				<TopNav>
 					<TopNavStart
@@ -392,7 +392,11 @@ export default function Composition({
 							</ButtonMenuItem>
 						</MenuList>
 					</SideNavContent>
-					<SideNavPanelSplitter label="Resize side nav" testId="side-nav-panel-splitter" />
+					<SideNavPanelSplitter
+						label="Resize side nav"
+						testId="side-nav-panel-splitter"
+						tooltipContent="Double click to collapse"
+					/>
 				</SideNav>
 				<Main id="main-container">
 					<Stack space="space.100" xcss={headingStyles.root}>

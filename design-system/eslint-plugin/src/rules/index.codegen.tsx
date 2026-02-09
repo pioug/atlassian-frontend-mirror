@@ -1,12 +1,13 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f9f7263c6ed88b95a13cbfbe56cfc380>>
+ * @codegen <<SignedSource::f499d8b88b96bcc50bbd5d7a0299ff6c>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { Rule } from 'eslint';
 
 import consistentCssPropUsage from './consistent-css-prop-usage';
 import enforceInlineStylesInSelect from './enforce-inline-styles-in-select';
+import ensureAvatarTagAvatarProps from './ensure-avatar-tag-avatar-props';
 import ensureDesignTokenUsage from './ensure-design-token-usage';
 import ensureDesignTokenUsagePreview from './ensure-design-token-usage-preview';
 import ensureIconColor from './ensure-icon-color';
@@ -84,6 +85,7 @@ import useVisuallyHidden from './use-visually-hidden';
 export const rules: Record<string, Rule.RuleModule> = {
 	'consistent-css-prop-usage': consistentCssPropUsage,
 	'enforce-inline-styles-in-select': enforceInlineStylesInSelect,
+	'ensure-avatar-tag-avatar-props': ensureAvatarTagAvatarProps,
 	'ensure-design-token-usage': ensureDesignTokenUsage,
 	'ensure-design-token-usage/preview': ensureDesignTokenUsagePreview,
 	'ensure-icon-color': ensureIconColor,

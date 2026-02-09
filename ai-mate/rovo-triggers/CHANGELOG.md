@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 5.11.0
+
+### Minor Changes
+
+- [`fc63a95670a7c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fc63a95670a7c) -
+  Fix postMessage origin options
+
 ## 5.10.0
 
 ### Minor Changes

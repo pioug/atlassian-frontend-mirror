@@ -7,7 +7,7 @@ import type { SyncedBlockPlugin } from '../../syncedBlockPluginType';
 import { FLAG_ID, type ActiveFlag, type SyncBlockInfo } from '../../types';
 import { syncedBlockPluginKey } from '../main';
 
-export type ConfirmationTransactionRef = { current: Transaction | undefined };
+export type TransactionRef = { current: Transaction | undefined };
 
 const onRetry =
 	(
@@ -35,8 +35,8 @@ export const handleBodiedSyncBlockRemoval = (
 	bodiedSyncBlockRemoved: SyncBlockInfo[],
 	syncBlockStore: SyncBlockStoreManager,
 	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined,
-	confirmationTransactionRef: ConfirmationTransactionRef,
-	deletionReason: DeletionReason | undefined,
+	confirmationTransactionRef: TransactionRef,
+	deletionReason: DeletionReason,
 ) => {
 	// Clear potential old pending deletion to retreat the deletion as first attempt
 	syncBlockStore.sourceManager.clearPendingDeletion();

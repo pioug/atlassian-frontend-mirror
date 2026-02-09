@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 
 import { defineMessages, useIntl } from 'react-intl-next';
 
+import { isFedRamp } from '@atlaskit/atlassian-context';
 import { IconButton } from '@atlaskit/button/new';
 import { cssMap, cx } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
@@ -174,11 +174,7 @@ export const TeamLinkCard = ({
 	const { formatMessage } = useIntl();
 	const { fireEvent } = useAnalyticsEvents();
 
-	const isNewTeamProfilePageEnabled = FeatureGates.getExperimentValue(
-		'new_team_profile',
-		'isEnabled',
-		false,
-	);
+	const isNewTeamProfilePageEnabled = !isFedRamp() || fg('new_team_profile_fedramp');
 	const isOpenWebLinkInNewTabEnabled =
 		containerType === 'WebLink' && isNewTeamProfilePageEnabled;
 

@@ -8,7 +8,6 @@ import {
 } from '@atlaskit/editor-common/sync-block';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import { SyncBlockError, useFetchSyncBlockData } from '@atlaskit/editor-synced-block-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { type MediaSSR, type NodeProps } from '@atlaskit/renderer';
 
 import type { SyncedBlockRendererOptions } from '../types';
@@ -46,8 +45,7 @@ export const SyncedBlockNodeComponentRenderer = ({
 		if (
 			!isSSR() ||
 			rendererOptions?.media?.ssr || // already has ssr config
-			!ssrProviders?.media?.viewMediaClientConfig ||
-			!fg('platform_synced_block_dogfooding')
+			!ssrProviders?.media?.viewMediaClientConfig
 		) {
 			return rendererOptions;
 		}
@@ -72,7 +70,7 @@ export const SyncedBlockNodeComponentRenderer = ({
 
 	// In SSR, if server returned error, we should render loading state instead of error state
 	// since  FE will do another fetch and render the error state or proper data then
-	if (isSSR() && syncBlockInstance?.error && fg('platform_synced_block_dogfooding')) {
+	if (isSSR() && syncBlockInstance?.error) {
 		return <SyncedBlockLoadingState />;
 	}
 
@@ -80,13 +78,13 @@ export const SyncedBlockNodeComponentRenderer = ({
 		!resourceId ||
 		syncBlockInstance?.error ||
 		!syncBlockInstance?.data ||
-		(syncBlockInstance.data.status === 'deleted' && fg('platform_synced_block_dogfooding'))
+		syncBlockInstance.data.status === 'deleted'
 	) {
 		return (
 			<SyncedBlockErrorComponent
 				error={
 					syncBlockInstance?.error ??
-					(syncBlockInstance?.data?.status === 'deleted' && fg('platform_synced_block_dogfooding')
+					(syncBlockInstance?.data?.status === 'deleted'
 						? { type: SyncBlockError.NotFound }
 						: { type: SyncBlockError.Errored })
 				}
@@ -98,10 +96,7 @@ export const SyncedBlockNodeComponentRenderer = ({
 		);
 	}
 
-	if (
-		syncBlockInstance?.data?.status === 'unpublished' &&
-		fg('platform_synced_block_dogfooding')
-	) {
+	if (syncBlockInstance?.data?.status === 'unpublished') {
 		return (
 			<SyncedBlockErrorComponent
 				error={{ type: SyncBlockError.Unpublished }}

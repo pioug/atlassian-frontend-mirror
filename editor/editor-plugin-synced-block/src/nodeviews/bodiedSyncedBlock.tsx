@@ -15,7 +15,6 @@ import {
 	type Node as PMNode,
 } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 import { BodiedSyncBlockWrapper } from '../ui/BodiedSyncBlockWrapper';
@@ -119,17 +118,13 @@ class BodiedSyncBlock extends ReactNodeView<BodiedSyncBlockNodeViewProps> {
 		}
 
 		return (
-			fg('platform_synced_block_dogfooding') ? (
-				<ErrorBoundary
-					component={ACTION_SUBJECT.SYNCED_BLOCK}
-					dispatchAnalyticsEvent={this.api?.analytics?.actions.fireAnalyticsEvent}
-					fallbackComponent={null}
-				>
-					<BodiedSyncBlockWrapper ref={forwardRef} syncBlockStore={syncBlockStore} node={this.node} />
-				</ErrorBoundary>
-			): (
+			<ErrorBoundary
+				component={ACTION_SUBJECT.SYNCED_BLOCK}
+				dispatchAnalyticsEvent={this.api?.analytics?.actions.fireAnalyticsEvent}
+				fallbackComponent={null}
+			>
 				<BodiedSyncBlockWrapper ref={forwardRef} syncBlockStore={syncBlockStore} node={this.node} />
-			)
+			</ErrorBoundary>
 		);
 	}
 

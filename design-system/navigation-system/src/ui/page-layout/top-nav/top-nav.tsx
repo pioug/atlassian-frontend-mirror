@@ -18,9 +18,6 @@ import { useCustomTheme } from '../../top-nav-items/themed/use-custom-theme';
 import {
 	bannerMountedVar,
 	localSlotLayers,
-	openLayerObserverTopNavEndNamespace,
-	openLayerObserverTopNavMiddleNamespace,
-	openLayerObserverTopNavStartNamespace,
 	sideNavLiveWidthVar,
 	topNavMountedVar,
 	UNSAFE_topNavVar,
@@ -30,7 +27,6 @@ import { DangerouslyHoistCssVarToDocumentRoot, HoistCssVarToLocalGrid } from '..
 import { useLayoutId } from '../id-utils';
 import { useSideNavVisibility } from '../side-nav/use-side-nav-visibility';
 import type { CommonSlotProps } from '../types';
-import { useHasOpenLayers } from '../use-open-layer-count';
 
 /**
  * Styles for the container for the top nav items.
@@ -128,10 +124,6 @@ const styles = cssMap({
 			borderBlockEndColor: token('color.border'),
 		},
 	},
-	fullHeightSidebarWithLayeringFixesAndOpenLayer: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-		zIndex: localSlotLayers.topNavFHSWithOpenLayer,
-	},
 });
 
 /**
@@ -166,18 +158,6 @@ const backgroundStyles = cssMap({
 		},
 	},
 });
-
-/**
- * Namespaces to check for open layers within the top nav.
- * When there is an open layer in the top nav, the top nav is given a higher z-index than the side nav.
- *
- * Placed outside the component for stability, as the list is used as an effect dependency.
- */
-const topNavOpenLayerNamespaces = [
-	openLayerObserverTopNavStartNamespace,
-	openLayerObserverTopNavMiddleNamespace,
-	openLayerObserverTopNavEndNamespace,
-];
 
 /**
  * The top nav layout area. It will display at the top of the screen, below the banner if one is present.
@@ -243,11 +223,6 @@ export function TopNav({
 
 	const { isExpandedOnDesktop } = useSideNavVisibility();
 
-	const hasOpenPopup = useHasOpenLayers({
-		namespaces: topNavOpenLayerNamespaces,
-		type: 'popup',
-	});
-
 	return (
 		<HasCustomThemeContext.Provider value={customTheme.isEnabled}>
 			{isFhsEnabled && !fg('platform-dst-side-nav-layering-fixes') && (
@@ -269,12 +244,8 @@ export function TopNav({
 					styles.root,
 					isFhsEnabled && styles.fullHeightSidebar,
 					isFhsEnabled &&
-						fg('platform-dst-side-nav-layering-fixes') &&
-						styles.fullHeightSidebarWithLayeringFixes,
-					hasOpenPopup &&
-						isFhsEnabled &&
-						fg('platform-dst-side-nav-layering-fixes') &&
-						styles.fullHeightSidebarWithLayeringFixesAndOpenLayer,
+					fg('platform-dst-side-nav-layering-fixes') &&
+					styles.fullHeightSidebarWithLayeringFixes,
 					isExpandedOnDesktop && isFhsEnabled && styles.fullHeightSidebarExpanded,
 				]}
 				className={xcss}

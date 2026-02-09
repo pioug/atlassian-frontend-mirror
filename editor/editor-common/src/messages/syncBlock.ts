@@ -403,4 +403,14 @@ export const syncBlockMessages = defineMessages({
 		defaultMessage: 'Learn more',
 		description: 'Action in flag which appears when a synced block cannot be pasted to learn more',
 	},
+	cannotCreateSyncBlockTitle: {
+		id: 'fabric.editor.cannotCreateSyncBlockTitle',
+		defaultMessage: 'Unable to create synced block',
+		description: 'Title in flag which appears when a synced block cannot be created',
+	},
+	CannotCreateSyncBlockDescription: {
+		id: 'fabric.editor.cannotCreateSyncBlockDescription',
+		defaultMessage: 'An error occurred while trying to create this synced block. ',
+		description: 'Description in flag which appears when a synced block cannot be created',
+	},
 });

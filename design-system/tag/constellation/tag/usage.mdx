@@ -20,6 +20,10 @@ import tagDo3Light from './images/tag-do-3-light.png';
 import tagDont3Light from './images/tag-dont-3-light.png';
 import tagDo3Dark from './images/tag-do-3-dark.png';
 import tagDont3Dark from './images/tag-dont-3-dark.png';
+import tagDo4Light from './images/tag-do-4-light.png';
+import tagDont4Light from './images/tag-dont-4-light.png';
+import tagDo4Dark from './images/tag-do-4-dark.png';
+import tagDont4Dark from './images/tag-dont-4-dark.png';
 
 ## Usage
 
@@ -51,7 +55,7 @@ group to control the layout and alignment for a collection of tags.
 
 ### Only use tags for object-related content
 
-Tags are reserved for object related content. For people, use
+Tags are reserved for object related content. For people, team, project or space avatars, use
 [avatar tag](/components/tag/avatar-tag).
 
 <DoDont
@@ -129,6 +133,32 @@ clarity.
 	Don’t use color without intention.
 </DoDont>
 
+### Don’t use tags within user-generated text
+
+Tags are reserved for labelling and should not be used in place of content in user-generated
+long-form text or prompts, such as in editor.
+
+<DoDont
+	type="do"
+	image={{
+		url: tagDo4Light,
+		urlDarkMode: tagDo4Dark,
+		alt: 'Use tag to label and categorize items.',
+	}}
+>
+	Use tag to label and categorize items.
+</DoDont>
+<DoDont
+	type="dont"
+	image={{
+		url: tagDont4Light,
+		urlDarkMode: tagDont4Dark,
+		alt: 'Don’t use tags in line with user generated text.',
+	}}
+>
+	Don’t use tags in line with user generated text.
+</DoDont>
+
 ## Content guidelines
 
 - When writing tags, avoid line wrapping.
@@ -145,4 +175,4 @@ For all new features, we recommend using Atlassian Design System and other
 
 - For status information, use a [lozenge](/components/lozenge/lozenge).
 - For tallies or counts, use a [badge](/components/badge/badge).
-- For tagging people, use an [avatar tag](/components/tag/avatar-tag).
+- For tagging people, team, space, or projects, use an [avatar tag](/components/tag/avatar-tag).

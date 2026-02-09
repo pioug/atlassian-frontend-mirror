@@ -41,7 +41,7 @@ type CacheData<Data> = Record<
  * Represents the payload passed to the callback function when data is fetched.
  * It can either contain an error or the fetched data.
  */
-type CallbackPayload<Data> =
+export type CallbackPayload<Data> =
 	| {
 			data?: undefined;
 			/** An error that occurred while fetching data. */

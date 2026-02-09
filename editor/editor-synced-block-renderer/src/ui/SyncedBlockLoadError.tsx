@@ -5,7 +5,6 @@ import { useIntl } from 'react-intl-next';
 import Button from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -48,12 +47,7 @@ export const SyncedBlockLoadError = ({
 	);
 	return (
 		<SyncedBlockErrorStateCard description={formatMessage(messages.generalErrorDescription)}>
-			{onRetry &&
-				(fg('platform_synced_block_dogfooding') ? (
-					<Box xcss={styles.buttonContainer}>{button}</Box>
-				) : (
-					button
-				))}
+			{onRetry && <Box xcss={styles.buttonContainer}>{button}</Box>}
 		</SyncedBlockErrorStateCard>
 	);
 };

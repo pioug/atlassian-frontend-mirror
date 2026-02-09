@@ -1,5 +1,19 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.1.3
+
+### Patch Changes
+
+- [`376606c3c8197`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/376606c3c8197) -
+  FG cleanup - platform_ufo_enable_media_for_ttvc_v3
+
+## 5.1.2
+
+### Patch Changes
+
+- [`6ddf2105a76b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ddf2105a76b8) -
+  FG cleanup - platform_ufo_native_pagevisibility_monitoring
+
 ## 5.1.1
 
 ### Patch Changes

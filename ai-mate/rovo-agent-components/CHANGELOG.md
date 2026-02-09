@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 3.30.0
+
+### Minor Changes
+
+- [`ab19c61b46546`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab19c61b46546) -
+  pass onVerificationSuccess to verification dropdown in browse agent to handle relay connection
+  update
+
 ## 3.29.0
 
 ### Minor Changes

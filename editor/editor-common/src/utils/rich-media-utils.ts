@@ -2,7 +2,6 @@ import type { RichMediaAttributes, RichMediaLayout } from '@atlaskit/adf-schema'
 import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorBreakoutPadding } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { SnapPointsProps } from '../types';
@@ -30,7 +29,7 @@ export const isRichMediaInsideOfBlockNode = (view: EditorView, pos: number | boo
 
 	const { expand, nestedExpand, layoutColumn, bodiedSyncBlock } = view.state.schema.nodes;
 
-	if (editorExperiment('platform_synced_block', true) && fg('platform_synced_block_dogfooding')) {
+	if (editorExperiment('platform_synced_block', true)) {
 		return !!findParentNodeOfTypeClosestToPos($pos, [
 			expand,
 			nestedExpand,

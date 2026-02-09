@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.37.0
+
+### Minor Changes
+
+- [`37d704adec380`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/37d704adec380) -
+  Adds the `ensure-avatar-tag-avatar-props` eslint rule which ensures that the `avatar` prop on
+  `AvatarTag` does not include controlled props (`size`, `borderColor`, `appearance`). These are
+  managed internally by `AvatarTag` based on the `type` prop.
+
 ## 13.36.2
 
 ### Patch Changes

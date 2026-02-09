@@ -65,118 +65,19 @@ describe('Renderer - React/Nodes/Extension Inlined', () => {
 
 		eeTest
 			.describe('platform_editor_renderer_extension_width_fix', 'width fix enabled')
-			.variant(true, () => {
-				eeTest
-					.describe(
-						'platform_editor_render_bodied_extension_as_inline',
-						'inline experiment enabled',
-					)
-					.variant(true, () => {
-						it('with callback provided', () => {
-							const { getByTestId } = render(
-								<Extension {...baseProps} shouldDisplayExtensionAsInline={() => true} />,
-							);
-
-							const wrapper = getByTestId('extension--wrapper') as HTMLElement;
-							expect(wrapper).not.toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
-							expect(wrapper.style.width).toBe('100%');
-							expect(wrapper.style.minHeight).toBe('200px');
-						});
-
-						it('without callback', () => {
-							const { getByTestId } = render(<Extension {...baseProps} />);
-
-							const wrapper = getByTestId('extension--wrapper') as HTMLElement;
-							expect(wrapper).not.toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
-							expect(wrapper.style.width).toBe('100%');
-							expect(wrapper.style.minHeight).toBe('200px');
-						});
-					});
-
+			.each(() => {
 				eeTest
 					.describe(
 						'platform_editor_render_bodied_extension_as_inline',
 						'inline experiment disabled',
 					)
-					.variant(false, () => {
-						it('with callback returning true', () => {
+					.each(() => {
+						it('should never apply inline class (Extension does not support inline rendering)', () => {
 							const { getByTestId } = render(
 								<Extension {...baseProps} shouldDisplayExtensionAsInline={() => true} />,
 							);
 
 							const wrapper = getByTestId('extension--wrapper') as HTMLElement;
-							expect(wrapper).not.toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
-							expect(wrapper.style.width).toBe('100%');
-							expect(wrapper.style.minHeight).toBe('200px');
-						});
-
-						// eslint-disable-next-line jest/no-identical-title
-						it('without callback', () => {
-							const { getByTestId } = render(<Extension {...baseProps} />);
-
-							const wrapper = getByTestId('extension--wrapper') as HTMLElement;
-							expect(wrapper).not.toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
-							expect(wrapper.style.width).toBe('100%');
-							expect(wrapper.style.minHeight).toBe('200px');
-						});
-					});
-			});
-
-		eeTest
-			.describe('platform_editor_renderer_extension_width_fix', 'width fix disabled')
-			.variant(false, () => {
-				eeTest
-					.describe(
-						'platform_editor_render_bodied_extension_as_inline',
-						'inline experiment enabled',
-					)
-					.variant(true, () => {
-						// eslint-disable-next-line jest/no-identical-title
-						it('with callback returning true', () => {
-							const { container } = render(
-								<Extension {...baseProps} shouldDisplayExtensionAsInline={() => true} />,
-							);
-
-							const wrapper = container.querySelector(`.${RendererCssClassName.EXTENSION}`) as HTMLElement;
-							expect(wrapper).not.toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
-							expect(wrapper.style.width).toBe('100%');
-							expect(wrapper.style.minHeight).toBe('200px');
-						});
-
-						// eslint-disable-next-line jest/no-identical-title
-						it('without callback', () => {
-							const { container } = render(<Extension {...baseProps} />);
-
-							const wrapper = container.querySelector(`.${RendererCssClassName.EXTENSION}`) as HTMLElement;
-							expect(wrapper).not.toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
-							expect(wrapper.style.width).toBe('100%');
-							expect(wrapper.style.minHeight).toBe('200px');
-						});
-					});
-
-				eeTest
-					.describe(
-						'platform_editor_render_bodied_extension_as_inline',
-						'inline experiment disabled',
-					)
-					.variant(false, () => {
-						// eslint-disable-next-line jest/no-identical-title
-						it('with callback returning true', () => {
-							const { container } = render(
-								<Extension {...baseProps} shouldDisplayExtensionAsInline={() => true} />,
-							);
-
-							const wrapper = container.querySelector(`.${RendererCssClassName.EXTENSION}`) as HTMLElement;
-							expect(wrapper).not.toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
-							expect(wrapper.style.width).toBe('100%');
-							expect(wrapper.style.minHeight).toBe('200px');
-						});
-
-						// eslint-disable-next-line jest/no-identical-title
-						it('without callback', () => {
-							const { container } = render(<Extension {...baseProps} />);
-
-							const wrapper = container.querySelector(`.${RendererCssClassName.EXTENSION}`) as HTMLElement;
 							expect(wrapper).not.toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
 							expect(wrapper.style.width).toBe('100%');
 							expect(wrapper.style.minHeight).toBe('200px');
@@ -203,7 +104,7 @@ describe('Renderer - React/Nodes/Extension Inlined', () => {
 
 		eeTest
 			.describe('platform_editor_renderer_extension_width_fix', 'width fix enabled')
-			.variant(true, () => {
+			.each(() => {
 				eeTest
 					.describe(
 						'platform_editor_render_bodied_extension_as_inline',
@@ -265,80 +166,6 @@ describe('Renderer - React/Nodes/Extension Inlined', () => {
 							);
 
 							const wrapper = getByTestId('extension--wrapper') as HTMLElement;
-							expect(wrapper).not.toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
-							expect(wrapper.style.width).toBe('100%');
-							expect(wrapper.style.minHeight).toBe('112pxpx');
-						});
-					});
-			});
-
-		eeTest
-			.describe('platform_editor_renderer_extension_width_fix', 'width fix disabled')
-			.variant(false, () => {
-				eeTest
-					.describe(
-						'platform_editor_render_bodied_extension_as_inline',
-						'inline experiment enabled',
-					)
-					.variant(true, () => {
-						// eslint-disable-next-line jest/no-identical-title
-						it('with callback returning true - applies inline class and clears styles', () => {
-							const { container } = render(
-								<BodiedExtension {...baseProps} shouldDisplayExtensionAsInline={() => true}>
-									<p>Inline extension content</p>
-								</BodiedExtension>,
-							);
-
-							const wrapper = container.querySelector(`.${RendererCssClassName.EXTENSION}`) as HTMLElement;
-							expect(wrapper).toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
-							expect(wrapper.style.width).toBe('');
-							expect(wrapper.style.minHeight).toBe('');
-						});
-
-						// eslint-disable-next-line jest/no-identical-title
-						it('without callback - does not apply inline class and sets styles', () => {
-							const { container } = render(
-								<BodiedExtension {...baseProps}>
-									<p>Inline extension content</p>
-								</BodiedExtension>,
-							);
-
-							const wrapper = container.querySelector(`.${RendererCssClassName.EXTENSION}`) as HTMLElement;
-							expect(wrapper).not.toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
-							expect(wrapper.style.width).toBe('100%');
-							expect(wrapper.style.minHeight).toBe('112pxpx');
-						});
-					});
-
-				eeTest
-					.describe(
-						'platform_editor_render_bodied_extension_as_inline',
-						'inline experiment disabled',
-					)
-					.variant(false, () => {
-						// eslint-disable-next-line jest/no-identical-title
-						it('with callback returning true - does not apply inline class and sets styles', () => {
-							const { container } = render(
-								<BodiedExtension {...baseProps} shouldDisplayExtensionAsInline={() => true}>
-									<p>Inline extension content</p>
-								</BodiedExtension>,
-							);
-
-							const wrapper = container.querySelector(`.${RendererCssClassName.EXTENSION}`) as HTMLElement;
-							expect(wrapper).not.toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
-							expect(wrapper.style.width).toBe('100%');
-							expect(wrapper.style.minHeight).toBe('112pxpx');
-						});
-
-						// eslint-disable-next-line jest/no-identical-title
-						it('without callback - does not apply inline class and sets styles', () => {
-							const { container } = render(
-								<BodiedExtension {...baseProps}>
-									<p>Inline extension content</p>
-								</BodiedExtension>,
-							);
-
-							const wrapper = container.querySelector(`.${RendererCssClassName.EXTENSION}`) as HTMLElement;
 							expect(wrapper).not.toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
 							expect(wrapper.style.width).toBe('100%');
 							expect(wrapper.style.minHeight).toBe('112pxpx');

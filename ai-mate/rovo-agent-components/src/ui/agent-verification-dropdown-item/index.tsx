@@ -22,6 +22,11 @@ export type AgentVerificationDropdownItemProps = {
 	 */
 	onClick?: () => void;
 	/**
+	 * Optional callback fired when verification mutation succeeds.
+	 * Called with the new verified state.
+	 */
+	onVerificationSuccess?: (verified: boolean) => void;
+	/**
 	 * Test ID for the dropdown item.
 	 */
 	testId?: string;
@@ -36,6 +41,7 @@ export const AgentVerificationDropdownItem = ({
 	agentRef,
 	userPermissionsRef,
 	onClick,
+	onVerificationSuccess,
 	testId,
 }: AgentVerificationDropdownItemProps): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
@@ -110,6 +116,7 @@ export const AgentVerificationDropdownItem = ({
 		(verified: boolean) => {
 			if (!agentId) {return;}
 			onClick?.();
+
 			commitUpdateVerification({
 				variables: {
 					id: agentId,
@@ -118,6 +125,8 @@ export const AgentVerificationDropdownItem = ({
 				onCompleted: (response) => {
 					const payload = response?.agentStudio_updateAgentVerification;
 					if (payload?.success) {
+						onVerificationSuccess?.(verified);
+
 						trackAgentAction(verified ? AgentActions.VERIFY : AgentActions.UNVERIFY, {});
 						showFlag({
 							title: formatMessage(
@@ -149,6 +158,7 @@ export const AgentVerificationDropdownItem = ({
 			formatMessage,
 			handleError,
 			onClick,
+			onVerificationSuccess,
 			showFlag,
 			trackAgentAction,
 			trackAgentActionError,

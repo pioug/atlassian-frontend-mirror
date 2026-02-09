@@ -226,13 +226,6 @@ snapshot(InlineCardUnauthorised, {
 });
 
 snapshot(InlineCardUnauthorised, {
-	description: `inline card unauthorised view with experiment`,
-	featureFlags: {
-		platform_inline_smartcard_connect_button_exp: ['control', 'test1', 'test2'],
-	},
-});
-
-snapshot(InlineCardUnauthorised, {
 	description:
 		'inline card unauthorised view renders correctly when hovering over url in unauthorized view',
 	featureFlags: {},
@@ -247,13 +240,6 @@ snapshot(InlineCardUnauthorised, {
 snapshot(InlineCardUnauthorisedTruncate, {
 	description: `inline card unauthorised view with truncation`,
 	featureFlags: {},
-});
-
-snapshot(InlineCardUnauthorisedTruncate, {
-	description: `inline card unauthorised view with truncation and experiment`,
-	featureFlags: {
-		platform_inline_smartcard_connect_button_exp: ['control', 'test1'],
-	},
 });
 
 snapshot(InlineCardUnauthorised, {

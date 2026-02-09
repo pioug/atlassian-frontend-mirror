@@ -10,6 +10,7 @@ import {
 	type ErrorInfo,
 	type JSX,
 	type ReactInstance,
+	useEffect,
 } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -17,7 +18,7 @@ import { type Mark } from '@atlaskit/editor-prosemirror/model';
 import { useSmartCardContext } from '@atlaskit/link-provider';
 import { Card, getObjectAri, getObjectIconUrl, getObjectName } from '@atlaskit/smart-card';
 import { isWithinPreviewPanelIFrame } from '@atlaskit/linking-common/utils';
-import { useSmartLinkActions } from '@atlaskit/smart-card/hooks';
+import { useSmartLinkActions, useSmartLinkReload } from '@atlaskit/smart-card/hooks';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { HoverLinkOverlay, UnsupportedInline } from '@atlaskit/editor-common/ui';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
@@ -196,6 +197,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 	} = props;
 	const portal = usePortal(props);
 	const cardContext = useSmartCardContext();
+	const reload = useSmartLinkReload({ url: url || '' });
 	const [isResolvedViewRendered, setIsResolvedViewRendered] = useState(false);
 
 	const onClick = getCardClickHandler(eventHandlers, url);
@@ -219,9 +221,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 
 	const CompetitorPrompt = smartLinks?.CompetitorPrompt;
 	const CompetitorPromptComponent =
-		CompetitorPrompt && url ? (
-			<CompetitorPrompt sourceUrl={url} linkType="inline" />
-		) : null;
+		CompetitorPrompt && url ? <CompetitorPrompt sourceUrl={url} linkType="inline" /> : null;
 	const onError = ({ err }: { err?: Error }) => {
 		if (err) {
 			throw err;
@@ -230,8 +230,22 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 
 	const MaybeOverlay = cardContext?.value ? OverlayWithCardContext : HoverLinkOverlayNoop;
 
+	const cardState = cardContext?.value?.store?.getState()[url || ''];
+	useEffect(() => {
+		// if we render from cache, we want to make sure we reload the data in the background
+		if (
+			expValEquals('platform_editor_smartlink_local_cache', 'isEnabled', true) &&
+			!ssr &&
+			url &&
+			cardState?.status === 'resolved'
+		) {
+			reload();
+		}
+	});
+
 	if (
-		ssr &&
+		(ssr ||
+			(cardState && expValEquals('platform_editor_smartlink_local_cache', 'isEnabled', true))) &&
 		url &&
 		!editorExperiment('platform_editor_preview_panel_linking_exp', true, { exposure: true })
 	) {
@@ -273,7 +287,8 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 			</AnalyticsContext>
 		);
 	} else if (
-		ssr &&
+		(ssr ||
+			(cardState && expValEquals('platform_editor_smartlink_local_cache', 'isEnabled', true))) &&
 		url &&
 		editorExperiment('platform_editor_preview_panel_linking_exp', true, { exposure: true })
 	) {
@@ -469,7 +484,7 @@ const _default_1: {
 		// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 		setState: <K extends never>(
 			state: // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-				| {}
+			| {}
 				| ((
 						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 						prevState: Readonly<{}>,
@@ -574,7 +589,7 @@ const _default_1: {
 		// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 		setState: <K extends never>(
 			state: // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-				| {}
+			| {}
 				| ((
 						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 						prevState: Readonly<{}>,

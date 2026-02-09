@@ -1,9 +1,9 @@
 import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import Tag, { AvatarTag, SimpleTag } from '@atlaskit/tag';
+import TeamAvatar from '@atlaskit/teams-avatar';
 
 export default (): React.JSX.Element => (
 	<Box role="group" aria-label="Overview examples">
@@ -13,11 +13,30 @@ export default (): React.JSX.Element => (
 		<Tag href="https://some.link" text="Removable & linked" removeButtonLabel="Remove me" />
 		<Tag text="Overflowing text that will be cut off" />
 		<Tag text="Text with button that will be cut off" removeButtonLabel="Remove me" />
-		<AvatarTag text="A. Cool Name" avatar={Avatar} removeButtonLabel="Remove me" />
 		<AvatarTag
+			type="user"
+			text="A. Cool Name"
+			avatar={(props: any) => <Avatar {...props} />}
+			removeButtonLabel="Remove me"
+		/>
+		<AvatarTag
+			type="user"
 			href="https://some.link"
 			text="A. Cool Name"
-			avatar={Avatar}
+			avatar={(props: any) => <Avatar {...props} />}
+			removeButtonLabel="Remove me"
+		/>
+		<AvatarTag
+			type="other"
+			text="Design System Team"
+			avatar={(props: any) => <TeamAvatar {...props} name="Design System Team" />}
+			removeButtonLabel="Remove me"
+		/>
+		<AvatarTag
+			type="other"
+			href="https://some.link"
+			text="Engineering Team"
+			avatar={(props: any) => <TeamAvatar {...props} name="Engineering Team" />}
 			removeButtonLabel="Remove me"
 		/>
 		<SimpleTag text="standard color" color="standard" />

@@ -33,7 +33,6 @@ import {
 	DEFAULT_EMBED_CARD_HEIGHT,
 	DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { embedHeaderHeight } from '@atlaskit/smart-card';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -256,14 +255,15 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 
 	highlights = (newWidth: number, snapPoints: number[]) => {
 		const snapWidth = snapTo(newWidth, snapPoints);
-		const { layoutColumn, table, expand, nestedExpand, bodiedSyncBlock } = this.props.view.state.schema.nodes;
+		const { layoutColumn, table, expand, nestedExpand, bodiedSyncBlock } =
+			this.props.view.state.schema.nodes;
 
 		// Hide resizing guideline when embed is nested
 		if (
 			this.$pos &&
 			!!findParentNodeOfTypeClosestToPos(
 				this.$pos,
-				editorExperiment('platform_synced_block', true) && fg('platform_synced_block_dogfooding')
+				editorExperiment('platform_synced_block', true)
 					? [layoutColumn, table, expand, nestedExpand, bodiedSyncBlock]
 					: [layoutColumn, table, expand, nestedExpand],
 			)

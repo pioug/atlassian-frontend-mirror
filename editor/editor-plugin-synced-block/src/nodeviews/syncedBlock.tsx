@@ -22,7 +22,6 @@ import {
 	useFetchSyncBlockData,
 	useFetchSyncBlockTitle,
 } from '@atlaskit/editor-synced-block-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { removeSyncedBlockAtPos } from '../editor-commands';
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
@@ -78,19 +77,15 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 			return null;
 		}
 
-		const initialSyncBlockStore = fg('platform_synced_block_dogfooding')
-			? this.syncBlockStore
-			: undefined;
-
 		const syncBlockStore =
-			this.api?.syncedBlock?.sharedState.currentState()?.syncBlockStore ?? initialSyncBlockStore;
+			this.api?.syncedBlock?.sharedState.currentState()?.syncBlockStore ?? this.syncBlockStore;
 
 		if (!syncBlockStore) {
 			return null;
 		}
 
 		// get document node from data provider
-		return fg('platform_synced_block_dogfooding') ? (
+		return (
 			<ErrorBoundary
 				component={ACTION_SUBJECT.SYNCED_BLOCK}
 				dispatchAnalyticsEvent={this.api?.analytics?.actions.fireAnalyticsEvent}
@@ -123,21 +118,6 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 					/>
 				</SyncBlockActionsProvider>
 			</ErrorBoundary>
-		) : (
-			<SyncBlockRendererWrapper
-				localId={this.node.attrs.localId}
-				syncedBlockRenderer={this.options?.syncedBlockRenderer}
-				useFetchSyncBlockTitle={() => useFetchSyncBlockTitle(syncBlockStore, this.node)}
-				useFetchSyncBlockData={() =>
-					useFetchSyncBlockData(
-						syncBlockStore,
-						resourceId,
-						localId,
-						this.api?.analytics?.actions?.fireAnalyticsEvent,
-					)
-				}
-				api={this.api}
-			/>
 		);
 	}
 
@@ -161,20 +141,20 @@ export const syncBlockNodeView: (
 	getPos: getPosHandler,
 ) => ReactNodeView<SyncBlockNodeViewProps> =
 	({ options, pmPluginFactoryParams, api }: SyncBlockNodeViewProperties) =>
-		(
-			node: PMNode,
-			view: EditorView,
-			getPos: getPosHandler,
-		): ReactNodeView<SyncBlockNodeViewProps> => {
-			const { portalProviderAPI, eventDispatcher } = pmPluginFactoryParams;
+	(
+		node: PMNode,
+		view: EditorView,
+		getPos: getPosHandler,
+	): ReactNodeView<SyncBlockNodeViewProps> => {
+		const { portalProviderAPI, eventDispatcher } = pmPluginFactoryParams;
 
-			return new SyncBlock({
-				api,
-				options,
-				node,
-				view,
-				getPos: getPos as getPosHandlerNode,
-				portalProviderAPI,
-				eventDispatcher,
-			}).init();
-		};
+		return new SyncBlock({
+			api,
+			options,
+			node,
+			view,
+			getPos: getPos as getPosHandlerNode,
+			portalProviderAPI,
+			eventDispatcher,
+		}).init();
+	};

@@ -49,14 +49,15 @@ export const UNSAFE_MAIN_INLINE_END_FOR_LEGACY_PAGES_ONLY = `calc(var(${UNSAFE_a
  * rely on accessing them through global means.
  */
 export const localSlotLayers = {
+	// The side nav panel splitter is layered above the top nav when FHS and 'platform-dst-side-nav-layering-fixes' is enabled.
+	// It has the same z-index value, but is rendered after the top nav in the DOM so is stacked above.
+	sideNavPanelSplitterFHS: 4,
 	topBar: 4,
 	banner: 4,
-	// With the FHS layering refactors, the banner and top nav have a lower z-index to allow layers from the side nav to overlay them.
-	// When they all have equal z-index values, the DOM order determines the layering - meaning the side nav will be layered above the rest.
-	// But, when the top bar contains an open layer, it needs to be layered above the side nav, so has a higher value.
-	topNavFHSWithOpenLayer: 3,
-	bannerFHS: 2,
-	topNavFHS: 2,
+	// When FHS and 'platform-dst-side-nav-layering-fixes' is enabled, the side nav is layered below the top nav,
+	// but above the panel
+	bannerFHS: 3,
+	topNavFHS: 3,
 	sideNav: 2,
 	panelSmallViewports: 1,
 };

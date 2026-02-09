@@ -141,9 +141,9 @@ export const renderExtension = (
 					width: isInline
 						? undefined
 						: isTopLevel
-						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						  calcBreakoutWidthCss(layout as ExtensionLayout)
-						: '100%',
+							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								calcBreakoutWidthCss(layout as ExtensionLayout)
+							: '100%',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 					minHeight: isInline ? undefined : extensionHeight && `${extensionHeight}px`,
 				}}

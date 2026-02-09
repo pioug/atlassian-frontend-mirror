@@ -83,7 +83,7 @@ export function NavigationShellWithWideSideNav(): React.JSX.Element {
 	return <NavigationShellExample defaultSideNavWidth={800} siteTitle="Custom title" />;
 }
 
-export function NavigationShellWithToggleButtonSpotlight(): React.JSX.Element {
+export function NavigationShellWithToggleButtonOnboarding(): React.JSX.Element {
 	return (
 		<SpotlightManager>
 			<NavigationShellExample

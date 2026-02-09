@@ -11,7 +11,6 @@ import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state'
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode, findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 export function getSelectionType(selection: Selection): {
@@ -101,7 +100,7 @@ export function getStateContext<Payload extends BaseEventPayload = AnalyticsEven
 		payload.attributes
 	) {
 		payload.attributes.insertLocation = insertLocation;
-		if (editorExperiment('platform_synced_block', true) && fg('platform_synced_block_dogfooding')) {
+		if (editorExperiment('platform_synced_block', true)) {
 			const { bodiedSyncBlock } = selection.$from.doc.type.schema.nodes;
 			payload.attributes.isInsideSyncedBlock = Boolean(findParentNodeOfType(bodiedSyncBlock)(selection));
 		}

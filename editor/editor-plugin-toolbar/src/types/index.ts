@@ -33,12 +33,21 @@ export type ToolbarPluginOptions = {
 	 * Controls which toolbars are available for in the editor.
 	 *
 	 * The contextual formatting toolbar provides text formatting options (bold, italic, links, etc.)
-	 * that appear contextually based on user selection and interaction.
+	 * that appear contextually based on user selection.
+	 *
+	 * **Notes:**
+	 * - The inline text toolbar has only been tested to work in the full-page and chromless editor appearances.
+	 *
+	 * **Options:**
+	 * - `always-inline`: Formatting controls appear in a floating toolbar near selected text
+	 * - `always-pinned`: Formatting controls are pinned to the top toolbar (default)
+	 * - `controlled`: Both inline and primary toolbars are available - this option requires editor-plugin-selection-toolbar to be configured with
+	 * userPreferencesProvider to control the toolbar pinning.
 	 *
 	 * @remarks
 	 * This option determines where and when the formatting toolbar is displayed:
-	 * - **Primary Toolbar**: The toolbar mounted at the top of the editor that is always visible
-	 * - **Inline Text Toolbar**: A floating toolbar that appears near the selected text
+	 * - **Primary toolbar**: The toolbar mounted at the top of the editor that is always visible
+	 * - **Inline text toolbar**: A floating toolbar that appears near the selected text
 	 *
 	 * @example
 	 * ```tsx
@@ -58,6 +67,7 @@ export type ToolbarPluginOptions = {
 	 *
 	 * @example
 	 * ```tsx
+	 * // Must have editor-plugin-selection-toolbar configured with userPreferencesProvider
 	 * // Allow dynamic control of toolbar placement (both inline and primary available)
 	 * const toolbarPlugin = createToolbarPlugin({
 	 *   contextualFormattingEnabled: 'controlled',

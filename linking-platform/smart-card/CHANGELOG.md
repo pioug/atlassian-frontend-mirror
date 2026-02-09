@@ -1,5 +1,18 @@
 # @atlaskit/smart-card
 
+## 43.24.0
+
+### Minor Changes
+
+- [`5f7b94aaccfec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f7b94aaccfec) -
+  [ux] Cleaned up the platform_inline_smartcard_connect_button_exp experiment gate, enabling the
+  blue unauthorised connect button by default. Updated VR tests across multiple packages relying on
+  the inline smart card
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 43.23.7
 
 ### Patch Changes

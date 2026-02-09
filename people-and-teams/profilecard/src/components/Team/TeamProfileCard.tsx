@@ -2,10 +2,10 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
+import { isFedRamp } from '@atlaskit/atlassian-context';
 import Avatar from '@atlaskit/avatar';
 import AvatarGroup, { type AvatarGroupProps } from '@atlaskit/avatar-group';
 import Button, { IconButton, LinkButton } from '@atlaskit/button/new';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Lozenge from '@atlaskit/lozenge';
 import { LinkItem, MenuGroup } from '@atlaskit/menu';
@@ -415,11 +415,7 @@ const TeamProfilecardContent = ({
 	viewProfileOnClick,
 	isTriggeredByKeyboard,
 }: TeamProfilecardProps & { team: Team }) => {
-	const newTeamProfileEnabled = FeatureGates.getExperimentValue(
-		'new_team_profile',
-		'isEnabled',
-		false,
-	);
+	const newTeamProfileEnabled = !isFedRamp() || fg('new_team_profile_fedramp');
 	const isTeamArchived = team.state === 'DISBANDED' && newTeamProfileEnabled;
 	const allActions = [
 		{

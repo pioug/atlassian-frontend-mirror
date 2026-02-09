@@ -158,7 +158,7 @@ test.describe('full height sidebar', () => {
 		await expect(topNavStart).toHaveCSS('box-shadow', 'none');
 	});
 
-	test('side nav should be layered above top nav by default', async ({ page }) => {
+	test('side nav should be layered above top nav', async ({ page }) => {
 		await page.visitExample('design-system', 'navigation-system', 'side-nav-layering', {
 			featureFlag: 'navx-full-height-sidebar&featureFlag=platform-dst-side-nav-layering-fixes',
 		});
@@ -166,74 +166,6 @@ test.describe('full height sidebar', () => {
 		const sideNav = page.getByTestId('side-nav');
 		const topNav = page.getByTestId('top-nav');
 
-		// Equal z-index values, which means the DOM order determines the layering.
-		await expect(topNav).toHaveCSS('z-index', '2');
-		await expect(sideNav).toHaveCSS('z-index', '2');
-	});
-
-	test('top nav should be layered above side nav when there is an open popup in top nav start', async ({
-		page,
-	}) => {
-		await page.visitExample('design-system', 'navigation-system', 'side-nav-layering', {
-			featureFlag: 'navx-full-height-sidebar&featureFlag=platform-dst-side-nav-layering-fixes',
-		});
-
-		const sideNav = page.getByTestId('side-nav');
-		const topNav = page.getByTestId('top-nav');
-
-		await expect(topNav).toHaveCSS('z-index', '2');
-		await expect(sideNav).toHaveCSS('z-index', '2');
-
-		// Open a layer in top nav start
-		await page.getByRole('button', { name: 'Switch apps' }).click();
-
-		// Top nav now has an increased z-index
-		await expect(topNav).toHaveCSS('z-index', '3');
-		await expect(sideNav).toHaveCSS('z-index', '2');
-	});
-
-	test('top nav should be layered above side nav when there is an open popup in top nav middle', async ({
-		page,
-	}) => {
-		await page.visitExample('design-system', 'navigation-system', 'side-nav-layering', {
-			featureFlag: 'navx-full-height-sidebar&featureFlag=platform-dst-side-nav-layering-fixes',
-		});
-
-		const sideNav = page.getByTestId('side-nav');
-		const topNav = page.getByTestId('top-nav');
-
-		await expect(topNav).toHaveCSS('z-index', '2');
-		await expect(sideNav).toHaveCSS('z-index', '2');
-
-		// Open a layer in top nav start
-		await page.getByTestId('create-button').click();
-
-		// Top nav now has an increased z-index
-		await expect(topNav).toHaveCSS('z-index', '3');
-		await expect(sideNav).toHaveCSS('z-index', '2');
-	});
-
-	test('top nav should be layered above side nav when there is an open popup in top nav end', async ({
-		page,
-		skipAxeCheck,
-	}) => {
-		// The example is just for tests
-		skipAxeCheck();
-
-		await page.visitExample('design-system', 'navigation-system', 'side-nav-layering', {
-			featureFlag: 'navx-full-height-sidebar&featureFlag=platform-dst-side-nav-layering-fixes',
-		});
-
-		const sideNav = page.getByTestId('side-nav');
-		const topNav = page.getByTestId('top-nav');
-
-		await expect(topNav).toHaveCSS('z-index', '2');
-		await expect(sideNav).toHaveCSS('z-index', '2');
-
-		// Open a layer in top nav end
-		await page.getByRole('button', { name: 'Notifications' }).click();
-
-		// Top nav now has an increased z-index
 		await expect(topNav).toHaveCSS('z-index', '3');
 		await expect(sideNav).toHaveCSS('z-index', '2');
 	});

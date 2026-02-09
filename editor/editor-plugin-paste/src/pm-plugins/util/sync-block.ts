@@ -5,7 +5,6 @@ import type { PasteSource } from '@atlaskit/editor-common/analytics';
 import type { ExtractInjectionAPI, PasteWarningOptions } from '@atlaskit/editor-common/types';
 import { mapSlice } from '@atlaskit/editor-common/utils';
 import type { Fragment, Node, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { PastePluginActionTypes } from '../../editor-actions/actions';
 import type { PastePlugin, ActiveFlag } from '../../pastePluginType';
@@ -84,7 +83,7 @@ const hasSyncedBlockInRawHtml = (rawHtml: string): boolean => {
  * Otherwise, (e.g. if copying from renderer), flatten out the content and remove the sync block
  * Also, show a warning flag if the pasted content contains a synced block and the paste warning options are configured.
  */
-const handleSyncBlocksPasteNew = (
+export const handleSyncBlocksPaste = (
 	slice: Slice,
 	schema: Schema,
 	pasteSource: PasteSource,
@@ -124,43 +123,4 @@ const handleSyncBlocksPasteNew = (
 	}
 
 	return slice;
-};
-
-/**
- * If we are copying from editor, transform the copied source or reference sync block to a new reference sync block
- * Otherwise, (e.g. if copying from renderer), flatten out the content and remove the sync block
- */
-const handleSyncBlocksPasteOld: (
-	slice: Slice,
-	schema: Schema,
-	pasteSource: PasteSource,
-) => Slice = (slice: Slice, schema: Schema, pasteSource: PasteSource): Slice => {
-	const isFromEditor = pasteSource === 'fabric-editor';
-
-	slice = mapSlice(slice, (node: Node) => {
-		if (node.type === schema.nodes.syncBlock) {
-			return transformSyncBlockNode(node, schema, isFromEditor);
-		} else if (node.type === schema.nodes.bodiedSyncBlock) {
-			return transformBodiedSyncBlockNode(node, isFromEditor);
-		}
-
-		return node;
-	});
-
-	return slice;
-};
-
-export const handleSyncBlocksPaste = (
-	slice: Slice,
-	schema: Schema,
-	pasteSource: PasteSource,
-	rawHtml: string,
-	pasteWarningOptions: PasteWarningOptions | undefined,
-	api: ExtractInjectionAPI<PastePlugin> | undefined,
-): Slice => {
-	if (fg('platform_synced_block_dogfooding')) {
-		return handleSyncBlocksPasteNew(slice, schema, pasteSource, rawHtml, pasteWarningOptions, api);
-	} else {
-		return handleSyncBlocksPasteOld(slice, schema, pasteSource);
-	}
 };

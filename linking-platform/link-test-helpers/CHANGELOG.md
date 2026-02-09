@@ -1,5 +1,12 @@
 # @atlaskit/link-test-helpers
 
+## 9.0.2
+
+### Patch Changes
+
+- [`3efc955810f7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3efc955810f7f) -
+  Fix problem with some resources (Svg) not included in dist on npm
+
 ## 9.0.1
 
 ### Patch Changes

@@ -44,6 +44,9 @@
 			"path": "./tsconfig.app.json"
 		},
 		{
+			"path": "../../uip/atlassian-context/tsconfig.app.json"
+		},
+		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{

@@ -8,7 +8,6 @@ import type { EditorCommand, PMPluginFactoryParams } from '@atlaskit/editor-comm
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import Lozenge from '@atlaskit/lozenge';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { flushBodiedSyncBlocks, flushSyncBlocks } from './editor-actions';
 import {
@@ -66,19 +65,15 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 					plugin: (params: PMPluginFactoryParams) =>
 						createPlugin(config, params, syncBlockStore, api),
 				},
-				...(fg('platform_synced_block_dogfooding')
-					? [
-							{
-								name: 'menuAndToolbarExperiencesPlugin',
-								plugin: () =>
-									getMenuAndToolbarExperiencesPlugin({
-										refs,
-										dispatchAnalyticsEvent: (payload) =>
-											api?.analytics?.actions?.fireAnalyticsEvent(payload),
-									}),
-							},
-						]
-					: []),
+				{
+					name: 'menuAndToolbarExperiencesPlugin',
+					plugin: () =>
+						getMenuAndToolbarExperiencesPlugin({
+							refs,
+							dispatchAnalyticsEvent: (payload) =>
+								api?.analytics?.actions?.fireAnalyticsEvent(payload),
+						}),
+				},
 			];
 		},
 
@@ -87,19 +82,19 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 				copySyncedBlockReferenceToClipboardEditorCommand(syncBlockStore, inputMethod, api),
 			insertSyncedBlock:
 				(): EditorCommand =>
-				({ tr }) => {
-					if (!config?.enableSourceCreation) {
-						return null;
-					}
+					({ tr }) => {
+						if (!config?.enableSourceCreation) {
+							return null;
+						}
 
-					return (
-						createSyncedBlock({
-							tr,
-							syncBlockStore,
-							fireAnalyticsEvent: api?.analytics?.actions.fireAnalyticsEvent,
-						}) || null
-					);
-				},
+						return (
+							createSyncedBlock({
+								tr,
+								syncBlockStore,
+								fireAnalyticsEvent: api?.analytics?.actions.fireAnalyticsEvent,
+							}) || null
+						);
+					},
 		},
 
 		actions: {
@@ -148,9 +143,7 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 								fireAnalyticsEvent: api?.analytics?.actions.fireAnalyticsEvent,
 							});
 						},
-						testId: fg('platform_synced_block_dogfooding')
-							? SYNCED_BLOCK_BUTTON_TEST_ID.quickInsertCreate
-							: undefined,
+						testId: SYNCED_BLOCK_BUTTON_TEST_ID.quickInsertCreate,
 					},
 				];
 			},
@@ -179,11 +172,13 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 				activeFlag,
 				syncBlockStore: currentSyncBlockStore,
 				bodiedSyncBlockDeletionStatus,
+				retryCreationPosMap,
 			} = syncedBlockPluginKey.getState(editorState);
 			return {
 				activeFlag,
 				syncBlockStore: currentSyncBlockStore,
 				bodiedSyncBlockDeletionStatus,
+				retryCreationPosMap,
 			};
 		},
 	};

@@ -27,6 +27,9 @@
 			"path": "../../../analytics/analytics-next/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../uip/atlassian-context/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/avatar/afm-products/tsconfig.json"
 		},
 		{

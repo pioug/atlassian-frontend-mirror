@@ -1,5 +1,33 @@
 # @atlaskit/editor-statsig-tmp
 
+## 22.1.0
+
+### Minor Changes
+
+- [`2126e50c0c9e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2126e50c0c9e4) -
+  [EDITOR-4926] add new experiment to statsig config
+
+## 22.0.0
+
+### Major Changes
+
+- [`5f7b94aaccfec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f7b94aaccfec) -
+  [ux] Cleaned up the platform_inline_smartcard_connect_button_exp experiment gate, enabling the
+  blue unauthorised connect button by default. Updated VR tests across multiple packages relying on
+  the inline smart card
+
+## 21.2.0
+
+### Minor Changes
+
+- [`506d872ef2503`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/506d872ef2503) -
+  Add smartlink response caching to browser storage to reduce layoutshift on transition and page
+  load
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.1.0
 
 ### Minor Changes

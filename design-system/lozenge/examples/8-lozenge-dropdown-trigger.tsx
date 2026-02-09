@@ -11,7 +11,7 @@ import { jsx } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import Heading from '@atlaskit/heading';
 import ImageIcon from '@atlaskit/icon/core/image';
-import Lozenge, { type LozengeDropdownTriggerProps, type NewLozengeColor } from '@atlaskit/lozenge';
+import Lozenge, { type NewLozengeColor, type SemanticColor } from '@atlaskit/lozenge';
 import LozengeDropdownTrigger from '@atlaskit/lozenge/lozenge-dropdown-trigger';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -57,7 +57,7 @@ const styles = cssMap({
  * including a chevron icon and selected state support.
  */
 export default function LozengeDropdownTriggerExample() {
-	const semanticColors: LozengeDropdownTriggerProps['appearance'][] = [
+	const semanticColors: SemanticColor[] = [
 		'success',
 		'warning',
 		'danger',
@@ -66,7 +66,7 @@ export default function LozengeDropdownTriggerExample() {
 		'neutral',
 	];
 
-	const accentColors: LozengeDropdownTriggerProps['appearance'][] = [
+	const accentColors: NewLozengeColor[] = [
 		'accent-red',
 		'accent-orange',
 		'accent-yellow',
@@ -103,7 +103,7 @@ export default function LozengeDropdownTriggerExample() {
 				<Heading size="medium">Semantic colors</Heading>
 				<Text>Dropdown trigger lozenges with semantic colors. Click to toggle selected state.</Text>
 				<Box xcss={styles.section}>
-					{semanticColors.map((color) => (
+					{semanticColors.map((color: SemanticColor) => (
 						<Box key={color}>
 							<Box xcss={styles.label}>{color}</Box>
 							<Box xcss={styles.group}>
@@ -119,8 +119,23 @@ export default function LozengeDropdownTriggerExample() {
 								</LozengeDropdownTrigger>
 								<LozengeDropdownTrigger
 									appearance={color}
+									trailingMetric="3"
+									testId={`semantic-${color}-metric`}
+								>
+									{color}
+								</LozengeDropdownTrigger>
+								<LozengeDropdownTrigger
+									appearance={color}
 									spacing="spacious"
 									testId={`semantic-${color}-spacious`}
+								>
+									{color}
+								</LozengeDropdownTrigger>
+								<LozengeDropdownTrigger
+									appearance={color}
+									spacing="spacious"
+									trailingMetric="3"
+									testId={`semantic-${color}-spacious-metric`}
 								>
 									{color}
 								</LozengeDropdownTrigger>
@@ -158,6 +173,28 @@ export default function LozengeDropdownTriggerExample() {
 							</Box>
 						</Box>
 					))}
+				</Box>
+			</Box>
+
+			<Box>
+				<Heading size="medium">Spacing</Heading>
+				<Text>Default vs spacious spacing variants.</Text>
+				<Box xcss={styles.group}>
+					<LozengeDropdownTrigger appearance="information">default</LozengeDropdownTrigger>
+					<LozengeDropdownTrigger appearance="information" spacing="spacious">
+						spacious
+					</LozengeDropdownTrigger>
+					<LozengeDropdownTrigger appearance="success" spacing="spacious" trailingMetric="3">
+						spacious w/ metric
+					</LozengeDropdownTrigger>
+					<LozengeDropdownTrigger
+						appearance="success"
+						spacing="spacious"
+						trailingMetric="12"
+						iconBefore={ImageIcon}
+					>
+						spacious w/ icon + metric
+					</LozengeDropdownTrigger>
 				</Box>
 			</Box>
 

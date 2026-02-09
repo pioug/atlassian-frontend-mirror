@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-analytics
 
+## 7.0.8
+
+### Patch Changes
+
+- [`7ba3979b92b42`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ba3979b92b42) -
+  Remove platform_synced_block_dogfooding feature gate
+- Updated dependencies
+
+## 7.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.6
 
 ### Patch Changes

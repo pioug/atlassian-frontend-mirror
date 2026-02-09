@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { CardErrorBoundary } from '../../../../react/nodes/fallback';
 import { captureException } from '@atlaskit/linking-common/sentry';
 
@@ -49,13 +50,15 @@ describe('Renderer - Fallback analytics', () => {
 
 		render(
 			<AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
-				<CardErrorBoundary
-					unsupportedComponent={MockedUnsupportedInline}
-					isDatasource={true}
-					{...args}
-				>
-					{renderComponent}
-				</CardErrorBoundary>
+				<Provider client={new Client('staging')}>
+					<CardErrorBoundary
+						unsupportedComponent={MockedUnsupportedInline}
+						isDatasource={true}
+						{...args}
+					>
+						{renderComponent}
+					</CardErrorBoundary>
+				</Provider>
 			</AnalyticsListener>,
 		);
 

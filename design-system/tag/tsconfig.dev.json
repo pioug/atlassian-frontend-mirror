@@ -55,6 +55,9 @@
 			"path": "../avatar/tsconfig.app.json"
 		},
 		{
+			"path": "../code/tsconfig.app.json"
+		},
+		{
 			"path": "../css/tsconfig.app.json"
 		},
 		{
@@ -80,6 +83,9 @@
 		},
 		{
 			"path": "../tag-group/tsconfig.app.json"
+		},
+		{
+			"path": "../../people-and-teams/teams-avatar/tsconfig.app.json"
 		},
 		{
 			"path": "../tokens/tsconfig.app.json"

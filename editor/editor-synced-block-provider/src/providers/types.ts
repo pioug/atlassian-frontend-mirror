@@ -113,11 +113,7 @@ export interface ADFWriteProvider {
 	 * @returns Object representing the result of the deletion. {resourceId: string, success: boolean, error?: string}.
 	 * User should not be blocked by not_found error when deleting, so successful result should be returned for 404 error
 	 */
-	deleteData: (
-		resourceId: ResourceId,
-		// Remove undefined when clean up platform_synced_block_dogfooding
-		deleteReason: string | undefined,
-	) => Promise<DeleteSyncBlockResult>;
+	deleteData: (resourceId: ResourceId, deleteReason: string) => Promise<DeleteSyncBlockResult>;
 	generateResourceIdForReference: (sourceId: ResourceId) => ResourceId;
 	parentAri?: string;
 	product: SyncBlockProduct;
@@ -157,10 +153,7 @@ export type SyncedBlockRendererProviderOptions = {
 	providerCreator?: SyncBlockRendererProviderCreator;
 };
 
-export abstract class SyncBlockDataProvider extends NodeDataProvider<
-	SyncBlockNode,
-	SyncBlockInstance
-> {
+export abstract class SyncBlockDataProvider extends NodeDataProvider<SyncBlockNode, SyncBlockInstance> {
 	abstract writeNodesData(
 		nodes: SyncBlockNode[],
 		data: SyncBlockData[],
@@ -168,7 +161,7 @@ export abstract class SyncBlockDataProvider extends NodeDataProvider<
 	abstract createNodeData(data: SyncBlockData): Promise<WriteSyncBlockResult>;
 	abstract deleteNodesData(
 		resourceIds: string[],
-		deleteReason: DeletionReason | undefined,
+		deleteReason: DeletionReason,
 	): Promise<Array<DeleteSyncBlockResult>>;
 	abstract fetchSyncBlockSourceInfo(
 		localId?: BlockInstanceId,

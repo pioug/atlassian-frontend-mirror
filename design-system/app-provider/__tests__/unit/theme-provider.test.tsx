@@ -363,7 +363,7 @@ describe('ThemeProvider', () => {
 			};
 
 			// Mock getGlobalTheme to return merged theme
-			jest.spyOn(tokens, 'getGlobalTheme').mockReturnValue({
+			const getGlobalThemeSpy = jest.spyOn(tokens, 'getGlobalTheme').mockReturnValue({
 				...initialTheme,
 				...partialTheme,
 			});
@@ -378,6 +378,9 @@ describe('ThemeProvider', () => {
 			expect(screen.getByTestId('theme-light')).toHaveTextContent('light-increased-contrast');
 			expect(screen.getByTestId('theme-dark')).toHaveTextContent('dark');
 			expect(screen.getByTestId('theme-spacing')).toHaveTextContent('spacing');
+
+			// Restore the spy to prevent it from affecting other tests
+			getGlobalThemeSpy.mockRestore();
 		});
 
 		// Tests for fallback logic when ThemeProvider is not used
@@ -391,7 +394,7 @@ describe('ThemeProvider', () => {
 				}),
 			);
 
-			jest.spyOn(tokens, 'getGlobalTheme').mockReturnValue({
+			const getGlobalThemeSpy = jest.spyOn(tokens, 'getGlobalTheme').mockReturnValue({
 				light: 'light',
 				dark: 'dark',
 				spacing: 'spacing',
@@ -401,6 +404,30 @@ describe('ThemeProvider', () => {
 			expect(screen.getByTestId('theme-light')).toHaveTextContent('light');
 			expect(screen.getByTestId('theme-dark')).toHaveTextContent('dark');
 			expect(screen.getByTestId('theme-spacing')).toHaveTextContent('spacing');
+			// Restore the spy to prevent it from affecting other tests
+			getGlobalThemeSpy.mockRestore();
+		});
+
+		it('should return default theme when UNSAFE_isThemingDisabled is true', async () => {
+			document.documentElement.setAttribute('data-theme', tokens.themeObjectToString({
+				light: 'dark',
+				dark: 'dark',
+				spacing: 'spacing',
+			}));
+
+			const InnerComponent = () => {
+				const theme = useTheme();
+				return <div data-testid="theme-light">{theme.light}</div>;
+			};
+
+			render(
+				<AppProvider UNSAFE_isThemingDisabled>
+					<InnerComponent />
+				</AppProvider>,
+			);
+
+			expect(document.documentElement).toHaveAttribute('data-theme', 'light:dark dark:dark spacing:spacing');
+			expect(screen.getByTestId('theme-light')).toHaveTextContent('dark');
 		});
 	});
 
@@ -569,6 +596,51 @@ describe('ThemeProvider', () => {
 		});
 
 		describe('Theme Loading', () => {
+			it('should not load and mount themes when UNSAFE_isThemingDisabled is true', async () => {
+				render(
+					<AppProvider UNSAFE_isThemingDisabled>
+						<div>Test</div>
+					</AppProvider>,
+				);
+				await waitFor(() => {
+					expect(loadAndMountThemesSpy).not.toHaveBeenCalled();
+				});
+				expect(document.documentElement).not.toHaveAttribute('data-theme');
+				expect(document.documentElement).not.toHaveAttribute('data-color-mode');
+			});
+
+			ffTest.on(
+				'platform_dst_subtree_theming',
+				'should behave as a sub-tree ThemeProvider when an AppProvider with UNSAFE_isThemingDisabled',
+				() => {
+					it('should behave as a sub-tree ThemeProvider when an AppProvider with UNSAFE_isThemingDisabled', async () => {
+						const customTheme: Partial<Theme> = {
+							light: 'light-increased-contrast',
+							dark: 'dark-increased-contrast',
+						};
+						render(
+							<AppProvider UNSAFE_isThemingDisabled>
+								<ThemeProvider defaultTheme={customTheme}>
+									<div>Test</div>
+								</ThemeProvider>
+							</AppProvider>,
+						);
+						await waitFor(() => {
+							expect(loadAndMountThemesSpy).toHaveBeenCalled();
+						});
+						expect(document.documentElement).not.toHaveAttribute('data-theme');
+						expect(document.documentElement).not.toHaveAttribute('data-color-mode');
+						expect(loadAndMountThemesSpy).toHaveBeenCalledWith(
+							expect.objectContaining({
+								light: 'light-increased-contrast',
+								dark: 'dark-increased-contrast',
+								spacing: 'spacing',
+								typography: 'typography',
+							}),
+						);
+					});
+				});
+
 			ffTest.on(
 				'platform_dst_subtree_theming',
 				'should load and mount themes when feature flag is enabled and nested',

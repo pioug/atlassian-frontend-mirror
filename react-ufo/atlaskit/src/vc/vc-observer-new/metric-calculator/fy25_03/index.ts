@@ -47,9 +47,7 @@ const getConsideredEntryTypes = (
 		entryTypes.push('mutation:smart-answers-attribute');
 	}
 
-	if (fg('platform_ufo_enable_media_for_ttvc_v3')) {
-		entryTypes.push('mutation:media');
-	}
+	entryTypes.push('mutation:media');
 
 	// Still included as part of TTVC v3
 	entryTypes.push('mutation:attribute:non-visual-input-name');

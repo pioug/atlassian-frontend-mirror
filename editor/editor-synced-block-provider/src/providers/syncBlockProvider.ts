@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 
 import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getProductFromSourceAri } from '../clients/block-service/ari';
 import { getPageIdAndTypeFromConfluencePageAri } from '../clients/confluence/ari';
@@ -98,35 +97,11 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 			return [];
 		}
 
-		if (fg('platform_synced_block_dogfooding')) {
-			try {
-				return await this.fetchProvider.batchFetchData(blockIdentifiers);
-			} catch {
-				// If batch fetch fails, fall back to individual fetch behavior
-				// This allows loading states to be shown before errors, matching non-batch behavior
-				return Promise.allSettled(
-					blockIdentifiers.map((blockIdentifier) => {
-						return this.fetchProvider.fetchData(blockIdentifier.resourceId).then(
-							(data) => {
-								return data;
-							},
-							() => {
-								return {
-									error: { type: SyncBlockError.Errored },
-									resourceId: blockIdentifier.resourceId,
-								};
-							},
-						);
-					}),
-				).then((results) => {
-					return results
-						.filter((result): result is PromiseFulfilledResult<SyncBlockInstance> => {
-							return result.status === 'fulfilled';
-						})
-						.map((result) => result.value);
-				});
-			}
-		} else {
+		try {
+			return await this.fetchProvider.batchFetchData(blockIdentifiers);
+		} catch {
+			// If batch fetch fails, fall back to individual fetch behavior
+			// This allows loading states to be shown before errors, matching non-batch behavior
 			return Promise.allSettled(
 				blockIdentifiers.map((blockIdentifier) => {
 					return this.fetchProvider.fetchData(blockIdentifier.resourceId).then(
@@ -206,7 +181,7 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 	 */
 	async deleteNodesData(
 		resourceIds: ResourceId[],
-		deletionReason: DeletionReason | undefined,
+		deletionReason: DeletionReason,
 	): Promise<Array<DeleteSyncBlockResult>> {
 		if (!this.writeProvider) {
 			return Promise.reject(new Error('Write provider not set'));
@@ -246,13 +221,8 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 		urlType: 'view' | 'edit' = 'edit',
 		isUnpublished?: boolean,
 	): Promise<SyncBlockSourceInfo | undefined> {
-		let ari = sourceAri,
-			product = sourceProduct;
-
-		if (fg('platform_synced_block_dogfooding')) {
-			ari = sourceAri ?? this.writeProvider?.parentAri;
-			product = sourceProduct ?? getProductFromSourceAri(ari);
-		}
+		const ari = sourceAri ?? this.writeProvider?.parentAri;
+		const product = sourceProduct ?? getProductFromSourceAri(ari);
 
 		if (!ari || !product) {
 			return Promise.reject(new Error('Source ari or source product is undefined'));
@@ -265,39 +235,31 @@ export class SyncBlockProvider extends SyncBlockDataProvider {
 					hasAccess,
 					urlType,
 					localId,
-					fireAnalyticsEvent,
 					isUnpublished,
 				);
 
-				if (fg('platform_synced_block_dogfooding')) {
-					if (!sourceInfo) {
-						return Promise.resolve(undefined);
-					}
-					return {
-						...sourceInfo,
-						onSameDocument: this.writeProvider?.parentAri === ari,
-						productType: product,
-					};
-				} else {
-					return sourceInfo;
+				if (!sourceInfo) {
+					return Promise.resolve(undefined);
 				}
+				return {
+					...sourceInfo,
+					onSameDocument: this.writeProvider?.parentAri === ari,
+					productType: product,
+				};
 			}
 			case 'jira-work-item':
-				if (fg('platform_synced_block_dogfooding')) {
-					const sourceInfo: SyncBlockSourceInfo | undefined = await fetchJiraWorkItemInfo(
-						ari,
-						hasAccess,
-					);
-					if (!sourceInfo) {
-						return Promise.resolve(undefined);
-					}
-					return {
-						...sourceInfo,
-						onSameDocument: this.writeProvider?.parentAri === ari,
-						productType: product,
-					};
+				const sourceInfo: SyncBlockSourceInfo | undefined = await fetchJiraWorkItemInfo(
+					ari,
+					hasAccess,
+				);
+				if (!sourceInfo) {
+					return Promise.resolve(undefined);
 				}
-				return Promise.reject(new Error('Jira work item source product not supported'));
+				return {
+					...sourceInfo,
+					onSameDocument: this.writeProvider?.parentAri === ari,
+					productType: product,
+				};
 			default:
 				return Promise.reject(new Error(`${product} source product not supported`));
 		}

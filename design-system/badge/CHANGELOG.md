@@ -1,5 +1,13 @@
 # @atlaskit/badge
 
+## 18.4.0
+
+### Minor Changes
+
+- [`6d33a20db82a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d33a20db82a1) -
+  [ux] Changed the badge background to use subtler semantic tokens (the new badge is still behind a
+  feature flag platform-dst-lozenge-tag-badge-visual-uplifts).
+
 ## 18.3.4
 
 ### Patch Changes

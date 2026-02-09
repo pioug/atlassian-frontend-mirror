@@ -17,7 +17,7 @@ import CompositionExample, {
 	CompositionVR,
 } from '../../../../../examples/composition';
 import NavigationShellExample, {
-	NavigationShellWithToggleButtonSpotlight,
+	NavigationShellWithToggleButtonOnboarding,
 	NavigationShellWithWideSideNav,
 } from '../../../../../examples/navigation-shell';
 import { SideNavLayering } from '../../../../../examples/side-nav-layering';
@@ -262,7 +262,7 @@ snapshotInformational(NavigationShellExample, {
 /**
  * Ensuring that spotlights on the toggle button won't regress from the margin-left around it.
  */
-snapshotInformational(NavigationShellWithToggleButtonSpotlight, {
+snapshotInformational(NavigationShellWithToggleButtonOnboarding, {
 	description: 'spotlight on toggle button',
 	drawsOutsideBounds: true,
 	variants: [variants.desktop],
@@ -329,15 +329,14 @@ snapshotInformational(CompositionVR, {
 		'navx-full-height-sidebar': true,
 		// Testing both variants as there's no existing test coverage for this when just FHS is enabled.
 		'platform-dst-side-nav-layering-fixes': [true, false],
+		platform_dst_nav4_side_nav_resize_tooltip_feedback: true,
 	},
-	states: [
-		{
-			state: 'hovered',
-			selector: {
-				byTestId: 'side-nav-panel-splitter',
-			},
-		},
-	],
+	prepare: async (page) => {
+		await page.getByTestId('side-nav-panel-splitter').hover();
+
+		// Explicitly wait for tooltip to appear to avoid flake
+		await page.getByRole('tooltip').waitFor();
+	},
 });
 
 snapshotInformational(CompositionNoBannerVR, {
@@ -348,15 +347,14 @@ snapshotInformational(CompositionNoBannerVR, {
 		'navx-full-height-sidebar': true,
 		// Testing both variants as there's no existing test coverage for this when just FHS is enabled.
 		'platform-dst-side-nav-layering-fixes': [true, false],
+		platform_dst_nav4_side_nav_resize_tooltip_feedback: true,
 	},
-	states: [
-		{
-			state: 'hovered',
-			selector: {
-				byTestId: 'side-nav-panel-splitter',
-			},
-		},
-	],
+	prepare: async (page) => {
+		await page.getByTestId('side-nav-panel-splitter').hover();
+
+		// Explicitly wait for tooltip to appear to avoid flake
+		await page.getByRole('tooltip').waitFor();
+	},
 });
 
 snapshotInformational(CompositionVR, {
@@ -368,28 +366,20 @@ snapshotInformational(CompositionVR, {
 		'navx-full-height-sidebar': true,
 		// Testing both variants as there's no existing test coverage for this when just FHS is enabled.
 		'platform-dst-side-nav-layering-fixes': [true, false],
+		platform_dst_nav4_side_nav_resize_tooltip_feedback: true,
 	},
-	states: [
-		{
-			state: 'hovered',
-			selector: {
-				byTestId: 'side-nav-panel-splitter',
-			},
-		},
-	],
 	prepare: async (page) => {
 		// Setting the viewport width to between 64rem (1024px) and 48rem (768px) to test the side nav as an overlay.
 		await page.setViewportSize({ width: 900, height: 1024 });
 
 		// Expand the side nav, as it collapses by default below 64rem
 		await page.getByRole('button', { name: 'Expand sidebar' }).click();
-		// Moving mouse so the button is no longer hovered, to avoid potential flake from tooltips
-		await page.mouse.move(0, 0);
-		// Explicitly wait for tooltip to disappear to avoid flake
-		await page.getByRole('tooltip').waitFor({ state: 'hidden' });
 
 		// Hover over the panel splitter
 		await page.getByTestId('side-nav-panel-splitter').hover();
+
+		// Explicitly wait for tooltip to appear to avoid flake
+		await page.getByRole('tooltip').waitFor();
 	},
 });
 
@@ -400,6 +390,7 @@ snapshotInformational(SideNavLayering, {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_flyoutmenuitem_render_to_parent: true,
+		platform_dst_nav4_flyout_menu_slots_close_button: true,
 	},
 	prepare: async (page) => {
 		// Open the flyout menu item with lots of content

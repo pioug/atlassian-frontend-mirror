@@ -35,6 +35,12 @@
 			"path": "../editor-json-transformer/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-prosemirror/tsconfig.app.json"
+		},
+		{
+			"path": "../../helpers/frontend-utilities/tsconfig.app.json"
+		},
+		{
 			"path": "../../linking-platform/json-ld-types/tsconfig.app.json"
 		},
 		{
@@ -48,6 +54,9 @@
 		},
 		{
 			"path": "../../linking-platform/linking-common/tsconfig.app.json"
+		},
+		{
+			"path": "../../linking-platform/linking-types/tsconfig.app.json"
 		},
 		{
 			"path": "../node-data-provider/tsconfig.app.json"

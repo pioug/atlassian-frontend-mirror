@@ -58,8 +58,8 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 	const [isCloseConfirmModalOpen, setIsCloseConfirmModalOpen] = useState(false);
 	const [isDirty, setIsDirty] = useState(false);
 	const iframeEl = useRef(null);
-	const messageListenerEventHandler = useRef((_e: any) => {});
-	const unloadEventHandler = useRef((_e: any) => {});
+	const messageListenerEventHandler = useRef((_e: any) => { });
+	const unloadEventHandler = useRef((_e: any) => { });
 	const intl = useIntl();
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -96,11 +96,12 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 						props.recipient?.type === KudosType.TEAM ? props.recipient.recipientId : undefined,
 					KudosType: props.recipient?.type,
 					recipientId: props.recipient?.recipientId,
+					...(action === 'opened' && props.openedEventAttributes),
 				},
 			});
 			analyticsEvent.fire(ANALYTICS_CHANNEL);
 		},
-		[analyticsSource, createAnalyticsEvent, props.recipient],
+		[analyticsSource, createAnalyticsEvent, props.recipient, props.openedEventAttributes],
 	);
 
 	const closeDrawer = useCallback(() => {
@@ -140,18 +141,18 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 						),
 						actions: isActionsEnabled
 							? [
-									{
-										content: (
-											<Inline space="space.050" alignBlock="center">
-												<FormattedMessage {...messages.kudosCreatedActionFlag} />
-												<LinkExternalIcon label="" color="currentColor" />
-											</Inline>
-										),
-										href: `${teamCentralBaseUrl}/people/kudos/${flagEvent.kudosUuid}`,
-										target: '_blank',
-										onClick: () => undefined,
-									},
-								]
+								{
+									content: (
+										<Inline space="space.050" alignBlock="center">
+											<FormattedMessage {...messages.kudosCreatedActionFlag} />
+											<LinkExternalIcon label="" color="currentColor" />
+										</Inline>
+									),
+									href: `${teamCentralBaseUrl}/people/kudos/${flagEvent.kudosUuid}`,
+									target: '_blank',
+									onClick: () => undefined,
+								},
+							]
 							: undefined,
 						type: 'success',
 					});
@@ -298,9 +299,8 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 	const populateRecipientsViaParam = props.prepopulateRecipientsVia
 		? `&entityType=${props.prepopulateRecipientsVia.entityType}&entityARI=${props.prepopulateRecipientsVia.entityARI}`
 		: '';
-	const giveKudosUrl = `${props.teamCentralBaseUrl}/give-kudos?cloudId=${
-		props.cloudId
-	}${recipientParam}${populateRecipientsViaParam}&unsavedMessage=${intl.formatMessage(messages.unsavedKudosWarning)}`;
+	const giveKudosUrl = `${props.teamCentralBaseUrl}/give-kudos?cloudId=${props.cloudId
+		}${recipientParam}${populateRecipientsViaParam}&unsavedMessage=${intl.formatMessage(messages.unsavedKudosWarning)}`;
 
 	const renderDrawer = useMemo(() => {
 		if (props.isOpen) {

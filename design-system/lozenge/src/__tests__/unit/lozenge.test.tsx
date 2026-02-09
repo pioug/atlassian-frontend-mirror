@@ -30,6 +30,17 @@ describe('Lozenge', () => {
 			expect(lozenge).toHaveAttribute('class', expect.stringMatching(/^(_[a-z0-9]{8}\s?)+$/));
 		});
 
+		it('should render metric badge when provided', () => {
+			render(
+				<Lozenge testId="with-metric" appearance="success" trailingMetric="3">
+					Hello
+				</Lozenge>,
+			);
+
+			expect(screen.getByTestId('with-metric--metric')).toBeInTheDocument();
+			expect(screen.getByText('3')).toBeInTheDocument();
+		});
+
 		it('should support spacing prop', () => {
 			render(
 				<Lozenge testId="spacious" appearance="neutral" spacing="spacious">

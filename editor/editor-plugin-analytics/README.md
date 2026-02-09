@@ -1,9 +1,21 @@
-# Editor plugin analytics
+# Editor Plugin Analytics
 
 Analytics plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Analytics plugin provides comprehensive event tracking and performance monitoring capabilities for the Atlassian Editor. It integrates with `@atlaskit/analytics-next` to capture, process, and dispatch analytics events during editor operations.
+
+## Key features
+
+- **Event tracking** - Capture and track editor actions and state changes
+- **Performance monitoring** - Measure render performance and DOM update timings
+- **Event queuing** - Queue analytics events when dependencies are not yet available
+- **Flexible configuration** - Configure analytics event creation and performance tracking options
+- **Transaction integration** - Attach analytics payloads directly to ProseMirror transactions
 
 ## Install
 ---

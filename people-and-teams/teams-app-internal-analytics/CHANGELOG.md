@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.24.1
+
+### Patch Changes
+
+- [`618326bff43d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/618326bff43d8) -
+  PTC-15081: Add analytics for user profile tabs - hierarchy/goals/projects/kudos
+
 ## 1.24.0
 
 ### Minor Changes

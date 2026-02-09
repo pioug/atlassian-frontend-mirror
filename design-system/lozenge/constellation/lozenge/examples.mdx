@@ -14,6 +14,7 @@ import NewLozengeWithIcon from '../../examples/constellation/new-lozenge-with-ic
 import NewLozengeAccentColors from '../../examples/constellation/new-lozenge-accent-colors';
 import NewLozengeMaxWidth from '../../examples/constellation/new-lozenge-max-width';
 import NewLozengeSpacing from '../../examples/constellation/new-lozenge-spacing';
+import NewLozengeMetric from '../../examples/constellation/new-lozenge-metric';
 
 ## Appearance
 
@@ -76,6 +77,15 @@ Lozenges can include an icon before the text to provide additional visual contex
 `iconBefore` prop with an [icon](/components/icon) component.
 
 <Example Component={NewLozengeWithIcon} packageName="@atlaskit/lozenge" />
+
+## Trailing metric
+
+Use `trailingMetric` to display a numeric metric as a badge inside the lozenge.
+
+Use `trailingMetricAppearance` to override the metric badge appearance (semantic appearances only),
+for example to highlight a warning or error state, or to use `inverse`.
+
+<Example Component={NewLozengeMetric} packageName="@atlaskit/lozenge" />
 
 ## Spacing
 

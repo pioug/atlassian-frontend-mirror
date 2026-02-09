@@ -1,5 +1,24 @@
 # @atlaskit/app-provider
 
+## 4.1.0
+
+### Minor Changes
+
+- [`233c7dede572a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/233c7dede572a) -
+  Fixes a bug with `AppProvider` where under certain conditions, can cause an infinite loop
+  switching between light/dark modes.
+
+  This was happening because of this check:
+  `const isRootThemeProvider = isInsideAppProvider && !isInsideThemeProvider;`
+
+  When an `AppProvider` has `UNSAFE_isThemingDisabled`, it avoids mounting it's root
+  `ThemeProvider`. However, any subsequently nested `ThemeProvider`s would become the root theme
+  provider of `AppProvider`, which uninintentionally enables global theming functionality.
+
+  The fix is to allow `ThemeProvider` to detect when a wrapping `AppProvider` has theming disabled,
+  which allows it to accurately determine if it is the root theme provider before enabling global
+  theming.
+
 ## 4.0.0
 
 ### Major Changes

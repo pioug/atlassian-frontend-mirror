@@ -101,10 +101,8 @@ function setup() {
 				pushHidden(result.name === 'hidden', result.startTime);
 			}
 
-			if (fg('platform_ufo_native_pagevisibility_monitoring')) {
-				if (result.name === 'hidden') {
-					hasHiddenTimingBeforeSetup = true;
-				}
+			if (result.name === 'hidden') {
+				hasHiddenTimingBeforeSetup = true;
 			}
 		});
 	} catch {

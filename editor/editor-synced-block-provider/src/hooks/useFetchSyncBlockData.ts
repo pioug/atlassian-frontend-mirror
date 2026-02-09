@@ -4,12 +4,10 @@ import { type RendererSyncBlockEventPayload } from '@atlaskit/editor-common/anal
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ProviderFactory, MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SyncBlockError } from '../common/types';
 import type { SyncBlockInstance } from '../providers/types';
 import type { SyncBlockStoreManager } from '../store-manager/syncBlockStoreManager';
-import { fetchErrorPayload } from '../utils/errorHandling';
 import { createSyncBlockNode } from '../utils/utils';
 
 type SSRProviders = { media?: MediaProvider | null };
@@ -26,7 +24,7 @@ export const useFetchSyncBlockData = (
 	manager: SyncBlockStoreManager,
 	resourceId?: string,
 	localId?: string,
-	fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
+	_fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
 ): UseFetchSyncBlockDataResult => {
 	// Initialize both states from a single cache lookup to avoid race conditions.
 	// When a block is moved/remounted, the old component's cleanup may clear the cache
@@ -62,11 +60,7 @@ export const useFetchSyncBlockData = (
 			logException(error as Error, {
 				location: 'editor-synced-block-provider/useFetchSyncBlockData',
 			});
-			if (fg('platform_synced_block_dogfooding')) {
-				manager?.referenceManager?.fetchExperience?.failure({ reason: (error as Error).message });
-			} else {
-				fireAnalyticsEvent?.(fetchErrorPayload((error as Error).message));
-			}
+			manager?.referenceManager?.fetchExperience?.failure({ reason: (error as Error).message });
 
 			// Set error state if fetching fails
 			setFetchState({
@@ -79,7 +73,7 @@ export const useFetchSyncBlockData = (
 			return;
 		}
 		setFetchState((prev) => ({ ...prev, isLoading: false }));
-	}, [isLoading, localId, manager.referenceManager, resourceId, fireAnalyticsEvent]);
+	}, [isLoading, localId, manager.referenceManager, resourceId]);
 
 	useEffect(() => {
 		if (isSSR()) {

@@ -20,7 +20,6 @@ import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { ButtonItem } from '@atlaskit/menu';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { B400, N30, N800 } from '@atlaskit/theme/colors';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -341,7 +340,7 @@ export const TypeAheadListItem = React.memo(
 					role="option"
 					ref={buttonItemRef}
 					isDisabled={itemIsDisabled}
-					testId={editorExperiment('platform_synced_block', true) && fg('platform_synced_block_dogfooding') ? item.testId : undefined}
+					testId={editorExperiment('platform_synced_block', true) ? item.testId : undefined}
 					// @ts-ignore
 					css={listItemClasses}
 				>

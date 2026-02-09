@@ -2933,9 +2933,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 					? denseStyles
 					: undefined,
 				expValEquals('platform_synced_block', 'isEnabled', true) && syncBlockStyles,
-				expValEquals('platform_synced_block', 'isEnabled', true) &&
-					fg('platform_synced_block_dogfooding') &&
-					syncBlockOverflowStyles,
+				expValEquals('platform_synced_block', 'isEnabled', true) && syncBlockOverflowStyles,
 			]}
 			data-testid={testId}
 		>

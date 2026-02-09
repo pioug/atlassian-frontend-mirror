@@ -14,7 +14,10 @@ import {
 } from '../common/types';
 import type { SyncBlockDataProvider } from '../providers/types';
 import { fetchReferencesErrorPayload } from '../utils/errorHandling';
-import { getFetchReferencesExperience, getFetchSourceInfoExperience } from '../utils/experienceTracking';
+import {
+	getFetchReferencesExperience,
+	getFetchSourceInfoExperience,
+} from '../utils/experienceTracking';
 
 import { ReferenceSyncBlockStoreManager } from './referenceSyncBlockStoreManager';
 import { SourceSyncBlockStoreManager } from './sourceSyncBlockStoreManager';
@@ -39,7 +42,9 @@ export class SyncBlockStoreManager {
 		this.sourceSyncBlockStoreManager = new SourceSyncBlockStoreManager(dataProvider);
 		this.referenceSyncBlockStoreManager = new ReferenceSyncBlockStoreManager(dataProvider);
 		this.dataProvider = dataProvider;
-		this.referenceSyncBlockStoreManager.setRealTimeSubscriptionsEnabled(fg('platform_synced_block_patch_1'));
+		this.referenceSyncBlockStoreManager.setRealTimeSubscriptionsEnabled(
+			fg('platform_synced_block_patch_1'),
+		);
 	}
 
 	public async fetchReferencesSourceInfo(
@@ -65,7 +70,9 @@ export class SyncBlockStoreManager {
 				if (isSourceSyncBlock) {
 					this.fetchReferencesExperience?.success();
 				} else {
-					this.fetchReferencesExperience?.failure({ reason: 'No references found for reference synced block'});
+					this.fetchReferencesExperience?.failure({
+						reason: 'No references found for reference synced block',
+					});
 				}
 				return isSourceSyncBlock ? { references: [] } : { error: SyncBlockError.Errored };
 			}
@@ -82,7 +89,9 @@ export class SyncBlockStoreManager {
 					'view',
 				);
 				if (!sourceInfo) {
-					this.fetchSourceInfoExperience?.failure({ reason: `no source info returned for ari: ${reference.documentAri}`});
+					this.fetchSourceInfoExperience?.failure({
+						reason: `no source info returned for ari: ${reference.documentAri}`,
+					});
 					return undefined;
 				}
 				this.fetchSourceInfoExperience?.success();
@@ -125,10 +134,8 @@ export class SyncBlockStoreManager {
 		this.referenceSyncBlockStoreManager.setFireAnalyticsEvent(fireAnalyticsEvent);
 		this.sourceSyncBlockStoreManager.setFireAnalyticsEvent(fireAnalyticsEvent);
 
-		if (fg('platform_synced_block_dogfooding')) {
-			this.fetchReferencesExperience = getFetchReferencesExperience(fireAnalyticsEvent);
-			this.fetchSourceInfoExperience = getFetchSourceInfoExperience(fireAnalyticsEvent);
-		}
+		this.fetchReferencesExperience = getFetchReferencesExperience(fireAnalyticsEvent);
+		this.fetchSourceInfoExperience = getFetchSourceInfoExperience(fireAnalyticsEvent);
 	}
 
 	public get referenceManager(): ReferenceSyncBlockStoreManager {

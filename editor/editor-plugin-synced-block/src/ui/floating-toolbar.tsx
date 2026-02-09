@@ -46,6 +46,11 @@ export const getToolbarConfig = (
 		return;
 	}
 
+	if (syncBlockStore.sourceManager.isPendingCreation(syncBlockObject.node.attrs.resourceId) && fg('platform_synced_block_patch_1')) {
+		return;
+	}
+
+
 	const syncBlockInstance = syncBlockStore.referenceManager.getFromCache(
 		syncBlockObject.node.attrs.resourceId,
 	);
@@ -79,18 +84,13 @@ export const getToolbarConfig = (
 			title: formatMessage(commonMessages.delete),
 			onClick: removeSyncedBlock(api),
 			icon: DeleteIcon,
-			testId: fg('platform_synced_block_dogfooding')
-				? SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarReferenceDelete
-				: undefined,
-			...hoverDecorationProps(
-				nodeType,
-				fg('platform_synced_block_dogfooding') ? undefined : akEditorSelectedNodeClassName,
-			),
+			testId: SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarReferenceDelete,
+			...hoverDecorationProps(nodeType, akEditorSelectedNodeClassName),
 		};
 
 		items.push(deleteButton);
 	} else {
-		if (!isErroredBlock && fg('platform_synced_block_dogfooding')) {
+		if (!isErroredBlock) {
 			const syncedLocation: FloatingToolbarItem<Command> = {
 				type: 'custom',
 				fallback: [],

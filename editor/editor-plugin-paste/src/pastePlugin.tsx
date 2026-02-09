@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { PastePlugin } from './pastePluginType';
@@ -43,20 +42,15 @@ export const pastePlugin: PastePlugin = ({ config, api }) => {
 			];
 		},
 
-		contentComponent:
-			!editorExperiment('platform_synced_block', true) || !fg('platform_synced_block_dogfooding')
-				? undefined
-				: () => {
-						if (!pasteWarningOptions) {
-							return null;
-						}
+		contentComponent: !editorExperiment('platform_synced_block', true)
+			? undefined
+			: () => {
+					if (!pasteWarningOptions) {
+						return null;
+					}
 
-						return (
-							<>
-								<Flag api={api} />
-							</>
-						);
-				  },
+					return <Flag api={api} />;
+			},
 
 		getSharedState: (editorState) => {
 			if (!editorState) {

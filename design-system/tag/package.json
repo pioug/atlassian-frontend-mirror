@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tag",
-	"version": "14.3.2",
+	"version": "14.4.0",
 	"description": "A tag labels UI objects for quick recognition and navigation.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -35,15 +35,16 @@
 					"title": "Tag",
 					"id": "tag",
 					"status": {
-						"type": "alpha",
-						"description": "This is an experiment under a feature flag. We may make frequent breaking changes with limited notice. We don't recommend using this without support from our team."
+						"type": "beta",
+						"description": "New and ready to use. We'll provide comms and support for any major changes."
 					}
 				},
 				{
 					"title": "AvatarTag",
 					"id": "avatar-tag",
 					"status": {
-						"type": "alpha"
+						"type": "beta",
+						"description": "New and ready to use. We'll provide comms and support for any major changes."
 					}
 				}
 			]
@@ -66,6 +67,7 @@
 		"@atlaskit/motion": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/teams-avatar": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*"
@@ -77,6 +79,7 @@
 		"@af/accessibility-testing": "workspace:^",
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
+		"@atlaskit/code": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/tag-group": "workspace:^",

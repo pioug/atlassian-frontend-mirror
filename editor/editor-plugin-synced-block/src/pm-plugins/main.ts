@@ -1,4 +1,9 @@
-import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
 import {
@@ -21,14 +26,20 @@ import {
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { lazyBodiedSyncBlockView } from '../nodeviews/bodiedLazySyncedBlock';
-import { lazySyncBlockView } from '../nodeviews/lazySyncedBlock';
 import { SyncBlock as SyncBlockView } from '../nodeviews/syncedBlock';
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
-import { FLAG_ID, type ActiveFlag, type BodiedSyncBlockDeletionStatus } from '../types';
+import {
+	FLAG_ID,
+	type ActiveFlag,
+	type BodiedSyncBlockDeletionStatus,
+	type RetryCreationPosEntry,
+	type RetryCreationPosMap,
+} from '../types';
 
+import { handleBodiedSyncBlockCreation } from './utils/handle-bodied-sync-block-creation';
 import {
 	handleBodiedSyncBlockRemoval,
-	type ConfirmationTransactionRef,
+	type TransactionRef,
 } from './utils/handle-bodied-sync-block-removal';
 import { shouldIgnoreDomEvent } from './utils/ignore-dom-event';
 import { calculateDecorations } from './utils/selection-decorations';
@@ -40,8 +51,39 @@ export const syncedBlockPluginKey = new PluginKey('syncedBlockPlugin');
 type SyncedBlockPluginState = {
 	activeFlag: ActiveFlag;
 	bodiedSyncBlockDeletionStatus?: BodiedSyncBlockDeletionStatus;
+	retryCreationPosMap: RetryCreationPosMap;
 	selectionDecorationSet: DecorationSet;
 	syncBlockStore: SyncBlockStoreManager;
+};
+
+const mapRetryCreationPosMap = (
+	oldMap: RetryCreationPosMap,
+	newRetryCreationPos: RetryCreationPosEntry | undefined,
+	mapPos: (pos: number) => number,
+): RetryCreationPosMap => {
+	const resourceId = newRetryCreationPos?.resourceId;
+	const newMap = new Map(oldMap);
+	if (resourceId) {
+		const pos = newRetryCreationPos.pos;
+
+		if (!pos) {
+			newMap.delete(resourceId);
+		} else {
+			newMap.set(resourceId, pos);
+		}
+	}
+	if (newMap.size === 0) {
+		return newMap;
+	}
+
+	for (const [id, pos] of newMap.entries()) {
+		newMap.set(id, {
+			from: mapPos(pos.from),
+			to: mapPos(pos.to),
+		});
+	}
+
+	return newMap;
 };
 
 const showCopiedFlag = (api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined) => {
@@ -70,28 +112,27 @@ export const createPlugin = (
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>,
 ) => {
 	const { useLongPressSelection = false } = options || {};
-	const confirmationTransactionRef: ConfirmationTransactionRef = { current: undefined };
+	const confirmationTransactionRef: TransactionRef = { current: undefined };
 	// Track if a copy event occurred to distinguish copy from drag and drop
 	let isCopyEvent: boolean = false;
 	// Track which sync blocks have already triggered the unpublished flag
 	const unpublishedFlagShown = new Set<string>();
 
 	// Set up callback to detect unpublished sync blocks when they're fetched
-	fg('platform_synced_block_dogfooding') &&
-		syncBlockStore.referenceManager.setOnUnpublishedSyncBlockDetected((resourceId: string) => {
-			// Only show the flag once per sync block
-			if (!unpublishedFlagShown.has(resourceId)) {
-				unpublishedFlagShown.add(resourceId);
-				// Use setTimeout to dispatch transaction in next tick and avoid re-entrant dispatch
-				setTimeout(() => {
-					api?.core.actions.execute(({ tr }) => {
-						return tr.setMeta(syncedBlockPluginKey, {
-							activeFlag: { id: FLAG_ID.UNPUBLISHED_SYNC_BLOCK_PASTED },
-						});
+	syncBlockStore.referenceManager.setOnUnpublishedSyncBlockDetected((resourceId: string) => {
+		// Only show the flag once per sync block
+		if (!unpublishedFlagShown.has(resourceId)) {
+			unpublishedFlagShown.add(resourceId);
+			// Use setTimeout to dispatch transaction in next tick and avoid re-entrant dispatch
+			setTimeout(() => {
+				api?.core.actions.execute(({ tr }) => {
+					return tr.setMeta(syncedBlockPluginKey, {
+						activeFlag: { id: FLAG_ID.UNPUBLISHED_SYNC_BLOCK_PASTED },
 					});
-				}, 0);
-			}
-		});
+				});
+			}, 0);
+		}
+	});
 
 	return new SafePlugin<SyncedBlockPluginState>({
 		key: syncedBlockPluginKey,
@@ -111,22 +152,39 @@ export const createPlugin = (
 					),
 					activeFlag: false,
 					syncBlockStore: syncBlockStore,
+					retryCreationPosMap: new Map(),
 				};
 			},
 			apply: (tr, currentPluginState, oldEditorState) => {
 				const meta = tr.getMeta(syncedBlockPluginKey);
 
-				const { activeFlag, selectionDecorationSet, bodiedSyncBlockDeletionStatus } =
-					currentPluginState;
+				const {
+					activeFlag,
+					selectionDecorationSet,
+					bodiedSyncBlockDeletionStatus,
+					retryCreationPosMap,
+				} = currentPluginState;
 
 				let newDecorationSet = selectionDecorationSet.map(tr.mapping, tr.doc);
 				if (!tr.selection.eq(oldEditorState.selection)) {
 					newDecorationSet = calculateDecorations(tr.doc, tr.selection, tr.doc.type.schema);
 				}
+
+				let newRetryCreationPosMap = retryCreationPosMap;
+				if (fg('platform_synced_block_patch_1')) {
+					const newPosEntry = meta?.retryCreationPos;
+
+					newRetryCreationPosMap = mapRetryCreationPosMap(
+						retryCreationPosMap,
+						newPosEntry,
+						tr.mapping.map.bind(tr.mapping),
+					);
+				}
 				return {
 					activeFlag: meta?.activeFlag ?? activeFlag,
 					selectionDecorationSet: newDecorationSet,
 					syncBlockStore: syncBlockStore,
+					retryCreationPosMap: newRetryCreationPosMap,
 					bodiedSyncBlockDeletionStatus:
 						meta?.bodiedSyncBlockDeletionStatus ?? bodiedSyncBlockDeletionStatus,
 				};
@@ -134,28 +192,22 @@ export const createPlugin = (
 		},
 		props: {
 			nodeViews: {
-				syncBlock: fg('platform_synced_block_dogfooding')
-					? (node, view, getPos, _decorations) => {
-							// To support SSR, pass `syncBlockStore` here
-							// and do not use lazy loading.
-							// We cannot start rendering and then load `syncBlockStore` asynchronously,
-							// because obtaining it is asynchronous (sharedPluginState.currentState() is delayed).
-							return new SyncBlockView({
-								api,
-								options,
-								node,
-								view,
-								getPos,
-								portalProviderAPI: pmPluginFactoryParams.portalProviderAPI,
-								eventDispatcher: pmPluginFactoryParams.eventDispatcher,
-								syncBlockStore: syncBlockStore,
-							}).init();
-						}
-					: lazySyncBlockView({
-							options,
-							pmPluginFactoryParams,
-							api,
-						}),
+				syncBlock: (node, view, getPos, _decorations) => {
+					// To support SSR, pass `syncBlockStore` here
+					// and do not use lazy loading.
+					// We cannot start rendering and then load `syncBlockStore` asynchronously,
+					// because obtaining it is asynchronous (sharedPluginState.currentState() is delayed).
+					return new SyncBlockView({
+						api,
+						options,
+						node,
+						view,
+						getPos,
+						portalProviderAPI: pmPluginFactoryParams.portalProviderAPI,
+						eventDispatcher: pmPluginFactoryParams.eventDispatcher,
+						syncBlockStore: syncBlockStore,
+					}).init();
+				},
 				bodiedSyncBlock: lazyBodiedSyncBlockView({
 					pluginOptions: options,
 					pmPluginFactoryParams,
@@ -163,8 +215,10 @@ export const createPlugin = (
 				}),
 			},
 			decorations: (state) => {
+				const currentPluginState = syncedBlockPluginKey.getState(state);
 				const selectionDecorationSet: DecorationSet =
-					syncedBlockPluginKey.getState(state)?.selectionDecorationSet ?? DecorationSet.empty;
+					currentPluginState?.selectionDecorationSet ?? DecorationSet.empty;
+				const syncBlockStore: SyncBlockStoreManager = currentPluginState?.syncBlockStore;
 				const { doc } = state;
 
 				const isOffline = isOfflineMode(api?.connectivity?.sharedState.currentState()?.mode);
@@ -172,6 +226,7 @@ export const createPlugin = (
 
 				const offlineDecorations: Decoration[] = [];
 				const viewModeDecorations: Decoration[] = [];
+				const loadingDecorations: Decoration[] = [];
 
 				state.doc.descendants((node, pos) => {
 					if (node.type.name === 'bodiedSyncBlock' && isOffline) {
@@ -192,9 +247,24 @@ export const createPlugin = (
 							}),
 						);
 					}
+
+					if (
+						node.type.name === 'bodiedSyncBlock' &&
+						syncBlockStore.sourceManager.isPendingCreation(node.attrs.resourceId) &&
+						fg('platform_synced_block_patch_1')
+					) {
+						loadingDecorations.push(
+							Decoration.node(pos, pos + node.nodeSize, {
+								class: SyncBlockStateCssClassName.creationLoadingClassName,
+							}),
+						);
+					}
 				});
 
-				return selectionDecorationSet.add(doc, offlineDecorations).add(doc, viewModeDecorations);
+				return selectionDecorationSet
+					.add(doc, offlineDecorations)
+					.add(doc, viewModeDecorations)
+					.add(doc, loadingDecorations);
 			},
 			handleClickOn: createSelectionClickHandler(
 				['bodiedSyncBlock'],
@@ -260,8 +330,19 @@ export const createPlugin = (
 			const isOffline = isOfflineMode(api?.connectivity?.sharedState.currentState()?.mode);
 			const isConfirmedSyncBlockDeletion = Boolean(tr.getMeta('isConfirmedSyncBlockDeletion'));
 
+			const hasNoPendingRequest = fg('platform_synced_block_patch_1')
+				? false
+				: // requireConfirmationBeforeDelete is always true, so this evaluates to false and hence redundant
+					!syncBlockStore?.sourceManager.requireConfirmationBeforeDelete() &&
+					!syncBlockStore.sourceManager.hasPendingCreation();
+
+			const isCommitsCreation = fg('platform_synced_block_patch_1')
+				? false
+				: // For patch 1, we don't intercept the insert transaction, hence it's redundant
+					Boolean(tr.getMeta('isCommitSyncBlockCreation'));
+
 			// Track newly added reference sync blocks before processing the transaction
-			if (tr.docChanged && !tr.getMeta('isRemote') && fg('platform_synced_block_dogfooding')) {
+			if (tr.docChanged && !tr.getMeta('isRemote')) {
 				const { added } = trackSyncBlocks((node) => node.type.name === 'syncBlock', tr, state);
 				// Mark newly added sync blocks so we can detect unpublished status when data is fetched
 				added.forEach((nodeInfo) => {
@@ -277,10 +358,9 @@ export const createPlugin = (
 			// and are not yet confirmed for sync block deletion
 			if (
 				!tr.docChanged ||
-				(!syncBlockStore?.sourceManager.requireConfirmationBeforeDelete() &&
-					!syncBlockStore.sourceManager.hasPendingCreation()) ||
+				hasNoPendingRequest ||
 				Boolean(tr.getMeta('isRemote')) ||
-				Boolean(tr.getMeta('isCommitSyncBlockCreation')) ||
+				isCommitsCreation ||
 				(!isOffline && isConfirmedSyncBlockDeletion)
 			) {
 				return true;
@@ -293,39 +373,37 @@ export const createPlugin = (
 			);
 
 			if (!isOffline) {
-				if (fg('platform_synced_block_dogfooding')) {
-					const { removed: syncBlockRemoved, added: syncBlockAdded } = trackSyncBlocks(
-						(node) => node.type.name === 'syncBlock',
-						tr,
-						state,
-					);
+				const { removed: syncBlockRemoved, added: syncBlockAdded } = trackSyncBlocks(
+					(node) => node.type.name === 'syncBlock',
+					tr,
+					state,
+				);
 
-					syncBlockRemoved.forEach((syncBlock) => {
-						api?.analytics?.actions?.fireAnalyticsEvent({
-							action: ACTION.DELETED,
-							actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
-							actionSubjectId: ACTION_SUBJECT_ID.REFERENCE_SYNCED_BLOCK_DELETE,
-							attributes: {
-								resourceId: syncBlock.attrs.resourceId,
-								blockInstanceId: syncBlock.attrs.localId,
-							},
-							eventType: EVENT_TYPE.OPERATIONAL,
-						});
-					})
-
-					syncBlockAdded.forEach((syncBlock) => {
-						api?.analytics?.actions?.fireAnalyticsEvent({
-							action: ACTION.INSERTED,
-							actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
-							actionSubjectId: ACTION_SUBJECT_ID.REFERENCE_SYNCED_BLOCK_CREATE,
-							attributes: {
-								resourceId: syncBlock.attrs.resourceId,
-								blockInstanceId: syncBlock.attrs.localId,
-							},
-							eventType: EVENT_TYPE.OPERATIONAL,
-						});
+				syncBlockRemoved.forEach((syncBlock) => {
+					api?.analytics?.actions?.fireAnalyticsEvent({
+						action: ACTION.DELETED,
+						actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+						actionSubjectId: ACTION_SUBJECT_ID.REFERENCE_SYNCED_BLOCK_DELETE,
+						attributes: {
+							resourceId: syncBlock.attrs.resourceId,
+							blockInstanceId: syncBlock.attrs.localId,
+						},
+						eventType: EVENT_TYPE.OPERATIONAL,
 					});
-				};
+				});
+
+				syncBlockAdded.forEach((syncBlock) => {
+					api?.analytics?.actions?.fireAnalyticsEvent({
+						action: ACTION.INSERTED,
+						actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+						actionSubjectId: ACTION_SUBJECT_ID.REFERENCE_SYNCED_BLOCK_CREATE,
+						attributes: {
+							resourceId: syncBlock.attrs.resourceId,
+							blockInstanceId: syncBlock.attrs.localId,
+						},
+						eventType: EVENT_TYPE.OPERATIONAL,
+					});
+				});
 
 				if (bodiedSyncBlockRemoved.length > 0) {
 					confirmationTransactionRef.current = tr;
@@ -334,7 +412,7 @@ export const createPlugin = (
 						syncBlockStore,
 						api,
 						confirmationTransactionRef,
-						fg('platform_synced_block_dogfooding') ? getDeleteReason(tr) : undefined,
+						getDeleteReason(tr),
 					);
 				}
 
@@ -345,18 +423,23 @@ export const createPlugin = (
 						// After true is returned here and the node is created, we delete the node in the filterTransaction immediately, which cancels out the creation
 						return true;
 					}
+					if (fg('platform_synced_block_patch_1')) {
+						handleBodiedSyncBlockCreation(bodiedSyncBlockAdded, state, api);
 
-					// If there is bodiedSyncBlock node addition and it's waiting for the result of saving the node to backend (syncBlockStore.hasPendingCreation()),
-					// we need to intercept the transaction and save it in insert callback so that we only insert it to the document when backend call if backend call is successful
-					// The callback will be evoked by in SourceSyncBlockStoreManager.commitPendingCreation
-					syncBlockStore.sourceManager.registerCreationCallback(() => {
-						api?.core?.actions.execute(() => {
-							return tr.setMeta('isCommitSyncBlockCreation', true);
+						return true;
+					} else {
+						// If there is bodiedSyncBlock node addition and it's waiting for the result of saving the node to backend (syncBlockStore.hasPendingCreation()),
+						// we need to intercept the transaction and save it in insert callback so that we only insert it to the document when backend call if backend call is successful
+						// The callback will be evoked by in SourceSyncBlockStoreManager.commitPendingCreation
+						syncBlockStore.sourceManager.registerCreationCallback(() => {
+							api?.core?.actions.execute(() => {
+								return tr.setMeta('isCommitSyncBlockCreation', true);
+							});
+							api?.core.actions.focus();
 						});
-						api?.core.actions.focus();
-					});
 
-					return false;
+						return false;
+					}
 				}
 			} else {
 				const { removed: syncBlockRemoved, added: syncBlockAdded } = trackSyncBlocks(

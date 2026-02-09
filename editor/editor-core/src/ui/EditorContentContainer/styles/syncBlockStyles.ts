@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { css, type SerializedStyles } from '@emotion/react';
+import { css, type SerializedStyles, keyframes } from '@emotion/react';
 
 import {
 	BodiedSyncBlockSharedCssClassName,
@@ -11,6 +11,7 @@ import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const syncBlockStyles: SerializedStyles = css({
+	'@property --angle': { syntax: '"<angle>"', initialValue: '0deg', inherits: 'false' },
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
@@ -111,6 +112,26 @@ export const syncBlockStyles: SerializedStyles = css({
 					'&::before': {
 						border: 'none',
 					},
+				},
+			},
+
+			/* Creation loading state */
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			[`&.${SyncBlockStateCssClassName.creationLoadingClassName}`]: {
+				animation: `${keyframes({
+					from: { '--angle': '0deg' },
+					to: { '--angle': '360deg' },
+				})} 2s linear infinite`,
+				border: '1px solid transparent',
+				background: `linear-gradient(${token('elevation.surface')}, ${token('elevation.surface')}) padding-box, conic-gradient(from var(--angle), #1868DB, ${token('color.background.accent.purple.subtlest.pressed')}, #3279E0, #1868DB) border-box`,
+				backgroundClip: 'padding-box, border-box',
+
+				boxShadow: 'none',
+				transition: 'boxShadow 200ms ease-in',
+
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values,  @atlaskit/ui-styling-standard/no-imported-style-values
+				[`.${SyncBlockLabelSharedCssClassName.labelClassName}`]: {
+					display: 'none',
 				},
 			},
 

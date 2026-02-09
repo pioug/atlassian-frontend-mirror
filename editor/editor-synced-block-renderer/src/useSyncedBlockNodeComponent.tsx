@@ -13,7 +13,6 @@ import {
 	type SyncBlockNode,
 } from '@atlaskit/editor-synced-block-provider';
 import type { SyncedBlockProvider } from '@atlaskit/editor-synced-block-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SyncedBlockRendererOptions } from './types';
 import {
@@ -54,7 +53,7 @@ export const useMemoizedSyncedBlockNodeComponent = ({
 
 	// Initialize SSR data if available
 	useEffect(() => {
-		if (getSSRData && fg('platform_synced_block_dogfooding')) {
+		if (getSSRData) {
 			const ssrData = getSSRData();
 			if (ssrData && (syncBlockProvider as SyncBlockDataProvider).setSSRData) {
 				(syncBlockProvider as SyncBlockDataProvider).setSSRData(ssrData);
@@ -68,34 +67,26 @@ export const useMemoizedSyncedBlockNodeComponent = ({
 	}, [syncBlockNodes, syncBlockStoreManager.referenceManager]);
 
 	return useCallback(
-		(props: SyncedBlockNodeProps) =>
-			fg('platform_synced_block_dogfooding') ? (
-				<ErrorBoundary
-					component={ACTION_SUBJECT.SYNCED_BLOCK}
-					dispatchAnalyticsEvent={fireAnalyticsEvent}
-					fallbackComponent={null}
+		(props: SyncedBlockNodeProps) => (
+			<ErrorBoundary
+				component={ACTION_SUBJECT.SYNCED_BLOCK}
+				dispatchAnalyticsEvent={fireAnalyticsEvent}
+				fallbackComponent={null}
+			>
+				<SyncBlockActionsProvider
+					fetchSyncBlockSourceInfo={(sourceAri: string) =>
+						syncBlockStoreManager.referenceManager.fetchSyncBlockSourceInfoBySourceAri(sourceAri)
+					}
 				>
-					<SyncBlockActionsProvider
-						fetchSyncBlockSourceInfo={(sourceAri: string) =>
-							syncBlockStoreManager.referenceManager.fetchSyncBlockSourceInfoBySourceAri(sourceAri)
-						}
-					>
-						<SyncedBlockNodeComponentRenderer
-							key={props.localId}
-							nodeProps={props}
-							syncBlockStoreManager={syncBlockStoreManager}
-							rendererOptions={syncBlockRendererOptions}
-						/>
-					</SyncBlockActionsProvider>
-				</ErrorBoundary>
-			) : (
-				<SyncedBlockNodeComponentRenderer
-					key={props.localId}
-					nodeProps={props}
-					syncBlockStoreManager={syncBlockStoreManager}
-					rendererOptions={syncBlockRendererOptions}
-				/>
-			),
+					<SyncedBlockNodeComponentRenderer
+						key={props.localId}
+						nodeProps={props}
+						syncBlockStoreManager={syncBlockStoreManager}
+						rendererOptions={syncBlockRendererOptions}
+					/>
+				</SyncBlockActionsProvider>
+			</ErrorBoundary>
+		),
 		[syncBlockStoreManager, syncBlockRendererOptions, fireAnalyticsEvent],
 	);
 };

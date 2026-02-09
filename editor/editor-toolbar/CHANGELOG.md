@@ -1,5 +1,19 @@
 # @atlaskit/editor-toolbar
 
+## 0.19.19
+
+### Patch Changes
+
+- [`2126e50c0c9e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2126e50c0c9e4) -
+  [ux] [EDITOR-4926] update ToolbarButtonGroup UI and remove unwanted tooltip from AI dropdown
+- Updated dependencies
+
+## 0.19.18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.19.17
 
 ### Patch Changes

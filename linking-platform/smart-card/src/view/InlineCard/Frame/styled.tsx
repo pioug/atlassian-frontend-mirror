@@ -8,7 +8,6 @@ import { css, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import { B100, B200, B400, B50, N40 } from '@atlaskit/theme/colors';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 import { token } from '@atlaskit/tokens';
 
 import type { ViewType } from './index';
@@ -36,16 +35,12 @@ export const WrapperSpan = forwardRef<HTMLSpanElement, WrapperProps>(
 		},
 		ref,
 	) => {
-		const experimentValue =
-			viewType === 'unauthorised'
-				? expVal('platform_inline_smartcard_connect_button_exp', 'cohort', 'control')
-				: 'control';
 		return (
 			<span
 				css={[
 					baseWrapperStyles,
 					truncateInline && truncateStyles,
-					truncateInline && experimentValue !== 'control' && unauthorisedTruncateStyles,
+					truncateInline && viewType === 'unauthorised' && unauthorisedTruncateStyles,
 					withoutBackground ? withoutBackgroundStyles : withBackgroundStyles,
 					isHovered && hoveredStyles,
 					isHovered && !withoutBackground && hoveredWithBackgroundStyles,
@@ -74,11 +69,6 @@ export const WrapperAnchor = forwardRef<HTMLAnchorElement, WrapperProps>(
 		},
 		ref,
 	) => {
-		const experimentValue =
-			viewType === 'unauthorised'
-				? expVal('platform_inline_smartcard_connect_button_exp', 'cohort', 'control')
-				: 'control';
-
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 			// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
@@ -87,7 +77,7 @@ export const WrapperAnchor = forwardRef<HTMLAnchorElement, WrapperProps>(
 				css={[
 					baseWrapperStyles,
 					truncateInline && truncateStyles,
-					truncateInline && experimentValue !== 'control' && unauthorisedTruncateStyles,
+					truncateInline && viewType === 'unauthorised' && unauthorisedTruncateStyles,
 					withoutBackground ? withoutBackgroundStyles : withBackgroundStyles,
 					isHovered && hoveredStyles,
 					isHovered && !withoutBackground && hoveredWithBackgroundStyles,

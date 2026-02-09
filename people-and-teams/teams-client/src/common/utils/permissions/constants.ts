@@ -1,4 +1,4 @@
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { isFedRamp } from '@atlaskit/atlassian-context';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
@@ -86,11 +86,7 @@ const getDisbandedTeamPermissionMap = (
 	isMember: boolean,
 	isOrgAdmin: boolean,
 ): PermissionMap => {
-	const newTeamProfileEnabled = FeatureGates.getExperimentValue(
-		'new_team_profile',
-		'isEnabled',
-		false,
-	);
+	const newTeamProfileEnabled = !isFedRamp() || fg('new_team_profile_fedramp');
 
 	// Base permission map - all actions disabled for disbanded teams
 	const basePermissions = allPermissions(false, false, false);
@@ -125,11 +121,7 @@ const getActiveTeamPermissionMap = (
 	isOrgAdmin: boolean,
 	source?: ExternalReferenceSource,
 ): PermissionMap => {
-	const newTeamProfileEnabled = FeatureGates.getExperimentValue(
-		'new_team_profile',
-		'isEnabled',
-		false,
-	);
+	const newTeamProfileEnabled = !isFedRamp() || fg('new_team_profile_fedramp');
 	if (settings === 'OPEN') {
 		return {
 			...allPermissions(permission === 'FULL_WRITE', isMember, isOrgAdmin),

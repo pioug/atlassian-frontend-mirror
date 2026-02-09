@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-triggers",
-	"version": "5.10.0",
+	"version": "5.11.0",
 	"description": "Provides various trigger events to drive Rovo Chat functionality, such as a publish-subscribe and URL parameter hooks",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
@@ -42,6 +42,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "root:*",
 		"bind-event-listener": "root:*"
 	},
@@ -96,6 +97,11 @@
 			"imports": [
 				"import-no-extraneous-disable-for-examples-and-docs"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"ai-mate-pub-sub-post-message-origin-fix": {
+			"type": "boolean"
 		}
 	}
 }

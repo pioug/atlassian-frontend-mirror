@@ -1,11 +1,12 @@
 import React from 'react';
 
+import { isFedRamp } from '@atlaskit/atlassian-context';
 import Avatar from '@atlaskit/avatar';
 import { IconButton } from '@atlaskit/button/new';
 import { cssMap, cx } from '@atlaskit/css';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import GlobeIcon from '@atlaskit/icon/core/globe';
 import LinkIcon from '@atlaskit/icon/core/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -93,11 +94,7 @@ export const ContainerIcon = ({
 }: ContainerIconProps): React.JSX.Element => {
 	const isMedium = size === 'medium';
 
-	const isNewTeamProfilePageEnabled = FeatureGates.getExperimentValue(
-		'new_team_profile',
-		'isEnabled',
-		false,
-	);
+	const isNewTeamProfilePageEnabled = !isFedRamp() || fg('new_team_profile_fedramp');
 
 	if (containerType === 'LoomSpace') {
 		return (

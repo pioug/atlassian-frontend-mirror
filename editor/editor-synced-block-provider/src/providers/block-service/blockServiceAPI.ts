@@ -192,7 +192,7 @@ export const fetchReferences = async (
 			({
 				error: { type: SyncBlockError.Errored },
 				resourceId: errorBlock.blockAri,
-			}) as SyncBlockInstance,
+			} as SyncBlockInstance),
 	);
 
 	return [...blocksInstances, ...errorInstances];
@@ -340,7 +340,7 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 					({
 						error: { type: SyncBlockError.Errored },
 						resourceId: blockNodeIdentifier.resourceId,
-					}) as SyncBlockInstance,
+					} as SyncBlockInstance),
 			);
 		}
 
@@ -562,11 +562,9 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 		const stepVersion = this.getVersion ? await this.getVersion() : undefined;
 		const status = fg('platform_synced_block_patch_1')
 			? 'unpublished'
-			: fg('platform_synced_block_dogfooding')
-				? this.isParentUnpublished?.()
-					? 'unpublished'
-					: data.status || 'active'
-				: undefined;
+			: this.isParentUnpublished?.()
+			? 'unpublished'
+			: data.status || 'active';
 
 		try {
 			await createSyncedBlock({

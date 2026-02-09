@@ -1,5 +1,12 @@
 # @atlassian/give-kudos
 
+## 4.8.1
+
+### Patch Changes
+
+- [`618326bff43d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/618326bff43d8) -
+  PTC-15081: Add analytics for user profile tabs - hierarchy/goals/projects/kudos
+
 ## 4.8.0
 
 ### Minor Changes

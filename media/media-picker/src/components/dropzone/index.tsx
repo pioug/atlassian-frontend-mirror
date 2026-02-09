@@ -1,5 +1,4 @@
 import React from 'react';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { type WithMediaClientConfigProps } from '@atlaskit/media-client-react';
 import { type DropzoneProps } from './dropzone';
 import { type MediaPickerAnalyticsErrorBoundaryProps } from '../media-picker-analytics-error-boundary';
@@ -27,10 +26,7 @@ export class DropzoneLoader extends React.PureComponent<DropzoneWithMediaClientC
 	};
 
 	componentDidMount(): void {
-		if (
-			(!this.state.Dropzone || !this.state.MediaPickerErrorBoundary) &&
-			fg('jfp-magma-media-clipboard-init-after-mount')
-		) {
+		if (!this.state.Dropzone || !this.state.MediaPickerErrorBoundary) {
 			Promise.all([
 				import(
 					/* webpackChunkName: "@atlaskit-internal_media-client-react" */ '@atlaskit/media-client-react'
@@ -39,49 +35,21 @@ export class DropzoneLoader extends React.PureComponent<DropzoneWithMediaClientC
 				import(
 					/* webpackChunkName: "@atlaskit-internal_media-picker-error-boundary" */ '../media-picker-analytics-error-boundary'
 				),
-			]).then(([mediaClient, dropzoneModule, mediaPickerErrorBoundaryModule]) => {
-				// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
-				DropzoneLoader.Dropzone = mediaClient.withMediaClient(dropzoneModule.Dropzone);
+			])
+				.then(([mediaClient, dropzoneModule, mediaPickerErrorBoundaryModule]) => {
+					// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
+					DropzoneLoader.Dropzone = mediaClient.withMediaClient(dropzoneModule.Dropzone);
 
-				DropzoneLoader.MediaPickerErrorBoundary = mediaPickerErrorBoundaryModule.default;
+					DropzoneLoader.MediaPickerErrorBoundary = mediaPickerErrorBoundaryModule.default;
 
-				this.setState({
-					Dropzone: DropzoneLoader.Dropzone,
-					MediaPickerErrorBoundary: DropzoneLoader.MediaPickerErrorBoundary,
+					this.setState({
+						Dropzone: DropzoneLoader.Dropzone,
+						MediaPickerErrorBoundary: DropzoneLoader.MediaPickerErrorBoundary,
+					});
+				})
+				.catch(() => {
+					// TODO [MS-2272]: Add operational error to catch import error
 				});
-			});
-			// TODO [MS-2272]: Add operational error to catch import error
-		}
-	}
-
-	async UNSAFE_componentWillMount(): Promise<void> {
-		if (
-			(!this.state.Dropzone || !this.state.MediaPickerErrorBoundary) &&
-			!fg('jfp-magma-media-clipboard-init-after-mount')
-		) {
-			try {
-				const [mediaClient, dropzoneModule, mediaPickerErrorBoundaryModule] = await Promise.all([
-					import(
-						/* webpackChunkName: "@atlaskit-internal_media-client-react" */ '@atlaskit/media-client-react'
-					),
-					import(/* webpackChunkName: "@atlaskit-internal_media-dropzone" */ './dropzone'),
-					import(
-						/* webpackChunkName: "@atlaskit-internal_media-picker-error-boundary" */ '../media-picker-analytics-error-boundary'
-					),
-				]);
-
-				// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
-				DropzoneLoader.Dropzone = mediaClient.withMediaClient(dropzoneModule.Dropzone);
-
-				DropzoneLoader.MediaPickerErrorBoundary = mediaPickerErrorBoundaryModule.default;
-
-				this.setState({
-					Dropzone: DropzoneLoader.Dropzone,
-					MediaPickerErrorBoundary: DropzoneLoader.MediaPickerErrorBoundary,
-				});
-			} catch (error) {
-				// TODO [MS-2272]: Add operational error to catch async import error
-			}
 		}
 	}
 

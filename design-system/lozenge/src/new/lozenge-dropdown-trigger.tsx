@@ -8,7 +8,7 @@ import { jsx } from '@atlaskit/css';
 import __noop from '@atlaskit/ds-lib/noop';
 
 import LozengeBase from './lozenge-base';
-import { type LozengeDropdownTriggerProps } from './types';
+import { type LozengeBaseProps, type LozengeDropdownTriggerProps } from './types';
 
 /**
  * __Lozenge Dropdown Trigger__
@@ -31,6 +31,8 @@ const LozengeDropdownTrigger = memo(
 				appearance = 'neutral',
 				spacing = 'default',
 				iconBefore,
+				trailingMetric,
+				trailingMetricAppearance,
 				isSelected = false,
 				isLoading = false,
 				maxWidth = 200,
@@ -41,22 +43,24 @@ const LozengeDropdownTrigger = memo(
 			},
 			ref,
 		) => {
+			const baseProps: LozengeBaseProps = {
+				appearance,
+				spacing,
+				iconBefore,
+				trailingMetric,
+				trailingMetricAppearance,
+				isSelected,
+				isLoading,
+				maxWidth,
+				style,
+				testId,
+				onClick,
+				analyticsContext,
+				interactionName,
+				children,
+			};
 			return (
-				<LozengeBase
-					ref={ref}
-					appearance={appearance}
-					spacing={spacing}
-					iconBefore={iconBefore}
-					isSelected={isSelected}
-					isLoading={isLoading}
-					maxWidth={maxWidth}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-					style={style}
-					testId={testId}
-					onClick={onClick}
-					analyticsContext={analyticsContext}
-					interactionName={interactionName}
-				>
+				<LozengeBase ref={ref} {...baseProps}>
 					{children}
 				</LozengeBase>
 			);

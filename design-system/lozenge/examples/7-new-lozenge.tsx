@@ -7,7 +7,11 @@ import { cssMap } from '@compiled/react';
 import { jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import ImageIcon from '@atlaskit/icon/core/image';
-import Lozenge, { type NewLozengeColor, type ThemeAppearance } from '@atlaskit/lozenge';
+import Lozenge, {
+	type NewLozengeColor,
+	type SemanticColor,
+	type ThemeAppearance,
+} from '@atlaskit/lozenge';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -96,7 +100,13 @@ export default function NewLozengeExample() {
 								<Lozenge appearance={color} iconBefore={ImageIcon}>
 									{color}
 								</Lozenge>
-								<Lozenge appearance={color} spacing="spacious">
+								<Lozenge appearance={color as SemanticColor} trailingMetric="3">
+									{color}
+								</Lozenge>
+								<Lozenge appearance={color as SemanticColor} spacing="spacious">
+									{color}
+								</Lozenge>
+								<Lozenge appearance={color as SemanticColor} spacing="spacious" trailingMetric="3">
 									{color}
 								</Lozenge>
 							</Box>
@@ -127,6 +137,52 @@ export default function NewLozengeExample() {
 			</Box>
 
 			<Box>
+				<Heading size="medium">Metric</Heading>
+				<Text>
+					Use <code>trailingMetric</code> to render a numeric metric as a trailing badge inside the
+					lozenge (semantic appearances only).
+				</Text>
+				<Box xcss={styles.group}>
+					<Lozenge appearance="success" trailingMetric="3">
+						Success
+					</Lozenge>
+					<Lozenge appearance="warning" trailingMetric="12" iconBefore={ImageIcon}>
+						Warning
+					</Lozenge>
+				</Box>
+			</Box>
+
+			<Box>
+				<Heading size="medium">Metric appearance override</Heading>
+				<Text>
+					Use <code>trailingMetricAppearance</code> to override the metric badge appearance. If
+					not provided, it inherits the lozenge appearance.
+				</Text>
+				<Box xcss={styles.group}>
+					<Lozenge
+						appearance="success"
+						trailingMetric="3"
+						trailingMetricAppearance="danger"
+					>
+						Success lozenge + danger metric
+					</Lozenge>
+					<Lozenge
+						appearance="information"
+						trailingMetric="99"
+						trailingMetricAppearance="warning"
+					>
+						Info lozenge + warning metric
+					</Lozenge>
+					<Lozenge appearance="neutral" trailingMetric="12" trailingMetricAppearance="success">
+						Neutral lozenge + success metric
+					</Lozenge>
+					<Lozenge appearance="discovery" trailingMetric="7" trailingMetricAppearance="inverse">
+						Discovery lozenge + inverse metric
+					</Lozenge>
+				</Box>
+			</Box>
+
+			<Box>
 				<Heading size="medium">Spacing</Heading>
 				<Text>Default vs spacious spacing variants.</Text>
 				<Box xcss={styles.group}>
@@ -134,8 +190,20 @@ export default function NewLozengeExample() {
 					<Lozenge appearance="information" spacing="spacious">
 						spacious
 					</Lozenge>
-					<Lozenge appearance="information" spacing="spacious" iconBefore={ImageIcon}>
-						spacious w/ icon
+					<Lozenge appearance="neutral">default</Lozenge>
+					<Lozenge appearance="neutral" spacing="spacious">
+						spacious
+					</Lozenge>
+					<Lozenge appearance="success" spacing="spacious" trailingMetric="3">
+						spacious w/ metric
+					</Lozenge>
+					<Lozenge
+						appearance="success"
+						spacing="spacious"
+						trailingMetric="12"
+						iconBefore={ImageIcon}
+					>
+						spacious w/ icon + metric
 					</Lozenge>
 				</Box>
 			</Box>

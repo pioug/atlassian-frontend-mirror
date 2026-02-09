@@ -208,7 +208,7 @@ export const fetchConfluencePageInfoOld = async (
 	}
 };
 
-export const fetchConfluencePageInfoNew = async (
+export const fetchConfluencePageInfo = async (
 	pageAri: string,
 	hasAccess: boolean,
 	urlType: 'view' | 'edit',
@@ -231,11 +231,15 @@ export const fetchConfluencePageInfoNew = async (
 		const { base } = contentData?.links || {};
 		if (base && contentData?.space?.key && contentData?.id) {
 			if (isBlogPageType(pageType)) {
-				url = `${base}/spaces/${contentData.space.key}/blog${urlType === 'edit' ? '/edit-v2' : ''}/${contentData.id}`;
+				url = `${base}/spaces/${contentData.space.key}/blog${
+					urlType === 'edit' ? '/edit-v2' : ''
+				}/${contentData.id}`;
 			} else if (contentData.subType === 'live') {
 				url = `${base}/spaces/${contentData.space.key}/pages/${contentData.id}`;
 			} else {
-				url = `${base}/spaces/${contentData.space.key}/pages${urlType === 'edit' ? '/edit-v2' : ''}/${contentData.id}`;
+				url = `${base}/spaces/${contentData.space.key}/pages${
+					urlType === 'edit' ? '/edit-v2' : ''
+				}/${contentData.id}`;
 			}
 		}
 
@@ -250,17 +254,4 @@ export const fetchConfluencePageInfoNew = async (
 	} else {
 		return await resolveNoAccessPageInfo(pageAri);
 	}
-};
-
-export const fetchConfluencePageInfo = async (
-	pageAri: string,
-	hasAccess: boolean,
-	urlType: 'view' | 'edit',
-	localId?: string,
-	fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
-	isUnpublished?: boolean,
-): Promise<SyncBlockSourceInfo | undefined> => {
-	return fg('platform_synced_block_dogfooding')
-		? await fetchConfluencePageInfoNew(pageAri, hasAccess, urlType, localId, isUnpublished)
-		: await fetchConfluencePageInfoOld(pageAri, localId, fireAnalyticsEvent);
 };

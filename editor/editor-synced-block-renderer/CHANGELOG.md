@@ -1,5 +1,13 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 5.6.7
+
+### Patch Changes
+
+- [`7ba3979b92b42`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ba3979b92b42) -
+  Remove platform_synced_block_dogfooding feature gate
+- Updated dependencies
+
 ## 5.6.6
 
 ### Patch Changes

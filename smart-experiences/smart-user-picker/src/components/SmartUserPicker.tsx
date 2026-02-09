@@ -274,7 +274,8 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 			maxNumberOfResults,
 			query,
 			searchEmail: isEmail,
-			...(verifiedTeams === true && fg('smart-user-picker-managed-teams-gate') && { verifiedTeams: true }),
+			...(verifiedTeams === true &&
+				fg('smart-user-picker-managed-teams-gate') && { verifiedTeams: true }),
 			/*
 				For email-based searches, we have decided to filter out apps.
 				Also - because the other 2 filters ((NOT not_mentionable:true) AND (account_status:active)) are included
@@ -353,7 +354,15 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 
 			// Track if email search found matches for conditional allowEmail logic
 			if (isEmail) {
-				this.lastEmailSearchFoundMatches = recommendedUsers.length > 0;
+				if (fg('smart_user_picker_allow_email_if_team_is_found')) {
+					// Only count user/external user matches, not teams or groups
+					const userMatches = recommendedUsers.filter(
+						(user) => isUser(user) || isExternalUser(user),
+					);
+					this.lastEmailSearchFoundMatches = userMatches.length > 0;
+				} else {
+					this.lastEmailSearchFoundMatches = recommendedUsers.length > 0;
+				}
 			} else {
 				this.lastEmailSearchFoundMatches = false;
 			}
@@ -516,9 +525,16 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 		let shouldAllowEmail = allowEmail;
 
 		if (allowEmail && enableEmailSearch && !allowEmailSelectionWhenEmailMatched) {
-			// Only allow email selection if we're in an email search that found no matches
 			const isCurrentQueryEmail = isEmailQuery(this.state.query);
-			shouldAllowEmail = !isCurrentQueryEmail || !this.lastEmailSearchFoundMatches;
+			if (fg('smart_user_picker_allow_email_if_team_is_found')) {
+				// Only allow email selection when:
+				// 1. The query matches email format (validated by regex)
+				// 2. No user/external user matches were found (only teams/groups suggested)
+				shouldAllowEmail = isCurrentQueryEmail && !this.lastEmailSearchFoundMatches;
+			} else {
+				// Only allow email selection if we're in an email search that found no matches
+				shouldAllowEmail = !isCurrentQueryEmail || !this.lastEmailSearchFoundMatches;
+			}
 		}
 
 		return (

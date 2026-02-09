@@ -2,7 +2,6 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SyncBlockAttrs, SyncBlockMap } from '../../types';
 
@@ -30,7 +29,7 @@ export const trackSyncBlocks = (
 	const hasBodiedSyncBlockChanges = replaceSteps.some((step, idx) => {
 		const { from, to } = step;
 
-		const docAtStep = fg('platform_synced_block_dogfooding') ? tr.docs[idx] : state.doc;
+		const docAtStep = tr.docs[idx];
 
 		let hasChange = false;
 		if (from !== to) {
@@ -85,6 +84,7 @@ export const trackSyncBlocks = (
 				const syncBlockAttr = node.attrs as SyncBlockAttrs;
 				syncBlockMapNew[syncBlockAttr.localId] = {
 					attrs: syncBlockAttr,
+					node: node,
 					from: offset,
 					to: offset + node.nodeSize,
 				};

@@ -1,3 +1,4 @@
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 
@@ -8,6 +9,7 @@ export enum FLAG_ID {
 	FAIL_TO_DELETE = 'fail-to-delete',
 	SYNC_BLOCK_COPIED = 'sync-block-copied',
 	UNPUBLISHED_SYNC_BLOCK_PASTED = 'unpublished-sync-block-pasted',
+	CANNOT_CREATE_SYNC_BLOCK = 'cannot-create-sync-block',
 }
 
 type FlagConfig = {
@@ -21,6 +23,13 @@ type FlagConfig = {
 export type BodiedSyncBlockDeletionStatus = 'none' | 'processing' | 'completed';
 export type ActiveFlag = FlagConfig | false;
 
+type RetryCreationPos = { from: number; to: number };
+export type RetryCreationPosMap = Map<string, RetryCreationPos>;
+export type RetryCreationPosEntry = {
+	pos?: RetryCreationPos;
+	resourceId: string;
+};
+
 export type SyncedBlockSharedState = {
 	/**
 	 * Whether to show a flag (usually for errors, e.g. fail to delete)
@@ -31,6 +40,12 @@ export type SyncedBlockSharedState = {
 	 */
 	bodiedSyncBlockDeletionStatus?: BodiedSyncBlockDeletionStatus;
 	/**
+	 * Positions of pending creations keyed by resourceId, used for retry/revert flow.
+	 * When a new bodiedSyncBlock is added, a new entry is added to map for mapping. The entry is removed when creation succeeds or retry option is dismissed.
+	 *
+	 */
+	retryCreationPosMap?: RetryCreationPosMap;
+	/**
 	 * The current sync block store manager, used to manage fetching and updating sync block data
 	 */
 	syncBlockStore: SyncBlockStoreManager;
@@ -40,7 +55,12 @@ export type SyncBlockAttrs = {
 	localId: string;
 	resourceId: string;
 };
-export type SyncBlockInfo = { attrs: SyncBlockAttrs; from?: number; to?: number };
+export type SyncBlockInfo = {
+	attrs: SyncBlockAttrs;
+	from?: number;
+	node?: PMNode;
+	to?: number;
+};
 export type SyncBlockMap = {
 	[key: string]: SyncBlockInfo;
 };

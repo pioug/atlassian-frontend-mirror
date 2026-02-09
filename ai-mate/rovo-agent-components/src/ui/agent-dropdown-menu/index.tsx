@@ -117,11 +117,10 @@ type AgentDropdownMenuProps = {
 	}>;
 } & ViewAgentOptionProps &
 	ViewAgentFullProfileProps &
-	Partial<Pick<AgentVerificationDropdownItemProps, 'agentRef' | 'userPermissionsRef'>>;
+	Partial<Pick<AgentVerificationDropdownItemProps, 'agentRef' | 'userPermissionsRef' | 'onVerificationSuccess'>>;
 
 export const AgentDropdownMenu = ({
 	isAutodevTemplateAgent,
-	agentId,
 	onEditAgent,
 	onCopyAgent,
 	onDuplicateAgent,
@@ -142,6 +141,7 @@ export const AgentDropdownMenu = ({
 	agentName,
 	agentRef,
 	userPermissionsRef,
+	onVerificationSuccess,
 }: AgentDropdownMenuProps) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const { formatMessage } = useIntl();
@@ -265,6 +265,7 @@ export const AgentDropdownMenu = ({
 					<AgentVerificationDropdownItem
 						agentRef={agentRef ?? null}
 						userPermissionsRef={userPermissionsRef ?? null}
+						onVerificationSuccess={onVerificationSuccess}
 						testId="agent-actions-menu-verification"
 					/>
 				)}

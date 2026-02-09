@@ -49,9 +49,6 @@
 			"path": "../../../design-system/empty-state/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../../measurement/feature-gate-js-client/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../../team-central/give-kudos/afm-jira/tsconfig.json"
 		},
 		{

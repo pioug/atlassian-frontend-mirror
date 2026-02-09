@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-synced-block-renderer",
-	"version": "5.6.6",
+	"version": "5.6.7",
 	"description": "SyncedBlockRenderer for @atlaskit/editor-plugin-synced-block",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -40,7 +40,6 @@
 		"@atlaskit/icon-lab": "workspace:^",
 		"@atlaskit/image": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/renderer": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
@@ -93,9 +92,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform_synced_block_dogfooding": {
-			"type": "boolean"
-		},
 		"platform_synced_block_patch_1": {
 			"type": "boolean"
 		}

@@ -7,6 +7,8 @@ import { type ComponentType, forwardRef, memo } from 'react';
 import { cssMap as cssMapUnbound, jsx } from '@compiled/react';
 
 import type { AvatarPropTypes } from '@atlaskit/avatar';
+import StatusVerifiedIcon from '@atlaskit/icon/core/status-verified';
+import type { TeamAvatarProps } from '@atlaskit/teams-avatar';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -18,16 +20,42 @@ import {
 	useTagRemoval,
 } from './shared';
 
-export interface AvatarTagProps {
+/**
+ * The type values that AvatarTag accepts.
+ */
+export type TypesOfAvatars = 'user' | 'agent' | 'other';
+
+/**
+ * Props controlled by AvatarTag that will be passed to the avatar component.
+ * These props are managed internally by AvatarTag.
+ */
+export interface AvatarRenderProps {
 	/**
-	 * Text to be displayed in the tag (usually a person's name).
+	 * The size of the avatar. Always 'xsmall' for AvatarTag.
+	 */
+	size: 'xsmall';
+	/**
+	 * The appearance/shape of the avatar based on the tag type.
+	 * - 'circle' for user (round avatars)
+	 * - 'square' for other/teams (square avatars)
+	 * - 'hexagon' for agents (hexagonal avatars)
+	 */
+	appearance: 'circle' | 'square' | 'hexagon';
+	/**
+	 * The border color for the avatar. Always 'transparent' for AvatarTag.
+	 */
+	borderColor: 'transparent';
+}
+
+/**
+ * Common props shared across all AvatarTag types.
+ */
+interface CommonAvatarTagProps {
+	/**
+	 * Text to be displayed in the tag (usually a person's name or entity name).
 	 */
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 	text: string;
-	/**
-	 * Avatar component from @atlaskit/avatar to be rendered before the tag text.
-	 */
-	avatar: ComponentType<AvatarPropTypes>;
 	/**
 	 * URI or path. If provided, the tag will be a link.
 	 */
@@ -60,14 +88,85 @@ export interface AvatarTagProps {
 	onAfterRemoveAction?: (text: string) => void;
 }
 
+/**
+ * Props for user avatar tags with circular avatars.
+ */
+type UserAvatarTag = CommonAvatarTagProps & {
+	/**
+	 * The type of avatar tag. 'user' uses circular avatars for individuals.
+	 */
+	type: 'user';
+	/**
+	 * isVerified is not allowed for user tags.
+	 */
+	isVerified?: never;
+	/**
+	 * The avatar component to render. AvatarTag will provide controlled props (size, appearance, borderColor).
+	 * Accepts Avatar or any compatible component.
+	 * @example avatar={Avatar}
+	 * @example avatar={(props) => <Avatar {...props} src="user.png" />}
+	 */
+	avatar: ComponentType<Omit<AvatarPropTypes, 'size' | 'appearance' | 'borderColor'>>;
+};
+
+/**
+ * Props for other/teams avatar tags with square avatars.
+ */
+type OtherAvatarTag = CommonAvatarTagProps & {
+	/**
+	 * The type of avatar tag. 'other' uses square avatars for teams/projects/spaces.
+	 */
+	type: 'other';
+	/**
+	 * Whether this entity is verified. Shows a blue verified icon after the text.
+	 */
+	isVerified?: boolean;
+	/**
+	 * The avatar component to render. AvatarTag will provide controlled props (size, appearance, borderColor).
+	 * Accepts Avatar, TeamAvatar, or any compatible component.
+	 * @example avatar={TeamAvatar}
+	 * @example avatar={(props) => <TeamAvatar {...props} name="Team" />}
+	 */
+	avatar:
+		| ComponentType<Omit<AvatarPropTypes, 'size' | 'appearance' | 'borderColor'>>
+		| ComponentType<Omit<TeamAvatarProps, 'size'>>;
+};
+
+/**
+ * Props for agent avatar tags with hexagonal avatars.
+ */
+type AgentAvatarTag = CommonAvatarTagProps & {
+	/**
+	 * The type of avatar tag. 'agent' uses hexagonal avatars for AI agents.
+	 */
+	type: 'agent';
+	/**
+	 * isVerified is not allowed for agent tags.
+	 */
+	isVerified?: never;
+	/**
+	 * The avatar component to render. AvatarTag will provide controlled props (size, appearance, borderColor).
+	 * Accepts Avatar or any compatible component.
+	 * @example avatar={Avatar}
+	 * @example avatar={(props) => <Avatar {...props} src="agent.png" />}
+	 */
+	avatar: ComponentType<Omit<AvatarPropTypes, 'size' | 'appearance' | 'borderColor'>>;
+};
+
+/**
+ * Props for AvatarTag component. Uses discriminated union based on `type`.
+ */
+export type AvatarTagProps = UserAvatarTag | OtherAvatarTag | AgentAvatarTag;
+
 const styles = cssMapUnbound({
 	baseStyles: {
 		display: 'inline-flex',
 		boxSizing: 'border-box',
-		minWidth: '0rem',
-		height: '1.25rem',
+		minWidth: '0px',
+		height: token('space.250', '20px'),
 		position: 'relative',
 		alignItems: 'center',
+		verticalAlign: 'middle',
 		gap: token('space.025', '2px'),
 		backgroundColor: token('color.background.neutral.subtle'),
 		borderRadius: token('radius.full'),
@@ -78,12 +177,23 @@ const styles = cssMapUnbound({
 		font: token('font.body.small'),
 		marginBlock: token('space.050', '4px'),
 		marginInline: token('space.050', '4px'),
-		paddingInlineEnd: '0.3125rem',
+		paddingInlineEnd: '6px',
 		paddingInlineStart: token('space.0', '0px'),
 		paddingBlock: token('space.0', '0px'),
 	},
+	otherBaseStyles: {
+		borderRadius: token('radius.small', '4px'),
+		paddingInlineEnd: token('space.050', '4px'),
+	},
+	agentBaseStyles: {
+		borderRadius: token('radius.small', '4px'),
+		paddingInlineEnd: token('space.050', '4px'),
+	},
 	removableStyles: {
-		paddingInlineEnd: '0.1875rem',
+		paddingInlineEnd: '3px',
+	},
+	userRemovableStyles: {
+		paddingInlineEnd: '3px',
 	},
 	avatarStyles: {
 		display: 'inline-flex',
@@ -92,8 +202,13 @@ const styles = cssMapUnbound({
 		textDecoration: 'none',
 		borderRadius: token('radius.full'),
 		overflow: 'hidden',
-		marginInlineStart: '-0.0625rem',
-		marginInlineEnd: '-0.0625rem',
+		marginInlineStart: '-1px',
+	},
+	otherAvatarStyles: {
+		borderRadius: token('radius.small', '4px'),
+	},
+	agentAvatarStyles: {
+		borderRadius: 0,
 	},
 	textStyles: {
 		overflow: 'hidden',
@@ -101,7 +216,7 @@ const styles = cssMapUnbound({
 		whiteSpace: 'nowrap',
 		flexGrow: 1,
 		minWidth: 0,
-		maxWidth: '11.25rem',
+		maxWidth: '180px',
 		color: token('color.text'),
 	},
 	afterStyles: {
@@ -111,6 +226,13 @@ const styles = cssMapUnbound({
 		pointerEvents: 'auto',
 		marginInlineStart: token('space.025', '2px'),
 		position: 'relative',
+	},
+	verifiedIconStyles: {
+		display: 'inline-flex',
+		alignItems: 'center',
+		flexShrink: 0,
+		color: token('color.icon.accent.blue'),
+		marginInlineStart: '1px',
 	},
 	focusRingStyles: {
 		// Only show focus ring when keyboard navigating (not mouse clicks)
@@ -241,13 +363,14 @@ const borderInteractiveFilterStyles = cssMapUnbound({
 /**
  * __AvatarTag__
  *
- * AvatarTag is a specialized tag for representing people/users with an avatar and name.
- * It features a rounded pill design optimized for user representation.
+ * AvatarTag is a specialized tag for representing people, teams/other entities, or agents with an avatar and name.
+ * The visual appearance (round, square, or hexagonal) is determined by the `type` prop.
  */
 const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function AvatarTag(
 	{
 		text,
-		avatar: Avatar,
+		type,
+		avatar: AvatarComponent,
 		href,
 		linkComponent,
 		isRemovable = true,
@@ -255,6 +378,7 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 		onBeforeRemoveAction,
 		onAfterRemoveAction,
 		testId,
+		isVerified, // Shows verified icon for 'other' type tags
 		...other
 	},
 	ref,
@@ -275,6 +399,20 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 		linkHandlers,
 	} = useButtonInteraction();
 
+	// Determine styles based on type
+	const isOtherType = type === 'other';
+	const isAgentType = type === 'agent';
+	const isUserType = type === 'user';
+
+	// isVerified is only available for 'other' type
+	const showVerified = isOtherType && isVerified;
+
+	// Determine avatar appearance based on type
+	const avatarAppearance = isUserType ? 'circle' : isAgentType ? 'hexagon' : 'square';
+
+	// Determine remove button shape based on type
+	const removeButtonShape = isUserType ? 'circle' : 'default';
+
 	const removeButton = useRemoveButton({
 		isRemovable,
 		tagText: text,
@@ -284,9 +422,20 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 		removingTag,
 		showingTag,
 		onKeyPress,
-		shape: 'circle',
+		shape: removeButtonShape,
 		buttonHandlers,
 	});
+
+	// Render the avatar component with controlled props
+	// Cast to ComponentType<AvatarRenderProps> to inject controlled props at runtime
+	const AvatarWithControlledProps = AvatarComponent as ComponentType<AvatarRenderProps>;
+	const avatarElement = (
+		<AvatarWithControlledProps
+			size="xsmall"
+			appearance={avatarAppearance}
+			borderColor="transparent"
+		/>
+	);
 
 	const tagContent = (
 		<span
@@ -294,6 +443,8 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 			ref={ref}
 			css={[
 				styles.baseStyles,
+				isOtherType && styles.otherBaseStyles,
+				isAgentType && styles.agentBaseStyles,
 				borderColorStyles.root,
 				borderFilterStyles.root,
 				isLink && styles.interactiveBaseStyles,
@@ -301,7 +452,8 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 				// Only apply hover/active styles when link is hovered but NOT over the button
 				isLink && isLinkHovered && !isOverButton && borderInteractiveFilterStyles.root,
 				isLink && isLinkHovered && !isOverButton && styles.interactiveHoverStyles,
-				isRemovable && styles.removableStyles,
+				isRemovable && !isUserType && styles.removableStyles,
+				isRemovable && isUserType && styles.userRemovableStyles,
 				// Show focus ring when link is focused (but not when button is focused)
 				isLinkFocused && !isButtonFocused && styles.childFocusRingStyles,
 			]}
@@ -314,11 +466,22 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 				testId={testId}
 				linkHandlers={linkHandlers}
 			>
-				<span css={styles.avatarStyles}>
-					<Avatar name={text} size="xsmall" borderColor="transparent" />
+				<span
+					css={[
+						styles.avatarStyles,
+						isOtherType && styles.otherAvatarStyles,
+						isAgentType && styles.agentAvatarStyles,
+					]}
+				>
+					{avatarElement}
 				</span>
 				<span css={styles.textStyles}>{text}</span>
 			</LinkWrapper>
+			{showVerified && (
+				<span css={styles.verifiedIconStyles}>
+					<StatusVerifiedIcon label="Verified" size="small" />
+				</span>
+			)}
 			{removeButton && <span css={styles.afterStyles}>{removeButton}</span>}
 		</span>
 	);

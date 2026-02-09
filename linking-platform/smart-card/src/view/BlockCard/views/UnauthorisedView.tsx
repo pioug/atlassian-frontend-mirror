@@ -41,7 +41,7 @@ import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardSty
 const contentStyles = css({
 	color: token('color.text'),
 	marginTop: token('space.100'),
-	font: token('font.body.UNSAFE_small'),
+	font: token('font.body.small'),
 });
 
 const newContentStyles = css({
@@ -143,8 +143,6 @@ const getBetterTitle = (url: string) => {
 		/^https:\/\/(?:[\w.-]+\.)?figma\.com\/(?:design|board|file|proto|slides)\/[0-9a-zA-Z]{22,128}\/([^\/\?]+)/,
 		// OneDrive: https://1drv.ms/w/s!ABC123DEF456/Project_Plan.docx?e=abcdEF -> Project_Plan.docx
 		/^https:\/\/1drv\.ms\/[a-z]+\/s![^\/]+\/([^\/\?]+)/,
-		// Statsig: https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_inline_smartcard_connect_button_exp/results -> platform_inline_smartcard_connect_button_exp
-		/^https:\/\/console\.statsig\.com\/[^\/]+\/experiments\/([^\/\?]+)\//,
 		// Miro: https://miro.com/app/board/uXjVOPnT123=/my-board-name/ -> my-board-name
 		/^https:\/\/miro\.com\/app\/board\/[^\/]+\/([^\/\?]+)\/?/,
 	];

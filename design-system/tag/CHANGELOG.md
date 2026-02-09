@@ -1,5 +1,12 @@
 # @atlaskit/tag
 
+## 14.4.0
+
+### Minor Changes
+
+- [`37d704adec380`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/37d704adec380) -
+  [ux] Adds support for other types of avatars on Avatar tag.
+
 ## 14.3.2
 
 ### Patch Changes

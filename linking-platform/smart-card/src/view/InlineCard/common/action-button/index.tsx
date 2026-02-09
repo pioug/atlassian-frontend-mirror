@@ -6,7 +6,6 @@ import { type ComponentPropsWithRef, forwardRef } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { Pressable } from '@atlaskit/primitives/compiled';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
@@ -42,22 +41,7 @@ const styles = cssMap({
 		cursor: 'not-allowed',
 		backgroundColor: token('color.background.disabled'),
 	},
-});
-
-const experimentEnabledStyles = cssMap({
-	control: {
-		color: token('color.text'),
-		cursor: 'pointer',
-		backgroundColor: token('color.background.neutral'),
-		'&:hover': {
-			backgroundColor: token('color.background.neutral.hovered'),
-		},
-		'&:active': {
-			backgroundColor: token('color.background.neutral.pressed'),
-		},
-	},
-	test1: {
-		// This will be renamed to 'unauthorised' once the experiment gate can be cleaned up
+	unauthorised: {
 		color: token('color.text.inverse'),
 		cursor: 'pointer',
 		backgroundColor: token('color.background.selected.bold'),
@@ -80,19 +64,6 @@ const experimentEnabledStyles = cssMap({
 		marginRight: '1px' as any,
 		fontWeight: token('font.weight.regular'),
 	},
-	test2: {
-		color: token('color.text.inverse'),
-		cursor: 'pointer',
-		backgroundColor: token('color.background.accent.gray.bolder'),
-		'&:hover': {
-			backgroundColor: token('color.background.accent.gray.bolder.hovered'),
-		},
-		'&:active': {
-			backgroundColor: token('color.background.accent.gray.bolder.pressed'),
-		},
-		borderTopRightRadius: token('radius.xsmall'),
-		borderBottomRightRadius: token('radius.xsmall'),
-	},
 });
 
 type ActionButtonProps = ComponentPropsWithRef<typeof Pressable> & {
@@ -107,11 +78,6 @@ export const ActionButton = forwardRef(
 		{ children, isDisabled, viewType = 'default', ...props }: ActionButtonProps,
 		ref: ActionButtonProps['ref'],
 	) => {
-		const experimentValue =
-			viewType === 'unauthorised'
-				? expVal('platform_inline_smartcard_connect_button_exp', 'cohort', 'control')
-				: 'control';
-
 		return (
 			<Pressable
 				{...props}
@@ -127,8 +93,8 @@ export const ActionButton = forwardRef(
 						styles.innerContainer,
 						isDisabled
 							? styles.disabled
-							: experimentValue !== 'control'
-								? experimentEnabledStyles[experimentValue]
+							: viewType === 'unauthorised'
+								? styles.unauthorised
 								: styles.enabled,
 					]}
 					tabIndex={isDisabled ? undefined : 0}

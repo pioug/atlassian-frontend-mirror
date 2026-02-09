@@ -717,11 +717,7 @@ async function createInteractionMetricsPayload(
 						}
 					: {}),
 
-				...(fg('platform_ufo_native_pagevisibility_monitoring')
-					? {
-							'ufo:wasPageHiddenBeforeInit': getHasHiddenTimingBeforeSetup(),
-						}
-					: {}),
+				'ufo:wasPageHiddenBeforeInit': getHasHiddenTimingBeforeSetup(),
 
 				'ufo:isOpenedInBackground': isOpenedInBackground(interaction.type),
 

@@ -247,9 +247,37 @@ export function SideNavLayering() {
 							<LinkMenuItem href="#" elemBefore={<AppsIcon label="" color="currentColor" />}>
 								Apps
 							</LinkMenuItem>
-							<LinkMenuItem href="#" elemBefore={<ProjectIcon label="" color="currentColor" />}>
+							<LinkMenuItem
+								href="#"
+								elemBefore={<ProjectIcon label="" color="currentColor" />}
+								actions={
+									<DropdownMenu
+										shouldRenderToParent
+										trigger={({ triggerRef: ref, ...props }) => (
+											<IconButton
+												ref={ref}
+												{...props}
+												spacing="compact"
+												appearance="subtle"
+												label="Project more options"
+												icon={(iconProps) => (
+													<ShowMoreHorizontalCoreIcon {...iconProps} size="small" />
+												)}
+												isTooltipDisabled={false}
+											/>
+										)}
+									>
+										<DropdownItemGroup>
+											{Array.from({ length: 100 }, (_, i) => (
+												<DropdownItem key={i}>Item {i + 1}</DropdownItem>
+											))}
+										</DropdownItemGroup>
+									</DropdownMenu>
+								}
+							>
 								Projects
 							</LinkMenuItem>
+
 							<FlyoutMenuItem>
 								<FlyoutMenuItemTrigger elemBefore={<ClockIcon label="" color="currentColor" />}>
 									Recent
@@ -347,7 +375,11 @@ export function SideNavLayering() {
 							</ExpandableMenuItem>
 						</MenuList>
 					</SideNavContent>
-					<SideNavPanelSplitter label="Resize side nav" testId="side-nav-panel-splitter" />
+					<SideNavPanelSplitter
+						label="Resize side nav"
+						testId="side-nav-panel-splitter"
+						tooltipContent="Double click to collapse"
+					/>
 				</SideNav>
 				<Main id="main-container">
 					<div css={headingStyles.root}>

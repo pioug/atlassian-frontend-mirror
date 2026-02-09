@@ -39,6 +39,7 @@ import {
 	contentInsetBlockStart,
 	localSlotLayers,
 	openLayerObserverSideNavNamespace,
+	openLayerObserverTopNavStartNamespace,
 	sideNavLiveWidthVar,
 	sideNavPanelSplitterId,
 	sideNavVar,
@@ -70,6 +71,9 @@ import { useToggleSideNav } from './use-toggle-side-nav';
 import { SetSideNavVisibilityState, SideNavVisibilityState } from './visibility-context';
 
 const panelSplitterResizingVar = '--n_snvRsz';
+// Used to share the side nav width with the panel splitter, which is rendered outside the side nav element
+// but positioned to stay at its right edge.
+const sideNavClampedWidthVar = '--n_snvW';
 
 const widthResizeBounds: ResizeBounds = { min: '240px', max: '50vw' };
 
@@ -94,17 +98,21 @@ type FlyoutState =
 
 const panelSplitterPortalTargetStyles = cssMap({
 	root: {
-		position: 'absolute',
-		// Anchoring the panel splitter to the bottom-right edge of the side nav
-		insetInlineEnd: 0,
+		position: 'fixed',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		zIndex: localSlotLayers.sideNavPanelSplitterFHS,
 		insetBlockEnd: 0,
-		// On small viewports, the panel splitter should take up the full height of the side nav.
-		height: '100%',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		transform: `translateX(calc(var(${panelSplitterResizingVar}, var(${sideNavClampedWidthVar}, 0px))))`,
+		// On small viewports, the panel splitter has the same height as the side nav (all of the available viewport space minus top bar + banner)
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		height: contentHeightWhenFixed,
 		'@media (min-width: 64rem)': {
-			// On desktop, the height is set so it takes all available viewport space, minus the banner. This
-			// means it will overlay the top bar.
+			// On large viewports, the panel splitter overlays the top nav (takes all available viewport space, minus the banner)
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 			height: `calc(100vh - var(${bannerMountedVar}, 0px))`,
+			// On large viewports, we need to factor in the side nav's border, and shift the panel splitter so it is centered over the border.
+			transform: `translateX(calc(var(${panelSplitterResizingVar}, var(${sideNavClampedWidthVar}, 0px)) - ${token('border.width')}))`,
 		},
 	},
 });
@@ -576,7 +584,10 @@ function SideNavInternal({
 			// Prevent the flyout from being opened if there are any open layers in the top nav start
 			if (
 				openLayerObserver &&
-				openLayerObserver.getCount({ namespace: 'top-nav-start', type: 'popup' }) > 0 &&
+				openLayerObserver.getCount({
+					namespace: openLayerObserverTopNavStartNamespace,
+					type: 'popup',
+				}) > 0 &&
 				fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')
 			) {
 				return;
@@ -1164,120 +1175,160 @@ function SideNavInternal({
 		!isFirefox;
 
 	return (
-		<nav
-			id={id}
-			{...devTimeOnlyAttributes}
-			data-layout-slot
-			aria-label={label}
-			style={
-				{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/enforce-style-prop
-					[sideNavVar]: clampedWidth,
-				} as CSSProperties
-			}
-			ref={mergedRef}
-			css={[
-				styles.root,
-				// We are explicitly using the `isExpandedOnDesktop` and `isExpandedOnMobile` values here to ensure we are displaying the
-				// correct state during SSR render, as the context value would not have been set yet. These values are derived from the
-				// component props (defaultCollapsed) if context hasn't been set yet.
-				isExpandedOnDesktop && !isExpandedOnMobile && !isFlyoutVisible && styles.hiddenMobileOnly,
-				!isExpandedOnDesktop && isExpandedOnMobile && !isFlyoutVisible && styles.hiddenDesktopOnly,
-				!isExpandedOnDesktop &&
+		<>
+			<nav
+				id={id}
+				{...devTimeOnlyAttributes}
+				data-layout-slot
+				aria-label={label}
+				style={
+					{
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/enforce-style-prop
+						[sideNavVar]: clampedWidth,
+					} as CSSProperties
+				}
+				ref={mergedRef}
+				css={[
+					styles.root,
+					// We are explicitly using the `isExpandedOnDesktop` and `isExpandedOnMobile` values here to ensure we are displaying the
+					// correct state during SSR render, as the context value would not have been set yet. These values are derived from the
+					// component props (defaultCollapsed) if context hasn't been set yet.
+					isExpandedOnDesktop &&
+					!isExpandedOnMobile &&
+					!isFlyoutVisible &&
+					styles.hiddenMobileOnly,
+					!isExpandedOnDesktop &&
+					isExpandedOnMobile &&
+					!isFlyoutVisible &&
+					styles.hiddenDesktopOnly,
+					!isExpandedOnDesktop &&
 					!isExpandedOnMobile &&
 					!isFlyoutVisible &&
 					styles.hiddenMobileAndDesktop,
 
-				isFhsEnabled && styles.animationRTLSupport,
-				// Expand/collapse animation styles
-				shouldShowSidebarToggleAnimation && styles.animationBaseStyles,
-				// We need to separately apply the styles for the expand or collapse animations for both mobile and desktop
-				// based on their relevant expansion state.
-				isExpandedOnMobile && shouldShowSidebarToggleAnimation && styles.expandAnimationMobile,
-				!isExpandedOnMobile && shouldShowSidebarToggleAnimation && styles.collapseAnimationMobile,
-				isExpandedOnDesktop && shouldShowSidebarToggleAnimation && styles.expandAnimationDesktop,
-				!isExpandedOnDesktop && shouldShowSidebarToggleAnimation && styles.collapseAnimationDesktop,
+					isFhsEnabled && styles.animationRTLSupport,
+					// Expand/collapse animation styles
+					shouldShowSidebarToggleAnimation && styles.animationBaseStyles,
+					// We need to separately apply the styles for the expand or collapse animations for both mobile and desktop
+					// based on their relevant expansion state.
+					isExpandedOnMobile && shouldShowSidebarToggleAnimation && styles.expandAnimationMobile,
+					!isExpandedOnMobile && shouldShowSidebarToggleAnimation && styles.collapseAnimationMobile,
+					isExpandedOnDesktop && shouldShowSidebarToggleAnimation && styles.expandAnimationDesktop,
+					!isExpandedOnDesktop &&
+					shouldShowSidebarToggleAnimation &&
+					styles.collapseAnimationDesktop,
 
-				// Flyout styles
-				sideNavState?.flyout === 'open' && !isFhsEnabled && styles.flyoutOpen,
-				sideNavState?.flyout === 'triggered-animate-close' &&
+					// Flyout styles
+					sideNavState?.flyout === 'open' && !isFhsEnabled && styles.flyoutOpen,
+					sideNavState?.flyout === 'triggered-animate-close' &&
 					!isFhsEnabled &&
 					styles.flyoutAnimateClosed,
 
-				(sideNavState?.flyout === 'open' || sideNavState?.flyout === 'triggered-animate-close') &&
+					(sideNavState?.flyout === 'open' || sideNavState?.flyout === 'triggered-animate-close') &&
 					!isFirefox &&
 					isFhsEnabled &&
 					styles.flyoutBaseStylesFullHeightSidebar,
-				sideNavState?.flyout === 'triggered-animate-close' &&
+					sideNavState?.flyout === 'triggered-animate-close' &&
 					!isFirefox &&
 					isFhsEnabled &&
 					styles.flyoutAnimateClosedFullHeightSidebar,
-				sideNavState?.flyout === 'open' &&
+					sideNavState?.flyout === 'open' &&
 					!isFirefox &&
 					isFhsEnabled &&
 					styles.flyoutOpenFullHeightSidebar,
-				sideNavState?.flyout === 'triggered-animate-close' &&
+					sideNavState?.flyout === 'triggered-animate-close' &&
 					!isFirefox &&
 					isFhsEnabled &&
 					styles.flyoutAnimateClosedFullHeightSidebar,
-				// Flyout is not using full height styles
-				isFlyoutClosed &&
+					// Flyout is not using full height styles
+					isFlyoutClosed &&
 					isFhsEnabled &&
 					!fg('platform-dst-side-nav-layering-fixes') &&
 					styles.fullHeightSidebar,
-			]}
-			data-testid={testId}
-		>
-			{/**
-			 * This CSS var is used by the `Panel` slot to enforce its maximum width constraint.
-			 * When we remove the UNSAFE legacy usage, we can change this to `HoistCssVarToLocalGrid`
-			 */}
-			<DangerouslyHoistCssVarToDocumentRoot
-				variableName={sideNavLiveWidthVar}
-				value="0px"
-				mediaQuery={media.above.md}
-				responsiveValue={
-					isExpandedOnDesktop ? `var(${panelSplitterResizingVar}, ${clampedWidth})` : 0
-				}
-			/>
-			{dangerouslyHoistSlotSizes && (
-				// ------ START UNSAFE STYLES ------
-				// These styles are only needed for the UNSAFE legacy use case for Jira + Confluence.
-				// When they aren't needed anymore we can delete them wholesale.
+				]}
+				data-testid={testId}
+			>
+				{/**
+				 * This CSS var is used by the `Panel` slot to enforce its maximum width constraint.
+				 * When we remove the UNSAFE legacy usage, we can change this to `HoistCssVarToLocalGrid`
+				 */}
 				<DangerouslyHoistCssVarToDocumentRoot
-					variableName={UNSAFE_sideNavLayoutVar}
-					value={`var(${sideNavLiveWidthVar})`}
+					variableName={sideNavLiveWidthVar}
+					value="0px"
+					mediaQuery={media.above.md}
+					responsiveValue={
+						isExpandedOnDesktop ? `var(${panelSplitterResizingVar}, ${clampedWidth})` : 0
+					}
 				/>
-				// ------ END UNSAFE STYLES ------
-			)}
-			<PanelSplitterProvider
-				panelId={sideNavPanelSplitterId}
-				panelRef={navRef}
-				portalRef={
-					isFhsEnabled && fg('platform-dst-side-nav-layering-fixes')
-						? panelSplitterPortalTargetRef
-						: undefined
-				}
-				panelWidth={width}
-				onCompleteResize={setWidth}
-				getResizeBounds={getResizeBounds}
-				resizingCssVar={panelSplitterResizingVar}
-				// Not resizable when in peek (flyout) mode.
-				isEnabled={
-					fg('platform-dst-side-nav-layering-fixes')
-						? !isFlyoutVisible
-						: // Old behaviour has a bug: the panel splitter would only be visible on sm screens (between 48rem and 64rem)
+				{dangerouslyHoistSlotSizes && (
+					// ------ START UNSAFE STYLES ------
+					// These styles are only needed for the UNSAFE legacy use case for Jira + Confluence.
+					// When they aren't needed anymore we can delete them wholesale.
+					<DangerouslyHoistCssVarToDocumentRoot
+						variableName={UNSAFE_sideNavLayoutVar}
+						value={`var(${sideNavLiveWidthVar})`}
+					/>
+					// ------ END UNSAFE STYLES ------
+				)}
+				<PanelSplitterProvider
+					panelId={sideNavPanelSplitterId}
+					panelRef={navRef}
+					portalRef={
+						isFhsEnabled && fg('platform-dst-side-nav-layering-fixes')
+							? panelSplitterPortalTargetRef
+							: undefined
+					}
+					panelWidth={width}
+					onCompleteResize={setWidth}
+					getResizeBounds={getResizeBounds}
+					resizingCssVar={panelSplitterResizingVar}
+					// Not resizable when in peek (flyout) mode.
+					isEnabled={
+						fg('platform-dst-side-nav-layering-fixes')
+							? !isFlyoutVisible
+							: // Old behaviour has a bug: the panel splitter would only be visible on sm screens (between 48rem and 64rem)
 							// if the side nav was expanded on desktop.
 							isExpandedOnDesktop && !isFlyoutVisible
-				}
-				shortcut={isShortcutEnabled ? sideNavToggleTooltipKeyboardShortcut : undefined}
-			>
-				<div css={styles.flexContainer}>{children}</div>
-			</PanelSplitterProvider>
+					}
+					shortcut={isShortcutEnabled ? sideNavToggleTooltipKeyboardShortcut : undefined}
+				>
+					<div css={styles.flexContainer}>{children}</div>
+				</PanelSplitterProvider>
+			</nav>
 			{isFhsEnabled && fg('platform-dst-side-nav-layering-fixes') && (
-				<div ref={panelSplitterPortalTargetRef} css={panelSplitterPortalTargetStyles.root} />
+				// The side nav panel splitter is rendered outside of the side nav, so it can be layered above the top nav,
+				// while the actual side nav is layered below the top nav.
+				<div
+					ref={panelSplitterPortalTargetRef}
+					data-layout-slot
+					css={[
+						panelSplitterPortalTargetStyles.root,
+						// We need to apply the same styles to hide the panel splitter when the side nav is hidden, as it is rendered outside of the side nav.
+						isExpandedOnDesktop &&
+						!isExpandedOnMobile &&
+						!isFlyoutVisible &&
+						styles.hiddenMobileOnly,
+						!isExpandedOnDesktop &&
+						isExpandedOnMobile &&
+						!isFlyoutVisible &&
+						styles.hiddenDesktopOnly,
+						!isExpandedOnDesktop &&
+						!isExpandedOnMobile &&
+						!isFlyoutVisible &&
+						styles.hiddenMobileAndDesktop,
+					]}
+					style={
+						{
+							// We need to use an inline style here to share the side nav width to position the panel splitter.
+							// We can't use the existing --n_sNvlw variable (sideNavLiveWidthVar) because it is set to 0 when the side nav is collapsed on desktop,
+							// however the panel splitter is still visible and usable on small viewports until 48rem.
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+							[sideNavClampedWidthVar]: clampedWidth,
+						} as CSSProperties
+					}
+				/>
 			)}
-		</nav>
+		</>
 	);
 }
 

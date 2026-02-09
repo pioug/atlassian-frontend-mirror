@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 8.0.8
+
+### Patch Changes
+
+- [`99854c8e0ae49`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/99854c8e0ae49) -
+  update pm-plugins utils.ts to use design tokens
+
+## 8.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.6
 
 ### Patch Changes

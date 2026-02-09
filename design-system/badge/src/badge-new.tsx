@@ -99,90 +99,33 @@ const stylesNew = cssMapUnbound({
 	// Success appearance
 	success: {
 		color: token('color.text.success.bolder'),
-		backgroundColor: `color-mix(in oklch, ${token('color.background.success.bold')} 20%, ${token('color.background.success.subtler')} 80%)`,
-
-		'@supports (color: oklch(from white l c h))': {
-			backgroundColor: `oklch(from ${token('color.background.success.bold')} calc(l * 1.55) c h)`,
-		},
-		// Dark mode overrides
-		'[data-color-mode="dark"] &': {
-			'@supports (color: oklch(from white l c h))': {
-				backgroundColor: `oklch(from ${token('color.background.success.bold')} calc(l * 0.63) c h)`,
-			},
-		},
+		backgroundColor: token('color.background.success.subtler'),
 	},
 	// Danger appearance
 	danger: {
 		color: token('color.text.danger.bolder'),
-		backgroundColor: `color-mix(in oklch, ${token('color.background.danger.bold')} 50%, ${token('color.background.danger.subtler')} 50%)`,
-
-		'@supports (color: oklch(from white l c h))': {
-			backgroundColor: `oklch(from ${token('color.background.danger.bold')} calc(l * 1.4) c h)`,
-		},
-		// Dark mode overrides
-		'[data-color-mode="dark"] &': {
-			'@supports (color: oklch(from white l c h))': {
-				backgroundColor: `oklch(from ${token('color.background.danger.bold')} calc(l * 0.69) c h)`,
-			},
-		},
+		backgroundColor: token('color.background.danger.subtler'),
 	},
 	// Warning appearance
 	warning: {
-		backgroundColor: token('color.background.warning.bold'),
 		color: token('color.text.warning.bolder'),
-
-		'[data-color-mode="dark"] &': {
-			backgroundColor: `color-mix(in oklch, ${token('color.background.warning.bold')} 20%, ${token('color.background.warning.subtler')} 80%)`,
-			'@supports (color: oklch(from white l c h))': {
-				backgroundColor: `oklch(from ${token('color.background.warning.bold')} calc(l * 0.60) c h)`,
-			},
-		},
+		backgroundColor: token('color.background.warning.subtler'),
 	},
 	// Information appearance
 	information: {
 		// Base fallback
 		color: token('color.text.information.bolder'),
-		backgroundColor: `color-mix(in oklch, ${token('color.background.information.bold')} 50%, ${token('color.background.information.subtler')} 50%)`,
-
-		'@supports (color: oklch(from white l c h))': {
-			backgroundColor: `oklch(from ${token('color.background.information.bold')} calc(l * 1.4) c h)`,
-		},
-		// Dark mode overrides
-		'[data-color-mode="dark"] &': {
-			'@supports (color: oklch(from white l c h))': {
-				backgroundColor: `oklch(from ${token('color.background.information.bold')} calc(l * 0.69) c h)`,
-			},
-		},
+		backgroundColor: token('color.background.information.subtler'),
 	},
 	// Discovery appearance
 	discovery: {
 		color: token('color.text.discovery.bolder'),
-		backgroundColor: `color-mix(in oklch, ${token('color.background.discovery.bold')} 50%, ${token('color.background.discovery.subtler')} 50%)`,
-
-		'@supports (color: oklch(from white l c h))': {
-			backgroundColor: `oklch(from ${token('color.background.discovery.bold')} calc(l * 1.4) c h)`,
-		},
-		// Dark mode overrides
-		'[data-color-mode="dark"] &': {
-			'@supports (color: oklch(from white l c h))': {
-				backgroundColor: `oklch(from ${token('color.background.discovery.bold')} calc(l * 0.69) c h)`,
-			},
-		},
+		backgroundColor: token('color.background.discovery.subtler'),
 	},
 	// Neutral appearance
 	neutral: {
 		color: token('color.text'),
-		backgroundColor: `color-mix(in oklch, ${token('color.background.neutral.bold')} 33%, ${token('color.background.neutral')} 67%)`,
-
-		'@supports (color: oklch(from white l c h))': {
-			backgroundColor: `oklch(from ${token('color.background.neutral.bold')} calc(l * 2.77) c h)`,
-		},
-		// Dark mode overrides
-		'[data-color-mode="dark"] &': {
-			'@supports (color: oklch(from white l c h))': {
-				backgroundColor: `oklch(from ${token('color.background.neutral.bold')} calc(l * 0.37) c h)`,
-			},
-		},
+		backgroundColor: token('color.background.accent.gray.subtler'),
 	},
 	// Inverse appearance - no transformation
 	inverse: {

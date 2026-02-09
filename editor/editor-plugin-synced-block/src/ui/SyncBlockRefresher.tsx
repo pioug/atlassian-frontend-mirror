@@ -4,16 +4,15 @@ import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks'
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
 
 export const SYNC_BLOCK_FETCH_INTERVAL = 3000;
 
 // Component that manages synced block data synchronization.
-// When the feature flag 'platform_synced_block_dogfooding' is enabled,
-// it uses provider-based GraphQL subscriptions for updates.
-// When disabled, it falls back to polling at regular intervals.
+// Component that manages synced block data synchronization.
+// Uses provider-based GraphQL subscriptions for updates when online.
+// Falls back to polling at regular intervals when offline.
 export const SyncBlockRefresher = ({
 	syncBlockStoreManager,
 	api,
@@ -25,16 +24,17 @@ export const SyncBlockRefresher = ({
 		mode: states.connectivityState?.mode,
 	}));
 
-	const featureFlagEnabled = fg('platform_synced_block_dogfooding');
 	const isOnline = !isOfflineMode(mode);
 
 	useEffect(() => {
-		const useRealTimeSubscriptions = featureFlagEnabled && isOnline;
-		syncBlockStoreManager.referenceManager.setRealTimeSubscriptionsEnabled(useRealTimeSubscriptions);
-	}, [syncBlockStoreManager, featureFlagEnabled, isOnline]);
+		const useRealTimeSubscriptions = isOnline;
+		syncBlockStoreManager.referenceManager.setRealTimeSubscriptionsEnabled(
+			useRealTimeSubscriptions,
+		);
+	}, [syncBlockStoreManager, isOnline]);
 
 	useEffect(() => {
-		const useRealTimeSubscriptions = featureFlagEnabled && isOnline;
+		const useRealTimeSubscriptions = isOnline;
 		if (useRealTimeSubscriptions) {
 			return;
 		}
@@ -54,7 +54,7 @@ export const SyncBlockRefresher = ({
 		return () => {
 			window.clearInterval(interval);
 		};
-	}, [syncBlockStoreManager, isOnline, featureFlagEnabled]);
+	}, [syncBlockStoreManager, isOnline]);
 
 	return null;
 };

@@ -9,10 +9,12 @@ import LozengeDropdownTriggerBasic from '../../examples/constellation/lozenge-dr
 import LozengeDropdownTriggerWithIcon from '../../examples/constellation/lozenge-dropdown-trigger-with-icon';
 import LozengeDropdownTriggerWithDropdown from '../../examples/constellation/lozenge-dropdown-trigger-with-dropdown';
 import LozengeDropdownTriggerSelected from '../../examples/constellation/lozenge-dropdown-trigger-selected';
+import LozengeDropdownTriggerLoading from '../../examples/constellation/lozenge-dropdown-trigger-loading';
 import LozengeDropdownTriggerSemantic from '../../examples/constellation/lozenge-dropdown-trigger-semantic';
 import LozengeDropdownTriggerAccent from '../../examples/constellation/lozenge-dropdown-trigger-accent';
 import LozengeDropdownTriggerMaxWidth from '../../examples/constellation/lozenge-dropdown-trigger-max-width';
 import LozengeDropdownTriggerSpacing from '../../examples/constellation/lozenge-dropdown-trigger-spacing';
+import LozengeDropdownTriggerMetric from '../../examples/constellation/lozenge-dropdown-trigger-metric';
 
 ## Basic
 
@@ -36,6 +38,13 @@ about the component's state.
 
 <Example Component={LozengeDropdownTriggerSelected} packageName="@atlaskit/lozenge" />
 
+## Loading
+
+Use `isLoading` to indicate an in-progress state (for example, while saving a change triggered from
+within the dropdown menu).
+
+<Example Component={LozengeDropdownTriggerLoading} packageName="@atlaskit/lozenge" />
+
 ## With icon
 
 Add an icon before the text using the `iconBefore` prop to provide additional visual context.
@@ -54,6 +63,15 @@ In addition to semantic colors, lozenge dropdown triggers support accent colors 
 labeling and visual organization.
 
 <Example Component={LozengeDropdownTriggerAccent} packageName="@atlaskit/lozenge" />
+
+## Trailing metric
+
+Use `trailingMetric` to display a numeric metric as a badge inside the lozenge dropdown trigger.
+
+Use `trailingMetricAppearance` to override the metric badge appearance (semantic appearances only),
+for example to highlight a warning or error state, or to use `inverse`.
+
+<Example Component={LozengeDropdownTriggerMetric} packageName="@atlaskit/lozenge" />
 
 ## Spacing
 

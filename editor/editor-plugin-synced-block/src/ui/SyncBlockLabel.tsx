@@ -5,7 +5,6 @@ import { useIntl } from 'react-intl-next';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { SyncBlockLabelSharedCssClassName } from '@atlaskit/editor-common/sync-block';
 import BlockSyncedIcon from '@atlaskit/icon-lab/core/block-synced';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -38,17 +37,11 @@ const SyncBlockLabelComponent = ({
 	);
 
 	let tooltipMessage: string = formatMessage(messages.defaultSyncBlockTooltip);
-	if (isSource && !fg('platform_synced_block_dogfooding')) {
-		tooltipMessage = formatMessage(messages.sourceSyncBlockTooltip);
-	} else if (title) {
+	if (title) {
 		tooltipMessage = formatMessage(messages.referenceSyncBlockTooltip, { title });
 	}
 
 	const updateTooltipContent = useCallback(() => {
-		if (!fg('platform_synced_block_dogfooding')) {
-			return;
-		}
-
 		let tooltipContent: string | React.JSX.Element = tooltipMessage;
 
 		if (contentUpdatedAt) {
@@ -75,7 +68,7 @@ const SyncBlockLabelComponent = ({
 	const ariaDescribedById = `sync-block-label-description-${localId}`;
 
 	const getLabelContent = useMemo(() => {
-		if (isUnsyncedBlock && fg('platform_synced_block_dogfooding')) {
+		if (isUnsyncedBlock) {
 			return (
 				<Text size="small" color="color.text.subtle">
 					{formatMessage(messages.unsyncedBlockLabel)}
@@ -108,14 +101,14 @@ const SyncBlockLabelComponent = ({
 		</div>
 	);
 
-	if ((isSource || isUnsyncedBlock) && fg('platform_synced_block_dogfooding')) {
+	if (isSource || isUnsyncedBlock) {
 		return label;
 	}
 
 	return (
 		<Tooltip
 			position="top"
-			content={fg('platform_synced_block_dogfooding') ? tooltipContent : tooltipMessage}
+			content={tooltipContent}
 			// workaround because tooltip adds aria-describedby with a new id every time the tooltip is opened
 			// this causes an infinite rerender loop because of the forwardRef from the node view we are inside in bodiedSyncBlock
 			// tooltip content is available for screen readers in visually hidden content after the label

@@ -35,7 +35,8 @@ export type ToolbarPlugin = NextEditorPlugin<
 			 * @returns The active contextual formatting mode:
 			 * - `always-inline`: Formatting controls appear in a floating toolbar near selected text
 			 * - `always-pinned`: Formatting controls are pinned to the top toolbar (default)
-			 * - `controlled`: Both inline and primary toolbars are available
+			 * - `controlled`: Both inline and primary toolbars are available - this option requires editor-plugin-selection-toolbar to be configured with
+			 * userPreferencesProvider to control the toolbar pinning.
 			 */
 			contextualFormattingMode: () => ContextualFormattingEnabledOptions;
 			/**

@@ -790,14 +790,6 @@ export const editorExperimentsConfig: {
 		typeGuard: (value: unknown) => value is 'control' | 'test';
 		values: ('control' | 'test')[];
 	};
-	// Added 2025-10-01
-	platform_inline_smartcard_connect_button_exp: {
-		defaultValue: 'control' | 'test1' | 'test2';
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: (value: unknown) => value is 'control' | 'test1' | 'test2';
-		values: ('control' | 'test1' | 'test2')[];
-	};
 	// Added 2025-04-23
 	platform_renderer_fix_analytics_memo_callback: {
 		defaultValue: boolean;
@@ -1134,6 +1126,20 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-02-04
 	platform_editor_emoji_tooltips_on_hover: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-01-28
+	platform_editor_smartlink_local_cache: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-02-05
+	platform_editor_toolbar_split_button_ui: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2008,15 +2014,6 @@ export const editorExperimentsConfig: {
 		defaultValue: false,
 	}),
 	// Added 2025-10-01
-	platform_inline_smartcard_connect_button_exp: createMultivariateExperiment({
-		productKeys: {
-			confluence: 'platform_inline_smartcard_connect_button_exp',
-			jira: 'platform_inline_smartcard_connect_button_exp',
-		},
-		param: 'cohort',
-		values: ['control', 'test1', 'test2'],
-		defaultValue: 'control',
-	}),
 	// Added 2025-10-13
 	platform_editor_media_error_analytics: createBooleanExperiment({
 		productKeys: {
@@ -2429,6 +2426,22 @@ export const editorExperimentsConfig: {
 	platform_editor_emoji_tooltips_on_hover: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_emoji_tooltips_on_hover',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-01-28
+	platform_editor_smartlink_local_cache: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_smartlink_local_cache',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-02-05
+	platform_editor_toolbar_split_button_ui: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_toolbar_split_button_ui',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

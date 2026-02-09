@@ -22,7 +22,7 @@
 	},
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
-		"team": "AAIS: Chronos",
+		"team": "Jira Chronos",
 		"website": {
 			"name": "Color Picker"
 		}

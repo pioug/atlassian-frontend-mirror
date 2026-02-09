@@ -70,4 +70,8 @@ export interface GiveKudosDrawerProps {
 	onCreateKudosSuccess?: (flagEvent: FlagEvent) => void;
 	isActionsEnabled?: boolean;
 	zIndex?: number;
+	/**
+	 * Optional attributes merged into the createKudos opened analytics event (e.g. isNewUserProfile).
+	 */
+	openedEventAttributes?: Record<string, string | boolean | undefined>;
 }

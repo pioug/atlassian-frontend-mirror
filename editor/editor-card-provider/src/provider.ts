@@ -1,6 +1,8 @@
 /* eslint-disable require-unicode-regexp,prefer-regex-literals */
 import type { JSONNode } from '@atlaskit/editor-json-transformer';
 import { extractSmartLinkEmbed } from '@atlaskit/link-extractors';
+import type { CallbackPayload } from '@atlaskit/node-data-provider';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeDataProvider } from '@atlaskit/node-data-provider';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import {
@@ -30,6 +32,7 @@ import { CardClient } from '@atlaskit/link-provider';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { request } from './api';
+import { SmartCardLocalCacheClient } from './smart-card-local-cache-client';
 
 const BATCH_WAIT_TIME = 50;
 
@@ -153,6 +156,7 @@ export class EditorCardProvider
 	private transformer: Transformer;
 	private providersLoader: DataLoader<string, ProvidersData | undefined>;
 	private cardClient: CardClient;
+	private smartCardLocalCacheClient: SmartCardLocalCacheClient = new SmartCardLocalCacheClient();
 	private onResolve: ((url: string, ari: string) => void) | undefined;
 
 	constructor(
@@ -179,6 +183,37 @@ export class EditorCardProvider
 		if (!customCardClient && product) {
 			this.cardClient.setProduct(product);
 		}
+	}
+
+	override getData(
+		node: CardNode | PMNode,
+		callback: (payload: CallbackPayload<JsonLd.Response>) => void,
+	) {
+		if (expValEquals('platform_editor_smartlink_local_cache', 'isEnabled', true) === false) {
+			// if local cache feature flag is disabled, fall back to the base implementation
+			return super.getData(node, callback);
+		}
+
+		const jsonNode: JSONNode = 'toJSON' in node ? node.toJSON() : node;
+		if (!this.isNodeSupported(jsonNode)) {
+			return;
+		}
+
+		// if we can load a response from cache, use it first
+		const key = this.nodeDataKey(jsonNode);
+		const details = this.smartCardLocalCacheClient.getItem(key);
+		if (details) {
+			callback({ data: details });
+		}
+
+		// fetch the latest data async and update the cache
+		this.getDataAsync(node, (payload) => {
+			if (payload.data && !payload.error) {
+				this.smartCardLocalCacheClient.setItem(key, payload.data);
+			}
+
+			callback(payload);
+		});
 	}
 
 	override nodeDataKey(node: CardNode): string {

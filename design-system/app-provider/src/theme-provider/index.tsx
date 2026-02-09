@@ -15,7 +15,7 @@ import {
 	type ThemeColorModes,
 } from '@atlaskit/tokens';
 
-import { useIsInsideAppProvider } from '../context';
+import { useIsAppProviderThemingEnabled, useIsInsideAppProvider } from '../context';
 
 import {
 	ColorModeContext,
@@ -90,9 +90,9 @@ function ThemeProvider({ children, defaultColorMode = 'auto', defaultTheme }: Th
 	const lastSetGlobalThemePromiseRef = useRef<ReturnType<typeof setGlobalTheme> | null>(null);
 
 	const isInsideAppProvider = useIsInsideAppProvider();
+	const isAppProviderThemingEnabled = useIsAppProviderThemingEnabled();
 	const isInsideThemeProvider = useIsInsideThemeProvider();
-	const isRootThemeProvider = isInsideAppProvider && !isInsideThemeProvider;
-
+	const isRootThemeProvider = isInsideAppProvider && !isInsideThemeProvider && isAppProviderThemingEnabled;
 
 	const shouldUseGlobalTheming =
 		/**

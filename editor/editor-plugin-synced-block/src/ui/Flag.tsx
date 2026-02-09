@@ -57,6 +57,11 @@ const flagMap: Record<FLAG_ID, FlagConfig> = {
 		description: messages.unpublishedSyncBlockPastedDescription,
 		type: 'info',
 	},
+	[FLAG_ID.CANNOT_CREATE_SYNC_BLOCK]: {
+		title: messages.cannotCreateSyncBlockTitle,
+		description: messages.CannotCreateSyncBlockDescription,
+		type: 'error',
+	},
 };
 
 export const Flag = ({ api }: Props) => {

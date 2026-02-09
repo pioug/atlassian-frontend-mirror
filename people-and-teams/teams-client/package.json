@@ -45,7 +45,6 @@
 	},
 	"dependencies": {
 		"@atlaskit/atlassian-context": "workspace:^",
-		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/ufo": "workspace:^",
 		"@babel/runtime": "root:*",
@@ -60,6 +59,7 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
+		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlassian/codegen": "workspace:^",
 		"@atlassian/ptc-test-utils": "workspace:^",
 		"@testing-library/react": "root:*",
@@ -105,6 +105,9 @@
 	},
 	"platform-feature-flags": {
 		"enable_edit_team_name_external_type_teams": {
+			"type": "boolean"
+		},
+		"new_team_profile_fedramp": {
 			"type": "boolean"
 		}
 	}

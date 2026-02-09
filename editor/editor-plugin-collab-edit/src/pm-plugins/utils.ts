@@ -22,6 +22,7 @@ import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { getParticipantColor } from '@atlaskit/editor-shared-styles';
+import { token } from '@atlaskit/tokens';
 
 export const findPointers = (id: string, decorations: DecorationSet): Decoration[] =>
 	decorations
@@ -31,8 +32,9 @@ export const findPointers = (id: string, decorations: DecorationSet): Decoration
 		>((arr, deco) => (deco.spec.pointer.presenceId === id ? arr.concat(deco) : arr), []);
 
 function style(options: { color: string }) {
-	const color = (options && options.color) || 'black';
-	return `border-right: 2px solid ${color}; margin-right: -2px; z-index: 1`;
+	const color = (options && options.color) || token('color.border', 'black');
+	const borderWidth = token('border.width.focused', '2px');
+	return `border-right: ${borderWidth} solid ${color}; margin-right: calc(-1 * ${borderWidth}); z-index: 1`;
 }
 
 export function getAvatarColor(str: string) {

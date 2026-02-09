@@ -39,7 +39,6 @@ import type {
 	DatasourceAdfView,
 	InlineCardAdf,
 } from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { closeHistory } from '@atlaskit/prosemirror-history';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -557,14 +556,13 @@ export const setSelectedCardAppearance: (
 		return false;
 	}
 
-	const attrs =
-		editorExperiment('platform_synced_block', true) && fg('platform_synced_block_dogfooding')
-			? getAttrsForAppearance(
-					appearance,
-					selectedNode,
-					state.selection.$from.parent.type.name === 'bodiedSyncBlock',
-			  )
-			: getAttrsForAppearance(appearance, selectedNode);
+	const attrs = editorExperiment('platform_synced_block', true)
+		? getAttrsForAppearance(
+				appearance,
+				selectedNode,
+				state.selection.$from.parent.type.name === 'bodiedSyncBlock',
+		  )
+		: getAttrsForAppearance(appearance, selectedNode);
 
 	const { from, to } = state.selection;
 	const nodeType = getLinkNodeType(appearance, state.schema.nodes as LinkNodes);

@@ -1,5 +1,4 @@
 import React from 'react';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { type ClipboardProps } from './clipboard';
 import { type ClipboardConfig } from '../../types';
 import { type WithMediaClientConfigProps } from '@atlaskit/media-client-react';
@@ -32,7 +31,7 @@ export class ClipboardLoader extends React.PureComponent<
 	};
 
 	componentDidMount(): void {
-		if (!this.state.Clipboard && fg('jfp-magma-media-clipboard-init-after-mount')) {
+		if (!this.state.Clipboard) {
 			Promise.all([
 				import(
 					/* webpackChunkName: "@atlaskit-internal_media-client-react" */ '@atlaskit/media-client-react'
@@ -45,24 +44,6 @@ export class ClipboardLoader extends React.PureComponent<
 				this.setState({
 					Clipboard: ClipboardLoader.Clipboard,
 				});
-			});
-		}
-	}
-
-	async UNSAFE_componentWillMount(): Promise<void> {
-		if (!this.state.Clipboard && !fg('jfp-magma-media-clipboard-init-after-mount')) {
-			const [mediaClient, clipboardModule] = await Promise.all([
-				import(
-					/* webpackChunkName: "@atlaskit-internal_media-client-react" */ '@atlaskit/media-client-react'
-				),
-				import(/* webpackChunkName: "@atlaskit-internal_media-clipboard" */ './clipboard'),
-			]);
-
-			// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
-			ClipboardLoader.Clipboard = mediaClient.withMediaClient(clipboardModule.Clipboard);
-
-			this.setState({
-				Clipboard: ClipboardLoader.Clipboard,
 			});
 		}
 	}

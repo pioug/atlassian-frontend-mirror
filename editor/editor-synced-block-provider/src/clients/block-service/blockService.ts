@@ -623,10 +623,9 @@ export const deleteSyncedBlock = async ({
 		return;
 	}
 
-	const url =
-		deleteReason && fg('platform_synced_block_dogfooding')
-			? `${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}?deletionReason=${encodeURIComponent(deleteReason)}`
-			: `${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}`;
+	const url = deleteReason
+		? `${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}?deletionReason=${encodeURIComponent(deleteReason)}`
+		: `${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}`;
 	const response = await fetchWithRetry(url, {
 		method: 'DELETE',
 		headers: COMMON_HEADERS,
@@ -704,7 +703,7 @@ export const createSyncedBlock = async ({
 				product,
 				sourceAri,
 				stepVersion,
-				status !== undefined && fg('platform_synced_block_dogfooding') ? status : undefined,
+				status,
 			),
 			operationName: CREATE_BLOCK_OPERATION_NAME,
 		};
@@ -752,7 +751,7 @@ export const createSyncedBlock = async ({
 		requestBody.stepVersion = stepVersion;
 	}
 
-	if (status !== undefined && fg('platform_synced_block_dogfooding')) {
+	if (status !== undefined) {
 		requestBody.status = status;
 	}
 
@@ -784,7 +783,7 @@ export const updateReferenceSyncedBlockOnDocument = async ({
 			method: 'POST',
 			headers: COMMON_HEADERS,
 			body: JSON.stringify(bodyData),
-			...(fg('platform_synced_block_dogfooding') ? { keepalive: true } : {}),
+			keepalive: true,
 		});
 
 		if (!response.ok) {
@@ -812,7 +811,7 @@ export const updateReferenceSyncedBlockOnDocument = async ({
 			method: 'PUT',
 			headers: COMMON_HEADERS,
 			body: JSON.stringify({ blocks }),
-			...(fg('platform_synced_block_dogfooding') ? { keepalive: true } : {}),
+			keepalive: true,
 		},
 	);
 

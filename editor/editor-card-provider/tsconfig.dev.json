@@ -53,6 +53,9 @@
 			"path": "../../linking-platform/linking-types/tsconfig.app.json"
 		},
 		{
+			"path": "../node-data-provider/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{

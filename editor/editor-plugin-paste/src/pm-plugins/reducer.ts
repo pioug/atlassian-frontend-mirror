@@ -1,4 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { PastePluginAction as Action } from '../editor-actions/actions';
@@ -29,9 +28,6 @@ export const reducer = (state: State, action: Action): State => {
 		}
 		case ActionTypes.SET_ACTIVE_FLAG: {
 			if (!editorExperiment('platform_synced_block', true)) {
-				return state;
-			}
-			if (!fg('platform_synced_block_dogfooding')) {
 				return state;
 			}
 			return { ...state, activeFlag: action.activeFlag };

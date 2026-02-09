@@ -77,6 +77,13 @@ shared:
       type: boolean
       required: false
       description: whether this event is fired from the new user profile page
+  UserProfileViewedTabAttribute: &UserProfileViewedTabAttribute
+    tab:
+      type: string
+      required: false
+      description:
+        the user profile tab where the viewed event was fired (overview, hierarchy, goals, projects,
+        kudos)
   AgentProfileCardActionsAttributes: &AgentProfileCardActionsAttributes
     agentId:
       type: string
@@ -1385,6 +1392,14 @@ events:
       type: operational
       attributes:
         <<: *ExperienceMetadata
+  - userProfile_projectsAndGoals taskStart:
+      type: operational
+      attributes:
+        <<: [*ExperienceMetadata, *UserProfileViewedTabAttribute]
+  - userProfile_projectsAndGoals taskSuccess:
+      type: operational
+      attributes:
+        <<: [*ExperienceMetadata, *UserProfileViewedTabAttribute]
   - teamsPermissionsRequest failed:
       type: operational
       attributes:
@@ -2159,6 +2174,7 @@ events:
           type: string
           required: false
           description: the workspace uuid
+        <<: [*NewUserProfileAttribute, *UserProfileViewedTabAttribute]
   - ProfileProjectsLink clicked:
       type: ui
       description: fired when the profile projects link is clicked
@@ -2166,6 +2182,7 @@ events:
         entryIndex:
           type: number
           description: the index
+        <<: [*NewUserProfileAttribute, *UserProfileViewedTabAttribute]
   - ProfileGoalsLink clicked:
       type: ui
       description: fired when the profile goals link is clicked
@@ -2173,6 +2190,7 @@ events:
         entryIndex:
           type: number
           description: the index
+        <<: [*NewUserProfileAttribute, *UserProfileViewedTabAttribute]
   - button clicked (followTeamProjectsGoalsButton):
       type: ui
       description: fired when the follow team projects and goals button is clicked
@@ -2199,6 +2217,7 @@ events:
         isEmpty:
           type: boolean
           description: whether the profile kudos is empty
+        <<: [*NewUserProfileAttribute, *UserProfileViewedTabAttribute]
   - ProfileKudosTab clicked:
       type: ui
       description: fired when the profile kudos tab is clicked
@@ -2249,6 +2268,7 @@ events:
           type: string
           required: false
           description: the workspace uuid
+        <<: [*NewUserProfileAttribute, *UserProfileViewedTabAttribute]
   - ui viewed:
       type: ui
       description: fired when the reporting lines chart is viewed - used for Atlas MAU
@@ -2379,6 +2399,8 @@ events:
   - button clicked (profileHeaderMediaPickerUpload):
       type: ui
       description: fired when the media picker upload button is clicked
+      attributes:
+        <<: *NewUserProfileAttribute
   - button clicked (profileHeaderRemove):
       type: ui
       description: fired when the remove header image button is clicked
@@ -2408,12 +2430,17 @@ events:
         hasUploadedAvatar:
           type: boolean
           description: whether the avatar has been uploaded
+        <<: *NewUserProfileAttribute
   - button clicked (changeProfilePhoto):
       type: ui
       description: fired when the change profile photo button is clicked
+      attributes:
+        <<: *NewUserProfileAttribute
   - button clicked (createInitialsAvatar):
       type: ui
       description: fired when the create initials avatar button is clicked
+      attributes:
+        <<: *NewUserProfileAttribute
   - avatarInitialsPicker opened:
       type: track
       description: fired when the avatar initials picker is opened
@@ -2421,6 +2448,7 @@ events:
         hasUploadedAvatar:
           type: boolean
           description: whether the avatar has been uploaded
+        <<: *NewUserProfileAttribute
   - uploadAvatar failed:
       type: track
       description: fired when the upload avatar action is failed
@@ -2524,6 +2552,8 @@ events:
   - button clicked (manageAccountButton):
       type: ui
       description: fired when the manage account button is clicked
+      attributes:
+        <<: *NewUserProfileAttribute
   - button clicked (manageAccessButton):
       type: ui
       description: fired when the manage access button is clicked
@@ -2539,7 +2569,7 @@ events:
         isCurrentUser:
           type: boolean
           description: whether the user is the current user
-        <<: *NewUserProfileAttribute
+        <<: [*NewUserProfileAttribute, *UserProfileViewedTabAttribute]
   - viewAllWork clicked:
       type: ui
       description: fired when the view all work button is clicked

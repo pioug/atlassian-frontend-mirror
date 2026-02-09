@@ -46,13 +46,7 @@ export type IconProp = ComponentType<Omit<NewIconProps, 'spacing'>>;
  */
 export type LozengeSpacing = 'default' | 'spacious';
 
-export interface NewLozengeProps {
-	/**
-	 * The appearance of the lozenge. Supports both legacy semantic appearances and new accent/semantic colors.
-	 * Legacy appearances (default, success, removed, inprogress, new, moved) are automatically mapped to the new semantic colors.
-	 */
-	appearance?: ThemeAppearance | LozengeColor;
-
+type NewLozengeBaseProps = {
 	/**
 	 * Elements to be rendered inside the lozenge. This should ideally be just a word or two.
 	 */
@@ -93,12 +87,69 @@ export interface NewLozengeProps {
 	 * @deprecated This prop is deprecated and will be removed. Use Tag component for non-bold styles.
 	 */
 	isBold?: boolean;
-}
+};
+
+type NewLozengeSemanticProps = NewLozengeBaseProps & {
+	/**
+	 * The appearance of the lozenge. Supports legacy semantic appearances and new semantic colors.
+	 */
+	appearance?: ThemeAppearance | SemanticColor;
+
+	/**
+	 * Numeric metric displayed at the end of the lozenge as a badge.
+	 */
+	trailingMetric?: string;
+
+	/**
+	 * Overrides the appearance of the trailing metric badge.
+	 *
+	 * If not specified, the trailing metric badge inherits the lozenge appearance.
+	 *
+	 * This prop is not supported for accent lozenges.
+	 */
+	trailingMetricAppearance?: ThemeAppearance | SemanticColor | 'inverse';
+};
+
+type NewLozengeAccentProps = NewLozengeBaseProps & {
+	/**
+	 * Accent appearance values.
+	 */
+	appearance: AccentColor;
+
+	/**
+	 * Trailing metric is not supported for accent lozenges.
+	 */
+	trailingMetric?: never;
+
+	/**
+	 * Trailing metric appearance is not supported for accent lozenges.
+	 */
+	trailingMetricAppearance?: never;
+};
+
+export type NewLozengeProps = NewLozengeSemanticProps | NewLozengeAccentProps;
+
+/**
+ * Props for LozengeBase (internal). A single merged type so that Lozenge and
+ * LozengeDropdownTrigger can pass their props without union narrowing requiring
+ * appearance to match only one branch (AccentColor vs ThemeAppearance | SemanticColor).
+ * Must not intersect with LozengeDropdownTriggerProps (which extends NewLozengeProps union).
+ */
+export type LozengeBaseProps = NewLozengeBaseProps & {
+	appearance?: ThemeAppearance | SemanticColor | AccentColor;
+	trailingMetric?: string;
+	trailingMetricAppearance?: ThemeAppearance | SemanticColor | 'inverse';
+	isSelected?: boolean;
+	isLoading?: boolean;
+	onClick?: (event: React.MouseEvent<HTMLButtonElement>, analyticsEvent: UIAnalyticsEvent) => void;
+	analyticsContext?: Record<string, any>;
+	interactionName?: string;
+};
 
 /**
  * Props for the LozengeDropdownTrigger component
  */
-export interface LozengeDropdownTriggerProps extends NewLozengeProps {
+export type LozengeDropdownTriggerProps = NewLozengeProps & {
 	/**
 	 * Whether the dropdown is currently selected/open.
 	 */
@@ -124,4 +175,4 @@ export interface LozengeDropdownTriggerProps extends NewLozengeProps {
 	 * An optional name used to identify events for React UFO (Unified Frontend Observability) press interactions. For more information, see [React UFO integration](https://go.atlassian.com/react-ufo-dst-integration).
 	 */
 	interactionName?: string;
-}
+};

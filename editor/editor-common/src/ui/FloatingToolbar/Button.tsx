@@ -154,8 +154,7 @@ const FloatingToolbarButton = (
 
 								if (
 									forwardedRef &&
-									editorExperiment('platform_synced_block', true) &&
-									fg('platform_synced_block_dogfooding')
+									editorExperiment('platform_synced_block', true)
 								) {
 									if (typeof forwardedRef === 'function') {
 										forwardedRef(buttonElement);
@@ -228,7 +227,7 @@ const FloatingToolbarButton = (
 };
 
 export default componentWithCondition(
-	() => editorExperiment('platform_synced_block', true) && fg('platform_synced_block_dogfooding'),
+	() => editorExperiment('platform_synced_block', true),
 	forwardRef<HTMLElement, Props>(FloatingToolbarButton),
 	FloatingToolbarButton,
 );

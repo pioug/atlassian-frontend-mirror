@@ -1,6 +1,5 @@
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import type {
-	INPUT_METHOD} from '@atlaskit/editor-common/analytics';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -75,23 +74,23 @@ export const createSyncedBlock = ({
 		);
 
 		if (!newBodiedSyncBlockNode) {
-			if (fg('platform_synced_block_dogfooding')) {
-				fireAnalyticsEvent?.({
-					action: ACTION.ERROR,
-					actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
-					actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_CREATE,
-					attributes: {
-						error: 'Create and fill for empty content failed',
-					},
-					eventType: EVENT_TYPE.OPERATIONAL,
-				});
-			}
+			fireAnalyticsEvent?.({
+				action: ACTION.ERROR,
+				actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+				actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_CREATE,
+				attributes: {
+					error: 'Create and fill for empty content failed',
+				},
+				eventType: EVENT_TYPE.OPERATIONAL,
+			});
 			return false;
 		}
 
 		// Save the new node with empty content to backend
 		// This is so that the node can be copied and referenced without the source being saved/published
-		syncBlockStore.sourceManager.createBodiedSyncBlockNode(attrs);
+		if (!fg('platform_synced_block_patch_1')) {
+			syncBlockStore.sourceManager.createBodiedSyncBlockNode(attrs, () => {});
+		}
 
 		if (typeAheadInsert) {
 			tr = typeAheadInsert(newBodiedSyncBlockNode);
@@ -101,17 +100,15 @@ export const createSyncedBlock = ({
 	} else {
 		const conversionInfo = canBeConvertedToSyncBlock(tr.selection);
 		if (!conversionInfo) {
-			if (fg('platform_synced_block_dogfooding')) {
-				fireAnalyticsEvent?.({
-					action: ACTION.ERROR,
-					actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
-					actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_CREATE,
-					attributes: {
-						error: 'Content cannot be converted to sync block',
-					},
-					eventType: EVENT_TYPE.OPERATIONAL,
-				});
-			}
+			fireAnalyticsEvent?.({
+				action: ACTION.ERROR,
+				actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+				actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_CREATE,
+				attributes: {
+					error: 'Content cannot be converted to sync block',
+				},
+				eventType: EVENT_TYPE.OPERATIONAL,
+			});
 			return false;
 		}
 
@@ -122,23 +119,28 @@ export const createSyncedBlock = ({
 		);
 
 		if (!newBodiedSyncBlockNode) {
-			if (fg('platform_synced_block_dogfooding')) {
-				fireAnalyticsEvent?.({
-					action: ACTION.ERROR,
-					actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
-					actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_CREATE,
-					attributes: {
-						error: 'Create and fill for content failed',
-					},
-					eventType: EVENT_TYPE.OPERATIONAL,
-				});
-			}
+			fireAnalyticsEvent?.({
+				action: ACTION.ERROR,
+				actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+				actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_CREATE,
+				attributes: {
+					error: 'Create and fill for content failed',
+				},
+				eventType: EVENT_TYPE.OPERATIONAL,
+			});
 			return false;
 		}
 
 		// Save the new node with empty content to backend
 		// This is so that the node can be copied and referenced without the source being saved/published
-		syncBlockStore.sourceManager.createBodiedSyncBlockNode(attrs, newBodiedSyncBlockNode);
+		if (!fg('platform_synced_block_patch_1')) {
+			// Moved to appendTransaction
+			syncBlockStore.sourceManager.createBodiedSyncBlockNode(
+				attrs,
+				() => {},
+				newBodiedSyncBlockNode,
+			);
+		}
 
 		tr.replaceWith(conversionInfo.from, conversionInfo.to, newBodiedSyncBlockNode).scrollIntoView();
 
@@ -146,8 +148,6 @@ export const createSyncedBlock = ({
 		tr.setSelection(TextSelection.create(tr.doc, conversionInfo.from));
 	}
 
-	// This transaction will be intercepted in filterTransaction and dispatched when saving to backend succeeds
-	// see filterTransaction for more details
 	return tr;
 };
 

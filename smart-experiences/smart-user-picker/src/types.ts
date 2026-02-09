@@ -233,7 +233,9 @@ export interface SmartProps {
 	/**
 	 * When both allowEmail and enableEmailSearch are true, this controls whether both email entry
 	 * and matched user entries can be selected simultaneously.
-	 * If false, only allows email selection when no users are found.
+	 * If false, only allows email selection when:
+	 *   1. The query matches email format (validated by regex)
+	 *   2. No user/external user matches are found (teams/groups don't suppress email entry)
 	 * @default true
 	 */
 	allowEmailSelectionWhenEmailMatched?: boolean;

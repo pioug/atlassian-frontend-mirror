@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-synced-block",
-	"version": "5.3.12",
+	"version": "5.3.14",
 	"description": "SyncedBlock plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -44,7 +44,6 @@
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/editor-synced-block-provider": "workspace:^",
-		"@atlaskit/editor-tables": "workspace:^",
 		"@atlaskit/editor-toolbar": "workspace:^",
 		"@atlaskit/flag": "workspace:^",
 		"@atlaskit/icon": "workspace:*",
@@ -108,9 +107,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform_synced_block_dogfooding": {
-			"type": "boolean"
-		},
 		"platform_synced_block_patch_1": {
 			"type": "boolean"
 		}

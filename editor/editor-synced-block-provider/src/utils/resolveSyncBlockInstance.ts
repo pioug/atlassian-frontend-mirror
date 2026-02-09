@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { SyncBlockError } from '../common/types';
 import type { SyncBlockInstance } from '../providers/types';
 
@@ -39,10 +37,8 @@ export const resolveSyncBlockInstance = (
 			...newResult.data,
 			sourceURL: newResult.data?.sourceURL || oldResult.data?.sourceURL || undefined,
 			sourceTitle: newResult.data?.sourceTitle || oldResult.data?.sourceTitle || undefined,
-			...(fg('platform_synced_block_dogfooding') && {
-				sourceSubType: newResult.data?.sourceSubType || oldResult.data?.sourceSubType || undefined,
-                onSameDocument: newResult.data?.onSameDocument || oldResult.data?.onSameDocument || undefined,
-			}),
+			sourceSubType: newResult.data?.sourceSubType || oldResult.data?.sourceSubType || undefined,
+			onSameDocument: newResult.data?.onSameDocument || oldResult.data?.onSameDocument || undefined,
 		},
 	};
 };

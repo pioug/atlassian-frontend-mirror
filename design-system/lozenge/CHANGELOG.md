@@ -1,5 +1,15 @@
 # @atlaskit/lozenge
 
+## 13.4.2
+
+### Patch Changes
+
+- [`6d33a20db82a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d33a20db82a1) -
+  [ux] Added support for trailing metrics on semantic lozenges via the `trailingMetric` prop, with
+  optional `trailingMetricAppearance` override (including `inverse`). Not supported for accent
+  lozenges.
+- Updated dependencies
+
 ## 13.4.1
 
 ### Patch Changes

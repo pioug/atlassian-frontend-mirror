@@ -620,11 +620,7 @@ describe('VCCalculator_FY25_03', () => {
 	describe('mutation:media entries with media-perf-uplift-mutation-fix feature flag', () => {
 		describe('when fg media-perf-uplift-mutation-fix is true', () => {
 			beforeEach(() => {
-				mockFg.mockImplementation(
-					(flag) =>
-						flag === 'media-perf-uplift-mutation-fix' ||
-						flag === 'platform_ufo_enable_media_for_ttvc_v3',
-				);
+				mockFg.mockImplementation((flag) => flag === 'media-perf-uplift-mutation-fix');
 			});
 
 			it('should exclude mutation:media entries with data-test-* attributes', () => {
@@ -698,11 +694,7 @@ describe('VCCalculator_FY25_03', () => {
 			});
 
 			it('should exclude mutation:media entries with localid attribute when feature flag is enabled', () => {
-				mockFg.mockImplementation(
-					(flag) =>
-						flag === 'media-perf-uplift-mutation-fix' ||
-						flag === 'platform_ufo_enable_media_for_ttvc_v3',
-				);
+				mockFg.mockImplementation((flag) => flag === 'media-perf-uplift-mutation-fix');
 
 				mockExpVal.mockImplementation((flag) => flag === 'platform_editor_media_vc_fixes');
 
@@ -734,11 +726,7 @@ describe('VCCalculator_FY25_03', () => {
 			});
 
 			it('should exclude mutation:media entries with contenteditable attribute when feature flag is enabled', () => {
-				mockFg.mockImplementation(
-					(flag) =>
-						flag === 'media-perf-uplift-mutation-fix' ||
-						flag === 'platform_ufo_enable_media_for_ttvc_v3',
-				);
+				mockFg.mockImplementation((flag) => flag === 'media-perf-uplift-mutation-fix');
 
 				mockExpVal.mockImplementation((flag) => flag === 'platform_editor_media_vc_fixes');
 
@@ -756,11 +744,7 @@ describe('VCCalculator_FY25_03', () => {
 			});
 
 			it('should exclude mutation:media entries with anchor-name attribute when feature flag is enabled', () => {
-				mockFg.mockImplementation(
-					(flag) =>
-						flag === 'media-perf-uplift-mutation-fix' ||
-						flag === 'platform_ufo_enable_media_for_ttvc_v3',
-				);
+				mockFg.mockImplementation((flag) => flag === 'media-perf-uplift-mutation-fix');
 
 				mockExpVal.mockImplementation((flag) => flag === 'platform_editor_media_vc_fixes');
 
@@ -821,7 +805,7 @@ describe('VCCalculator_FY25_03', () => {
 
 		describe('when fg media-perf-uplift-mutation-fix is false', () => {
 			beforeEach(() => {
-				mockFg.mockImplementation((flag) => flag === 'platform_ufo_enable_media_for_ttvc_v3');
+				mockFg.mockImplementation(() => false);
 			});
 
 			it('should include mutation:media entries with data-test-* attributes', () => {

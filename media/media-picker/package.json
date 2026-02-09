@@ -93,9 +93,6 @@
 	"platform-feature-flags": {
 		"should-render-to-parent-should-be-true-media-exif": {
 			"type": "boolean"
-		},
-		"jfp-magma-media-clipboard-init-after-mount": {
-			"type": "boolean"
 		}
 	}
 }

@@ -1,5 +1,15 @@
 # @atlaskit/link-datasource
 
+## 4.33.3
+
+### Patch Changes
+
+- [`5f7b94aaccfec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f7b94aaccfec) -
+  [ux] Cleaned up the platform_inline_smartcard_connect_button_exp experiment gate, enabling the
+  blue unauthorised connect button by default. Updated VR tests across multiple packages relying on
+  the inline smart card
+- Updated dependencies
+
 ## 4.33.2
 
 ### Patch Changes

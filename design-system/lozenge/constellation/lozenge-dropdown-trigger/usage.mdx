@@ -5,8 +5,16 @@ description:
   Lozenge dropdown trigger displays an item’s status and enables switching through a menu.
 ---
 
+import Image from '@atlaskit/image';
+
+import lozengeDropDownAnatomyLight from '../images/lozenge-dropdown-anatomy-light.png';
+import lozengeDropDownAnatomyDark from '../images/lozenge-dropdown-anatomy-dark.png';
 import lozengeDropdownTriggerDo from '../images/lozenge-dropdown-trigger-do.png';
 import lozengeDropdownTriggerDont from '../images/lozenge-dropdown-trigger-dont.png';
+import lozengeDropdownTriggerDo2Light from '../images/lozenge-dropdown-do-2-light.png';
+import lozengeDropdownTriggerDo2Dark from '../images/lozenge-dropdown-do-2-dark.png';
+import lozengeDropdownTriggerDont2Light from '../images/lozenge-dropdown-dont-2-light.png';
+import lozengeDropdownTriggerDont2Dark from '../images/lozenge-dropdown-dont-2-dark.png';
 
 ## Usage
 
@@ -15,13 +23,18 @@ switching. They differ from lozenges in that they contain interactivity and can 
 
 ## Anatomy
 
-![LozengeDropdownTrigger-anatomy](../images/lozenge-dropdown-anatomy.png)
+<Image
+	src={lozengeDropDownAnatomyLight}
+	srcDark={lozengeDropDownAnatomyDark}
+	alt="Lozenge dropdown anatomy diagram."
+/>
 
-1. **Label:** Text describing the status. For example, "Completed".
-2. **Dropdown icon**: Indicates that this lozenge has interactivity and can be selected to open a
-   menu
-3. **Icon (optional)**: Use an icon to add additional affordance where the icon has a clear and
-   well-established meaning. For example, a checkmark for “Completed”.
+1. **Icon (optional):** Use an icon to add additional affordance where the icon has a clear and
+   well-established meaning. For example, arrow up right for “On track”.
+2. **Label**: Text describing the status. For example, “On track”.
+3. **Badge (optional)**: Use the trailingMetric prop to add a score to the status.
+4. **Dropdown icon**: Indicates that this lozenge has interactivity and can be selected to open a
+   menu.
 
 ## Best practices
 
@@ -48,6 +61,32 @@ switching.
 	}}
 >
 	Don’t use to communicate other information, such as more information about the status.
+</DoDont>
+
+### Use the spacing property appropriately
+
+Use the spacing prop to adjust the lozenge dropdown trigger so its size aligns with surrounding
+elements, such as when it appears alongside other buttons.
+
+<DoDont
+	type="do"
+	image={{
+		url: lozengeDropdownTriggerDo2Light,
+		urlDarkMode: lozengeDropdownTriggerDo2Dark,
+		alt: 'Use a spacious lozenge dropdown trigger alongside other buttons.',
+	}}
+>
+	Use a spacious lozenge dropdown trigger alongside other buttons.
+</DoDont>
+<DoDont
+	type="dont"
+	image={{
+		url: lozengeDropdownTriggerDont2Light,
+		urlDarkMode: lozengeDropdownTriggerDont2Dark,
+		alt: 'Don’t use a default lozenge dropdown trigger alongside other buttons.',
+	}}
+>
+	Don’t use a default lozenge dropdown trigger alongside other buttons.
 </DoDont>
 
 ## Accessibility

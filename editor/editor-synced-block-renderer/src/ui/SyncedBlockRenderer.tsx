@@ -9,7 +9,6 @@ import {
 	SyncBlockError,
 	type UseFetchSyncBlockDataResult,
 } from '@atlaskit/editor-synced-block-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 import type { MediaSSR } from '@atlaskit/renderer';
 
 import type { SyncedBlockRendererOptions } from '../types';
@@ -36,8 +35,7 @@ const SyncedBlockRendererComponent = ({
 		if (
 			!isSSR() ||
 			syncBlockRendererOptions?.media?.ssr || // already has ssr config
-			!ssrProviders?.media?.viewMediaClientConfig ||
-			!fg('platform_synced_block_dogfooding')
+			!ssrProviders?.media?.viewMediaClientConfig
 		) {
 			return syncBlockRendererOptions;
 		}
@@ -76,20 +74,20 @@ const SyncedBlockRendererComponent = ({
 
 	// In SSR, if server returned error, we should render loading state instead of error state
 	// since  FE will do another fetch and render the error state or proper data then
-	if (isSSR() && syncBlockInstance.error && fg('platform_synced_block_dogfooding')) {
+	if (isSSR() && syncBlockInstance.error) {
 		return <SyncedBlockLoadingState />;
 	}
 
 	if (
 		syncBlockInstance.error ||
 		!syncBlockInstance.data ||
-		(syncBlockInstance.data.status === 'deleted' && fg('platform_synced_block_dogfooding'))
+		syncBlockInstance.data.status === 'deleted'
 	) {
 		return (
 			<SyncedBlockErrorComponent
 				error={
 					syncBlockInstance.error ??
-					(syncBlockInstance?.data?.status === 'deleted' && fg('platform_synced_block_dogfooding')
+					(syncBlockInstance?.data?.status === 'deleted'
 						? { type: SyncBlockError.NotFound }
 						: { type: SyncBlockError.Errored })
 				}
@@ -101,20 +99,17 @@ const SyncedBlockRendererComponent = ({
 		);
 	}
 
-		// Check for unpublished status
-		if (
-			syncBlockInstance.data?.status === 'unpublished' &&
-			fg('platform_synced_block_dogfooding')
-		) {
-			return (
-				<SyncedBlockErrorComponent
-					error={{ type: SyncBlockError.Unpublished }}
-					resourceId={syncBlockInstance.resourceId}
-					sourceURL={syncBlockInstance.data?.sourceURL}
-					fireAnalyticsEvent={api?.analytics?.actions.fireAnalyticsEvent}
-				/>
-			);
-		}
+	// Check for unpublished status
+	if (syncBlockInstance.data?.status === 'unpublished') {
+		return (
+			<SyncedBlockErrorComponent
+				error={{ type: SyncBlockError.Unpublished }}
+				resourceId={syncBlockInstance.resourceId}
+				sourceURL={syncBlockInstance.data?.sourceURL}
+				fireAnalyticsEvent={api?.analytics?.actions.fireAnalyticsEvent}
+			/>
+		);
+	}
 
 	const syncBlockDoc: DocNode = {
 		content: syncBlockInstance.data.content,

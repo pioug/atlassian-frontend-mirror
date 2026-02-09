@@ -1,5 +1,23 @@
 # @atlaskit/editor-card-provider
 
+## 6.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.4.0
+
+### Minor Changes
+
+- [`506d872ef2503`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/506d872ef2503) -
+  Add smartlink response caching to browser storage to reduce layoutshift on transition and page
+  load
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.3.5
 
 ### Patch Changes

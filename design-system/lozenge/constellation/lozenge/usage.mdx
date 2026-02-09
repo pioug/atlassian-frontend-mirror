@@ -4,6 +4,10 @@ title: Lozenge
 description: A lozenge is a visual indicator used to communicate status.
 ---
 
+import Image from '@atlaskit/image';
+
+import lozengeAnatomyLight from '../images/lozenge-anatomy-light.png';
+import lozengeAnatomyDark from '../images/lozenge-anatomy-dark.png';
 import lozengeStatusDo from '../images/lozenge-status-do.png';
 import lozengeStatusDont from '../images/lozenge-status-dont.png';
 import lozengeSemanticAccentDo from '../images/lozenge-semantic-do.png';
@@ -12,6 +16,10 @@ import lozengeTriggerDo from '../images/lozenge-trigger-do.png';
 import lozengeTriggerDont from '../images/lozenge-trigger-dont.png';
 import lozengeCaseDo from '../images/lozenge-case-do.png';
 import lozengeCaseDont from '../images/lozenge-case-dont.png';
+import lozengeBadgeDoLight from '../images/lozenge-badge-do-light.png';
+import lozengeBadgeDontLight from '../images/lozenge-badge-dont-light.png';
+import lozengeBadgeDoDark from '../images/lozenge-badge-do-dark.png';
+import lozengeBadgeDontDark from '../images/lozenge-badge-dont-dark.png';
 
 ## Usage
 
@@ -21,11 +29,17 @@ consistently.
 
 ## Anatomy
 
-![Lozenge-anatomy](../images/lozenge-anatomy.png)
+<Image
+	src={lozengeAnatomyLight}
+	srcDark={lozengeAnatomyDark}
+	alt="Lozenge anatomy diagram showing: 1. Label (text that describes the status. For example, “On track”), 2. Icon (optional to add additional affordance), and 3. Badge (optional, to add a score to the status)"
+/>
 
-1. **Label**: Text describing the status. For example, “Completed”.
+1. **Label**: Text describing the status. For example, “On track”.
 2. **Icon (optional)**: Use an icon from the iconography library to add additional affordance where
-   the icon has a clear and well-established meaning. For example, a checkmark for “Completed”.
+   the icon has a clear and well-established meaning. For example, arrow up right for “On track”.
+3. **Badge (optional)**: The `trailingMetric` prop can be utilised on semantic colored lozenges to
+   add a score to the status.
 
 ## Best practices
 
@@ -83,6 +97,32 @@ When choosing a lozenge color, there’s two sets of color choices available:
 	}}
 >
 	Don’t use accents when the label has semantic meaning and isn’t user generated content.
+</DoDont>
+
+### Use the appropriate badge within a semantic colored lozenge
+
+When the appearance is set to a semantic color, you can add a matching trailing badge to the
+lozenge. Use it to add a score to a status, for example for a goal.
+
+<DoDont
+	type="do"
+	image={{
+		url: lozengeBadgeDoLight,
+		urlDarkMode: lozengeBadgeDoDark,
+		alt: 'Use a semantic lozenge with the matching badge to score a goal.',
+	}}
+>
+	Use a semantic lozenge with the matching badge to score a goal.
+</DoDont>
+<DoDont
+	type="dont"
+	image={{
+		url: lozengeBadgeDontLight,
+		urlDarkMode: lozengeBadgeDontDark,
+		alt: 'Don’t use a badge within a lozenge with an accent color and avoid mixing semantics.',
+	}}
+>
+	Don’t use a badge within a lozenge with an accent color and avoid mixing semantics.
 </DoDont>
 
 ### Use lozenge dropdown trigger when interactivity is required

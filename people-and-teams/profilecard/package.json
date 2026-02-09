@@ -63,7 +63,6 @@
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/empty-state": "workspace:^",
-		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlaskit/give-kudos": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
@@ -102,6 +101,7 @@
 	},
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
+		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/feature-flags-storybook-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
@@ -194,6 +194,9 @@
 			"type": "boolean"
 		},
 		"rovo_agent_show_creator_on_profile_card_fix": {
+			"type": "boolean"
+		},
+		"new_team_profile_fedramp": {
 			"type": "boolean"
 		}
 	},

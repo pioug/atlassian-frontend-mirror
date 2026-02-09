@@ -59,12 +59,20 @@ describe('Renderer - React/Nodes/InlineCard', () => {
 	});
 
 	it('should render a <span>-tag', () => {
-		node = mount(<InlineCard url={url} />);
+		node = mount(
+			<Provider client={new Client('staging')}>
+				<InlineCard url={url} />
+			</Provider>,
+		);
 		expect(node.getDOMNode()['tagName']).toEqual('SPAN');
 	});
 
 	it('should render with url if prop exists', () => {
-		node = mount(<InlineCard url={url} />);
+		node = mount(
+			<Provider client={new Client('staging')}>
+				<InlineCard url={url} />
+			</Provider>,
+		);
 		expect(node.find(InlineCard).prop('url')).toEqual(url);
 	});
 
@@ -227,7 +235,9 @@ describe('Renderer - React/Nodes/InlineCard - analytics context', () => {
 
 		render(
 			<AnalyticsListener onEvent={analyticsSpy} channel={'atlaskit'}>
-				<InlineCard url="https://atlassian.com" />
+				<Provider client={new Client('staging')}>
+					<InlineCard url="https://atlassian.com" />
+				</Provider>
 			</AnalyticsListener>,
 		);
 

@@ -10,6 +10,7 @@ import { css } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import TagIcon from '@atlaskit/icon/core/tag';
 import { AvatarTag, RemovableTag, SimpleTag as Tag, type TagColor } from '@atlaskit/tag';
+import TeamAvatar from '@atlaskit/teams-avatar';
 import { token } from '@atlaskit/tokens';
 
 const colors: TagColor[] = [
@@ -174,20 +175,64 @@ export default () => (
 		/>
 
 		{/* AvatarTag Examples - Gray only */}
-		<Heading size="medium">AvatarTag (Gray Only)</Heading>
+		<Heading size="medium">AvatarTag - People (Gray Only)</Heading>
 		<div css={avatarTagContainerStyles}>
-			<AvatarTag text="User Name" avatar={Avatar} isRemovable={false} />
-			<AvatarTag text="Removable" avatar={Avatar} removeButtonLabel="Remove" />
+			<AvatarTag type="user" text="User Name" avatar={Avatar} isRemovable={false} />
+			<AvatarTag type="user" text="Removable" avatar={Avatar} removeButtonLabel="Remove" />
 			<AvatarTag
+				type="user"
 				text="Linked"
 				avatar={Avatar}
 				href="https://www.atlassian.com/search?query=User"
 				isRemovable={false}
 			/>
 			<AvatarTag
+				type="user"
 				text="Linked + Removable"
 				avatar={Avatar}
 				href="https://www.atlassian.com/search?query=User"
+				removeButtonLabel="Remove"
+			/>
+		</div>
+
+		{/* Team AvatarTag Examples - Gray only */}
+		<Heading size="medium">AvatarTag - Other/Team (Gray Only)</Heading>
+		<div css={avatarTagContainerStyles}>
+			<AvatarTag type="other" text="Design System Team" avatar={TeamAvatar} isRemovable={false} />
+			<AvatarTag type="other" text="Removable Team" avatar={TeamAvatar} removeButtonLabel="Remove" />
+			<AvatarTag
+				type="other"
+				text="Linked Team"
+				avatar={TeamAvatar}
+				href="https://www.atlassian.com/search?query=Team"
+				isRemovable={false}
+			/>
+			<AvatarTag
+				type="other"
+				text="Linked + Removable Team"
+				avatar={TeamAvatar}
+				href="https://www.atlassian.com/search?query=Team"
+				removeButtonLabel="Remove"
+			/>
+		</div>
+
+		{/* Agent AvatarTag Examples - Gray only */}
+		<Heading size="medium">AvatarTag - Agent (Gray Only)</Heading>
+		<div css={avatarTagContainerStyles}>
+			<AvatarTag type="agent" text="Rovo" avatar={Avatar} isRemovable={false} />
+			<AvatarTag type="agent" text="Removable Agent" avatar={Avatar} removeButtonLabel="Remove" />
+			<AvatarTag
+				type="agent"
+				text="Linked Agent"
+				avatar={Avatar}
+				href="https://www.atlassian.com/search?query=Agent"
+				isRemovable={false}
+			/>
+			<AvatarTag
+				type="agent"
+				text="Linked + Removable"
+				avatar={Avatar}
+				href="https://www.atlassian.com/search?query=Agent"
 				removeButtonLabel="Remove"
 			/>
 		</div>

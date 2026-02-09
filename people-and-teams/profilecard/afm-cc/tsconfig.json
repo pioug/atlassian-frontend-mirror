@@ -49,9 +49,6 @@
 			"path": "../../../design-system/empty-state/afm-cc/tsconfig.json"
 		},
 		{
-			"path": "../../../measurement/feature-gate-js-client/afm-cc/tsconfig.json"
-		},
-		{
 			"path": "../../../team-central/give-kudos/afm-cc/tsconfig.json"
 		},
 		{

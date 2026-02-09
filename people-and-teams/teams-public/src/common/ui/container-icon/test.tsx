@@ -2,7 +2,8 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import FeatureGate from '@atlaskit/feature-gate-js-client';
+import * as atlassianContext from '@atlaskit/atlassian-context';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ContainerTypes } from '../../types';
 
@@ -12,14 +13,14 @@ jest.mock('../loom-avatar', () => ({
 	LoomSpaceAvatar: () => <div data-testid="loom-space-avatar">Loom Space Avatar</div>,
 }));
 
-jest.mock('@atlaskit/feature-gate-js-client', () => ({
-	...jest.requireActual('@atlaskit/feature-gate-js-client'),
-	initialize: jest.fn(),
-	initializeCalled: jest.fn(),
-	initializeFromValues: jest.fn(),
-	getExperimentValue: jest.fn(),
-	checkGate: jest.fn(),
-	initializeCompleted: () => true,
+jest.mock('@atlaskit/atlassian-context', () => ({
+	...jest.requireActual('@atlaskit/atlassian-context'),
+	isFedRamp: jest.fn(),
+}));
+
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags'),
+	fg: jest.fn(),
 }));
 
 describe('ContainerIcon', () => {
@@ -28,6 +29,16 @@ describe('ContainerIcon', () => {
 		containerType: 'ConfluenceSpace' as ContainerTypes,
 	};
 
+	beforeEach(() => {
+		// Default: new team profile enabled (not FedRamp)
+		(atlassianContext.isFedRamp as jest.Mock).mockReturnValue(false);
+		(fg as jest.Mock).mockReturnValue(false);
+	});
+
+	afterEach(() => {
+		jest.resetAllMocks();
+	});
+
 	it('should render LoomSpaceAvatar for LoomSpace container type', () => {
 		render(<ContainerIcon {...defaultProps} containerType="LoomSpace" title="My Loom Space" />);
 
@@ -35,6 +46,9 @@ describe('ContainerIcon', () => {
 	});
 
 	it('should render LinkIcon with correct testId when containerType is WebLink and no containerIcon is provided', () => {
+		// Simulate new team profile disabled: isFedRamp = true, fg = false
+		(atlassianContext.isFedRamp as jest.Mock).mockReturnValue(true);
+		(fg as jest.Mock).mockReturnValue(false);
 		render(
 			<ContainerIcon
 				{...defaultProps}
@@ -94,9 +108,9 @@ describe('ContainerIcon', () => {
 	});
 
 	it('should render IconSkeleton when iconsLoading is true (loading state)', () => {
-		(FeatureGate.getExperimentValue as jest.Mock).mockImplementation((exp) =>
-			exp === 'new_team_profile' ? false : true,
-		);
+		// Simulate new team profile disabled: isFedRamp = true, fg = false
+		(atlassianContext.isFedRamp as jest.Mock).mockReturnValue(true);
+		(fg as jest.Mock).mockReturnValue(false);
 		render(
 			<ContainerIcon
 				{...defaultProps}
@@ -111,9 +125,9 @@ describe('ContainerIcon', () => {
 	});
 
 	it('should render different icon for link when experiment is enabled', () => {
-		(FeatureGate.getExperimentValue as jest.Mock).mockImplementation((exp) =>
-			exp === 'new_team_profile' ? true : false,
-		);
+		// Simulate new team profile enabled: isFedRamp = false (not FedRamp)
+		(atlassianContext.isFedRamp as jest.Mock).mockReturnValue(false);
+		(fg as jest.Mock).mockReturnValue(false);
 		render(
 			<ContainerIcon
 				{...defaultProps}
@@ -128,9 +142,9 @@ describe('ContainerIcon', () => {
 	});
 
 	it('should render LinkIcon when icons have loaded and no containerIcon for WebLink', () => {
-		(FeatureGate.getExperimentValue as jest.Mock).mockImplementation((exp) =>
-			exp === 'new_team_profile' ? false : true,
-		);
+		// Simulate new team profile disabled: isFedRamp = true, fg = false
+		(atlassianContext.isFedRamp as jest.Mock).mockReturnValue(true);
+		(fg as jest.Mock).mockReturnValue(false);
 		render(
 			<ContainerIcon
 				{...defaultProps}
@@ -146,9 +160,9 @@ describe('ContainerIcon', () => {
 	});
 
 	it('should rendernew LinkIcon when icons have loaded and no containerIcon for WebLink when experiment is enabled', () => {
-		(FeatureGate.getExperimentValue as jest.Mock).mockImplementation((exp) =>
-			exp === 'new_team_profile' ? true : false,
-		);
+		// Simulate new team profile enabled: isFedRamp = false (not FedRamp)
+		(atlassianContext.isFedRamp as jest.Mock).mockReturnValue(false);
+		(fg as jest.Mock).mockReturnValue(false);
 		render(
 			<ContainerIcon
 				{...defaultProps}
@@ -164,9 +178,9 @@ describe('ContainerIcon', () => {
 	});
 
 	it('should render containerIcon when icons have loaded and containerIcon is provided for WebLink', () => {
-		(FeatureGate.getExperimentValue as jest.Mock).mockImplementation((exp) =>
-			exp === 'new_team_profile' ? false : true,
-		);
+		// Simulate new team profile disabled: isFedRamp = true, fg = false
+		(atlassianContext.isFedRamp as jest.Mock).mockReturnValue(true);
+		(fg as jest.Mock).mockReturnValue(false);
 		render(
 			<ContainerIcon
 				{...defaultProps}

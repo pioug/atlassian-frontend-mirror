@@ -81,6 +81,9 @@
 		},
 		"smart-user-picker-restrict-to-gate": {
 			"type": "boolean"
+		},
+		"smart_user_picker_allow_email_if_team_is_found": {
+			"type": "boolean"
 		}
 	}
 }

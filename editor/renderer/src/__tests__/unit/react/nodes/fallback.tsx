@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { CardErrorBoundary } from '../../../../react/nodes/fallback';
 import { isSafeUrl } from '@atlaskit/adf-schema';
+import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { render, screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Loadable from 'react-loadable';
@@ -79,14 +80,16 @@ describe('Renderer - React/Nodes/Fallback', () => {
 
 	it('should render InlineCard if error occurs, when url is present and isDatasource is true and isSafeUrl is true', async () => {
 		render(
-			<CardErrorBoundary
-				url={url}
-				unsupportedComponent={MockedUnsupportedInline}
-				isDatasource={true}
-			>
-				<MockedChildren />
-				<FakeExplodingComponent />
-			</CardErrorBoundary>,
+			<Provider client={new Client('staging')}>
+				<CardErrorBoundary
+					url={url}
+					unsupportedComponent={MockedUnsupportedInline}
+					isDatasource={true}
+				>
+					<MockedChildren />
+					<FakeExplodingComponent />
+				</CardErrorBoundary>
+			</Provider>,
 		);
 
 		await act(async () => {
@@ -103,14 +106,16 @@ describe('Renderer - React/Nodes/Fallback', () => {
 	it('should render blue link if error occurs, when url is present and isDatasource is true and isSafeUrl is false', async () => {
 		const unsafeUrl = 'javascript:alert(1)';
 		render(
-			<CardErrorBoundary
-				url={unsafeUrl}
-				unsupportedComponent={MockedUnsupportedInline}
-				isDatasource={true}
-			>
-				<MockedChildren />
-				<FakeExplodingComponent />
-			</CardErrorBoundary>,
+			<Provider client={new Client('staging')}>
+				<CardErrorBoundary
+					url={unsafeUrl}
+					unsupportedComponent={MockedUnsupportedInline}
+					isDatasource={true}
+				>
+					<MockedChildren />
+					<FakeExplodingComponent />
+				</CardErrorBoundary>
+			</Provider>,
 		);
 
 		expect(isSafeUrl(unsafeUrl)).toBe(false);

@@ -20,7 +20,6 @@ import ModalDialog, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Text, Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 
@@ -157,7 +156,7 @@ export const DeleteConfirmationModal = ({
 	}, [api?.core?.actions, bodiedSyncBlockDeletionStatus, isOpen]);
 
 	useEffect(() => {
-		if (isOpen && syncBlockIds !== undefined && fg('platform_synced_block_dogfooding')) {
+		if (isOpen && syncBlockIds !== undefined) {
 			const fetchReferences = async () => {
 				try {
 					const references = await Promise.all(
@@ -192,7 +191,6 @@ export const DeleteConfirmationModal = ({
 					testId="sync-block-delete-confirmation"
 					height={184}
 				>
-					{fg('platform_synced_block_dogfooding') ? (
 						<>
 							{referenceCount === undefined ? (
 								<Box xcss={styles.spinner}>
@@ -211,36 +209,6 @@ export const DeleteConfirmationModal = ({
 								/>
 							)}
 						</>
-					) : (
-						<>
-							<ModalHeader hasCloseButton>
-								<ModalTitle appearance="warning">
-									{formatMessage(messages.deleteConfirmationModalTitleSingle)}
-								</ModalTitle>
-							</ModalHeader>
-							<ModalBody>
-								<Text>
-									{formatMessage(messages.deleteConfirmationModalDescription, {
-										syncBlockCount: syncBlockIds?.length ?? 1,
-									})}
-								</Text>
-							</ModalBody>
-							<ModalFooter>
-								<Button appearance="subtle" onClick={handleClick(false)}>
-									{formatMessage(messages.deleteConfirmationModalCancelButton)}
-								</Button>
-								<Button
-									appearance="warning"
-									onClick={handleClick(true)}
-									autoFocus
-									isDisabled={isOfflineMode(mode)}
-									isLoading={bodiedSyncBlockDeletionStatus === 'processing'}
-								>
-									{formatMessage(messages.deleteConfirmationModalDeleteButton)}
-								</Button>
-							</ModalFooter>
-						</>
-					)}
 				</ModalDialog>
 			)}
 		</ModalTransition>

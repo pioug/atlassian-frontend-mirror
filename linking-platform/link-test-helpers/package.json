@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-test-helpers",
-	"version": "9.0.1",
+	"version": "9.0.2",
 	"description": "Collection of test helpers used in linking platform examples and specs",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,6 +34,9 @@
 		"./assets": "./src/datasource/assets/index.ts",
 		"./images": "./src/images/index.ts",
 		".": "./src/index.ts"
+	},
+	"scripts": {
+		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V src/**/*.{svg,png}"
 	},
 	"dependencies": {
 		"@atlaskit/json-ld-types": "workspace:^",

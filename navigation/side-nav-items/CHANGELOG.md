@@ -1,5 +1,14 @@
 # @atlaskit/side-nav-items
 
+## 1.5.0
+
+### Minor Changes
+
+- [`57838cec99f29`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57838cec99f29) -
+  The `FlyoutMenuItemContent` popup's max height now factors in the top nav and banner, when the
+  `platform-dst-side-nav-layering-fixes` feature flag is enabled. This ensures it does not get
+  clipped below the top nav and banner.
+
 ## 1.4.2
 
 ### Patch Changes

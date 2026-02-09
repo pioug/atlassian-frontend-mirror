@@ -1,5 +1,20 @@
 # @atlassian/navigation-system
 
+## 5.33.0
+
+### Minor Changes
+
+- [`57838cec99f29`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57838cec99f29) -
+  Layering refactors have been made to the top nav and full height sidebar, behind the feature gate
+  `platform-dst-side-nav-layering-fixes`.
+  - Layers inside the side nav that are rendered to parent (`shouldRenderToParent`) will be layered
+    below the top nav and banner.
+  - Refactors have been made to the positioning and render location of the side nav panel splitter.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.32.2
 
 ### Patch Changes

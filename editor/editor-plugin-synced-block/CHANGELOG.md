@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 5.3.14
+
+### Patch Changes
+
+- [`ab4e4e442ad49`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab4e4e442ad49) -
+  [ux] [EDITOR-3694] Add loading state to bodiedSyncBlock for when saving new block to BE
+- Updated dependencies
+
+## 5.3.13
+
+### Patch Changes
+
+- [`7ba3979b92b42`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ba3979b92b42) -
+  Remove platform_synced_block_dogfooding feature gate
+- Updated dependencies
+
 ## 5.3.12
 
 ### Patch Changes

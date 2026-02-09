@@ -30,16 +30,30 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-type AnalyticsPlugin = NextEditorPlugin<
+export interface AnalyticsPluginOptions {
+  createAnalyticsEvent?: CreateUIAnalyticsEvent;
+  performanceTracking?: PerformanceTracking;
+}
+
+export type AnalyticsPlugin = NextEditorPlugin<
   'analytics',
   {
+    actions: EditorAnalyticsAPI;
+    dependencies: [OptionalPlugin<FeatureFlagsPlugin>];
     pluginConfiguration: AnalyticsPluginOptions;
     sharedState: {
-      createAnalyticsEvent: CreateUIAnalyticsEvent | null;
+      /**
+       * **Warning:** Do not use this directly. Use the \`analyticsPlugin.actions\`
+       * instead, as it will properly queue all events.
+       */
       attachAnalyticsEvent: CreateAttachPayloadIntoTransaction | null;
+      /**
+       * **Warning:** Do not use this directly. Use the \`analyticsPlugin.actions\`
+       * instead, as it will properly queue all events.
+       */
+      createAnalyticsEvent: CreateUIAnalyticsEvent | null;
+      performanceTracking: PerformanceTracking | undefined;
     };
-    dependencies: [OptionalPlugin<FeatureFlagsPlugin>];
-    actions: EditorAnalyticsAPI;
   }
 >;
 `}

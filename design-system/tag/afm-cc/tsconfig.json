@@ -55,6 +55,9 @@
 			"path": "../../primitives/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../people-and-teams/teams-avatar/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../tokens/afm-cc/tsconfig.json"
 		}
 	]

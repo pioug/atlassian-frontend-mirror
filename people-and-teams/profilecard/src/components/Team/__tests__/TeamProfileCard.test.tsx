@@ -4,7 +4,8 @@ import { screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import * as atlassianContext from '@atlaskit/atlassian-context';
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	type AnalyticsEventAttributes,
 	useAnalyticsEvents as useAnalyticsEventsNext,
@@ -53,6 +54,11 @@ jest.mock('@atlaskit/people-teams-ui-public/verified-team-icon', () => ({
 }));
 
 jest.mock('@atlaskit/platform-feature-flags');
+
+jest.mock('@atlaskit/atlassian-context', () => ({
+	...jest.requireActual('@atlaskit/atlassian-context'),
+	isFedRamp: jest.fn(() => false),
+}));
 
 jest.mock('@atlaskit/feature-gate-js-client', () => ({
 	...jest.requireActual('@atlaskit/feature-gate-js-client'),
@@ -149,9 +155,9 @@ describe('TeamProfileCard', () => {
 	describe('DISBANDED team state', () => {
 		beforeEach(() => {
 			jest.clearAllMocks();
-			(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
-				exp === 'new_team_profile' ? true : false,
-			);
+			// Enable new team profile by default (not FedRamp environment)
+			(atlassianContext.isFedRamp as jest.Mock).mockReturnValue(false);
+			(fg as jest.Mock).mockReturnValue(false);
 		});
 
 		it('displays archived lozenge when team is DISBANDED', () => {
@@ -181,10 +187,10 @@ describe('TeamProfileCard', () => {
 			expect(screen.queryByText('Archived')).not.toBeInTheDocument();
 		});
 
-		it('does not display archived lozenge when experiment is disabled', () => {
-			(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
-				exp === 'new_team_profile' ? false : true,
-			);
+		it('does not display archived lozenge when new team profile is disabled', () => {
+			// Disable new team profile: isFedRamp = true AND fg = false
+			(atlassianContext.isFedRamp as jest.Mock).mockReturnValue(true);
+			(fg as jest.Mock).mockReturnValue(false);
 			const disbandedTeam = {
 				...createTeam(),
 				state: 'DISBANDED' as const,

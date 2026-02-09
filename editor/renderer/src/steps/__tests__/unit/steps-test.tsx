@@ -79,7 +79,9 @@ describe('steps', () => {
 			act(() => {
 				root.render(
 					<IntlProvider locale="en">
-						<MediaClientProvider clientConfig={mediaClientConfig}>{reactAdf}</MediaClientProvider>
+						<SmartCardProvider>
+							<MediaClientProvider clientConfig={mediaClientConfig}>{reactAdf}</MediaClientProvider>
+						</SmartCardProvider>
 					</IntlProvider>,
 				);
 			});

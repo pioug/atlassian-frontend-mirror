@@ -55,6 +55,9 @@
 			"path": "../../primitives/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../people-and-teams/teams-avatar/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../tokens/afm-jira/tsconfig.json"
 		}
 	]

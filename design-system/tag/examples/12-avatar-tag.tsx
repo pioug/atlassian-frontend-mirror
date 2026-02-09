@@ -3,12 +3,63 @@
  * @jsx jsx
  */
 
-import { jsx } from '@compiled/react';
+import { css, jsx } from '@compiled/react';
 
 import Avatar from '@atlaskit/avatar';
 import Heading from '@atlaskit/heading';
 import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { AvatarTag } from '@atlaskit/tag';
+import TeamAvatar from '@atlaskit/teams-avatar';
+import { token } from '@atlaskit/tokens';
+
+// Sample avatar images
+const personImage1 = 'https://pbs.twimg.com/profile_images/803832195970433027/aaoG6PJI_400x400.jpg';
+const personImage2 =
+	'https://pbs.twimg.com/profile_images/1673596394703265793/pLX-1Xil_400x400.jpg';
+const personImage3 =
+	'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/default-avatar.png';
+const agentImage = 'https://dummyimage.com/48x48/6554c0/ffffff&text=AI';
+
+const tableStyles = css({
+	width: '100%',
+	borderCollapse: 'collapse',
+});
+
+const thStyles = css({
+	backgroundColor: token('color.background.neutral.subtle'),
+	borderBlockEndColor: token('color.border'),
+	borderBlockEndStyle: 'solid',
+	borderBlockEndWidth: token('border.width'),
+	paddingBlockEnd: token('space.150'),
+	paddingBlockStart: token('space.150'),
+	paddingInlineEnd: token('space.150'),
+	paddingInlineStart: token('space.150'),
+	textAlign: 'left',
+});
+
+const tdStyles = css({
+	borderBlockEndColor: token('color.border'),
+	borderBlockEndStyle: 'solid',
+	borderBlockEndWidth: token('border.width'),
+	paddingBlockEnd: token('space.150'),
+	paddingBlockStart: token('space.150'),
+	paddingInlineEnd: token('space.150'),
+	paddingInlineStart: token('space.150'),
+	verticalAlign: 'middle',
+});
+
+const labelCellStyles = css({
+	backgroundColor: token('color.background.neutral.subtle'),
+	borderBlockEndColor: token('color.border'),
+	borderBlockEndStyle: 'solid',
+	borderBlockEndWidth: token('border.width'),
+	fontWeight: token('font.weight.bold'),
+	paddingBlockEnd: token('space.150'),
+	paddingBlockStart: token('space.150'),
+	paddingInlineEnd: token('space.150'),
+	paddingInlineStart: token('space.150'),
+	verticalAlign: 'middle',
+});
 
 export default function AvatarTagExample() {
 	return (
@@ -16,136 +67,275 @@ export default function AvatarTagExample() {
 			<Stack space="space.100">
 				<Heading size="large">AvatarTag Examples</Heading>
 				<Text>
-					AvatarTag is a specialized tag for representing people/users with an avatar and name. It
-					features a rounded pill design optimized for user representation.
+					AvatarTag is a specialized tag for representing people/users, teams/other entities, or AI
+					agents with an avatar and name. The visual appearance (round, square, or hexagonal) is
+					determined by the type prop.
 				</Text>
 			</Stack>
 
-			{/* Basic Usage */}
-			<Stack space="space.200">
-				<Text weight="bold">Basic Usage</Text>
-				<Text size="small">Simple AvatarTag with just text and avatar (shows initials).</Text>
-				<Inline space="space.100" alignBlock="center">
-					<AvatarTag
-						text="John Doe"
-						avatar={Avatar}
-						isRemovable={false}
-						testId="avatar-tag-basic"
-					/>
-					<AvatarTag text="Jane Smith" avatar={Avatar} isRemovable={false} />
-					<AvatarTag text="Bob Johnson" avatar={Avatar} isRemovable={false} />
-				</Inline>
-			</Stack>
+			{/* Main comparison table */}
+			<table css={tableStyles}>
+				<thead>
+					<tr>
+						<th css={thStyles}>
+							<Text weight="bold">Variant</Text>
+						</th>
+						<th css={thStyles}>
+							<Text weight="bold">People (Circle)</Text>
+						</th>
+						<th css={thStyles}>
+							<Text weight="bold">Other/Teams (Square)</Text>
+						</th>
+						<th css={thStyles}>
+							<Text weight="bold">Agent (Hexagon)</Text>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					{/* Basic */}
+					<tr>
+						<td css={labelCellStyles}>Basic</td>
+						<td css={tdStyles}>
+							<Inline space="space.100" alignBlock="center">
+								<AvatarTag
+									type="user"
+									text="John Doe"
+									avatar={(props: any) => <Avatar {...props} src={personImage1} />}
+									isRemovable={false}
+									testId="avatar-tag-basic"
+								/>
+							</Inline>
+						</td>
+						<td css={tdStyles}>
+							<Inline space="space.100" alignBlock="center">
+								<AvatarTag
+									type="other"
+									text="Design Team"
+									avatar={(props: any) => <TeamAvatar {...props} />}
+									isRemovable={false}
+									testId="avatar-tag-team-basic"
+								/>
+							</Inline>
+						</td>
+						<td css={tdStyles}>
+							<Inline space="space.100" alignBlock="center">
+								<AvatarTag
+									type="agent"
+									text="Rovo"
+									avatar={(props: any) => <Avatar {...props} src={agentImage} />}
+									isRemovable={false}
+									testId="avatar-tag-agent-basic"
+								/>
+							</Inline>
+						</td>
+					</tr>
 
-			{/* With Avatar Image */}
-			<Stack space="space.200">
-				<Text weight="bold">With Avatar Image</Text>
-				<Text size="small">AvatarTags with custom avatar image</Text>
-				<Inline space="space.100" alignBlock="center">
-					<AvatarTag
-						text="Scott Farquhar"
-						avatar={(props) => (
-							<Avatar
-								{...props}
-								src="https://pbs.twimg.com/profile_images/803832195970433027/aaoG6PJI_400x400.jpg"
-							/>
-						)}
-						isRemovable={false}
-						testId="avatar-tag-with-image"
-					/>
-					<AvatarTag text="Mike Cannon-Brookes" avatar={Avatar} isRemovable={false} />
-				</Inline>
-			</Stack>
+					{/* Removable */}
+					<tr>
+						<td css={labelCellStyles}>Removable</td>
+						<td css={tdStyles}>
+							<Inline space="space.100" alignBlock="center">
+								<AvatarTag
+									type="user"
+									text="Jane Smith"
+									avatar={(props: any) => <Avatar {...props} src={personImage2} />}
+									removeButtonLabel="Remove"
+									testId="avatar-tag-removable"
+								/>
+							</Inline>
+						</td>
+						<td css={tdStyles}>
+							<Inline space="space.100" alignBlock="center">
+								<AvatarTag
+									type="other"
+									text="Engineering"
+									avatar={(props: any) => <TeamAvatar {...props} />}
+									removeButtonLabel="Remove"
+									testId="avatar-tag-team-removable"
+								/>
+							</Inline>
+						</td>
+						<td css={tdStyles}>
+							<Inline space="space.100" alignBlock="center">
+								<AvatarTag
+									type="agent"
+									text="AI Assistant"
+									avatar={(props: any) => <Avatar {...props} src={agentImage} />}
+									removeButtonLabel="Remove"
+									testId="avatar-tag-agent-removable"
+								/>
+							</Inline>
+						</td>
+					</tr>
 
-			{/* Removable */}
-			<Stack space="space.200">
-				<Text weight="bold">Removable AvatarTags</Text>
-				<Text size="small">AvatarTags with a remove button (default behavior).</Text>
-				<Inline space="space.100" alignBlock="center">
-					<AvatarTag
-						text="Alice Williams"
-						avatar={Avatar}
-						removeButtonLabel="Remove Alice"
-						testId="avatar-tag-removable-1"
-					/>
-					<AvatarTag text="Charlie Brown" avatar={Avatar} removeButtonLabel="Remove Charlie" />
-					<AvatarTag text="Diana Prince" avatar={Avatar} removeButtonLabel="Remove Diana" />
-				</Inline>
-			</Stack>
+					{/* Linked */}
+					<tr>
+						<td css={labelCellStyles}>Linked</td>
+						<td css={tdStyles}>
+							<Inline space="space.100" alignBlock="center">
+								<AvatarTag
+									type="user"
+									text="View Profile"
+									avatar={(props: any) => <Avatar {...props} src={personImage3} />}
+									href="https://atlassian.com"
+									isRemovable={false}
+									testId="avatar-tag-linked"
+								/>
+							</Inline>
+						</td>
+						<td css={tdStyles}>
+							<Inline space="space.100" alignBlock="center">
+								<AvatarTag
+									type="other"
+									text="View Team"
+									avatar={(props: any) => <TeamAvatar {...props} />}
+									href="https://atlassian.com"
+									isRemovable={false}
+									testId="avatar-tag-team-linked"
+								/>
+							</Inline>
+						</td>
+						<td css={tdStyles}>
+							<Inline space="space.100" alignBlock="center">
+								<AvatarTag
+									type="agent"
+									text="View Agent"
+									avatar={(props: any) => <Avatar {...props} src={agentImage} />}
+									href="https://atlassian.com"
+									isRemovable={false}
+									testId="avatar-tag-agent-linked"
+								/>
+							</Inline>
+						</td>
+					</tr>
 
-			{/* Linked */}
-			<Stack space="space.200">
-				<Text weight="bold">Linked AvatarTags</Text>
-				<Text size="small">AvatarTags that link to a user profile or page.</Text>
-				<Inline space="space.100" alignBlock="center">
-					<AvatarTag
-						text="View Profile"
-						avatar={Avatar}
-						href="https://atlassian.com/user/1"
-						isRemovable={false}
-						testId="avatar-tag-linked"
-					/>
-					<AvatarTag
-						text="Team Member"
-						avatar={Avatar}
-						href="https://atlassian.com/user/2"
-						isRemovable={false}
-					/>
-				</Inline>
-			</Stack>
+					{/* Linked + Removable */}
+					<tr>
+						<td css={labelCellStyles}>Linked + Removable</td>
+						<td css={tdStyles}>
+							<Inline space="space.100" alignBlock="center">
+								<AvatarTag
+									type="user"
+									text="Editable User"
+									avatar={(props: any) => <Avatar {...props} src={personImage1} />}
+									href="https://atlassian.com"
+									removeButtonLabel="Remove"
+									testId="avatar-tag-linked-removable"
+								/>
+							</Inline>
+						</td>
+						<td css={tdStyles}>
+							<Inline space="space.100" alignBlock="center">
+								<AvatarTag
+									type="other"
+									text="Editable Team"
+									avatar={(props: any) => <TeamAvatar {...props} />}
+									href="https://atlassian.com"
+									removeButtonLabel="Remove"
+									testId="avatar-tag-team-linked-removable"
+								/>
+							</Inline>
+						</td>
+						<td css={tdStyles}>
+							<Inline space="space.100" alignBlock="center">
+								<AvatarTag
+									type="agent"
+									text="Editable Agent"
+									avatar={(props: any) => <Avatar {...props} src={agentImage} />}
+									href="https://atlassian.com"
+									removeButtonLabel="Remove"
+									testId="avatar-tag-agent-linked-removable"
+								/>
+							</Inline>
+						</td>
+					</tr>
 
-			{/* Linked + Removable */}
-			<Stack space="space.200">
-				<Text weight="bold">Linked + Removable AvatarTags</Text>
-				<Text size="small">AvatarTags that are both clickable and removable.</Text>
-				<Inline space="space.100" alignBlock="center">
-					<AvatarTag
-						text="Editable User"
-						avatar={Avatar}
-						href="https://atlassian.com/user/3"
-						removeButtonLabel="Remove user"
-						testId="avatar-tag-linked-removable"
-					/>
-					<AvatarTag
-						text="Another User"
-						avatar={Avatar}
-						href="https://atlassian.com/user/4"
-						removeButtonLabel="Remove"
-					/>
-				</Inline>
-			</Stack>
+					{/* Verified (only for 'other' type) */}
+					<tr>
+						<td css={labelCellStyles}>Verified</td>
+						<td css={tdStyles}>
+							<Text size="small" color="color.text.subtlest">
+								N/A (people type)
+							</Text>
+						</td>
+						<td css={tdStyles}>
+							<Inline space="space.100" alignBlock="center">
+								<AvatarTag
+									type="other"
+									text="Verified Team"
+									avatar={(props: any) => <TeamAvatar {...props} />}
+									isVerified
+									isRemovable={false}
+									testId="avatar-tag-team-verified"
+								/>
+								<AvatarTag
+									type="other"
+									text="Verified + Removable"
+									avatar={(props: any) => <TeamAvatar {...props} />}
+									isVerified
+									removeButtonLabel="Remove"
+									testId="avatar-tag-team-verified-removable"
+								/>
+							</Inline>
+						</td>
+						<td css={tdStyles}>
+							<Text size="small" color="color.text.subtlest">
+								N/A (agent type)
+							</Text>
+						</td>
+					</tr>
 
-			{/* Long Names */}
-			<Stack space="space.200">
-				<Text weight="bold">Long Names (Truncation)</Text>
-				<Text size="small">
-					AvatarTags with long names are truncated with an ellipsis at 180px max width.
-				</Text>
-				<Inline space="space.100" alignBlock="center">
-					<AvatarTag
-						text="This is a very long name that will be truncated"
-						avatar={Avatar}
-						isRemovable={false}
-						testId="avatar-tag-long"
-					/>
-					<AvatarTag
-						text="Another extremely long name for testing truncation behavior"
-						avatar={Avatar}
-						removeButtonLabel="Remove"
-					/>
-				</Inline>
-			</Stack>
+					{/* Long Names */}
+					<tr>
+						<td css={labelCellStyles}>Long Names (Truncation)</td>
+						<td css={tdStyles}>
+							<Inline space="space.100" alignBlock="center">
+								<AvatarTag
+									type="user"
+									text="This is a very long name that will be truncated"
+									avatar={(props: any) => <Avatar {...props} src={personImage2} />}
+									isRemovable={false}
+									testId="avatar-tag-long"
+								/>
+							</Inline>
+						</td>
+						<td css={tdStyles}>
+							<Inline space="space.100" alignBlock="center">
+								<AvatarTag
+									type="other"
+									text="This is a very long team name that will be truncated"
+									avatar={(props: any) => <TeamAvatar {...props} />}
+									isRemovable={false}
+									testId="avatar-tag-team-long"
+								/>
+							</Inline>
+						</td>
+						<td css={tdStyles}>
+							<Inline space="space.100" alignBlock="center">
+								<AvatarTag
+									type="agent"
+									text="This is a very long agent name that will be truncated"
+									avatar={(props: any) => <Avatar {...props} src={agentImage} />}
+									isRemovable={false}
+									testId="avatar-tag-agent-long"
+								/>
+							</Inline>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 
-			{/* Callbacks */}
+			{/* Callbacks section */}
 			<Stack space="space.200">
-				<Text weight="bold">With Callbacks</Text>
+				<Heading size="medium">Callbacks</Heading>
 				<Text size="small">
 					AvatarTags support onBeforeRemoveAction and onAfterRemoveAction callbacks.
 				</Text>
 				<Inline space="space.100" alignBlock="center">
 					<AvatarTag
+						type="user"
 						text="Click to Remove"
-						avatar={Avatar}
+						avatar={(props: any) => <Avatar {...props} src={personImage1} />}
 						removeButtonLabel="Remove"
 						onBeforeRemoveAction={() => {
 							// eslint-disable-next-line no-alert
@@ -156,6 +346,21 @@ export default function AvatarTagExample() {
 							console.log(`Removed tag: ${text}`);
 						}}
 						testId="avatar-tag-callbacks"
+					/>
+					<AvatarTag
+						type="other"
+						text="Click to Remove Team"
+						avatar={(props: any) => <TeamAvatar {...props} />}
+						removeButtonLabel="Remove"
+						onBeforeRemoveAction={() => {
+							// eslint-disable-next-line no-alert
+							return window.confirm('Are you sure you want to remove this team tag?');
+						}}
+						onAfterRemoveAction={(text) => {
+							// eslint-disable-next-line no-console
+							console.log(`Removed team tag: ${text}`);
+						}}
+						testId="avatar-tag-team-callbacks"
 					/>
 				</Inline>
 			</Stack>

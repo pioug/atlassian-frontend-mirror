@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 5.3.15
+
+### Patch Changes
+
+- [`f24892f905e1a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f24892f905e1a) -
+  [ux] EDITOR-5002 update delete and unsync synced block modal messages
+- Updated dependencies
+
 ## 5.3.14
 
 ### Patch Changes

@@ -9,9 +9,11 @@ export default function LozengeDropdownTriggerLoadingExample(): React.JSX.Elemen
 
 	return (
 		<Stack space="space.100">
-			<Button onClick={() => setIsLoading((loading) => !loading)}>
-				{isLoading ? 'Stop loading' : 'Start loading'}
-			</Button>
+			<p>
+				<Button onClick={() => setIsLoading((loading) => !loading)}>
+					{isLoading ? 'Stop loading' : 'Start loading'}
+				</Button>
+			</p>
 
 			<p>
 				<LozengeDropdownTrigger appearance="information" isLoading={isLoading}>

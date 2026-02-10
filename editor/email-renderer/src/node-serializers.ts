@@ -38,6 +38,7 @@ import inlineExtension from './nodes/inlineExtension';
 import date from './nodes/date';
 import expand from './nodes/expand';
 import caption from './nodes/caption';
+import bodiedSyncBlock from './nodes/bodiedSyncBlock';
 
 const renderNothing = (): string => '';
 
@@ -84,4 +85,6 @@ export const nodeSerializers: { [key: string]: NodeSerializer } = {
 	date,
 	expand,
 	nestedExpand: expand,
+	bodiedSyncBlock,
+	syncBlock: bodiedExtension, // Treat reference sync blocks like extensions until we update to fetch content from BE
 };

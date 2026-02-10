@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-expand
 
+## 8.2.6
+
+### Patch Changes
+
+- [`d63d5af234d7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d63d5af234d7f) -
+  Fix issue when expand is collapsed after streaming.
+- Updated dependencies
+
 ## 8.2.5
 
 ### Patch Changes

@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 8.4.3
+
+### Patch Changes
+
+- [`7fc08532f3729`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7fc08532f3729) -
+  Remove platform_editor_toolbar_aifc_undo_redo_confluence feature gate
+- Updated dependencies
+
+## 8.4.2
+
+### Patch Changes
+
+- [`b43aaf2b5d0ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b43aaf2b5d0ff) -
+  Remove platform_editor_toolbar_aifc_undo_redo_confluence feature gate
+- Updated dependencies
+
 ## 8.4.1
 
 ### Patch Changes

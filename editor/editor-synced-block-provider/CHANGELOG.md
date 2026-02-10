@@ -1,5 +1,18 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.27.0
+
+### Minor Changes
+
+- [`8433176cb97f5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8433176cb97f5) -
+  Edit at source for an archived page should not redirect and show ask for edit flag
+
+### Patch Changes
+
+- [`328425ff14e85`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/328425ff14e85) -
+  Update synced block to active state on flush
+- Updated dependencies
+
 ## 3.26.2
 
 ### Patch Changes

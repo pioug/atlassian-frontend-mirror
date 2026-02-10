@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-local-id",
-	"version": "5.1.6",
+	"version": "5.1.7",
 	"description": "LocalId plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -84,9 +84,6 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_use_localid_dedupe": {
-			"type": "boolean"
-		},
-		"platform_editor_ai_local_id_short": {
 			"type": "boolean"
 		},
 		"platform_editor_localid_improvements": {

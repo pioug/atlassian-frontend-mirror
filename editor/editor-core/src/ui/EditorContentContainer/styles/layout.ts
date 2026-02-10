@@ -308,6 +308,29 @@ export const layoutSelectedStylesAdvanced: SerializedStyles = css({
 	},
 });
 
+// Fix for layoutSelectedStylesAdvanced that addresses an issue where the delete indicator
+// sometimes doesn't appear when inside a synced block.
+// Separated as a distinct style to allow feature-gating without affecting module-level styles.
+// This prevents style inconsistencies before the feature flag is initialized.
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const layoutSelectedStylesAdvancedFix: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-layout-section], .layoutSectionView-content-wrap': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'&.selected.danger [data-layout-section]': {
+				boxShadow: `inset 0 0 0 1px ${token('color.border.danger')}`,
+			},
+
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
+			[`&.${akEditorSelectedNodeClassName}:not(.danger) [data-layout-section]`]: {
+				boxShadow: `inset 0 0 0 1px ${token('color.border.selected')}`,
+			},
+		},
+	},
+});
+
 /**
  * Base responsive styles for layout
  */
@@ -574,6 +597,32 @@ export const layoutBaseStylesFixesUnderNestedDnDFG: SerializedStyles = css({
 		padding: '12px 20px',
 	},
 });
+
+/**
+ * Spacing overrides when platform_editor_nested_dnd_styles_changes is on,
+ * excluding layouts inside bodied sync blocks
+ */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const layoutBaseStylesFixesUnderNestedDnDFGExcludingBodiedSync: SerializedStyles = css({
+	// Apply -20px margin to all sections
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror [data-layout-section]': {
+		margin: `${token('space.100', '8px')} -20px 0`,
+	},
+
+	// Reset to default margin when inside bodied sync block
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror [data-prosemirror-node-name="bodiedSyncBlock"] [data-layout-section]': {
+		margin: `${token('space.100', '8px')} -12px 0`,
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror [data-layout-section] [data-layout-column]': {
+		padding: '12px 20px',
+	},
+});
+
+// platform_synced_block_patch_2
 
 /**
  * Layout in view mode styles for selected state when advanced layouts experiment is on.

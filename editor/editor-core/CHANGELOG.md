@@ -1,5 +1,16 @@
 # @atlaskit/editor-core
 
+## 216.9.0
+
+### Minor Changes
+
+- [`8f0979d3d26a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f0979d3d26a8) -
+  EDITOR-3963 fix nested layout style inside synced block
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 216.8.3
 
 ### Patch Changes

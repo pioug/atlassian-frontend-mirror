@@ -24,11 +24,11 @@ export const styles: string = `
 }
 `;
 
-export default function bodiedExtension({ attrs }: NodeSerializerOpts): string {
+export default function bodiedExtension({ attrs, node }: NodeSerializerOpts): string {
 	const inner = createTag(
 		'div',
 		{ class: className + '-inner' },
-		`&nbsp;${attrs.extensionKey}&nbsp;`,
+		`&nbsp;${attrs.extensionKey || node.type.name}&nbsp;`,
 	);
 	return createTag('div', { class: className + '-outer' }, inner);
 }

@@ -1,0 +1,40 @@
+{
+	"version": 1,
+	"type": "doc",
+	"content": [
+		{
+			"type": "paragraph",
+			"content": [
+				{
+					"type": "text",
+					"text": "Content before sync block"
+				}
+			]
+		},
+		{
+			"type": "syncBlock",
+			"attrs": {
+				"resourceId": "54d491ad-0c79-436f-92c3-309487667521",
+				"localId": "b82e801e-9719-48c8-8aef-e10958021d58"
+			},
+			"marks": [
+				{
+					"type": "breakout",
+					"attrs": {
+						"mode": "wide",
+						"width": 1000
+					}
+				}
+			]
+		},
+		{
+			"type": "paragraph",
+			"content": [
+				{
+					"type": "text",
+					"text": "Content after sync block"
+				}
+			]
+		}
+	]
+}

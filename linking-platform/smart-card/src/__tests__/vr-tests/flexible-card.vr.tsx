@@ -256,7 +256,6 @@ snapshot(FlexibleUiElementMedia, {
 snapshot(FlexibleUiElementTeamMemberCount, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-linking-team-member-count-component': true,
 	},
 	waitForReactLazy: true,
 });

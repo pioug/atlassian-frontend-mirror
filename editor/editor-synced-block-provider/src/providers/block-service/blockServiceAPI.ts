@@ -537,8 +537,8 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 		const stepVersion = this.getVersion ? await this.getVersion() : undefined;
 
 		try {
-			// Try update existing block's content
-			await updateSyncedBlock({ blockAri, content: JSON.stringify(data.content), stepVersion });
+			const status = data.status;
+			await updateSyncedBlock({ blockAri, content: JSON.stringify(data.content), stepVersion, status });
 			return { resourceId };
 		} catch (error) {
 			if (error instanceof BlockError) {

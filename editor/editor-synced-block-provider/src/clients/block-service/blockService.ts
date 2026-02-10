@@ -82,8 +82,8 @@ type UpdateDocumentReferencesGraphQLResponse = {
 type BatchRetrieveBlocksGraphQLResponse = {
 	data?: {
 		blockService_batchRetrieveBlocks: {
-			success?: Array<BlockContentResponse>;
 			error?: Array<ErrorResponse>;
+			success?: Array<BlockContentResponse>;
 		};
 	};
 	errors?: Array<{ message: string }>;
@@ -92,8 +92,8 @@ type BatchRetrieveBlocksGraphQLResponse = {
 type GetBlockReferencesGraphQLResponse = {
 	data?: {
 		blockService_getReferences: {
-			references?: Array<ReferenceSyncBlockResponse>;
 			errors?: Array<ErrorResponse>;
+			references?: Array<ReferenceSyncBlockResponse>;
 		};
 	};
 	errors?: Array<{ message: string }>;
@@ -191,6 +191,7 @@ export type DeleteSyncedBlockRequest = {
 export type UpdateSyncedBlockRequest = {
 	blockAri: string; // the ARI of the block. E.G ari:cloud:blocks:site-123:synced-block/uuid-456
 	content: string;
+	status?: SyncBlockStatus; // the status of the block. 'unpublished' if the page is unpublished, 'active' otherwise
 	stepVersion?: number; // the current NCS step version number
 };
 
@@ -253,8 +254,7 @@ const GET_DOCUMENT_REFERENCE_BLOCKS_OPERATION_NAME =
 const UPDATE_BLOCK_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_UPDATE_BLOCK';
 const DELETE_BLOCK_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_DELETE_BLOCK';
 const CREATE_BLOCK_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_CREATE_BLOCK';
-const UPDATE_DOCUMENT_REFERENCES_OPERATION_NAME =
-	'EDITOR_SYNCED_BLOCK_UPDATE_DOCUMENT_REFERENCES';
+const UPDATE_DOCUMENT_REFERENCES_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_UPDATE_DOCUMENT_REFERENCES';
 const BATCH_RETRIEVE_BLOCKS_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_BATCH_RETRIEVE_BLOCKS';
 const GET_BLOCK_REFERENCES_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_GET_REFERENCES';
 const GET_BLOCK_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_GET_BLOCK';
@@ -303,6 +303,7 @@ const buildUpdateBlockMutation = (
 	blockAri: string,
 	content: string,
 	stepVersion?: number,
+	status?: SyncBlockStatus,
 ) => {
 	const inputParts = [
 		`blockAri: ${JSON.stringify(blockAri)}`,
@@ -310,6 +311,9 @@ const buildUpdateBlockMutation = (
 	];
 	if (stepVersion !== undefined) {
 		inputParts.push(`stepVersion: ${stepVersion}`);
+	}
+	if (status !== undefined && fg('platform_synced_block_patch_1')) {
+		inputParts.push(`status: ${JSON.stringify(status)}`);
 	}
 	const inputArgs = inputParts.join(', ');
 	return `mutation ${UPDATE_BLOCK_OPERATION_NAME} {
@@ -319,10 +323,7 @@ const buildUpdateBlockMutation = (
 }`;
 };
 
-const buildDeleteBlockMutation = (
-	blockAri: string,
-	deletionReason?: string,
-) => {
+const buildDeleteBlockMutation = (blockAri: string, deletionReason?: string) => {
 	const inputParts = [`blockAri: ${JSON.stringify(blockAri)}`];
 	if (deletionReason !== undefined) {
 		inputParts.push(`deletionReason: ${JSON.stringify(deletionReason)}`);
@@ -640,10 +641,16 @@ export const updateSyncedBlock = async ({
 	blockAri,
 	content,
 	stepVersion,
+	status,
 }: UpdateSyncedBlockRequest): Promise<void> => {
 	if (fg('platform_synced_block_patch_1')) {
 		const bodyData = {
-			query: buildUpdateBlockMutation(blockAri, content, stepVersion),
+			query: buildUpdateBlockMutation(
+				blockAri,
+				content,
+				stepVersion,
+				status,
+			),
 			operationName: UPDATE_BLOCK_OPERATION_NAME,
 		};
 
@@ -666,9 +673,16 @@ export const updateSyncedBlock = async ({
 		return;
 	}
 
-	const requestBody: { content: string; stepVersion?: number } = { content };
+	const requestBody: {
+		content: string;
+		status?: SyncBlockStatus;
+		stepVersion?: number;
+	} = { content };
 	if (stepVersion !== undefined) {
 		requestBody.stepVersion = stepVersion;
+	}
+	if (status !== undefined && fg('platform_synced_block_patch_1')) {
+		requestBody.status = status;
 	}
 
 	const response = await fetchWithRetry(

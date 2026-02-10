@@ -1,5 +1,12 @@
 # @atlaskit/jql-editor
 
+## 5.12.7
+
+### Patch Changes
+
+- [`4311851ff86b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4311851ff86b8) -
+  cleaning up enghealth-46329-no-literal-strings fg
+
 ## 5.12.6
 
 ### Patch Changes

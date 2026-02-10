@@ -1,5 +1,22 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.38.1
+
+### Patch Changes
+
+- [`414f1cb19fe79`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/414f1cb19fe79) -
+  Fix ensure-design-token-usage so Tag’s color prop is allowed when scope lookup fails by adding an
+  AST fallback for imports from @atlaskit/tag.
+
+## 13.38.0
+
+### Minor Changes
+
+- [`93ff2e6c56a27`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93ff2e6c56a27) -
+  The `ensure-design-token-usage` ESLint rule now allows `color` prop with string values (e.g.,
+  `"red"`, `"blue"`) on Tag components imported from `@atlaskit/tag` or its sub-entrypoints (e.g.,
+  `@atlaskit/tag/simple-tag`, `@atlaskit/tag/removable-tag`)
+
 ## 13.37.0
 
 ### Minor Changes

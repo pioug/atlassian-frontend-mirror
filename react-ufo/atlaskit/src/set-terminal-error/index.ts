@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 import { type LabelStack, useInteractionContext } from '../interaction-context';
-import { getActiveInteraction } from '../interaction-metrics';
+import { getActiveInteraction, PreviousInteractionLog } from '../interaction-metrics';
 
 export interface TerminalErrorAdditionalAttributes {
 	teamName?: string;
@@ -24,6 +24,10 @@ export interface TerminalErrorContext {
 	activeInteractionName: string | null;
 	activeInteractionId: string | null;
 	activeInteractionType: string | null;
+	previousInteractionId: string | null;
+	previousInteractionName: string | null;
+	previousInteractionType: string | null;
+	timeSincePreviousInteraction: number | null;
 }
 
 let sinkHandlerFn: (
@@ -43,17 +47,27 @@ export function setTerminalError(
 	labelStack?: LabelStack,
 ): void {
 	const activeInteraction = getActiveInteraction();
+	const currentTime = performance.now();
 	const errorData: TerminalErrorData = {
 		errorType: error.name || 'Error',
 		errorMessage: error.message.slice(0, 100),
-		timestamp: performance.now(),
+		timestamp: currentTime,
 		...additionalAttributes,
 	};
+
+	// Calculate time since previous interaction
+	const timeSincePreviousInteraction =
+		PreviousInteractionLog.timestamp != null ? currentTime - PreviousInteractionLog.timestamp : null;
+
 	const context: TerminalErrorContext = {
 		labelStack: labelStack ?? null,
 		activeInteractionName: activeInteraction?.ufoName ?? null,
 		activeInteractionId: activeInteraction?.id ?? null,
 		activeInteractionType: activeInteraction?.type ?? null,
+		previousInteractionId: PreviousInteractionLog.id ?? null,
+		previousInteractionName: PreviousInteractionLog.name ?? null,
+		previousInteractionType: PreviousInteractionLog.type ?? null,
+		timeSincePreviousInteraction,
 	};
 	sinkHandlerFn(errorData, context);
 }

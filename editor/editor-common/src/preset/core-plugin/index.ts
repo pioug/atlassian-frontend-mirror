@@ -1,7 +1,6 @@
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { Fragment, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Node } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getNodeIdProvider } from '../../node-anchor/node-anchor-provider';
 import type {
@@ -213,12 +212,10 @@ export const corePlugin: CorePlugin = ({ config }) => {
 				if (pos < 0) {
 					return undefined;
 				}
-				if (fg('platform_editor_ai_local_id_short')) {
-					const generatedId = nodeIdProvider.getOrGenerateId(node, pos);
-					if (generatedId) {
-						return generatedId;
-					}
-				}
+			const generatedId = nodeIdProvider.getOrGenerateId(node, pos);
+			if (generatedId) {
+				return generatedId;
+			}
 				const nodeDOM = view.nodeDOM(pos);
 				if (nodeDOM instanceof HTMLElement) {
 					return nodeDOM.getAttribute('data-node-anchor') || undefined;

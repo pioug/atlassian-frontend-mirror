@@ -157,14 +157,16 @@ export class SourceSyncBlockStoreManager {
 							resourceId: syncBlockData.resourceId,
 						},
 					});
-					bodiedSyncBlockData.push(syncBlockData);
-
 					// reset isDirty early to prevent race condition
 					// There is a race condition where if a user makes changes to a source sync block
 					// on a live page and the source sync block is being saved while the user
 					// is still making changes, the new changes might not be saved if they all happen
 					// exactly at a time when the writeNodesData is being executed asynchronously.
 					syncBlockData.isDirty = false;
+					// When flushing, set status to 'active' so the block is published (when feature gate is on)
+					const dataToFlush =
+						fg('platform_synced_block_patch_1') ? { ...syncBlockData, status: 'active' as const } : syncBlockData;
+					bodiedSyncBlockData.push(dataToFlush);
 				}
 			});
 

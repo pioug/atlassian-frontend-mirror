@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { cssMap } from '@compiled/react';
 import { useIntl, type IntlShape, type MessageDescriptor } from 'react-intl-next';
 
+
 import Button from '@atlaskit/button/new';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
@@ -20,6 +21,7 @@ import ModalDialog, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Text, Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 
@@ -46,6 +48,23 @@ const modalContentMap: Record<'source-block-deleted' | 'source-block-unsynced', 
 		titleSingle: messages.unsyncConfirmationModalTitle,
 		descriptionSingle: messages.unsyncConfirmationModalDescriptionSingle,
 		descriptionMultiple: messages.unsyncConfirmationModalDescriptionMultiple,
+		confirmButtonLabel: messages.deleteConfirmationModalUnsyncButton,
+	},
+};
+
+const modalContentMapNew: Record<'source-block-deleted' | 'source-block-unsynced', ModalContent> = {
+	'source-block-deleted': {
+		titleMultiple: messages.deleteConfirmationModalTitleMultiple,
+		titleSingle: messages.deletionConfirmationModalTitleSingle,
+		descriptionSingle: messages.deletionConfirmationModalDescriptionNoRef,
+		descriptionMultiple: messages.deletionConfirmationModalDescription,
+		confirmButtonLabel: messages.deleteConfirmationModalDeleteButton,
+	},
+	'source-block-unsynced': {
+		titleMultiple: messages.unsyncConfirmationModalTitle,
+		titleSingle: messages.unsyncConfirmationModalTitle,
+		descriptionSingle: messages.unsyncConfirmModalDescriptionSingle,
+		descriptionMultiple: messages.unsyncConfirmModalDescriptionMultiple,
 		confirmButtonLabel: messages.deleteConfirmationModalUnsyncButton,
 	},
 };
@@ -198,7 +217,11 @@ export const DeleteConfirmationModal = ({
 								</Box>
 							) : (
 								<ModalContent
-									content={modalContentMap[deleteReason]}
+									content={
+										fg('platform_synced_block_patch_2')
+											? modalContentMapNew[deleteReason]
+											: modalContentMap[deleteReason]
+									}
 									referenceCount={referenceCount}
 									handleClick={handleClick}
 									formatMessage={formatMessage}

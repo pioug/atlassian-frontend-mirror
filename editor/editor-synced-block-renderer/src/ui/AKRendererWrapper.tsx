@@ -95,6 +95,7 @@ export const AKRendererWrapper = memo(
 			allowUgcScrubber,
 			allowWrapCodeBlock,
 			emojiResourceConfig,
+			eventHandlers,
 			media,
 			smartLinks,
 			stickyHeaders,
@@ -140,6 +141,7 @@ export const AKRendererWrapper = memo(
 									allowUgcScrubber={allowUgcScrubber}
 									allowWrapCodeBlock={allowWrapCodeBlock}
 									emojiResourceConfig={emojiResourceConfig}
+                                    eventHandlers={fg('platform_synced_block_patch_1') ? eventHandlers : undefined}
 									media={media}
 									smartLinks={smartLinks}
 									stickyHeaders={stickyHeaders}

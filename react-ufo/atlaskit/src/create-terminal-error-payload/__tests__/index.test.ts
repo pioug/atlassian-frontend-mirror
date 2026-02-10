@@ -19,6 +19,10 @@ describe('createTerminalErrorPayload', () => {
 		activeInteractionName: null,
 		activeInteractionId: null,
 		activeInteractionType: null,
+		previousInteractionId: null,
+		previousInteractionName: null,
+		previousInteractionType: null,
+		timeSincePreviousInteraction: null,
 		labelStack: null,
 	};
 
@@ -79,6 +83,15 @@ describe('createTerminalErrorPayload', () => {
 		expect(result?.attributes.properties.activeInteractionType).toBeNull();
 	});
 
+	it('should set previousInteractionId, previousInteractionName, previousInteractionType, and timeSincePreviousInteraction to null when no previous interaction in context', () => {
+		const result = createTerminalErrorPayload(mockTerminalErrorData, mockTerminalErrorContext);
+
+		expect(result?.attributes.properties.previousInteractionId).toBeNull();
+		expect(result?.attributes.properties.previousInteractionName).toBeNull();
+		expect(result?.attributes.properties.previousInteractionType).toBeNull();
+		expect(result?.attributes.properties.timeSincePreviousInteraction).toBeNull();
+	});
+
 	it('should include active interaction details from context when available', () => {
 		const contextWithInteraction: TerminalErrorContext = {
 			...mockTerminalErrorContext,
@@ -92,6 +105,23 @@ describe('createTerminalErrorPayload', () => {
 		expect(result?.attributes.properties.activeInteractionName).toBe('test-ufo-interaction');
 		expect(result?.attributes.properties.activeInteractionId).toBe('interaction-123');
 		expect(result?.attributes.properties.activeInteractionType).toBe('page_load');
+	});
+
+	it('should include previous interaction details from context when available', () => {
+		const contextWithPreviousInteraction: TerminalErrorContext = {
+			...mockTerminalErrorContext,
+			previousInteractionId: 'prev-interaction-456',
+			previousInteractionName: 'previous-ufo-interaction',
+			previousInteractionType: 'page_load',
+			timeSincePreviousInteraction: 1500,
+		};
+
+		const result = createTerminalErrorPayload(mockTerminalErrorData, contextWithPreviousInteraction);
+
+		expect(result?.attributes.properties.previousInteractionId).toBe('prev-interaction-456');
+		expect(result?.attributes.properties.previousInteractionName).toBe('previous-ufo-interaction');
+		expect(result?.attributes.properties.previousInteractionType).toBe('page_load');
+		expect(result?.attributes.properties.timeSincePreviousInteraction).toBe(1500);
 	});
 
 	it('should use "unknown" for hostname when window.location.hostname is not available', () => {

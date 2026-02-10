@@ -1,6 +1,8 @@
 import type { Rule } from 'eslint';
 import { node as generate, isNodeOfType, type Property } from 'eslint-codemod-utils';
 
+import { getScope, getSourceCode } from '@atlaskit/eslint-utils/context-compat';
+
 import { getIsException } from '../utils/get-is-exception';
 import {
 	includesHardCodedColor,
@@ -22,6 +24,84 @@ import type { RuleConfig } from './types';
 type Suggestion = {
 	shouldReturnSuggestion: boolean;
 } & Rule.SuggestionReportDescriptor;
+
+/**
+ * Check if the JSXAttribute is a 'color' prop on a Tag component imported from @atlaskit/tag
+ */
+const isTagComponentColorProp = (
+	jsxAttributeNode: Rule.Node,
+	context: Rule.RuleContext,
+): boolean => {
+	if (!isNodeOfType(jsxAttributeNode, 'JSXAttribute')) {
+		return false;
+	}
+
+	// Check if the attribute name is 'color'
+	const attributeName =
+		typeof jsxAttributeNode.name.name === 'string'
+			? jsxAttributeNode.name.name
+			: jsxAttributeNode.name.name.name;
+
+	if (attributeName !== 'color') {
+		return false;
+	}
+
+	// Find the JSXOpeningElement
+	let currentNode = jsxAttributeNode.parent;
+	while (currentNode && !isNodeOfType(currentNode, 'JSXOpeningElement')) {
+		currentNode = currentNode.parent;
+	}
+
+	if (!currentNode || !isNodeOfType(currentNode, 'JSXOpeningElement')) {
+		return false;
+	}
+
+	// Get the component name
+	const elementName = isNodeOfType(currentNode.name, 'JSXIdentifier')
+		? currentNode.name.name
+		: null;
+
+	if (!elementName) {
+		return false;
+	}
+
+	// Check if the component is imported from @atlaskit/tag (scope-based resolution)
+	const scope = getScope(context, jsxAttributeNode);
+	const variable = scope.variables.find((v) => v.name === elementName);
+	if (variable?.defs?.length) {
+		for (const def of variable.defs) {
+			if (
+				def.type === 'ImportBinding' &&
+				def.parent &&
+				isNodeOfType(def.parent, 'ImportDeclaration')
+			) {
+				const importSource = def.parent.source.value;
+				if (typeof importSource === 'string' && importSource.match(/^@atlaskit\/tag(\/|$)/)) {
+					return true;
+				}
+			}
+		}
+	}
+
+	// Fallback: scan AST for ImportDeclaration (more reliable when scope differs e.g. in some monorepo/parser setups)
+	const sourceCode = getSourceCode(context);
+	const ast = sourceCode.ast;
+	if (ast?.body) {
+		for (const node of ast.body) {
+			if (!isNodeOfType(node, 'ImportDeclaration')) {continue;}
+			const source = node.source?.value;
+			if (typeof source !== 'string' || !source.match(/^@atlaskit\/tag(\/|$)/)) {continue;}
+			const hasMatchingImport = node.specifiers?.some(
+				(s) =>
+					(s.type === 'ImportDefaultSpecifier' && s.local?.name === elementName) ||
+					(s.type === 'ImportSpecifier' && s.local?.name === elementName),
+			);
+			if (hasMatchingImport) {return true;}
+		}
+	}
+
+	return false;
+};
 
 // TemplateLiteral > Identifier
 export const lintTemplateIdentifierForColor = (
@@ -216,6 +296,11 @@ export const lintJSXLiteralForColor = (
 		return;
 	}
 
+	// Bypass Tag component color prop from @atlaskit/tag
+	if (isTagComponentColorProp(parent, context)) {
+		return;
+	}
+
 	// We only care about hex values
 	if (typeof node.value !== 'string') {
 		return;
@@ -312,7 +397,7 @@ export const getTokenSuggestion = (
 			fix: (fixer: Rule.RuleFixer) =>
 				fixer.replaceText(
 					isNodeOfType(node.parent, 'MemberExpression') ? node.parent : node,
-					`token('')`,
+					isNodeOfType(node.parent, 'JSXAttribute') ? `{token('')}` : `token('')`,
 				),
 		},
 		{

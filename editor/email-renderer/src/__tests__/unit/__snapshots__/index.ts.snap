@@ -1295,6 +1295,71 @@ exports[`Renderer - EmailSerializer should render block cards correctly: html 1`
 </div>
 `;
 
+exports[`Renderer - EmailSerializer should render bodiedSyncBlock content correctly: bodiedSyncBlock 1`] = `
+<div
+  class="REDACTED"
+  style="REDACTED'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; line-height: 24px; vertical-align: baseline;"
+>
+  <p
+    class="REDACTED"
+    style="REDACTED"
+  >
+    Content before sync block
+  </p>
+  <h2
+    class="REDACTED"
+    style="REDACTED"
+  >
+    Sync Block Heading
+  </h2>
+  <p
+    class="REDACTED"
+    style="REDACTED"
+  >
+    This is content inside the sync block. It should render without any wrapper or indication that it's inside a sync block.
+  </p>
+  <ul
+    class="REDACTED"
+    style="REDACTED"
+  >
+    <li
+      class="REDACTED"
+      style="REDACTED"
+    >
+      <p
+        class="REDACTED"
+        style="REDACTED"
+      >
+        First item in sync block
+      </p>
+    </li>
+    <li
+      class="REDACTED"
+      style="REDACTED"
+    >
+      <p
+        class="REDACTED"
+        style="REDACTED"
+      >
+        Second item in sync block
+      </p>
+    </li>
+  </ul>
+  <p
+    class="REDACTED"
+    style="REDACTED"
+  >
+    Final paragraph in sync block
+  </p>
+  <p
+    class="REDACTED"
+    style="REDACTED"
+  >
+    Content after sync block
+  </p>
+</div>
+`;
+
 exports[`Renderer - EmailSerializer should render codeblock correctly: html 1`] = `
 <div
   class="REDACTED"
@@ -9119,6 +9184,37 @@ exports[`Renderer - EmailSerializer should render status correctly: html 1`] = `
   >
     Green
   </span>
+</div>
+`;
+
+exports[`Renderer - EmailSerializer should render syncBlock correctly: syncBlock 1`] = `
+<div
+  class="REDACTED"
+  style="REDACTED'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; line-height: 24px; vertical-align: baseline;"
+>
+  <p
+    class="REDACTED"
+    style="REDACTED"
+  >
+    Content before sync block
+  </p>
+  <div
+    class="REDACTED"
+    style="REDACTED"
+  >
+    <div
+      class="REDACTED"
+      style="REDACTED"
+    >
+       syncBlock 
+    </div>
+  </div>
+  <p
+    class="REDACTED"
+    style="REDACTED"
+  >
+    Content after sync block
+  </p>
 </div>
 `;
 

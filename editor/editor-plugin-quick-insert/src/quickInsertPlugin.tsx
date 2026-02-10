@@ -204,6 +204,26 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 						lazyDefaultItems: () => [...defaultItems, ...memoisedNewItems],
 					});
 				},
+			updateQuickInsertItem:
+				(key: string, item: QuickInsertHandler): EditorCommand =>
+				({ tr }) => {
+					const { providedItems, lazyDefaultItems } = api?.quickInsert?.sharedState.currentState() ?? {};
+					const defaultItems = lazyDefaultItems ? lazyDefaultItems() : [];
+					const newItem = memoProcessQuickInsertItems([item], intl);
+
+					const replaceByKey = (items: QuickInsertItem[]) =>
+						items.flatMap((i) => (i.key === key ? newItem : i));
+
+					const meta: Partial<QuickInsertPluginState> = {};
+					if (defaultItems.some((i) => i.key === key)) {
+						meta.lazyDefaultItems = () => replaceByKey(defaultItems);
+					}
+					if (providedItems?.some((i) => i.key === key)) {
+						meta.providedItems = replaceByKey(providedItems);
+					}
+
+					return Object.keys(meta).length > 0 ? tr.setMeta(pluginKey, meta) : tr;
+				},
 			removeQuickInsertItem:
 				(key: string): EditorCommand =>
 				({ tr }) => {

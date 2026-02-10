@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 43.24.1
+
+### Patch Changes
+
+- [`f9c27b8da5b37`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f9c27b8da5b37) -
+  Feature gate cleanup for member count in card view
+- Updated dependencies
+
 ## 43.24.0
 
 ### Minor Changes

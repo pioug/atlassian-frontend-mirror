@@ -15,6 +15,7 @@ export type SyncedBlockRendererOptions = Pick<
 	| 'allowUgcScrubber'
 	| 'allowWrapCodeBlock'
 	| 'emojiResourceConfig'
+	| 'eventHandlers'
 	| 'media'
 	| 'smartLinks'
 	| 'stickyHeaders'

@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 111.11.13
+
+### Patch Changes
+
+- [`d00c391ab0f5a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d00c391ab0f5a) -
+  Cleanup a flag making local ids shorter
+- Updated dependencies
+
+## 111.11.12
+
+### Patch Changes
+
+- [`f24892f905e1a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f24892f905e1a) -
+  [ux] EDITOR-5002 update delete and unsync synced block modal messages
+- Updated dependencies
+
 ## 111.11.11
 
 ### Patch Changes

@@ -4,7 +4,15 @@ import type { ApdexType, BM3Event } from '../../common';
 import { setUFOConfig } from '../../config';
 import { DefaultInteractionID } from '../../interaction-id-context';
 import { interactions } from '../common/constants';
-import { abort, addApdex, addApdexToAll, addBrowserMetricEvent, addNewInteraction } from '../index';
+import {
+	abort,
+	addApdex,
+	addApdexToAll,
+	addBrowserMetricEvent,
+	addNewInteraction,
+	PreviousInteractionLog,
+	tryComplete,
+} from '../index';
 
 jest.mock('@atlaskit/platform-feature-flags');
 const mockFg = fg as jest.Mock;
@@ -432,6 +440,140 @@ describe('interaction-metrics timeout behavior', () => {
 
 			// Should clear the timeout when aborted
 			expect(mockClearTimeout).toHaveBeenCalled();
+		});
+	});
+
+	describe('PreviousInteractionLog', () => {
+		beforeEach(() => {
+			PreviousInteractionLog.id = undefined;
+			PreviousInteractionLog.name = undefined;
+			PreviousInteractionLog.type = undefined;
+			PreviousInteractionLog.isAborted = undefined;
+			PreviousInteractionLog.timestamp = undefined;
+		});
+
+		it('should set id, type, and timestamp when feature flag is enabled', () => {
+			mockFg.mockImplementation((flag: string) => flag === 'platform_ufo_enable_terminal_errors');
+			mockPerformanceNow.mockReturnValue(2000);
+
+			const interactionId = 'test-prev-interaction-1';
+			const startTime = 1000;
+
+			addNewInteraction(
+				interactionId,
+				'test-ufo-name',
+				'page_load',
+				startTime,
+				1,
+				null,
+				null,
+				null,
+			);
+
+			tryComplete(interactionId, 2000);
+
+			expect(PreviousInteractionLog.id).toBe(interactionId);
+			expect(PreviousInteractionLog.name).toBe('test-ufo-name');
+			expect(PreviousInteractionLog.type).toBe('page_load');
+			expect(PreviousInteractionLog.isAborted).toBe(false);
+			expect(PreviousInteractionLog.timestamp).toBe(2000);
+		});
+
+		it('should NOT set id, type, and timestamp when feature flag is disabled', () => {
+			mockFg.mockReturnValue(false);
+			mockPerformanceNow.mockReturnValue(2000);
+
+			const interactionId = 'test-prev-interaction-2';
+			const startTime = 1000;
+
+			addNewInteraction(
+				interactionId,
+				'test-ufo-name',
+				'transition',
+				startTime,
+				1,
+				null,
+				null,
+				null,
+			);
+
+			tryComplete(interactionId, 2000);
+
+			expect(PreviousInteractionLog.id).toBeUndefined();
+			expect(PreviousInteractionLog.type).toBeUndefined();
+			expect(PreviousInteractionLog.timestamp).toBeUndefined();
+		});
+
+		it('should always set name and isAborted', () => {
+			mockPerformanceNow.mockReturnValue(2000);
+
+			const interactionId = 'test-prev-interaction-3';
+			const startTime = 1000;
+
+			addNewInteraction(
+				interactionId,
+				'test-ufo-name',
+				'press',
+				startTime,
+				1,
+				null,
+				null,
+				null,
+			);
+
+			tryComplete(interactionId, 2000);
+
+			expect(PreviousInteractionLog.name).toBe('test-ufo-name');
+			expect(PreviousInteractionLog.isAborted).toBe(false);
+		});
+
+		it('should set name to "unknown" when ufoName is empty', () => {
+			mockPerformanceNow.mockReturnValue(2000);
+
+			const interactionId = 'test-prev-interaction-5';
+			const startTime = 1000;
+
+			addNewInteraction(
+				interactionId,
+				'', // empty ufoName
+				'page_load',
+				startTime,
+				1,
+				null,
+				null,
+				null,
+			);
+
+			tryComplete(interactionId, 2000);
+
+			expect(PreviousInteractionLog.name).toBe('unknown');
+		});
+
+		it('should update PreviousInteractionLog for different interaction types', () => {
+			mockFg.mockImplementation((flag: string) => flag === 'platform_ufo_enable_terminal_errors');
+
+			const transitionId = 'test-prev-interaction-6';
+			mockPerformanceNow.mockReturnValue(3000);
+
+			addNewInteraction(transitionId, 'transition-interaction', 'transition', 1000, 1, null, null, null);
+			tryComplete(transitionId, 3000);
+
+			expect(PreviousInteractionLog.id).toBe(transitionId);
+			expect(PreviousInteractionLog.name).toBe('transition-interaction');
+			expect(PreviousInteractionLog.type).toBe('transition');
+			expect(PreviousInteractionLog.timestamp).toBe(3000);
+
+			// Test press type - should overwrite previous values
+			const pressId = 'test-prev-interaction-7';
+			mockPerformanceNow.mockReturnValue(4000);
+
+			addNewInteraction(pressId, 'press-interaction', 'press', 2000, 1, null, null, null);
+			tryComplete(pressId, 4000);
+
+			expect(PreviousInteractionLog.id).toBe(pressId);
+			expect(PreviousInteractionLog.name).toBe('press-interaction');
+			expect(PreviousInteractionLog.type).toBe('press');
+			expect(PreviousInteractionLog.timestamp).toBe(4000);
 		});
 	});
 });

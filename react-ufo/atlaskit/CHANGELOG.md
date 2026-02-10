@@ -1,5 +1,14 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.1.4
+
+### Patch Changes
+
+- [`aa7b28d013b4f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa7b28d013b4f) -
+  Add Speed Index metric using TTVC v4 ruleset
+- [`e565e9abbe8fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e565e9abbe8fd) -
+  Added Previous Interaction information to terminal error metric
+
 ## 5.1.3
 
 ### Patch Changes

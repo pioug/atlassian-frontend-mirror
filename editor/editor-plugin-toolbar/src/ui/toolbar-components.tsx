@@ -30,7 +30,6 @@ import {
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Show, Toolbar, type BreakpointPreset } from '@atlaskit/editor-toolbar';
 import { type RegisterComponent, type ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ToolbarPlugin } from '../toolbarPluginType';
 
@@ -283,20 +282,18 @@ export const getToolbarComponents = (
 					rank: TOOLBAR_RANK[PIN_SECTION.key],
 				},
 			],
-			component: fg('platform_editor_toolbar_aifc_undo_redo_confluence')
-				? ({ children, parents }) => {
-						return (
-							<Section
-								testId="pin-section"
-								parents={parents}
-								api={api}
-								showSeparatorInFullPagePrimaryToolbar
-							>
-								{children}
-							</Section>
-						);
-					}
-				: undefined,
+			component: ({ children, parents }) => {
+				return (
+					<Section
+						testId="pin-section"
+						parents={parents}
+						api={api}
+						showSeparatorInFullPagePrimaryToolbar
+					>
+						{children}
+					</Section>
+				);
+			},
 		},
 	];
 
@@ -355,31 +352,29 @@ export const getToolbarComponents = (
 			break;
 	}
 
-	if (fg('platform_editor_toolbar_aifc_undo_redo_confluence')) {
-		components.push({
-			type: TRACK_CHANGES_SECTION.type,
-			key: TRACK_CHANGES_SECTION.key,
-			parents: [
-				{
-					type: 'toolbar',
-					key: TOOLBARS.PRIMARY_TOOLBAR,
-					rank: TOOLBAR_RANK[TRACK_CHANGES_SECTION.key],
-				},
-			],
-			component: ({ children, parents }) => {
-				return (
-					<Section
-						testId="track-changes-section"
-						parents={parents}
-						api={api}
-						showSeparatorInFullPagePrimaryToolbar
-					>
-						{children}
-					</Section>
-				);
+	components.push({
+		type: TRACK_CHANGES_SECTION.type,
+		key: TRACK_CHANGES_SECTION.key,
+		parents: [
+			{
+				type: 'toolbar',
+				key: TOOLBARS.PRIMARY_TOOLBAR,
+				rank: TOOLBAR_RANK[TRACK_CHANGES_SECTION.key],
 			},
-		});
-	}
+		],
+		component: ({ children, parents }) => {
+			return (
+				<Section
+					testId="track-changes-section"
+					parents={parents}
+					api={api}
+					showSeparatorInFullPagePrimaryToolbar
+				>
+					{children}
+				</Section>
+			);
+		},
+	});
 
 	return components;
 };

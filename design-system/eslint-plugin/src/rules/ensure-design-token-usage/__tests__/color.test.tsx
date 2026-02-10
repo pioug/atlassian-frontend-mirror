@@ -1286,6 +1286,139 @@ const colorSuggestionTests: Tests = {
 	],
 };
 
+const tagBypassTests: Tests = {
+	valid: [
+		{
+			code: `
+				import Tag from '@atlaskit/tag';
+				<Tag color="red" />
+			`,
+		},
+		{
+			code: `
+				import Tag from '@atlaskit/tag';
+				<Tag color="blue" />
+			`,
+		},
+		{
+			code: `
+				import Tag from '@atlaskit/tag';
+				<Tag color="green" text="hello" />
+			`,
+		},
+		{
+			code: `
+				import { default as Tag } from '@atlaskit/tag';
+				<Tag color="red" />
+			`,
+		},
+		{
+			code: `
+				import Tag from '@atlaskit/tag/simple-tag';
+				<Tag color="red" />
+			`,
+		},
+		{
+			code: `
+				import SimpleTag from '@atlaskit/tag/simple-tag';
+				<SimpleTag color="blue" />
+			`,
+		},
+		{
+			code: `
+				import Tag from '@atlaskit/tag/removable-tag';
+				<Tag color="purple" />
+			`,
+		},
+		{
+			code: `
+				import { Tag } from '@atlaskit/tag';
+				<Tag color="red" />
+			`,
+		},
+	],
+	invalid: [
+		{
+			// Tag component without import should still fail
+			code: `<Tag color="red" />`,
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: `Convert to token`,
+							output: `<Tag color={token('')} />`,
+						},
+					],
+				},
+			],
+		},
+		{
+			// Non-Tag component should still fail
+			code: `
+				import Tag from '@atlaskit/tag';
+				<div color="red" />
+			`,
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: `Convert to token`,
+							output: `
+				import Tag from '@atlaskit/tag';
+				<div color={token('')} />
+			`,
+						},
+					],
+				},
+			],
+		},
+		{
+			// Tag from different package should fail
+			code: `
+				import Tag from '@atlaskit/other-package';
+				<Tag color="red" />
+			`,
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: `Convert to token`,
+							output: `
+				import Tag from '@atlaskit/other-package';
+				<Tag color={token('')} />
+			`,
+						},
+					],
+				},
+			],
+		},
+		{
+			// Non-color attribute should still fail
+			code: `
+				import Tag from '@atlaskit/tag';
+				<Tag backgroundColor="red" />
+			`,
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: `Convert to token`,
+							output: `
+				import Tag from '@atlaskit/tag';
+				<Tag backgroundColor={token('')} />
+			`,
+						},
+					],
+				},
+			],
+		},
+	],
+};
+
 const colorExceptionTests: Tests = {
 	valid: [
 		{
@@ -1374,8 +1507,8 @@ const colorExceptionTests: Tests = {
 };
 
 const allTests: Tests = {
-	valid: [...colorTests.valid, ...colorSuggestionTests.valid, ...colorExceptionTests.valid],
-	invalid: [...colorTests.invalid, ...colorSuggestionTests.invalid, ...colorExceptionTests.invalid],
+	valid: [...colorTests.valid, ...colorSuggestionTests.valid, ...tagBypassTests.valid, ...colorExceptionTests.valid],
+	invalid: [...colorTests.invalid, ...colorSuggestionTests.invalid, ...tagBypassTests.invalid, ...colorExceptionTests.invalid],
 };
 
 tester.run('ensure-design-token-usage', rule, allTests);

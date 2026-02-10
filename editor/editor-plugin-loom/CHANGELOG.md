@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-loom
 
+## 9.2.0
+
+### Minor Changes
+
+- [`83fbd93f6a060`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/83fbd93f6a060) -
+  Bump @loomhq/record-sdk to 4.8.0 and @loomhq/lens to 12.13.0
+
 ## 9.1.2
 
 ### Patch Changes

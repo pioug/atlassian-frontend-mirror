@@ -1017,6 +1017,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-01-27 - AI create-page expand collapse fix
+	platform_editor_aifc_expand_collapses_oncreate_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-01-22
 	platform_editor_ai_loading_responsive_width: {
 		defaultValue: boolean;
@@ -1140,6 +1147,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-02-05
 	platform_editor_toolbar_split_button_ui: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-02-06
+	platform_rovo_inline_chat_missing_analytics_fix: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2304,6 +2318,15 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-01-27 - AI create-page expand collapse fix
+	platform_editor_aifc_expand_collapses_oncreate_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_aifc_expand_collapses_oncreate_fix',
+			jira: 'platform_editor_aifc_expand_collapses_oncreate_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-01-22
 	platform_editor_ai_loading_responsive_width: createBooleanExperiment({
 		productKeys: {
@@ -2442,6 +2465,14 @@ export const editorExperimentsConfig: {
 	platform_editor_toolbar_split_button_ui: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_toolbar_split_button_ui',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-02-06
+	platform_rovo_inline_chat_missing_analytics_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_rovo_inline_chat_missing_analytics_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

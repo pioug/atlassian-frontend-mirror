@@ -41,7 +41,6 @@ import * as text from './__fixtures__/text.adf.json';
 import * as expand from './__fixtures__/expand.adf.json';
 import * as textColor from './__fixtures__/text-color.adf.json';
 import * as backgroundColor from './__fixtures__/background-color.adf.json';
-
 import * as image from './__fixtures__/image.adf.json';
 import * as placeholder from './__fixtures__/placeholder.adf.json';
 import * as annotation from './__fixtures__/annotation.adf.json';
@@ -57,6 +56,8 @@ import * as mediaGroupInQuote from './__fixtures__/media-group-in-quote.adf.json
 import * as nestedTables from './__fixtures__/nested-tables-extension.adf.json';
 import * as nestedTablesInvalid from './__fixtures__/nested-tables-extension-invalid.adf.json';
 import * as redaction from './__fixtures__/redaction-extension.adf.json';
+import * as bodiedSyncBlock from './__fixtures__/bodied-sync-block.adf.json';
+import * as syncBlock from './__fixtures__/sync-block.adf.json';
 
 const defaultTestOpts: EmailSerializerOpts = {
 	isImageStubEnabled: false,
@@ -495,5 +496,15 @@ describe('Renderer - EmailSerializer', () => {
 	it('should render redaction inlineExtension correctly', () => {
 		const { result } = render(redaction);
 		expect(result).toMatchSnapshot('redaction extension');
+	});
+
+	it('should render bodiedSyncBlock content correctly', () => {
+		const { result } = render(bodiedSyncBlock);
+		expect(result).toMatchSnapshot('bodiedSyncBlock');
+	});
+
+	it('should render syncBlock correctly', () => {
+		const { result } = render(syncBlock);
+		expect(result).toMatchSnapshot('syncBlock');
 	});
 });

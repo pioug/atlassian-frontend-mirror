@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-track-changes",
-	"version": "6.0.8",
+	"version": "6.0.10",
 	"description": "ShowDiff plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -48,13 +48,9 @@
 		"react": "^18.2.0"
 	},
 	"featureGates": [
-		"platform_editor_toolbar_aifc_undo_redo_confluence",
 		"platform_editor_ai_aifc_patch_ga_blockers"
 	],
 	"platform-feature-flags": {
-		"platform_editor_toolbar_aifc_undo_redo_confluence": {
-			"type": "boolean"
-		},
 		"platform_editor_ai_aifc_patch_ga_blockers": {
 			"type": "boolean"
 		}

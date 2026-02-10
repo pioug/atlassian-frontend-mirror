@@ -73,6 +73,8 @@ describe('extractFlexibleUiContext', () => {
 				resourceType: 'pull',
 				tenantId: 'bitbucket-tenant',
 			},
+			teamMemberCount: 0,
+			userAttributes: undefined,
 		});
 	});
 
@@ -159,8 +161,10 @@ describe('extractFlexibleUiContext', () => {
 			subTasksProgress: undefined,
 			subscriberCount: undefined,
 			targetBranch: undefined,
+			teamMemberCount: 0,
 			linkTitle: expect.objectContaining({ text: 'Component readiness' }),
 			url: 'https://ben-just-jwm.jira-dev.com/compass/scorecard/a7c20891-8958-4360-bc5a-8d8a26d7cdfc',
+			userAttributes: undefined,
 			viewCount: undefined,
 			voteCount: undefined,
 			type: ['atlassian:Project', 'Object'],
@@ -230,6 +234,8 @@ describe('extractFlexibleUiContext', () => {
 				resourceType: 'page',
 				tenantId: 'confluence-tenant',
 			},
+			teamMemberCount: 0,
+			userAttributes: undefined,
 		});
 	});
 
@@ -292,6 +298,8 @@ describe('extractFlexibleUiContext', () => {
 				resourceType: 'blog',
 				tenantId: 'confluence-tenant',
 			},
+			teamMemberCount: 0,
+			userAttributes: undefined,
 		});
 	});
 
@@ -331,6 +339,8 @@ describe('extractFlexibleUiContext', () => {
 				resourceType: 'space',
 				tenantId: 'confluence-tenant',
 			},
+			teamMemberCount: 0,
+			userAttributes: undefined,
 		});
 	});
 
@@ -377,6 +387,8 @@ describe('extractFlexibleUiContext', () => {
 				resourceType: 'template',
 				tenantId: 'confluence-tenant',
 			},
+			teamMemberCount: 0,
+			userAttributes: undefined,
 		});
 	});
 
@@ -410,6 +422,8 @@ describe('extractFlexibleUiContext', () => {
 				resourceType: 'issue',
 				tenantId: 'jira-tenant',
 			},
+			teamMemberCount: 0,
+			userAttributes: undefined,
 		});
 	});
 
@@ -464,6 +478,8 @@ describe('extractFlexibleUiContext', () => {
 				resourceType: 'roadmap',
 				tenantId: 'jira-tenant',
 			},
+			teamMemberCount: 0,
+			userAttributes: undefined,
 		});
 	});
 
@@ -518,6 +534,8 @@ describe('extractFlexibleUiContext', () => {
 				resourceType: 'roadmap',
 				tenantId: 'jira-tenant',
 			},
+			teamMemberCount: 0,
+			userAttributes: undefined,
 		});
 	});
 
@@ -578,6 +596,12 @@ describe('extractFlexibleUiContext', () => {
 				url: 'https://icon-url',
 				render: undefined,
 			},
+			linkTitle: expect.objectContaining({ text: 'The Superman Project' }),
+			meta: {
+				objectId: 'project-id',
+				resourceType: undefined,
+				tenantId: 'atlas-tenant',
+			},
 			modifiedOn: '2023-03-05T08:00:00.861423',
 			provider: { label: 'Atlas', url: 'https://icon-url' },
 			snippet: 'The journey to discover the real identity of Superman?',
@@ -588,14 +612,10 @@ describe('extractFlexibleUiContext', () => {
 				action: undefined,
 			},
 			subscriberCount: 109,
-			linkTitle: expect.objectContaining({ text: 'The Superman Project' }),
-			url: 'https://link-url',
+			teamMemberCount: 1,
 			type: ['atlassian:Project', 'Object'],
-			meta: {
-				objectId: 'project-id',
-				resourceType: undefined,
-				tenantId: 'atlas-tenant',
-			},
+			url: 'https://link-url',
+			userAttributes: undefined,
 		});
 	});
 
@@ -648,6 +668,8 @@ describe('extractFlexibleUiContext', () => {
 				resourceType: 'file',
 				tenantId: 'figma-tenant',
 			},
+			teamMemberCount: 0,
+			userAttributes: undefined,
 		});
 	});
 
@@ -706,6 +728,8 @@ describe('extractFlexibleUiContext', () => {
 				resourceType: 'youtube',
 				tenantId: 'youtube-tenant',
 			},
+			teamMemberCount: 0,
+			userAttributes: undefined,
 		});
 	});
 
@@ -770,6 +794,8 @@ describe('extractFlexibleUiContext', () => {
 				resourceType: 'sharedFile',
 				tenantId: 'dropbox-tenant',
 			},
+			teamMemberCount: 0,
+			userAttributes: undefined,
 		});
 	});
 

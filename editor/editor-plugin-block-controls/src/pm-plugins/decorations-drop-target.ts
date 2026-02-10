@@ -11,6 +11,7 @@ import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -51,6 +52,17 @@ const PARENT_WITH_END_DROP_TARGET = [
 	'nestedExpand',
 	'bodiedExtension',
 ];
+
+const PARENT_WITH_END_DROP_TARGET_NEXT = [
+	'tableCell',
+	'tableHeader',
+	'panel',
+	'layoutColumn',
+	'expand',
+	'nestedExpand',
+	'bodiedExtension',
+	'bodiedSyncBlock',
+];
 const DISABLE_CHILD_DROP_TARGET = ['orderedList', 'bulletList'];
 
 const shouldDescend = (node: PMNode) => {
@@ -81,11 +93,31 @@ const shouldCollapseMargin = (prevNode?: PMNode, nextNode?: PMNode) => {
 };
 
 const getGapAndOffset = (prevNode?: PMNode, nextNode?: PMNode, parentNode?: PMNode | null) => {
+	const isSyncBlockOffsetPatchEnabled =
+		expValEquals('platform_synced_block', 'isEnabled', true) && fg('platform_synced_block_patch_2');
+
 	if (!prevNode && nextNode) {
-		// first node
-		return { gap: 0, offset: 0 };
+		// first node - adjust for bodied containers
+		let offset = 0;
+		if (
+			isSyncBlockOffsetPatchEnabled &&
+			parentNode?.type.name &&
+			parentNode.type.name === 'bodiedSyncBlock'
+		) {
+			offset += 4;
+		}
+		return { gap: 0, offset };
 	} else if (prevNode && !nextNode) {
-		return { gap: 0, offset: 0 };
+		// last node - adjust for bodied containers
+		let offset = 0;
+		if (
+			isSyncBlockOffsetPatchEnabled &&
+			parentNode?.type.name &&
+			parentNode.type.name === 'bodiedSyncBlock'
+		) {
+			offset -= 4;
+		}
+		return { gap: 0, offset };
 	}
 
 	const top = getNodeMargins(nextNode).top || 4;
@@ -345,10 +377,16 @@ export const dropTargetDecorations = (
 			}
 		}
 
+		const parentTypesWithEndDropTarget =
+			expValEquals('platform_synced_block', 'isEnabled', true) &&
+			fg('platform_synced_block_patch_2')
+				? PARENT_WITH_END_DROP_TARGET_NEXT
+				: PARENT_WITH_END_DROP_TARGET;
+
 		if (
 			parent.lastChild === node &&
 			!isEmptyParagraph(node) &&
-			PARENT_WITH_END_DROP_TARGET.includes(parent.type.name)
+			parentTypesWithEndDropTarget.includes(parent.type.name)
 		) {
 			endPos = pos + node.nodeSize;
 		}

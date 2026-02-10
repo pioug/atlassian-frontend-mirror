@@ -75,9 +75,20 @@ export type {
 	InteractionError,
 };
 
-const PreviousInteractionLog = {
-	name: undefined as string | undefined,
-	isAborted: undefined as boolean | undefined,
+export type PreviousInteractionLogType = {
+	id: string | undefined;
+	name: string | undefined;
+	type: string | undefined;
+	isAborted: boolean | undefined;
+	timestamp: number | undefined;
+};
+
+export const PreviousInteractionLog: PreviousInteractionLogType = {
+	id: undefined,
+	name: undefined,
+	type: undefined,
+	isAborted: undefined,
+	timestamp: undefined,
 };
 
 export const postInteractionLog: PostInteractionLog = new PostInteractionLog();
@@ -802,6 +813,11 @@ function finishInteraction(
 		}
 	}
 
+	if (fg('platform_ufo_enable_terminal_errors')) {
+		PreviousInteractionLog.id = data.id;
+		PreviousInteractionLog.type = data.type;
+		PreviousInteractionLog.timestamp = data.end;
+	}
 	PreviousInteractionLog.name = data.ufoName || 'unknown';
 	PreviousInteractionLog.isAborted = data.abortReason != null;
 	if (data.ufoName) {

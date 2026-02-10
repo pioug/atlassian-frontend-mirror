@@ -1,5 +1,12 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 5.7.0
+
+### Minor Changes
+
+- [`7daf10b49fce7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7daf10b49fce7) -
+  Pass in event handlers to the sync block options
+
 ## 5.6.7
 
 ### Patch Changes

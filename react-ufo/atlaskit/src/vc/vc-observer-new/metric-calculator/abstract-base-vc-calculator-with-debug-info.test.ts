@@ -46,38 +46,42 @@ describe('AbstractVCCalculatorBase WithDebugInfo', () => {
 	});
 
 	it('should calculate metrics when entries are valid', async () => {
-		const mockCalcResult = [
-			{
-				time: 100,
-				viewportPercentage: 90,
-				entries: [
-					{
-						type: 'mutation:element' as VCObserverEntryType,
-						elementName: 'div1',
-						rect: new DOMRect(),
-						visible: true,
-					},
-					{
-						type: 'mutation:element' as VCObserverEntryType,
-						elementName: 'div2',
-						rect: new DOMRect(),
-						visible: true,
-					},
-				],
-			},
-			{
-				time: 200,
-				viewportPercentage: 95,
-				entries: [
-					{
-						type: 'mutation:element' as VCObserverEntryType,
-						elementName: 'div3',
-						rect: new DOMRect(),
-						visible: true,
-					},
-				],
-			},
-		];
+		const mockCalcResult = {
+			entries: [
+				{
+					time: 100,
+					viewportPercentage: 90,
+					entries: [
+						{
+							type: 'mutation:element' as VCObserverEntryType,
+							elementName: 'div1',
+							rect: new DOMRect(),
+							visible: true,
+						},
+						{
+							type: 'mutation:element' as VCObserverEntryType,
+							elementName: 'div2',
+							rect: new DOMRect(),
+							visible: true,
+						},
+					],
+				},
+				{
+					time: 200,
+					viewportPercentage: 95,
+					entries: [
+						{
+							type: 'mutation:element' as VCObserverEntryType,
+							elementName: 'div3',
+							rect: new DOMRect(),
+							visible: true,
+						},
+					],
+				},
+			],
+			// speedIndex is 0 when feature flag is disabled (default in tests)
+			speedIndex: 0,
+		};
 
 		jest
 			.spyOn(calculateTTVCPercentiles, 'calculateTTVCPercentilesWithDebugInfo')

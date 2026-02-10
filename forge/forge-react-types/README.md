@@ -33,3 +33,13 @@ yarn workspace @atlaskit/forge-react-types codegen Button
 
 NOTE: Make sure any new component prop types are being exported from
 `packages/forge/forge-react-types/src/components/__generated__/index.ts`
+
+### Generating global component types
+
+To generate global component types, run the following command:
+
+```bash
+yarn workspace @atlaskit/forge-react-types codegen-global
+```
+
+This will generate the global component types found in `forge-common-app-gateway` package into `/src/components/global/__generated__/index.ts`.

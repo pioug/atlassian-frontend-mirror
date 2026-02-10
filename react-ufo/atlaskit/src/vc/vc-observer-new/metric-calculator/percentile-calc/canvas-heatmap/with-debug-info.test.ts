@@ -72,7 +72,7 @@ describe('calculatePercentilesWithDebugInfo', () => {
 			[400, [createViewportEntry('img')]],
 		]);
 
-		const expected = [
+		const expectedEntries = [
 			createExpectedResult(100, 20, [createViewportEntry('div'), createViewportEntry('span')]),
 			createExpectedResult(200, 60, [createViewportEntry('img')]),
 			createExpectedResult(300, 80, [createViewportEntry('p'), createViewportEntry('a')]),
@@ -80,16 +80,18 @@ describe('calculatePercentilesWithDebugInfo', () => {
 		];
 
 		const result = calculatePercentilesWithDebugInfo(timePixelCounts, elementMap, 50, 0);
-		expect(result).toEqual(expected);
+		expect(result.entries).toEqual(expectedEntries);
+		// Speed index is not calculated by default
+		expect(result.speedIndex).toEqual(0);
 	});
 
 	it('should handle empty entries gracefully', () => {
 		const timePixelCounts = new Map();
 		const elementMap = new Map<number, ViewportEntryData[]>();
-		const expected: any[] = [];
 
 		const result = calculatePercentilesWithDebugInfo(timePixelCounts, elementMap, 100, 0);
-		expect(result).toEqual(expected);
+		expect(result.entries).toEqual([]);
+		expect(result.speedIndex).toEqual(0);
 	});
 
 	it('should handle non-sequential timestamps', () => {
@@ -103,13 +105,15 @@ describe('calculatePercentilesWithDebugInfo', () => {
 			[100, [createViewportEntry('div')]],
 		]);
 
-		const expected = [
+		const expectedEntries = [
 			createExpectedResult(100, 30, [createViewportEntry('div')]),
 			createExpectedResult(300, 100, [createViewportEntry('p'), createViewportEntry('a')]),
 		];
 
 		const result = calculatePercentilesWithDebugInfo(timePixelCounts, elementMap, 100, 0);
-		expect(result).toEqual(expected);
+		expect(result.entries).toEqual(expectedEntries);
+		// Speed index is not calculated by default
+		expect(result.speedIndex).toEqual(0);
 	});
 
 	it('should correctly calculate percentiles with startTime offset', () => {
@@ -127,7 +131,7 @@ describe('calculatePercentilesWithDebugInfo', () => {
 			[400, [createViewportEntry('img')]],
 		]);
 
-		const expected = [
+		const expectedEntries = [
 			createExpectedResult(50, 20, [createViewportEntry('div'), createViewportEntry('span')]),
 			createExpectedResult(150, 60, [createViewportEntry('img')]),
 			createExpectedResult(250, 80, [createViewportEntry('p'), createViewportEntry('a')]),
@@ -135,6 +139,95 @@ describe('calculatePercentilesWithDebugInfo', () => {
 		];
 
 		const result = calculatePercentilesWithDebugInfo(timePixelCounts, elementMap, 50, 50);
-		expect(result).toEqual(expected);
+		expect(result.entries).toEqual(expectedEntries);
+		// Speed index is not calculated by default
+		expect(result.speedIndex).toEqual(0);
+	});
+
+	describe('speed index calculation', () => {
+		it('should calculate speed index when calculateSpeedIndex is true', () => {
+			const timePixelCounts = createTimePixelCounts([
+				[100, 10],
+				[200, 20],
+				[300, 10],
+				[400, 10],
+			]);
+
+			const elementMap = createElementMap([
+				[100, [createViewportEntry('div'), createViewportEntry('span')]],
+				[200, [createViewportEntry('img')]],
+				[300, [createViewportEntry('p'), createViewportEntry('a')]],
+				[400, [createViewportEntry('img')]],
+			]);
+
+			const result = calculatePercentilesWithDebugInfo(timePixelCounts, elementMap, 50, 0, true);
+			// Speed index = 100*0.2 + 200*0.4 + 300*0.2 + 400*0.2 = 20 + 80 + 60 + 80 = 240
+			expect(result.speedIndex).toEqual(240);
+		});
+
+		it('should calculate speed index correctly for evenly distributed paints', () => {
+			// 4 elements, each covering 25% of viewport at times 5, 10, 15, 20
+			const timePixelCounts = createTimePixelCounts([
+				[5, 25],
+				[10, 25],
+				[15, 25],
+				[20, 25],
+			]);
+
+			const elementMap = createElementMap([
+				[5, [createViewportEntry('a')]],
+				[10, [createViewportEntry('b')]],
+				[15, [createViewportEntry('c')]],
+				[20, [createViewportEntry('d')]],
+			]);
+
+			const result = calculatePercentilesWithDebugInfo(timePixelCounts, elementMap, 100, 0, true);
+			// Speed index = 5*0.25 + 10*0.25 + 15*0.25 + 20*0.25 = 1.25 + 2.5 + 3.75 + 5 = 12.5 → 13 (rounded)
+			expect(result.speedIndex).toEqual(13);
+		});
+
+		it('should calculate speed index with startTime offset', () => {
+			const timePixelCounts = createTimePixelCounts([
+				[100, 10],
+				[200, 20],
+				[300, 10],
+				[400, 10],
+			]);
+
+			const elementMap = createElementMap([
+				[100, [createViewportEntry('div'), createViewportEntry('span')]],
+				[200, [createViewportEntry('img')]],
+				[300, [createViewportEntry('p'), createViewportEntry('a')]],
+				[400, [createViewportEntry('img')]],
+			]);
+
+			const result = calculatePercentilesWithDebugInfo(timePixelCounts, elementMap, 50, 50, true);
+			// Speed index = 50*0.2 + 150*0.4 + 250*0.2 + 350*0.2 = 10 + 60 + 50 + 70 = 190
+			expect(result.speedIndex).toEqual(190);
+		});
+
+		it('should calculate speed index for non-sequential timestamps', () => {
+			const timePixelCounts = createTimePixelCounts([
+				[300, 70],
+				[100, 30],
+			]);
+
+			const elementMap = createElementMap([
+				[300, [createViewportEntry('p'), createViewportEntry('a')]],
+				[100, [createViewportEntry('div')]],
+			]);
+
+			const result = calculatePercentilesWithDebugInfo(timePixelCounts, elementMap, 100, 0, true);
+			// Speed index = 100*0.3 + 300*0.7 = 30 + 210 = 240
+			expect(result.speedIndex).toEqual(240);
+		});
+
+		it('should return 0 for empty entries', () => {
+			const timePixelCounts = new Map();
+			const elementMap = new Map<number, ViewportEntryData[]>();
+
+			const result = calculatePercentilesWithDebugInfo(timePixelCounts, elementMap, 100, 0, true);
+			expect(result.speedIndex).toEqual(0);
+		});
 	});
 });

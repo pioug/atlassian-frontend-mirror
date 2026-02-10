@@ -1,5 +1,6 @@
 import { expandedState } from '@atlaskit/editor-common/expand';
 import type { EditorCommand } from '@atlaskit/editor-common/types';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 export const toggleExpandRange =
 	(from?: number, to?: number, open: boolean = true): EditorCommand =>
@@ -12,5 +13,10 @@ export const toggleExpandRange =
 				expandedState.set(node, open);
 			}
 		});
+
+		if (expValEquals('platform_editor_aifc_expand_collapses_oncreate_fix', 'isEnabled', true)) {
+			return tr;
+		}
+
 		return null;
 	};

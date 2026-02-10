@@ -34,7 +34,7 @@ export type AgentVerificationDropdownItemProps = {
 
 /**
  * A dropdown item for verifying or unverifying an agent.
- * Renders "Verify agent" if the agent is not verified, or "Unverify agent" if it is.
+ * Renders "Verify agent" if the agent is not verified, or "Remove verification" if it is.
  * Returns null if the user doesn't have permission to govern agents or the feature flag is off.
  */
 export const AgentVerificationDropdownItem = ({
@@ -114,7 +114,9 @@ export const AgentVerificationDropdownItem = ({
 
 	const handleUpdateVerification = useCallback(
 		(verified: boolean) => {
-			if (!agentId) {return;}
+			if (!agentId) {
+				return;
+			}
 			onClick?.();
 
 			commitUpdateVerification({
@@ -139,7 +141,11 @@ export const AgentVerificationDropdownItem = ({
 					} else {
 						const errorMessage = payload?.errors?.[0]?.message;
 						if (errorMessage) {
-							trackAgentActionError(verified ? AgentActions.VERIFY : AgentActions.UNVERIFY, new Error(errorMessage), { agentId });
+							trackAgentActionError(
+								verified ? AgentActions.VERIFY : AgentActions.UNVERIFY,
+								new Error(errorMessage),
+								{ agentId },
+							);
 							handleError(verified, errorMessage);
 						}
 					}

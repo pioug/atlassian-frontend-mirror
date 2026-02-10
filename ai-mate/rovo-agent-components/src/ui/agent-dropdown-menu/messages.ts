@@ -56,14 +56,4 @@ export default defineMessages({
 		defaultMessage: 'Use template',
 		description: 'Button to copy and use a template',
 	},
-	verifyAgent: {
-		id: 'rovo-chat.view-agents.verify-agent',
-		defaultMessage: 'Verify agent',
-		description: 'Button to verify an agent',
-	},
-	unverifyAgent: {
-		id: 'rovo-chat.view-agents.unverify-agent',
-		defaultMessage: 'Unverify agent',
-		description: 'Button to unverify an agent',
-	},
 } as const);

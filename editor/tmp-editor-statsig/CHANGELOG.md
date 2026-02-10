@@ -1,5 +1,24 @@
 # @atlaskit/editor-statsig-tmp
 
+## 22.2.1
+
+### Patch Changes
+
+- [`69ca7c944953d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/69ca7c944953d) -
+  [EDITOR-3889] added ai mate analytics properties updater for headless component to fix missing
+  attributes from rovo inline chat g
+
+## 22.2.0
+
+### Minor Changes
+
+- [`d63d5af234d7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d63d5af234d7f) -
+  Fix issue when expand is collapsed after streaming.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.1.0
 
 ### Minor Changes

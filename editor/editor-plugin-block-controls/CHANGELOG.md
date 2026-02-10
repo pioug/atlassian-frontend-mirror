@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 8.2.0
+
+### Minor Changes
+
+- [`1be0f3cb5f1fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1be0f3cb5f1fe) -
+  EDITOR-5008 fix end pos drop target and styles for synced block
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.8
 
 ### Patch Changes

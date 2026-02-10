@@ -90,20 +90,20 @@ describe('AgentVerificationDropdownItem', () => {
 		renderComponent({ isAbleToGovernAgents: false, isVerified: false });
 
 		expect(screen.queryByRole('menuitem', { name: 'Verify agent' })).toBeNull();
-		expect(screen.queryByRole('menuitem', { name: 'Unverify agent' })).toBeNull();
+		expect(screen.queryByRole('menuitem', { name: 'Remove verification' })).toBeNull();
 	});
 
 	it('should show "Verify agent" when agent is not verified', () => {
 		renderComponent({ isAbleToGovernAgents: true, isVerified: false });
 
 		expect(screen.getByRole('menuitem', { name: 'Verify agent' })).toBeVisible();
-		expect(screen.queryByRole('menuitem', { name: 'Unverify agent' })).toBeNull();
+		expect(screen.queryByRole('menuitem', { name: 'Remove verification' })).toBeNull();
 	});
 
-	it('should show "Unverify agent" when agent is verified', () => {
+	it('should show "Remove verification" when agent is verified', () => {
 		renderComponent({ isAbleToGovernAgents: true, isVerified: true });
 
-		expect(screen.getByRole('menuitem', { name: 'Unverify agent' })).toBeVisible();
+		expect(screen.getByRole('menuitem', { name: 'Remove verification' })).toBeVisible();
 		expect(screen.queryByRole('menuitem', { name: 'Verify agent' })).toBeNull();
 	});
 
@@ -126,14 +126,14 @@ describe('AgentVerificationDropdownItem', () => {
 		});
 	});
 
-	it('should call mutation with verified=false when clicking unverify agent', async () => {
+	it('should call mutation with verified=false when clicking remove verification', async () => {
 		const user = userEvent.setup();
 		const { environment } = renderComponent({
 			isAbleToGovernAgents: true,
 			isVerified: true,
 		});
 
-		await user.click(screen.getByRole('menuitem', { name: 'Unverify agent' }));
+		await user.click(screen.getByRole('menuitem', { name: 'Remove verification' }));
 
 		const mutation = environment.mock.getMostRecentOperation();
 		expect(mutation.request.node.operation.name).toBe(

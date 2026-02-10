@@ -32,7 +32,7 @@ switching. They differ from lozenges in that they contain interactivity and can 
 1. **Icon (optional):** Use an icon to add additional affordance where the icon has a clear and
    well-established meaning. For example, arrow up right for “On track”.
 2. **Label**: Text describing the status. For example, “On track”.
-3. **Badge (optional)**: Use the trailingMetric prop to add a score to the status.
+3. **Badge (optional)**: Use the `trailingMetric` prop to add a score to the status.
 4. **Dropdown icon**: Indicates that this lozenge has interactivity and can be selected to open a
    menu.
 
@@ -92,9 +92,10 @@ elements, such as when it appears alongside other buttons.
 ## Accessibility
 
 - Don't use color alone to signify an important state or status. Instead, use clear labels and, if
-  relevant, a supporting icon. For example: for a critical status, use descriptors like ’Off track’.
-- Don't use long labels in lozenges. They have a maxWidth of 200 pixels (or a custom maxWidth value)
-  causing labels to truncate. Lozenges can’t be focused, so truncated text will not be visible.
+  relevant, a supporting icon. For example: for a critical status, use descriptors like “Off track”.
+- Don't use long labels in lozenges. They have a max width of 200 pixels (or a
+  custom `maxWidth` value) causing labels to truncate. Lozenges can’t be focused, so truncated text
+  will not be visible.
 
 ## Data Center products
 
@@ -106,5 +107,5 @@ use [Atlassian User Interface (AUI)](https://aui.atlassian.com/).
 
 - For lozenge dropdown triggers that don’t require dropdown interactivity, use
   [lozenge](/components/lozenge).
-- For tallies or counts, use a [badge](/components/badge).
+- For tallies or counts, use a [badge](/components/badge/badge).
 - To visually label content such as categories and attributes, use a [tag](/components/tag).

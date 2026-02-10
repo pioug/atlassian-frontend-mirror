@@ -2302,5 +2302,102 @@ map.put(3, 10);`,
 				},
 			],
 		},
+		{
+			type: 'bodiedSyncBlock',
+			attrs: {
+				resourceId: '54d491ad-0c79-436f-92c3-309487667521',
+				localId: 'b82e801e-9719-48c8-8aef-e10958021d58',
+			},
+			content: [
+				{
+					type: 'heading',
+					attrs: {
+						level: 2,
+					},
+					content: [
+						{
+							type: 'text',
+							text: 'Sync Block Heading',
+						},
+					],
+				},
+				{
+					type: 'paragraph',
+					content: [
+						{
+							type: 'text',
+							text: "This is content inside the sync block. It should render without any wrapper or indication that it's inside a sync block.",
+						},
+					],
+				},
+				{
+					type: 'bulletList',
+					content: [
+						{
+							type: 'listItem',
+							content: [
+								{
+									type: 'paragraph',
+									content: [
+										{
+											type: 'text',
+											text: 'First item in sync block',
+										},
+									],
+								},
+							],
+						},
+						{
+							type: 'listItem',
+							content: [
+								{
+									type: 'paragraph',
+									content: [
+										{
+											type: 'text',
+											text: 'Second item in sync block',
+										},
+									],
+								},
+							],
+						},
+					],
+				},
+				{
+					type: 'paragraph',
+					content: [
+						{
+							type: 'text',
+							text: 'Final paragraph in sync block',
+						},
+					],
+				},
+			],
+			marks: [
+				{
+					type: 'breakout',
+					attrs: {
+						mode: 'wide',
+						width: 1000,
+					},
+				},
+			],
+		},
+		{
+			type: 'syncBlock',
+			attrs: {
+				resourceId: '54d491ad-0c79-436f-92c3-309487667521',
+				localId: 'b82e801e-9719-48c8-8aef-e10958021d58',
+			},
+			marks: [
+				{
+					type: 'breakout',
+					attrs: {
+						mode: 'wide',
+						width: 1000,
+					},
+				},
+			],
+		},
 	],
 };

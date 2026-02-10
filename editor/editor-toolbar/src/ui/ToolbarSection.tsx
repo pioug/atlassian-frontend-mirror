@@ -7,7 +7,6 @@ import { type ReactNode } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { cssMap, cx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -49,11 +48,7 @@ type ToolbarSectionProps = {
 
 const ToolbarSeparator = () => {
 	return (
-		<div
-			css={[
-				separator,
-				fg('platform_editor_toolbar_aifc_undo_redo_confluence') && marginInlineOverridden,
-			]}
+		<div css={[separator, marginInlineOverridden]}
 			data-toolbar-component="separator"
 			role="separator"
 			aria-orientation="vertical"

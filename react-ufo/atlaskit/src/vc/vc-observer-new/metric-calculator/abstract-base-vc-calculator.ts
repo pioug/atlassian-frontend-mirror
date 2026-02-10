@@ -135,7 +135,8 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 	): Promise<CalculateTTVCResult> {
 		const percentiles = [25, 50, 75, 80, 85, 90, 95, 98, 99, 100];
 		const viewportEntries = this.filterViewportEntries(filteredEntries);
-		const vcLogs = await calculateTTVCPercentilesWithDebugInfo({
+		const shouldCalculateSpeedIndex = fg('platform_ufo_ttvc_v4_speed_index');
+		const { entries: vcLogs, speedIndex } = await calculateTTVCPercentilesWithDebugInfo({
 			viewport: {
 				width: getViewportWidth(),
 				height: getViewportHeight(),
@@ -143,6 +144,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 			startTime,
 			stopTime,
 			orderedEntries: viewportEntries,
+			calculateSpeedIndex: shouldCalculateSpeedIndex,
 		});
 
 		const vcDetails: RevisionPayloadVCDetails = {};
@@ -367,6 +369,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		return {
 			vcDetails,
 			ssrRatio,
+			speedIndex,
 		};
 	}
 
@@ -403,7 +406,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 			};
 		}
 
-		const { vcDetails, ssrRatio } = await this.calculateWithDebugInfo(
+		const { vcDetails, ssrRatio, speedIndex } = await this.calculateWithDebugInfo(
 			filteredEntries,
 			startTime,
 			stopTime,
@@ -431,6 +434,12 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 
 		if (ssrRatio !== -1) {
 			result.ssrRatio = ssrRatio;
+		}
+
+		// speedIndex is only calculated when platform_ufo_ttvc_v4_speed_index is enabled,
+		// so we only include it in the result when it has a meaningful value (> 0)
+		if (speedIndex > 0) {
+			result.speedIndex = speedIndex;
 		}
 
 		result.labelStacks = this.getLabelStacks(filteredEntries, isPostInteraction);

@@ -32,7 +32,6 @@ import {
 import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Show, ToolbarButtonGroup, type Breakpoint } from '@atlaskit/editor-toolbar';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { InsertBlockPlugin } from '../insertBlockPluginType';
 import type { InsertBlockPluginOptions } from '../types';
@@ -70,7 +69,7 @@ export const getToolbarComponents = ({
 	// Helper function to create responsive wrapper component
 	const createResponsiveComponent = (showAt?: Breakpoint) => {
 		return ({ children }: { children: React.ReactNode }) => (
-			<Show above={fg('platform_editor_toolbar_aifc_undo_redo_confluence') ? showAt || 'lg' : 'lg'}>
+			<Show above={showAt || 'lg'}>
 				<ToolbarButtonGroup>{children}</ToolbarButtonGroup>
 			</Show>
 		);

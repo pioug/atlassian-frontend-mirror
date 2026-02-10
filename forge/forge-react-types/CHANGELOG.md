@@ -1,5 +1,14 @@
 # @atlaskit/forge-react-types
 
+## 0.60.0
+
+### Minor Changes
+
+- [`cc1ec16a6b6f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc1ec16a6b6f3) -
+  Add type codegen support for global components
+- [`cc1ec16a6b6f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc1ec16a6b6f3) -
+  Export Global component prop types
+
 ## 0.59.0
 
 ### Minor Changes

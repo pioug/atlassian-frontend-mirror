@@ -6,6 +6,7 @@ import type {
 	CalcTTVCPercentilesArg,
 	CalcTTVCPercentilesArgWithDebugInfo,
 	PercentileCalcResult,
+	PercentileCalcResultWithSpeedIndex,
 } from '../types';
 
 import { ViewportCanvas } from './canvas-pixel';
@@ -51,7 +52,8 @@ async function calculateTTVCPercentilesWithDebugInfo({
 	viewport,
 	orderedEntries,
 	startTime,
-}: CalcTTVCPercentilesArgWithDebugInfo): Promise<PercentileCalcResult> {
+	calculateSpeedIndex = false,
+}: CalcTTVCPercentilesArgWithDebugInfo): Promise<PercentileCalcResultWithSpeedIndex> {
 	const canvas = new ViewportCanvas(
 		viewport,
 		fg('platform_ufo_canvas_heatmap_full_precision') ? 1 : 0.25,
@@ -79,7 +81,7 @@ async function calculateTTVCPercentilesWithDebugInfo({
 	const canvasDimensions = canvas.getScaledDimensions();
 	const totalPixels = canvasDimensions.width * canvasDimensions.height;
 
-	return calculatePercentilesWithDebugInfo(timePixelCounts, elementMap, totalPixels, startTime);
+	return calculatePercentilesWithDebugInfo(timePixelCounts, elementMap, totalPixels, startTime, calculateSpeedIndex);
 }
 
 export default calculateTTVCPercentiles;
@@ -149,10 +151,13 @@ export function calculatePercentilesWithDebugInfo(
 	elementMap: ReadonlyMap<DOMHighResTimeStamp, ViewportEntryData[]>,
 	totalPixels: number,
 	startTime: DOMHighResTimeStamp,
-): PercentileCalcResult {
-	const results: PercentileCalcResult = new Array(elementMap.size);
+	calculateSpeedIndex: boolean = false,
+): PercentileCalcResultWithSpeedIndex {
+	const entries: PercentileCalcResult = new Array(elementMap.size);
 
 	let cumulativePixels = 0;
+	let speedIndex = 0;
+	let previousPercentCovered = 0;
 
 	const sortedEntries = Array.from(timePixelCounts.entries()).sort(
 		([timeA], [timeB]) => Number(timeA) - Number(timeB),
@@ -165,14 +170,26 @@ export function calculatePercentilesWithDebugInfo(
 
 		const entryDatas = elementMap.get(time) || [];
 
-		results[i] = {
-			time: Math.round(Number(time - startTime)),
+		const relativeTime = Math.round(Number(time - startTime));
+		entries[i] = {
+			time: relativeTime,
 			viewportPercentage: percentCovered,
 			entries: Array.from(entryDatas),
 		};
+
+		// Speed index calculation: sum of (time × incremental viewport percentage)
+		// Only calculate when feature flag is enabled
+		if (calculateSpeedIndex) {
+			const ratioDelta = (percentCovered - previousPercentCovered) / 100;
+			speedIndex += relativeTime * ratioDelta;
+			previousPercentCovered = percentCovered;
+		}
 	}
 
-	return results;
+	return {
+		entries,
+		speedIndex: Math.round(speedIndex),
+	};
 }
 
 export { calculateTTVCPercentilesWithDebugInfo };

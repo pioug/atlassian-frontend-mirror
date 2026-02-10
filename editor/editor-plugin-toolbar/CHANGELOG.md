@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 4.1.14
+
+### Patch Changes
+
+- [`7fc08532f3729`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7fc08532f3729) -
+  Remove platform_editor_toolbar_aifc_undo_redo_confluence feature gate
+- Updated dependencies
+
+## 4.1.13
+
+### Patch Changes
+
+- [`b43aaf2b5d0ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b43aaf2b5d0ff) -
+  Remove platform_editor_toolbar_aifc_undo_redo_confluence feature gate
+- Updated dependencies
+
 ## 4.1.12
 
 ### Patch Changes

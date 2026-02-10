@@ -1,5 +1,12 @@
 # @atlaskit/email-renderer
 
+## 9.11.5
+
+### Patch Changes
+
+- [`525f3e09b3472`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/525f3e09b3472) -
+  EDITOR-1564 Update email-renderer to support new nodes bodiedSyncBlock and syncBlock
+
 ## 9.11.4
 
 ### Patch Changes

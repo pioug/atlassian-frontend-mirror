@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/forge-react-types",
-	"version": "0.59.0",
+	"version": "0.60.0",
 	"description": "Component types for Forge UI Kit React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -68,6 +68,7 @@
 	},
 	"scripts": {
 		"codegen": "ts-node ./scripts/codegen-runner.ts",
+		"codegen-global": "ts-node ./scripts/codegen-global-runner.ts",
 		"check-types": "ts-node --type-check ./scripts/typechecker.ts"
 	},
 	"sideEffects": [

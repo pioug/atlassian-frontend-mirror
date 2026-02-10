@@ -10,7 +10,6 @@ import {
 	extractSmartLinkUrl,
 	extractType,
 } from '@atlaskit/link-extractors';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type FlexibleUiDataContext } from '../../state/flexible-ui-context/types';
 import { isNewBlockcardUnauthorizedRefreshExperimentEnabled } from '../../utils/experiments';
@@ -139,9 +138,7 @@ const extractFlexibleUiContext = ({
 		storyPoints: extractStoryPoints(data),
 		targetBranch: extractTargetBranch(data as JsonLd.Data.SourceCodePullRequest),
 		userAttributes: extractUserAttributes(data),
-		...(fg('platform-linking-team-member-count-component') && {
-			teamMemberCount: extractTeamMemberCount(data),
-		}),
+		teamMemberCount: extractTeamMemberCount(data),
 		url,
 		ari: extractSmartLinkAri(response),
 		type: extractType(data),

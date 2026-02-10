@@ -1,5 +1,12 @@
 # @atlaskit/renderer
 
+## 126.8.3
+
+### Patch Changes
+
+- [`f6576ad3159f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f6576ad3159f2) -
+  EDITOR-4928 - Inline Bodied Extension: Use Statsig dynamic config instead of hardcoding checking
+
 ## 126.8.2
 
 ### Patch Changes

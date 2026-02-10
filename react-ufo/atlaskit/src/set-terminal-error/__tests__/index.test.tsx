@@ -11,9 +11,26 @@ import {
 	useReportTerminalError,
 } from '../index';
 
-jest.mock('../../interaction-metrics');
+jest.mock('../../interaction-metrics', () => ({
+	getActiveInteraction: jest.fn(),
+	PreviousInteractionLog: {
+		id: undefined,
+		name: undefined,
+		type: undefined,
+		isAborted: undefined,
+		timestamp: undefined,
+	},
+}));
+
+// Mock performance.now() for consistent testing
+const mockPerformanceNow = jest.fn(() => 1000);
+Object.defineProperty(global.performance, 'now', {
+	writable: true,
+	value: mockPerformanceNow,
+});
 
 const mockGetActiveInteraction = interactionMetricsModule.getActiveInteraction as jest.Mock;
+const mockPreviousInteractionLog = interactionMetricsModule.PreviousInteractionLog as interactionMetricsModule.PreviousInteractionLogType;
 
 const createMockContext = (
 	overrides: Partial<UFOInteractionContextType> = {},
@@ -42,8 +59,16 @@ describe('terminal-error', () => {
 
 	beforeEach(() => {
 		mockSink.mockClear();
+		mockPerformanceNow.mockReturnValue(1000);
 		sinkTerminalErrorHandler(mockSink);
 		mockGetActiveInteraction.mockReturnValue(undefined);
+		
+		// Reset PreviousInteractionLog
+		mockPreviousInteractionLog.id = undefined;
+		mockPreviousInteractionLog.name = undefined;
+		mockPreviousInteractionLog.type = undefined;
+		mockPreviousInteractionLog.isAborted = undefined;
+		mockPreviousInteractionLog.timestamp = undefined;
 	});
 
 	describe('setTerminalError', () => {
@@ -126,6 +151,48 @@ describe('terminal-error', () => {
 					activeInteractionName: null,
 					activeInteractionId: null,
 					activeInteractionType: null,
+					previousInteractionId: null,
+					previousInteractionName: null,
+					previousInteractionType: null,
+					timeSincePreviousInteraction: null,
+				}),
+			);
+		});
+
+		it('should include previous interaction data in context when PreviousInteractionLog has values', () => {
+			mockPerformanceNow.mockReturnValue(5000);
+
+			mockPreviousInteractionLog.id = 'prev-interaction-123';
+			mockPreviousInteractionLog.name = 'previous-ufo-interaction';
+			mockPreviousInteractionLog.type = 'page_load';
+			mockPreviousInteractionLog.timestamp = 4000;
+
+			setTerminalError(mockError);
+
+			expect(mockSink.mock.calls[0][1]).toEqual(
+				expect.objectContaining({
+					previousInteractionId: 'prev-interaction-123',
+					previousInteractionName: 'previous-ufo-interaction',
+					previousInteractionType: 'page_load',
+					timeSincePreviousInteraction: 1000,
+				}),
+			);
+		});
+
+		it('should calculate timeSincePreviousInteraction as null when no previous interaction timestamp', () => {
+			mockPreviousInteractionLog.id = 'prev-interaction-123';
+			mockPreviousInteractionLog.name = 'previous-ufo-interaction';
+			mockPreviousInteractionLog.type = 'transition';
+			mockPreviousInteractionLog.timestamp = undefined;
+
+			setTerminalError(mockError);
+
+			expect(mockSink.mock.calls[0][1]).toEqual(
+				expect.objectContaining({
+					previousInteractionId: 'prev-interaction-123',
+					previousInteractionName: 'previous-ufo-interaction',
+					previousInteractionType: 'transition',
+					timeSincePreviousInteraction: null,
 				}),
 			);
 		});

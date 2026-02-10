@@ -23,6 +23,10 @@ export interface TerminalErrorPayload {
 			activeInteractionName: string | null;
 			activeInteractionId: string | null;
 			activeInteractionType: string | null;
+			previousInteractionId: string | null;
+			previousInteractionName: string | null;
+			previousInteractionType: string | null;
+			timeSincePreviousInteraction: number | null;
 			labelStack: LabelStack | null;
 		};
 	};

@@ -151,6 +151,7 @@ export type RevisionPayloadVCDetails = Record<
 export type CalculateTTVCResult = {
 	vcDetails: RevisionPayloadVCDetails;
 	ssrRatio: number;
+	speedIndex: number;
 };
 
 export type RawObservation = {
@@ -173,6 +174,7 @@ export type RevisionPayloadEntry = {
 	vcDetails?: RevisionPayloadVCDetails;
 	ratios?: VCRatioType;
 	ssrRatio?: number;
+	speedIndex?: number;
 	labelStacks?: VCLabelStacks;
 	abortReason?: VCAbortReason | null;
 	abortTimestamp?: number;

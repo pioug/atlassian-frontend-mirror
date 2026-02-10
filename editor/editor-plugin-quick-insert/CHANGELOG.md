@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 7.3.0
+
+### Minor Changes
+
+- [`85975c9735b52`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85975c9735b52) -
+  Add updateQuickInsertItem method to the quick-insert editor plugin
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.2.2
 
 ### Patch Changes

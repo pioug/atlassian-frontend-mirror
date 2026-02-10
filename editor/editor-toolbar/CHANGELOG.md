@@ -1,5 +1,27 @@
 # @atlaskit/editor-toolbar
 
+## 0.19.22
+
+### Patch Changes
+
+- [`d2ad12b4bee01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2ad12b4bee01) -
+  [ux] [EDITOR-5117] revert ToolbarButtonGroup padding changes for A11Y compliance
+- Updated dependencies
+
+## 0.19.21
+
+### Patch Changes
+
+- [`7fc08532f3729`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7fc08532f3729) -
+  Remove platform_editor_toolbar_aifc_undo_redo_confluence feature gate
+
+## 0.19.20
+
+### Patch Changes
+
+- [`b43aaf2b5d0ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b43aaf2b5d0ff) -
+  Remove platform_editor_toolbar_aifc_undo_redo_confluence feature gate
+
 ## 0.19.19
 
 ### Patch Changes

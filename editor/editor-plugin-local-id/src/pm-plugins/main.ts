@@ -1,4 +1,3 @@
-import { uuid } from '@atlaskit/adf-schema';
 import { BatchAttrsStep } from '@atlaskit/adf-schema/steps';
 import { tintDirtyTransaction } from '@atlaskit/editor-common/collab';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -16,11 +15,7 @@ import { generateShortUUID, generatedShortUUIDs } from './generateShortUUID';
 export const localIdPluginKey = new PluginKey('localIdPlugin');
 
 const generateUUID = () => {
-	if (fg('platform_editor_ai_local_id_short')) {
-		return generateShortUUID();
-	}
-	// When the flag is NOT enabled, existing uuid
-	return uuid.generate();
+	return generateShortUUID();
 };
 
 // Fallback for Safari which doesn't support requestIdleCallback
@@ -177,11 +172,9 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 			if (addedNodes.size > 0 && fg('platform_editor_use_localid_dedupe')) {
 				newState.doc.descendants((node) => {
 					// Also track existing UUIDs in the global Set for short UUID collision detection
-					if (fg('platform_editor_ai_local_id_short')) {
-						if (node.attrs?.localId && !hasInitializedExistingUUIDs) {
-							generatedShortUUIDs.add(node.attrs.localId);
-						}
-					}
+				if (node.attrs?.localId && !hasInitializedExistingUUIDs) {
+					generatedShortUUIDs.add(node.attrs.localId);
+				}
 
 					if (addedNodes.has(node)) {
 						return true;
@@ -195,11 +188,11 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 				const seenIds = new Set<string>();
 
 				for (const node of addedNodes) {
-					if (
-						!node.attrs.localId ||
-						localIds.has(node.attrs.localId) ||
-						(seenIds.has(node.attrs.localId) && fg('platform_editor_ai_local_id_short'))
-					) {
+				if (
+					!node.attrs.localId ||
+					localIds.has(node.attrs.localId) ||
+					seenIds.has(node.attrs.localId)
+				) {
 						const pos = addedNodePos.get(node);
 						if (pos !== undefined) {
 							if (fg('platform_editor_localid_improvements')) {

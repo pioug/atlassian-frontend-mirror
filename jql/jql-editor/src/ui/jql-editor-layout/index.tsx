@@ -170,11 +170,8 @@ const JQLEditorReadOnlyWithoutTheme = ({ query }: ReadOnlyProps) => {
 					// Therefore the autocomplete combobox is never shown to the users
 					aria-expanded={false}
 					aria-controls="dummy-jql-editor-auto-complete-id"
-					// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx
 					aria-label={
-						fg('enghealth-46329-no-literal-strings')
-							? formatMessage(messages.inputLabel)
-							: 'JQL query'
+						formatMessage(messages.inputLabel)
 					}
 					defaultRows={defaultRows}
 				>

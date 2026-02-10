@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-components
 
+## 3.31.0
+
+### Minor Changes
+
+- [`8f3aaeeed50ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f3aaeeed50ec) -
+  Change copy from 'Unverify agent' to 'Remove verification'
+
 ## 3.30.0
 
 ### Minor Changes

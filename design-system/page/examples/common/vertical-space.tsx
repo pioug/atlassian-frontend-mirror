@@ -13,6 +13,6 @@ const styles = cssMap({
 	},
 });
 
-const VerticalSpace = () => <Box xcss={styles.verticalSpace} />;
+const VerticalSpace: () => JSX.Element = () => <Box xcss={styles.verticalSpace} />;
 
 export default VerticalSpace;

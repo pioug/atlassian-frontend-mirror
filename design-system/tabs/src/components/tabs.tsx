@@ -82,7 +82,7 @@ const getTabPanelWithContext = ({
  * - [Code](https://atlassian.design/components/tabs/code)
  * - [Usage](https://atlassian.design/components/tabs/usage)
  */
-const Tabs = (props: TabsProps) => {
+const Tabs: (props: TabsProps) => JSX.Element = (props: TabsProps) => {
 	const {
 		shouldUnmountTabPanelOnChange = false,
 		selected: SelectedType,

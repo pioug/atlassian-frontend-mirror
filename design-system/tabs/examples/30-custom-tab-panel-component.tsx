@@ -29,7 +29,7 @@ const CustomTabPanel = ({ heading, body }: { heading: string; body: string }) =>
 	);
 };
 
-const CustomTabPanels = () => (
+const CustomTabPanels: () => JSX.Element = () => (
 	<Tabs onChange={(index) => console.log('Selected Tab', index + 1)} id="custom-panel">
 		<TabList>
 			<Tab>Tab 1</Tab>

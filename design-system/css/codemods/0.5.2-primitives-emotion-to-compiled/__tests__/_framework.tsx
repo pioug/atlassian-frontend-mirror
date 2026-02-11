@@ -24,7 +24,7 @@ export function check({
 	before = noop,
 	after = noop,
 	mode = 'standard',
-}: TestArgs) {
+}: TestArgs): void {
 	const run = mode === 'only' ? it.only : mode === 'skip' ? it.skip : it;
 
 	run(name, () => {

@@ -55,7 +55,7 @@ const gridLayoutMapStyles = cssMap({
  *
  * @internal
  */
-export const Grid = ({ layout = defaultLayout, testId, children }: GridProps) => {
+export const Grid: ({ layout, testId, children }: GridProps) => JSX.Element = ({ layout = defaultLayout, testId, children }: GridProps) => {
 	const { isNested, columns, spacing } = useContext(GridContext);
 
 	return (

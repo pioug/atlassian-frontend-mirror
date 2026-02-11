@@ -26,7 +26,7 @@ export const useCloseButtonOrNewProp =
 
 export const ruleName: string = __dirname.split('/').slice(-1)[0];
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: ruleName,
 		type: 'suggestion',

@@ -1,7 +1,7 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
 
-import type { SyncBlockSourceInfo } from '../providers/types';
+import type { SyncBlockInstance, SyncBlockSourceInfo } from '../providers/types';
 
 import type { SYNC_BLOCK_PRODUCTS } from './consts';
 
@@ -45,7 +45,7 @@ export interface SyncBlockData {
 	/**
 	 * Whether the block is on the same page as the source block
 	 */
-    onSameDocument?: boolean;
+	onSameDocument?: boolean;
 	product?: SyncBlockProduct;
 	/**
 	 * The ARI of the block. E.G ari:cloud:blocks:<cloudId>:synced-block/<product>/<pageId>/<resourceId>
@@ -70,7 +70,7 @@ export interface ReferenceSyncBlockResponse {
 
 export interface ReferenceSyncBlock extends ReferenceSyncBlockResponse {
 	hasAccess: boolean;
-    onSameDocument: boolean;
+	onSameDocument: boolean;
 }
 
 export type ReferenceSyncBlockData = {
@@ -85,3 +85,8 @@ export type ReferencesSourceInfo = {
 
 export type DeletionReason = 'source-block-deleted' | 'source-block-unsynced';
 export type DeletionReasonResponse = DeletionReason | 'source-document-deleted';
+
+export type SyncBlockPrefetchData = {
+	prefetchPromise: Promise<SyncBlockInstance[] | undefined>;
+	resourceIds: string[];
+};

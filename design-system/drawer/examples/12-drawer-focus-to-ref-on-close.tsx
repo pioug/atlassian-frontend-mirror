@@ -20,7 +20,7 @@ const containerStyles = cssMap({
 	},
 });
 
-export default () => {
+const _default: () => JSX.Element = () => {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const returnFocusRef = useRef<HTMLButtonElement>(null);
 
@@ -66,3 +66,4 @@ export default () => {
 		</Box>
 	);
 };
+export default _default;

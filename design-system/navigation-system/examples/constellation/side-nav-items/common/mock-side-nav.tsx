@@ -13,6 +13,6 @@ const mockSideNavStyles = cssMap({
 	},
 });
 
-export function MockSideNav({ children }: { children: React.ReactNode }) {
+export function MockSideNav({ children }: { children: React.ReactNode }): JSX.Element {
 	return <div css={mockSideNavStyles.root}>{children}</div>;
 }

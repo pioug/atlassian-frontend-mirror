@@ -120,7 +120,7 @@ interface DateProps {
 	testId?: string;
 }
 
-const Date = memo(
+const Date: import("react").MemoExoticComponent<import("react").ForwardRefExoticComponent<DateProps & import("react").RefAttributes<HTMLButtonElement>>> = memo(
 	forwardRef<HTMLButtonElement, DateProps>(function Date(
 		{
 			children: day,

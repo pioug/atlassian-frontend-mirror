@@ -55,7 +55,7 @@ export function Main({
 	 * Bounded style overrides.
 	 */
 	xcss?: StrictXCSSProp<'backgroundColor', never>;
-}) {
+}): JSX.Element {
 	const id = useLayoutId({ providedId });
 
 	useSkipLink(id, skipLinkLabel);

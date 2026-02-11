@@ -31,7 +31,7 @@ function tokenToVar(token: string) {
 	return `--ds-${token.replace(/\./g, '-').replace('color-', '').replace('elevation-', '')}`;
 }
 
-export default function findToken(meta: string[]) {
+export default function findToken(meta: string[]): string {
 	const filteredTokens = filterTokens(meta);
 	const tokenFuzzySearch = Search(filteredTokens, false);
 	const cleanSearchTerms = cleanMeta(meta).join(' ');

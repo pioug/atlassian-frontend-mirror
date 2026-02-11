@@ -26,6 +26,7 @@ export const RenderImageEditor = ({
 	editorView,
 }: RenderImageEditorProps) => {
 	const [imageUrl, setImageUrl] = useState<string>('');
+	const [isSaving, setIsSaving] = useState<boolean>(false);
 
 	useEffect(() => {
 		const getImageUrl = () => {
@@ -33,7 +34,7 @@ export const RenderImageEditor = ({
 				// Fall back in case editing button shows by mistake
 				onClose();
 				errorReporter?.captureException(
-					new Error('Cannot edit external media due to CORS restrictions')
+					new Error('Cannot edit external media due to CORS restrictions'),
 				);
 			} else {
 				// File media - use MediaClient to get the image URL
@@ -76,22 +77,31 @@ export const RenderImageEditor = ({
 
 		// Ensure blob has MIME type
 		const typedBlob = blob.type ? blob : new Blob([blob], { type: 'image/png' });
-		
-		// Upload the edited image as a new file
-		const uploadSubscription = mediaClient.file
-			.upload({
-				content: typedBlob,
-				collection,
-				mimeType: typedBlob.type,
-			})
-			.subscribe({
-				next: (fileState) => {
-					if (fileState.status === 'error') {
-						onClose();
-						uploadSubscription.unsubscribe();
-						return;
-					}
 
+		// Upload the edited image as a new file using the standard upload method
+		const fileName = !isExternalMedia(selectedNodeAttrs) ? selectedNodeAttrs.__fileName : undefined;
+		const uploadableFile = {
+			content: typedBlob,
+			collection,
+			mimeType: typedBlob.type,
+			name: fileName || 'edited-image.png',
+			size: typedBlob.size,
+		};
+
+		// Show saving state in modal
+		setIsSaving(true);
+
+		const uploadSubscription = mediaClient.file.upload(uploadableFile).subscribe({
+			next: (fileState) => {
+				if (fileState.status === 'error') {
+					setIsSaving(false);
+					onClose();
+					uploadSubscription.unsubscribe();
+					return;
+				}
+
+				// Only update document when upload is complete
+				if (fileState.status !== 'uploading' && fileState.status !== 'processing') {
 					const updatedAttrs: MediaADFAttrs = isExternalMedia(selectedNodeAttrs)
 						? selectedNodeAttrs
 						: {
@@ -124,21 +134,20 @@ export const RenderImageEditor = ({
 						}
 					}
 
-					if (fileState.status !== 'uploading' && fileState.status !== 'processing') {
-						onClose();
-						uploadSubscription.unsubscribe();
-					}
-				},
-				error: (error) => {
-					if (errorReporter) {
-						errorReporter.captureException(
-							error instanceof Error ? error : new Error(String(error)),
-						);
-					}
-					onClose();
 					uploadSubscription.unsubscribe();
-				},
-			});
+					setIsSaving(false);
+					onClose();
+				}
+			},
+			error: (error) => {
+				if (errorReporter) {
+					errorReporter.captureException(error instanceof Error ? error : new Error(String(error)));
+				}
+				uploadSubscription.unsubscribe();
+				setIsSaving(false);
+				onClose();
+			},
+		});
 	};
 	return (
 		<ImageEditor
@@ -147,6 +156,7 @@ export const RenderImageEditor = ({
 			imageUrl={imageUrl}
 			onSave={handleSave}
 			errorReporter={errorReporter}
+			isSaving={isSaving}
 		/>
 	);
 };

@@ -4,7 +4,7 @@ import { createLintRule } from '../utils/create-rule';
 
 import { ImportDeclaration } from './linters';
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'use-spotlight-package',
 		type: 'problem',

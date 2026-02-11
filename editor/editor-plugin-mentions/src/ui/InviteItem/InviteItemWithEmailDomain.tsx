@@ -240,8 +240,8 @@ const InviteItemWithEmailDomain = ({
 
 	const displayName = query && emailDomain ? possibleEmail : undefined;
 
-	return (
-		<div
+	return displayName && (
+			<div
 			role="button"
 			tabIndex={0}
 			css={[mentionItemStyle, selected && mentionItemSelectedStyle]}
@@ -260,26 +260,10 @@ const InviteItemWithEmailDomain = ({
 					)}
 				</span>
 				<div css={style.nameSection} data-testid="name-section">
-					{displayName ? (
 						<>
 							<div>{displayName}</div>
 							<div css={style.byline}>{getByline()}</div>
 						</>
-					) : (
-						<FormattedMessage
-							// Ignored via go/ees005
-							// eslint-disable-next-line react/jsx-props-no-spreading
-							{...messages.inviteItemTitle}
-							values={{
-								userRole: userRole || 'basic',
-								productName: (
-									<span css={style.capitalize} data-testid="capitalized-message">
-										{productName}
-									</span>
-								),
-							}}
-						/>
-					)}
 				</div>
 			</div>
 		</div>

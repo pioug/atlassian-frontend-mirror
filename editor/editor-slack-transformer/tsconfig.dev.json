@@ -42,13 +42,25 @@
 			"path": "./tsconfig.app.json"
 		},
 		{
+			"path": "../editor-examples-helpers/tsconfig.app.json"
+		},
+		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-core/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-synced-block/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-prosemirror/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-synced-block-provider/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-synced-block-renderer/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-test-helpers/tsconfig.app.json"

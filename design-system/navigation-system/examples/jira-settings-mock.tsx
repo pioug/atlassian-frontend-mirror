@@ -59,7 +59,7 @@ const bannerStyles = cssMap({
 	},
 });
 
-export default function JiraSettingMockExample() {
+export default function JiraSettingMockExample(): JSX.Element {
 	return (
 		<WithResponsiveViewport>
 			<Root testId="root">

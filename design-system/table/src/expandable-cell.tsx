@@ -13,7 +13,7 @@ import { ExpandableCell as ExpandableCellPrimitive } from './ui/expandable-cell'
  * A cell with an expand button that controls the expanded state
  * of the `<ExpandableRow>`.
  */
-const ExpandableCell = memo((): React.JSX.Element => {
+const ExpandableCell: React.MemoExoticComponent<() => React.JSX.Element> = memo((): React.JSX.Element => {
 	const { isExpanded, toggleExpanded } = useExpand();
 
 	const handleClick = useCallback(() => {

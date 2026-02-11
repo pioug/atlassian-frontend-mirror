@@ -109,7 +109,7 @@ const TopNavigation = ({ customTheme }: { customTheme?: CustomTheme }) => {
 	);
 };
 
-export const TopNavigationThemingWithPickerExample = () => {
+export const TopNavigationThemingWithPickerExample: () => JSX.Element = () => {
 	const [backgroundColor, setColor] = useState('#FFFFFF');
 
 	return (

@@ -420,7 +420,23 @@ export const createTypeAheadConfig = ({
 						),
 					);
 
-					if (mentionProvider.onInviteItemClick) {
+					if (
+						mentionProvider.getShouldEnableInlineInvite?.() &&
+						fg('jira_invites_auto_tag_new_user_in_mentions_fg')
+					) {
+						// Get the email from query, using the same logic as InviteItemWithEmailDomain
+						const emailDomain = mentionProvider.userEmailDomain;
+						let email = query || '';
+						// If query doesn't include @ and we have an email domain, append it
+						if (email && !email.includes('@') && emailDomain) {
+							email = `${email.toLowerCase()}@${emailDomain}`;
+						}
+						// If query already includes @, use it as is
+						if (email && mentionProvider.showInlineInviteRecaptcha) {
+							mentionProvider.showInlineInviteRecaptcha(email);
+						}
+					} else if (mentionProvider.onInviteItemClick) {
+						// Fallback to old behavior for backward compatibility
 						mentionProvider.onInviteItemClick('mention');
 					}
 				}

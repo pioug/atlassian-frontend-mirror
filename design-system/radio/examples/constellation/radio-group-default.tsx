@@ -28,7 +28,7 @@ const radioGroupStyles = css({
 	color: '#ccc',
 });
 
-export default function BasicExample() {
+export default function BasicExample(): JSX.Element {
 	const [isDisabled, setIsDisabled] = useState<boolean>();
 	const [onChangeResult, setOnChangeResult] = useState<string>(
 		'Click on a radio field to trigger onChange',

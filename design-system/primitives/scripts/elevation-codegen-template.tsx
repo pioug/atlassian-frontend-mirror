@@ -47,7 +47,7 @@ const activeTokens = tokens
 		}),
 	);
 
-export const createElevationStylesFromTemplate = (property: keyof typeof tokenStyles) => {
+export const createElevationStylesFromTemplate: (property: keyof typeof tokenStyles) => string = (property: keyof typeof tokenStyles) => {
 	if (!tokenStyles[property]) {
 		throw new Error(`[codegen] Unknown option found "${property}"`);
 	}

@@ -80,7 +80,7 @@ const headCellBaseStyles = css({
 	},
 });
 
-export const HeadCell = forwardRef<HTMLTableCellElement, HeadCellProps>(
+export const HeadCell: import("react").ForwardRefExoticComponent<Omit<HeadCellProps, "ref"> & import("react").RefAttributes<HTMLTableCellElement>> = forwardRef<HTMLTableCellElement, HeadCellProps>(
 	(
 		{
 			width,

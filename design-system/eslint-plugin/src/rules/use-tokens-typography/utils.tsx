@@ -27,26 +27,26 @@ import { Import, Root } from '../../ast-nodes';
 
 export const typographyProperties: string[] = ['fontSize', 'fontWeight', 'fontFamily', 'lineHeight'];
 
-export const isTypographyProperty = (propertyName: string): boolean => {
+export const isTypographyProperty: (propertyName: string) => boolean = (propertyName: string): boolean => {
 	return typographyProperties.includes(propertyName);
 };
 
-export const isFontSize = (node: EslintNode): node is CallExpression =>
+export const isFontSize: (node: EslintNode) => node is CallExpression = (node: EslintNode): node is CallExpression =>
 	isNodeOfType(node, 'CallExpression') &&
 	isNodeOfType(node.callee, 'Identifier') &&
 	(node.callee.name === 'fontSize' || node.callee.name === 'getFontSize');
 
-export const isFontSizeSmall = (node: EslintNode): node is CallExpression =>
+export const isFontSizeSmall: (node: EslintNode) => node is CallExpression = (node: EslintNode): node is CallExpression =>
 	isNodeOfType(node, 'CallExpression') &&
 	isNodeOfType(node.callee, 'Identifier') &&
 	node.callee.name === 'fontSizeSmall';
 
-export const isFontFamily = (node: EslintNode): node is CallExpression =>
+export const isFontFamily: (node: EslintNode) => node is CallExpression = (node: EslintNode): node is CallExpression =>
 	isNodeOfType(node, 'CallExpression') &&
 	isNodeOfType(node.callee, 'Identifier') &&
 	(node.callee.name === 'fontFamily' || node.callee.name === 'getFontFamily');
 
-export const isCodeFontFamily = (node: EslintNode): node is CallExpression =>
+export const isCodeFontFamily: (node: EslintNode) => node is CallExpression = (node: EslintNode): node is CallExpression =>
 	isNodeOfType(node, 'CallExpression') &&
 	isNodeOfType(node.callee, 'Identifier') &&
 	(node.callee.name === 'codeFontFamily' || node.callee.name === 'getCodeFontFamily');
@@ -61,7 +61,7 @@ export type TokenValueMap = {
 	};
 };
 
-export const typographyValueToToken = typographyTokens
+export const typographyValueToToken: TokenValueMap[] = typographyTokens
 	// we're filtering here to remove the `font` tokens.
 	.filter((t) => t.attributes.group === 'typography')
 	.filter((t) => t.cleanName.includes('font.heading') || t.cleanName.includes('font.body'))
@@ -96,7 +96,42 @@ export const typographyValueToToken = typographyTokens
 		};
 	});
 
-export function isValidTypographyToken(tokenName: string) {
+export function isValidTypographyToken(tokenName: string): {
+    value: string;
+    filePath: string;
+    isSource: boolean;
+    attributes: {
+        group: string;
+        state: string;
+        introduced: string;
+        description: string;
+        suggest?: string[];
+        deprecated?: string;
+        replacement?: string;
+    };
+    original: {
+        value: string | {
+            fontWeight: string;
+            fontSize: string;
+            lineHeight: string;
+            fontFamily: string;
+            fontStyle: string;
+            letterSpacing: string;
+        };
+        attributes: {
+            group: string;
+            state: string;
+            introduced: string;
+            description: string;
+            suggest?: string[];
+            deprecated?: string;
+            replacement?: string;
+        };
+    };
+    name: string;
+    path: string[];
+    cleanName: string;
+} | undefined {
 	return typographyTokens
 		.filter((t) => t.attributes.group === 'typography')
 		.filter(
@@ -108,7 +143,7 @@ export function isValidTypographyToken(tokenName: string) {
 		.find((t) => t.cleanName === tokenName);
 }
 
-export function findTypographyTokenForValues(fontSize: string, lineHeight?: string) {
+export function findTypographyTokenForValues(fontSize: string, lineHeight?: string): TokenValueMap[] {
 	// Match 11px to 12px as this is what happened when transitioning from legacy to refreshed typography
 	if (fontSize === '11px') {
 		fontSize = '12px';
@@ -134,7 +169,7 @@ export const fontWeightTokens: TokenValueMap[] = typographyTokens
 		};
 	});
 
-export function findFontWeightTokenForValue(fontWeight: string, tokens: TokenValueMap[] = fontWeightTokens) {
+export function findFontWeightTokenForValue(fontWeight: string, tokens: TokenValueMap[] = fontWeightTokens): TokenValueMap | undefined {
 	if (fontWeight === 'normal') {
 		fontWeight = '400';
 	}
@@ -172,7 +207,7 @@ export function findFontFamilyValueForToken(tokenName: string): string {
 	return fontFamilyTokens.find((token) => token.cleanName === tokenName)?.value || '';
 }
 
-export function findFontFamilyTokenForValue(value: string) {
+export function findFontFamilyTokenForValue(value: string): "font.family.brand.heading" | "font.family.brand.body" | "font.family.body" | "font.family.code" | undefined {
 	if (/charlie[\s-]?display/i.test(value)) {
 		return 'font.family.brand.heading';
 	} else if (/charlie[\s-]?text/i.test(value)) {
@@ -241,21 +276,21 @@ export function getTokenProperty(
 	tokenName: string,
 	tokenFallback?: string,
 	isFallbackMember: boolean = false,
-) {
+): StringableASTNode<Property> {
 	return property({
 		key: identifier(propertyName),
 		value: getTokenNode(tokenName, tokenFallback, isFallbackMember),
 	});
 }
 
-export function getLiteralProperty(propertyName: string, propertyValue: string) {
+export function getLiteralProperty(propertyName: string, propertyValue: string): StringableASTNode<Property> {
 	return property({
 		key: identifier(propertyName),
 		value: literal(propertyValue),
 	});
 }
 
-export function convertPropertyNodeToStringableNode(node: Property) {
+export function convertPropertyNodeToStringableNode(node: Property): StringableASTNode<Property> {
 	return property({
 		key: node.key,
 		value: node.value,
@@ -265,7 +300,7 @@ export function convertPropertyNodeToStringableNode(node: Property) {
 export function insertTokensImport(
 	root: (Directive | Statement | ModuleDeclaration)[],
 	fixer: Rule.RuleFixer,
-) {
+): Rule.Fix {
 	return Root.insertImport(
 		root,
 		{
@@ -279,7 +314,7 @@ export function insertTokensImport(
 export function insertFallbackImportFull(
 	root: (Directive | Statement | ModuleDeclaration)[],
 	fixer: Rule.RuleFixer,
-) {
+): Rule.Fix {
 	return Root.insertImport(
 		root,
 		{
@@ -293,6 +328,6 @@ export function insertFallbackImportFull(
 export function insertFallbackImportSpecifier(
 	fixer: Rule.RuleFixer,
 	themeImportNode: ImportDeclaration,
-) {
+): Rule.Fix | undefined {
 	return Import.insertNamedSpecifiers(themeImportNode, ['fontFallback'], fixer);
 }

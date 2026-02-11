@@ -53,7 +53,7 @@ const selectOptions = [
 	{ label: 'User research', value: 'User research' },
 ];
 
-const InlineEditCustomSelectExample = () => {
+const InlineEditCustomSelectExample: () => JSX.Element = () => {
 	const [editValue, setEditValue] = useState<ValueType<OptionType, true>>([]);
 	const inlineEditLabel = 'Skills required';
 	const selectLabel = 'Select skills';

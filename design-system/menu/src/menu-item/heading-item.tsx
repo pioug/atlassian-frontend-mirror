@@ -25,7 +25,7 @@ const headingStyles = css({
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/menu/docs/heading-item)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/menu)
  */
-const HeadingItem = memo(
+const HeadingItem: import("react").MemoExoticComponent<({ children, testId, headingLevel, id, className: UNSAFE_className, ...rest }: HeadingItemProps) => JSX.Element> = memo(
 	({
 		children,
 		testId,

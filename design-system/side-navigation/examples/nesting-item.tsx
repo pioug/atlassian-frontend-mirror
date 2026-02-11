@@ -47,7 +47,7 @@ const CustomNestingItem: React.ForwardRefExoticComponent<
 	},
 );
 
-const BasicExample = () => {
+const BasicExample: () => JSX.Element = () => {
 	return (
 		// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
 		<Box xcss={styles.container} onClick={(e: MouseEvent) => e.preventDefault()}>

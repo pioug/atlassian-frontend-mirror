@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-loom
 
+## 9.3.1
+
+### Patch Changes
+
+- [`1afb6245bcc95`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1afb6245bcc95) -
+  Bump loom SDK to 4.9.0, this removes the camera off experiment and integrates into
+  https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/twcg-1211_reducing_friction_at_sdk_launch/setup
+
+## 9.3.0
+
+### Minor Changes
+
+- [`39df87fc857cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39df87fc857cb) -
+  Clean up flag to roll out accessibility improvement to dropdown menus.
+
 ## 9.2.0
 
 ### Minor Changes

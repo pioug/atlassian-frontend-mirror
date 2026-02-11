@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 43.24.3
+
+### Patch Changes
+
+- [`6fbe52a1fd019`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fbe52a1fd019) -
+  Add hook to send prompt message to Rovo Chat
+- Updated dependencies
+
+## 43.24.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 43.24.1
 
 ### Patch Changes

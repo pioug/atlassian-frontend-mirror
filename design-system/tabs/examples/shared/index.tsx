@@ -27,7 +27,10 @@ const panelStyles = css({
 	paddingInlineStart: token('space.400', '32px'),
 });
 
-export const Panel = ({ children, testId }: { children: ReactNode; testId?: string }) => (
+export const Panel: ({ children, testId }: {
+    children: ReactNode;
+    testId?: string;
+}) => JSX.Element = ({ children, testId }: { children: ReactNode; testId?: string }) => (
 	<div css={panelStyles} data-testid={testId}>
 		{children}
 	</div>

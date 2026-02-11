@@ -64,7 +64,7 @@ const CustomSlideIn = ({
 /**
  * __Drawer panel__
  */
-export const DrawerPanel = ({
+export const DrawerPanel: ({ children, onClose, onCloseComplete, onOpenComplete, testId, isOpen, shouldReturnFocus, autoFocusFirstElem, isFocusLockEnabled, width, label, titleId, enterFrom, }: DrawerPanelProps) => JSX.Element = ({
 	children,
 	onClose,
 	onCloseComplete,

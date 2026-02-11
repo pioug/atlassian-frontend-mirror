@@ -323,7 +323,6 @@ export type DeleteRuleRovoPayload = {
 	transitionId: TransitionId;
 };
 export type RedirectToWorkflowRovoPayload = {
-	messageId: string;
 	conversationId: string;
 	url: string;
 };

@@ -11,8 +11,11 @@ import {
 	sinkExperimentalHandler,
 } from '../create-experimental-interaction-metrics-payload';
 import { sinkExtraSearchPageInteractionHandler } from '../create-extra-search-page-interaction-payload';
-import { setContextManager, UFOContextManager } from '../experience-trace-id-context/context-manager';
-import { setupHiddenTimingCapture } from '../hidden-timing';
+import {
+	setContextManager,
+	UFOContextManager,
+} from '../experience-trace-id-context/context-manager';
+import { setupHiddenTimingCapture, setupThrottleDetection } from '../hidden-timing';
 import {
 	interactionExtraMetrics,
 	type InteractionMetrics,
@@ -292,6 +295,10 @@ export function init(
 
 	setupHiddenTimingCapture();
 	startLighthouseObserver();
+
+	if (fg('platform_ufo_is_tab_throttled')) {
+		setupThrottleDetection();
+	}
 
 	initialized = true;
 

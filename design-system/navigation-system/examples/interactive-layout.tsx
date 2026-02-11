@@ -456,7 +456,7 @@ function Example() {
 }
 
 // Wrapping in another component so we can access the flags context in the example
-export function InteractiveLayoutExample() {
+export function InteractiveLayoutExample(): JSX.Element {
 	return (
 		<WithResponsiveViewport>
 			<FlagsProvider>

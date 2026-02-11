@@ -64,7 +64,7 @@ const headingStyles = cssMap({
 	},
 });
 
-export default function AsideBorderExample() {
+export default function AsideBorderExample(): JSX.Element {
 	return (
 		<WithResponsiveViewport>
 			<Root>

@@ -2932,8 +2932,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 					: isCompactModeEnabled
 					? denseStyles
 					: undefined,
-				expValEquals('platform_synced_block', 'isEnabled', true) && syncBlockStyles,
-				expValEquals('platform_synced_block', 'isEnabled', true) && syncBlockOverflowStyles,
+				editorExperiment('platform_synced_block', true) && syncBlockStyles,
+				editorExperiment('platform_synced_block', true) && syncBlockOverflowStyles,
 			]}
 			data-testid={testId}
 		>

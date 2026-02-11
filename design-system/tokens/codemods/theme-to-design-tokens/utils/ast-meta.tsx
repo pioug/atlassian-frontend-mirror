@@ -88,7 +88,7 @@ export function getMetaFromAncestors(
 	return meta;
 }
 
-export function cleanMeta(meta: string[]) {
+export function cleanMeta(meta: string[]): string[] {
 	return meta
 		.reduce<string[]>(
 			(accum, val) => [

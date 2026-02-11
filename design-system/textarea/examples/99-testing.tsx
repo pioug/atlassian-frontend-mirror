@@ -9,9 +9,10 @@ import TextArea from '@atlaskit/textarea';
 const wrapperStyles = css({
 	maxWidth: 500,
 });
-export default () => (
+const _default: () => JSX.Element = () => (
 	<div css={wrapperStyles}>
 		<label htmlFor="basic">Basic</label>
 		<TextArea name="basic" id="basic" value="I have a data-testid" testId="MyTextAreaTestId" />
 	</div>
 );
+export default _default;

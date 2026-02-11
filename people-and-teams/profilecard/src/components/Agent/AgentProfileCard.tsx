@@ -7,14 +7,11 @@ import InformationCircleIcon from '@atlaskit/icon/core/information-circle';
 import Link from '@atlaskit/link';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Stack, Text } from '@atlaskit/primitives/compiled';
-import {
-	AgentAvatar,
-	AgentBanner,
-	AgentProfileCreator,
-	AgentProfileInfo,
-	AgentStarCount,
-	type ConversationStarter,
-} from '@atlaskit/rovo-agent-components';
+import { AgentBanner } from '@atlaskit/rovo-agent-components/ui/agent-avatar/GeneratedAvatar';
+import { AgentStarCount } from '@atlaskit/rovo-agent-components/ui/agent-profile-info/AgentStarCount';
+import { AgentAvatar } from '@atlaskit/rovo-agent-components/ui/AgentAvatar';
+import { type ConversationStarter } from '@atlaskit/rovo-agent-components/ui/AgentConversationStarters';
+import { AgentProfileCreator, AgentProfileInfo } from '@atlaskit/rovo-agent-components/ui/AgentProfileInfo';
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
 import { token } from '@atlaskit/tokens';
 

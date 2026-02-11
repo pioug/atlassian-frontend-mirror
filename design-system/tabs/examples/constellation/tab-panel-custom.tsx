@@ -46,7 +46,7 @@ const CustomTabPanel = ({ heading, body }: { heading: string; body: string }) =>
 	);
 };
 
-const TabPanelCustomExample = () => (
+const TabPanelCustomExample: () => JSX.Element = () => (
 	<Tabs id="custom-panel">
 		<TabList>
 			<Tab>Tab 1</Tab>

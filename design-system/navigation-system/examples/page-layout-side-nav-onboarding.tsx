@@ -74,7 +74,7 @@ function LaunchSpotlightButton({ onClick }: { onClick: () => void }) {
 	return <Button onClick={handleLaunchSpotlight}>Launch spotlight</Button>;
 }
 
-export default function SideNavOnboardingExample() {
+export default function SideNavOnboardingExample(): JSX.Element {
 	const [isSpotlightActive, setIsSpotlightActive] = useState(false);
 
 	return (

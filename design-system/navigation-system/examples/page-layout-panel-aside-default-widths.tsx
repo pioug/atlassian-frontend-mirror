@@ -79,11 +79,11 @@ const bannerStyles = cssMap({
 	},
 });
 
-export function PanelAsideDefaultWidthsVR() {
+export function PanelAsideDefaultWidthsVR(): JSX.Element {
 	return <PanelAsideDefaultWidths />;
 }
 
-export function PanelAsideZeroWidthsVR() {
+export function PanelAsideZeroWidthsVR(): JSX.Element {
 	return <PanelAsideDefaultWidths defaultPanelWidth={0} defaultAsideWidth={0} />;
 }
 
@@ -103,7 +103,7 @@ export default function PanelAsideDefaultWidths({
 	 * The default width to use for the aside slot in the test.
 	 */
 	defaultAsideWidth?: number;
-}) {
+}): JSX.Element {
 	const [isPanelRendered, setIsPanelRendered] = useState(true);
 	const [isAsideRendered, setIsAsideRendered] = useState(true);
 

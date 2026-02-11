@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 5.12.0
+
+### Minor Changes
+
+- [`dab1b367f67f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dab1b367f67f6) -
+  Pass the conversation ID through to message action components, and remove an unused `messageId`
+  type inside the Jira workflow custom message component
+
 ## 5.11.0
 
 ### Minor Changes

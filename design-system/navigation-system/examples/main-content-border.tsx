@@ -126,23 +126,23 @@ function MainContentBorderExample({
 	);
 }
 
-export function MainContentBorderThemingEnabledVR() {
+export function MainContentBorderThemingEnabledVR(): JSX.Element {
 	return <MainContentBorderExample isCustomThemeEnabled isSideNavCollapsed={false} />;
 }
 
-export function MainContentBorderThemingDisabledVR() {
+export function MainContentBorderThemingDisabledVR(): JSX.Element {
 	return <MainContentBorderExample isCustomThemeEnabled={false} isSideNavCollapsed={false} />;
 }
 
-export function MainContentBorderThemingEnabledSideNavCollapsedVR() {
+export function MainContentBorderThemingEnabledSideNavCollapsedVR(): JSX.Element {
 	return <MainContentBorderExample isCustomThemeEnabled isSideNavCollapsed />;
 }
 
-export function MainContentBorderThemingDisabledSideNavCollapsedVR() {
+export function MainContentBorderThemingDisabledSideNavCollapsedVR(): JSX.Element {
 	return <MainContentBorderExample isCustomThemeEnabled={false} isSideNavCollapsed />;
 }
 
-export function MainContentBorderThemingEnabledFullScreenVR() {
+export function MainContentBorderThemingEnabledFullScreenVR(): JSX.Element {
 	return (
 		<MainContentBorderExample isCustomThemeEnabled isSideNavCollapsed={false} defaultIsFullScreen />
 	);

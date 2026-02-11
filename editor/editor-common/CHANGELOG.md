@@ -1,5 +1,32 @@
 # @atlaskit/editor-common
 
+## 111.12.2
+
+### Patch Changes
+
+- [`017f1e5b9810c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/017f1e5b9810c) -
+  EDITOR-4663 Add experience tracking for primary toolbar button actions
+
+## 111.12.1
+
+### Patch Changes
+
+- [`d1ee0512f85f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d1ee0512f85f4) -
+  [EDITOR-4531] Cleans up FG platform_editor_table_numbered_table_border
+- Updated dependencies
+
+## 111.12.0
+
+### Minor Changes
+
+- [`95a9857d9f007`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95a9857d9f007) -
+  Changed the keyboard shortcuts for move column/row left/right or up/down to prevent Voice Over
+  clash
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 111.11.13
 
 ### Patch Changes

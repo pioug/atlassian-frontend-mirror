@@ -4,7 +4,7 @@ import { createLintRule } from '../utils/create-rule';
 
 import { StyleProperty } from './transformers';
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'use-tokens-shape',
 		type: 'problem',

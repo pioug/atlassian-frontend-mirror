@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-insert-block",
-	"version": "8.4.3",
+	"version": "8.4.5",
 	"description": "Insert block plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -32,6 +32,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
+		"@atlaskit/browser-apis": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-block-type": "workspace:^",
 		"@atlaskit/editor-plugin-code-block": "workspace:^",
@@ -133,6 +134,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_media_insert_check": {
+			"type": "boolean"
+		},
+		"platform_editor_experience_tracking_toolbar_button": {
 			"type": "boolean"
 		}
 	}

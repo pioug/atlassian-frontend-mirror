@@ -21,7 +21,7 @@ const negativeSpaceTokens = tokens
 		fallback: t.value,
 	}));
 
-export const createSpacingStylesFromTemplate = () => {
+export const createSpacingStylesFromTemplate: () => string = () => {
 	const output = [
 		`export const positiveSpaceMap: {
 			${generateTypeDefs(positiveSpaceTokens.map((t) => t.name))}

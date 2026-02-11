@@ -165,7 +165,7 @@ function BannerToggleAction({
 	);
 }
 
-export const AllSlots = () => {
+export const AllSlots: () => JSX.Element = () => {
 	const [bannerShown, toggleBanner] = useReducer((state) => !state, true);
 	const [panelShown, togglePanel] = useReducer((state) => !state, true);
 
@@ -220,7 +220,7 @@ export const AllSlots = () => {
 	);
 };
 
-export const AllSlotsScrollable = () => {
+export const AllSlotsScrollable: () => JSX.Element = () => {
 	const [bannerShown, toggleBanner] = useReducer((state) => !state, true);
 	const [panelShown, togglePanel] = useReducer((state) => !state, false);
 
@@ -281,7 +281,7 @@ export const AllSlotsScrollable = () => {
 	);
 };
 
-export const AllSlotsRTL = () => {
+export const AllSlotsRTL: () => JSX.Element = () => {
 	const [panelShown, togglePanel] = useReducer((state) => !state, false);
 
 	return (
@@ -313,7 +313,7 @@ export const AllSlotsRTL = () => {
 	);
 };
 
-export const TopBarSideNavMainAside = () => (
+export const TopBarSideNavMainAside: () => JSX.Element = () => (
 	<Root>
 		<TopNav xcss={styles.topBar}>
 			<TopNavStart
@@ -332,7 +332,7 @@ export const TopBarSideNavMainAside = () => (
 	</Root>
 );
 
-export const TopBarSideNavMainAsideScrollable = () => (
+export const TopBarSideNavMainAsideScrollable: () => JSX.Element = () => (
 	<Root>
 		<TopNav xcss={styles.topBar}>
 			<TopNavStart
@@ -357,7 +357,7 @@ export const TopBarSideNavMainAsideScrollable = () => (
 	</Root>
 );
 
-export const TopBarSideNavMain = () => (
+export const TopBarSideNavMain: () => JSX.Element = () => (
 	<Root>
 		<TopNav xcss={styles.topBar}>
 			<TopNavStart
@@ -375,7 +375,7 @@ export const TopBarSideNavMain = () => (
 	</Root>
 );
 
-export const TopBarSideNavMainScrollable = () => (
+export const TopBarSideNavMainScrollable: () => JSX.Element = () => (
 	<Root>
 		<TopNav xcss={styles.topBar}>
 			<TopNavStart
@@ -397,7 +397,7 @@ export const TopBarSideNavMainScrollable = () => (
 	</Root>
 );
 
-export const SideNavMainAside = () => (
+export const SideNavMainAside: () => JSX.Element = () => (
 	<Root>
 		<SideNav>
 			<SideNavContent>side nav</SideNavContent>
@@ -407,7 +407,7 @@ export const SideNavMainAside = () => (
 	</Root>
 );
 
-export const SideNavMainAsideScrollable = () => (
+export const SideNavMainAsideScrollable: () => JSX.Element = () => (
 	<Root>
 		<SideNav>
 			<SideNavContent>
@@ -423,14 +423,14 @@ export const SideNavMainAsideScrollable = () => (
 	</Root>
 );
 
-export const MainAside = () => (
+export const MainAside: () => JSX.Element = () => (
 	<Root>
 		<Main xcss={styles.main}>main content</Main>
 		<Aside xcss={styles.aside}>aside</Aside>
 	</Root>
 );
 
-export const MainAsideScrollable = () => (
+export const MainAsideScrollable: () => JSX.Element = () => (
 	<Root>
 		<Main xcss={styles.main}>
 			<ScrollableContent>main content</ScrollableContent>
@@ -441,7 +441,7 @@ export const MainAsideScrollable = () => (
 	</Root>
 );
 
-export const Resizable = () => (
+export const Resizable: () => JSX.Element = () => (
 	<Root>
 		<TopNav xcss={styles.topBar}>
 			<TopNavStart
@@ -462,7 +462,7 @@ export const Resizable = () => (
 	</Root>
 );
 
-export const ResizableRTL = () => (
+export const ResizableRTL: () => JSX.Element = () => (
 	<div dir="rtl">
 		<Root>
 			<TopNav xcss={styles.topBar}>
@@ -489,7 +489,7 @@ export const ResizableRTL = () => (
 	</div>
 );
 
-export const SideNavCustomWidthGreaterThanMaxWidth = () => (
+export const SideNavCustomWidthGreaterThanMaxWidth: () => JSX.Element = () => (
 	<Root>
 		<TopNav xcss={styles.topBar}>
 			<TopNavStart
@@ -508,7 +508,7 @@ export const SideNavCustomWidthGreaterThanMaxWidth = () => (
 	</Root>
 );
 
-export const SideNavCustomWidthSmallerThanMinWidth = () => (
+export const SideNavCustomWidthSmallerThanMinWidth: () => JSX.Element = () => (
 	<Root>
 		<TopNav xcss={styles.topBar}>
 			<TopNavStart
@@ -527,7 +527,7 @@ export const SideNavCustomWidthSmallerThanMinWidth = () => (
 	</Root>
 );
 
-export const SideNavOverflowingChildren = () => (
+export const SideNavOverflowingChildren: () => JSX.Element = () => (
 	<Root>
 		<TopNav xcss={styles.topBar}>
 			<TopNavStart
@@ -559,7 +559,7 @@ export const SideNavOverflowingChildren = () => (
 	</Root>
 );
 
-export const EdgeCaseSiblingAbsolutePositioned = () => {
+export const EdgeCaseSiblingAbsolutePositioned: () => JSX.Element = () => {
 	const [panelShown, togglePanel] = useReducer((state) => !state, false);
 
 	return (
@@ -591,7 +591,7 @@ export const EdgeCaseSiblingAbsolutePositioned = () => {
 	);
 };
 
-export const EdgeCaseSiblingAbsolutePositionedCollapsed = () => (
+export const EdgeCaseSiblingAbsolutePositionedCollapsed: () => JSX.Element = () => (
 	<div css={styles.debugSlots}>
 		<Root UNSAFE_dangerouslyHoistSlotSizes>
 			<Banner xcss={styles.banner}>banner</Banner>
@@ -619,7 +619,7 @@ export const EdgeCaseSiblingAbsolutePositionedCollapsed = () => (
 	</div>
 );
 
-export const EdgeCaseSiblingAbsolutePositionedPanelVisible = () => {
+export const EdgeCaseSiblingAbsolutePositionedPanelVisible: () => JSX.Element = () => {
 	const [panelShown, togglePanel] = useReducer((state) => !state, true);
 
 	return (
@@ -650,7 +650,7 @@ export const EdgeCaseSiblingAbsolutePositionedPanelVisible = () => {
 	);
 };
 
-export const EdgeCaseUsingLegacyVars = () => {
+export const EdgeCaseUsingLegacyVars: () => JSX.Element = () => {
 	const [panelShown, togglePanel] = useReducer((state) => !state, false);
 
 	return (
@@ -686,7 +686,7 @@ export const EdgeCaseUsingLegacyVars = () => {
 	);
 };
 
-export const EdgeCaseSiblingAbsolutePositionedResizable = () => {
+export const EdgeCaseSiblingAbsolutePositionedResizable: () => JSX.Element = () => {
 	const [panelShown, togglePanel] = useReducer((state) => !state, false);
 
 	return (
@@ -735,7 +735,7 @@ const iframeStyles = cssMap({
 	},
 });
 
-export const ResizableWithIframeContent = () => {
+export const ResizableWithIframeContent: () => JSX.Element = () => {
 	const [panelShown, togglePanel] = useReducer((state) => !state, false);
 	const theme = useThemeObserver();
 	const iframeSrc: string = useMemo(() => {
@@ -792,7 +792,7 @@ export const ResizableWithIframeContent = () => {
 	);
 };
 
-export const AllSlotsBannerHeightZero = () => {
+export const AllSlotsBannerHeightZero: () => JSX.Element = () => {
 	const [bannerShown, toggleBanner] = useReducer((state) => !state, true);
 	const [panelShown, togglePanel] = useReducer((state) => !state, true);
 
@@ -849,7 +849,7 @@ export const AllSlotsBannerHeightZero = () => {
 	);
 };
 
-export const AllSlotsCustomSizes = () => {
+export const AllSlotsCustomSizes: () => JSX.Element = () => {
 	const [bannerShown, toggleBanner] = useReducer((state) => !state, true);
 	const [panelShown, togglePanel] = useReducer((state) => !state, true);
 
@@ -906,7 +906,7 @@ export const AllSlotsCustomSizes = () => {
 	);
 };
 
-export const EdgeCaseSiblingAbsolutePositionedCustomSizes = () => {
+export const EdgeCaseSiblingAbsolutePositionedCustomSizes: () => JSX.Element = () => {
 	const [bannerShown, toggleBanner] = useReducer((state) => !state, true);
 	const [panelShown, togglePanel] = useReducer((state) => !state, true);
 
@@ -972,7 +972,7 @@ const actions = [
 ];
 const homeIcon = <HomeIcon label="" color="currentColor" spacing="spacious" />;
 
-export const SideNavWithMenuItems = () => (
+export const SideNavWithMenuItems: () => JSX.Element = () => (
 	<Root>
 		<TopNav xcss={styles.topBar}>
 			<TopNavStart

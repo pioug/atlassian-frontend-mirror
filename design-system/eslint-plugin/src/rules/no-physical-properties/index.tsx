@@ -5,7 +5,7 @@ import { createLintRule } from '../utils/create-rule';
 
 import { physicalLogicalMap } from './logical-physical-map';
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'no-physical-properties',
 		fixable: 'code',

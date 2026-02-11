@@ -200,7 +200,7 @@ function MockNotifications(): JSX.Element {
 	);
 }
 
-export function SideNavLayering() {
+export function SideNavLayering(): JSX.Element {
 	return (
 		<WithResponsiveViewport>
 			<Root testId="root" isSideNavShortcutEnabled>

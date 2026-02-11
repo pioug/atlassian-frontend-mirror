@@ -38,7 +38,7 @@ const findJSXElementName = (jsxAttributeNode: Rule.Node): string | undefined => 
 
 export const name = 'no-deprecated-apis';
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name,
 		type: 'suggestion',

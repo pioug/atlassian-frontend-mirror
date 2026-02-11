@@ -2,7 +2,12 @@ import { useCallback, useState } from 'react';
 
 import { type SortDirection, type SortKey } from './use-table';
 
-export const useSorting = <ItemType extends object>(sortKey: SortKey<keyof ItemType>) => {
+export const useSorting: <ItemType extends object>(sortKey: SortKey<keyof ItemType>) => {
+    sortKey: "unset" | keyof ItemType;
+    sortDirection: SortDirection | undefined;
+    setSortState: (key: SortKey<keyof ItemType>) => void;
+    sortFn: (rowA: ItemType, rowB: ItemType) => number;
+} = <ItemType extends object>(sortKey: SortKey<keyof ItemType>) => {
 	const [localSortKey, setLocalSortKey] = useState(sortKey);
 	const [localSortDirection, setLocalSortDirection] = useState<SortDirection>();
 

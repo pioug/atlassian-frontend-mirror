@@ -14,6 +14,7 @@ export type {
 	ReferenceSyncBlockData,
 	ReferencesSourceInfo,
 	DeletionReason,
+	SyncBlockPrefetchData,
 } from './common/types';
 
 // hooks
@@ -45,6 +46,8 @@ export { getJiraWorkItemAri, getJiraWorkItemIdFromAri } from './clients/jira/ari
 export {
 	useMemoizedBlockServiceAPIProviders,
 	useMemoizedBlockServiceFetchOnlyAPIProvider,
+	fetchReferences,
+	batchFetchData,
 } from './providers/block-service/blockServiceAPI';
 export { fetchConfluencePageInfo } from './clients/confluence/sourceInfo';
 
@@ -90,5 +93,3 @@ export {
 } from './utils/utils';
 export { fetchErrorPayload } from './utils/errorHandling';
 export { normaliseSyncBlockProduct, normaliseSyncBlockStatus } from './utils/validValue';
-
-export { fetchReferences } from './providers/block-service/blockServiceAPI';

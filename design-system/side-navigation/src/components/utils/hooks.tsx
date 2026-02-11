@@ -2,7 +2,9 @@ import { type MutableRefObject, useEffect, useRef } from 'react';
 
 import { ROOT_ID } from '../NestableNavigationContent';
 
-export const useChildIds = (
+export const useChildIds: (currentStackId: string, committedStack: string[], onUnknownNest?: (stack: string[]) => void) => {
+    childIdsRef: MutableRefObject<Set<string>>;
+} = (
 	currentStackId: string,
 	committedStack: string[],
 	onUnknownNest?: (stack: string[]) => void,
@@ -27,7 +29,7 @@ export const useChildIds = (
 	return { childIdsRef };
 };
 
-export const useChildIdsEffect = (childIds: MutableRefObject<Set<string>>, id: string): void => {
+export const useChildIdsEffect: (childIds: MutableRefObject<Set<string>>, id: string) => void = (childIds: MutableRefObject<Set<string>>, id: string): void => {
 	useEffect(() => {
 		if (!childIds || !childIds.current) {
 			return;

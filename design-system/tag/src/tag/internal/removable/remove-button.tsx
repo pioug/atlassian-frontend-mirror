@@ -74,7 +74,7 @@ const removeButtonStylesNewIcon = cssMap({
 	},
 });
 
-const RemoveButton = ({
+const RemoveButton: (props: RemoveButtonProps) => JSX.Element = ({
 	'aria-label': ariaLabel,
 	onClick,
 	onFocus,

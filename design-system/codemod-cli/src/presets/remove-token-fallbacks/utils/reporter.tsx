@@ -31,7 +31,7 @@ function escapeCsvValue(value: string): string {
 	return value;
 }
 
-export async function clearFolder(reportFolder: string) {
+export async function clearFolder(reportFolder: string): Promise<void> {
 	console.log('Clearing report folder:', reportFolder);
 	// Create the folder if it doesn't exist
 	await fs.mkdir(reportFolder, { recursive: true });
@@ -53,7 +53,7 @@ async function saveFilePaths(reportFolder: string, files: Set<string>) {
 	);
 }
 
-export async function combineReports(reportFolder: string) {
+export async function combineReports(reportFolder: string): Promise<void> {
 	console.log('Combining reports in folder:', reportFolder);
 	const files = await fs.readdir(reportFolder);
 	let totalReplaced = 0;
@@ -142,7 +142,7 @@ function prepareCsvData(items: ReplacementDetail[]): string[] {
 	);
 }
 
-export async function writeReports(details: TransformationDetails, reportFolder: string) {
+export async function writeReports(details: TransformationDetails, reportFolder: string): Promise<void> {
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const replacementsFilePath = path.join(reportFolder, `${uuidv4()}_success.csv`);
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead

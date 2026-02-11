@@ -191,7 +191,7 @@ export function TopNav({
 	 * Feature is incomplete and API is subject to change at any time
 	 */
 	UNSAFE_theme?: CustomTheme;
-}) {
+}): JSX.Element {
 	const isFhsEnabled = useIsFhsEnabled();
 	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);
 	const id = useLayoutId({ providedId });

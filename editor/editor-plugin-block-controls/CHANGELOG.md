@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 8.3.0
+
+### Minor Changes
+
+- [`617747c789f4e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/617747c789f4e) -
+  Use correct editorExperiment instead of expVal for evaluating platform_synced_block
+
+## 8.2.1
+
+### Patch Changes
+
+- [`280d14e2d5518`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/280d14e2d5518) -
+  Clean up platform_editor_drag_handle_aria_label
+- Updated dependencies
+
 ## 8.2.0
 
 ### Minor Changes

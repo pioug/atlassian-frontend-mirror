@@ -4,7 +4,7 @@ import jscodeshift from 'jscodeshift';
 
 import codemod from '../transform';
 
-export async function withMockedConsoleWarn(fn: any) {
+export async function withMockedConsoleWarn(fn: any): Promise<void> {
 	const originalWarn = console.warn;
 	const warn = jest.fn();
 	console.warn = warn;

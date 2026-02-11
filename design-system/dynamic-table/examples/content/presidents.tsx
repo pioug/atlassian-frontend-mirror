@@ -1,4 +1,9 @@
-export const presidents = [
+export const presidents: {
+    id: number;
+    name: string;
+    party: string;
+    term: string;
+}[] = [
 	{
 		id: 1,
 		name: 'George Washington',

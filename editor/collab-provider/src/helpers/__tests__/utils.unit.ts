@@ -8,7 +8,7 @@ import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-s
 import { getStepUGCFreeDetails, isAIProviderID, logObfuscatedSteps } from '../utils';
 
 import { collab as collabPlugin, sendableSteps } from '@atlaskit/prosemirror-collab';
-import { type SafePlugin } from '@atlaskit/editor-common/src/safe-plugin';
+import { type SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
 jest.mock<typeof import('@atlaskit/prosemirror-collab')>('@atlaskit/prosemirror-collab', () => {
 	const originPC = jest.requireActual<typeof import('@atlaskit/prosemirror-collab')>(

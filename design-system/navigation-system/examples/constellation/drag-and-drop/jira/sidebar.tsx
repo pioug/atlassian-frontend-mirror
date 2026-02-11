@@ -97,7 +97,7 @@ function getPosition(index: number) {
 	return index + 1;
 }
 
-export function Sidebar() {
+export function Sidebar(): JSX.Element {
 	const [data, setData] = useState(getInitialData);
 	const stableData = useStableRef(data);
 	const [registry] = useState(createRegistry);

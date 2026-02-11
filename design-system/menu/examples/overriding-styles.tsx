@@ -61,7 +61,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => (
+const _default: () => JSX.Element = () => (
 	<React.Fragment>
 		<ButtonItem
 			onClick={console.log}
@@ -84,3 +84,4 @@ export default () => (
 		</ButtonItem>
 	</React.Fragment>
 );
+export default _default;

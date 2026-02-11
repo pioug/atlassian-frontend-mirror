@@ -7,7 +7,8 @@ import Button from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
-import { AgentDropdownMenu, ChatPillIcon } from '@atlaskit/rovo-agent-components';
+import { ChatPillIcon } from '@atlaskit/rovo-agent-components/common/ui/ChatIcon';
+import { AgentDropdownMenu } from '@atlaskit/rovo-agent-components/ui/AgentDropdownMenu';
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
 import { token } from '@atlaskit/tokens';
 

@@ -34,7 +34,7 @@ export function ProjectGroup({
 }: {
 	name: 'starred' | 'recent';
 	projects: TProject[];
-}) {
+}): JSX.Element | null {
 	const ref = useRef<HTMLDivElement | null>(null);
 	const [state, setState] = useState<'idle' | 'is-over'>();
 

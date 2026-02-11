@@ -496,6 +496,6 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 /**
  * __Avatar tag__
  */
-const AvatarTag = memo(AvatarTagComponent);
+const AvatarTag: import("react").MemoExoticComponent<import("react").ForwardRefExoticComponent<AvatarTagProps & import("react").RefAttributes<HTMLSpanElement>>> = memo(AvatarTagComponent);
 
 export default AvatarTag;

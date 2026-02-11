@@ -18,7 +18,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => {
+const _default: () => JSX.Element = () => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const PopupContent = () => {
@@ -89,3 +89,4 @@ export default () => {
 		</div>
 	);
 };
+export default _default;

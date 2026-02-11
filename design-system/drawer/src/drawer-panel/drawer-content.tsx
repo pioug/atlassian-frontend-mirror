@@ -62,7 +62,7 @@ const DrawerContentBase: React.ForwardRefExoticComponent<
  *
  * The main content section of the drawer panel.
  */
-export const DrawerContent = ({ children, scrollContentLabel, xcss }: DrawerContentProps) => {
+export const DrawerContent: ({ children, scrollContentLabel, xcss }: DrawerContentProps) => JSX.Element = ({ children, scrollContentLabel, xcss }: DrawerContentProps) => {
 	useEnsureIsInsideDrawer();
 	usePreventProgrammaticScroll();
 

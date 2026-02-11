@@ -16,7 +16,12 @@ const defaultIsEnabled = {
 export const ruleName = 'design-system/ensure-design-token-usage';
 
 const tokenUrl = 'https://atlassian.design/components/tokens/examples';
-export const messages = stylelint.utils.ruleMessages(ruleName, {
+export const messages: {
+    noHardcodedColors: string;
+    noHardcodedSpacing: string;
+    noHardcodedTypography: string;
+    noNonTokenVars: string;
+} = stylelint.utils.ruleMessages(ruleName, {
 	noHardcodedColors: `Color values should be design tokens. See ${tokenUrl} for guidance.`,
 	noHardcodedSpacing: `Spacing values should be design tokens. See ${tokenUrl} for guidance.`,
 	noHardcodedTypography: `Typography values should be design tokens. See ${tokenUrl} for guidance.`,
@@ -261,6 +266,6 @@ const rule: Rule<any, any> = Object.assign(ruleBase, {
 	},
 });
 
-const plugin = stylelint.createPlugin(ruleName, rule);
+const plugin: stylelint.Plugin = stylelint.createPlugin(ruleName, rule);
 
 export default plugin;

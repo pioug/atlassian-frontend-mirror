@@ -44,7 +44,21 @@ const AvatarWrapper: FC<{ children: ReactNode }> = ({ children }) => (
 
 export const caption = 'Sample Numerical Data';
 
-export const createHead = (withWidth: boolean) => {
+export const createHead: (withWidth: boolean) => {
+    cells: ({
+        key: string;
+        content: string;
+        isSortable: boolean;
+        width: number | undefined;
+        shouldTruncate?: undefined;
+    } | {
+        key: string;
+        content: string;
+        shouldTruncate: boolean;
+        isSortable: boolean;
+        width: number | undefined;
+    })[];
+} = (withWidth: boolean) => {
 	return {
 		cells: [
 			{
@@ -70,9 +84,32 @@ export const createHead = (withWidth: boolean) => {
 	};
 };
 
-export const head = createHead(true);
+export const head: {
+    cells: ({
+        key: string;
+        content: string;
+        isSortable: boolean;
+        width: number | undefined;
+        shouldTruncate?: undefined;
+    } | {
+        key: string;
+        content: string;
+        shouldTruncate: boolean;
+        isSortable: boolean;
+        width: number | undefined;
+    })[];
+} = createHead(true);
 
-export const rows = presidents.map((president: President, index: number) => ({
+export const rows: {
+    key: string;
+    cells: ({
+        key: string;
+        content: JSX.Element;
+    } | {
+        key: string | number;
+        content: string | number;
+    })[];
+}[] = presidents.map((president: President, index: number) => ({
 	key: `row-${index}-${president.name}`,
 	cells: [
 		{

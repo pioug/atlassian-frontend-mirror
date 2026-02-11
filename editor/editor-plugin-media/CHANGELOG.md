@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-media
 
+## 9.4.14
+
+### Patch Changes
+
+- [`d23c1256b236c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d23c1256b236c) -
+  Disabled image editing for gifs
+
+## 9.4.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.4.12
 
 ### Patch Changes

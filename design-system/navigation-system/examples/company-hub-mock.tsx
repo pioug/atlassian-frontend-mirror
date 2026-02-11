@@ -101,7 +101,7 @@ const contentStyles = cssMap({
  * - Has a `Panel`
  * - Does not have a `SideNav`
  */
-export function CompanyHubMockExample({ defaultPanelWidth = 440 }: { defaultPanelWidth?: number }) {
+export function CompanyHubMockExample({ defaultPanelWidth = 440 }: { defaultPanelWidth?: number }): JSX.Element {
 	const [isChatOpen, setIsChatOpen] = useState(true);
 
 	const toggleChat = useCallback(() => {
@@ -212,7 +212,7 @@ export function CompanyHubMockExample({ defaultPanelWidth = 440 }: { defaultPane
 	);
 }
 
-export const CompanyHubMockSmallDefaultPanelWidthExample = () => (
+export const CompanyHubMockSmallDefaultPanelWidthExample: () => JSX.Element = () => (
 	<CompanyHubMockExample defaultPanelWidth={320} />
 );
 

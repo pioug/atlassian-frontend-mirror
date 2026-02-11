@@ -39,7 +39,7 @@ const styles = cssMap({
  *
  * A container for Header and Footer that safely handles props to the child component
  */
-export const Container = ({
+export const Container: (props: CustomItemComponentProps) => JSX.Element = ({
 	children,
 	'data-testid': testId,
 	...props

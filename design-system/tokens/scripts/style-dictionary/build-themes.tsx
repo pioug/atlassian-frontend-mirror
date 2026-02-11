@@ -179,7 +179,7 @@ const createThemeConfig = (
 	return config;
 };
 
-export default function build(styleDictionary: Core) {
+export default function build(styleDictionary: Core): void {
 	const tokensInputDir = `${__dirname}/../../${THEME_INPUT_DIR}`;
 
 	fs.readdirSync(tokensInputDir, { withFileTypes: true })

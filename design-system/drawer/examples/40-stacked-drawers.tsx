@@ -13,7 +13,7 @@ const spacingStyles = css({
 	padding: '2rem',
 });
 
-export default function DrawersExample() {
+export default function DrawersExample(): JSX.Element {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const [isNestedDrawerOpen, setIsNestedDrawerOpen] = useState(false);
 

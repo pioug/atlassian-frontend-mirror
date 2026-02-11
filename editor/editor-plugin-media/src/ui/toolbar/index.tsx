@@ -717,7 +717,9 @@ const generateMediaSingleFloatingToolbar = (
 				const mediaNode = selectedMediaSingleNode?.node.content.firstChild;
 				// Disable image editing for external media, as we cannot save changes to external images per CORS policy
 				const isExternal = mediaNode?.attrs?.type === 'external';
-				if (!isVideo(mediaNode?.attrs?.__fileMimeType) && !isExternal) {
+				// Disable image editing for gifs as CropperJS does not support gif editing
+				const isGif = mediaNode?.attrs?.__fileMimeType === 'image/gif';
+				if (!isVideo(mediaNode?.attrs?.__fileMimeType) && !isExternal && !isGif) {
 					toolbarButtons.push({
 						id: 'editor.media.edit',
 						testId: 'image-edit-toolbar-button',
@@ -875,7 +877,9 @@ const generateMediaSingleFloatingToolbar = (
 			const mediaNode = selectedMediaSingleNode?.node.content.firstChild;
 			// Disable image editing for external media, as we cannot save changes to external images per CORS policy
 			const isExternal = mediaNode?.attrs?.type === 'external';
-			if (!isVideo(mediaNode?.attrs?.__fileMimeType) && !isExternal) {
+			// Disable image editing for gifs as CropperJS does not support gif editing
+			const isGif = mediaNode?.attrs?.__fileMimeType === 'image/gif';
+			if (!isVideo(mediaNode?.attrs?.__fileMimeType) && !isExternal && !isGif) {
 				toolbarButtons.push(
 					{
 						id: 'editor.media.edit',

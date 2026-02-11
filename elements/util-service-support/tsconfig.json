@@ -1,7 +1,4 @@
 {
 	"extends": "../../../tsconfig.json",
-	"compilerOptions": {
-		"moduleResolution": "node"
-	},
 	"include": ["./src/**/*.ts", "./src/**/*.tsx", "./docs/**/*.ts", "./docs/**/*.tsx"]
 }

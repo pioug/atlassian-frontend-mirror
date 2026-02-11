@@ -5,7 +5,7 @@ import { createLintRule } from '../utils/create-rule';
 
 export const name = 'no-to-match-snapshot';
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name,
 		type: 'problem',

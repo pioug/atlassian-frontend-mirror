@@ -72,7 +72,12 @@ const getIconColor = (color: LozengeColor | ThemeAppearance): IconColor => {
  * Icon renderer for lozenge components
  * Handles proper sizing and color theming for icons
  */
-export const IconRenderer = ({ icon: Icon, color, testId, size }: IconRendererProps) => {
+export const IconRenderer: (props: IconRendererProps) => React.JSX.Element = ({
+	icon: Icon,
+	color,
+	testId,
+	size,
+}: IconRendererProps) => {
 	const iconColor = getIconColor(color);
 
 	return <Icon color={iconColor} label="" size={size} testId={testId} />;

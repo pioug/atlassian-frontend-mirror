@@ -2,7 +2,7 @@ import { type API, type JSXAttribute, type JSXElement, type JSXSpreadAttribute }
 
 import { NEW_BUTTON_VARIANTS } from '../utils/constants';
 
-export const getIconAttributes = (
+export const getIconAttributes: (attributes: (JSXAttribute | JSXSpreadAttribute)[]) => JSXAttribute[] | null = (
 	attributes: (JSXAttribute | JSXSpreadAttribute)[],
 ): JSXAttribute[] | null => {
 	const iconAttr = attributes?.filter(
@@ -18,7 +18,7 @@ export const getIconAttributes = (
 	return null;
 };
 
-export const getIconElement = (iconAttr: JSXAttribute) => {
+export const getIconElement: (iconAttr: JSXAttribute) => JSXElement | null = (iconAttr: JSXAttribute) => {
 	if (
 		iconAttr &&
 		iconAttr.value?.type === 'JSXExpressionContainer' &&
@@ -42,7 +42,7 @@ export const getIconElement = (iconAttr: JSXAttribute) => {
  * @param j
  * @param iconRenamed
  */
-export const handleIconAttributes = (
+export const handleIconAttributes: (element: JSXElement, j: API["jscodeshift"], iconRenamed?: boolean) => void = (
 	element: JSXElement,
 	j: API['jscodeshift'],
 	iconRenamed: boolean = false,
@@ -145,7 +145,7 @@ export const handleIconAttributes = (
 	});
 };
 
-export const generateNewElement = (
+export const generateNewElement: (variant: (typeof NEW_BUTTON_VARIANTS)[keyof typeof NEW_BUTTON_VARIANTS], element: JSXElement, j: API["jscodeshift"]) => JSXElement = (
 	variant: (typeof NEW_BUTTON_VARIANTS)[keyof typeof NEW_BUTTON_VARIANTS],
 	element: JSXElement,
 	j: API['jscodeshift'],
@@ -202,7 +202,7 @@ export const generateNewElement = (
 	});
 };
 
-export const modifyButtonAttributes = (
+export const modifyButtonAttributes: (element: JSXElement, j: API["jscodeshift"], hasSpacingNone: boolean) => void = (
 	element: JSXElement,
 	j: API['jscodeshift'],
 	hasSpacingNone: boolean,

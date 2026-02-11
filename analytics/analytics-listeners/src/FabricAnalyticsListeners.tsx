@@ -62,7 +62,7 @@ class FabricAnalyticsListeners extends React.Component<Props> {
 		this.logger = new Logger({ logLevel: props.logLevel });
 	}
 
-	render() {
+	render(): React.ReactNode {
 		const { client, children, logLevel, excludedChannels } = this.props;
 		if (typeof logLevel === 'number') {
 			this.logger.setLogLevel(logLevel);

@@ -1,13 +1,9 @@
 import React from 'react';
 
 import { bodiedSyncBlock, syncBlock } from '@atlaskit/adf-schema';
-import { blockTypeMessages } from '@atlaskit/editor-common/messages';
-import type { QuickInsertActionInsert } from '@atlaskit/editor-common/provider-factory';
-import { IconSyncBlock } from '@atlaskit/editor-common/quick-insert';
 import type { EditorCommand, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
-import Lozenge from '@atlaskit/lozenge';
 
 import { flushBodiedSyncBlocks, flushSyncBlocks } from './editor-actions';
 import {
@@ -17,11 +13,12 @@ import {
 import { createPlugin, syncedBlockPluginKey } from './pm-plugins/main';
 import { getMenuAndToolbarExperiencesPlugin } from './pm-plugins/menu-and-toolbar-experiences';
 import type { SyncedBlockPlugin } from './syncedBlockPluginType';
-import { SYNCED_BLOCK_BUTTON_TEST_ID, type SyncedBlockSharedState } from './types';
+import { type SyncedBlockSharedState } from './types';
 import { getBlockMenuComponents } from './ui/block-menu-components';
 import { DeleteConfirmationModal } from './ui/DeleteConfirmationModal';
 import { Flag } from './ui/Flag';
 import { getToolbarConfig } from './ui/floating-toolbar';
+import { getQuickInsertConfig } from './ui/quick-insert';
 import { SyncBlockRefresher } from './ui/SyncBlockRefresher';
 import { getToolbarComponents } from './ui/toolbar-components';
 
@@ -107,46 +104,7 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 		},
 
 		pluginsOptions: {
-			quickInsert: ({ formatMessage }) => {
-				if (!config?.enableSourceCreation) {
-					return [];
-				}
-
-				return [
-					{
-						id: 'syncBlock',
-						title: formatMessage(blockTypeMessages.syncedBlock),
-						description: formatMessage(blockTypeMessages.syncedBlockDescription),
-						priority: 800,
-						keywords: [
-							'synced',
-							'block',
-							'synced-block',
-							'sync',
-							'sync-block',
-							'auto',
-							'update',
-							'excerpt',
-							'connect',
-						],
-						isDisabledOffline: true,
-						keyshortcut: '',
-						lozenge: (
-							<Lozenge appearance="new">{formatMessage(blockTypeMessages.newLozenge)}</Lozenge>
-						),
-						icon: () => <IconSyncBlock label={formatMessage(blockTypeMessages.syncedBlock)} />,
-						action: (insert: QuickInsertActionInsert, state: EditorState) => {
-							return createSyncedBlock({
-								tr: state.tr,
-								syncBlockStore,
-								typeAheadInsert: insert,
-								fireAnalyticsEvent: api?.analytics?.actions.fireAnalyticsEvent,
-							});
-						},
-						testId: SYNCED_BLOCK_BUTTON_TEST_ID.quickInsertCreate,
-					},
-				];
-			},
+			quickInsert: getQuickInsertConfig(config, api, syncBlockStore),
 			floatingToolbar: (state, intl) => getToolbarConfig(state, intl, api, syncBlockStore),
 		},
 

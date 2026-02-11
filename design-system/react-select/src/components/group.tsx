@@ -65,7 +65,7 @@ const styles = cssMap({
 		paddingTop: token('space.100'),
 	},
 });
-export const groupCSS = () => ({});
+export const groupCSS: () => {} = () => ({});
 
 const Group = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: GroupProps<Option, IsMulti, Group>,
@@ -141,10 +141,10 @@ const headingStyles = css({
 	textTransform: 'none',
 });
 
-export const groupHeadingCSS = () => ({});
+export const groupHeadingCSS: () => {} = () => ({});
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const GroupHeading = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+export const GroupHeading: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(props: GroupHeadingProps<Option, IsMulti, Group>) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: GroupHeadingProps<Option, IsMulti, Group>,
 ) => {
 	const { xcss } = props;

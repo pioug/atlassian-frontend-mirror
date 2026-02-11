@@ -13,7 +13,9 @@ const ExpandContentContext = createContext<ExpandContentContext>({
  *
  * An expand content provider allows `<Row>` to determine if it is a subitem.
  */
-export const ExpandContentContextProvider = ({
+export const ExpandContentContextProvider: ({ children, }: {
+    children: React.ReactNode;
+}) => React.JSX.Element = ({
 	children,
 }: {
 	children: React.ReactNode;
@@ -25,7 +27,7 @@ export const ExpandContentContextProvider = ({
 	);
 };
 
-const useExpandContent = () => {
+const useExpandContent: () => ExpandContentContext = () => {
 	return useContext(ExpandContentContext);
 };
 

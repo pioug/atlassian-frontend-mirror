@@ -9,7 +9,7 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdow
 import ImageIcon from '@atlaskit/icon/core/image';
 import Lozenge, { LozengeDropdownTrigger } from '@atlaskit/lozenge';
 
-export default () => {
+const _default: () => JSX.Element = () => {
 	const statusOptions = [
 		{ label: 'Success', value: 'success' as const },
 		{ label: 'Warning', value: 'warning' as const },
@@ -50,3 +50,4 @@ export default () => {
 		</DropdownMenu>
 	);
 };
+export default _default;

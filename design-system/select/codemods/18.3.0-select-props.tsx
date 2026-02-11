@@ -134,7 +134,7 @@ function hasImportDeclaration(
 		.length;
 }
 
-export default function transformer(fileInfo: FileInfo, { jscodeshift: j }: API, options: Options) {
+export default function transformer(fileInfo: FileInfo, { jscodeshift: j }: API, options: Options): string {
 	const source = j(fileInfo.source);
 
 	if (hasImportDeclaration(j, source, '@atlaskit/select')) {

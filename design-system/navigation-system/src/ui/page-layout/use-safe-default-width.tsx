@@ -18,7 +18,7 @@ export function useSafeDefaultWidth({
 	 * The name of the slot, used for the dev-time console error.
 	 */
 	slotName: string;
-}) {
+}): number {
 	// If the provided `defaultWidth` is invalid then we use our fallback.
 	// We are using a runtime check because some invalid numbers like `NaN` are not caught by types,
 	// and we saw some issues in products where our experience broke due to this.

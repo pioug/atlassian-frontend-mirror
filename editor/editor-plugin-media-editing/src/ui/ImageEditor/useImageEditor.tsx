@@ -13,7 +13,6 @@ import {
 	type AspectRatioOption,
 } from './imageEditActions';
 
-
 interface UseImageEditorReturn {
 	aspectRatioSelection: string;
 	cropperRef: React.RefObject<CropperRef>;
@@ -26,6 +25,7 @@ interface UseImageEditorReturn {
 		onSave: (imageData: Blob, width: number, height: number) => void,
 		onClose: () => void,
 		errorReporter?: ErrorReporter,
+		originalMimeType?: string,
 	) => Promise<void>;
 	isImageReady: boolean;
 	rotateRight: () => void;
@@ -39,9 +39,10 @@ export const useImageEditor = (): UseImageEditorReturn => {
 	const aspectRatioResolverRef = useRef<{ resolve: () => void; target: number | undefined } | null>(
 		null,
 	);
+	const isInitialSetupRef = useRef(true);
 	const [isImageReady, setIsImageReady] = useState(false);
 	const [currentAspectRatio, setCurrentAspectRatio] = useState<number | undefined>(undefined);
-	const [aspectRatioSelection, setAspectRatioSelection] = useState('');
+	const [aspectRatioSelection, setAspectRatioSelection] = useState('custom');
 	const { flipHorizontal, flipVertical } = useImageFlip(cropperRef);
 	const { rotateRight } = useImageRotate(cropperRef);
 	const { getAspectRatioValue } = useImageAspectRatio();
@@ -53,28 +54,25 @@ export const useImageEditor = (): UseImageEditorReturn => {
 			return;
 		}
 
-		// Calculate and set the original aspect ratio based on the image dimensions
-		calculateOriginalRatio();
-		setAspectRatioSelection('original');
-
-		// Focus on the done button as soon as image loads
-		if (doneButtonRef.current) {
-			doneButtonRef.current.focus();
-		}
-
 		// Get the canvas element to observe for size changes
 		const canvas = cropperRef.current?.getCanvas();
 		if (!canvas) {
 			return;
 		}
 
-		// Track initial canvas dimensions
+		// Track initial canvas dimensions before any state updates
 		let lastWidth = canvas.clientWidth;
 		let lastHeight = canvas.clientHeight;
 
 		// Canvas size will change when the viewport size changes
 		// Monitor canvas resizing to detect when user manually adjusts the crop area
 		const observer = new ResizeObserver((entries) => {
+			// Skip the first observation during setup
+			if (isInitialSetupRef.current) {
+				isInitialSetupRef.current = false;
+				return;
+			}
+
 			const entry = entries[0];
 			const { width, height } = entry.contentRect;
 
@@ -87,6 +85,15 @@ export const useImageEditor = (): UseImageEditorReturn => {
 		});
 
 		observer.observe(canvas);
+
+		// Calculate and set the original aspect ratio based on the image dimensions
+		setAspectRatioSelection('custom');
+
+		// Focus on the done button as soon as image loads
+		if (doneButtonRef.current) {
+			doneButtonRef.current.focus();
+		}
+
 		return () => observer.disconnect();
 	}, [isImageReady]);
 
@@ -217,16 +224,52 @@ export const useImageEditor = (): UseImageEditorReturn => {
 		errorReporter?: ErrorReporter,
 	) => {
 		try {
-			// Get the cropped canvas with fixed width, height scales proportionally
-			const canvas = await cropperRef.current?.getCroppedCanvas({ width: 800 });
+			// Get the selection to determine the crop size relative to original image
+			const selection = cropperRef.current?.getSelection();
+			const image = cropperRef.current?.getImage();
+
+			let canvasWidth: number | undefined;
+
+			if (selection && image) {
+				// Try to get the actual <img> from shadow DOM
+				const actualImg = image.shadowRoot?.querySelector('img') || null;
+
+				if (actualImg) {
+					// Get the natural (original) image dimensions
+					const naturalWidth = actualImg.naturalWidth;
+
+					// Get the displayed image dimensions
+					const displayedRect = image.getBoundingClientRect();
+					const displayedWidth = displayedRect.width;
+
+					// Calculate the scale factor between displayed and original image
+					const scaleX = naturalWidth / displayedWidth;
+
+					// Get selection dimensions in displayed coordinates
+					const selectionWidth = selection.width || 0;
+
+					// Calculate the crop width in original image coordinates
+					const cropWidthInOriginal = selectionWidth * scaleX;
+
+					// Use the crop width from original image, capped at a reasonable maximum
+					canvasWidth = Math.min(cropWidthInOriginal, 1500);
+				}
+			}
+
+			// Get the cropped canvas with calculated width
+			// Fallback to width = 1500 (a reasonable size for keeping high quality images relatively high quality)
+			const canvas = await cropperRef.current?.getCroppedCanvas(
+				canvasWidth ? { width: canvasWidth } : { width: 1500 },
+			);
+
 			if (canvas) {
 				const outWidth = canvas.width;
 				const outHeight = canvas.height;
-				// Convert canvas to blob and pass to callback with dimensions
+				// Convert canvas to blob (defaults to png)
 				canvas.toBlob((blob) => {
 					if (blob) {
 						onSave?.(blob, outWidth, outHeight);
-						onClose();
+						// Don't close here - let the upload completion handle closing
 					}
 				});
 			}

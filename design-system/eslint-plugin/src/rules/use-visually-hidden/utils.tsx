@@ -22,14 +22,14 @@ export type ReferenceObject = typeof referenceObject;
 /**
  * Returns the first import in the esprima AST.
  */
-export const getFirstImport = (source: SourceCode) => {
+export const getFirstImport: (source: SourceCode) => import("estree").ImportDeclaration | undefined = (source: SourceCode) => {
 	return source.ast.body.find((node) => node.type === 'ImportDeclaration');
 };
 
 /**
  * Takes a template literal and returns [key, value] array of the css properties
  */
-export const makeTemplateLiteralIntoEntries = (templateString: string) => {
+export const makeTemplateLiteralIntoEntries: (templateString: string) => string[][] = (templateString: string) => {
 	return templateString
 		.replace(/\n/g, '')
 		.split(/;|{|}/)
@@ -49,7 +49,7 @@ export const makeTemplateLiteralIntoEntries = (templateString: string) => {
  *
  * @returns {number} A fraction between 0-1 depending on the object's likeness.
  */
-export const getObjectLikeness = (node: ObjectExpression) => {
+export const getObjectLikeness: (node: ObjectExpression) => number = (node: ObjectExpression) => {
 	const styleEntries = node.properties
 		.filter((node): node is Property => isNodeOfType(node, 'Property'))
 		.map(({ key, value }) => {
@@ -67,7 +67,7 @@ export const getObjectLikeness = (node: ObjectExpression) => {
 	return countMatchingKeyValues(styleEntries);
 };
 
-export const countMatchingKeyValues = (styleEntries: KeyValue[]) => {
+export const countMatchingKeyValues: (styleEntries: KeyValue[]) => number = (styleEntries: KeyValue[]) => {
 	const matchingStyleEntries = styleEntries.filter(
 		(entry: any): entry is Partial<ReferenceObject> => {
 			return entry.key in referenceObject;

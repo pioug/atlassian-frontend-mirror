@@ -158,9 +158,9 @@ border-color 200ms ease-in-out`,
 	},
 });
 
-export const css = () => ({});
+export const css: () => {} = () => ({});
 
-const Control = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+const Control: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(props: ControlProps<Option, IsMulti, Group>) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: ControlProps<Option, IsMulti, Group>,
 ) => {
 	const {

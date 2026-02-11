@@ -16,7 +16,7 @@ export function RecentMenuItem({
 }: {
 	amountOfMenuItems: number;
 	index: number;
-}) {
+}): JSX.Element {
 	return (
 		<SharedTopLevelFlyout
 			label="Recent"

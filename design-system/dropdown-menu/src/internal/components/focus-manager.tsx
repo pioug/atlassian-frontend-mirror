@@ -24,7 +24,10 @@ import handleFocus from '../utils/handle-focus';
  * This list drives the keyboard navigation of the menu.
  *
  */
-export const FocusManagerContext = createContext<{
+export const FocusManagerContext: React.Context<{
+    menuItemRefs: FocusableElementRef[];
+    registerRef(ref: FocusableElementRef): void;
+}> = createContext<{
 	menuItemRefs: FocusableElementRef[];
 	registerRef(ref: FocusableElementRef): void;
 }>({

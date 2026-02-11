@@ -15,7 +15,7 @@ import { walkCssMap } from './walk-css-map';
 
 const cssSelectorProcessor = cssSelectorParser();
 
-const rule = createLintRuleWithTypedConfig({
+const rule: Rule.RuleModule = createLintRuleWithTypedConfig({
 	meta: {
 		name: 'no-unsafe-selectors',
 		docs: {

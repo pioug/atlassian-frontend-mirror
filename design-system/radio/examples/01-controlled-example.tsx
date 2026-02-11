@@ -27,7 +27,7 @@ const radioGroupStyles = css({
 	color: '#ccc',
 });
 
-export default function ControlledExample() {
+export default function ControlledExample(): JSX.Element {
 	// Form needs to be the source of truth for the form data.
 	// When we need to know what the current field value is
 	// we can intercept the onChange function and duplicate state

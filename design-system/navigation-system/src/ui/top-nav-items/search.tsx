@@ -63,19 +63,7 @@ const styles = cssMap({
 	},
 });
 
-/**
- * __Search__
- *
- * The search element for the top navigation.
- */
-export const Search = ({
-	label,
-	onClick,
-	iconBefore: IconBefore = SearchIcon,
-	elemAfter,
-	interactionName,
-	'aria-haspopup': ariaHaspopup,
-}: {
+type SearchProps = {
 	/**
 	 * Provide an accessible label, often used by screen readers.
 	 */
@@ -97,7 +85,21 @@ export const Search = ({
 	 */
 	interactionName?: string;
 	'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];
-}) => {
+};
+
+/**
+ * __Search__
+ *
+ * The search element for the top navigation.
+ */
+export const Search: (props: SearchProps) => JSX.Element = ({
+	label,
+	onClick,
+	iconBefore: IconBefore = SearchIcon,
+	elemAfter,
+	interactionName,
+	'aria-haspopup': ariaHaspopup,
+}: SearchProps) => {
 	const isFhsEnabled = useIsFhsEnabled();
 
 	return (

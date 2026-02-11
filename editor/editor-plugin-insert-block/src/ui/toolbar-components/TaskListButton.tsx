@@ -5,7 +5,7 @@ import { useIntl } from 'react-intl-next';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { ToolTipContent, insertTaskList } from '@atlaskit/editor-common/keymaps';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
+import { TOOLBAR_BUTTON_TEST_ID, useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarButton, ToolbarTooltip, TaskIcon } from '@atlaskit/editor-toolbar';
 
@@ -44,6 +44,7 @@ export const TaskListButton = ({ api }: TaskListButtonProps): React.JSX.Element 
 				iconBefore={<TaskIcon label={formatMessage(messages.action)} size="small" />}
 				onClick={onClick}
 				ariaKeyshortcuts="[ ] Space"
+				testId={TOOLBAR_BUTTON_TEST_ID.TASK_LIST}
 			/>
 		</ToolbarTooltip>
 	);

@@ -50,7 +50,7 @@ const LinkTab = ({ label, href }: { label: string; href: string }) => {
 
 const href = 'http://atlassian.design';
 
-const CustomTabComponent = () => (
+const CustomTabComponent: () => JSX.Element = () => (
 	<div id="test-container">
 		<h3>Tabs with tooltips</h3>
 		<Tabs onChange={(index) => console.log('Selected Tab', index + 1)} id="tooltip-tabs">

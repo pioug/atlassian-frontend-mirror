@@ -32,7 +32,7 @@ import { createChecks } from './checks';
 
 export const name = 'no-deprecated-imports';
 
-const rule = createLintRule({
+const rule: import("eslint").Rule.RuleModule = createLintRule({
 	meta: {
 		name,
 		fixable: 'code',

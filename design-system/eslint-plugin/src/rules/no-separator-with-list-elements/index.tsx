@@ -6,7 +6,7 @@ import { createLintRule } from '../utils/create-rule';
 const separatorAsCombinationNotAllowed =
 	'The combination of `separator` with `as="li"`, `as="ol"`, or `as="dl"` is not allowed.';
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'no-separator-with-list-elements',
 		type: 'suggestion',

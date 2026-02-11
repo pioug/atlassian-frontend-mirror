@@ -105,13 +105,13 @@ const options = [
 	{ label: 'wont-do', value: 'wont-do' },
 ];
 
-export const LayersInMainShouldForceOpenLayers = () => <LayersInMain shouldForceOpenLayers />;
+export const LayersInMainShouldForceOpenLayers: () => JSX.Element = () => <LayersInMain shouldForceOpenLayers />;
 
 export default function LayersInMain({
 	shouldForceOpenLayers = false,
 }: {
 	shouldForceOpenLayers?: boolean;
-}) {
+}): JSX.Element {
 	return (
 		<WithResponsiveViewport>
 			<Root testId="root" isSideNavShortcutEnabled>

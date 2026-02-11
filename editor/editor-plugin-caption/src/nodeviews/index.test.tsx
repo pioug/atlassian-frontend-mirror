@@ -4,7 +4,7 @@ import { screen } from '@testing-library/react';
 import type { MediaADFAttrs } from '@atlaskit/adf-schema';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { type PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
+import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { RefsNode } from '@atlaskit/editor-common/types';
 import { setNodeSelection, setTextSelection } from '@atlaskit/editor-common/utils';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';

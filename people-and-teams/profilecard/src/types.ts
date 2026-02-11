@@ -3,7 +3,7 @@ import type React from 'react';
 import { type IntlShape } from 'react-intl-next';
 
 import { type AnalyticsEventPayload, type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { type ConversationStarter } from '@atlaskit/rovo-agent-components';
+import { type ConversationStarter } from '@atlaskit/rovo-agent-components/ui/AgentConversationStarters';
 import type {
 	AnalyticsEventAttributes,
 	FireEventType,

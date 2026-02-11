@@ -17,7 +17,7 @@ interface WeekDaysProps {
 	testId?: string;
 }
 
-const WeekDays = memo<WeekDaysProps>(function WeekDays({
+const WeekDays: React.NamedExoticComponent<WeekDaysProps> = memo<WeekDaysProps>(function WeekDays({
 	weeks,
 	handleClickDay,
 	monthsLong,

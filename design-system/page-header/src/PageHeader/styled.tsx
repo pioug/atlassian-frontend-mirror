@@ -83,7 +83,9 @@ const titleContainerTruncateStyles = css({
  * the BottomBar and its Breadcrumbs.
  *
  */
-export const OuterWrapper = ({ children }: { children: ReactNode }) => {
+export const OuterWrapper: ({ children }: {
+    children: ReactNode;
+}) => JSX.Element = ({ children }: { children: ReactNode }) => {
 	return <div css={outerStyles}>{children}</div>;
 };
 
@@ -130,7 +132,7 @@ interface TitleProps {
  * A title wrapper is a wrapper around the title and the actions.
  *
  */
-export const TitleWrapper = ({ children, truncateTitle }: TitleProps) => {
+export const TitleWrapper: ({ children, truncateTitle }: TitleProps) => JSX.Element = ({ children, truncateTitle }: TitleProps) => {
 	return (
 		<div css={[titleWrapperStyles, truncateTitle && titleWrapperTruncateStyles]}>{children}</div>
 	);
@@ -142,7 +144,7 @@ export const TitleWrapper = ({ children, truncateTitle }: TitleProps) => {
  * A title container is a container that wraps around the title and its styles (if applied).
  *
  */
-export const TitleContainer = ({ children, truncateTitle }: TitleProps) => {
+export const TitleContainer: ({ children, truncateTitle }: TitleProps) => JSX.Element = ({ children, truncateTitle }: TitleProps) => {
 	return (
 		<div css={[titleContainerStyles, truncateTitle && titleContainerTruncateStyles]}>
 			{children}
@@ -156,7 +158,9 @@ export const TitleContainer = ({ children, truncateTitle }: TitleProps) => {
  * An actions wrapper is a wrapper for the actions, which appear on the top right of the PageHeader component.
  *
  */
-export const ActionsWrapper = ({ children }: { children: ReactNode }) => {
+export const ActionsWrapper: ({ children }: {
+    children: ReactNode;
+}) => JSX.Element = ({ children }: { children: ReactNode }) => {
 	return <div css={actionStyles}>{children}</div>;
 };
 
@@ -166,6 +170,8 @@ export const ActionsWrapper = ({ children }: { children: ReactNode }) => {
  * A bottom bar wrapper is a wrapper for the bottom bar, which appears at the bottom of the PageHeader component.
  *
  */
-export const BottomBarWrapper = ({ children }: { children: ReactNode }) => {
+export const BottomBarWrapper: ({ children }: {
+    children: ReactNode;
+}) => JSX.Element = ({ children }: { children: ReactNode }) => {
 	return <Box xcss={styles.bottomBar}>{children}</Box>;
 };

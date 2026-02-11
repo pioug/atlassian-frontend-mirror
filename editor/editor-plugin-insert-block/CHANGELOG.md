@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 8.4.5
+
+### Patch Changes
+
+- [`017f1e5b9810c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/017f1e5b9810c) -
+  EDITOR-4663 Add experience tracking for primary toolbar button actions
+- Updated dependencies
+
+## 8.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.4.3
 
 ### Patch Changes

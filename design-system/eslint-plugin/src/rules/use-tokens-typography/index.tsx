@@ -45,7 +45,7 @@ const create: Rule.RuleModule['create'] = (context: Rule.RuleContext) => {
 	);
 };
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'use-tokens-typography',
 		type: 'suggestion',

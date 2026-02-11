@@ -11,7 +11,9 @@ import ChevronUpIcon from '@atlaskit/icon/core/chevron-up';
  *
  * An icon used to display the expanded state in an `<ExpandableCell>`.
  */
-export const ExpandIcon = memo(({ isExpanded }: { isExpanded: boolean }): React.JSX.Element => {
+export const ExpandIcon: React.MemoExoticComponent<({ isExpanded }: {
+    isExpanded: boolean;
+}) => React.JSX.Element> = memo(({ isExpanded }: { isExpanded: boolean }): React.JSX.Element => {
 	switch (isExpanded) {
 		case true:
 			return <ChevronUpIcon color="currentColor" label="" size="small" />;

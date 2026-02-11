@@ -27,7 +27,7 @@ const textFieldStyles = css({
 	},
 });
 
-const InlineEditExample = () => {
+const InlineEditExample: () => JSX.Element = () => {
 	const initialValue = 'Initial Large text field value';
 	const [editValue, setEditValue] = useState('Field value');
 

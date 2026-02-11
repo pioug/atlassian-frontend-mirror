@@ -47,8 +47,11 @@ const styleMaps = {
 	...textWeightMap,
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default function transformer(fileInfo: FileInfo, { jscodeshift: j }: API, options: Options) {
+export default function transformer(
+	fileInfo: FileInfo,
+	{ jscodeshift: j }: API,
+	_options: Options,
+): string | undefined {
 	const base = j(fileInfo.source);
 
 	// replace xcss with cssMap

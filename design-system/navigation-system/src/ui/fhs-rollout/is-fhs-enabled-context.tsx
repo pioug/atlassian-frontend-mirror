@@ -10,6 +10,6 @@ import type { Get } from './types';
  * Tracks is FHS enabled.
  * Defaults to feature gate 'navx-full-height-sidebar'.
  */
-export const IsFhsEnabledContext = createContext<boolean | Get<boolean>>(() =>
+export const IsFhsEnabledContext: import("react").Context<boolean | Get<boolean>> = createContext<boolean | Get<boolean>>(() =>
 	fg('navx-full-height-sidebar'),
 );

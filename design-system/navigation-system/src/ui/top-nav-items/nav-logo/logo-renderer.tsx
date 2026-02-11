@@ -18,7 +18,7 @@ export function LogoRenderer({
 }: {
 	logoOrIcon: (props: LogoProps) => JSX.Element;
 	shouldUseNewLogoDesign?: boolean;
-}) {
+}): JSX.Element {
 	const hasCustomTheme = useHasCustomTheme();
 
 	if (hasCustomTheme) {

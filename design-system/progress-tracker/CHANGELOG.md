@@ -1,5 +1,12 @@
 # @atlaskit/progress-tracker
 
+## 10.5.0
+
+### Minor Changes
+
+- [`3c54fe08d7bd3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c54fe08d7bd3) -
+  Removes react-transition-group to unblock React 19 upgrade. Uses css-animations directly.
+
 ## 10.4.3
 
 ### Patch Changes

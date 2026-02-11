@@ -7,7 +7,7 @@ import { CompiledStyled, EmotionCSS } from './transformers';
 
 const boxDocsUrl = 'https://atlassian.design/components/primitives/box';
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'use-primitives',
 		type: 'suggestion',

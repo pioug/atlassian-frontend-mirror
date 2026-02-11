@@ -142,6 +142,9 @@
 			"path": "../../react-ufo/atlaskit/tsconfig.app.json"
 		},
 		{
+			"path": "../../ai-mate/rovo-triggers/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/section-message/tsconfig.app.json"
 		},
 		{

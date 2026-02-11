@@ -27,7 +27,7 @@ const SelectionProvider: FC<{ children: ReactNode }> = ({ children }) => {
 	return <SelectionContext.Provider value={reducer}>{children}</SelectionContext.Provider>;
 };
 
-export const useSelection = () => {
+export const useSelection: () => SelectionContext = () => {
 	return useContext(SelectionContext);
 };
 

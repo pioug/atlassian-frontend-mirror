@@ -93,10 +93,10 @@ const dropdownStyles = cssMap({
 	},
 });
 
-export const dropdownIndicatorCSS = () => ({});
+export const dropdownIndicatorCSS: () => {} = () => ({});
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const DropdownIndicator = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+export const DropdownIndicator: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(props: DropdownIndicatorProps<Option, IsMulti, Group>) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: DropdownIndicatorProps<Option, IsMulti, Group>,
 ) => {
 	const { innerProps, children, isDisabled, isCompact, xcss } = props;
@@ -155,7 +155,7 @@ export interface ClearIndicatorProps<
 	isCompact?: boolean;
 }
 
-export const clearIndicatorCSS = () => ({});
+export const clearIndicatorCSS: () => {} = () => ({});
 
 const clearIndicatorStyles = cssMap({
 	default: {
@@ -177,7 +177,7 @@ const clearIndicatorStyles = cssMap({
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const ClearIndicator = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+export const ClearIndicator: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(props: ClearIndicatorProps<Option, IsMulti, Group>) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: ClearIndicatorProps<Option, IsMulti, Group>,
 ) => {
 	const { innerProps, clearControlLabel = 'clear', isCompact, xcss } = props;
@@ -206,7 +206,7 @@ export const ClearIndicator = <Option, IsMulti extends boolean, Group extends Gr
 // Loading
 // ==============================
 
-export const loadingIndicatorCSS = () => ({});
+export const loadingIndicatorCSS: () => {} = () => ({});
 
 const loadingIndicatorStyles = cssMap({
 	default: {
@@ -246,7 +246,7 @@ export interface LoadingIndicatorProps<
 }
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const LoadingIndicator = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
+export const LoadingIndicator: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({ innerProps, isRtl, size, isCompact, xcss, ...restProps }: LoadingIndicatorProps<Option, IsMulti, Group>) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
 	innerProps,
 	isRtl,
 	size = 4,

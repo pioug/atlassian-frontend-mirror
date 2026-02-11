@@ -8,7 +8,7 @@ import { NativeElements } from './transformers';
 
 const docsUrl = 'https://atlassian.design/components/heading';
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'use-heading',
 		type: 'suggestion',

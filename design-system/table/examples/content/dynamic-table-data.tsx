@@ -13,7 +13,21 @@ function createKey(input: string) {
 
 export const caption = 'List of US Presidents';
 
-export const createHead = (withWidth: boolean) => {
+export const createHead: (withWidth: boolean) => {
+    cells: ({
+        key: string;
+        content: string;
+        isSortable: boolean;
+        width: number | undefined;
+        shouldTruncate?: undefined;
+    } | {
+        key: string;
+        content: string;
+        shouldTruncate: boolean;
+        isSortable: boolean;
+        width: number | undefined;
+    })[];
+} = (withWidth: boolean) => {
 	return {
 		cells: [
 			{
@@ -40,9 +54,33 @@ export const createHead = (withWidth: boolean) => {
 	};
 };
 
-export const head = createHead(true);
+export const head: {
+    cells: ({
+        key: string;
+        content: string;
+        isSortable: boolean;
+        width: number | undefined;
+        shouldTruncate?: undefined;
+    } | {
+        key: string;
+        content: string;
+        shouldTruncate: boolean;
+        isSortable: boolean;
+        width: number | undefined;
+    })[];
+} = createHead(true);
 
-export const rows = presidents.map((president: President, index: number) => ({
+export const rows: {
+    key: string;
+    isHighlighted: boolean;
+    cells: ({
+        key: string;
+        content: string;
+    } | {
+        key: number;
+        content: string;
+    })[];
+}[] = presidents.map((president: President, index: number) => ({
 	key: `row-${index}-${president.name}`,
 	isHighlighted: false,
 	cells: [

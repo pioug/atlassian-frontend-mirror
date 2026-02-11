@@ -54,7 +54,7 @@ const formatOptionLabel = (opt: Country, { context }: FormatOptionLabelMeta<Coun
 	context === 'value' ? controlLabel(opt) : optionLabel(opt);
 
 // put it all together
-const CountrySelect = (props: SelectProps<Country>) => {
+const CountrySelect: (props: SelectProps<Country>) => JSX.Element = (props: SelectProps<Country>) => {
 	const { options } = props;
 	const countryOptions = options || groupedCountries;
 

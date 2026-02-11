@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 4.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.7
+
+### Patch Changes
+
+- [`6911179854bdb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6911179854bdb) -
+  Remove diff highlighting if there are overlapping mark steps (ie. add and then remove)
+- Updated dependencies
+
 ## 4.0.6
 
 ### Patch Changes

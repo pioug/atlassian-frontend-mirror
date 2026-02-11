@@ -1496,11 +1496,7 @@ export const DragHandle = ({
 			disabled={dragHandleDisabled}
 			data-editor-block-ctrl-drag-handle
 			data-testid="block-ctrl-drag-handle"
-			aria-label={
-				expValEquals('platform_editor_drag_handle_aria_label', 'isEnabled', true)
-					? dragHandleAriaLabel
-					: ''
-			}
+			aria-label={dragHandleAriaLabel}
 			onBlur={
 				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)
 					? () => setIsFocused(false)

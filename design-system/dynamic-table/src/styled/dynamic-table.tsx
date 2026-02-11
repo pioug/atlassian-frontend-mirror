@@ -31,7 +31,7 @@ const bodyBorder = css({
 	borderBlockEnd: `${token('border.width.selected')} solid ${token('color.border')}`,
 });
 
-export const Table = forwardRef<HTMLTableElement, TableProps>(
+export const Table: import("react").ForwardRefExoticComponent<Omit<TableProps, "ref"> & import("react").RefAttributes<HTMLTableElement>> = forwardRef<HTMLTableElement, TableProps>(
 	({ isFixedSize, hasDataRow, children, testId, isLoading, ...rest }, ref) => {
 		return (
 			<table

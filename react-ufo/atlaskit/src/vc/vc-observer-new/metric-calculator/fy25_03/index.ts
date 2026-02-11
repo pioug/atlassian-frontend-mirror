@@ -71,7 +71,7 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 			return false;
 		}
 
-		if (entry.data.type === 'mutation:attribute:framework-routing' && fg('platform_ufo_vc_ignore_display_none_mutations')) {
+		if (entry.data.type === 'mutation:attribute:framework-routing') {
 			return false;
 		}
 

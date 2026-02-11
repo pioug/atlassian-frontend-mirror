@@ -1,5 +1,12 @@
 # @atlaskit/mention
 
+## 24.4.10
+
+### Patch Changes
+
+- [`24eaee764c0df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24eaee764c0df) -
+  [ux] Inline invites for mentions in editor.
+
 ## 24.4.9
 
 ### Patch Changes

@@ -7,33 +7,33 @@ import { type FC } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
+
+import type { Status } from '../types';
 
 const progressMarkerStyles = css({
 	width: token('space.100', '8px'),
 	height: token('space.100', '8px'),
 	position: 'absolute',
-	backgroundColor: `var(--ds--pt--bg)`,
 	borderRadius: token('space.100', '8px'),
 	insetInlineStart: '50%',
 	transform: `translate(-50%, calc(-1 * ${token('space.250')}))`,
-	transition: `opacity var(--ds--pt--ts) var(--ds--pt--te), background-color var(--ds--pt--ts) var(--ds--pt--te)`,
-	transitionDelay: `var(--ds--pt--td)`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'&.fade-appear': {
-		opacity: 0.01,
+	transition: `background-color var(--ds--pt--ts) var(--ds--pt--te)`,
+});
+
+const markerColor = cssMap({
+	unvisited: {
+		backgroundColor: token('color.background.neutral.bold'),
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'&.fade-appear.fade-appear-active': {
-		opacity: 1,
+	current: {
+		backgroundColor: token('color.background.brand.bold'),
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'&.fade-enter': {
-		backgroundColor: `var(--ds--pt--mc)`,
+	visited: {
+		backgroundColor: token('color.background.brand.bold'),
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'&.fade-enter.fade-enter-active': {
-		backgroundColor: `var(--ds--pt--bg)`,
+	disabled: {
+		backgroundColor: token('color.background.disabled'),
 	},
 });
 
@@ -42,10 +42,8 @@ const progressMarkerStyles = css({
  *
  * Similar to `@atlaskit/progress-indicator`, a small visual circle marker
  */
-const ProgressMarker: FC<{ testId?: string }> = ({ testId }) => (
-	// too many props that would go in UNSAFE_style + css transition prop having issues
-
-	<div data-testid={testId} css={progressMarkerStyles} />
+const ProgressMarker: FC<{ testId?: string, status: Status }> = ({ testId, status = 'unvisited' }) => (
+	<div data-testid={testId} css={[progressMarkerStyles, markerColor[status]]} />
 );
 
 export default ProgressMarker;

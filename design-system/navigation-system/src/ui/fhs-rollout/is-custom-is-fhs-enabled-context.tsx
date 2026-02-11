@@ -6,4 +6,4 @@ import { createContext } from 'react';
  * Tracks if a custom value has been provided for `IsFhsEnabledContext`.
  * Used to prevent nesting of the `IsFhsEnabledProvider`.
  */
-export const IsCustomIsFhsEnabledContext = createContext<boolean>(false);
+export const IsCustomIsFhsEnabledContext: import("react").Context<boolean> = createContext<boolean>(false);

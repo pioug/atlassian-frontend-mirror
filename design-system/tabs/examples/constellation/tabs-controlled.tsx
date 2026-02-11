@@ -31,13 +31,16 @@ const panelStyles = css({
 	paddingInlineStart: token('space.400'),
 });
 
-export const Panel = ({ children, testId }: { children: ReactNode; testId?: string }) => (
+export const Panel: ({ children, testId }: {
+    children: ReactNode;
+    testId?: string;
+}) => JSX.Element = ({ children, testId }: { children: ReactNode; testId?: string }) => (
 	<div css={panelStyles} data-testid={testId}>
 		{children}
 	</div>
 );
 
-export default function TabsControlledExample() {
+export default function TabsControlledExample(): JSX.Element {
 	const [selected, setSelected] = useState(0);
 
 	const handleUpdate = useCallback((index: SelectedType) => setSelected(index), [setSelected]);

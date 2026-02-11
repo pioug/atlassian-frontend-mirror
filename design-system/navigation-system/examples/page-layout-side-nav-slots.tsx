@@ -63,7 +63,7 @@ const headingStyles = cssMap({
 	},
 });
 
-export function SideNavSlotsExample() {
+export function SideNavSlotsExample(): JSX.Element {
 	return (
 		<WithResponsiveViewport>
 			<Root>

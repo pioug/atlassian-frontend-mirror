@@ -36,7 +36,11 @@ const draggableStyles = css({
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const RankableTableBodyRow = forwardRef<HTMLTableRowElement, RankableTableBodyRowProps>(
+export const RankableTableBodyRow: import("react").ForwardRefExoticComponent<HTMLAttributes<HTMLTableRowElement> & ITableRowProps & {
+    isRanking?: boolean;
+    isRankingItem?: boolean;
+    testId?: string;
+} & import("react").RefAttributes<HTMLTableRowElement>> = forwardRef<HTMLTableRowElement, RankableTableBodyRowProps>(
 	({ isRanking, isRankingItem, testId, ...props }, ref) => {
 		return (
 			<TableBodyRow

@@ -34,7 +34,7 @@ const styles = cssMap({
 	},
 });
 
-export const PanelSplitterWithPixelBounds = () => {
+export const PanelSplitterWithPixelBounds: () => JSX.Element = () => {
 	const panelSplitterParentRef = useRef<HTMLDivElement | null>(null);
 	const [width, setWidth] = useState(300);
 
@@ -70,7 +70,7 @@ export const PanelSplitterWithPixelBounds = () => {
 	);
 };
 
-export const PanelSplitterWithRelativeBounds = () => {
+export const PanelSplitterWithRelativeBounds: () => JSX.Element = () => {
 	const panelSplitterParentRef = useRef<HTMLDivElement | null>(null);
 	const [width, setWidth] = useState(300);
 
@@ -106,7 +106,7 @@ export const PanelSplitterWithRelativeBounds = () => {
 	);
 };
 
-export const PanelSplitterPositionStart = () => {
+export const PanelSplitterPositionStart: () => JSX.Element = () => {
 	const panelSplitterParentRef = useRef<HTMLDivElement | null>(null);
 	const [width, setWidth] = useState(300);
 
@@ -145,7 +145,7 @@ export const PanelSplitterPositionStart = () => {
 	);
 };
 
-export const PanelSplitterPositionEnd = () => {
+export const PanelSplitterPositionEnd: () => JSX.Element = () => {
 	const panelSplitterParentRef = useRef<HTMLDivElement | null>(null);
 	const [width, setWidth] = useState(300);
 
@@ -184,7 +184,7 @@ export const PanelSplitterPositionEnd = () => {
 	);
 };
 
-export const PanelSplitterWithTooltip = () => {
+export const PanelSplitterWithTooltip: () => JSX.Element = () => {
 	const panelSplitterParentRef = useRef<HTMLDivElement | null>(null);
 	const [width, setWidth] = useState(300);
 
@@ -225,7 +225,7 @@ export const PanelSplitterWithTooltip = () => {
 	);
 };
 
-export const PanelSplitterWithTooltipAndShortcut = () => {
+export const PanelSplitterWithTooltipAndShortcut: () => JSX.Element = () => {
 	const panelSplitterParentRef = useRef<HTMLDivElement | null>(null);
 	const [width, setWidth] = useState(300);
 
@@ -267,7 +267,7 @@ export const PanelSplitterWithTooltipAndShortcut = () => {
 	);
 };
 
-const Example = () => (
+const Example: () => JSX.Element = () => (
 	<div>
 		<PanelSplitterWithPixelBounds />
 		<br />

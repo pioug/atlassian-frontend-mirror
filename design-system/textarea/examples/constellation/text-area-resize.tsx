@@ -14,7 +14,7 @@ const wrapperStyles = cssMap({
 	},
 });
 
-export default () => (
+const _default: () => JSX.Element = () => (
 	<Box id="resize" xcss={cx(wrapperStyles.root)}>
 		<Label htmlFor="resize-auto">Resize: auto</Label>
 		<TextArea resize="auto" name="resize-auto" id="resize-auto" testId="autoResizeTextArea" />
@@ -38,3 +38,4 @@ export default () => (
 		<TextArea resize="none" name="resize-none" id="resize-none" testId="noneResizeTextArea" />
 	</Box>
 );
+export default _default;

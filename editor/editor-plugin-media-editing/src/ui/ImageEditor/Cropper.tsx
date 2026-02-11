@@ -21,6 +21,7 @@ import {
 	type CropperSelectionElement,
 	type CropperEventHandler,
 	type CropperImageElement,
+	type CropperBounds,
 } from './types';
 
 const isSSRRender = (): boolean =>
@@ -230,6 +231,7 @@ export const Cropper = forwardRef<CropperRef, CropperProps>(
 		const canvasRef = useRef<CropperCanvasElement>(null);
 		const selectionRef = useRef<CropperSelectionElement>(null);
 		const imageRef = useRef<CropperImageElement>(null);
+		const previousSelectionRef = useRef<{ height: number; width: number } | null>(null);
 		const [isImageReady, setIsImageReady] = useState(false);
 		const [isCropperLoaded, setIsCropperLoaded] = useState(false);
 		const getCanvas = useCallback(() => canvasRef.current, []);
@@ -249,14 +251,26 @@ export const Cropper = forwardRef<CropperRef, CropperProps>(
 
 				// If circular crop, we need to apply a circular mask
 				if (isCircle) {
-					return selection.$toCanvas({
-						beforeDraw: (context: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => {
-							// Apply circular clipping to the canvas
-							const radius = Math.min(canvas.width, canvas.height) / 2;
-							const centerX = canvas.width / 2;
-							const centerY = canvas.height / 2;
+					// For circular crops, force square dimensions to maintain perfect circle
+					const squareOptions = {
+						...options,
+						height: options?.width, // Make height equal to width for a perfect circle
+					};
 
-							// Create a circular clipping path
+					return selection.$toCanvas({
+						...squareOptions,
+						beforeDraw: (context: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => {
+							// For circles, ensure we have a square canvas
+							const size = Math.min(canvas.width, canvas.height);
+							const radius = size / 2;
+							const centerX = size / 2;
+							const centerY = size / 2;
+
+							// Enable high-quality image rendering
+							context.imageSmoothingEnabled = true;
+							context.imageSmoothingQuality = 'high';
+
+							// Create a circular clipping path with anti-aliasing
 							context.beginPath();
 							context.arc(centerX, centerY, radius, 0, Math.PI * 2);
 							context.clip();
@@ -290,46 +304,246 @@ export const Cropper = forwardRef<CropperRef, CropperProps>(
 					if (typeof selection.$change === 'function') {
 						selection.$change(Math.floor(x), Math.floor(y), Math.floor(width), Math.floor(height));
 					}
-				})
+				});
 			}
 		}, []);
 
-		const handleSelectionChange = useCallback((event: Event) => {
-			const canvas = canvasRef.current;
-			const image = imageRef.current;
-			// Cast to CustomEvent to access detail
-			const customEvent = event as CustomEvent;
-			const selection = customEvent.detail;
+		// Clamp position to keep crop area within image boundaries
+		const clampPosition = useCallback(
+			(current: { height: number; width: number; x: number; y: number }) => {
+				const canvas = canvasRef.current;
+				const image = imageRef.current;
+				if (!canvas || !image) {
+					return null;
+				}
 
-			if (!canvas || !image || !selection) {
-				return;
+				const canvasRect = canvas.getBoundingClientRect();
+				const imageRect = image.getBoundingClientRect();
+
+				const imageX = imageRect.left - canvasRect.left;
+				const imageY = imageRect.top - canvasRect.top;
+				const imageWidth = imageRect.width;
+				const imageHeight = imageRect.height;
+
+				let clampedX = current.x;
+				let clampedY = current.y;
+
+				// Clamp left/right
+				if (clampedX < imageX) {
+					clampedX = imageX;
+				} else if (clampedX + current.width > imageX + imageWidth) {
+					clampedX = imageX + imageWidth - current.width;
+				}
+
+				// Clamp top/bottom
+				if (clampedY < imageY) {
+					clampedY = imageY;
+				} else if (clampedY + current.height > imageY + imageHeight) {
+					clampedY = imageY + imageHeight - current.height;
+				}
+
+				return { x: clampedX, y: clampedY };
+			},
+			[],
+		);
+
+		// Correct dimensions when resizing with aspect ratio constraints
+		const correctResizeDimensions = useCallback(
+			(
+				current: { height: number; width: number; x: number; y: number },
+				selection: CropperSelectionElement,
+			) => {
+				const canvas = canvasRef.current;
+				const image = imageRef.current;
+				if (!canvas || !image) {
+					return null;
+				}
+
+				const canvasRect = canvas.getBoundingClientRect();
+				const imageRect = image.getBoundingClientRect();
+
+				const imageX = imageRect.left - canvasRect.left;
+				const imageY = imageRect.top - canvasRect.top;
+				const imageWidth = imageRect.width;
+				const imageHeight = imageRect.height;
+
+				const maxWidthAvailable = imageX + imageWidth - current.x;
+				const maxHeightAvailable = imageY + imageHeight - current.y;
+
+				let correctedWidth = current.width;
+				let correctedHeight = current.height;
+
+				const hasAspectRatio = selection.aspectRatio && selection.aspectRatio > 0;
+
+				if (hasAspectRatio) {
+					const aspectRatio = selection.aspectRatio;
+					const heightIfMaxWidth = maxWidthAvailable / aspectRatio;
+					const widthIfMaxHeight = maxHeightAvailable * aspectRatio;
+
+					// Determine which axis is the limiting factor
+					if (heightIfMaxWidth <= maxHeightAvailable) {
+						correctedWidth = maxWidthAvailable;
+						correctedHeight = heightIfMaxWidth;
+					} else {
+						correctedHeight = maxHeightAvailable;
+						correctedWidth = widthIfMaxHeight;
+					}
+				} else {
+					correctedWidth = Math.min(correctedWidth, maxWidthAvailable);
+					correctedHeight = Math.min(correctedHeight, maxHeightAvailable);
+				}
+
+				// Ensure positive dimensions
+				correctedWidth = Math.max(1, correctedWidth);
+				correctedHeight = Math.max(1, correctedHeight);
+
+				return { width: correctedWidth, height: correctedHeight };
+			},
+			[],
+		);
+
+		// Handle move operation (position changed but size stayed same)
+		const handleMove = useCallback(() => {
+			requestAnimationFrame(() => {
+				const selection = selectionRef.current;
+				if (!selection) {
+					return;
+				}
+
+				const current = {
+					x: selection.x || 0,
+					y: selection.y || 0,
+					width: selection.width || 0,
+					height: selection.height || 0,
+				};
+
+				const clamped = clampPosition(current);
+				if (!clamped) {
+					return;
+				}
+
+				if (typeof selection.$change === 'function') {
+					selection.$change(
+						Math.floor(clamped.x),
+						Math.floor(clamped.y),
+						Math.floor(current.width),
+						Math.floor(current.height),
+					);
+				}
+
+				previousSelectionRef.current = { width: current.width, height: current.height };
+			});
+		}, [clampPosition]);
+
+		// Handle resize operation (size changed, may need aspect ratio correction)
+		const handleResize = useCallback(() => {
+			requestAnimationFrame(() => {
+				const selection = selectionRef.current;
+				if (!selection) {
+					return;
+				}
+
+				const current = {
+					x: selection.x || 0,
+					y: selection.y || 0,
+					width: selection.width || 0,
+					height: selection.height || 0,
+				};
+
+				const corrected = correctResizeDimensions(current, selection);
+				if (!corrected) {
+					return;
+				}
+
+				const canvas = canvasRef.current;
+				const image = imageRef.current;
+				if (!canvas || !image) {
+					return;
+				}
+
+				const canvasRect = canvas.getBoundingClientRect();
+				const imageRect = image.getBoundingClientRect();
+				const imageX = imageRect.left - canvasRect.left;
+				const imageY = imageRect.top - canvasRect.top;
+
+				const correctedX = Math.max(imageX, current.x);
+				const correctedY = Math.max(imageY, current.y);
+
+				if (typeof selection.$change === 'function') {
+					selection.$change(
+						Math.floor(correctedX),
+						Math.floor(correctedY),
+						Math.floor(corrected.width),
+						Math.floor(corrected.height),
+					);
+				}
+
+				previousSelectionRef.current = { width: corrected.width, height: corrected.height };
+			});
+		}, [correctResizeDimensions]);
+
+		// Check if selection is within image boundaries
+		const isSelectionOutOfBounds = useCallback(
+			(
+				imageX: number,
+				imageY: number,
+				imageWidth: number,
+				imageHeight: number,
+				selection: CropperBounds,
+			) => {
+				const tolerance = 1;
+				return (
+					selection.x < imageX - tolerance ||
+					selection.y < imageY - tolerance ||
+					selection.x + selection.width > imageX + imageWidth + tolerance ||
+					selection.y + selection.height > imageY + imageHeight + tolerance
+				);
+			},
+			[],
+		);
+
+		// Detect if operation is a move or resize based on dimension change
+		const isMovingSelection = useCallback(() => {
+			const prev = previousSelectionRef.current;
+			const curr = selectionRef.current;
+			if (!prev || !curr) {
+				return false;
 			}
-
-			// Get bounding rectangles
-			const canvasRect = canvas.getBoundingClientRect();
-			const imageRect = image.getBoundingClientRect();
-
-			// Calculate image boundaries relative to canvas
-			const maxSelection = {
-				x: imageRect.left - canvasRect.left,
-				y: imageRect.top - canvasRect.top,
-				width: imageRect.width,
-				height: imageRect.height,
-			};
-
-			// Check if selection is within image boundaries
-			// Use a tolerance of 1px to avoid floating point precision issues which could cause the cropper to freeze
-			const tolerance = 1;
-			const inSelection =
-				selection.x >= maxSelection.x - tolerance &&
-				selection.y >= maxSelection.y - tolerance &&
-				selection.x + selection.width <= maxSelection.x + maxSelection.width + tolerance &&
-				selection.y + selection.height <= maxSelection.y + maxSelection.height + tolerance;
-
-			if (!inSelection) {
-				event.preventDefault();
-			}
+			return prev.width === curr.width && prev.height === curr.height;
 		}, []);
+
+		const handleSelectionChange = useCallback(
+			(event: Event) => {
+				const canvas = canvasRef.current;
+				const image = imageRef.current;
+				const customEvent = event as CustomEvent<CropperBounds>;
+				const selection = customEvent.detail;
+
+				if (!canvas || !image || !selection) {
+					return;
+				}
+
+				const canvasRect = canvas.getBoundingClientRect();
+				const imageRect = image.getBoundingClientRect();
+
+				const imageX = imageRect.left - canvasRect.left;
+				const imageY = imageRect.top - canvasRect.top;
+				const imageWidth = imageRect.width;
+				const imageHeight = imageRect.height;
+
+				if (!isSelectionOutOfBounds(imageX, imageY, imageWidth, imageHeight, selection)) {
+					previousSelectionRef.current = { width: selection.width, height: selection.height };
+					return;
+				}
+
+				if (isMovingSelection()) {
+					handleMove();
+				} else {
+					handleResize();
+				}
+			},
+			[isSelectionOutOfBounds, isMovingSelection, handleMove, handleResize],
+		);
 
 		// Lazy load cropperjs only on the client to avoid SSR side effects
 		useEffect(() => {
@@ -393,7 +607,9 @@ export const Cropper = forwardRef<CropperRef, CropperProps>(
 		}, [isImageReady, handleSelectionChange]);
 
 		useEffect(() => {
-			if (!canvasRef.current || !imageRef.current) {return;}
+			if (!canvasRef.current || !imageRef.current) {
+				return;
+			}
 
 			const observer = new ResizeObserver(() => {
 				// This forces the image to recalculate its "contain" logic
@@ -409,7 +625,9 @@ export const Cropper = forwardRef<CropperRef, CropperProps>(
 		}, [canvasRef, imageRef]);
 
 		useEffect(() => {
-			if (!canvasRef.current) {return;}
+			if (!canvasRef.current) {
+				return;
+			}
 
 			const observer = new ResizeObserver(() => {
 				selectionRef.current?.removeAttribute('aspect-ratio');

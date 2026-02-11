@@ -36,8 +36,7 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__collab-provider/dev",
-		"moduleResolution": "node"
+		"outDir": "../../../tsDist/@atlaskit__collab-provider/dev"
 	},
 	"references": [
 		{

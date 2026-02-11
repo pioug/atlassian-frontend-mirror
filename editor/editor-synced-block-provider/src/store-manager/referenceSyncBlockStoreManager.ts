@@ -14,6 +14,7 @@ import {
 	type ResourceId,
 	type SyncBlockAttrs,
 	type SyncBlockNode,
+	type SyncBlockPrefetchData,
 } from '../common/types';
 import type {
 	SyncBlockInstance,
@@ -489,8 +490,7 @@ export class ReferenceSyncBlockStoreManager {
 
 			// Only use unpublished endpoint if feature flag is enabled
 			const isUnpublished =
-				fg('platform_synced_block_patch_1') &&
-				existingSyncBlock.data?.status === 'unpublished';
+				fg('platform_synced_block_patch_1') && existingSyncBlock.data?.status === 'unpublished';
 
 			const sourceInfoPromise = this.dataProvider
 				.fetchSyncBlockSourceInfo(
@@ -549,6 +549,53 @@ export class ReferenceSyncBlockStoreManager {
 	}
 
 	/**
+	 * Processes prefetched data and updates the cache.
+	 * @param prefetchedData - The prefetched data to process
+	 * @returns {Promise<void>}
+	 */
+	public async processPrefetchedData(
+		prefetchedData: SyncBlockPrefetchData | undefined,
+	): Promise<void> {
+		if (!prefetchedData) {
+			return;
+		}
+
+		// start the fetch experience (this should be started much earlier to properly track performance, but better late than never)
+		this.fetchExperience?.start({});
+
+		// mark the sync block requests as in fly
+		prefetchedData.resourceIds.forEach((resourceId) => {
+			this.syncBlockFetchDataRequests.set(resourceId, true);
+		});
+
+		try {
+			const prefetchedResolvedData = await prefetchedData.prefetchPromise;
+
+			const { hasUnexpectedError, hasExpectedError } =
+				this.processFetchedData(prefetchedResolvedData);
+
+			if (hasUnexpectedError) {
+				this.fetchExperience?.failure({ reason: 'Unexpected error during prefetch' });
+			} else if (hasExpectedError) {
+				this.fetchExperience?.abort({
+					reason: 'Expected error: NotFound or PermissionDenied during prefetch',
+				});
+			} else {
+				this.fetchExperience?.success();
+			}
+		} catch (error) {
+			this.fetchExperience?.failure({
+				reason: `Prefetch promise rejected: ${(error as Error).message}`,
+			});
+		} finally {
+			// Clean up in-flight markers so subsequent fetches (e.g. refreshSubscriptions) are not blocked
+			prefetchedData.resourceIds.forEach((resourceId) => {
+				this.syncBlockFetchDataRequests.delete(resourceId);
+			});
+		}
+	}
+
+	/**
 	 * Fetch sync block data for a given array of sync block nodes.
 	 * @param syncBlockNodes - The array of sync block nodes to fetch data for
 	 * @returns The fetched sync block data results
@@ -592,6 +639,22 @@ export class ReferenceSyncBlockStoreManager {
 				this.syncBlockFetchDataRequests.delete(node.attrs.resourceId);
 			});
 		});
+
+		const { hasUnexpectedError, hasExpectedError } = this.processFetchedData(data);
+
+		if (hasUnexpectedError) {
+			this.fetchExperience?.failure({ reason: 'Unexpected error during fetch' });
+		} else if (hasExpectedError) {
+			this.fetchExperience?.abort({ reason: 'Expected error: NotFound or PermissionDenied' });
+		} else {
+			this.fetchExperience?.success();
+		}
+	}
+
+	private processFetchedData(data: SyncBlockInstance[] | undefined) {
+		if (!data) {
+			return { hasUnexpectedError: false, hasExpectedError: false };
+		}
 
 		let hasUnexpectedError = false;
 		let hasExpectedError = false;
@@ -662,13 +725,7 @@ export class ReferenceSyncBlockStoreManager {
 			this.fetchSyncBlockSourceInfo(resolvedSyncBlockInstance.resourceId);
 		});
 
-		if (hasUnexpectedError) {
-			this.fetchExperience?.failure({ reason: 'Unexpected error during fetch' });
-		} else if (hasExpectedError) {
-			this.fetchExperience?.abort({ reason: 'Expected error: NotFound or PermissionDenied' });
-		} else {
-			this.fetchExperience?.success();
-		}
+		return { hasUnexpectedError, hasExpectedError };
 	}
 
 	private updateCacheWithSourceInfo(resourceId: ResourceId, sourceInfo: SyncBlockSourceInfo) {
@@ -775,12 +832,12 @@ export class ReferenceSyncBlockStoreManager {
 		// call the callback immediately if we have cached data
 		const cachedData = fg('platform_synced_block_patch_1')
 			? // When feature flag is enabled, use dataProvider cache only
-				this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data
+			  this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data
 			: isSSR() // in SSR, prefer data provider cache
-				? this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data ||
-					this.getFromCache(resourceId)
-				: this.getFromCache(resourceId) ||
-					this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data;
+			? this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data ||
+			  this.getFromCache(resourceId)
+			: this.getFromCache(resourceId) ||
+			  this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data;
 
 		if (cachedData) {
 			callback(cachedData);

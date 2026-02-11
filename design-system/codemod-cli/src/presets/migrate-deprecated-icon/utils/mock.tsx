@@ -1,4 +1,62 @@
-export const mockMetadata = {
+export const mockMetadata: {
+    coreIconMetadata: {
+        capture: {
+            keywords: string[];
+            componentName: string;
+            package: string;
+            oldName: string[];
+            replacement: {
+                name: string;
+                location: string;
+            };
+            categorization: string;
+            usage: string;
+            team: string;
+            status: string;
+        };
+        'chart-matrix': {
+            keywords: string[];
+            componentName: string;
+            package: string;
+            replacement: {
+                name: string;
+                location: string;
+            };
+            categorization: string;
+            usage: string;
+            team: string;
+            status: string;
+        };
+        close: {
+            keywords: string[];
+            componentName: string;
+            package: string;
+            oldName: string[];
+            replacement: {
+                name: string;
+                location: string;
+            };
+            categorization: string;
+            usage: string;
+            team: string;
+            status: string;
+        };
+        error: {
+            keywords: string[];
+            componentName: string;
+            package: string;
+            oldName: string[];
+            replacement: {
+                name: string;
+                location: string;
+            };
+            categorization: string;
+            usage: string;
+            team: string;
+            status: string;
+        };
+    };
+} = {
 	coreIconMetadata: {
 		capture: {
 			keywords: ['capture', 'icon', 'focus', 'focus area', 'capture'],
@@ -58,7 +116,22 @@ export const mockMetadata = {
 	},
 };
 
-export const mockDeprecatedIcons = {
+export const mockDeprecatedIcons: {
+    deprecatedCore: {
+        '@atlaskit/icon/core/capture': {
+            message: string;
+        };
+        '@atlaskit/icon/core/chart-matrix': {
+            message: string;
+        };
+        '@atlaskit/icon/core/close': {
+            message: string;
+        };
+        '@atlaskit/icon/core/error': {
+            message: string;
+        };
+    };
+} = {
 	deprecatedCore: {
 		'@atlaskit/icon/core/capture': {
 			message:

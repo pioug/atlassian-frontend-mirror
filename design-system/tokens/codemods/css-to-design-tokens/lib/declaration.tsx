@@ -21,23 +21,23 @@ const COLOR_PROPERTIES = [
 	'text-stroke',
 ] as const;
 
-export function isColorRelatedProperty(prop: string) {
+export function isColorRelatedProperty(prop: string): boolean {
 	return COLOR_PROPERTIES.some((property) => property === prop);
 }
 
-export function isCssDeclaration(prop: string) {
+export function isCssDeclaration(prop: string): boolean {
 	return prop.startsWith('--');
 }
 
-export function extractCssVarName(prop: string) {
+export function extractCssVarName(prop: string): string {
 	return prop.substring(prop.indexOf('(') + 1).split(/\,|\)/)[0];
 }
 
-export function extractLessVarName(prop: string) {
+export function extractLessVarName(prop: string): string {
 	return prop.substring(1);
 }
 
-export function splitCssValue(value: string) {
+export function splitCssValue(value: string): RegExpMatchArray | null {
 	const regex = /(?:[^\s()]+|\((?:[^()]+|\([^()]*\))*\))+/g;
 	return value.match(regex);
 }

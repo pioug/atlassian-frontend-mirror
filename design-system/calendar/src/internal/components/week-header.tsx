@@ -23,7 +23,7 @@ interface WeekHeaderProps {
 	testId?: string;
 }
 
-const WeekHeader = memo<WeekHeaderProps>(function WeekHeader({ daysShort, testId }) {
+const WeekHeader: import("react").NamedExoticComponent<WeekHeaderProps> = memo<WeekHeaderProps>(function WeekHeader({ daysShort, testId }) {
 	return (
 		<WeekDayGrid isHidden testId={testId && `${testId}--column-headers`}>
 			{daysShort.map((shortDay) => (

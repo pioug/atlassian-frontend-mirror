@@ -17,7 +17,7 @@ import { countMatchingKeyValues, getObjectLikeness, makeTemplateLiteralIntoEntri
 
 const THEME_IMPORT_NAMES = ['visuallyHidden', 'assistive'];
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'use-visually-hidden',
 		type: 'suggestion',

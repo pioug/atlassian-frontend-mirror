@@ -25,7 +25,7 @@ const baseStyles = css({
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/menu/docs/menu-group)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/menu)
  */
-const MenuGroup = ({
+const MenuGroup: (props: MenuGroupProps) => JSX.Element = ({
 	isLoading,
 	maxWidth,
 	minWidth,

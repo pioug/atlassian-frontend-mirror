@@ -4,7 +4,7 @@ import { createLintRule } from '../utils/create-rule';
 
 import { JSXElement, StyledComponent } from './node-types';
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'no-html-heading',
 		type: 'suggestion',

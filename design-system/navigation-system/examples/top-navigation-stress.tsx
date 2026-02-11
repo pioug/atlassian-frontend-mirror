@@ -182,7 +182,7 @@ function TopNavigationInstance({
 	);
 }
 
-export default function TopNavigationStressExample() {
+export default function TopNavigationStressExample(): JSX.Element {
 	return (
 		<WithResponsiveViewport>
 			<Stack space="space.400">

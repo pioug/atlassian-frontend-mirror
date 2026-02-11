@@ -11,7 +11,7 @@ import {
 	type LozengeProps,
 	type RangeProps,
 	type IconProps,
-} from '@atlassian/forge-ui/src/components/UIKit';
+} from '@atlassian/forge-ui/UIKit';
 import { type BadgeProps as GeneratedBadgeProps } from '../src/components/__generated__/BadgeProps.codegen';
 import { type CalendarProps as GeneratedCalendarProps } from '../src/components/__generated__/CalendarProps.codegen';
 import { type CheckboxProps as GeneratedCheckboxProps } from '../src/components/__generated__/CheckboxProps.codegen';

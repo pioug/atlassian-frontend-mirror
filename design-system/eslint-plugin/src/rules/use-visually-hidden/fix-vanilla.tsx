@@ -5,7 +5,7 @@ import { getImportedNodeBySource } from '../utils/get-import-node-by-source';
 import { IMPORT_NAME, VISUALLY_HIDDEN_IMPORT, VISUALLY_HIDDEN_SOURCE } from './constants';
 import { getFirstImport } from './utils';
 
-const fixVanilla = (source: SourceCode, node: Rule.Node) => (fixer: Rule.RuleFixer) => {
+const fixVanilla: (source: SourceCode, node: Rule.Node) => (fixer: Rule.RuleFixer) => Rule.Fix[] = (source: SourceCode, node: Rule.Node) => (fixer: Rule.RuleFixer) => {
 	const fixes = [];
 	const importedNode = getFirstImport(source);
 	const visuallyHiddenNode = getImportedNodeBySource(source, VISUALLY_HIDDEN_SOURCE);

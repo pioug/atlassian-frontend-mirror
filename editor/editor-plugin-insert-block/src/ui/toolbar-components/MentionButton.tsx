@@ -6,6 +6,7 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { ToolTipContent, insertMention } from '@atlaskit/editor-common/keymaps';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import { TOOLBAR_BUTTON_TEST_ID } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarButton, ToolbarTooltip, MentionIcon } from '@atlaskit/editor-toolbar';
 
@@ -43,6 +44,7 @@ export const MentionButton = ({ api }: MentionButtonProps): React.JSX.Element | 
 				onClick={onClick}
 				ariaKeyshortcuts="Shift+2 Space"
 				isDisabled={!canInsertMention || !mentionProvider || !isTypeAheadAllowed}
+				testId={TOOLBAR_BUTTON_TEST_ID.MENTION}
 			/>
 		</ToolbarTooltip>
 	);

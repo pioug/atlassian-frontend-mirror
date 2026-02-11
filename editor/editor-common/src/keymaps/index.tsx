@@ -86,13 +86,22 @@ export const addRowAfterVO = makeKeyMapWithCommon('Add Row Below', 'Mod-Alt-]');
 export const addColumnAfterVO = makeKeyMapWithCommon('Add Column After', 'Mod-Alt-=');
 export const addColumnBeforeVO = makeKeyMapWithCommon('Add Column Before', 'Mod-Alt--');
 
-export const moveColumnLeft = makeKeyMapWithCommon('Move Column Left', 'Ctrl-Alt-Shift-ArrowLeft');
-export const moveColumnRight = makeKeyMapWithCommon(
+// When cleaning up editor-a11y-fy26-keyboard-move-row-column experiment
+// Remove moveColumn<Left/Right>Old and moveRow<Up/Down>Old
+export const moveColumnLeftOld = makeKeyMapWithCommon('Move Column Left', 'Ctrl-Alt-Shift-ArrowLeft');
+export const moveColumnLeft = makeKeyMapWithCommon('Move Column Left', 'Mod-Alt-Shift--');
+export const moveColumnRightOld = makeKeyMapWithCommon(
 	'Move Column Right',
 	'Ctrl-Alt-Shift-ArrowRight',
 );
-export const moveRowDown = makeKeyMapWithCommon('Move Row Down', 'Ctrl-Alt-Shift-ArrowDown');
-export const moveRowUp = makeKeyMapWithCommon('Move Row Up', 'Ctrl-Alt-Shift-ArrowUp');
+export const moveColumnRight = makeKeyMapWithCommon(
+	'Move Column Right',
+	'Mod-Alt-Shift-=',
+);
+export const moveRowDownOld = makeKeyMapWithCommon('Move Row Down', 'Ctrl-Alt-Shift-ArrowDown');
+export const moveRowDown = makeKeyMapWithCommon('Move Row Down', 'Mod-Alt-Shift-]');
+export const moveRowUpOld = makeKeyMapWithCommon('Move Row Up', 'Ctrl-Alt-Shift-ArrowUp');
+export const moveRowUp = makeKeyMapWithCommon('Move Row Up', 'Mod-Alt-Shift-[');
 
 export const deleteColumn = makeKeyMapWithCommon('Delete Column', 'Ctrl-Backspace');
 export const deleteRow = makeKeyMapWithCommon('Delete Row', 'Ctrl-Backspace');
@@ -216,13 +225,23 @@ export function formatShortcut(keymap: Keymap): string | undefined {
 		// eslint-disable-next-line require-unicode-regexp
 		shortcut = keymap.windows.replace(/Backspace/i, '\u232B');
 	}
+	// If there are two - keys side by side preserve it's place so we can add it back
 	const keys = shortcut.split('-');
+
+	let storedEnDash = false;
+	if (keys[keys.length - 1] === '' && keys[keys.length - 2] === '') {
+		storedEnDash = true;
+	}
+
 	let lastKey = keys[keys.length - 1];
 	if (lastKey.length === 1) {
 		// capitalise single letters
 		lastKey = lastKey.toUpperCase();
 	}
 	keys[keys.length - 1] = arrowKeysMap[lastKey.toUpperCase()] || lastKey;
+	if (storedEnDash) {
+		keys[keys.length - 1] = '-';
+	}
 	return keys.join(browser.mac ? '' : '+');
 }
 
@@ -321,6 +340,7 @@ export function getAriaKeyshortcuts(keymap: Keymap | string | undefined): string
 		return keyShortcuts
 			.toLowerCase()
 			.split('-')
+			.filter(Boolean)
 			.map((modifier) => {
 				switch (modifier) {
 					case 'cmd':

@@ -94,7 +94,7 @@ const shouldCollapseMargin = (prevNode?: PMNode, nextNode?: PMNode) => {
 
 const getGapAndOffset = (prevNode?: PMNode, nextNode?: PMNode, parentNode?: PMNode | null) => {
 	const isSyncBlockOffsetPatchEnabled =
-		expValEquals('platform_synced_block', 'isEnabled', true) && fg('platform_synced_block_patch_2');
+		editorExperiment('platform_synced_block', true) && fg('platform_synced_block_patch_2');
 
 	if (!prevNode && nextNode) {
 		// first node - adjust for bodied containers
@@ -378,7 +378,7 @@ export const dropTargetDecorations = (
 		}
 
 		const parentTypesWithEndDropTarget =
-			expValEquals('platform_synced_block', 'isEnabled', true) &&
+			editorExperiment('platform_synced_block', true) &&
 			fg('platform_synced_block_patch_2')
 				? PARENT_WITH_END_DROP_TARGET_NEXT
 				: PARENT_WITH_END_DROP_TARGET;

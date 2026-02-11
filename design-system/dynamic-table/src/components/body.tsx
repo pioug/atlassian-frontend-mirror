@@ -41,7 +41,9 @@ class BodyComponent extends React.Component<BodyProps, {}> {
 	}
 }
 
-const Body = withSortedPageRows<BodyProps>(
+const Body: React.ForwardRefExoticComponent<Omit<BodyProps & import("../hoc/with-sorted-page-rows").TableProps, "pageRows"> & {
+    forwardedRef?: React.Ref<HTMLTableSectionElement> | undefined;
+} & React.RefAttributes<HTMLTableSectionElement>> = withSortedPageRows<BodyProps>(
 	React.forwardRef<HTMLTableSectionElement, BodyProps>((props, ref) => {
 		return <BodyComponent {...props} forwardedRef={ref} />;
 	}),

@@ -146,7 +146,7 @@ function MockAppSwitcher(): JSX.Element {
 	);
 }
 
-export function UnscrollableVR() {
+export function UnscrollableVR(): JSX.Element {
 	return (
 		<Composition
 			defaultMenuIsOpen
@@ -158,7 +158,7 @@ export function UnscrollableVR() {
 	);
 }
 
-export function ScrollableVR() {
+export function ScrollableVR(): JSX.Element {
 	return (
 		<Composition
 			defaultMenuIsOpen
@@ -170,7 +170,7 @@ export function ScrollableVR() {
 	);
 }
 
-export function ScrollableScrolledVR() {
+export function ScrollableScrolledVR(): JSX.Element {
 	return (
 		<Composition
 			defaultMenuIsOpen
@@ -182,7 +182,7 @@ export function ScrollableScrolledVR() {
 	);
 }
 
-export function UnscrollableNoPanelVR() {
+export function UnscrollableNoPanelVR(): JSX.Element {
 	return (
 		<Composition
 			defaultMenuIsOpen
@@ -194,7 +194,7 @@ export function UnscrollableNoPanelVR() {
 	);
 }
 
-export function ScrollableNoPanelVR() {
+export function ScrollableNoPanelVR(): JSX.Element {
 	return (
 		<Composition
 			defaultMenuIsOpen
@@ -214,11 +214,11 @@ export function ScrollableNoPanelVR() {
  *
  * We don't want the really tall element on the page for VRs because it makes the snapshot very tall.
  */
-export function CompositionVR() {
+export function CompositionVR(): JSX.Element {
 	return <Composition isSlotsScrollable={false} isMockProductSearch />;
 }
 
-export function CompositionNoBannerVR() {
+export function CompositionNoBannerVR(): JSX.Element {
 	return <Composition isSlotsScrollable={false} isMockProductSearch isBannerVisible={false} />;
 }
 
@@ -244,7 +244,7 @@ export default function Composition({
 	 * We should update / remove our Search component in the future.
 	 */
 	isMockProductSearch?: boolean;
-}) {
+}): JSX.Element {
 	useLayoutEffect(() => {
 		if (!shouldTestScroll) {
 			return;

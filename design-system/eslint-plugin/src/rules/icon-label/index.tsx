@@ -18,7 +18,7 @@ const elements = [
 
 const elementsIconProps = ['iconBefore', 'iconAfter', 'icon'];
 
-const rule = createLintRule({
+const rule: import("eslint").Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'icon-label',
 		fixable: 'code',

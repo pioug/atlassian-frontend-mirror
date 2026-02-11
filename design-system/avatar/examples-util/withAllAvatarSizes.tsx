@@ -12,7 +12,7 @@ interface WithAllAvatarSizesProps {
 	appearance?: AppearanceType;
 }
 
-const WithAllAvatarSizes = (props: WithAllAvatarSizesProps) => {
+const WithAllAvatarSizes: (props: WithAllAvatarSizesProps) => React.JSX.Element = (props: WithAllAvatarSizesProps) => {
 	const { presence, ...rest } = props;
 
 	return (

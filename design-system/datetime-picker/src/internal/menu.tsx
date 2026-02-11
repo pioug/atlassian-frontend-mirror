@@ -52,7 +52,7 @@ const menuStylesT26Shape = css({
 /**
  * This is the menu used in the select of the date picker.
  */
-export const Menu = ({ selectProps, innerProps }: MenuProps<any>) => {
+export const Menu: ({ selectProps, innerProps }: MenuProps<any>) => JSX.Element = ({ selectProps, innerProps }: MenuProps<any>) => {
 	const { calendarValue, calendarView, menuInnerWrapper: MenuInnerWrapper } = selectProps;
 	const { day, month, year } = getValidDate([calendarValue, calendarView]);
 

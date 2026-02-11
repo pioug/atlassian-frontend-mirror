@@ -11,6 +11,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import { TOOLBAR_BUTTON_TEST_ID } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import { ToolbarButton, ToolbarTooltip, ImageIcon } from '@atlaskit/editor-toolbar';
@@ -73,6 +74,7 @@ export const MediaButton = ({ api }: MediaButtonProps): React.JSX.Element | null
 				onClick={onClick}
 				ref={mediaButtonRef}
 				isDisabled={isOffline || !allowsUploads}
+				testId={TOOLBAR_BUTTON_TEST_ID.MEDIA}
 			/>
 		</ToolbarTooltip>
 	);

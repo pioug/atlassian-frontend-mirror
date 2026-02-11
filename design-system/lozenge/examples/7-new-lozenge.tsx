@@ -48,7 +48,7 @@ const styles = cssMap({
  *
  * Note: This example requires the `platform-dst-lozenge-tag-badge-visual-uplifts` feature flag to be enabled.
  */
-export default function NewLozengeExample() {
+export default function NewLozengeExample(): JSX.Element {
 	const semanticColors: NewLozengeColor[] = [
 		'success',
 		'warning',

@@ -4,7 +4,7 @@ import { addCommentBefore } from '@atlaskit/codemod-utils';
 
 import { overlayPropComment } from './constants';
 
-export const addCommentForOverlayProp = (
+export const addCommentForOverlayProp: (oldButtons: Collection<JSXElement>, j: API["jscodeshift"]) => void = (
 	oldButtons: Collection<JSXElement>,
 	j: API['jscodeshift'],
 ) => {

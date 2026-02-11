@@ -14,7 +14,7 @@ export const setPropToTrue = `Set \`${PROP_NAME}\` prop to \`true\`.`;
 
 const components = ['@atlaskit/popup', '@atlaskit/dropdown-menu'];
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: RULE_NAME,
 		type: 'suggestion',

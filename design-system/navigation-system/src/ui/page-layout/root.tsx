@@ -139,7 +139,7 @@ export function Root({
 	 * Note: The built-in keyboard shortcut is behind `useIsFhsEnabled`.
 	 */
 	isSideNavShortcutEnabled?: boolean;
-}) {
+}): JSX.Element {
 	const ref = useRef<HTMLDivElement>(null);
 	const isFhsEnabled = useIsFhsEnabled();
 

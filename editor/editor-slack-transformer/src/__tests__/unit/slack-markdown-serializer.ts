@@ -38,6 +38,8 @@ import {
 	backgroundColor,
 	expand,
 	nestedExpand,
+	bodiedSyncBlock,
+	syncBlock,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 
@@ -877,5 +879,33 @@ describe('expands', () => {
 				)(defaultSchema),
 			),
 		).toEqual('[expand]');
+	});
+});
+
+describe('bodiedSyncBlock', () => {
+	it('should serialize a bodiedSyncBlock by just showing its content', () => {
+		expect(
+			markdownSerializer.serialize(
+				doc(
+					bodiedSyncBlock({ resourceId: 'test-resource-id', localId: 'test-local-id' })(
+						p('Introduction'),
+						ul(li(p('Item 1')), li(p('Item 2'))),
+						p('Conclusion'),
+					),
+				)(defaultSchema),
+			),
+		).toEqual('Introduction\n\n• Item 1\n• Item 2\n\nConclusion');
+	});
+});
+
+describe('syncBlock', () => {
+	it('should serialize a syncBlock to an unsupported node indicator', () => {
+		expect(
+			markdownSerializer.serialize(
+				doc(syncBlock({ resourceId: 'test-resource-id', localId: 'test-local-id' })())(
+					defaultSchema,
+				),
+			),
+		).toEqual('[sync block]');
 	});
 });

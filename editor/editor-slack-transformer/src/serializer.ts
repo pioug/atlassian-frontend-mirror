@@ -131,6 +131,10 @@ const unsupportedNodes = {
 		state.write('[bodied extension]');
 		state.closeBlock(node);
 	},
+	syncBlock(state: MarkdownSerializerState, node: PMNode): void {
+		state.write('[sync block]');
+		state.closeBlock(node);
+	},
 	taskList(state: MarkdownSerializerState, node: PMNode): void {
 		state.write('[task list]');
 		state.closeBlock(node);
@@ -332,6 +336,9 @@ export const nodes = {
 	},
 	confluenceJiraIssue(state: MarkdownSerializerState, node: PMNode): void {
 		state.write(` JIRA | ${node.attrs.issueKey} `);
+	},
+	bodiedSyncBlock(state: MarkdownSerializerState, node: PMNode): void {
+		state.renderInline(node);
 	},
 	...unsupportedNodes,
 };

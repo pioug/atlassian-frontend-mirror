@@ -29,7 +29,9 @@ const NestedDropdown = ({ level = 0 }) => {
 		</DropdownMenu>
 	);
 };
-const NestedDropdownMenuExample = ({ level = 0 }): React.JSX.Element => {
+const NestedDropdownMenuExample: ({ level }: {
+    level?: number | undefined;
+}) => React.JSX.Element = ({ level = 0 }): React.JSX.Element => {
 	return (
 		<DropdownMenu shouldRenderToParent trigger="Nested" testId={`nested-${level}`}>
 			<DropdownItemGroup>

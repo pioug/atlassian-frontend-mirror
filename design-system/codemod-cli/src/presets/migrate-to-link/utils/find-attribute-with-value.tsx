@@ -1,6 +1,6 @@
 import { type JSXAttribute, type JSXOpeningElement, type JSXSpreadAttribute } from 'jscodeshift';
 
-export const findJSXAttributeWithValue = (
+export const findJSXAttributeWithValue: (path: JSXOpeningElement | JSXSpreadAttribute | undefined, attributeName: string, attributeValue: string) => boolean = (
 	path: JSXOpeningElement | JSXSpreadAttribute | undefined,
 	attributeName: string,
 	attributeValue: string,

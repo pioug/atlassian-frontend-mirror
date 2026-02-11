@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/progress-tracker",
-	"version": "10.4.3",
+	"version": "10.5.0",
 	"description": "A progress tracker displays the steps and progress through a journey.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,8 +29,7 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
-		"@compiled/react": "root:*",
-		"react-transition-group": "root:*"
+		"@compiled/react": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -47,7 +46,6 @@
 		"@atlassian/ssr-tests": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
-		"@types/react-transition-group": "root:*",
 		"jest-in-case": "root:*",
 		"react-dom": "root:*"
 	},

@@ -18,6 +18,6 @@ const styles = cssMap({
 	},
 });
 
-export default function App() {
+export default function App(): JSX.Element {
 	return <Box xcss={styles.root}>I am in an iframe: {isInIframe ? 'true' : 'false'}</Box>;
 }

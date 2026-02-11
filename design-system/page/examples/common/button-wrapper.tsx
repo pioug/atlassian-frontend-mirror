@@ -18,6 +18,6 @@ const buttonWrapperStyles = css({
 	paddingInlineStart: token('space.050', '4px'),
 });
 
-export const ButtonWrapper = ({ children }: PropsWithChildren<{}>) => (
+export const ButtonWrapper: ({ children }: PropsWithChildren<{}>) => JSX.Element = ({ children }: PropsWithChildren<{}>) => (
 	<div css={buttonWrapperStyles}>{children}</div>
 );

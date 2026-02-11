@@ -5,7 +5,7 @@ import { getTokenId } from '@atlaskit/tokens/token-ids';
 
 import { createLintRule } from '../utils/create-rule';
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'no-deprecated-design-token-usage',
 		docs: {

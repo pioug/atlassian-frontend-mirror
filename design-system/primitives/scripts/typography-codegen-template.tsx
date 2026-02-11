@@ -42,7 +42,7 @@ const typographyProperties = [
 	},
 ] as const;
 
-export const createTypographyStylesFromTemplate = () => {
+export const createTypographyStylesFromTemplate: () => string = () => {
 	return typographyProperties
 		.map((typographyProperty) => {
 			const { filterFn, objectName } = typographyProperty;

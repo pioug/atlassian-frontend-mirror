@@ -2,17 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { createRef, type CSSProperties, PureComponent } from 'react';
+import { type CSSProperties, PureComponent } from 'react';
 
-import { css } from '@compiled/react';
-import { CSSTransition } from 'react-transition-group';
+import { css, keyframes } from '@compiled/react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
-import { B300, N70 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-
-import { type Status } from '../types';
 
 import ProgressBar from './bar';
 import ProgressMarker from './marker';
@@ -58,84 +54,81 @@ const fontWeight = cssMap({
 	},
 });
 
-const getMarkerColor = ({
-	status,
-	percentageCompleted,
-}: {
-	status: Status;
-	percentageCompleted: number;
-}) => {
-	switch (status) {
-		case 'unvisited':
-			return token('color.icon.subtle', N70);
-		case 'current':
-		case 'visited':
-			return token('color.icon.brand', B300);
-		case 'disabled':
-			if (percentageCompleted === 0) {
-				return token('color.icon.disabled', N70);
-			}
-			// If the percentage completed is greater than 0, we show the brand colour, so that the marker (circle) blends in with the progress bar.
-			// Otherwise, the grey marker would be visible within the progress bar.
-			return token('color.icon.brand', B300);
-		default:
-			return;
-	}
-};
-
 const listItemStyles = css({
+	listStyleType: 'none',
 	marginBlockEnd: token('space.0', '0px'),
 	marginBlockStart: token('space.0', '0px'),
 	marginInlineEnd: token('space.0', '0px'),
 	marginInlineStart: token('space.0', '0px'),
-	overflowWrap: 'break-word',
+	overflowWrap: 'break-word'
+});
+
+const fadeAnimationBase = css({
+	opacity: 1,
+});
+
+const fadeIn = keyframes({
+	from: {
+		opacity: 0.01,
+	},
+	to: {
+		opacity: 1,
+	},
+});
+
+const fadeAnimationActive = css({
+	animation: `${fadeIn} var(--ds--pt--ts) var(--ds--pt--te) forwards`,
+	animationDelay: `var(--ds--pt--td)`,
+	animationPlayState: 'paused',
 });
 
 const titleStyles = css({
 	font: token('font.body'),
 	marginBlockStart: token('space.250'),
 	textAlign: 'center',
-	transition: `opacity var(--ds--pt--ts) cubic-bezier(0.2, 0, 0, 1)`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles -- Ignored via go/DSP-18766
-	'&.fade-appear': {
-		opacity: 0.01,
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles -- Ignored via go/DSP-18766
-	'&.fade-appear.fade-appear-active': {
-		opacity: 1,
-		transition: `opacity var(--ds--pt--ts) cubic-bezier(0.2, 0, 0, 1)`,
-	},
 });
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export default class ProgressTrackerStage extends PureComponent<ProgressTrackerStageProps, State> {
-	nodeRefMarker = createRef<HTMLElement>();
-	nodeRefBar = createRef<HTMLElement>();
-	nodeRefTitle = createRef<HTMLElement>();
+	private animationTimeoutId?: ReturnType<typeof setTimeout>;
+
 	constructor(props: ProgressTrackerStageProps) {
 		super(props);
 		this.state = {
 			transitioning: false,
-			oldMarkerColor: getMarkerColor({
-				status: this.props.item.status,
-				percentageCompleted: this.props.item.percentageComplete,
-			}),
 			oldPercentageComplete: 0,
 		};
 	}
 
-	UNSAFE_componentWillMount(): void {
-		this.setState({
-			...this.state,
-			transitioning: true,
-		});
+	componentDidUpdate(prevProps: ProgressTrackerStageProps): void {
+		if (
+			prevProps.item.status !== this.props.item.status ||
+			prevProps.item.percentageComplete !== this.props.item.percentageComplete
+		) {
+			this.startTransition();
+		}
 	}
 
-	UNSAFE_componentWillReceiveProps(): void {
+	componentWillUnmount(): void {
+		if (this.animationTimeoutId) {
+			clearTimeout(this.animationTimeoutId);
+		}
+	}
+
+	startTransition(): void {
+		if (this.animationTimeoutId) {
+			clearTimeout(this.animationTimeoutId);
+		}
+
 		this.setState({
 			...this.state,
 			transitioning: true,
 		});
+
+		const timeout = this.props.transitionDelay + this.props.transitionSpeed;
+		this.animationTimeoutId = setTimeout(() => {
+			this.onEntered();
+		}, timeout);
 	}
 
 	shouldShowLink(): boolean {
@@ -149,10 +142,6 @@ export default class ProgressTrackerStage extends PureComponent<ProgressTrackerS
 	onEntered = (): void => {
 		this.setState({
 			transitioning: false,
-			oldMarkerColor: getMarkerColor({
-				status: this.props.item.status,
-				percentageCompleted: this.props.item.percentageComplete,
-			}),
 			oldPercentageComplete: this.props.item.percentageComplete,
 		});
 	};
@@ -166,12 +155,6 @@ export default class ProgressTrackerStage extends PureComponent<ProgressTrackerS
 			['--ds--pt--ts']: `${transitionSpeed}ms`,
 			['--ds--pt--td']: `${transitionDelay}ms`,
 			['--ds--pt--te']: transitionEasing,
-			['--ds--pt--mc']: this.state.oldMarkerColor,
-			['--ds--pt--bg']: getMarkerColor({
-				status: item.status,
-				percentageCompleted: item.percentageComplete,
-			}),
-			listStyleType: 'none',
 		} as CSSProperties;
 
 		return (
@@ -183,44 +166,33 @@ export default class ProgressTrackerStage extends PureComponent<ProgressTrackerS
 				aria-current={ariaCurrent}
 			>
 				<Box xcss={styles.listItemContent}>
-					<CSSTransition
-						appear
-						in={this.state.transitioning}
-						onEntered={this.onEntered}
-						timeout={transitionDelay + transitionSpeed}
-						classNames="fade"
-						nodeRef={this.nodeRefMarker}
-					>
-						<ProgressMarker testId={testId && `${testId}-marker`} />
-					</CSSTransition>
-					<CSSTransition
-						appear
-						in={this.state.transitioning}
-						onEntered={this.onEntered}
-						timeout={transitionDelay + transitionSpeed}
-						classNames="fade"
-						nodeRef={this.nodeRefBar}
+					<ProgressMarker
+						testId={testId && `${testId}-marker`}
+						status={item.percentageComplete > 0 ? 'visited' : item.status}
+					/>
+					<div
+						css={[fadeAnimationBase, fadeAnimationActive]}
+						style={{
+							animationPlayState: this.state.transitioning ? 'running' : 'paused',
+							animationDuration: ['visited', 'disabled'].includes(this.props.item.status) ? '0ms' : undefined,
+						}}
 					>
 						<ProgressBar
 							testId={testId && `${testId}-bar`}
 							percentageComplete={item.percentageComplete}
 						/>
-					</CSSTransition>
-					<CSSTransition
-						appear
-						in={this.state.transitioning}
-						onEntered={this.onEntered}
-						timeout={transitionDelay + transitionSpeed}
-						classNames="fade"
-						nodeRef={this.nodeRefTitle}
+					</div>
+					<div
+						css={[
+							fadeAnimationBase,
+							titleStyles,
+							textColor[item.status],
+							fontWeight[item.status],
+						]}
+						data-testid={testId && `${testId}-title`}
 					>
-						<div
-							css={[titleStyles, textColor[item.status], fontWeight[item.status]]}
-							data-testid={testId && `${testId}-title`}
-						>
-							{this.shouldShowLink() ? render.link({ item }) : item.label}
-						</div>
-					</CSSTransition>
+						{this.shouldShowLink() ? render.link({ item }) : item.label}
+					</div>
 				</Box>
 			</li>
 		);

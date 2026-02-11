@@ -135,7 +135,7 @@ export function TopNavEnd({
 	 * The label for the show more button.
 	 */
 	showMoreButtonLabel?: string;
-}) {
+}): JSX.Element {
 	const isFhsEnabled = useIsFhsEnabled();
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	// Always setting to `false` for the initial render (will flip in an effect for mobile)

@@ -92,7 +92,7 @@ const legacyVarOptions = [
 	{ name: 'legacyVar', value: 'rightPanelWidth', label: 'Panel' },
 ] as const satisfies OptionsPropType;
 
-export function ResizableSlots() {
+export function ResizableSlots(): JSX.Element {
 	const [legacyVar, setLegacyVar] = useState<LegacyVar>(legacyVarOptions[0].value);
 
 	const handleResizableSlotChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {

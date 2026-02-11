@@ -314,7 +314,16 @@ const allCountries: Array<Country> = [
 ];
 
 // separate countries into groups
-export const groupedCountries = [
+export const groupedCountries: readonly [
+    {
+        readonly label: "Suggested";
+        readonly options: Country[];
+    },
+    {
+        readonly label: "All Countries";
+        readonly options: Country[];
+    }
+] = [
 	{
 		label: 'Suggested',
 		options: allCountries.filter((c) => c.suggested),

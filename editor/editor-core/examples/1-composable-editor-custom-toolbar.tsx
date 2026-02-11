@@ -13,7 +13,7 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import type { ExtractPresetAPI } from '@atlaskit/editor-common/src/preset';
+import type { ExtractPresetAPI } from '@atlaskit/editor-common/preset';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';

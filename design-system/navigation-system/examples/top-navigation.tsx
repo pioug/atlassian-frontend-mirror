@@ -35,7 +35,7 @@ import { MockSearch } from './utils/mock-search';
 
 const Badge = () => <AKBadge appearance="important">{5}</AKBadge>;
 
-export const TopNavigationExample = () => (
+export const TopNavigationExample: () => JSX.Element = () => (
 	<WithResponsiveViewport>
 		{/**
 		 * Wrapping in `Root to ensure the TopNav height is set correctly, as it would in a proper composed usage.
@@ -81,7 +81,7 @@ export const TopNavigationExample = () => (
 	</WithResponsiveViewport>
 );
 
-export const SearchRightElem = () => (
+export const SearchRightElem: () => JSX.Element = () => (
 	<WithResponsiveViewport>
 		<Root>
 			<TopNav>
@@ -105,7 +105,7 @@ export const SearchRightElem = () => (
 	</WithResponsiveViewport>
 );
 
-export const TopNavigationEnlargedSearchInput = () => (
+export const TopNavigationEnlargedSearchInput: () => JSX.Element = () => (
 	<WithResponsiveViewport>
 		<Root>
 			<TopNav>

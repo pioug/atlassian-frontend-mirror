@@ -239,8 +239,11 @@ function parseCSSPropertyName(cssString: string) {
 	};
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default async function transformer(file: FileInfo, api: API, debug = false) {
+export default async function transformer(
+	file: FileInfo,
+	api: API,
+	_debug = false,
+): Promise<string> {
 	const j = api.jscodeshift;
 	const source = j(file.source);
 	let transformed = false;

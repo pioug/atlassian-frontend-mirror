@@ -18,7 +18,6 @@
 	],
 	"compilerOptions": {
 		"strictNullChecks": true,
-		"noUncheckedIndexedAccess": true,
-		"moduleResolution": "node"
+		"noUncheckedIndexedAccess": true
 	}
 }

@@ -47,7 +47,7 @@ const ClearIndicator = (props: ClearIndicatorProps<OptionType, true>) => {
 	);
 };
 
-export default () => (
+const _default: () => JSX.Element = () => (
 	<Fragment>
 		<Label htmlFor="indicators-clear">What city do you live in?</Label>
 		<Select
@@ -60,3 +60,4 @@ export default () => (
 		/>
 	</Fragment>
 );
+export default _default;

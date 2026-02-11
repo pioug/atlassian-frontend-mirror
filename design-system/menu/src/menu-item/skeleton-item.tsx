@@ -134,7 +134,7 @@ const shimmerStyles = css({
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/menu/docs/skeleton-item)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/menu)
  */
-const SkeletonItem = ({
+const SkeletonItem: ({ hasAvatar, hasIcon, isShimmering, isSideNavSkeleton, testId, width, xcss, }: SkeletonItemProps) => JSX.Element = ({
 	hasAvatar,
 	hasIcon,
 	isShimmering = false,

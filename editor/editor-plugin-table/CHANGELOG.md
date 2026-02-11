@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-table
 
+## 17.3.11
+
+### Patch Changes
+
+- [`ad8f50e8000f5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad8f50e8000f5) -
+  [EDITOR-4662] Cleans up FG platform_editor_number_column_sticky_header_bug
+
+## 17.3.10
+
+### Patch Changes
+
+- [`d1ee0512f85f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d1ee0512f85f4) -
+  [EDITOR-4531] Cleans up FG platform_editor_table_numbered_table_border
+- Updated dependencies
+
+## 17.3.9
+
+### Patch Changes
+
+- [`95a9857d9f007`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95a9857d9f007) -
+  Replaced keymaps for moving table columns/rows in the Editor behind experiment
+- Updated dependencies
+
 ## 17.3.8
 
 ### Patch Changes

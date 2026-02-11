@@ -7,7 +7,7 @@ import {
 
 import { createLintRule } from '../utils/create-rule';
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'use-cx-function-in-xcss',
 		fixable: 'code',

@@ -74,7 +74,7 @@ function extractSnapshotContent(
 	return null;
 }
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name,
 		type: 'problem',

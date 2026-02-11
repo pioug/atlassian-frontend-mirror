@@ -287,7 +287,7 @@ const InnerInlineEdit = <FieldValue extends unknown>(props: InlineEditProps<Fiel
 	);
 };
 
-const InlineEdit = <FieldValue extends unknown = string>(props: InlineEditProps<FieldValue>) => {
+const InlineEdit: <FieldValue extends unknown = string>(props: InlineEditProps<FieldValue>) => JSX.Element = <FieldValue extends unknown = string>(props: InlineEditProps<FieldValue>) => {
 	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 	return <InnerInlineEdit<FieldValue> {...props} />;
 };

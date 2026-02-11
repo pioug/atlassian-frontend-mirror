@@ -18,7 +18,7 @@ const layoutStyles = css({
 	paddingInlineStart: 0,
 });
 
-export default () => (
+const _default: () => JSX.Element = () => (
 	<div css={layoutStyles}>
 		<TagGroup label="Simple tags">
 			<SimpleTag text="Tag" />
@@ -46,3 +46,4 @@ export default () => (
 		</TagGroup>
 	</div>
 );
+export default _default;

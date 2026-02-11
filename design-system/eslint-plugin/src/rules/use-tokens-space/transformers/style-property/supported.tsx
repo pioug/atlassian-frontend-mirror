@@ -1,4 +1,8 @@
-const supported = {
+const supported: {
+    values: {
+        ignore: (string | number)[];
+    };
+} = {
 	values: {
 		ignore: [
 			'auto',

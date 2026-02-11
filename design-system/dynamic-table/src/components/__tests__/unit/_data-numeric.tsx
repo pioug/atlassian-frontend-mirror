@@ -6,7 +6,13 @@ export const sortKey = 'first_name';
 export const numericSortKey = 'numeric';
 
 // Numeric data
-export const headNumeric = {
+export const headNumeric: {
+    cells: {
+        key: string;
+        content: string;
+        isSortable: boolean;
+    }[];
+} = {
 	cells: [
 		{ key: sortKey, content: 'first name', isSortable: true },
 		{ key: numericSortKey, content: 'Arbitrary numeric', isSortable: true },
@@ -24,6 +30,6 @@ export const rowsNumericWithKeys: Array<RowType> = rowsNumeric.map(
 	},
 );
 
-export const rowNumericWithKey = rowsNumericWithKeys[0];
+export const rowNumericWithKey: RowType = rowsNumericWithKeys[0];
 
-export const cellNumericWithKey = rowNumericWithKey.cells[0];
+export const cellNumericWithKey: import("../../../types").RowCellType = rowNumericWithKey.cells[0];

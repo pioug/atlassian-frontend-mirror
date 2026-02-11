@@ -1353,7 +1353,7 @@ export function SideNav({
 	onPeekEnd,
 	canToggleWithShortcut,
 	id,
-}: SideNavProps) {
+}: SideNavProps): JSX.Element {
 	return (
 		<OpenLayerObserverNamespaceProvider namespace={openLayerObserverSideNavNamespace}>
 			<SideNavInternal

@@ -16,7 +16,7 @@ export function StarredMenuItem({
 }: {
 	amountOfMenuItems: number;
 	index: number;
-}) {
+}): JSX.Element {
 	return (
 		<SharedTopLevelFlyout
 			label="Starred"

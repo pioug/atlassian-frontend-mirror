@@ -56,7 +56,7 @@ const styles = cssMap({
  * This component combines the visual design of the lozenge with dropdown interaction patterns,
  * including a chevron icon and selected state support.
  */
-export default function LozengeDropdownTriggerExample() {
+export default function LozengeDropdownTriggerExample(): JSX.Element {
 	const semanticColors: SemanticColor[] = [
 		'success',
 		'warning',

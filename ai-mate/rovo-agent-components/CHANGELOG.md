@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-components
 
+## 3.32.0
+
+### Minor Changes
+
+- [`32fb2d5d28925`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/32fb2d5d28925) -
+  Added 'Verify / Unverify agent' dropdown to rovo chat trigger
+
 ## 3.31.0
 
 ### Minor Changes

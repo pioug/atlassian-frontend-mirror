@@ -381,7 +381,7 @@ function OurExpandableMenuItem({
 	);
 }
 
-export function AllMenuItems() {
+export function AllMenuItems(): JSX.Element {
 	// const dropIndicator = <DropIndicator instruction={{ type: 'combine', axis: 'vertical', blocked: false }} />;
 	const [isInnerMostOver, setIsInnerMostOver] = useState<boolean>(false);
 	const ref = useRef<HTMLDivElement | null>(null);
@@ -479,7 +479,7 @@ function ExpandableMenuItemWithDropIndicator({ dropIndicator }: { dropIndicator:
 	);
 }
 
-export function LinkMenuItemReorderBefore() {
+export function LinkMenuItemReorderBefore(): JSX.Element {
 	return (
 		<LinkMenuItemWithDropIndicator
 			dropIndicator={
@@ -491,7 +491,7 @@ export function LinkMenuItemReorderBefore() {
 	);
 }
 
-export function LinkMenuItemReorderAfter() {
+export function LinkMenuItemReorderAfter(): JSX.Element {
 	return (
 		<LinkMenuItemWithDropIndicator
 			dropIndicator={
@@ -503,7 +503,7 @@ export function LinkMenuItemReorderAfter() {
 	);
 }
 
-export function LinkMenuItemCombine() {
+export function LinkMenuItemCombine(): JSX.Element {
 	return (
 		<LinkMenuItemWithDropIndicator
 			dropIndicator={
@@ -513,7 +513,7 @@ export function LinkMenuItemCombine() {
 	);
 }
 
-export function ButtonMenuItemReorderBefore() {
+export function ButtonMenuItemReorderBefore(): JSX.Element {
 	return (
 		<ButtonMenuItemWithDropIndicator
 			dropIndicator={
@@ -525,7 +525,7 @@ export function ButtonMenuItemReorderBefore() {
 	);
 }
 
-export function ButtonMenuItemReorderAfter() {
+export function ButtonMenuItemReorderAfter(): JSX.Element {
 	return (
 		<ButtonMenuItemWithDropIndicator
 			dropIndicator={
@@ -537,7 +537,7 @@ export function ButtonMenuItemReorderAfter() {
 	);
 }
 
-export function ButtonMenuItemCombine() {
+export function ButtonMenuItemCombine(): JSX.Element {
 	return (
 		<ButtonMenuItemWithDropIndicator
 			dropIndicator={
@@ -547,7 +547,7 @@ export function ButtonMenuItemCombine() {
 	);
 }
 
-export function FlyoutMenuItemReorderBefore() {
+export function FlyoutMenuItemReorderBefore(): JSX.Element {
 	return (
 		<FlyoutMenuItemWithDropIndicator
 			dropIndicator={
@@ -559,7 +559,7 @@ export function FlyoutMenuItemReorderBefore() {
 	);
 }
 
-export function FlyoutMenuItemReorderAfter() {
+export function FlyoutMenuItemReorderAfter(): JSX.Element {
 	return (
 		<FlyoutMenuItemWithDropIndicator
 			dropIndicator={
@@ -571,7 +571,7 @@ export function FlyoutMenuItemReorderAfter() {
 	);
 }
 
-export function FlyoutMenuItemCombine() {
+export function FlyoutMenuItemCombine(): JSX.Element {
 	return (
 		<FlyoutMenuItemWithDropIndicator
 			dropIndicator={
@@ -581,7 +581,7 @@ export function FlyoutMenuItemCombine() {
 	);
 }
 
-export function ExpandableMenuItemReorderBefore() {
+export function ExpandableMenuItemReorderBefore(): JSX.Element {
 	return (
 		<ExpandableMenuItemWithDropIndicator
 			dropIndicator={
@@ -593,7 +593,7 @@ export function ExpandableMenuItemReorderBefore() {
 	);
 }
 
-export function ExpandableMenuItemReorderAfter() {
+export function ExpandableMenuItemReorderAfter(): JSX.Element {
 	return (
 		<ExpandableMenuItemWithDropIndicator
 			dropIndicator={
@@ -605,7 +605,7 @@ export function ExpandableMenuItemReorderAfter() {
 	);
 }
 
-export function ExpandableMenuItemCombine() {
+export function ExpandableMenuItemCombine(): JSX.Element {
 	return (
 		<ExpandableMenuItemWithDropIndicator
 			dropIndicator={
@@ -616,7 +616,7 @@ export function ExpandableMenuItemCombine() {
 }
 
 // Blocked operations
-export function LinkMenuItemReorderBeforeBlocked() {
+export function LinkMenuItemReorderBeforeBlocked(): JSX.Element {
 	return (
 		<LinkMenuItemWithDropIndicator
 			dropIndicator={
@@ -628,7 +628,7 @@ export function LinkMenuItemReorderBeforeBlocked() {
 	);
 }
 
-export function LinkMenuItemReorderAFterBlocked() {
+export function LinkMenuItemReorderAFterBlocked(): JSX.Element {
 	return (
 		<LinkMenuItemWithDropIndicator
 			dropIndicator={
@@ -640,7 +640,7 @@ export function LinkMenuItemReorderAFterBlocked() {
 	);
 }
 
-export function LinkMenuItemCombineBlocked() {
+export function LinkMenuItemCombineBlocked(): JSX.Element {
 	return (
 		<LinkMenuItemWithDropIndicator
 			dropIndicator={

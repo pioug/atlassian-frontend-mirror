@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 5.3.17
+
+### Patch Changes
+
+- [`daa7b80542389`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/daa7b80542389) -
+  Do not truncate lozenge in macro view
+- Updated dependencies
+
+## 5.3.16
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.15
 
 ### Patch Changes

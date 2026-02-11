@@ -1,14 +1,14 @@
 import { legacyColorMixins, legacyColors } from './legacy-colors';
 import { namedColors } from './named-colors';
 
-export const isLegacyColor = (value: string) => legacyColors.includes(value);
+export const isLegacyColor: (value: string) => boolean = (value: string) => legacyColors.includes(value);
 
-export const isLegacyNamedColor = (value: string) => legacyColorMixins.includes(value);
+export const isLegacyNamedColor: (value: string) => boolean = (value: string) => legacyColorMixins.includes(value);
 
 const colorRegexp =
 	/#(?:[a-f0-9]{3}|[a-f0-9]{6}|[a-f0-9]{8})\b|(?:rgb|rgba|hsl|hsla|lch|lab|color)\([^\)]*\)/;
 
-export const includesHardCodedColor = (raw: string) => {
+export const includesHardCodedColor: (raw: string) => boolean = (raw: string) => {
 	const value = raw.toLowerCase();
 	if (colorRegexp.exec(value)) {
 		return true;
@@ -23,7 +23,7 @@ export const includesHardCodedColor = (raw: string) => {
 	return false;
 };
 
-export const isHardCodedColor = (raw: string) => {
+export const isHardCodedColor: (raw: string) => boolean = (raw: string) => {
 	const value = raw.toLowerCase();
 
 	if (namedColors.includes(value)) {
@@ -38,7 +38,7 @@ export const isHardCodedColor = (raw: string) => {
 	return false;
 };
 
-export function isBoldColor(color: string) {
+export function isBoldColor(color: string): boolean {
 	const number = parseInt(color.replace(/^./, ''), 10);
 	return number > 300;
 }

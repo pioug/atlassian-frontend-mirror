@@ -38,7 +38,7 @@ import {
 import { WithResponsiveViewport } from './utils/example-utils';
 import { MockSearch } from './utils/mock-search';
 
-export default function JiraMockExample() {
+export default function JiraMockExample(): JSX.Element {
 	return (
 		<WithResponsiveViewport>
 			<Root testId="root">

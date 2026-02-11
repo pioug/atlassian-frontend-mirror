@@ -44,6 +44,9 @@
 			"path": "./tsconfig.app.json"
 		},
 		{
+			"path": "../editor-examples-helpers/tsconfig.app.json"
+		},
+		{
 			"path": "../adf-schema/tsconfig.app.json"
 		},
 		{
@@ -59,7 +62,16 @@
 			"path": "../editor-json-transformer/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-synced-block/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-prosemirror/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-synced-block-provider/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-synced-block-renderer/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-test-helpers/tsconfig.app.json"

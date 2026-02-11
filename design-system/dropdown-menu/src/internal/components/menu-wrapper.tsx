@@ -6,6 +6,7 @@ import { type KeyboardEvent, type MouseEvent, useContext, useEffect, useLayoutEf
 
 import { cssMap, jsx } from '@atlaskit/css';
 import MenuGroup from '@atlaskit/menu/menu-group';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
@@ -21,10 +22,10 @@ const styles = cssMap({
 		display: 'flex',
 		minWidth: '160px',
 		justifyContent: 'center',
-		paddingTop: token('space.250', '20px'),
-		paddingRight: token('space.250', '20px'),
-		paddingBottom: token('space.250', '20px'),
-		paddingLeft: token('space.250', '20px'),
+		paddingBlockStart: token('space.250', '20px'),
+		paddingInlineEnd: token('space.250', '20px'),
+		paddingBlockEnd: token('space.250', '20px'),
+		paddingInlineStart: token('space.250', '20px'),
 	},
 });
 
@@ -46,7 +47,7 @@ const LoadingIndicator = ({
  * if a CheckboxItem or RadioItem is clicked.
  * It also sets focus to the first menu item when opened.
  */
-const MenuWrapper = ({
+const MenuWrapper: ({ children, isLoading, maxHeight, maxWidth, onClose, onUpdate, statusLabel, setInitialFocusRef, shouldRenderToParent, spacing, testId, isTriggeredUsingKeyboard, autoFocus, menuLabel, }: MenuWrapperProps) => JSX.Element = ({
 	children,
 	isLoading,
 	maxHeight,
@@ -97,7 +98,7 @@ const MenuWrapper = ({
 				.map(({ current }) => current)
 				.find((el) => !!el && !el.hasAttribute('disabled')) ?? null;
 
-		if (shouldRenderToParent && (isTriggeredUsingKeyboard || autoFocus)) {
+		if ((fg('platform_dst_menu_item_focus') || shouldRenderToParent) && (isTriggeredUsingKeyboard || autoFocus)) {
 			firstFocusableRef?.focus();
 		}
 

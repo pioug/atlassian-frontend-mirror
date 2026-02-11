@@ -15,7 +15,7 @@ class RankableTableHeadCellComponent extends React.Component<
 		return <HeadCell inlineStyles={inlineStyles} {...restProps} />;
 	}
 }
-const RankableTableHeadCell = withDimensions<WithDimensionsProps & TableHeadCellProps>(
+const RankableTableHeadCell: React.ComponentClass<Omit<WithDimensionsProps & TableHeadCellProps, "innerRef" | "refWidth" | "refHeight">, import("../../hoc/with-dimensions").State> = withDimensions<WithDimensionsProps & TableHeadCellProps>(
 	RankableTableHeadCellComponent,
 );
 

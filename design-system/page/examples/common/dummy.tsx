@@ -25,10 +25,10 @@ const styles = cssMap({
 	},
 });
 
-export const Dummy = ({ children, hasMargin = false }: DummyProps) => (
+export const Dummy: ({ children, hasMargin }: DummyProps) => JSX.Element = ({ children, hasMargin = false }: DummyProps) => (
 	<div css={[styles.base, hasMargin && styles.margin]}>{children}</div>
 );
 
-export const DummyNested = ({ children, hasMargin = false }: DummyProps) => (
+export const DummyNested: ({ children, hasMargin }: DummyProps) => JSX.Element = ({ children, hasMargin = false }: DummyProps) => (
 	<div css={[styles.nested, hasMargin && styles.margin]}>{children}</div>
 );

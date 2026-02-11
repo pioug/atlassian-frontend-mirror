@@ -1,4 +1,4 @@
-export const blockedJSXAttributeLookup = new Set([
+export const blockedJSXAttributeLookup: Set<string> = new Set([
 	'onDragStart',
 	'onDragEnter',
 	'onDragLeave',
@@ -8,7 +8,7 @@ export const blockedJSXAttributeLookup = new Set([
 	'onDragEnd',
 ]);
 
-export const blockedEventNameLookup = new Set([
+export const blockedEventNameLookup: Set<string> = new Set([
 	'dragstart',
 	'dragenter',
 	'dragleave',

@@ -45,7 +45,7 @@ const spaceBetweenStyles = css({
 	justifyContent: 'space-between',
 });
 
-const PopupSelectExample = () => (
+const PopupSelectExample: () => JSX.Element = () => (
 	<Fragment>
 		<div css={[flexStyles, spaceBetweenStyles]}>
 			<PopupSelect

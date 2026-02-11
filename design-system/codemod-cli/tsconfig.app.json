@@ -24,7 +24,6 @@
 		"**/mock.*"
 	],
 	"compilerOptions": {
-		"module": "commonjs",
 		"target": "es6",
 		"esModuleInterop": true,
 		"lib": [
@@ -40,8 +39,7 @@
 		],
 		"composite": true,
 		"verbatimModuleSyntax": false,
-		"outDir": "../../../tsDist/@atlaskit__codemod-cli/app",
-		"moduleResolution": "node10"
+		"outDir": "../../../tsDist/@atlaskit__codemod-cli/app"
 	},
 	"references": [
 		{

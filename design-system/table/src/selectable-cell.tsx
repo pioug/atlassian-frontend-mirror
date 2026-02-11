@@ -29,7 +29,7 @@ const SelectableCellComponent: FC = () => {
 	);
 };
 
-const SelectableCell = memo(SelectableCellComponent);
+const SelectableCell: React.NamedExoticComponent<{}> = memo(SelectableCellComponent);
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default SelectableCell;

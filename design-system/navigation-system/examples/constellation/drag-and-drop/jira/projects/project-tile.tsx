@@ -28,7 +28,7 @@ export function ProjectTile({
 }: {
 	backgroundColor: string;
 	children: ReactNode;
-}) {
+}): JSX.Element {
 	return (
 		<div css={styles.root} style={{ backgroundColor }} role="presentation">
 			{children}

@@ -34,7 +34,7 @@ export interface ContainerProps<
 	 */
 	innerProps: {};
 }
-export const containerCSS = () => ({});
+export const containerCSS: () => {} = () => ({});
 
 const containerStyles = cssMap({
 	default: {
@@ -54,7 +54,7 @@ const containerStyles = cssMap({
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const SelectContainer = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+export const SelectContainer: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(props: ContainerProps<Option, IsMulti, Group>) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: ContainerProps<Option, IsMulti, Group>,
 ) => {
 	const { children, innerProps, isDisabled, isRtl, xcss } = props;
@@ -104,7 +104,7 @@ export interface ValueContainerProps<
 	 */
 	isCompact?: boolean;
 }
-export const valueContainerCSS = () => ({});
+export const valueContainerCSS: () => {} = () => ({});
 const valueContainerStyles = cssMap({
 	default: {
 		alignItems: 'center',
@@ -131,7 +131,7 @@ const valueContainerStyles = cssMap({
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const ValueContainer = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+export const ValueContainer: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(props: ValueContainerProps<Option, IsMulti, Group>) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: ValueContainerProps<Option, IsMulti, Group>,
 ) => {
 	const {
@@ -187,7 +187,7 @@ export interface IndicatorsContainerProps<
 	innerProps?: {};
 }
 
-export const indicatorsContainerCSS = () => ({});
+export const indicatorsContainerCSS: () => {} = () => ({});
 
 const indicatorContainerStyles = css({
 	display: 'flex',
@@ -198,7 +198,7 @@ const indicatorContainerStyles = css({
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IndicatorsContainer = <
+export const IndicatorsContainer: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(props: IndicatorsContainerProps<Option, IsMulti, Group>) => JSX.Element = <
 	Option,
 	IsMulti extends boolean,
 	Group extends GroupBase<Option>,

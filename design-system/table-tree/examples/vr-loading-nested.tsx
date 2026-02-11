@@ -30,7 +30,7 @@ type Item = {
 	id: string;
 };
 
-export default () => (
+const _default: () => JSX.Element = () => (
 	<div css={animationStyles}>
 		<TableTree>
 			<Headers>
@@ -56,3 +56,4 @@ export default () => (
 		</TableTree>
 	</div>
 );
+export default _default;

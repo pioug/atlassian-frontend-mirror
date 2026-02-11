@@ -23,7 +23,7 @@ const styles = cssMap({
  * Available for advanced use cases, for most situations providing a `title` to `section` should be enough.
  *
  */
-const HeadingItem = (props: HeadingItemProps) => {
+const HeadingItem: (props: HeadingItemProps) => JSX.Element | null = (props: HeadingItemProps) => {
 	const { shouldRender } = useShouldNestedElementRender();
 	if (!shouldRender) {
 		return null;

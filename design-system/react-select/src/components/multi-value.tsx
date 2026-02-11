@@ -76,9 +76,9 @@ const multiValueStyles = cssMap({
 	},
 });
 
-export const multiValueCSS = () => ({});
+export const multiValueCSS: () => {} = () => ({});
 
-export const multiValueLabelCSS = () => ({});
+export const multiValueLabelCSS: () => {} = () => ({});
 
 const multiValueLabelStyles = cssMap({
 	root: {
@@ -98,7 +98,7 @@ const multiValueLabelStyles = cssMap({
 	},
 });
 
-export const multiValueRemoveCSS = () => ({});
+export const multiValueRemoveCSS: () => {} = () => ({});
 
 const multiValueRemoveStyles = cssMap({
 	focused: {
@@ -156,7 +156,7 @@ export interface MultiValueGenericProps<
 }
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const MultiValueContainer = <
+export const MultiValueContainer: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({ children, innerProps, isFocused, isDisabled, className, xcss, }: MultiValueGenericProps<Option, IsMulti, Group>) => JSX.Element = <
 	Option,
 	IsMulti extends boolean,
 	Group extends GroupBase<Option>,
@@ -185,7 +185,7 @@ export const MultiValueContainer = <
 };
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const MultiValueLabel = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
+export const MultiValueLabel: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({ children, innerProps, isDisabled, hasEllipsis, className, xcss, }: MultiValueGenericProps<Option, IsMulti, Group>) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
 	children,
 	innerProps,
 	isDisabled,
@@ -238,7 +238,7 @@ export function MultiValueRemove<Option, IsMulti extends boolean, Group extends 
 	innerProps,
 	className,
 	xcss,
-}: MultiValueRemoveProps<Option, IsMulti, Group>) {
+}: MultiValueRemoveProps<Option, IsMulti, Group>): JSX.Element {
 	return (
 		// The Remove button is intentionally excluded from the tab order, please avoid assigning a non-negative tabIndex to it. Context: https://hello.atlassian.net/wiki/spaces/A11YKB/pages/3031993460/Clear+Options+on+an+Input+Field
 		<div
@@ -257,7 +257,7 @@ export function MultiValueRemove<Option, IsMulti extends boolean, Group extends 
 	);
 }
 
-const MultiValue = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+const MultiValue: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(props: MultiValueProps<Option, IsMulti, Group>) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: MultiValueProps<Option, IsMulti, Group>,
 ) => {
 	const {

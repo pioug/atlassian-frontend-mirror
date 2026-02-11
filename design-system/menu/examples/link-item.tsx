@@ -40,7 +40,7 @@ const useLinkItemComputedProps = ({ initialSelectedHref }: { initialSelectedHref
 const loremText =
 	'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates incidunt nisi, esse ullam fugit omnis libero neque facilis magnam quaerat dolor iste consequuntur placeat, rerum numquam, eum tempora! Accusamus, quidem?';
 
-export default () => {
+const _default: () => JSX.Element = () => {
 	const { getComputedProps } = useLinkItemComputedProps({
 		initialSelectedHref: '#link-item2',
 	});
@@ -119,3 +119,4 @@ export default () => {
 		</Box>
 	);
 };
+export default _default;

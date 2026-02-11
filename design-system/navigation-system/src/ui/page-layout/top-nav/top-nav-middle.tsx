@@ -95,7 +95,7 @@ export function TopNavMiddle({
 	 * Should also contain the Create button.
 	 */
 	children: React.ReactNode;
-}) {
+}): JSX.Element {
 	const isFhsEnabled = useIsFhsEnabled();
 
 	return (

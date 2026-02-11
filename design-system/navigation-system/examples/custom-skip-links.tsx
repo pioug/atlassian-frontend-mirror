@@ -68,7 +68,7 @@ function ComponentWithCustomSkipLink({
 	);
 }
 
-export function CustomSkipLinksExample() {
+export function CustomSkipLinksExample(): JSX.Element {
 	return (
 		<WithResponsiveViewport>
 			<Root>

@@ -166,7 +166,7 @@ export function Panel({
 	 * @deprecated
 	 */
 	hasBorder?: boolean;
-}) {
+}): JSX.Element {
 	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);
 	const id = useLayoutId({ providedId });
 

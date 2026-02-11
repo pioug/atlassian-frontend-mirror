@@ -13,7 +13,12 @@ type PluginFlags = {
 };
 
 export const ruleName = 'design-system/no-unsafe-design-token-usage';
-export const messages = stylelint.utils.ruleMessages(ruleName, {
+export const messages: {
+    invalidToken: (name: string | number | boolean | RegExp) => string;
+    tokenRemoved: (name: string | number | boolean | RegExp, replacement: string | number | boolean | RegExp) => string;
+    missingFallback: string;
+    hasFallback: string;
+} = stylelint.utils.ruleMessages(ruleName, {
 	invalidToken: (name): string =>
 		`The token '${name}' does not exist. You can find the design tokens reference at <https://atlaskit.atlassian.com/packages/design-system/tokens/docs/tokens-reference>.`,
 	tokenRemoved: (name, replacement): string =>
@@ -155,6 +160,6 @@ const rule: Rule<any, any> = Object.assign(ruleBase, {
 	messages: messages,
 });
 
-const plugin = stylelint.createPlugin(ruleName, rule);
+const plugin: stylelint.Plugin = stylelint.createPlugin(ruleName, rule);
 
 export default plugin;

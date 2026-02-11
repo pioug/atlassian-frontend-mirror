@@ -5,7 +5,7 @@ import { findIdentifierInParentScope } from '../utils/find-in-parent';
 
 const invalidHrefValues = ['', '#', null, undefined];
 
-export const hrefHasInvalidValue = (
+export const hrefHasInvalidValue: (scope: Scope.Scope, href: JSXAttribute | undefined) => boolean = (
 	scope: Scope.Scope,
 	href: JSXAttribute | undefined,
 ): boolean => {
@@ -64,7 +64,7 @@ export const hrefHasInvalidValue = (
 	return false;
 };
 
-export const hasImportOfName = (node: ImportDeclaration, name: string): boolean => {
+export const hasImportOfName: (node: ImportDeclaration, name: string) => boolean = (node: ImportDeclaration, name: string): boolean => {
 	return node.specifiers.some(
 		// This should not be an `any`. This is an array of `ImportSpecifier |
 		// ImportDefaultSpecifier`. For some reason, filtering this way still
@@ -74,10 +74,10 @@ export const hasImportOfName = (node: ImportDeclaration, name: string): boolean 
 	);
 };
 
-export const insertButtonItemDefaultImport = (fixer: Rule.RuleFixer, node: ImportDeclaration) =>
+export const insertButtonItemDefaultImport: (fixer: Rule.RuleFixer, node: ImportDeclaration) => Rule.Fix = (fixer: Rule.RuleFixer, node: ImportDeclaration) =>
 	fixer.insertTextBefore(node, `import ButtonItem from '@atlaskit/menu/button-item';\n`);
 
-export const getUniqueButtonItemName = (
+export const getUniqueButtonItemName: (menuNode: ImportDeclaration | null, importDeclarations: ImportDeclaration[]) => string = (
 	menuNode: ImportDeclaration | null,
 	importDeclarations: ImportDeclaration[],
 ): string => {
@@ -106,7 +106,7 @@ export const getUniqueButtonItemName = (
 	}
 };
 
-export const insertButtonItemImport = (
+export const insertButtonItemImport: (fixer: Rule.RuleFixer, node: ImportDeclaration, uniqueButtonItemName: string) => Rule.Fix = (
 	fixer: Rule.RuleFixer,
 	node: ImportDeclaration,
 	uniqueButtonItemName: string,

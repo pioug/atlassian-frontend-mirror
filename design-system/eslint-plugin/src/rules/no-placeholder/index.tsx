@@ -3,7 +3,7 @@ import { isNodeOfType } from 'eslint-codemod-utils';
 import * as ast from '../../ast-nodes';
 import { createLintRule } from '../utils/create-rule';
 
-export const AFFECTED_HTML_ELEMENTS = ['input', 'textarea'];
+export const AFFECTED_HTML_ELEMENTS: string[] = ['input', 'textarea'];
 export const AFFECTED_ATLASKIT_PACKAGES: Record<string, string[]> = {
 	'@atlaskit/datetime-picker': ['DatePicker', 'TimePicker', 'DateTimePicker'],
 	'@atlaskit/select': [
@@ -21,7 +21,7 @@ export const AFFECTED_ATLASKIT_PACKAGES: Record<string, string[]> = {
 export const ATLASKIT_FORM_PACKAGE = '@atlaskit/form';
 export const ATLASKIT_FIELD_IMPORT = 'Field';
 
-const rule = createLintRule({
+const rule: import("eslint").Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'no-placeholder',
 		type: 'problem',

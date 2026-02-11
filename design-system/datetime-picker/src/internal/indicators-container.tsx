@@ -13,7 +13,9 @@ const styles = cssMap({
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IndicatorsContainer = ({
+export const IndicatorsContainer: ({ showClearIndicator, ...rest }: IndicatorsContainerProps<any> & {
+    showClearIndicator?: boolean;
+}) => JSX.Element = ({
 	showClearIndicator,
 	...rest
 }: IndicatorsContainerProps<any> & {

@@ -18,7 +18,7 @@ type GridContextProps = {
  *
  * @internal
  */
-export const GridContext = createContext<GridContextProps>({
+export const GridContext: import("react").Context<GridContextProps> = createContext<GridContextProps>({
 	isRoot: true,
 	isNested: false,
 	spacing: defaultSpacing,

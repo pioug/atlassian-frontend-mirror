@@ -92,7 +92,7 @@ const scrollableContent = cssMap({
 	},
 });
 
-export default function FullScreenModeExample() {
+export default function FullScreenModeExample(): JSX.Element {
 	const [isPanelVisible, setIsPanelVisible] = useState(true);
 	const [isAsideVisible, setIsAsideVisible] = useState(true);
 	const [isFullscreen, setIsFullscreen] = useState(false);

@@ -69,6 +69,6 @@ export const rowsWithKeys: Array<RowType> = rows.map((tRow: RowType, rowIndex: n
 	};
 });
 
-export const rowWithKey = rowsWithKeys[0];
+export const rowWithKey: RowType = rowsWithKeys[0];
 
-export const cellWithKey = rowWithKey.cells[0];
+export const cellWithKey: import("../../../types").RowCellType = rowWithKey.cells[0];

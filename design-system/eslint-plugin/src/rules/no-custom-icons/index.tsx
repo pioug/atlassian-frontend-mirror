@@ -7,7 +7,7 @@ import { errorBoundary } from '../utils/error-boundary';
 import { hasProp } from './checks/has-prop';
 import { createIsFromImportSourceFor } from './checks/is-from-import-source';
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'no-custom-icons',
 		type: 'problem',

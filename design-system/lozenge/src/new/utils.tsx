@@ -10,7 +10,7 @@ const legacyAppearanceMap: Record<string, SemanticColor> = {
 };
 
 // Resolve the lozenge color based on the appearance
-export const resolveLozengeColor = (appearance = 'neutral'): LozengeColor => {
+export const resolveLozengeColor: (appearance?: string) => LozengeColor = (appearance = 'neutral'): LozengeColor => {
 	if (appearance.startsWith('accent-')) {
 		return appearance as AccentColor;
 	}
@@ -19,7 +19,10 @@ export const resolveLozengeColor = (appearance = 'neutral'): LozengeColor => {
 };
 
 // extract the category and key from the resolved color
-export const getThemeStyles = (resolvedColor: LozengeColor) => {
+export const getThemeStyles: (resolvedColor: LozengeColor) => {
+    category: string;
+    key: string;
+} = (resolvedColor: LozengeColor) => {
 	const isAccent = resolvedColor.startsWith('accent-');
 	const category = isAccent ? 'accent' : 'semantic';
 	const key = isAccent ? resolvedColor.replace('accent-', '') : resolvedColor;

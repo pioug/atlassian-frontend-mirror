@@ -8,7 +8,7 @@ import {
 	type SpreadElement,
 } from 'eslint-codemod-utils';
 
-export const SPREAD_SYNTAX = Symbol('SPREAD_SYNTAX');
+export const SPREAD_SYNTAX: unique symbol = Symbol('SPREAD_SYNTAX');
 
 type Token = {
 	tokenName: string; // TODO: this could be more strict
@@ -23,7 +23,7 @@ export type CSSPropStyleObject = {
 /**
  * Note: Not recursive. Only handles top level key/value pairs
  */
-export const convertASTObjectExpressionToJSObject = (
+export const convertASTObjectExpressionToJSObject: (styles: ObjectExpression & Partial<Rule.NodeParentExtension>) => CSSPropStyleObject = (
 	styles: ObjectExpression & Partial<Rule.NodeParentExtension>,
 ): CSSPropStyleObject => {
 	const styleObj: CSSPropStyleObject = {

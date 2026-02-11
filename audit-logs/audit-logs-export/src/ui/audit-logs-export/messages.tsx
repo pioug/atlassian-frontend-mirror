@@ -4,7 +4,7 @@ export const defaultMessages = defineMessages({
 	exportButton: {
 		id: 'organization.audit.log.export.button',
 		defaultMessage: 'Export log',
-		description: 'Button text for exporting audit logs',
+		description: 'Button text for exporting audit log',
 	},
 	modalTitle: {
 		id: 'organization.audit.log.export.modal.title',
@@ -30,7 +30,7 @@ export const defaultMessages = defineMessages({
 	exportTermsDescription: {
 		id: 'organization.audit.log.export.terms.description',
 		defaultMessage:
-			"I understand that if I share these audit logs with people that don't otherwise have access to them, any existing user permissions set in Atlassian Administration and other apps will no longer apply to them.",
+			"I understand that if I share this audit log data with people that don't otherwise have access to it, any existing user permissions set in Atlassian Administration and other apps will no longer apply to them.",
 		description: 'Terms and conditions description text',
 	},
 	exportTermsError: {

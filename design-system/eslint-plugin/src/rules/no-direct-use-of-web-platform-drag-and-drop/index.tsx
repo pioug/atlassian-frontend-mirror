@@ -7,7 +7,7 @@ import { isBlockedBind } from './checks/is-blocked-bind';
 import { isBlockedBindAll } from './checks/is-blocked-bind-all';
 import { isBlockedJSXAttribute } from './checks/is-blocked-jsx-attribute';
 
-const rule = createLintRule({
+const rule: import("eslint").Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'no-direct-use-of-web-platform-drag-and-drop',
 		type: 'problem',

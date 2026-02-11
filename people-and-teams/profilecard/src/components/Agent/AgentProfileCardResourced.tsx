@@ -1,7 +1,7 @@
 import React, { Suspense, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { getAgentCreator } from '@atlaskit/rovo-agent-components';
+import { getAgentCreator } from '@atlaskit/rovo-agent-components/ui/AgentProfileInfo';
 import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
 

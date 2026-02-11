@@ -137,7 +137,7 @@ const createGlobalConfig = (schemaInputDir: string): Config => ({
 	},
 });
 
-export default function build(styleDictionary: Core) {
+export default function build(styleDictionary: Core): void {
 	const schemaInputDir = `${__dirname}/../../schema/tokens`;
 	const config = createGlobalConfig(schemaInputDir);
 	styleDictionary.extend(config).buildAllPlatforms();

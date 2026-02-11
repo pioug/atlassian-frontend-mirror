@@ -16,7 +16,28 @@ import { Import } from './import';
 
 type ImportData = Parameters<typeof insertImportDeclaration>[1]; // Little bit unreadable, but better than duplicating the type
 
-export const Root = {
+export const Root: {
+    /**
+     * Note: This can return multiple ImportDeclarations for cases like:
+     * ```
+     * import { Stack } from '@atlaskit/primitives'
+     * import type { StackProps } from '@atlaskit/primitives'
+     * ```
+     */
+    findImportsByModule(root: (Directive | Statement | ModuleDeclaration)[], name: string | string[]): ImportDeclaration[];
+    insertImport(root: (Directive | Statement | ModuleDeclaration)[], data: {
+        module: string;
+        specifiers: ImportData;
+    }, fixer: Rule.RuleFixer): Rule.Fix;
+    upsertNamedImportDeclaration({ module, specifiers, }: {
+        module: string;
+        specifiers: string[];
+    }, context: Rule.RuleContext, fixer: Rule.RuleFixer): Rule.Fix | undefined;
+    upsertDefaultImportDeclaration({ module, localName, }: {
+        module: string;
+        localName: string;
+    }, context: Rule.RuleContext, fixer: Rule.RuleFixer): Rule.Fix | undefined;
+} = {
 	/**
 	 * Note: This can return multiple ImportDeclarations for cases like:
 	 * ```

@@ -7,8 +7,8 @@ import {
 	type TabPanelAttributesType,
 } from '../types';
 
-export const TabContext = createContext<TabAttributesType | null>(null);
+export const TabContext: import("react").Context<TabAttributesType | null> = createContext<TabAttributesType | null>(null);
 
-export const TabListContext = createContext<TabListAttributesType | null>(null);
+export const TabListContext: import("react").Context<TabListAttributesType | null> = createContext<TabListAttributesType | null>(null);
 
-export const TabPanelContext = createContext<TabPanelAttributesType | null>(null);
+export const TabPanelContext: import("react").Context<TabPanelAttributesType | null> = createContext<TabPanelAttributesType | null>(null);

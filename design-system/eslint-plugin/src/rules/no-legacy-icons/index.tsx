@@ -4,7 +4,7 @@ import { errorBoundary } from '../utils/error-boundary';
 import { createChecks } from './checks';
 import { createHelpers } from './helpers';
 
-const rule = createLintRule({
+const rule: import("eslint").Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'no-legacy-icons',
 		fixable: 'code',

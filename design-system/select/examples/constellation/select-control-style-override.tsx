@@ -22,7 +22,7 @@ const controlStyles = cssMap({
 	},
 });
 
-export default () => (
+const _default: () => JSX.Element = () => (
 	<>
 		<Label htmlFor="indicators-dropdown">What city do you live in?</Label>
 		<Select
@@ -38,3 +38,4 @@ export default () => (
 		/>
 	</>
 );
+export default _default;

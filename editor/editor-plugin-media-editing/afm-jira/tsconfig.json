@@ -51,6 +51,9 @@
 			"path": "../../../design-system/primitives/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/spinner/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/tokens/afm-jira/tsconfig.json"
 		},
 		{

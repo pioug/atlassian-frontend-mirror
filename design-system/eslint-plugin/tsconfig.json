@@ -13,9 +13,7 @@
 	],
 	"exclude": [],
 	"compilerOptions": {
-		"lib": ["ES2021.String", "ES2022.String", "ES2022.Array"],
-		"module": "commonjs",
-		"moduleResolution": "node"
+		"lib": ["ES2021.String", "ES2022.String", "ES2022.Array"]
 	},
 	"ts-node": {
 		// It is faster to skip typechecking.

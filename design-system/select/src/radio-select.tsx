@@ -4,7 +4,7 @@ import { RadioOption } from './components/input-options';
 import Select from './select';
 import { type OptionType, type SelectProps } from './types';
 
-const RadioSelect = React.memo(
+const RadioSelect: React.MemoExoticComponent<({ components, ...props }: SelectProps<OptionType>) => React.JSX.Element> = React.memo(
 	({ components, ...props }: SelectProps<OptionType>): React.JSX.Element => {
 		const mergedComponents = useMemo(
 			() => ({

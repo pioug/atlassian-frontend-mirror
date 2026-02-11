@@ -20,7 +20,7 @@ export function getNamedSpecifier(
 	source: any,
 	specifier: string,
 	importName: string,
-) {
+): any {
 	const specifiers = source
 		.find(j.ImportDeclaration)
 		.filter((path: ASTPath<ImportDeclaration>) => path.node.source.value === specifier)
@@ -61,7 +61,7 @@ export function getJSXAttributesByName(
 		});
 }
 
-export function hasImportDeclaration(j: core.JSCodeshift, source: any, importPath: string) {
+export function hasImportDeclaration(j: core.JSCodeshift, source: any, importPath: string): boolean {
 	const imports = source
 		.find(j.ImportDeclaration)
 		.filter(
@@ -78,7 +78,7 @@ export function findIdentifierAndReplaceAttribute(
 	identifierName: string,
 	searchAttr: string,
 	replaceWithAttr: string,
-) {
+): void {
 	source
 		.find(j.JSXElement)
 		.find(j.JSXOpeningElement)
@@ -136,7 +136,7 @@ export function addCommentToStartOfFile({
 	j: core.JSCodeshift;
 	base: Collection<Node>;
 	message: string;
-}) {
+}): void {
 	addCommentBefore({
 		j,
 		target: base.find(j.Program),
@@ -152,7 +152,7 @@ export function addCommentBefore({
 	j: core.JSCodeshift;
 	target: Collection<Program> | Collection<ImportDeclaration>;
 	message: string;
-}) {
+}): void {
 	const content: string = ` TODO: (from codemod) ${clean(message)} `;
 	target.forEach((path: ASTPath<Program | ImportDeclaration>) => {
 		path.value.comments = path.value.comments || [];
@@ -178,7 +178,7 @@ export function tryCreateImport({
 	base: Collection<any>;
 	relativeToPackage: string;
 	packageName: string;
-}) {
+}): void {
 	const exists: boolean =
 		base.find(j.ImportDeclaration).filter((path) => path.value.source.value === packageName)
 			.length > 0;
@@ -203,7 +203,7 @@ export function addToImport({
 	base: Collection<any>;
 	importSpecifier: ImportSpecifier | ImportDefaultSpecifier;
 	packageName: string;
-}) {
+}): void {
 	base
 		.find(j.ImportDeclaration)
 		.filter((path) => path.value.source.value === packageName)
@@ -223,7 +223,7 @@ export function addToImport({
 		});
 }
 
-export const createRenameFuncFor =
+export const createRenameFuncFor: (component: string, importName: string, from: string, to: string) => (j: core.JSCodeshift, source: Collection<Node>) => void =
 	(component: string, importName: string, from: string, to: string) =>
 	(j: core.JSCodeshift, source: Collection<Node>) => {
 		const specifier = getNamedSpecifier(j, source, component, importName);
@@ -253,7 +253,7 @@ export const createRenameFuncFor =
 		}
 	};
 
-export const createRemoveFuncFor =
+export const createRemoveFuncFor: (component: string, importName: string, prop: string, comment?: string) => (j: core.JSCodeshift, source: Collection<Node>) => void =
 	(component: string, importName: string, prop: string, comment?: string) =>
 	(j: core.JSCodeshift, source: Collection<Node>) => {
 		const specifier =
@@ -274,7 +274,12 @@ export const createRemoveFuncFor =
 		});
 	};
 
-export const createRenameImportFor =
+export const createRenameImportFor: ({ componentName, newComponentName, oldPackagePath, newPackagePath, }: {
+    componentName: string;
+    newComponentName?: string;
+    oldPackagePath: string;
+    newPackagePath: string;
+}) => (j: core.JSCodeshift, source: Collection<Node>) => void =
 	({
 		componentName,
 		newComponentName,
@@ -355,7 +360,11 @@ export const createRenameImportFor =
 			.remove();
 	};
 
-export const createRemoveImportsFor =
+export const createRemoveImportsFor: ({ importsToRemove, packagePath, comment, }: {
+    importsToRemove: string[];
+    packagePath: string;
+    comment: string;
+}) => (j: core.JSCodeshift, source: Collection<Node>) => void =
 	({
 		importsToRemove,
 		packagePath,
@@ -425,16 +434,18 @@ export const createRemoveImportsFor =
 		}
 	};
 
-export const createTransformer =
+export const createTransformer: (component: string, migrates: {
+    (j: core.JSCodeshift, source: Collection<Node>): void;
+}[]) => (fileInfo: FileInfo, { jscodeshift }: API, options: Options) => string =
 	(component: string, migrates: { (j: core.JSCodeshift, source: Collection<Node>): void }[]) =>
-	(fileInfo: FileInfo, { jscodeshift: j }: API, options: Options) => {
-		const source: Collection<Node> = j(fileInfo.source);
+	(fileInfo: FileInfo, { jscodeshift }: API, options: Options) => {
+		const source: Collection<Node> = jscodeshift(fileInfo.source);
 
-		if (!hasImportDeclaration(j, source, component)) {
+		if (!hasImportDeclaration(jscodeshift, source, component)) {
 			return fileInfo.source;
 		}
 
-		migrates.forEach((tf) => tf(j, source));
+		migrates.forEach((tf) => tf(jscodeshift, source));
 
 		return source.toSource(options.printOptions || { quote: 'single' });
 	};

@@ -11,7 +11,7 @@ import FixedLayer from '../internal/fixed-layer';
 /**
  * This is the fixed layer menu used in the time picker.
  */
-export const FixedLayerMenu = ({
+export const FixedLayerMenu: ({ className, clearValue, cx, getStyles, getValue, hasValue, innerProps, innerRef, isLoading, isMulti, isRtl, maxMenuHeight, menuPlacement, menuPosition, menuShouldScrollIntoView, minMenuHeight, options, placement, selectOption, selectProps, setValue, children, ...rest }: MenuProps<OptionType>) => JSX.Element = ({
 	className,
 	clearValue,
 	cx,

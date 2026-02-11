@@ -10,64 +10,69 @@ export const mediaEditingMessages = defineMessages({
 		defaultMessage: 'Custom',
 		description: 'Display this message when user selects custom as their cropper aspect ratio',
 	},
-    aspectRatioSelectionSquare: {
+	aspectRatioSelectionSquare: {
 		id: 'editor.imageEditor.aspectRatio.square',
 		defaultMessage: 'Square',
 		description: 'Display this message when user selects square as their cropper aspect ratio',
 	},
-    aspectRatioSelectionCircle: {
+	aspectRatioSelectionCircle: {
 		id: 'editor.imageEditor.aspectRatio.circle',
 		defaultMessage: 'Circle',
 		description: 'Display this message when user selects circle as their cropper aspect ratio',
 	},
-    aspectRatioSelectionLandscape: {
+	aspectRatioSelectionLandscape: {
 		id: 'editor.imageEditor.aspectRatio.landscape',
 		defaultMessage: 'Landscape',
 		description: 'Display this message when user selects landscape as their cropper aspect ratio',
 	},
-    aspectRatioSelectionPortrait: {
+	aspectRatioSelectionPortrait: {
 		id: 'editor.imageEditor.aspectRatio.portrait',
 		defaultMessage: 'Portrait',
 		description: 'Display this message when user selects portrait as their cropper aspect ratio',
 	},
-    aspectRatioSelectionWide: {
+	aspectRatioSelectionWide: {
 		id: 'editor.imageEditor.aspectRatio.wide',
 		defaultMessage: 'Wide',
 		description: 'Display this message when user selects wide as their cropper aspect ratio',
 	},
-    squareButton: {
+	squareButton: {
 		id: 'editor.imageEditor.aspectRatio.squareButton',
 		defaultMessage: 'Square 1:1',
 		description: 'Square button display',
 	},
-    circleButton: {
+	circleButton: {
 		id: 'editor.imageEditor.aspectRatio.circleButton',
 		defaultMessage: 'Circle 1:1',
 		description: 'Circle button display',
 	},
-    landscapeButton: {
+	landscapeButton: {
 		id: 'editor.imageEditor.aspectRatio.landscapeButton',
 		defaultMessage: 'Landscape 4:3',
 		description: 'Landscape button display',
 	},
-    portraitButton: {
+	portraitButton: {
 		id: 'editor.imageEditor.aspectRatio.portraitButton',
 		defaultMessage: 'Portrait 3:4',
 		description: 'Portrait button display',
 	},
-    wideButton: {
+	wideButton: {
 		id: 'editor.imageEditor.aspectRatio.wideButton',
 		defaultMessage: 'Wide 16:9',
 		description: 'Wide button display',
 	},
-    cancelButton: {
+	cancelButton: {
 		id: 'editor.imageEditor.cancel',
 		defaultMessage: 'Cancel',
 		description: 'Cancel button display',
 	},
-    doneButton: {
+	doneButton: {
 		id: 'editor.imageEditor.done',
 		defaultMessage: 'Done',
 		description: 'Done button display',
+	},
+	savingButton: {
+		id: 'editor.imageEditor.saving',
+		defaultMessage: 'Saving...',
+		description: 'Saving button display when upload is in progress',
 	},
 });

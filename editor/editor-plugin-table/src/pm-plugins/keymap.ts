@@ -25,12 +25,16 @@ import {
 	escape,
 	focusToContextMenuTrigger,
 	increaseMediaSize,
+	moveColumnLeftOld,
 	moveColumnLeft,
+	moveColumnRightOld,
 	moveColumnRight,
 	moveDown,
 	moveLeft,
 	moveRight,
+	moveRowDownOld,
 	moveRowDown,
+	moveRowUpOld,
 	moveRowUp,
 	moveUp,
 	nextCell,
@@ -44,6 +48,7 @@ import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { moveSourceWithAnalyticsViaShortcut } from '../pm-plugins/drag-and-drop/commands-with-analytics';
 import type { PluginInjectionAPI, PluginInjectionAPIWithA11y } from '../types';
@@ -228,7 +233,14 @@ export function keymapPlugin(
 		list,
 	);
 
-	if (dragAndDropEnabled) {
+	if (
+		dragAndDropEnabled &&
+		moveRowDown.common &&
+		moveRowUp.common &&
+		moveColumnLeft.common &&
+		moveColumnRight.common
+	) {
+		const isNewKeyMapExperiment = expValEquals('editor-a11y-fy26-keyboard-move-row-column', 'isEnabled', true);
 		// Move row/column shortcuts
 		/**
 		 * NOTE: If the keyboard shortcut for moving rows or columns is changed, we need to update the handleKeyDown function
@@ -239,8 +251,10 @@ export function keymapPlugin(
 
 		bindKeymapWithCommand(
 			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			moveRowDown.common!,
+			isNewKeyMapExperiment
+				? moveRowDown.common
+				: // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					moveRowDownOld.common!,
 			moveSourceWithAnalyticsViaShortcut(
 				editorAnalyticsAPI,
 				ariaNotifyPlugin,
@@ -251,8 +265,10 @@ export function keymapPlugin(
 
 		bindKeymapWithCommand(
 			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			moveRowUp.common!,
+			isNewKeyMapExperiment
+				? moveRowUp.common
+				: // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					moveRowUpOld.common!,
 			moveSourceWithAnalyticsViaShortcut(
 				editorAnalyticsAPI,
 				ariaNotifyPlugin,
@@ -263,8 +279,10 @@ export function keymapPlugin(
 
 		bindKeymapWithCommand(
 			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			moveColumnLeft.common!,
+			isNewKeyMapExperiment
+				? moveColumnLeft.common
+				: // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					moveColumnLeftOld.common!,
 			moveSourceWithAnalyticsViaShortcut(
 				editorAnalyticsAPI,
 				ariaNotifyPlugin,
@@ -275,8 +293,10 @@ export function keymapPlugin(
 
 		bindKeymapWithCommand(
 			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			moveColumnRight.common!,
+			isNewKeyMapExperiment
+				? moveColumnRight.common
+				: // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					moveColumnRightOld.common!,
 			moveSourceWithAnalyticsViaShortcut(
 				editorAnalyticsAPI,
 				ariaNotifyPlugin,

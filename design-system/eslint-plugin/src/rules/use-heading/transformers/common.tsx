@@ -10,7 +10,7 @@ export type MetaData = {
 };
 
 // Rename data-testid prop to testId if present
-export function updateTestIdAttributeFix(node: JSXElement, fixer: Rule.RuleFixer) {
+export function updateTestIdAttributeFix(node: JSXElement, fixer: Rule.RuleFixer): Rule.Fix | undefined {
 	const testIdAttr = ast.JSXElement.getAttributeByName(node, 'data-testid');
 	if (testIdAttr) {
 		return ast.JSXAttribute.updateName(testIdAttr, 'testId', fixer);

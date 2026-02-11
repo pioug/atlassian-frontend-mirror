@@ -92,7 +92,7 @@
 		}
 	},
 	"name": "@atlaskit/audit-log-tabs",
-	"version": "0.1.1",
+	"version": "0.2.0",
 	"description": "This package is going to be the tab selector component for us to be able to render the main content of the Audit Logs page which will become part of the Audit Log Query Experience project.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

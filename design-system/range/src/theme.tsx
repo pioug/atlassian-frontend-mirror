@@ -3,11 +3,29 @@ import { token } from '@atlaskit/tokens';
 
 export const transitionDuration = '0.2s';
 
-export const input = {
+export const input: {
+    height: number;
+} = {
 	height: 40,
 };
 
-export const thumb = {
+export const thumb: {
+    readonly size: 16;
+    readonly borderWidth: 2;
+    readonly background: {
+        readonly default: "var(--ds-background-neutral-bold)";
+        readonly hovered: "var(--ds-background-neutral-bold-hovered)";
+        readonly pressed: "var(--ds-background-neutral-bold-pressed)";
+    };
+    readonly borderColor: {
+        readonly default: "transparent";
+        readonly focused: "var(--ds-border-focused)";
+    };
+    readonly boxShadow: {
+        readonly default: "var(--ds-UNSAFE-transparent)";
+        readonly disabled: "var(--ds-shadow-raised)";
+    };
+} = {
 	size: 16,
 	borderWidth: 2,
 	background: {
@@ -25,7 +43,22 @@ export const thumb = {
 	},
 } as const;
 
-export const track = {
+export const track: {
+    readonly height: 4;
+    /**
+     * borderRadius >= height / 2 to create a pill shape.
+     * Using '50%' creates an ellipse.
+     */
+    readonly borderRadius: 2;
+    readonly background: {
+        readonly default: "var(--ds-background-neutral)";
+        readonly hovered: "var(--ds-background-neutral-hovered)";
+    };
+    readonly foreground: {
+        readonly default: "var(--ds-background-neutral-bold)";
+        readonly hovered: "var(--ds-background-neutral-bold-hovered)";
+    };
+} = {
 	height: 4,
 	/**
 	 * borderRadius >= height / 2 to create a pill shape.

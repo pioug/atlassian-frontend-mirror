@@ -19,6 +19,7 @@ import { unknown } from './nodes/unknown';
 import { blockCard } from './nodes/block-card';
 import { embedCard } from './nodes/embed-card';
 import { caption } from './nodes/caption';
+import { bodiedSyncBlock } from './nodes/bodied-sync-block';
 import { type Context } from '../interfaces';
 
 // Ignored via go/ees005
@@ -50,6 +51,7 @@ const nodeEncoderMapping: { [key: string]: NodeEncoder } = {
 	blockCard,
 	embedCard,
 	expand,
+	bodiedSyncBlock,
 };
 
 export function encode(node: PMNode, context?: Context): string {

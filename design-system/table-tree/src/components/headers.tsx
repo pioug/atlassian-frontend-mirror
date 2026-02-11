@@ -26,7 +26,7 @@ interface HeadersProps {
  * - [Examples](https://atlassian.design/components/table-tree/examples#advanced)
  * - [Code](https://atlassian.design/components/table-tree/code#headers-props)
  */
-const Headers = ({ children }: HeadersProps) => (
+const Headers: ({ children }: HeadersProps) => JSX.Element = ({ children }: HeadersProps) => (
 	// TODO: Determine whether proper `tr` elements can be used instead of
 	// roles (DSP-11588)
 	<div css={containerStyles} role="row">

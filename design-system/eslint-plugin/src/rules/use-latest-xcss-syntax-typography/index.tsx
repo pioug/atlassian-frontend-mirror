@@ -9,7 +9,7 @@ import { RestrictedCapitalisation, RestrictedProperty, WrappedTokenValue } from 
 const typescriptErrorMessage =
 	'There is ongoing work to make this a TypeScript error. Once that happens, you will have to delete/refactor anyway.';
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'use-latest-xcss-syntax-typography',
 		type: 'problem',

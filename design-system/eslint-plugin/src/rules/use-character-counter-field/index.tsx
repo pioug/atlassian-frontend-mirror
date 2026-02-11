@@ -63,7 +63,7 @@ function isInsideFormOrField(node: Rule.Node, formComponentNames: Set<string>): 
 	return false;
 }
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: ruleName,
 		type: 'suggestion',

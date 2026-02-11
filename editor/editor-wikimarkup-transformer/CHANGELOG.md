@@ -1,5 +1,13 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.20.5
+
+### Patch Changes
+
+- [`0bb5625c1394f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0bb5625c1394f) -
+  [ux] EDITOR-1565 add support for syncBlock and bodiedSyncBlock nodes to editor-slack-transformer
+  and editor-wikimarkup-transformer
+
 ## 11.20.4
 
 ### Patch Changes

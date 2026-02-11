@@ -5,6 +5,7 @@ import { useIntl } from 'react-intl-next';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { ToolTipContent, insertEmoji } from '@atlaskit/editor-common/keymaps';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import { TOOLBAR_BUTTON_TEST_ID } from '@atlaskit/editor-common/toolbar';
 import { ToolbarButton, ToolbarTooltip, EmojiIcon, useToolbarUI } from '@atlaskit/editor-toolbar';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -73,6 +74,7 @@ export const EmojiButton = ({ api }: BaseToolbarButtonProps): React.JSX.Element 
 					onClick={() => emojiPickerPopup.toggle()}
 					isSelected={emojiPickerPopup.isOpen}
 					isDisabled={!isTypeAheadAllowed || !emojiProvider}
+					testId={TOOLBAR_BUTTON_TEST_ID.EMOJI}
 				/>
 			</ToolbarTooltip>
 		</>

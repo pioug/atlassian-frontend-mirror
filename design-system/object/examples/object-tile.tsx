@@ -16,7 +16,7 @@ const containerStyles = css({
 	maxWidth: '980px',
 });
 
-export default function ObjectTiles() {
+export default function ObjectTiles(): JSX.Element {
 	const sizes: ObjectTileSize[] = ['xsmall', 'small', 'medium', 'large', 'xlarge'];
 
 	return (

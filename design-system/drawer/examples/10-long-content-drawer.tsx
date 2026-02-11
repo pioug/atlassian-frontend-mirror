@@ -19,7 +19,7 @@ const containerStyles = css({
 	paddingInlineStart: token('space.200'),
 });
 
-const DrawersExample = () => {
+const DrawersExample: () => JSX.Element = () => {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const openDrawer = () => setIsDrawerOpen(true);
 	const closeDrawer = () => setIsDrawerOpen(false);

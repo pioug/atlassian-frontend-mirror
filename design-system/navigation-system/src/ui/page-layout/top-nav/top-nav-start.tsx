@@ -404,7 +404,7 @@ const TopNavStartInnerFHS = forwardRef(function TopNavStartInnerFHS(
  *
  * Wrapper for the top navigation actions on the inline-start (left) side of the top navigation.
  */
-export function TopNavStart({ children, testId, sideNavToggleButton }: TopNavStartProps) {
+export function TopNavStart({ children, testId, sideNavToggleButton }: TopNavStartProps): JSX.Element {
 	const isFhsEnabled = useIsFhsEnabled();
 	const ref = useContext(TopNavStartAttachRef);
 	const elementRef = useRef(null);

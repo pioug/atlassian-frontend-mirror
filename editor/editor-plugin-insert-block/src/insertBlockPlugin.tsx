@@ -26,6 +26,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { InsertBlockPlugin } from './insertBlockPluginType';
+import { getToolbarActionExperiencesPlugin } from './pm-plugins/experiences/toolbar-action-experiences';
 import { toggleInsertBlockPmKey, toggleInsertBlockPmPlugin } from './pm-plugins/toggleInsertBlock';
 import type { InsertBlockOptions } from './types';
 import { getToolbarComponents } from './ui/toolbar-components';
@@ -120,6 +121,10 @@ function delayUntilIdle(cb: Function) {
 export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api }) => {
 	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
 
+	const refs: {
+		popupsMountPoint?: HTMLElement;
+	} = {};
+
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
 		editorView,
 		editorActions,
@@ -133,6 +138,8 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 		isToolbarReducedSpacing,
 		isLastItem,
 	}) => {
+		refs.popupsMountPoint = popupsMountPoint || undefined;
+
 		const renderNode = (providers: Providers) => {
 			if (!editorView) {
 				return null;
@@ -255,6 +262,18 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 				name: 'toggleInsertBlockPmPlugin',
 				plugin: () => toggleInsertBlockPmPlugin(),
 			});
+
+			if (fg('platform_editor_experience_tracking_toolbar_button')) {
+				plugins.push({
+					name: 'toolbarActionExperiences',
+					plugin: () =>
+						getToolbarActionExperiencesPlugin({
+							refs,
+							dispatchAnalyticsEvent: (payload) =>
+								api?.analytics?.actions?.fireAnalyticsEvent(payload),
+						}),
+				});
+			}
 
 			return plugins;
 		},

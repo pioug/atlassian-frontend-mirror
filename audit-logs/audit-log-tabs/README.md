@@ -1,6 +1,6 @@
 # AuditLogTabs
 
-This package is going to be the tab selector component for us to be able to render the main content of the Audit Logs page which will become part of the Audit Log Query Experience project.
+This package is going to be the tab selector component for us to be able to render the main content of the Audit Log page which will become part of the Audit Log Query Experience project.
 
 ## Usage
 

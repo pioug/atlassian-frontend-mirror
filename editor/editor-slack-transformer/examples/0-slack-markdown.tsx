@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react';
 
+import {
+	localStorageFetchProvider,
+	localStorageWriteProvider,
+} from '@af/editor-examples-helpers/utils';
+import type { SyncedBlockPluginOptions } from '@atlaskit/editor-plugin-synced-block';
 import { CollapsedEditor, Editor, EditorContext } from '@atlaskit/editor-core';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
+import { useMemoizedSyncedBlockProvider } from '@atlaskit/editor-synced-block-provider';
+import { getSyncedBlockRenderer } from '@atlaskit/editor-synced-block-renderer';
 import { token } from '@atlaskit/tokens';
 
 import ToolsDrawer from '../example-helpers/ToolsDrawer';
@@ -37,6 +44,20 @@ export default function EditorWithFeedback(props: Props): React.JSX.Element {
 		hasJquery: false,
 		isExpanded: false,
 	});
+
+	const syncBlockProvider = useMemoizedSyncedBlockProvider({
+		fetchProvider: localStorageFetchProvider,
+		writeProvider: localStorageWriteProvider,
+		providerOptions: {},
+	});
+
+	const syncedBlock: SyncedBlockPluginOptions = {
+		enableSourceCreation: true,
+		syncedBlockRenderer: getSyncedBlockRenderer({
+			syncBlockRendererOptions: undefined,
+		}),
+		syncBlockDataProvider: syncBlockProvider,
+	};
 
 	const loadJquery = () => {
 		const scriptElem = document.createElement('script');
@@ -99,6 +120,7 @@ export default function EditorWithFeedback(props: Props): React.JSX.Element {
 											mediaInline: true,
 										},
 									}}
+									syncBlock={syncedBlock}
 									onChange={onChange}
 									onSave={SAVE_ACTION}
 									onCancel={CANCEL_ACTION}

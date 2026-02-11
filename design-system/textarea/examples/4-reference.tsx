@@ -12,7 +12,7 @@ const wrapperStyles = css({
 	maxWidth: 500,
 });
 
-export default () => {
+const _default: () => JSX.Element = () => {
 	const ref = useRef<HTMLTextAreaElement>(null);
 	useEffect(() => {
 		console.log('ref:', ref);
@@ -31,3 +31,4 @@ export default () => {
 		</div>
 	);
 };
+export default _default;

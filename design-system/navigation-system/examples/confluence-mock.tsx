@@ -215,7 +215,7 @@ function SpaceNavigationHeader({
 	);
 }
 
-export default function ConfluenceMockExample() {
+export default function ConfluenceMockExample(): JSX.Element {
 	const sideNavContentRef = useRef<HTMLDivElement>(null);
 
 	return (

@@ -159,6 +159,9 @@
 			"path": "../../design-system/range/tsconfig.app.json"
 		},
 		{
+			"path": "../../ai-mate/rovo-triggers/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/section-message/tsconfig.app.json"
 		},
 		{

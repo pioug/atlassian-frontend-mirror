@@ -64,7 +64,7 @@ export function Banner({
 	 * Defaults to 48px.
 	 */
 	height?: number;
-}) {
+}): JSX.Element {
 	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);
 	const id = useLayoutId({ providedId });
 	const isFhsEnabled = useIsFhsEnabled();

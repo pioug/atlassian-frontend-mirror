@@ -2,7 +2,7 @@ import React from 'react';
 
 import Lozenge from '@atlaskit/lozenge';
 
-export default () => (
+const _default: () => React.JSX.Element = () => (
 	<>
 		<div>
 			<Lozenge appearance="moved">Moved</Lozenge>
@@ -14,3 +14,4 @@ export default () => (
 		</div>
 	</>
 );
+export default _default;

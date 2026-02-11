@@ -12,7 +12,7 @@ export type SkipLinksContextData = {
 /**
  * Provides a way to register and unregister skip links
  */
-export const SkipLinksContext = createContext<SkipLinksContextData>({
+export const SkipLinksContext: import("react").Context<SkipLinksContextData> = createContext<SkipLinksContextData>({
 	registerSkipLink: noop,
 	unregisterSkipLink: noop,
 });
@@ -27,7 +27,7 @@ const useSkipLinks = () => useContext(SkipLinksContext);
  * This private version exists for us to support `onBeforeNavigate` for the side nav use case,
  * where we might need to expand it before moving focus, without having to support `onBeforeNavigate` publicly.
  */
-export const useSkipLinkInternal = ({
+export const useSkipLinkInternal: ({ id, label, listIndex, onBeforeNavigate, isHidden, }: SkipLinkData) => void = ({
 	id,
 	label,
 	listIndex,
@@ -54,7 +54,21 @@ export const useSkipLinkInternal = ({
 /**
  * Call `useSkipLink` to register a skip link for important elements on the page.
  */
-export const useSkipLink = (
+export const useSkipLink: (
+/**
+ * The unique ID for the skip link.
+ * You can use the `useSkipLinkId` hook to generate a unique ID.
+ */
+id: string, 
+/**
+ * The label for the skip link.
+ */
+label: string, 
+/**
+ * You can optionally set the position of the skip link in the list of skip links.
+ * Positions are zero-indexed.
+ */
+listIndex?: number) => void = (
 	/**
 	 * The unique ID for the skip link.
 	 * You can use the `useSkipLinkId` hook to generate a unique ID.

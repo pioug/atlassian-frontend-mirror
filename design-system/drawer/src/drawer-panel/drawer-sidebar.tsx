@@ -30,7 +30,7 @@ const styles = cssMap({
  *
  * The sidebar of the drawer panel.
  */
-export const DrawerSidebar = ({ children, xcss }: DrawerSidebarProps) => {
+export const DrawerSidebar: ({ children, xcss }: DrawerSidebarProps) => JSX.Element = ({ children, xcss }: DrawerSidebarProps) => {
 	useEnsureIsInsideDrawer();
 
 	return (

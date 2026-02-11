@@ -2,7 +2,7 @@ import { createLintRule } from '../utils/create-rule';
 
 const primitiveDocsUrl = 'https://go.atlassian.com/dst-prefer-primitives';
 
-const rule = createLintRule({
+const rule: import("eslint").Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'prefer-primitives',
 		type: 'suggestion',

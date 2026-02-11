@@ -22,7 +22,7 @@ import {
 
 export const hrefRequiredSuggestionText = 'Convert LinkItem to ButtonItem';
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'use-href-in-link-item',
 		type: 'suggestion',

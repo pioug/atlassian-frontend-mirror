@@ -93,7 +93,7 @@ export default function SideNavFlyout({
 	 */
 	isChildLayerOpen?: boolean;
 	defaultSideNavCollapsed?: boolean;
-}) {
+}): JSX.Element {
 	return (
 		<WithResponsiveViewport>
 			<Root>
@@ -243,18 +243,18 @@ export default function SideNavFlyout({
 	);
 }
 
-export function ExpandedVR() {
+export function ExpandedVR(): JSX.Element {
 	return <SideNavFlyout defaultSideNavCollapsed={false} isChildLayerOpen={false} />;
 }
 
-export function ExpandedWithOpenLayerVR() {
+export function ExpandedWithOpenLayerVR(): JSX.Element {
 	return <SideNavFlyout defaultSideNavCollapsed={false} isChildLayerOpen />;
 }
 
-export function CollapsedVR() {
+export function CollapsedVR(): JSX.Element {
 	return <SideNavFlyout defaultSideNavCollapsed isChildLayerOpen={false} />;
 }
 
-export function CollapsedWithOpenLayerVR() {
+export function CollapsedWithOpenLayerVR(): JSX.Element {
 	return <SideNavFlyout defaultSideNavCollapsed isChildLayerOpen />;
 }

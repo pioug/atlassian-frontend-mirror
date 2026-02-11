@@ -1,5 +1,13 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.27.1
+
+### Patch Changes
+
+- [`764672ccc7992`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/764672ccc7992) -
+  EDITOR-4049 Add support for prefetching of synced blocks data to synced block provider.
+- Updated dependencies
+
 ## 3.27.0
 
 ### Minor Changes

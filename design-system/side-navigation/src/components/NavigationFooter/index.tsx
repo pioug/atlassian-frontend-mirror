@@ -26,7 +26,7 @@ export interface NavigationFooterProps {
  * - [Examples](https://atlassian.design/components/side-navigation/examples#header-and-footer)
  * - [Code](https://atlassian.design/components/side-navigation/code)
  */
-const NavigationFooter = ({ children }: NavigationFooterProps) => {
+const NavigationFooter: ({ children }: NavigationFooterProps) => JSX.Element = ({ children }: NavigationFooterProps) => {
 	return (
 		<Box padding="space.100" paddingBlockEnd="space.200" xcss={styles.navigationFooter}>
 			{children}

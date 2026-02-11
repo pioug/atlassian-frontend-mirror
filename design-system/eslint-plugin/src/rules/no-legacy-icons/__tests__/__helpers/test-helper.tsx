@@ -1,7 +1,13 @@
 /**
  * ------------------- Exported Icon tests -------------------
  */
-export const exportedIconTests = [
+export const exportedIconTests: {
+    name: string;
+    code: string;
+    errors: {
+        messageId: string;
+    }[];
+}[] = [
 	{
 		name: 'Re-exported Icon',
 		code: `
@@ -133,7 +139,13 @@ export const exportedIconTests = [
 /**
  * ------------------- Icon Map or Array tests -------------------
  */
-export const iconMapOrArray = [
+export const iconMapOrArray: {
+    name: string;
+    code: string;
+    errors: {
+        messageId: string;
+    }[];
+}[] = [
 	{
 		name: 'Icons in a icon map',
 		code: `
@@ -207,7 +219,21 @@ export const iconMapOrArray = [
 /**
  * ------------------- Icons in custom component tests -------------------
  */
-export const iconsInCustomComponent = [
+export const iconsInCustomComponent: ({
+    name: string;
+    code: string;
+    output: string;
+    errors: {
+        messageId: string;
+    }[];
+} | {
+    name: string;
+    code: string;
+    errors: {
+        messageId: string;
+    }[];
+    output?: undefined;
+})[] = [
 	{
 		name: 'Icon rendered in custom component',
 		code: `
@@ -250,7 +276,28 @@ export const iconsInCustomComponent = [
 /**
  * ------------------- New Button tests -------------------
  */
-export const newButtonTests = [
+export const newButtonTests: ({
+    name: string;
+    code: string;
+    output: string;
+    errors: {
+        messageId: string;
+    }[];
+} | {
+    name: string;
+    code: string;
+    errors: ({
+        messageId: string;
+        suggestions?: undefined;
+    } | {
+        messageId: string;
+        suggestions: {
+            desc: string;
+            output: string;
+        }[];
+    })[];
+    output?: undefined;
+})[] = [
 	/**
 	 * ------------------- New Button tests -------------------
 	 */
@@ -665,7 +712,21 @@ import Button from '@atlaskit/button';
 /**
  * ------------------- Spread Props tests -------------------
  */
-export const spreadPropsTests = [
+export const spreadPropsTests: ({
+    name: string;
+    code: string;
+    errors: {
+        messageId: string;
+    }[];
+    output?: undefined;
+} | {
+    name: string;
+    code: string;
+    output: string;
+    errors: {
+        messageId: string;
+    }[];
+})[] = [
 	{
 		name: 'Spread props onto icon, manual migration required',
 		code: `
@@ -1195,7 +1256,35 @@ export const colorTests: (
 /**
  * ----- Combination of Auto and Manual tests -----------
  */
-export const combinationOfAutoAndManualTests = [
+export const combinationOfAutoAndManualTests: ({
+    name: string;
+    code: string;
+    errors: ({
+        messageId: string;
+        suggestions: {
+            desc: string;
+            output: string;
+        }[];
+    } | {
+        messageId: string;
+        suggestions?: undefined;
+    })[];
+    output?: undefined;
+} | {
+    name: string;
+    code: string;
+    output: string;
+    errors: ({
+        messageId: string;
+        suggestions?: undefined;
+    } | {
+        messageId: string;
+        suggestions: {
+            desc: string;
+            output: string;
+        }[];
+    })[];
+})[] = [
 	{
 		name: 'Same icon used in two places - one auto, one manual - only suggestions presented - no fix',
 		code: `
@@ -1527,7 +1616,27 @@ const App = () => (
 /**
  * ----- Safe mode -----------
  */
-export const safeModeTests = [
+export const safeModeTests: ({
+    name: string;
+    options: {
+        shouldUseSafeMigrationMode: boolean;
+    }[];
+    code: string;
+    errors: {
+        messageId: string;
+    }[];
+    output?: undefined;
+} | {
+    name: string;
+    options: {
+        shouldUseSafeMigrationMode: boolean;
+    }[];
+    code: string;
+    output: string;
+    errors: {
+        messageId: string;
+    }[];
+})[] = [
 	{
 		name: 'Should not migrate activity icon',
 		options: [

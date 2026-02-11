@@ -62,7 +62,7 @@ const removeVerbosity = (name: string): string => {
 	return name;
 };
 
-export const createTextStylesFromTemplate = () => {
+export const createTextStylesFromTemplate: () => string = () => {
 	return textProperties
 		.map((textProperty) => {
 			const { filterFn, objectName } = textProperty;

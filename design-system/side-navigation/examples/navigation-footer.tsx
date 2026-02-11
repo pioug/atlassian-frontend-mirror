@@ -23,7 +23,7 @@ const styles = cssMap({
 	},
 });
 
-const Example = () => {
+const Example: () => JSX.Element = () => {
 	return (
 		// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
 		<Box onClick={(e: MouseEvent) => e.preventDefault()}>

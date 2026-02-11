@@ -48,7 +48,7 @@ const barContent = (
 	</Inline>
 );
 
-const PageHeaderComplexExample = () => {
+const PageHeaderComplexExample: () => JSX.Element = () => {
 	return (
 		<PageHeader breadcrumbs={breadcrumbs} actions={actionsContent} bottomBar={barContent}>
 			Introducing the Design System Team

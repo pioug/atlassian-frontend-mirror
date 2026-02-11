@@ -36,7 +36,7 @@ const styles = cssMap({
 	},
 });
 
-const DrawerSurfaceDetectionExample = () => {
+const DrawerSurfaceDetectionExample: () => JSX.Element = () => {
 	const [open, setOpen] = useState(false);
 
 	return (

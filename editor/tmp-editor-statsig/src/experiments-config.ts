@@ -166,6 +166,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-02-05
+	'editor-a11y-fy26-keyboard-move-row-column': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-08-28
 	editor_enable_image_alignment_in_expand: {
 		defaultValue: boolean;
@@ -225,6 +232,12 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-07-08 - Jira work sync description comment summary
 	'jira-work-sync-desc-comment-summary': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	'platform_editor_deduplicate_mark_diff': {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -414,13 +427,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-11-04
 	platform_editor_disable_lazy_load_media: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2025-07-30
-	platform_editor_drag_handle_aria_label: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1503,6 +1509,13 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	platform_editor_deduplicate_mark_diff: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_deduplicate_mark_diff',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-09-03
 	platform_editor_hydratable_ui: createBooleanExperiment({
 		productKeys: {
@@ -1676,14 +1689,6 @@ export const editorExperimentsConfig: {
 	platform_editor_feedback_mandatory_rating: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_feedback_mandatory_rating',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-07-30
-	platform_editor_drag_handle_aria_label: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_drag_handle_aria_label',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -1867,6 +1872,15 @@ export const editorExperimentsConfig: {
 	platform_editor_native_expand_button: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_native_expand_button',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-02-05
+	'editor-a11y-fy26-keyboard-move-row-column': createBooleanExperiment({
+		productKeys: {
+			confluence: 'editor-a11y-fy26-keyboard-move-row-column',
+			jira: 'editor-a11y-fy26-keyboard-move-row-column',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

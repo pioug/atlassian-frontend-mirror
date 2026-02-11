@@ -1,7 +1,7 @@
 import { diff, rgb_to_lab, type RGBColor } from 'color-diff';
 
 // Compare hex values using a CIEDE2000 color difference algorithm
-export const compareHex = (hex: string, hex2: string) =>
+export const compareHex: (hex: string, hex2: string) => number = (hex: string, hex2: string) =>
 	diff(rgb_to_lab(hexToRgbA(hex)), rgb_to_lab(hexToRgbA(hex2)));
 
 function hexToRgbA(hex: string): RGBColor {

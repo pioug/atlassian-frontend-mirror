@@ -37,7 +37,7 @@ const overrideStyles = css({
 const Emphasis = (props: CustomItemComponentProps) => <em {...props} />;
 const Star = <StarIcon spacing="spacious" label="" />;
 
-const ItemVariants = () => {
+const ItemVariants: () => JSX.Element = () => {
 	return (
 		<div
 			style={{

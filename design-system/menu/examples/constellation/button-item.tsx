@@ -52,7 +52,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => (
+const _default: () => JSX.Element = () => (
 	<div data-testid="button-items">
 		<ButtonItem isSelected>Activate</ButtonItem>
 		<ButtonItem isDisabled>Activate</ButtonItem>
@@ -75,3 +75,4 @@ export default () => (
 		</ButtonItem>
 	</div>
 );
+export default _default;

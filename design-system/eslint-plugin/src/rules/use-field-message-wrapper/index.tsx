@@ -6,7 +6,7 @@ import { createLintRule } from '../utils/create-rule';
 const FORM_PACKAGE = '@atlaskit/form';
 const MESSAGE_COMPONENTS = ['ErrorMessage', 'HelperMessage', 'ValidMessage'];
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'use-field-message-wrapper',
 		type: 'suggestion',

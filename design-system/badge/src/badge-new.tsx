@@ -157,7 +157,7 @@ const badgeValueWithNegativeNumberSupported = (
  * - warning (orange/yellow)
  * - discovery (purple)
  */
-const BadgeNew = memo(function BadgeNew({
+const BadgeNew: import("react").NamedExoticComponent<BadgeNewProps> = memo(function BadgeNew({
 	appearance = 'neutral',
 	children = 0,
 	max = 99,

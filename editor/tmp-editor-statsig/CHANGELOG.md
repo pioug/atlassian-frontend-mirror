@@ -1,5 +1,24 @@
 # @atlaskit/editor-statsig-tmp
 
+## 23.0.0
+
+### Major Changes
+
+- [`280d14e2d5518`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/280d14e2d5518) -
+  Clean up platform_editor_drag_handle_aria_label
+
+### Minor Changes
+
+- [`95a9857d9f007`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95a9857d9f007) -
+  Replaced keymaps for moving table columns/rows in the Editor behind experiment
+
+## 22.3.0
+
+### Minor Changes
+
+- [`6911179854bdb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6911179854bdb) -
+  Remove diff highlighting if there are overlapping mark steps (ie. add and then remove)
+
 ## 22.2.1
 
 ### Patch Changes

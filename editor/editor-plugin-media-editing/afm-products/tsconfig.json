@@ -51,6 +51,9 @@
 			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/spinner/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
 		},
 		{

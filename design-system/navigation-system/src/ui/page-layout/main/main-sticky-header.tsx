@@ -36,7 +36,7 @@ export function MainStickyHeader({
 	 * Bounded style overrides.
 	 */
 	xcss?: StrictXCSSProp<'backgroundColor', never>;
-}) {
+}): JSX.Element {
 	return (
 		<div data-testid={testId} className={xcss} css={stickyHeaderStyles.root}>
 			{children}

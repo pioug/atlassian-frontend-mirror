@@ -24,7 +24,7 @@ const styles = cssMap({
 	},
 });
 
-export const CustomItemFooter = ({ children, ...props }: CustomItemComponentProps) => {
+export const CustomItemFooter: ({ children, ...props }: CustomItemComponentProps) => JSX.Element = ({ children, ...props }: CustomItemComponentProps) => {
 	const Component = props.onClick ? 'a' : 'div';
 	return (
 		<Component
@@ -38,7 +38,7 @@ export const CustomItemFooter = ({ children, ...props }: CustomItemComponentProp
 
 // This example footer conforms to a design taken from Jira designs found at
 // https://www.figma.com/file/GA22za6unqO2WsBWM0Ddxk/Jira-navigation-3?node-id=124%3A7194
-const ExampleFooter = () => (
+const ExampleFooter: () => JSX.Element = () => (
 	<Footer
 		useDeprecatedApi={false}
 		description={

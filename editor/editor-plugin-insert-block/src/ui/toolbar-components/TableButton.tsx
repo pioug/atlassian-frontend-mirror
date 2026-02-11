@@ -11,7 +11,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { ToolTipContent, getAriaKeyshortcuts, toggleTable } from '@atlaskit/editor-common/keymaps';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
+import { useEditorToolbar , TOOLBAR_BUTTON_TEST_ID } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarButton, ToolbarTooltip, TableIcon } from '@atlaskit/editor-toolbar';
 
@@ -55,7 +55,7 @@ export const TableButton = ({ api }: TableButtonProps): React.JSX.Element | null
 				iconBefore={<TableIcon label={formatMessage(messages.table)} size="small" />}
 				onClick={onClick}
 				ariaKeyshortcuts={getAriaKeyshortcuts(toggleTable)}
-				testId="Table"
+				testId={TOOLBAR_BUTTON_TEST_ID.TABLE}
 			/>
 		</ToolbarTooltip>
 	);

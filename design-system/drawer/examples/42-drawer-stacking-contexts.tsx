@@ -30,7 +30,7 @@ const styles = cssMap({
 	},
 });
 
-export default function DrawerExample() {
+export default function DrawerExample(): JSX.Element {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(true);
 
 	return (

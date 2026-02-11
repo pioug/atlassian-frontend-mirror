@@ -129,7 +129,7 @@ test.describe('collab', () => {
 
 			await expect(firstEditor).toHaveDocument(doc(p('HellWorldo')));
 			await expect(thirdEditor).toHaveDocument(doc(p('HellWorldo')));
-			await expect(page).toBeAccessible({ violationCount: 2 });
+			await expect(page).toBeAccessible({ violationCount: 1 });
 		});
 	});
 });

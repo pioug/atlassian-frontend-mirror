@@ -58,8 +58,9 @@ const items: Stages = [
 	},
 ];
 
-export default () => (
+const _default: () => JSX.Element = () => (
 	<Box xcss={styles.container}>
 		<ProgressTracker items={items} spacing="cozy" />
 	</Box>
 );
+export default _default;

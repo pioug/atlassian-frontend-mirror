@@ -3,7 +3,7 @@ import { type EslintNode, isNodeOfType } from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-rule';
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'no-margin',
 		type: 'problem',

@@ -60,7 +60,7 @@ export function FiltersMenuItem({
 	amountOfMenuItems: number;
 	filters: TFilter[];
 	index: number;
-}) {
+}): JSX.Element {
 	const [isExpanded, setIsExpanded] = useState<boolean>(true);
 	const wasExpandedWhenDragStartedRef = useRef<boolean | null>(null);
 	const { state, draggableButtonRef, dragPreview, dropTargetRef, dropIndicator } =

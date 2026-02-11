@@ -8,7 +8,7 @@ import { EmphasisElements, ParagraphElements, SpanElements, StrongElements, Unsa
 
 const textDocsUrl = 'https://atlassian.design/components/primitives/text';
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'use-primitives-text',
 		type: 'suggestion',

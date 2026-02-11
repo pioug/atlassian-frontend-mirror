@@ -1,4 +1,4 @@
-export const isToken = (value: string, tokens: Record<string, string>) => {
+export const isToken: (value: string, tokens: Record<string, string>) => string | undefined = (value: string, tokens: Record<string, string>) => {
 	const tokenValues = Object.entries(tokens);
 
 	for (let i = 0; i < tokenValues.length; i++) {

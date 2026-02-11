@@ -6,7 +6,7 @@ import { IntlProvider } from 'react-intl-next';
 import { render } from '@testing-library/react';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers';
 import initialDoc from '../../__fixtures__/event-handlers.adf.json';
-import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/src/media-client';
+import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';
 
 jest.mock('react-lazily-render', () => {
 	let isOnRenderCalled = false;

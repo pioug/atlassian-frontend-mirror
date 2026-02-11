@@ -30,6 +30,16 @@ export type AgentVerificationDropdownItemProps = {
 	 * Test ID for the dropdown item.
 	 */
 	testId?: string;
+	/**
+	 * Render function for custom dropdown component.
+	 * If not provided, defaults to DropdownItem.
+	 */
+	renderItem?: (props: {
+		isPending: boolean;
+		isVerified: boolean;
+		labelText: string;
+		onClick: () => void;
+	}) => React.ReactNode;
 };
 
 /**
@@ -43,6 +53,7 @@ export const AgentVerificationDropdownItem = ({
 	onClick,
 	onVerificationSuccess,
 	testId,
+	renderItem,
 }: AgentVerificationDropdownItemProps): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
 	const { showFlag } = useFlags();
@@ -76,7 +87,7 @@ export const AgentVerificationDropdownItem = ({
 		isAbleToGovernAgents,
 	});
 
-	const [commitUpdateVerification] =
+	const [commitUpdateVerification, isPending] =
 		useMutation<agentVerificationDropdownItem_AtlaskitRovoAgentComponents_updateAgentVerificationMutation>(
 			graphql`
 				mutation agentVerificationDropdownItem_AtlaskitRovoAgentComponents_updateAgentVerificationMutation(
@@ -118,7 +129,6 @@ export const AgentVerificationDropdownItem = ({
 				return;
 			}
 			onClick?.();
-
 			commitUpdateVerification({
 				variables: {
 					id: agentId,
@@ -128,7 +138,6 @@ export const AgentVerificationDropdownItem = ({
 					const payload = response?.agentStudio_updateAgentVerification;
 					if (payload?.success) {
 						onVerificationSuccess?.(verified);
-
 						trackAgentAction(verified ? AgentActions.VERIFY : AgentActions.UNVERIFY, {});
 						showFlag({
 							title: formatMessage(
@@ -171,6 +180,12 @@ export const AgentVerificationDropdownItem = ({
 		],
 	);
 
+	const labelText = formatMessage(
+		isVerified ? messages.unverifyAgentLabel : messages.verifyAgentLabel,
+	);
+
+	const handleOnClick = () => handleUpdateVerification(!isVerified);
+
 	if (
 		// Don't render if agent ID is not available
 		!agentId ||
@@ -180,9 +195,23 @@ export const AgentVerificationDropdownItem = ({
 		return null;
 	}
 
+	// Use custom render or default to DropdownItem
+	if (renderItem) {
+		return (
+			<>
+				{renderItem({
+					isPending,
+					isVerified,
+					labelText,
+					onClick: handleOnClick,
+				})}
+			</>
+		);
+	}
+
 	return (
-		<DropdownItem testId={testId} onClick={() => handleUpdateVerification(!isVerified)}>
-			{formatMessage(isVerified ? messages.unverifyAgentLabel : messages.verifyAgentLabel)}
+		<DropdownItem testId={testId} onClick={handleOnClick}>
+			{labelText}
 		</DropdownItem>
 	);
 };

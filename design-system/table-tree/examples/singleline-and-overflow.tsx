@@ -33,7 +33,7 @@ const overflowingBoxStyles = css({
 	marginBlockEnd: '-15px',
 });
 
-export default () => (
+const _default: () => JSX.Element = () => (
 	<TableTree>
 		<Headers>
 			<Header width={300}>Title</Header>
@@ -52,3 +52,4 @@ export default () => (
 		/>
 	</TableTree>
 );
+export default _default;

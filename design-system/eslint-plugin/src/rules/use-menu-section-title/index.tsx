@@ -5,7 +5,7 @@ import { createLintRule } from '../utils/create-rule';
 
 const elementsAccessibleNameProps = ['title', 'titleId'];
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'use-menu-section-title',
 		type: 'suggestion',

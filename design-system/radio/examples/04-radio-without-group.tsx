@@ -65,7 +65,7 @@ const tableStyles = css({
 	color: '#ccc',
 });
 
-export default function RadioInputExample() {
+export default function RadioInputExample(): JSX.Element {
 	const [value, setValue] = useState<string>('1');
 
 	const onChange = useCallback(

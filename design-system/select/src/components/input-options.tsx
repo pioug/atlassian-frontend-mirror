@@ -235,7 +235,7 @@ const RadioIcon = (props: IconProps) => {
 /**
  * __Checkbox option__
  */
-export const CheckboxOption = <OptionT extends OptionType>(
+export const CheckboxOption: <OptionT extends OptionType>(props: OptionProps<OptionT, true>) => JSX.Element = <OptionT extends OptionType>(
 	props: OptionProps<OptionT, true>,
 ): JSX.Element => (
 	<ControlOption<OptionT, true>
@@ -248,7 +248,7 @@ export const CheckboxOption = <OptionT extends OptionType>(
 /**
  * __Radio option__
  */
-export const RadioOption = <OptionT extends OptionType>(props: OptionProps<OptionT, false>) => (
+export const RadioOption: <OptionT extends OptionType>(props: OptionProps<OptionT, false>) => JSX.Element = <OptionT extends OptionType>(props: OptionProps<OptionT, false>) => (
 	// TODO https://product-fabric.atlassian.net/browse/DSP-20769
 	<ControlOption
 		Icon={RadioIcon}

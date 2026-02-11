@@ -4,7 +4,7 @@ import { createLintRule } from '../utils/create-rule';
 
 import { restrictedPaths } from './paths';
 
-const rule = createLintRule({
+const rule: import("eslint").Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'no-unsupported-drag-and-drop-libraries',
 		type: 'problem',

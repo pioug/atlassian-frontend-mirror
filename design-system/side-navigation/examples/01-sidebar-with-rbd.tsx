@@ -477,7 +477,7 @@ const generateDraggableCats = (): CustomDraggable[] => {
 	}));
 };
 
-const RBDExample = () => {
+const RBDExample: () => JSX.Element = () => {
 	const getItemRegistry = () => {
 		const registry = new Map();
 

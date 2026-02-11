@@ -5,7 +5,7 @@ import { createLintRule } from '../utils/create-rule';
 
 const elementsAccessibleNameProps = ['label', 'titleId', 'heading'];
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'use-onboarding-spotlight-label',
 		type: 'suggestion',

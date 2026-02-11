@@ -48,7 +48,7 @@ const barContent = (
 	</Inline>
 );
 
-const PageHeaderComplexTruncationExample = () => {
+const PageHeaderComplexTruncationExample: () => JSX.Element = () => {
 	return (
 		<PageHeader
 			breadcrumbs={breadcrumbs}

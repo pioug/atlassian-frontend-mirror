@@ -61,7 +61,7 @@ const DelayedComponent = ({ children, id }: PropsWithChildren<{ id: string }>) =
 	);
 };
 
-const ControlledAsyncExample = () => {
+const ControlledAsyncExample: () => JSX.Element = () => {
 	const [stack, setStack] = useState<string[]>([]);
 
 	return (

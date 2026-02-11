@@ -18,7 +18,7 @@ import __noop from '@atlaskit/ds-lib/noop';
 	});
 };
 
-export const typescriptEslintTester = new TSESLint.RuleTester({
+export const typescriptEslintTester: TSESLint.RuleTester = new TSESLint.RuleTester({
 	parser: require.resolve('@typescript-eslint/parser'),
 	parserOptions: {
 		ecmaVersion: 2020,
@@ -29,7 +29,7 @@ export const typescriptEslintTester = new TSESLint.RuleTester({
 	},
 });
 
-export const tester = new RuleTester({
+export const tester: RuleTester = new RuleTester({
 	parser: require.resolve('@babel/eslint-parser'),
 	parserOptions: {
 		ecmaVersion: 6,

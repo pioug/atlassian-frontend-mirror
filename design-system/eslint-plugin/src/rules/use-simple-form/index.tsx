@@ -5,7 +5,7 @@ import { createLintRule } from '../utils/create-rule';
 
 const FORM_PACKAGE = '@atlaskit/form';
 
-export const topLevelAttributeNames = [
+export const topLevelAttributeNames: string[] = [
 	'autocomplete',
 	'id',
 	'label',
@@ -19,7 +19,7 @@ export const topLevelAttributeNames = [
 ];
 export const convertForm = 'Convert form to simple form';
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'use-simple-form',
 		type: 'suggestion',

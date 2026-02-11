@@ -79,7 +79,7 @@ const TopNavigationInstance = ({ icon, name }: { icon: any; name: string }) => {
 	);
 };
 
-export const TopNavigationAppLogosExample = () => (
+export const TopNavigationAppLogosExample: () => JSX.Element = () => (
 	<WithResponsiveViewport>
 		<Stack space="space.050" testId="top-navigation-product-logos">
 			<TopNavigationInstance icon={ConfluenceIcon} name="Confluence" />
@@ -101,7 +101,7 @@ export const TopNavigationAppLogosExample = () => (
 	</WithResponsiveViewport>
 );
 
-export const TopNavigationAppLogoOversizeExample = () => (
+export const TopNavigationAppLogoOversizeExample: () => JSX.Element = () => (
 	<WithResponsiveViewport>
 		<TopNavigationInstance
 			icon={generateImageComponent(placeholder200x200)}

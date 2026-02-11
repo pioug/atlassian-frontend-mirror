@@ -10,7 +10,7 @@ const wrapperStyles = css({
 	maxWidth: 500,
 });
 
-export default () => (
+const _default: () => JSX.Element = () => (
 	<div id="appearance" css={wrapperStyles}>
 		<label htmlFor="standard">Standard</label>
 		<TextArea
@@ -59,3 +59,4 @@ export default () => (
 		/>
 	</div>
 );
+export default _default;

@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-media-editing
 
+## 1.4.0
+
+### Minor Changes
+
+- [`3c2bcd19c3180`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c2bcd19c3180) -
+  Changed default aspect ratio of image editing to custom
+
+  Added a spinner for image loading UI
+
+  Fixed cropper handles get stuck occasionally when dragging
+
+  Fixed saving the document not fetching the edited image properly
+
+  Fixed undo/redo inconsistency
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.3.1
 
 ### Patch Changes

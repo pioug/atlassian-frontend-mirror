@@ -13,7 +13,7 @@ import TextArea, { type TextAreaProps } from '@atlaskit/textarea';
 const wrapperStyles = css({
 	maxWidth: 500,
 });
-export default () => {
+const _default: () => JSX.Element = () => {
 	const [text, setText] = useState<string | undefined>();
 
 	const handleChange: TextAreaProps['onChange'] = (e) => setText(e.currentTarget.value);
@@ -65,3 +65,4 @@ export default () => {
 		</div>
 	);
 };
+export default _default;

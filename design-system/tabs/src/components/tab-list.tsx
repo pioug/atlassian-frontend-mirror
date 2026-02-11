@@ -109,7 +109,7 @@ const tabListStyles = css({
  * - [Code](https://atlassian.design/components/tabs/code)
  * - [Usage](https://atlassian.design/components/tabs/usage)
  */
-const TabList = ({ children }: TabListProps) => {
+const TabList: ({ children }: TabListProps) => JSX.Element = ({ children }: TabListProps) => {
 	const { tabsId, selected, onChange } = useTabList();
 
 	const ref = createRef<HTMLDivElement>();

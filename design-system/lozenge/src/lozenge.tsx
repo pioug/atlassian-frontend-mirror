@@ -203,7 +203,7 @@ LegacyLozenge.displayName = 'Lozenge';
 /**
  * Wrapper component that switches between old and new Lozenge based on feature flag
  */
-const LozengeWrapper = memo((props: LozengeProps | NewLozengeProps) => {
+const LozengeWrapper: import("react").MemoExoticComponent<(props: LozengeProps | NewLozengeProps) => JSX.Element> = memo((props: LozengeProps | NewLozengeProps) => {
 	if (fg('platform-dst-lozenge-tag-badge-visual-uplifts')) {
 		return <NewLozenge {...props} />;
 	}

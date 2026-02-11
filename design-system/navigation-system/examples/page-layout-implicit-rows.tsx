@@ -15,7 +15,7 @@ const noShrinkStyles = css({
 	whiteSpace: 'nowrap',
 });
 
-export default function ImplicitRows() {
+export default function ImplicitRows(): JSX.Element {
 	return (
 		<Root>
 			<div data-hi>I should not be here</div>

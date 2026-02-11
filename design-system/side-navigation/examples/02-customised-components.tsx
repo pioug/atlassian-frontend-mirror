@@ -74,7 +74,7 @@ const CustomComponent: React.ForwardRefExoticComponent<
 	);
 });
 
-const CustomisedExample = () => {
+const CustomisedExample: () => JSX.Element = () => {
 	const innerLayer = (
 		<NestingItem
 			id="1-1"

@@ -56,7 +56,7 @@ const normalContentStyles = cssMap({
 	},
 });
 
-export function SideNavContentScrollWithStickyVR() {
+export function SideNavContentScrollWithStickyVR(): JSX.Element {
 	return <SideNavContentScrollWithSticky shouldTestScroll />;
 }
 

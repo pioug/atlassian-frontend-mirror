@@ -1,4 +1,4 @@
-export const namedColors = [
+export const namedColors: string[] = [
 	'black',
 	'silver',
 	'gray',

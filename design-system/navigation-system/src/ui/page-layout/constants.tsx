@@ -18,9 +18,9 @@ export const topNavMountedVar = '--n_tNvM';
  */
 export const sideNavLiveWidthVar = '--n_sNvlw';
 
-export const sideNavPanelSplitterId = Symbol('SideNav PanelSplitter');
-export const asidePanelSplitterId = Symbol('Aside PanelSplitter');
-export const panelPanelSplitterId = Symbol('Panel PanelSplitter');
+export const sideNavPanelSplitterId: unique symbol = Symbol('SideNav PanelSplitter');
+export const asidePanelSplitterId: unique symbol = Symbol('Aside PanelSplitter');
+export const panelPanelSplitterId: unique symbol = Symbol('Panel PanelSplitter');
 
 // We aren't using template literals here because Compiled can't compiled them in platform ATM.
 export const contentHeightWhenFixed = `calc(100vh - var(--n_bnrM, 0px) - var(--n_tNvM, 0px))`;
@@ -48,7 +48,15 @@ export const UNSAFE_MAIN_INLINE_END_FOR_LEGACY_PAGES_ONLY = `calc(var(${UNSAFE_a
  * For globally defined values such as flag, modal, etc, we can continue to
  * rely on accessing them through global means.
  */
-export const localSlotLayers = {
+export const localSlotLayers: {
+	sideNavPanelSplitterFHS: number;
+    topBar: number;
+    banner: number;
+    bannerFHS: number;
+    topNavFHS: number;
+    sideNav: number;
+    panelSmallViewports: number;
+} = {
 	// The side nav panel splitter is layered above the top nav when FHS and 'platform-dst-side-nav-layering-fixes' is enabled.
 	// It has the same z-index value, but is rendered after the top nav in the DOM so is stacked above.
 	sideNavPanelSplitterFHS: 4,

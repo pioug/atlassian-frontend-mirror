@@ -9,7 +9,7 @@ type Item = {
 /**
  * Wrapped in a function, so that examples which manipulate data have unique instances.
  */
-export const getDefaultItems = (): Item[] => [
+export const getDefaultItems: () => Item[] = (): Item[] => [
 	{
 		title: 'Chapter 1: Clean code',
 		page: 1,
@@ -33,7 +33,7 @@ export const getDefaultItems = (): Item[] => [
 ];
 
 let lastId = 2;
-export const fetchNewItems = async (): Promise<Item[]> => {
+export const fetchNewItems: () => Promise<Item[]> = async (): Promise<Item[]> => {
 	const id = lastId++;
 	return [
 		{
@@ -45,7 +45,7 @@ export const fetchNewItems = async (): Promise<Item[]> => {
 	];
 };
 
-export const fetchItems = async (): Promise<Item[]> => {
+export const fetchItems: () => Promise<Item[]> = async (): Promise<Item[]> => {
 	return new Promise((resolve) => {
 		setTimeout(() => {
 			resolve([

@@ -100,7 +100,7 @@ function TagTable({
 
 const elemBefore = <TagIcon size="small" label="Tag" />;
 
-export default () => (
+const _default: () => JSX.Element = () => (
 	<div data-testid="wrapper">
 		<TagTable
 			caption="Non-interactive tags"
@@ -238,3 +238,4 @@ export default () => (
 		</div>
 	</div>
 );
+export default _default;

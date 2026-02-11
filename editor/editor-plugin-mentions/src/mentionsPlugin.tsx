@@ -29,6 +29,7 @@ import { mentionNodeSpec } from './nodeviews/mentionNodeSpec';
 import { mentionPluginKey } from './pm-plugins/key';
 import { ACTIONS, createMentionPlugin } from './pm-plugins/main';
 import type { FireElementsChannelEvent, MentionSharedState } from './types';
+import { InlineInviteRecaptchaContainer } from './ui/InlineInviteRecaptchaContainer';
 import { SecondaryToolbarComponent } from './ui/SecondaryToolbarComponent';
 import { createTypeAheadConfig } from './ui/type-ahead';
 
@@ -145,7 +146,18 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 					providers={['mentionProvider']}
 					providerFactory={providerFactory}
 					renderNode={({ mentionProvider }) => {
-						return <Component mentionProvider={mentionProvider} api={api} />;
+						return (
+							<>
+								<Component mentionProvider={mentionProvider} api={api} />
+								{ fg('jira_invites_auto_tag_new_user_in_mentions_fg') && (
+									<InlineInviteRecaptchaContainer
+										mentionProvider={mentionProvider}
+										api={api}
+										
+									/>
+								)}
+							</>
+						);
 					}}
 				/>
 			);

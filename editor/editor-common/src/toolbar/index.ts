@@ -219,6 +219,7 @@ export {
 	OVERFLOW_EXTENSIONS_MENU_SECTION,
 	FIRST_PARTY_EXTENSIONS_MENU_ITEM,
 	EXTERNAL_EXTENSIONS_MENU_ITEM,
+	TOOLBAR_BUTTON_TEST_ID,
 } from './keys';
 
 export { useEditorToolbar, EditorToolbarProvider, type EditorToolbarContextType } from './context';

@@ -21,7 +21,12 @@ const styles = cssMap({
 /**
  * The top part of the side nav.
  */
-export const SideNavHeader = ({
+export const SideNavHeader: ({ children, }: {
+    /**
+     * The content of the layout area.
+     */
+    children: ReactNode;
+}) => JSX.Element = ({
 	children,
 }: {
 	/**

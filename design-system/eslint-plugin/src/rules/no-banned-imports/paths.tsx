@@ -1,4 +1,7 @@
-export const restrictedPaths = [
+export const restrictedPaths: {
+    path: string;
+    message: string;
+}[] = [
 	{
 		path: '@atlaskit/ds-lib',
 		message: `The '@atlaskit/ds-lib' library has been designed as a utility library for internal usage and should not be consumed directly.`,

@@ -71,7 +71,7 @@ export type PanelSplitterContextType = {
 /**
  * Context for the panel splitter. Only internally exported.
  */
-export const PanelSplitterContext = createContext<PanelSplitterContextType | null>(null);
+export const PanelSplitterContext: import("react").Context<PanelSplitterContextType | null> = createContext<PanelSplitterContextType | null>(null);
 
 /**
  * Context for the panel splitter's double click handler. Only internally exported.
@@ -80,4 +80,4 @@ export const PanelSplitterContext = createContext<PanelSplitterContextType | nul
  * to collapse the side nav on double click, without exposing the `onDoubleClick` prop on `PanelSplitter`.
  * Once `PanelSplitter` supports an `onDoubleClick` prop directly, this context should be removed.
  */
-export const OnDoubleClickContext = createContext<(() => void) | undefined>(undefined);
+export const OnDoubleClickContext: import("react").Context<(() => void) | undefined> = createContext<(() => void) | undefined>(undefined);

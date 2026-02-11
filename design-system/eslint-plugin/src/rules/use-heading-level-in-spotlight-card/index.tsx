@@ -9,7 +9,7 @@ import { getImportName } from '../utils/get-import-name';
 export const headingLevelRequiredSuggestionText =
 	'Add a `headingLevel` that is of a contextually relevant level.';
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'use-heading-level-in-spotlight-card',
 		type: 'suggestion',

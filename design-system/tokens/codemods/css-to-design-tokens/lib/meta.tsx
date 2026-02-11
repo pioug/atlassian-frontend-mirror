@@ -65,7 +65,7 @@ const ADDITIONAL_META: Record<string, string> = {
 	red: 'danger',
 };
 
-export function cleanMeta(meta: string[]) {
+export function cleanMeta(meta: string[]): string[] {
 	const cleanMeta = meta
 		.reduce(
 			(accum: string[], val: string) => [
@@ -141,7 +141,7 @@ function getParentSelectors(node: Node): string {
 	return '';
 }
 
-export function getCssVarMeta(cssVariable: string) {
+export function getCssVarMeta(cssVariable: string): string[] {
 	const tokenName = extractCssVarName(cssVariable);
 	const meta = knownVariables[tokenName];
 
@@ -152,7 +152,7 @@ export function getCssVarMeta(cssVariable: string) {
 	return meta;
 }
 
-export function getRawColorMeta(rawColor: string) {
+export function getRawColorMeta(rawColor: string): string[] {
 	let cleanColor = rawColor.toLowerCase();
 
 	if (cleanColor.length === 4) {
@@ -162,6 +162,6 @@ export function getRawColorMeta(rawColor: string) {
 	return knownRawColors[cleanColor] ?? [];
 }
 
-export function getNamedColorMeta(namedColor: string) {
+export function getNamedColorMeta(namedColor: string): string[] {
 	return knownNamedColors[namedColor] ?? [];
 }

@@ -34,7 +34,7 @@ const styles = cssMap({
  *
  * Intentionally not exported, just using it for an example at the moment.
  */
-export function GlobalAppIconTile({ logo: Logo }: GlobalAppIconTileProps) {
+export function GlobalAppIconTile({ logo: Logo }: GlobalAppIconTileProps): JSX.Element {
 	return (
 		<div css={styles.root}>
 			<Logo size="xxsmall" label="" appearance="inverse" />

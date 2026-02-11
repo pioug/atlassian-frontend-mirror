@@ -2,7 +2,7 @@ import type { Rule } from 'eslint';
 
 import { createLintRule } from '../utils/create-rule';
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'no-dark-theme-vr-tests',
 		type: 'problem',

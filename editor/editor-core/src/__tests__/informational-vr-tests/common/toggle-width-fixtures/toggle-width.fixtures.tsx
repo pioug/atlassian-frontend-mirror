@@ -5,7 +5,7 @@ import { Editor } from '../../../../index';
 import adf from './tall-image-local.json';
 
 // eslint-disable-next-line
-import type { EditorAppearance } from '@atlaskit/editor-common/src/types';
+import type { EditorAppearance } from '@atlaskit/editor-common/types';
 
 export function EditorFullWidth(): React.JSX.Element {
 	const [appearance, setApperance] = useState('full-page');

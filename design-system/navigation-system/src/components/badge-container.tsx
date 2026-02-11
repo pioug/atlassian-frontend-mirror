@@ -57,7 +57,7 @@ type BadgeContainerProps = {
  * Adds a badge to the top right corner of the child element.
  * Example of usage is showing the number of notifications in the top navigation bar.
  */
-export const BadgeContainer = ({
+export const BadgeContainer: (props: BadgeContainerProps) => JSX.Element = ({
 	children,
 	id: badgeId,
 	badge: Badge,

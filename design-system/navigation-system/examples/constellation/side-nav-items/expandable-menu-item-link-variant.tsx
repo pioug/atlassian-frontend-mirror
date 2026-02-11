@@ -71,7 +71,7 @@ const mockSideNavStyles = cssMap({
 
 // Examples of the link variant of the expandable menu item.
 // This means there is an href provided.
-export function ExpandableMenuItemLinkVariantExample() {
+export function ExpandableMenuItemLinkVariantExample(): JSX.Element {
 	const [showSelectedStateExample, setShowSelectedStateExample] = useState(false);
 
 	return (

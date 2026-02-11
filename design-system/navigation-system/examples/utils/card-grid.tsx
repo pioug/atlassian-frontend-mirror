@@ -59,7 +59,7 @@ function getRandomNumber(seed: number) {
 /**
  * A grid of cards, used for simulating a large, complex page.
  */
-export function CardGrid() {
+export function CardGrid(): JSX.Element {
 	return (
 		<div css={gridStyles.root}>
 			{Array.from({ length: 100 }, (_, i) => {

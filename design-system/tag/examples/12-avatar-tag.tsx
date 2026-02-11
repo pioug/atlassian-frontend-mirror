@@ -61,7 +61,7 @@ const labelCellStyles = css({
 	verticalAlign: 'middle',
 });
 
-export default function AvatarTagExample() {
+export default function AvatarTagExample(): JSX.Element {
 	return (
 		<Stack space="space.400">
 			<Stack space="space.100">

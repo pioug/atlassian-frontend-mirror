@@ -19,7 +19,7 @@ type SelectionStoreContextProps = {
  * and getter setters.
  *
  */
-export const SelectionStoreContext = createContext<SelectionStoreContextProps>({
+export const SelectionStoreContext: React.Context<SelectionStoreContextProps> = createContext<SelectionStoreContextProps>({
 	setItemState: noop,
 	getItemState: () => undefined,
 	setGroupState: noop,

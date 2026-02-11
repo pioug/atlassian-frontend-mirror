@@ -8,7 +8,7 @@ const MESSAGE_COMPONENTS = ['ErrorMessage', 'HelperMessage', 'ValidMessage'];
 
 export const convertField = 'Convert field to simple field';
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'use-simple-field',
 		type: 'suggestion',

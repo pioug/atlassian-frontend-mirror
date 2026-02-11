@@ -16,7 +16,7 @@ const overflowStyles = css({
 	width: 1000,
 });
 
-const HeadlessExample = () => (
+const HeadlessExample: () => JSX.Element = () => (
 	<div css={wrapperStyles}>
 		<div css={overflowStyles}>
 			<DynamicTable head={head} rows={rows.slice(0, 10)} />

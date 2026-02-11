@@ -5,7 +5,7 @@ import { createContext, useContext } from 'react';
  *
  * A surface context provides context information on the current background (if set).
  */
-export const SurfaceContext = createContext<any>('elevation.surface');
+export const SurfaceContext: import("react").Context<any> = createContext<any>('elevation.surface');
 
 /**
  * __useSurface__
@@ -14,7 +14,7 @@ export const SurfaceContext = createContext<any>('elevation.surface');
  *
  * @see SurfaceContext
  */
-export const useSurface = (): any => {
+export const useSurface: () => any = (): any => {
 	return useContext(SurfaceContext);
 };
 

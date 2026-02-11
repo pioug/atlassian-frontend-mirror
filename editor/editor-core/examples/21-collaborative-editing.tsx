@@ -15,7 +15,7 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import type { Provider } from '@atlaskit/collab-provider';
 import { createSocketIOCollabProvider } from '@atlaskit/collab-provider/socket-io-provider';
-import type { NextEditorPlugin } from '@atlaskit/editor-common/src/types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { EditorProps, EditorActions } from '@atlaskit/editor-core';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';

@@ -1,5 +1,13 @@
 # @atlaskit/dropdown-menu
 
+## 16.4.5
+
+### Patch Changes
+
+- [`b76a4bfc0a066`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b76a4bfc0a066) -
+  Focus on first focusable element in dropdown menu by default for keyboard trigger under fg
+  platform_dst_menu_item_focus
+
 ## 16.4.4
 
 ### Patch Changes

@@ -6,7 +6,7 @@ import { StyleProperty } from './transformers';
 
 export const noRawSpacingValues = `Don't use non-token values in padding or margin. There is ongoing work to make this a TypeScript error. Once that happens, you will have to delete/refactor anyway. Atlassians: See https://go.atlassian.com/xcss-spacing for details.`;
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'use-latest-xcss-syntax',
 		type: 'problem',

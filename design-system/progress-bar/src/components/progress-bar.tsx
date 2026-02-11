@@ -90,7 +90,7 @@ const decreasingBarStyles = css({
  * - [Code](https://atlassian.design/components/progress-bar/code)
  * - [Usage](https://atlassian.design/components/progress-bar/usage)
  */
-const ProgressBar = ({
+const ProgressBar: ({ appearance, ariaLabel, isIndeterminate, testId, value, }: DefaultProgressBarProps) => JSX.Element = ({
 	appearance = 'default',
 	ariaLabel,
 	isIndeterminate = false,

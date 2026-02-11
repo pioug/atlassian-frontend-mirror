@@ -13,6 +13,6 @@ export function SideNavElementProvider({ children }: { children: ReactNode }): R
  *
  * Used by the Panel to measure the SideNav when it is calculating its resize bounds.
  */
-export function useSideNavRef() {
+export function useSideNavRef(): React.RefObject<HTMLDivElement> {
 	return useContext(SideNavRefContext);
 }

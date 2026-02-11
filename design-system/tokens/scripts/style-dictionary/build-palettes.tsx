@@ -44,7 +44,7 @@ const createPaletteConfig = (paletteFileName: string): Config => ({
 	},
 });
 
-export default function build(styleDictionary: Core) {
+export default function build(styleDictionary: Core): void {
 	const paletteInputDir = `${__dirname}/../../schema/palettes`;
 
 	fs.readdirSync(paletteInputDir, { withFileTypes: true })

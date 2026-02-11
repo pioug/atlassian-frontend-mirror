@@ -83,39 +83,39 @@ const TopNavigationCustomLogoInstance = ({
 // eslint-disable-next-line @atlaskit/design-system/no-html-image
 const generateImageComponent = (image: string) => () => <img alt="" src={image} />;
 
-export const TopNavigationCustomLogoExample = () => (
+export const TopNavigationCustomLogoExample: () => JSX.Element = () => (
 	<TopNavigationCustomLogoInstance logo={AtlassianLogo} icon={AtlassianIcon} />
 );
 
-export const TopNavigationCustomLogoImage200x20Example = () => (
+export const TopNavigationCustomLogoImage200x20Example: () => JSX.Element = () => (
 	<TopNavigationCustomLogoInstance
 		logo={generateImageComponent(placeholder200x20)}
 		icon={generateImageComponent(placeholder200x20)}
 	/>
 );
 
-export const TopNavigationCustomLogoImage200x200Example = () => (
+export const TopNavigationCustomLogoImage200x200Example: () => JSX.Element = () => (
 	<TopNavigationCustomLogoInstance
 		logo={generateImageComponent(placeholder200x200)}
 		icon={generateImageComponent(placeholder200x200)}
 	/>
 );
 
-export const TopNavigationCustomLogoImage20x20Example = () => (
+export const TopNavigationCustomLogoImage20x20Example: () => JSX.Element = () => (
 	<TopNavigationCustomLogoInstance
 		logo={generateImageComponent(placeholder20x20)}
 		icon={generateImageComponent(placeholder20x20)}
 	/>
 );
 
-export const TopNavigationCustomLogoImage20x200Example = () => (
+export const TopNavigationCustomLogoImage20x200Example: () => JSX.Element = () => (
 	<TopNavigationCustomLogoInstance
 		logo={generateImageComponent(placeholder20x200)}
 		icon={generateImageComponent(placeholder20x200)}
 	/>
 );
 
-export default function TopNavigationCustomLogoImageExample() {
+export default function TopNavigationCustomLogoImageExample(): JSX.Element {
 	return (
 		<TopNavigationCustomLogoInstance
 			logo={generateImageComponent(placeholder200x20)}
@@ -124,7 +124,7 @@ export default function TopNavigationCustomLogoImageExample() {
 	);
 }
 
-export function TopNavigationCustomLogoImageWithSideNavExample() {
+export function TopNavigationCustomLogoImageWithSideNavExample(): JSX.Element {
 	return (
 		<TopNavigationCustomLogoInstance
 			logo={generateImageComponent(placeholder200x20)}

@@ -1,5 +1,25 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.2.1
+
+### Patch Changes
+
+- [`de657e97bdb75`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de657e97bdb75) -
+  FG cleanup - platform_ufo_vc_ignore_display_none_mutations
+
+## 5.2.0
+
+### Minor Changes
+
+- [`b7f9d9f2e93dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b7f9d9f2e93dc) -
+  Detect browser throttling in UFO client
+
+### Patch Changes
+
+- [`03e2c7f2a7b38`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/03e2c7f2a7b38) -
+  Remove `featureFlags` field in the list of fields trimmed in the event of payload size exceeding
+  240KB
+
 ## 5.1.4
 
 ### Patch Changes

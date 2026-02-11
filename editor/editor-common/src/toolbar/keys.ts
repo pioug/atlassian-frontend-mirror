@@ -822,3 +822,15 @@ export const EXTERNAL_EXTENSIONS_MENU_ITEM = {
 	key: 'external-extensions-menu-item',
 	type: 'menu-item',
 } as const;
+
+export const TOOLBAR_BUTTON_TEST_ID = {
+	INSERT: 'editor-toolbar-insert-button',
+	EMOJI: 'editor-toolbar-emoji-button',
+	IMAGE: 'editor-toolbar-image-button',
+	MEDIA: 'editor-toolbar-media-button',
+	TABLE: 'Table', // Keep original value to avoid breaking existing tests
+	TABLE_SELECTOR: 'editor-toolbar-table-selector-button',
+	MENTION: 'editor-toolbar-mention-button',
+	LAYOUT: 'editor-toolbar-layout-button',
+	TASK_LIST: 'editor-toolbar-task-list-button',
+} as const;

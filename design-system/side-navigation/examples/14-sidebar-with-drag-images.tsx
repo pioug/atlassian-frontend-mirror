@@ -325,7 +325,7 @@ const generateDraggableCats = () => {
 	}));
 };
 
-const RBDImageExample = () => {
+const RBDImageExample: () => JSX.Element = () => {
 	const getItemRegistry = () => {
 		const registry = new Map();
 

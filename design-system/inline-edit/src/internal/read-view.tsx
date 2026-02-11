@@ -85,7 +85,7 @@ interface ReadViewProps {
 	testId?: string;
 }
 
-const ReadView = ({
+const ReadView: ({ editButtonLabel, onEditRequested, postReadViewClick, editButtonRef, readViewFitContainerWidth, readView, testId, }: ReadViewProps) => JSX.Element = ({
 	editButtonLabel,
 	onEditRequested,
 	postReadViewClick,

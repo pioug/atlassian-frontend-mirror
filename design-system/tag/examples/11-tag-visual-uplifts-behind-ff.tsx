@@ -34,7 +34,7 @@ const lozengeStyle = {
 	},
 };
 
-export default function TagVisualUplifts() {
+export default function TagVisualUplifts(): JSX.Element {
 	return (
 		<div css={containerStyles}>
 			<Stack space="space.400">

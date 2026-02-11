@@ -32,7 +32,7 @@ export function ProjectsMenuItem({
 	amountOfMenuItems: number;
 	index: number;
 	projects: { recent: TProject[]; starred: TProject[] };
-}) {
+}): JSX.Element {
 	const [isExpanded, setIsExpanded] = useState<boolean>(true);
 	const wasExpandedWhenDragStartedRef = useRef<boolean | null>(null);
 	const { state, draggableButtonRef, dragPreview, dropTargetRef, dropIndicator } =

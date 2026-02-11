@@ -119,7 +119,7 @@ export function Aside({
 	 * It should be an integer between the resize bounds - the minimum is 120px and the maximum is 50% of the viewport width.
 	 */
 	defaultWidth?: number;
-}) {
+}): JSX.Element {
 	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);
 	const id = useLayoutId({ providedId });
 

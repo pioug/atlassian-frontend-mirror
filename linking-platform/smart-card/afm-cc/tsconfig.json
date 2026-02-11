@@ -133,6 +133,9 @@
 			"path": "../../../react-ufo/atlaskit/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../ai-mate/rovo-triggers/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/section-message/afm-cc/tsconfig.json"
 		},
 		{

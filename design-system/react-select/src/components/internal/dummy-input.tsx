@@ -28,7 +28,7 @@ export default function DummyInput({
 	...props
 }: JSX.IntrinsicElements['input'] & {
 	readonly innerRef: Ref<HTMLInputElement>;
-}) {
+}): JSX.Element {
 	// Remove animation props not meant for HTML elements
 	const filteredProps = removeProps(props, 'onExited', 'in', 'enter', 'exit', 'appear');
 

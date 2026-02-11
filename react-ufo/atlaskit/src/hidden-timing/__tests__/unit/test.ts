@@ -1,6 +1,6 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { getEarliestHiddenTiming, getPageVisibilityState, setupHiddenTimingCapture } from '../../index';
+import { getEarliestHiddenTiming, getPageVisibilityState, getThrottleMeasurements, isTabThrottled, setupHiddenTimingCapture, setupThrottleDetection, stopThrottleDetection } from '../../index';
 
 jest.mock('@atlaskit/platform-feature-flags', () => ({
 	fg: jest.fn(),
@@ -530,6 +530,177 @@ describe('isOpenedInBackground', () => {
 				expect(isolatedIsOpenedInBackground('page_load')).toBe(false);
 
 				getEntriesSpy.mockRestore();
+			});
+		});
+	});
+});
+
+describe('Throttle Detection', () => {
+	beforeEach(() => {
+		jest.useFakeTimers();
+		stopThrottleDetection();
+	});
+
+	afterEach(() => {
+		stopThrottleDetection();
+		jest.useRealTimers();
+	});
+
+	describe('setupThrottleDetection', () => {
+		it('should be callable multiple times without error', () => {
+			expect(() => {
+				setupThrottleDetection();
+				setupThrottleDetection();
+			}).not.toThrow();
+		});
+	});
+
+	describe('isTabThrottled', () => {
+		it('should return false when no measurements are available', () => {
+			expect(isTabThrottled(0, 1000)).toBe(false);
+		});
+
+		it('should return false for invalid input (startTime >= endTime)', () => {
+			expect(isTabThrottled(1000, 1000)).toBe(false);
+			expect(isTabThrottled(2000, 1000)).toBe(false);
+		});
+
+		it('should return false for non-finite inputs', () => {
+			expect(isTabThrottled(NaN, 1000)).toBe(false);
+			expect(isTabThrottled(0, NaN)).toBe(false);
+			expect(isTabThrottled(Infinity, 1000)).toBe(false);
+		});
+
+		it('should return false when timer runs normally (no throttling)', () => {
+			jest.isolateModules(() => {
+				const { setupThrottleDetection: isolatedSetup, stopThrottleDetection: isolatedStop, isTabThrottled: isolatedIsThrottled } = require('../../index');
+				const performanceNowSpy = jest.spyOn(performance, 'now');
+
+				// Start at 0ms
+				performanceNowSpy.mockReturnValue(0);
+				isolatedSetup();
+
+				// Timer fires at 1000ms (expected 1000ms, actual 1000ms - no drift)
+				performanceNowSpy.mockReturnValue(1000);
+				jest.advanceTimersByTime(1000);
+
+				// Timer fires at 2000ms (expected 1000ms, actual 1000ms - no drift)
+				performanceNowSpy.mockReturnValue(2000);
+				jest.advanceTimersByTime(1000);
+
+				expect(isolatedIsThrottled(0, 3000)).toBe(false);
+
+				performanceNowSpy.mockRestore();
+				isolatedStop();
+			});
+		});
+
+		it('should return true when timer is throttled (significant drift detected)', () => {
+			jest.isolateModules(() => {
+				const { setupThrottleDetection: isolatedSetup, stopThrottleDetection: isolatedStop, isTabThrottled: isolatedIsThrottled } = require('../../index');
+				const performanceNowSpy = jest.spyOn(performance, 'now');
+
+				// Start at 0ms
+				performanceNowSpy.mockReturnValue(0);
+				isolatedSetup();
+
+				// Timer fires at 2000ms instead of 1000ms (expected 1000ms, actual 2000ms - throttled)
+				performanceNowSpy.mockReturnValue(2000);
+				jest.advanceTimersByTime(1000);
+
+				expect(isolatedIsThrottled(0, 3000)).toBe(true);
+
+				performanceNowSpy.mockRestore();
+				isolatedStop();
+			});
+		});
+
+		it('should return false when throttling occurred outside the queried time window', () => {
+			jest.isolateModules(() => {
+				const { setupThrottleDetection: isolatedSetup, stopThrottleDetection: isolatedStop, isTabThrottled: isolatedIsThrottled } = require('../../index');
+				const performanceNowSpy = jest.spyOn(performance, 'now');
+
+				// Start at 0ms
+				performanceNowSpy.mockReturnValue(0);
+				isolatedSetup();
+
+				// Timer fires normally at 1000ms
+				performanceNowSpy.mockReturnValue(1000);
+				jest.advanceTimersByTime(1000);
+
+				// Timer fires with throttling at 3000ms (measurement recorded at 3000ms)
+				performanceNowSpy.mockReturnValue(3000);
+				jest.advanceTimersByTime(1000);
+
+				// Query time window before the throttled measurement
+				expect(isolatedIsThrottled(0, 999)).toBe(false);
+
+				performanceNowSpy.mockRestore();
+				isolatedStop();
+			});
+		});
+	});
+
+	describe('getThrottleMeasurements', () => {
+		it('should return empty array when no measurements are available', () => {
+			expect(getThrottleMeasurements(0, 1000)).toEqual([]);
+		});
+
+		it('should return empty array for invalid input', () => {
+			expect(getThrottleMeasurements(1000, 1000)).toEqual([]);
+			expect(getThrottleMeasurements(2000, 1000)).toEqual([]);
+			expect(getThrottleMeasurements(NaN, 1000)).toEqual([]);
+		});
+
+		it('should return measurements within the specified time window', () => {
+			jest.isolateModules(() => {
+				const { setupThrottleDetection: isolatedSetup, stopThrottleDetection: isolatedStop, getThrottleMeasurements: isolatedGetMeasurements } = require('../../index');
+				const performanceNowSpy = jest.spyOn(performance, 'now');
+
+				// Start at 0ms
+				performanceNowSpy.mockReturnValue(0);
+				isolatedSetup();
+
+				// Timer fires at 1000ms
+				performanceNowSpy.mockReturnValue(1000);
+				jest.advanceTimersByTime(1000);
+
+				// Timer fires at 2000ms
+				performanceNowSpy.mockReturnValue(2000);
+				jest.advanceTimersByTime(1000);
+
+				const measurements = isolatedGetMeasurements(0, 3000);
+				expect(measurements.length).toBe(2);
+				expect(measurements[0].time).toBe(1000);
+				expect(measurements[1].time).toBe(2000);
+
+				performanceNowSpy.mockRestore();
+				isolatedStop();
+			});
+		});
+	});
+
+	describe('stopThrottleDetection', () => {
+		it('should clear measurements and reset state', () => {
+			jest.isolateModules(() => {
+				const { setupThrottleDetection: isolatedSetup, stopThrottleDetection: isolatedStop, isTabThrottled: isolatedIsThrottled, getThrottleMeasurements: isolatedGetMeasurements } = require('../../index');
+				const performanceNowSpy = jest.spyOn(performance, 'now');
+
+				performanceNowSpy.mockReturnValue(0);
+				isolatedSetup();
+
+				performanceNowSpy.mockReturnValue(2000);
+				jest.advanceTimersByTime(1000);
+
+				// Verify measurement exists
+				expect(isolatedGetMeasurements(0, 3000).length).toBe(1);
+
+				// Stop and verify cleared
+				isolatedStop();
+				expect(isolatedGetMeasurements(0, 3000).length).toBe(0);
+				expect(isolatedIsThrottled(0, 3000)).toBe(false);
+
+				performanceNowSpy.mockRestore();
 			});
 		});
 	});

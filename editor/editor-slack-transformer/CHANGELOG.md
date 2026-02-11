@@ -1,5 +1,13 @@
 # @atlaskit/editor-slack-transformer
 
+## 4.1.3
+
+### Patch Changes
+
+- [`0bb5625c1394f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0bb5625c1394f) -
+  [ux] EDITOR-1565 add support for syncBlock and bodiedSyncBlock nodes to editor-slack-transformer
+  and editor-wikimarkup-transformer
+
 ## 4.1.2
 
 ### Patch Changes
@@ -75,7 +83,6 @@
   The following lists the exports removed as well as where they can now be found if required.
 
   Exports removed:
-
   - ToolbarFeedback (removed)
   - EmojiResource (moved to -> @atlaskit/emoji/resource)
   - MentionResource (moved to -> @atlaskit/mention/resource)
@@ -111,7 +118,6 @@
   and can be safely removed without any change in functionality
 
   EditorProps removed:
-
   - trackValidTransactions (unused internally, please remove)
   - hideAvatarGroup (unused internally, please remove)
   - placeholder (unused internally for `ComposableEditor` - please pass to the `placeholderPlugin`
@@ -392,7 +398,6 @@
 
 - [`c6feed82071`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6feed82071) -
   ED-11632: Bump prosemirror packages;
-
   - prosmirror-commands 1.1.4 -> 1.1.11,
   - prosemirror-model 1.11.0 -> 1.14.3,
   - prosemirror-state 1.3.3 -> 1.3.4,

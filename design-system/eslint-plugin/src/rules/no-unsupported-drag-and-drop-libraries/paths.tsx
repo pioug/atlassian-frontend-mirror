@@ -1,4 +1,7 @@
-export const restrictedPaths = [
+export const restrictedPaths: {
+    path: string;
+    message: string;
+}[] = [
 	{
 		path: 'react-beautiful-dnd',
 		message:

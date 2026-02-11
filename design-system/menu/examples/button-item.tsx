@@ -62,7 +62,7 @@ const customItemStyles = cssMap({
 const loremText =
 	'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates incidunt nisi, esse ullam fugit omnis libero neque facilis magnam quaerat dolor iste consequuntur placeat, rerum numquam, eum tempora! Accusamus, quidem?';
 
-export default () => (
+const _default: () => JSX.Element = () => (
 	<div data-testid="button-items" css={containerStyles.root}>
 		<ButtonItem testId="first-item">Activate</ButtonItem>
 		<ButtonItem isDisabled>Activate</ButtonItem>
@@ -110,3 +110,4 @@ export default () => (
 		</ButtonItem>
 	</div>
 );
+export default _default;

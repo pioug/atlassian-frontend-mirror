@@ -52,7 +52,7 @@ const styles = cssMap({
  *
  * - [Examples](https://atlassian.design/components/section-message/examples#actions)
  */
-const SectionMessageAction = memo(function SectionMessageAction({
+const SectionMessageAction: import("react").NamedExoticComponent<SectionMessageActionProps> = memo(function SectionMessageAction({
 	children,
 	onClick,
 	href,

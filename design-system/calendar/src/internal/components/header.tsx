@@ -31,7 +31,7 @@ interface HeaderProps {
 	testId?: string;
 }
 
-const Header = memo<HeaderProps>(function Header({
+const Header: React.NamedExoticComponent<HeaderProps> = memo<HeaderProps>(function Header({
 	monthLongTitle,
 	year,
 	previousMonthLabel = 'Previous month',

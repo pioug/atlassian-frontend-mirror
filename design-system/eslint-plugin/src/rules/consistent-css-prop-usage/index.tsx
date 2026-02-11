@@ -609,7 +609,7 @@ const defaultConfig: RuleConfig = {
 	shouldAlwaysCheckXcss: false,
 };
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		type: 'problem',
 		name: 'consistent-css-prop-usage',

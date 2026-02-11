@@ -23,7 +23,7 @@ type PluginConfig = {
 	UNSAFE_ignoreTokens?: string[];
 };
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'no-unsafe-design-token-usage',
 		docs: {

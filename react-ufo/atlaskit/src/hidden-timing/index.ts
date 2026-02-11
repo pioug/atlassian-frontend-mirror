@@ -179,3 +179,150 @@ export function getPageVisibilityState(start: number, end: number): PageVisibili
 	}
 	return hiddenState;
 }
+
+// Throttle detection configuration
+// Expected interval for timer checks (in milliseconds)
+const THROTTLE_CHECK_INTERVAL_MS = 1000;
+// Threshold for considering a timer as throttled (50% drift tolerance)
+const THROTTLE_DRIFT_THRESHOLD = 1.5;
+// Maximum number of throttle measurements to store (circular buffer)
+const THROTTLE_BUFFER_SIZE = 120;
+
+export type ThrottleMeasurement = {
+	// Timestamp when this measurement was taken
+	time: number;
+	// Expected elapsed time since last check
+	expectedElapsed: number;
+	// Actual elapsed time since last check
+	actualElapsed: number;
+	// Whether this measurement indicates throttling
+	isThrottled: boolean;
+};
+
+// Circular buffer to store throttle measurements
+const throttleMeasurements: ThrottleMeasurement[] = [];
+let throttleInsertIndex = 0;
+let throttleIntervalId: ReturnType<typeof setInterval> | null = null;
+let lastThrottleCheckTime: number | null = null;
+let throttleSetupDone = false;
+
+function recordThrottleMeasurement(expectedElapsed: number, actualElapsed: number): void {
+	const isThrottled = actualElapsed > expectedElapsed * THROTTLE_DRIFT_THRESHOLD;
+
+	throttleMeasurements[throttleInsertIndex] = {
+		time: performance.now(),
+		expectedElapsed,
+		actualElapsed,
+		isThrottled,
+	};
+	throttleInsertIndex = (throttleInsertIndex + 1) % THROTTLE_BUFFER_SIZE;
+}
+
+function throttleCheckCallback(): void {
+	const currentTime = performance.now();
+	if (lastThrottleCheckTime !== null) {
+		const actualElapsed = currentTime - lastThrottleCheckTime;
+		recordThrottleMeasurement(THROTTLE_CHECK_INTERVAL_MS, actualElapsed);
+	}
+	lastThrottleCheckTime = currentTime;
+}
+
+/**
+ * Sets up the throttle detection mechanism.
+ * This should be called early in the page lifecycle.
+ * Uses a periodic timer to detect browser throttling by measuring timer drift.
+ */
+export function setupThrottleDetection(): void {
+	if (throttleSetupDone) {
+		return;
+	}
+	throttleSetupDone = true;
+
+	// Record the initial timestamp
+	lastThrottleCheckTime = performance.now();
+
+	// Start the periodic timer for throttle detection
+	throttleIntervalId = setInterval(throttleCheckCallback, THROTTLE_CHECK_INTERVAL_MS);
+}
+
+/**
+ * Stops the throttle detection mechanism.
+ * Useful for cleanup in tests or when the feature is no longer needed.
+ */
+export function stopThrottleDetection(): void {
+	if (throttleIntervalId !== null) {
+		clearInterval(throttleIntervalId);
+		throttleIntervalId = null;
+	}
+	lastThrottleCheckTime = null;
+	throttleSetupDone = false;
+	throttleMeasurements.length = 0;
+	throttleInsertIndex = 0;
+}
+
+/**
+ * Checks if the tab was throttled at any point during the specified time window.
+ * Returns true if any timer measurement showed significant drift (throttling).
+ *
+ * @param startTime - The start timestamp of the window to check (DOMHighResTimeStamp)
+ * @param endTime - The end timestamp of the window to check (DOMHighResTimeStamp)
+ * @returns boolean - true if throttling was detected during the time window, false otherwise
+ */
+export function isTabThrottled(startTime: number, endTime: number): boolean {
+	// Input validation
+	if (!Number.isFinite(startTime) || !Number.isFinite(endTime) || startTime >= endTime) {
+		return false;
+	}
+
+	// No measurements available
+	if (throttleMeasurements.length === 0) {
+		return false;
+	}
+
+	// Check if any measurement within the time window indicates throttling
+	for (let i = 0; i < throttleMeasurements.length; i++) {
+		const measurement = throttleMeasurements[i];
+		if (measurement && measurement.time >= startTime && measurement.time <= endTime && measurement.isThrottled) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/**
+ * Gets detailed throttle information for debugging purposes.
+ * Returns all throttle measurements within the specified time window.
+ *
+ * @param startTime - The start timestamp of the window to check
+ * @param endTime - The end timestamp of the window to check
+ * @returns Array of throttle measurements within the time window
+ */
+export function getThrottleMeasurements(startTime: number, endTime: number): ThrottleMeasurement[] {
+	// Input validation
+	if (!Number.isFinite(startTime) || !Number.isFinite(endTime) || startTime >= endTime) {
+		return [];
+	}
+
+	return throttleMeasurements.filter(
+		(measurement) => measurement && measurement.time >= startTime && measurement.time <= endTime
+	);
+}
+
+/**
+ * Injects a fake throttle measurement for testing purposes.
+ * This allows integration tests to simulate throttling scenarios.
+ *
+ * @param measurement - The throttle measurement to inject
+ */
+export function __injectThrottleMeasurementForTesting(measurement: ThrottleMeasurement): void {
+	throttleMeasurements[throttleInsertIndex] = measurement;
+	throttleInsertIndex = (throttleInsertIndex + 1) % THROTTLE_BUFFER_SIZE;
+}
+
+// Expose testing API on window for integration tests
+if (typeof window !== 'undefined') {
+	(window as any).__reactUfoHiddenTiming = {
+		__injectThrottleMeasurementForTesting,
+	};
+}

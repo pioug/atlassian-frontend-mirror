@@ -12,7 +12,7 @@ const specialFieldsByImport: Record<string, Record<string, string | undefined>> 
 export const useCheckboxFieldMessage = 'Convert Field to CheckboxField';
 export const useRangeFieldMessage = 'Convert Field to RangeField';
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'use-correct-field',
 		type: 'suggestion',

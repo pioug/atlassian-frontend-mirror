@@ -16,7 +16,10 @@ import { type LozengeBaseProps, type NewLozengeProps } from './types';
  * - [Code](https://atlassian.design/components/lozenge/code)
  * - [Usage](https://atlassian.design/components/lozenge/usage)
  */
-const Lozenge = ({
+const Lozenge: {
+    ({ appearance, spacing, maxWidth, style, testId, children, iconBefore, }: NewLozengeProps): JSX.Element;
+    displayName: string;
+} = ({
 	appearance = 'neutral',
 	spacing = 'default',
 	maxWidth = 200,

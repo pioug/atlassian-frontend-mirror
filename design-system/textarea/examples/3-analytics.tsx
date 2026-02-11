@@ -14,7 +14,7 @@ const wrapperStyles = css({
 	maxWidth: 500,
 });
 
-export default () => {
+const _default: () => JSX.Element = () => {
 	return (
 		<div id="analytics" css={wrapperStyles}>
 			<label htmlFor="log">Log onFocus & onBlur analytics</label>
@@ -31,3 +31,4 @@ export default () => {
 		</div>
 	);
 };
+export default _default;

@@ -19,7 +19,7 @@ export function hasImportDeclaration(
 	j: JSCodeshift,
 	collection: Collection<any>,
 	importPath: string,
-) {
+): boolean {
 	return getImportDeclarationCollection(j, collection, importPath).length > 0;
 }
 
@@ -27,13 +27,13 @@ export function getImportDeclarationCollection(
 	j: JSCodeshift,
 	collection: Collection<any>,
 	importPath: string,
-) {
+): Collection<ImportDeclaration> {
 	return collection
 		.find(j.ImportDeclaration)
 		.filter((importDeclarationPath) => importDeclarationPath.node.source.value === importPath);
 }
 
-export function hasDynamicImport(j: JSCodeshift, collection: Collection<any>, importPath: string) {
+export function hasDynamicImport(j: JSCodeshift, collection: Collection<any>, importPath: string): boolean {
 	return getDynamicImportCollection(j, collection, importPath).length > 0;
 }
 
@@ -41,7 +41,7 @@ export function getDynamicImportCollection(
 	j: JSCodeshift,
 	collection: Collection<any>,
 	importPath: string,
-) {
+): Collection<CallExpression> {
 	return collection.find(j.CallExpression).filter((callExpressionPath) => {
 		const { callee, arguments: callExpressionArguments } = callExpressionPath.node;
 
@@ -76,13 +76,13 @@ export function getImportSpecifierCollection(
 	j: JSCodeshift,
 	importDeclarationCollection: Collection<ImportDeclaration>,
 	importName: string,
-) {
+): Collection<ImportSpecifier> {
 	return importDeclarationCollection
 		.find(j.ImportSpecifier)
 		.filter((importSpecifierPath) => importSpecifierPath.node.imported.name === importName);
 }
 
-export function getImportSpecifierName(importSpecifierCollection: Collection<ImportSpecifier>) {
+export function getImportSpecifierName(importSpecifierCollection: Collection<ImportSpecifier>): string | null {
 	if (importSpecifierCollection.length === 0) {
 		return null;
 	}
@@ -94,7 +94,7 @@ export function isVariableDeclaratorIdentifierPresent(
 	j: JSCodeshift,
 	collection: Collection<any>,
 	variableName: string,
-) {
+): boolean {
 	return collection
 		.find(j.VariableDeclaration)
 		.find(j.VariableDeclarator)
@@ -109,7 +109,7 @@ export function isFunctionDeclarationIdentifierPresent(
 	j: JSCodeshift,
 	collection: Collection<any>,
 	variableName: string,
-) {
+): boolean {
 	return collection.find(j.FunctionDeclaration).some((functionDeclarationPath) => {
 		const { id } = functionDeclarationPath.node;
 
@@ -121,7 +121,7 @@ export function isClassDeclarationIdentifierPresent(
 	j: JSCodeshift,
 	collection: Collection<any>,
 	variableName: string,
-) {
+): boolean {
 	return collection.find(j.ClassDeclaration).some((classDeclarationPath) => {
 		const { id } = classDeclarationPath.node;
 
@@ -133,7 +133,7 @@ export function isImportDeclarationIdentifierPresent(
 	j: JSCodeshift,
 	collection: Collection<any>,
 	variableName: string,
-) {
+): boolean {
 	return collection
 		.find(j.ImportDeclaration)
 		.find(j.Identifier)
@@ -194,7 +194,7 @@ export function getJSXSpreadObjectExpressionAttributesByName(
 	j: JSCodeshift,
 	jsxElementPath: ASTPath<JSXElement>,
 	attributeName: string,
-) {
+): Collection<ObjectProperty> {
 	return j(jsxElementPath)
 		.find(j.JSXOpeningElement)
 		.find(j.JSXSpreadAttribute)
@@ -207,7 +207,7 @@ export function getJSXSpreadObjectExpressionAttributesByName(
 		);
 }
 
-export const createRemoveFuncFor =
+export const createRemoveFuncFor: (component: string, importName: string, prop: string, comment?: string) => (j: core.JSCodeshift, source: Collection<Node>) => void =
 	(component: string, importName: string, prop: string, comment?: string) =>
 	(j: core.JSCodeshift, source: Collection<Node>) => {
 		const specifier = getNamedSpecifier(j, source, component, importName);
@@ -226,7 +226,7 @@ export const createRemoveFuncFor =
 		});
 	};
 
-export const getJSXAttributeByName = (
+export const getJSXAttributeByName: (j: JSCodeshift, jsxElementPath: ASTPath<JSXElement>, attributeName: string) => JSXAttribute | undefined = (
 	j: JSCodeshift,
 	jsxElementPath: ASTPath<JSXElement>,
 	attributeName: string,
@@ -236,7 +236,7 @@ export const getJSXAttributeByName = (
 	return attributes?.find((attr) => attr.name && attr.name.name === attributeName);
 };
 
-export const addJSXAttributeToJSXElement = (
+export const addJSXAttributeToJSXElement: (j: JSCodeshift, jsxElementPath: ASTPath<JSXElement>, jsxAttribute: JSXAttribute) => void = (
 	j: JSCodeshift,
 	jsxElementPath: ASTPath<JSXElement>,
 	jsxAttribute: JSXAttribute,
@@ -248,7 +248,7 @@ export const addJSXAttributeToJSXElement = (
 		});
 };
 
-export const removeJSXAttributeByName = (
+export const removeJSXAttributeByName: (j: JSCodeshift, jsxElementPath: ASTPath<JSXElement>, attrName: string) => void = (
 	j: JSCodeshift,
 	jsxElementPath: ASTPath<JSXElement>,
 	attrName: string,
@@ -260,10 +260,10 @@ export const removeJSXAttributeByName = (
 	}
 };
 
-export const getJSXAttributes = (jsxElementPath: ASTPath<JSXElement>) =>
+export const getJSXAttributes: (jsxElementPath: ASTPath<JSXElement>) => JSXAttribute[] = (jsxElementPath: ASTPath<JSXElement>) =>
 	jsxElementPath.node.openingElement.attributes as JSXAttribute[];
 
-export const removeJSXAttributeObjectPropertyByName = (
+export const removeJSXAttributeObjectPropertyByName: (j: JSCodeshift, jsxElementPath: ASTPath<JSXElement>, attrName: string, propertyToRemove: string) => void = (
 	j: JSCodeshift,
 	jsxElementPath: ASTPath<JSXElement>,
 	attrName: string,

@@ -134,7 +134,7 @@ const Footer = ({ description, children, iconBefore, testId }: NewFooterProps) =
  * - [Examples](https://atlassian.design/components/side-navigation/examples#header-and-footer)
  * - [Code](https://atlassian.design/components/side-navigation/code)
  */
-const FooterFacade = ({
+const FooterFacade: ({ useDeprecatedApi, description, iconBefore, testId, children, component, onClick, }: FooterFacadeProps) => JSX.Element = ({
 	useDeprecatedApi = true,
 	description,
 	iconBefore,

@@ -191,7 +191,7 @@ function replaceMemberExpressions(j: core.JSCodeshift, source: Collection<any>, 
 		});
 }
 
-export default function transformer(file: FileInfo, api: API) {
+export default function transformer(file: FileInfo, api: API): string {
 	const j = api.jscodeshift;
 	const source = j(file.source);
 

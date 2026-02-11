@@ -22,7 +22,7 @@ export function ForYouMenuItem({
 }: {
 	amountOfMenuItems: number;
 	index: number;
-}) {
+}): JSX.Element {
 	const { state, draggableButtonRef, dragPreview, dropTargetRef, dropIndicator } =
 		useMenuItemDragAndDrop({
 			draggable: {

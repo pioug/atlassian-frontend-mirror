@@ -26,7 +26,7 @@ export function isParentOfToken(j: JSCodeshift, path: any): boolean {
 	return j(path).find(j.CallExpression, { callee: { name: 'token' } }).length > 0;
 }
 
-export function getClosestDecendantOfType(j: JSCodeshift, path: ASTPath<any>, type: any) {
+export function getClosestDecendantOfType(j: JSCodeshift, path: ASTPath<any>, type: any): any {
 	if (!isDecendantOfType(j, path, type)) {
 		return;
 	}

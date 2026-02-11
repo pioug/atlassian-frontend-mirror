@@ -589,6 +589,6 @@ const sortByPathName = (a: TransformedToken, b: TransformedToken) => {
 	return 0;
 };
 
-const sortTokens = (tokens: TransformedToken[]) => tokens.sort(sortByPathName);
+const sortTokens: (tokens: TransformedToken[]) => import("style-dictionary/types/TransformedToken").TransformedToken[] = (tokens: TransformedToken[]) => tokens.sort(sortByPathName);
 
 export default sortTokens;

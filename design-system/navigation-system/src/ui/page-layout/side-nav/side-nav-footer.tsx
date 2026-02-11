@@ -24,7 +24,16 @@ const styles = cssMap({
 /**
  * The bottom part of the side nav.
  */
-export const SideNavFooter = ({
+export const SideNavFooter: ({ children, xcss, }: {
+    /**
+     * The content of the layout area.
+     */
+    children: ReactNode;
+    /**
+     * Bounded style overrides.
+     */
+    xcss?: StrictXCSSProp<"backgroundColor", never>;
+}) => JSX.Element = ({
 	/**
 	 * The content of the layout area.
 	 */

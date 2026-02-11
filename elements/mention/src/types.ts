@@ -253,9 +253,11 @@ export type UserRole = 'admin' | 'trusted' | 'basic';
 export interface InviteFromMentionProvider {
 	// TODO: to be replaced with shouldEnablInlineInvite during experiment cleanup
 	getShouldEnableInlineInvite?: () => boolean;
+	InlineInviteRecaptcha?: React.ComponentType<any> | null;
 	onInviteItemClick?(flow: InviteFlow): void;
 	productName?: string;
 	shouldEnableInvite?: boolean;
+	showInlineInviteRecaptcha?: (email: string) => void;
 	userEmailDomain?: string;
 	userRole?: UserRole;
 }

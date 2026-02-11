@@ -41,7 +41,7 @@ const PrevIcon = () => <ArrowLeftCircleIcon spacing="spacious" label="prev" />;
 const NextIcon = () => <ArrowRightCircleIcon spacing="spacious" label="next" />;
 const MAX_STAGES = 5;
 
-export default () => {
+const _default: () => JSX.Element = () => {
 	const [itemsNumber, setItemsNumber] = useState(3);
 	const [currentStage, setCurrentStage] = useState(0);
 	return (
@@ -94,3 +94,4 @@ export default () => {
 		</Stack>
 	);
 };
+export default _default;

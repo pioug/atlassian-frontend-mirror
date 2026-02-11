@@ -382,7 +382,7 @@ const createWithConfig: (initialConfig: RuleConfig) => Rule.RuleModule['create']
 		);
 	};
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: ruleMeta,
 	create: createWithConfig(defaultConfig),
 });

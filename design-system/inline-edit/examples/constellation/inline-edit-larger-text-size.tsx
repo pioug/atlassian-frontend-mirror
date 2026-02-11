@@ -27,7 +27,7 @@ const textFieldStyles = css({
 	},
 });
 
-const InlineEditExample = () => {
+const InlineEditExample: () => JSX.Element = () => {
 	const initialValue = 'Enter text';
 	const [editValue, setEditValue] = useState('Default value');
 

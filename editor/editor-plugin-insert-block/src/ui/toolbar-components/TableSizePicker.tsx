@@ -3,6 +3,7 @@ import React, { useRef } from 'react';
 import { useIntl } from 'react-intl-next';
 
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import { TOOLBAR_BUTTON_TEST_ID } from '@atlaskit/editor-common/toolbar';
 import {
 	MoreItemsIcon,
 	ToolbarButton,
@@ -62,6 +63,7 @@ export const TableSizePicker = ({
 					onClick={onClick}
 					isSelected={tableSelectorPopup.isOpen}
 					ref={tableSizePickerRef}
+					testId={TOOLBAR_BUTTON_TEST_ID.TABLE_SELECTOR}
 				/>
 			</ToolbarTooltip>
 		</>

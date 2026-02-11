@@ -2,7 +2,7 @@ import { useContext } from 'react';
 
 import { TabContext, TabListContext, TabPanelContext } from './internal/context';
 
-export const useTab = () => {
+export const useTab: () => import("./types").TabAttributesType = () => {
 	const tabData = useContext(TabContext);
 	if (tabData == null || typeof tabData === 'undefined') {
 		throw Error('@atlaskit/tabs: A Tab must have a TabList parent.');
@@ -10,7 +10,7 @@ export const useTab = () => {
 	return tabData;
 };
 
-export const useTabList = () => {
+export const useTabList: () => import("./types").TabListAttributesType = () => {
 	const tabListData = useContext(TabListContext);
 	if (tabListData === null || typeof tabListData === 'undefined') {
 		throw Error('@atlaskit/tabs: A TabList must have a Tabs parent.');
@@ -18,7 +18,7 @@ export const useTabList = () => {
 	return tabListData;
 };
 
-export const useTabPanel = () => {
+export const useTabPanel: () => import("./types").TabPanelAttributesType = () => {
 	const tabPanelData = useContext(TabPanelContext);
 	if (tabPanelData === null || typeof tabPanelData === 'undefined') {
 		throw Error('@atlaskit/tabs:  A TabPanel must have a Tabs parent.');

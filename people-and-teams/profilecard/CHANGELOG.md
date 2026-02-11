@@ -1,5 +1,12 @@
 # @atlaskit/profilecard
 
+## 24.35.0
+
+### Minor Changes
+
+- [`d4c0aadb058de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4c0aadb058de) -
+  Ran auto fix cross package file refs for platform packages. Part of de-barreling effort of TREX-67
+
 ## 24.34.6
 
 ### Patch Changes

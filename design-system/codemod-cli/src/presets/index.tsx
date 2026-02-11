@@ -19,7 +19,7 @@ import './badge-appearance-semantic-migration/badge-appearance-semantic-migratio
 import './tag-to-newTag-migration/tag-to-newTag-migration';
 import './migrate-deprecated-icon/migrate-deprecated-icon';
 
-const presets = [
+const presets: string[] = [
 	'styled-to-emotion',
 	'theme-remove-deprecated-mixins',
 	'migrate-deprecated-icon',

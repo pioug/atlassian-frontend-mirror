@@ -29,7 +29,7 @@ const containerStyles = cssMap({
 	},
 });
 
-export function SidebarExampleContainer({ children }: { children: ReactNode }) {
+export function SidebarExampleContainer({ children }: { children: ReactNode }): JSX.Element {
 	return (
 		<div css={outersStyles.root}>
 			<div css={containerStyles.root}>{children}</div>

@@ -1,4 +1,4 @@
-export const legacyColors = [
+export const legacyColors: string[] = [
 	'R50',
 	'R75',
 	'R100',
@@ -115,7 +115,7 @@ export const legacyColors = [
 	'DN10A',
 ];
 
-export const legacyColorMixins = [
+export const legacyColorMixins: string[] = [
 	'background',
 	'backgroundActive',
 	'backgroundHover',

@@ -108,7 +108,7 @@ const isUsingDirectDataAttribute = (rawSelector: string): boolean => {
 	return selectors.some((selector) => selector.startsWith('&['));
 };
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'no-nested-styles',
 		docs: {

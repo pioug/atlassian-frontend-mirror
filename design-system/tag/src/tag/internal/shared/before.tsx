@@ -21,7 +21,7 @@ const beforeElementStyles = css({
 	insetBlockStart: token('space.0', '0px'),
 });
 
-const Before = ({ elemBefore }: BeforeProps) =>
+const Before: ({ elemBefore }: BeforeProps) => JSX.Element | null = ({ elemBefore }: BeforeProps) =>
 	elemBefore ? <span css={beforeElementStyles}>{elemBefore}</span> : null;
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc

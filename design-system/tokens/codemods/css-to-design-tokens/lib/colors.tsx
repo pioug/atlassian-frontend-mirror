@@ -48,22 +48,22 @@ const REGEXES = {
 		/^\s*(#([0-9a-f]{3}){1,2}|(rgba|hsla)\(\s*\d{1,3}%?\s*(,\s*\d{1,3}%?\s*){2},\s*-?\d*\.?\d+\s*\)|(rgb|hsl)\(\s*\d{1,3}%?\s*(,\s*\d{1,3}%?\s*){2}\)\s*|(lab|lch)\(\s*\d{1,3}%?\s+\d{1,3}%?\s+\d{1,3}%?\s*\)|hwb\(\s*\d{1,3}\s+\d{1,3}%?\s+\d{1,3}%?\s*\))\s*$/i,
 };
 
-export function isKnownCssVariable(value: string) {
+export function isKnownCssVariable(value: string): boolean {
 	return value in knownVariables;
 }
-export function isRawColor(value: string) {
+export function isRawColor(value: string): boolean {
 	return REGEXES.RAW_COLOR.test(value);
 }
-export function isNamedColor(value: string) {
+export function isNamedColor(value: string): boolean {
 	return NAMED_COLORS.includes(value);
 }
-export function isGradient(value: string) {
+export function isGradient(value: string): boolean {
 	return GRADIENT_TYPES.some((gradient) => value.startsWith(`${gradient}-gradient(`));
 }
-export function extractBetweenParentheses(value: string) {
+export function extractBetweenParentheses(value: string): string {
 	const match = value.match(/\((.*?)\)/);
 	return match ? match[1] : '';
 }
-export function isLessFunction(value: string) {
+export function isLessFunction(value: string): boolean {
 	return LESS_COLOR_FUNCTIONS.some((func) => value.startsWith(`${func}(`));
 }

@@ -50,7 +50,7 @@ const CustomTitleComponent = () => {
 	);
 };
 
-const PageHeaderCustomTitleExample = () => {
+const PageHeaderCustomTitleExample: () => JSX.Element = () => {
 	return (
 		<PageHeader disableTitleStyles>
 			<CustomTitleComponent />

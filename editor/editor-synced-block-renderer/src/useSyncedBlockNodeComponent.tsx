@@ -11,8 +11,9 @@ import {
 	type SyncBlockDataProvider,
 	type SyncBlockInstance,
 	type SyncBlockNode,
+	type SyncedBlockProvider,
+	type SyncBlockPrefetchData,
 } from '@atlaskit/editor-synced-block-provider';
-import type { SyncedBlockProvider } from '@atlaskit/editor-synced-block-provider';
 
 import type { SyncedBlockRendererOptions } from './types';
 import {
@@ -22,6 +23,7 @@ import {
 
 export type GetSyncedBlockNodeComponentProps = {
 	fireAnalyticsEvent?: (payload: AnalyticsEventPayload) => void;
+	getPrefetchedData?: () => SyncBlockPrefetchData | undefined;
 	getSSRData?: () => Record<string, SyncBlockInstance> | undefined;
 	syncBlockNodes: SyncBlockNode[];
 	syncBlockProvider: SyncedBlockProvider;
@@ -45,6 +47,7 @@ export const useMemoizedSyncedBlockNodeComponent = ({
 	syncBlockRendererOptions,
 	fireAnalyticsEvent,
 	getSSRData,
+	getPrefetchedData,
 }: GetSyncedBlockNodeComponentProps): ((props: SyncedBlockNodeProps) => React.JSX.Element) => {
 	const syncBlockStoreManager = useMemoizedSyncBlockStoreManager(
 		syncBlockProvider as SyncBlockDataProvider,
@@ -61,7 +64,16 @@ export const useMemoizedSyncedBlockNodeComponent = ({
 		}
 	}, [getSSRData, syncBlockProvider]);
 
-	// Initial fetch sync block data (will use SSR data as initial cache if available)
+	// Process prefetched data next, if available
+	useEffect(() => {
+		let prefetchedData: SyncBlockPrefetchData | undefined;
+		if (getPrefetchedData) {
+			prefetchedData = getPrefetchedData();
+			syncBlockStoreManager.referenceManager.processPrefetchedData(prefetchedData);
+		}
+	}, [getPrefetchedData, syncBlockStoreManager.referenceManager]);
+
+	// Initial fetch sync block data (will use SSR data as initial cache, or the prefetched data if available)
 	useEffect(() => {
 		syncBlockStoreManager.referenceManager.fetchSyncBlocksData(syncBlockNodes);
 	}, [syncBlockNodes, syncBlockStoreManager.referenceManager]);

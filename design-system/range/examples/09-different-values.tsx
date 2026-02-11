@@ -13,7 +13,7 @@ const baseProps = {
 	max: 50,
 };
 
-const RangeValues = () => (
+const RangeValues: () => JSX.Element = () => (
 	<div data-testid="container">
 		<section>
 			<Heading size="medium">With Default Values</Heading>

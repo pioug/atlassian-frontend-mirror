@@ -43,4 +43,4 @@ export function filterFromConsoleErrorOutput(searchString: RegExp): ResetConsole
 
 // Expected error due to jsdom not knowing how to parse the `@starting-style` at-rule.
 // See: https://github.com/jsdom/jsdom/issues/3236
-export const parseCssErrorRegex = /Could not parse CSS stylesheet/;
+export const parseCssErrorRegex: RegExp = /Could not parse CSS stylesheet/;

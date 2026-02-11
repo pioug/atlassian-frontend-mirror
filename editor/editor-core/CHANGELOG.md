@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 216.9.2
+
+### Patch Changes
+
+- [`d1ee0512f85f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d1ee0512f85f4) -
+  [EDITOR-4531] Cleans up FG platform_editor_table_numbered_table_border
+- Updated dependencies
+
+## 216.9.1
+
+### Patch Changes
+
+- [`280d14e2d5518`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/280d14e2d5518) -
+  Clean up platform_editor_drag_handle_aria_label
+- Updated dependencies
+
 ## 216.9.0
 
 ### Minor Changes

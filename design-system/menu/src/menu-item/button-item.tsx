@@ -19,7 +19,7 @@ import type { ButtonItemProps } from '../types';
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/menu/docs/button-item)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/menu)
  */
-const ButtonItem = memo(
+const ButtonItem: import("react").MemoExoticComponent<import("react").ForwardRefExoticComponent<ButtonItemProps & import("react").RefAttributes<HTMLElement>>> = memo(
 	forwardRef<HTMLElement, ButtonItemProps>((props, ref) => {
 		const {
 			children,

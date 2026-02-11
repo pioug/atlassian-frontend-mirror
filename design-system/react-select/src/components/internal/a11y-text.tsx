@@ -17,7 +17,7 @@ const styles = css({
 	userSelect: 'none', // while hidden text is sitting in the DOM, it should not be selectable
 	whiteSpace: 'nowrap',
 });
-const A11yText = (props: JSX.IntrinsicElements['span']) => (
+const A11yText: (props: JSX.IntrinsicElements["span"]) => JSX.Element = (props: JSX.IntrinsicElements['span']) => (
 	<span
 		css={styles}
 		// eslint-disable-next-line  @atlaskit/ui-styling-standard/no-classname-prop

@@ -136,7 +136,7 @@ const dateTimePickerJSXElement = (node: JSXElement, context: Rule.RuleContext) =
 	}
 };
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'use-datetime-picker-calendar-button',
 		type: 'suggestion',

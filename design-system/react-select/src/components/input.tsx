@@ -50,7 +50,7 @@ export type InputProps<
 	Group extends GroupBase<Option> = GroupBase<Option>,
 > = InputSpecificProps<Option, IsMulti, Group>;
 
-export const inputCSS = () => ({});
+export const inputCSS: () => {} = () => ({});
 
 const inputStylesOld = cssMap({
 	root: {
@@ -143,7 +143,7 @@ const hidden = css({
 	opacity: 0,
 });
 
-const Input = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+const Input: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(props: InputProps<Option, IsMulti, Group>) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: InputProps<Option, IsMulti, Group>,
 ) => {
 	const { cx: builtinCX, value, xcss } = props;

@@ -55,7 +55,7 @@ const LanguageSettings = () => {
 	);
 };
 
-const ControlledExample = () => {
+const ControlledExample: () => JSX.Element = () => {
 	const [stack, setStack] = useState<string[]>([]);
 
 	return (

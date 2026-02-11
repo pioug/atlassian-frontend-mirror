@@ -203,7 +203,7 @@ const gapMap: Record<SpacingMode, InlineProps['space']> = {
  * </MenuItemPrimitive>
  * ```
  */
-const MenuItemPrimitive = ({
+const MenuItemPrimitive: (props: MenuItemPrimitiveProps) => JSX.Element = ({
 	children,
 	title,
 	description,

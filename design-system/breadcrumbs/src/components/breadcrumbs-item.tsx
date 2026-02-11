@@ -63,7 +63,7 @@ const staticItemWithoutTruncationStyles = css({
 	flexShrink: `1 !important`,
 });
 
-const BreadcrumbsItem = memo(
+const BreadcrumbsItem: import("react").MemoExoticComponent<({ analyticsContext, component, href, iconAfter, iconBefore, onClick, onTooltipShown, ref, target, testId, text, truncationWidth, ...rest }: BreadcrumbsItemProps) => JSX.Element> = memo(
 	({
 		analyticsContext,
 		component,

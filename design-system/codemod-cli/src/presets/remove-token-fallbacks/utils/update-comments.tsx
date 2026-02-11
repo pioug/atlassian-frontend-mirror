@@ -5,7 +5,7 @@ export function addOrUpdateEslintIgnoreComment(
 	tokenValue: string,
 	fallbackValue: string | undefined,
 	callPath: ASTPath<CallExpression>,
-) {
+): void {
 	const commentText = `eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage -- The token value "${tokenValue}" and fallback "${fallbackValue}" do not match and can't be replaced automatically.`;
 	// first see if we can add the comment to the parent object property
 	const updatedCommentInObjectExpression =

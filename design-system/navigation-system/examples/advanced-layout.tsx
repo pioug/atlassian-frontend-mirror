@@ -92,7 +92,7 @@ function LoremSection() {
 	);
 }
 
-export const AdvancedLayoutExample = () => (
+export const AdvancedLayoutExample: () => JSX.Element = () => (
 	<Root>
 		<TopNav>
 			<TopNavStart sideNavToggleButton={null}>

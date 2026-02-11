@@ -94,7 +94,7 @@ function DropTarget({ children, testId }: { children: ReactNode; testId: string 
 	);
 }
 
-export default function SidebarExample() {
+export default function SidebarExample(): JSX.Element {
 	const buttonRef = useRef<HTMLButtonElement | null>(null);
 
 	useEffect(() => {

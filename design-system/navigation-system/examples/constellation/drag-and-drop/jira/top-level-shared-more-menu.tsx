@@ -24,7 +24,7 @@ export function TopLevelSharedMoreMenu({
 	amountOfMenuItems: number;
 	index: number;
 	value: TTopLevelItem;
-}) {
+}): JSX.Element {
 	const dispatch = useDispatch();
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 

@@ -434,6 +434,6 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 /**
  * __Tag new__
  */
-const TagNew = memo(TagNewComponent);
+const TagNew: import("react").MemoExoticComponent<import("react").ForwardRefExoticComponent<TagNewProps & import("react").RefAttributes<HTMLSpanElement>>> = memo(TagNewComponent);
 
 export default TagNew;

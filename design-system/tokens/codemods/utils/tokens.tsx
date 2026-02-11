@@ -1,4 +1,4 @@
-export const activeTokens = [
+export const activeTokens: string[] = [
 	'color.text',
 	'color.text.accent.lime',
 	'color.text.accent.lime.bolder',
@@ -283,7 +283,7 @@ export const activeTokens = [
 	'utility.elevation.surface.current',
 ];
 
-export const uniqueWordsFromTokens = [
+export const uniqueWordsFromTokens: string[] = [
 	'color',
 	'text',
 	'accent',

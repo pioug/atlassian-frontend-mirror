@@ -322,7 +322,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 	${insertLine()};
 	${resizeHandle()};
 	${rangeSelectionStyles};
-	${fg('platform_editor_table_numbered_table_border') && rangeSelectionStylesForFakeBorders};
+	${rangeSelectionStylesForFakeBorders};
 	${viewModeSortStyles()};
 	${expValEquals(
 		'platform_editor_table_sticky_header_improvements',
@@ -378,11 +378,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 	${fg('platform_editor_nested_tables_sticky_header_bug')
 		? `
 		.${ClassName.TABLE_STICKY} > .${props.isDragAndDropEnabled ? ClassName.DRAG_ROW_CONTROLS_WRAPPER : ClassName.ROW_CONTROLS_WRAPPER} .${ClassName.NUMBERED_COLUMN} .${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
-			margin-top: ${
-				fg('platform_editor_number_column_sticky_header_bug')
-					? stickyRowOffsetTop
-					: stickyRowOffsetTop + 2
-			}px;
+			margin-top: ${stickyRowOffsetTop}px;
 			width: ${akEditorTableNumberColumnWidth}px;
 
 			position: fixed !important;
@@ -394,11 +390,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		`
 		: `
     	.${ClassName.TABLE_STICKY} .${ClassName.NUMBERED_COLUMN} .${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
-			margin-top: ${
-				fg('platform_editor_number_column_sticky_header_bug')
-					? stickyRowOffsetTop
-					: stickyRowOffsetTop + 2
-			}px;
+			margin-top: ${stickyRowOffsetTop}px;
 			width: ${akEditorTableNumberColumnWidth}px;
 
 			position: fixed !important;
@@ -673,30 +665,20 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		.${ClassName.WITH_CONTROLS}.${ClassName.TABLE_STICKY} > .${ClassName.DRAG_ROW_CONTROLS_WRAPPER}
 			.${ClassName.NUMBERED_COLUMN}
 			.${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
-			margin-top: ${
-				fg('platform_editor_number_column_sticky_header_bug')
-					? tableControlsSpacing
-					: tableControlsSpacing + 2
-			}px;
+			margin-top: ${tableControlsSpacing}px;
 		}
 		`
 		: `
 		.${ClassName.WITH_CONTROLS}.${ClassName.TABLE_STICKY}
 			.${ClassName.NUMBERED_COLUMN}
 			.${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
-			margin-top: ${
-				fg('platform_editor_number_column_sticky_header_bug')
-					? tableControlsSpacing
-					: tableControlsSpacing + 2
-			}px;
+			margin-top: ${tableControlsSpacing}px;
 		}
 		`}
 
 	.${ClassName.CORNER_CONTROLS}.sticky {
-		border-top: ${fg('platform_editor_number_column_sticky_header_bug')
-				? tableControlsSpacing - tableToolbarSize
-				: tableControlsSpacing - tableToolbarSize + 2}px
-			solid ${token('elevation.surface', 'white')};
+		border-top: ${tableControlsSpacing - tableToolbarSize}px solid
+			${token('elevation.surface', 'white')};
 	}
 
 	${sentinelStyles}

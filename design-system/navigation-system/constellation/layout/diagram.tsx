@@ -91,7 +91,7 @@ const styles = cssMap({
 	},
 });
 
-export const PageLayoutDiagram = () => (
+export const PageLayoutDiagram: () => JSX.Element = () => (
 	<div css={styles.root}>
 		<div css={[styles.slot, styles.bannerSlot]}>
 			<div css={styles.placeholder}>Banner</div>

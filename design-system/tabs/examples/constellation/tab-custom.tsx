@@ -36,7 +36,9 @@ const panelStyles = css({
 	paddingInlineStart: token('space.400'),
 });
 
-export const Panel = ({ children }: { children: ReactNode }) => (
+export const Panel: ({ children }: {
+    children: ReactNode;
+}) => JSX.Element = ({ children }: { children: ReactNode }) => (
 	<div css={panelStyles}>{children}</div>
 );
 
@@ -50,7 +52,7 @@ const CustomTab = ({ label }: { label: string }) => {
 	);
 };
 
-const TabCustomExample = () => (
+const TabCustomExample: () => JSX.Element = () => (
 	<Tabs id="custom-tabs">
 		<TabList>
 			<CustomTab label="Tab 1" />

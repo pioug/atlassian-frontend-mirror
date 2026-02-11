@@ -59,7 +59,7 @@ interface ButtonsProp {
 	testId?: string;
 }
 
-const Buttons = ({
+const Buttons: ({ confirmButtonLabel, cancelButtonLabel, onMouseDown, onCancelClick, testId, }: ButtonsProp) => JSX.Element = ({
 	confirmButtonLabel,
 	cancelButtonLabel,
 	onMouseDown,

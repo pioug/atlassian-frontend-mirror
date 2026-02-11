@@ -17,7 +17,7 @@ function hasProp(node: JSXElement, propName: string) {
 	);
 }
 
-const rule = createLintRule({
+const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'ensure-icon-color',
 		docs: {

@@ -275,7 +275,7 @@ export function addCommentToStartOfFile({
 	j: core.JSCodeshift;
 	base: Collection<Node>;
 	message: string;
-}) {
+}): void {
 	addCommentBefore({
 		j,
 		// @ts-ignore
@@ -292,7 +292,7 @@ export function addCommentBefore({
 	j: core.JSCodeshift;
 	target: Collection<Node>;
 	message: string;
-}) {
+}): void {
 	const content: string = ` TODO: (from codemod) ${clean(message)} `;
 	target.forEach((path) => {
 		path.value.comments = path.value.comments || [];
@@ -314,7 +314,7 @@ export function updateRenderProps(
 	specifier: string,
 	oldProperty: string,
 	newProperty: string,
-) {
+): void {
 	source.findJSXElements(specifier).forEach((element: ASTPath<JSXElement>) => {
 		j(element)
 			.find(j.ArrowFunctionExpression)

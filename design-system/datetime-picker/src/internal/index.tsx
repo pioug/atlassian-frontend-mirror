@@ -1,11 +1,11 @@
 /**
  * This component is used to hide portions of Select component.
  */
-export const EmptyComponent = () => null;
+export const EmptyComponent: () => null = () => null;
 
 // This date was chosen to clearly show date and time formats (day > 12)
 // e.g. 18/02/1993 vs. 2/18/1993 and 1:00 PM vs 13:00
-export const placeholderDatetime = new Date(1993, 1, 18, 13);
+export const placeholderDatetime: Date = new Date(1993, 1, 18, 13);
 
 export const defaultTimes: string[] = [
 	'09:00',

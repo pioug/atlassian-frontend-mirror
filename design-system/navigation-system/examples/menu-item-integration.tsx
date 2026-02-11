@@ -68,7 +68,7 @@ const headingStyles = cssMap({
 	},
 });
 
-export default function MenuItemIntegrationExample() {
+export default function MenuItemIntegrationExample(): JSX.Element {
 	return (
 		<Root>
 			<TopNav>

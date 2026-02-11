@@ -52,7 +52,7 @@ const textFieldStyles = css({
 	},
 });
 
-const InlineEditExample = () => {
+const InlineEditExample: () => JSX.Element = () => {
 	const initialValue = 'Click to enter value';
 	const [editValue, setEditValue] = useState('Field value');
 

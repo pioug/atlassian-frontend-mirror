@@ -25,8 +25,8 @@ const noop = () => [];
 // eslint-disable-next-line @repo/internal/react/no-class-components
 class AnalyticsContext extends Component<Props, AnalyticsReactContextInterface> {
 	context: any;
-	static contextTypes = ContextTypes;
-	static childContextTypes = ContextTypes;
+	static contextTypes: { getAtlaskitAnalyticsContext: PropTypes.Requireable<(...args: any[]) => any>; getAtlaskitAnalyticsEventHandlers: PropTypes.Requireable<(...args: any[]) => any>; } = ContextTypes;
+	static childContextTypes: { getAtlaskitAnalyticsContext: PropTypes.Requireable<(...args: any[]) => any>; getAtlaskitAnalyticsEventHandlers: PropTypes.Requireable<(...args: any[]) => any>; } = ContextTypes;
 
 	contextValue: AnalyticsReactContextInterface;
 
@@ -39,22 +39,24 @@ class AnalyticsContext extends Component<Props, AnalyticsReactContextInterface> 
 		};
 	}
 
-	getChildContext = () => ({
+	getChildContext = (): {
+        getAtlaskitAnalyticsContext: () => any[];
+    } => ({
 		getAtlaskitAnalyticsContext: this.getAnalyticsContext,
 	});
 
-	getAnalyticsContext = () => {
+	getAnalyticsContext = (): any[] => {
 		const { data } = this.props;
 		const { getAtlaskitAnalyticsContext = noop } = this.context;
 		return [...getAtlaskitAnalyticsContext(), data];
 	};
 
-	getAnalyticsEventHandlers = () => {
+	getAnalyticsEventHandlers = (): any => {
 		const { getAtlaskitAnalyticsEventHandlers = noop } = this.context;
 		return getAtlaskitAnalyticsEventHandlers();
 	};
 
-	render() {
+	render(): React.JSX.Element {
 		const { children } = this.props;
 
 		return (

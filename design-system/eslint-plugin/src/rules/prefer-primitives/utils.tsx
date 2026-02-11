@@ -6,7 +6,7 @@ import {
 	type JSXText,
 } from 'eslint-codemod-utils';
 
-export const validPrimitiveElements = new Set([
+export const validPrimitiveElements: Set<string> = new Set([
 	'div',
 	'span',
 	'article',
@@ -39,7 +39,7 @@ const isValidPrimitiveElement = (node: JSXElement) => {
 	return validPrimitiveElements.has((node.openingElement.name as JSXIdentifier).name);
 };
 
-export const shouldSuggest = (node: JSXElement): boolean => {
+export const shouldSuggest: (node: JSXElement) => boolean = (node: JSXElement): boolean => {
 	if (!node) {
 		return false;
 	}

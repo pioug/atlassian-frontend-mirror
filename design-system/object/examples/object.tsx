@@ -16,7 +16,7 @@ const containerStyles = css({
 	maxWidth: '600px',
 });
 
-export default function Objects() {
+export default function Objects(): JSX.Element {
 	const sizes: ObjectSize[] = ['small', 'medium'];
 
 	return (

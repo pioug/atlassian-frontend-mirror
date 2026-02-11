@@ -5,7 +5,7 @@ export default function renameElements(
 	newElementName: string,
 	fileSource: Collection<any>,
 	j: API['jscodeshift'],
-) {
+): void {
 	const oldElements = fileSource.find(j.JSXElement).filter((path) => {
 		return (
 			path.value.openingElement.name.type === 'JSXIdentifier' &&

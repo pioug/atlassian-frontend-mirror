@@ -1,6 +1,6 @@
 import tokens from '@atlaskit/tokens/token-names';
 
-export const constructTokenFunctionCall = (token: string, fallback: string | ShadowDefinition) => {
+export const constructTokenFunctionCall: (token: string, fallback: string | ShadowDefinition) => string = (token: string, fallback: string | ShadowDefinition) => {
 	if (Array.isArray(fallback)) {
 		fallback = constructShadow(fallback);
 	}
@@ -26,28 +26,28 @@ const constructShadow = (shadowObject: ShadowDefinition) => {
 
 type BooleanCallback<T> = (args: T) => boolean;
 
-export const compose =
+export const compose: (...fns: ((...any: any[]) => any)[]) => (x: any) => any =
 	(...fns: ((...any: any[]) => any)[]) =>
 	(x: any) =>
 		fns.reduce((res, fn) => fn(res), x);
-export const pick =
+export const pick: <T extends any>(key: keyof T) => (obj: T) => T[keyof T] =
 	<T extends any>(key: keyof T) =>
 	(obj: T) =>
 		obj[key];
-export const isAccent = (str: string) => str.includes('accent');
-export const isPressed = (str: string) => str.includes('pressed');
-export const isHovered = (str: string) => str.includes('hovered');
-export const not =
+export const isAccent: (str: string) => boolean = (str: string) => str.includes('accent');
+export const isPressed: (str: string) => boolean = (str: string) => str.includes('pressed');
+export const isHovered: (str: string) => boolean = (str: string) => str.includes('hovered');
+export const not: <T extends any>(cb: BooleanCallback<T>) => (val: T) => boolean =
 	<T extends any>(cb: BooleanCallback<T>) =>
 	(val: T) =>
 		!cb(val);
-export const or =
+export const or: <T extends any>(...fns: BooleanCallback<T>[]) => (val: T) => boolean =
 	<T extends any>(...fns: BooleanCallback<T>[]) =>
 	(val: T) =>
 		fns.some((fn) => fn(val));
-export const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
+export const capitalize: (str: string) => string = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 
-export const generateTypeDefs = (typedTokens: string[], tokenNames?: string[]) => {
+export const generateTypeDefs: (typedTokens: string[], tokenNames?: string[]) => string = (typedTokens: string[], tokenNames?: string[]) => {
 	return typedTokens
 		.map((t, i) => {
 			return `'${Array.isArray(tokenNames) ? tokenNames[i] : t}': 'var(${tokens[t as keyof typeof tokens]})'`;

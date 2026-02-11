@@ -144,7 +144,7 @@ export interface NestingItemProps<TCustomComponentProps = CustomItemComponentPro
  * When not open - it will render itself as an item.
  * When open - it will render its children.
  */
-const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
+const NestingItem: <TCustomComponentProps extends CustomItemComponentProps>(props: NestingItemProps<TCustomComponentProps> & Omit<TCustomComponentProps, keyof CustomItemComponentProps>) => JSX.Element = <TCustomComponentProps extends CustomItemComponentProps>(
 	props: NestingItemProps<TCustomComponentProps> &
 		Omit<TCustomComponentProps, keyof CustomItemComponentProps>,
 ) => {

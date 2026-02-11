@@ -25,7 +25,7 @@ const containerStyles = css({
 	paddingInlineStart: token('space.200', '16px'),
 });
 
-export default function DrawerExample() {
+export default function DrawerExample(): JSX.Element {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const openDrawer = useCallback(() => setIsOpen(true), []);
 	const closeDrawer = useCallback(() => setIsOpen(false), []);

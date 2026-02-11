@@ -22,7 +22,7 @@ const activeTokens = tokens
 	// @ts-ignore
 	.map((t) => ({ ...t, token: t.token.replaceAll('.[default]', '') }));
 
-export const createInverseColorMapTemplate = () => {
+export const createInverseColorMapTemplate: () => string = () => {
 	const propMap = activeTokens.map((t) => {
 		// handle the default case eg color.border or color.text
 		const propName = t.token;

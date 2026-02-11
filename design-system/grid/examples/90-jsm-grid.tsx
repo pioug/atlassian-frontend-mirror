@@ -42,7 +42,7 @@ const dynamicSizedVerticalPaddingStyles = css({
 	},
 });
 
-const JSMGrid = () => {
+const JSMGrid: () => JSX.Element = () => {
 	const { colorMode: theme } = useThemeObserver();
 	return (
 		<HeadingContextProvider>

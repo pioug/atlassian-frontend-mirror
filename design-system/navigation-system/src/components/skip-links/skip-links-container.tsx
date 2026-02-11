@@ -129,7 +129,7 @@ export function SkipLinksContainer({
 	label: string;
 	testId?: string;
 	links: Array<SkipLinkData>;
-}) {
+}): JSX.Element | null {
 	const sortedLinks = useMemo(() => {
 		return sortSkipLinks(links);
 	}, [links]);

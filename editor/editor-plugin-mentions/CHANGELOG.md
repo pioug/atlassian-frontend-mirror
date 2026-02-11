@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-mentions
 
+## 9.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.2.0
+
+### Minor Changes
+
+- [`24eaee764c0df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24eaee764c0df) -
+  [ux] Inline invites for mentions in editor.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.1.9
 
 ### Patch Changes

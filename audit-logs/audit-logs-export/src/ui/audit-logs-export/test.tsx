@@ -96,7 +96,7 @@ describe('AuditLogExportButton', () => {
 		expect(within(modal).getByText('Please read and accept to continue')).toBeInTheDocument();
 		expect(
 			within(modal).getByText(
-				/I understand that if I share these audit logs with people that don't otherwise have access to them, any existing user permissions set in Atlassian Administration and other apps will no longer apply to them./,
+				/I understand that if I share this audit log data with people that don't otherwise have access to it, any existing user permissions set in Atlassian Administration and other apps will no longer apply to them./,
 			),
 		).toBeInTheDocument();
 		// Checkbox is rendered inside a label, so query within the modal for the input instead

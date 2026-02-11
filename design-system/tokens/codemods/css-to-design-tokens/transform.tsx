@@ -87,7 +87,7 @@ const plugin = (): Plugin => {
 	};
 };
 
-export default async function transformer(file: FileInfo | string) {
+export default async function transformer(file: FileInfo | string): Promise<string> {
 	const processor = postcss([plugin()]);
 	const src = typeof file === 'string' ? file : file.source;
 	const { css } = await processor.process(src, POSTCSS_OPTIONS);

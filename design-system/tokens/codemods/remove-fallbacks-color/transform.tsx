@@ -1,7 +1,7 @@
 import { hasImportDeclaration } from '@hypermod/utils';
 import type { API, FileInfo } from 'jscodeshift';
 
-export default async function transformer(file: FileInfo, api: API) {
+export default async function transformer(file: FileInfo, api: API): Promise<string> {
 	const j = api.jscodeshift;
 	const source = j(file.source);
 

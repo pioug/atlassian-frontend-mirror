@@ -34,6 +34,7 @@ import {
 	getHasHiddenTimingBeforeSetup,
 	getPageVisibilityState,
 	isOpenedInBackground,
+	isTabThrottled,
 } from '../hidden-timing';
 import * as initialPageLoadExtraTiming from '../initial-page-load-extra-timing';
 import type { LabelStack } from '../interaction-context';
@@ -721,6 +722,12 @@ async function createInteractionMetricsPayload(
 
 				'ufo:isOpenedInBackground': isOpenedInBackground(interaction.type),
 
+				...(fg('platform_ufo_is_tab_throttled')
+					? {
+							'ufo:isTabThrottled': isTabThrottled(start, end),
+						}
+					: {}),
+
 				// root
 				...getBrowserMetadataToLegacyFormat(),
 				...batteryInfo,
@@ -815,7 +822,9 @@ async function createInteractionMetricsPayload(
 
 	// in order of importance, first one being least important
 	// we can add more fields as necessary
-	const interactionMetricsFieldsToTrim = ['requestInfo', 'featureFlags', 'resourceTimings'];
+	const interactionMetricsFieldsToTrim = fg('ufo_remove_featureflags_from_trimmed_fields')
+		? ['requestInfo', 'resourceTimings']
+		: ['requestInfo', 'featureFlags', 'resourceTimings'];
 	type TrimmableProperties = typeof payload.attributes.properties & {
 		interactionMetrics?: typeof payload.attributes.properties.interactionMetrics &
 			Record<string, unknown>;

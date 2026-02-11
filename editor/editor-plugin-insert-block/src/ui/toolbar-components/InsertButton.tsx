@@ -15,7 +15,7 @@ import {
 	ToolTipContent,
 } from '@atlaskit/editor-common/keymaps';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
+import { TOOLBAR_BUTTON_TEST_ID, useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type {
 	ExtractInjectionAPI,
 	Command,
@@ -289,6 +289,7 @@ export const InsertButton = ({
 					onClick={onClick}
 					isSelected={insertMenuOpen}
 					isDisabled={!isTypeAheadAllowed || isDisabled}
+					testId={TOOLBAR_BUTTON_TEST_ID.INSERT}
 				/>
 			</ToolbarTooltip>
 		</>

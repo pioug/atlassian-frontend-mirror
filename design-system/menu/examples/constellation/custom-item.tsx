@@ -47,7 +47,7 @@ const styles = cssMap({
 	},
 });
 
-export default () => (
+const _default: () => JSX.Element = () => (
 	/**
 	 * It is not normally acceptable to add click handlers to non-interactive elements
 	 * as this is an accessibility anti-pattern. However, because this instance is
@@ -99,3 +99,4 @@ export default () => (
 		</CustomItem>
 	</Box>
 );
+export default _default;

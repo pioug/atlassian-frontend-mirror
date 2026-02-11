@@ -172,7 +172,7 @@ function OpenLayerCountTracker() {
 	return <Text>Open layer count: {openLayerCount}</Text>;
 }
 
-export function ResizableSlots() {
+export function ResizableSlots(): JSX.Element {
 	const [resizeStartFunctionCalls, setResizeStartFunctionCalls] = useState<{
 		numberOfCalls: number;
 		argsLastCalledWith: { initialWidth: number } | null;

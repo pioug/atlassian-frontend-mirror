@@ -3,6 +3,23 @@ import { getActiveTraceHttpRequestHeaders } from '@atlaskit/react-ufo/experience
 import { buildCredentials, type RequestServiceOptions, type ServiceConfig } from './types';
 import { defaultRequestServiceOptions, buildUrl, buildHeaders } from './shared';
 
+const TRACING_RESPONSE_HEADERS = ['x-trace-id', 'atl-request-id'];
+
+/**
+ * Extracts tracing headers (x-trace-id, atl-request-id) from a Response object.
+ * Returns only headers that are present in the response.
+ */
+export const extractTracingHeaders = (response: Response): Record<string, string> => {
+	const headers: Record<string, string> = {};
+	for (const name of TRACING_RESPONSE_HEADERS) {
+		const value = response.headers.get(name);
+		if (value) {
+			headers[name] = value;
+		}
+	}
+	return headers;
+};
+
 /**
  * @returns Promise containing the json response
  */
@@ -31,6 +48,13 @@ export const requestService = <T>(
 	};
 
 	return fetch(requestUrl, requestOptions).then((response: Response) => {
+		if (options?.reportTracingHeaders) {
+			const tracingHeaders = extractTracingHeaders(response);
+			if (Object.keys(tracingHeaders).length > 0) {
+				options.reportTracingHeaders(tracingHeaders);
+			}
+		}
+
 		if (response.status === 204) {
 			return Promise.resolve();
 		} else if (response.ok) {

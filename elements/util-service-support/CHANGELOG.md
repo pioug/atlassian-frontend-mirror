@@ -1,5 +1,13 @@
 # @atlaskit/util-service-support
 
+## 6.3.5
+
+### Patch Changes
+
+- [`6344a66774597`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6344a66774597) -
+  Add optional reportTracingHeaders callback and extractTracingHeaders utility to
+  RequestServiceOptions for extracting tracing headers from responses
+
 ## 6.3.4
 
 ### Patch Changes

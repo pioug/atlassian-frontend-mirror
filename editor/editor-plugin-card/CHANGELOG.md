@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-card
 
+## 12.3.4
+
+### Patch Changes
+
+- [`edd1a9cea5ca1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edd1a9cea5ca1) -
+  Make sure exposure fires regardless of whether the url is in cache
+
 ## 12.3.3
 
 ### Patch Changes

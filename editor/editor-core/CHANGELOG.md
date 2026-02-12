@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 216.9.3
+
+### Patch Changes
+
+- [`bb6a1522425ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb6a1522425ff) -
+  [ux] Fix layoutshift in bodiedExtension layout shift
+- Updated dependencies
+
 ## 216.9.2
 
 ### Patch Changes

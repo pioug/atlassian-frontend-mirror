@@ -1,12 +1,12 @@
-import { useCallback, useContext } from 'react';
+import { useCallback, useContext, useMemo } from 'react';
 
-import { FabricChannel } from '@atlaskit/analytics-listeners';
 import {
 	type AnalyticsEventPayload,
 	AnalyticsReactContext,
 	useAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 
+import { ANALYTICS_CHANNEL } from '../common/constants';
 import type { RemainingRequired } from '../common/types';
 import { getAttributesFromContexts, getDefaultTrackEventConfig } from '../common/utils';
 
@@ -38,14 +38,12 @@ type CommonAnalyticsAttributes = {
 	agentId: string;
 };
 
-export const ANALYTICS_CHANNEL = FabricChannel.aiMate;
-
 export const useRovoAgentActionAnalytics = <T extends Partial<CommonAnalyticsAttributes>>(
 	commonAttributes: T,
 ) => {
 	const analyticsContext = useContext(AnalyticsReactContext);
 	const { createAnalyticsEvent } = useAnalyticsEvents();
-	const eventConfig = getDefaultTrackEventConfig();
+	const eventConfig = useMemo(() => getDefaultTrackEventConfig(), []);
 
 	const fireAnalyticsEvent = useCallback(
 		(event: AnalyticsEventPayload) => {

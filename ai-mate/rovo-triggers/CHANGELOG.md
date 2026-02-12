@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 5.13.0
+
+### Minor Changes
+
+- [`bd27129c7de57`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd27129c7de57) -
+  Add preselectEmptyConversation option to message-send pub-sub event, use it to trigger solution
+  architect chat
+
 ## 5.12.0
 
 ### Minor Changes

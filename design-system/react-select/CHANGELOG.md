@@ -1,5 +1,12 @@
 # @atlaskit/react-select
 
+## 3.13.5
+
+### Patch Changes
+
+- [`7a8cc71136f51`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7a8cc71136f51) -
+  Set role as listitem when UNSAFE_is_experimental_generic is true to align with role list
+
 ## 3.13.4
 
 ### Patch Changes

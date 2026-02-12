@@ -451,9 +451,47 @@ export const getExtensionStyles = (contentMode?: EditorContentMode): SerializedS
 						},
 					})
 				: css({});
+	const bodiedExtensionLayoutShiftFixStyles = expValEquals(
+		'platform_editor_bodiedextension_layoutshift_fix',
+		'isEnabled',
+		true,
+	)
+		? css({
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'.bodiedExtensionView-content-wrap': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+					'.bodiedExtension-content-outer-wrapper': {
+						margin: '23px -1px -1px -1px', // Reserve space for lozenge (24px) then subtract 1px to account for the border of the inner wrapper preventing layoutshift
+					},
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+					'.bodiedExtension-content-inner-wrapper': {
+						margin: `0 ${token('space.negative.250', '-20px')}`,
+						padding: `${token('space.200', '16px')} ${token('space.250', '20px')}`,
+						border: `1px solid ${token('color.border')}`,
+						borderRadius: token('radius.small', '3px'),
+					},
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+					'.extension-container': {
+						// Remove styling when Prosemirror moves content inside
+
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+						'.bodiedExtension-content-outer-wrapper': {
+							margin: '0',
+						},
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+						'.bodiedExtension-content-inner-wrapper': {
+							margin: 0,
+							padding: 0,
+							border: 'none',
+							borderRadius: 0,
+						},
+					},
+				},
+			})
+		: css({});
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-	return css(baseExtensionStyles, denseExtensionStyles);
+	return css(baseExtensionStyles, denseExtensionStyles, bodiedExtensionLayoutShiftFixStyles);
 };
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles

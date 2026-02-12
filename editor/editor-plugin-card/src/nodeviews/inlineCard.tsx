@@ -157,8 +157,8 @@ export const InlineCard = memo(
 			const cardState = cardContext?.value?.store?.getState()[url || ''];
 			if (
 				(isPageSSRed ||
-					(cardState &&
-						expValEquals('platform_editor_smartlink_local_cache', 'isEnabled', true))) &&
+					(expValEquals('platform_editor_smartlink_local_cache', 'isEnabled', true) &&
+						cardState)) &&
 				url
 			) {
 				return (

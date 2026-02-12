@@ -1,5 +1,12 @@
 # @atlaskit/quick-search
 
+## 10.2.0
+
+### Minor Changes
+
+- [`a20add1ee54fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a20add1ee54fc) -
+  Enable no-barrel-files for search packages and suppress existing barrels.
+
 ## 10.1.1
 
 ### Patch Changes

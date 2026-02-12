@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f499d8b88b96bcc50bbd5d7a0299ff6c>>
+ * @codegen <<SignedSource::9644eafd202e31d1b6f6c9b86ad519a2>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { Rule } from 'eslint';
@@ -73,6 +73,7 @@ import usePopupLabel from './use-popup-label';
 import usePrimitives from './use-primitives';
 import usePrimitivesText from './use-primitives-text';
 import useShouldRenderToParent from './use-should-render-to-parent';
+import useSideNavItemsPackage from './use-side-nav-items-package';
 import useSimpleField from './use-simple-field';
 import useSimpleForm from './use-simple-form';
 import useSpotlightPackage from './use-spotlight-package';
@@ -151,6 +152,7 @@ export const rules: Record<string, Rule.RuleModule> = {
 	'use-primitives': usePrimitives,
 	'use-primitives-text': usePrimitivesText,
 	'use-should-render-to-parent': useShouldRenderToParent,
+	'use-side-nav-items-package': useSideNavItemsPackage,
 	'use-simple-field': useSimpleField,
 	'use-simple-form': useSimpleForm,
 	'use-spotlight-package': useSpotlightPackage,

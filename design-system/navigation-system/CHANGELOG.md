@@ -1,5 +1,14 @@
 # @atlassian/navigation-system
 
+## 5.33.1
+
+### Patch Changes
+
+- [`790a15b2d6cc0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/790a15b2d6cc0) -
+  Fixes a bug behind the `platform_dst_nav4_side_nav_resize_tooltip_feedback` gate, where the side
+  nav panel splitter tooltip could be mispositioned on scaled displays.
+- Updated dependencies
+
 ## 5.33.0
 
 ### Minor Changes

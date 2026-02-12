@@ -1,3 +1,5 @@
+// See [Barrel File Removal FAQ](https://hello.atlassian.net/wiki/x/KJT2aAE)
+/* eslint-disable no-barrel-files/no-barrel-files */
 import * as resultTypes from './components/Results';
 
 /*

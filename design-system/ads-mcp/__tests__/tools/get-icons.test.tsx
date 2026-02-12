@@ -63,6 +63,16 @@ jest.mock('../../src/tools/get-icons/icon-structured-content.codegen', () => ({
 			content:
 				"# Draft Icon\n\nDraft usage\n\nKeywords\n\n- draft\n\nImport statement:\n\n```tsx\nimport DraftIcon from '@atlaskit/icon/core/draft';\n```\n\nSizes:\n\n- Small\n- Medium\n",
 		},
+		{
+			componentName: 'PlanIcon',
+			package: '@atlaskit/icon-lab/core/plan',
+			categorization: 'single-purpose',
+			keywords: ['plan', 'icon-lab', 'roadmaps'],
+			status: 'published',
+			usage: 'Reserved for representing plans.',
+			content:
+				"# Plan Icon\n\nReserved for representing plans.\n\nKeywords\n\n- plan\n- icon-lab\n- roadmaps\n\nImport statement:\n\n```tsx\nimport PlanIcon from '@atlaskit/icon-lab/core/plan';\n```\n\nSizes:\n\n- Small\n- Medium\n",
+		},
 	],
 }));
 
@@ -148,5 +158,14 @@ describe('ads_get_icons tool', () => {
 	it('Filters out non-published icons', async () => {
 		const result = await getIconsTool({});
 		expect(result.content[0].text).not.toContain('Draft Icon');
+	});
+
+	it('Returns correct import path for Icon Lab icons', async () => {
+		const result = await getIconsTool({ terms: ['PlanIcon'], exactName: true });
+		expect(result.content).toHaveLength(1);
+		expect(result.content[0].type).toEqual('text');
+		expect(result.content[0].text).toContain('# Plan Icon');
+		expect(result.content[0].text).toContain("import PlanIcon from '@atlaskit/icon-lab/core/plan'");
+		expect(result.content[0].text).toContain('Reserved for representing plans.');
 	});
 });

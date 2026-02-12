@@ -46,6 +46,7 @@ import { filterResourceTimings } from '../resource-timing/common/utils/resource-
 import { roundEpsilon } from '../round-number';
 import type { UFOSegmentType } from '../segment/segment';
 import * as ssr from '../ssr';
+import { getHasAbortingEventDuringSSR } from '../vc/vc-observer-new';
 
 import type { OptimizedLabelStack } from './common/types';
 import {
@@ -725,6 +726,12 @@ async function createInteractionMetricsPayload(
 				...(fg('platform_ufo_is_tab_throttled')
 					? {
 							'ufo:isTabThrottled': isTabThrottled(start, end),
+						}
+					: {}),
+
+				...(fg('ufo_detect_aborting_interaction_during_ssr')
+					? {
+							'ufo:hasAbortingInteractionDuringSSR': getHasAbortingEventDuringSSR(),
 						}
 					: {}),
 

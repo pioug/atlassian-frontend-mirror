@@ -2413,6 +2413,9 @@ export default class Select<
 				<NoOptionsMessage
 					{...commonProps}
 					innerProps={{
+						...(this.props['UNSAFE_is_experimental_generic'] && {
+							role: 'listitem',
+						}),
 						...(testId && {
 							'data-testid': `${testId}-select--no-options`,
 						}),

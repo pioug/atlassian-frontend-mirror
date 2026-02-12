@@ -1,8 +1,11 @@
+import { getDocument } from '@atlaskit/browser-apis';
 import type {
 	ReadonlyTransaction,
 	Selection,
 	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { selectionPreservationPluginKey } from './plugin-key';
 import type { SelectionPreservationMeta } from './types';
@@ -33,27 +36,67 @@ export const compareSelections = (a?: Selection, b?: Selection): boolean => {
 };
 
 /**
- * Triggers a DOM selection sync by resetting the current native selection range
- * only if it is out of sync with the provided ProseMirror selection state.
+ * Forces the browser's native selection to match ProseMirror's selection state.
  *
- * This is a necessary workaround to ensure the browser's native selection state
- * stays in sync with the preserved selection, particularly after transactions
- * that shift document content.
+ * This is necessary when the editor doesn't have focus (e.g., when block menu is open)
+ * but we still need to update the visual selection after moving nodes. Without this,
+ * the browser's native selection remains at the old position, causing ghost highlighting.
  *
- * @param selection The current ProseMirror selection state to compare against.
+ * @param selection The current ProseMirror selection state to sync to DOM.
+ * @param view The EditorView instance used to convert ProseMirror positions to DOM positions (when feature flag is enabled).
  */
-export const syncDOMSelection = (selection: Selection): void => {
-	const domSelection = window.getSelection();
-	const domRange =
-		domSelection && domSelection.rangeCount === 1 && domSelection.getRangeAt(0).cloneRange();
+export const syncDOMSelection = (selection: Selection, view?: EditorView): void => {
+	// [FEATURE FLAG: platform_editor_selection_sync_fix]
+	// When enabled, uses improved DOM selection syncing with EditorView.
+	// To clean up: remove the if-else block, remove the optional view parameter,
+	// make view required, and keep only the flag-on behavior.
+	if (view && fg('platform_editor_selection_sync_fix')) {
+		try {
+			const domSelection = window.getSelection();
+			if (!domSelection) {
+				return;
+			}
 
-	const isOutOfSync =
-		domRange && (selection.from !== domRange.startOffset || selection.to !== domRange.endOffset);
+			const doc = getDocument();
+			if (!doc) {
+				return;
+			}
 
-	if (isOutOfSync) {
-		// Force the DOM selection to refresh, setting it to the same range
-		// This will trigger ProseMirror to re-apply its selection logic based on the current state
-		domSelection.removeAllRanges();
-		domSelection.addRange(domRange);
+			// Convert ProseMirror selection to DOM selection using view.domAtPos
+			const anchor = view.domAtPos(selection.anchor);
+			const head = view.domAtPos(selection.head);
+
+			if (!anchor || !head) {
+				return;
+			}
+
+			// Create a new DOM range from the ProseMirror selection
+			const range = doc.createRange();
+			range.setStart(anchor.node, anchor.offset);
+			range.setEnd(head.node, head.offset);
+
+			// Update the DOM selection to match ProseMirror's selection
+			domSelection.removeAllRanges();
+			domSelection.addRange(range);
+		} catch {
+			// Silently fail if DOM selection sync fails
+			// This can happen if positions are invalid or DOM hasn't updated yet
+		}
+	} else {
+		// OLD BEHAVIOR (to be removed when flag is cleaned up)
+		// Only checked if selection was out of sync using incorrect offset comparison
+		const domSelection = window.getSelection();
+		const domRange =
+			domSelection && domSelection.rangeCount === 1 && domSelection.getRangeAt(0).cloneRange();
+
+		const isOutOfSync =
+			domRange && (selection.from !== domRange.startOffset || selection.to !== domRange.endOffset);
+
+		if (isOutOfSync && domSelection && domRange) {
+			// Force the DOM selection to refresh, setting it to the same range
+			// This will trigger ProseMirror to re-apply its selection logic based on the current state
+			domSelection.removeAllRanges();
+			domSelection.addRange(domRange);
+		}
 	}
 };

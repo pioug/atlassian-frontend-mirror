@@ -1,6 +1,7 @@
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { Fragment, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Node } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getNodeIdProvider } from '../../node-anchor/node-anchor-provider';
 import type {
@@ -197,32 +198,64 @@ export const corePlugin: CorePlugin = ({ config }) => {
 				return cb(view?.state.schema);
 			},
 
-			getAnchorIdForNode(node, pos): string | undefined {
-				const view = config?.getEditorView() ?? null;
-				if (!view) {
-					return undefined;
-				}
-
-				const nodeIdProvider = getNodeIdProvider(view);
-				const cachedId = nodeIdProvider.getIdForNode(node);
-				if (cachedId) {
-					return cachedId;
-				}
-
-				if (pos < 0) {
-					return undefined;
-				}
-			const generatedId = nodeIdProvider.getOrGenerateId(node, pos);
-			if (generatedId) {
-				return generatedId;
+		getAnchorIdForNode(node, pos): string | undefined {
+			const view = config?.getEditorView() ?? null;
+			if (!view) {
+				return undefined;
 			}
+
+			const nodeIdProvider = getNodeIdProvider(view);
+			const cachedId = nodeIdProvider.getIdForNode(node);
+			if (cachedId) {
+				return cachedId;
+			}
+
+			if (pos < 0) {
+				return undefined;
+			}
+
+			// [FEATURE FLAG: platform_editor_fix_node_anchor_dom_cache]
+			// Fixes drag handle misalignment on first focus after clicking from title
+			// by checking DOM for existing anchor before generating a new ID with collision suffix.
+			// To clean up: remove if-else block, keep only flag-on behavior (lines 217-229), remove old behavior (lines 231-238)
+			if (fg('platform_editor_fix_node_anchor_dom_cache')) {
+				// Check DOM first to avoid generating a new ID with a collision suffix
+				// when the DOM already has a valid anchor. This prevents misalignment
+				// of drag handles on first focus after clicking from the title.
+				const nodeDOM = view.nodeDOM(pos);
+				if (nodeDOM instanceof HTMLElement) {
+					const domAnchor = nodeDOM.getAttribute('data-node-anchor');
+					if (domAnchor) {
+						// Cache the DOM anchor for this node to maintain consistency
+						// This ensures subsequent calls return the same anchor
+						nodeIdProvider.setIdForNode(node, domAnchor);
+						return domAnchor;
+					}
+				}
+
+				// Only generate a new ID if DOM doesn't have one
+				const generatedId = nodeIdProvider.getOrGenerateId(node, pos);
+				if (generatedId) {
+					return generatedId;
+				}
+
+				return undefined;
+			} else {
+				// OLD BEHAVIOR (to be removed when flag is cleaned up)
+				// This approach can generate incorrect IDs with collision suffixes when
+				// the DOM already has a valid anchor, causing drag handle misalignment
+				const generatedId = nodeIdProvider.getOrGenerateId(node, pos);
+				if (generatedId) {
+					return generatedId;
+				}
 				const nodeDOM = view.nodeDOM(pos);
 				if (nodeDOM instanceof HTMLElement) {
 					return nodeDOM.getAttribute('data-node-anchor') || undefined;
 				}
 
 				return undefined;
-			},
+			}
+		},
 		},
 	};
 };

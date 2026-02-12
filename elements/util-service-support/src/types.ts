@@ -90,5 +90,10 @@ export interface RequestServiceOptions {
 	ignoreResponsePayload?: boolean;
 	path?: string;
 	queryParams?: KeyValues;
+	/**
+	 * Optional callback invoked with tracing headers extracted from the response.
+	 * Only exposes x-trace-id and atl-request-id headers.
+	 */
+	reportTracingHeaders?: (headers: Record<string, string>) => void;
 	requestInit?: RequestInit;
 }

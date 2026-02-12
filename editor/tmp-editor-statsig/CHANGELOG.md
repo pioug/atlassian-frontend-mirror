@@ -1,5 +1,19 @@
 # @atlaskit/editor-statsig-tmp
 
+## 23.2.0
+
+### Minor Changes
+
+- [`47b5c11a5dc4c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/47b5c11a5dc4c) -
+  EDITOR-4944: Add side by side Editor view + confluence preset.
+
+## 23.1.0
+
+### Minor Changes
+
+- [`fcc51e510981b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcc51e510981b) -
+  [ux] Add logic to filter and pin create database menu item to editor toolbar for experiment.
+
 ## 23.0.0
 
 ### Major Changes

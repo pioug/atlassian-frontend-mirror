@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.39.0
+
+### Minor Changes
+
+- [`4467a975004be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4467a975004be) -
+  Adds the rule `use-side-nav-items-package`, for assisting with the migration of side nav item
+  components to the package `@atlaskit/side-nav-items`.
+
 ## 13.38.1
 
 ### Patch Changes

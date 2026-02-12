@@ -88,6 +88,7 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { measureRender, SEVERITY, toJSON } from '@atlaskit/editor-common/utils';
 import type { EditorProps } from '@atlaskit/editor-core/editor';
+// @ts-ignore - this is not a valid package entry point and cannot be resolved when using a modern Typescript 'moduleResolution' setting
 import { replaceDocument } from '@atlaskit/editor-plugin-collab-edit/src/pm-plugins/utils';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';

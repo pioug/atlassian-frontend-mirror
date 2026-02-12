@@ -1,5 +1,13 @@
 # @atlaskit/table
 
+## 0.14.0
+
+### Minor Changes
+
+- [`dea40f5cfac4f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dea40f5cfac4f) -
+  Fixed an issue where the table's bottom border rendered above other page content in Safari, and
+  didn't render correctly in other browsers.
+
 ## 0.13.3
 
 ### Patch Changes

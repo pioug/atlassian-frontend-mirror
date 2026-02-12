@@ -214,6 +214,7 @@ function signPanelSplitterDragData(data: PanelSplitterDragData) {
 type MaybeTooltipProps = Pick<PanelSplitterProps, 'tooltipContent'> & {
 	children: ReactNode;
 	shortcut?: TooltipProps['shortcut'];
+	testId?: string;
 };
 
 const PanelSplitterTooltip = forwardRef<HTMLDivElement, TooltipContainerProps>(
@@ -223,7 +224,10 @@ const PanelSplitterTooltip = forwardRef<HTMLDivElement, TooltipContainerProps>(
 				return props.style;
 			}
 
-			const [translateX, translateY] = props.style.transform.matchAll(/\d+px/g);
+			// We cannot just match against integers safely, as browsers may introduce non-integer values due to scaling
+			// In the future we can probably use `CSSStyleValue.parse()` to get the browser to handle parsing for us,
+			// but there's no Firefox support yet.
+			const [translateX, translateY] = props.style.transform.matchAll(/(?:-|\+)?\d*\.?\d+px/g);
 
 			if (!translateY) {
 				// If we can't extract the translateY value we bail out and return the original style
@@ -254,7 +258,7 @@ const PanelSplitterTooltip = forwardRef<HTMLDivElement, TooltipContainerProps>(
 				css={[
 					tooltipStyles.root,
 					fg('platform-dst-side-nav-layering-fixes') &&
-					tooltipStyles.fullHeightSidebarWithLayeringFixes,
+						tooltipStyles.fullHeightSidebarWithLayeringFixes,
 				]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				style={style}
@@ -268,12 +272,13 @@ const PanelSplitterTooltip = forwardRef<HTMLDivElement, TooltipContainerProps>(
 /**
  * A wrapper component that renders a tooltip if the tooltipContent or shortcut is provided.
  */
-const MaybeTooltip = ({ tooltipContent, shortcut, children }: MaybeTooltipProps) => {
+const MaybeTooltip = ({ tooltipContent, shortcut, children, testId }: MaybeTooltipProps) => {
 	const isFhsEnabled = useIsFhsEnabled();
 
 	if (tooltipContent && isFhsEnabled) {
 		return (
 			<Tooltip
+				testId={testId}
 				content={tooltipContent}
 				shortcut={shortcut}
 				position={fg('platform_dst_nav4_side_nav_resize_tooltip_feedback') ? 'mouse-y' : 'mouse'}
@@ -322,15 +327,15 @@ const PortaledPanelSplitter = ({
 	tooltipContent,
 	shortcut,
 }: PanelSplitterProps & { panel: HTMLElement; portal: HTMLElement } & Pick<
-	PanelSplitterContextType,
-	| 'panelId'
-	| 'panelWidth'
-	| 'onCompleteResize'
-	| 'getResizeBounds'
-	| 'resizingCssVar'
-	| 'position'
-	| 'shortcut'
->): ReactNode => {
+		PanelSplitterContextType,
+		| 'panelId'
+		| 'panelWidth'
+		| 'onCompleteResize'
+		| 'getResizeBounds'
+		| 'resizingCssVar'
+		| 'position'
+		| 'shortcut'
+	>): ReactNode => {
 	const isFhsEnabled = useIsFhsEnabled();
 	const splitterRef = useRef<HTMLDivElement | null>(null);
 	const labelId = useId();
@@ -382,11 +387,11 @@ const PortaledPanelSplitter = ({
 			 */
 			fg('platform-dst-panel-splitter-drag-start-client-x')
 				? bind(splitter, {
-					type: 'mousedown',
-					listener: (event) => {
-						initialClientXRef.current = event.clientX;
-					},
-				})
+						type: 'mousedown',
+						listener: (event) => {
+							initialClientXRef.current = event.clientX;
+						},
+					})
 				: noop,
 			draggable({
 				element: splitter,
@@ -587,7 +592,15 @@ const PortaledPanelSplitter = ({
 			]}
 			data-testid={testId ? `${testId}-container` : undefined}
 		>
-			<MaybeTooltip tooltipContent={tooltipContent} shortcut={shortcut}>
+			<MaybeTooltip
+				tooltipContent={tooltipContent}
+				shortcut={shortcut}
+				testId={
+					testId && fg('platform_dst_nav4_side_nav_resize_tooltip_feedback')
+						? `${testId}-tooltip`
+						: undefined
+				}
+			>
 				{/* eslint-disable-next-line @atlassian/a11y/no-static-element-interactions --
 				We intentionally do not add keyboard event listeners to this element, as keyboard accessibility
 				is provided via a dedicated keyboard shortcut elsewhere in the application. */}

@@ -237,7 +237,7 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	'platform_editor_deduplicate_mark_diff': {
+	platform_editor_deduplicate_mark_diff: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1144,6 +1144,14 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-02-05
+	cc_fd_db_top_editor_toolbar: {
+		defaultValue: 'control' | 'new-description' | 'orig-description';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (value: unknown) => value is 'control' | 'new-description' | 'orig-description';
+		values: ('control' | 'new-description' | 'orig-description')[];
+	};
 	// Added 2026-01-28
 	platform_editor_smartlink_local_cache: {
 		defaultValue: boolean;
@@ -1160,6 +1168,20 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-02-06
 	platform_rovo_inline_chat_missing_analytics_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-02-10
+	platform_editor_ai_suggestions: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-02-12
+	platform_editor_bodiedextension_layoutshift_fix: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2467,6 +2489,15 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-02-05
+	cc_fd_db_top_editor_toolbar: createMultivariateExperiment({
+		productKeys: {
+			confluence: 'cc_fd_db_top_editor_toolbar',
+		},
+		param: 'cohort',
+		values: ['control', 'new-description', 'orig-description'],
+		defaultValue: 'control',
+	}),
 	// Added 2026-01-28
 	platform_editor_smartlink_local_cache: createBooleanExperiment({
 		productKeys: {
@@ -2487,6 +2518,22 @@ export const editorExperimentsConfig: {
 	platform_rovo_inline_chat_missing_analytics_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_rovo_inline_chat_missing_analytics_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-02-10
+	platform_editor_ai_suggestions: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_suggestions',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-02-12
+	platform_editor_bodiedextension_layoutshift_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_bodiedextension_layoutshift_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

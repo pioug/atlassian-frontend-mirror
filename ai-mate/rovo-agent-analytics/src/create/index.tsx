@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { type AnalyticsEventPayload, useAnalyticsEvents } from '@atlaskit/analytics-next';
 
@@ -11,27 +11,40 @@ type CommonAnalyticsAttributes = {
 } & Record<string, any>;
 
 export enum AgentCreateActions {
+	/* Start create flow when user clicks on "Create agent" button */
 	START = 'createFlowStart',
+	/* Skip natural language */
 	SKIP_NL = 'createFlowSkipNL',
+	/* Review natural language */
 	REVIEW_NL = 'createFlowReviewNL',
+	/* Activate agent */
 	ACTIVATE = 'createFlowActivate',
+	/* Restart create flow */
 	RESTART = 'createFlowRestart',
+	/* Error occurred */
 	ERROR = 'createFlowError',
+	/* Land in studio */
+	LAND = 'createLandInStudio',
+	/* Discard agent */
+	DISCARD = 'createDiscard',
 }
 
 export const useRovoAgentCreateAnalytics = (commonAttributes: CommonAnalyticsAttributes) => {
 	const [csid, { refresh: refreshCSID }] = useRovoAgentCSID();
 
 	const { createAnalyticsEvent } = useAnalyticsEvents();
-	const eventConfig = getDefaultTrackEventConfig();
+	const eventConfig = useMemo(() => getDefaultTrackEventConfig(), []);
 
 	const fireAnalyticsEvent = useCallback(
 		(event: AnalyticsEventPayload) => {
+			const referrer = typeof window !== 'undefined' ? window.document.referrer : 'unknown';
+
 			createAnalyticsEvent({
 				...eventConfig,
 				...event,
 				attributes: {
 					csid,
+					referrer,
 					...commonAttributes,
 					...event.attributes,
 				},

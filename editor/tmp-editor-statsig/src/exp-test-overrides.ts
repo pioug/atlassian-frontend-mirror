@@ -31,6 +31,7 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 	platform_editor_hoverlink_ui_fixes_exp: 'control',
 	platform_editor_table_sticky_header_improvements: 'test_with_overflow',
 	platform_sl_3p_unauth_paste_as_block_card: 'control',
+	cc_fd_db_top_editor_toolbar: 'control',
 };
 
 export const testBooleanOverrides: EditorExperimentOverridesBoolean = {

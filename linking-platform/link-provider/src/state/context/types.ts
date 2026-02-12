@@ -14,30 +14,40 @@ export interface CardAuthFlowOpts {
 	authFlow?: 'oauth2' | 'disabled';
 }
 
-export interface CardContext {
+export type CardContext = {
 	config: CardAuthFlowOpts;
 	connections: CardConnections;
 	extractors: {
 		getPreview: (url: string, platform?: CardPlatform) => LinkPreview | undefined;
 	};
-	isAdminHubAIEnabled?: boolean;
-	isPreviewPanelAvailable?: (props: { ari: string }) => boolean;
 	openPreviewPanel?: (props: {
 		ari: string;
 		iconUrl: string | undefined;
 		name: string;
+		// In this version of openPreviewPanel panelData is required where is in CardProviderProps it is ommited completely
+		// hence the reason for it defined here explicitly
 		panelData: { embedUrl?: string };
 		url: string;
 	}) => void;
 	prefetchStore: Record<string, boolean>;
-	product?: ProductType;
-	renderers?: CardProviderRenderers;
-	shouldControlDataExport?: boolean;
 	store: Store<CardStore>;
-}
+} & Pick< // Most of the values are coming directly from Props given to CardProvider
+	CardProviderProps,
+	| 'rovoOptions'
+	| 'isAdminHubAIEnabled'
+	| 'isPreviewPanelAvailable'
+	| 'product'
+	| 'renderers'
+	| 'shouldControlDataExport'
+>;
 
 export interface CardProviderStoreOpts {
 	initialState: CardStore;
+}
+
+export interface RovoOptions {
+	isRovoEnabled: boolean;
+	isRovoLLMEnabled: boolean;
 }
 
 export interface CardProviderRenderers {
@@ -86,6 +96,7 @@ export type CardProviderProps = {
 	 * `emoji` is used to render Smart Link icon for Confluence emoji.
 	 */
 	renderers?: CardProviderRenderers;
+	rovoOptions?: RovoOptions;
 	/**
 	 * Flag indicated by compliance to determine whether the content of this link should be controlled for data export.
 	 * This controls whether or not the link data should be blocked for data export during certain features, such as PDF export in Confluence.

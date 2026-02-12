@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 8.5.0
+
+### Minor Changes
+
+- [`fcc51e510981b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcc51e510981b) -
+  [ux] Add logic to filter and pin create database menu item to editor toolbar for experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.4.5
 
 ### Patch Changes

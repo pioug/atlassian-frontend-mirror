@@ -1,6 +1,7 @@
 import React from 'react';
 import MediaInlineCard from '../../loader';
 import { type MediaClientConfig } from '@atlaskit/media-client';
+// @ts-ignore - this is not a valid package entry point and cannot be resolved when using a modern Typescript 'moduleResolution' setting
 import { generateSampleFileItem } from '@atlaskit/media-test-data/src';
 import {
 	createMockedMediaApi,

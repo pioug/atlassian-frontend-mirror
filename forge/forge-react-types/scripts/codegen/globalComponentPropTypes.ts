@@ -73,9 +73,12 @@ const resolveToPrimitive = (typeText: string): string => {
 		return typeText;
 	}
 
-	// Handle optional types (e.g., "string | undefined")
+	// Handle union types (e.g., "string | undefined")
 	if (typeText.includes('|')) {
-		const parts = typeText.split('|').map((p) => p.trim());
+		const parts = typeText
+			.split('|')
+			.map((p) => p.trim())
+			.filter((p) => p.length > 0);
 		const resolvedParts = parts.map((part) => resolveToPrimitive(part));
 		return resolvedParts.join(' | ');
 	}
@@ -147,7 +150,10 @@ const resolveToInterfaceDeclaration = (
 /**
  * Generates the source code for a single component's prop types.
  */
-const generateComponentPropTypeCode = (interfaceDecl: InterfaceDeclaration): string => {
+const generateComponentPropTypeCode = (
+	interfaceDecl: InterfaceDeclaration,
+	allPropsNames: string[],
+): string => {
 	const interfaceName = interfaceDecl.getName();
 	const componentName = interfaceName.replace('Props', '');
 
@@ -174,7 +180,31 @@ const generateComponentPropTypeCode = (interfaceDecl: InterfaceDeclaration): str
 
 		properties.forEach((prop: PropertySignature) => {
 			const propName = prop.getName();
-			const propType = prop.getType().getText();
+			// Prefer the source-level type annotation (getTypeNode) over the resolved type (getType).
+			// getType().getText() can produce degenerate types (any/never/undefined) when the
+			// ts-morph Project lacks type definitions, or overly verbose types that expand
+			// generic defaults (e.g., ReactElement<X> → ReactElement<X, string | JSXElementConstructor<any>>).
+			// The source annotation preserves the developer's intended type expression.
+			const resolvedTypeText = prop.getType().getText();
+			const sourceTypeText = prop.getTypeNode()?.getText();
+			let propType = sourceTypeText ?? resolvedTypeText;
+
+			// Normalize bare React type references (e.g., ReactElement → React.ReactElement)
+			// so the generated file only needs a single React namespace import.
+			const reactTypeNames = [
+				'ReactElement',
+				'ReactNode',
+				'ReactFragment',
+				'ReactPortal',
+				'JSXElementConstructor',
+			];
+			for (const typeName of reactTypeNames) {
+				propType = propType.replace(
+					new RegExp(`(?<![\\w.])${typeName}\\b`, 'g'),
+					`React.${typeName}`,
+				);
+			}
+
 			const isOptional = prop.hasQuestionToken();
 			const resolvedType = resolveToPrimitive(propType);
 
@@ -203,6 +233,25 @@ const generateComponentPropTypeCode = (interfaceDecl: InterfaceDeclaration): str
 		lines.push(interfaceJSDoc);
 	}
 	lines.push(`export type T${componentName}<T> = (props: ${interfaceName}) => T;`);
+
+	// Detect needed imports based on type references in the generated code
+	const generatedCode = lines.slice(2).join('\n'); // skip eslint directive and blank line
+	const importLines: string[] = [];
+
+	if (/\bReact\./.test(generatedCode)) {
+		importLines.push("import type React from 'react';");
+	}
+
+	for (const propsName of allPropsNames) {
+		if (propsName !== interfaceName && generatedCode.includes(propsName)) {
+			importLines.push(`import type { ${propsName} } from './${propsName}.codegen';`);
+		}
+	}
+
+	if (importLines.length > 0) {
+		// Insert imports after the eslint directive and blank line (index 2)
+		lines.splice(2, 0, ...importLines, '');
+	}
 
 	return lines.join('\n');
 };
@@ -236,6 +285,7 @@ const generateGlobalComponentPropTypes = () => {
 	const exportedSymbols = sourceFile.getExportSymbols();
 	const propsSymbols = exportedSymbols.filter((symbol) => symbol.getName().endsWith('Props'));
 
+	const allPropsNames = propsSymbols.map((s) => s.getName());
 	const generatedFiles: string[] = [];
 
 	propsSymbols.forEach((symbol) => {
@@ -251,7 +301,7 @@ const generateGlobalComponentPropTypes = () => {
 		}
 
 		const { interfaceDecl, sourceFilePath } = resolved;
-		const sourceCode = generateComponentPropTypeCode(interfaceDecl);
+		const sourceCode = generateComponentPropTypeCode(interfaceDecl, allPropsNames);
 		const outputPath = resolve(GLOBAL_OUTPUT_DIR, `${symbolName}.codegen.tsx`);
 
 		const signedSourceCode = createSignedArtifact(

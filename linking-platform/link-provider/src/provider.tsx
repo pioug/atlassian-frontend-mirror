@@ -23,6 +23,7 @@ export function SmartCardProvider({
 	shouldControlDataExport,
 	isPreviewPanelAvailable,
 	openPreviewPanel,
+	rovoOptions,
 }: CardProviderProps): React.JSX.Element {
 	const parentContext = useContext(SmartCardContext);
 
@@ -73,6 +74,7 @@ export function SmartCardProvider({
 			shouldControlDataExport,
 			isPreviewPanelAvailable,
 			openPreviewPanel,
+			rovoOptions
 		};
 	}, [
 		customAuthFlow,
@@ -83,6 +85,7 @@ export function SmartCardProvider({
 		product,
 		renderers,
 		shouldControlDataExport,
+		rovoOptions,
 		store,
 	]);
 

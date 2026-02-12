@@ -34,8 +34,7 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__feature-gate-polling-provider/dev",
-		"moduleResolution": "node"
+		"outDir": "../../../tsDist/@atlaskit__feature-gate-polling-provider/dev"
 	},
 	"references": [
 		{

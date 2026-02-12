@@ -29,16 +29,24 @@ export default function Example(): React.JSX.Element {
 		accessLevel: 'SITE',
 	};
 
-	const description =
-		'Agent mention (appType="agent") and regular user mention - agent shows hexagon avatar when jira_ai_agent_avatar_issue_view_comment_mentions feature gate is enabled';
+	const teamMention = {
+		avatarUrl: typeof jest === 'undefined' ? avatarUrl : undefined,
+		id: 'team-789',
+		name: 'Team Rocket',
+		mentionName: 'teamrocket',
+		userType: 'TEAM',
+		accessLevel: 'SITE',
+	};
+
 	const component = (
 		<IntlProvider locale="en">
 			<div data-testid="vr-tested">
 				<MentionItem mention={agentMention} onSelection={onSelection} />
 				<MentionItem mention={regularMention} onSelection={onSelection} />
+				<MentionItem mention={teamMention} onSelection={onSelection} />
 			</div>
 		</IntlProvider>
 	);
 
-	return generateMentionItem(component, description);
+	return generateMentionItem(component);
 }

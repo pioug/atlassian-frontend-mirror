@@ -1,6 +1,7 @@
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { autoJoinTr } from '@atlaskit/editor-common/utils';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
+// @ts-ignore - this is not a valid package entry point and cannot be resolved when using a modern Typescript 'moduleResolution' setting
 import { wrapInList } from '@atlaskit/editor-plugin-list/src/pm-plugins/actions/wrap-and-join-lists';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies

@@ -214,6 +214,24 @@ describe('ADS MCP Server E2E', () => {
 		expect(() => JSON.parse(markdown)).toThrow();
 	});
 
+	it('Returns markdown with Icon Lab import path for ads_get_icons when searching for an Icon Lab icon with feature flags enabled', async () => {
+		const result = (
+			await client.callTool({
+				name: 'ads_get_icons',
+				arguments: {
+					terms: ['PlanIcon'],
+					limit: 1,
+					exactName: true,
+				},
+			})
+		).content as { text: string }[];
+
+		expect(result).toHaveLength(1);
+		const markdown = result[0].text;
+		expect(markdown).toContain('@atlaskit/icon-lab/core/plan');
+		expect(markdown).toMatch(/import PlanIcon from '@atlaskit\/icon-lab\/core\/plan'/);
+	});
+
 	it('Returns markdown content for ads_get_lint_rules tool with feature flags enabled', async () => {
 		const result = (
 			await client.callTool({

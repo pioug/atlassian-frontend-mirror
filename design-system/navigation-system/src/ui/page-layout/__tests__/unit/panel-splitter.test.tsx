@@ -4,6 +4,8 @@ import createStub from 'raf-stub';
 import invariant from 'tiny-invariant';
 
 import { OpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
+import { type CustomPopperProps, type PopperChildrenProps } from '@atlaskit/popper';
+import * as popperModule from '@atlaskit/popper';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import {
@@ -995,5 +997,96 @@ describe('PanelSplitter', () => {
 				await screen.findByRole('tooltip', { name: 'Double click to collapse Ctrl [' }),
 			).toBeInTheDocument();
 		});
+
+		ffTest.on(
+			'platform_dst_nav4_side_nav_resize_tooltip_feedback',
+			'when tooltip feedback flag is on',
+			() => {
+				describe('transform value handling', () => {
+					const originalPopper = popperModule.Popper;
+					const popperSpy = jest.spyOn(popperModule, 'Popper');
+
+					let transform = 'translate3d(0px, 0px, 0px)';
+					popperSpy.mockImplementation((props: CustomPopperProps<unknown>) => {
+						const children = props.children;
+						if (!children) {
+							return originalPopper(props);
+						}
+						return originalPopper({
+							...props,
+							children: (childProps: PopperChildrenProps) =>
+								children({
+									...childProps,
+									style: {
+										...childProps.style,
+
+										transform,
+									},
+								}),
+						});
+					});
+
+					afterAll(() => {
+						popperSpy.mockRestore();
+					});
+
+					it('should preserve integer transformX and transformY values in the modified transform', async () => {
+						transform = 'translate3d(308px, 123px, 0)';
+
+						const user = createUser();
+						render(<TestComponent tooltipContent="Double click to collapse" />);
+
+						await user.hover(screen.getByTestId('panel-splitter'));
+						act(() => {
+							jest.runAllTimers();
+						});
+
+						const tooltipContainer = screen.getByTestId('panel-splitter-tooltip--wrapper');
+						// The integer transformX and transformY values are preserved in the modified transform
+						expect((tooltipContainer as HTMLElement).style.transform).toMatchInlineSnapshot(
+							`"translate3d(308px, max(calc(calc(var(--n_bnrM, 0px) + var(--n_tNvM, 0px)) + var(--ds-space-100, 8px)), 123px), 0)"`,
+						);
+					});
+
+					it('should preserve non-integer transformX and transformY values in the modified transform', async () => {
+						// Non-integer values like these can occur in real browsers due to scaling
+						transform = 'translate3d(308.5px, 123.7px, 0)';
+
+						const user = createUser();
+						render(<TestComponent tooltipContent="Double click to collapse" />);
+
+						await user.hover(screen.getByTestId('panel-splitter'));
+						act(() => {
+							jest.runAllTimers();
+						});
+
+						const tooltipContainer = screen.getByTestId('panel-splitter-tooltip--wrapper');
+						// The non-integer transformX and transformY values are preserved in the modified transform
+						expect((tooltipContainer as HTMLElement).style.transform).toMatchInlineSnapshot(
+							`"translate3d(308.5px, max(calc(calc(var(--n_bnrM, 0px) + var(--n_tNvM, 0px)) + var(--ds-space-100, 8px)), 123.7px), 0)"`,
+						);
+					});
+
+					it('should preserve negative transformX and transformY values in the modified transform', async () => {
+						// Non-integer values like these can occur in real browsers due to scaling
+						transform = 'translate3d(-308.5px, -123.7px, 0)';
+
+						const user = createUser();
+						render(<TestComponent tooltipContent="Double click to collapse" />);
+
+						await user.hover(screen.getByTestId('panel-splitter'));
+						act(() => {
+							jest.runAllTimers();
+						});
+
+						const tooltipContainer = screen.getByTestId('panel-splitter-tooltip--wrapper');
+						// The negative transformX and transformY values are preserved in the modified transform
+						expect((tooltipContainer as HTMLElement).style.transform).toMatchInlineSnapshot(
+							`"translate3d(-308.5px, max(calc(calc(var(--n_bnrM, 0px) + var(--n_tNvM, 0px)) + var(--ds-space-100, 8px)), -123.7px), 0)"`,
+						);
+					});
+				});
+			},
+		);
 	});
 });

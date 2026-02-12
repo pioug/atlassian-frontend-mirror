@@ -35,8 +35,7 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__media-card/dev",
-		"moduleResolution": "node"
+		"outDir": "../../../tsDist/@atlaskit__media-card/dev"
 	},
 	"references": [
 		{

@@ -170,4 +170,8 @@ export type {
 	TGlobalLinkMenuItem,
 	GlobalExpandableMenuItemProps,
 	TGlobalExpandableMenuItem,
+	GlobalProps,
+	TGlobal,
+	GlobalMainProps,
+	TGlobalMain,
 } from './components/global/__generated__';

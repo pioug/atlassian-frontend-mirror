@@ -30,7 +30,6 @@ snapshot(ErrorMentionList);
 // // Simple mention
 snapshot(SimpleMention);
 
-// Mention item with agent appType (hexagon avatar when feature gate enabled)
 snapshot(MentionItemWithAgent, {
 	featureFlags: {
 		jira_ai_agent_avatar_issue_view_comment_mentions: [true],

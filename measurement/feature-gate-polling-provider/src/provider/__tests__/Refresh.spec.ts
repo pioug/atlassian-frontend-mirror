@@ -1,6 +1,7 @@
 import Fetcher, {
 	type FrontendExperimentsResponse,
 	ResponseError,
+	// @ts-ignore - this is not a valid package entry point and cannot be resolved when using a modern Typescript 'moduleResolution' setting
 } from '@atlaskit/feature-gate-fetcher/src';
 import {
 	type CustomAttributes,

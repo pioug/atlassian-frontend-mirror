@@ -4,6 +4,7 @@ import { type ADFEntity } from '@atlaskit/adf-utils/types';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { EventDispatcher } from '../event-dispatcher';
 import type { ExtensionHandlers } from '../extensions';
@@ -85,7 +86,9 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 	 */
 	stopEvent(event: Event): boolean {
 		if (fg('forge-ui-extensionnodeview-stop-event-for-textarea')) {
-			return event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement;
+			return (
+				event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement
+			);
 		}
 
 		return event.target instanceof HTMLInputElement;
@@ -96,9 +99,33 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 			return;
 		}
 
-		const dom = document.createElement('div');
-		dom.className = `${this.node.type.name}-content-dom-wrapper`;
-		return { dom };
+		const contentDomWrapper = document.createElement('div');
+		contentDomWrapper.className = `${this.node.type.name}-content-dom-wrapper`;
+
+		const isBodiedExtension = this.node.type.name === 'bodiedExtension';
+		const showMacroInteractionDesignUpdates =
+			this.reactComponentProps?.macroInteractionDesignFeatureFlags
+				?.showMacroInteractionDesignUpdates;
+
+		if (
+			isBodiedExtension &&
+			showMacroInteractionDesignUpdates &&
+			expValEquals('platform_editor_bodiedextension_layoutshift_fix', 'isEnabled', true)
+		) {
+			// Create outer wrapper to hold space for the lozenge
+			const outerWrapper = document.createElement('div');
+			outerWrapper.className = `${this.node.type.name}-content-outer-wrapper`;
+
+			// Create inner wrapper to position inner content
+			const innerWrapper = document.createElement('div');
+			innerWrapper.className = `${this.node.type.name}-content-inner-wrapper`;
+
+			innerWrapper.appendChild(contentDomWrapper);
+			outerWrapper.appendChild(innerWrapper);
+			return { dom: outerWrapper, contentDOM: contentDomWrapper };
+		}
+
+		return { dom: contentDomWrapper };
 	}
 
 	render(

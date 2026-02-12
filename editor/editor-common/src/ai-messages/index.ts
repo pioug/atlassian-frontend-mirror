@@ -10,3 +10,4 @@ export { aiProactiveMessages } from './ai-proactive';
 export { aiMessages } from './ai';
 export { aiProactiveSettingMessages } from './ai-proactive-setting';
 export { aiProactiveTransformMessages } from './ai-proactive-transform';
+export { aiSuggestionsMessages } from './ai-suggestions';

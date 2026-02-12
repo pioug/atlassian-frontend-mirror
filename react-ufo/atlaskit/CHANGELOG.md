@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.2.2
+
+### Patch Changes
+
+- [`f2fec0bde1efb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2fec0bde1efb) -
+  Detect (and have fix ready) for bug in VC aborting event detection during SSR time
+
 ## 5.2.1
 
 ### Patch Changes

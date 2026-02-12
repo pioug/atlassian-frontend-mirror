@@ -1,5 +1,12 @@
 # @atlaskit/forge-react-types
 
+## 0.61.0
+
+### Minor Changes
+
+- [`50d654b213b1b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50d654b213b1b) -
+  Export types for Global, GlobalMain, GlobalSidebar
+
 ## 0.60.0
 
 ### Minor Changes

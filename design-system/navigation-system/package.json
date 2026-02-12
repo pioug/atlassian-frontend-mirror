@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "5.33.0",
+	"version": "5.33.1",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -153,6 +153,7 @@
 		"@atlaskit/onboarding": "workspace:^",
 		"@atlaskit/page-header": "workspace:^",
 		"@atlaskit/page-layout": "workspace:^",
+		"@atlaskit/popper": "workspace:^",
 		"@atlaskit/pragmatic-drag-and-drop-auto-scroll": "workspace:^",
 		"@atlaskit/select": "workspace:^",
 		"@atlaskit/skeleton": "workspace:^",

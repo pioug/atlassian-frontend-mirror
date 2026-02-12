@@ -1,5 +1,21 @@
 # @atlaskit/rovo-agent-analytics
 
+## 0.12.0
+
+### Minor Changes
+
+- [`0c769648243fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0c769648243fc) -
+  Update rovo agents analytics coverage
+- [`442a9eacd5145`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/442a9eacd5145) -
+  Fix rovo agent debug modal view analytics
+
+## 0.11.0
+
+### Minor Changes
+
+- [`d701db2f15d73`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d701db2f15d73) -
+  Rovo agents debug modal analytics
+
 ## 0.10.0
 
 ### Minor Changes

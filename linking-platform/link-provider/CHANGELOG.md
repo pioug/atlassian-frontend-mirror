@@ -1,5 +1,13 @@
 # @atlaskit/link-provider
 
+## 4.2.0
+
+### Minor Changes
+
+- [`bf24d7f6ba59b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf24d7f6ba59b) -
+  SmartCardProvider accepts new prop called rovoOptions that defines what rovo capabilities are
+  available in runtime in the product
+
 ## 4.1.0
 
 ### Minor Changes

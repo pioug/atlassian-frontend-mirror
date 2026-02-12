@@ -1,3 +1,4 @@
+// @ts-ignore - this is not a valid package entry point and cannot be resolved when using a modern Typescript 'moduleResolution' setting
 import { type ActiveThemeState } from '@atlaskit/tokens/src/theme-config';
 
 import { getPreviewUrlWithTheme, importWithRetry, isProfileType, openUrl } from '../index';

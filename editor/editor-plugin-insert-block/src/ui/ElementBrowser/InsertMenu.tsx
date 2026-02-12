@@ -36,6 +36,7 @@ import {
 } from '@atlaskit/editor-common/ui-react';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import { N0, N30A, N60A } from '@atlaskit/theme/colors';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 import { token } from '@atlaskit/tokens';
 
 import type { insertBlockPlugin } from '../../insertBlockPlugin';
@@ -45,15 +46,34 @@ import type { InsertMenuProps, SvgGetterParams } from './types';
 export const DEFAULT_HEIGHT = 560;
 
 /**
- * Exported helper to allow testing of InsertMenu whiteboard pinning logic. NOTE: this is
+ * Exported helper to allow testing of InsertMenu pinning logic. NOTE: this is
    *not* the ideal way to approach this, quickinsert plugin provides a `getSuggestions`
    method that can be used to get suggestions -> once all experiments are cleaned up,
    they should be unified through `pluginInjectionApi?.quickInsert?.actions.getSuggestions`
+
+   `cc_fd_db_top_editor_toolbar` experiment adds new logic to sort elements by `priority`
+   this newer implementation matches how the "quick insert menu" sorts elements
  */
-export const filterForPinWhiteboards = (
+export const sortPrioritizedElements = (
 	featuredItems: QuickInsertItem[],
 	formatMessage: (msg: MessageDescriptor) => string,
 ): QuickInsertItem[] => {
+	if (
+		['new-description', 'orig-description'].includes(
+			expVal('cc_fd_db_top_editor_toolbar', 'cohort', 'control'),
+		)
+	) {
+		// Sort by priority (lower first) on the concatenated list so items
+		// with "priority" are at the top (e.g. Whiteboard before Database)
+		return featuredItems
+			.slice(0)
+			.sort(
+				(a, b) =>
+					(a.priority || Number.POSITIVE_INFINITY) - (b.priority || Number.POSITIVE_INFINITY),
+			);
+	}
+
+	// old logic sort whiteboards to top
 	const DIAGRAM_KEY = 'whiteboard-extension:create-diagram';
 	const isDiagram = (item: QuickInsertItem) => item.key === DIAGRAM_KEY;
 
@@ -202,8 +222,8 @@ const InsertMenu = ({
 				const unfilteredResult = quickInsertDropdownItems.concat(
 					featuredQuickInsertSuggestions,
 				) as QuickInsertItem[];
-				// need to filter on the concatenated list so whiteboards are at the top
-				result = filterForPinWhiteboards(unfilteredResult, formatMessage);
+				// need to sort on the concatenated list so desired elements are at the top
+				result = sortPrioritizedElements(unfilteredResult, formatMessage);
 			}
 			setItemCount(result.length);
 			return result;

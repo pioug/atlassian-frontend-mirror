@@ -1,5 +1,15 @@
 # @atlaskit/editor-common
 
+## 111.12.3
+
+### Patch Changes
+
+- [`27ceb3789dbe8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27ceb3789dbe8) -
+  [ux] Fix initial drag handle / create position incorrect bug
+- [`bb6a1522425ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb6a1522425ff) -
+  [ux] Fix layoutshift in bodiedExtension layout shift
+- Updated dependencies
+
 ## 111.12.2
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "111.12.2",
+	"version": "111.12.3",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -370,6 +370,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_toolbar_aifc_placement_overridden": {
+			"type": "boolean"
+		},
+		"platform_editor_fix_node_anchor_dom_cache": {
 			"type": "boolean"
 		}
 	}

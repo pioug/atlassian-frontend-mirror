@@ -26,7 +26,8 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./actions": "./src/actions/index.tsx",
-		"./create": "./src/create/index.tsx"
+		"./create": "./src/create/index.tsx",
+		"./debug": "./src/debug/index.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-listeners": "workspace:^",
@@ -88,7 +89,7 @@
 		]
 	},
 	"name": "@atlaskit/rovo-agent-analytics",
-	"version": "0.10.0",
+	"version": "0.12.0",
 	"description": "Rovo Agents analytics",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -5,11 +5,13 @@ import type { ChatNewPayload } from '@atlaskit/rovo-triggers/types';
 
 const SMART_LINK_TO_ROVO_SOURCE = 'smart-link';
 
+export type SendPromptMessageData = Partial<ChatNewPayload['data']>;
+
 const useRovoChat = () => {
 	const { publishWithPostMessage } = useRovoPostMessageToPubsub();
 
 	const sendPromptMessage = useCallback(
-		(data: Partial<ChatNewPayload['data']>) => {
+		(data: SendPromptMessageData) => {
 			publishWithPostMessage({
 				targetWindow: window.parent ?? window,
 				payload: {

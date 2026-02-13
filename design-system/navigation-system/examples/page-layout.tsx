@@ -13,7 +13,6 @@ import BoardIcon from '@atlaskit/icon/core/board';
 import HomeIcon from '@atlaskit/icon/core/home';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
-import { MenuList } from '@atlaskit/navigation-system';
 import { Aside } from '@atlaskit/navigation-system/layout/aside';
 import { Banner } from '@atlaskit/navigation-system/layout/banner';
 import {
@@ -32,14 +31,6 @@ import {
 	SideNavToggleButton,
 } from '@atlaskit/navigation-system/layout/side-nav';
 import { TopNav, TopNavEnd, TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
-import { ButtonMenuItem } from '@atlaskit/navigation-system/side-nav-items/button-menu-item';
-import {
-	FlyoutMenuItem,
-	FlyoutMenuItemContent,
-	FlyoutMenuItemTrigger,
-} from '@atlaskit/navigation-system/side-nav-items/flyout-menu-item';
-import { LinkMenuItem } from '@atlaskit/navigation-system/side-nav-items/link-menu-item';
-import { MenuListItem } from '@atlaskit/navigation-system/side-nav-items/menu-list-item';
 import { Help } from '@atlaskit/navigation-system/top-nav-items';
 import {
 	BANNER_HEIGHT,
@@ -49,9 +40,17 @@ import {
 	RIGHT_SIDEBAR_WIDTH,
 	TOP_NAVIGATION_HEIGHT,
 } from '@atlaskit/page-layout';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Inline } from '@atlaskit/primitives';
+import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { Hide } from '@atlaskit/primitives/responsive';
+import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
+import {
+	FlyoutMenuItem,
+	FlyoutMenuItemContent,
+	FlyoutMenuItemTrigger,
+} from '@atlaskit/side-nav-items/flyout-menu-item';
+import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
+import { MenuList } from '@atlaskit/side-nav-items/menu-list';
+import { MenuListItem } from '@atlaskit/side-nav-items/menu-list-item';
 import { token, useThemeObserver } from '@atlaskit/tokens';
 
 const styles = cssMap({

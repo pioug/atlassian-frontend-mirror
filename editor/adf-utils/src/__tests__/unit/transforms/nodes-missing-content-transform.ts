@@ -1,4 +1,5 @@
 import { transformNodesMissingContent } from '../../../transforms/nodes-missing-content-transform';
+import type { ADFEntity } from '../../../types';
 
 import tableRowInvalidEmptyAdf from './__fixtures__/table-row-invalid-empty-adf.json';
 import tableRowsNonEmptyAndInvalidEmptyAdf from './__fixtures__/table-rows-non-empty-and-invalid-empty-adf.json';
@@ -91,11 +92,11 @@ describe('transformNodesMissingContent', () => {
 			it.each([
 				['when content is an empty array', mediaSingleInvalidEmptyContent],
 				['when content is null', mediaSingleInvalidNullContent],
-			])('%s', (_, adf) => {
-				const { isTransformed, transformedAdf } = transformNodesMissingContent(adf);
-				expect(isTransformed).toEqual(true);
-				expect(transformedAdf).toMatchSnapshot();
-			});
+		])('%s', (_, adf) => {
+			const { isTransformed, transformedAdf } = transformNodesMissingContent(adf as ADFEntity);
+			expect(isTransformed).toEqual(true);
+			expect(transformedAdf).toMatchSnapshot();
 		});
 	});
+});
 });

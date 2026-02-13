@@ -868,7 +868,7 @@ describe('Channel unit tests', () => {
 				close: jest.fn(),
 				events,
 				on: jest.fn().mockImplementation((eventName, callback) => events.set(eventName, callback)),
-				onAnyOutgoing: jest.fn().mockImplementation((event, ...args) => null),
+				onAnyOutgoing: jest.fn().mockImplementation(() => null),
 				io: { on: jest.fn() },
 			}));
 			getChannel({
@@ -888,6 +888,7 @@ describe('Channel unit tests', () => {
 				false,
 				expect.any(Object),
 				'/ncs/cloud-id/activ-id/confluence',
+				'ari:cloud:confluence:a436116f-02ce-4520-8fbb-7301462a1674:page/1731046230'
 			);
 		});
 

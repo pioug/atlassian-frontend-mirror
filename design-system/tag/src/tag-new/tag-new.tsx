@@ -79,6 +79,11 @@ export interface TagNewProps {
 	 * Handler to be called after tag is removed.
 	 */
 	onAfterRemoveAction?: (text: string) => void;
+	/**
+	 * Maximum width of the tag. When exceeded, the text will be truncated with ellipsis.
+	 * Accepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').
+	 */
+	maxWidth?: string | number;
 }
 
 // Color mapping from old color names to new color names
@@ -112,6 +117,7 @@ const styles = cssMapUnbound({
 		display: 'inline-flex',
 		boxSizing: 'border-box',
 		minWidth: '0rem',
+		maxWidth: '11.25rem',
 		height: '1.25rem',
 		position: 'relative',
 		alignItems: 'center',
@@ -134,7 +140,9 @@ const styles = cssMapUnbound({
 		display: 'inline-flex',
 		alignItems: 'center',
 		flexShrink: 0,
-		textDecoration: 'none',
+		// Prevent underline when tag is a link
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+		textDecoration: 'none !important',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 		color: `var(${iconColorVar})`,
 	},
@@ -144,7 +152,6 @@ const styles = cssMapUnbound({
 		whiteSpace: 'nowrap',
 		flexGrow: 1,
 		minWidth: 0,
-		maxWidth: '11.25rem',
 		color: token('color.text'),
 	},
 	afterStyles: {
@@ -178,6 +185,9 @@ const styles = cssMapUnbound({
 			alignItems: 'center',
 			gap: token('space.050', '4px'),
 			textDecoration: 'none',
+			// Allow link to shrink and enable text truncation
+			minWidth: 0,
+			overflow: 'hidden',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 			color: 'inherit !important',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
@@ -212,6 +222,11 @@ const styles = cssMapUnbound({
 		'& > a:hover': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 			color: 'inherit !important',
+		},
+		// Only underline the text span, not elemBefore
+		// @ts-ignore
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'& > a:hover > span[data-tag-text]': {
 			textDecoration: 'underline',
 		},
 	},
@@ -359,6 +374,7 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 		onBeforeRemoveAction,
 		onAfterRemoveAction,
 		testId,
+		maxWidth,
 		...other
 	},
 	ref,
@@ -409,6 +425,8 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 				isLinkFocused && !isButtonFocused && styles.childFocusRingStyles,
 			]}
 			data-testid={testId}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			style={maxWidth !== undefined ? { maxWidth } : undefined}
 		>
 			<LinkWrapper
 				isLink={isLink}
@@ -418,7 +436,9 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 				linkHandlers={linkHandlers}
 			>
 				{elemBefore && <span css={styles.beforeStyles}>{elemBefore}</span>}
-				<span css={styles.textStyles}>{text}</span>
+				<span css={styles.textStyles} data-tag-text>
+					{text}
+				</span>
 			</LinkWrapper>
 			{removeButton && <span css={styles.afterStyles}>{removeButton}</span>}
 		</span>

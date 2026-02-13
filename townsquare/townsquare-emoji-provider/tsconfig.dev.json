@@ -35,8 +35,7 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__townsquare-emoji-provider/dev",
-		"moduleResolution": "node"
+		"outDir": "../../../tsDist/@atlaskit__townsquare-emoji-provider/dev"
 	},
 	"references": [
 		{
@@ -44,6 +43,9 @@
 		},
 		{
 			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
+		},
+		{
+			"path": "../../editor/adf-schema/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/button/tsconfig.app.json"

@@ -28,7 +28,6 @@ import {
 	TopNavMiddle,
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
-import { MenuListItem } from '@atlaskit/navigation-system/side-nav-items/menu-list-item';
 import {
 	AppLogo,
 	AppSwitcher,
@@ -37,6 +36,7 @@ import {
 	Profile,
 } from '@atlaskit/navigation-system/top-nav-items';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { MenuListItem } from '@atlaskit/side-nav-items/menu-list-item';
 import { token } from '@atlaskit/tokens';
 
 import koalaImg from './images/koala.svg';
@@ -101,7 +101,11 @@ const contentStyles = cssMap({
  * - Has a `Panel`
  * - Does not have a `SideNav`
  */
-export function CompanyHubMockExample({ defaultPanelWidth = 440 }: { defaultPanelWidth?: number }): JSX.Element {
+export function CompanyHubMockExample({
+	defaultPanelWidth = 440,
+}: {
+	defaultPanelWidth?: number;
+}): JSX.Element {
 	const [isChatOpen, setIsChatOpen] = useState(true);
 
 	const toggleChat = useCallback(() => {

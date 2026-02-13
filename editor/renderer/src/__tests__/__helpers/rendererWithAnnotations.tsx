@@ -1,7 +1,7 @@
 import React from 'react';
 import EventEmitter from 'events';
 
-import type { AnnotationId } from '@atlaskit/adf-schema';
+import type { AnnotationId, DocNode } from '@atlaskit/adf-schema';
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
 import * as annotationAdf from '../__fixtures__/annotation-adf.json';
 import * as docWithTable from '../__fixtures__/doc-with-table-adf.json';
@@ -72,7 +72,7 @@ export function RendererWithAnnotations(): React.JSX.Element {
 	return (
 		<Renderer
 			adfStage={'stage0'}
-			document={annotationAdf}
+			document={annotationAdf as unknown as DocNode}
 			appearance={'full-page'}
 			allowAnnotations={true}
 			annotationProvider={{
@@ -87,7 +87,7 @@ export function RendererWithTableAndAnnotations(): React.JSX.Element {
 	return (
 		<Renderer
 			adfStage={'stage0'}
-			document={docWithTable}
+			document={docWithTable as unknown as DocNode}
 			appearance={'full-page'}
 			allowAnnotations={true}
 			annotationProvider={{

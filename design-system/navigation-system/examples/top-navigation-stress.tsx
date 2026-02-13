@@ -24,7 +24,6 @@ import {
 	TopNavMiddle,
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
-import { MenuListItem } from '@atlaskit/navigation-system/side-nav-items/menu-list-item';
 import {
 	AppLogo,
 	AppSwitcher,
@@ -37,6 +36,7 @@ import {
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
 import { Box, Pressable, Stack } from '@atlaskit/primitives/compiled';
+import { MenuListItem } from '@atlaskit/side-nav-items/menu-list-item';
 import { token } from '@atlaskit/tokens';
 
 import placeholder200x20 from './images/200x20.png';

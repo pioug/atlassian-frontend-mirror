@@ -6,6 +6,7 @@ import { type MediaClientConfig } from '@atlaskit/media-core';
 import { type SSR } from '@atlaskit/media-common';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
+import type { DocNode } from '@atlaskit/adf-schema/schema';
 import ReactDOMServer from 'react-dom/server';
 import { default as Renderer } from '../src/ui/Renderer';
 import doc from './helper/ssr-media-adf.json';
@@ -43,7 +44,7 @@ const Page = ({ ssr, title, mediaClientConfig }: PageProps) => {
 			</div>
 			<IntlProvider locale="en">
 				<Renderer
-					document={doc}
+					document={doc as DocNode}
 					schema={defaultSchema}
 					appearance="full-page"
 					enableSsrInlineScripts={true}

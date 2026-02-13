@@ -103,6 +103,7 @@ export default function AvatarTagExample(): JSX.Element {
 									avatar={(props: any) => <Avatar {...props} src={personImage1} />}
 									isRemovable={false}
 									testId="avatar-tag-basic"
+									maxWidth="50px"
 								/>
 							</Inline>
 						</td>

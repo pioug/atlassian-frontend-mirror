@@ -14,7 +14,7 @@ import ArrowLeftIcon from '@atlaskit/icon/core/arrow-left';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ScreenIcon from '@atlaskit/icon/core/screen';
 import { JiraIcon } from '@atlaskit/logo';
-import { MenuList, SideNavHeader } from '@atlaskit/navigation-system';
+import { SideNavHeader } from '@atlaskit/navigation-system';
 import { Banner } from '@atlaskit/navigation-system/layout/banner';
 import { Main } from '@atlaskit/navigation-system/layout/main';
 import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter';
@@ -30,8 +30,6 @@ import {
 	TopNavMiddle,
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
-import { LinkMenuItem } from '@atlaskit/navigation-system/side-nav-items/link-menu-item';
-import { MenuListItem } from '@atlaskit/navigation-system/side-nav-items/menu-list-item';
 import {
 	AppLogo,
 	AppSwitcher,
@@ -42,6 +40,9 @@ import {
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
 import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
+import { MenuList } from '@atlaskit/side-nav-items/menu-list';
+import { MenuListItem } from '@atlaskit/side-nav-items/menu-list-item';
 import { token } from '@atlaskit/tokens';
 
 import { WithResponsiveViewport } from './utils/example-utils';

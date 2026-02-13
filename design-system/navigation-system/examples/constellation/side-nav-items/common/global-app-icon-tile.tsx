@@ -22,10 +22,10 @@ const styles = cssMap({
 		alignItems: 'center',
 		justifyContent: 'center',
 		// Creates a 24px bounding box
-		marginTop: token('space.025'),
-		marginRight: token('space.025'),
-		marginBottom: token('space.025'),
-		marginLeft: token('space.025'),
+		marginBlockStart: token('space.025'),
+		marginInlineEnd: token('space.025'),
+		marginBlockEnd: token('space.025'),
+		marginInlineStart: token('space.025'),
 	},
 });
 

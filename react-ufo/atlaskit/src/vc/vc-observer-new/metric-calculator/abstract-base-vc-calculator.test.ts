@@ -626,11 +626,7 @@ describe('AbstractVCCalculatorBase V1', () => {
 	});
 
 	describe('VC offenders deduplication', () => {
-		it('should deduplicate repeated element names when platform_ufo_dedupe_repeated_vc_offenders is enabled', async () => {
-			mockFg.mockImplementation((key) => {
-				return key === 'platform_ufo_dedupe_repeated_vc_offenders';
-			});
-
+		it('should deduplicate repeated element names', async () => {
 			const mockCalcResult = {
 				entries: [
 					{
@@ -693,73 +689,6 @@ describe('AbstractVCCalculatorBase V1', () => {
 
 			// Verify that duplicates are removed
 			expect(result?.vcDetails?.['90']?.e).toEqual(['div1', 'div2']);
-		});
-
-		it('should keep duplicate element names when platform_ufo_dedupe_repeated_vc_offenders is disabled', async () => {
-			mockFg.mockImplementation(() => false);
-
-			const mockCalcResult = {
-				entries: [
-					{
-						time: 100,
-						viewportPercentage: 90,
-						entries: [
-							{
-								type: 'mutation:element' as const,
-								elementName: 'div1',
-								rect: new DOMRect(),
-								visible: true,
-							},
-							{
-								type: 'mutation:element' as const,
-								elementName: 'div1', // Duplicate
-								rect: new DOMRect(),
-								visible: true,
-							},
-							{
-								type: 'mutation:element' as const,
-								elementName: 'div2',
-								rect: new DOMRect(),
-								visible: true,
-							},
-							{
-								type: 'mutation:element' as const,
-								elementName: 'div1', // Another duplicate
-								rect: new DOMRect(),
-								visible: true,
-							},
-						],
-					},
-				],
-				speedIndex: 90,
-			};
-
-			jest
-				.spyOn(percentileCalc, 'calculateTTVCPercentilesWithDebugInfo')
-				.mockResolvedValue(mockCalcResult);
-
-			const mockEntry: VCObserverEntry = {
-				time: 0,
-				data: {
-					type: 'mutation:element',
-					elementName: 'div',
-					rect: new DOMRect(),
-					visible: true,
-				},
-			};
-
-			const result = await calculator.calculate({
-				orderedEntries: [mockEntry],
-				startTime: 0,
-				stopTime: 1000,
-				interactionId: 'test-interaction-id',
-				isPostInteraction: false,
-				interactionType: 'page_load',
-				isPageVisible: true,
-			});
-
-			// Verify that duplicates are kept
-			expect(result?.vcDetails?.['90']?.e).toEqual(['div1', 'div1', 'div2', 'div1']);
 		});
 	});
 });

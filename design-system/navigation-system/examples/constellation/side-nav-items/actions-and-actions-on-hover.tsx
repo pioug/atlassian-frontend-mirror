@@ -6,13 +6,13 @@ import HomeIcon from '@atlaskit/icon/core/home';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Lozenge from '@atlaskit/lozenge';
 import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
+import { Inline } from '@atlaskit/primitives/compiled';
 import {
 	ExpandableMenuItem,
 	ExpandableMenuItemTrigger,
-} from '@atlaskit/navigation-system/side-nav-items/expandable-menu-item';
-import { LinkMenuItem } from '@atlaskit/navigation-system/side-nav-items/link-menu-item';
-import { MenuList } from '@atlaskit/navigation-system/side-nav-items/menu-list';
-import { Inline } from '@atlaskit/primitives/compiled';
+} from '@atlaskit/side-nav-items/expandable-menu-item';
+import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
+import { MenuList } from '@atlaskit/side-nav-items/menu-list';
 
 import { MockSideNav } from './common/mock-side-nav';
 

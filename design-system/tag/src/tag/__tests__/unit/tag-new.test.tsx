@@ -59,6 +59,26 @@ describe('TagNew component (UI uplift)', () => {
 		});
 	});
 
+	describe('maxWidth prop', () => {
+		it('should apply custom maxWidth as string', () => {
+			render(<TagNew text="Custom width tag" maxWidth="200px" testId={testId} />);
+			const tag = screen.getByTestId(testId);
+			expect(tag).toHaveStyle({ maxWidth: '200px' });
+		});
+
+		it('should apply custom maxWidth as number', () => {
+			render(<TagNew text="Custom width tag" maxWidth={300} testId={testId} />);
+			const tag = screen.getByTestId(testId);
+			expect(tag).toHaveStyle({ maxWidth: '300px' });
+		});
+
+		it('should not apply inline style when maxWidth is not provided', () => {
+			render(<TagNew text="Default width tag" testId={testId} isRemovable={false} />);
+			const tag = screen.getByTestId(testId);
+			expect(tag).not.toHaveAttribute('style');
+		});
+	});
+
 	describe('removable behavior', () => {
 		it('should render with remove button by default', () => {
 			render(<TagNew text="Removable Tag" removeButtonLabel="Remove" testId={testId} />);

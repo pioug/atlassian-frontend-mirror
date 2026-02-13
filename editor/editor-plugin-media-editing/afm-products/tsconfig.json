@@ -24,9 +24,6 @@
 	],
 	"references": [
 		{
-			"path": "../../../design-system/app-provider/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/button/afm-products/tsconfig.json"
 		},
 		{

@@ -1,5 +1,19 @@
 # @atlaskit/editor-common
 
+## 111.12.5
+
+### Patch Changes
+
+- [`febd89b7de294`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/febd89b7de294) -
+  Remove unused 'copy content' feature from block menu project
+- Updated dependencies
+
+## 111.12.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 111.12.3
 
 ### Patch Changes

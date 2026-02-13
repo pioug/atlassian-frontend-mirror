@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 126.8.6
+
+### Patch Changes
+
+- [`5e40ae78124a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e40ae78124a4) -
+  [ux] Fix expand in reference synced blocks being cut off in renderer
+
+## 126.8.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 126.8.4
 
 ### Patch Changes

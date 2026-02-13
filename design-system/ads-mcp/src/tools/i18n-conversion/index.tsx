@@ -1,19 +1,24 @@
-import type { Tool } from '@modelcontextprotocol/sdk/types';
+/* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
+import type { Tool } from '@modelcontextprotocol/sdk/types.js';
 import { z } from 'zod';
 
 import { zodToJsonSchema } from '../../helpers';
 
 import { i18nConversionGuide } from './guide';
 
-export const i18nConversionInputSchema: z.ZodObject<{
-    guide: z.ZodEnum<[
-        "hardcoded-string-to-formatmessage"
-    ]>;
-}, "strip", z.ZodTypeAny, {
-    guide: "hardcoded-string-to-formatmessage";
-}, {
-    guide: "hardcoded-string-to-formatmessage";
-}> = z.object({
+export const i18nConversionInputSchema: z.ZodObject<
+	{
+		guide: z.ZodEnum<['hardcoded-string-to-formatmessage']>;
+	},
+	'strip',
+	z.ZodTypeAny,
+	{
+		guide: 'hardcoded-string-to-formatmessage';
+	},
+	{
+		guide: 'hardcoded-string-to-formatmessage';
+	}
+> = z.object({
 	guide: z
 		.enum(['hardcoded-string-to-formatmessage'])
 		.describe('The i18n conversion guide to retrieve.'),
@@ -45,10 +50,10 @@ This tool helps LLM agents systematically convert hardcoded strings while respec
 };
 
 export const i18nConversionTool: (_params: z.infer<typeof i18nConversionInputSchema>) => Promise<{
-    content: {
-        type: string;
-        text: string;
-    }[];
+	content: {
+		type: string;
+		text: string;
+	}[];
 }> = async (_params: z.infer<typeof i18nConversionInputSchema>) => {
 	return {
 		content: [

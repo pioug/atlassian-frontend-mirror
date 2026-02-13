@@ -4,6 +4,7 @@ import React from 'react';
 import fetchMock from 'fetch-mock/cjs/client';
 import { IntlProvider } from 'react-intl-next';
 
+import type { DocNode } from '@atlaskit/adf-schema';
 import { cssMap } from '@atlaskit/css';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { Box } from '@atlaskit/primitives/compiled';
@@ -47,7 +48,7 @@ const Renderer = () => {
 		<Box xcss={styles.container}>
 			<ReactRenderer
 				appearance="comment"
-				document={adfDoc}
+				document={adfDoc as unknown as DocNode}
 				dataProviders={dataProviders}
 				media={{
 					allowCaptions: true,

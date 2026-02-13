@@ -1,4 +1,5 @@
-import type { Tool } from '@modelcontextprotocol/sdk/types';
+/* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
+import type { Tool } from '@modelcontextprotocol/sdk/types.js';
 import { z } from 'zod';
 
 import { coreIconMetadata } from '@atlaskit/icon/metadata';
@@ -30,12 +31,12 @@ export const listGetAllIconsTool: Tool = {
 };
 
 export const getAllIconsTool = async (): Promise<{
-    content: {
-        // NOTE: Ideally one day the MCP would support structured content…
-        // eg. `type: 'object', data: icon`
-        type: string;
-        text: string;
-    }[];
+	content: {
+		// NOTE: Ideally one day the MCP would support structured content…
+		// eg. `type: 'object', data: icon`
+		type: string;
+		text: string;
+	}[];
 }> => ({
 	content: icons.map((icon) => ({
 		// NOTE: Ideally one day the MCP would support structured content…

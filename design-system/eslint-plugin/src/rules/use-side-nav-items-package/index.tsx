@@ -70,8 +70,7 @@ const rule = createLintRule({
 
 				// Import is from an entrypoint starting with @atlaskit/navigation-system/side-nav-items/*
 				if (value.startsWith(DEPRECATED_PREFIX)) {
-					const replacement =
-						REPLACEMENT_PREFIX + value.slice(DEPRECATED_PREFIX.length);
+					const replacement = REPLACEMENT_PREFIX + value.slice(DEPRECATED_PREFIX.length);
 					context.report({
 						node,
 						messageId: 'use-side-nav-items-package',
@@ -111,49 +110,54 @@ const rule = createLintRule({
 							node,
 							messageId: 'use-side-nav-items-package-barrel',
 							data: { names: movedNames.join(', ') },
-							fix(fixer) {
-								const keepSpecifiers = node.specifiers.filter((spec) => {
-									if (spec.type !== 'ImportSpecifier' || spec.imported.type !== 'Identifier') {
-										return true;
-									}
-									return !(spec.imported.name in EXPORT_TO_ENTRYPOINT_SUBPATH);
-								});
+							suggest: [
+								{
+									messageId: 'use-side-nav-items-package-barrel',
+									fix(fixer) {
+										const keepSpecifiers = node.specifiers.filter((spec) => {
+											if (spec.type !== 'ImportSpecifier' || spec.imported.type !== 'Identifier') {
+												return true;
+											}
+											return !(spec.imported.name in EXPORT_TO_ENTRYPOINT_SUBPATH);
+										});
 
-								const lines: string[] = [];
-								if (keepSpecifiers.length > 0) {
-									const defaultPart = keepSpecifiers.find((s) => s.type === 'ImportDefaultSpecifier');
-									const namespacePart = keepSpecifiers.find(
-										(s) => s.type === 'ImportNamespaceSpecifier',
-									);
-									const namedKeep = keepSpecifiers.filter((s) => s.type === 'ImportSpecifier');
-									const keepParts: string[] = [];
-									if (defaultPart) {
-										keepParts.push(sourceCode.getText(defaultPart));
-									}
-									if (namespacePart) {
-										keepParts.push(sourceCode.getText(namespacePart));
-									}
-									if (namedKeep.length) {
-										keepParts.push(
-											`{ ${namedKeep.map((s) => sourceCode.getText(s)).join(', ')} }`,
-										);
-									}
-									lines.push(`import ${keepParts.join(', ')} from '${BARREL_ENTRYPOINT}';`);
-								}
+										const lines: string[] = [];
+										if (keepSpecifiers.length > 0) {
+											const defaultPart = keepSpecifiers.find(
+												(s) => s.type === 'ImportDefaultSpecifier',
+											);
+											const namespacePart = keepSpecifiers.find(
+												(s) => s.type === 'ImportNamespaceSpecifier',
+											);
+											const namedKeep = keepSpecifiers.filter((s) => s.type === 'ImportSpecifier');
+											const keepParts: string[] = [];
+											if (defaultPart) {
+												keepParts.push(sourceCode.getText(defaultPart));
+											}
+											if (namespacePart) {
+												keepParts.push(sourceCode.getText(namespacePart));
+											}
+											if (namedKeep.length) {
+												keepParts.push(
+													`{ ${namedKeep.map((s) => sourceCode.getText(s)).join(', ')} }`,
+												);
+											}
+											lines.push(`import ${keepParts.join(', ')} from '${BARREL_ENTRYPOINT}';`);
+										}
 
-								for (const [subpath, specs] of movedBySubpath) {
-									const specStr = specs
-										.map((s) =>
-											s.imported === s.local ? s.imported : `${s.imported} as ${s.local}`,
-										)
-										.join(', ');
-									lines.push(
-										`import { ${specStr} } from '${REPLACEMENT_PREFIX}/${subpath}';`,
-									);
-								}
+										for (const [subpath, specs] of movedBySubpath) {
+											const specStr = specs
+												.map((s) =>
+													s.imported === s.local ? s.imported : `${s.imported} as ${s.local}`,
+												)
+												.join(', ');
+											lines.push(`import { ${specStr} } from '${REPLACEMENT_PREFIX}/${subpath}';`);
+										}
 
-								return fixer.replaceText(node, lines.join('\n'));
-							},
+										return fixer.replaceText(node, lines.join('\n'));
+									},
+								},
+							],
 						});
 					}
 				}

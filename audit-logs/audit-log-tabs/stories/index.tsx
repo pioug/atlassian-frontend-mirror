@@ -16,7 +16,7 @@ function BasicTemplateComponent() {
 	return <AuditLogTabs testId="audit-log-tabs" />;
 }
 
-export const Story = () => {
+export const Story = (): JSX.Element => {
 	// Wrap your component with any necessary HOC or utility functions
 	const WrappedComponent = BasicTemplateComponent; // Use any HOC like withDefaultStyles or withCommonUtilsAndData if needed
 

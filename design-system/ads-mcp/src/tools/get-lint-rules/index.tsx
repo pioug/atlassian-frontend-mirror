@@ -1,4 +1,5 @@
-import type { CallToolResult } from '@modelcontextprotocol/sdk/types';
+/* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
+import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
 import Fuse from 'fuse.js';
 import { z } from 'zod';
 
@@ -96,8 +97,7 @@ export const getLintRulesTool = async (
 		const exactNameMatches = searchTerms
 			.map((term) => {
 				return ruleDocs.find(
-					(rule: LintRuleStructuredContent) =>
-						rule.ruleName.toLowerCase() === term.toLowerCase(),
+					(rule: LintRuleStructuredContent) => rule.ruleName.toLowerCase() === term.toLowerCase(),
 				);
 			})
 			.filter((rule): rule is LintRuleStructuredContent => rule !== undefined);
@@ -137,8 +137,7 @@ export const getLintRulesTool = async (
 	const results = searchTerms
 		.map((term) => {
 			const exactNameMatch = ruleDocs.find(
-				(rule: LintRuleStructuredContent) =>
-					rule.ruleName.toLowerCase() === term.toLowerCase(),
+				(rule: LintRuleStructuredContent) => rule.ruleName.toLowerCase() === term.toLowerCase(),
 			);
 			if (exactNameMatch) {
 				return [{ item: exactNameMatch }];

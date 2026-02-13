@@ -1,5 +1,23 @@
 # @atlaskit/side-nav-items
 
+## 1.7.0
+
+### Minor Changes
+
+- [`b9dcd2a2ed822`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b9dcd2a2ed822) -
+  Internal refactor to change the imports of side nav item components from
+  `@atlaskit/navigation-system` to the new package `@atlaskit/side-nav-items`.
+
+  There are no functional changes - `@atlaskit/navigation-system` was already just re-exporting them
+  from `@atlaskit/side-nav-items`.
+
+## 1.6.0
+
+### Minor Changes
+
+- [`c44903f5844c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c44903f5844c2) -
+  Rounded cap height of side nav menu skeletons to the nearest pixel.
+
 ## 1.5.0
 
 ### Minor Changes

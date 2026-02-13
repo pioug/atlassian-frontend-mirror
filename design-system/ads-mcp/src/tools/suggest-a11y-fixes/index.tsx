@@ -1,4 +1,5 @@
-import type { Tool } from '@modelcontextprotocol/sdk/types';
+/* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
+import type { Tool } from '@modelcontextprotocol/sdk/types.js';
 import { z } from 'zod';
 
 import { zodToJsonSchema } from '../../helpers';
@@ -6,22 +7,28 @@ import { zodToJsonSchema } from '../../helpers';
 import { accessibilityFixes } from './fixes';
 import { violationKeywords } from './keywords';
 
-export const suggestA11yFixesInputSchema: z.ZodObject<{
-    violation: z.ZodString;
-    code: z.ZodString;
-    component: z.ZodOptional<z.ZodString>;
-    context: z.ZodOptional<z.ZodString>;
-}, "strip", z.ZodTypeAny, {
-    code: string;
-    violation: string;
-    context?: string | undefined;
-    component?: string | undefined;
-}, {
-    code: string;
-    violation: string;
-    context?: string | undefined;
-    component?: string | undefined;
-}> = z.object({
+export const suggestA11yFixesInputSchema: z.ZodObject<
+	{
+		violation: z.ZodString;
+		code: z.ZodString;
+		component: z.ZodOptional<z.ZodString>;
+		context: z.ZodOptional<z.ZodString>;
+	},
+	'strip',
+	z.ZodTypeAny,
+	{
+		code: string;
+		violation: string;
+		context?: string | undefined;
+		component?: string | undefined;
+	},
+	{
+		code: string;
+		violation: string;
+		context?: string | undefined;
+		component?: string | undefined;
+	}
+> = z.object({
 	violation: z.string().describe('Description of the accessibility violation'),
 	code: z.string().describe('The problematic code that needs fixing'),
 	component: z.string().optional().describe('Component name or type'),
@@ -100,11 +107,13 @@ function findBestMatchingFix(violation: string): [string, any] | null {
 	return bestScore >= 1 ? bestMatch : null;
 }
 
-export const suggestA11yFixesTool = async (params: z.infer<typeof suggestA11yFixesInputSchema>): Promise<{
-    content: {
-        type: string;
-        text: string;
-    }[];
+export const suggestA11yFixesTool = async (
+	params: z.infer<typeof suggestA11yFixesInputSchema>,
+): Promise<{
+	content: {
+		type: string;
+		text: string;
+	}[];
 }> => {
 	const { violation, component, context } = params;
 

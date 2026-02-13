@@ -3,7 +3,6 @@ import React from 'react';
 import PremiumIcon from '@atlaskit/icon/core/premium';
 import StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
 import { ConfluenceIcon } from '@atlaskit/logo';
-import { MenuListItem } from '@atlaskit/navigation-system';
 import {
 	TopNavButton,
 	TopNavLinkButton,
@@ -11,6 +10,7 @@ import {
 import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
 import { TopNav, TopNavEnd, TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
 import { AppLogo, AppSwitcher } from '@atlaskit/navigation-system/top-nav-items';
+import { MenuListItem } from '@atlaskit/side-nav-items/menu-list-item';
 
 import { MockRoot } from './utils/mock-root';
 

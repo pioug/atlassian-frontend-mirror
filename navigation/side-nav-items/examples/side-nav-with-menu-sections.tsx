@@ -40,12 +40,13 @@ import {
 	SideNavToggleButton,
 } from '@atlaskit/navigation-system/layout/side-nav';
 import { TopNav, TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
-import { ButtonMenuItem } from '@atlaskit/navigation-system/side-nav-items/button-menu-item';
+import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import {
 	ExpandableMenuItem,
 	ExpandableMenuItemContent,
 	ExpandableMenuItemTrigger,
-} from '@atlaskit/navigation-system/side-nav-items/expandable-menu-item';
+} from '@atlaskit/side-nav-items/expandable-menu-item';
 import {
 	FlyoutBody,
 	FlyoutFooter,
@@ -53,16 +54,12 @@ import {
 	FlyoutMenuItem,
 	FlyoutMenuItemContent,
 	FlyoutMenuItemTrigger,
-} from '@atlaskit/navigation-system/side-nav-items/flyout-menu-item';
-import { LinkMenuItem } from '@atlaskit/navigation-system/side-nav-items/link-menu-item';
-import { MenuList } from '@atlaskit/navigation-system/side-nav-items/menu-list';
-import { MenuListItem } from '@atlaskit/navigation-system/side-nav-items/menu-list-item';
-import {
-	MenuSection,
-	MenuSectionHeading,
-} from '@atlaskit/navigation-system/side-nav-items/menu-section';
-import { TopLevelSpacer } from '@atlaskit/navigation-system/side-nav-items/top-level-spacer';
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+} from '@atlaskit/side-nav-items/flyout-menu-item';
+import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
+import { MenuList } from '@atlaskit/side-nav-items/menu-list';
+import { MenuListItem } from '@atlaskit/side-nav-items/menu-list-item';
+import { MenuSection, MenuSectionHeading } from '@atlaskit/side-nav-items/menu-section';
+import { TopLevelSpacer } from '@atlaskit/side-nav-items/top-level-spacer';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 

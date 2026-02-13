@@ -29,10 +29,7 @@ export const actions = {
 		async ({ getState, setState, dispatch }: StoreApi): Promise<void> => {
 			const { links, teamId: currentTeamId, hasLoaded, isLoading } = getState();
 
-			if (
-				(isLoading || (teamId === currentTeamId && hasLoaded && links.length > 0)) &&
-				fg('prevent_parallel_team_web_links_fetch')
-			) {
+			if (isLoading || (teamId === currentTeamId && hasLoaded && links.length > 0)) {
 				return;
 			}
 

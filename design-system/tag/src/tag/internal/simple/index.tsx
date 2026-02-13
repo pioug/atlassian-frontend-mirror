@@ -29,6 +29,7 @@ const SimpleTagComponent: React.ForwardRefExoticComponent<
 			text = '',
 			linkComponent,
 			migration_fallback,
+			maxWidth,
 			...rest
 		}: SimpleTagProps,
 		ref: React.Ref<any>,
@@ -56,6 +57,7 @@ const SimpleTagComponent: React.ForwardRefExoticComponent<
 					href={href}
 					testId={testId}
 					isRemovable={false}
+					maxWidth={maxWidth}
 				/>
 			);
 		}

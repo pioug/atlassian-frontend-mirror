@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 8.6.0
+
+### Minor Changes
+
+- [`88336b2b8f870`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88336b2b8f870) -
+  Add A/A test for cc_fd_db_top_editor_toolbar experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.5.0
 
 ### Minor Changes

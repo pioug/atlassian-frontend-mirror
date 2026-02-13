@@ -1,4 +1,5 @@
-import type { Tool } from '@modelcontextprotocol/sdk/types';
+/* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
+import type { Tool } from '@modelcontextprotocol/sdk/types.js';
 import { z } from 'zod';
 
 import { tokens } from '@atlaskit/tokens/token-metadata';
@@ -22,12 +23,12 @@ export const listGetAllTokensTool: Tool = {
 };
 
 export const getAllTokensTool = async (): Promise<{
-    content: {
-        // NOTE: Ideally one day the MCP would support structured content…
-        // eg. `type: 'object', data: token`
-        type: string;
-        text: string;
-    }[];
+	content: {
+		// NOTE: Ideally one day the MCP would support structured content…
+		// eg. `type: 'object', data: token`
+		type: string;
+		text: string;
+	}[];
 }> => ({
 	content: tokens.map((token) => ({
 		// NOTE: Ideally one day the MCP would support structured content…

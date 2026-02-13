@@ -7,13 +7,10 @@ import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { JiraIcon } from '@atlaskit/logo';
 import Lozenge from '@atlaskit/lozenge';
 import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
-import {
-	ButtonMenuItem,
-	COLLAPSE_ELEM_BEFORE,
-} from '@atlaskit/navigation-system/side-nav-items/button-menu-item';
-import { ContainerAvatar } from '@atlaskit/navigation-system/side-nav-items/container-avatar';
-import { MenuList } from '@atlaskit/navigation-system/side-nav-items/menu-list';
 import { Inline } from '@atlaskit/primitives/compiled';
+import { ButtonMenuItem, COLLAPSE_ELEM_BEFORE } from '@atlaskit/side-nav-items/button-menu-item';
+import { ContainerAvatar } from '@atlaskit/side-nav-items/container-avatar';
+import { MenuList } from '@atlaskit/side-nav-items/menu-list';
 
 import MoneyIcon from '../../images/money.svg';
 

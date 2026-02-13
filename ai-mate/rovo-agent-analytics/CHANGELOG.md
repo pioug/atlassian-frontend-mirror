@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-analytics
 
+## 0.12.1
+
+### Patch Changes
+
+- [`f2c0a49bc75c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2c0a49bc75c7) -
+  Add comments to data-portal registry
+
 ## 0.12.0
 
 ### Minor Changes

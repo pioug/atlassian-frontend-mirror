@@ -9,21 +9,17 @@ import FilterIcon from '@atlaskit/icon/core/filter';
 import SearchIcon from '@atlaskit/icon/core/search';
 import { JiraIcon } from '@atlaskit/logo';
 import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
-import { ContainerAvatar } from '@atlaskit/navigation-system/side-nav-items/container-avatar';
+import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { ContainerAvatar } from '@atlaskit/side-nav-items/container-avatar';
 import {
 	COLLAPSE_ELEM_BEFORE,
 	FlyoutMenuItem,
 	FlyoutMenuItemContent,
 	FlyoutMenuItemTrigger,
-} from '@atlaskit/navigation-system/side-nav-items/flyout-menu-item';
-import { LinkMenuItem } from '@atlaskit/navigation-system/side-nav-items/link-menu-item';
-import { MenuList } from '@atlaskit/navigation-system/side-nav-items/menu-list';
-import {
-	Divider,
-	MenuSection,
-	MenuSectionHeading,
-} from '@atlaskit/navigation-system/side-nav-items/menu-section';
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+} from '@atlaskit/side-nav-items/flyout-menu-item';
+import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
+import { MenuList } from '@atlaskit/side-nav-items/menu-list';
+import { Divider, MenuSection, MenuSectionHeading } from '@atlaskit/side-nav-items/menu-section';
 import Textfield from '@atlaskit/textfield';
 
 import CDProjectIcon from '../../images/cd.svg';

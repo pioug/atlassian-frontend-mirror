@@ -5,7 +5,8 @@ import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import {
 	getDefaultEnvironment,
 	StdioClientTransport,
-} from '@modelcontextprotocol/sdk/client/stdio';
+	/* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
+} from '@modelcontextprotocol/sdk/client/stdio.js';
 
 import { coreIconMetadata as allIcons } from '@atlaskit/icon/metadata';
 import { tokens as allTokens } from '@atlaskit/tokens/token-metadata';

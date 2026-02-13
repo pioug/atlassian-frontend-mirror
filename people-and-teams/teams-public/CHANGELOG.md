@@ -1,5 +1,12 @@
 # @atlaskit/teams-public
 
+## 0.69.1
+
+### Patch Changes
+
+- [`057762a8dac32`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/057762a8dac32) -
+  Remove prevent_parallel_team_web_links_fetch feature gate
+
 ## 0.69.0
 
 ### Minor Changes

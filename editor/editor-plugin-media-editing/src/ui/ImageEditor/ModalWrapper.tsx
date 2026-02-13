@@ -77,17 +77,30 @@ export const RenderImageEditor = ({
 
 		// Ensure blob has MIME type
 		const typedBlob = blob.type ? blob : new Blob([blob], { type: 'image/png' });
+		const localId = !isExternalMedia(selectedNodeAttrs) ? selectedNodeAttrs.localId : undefined;
 
-		// Upload the edited image as a new file using the standard upload method
-		const fileName = !isExternalMedia(selectedNodeAttrs) ? selectedNodeAttrs.__fileName : undefined;
+		// Upload the edited image as a new file with a different filename
+		const originalFileName = !isExternalMedia(selectedNodeAttrs)
+			? selectedNodeAttrs.__fileName
+			: undefined;
+		let editedFileName = 'edited-image.png'; // fallback if the filename doesn't exist
+		if (originalFileName) {
+			const lastDotIndex = originalFileName.lastIndexOf('.');
+			if (lastDotIndex > 0) {
+				const baseName = originalFileName.substring(0, lastDotIndex);
+				editedFileName = `${baseName}-edited-${localId}`;
+			} else {
+				editedFileName = `${originalFileName}-edited-${localId}`;
+			}
+		}
+
 		const uploadableFile = {
 			content: typedBlob,
 			collection,
 			mimeType: typedBlob.type,
-			name: fileName || 'edited-image.png',
+			name: editedFileName,
 			size: typedBlob.size,
 		};
-
 		// Show saving state in modal
 		setIsSaving(true);
 
@@ -119,11 +132,20 @@ export const RenderImageEditor = ({
 					const { doc } = state;
 
 					let nodePos: number | null = null;
+					const selectedLocalId = !isExternalMedia(selectedNodeAttrs)
+						? selectedNodeAttrs.localId
+						: undefined;
+
 					doc.descendants((node, pos) => {
-						if (!isExternalMedia(selectedNodeAttrs) && node.attrs.id === selectedNodeAttrs.id) {
+						if (isExternalMedia(selectedNodeAttrs)) {
+							return true;
+						}
+						// Find by localId (unique per node instance)
+						if (selectedLocalId && node.attrs.localId === selectedLocalId) {
 							nodePos = pos;
 							return false;
 						}
+						return true;
 					});
 
 					if (nodePos !== null) {

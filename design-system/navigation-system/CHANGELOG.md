@@ -1,5 +1,20 @@
 # @atlassian/navigation-system
 
+## 5.34.0
+
+### Minor Changes
+
+- [`b9dcd2a2ed822`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b9dcd2a2ed822) -
+  Internal refactor to change the imports of side nav item components from
+  `@atlaskit/navigation-system` to the new package `@atlaskit/side-nav-items`.
+
+  There are no functional changes - `@atlaskit/navigation-system` was already just re-exporting them
+  from `@atlaskit/side-nav-items`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.33.1
 
 ### Patch Changes

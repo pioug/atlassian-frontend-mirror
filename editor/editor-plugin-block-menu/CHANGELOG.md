@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.0.39
+
+### Patch Changes
+
+- [`febd89b7de294`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/febd89b7de294) -
+  Remove unused 'copy content' feature from block menu project
+- Updated dependencies
+
+## 6.0.38
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.37
 
 ### Patch Changes

@@ -1,5 +1,23 @@
 # @atlaskit/editor-statsig-tmp
 
+## 24.1.0
+
+### Minor Changes
+
+- [`88336b2b8f870`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88336b2b8f870) -
+  Add A/A test for cc_fd_db_top_editor_toolbar experiment
+
+## 24.0.0
+
+### Major Changes
+
+- [`2b9f521da4234`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b9f521da4234) -
+  Removed confluence_ttvc_inline_extensions from experiment test overrides
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.2.0
 
 ### Minor Changes

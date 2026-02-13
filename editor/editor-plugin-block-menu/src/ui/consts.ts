@@ -9,5 +9,4 @@ export const BLOCK_MENU_ITEM_NAME = {
 	MOVE_DOWN: 'moveDown',
 	DELETE: 'delete',
 	FORMAT_MENU: 'formatMenu',
-	COPY_CONTENT: 'copyContent',
 } as const;

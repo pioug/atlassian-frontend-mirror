@@ -10,6 +10,7 @@ import TagNewLink from '../../examples/constellation/tag-new-link';
 import TagNewRemovable from '../../examples/constellation/tag-new-removable';
 import TagNewWithIcon from '../../examples/constellation/tag-new-with-icon';
 import TagNewLinkWithIcon from '../../examples/constellation/tag-new-link-with-icon';
+import TagNewMaxWidth from '../../examples/constellation/tag-new-max-width';
 
 ## Default
 
@@ -47,3 +48,10 @@ Use `elemBefore` to add an icon or other element before the tag text.
 Tags can combine both a link and an icon element.
 
 <Example Component={TagNewLinkWithIcon} packageName="@atlaskit/tag" />
+
+## Max width
+
+Use `maxWidth` to control the maximum width of the tag. When the tag exceeds this width, it will be
+truncated with an ellipsis.
+
+<Example Component={TagNewMaxWidth} packageName="@atlaskit/tag" />

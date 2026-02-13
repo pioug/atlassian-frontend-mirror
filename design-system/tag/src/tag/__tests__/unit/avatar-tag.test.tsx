@@ -15,6 +15,52 @@ const render = (component: React.ReactNode) => {
 describe('AvatarTag component', () => {
 	const testId = 'test-avatar-tag';
 
+	describe('maxWidth prop', () => {
+		it('should apply custom maxWidth as string', () => {
+			render(
+				<AvatarTag
+					type="user"
+					text="Custom width user"
+					avatar={Avatar}
+					maxWidth="250px"
+					testId={testId}
+					isRemovable={false}
+				/>,
+			);
+			const tag = screen.getByTestId(testId);
+			expect(tag).toHaveStyle({ maxWidth: '250px' });
+		});
+
+		it('should apply custom maxWidth as number', () => {
+			render(
+				<AvatarTag
+					type="other"
+					text="Custom width team"
+					avatar={TeamAvatar}
+					maxWidth={350}
+					testId={testId}
+					isRemovable={false}
+				/>,
+			);
+			const tag = screen.getByTestId(testId);
+			expect(tag).toHaveStyle({ maxWidth: '350px' });
+		});
+
+		it('should not apply inline style when maxWidth is not provided', () => {
+			render(
+				<AvatarTag
+					type="user"
+					text="Default width user"
+					avatar={Avatar}
+					testId={testId}
+					isRemovable={false}
+				/>,
+			);
+			const tag = screen.getByTestId(testId);
+			expect(tag).not.toHaveAttribute('style');
+		});
+	});
+
 	describe('type="user" (circular avatar)', () => {
 		it('should render with circular avatar', () => {
 			render(

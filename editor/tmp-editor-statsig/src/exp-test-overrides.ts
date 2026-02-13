@@ -32,6 +32,7 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 	platform_editor_table_sticky_header_improvements: 'test_with_overflow',
 	platform_sl_3p_unauth_paste_as_block_card: 'control',
 	cc_fd_db_top_editor_toolbar: 'control',
+	cc_fd_db_top_editor_toolbar_aa: 'control',
 };
 
 export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
@@ -68,5 +69,4 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	platform_editor_toggle_expand_on_match_found: false,
 	platform_editor_reduce_noisy_steps_ncs: false,
 	confluence_compact_text_format: false,
-	confluence_ttvc_inline_extensions: false,
 };

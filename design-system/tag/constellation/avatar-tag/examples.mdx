@@ -1,7 +1,9 @@
 ---
 order: 0
 title: Avatar tag
-description: An avatar tag represents individuals, teams, or AI agents for tagging, quick recognition and navigation.
+description:
+  An avatar tag represents individuals, teams, or AI agents for tagging, quick recognition and
+  navigation.
 ---
 
 import AvatarTagDefault from '../../examples/constellation/avatar-tag-default';
@@ -14,10 +16,12 @@ import AvatarTagTeamVerified from '../../examples/constellation/avatar-tag-team-
 import AvatarTagAgent from '../../examples/constellation/avatar-tag-agent';
 import AvatarTagAgentLink from '../../examples/constellation/avatar-tag-agent-link';
 import AvatarTagAgentRemovable from '../../examples/constellation/avatar-tag-agent-removable';
+import AvatarTagMaxWidth from '../../examples/constellation/avatar-tag-max-width';
 
 ## User (Default)
 
-The default form of an avatar tag for users, with `text` and an `avatar` component. User avatar tags use a rounded pill design and are used to label individuals for quick recognition.
+The default form of an avatar tag for users, with `text` and an `avatar` component. User avatar tags
+use a rounded pill design and are used to label individuals for quick recognition.
 
 <Example Component={AvatarTagDefault} packageName="@atlaskit/tag" />
 
@@ -29,13 +33,15 @@ A user avatar tag with an `href` can link to more information about the person.
 
 ## User (Non-removable)
 
-Set `isRemovable` to false to prevent users from removing the user avatar tag. Avatar tags are removable by default.
+Set `isRemovable` to false to prevent users from removing the user avatar tag. Avatar tags are
+removable by default.
 
 <Example Component={AvatarTagRemovable} packageName="@atlaskit/tag" />
 
 ## Team (Default)
 
-Team avatar tags use a square design with rounded corners, similar to regular tags. They are used to represent teams or groups with a square team avatar.
+Team avatar tags use a square design with rounded corners, similar to regular tags. They are used to
+represent teams or groups with a square team avatar.
 
 <Example Component={AvatarTagTeam} packageName="@atlaskit/tag" />
 
@@ -53,13 +59,15 @@ Set `isRemovable` to false to prevent users from removing the team avatar tag.
 
 ## Team (Verified)
 
-Set `isVerified` to true to display a verified badge after the team name. This is only available for team/other type avatar tags.
+Set `isVerified` to true to display a verified badge after the team name. This is only available for
+team/other type avatar tags.
 
 <Example Component={AvatarTagTeamVerified} packageName="@atlaskit/tag" />
 
 ## Agent (Default)
 
-Agent avatar tags use a hexagonal design to represent AI agents like Rovo. They help distinguish AI-powered assistants from users and teams.
+Agent avatar tags use a hexagonal design to represent AI agents like Rovo. They help distinguish
+AI-powered assistants from users and teams.
 
 <Example Component={AvatarTagAgent} packageName="@atlaskit/tag" />
 
@@ -74,3 +82,10 @@ An agent avatar tag with an `href` can link to more information about the agent.
 Set `isRemovable` to false to prevent users from removing the agent avatar tag.
 
 <Example Component={AvatarTagAgentRemovable} packageName="@atlaskit/tag" />
+
+## Max width
+
+Use `maxWidth` to control the maximum width of the avatar tag. When the tag exceeds this width, it
+will be truncated with an ellipsis.
+
+<Example Component={AvatarTagMaxWidth} packageName="@atlaskit/tag" />

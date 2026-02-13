@@ -92,6 +92,7 @@ const RemovableTagComponent: React.ForwardRefExoticComponent<
 			onAfterRemoveAction = noop,
 			linkComponent,
 			migration_fallback,
+			maxWidth,
 			...rest
 		},
 		ref,
@@ -181,6 +182,7 @@ const RemovableTagComponent: React.ForwardRefExoticComponent<
 					removeButtonLabel={removeButtonLabel}
 					onBeforeRemoveAction={onBeforeRemoveAction}
 					onAfterRemoveAction={onAfterRemoveAction}
+					maxWidth={maxWidth}
 				/>
 			);
 		}

@@ -28,6 +28,7 @@ async function format(value: string): Promise<string> {
 		bracketSameLine: false,
 		proseWrap: 'always',
 		parser: 'typescript',
+		// @ts-expect-error - prettierPluginEstree is not typed
 		plugins: [parserTypeScript, prettierPluginEstree],
 	});
 	return formatted;

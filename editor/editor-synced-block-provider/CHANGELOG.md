@@ -1,5 +1,20 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.28.0
+
+### Minor Changes
+
+- [`2d04d83eba130`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d04d83eba130) -
+  EDITOR-4997 update cache dirty logic to reduce request
+
+## 3.27.2
+
+### Patch Changes
+
+- [`7b605d0a82c41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b605d0a82c41) -
+  Add some tests + remove pending fetch requests for resourceId if reference blocks deleted
+- Updated dependencies
+
 ## 3.27.1
 
 ### Patch Changes

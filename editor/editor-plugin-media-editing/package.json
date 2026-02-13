@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media-editing",
-	"version": "1.4.0",
+	"version": "1.4.2",
 	"description": "MediaEditing plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -31,7 +31,6 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/app-provider": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",

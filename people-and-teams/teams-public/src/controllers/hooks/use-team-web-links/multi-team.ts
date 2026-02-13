@@ -1,6 +1,5 @@
 import { createHook, createStore } from 'react-sweet-state';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { teamsClient } from '@atlaskit/teams-client';
 
 import { type NewTeamWebLink, type TeamWebLink } from '../../../common/types';
@@ -56,11 +55,10 @@ export const actions = {
 			const currentLinks = currentTeamState?.links || [];
 
 			// Only skip if already loaded and not currently loading (prevents duplicate fetches)
-			// Feature flag check: if enabled, also skip if hasLoaded and has links
 			if (
 				currentTeamState?.hasLoaded &&
 				!currentTeamState.isLoading &&
-				(!fg('prevent_parallel_team_web_links_fetch') || currentLinks.length > 0)
+				currentLinks.length > 0
 			) {
 				return;
 			}

@@ -5,13 +5,14 @@ import document from './helper/smart-card-datasource.adf.json';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
+import type { DocNode } from '@atlaskit/adf-schema/schema';
 
 mockDatasourceFetchRequests();
 
 export default function Example(): React.JSX.Element {
 	return (
 		<SmartCardProvider>
-			<Renderer document={document} appearance="full-page" />
+			<Renderer document={document as DocNode} appearance="full-page" />
 		</SmartCardProvider>
 	);
 }

@@ -1,7 +1,9 @@
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, keyframes } from '@emotion/react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+import type { DetailedHTMLProps, HTMLAttributes } from 'react';
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
+import { css, keyframes, type Theme } from '@emotion/react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
+import styled, { type StyledComponent } from '@emotion/styled';
 
 import { layers as akLayers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -30,8 +32,19 @@ const xPositioning = ({ side, isOpen }: { isOpen: boolean; side: string }) =>
 				transform: translateX(${isOpen ? '0' : '-100vw'});
 			`;
 
+
+type StyledMobileNavSlider = StyledComponent<{
+    as?: React.ElementType;
+    theme?: Theme;
+} & {
+    isOpen: boolean;
+    side: string;
+    topOffset: number | undefined;
+	// eslint-disable-next-line @typescript-eslint/ban-types
+}, DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}>
+			
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const MobileNavSlider = styled.div<{
+export const MobileNavSlider: StyledMobileNavSlider = styled.div<{
 	isOpen: boolean;
 	side: string;
 	topOffset: number | undefined;
@@ -51,15 +64,29 @@ export const MobileNavSlider = styled.div<{
 	xPositioning,
 );
 
+type StyledMobilePageHeader = StyledComponent<{
+    as?: React.ElementType;
+    theme?: Theme;
+	// eslint-disable-next-line @typescript-eslint/ban-types
+}, DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>, {}>
+
 // make space so content below doesn't slip beneath the header
 // since the content is `position: fixed`
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const MobilePageHeader = styled.header({
+export const MobilePageHeader: StyledMobilePageHeader = styled.header({
 	height: `${mobileHeaderHeight}px`,
 });
 
+type StyledMobilePageHeaderContent = StyledComponent<{
+    as?: React.ElementType;
+    theme?: Theme;
+} & {
+    topOffset: number | undefined;
+	// eslint-disable-next-line @typescript-eslint/ban-types
+}, DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}>
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const MobilePageHeaderContent = styled.div<{
+export const MobilePageHeaderContent: StyledMobilePageHeaderContent = styled.div<{
 	topOffset: number | undefined;
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 }>((props) => ({
@@ -95,10 +122,19 @@ const opacityOut = keyframes({
 	},
 });
 
+
+type StyledFakeBlanket = StyledComponent<{
+    as?: React.ElementType;
+    theme?: Theme;
+} & {
+    isOpen: boolean;
+	// eslint-disable-next-line @typescript-eslint/ban-types
+}, DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}>
+
 // @atlaskit/blanket has a z-index *higher* than @atlaskit/navigation,
 // so we can't display the AK blanket underneath the navigation.
 // eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const FakeBlanket = styled.div<{
+export const FakeBlanket: StyledFakeBlanket = styled.div<{
 	isOpen: boolean;
 }>`
 	background: ${token('color.blanket')};
@@ -111,9 +147,15 @@ export const FakeBlanket = styled.div<{
 	animation: ${(p) => (p.isOpen ? opacityIn : opacityOut)} 0.2s ease-out;
 `;
 
+type StyledPageHeading = StyledComponent<{
+    as?: React.ElementType;
+    theme?: Theme;
+	// eslint-disable-next-line @typescript-eslint/ban-types
+}, DetailedHTMLProps<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>, {}>
+
 // use proper h1 and header styles but for mobile we don't want a top margin
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const PageHeading = styled.h1({
+export const PageHeading: StyledPageHeading = styled.h1({
 	flexGrow: 1,
 	margin: 0,
 	marginLeft: token('space.100'),

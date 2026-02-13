@@ -1,5 +1,19 @@
 # @atlaskit/collab-provider
 
+## 15.3.9
+
+### Patch Changes
+
+- [`ca2f133e4a6f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca2f133e4a6f9) -
+  Adding sourceId query param to socketio connection
+- Updated dependencies
+
+## 15.3.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.3.7
 
 ### Patch Changes

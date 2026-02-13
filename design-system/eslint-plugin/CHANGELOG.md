@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.40.0
+
+### Minor Changes
+
+- [`8c9a9c4333c8a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c9a9c4333c8a) -
+  The `use-side-nav-items-package` lint rule has been updated to change the fix for barrel imports
+  to a suggestion.
+
 ## 13.39.0
 
 ### Minor Changes

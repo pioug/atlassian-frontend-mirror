@@ -9,7 +9,6 @@ import { cssMap, jsx } from '@compiled/react';
 
 import Heading from '@atlaskit/heading';
 import MegaphoneIcon from '@atlaskit/icon/core/megaphone';
-import { MenuList } from '@atlaskit/navigation-system';
 import { Main } from '@atlaskit/navigation-system/layout/main';
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import {
@@ -25,8 +24,9 @@ import {
 	TopNavMiddle,
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
-import { ButtonMenuItem } from '@atlaskit/navigation-system/side-nav-items/button-menu-item';
 import { CreateButton, Settings } from '@atlaskit/navigation-system/top-nav-items';
+import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
+import { MenuList } from '@atlaskit/side-nav-items/menu-list';
 import { token } from '@atlaskit/tokens';
 
 import { WithResponsiveViewport } from './utils/example-utils';

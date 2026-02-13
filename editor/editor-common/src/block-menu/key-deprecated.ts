@@ -187,14 +187,6 @@ export const CREATE_SYNCED_BLOCK_MENU_ITEM = {
  * @private
  * @deprecated
  */
-export const COPY_BLOCK_MENU_ITEM = {
-	key: 'block-menu-copy-block',
-};
-
-/**
- * @private
- * @deprecated
- */
 export const COPY_LINK_MENU_ITEM = {
 	key: 'block-menu-item-copy-link',
 };

@@ -9,8 +9,8 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import { type DatasourceType } from '@atlaskit/linking-types';
 import { token } from '@atlaskit/tokens';
 
-import * as AdfTable from '../../examples-helpers/adfTable.json';
-import * as Image from '../../examples-helpers/images.json';
+import AdfTable from '../../examples-helpers/adfTable.json';
+import Image from '../../examples-helpers/images.json';
 import SmartLinkClient from '../../examples-helpers/smartLinkCustomClient';
 import { renderType } from '../../src/ui/issue-like-table/render-type';
 import { type DatasourceTypeWithOnlyValues } from '../../src/ui/issue-like-table/types';
@@ -254,7 +254,7 @@ const items: Item[] = [
 			[
 				{
 					type: 'adf',
-					text: JSON.stringify(AdfTable.default),
+					text: JSON.stringify(AdfTable),
 				},
 			],
 		],

@@ -20,7 +20,7 @@ const styles = cssMap({
 	},
 });
 
-export default function AuditLogTabs({ testId = 'audit-log-tabs' }: AuditLogTabsProps) {
+export default function AuditLogTabs({ testId = 'audit-log-tabs' }: AuditLogTabsProps): JSX.Element {
 	return (
 		<Box testId={testId}>
 			<Tabs id="audit-log-tabs">

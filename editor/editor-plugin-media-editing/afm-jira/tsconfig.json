@@ -24,9 +24,6 @@
 	],
 	"references": [
 		{
-			"path": "../../../design-system/app-provider/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/button/afm-jira/tsconfig.json"
 		},
 		{

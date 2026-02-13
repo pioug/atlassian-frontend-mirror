@@ -11,21 +11,21 @@ type CommonAnalyticsAttributes = {
 } & Record<string, any>;
 
 export enum AgentCreateActions {
-	/* Start create flow when user clicks on "Create agent" button */
+	/* Start create flow when user clicks on "Create agent" button - https://data-portal.internal.atlassian.com/analytics/registry/97089 */
 	START = 'createFlowStart',
-	/* Skip natural language */
+	/* Skip natural language - https://data-portal.internal.atlassian.com/analytics/registry/97127 */
 	SKIP_NL = 'createFlowSkipNL',
-	/* Review natural language */
+	/* Review natural language - https://data-portal.internal.atlassian.com/analytics/registry/97124 */
 	REVIEW_NL = 'createFlowReviewNL',
-	/* Activate agent */
+	/* Activate agent - https://data-portal.internal.atlassian.com/analytics/registry/97123 */
 	ACTIVATE = 'createFlowActivate',
-	/* Restart create flow */
+	/* Restart create flow - https://data-portal.internal.atlassian.com/analytics/registry/97131 */
 	RESTART = 'createFlowRestart',
-	/* Error occurred */
+	/* Error occurred - https://data-portal.internal.atlassian.com/analytics/registry/97132 */
 	ERROR = 'createFlowError',
-	/* Land in studio */
+	/* Land in studio - https://data-portal.internal.atlassian.com/analytics/registry/97136 */
 	LAND = 'createLandInStudio',
-	/* Discard agent */
+	/* Discard agent - https://data-portal.internal.atlassian.com/analytics/registry/97137 */
 	DISCARD = 'createDiscard',
 }
 
@@ -53,8 +53,12 @@ export const useRovoAgentCreateAnalytics = (commonAttributes: CommonAnalyticsAtt
 		[createAnalyticsEvent, eventConfig, csid, commonAttributes],
 	);
 
+	/**
+	 * This will fire analytics event for intermediate steps in the create agent flow funnel
+	 * To start the create agent flow, use trackCreateSessionStart
+	 */
 	const trackCreateSession = useCallback(
-		(action: AgentCreateActions, attributes?: CommonAnalyticsAttributes) => {
+		(action: Omit<AgentCreateActions, AgentCreateActions.START>, attributes?: CommonAnalyticsAttributes) => {
 			fireAnalyticsEvent({
 				actionSubject: 'rovoAgent',
 				action,
@@ -64,6 +68,9 @@ export const useRovoAgentCreateAnalytics = (commonAttributes: CommonAnalyticsAtt
 		[fireAnalyticsEvent],
 	);
 
+	/**
+	 * This should be used ONLY in the beginning of the funnel of create agent flow, it will create a new CSID (CSID = create session ID)
+	 */
 	const trackCreateSessionStart = useCallback(
 		(attributes?: CommonAnalyticsAttributes) => {
 			fireAnalyticsEvent({

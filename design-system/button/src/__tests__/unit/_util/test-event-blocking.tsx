@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { type UserEvent } from '@testing-library/user-event/dist/types/setup/setup';
+import userEvent, { type UserEvent } from '@testing-library/user-event';
 
 import { type CommonButtonProps } from '../../../new-button/variants/types';
 import { type Variant } from '../../../utils/variants';

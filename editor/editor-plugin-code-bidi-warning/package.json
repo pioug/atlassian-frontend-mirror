@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-code-bidi-warning",
-	"version": "7.0.8",
+	"version": "7.0.9",
 	"description": "Code bidi warning plugin for @atlaskit/editor-core.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

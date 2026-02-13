@@ -11,10 +11,10 @@ import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	root: {
-		paddingTop: token('space.150'),
-		paddingRight: token('space.150'),
-		paddingBottom: token('space.150'),
-		paddingLeft: token('space.150'),
+		paddingBlockStart: token('space.150'),
+		paddingInlineEnd: token('space.150'),
+		paddingBlockEnd: token('space.150'),
+		paddingInlineStart: token('space.150'),
 		borderBlockStartWidth: token('border.width'),
 		borderBlockStartStyle: 'solid',
 		borderBlockStartColor: token('color.border'),
@@ -24,15 +24,18 @@ const styles = cssMap({
 /**
  * The bottom part of the side nav.
  */
-export const SideNavFooter: ({ children, xcss, }: {
-    /**
-     * The content of the layout area.
-     */
-    children: ReactNode;
-    /**
-     * Bounded style overrides.
-     */
-    xcss?: StrictXCSSProp<"backgroundColor", never>;
+export const SideNavFooter: ({
+	children,
+	xcss,
+}: {
+	/**
+	 * The content of the layout area.
+	 */
+	children: ReactNode;
+	/**
+	 * Bounded style overrides.
+	 */
+	xcss?: StrictXCSSProp<'backgroundColor', never>;
 }) => JSX.Element = ({
 	/**
 	 * The content of the layout area.

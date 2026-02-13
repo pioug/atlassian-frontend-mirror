@@ -6,11 +6,6 @@ export const messages = defineMessages({
 		defaultMessage: 'Copy block',
 		description: 'Copy the selected block to the clipboard',
 	},
-	copyContent: {
-		id: 'fabric.editor.block.menu.copy.content',
-		defaultMessage: 'Copy content',
-		description: 'Copy the selected content to the clipboard',
-	},
 	moveUpBlock: {
 		id: 'fabric.editor.block.menu.move.up',
 		defaultMessage: 'Move up',

@@ -12,6 +12,7 @@ import {
 	atlassianProjectCardState,
 } from '@atlaskit/media-test-helpers/smart-card-state';
 import { token } from '@atlaskit/tokens';
+import type { DocNode } from '@atlaskit/adf-schema/schema';
 import { default as Renderer } from '../src/ui/Renderer';
 import smartCardAdf from './helper/ssr-smart-card.json';
 import type { RendererProps } from '../src/ui/renderer-props';
@@ -50,7 +51,7 @@ const Page = ({ title }: PageProps) => {
 			<IntlProvider locale="en">
 				<SmartCardProvider storeOptions={storeOptions} client={new CardClient('staging')}>
 					<Renderer
-						document={smartCardAdf}
+						document={smartCardAdf as DocNode}
 						schema={defaultSchema}
 						appearance="full-page"
 						enableSsrInlineScripts={true}

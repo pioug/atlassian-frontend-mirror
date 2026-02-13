@@ -7,10 +7,10 @@ import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { ConfluenceIcon, GoalsIcon, JiraIcon, TeamsIcon } from '@atlaskit/logo';
 import Lozenge from '@atlaskit/lozenge';
 import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
-import { ButtonMenuItem } from '@atlaskit/navigation-system/side-nav-items/button-menu-item';
-import { LinkMenuItem } from '@atlaskit/navigation-system/side-nav-items/link-menu-item';
-import { MenuList } from '@atlaskit/navigation-system/side-nav-items/menu-list';
-import { TopLevelSpacer } from '@atlaskit/navigation-system/side-nav-items/top-level-spacer';
+import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
+import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
+import { MenuList } from '@atlaskit/side-nav-items/menu-list';
+import { TopLevelSpacer } from '@atlaskit/side-nav-items/top-level-spacer';
 
 import { MockSideNav } from './common/mock-side-nav';
 

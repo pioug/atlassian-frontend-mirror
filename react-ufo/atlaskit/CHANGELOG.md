@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.2.3
+
+### Patch Changes
+
+- [`c7cf6502b98d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c7cf6502b98d5) -
+  FG cleanup - platform_ufo_dedupe_repeated_vc_offenders
+
 ## 5.2.2
 
 ### Patch Changes

@@ -166,6 +166,7 @@ export class Channel extends Emitter<ChannelEvent> {
 			this.config.isPresenceOnly,
 			this.analyticsHelper,
 			path,
+			documentAri,
 		) as Socket;
 
 		// Due to https://github.com/socketio/socket.io-client/issues/1473,

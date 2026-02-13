@@ -32,12 +32,6 @@ import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Image from '@atlaskit/image';
 import { ConfluenceIcon } from '@atlaskit/logo';
 import Lozenge from '@atlaskit/lozenge';
-import {
-	ExpandableMenuItem,
-	ExpandableMenuItemContent,
-	ExpandableMenuItemTrigger,
-	MenuList,
-} from '@atlaskit/navigation-system';
 import { Banner } from '@atlaskit/navigation-system/layout/banner';
 import { Main } from '@atlaskit/navigation-system/layout/main';
 import { Panel } from '@atlaskit/navigation-system/layout/panel';
@@ -54,15 +48,6 @@ import {
 	TopNavMiddle,
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
-import { ButtonMenuItem } from '@atlaskit/navigation-system/side-nav-items/button-menu-item';
-import {
-	FlyoutMenuItem,
-	FlyoutMenuItemContent,
-	FlyoutMenuItemTrigger,
-} from '@atlaskit/navigation-system/side-nav-items/flyout-menu-item';
-import { LinkMenuItem } from '@atlaskit/navigation-system/side-nav-items/link-menu-item';
-import { MenuListItem } from '@atlaskit/navigation-system/side-nav-items/menu-list-item';
-import { Divider } from '@atlaskit/navigation-system/side-nav-items/menu-section';
 import {
 	AppLogo,
 	AppSwitcher,
@@ -73,6 +58,21 @@ import {
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
 import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
+import {
+	ExpandableMenuItem,
+	ExpandableMenuItemContent,
+	ExpandableMenuItemTrigger,
+} from '@atlaskit/side-nav-items/expandable-menu-item';
+import {
+	FlyoutMenuItem,
+	FlyoutMenuItemContent,
+	FlyoutMenuItemTrigger,
+} from '@atlaskit/side-nav-items/flyout-menu-item';
+import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
+import { MenuList } from '@atlaskit/side-nav-items/menu-list';
+import { MenuListItem } from '@atlaskit/side-nav-items/menu-list-item';
+import { Divider } from '@atlaskit/side-nav-items/menu-section';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 import Tag from '@atlaskit/tag/simple-tag';
 import { token } from '@atlaskit/tokens';

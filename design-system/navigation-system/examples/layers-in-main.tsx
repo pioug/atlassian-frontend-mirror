@@ -22,7 +22,6 @@ import ShowMoreHorizontalCoreIcon from '@atlaskit/icon/core/show-more-horizontal
 import StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
 import Link from '@atlaskit/link';
 import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
-import { MenuList } from '@atlaskit/navigation-system';
 import { Banner } from '@atlaskit/navigation-system/layout/banner';
 import { Main } from '@atlaskit/navigation-system/layout/main';
 import { Panel } from '@atlaskit/navigation-system/layout/panel';
@@ -39,14 +38,6 @@ import {
 	TopNavMiddle,
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
-import { ButtonMenuItem } from '@atlaskit/navigation-system/side-nav-items/button-menu-item';
-import {
-	FlyoutMenuItem,
-	FlyoutMenuItemContent,
-	FlyoutMenuItemTrigger,
-} from '@atlaskit/navigation-system/side-nav-items/flyout-menu-item';
-import { LinkMenuItem } from '@atlaskit/navigation-system/side-nav-items/link-menu-item';
-import { Divider } from '@atlaskit/navigation-system/side-nav-items/menu-section';
 import {
 	AppSwitcher,
 	CreateButton,
@@ -58,6 +49,15 @@ import {
 } from '@atlaskit/navigation-system/top-nav-items';
 import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { PopupSelect } from '@atlaskit/select';
+import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
+import {
+	FlyoutMenuItem,
+	FlyoutMenuItemContent,
+	FlyoutMenuItemTrigger,
+} from '@atlaskit/side-nav-items/flyout-menu-item';
+import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
+import { MenuList } from '@atlaskit/side-nav-items/menu-list';
+import { Divider } from '@atlaskit/side-nav-items/menu-section';
 import { token } from '@atlaskit/tokens';
 
 import { WithResponsiveViewport } from './utils/example-utils';
@@ -105,7 +105,9 @@ const options = [
 	{ label: 'wont-do', value: 'wont-do' },
 ];
 
-export const LayersInMainShouldForceOpenLayers: () => JSX.Element = () => <LayersInMain shouldForceOpenLayers />;
+export const LayersInMainShouldForceOpenLayers: () => JSX.Element = () => (
+	<LayersInMain shouldForceOpenLayers />
+);
 
 export default function LayersInMain({
 	shouldForceOpenLayers = false,

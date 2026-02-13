@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 43.24.5
+
+### Patch Changes
+
+- [`ed9a3814a96db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed9a3814a96db) -
+  Add RovoChatAction component
+- Updated dependencies
+
+## 43.24.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 43.24.3
 
 ### Patch Changes

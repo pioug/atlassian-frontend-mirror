@@ -2734,6 +2734,13 @@ const syncBlockOverflowStyles = css({
 		},
 });
 
+const syncBlockPatch2Styles = css({
+	[`.${SyncBlockSharedCssClassName.renderer}, .${BodiedSyncBlockSharedCssClassName.renderer}, .${SyncBlockSharedCssClassName.error}, .${SyncBlockSharedCssClassName.loading}`]:
+	{
+		overflow: 'visible',
+	}
+});
+
 type RendererStyleContainerProps = Pick<
 	RendererWrapperProps,
 	| 'onClick'
@@ -2934,6 +2941,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 					: undefined,
 				editorExperiment('platform_synced_block', true) && syncBlockStyles,
 				editorExperiment('platform_synced_block', true) && syncBlockOverflowStyles,
+                editorExperiment('platform_synced_block', true) && fg('platform_synced_block_patch_2') && syncBlockPatch2Styles,
 			]}
 			data-testid={testId}
 		>

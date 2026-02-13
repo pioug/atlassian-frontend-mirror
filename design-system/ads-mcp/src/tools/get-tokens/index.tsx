@@ -1,4 +1,5 @@
-import type { CallToolResult } from '@modelcontextprotocol/sdk/types';
+/* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
+import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
 import Fuse from 'fuse.js';
 import { z } from 'zod';
 
@@ -9,19 +10,25 @@ import {
 	type TokenStructuredContent,
 } from './token-structured-content.codegen';
 
-export const getTokensInputSchema: z.ZodObject<{
-    terms: z.ZodOptional<z.ZodDefault<z.ZodArray<z.ZodString, "many">>>;
-    limit: z.ZodOptional<z.ZodDefault<z.ZodNumber>>;
-    exactName: z.ZodOptional<z.ZodDefault<z.ZodBoolean>>;
-}, "strip", z.ZodTypeAny, {
-    terms?: string[] | undefined;
-    limit?: number | undefined;
-    exactName?: boolean | undefined;
-}, {
-    terms?: string[] | undefined;
-    limit?: number | undefined;
-    exactName?: boolean | undefined;
-}> = z.object({
+export const getTokensInputSchema: z.ZodObject<
+	{
+		terms: z.ZodOptional<z.ZodDefault<z.ZodArray<z.ZodString, 'many'>>>;
+		limit: z.ZodOptional<z.ZodDefault<z.ZodNumber>>;
+		exactName: z.ZodOptional<z.ZodDefault<z.ZodBoolean>>;
+	},
+	'strip',
+	z.ZodTypeAny,
+	{
+		terms?: string[] | undefined;
+		limit?: number | undefined;
+		exactName?: boolean | undefined;
+	},
+	{
+		terms?: string[] | undefined;
+		limit?: number | undefined;
+		exactName?: boolean | undefined;
+	}
+> = z.object({
 	terms: z
 		.array(z.string())
 		.default([])
@@ -44,20 +51,25 @@ export const getTokensInputSchema: z.ZodObject<{
 });
 
 export const listGetTokensTool: {
-    name: string; description: string; annotations: {
-        title: string;
-        readOnlyHint: boolean;
-        destructiveHint: boolean;
-        idempotentHint: boolean;
-        openWorldHint: boolean;
-    }; inputSchema: {
-        [x: string]: unknown;
-        type: "object";
-        properties?: {
-            [x: string]: unknown;
-        } | undefined;
-        required?: string[] | undefined;
-    };
+	name: string;
+	description: string;
+	annotations: {
+		title: string;
+		readOnlyHint: boolean;
+		destructiveHint: boolean;
+		idempotentHint: boolean;
+		openWorldHint: boolean;
+	};
+	inputSchema: {
+		[x: string]: unknown;
+		type: 'object';
+		properties?:
+			| {
+					[x: string]: unknown;
+			  }
+			| undefined;
+		required?: string[] | undefined;
+	};
 } = {
 	name: 'ads_get_tokens',
 	description: `Get Atlassian Design System tokens with optional search functionality.

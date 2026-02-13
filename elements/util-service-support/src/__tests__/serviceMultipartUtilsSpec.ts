@@ -1,8 +1,12 @@
 import fetchMock from 'fetch-mock/cjs/client';
 import { meros } from 'meros/browser';
-import type { Part } from 'meros';
 import type { ServiceConfig } from '../types';
 import { requestServiceMultipart } from '../multipartServiceUtils';
+
+// Defined locally because the meros package's `exports` field doesn't expose Part
+type Part<Body, Fallback> =
+	| { json: false; headers: Record<string, string>; body: Fallback }
+	| { json: true; headers: Record<string, string>; body: Body };
 
 jest.mock('meros/browser', () => ({
 	meros: jest.fn(),

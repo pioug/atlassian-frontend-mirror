@@ -53,7 +53,7 @@ const skeletonStyles = cssMap({
         backgroundColor: token('color.skeleton'),
         borderRadius: token('radius.full'),
         width: '100px',
-        height: '1cap',
+        height: 'round(1cap, 1px)',
     },
     elemBefore: {
         backgroundColor: token('color.skeleton'),
@@ -65,7 +65,7 @@ const skeletonStyles = cssMap({
         backgroundColor: token('color.skeleton'),
         borderRadius: token('radius.full'),
         width: '60px',
-        height: '1cap',
+        height: 'round(1cap, 1px)',
     }
 });
 

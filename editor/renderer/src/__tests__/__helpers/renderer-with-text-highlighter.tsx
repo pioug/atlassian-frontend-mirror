@@ -208,7 +208,7 @@ function RendererWithAnnotationsOverMarks() {
 		<RendererActionsContext>
 			<AnnotationsWrapper
 				rendererRef={rendererRef}
-				adfDocument={docWithMultipleMarksAndAnnotations}
+				adfDocument={docWithMultipleMarksAndAnnotations as unknown as DocNode}
 				annotationProvider={annotationProviders}
 				isNestedRender={false}
 			>
@@ -218,7 +218,7 @@ function RendererWithAnnotationsOverMarks() {
 				/>
 				<RendererWithAnalytics
 					innerRef={rendererRef}
-					document={docWithMultipleMarksAndAnnotations}
+					document={docWithMultipleMarksAndAnnotations as unknown as DocNode}
 					appearance="full-page"
 					allowAnnotations
 				/>

@@ -1152,6 +1152,14 @@ export const editorExperimentsConfig: {
 		typeGuard: (value: unknown) => value is 'control' | 'new-description' | 'orig-description';
 		values: ('control' | 'new-description' | 'orig-description')[];
 	};
+	// Added 2026-02-11
+	cc_fd_db_top_editor_toolbar_aa: {
+		defaultValue: 'control' | 'new-description' | 'orig-description';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (value: unknown) => value is 'control' | 'new-description' | 'orig-description';
+		values: ('control' | 'new-description' | 'orig-description')[];
+	};
 	// Added 2026-01-28
 	platform_editor_smartlink_local_cache: {
 		defaultValue: boolean;
@@ -2493,6 +2501,15 @@ export const editorExperimentsConfig: {
 	cc_fd_db_top_editor_toolbar: createMultivariateExperiment({
 		productKeys: {
 			confluence: 'cc_fd_db_top_editor_toolbar',
+		},
+		param: 'cohort',
+		values: ['control', 'new-description', 'orig-description'],
+		defaultValue: 'control',
+	}),
+	// Added 2026-02-11
+	cc_fd_db_top_editor_toolbar_aa: createMultivariateExperiment({
+		productKeys: {
+			confluence: 'cc_fd_db_top_editor_toolbar_aa',
 		},
 		param: 'cohort',
 		values: ['control', 'new-description', 'orig-description'],

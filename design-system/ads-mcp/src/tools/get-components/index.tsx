@@ -1,4 +1,5 @@
-import type { Tool } from '@modelcontextprotocol/sdk/types';
+/* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
+import type { Tool } from '@modelcontextprotocol/sdk/types.js';
 import { z } from 'zod';
 
 import { zodToJsonSchema } from '../../helpers';
@@ -19,12 +20,12 @@ export const listGetComponentsTool: Tool = {
 };
 
 export const getComponentsTool = async (): Promise<{
-    content: {
-        // NOTE: Ideally one day the MCP would support structured content…
-        // eg. `type: 'object', data: component`
-        type: string;
-        text: string;
-    }[];
+	content: {
+		// NOTE: Ideally one day the MCP would support structured content…
+		// eg. `type: 'object', data: component`
+		type: string;
+		text: string;
+	}[];
 }> => ({
 	content: components.map((component) => ({
 		// NOTE: Ideally one day the MCP would support structured content…

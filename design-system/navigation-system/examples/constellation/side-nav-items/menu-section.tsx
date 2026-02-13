@@ -9,19 +9,16 @@ import ChartBarIcon from '@atlaskit/icon/core/chart-bar';
 import InboxIcon from '@atlaskit/icon/core/inbox';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
-import { ContainerAvatar } from '@atlaskit/navigation-system/side-nav-items/container-avatar';
+import { Inline } from '@atlaskit/primitives/compiled';
+import { ContainerAvatar } from '@atlaskit/side-nav-items/container-avatar';
 import {
 	ExpandableMenuItem,
 	ExpandableMenuItemContent,
 	ExpandableMenuItemTrigger,
-} from '@atlaskit/navigation-system/side-nav-items/expandable-menu-item';
-import { LinkMenuItem } from '@atlaskit/navigation-system/side-nav-items/link-menu-item';
-import { MenuList } from '@atlaskit/navigation-system/side-nav-items/menu-list';
-import {
-	MenuSection,
-	MenuSectionHeading,
-} from '@atlaskit/navigation-system/side-nav-items/menu-section';
-import { Inline } from '@atlaskit/primitives/compiled';
+} from '@atlaskit/side-nav-items/expandable-menu-item';
+import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
+import { MenuList } from '@atlaskit/side-nav-items/menu-list';
+import { MenuSection, MenuSectionHeading } from '@atlaskit/side-nav-items/menu-section';
 
 import CDIcon from '../../images/cd.svg';
 import KoalaIcon from '../../images/koala.svg';

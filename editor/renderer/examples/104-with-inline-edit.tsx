@@ -4,6 +4,7 @@ import codeBlockADF from './helper/codeblock.adf.json';
 
 import InlineEdit from '@atlaskit/inline-edit';
 import Textfield from '@atlaskit/textfield';
+import type { DocNode } from '@atlaskit/adf-schema/schema';
 
 export default function InlineEditWithRenderer(): React.JSX.Element {
 	const [editValue, setEditValue] = useState('Field value');
@@ -16,7 +17,7 @@ export default function InlineEditWithRenderer(): React.JSX.Element {
 			readView={() => (
 				<Renderer
 					appearance="full-width"
-					document={codeBlockADF}
+					document={codeBlockADF as DocNode}
 					allowWrapCodeBlock
 					allowCopyToClipboard
 				/>

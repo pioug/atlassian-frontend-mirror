@@ -44,4 +44,9 @@ export interface SimpleTagProps {
 	 * This prop will be removed via codemod after migration is complete.
 	 */
 	migration_fallback?: MigrationFallback;
+	/**
+	 * Maximum width of the tag text. When exceeded, text will be truncated with ellipsis.
+	 * Accepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').
+	 */
+	maxWidth?: string | number;
 }

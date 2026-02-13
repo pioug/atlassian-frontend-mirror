@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-media-editing
 
+## 1.4.2
+
+### Patch Changes
+
+- [`aa1704778c17a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa1704778c17a) -
+  Fixed duplicated image editing edits the original image as well
+
+## 1.4.1
+
+### Patch Changes
+
+- [`cf99e0a56d905`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf99e0a56d905) -
+  fixed dark mode automatically switches to light mode when opening the image editing modal
+- Updated dependencies
+
 ## 1.4.0
 
 ### Minor Changes

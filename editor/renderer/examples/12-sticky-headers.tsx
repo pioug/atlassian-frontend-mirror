@@ -6,6 +6,7 @@ import { default as Renderer } from '../src/ui/Renderer';
 import document from './helper/sticky-headers.adf.json';
 
 import Sidebar from './helper/NavigationNext';
+import type { DocNode } from '@atlaskit/adf-schema/schema';
 
 const mediaProvider = storyMediaProviderFactory();
 const providerFactory = ProviderFactory.create({ mediaProvider });
@@ -42,7 +43,7 @@ export default function Example(): React.JSX.Element {
 				{(additionalProps: object) => (
 					<Renderer
 						dataProviders={providerFactory}
-						document={document}
+						document={document as DocNode}
 						allowColumnSorting
 						stickyHeaders={{
 							offsetTop: height,

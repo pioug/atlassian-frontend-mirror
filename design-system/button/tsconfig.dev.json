@@ -33,8 +33,7 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__button/dev",
-		"moduleResolution": "node"
+		"outDir": "../../../tsDist/@atlaskit__button/dev"
 	},
 	"references": [
 		{

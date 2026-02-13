@@ -1,7 +1,6 @@
 import { renderHook, waitFor } from '@testing-library/react';
 
 import { teamsClient } from '@atlaskit/teams-client';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { useTeamWebLinks } from './index';
 
@@ -368,16 +367,14 @@ describe('useTeamWebLinks', () => {
 		expect(result.current[0].iconsError).toBe(false);
 	});
 
-	ffTest.on('prevent_parallel_team_web_links_fetch', 'true', () => {
-		it('should not fetch team links if it is still loading', async () => {
-			const { result } = renderHook(() => useTeamWebLinks());
-			result.current[1].initialState({
-				teamId: mockTeamId,
-				isLoading: true,
-			});
-
-			await result.current[1].getTeamWebLinks(mockTeamId);
-			expect(teamsClient.getTeamLinksByTeamId).not.toHaveBeenCalled();
+	it('should not fetch team links if it is still loading', async () => {
+		const { result } = renderHook(() => useTeamWebLinks());
+		result.current[1].initialState({
+			teamId: mockTeamId,
+			isLoading: true,
 		});
+
+		await result.current[1].getTeamWebLinks(mockTeamId);
+		expect(teamsClient.getTeamLinksByTeamId).not.toHaveBeenCalled();
 	});
 });

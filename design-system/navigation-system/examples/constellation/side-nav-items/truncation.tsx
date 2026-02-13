@@ -5,13 +5,10 @@ import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
 import {
 	ExpandableMenuItem,
 	ExpandableMenuItemTrigger,
-} from '@atlaskit/navigation-system/side-nav-items/expandable-menu-item';
-import {
-	FlyoutMenuItem,
-	FlyoutMenuItemTrigger,
-} from '@atlaskit/navigation-system/side-nav-items/flyout-menu-item';
-import { LinkMenuItem } from '@atlaskit/navigation-system/side-nav-items/link-menu-item';
-import { MenuList } from '@atlaskit/navigation-system/side-nav-items/menu-list';
+} from '@atlaskit/side-nav-items/expandable-menu-item';
+import { FlyoutMenuItem, FlyoutMenuItemTrigger } from '@atlaskit/side-nav-items/flyout-menu-item';
+import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
+import { MenuList } from '@atlaskit/side-nav-items/menu-list';
 
 import { MockSideNav } from './common/mock-side-nav';
 

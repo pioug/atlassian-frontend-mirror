@@ -4,21 +4,15 @@ import ClockIcon from '@atlaskit/icon/core/clock';
 import HomeIcon from '@atlaskit/icon/core/home';
 import { JiraIcon } from '@atlaskit/logo';
 import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
-import { ContainerAvatar } from '@atlaskit/navigation-system/side-nav-items/container-avatar';
+import { Inline } from '@atlaskit/primitives/compiled';
+import { ContainerAvatar } from '@atlaskit/side-nav-items/container-avatar';
 import {
 	ExpandableMenuItem,
 	ExpandableMenuItemTrigger,
-} from '@atlaskit/navigation-system/side-nav-items/expandable-menu-item';
-import {
-	FlyoutMenuItem,
-	FlyoutMenuItemTrigger,
-} from '@atlaskit/navigation-system/side-nav-items/flyout-menu-item';
-import {
-	COLLAPSE_ELEM_BEFORE,
-	LinkMenuItem,
-} from '@atlaskit/navigation-system/side-nav-items/link-menu-item';
-import { MenuList } from '@atlaskit/navigation-system/side-nav-items/menu-list';
-import { Inline } from '@atlaskit/primitives/compiled';
+} from '@atlaskit/side-nav-items/expandable-menu-item';
+import { FlyoutMenuItem, FlyoutMenuItemTrigger } from '@atlaskit/side-nav-items/flyout-menu-item';
+import { COLLAPSE_ELEM_BEFORE, LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
+import { MenuList } from '@atlaskit/side-nav-items/menu-list';
 
 import MoneyIcon from '../../images/money.svg';
 

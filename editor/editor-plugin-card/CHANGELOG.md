@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-card
 
+## 12.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.3.4
 
 ### Patch Changes

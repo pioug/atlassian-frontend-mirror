@@ -86,6 +86,11 @@ interface CommonAvatarTagProps {
 	 * Handler to be called after tag is removed.
 	 */
 	onAfterRemoveAction?: (text: string) => void;
+	/**
+	 * Maximum width of the tag. When exceeded, the text will be truncated with ellipsis.
+	 * Accepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').
+	 */
+	maxWidth?: string | number;
 }
 
 /**
@@ -163,6 +168,7 @@ const styles = cssMapUnbound({
 		display: 'inline-flex',
 		boxSizing: 'border-box',
 		minWidth: '0px',
+		maxWidth: '11.25rem',
 		height: token('space.250', '20px'),
 		position: 'relative',
 		alignItems: 'center',
@@ -216,7 +222,6 @@ const styles = cssMapUnbound({
 		whiteSpace: 'nowrap',
 		flexGrow: 1,
 		minWidth: 0,
-		maxWidth: '180px',
 		color: token('color.text'),
 	},
 	afterStyles: {
@@ -258,6 +263,9 @@ const styles = cssMapUnbound({
 			alignItems: 'center',
 			gap: token('space.025', '2px'),
 			textDecoration: 'none',
+			// Allow link to shrink and enable text truncation
+			minWidth: 0,
+			overflow: 'hidden',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 			color: 'inherit !important',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
@@ -292,6 +300,11 @@ const styles = cssMapUnbound({
 		'& a:hover': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 			color: 'inherit !important',
+		},
+		// Only underline the text span, not the avatar
+		// @ts-ignore
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'& a:hover > span[data-tag-text]': {
 			textDecoration: 'underline',
 		},
 	},
@@ -379,6 +392,7 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 		onAfterRemoveAction,
 		testId,
 		isVerified, // Shows verified icon for 'other' type tags
+		maxWidth,
 		...other
 	},
 	ref,
@@ -458,6 +472,8 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 				isLinkFocused && !isButtonFocused && styles.childFocusRingStyles,
 			]}
 			data-testid={testId}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			style={maxWidth !== undefined ? { maxWidth } : undefined}
 		>
 			<LinkWrapper
 				isLink={isLink}
@@ -475,7 +491,9 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 				>
 					{avatarElement}
 				</span>
-				<span css={styles.textStyles}>{text}</span>
+				<span css={styles.textStyles} data-tag-text>
+					{text}
+				</span>
 			</LinkWrapper>
 			{showVerified && (
 				<span css={styles.verifiedIconStyles}>

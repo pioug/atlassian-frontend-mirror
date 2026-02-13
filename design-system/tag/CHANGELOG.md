@@ -1,5 +1,12 @@
 # @atlaskit/tag
 
+## 14.5.0
+
+### Minor Changes
+
+- [`0077e648d508d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0077e648d508d) -
+  [ux] Adds maxWidth optional prop to Tag
+
 ## 14.4.0
 
 ### Minor Changes

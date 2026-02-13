@@ -1,34 +1,39 @@
-import type { Tool } from '@modelcontextprotocol/sdk/types';
+/* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
+import type { Tool } from '@modelcontextprotocol/sdk/types.js';
 import { z } from 'zod';
 
 import { zodToJsonSchema } from '../../helpers';
 
-import { getAvailableMigrationIds, getAvailableMigrationsDescription, migrationRegistry } from './registry';
+import {
+	getAvailableMigrationIds,
+	getAvailableMigrationsDescription,
+	migrationRegistry,
+} from './registry';
 
 // Build the enum dynamically from the registry
 const migrationIds = getAvailableMigrationIds();
 const migrationDescriptions = getAvailableMigrationsDescription();
 
-export const migrationGuidesInputSchema: z.ZodObject<{
-	migration: z.ZodEnum<[string]>;
-	description: z.ZodEnum<[string]>;
-}, "strip", z.ZodTypeAny, {
-	migration: string;
-	description: string;
-}, {
-	migration: string;
-	description: string;
-}> = z.object({
-	migration: z
-		.enum(migrationIds as [string])
-		.describe(
-			`The specific migration to perform.\n`,
-		),
+export const migrationGuidesInputSchema: z.ZodObject<
+	{
+		migration: z.ZodEnum<[string]>;
+		description: z.ZodEnum<[string]>;
+	},
+	'strip',
+	z.ZodTypeAny,
+	{
+		migration: string;
+		description: string;
+	},
+	{
+		migration: string;
+		description: string;
+	}
+> = z.object({
+	migration: z.enum(migrationIds as [string]).describe(`The specific migration to perform.\n`),
 	description: z
 		.enum(migrationDescriptions as [string])
-		.describe(
-			`Description of the migration type.\n`,
-		),
+		.describe(`Description of the migration type.\n`),
 });
 
 export const listMigrationGuidesTool: Tool = {
@@ -106,4 +111,3 @@ export const migrationGuidesTool = async (
 		],
 	};
 };
-

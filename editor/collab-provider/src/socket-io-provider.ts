@@ -17,6 +17,7 @@ export function createSocketIOSocket(
 	isPresenceOnly?: boolean,
 	analyticsHelper?: AnalyticsHelper,
 	path?: string,
+	documentAri?: string,
 ): Socket {
 	const { pathname } = new URL(url);
 	let socketIOOptions = SOCKET_IO_OPTIONS;
@@ -87,6 +88,9 @@ export function createSocketIOSocket(
 		path: usePMR && path ? `${path}/socket.io` : `/${pathname.split('/')[1]}/socket.io`,
 		auth,
 		extraHeaders,
+		query: {
+			sourceId: documentAri?.split('/')[1]
+		}
 	});
 
 	return client;

@@ -13,17 +13,11 @@ import {
 	ExpandableMenuItem,
 	ExpandableMenuItemContent,
 	ExpandableMenuItemTrigger,
-} from '@atlaskit/navigation-system/side-nav-items/expandable-menu-item';
-import {
-	FlyoutMenuItem,
-	FlyoutMenuItemTrigger,
-} from '@atlaskit/navigation-system/side-nav-items/flyout-menu-item';
-import { LinkMenuItem } from '@atlaskit/navigation-system/side-nav-items/link-menu-item';
-import { MenuList } from '@atlaskit/navigation-system/side-nav-items/menu-list';
-import {
-	MenuSection,
-	MenuSectionHeading,
-} from '@atlaskit/navigation-system/side-nav-items/menu-section';
+} from '@atlaskit/side-nav-items/expandable-menu-item';
+import { FlyoutMenuItem, FlyoutMenuItemTrigger } from '@atlaskit/side-nav-items/flyout-menu-item';
+import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
+import { MenuList } from '@atlaskit/side-nav-items/menu-list';
+import { MenuSection, MenuSectionHeading } from '@atlaskit/side-nav-items/menu-section';
 
 import { MockSideNav } from './common/mock-side-nav';
 

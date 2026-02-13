@@ -11,25 +11,25 @@ import type { RemainingRequired } from '../common/types';
 import { getAttributesFromContexts, getDefaultTrackEventConfig } from '../common/utils';
 
 export enum AgentActions {
-	/* View agent clicked */
+	/* View agent clicked - https://data-portal.internal.atlassian.com/analytics/registry/97125 */
 	VIEW = 'view',
-	/* Edit agent clicked */
+	/* Edit agent clicked - https://data-portal.internal.atlassian.com/analytics/registry/97126 */
 	EDIT = 'edit',
-	/* Agent updated */
+	/* Agent updated - https://data-portal.internal.atlassian.com/analytics/registry/97122 */
 	UPDATED = 'updated',
-	/* Copy link clicked */
+	/* Copy link clicked - https://data-portal.internal.atlassian.com/analytics/registry/97128 */
 	COPY_LINK = 'copyLink',
-	/* Delete agent clicked */
+	/* Delete agent clicked - https://data-portal.internal.atlassian.com/analytics/registry/97129 */
 	DELETE = 'delete',
-	/* Duplicate agent clicked */
+	/* Duplicate agent clicked - https://data-portal.internal.atlassian.com/analytics/registry/97130 */
 	DUPLICATE = 'duplicate',
-	/* Star agent clicked */
+	/* Star agent clicked - https://data-portal.internal.atlassian.com/analytics/registry/97133 */
 	STAR = 'star',
-	/* Chat with agent clicked */
+	/* Chat with agent clicked - https://data-portal.internal.atlassian.com/analytics/registry/97095 */
 	CHAT = 'chat',
-	/* Verify agent clicked */
+	/* Verify agent clicked - https://data-portal.internal.atlassian.com/analytics/registry/97134 */
 	VERIFY = 'verify',
-	/* Unverify agent clicked */
+	/* Unverify agent clicked - https://data-portal.internal.atlassian.com/analytics/registry/97135 */
 	UNVERIFY = 'unverify',
 }
 

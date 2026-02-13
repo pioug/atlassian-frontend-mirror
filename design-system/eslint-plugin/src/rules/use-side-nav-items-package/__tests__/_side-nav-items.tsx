@@ -47,10 +47,6 @@ const invalid = [
       import { ButtonMenuItem, MenuList } from '@atlaskit/navigation-system';
     `,
 		errors: [errorBarrel],
-		output: outdent`
-      import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
-      import { MenuList } from '@atlaskit/side-nav-items/menu-list';
-    `,
 	},
 	{
 		code: outdent`
@@ -59,10 +55,6 @@ const invalid = [
 		errors: [
 			'The following imports have moved to @atlaskit/side-nav-items: MenuList. Import them from @atlaskit/side-nav-items.',
 		],
-		output: outdent`
-      import { Main } from '@atlaskit/navigation-system';
-      import { MenuList } from '@atlaskit/side-nav-items/menu-list';
-    `,
 	},
 ];
 

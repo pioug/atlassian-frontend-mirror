@@ -1,4 +1,5 @@
-import type { Tool } from '@modelcontextprotocol/sdk/types';
+/* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
+import type { Tool } from '@modelcontextprotocol/sdk/types.js';
 import { zodToJsonSchema as zodToJsonSchemaHelper } from 'zod-to-json-schema';
 
 export const cleanQuery = (query: string): string => query.trim().toLowerCase().replace(/\s+/g, '');

@@ -5,9 +5,9 @@ import HomeIcon from '@atlaskit/icon/core/home';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import Lozenge from '@atlaskit/lozenge';
 import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
-import { LinkMenuItem } from '@atlaskit/navigation-system/side-nav-items/link-menu-item';
-import { MenuList } from '@atlaskit/navigation-system/side-nav-items/menu-list';
 import { Inline } from '@atlaskit/primitives/compiled';
+import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
+import { MenuList } from '@atlaskit/side-nav-items/menu-list';
 
 import { MockSideNav } from './common/mock-side-nav';
 

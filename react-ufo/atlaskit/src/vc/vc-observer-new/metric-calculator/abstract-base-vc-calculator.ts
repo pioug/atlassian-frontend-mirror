@@ -172,13 +172,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 
 				// Check if this entry matches any checkpoint percentiles
 				if (viewportPercentage >= percentiles[percentileIndex]) {
-					let elementNames: string[] = [];
-
-					if (fg('platform_ufo_dedupe_repeated_vc_offenders')) {
-						elementNames = [...(new Set(entries.map((e: ViewportEntryData) => e.elementName)))]
-					} else {
-						elementNames = entries.map((e: ViewportEntryData) => e.elementName);
-					}
+					const elementNames = [...new Set(entries.map((e: ViewportEntryData) => e.elementName))];
 
 					// Process all matching percentiles in one go
 					while (

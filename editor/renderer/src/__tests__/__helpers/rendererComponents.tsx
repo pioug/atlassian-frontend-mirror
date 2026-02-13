@@ -48,7 +48,9 @@ const defaultBaseRendererProps: Omit<RendererProps, 'document'> = {
 };
 
 export const generateRendererComponent = (
-	props: RendererProps,
+	props: Omit<RendererProps, 'document'> & {
+		document: RendererProps['document'] | Record<string, unknown>;
+	},
 	options?: {
 		mockDatasources?: boolean;
 		mockRelayEnvironment?: boolean;
@@ -58,6 +60,7 @@ export const generateRendererComponent = (
 	const renderProps = {
 		...defaultBaseRendererProps,
 		...props,
+		document: props.document as RendererProps['document'],
 	};
 
 	const mockDatasources = options?.mockDatasources ?? false;

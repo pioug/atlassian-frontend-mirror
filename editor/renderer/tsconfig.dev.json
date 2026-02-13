@@ -38,7 +38,9 @@
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__renderer/dev",
-		"moduleResolution": "node"
+		"paths": {
+			"@atlaskit/editor-common/src/*": ["packages/editor/editor-common/src/*"]
+		}
 	},
 	"references": [
 		{

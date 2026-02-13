@@ -4,10 +4,17 @@ import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-p
 
 import { default as Renderer } from '../src/ui/Renderer';
 import document from './helper/media-resize-layout.adf.json';
+import type { DocNode } from '@atlaskit/adf-schema/schema';
 
 const mediaProvider = storyMediaProviderFactory();
 const providerFactory = ProviderFactory.create({ mediaProvider });
 
 export default function Example(): React.JSX.Element {
-	return <Renderer dataProviders={providerFactory} document={document} appearance="full-page" />;
+	return (
+		<Renderer
+			dataProviders={providerFactory}
+			document={document as DocNode}
+			appearance="full-page"
+		/>
+	);
 }

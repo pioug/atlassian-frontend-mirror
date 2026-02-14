@@ -12,6 +12,7 @@ export type LozengeActionProps = {
 	action: LinkLozengeInvokeActions;
 	appearance?: ThemeAppearance;
 	onAfterChanged?: () => void;
+	shouldRenderToParent?: boolean;
 	testId?: string;
 	text: string | React.ReactNode;
 	zIndex?: number;

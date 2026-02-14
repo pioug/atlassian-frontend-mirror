@@ -12,7 +12,7 @@ import { jsx } from '@atlaskit/css';
 import { Label } from '@atlaskit/form';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
-import { AgentAvatar } from '@atlaskit/rovo-agent-components';
+import { AgentAvatar } from '@atlaskit/rovo-agent-components/ui/AgentAvatar';
 import Select from '@atlaskit/select';
 
 import { useSuspenselessRefetch } from '../../common/utils/use-suspenseless-refetch';

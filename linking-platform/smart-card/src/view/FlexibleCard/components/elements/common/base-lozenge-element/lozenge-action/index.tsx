@@ -39,6 +39,7 @@ const LozengeAction = ({
 	text,
 	zIndex,
 	onAfterChanged,
+	shouldRenderToParent = false,
 }: LozengeActionProps) => {
 	const [selected, setSelected] = useState<Partial<LozengeActionTriggerProps>>({
 		appearance,
@@ -186,7 +187,7 @@ const LozengeAction = ({
 			testId={testId}
 			trigger={trigger}
 			zIndex={zIndex}
-			shouldRenderToParent
+			shouldRenderToParent={shouldRenderToParent}
 		>
 			{dropdownItemGroup}
 		</DropdownMenu>

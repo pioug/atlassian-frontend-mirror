@@ -46,11 +46,18 @@
 
 ## Example migration from Tailwind classes to ADS radius tokens
 
-```tsx
+```diff
++/** @jsx jsx */
 +import { token } from '@atlaskit/tokens';
++import { cssMap, jsx } from '@atlaskit/css';
++const styles = cssMap({
++  large: { borderRadius: token('radius.large') },
++  full: { borderRadius: token('radius.full') }
++});
+
 -<div className="rounded-lg">Card content</div>
-+<div style={{ borderRadius: token('radius.large') }}>Card content</div>
++<div css={styles.large}>Card content</div>
 
 -<img className="rounded-full" src="…" />
-+<img style={{ borderRadius: token('radius.full') }} src="…" />
++<img css={styles.full} src="…" />
 ```

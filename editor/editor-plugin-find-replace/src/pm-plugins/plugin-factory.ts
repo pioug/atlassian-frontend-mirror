@@ -17,12 +17,12 @@ import {
 	findDecorationFromMatch,
 	findMatches,
 	findSearchIndex,
+	findUniqueItemsIn,
 	getSelectionForMatch,
 	isMatchAffectedByStep,
 	removeDecorationsFromSet,
 	removeMatchesFromSet,
 } from './utils';
-import { findUniqueItemsIn } from './utils/array'; // TODO: ED-26959 - move into index export
 
 const handleDocChanged = (
 	tr: ReadonlyTransaction,

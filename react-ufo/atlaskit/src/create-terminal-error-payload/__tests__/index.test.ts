@@ -24,6 +24,7 @@ describe('createTerminalErrorPayload', () => {
 		previousInteractionType: null,
 		timeSincePreviousInteraction: null,
 		labelStack: null,
+		routeName: null,
 	};
 
 	beforeEach(() => {
@@ -174,5 +175,22 @@ describe('createTerminalErrorPayload', () => {
 		const result = createTerminalErrorPayload(mockTerminalErrorData, mockTerminalErrorContext);
 
 		expect(result?.attributes.properties.labelStack).toBeNull();
+	});
+
+	it('should include routeName from context in payload', () => {
+		const contextWithRouteName: TerminalErrorContext = {
+			...mockTerminalErrorContext,
+			routeName: 'test-route-name',
+		};
+
+		const result = createTerminalErrorPayload(mockTerminalErrorData, contextWithRouteName);
+
+		expect(result?.attributes.properties.routeName).toBe('test-route-name');
+	});
+
+	it('should set routeName to null when not provided in context', () => {
+		const result = createTerminalErrorPayload(mockTerminalErrorData, mockTerminalErrorContext);
+
+		expect(result?.attributes.properties.routeName).toBeNull();
 	});
 });

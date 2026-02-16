@@ -5,7 +5,6 @@ import { useIntl } from 'react-intl-next';
 import type { DocNode } from '@atlaskit/adf-schema';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	ReactRenderer,
 	ValidationContextProvider,
@@ -119,36 +118,7 @@ export const AKRendererWrapper = memo(
 		return (
 			<RendererActionsContext>
 				<ValidationContextWrapper>
-					{fg('platform_synced_block_patch_1') ? (
-						<RendererContextProvider value={{ nestedRendererType: 'syncedBlock' }}>
-							<div data-testid="sync-block-renderer-wrapper">
-								<ReactRenderer
-									appearance={appearance}
-									adfStage="stage0"
-									document={doc}
-									disableHeadingIDs={true}
-									dataProviders={dataProviders}
-									nodeComponents={nodeComponents}
-									allowAltTextOnImages={allowAltTextOnImages}
-									allowAnnotations={allowAnnotations}
-									allowColumnSorting={allowColumnSorting}
-									allowCopyToClipboard={allowCopyToClipboard}
-									allowCustomPanels={allowCustomPanels}
-									allowHeadingAnchorLinks={allowHeadingAnchorLinks}
-									allowPlaceholderText={allowPlaceholderText}
-									allowRendererContainerStyles={allowRendererContainerStyles}
-									allowSelectAllTrap={allowSelectAllTrap}
-									allowUgcScrubber={allowUgcScrubber}
-									allowWrapCodeBlock={allowWrapCodeBlock}
-									emojiResourceConfig={emojiResourceConfig}
-                                    eventHandlers={fg('platform_synced_block_patch_1') ? eventHandlers : undefined}
-									media={media}
-									smartLinks={smartLinks}
-									stickyHeaders={stickyHeaders}
-								/>
-							</div>
-						</RendererContextProvider>
-					) : (
+					<RendererContextProvider value={{ nestedRendererType: 'syncedBlock' }}>
 						<div data-testid="sync-block-renderer-wrapper">
 							<ReactRenderer
 								appearance={appearance}
@@ -169,12 +139,13 @@ export const AKRendererWrapper = memo(
 								allowUgcScrubber={allowUgcScrubber}
 								allowWrapCodeBlock={allowWrapCodeBlock}
 								emojiResourceConfig={emojiResourceConfig}
+								eventHandlers={eventHandlers}
 								media={media}
 								smartLinks={smartLinks}
 								stickyHeaders={stickyHeaders}
 							/>
 						</div>
-					)}
+					</RendererContextProvider>
 				</ValidationContextWrapper>
 			</RendererActionsContext>
 		);

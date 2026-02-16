@@ -221,7 +221,7 @@ export const fetchConfluencePageInfo = async (
 	isUnpublished?: boolean,
 ): Promise<SyncBlockSourceInfo | undefined> => {
 	// For unpublished pages, use the v2 pages API as GraphQL returns empty content.nodes
-	if (isUnpublished && fg('platform_synced_block_patch_1')) {
+	if (isUnpublished) {
 		if (!fg('platform_synced_block_patch_2')) {
 			return await fetchCompleteConfluencePageInfo(pageAri, localId);
 		}

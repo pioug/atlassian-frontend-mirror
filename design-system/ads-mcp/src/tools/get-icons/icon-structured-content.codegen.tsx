@@ -3,7 +3,7 @@
  *
  * Structured content for icons generated from icon-metadata.
  *
- * @codegen <<SignedSource::6232931cb337024e8c763a9415f28dce>>
+ * @codegen <<SignedSource::ac3161ec5b8e571e1aeb6cb1dcddd43e>>
  * @codegenCommand yarn build structured-docs
  */
 export interface IconStructuredContent {
@@ -65,6 +65,24 @@ export const iconStructuredContent: IconStructuredContent[] = [
 		],
 		categorization: 'single-purpose',
 		usage: 'Reserved for summarizing content with Atlassian Intelligence & Loom',
+		status: 'published',
+	},
+	{
+		content:
+			"# Ai Sparkle Icon\n\nReserved for representing AI-powered features and functionality.  Note: The 'Editions' gem icon has replaced the sparkle icon for representing premium features in upsell experiences.\n\nKeywords\n\n- ai-sparkle\n- aisparkle\n- icon\n- AI\n- sparkles\n- generative AI\n- AI functionality\n\nImport statement:\n\n```tsx\nimport AiSparkleIcon from '@atlaskit/icon/core/ai-sparkle';\n```\n\nSizes:\n\n- Small\n- Medium\n",
+		componentName: 'AiSparkleIcon',
+		keywords: [
+			'ai-sparkle',
+			'aisparkle',
+			'icon',
+			'AI',
+			'sparkles',
+			'generative AI',
+			'AI functionality',
+		],
+		categorization: 'single-purpose',
+		usage:
+			"Reserved for representing AI-powered features and functionality.  Note: The 'Editions' gem icon has replaced the sparkle icon for representing premium features in upsell experiences.",
 		status: 'published',
 	},
 	{
@@ -5093,6 +5111,27 @@ export const iconStructuredContent: IconStructuredContent[] = [
 	},
 	{
 		content:
+			"# Ask Icon\n\nReserved for representing Asks in Focus. An ask is structured request made by one team or user to another, representing work needed to complete other work.\n\nKeywords\n\n- ask\n- icon\n- icon-lab\n- collaboration\n- hand shake\n- ask\n- focus\n- structured request\n- negotation\n- dependency\n\nImport statement:\n\n```tsx\nimport AskIcon from '@atlaskit/icon-lab/core/ask';\n```\n\nSizes:\n\n- Small\n- Medium\n",
+		componentName: 'AskIcon',
+		keywords: [
+			'ask',
+			'icon',
+			'icon-lab',
+			'collaboration',
+			'hand shake',
+			'ask',
+			'focus',
+			'structured request',
+			'negotation',
+			'dependency',
+		],
+		categorization: 'single-purpose',
+		usage:
+			'Reserved for representing Asks in Focus. An ask is structured request made by one team or user to another, representing work needed to complete other work.',
+		status: 'published',
+	},
+	{
+		content:
 			"# Assets Data Manager Icon\n\nReserved for JSM Assets.\n\nKeywords\n\n- assets-data-manager\n- assetsdatamanager\n- icon\n- icon-lab\n- data manager\n- assets\n- CMDB\n- configuration management database\n\nImport statement:\n\n```tsx\nimport AssetsDataManagerIcon from '@atlaskit/icon-lab/core/assets-data-manager';\n```\n\nSizes:\n\n- Small\n- Medium\n",
 		componentName: 'AssetsDataManagerIcon',
 		keywords: [
@@ -8208,7 +8247,7 @@ export const iconStructuredContent: IconStructuredContent[] = [
 	},
 	{
 		content:
-			"# Editions Icon\n\nReserved for representing premium features and functionality. Editions may replace the current premium sparkle icon.\n\nKeywords\n\n- editions\n- icon\n- icon-lab\n- gem\n- premium\n- diamond\n- precious stone\n- editions\n\nImport statement:\n\n```tsx\nimport EditionsIcon from '@atlaskit/icon-lab/core/editions';\n```\n\nSizes:\n\n- Small\n- Medium\n",
+			"# Editions Icon\n\nReserved for representing premium features in upsell experiences. The Editions gem icon has officially replaced the sparkle icon.\n\nKeywords\n\n- editions\n- icon\n- icon-lab\n- gem\n- premium\n- diamond\n- precious stone\n- editions\n\nImport statement:\n\n```tsx\nimport EditionsIcon from '@atlaskit/icon-lab/core/editions';\n```\n\nSizes:\n\n- Small\n- Medium\n",
 		componentName: 'EditionsIcon',
 		keywords: [
 			'editions',
@@ -8222,7 +8261,7 @@ export const iconStructuredContent: IconStructuredContent[] = [
 		],
 		categorization: 'single-purpose',
 		usage:
-			'Reserved for representing premium features and functionality. Editions may replace the current premium sparkle icon.',
+			'Reserved for representing premium features in upsell experiences. The Editions gem icon has officially replaced the sparkle icon.',
 		status: 'published',
 	},
 	{

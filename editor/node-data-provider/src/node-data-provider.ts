@@ -1,7 +1,7 @@
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import type { JSONNode } from '@atlaskit/editor-json-transformer';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 /**
  * Represents the SSR data for a single provider.
@@ -115,7 +115,7 @@ export abstract class NodeDataProvider<Node extends JSONNode, Data> {
 	 * @param ssrData A map of node data keys to their corresponding data.
 	 */
 	setSSRData(ssrData: SSRData<Data> = {}): void {
-		if (fg('platform_synced_block_patch_1')) {
+		if (editorExperiment('platform_synced_block', true)) {
 			this.updateCache(ssrData, { strategy: 'replace', source: 'ssr' });
 			return;
 		}
@@ -242,7 +242,7 @@ export abstract class NodeDataProvider<Node extends JSONNode, Data> {
 				// because it could be stale data.
 				if (cacheVersionBeforeRequest === this.cacheVersion) {
 					// Replace promise with the resolved data in the cache
-					if (fg('platform_synced_block_patch_1')) {
+					if (editorExperiment('platform_synced_block', true)) {
 						this.updateCache({ [dataKey]: data }, { strategy: 'merge', source: 'network' });
 					} else {
 						this.cache[dataKey] = {

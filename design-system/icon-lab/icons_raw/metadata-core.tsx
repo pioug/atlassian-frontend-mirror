@@ -323,6 +323,25 @@ const metadata: IconMetadata = {
 		usage: 'Used within Jira Pages to connect or switch to a Space or page.',
 		createdAt: '2025-07-31T03:28:03.217Z',
 	},
+	ask: {
+		keywords: [
+			'collaboration',
+			'hand shake',
+			'ask',
+			'focus',
+			'structured request',
+			'negotation',
+			'dependency',
+		],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Focus',
+		status: 'published',
+		id: '62233:19387',
+		usage:
+			'Reserved for representing Asks in Focus. An ask is structured request made by one team or user to another, representing work needed to complete other work.',
+		createdAt: '2026-02-13T06:54:07.456Z',
+	},
 	'assets-data-manager': {
 		keywords: ['data manager', 'assets', 'CMDB', 'configuration management database'],
 		categorization: 'single-purpose',
@@ -2226,7 +2245,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '13269:2278',
 		usage:
-			'Reserved for representing premium features and functionality. Editions may replace the current premium sparkle icon.',
+			'Reserved for representing premium features in upsell experiences. The Editions gem icon has officially replaced the sparkle icon.',
 		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'expand-element': {
@@ -2972,7 +2991,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '39662:2817',
 		usage: 'Reserved for setting objects to recur (eg Work items, Forms)',
-		slackChannel: '#horizon-pandora-team',
+		slackChannel: '#horizon-pandora-eng',
 		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'reply-left': {
@@ -4379,7 +4398,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '32051:1614',
 		usage: 'Known uses: Intro blog feed picker on Hello',
-		slackChannel: '#cc-performance-insights',
+		slackChannel: '#cc-insights-and-reporting',
 		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'work-item-add': {

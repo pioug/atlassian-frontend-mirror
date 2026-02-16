@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1685b4fc52f04ece398eb0605430c0c7>>
+ * @codegen <<SignedSource::02c2e4c6fcb9b0015bd1b68a0c762673>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
@@ -10,8 +10,6 @@ import NewIcon from '@atlaskit/icon/core/story';
 import type { GlyphProps } from '@atlaskit/icon/types';
 import NewObjectComponent from '@atlaskit/object/story';
 import { fg } from '@atlaskit/platform-feature-flags';
-
-import IconObjectOld from '../../glyph-legacy/story/16';
 
 /**
  * __16px `story` icon object__
@@ -33,16 +31,7 @@ const Story16Icon: {
 		return <NewObjectComponent label={label} testId={testId} size="medium" />;
 	}
 
-	return (
-		<IconTile
-			icon={NewIcon}
-			appearance="greenBold"
-			size="16"
-			label={label}
-			testId={testId}
-			LEGACY_fallbackComponent={<IconObjectOld label={label} testId={testId} />}
-		/>
-	);
+	return <IconTile icon={NewIcon} appearance="greenBold" size="16" label={label} testId={testId} />;
 };
 
 Story16Icon.displayName = 'Story16Icon';

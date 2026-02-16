@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-breakout
 
+## 7.0.14
+
+### Patch Changes
+
+- [`edbbd04a0a2b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edbbd04a0a2b8) -
+  Remove platform_editor_breakout_resizing_vc90_fix feature flag - feature has been shipped
+- Updated dependencies
+
+## 7.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.12
 
 ### Patch Changes

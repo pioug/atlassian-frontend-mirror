@@ -194,20 +194,27 @@
 | bg-zinc-300    | #D4D4D8     | color.background.accent.gray.subtlest.hovered    | #DCDFE4     |
 | bg-zinc-400    | #A1A1AA     | color.background.accent.gray.subtlest.pressed    | #B3B9C4     |
 
-Example migration from Tailwind classes to ADS color tokens:
+# Translating from Tailwind
 
-```tsx
+```diff
++/** @jsx jsx */
 +import { token } from '@atlaskit/tokens';
++import { cssMap, jsx } from '@atlaskit/css';
++const styles = cssMap({
++  content: {
++    backgroundColor: token('elevation.surface.sunken'),
++    color: token('color.text.accent.gray'),
++    borderColor: token('color.border')
++  },
++  success: {
++    color: token('color.text.accent.green.bolder'),
++    backgroundColor: token('color.background.accent.green.subtlest')
++  }
++});
+
 -<div className="bg-gray-100 text-gray-700 border border-gray-300">Content</div>
-+<div style={{
-+  backgroundColor: token('elevation.surface.sunken'),
-+  color: token('color.text.accent.gray'),
-+  borderColor: token('color.border')
-+}}>Content</div>
++<div css={styles.content}>Content</div>
 
 -<span className="text-green-600 bg-green-100">Success</span>
-+<span style={{
-+  color: token('color.text.accent.green.bolder'),
-+  backgroundColor: token('color.background.accent.green.subtlest')
-+}}>Success</span>
++<span css={styles.success}}>Success</span>
 ```

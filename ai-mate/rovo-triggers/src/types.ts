@@ -9,6 +9,7 @@ import type {
 	StudioAutomationBuildUpdatePayload,
 	UpdateAgentConfigurationPayload,
 } from './common/types/solution-architect';
+import type { StudioCloseRovoPanelPayload } from './common/types/studio';
 import type { ChatContextPayload } from './common/utils/chat-context/types';
 
 export const Topics = {
@@ -423,7 +424,8 @@ export type Payload =
 	| SolutionPlanStateUpdatePayload
 	| SolutionDraftAgentUpdatePayload
 	| SolutionArchitectAgentActivationPayload
-	| UpdateAgentConfigurationPayload;
+	| UpdateAgentConfigurationPayload
+	| StudioCloseRovoPanelPayload;
 
 export type Callback = (payload: Payload) => void;
 

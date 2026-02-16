@@ -1,5 +1,26 @@
 # @atlaskit/editor-statsig-tmp
 
+## 25.1.0
+
+### Minor Changes
+
+- [`584ac5ca3f498`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/584ac5ca3f498) -
+  [ux] EDITOR-5269 Disables the copy button for legacy content macro nodes
+
+## 25.0.0
+
+### Major Changes
+
+- [`a5a1710c6da4a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a5a1710c6da4a) -
+  Clean up of platform_editor_hoverlink_ui_fixes_exp
+- [`edbbd04a0a2b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edbbd04a0a2b8) -
+  Remove platform_editor_breakout_resizing_vc90_fix feature flag - feature has been shipped
+
+### Minor Changes
+
+- [`b56fac4df95b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b56fac4df95b4) -
+  remove no-tscheck and fix safe url logic
+
 ## 24.1.0
 
 ### Minor Changes

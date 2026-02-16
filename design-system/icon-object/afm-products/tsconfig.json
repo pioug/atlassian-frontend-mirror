@@ -35,6 +35,9 @@
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-products/tsconfig.json"
 		}
 	]
 }

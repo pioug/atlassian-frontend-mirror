@@ -17,8 +17,7 @@ export type StartProps = {
 	startTime: DOMHighResTimeStamp;
 };
 export interface ObserverInterface {
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	start(props: StartProps): void;
+	start: (props: StartProps) => void;
 }
 export type CalculateVCOptions = {
 	heatmapSize: number;

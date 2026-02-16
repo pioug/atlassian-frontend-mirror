@@ -95,18 +95,20 @@ These token values may be the 16-base rem equivalents; pixel values are used for
 | gap-16         | 64px        | space.800    | 64px        |
 | gap-20         | 80px        | space.1000   | 80px        |
 
-## Example migration from Tailwind classes to ADS spacing tokens
+## Example tailwind migration
 
-```tsx
+```diff
++/** @jsx jsx */
 +import { token } from '@atlaskit/tokens';
++import { cssMap, jsx } from '@atlaskit/css';
++const styles = cssMap({
++  root: {
++		 padding: token('space.200'),
++		 margin: token('space.100'),
++		 gap: token('space.150'),
++  },
++});
+
 -<div className="p-4 m-2 gap-3">Content</div>
-+<div
-+	style={{
-+		padding: token('space.200'),
-+		margin: token('space.100'),
-+		gap: token('space.150'),
-+	}}
-+>
-+	Content
-+</div>;
++<div css={styles.root}>Content</div>
 ```

@@ -52,7 +52,6 @@ async function calculateTTVCPercentilesWithDebugInfo({
 	viewport,
 	orderedEntries,
 	startTime,
-	calculateSpeedIndex = false,
 }: CalcTTVCPercentilesArgWithDebugInfo): Promise<PercentileCalcResultWithSpeedIndex> {
 	const canvas = new ViewportCanvas(
 		viewport,
@@ -81,7 +80,7 @@ async function calculateTTVCPercentilesWithDebugInfo({
 	const canvasDimensions = canvas.getScaledDimensions();
 	const totalPixels = canvasDimensions.width * canvasDimensions.height;
 
-	return calculatePercentilesWithDebugInfo(timePixelCounts, elementMap, totalPixels, startTime, calculateSpeedIndex);
+	return calculatePercentilesWithDebugInfo(timePixelCounts, elementMap, totalPixels, startTime);
 }
 
 export default calculateTTVCPercentiles;
@@ -151,7 +150,6 @@ export function calculatePercentilesWithDebugInfo(
 	elementMap: ReadonlyMap<DOMHighResTimeStamp, ViewportEntryData[]>,
 	totalPixels: number,
 	startTime: DOMHighResTimeStamp,
-	calculateSpeedIndex: boolean = false,
 ): PercentileCalcResultWithSpeedIndex {
 	const entries: PercentileCalcResult = new Array(elementMap.size);
 
@@ -178,12 +176,9 @@ export function calculatePercentilesWithDebugInfo(
 		};
 
 		// Speed index calculation: sum of (time × incremental viewport percentage)
-		// Only calculate when feature flag is enabled
-		if (calculateSpeedIndex) {
-			const ratioDelta = (percentCovered - previousPercentCovered) / 100;
-			speedIndex += relativeTime * ratioDelta;
-			previousPercentCovered = percentCovered;
-		}
+		const ratioDelta = (percentCovered - previousPercentCovered) / 100;
+		speedIndex += relativeTime * ratioDelta;
+		previousPercentCovered = percentCovered;
 	}
 
 	return {

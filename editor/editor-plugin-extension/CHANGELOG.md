@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-extension
 
+## 10.0.16
+
+### Patch Changes
+
+- [`584ac5ca3f498`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/584ac5ca3f498) -
+  [ux] EDITOR-5269 Disables the copy button for legacy content macro nodes
+- Updated dependencies
+
+## 10.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.13
 
 ### Patch Changes

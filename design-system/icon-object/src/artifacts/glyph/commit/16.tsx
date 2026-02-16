@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ed53d07cd2edaa05517474eed3b986ca>>
+ * @codegen <<SignedSource::89f0b785a134c037ededbf738ea83193>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
@@ -10,8 +10,6 @@ import NewIcon from '@atlaskit/icon/core/commit';
 import type { GlyphProps } from '@atlaskit/icon/types';
 import NewObjectComponent from '@atlaskit/object/commit';
 import { fg } from '@atlaskit/platform-feature-flags';
-
-import IconObjectOld from '../../glyph-legacy/commit/16';
 
 /**
  * __16px `commit` icon object__
@@ -34,14 +32,7 @@ const Commit16Icon: {
 	}
 
 	return (
-		<IconTile
-			icon={NewIcon}
-			appearance="orangeBold"
-			size="16"
-			label={label}
-			testId={testId}
-			LEGACY_fallbackComponent={<IconObjectOld label={label} testId={testId} />}
-		/>
+		<IconTile icon={NewIcon} appearance="orangeBold" size="16" label={label} testId={testId} />
 	);
 };
 

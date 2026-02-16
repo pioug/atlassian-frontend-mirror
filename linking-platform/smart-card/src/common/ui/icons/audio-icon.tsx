@@ -1,14 +1,8 @@
-import LegacyIcon from '@atlaskit/icon-file-type/glyph/audio/16';
-import LegacyIconLarge from '@atlaskit/icon-file-type/glyph/audio/24';
 import AudioIcon from '@atlaskit/icon/core/audio';
 
-import { renderIconPerSize, renderIconTile } from './utils';
+import { renderIconTile } from './utils';
 
-const AudioIconWithColor = renderIconTile(
-	AudioIcon,
-	'redBold',
-	renderIconPerSize(LegacyIcon, LegacyIconLarge),
-);
+const AudioIconWithColor = renderIconTile(AudioIcon, 'redBold');
 AudioIconWithColor.displayName = 'AudioIconWithColor';
 
 export default AudioIconWithColor;

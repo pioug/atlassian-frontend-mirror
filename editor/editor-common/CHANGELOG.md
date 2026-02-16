@@ -1,5 +1,19 @@
 # @atlaskit/editor-common
 
+## 111.12.7
+
+### Patch Changes
+
+- [`a5a1710c6da4a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a5a1710c6da4a) -
+  Clean up of platform_editor_hoverlink_ui_fixes_exp
+- Updated dependencies
+
+## 111.12.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 111.12.5
 
 ### Patch Changes

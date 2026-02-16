@@ -7,7 +7,7 @@ import { DropdownItem } from '@atlaskit/dropdown-menu';
 import { useFlags } from '@atlaskit/flag';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
-import { AgentActions, useRovoAgentActionAnalytics } from '@atlaskit/rovo-agent-analytics/actions';
+import { AgentCommonActions, useRovoAgentActionAnalytics } from '@atlaskit/rovo-agent-analytics/actions';
 
 import type { agentVerificationDropdownItem_AtlaskitRovoAgentComponents_agentRef$key } from './__generated__/agentVerificationDropdownItem_AtlaskitRovoAgentComponents_agentRef.graphql';
 import type { agentVerificationDropdownItem_AtlaskitRovoAgentComponents_updateAgentVerificationMutation } from './__generated__/agentVerificationDropdownItem_AtlaskitRovoAgentComponents_updateAgentVerificationMutation.graphql';
@@ -138,7 +138,7 @@ export const AgentVerificationDropdownItem = ({
 					const payload = response?.agentStudio_updateAgentVerification;
 					if (payload?.success) {
 						onVerificationSuccess?.(verified);
-						trackAgentAction(verified ? AgentActions.VERIFY : AgentActions.UNVERIFY, {});
+						trackAgentAction(verified ? AgentCommonActions.VERIFY : AgentCommonActions.UNVERIFY, {});
 						showFlag({
 							title: formatMessage(
 								verified ? messages.verifySuccessTitle : messages.unverifySuccessTitle,
@@ -151,7 +151,7 @@ export const AgentVerificationDropdownItem = ({
 						const errorMessage = payload?.errors?.[0]?.message;
 						if (errorMessage) {
 							trackAgentActionError(
-								verified ? AgentActions.VERIFY : AgentActions.UNVERIFY,
+								verified ? AgentCommonActions.VERIFY : AgentCommonActions.UNVERIFY,
 								new Error(errorMessage),
 								{ agentId },
 							);
@@ -160,7 +160,7 @@ export const AgentVerificationDropdownItem = ({
 					}
 				},
 				onError: (error) => {
-					trackAgentActionError(verified ? AgentActions.VERIFY : AgentActions.UNVERIFY, error, {
+					trackAgentActionError(verified ? AgentCommonActions.VERIFY : AgentCommonActions.UNVERIFY, error, {
 						agentId,
 					});
 					handleError(verified, error.message);

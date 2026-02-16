@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2edd1586a71eee7d5b267fdaf8ba2fae>>
+ * @codegen <<SignedSource::9de6e9c48032fde072f0333ed512f5cf>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
@@ -10,8 +10,6 @@ import NewIcon from '@atlaskit/icon/core/calendar';
 import type { GlyphProps } from '@atlaskit/icon/types';
 import NewObjectComponent from '@atlaskit/object/tile/calendar';
 import { fg } from '@atlaskit/platform-feature-flags';
-
-import IconObjectOld from '../../glyph-legacy/calendar/24';
 
 /**
  * __24px `calendar` icon object__
@@ -33,16 +31,7 @@ const Calendar24Icon: {
 		return <NewObjectComponent label={label} testId={testId} size="small" />;
 	}
 
-	return (
-		<IconTile
-			icon={NewIcon}
-			appearance="redBold"
-			size="24"
-			label={label}
-			testId={testId}
-			LEGACY_fallbackComponent={<IconObjectOld label={label} testId={testId} />}
-		/>
-	);
+	return <IconTile icon={NewIcon} appearance="redBold" size="24" label={label} testId={testId} />;
 };
 
 Calendar24Icon.displayName = 'Calendar24Icon';

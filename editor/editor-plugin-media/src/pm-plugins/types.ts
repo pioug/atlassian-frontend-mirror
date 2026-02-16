@@ -29,11 +29,9 @@ export interface MediaPluginState {
 	allowInlineImages?: boolean;
 	allowsUploads: boolean;
 	allUploadsFinished: boolean;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	clone(): MediaPluginState;
+	clone: () => MediaPluginState;
 	currentMaxWidth?: number;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	destroy(): void;
+	destroy: () => void;
 	dispatch?: Dispatch;
 	editingMediaSinglePos?: number;
 	element?: HTMLElement;
@@ -72,37 +70,30 @@ export interface MediaPluginState {
 	resizingWidth: number;
 	selectedMediaContainerNode: () => PMNode | undefined;
 	setBrowseFn: (browseFn: () => void) => void;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	setIsResizing(isResizing: boolean): void;
+	setIsResizing: (isResizing: boolean) => void;
 	setMediaProvider: (mediaProvider?: Promise<MediaProvider>) => Promise<void>;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	setResizingWidth(width: number): void;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	setView(view: EditorView): void;
+	setResizingWidth: (width: number) => void;
+	setView: (view: EditorView) => void;
 	showDropzone: boolean;
 	showEditingDialog?: boolean;
 	showMediaPicker: () => void;
 
 	splitMediaGroup: () => boolean;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	subscribeToUploadInProgressState(fn: (isUploading: boolean) => void): void;
+	subscribeToUploadInProgressState: (fn: (isUploading: boolean) => void) => void;
 	trackOutOfScopeIdentifier: (identifier: Identifier) => void;
 
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	unsubscribeFromUploadInProgressState(fn: (isUploading: boolean) => void): void;
+	unsubscribeFromUploadInProgressState: (fn: (isUploading: boolean) => void) => void;
 
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	updateAndDispatch(
+	updateAndDispatch: (
 		props: Partial<
 			Pick<
 				this,
 				'allowsUploads' | 'allUploadsFinished' | 'isFullscreen' | 'videoControlsWrapperRef'
 			>
 		>,
-	): void;
+	) => void;
 
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	updateElement(): void;
+	updateElement: () => void;
 
 	updateMediaSingleNodeAttrs: (id: string, attrs: object) => undefined | boolean;
 

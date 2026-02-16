@@ -2,13 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, type FunctionComponent, useEffect, useState } from 'react';
+import { Fragment } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import { IconTile } from '@atlaskit/icon';
 import GlobeIcon from '@atlaskit/icon/core/globe';
-import { type IconTileProps, type NewCoreIconProps } from '@atlaskit/icon/types';
+import { type IconTileProps } from '@atlaskit/icon/types';
 import { Grid, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -20,19 +20,6 @@ const styles = cssMap({
 });
 
 const IconTileLegacyExample = (): JSX.Element => {
-	const [NewFeatureIconObject, setNewFeatureIconObject] = useState<
-		FunctionComponent<NewCoreIconProps> | undefined
-	>(undefined);
-
-	useEffect(() => {
-		// eslint-disable-next-line import/dynamic-import-chunkname
-		import('@atlaskit/icon-object/glyph/new-feature/24').then((module) => {
-			setNewFeatureIconObject(
-				() => module.default as unknown as FunctionComponent<NewCoreIconProps>,
-			);
-		});
-	});
-
 	const sizes: IconTileProps['size'][] = ['16', '24', '32', '40', '48'];
 	const appearances = [
 		'gray',
@@ -84,17 +71,6 @@ const IconTileLegacyExample = (): JSX.Element => {
 					</Grid>
 				</Stack>
 			))}
-			<Heading size="medium">Example using LEGACY_fallbackComponent</Heading>
-			<IconTile
-				icon={GlobeIcon}
-				label=""
-				appearance="greenBold"
-				shape="square"
-				size="24"
-				LEGACY_fallbackComponent={
-					NewFeatureIconObject ? <NewFeatureIconObject label="" /> : undefined
-				}
-			/>
 			<Heading size="medium">Example using UNSAFE_circleReplacementComponent</Heading>
 			<IconTile
 				icon={GlobeIcon}

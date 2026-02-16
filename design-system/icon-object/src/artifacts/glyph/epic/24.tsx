@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b5ba5703f7662bf703cf55e7f8807fd2>>
+ * @codegen <<SignedSource::bafafa454a8ef29d0863fed23cf4c482>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
@@ -10,8 +10,6 @@ import NewIcon from '@atlaskit/icon/core/epic';
 import type { GlyphProps } from '@atlaskit/icon/types';
 import NewObjectComponent from '@atlaskit/object/tile/epic';
 import { fg } from '@atlaskit/platform-feature-flags';
-
-import IconObjectOld from '../../glyph-legacy/epic/24';
 
 /**
  * __24px `epic` icon object__
@@ -34,14 +32,7 @@ const Epic24Icon: {
 	}
 
 	return (
-		<IconTile
-			icon={NewIcon}
-			appearance="purpleBold"
-			size="24"
-			label={label}
-			testId={testId}
-			LEGACY_fallbackComponent={<IconObjectOld label={label} testId={testId} />}
-		/>
+		<IconTile icon={NewIcon} appearance="purpleBold" size="24" label={label} testId={testId} />
 	);
 };
 

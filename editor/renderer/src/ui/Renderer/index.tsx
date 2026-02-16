@@ -147,13 +147,13 @@ const handleMouseTripleClickInTables = (event: MouseEvent) => {
 
 	const elementToSelect: Element | null | undefined = anchorInCell
 		? // Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			anchorNode!.parentElement?.closest('div,p')
+		  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+		  anchorNode!.parentElement?.closest('div,p')
 		: focusInCell
-			? // Ignored via go/ees005
-				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-				focusNode!.parentElement?.closest('div,p')
-			: tableCell;
+		? // Ignored via go/ees005
+		  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+		  focusNode!.parentElement?.closest('div,p')
+		: tableCell;
 	if (elementToSelect) {
 		selection.selectAllChildren(elementToSelect);
 	}
@@ -449,7 +449,7 @@ export const RendererFunctionalComponent = (
 										NORMAL_SEVERITY_THRESHOLD,
 									analyticsEventSeverityTracking?.severityDegradedThreshold ??
 										DEGRADED_SEVERITY_THRESHOLD,
-								)
+							  )
 							: undefined;
 
 					const isTTRTrackingExplicitlyDisabled = analyticsEventSeverityTracking?.enabled === false;
@@ -466,11 +466,9 @@ export const RendererFunctionalComponent = (
 								distortedDuration: renderedMeasurementDistortedDurationMonitor!.distortedDuration,
 								ttfb: getResponseEndTime(),
 								nodes: countNodes(props.document),
-								nestedRendererType:
-									editorExperiment('platform_synced_block', true) &&
-									fg('platform_synced_block_patch_1')
-										? nestedRendererType
-										: undefined,
+								nestedRendererType: editorExperiment('platform_synced_block', true)
+									? nestedRendererType
+									: undefined,
 								severity,
 							},
 							eventType: EVENT_TYPE.OPERATIONAL,

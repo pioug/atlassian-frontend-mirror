@@ -1,5 +1,19 @@
 # @atlaskit/editor-core
 
+## 216.9.6
+
+### Patch Changes
+
+- [`fa62876ed1943`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa62876ed1943) -
+  EDITOR-5134 Clean up platform_synced_block_patch_1
+- Updated dependencies
+
+## 216.9.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 216.9.4
 
 ### Patch Changes

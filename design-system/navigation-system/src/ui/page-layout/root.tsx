@@ -187,8 +187,10 @@ This message will not be displayed in production.
 											ref={ref}
 											css={[
 												styles.root,
+												// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 												isFhsEnabled &&
 													fg('platform-dst-side-nav-layering-fixes') &&
+													!fg('platform_dst_nav4_fhs_feedback_1') &&
 													styles.sideNavScrollTimeline,
 											]}
 											className={xcss}

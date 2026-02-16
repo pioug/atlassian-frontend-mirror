@@ -238,12 +238,6 @@ export interface IconTileProps {
 	 * implement alternatives.
 	 */
 	shape?: 'square' | 'circle';
-	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
-	/**
-	 * Legacy component to render when the icon refresh feature flag is turned off.
-	 * @deprecated This prop is deprecated and will be removed in a future version.
-	 */
-	LEGACY_fallbackComponent?: ReactElement;
 	/**
 	 * A component to render in place of circle shaped icon tiles, swapped out with a feature flag.
 	 *

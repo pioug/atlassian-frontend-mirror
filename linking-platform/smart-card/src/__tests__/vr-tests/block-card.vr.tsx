@@ -83,6 +83,7 @@ snapshot(BlockCardUnauthorisedNewDesign, {
 			'card_by_default_only',
 			'card_by_default_and_new_design',
 		],
+		'navx-3264-refactoring-unauth-provider-images-fe': true
 	},
 	waitForReactLazy: true,
 });

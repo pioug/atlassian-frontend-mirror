@@ -8,6 +8,7 @@ import { css, cssMap, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
+import {fg} from "@atlaskit/platform-feature-flags";
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -210,22 +211,26 @@ const NewUnauthorisedBlock = ({
 	let overrideUrl = data?.preview?.url;
 	let isHardcodedImage = !overrideUrl;
 	if (isHardcodedImage) {
-		switch (extensionKey) {
-			case 'figma-object-provider':
-				overrideUrl = unauthIllustrationFigma;
-				break;
-			case 'google-object-provider':
-				overrideUrl = unauthIllustrationGdrive;
-				break;
-			case 'onedrive-object-provider':
-				overrideUrl = unauthIllustrationOnedrive;
-				break;
-			case 'slack-object-provider':
-				overrideUrl = unauthIllustrationSlack;
-				break;
-			default:
-				overrideUrl = unauthIllustrationGeneral;
-				break;
+		if (fg('navx-3264-refactoring-unauth-provider-images-fe')) {
+			overrideUrl = unauthIllustrationGeneral
+		} else {
+			switch (extensionKey) {
+				case 'figma-object-provider':
+					overrideUrl = unauthIllustrationFigma;
+					break;
+				case 'google-object-provider':
+					overrideUrl = unauthIllustrationGdrive;
+					break;
+				case 'onedrive-object-provider':
+					overrideUrl = unauthIllustrationOnedrive;
+					break;
+				case 'slack-object-provider':
+					overrideUrl = unauthIllustrationSlack;
+					break;
+				default:
+					overrideUrl = unauthIllustrationGeneral;
+					break;
+			}
 		}
 	}
 
@@ -269,7 +274,14 @@ const NewUnauthorisedBlock = ({
 			</ElementGroup>
 
 			{hasActions ? (
-				<div css={[previewBlockStyle, isHardcodedImage ? previewBlockStyleWithOverlap : undefined]}>
+				<div
+					css={[
+						previewBlockStyle,
+						isHardcodedImage || fg('navx-3264-refactoring-unauth-provider-images-fe')
+							? previewBlockStyleWithOverlap
+							: undefined,
+					]}
+				>
 					<div css={previewBlockImageStyle} style={{ backgroundImage: `url(${overrideUrl})` }} />
 				</div>
 			) : null}

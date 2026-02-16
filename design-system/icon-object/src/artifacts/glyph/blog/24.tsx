@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3a086b223ba4be94437667e075ae208a>>
+ * @codegen <<SignedSource::d7cf2d6e617a726159cd4aa75f204fc7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
@@ -10,8 +10,6 @@ import NewIcon from '@atlaskit/icon/core/quotation-mark';
 import type { GlyphProps } from '@atlaskit/icon/types';
 import NewObjectComponent from '@atlaskit/object/tile/blog';
 import { fg } from '@atlaskit/platform-feature-flags';
-
-import IconObjectOld from '../../glyph-legacy/blog/24';
 
 /**
  * __24px `blog` icon object__
@@ -33,16 +31,7 @@ const Blog24Icon: {
 		return <NewObjectComponent label={label} testId={testId} size="small" />;
 	}
 
-	return (
-		<IconTile
-			icon={NewIcon}
-			appearance="blueBold"
-			size="24"
-			label={label}
-			testId={testId}
-			LEGACY_fallbackComponent={<IconObjectOld label={label} testId={testId} />}
-		/>
-	);
+	return <IconTile icon={NewIcon} appearance="blueBold" size="24" label={label} testId={testId} />;
 };
 
 Blog24Icon.displayName = 'Blog24Icon';

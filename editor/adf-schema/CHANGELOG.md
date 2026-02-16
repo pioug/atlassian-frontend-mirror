@@ -1,5 +1,13 @@
 # @atlaskit/adf-schema
 
+## 51.5.16
+
+### Patch Changes
+
+- [`b56fac4df95b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b56fac4df95b4) -
+  remove no-tscheck and fix safe url logic
+- Updated dependencies
+
 ## 51.5.15
 
 ### Patch Changes

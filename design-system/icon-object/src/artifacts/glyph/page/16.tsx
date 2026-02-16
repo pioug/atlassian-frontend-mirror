@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d247d728b2443e1aaaff604097f87f4d>>
+ * @codegen <<SignedSource::bfd4ad91a1a57d32376cdfaa21404b48>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
@@ -10,8 +10,6 @@ import NewIcon from '@atlaskit/icon/core/page';
 import type { GlyphProps } from '@atlaskit/icon/types';
 import NewObjectComponent from '@atlaskit/object/page';
 import { fg } from '@atlaskit/platform-feature-flags';
-
-import IconObjectOld from '../../glyph-legacy/page/16';
 
 /**
  * __16px `page` icon object__
@@ -33,16 +31,7 @@ const Page16Icon: {
 		return <NewObjectComponent label={label} testId={testId} size="medium" />;
 	}
 
-	return (
-		<IconTile
-			icon={NewIcon}
-			appearance="blueBold"
-			size="16"
-			label={label}
-			testId={testId}
-			LEGACY_fallbackComponent={<IconObjectOld label={label} testId={testId} />}
-		/>
-	);
+	return <IconTile icon={NewIcon} appearance="blueBold" size="16" label={label} testId={testId} />;
 };
 
 Page16Icon.displayName = 'Page16Icon';

@@ -18,7 +18,7 @@ const config16: IconBuildConfig = {
 	maxHeight: 16,
 	size: 'small',
 	glob: '**/16.svg',
-	baseIconEntryPoint: '@atlaskit/icon/base',
+	baseIconEntryPoint: '../../src/internal/icon.tsx',
 	isColorsDisabled: true,
 	isDeprecated: false,
 };
@@ -31,7 +31,7 @@ const config24: IconBuildConfig = {
 	maxHeight: 24,
 	size: 'medium',
 	glob: '**/24.svg',
-	baseIconEntryPoint: '@atlaskit/icon/base',
+	baseIconEntryPoint: '../../src/internal/icon.tsx',
 	isColorsDisabled: true,
 	isDeprecated: false,
 };
@@ -47,7 +47,7 @@ const config48: IconBuildConfig = {
 	height: 64,
 	// END THESE SIZES ARE A SNOW FLAKE
 	glob: '**/48.svg',
-	baseIconEntryPoint: '@atlaskit/icon/base',
+	baseIconEntryPoint: '../../src/internal/icon.tsx',
 	isColorsDisabled: true,
 	isDeprecated: false,
 };

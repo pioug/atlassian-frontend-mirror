@@ -31,9 +31,6 @@
 	},
 	"references": [
 		{
-			"path": "../icon-build-process/tsconfig.app.json"
-		},
-		{
 			"path": "../icon/tsconfig.app.json"
 		},
 		{
@@ -44,6 +41,9 @@
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../tokens/tsconfig.app.json"
 		},
 		{
 			"path": "../codegen/tsconfig.app.json"

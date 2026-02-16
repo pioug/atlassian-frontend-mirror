@@ -1,5 +1,13 @@
 # @atlaskit/icon-object
 
+## 7.4.2
+
+### Patch Changes
+
+- [`cba951d9c882d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cba951d9c882d) -
+  Remove icon/base dependency. Uses local version of icon base.
+- Updated dependencies
+
 ## 7.4.1
 
 ### Patch Changes

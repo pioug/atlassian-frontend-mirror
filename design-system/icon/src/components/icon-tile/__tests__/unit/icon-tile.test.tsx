@@ -49,47 +49,6 @@ describe('IconTile', () => {
 	});
 
 	describe('Feature flag behavior', () => {
-		describe('Legacy fallback component displays correctly', () => {
-			const legacyComponent = <div data-testid="legacy-fallback">Legacy Fallback</div>;
-
-			ffTest(
-				'platform-visual-refresh-icons',
-				() => {
-					render(
-						<IconTile
-							icon={AddIcon}
-							label="Test"
-							appearance="blue"
-							LEGACY_fallbackComponent={legacyComponent}
-							testId={testId}
-						/>,
-					);
-
-					const legacyFallback = screen.queryByTestId('legacy-fallback');
-					const tile = screen.queryByTestId(testId);
-
-					expect(tile).toBeInTheDocument();
-					expect(legacyFallback).not.toBeInTheDocument();
-				},
-				() => {
-					render(
-						<IconTile
-							icon={AddIcon}
-							label="Test"
-							appearance="blue"
-							LEGACY_fallbackComponent={legacyComponent}
-							testId={testId}
-						/>,
-					);
-
-					const legacyFallback = screen.queryByTestId('legacy-fallback');
-					const tile = screen.queryByTestId(testId);
-
-					expect(tile).not.toBeInTheDocument();
-					expect(legacyFallback).toBeInTheDocument();
-				},
-			);
-		});
 		describe('Circle replacement component', () => {
 			describe('displays for circle shaped icon tiles', () => {
 				const circleReplacementComponent = (

@@ -30,7 +30,6 @@ import type { RendererAppearance } from '../../types';
 import { IntlProvider } from 'react-intl-next';
 import { adfNestedTableData } from '../__fixtures__/mockData';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const mockCreateAnalyticsEvent = jest.fn(() => ({ fire() {} }));
 
@@ -377,7 +376,7 @@ describe('spec based validator', () => {
 
 describe('unsupported content levels severity', () => {
 	const createAnalyticsEvent: CreateUIAnalyticsEvent = jest.fn(
-		() => ({ fire() {} }) as UIAnalyticsEvent,
+		() => ({ fire() {} } as UIAnalyticsEvent),
 	);
 
 	let RendererIsolated: any;
@@ -765,7 +764,7 @@ let rafSpy: jest.SpyInstance;
 
 describe('renderer rendered analytics event', () => {
 	const createAnalyticsEvent: CreateUIAnalyticsEvent = jest.fn(
-		() => ({ fire() {} }) as UIAnalyticsEvent,
+		() => ({ fire() {} } as UIAnalyticsEvent),
 	);
 
 	const doc = {
@@ -865,31 +864,29 @@ describe('renderer rendered analytics event', () => {
 	});
 
 	eeTest.describe('platform_synced_block', 'nestedRendererType analytics').variant(true, () => {
-		ffTest.on('platform_synced_block_patch_1', '', () => {
-			it('should include nestedRendererType in rendered event when context is provided', () => {
-				(stopMeasure as any).mockImplementation((name: any, callback: any) => {
-					callback(NORMAL_SEVERITY_THRESHOLD, 1);
-				});
-
-				mount(
-					<RendererContextProvider value={{ nestedRendererType: 'syncedBlock' }}>
-						<Renderer document={doc} createAnalyticsEvent={createAnalyticsEvent} />
-					</RendererContextProvider>,
-				);
-
-				// Flush RAF callbacks to trigger the analytics event
-				rafStub.flush();
-
-				expect(createAnalyticsEvent).toHaveBeenCalledWith(
-					expect.objectContaining({
-						action: 'rendered',
-						actionSubject: 'renderer',
-						attributes: expect.objectContaining({
-							nestedRendererType: 'syncedBlock',
-						}),
-					}),
-				);
+		it('should include nestedRendererType in rendered event when context is provided', () => {
+			(stopMeasure as any).mockImplementation((name: any, callback: any) => {
+				callback(NORMAL_SEVERITY_THRESHOLD, 1);
 			});
+
+			mount(
+				<RendererContextProvider value={{ nestedRendererType: 'syncedBlock' }}>
+					<Renderer document={doc} createAnalyticsEvent={createAnalyticsEvent} />
+				</RendererContextProvider>,
+			);
+
+			// Flush RAF callbacks to trigger the analytics event
+			rafStub.flush();
+
+			expect(createAnalyticsEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'rendered',
+					actionSubject: 'renderer',
+					attributes: expect.objectContaining({
+						nestedRendererType: 'syncedBlock',
+					}),
+				}),
+			);
 		});
 	});
 });

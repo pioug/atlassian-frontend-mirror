@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e2acdddee49b7b12da0ace734cb7c404>>
+ * @codegen <<SignedSource::7a728eb0ce3823d72139ca7c6943a4ad>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
@@ -10,8 +10,6 @@ import NewIcon from '@atlaskit/icon/core/task';
 import type { GlyphProps } from '@atlaskit/icon/types';
 import NewObjectComponent from '@atlaskit/object/tile/task';
 import { fg } from '@atlaskit/platform-feature-flags';
-
-import IconObjectOld from '../../glyph-legacy/task/24';
 
 /**
  * __24px `task` icon object__
@@ -33,16 +31,7 @@ const Task24Icon: {
 		return <NewObjectComponent label={label} testId={testId} size="small" />;
 	}
 
-	return (
-		<IconTile
-			icon={NewIcon}
-			appearance="blueBold"
-			size="24"
-			label={label}
-			testId={testId}
-			LEGACY_fallbackComponent={<IconObjectOld label={label} testId={testId} />}
-		/>
-	);
+	return <IconTile icon={NewIcon} appearance="blueBold" size="24" label={label} testId={testId} />;
 };
 
 Task24Icon.displayName = 'Task24Icon';

@@ -1,5 +1,27 @@
 # @atlaskit/forge-react-types
 
+## 0.63.0
+
+### Minor Changes
+
+- [`a11e55ab6e41c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a11e55ab6e41c) -
+  Clean up unused files
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.62.0
+
+### Minor Changes
+
+- [`4e53247402873`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e53247402873) -
+  Update global component props
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.61.0
 
 ### Minor Changes

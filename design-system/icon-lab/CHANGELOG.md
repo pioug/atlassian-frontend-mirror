@@ -1,5 +1,32 @@
 # @atlaskit/icon-lab
 
+## 5.16.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.16.0
+
+### Minor Changes
+
+- [`ea7a01d023b36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea7a01d023b36) -
+  This release adds and updates icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+  - `ask`
+
+  ### Updated:
+
+  **`@atlaskit/icon-lab/core`**
+  - `editions`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.15.1
 
 ### Patch Changes

@@ -4,6 +4,7 @@ import { renderHook } from '@testing-library/react';
 
 import UFOInteractionContext, { type UFOInteractionContextType } from '../../interaction-context';
 import * as interactionMetricsModule from '../../interaction-metrics';
+import UFORouteName from '../../route-name-context';
 import {
 	setTerminalError,
 	sinkTerminalErrorHandler,
@@ -20,6 +21,11 @@ jest.mock('../../interaction-metrics', () => ({
 		isAborted: undefined,
 		timestamp: undefined,
 	},
+}));
+
+jest.mock('../../route-name-context', () => ({
+	__esModule: true,
+	default: { current: null },
 }));
 
 // Mock performance.now() for consistent testing
@@ -69,6 +75,9 @@ describe('terminal-error', () => {
 		mockPreviousInteractionLog.type = undefined;
 		mockPreviousInteractionLog.isAborted = undefined;
 		mockPreviousInteractionLog.timestamp = undefined;
+
+		// Reset UFORouteName
+		UFORouteName.current = null;
 	});
 
 	describe('setTerminalError', () => {
@@ -126,6 +135,15 @@ describe('terminal-error', () => {
 			);
 		});
 
+		it('should not call sink handler when isClientNetworkError is true', () => {
+			setTerminalError(mockError, {
+				isClientNetworkError: true,
+				teamName: 'test-team',
+			});
+
+			expect(mockSink).not.toHaveBeenCalled();
+		});
+
 		it('should include labelStack in context when provided as third argument', () => {
 			const labelStack = [
 				{ name: 'app-root', segmentId: 'seg-1' },
@@ -155,6 +173,7 @@ describe('terminal-error', () => {
 					previousInteractionName: null,
 					previousInteractionType: null,
 					timeSincePreviousInteraction: null,
+					routeName: null,
 				}),
 			);
 		});
@@ -211,6 +230,30 @@ describe('terminal-error', () => {
 					activeInteractionName: 'test-ufo-interaction',
 					activeInteractionId: 'interaction-123',
 					activeInteractionType: 'page_load',
+				}),
+			);
+		});
+
+		it('should include routeName in context when UFORouteName has a value', () => {
+			UFORouteName.current = 'test-route-name';
+
+			setTerminalError(mockError);
+
+			expect(mockSink.mock.calls[0][1]).toEqual(
+				expect.objectContaining({
+					routeName: 'test-route-name',
+				}),
+			);
+		});
+
+		it('should include routeName as null in context when UFORouteName is null', () => {
+			UFORouteName.current = null;
+
+			setTerminalError(mockError);
+
+			expect(mockSink.mock.calls[0][1]).toEqual(
+				expect.objectContaining({
+					routeName: null,
 				}),
 			);
 		});
@@ -280,6 +323,20 @@ describe('terminal-error', () => {
 					packageName: additionalAttributes.packageName,
 				}),
 			);
+		});
+
+		it('should not call sink handler when isClientNetworkError is true', () => {
+			const mockContext = createMockContext();
+			const additionalAttributes: TerminalErrorAdditionalAttributes = {
+				isClientNetworkError: true,
+				teamName: 'test-team',
+			};
+
+			renderHook(() => useReportTerminalError(mockError, additionalAttributes), {
+				wrapper: createWrapper(mockContext),
+			});
+
+			expect(mockSink).not.toHaveBeenCalled();
 		});
 	});
 });

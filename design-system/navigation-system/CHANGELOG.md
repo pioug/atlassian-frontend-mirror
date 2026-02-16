@@ -1,5 +1,19 @@
 # @atlassian/navigation-system
 
+## 5.35.0
+
+### Minor Changes
+
+- [`9d7ed6ce1ff7b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d7ed6ce1ff7b) -
+  Removes the scrolled indicator on the side nav content, behind the
+  `platform_dst_nav4_fhs_feedback_1` feature gate.
+
+## 5.34.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.34.0
 
 ### Minor Changes

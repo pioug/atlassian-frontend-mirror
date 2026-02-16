@@ -1,5 +1,13 @@
 # @atlaskit/conversation
 
+## 22.0.3
+
+### Patch Changes
+
+- [`5b7ac366074b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5b7ac366074b5) -
+  Fix method-signature-style violations (EES013)
+- Updated dependencies
+
 ## 22.0.2
 
 ### Patch Changes

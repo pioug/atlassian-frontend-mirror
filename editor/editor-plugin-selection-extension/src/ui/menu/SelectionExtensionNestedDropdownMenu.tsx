@@ -8,6 +8,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { ToolbarDropdownItemSection, ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type ExtensionNestedDropdownMenuConfiguration } from '../../types';
 import { useSelectionExtensionComponentContext } from '../SelectionExtensionComponentContext';
@@ -63,6 +64,10 @@ export const SelectionExtensionNestedDropdownMenu = ({
 			elemAfter={<ChevronRightIcon label="" />}
 			onClick={handleClick}
 			dropdownTestId="editor-selection-extension-menu"
+			shouldTitleWrap={fg('platform_editor_block_menu_v2_patch_2') ? false : undefined}
+			tooltipContent={
+				fg('platform_editor_block_menu_v2_patch_2') ? nestedDropdownMenu.label : undefined
+			}
 		>
 			<ChildItems nestedDropdownMenu={nestedDropdownMenu} />
 		</ToolbarNestedDropdownMenu>

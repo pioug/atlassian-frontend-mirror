@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"version": "0.19.24",
+	"version": "0.19.26",
 	"description": "Common UI for Toolbars across the platform",
 	"atlassian": {
 		"team": "Editor: Jenga",
@@ -85,6 +85,9 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_toolbar_highlight_bug_fix": {
+			"type": "boolean"
+		},
+		"platform_editor_block_menu_v2_patch_2": {
 			"type": "boolean"
 		}
 	}

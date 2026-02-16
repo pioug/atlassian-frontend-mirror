@@ -31,17 +31,15 @@ export interface ConversationResourceConfig {
 }
 
 export interface ResourceProvider {
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	addComment(
+	addComment: (
 		conversationId: string,
 		parentId: string,
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		document: any,
 		localId?: string,
-	): Promise<Comment>;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	create(
+	) => Promise<Comment>;
+	create: (
 		localId: string,
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -51,21 +49,17 @@ export interface ResourceProvider {
 		meta: any,
 		objectId: string,
 		containerId?: string,
-	): Promise<Conversation>;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	deleteComment(
+	) => Promise<Conversation>;
+	deleteComment: (
 		conversationId: string,
 		commentId: string,
-	): Promise<Pick<Comment, 'conversationId' | 'commentId' | 'deleted'>>;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	getConversations(objectId: string, containerId?: string): Promise<Conversation[]>;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	revertComment(
+	) => Promise<Pick<Comment, 'conversationId' | 'commentId' | 'deleted'>>;
+	getConversations: (objectId: string, containerId?: string) => Promise<Conversation[]>;
+	revertComment: (
 		conversationId: string,
 		commentId: string,
-	): Promise<Pick<Comment, 'conversationId' | 'commentId'>>;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	saveDraft(
+	) => Promise<Pick<Comment, 'conversationId' | 'commentId'>>;
+	saveDraft: (
 		isLocal: boolean,
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -77,15 +71,13 @@ export interface ResourceProvider {
 		meta: any,
 		objectId: string,
 		containerId?: string,
-	): void;
+	) => void;
 	store: Store<State | undefined>;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	subscribe(handler: Handler): Unsubscribe;
+	subscribe: (handler: Handler) => Unsubscribe;
 	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style -- method-signature-style ignored via go/ees013 (to be fixed)
-	updateComment(conversationId: string, commentId: string, document: any): Promise<Comment>;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	updateUser(user?: User): Promise<User | undefined>;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	updateComment: (conversationId: string, commentId: string, document: any) => Promise<Comment>;
+	updateUser: (user?: User) => Promise<User | undefined>;
 }
 
 const getHighlightedComment = () => {

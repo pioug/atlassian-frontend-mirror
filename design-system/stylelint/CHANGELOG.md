@@ -1,5 +1,13 @@
 # @atlaskit/stylelint-design-system
 
+## 4.1.9
+
+### Patch Changes
+
+- [`58305ddfbf37f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58305ddfbf37f) -
+  Add stylelint 17 to the supported peerDependencies
+- Updated dependencies
+
 ## 4.1.8
 
 ### Patch Changes

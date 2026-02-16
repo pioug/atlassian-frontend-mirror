@@ -23,7 +23,6 @@ import {
 	type DeletionReason,
 	type SyncBlockStoreManager,
 } from '@atlaskit/editor-synced-block-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { lazyBodiedSyncBlockView } from '../nodeviews/bodiedLazySyncedBlock';
 import { SyncBlock as SyncBlockView } from '../nodeviews/syncedBlock';
@@ -170,16 +169,12 @@ export const createPlugin = (
 					newDecorationSet = calculateDecorations(tr.doc, tr.selection, tr.doc.type.schema);
 				}
 
-				let newRetryCreationPosMap = retryCreationPosMap;
-				if (fg('platform_synced_block_patch_1')) {
-					const newPosEntry = meta?.retryCreationPos;
-
-					newRetryCreationPosMap = mapRetryCreationPosMap(
-						retryCreationPosMap,
-						newPosEntry,
-						tr.mapping.map.bind(tr.mapping),
-					);
-				}
+				const newPosEntry = meta?.retryCreationPos;
+				const newRetryCreationPosMap = mapRetryCreationPosMap(
+					retryCreationPosMap,
+					newPosEntry,
+					tr.mapping.map.bind(tr.mapping),
+				);
 				return {
 					activeFlag: meta?.activeFlag ?? activeFlag,
 					selectionDecorationSet: newDecorationSet,
@@ -250,8 +245,7 @@ export const createPlugin = (
 
 					if (
 						node.type.name === 'bodiedSyncBlock' &&
-						syncBlockStore.sourceManager.isPendingCreation(node.attrs.resourceId) &&
-						fg('platform_synced_block_patch_1')
+						syncBlockStore.sourceManager.isPendingCreation(node.attrs.resourceId)
 					) {
 						loadingDecorations.push(
 							Decoration.node(pos, pos + node.nodeSize, {
@@ -327,44 +321,31 @@ export const createPlugin = (
 			},
 		},
 		filterTransaction: (tr, state) => {
-			const isOffline = isOfflineMode(api?.connectivity?.sharedState.currentState()?.mode);
-			const isConfirmedSyncBlockDeletion = Boolean(tr.getMeta('isConfirmedSyncBlockDeletion'));
+		const isOffline = isOfflineMode(api?.connectivity?.sharedState.currentState()?.mode);
+		const isConfirmedSyncBlockDeletion = Boolean(tr.getMeta('isConfirmedSyncBlockDeletion'));
 
-			const hasNoPendingRequest = fg('platform_synced_block_patch_1')
-				? false
-				: // requireConfirmationBeforeDelete is always true, so this evaluates to false and hence redundant
-					!syncBlockStore?.sourceManager.requireConfirmationBeforeDelete() &&
-					!syncBlockStore.sourceManager.hasPendingCreation();
+		// Track newly added reference sync blocks before processing the transaction
+		if (tr.docChanged && !tr.getMeta('isRemote')) {
+			const { added } = trackSyncBlocks((node) => node.type.name === 'syncBlock', tr, state);
+			// Mark newly added sync blocks so we can detect unpublished status when data is fetched
+			added.forEach((nodeInfo) => {
+				if (nodeInfo.attrs?.resourceId) {
+					syncBlockStore.referenceManager.markAsNewlyAdded(nodeInfo.attrs.resourceId);
+				}
+			});
+		}
 
-			const isCommitsCreation = fg('platform_synced_block_patch_1')
-				? false
-				: // For patch 1, we don't intercept the insert transaction, hence it's redundant
-					Boolean(tr.getMeta('isCommitSyncBlockCreation'));
-
-			// Track newly added reference sync blocks before processing the transaction
-			if (tr.docChanged && !tr.getMeta('isRemote')) {
-				const { added } = trackSyncBlocks((node) => node.type.name === 'syncBlock', tr, state);
-				// Mark newly added sync blocks so we can detect unpublished status when data is fetched
-				added.forEach((nodeInfo) => {
-					if (nodeInfo.attrs?.resourceId) {
-						syncBlockStore.referenceManager.markAsNewlyAdded(nodeInfo.attrs.resourceId);
-					}
-				});
-			}
-
-			// Ignore transactions that don't change the document
-			// or are from remote (collab) or already confirmed sync block deletion
-			// We only care about local changes that change the document
-			// and are not yet confirmed for sync block deletion
-			if (
-				!tr.docChanged ||
-				hasNoPendingRequest ||
-				Boolean(tr.getMeta('isRemote')) ||
-				isCommitsCreation ||
-				(!isOffline && isConfirmedSyncBlockDeletion)
-			) {
-				return true;
-			}
+		// Ignore transactions that don't change the document
+		// or are from remote (collab) or already confirmed sync block deletion
+		// We only care about local changes that change the document
+		// and are not yet confirmed for sync block deletion
+		if (
+			!tr.docChanged ||
+			Boolean(tr.getMeta('isRemote')) ||
+			(!isOffline && isConfirmedSyncBlockDeletion)
+		) {
+			return true;
+		}
 
 			const { removed: bodiedSyncBlockRemoved, added: bodiedSyncBlockAdded } = trackSyncBlocks(
 				syncBlockStore.sourceManager.isSourceBlock,
@@ -423,23 +404,9 @@ export const createPlugin = (
 						// After true is returned here and the node is created, we delete the node in the filterTransaction immediately, which cancels out the creation
 						return true;
 					}
-					if (fg('platform_synced_block_patch_1')) {
-						handleBodiedSyncBlockCreation(bodiedSyncBlockAdded, state, api);
+					handleBodiedSyncBlockCreation(bodiedSyncBlockAdded, state, api);
 
-						return true;
-					} else {
-						// If there is bodiedSyncBlock node addition and it's waiting for the result of saving the node to backend (syncBlockStore.hasPendingCreation()),
-						// we need to intercept the transaction and save it in insert callback so that we only insert it to the document when backend call if backend call is successful
-						// The callback will be evoked by in SourceSyncBlockStoreManager.commitPendingCreation
-						syncBlockStore.sourceManager.registerCreationCallback(() => {
-							api?.core?.actions.execute(() => {
-								return tr.setMeta('isCommitSyncBlockCreation', true);
-							});
-							api?.core.actions.focus();
-						});
-
-						return false;
-					}
+					return true;
 				}
 			} else {
 				const { removed: syncBlockRemoved, added: syncBlockAdded } = trackSyncBlocks(

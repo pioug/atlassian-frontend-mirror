@@ -1,5 +1,16 @@
 # @atlaskit/rovo-triggers
 
+## 5.14.0
+
+### Minor Changes
+
+- [`9f5e9487c6e74`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f5e9487c6e74) -
+  Fix insertPlaceholder issue on in product SA modal
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.13.0
 
 ### Minor Changes

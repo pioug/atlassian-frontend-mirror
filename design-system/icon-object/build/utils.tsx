@@ -151,8 +151,6 @@ import type { GlyphProps } from '@atlaskit/icon/types';
 import NewObjectComponent from '${newComponentPath}';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import IconObjectOld from '../../glyph-legacy/${name}/${size}';
-
 /**
  * __${size}px \`${name}\` icon object__
  *
@@ -170,7 +168,11 @@ const ${componentName}: {
 	// Feature flag to migrate to new object package
 	if (fg('platform_dst_icon_object_to_object') || fg('platform_dst_icon_object_to_object_stage2')) {
 		// Map props based on size: 16px -> object (medium), 24px -> tile (small)
-		return ${size === '16' ? '<NewObjectComponent label={label} testId={testId} size="medium" />' : '<NewObjectComponent label={label} testId={testId} size="small" />'}
+		return ${
+			size === '16'
+				? '<NewObjectComponent label={label} testId={testId} size="medium" />'
+				: '<NewObjectComponent label={label} testId={testId} size="small" />'
+		}
 	}
 
 	return (
@@ -180,7 +182,6 @@ const ${componentName}: {
 			size="${size}"
 			label={label}
 			testId={testId}
-			LEGACY_fallbackComponent={<IconObjectOld label={label} testId={testId} />}
 		/>
 	);
 };

@@ -34,10 +34,9 @@ test.describe('speed index', () => {
 	});
 });
 
-test.describe('speed index - fy26.04 revision with feature flag enabled', () => {
+test.describe('speed index - fy26.04 revision', () => {
 	test.use({
 		examplePage: 'basic',
-		featureFlags: ['platform_ufo_ttvc_v4_speed_index'],
 	});
 
 	for (const viewport of viewports) {
@@ -46,7 +45,7 @@ test.describe('speed index - fy26.04 revision with feature flag enabled', () => 
 				viewport,
 			});
 
-			test('fy26.04 revision should include speedIndex when feature flag is enabled', async ({
+			test('fy26.04 revision should include speedIndex', async ({
 				page,
 				waitForReactUFOPayload,
 			}) => {
@@ -116,50 +115,6 @@ test.describe('speed index - fy26.04 revision with feature flag enabled', () => 
 					// (time at which 100% is painted)
 					expect(speedIndex).toBeLessThanOrEqual(vc100);
 				}
-			});
-		});
-	}
-});
-
-test.describe('speed index - fy26.04 revision with feature flag disabled', () => {
-	test.use({
-		examplePage: 'basic',
-		featureFlags: [],
-	});
-
-	for (const viewport of viewports) {
-		test.describe(`when viewport is ${viewport.width}x${viewport.height}`, () => {
-			test.use({
-				viewport,
-			});
-
-			test('fy26.04 revision should NOT include speedIndex when feature flag is disabled', async ({
-				page,
-				waitForReactUFOPayload,
-			}) => {
-				const mainDiv = page.locator('[data-testid="main"]');
-				const sections = page.locator('[data-testid="main"] > div');
-
-				await expect(mainDiv).toBeVisible();
-				await expect(sections.nth(9)).toBeVisible();
-
-				const reactUFOPayload = await waitForReactUFOPayload();
-
-				expect(reactUFOPayload).toBeDefined();
-
-				const ufoRevisions = reactUFOPayload!.attributes.properties['ufo:vc:rev'];
-				expect(ufoRevisions).toBeDefined();
-
-				// Find the fy26.04 revision
-				const fy26_04_revision = ufoRevisions?.find((rev) => rev.revision === 'fy26.04');
-				expect(fy26_04_revision).toBeDefined();
-
-				// Verify speedIndex is NOT present when feature flag is disabled
-				expect(fy26_04_revision?.speedIndex).toBeUndefined();
-
-				// Other VC metrics should still be present
-				expect(fy26_04_revision?.['metric:vc90']).toBeDefined();
-				expect(fy26_04_revision?.vcDetails).toBeDefined();
 			});
 		});
 	}

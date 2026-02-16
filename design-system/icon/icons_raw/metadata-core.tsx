@@ -54,6 +54,17 @@ const metadata: IconMetadata = {
 		slackChannel: '#feedback-loom-vizrefresh',
 		createdAt: '2025-07-31T03:28:03.217Z',
 	},
+	'ai-sparkle': {
+		keywords: ['AI', 'sparkles', 'generative AI', 'AI functionality'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		status: 'published',
+		id: '7594:13886',
+		usage:
+			'Reserved for representing AI-powered features and functionality.\n\nNote: The "Editions" gem icon has replaced the sparkle icon for representing premium features in upsell experiences.',
+		createdAt: '2026-02-13T06:54:06.585Z',
+	},
 	alert: {
 		keywords: ['alert', 'event', 'operations'],
 		categorization: 'single-purpose',

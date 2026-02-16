@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 
 import { type LabelStack, useInteractionContext } from '../interaction-context';
 import { getActiveInteraction, PreviousInteractionLog } from '../interaction-metrics';
+import UFORouteName from '../route-name-context';
 
 export interface TerminalErrorAdditionalAttributes {
 	teamName?: string;
@@ -11,6 +12,7 @@ export interface TerminalErrorAdditionalAttributes {
 	traceId?: string;
 	fallbackType?: 'page' | 'flag' | 'custom';
 	statusCode?: number;
+	isClientNetworkError?: boolean;
 }
 
 export interface TerminalErrorData extends TerminalErrorAdditionalAttributes {
@@ -28,6 +30,7 @@ export interface TerminalErrorContext {
 	previousInteractionName: string | null;
 	previousInteractionType: string | null;
 	timeSincePreviousInteraction: number | null;
+	routeName: string | null;
 }
 
 let sinkHandlerFn: (
@@ -46,6 +49,11 @@ export function setTerminalError(
 	additionalAttributes?: TerminalErrorAdditionalAttributes,
 	labelStack?: LabelStack,
 ): void {
+	if(additionalAttributes?.isClientNetworkError) {
+		// Exclude client network errors from being reported to UFO
+		return;
+	}
+
 	const activeInteraction = getActiveInteraction();
 	const currentTime = performance.now();
 	const errorData: TerminalErrorData = {
@@ -68,6 +76,7 @@ export function setTerminalError(
 		previousInteractionName: PreviousInteractionLog.name ?? null,
 		previousInteractionType: PreviousInteractionLog.type ?? null,
 		timeSincePreviousInteraction,
+		routeName: UFORouteName.current ?? null,
 	};
 	sinkHandlerFn(errorData, context);
 }

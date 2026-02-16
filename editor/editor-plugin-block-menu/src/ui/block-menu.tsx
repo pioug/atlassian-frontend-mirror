@@ -26,6 +26,7 @@ import {
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { redo, undo } from '@atlaskit/prosemirror-history';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -42,6 +43,9 @@ const styles = cssMap({
 		backgroundColor: token('elevation.surface.overlay'),
 		boxShadow: token('elevation.shadow.overlay'),
 		borderRadius: token('radius.small'),
+	},
+	maxWidthStyles: {
+		maxWidth: '320px',
 	},
 	emptyMenuSectionStyles: {
 		/*
@@ -173,6 +177,7 @@ const BlockMenuContent = ({
 			ref={ref}
 			xcss={cx(
 				styles.base,
+				fg('platform_editor_block_menu_v2_patch_2') && styles.maxWidthStyles,
 				editorExperiment('platform_synced_block', true) && styles.emptyMenuSectionStyles,
 			)}
 		>

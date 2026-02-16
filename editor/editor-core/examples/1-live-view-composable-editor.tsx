@@ -93,11 +93,11 @@ function ComposableEditorPage() {
 				profilecardProvider: undefined,
 				taskDecisionProvider: undefined,
 			},
-		providerCreator: {
-			createEmojiProvider: undefined,
-			createMediaProvider: undefined,
-			createSmartLinkProvider: undefined,
-		},
+			providerCreator: {
+				createEmojiProvider: undefined,
+				createMediaProvider: undefined,
+				createSmartLinkProvider: undefined,
+			},
 		},
 	});
 
@@ -258,7 +258,7 @@ function ComposableEditorPage() {
 				},
 			},
 			{
-				label: 'Create template',
+				label: 'This is a very long label that should be truncated',
 				icon: AppIcon,
 				lozenge: {
 					label: 'NEW',
@@ -268,7 +268,7 @@ function ComposableEditorPage() {
 				},
 			},
 			{
-				label: 'Dropdown extension item',
+				label: 'Dropdown extension item with a very long label that should be truncated',
 				icon: AppIcon,
 				getMenuItems: () => {
 					return [

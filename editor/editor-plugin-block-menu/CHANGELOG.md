@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.0.41
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.40
+
+### Patch Changes
+
+- [`25ad5c762c280`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25ad5c762c280) -
+  [ux] Add truncation on the extention label in block menu
+- Updated dependencies
+
 ## 6.0.39
 
 ### Patch Changes

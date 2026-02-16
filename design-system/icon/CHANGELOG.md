@@ -1,5 +1,33 @@
 # @atlaskit/icon
 
+## 31.0.0
+
+### Major Changes
+
+- [`cba951d9c882d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cba951d9c882d) -
+  Dropping LEGACY_fallback prop from icon-tile
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.1.0
+
+### Minor Changes
+
+- [`ea7a01d023b36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea7a01d023b36) -
+  This release adds and updates icons in `@atlaskit/icon`.
+
+  ### Added:
+
+  **`@atlaskit/icon/core`**
+  - `ai-sparkle`
+
+  ### Updated:
+
+  **`@atlaskit/icon/core`**
+  - `chart-pie`
+
 ## 30.0.2
 
 ### Patch Changes

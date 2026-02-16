@@ -56,7 +56,7 @@ const RovoChatAction = ({
 	testId = 'smart-action-rovo-chat-action',
 	...props
 }: RovoChatActionProps): React.JSX.Element | null => {
-	const { sendPromptMessage } = useRovoChat();
+	const { isRovoChatEnabled, sendPromptMessage } = useRovoChat();
 
 	const onClick = useCallback(
 		(promptData: SendPromptMessageData) => {
@@ -89,7 +89,7 @@ const RovoChatAction = ({
 		});
 	}, [onClick, prompts, props, testId]);
 
-	return promptActions?.length > 0 ? <>{promptActions}</> : null;
+	return isRovoChatEnabled && promptActions?.length > 0 ? <>{promptActions}</> : null;
 };
 
 export default RovoChatAction;

@@ -2,7 +2,6 @@
 import { useMemo } from 'react';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { generateBlockAri, generateBlockAriFromReference } from '../../clients/block-service/ari';
 import {
@@ -247,7 +246,6 @@ export const batchFetchData = async (
 
 	try {
 		const response = await batchRetrieveSyncedBlocks({
-			documentAri: parentAri,
 			blockIdentifiers,
 		});
 		const results: SyncBlockInstance[] = [];
@@ -372,7 +370,6 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 		try {
 			const blockContentResponse = await getSyncedBlockContent({
 				blockAri,
-				documentAri: this.parentAri,
 			});
 
 			const {
@@ -503,7 +500,6 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 interface BlockServiceADFWriteProviderProps {
 	cloudId: string; // the cloudId of the block. E.G the cloudId of the confluence page, or the cloudId of the Jira instance
 	getVersion?: () => Promise<number | undefined>; // get the version of the block. E.G the version of the confluence page, or the version of the Jira work item
-	isParentUnpublished?: () => boolean; // function to check if the parent is unpublished
 	parentAri: string | undefined; // the ARI of the parent of the block. E.G the ARI of the confluence page, or the ARI of the Jira work item
 	parentId?: string; // the parentId of the block. E.G the pageId for a confluence page, or the issueId for a Jira work item
 	product: SyncBlockProduct; // the product of the block. E.G 'confluence-page', 'jira-work-item'
@@ -516,7 +512,6 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 	private cloudId: string;
 	private parentId?: string;
 	private getVersion?: () => Promise<number | undefined>;
-	private isParentUnpublished?: () => boolean;
 
 	product: SyncBlockProduct;
 	parentAri: string | undefined;
@@ -527,14 +522,12 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 		parentId,
 		product,
 		getVersion,
-		isParentUnpublished,
 	}: BlockServiceADFWriteProviderProps) {
 		this.cloudId = cloudId;
 		this.parentAri = parentAri;
 		this.parentId = parentId;
 		this.product = product;
 		this.getVersion = getVersion;
-		this.isParentUnpublished = isParentUnpublished;
 	}
 
 	// it will first try to update and if it can't (404) then it will try to create
@@ -553,7 +546,12 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 
 		try {
 			const status = data.status;
-			await updateSyncedBlock({ blockAri, content: JSON.stringify(data.content), stepVersion, status });
+			await updateSyncedBlock({
+				blockAri,
+				content: JSON.stringify(data.content),
+				stepVersion,
+				status,
+			});
 			return { resourceId };
 		} catch (error) {
 			if (error instanceof BlockError) {
@@ -575,11 +573,7 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 			resourceId,
 		});
 		const stepVersion = this.getVersion ? await this.getVersion() : undefined;
-		const status = fg('platform_synced_block_patch_1')
-			? 'unpublished'
-			: this.isParentUnpublished?.()
-			? 'unpublished'
-			: data.status || 'active';
+		const status = 'unpublished';
 
 		try {
 			await createSyncedBlock({
@@ -672,7 +666,6 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 interface BlockServiceAPIProvidersProps {
 	cloudId: string; // the cloudId of the block. E.G the cloudId of the confluence page, or the cloudId of the Jira instance
 	getVersion?: () => Promise<number | undefined>; // get the version of the block. E.G the version of the confluence page, or the version of the Jira work item
-	isParentUnpublished?: () => boolean; // function to check if the parent is unpublished
 	parentAri: string | undefined; // the ARI of the parent of the block. E.G the ARI of the confluence page, or the ARI of the Jira work item
 	parentId?: string; // the parentId of the block. E.G the pageId for a confluence page, or the issueId for a Jira work item
 	product: SyncBlockProduct; // the product of the block. E.G 'confluence-page', 'jira-work-item'
@@ -684,7 +677,6 @@ const createBlockServiceAPIProviders = ({
 	parentId,
 	product,
 	getVersion,
-	isParentUnpublished,
 }: BlockServiceAPIProvidersProps): {
 	fetchProvider: BlockServiceADFFetchProvider;
 	writeProvider: BlockServiceADFWriteProvider;
@@ -700,7 +692,6 @@ const createBlockServiceAPIProviders = ({
 			parentId,
 			product,
 			getVersion,
-			isParentUnpublished,
 		}),
 	};
 };
@@ -711,7 +702,6 @@ export const useMemoizedBlockServiceAPIProviders = ({
 	parentId,
 	product,
 	getVersion,
-	isParentUnpublished,
 }: BlockServiceAPIProvidersProps): {
 	fetchProvider: BlockServiceADFFetchProvider;
 	writeProvider: BlockServiceADFWriteProvider;
@@ -723,9 +713,8 @@ export const useMemoizedBlockServiceAPIProviders = ({
 			parentId,
 			product,
 			getVersion,
-			isParentUnpublished,
 		});
-	}, [cloudId, parentAri, parentId, product, getVersion, isParentUnpublished]);
+	}, [cloudId, parentAri, parentId, product, getVersion]);
 };
 
 interface BlockServiceFetchOnlyAPIProviderProps {

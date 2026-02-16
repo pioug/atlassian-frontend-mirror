@@ -8,7 +8,19 @@
 			"type": "named"
 		},
 		"type": "function",
-		"keywords": ["token", "design", "system", "color", "spacing", "typography", "radius", "theme", "css", "style", "variable"],
+		"keywords": [
+			"token",
+			"design",
+			"system",
+			"color",
+			"spacing",
+			"typography",
+			"radius",
+			"theme",
+			"css",
+			"style",
+			"variable"
+		],
 		"categories": ["tokens"],
 		"shortDescription": "Design tokens provide consistent, semantic values for colors, spacing, typography, and other design properties across the Atlassian Design System. Use tokens instead of hardcoded values to ensure consistency and proper theming.",
 		"status": "general-availability",
@@ -18,8 +30,8 @@
 			"Use semantic color names (success, warning, danger) for better meaning"
 		],
 		"usageGuidelines": [
-			"AVOID hardcoding any CSS values where a token exists for that type; in  many cases you may be forced to use a token",
-			"Use the `token()` function with inline styles or CSS-in-JS",
+			"AVOID hardcoding any CSS values where a token exists for that type; in many cases you may be forced to use a token",
+			"Use the `token()` function with CSS-in-JS",
 			"Use semantic token names for better maintainability"
 		],
 		"generativeInstructions": [
@@ -27,6 +39,6 @@
 			"./docs/ai/spacing-instructions.md",
 			"./docs/ai/border-radius-instructions.md"
 		],
-		"examples": ["./examples/ai/prototyping-no-compiled.tsx"]
+		"examples": ["./examples/ai/basic.tsx"]
 	}
 ]

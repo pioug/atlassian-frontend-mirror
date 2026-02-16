@@ -5,6 +5,7 @@ import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import {
 	AbstractConversationResource,
+	type ResourceProvider,
 	type ConversationResourceConfig,
 } from '../src/api/ConversationResource';
 import { HttpError } from '../src/api/HttpError';
@@ -64,7 +65,7 @@ export const getDataProviderFactory = (onlyInclude: string[] = []) => {
 	return dataProviderFactory;
 };
 
-export class MockProvider extends AbstractConversationResource {
+export class MockProvider extends AbstractConversationResource implements ResourceProvider {
 	private config: ConversationResourceConfig;
 	private responseCode: keyof typeof RESPONSE_MESSAGES;
 
@@ -279,7 +280,7 @@ export class MockProvider extends AbstractConversationResource {
 	 */
 	// Ignored via go/ees005
 	// eslint-disable-next-line require-await
-	async updateUser(user: User): Promise<User> {
+	async updateUser(user?: User): Promise<User | undefined> {
 		const { dispatch } = this;
 		dispatch({ type: UPDATE_USER_SUCCESS, payload: { user } });
 		this.config.user = user;

@@ -31,7 +31,6 @@ import QuotationMarkIcon from '@atlaskit/icon/core/quotation-mark';
 import StatusErrorIcon from '@atlaskit/icon/core/status-error';
 import { ConfluenceIcon, JiraIcon, AtlassianIcon } from '@atlaskit/logo';
 import Lozenge from '@atlaskit/lozenge';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text, Inline, Anchor, Stack } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
@@ -208,7 +207,7 @@ const getConfluenceSubTypeIcon = (subType?: string | null) => {
 };
 
 const ProductIcon = ({ product }: { product?: SyncBlockProduct }) => {
-	const ProductIcon = product ? (productIconMap[product] ?? AtlassianIcon) : AtlassianIcon;
+	const ProductIcon = product ? productIconMap[product] ?? AtlassianIcon : AtlassianIcon;
 
 	return (
 		<span css={logoTileStyles}>
@@ -296,14 +295,12 @@ export const SyncedLocationDropdown = ({
 		<DropdownMenu
 			isOpen={isOpen}
 			onOpenChange={({ isOpen }) => setIsOpen(isOpen)}
-			testId={
-				fg('platform_synced_block_patch_1') ? 'synced-block-synced-locations-dropdown' : undefined
-			}
+			testId="synced-block-synced-locations-dropdown"
 			trigger={({ triggerRef, ...triggerProps }) => (
 				<Button
 					ref={triggerRef}
 					areAnyNewToolbarFlagsEnabled={true}
-					selected={fg('platform_synced_block_patch_1') ? isOpen : undefined}
+					selected={isOpen}
 					iconAfter={
 						<ChevronDownIcon color="currentColor" spacing="spacious" label="" size="small" />
 					}
@@ -356,17 +353,15 @@ const DropdownContent = ({ syncBlockStore, resourceId, intl, isSource, localId, 
 	}, [syncBlockStore, intl, isSource, localId, resourceId]);
 
 	const handleLocationClick = () => {
-		if (fg('platform_synced_block_patch_1')) {
-			api?.analytics?.actions?.fireAnalyticsEvent({
-				eventType: EVENT_TYPE.OPERATIONAL,
-				action: ACTION.CLICKED,
-				actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
-				actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_CLICK_SYNCED_LOCATION,
-				attributes: {
-					resourceId,
-				},
-			});
-		}
+		api?.analytics?.actions?.fireAnalyticsEvent({
+			eventType: EVENT_TYPE.OPERATIONAL,
+			action: ACTION.CLICKED,
+			actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+			actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_CLICK_SYNCED_LOCATION,
+			attributes: {
+				resourceId,
+			},
+		});
 	};
 
 	const content = () => {
@@ -440,12 +435,7 @@ const LoadingScreen = () => {
 
 const ErrorScreen = ({ formatMessage }: { formatMessage: IntlShape['formatMessage'] }) => {
 	return (
-		<Box
-			xcss={styles.errorContainer}
-			testId={
-				fg('platform_synced_block_patch_1') ? 'synced-locations-dropdown-content-error' : undefined
-			}
-		>
+		<Box xcss={styles.errorContainer} testId="synced-locations-dropdown-content-error">
 			<Box xcss={styles.errorIcon}>
 				<StatusErrorIcon
 					color={token('color.icon.danger')}
@@ -466,11 +456,7 @@ const NoResultScreen = ({ formatMessage }: { formatMessage: IntlShape['formatMes
 		<Stack
 			xcss={styles.noResultsContainer}
 			space="space.100"
-			testId={
-				fg('platform_synced_block_patch_1')
-					? 'synced-locations-dropdown-content-no-results'
-					: undefined
-			}
+			testId="synced-locations-dropdown-content-no-results"
 		>
 			<Text as="p">{formatMessage(messages.syncedLocationDropdownNoResults)}</Text>
 			<Text as="p">

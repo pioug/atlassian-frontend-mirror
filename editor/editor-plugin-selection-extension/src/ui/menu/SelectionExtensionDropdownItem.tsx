@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
 import { cssMap } from '@atlaskit/css';
 import {
@@ -7,7 +7,7 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
+import { ToolbarDropdownItem, ToolbarTooltip } from '@atlaskit/editor-toolbar';
 import Lozenge from '@atlaskit/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
@@ -20,8 +20,20 @@ import { SelectionExtensionActionTypes } from '../../types';
 import { useSelectionExtensionComponentContext } from '../SelectionExtensionComponentContext';
 
 const styles = cssMap({
+	contentWrapper: {
+		display: 'flex',
+		alignItems: 'center',
+		minWidth: '0px',
+	},
+	label: {
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+		whiteSpace: 'nowrap',
+		minWidth: '0px',
+	},
 	lozenge: {
 		marginLeft: token('space.050'),
+		flexShrink: 0,
 	},
 });
 
@@ -88,6 +100,51 @@ export const SelectionExtensionDropdownItem = ({
 			},
 		});
 	};
+
+	const labelRef = useRef<HTMLSpanElement>(null);
+	const [isTruncated, setIsTruncated] = useState(false);
+
+	const handleMouseEnter = useCallback(() => {
+		const el = labelRef.current;
+		if (el) {
+			setIsTruncated(el.scrollWidth > el.clientWidth);
+		}
+	}, []);
+
+	if (fg('platform_editor_block_menu_v2_patch_2')) {
+		return (
+			<ToolbarTooltip content={isTruncated ? dropdownItem.label : null} position="top">
+				<ToolbarDropdownItem
+					elemBefore={
+						IconComponent ? (
+							<IconComponent
+								size={
+									extensionLocation === 'inline-toolbar' &&
+									fg('platform_editor_block_menu_v2_patch_1')
+										? 'small'
+										: undefined
+								}
+								label=""
+							/>
+						) : undefined
+					}
+					onClick={handleClick}
+					isDisabled={dropdownItem.isDisabled}
+				>
+					<Box as="span" xcss={styles.contentWrapper} onMouseOver={handleMouseEnter}>
+						<Box as="span" xcss={styles.label} ref={labelRef}>
+							{dropdownItem.label}
+						</Box>
+						{dropdownItem.lozenge ? (
+							<Box as="span" xcss={styles.lozenge}>
+								<Lozenge appearance="new">{dropdownItem.lozenge.label}</Lozenge>
+							</Box>
+						) : undefined}
+					</Box>
+				</ToolbarDropdownItem>
+			</ToolbarTooltip>
+		);
+	}
 
 	return (
 		<ToolbarDropdownItem

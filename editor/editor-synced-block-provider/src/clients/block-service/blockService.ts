@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type {
 	ReferenceSyncBlockResponse,
 	SyncBlockProduct,
@@ -180,7 +178,6 @@ export const getReferenceSyncedBlocks = async (
 
 export type GetSyncedBlockContentRequest = {
 	blockAri: string; // the ARI of the block. E.G ari:cloud:blocks:site-123:synced-block/uuid-456
-	documentAri?: string; // optional document ARI to pass as query parameter
 };
 
 export type DeleteSyncedBlockRequest = {
@@ -218,7 +215,6 @@ type UpdateReferenceSyncedBlockOnDocumentRequest = {
 
 export type BatchRetrieveSyncedBlocksRequest = {
 	blockIdentifiers: BlockIdentifier[]; // array of block identifiers to retrieve
-	documentAri: string; // the ARI of the document to retrieve the synced blocks for
 };
 
 type BlockIdentifier = {
@@ -246,7 +242,6 @@ const COMMON_HEADERS = {
 	Accept: 'application/json',
 };
 
-const BLOCK_SERVICE_API_URL = '/gateway/api/blocks/v1';
 const GRAPHQL_ENDPOINT = '/gateway/api/graphql';
 
 const GET_DOCUMENT_REFERENCE_BLOCKS_OPERATION_NAME =
@@ -312,7 +307,7 @@ const buildUpdateBlockMutation = (
 	if (stepVersion !== undefined) {
 		inputParts.push(`stepVersion: ${stepVersion}`);
 	}
-	if (status !== undefined && fg('platform_synced_block_patch_1')) {
+	if (status !== undefined) {
 		inputParts.push(`status: ${JSON.stringify(status)}`);
 	}
 	const inputArgs = inputParts.join(', ');
@@ -397,10 +392,14 @@ const buildUpdateDocumentReferencesMutation = (
 	const blocksArray = blocks
 		.map(
 			(block) =>
-				`{ blockAri: ${JSON.stringify(block.blockAri)}, blockInstanceId: ${JSON.stringify(block.blockInstanceId)} }`,
+				`{ blockAri: ${JSON.stringify(block.blockAri)}, blockInstanceId: ${JSON.stringify(
+					block.blockInstanceId,
+				)} }`,
 		)
 		.join(', ');
-	const inputArgs = `documentAri: ${JSON.stringify(documentAri)}, blocks: [${blocksArray}], noContent: ${noContent}`;
+	const inputArgs = `documentAri: ${JSON.stringify(
+		documentAri,
+	)}, blocks: [${blocksArray}], noContent: ${noContent}`;
 	return `mutation ${UPDATE_DOCUMENT_REFERENCES_OPERATION_NAME} {
 	blockService_updateDocumentReferences(input: { ${inputArgs} }) {
 		blocks {
@@ -479,161 +478,105 @@ export class BlockError extends Error {
 export const getSyncedBlockContent = async ({
 	blockAri,
 }: GetSyncedBlockContentRequest): Promise<BlockContentResponse> => {
-	if (fg('platform_synced_block_patch_1')) {
-		const bodyData = {
-			query: buildGetBlockQuery(blockAri),
-			operationName: GET_BLOCK_OPERATION_NAME,
-		};
+	const bodyData = {
+		query: buildGetBlockQuery(blockAri),
+		operationName: GET_BLOCK_OPERATION_NAME,
+	};
 
-		const response = await fetchWithRetry(GRAPHQL_ENDPOINT, {
-			method: 'POST',
-			headers: COMMON_HEADERS,
-			body: JSON.stringify(bodyData),
-		});
-
-		if (!response.ok) {
-			throw new BlockError(response.status);
-		}
-
-		const result = (await response.json()) as GetBlockGraphQLResponse;
-
-		if (result.errors && result.errors.length > 0) {
-			throw new Error(result.errors.map((e) => e.message).join(', '));
-		}
-
-		if (!result.data?.blockService_getBlock) {
-			throw new Error('No data returned from GraphQL query');
-		}
-
-		return result.data.blockService_getBlock;
-	}
-
-	// Disable sending documentAri for now. We'll add it back if we find a way to update references that follows the save & refresh principle.
-	// Slack discussion here: https://atlassian.slack.com/archives/C09DZT1TBNW/p1767836775552099?thread_ts=1767836754.024889&cid=C09DZT1TBNW
-	// const queryParams = documentAri ? `?documentAri=${encodeURIComponent(documentAri)}` : '';
-	const queryParams = '';
-	const response = await fetchWithRetry(
-		`${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}` + queryParams,
-		{
-			method: 'GET',
-			headers: COMMON_HEADERS,
-		},
-	);
-
-	if (!response.ok) {
-		throw new BlockError(response.status);
-	}
-
-	return (await response.json()) as BlockContentResponse;
-};
-
-/**
- * Batch retrieves multiple synced blocks by their ARIs.
- *
- * Calls the Block Service API endpoint: `POST /v1/block/batch-retrieve`
- * or GraphQL query `blockService_batchRetrieveBlocks` when feature flag is enabled
- *
- * @param blockAris - Array of block ARIs to retrieve
- * @returns A promise containing arrays of successfully fetched blocks and any errors encountered
- */
-export const batchRetrieveSyncedBlocks = async ({
-	blockIdentifiers,
-	documentAri,
-}: BatchRetrieveSyncedBlocksRequest): Promise<BatchRetrieveSyncedBlocksResponse> => {
-	if (fg('platform_synced_block_patch_1')) {
-		const blockAris = blockIdentifiers.map((blockIdentifier) => blockIdentifier.blockAri);
-		const bodyData = {
-			query: buildBatchRetrieveBlocksQuery(blockAris),
-			operationName: BATCH_RETRIEVE_BLOCKS_OPERATION_NAME,
-		};
-
-		const response = await fetchWithRetry(GRAPHQL_ENDPOINT, {
-			method: 'POST',
-			headers: COMMON_HEADERS,
-			body: JSON.stringify(bodyData),
-		});
-
-		if (!response.ok) {
-			throw new BlockError(response.status);
-		}
-
-		const result: BatchRetrieveBlocksGraphQLResponse = await response.json();
-
-		if (result.errors && result.errors.length > 0) {
-			throw new Error(result.errors.map((e) => e.message).join(', '));
-		}
-
-		if (!result.data?.blockService_batchRetrieveBlocks) {
-			throw new Error('No data returned from GraphQL query');
-		}
-
-		const graphqlResponse = result.data.blockService_batchRetrieveBlocks;
-		return {
-			success: graphqlResponse.success,
-			error: graphqlResponse.error,
-		};
-	}
-
-	const response = await fetchWithRetry(`${BLOCK_SERVICE_API_URL}/block/batch-retrieve`, {
+	const response = await fetchWithRetry(GRAPHQL_ENDPOINT, {
 		method: 'POST',
 		headers: COMMON_HEADERS,
-		body: JSON.stringify({
-			documentAri,
-			blockIdentifiers,
-			blockAris: blockIdentifiers.map((blockIdentifier) => blockIdentifier.blockAri),
-		}),
+		body: JSON.stringify(bodyData),
 	});
 
 	if (!response.ok) {
 		throw new BlockError(response.status);
 	}
 
-	return (await response.json()) as BatchRetrieveSyncedBlocksResponse;
+	const result = (await response.json()) as GetBlockGraphQLResponse;
+
+	if (result.errors && result.errors.length > 0) {
+		throw new Error(result.errors.map((e) => e.message).join(', '));
+	}
+
+	if (!result.data?.blockService_getBlock) {
+		throw new Error('No data returned from GraphQL query');
+	}
+
+	return result.data.blockService_getBlock;
+};
+
+/**
+ * Batch retrieves multiple synced blocks by their ARIs.
+ *
+ * Calls the Block Service GraphQL API: `blockService_batchRetrieveBlocks`
+ *
+ * @param blockIdentifiers - Array of block identifiers to retrieve
+ * @returns A promise containing arrays of successfully fetched blocks and any errors encountered
+ */
+export const batchRetrieveSyncedBlocks = async ({
+	blockIdentifiers,
+}: BatchRetrieveSyncedBlocksRequest): Promise<BatchRetrieveSyncedBlocksResponse> => {
+	const blockAris = blockIdentifiers.map((blockIdentifier) => blockIdentifier.blockAri);
+	const bodyData = {
+		query: buildBatchRetrieveBlocksQuery(blockAris),
+		operationName: BATCH_RETRIEVE_BLOCKS_OPERATION_NAME,
+	};
+
+	const response = await fetchWithRetry(GRAPHQL_ENDPOINT, {
+		method: 'POST',
+		headers: COMMON_HEADERS,
+		body: JSON.stringify(bodyData),
+	});
+
+	if (!response.ok) {
+		throw new BlockError(response.status);
+	}
+
+	const result: BatchRetrieveBlocksGraphQLResponse = await response.json();
+
+	if (result.errors && result.errors.length > 0) {
+		throw new Error(result.errors.map((e) => e.message).join(', '));
+	}
+
+	if (!result.data?.blockService_batchRetrieveBlocks) {
+		throw new Error('No data returned from GraphQL query');
+	}
+
+	const graphqlResponse = result.data.blockService_batchRetrieveBlocks;
+	return {
+		success: graphqlResponse.success,
+		error: graphqlResponse.error,
+	};
 };
 
 export const deleteSyncedBlock = async ({
 	blockAri,
 	deleteReason,
 }: DeleteSyncedBlockRequest): Promise<void> => {
-	if (fg('platform_synced_block_patch_1')) {
-		const bodyData = {
-			query: buildDeleteBlockMutation(blockAri, deleteReason),
-			operationName: DELETE_BLOCK_OPERATION_NAME,
-		};
+	const bodyData = {
+		query: buildDeleteBlockMutation(blockAri, deleteReason),
+		operationName: DELETE_BLOCK_OPERATION_NAME,
+	};
 
-		const response = await fetchWithRetry(GRAPHQL_ENDPOINT, {
-			method: 'POST',
-			headers: COMMON_HEADERS,
-			body: JSON.stringify(bodyData),
-		});
-
-		if (!response.ok) {
-			throw new BlockError(response.status);
-		}
-
-		const result: DeleteBlockGraphQLResponse = await response.json();
-
-		if (result.errors && result.errors.length > 0) {
-			throw new Error(result.errors.map((e) => e.message).join(', '));
-		}
-
-		if (!result.data?.blockService_deleteBlock.deleted) {
-			throw new Error('Block deletion failed; deleted flag is false');
-		}
-
-		return;
-	}
-
-	const url = deleteReason
-		? `${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}?deletionReason=${encodeURIComponent(deleteReason)}`
-		: `${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}`;
-	const response = await fetchWithRetry(url, {
-		method: 'DELETE',
+	const response = await fetchWithRetry(GRAPHQL_ENDPOINT, {
+		method: 'POST',
 		headers: COMMON_HEADERS,
+		body: JSON.stringify(bodyData),
 	});
 
 	if (!response.ok) {
 		throw new BlockError(response.status);
+	}
+
+	const result: DeleteBlockGraphQLResponse = await response.json();
+
+	if (result.errors && result.errors.length > 0) {
+		throw new Error(result.errors.map((e) => e.message).join(', '));
+	}
+
+	if (!result.data?.blockService_deleteBlock.deleted) {
+		throw new Error('Block deletion failed; deleted flag is false');
 	}
 };
 
@@ -643,59 +586,25 @@ export const updateSyncedBlock = async ({
 	stepVersion,
 	status,
 }: UpdateSyncedBlockRequest): Promise<void> => {
-	if (fg('platform_synced_block_patch_1')) {
-		const bodyData = {
-			query: buildUpdateBlockMutation(
-				blockAri,
-				content,
-				stepVersion,
-				status,
-			),
-			operationName: UPDATE_BLOCK_OPERATION_NAME,
-		};
+	const bodyData = {
+		query: buildUpdateBlockMutation(blockAri, content, stepVersion, status),
+		operationName: UPDATE_BLOCK_OPERATION_NAME,
+	};
 
-		const response = await fetchWithRetry(GRAPHQL_ENDPOINT, {
-			method: 'POST',
-			headers: COMMON_HEADERS,
-			body: JSON.stringify(bodyData),
-		});
-
-		if (!response.ok) {
-			throw new BlockError(response.status);
-		}
-
-		const result: UpdateBlockGraphQLResponse = await response.json();
-
-		if (result.errors && result.errors.length > 0) {
-			throw new Error(result.errors.map((e) => e.message).join(', '));
-		}
-
-		return;
-	}
-
-	const requestBody: {
-		content: string;
-		status?: SyncBlockStatus;
-		stepVersion?: number;
-	} = { content };
-	if (stepVersion !== undefined) {
-		requestBody.stepVersion = stepVersion;
-	}
-	if (status !== undefined && fg('platform_synced_block_patch_1')) {
-		requestBody.status = status;
-	}
-
-	const response = await fetchWithRetry(
-		`${BLOCK_SERVICE_API_URL}/block/${encodeURIComponent(blockAri)}`,
-		{
-			method: 'PUT',
-			headers: COMMON_HEADERS,
-			body: JSON.stringify(requestBody),
-		},
-	);
+	const response = await fetchWithRetry(GRAPHQL_ENDPOINT, {
+		method: 'POST',
+		headers: COMMON_HEADERS,
+		body: JSON.stringify(bodyData),
+	});
 
 	if (!response.ok) {
 		throw new BlockError(response.status);
+	}
+
+	const result: UpdateBlockGraphQLResponse = await response.json();
+
+	if (result.errors && result.errors.length > 0) {
+		throw new Error(result.errors.map((e) => e.message).join(', '));
 	}
 };
 
@@ -708,78 +617,40 @@ export const createSyncedBlock = async ({
 	stepVersion,
 	status,
 }: CreateSyncedBlockRequest): Promise<BlockContentResponse> => {
-	if (fg('platform_synced_block_patch_1')) {
-		const bodyData = {
-			query: buildCreateBlockMutation(
-				blockAri,
-				blockInstanceId,
-				content,
-				product,
-				sourceAri,
-				stepVersion,
-				status,
-			),
-			operationName: CREATE_BLOCK_OPERATION_NAME,
-		};
-
-		const response = await fetchWithRetry(GRAPHQL_ENDPOINT, {
-			method: 'POST',
-			headers: COMMON_HEADERS,
-			body: JSON.stringify(bodyData),
-		});
-
-		if (!response.ok) {
-			throw new BlockError(response.status);
-		}
-
-		const result: CreateBlockGraphQLResponse = await response.json();
-
-		if (result.errors && result.errors.length > 0) {
-			throw new Error(result.errors.map((e) => e.message).join(', '));
-		}
-
-		if (!result.data?.blockService_createBlock) {
-			throw new Error('No data returned from GraphQL mutation');
-		}
-
-		return result.data.blockService_createBlock;
-	}
-
-	const requestBody: {
-		blockAri: string;
-		blockInstanceId: string;
-		content: string;
-		product: SyncBlockProduct;
-		sourceAri: string;
-		status?: SyncBlockStatus;
-		stepVersion?: number;
-	} = {
-		blockAri,
-		blockInstanceId,
-		sourceAri,
-		product,
-		content,
+	const bodyData = {
+		query: buildCreateBlockMutation(
+			blockAri,
+			blockInstanceId,
+			content,
+			product,
+			sourceAri,
+			stepVersion,
+			status,
+		),
+		operationName: CREATE_BLOCK_OPERATION_NAME,
 	};
 
-	if (stepVersion !== undefined) {
-		requestBody.stepVersion = stepVersion;
-	}
-
-	if (status !== undefined) {
-		requestBody.status = status;
-	}
-
-	const response = await fetchWithRetry(`${BLOCK_SERVICE_API_URL}/block`, {
+	const response = await fetchWithRetry(GRAPHQL_ENDPOINT, {
 		method: 'POST',
 		headers: COMMON_HEADERS,
-		body: JSON.stringify(requestBody),
+		body: JSON.stringify(bodyData),
 	});
 
 	if (!response.ok) {
 		throw new BlockError(response.status);
 	}
 
-	return (await response.json()) as BlockContentResponse;
+	const result: CreateBlockGraphQLResponse = await response.json();
+
+	if (result.errors && result.errors.length > 0) {
+		throw new Error(result.errors.map((e) => e.message).join(', '));
+	}
+
+	if (!result.data?.blockService_createBlock) {
+		throw new Error('No data returned from GraphQL mutation');
+	}
+
+	return result.data.blockService_createBlock;
 };
 
 export const updateReferenceSyncedBlockOnDocument = async ({
@@ -787,108 +658,68 @@ export const updateReferenceSyncedBlockOnDocument = async ({
 	blocks,
 	noContent = true,
 }: UpdateReferenceSyncedBlockOnDocumentRequest): Promise<ReferenceSyncedBlockResponse | void> => {
-	if (fg('platform_synced_block_patch_1')) {
-		const bodyData = {
-			query: buildUpdateDocumentReferencesMutation(documentAri, blocks, noContent),
-			operationName: UPDATE_DOCUMENT_REFERENCES_OPERATION_NAME,
-		};
+	const bodyData = {
+		query: buildUpdateDocumentReferencesMutation(documentAri, blocks, noContent),
+		operationName: UPDATE_DOCUMENT_REFERENCES_OPERATION_NAME,
+	};
 
-		const response = await fetchWithRetry(GRAPHQL_ENDPOINT, {
-			method: 'POST',
-			headers: COMMON_HEADERS,
-			body: JSON.stringify(bodyData),
-			keepalive: true,
-		});
-
-		if (!response.ok) {
-			throw new BlockError(response.status);
-		}
-
-		const result: UpdateDocumentReferencesGraphQLResponse = await response.json();
-
-		if (result.errors && result.errors.length > 0) {
-			throw new Error(result.errors.map((e) => e.message).join(', '));
-		}
-
-		if (!noContent) {
-			if (!result.data?.blockService_updateDocumentReferences) {
-				throw new Error('No data returned from GraphQL mutation');
-			}
-			return result.data.blockService_updateDocumentReferences;
-		}
-		return;
-	}
-
-	const response = await fetchWithRetry(
-		`${BLOCK_SERVICE_API_URL}/block/document/${encodeURIComponent(documentAri)}/references?noContent=${noContent}`,
-		{
-			method: 'PUT',
-			headers: COMMON_HEADERS,
-			body: JSON.stringify({ blocks }),
-			keepalive: true,
-		},
-	);
+	const response = await fetchWithRetry(GRAPHQL_ENDPOINT, {
+		method: 'POST',
+		headers: COMMON_HEADERS,
+		body: JSON.stringify(bodyData),
+		keepalive: true,
+	});
 
 	if (!response.ok) {
 		throw new BlockError(response.status);
 	}
 
+	const result: UpdateDocumentReferencesGraphQLResponse = await response.json();
+
+	if (result.errors && result.errors.length > 0) {
+		throw new Error(result.errors.map((e) => e.message).join(', '));
+	}
+
 	if (!noContent) {
-		return (await response.json()) as {
-			blocks?: Array<BlockContentResponse>;
-			errors?: Array<ErrorResponse>;
-		};
+		if (!result.data?.blockService_updateDocumentReferences) {
+			throw new Error('No data returned from GraphQL mutation');
+		}
+		return result.data.blockService_updateDocumentReferences;
 	}
 };
 
 export const getReferenceSyncedBlocksByBlockAri = async ({
 	blockAri,
 }: GetReferenceSyncedBlocksByBlockAriRequest): Promise<GetReferenceSyncedBlocksByBlockAriResponse> => {
-	if (fg('platform_synced_block_patch_1')) {
-		const bodyData = {
-			query: buildGetBlockReferencesQuery(blockAri),
-			operationName: GET_BLOCK_REFERENCES_OPERATION_NAME,
-		};
+	const bodyData = {
+		query: buildGetBlockReferencesQuery(blockAri),
+		operationName: GET_BLOCK_REFERENCES_OPERATION_NAME,
+	};
 
-		const response = await fetchWithRetry(GRAPHQL_ENDPOINT, {
-			method: 'POST',
-			headers: COMMON_HEADERS,
-			body: JSON.stringify(bodyData),
-		});
-
-		if (!response.ok) {
-			throw new BlockError(response.status);
-		}
-
-		const result: GetBlockReferencesGraphQLResponse = await response.json();
-
-		if (result.errors && result.errors.length > 0) {
-			throw new Error(result.errors.map((e) => e.message).join(', '));
-		}
-
-		if (!result.data?.blockService_getReferences) {
-			throw new Error('No data returned from GraphQL query');
-		}
-
-		const graphqlResponse = result.data.blockService_getReferences;
-		return {
-			blockAri,
-			references: graphqlResponse.references || [],
-			errors: graphqlResponse.errors || [],
-		};
-	}
-
-	const response = await fetchWithRetry(
-		`${BLOCK_SERVICE_API_URL}/reference/batch-retrieve/${encodeURIComponent(blockAri)}`,
-		{
-			method: 'GET',
-			headers: COMMON_HEADERS,
-		},
-	);
+	const response = await fetchWithRetry(GRAPHQL_ENDPOINT, {
+		method: 'POST',
+		headers: COMMON_HEADERS,
+		body: JSON.stringify(bodyData),
+	});
 
 	if (!response.ok) {
 		throw new BlockError(response.status);
 	}
 
-	return (await response.json()) as GetReferenceSyncedBlocksByBlockAriResponse;
+	const result: GetBlockReferencesGraphQLResponse = await response.json();
+
+	if (result.errors && result.errors.length > 0) {
+		throw new Error(result.errors.map((e) => e.message).join(', '));
+	}
+
+	if (!result.data?.blockService_getReferences) {
+		throw new Error('No data returned from GraphQL query');
+	}
+
+	const graphqlResponse = result.data.blockService_getReferences;
+	return {
+		blockAri,
+		references: graphqlResponse.references || [],
+		errors: graphqlResponse.errors || [],
+	};
 };

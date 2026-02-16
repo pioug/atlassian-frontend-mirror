@@ -513,11 +513,7 @@ describe('AbstractVCCalculatorBase V1', () => {
 	});
 
 	describe('speedIndex calculation', () => {
-		it('should include speedIndex in result when feature flag is enabled', async () => {
-			mockFg.mockImplementation((key) => {
-				return key === 'platform_ufo_ttvc_v4_speed_index';
-			});
-
+		it('should include speedIndex in result when it has a positive value', async () => {
 			const mockCalcResult = {
 				entries: [
 					{
@@ -575,9 +571,7 @@ describe('AbstractVCCalculatorBase V1', () => {
 			expect(result?.speedIndex).toEqual(150);
 		});
 
-		it('should not include speedIndex in result when feature flag is disabled', async () => {
-			mockFg.mockImplementation(() => false);
-
+		it('should not include speedIndex in result when it is 0', async () => {
 			const mockCalcResult = {
 				entries: [
 					{
@@ -593,7 +587,6 @@ describe('AbstractVCCalculatorBase V1', () => {
 						],
 					},
 				],
-				// speedIndex is 0 when calculation is skipped (feature flag disabled)
 				speedIndex: 0,
 			};
 

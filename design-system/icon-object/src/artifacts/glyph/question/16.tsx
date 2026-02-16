@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::78144f28802c735132114da21985975d>>
+ * @codegen <<SignedSource::9ca707feaa72823f4cc7cefe8ab778c5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
@@ -10,8 +10,6 @@ import NewIcon from '@atlaskit/icon/core/question-circle';
 import type { GlyphProps } from '@atlaskit/icon/types';
 import NewObjectComponent from '@atlaskit/object/question';
 import { fg } from '@atlaskit/platform-feature-flags';
-
-import IconObjectOld from '../../glyph-legacy/question/16';
 
 /**
  * __16px `question` icon object__
@@ -34,14 +32,7 @@ const Question16Icon: {
 	}
 
 	return (
-		<IconTile
-			icon={NewIcon}
-			appearance="purpleBold"
-			size="16"
-			label={label}
-			testId={testId}
-			LEGACY_fallbackComponent={<IconObjectOld label={label} testId={testId} />}
-		/>
+		<IconTile icon={NewIcon} appearance="purpleBold" size="16" label={label} testId={testId} />
 	);
 };
 

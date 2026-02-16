@@ -8,6 +8,13 @@ export { default as slackLogo } from './slack-logo.svg';
 export { default as imageForbiddenJiraEmbed } from './forbidden-jira-embed.svg';
 export { default as forbiddenJira } from './forbidden-jira.svg';
 
+// Block card unauthorized images
+import figmaUnauthImage from './figma-unauth.png';
+import gdriveUnauthImage from './google-drive-unauth.png';
+import onedriveUnauthImage from './onedrive-unauth.png';
+import slackUnauthImage from './slack-unauth.png';
+export { figmaUnauthImage, gdriveUnauthImage, onedriveUnauthImage, slackUnauthImage };
+
 // Link images
 export { default as image1 } from './rectangle.svg';
 export const image2 =

@@ -1,5 +1,21 @@
 # @atlaskit/smart-card
 
+## 43.24.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 43.24.6
+
+### Patch Changes
+
+- [`06cdd352d03d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06cdd352d03d0) -
+  Add useRovoConfig hook
+- [`c5bebe6465da5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5bebe6465da5) -
+  NAVX-3264 refactoring new unauthed block card to use BE value or general hardcoded preview only
+- Updated dependencies
+
 ## 43.24.5
 
 ### Patch Changes

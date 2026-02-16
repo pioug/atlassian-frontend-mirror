@@ -8,9 +8,11 @@ import { type ReactNode } from 'react';
 import { jsx, cssMap, cx } from '@compiled/react';
 
 import DropdownMenu from '@atlaskit/dropdown-menu';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import { ToolbarDropdownItem } from './ToolbarDropdownItem';
+import { ToolbarTooltip } from './ToolbarTooltip';
 
 const styles = cssMap({
 	scrollContainer: {
@@ -31,8 +33,10 @@ type ToolbarNestedDropdownMenuProps = {
 	isDisabled?: boolean;
 	onClick?: (e: React.MouseEvent | React.KeyboardEvent) => void;
 	shouldFitContainer?: boolean;
+	shouldTitleWrap?: boolean;
 	testId?: string;
 	text?: string;
+	tooltipContent?: ReactNode;
 };
 
 export const ToolbarNestedDropdownMenu = ({
@@ -46,29 +50,46 @@ export const ToolbarNestedDropdownMenu = ({
 	enableMaxHeight = false,
 	onClick,
 	shouldFitContainer = false,
+	shouldTitleWrap,
+	tooltipContent,
 }: ToolbarNestedDropdownMenuProps) => {
 	return (
 		<DropdownMenu<HTMLButtonElement>
 			shouldFitContainer={shouldFitContainer}
 			placement="right-start"
 			testId={dropdownTestId}
-			trigger={(triggerProps) => (
-				<ToolbarDropdownItem
-					elemBefore={elemBefore}
-					elemAfter={elemAfter}
-					isSelected={triggerProps.isSelected}
-					onClick={(e) => {
-						onClick && onClick(e);
-						triggerProps.onClick && triggerProps.onClick(e);
-					}}
-					testId={testId}
-					triggerRef={triggerProps.triggerRef}
-					hasNestedDropdownMenu={true}
-					isDisabled={isDisabled}
-				>
-					{text}
-				</ToolbarDropdownItem>
-			)}
+			trigger={(triggerProps) => {
+				const item = (
+					<ToolbarDropdownItem
+						elemBefore={elemBefore}
+						elemAfter={elemAfter}
+						isSelected={triggerProps.isSelected}
+						onClick={(e) => {
+							onClick && onClick(e);
+							triggerProps.onClick && triggerProps.onClick(e);
+						}}
+						testId={testId}
+						triggerRef={triggerProps.triggerRef}
+						hasNestedDropdownMenu={true}
+						isDisabled={isDisabled}
+						shouldTitleWrap={
+							fg('platform_editor_block_menu_v2_patch_2') ? shouldTitleWrap : undefined
+						}
+					>
+						{text}
+					</ToolbarDropdownItem>
+				);
+
+				if (tooltipContent && fg('platform_editor_block_menu_v2_patch_2')) {
+					return (
+						<ToolbarTooltip content={tooltipContent} position="top">
+							{item}
+						</ToolbarTooltip>
+					);
+				}
+
+				return item;
+			}}
 		>
 			<Box xcss={cx(enableMaxHeight && styles.scrollContainer)} data-toolbar-nested-dropdown-menu>
 				{children}

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "126.8.6",
+	"version": "126.8.8",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -245,9 +245,6 @@
 			"type": "boolean"
 		},
 		"confluence_ttvc_inline_extensions": {
-			"type": "boolean"
-		},
-		"platform_synced_block_patch_1": {
 			"type": "boolean"
 		},
 		"platform_synced_block_patch_2": {

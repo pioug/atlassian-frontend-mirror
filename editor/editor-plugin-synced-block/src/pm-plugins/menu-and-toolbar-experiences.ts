@@ -16,7 +16,6 @@ import {
 } from '@atlaskit/editor-common/experiences';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SYNCED_BLOCK_BUTTON_TEST_ID } from '../types';
 
@@ -98,52 +97,45 @@ export const getMenuAndToolbarExperiencesPlugin = ({
 		],
 	});
 
-	let unsyncReferenceSyncedBlockExperience: Experience;
-	let unsyncSourceSyncedBlockExperience: Experience;
-	let deleteSourceSyncedBlockExperience: Experience;
-	let syncedLocationsExperience: Experience;
+	const unsyncReferenceSyncedBlockExperience = new Experience(EXPERIENCE_ID.TOOLBAR_ACTION, {
+		action: ACTION.REFERENCE_SYNCED_BLOCK_UNSYNC,
+		actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_TOOLBAR,
+		dispatchAnalyticsEvent,
+		checks: [
+			new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
+			referenceSyncBlockRemovedFromDomCheck(refs),
+		],
+	});
 
-	if (fg('platform_synced_block_patch_1')) {
-		unsyncReferenceSyncedBlockExperience = new Experience(EXPERIENCE_ID.TOOLBAR_ACTION, {
-			action: ACTION.REFERENCE_SYNCED_BLOCK_UNSYNC,
-			actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_TOOLBAR,
-			dispatchAnalyticsEvent,
-			checks: [
-				new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
-				referenceSyncBlockRemovedFromDomCheck(refs),
-			],
-		});
+	const unsyncSourceSyncedBlockExperience = new Experience(EXPERIENCE_ID.TOOLBAR_ACTION, {
+		action: ACTION.SYNCED_BLOCK_UNSYNC,
+		actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_TOOLBAR,
+		dispatchAnalyticsEvent,
+		checks: [
+			new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
+			syncBlockDeleteConfirmationModalAddedCheck(refs),
+		],
+	});
 
-		unsyncSourceSyncedBlockExperience = new Experience(EXPERIENCE_ID.TOOLBAR_ACTION, {
-			action: ACTION.SYNCED_BLOCK_UNSYNC,
-			actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_TOOLBAR,
-			dispatchAnalyticsEvent,
-			checks: [
-				new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
-				syncBlockDeleteConfirmationModalAddedCheck(refs),
-			],
-		});
+	const deleteSourceSyncedBlockExperience = new Experience(EXPERIENCE_ID.TOOLBAR_ACTION, {
+		action: ACTION.SYNCED_BLOCK_DELETE,
+		actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_TOOLBAR,
+		dispatchAnalyticsEvent,
+		checks: [
+			new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
+			syncBlockDeleteConfirmationModalAddedCheck(refs),
+		],
+	});
 
-		deleteSourceSyncedBlockExperience = new Experience(EXPERIENCE_ID.TOOLBAR_ACTION, {
-			action: ACTION.SYNCED_BLOCK_DELETE,
-			actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_TOOLBAR,
-			dispatchAnalyticsEvent,
-			checks: [
-				new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
-				syncBlockDeleteConfirmationModalAddedCheck(refs),
-			],
-		});
-
-		syncedLocationsExperience = new Experience(EXPERIENCE_ID.TOOLBAR_ACTION, {
-			action: ACTION.SYNCED_BLOCK_VIEW_SYNCED_LOCATIONS,
-			actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_TOOLBAR,
-			dispatchAnalyticsEvent,
-			checks: [
-				new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
-				syncedLocationsDropdownOpenedCheck(refs),
-			],
-		});
-	}
+	const syncedLocationsExperience = new Experience(EXPERIENCE_ID.TOOLBAR_ACTION, {
+		action: ACTION.SYNCED_BLOCK_VIEW_SYNCED_LOCATIONS,
+		actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_TOOLBAR,
+		dispatchAnalyticsEvent,
+		checks: [
+			new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
+			syncedLocationsDropdownOpenedCheck(refs),
+		],
+	});
 
 	const unbindClickListener = bind(document, {
 		type: 'click',

@@ -1,5 +1,19 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 5.8.2
+
+### Patch Changes
+
+- [`fa62876ed1943`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa62876ed1943) -
+  EDITOR-5134 Clean up platform_synced_block_patch_1
+- Updated dependencies
+
+## 5.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.8.0
 
 ### Minor Changes

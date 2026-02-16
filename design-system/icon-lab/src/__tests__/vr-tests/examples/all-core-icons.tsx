@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::cdeefee845e33f315da48ad1a0c0764f>>
+ * @codegen <<SignedSource::8de969bc038076d859462bc114ef9ded>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -49,6 +49,7 @@ import ArrowCurvedUpRightIcon from '../../../../core/arrow-curved-up-right';
 import ArrowEndIcon from '../../../../core/arrow-end';
 import ArrowStartIcon from '../../../../core/arrow-start';
 import ArrowsDiagonalUpRightDownLeftIcon from '../../../../core/arrows-diagonal-up-right-down-left';
+import AskIcon from '../../../../core/ask';
 import AssetsDataManagerIcon from '../../../../core/assets-data-manager';
 import AssetsGraphIcon from '../../../../core/assets-graph';
 import AssetsObjectIcon from '../../../../core/assets-object';
@@ -881,6 +882,7 @@ const Icons = [
 	DiagramObjectEntityIcon,
 	FlowerIcon,
 	SurveyIcon,
+	AskIcon,
 ];
 
 const groupSize = 50;

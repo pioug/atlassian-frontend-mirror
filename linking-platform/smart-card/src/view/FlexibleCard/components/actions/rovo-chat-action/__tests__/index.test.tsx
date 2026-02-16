@@ -37,7 +37,7 @@ describe('RovoChatAction', () => {
 	beforeEach(() => {
 		jest
 			.spyOn(useRovoChat, 'default')
-			.mockReturnValue({ sendPromptMessage: sendPromptMessageMock });
+			.mockReturnValue({ isRovoChatEnabled: true, sendPromptMessage: sendPromptMessageMock });
 	});
 
 	afterEach(() => {
@@ -97,6 +97,16 @@ describe('RovoChatAction', () => {
 		await user.click(element);
 
 		expect(onClickMock).toHaveBeenCalledTimes(1);
+	});
+
+	it('does not render action when RovoChat is not available', () => {
+		jest
+			.spyOn(useRovoChat, 'default')
+			.mockReturnValueOnce({ isRovoChatEnabled: false, sendPromptMessage: sendPromptMessageMock });
+
+		setup();
+		const elements = screen.queryAllByRole('button');
+		expect(elements.length).toBe(0);
 	});
 
 	describe('with tooltip', () => {

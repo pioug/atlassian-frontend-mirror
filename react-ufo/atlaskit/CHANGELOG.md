@@ -1,5 +1,14 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.2.4
+
+### Patch Changes
+
+- [`596fad901c189`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/596fad901c189) -
+  Add routeName to ufo terminal error metric & exclude client network errors
+- [`615a53a036cf9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/615a53a036cf9) -
+  FG cleanup - platform_ufo_ttvc_v4_speed_index
+
 ## 5.2.3
 
 ### Patch Changes

@@ -40,8 +40,7 @@ export interface Cleanable {
  *   an event type and an array of events of that type.
  */
 export interface TimelineSerializable {
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	serialise(): EventsGroupedSerialized;
+	serialise: () => EventsGroupedSerialized;
 }
 
 /**
@@ -55,10 +54,8 @@ export interface TimelineSerializable {
  * - `getEventsPerType(type)`: Retrieves events of a specific type, allowing for type-safe access to events.
  */
 export interface Timeline {
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	getEvents(): ReadonlyArray<TimelineEvent>;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	getEventsPerType<T extends TimelineEventNames>(type: T): TimelineEventsGrouped[T];
+	getEvents: () => ReadonlyArray<TimelineEvent>;
+	getEventsPerType: <T extends TimelineEventNames>(type: T) => TimelineEventsGrouped[T];
 }
 
 /**
@@ -107,14 +104,10 @@ export interface Timeline {
  */
 export interface TimelineClock extends Timeline {
 	cleanupSubscribers: () => void;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	markEvent(event: TimelineEvent): void;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	onceAllSubscribersCleaned(cb: () => void): void;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	onIdleBufferFlush(cb: OnIdleBufferFlushCallback): TimelineIdleUnsubcribe;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	onNextIdle(cb: OnIdleBufferFlushCallback): TimelineIdleUnsubcribe;
+	markEvent: (event: TimelineEvent) => void;
+	onceAllSubscribersCleaned: (cb: () => void) => void;
+	onIdleBufferFlush: (cb: OnIdleBufferFlushCallback) => TimelineIdleUnsubcribe;
+	onNextIdle: (cb: OnIdleBufferFlushCallback) => TimelineIdleUnsubcribe;
 }
 
 /**

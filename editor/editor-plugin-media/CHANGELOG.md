@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-media
 
+## 9.4.17
+
+### Patch Changes
+
+- [`f2da582faba66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2da582faba66) -
+  Fix EES013 method-signature-style violations
+- Updated dependencies
+
+## 9.4.16
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.4.15
 
 ### Patch Changes

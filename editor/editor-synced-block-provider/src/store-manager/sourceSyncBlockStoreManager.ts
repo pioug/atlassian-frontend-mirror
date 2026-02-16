@@ -2,7 +2,6 @@ import { type SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	type ResourceId,
@@ -41,7 +40,6 @@ export type ConfirmationCallback = (
 type OnDelete = () => void;
 type OnCompletion = (success: boolean) => void;
 type DestroyCallback = () => void;
-export type CreationCallback = () => void;
 type SyncBlockData = Data & {
 	/**
 	 * Whether the current changes have already been saved to the backend
@@ -74,8 +72,6 @@ export class SourceSyncBlockStoreManager {
 		syncBlockIds: SyncBlockAttrs[];
 	};
 
-	private pendingResourceId?: ResourceId;
-	private creationCallback?: CreationCallback;
 	private creationCompletionCallbacks: Map<ResourceId, OnCompletion>;
 
 	private createExperience: Experience | undefined;
@@ -148,7 +144,7 @@ export class SourceSyncBlockStoreManager {
 				if (
 					!syncBlockData.pendingDeletion &&
 					syncBlockData.isDirty &&
-					!(this.isPendingCreation(syncBlockData.resourceId) && fg('platform_synced_block_patch_1'))
+					!this.isPendingCreation(syncBlockData.resourceId)
 				) {
 					bodiedSyncBlockNodes.push({
 						type: 'bodiedSyncBlock',
@@ -163,9 +159,8 @@ export class SourceSyncBlockStoreManager {
 					// is still making changes, the new changes might not be saved if they all happen
 					// exactly at a time when the writeNodesData is being executed asynchronously.
 					syncBlockData.isDirty = false;
-					// When flushing, set status to 'active' so the block is published (when feature gate is on)
-					const dataToFlush =
-						fg('platform_synced_block_patch_1') ? { ...syncBlockData, status: 'active' as const } : syncBlockData;
+					// When flushing, set status to 'active' so the block is published
+					const dataToFlush = { ...syncBlockData, status: 'active' as const };
 					bodiedSyncBlockData.push(dataToFlush);
 				}
 			});
@@ -225,20 +220,8 @@ export class SourceSyncBlockStoreManager {
 		}
 	}
 
-	// Remove this method and pendingResourceId when cleaning up platform_synced_block_patch_1
-	public registerPendingCreation(resourceId: ResourceId): void {
-		this.pendingResourceId = resourceId;
-	}
-
 	public isPendingCreation(resourceId: ResourceId): boolean {
 		return this.creationCompletionCallbacks.has(resourceId);
-	}
-
-	/**
-	 * Register callback function (which inserts node, handles focus etc) to be used later when creation to backend succeed
-	 */
-	public registerCreationCallback(callback: CreationCallback): void {
-		this.creationCallback = callback;
 	}
 
 	/**
@@ -246,50 +229,25 @@ export class SourceSyncBlockStoreManager {
 	 * @param success
 	 */
 	public commitPendingCreation(success: boolean, resourceId: ResourceId): void {
-		if (fg('platform_synced_block_patch_1')) {
-			const onCompletion = this.creationCompletionCallbacks.get(resourceId);
-			if (onCompletion) {
-				this.creationCompletionCallbacks.delete(resourceId);
-				onCompletion(success);
-			} else {
-				this.fireAnalyticsEvent?.(
-					createErrorPayload('creation complete callback missing', resourceId),
-				);
-			}
-
-			if (success) {
-				this.fireAnalyticsEvent?.(createSuccessPayload(resourceId || ''));
-			} else {
-				// Delete the node from cache if fail to create so it's not flushed to BE
-				this.syncBlockCache.delete(resourceId || '');
-				this.fireAnalyticsEvent?.(
-					createErrorPayload('Fail to create bodied sync block', resourceId),
-				);
-			}
+		const onCompletion = this.creationCompletionCallbacks.get(resourceId);
+		if (onCompletion) {
+			this.creationCompletionCallbacks.delete(resourceId);
+			onCompletion(success);
 		} else {
-			if (success && this.creationCallback) {
-				this.creationCallback();
-				this.fireAnalyticsEvent?.(createSuccessPayload(this.pendingResourceId || ''));
-			} else if (success && !this.creationCallback) {
-				this.fireAnalyticsEvent?.(
-					createErrorPayload('creation callback missing', this.pendingResourceId),
-				);
-			}
-			this.pendingResourceId = undefined;
+			this.fireAnalyticsEvent?.(
+				createErrorPayload('creation complete callback missing', resourceId),
+			);
 		}
 
-		this.creationCallback = undefined;
-	}
-
-	/**
-	 *
-	 * @returns true if waiting for the result of saving new bodiedSyncBlock to backend
-	 * Remove this method when cleaning up platform_synced_block_patch_1
-	 */
-	public hasPendingCreation(): boolean {
-		return fg('platform_synced_block_patch_1')
-			? this.creationCompletionCallbacks.size > 0
-			: !!this.pendingResourceId;
+		if (success) {
+			this.fireAnalyticsEvent?.(createSuccessPayload(resourceId || ''));
+		} else {
+			// Delete the node from cache if fail to create so it's not flushed to BE
+			this.syncBlockCache.delete(resourceId || '');
+			this.fireAnalyticsEvent?.(
+				createErrorPayload('Fail to create bodied sync block', resourceId),
+			);
+		}
 	}
 
 	public registerConfirmationCallback(callback: ConfirmationCallback) {
@@ -331,9 +289,7 @@ export class SourceSyncBlockStoreManager {
 				throw new Error('Data provider not set');
 			}
 
-			if (fg('platform_synced_block_patch_1')) {
-				this.creationCompletionCallbacks.set(resourceId, onCompletion);
-			}
+			this.creationCompletionCallbacks.set(resourceId, onCompletion);
 			this.createExperience?.start({});
 			this.dataProvider
 				.createNodeData({
@@ -343,18 +299,10 @@ export class SourceSyncBlockStoreManager {
 				})
 				.then((result) => {
 					const resourceId = result.resourceId || '';
-					if (resourceId && (!fg('platform_synced_block_patch_1') || !result.error)) {
+					if (resourceId && !result.error) {
 						this.commitPendingCreation(true, resourceId);
 
 						this.createExperience?.success();
-
-						// Update the sync block data with the node data if it is provided
-						// to avoid any race conditions where the data could be missed during a render operation
-						if (!fg('platform_synced_block_patch_1')) {
-							if (nodeData) {
-								this.updateSyncBlockData(nodeData);
-							}
-						}
 					} else {
 						this.commitPendingCreation(false, resourceId);
 						this.createExperience?.failure({
@@ -373,16 +321,8 @@ export class SourceSyncBlockStoreManager {
 					this.createExperience?.failure({ reason: (error as Error).message });
 					this.fireAnalyticsEvent?.(createErrorPayload((error as Error).message, resourceId));
 				});
-
-			if (!fg('platform_synced_block_patch_1')) {
-				this.registerPendingCreation(resourceId);
-			}
 		} catch (error) {
-			if (
-				fg('platform_synced_block_patch_1')
-					? this.isPendingCreation(resourceId)
-					: this.hasPendingCreation()
-			) {
+			if (this.isPendingCreation(resourceId)) {
 				this.commitPendingCreation(false, resourceId);
 			}
 			logException(error as Error, {
@@ -578,9 +518,7 @@ export class SourceSyncBlockStoreManager {
 	public destroy(): void {
 		this.syncBlockCache.clear();
 		this.confirmationCallback = undefined;
-		this.pendingResourceId = undefined;
 		this.creationCompletionCallbacks.clear();
-		this.creationCallback = undefined;
 		this.dataProvider = undefined;
 		this.saveExperience?.abort({ reason: 'editorDestroyed' });
 		this.createExperience?.abort({ reason: 'editorDestroyed' });

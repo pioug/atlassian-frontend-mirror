@@ -154,18 +154,15 @@ export interface MediaState {
 export type Listener = (data: any) => void;
 
 export interface CustomMediaPicker {
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	destroy(): void;
+	destroy: () => void;
 	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style -- method-signature-style ignored via go/ees013 (to be fixed)
-	emit(event: string, data: any): void;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	on(event: string, cb: Listener): void;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	emit: (event: string, data: any) => void;
+	on: (event: string, cb: Listener) => void;
 	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style -- method-signature-style ignored via go/ees013 (to be fixed)
-	removeAllListeners(event: any): void;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	setUploadParams(uploadParams: UploadParams): void;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	removeAllListeners: (event: any) => void;
+	setUploadParams: (uploadParams: UploadParams) => void;
 }
 
 export type MobileUploadEndEventPayload = {

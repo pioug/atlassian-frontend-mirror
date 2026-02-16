@@ -111,10 +111,13 @@ function _SideNavContent(
 				styles.scrollContainer,
 				isFhsEnabled &&
 					!fg('platform-dst-side-nav-layering-fixes') &&
+					!fg('platform_dst_nav4_fhs_feedback_1') &&
 					fullHeightSidebarStyles.scrollContainer,
+				// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 				isFhsEnabled &&
 					isExpandedOnDesktop &&
 					fg('platform-dst-side-nav-layering-fixes') &&
+					!fg('platform_dst_nav4_fhs_feedback_1') &&
 					fullHeightSidebarStyles.scrollContainerWithLayeringFixes,
 			]}
 			ref={isFhsEnabled ? mergedRef : forwardedRef}

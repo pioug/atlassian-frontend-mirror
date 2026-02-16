@@ -1,1 +1,1 @@
-export { default } from '@atlaskit/icon/base';
+export { default } from './internal/icon';

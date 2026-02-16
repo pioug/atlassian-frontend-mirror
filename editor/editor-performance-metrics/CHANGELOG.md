@@ -1,5 +1,12 @@
 # @atlaskit/editor-performance-metrics
 
+## 2.1.8
+
+### Patch Changes
+
+- [`5b7ac366074b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5b7ac366074b5) -
+  Fix method-signature-style violations (EES013)
+
 ## 2.1.7
 
 ### Patch Changes
@@ -90,7 +97,6 @@
 
   This update fix a race condition between `Timeline.attemptFlushIdleBuffer` and
   `Timeline.callOnNextIdleCallbacks`,
-
   - The `attemptFlushIdleBuffer` was cleaning the idle buffer before the `callOnNextIdleCallbacks`
     call the listerners.
 
@@ -111,7 +117,6 @@
   Patch Changes
 
   This update fix a race condition caused by wrongly scope binding.
-
   - The idle callbacks will be called with a shallow copy of timelineBuffer from the lexical scope
   - The handleIdle is manually bindided with the Timeline class instance to avoid race-condition
     issues
@@ -144,11 +149,8 @@
   operations, ensuring that resources are properly released even when exceptions occur.
 
   ## Error Handling Improvements
-
   1. **Wrapper Functions for Web APIs**
-
      - Enhanced `wrapperFetch`:
-
        - Now ensures that `unhold` is called even if an exception is thrown within the fetch
          operation.
        - Introduced try-catch-finally blocks to manage error handling and ensure consistent resource
@@ -159,13 +161,11 @@
        - Utilizes try-finally blocks to guarantee unhold operations.
 
   ## Testing Enhancements
-
   - Added new test cases to verify the behavior when exceptions are thrown within wrapped functions:
     - Ensures `unhold` is called when an exception occurs in a `setTimeout` callback.
     - Confirms `unhold` is invoked when an exception is thrown inside the fetch implementation.
 
   ## Important Notes
-
   - These changes maintain backward compatibility with existing implementations.
   - The core functionalities of the wrapper functions remain unchanged, with improvements focused on
     error handling.
@@ -186,9 +186,7 @@
   EditorPerformanceObserver, providing better control over observer states and cleanup operations.
 
   ## Timeline Lifecycle Management
-
   1. New `cleanupSubscribers` method in TimelineClock:
-
      - Forcefully removes all subscribers
      - Flushes any pending idle buffer
      - Triggers the onceAllSubscribersCleaned callback
@@ -205,25 +203,21 @@
   ## React Integration Improvements
 
   The PerformanceMetrics component now properly manages the EditorPerformanceObserver lifecycle:
-
   - Automatically starts the observer when the component mounts
   - Properly stops the observer when the component unmounts
   - Handles SSR scenarios gracefully
 
   ## Documentation Updates
-
   - Added comprehensive examples for lifecycle management
 
   ## Testing
 
   Added new test suites:
-
   - Timeline cleanupSubscribers functionality
   - EditorPerformanceObserver start/stop operations
   - PerformanceMetrics component lifecycle management
 
   ## Important Notes
-
   - These changes maintain backward compatibility with existing implementations
   - The core timeline functionality remains unchanged
   - Improved resource management should lead to better memory usage in long-running applications
@@ -302,9 +296,7 @@
 
   We've introduced a new hold mechanism to the Timeline system, allowing for better tracking and
   management of asynchronous operations:
-
   1. `TimelineHoldable` interface:
-
      - Defines a `hold` method to initiate a hold operation.
      - Returns an `UnHoldFunction` to release the hold when the operation is complete.
 
@@ -317,9 +309,7 @@
   operations.
 
   ## Wrapper Functions for Web APIs
-
   1. `wrapperFetch`:
-
      - Integrates fetch calls with the Timeline system.
      - Automatically applies hold and unhold operations for each fetch call.
 
@@ -332,14 +322,11 @@
   # Improvements
 
   ## Timeline Controller Enhancements
-
   1. Hold Management:
-
      - Implemented `checkHoldTimeout` to manage hold timeouts.
      - Modified `scheduleNextIdle` to respect active holds.
 
   2. Configuration:
-
      - Added `maxHoldDuration` to `TimelineOptions` to configure the maximum duration for holds.
 
   3. Subscription Management:
@@ -347,32 +334,26 @@
        subscribers are unsubscribed.
 
   ## Code Organization
-
   1. Split Timeline-related code into separate files:
-
      - `timelineTypes.ts`: Contains type definitions for Timeline events and options.
      - `timelineInterfaces.ts`: Defines interfaces for Timeline functionality.
 
   2. Improved modularity and maintainability of the codebase.
 
   ## EditorPerformanceObserver Updates
-
   - Modified to use both `TimelineClock` and `TimelineHoldable` interfaces.
   - Implemented wrapper application and cleanup logic.
 
   # Documentation Updates
-
   - Added comprehensive JSDoc for new interfaces and methods.
   - Updated existing documentation to reflect new functionality.
 
   # Testing
-
   - Added new test files: `wrapperFetch.test.ts` and `wrapperTimers.test.ts`.
   - Enhanced existing tests in `timeline.test.ts` to cover new functionality.
   - Added `editorPerformanceObserver.test.ts` to test wrapper application and cleanup.
 
   # Important Notes
-
   - These enhancements maintain backward compatibility with existing implementations.
   - The core timeline functionality remains unchanged; only new features have been added.
   - Wrapper functions are applied only when needed and cleaned up when no longer in use.
@@ -389,9 +370,7 @@
 
   We've introduced two new categories for `onUserLatency` to provide more granular insights into
   mouse interactions:
-
   1. `mouse-movement`:
-
      - mouseenter
      - mouseleave
      - mousemove
@@ -420,9 +399,7 @@
   performance.
 
   ## React API Enhancements
-
   1. [ED-26251] Optimized Time to Actively Interactive (TTAI) for Time to Visually Complete (TTVC)
-
      - The `onTTVC` callback is now triggered immediately after the first idle slot, without waiting
        for a buffer threshold.
      - This change improves the accuracy and responsiveness of TTVC measurements.
@@ -431,21 +408,18 @@
      - Improved code style and readability for easier maintenance and understanding.
 
   ## Performance Optimizations
-
   1. Task Splitting for Data Processing
      - Implemented chunk-based processing in `createHeatmapFromEvents` to prevent long-running
        blocking tasks.
      - This enhancement ensures better responsiveness, especially on slower devices.
 
   ## Documentation Updates
-
   - New comprehensive documentation for the React API is now available at
     `https://atlaskit.atlassian.com/packages/editor/editor-performance-metrics`.
   - The documentation provides detailed information on using and implementing performance metrics in
     React applications.
 
   # Important Notes
-
   - The core metric calculation methods remain unchanged; only the timing of calculations has been
     optimized.
   - Existing implementations should continue to function without requiring modifications.

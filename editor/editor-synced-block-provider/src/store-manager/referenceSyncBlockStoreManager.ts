@@ -2,7 +2,6 @@ import isEqual from 'lodash/isEqual';
 import rafSchedule from 'raf-schd';
 
 import { type RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
-import { isSSR } from '@atlaskit/editor-common/core-utils';
 import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -48,7 +47,6 @@ import { createSyncBlockNode } from '../utils/utils';
 // Can be used in both editor and renderer contexts.
 export class ReferenceSyncBlockStoreManager {
 	private dataProvider?: SyncBlockDataProvider;
-	private syncBlockCache: Map<ResourceId, SyncBlockInstance>;
 	// Keeps track of addition and deletion of reference synced blocks on the document
 	// This starts as true to always flush the cache when document is saved for the first time
 	// to cater the case when a editor session is closed without document being updated right after reference block is deleted
@@ -62,7 +60,6 @@ export class ReferenceSyncBlockStoreManager {
 	private fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void;
 
 	private syncBlockFetchDataRequests: Map<ResourceId, boolean>;
-	private syncBlockSourceInfoRequestsOld: Map<ResourceId, boolean>;
 	private syncBlockSourceInfoRequests: Map<ResourceId, Promise<SyncBlockSourceInfo | undefined>>;
 	private isRefreshingSubscriptions: boolean = false;
 	// Track pending cache deletions to handle block moves (unmount/remount)
@@ -121,12 +118,10 @@ export class ReferenceSyncBlockStoreManager {
 	});
 
 	constructor(dataProvider?: SyncBlockDataProvider) {
-		this.syncBlockCache = new Map();
 		this.subscriptions = new Map();
 		this.titleSubscriptions = new Map();
 		this.dataProvider = dataProvider;
 		this.syncBlockFetchDataRequests = new Map();
-		this.syncBlockSourceInfoRequestsOld = new Map();
 		this.syncBlockSourceInfoRequests = new Map();
 		this.providerFactories = new Map();
 		this.pendingCacheDeletions = new Map();
@@ -263,16 +258,7 @@ export class ReferenceSyncBlockStoreManager {
 	public getInitialSyncBlockData(resourceId: ResourceId): SyncBlockInstance | undefined {
 		const syncBlockNode = createSyncBlockNode('', resourceId);
 
-		if (isSSR() || fg('platform_synced_block_patch_1')) {
-			// In SSR, prefer data from data provider cache
-			// should not take from store manager cache as it may be in incomplete state
-			// will be unified to the same cache later.
-			return this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data;
-		}
-
-		return (
-			this.getFromCache(resourceId) || this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data
-		);
+		return this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data;
 	}
 
 	/**
@@ -497,9 +483,7 @@ export class ReferenceSyncBlockStoreManager {
 
 			this.fetchSourceInfoExperience?.start({});
 
-			// Only use unpublished endpoint if feature flag is enabled
-			const isUnpublished =
-				fg('platform_synced_block_patch_1') && existingSyncBlock.data?.status === 'unpublished';
+			const isUnpublished = existingSyncBlock.data?.status === 'unpublished';
 
 			const sourceInfoPromise = this.dataProvider
 				.fetchSyncBlockSourceInfo(
@@ -756,15 +740,10 @@ export class ReferenceSyncBlockStoreManager {
 		const { resourceId } = syncBlock;
 
 		if (resourceId) {
-			if (fg('platform_synced_block_patch_1')) {
-				// Use the cache in dataProvider
-				this.dataProvider?.updateCache(
-					{ [resourceId]: syncBlock },
-					{ strategy: 'merge', source: 'network' },
-				);
-			} else {
-				this.syncBlockCache.set(resourceId, syncBlock);
-			}
+			this.dataProvider?.updateCache(
+				{ [resourceId]: syncBlock },
+				{ strategy: 'merge', source: 'network' },
+			);
 			const callbacks = this.subscriptions.get(resourceId);
 			if (callbacks) {
 				Object.values(callbacks).forEach((callback) => {
@@ -784,22 +763,12 @@ export class ReferenceSyncBlockStoreManager {
 	}
 
 	public getFromCache(resourceId: ResourceId): SyncBlockInstance | undefined {
-		if (fg('platform_synced_block_patch_1')) {
-			// Use the cache in dataProvider
-			const syncBlockNode = createSyncBlockNode('', resourceId);
-			return this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data;
-		}
-		return this.syncBlockCache.get(resourceId);
+		const syncBlockNode = createSyncBlockNode('', resourceId);
+		return this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data;
 	}
 
 	private deleteFromCache(resourceId: ResourceId) {
-		if (fg('platform_synced_block_patch_1')) {
-			// For dataProvider cache, we update with empty/deleted state
-			// The cache is managed per-node basis via resetCache if needed
-			// For now, we don't explicitly delete from dataProvider cache
-			// as the cache is meant to persist for cache-first-then-network strategy
-			this.dataProvider?.removeFromCache([resourceId]);
-		}
+		this.dataProvider?.removeFromCache([resourceId]);
 		this.providerFactories.delete(resourceId);
 	}
 
@@ -849,28 +818,12 @@ export class ReferenceSyncBlockStoreManager {
 		const syncBlockNode = createSyncBlockNode(localId, resourceId);
 
 		// call the callback immediately if we have cached data
-		const cachedData = fg('platform_synced_block_patch_1')
-			? // When feature flag is enabled, use dataProvider cache only
-				this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data
-			: isSSR() // in SSR, prefer data provider cache
-				? this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data ||
-					this.getFromCache(resourceId)
-				: this.getFromCache(resourceId) ||
-					this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data;
+		const cachedData = this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data;
 
 		if (cachedData) {
 			callback(cachedData);
 		} else {
-			if (fg('platform_synced_block_patch_1')) {
-				this.debouncedBatchedFetchSyncBlocks(resourceId);
-			} else {
-				this.fetchSyncBlocksData([syncBlockNode]).catch((error) => {
-					logException(error, {
-						location: 'editor-synced-block-provider/referenceSyncBlockStoreManager',
-					});
-					this.fireAnalyticsEvent?.(fetchErrorPayload(error.message, resourceId));
-				});
-			}
+			this.debouncedBatchedFetchSyncBlocks(resourceId);
 		}
 
 		// Set up GraphQL subscription if real-time subscriptions are enabled
@@ -1288,12 +1241,7 @@ export class ReferenceSyncBlockStoreManager {
 		// Clean up all GraphQL subscriptions first
 		this.cleanupAllGraphQLSubscriptions();
 
-		if (fg('platform_synced_block_patch_1')) {
-			// Reset cache in dataProvider
-			this.dataProvider?.resetCache();
-		} else {
-			this.syncBlockCache.clear();
-		}
+		this.dataProvider?.resetCache();
 		this.scheduledBatchFetch.cancel();
 		this.pendingFetchRequests.clear();
 
@@ -1301,7 +1249,6 @@ export class ReferenceSyncBlockStoreManager {
 		this.subscriptions.clear();
 		this.titleSubscriptions.clear();
 		this.syncBlockFetchDataRequests.clear();
-		this.syncBlockSourceInfoRequestsOld.clear();
 		this.syncBlockSourceInfoRequests.clear();
 		this.providerFactories.clear();
 		this.isRefreshingSubscriptions = false;

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/stylelint-design-system",
-	"version": "4.1.8",
+	"version": "4.1.9",
 	"description": "Stylelint plugin for use with the Atlassian Design System.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -54,7 +54,7 @@
 		"postcss-value-parser": "root:*"
 	},
 	"peerDependencies": {
-		"stylelint": "^14 || ^15 || ^16"
+		"stylelint": "^14 || ^15 || ^16 || ^17"
 	},
 	"devDependencies": {
 		"jest-preset-stylelint": "root:*",

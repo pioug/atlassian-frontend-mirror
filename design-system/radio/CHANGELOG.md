@@ -1,5 +1,14 @@
 # @atlaskit/radio
 
+## 8.4.3
+
+### Patch Changes
+
+- [`d2af0dc3a08f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2af0dc3a08f3) -
+  Internal only CSS refactor to eliminate nested CSS selectors in favor of an atomic-friendly
+  styling approach. This change is behind the platform-radio-atomic-styles feature gate.
+- Updated dependencies
+
 ## 8.4.2
 
 ### Patch Changes

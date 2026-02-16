@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/node-data-provider",
-	"version": "8.3.0",
+	"version": "8.3.1",
 	"description": "Node data provider for @atlaskit/editor-core plugins and @atlaskit/renderer",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -25,6 +25,7 @@
 		"@atlaskit/editor-json-transformer": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
@@ -51,11 +52,6 @@
 			"styling": [
 				"emotion"
 			]
-		}
-	},
-	"platform-feature-flags": {
-		"platform_synced_block_patch_1": {
-			"type": "boolean"
 		}
 	},
 	"stricter": {

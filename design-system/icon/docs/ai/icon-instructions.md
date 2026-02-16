@@ -133,21 +133,27 @@ import {
 Create expandable sections using state with `ButtonMenuItem`:
 
 ```tsx
-const [isExpanded, setIsExpanded] = useState(false);
+const styles = cssMap({ spacer: { width: '24px' } });
 
-<ButtonMenuItem
-	onClick={() => setIsExpanded(!isExpanded)}
-	elemBefore={<SettingsIcon label="" />}
-	elemAfter={isExpanded ? <ChevronDownIcon label="" /> : <ChevronRightIcon label="" />}
->
-	Team Settings
-</ButtonMenuItem>;
-{
-	isExpanded && (
-		<LinkMenuItem href="/team/members" elemBefore={<div style={{ width: '24px' }} />}>
-			Members
-		</LinkMenuItem>
-	);
+function Component {
+	const [isExpanded, setIsExpanded] = useState(false);
+
+	return <>
+		<ButtonMenuItem
+			onClick={() => setIsExpanded(!isExpanded)}
+			elemBefore={<SettingsIcon label="" />}
+			elemAfter={isExpanded ? <ChevronDownIcon label="" /> : <ChevronRightIcon label="" />}
+		>
+			Team Settings
+		</ButtonMenuItem>
+		{
+			isExpanded && (
+				<LinkMenuItem href="/team/members" elemBefore={<div css={styles.spacer} />}>
+					Members
+				</LinkMenuItem>
+			);
+		}
+	</>
 }
 ```
 

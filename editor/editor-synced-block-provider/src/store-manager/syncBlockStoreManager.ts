@@ -3,7 +3,6 @@ import { useMemo } from 'react';
 import type { SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getProductFromSourceAri } from '../clients/block-service/ari';
 import {
@@ -42,9 +41,7 @@ export class SyncBlockStoreManager {
 		this.sourceSyncBlockStoreManager = new SourceSyncBlockStoreManager(dataProvider);
 		this.referenceSyncBlockStoreManager = new ReferenceSyncBlockStoreManager(dataProvider);
 		this.dataProvider = dataProvider;
-		this.referenceSyncBlockStoreManager.setRealTimeSubscriptionsEnabled(
-			fg('platform_synced_block_patch_1'),
-		);
+		this.referenceSyncBlockStoreManager.setRealTimeSubscriptionsEnabled(true);
 	}
 
 	public async fetchReferencesSourceInfo(

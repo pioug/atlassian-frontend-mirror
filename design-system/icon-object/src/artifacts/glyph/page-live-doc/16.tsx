@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7efc228aae7212b6cb2499b3d8932a93>>
+ * @codegen <<SignedSource::fbc5772dc2d42359e805fe8fc938dc5f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
@@ -10,8 +10,6 @@ import NewIcon from '@atlaskit/icon-lab/core/page-live-doc';
 import type { GlyphProps } from '@atlaskit/icon/types';
 import NewObjectComponent from '@atlaskit/object/page-live-doc';
 import { fg } from '@atlaskit/platform-feature-flags';
-
-import IconObjectOld from '../../glyph-legacy/page-live-doc/16';
 
 /**
  * __16px `page-live-doc` icon object__
@@ -34,14 +32,7 @@ const PageLiveDoc16Icon: {
 	}
 
 	return (
-		<IconTile
-			icon={NewIcon}
-			appearance="magentaBold"
-			size="16"
-			label={label}
-			testId={testId}
-			LEGACY_fallbackComponent={<IconObjectOld label={label} testId={testId} />}
-		/>
+		<IconTile icon={NewIcon} appearance="magentaBold" size="16" label={label} testId={testId} />
 	);
 };
 

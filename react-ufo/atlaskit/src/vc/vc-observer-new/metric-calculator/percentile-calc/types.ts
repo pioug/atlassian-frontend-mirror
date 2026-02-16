@@ -19,11 +19,6 @@ export type CalcTTVCPercentilesArgWithDebugInfo = {
 	orderedEntries: ReadonlyArray<VCObserverEntry>;
 	startTime: DOMHighResTimeStamp;
 	stopTime: DOMHighResTimeStamp;
-	/**
-	 * Whether to calculate speed index metric.
-	 * Controlled by platform_ufo_ttvc_v4_speed_index feature flag.
-	 */
-	calculateSpeedIndex?: boolean;
 };
 
 export interface PercentileCalcResultItem {

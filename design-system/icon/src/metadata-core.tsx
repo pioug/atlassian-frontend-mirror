@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::5b8f207efd0b698d67177c14ac7a5c63>>
+ * @codegen <<SignedSource::eb2aff60a1ad64d7d4ee816170401efd>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -126,6 +126,24 @@ const metadata: Record<string, metadata> = {
 		team: 'Atlassian Intelligence & Loom',
 		status: 'published',
 		slackChannel: '#feedback-loom-vizrefresh',
+	},
+	'ai-sparkle': {
+		keywords: [
+			'ai-sparkle',
+			'aisparkle',
+			'icon',
+			'AI',
+			'sparkles',
+			'generative AI',
+			'AI functionality',
+		],
+		componentName: 'AiSparkleIcon',
+		package: '@atlaskit/icon/core/ai-sparkle',
+		categorization: 'single-purpose',
+		usage:
+			"Reserved for representing AI-powered features and functionality.  Note: The 'Editions' gem icon has replaced the sparkle icon for representing premium features in upsell experiences.",
+		team: 'Design System Team',
+		status: 'published',
 	},
 	alert: {
 		keywords: ['alert', 'icon', 'alert', 'event', 'operations'],

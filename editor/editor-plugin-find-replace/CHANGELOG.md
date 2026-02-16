@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 7.0.15
+
+### Patch Changes
+
+- [`5690cd6294eda`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5690cd6294eda) -
+  [EDITOR-5042] Moves findUniqueItemsIn export to index
+- Updated dependencies
+
+## 7.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.13
 
 ### Patch Changes

@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::6efd8bdfe52de8b5c24086b263c3a072>>
+ * @codegen <<SignedSource::eacafdf3606d4598d9e28dd43be1e536>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -23,6 +23,7 @@ import AddIcon from '../../../../../core/add';
 import AiAgentIcon from '../../../../../core/ai-agent';
 import AiChatIcon from '../../../../../core/ai-chat';
 import AiGenerativeTextSummaryIcon from '../../../../../core/ai-generative-text-summary';
+import AiSparkleIcon from '../../../../../core/ai-sparkle';
 import AlertIcon from '../../../../../core/alert';
 import AlignImageCenterIcon from '../../../../../core/align-image-center';
 import AlignImageLeftIcon from '../../../../../core/align-image-left';
@@ -756,6 +757,7 @@ const Icons = [
 	ChartTrendUpIcon,
 	TableIcon,
 	CheckCircleUncheckedIcon,
+	AiSparkleIcon,
 ];
 
 const groupSize = 50;

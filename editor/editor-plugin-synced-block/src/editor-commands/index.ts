@@ -31,7 +31,6 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { syncedBlockPluginKey } from '../pm-plugins/main';
 import {
@@ -86,12 +85,6 @@ export const createSyncedBlock = ({
 			return false;
 		}
 
-		// Save the new node with empty content to backend
-		// This is so that the node can be copied and referenced without the source being saved/published
-		if (!fg('platform_synced_block_patch_1')) {
-			syncBlockStore.sourceManager.createBodiedSyncBlockNode(attrs, () => {});
-		}
-
 		if (typeAheadInsert) {
 			tr = typeAheadInsert(newBodiedSyncBlockNode);
 		} else {
@@ -129,17 +122,6 @@ export const createSyncedBlock = ({
 				eventType: EVENT_TYPE.OPERATIONAL,
 			});
 			return false;
-		}
-
-		// Save the new node with empty content to backend
-		// This is so that the node can be copied and referenced without the source being saved/published
-		if (!fg('platform_synced_block_patch_1')) {
-			// Moved to appendTransaction
-			syncBlockStore.sourceManager.createBodiedSyncBlockNode(
-				attrs,
-				() => {},
-				newBodiedSyncBlockNode,
-			);
 		}
 
 		tr.replaceWith(conversionInfo.from, conversionInfo.to, newBodiedSyncBlockNode).scrollIntoView();
@@ -206,18 +188,16 @@ const copySyncedBlockReferenceToClipboardInternal = (
 ): boolean => {
 	const syncBlockFindResult = findSyncBlockOrBodiedSyncBlock(schema, selection);
 	if (!syncBlockFindResult) {
-		if (fg('platform_synced_block_patch_1')) {
-			api?.analytics?.actions?.fireAnalyticsEvent({
-				eventType: EVENT_TYPE.OPERATIONAL,
-				action: ACTION.ERROR,
-				actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
-				actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_COPY,
-				attributes: {
-					error: 'No sync block found in selection',
-					inputMethod,
-				},
-			});
-		}
+		api?.analytics?.actions?.fireAnalyticsEvent({
+			eventType: EVENT_TYPE.OPERATIONAL,
+			action: ACTION.ERROR,
+			actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+			actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_COPY,
+			attributes: {
+				error: 'No sync block found in selection',
+				inputMethod,
+			},
+		});
 		return false;
 	}
 
@@ -239,19 +219,17 @@ const copySyncedBlockReferenceToClipboardInternal = (
 			),
 		});
 		if (!referenceSyncBlockNode) {
-			if (fg('platform_synced_block_patch_1')) {
-				api?.analytics?.actions?.fireAnalyticsEvent({
-					eventType: EVENT_TYPE.OPERATIONAL,
-					action: ACTION.ERROR,
-					actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
-					actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_COPY,
-					attributes: {
-						error: 'Failed to create reference sync block node',
-						resourceId: syncBlockFindResult.node.attrs.resourceId,
-						inputMethod,
-					},
-				});
-			}
+			api?.analytics?.actions?.fireAnalyticsEvent({
+				eventType: EVENT_TYPE.OPERATIONAL,
+				action: ACTION.ERROR,
+				actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+				actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_COPY,
+				attributes: {
+					error: 'Failed to create reference sync block node',
+					resourceId: syncBlockFindResult.node.attrs.resourceId,
+					inputMethod,
+				},
+			});
 			return false;
 		}
 	} else {
@@ -259,18 +237,16 @@ const copySyncedBlockReferenceToClipboardInternal = (
 	}
 
 	if (!referenceSyncBlockNode) {
-		if (fg('platform_synced_block_patch_1')) {
-			api?.analytics?.actions?.fireAnalyticsEvent({
-				eventType: EVENT_TYPE.OPERATIONAL,
-				action: ACTION.ERROR,
-				actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
-				actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_COPY,
-				attributes: {
-					error: 'No reference sync block node available',
-					inputMethod,
-				},
-			});
-		}
+		api?.analytics?.actions?.fireAnalyticsEvent({
+			eventType: EVENT_TYPE.OPERATIONAL,
+			action: ACTION.ERROR,
+			actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+			actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_COPY,
+			attributes: {
+				error: 'No reference sync block node available',
+				inputMethod,
+			},
+		});
 		return false;
 	}
 
@@ -280,18 +256,16 @@ const copySyncedBlockReferenceToClipboardInternal = (
 	// Use setTimeout to dispatch transaction in next tick and avoid re-entrant dispatch
 	setTimeout(() => {
 		api?.core.actions.execute(({ tr }) => {
-			if (fg('platform_synced_block_patch_1')) {
-				api?.analytics?.actions?.fireAnalyticsEvent({
-					eventType: EVENT_TYPE.OPERATIONAL,
-					action: ACTION.COPIED,
-					actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
-					actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_COPY,
-					attributes: {
-						resourceId: referenceSyncBlockNode.attrs.resourceId,
-						inputMethod,
-					},
-				});
-			}
+			api?.analytics?.actions?.fireAnalyticsEvent({
+				eventType: EVENT_TYPE.OPERATIONAL,
+				action: ACTION.COPIED,
+				actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+				actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_COPY,
+				attributes: {
+					resourceId: referenceSyncBlockNode.attrs.resourceId,
+					inputMethod,
+				},
+			});
 
 			return tr.setMeta(syncedBlockPluginKey, {
 				activeFlag: { id: FLAG_ID.SYNC_BLOCK_COPIED },
@@ -315,17 +289,15 @@ export const editSyncedBlockSource =
 		const syncBlockURL = syncBlockStore.referenceManager.getSyncBlockURL(resourceId);
 
 		if (syncBlockURL) {
-			if (fg('platform_synced_block_patch_1')) {
-				api?.analytics?.actions.fireAnalyticsEvent({
-					eventType: EVENT_TYPE.OPERATIONAL,
-					action: ACTION.SYNCED_BLOCK_EDIT_SOURCE,
-					actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
-					actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_SOURCE_URL,
-					attributes: {
-						resourceId: resourceId,
-					},
-				});
-			}
+			api?.analytics?.actions.fireAnalyticsEvent({
+				eventType: EVENT_TYPE.OPERATIONAL,
+				action: ACTION.SYNCED_BLOCK_EDIT_SOURCE,
+				actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+				actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_SOURCE_URL,
+				attributes: {
+					resourceId: resourceId,
+				},
+			});
 
 			window.open(syncBlockURL, '_blank');
 		} else {

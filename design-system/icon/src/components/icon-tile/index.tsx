@@ -45,13 +45,8 @@ export default function IconTile({
 	size,
 	testId,
 	shape,
-	LEGACY_fallbackComponent,
 	UNSAFE_circleReplacementComponent,
 }: IconTileProps): React.JSX.Element {
-	if (LEGACY_fallbackComponent && !fg('platform-visual-refresh-icons')) {
-		return LEGACY_fallbackComponent;
-	}
-
 	if (
 		UNSAFE_circleReplacementComponent &&
 		shape === 'circle' &&

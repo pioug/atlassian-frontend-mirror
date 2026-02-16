@@ -15,7 +15,9 @@ import {
 import { atlasProjectUrl } from '../example-helpers/_jsonLDExamples/provider.atlas';
 import { overrideEmbedContent } from '../example-helpers/_jsonLDExamples/utils';
 import {
+	figmaUnauthImage,
 	forbiddenJira,
+	gdriveUnauthImage,
 	iconDropbox,
 	iconFigma,
 	iconGoogleDrive,
@@ -24,6 +26,8 @@ import {
 	image1,
 	image2,
 	imageForbiddenJiraEmbed,
+	onedriveUnauthImage,
+	slackUnauthImage
 } from '../images';
 
 import { MockCardClient } from './mock-card-client';
@@ -209,23 +213,28 @@ export const mocks = {
 		let key = 'google-object-provider';
 		let name = 'Google';
 		let icon = iconGoogleDrive;
+		let image = gdriveUnauthImage;
 
 		if (url.includes('figma.com')) {
 			key = 'figma-object-provider';
 			name = 'Figma';
 			icon = iconFigma;
+			image = figmaUnauthImage;
 		} else if (url.includes('dropbox.com')) {
 			key = 'dropbox-object-provider';
 			name = 'Dropbox';
 			icon = iconDropbox;
+			image = undefined;
 		} else if (url.includes('onedrive.live.com')) {
 			key = 'onedrive-object-provider';
 			name = 'OneDrive';
 			icon = iconOneDrive;
+			image = onedriveUnauthImage;
 		} else if (url.includes('.slack.com')) {
 			key = 'slack-object-provider';
 			name = 'Slack';
 			icon = iconSlack;
+			image = slackUnauthImage;
 		}
 		return {
 			meta: {
@@ -255,6 +264,7 @@ export const mocks = {
 					...(icon ? { icon: { '@type': 'Image', url: icon } } : {}),
 				},
 				url,
+				image,
 			},
 		};
 	},

@@ -10,7 +10,18 @@ import { ANALYTICS_CHANNEL } from '../common/constants';
 import type { RemainingRequired } from '../common/types';
 import { getAttributesFromContexts, getDefaultTrackEventConfig } from '../common/utils';
 
-export enum AgentActions {
+export enum AgentDebugActions {
+	/* View debug modal - https://data-portal.internal.atlassian.com/analytics/registry/97183 */
+	VIEW = 'debugView',
+	/* Copy all debug data - https://data-portal.internal.atlassian.com/analytics/registry/97186 */
+	COPY_ALL = 'debugCopyAll',
+	/* Copy debug data - https://data-portal.internal.atlassian.com/analytics/registry/97184 */
+	COPY = 'debugCopy',
+	/* Toggle skill info - https://data-portal.internal.atlassian.com/analytics/registry/97185 */
+	TOGGLE_SKILL_INFO = 'debugToggleSkillInfo',
+}
+
+export enum AgentCommonActions {
 	/* View agent clicked - https://data-portal.internal.atlassian.com/analytics/registry/97125 */
 	VIEW = 'view',
 	/* Edit agent clicked - https://data-portal.internal.atlassian.com/analytics/registry/97126 */
@@ -38,7 +49,30 @@ type CommonAnalyticsAttributes = {
 	agentId: string;
 };
 
-export const useRovoAgentActionAnalytics = <T extends Partial<CommonAnalyticsAttributes>>(
+type EmptyAttributes = {};
+
+type ActionAttributes = {
+	/* Common agent actions attributes */
+	[AgentCommonActions.VIEW]: CommonAnalyticsAttributes;
+	[AgentCommonActions.EDIT]: CommonAnalyticsAttributes;
+	[AgentCommonActions.UPDATED]: CommonAnalyticsAttributes & { agentType: string; field: string };
+	[AgentCommonActions.COPY_LINK]: CommonAnalyticsAttributes;
+	[AgentCommonActions.DELETE]: CommonAnalyticsAttributes;
+	[AgentCommonActions.DUPLICATE]: CommonAnalyticsAttributes;
+	[AgentCommonActions.STAR]: CommonAnalyticsAttributes;
+	[AgentCommonActions.CHAT]: CommonAnalyticsAttributes;
+	[AgentCommonActions.VERIFY]: CommonAnalyticsAttributes;
+	[AgentCommonActions.UNVERIFY]: CommonAnalyticsAttributes;
+
+	/* Debug modal actions attributes */
+	[AgentDebugActions.COPY_ALL]: EmptyAttributes;
+	[AgentDebugActions.COPY]: EmptyAttributes;
+	[AgentDebugActions.TOGGLE_SKILL_INFO]: EmptyAttributes;
+	[AgentDebugActions.VIEW]: EmptyAttributes;
+};
+
+
+export const useRovoAgentActionAnalytics = <T extends {}>(
 	commonAttributes: T,
 ) => {
 	const analyticsContext = useContext(AnalyticsReactContext);
@@ -63,9 +97,9 @@ export const useRovoAgentActionAnalytics = <T extends Partial<CommonAnalyticsAtt
 	);
 
 	const trackAgentAction = useCallback(
-		(
-			action: AgentActions,
-			attributes: RemainingRequired<CommonAnalyticsAttributes, T> & Record<string, any>,
+		<A extends keyof ActionAttributes>(
+			action: A,
+			attributes: RemainingRequired<ActionAttributes[A], T>,
 		): void => {
 			fireAnalyticsEvent({
 				actionSubject: 'rovoAgent',
@@ -77,10 +111,10 @@ export const useRovoAgentActionAnalytics = <T extends Partial<CommonAnalyticsAtt
 	);
 
 	const trackAgentActionError = useCallback(
-		(
-			action: AgentActions,
+		<A extends keyof ActionAttributes>(
+			action: A,
 			error: Error,
-			attributes?: RemainingRequired<CommonAnalyticsAttributes, T> & Record<string, any>,
+			attributes?: RemainingRequired<ActionAttributes[A], T>,
 		): void => {
 			fireAnalyticsEvent({
 				actionSubject: 'rovoAgentError',

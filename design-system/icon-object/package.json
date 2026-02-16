@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon-object",
-	"version": "7.4.1",
+	"version": "7.4.2",
 	"description": "An object icon is used to represent an Atlassian-specific content type.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -44,7 +44,9 @@
 		"@atlaskit/icon-lab": "workspace:^",
 		"@atlaskit/object": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@babel/runtime": "root:*"
+		"@atlaskit/tokens": "workspace:^",
+		"@babel/runtime": "root:*",
+		"@compiled/react": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"

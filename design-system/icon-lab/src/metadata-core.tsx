@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::c00a9689b8756addd1a889f5f3535450>>
+ * @codegen <<SignedSource::9697402f9c0670e25092111c4e89b38b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -644,6 +644,27 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Used within Jira Pages to connect or switch to a Space or page.',
 		team: 'Confluence Integrations',
+		status: 'published',
+	},
+	ask: {
+		keywords: [
+			'ask',
+			'icon',
+			'icon-lab',
+			'collaboration',
+			'hand shake',
+			'ask',
+			'focus',
+			'structured request',
+			'negotation',
+			'dependency',
+		],
+		componentName: 'AskIcon',
+		package: '@atlaskit/icon-lab/core/ask',
+		categorization: 'single-purpose',
+		usage:
+			'Reserved for representing Asks in Focus. An ask is structured request made by one team or user to another, representing work needed to complete other work.',
+		team: 'Focus',
 		status: 'published',
 	},
 	'assets-data-manager': {
@@ -3789,7 +3810,7 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon-lab/core/editions',
 		categorization: 'single-purpose',
 		usage:
-			'Reserved for representing premium features and functionality. Editions may replace the current premium sparkle icon.',
+			'Reserved for representing premium features in upsell experiences. The Editions gem icon has officially replaced the sparkle icon.',
 		team: 'Design System Team',
 		status: 'published',
 	},
@@ -4824,7 +4845,7 @@ const metadata: Record<string, metadata> = {
 		usage: 'Reserved for setting objects to recur (eg Work items, Forms)',
 		team: 'Pandora',
 		status: 'published',
-		slackChannel: '#horizon-pandora-team',
+		slackChannel: '#horizon-pandora-eng',
 	},
 	'reply-left': {
 		keywords: [
@@ -6972,7 +6993,7 @@ const metadata: Record<string, metadata> = {
 		usage: 'Known uses: Intro blog feed picker on Hello',
 		team: 'Insights',
 		status: 'published',
-		slackChannel: '#cc-performance-insights',
+		slackChannel: '#cc-insights-and-reporting',
 	},
 	'work-item-add': {
 		keywords: [

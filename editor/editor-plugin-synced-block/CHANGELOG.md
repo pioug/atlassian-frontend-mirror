@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 5.3.20
+
+### Patch Changes
+
+- [`fa62876ed1943`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa62876ed1943) -
+  EDITOR-5134 Clean up platform_synced_block_patch_1
+- Updated dependencies
+
+## 5.3.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.3.18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.17
 
 ### Patch Changes

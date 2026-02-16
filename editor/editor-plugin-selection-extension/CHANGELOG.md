@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 10.3.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.3.11
+
+### Patch Changes
+
+- [`25ad5c762c280`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25ad5c762c280) -
+  [ux] Add truncation on the extention label in block menu
+- [`ea60429849f59`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea60429849f59) -
+  Clean up platform_editor_selection_extension_lozenge fg
+- Updated dependencies
+
 ## 10.3.10
 
 ### Patch Changes

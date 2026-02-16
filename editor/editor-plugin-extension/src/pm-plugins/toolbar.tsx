@@ -2,7 +2,6 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl-next';
 
-
 import { INPUT_METHOD, type EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { messages } from '@atlaskit/editor-common/extensions';
 import commonMessages from '@atlaskit/editor-common/messages';
@@ -272,7 +271,7 @@ const breakoutOptions = (
 				extensionState,
 				breakoutEnabled,
 				editorAnalyticsAPI,
-			);
+		  );
 };
 
 const editButton = (
@@ -453,6 +452,14 @@ export const getToolbarConfig =
 			};
 		}
 
+		// disable copy button for legacy content macro
+		const isLegacyContentMacro =
+			extensionObj?.node.attrs.extensionType === 'com.atlassian.confluence.migration' &&
+			extensionObj?.node.attrs.extensionKey === 'legacy-content';
+		const shouldHideCopyButton =
+			isLegacyContentMacro &&
+			expValEquals('platform_editor_disable_lcm_copy_button', 'isEnabled', true);
+
 		return {
 			title: 'Extension floating controls',
 			// Ignored via go/ees005
@@ -481,6 +488,7 @@ export const getToolbarConfig =
 							nodeType,
 						},
 					],
+					...(shouldHideCopyButton && { hidden: shouldHideCopyButton }),
 				},
 				{ type: 'separator' },
 				{

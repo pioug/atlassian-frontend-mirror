@@ -21,7 +21,6 @@ import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import EditIcon from '@atlaskit/icon/core/edit';
 import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	copySyncedBlockReferenceToClipboard,
@@ -46,10 +45,9 @@ export const getToolbarConfig = (
 		return;
 	}
 
-	if (syncBlockStore.sourceManager.isPendingCreation(syncBlockObject.node.attrs.resourceId) && fg('platform_synced_block_patch_1')) {
+	if (syncBlockStore.sourceManager.isPendingCreation(syncBlockObject.node.attrs.resourceId)) {
 		return;
 	}
-
 
 	const syncBlockInstance = syncBlockStore.referenceManager.getFromCache(
 		syncBlockObject.node.attrs.resourceId,
@@ -119,11 +117,9 @@ export const getToolbarConfig = (
 							title={formatMessage(messages.unsyncButton)}
 							onClick={() => unsync(syncBlockStore, isBodiedSyncBlock, view)}
 							testId={
-								fg('platform_synced_block_patch_1')
-									? isBodiedSyncBlock
-										? SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarSourceUnsync
-										: SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarReferenceUnsync
-									: undefined
+								isBodiedSyncBlock
+									? SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarSourceUnsync
+									: SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarReferenceUnsync
 							}
 						/>
 					);
@@ -184,11 +180,9 @@ export const getToolbarConfig = (
 						title: formatMessage(commonMessages.delete),
 						onClick: removeSyncedBlock(api),
 						icon: <DeleteIcon label="" />,
-						testId: fg('platform_synced_block_patch_1')
-							? isBodiedSyncBlock
-								? SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarSourceDelete
-								: SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarReferenceDelete
-							: undefined,
+						testId: isBodiedSyncBlock
+							? SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarSourceDelete
+							: SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarReferenceDelete,
 						...hoverDecorationProps(nodeType),
 					},
 				],

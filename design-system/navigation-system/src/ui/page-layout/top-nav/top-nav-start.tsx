@@ -150,18 +150,20 @@ const wrapperStyles = cssMap({
 			'&::after': {
 				opacity: 1,
 			},
-			// Only apply the scroll indicator styles if supported. Otherwise, the shadow would always be applied, even when not scrolled.
-			'@supports (scroll-timeline-axis: block)': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-				'html:not(:has([data-private-side-nav-header])) &': {
-					// Consumes the scroll timeline from SideNavContent to show a bottom shadow when scrolled.
-					// This is only applied if there is no SideNavHeader. See the comment in SideNavHeader for more details.
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-					animationTimeline: sideNavContentScrollTimelineVar,
-					animationName: scrolledShadow,
-					// This shouldn't be required, but without it, the animation (shadow) stopped being applied at the end of the scroll timeline.
-					animationFillMode: 'both',
-				},
+		},
+	},
+	fullHeightSidebarExpandedWithLayeringFixesScrollTimeline: {
+		// Only apply the scroll indicator styles if supported. Otherwise, the shadow would always be applied, even when not scrolled.
+		'@supports (scroll-timeline-axis: block)': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'html:not(:has([data-private-side-nav-header])) &': {
+				// Consumes the scroll timeline from SideNavContent to show a bottom shadow when scrolled.
+				// This is only applied if there is no SideNavHeader. See the comment in SideNavHeader for more details.
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+				animationTimeline: sideNavContentScrollTimelineVar,
+				animationName: scrolledShadow,
+				// This shouldn't be required, but without it, the animation (shadow) stopped being applied at the end of the scroll timeline.
+				animationFillMode: 'both',
 			},
 		},
 	},
@@ -376,6 +378,11 @@ const TopNavStartInnerFHS = forwardRef(function TopNavStartInnerFHS(
 				isExpandedOnDesktop &&
 					fg('platform-dst-side-nav-layering-fixes') &&
 					wrapperStyles.fullHeightSidebarExpandedWithLayeringFixes,
+				// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+				isExpandedOnDesktop &&
+					fg('platform-dst-side-nav-layering-fixes') &&
+					!fg('platform_dst_nav4_fhs_feedback_1') &&
+					wrapperStyles.fullHeightSidebarExpandedWithLayeringFixesScrollTimeline,
 			]}
 		>
 			<div
@@ -404,7 +411,11 @@ const TopNavStartInnerFHS = forwardRef(function TopNavStartInnerFHS(
  *
  * Wrapper for the top navigation actions on the inline-start (left) side of the top navigation.
  */
-export function TopNavStart({ children, testId, sideNavToggleButton }: TopNavStartProps): JSX.Element {
+export function TopNavStart({
+	children,
+	testId,
+	sideNavToggleButton,
+}: TopNavStartProps): JSX.Element {
 	const isFhsEnabled = useIsFhsEnabled();
 	const ref = useContext(TopNavStartAttachRef);
 	const elementRef = useRef(null);

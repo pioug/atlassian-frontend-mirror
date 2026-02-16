@@ -28,6 +28,7 @@ export interface TerminalErrorPayload {
 			previousInteractionType: string | null;
 			timeSincePreviousInteraction: number | null;
 			labelStack: LabelStack | null;
+			routeName: string | null;
 		};
 	};
 }

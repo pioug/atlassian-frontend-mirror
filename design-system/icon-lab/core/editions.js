@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::56b88a11fb19ee4bef2fa0f940debca3>>
+ * @codegen <<SignedSource::5a9109095f0a9b69c0b01202dc3ed5e4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,13 +16,13 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "Editions".
  * Category: single-purpose
  * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for representing premium features and functionality. Editions may replace the current premium sparkle icon.
+ * Usage guidance: Reserved for representing premium features in upsell experiences. The Editions gem icon has officially replaced the sparkle icon.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const EditionsIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
   name: "EditionsIcon",
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M2.614 1.353A.75.75 0 0 1 3.25 1h9.5a.75.75 0 0 1 .636.353l2.5 4a.75.75 0 0 1-.065.884l-7.25 8.5a.75.75 0 0 1-1.142 0l-7.25-8.5a.75.75 0 0 1-.065-.885zM3.666 2.5 2.103 5H4.7l.78-2.5zm3.385 0L6.271 5H9.73l-.781-2.5zm3.47 0L11.3 5h2.596l-1.563-2.5zm3.103 4h-2.328l-1.424 4.399zM8 11.813 9.72 6.5H6.28zM4.704 6.5l1.424 4.399L2.375 6.5z" clip-rule="evenodd"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="m12.75 1 .096.006a.75.75 0 0 1 .54.347l2.5 4a.75.75 0 0 1-.066.883l-7.25 8.5a.75.75 0 0 1-1.14 0l-7.25-8.5a.75.75 0 0 1-.066-.883l2.5-4 .056-.079A.75.75 0 0 1 3.25 1zM8 11.813 9.719 6.5H6.28zm-1.873-.914L4.704 6.5H2.375zm3.745 0L13.625 6.5h-2.33zM11.302 5h2.596l-1.563-2.5H10.52zM6.27 5h3.46l-.782-2.5H7.052zM2.103 5h2.595l.781-2.5H3.665z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 EditionsIcon.displayName = 'EditionsIcon';

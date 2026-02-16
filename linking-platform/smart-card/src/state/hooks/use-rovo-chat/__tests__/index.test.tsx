@@ -1,5 +1,8 @@
+import React from 'react';
+
 import { act, renderHook } from '@testing-library/react';
 
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import { useRovoPostMessageToPubsub } from '@atlaskit/rovo-triggers/post-message-to-pubsub';
 import type { ChatNewPayload } from '@atlaskit/rovo-triggers/types';
 
@@ -12,16 +15,60 @@ const useRovoPostMessageToPubsubMock = useRovoPostMessageToPubsub as jest.Mocked
 >;
 
 describe('useRovoChat', () => {
-	describe('sendPromptMessage', () => {
-		const publishWithPostMessageMock = jest.fn();
+	const publishWithPostMessageMock = jest.fn();
 
-		beforeEach(() => {
-			useRovoPostMessageToPubsubMock.mockReturnValue({
-				publishWithPostMessage: publishWithPostMessageMock,
-				isWaitingForAck: false,
+	beforeEach(() => {
+		useRovoPostMessageToPubsubMock.mockReturnValue({
+			publishWithPostMessage: publishWithPostMessageMock,
+			isWaitingForAck: false,
+		});
+	});
+
+	const wrapper =
+		(
+			props?: Partial<React.ComponentProps<typeof SmartCardProvider>>,
+		): React.JSXElementConstructor<{ children: React.ReactNode }> =>
+		({ children }) => (
+			<SmartCardProvider rovoOptions={{ isRovoEnabled: true, isRovoLLMEnabled: true }} {...props}>
+				{children}
+			</SmartCardProvider>
+		);
+
+	describe('isRovoChatEnabled', () => {
+		it('should return true if both isRovoEnabled and isRovoLLMEnabled are true', () => {
+			const { result } = renderHook(() => useRovoChat(), {
+				wrapper: wrapper(),
 			});
+
+			expect(result.current.isRovoChatEnabled).toBeTruthy();
 		});
 
+		it('should return true if both isRovoEnabled and isRovoLLMEnabled are false', () => {
+			const { result } = renderHook(() => useRovoChat(), {
+				wrapper: wrapper({ rovoOptions: { isRovoEnabled: false, isRovoLLMEnabled: false } }),
+			});
+
+			expect(result.current.isRovoChatEnabled).toBeFalsy();
+		});
+
+		it('should return false if isRovoEnabled is false', () => {
+			const { result } = renderHook(() => useRovoChat(), {
+				wrapper: wrapper({ rovoOptions: { isRovoEnabled: false, isRovoLLMEnabled: true } }),
+			});
+
+			expect(result.current.isRovoChatEnabled).toBeFalsy();
+		});
+
+		it('should return false if isRovoLLMEnabled is false', () => {
+			const { result } = renderHook(() => useRovoChat(), {
+				wrapper: wrapper({ rovoOptions: { isRovoEnabled: true, isRovoLLMEnabled: false } }),
+			});
+
+			expect(result.current.isRovoChatEnabled).toBeFalsy();
+		});
+	});
+
+	describe('sendPromptMessage', () => {
 		it.each<[string, ChatNewPayload['data']['name'], ChatNewPayload['data']['prompt']]>([
 			['string', 'Simple prompt', 'Simple prompt message'],
 			[
@@ -73,7 +120,9 @@ describe('useRovoChat', () => {
 				},
 			],
 		])('should send prompt as %s', (_, expectedName, expectedPrompt) => {
-			const { result } = renderHook(() => useRovoChat());
+			const { result } = renderHook(() => useRovoChat(), {
+				wrapper: wrapper(),
+			});
 
 			act(() => {
 				result.current.sendPromptMessage({ name: expectedName, prompt: expectedPrompt });

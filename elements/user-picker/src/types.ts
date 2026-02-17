@@ -86,6 +86,8 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 	isDisabled?: boolean;
 	/** Checks if the footer is focused or not. This is needed to keep the menu open when the footer is focused */
 	isFooterFocused?: boolean;
+	/** Checks if the header is focused or not. This is needed to keep the menu open when the header is focused */
+	isHeaderFocused?: boolean;
 	/** Display the  picker with a style to show the value is invalid */
 	isInvalid?: boolean;
 	/** Show the loading indicator. */
@@ -136,9 +138,9 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 	 * If message is undefined, default message will be displayed.
 	 */
 	noOptionsMessage?:
-		| ((value: { inputValue: string }) => string | null | React.ReactNode)
-		| null
-		| React.ReactNode;
+	| ((value: { inputValue: string }) => string | null | React.ReactNode)
+	| null
+	| React.ReactNode;
 	/** Callback for when the field loses focus. */
 	onBlur?: OnPicker;
 	/** Callback for value change events fired whenever a selection is inserted or removed. */
@@ -175,6 +177,8 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 	search?: string;
 	/** Sets if the footer is focused or not. This is needed to keep the menu open when the footer is focused */
 	setIsFooterFocused?: React.Dispatch<React.SetStateAction<boolean>>;
+	/** Sets if the header is focused or not. This is needed to keep the menu open when the header is focused */
+	setIsHeaderFocused?: React.Dispatch<React.SetStateAction<boolean>>;
 	/** Override default behavior and show the clear indicator. */
 	showClearIndicator?: boolean;
 	/** Positioning strategy for the popper element */

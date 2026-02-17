@@ -1,5 +1,12 @@
 # @atlaskit/spotlight
 
+## 0.10.6
+
+### Patch Changes
+
+- [`9b038ce3c261e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b038ce3c261e) -
+  Create `SpotlightPrimaryLink` and `SpotlightSecondaryLink` components.
+
 ## 0.10.5
 
 ### Patch Changes

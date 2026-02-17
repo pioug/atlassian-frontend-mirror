@@ -1,5 +1,13 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 5.8.3
+
+### Patch Changes
+
+- [`53c9f85806f98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53c9f85806f98) -
+  EDITOR-5275 Store synced blocks data in session storage for look up during page transitions
+- Updated dependencies
+
 ## 5.8.2
 
 ### Patch Changes

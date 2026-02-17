@@ -82,17 +82,20 @@ export default defineMessages({
 	alignImageRight: {
 		id: 'fabric.editor.alignImageRight',
 		defaultMessage: 'Align right',
-		description: 'Aligns image to the right',
+		description:
+			'The text is shown as a button in the image toolbar when the user wants to align an image to the right side of the page.',
 	},
 	alignImageCenter: {
 		id: 'fabric.editor.alignImageCenter',
 		defaultMessage: 'Align center',
-		description: 'Aligns image to the center',
+		description:
+			'The text is shown as a button in the image toolbar when the user wants to align an image to the center of the page.',
 	},
 	alignImageLeft: {
 		id: 'fabric.editor.alignImageLeft',
 		defaultMessage: 'Align left',
-		description: 'Aligns image to the left',
+		description:
+			'The text is shown as a button in the image toolbar when the user wants to align an image to the left side of the page.',
 	},
 	delete: {
 		id: 'fabric.editor.delete',
@@ -112,7 +115,8 @@ export default defineMessages({
 	visit: {
 		id: 'fabric.editor.visit',
 		defaultMessage: 'Open link in a new window',
-		description: 'Open the link in a new window',
+		description:
+			'The text is shown as a link or button in the editor when the user wants to open the selected link in a new browser window.',
 	},
 	inviteToEditButtonTitle: {
 		id: 'fabric.editor.editMode.inviteToEditButton.title',
@@ -132,52 +136,62 @@ export default defineMessages({
 	taskList: {
 		id: 'fabric.editor.tooltip.taskList',
 		defaultMessage: 'an action item',
-		description: 'an action item in the Editor',
+		description:
+			'The text is shown as a tooltip label in the editor to describe an action item element when the user interacts with it.',
 	},
 	bulletList: {
 		id: 'fabric.editor.tooltip.bulletList',
 		defaultMessage: 'a list',
-		description: 'a list item in the Editor',
+		description:
+			'The text is shown as a tooltip label in the editor to describe a bullet list element when the user interacts with it.',
 	},
 	nestedExpand: {
 		id: 'fabric.editor.tooltip.nestedExpand',
 		defaultMessage: 'a nested expand',
-		description: 'expand node which is nested',
+		description:
+			'The text is shown as a tooltip label in the editor to describe a nested expand element when the user interacts with it.',
 	},
 	decisionList: {
 		id: 'fabric.editor.tooltip.decisionList',
 		defaultMessage: 'a decision list',
-		description: 'a list of decisions',
+		description:
+			'The text is shown as a tooltip label in the editor to describe a decision list element when the user interacts with it.',
 	},
 	defaultBlockNode: {
 		id: 'fabric.editor.tooltip.defaultBlockNode',
 		defaultMessage: 'a block node',
-		description: 'a block node element',
+		description:
+			'The text is shown as a tooltip label in the editor to describe a generic block node element when the user interacts with it.',
 	},
 	panel: {
 		id: 'fabric.editor.tooltip.blockPanel',
 		defaultMessage: 'a panel',
-		description: 'Panel node in the Editor',
+		description:
+			'The text is shown as a tooltip label in the editor to describe a panel element when the user interacts with it.',
 	},
 	blockquote: {
 		id: 'fabric.editor.blockquote',
 		defaultMessage: 'a quote',
-		description: 'a quote node',
+		description:
+			'The text is shown as a tooltip label in the editor to describe a blockquote element when the user interacts with it.',
 	},
 	timeUpdated: {
 		id: 'fabric.editor.time.updated',
 		defaultMessage: 'Updated',
-		description: 'Time last updated',
+		description:
+			'The text is shown as a label in the editor to indicate when the content was last updated by a user.',
 	},
 	timeViewed: {
 		id: 'fabric.editor.time.viewed',
 		defaultMessage: 'Viewed',
-		description: 'Time last viewed',
+		description:
+			'The text is shown as a label in the editor to indicate when the content was last viewed by a user.',
 	},
 	timeAgo: {
 		id: 'fabric.editor.time.ago',
 		defaultMessage: 'ago',
-		description: 'Some time ago',
+		description:
+			'The text is shown as a label suffix after a time value to indicate that the action occurred in the past, for example "5 minutes ago".',
 	},
 	copyToClipboard: {
 		id: 'fabric.editor.copyToClipboard',
@@ -192,7 +206,8 @@ export default defineMessages({
 	viewMore: {
 		id: 'fabric.editor.overflowMenuViewMore',
 		defaultMessage: 'View more',
-		description: 'View more options in toolbar',
+		description:
+			'The text is shown as a button in the editor toolbar overflow menu when additional toolbar options are available for the user to view.',
 	},
 	imageEdit: {
 		id: 'fabric.editor.imageEdit',
@@ -202,7 +217,8 @@ export default defineMessages({
 	error: {
 		id: 'fabric.editor.error.message.label',
 		defaultMessage: 'Error',
-		description: 'Label for error message icon',
+		description:
+			'The text is shown as a label for the error message icon in the editor when an operation fails or an error occurs.',
 	},
 	success: {
 		id: 'fabric.editor.success.message.label',

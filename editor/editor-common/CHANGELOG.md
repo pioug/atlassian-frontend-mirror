@@ -1,5 +1,27 @@
 # @atlaskit/editor-common
 
+## 111.14.0
+
+### Minor Changes
+
+- [`a287a6035ed71`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a287a6035ed71) -
+  [EDITOR-5005] export VanillaTooltip from the editor-common package and update references
+
+## 111.13.1
+
+### Patch Changes
+
+- [`5decb780f02e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5decb780f02e0) -
+  ED-29766: Add analytics instrumentation to task list toolbar button
+
+## 111.13.0
+
+### Minor Changes
+
+- [`71321772bd9a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71321772bd9a7) -
+  [ux] EDITOR-4932 - Copy extension text content when clicking copy button for unsupported content
+  extension.
+
 ## 111.12.7
 
 ### Patch Changes

@@ -33,7 +33,7 @@
 		"test:coverage": "(cd ../../.. && yarn test 'packages/people-and-teams/focused-task-close-account/src' --coverage --coverageProvider=v8 --collectCoverageFrom='[\"packages/people-and-teams/focused-task-close-account/src/**\", \"!packages/people-and-teams/focused-task-close-account/src/**/**/types.ts\", \"!packages/people-and-teams/focused-task-close-account/src/ui/**/styled.tsx\"]')"
 	},
 	"atlassian": {
-		"team": "People and Teams Collective",
+		"team": "Admin Hub: Nexus",
 		"website": {
 			"name": "Focused Task Close Account"
 		}

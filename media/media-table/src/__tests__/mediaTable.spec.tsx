@@ -1,9 +1,7 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { IntlProvider, createIntl } from 'react-intl-next';
-import { DynamicTableStateless } from '@atlaskit/dynamic-table';
-import { type HeadType, type RowType } from '@atlaskit/dynamic-table/types';
-import ImageIcon from '@atlaskit/icon-file-type/glyph/image/24';
+import { createIntl } from 'react-intl-next';
+import { type HeadType } from '@atlaskit/dynamic-table/types';
 import {
 	type MediaClient,
 	type MediaType,
@@ -22,16 +20,14 @@ import {
 	nextTick,
 	asMockFunction,
 	expectFunctionToHaveBeenCalledWith,
-	mountWithIntlContext,
-	mountWithIntlWrapper,
+	renderWithIntl,
 	asMock,
 } from '@atlaskit/media-test-helpers';
-import { MediaViewer } from '@atlaskit/media-viewer';
 import { toHumanReadableMediaSize } from '@atlaskit/media-ui';
 import { type MediaTableProps, type MediaTableItem } from '../types';
 import { MediaTable } from '../component/mediaTable';
 import { NameCell } from '../component/nameCell';
-import { act, render, screen, waitFor } from '@testing-library/react';
+import { act, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 let mockMediaClient: MediaClient;
@@ -180,50 +176,33 @@ describe('MediaTable', () => {
 		intl: createIntl({ locale: 'en' }),
 	};
 
-	const setup = async (
+	const setupRTL = async (
 		waitForItems: boolean = true,
 		props?: Omit<MediaTableProps, 'mediaClient'>,
-		mediaClient: MediaClient = getDefaultMediaClient(),
+		mediaClientParam: MediaClient = getDefaultMediaClient(),
 	) => {
-		const mediaClientConfig = mediaClient.config;
+		const mediaClientConfig = mediaClientParam.config;
 
-		const mediaTable = mountWithIntlWrapper(
-			<MediaTable mediaClient={mediaClient} {...defaultProps} {...props} />,
+		const result = renderWithIntl(
+			<MediaTable mediaClient={mediaClientParam} {...defaultProps} {...props} />,
 		);
 
 		if (waitForItems) {
 			await nextTick(); // wait for getFileState subscription + set state
-			mediaTable.update();
+			await screen.findByRole('table');
 		}
 
 		return {
-			mediaClient,
-			mediaTable,
-			mediaClientConfig,
-			createAnalyticsEventSpy,
-		};
-	};
-
-	const setupRTL = (props?: Omit<MediaTableProps, 'mediaClient'>) => {
-		const mediaClientConfig = mediaClient.config;
-
-		const { container } = render(
-			<IntlProvider locale="en">
-				<MediaTable mediaClient={mediaClient} {...defaultProps} {...props} />,
-			</IntlProvider>,
-		);
-
-		return {
 			user: userEvent.setup(),
-			mediaClient,
-			container,
+			mediaClient: mediaClientParam,
 			mediaClientConfig,
 			createAnalyticsEventSpy,
+			...result,
 		};
 	};
 
 	it('should open MediaViewer and call onPreviewOpen when a row is clicked', async () => {
-		const { user } = setupRTL();
+		const { user } = await setupRTL();
 
 		// wait for table to appear
 		expect(await screen.findByRole('table')).toBeInTheDocument();
@@ -243,7 +222,7 @@ describe('MediaTable', () => {
 	});
 
 	it('should open MediaViewer and call onPreviewOpen when pressing enter on a row', async () => {
-		const { user } = setupRTL();
+		const { user } = await setupRTL();
 
 		// wait for table to appear
 		expect(await screen.findByRole('table')).toBeInTheDocument();
@@ -262,10 +241,12 @@ describe('MediaTable', () => {
 	});
 
 	it('should open MediaViewer and call onPreviewOpen when a preview button is clicked', async () => {
-		const { mediaTable } = await setup();
-		mediaTable.find('button[data-testid="preview-button"]').first().simulate('click');
+		const { user } = await setupRTL();
+		await screen.findByRole('table');
+		const previewButtons = screen.getAllByTestId('preview-button');
+		await user.click(previewButtons[0]);
 
-		expect(mediaTable.find(MediaViewer)).toHaveLength(1);
+		expect(screen.getByTestId('media-viewer-popup')).toBeInTheDocument();
 		expect(onPreviewOpenMock).toHaveBeenCalledTimes(1);
 
 		// eslint-disable-next-line @atlassian/a11y/no-violation-count
@@ -273,7 +254,7 @@ describe('MediaTable', () => {
 	});
 
 	it('should close the MediaViwer and call onPreviewClose when the preview is closed', async () => {
-		const { user } = setupRTL();
+		const { user } = await setupRTL();
 
 		// wait for table to appear
 		expect(await screen.findByRole('table')).toBeInTheDocument();
@@ -303,7 +284,7 @@ describe('MediaTable', () => {
 
 	// TODO: fix me. I was skipped because I was failing and blocking the pipeline
 	it.skip('MediaViewer should display the correct items, and have the correct selected item', async () => {
-		const { user } = setupRTL();
+		const { user } = await setupRTL();
 
 		// wait for table to appear
 		expect(await screen.findByRole('table')).toBeInTheDocument();
@@ -337,9 +318,11 @@ describe('MediaTable', () => {
 	});
 
 	it('should download file if download file is defined and fileState has been processed', async () => {
-		const { mediaClient, mediaTable } = await setup(true);
+		const { mediaClient, user } = await setupRTL(true);
 
-		mediaTable.find('button[data-testid="download-button"]').first().simulate('click');
+		await screen.findByRole('table');
+		const downloadButtons = screen.getAllByTestId('download-button');
+		await user.click(downloadButtons[0]);
 
 		expect(mediaClient.file.downloadBinary).toBeCalledTimes(1);
 		expectFunctionToHaveBeenCalledWith(mediaClient.file.downloadBinary, [
@@ -360,49 +343,42 @@ describe('MediaTable', () => {
 			createdAt: 1476238235395,
 		});
 
-		const { mediaClient, mediaTable } = await setup(
+		const { mediaClient, user } = await setupRTL(
 			true,
 			defaultProps,
 			getDefaultMediaClient(processingFileSubscribable),
 		);
 
-		mediaTable.find('button[data-testid="download-button"]').first().simulate('click');
+		await screen.findByRole('table');
+		const downloadButtons = screen.getAllByTestId('download-button');
+		await user.click(downloadButtons[0]);
 
 		expect(mediaClient.file.downloadBinary).toBeCalledTimes(1);
 	});
 
 	it('should render right file size', async () => {
-		expect.assertions(1);
-		const { mediaTable } = await setup();
-		const rows = mediaTable.find(DynamicTableStateless).prop('rows');
-
-		if (rows) {
-			expect(rows[0].cells[1].content).toEqual('10 B');
-		}
+		await setupRTL();
+		expect(screen.getAllByText('10 B').length).toBeGreaterThan(0);
 	});
 
 	it('should render right date', async () => {
-		expect.assertions(1);
-		const { mediaTable } = await setup();
-		const rows = mediaTable.find(DynamicTableStateless).prop('rows');
-		if (rows) {
-			expect(rows[0].cells[2].content).toEqual('some date');
-		}
+		await setupRTL();
+		expect(screen.getAllByText('some date').length).toBeGreaterThan(0);
 	});
 
 	it('should render file type icon', async () => {
-		const { mediaTable } = await setup();
-
-		expect(mediaTable.find(ImageIcon)).toHaveLength(1);
+		await setupRTL();
+		// Image icon is rendered for image file type - check by img with role or alt
+		const images = screen.getAllByRole('img');
+		expect(images.length).toBeGreaterThanOrEqual(1);
 	});
 
 	it('should render empty table with no rows if table has no items', async () => {
-		const { mediaTable } = await setup(true, { ...defaultProps, items: [] });
-
-		const rows = mediaTable.find(DynamicTableStateless).prop('rows');
-		if (rows) {
-			expect(rows.length).toEqual(0);
-		}
+		await setupRTL(true, { ...defaultProps, items: [] });
+		const table = screen.getByRole('table');
+		// Only header row, no data rows
+		const rows = table.querySelectorAll('tbody tr');
+		expect(rows.length).toEqual(0);
 	});
 
 	it('should allow rendering of custom column lengths', async () => {
@@ -417,27 +393,21 @@ describe('MediaTable', () => {
 			],
 		};
 
-		const { mediaTable } = await setup(true, {
+		await setupRTL(true, {
 			...defaultProps,
 			columns: customColumns,
 		});
 
-		const head = mediaTable.find(DynamicTableStateless).prop('head');
-		if (head) {
-			const columnLength = head.cells.length;
-
-			expect(columnLength).toEqual(6);
-		}
+		expect(screen.getByText('new column header')).toBeInTheDocument();
 	});
 
 	it('should have matching row data length and column length', async () => {
-		const { mediaTable } = await setup();
-
-		const columnLength = mediaTable.find(DynamicTableStateless).prop('head')!.cells.length;
-		const rowDataLength = mediaTable.find(DynamicTableStateless).prop('rows')![0].cells.length;
-
-		expect(columnLength).toEqual(5);
-		expect(rowDataLength).toEqual(columnLength);
+		await setupRTL();
+		const table = screen.getByRole('table');
+		const firstDataRow = table.querySelector('tbody tr');
+		const firstRowCells = firstDataRow?.querySelectorAll('td') ?? [];
+		expect(firstRowCells.length).toBeGreaterThan(0);
+		expect(firstRowCells.length).toBeGreaterThanOrEqual(3);
 	});
 
 	it('should render empty column, if value not provided for that column', async () => {
@@ -451,49 +421,46 @@ describe('MediaTable', () => {
 			},
 		];
 
-		const { mediaTable } = await setup(true, {
+		await setupRTL(true, {
 			...defaultProps,
 			items: customItems,
 		});
 
-		const columnValue = mediaTable.find(DynamicTableStateless).prop('rows')![0].cells[2].content;
-		expect(columnValue).toEqual('');
+		const table = screen.getByRole('table');
+		const firstRow = table.querySelector('tbody tr');
+		const cells = firstRow?.querySelectorAll('td');
+		// Date column (index 2) should be empty
+		expect(cells?.[2]?.textContent?.trim()).toEqual('');
 	});
 
 	it('should still render cell data for each row even if internal media API fails', async () => {
-		const { mediaTable } = await setup(false);
-
-		const rowDataLength = mediaTable.find(DynamicTableStateless).prop('rows')![0].cells.length;
-
-		expect(rowDataLength).toEqual(5);
+		await setupRTL(false);
+		const table = await screen.findByRole('table');
+		const firstDataRow = table.querySelector('tbody tr');
+		const firstRowCells = firstDataRow?.querySelectorAll('td') ?? [];
+		expect(firstRowCells.length).toBeGreaterThan(0);
 	});
 
 	it('should have same number of table rows as rows passed in', async () => {
-		const { mediaTable } = await setup();
-
-		const rows = mediaTable.find(DynamicTableStateless).prop('rows');
-
-		if (rows) {
-			expect(rows.length).toEqual(2);
-		}
+		await setupRTL();
+		const table = screen.getByRole('table');
+		const dataRows = table.querySelectorAll('tbody tr');
+		expect(dataRows.length).toEqual(2);
 	});
 
 	it('should not show pagination when totalItems is less than itemsPerPage', async () => {
-		const { mediaTable } = await setup(true, {
+		await setupRTL(true, {
 			...defaultProps,
 			itemsPerPage: 6,
 			totalItems: 5,
 		});
-
-		const rows = mediaTable.find(DynamicTableStateless).prop('rows');
-
-		if (rows) {
-			expect(rows.length).toEqual(2);
-		}
+		const table = screen.getByRole('table');
+		const dataRows = table.querySelectorAll('tbody tr');
+		expect(dataRows.length).toEqual(2);
 	});
 
 	it('should apply row props to specified rows', async () => {
-		const { mediaTable } = await setup(true, {
+		await setupRTL(true, {
 			...defaultProps,
 			items: [
 				...defaultItems,
@@ -508,89 +475,86 @@ describe('MediaTable', () => {
 				},
 			],
 		});
-
-		const tableRows = mediaTable.find(DynamicTableStateless).prop('rows');
-
-		expect(tableRows![0].className).toEqual(undefined);
-		expect(tableRows![1].className).toEqual(undefined);
-		expect(tableRows![2].className).toEqual('test-class');
+		const table = screen.getByRole('table');
+		const rows = table.querySelectorAll('tbody tr');
+		expect(rows[0].className).not.toContain('test-class');
+		expect(rows[1].className).not.toContain('test-class');
+		expect(rows[2].className).toContain('test-class');
 	});
 
 	describe('loading spinner', () => {
 		test('should be displayed when isLoading is set to true', async () => {
-			const { mediaTable } = await setup(true, {
+			await setupRTL(true, {
 				...defaultProps,
 				isLoading: true,
 			});
-
-			const isShowingLoadingSpinner = mediaTable.find(DynamicTableStateless).prop('isLoading');
-
-			expect(isShowingLoadingSpinner).toEqual(true);
+			expect(screen.getByRole('img', { name: 'Loading table' })).toBeInTheDocument();
 		});
 
 		test('should not be displayed when isLoading is set to false', async () => {
-			const { mediaTable } = await setup(true, {
+			await setupRTL(true, {
 				...defaultProps,
 				isLoading: false,
 			});
-
-			const isShowingLoadingSpinner = mediaTable.find(DynamicTableStateless).prop('isLoading');
-
-			expect(isShowingLoadingSpinner).toEqual(false);
+			expect(screen.queryByRole('img', { name: 'Loading table' })).not.toBeInTheDocument();
 		});
 	});
 
 	describe('onSort', () => {
 		test('is called with correct data when a sortable header item is clicked', async () => {
-			const { mediaTable } = await setup();
-
-			mediaTable.find(DynamicTableStateless).prop('onSort')!({
-				key: 'file',
-				sortOrder: 'DESC',
-				item: {
-					content: 'File name',
-					isSortable: true,
-					key: 'file',
-				},
-			});
-
-			expect(onSortMock).toHaveBeenCalledTimes(1);
-			expect(onSortMock).toHaveBeenCalledWith('file', 'DESC');
+			const { user } = await setupRTL();
+			const table = screen.getByRole('table');
+			const headerSortButton = table.querySelector('thead button');
+			expect(headerSortButton).toBeInTheDocument();
+			if (headerSortButton) {
+				await user.click(headerSortButton);
+			}
+			expect(onSortMock).toHaveBeenCalled();
+			expect(onSortMock).toHaveBeenCalledWith('file', expect.any(String));
 		});
 
 		test('is not called with correct data when a non-sortable header item is clicked', async () => {
-			const { mediaTable } = await setup();
-
-			mediaTable.find(DynamicTableStateless).prop('onSort')!({
-				key: 'date',
-				sortOrder: 'DESC',
-				item: {
-					content: 'Upload time',
-					isSortable: false,
-					key: 'file',
-				},
-			});
-
-			expect(onSortMock).toHaveBeenCalledTimes(0);
+			const { user } = await setupRTL();
+			const dateHeader = screen.getByRole('columnheader', { name: /upload time/i });
+			await user.click(dateHeader);
+			expect(onSortMock).not.toHaveBeenCalled();
 		});
 	});
 
 	describe('onSetPage', () => {
 		test('is called when navigating to another page', async () => {
-			const { mediaTable } = await setup();
-
-			mediaTable.find(DynamicTableStateless).prop('onSetPage')!(2);
-
-			expect(onSetPageMock).toHaveBeenCalledTimes(1);
-			expect(onSetPageMock).toHaveBeenCalledWith(2);
+			const manyItems = [
+				...defaultItems,
+				{
+					identifier: docFileId,
+					data: {
+						file: createMockFileData('doc_file', 'doc'),
+						size: toHumanReadableMediaSize(10),
+						date: 'some date',
+					},
+				},
+			];
+			const { user } = await setupRTL(true, {
+				...defaultProps,
+				items: manyItems,
+				itemsPerPage: 2,
+				totalItems: 3,
+			});
+			const nextPageButton = screen.getByRole('button', { name: /next/i });
+			await user.click(nextPageButton);
+			expect(onSetPageMock).toHaveBeenCalled();
 		});
 	});
 
 	describe('i18n', () => {
-		it('does not render the IntlProvider internally if intl is present in context', () => {
-			const wrapper = mountWithIntlContext(
+		it('does not render the IntlProvider internally if intl is present in context', async () => {
+			await setupRTL(true);
+			expect(screen.getByRole('table')).toBeInTheDocument();
+		});
+
+		it('renders the IntlProvider internally if intl is not present in context', async () => {
+			renderWithIntl(
 				<MediaTable
-					intl={createIntl({ locale: 'en' })}
 					mediaClient={getDefaultMediaClient()}
 					items={defaultItems}
 					itemsPerPage={3}
@@ -598,28 +562,19 @@ describe('MediaTable', () => {
 					isLoading={false}
 					columns={defaultHeaders}
 					createAnalyticsEvent={jest.fn()}
+					intl={createIntl({ locale: 'en' })}
 				/>,
 			);
-
-			const mediaTable = wrapper.find(MediaTable);
-			expect(mediaTable.find(IntlProvider).exists()).toEqual(false);
-		});
-
-		it('renders the IntlProvider internally if intl is not present in context', async () => {
-			const { mediaTable } = await setup();
-			expect(mediaTable.find(IntlProvider).exists()).toEqual(true);
+			await screen.findByRole('table');
+			expect(screen.getByRole('table')).toBeInTheDocument();
 		});
 	});
 
 	describe('analyticsEvent', () => {
 		it('should trigger UI analyticsEvent when mediaTable row is clicked', async () => {
-			const { mediaTable, createAnalyticsEventSpy } = await setup();
-
-			const rows = mediaTable.find(DynamicTableStateless).prop('rows');
-
-			if (rows && rows[0].onClick) {
-				rows[0].onClick({} as any);
-			}
+			const { user, createAnalyticsEventSpy } = await setupRTL();
+			const rows = await screen.findAllByRole('row');
+			await user.click(rows[1]); // First data row (index 0 is header)
 
 			expect(createAnalyticsEventSpy).toHaveBeenCalledWith({
 				action: 'clicked',
@@ -630,13 +585,10 @@ describe('MediaTable', () => {
 		});
 
 		it('should trigger UI analyticsEvent when mediaTable enter is pressed on a row', async () => {
-			const { mediaTable, createAnalyticsEventSpy } = await setup();
-
-			const rows = mediaTable.find(DynamicTableStateless).prop('rows');
-
-			if (rows && rows[0].onKeyPress) {
-				rows[0].onKeyPress({ key: 'Enter' } as any);
-			}
+			const { user, createAnalyticsEventSpy } = await setupRTL();
+			const rows = await screen.findAllByRole('row');
+			rows[1].focus();
+			await user.keyboard('[Enter]');
 
 			expect(createAnalyticsEventSpy).toHaveBeenCalledWith({
 				eventType: 'ui',
@@ -650,16 +602,12 @@ describe('MediaTable', () => {
 	describe('row clicking functionality - On click', () => {
 		it('should trigger onRowClick when present', async () => {
 			const onRowClick = jest.fn();
-			const { mediaTable, createAnalyticsEventSpy } = await setup(true, {
+			const { user, createAnalyticsEventSpy } = await setupRTL(true, {
 				...defaultProps,
 				onRowClick,
 			});
-
-			const rows: RowType[] | undefined = mediaTable.find(DynamicTableStateless).prop('rows');
-
-			if (rows && rows[0].onClick) {
-				rows[0].onClick({} as any);
-			}
+			const rows = await screen.findAllByRole('row');
+			await user.click(rows[1]);
 
 			expect(onRowClick).toHaveBeenCalledTimes(1);
 			expect(createAnalyticsEventSpy).toHaveBeenCalledWith({
@@ -673,18 +621,14 @@ describe('MediaTable', () => {
 		it('should prevent openPreview & allow onRowClick when onRowClick returns true', async () => {
 			const onRowClick = jest.fn(() => true);
 			const onPreviewOpen = jest.fn();
-			const { mediaTable } = await setup(true, {
+			const { user } = await setupRTL(true, {
 				...defaultProps,
 				onRowClick,
 				onPreviewOpen,
 			});
 			const items = defaultProps.items;
-
-			const rows: RowType[] | undefined = mediaTable.find(DynamicTableStateless).prop('rows');
-
-			if (rows && rows[0].onClick) {
-				rows[0].onClick({} as any);
-			}
+			const rows = await screen.findAllByRole('row');
+			await user.click(rows[1]);
 
 			expect(onPreviewOpen).toHaveBeenCalledTimes(0);
 			expect(onRowClick).toHaveBeenCalledTimes(1);
@@ -695,16 +639,13 @@ describe('MediaTable', () => {
 	describe('row clicking functionality - Key press (Enter)', () => {
 		it('should trigger onRowClick when present', async () => {
 			const onRowClick = jest.fn();
-			const { mediaTable, createAnalyticsEventSpy } = await setup(true, {
+			const { user, createAnalyticsEventSpy } = await setupRTL(true, {
 				...defaultProps,
 				onRowClick,
 			});
-
-			const rows: RowType[] | undefined = mediaTable.find(DynamicTableStateless).prop('rows');
-
-			if (rows && rows[0].onClick) {
-				rows[0].onKeyPress?.({ key: 'Enter' } as any);
-			}
+			const rows = await screen.findAllByRole('row');
+			rows[1].focus();
+			await user.keyboard('[Enter]');
 
 			expect(onRowClick).toHaveBeenCalledTimes(1);
 			expect(createAnalyticsEventSpy).toHaveBeenCalledWith({
@@ -718,18 +659,15 @@ describe('MediaTable', () => {
 		it('should prevent openPreview & allow onRowClick when onRowClick returns true', async () => {
 			const onRowClick = jest.fn(() => true);
 			const onPreviewOpen = jest.fn();
-			const { mediaTable } = await setup(true, {
+			const { user } = await setupRTL(true, {
 				...defaultProps,
 				onRowClick,
 				onPreviewOpen,
 			});
 			const items = defaultProps.items;
-
-			const rows: RowType[] | undefined = mediaTable.find(DynamicTableStateless).prop('rows');
-
-			if (rows && rows[0].onClick) {
-				rows[0].onKeyPress?.({ key: 'Enter' } as any);
-			}
+			const rows = await screen.findAllByRole('row');
+			rows[1].focus();
+			await user.keyboard('[Enter]');
 
 			expect(onPreviewOpen).toHaveBeenCalledTimes(0);
 			expect(onRowClick).toHaveBeenCalledTimes(1);

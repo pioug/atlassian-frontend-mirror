@@ -244,7 +244,8 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 		},
 
 		commands: {
-			toggleTaskList,
+			toggleTaskList: (targetType?: 'orderedList' | 'bulletList' | 'paragraph') =>
+				toggleTaskList(api?.analytics?.actions)(targetType),
 			updateEditPermission:
 				(hasEditPermission: boolean | undefined) =>
 				({ tr }) =>

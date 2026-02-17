@@ -2,7 +2,7 @@ import { type Observable } from 'rxjs/Observable';
 
 import { type JQLClause } from '@atlaskit/jql-autocomplete';
 
-export type AutocompleteValueType = 'user' | 'team';
+export type AutocompleteValueType = 'user' | 'team' | 'project';
 
 export type AutocompleteOption = {
 	/**

@@ -4,12 +4,14 @@ export const typeAheadListMessages = defineMessages({
 	typeAheadPopupLabel: {
 		id: 'fabric.editor.typeAhead.popupLabel',
 		defaultMessage: 'Typeahead results',
-		description: 'the result of a typeahead, similar to autocomplete results+',
+		description:
+			'ARIA label for the typeahead/autocomplete results popup. Announced to screen reader users when search or filter results appear.',
 	},
 	quickInsertPopupLabel: {
 		id: 'fabric.editor.typeAhead.quickInsertPopupLabel',
 		defaultMessage: 'Shortcuts for inserts and formatting',
-		description: 'the result of a quick insert typeahead, similar to autocomplete results+',
+		description:
+			'ARIA label for the quick insert typeahead popup showing available shortcuts. Announced to screen readers when the popup appears.',
 	},
 	quickInsertInputLabel: {
 		id: 'fabric.editor.typeAhead.quickInsertInputLabel',
@@ -72,12 +74,14 @@ export const typeAheadListMessages = defineMessages({
 	descriptionLabel: {
 		id: 'fabric.editor.description',
 		defaultMessage: 'Description',
-		description: 'Description',
+		description:
+			'Label used as assistive text for the description of an item in the typeahead autocomplete dropdown list.',
 	},
 	shortcutLabel: {
 		id: 'fabric.editor.shortcut',
 		defaultMessage: 'Text shortcut',
-		description: 'Text shortcut',
+		description:
+			'Label used as assistive text before a keyboard shortcut in the typeahead autocomplete dropdown list items.',
 	},
 	typeAheadErrorFallbackHeading: {
 		id: 'fabric.editor.typeAheadErrorFallbackHeading',

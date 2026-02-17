@@ -50,7 +50,7 @@ const getExpandedHeight = (ref: RefObject<HTMLDivElement>, state: TransitionStat
 
 const transitionDuration = 200;
 
-export default ({ question, statement, textPlaceholder, textLabel, onSubmit }: Props) => {
+export default ({ question, statement, textPlaceholder, textLabel, onSubmit }: Props): JSX.Element => {
 	const [expanded, setExpanded] = useState(false);
 	const [canContactDefault, setCanContactDefault] = useState(false);
 	const hasAutoFilledCanContactRef = useRef(false);

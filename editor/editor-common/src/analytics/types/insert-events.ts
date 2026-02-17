@@ -121,7 +121,8 @@ type InsertActionDecisionAEP = InsertAEP<
 			| INPUT_METHOD.TOOLBAR
 			| INPUT_METHOD.INSERT_MENU
 			| INPUT_METHOD.FORMATTING
-			| INPUT_METHOD.KEYBOARD;
+			| INPUT_METHOD.KEYBOARD
+			| INPUT_METHOD.FLOATING_TB;
 		listLocalId: string;
 		listSize: number;
 		localId: string;

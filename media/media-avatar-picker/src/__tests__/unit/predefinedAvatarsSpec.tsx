@@ -1,25 +1,30 @@
 import React from 'react';
-import { mountWithIntlContext } from '@atlaskit/media-test-helpers';
+import { renderWithIntl } from '@atlaskit/media-test-helpers';
+import { screen } from '@testing-library/react';
 import { PredefinedAvatarView } from '../../predefined-avatar-view';
 
 describe('PredefinedAvatarView', () => {
 	describe('header text', () => {
 		it('should provide the correct description', () => {
-			const component = mountWithIntlContext(
+			renderWithIntl(
 				<PredefinedAvatarView avatars={[]} onAvatarSelected={() => {}} />,
 			);
-			expect(component.find('h2').text()).toEqual('Default avatars');
+			expect(screen.getByRole('heading', { level: 2 }).textContent).toEqual(
+				'Default avatars',
+			);
 		});
 
 		it('should use different caption text when predefinedAvatarsText is passed', () => {
-			const component = mountWithIntlContext(
+			renderWithIntl(
 				<PredefinedAvatarView
 					avatars={[]}
 					onAvatarSelected={() => {}}
 					predefinedAvatarsText="default icons"
 				/>,
 			);
-			expect(component.find('h2').text()).toEqual('default icons');
+			expect(screen.getByRole('heading', { level: 2 }).textContent).toEqual(
+				'default icons',
+			);
 		});
 	});
 });

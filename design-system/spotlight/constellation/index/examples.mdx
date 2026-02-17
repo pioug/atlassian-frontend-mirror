@@ -8,6 +8,7 @@ import MultipleStepsExample from '../../examples/constellation/multiple-steps';
 import MediaExample from '../../examples/constellation/media';
 import ControlsExample from '../../examples/constellation/controls';
 import MotionExample from '../../examples/constellation/motion';
+import ActionLinksExample from '../../examples/action-links';
 
 ## Single step
 
@@ -60,3 +61,12 @@ focusable element on the `SpotlightCard` card to provide an accessible experienc
 create smooth 'enter' or 'exit' transitions.
 
 <Example Component={MotionExample} packageName="@atlaskit/spotlight" />
+
+## Action links
+
+When the primary or secondary control should navigate to a URL instead of performing an action, use
+`SpotlightPrimaryLink` and `SpotlightSecondaryLink`. They mirror the appearance of
+`SpotlightPrimaryAction` and `SpotlightSecondaryAction` but render as links (e.g. "Get started",
+"Learn more").
+
+<Example Component={ActionLinksExample} packageName="@atlaskit/spotlight" />

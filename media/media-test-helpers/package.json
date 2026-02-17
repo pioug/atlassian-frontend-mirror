@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-test-helpers",
-	"version": "39.0.16",
+	"version": "40.0.0",
 	"description": "Collection of test helpers used in media component stories and specs",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -46,7 +46,6 @@
 		"@emotion/react": "root:*",
 		"@emotion/styled": "root:*",
 		"@testing-library/react": "root:*",
-		"enzyme": "root:*",
 		"exenv": "root:*",
 		"kakapo": "root:*",
 		"mock-socket": "root:*",

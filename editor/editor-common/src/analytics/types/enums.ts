@@ -32,6 +32,7 @@ export enum ACTION {
 	CONNECTED_NODES = 'connectedNodes',
 	CONVERTED = 'converted',
 	COPIED = 'copied',
+	COPY_FAILED = 'copyFailed',
 	CUT = 'cut',
 	DEACTIVATED = 'deactivated',
 	DECREMENTED = 'decremented',

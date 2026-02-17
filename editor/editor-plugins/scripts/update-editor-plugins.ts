@@ -482,10 +482,6 @@ async function run() {
 				exports: orderObjectByDepthAndRoot(newEditorPluginsExports),
 				dependencies: sortObjectKeys(updatedDeps),
 				'platform-feature-flags': featureFlags,
-				// only update the 'af:exports' property if it already exists in the package
-				...(editorPluginsPackageJson['af:exports'] && {
-					'af:exports': orderObjectByDepthAndRoot(newEditorPluginsExports),
-				}),
 				// only update the 'exports' property if it already exists in the package
 				...(editorPluginsPackageJson.exports && {
 					exports: orderObjectByDepthAndRoot(newEditorPluginsExports),

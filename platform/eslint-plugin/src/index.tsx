@@ -14,7 +14,6 @@ import ensureNoPrivateDependencies from './rules/ensure-no-private-dependencies'
 import expandBorderShorthand from './rules/compiled/expand-border-shorthand';
 import noInvalidStorybookDecoratorUsage from './rules/no-invalid-storybook-decorator-usage';
 import ensurePublishValid from './rules/ensure-publish-valid';
-import ensureNativeAndAfExportsSynced from './rules/ensure-native-and-af-exports-synced';
 import noModuleLevelEval from './rules/feature-gating/no-module-level-eval';
 import noModuleLevelEvalNav4 from './rules/feature-gating/no-module-level-eval-nav4';
 import staticFeatureFlags from './rules/feature-gating/static-feature-flags';
@@ -75,7 +74,6 @@ const rules = {
 	'no-pre-post-install-scripts': noPreAndPostInstallScripts,
 	'no-invalid-storybook-decorator-usage': noInvalidStorybookDecoratorUsage,
 	'ensure-publish-valid': ensurePublishValid,
-	'ensure-native-and-af-exports-synced': ensureNativeAndAfExportsSynced,
 	'no-module-level-eval': noModuleLevelEval,
 	'no-module-level-eval-nav4': noModuleLevelEvalNav4,
 	'static-feature-flags': staticFeatureFlags,

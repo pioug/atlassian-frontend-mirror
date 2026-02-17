@@ -32,6 +32,7 @@ export const useRovoAgentCSID = () => {
 				const newCSID = generateCSID();
 
 				setCSID(newCSID);
+				return newCSID;
 			},
 			clear: () => {
 				// remove CSID query parameter
@@ -42,6 +43,7 @@ export const useRovoAgentCSID = () => {
 
 				// reset state
 				setCSID(null);
+				return null;
 			},
 		};
 	}, []);

@@ -235,3 +235,14 @@ export const syncBlockOverflowStyles: SerializedStyles = css({
 		},
 	},
 });
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const syncBlockFirstNodeStyles: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
+	[`.ProseMirror > .fabric-editor-breakout-mark:first-child`]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
+		[`.${SyncBlockSharedCssClassName.prefix}, .${BodiedSyncBlockSharedCssClassName.prefix}`]: {
+			marginTop: 0,
+		},
+	},
+});

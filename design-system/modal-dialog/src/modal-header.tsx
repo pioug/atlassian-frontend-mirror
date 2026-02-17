@@ -4,29 +4,31 @@
  */
 import React from 'react';
 
-import { css, jsx } from '@compiled/react';
-
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Flex, xcss } from '@atlaskit/primitives';
+import { cssMap, jsx } from '@atlaskit/css';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { CloseButton } from './close-button';
 import { useModal } from './hooks';
 
-const headerStyles = css({
-	display: 'flex',
-	position: 'relative',
-	alignItems: 'center',
-	justifyContent: 'space-between',
-	marginBlockEnd: token('space.negative.025'),
-	paddingBlockEnd: token('space.200'),
-	paddingBlockStart: token('space.300'),
-	paddingInline: token('space.300'),
-});
-
-const flexStyles = xcss({
-	flexDirection: 'row-reverse',
-	width: '100%',
+const styles = cssMap({
+	header: {
+		display: 'flex',
+		position: 'relative',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+		marginBlockEnd: token('space.negative.025'),
+		paddingBlockEnd: token('space.200'),
+		paddingBlockStart: token('space.300'),
+		paddingInline: token('space.300'),
+	},
+	flex: {
+		flexDirection: 'row-reverse',
+		width: '100%',
+	},
+	titleContainer: {
+		minWidth: '0px'
+	}
 });
 
 export interface ModalHeaderProps {
@@ -68,17 +70,17 @@ const ModalHeader = (props: ModalHeaderProps): JSX.Element => {
 	const shouldShowCloseButton = hasCloseButton && hasProvidedOnClose && onClose;
 
 	return (
-		<div css={headerStyles} data-testid={testId}>
+		<div css={styles.header} data-testid={testId}>
 			{shouldShowCloseButton ? (
 				// The reason we are putting the close button first in the DOM and then
 				// reordering them is to ensure that users of assistive technology get
 				// all the context of a modal when initial focus is placed on the close
 				// button, since it's the first interactive element.
-				<Flex gap="space.200" justifyContent="space-between" xcss={flexStyles}>
+				<Flex gap="space.200" justifyContent="space-between" xcss={styles.flex}>
 					<Flex justifyContent="end">
 						<CloseButton onClick={onClose} testId={modalTestId} />
 					</Flex>
-					<Flex justifyContent="start" alignItems="center">
+					<Flex justifyContent="start" alignItems="center" xcss={styles.titleContainer}>
 						{children}
 					</Flex>
 				</Flex>

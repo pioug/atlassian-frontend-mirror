@@ -5,32 +5,38 @@ const messages = defineMessages({
 	story: {
 		id: 'fabric.editor.story',
 		defaultMessage: 'Story',
-		description: 'Alt text for Story',
+		description:
+			'Alt text for the issue type icon displayed in link search results when the linked item is a Story issue type.',
 	},
 	epic: {
 		id: 'fabric.editor.epic',
 		defaultMessage: 'Epic',
-		description: 'Alt text for Epic',
+		description:
+			'Alt text for the issue type icon displayed in link search results when the linked item is an Epic issue type.',
 	},
 	task: {
 		id: 'fabric.editor.task',
 		defaultMessage: 'Task',
-		description: 'Alt text for Task',
+		description:
+			'Alt text for the issue type icon displayed in link search results when the linked item is a Task issue type.',
 	},
 	bug: {
 		id: 'fabric.editor.bug',
 		defaultMessage: 'Bug',
-		description: 'Alt text for Bug',
+		description:
+			'Alt text for the issue type icon displayed in link search results when the linked item is a Bug issue type.',
 	},
 	subTask: {
 		id: 'fabric.editor.subTask',
 		defaultMessage: 'Sub-task',
-		description: 'Alt text for Sub-task',
+		description:
+			'Alt text for the issue type icon displayed in link search results when the linked item is a Sub-task issue type.',
 	},
 	improvement: {
 		id: 'fabric.editor.improvement',
 		defaultMessage: 'Improvement',
-		description: 'Alt text for Improvement',
+		description:
+			'Alt text for the issue type icon displayed in link search results when the linked item is an Improvement issue type.',
 	},
 	defaultAltText: {
 		id: 'fabric.editor.defaultAltText',

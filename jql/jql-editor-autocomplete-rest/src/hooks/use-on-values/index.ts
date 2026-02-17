@@ -19,7 +19,7 @@ import { type JqlEditorAutocompleteAnalyticsEvent } from '../../analytics';
 import { type GetAutocompleteSuggestions, type JQLFieldResponse } from '../../common/types';
 import findField$ from '../../utils/find-field-observable';
 import { normalize } from '../../utils/strings';
-import { TEAM_FIELD_TYPE, USER_FIELD_TYPE } from '../constants';
+import { PROJECT_FIELD_TYPE, TEAM_FIELD_TYPE, USER_FIELD_TYPE } from '../constants';
 import {
 	type FieldValuesCache,
 	type OnValues,
@@ -33,6 +33,9 @@ const getValueType = (field: JQLFieldResponse): AutocompleteValueType | void => 
 	}
 	if (field.types.includes(TEAM_FIELD_TYPE) && fg('jira_update_jql_teams')) {
 		return 'team';
+	}
+	if (field.types.includes(PROJECT_FIELD_TYPE) && fg('projects_in_jira_eap_drop2')) {
+		return 'project';
 	}
 
 	return undefined;
@@ -114,7 +117,10 @@ const useOnValues = (
 											value.nameOnRichInlineNode = value.name.replace(BASIC_REMOVE_EMAIL_REGEX, '');
 										});
 									}
-									if (valueType === 'team' && fg('jira_update_jql_teams')) {
+									if (
+										(valueType === 'team' && fg('jira_update_jql_teams')) ||
+										(valueType === 'project' && fg('projects_in_jira_eap_drop2'))
+									) {
 										values.forEach((value: AutocompleteOption) => {
 											value.valueType = valueType;
 										});

@@ -3,7 +3,6 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 export const isIsolating = (node: PmNode): boolean => {
 	return !!node.type.spec.isolating;
@@ -127,21 +126,7 @@ function getTableWidths(node: PmNode): number[] {
 
 export const isTableNested = (state: EditorState, tablePos = 0): boolean => {
 	const $tablePos = state.doc.resolve(tablePos);
-	const parent = $tablePos.parent;
-	const nodeTypes = state.schema.nodes;
-
-	if (fg('platform_editor_change_table_nesting_check')) {
-		return $tablePos.depth > 0;
-	}
-
-	return (
-		parent.type === nodeTypes.layoutColumn ||
-		parent.type === nodeTypes.expand ||
-		parent.type === nodeTypes.bodiedExtension ||
-		parent.type === nodeTypes.extensionFrame ||
-		parent.type === nodeTypes.tableHeader ||
-		parent.type === nodeTypes.tableCell
-	);
+	return $tablePos.depth > 0;
 };
 
 export const isTableNestedInMoreThanOneNode = (state: EditorState, tablePos = 0): boolean => {

@@ -37,7 +37,8 @@ export const messages = defineMessages({
 	heading3Description: {
 		id: 'fabric.editor.heading3Description',
 		defaultMessage: 'Use this for sub sections and group headings',
-		description: '',
+		description:
+			'Description text shown in the block type menu to help users understand when to use Heading 3 for sub sections and group headings in the editor.',
 	},
 	heading4: {
 		id: 'fabric.editor.heading4',
@@ -48,7 +49,8 @@ export const messages = defineMessages({
 	heading4Description: {
 		id: 'fabric.editor.heading4Description',
 		defaultMessage: 'Use this for deep headings',
-		description: '',
+		description:
+			'Description text shown in the block type menu to help users understand when to use Heading 4 for deep headings in the editor.',
 	},
 	heading5: {
 		id: 'fabric.editor.heading5',
@@ -59,7 +61,8 @@ export const messages = defineMessages({
 	heading5Description: {
 		id: 'fabric.editor.heading5Description',
 		defaultMessage: 'Use this for grouping list items',
-		description: '',
+		description:
+			'Description text shown in the block type menu to help users understand when to use Heading 5 for grouping list items in the editor.',
 	},
 	heading6: {
 		id: 'fabric.editor.heading6',
@@ -70,17 +73,20 @@ export const messages = defineMessages({
 	heading6Description: {
 		id: 'fabric.editor.heading6Description',
 		defaultMessage: 'Use this for low level headings',
-		description: '',
+		description:
+			'Description text shown in the block type menu to help users understand when to use Heading 6 for low level headings in the editor.',
 	},
 	blockquote: {
 		id: 'fabric.editor.blockquote2',
 		defaultMessage: 'Quote',
-		description: 'Quote some text',
+		description:
+			'Label shown as a menu item in the block type dropdown to insert a blockquote for quoting text in the editor.',
 	},
 	blockquoteDescription: {
 		id: 'fabric.editor.blockquote.description',
 		defaultMessage: 'Insert a quote or citation',
-		description: 'Quote some text',
+		description:
+			'Description text shown in the block type menu to help users understand the blockquote option for inserting a quote or citation in the editor.',
 	},
 	codeblock: {
 		id: 'fabric.editor.codeblock',
@@ -90,7 +96,8 @@ export const messages = defineMessages({
 	codeblockDescription: {
 		id: 'fabric.editor.codeblock.description',
 		defaultMessage: 'Display code with syntax highlighting',
-		description: 'Insert a snippet/segment of code (code block)',
+		description:
+			'Menu description shown in the quick insert menu. Explains that selecting this option inserts a code block with syntax highlighting support.',
 	},
 	infoPanel: {
 		id: 'fabric.editor.infoPanel',
@@ -177,6 +184,7 @@ export const messages = defineMessages({
 	other: {
 		id: 'fabric.editor.other',
 		defaultMessage: 'Others...',
-		description: 'Other text formatting',
+		description:
+			'Label shown as a menu item in the block type dropdown to access additional text formatting options in the editor.',
 	},
 });

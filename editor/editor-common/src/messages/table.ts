@@ -41,12 +41,14 @@ export const messages = defineMessages({
 	collapseTable: {
 		id: 'fabric.editor.collapseTable',
 		defaultMessage: 'Collapse table',
-		description: 'Wraps table in an expand',
+		description:
+			'The text is shown as a menu item in the table options dropdown when the user wants to collapse a table by wrapping it inside an expand element.',
 	},
 	resizeTable: {
 		id: 'fabric.editor.tables.resizeTable',
 		defaultMessage: 'Resize table',
-		description: 'Tooltip displayed on custom table width resize hande',
+		description:
+			'Tooltip text shown when hovering over the table width resize handle. Indicates users can drag to adjust the table width.',
 	},
 	insertColumn: {
 		id: 'fabric.editor.insertColumn',
@@ -71,7 +73,8 @@ export const messages = defineMessages({
 	removeColumns: {
 		id: 'fabric.editor.removeColumns',
 		defaultMessage: 'Delete {0, plural, one {column} other {columns}}',
-		description: 'Deletes a table column.',
+		description:
+			'The text is shown as a menu item or button when the user selects one or more table columns to delete them. The message adapts for singular or plural columns.',
 	},
 	insertRow: {
 		id: 'fabric.editor.insertRow',
@@ -116,17 +119,20 @@ export const messages = defineMessages({
 	removeRows: {
 		id: 'fabric.editor.removeRows',
 		defaultMessage: 'Delete {0, plural, one {row} other {rows}}',
-		description: 'Deletes a table row.',
+		description:
+			'The text is shown as a menu item or button when the user selects one or more table rows to delete them. The message adapts for singular or plural rows.',
 	},
 	rowNumbers: {
 		id: 'fabrid.editor.rowNumbers',
 		defaultMessage: 'Row numbers',
-		desciption: 'Adds a number to each row except header row',
+		description:
+			'The text is shown as a label for a toggle option in the table options menu that adds a number to each row except the header row.',
 	},
 	numberedRows: {
 		id: 'fabrid.editor.numberedRows',
 		defaultMessage: 'Numbered rows',
-		desciption: 'Adds a number to each row except header row',
+		description:
+			'The text is shown as a label for a toggle option in the table options menu that adds a number to each row except the header row.',
 	},
 	rowsAreInserted: {
 		id: 'fabric.editor.rowsAreInserted',
@@ -205,7 +211,8 @@ export const messages = defineMessages({
 	confirmModalCheckboxLabel: {
 		id: 'fabric.editor.floatingToolbar.confirmModalCheckboxLabel',
 		defaultMessage: 'Also delete connected elements',
-		description: 'checkbox label text',
+		description:
+			'The text is shown as a checkbox label in a confirmation dialog when the user is about to delete an element that has connected extensions.',
 	},
 	deleteElementTitle: {
 		id: 'fabric.editor.extension.deleteElementTitle',
@@ -242,12 +249,14 @@ export const messages = defineMessages({
 	mergeCells: {
 		id: 'fabric.editor.mergeCells',
 		defaultMessage: 'Merge cells',
-		description: 'Merge tables cells together.',
+		description:
+			'The text is shown as a menu item in the cell options menu when the user selects multiple table cells to merge them into a single cell.',
 	},
 	splitCell: {
 		id: 'fabric.editor.splitCell',
 		defaultMessage: 'Split cell',
-		description: 'Split a merged table cell.',
+		description:
+			'The text is shown as a menu item in the cell options menu when the user wants to split a previously merged table cell back into individual cells.',
 	},
 	clearCells: {
 		id: 'fabric.editor.clearCells',
@@ -362,11 +371,13 @@ export const messages = defineMessages({
 	alignTableCenter: {
 		id: 'fabric.editor.alignTableCenter',
 		defaultMessage: 'Align center',
-		description: 'Aligns table to the center',
+		description:
+			'The text is shown as a menu item in the table alignment options menu when the user wants to align the table to the center of the page.',
 	},
 	alignTableLeft: {
 		id: 'fabric.editor.alignTableLeft',
 		defaultMessage: 'Align left',
-		description: 'Aligns table to the left',
+		description:
+			'The text is shown as a menu item in the table alignment options menu when the user wants to align the table to the left side of the page.',
 	},
 });

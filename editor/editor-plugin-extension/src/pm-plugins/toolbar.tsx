@@ -3,7 +3,12 @@ import React from 'react';
 import type { IntlShape } from 'react-intl-next';
 
 import { INPUT_METHOD, type EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { messages } from '@atlaskit/editor-common/extensions';
+import {
+	messages,
+	type ExtensionParams,
+	type ExtensionProvider,
+	type Parameters,
+} from '@atlaskit/editor-common/extensions';
 import commonMessages from '@atlaskit/editor-common/messages';
 import { BODIED_EXT_MBE_MARGIN_TOP } from '@atlaskit/editor-common/styles';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
@@ -42,12 +47,16 @@ import {
 	removeExtension,
 	updateExtensionLayout,
 } from '../editor-commands/commands';
-import type { ExtensionPlugin, ExtensionState } from '../extensionPluginType';
+import type {
+	ExtensionPlugin,
+	ExtensionPluginOptions,
+	ExtensionState,
+} from '../extensionPluginType';
 
 import { pluginKey as macroPluginKey } from './macro/plugin-key';
 import { getPluginState } from './plugin-factory';
 import type { Position } from './utils';
-import { getSelectedExtension } from './utils';
+import { copyUnsupportedContentToClipboard, getSelectedExtension, onCopyFailed } from './utils';
 
 // non-bodied extensions nested inside panels, blockquotes and lists do not support layouts
 const isNestedNBM = (state: EditorState, selectedExtNode: { node: PMNode; pos: number }) => {
@@ -387,18 +396,80 @@ const calculateToolbarPosition = (
 	};
 };
 
+/**
+ * Creates a function that copies the text content of the unsupported content extension to the clipboard
+ * if the current selected extension is an unsupported content extension.
+ */
+export const createOnClickCopyButton = ({
+	extensionApi,
+	extensionProvider,
+	getUnsupportedContent,
+	state,
+}: {
+	extensionApi: GetToolbarConfigProps['extensionApi'];
+	extensionProvider?: ExtensionProvider;
+	getUnsupportedContent?: ExtensionPluginOptions['getUnsupportedContent'];
+	state: EditorState;
+}): Command | undefined => {
+	if (!extensionProvider) {
+		return;
+	}
+
+	const nodeWithPos = getSelectedExtension(state, true);
+	if (!nodeWithPos) {
+		return;
+	}
+
+	const { node } = nodeWithPos;
+	const { extensionType, extensionKey } = node.attrs;
+
+	const extensionParams: ExtensionParams<Parameters> = {
+		type: node.type.name as ExtensionParams<Parameters>['type'],
+		extensionKey,
+		extensionType,
+		parameters: node.attrs.parameters,
+		content: node.content,
+		localId: node.attrs.localId,
+	};
+
+	const adf = getUnsupportedContent?.(extensionParams);
+	if (!adf) {
+		return;
+	}
+
+	// this command copies the text content of the unsupported content extension to the clipboard
+	return (editorState) => {
+		const error = copyUnsupportedContentToClipboard({
+			unsupportedContent: adf,
+			schema: state.schema,
+		});
+		if (error) {
+			onCopyFailed({ error, extensionApi, state: editorState });
+			return false;
+		}
+		return true;
+	};
+};
+
 interface GetToolbarConfigProps {
 	breakoutEnabled: boolean | undefined;
 	extensionApi?:
 		| PublicPluginAPI<[ContextPanelPlugin, AnalyticsPlugin, DecorationsPlugin, ConnectivityPlugin]>
 		| undefined;
+	getUnsupportedContent?: ExtensionPluginOptions['getUnsupportedContent'];
 }
 
 export const getToolbarConfig =
-	({ breakoutEnabled = true, extensionApi }: GetToolbarConfigProps): FloatingToolbarHandler =>
+	({
+		breakoutEnabled = true,
+		extensionApi,
+		getUnsupportedContent,
+	}: GetToolbarConfigProps): FloatingToolbarHandler =>
 	(state, intl) => {
 		const { formatMessage } = intl;
 		const extensionState = getPluginState(state);
+
+		const { extensionProvider } = extensionState;
 
 		const hoverDecoration = extensionApi?.decorations?.actions.hoverDecoration;
 		const applyChangeToContextPanel = extensionApi?.contextPanel?.actions.applyChange;
@@ -486,6 +557,18 @@ export const getToolbarConfig =
 							state,
 							formatMessage: intl.formatMessage,
 							nodeType,
+							onClick: expValEquals(
+								'platform_editor_ai_edit_unsupported_content',
+								'isEnabled',
+								true,
+							)
+								? createOnClickCopyButton({
+										extensionApi,
+										extensionProvider,
+										getUnsupportedContent,
+										state,
+									})
+								: undefined,
 						},
 					],
 					...(shouldHideCopyButton && { hidden: shouldHideCopyButton }),

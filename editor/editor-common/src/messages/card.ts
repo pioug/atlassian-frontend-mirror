@@ -30,7 +30,8 @@ export const messages = defineMessages({
 	card: {
 		id: 'fabric.editor.cardFloatingControls',
 		defaultMessage: 'Card options',
-		description: 'Options to change card type',
+		description:
+			'The text is shown as a title for the floating toolbar when a user selects an inline card or smart link in the editor, providing options to change the card display type.',
 	},
 	blockCardUnavailable: {
 		id: 'fabric.editor.blockCardUnavailable',

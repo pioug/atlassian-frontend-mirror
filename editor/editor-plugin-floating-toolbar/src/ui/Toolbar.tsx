@@ -34,7 +34,6 @@ import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -265,28 +264,22 @@ const ToolbarItems = React.memo(
 				}
 
 				case 'overflow-dropdown':
-					let options;
+					// if an option has a confirmDialog, we need to replace its onClick handler
+					// to set the state to show the confirm dialog
 
-					if (fg('platform_editor_fix_confirm_table_removal')) {
-						// if an option has a confirmDialog, we need to replace its onClick handler
-						// to set the state to show the confirm dialog
+					// crudely done here to avoid greater coupling with DropdownMenuItem from `floating-toolbar`
+					// which would need knowledge of indexes, showConfirmDialog etc.
+					const options = item.options.map((option, optionIndex) => {
+						if (!('type' in option) && option.confirmDialog) {
+							const onClick = option.confirmDialog
+								? showConfirmDialog(idx, optionIndex)
+								: option.onClick;
 
-						// crudely done here to avoid greater coupling with DropdownMenuItem from `floating-toolbar`
-						// which would need knowledge of indexes, showConfirmDialog etc.
-						options = item.options.map((option, optionIndex) => {
-							if (!('type' in option) && option.confirmDialog) {
-								const onClick = option.confirmDialog
-									? showConfirmDialog(idx, optionIndex)
-									: option.onClick;
+							return { ...option, onClick };
+						}
 
-								return { ...option, onClick };
-							}
-
-							return option;
-						});
-					} else {
-						options = item.options;
-					}
+						return option;
+					});
 
 					return (
 						<Dropdown

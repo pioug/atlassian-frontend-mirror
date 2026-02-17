@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::75e27d84529f4d2b7d1f40c1944f5f61>>
+ * @codegen <<SignedSource::404bdf7d30df1f4487b74a9e3c00c09d>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -1153,6 +1153,7 @@ export type AvatarPickerClosedAttributesType = {
 };
 export type AvatarPickerOpenedAttributesType = {
 	hasUploadedAvatar: boolean;
+	isNewUserProfile: boolean | null;
 };
 export type ButtonClickedChangeProfilePhotoAttributesType = {
 	isNewUserProfile: boolean | null;
@@ -1162,6 +1163,7 @@ export type ButtonClickedCreateInitialsAvatarAttributesType = {
 };
 export type AvatarInitialsPickerOpenedAttributesType = {
 	hasUploadedAvatar: boolean;
+	isNewUserProfile: boolean | null;
 };
 export type UploadAvatarFailedAttributesType = {
 	avatarType: 'image' | 'initials';
@@ -1433,6 +1435,7 @@ export type UserProfileAboutTeamsViewedAttributesType = {
 	teamsCount: number;
 	isNewUserProfile: boolean | null;
 };
+export type UserProfileWorkingWithMeViewedAttributesType = undefined;
 export type TeamAgentsPanelViewedAttributesType = {
 	activeAgentsCount: number;
 };
@@ -2479,6 +2482,9 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when user profile about teams section is viewed */
 	'screen.userProfileAboutTeams.viewed': UserProfileAboutTeamsViewedAttributesType;
+	/**
+	 * fired when user profile working with me section is viewed (only when section has content) */
+	'screen.userProfileWorkingWithMe.viewed': UserProfileWorkingWithMeViewedAttributesType;
 	/**
 	 * fired when team agents panel is viewed */
 	'screen.teamAgentsPanel.viewed': TeamAgentsPanelViewedAttributesType;

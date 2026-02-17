@@ -6,11 +6,11 @@ import { type AutocompleteProvider } from '../../plugins/autocomplete/types';
 import { type CustomComponents, type ExternalMessage } from '../../state/types';
 
 export type HydratedUser = {
+	appType?: string | null;
 	avatarUrl: string;
 	id: string;
 	name: string;
 	type: 'user';
-	appType?: string | null;
 };
 
 export type HydratedTeam = {
@@ -18,6 +18,14 @@ export type HydratedTeam = {
 	id: string;
 	name: string;
 	type: 'team';
+};
+
+export type HydratedProject = {
+	iconName?: string;
+	id: string;
+	name: string;
+	privateProject?: boolean;
+	type: 'project';
 };
 
 export type HydratedDeprecatedField = {
@@ -29,7 +37,7 @@ export type HydratedDeprecatedField = {
 	type: 'deprecated-field';
 };
 
-export type HydratedValue = HydratedUser | HydratedTeam | HydratedDeprecatedField;
+export type HydratedValue = HydratedUser | HydratedTeam | HydratedProject | HydratedDeprecatedField;
 
 export type HydratedValues = {
 	[fieldName: string]: HydratedValue[];

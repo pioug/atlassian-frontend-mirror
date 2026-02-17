@@ -40,11 +40,10 @@ import { MediaType } from '@atlaskit/media-client';
 import { PollingError } from '@atlaskit/media-client';
 import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
-import { ReactWrapper } from 'enzyme';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { RequestError } from '@atlaskit/media-client';
 import { RequestErrorMetadata } from '@atlaskit/media-client';
-import { ShallowWrapper } from 'enzyme';
+import { type RenderResult } from '@testing-library/react';
 import { StyledComponent } from '@emotion/styled-base';
 import { TableHTMLAttributes } from 'react';
 import { WrappedComponentProps } from 'react-intl-next';
@@ -760,29 +759,6 @@ interface MockStub<T, R> extends MockFunction<T> {
 }
 
 // @public (undocumented)
-export const mountWithIntlContext: <
-	P,
-	S,
-	C extends React_2.Component<P, S, any> = React_2.Component<P, S, any>,
->(
-	node: React_2.ReactElement<
-		P & WrappedComponentProps<'intl'>,
-		React_2.JSXElementConstructor<any> | string
-	>,
-	{
-		context,
-		childContextTypes,
-		...additionalOptions
-	}?: {
-		context?: undefined | {};
-		childContextTypes?: undefined | {};
-	},
-) => ReactWrapper<P & WrappedComponentProps<'intl'>, S, C>;
-
-// @public (undocumented)
-export const mountWithIntlWrapper: (node: React_2.ReactElement) => ReactWrapper;
-
-// @public (undocumented)
 export interface MouseEventProps {
 	// (undocumented)
 	clientX?: number;
@@ -813,22 +789,7 @@ export const remoteImage =
 	'https://mediaviewer-examples.s3-ap-southeast-2.amazonaws.com/image/image.jpg';
 
 // @public (undocumented)
-export const shallowWithIntlContext: <
-	P,
-	S,
-	C extends React_2.Component<P, S, any> = React_2.Component<P, S, any>,
->(
-	node: React_2.ReactElement<
-		P & WrappedComponentProps<'intl'>,
-		React_2.JSXElementConstructor<any> | string
-	>,
-	{
-		context,
-		...additionalOptions
-	}?: {
-		context?: undefined | {};
-	},
-) => ShallowWrapper<P & WrappedComponentProps<'intl'>, S, C>;
+export const renderWithIntl: (component: React_2.ReactNode) => RenderResult;
 
 // @public (undocumented)
 export const simulateAlwaysLoading: SimulationFactory;

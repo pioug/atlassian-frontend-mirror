@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 14.10.5
+
+### Patch Changes
+
+- [`54274768b5a88`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/54274768b5a88) -
+  Fixed an issue where the modal title could overflow the width of the modal instead of truncating
+  when `isMultiline` is set to false
+
 ## 14.10.4
 
 ### Patch Changes

@@ -10,6 +10,7 @@ export const asideVar = '--n_asDw';
 export const panelVar = '--n_pnlW';
 export const bannerMountedVar = '--n_bnrM';
 export const topNavMountedVar = '--n_tNvM';
+export const ribbonVar = '--n_rbnW';
 
 /**
  * Captures the current width of the side navigation, at all times, including during resizing.
@@ -34,13 +35,14 @@ export const contentInsetBlockStart = `calc(var(--n_bnrM, 0px) + var(--n_tNvM, 0
 export const UNSAFE_topNavVar = '--topNavigationHeight';
 export const UNSAFE_bannerVar = '--bannerHeight';
 export const UNSAFE_sideNavLayoutVar = '--leftSidebarWidth';
+export const UNSAFE_ribbonVar = '--leftPanelWidth';
 export const UNSAFE_asideLayoutVar = '--rightSidebarWidth';
 export const UNSAFE_panelLayoutVar = '--rightPanelWidth';
 
 // The following UNSAFE variables are used to absolutely position elements that aren't a child of page layout.
 // Known use cases: Legacy pages rendered inside Confluence and Jira.
 export const UNSAFE_MAIN_BLOCK_START_FOR_LEGACY_PAGES_ONLY = `calc(var(${UNSAFE_bannerVar}, 0px) + var(${UNSAFE_topNavVar}, 0px))`;
-export const UNSAFE_MAIN_INLINE_START_FOR_LEGACY_PAGES_ONLY = `var(${UNSAFE_sideNavLayoutVar}, 0px)`;
+export const UNSAFE_MAIN_INLINE_START_FOR_LEGACY_PAGES_ONLY = `calc(var(${UNSAFE_ribbonVar}, 0px) + var(${UNSAFE_sideNavLayoutVar}, 0px))`;
 export const UNSAFE_MAIN_INLINE_END_FOR_LEGACY_PAGES_ONLY = `calc(var(${UNSAFE_asideLayoutVar}, 0px) + var(${UNSAFE_panelLayoutVar}, 0px))`;
 
 /**
@@ -49,14 +51,16 @@ export const UNSAFE_MAIN_INLINE_END_FOR_LEGACY_PAGES_ONLY = `calc(var(${UNSAFE_a
  * rely on accessing them through global means.
  */
 export const localSlotLayers: {
+	ribbon: number;
 	sideNavPanelSplitterFHS: number;
-    topBar: number;
-    banner: number;
-    bannerFHS: number;
-    topNavFHS: number;
-    sideNav: number;
-    panelSmallViewports: number;
+	topBar: number;
+	banner: number;
+	bannerFHS: number;
+	topNavFHS: number;
+	sideNav: number;
+	panelSmallViewports: number;
 } = {
+	ribbon: 4,
 	// The side nav panel splitter is layered above the top nav when FHS and 'platform-dst-side-nav-layering-fixes' is enabled.
 	// It has the same z-index value, but is rendered after the top nav in the DOM so is stacked above.
 	sideNavPanelSplitterFHS: 4,

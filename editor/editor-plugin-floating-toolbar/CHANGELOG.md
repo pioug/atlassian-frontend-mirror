@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 9.1.15
+
+### Patch Changes
+
+- [`34c3a60cb9325`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/34c3a60cb9325) -
+  Cleanup FG platform_editor_fix_confirm_table_removal
+
 ## 9.1.14
 
 ### Patch Changes

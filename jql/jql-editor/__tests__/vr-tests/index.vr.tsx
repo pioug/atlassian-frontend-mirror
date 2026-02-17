@@ -3,6 +3,7 @@ import { snapshot } from '@af/visual-regression';
 import TeamNodesExample from '../../examples/07-team-nodes';
 import AiAgentUsersExample from '../../examples/08-ai-agent-users';
 import MembersOfTeamNodesExample from '../../examples/09-membersof-team-nodes';
+import ProjectNodesExample from '../../examples/10-project-nodes';
 
 snapshot(AiAgentUsersExample, {
 	featureFlags: {
@@ -20,5 +21,11 @@ snapshot(MembersOfTeamNodesExample, {
 snapshot(TeamNodesExample, {
 	featureFlags: {
 		jira_update_jql_teams: true,
+	},
+});
+
+snapshot(ProjectNodesExample, {
+	featureFlags: {
+		projects_in_jira_eap_drop2: true,
 	},
 });

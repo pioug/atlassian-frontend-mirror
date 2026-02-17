@@ -1,7 +1,7 @@
 import type { ExtensionLayout } from '@atlaskit/adf-schema';
 
 import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, INPUT_METHOD } from './enums';
-import type { SELECTION_TYPE, TrackAEP } from './utils';
+import type { SELECTION_TYPE, OperationalAEP, TrackAEP } from './utils';
 
 export enum GAP_CURSOR_POSITION {
 	LEFT = 'left',
@@ -63,6 +63,18 @@ type ExtensionDeletedAEP = TrackAEP<
 	INPUT_METHOD.TOOLBAR | INPUT_METHOD.FLOATING_TB
 >;
 
+type ExtensionCopyFailedAEP = OperationalAEP<
+	ACTION.COPY_FAILED,
+	ACTION_SUBJECT.EXTENSION,
+	ExtensionType,
+	{
+		errorMessage: string;
+		errorStack?: string;
+		extensionKey: string;
+		extensionType: string;
+	}
+>;
+
 type ExtensionAPICalledPayload = TrackAEP<
 	ACTION.INVOKED,
 	ACTION_SUBJECT.EXTENSION,
@@ -76,4 +88,5 @@ type ExtensionAPICalledPayload = TrackAEP<
 export type ExtensionEventPayload =
 	| ExtensionUpdateAEP
 	| ExtensionDeletedAEP
+	| ExtensionCopyFailedAEP
 	| ExtensionAPICalledPayload;

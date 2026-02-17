@@ -222,7 +222,12 @@ export const createPlugin = (
 					let tableRef: HTMLTableElement | undefined;
 					if (fg('platform_editor_enable_table_dnd')) {
 						const parent = findParentDomRefOfType(state.schema.nodes.table, domAtPos)(selection);
-						const shouldSetTableRef = fg('platform_editor_enable_table_dnd_patch_1') ? parent && pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode !== 'view' : parent;
+						let shouldSetTableRef = fg('platform_editor_enable_table_dnd_patch_1') ? parent && pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode !== 'view' : parent;
+
+						if (expValEquals('platform_editor_table_update_table_ref', 'isEnabled', true) && fg('platform_editor_update_table_ref_fix')) {
+							shouldSetTableRef = parent && pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode !== 'view' && pluginInjectionApi?.interaction?.sharedState.currentState()?.interactionState !== 'hasNotHadInteraction';
+						}
+
 						if (shouldSetTableRef) {
 							tableRef =
 								// Ignored via go/ees005

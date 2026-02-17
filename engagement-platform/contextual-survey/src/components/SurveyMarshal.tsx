@@ -58,7 +58,7 @@ const transitionBaseStyles = css({
 	transitionProperty: 'transform, opacity',
 });
 
-export default function SurveyMarshal(props: Props) {
+export default function SurveyMarshal(props: Props): JSX.Element {
 	const { children, shouldShow } = props;
 
 	return (

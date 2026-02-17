@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 8.4.0
+
+### Minor Changes
+
+- [`a287a6035ed71`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a287a6035ed71) -
+  [EDITOR-5005] export VanillaTooltip from the editor-common package and update references
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.3.4
 
 ### Patch Changes

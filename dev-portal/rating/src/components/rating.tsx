@@ -3,7 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, Fragment, useCallback } from 'react';
+import { forwardRef, type ForwardRefExoticComponent, Fragment, type RefAttributes, useCallback } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@compiled/react';
@@ -84,7 +84,7 @@ export interface InternalRatingProps extends RatingProps {
 	render: RatingRender;
 }
 
-const Rating = forwardRef<HTMLLabelElement, InternalRatingProps>(
+const Rating: ForwardRefExoticComponent<InternalRatingProps & RefAttributes<HTMLLabelElement>> = forwardRef<HTMLLabelElement, InternalRatingProps>(
 	({ isChecked, name, testId, label, id, value, onChange, render, ...props }, ref) => {
 		const onChangeHandler = useCallback(
 			(e: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "17.3.15",
+	"version": "17.3.17",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -129,9 +129,6 @@
 		"platform_editor_adf_with_localid": {
 			"type": "boolean"
 		},
-		"platform_editor_fix_confirm_table_removal": {
-			"type": "boolean"
-		},
 		"platform_editor_content_mode_button_mvp": {
 			"type": "boolean"
 		},
@@ -187,6 +184,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_enable_table_dnd_patch_1": {
+			"type": "boolean"
+		},
+		"platform_editor_update_table_ref_fix": {
 			"type": "boolean"
 		}
 	}

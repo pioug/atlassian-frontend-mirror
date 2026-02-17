@@ -17,7 +17,7 @@ const styles = css({
 	paddingTop: token('space.100', '8px'),
 	font: token('font.body.large'),
 });
-export default function BasicUsage() {
+export default function BasicUsage(): JSX.Element {
 	const [showSurvey, setShowSurvey] = useState(false);
 	const [hasUserAnswered, setHasUserAnswered] = useState(false);
 	const onClick = useCallback(() => {

@@ -330,6 +330,15 @@ export abstract class NodeDataProvider<Node extends JSONNode, Data> {
 	}
 
 	/**
+	 * Returns the keys of the cache.
+	 *
+	 * @returns An array of the keys of the cache.
+	 */
+	getNodeDataCacheKeys(): string[] {
+		return Object.keys(this.cache);
+	}
+
+	/**
 	 * Updates the cache with new records using merge or replace strategies.
 	 * This method should be the only way to modify the cache directly.
 	 * This allow subclasses to use it when needed. e.g. abstract fetchNodesData implementation.

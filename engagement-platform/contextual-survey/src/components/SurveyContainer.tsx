@@ -33,7 +33,7 @@ const buttonWrapperStyles = css({
 	right: token('space.200', '16px'),
 });
 
-export default ({ children, onDismiss }: Props) => {
+export default ({ children, onDismiss }: Props): JSX.Element => {
 	return (
 		<div css={containerStyles} style={{}}>
 			<div css={buttonWrapperStyles}>

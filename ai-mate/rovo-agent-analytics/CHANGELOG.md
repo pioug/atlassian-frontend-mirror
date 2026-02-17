@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-analytics
 
+## 0.14.0
+
+### Minor Changes
+
+- [`dd26e8d5e8e1b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd26e8d5e8e1b) -
+  Update rovo agent analytics track landing
+
 ## 0.13.0
 
 ### Minor Changes

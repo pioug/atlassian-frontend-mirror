@@ -75,7 +75,7 @@ export type {
 } from './providers/types';
 
 // store managers
-export { type ReferenceSyncBlockStoreManager } from './store-manager/referenceSyncBlockStoreManager';
+export { ReferenceSyncBlockStoreManager } from './store-manager/referenceSyncBlockStoreManager';
 export {
 	SyncBlockStoreManager,
 	useMemoizedSyncBlockStoreManager,

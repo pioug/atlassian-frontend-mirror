@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 5.3.21
+
+### Patch Changes
+
+- [`d7566e0dff5c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d7566e0dff5c9) -
+  [ux] EDITOR-5273 fix sync block layout shift in ssr by adding class name to toDom
+- Updated dependencies
+
 ## 5.3.20
 
 ### Patch Changes

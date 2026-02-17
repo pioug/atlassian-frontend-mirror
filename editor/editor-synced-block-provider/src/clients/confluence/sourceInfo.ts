@@ -1,7 +1,6 @@
 /* eslint-disable require-unicode-regexp  */
 import { type RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import { logException } from '@atlaskit/editor-common/monitoring';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SyncBlockSourceInfo } from '../../providers/types';
 import { getSourceInfoErrorPayload } from '../../utils/errorHandling';
@@ -10,13 +9,11 @@ import { fetchWithRetry } from '../../utils/retry';
 import { getPageIdAndTypeFromConfluencePageAri } from './ari';
 import { isBlogPageType } from './utils';
 
-type PageResponse = {
+type UnpublishedPageResponse = {
 	_links?: {
 		base?: string;
 		edituiv2?: string;
-		webui?: string;
 	};
-	status?: string;
 	subtype?: string | null;
 	title?: string;
 };
@@ -133,6 +130,7 @@ const fetchCompleteConfluencePageInfo = async (
 ): Promise<SyncBlockSourceInfo | undefined> => {
 	try {
 		const { id: pageId } = getPageIdAndTypeFromConfluencePageAri({ ari: pageAri });
+
 		const response = await fetchWithRetry(`/wiki/api/v2/pages/${pageId}?draft=true`, {
 			method: 'GET',
 			headers: COMMON_HEADERS,
@@ -142,21 +140,17 @@ const fetchCompleteConfluencePageInfo = async (
 			throw new Error(`Failed to get unpublished page info: ${response.statusText}`);
 		}
 
-		const pageData: PageResponse = await response.json();
+		const pageData = (await response.json()) as UnpublishedPageResponse;
 
 		const base = pageData._links?.base;
 		const edituiv2 = pageData._links?.edituiv2;
-		const webui = pageData._links?.webui;
 		const title = pageData.title;
 		const subType = pageData.subtype;
-		const status = pageData.status;
 
 		let url: string | undefined;
-		if (base && edituiv2 && (fg('platform_synced_block_patch_2') ? status !== 'archived' : true)) {
+		if (base && edituiv2) {
 			url = `${base}${edituiv2}`;
 			url = url && localId ? `${url}#block-${localId}` : url;
-		} else if (base && webui && fg('platform_synced_block_patch_2')) {
-			url = `${base}${webui}`;
 		}
 
 		return {
@@ -167,7 +161,7 @@ const fetchCompleteConfluencePageInfo = async (
 		};
 	} catch (error) {
 		logException(error as Error, {
-			location: 'editor-synced-block-provider/sourceInfo/fetchCompleteConfluencePageInfo',
+			location: 'editor-synced-block-provider/sourceInfo/fetchUnpublishedConfluencePageInfo',
 		});
 		return Promise.resolve(undefined);
 	}
@@ -222,18 +216,11 @@ export const fetchConfluencePageInfo = async (
 ): Promise<SyncBlockSourceInfo | undefined> => {
 	// For unpublished pages, use the v2 pages API as GraphQL returns empty content.nodes
 	if (isUnpublished) {
-		if (!fg('platform_synced_block_patch_2')) {
-			return await fetchCompleteConfluencePageInfo(pageAri, localId);
-		}
+		return await fetchCompleteConfluencePageInfo(pageAri, localId);
 	}
 
 	if (hasAccess) {
 		const { type: pageType } = getPageIdAndTypeFromConfluencePageAri({ ari: pageAri });
-
-		if (pageType === 'page' && fg('platform_synced_block_patch_2')) {
-			return await fetchCompleteConfluencePageInfo(pageAri, localId);
-		}
-
 		const response = await getConfluenceSourceInfo(pageAri);
 
 		const contentData = response.data?.content?.nodes?.[0];

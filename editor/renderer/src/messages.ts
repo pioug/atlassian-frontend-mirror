@@ -34,7 +34,8 @@ export const headingAnchorLinkMessages = defineMessages({
 	copyAriaLabel: {
 		id: 'fabric.editor.headingLink.copyAriaLabel',
 		defaultMessage: 'Copy',
-		description: 'copy aria label for link icon',
+		description:
+			'Aria label for the copy link button displayed next to a heading. Used by screen readers to describe the button that copies the heading anchor link to the clipboard.',
 	},
 });
 

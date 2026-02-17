@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "8.3.4",
+	"version": "8.4.0",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -62,7 +62,6 @@
 		"@atlaskit/tooltip": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@emotion/react": "root:*",
-		"@popperjs/core": "root:*",
 		"bind-event-listener": "root:*",
 		"memoize-one": "root:*",
 		"raf-schd": "root:*",

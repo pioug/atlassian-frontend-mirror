@@ -4,6 +4,7 @@ import type { GetPMNodeHeight } from '@atlaskit/editor-common/extensibility';
 import type {
 	ExtensionAPI,
 	ExtensionHandlers,
+	ExtensionParams,
 	ExtensionProvider,
 	Parameters,
 	TransformAfter,
@@ -17,6 +18,7 @@ import type {
 	NextEditorPlugin,
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-identifier';
@@ -75,6 +77,11 @@ export interface ExtensionPluginOptions extends LongPressSelectionPluginOptions 
 	 * Helps optimize layout shift while rendering by setting minimum heights before the extension content loads.
 	 */
 	getExtensionHeight?: GetPMNodeHeight;
+	/**
+	 * Returns the ADF content of the unsupported content extension.
+	 * Which will be copied to the clipboard when the copy button is clicked.
+	 */
+	getUnsupportedContent?: (node: ExtensionParams<Parameters>) => JSONDocNode | undefined;
 }
 
 type InsertMacroFromMacroBrowser = (

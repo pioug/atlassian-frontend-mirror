@@ -4,7 +4,8 @@ export const messages = defineMessages({
 	edit: {
 		id: 'fabric.editor.edit',
 		defaultMessage: 'Edit',
-		description: 'Edit the properties for this extension.',
+		description:
+			'The text is shown as a button label in the extension context menu. Triggers opening the properties editor for the selected extension to modify its configuration.',
 	},
 	deleteElementTitle: {
 		id: 'fabric.editor.extension.deleteElementTitle',
@@ -31,23 +32,26 @@ export const messages = defineMessages({
 	confirmModalCheckboxLabel: {
 		id: 'fabric.editor.floatingToolbar.confirmModalCheckboxLabel',
 		defaultMessage: 'Also delete connected elements',
-		description: 'checkbox label text',
+		description:
+			'Label for a checkbox in a confirm modal that allows the user to also delete connected elements when deleting an extension.',
 	},
 	saveIndicator: {
 		id: 'fabric.editor.extensions.config-panel.save-indicator',
 		defaultMessage: 'All changes are always autosaved',
 		description:
-			'Message shown to the user to notify to them that we save the changes automatically.',
+			'Informational message displayed in the extension configuration panel to reassure users that their changes are being saved automatically without requiring manual save action.',
 	},
 	panelLoadingError: {
 		id: 'fabric.editor.extensions.config-panel.loading-error.non-final',
 		defaultMessage: 'We ran into a bit of trouble. Refresh to try again.',
-		description: 'Error message when loading the configuration panel',
+		description:
+			'Error message displayed when the extension configuration panel fails to load. Instructs users to refresh the page to attempt loading the panel again.',
 	},
 	extensionLoadingError: {
 		id: 'fabric.editor.extension.loading-error',
 		defaultMessage: 'Error loading the extension!',
-		description: 'Error message when loading an extension',
+		description:
+			'Error message displayed when an extension fails to load in the editor. Indicates a problem occurred during the extension initialization or rendering process.',
 	},
 });
 
@@ -60,17 +64,20 @@ export const configPanelMessages = defineMessages({
 	submit: {
 		id: 'fabric.editor.configPanel.submit',
 		defaultMessage: 'Submit',
-		description: 'Submit button label',
+		description:
+			'Label for a button in the extension configuration panel that the user clicks to submit and apply configuration changes.',
 	},
 	cancel: {
 		id: 'fabric.editor.configPanel.cancel',
 		defaultMessage: 'Cancel',
-		description: 'Cancel button label',
+		description:
+			'Label for a button in the extension configuration panel that the user clicks to cancel and discard configuration changes.',
 	},
 	close: {
 		id: 'fabric.editor.configPanel.close',
 		defaultMessage: 'Close',
-		description: 'Close button label',
+		description:
+			'Label for a button in the extension configuration panel that the user clicks to close the panel.',
 	},
 	required: {
 		id: 'fabric.editor.configPanel.required',
@@ -85,7 +92,8 @@ export const configPanelMessages = defineMessages({
 	isMultipleAndRadio: {
 		id: 'fabric.editor.configPanel.fieldTypeError.isMultipleAndRadio',
 		defaultMessage: 'Can not combine isMultiple with style: radio',
-		description: 'Configuration error',
+		description:
+			'Error message displayed in the extension configuration panel when isMultiple and radio style options are incorrectly combined.',
 	},
 	addField: {
 		id: 'fabric.editor.configPanel.formType.addField',

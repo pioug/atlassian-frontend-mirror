@@ -1,5 +1,7 @@
-export type ProjectNodeProps = {
-	emojiName?: string;
-	isRestricted?: boolean;
-	text?: string;
-}
+export type Props = {
+	fieldName: string;
+	iconName?: string;
+	id: string;
+	name: string;
+	privateProject?: boolean;
+};

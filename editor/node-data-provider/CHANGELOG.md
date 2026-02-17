@@ -1,5 +1,12 @@
 # @atlaskit/node-data-provider
 
+## 8.3.2
+
+### Patch Changes
+
+- [`53c9f85806f98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53c9f85806f98) -
+  EDITOR-5275 Store synced blocks data in session storage for look up during page transitions
+
 ## 8.3.1
 
 ### Patch Changes

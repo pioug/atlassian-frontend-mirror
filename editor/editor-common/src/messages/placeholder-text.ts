@@ -4,7 +4,8 @@ export const placeholderTextMessages = defineMessages({
 	placeholderTextPlaceholder: {
 		id: 'fabric.editor.placeholderTextPlaceholder',
 		defaultMessage: 'Add placeholder text',
-		description: '',
+		description:
+			'Placeholder text shown in the editor when a placeholder text node is inserted, prompting the user to add custom placeholder content.',
 	},
 	shortEmptyNodePlaceholderText: {
 		id: 'fabric.editor.shortEmptyNodePlaceholderText',
@@ -43,7 +44,8 @@ export const placeholderTextMessages = defineMessages({
 	},
 	sourceSyncBlockPlaceholderText: {
 		id: 'fabric.editor.sourceSyncBlockPlaceholderText',
-		defaultMessage: 'Add content you want to reuse. Copy and paste this block to sync in other locations.',
+		defaultMessage:
+			'Add content you want to reuse. Copy and paste this block to sync in other locations.',
 		description: 'Placeholder text for source sync block',
 	},
 });

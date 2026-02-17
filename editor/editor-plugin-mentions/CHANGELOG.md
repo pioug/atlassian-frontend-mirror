@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-mentions
 
+## 9.2.5
+
+### Patch Changes
+
+- [`305de6482efe2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/305de6482efe2) -
+  Addressing several eslint issues
+- Updated dependencies
+
 ## 9.2.4
 
 ### Patch Changes

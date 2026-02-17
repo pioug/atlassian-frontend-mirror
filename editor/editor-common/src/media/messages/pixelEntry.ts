@@ -14,12 +14,14 @@ export const pixelEntryMessages = defineMessages({
 	inputWidthAriaLabel: {
 		id: 'fabric.editor.media.pixelEntry.inputWidthAriaLabel',
 		defaultMessage: 'Max width {maxWidth}px',
-		description: 'The width input aria label',
+		description:
+			'Aria label for the width input field used for media pixel entry. The placeholder {maxWidth} will be substituted with the maximum allowed width value in pixels.',
 	},
 	inputWidthLabel: {
 		id: 'fabric.editor.media.pixelEntry.inputWidthLabel',
 		defaultMessage: 'Width',
-		description: 'The label displayed next to the width input',
+		description:
+			'Label for the width input field in the media resize panel. Users enter a numeric value representing the desired width in pixels for the image.',
 	},
 	inputHeightTooltip: {
 		id: 'fabric.editor.media.pixelEntry.inputHeightTooltip',
@@ -29,7 +31,8 @@ export const pixelEntryMessages = defineMessages({
 	inputHeightAriaLabel: {
 		id: 'fabric.editor.media.pixelEntry.inputHeightAriaLabel',
 		defaultMessage: 'height input',
-		description: 'The width input aria label',
+		description:
+			'Aria label for the height input field used for media pixel entry to inform screen readers about the purpose of the input.',
 	},
 	submitButtonText: {
 		id: 'fabric.editor.media.pixelEntry.submitButtonText',

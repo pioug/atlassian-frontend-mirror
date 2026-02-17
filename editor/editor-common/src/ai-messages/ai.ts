@@ -206,7 +206,8 @@ export const aiMessages = defineMessages({
 	summarizePageTitle: {
 		id: 'fabric.editor.ai.ai-panels.summarizePageTitle',
 		defaultMessage: `Page summary panel (Beta)`,
-		description: 'Title for AI summary panel',
+		description:
+			'The text is shown as a title for the AI-powered page summary panel in the editor when the user accesses the summarize page feature.',
 	},
 	summarisePageDescription: {
 		id: 'fabric.editor.ai.ai-panels.summarizePageDescription',

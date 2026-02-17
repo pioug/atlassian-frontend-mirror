@@ -1109,6 +1109,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-02-16
+	platform_editor_ai_fix_insert_after_selection: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	confluence_ttvc_inline_extensions: {
 		defaultValue: boolean;
 		param: string;
@@ -1189,6 +1196,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-02-16
 	platform_editor_safe_url_trim_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-02-16
+	platform_editor_remove_reactserializer_fromschema: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2286,6 +2300,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-02-16
+	platform_editor_ai_fix_insert_after_selection: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_fix_insert_after_selection',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-01-15
 	platform_editor_fix_advanced_codeblocks_crlf: createBooleanExperiment({
 		productKeys: {
@@ -2549,6 +2571,14 @@ export const editorExperimentsConfig: {
 	platform_editor_safe_url_trim_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_safe_url_trim_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-02-16
+	platform_editor_remove_reactserializer_fromschema: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_remove_reactserializer_fromschema',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

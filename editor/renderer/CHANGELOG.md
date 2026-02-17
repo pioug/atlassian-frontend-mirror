@@ -1,5 +1,21 @@
 # @atlaskit/renderer
 
+## 126.8.10
+
+### Patch Changes
+
+- [`5f18296b04721`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f18296b04721) -
+  [EDITOR-5051] Fix jsx-props-no-spreading violations in renderer expands
+- Updated dependencies
+
+## 126.8.9
+
+### Patch Changes
+
+- [`daa8f7030b32d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/daa8f7030b32d) -
+  Remove unused ReactSerializer.fromSchema
+- Updated dependencies
+
 ## 126.8.8
 
 ### Patch Changes

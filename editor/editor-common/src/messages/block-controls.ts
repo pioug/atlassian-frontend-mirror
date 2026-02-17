@@ -24,12 +24,14 @@ export const messages = defineMessages({
 	moveUp: {
 		id: 'fabric.editor.blockControlMoveUp',
 		defaultMessage: 'Move up',
-		description: 'Moves selected content up',
+		description:
+			'Label for a button in the block controls menu that moves the selected content block up in the editor.',
 	},
 	moveDown: {
 		id: 'fabric.editor.blockControlMoveDown',
 		defaultMessage: 'Move down',
-		description: 'Moves selected content down',
+		description:
+			'Label for a button in the block controls menu that moves the selected content block down in the editor.',
 	},
 	movedup: {
 		id: 'fabric.editor.blockControlMovedUp',
@@ -45,16 +47,19 @@ export const messages = defineMessages({
 	moveLeft: {
 		id: 'fabric.editor.blockControlMoveLeft',
 		defaultMessage: 'Move left',
-		description: 'Moves selected content left',
+		description:
+			'Label for a button in the block controls menu that moves the selected content block to the left.',
 	},
 	moveRight: {
 		id: 'fabric.editor.blockControlMoveRight',
 		defaultMessage: 'Move right',
-		description: 'Moves selected content right',
+		description:
+			'Label for a button in the block controls menu that moves the selected content block to the right.',
 	},
 	delete: {
 		id: 'fabric.editor.blockControlDelete',
 		defaultMessage: 'Delete',
-		description: 'Delete selected element',
+		description:
+			'Label for a button in the block controls menu that deletes the currently selected content block from the editor.',
 	},
 });

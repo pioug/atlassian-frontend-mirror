@@ -8,6 +8,7 @@ export const selectionExtensionMessages = defineMessages({
 	externalExtensionsHeading: {
 		id: 'fabric.editor.externalExtensionsHeading',
 		defaultMessage: 'Apps',
-		description: 'Label for external extensions',
+		description:
+			'Heading text shown in the selection toolbar overflow dropdown to label the section containing external app extensions.',
 	},
 });

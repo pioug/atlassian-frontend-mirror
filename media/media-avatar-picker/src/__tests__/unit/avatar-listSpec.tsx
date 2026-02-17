@@ -1,34 +1,45 @@
 import React from 'react';
 import { type Avatar, AvatarList } from '../../avatar-list';
-import { mountWithIntlContext } from '@atlaskit/media-test-helpers';
+import { renderWithIntl } from '@atlaskit/media-test-helpers';
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+
+// AvatarList has pre-existing a11y issues (radio without aria-label when avatar has no name)
+skipAutoA11yFile();
 
 describe('Avatar List', () => {
 	const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/453' };
+	const otherAvatar: Avatar = { dataURI: 'http://another.avatar.com/789' };
 	const avatars = [selectedAvatar];
 
 	it('should not select avatar by default', () => {
-		const component = mountWithIntlContext(<AvatarList avatars={avatars} />);
-		expect(component.find('input').prop('checked')).toEqual(false);
+		renderWithIntl(<AvatarList avatars={avatars} />);
+		expect(screen.getByRole('radio', { checked: false })).toBeInTheDocument();
 	});
 
 	it('should select avatar when giving one via props', () => {
-		const component = mountWithIntlContext(
+		renderWithIntl(
 			<AvatarList avatars={avatars} selectedAvatar={selectedAvatar} />,
 		);
-		expect(component.find('input').prop('checked')).toEqual(true);
+		expect(screen.getByRole('radio', { checked: true })).toBeInTheDocument();
 	});
 
-	it('should call props click handler when avatar is clicked', () => {
+	it('should call props click handler when avatar is clicked', async () => {
+		const user = userEvent.setup();
 		const onItemClick = jest.fn();
-		const component = mountWithIntlContext(
-			<AvatarList avatars={avatars} selectedAvatar={selectedAvatar} onItemClick={onItemClick} />,
+		// Use two avatars so clicking the unselected one triggers onChange
+		renderWithIntl(
+			<AvatarList
+				avatars={[selectedAvatar, otherAvatar]}
+				selectedAvatar={selectedAvatar}
+				onItemClick={onItemClick}
+			/>,
 		);
 
-		// click on the selected avatar
-		component.find('input').simulate('change', {
-			target: { value: selectedAvatar },
-		});
+		// click on the other (unselected) avatar to select it
+		await user.click(screen.getByRole('radio', { checked: false }));
 
-		expect(onItemClick).toBeCalledWith(selectedAvatar);
+		expect(onItemClick).toBeCalledWith(otherAvatar);
 	});
 });

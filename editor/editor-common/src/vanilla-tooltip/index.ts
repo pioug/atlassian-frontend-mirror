@@ -20,8 +20,6 @@ const endingOffset = {
  *
  * Uses Popover API for accessibility + stacking context: https://developer.mozilla.org/en-US/docs/Web/API/Popover_API
  * Uses popperJS for positioning
- *
- * @warning Still experimental. One day we can likely want to move this to a common package.
  */
 export class VanillaTooltip {
 	private popperInstance: Instance | undefined;
@@ -38,13 +36,16 @@ export class VanillaTooltip {
 		 * Id associated to the tooltip - must be unique.
 		 */
 		id: string,
+		/**
+		 * Class Name – used for styling.
+		 */
+		className: string,
 		private timeout: number = 300,
 	) {
 		const tooltip = document.createElement('span');
 		tooltip.role = 'tooltip';
 		tooltip.popover = 'hint';
-		// Warning: Currently this is used for styling - only works in the block controls package
-		tooltip.className = 'blocks-quick-insert-tooltip';
+		tooltip.className = className;
 		tooltip.id = id;
 		tooltip.textContent = content;
 		this.tooltip = tooltip;

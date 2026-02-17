@@ -1,10 +1,10 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useContext, useRef } from 'react';
 
-import { type AnalyticsEventPayload, useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { type AnalyticsEventPayload, AnalyticsReactContext, useAnalyticsEvents } from '@atlaskit/analytics-next';
 
 import { ANALYTICS_CHANNEL } from '../common/constants';
 import { useRovoAgentCSID } from '../common/csid';
-import { getDefaultTrackEventConfig } from '../common/utils';
+import { getAttributesFromContexts, getDefaultTrackEventConfig } from '../common/utils';
 
 type CommonAnalyticsAttributes = {
 	touchPoint?: string;
@@ -29,28 +29,33 @@ export enum AgentCreateActions {
 	DISCARD = 'createDiscard',
 }
 
+const globalEventConfig = getDefaultTrackEventConfig();
+
 export const useRovoAgentCreateAnalytics = (commonAttributes: CommonAnalyticsAttributes) => {
 	const [csid, { refresh: refreshCSID }] = useRovoAgentCSID();
 
+	const analyticsContext = useContext(AnalyticsReactContext);
 	const { createAnalyticsEvent } = useAnalyticsEvents();
-	const eventConfig = useMemo(() => getDefaultTrackEventConfig(), []);
+	const commonAttributesRef = useRef(commonAttributes);
 
 	const fireAnalyticsEvent = useCallback(
 		(event: AnalyticsEventPayload) => {
 			const referrer = typeof window !== 'undefined' ? window.document.referrer : 'unknown';
+			const attributes = {
+				...getAttributesFromContexts(analyticsContext.getAtlaskitAnalyticsContext()),
+				...commonAttributesRef.current,
+				...event.attributes,
+				csid,
+				referrer,
+			};
 
 			createAnalyticsEvent({
-				...eventConfig,
+				...globalEventConfig,
 				...event,
-				attributes: {
-					csid,
-					referrer,
-					...commonAttributes,
-					...event.attributes,
-				},
+				attributes,
 			}).fire(ANALYTICS_CHANNEL);
 		},
-		[createAnalyticsEvent, eventConfig, csid, commonAttributes],
+		[createAnalyticsEvent, csid, analyticsContext], // keep number of dependencies minimal to prevent re-rendering
 	);
 
 	/**
@@ -105,6 +110,7 @@ export const useRovoAgentCreateAnalytics = (commonAttributes: CommonAnalyticsAtt
 			trackCreateSession,
 			trackCreateSessionStart,
 			trackCreateSessionError,
+			refreshCSID,
 		},
 	] as const;
 };

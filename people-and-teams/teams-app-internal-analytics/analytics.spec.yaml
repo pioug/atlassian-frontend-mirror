@@ -3164,6 +3164,9 @@ events:
           type: number
           description: how many teams
         <<: *NewUserProfileAttribute
+  - userProfileWorkingWithMe viewed:
+      type: screen
+      description: fired when user profile working with me section is viewed (only when section has content)
   - teamAgentsPanel viewed:
       type: screen
       description: fired when team agents panel is viewed

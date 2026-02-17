@@ -134,6 +134,9 @@ const onTopOfButtonOrAnchorStyles = cssMap({
  * captured in [BLU-3354](https://jplat.atlassian.net/browse/BLU-3354).
  */
 export const nestedOpenPopupCSSSelector = '&:has([aria-expanded="true"][aria-haspopup="true"])';
+// Behind fg('platform_dst_nav4_flyout_menu_slots_close_button') we are moving to a dialog role for the flyout
+// So making this selector more generic
+export const nestedOpenPopupCSSSelectorNew = '&:has([aria-expanded="true"][aria-haspopup])';
 
 const containerStyles = cssMap({
 	root: {
@@ -191,14 +194,6 @@ const containerStyles = cssMap({
 			[actionsOnHoverWidthVar]: 'auto',
 			[actionsOnHoverPaddingInlineEndVar]: token('space.050'),
 		},
-		// If there is a nested open popup, we want to apply hover styling, and display the `actionsOnHover` slot.
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
-		[nestedOpenPopupCSSSelector]: {
-			[actionsOnHoverOpacityVar]: '1',
-			[actionsOnHoverWidthVar]: 'auto',
-			[actionsOnHoverPaddingInlineEndVar]: token('space.050'),
-			backgroundColor: token('elevation.surface.hovered'),
-		},
 	},
 	// platform-dst-shape-theme-default TODO: Merge into base after rollout
 	rootT26Shape: {
@@ -217,11 +212,6 @@ const containerStyles = cssMap({
 		'&:hover, &:focus-within': {
 			[elemAfterDisplayVar]: 'none',
 		},
-		// If there is a nested open popup, and both `actionsOnHover` and `elemAfter` exist, we want to hide the `elemAfter`.
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
-		[nestedOpenPopupCSSSelector]: {
-			[elemAfterDisplayVar]: 'none',
-		},
 	},
 	selected: {
 		backgroundColor: token('color.background.selected'),
@@ -229,10 +219,6 @@ const containerStyles = cssMap({
 		[notchColorVar]: token('color.background.selected.bold'),
 		'&:hover': {
 			color: token('color.text.selected'),
-			backgroundColor: token('color.background.selected.hovered'),
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
-		[nestedOpenPopupCSSSelector]: {
 			backgroundColor: token('color.background.selected.hovered'),
 		},
 	},
@@ -254,6 +240,59 @@ const containerStyles = cssMap({
 	},
 	dragging: {
 		opacity: 0.4,
+	},
+});
+
+const nestedOpenPopupStylesOld = cssMap({
+	root: {
+		// If there is a nested open popup, we want to apply hover styling, and display the `actionsOnHover` slot.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		[nestedOpenPopupCSSSelector]: {
+			[actionsOnHoverOpacityVar]: '1',
+			[actionsOnHoverWidthVar]: 'auto',
+			[actionsOnHoverPaddingInlineEndVar]: token('space.050'),
+			backgroundColor: token('elevation.surface.hovered'),
+		},
+	},
+	removeElemAfterOnHoverOrOpenNestedPopup: {
+		// If there is a nested open popup, and both `actionsOnHover` and `elemAfter` exist, we want to hide the `elemAfter`.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		[nestedOpenPopupCSSSelector]: {
+			[elemAfterDisplayVar]: 'none',
+		},
+	},
+	selected: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		[nestedOpenPopupCSSSelector]: {
+			backgroundColor: token('color.background.selected.hovered'),
+		},
+	},
+});
+
+// Merge back into the `containerStyles` after cleanup
+const nestedOpenPopupStylesNew = cssMap({
+	root: {
+		// If there is a nested open popup, we want to apply hover styling, and display the `actionsOnHover` slot.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		[nestedOpenPopupCSSSelectorNew]: {
+			[actionsOnHoverOpacityVar]: '1',
+			[actionsOnHoverWidthVar]: 'auto',
+			[actionsOnHoverPaddingInlineEndVar]: token('space.050'),
+			backgroundColor: token('elevation.surface.hovered'),
+		},
+	},
+	removeElemAfterOnHoverOrOpenNestedPopup: {
+		// If there is a nested open popup, and both `actionsOnHover` and `elemAfter` exist, we want to hide the `elemAfter`.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		[nestedOpenPopupCSSSelectorNew]: {
+			[elemAfterDisplayVar]: 'none',
+		},
+	},
+	selected: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		[nestedOpenPopupCSSSelectorNew]: {
+			backgroundColor: token('color.background.selected.hovered'),
+		},
 	},
 });
 
@@ -672,8 +711,17 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 				ref={visualContentRef}
 				css={[
 					containerStyles.root,
+					fg('platform_dst_nav4_flyout_menu_slots_close_button')
+						? nestedOpenPopupStylesNew.root
+						: nestedOpenPopupStylesOld.root,
 					fg('platform-dst-shape-theme-default') && containerStyles.rootT26Shape,
 					isSelected && containerStyles.selected,
+					isSelected &&
+						fg('platform_dst_nav4_flyout_menu_slots_close_button') &&
+						nestedOpenPopupStylesNew.selected,
+					isSelected &&
+						!fg('platform_dst_nav4_flyout_menu_slots_close_button') &&
+						nestedOpenPopupStylesOld.selected,
 					isDragging && containerStyles.dragging,
 					description && containerStyles.hasDescription,
 					// If the menu item has actionsOnHover and is expanded, show hover actions even when not hovered
@@ -685,6 +733,14 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 					// - menu item is hovered, or
 					// - there is an open nested popup (as we apply hover styles when there is an open nested popup)
 					actionsOnHover && elemAfter && containerStyles.removeElemAfterOnHoverOrOpenNestedPopup,
+					actionsOnHover &&
+						elemAfter &&
+						fg('platform_dst_nav4_flyout_menu_slots_close_button') &&
+						nestedOpenPopupStylesNew.removeElemAfterOnHoverOrOpenNestedPopup,
+					actionsOnHover &&
+						elemAfter &&
+						!fg('platform_dst_nav4_flyout_menu_slots_close_button') &&
+						nestedOpenPopupStylesOld.removeElemAfterOnHoverOrOpenNestedPopup,
 					isDisabled && containerStyles.disabled,
 				]}
 				data-testid={testId ? `${testId}-container` : undefined}

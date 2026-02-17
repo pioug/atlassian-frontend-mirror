@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 25.2.0
+
+### Minor Changes
+
+- [`daa8f7030b32d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/daa8f7030b32d) -
+  Remove unused ReactSerializer.fromSchema
+
 ## 25.1.0
 
 ### Minor Changes

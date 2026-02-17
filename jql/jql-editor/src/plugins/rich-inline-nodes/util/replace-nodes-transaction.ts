@@ -32,7 +32,11 @@ export const replaceRichInlineNodes = (
 
 	Object.entries(hydratedValues).forEach(([fieldName, values]) => {
 		values.forEach((value) => {
-			if (value.type === 'user' || (value.type === 'team' && fg('jira_update_jql_teams'))) {
+			if (
+				value.type === 'user' ||
+				(value.type === 'team' && fg('jira_update_jql_teams')) ||
+				(value.type === 'project' && fg('projects_in_jira_eap_drop2'))
+			) {
 				// First try to find as direct value operand (e.g., Team[Team] = uuid)
 				let astNodes: Array<ValueOperand | Argument> = getValueNodes(ast, fieldName, value.id);
 
@@ -68,6 +72,10 @@ const getRichInlineNode = (fieldName: string, value: HydratedValue, text: string
 		case 'team': {
 			const textContent = JQLEditorSchema.text(text);
 			return JQLEditorSchema.nodes.team.create({ ...value, fieldName }, textContent);
+		}
+		case 'project': {
+			const textContent = JQLEditorSchema.text(text);
+			return JQLEditorSchema.nodes.project.create({ ...value, fieldName }, textContent);
 		}
 		default: {
 			throw new Error(`Unsupported hydrated value type ${value.type}`);

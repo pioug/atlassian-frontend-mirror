@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 43.24.8
+
+### Patch Changes
+
+- [`3e1114193b30c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e1114193b30c) -
+  Added QUEUED TO MERGE state in LinkPullRequestState type and updated respective lozenge color in
+  smart-card package
+
 ## 43.24.7
 
 ### Patch Changes

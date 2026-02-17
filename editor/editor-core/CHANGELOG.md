@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 216.9.7
+
+### Patch Changes
+
+- [`899c299510719`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/899c299510719) -
+  [ux] EDITOR-5273 fix first node in document margin for sync blocks to fix shift during ssr
+- Updated dependencies
+
 ## 216.9.6
 
 ### Patch Changes

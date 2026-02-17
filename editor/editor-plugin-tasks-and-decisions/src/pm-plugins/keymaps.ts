@@ -262,7 +262,7 @@ const backspaceFrom =
 						const tr = splitListItemWith(state.tr, slice, $from, true);
 						dispatch(tr);
 						return true;
-					} catch (error) {
+					} catch {
 						// If there's an error creating a paragraph, check if we are in a blockTaskItem
 						// Block task item's can have non-text content that cannot be wrapped in a paragraph
 						// So if the selection is in a blockTaskItem, just pass the content as is
@@ -309,7 +309,7 @@ const backspaceFrom =
 						const tr = splitListItemWith(state.tr, slice, $from, true);
 						dispatch(tr);
 						return true;
-					} catch (error) {
+					} catch {
 						// If there's an error creating a paragraph, then just pass the content as is
 						// Block task item's can have non-text content that cannot be wrapped in a paragraph
 						if (blockTaskItem) {
@@ -450,7 +450,7 @@ const unindentTaskOrUnwrapTaskDecisionFollowing: Command = (state, dispatch) => 
 					const tr = splitListItemWith(state.tr, slice, $next, false);
 					dispatch(tr);
 					return true;
-				} catch (error) {
+				} catch {
 					// If there's an error creating a paragraph, check if we are in a blockTaskItem
 					// Block task item's can have non-text content that cannot be wrapped in a paragraph
 					// So if the selection is in a blockTaskItem, just pass the content as is
@@ -938,7 +938,7 @@ export function keymapPlugin(
 		}
 
 		if (dispatch) {
-			const command = toggleTaskList();
+			const command = toggleTaskList(api?.analytics?.actions)();
 			const tr = command({ tr: state.tr });
 			if (tr) {
 				dispatch(tr);

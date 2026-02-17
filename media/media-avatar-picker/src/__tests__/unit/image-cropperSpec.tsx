@@ -1,8 +1,8 @@
 import React from 'react';
 import ImageCropper, { type ImageCropperProp } from '../../image-cropper';
 import { ERROR } from '../../avatar-picker-dialog';
-import { smallImage, mountWithIntlContext } from '@atlaskit/media-test-helpers';
-import { MediaImage } from '@atlaskit/media-ui';
+import { smallImage, renderWithIntl } from '@atlaskit/media-test-helpers';
+import { fireEvent } from '@testing-library/react';
 
 const imageWidth = 600;
 const imageHeight = 400;
@@ -31,12 +31,12 @@ describe('Image cropper', () => {
 			imageOrientation: 1,
 			...props,
 		};
-		const component = mountWithIntlContext<ImageCropperProp, {}>(<ImageCropper {...allProps} />);
-		const img = component.find('img');
-		const imgContainer = component.find('div#image-container');
-		const container = component.find('div#container');
-		const removeImageButton = component.find('button#remove-image-button');
-		const dragOverlay = component.find('div#drag-overlay');
+		const { container } = renderWithIntl(<ImageCropper {...allProps} />);
+		const img = container.querySelector('img');
+		const imgContainer = container.querySelector('#image-container');
+		const containerEl = container.querySelector('#container');
+		const removeImageButton = container.querySelector('#remove-image-button');
+		const dragOverlay = container.querySelector('#drag-overlay');
 
 		return {
 			onDragStartedSpy,
@@ -44,10 +44,10 @@ describe('Image cropper', () => {
 			onLoadSpy,
 			onRemoveImageSpy,
 			onImageErrorSpy,
-			component,
+			container,
 			img,
 			imgContainer,
-			container,
+			containerEl,
 			removeImageButton,
 			dragOverlay,
 		};
@@ -58,28 +58,28 @@ describe('Image cropper', () => {
 			it('should have defined source', () => {
 				const { img } = createComponent({ imageWidth });
 
-				expect(img.props().src).toBe(imageSource);
+				expect(img?.getAttribute('src')).toBe(imageSource);
 			});
 
 			it('should have defined position', () => {
 				const { img, imgContainer } = createComponent({ imageWidth });
 
-				expect(getComputedStyle(imgContainer.getDOMNode())).toMatchObject({
+				expect(imgContainer).toBeInTheDocument();
+				expect(getComputedStyle(imgContainer!)).toMatchObject({
 					top: `${top}px`,
 					left: `${left}px`,
 				});
 
-				expect(img.props().style).toMatchObject({
-					height: '100%',
-				});
+				expect(img?.style.height).toBe('100%');
 			});
 		});
 
 		describe('container', () => {
 			it('should have defined size', () => {
-				const { container } = createComponent({ imageWidth });
+				const { containerEl } = createComponent({ imageWidth });
 
-				expect(getComputedStyle(container.getDOMNode())).toMatchObject({
+				expect(containerEl).toBeInTheDocument();
+				expect(getComputedStyle(containerEl!)).toMatchObject({
 					width: `${containerSize}px`,
 					height: `${containerSize}px`,
 				});
@@ -89,20 +89,23 @@ describe('Image cropper', () => {
 		it('should call onDragging callback', () => {
 			const { dragOverlay, onDragStartedSpy } = createComponent({ imageWidth });
 
-			dragOverlay.simulate('mousedown');
+			expect(dragOverlay).toBeInTheDocument();
+			fireEvent.mouseDown(dragOverlay!);
 			expect(onDragStartedSpy).toHaveBeenCalledTimes(1);
 		});
 	});
 
 	describe('without image width', () => {
 		it('should call onImageLoaded when image is loaded', () => {
-			const { component, onImageLoadedSpy } = createComponent({ imageWidth });
-			const img = {
-				naturalWidth: imageWidth,
-				naturalHeight: imageHeight,
-			} as any;
+			const { img, onImageLoadedSpy } = createComponent({ imageWidth });
 
-			component.find(MediaImage).props().onImageLoad!(img);
+			expect(img).toBeInTheDocument();
+			// Set natural dimensions (browser sets these on load)
+			Object.defineProperty(img!, 'naturalWidth', { value: imageWidth });
+			Object.defineProperty(img!, 'naturalHeight', { value: imageHeight });
+			// MediaImage calls onImageLoad on img load event - fire it to trigger the callback
+			fireEvent.load(img!);
+
 			expect(onImageLoadedSpy).toHaveBeenCalledTimes(1);
 			expect(onImageLoadedSpy).toHaveBeenCalledWith(img);
 		});
@@ -114,13 +117,15 @@ describe('Image cropper', () => {
 				imageWidth,
 			});
 
-			removeImageButton.simulate('click');
+			expect(removeImageButton).toBeInTheDocument();
+			fireEvent.click(removeImageButton!);
 			expect(onRemoveImageSpy).toHaveBeenCalledTimes(1);
 		});
 	});
 
 	describe('image errors', () => {
-		const badImageURI = 'data:image/png;base64,bm90IGFuIGltYWdl=='; // === base64 data = btoa("not an image")
+		const badImageURI =
+			'data:image/png;base64,bm90IGFuIGltYWdl=='; // === base64 data = btoa("not an image")
 
 		it('should call onImageError prop with url error message when bad image url given', () => {
 			const { onImageErrorSpy } = createComponent({
@@ -131,14 +136,12 @@ describe('Image cropper', () => {
 		});
 
 		it('should call onImageError prop with bad format message when bad image url given', () => {
-			const { component, onImageErrorSpy } = createComponent({
+			const { img, onImageErrorSpy } = createComponent({
 				imageSource: badImageURI,
 			});
 
-			const onError = component.find('img').prop('onError');
-			if (onError) {
-				onError({} as React.SyntheticEvent<HTMLImageElement>);
-			}
+			expect(img).toBeInTheDocument();
+			fireEvent.error(img!);
 
 			expect(onImageErrorSpy).toHaveBeenCalledTimes(1);
 			expect(onImageErrorSpy).toHaveBeenCalledWith(ERROR.FORMAT.defaultMessage);

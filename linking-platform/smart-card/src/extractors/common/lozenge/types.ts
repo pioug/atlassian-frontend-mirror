@@ -27,7 +27,7 @@ export interface LinkLozenge {
 }
 
 export type LinkDocumentState = 'archived' | 'draft' | 'current';
-export type LinkPullRequestState = 'open' | 'merged' | 'declined' | 'closed';
+export type LinkPullRequestState = 'open' | 'merged' | 'declined' | 'closed' | 'queued to merge';
 
 export type LinkState = LinkDocumentState & LinkPullRequestState;
 

@@ -38,37 +38,44 @@ export const mediaEditingMessages = defineMessages({
 	squareButton: {
 		id: 'editor.imageEditor.aspectRatio.squareButton',
 		defaultMessage: 'Square 1:1',
-		description: 'Square button display',
+		description:
+			'Label shown on a button in the image editor aspect ratio selector when the user selects a square 1:1 crop ratio',
 	},
 	circleButton: {
 		id: 'editor.imageEditor.aspectRatio.circleButton',
 		defaultMessage: 'Circle 1:1',
-		description: 'Circle button display',
+		description:
+			'Label shown on a button in the image editor aspect ratio selector when the user selects a circle 1:1 crop ratio',
 	},
 	landscapeButton: {
 		id: 'editor.imageEditor.aspectRatio.landscapeButton',
 		defaultMessage: 'Landscape 4:3',
-		description: 'Landscape button display',
+		description:
+			'Label shown on a button in the image editor aspect ratio selector when the user selects a landscape 4:3 crop ratio',
 	},
 	portraitButton: {
 		id: 'editor.imageEditor.aspectRatio.portraitButton',
 		defaultMessage: 'Portrait 3:4',
-		description: 'Portrait button display',
+		description:
+			'Label shown on a button in the image editor aspect ratio selector when the user selects a portrait 3:4 crop ratio',
 	},
 	wideButton: {
 		id: 'editor.imageEditor.aspectRatio.wideButton',
 		defaultMessage: 'Wide 16:9',
-		description: 'Wide button display',
+		description:
+			'Label shown on a button in the image editor aspect ratio selector when the user selects a wide 16:9 crop ratio',
 	},
 	cancelButton: {
 		id: 'editor.imageEditor.cancel',
 		defaultMessage: 'Cancel',
-		description: 'Cancel button display',
+		description:
+			'Label shown on a button in the image editor that allows the user to cancel the current editing operation and discard changes',
 	},
 	doneButton: {
 		id: 'editor.imageEditor.done',
 		defaultMessage: 'Done',
-		description: 'Done button display',
+		description:
+			'Label shown on a button in the image editor that allows the user to confirm and apply the current editing changes',
 	},
 	savingButton: {
 		id: 'editor.imageEditor.saving',

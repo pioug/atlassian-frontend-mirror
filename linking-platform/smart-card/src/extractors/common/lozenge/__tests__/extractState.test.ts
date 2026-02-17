@@ -48,4 +48,11 @@ describe('extractors.lozenge.state', () => {
 			appearance: 'inprogress',
 		});
 	});
+
+	it('returns lozenge if state is present - queued to merge', () => {
+		expect(extractState({ ...BASE_DATA, 'atlassian:state': 'QUEUED TO MERGE' })).toEqual({
+			text: 'queued to merge',
+			appearance: 'moved',
+		});
+	});
 });

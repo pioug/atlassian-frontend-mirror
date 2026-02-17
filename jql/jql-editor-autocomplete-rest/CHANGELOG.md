@@ -1,5 +1,16 @@
 # @atlaskit/jql-editor-autocomplete-rest
 
+## 3.1.0
+
+### Minor Changes
+
+- [`daf5c2659939b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/daf5c2659939b) -
+  [ux] Added Project (Atlas) node to the JQL Editor
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.3
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/media-table
 
+## 18.1.7
+
+### Patch Changes
+
+- [`5fb7e85e19555`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5fb7e85e19555) -
+  Migrate tests from mountWithIntlContext (Enzyme) to renderWithIntl (RTL)
+- Updated dependencies
+
 ## 18.1.6
 
 ### Patch Changes

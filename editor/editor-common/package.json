@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "111.12.7",
+	"version": "111.14.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -88,6 +88,7 @@
 		"./mark": "./src/mark/index.ts",
 		"./commands": "./src/commands/index.ts",
 		"./clipboard": "./src/clipboard/index.ts",
+		"./vanilla-tooltip": "./src/vanilla-tooltip/index.ts",
 		"./lists": "./src/lists/index.ts",
 		"./element-browser": "./src/element-browser/index.ts",
 		"./floating-toolbar": "./src/floating-toolbar/index.ts",
@@ -192,6 +193,7 @@
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"@emotion/react": "root:*",
+		"@popperjs/core": "root:*",
 		"@sentry/browser": "root:*",
 		"@sentry/integrations": "root:*",
 		"@sentry/types": "root:*",

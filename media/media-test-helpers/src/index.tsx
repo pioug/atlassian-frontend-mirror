@@ -123,11 +123,7 @@ export type {
 } from './jestHelpers';
 export { I18NWrapper } from './I18nWrapper';
 export type { I18NWrapperProps, I18NWrapperState } from './I18nWrapper';
-export {
-	mountWithIntlContext,
-	mountWithIntlWrapper,
-	shallowWithIntlContext,
-} from './mountWithIntlContext';
+export { renderWithIntl } from './renderWithIntl';
 export { fakeIntl } from './fakeI18n';
 export { mockCanvas } from './mockCanvas';
 export { default as KeyboardEventWithKeyCode } from './keyboardEventWithKeyCode';

@@ -1,6 +1,7 @@
 /* eslint-disable @atlaskit/design-system/no-dark-theme-vr-tests */
 import { snapshot } from '@af/visual-regression';
 
+import Links from '../../examples/action-links';
 import AllPlacements from '../../examples/all-placements';
 import Card from '../../examples/card';
 import FullWidthTarget from '../../examples/full-width-target';
@@ -99,6 +100,19 @@ snapshot(FullWidthTarget, {
 	],
 });
 snapshot(Offset, {
+	featureFlags: {
+		'platform-component-visual-refresh': true,
+	},
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+snapshot(Links, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 	},

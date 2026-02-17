@@ -11,8 +11,10 @@ import { type NodeBaseProps } from './types';
 
 const styles = cssMap({
 	nodeWrapper: {
-		display: 'flex',
+		display: 'inline-flex',
+		verticalAlign: 'text-top',
 		alignItems: 'center',
+		alignSelf: 'baseline',
 		border: `${token('border.width')} solid transparent`,
 		borderRadius: token('radius.small'),
 		backgroundColor: token('color.background.neutral'),
@@ -58,7 +60,6 @@ const styles = cssMap({
 		display: 'flex',
 		height: '16px',
 		alignItems: 'center',
-		marginBlockStart: token('space.negative.025'),
 	},
 
 	iconAfterWrapper: {},

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "5.35.0",
+	"version": "5.37.0",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -63,7 +63,8 @@
 		"./experimental/color-utils/parse-hex": "./src/entry-points/experimental/color-utils/parse-hex.tsx",
 		"./experimental/color-utils/parse-hsl": "./src/entry-points/experimental/color-utils/parse-hsl.tsx",
 		"./experimental/color-utils/parse-rgb": "./src/entry-points/experimental/color-utils/parse-rgb.tsx",
-		"./experimental/color-utils/parse-user-color": "./src/entry-points/experimental/color-utils/parse-user-color.tsx"
+		"./experimental/color-utils/parse-user-color": "./src/entry-points/experimental/color-utils/parse-user-color.tsx",
+		"./experimental/ribbon": "./src/entry-points/experimental/ribbon.tsx"
 	},
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
@@ -190,6 +191,9 @@
 		}
 	},
 	"platform-feature-flags": {
+		"platform_dst_nav4_ribbon_slot": {
+			"type": "boolean"
+		},
 		"platform_dst_nav4_fhs_feedback_1": {
 			"type": "boolean"
 		},

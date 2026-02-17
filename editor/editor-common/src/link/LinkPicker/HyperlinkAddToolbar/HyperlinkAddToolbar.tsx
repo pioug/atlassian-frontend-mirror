@@ -104,7 +104,8 @@ export const messages = defineMessages({
 	displayText: {
 		id: 'fabric.editor.displayText',
 		defaultMessage: 'Text to display',
-		description: 'Text to display',
+		description:
+			'Label for the text input field in the hyperlink toolbar where users enter the display text for a link.',
 	},
 	clearText: {
 		id: 'fabric.editor.clearLinkText',
@@ -618,9 +619,10 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 
 		return (
 			<div
-				aria-label={fg('platform_editor_dec_a11y_fixes')
-					? formatMessage(messages.hyperlinkAriaLabel)
-					: 'Hyperlink Edit'
+				aria-label={
+					fg('platform_editor_dec_a11y_fixes')
+						? formatMessage(messages.hyperlinkAriaLabel)
+						: 'Hyperlink Edit'
 				}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className="recent-list"

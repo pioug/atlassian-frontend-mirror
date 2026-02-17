@@ -21,6 +21,7 @@ export type NodeOptions = {
 	markType?: undefined;
 	nodeType: NodeType | Array<NodeType>;
 	onBlur?: Command;
+	onClick?: Command;
 	onFocus?: Command;
 	onMouseEnter?: Command;
 	onMouseLeave?: Command;

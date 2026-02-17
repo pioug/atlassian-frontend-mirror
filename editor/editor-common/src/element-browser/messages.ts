@@ -3,17 +3,20 @@ export default defineMessages({
 	elementAfterInputMessage: {
 		id: 'fabric.editor.elementbrowser.searchbar.elementAfterInput',
 		defaultMessage: 'Enter',
-		description: 'Enter to insert',
+		description:
+			'The text is shown as a label after the search input in the element browser. It indicates to the user that pressing Enter will insert the selected element.',
 	},
 	placeHolderMessage: {
 		id: 'fabric.editor.elementbrowser.searchbar.placeholder',
 		defaultMessage: 'Search',
-		description: 'Search field placeholder',
+		description:
+			'The text is shown as placeholder text inside the search input field in the element browser. It prompts the user to type a query to filter available elements.',
 	},
 	searchAriaLabel: {
 		id: 'fabric.editor.elementbrowser.searchbar.ariaLabel',
 		defaultMessage: 'Search',
-		description: 'Search field aria label',
+		description:
+			'The text is used as an aria-label for the search input field in the element browser. It provides an accessible name for screen readers to identify the search field.',
 	},
 	assistiveTextDefault: {
 		id: 'fabric.editor.elementbrowser.searchbar.assistive.text.default',

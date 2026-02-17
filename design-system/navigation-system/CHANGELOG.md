@@ -1,5 +1,23 @@
 # @atlassian/navigation-system
 
+## 5.37.0
+
+### Minor Changes
+
+- [`accbbfe68dc49`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/accbbfe68dc49) -
+  Decreases the padding to the right of the toggle button when the full height sidebar is enabled,
+  so that it aligns with the other `elemAfter` items in the side navigation. This change is behind
+  the `platform_dst_nav4_fhs_feedback_1` feature gate.
+
+## 5.36.0
+
+### Minor Changes
+
+- [`621d85336693f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/621d85336693f) -
+  Adds a ribbon grid area to the page layout, and introduces an experimental Ribbon slot component
+  through the `/experimental/ribbon` entrypoint. This change is behind the
+  `platform_dst_nav4_ribbon_slot` feature gate.
+
 ## 5.35.0
 
 ### Minor Changes

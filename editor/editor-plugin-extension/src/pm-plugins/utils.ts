@@ -1,4 +1,14 @@
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	EVENT_TYPE,
+	type ExtensionType,
+} from '@atlaskit/editor-common/analytics';
+import { copyToClipboard } from '@atlaskit/editor-common/clipboard';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { closestElement, findNodePosByLocalIds } from '@atlaskit/editor-common/utils';
+import { JSONTransformer, type JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { Mark, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { DomAtPos, NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
@@ -89,3 +99,66 @@ export interface Position {
 	right?: number;
 	top?: number;
 }
+
+/**
+ * copying ADF from the unsupported content extension as text to clipboard
+ */
+export const copyUnsupportedContentToClipboard = ({
+	schema,
+	unsupportedContent,
+}: {
+	schema: Schema;
+	unsupportedContent?: JSONDocNode;
+}): Error | undefined => {
+	try {
+		if (!unsupportedContent) {
+			return new Error('No nested content found');
+		}
+
+		if (unsupportedContent.type !== 'doc') {
+			unsupportedContent = {
+				version: 1,
+				type: 'doc',
+				content: [unsupportedContent],
+			};
+		}
+
+		const transformer = new JSONTransformer(schema);
+		const pmNode = transformer.parse(unsupportedContent);
+		const text = pmNode.textBetween(0, pmNode.content.size, '\n\n');
+		copyToClipboard(text);
+	} catch (error) {
+		return error instanceof Error ? error : new Error('Failed to copy content');
+	}
+};
+
+export const onCopyFailed = ({
+	error,
+	extensionApi,
+	state,
+}: {
+	error: Error;
+	extensionApi?: PublicPluginAPI<[AnalyticsPlugin]>;
+	state: EditorState;
+}) => {
+	const nodeWithPos = getSelectedExtension(state, true);
+	if (!nodeWithPos) {
+		return;
+	}
+
+	const { node } = nodeWithPos;
+	const { extensionType, extensionKey } = node.attrs;
+
+	extensionApi?.analytics?.actions.fireAnalyticsEvent({
+		eventType: EVENT_TYPE.OPERATIONAL,
+		action: ACTION.COPY_FAILED,
+		actionSubject: ACTION_SUBJECT.EXTENSION,
+		actionSubjectId: node.type.name as ExtensionType,
+		attributes: {
+			extensionKey,
+			extensionType,
+			errorMessage: error.message,
+			errorStack: error.stack,
+		},
+	});
+};

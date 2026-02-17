@@ -34,6 +34,12 @@ const wrapperStyles = cssMap({
 	root: {
 		width: '300px',
 	},
+	withPadding: {
+		paddingBlockStart: token('space.150'),
+		paddingBlockEnd: token('space.150'),
+		paddingInlineStart: token('space.150'),
+		paddingInlineEnd: token('space.150'),
+	},
 });
 
 const textfieldStyles = cssMap({
@@ -44,8 +50,14 @@ const textfieldStyles = cssMap({
 	},
 });
 
-const ExampleWrapper = ({ children }: { children: React.ReactNode }) => (
-	<div css={wrapperStyles.root}>
+const ExampleWrapper = ({
+	children,
+	withPadding,
+}: {
+	children: React.ReactNode;
+	withPadding?: boolean;
+}) => (
+	<div css={[wrapperStyles.root, withPadding && wrapperStyles.withPadding]}>
 		<MenuList>{children}</MenuList>
 	</div>
 );
@@ -134,7 +146,14 @@ const FlyoutMenuItemSlots = ({
 	);
 };
 
-export const FlyoutMenuItemSlotsManyDefaultOpen = () => <FlyoutMenuItemSlots isDefaultOpen />;
+// This example includes padding so we can also test the nested popup styling on the trigger.
+// Without the padding the mouse will be hovering the trigger (position 0, 0),
+// so the hovered background color is applied even if the nested popup selector is broken.
+export const FlyoutMenuItemSlotsManyDefaultOpen = () => (
+	<ExampleWrapper withPadding>
+		<FlyoutMenuItemSlots isDefaultOpen />
+	</ExampleWrapper>
+);
 
 export const FlyoutMenuItemExample = () => (
 	<ExampleWrapper>

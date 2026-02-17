@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 7.2.14
+
+### Patch Changes
+
+- [`6d74750cc8818`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d74750cc8818) -
+  Fix hydration error on empty pages by not rendering placeholder plugin spinner in SSR
+- Updated dependencies
+
 ## 7.2.13
 
 ### Patch Changes

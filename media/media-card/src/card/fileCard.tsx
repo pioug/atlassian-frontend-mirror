@@ -26,6 +26,7 @@ import {
 	isVideoMimeTypeSupportedByBrowser,
 	getRandomTelemetryId,
 } from '@atlaskit/media-common';
+import { type ProcessingFailedState } from '@atlaskit/media-state';
 import { MediaViewer, type ViewerOptionsProps } from '@atlaskit/media-viewer';
 import React, { Suspense, useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { useMergeRefs } from 'use-callback-ref';
@@ -357,6 +358,10 @@ export const FileCard = ({
 					createdAt: fileStateValue.createdAt || (ssrItemDetails && ssrItemDetails.createdDate),
 					mediaType: fileStateValue.mediaType,
 					processingStatus: getProcessingStatusFromFileState(fileStateValue.status),
+					failReason:
+						fileStateValue.status === 'failed-processing'
+							? (fileStateValue as ProcessingFailedState).failReason
+							: undefined,
 				};
 			} else {
 				return {
@@ -376,6 +381,10 @@ export const FileCard = ({
 					createdAt: fileStateValue.createdAt,
 					mediaType: fileStateValue.mediaType,
 					processingStatus: getProcessingStatusFromFileState(fileStateValue.status),
+					failReason:
+						fileStateValue.status === 'failed-processing'
+							? (fileStateValue as ProcessingFailedState).failReason
+							: undefined,
 				};
 			} else {
 				return {

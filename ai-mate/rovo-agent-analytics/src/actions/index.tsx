@@ -1,4 +1,4 @@
-import { useCallback, useContext, useMemo } from 'react';
+import { useCallback, useContext, useRef } from 'react';
 
 import {
 	type AnalyticsEventPayload,
@@ -71,29 +71,30 @@ type ActionAttributes = {
 	[AgentDebugActions.VIEW]: EmptyAttributes;
 };
 
+const globalEventConfig = getDefaultTrackEventConfig();
 
 export const useRovoAgentActionAnalytics = <T extends {}>(
 	commonAttributes: T,
 ) => {
 	const analyticsContext = useContext(AnalyticsReactContext);
 	const { createAnalyticsEvent } = useAnalyticsEvents();
-	const eventConfig = useMemo(() => getDefaultTrackEventConfig(), []);
+	const commonAttributesRef = useRef(commonAttributes);
 
 	const fireAnalyticsEvent = useCallback(
 		(event: AnalyticsEventPayload) => {
 			const attributes = {
 				...getAttributesFromContexts(analyticsContext.getAtlaskitAnalyticsContext()),
-				...commonAttributes,
+				...commonAttributesRef.current,
 				...event.attributes,
 			};
 
 			createAnalyticsEvent({
-				...eventConfig,
+				...globalEventConfig,
 				...event,
 				attributes,
 			}).fire(ANALYTICS_CHANNEL);
 		},
-		[createAnalyticsEvent, eventConfig, commonAttributes, analyticsContext],
+		[createAnalyticsEvent, analyticsContext], // keep number of dependencies minimal to prevent re-rendering
 	);
 
 	const trackAgentAction = useCallback(

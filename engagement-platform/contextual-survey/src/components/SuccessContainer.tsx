@@ -22,7 +22,7 @@ interface Props {
 	children: React.ReactNode;
 }
 
-export default ({ children }: Props) => (
+export default ({ children }: Props): JSX.Element => (
 	<section css={sectionStyles}>
 		<div css={iconContainerStyles}>
 			<CheckCircleIcon

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 10.1.16
+
+### Patch Changes
+
+- [`5decb780f02e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5decb780f02e0) -
+  ED-29766: Add analytics instrumentation to task list toolbar button
+- Updated dependencies
+
 ## 10.1.15
 
 ### Patch Changes

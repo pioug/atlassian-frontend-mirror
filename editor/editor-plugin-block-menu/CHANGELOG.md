@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.0.42
+
+### Patch Changes
+
+- [`f0de8d658199d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0de8d658199d) -
+  [ux] Ensure if table transform occurs, the result remains selected
+- Updated dependencies
+
 ## 6.0.41
 
 ### Patch Changes

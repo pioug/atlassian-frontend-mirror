@@ -203,6 +203,7 @@ export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) 
 			floatingToolbar: getToolbarConfig({
 				breakoutEnabled: options.breakoutEnabled,
 				extensionApi: api,
+				getUnsupportedContent: options.getUnsupportedContent,
 			}),
 			contextPanel:
 				// if showContextPanel action is not available, or platform_editor_ai_object_sidebar_injection feature flag is off

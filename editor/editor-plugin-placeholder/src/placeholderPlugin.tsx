@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
+import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { isEmptyDocument } from '@atlaskit/editor-common/utils/document';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { Box } from '@atlaskit/primitives/compiled';
@@ -66,6 +67,10 @@ export const placeholderPlugin: PlaceholderPlugin = ({ config: options, api }) =
 			true,
 		)
 			? (params) => {
+					if (expValEquals('platform_editor_hydratable_ui', 'isEnabled', true) && isSSR()) {
+						return null;
+					}
+
 					// If loading spinner is explicitly disabled (e.g., for DiffEditor/version history), skip
 					if (options?.enableLoadingSpinner === false) {
 						return null;
@@ -94,7 +99,7 @@ export const placeholderPlugin: PlaceholderPlugin = ({ config: options, api }) =
 					}
 
 					return null;
-			  }
+				}
 			: undefined,
 	};
 };

@@ -24,7 +24,7 @@ export interface StarProps extends RatingProps {
 	spacing?: 'none' | 'spacious';
 }
 
-const Star = forwardRef<HTMLLabelElement, StarProps>(
+const Star: React.ForwardRefExoticComponent<StarProps & React.RefAttributes<HTMLLabelElement>> = forwardRef<HTMLLabelElement, StarProps>(
 	({ color = token('color.icon.accent.yellow', Y200), spacing = 'spacious', ...props }, ref) => {
 		const render: RatingRender = useCallback(
 			(props) => {

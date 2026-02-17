@@ -1,5 +1,13 @@
 # @atlaskit/side-nav-items
 
+## 1.7.2
+
+### Patch Changes
+
+- [`a9815b8d729e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a9815b8d729e0) -
+  Fixes the nested popup trigger styling when `platform_dst_nav4_flyout_menu_slots_close_button` is
+  enabled.
+
 ## 1.7.1
 
 ### Patch Changes

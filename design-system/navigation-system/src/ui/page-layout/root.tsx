@@ -69,6 +69,28 @@ const styles = cssMap({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 		timelineScope: sideNavContentScrollTimelineVar,
 	},
+	ribbon: {
+		// There is no ribbon grid area on small viewports
+		'@media (min-width: 64rem)': {
+			gridTemplateAreas: `
+            "banner banner banner banner"
+            "ribbon top-bar top-bar top-bar"
+            "ribbon side-nav main aside"
+       `,
+			gridTemplateRows: 'auto auto 3fr',
+			gridTemplateColumns: 'auto auto minmax(0,1fr) auto',
+		},
+		// Panel is only shown as a separate column on large viewports
+		'@media (min-width: 90rem)': {
+			gridTemplateAreas: `
+                "banner banner banner banner banner"
+                "ribbon top-bar top-bar top-bar top-bar"
+                "ribbon side-nav main aside panel"
+           `,
+			gridTemplateRows: 'auto auto 3fr',
+			gridTemplateColumns: 'auto auto minmax(0,1fr) auto auto',
+		},
+	},
 });
 
 /**
@@ -192,6 +214,7 @@ This message will not be displayed in production.
 													fg('platform-dst-side-nav-layering-fixes') &&
 													!fg('platform_dst_nav4_fhs_feedback_1') &&
 													styles.sideNavScrollTimeline,
+												fg('platform_dst_nav4_ribbon_slot') && styles.ribbon,
 											]}
 											className={xcss}
 											id={gridRootId}

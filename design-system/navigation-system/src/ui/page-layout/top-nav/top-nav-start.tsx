@@ -177,6 +177,11 @@ const wrapperStyles = cssMap({
 			},
 		},
 	},
+	fullHeightSidebarExpandedWithFeedback: {
+		'@media (min-width: 64rem)': {
+			paddingInlineEnd: token('space.150'),
+		},
+	},
 });
 
 /**
@@ -369,6 +374,9 @@ const TopNavStartInnerFHS = forwardRef(function TopNavStartInnerFHS(
 			css={[
 				wrapperStyles.root,
 				isExpandedOnDesktop && wrapperStyles.fullHeightSidebarExpanded,
+				isExpandedOnDesktop &&
+					fg('platform_dst_nav4_fhs_feedback_1') &&
+					wrapperStyles.fullHeightSidebarExpandedWithFeedback,
 				fg('platform-dst-side-nav-layering-fixes') &&
 					wrapperStyles.fullHeightSidebarWithLayeringFixes,
 				!isFirstRenderRef.current &&

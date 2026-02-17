@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-table
 
+## 17.3.17
+
+### Patch Changes
+
+- [`369400c30a0cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/369400c30a0cc) -
+  Cleanup FG platform_editor_change_table_nesting_check
+- [`34c3a60cb9325`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/34c3a60cb9325) -
+  Cleanup FG platform_editor_fix_confirm_table_removal
+
+## 17.3.16
+
+### Patch Changes
+
+- [`b4422f96787ee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b4422f96787ee) -
+  [ux] Fix contextual menu showing on load before editor being focussed or interactions
+- Updated dependencies
+
 ## 17.3.15
 
 ### Patch Changes

@@ -1,7 +1,7 @@
-import React from 'react';
-import { mount } from 'enzyme';
-import { act } from 'react-dom/test-utils';
+import React, { act } from 'react';
+import { render, screen } from '@testing-library/react';
 import FeatureFlagsWrapper from '..';
+
 jest.mock('../dropdown');
 import FeatureFlagsDropdown from '../dropdown';
 
@@ -32,30 +32,41 @@ describe('FeatureFlagsWrapper', () => {
 		});
 	});
 
-	it('should render FeatureFlagsDropdown alongside the children', () => {
-		const component = mount(
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
 			<FeatureFlagsWrapper>
 				<span id="a-child">This is a child</span>
 				<p id="another-child">This is another child</p>
 			</FeatureFlagsWrapper>,
 		);
 
-		expect(component.find('span#a-child')).toHaveLength(1);
-		expect(component.find('p#another-child')).toHaveLength(1);
-		expect(component.find(FeatureFlagsDropdown)).toHaveLength(1);
+		await expect(container).toBeAccessible();
+	});
+
+	it('should render FeatureFlagsDropdown alongside the children', () => {
+		render(
+			<FeatureFlagsWrapper>
+				<span id="a-child">This is a child</span>
+				<p id="another-child">This is another child</p>
+			</FeatureFlagsWrapper>,
+		);
+
+		expect(screen.getByText('This is a child')).toBeInTheDocument();
+		expect(screen.getByText('This is another child')).toBeInTheDocument();
+		expect(screen.getByText('Im a dropdown')).toBeInTheDocument();
 	});
 
 	it('should not render FeatureFlagsDropdown if local storage is not available', () => {
 		mockErrorLocalStorage();
-		const component = mount(
+		render(
 			<FeatureFlagsWrapper>
 				<span id="a-child">This is a child</span>
 				<p id="another-child">This is another child</p>
 			</FeatureFlagsWrapper>,
 		);
-		expect(component.find('span#a-child')).toHaveLength(1);
-		expect(component.find('p#another-child')).toHaveLength(1);
-		expect(component.find(FeatureFlagsDropdown)).toHaveLength(0);
+		expect(screen.getByText('This is a child')).toBeInTheDocument();
+		expect(screen.getByText('This is another child')).toBeInTheDocument();
+		expect(screen.queryByText('Im a dropdown')).not.toBeInTheDocument();
 	});
 
 	it('should rerender the children as many times as a feature flag is changed', async () => {
@@ -76,7 +87,7 @@ describe('FeatureFlagsWrapper', () => {
 			},
 		);
 		// First render
-		mount(
+		render(
 			<FeatureFlagsWrapper>
 				<Child />
 			</FeatureFlagsWrapper>,

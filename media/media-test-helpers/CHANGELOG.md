@@ -1,5 +1,17 @@
 # @atlaskit/media-test-helpers
 
+## 40.0.0
+
+### Major Changes
+
+- [`5fb7e85e19555`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5fb7e85e19555) -
+  **BREAKING CHANGE:** Removed `mountWithIntlContext`, `mountWithIntlWrapper`, and
+  `shallowWithIntlContext`. Use `renderWithIntl` instead for tests.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 39.0.16
 
 ### Patch Changes

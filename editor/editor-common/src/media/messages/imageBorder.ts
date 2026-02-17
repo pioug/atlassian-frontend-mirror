@@ -24,31 +24,37 @@ export const imageBorderMessages = defineMessages({
 	addBorder: {
 		id: 'fabric.editor.addImageBorder',
 		defaultMessage: 'Add border',
-		description: 'Add a border to an image.',
+		description:
+			'Label shown on a button in the image border options toolbar to add a border around the selected image.',
 	},
 	removeBorder: {
 		id: 'fabric.editor.removeImageBorder',
 		defaultMessage: 'Remove border',
-		description: 'Remove the border of an image.',
+		description:
+			'The text is shown as a button label in the image toolbar. Removes any border that was previously applied to the selected image.',
 	},
 	borderOptions: {
 		id: 'fabric.editor.imageBorderOptions',
 		defaultMessage: 'Border options',
-		description: 'Display options available for customizing the border of an image.',
+		description:
+			'The text is shown as a panel or menu header. Provides users access to customize image borders including size and color options.',
 	},
 	borderSizeSubtle: {
 		id: 'fabric.editor.imageBorderSubtle',
 		defaultMessage: 'Subtle',
-		description: 'Name of a border size.',
+		description:
+			'Label shown as a drop-down item in the image border size selector to apply a thin, subtle border around the image.',
 	},
 	borderSizeMedium: {
 		id: 'fabric.editor.imageBorderMedium',
 		defaultMessage: 'Medium',
-		description: 'Name of a border size.',
+		description:
+			'Label shown as a drop-down item in the image border size selector to apply a medium-weight border around the image.',
 	},
 	borderSizeBold: {
 		id: 'fabric.editor.imageBorderBold',
 		defaultMessage: 'Bold',
-		description: 'Name of a border size.',
+		description:
+			'Label shown as a drop-down item in the image border size selector to apply a thick, bold border around the image.',
 	},
 });

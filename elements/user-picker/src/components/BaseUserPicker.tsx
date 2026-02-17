@@ -35,7 +35,7 @@ import type {
 	UserPickerProps,
 	UserPickerRef,
 	UserPickerState,
-    Value,
+	Value,
 } from '../types';
 import { batchByKey } from './batch';
 import { messages } from './i18n';
@@ -364,7 +364,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 	};
 
 	private handleBlur = () => {
-		if (this.isCreateTeamA11yEnabled && this.props.isFooterFocused) {
+		if (this.isCreateTeamA11yEnabled && (this.props.isFooterFocused || this.props.isHeaderFocused)) {
 			return;
 		}
 		callCallback(this.props.onBlur, this.getSessionId());
@@ -382,7 +382,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 	};
 
 	private handleClose = () => {
-		if (this.isCreateTeamA11yEnabled && this.props.isFooterFocused) {
+		if (this.isCreateTeamA11yEnabled && (this.props.isFooterFocused || this.props.isHeaderFocused)) {
 			return;
 		}
 
@@ -432,12 +432,14 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 	componentDidUpdate(prevProps: UserPickerProps, prevState: UserPickerState): void {
 		const { menuIsOpen, options, resolving, count, inputValue } = this.state;
 
-		// Close menu when isFooterFocused changes from true to false
+		// Close menu when isFooterFocused or isHeaderFocused changes from true to false
 		if (
 			this.isCreateTeamA11yEnabled &&
 			menuIsOpen &&
-			prevProps.isFooterFocused === true &&
-			this.props.isFooterFocused === false &&
+			(
+				(prevProps.isFooterFocused === true && this.props.isFooterFocused === false) ||
+				(prevProps.isHeaderFocused === true && this.props.isHeaderFocused === false)
+			) &&
 			!this.shouldKeepMenuOpen()
 		) {
 			this.resetInputState();
@@ -524,10 +526,15 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 					options: [],
 				});
 				this.props.setIsFooterFocused && this.props.setIsFooterFocused(false);
+				this.props.setIsHeaderFocused && this.props.setIsHeaderFocused(false);
 			}
 
 			if (event.key === 'Tab' && this.props.setIsFooterFocused && this.props.footer) {
 				this.props.setIsFooterFocused(true);
+			}
+
+			if (event.key === 'Tab' && this.props.setIsHeaderFocused && this.props.header) {
+				this.props.setIsHeaderFocused(true);
 			}
 		}
 	};
@@ -590,7 +597,8 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 	};
 
 	private shouldKeepMenuOpen = () =>
-		Boolean(!!this.props.footer) && Boolean(this.props.isFooterFocused);
+		(Boolean(!!this.props.footer) && Boolean(this.props.isFooterFocused)) ||
+		(Boolean(!!this.props.header) && Boolean(this.props.isHeaderFocused));
 
 	render(): React.JSX.Element {
 		const {
@@ -748,6 +756,7 @@ export const BaseUserPicker: React.ForwardRefExoticComponent<Pick<Omit<{
     isClearable?: boolean;
     isDisabled?: boolean;
     isFooterFocused?: boolean;
+    isHeaderFocused?: boolean;
     isInvalid?: boolean;
     isLoading?: boolean;
     isMulti?: boolean;
@@ -787,6 +796,7 @@ export const BaseUserPicker: React.ForwardRefExoticComponent<Pick<Omit<{
     required?: boolean;
     search?: string;
     setIsFooterFocused?: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsHeaderFocused?: React.Dispatch<React.SetStateAction<boolean>>;
     showClearIndicator?: boolean;
     strategy?: "fixed" | "absolute";
     styles?: StylesConfig;

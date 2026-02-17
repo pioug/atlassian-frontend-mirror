@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/jql-editor-autocomplete-rest",
-	"version": "3.0.3",
+	"version": "3.1.0",
 	"description": "Autocomplete REST API integration for the JQL Editor.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -92,6 +92,9 @@
 			"type": "boolean"
 		},
 		"empanada_jql_editor_uri_encode_suggestions_params": {
+			"type": "boolean"
+		},
+		"projects_in_jira_eap_drop2": {
 			"type": "boolean"
 		}
 	}

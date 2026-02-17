@@ -7,9 +7,17 @@ export { SpotlightActions, type SpotlightActionsProps } from './ui/actions';
 export { SpotlightStepCount, type SpotlightStepCountProps } from './ui/step-count';
 export { SpotlightPrimaryAction, type SpotlightPrimaryActionProps } from './ui/primary-action';
 export {
+	SpotlightPrimaryLink,
+	type SpotlightPrimaryLinkProps,
+} from './ui/primary-link';
+export {
 	SpotlightSecondaryAction,
 	type SpotlightSecondaryActionProps,
 } from './ui/secondary-action';
+export {
+	SpotlightSecondaryLink,
+	type SpotlightSecondaryLinkProps,
+} from './ui/secondary-link';
 export { SpotlightControls, type SpotlightControlsProps } from './ui/controls';
 export { SpotlightDismissControl, type SpotlightDismissControlProps } from './ui/dismiss-control';
 export {

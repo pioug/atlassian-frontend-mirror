@@ -1,5 +1,12 @@
 # @atlaskit/user-picker
 
+## 11.22.0
+
+### Minor Changes
+
+- [`c474c86e4ed4d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c474c86e4ed4d) -
+  Add isHeaderFocused prop to enable tabbing through header plugin in user picker.
+
 ## 11.21.2
 
 ### Patch Changes

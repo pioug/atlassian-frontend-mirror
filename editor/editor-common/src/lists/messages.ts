@@ -10,7 +10,8 @@ export const messages = defineMessages({
 	unorderedListDescription: {
 		id: 'fabric.editor.unorderedList.description',
 		defaultMessage: 'Create an unordered list',
-		description: '',
+		description:
+			'The text is shown as a description for the bullet list option in the quick insert menu when the user searches for list formatting options.',
 	},
 	orderedList: {
 		id: 'fabric.editor.orderedList',
@@ -20,7 +21,8 @@ export const messages = defineMessages({
 	orderedListDescription: {
 		id: 'fabric.editor.orderedList.description',
 		defaultMessage: 'Create an ordered list',
-		description: '',
+		description:
+			'The text is shown as a description for the numbered list option in the quick insert menu when the user searches for list formatting options.',
 	},
 	lists: {
 		id: 'fabric.editor.lists',

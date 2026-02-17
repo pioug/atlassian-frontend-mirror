@@ -3,6 +3,7 @@ import { type IntlShape } from 'react-intl-next';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { blockControlsMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { VanillaTooltip } from '@atlaskit/editor-common/vanilla-tooltip';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { DOMOutputSpec } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -21,7 +22,6 @@ import { createNewLine } from '../ui/utils/editor-commands';
 
 import { calculatePosition } from './quick-insert-calculate-position';
 import { type AnchorRectCache } from './utils/anchor-utils';
-import { VanillaTooltip } from './vanilla-tooltip';
 
 type VanillaQuickInsertProps = {
 	anchorName: string;
@@ -107,6 +107,7 @@ export const createVanillaButton = (props: VanillaQuickInsertProps): Node => {
 				button,
 				props.formatMessage(messages.insert),
 				'quick-insert-button-tooltip',
+				'blocks-quick-insert-tooltip',
 			);
 			props.cleanupCallbacks.push(() => {
 				tooltip.destroy();

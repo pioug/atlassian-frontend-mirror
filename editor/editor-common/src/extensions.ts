@@ -27,6 +27,7 @@ export {
 	getExtensionModuleNode,
 	getNodeRenderer,
 	getExtensionModuleNodePrivateProps,
+	getExtensionManifest,
 } from './extensions/extension-handlers';
 
 export {

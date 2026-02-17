@@ -3,19 +3,17 @@ import { act } from 'react-dom/test-utils';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { asMock } from '@atlaskit/media-common/test-helpers';
-import { mountWithIntlContext } from '../../../test-helpers';
+import { renderWithIntl } from '../../../test-helpers';
 import { type WidthObserver } from '@atlaskit/width-detector';
 import MediaPlayer, { type VideoProps, type VideoState } from '../../react-video-renderer';
 
-import { CustomMediaPlayer, type CustomMediaPlayerProps, type CustomMediaPlayerState } from '../..';
-
-import { type CustomMediaPlayerBase } from '../../index-compiled';
+import { CustomMediaPlayer, type CustomMediaPlayerProps } from '../..';
 
 type mockWidthObserver = typeof WidthObserver;
 
 jest.mock('@atlaskit/width-detector', () => {
 	return {
-		WidthObserver: ((props) => {
+		WidthObserver: ((_props) => {
 			return null;
 		}) as mockWidthObserver,
 	};
@@ -77,11 +75,7 @@ describe('CustomMediaPlayer Analytics', () => {
 
 		asMock(MediaPlayer).mockImplementation(MockMediaPlayer);
 
-		const component = mountWithIntlContext<
-			CustomMediaPlayerProps,
-			CustomMediaPlayerState,
-			CustomMediaPlayerBase
-		>(
+		renderWithIntl(
 			<AnalyticsListener channel={FabricChannel.media} onEvent={analyticsHandler}>
 				<CustomMediaPlayer
 					type="video"
@@ -94,7 +88,6 @@ describe('CustomMediaPlayer Analytics', () => {
 		);
 
 		return {
-			component,
 			MockMediaPlayer,
 			updatePlayerMockCurrentTime,
 		};

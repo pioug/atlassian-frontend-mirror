@@ -21,7 +21,8 @@ export const messages = defineMessages({
 	collapseNode: {
 		id: 'fabric.editor.collapseNode',
 		defaultMessage: 'Collapse content',
-		description: 'Collapse the node',
+		description:
+			'The text is shown as a tooltip on a button when the user clicks to collapse an expand node in the editor, hiding its content.',
 	},
 	expandDefaultTitle: {
 		id: 'fabric.editor.expandDefaultTitle',
@@ -31,7 +32,8 @@ export const messages = defineMessages({
 	expandNode: {
 		id: 'fabric.editor.expandNode',
 		defaultMessage: 'Expand content',
-		description: 'Expand the node',
+		description:
+			'The text is shown as a tooltip on a button when the user clicks to expand a collapsed expand node in the editor, revealing its content.',
 	},
 	expandPlaceholderText: {
 		id: 'fabric.editor.expandPlaceholder',

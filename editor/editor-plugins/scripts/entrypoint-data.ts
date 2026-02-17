@@ -35,9 +35,9 @@ function getExports(folderPath: string) {
 	const packageJsonPath = path.join(folderPath, 'package.json');
 	const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 
-	const exportsValue = packageJson['af:exports'] ?? packageJson['exports'];
+	const exportsValue = packageJson['exports'];
 	if (!exportsValue) {
-		throw new Error(`Could not find af:exports or exports in package.json at ${packageJsonPath}`);
+		throw new Error(`Could not find exports in package.json at ${packageJsonPath}`);
 	}
 
 	const folderName = path.basename(folderPath);

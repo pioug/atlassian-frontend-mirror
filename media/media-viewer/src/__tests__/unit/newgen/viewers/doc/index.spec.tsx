@@ -8,16 +8,14 @@ import {
 	type PreviewableFileState,
 } from '@atlaskit/media-client';
 import {
-	mountWithIntlContext,
+	renderWithIntl,
 	fakeMediaClient,
 	expectFunctionToHaveBeenCalledWith,
 	nextTick,
 } from '@atlaskit/media-test-helpers';
-import { Spinner } from '../../../../../loading';
+import { screen } from '@testing-library/react';
 import { MediaViewerError } from '../../../../../errors';
-import { DocViewer, type Props } from '../../../../../viewers/doc/index';
-import { type BaseState } from '../../../../../viewers/base-viewer';
-import { type Content } from '../../../../../content';
+import { DocViewer } from '../../../../../viewers/doc/index';
 import { getObjectUrlFromFileState } from '../../../../../utils/getObjectUrlFromFileState';
 
 jest.mock('../../../../../utils/getObjectUrlFromFileState', () => ({
@@ -27,13 +25,12 @@ jest.mock('../../../../../utils/getObjectUrlFromFileState', () => ({
 const traceContext = { traceId: 'some-trace-id' };
 
 function createFixture(
-	fetchPromise: Promise<any>,
+	_fetchPromise: Promise<any>,
 	item: FileState,
 	collectionName?: string,
 	mockReturnGetArtifactURL?: Promise<string>,
 ) {
 	const mediaClient = fakeMediaClient();
-	const onClose = jest.fn(() => fetchPromise);
 	const onError = jest.fn();
 
 	jest
@@ -50,7 +47,7 @@ function createFixture(
 				Promise.resolve('some-base-url/binary?client=some-client-id&token=some-token'),
 		);
 
-	const el = mountWithIntlContext<Props, BaseState<Content>>(
+	const result = renderWithIntl(
 		<DocViewer
 			item={item}
 			mediaClient={mediaClient}
@@ -60,8 +57,7 @@ function createFixture(
 			traceContext={traceContext}
 		/>,
 	);
-	(el as any).instance()['fetch'] = jest.fn();
-	return { mediaClient, el, onClose, onError };
+	return { mediaClient, result, onError };
 }
 
 const item: ProcessedFileState = {
@@ -109,26 +105,27 @@ describe.skip('DocViewer', () => {
 
 	const getSuccessDocument = async () => {
 		const fetchPromise = Promise.resolve();
-		const { el } = createFixture(fetchPromise, item);
+		const { result } = createFixture(fetchPromise, item);
 		await nextTick();
 		await nextTick();
 		await nextTick();
-		return el;
+		return result;
 	};
 
 	const getPreviewableDocument = async () => {
 		const fetchPromise = Promise.resolve();
-		const { el, mediaClient } = createFixture(fetchPromise, previewableItem);
+		const { result, mediaClient } = createFixture(fetchPromise, previewableItem);
 		await nextTick();
 		await nextTick();
 		await nextTick();
-		return { el, mediaClient };
+		return { result, mediaClient };
 	};
 
 	it('assigns a document content when successful', async () => {
-		const el = await getSuccessDocument();
+		await getSuccessDocument();
 		await nextTick();
-		expect(el.state().content.status).toEqual('SUCCESSFUL');
+		// DocViewer shows DocumentViewer on success - check for document scroll root
+		expect(document.getElementById('document-scroll-root') ?? screen.queryByRole('document')).toBeTruthy();
 	});
 
 	it('triggers media-viewed when successful', async () => {
@@ -144,52 +141,55 @@ describe.skip('DocViewer', () => {
 	});
 
 	it('shows an indicator while loading', async () => {
-		const fetchPromise = new Promise(() => {});
-		const { el } = createFixture(fetchPromise, item);
-		await (el as any).instance()['init']();
-
-		expect(el.find(Spinner)).toHaveLength(1);
+		createFixture(new Promise(() => {}), item);
+		// Spinner has role="img" with loading label
+		expect(screen.getByRole('img', { name: /loading/i })).toBeInTheDocument();
 	});
 
 	it('MSW-720: passes collectionName to getArtifactURL', async () => {
 		const collectionName = 'some-collection';
 		const fetchPromise = Promise.resolve();
-		const { el, mediaClient } = createFixture(fetchPromise, item, collectionName);
-		await (el as any).instance()['init']();
-		expect((mediaClient.file.getArtifactURL as jest.Mock).mock.calls[0][2]).toEqual(collectionName);
+		const { mediaClient } = createFixture(fetchPromise, item, collectionName);
+		await nextTick();
+		await nextTick();
+		await nextTick();
+		expect((mediaClient.file.getArtifactURL as jest.Mock).mock.calls[0]?.[2]).toEqual(collectionName);
 	});
 
 	it('should call getFileBinaryURL when status is failed-processing', async () => {
 		const collectionName = 'some-collection';
 		const fetchPromise = Promise.resolve();
-		const { el, mediaClient } = createFixture(
+		const { mediaClient } = createFixture(
 			fetchPromise,
 			{ ...item, status: 'failed-processing' },
 			collectionName,
 		);
-		await (el as any).instance()['init']();
-		expect((mediaClient.file.getFileBinaryURL as jest.Mock).mock.calls[0][1]).toEqual(
+		await nextTick();
+		await nextTick();
+		await nextTick();
+		expect((mediaClient.file.getFileBinaryURL as jest.Mock).mock.calls[0]?.[1]).toEqual(
 			collectionName,
 		);
-		expect((mediaClient.file.getFileBinaryURL as jest.Mock).mock.calls[0][2]).toEqual(2940);
+		expect((mediaClient.file.getFileBinaryURL as jest.Mock).mock.calls[0]?.[2]).toEqual(2940);
 	});
 
 	it('should call onError when an error happens', async () => {
 		const error = new MediaViewerError('docviewer-fetch-url');
 		const fetchPromise = Promise.resolve();
-		const { el, onError } = createFixture(
+		const { onError } = createFixture(
 			fetchPromise,
 			item,
 			undefined,
 			Promise.reject(new MediaViewerError('docviewer-fetch-url')),
 		);
-		await (el as any).instance()['init']();
+		await nextTick();
+		await nextTick();
 		expect(onError).toBeCalledWith(error);
 	});
 
 	it('should use local preview when available', async () => {
-		const { el, mediaClient } = await getPreviewableDocument();
-		await (el as any).instance()['init']();
+		const { mediaClient } = await getPreviewableDocument();
+		await nextTick();
 		expect(getObjectUrlFromFileState).toHaveBeenCalledWith(previewableItem);
 		expect(mediaClient.file.getArtifactURL as jest.Mock).toHaveBeenCalledTimes(0);
 	});

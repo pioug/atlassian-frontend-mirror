@@ -49,6 +49,15 @@ function getNodeFromManifest(
 	return node;
 }
 
+export function getExtensionManifest(
+	extensionProvider: ExtensionProvider,
+	extensionType: ExtensionType,
+	extensionKey: ExtensionKey,
+) {
+	const [extKey] = getExtensionKeyAndNodeKey(extensionKey, extensionType);
+	return extensionProvider.getExtension(extensionType, extKey);
+}
+
 export async function getExtensionModuleNode(
 	extensionProvider: ExtensionProvider,
 	extensionType: ExtensionType,

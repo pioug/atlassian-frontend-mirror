@@ -47,7 +47,8 @@ snapshot(FlyoutMenuItemWithNestedPopupDefaultOpenExample, {
 });
 
 snapshot(FlyoutMenuItemSlotsManyDefaultOpen, {
-	description: 'A flyout menu with many items does not exceed the bounds of the window and should have a visible footer',
+	description:
+		'A flyout menu with many items does not exceed the bounds of the window and should have a visible footer',
 	variants: lightModeVariant,
 	drawsOutsideBounds: true,
 	featureFlags: {

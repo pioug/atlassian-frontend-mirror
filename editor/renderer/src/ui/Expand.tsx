@@ -40,6 +40,12 @@ type StyleProps = {
 	focused?: boolean;
 };
 
+type ContainerProps = StyleProps & {
+	'data-expanded'?: boolean;
+	'data-local-id'?: string;
+	'data-testid'?: string;
+};
+
 const titleStyles = css({
 	outline: 'none',
 	border: 'none',
@@ -172,7 +178,7 @@ const LazyChildren = lazy(() => {
 	});
 });
 
-const Container = (props: StyleProps) => {
+const Container = (props: ContainerProps) => {
 	return (
 		<div
 			css={[
@@ -181,9 +187,11 @@ const Container = (props: StyleProps) => {
 				props.expanded && containerStylesExpanded,
 				props.focused && containerStylesFocused,
 			]}
-			// Ignored via go/ees005
-			// eslint-disable-next-line react/jsx-props-no-spreading
-			{...props}
+			data-testid={props['data-testid']}
+			data-node-type={props['data-node-type']}
+			data-title={props['data-title']}
+			data-expanded={props['data-expanded']}
+			data-local-id={props['data-local-id']}
 		>
 			{props.children}
 		</div>
@@ -191,16 +199,19 @@ const Container = (props: StyleProps) => {
 };
 
 const TitleContainer = (props: StyleProps & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
-	const { expanded, ...buttonProps } = props;
+	const { expanded } = props;
 
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/no-html-button
 		<button
 			type="button"
 			css={[titleContainerStyles, expanded && titleContainerStylesExpanded]}
-			// Ignored via go/ees005
-			// eslint-disable-next-line react/jsx-props-no-spreading
-			{...buttonProps}
+			onClick={props.onClick}
+			onFocus={props.onFocus}
+			onBlur={props.onBlur}
+			aria-labelledby={props['aria-labelledby']}
+			aria-expanded={props['aria-expanded']}
+			contentEditable={props.contentEditable}
 		>
 			{props.children}
 		</button>
@@ -217,9 +228,6 @@ const ContentContainer = (props: StyleProps) => {
 				props.expanded && contentContainerStylesExpanded,
 				!props.expanded && contentContainerStylesNotExpanded,
 			]}
-			// Ignored via go/ees005
-			// eslint-disable-next-line react/jsx-props-no-spreading
-			{...props}
 		>
 			{props.children}
 		</div>

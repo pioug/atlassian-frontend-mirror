@@ -59,6 +59,7 @@ snapshotInformational(CompanyHubMockExample, {
 	featureFlags: {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
+		platform_dst_nav4_fhs_feedback_1: true,
 	},
 	async prepare(page) {
 		await page.setViewportSize({ width: 1024, height: 768 });
@@ -82,6 +83,7 @@ snapshotInformational(CompanyHubMockExample, {
 	featureFlags: {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
+		platform_dst_nav4_fhs_feedback_1: true,
 	},
 	async prepare(page) {
 		await page.setViewportSize({ width: 1920, height: 768 });
@@ -105,6 +107,7 @@ snapshotInformational(CompositionVR, {
 	featureFlags: {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
+		platform_dst_nav4_fhs_feedback_1: true,
 	},
 	async prepare(page) {
 		await page.setViewportSize({ width: 1024, height: 768 });
@@ -128,6 +131,7 @@ snapshotInformational(CompositionVR, {
 	featureFlags: {
 		'platform-dst-side-nav-layering-fixes': true,
 		'navx-full-height-sidebar': true,
+		platform_dst_nav4_fhs_feedback_1: true,
 	},
 	async prepare(page) {
 		await page.setViewportSize({ width: 1024, height: 768 });
@@ -155,6 +159,7 @@ snapshotInformational(CompositionVR, {
 	featureFlags: {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
+		platform_dst_nav4_fhs_feedback_1: true,
 	},
 	async prepare(page) {
 		await page.setViewportSize({ width: 1024, height: 768 });
@@ -169,11 +174,9 @@ snapshotInformational(CompositionVR, {
 		const sidebar = await page.getByRole('navigation', { name: 'Sidebar' }).elementHandle();
 		await sidebar?.waitForElementState('stable');
 
-		// Moving mouse off the expand button, so it's not hovered, to avoid potential flake from tooltips
-		// Moving relative to the button, to guarantee we stay in a spot that won't collapse the flyout
-		await page
-			.getByRole('button', { name: 'Expand sidebar' })
-			.hover({ position: { x: -8, y: 0 }, force: true });
+		// Leaving the toggle button to avoid flake from tooltips
+		// Hovering over the sidebar to keep it open
+		await sidebar?.hover();
 
 		// Explicitly wait for tooltip to disappear to avoid flake
 		await page.getByRole('tooltip').waitFor({ state: 'hidden' });
@@ -193,6 +196,7 @@ snapshotInformational(CompositionExample, {
 	featureFlags: {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
+		platform_dst_nav4_fhs_feedback_1: true,
 	},
 	async prepare(page) {
 		// Scrolls down to the aside content, which is below the main content
@@ -214,6 +218,7 @@ snapshotInformational(CompositionVR, {
 	featureFlags: {
 		'platform-dst-side-nav-layering-fixes': true,
 		'navx-full-height-sidebar': true,
+		platform_dst_nav4_fhs_feedback_1: true,
 	},
 	async prepare(page) {
 		await page.getByRole('button', { name: 'Expand sidebar' }).click();
@@ -243,6 +248,7 @@ snapshotInformational(TopNavigationThemingWithPickerExample, {
 	featureFlags: {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
+		platform_dst_nav4_fhs_feedback_1: true,
 	},
 });
 
@@ -256,6 +262,7 @@ snapshotInformational(NavigationShellExample, {
 	featureFlags: {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
+		platform_dst_nav4_fhs_feedback_1: true,
 	},
 });
 
@@ -269,6 +276,7 @@ snapshotInformational(NavigationShellWithToggleButtonOnboarding, {
 	featureFlags: {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
+		platform_dst_nav4_fhs_feedback_1: true,
 	},
 });
 
@@ -292,6 +300,7 @@ snapshotInformational(NavigationShellExample, {
 	featureFlags: {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
+		platform_dst_nav4_fhs_feedback_1: true,
 	},
 });
 
@@ -308,6 +317,7 @@ snapshotInformational(NavigationShellWithWideSideNav, {
 	featureFlags: {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
+		platform_dst_nav4_fhs_feedback_1: true,
 	},
 });
 
@@ -318,6 +328,7 @@ snapshotInformational(TopNavigationCustomLogoImageWithSideNavExample, {
 	featureFlags: {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
+		platform_dst_nav4_fhs_feedback_1: true,
 	},
 });
 
@@ -389,6 +400,7 @@ snapshotInformational(SideNavLayering, {
 	featureFlags: {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
+		platform_dst_nav4_fhs_feedback_1: true,
 		platform_dst_nav4_flyoutmenuitem_render_to_parent: true,
 		platform_dst_nav4_flyout_menu_slots_close_button: true,
 	},
@@ -404,6 +416,7 @@ snapshotInformational(CompositionVR, {
 	featureFlags: {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
+		platform_dst_nav4_fhs_feedback_1: true,
 	},
 	prepare: async (page) => {
 		// Open app switcher in the top nav
@@ -416,6 +429,7 @@ snapshotInformational(CompositionVR, {
 	featureFlags: {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
+		platform_dst_nav4_fhs_feedback_1: true,
 	},
 	prepare: async (page) => {
 		// In this test, we want both the mobile side nav and app switcher to be open.

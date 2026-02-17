@@ -19,7 +19,8 @@ export const messages = defineMessages({
 	resizeHandle: {
 		id: 'fabric.editor.resizeHandle',
 		defaultMessage: 'Resize handle',
-		description: 'Resize handle',
+		description:
+			'Label for the resize handle element displayed on content blocks in the editor, used to allow users to drag and resize the width of the element.',
 	},
 	resizeExpand: {
 		id: 'fabric.editor.breakout.resizeExpand',

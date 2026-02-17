@@ -104,7 +104,7 @@ export default function RatingGroup({
 	value,
 	testId,
 	children,
-}: RatingGroupProps) {
+}: RatingGroupProps): JSX.Element {
 	const [currentValue, setValue] = useState(value || defaultValue);
 	const [firstSelectionMade, setFirstSelectionMade] = useState(!!currentValue);
 	const actualValue = value || currentValue;

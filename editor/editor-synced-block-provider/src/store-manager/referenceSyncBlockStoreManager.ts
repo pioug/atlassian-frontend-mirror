@@ -40,6 +40,8 @@ import { resolveSyncBlockInstance } from '../utils/resolveSyncBlockInstance';
 import { parseResourceId } from '../utils/resourceId';
 import { createSyncBlockNode } from '../utils/utils';
 
+const SESSION_STORAGE_KEY_PREFIX = 'sync-block-data-';
+
 // A store manager responsible for the lifecycle and state management of reference sync blocks in an editor instance.
 // Designed to manage local in-memory state and synchronize with an external data provider.
 // Supports fetch, cache, and subscription for sync block data.
@@ -128,6 +130,9 @@ export class ReferenceSyncBlockStoreManager {
 		this.graphqlSubscriptions = new Map();
 		this.subscriptionChangeListeners = new Set();
 		this.newlyAddedSyncBlocks = new Set();
+
+		// The provider might have SSR data cache already set, so we need to update the cache in session storage
+		this.setSSRDataInSessionStorage(this.dataProvider?.getNodeDataCacheKeys());
 	}
 
 	/**
@@ -258,7 +263,66 @@ export class ReferenceSyncBlockStoreManager {
 	public getInitialSyncBlockData(resourceId: ResourceId): SyncBlockInstance | undefined {
 		const syncBlockNode = createSyncBlockNode('', resourceId);
 
-		return this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data;
+		const data = this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data;
+		if (data) {
+			return data;
+		}
+
+		if (fg('platform_synced_block_patch_3')) {
+			const sessionData = this.getSyncBlockDataFromSessionStorage(resourceId);
+			if (sessionData) {
+				return sessionData;
+			}
+		}
+
+		return undefined;
+	}
+
+	private updateCacheInSessionStorage(resourceId: ResourceId) {
+		try {
+			const latestData = this.getFromCache(resourceId);
+			if (latestData) {
+				sessionStorage.setItem(
+					`${SESSION_STORAGE_KEY_PREFIX}${resourceId}`,
+					JSON.stringify(latestData),
+				);
+			}
+		} catch (error) {
+			logException(error as Error, {
+				location:
+					'editor-synced-block-provider/referenceSyncBlockStoreManager/updateCacheInSessionStorage',
+			});
+		}
+	}
+
+	private getSyncBlockDataFromSessionStorage(
+		resourceId: ResourceId,
+	): SyncBlockInstance | undefined {
+		let sessionData: string | null = null;
+
+		try {
+			sessionData = sessionStorage.getItem(`${SESSION_STORAGE_KEY_PREFIX}${resourceId}`);
+		} catch (error) {
+			logException(error as Error, {
+				location:
+					'editor-synced-block-provider/referenceSyncBlockStoreManager/getSyncBlockDataFromSessionStorage',
+			});
+			return undefined;
+		}
+
+		if (!sessionData) {
+			return undefined;
+		}
+
+		try {
+			return JSON.parse(sessionData);
+		} catch (error) {
+			logException(error as Error, {
+				location:
+					'editor-synced-block-provider/referenceSyncBlockStoreManager/getSyncBlockDataFromSessionStorage',
+			});
+			return undefined;
+		}
 	}
 
 	/**
@@ -750,6 +814,9 @@ export class ReferenceSyncBlockStoreManager {
 					callback(syncBlock);
 				});
 			}
+			if (fg('platform_synced_block_patch_3')) {
+				this.updateCacheInSessionStorage(resourceId);
+			}
 		}
 	}
 
@@ -775,7 +842,10 @@ export class ReferenceSyncBlockStoreManager {
 	private debouncedBatchedFetchSyncBlocks(resourceId: string): void {
 		if (fg('platform_synced_block_patch_2')) {
 			// Only add to pending requests if there are active subscriptions for this resource
-			if (this.subscriptions.has(resourceId) && Object.keys(this.subscriptions.get(resourceId) || {}).length > 0) {
+			if (
+				this.subscriptions.has(resourceId) &&
+				Object.keys(this.subscriptions.get(resourceId) || {}).length > 0
+			) {
 				this.pendingFetchRequests.add(resourceId);
 				this.scheduledBatchFetch();
 			} else {
@@ -785,6 +855,16 @@ export class ReferenceSyncBlockStoreManager {
 			this.pendingFetchRequests.add(resourceId);
 			this.scheduledBatchFetch();
 		}
+	}
+
+	private setSSRDataInSessionStorage(resourceIds: string[] | undefined): void {
+		if (!resourceIds || resourceIds.length === 0) {
+			return;
+		}
+
+		resourceIds.forEach((resourceId) => {
+			this.updateCacheInSessionStorage(resourceId);
+		});
 	}
 
 	public subscribeToSyncBlock(

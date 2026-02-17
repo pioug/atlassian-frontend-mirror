@@ -105,8 +105,16 @@ const InviteItem = ({
 	const onSelected = useCallback(
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		(event: React.MouseEvent<any>) => {
-			if (leftClick(event) && onSelection) {
+		(event: React.MouseEvent<any> | React.KeyboardEvent<any>) => {
+			if (onSelection) {
+				// For mouse events, only handle left click
+				if ('button' in event && !leftClick(event)) {
+					return;
+				}
+				// For keyboard events, only handle Enter and Space
+				if ('key' in event && event.key !== 'Enter' && event.key !== ' ') {
+					return;
+				}
 				event.preventDefault();
 				onSelection(INVITE_ITEM_DESCRIPTION, event);
 			}
@@ -125,6 +133,17 @@ const InviteItem = ({
 		[onMouseEnter],
 	);
 
+	const onItemFocus = useCallback(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		(event: React.FocusEvent<any>) => {
+			if (onMouseEnter) {
+				onMouseEnter(INVITE_ITEM_DESCRIPTION, event);
+			}
+		},
+		[onMouseEnter],
+	);
+
 	useEffect(() => {
 		if (onMount) {
 			onMount();
@@ -132,13 +151,15 @@ const InviteItem = ({
 	}, [onMount]);
 
 	return (
-		// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 		<div
+			role="button"
+			tabIndex={0}
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={[mentionItemStyle, selected && mentionItemSelectedStyle]}
 			onMouseDown={onSelected}
-			// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
+			onKeyDown={onSelected}
 			onMouseEnter={onItemMouseEnter}
+			onFocus={onItemFocus}
 			data-id={INVITE_ITEM_DESCRIPTION.id}
 		>
 			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}

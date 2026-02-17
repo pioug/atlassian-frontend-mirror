@@ -80,8 +80,8 @@ export default class AutocompletePluginView extends ReactPluginView<Autocomplete
 		if (
 			this.enableRichInlineNodes &&
 			option.type === 'value' &&
-			option.valueType === 'team' &&
-			fg('jira_update_jql_teams')
+			((option.valueType === 'team' && fg('jira_update_jql_teams')) ||
+				(option.valueType === 'project' && fg('projects_in_jira_eap_drop2')))
 		) {
 			transaction.setMeta('hydrate', true);
 		}
@@ -133,6 +133,20 @@ export default class AutocompletePluginView extends ReactPluginView<Autocomplete
 							fieldName: context?.field,
 						};
 						nodes.push(this.view.state.schema.nodes.team.create(attributes, textContent));
+					} else {
+						nodes.push(textContent);
+					}
+					break;
+				}
+				case 'project': {
+					if (fg('projects_in_jira_eap_drop2')) {
+						const attributes = {
+							type: 'project',
+							id: value,
+							name: nameOnRichInlineNode ?? name,
+							fieldName: context?.field,
+						};
+						nodes.push(this.view.state.schema.nodes.project.create(attributes, textContent));
 					} else {
 						nodes.push(textContent);
 					}

@@ -1,5 +1,12 @@
 # @atlaskit/media-ui
 
+## 28.7.30
+
+### Patch Changes
+
+- [`5fb7e85e19555`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5fb7e85e19555) -
+  Migrate tests from mountWithIntlContext (Enzyme) to renderWithIntl (RTL)
+
 ## 28.7.29
 
 ### Patch Changes

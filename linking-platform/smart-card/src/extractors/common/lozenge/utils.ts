@@ -19,6 +19,7 @@ export const VALID_STATES: Record<LinkState, LinkLozengeColor> = {
 	closed: 'success',
 	draft: 'inprogress',
 	archived: 'default',
+	'queued to merge': 'moved',
 };
 
 export const OMIT_STATES: string[] = ['current'];

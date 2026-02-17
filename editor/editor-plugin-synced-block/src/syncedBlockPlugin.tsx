@@ -4,12 +4,14 @@ import { bodiedSyncBlock, syncBlock } from '@atlaskit/adf-schema';
 import type { EditorCommand, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { flushBodiedSyncBlocks, flushSyncBlocks } from './editor-actions';
 import {
 	copySyncedBlockReferenceToClipboardEditorCommand,
 	createSyncedBlock,
 } from './editor-commands';
+import { bodiedSyncBlockNodeWithToDOMFixed } from './nodeviews/bodiedSyncBlockNodeWithToDOMFixed';
 import { createPlugin, syncedBlockPluginKey } from './pm-plugins/main';
 import { getMenuAndToolbarExperiencesPlugin } from './pm-plugins/menu-and-toolbar-experiences';
 import type { SyncedBlockPlugin } from './syncedBlockPluginType';
@@ -50,7 +52,9 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 				},
 				{
 					name: 'bodiedSyncBlock',
-					node: bodiedSyncBlock,
+					node: fg('platform_synced_block_patch_3')
+						? bodiedSyncBlockNodeWithToDOMFixed()
+						: bodiedSyncBlock,
 				},
 			];
 		},

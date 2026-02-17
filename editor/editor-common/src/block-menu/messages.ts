@@ -15,7 +15,8 @@ export const messages = defineMessages({
 	deleteBlock: {
 		id: 'fabric.editor.block.menu.delete.block',
 		defaultMessage: 'Delete',
-		description: 'Delete the selected block',
+		description:
+			'The text is shown as a menu item in the block menu when the user wants to delete the currently selected block from the document.',
 	},
 	turnInto: {
 		id: 'fabric.editor.block.menu.turn.into',

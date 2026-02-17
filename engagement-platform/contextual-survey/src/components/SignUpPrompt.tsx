@@ -33,7 +33,7 @@ const buttonContainerStyles = css({
 	},
 });
 
-export default ({ onAnswer }: Props) => {
+export default ({ onAnswer }: Props): JSX.Element => {
 	const [pending, setPending] = useState<Optional<PendingAnswer>>(null);
 	const answeredWith = useCallback(
 		async (answer: boolean) => {

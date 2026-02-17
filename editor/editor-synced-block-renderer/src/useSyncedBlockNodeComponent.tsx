@@ -9,7 +9,6 @@ import {
 	convertSyncBlockJSONNodeToSyncBlockNode,
 	useMemoizedSyncBlockStoreManager,
 	type SyncBlockDataProvider,
-	type SyncBlockInstance,
 	type SyncBlockNode,
 	type SyncedBlockProvider,
 	type SyncBlockPrefetchData,
@@ -24,7 +23,6 @@ import {
 export type GetSyncedBlockNodeComponentProps = {
 	fireAnalyticsEvent?: (payload: AnalyticsEventPayload) => void;
 	getPrefetchedData?: () => SyncBlockPrefetchData | undefined;
-	getSSRData?: () => Record<string, SyncBlockInstance> | undefined;
 	syncBlockNodes: SyncBlockNode[];
 	syncBlockProvider: SyncedBlockProvider;
 	syncBlockRendererOptions: SyncedBlockRendererOptions | undefined;
@@ -46,7 +44,6 @@ export const useMemoizedSyncedBlockNodeComponent = ({
 	syncBlockProvider,
 	syncBlockRendererOptions,
 	fireAnalyticsEvent,
-	getSSRData,
 	getPrefetchedData,
 }: GetSyncedBlockNodeComponentProps): ((props: SyncedBlockNodeProps) => React.JSX.Element) => {
 	const syncBlockStoreManager = useMemoizedSyncBlockStoreManager(
@@ -54,17 +51,7 @@ export const useMemoizedSyncedBlockNodeComponent = ({
 		fireAnalyticsEvent,
 	);
 
-	// Initialize SSR data if available
-	useEffect(() => {
-		if (getSSRData) {
-			const ssrData = getSSRData();
-			if (ssrData && (syncBlockProvider as SyncBlockDataProvider).setSSRData) {
-				(syncBlockProvider as SyncBlockDataProvider).setSSRData(ssrData);
-			}
-		}
-	}, [getSSRData, syncBlockProvider]);
-
-	// Process prefetched data next, if available
+	// Process prefetched data early, if available
 	useEffect(() => {
 		let prefetchedData: SyncBlockPrefetchData | undefined;
 		if (getPrefetchedData) {

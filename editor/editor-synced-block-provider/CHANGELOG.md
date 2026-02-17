@@ -1,5 +1,24 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.29.1
+
+### Patch Changes
+
+- [`53c9f85806f98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53c9f85806f98) -
+  EDITOR-5275 Store synced blocks data in session storage for look up during page transitions
+- Updated dependencies
+
+## 3.29.0
+
+### Minor Changes
+
+- [`af9d0d672e930`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af9d0d672e930) -
+  Revert: Edit at source for an archived page should not redirect and show ask for edit flag
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.28.1
 
 ### Patch Changes

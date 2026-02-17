@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-extension
 
+## 10.1.0
+
+### Minor Changes
+
+- [`71321772bd9a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71321772bd9a7) -
+  [ux] EDITOR-4932 - Copy extension text content when clicking copy button for unsupported content
+  extension.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.16
 
 ### Patch Changes

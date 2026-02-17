@@ -4,7 +4,8 @@ export const toolbarMessages = defineMessages({
 	singleColumn: {
 		id: 'fabric.editor.single',
 		defaultMessage: 'Single column layout',
-		description: 'Layout with one single column',
+		description:
+			'The text is shown as a label on a toolbar button when the user selects a single column layout option in the editor.',
 	},
 	twoColumns: {
 		id: 'fabric.editor.twoColumns',
@@ -84,11 +85,13 @@ export const toolbarMessages = defineMessages({
 	columnOption: {
 		id: 'fabric.editor.layout.columnOption',
 		defaultMessage: '{count, plural, one {{count} Column} other {{count} Columns}}',
-		description: 'column option text for layout',
+		description:
+			'The text is shown as a label for a layout column option in the editor toolbar. It displays the number of columns, for example "1 Column" or "3 Columns".',
 	},
 	resizeLayout: {
 		id: 'fabric.editor.layout.resizeLayout',
 		defaultMessage: 'Resize layout',
-		description: 'resize layout',
+		description:
+			'The text is shown as a label on a button or handle when the user can resize the layout columns in the editor.',
 	},
 });

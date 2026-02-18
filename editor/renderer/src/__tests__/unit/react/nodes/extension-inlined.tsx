@@ -79,7 +79,7 @@ describe('Renderer - React/Nodes/Extension Inlined', () => {
 
 							const wrapper = getByTestId('extension--wrapper') as HTMLElement;
 							expect(wrapper).not.toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
-							expect(wrapper.style.width).toBe('100%');
+							expect(wrapper.style.width).toBe('');
 							expect(wrapper.style.minHeight).toBe('200px');
 						});
 					});
@@ -133,7 +133,7 @@ describe('Renderer - React/Nodes/Extension Inlined', () => {
 
 							const wrapper = getByTestId('extension--wrapper') as HTMLElement;
 							expect(wrapper).not.toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
-							expect(wrapper.style.width).toBe('100%');
+							expect(wrapper.style.width).toBe('');
 							expect(wrapper.style.minHeight).toBe('112pxpx');
 						});
 					});
@@ -153,7 +153,7 @@ describe('Renderer - React/Nodes/Extension Inlined', () => {
 
 							const wrapper = getByTestId('extension--wrapper') as HTMLElement;
 							expect(wrapper).not.toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
-							expect(wrapper.style.width).toBe('100%');
+							expect(wrapper.style.width).toBe('');
 							expect(wrapper.style.minHeight).toBe('112pxpx');
 						});
 
@@ -167,7 +167,7 @@ describe('Renderer - React/Nodes/Extension Inlined', () => {
 
 							const wrapper = getByTestId('extension--wrapper') as HTMLElement;
 							expect(wrapper).not.toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
-							expect(wrapper.style.width).toBe('100%');
+							expect(wrapper.style.width).toBe('');
 							expect(wrapper.style.minHeight).toBe('112pxpx');
 						});
 					});

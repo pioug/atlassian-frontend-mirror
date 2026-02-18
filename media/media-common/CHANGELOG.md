@@ -1,5 +1,13 @@
 # @atlaskit/media-common
 
+## 12.4.0
+
+### Minor Changes
+
+- [`c90ccf0c600ee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c90ccf0c600ee) -
+  Enable cross product/cross client copy and paste of Media files by including clientId during Copy
+  operations.
+
 ## 12.3.1
 
 ### Patch Changes
@@ -597,7 +605,6 @@
   members (see below). Extra entry point `mediaTypeUtils` for all of them is added.
 
   New members:
-
   - getMediaTypeFromMimeType
   - isImageMimeTypeSupportedByBrowser
   - isDocumentMimeTypeSupportedByBrowser
@@ -828,5 +835,4 @@
 
   Create @atlaskit/media-common- Updated dependencies
   [168b5f90e5](https://bitbucket.org/atlassian/atlassian-frontend/commits/168b5f90e5):
-
   - @atlaskit/docs@8.5.1

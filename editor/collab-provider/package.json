@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/collab-provider",
-	"version": "15.3.10",
+	"version": "15.3.11",
 	"description": "A provider for collaborative editing.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -75,9 +75,6 @@
 	},
 	"platform-feature-flags": {
 		"platform-editor-presence-websocket-only": {
-			"type": "boolean"
-		},
-		"add_session_id_to_catchup_query": {
 			"type": "boolean"
 		}
 	},

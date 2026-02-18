@@ -17,6 +17,5 @@
     "**/stories/*.tsx",
     "**/stories/**/*.ts",
     "**/stories/**/*.tsx"
-  ],
-  "compilerOptions": {}
+  ]
 }

@@ -2,6 +2,7 @@ import { snapshot } from '@af/visual-regression';
 
 import {
 	AlternateActions,
+	AppUserProfile,
 	BestCaseProfile,
 	BotCaseProfile,
 	ErrorState,
@@ -14,4 +15,5 @@ snapshot(ErrorStateNotFound);
 snapshot(BestCaseProfile);
 snapshot(WorstCaseProfile);
 snapshot(BotCaseProfile);
+snapshot(AppUserProfile);
 snapshot(AlternateActions);

@@ -6,9 +6,9 @@ import { z } from 'zod';
 import { cleanQuery, zodToJsonSchema } from '../../helpers';
 
 import {
-	tokenStructuredContent,
+	tokenMcpStructuredContent,
 	type TokenStructuredContent,
-} from './token-structured-content.codegen';
+} from './token-mcp-structured-content.codegen';
 
 export const getTokensInputSchema: z.ZodObject<
 	{
@@ -97,18 +97,16 @@ export const getTokensTool = async (
 ): Promise<CallToolResult> => {
 	const { terms = [], limit = 1, exactName = false } = params;
 	const searchTerms = terms.filter(Boolean).map(cleanQuery);
-	const tokenDocs = tokenStructuredContent;
+	const tokenDocs = tokenMcpStructuredContent;
 
-	// If no search terms provided, return all tokens formatted as Markdown
+	// If no search terms provided, return all tokens as JSON array
 	if (searchTerms.length === 0) {
-		const allTokensMarkdown = tokenDocs
-			.map((token: TokenStructuredContent) => token.content)
-			.join('\n\n');
+		const payload = tokenDocs.map((token: TokenStructuredContent) => token.content);
 		return {
 			content: [
 				{
 					type: 'text',
-					text: allTokensMarkdown,
+					text: JSON.stringify(payload),
 				},
 			],
 		};
@@ -126,14 +124,15 @@ export const getTokensTool = async (
 			.filter((token): token is TokenStructuredContent => token !== undefined);
 
 		if (exactNameMatches.length > 0) {
-			const formattedTokens = exactNameMatches
-				.map((token: TokenStructuredContent) => token.content)
-				.join('\n\n');
+			const payload =
+				exactNameMatches.length === 1
+					? exactNameMatches[0].content
+					: exactNameMatches.map((token: TokenStructuredContent) => token.content);
 			return {
 				content: [
 					{
 						type: 'text',
-						text: formattedTokens,
+						text: JSON.stringify(payload),
 					},
 				],
 			};
@@ -176,15 +175,16 @@ export const getTokensTool = async (
 	});
 
 	const matchedTokens = uniqueResults.map((result) => result.item as TokenStructuredContent);
-	const formattedTokens = matchedTokens
-		.map((token: TokenStructuredContent) => token.content)
-		.join('\n\n');
+	const payload =
+		matchedTokens.length === 1
+			? matchedTokens[0].content
+			: matchedTokens.map((token: TokenStructuredContent) => token.content);
 
 	return {
 		content: [
 			{
 				type: 'text',
-				text: formattedTokens,
+				text: JSON.stringify(payload),
 			},
 		],
 	};

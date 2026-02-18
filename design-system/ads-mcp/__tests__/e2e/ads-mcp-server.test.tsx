@@ -156,15 +156,13 @@ describe('ADS MCP Server E2E', () => {
 		).content as { text: string }[];
 
 		expect(result).toHaveLength(1);
-		const markdown = result[0].text;
+		const text = result[0].text;
 
-		// Validate markdown structure - should contain heading, description, and example value
-		expect(markdown).toContain('# color.text');
-		expect(markdown).toContain('Example Value:');
-		expect(markdown).toMatch(/Example Value: `[^`]+`/);
-
-		// Should not be valid JSON (since it's markdown)
-		expect(() => JSON.parse(markdown)).toThrow();
+		// With feature flags enabled, returns JSON (structured content)
+		const parsed = JSON.parse(text);
+		expect(parsed).toHaveProperty('name', 'color.text');
+		expect(parsed).toHaveProperty('description');
+		expect(parsed.description).toContain('primary text');
 	});
 
 	it('Returns markdown content for ads_get_icons tool with feature flags enabled', async () => {
@@ -180,17 +178,16 @@ describe('ADS MCP Server E2E', () => {
 		).content as { text: string }[];
 
 		expect(result).toHaveLength(1);
-		const markdown = result[0].text;
+		const text = result[0].text;
 
-		// Validate markdown structure - should contain heading and key fields
-		expect(markdown).toContain('# Add Icon');
-		expect(markdown).toContain('Keywords');
-		expect(markdown).toContain('Import statement:');
-		expect(markdown).toMatch(/import AddIcon from '[^']+'/);
-		expect(markdown).toContain('Sizes:');
-
-		// Should not be valid JSON (since it's markdown)
-		expect(() => JSON.parse(markdown)).toThrow();
+		// With feature flags enabled, returns JSON (structured content)
+		const parsed = JSON.parse(text);
+		expect(parsed).toHaveProperty('componentName', 'AddIcon');
+		expect(parsed).toHaveProperty('package', '@atlaskit/icon/core/add');
+		expect(parsed).toHaveProperty('keywords');
+		expect(Array.isArray(parsed.keywords)).toBe(true);
+		expect(parsed).toHaveProperty('usage');
+		expect(parsed).toHaveProperty('status', 'published');
 	});
 
 	it('Returns all icons as markdown when no search terms provided for ads_get_icons tool with feature flags enabled', async () => {
@@ -202,25 +199,24 @@ describe('ADS MCP Server E2E', () => {
 		).content as { text: string }[];
 
 		expect(result).toHaveLength(1);
-		const markdown = result[0].text;
+		const text = result[0].text;
 
-		// Should contain multiple icons (at least one)
-		expect(markdown).toContain('#');
-		expect(markdown).toContain('Keywords');
-		expect(markdown).toContain('Import statement:');
-		expect(markdown).toContain('Sizes:');
-		expect(markdown.length).toBeGreaterThan(100); // Should have substantial content
-
-		// Should not be valid JSON (since it's markdown)
-		expect(() => JSON.parse(markdown)).toThrow();
+		// With feature flags enabled, returns JSON array of icon objects
+		const parsed = JSON.parse(text);
+		expect(Array.isArray(parsed)).toBe(true);
+		expect(parsed.length).toBeGreaterThan(0);
+		expect(parsed[0]).toHaveProperty('componentName');
+		expect(parsed[0]).toHaveProperty('package');
+		expect(parsed[0]).toHaveProperty('keywords');
+		expect(text.length).toBeGreaterThan(100); // Substantial content
 	});
 
-	it('Returns markdown with Icon Lab import path for ads_get_icons when searching for an Icon Lab icon with feature flags enabled', async () => {
+	it('Returns JSON with icon package path for ads_get_icons when searching for a core icon with feature flags enabled', async () => {
 		const result = (
 			await client.callTool({
 				name: 'ads_get_icons',
 				arguments: {
-					terms: ['PlanIcon'],
+					terms: ['AddIcon'],
 					limit: 1,
 					exactName: true,
 				},
@@ -228,9 +224,11 @@ describe('ADS MCP Server E2E', () => {
 		).content as { text: string }[];
 
 		expect(result).toHaveLength(1);
-		const markdown = result[0].text;
-		expect(markdown).toContain('@atlaskit/icon-lab/core/plan');
-		expect(markdown).toMatch(/import PlanIcon from '@atlaskit\/icon-lab\/core\/plan'/);
+		const text = result[0].text;
+		const parsed = JSON.parse(text);
+		expect(parsed).toHaveProperty('componentName', 'AddIcon');
+		expect(parsed).toHaveProperty('package');
+		expect(parsed.package).toContain('@atlaskit/icon/core/add');
 	});
 
 	it('Returns markdown content for ads_get_lint_rules tool with feature flags enabled', async () => {
@@ -246,18 +244,21 @@ describe('ADS MCP Server E2E', () => {
 		).content as { text: string }[];
 
 		expect(result).toHaveLength(1);
-		const markdown = result[0].text;
+		const text = result[0].text;
 
-		// Validate markdown structure - should contain rule heading and content
-		expect(markdown).toContain('# icon-label');
-		expect(markdown).toContain('Icon labels');
-		expect(markdown.length).toBeGreaterThan(50);
-
-		// Should not be valid JSON (since it's markdown)
-		expect(() => JSON.parse(markdown)).toThrow();
+		// With feature flags enabled, returns JSON (single rule: may be double-stringified)
+		const parsed = JSON.parse(text);
+		const rule = typeof parsed === 'string' ? JSON.parse(parsed) : parsed;
+		expect(rule).toHaveProperty('ruleName', 'icon-label');
+		expect(rule).toHaveProperty('description');
+		expect(rule).toHaveProperty('content');
+		// Inner content is markdown
+		expect(rule.content).toContain('# icon-label');
+		expect(rule.content).toContain('Icon labels');
+		expect(rule.content.length).toBeGreaterThan(50);
 	});
 
-	it('Returns all lint rules as markdown when no search terms provided for ads_get_lint_rules tool with feature flags enabled', async () => {
+	it('Returns all lint rules as JSON array when no search terms provided for ads_get_lint_rules tool with feature flags enabled', async () => {
 		const result = (
 			await client.callTool({
 				name: 'ads_get_lint_rules',
@@ -266,14 +267,17 @@ describe('ADS MCP Server E2E', () => {
 		).content as { text: string }[];
 
 		expect(result).toHaveLength(1);
-		const markdown = result[0].text;
+		const text = result[0].text;
 
-		// Should contain multiple rules (at least one)
-		expect(markdown).toContain('#');
-		expect(markdown.length).toBeGreaterThan(100); // Should have substantial content
-
-		// Should not be valid JSON (since it's markdown)
-		expect(() => JSON.parse(markdown)).toThrow();
+		// With feature flags enabled, returns JSON array (elements may be JSON strings)
+		const parsed = JSON.parse(text);
+		expect(Array.isArray(parsed)).toBe(true);
+		expect(parsed.length).toBeGreaterThan(0);
+		const firstRule = typeof parsed[0] === 'string' ? JSON.parse(parsed[0]) : parsed[0];
+		expect(firstRule).toHaveProperty('ruleName');
+		expect(firstRule).toHaveProperty('description');
+		expect(firstRule).toHaveProperty('content');
+		expect(text.length).toBeGreaterThan(100); // Substantial content
 	});
 
 	it('Returns a useful error if a tool is called with the wrong arguments', async () => {

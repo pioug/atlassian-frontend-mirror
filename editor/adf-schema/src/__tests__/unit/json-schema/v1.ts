@@ -18,6 +18,100 @@ describe(`${packageName} json-schema v1`, () => {
 	const validateFull = ajv.compile(v1SchemaFull);
 	const validateStage0 = ajv.compile(v1SchemaStage0);
 
+	describe('listItem flexible first child', () => {
+		const legacyParagraphFirst = {
+			version: 1,
+			type: 'doc',
+			content: [
+				{
+					type: 'bulletList',
+					content: [
+						{
+							type: 'listItem',
+							content: [
+								{
+									type: 'paragraph',
+									content: [{ type: 'text', text: 'Legacy item' }],
+								},
+							],
+						},
+					],
+				},
+			],
+		};
+		const nestedListFirst = {
+			version: 1,
+			type: 'doc',
+			content: [
+				{
+					type: 'bulletList',
+					content: [
+						{
+							type: 'listItem',
+							content: [
+								{
+									type: 'bulletList',
+									content: [
+										{
+											type: 'listItem',
+											content: [
+												{
+													type: 'paragraph',
+													content: [{ type: 'text', text: 'Nested item' }],
+												},
+											],
+										},
+									],
+								},
+							],
+						},
+					],
+				},
+			],
+		};
+
+		it('accepts paragraph-first listItem in full and stage-0', () => {
+			const isValidFull = validateFull(legacyParagraphFirst);
+			if (!isValidFull) {
+				// eslint-disable-next-line no-console
+				console.error(
+					'Full schema - Legacy list item - Errors',
+					betterAjvErrors(v1SchemaFull, legacyParagraphFirst, validateFull.errors, {
+						indent: 2,
+					}),
+				);
+			}
+			expect(validateFull.errors).toEqual(null);
+
+			const isValidStage0 = validateStage0(legacyParagraphFirst);
+			if (!isValidStage0) {
+				// eslint-disable-next-line no-console
+				console.error(
+					'Stage 0 schema - Legacy list item - Errors',
+					betterAjvErrors(v1SchemaStage0, legacyParagraphFirst, validateStage0.errors, {
+						indent: 2,
+					}),
+				);
+			}
+			expect(validateStage0.errors).toEqual(null);
+		});
+
+		it('accepts nested list first child only in stage-0', () => {
+			const isValidStage0 = validateStage0(nestedListFirst);
+			if (!isValidStage0) {
+				// eslint-disable-next-line no-console
+				console.error(
+					'Stage 0 schema - Nested list first child - Errors',
+					betterAjvErrors(v1SchemaStage0, nestedListFirst, validateStage0.errors, {
+						indent: 2,
+					}),
+				);
+			}
+			expect(validateStage0.errors).toEqual(null);
+			expect(validateFull(nestedListFirst)).toEqual(false);
+		});
+	});
+
 	describe('full', () => {
 		for (const file of fullValidJsonSchema) {
 			it(`validates '${file.name}'`, () => {

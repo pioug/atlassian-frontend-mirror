@@ -165,7 +165,7 @@ const backgroundStyles = cssMap({
 export function TopNav({
 	children,
 	xcss,
-	height = 48,
+	height: heightProp,
 	skipLinkLabel = 'Top Bar',
 	testId,
 	id: providedId,
@@ -196,6 +196,9 @@ export function TopNav({
 	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);
 	const id = useLayoutId({ providedId });
 	useSkipLink(id, skipLinkLabel);
+
+	const hasIncreasedDefaultHeight = isFhsEnabled && fg('platform_dst_nav4_top_nav_increase_height');
+	const height = heightProp ?? (hasIncreasedDefaultHeight ? 56 : 48);
 
 	const customTheme = useCustomTheme(UNSAFE_theme);
 
@@ -244,8 +247,8 @@ export function TopNav({
 					styles.root,
 					isFhsEnabled && styles.fullHeightSidebar,
 					isFhsEnabled &&
-					fg('platform-dst-side-nav-layering-fixes') &&
-					styles.fullHeightSidebarWithLayeringFixes,
+						fg('platform-dst-side-nav-layering-fixes') &&
+						styles.fullHeightSidebarWithLayeringFixes,
 					isExpandedOnDesktop && isFhsEnabled && styles.fullHeightSidebarExpanded,
 				]}
 				className={xcss}

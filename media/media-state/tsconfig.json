@@ -9,6 +9,4 @@
     "./example-helpers/*.tsx",
     "./typings/**/*.d.ts"
   ],
-  "compilerOptions": {
-  },
 }

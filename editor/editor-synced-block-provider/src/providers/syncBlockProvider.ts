@@ -20,7 +20,7 @@ import {
 } from '../common/types';
 
 import {
-	SyncBlockDataProvider,
+	SyncBlockDataProviderInterface,
 	type ADFFetchProvider,
 	type ADFWriteProvider,
 	type BlockSubscriptionErrorCallback,
@@ -35,14 +35,14 @@ import {
 	type WriteSyncBlockResult,
 } from './types';
 
-export class SyncBlockProvider extends SyncBlockDataProvider {
-	name = 'syncBlockProvider';
+export class SyncedBlockProvider extends SyncBlockDataProviderInterface {
+    name = 'syncBlockProvider';
 	private fetchProvider: ADFFetchProvider;
 	private writeProvider: ADFWriteProvider | undefined;
 	private providerOptions: SyncedBlockRendererProviderOptions;
 
 	/**
-	 * Constructor for the SyncBlockProvider
+	 * Constructor for the SyncedBlockProvider
 	 *
 	 * @param fetchProvider
 	 * @param writeProvider
@@ -368,7 +368,7 @@ const createSyncedBlockProvider = ({
 	fetchProvider: ADFFetchProvider;
 	writeProvider: ADFWriteProvider | undefined;
 }) => {
-	return new SyncBlockProvider(fetchProvider, writeProvider);
+	return new SyncedBlockProvider(fetchProvider, writeProvider);
 };
 
 export const useMemoizedSyncedBlockProvider = ({

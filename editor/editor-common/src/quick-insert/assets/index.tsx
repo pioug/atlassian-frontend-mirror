@@ -245,7 +245,7 @@ function importHeading(level: HeadingLevels) {
 	}
 }
 
-export const IconHeading = ({ level, ...props }: HeadingProps): React.JSX.Element => {
+export const IconHeading = ({ level, label }: Pick<HeadingProps, "level"|"label">): React.JSX.Element => {
 	const Icon = Loadable({
 		loader: () =>
 			importHeading(level).then((module) => module.default) as Promise<
@@ -253,9 +253,7 @@ export const IconHeading = ({ level, ...props }: HeadingProps): React.JSX.Elemen
 			>,
 		loading: () => null,
 	});
-	// Ignored via go/ees005
-	// eslint-disable-next-line react/jsx-props-no-spreading
-	return <Icon {...props} />;
+	return <Icon label={label} />;
 };
 
 export const IconFeedback = Loadable({

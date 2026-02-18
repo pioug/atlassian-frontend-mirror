@@ -23,6 +23,7 @@ import {
 	type DeletionReason,
 	type SyncBlockStoreManager,
 } from '@atlaskit/editor-synced-block-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { lazyBodiedSyncBlockView } from '../nodeviews/bodiedLazySyncedBlock';
 import { SyncBlock as SyncBlockView } from '../nodeviews/syncedBlock';
@@ -321,31 +322,31 @@ export const createPlugin = (
 			},
 		},
 		filterTransaction: (tr, state) => {
-		const isOffline = isOfflineMode(api?.connectivity?.sharedState.currentState()?.mode);
-		const isConfirmedSyncBlockDeletion = Boolean(tr.getMeta('isConfirmedSyncBlockDeletion'));
+			const isOffline = isOfflineMode(api?.connectivity?.sharedState.currentState()?.mode);
+			const isConfirmedSyncBlockDeletion = Boolean(tr.getMeta('isConfirmedSyncBlockDeletion'));
 
-		// Track newly added reference sync blocks before processing the transaction
-		if (tr.docChanged && !tr.getMeta('isRemote')) {
-			const { added } = trackSyncBlocks((node) => node.type.name === 'syncBlock', tr, state);
-			// Mark newly added sync blocks so we can detect unpublished status when data is fetched
-			added.forEach((nodeInfo) => {
-				if (nodeInfo.attrs?.resourceId) {
-					syncBlockStore.referenceManager.markAsNewlyAdded(nodeInfo.attrs.resourceId);
-				}
-			});
-		}
+			// Track newly added reference sync blocks before processing the transaction
+			if (tr.docChanged && !tr.getMeta('isRemote')) {
+				const { added } = trackSyncBlocks((node) => node.type.name === 'syncBlock', tr, state);
+				// Mark newly added sync blocks so we can detect unpublished status when data is fetched
+				added.forEach((nodeInfo) => {
+					if (nodeInfo.attrs?.resourceId) {
+						syncBlockStore.referenceManager.markAsNewlyAdded(nodeInfo.attrs.resourceId);
+					}
+				});
+			}
 
-		// Ignore transactions that don't change the document
-		// or are from remote (collab) or already confirmed sync block deletion
-		// We only care about local changes that change the document
-		// and are not yet confirmed for sync block deletion
-		if (
-			!tr.docChanged ||
-			Boolean(tr.getMeta('isRemote')) ||
-			(!isOffline && isConfirmedSyncBlockDeletion)
-		) {
-			return true;
-		}
+			// Ignore transactions that don't change the document
+			// or are from remote (collab) or already confirmed sync block deletion
+			// We only care about local changes that change the document
+			// and are not yet confirmed for sync block deletion
+			if (
+				!tr.docChanged ||
+				Boolean(tr.getMeta('isRemote')) ||
+				(!isOffline && isConfirmedSyncBlockDeletion)
+			) {
+				return true;
+			}
 
 			const { removed: bodiedSyncBlockRemoved, added: bodiedSyncBlockAdded } = trackSyncBlocks(
 				syncBlockStore.sourceManager.isSourceBlock,
@@ -374,16 +375,29 @@ export const createPlugin = (
 				});
 
 				syncBlockAdded.forEach((syncBlock) => {
-					api?.analytics?.actions?.fireAnalyticsEvent({
-						action: ACTION.INSERTED,
-						actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
-						actionSubjectId: ACTION_SUBJECT_ID.REFERENCE_SYNCED_BLOCK_CREATE,
-						attributes: {
-							resourceId: syncBlock.attrs.resourceId,
-							blockInstanceId: syncBlock.attrs.localId,
-						},
-						eventType: EVENT_TYPE.OPERATIONAL,
-					});
+					if (fg('platform_synced_block_patch_3')) {
+						api?.analytics?.actions?.fireAnalyticsEvent({
+							action: ACTION.INSERTED,
+							actionSubject: ACTION_SUBJECT.DOCUMENT,
+							actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK,
+							attributes: {
+								resourceId: syncBlock.attrs.resourceId,
+								blockInstanceId: syncBlock.attrs.localId,
+							},
+							eventType: EVENT_TYPE.TRACK,
+						});
+					} else {
+						api?.analytics?.actions?.fireAnalyticsEvent({
+							action: ACTION.INSERTED,
+							actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+							actionSubjectId: ACTION_SUBJECT_ID.REFERENCE_SYNCED_BLOCK_CREATE,
+							attributes: {
+								resourceId: syncBlock.attrs.resourceId,
+								blockInstanceId: syncBlock.attrs.localId,
+							},
+							eventType: EVENT_TYPE.OPERATIONAL,
+						});
+					}
 				});
 
 				if (bodiedSyncBlockRemoved.length > 0) {

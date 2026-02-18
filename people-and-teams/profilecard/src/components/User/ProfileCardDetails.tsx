@@ -310,11 +310,17 @@ export const ProfileCardDetails = (
 		return <DisabledProfileCardDetails {...props} status={status} />;
 	}
 
+	const lozenges = <CustomLozenges lozenges={props.customLozenges} />;
+
 	return (
 		<DetailsGroup>
 			{renderName(props.nickname, props.fullName, meta, nameRef)}
 			{meta && <JobTitleLabel>{meta}</JobTitleLabel>}
-			<CustomLozenges lozenges={props.customLozenges} />
+			{meta && props.customLozenges && props.customLozenges.length > 0 ? (
+				<Box paddingBlockStart="space.150">{lozenges}</Box>
+			) : (
+				lozenges
+			)}
 			<Box xcss={styles.detailedListWrapperNext}>
 				<IconLabel icon="email" extraTopSpace={true}>
 					{props.email}

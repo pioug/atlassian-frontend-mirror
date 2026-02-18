@@ -25,6 +25,7 @@
 	],
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
+		".": "./src/index.tsx",
 		"./blog": "./src/components/object/components/blog.tsx",
 		"./branch": "./src/components/object/components/branch.tsx",
 		"./bug": "./src/components/object/components/bug.tsx",

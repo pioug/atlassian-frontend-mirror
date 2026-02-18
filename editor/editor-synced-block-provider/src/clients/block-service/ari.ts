@@ -40,8 +40,10 @@ export const generateBlockAriFromReference = ({
 };
 
 /**
- * Extracts the local ID from a block ARI.
- * @param ari - the block ARI. E.G ari:cloud:blocks:cloudId:synced-block/localId
+ * Extracts the local ID from a source block ARI.
+ * Designed for source block ARIs of the form: ari:cloud:blocks:{cloudId}:synced-block/{localId}
+ * where the localId is a UUID immediately after synced-block/.
+ * @param ari - the source block ARI. E.G ari:cloud:blocks:cloudId:synced-block/79d4f3f4-51df-451b-b9a1-751bc77b1e77
  * @returns the localId of the block node. A randomly generated UUID
  */
 export const getLocalIdFromBlockResourceId = (ari: string): string => {
@@ -49,7 +51,7 @@ export const getLocalIdFromBlockResourceId = (ari: string): string => {
 	if (match?.[1]) {
 		return match[1];
 	}
-	throw new Error(`Invalid page ARI: ${ari}`);
+	throw new Error(`Invalid block ARI: ${ari}`);
 };
 
 export const getProductFromSourceAri = (ari?: string): SyncBlockProduct | undefined => {

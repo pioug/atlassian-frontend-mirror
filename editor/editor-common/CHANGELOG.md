@@ -1,5 +1,28 @@
 # @atlaskit/editor-common
 
+## 111.14.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 111.14.2
+
+### Patch Changes
+
+- [`8806992b3642c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8806992b3642c) -
+  EDITOR-5454 update synced block insert success event to use document inserted event
+- [`d1f98d87589e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d1f98d87589e6) -
+  Fix react/jsx-props-no-spreading violations by explicitly destructuring and passing props instead
+  of spreading
+- Updated dependencies
+
+## 111.14.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 111.14.0
 
 ### Minor Changes

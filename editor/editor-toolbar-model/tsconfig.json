@@ -9,6 +9,5 @@
     "examples/**/*.tsx",
     "src/**/*.ts",
     "src/**/*.tsx"
-  ],
-  "compilerOptions": {}
+  ]
 }

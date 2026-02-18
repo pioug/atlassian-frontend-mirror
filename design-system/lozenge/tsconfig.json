@@ -10,7 +10,5 @@
     "./example-helpers/**/*.ts",
     "./example-helpers/**/*.tsx",
     "./codemods/**/*.tsx",
-  ],
-  "compilerOptions": {
-  }
+  ]
 }

@@ -305,7 +305,9 @@ export const bodiedSyncBlock = createPMNodeSpecFactory<BodiedSyncBlockNode>({
 export interface BulletListDefinition {
   type: 'bulletList';
   content: Array<
-    ListItemDefinition | ListItemWithNestedDecisionStage0Definition
+    | ListItemDefinition
+    | ListItemFlexibleFirstChildStage0Definition
+    | ListItemWithNestedDecisionStage0Definition
   >;
   marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
   attrs: { localId?: string };
@@ -1169,6 +1171,36 @@ export const listItem = createPMNodeSpecFactory<ListItemNode>({
   defining: true,
 });
 
+export interface ListItemFlexibleFirstChildStage0Definition {
+  type: 'listItem';
+  content: Array<
+    | BulletListDefinition
+    | CodeBlockDefinition
+    | ExtensionWithMarksDefinition
+    | MediaSingleCaptionDefinition
+    | MediaSingleFullDefinition
+    | OrderedListDefinition
+    | ParagraphWithNoMarksDefinition
+    | TaskListDefinition
+    | UnsupportedBlockDefinition
+  >;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: { localId?: string };
+}
+
+export type ListItemFlexibleFirstChildStage0Node = PMNode &
+  ListItemFlexibleFirstChildStage0Definition;
+
+export const listItemFlexibleFirstChildStage0 =
+  createPMNodeSpecFactory<ListItemFlexibleFirstChildStage0Node>({
+    content:
+      '(paragraph | bulletList | orderedList | taskList | mediaSingle | codeBlock | unsupportedBlock | extension)+',
+    marks: 'unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+    attrs: { localId: { default: null } },
+    selectable: false,
+    defining: true,
+  });
+
 export interface ListItemWithNestedDecisionStage0Definition {
   type: 'listItem';
   content: Array<
@@ -1694,7 +1726,9 @@ export const nestedExpandWithNoMarks =
 export interface OrderedListDefinition {
   type: 'orderedList';
   content: Array<
-    ListItemDefinition | ListItemWithNestedDecisionStage0Definition
+    | ListItemDefinition
+    | ListItemFlexibleFirstChildStage0Definition
+    | ListItemWithNestedDecisionStage0Definition
   >;
   marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
   attrs: { order?: number; localId?: string };

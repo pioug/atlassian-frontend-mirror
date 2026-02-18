@@ -80,6 +80,25 @@ const listItem = adfNode('listItem')
 		],
 		noExtend: true,
 		stage0: true,
+	})
+	.variant('flexible_first_child', {
+		content: [
+			$onePlus(
+				$or(
+					paragraph.use('with_no_marks'),
+					bulletList,
+					orderedList,
+					taskList,
+					mediaSingle.use('caption'),
+					mediaSingle.use('full'),
+					codeBlock,
+					unsupportedBlock,
+					extension.use('with_marks'),
+				),
+			),
+		],
+		noExtend: true,
+		stage0: true,
 	});
 
 orderedList.define({
@@ -96,7 +115,11 @@ orderedList.define({
 		},
 		localId: { type: 'string', default: null, optional: true },
 	},
-	content: [$onePlus($or(listItem, listItem.use('with_nested_decision')))],
+	content: [
+		$onePlus(
+			$or(listItem, listItem.use('with_nested_decision'), listItem.use('flexible_first_child')),
+		),
+	],
 });
 
 bulletList.define({
@@ -104,7 +127,11 @@ bulletList.define({
 
 	marks: [unsupportedMark, unsupportedNodeAttribute],
 
-	content: [$onePlus($or(listItem, listItem.use('with_nested_decision')))],
+	content: [
+		$onePlus(
+			$or(listItem, listItem.use('with_nested_decision'), listItem.use('flexible_first_child')),
+		),
+	],
 	attrs: {
 		localId: { type: 'string', default: null, optional: true },
 	},

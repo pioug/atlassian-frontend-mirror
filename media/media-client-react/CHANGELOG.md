@@ -1,5 +1,17 @@
 # @atlaskit/media-client-react
 
+## 4.2.0
+
+### Minor Changes
+
+- [`c90ccf0c600ee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c90ccf0c600ee) -
+  Enable cross product/cross client copy and paste of Media files by including clientId during Copy
+  operations.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.1.2
 
 ### Patch Changes

@@ -6,6 +6,4 @@
     "./examples/*.tsx",
     "./example-helpers/*.ts"
   ],
-  "compilerOptions": {
-  },
 }

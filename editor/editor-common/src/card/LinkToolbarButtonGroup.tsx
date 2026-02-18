@@ -26,12 +26,8 @@ type DisallowedWrapperProps = React.HTMLAttributes<HTMLDivElement> & {
 	disabled?: boolean;
 };
 
-const DisallowedWrapper = ({ disabled: _disabled, ...props }: DisallowedWrapperProps) => {
-	// adding this ignore to avoid having to use compiled (can be fixed at a later date)
-	// @ts-ignore
-	// Ignored via go/ees005
-	// eslint-disable-next-line react/jsx-props-no-spreading
-	return <div {...props} />;
+const DisallowedWrapper = ({ disabled, children }: DisallowedWrapperProps) => {
+	return <div css={disabled ? disallowedWrapperStyle : defaultWrapperStyle}>{children}</div>;
 };
 
 /**
@@ -77,7 +73,6 @@ export const LinkToolbarButtonGroup = ({ options }: LinkToolbarButtonGroupProps)
 					const ButtonIcon = icon as (props: NewCoreIconProps) => JSX.Element;
 					return (
 						<DisallowedWrapper
-							css={disabled ? disallowedWrapperStyle : defaultWrapperStyle}
 							key={testId}
 							disabled={disabled}
 						>

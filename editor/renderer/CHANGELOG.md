@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 126.8.11
+
+### Patch Changes
+
+- [`4ba962abdce44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ba962abdce44) -
+  EDITOR-4667 - Inline Bodied Extension: Remove important from existing extension width style
+- Updated dependencies
+
 ## 126.8.10
 
 ### Patch Changes

@@ -85,6 +85,16 @@ const botCaseProfile = fakeData({
 	isBot: true,
 });
 
+const appUserProfile = fakeData({
+	fullName: 'Deploy Token',
+	meta: 'Access token (repository)',
+	nickname: null,
+	email: null,
+	location: null,
+	timestring: null,
+	customLozenges: [{ text: 'APP USER', appearance: 'default' as const, isBold: true }],
+});
+
 const actions = [
 	{
 		label: 'Foobar',
@@ -122,6 +132,7 @@ export const ErrorStateNotFound = (): React.JSX.Element => (
 export const BestCaseProfile = (): React.JSX.Element => <ProfileCard {...bestCaseProfile} />;
 export const WorstCaseProfile = (): React.JSX.Element => <ProfileCard {...worstCaseProfile} />;
 export const BotCaseProfile = (): React.JSX.Element => <ProfileCard {...botCaseProfile} />;
+export const AppUserProfile = (): React.JSX.Element => <ProfileCard {...appUserProfile} />;
 export const AlternateActions = (): React.JSX.Element => <ProfileCard {...fakeData({ actions })} />;
 
 export default function Example(): React.JSX.Element {
@@ -151,6 +162,10 @@ export default function Example(): React.JSX.Element {
 				<Section>
 					<h4>Bot case</h4>
 					<BotCaseProfile />
+				</Section>
+				<Section>
+					<h4>App user case</h4>
+					<AppUserProfile />
 				</Section>
 				<Section>
 					<h4>Alternate actions</h4>

@@ -6,7 +6,7 @@ import { z } from 'zod';
 import { cleanQuery, zodToJsonSchema } from '../../helpers';
 
 import {
-	lintRulesStructuredContent,
+	lintRulesMcpStructuredContent,
 	type LintRuleStructuredContent,
 } from './lint-rules-structured-content.codegen';
 
@@ -75,18 +75,16 @@ export const getLintRulesTool = async (
 ): Promise<CallToolResult> => {
 	const { terms = [], limit = 1, exactName = false } = params;
 	const searchTerms = terms.filter(Boolean).map(cleanQuery);
-	const ruleDocs = lintRulesStructuredContent;
+	const ruleDocs = lintRulesMcpStructuredContent;
 
-	// If no search terms provided, return all rules formatted as Markdown
+	// If no search terms provided, return all rules as JSON array
 	if (searchTerms.length === 0) {
-		const allRulesMarkdown = ruleDocs
-			.map((rule: LintRuleStructuredContent) => rule.content)
-			.join('\n\n');
+		const payload = ruleDocs.map((rule: LintRuleStructuredContent) => rule.content);
 		return {
 			content: [
 				{
 					type: 'text',
-					text: allRulesMarkdown,
+					text: JSON.stringify(payload),
 				},
 			],
 		};
@@ -102,14 +100,15 @@ export const getLintRulesTool = async (
 			})
 			.filter((rule): rule is LintRuleStructuredContent => rule !== undefined);
 
-		const formattedRules = exactNameMatches
-			.map((rule: LintRuleStructuredContent) => rule.content)
-			.join('\n\n');
+		const payload =
+			exactNameMatches.length === 1
+				? exactNameMatches[0].content
+				: exactNameMatches.map((rule: LintRuleStructuredContent) => rule.content);
 		return {
 			content: [
 				{
 					type: 'text',
-					text: formattedRules,
+					text: JSON.stringify(payload),
 				},
 			],
 		};
@@ -158,15 +157,16 @@ export const getLintRulesTool = async (
 	});
 
 	const matchedRules = uniqueResults.map((result) => result.item as LintRuleStructuredContent);
-	const formattedRules = matchedRules
-		.map((rule: LintRuleStructuredContent) => rule.content)
-		.join('\n\n');
+	const payload =
+		matchedRules.length === 1
+			? matchedRules[0].content
+			: matchedRules.map((rule: LintRuleStructuredContent) => rule.content);
 
 	return {
 		content: [
 			{
 				type: 'text',
-				text: formattedRules,
+				text: JSON.stringify(payload),
 			},
 		],
 	};

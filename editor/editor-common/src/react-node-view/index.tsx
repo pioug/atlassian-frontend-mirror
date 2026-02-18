@@ -47,7 +47,8 @@ export { getInlineNodeViewProducer, inlineNodeViewClassname } from './getInlineN
 export default class ReactNodeView<P = ReactComponentProps> implements NodeView {
 	private domRef?: HTMLElement;
 	private contentDOMWrapper?: Node;
-	// Ignored via go/ees005
+	// Spreading props to pass through dynamic component props
+			// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private reactComponent?: React.ComponentType<React.PropsWithChildren<any>>;
 	private portalProviderAPI: PortalProviderAPI;
@@ -71,7 +72,8 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 		portalProviderAPI: PortalProviderAPI,
 		eventDispatcher: EventDispatcher,
 		reactComponentProps?: P,
-		// Ignored via go/ees005
+		// Spreading props to pass through dynamic component props
+			// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		reactComponent?: React.ComponentType<React.PropsWithChildren<any>>,
 		viewShouldUpdate?: shouldUpdate,
@@ -136,7 +138,8 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 		return this;
 	}
 
-	// Ignored via go/ees005
+	// Spreading props to pass through dynamic component props
+			// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private renderReactComponent(component: () => React.ReactElement<any> | null) {
 		if (!this.domRef || !component) {
@@ -157,6 +160,7 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 
 		this.portalProviderAPI.render(
 			componentWithErrorBoundary,
+			// Spreading props to pass through dynamic component props
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			this.domRef!,
@@ -184,7 +188,8 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 	private _handleRef(node: HTMLElement | null) {
 		const contentDOM = this.contentDOMWrapper || this.contentDOM;
 		// @ts-ignore
-		// Ignored via go/ees005
+		// Spreading props to pass through dynamic component props
+			// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		let oldIgnoreMutation: any;
 		let selectionBookmark: SelectionBookmark;
@@ -236,7 +241,8 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 		}
 	}
 
-	// Ignored via go/ees005
+	// Spreading props to pass through dynamic component props
+			// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	render(props: P, forwardRef?: ForwardRef): React.ReactElement<any> | null {
 		return this.reactComponent ? (
@@ -245,8 +251,7 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 				getPos={this.getPos}
 				node={this.node}
 				forwardRef={forwardRef}
-				// Ignored via go/ees005
-				// eslint-disable-next-line react/jsx-props-no-spreading
+				// eslint-disable-next-line react/jsx-props-no-spreading -- Spreading props to pass through dynamic component props
 				{...props}
 			/>
 		) : null;
@@ -305,7 +310,8 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 	}
 
 	get dom() {
-		// Ignored via go/ees005
+		// Spreading props to pass through dynamic component props
+			// Ignored via go/ees005
 		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		return this.domRef as HTMLElement;
 	}
@@ -330,7 +336,8 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 	};
 
 	static fromComponent(
-		// Ignored via go/ees005
+		// Spreading props to pass through dynamic component props
+			// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		component: React.ComponentType<React.PropsWithChildren<any>>,
 		portalProviderAPI: PortalProviderAPI,

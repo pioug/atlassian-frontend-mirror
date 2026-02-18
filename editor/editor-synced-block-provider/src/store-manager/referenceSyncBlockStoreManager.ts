@@ -19,7 +19,7 @@ import {
 import type {
 	SyncBlockInstance,
 	SubscriptionCallback,
-	SyncBlockDataProvider,
+	SyncBlockDataProviderInterface,
 	TitleSubscriptionCallback,
 	SyncBlockRendererProviderCreator,
 	SyncBlockSourceInfo,
@@ -48,7 +48,7 @@ const SESSION_STORAGE_KEY_PREFIX = 'sync-block-data-';
 // Handles fetching source URL and title for sync blocks.
 // Can be used in both editor and renderer contexts.
 export class ReferenceSyncBlockStoreManager {
-	private dataProvider?: SyncBlockDataProvider;
+	private dataProvider?: SyncBlockDataProviderInterface;
 	// Keeps track of addition and deletion of reference synced blocks on the document
 	// This starts as true to always flush the cache when document is saved for the first time
 	// to cater the case when a editor session is closed without document being updated right after reference block is deleted
@@ -119,7 +119,7 @@ export class ReferenceSyncBlockStoreManager {
 		});
 	});
 
-	constructor(dataProvider?: SyncBlockDataProvider) {
+	constructor(dataProvider?: SyncBlockDataProviderInterface) {
 		this.subscriptions = new Map();
 		this.titleSubscriptions = new Map();
 		this.dataProvider = dataProvider;
@@ -1142,7 +1142,7 @@ export class ReferenceSyncBlockStoreManager {
 		);
 
 		if (!parentInfo) {
-			throw new Error('Unable to retrive sync block parent info');
+			throw new Error('Unable to retrieve sync block parent info');
 		}
 
 		const { contentId, contentProduct } = parentInfo;
@@ -1330,7 +1330,6 @@ export class ReferenceSyncBlockStoreManager {
 		this.titleSubscriptions.clear();
 		this.syncBlockFetchDataRequests.clear();
 		this.syncBlockSourceInfoRequests.clear();
-		this.providerFactories.clear();
 		this.isRefreshingSubscriptions = false;
 		this.useRealTimeSubscriptions = false;
 		this.subscriptionChangeListeners.clear();

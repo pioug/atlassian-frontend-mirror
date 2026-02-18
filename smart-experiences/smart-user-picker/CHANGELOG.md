@@ -1,5 +1,13 @@
 # @atlassian/smart-user-picker
 
+## 9.0.0
+
+### Major Changes
+
+- [`fe65ecbc97c01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe65ecbc97c01) -
+  Filter team results to directory-synced teams only, so only supported teams can be selected and
+  unsynced teams do not cause errors.
+
 ## 8.9.3
 
 ### Patch Changes

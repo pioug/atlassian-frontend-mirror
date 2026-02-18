@@ -6,9 +6,9 @@ import { z } from 'zod';
 import { cleanQuery, zodToJsonSchema } from '../../helpers';
 
 import {
-	iconStructuredContent,
+	iconMcpStructuredContent,
 	type IconStructuredContent,
-} from './icon-structured-content.codegen';
+} from './icon-mcp-structured-content.codegen';
 
 export const getIconsInputSchema: z.ZodObject<
 	{
@@ -97,20 +97,18 @@ export const getIconsTool = async (
 ): Promise<CallToolResult> => {
 	const { terms = [], limit = 1, exactName = false } = params;
 	const searchTerms = terms.filter(Boolean).map(cleanQuery);
-	const iconDocs = iconStructuredContent.filter(
+	const iconDocs = iconMcpStructuredContent.filter(
 		(icon: IconStructuredContent) => icon.status === 'published',
 	);
 
-	// If no search terms provided, return all icons formatted as Markdown
+	// If no search terms provided, return all icons as JSON array
 	if (searchTerms.length === 0) {
-		const allIconsMarkdown = iconDocs
-			.map((icon: IconStructuredContent) => icon.content)
-			.join('\n\n');
+		const payload = iconDocs.map((icon: IconStructuredContent) => icon.content);
 		return {
 			content: [
 				{
 					type: 'text',
-					text: allIconsMarkdown,
+					text: JSON.stringify(payload),
 				},
 			],
 		};
@@ -128,14 +126,15 @@ export const getIconsTool = async (
 			.filter((icon): icon is IconStructuredContent => icon !== undefined);
 
 		// Return exact matches if found, or empty result if exactName is true
-		const formattedIcons = exactNameMatches
-			.map((icon: IconStructuredContent) => icon.content)
-			.join('\n\n');
+		const payload =
+			exactNameMatches.length === 1
+				? exactNameMatches[0].content
+				: exactNameMatches.map((icon: IconStructuredContent) => icon.content);
 		return {
 			content: [
 				{
 					type: 'text',
-					text: formattedIcons,
+					text: JSON.stringify(payload),
 				},
 			],
 		};
@@ -194,15 +193,16 @@ export const getIconsTool = async (
 	});
 
 	const matchedIcons = uniqueResults.map((result) => result.item as IconStructuredContent);
-	const formattedIcons = matchedIcons
-		.map((icon: IconStructuredContent) => icon.content)
-		.join('\n\n');
+	const payload =
+		matchedIcons.length === 1
+			? matchedIcons[0].content
+			: matchedIcons.map((icon: IconStructuredContent) => icon.content);
 
 	return {
 		content: [
 			{
 				type: 'text',
-				text: formattedIcons,
+				text: JSON.stringify(payload),
 			},
 		],
 	};

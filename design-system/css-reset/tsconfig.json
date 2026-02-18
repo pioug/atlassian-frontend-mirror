@@ -7,8 +7,6 @@
     "./docs/**/*.tsx",
     "./examples/**/*.tsx"
   ],
-  "compilerOptions": {
-  },
   // Most ts-node options can be specified here using their programmatic names.
   "ts-node": {
     // It is faster to skip typechecking.

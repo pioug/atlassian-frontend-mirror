@@ -71,3 +71,19 @@ export const ProfileCardExampleWithoutReportingLines = (): React.JSX.Element => 
 		onReportingLinesClick={() => {}}
 	/>
 );
+
+export const ProfileCardExampleWithMetaAndLozenges = (): React.JSX.Element => (
+	<ProfileCard
+		avatarUrl={avatarImage}
+		fullName="Deploy Token"
+		meta="Access token (repository)"
+		customLozenges={[{ text: 'APP USER', appearance: 'default', isBold: true }]}
+		actions={[
+			{
+				label: 'View profile',
+				id: 'view-profile',
+				callback: () => {},
+			},
+		]}
+	/>
+);

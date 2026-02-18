@@ -284,7 +284,13 @@ export const bulletList = {
     },
     content: {
       type: 'array',
-      items: [['listItem', 'listItem_with_nested_decision']],
+      items: [
+        [
+          'listItem',
+          'listItem_with_nested_decision',
+          'listItem_flexible_first_child',
+        ],
+      ],
       minItems: 1,
     },
   },
@@ -869,6 +875,31 @@ export const listItem = {
   },
 };
 
+export const listItem_flexible_first_child = [
+  'listItem',
+  {
+    props: {
+      content: {
+        type: 'array',
+        items: [
+          [
+            'paragraph_with_no_marks',
+            'bulletList',
+            'orderedList',
+            'taskList',
+            'mediaSingle_caption',
+            'mediaSingle_full',
+            'codeBlock',
+            'extension_with_marks',
+          ],
+        ],
+        minItems: 1,
+        allowUnsupportedBlock: true,
+      },
+    },
+  },
+];
+
 export const listItem_with_nested_decision = [
   'listItem',
   {
@@ -1193,7 +1224,13 @@ export const orderedList = {
     },
     content: {
       type: 'array',
-      items: [['listItem', 'listItem_with_nested_decision']],
+      items: [
+        [
+          'listItem',
+          'listItem_with_nested_decision',
+          'listItem_flexible_first_child',
+        ],
+      ],
       minItems: 1,
     },
   },

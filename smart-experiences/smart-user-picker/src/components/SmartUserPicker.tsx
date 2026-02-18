@@ -241,6 +241,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 			restrictTo,
 			searchQueryFilter,
 			siteId,
+			isTeamSyncedToGroupDirectoryFilter,
 			transformOptions,
 			userResolvers,
 			enableEmailSearch,
@@ -288,6 +289,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 					? '(NOT not_mentionable:true) AND (account_status:active) AND (NOT account_type:app)'
 					: searchQueryFilter,
 			...(restrictTo && fg('smart-user-picker-restrict-to-gate') && { restrictTo }),
+			...(isTeamSyncedToGroupDirectoryFilter === true && { isTeamSyncedToGroupDirectoryFilter: true }),
 		};
 		try {
 			const { query } = this.state;

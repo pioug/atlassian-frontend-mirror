@@ -23,7 +23,7 @@ import {
 	isMediaBlobUrl,
 } from '@atlaskit/media-client';
 import { getMediaClient } from '@atlaskit/media-client-react';
-import type { MediaTraceContext } from '@atlaskit/media-common';
+import { type MediaTraceContext, getClientIdForFile } from '@atlaskit/media-common';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
@@ -151,7 +151,7 @@ export class MediaNodeUpdater {
 			if (fileState.status === 'error') {
 				return;
 			}
-		} catch (err) {
+		} catch {
 			return;
 		}
 
@@ -242,7 +242,7 @@ export class MediaNodeUpdater {
 					width: dimensions.width,
 					occurrenceKey: uploadableFileUpfrontIds.occurrenceKey,
 				})(this.props.view.state, this.props.view.dispatch);
-			} catch (e) {
+			} catch {
 				//keep it as external media
 				if (this.props.dispatchAnalyticsEvent) {
 					this.props.dispatchAnalyticsEvent({
@@ -381,7 +381,7 @@ export class MediaNodeUpdater {
 		if (this.isMediaBlobUrl()) {
 			try {
 				await this.copyNodeFromBlobUrl(getPos);
-			} catch (e) {
+			} catch {
 				await this.uploadExternalMedia(getPos);
 			}
 		} else {
@@ -434,7 +434,7 @@ export class MediaNodeUpdater {
 			return;
 		}
 		const currentCollectionName = mediaProvider.uploadParams.collection;
-		const { contextId, id, collection, height, width, mimeType, name, size } = mediaAttrs;
+		const { contextId, clientId, id, collection, height, width, mimeType, name, size } = mediaAttrs;
 		const uploadMediaClientConfig = mediaProvider.uploadMediaClientConfig;
 		if (!uploadMediaClientConfig || !uploadMediaClientConfig.getAuthFromContext) {
 			return;
@@ -448,6 +448,7 @@ export class MediaNodeUpdater {
 				id,
 				collection,
 				authProvider: () => getAuthFromContext(contextId),
+				clientId: fg('platform_media_cross_client_copy_with_auth') ? clientId : undefined,
 			},
 			destination: {
 				collection: currentCollectionName,
@@ -525,6 +526,7 @@ export class MediaNodeUpdater {
 		}
 
 		const mediaClient = getMediaClient(uploadMediaClientConfig);
+		const clientId = fg('platform_media_cross_client_copy_with_auth') ? getClientIdForFile(id) : undefined;
 
 		const currentCollectionName = mediaProvider.uploadParams.collection;
 		const objectId = await this.getObjectId();
@@ -537,6 +539,7 @@ export class MediaNodeUpdater {
 				id,
 				collection,
 				authProvider: () => getAuthFromContext(nodeContextId),
+				clientId,
 			},
 			destination: {
 				collection: currentCollectionName,

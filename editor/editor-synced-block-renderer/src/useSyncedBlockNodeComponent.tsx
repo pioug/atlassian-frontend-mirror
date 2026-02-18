@@ -8,7 +8,6 @@ import type { JSONNode } from '@atlaskit/editor-json-transformer';
 import {
 	convertSyncBlockJSONNodeToSyncBlockNode,
 	useMemoizedSyncBlockStoreManager,
-	type SyncBlockDataProvider,
 	type SyncBlockNode,
 	type SyncedBlockProvider,
 	type SyncBlockPrefetchData,
@@ -47,7 +46,7 @@ export const useMemoizedSyncedBlockNodeComponent = ({
 	getPrefetchedData,
 }: GetSyncedBlockNodeComponentProps): ((props: SyncedBlockNodeProps) => React.JSX.Element) => {
 	const syncBlockStoreManager = useMemoizedSyncBlockStoreManager(
-		syncBlockProvider as SyncBlockDataProvider,
+		syncBlockProvider,
 		fireAnalyticsEvent,
 	);
 

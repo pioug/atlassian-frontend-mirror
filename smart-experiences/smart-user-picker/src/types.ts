@@ -39,6 +39,12 @@ export interface RecommendationRequest {
 	searchEmail?: boolean;
 	verifiedTeams?: boolean;
 	restrictTo?: RestrictionFilter;
+	/**
+	 * When true, URS returns only userbase-aligned teams (teams synced to Identity).
+	 * Confluence uses this for teams-as-principals to avoid errors when users select teams
+	 * that are not yet mirrored to Identity (e.g. old org-scoped teams in NonVortex orgs).
+	 */
+	isTeamSyncedToGroupDirectoryFilter?: boolean;
 }
 
 type OnError = (error: any, request: RecommendationRequest) => Promise<OptionData[]> | void;
@@ -282,6 +288,12 @@ export interface SmartProps {
 	 * @example { userIds: ["123", "456"], groupIds: ["789"] }
 	 */
 	restrictTo?: RestrictionFilter;
+	/**
+	 * When true, URS returns only userbase-aligned teams (teams synced to Identity).
+	 * Confluence uses this for teams-as-principals to avoid errors when users select teams
+	 * that are not yet mirrored to Identity (e.g. old org-scoped teams in NonVortex orgs).
+	 */
+	isTeamSyncedToGroupDirectoryFilter?: boolean;
 }
 
 // Override UserPickerProps below with replacement documentation

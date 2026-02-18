@@ -31,7 +31,7 @@ export const fetchWithRetry = async (
 
 	const retryAfter = response.headers.get('Retry-After');
 	await new Promise((resolve) =>
-		setTimeout(resolve, retryAfter ? parseRetryAfter(retryAfter) : delay),
+		setTimeout(resolve, (retryAfter ? parseRetryAfter(retryAfter) : undefined) ?? delay),
 	);
 
 	return fetchWithRetry(url, options, retriesRemaining - 1, delay * 2);

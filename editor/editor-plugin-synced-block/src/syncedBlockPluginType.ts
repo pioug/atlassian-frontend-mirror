@@ -19,7 +19,7 @@ import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type {
-	SyncBlockDataProvider,
+	SyncBlockDataProviderInterface,
 	UseFetchSyncBlockDataResult,
 } from '@atlaskit/editor-synced-block-provider';
 
@@ -61,7 +61,7 @@ export type SyncedBlockRendererProps = {
 
 export interface SyncedBlockPluginOptions extends LongPressSelectionPluginOptions {
 	enableSourceCreation?: boolean;
-	syncBlockDataProvider: SyncBlockDataProvider;
+	syncBlockDataProvider: SyncBlockDataProviderInterface;
 	syncedBlockRenderer: (props: SyncedBlockRendererProps) => React.JSX.Element;
 }
 

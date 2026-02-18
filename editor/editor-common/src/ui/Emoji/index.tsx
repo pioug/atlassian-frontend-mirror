@@ -65,10 +65,30 @@ const EmojiNodeFunctional = (props: EmojiProps) => {
 	);
 };
 
-const EmojiNode = (props: EmojiProps): React.JSX.Element => {
-	// Ignored via go/ees005
-	// eslint-disable-next-line react/jsx-props-no-spreading
-	return <EmojiNodeFunctional {...props} />;
+const EmojiNode = ({
+	allowTextFallback,
+	shortName,
+	id,
+	fallback,
+	fitToHeight,
+	showTooltip,
+	resourceConfig,
+	emojiProvider,
+	providers,
+}: EmojiProps): React.JSX.Element => {
+	return (
+		<EmojiNodeFunctional
+			allowTextFallback={allowTextFallback}
+			shortName={shortName}
+			id={id}
+			fallback={fallback}
+			fitToHeight={fitToHeight}
+			showTooltip={showTooltip}
+			resourceConfig={resourceConfig}
+			emojiProvider={emojiProvider}
+			providers={providers}
+		/>
+	);
 };
 
 export default React.memo(EmojiNode);

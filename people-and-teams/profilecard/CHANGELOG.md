@@ -1,5 +1,25 @@
 # @atlaskit/profilecard
 
+## 24.36.0
+
+### Minor Changes
+
+- [`ebdb0137330d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ebdb0137330d9) -
+  Support REMOTE_A2A agent exposing isForgeAgentByCreatorType to public repo and deprecating
+  isForgeAgent from private repo
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.35.2
+
+### Patch Changes
+
+- [`407b3926e2eb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/407b3926e2eb2) -
+  Fix spacing on ProfileCardDetails to only add extra padding on custom lozenges when both meta and
+  lozenges are present, avoiding unintended layout shifts on cards without lozenges.
+
 ## 24.35.1
 
 ### Patch Changes

@@ -478,9 +478,29 @@ const rendererFullPageStylesWithReducedPadding = css({
 	},
 });
 
+const oldRendererFullWidthStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+	maxWidth: `${akEditorFullWidthLayoutWidth}px`,
+	margin: `0 auto`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'.fabric-editor-breakout-mark:not([data-has-width="true"]), .ak-renderer-extension': {
+		width: '100% !important',
+	},
+});
+
 const rendererFullWidthStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 	maxWidth: `${akEditorFullWidthLayoutWidth}px`,
+	margin: `0 auto`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'.fabric-editor-breakout-mark:not([data-has-width="true"])': {
+		width: '100% !important',
+	},
+});
+
+const oldRendererMaxWidthStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+	maxWidth: `${akEditorMaxWidthLayoutWidth}px`,
 	margin: `0 auto`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'.fabric-editor-breakout-mark:not([data-has-width="true"]), .ak-renderer-extension': {
@@ -493,7 +513,7 @@ const rendererMaxWidthStyles = css({
 	maxWidth: `${akEditorMaxWidthLayoutWidth}px`,
 	margin: `0 auto`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'.fabric-editor-breakout-mark:not([data-has-width="true"]), .ak-renderer-extension': {
+	'.fabric-editor-breakout-mark:not([data-has-width="true"])': {
 		width: '100% !important',
 	},
 });
@@ -1078,7 +1098,7 @@ const extensionStyle = css({
 		},
 });
 
-const extensionAsInlineStyle = css({
+const oldExtensionAsInlineStyle = css({
 	[`.${RendererCssClassName.DOCUMENT} [data-as-inline="on"]`]: {
 		display: 'inline-block',
 	},
@@ -1087,6 +1107,27 @@ const extensionAsInlineStyle = css({
 		// use !important here because the current width has !important applied to it and it's not working when used in React style prop
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 		width: 'auto !important',
+		marginTop: 0,
+	},
+	[`.${RendererCssClassName.EXTENSION_AS_INLINE} .${RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER}`]:
+		{
+			display: 'inline-block',
+			overflowX: 'visible',
+			containerType: 'normal',
+		},
+	[`.${RendererCssClassName.EXTENSION_AS_INLINE} div, .${RendererCssClassName.EXTENSION_AS_INLINE} p`]:
+		{
+			display: 'inline-block',
+		},
+});
+
+const extensionAsInlineStyle = css({
+	[`.${RendererCssClassName.DOCUMENT} [data-as-inline="on"]`]: {
+		display: 'inline-block',
+	},
+	[`.${RendererCssClassName.DOCUMENT} .${RendererCssClassName.EXTENSION_AS_INLINE}`]: {
+		display: 'inline-block',
+		width: 'auto',
 		marginTop: 0,
 	},
 	[`.${RendererCssClassName.EXTENSION_AS_INLINE} .${RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER}`]:
@@ -2736,9 +2777,9 @@ const syncBlockOverflowStyles = css({
 
 const syncBlockPatch2Styles = css({
 	[`.${SyncBlockSharedCssClassName.renderer}, .${BodiedSyncBlockSharedCssClassName.renderer}, .${SyncBlockSharedCssClassName.error}, .${SyncBlockSharedCssClassName.loading}`]:
-	{
-		overflow: 'visible',
-	}
+		{
+			overflow: 'visible',
+		},
 });
 
 type RendererStyleContainerProps = Pick<
@@ -2829,7 +2870,10 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 					isPreviewPanelResponsivenessOn &&
 					rendererFullPageStylesWithReducedPadding,
 				appearance === 'full-page' && !isPreviewPanelResponsivenessOn && rendererFullPageStyles,
-				appearance === 'full-width' && rendererFullWidthStyles,
+				appearance === 'full-width' &&
+					(expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
+						? rendererFullWidthStyles
+						: oldRendererFullWidthStyles),
 				(appearance === 'full-width' ||
 					(appearance === 'max' &&
 						(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
@@ -2839,7 +2883,9 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				appearance === 'max' &&
 					(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
 						expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)) &&
-					rendererMaxWidthStyles,
+					(expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
+						? rendererMaxWidthStyles
+						: oldRendererMaxWidthStyles),
 				rovoTelepointerStyles,
 				whitespaceSharedStyles,
 				blockquoteSharedStyles,
@@ -2856,8 +2902,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 						? paragraphStylesUGCScaledMargin
 						: paragraphSharedStylesWithEditorUGC
 					: isCompactModeSupported
-					? paragraphSharedStyleScaledMargin
-					: paragraphSharedStyles,
+						? paragraphSharedStyleScaledMargin
+						: paragraphSharedStyles,
 				listsSharedStyles,
 				browser.gecko && listsSharedStylesForGekko,
 				indentationSharedStyles,
@@ -2888,7 +2934,9 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 					: baseOtherStylesDuplicateAnchor,
 				// this should be placed after baseOtherStyles
 				expValEquals('platform_editor_render_bodied_extension_as_inline', 'isEnabled', true) &&
-					extensionAsInlineStyle,
+					(expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
+						? extensionAsInlineStyle
+						: oldExtensionAsInlineStyle),
 				expValEquals('confluence_insert_excerpt_inline_vertical_align', 'isEnabled', true) &&
 					inlineExtensionRendererMarginFix,
 				allowNestedHeaderLinks &&
@@ -2937,11 +2985,13 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 						? scaledDenseEmojiStyles
 						: scaledEmojiStyles
 					: isCompactModeEnabled
-					? denseStyles
-					: undefined,
+						? denseStyles
+						: undefined,
 				editorExperiment('platform_synced_block', true) && syncBlockStyles,
 				editorExperiment('platform_synced_block', true) && syncBlockOverflowStyles,
-                editorExperiment('platform_synced_block', true) && fg('platform_synced_block_patch_2') && syncBlockPatch2Styles,
+				editorExperiment('platform_synced_block', true) &&
+					fg('platform_synced_block_patch_2') &&
+					syncBlockPatch2Styles,
 			]}
 			data-testid={testId}
 		>

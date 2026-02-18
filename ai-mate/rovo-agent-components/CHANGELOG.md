@@ -1,5 +1,17 @@
 # @atlaskit/rovo-agent-components
 
+## 3.33.0
+
+### Minor Changes
+
+- [`ebdb0137330d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ebdb0137330d9) -
+  Support REMOTE_A2A agent exposing isForgeAgentByCreatorType to public repo and deprecating
+  isForgeAgent from private repo
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.32.5
 
 ### Patch Changes

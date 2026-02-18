@@ -22,6 +22,7 @@ import { useMultiBodiedExtensionActions } from './multiBodiedExtension/actions';
 import { useMultiBodiedExtensionContext } from './multiBodiedExtension/context';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { calcBreakoutWidthCss } from '../utils/breakout';
+import type { RendererAppearance } from '../../ui/Renderer/types';
 
 type Props = React.PropsWithChildren<{
 	// Ignored via go/ees005
@@ -41,6 +42,7 @@ type Props = React.PropsWithChildren<{
 	parameters?: any;
 	path?: PMNode[];
 	providers: ProviderFactory;
+	rendererAppearance?: RendererAppearance;
 	rendererContext: RendererContext;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -67,17 +69,26 @@ const MultiBodiedExtensionWrapperLegacy = ({
 	width,
 	path,
 	layout,
+	rendererAppearance,
 	children,
 }: React.PropsWithChildren<{
 	layout: ExtensionLayout;
 	path: PMNode[];
+	rendererAppearance?: RendererAppearance;
 	width: number;
 }>) => {
 	const isTopLevel = path.length < 1;
-	const centerAlignClass =
-		isTopLevel && ['wide', 'full-width'].includes(layout)
-			? RendererCssClassName.EXTENSION_CENTER_ALIGN
-			: '';
+	// we should only use custom layout for full-page appearance
+	const canUseCustomLayout = expValEquals(
+		'platform_editor_remove_important_in_render_ext',
+		'isEnabled',
+		true,
+	)
+		? rendererAppearance === 'full-page'
+		: true;
+	const isCustomLayout =
+		isTopLevel && ['wide', 'full-width'].includes(layout) && canUseCustomLayout;
+	const centerAlignClass = isCustomLayout ? RendererCssClassName.EXTENSION_CENTER_ALIGN : '';
 
 	// This hierarchy is copied from regular extension (see extension.tsx)
 	return (
@@ -85,8 +96,16 @@ const MultiBodiedExtensionWrapperLegacy = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={`${RendererCssClassName.EXTENSION} ${centerAlignClass}`}
 			style={{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-				width: isTopLevel ? calcBreakoutWidth(layout, width) : '100%',
+				width: (
+					expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
+						? isCustomLayout
+						: isTopLevel
+				)
+					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						calcBreakoutWidth(layout, width)
+					: expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
+						? undefined
+						: '100%',
 			}}
 			data-layout={layout}
 			data-testid="multiBodiedExtension--wrapper-renderer"
@@ -104,16 +123,25 @@ const MultiBodiedExtensionWrapperLegacy = ({
 const MultiBodiedExtensionWrapperNext = ({
 	path,
 	layout,
+	rendererAppearance,
 	children,
 }: React.PropsWithChildren<{
 	layout: ExtensionLayout;
 	path: PMNode[];
+	rendererAppearance?: RendererAppearance;
 }>) => {
 	const isTopLevel = path.length < 1;
-	const centerAlignClass =
-		isTopLevel && ['wide', 'full-width'].includes(layout)
-			? RendererCssClassName.EXTENSION_CENTER_ALIGN
-			: '';
+	// we should only use custom layout for full-page appearance
+	const canUseCustomLayout = expValEquals(
+		'platform_editor_remove_important_in_render_ext',
+		'isEnabled',
+		true,
+	)
+		? rendererAppearance === 'full-page'
+		: true;
+	const isCustomLayout =
+		isTopLevel && ['wide', 'full-width'].includes(layout) && canUseCustomLayout;
+	const centerAlignClass = isCustomLayout ? RendererCssClassName.EXTENSION_CENTER_ALIGN : '';
 
 	// This hierarchy is copied from regular extension (see extension.tsx)
 	return (
@@ -121,10 +149,16 @@ const MultiBodiedExtensionWrapperNext = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={`${RendererCssClassName.EXTENSION} ${centerAlignClass}`}
 			style={{
-				width: isTopLevel
+				width: (
+					expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
+						? isCustomLayout
+						: isTopLevel
+				)
 					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						calcBreakoutWidthCss(layout)
-					: '100%',
+					: expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
+						? undefined
+						: '100%',
 			}}
 			data-layout={layout}
 			data-testid="multiBodiedExtension--wrapper-renderer"
@@ -150,6 +184,7 @@ const MultiBodiedExtension = (props: Props) => {
 		content,
 		marks,
 		localId,
+		rendererAppearance,
 	} = props;
 	const [activeChildIndex, setActiveChildIndex] = useState<number>(0);
 	const { loading, extensionContext } = useMultiBodiedExtensionContext({
@@ -229,7 +264,11 @@ const MultiBodiedExtension = (props: Props) => {
 				data-local-id={localId}
 				data-node-type="multiBodiedExtension"
 			>
-				<MultiBodiedExtensionWrapperNext layout={layout} path={path}>
+				<MultiBodiedExtensionWrapperNext
+					layout={layout}
+					path={path}
+					rendererAppearance={rendererAppearance}
+				>
 					{renderContent()}
 				</MultiBodiedExtensionWrapperNext>
 			</section>
@@ -247,7 +286,12 @@ const MultiBodiedExtension = (props: Props) => {
 		>
 			<WidthConsumer>
 				{({ width }) => (
-					<MultiBodiedExtensionWrapperLegacy layout={layout} width={width} path={path}>
+					<MultiBodiedExtensionWrapperLegacy
+						layout={layout}
+						width={width}
+						path={path}
+						rendererAppearance={rendererAppearance}
+					>
 						{renderContent()}
 					</MultiBodiedExtensionWrapperLegacy>
 				)}

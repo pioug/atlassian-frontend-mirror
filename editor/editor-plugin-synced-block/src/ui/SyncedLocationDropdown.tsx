@@ -17,11 +17,12 @@ import {
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
-import type {
-	SyncBlockSourceInfo,
-	SyncBlockStoreManager,
-	ReferencesSourceInfo,
-	SyncBlockProduct,
+import {
+	type SyncBlockSourceInfo,
+	type SyncBlockStoreManager,
+	type ReferencesSourceInfo,
+	type SyncBlockProduct,
+	getPageIdAndTypeFromConfluencePageAri,
 } from '@atlaskit/editor-synced-block-provider';
 import { IconTile } from '@atlaskit/icon';
 import PageLiveDocIcon from '@atlaskit/icon-lab/core/page-live-doc';
@@ -31,6 +32,7 @@ import QuotationMarkIcon from '@atlaskit/icon/core/quotation-mark';
 import StatusErrorIcon from '@atlaskit/icon/core/status-error';
 import { ConfluenceIcon, JiraIcon, AtlassianIcon } from '@atlaskit/logo';
 import Lozenge from '@atlaskit/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text, Inline, Anchor, Stack } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
@@ -200,14 +202,29 @@ const subTypeIconMap = {
 	blogpost: QuotationMarkIcon,
 };
 
-const getConfluenceSubTypeIcon = (subType?: string | null) => {
+const subTypeIconMapNew = {
+	live: PageLiveDocIcon,
+	page: PageIcon,
+};
+
+const getConfluenceSubTypeIcon = (sourceAri: string, subType?: string | null) => {
+	if (fg('platform_synced_block_patch_3')) {
+		const { type: pageType } = getPageIdAndTypeFromConfluencePageAri({ ari: sourceAri });
+		if (pageType === 'blogpost') {
+			return QuotationMarkIcon;
+		} else {
+			return subType && subType in subTypeIconMapNew
+				? subTypeIconMapNew[subType as keyof typeof subTypeIconMapNew]
+				: PageIcon;
+		}
+	}
 	return subType && subType in subTypeIconMap
 		? subTypeIconMap[subType as keyof typeof subTypeIconMap]
 		: PageIcon;
 };
 
 const ProductIcon = ({ product }: { product?: SyncBlockProduct }) => {
-	const ProductIcon = product ? productIconMap[product] ?? AtlassianIcon : AtlassianIcon;
+	const ProductIcon = product ? (productIconMap[product] ?? AtlassianIcon) : AtlassianIcon;
 
 	return (
 		<span css={logoTileStyles}>
@@ -217,12 +234,12 @@ const ProductIcon = ({ product }: { product?: SyncBlockProduct }) => {
 };
 
 const ItemIcon = ({ reference }: { reference: SyncBlockSourceInfo }) => {
-	const { hasAccess, subType, productType } = reference;
+	const { hasAccess, subType, productType, sourceAri } = reference;
 
 	if (productType === 'confluence-page' && hasAccess) {
 		return (
 			<IconTile
-				icon={getConfluenceSubTypeIcon(subType)}
+				icon={getConfluenceSubTypeIcon(sourceAri, subType)}
 				label=""
 				appearance={'gray'}
 				size="xsmall"

@@ -19,6 +19,7 @@ const createMediaBlobUrlAttrsObject = ({
 	id: identifier.id,
 	contextId: 'some-context',
 	collection: identifier.collectionName,
+	clientId: 'some-client-id',
 	size: 123456,
 	name: fileItem.details.name,
 	mimeType: fileItem.details.mimeType,

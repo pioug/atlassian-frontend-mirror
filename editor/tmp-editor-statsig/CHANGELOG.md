@@ -1,5 +1,19 @@
 # @atlaskit/editor-statsig-tmp
 
+## 25.4.0
+
+### Minor Changes
+
+- [`4ba962abdce44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ba962abdce44) -
+  EDITOR-4667 - Inline Bodied Extension: Remove important from existing extension width style
+
+## 25.3.0
+
+### Minor Changes
+
+- [`51e44e38ee9cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51e44e38ee9cf) -
+  Fix case where insert-after command crashes during streaming
+
 ## 25.2.0
 
 ### Minor Changes

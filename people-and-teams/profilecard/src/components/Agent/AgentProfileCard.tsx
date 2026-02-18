@@ -9,9 +9,16 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Stack, Text } from '@atlaskit/primitives/compiled';
 import { AgentBanner } from '@atlaskit/rovo-agent-components/ui/agent-avatar/GeneratedAvatar';
 import { AgentStarCount } from '@atlaskit/rovo-agent-components/ui/agent-profile-info/AgentStarCount';
-import { AgentAvatar } from '@atlaskit/rovo-agent-components/ui/AgentAvatar';
+import {
+	AgentAvatar,
+	type AgentCreatorType,
+	isForgeAgentByCreatorType,
+} from '@atlaskit/rovo-agent-components/ui/AgentAvatar';
 import { type ConversationStarter } from '@atlaskit/rovo-agent-components/ui/AgentConversationStarters';
-import { AgentProfileCreator, AgentProfileInfo } from '@atlaskit/rovo-agent-components/ui/AgentProfileInfo';
+import {
+	AgentProfileCreator,
+	AgentProfileInfo,
+} from '@atlaskit/rovo-agent-components/ui/AgentProfileInfo';
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
 import { token } from '@atlaskit/tokens';
 
@@ -191,7 +198,11 @@ const AgentProfileCard = ({
 						agentIdentityAccountId={agent.identity_account_id}
 						size={fg('rovo_agent_empty_state_refresh') ? 'large' : 'xlarge'}
 						isRovoDev={isRovoDev && fg('rovo_dev_themed_identity_card')}
-						isForgeAgent={agent.creator_type === 'FORGE' || agent.creator_type === 'THIRD_PARTY'}
+						isForgeAgent={
+							fg('rovo_agent_support_a2a_avatar')
+								? isForgeAgentByCreatorType(agent.creator_type as AgentCreatorType)
+								: agent.creator_type === 'FORGE' || agent.creator_type === 'THIRD_PARTY'
+						}
 						forgeAgentIconUrl={agent.icon}
 					/>
 				</Box>

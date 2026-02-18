@@ -136,8 +136,7 @@ const buttonStyles = (isActive?: boolean, submenuActive?: boolean) => {
 
 const DropListWithOutsideClickTargetRef = (props: DropListProps) => {
 	const setOutsideClickTargetRef = React.useContext(OutsideClickTargetRefContext);
-	// Ignored via go/ees005
-	// eslint-disable-next-line react/jsx-props-no-spreading
+	// eslint-disable-next-line react/jsx-props-no-spreading -- Spreading props to pass through dynamic component props
 	return <DropList onDroplistRef={setOutsideClickTargetRef} {...props} />;
 };
 const DropListWithOutsideListeners = withReactEditorViewOuterListeners(
@@ -239,8 +238,7 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 				offset={offset}
 			>
 				<ArrowKeyNavigationProvider
-					// Ignored via go/ees005
-					// eslint-disable-next-line react/jsx-props-no-spreading
+					// eslint-disable-next-line react/jsx-props-no-spreading -- Spreading navigationProviderProps to pass through dynamic component props
 					{...navigationProviderProps}
 					handleClose={this.handleCloseAndFocus}
 					closeOnTab={true}
@@ -340,8 +338,7 @@ const DropdownMenuItemCustomComponent = React.forwardRef<
 	return (
 		<span
 			ref={ref}
-			// Ignored via go/ees005
-			// eslint-disable-next-line react/jsx-props-no-spreading
+			// eslint-disable-next-line react/jsx-props-no-spreading -- Spreading rest to pass through dynamic component props
 			{...rest}
 			style={{
 				// This forces the item container back to be `position: static`, the default value.
@@ -462,7 +459,7 @@ export function DropdownMenuItem({
 }
 
 export const DropdownMenuWithKeyboardNavigation = React.memo(
-	// Ignored via go/ees005
+			// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	({ ...props }: React.PropsWithChildren<any>) => {
 		const keyDownHandlerContext = useContext(KeyDownHandlerContext);
@@ -475,10 +472,9 @@ export const DropdownMenuWithKeyboardNavigation = React.memo(
 					...props.arrowKeyNavigationProviderOptions,
 					keyDownHandlerContext,
 				}}
-				// Ignored via go/ees005
-				// eslint-disable-next-line react/jsx-props-no-spreading
-				{...props}
-			/>
-		);
-	},
+			// eslint-disable-next-line react/jsx-props-no-spreading -- Spreading props to pass through dynamic component props
+			{...props}
+		/>
+	);
+},
 );

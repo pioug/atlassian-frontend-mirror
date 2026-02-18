@@ -153,7 +153,7 @@ export type SyncedBlockRendererProviderOptions = {
 	providerCreator?: SyncBlockRendererProviderCreator;
 };
 
-export abstract class SyncBlockDataProvider extends NodeDataProvider<
+export abstract class SyncBlockDataProviderInterface extends NodeDataProvider<
 	SyncBlockNode,
 	SyncBlockInstance
 > {

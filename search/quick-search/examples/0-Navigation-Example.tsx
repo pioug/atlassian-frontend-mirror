@@ -4,4 +4,5 @@ import React from 'react';
 
 import BasicQuickSearch from './utils/BasicQuickSearch';
 
-export default () => <BasicQuickSearch fakeNetworkLatency={500} />;
+const _default: () => React.JSX.Element = () => <BasicQuickSearch fakeNetworkLatency={500} />;
+export default _default;

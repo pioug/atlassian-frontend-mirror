@@ -82,10 +82,31 @@ const cdnFeatureFlag = (endpoint: string) => {
 	return result;
 };
 
+const decodeJwtToken = (token: string): { clientId?: string } => {
+	return JSON.parse(
+		atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')),
+	);
+};
+
 export class MediaStore implements MediaApi {
 	private readonly _chunkHashAlgorithm: ChunkHashAlgorithm;
 	constructor(private readonly config: MediaApiConfig) {
 		this._chunkHashAlgorithm = config.chunkHashAlgorithm || ChunkHashAlgorithm.Sha256;
+	}
+
+	async getClientId(collectionName?: string): Promise<string | undefined> {
+		const auth = await this.resolveAuth({ collectionName });
+		if (!isClientBasedAuth(auth)) {
+			// decode JWT token and get clientId from payload
+			try {
+				const jwtPayload = decodeJwtToken(auth.token);
+				return jwtPayload.clientId;
+			} catch {
+				// leave clientId as undefined
+			}
+		}
+
+		return isClientBasedAuth(auth) ? auth.clientId : undefined;
 	}
 
 	async removeCollectionFile(
@@ -696,6 +717,7 @@ export class MediaStore implements MediaApi {
 		id: string,
 		params: CopyFileParams,
 		traceContext?: MediaTraceContext,
+		clientId?: string,
 	): Promise<MediaStoreResponse<MediaFile>> {
 		const metadata: RequestMetadata = {
 			method: 'POST',
@@ -707,7 +729,7 @@ export class MediaStore implements MediaApi {
 			authContext: { collectionName: params.collection },
 			params,
 			headers: jsonHeaders,
-			body: JSON.stringify({ id }),
+			body: JSON.stringify({ id, clientId }),
 			traceContext,
 			clientOptions: {
 				retryOptions: {

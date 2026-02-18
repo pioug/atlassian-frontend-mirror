@@ -7,6 +7,7 @@ export const isMediaBlobUrl = (url: string): boolean => {
 export interface MediaBlobUrlAttrs {
 	id: string;
 	contextId: string;
+	clientId?: string;
 	collection?: string;
 	size?: number;
 	name?: string;
@@ -43,7 +44,8 @@ export const getAttrsFromUrl = (blobUrl: string): MediaBlobUrlAttrs | undefined 
 	const params = new URLSearchParams(hash);
 	const id = params.get('id');
 	const contextId = params.get('contextId');
-	// check if we have the required params
+	const clientId = params.get('clientId');
+	// check if we have the required params (clientId is optional for backwards compatibility)
 	if (!id || !contextId) {
 		return;
 	}
@@ -51,6 +53,7 @@ export const getAttrsFromUrl = (blobUrl: string): MediaBlobUrlAttrs | undefined 
 	return {
 		id,
 		contextId,
+		clientId: clientId || undefined,
 		collection: getStringFromParams(params, 'collection'),
 		alt: getStringFromParams(params, 'alt'),
 		height: getNumberFromParams(params, 'height'),

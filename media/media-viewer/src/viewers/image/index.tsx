@@ -34,6 +34,7 @@ export interface ImageViewerContent {
 	objectUrl: ObjectUrl;
 	originalBinaryImageUrl?: string;
 	orientation?: number;
+	clientId?: string;
 }
 
 function processedFileStateToMediaItem(file: FileState): FileItem {
@@ -65,6 +66,14 @@ export class ImageViewer extends BaseViewer<ImageViewerContent, ImageViewerProps
 			let objectUrl: string;
 			let originalBinaryImageUrl: string | undefined;
 			let isLocalFileReference: boolean = false;
+			let clientId: string | undefined;
+
+			// Fetch clientId for cross-client copy
+			try {
+				clientId = await mediaClient.getClientId(collectionName);
+			} catch {
+				// ClientId is optional, silently fail
+			}
 
 			const { preview } = fileState;
 			if (preview) {
@@ -116,6 +125,7 @@ export class ImageViewer extends BaseViewer<ImageViewerContent, ImageViewerProps
 					objectUrl,
 					orientation,
 					originalBinaryImageUrl,
+					clientId,
 				}),
 			});
 		} catch (err) {
@@ -158,6 +168,7 @@ export class ImageViewer extends BaseViewer<ImageViewerContent, ImageViewerProps
 					id: item.id,
 					contextId,
 					collection: collectionName,
+					clientId: content.clientId ?? '',
 				})
 			: content.objectUrl;
 

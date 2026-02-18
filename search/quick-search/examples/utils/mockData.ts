@@ -69,7 +69,7 @@ const getMockName = () => pickRandom(mockNames);
 
 const getMockCatchPhrase = () => pickRandom(mockCatchPhrases);
 
-export function randomJiraIconUrl() {
+export function randomJiraIconUrl(): string {
 	const urls = [
 		'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10318&avatarType=issuetype',
 		'https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10303&avatarType=issuetype',
@@ -78,7 +78,7 @@ export function randomJiraIconUrl() {
 	return pickRandom(urls);
 }
 
-export function randomConfluenceIconUrl() {
+export function randomConfluenceIconUrl(): string {
 	const urls = [
 		'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-page-icon.svg',
 		'https://home-static.us-east-1.prod.public.atl-paas.net/confluence-blogpost-icon.svg',
@@ -92,9 +92,9 @@ function randomPresenceState() {
 	return pickRandom(states) as 'online' | 'offline' | 'busy';
 }
 
-export const getPersonAvatarUrl = (identity: string) =>
+export const getPersonAvatarUrl: (identity: string) => string = (identity: string) =>
 	`http://api.adorable.io/avatar/32/${identity}`;
-export const getContainerAvatarUrl = (idx: number) => `http://lorempixel.com/32/32/nature/${idx}`;
+export const getContainerAvatarUrl: (idx: number) => string = (idx: number) => `http://lorempixel.com/32/32/nature/${idx}`;
 
 function randomProduct() {
 	const products = ['jira', 'confluence'];

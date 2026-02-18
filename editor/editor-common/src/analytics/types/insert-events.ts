@@ -338,6 +338,23 @@ type FailedToInsertMediaPayload = OperationalAEP<
 	}
 >;
 
+type InsertReferenceSyncedBlockPayload = InsertAEP<
+	ACTION_SUBJECT_ID.SYNCED_BLOCK,
+	{
+		blockInstanceId: string;
+		resourceId: string;
+	},
+	undefined
+>;
+
+export type InsertSourceSyncedBlockPayload = InsertAEP<
+	ACTION_SUBJECT_ID.BODIED_SYNCED_BLOCK,
+	{
+		resourceId: string;
+	},
+	undefined
+>;
+
 export type InsertEventPayload =
 	| InsertDividerAEP
 	| InsertLineBreakAEP
@@ -360,4 +377,6 @@ export type InsertEventPayload =
 	| InsertNodeViaExtensionAPIAEP
 	| InsertDateAEP
 	| InsertPlaceholderTextAEP
-	| FailedToInsertMediaPayload;
+	| FailedToInsertMediaPayload
+	| InsertReferenceSyncedBlockPayload
+	| InsertSourceSyncedBlockPayload;

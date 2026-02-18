@@ -1,5 +1,13 @@
 # @atlaskit/collab-provider
 
+## 15.3.11
+
+### Patch Changes
+
+- [`3e551df36b04f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e551df36b04f) -
+  cleanup of add-session-id-catchup-query FG
+- Updated dependencies
+
 ## 15.3.10
 
 ### Patch Changes

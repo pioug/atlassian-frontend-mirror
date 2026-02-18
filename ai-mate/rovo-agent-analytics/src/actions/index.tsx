@@ -67,15 +67,13 @@ type ActionAttributes = {
 	/* Debug modal actions attributes */
 	[AgentDebugActions.COPY_ALL]: EmptyAttributes;
 	[AgentDebugActions.COPY]: EmptyAttributes;
-	[AgentDebugActions.TOGGLE_SKILL_INFO]: EmptyAttributes;
+	[AgentDebugActions.TOGGLE_SKILL_INFO]: { toolId: string; isExpanded: boolean };
 	[AgentDebugActions.VIEW]: EmptyAttributes;
 };
 
 const globalEventConfig = getDefaultTrackEventConfig();
 
-export const useRovoAgentActionAnalytics = <T extends {}>(
-	commonAttributes: T,
-) => {
+export const useRovoAgentActionAnalytics = <T extends {}>(commonAttributes: T) => {
 	const analyticsContext = useContext(AnalyticsReactContext);
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const commonAttributesRef = useRef(commonAttributes);

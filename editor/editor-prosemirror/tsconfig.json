@@ -9,7 +9,6 @@
 		"src/**/*.tsx",
 		"codemods/**/*.ts"
 	],
-	"compilerOptions": {},
 	"files": [
 		"typings/prosemirror-markdown.d.ts",
 		"typings/prosemirror-state.d.ts"

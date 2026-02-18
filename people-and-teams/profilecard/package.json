@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "24.35.1",
+	"version": "24.36.0",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -197,6 +197,9 @@
 			"type": "boolean"
 		},
 		"new_team_profile_fedramp": {
+			"type": "boolean"
+		},
+		"rovo_agent_support_a2a_avatar": {
 			"type": "boolean"
 		}
 	},

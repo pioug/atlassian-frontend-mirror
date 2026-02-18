@@ -80,6 +80,7 @@ export interface CopySourceFile {
 	id: string;
 	collection?: string;
 	authProvider?: AuthProvider;
+	clientId?: string;
 }
 
 export interface CopyDestination extends MediaStoreCopyFileWithTokenParams {
@@ -665,6 +666,7 @@ export class FileFetcherImpl implements FileFetcher {
 				replaceFileId: destination.replaceFileId,
 			},
 			traceContext,
+			source.clientId,
 		);
 
 		const { data } = res;
@@ -927,7 +929,7 @@ export class FileFetcherImpl implements FileFetcher {
 		const promises = files.map(async ({ id, collectionName }) => {
 			try {
 				return await this.getDurationOfVideo(id, collectionName);
-			} catch (_err) {
+			} catch {
 				return -1;
 			}
 		});

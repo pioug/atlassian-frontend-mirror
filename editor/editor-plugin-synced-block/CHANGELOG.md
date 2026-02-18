@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 5.3.22
+
+### Patch Changes
+
+- [`8806992b3642c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8806992b3642c) -
+  EDITOR-5454 update synced block insert success event to use document inserted event
+- [`2b9f36bb91309`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b9f36bb91309) -
+  Improve robustness
+- [`0f351c68adbac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f351c68adbac) -
+  Improve robustness
+- [`bf779fa373faa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf779fa373faa) -
+  [ux] EDITOR-5016 fix synced locations dropdown showing blogpost instead of page
+- Updated dependencies
+
 ## 5.3.21
 
 ### Patch Changes

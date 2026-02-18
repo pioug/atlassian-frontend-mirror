@@ -8,7 +8,5 @@
     "examples/**/*.ts",
     "examples/**/*.tsx",
     "example-helpers/**/*.ts",
-    ],
-  "compilerOptions": {
-  }
+    ]
 }

@@ -12,6 +12,5 @@
     "**/*.ts",
     "**/*.tsx",
     "./src/next-schema/generated/**/*"
-  ],
-  "compilerOptions": {}
+  ]
 }

@@ -7,7 +7,5 @@
     "docs/**/*.tsx",
     "src/**/*.ts",
     "src/**/*.tsx"
-  ],
-  "compilerOptions": {
-  }
+  ]
 }

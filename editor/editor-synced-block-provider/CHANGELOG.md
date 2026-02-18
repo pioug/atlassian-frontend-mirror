@@ -1,5 +1,15 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.29.2
+
+### Patch Changes
+
+- [`8806992b3642c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8806992b3642c) -
+  EDITOR-5454 update synced block insert success event to use document inserted event
+- [`0f351c68adbac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f351c68adbac) -
+  Improve robustness
+- Updated dependencies
+
 ## 3.29.1
 
 ### Patch Changes

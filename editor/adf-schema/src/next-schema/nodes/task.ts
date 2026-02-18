@@ -65,3 +65,9 @@ taskList.define({
 		$zeroPlus($or(taskItem, taskList, unsupportedBlock, blockTaskItem)),
 	],
 });
+
+taskList.variant('flexible_first_child', {
+	contentMinItems: 1,
+	content: [$onePlus($or(taskItem, taskList, unsupportedBlock, blockTaskItem))],
+	stage0: true,
+});

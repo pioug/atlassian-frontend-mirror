@@ -84,6 +84,7 @@ import { optimizeMarks } from './utils/optimize-marks';
 import { optimizeReactProfilerTimings } from './utils/optimize-react-profiler-timings';
 import { optimizeRequestInfo } from './utils/optimize-request-info';
 import { optimizeSpans } from './utils/optimize-spans';
+import { trimVcDebugData } from './utils/trim-vc-debug-data';
 
 const MAX_PAYLOAD_SIZE = 230;
 
@@ -860,6 +861,10 @@ async function createInteractionMetricsPayload(
 			properties['event:trimmedFields'] = trimmedFields;
 		}
 	}
+	// If the payload size continues to exceed the limit and interactionMetrics is already trimmed,
+	// trim VC debug data (early viewport checkpoints). PIR-30543 - AFO-5033
+	const isVCRevisionTrimEnabled = fg('ufo_vc_revision_trim_enabled');
+	trimVcDebugData(properties, getPayloadSize(properties), MAX_PAYLOAD_SIZE, isVCRevisionTrimEnabled);
 
 	return payload;
 }

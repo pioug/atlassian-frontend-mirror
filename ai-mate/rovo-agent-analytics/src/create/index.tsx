@@ -27,6 +27,12 @@ export enum AgentCreateActions {
 	LAND = 'createLandInStudio',
 	/* Discard agent - https://data-portal.internal.atlassian.com/analytics/registry/97137 */
 	DISCARD = 'createDiscard',
+	/* Show no skills modal - https://data-portal.internal.atlassian.com/analytics/registry/97435 */
+	SHOW_NO_SKILLS_MODAL = 'showNoSkillsModal',
+	/* Browse click no skills modal - https://data-portal.internal.atlassian.com/analytics/registry/97436 */
+	BROWSE_CLICK_NO_SKILLS_MODAL = 'browseClickNoSkillsModal',
+	/* Discard no skills modal - https://data-portal.internal.atlassian.com/analytics/registry/97437 */
+	DISCARD_NO_SKILLS_MODAL = 'discardNoSkillsModal',
 }
 
 const globalEventConfig = getDefaultTrackEventConfig();

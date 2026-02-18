@@ -11,7 +11,7 @@ import {
 	type ReferencesSourceInfo,
 	type ResourceId,
 } from '../common/types';
-import type { SyncBlockDataProvider } from '../providers/types';
+import type { SyncBlockDataProviderInterface } from '../providers/types';
 import { fetchReferencesErrorPayload } from '../utils/errorHandling';
 import {
 	getFetchReferencesExperience,
@@ -29,13 +29,13 @@ import { SourceSyncBlockStoreManager } from './sourceSyncBlockStoreManager';
 export class SyncBlockStoreManager {
 	private referenceSyncBlockStoreManager: ReferenceSyncBlockStoreManager;
 	private sourceSyncBlockStoreManager: SourceSyncBlockStoreManager;
-	private dataProvider?: SyncBlockDataProvider;
+	private dataProvider?: SyncBlockDataProviderInterface;
 	private fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void;
 
 	private fetchReferencesExperience: Experience | undefined;
 	private fetchSourceInfoExperience: Experience | undefined;
 
-	constructor(dataProvider?: SyncBlockDataProvider) {
+	constructor(dataProvider?: SyncBlockDataProviderInterface) {
 		// In future, if reference manager needs to reach to source manager and read it's current in memorey cache
 		// we can pass the source manager as a parameter to the reference manager constructor
 		this.sourceSyncBlockStoreManager = new SourceSyncBlockStoreManager(dataProvider);
@@ -151,12 +151,12 @@ export class SyncBlockStoreManager {
 	}
 }
 
-const createSyncBlockStoreManager = (dataProvider?: SyncBlockDataProvider) => {
+const createSyncBlockStoreManager = (dataProvider?: SyncBlockDataProviderInterface) => {
 	return new SyncBlockStoreManager(dataProvider);
 };
 
 export const useMemoizedSyncBlockStoreManager = (
-	dataProvider?: SyncBlockDataProvider,
+	dataProvider?: SyncBlockDataProviderInterface,
 	fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void,
 ) => {
 	const syncBlockStoreManager = useMemo(() => {

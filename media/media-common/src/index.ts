@@ -75,3 +75,11 @@ export {
 } from './utils/helpers';
 
 export { useStaticCallback } from './hooks';
+
+// Cross-client copy/paste utilities
+export {
+	setClientIdForFile,
+	getClientIdForFile,
+	clearClientIdCache,
+	extractClientIdsFromHtml,
+} from './copyIntent';

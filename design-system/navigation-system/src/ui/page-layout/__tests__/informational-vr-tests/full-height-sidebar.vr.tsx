@@ -60,6 +60,7 @@ snapshotInformational(CompanyHubMockExample, {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_fhs_feedback_1: true,
+		platform_dst_nav4_top_nav_increase_height: true,
 	},
 	async prepare(page) {
 		await page.setViewportSize({ width: 1024, height: 768 });
@@ -84,6 +85,7 @@ snapshotInformational(CompanyHubMockExample, {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_fhs_feedback_1: true,
+		platform_dst_nav4_top_nav_increase_height: true,
 	},
 	async prepare(page) {
 		await page.setViewportSize({ width: 1920, height: 768 });
@@ -108,6 +110,7 @@ snapshotInformational(CompositionVR, {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_fhs_feedback_1: true,
+		platform_dst_nav4_top_nav_increase_height: true,
 	},
 	async prepare(page) {
 		await page.setViewportSize({ width: 1024, height: 768 });
@@ -132,6 +135,7 @@ snapshotInformational(CompositionVR, {
 		'platform-dst-side-nav-layering-fixes': true,
 		'navx-full-height-sidebar': true,
 		platform_dst_nav4_fhs_feedback_1: true,
+		platform_dst_nav4_top_nav_increase_height: true,
 	},
 	async prepare(page) {
 		await page.setViewportSize({ width: 1024, height: 768 });
@@ -160,6 +164,7 @@ snapshotInformational(CompositionVR, {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_fhs_feedback_1: true,
+		platform_dst_nav4_top_nav_increase_height: true,
 	},
 	async prepare(page) {
 		await page.setViewportSize({ width: 1024, height: 768 });
@@ -197,6 +202,7 @@ snapshotInformational(CompositionExample, {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_fhs_feedback_1: true,
+		platform_dst_nav4_top_nav_increase_height: true,
 	},
 	async prepare(page) {
 		// Scrolls down to the aside content, which is below the main content
@@ -219,6 +225,7 @@ snapshotInformational(CompositionVR, {
 		'platform-dst-side-nav-layering-fixes': true,
 		'navx-full-height-sidebar': true,
 		platform_dst_nav4_fhs_feedback_1: true,
+		platform_dst_nav4_top_nav_increase_height: true,
 	},
 	async prepare(page) {
 		await page.getByRole('button', { name: 'Expand sidebar' }).click();
@@ -249,6 +256,7 @@ snapshotInformational(TopNavigationThemingWithPickerExample, {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_fhs_feedback_1: true,
+		platform_dst_nav4_top_nav_increase_height: true,
 	},
 });
 
@@ -263,6 +271,7 @@ snapshotInformational(NavigationShellExample, {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_fhs_feedback_1: true,
+		platform_dst_nav4_top_nav_increase_height: true,
 	},
 });
 
@@ -277,6 +286,7 @@ snapshotInformational(NavigationShellWithToggleButtonOnboarding, {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_fhs_feedback_1: true,
+		platform_dst_nav4_top_nav_increase_height: true,
 	},
 });
 
@@ -301,6 +311,7 @@ snapshotInformational(NavigationShellExample, {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_fhs_feedback_1: true,
+		platform_dst_nav4_top_nav_increase_height: true,
 	},
 });
 
@@ -318,6 +329,7 @@ snapshotInformational(NavigationShellWithWideSideNav, {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_fhs_feedback_1: true,
+		platform_dst_nav4_top_nav_increase_height: true,
 	},
 });
 
@@ -329,6 +341,7 @@ snapshotInformational(TopNavigationCustomLogoImageWithSideNavExample, {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_fhs_feedback_1: true,
+		platform_dst_nav4_top_nav_increase_height: true,
 	},
 });
 
@@ -401,6 +414,7 @@ snapshotInformational(SideNavLayering, {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_fhs_feedback_1: true,
+		platform_dst_nav4_top_nav_increase_height: true,
 		platform_dst_nav4_flyoutmenuitem_render_to_parent: true,
 		platform_dst_nav4_flyout_menu_slots_close_button: true,
 	},
@@ -417,6 +431,7 @@ snapshotInformational(CompositionVR, {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_fhs_feedback_1: true,
+		platform_dst_nav4_top_nav_increase_height: true,
 	},
 	prepare: async (page) => {
 		// Open app switcher in the top nav
@@ -430,6 +445,7 @@ snapshotInformational(CompositionVR, {
 		'navx-full-height-sidebar': true,
 		'platform-dst-side-nav-layering-fixes': true,
 		platform_dst_nav4_fhs_feedback_1: true,
+		platform_dst_nav4_top_nav_increase_height: true,
 	},
 	prepare: async (page) => {
 		// In this test, we want both the mobile side nav and app switcher to be open.

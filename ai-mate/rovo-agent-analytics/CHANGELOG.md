@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-analytics
 
+## 0.15.0
+
+### Minor Changes
+
+- [`d4d7d91e006ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4d7d91e006ac) -
+  Update no skills modal analytics to use rovo agents analytics lib
+
 ## 0.14.0
 
 ### Minor Changes

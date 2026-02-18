@@ -29,6 +29,7 @@ import { RendererCssClassName } from '../../consts';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { calcBreakoutWidthCss } from '../utils/breakout';
 import { fg } from '@atlaskit/platform-feature-flags';
+import type { RendererAppearance } from '../../ui/Renderer/types';
 
 interface Props {
 	extensionHandlers?: ExtensionHandlers;
@@ -45,6 +46,7 @@ interface Props {
 	parameters?: any;
 	path?: PMNode[];
 	providers: ProviderFactory;
+	rendererAppearance?: RendererAppearance;
 	rendererContext: RendererContext;
 	shouldDisplayExtensionAsInline?: (extensionParams?: ExtensionParams<Parameters>) => boolean;
 	text?: string;
@@ -54,6 +56,7 @@ type AllOrNone<T> = T | { [K in keyof T]?: never };
 
 type RenderExtensionOptions = {
 	isTopLevel?: boolean;
+	rendererAppearance?: RendererAppearance;
 } & AllOrNone<OverflowShadowProps>;
 
 const viewportSizes = ['small', 'medium', 'default', 'large', 'xlarge'];
@@ -97,7 +100,7 @@ export const renderExtension = (
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	content: any,
-	layout: string,
+	layout: ExtensionLayout,
 	options: RenderExtensionOptions = {},
 	removeOverflow?: boolean,
 	extensionId?: string,
@@ -113,11 +116,18 @@ export const renderExtension = (
 		: '';
 
 	// by default, we assume the extension is at top level, (direct child of doc node)
-	const { isTopLevel = true } = options || {};
-	const centerAlignClass =
-		isTopLevel && ['wide', 'full-width'].includes(layout)
-			? RendererCssClassName.EXTENSION_CENTER_ALIGN
-			: '';
+	const { isTopLevel = true, rendererAppearance } = options || {};
+	// we should only use custom layout for full-page appearance
+	const canUseCustomLayout = expValEquals(
+		'platform_editor_remove_important_in_render_ext',
+		'isEnabled',
+		true,
+	)
+		? rendererAppearance === 'full-page'
+		: true;
+	const isCustomLayout =
+		isTopLevel && ['wide', 'full-width'].includes(layout) && canUseCustomLayout;
+	const centerAlignClass = isCustomLayout ? RendererCssClassName.EXTENSION_CENTER_ALIGN : '';
 	/**
 	 * To reduce cumulative layout shift, we check installed manifest values (viewportSize) for Forge and extension node parameters
 	 * for Connect (legacy). As Connect is being phased out, we want Forge to also start to store its expected height
@@ -140,10 +150,16 @@ export const renderExtension = (
 				style={{
 					width: isInline
 						? undefined
-						: isTopLevel
+						: (
+									expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
+										? isCustomLayout
+										: isTopLevel
+							  )
 							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 								calcBreakoutWidthCss(layout as ExtensionLayout)
-							: '100%',
+							: expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
+								? undefined
+								: '100%',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 					minHeight: isInline ? undefined : extensionHeight && `${extensionHeight}px`,
 				}}
@@ -179,8 +195,22 @@ export const renderExtension = (
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={`${RendererCssClassName.EXTENSION} ${inlineClassName} ${options.shadowClassNames} ${centerAlignClass}`}
 					style={{
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						width: isInline ? undefined : isTopLevel ? calcBreakoutWidth(layout, width) : '100%',
+						width: isInline
+							? undefined
+							: (
+										expValEquals(
+											'platform_editor_remove_important_in_render_ext',
+											'isEnabled',
+											true,
+										)
+											? isCustomLayout
+											: isTopLevel
+								  )
+								? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+									calcBreakoutWidth(layout, width)
+								: expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
+									? undefined
+									: '100%',
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 						minHeight: isInline ? undefined : `${extensionHeight}px`,
 					}}
@@ -241,6 +271,7 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 								handleRef,
 								shadowClassNames,
 								tabIndex: fg('platform_editor_dec_a11y_fixes') ? props.tabIndex : undefined,
+								rendererAppearance: props.rendererAppearance,
 							},
 							undefined,
 							parameters?.extensionId,
@@ -266,6 +297,7 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 						handleRef,
 						shadowClassNames,
 						tabIndex: fg('platform_editor_dec_a11y_fixes') ? props.tabIndex : undefined,
+						rendererAppearance: props.rendererAppearance,
 					},
 					undefined,
 					parameters?.extensionId,

@@ -208,12 +208,11 @@ export default function overflowShadow<P>(
 			const hasOverflowScroll = showRightShadow || showLeftShadow;
 
 			return (
-				// Ignored via go/ees005
 				<Component
 					handleRef={this.handleContainer}
 					tabIndex={hasOverflowScroll && fg('platform_editor_dec_a11y_fixes') ? 0 : undefined}
 					shadowClassNames={classNames}
-					// eslint-disable-next-line react/jsx-props-no-spreading
+					// eslint-disable-next-line react/jsx-props-no-spreading -- Spreading props to pass all component props through to wrapped generic component
 					{...this.props}
 				/>
 			);

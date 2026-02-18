@@ -1,5 +1,13 @@
 # @atlassian/navigation-system
 
+## 5.38.0
+
+### Minor Changes
+
+- [`0739fc0341b20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0739fc0341b20) -
+  Increases the default height of the top navigation to `56px` when the
+  `platform_dst_nav4_top_nav_increase_height` gate is enabled.
+
 ## 5.37.0
 
 ### Minor Changes

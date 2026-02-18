@@ -88,7 +88,7 @@
 		]
 	},
 	"name": "@atlaskit/rovo-agent-analytics",
-	"version": "0.14.0",
+	"version": "0.15.0",
 	"description": "Rovo Agents analytics",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

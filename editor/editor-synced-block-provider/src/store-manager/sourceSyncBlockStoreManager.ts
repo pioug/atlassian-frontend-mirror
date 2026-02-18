@@ -13,7 +13,7 @@ import {
 	type DeletionReason,
 	type ReferenceSyncBlockData,
 } from '../common/types';
-import type { SyncBlockDataProvider, SyncBlockSourceInfo } from '../providers/types';
+import type { SyncBlockDataProviderInterface, SyncBlockSourceInfo } from '../providers/types';
 import {
 	updateErrorPayload,
 	createErrorPayload,
@@ -58,7 +58,7 @@ type SyncBlockData = Data & {
 // Handles caching, debouncing updates, and publish/subscribe for local changes.
 // Ensures consistency between local and remote state, and can be used in both editor and renderer contexts.
 export class SourceSyncBlockStoreManager {
-	private dataProvider?: SyncBlockDataProvider;
+	private dataProvider?: SyncBlockDataProviderInterface;
 	private fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void;
 
 	private syncBlockCache: Map<ResourceId, SyncBlockData>;
@@ -79,7 +79,7 @@ export class SourceSyncBlockStoreManager {
 	private deleteExperience: Experience | undefined;
 	private fetchSourceInfoExperience: Experience | undefined;
 
-	constructor(dataProvider?: SyncBlockDataProvider) {
+	constructor(dataProvider?: SyncBlockDataProviderInterface) {
 		this.dataProvider = dataProvider;
 		this.syncBlockCache = new Map();
 		this.creationCompletionCallbacks = new Map();
@@ -244,9 +244,7 @@ export class SourceSyncBlockStoreManager {
 		} else {
 			// Delete the node from cache if fail to create so it's not flushed to BE
 			this.syncBlockCache.delete(resourceId || '');
-			this.fireAnalyticsEvent?.(
-				createErrorPayload('Fail to create bodied sync block', resourceId),
-			);
+			this.fireAnalyticsEvent?.(createErrorPayload('Fail to create bodied sync block', resourceId));
 		}
 	}
 
@@ -278,11 +276,7 @@ export class SourceSyncBlockStoreManager {
 	 * Create a bodiedSyncBlock node with empty content to backend
 	 * @param attrs attributes Ids of the node
 	 */
-	public createBodiedSyncBlockNode(
-		attrs: SyncBlockAttrs,
-		onCompletion: OnCompletion,
-		nodeData?: PMNode,
-	): void {
+	public createBodiedSyncBlockNode(attrs: SyncBlockAttrs, onCompletion: OnCompletion): void {
 		const { resourceId, localId: blockInstanceId } = attrs;
 		try {
 			if (!this.dataProvider) {

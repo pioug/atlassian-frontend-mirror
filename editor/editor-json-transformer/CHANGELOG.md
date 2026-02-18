@@ -1,5 +1,12 @@
 # @atlaskit/editor-json-transformer
 
+## 8.31.5
+
+### Patch Changes
+
+- [`1004093d5acc2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1004093d5acc2) -
+  EDITOR-5371 add util validator function
+
 ## 8.31.4
 
 ### Patch Changes

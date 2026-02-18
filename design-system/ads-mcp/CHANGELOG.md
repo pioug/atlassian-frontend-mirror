@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 0.16.0
+
+### Minor Changes
+
+- [`30f7c8c5b7a2a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30f7c8c5b7a2a) -
+  Revert to JSON output for MCP tools.
+
 ## 0.15.1
 
 ### Patch Changes

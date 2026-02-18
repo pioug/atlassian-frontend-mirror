@@ -17,6 +17,7 @@ import { ACTION_SUBJECT } from '../../analytics/enums';
 import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 import { AnnotationsPositionContext } from '../../ui/annotations';
 import { ValidationContextProvider } from '../../ui/Renderer/ValidationContext';
+import type { RendererAppearance } from '../../ui/Renderer/types';
 
 interface Props {
 	// Ignored via go/ees005
@@ -37,6 +38,7 @@ interface Props {
 	parameters?: any;
 	path?: PMNode[];
 	providers: ProviderFactory;
+	rendererAppearance?: RendererAppearance;
 	rendererContext: RendererContext;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -96,6 +98,7 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>): React.JSX.Eleme
 										layout,
 										{
 											isTopLevel: path.length < 1,
+											rendererAppearance: props.rendererAppearance,
 										},
 										removeOverflow,
 										parameters?.extensionId,
@@ -117,6 +120,7 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>): React.JSX.Eleme
 								layout,
 								{
 									isTopLevel: path.length < 1,
+									rendererAppearance: props.rendererAppearance,
 								},
 								removeOverflow,
 								parameters?.extensionId,

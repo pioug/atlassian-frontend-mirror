@@ -100,41 +100,37 @@ export const handleBodiedSyncBlockCreation = (
 				});
 			});
 		});
-		syncBlockStore.sourceManager.createBodiedSyncBlockNode(
-			node.attrs,
-			(success: boolean) => {
-				if (success) {
-					api?.core?.actions.execute(({ tr }) => {
-						return tr.setMeta(syncedBlockPluginKey, {
-							retryCreationPos: { resourceId, pos: undefined },
+		syncBlockStore.sourceManager.createBodiedSyncBlockNode(node.attrs, (success: boolean) => {
+			if (success) {
+				api?.core?.actions.execute(({ tr }) => {
+					return tr.setMeta(syncedBlockPluginKey, {
+						retryCreationPos: { resourceId, pos: undefined },
+					});
+				});
+				api?.core?.actions.focus();
+			} else {
+				api?.core?.actions.execute(({ tr }) => {
+					const revertCreationPos = getRevertCreationPos(api, tr.doc, resourceId);
+					if (!revertCreationPos) {
+						return tr;
+					}
+					const revertTr = buildRevertCreationTr(tr, revertCreationPos);
+					return revertTr
+						.setMeta('isConfirmedSyncBlockDeletion', true)
+						.setMeta('addToHistory', false)
+						.setMeta(syncedBlockPluginKey, {
+							activeFlag: {
+								id: FLAG_ID.CANNOT_CREATE_SYNC_BLOCK,
+								onRetry: onRetry(api, resourceId),
+								onDismissed: (tr: Transaction) =>
+									tr.setMeta(syncedBlockPluginKey, {
+										...tr.getMeta(syncedBlockPluginKey),
+										retryCreationPos: { resourceId, pos: undefined },
+									}),
+							},
 						});
-					});
-					api?.core?.actions.focus();
-				} else {
-					api?.core?.actions.execute(({ tr }) => {
-						const revertCreationPos = getRevertCreationPos(api, tr.doc, resourceId);
-						if (!revertCreationPos) {
-							return tr;
-						}
-						const revertTr = buildRevertCreationTr(tr, revertCreationPos);
-						return revertTr
-							.setMeta('isConfirmedSyncBlockDeletion', true)
-							.setMeta('addToHistory', false)
-							.setMeta(syncedBlockPluginKey, {
-								activeFlag: {
-									id: FLAG_ID.CANNOT_CREATE_SYNC_BLOCK,
-									onRetry: onRetry(api, resourceId),
-									onDismissed: (tr: Transaction) =>
-										tr.setMeta(syncedBlockPluginKey, {
-											...tr.getMeta(syncedBlockPluginKey),
-											retryCreationPos: { resourceId, pos: undefined },
-										}),
-								},
-							});
-					});
-				}
-			},
-			node.node,
-		);
+				});
+			}
+		});
 	});
 };

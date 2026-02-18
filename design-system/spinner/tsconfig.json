@@ -9,7 +9,5 @@
     "./examples/**/*.tsx",
     "./codemods/**/*.ts",
     "./codemods/**/*.tsx",
-  ],
-  "compilerOptions": {
-  }
+  ]
 }

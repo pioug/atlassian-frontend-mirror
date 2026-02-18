@@ -9,7 +9,6 @@ import type {
 	StudioAutomationBuildUpdatePayload,
 	UpdateAgentConfigurationPayload,
 } from './common/types/solution-architect';
-import type { StudioCloseRovoPanelPayload } from './common/types/studio';
 import type { ChatContextPayload } from './common/utils/chat-context/types';
 
 export const Topics = {
@@ -34,7 +33,6 @@ export type MessageSendPayload = PayloadCore<
 		prompt: string;
 		productKey?: string;
 		minionAlias?: string;
-		preselectEmptyConversation?: boolean;
 		files?: UploadedFile[];
 	}
 >;
@@ -80,6 +78,10 @@ export type ChatNewPayload = PayloadCore<
 		contentContext?: 'staging-area' | 'global';
 		sourceId?: string;
 		minionAlias?: string;
+		// Skip creating a seeded conversation in the BE with auto-generated name
+		skipCreatingSeededConversation?: boolean;
+		// Reset to default chat view from previously selected view, e.g. Browse agents
+		resetActiveMenu?: boolean;
 	} & Partial<TargetAgentParam> &
 	PlaceholderParam
 >;
@@ -184,6 +186,8 @@ export type ChatOpenPayload = PayloadCore<
 		channelId: string;
 		// @deprecated this is not being used, please use `chat-new` if you want to open a new chat with an agent
 		agentId?: string;
+		// Reset to default chat view from previously selected view, e.g. Browse agents
+		resetActiveMenu?: boolean;
 	}
 >;
 
@@ -424,8 +428,7 @@ export type Payload =
 	| SolutionPlanStateUpdatePayload
 	| SolutionDraftAgentUpdatePayload
 	| SolutionArchitectAgentActivationPayload
-	| UpdateAgentConfigurationPayload
-	| StudioCloseRovoPanelPayload;
+	| UpdateAgentConfigurationPayload;
 
 export type Callback = (payload: Payload) => void;
 

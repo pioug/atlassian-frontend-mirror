@@ -1,5 +1,16 @@
 # @atlaskit/adf-schema
 
+## 51.5.17
+
+### Patch Changes
+
+- [`708ab6d0c8d6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/708ab6d0c8d6d) -
+  EDITOR-5416 flexible list indentation stage 0
+
+  https://hello.atlassian.net/wiki/spaces/EDITOR/pages/6434470772/ADF+Change+94+List+indentation+flexibility
+
+- Updated dependencies
+
 ## 51.5.16
 
 ### Patch Changes

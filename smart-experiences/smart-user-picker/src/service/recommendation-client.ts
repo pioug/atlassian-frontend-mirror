@@ -31,6 +31,9 @@ const getUserRecommendations = (
 			performSearchQueryOnly: false,
 			searchQuery: {
 				...(request.verifiedTeams === true && { isVerifiedTeamFilter: true }),
+				...(request.isTeamSyncedToGroupDirectoryFilter === true && {
+					isTeamSyncedToGroupDirectoryFilter: true,
+				}),
 				cpusQueryHighlights: {
 					query: '',
 					field: '',

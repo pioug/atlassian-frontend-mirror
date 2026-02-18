@@ -733,6 +733,38 @@ describe('FileFetcher', () => {
 					replaceFileId: undefined,
 				},
 				undefined,
+				undefined,
+			]);
+		});
+
+		it('should pass clientId to mediaStore.copyFile when provided', async () => {
+			const { items, fileFetcher, mediaStore } = setup();
+			const copyFileMock = jest
+				.fn()
+				.mockResolvedValue({ data: { mimeType: 'application/octet-stream' } });
+
+			mediaStore.copyFile = copyFileMock;
+
+			const source = {
+				id: items[0].id,
+				collection: 'someCollectionName',
+				clientId: 'source-client-id',
+			};
+			const destination = {
+				collection: RECENTS_COLLECTION,
+				mediaStore,
+			};
+
+			await fileFetcher.copyFile(source, destination);
+			expectFunctionToHaveBeenCalledWith(copyFileMock, [
+				source.id,
+				{
+					collection: RECENTS_COLLECTION,
+					sourceCollection: source.collection,
+					replaceFileId: undefined,
+				},
+				undefined,
+				'source-client-id',
 			]);
 		});
 

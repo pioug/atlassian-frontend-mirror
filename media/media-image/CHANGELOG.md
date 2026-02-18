@@ -1,5 +1,11 @@
 # @atlaskit/media-image
 
+## 20.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.1.4
 
 ### Patch Changes

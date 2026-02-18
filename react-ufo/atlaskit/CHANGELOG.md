@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.2.5
+
+### Patch Changes
+
+- [`71b455c1a8ddd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71b455c1a8ddd) -
+  Trim UFO payload if size exceeds max size threshold
+
 ## 5.2.4
 
 ### Patch Changes

@@ -539,6 +539,8 @@ export enum ACTION_SUBJECT_ID {
 	EDITOR_PLUGIN_SELECTION_EXTENSION_ITEM = 'editorPluginSelectionExtensionItem',
 	EDITOR_PLUGIN_SELECTION_EXTENSION_COMPONENT = 'editorPluginSelectionExtensionComponent',
 	TRANSFORM = 'transform',
+	BODIED_SYNCED_BLOCK = 'bodiedSyncBlock',
+	SYNCED_BLOCK = 'syncBlock',
 	SYNCED_BLOCK_TOOLBAR = 'syncedBlockToolbar',
 	SYNCED_BLOCK_COPY = 'syncedBlockCopy',
 	SYNCED_BLOCK_SOURCE_URL = 'syncedBlockSourceUrl',

@@ -23,6 +23,5 @@
 		"build/*.tsx",
 		"build/**/*.ts",
 		"build/**/*.tsx"
-	],
-	"compilerOptions": {}
+	]
 }

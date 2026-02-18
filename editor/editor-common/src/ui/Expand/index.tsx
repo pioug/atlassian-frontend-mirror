@@ -96,14 +96,21 @@ export const expandLayoutWrapperStyle: SerializedStyles = css({
 });
 
 export const ExpandLayoutWrapperWithRef = forwardRef(
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	(props: React.HTMLAttributes<HTMLDivElement>, ref: Ref<any>) => {
-		const { children, ...rest } = props;
+	(
+		{ children, ...otherProps }: React.HTMLAttributes<HTMLDivElement>,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		ref: Ref<any>,
+	) => {
 		return (
-			// Ignored via go/ees005
-			// eslint-disable-next-line react/jsx-props-no-spreading, @typescript-eslint/no-explicit-any
-			<div css={expandLayoutWrapperStyle as any} {...rest} ref={ref}>
+			<div
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				css={expandLayoutWrapperStyle as any}
+				ref={ref}
+				// eslint-disable-next-line react/jsx-props-no-spreading -- Spreading otherProps to pass through HTML attributes (aria-*, data-*, event handlers, etc.) to the native div element
+				{...otherProps}
+			>
 				{children}
 			</div>
 		);

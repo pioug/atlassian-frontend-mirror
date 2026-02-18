@@ -1,5 +1,20 @@
 # @atlaskit/rovo-triggers
 
+## 5.16.0
+
+### Minor Changes
+
+- [`7c5b836cbebe4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c5b836cbebe4) -
+  Remove studio-close-rovo-panel pub-sub event, use chat-close instead
+
+## 5.15.0
+
+### Minor Changes
+
+- [`1b0bd17b0de4a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b0bd17b0de4a) -
+  Add skipCreatingSeededConversation, resetActiveMenu options to 'chat-new' event, add
+  resetActiveMenu option to 'chat-open' event
+
 ## 5.14.0
 
 ### Minor Changes

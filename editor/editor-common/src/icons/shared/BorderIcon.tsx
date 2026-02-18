@@ -1,7 +1,7 @@
 import React, { type ComponentProps } from 'react';
 
 // Custom icon ejection - these icons have been migrated away from the deprecated Custom / SVG components to native SVG. Please review whether this icon should be contributed to @atlaskit/icon-lab or whether it can be replaced by an existing icon from either @atlaskit/icon or @atlaskit/icon-lab
-const BorderIconGlyph = (props: ComponentProps<'svg'>) => {
+const BorderIconGlyph = ({ 'aria-label': ariaLabel, style }: Pick<ComponentProps<'svg'>, 'aria-label' | 'style'>) => {
 	return (
 		<svg
 			width="24"
@@ -9,9 +9,9 @@ const BorderIconGlyph = (props: ComponentProps<'svg'>) => {
 			viewBox="0 0 24 24"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
-			// Ignored via go/ees005
-			// eslint-disable-next-line react/jsx-props-no-spreading
-			{...props}
+			aria-label={ariaLabel}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- style prop passed through from parent component
+			style={style}
 		>
 			<path
 				d="M8.33333 8C8.15267 8 8 8.14933 8 8.33333V15.6667C8.0007 15.7549 8.03604 15.8392 8.0984 15.9016C8.16076 15.964 8.24514 15.9993 8.33333 16H15.6667C15.8473 16 16 15.8507 16 15.6667V8.33333C16 8.15267 15.8507 8 15.6667 8H8.33333Z"

@@ -432,8 +432,7 @@ function getPortalChildren<ExtraComponentProps>({
 					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					getPos={nodeViewParams.getPos as any}
 					node={currentNode}
-					// Ignored via go/ees005
-					// eslint-disable-next-line react/jsx-props-no-spreading
+					// eslint-disable-next-line react/jsx-props-no-spreading -- Spreading props to pass through dynamic component props
 					{...extraComponentProps}
 				/>
 				{browser.android ? (

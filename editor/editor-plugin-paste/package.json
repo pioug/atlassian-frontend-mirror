@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-paste",
-	"version": "8.1.13",
+	"version": "8.2.0",
 	"description": "Paste plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -122,6 +122,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_date_to_text": {
+			"type": "boolean"
+		},
+		"platform_media_cross_client_copy_with_auth": {
 			"type": "boolean"
 		}
 	}

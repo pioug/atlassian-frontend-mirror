@@ -1,5 +1,4 @@
 {
 	"extends": "../../../tsconfig.json",
-	"include": ["src/**/*.ts", "src/**/*.tsx", "../editor-common/src/block-menu/messages.ts"],
-	"compilerOptions": {}
+	"include": ["src/**/*.ts", "src/**/*.tsx", "../editor-common/src/block-menu/messages.ts"]
 }

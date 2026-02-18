@@ -15,8 +15,10 @@ const iconStyles = css({
 	},
 });
 
+type PanelNoteGlyphProps = Pick<CustomGlyphProps, 'role'>;
+
 // Custom icon ejection - these icons have been migrated away from the deprecated Custom / SVG components to native SVG. Please review whether this icon should be contributed to @atlaskit/icon-lab or whether it can be replaced by an existing icon from either @atlaskit/icon or @atlaskit/icon-lab
-const PanelNoteGlyph = (props: CustomGlyphProps) => {
+const PanelNoteGlyph = ({ role }: PanelNoteGlyphProps) => {
 	return (
 		<svg
 			width="24"
@@ -24,9 +26,7 @@ const PanelNoteGlyph = (props: CustomGlyphProps) => {
 			viewBox="0 0 24 24"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
-			// Ignored via go/ees005
-			// eslint-disable-next-line react/jsx-props-no-spreading
-			{...props}
+			role={role}
 		>
 			<path
 				fillRule="evenodd"

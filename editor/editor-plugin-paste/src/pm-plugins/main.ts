@@ -47,6 +47,7 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 import { contains, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { handlePaste as handlePasteTable } from '@atlaskit/editor-tables/utils';
 import { insm } from '@atlaskit/insm';
+import { extractClientIdsFromHtml } from '@atlaskit/media-common';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -231,6 +232,12 @@ export function createPlugin(
 				let text = event.clipboardData.getData('text/plain');
 				const html = event.clipboardData.getData('text/html');
 				const uriList = event.clipboardData.getData('text/uri-list');
+
+				// Extract clientId values from pasted HTML for media cross-product copy/paste
+				// This must be done before ProseMirror parses the HTML, as clientId is not stored in ADF
+				if (fg('platform_media_cross_client_copy_with_auth')) {
+					extractClientIdsFromHtml(html);
+				}
 				// Links copied from iOS Safari share button only have the text/uri-list data type
 				// ProseMirror don't do anything with this type so we want to make our own open slice
 				// with url as text content so link is pasted inline

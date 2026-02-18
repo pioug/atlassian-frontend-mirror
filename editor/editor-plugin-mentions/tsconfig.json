@@ -16,6 +16,5 @@
 		"**/stories/**/*.ts",
 		"**/stories/**/*.tsx",
 		"../editor-plugin-mentions-tests/src/__tests__/jest/ui/index.test.tsx"
-	],
-	"compilerOptions": {}
+	]
 }

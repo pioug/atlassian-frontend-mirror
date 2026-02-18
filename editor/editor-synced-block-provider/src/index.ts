@@ -31,6 +31,12 @@ export {
 	generateBlockAriFromReference,
 	getLocalIdFromBlockResourceId,
 } from './clients/block-service/ari';
+export type {
+	BlockContentResponse,
+	BatchRetrieveSyncedBlocksResponse,
+	ErrorResponse,
+} from './clients/block-service/blockService';
+export { BlockError } from './clients/block-service/blockService';
 export {
 	getConfluencePageAri,
 	getPageIdAndTypeFromConfluencePageAri,
@@ -48,20 +54,20 @@ export {
 	useMemoizedBlockServiceFetchOnlyAPIProvider,
 	fetchReferences,
 	batchFetchData,
+	blockAriToResourceId,
+	convertToSyncBlockData,
+	extractResourceIdFromBlockAri,
 } from './providers/block-service/blockServiceAPI';
 export { fetchConfluencePageInfo } from './clients/confluence/sourceInfo';
 
-export {
-	SyncBlockProvider as SyncedBlockProvider,
-	useMemoizedSyncedBlockProvider,
-} from './providers/syncBlockProvider';
+export { SyncedBlockProvider, useMemoizedSyncedBlockProvider } from './providers/syncBlockProvider';
 export type {
 	ADFFetchProvider,
 	ADFWriteProvider,
 	BlockNodeIdentifiers,
 	BlockSubscriptionErrorCallback,
 	BlockUpdateCallback,
-	SyncBlockDataProvider,
+	SyncBlockDataProviderInterface,
 	SyncBlockInstance,
 	MediaEmojiProviderOptions,
 	SyncedBlockRendererProviderOptions,

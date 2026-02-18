@@ -3,8 +3,9 @@ import type { SyncBlockInstance } from '../providers/types';
 
 /**
  * Merges two SyncBlockInstance objects,
- * currently it only preserves the sourceURL from the old result,
- * but this can be extended in the future to preserve other fields and resolve conflicts as needed.
+ * preserving sourceURL, sourceTitle, sourceSubType, and onSameDocument from the old result
+ * when the new result does not have them.
+ * This can be extended in the future to resolve other conflicts as needed,
  * e.g. compare timestamps or version numbers to determine which data is more recent.
  *
  * @param oldResult - The existing SyncBlockInstance object.

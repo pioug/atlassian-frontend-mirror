@@ -594,6 +594,9 @@
               },
               {
                 "$ref": "#/definitions/listItem_with_nested_decision_node"
+              },
+              {
+                "$ref": "#/definitions/listItem_flexible_first_child_node"
               }
             ]
           },
@@ -1815,6 +1818,57 @@
       "required": ["type", "attrs"],
       "additionalProperties": false
     },
+    "listItem_flexible_first_child_node": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": ["listItem"]
+        },
+        "attrs": {
+          "type": "object",
+          "properties": {
+            "localId": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/paragraph_with_no_marks_node"
+              },
+              {
+                "$ref": "#/definitions/bulletList_node"
+              },
+              {
+                "$ref": "#/definitions/orderedList_node"
+              },
+              {
+                "$ref": "#/definitions/taskList_node"
+              },
+              {
+                "$ref": "#/definitions/mediaSingle_caption_node"
+              },
+              {
+                "$ref": "#/definitions/mediaSingle_full_node"
+              },
+              {
+                "$ref": "#/definitions/codeBlock_node"
+              },
+              {
+                "$ref": "#/definitions/extension_with_marks_node"
+              }
+            ]
+          },
+          "minItems": 1
+        }
+      },
+      "additionalProperties": false,
+      "required": ["type", "content"]
+    },
     "listItem_node": {
       "type": "object",
       "properties": {
@@ -2515,6 +2569,9 @@
               },
               {
                 "$ref": "#/definitions/listItem_with_nested_decision_node"
+              },
+              {
+                "$ref": "#/definitions/listItem_flexible_first_child_node"
               }
             ]
           },

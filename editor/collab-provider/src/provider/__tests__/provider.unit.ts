@@ -68,7 +68,6 @@ import { NullDocumentService } from '../../document/null-document-service';
 import { NullApi } from '../../api/null-api';
 import { DocumentService } from '../../document/document-service';
 import { Api } from '../../api/api';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const testProviderConfig = {
 	url: `http://provider-url:66661`,
@@ -389,7 +388,7 @@ describe('Provider', () => {
 			provider.initialize(() => editorState);
 			try {
 				await provider.fetchMore();
-			} catch (err) {
+			} catch {
 				expect(participantsService.enrichParticipants).not.toHaveBeenCalled();
 			}
 		});
@@ -793,71 +792,9 @@ describe('Provider', () => {
 					disconnectionPeriodSeconds: 3,
 					unconfirmedStepsLength: 0,
 				},
-				undefined,
+				'pweq3Q7NOPY4y88QAGyr',
 			);
 		});
-
-		ffTest(
-			'add_session_id_to_catchup_query',
-			async () => {
-				const provider = createSocketIOCollabProvider(testProviderConfig);
-				const throttledCatchupv2Spy = jest.spyOn(
-					// @ts-ignore
-					provider.documentService as any,
-					'throttledCatchupv2',
-				);
-				provider.initialize(() => editorState);
-
-				jest.spyOn(Date, 'now').mockReturnValueOnce(Date.now() - 3 * 1000); // Time travel 3s to the past
-				channel.emit('disconnect', {
-					reason: 'Testing - Faking that we got disconnected 3s ago, HAHAHA, take that code',
-				});
-
-				channel.emit('connected', {
-					sid: 'pweq3Q7NOPY4y88QAGyr',
-					initialized: true,
-				});
-
-				expect(throttledCatchupv2Spy).toHaveBeenCalledTimes(1);
-				expect(throttledCatchupv2Spy).toHaveBeenCalledWith(
-					CatchupEventReason.RECONNECTED,
-					{
-						disconnectionPeriodSeconds: 3,
-						unconfirmedStepsLength: 0,
-					},
-					'pweq3Q7NOPY4y88QAGyr',
-				);
-			},
-			async () => {
-				const provider = createSocketIOCollabProvider(testProviderConfig);
-				const throttledCatchupv2Spy = jest.spyOn(
-					// @ts-ignore
-					provider.documentService as any,
-					'throttledCatchupv2',
-				);
-				provider.initialize(() => editorState);
-
-				jest.spyOn(Date, 'now').mockReturnValueOnce(Date.now() - 3 * 1000); // Time travel 3s to the past
-				channel.emit('disconnect', {
-					reason: 'Testing - Faking that we got disconnected 3s ago, HAHAHA, take that code',
-				});
-
-				channel.emit('connected', {
-					sid: 'pweq3Q7NOPY4y88QAGyr',
-					initialized: true,
-				});
-
-				expect(throttledCatchupv2Spy).toHaveBeenCalledTimes(1);
-				expect(throttledCatchupv2Spy).toHaveBeenCalledWith(
-					CatchupEventReason.RECONNECTED,
-					{
-						disconnectionPeriodSeconds: 3,
-						unconfirmedStepsLength: 0,
-					},
-					undefined,
-				);
-			},
-		);
 
 		it('Should be triggered when initial draft is present and is reconnecting after being disconnected for more than 3s', async () => {
 			// ensure that if initial draft exists, any reconnections do not attempt to re-update document/metadata with initial draft
@@ -898,7 +835,7 @@ describe('Provider', () => {
 					disconnectionPeriodSeconds: 3,
 					unconfirmedStepsLength: 0,
 				},
-				undefined,
+				'pweq3Q7NOPY4y88QAGyr',
 			);
 		});
 		it('Should be triggered when confirmed steps from other participants were received from NCS that are further in the future than the local steps (aka some changes got lost before reaching us)', async () => {

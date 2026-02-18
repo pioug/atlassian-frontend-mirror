@@ -39,7 +39,7 @@
 					"id": "lozenge",
 					"status": {
 						"type": "beta",
-						"description": "New and ready to use. We'll provide comms and support for any major changes."
+						"description": "New and ready to use. These visual updates are currently behind the feature flag: `platform-dst-lozenge-tag-badge-visual-uplifts`. We'll provide comms and support for any major changes."
 					}
 				},
 				{

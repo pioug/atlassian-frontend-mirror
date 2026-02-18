@@ -29,6 +29,7 @@ function setup(response: Promise<Blob>, props?: Partial<ImageViewerProps>) {
 	const mediaClient = fakeMediaClient();
 	asMockFunction(mediaClient.getImage).mockReturnValue(response);
 	asMockFunction(mediaClient.file.getFileBinaryURL).mockResolvedValue('some-binary-url');
+	asMockFunction(mediaClient.getClientId).mockResolvedValue(undefined);
 	const onClose = jest.fn();
 	const onLoaded = jest.fn();
 	const onError = jest.fn();
@@ -157,6 +158,9 @@ describe('ImageViewer', () => {
 		const response: any = new Promise(() => {});
 		const { component } = setup(response);
 
+		// Wait for async init operations (getClientId) to complete before unmounting
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
 		component.unmount();
 
 		await waitFor(() => {
@@ -244,7 +248,7 @@ describe('ImageViewer', () => {
 
 		const imageElm = screen.getByTestId('media-viewer-image');
 		expect(imageElm.getAttribute('src')).toBe(
-			'mock result of URL.createObjectURL()#media-blob-url=true&id=some-id&contextId=some-context-id&collection=some-collection',
+			'mock result of URL.createObjectURL()#media-blob-url=true&id=some-id&contextId=some-context-id&collection=some-collection&clientId=',
 		);
 	});
 });

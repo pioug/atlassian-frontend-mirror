@@ -1,5 +1,23 @@
 # @atlaskit/renderer
 
+## 126.9.1
+
+### Patch Changes
+
+- [`f47d5ca6cd33f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f47d5ca6cd33f) -
+  [EDITOR-5116] Fixes the unnecessary padding added when a heading is the first node in a panel
+
+## 126.9.0
+
+### Minor Changes
+
+- [`aac76ca1cde5b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aac76ca1cde5b) -
+  Fix hydration error with dates in task lists
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 126.8.11
 
 ### Patch Changes

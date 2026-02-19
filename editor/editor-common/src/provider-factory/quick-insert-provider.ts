@@ -64,7 +64,7 @@ export type QuickInsertItem = TypeAheadItem & {
 	action: (
 		insert: QuickInsertActionInsert,
 		state: EditorState,
-		source?: INPUT_METHOD.TOOLBAR | INPUT_METHOD.QUICK_INSERT,
+		source?: INPUT_METHOD.TOOLBAR | INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.ELEMENT_BROWSER,
 	) => Transaction | false;
 	/** categories where to find the item */
 	categories?: Array<string>;

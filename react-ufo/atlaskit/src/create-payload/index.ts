@@ -711,14 +711,10 @@ async function createInteractionMetricsPayload(
 						}
 					: {}),
 
-				...(fg('platform_ufo_browser_backgrounded_abort_timestamp')
-					? {
-							'ufo:pageVisibilityHiddenTimestamp': getEarliestHiddenTiming(
-								interaction.start,
-								interaction.end,
-							),
-						}
-					: {}),
+				'ufo:pageVisibilityHiddenTimestamp': getEarliestHiddenTiming(
+					interaction.start,
+					interaction.end,
+				),
 
 				'ufo:wasPageHiddenBeforeInit': getHasHiddenTimingBeforeSetup(),
 

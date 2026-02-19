@@ -23,7 +23,7 @@ describe('InlineEdit component', () => {
 				<InlineEdit
 					defaultValue={defaultValue}
 					label="Inline edit"
-					editView={({ errorMessage, ...fieldProps }) => (
+					editView={({ errorMessage: _errorMessage, ...fieldProps }) => (
 						<Textfield testId="edit-view" {...fieldProps} />
 					)}
 					readView={() => (
@@ -46,7 +46,7 @@ describe('InlineEdit component', () => {
 				<InlineEdit
 					defaultValue={defaultValue}
 					label="Inline edit"
-					editView={({ errorMessage, ...fieldProps }) => (
+					editView={({ errorMessage: _errorMessage, ...fieldProps }) => (
 						<Textfield testId="edit-view" {...fieldProps} />
 					)}
 					readView={() => (
@@ -85,7 +85,7 @@ describe('InlineEdit component', () => {
 				<InlineEdit
 					defaultValue={defaultValue}
 					label="Inline edit"
-					editView={({ errorMessage, ...fieldProps }) => (
+					editView={({ errorMessage: _errorMessage, ...fieldProps }) => (
 						<Textfield testId="edit-view" {...fieldProps} />
 					)}
 					readView={() => (
@@ -121,7 +121,7 @@ describe('InlineEdit component', () => {
 					<InlineEdit
 						defaultValue={editValue}
 						label="Inline edit"
-						editView={({ errorMessage, ...fieldProps }) => (
+						editView={({ errorMessage: _errorMessage, ...fieldProps }) => (
 							<Textfield testId="edit-view" {...fieldProps} />
 						)}
 						readView={() => (
@@ -159,7 +159,7 @@ describe('InlineEdit component', () => {
 				<InlineEdit
 					defaultValue={defaultValue}
 					label="Inline edit"
-					editView={({ errorMessage, ...fieldProps }) => (
+					editView={({ errorMessage: _errorMessage, ...fieldProps }) => (
 						<Textfield testId="edit-view" {...fieldProps} />
 					)}
 					readView={() => (
@@ -201,7 +201,7 @@ describe('InlineEdit component', () => {
 				<InlineEdit
 					defaultValue={defaultValue}
 					label="Inline edit"
-					editView={({ errorMessage, ...fieldProps }) => (
+					editView={({ errorMessage: _errorMessage, ...fieldProps }) => (
 						<Textfield testId="edit-view" {...fieldProps} />
 					)}
 					readView={() => (
@@ -282,6 +282,42 @@ describe('InlineEdit component', () => {
 				screen.getByRole('button', { name: 'my custom edit button label, Inline edit, edit' }),
 			).toBeInTheDocument();
 		});
+
+		it('should extract text from a ReactNode label', () => {
+			render(
+				<InlineEdit
+					label={<>Team name ReactNode</>}
+					defaultValue=""
+					onConfirm={() => {}}
+					readView={() => <div>Read view</div>}
+					editView={() => <div>Edit view</div>}
+				/>,
+			);
+
+			expect(
+				screen.getByRole('button', { name: 'Edit, Team name ReactNode, edit' }),
+			).toBeInTheDocument();
+		});
+
+		it('should extract text from a nested ReactNode label', () => {
+			render(
+				<InlineEdit
+					label={
+						<span>
+							Team <strong>name</strong>
+						</span>
+					}
+					defaultValue=""
+					onConfirm={() => {}}
+					readView={() => <div>Read view</div>}
+					editView={() => <div>Edit view</div>}
+				/>,
+			);
+
+			expect(
+				screen.getByRole('button', { name: 'Edit, Team name, edit' }),
+			).toBeInTheDocument();
+		});
 	});
 
 	describe('generic types', () => {
@@ -355,7 +391,7 @@ describe('InlineEdit component', () => {
 					<InlineEdit
 						defaultValue={defaultValue}
 						label="Inline edit"
-						editView={({ errorMessage, ...fieldProps }) => <Textfield {...fieldProps} autoFocus />}
+						editView={({ errorMessage: _errorMessage, ...fieldProps }) => <Textfield {...fieldProps} autoFocus />}
 						readView={() => <span>{defaultValue || 'Click to enter value'}</span>}
 						onConfirm={onConfirm}
 						testId="test"

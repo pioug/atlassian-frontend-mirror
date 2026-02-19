@@ -1,5 +1,35 @@
 # @atlaskit/editor-statsig-tmp
 
+## 25.7.0
+
+### Minor Changes
+
+- [`954a1eed1f43b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/954a1eed1f43b) -
+  [A11Y-35924] wrap LinkPicker in focus lock to return focus to trigger after escaping Link dialog
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.6.0
+
+### Minor Changes
+
+- [`60cf5a2b53f7b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/60cf5a2b53f7b) -
+  fix sync block delete modal appearing when streaming sync block
+- [`7ef3027df8198`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ef3027df8198) -
+  remove platform_editor_lovability_user_intent experiment
+- [`0dc0791c6e745`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0dc0791c6e745) -
+  Fix additional CRLF issues with advanced codeblocks. Behind
+  platform_editor_fix_advanced_codeblocks_crlf_patch gate.
+
+## 25.5.0
+
+### Minor Changes
+
+- [`aac76ca1cde5b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aac76ca1cde5b) -
+  Fix hydration error with dates in task lists
+
 ## 25.4.0
 
 ### Minor Changes

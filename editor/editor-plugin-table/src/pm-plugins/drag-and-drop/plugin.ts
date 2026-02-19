@@ -102,14 +102,12 @@ const destroyFn = (
 				// watch for changes
 				return localId === tableNode?.attrs.localId;
 			},
-			onDragStart: ({ location }) => {
+			onDragStart: () => {
 				if (expValEquals('cc_editor_interactivity_monitoring', 'isEnabled', true)) {
 					insm.session?.startFeature('tableDragAndDrop');
 				}
 				toggleDragMenu(false)(editorView.state, editorView.dispatch);
-				if (expValEquals('platform_editor_lovability_user_intent', 'isEnabled', true)) {
-					api?.core.actions.execute(api?.userIntent?.commands.setCurrentUserIntent('dragging'));
-				}
+				api?.core.actions.execute(api?.userIntent?.commands.setCurrentUserIntent('dragging'));
 			},
 			onDrag(event) {
 				const data = getDraggableDataFromEvent(event);
@@ -135,9 +133,7 @@ const destroyFn = (
 					targetAdjustedIndex,
 					hasMergedCells,
 				)(editorView.state, editorView.dispatch);
-				if (expValEquals('platform_editor_lovability_user_intent', 'isEnabled', true)) {
-					api?.core.actions.execute(api?.userIntent?.commands.setCurrentUserIntent('dragging'));
-				}
+				api?.core.actions.execute(api?.userIntent?.commands.setCurrentUserIntent('dragging'));
 			},
 			onDrop(event) {
 				const data = getDraggableDataFromEvent(event);
@@ -166,10 +162,7 @@ const destroyFn = (
 				};
 				tr.setMeta(tablePluginKey, action);
 
-				if (
-					expValEquals('platform_editor_lovability_user_intent', 'isEnabled', true) &&
-					api?.userIntent?.sharedState.currentState()?.currentUserIntent === 'dragging'
-				) {
+				if (api?.userIntent?.sharedState.currentState()?.currentUserIntent === 'dragging') {
 					api?.core.actions.execute(api?.userIntent?.commands.setCurrentUserIntent('default'));
 				}
 				// If no data can be found then it's most like we do not want to perform any drop action
@@ -302,7 +295,7 @@ export const createPlugin = (
 	api?: ExtractInjectionAPI<TablePlugin>,
 ) => {
 	return new SafePlugin({
-		state: createPluginState(dispatch, (state) => ({
+		state: createPluginState(dispatch, () => ({
 			decorationSet: DecorationSet.empty,
 			dropTargetType: DropTargetType.NONE,
 			dropTargetIndex: 0,

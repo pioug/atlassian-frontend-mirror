@@ -5,7 +5,9 @@ import {
 	timestampToString,
 	timestampToTaskContext,
 } from '@atlaskit/editor-common/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { useRendererContext } from '../../renderer-context';
 import { useTaskItemsFormatContext } from '../../ui/TaskItemsFormatContext/TaskItemsFormatContext';
 import {
 	type MarkDataAttributes,
@@ -20,8 +22,12 @@ export interface Props extends MarkDataAttributes {
 const Date = memo(function Date(props: Props & WrappedComponentProps) {
 	const inlineAnnotationProps = useInlineAnnotationProps(props);
 	const { timestamp, parentIsIncompleteTask, intl } = props;
+	const { timeZone: contextTimeZone } = useRendererContext();
+	const timeZone = expValEquals('confluence_frontend_fix_date_hydration_error', 'isEnabled', true)
+		? contextTimeZone
+		: undefined;
 	const className =
-		!!parentIsIncompleteTask && isPastDate(timestamp)
+		!!parentIsIncompleteTask && isPastDate(timestamp, timeZone)
 			? 'date-node date-node-highlighted'
 			: 'date-node';
 
@@ -40,7 +46,7 @@ const Date = memo(function Date(props: Props & WrappedComponentProps) {
 				data-timestamp={timestamp}
 			>
 				{parentIsIncompleteTask
-					? timestampToTaskContext(timestamp, intl)
+					? timestampToTaskContext(timestamp, intl, timeZone)
 					: timestampToString(timestamp, intl)}
 			</span>
 		</span>

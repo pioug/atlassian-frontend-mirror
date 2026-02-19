@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-status
 
+## 8.1.15
+
+### Patch Changes
+
+- [`7ef3027df8198`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ef3027df8198) -
+  remove platform_editor_lovability_user_intent experiment
+- Updated dependencies
+
 ## 8.1.14
 
 ### Patch Changes

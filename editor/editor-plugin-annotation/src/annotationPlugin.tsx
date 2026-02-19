@@ -109,7 +109,7 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 				const bookmark = pluginState?.bookmark;
 
 				if (shouldSuppressFloatingToolbar({ state, bookmark })) {
-					return buildSuppressedToolbar(state, api);
+					return buildSuppressedToolbar(state);
 				}
 			},
 

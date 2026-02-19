@@ -80,11 +80,17 @@ export type CorePlugin = NextEditorPlugin<
 			 * @param options.addToHistory (boolean) if the replacement should be added to history. True by default
 			 * @param options.scrollIntoView (boolean) if the view should also scroll on replace. True by default
 			 * @param options.skipValidation (boolean) if the validation should be skipped. False by default
+			 * @param options.transformer (Transformer<string>) transformer to convert the replaceValue into (example is from markdown)
 			 * @returns A boolean indicating whether the replacement was successful.
 			 */
 			replaceDocument: (
 				replaceValue: Node | Fragment | Array<Node> | Object | string,
-				options?: { addToHistory?: boolean; scrollIntoView?: boolean; skipValidation?: boolean },
+				options?: {
+					addToHistory?: boolean;
+					scrollIntoView?: boolean;
+					skipValidation?: boolean;
+					transformer?: Transformer<string>;
+				},
 			) => boolean;
 
 			/**

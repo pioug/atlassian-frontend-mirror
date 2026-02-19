@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.0.43
+
+### Patch Changes
+
+- [`61ffb7d51ff40`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/61ffb7d51ff40) -
+  [ux] Ensure that when a transform to an expand happens, its localId is present so that it remains
+  'expanded'
+- Updated dependencies
+
 ## 6.0.42
 
 ### Patch Changes

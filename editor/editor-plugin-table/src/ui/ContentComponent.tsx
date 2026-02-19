@@ -20,7 +20,6 @@ import {
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-import { expValNoExposure } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type tablePlugin from '../tablePlugin';
 import { type TablePlugin, type TablePluginOptions } from '../tablePluginType';
@@ -193,12 +192,7 @@ const ContentComponentInternal = ({
 					isCellMenuOpenByKeyboard={isCellMenuOpenByKeyboard}
 					isCommentEditor={options?.isCommentEditor}
 					api={api}
-					isDragMenuOpen={
-						isDragAndDropEnabled &&
-						expValNoExposure('platform_editor_lovability_user_intent', 'isEnabled', false)
-							? isDragMenuOpen
-							: undefined
-					}
+					isDragMenuOpen={isDragMenuOpen}
 				/>
 			)}
 			{isDragAndDropEnabled && (

@@ -5,6 +5,7 @@ import type { IntlShape } from 'react-intl-next';
 import { INPUT_METHOD, type EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	messages,
+	NATIVE_EMBED_EXTENSION_TYPE,
 	type ExtensionParams,
 	type ExtensionProvider,
 	type Parameters,
@@ -503,6 +504,12 @@ export const getToolbarConfig =
 			extensionApi as ExtractInjectionAPI<ExtensionPlugin>,
 		);
 		const extensionObj = getSelectedExtension(state, true);
+
+		// If this is a native-embed extension, skip providing a toolbar config to allow
+		// the native-embed plugin to provide a custom toolbar config.
+		if (extensionObj?.node.attrs.extensionType === NATIVE_EMBED_EXTENSION_TYPE) {
+			return;
+		}
 
 		// Check if we need to show confirm dialog for delete button
 		let confirmDialog;

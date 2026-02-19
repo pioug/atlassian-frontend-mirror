@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 43.24.9
+
+### Patch Changes
+
+- [`3bee560fea726`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3bee560fea726) -
+  Exclude Invalid URL error from new URL() from operational.smartLink.unresolved event, behind fg
+  platform_navx_lp_invalid_url_error
+- Updated dependencies
+
 ## 43.24.8
 
 ### Patch Changes

@@ -582,15 +582,10 @@ export const getToolbarConfig =
 			const shouldSuppressAllToolbars = isTableState && pluginState.editorHasFocus && !isViewMode;
 
 			if (shouldSuppressAllToolbars) {
-				const userIntentEnabled = Boolean(
-					api?.userIntent &&
-						expValEquals('platform_editor_lovability_user_intent', 'isEnabled', true),
-				);
 				return {
 					title: toolbarTitle,
 					items: [],
 					nodeType,
-					__suppressAllToolbars: userIntentEnabled ? undefined : true,
 				};
 			}
 		}

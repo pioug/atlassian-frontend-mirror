@@ -1,5 +1,13 @@
 # @atlaskit/embedded-confluence
 
+## 4.5.0
+
+### Minor Changes
+
+- [`caa0f069c5a43`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/caa0f069c5a43) -
+  Fix TOC scrolling when isHeightSetFromContent is true and add ability to pass in custom scroll
+  function
+
 ## 4.4.0
 
 ### Minor Changes
@@ -81,9 +89,9 @@
   [`4c5a404f45416`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c5a404f45416) - 1.
   This upgrade migrates css styles from using `@emotion/react` to use `@compiled/react`. 2. In
   addition to some dependency changes, **the embedded `ViewPage` and `Page` components will no
-  longer accept the `className` prop because of the interference it causes with SSR.**
-  3. As an alternative, styles should be applied to a wrapping container placed around the
-     `ViewPage` component.
+  longer accept the `className` prop because of the interference it causes with SSR.** 3. As an
+  alternative, styles should be applied to a wrapping container placed around the `ViewPage`
+  component.
 
   **NOTE:** Some bundlers may not support `.css` files inside `node_modules/` out-of-the-box like
   the ones that Compiled generates. Please follow the guide below depending on the bundler your app

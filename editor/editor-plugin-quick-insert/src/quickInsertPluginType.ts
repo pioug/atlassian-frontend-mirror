@@ -29,7 +29,7 @@ export type QuickInsertPlugin = NextEditorPlugin<
 			getSuggestions: (searchOptions: QuickInsertSearchOptions) => QuickInsertItem[];
 			insertItem: (
 				item: QuickInsertItem,
-				source?: INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR,
+				source?: INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR | INPUT_METHOD.ELEMENT_BROWSER,
 			) => Command;
 			openTypeAhead: (
 				inputMethod: TypeAheadInputMethod,

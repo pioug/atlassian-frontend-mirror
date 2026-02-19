@@ -53,7 +53,6 @@ import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValNoExposure } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 
@@ -143,10 +142,7 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions): Defaul
 		.add(decorationsPlugin)
 		.add([typeAheadPlugin, options.typeAhead])
 		.maybeAdd(historyPlugin, Boolean(options.allowUndoRedoButtons))
-		.maybeAdd(
-			userIntentPlugin,
-			expValNoExposure('platform_editor_lovability_user_intent', 'isEnabled', false),
-		)
+		.add(userIntentPlugin)
 		.maybeAdd(
 			[toolbarPlugin, options.toolbar || {}],
 			Boolean(options.toolbar?.enableNewToolbarExperience),

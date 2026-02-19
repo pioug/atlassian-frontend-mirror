@@ -553,8 +553,17 @@ export const RendererFunctionalComponent = (
 	}, []);
 
 	const rendererContext = useMemo(
-		() => createRendererContext(props.featureFlags, props.isTopLevelRenderer, props.contentMode),
-		[props.featureFlags, props.isTopLevelRenderer, createRendererContext, props.contentMode],
+		() => ({
+			...createRendererContext(props.featureFlags, props.isTopLevelRenderer, props.contentMode),
+			timeZone: props.timeZone,
+		}),
+		[
+			props.featureFlags,
+			props.isTopLevelRenderer,
+			createRendererContext,
+			props.contentMode,
+			props.timeZone,
+		],
 	);
 
 	useScrollToBlock(editorRef, props.document);

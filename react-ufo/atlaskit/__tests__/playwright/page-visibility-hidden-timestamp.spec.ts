@@ -4,14 +4,13 @@
 import { expect, test } from './fixtures';
 
 test.describe('React UFO: pageVisibilityHiddenTimestamp field', () => {
-	test.describe('when feature flag is enabled and page stays visible', () => {
+	test.describe('when page stays visible', () => {
 		test.use({
 			examplePage: 'basic',
 			viewport: {
 				width: 1920,
 				height: 1080,
 			},
-			featureFlags: ['platform_ufo_browser_backgrounded_abort_timestamp'],
 		});
 
 		test('should have undefined timestamp when page was never backgrounded', async ({
@@ -29,21 +28,20 @@ test.describe('React UFO: pageVisibilityHiddenTimestamp field', () => {
 
 			const ufoProperties = reactUFOPayload!.attributes.properties;
 
-			// The field should be present when feature flag is enabled
+			// The field should be present
 			// Since the page was never hidden during the interaction, it should be undefined
 			expect('ufo:pageVisibilityHiddenTimestamp' in ufoProperties).toBe(true);
 			expect(ufoProperties['ufo:pageVisibilityHiddenTimestamp']).toBeUndefined();
 		});
 	});
 
-	test.describe('when feature flag is enabled and page is backgrounded', () => {
+	test.describe('when page is backgrounded', () => {
 		test.use({
 			examplePage: 'interactions-simple-button',
 			viewport: {
 				width: 1920,
 				height: 1080,
 			},
-			featureFlags: ['platform_ufo_browser_backgrounded_abort_timestamp'],
 		});
 
 		test('should capture hidden timestamp when page is backgrounded during interaction', async ({
@@ -103,36 +101,6 @@ test.describe('React UFO: pageVisibilityHiddenTimestamp field', () => {
 			expect(typeof hiddenTimestamp).toBe('number');
 			// The value should be a non-negative offset from the interaction start time
 			expect(hiddenTimestamp).toBeGreaterThanOrEqual(0);
-		});
-	});
-
-	test.describe('when feature flag is disabled', () => {
-		test.use({
-			examplePage: 'basic',
-			viewport: {
-				width: 1920,
-				height: 1080,
-			},
-			featureFlags: [],
-		});
-
-		test('should not include ufo:pageVisibilityHiddenTimestamp in payload', async ({
-			page,
-			waitForReactUFOPayload,
-		}) => {
-			const mainDiv = page.locator('[data-testid="main"]');
-			const sections = page.locator('[data-testid="main"] > div');
-
-			await expect(mainDiv).toBeVisible();
-			await expect(sections.nth(9)).toBeVisible();
-
-			const reactUFOPayload = await waitForReactUFOPayload();
-			expect(reactUFOPayload).toBeDefined();
-
-			const ufoProperties = reactUFOPayload!.attributes.properties;
-
-			// The field should not be present when feature flag is disabled
-			expect('ufo:pageVisibilityHiddenTimestamp' in ufoProperties).toBe(false);
 		});
 	});
 });

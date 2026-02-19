@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-menu",
-	"version": "6.0.42",
+	"version": "6.0.43",
 	"description": "BlockMenu plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -97,6 +97,9 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_adf_with_localid": {
+			"type": "boolean"
+		},
+		"platform_editor_block_menu_expand_localid_fix": {
 			"type": "boolean"
 		},
 		"platform_editor_block_menu_v2_patch_2": {

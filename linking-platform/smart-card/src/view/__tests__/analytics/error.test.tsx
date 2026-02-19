@@ -111,6 +111,63 @@ describe('smart-card: error analytics', () => {
 		);
 	});
 
+	ffTest.off('platform_navx_lp_invalid_url_error', '', () => {
+		it('should invoke onError on TypeError', async () => {
+			const invalidUrl = 'https://';
+			const onError = jest.fn();
+			render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<Provider>
+						<Card testId="erroredLink" appearance="inline" url={invalidUrl} onError={onError} />
+					</Provider>
+				</FabricAnalyticsListeners>,
+			);
+			await waitFor(() =>
+				expect(onError).toHaveBeenCalledWith({
+					status: 'errored',
+					url: invalidUrl,
+				}),
+			);
+			expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'smartLink',
+					action: 'unresolved',
+					attributes: expect.objectContaining({
+						error: {
+							name: 'TypeError',
+						},
+					}),
+				}),
+			);
+		});
+	});
+
+	ffTest.on('platform_navx_lp_invalid_url_error', '', () => {
+		it('should invoke onError on InvalidUrlError', async () => {
+			const invalidUrl = 'https://';
+			const onError = jest.fn();
+			render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<Provider>
+						<Card testId="erroredLink" appearance="inline" url={invalidUrl} onError={onError} />
+					</Provider>
+				</FabricAnalyticsListeners>,
+			);
+			await waitFor(() =>
+				expect(onError).toHaveBeenCalledWith({
+					status: 'errored',
+					url: invalidUrl,
+				}),
+			);
+			expect(mockAnalyticsClient.sendOperationalEvent).not.toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'smartLink',
+					action: 'unresolved',
+				}),
+			);
+		});
+	});
+
 	it('should render unauthorized on ResolveAuthError', async () => {
 		class MockClient extends CardClient {
 			async fetchData(url: string): Promise<JsonLd.Response> {

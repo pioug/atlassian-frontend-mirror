@@ -1,5 +1,14 @@
 # @atlaskit/link-provider
 
+## 4.2.1
+
+### Patch Changes
+
+- [`3bee560fea726`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3bee560fea726) -
+  Exclude Invalid URL error from new URL() from operational.smartLink.unresolved event, behind fg
+  platform_navx_lp_invalid_url_error
+- Updated dependencies
+
 ## 4.2.0
 
 ### Minor Changes

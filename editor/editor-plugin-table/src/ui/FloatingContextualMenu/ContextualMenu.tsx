@@ -54,9 +54,7 @@ import TableRowAddBelowIcon from '@atlaskit/icon/core/table-row-add-below';
 import TableRowDeleteIcon from '@atlaskit/icon/core/table-row-delete';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-import { expValNoExposure } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import {
 	clearHoverSelection,
@@ -155,12 +153,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			this.props.editorView.state,
 		);
 
-		if (
-			isDragAndDropEnabled &&
-			this.props.isDragMenuOpen &&
-			isContextualMenuOpen &&
-			expValNoExposure('platform_editor_lovability_user_intent', 'isEnabled', false)
-		) {
+		if (isDragAndDropEnabled && this.props.isDragMenuOpen && isContextualMenuOpen) {
 			toggleContextualMenu()(this.props.editorView.state, this.props.editorView.dispatch);
 		}
 	}
@@ -175,48 +168,43 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		let isOpenAllowed = false;
 
 		isOpenAllowed = isCellMenuOpenByKeyboard ? this.state.isOpenAllowed : isOpen;
-		const popupContent = () => (
-			<div
-				data-testid="table-cell-contextual-menu"
-				// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
-				onMouseLeave={this.closeSubmenu}
-				ref={this.dropdownMenuRef}
-			>
-				<DropdownMenu
-					//This needs be removed when the a11y is completely handled
-					//Disabling key navigation now as it works only partially
-					arrowKeyNavigationProviderOptions={{
-						type: ArrowKeyNavigationType.MENU,
-						disableArrowKeyNavigation: !isCellMenuOpenByKeyboard || this.state.isSubmenuOpen,
-					}}
-					items={items}
-					isOpen={isOpenAllowed}
-					onOpenChange={this.handleOpenChange}
-					onItemActivated={this.onMenuItemActivated}
-					onMouseEnter={this.handleItemMouseEnter}
-					onMouseLeave={this.handleItemMouseLeave}
-					fitHeight={188}
-					fitWidth={
-						isDragAndDropEnabled ? contextualMenuDropdownWidthDnD : contextualMenuDropdownWidth
-					}
-					shouldFocusFirstItem={() => {
-						return Boolean(isCellMenuOpenByKeyboard);
-					}}
-					boundariesElement={boundariesElement}
-					offset={offset}
-					section={isDragAndDropEnabled ? { hasSeparator: true } : undefined}
-					allowEnterDefaultBehavior={this.state.isSubmenuOpen}
-				/>
-			</div>
+
+		return (
+			<UserIntentPopupWrapper userIntent="tableContextualMenuPopupOpen" api={api}>
+				<div
+					data-testid="table-cell-contextual-menu"
+					// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
+					onMouseLeave={this.closeSubmenu}
+					ref={this.dropdownMenuRef}
+				>
+					<DropdownMenu
+						//This needs be removed when the a11y is completely handled
+						//Disabling key navigation now as it works only partially
+						arrowKeyNavigationProviderOptions={{
+							type: ArrowKeyNavigationType.MENU,
+							disableArrowKeyNavigation: !isCellMenuOpenByKeyboard || this.state.isSubmenuOpen,
+						}}
+						items={items}
+						isOpen={isOpenAllowed}
+						onOpenChange={this.handleOpenChange}
+						onItemActivated={this.onMenuItemActivated}
+						onMouseEnter={this.handleItemMouseEnter}
+						onMouseLeave={this.handleItemMouseLeave}
+						fitHeight={188}
+						fitWidth={
+							isDragAndDropEnabled ? contextualMenuDropdownWidthDnD : contextualMenuDropdownWidth
+						}
+						shouldFocusFirstItem={() => {
+							return Boolean(isCellMenuOpenByKeyboard);
+						}}
+						boundariesElement={boundariesElement}
+						offset={offset}
+						section={isDragAndDropEnabled ? { hasSeparator: true } : undefined}
+						allowEnterDefaultBehavior={this.state.isSubmenuOpen}
+					/>
+				</div>
+			</UserIntentPopupWrapper>
 		);
-		if (expValEqualsNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true)) {
-			return (
-				<UserIntentPopupWrapper userIntent="tableContextualMenuPopupOpen" api={api}>
-					{popupContent()}
-				</UserIntentPopupWrapper>
-			);
-		}
-		return popupContent();
 	}
 
 	private handleSubMenuRef = (ref: HTMLDivElement | null) => {

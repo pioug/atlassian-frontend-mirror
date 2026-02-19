@@ -225,8 +225,12 @@ function Component({
 					duration: measure.getMeasure(id, state.status)?.duration ?? null,
 				});
 			} else if (
-				state.error?.type !== 'ResolveUnsupportedError' &&
-				state.error?.type !== 'UnsupportedError'
+				fg('platform_navx_lp_invalid_url_error')
+					? state.error?.type !== 'ResolveUnsupportedError' &&
+						state.error?.type !== 'UnsupportedError' &&
+						state.error?.name !== 'InvalidUrlError'
+					: state.error?.type !== 'ResolveUnsupportedError' &&
+						state.error?.type !== 'UnsupportedError'
 			) {
 				fireEvent('operational.smartLink.unresolved', {
 					definitionId: definitionId ?? null,
@@ -586,8 +590,12 @@ function ComponentUpdated({
 					duration: measure.getMeasure(id, state.status)?.duration ?? null,
 				});
 			} else if (
-				state.error?.type !== 'ResolveUnsupportedError' &&
-				state.error?.type !== 'UnsupportedError'
+				fg('platform_navx_lp_invalid_url_error')
+					? state.error?.type !== 'ResolveUnsupportedError' &&
+						state.error?.type !== 'UnsupportedError' &&
+						state.error?.name !== 'InvalidUrlError'
+					: state.error?.type !== 'ResolveUnsupportedError' &&
+						state.error?.type !== 'UnsupportedError'
 			) {
 				fireEvent('operational.smartLink.unresolved', {
 					definitionId: definitionId ?? null,

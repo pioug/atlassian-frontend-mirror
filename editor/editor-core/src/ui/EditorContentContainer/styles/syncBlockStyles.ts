@@ -237,6 +237,25 @@ export const syncBlockOverflowStyles: SerializedStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const syncBlockOverflowStylesNew: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		[`.${BodiedSyncBlockSharedCssClassName.content}`]: {
+			// Contain floated elements (wrap-left/wrap-right) within synced block borders
+			// Use display: flow-root to create a block formatting context without clipping other content e.g. telepointers
+			display: 'flow-root',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		[`.${SyncBlockSharedCssClassName.renderer}`]: {
+			// Contain floated elements (wrap-left/wrap-right) within synced block borders
+			// Use display: flow-root to create a block formatting context without clipping other content e.g. telepointers
+			display: 'flow-root',
+		},
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const syncBlockFirstNodeStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
 	[`.ProseMirror > .fabric-editor-breakout-mark:first-child`]: {

@@ -14,6 +14,7 @@ import { Pressable } from '@atlaskit/primitives/compiled';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import Buttons from './internal/buttons';
+import getTextFromReactNode from './internal/get-text-from-react-node';
 import useButtonFocusHook from './internal/hooks/use-button-focus-hook';
 import ReadView from './internal/read-view';
 import { type InlineEditProps } from './types';
@@ -166,7 +167,8 @@ const InnerInlineEdit = <FieldValue extends unknown>(props: InlineEditProps<Fiel
 
 	const concatenatedEditButtonLabel = () => {
 		if (label) {
-			return `${editButtonLabel}, ${label}, ${editLabel}`;
+			const labelText = typeof label === 'string' ? label : getTextFromReactNode(label);
+			return `${editButtonLabel}, ${labelText}, ${editLabel}`;
 		}
 		return `${editButtonLabel}, ${editLabel}`;
 	};

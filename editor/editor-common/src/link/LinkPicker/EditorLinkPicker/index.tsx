@@ -1,8 +1,11 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
+import FocusLock from 'react-focus-lock';
+
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { LazyLinkPicker } from '@atlaskit/link-picker/lazy';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { Command, EditorAppearance } from '../../../types';
 import { getAnalyticsEditorAppearance } from '../../../utils';
@@ -82,6 +85,23 @@ export const EditorLinkPicker = ({
 		}),
 		[invokeMethod, analyticsEditorAppearance],
 	);
+
+	if (expValEquals('platform_editor_a11y_escape_link_dialog', 'isEnabled', true)) {
+		return (
+			<div ref={ref}>
+				<AnalyticsContext data={analyticsData}>
+					<FocusLock returnFocus={true}>
+						<LazyLinkPicker
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
+							{...restProps}
+							onCancel={onEscape}
+						/>
+					</FocusLock>
+				</AnalyticsContext>
+			</div>
+		);
+	}
 
 	return (
 		<div ref={ref}>

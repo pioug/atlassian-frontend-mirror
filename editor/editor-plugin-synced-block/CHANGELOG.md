@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 5.3.23
+
+### Patch Changes
+
+- [`e4b932a41725c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e4b932a41725c) -
+  [ux] EDITOR-5459 fix merging logic for subtype in resolve sync block instance
+- Updated dependencies
+
 ## 5.3.22
 
 ### Patch Changes

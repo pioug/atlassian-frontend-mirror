@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "111.14.3",
+	"version": "111.16.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -212,6 +212,7 @@
 		"prop-types": "root:*",
 		"raf-schd": "root:*",
 		"re-resizable": "root:*",
+		"react-focus-lock": "root:*",
 		"react-loadable": "root:*",
 		"react-virtualized": "root:*",
 		"rusha": "root:*",

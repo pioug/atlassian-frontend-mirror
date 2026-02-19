@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 7.1.14
+
+### Patch Changes
+
+- [`0dc0791c6e745`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0dc0791c6e745) -
+  Fix additional CRLF issues with advanced codeblocks. Behind
+  platform_editor_fix_advanced_codeblocks_crlf_patch gate.
+- Updated dependencies
+
 ## 7.1.13
 
 ### Patch Changes

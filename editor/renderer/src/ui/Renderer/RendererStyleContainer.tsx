@@ -1320,6 +1320,15 @@ const tasksAndDecisionsStyles = css({
 	},
 });
 
+const headingPanelStyles = css({
+	// Removes the margin top from the first heading in a panel
+	'.ak-editor-panel__content': {
+		'> .renderer-heading-wrapper:first-child': {
+			marginTop: 0,
+		},
+	},
+});
+
 const smartCardStyles = css({
 	[`.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}`]: {
 		display: 'block',
@@ -2920,6 +2929,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				textHighlightPaddingStyles,
 				tasksAndDecisionsStyles,
+				expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true) &&
+					headingPanelStyles,
 				smartCardStyles,
 				smartCardStylesAvatarFix,
 				editorExperiment('platform_editor_preview_panel_linking_exp', true) &&

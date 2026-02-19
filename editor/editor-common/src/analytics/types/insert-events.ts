@@ -82,7 +82,7 @@ type InsertCodeBlockAEP = InsertAEP<
 			| INPUT_METHOD.TOOLBAR
 			| INPUT_METHOD.INSERT_MENU
 			| INPUT_METHOD.FORMATTING
-			| INPUT_METHOD.INSERT_MENU;
+			| INPUT_METHOD.ELEMENT_BROWSER;
 	},
 	undefined
 >;
@@ -283,7 +283,7 @@ type InsertExtensionAEP = InsertAEP<
 	{
 		extensionKey: string;
 		extensionType: string;
-		inputMethod: INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR;
+		inputMethod: INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR | INPUT_METHOD.ELEMENT_BROWSER;
 		key: string;
 	},
 	// Ignored via go/ees005

@@ -183,7 +183,10 @@ class CodeBlockAdvancedNodeView implements NodeView {
 				config.allowCodeFolding
 					? [foldGutterExtension({ selectNode, getNode: () => this.node })]
 					: [],
-				lineSeparatorExtension(),
+				// With platform_editor_fix_advanced_codeblocks_crlf_patch the lineSeparatorExtension is not needed
+				expValEquals('platform_editor_fix_advanced_codeblocks_crlf_patch', 'isEnabled', true)
+					? []
+					: [lineSeparatorExtension()],
 			],
 		});
 

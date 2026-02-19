@@ -51,7 +51,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import Toggle from '@atlaskit/toggle';
 
 import { clearHoverSelection, hoverColumns, hoverRows } from '../../pm-plugins/commands';
@@ -330,8 +329,6 @@ const DragMenu = React.memo(
 			formatMessage,
 			selectionRect,
 		);
-
-		const isToolbarAIFCEnabled = Boolean(api?.toolbar);
 
 		const handleSubMenuRef = (ref: HTMLDivElement | null) => {
 			// Ignored via go/ees005
@@ -709,37 +706,23 @@ const DragMenu = React.memo(
 				: menuItems.push({ items: [createRowNumbersMenuItem()] });
 		}
 
-		const Menu = (
-			<DropdownMenu
-				disableKeyboardHandling={isSubmenuOpen}
-				section={{ hasSeparator: true }}
-				items={menuItems}
-				onItemActivated={handleMenuItemActivated}
-				onMouseEnter={handleItemMouseEnter}
-				onMouseLeave={handleItemMouseLeave}
-				handleClose={closeMenu}
-				fitHeight={fitHeight}
-				fitWidth={fitWidth}
-				direction={direction}
-				boundariesElement={boundariesElement}
-				scrollableElement={scrollableElement}
-			/>
-		);
-
-		return isToolbarAIFCEnabled ||
-			expValEquals('platform_editor_lovability_user_intent', 'isEnabled', true) ? (
-			<UserIntentPopupWrapper
-				api={api}
-				userIntent={
-					expValEqualsNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true)
-						? 'tableDragMenuPopupOpen'
-						: undefined
-				}
-			>
-				{Menu}
+		return (
+			<UserIntentPopupWrapper api={api} userIntent="tableDragMenuPopupOpen">
+				<DropdownMenu
+					disableKeyboardHandling={isSubmenuOpen}
+					section={{ hasSeparator: true }}
+					items={menuItems}
+					onItemActivated={handleMenuItemActivated}
+					onMouseEnter={handleItemMouseEnter}
+					onMouseLeave={handleItemMouseLeave}
+					handleClose={closeMenu}
+					fitHeight={fitHeight}
+					fitWidth={fitWidth}
+					direction={direction}
+					boundariesElement={boundariesElement}
+					scrollableElement={scrollableElement}
+				/>
 			</UserIntentPopupWrapper>
-		) : (
-			Menu
 		);
 	},
 );

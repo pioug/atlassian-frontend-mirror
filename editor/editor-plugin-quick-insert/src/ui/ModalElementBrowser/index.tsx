@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import type {
@@ -39,7 +39,7 @@ const Modal = ({
 	helpUrl?: string;
 	insertItem?: (
 		item: QuickInsertItem,
-		source?: INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR,
+		source?: INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR | INPUT_METHOD.ELEMENT_BROWSER,
 	) => Command;
 	isOffline: boolean;
 	quickInsertState: {
@@ -102,7 +102,7 @@ const Modal = ({
 
 		focusInEditor();
 
-		insertItem?.(item)(editorView.state, editorView.dispatch);
+		insertItem?.(item, INPUT_METHOD.ELEMENT_BROWSER)(editorView.state, editorView.dispatch);
 	}, [editorView, focusInEditor, insertItem]);
 
 	return (

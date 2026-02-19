@@ -209,13 +209,17 @@ const subTypeIconMapNew = {
 
 const getConfluenceSubTypeIcon = (sourceAri: string, subType?: string | null) => {
 	if (fg('platform_synced_block_patch_3')) {
-		const { type: pageType } = getPageIdAndTypeFromConfluencePageAri({ ari: sourceAri });
-		if (pageType === 'blogpost') {
-			return QuotationMarkIcon;
-		} else {
-			return subType && subType in subTypeIconMapNew
-				? subTypeIconMapNew[subType as keyof typeof subTypeIconMapNew]
-				: PageIcon;
+		try {
+			const { type: pageType } = getPageIdAndTypeFromConfluencePageAri({ ari: sourceAri });
+			if (pageType === 'blogpost') {
+				return QuotationMarkIcon;
+			} else {
+				return subType && subType in subTypeIconMapNew
+					? subTypeIconMapNew[subType as keyof typeof subTypeIconMapNew]
+					: PageIcon;
+			}
+		} catch {
+			return PageIcon;
 		}
 	}
 	return subType && subType in subTypeIconMap

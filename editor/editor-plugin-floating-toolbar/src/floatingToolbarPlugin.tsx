@@ -45,8 +45,6 @@ import { findDomRefAtPos, findSelectedNodeOfType } from '@atlaskit/editor-prosem
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type {
 	ConfigWithNodeInfo,
@@ -294,21 +292,13 @@ export function ContentComponent({
 > & {
 	pluginInjectionApi: ExtractInjectionAPI<FloatingToolbarPlugin> | undefined;
 } & { editorView: EditorView }): React.JSX.Element | null {
-	const {
-		floatingToolbarState,
-		editorDisabledState,
-		editorViewModeState,
-		userIntentState,
-		// @ts-expect-error - excluded from FloatingToolbarPlugin dependencies to avoid circular dependency
-		blockControlsState,
-	} = useSharedPluginState(pluginInjectionApi, [
-		'floatingToolbar',
-		'editorDisabled',
-		'editorViewMode',
-		'userIntent',
-		// @ts-expect-error - excluded from FloatingToolbarPlugin dependencies to avoid circular dependency
-		'blockControls',
-	]);
+	const { floatingToolbarState, editorDisabledState, editorViewModeState, userIntentState } =
+		useSharedPluginState(pluginInjectionApi, [
+			'floatingToolbar',
+			'editorDisabled',
+			'editorViewMode',
+			'userIntent',
+		]);
 
 	const { configWithNodeInfo, floatingToolbarData } = floatingToolbarState ?? {};
 
@@ -325,24 +315,9 @@ export function ContentComponent({
 		return null;
 	}
 
-	const userIntentEnabled = Boolean(
-		pluginInjectionApi?.userIntent &&
-			expValEqualsNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true),
-	);
-
-	if (
-		(userIntentState?.currentUserIntent === 'dragging' ||
-			(userIntentState?.currentUserIntent === 'blockMenuOpen' &&
-				expValEquals('platform_editor_block_menu', 'isEnabled', true))) &&
-		!userIntentEnabled
-	) {
-		return null;
-	}
-
 	if (
 		userIntentState?.currentUserIntent &&
-		SUPPRESS_TOOLBAR_USER_INTENTS.includes(userIntentState?.currentUserIntent) &&
-		userIntentEnabled
+		SUPPRESS_TOOLBAR_USER_INTENTS.includes(userIntentState?.currentUserIntent)
 	) {
 		return null;
 	}
@@ -648,22 +623,7 @@ export function floatingToolbarPluginFactory(options: {
 			const handler = floatingToolbarHandlers[index];
 			const config = handler(editorState, intl, providerFactory, activeConfigs);
 			if (config) {
-				const userIntentEnabled = Boolean(
-					api?.userIntent &&
-						expValEqualsNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true),
-				);
-
 				if (
-					config.__suppressAllToolbars &&
-					editorExperiment('platform_editor_controls', 'variant1') &&
-					!userIntentEnabled
-				) {
-					activeConfigs = undefined;
-					break;
-				}
-
-				if (
-					userIntentEnabled &&
 					SUPPRESS_TOOLBAR_USER_INTENTS.includes(
 						api?.userIntent?.sharedState.currentState()?.currentUserIntent || '',
 					)
@@ -680,23 +640,7 @@ export function floatingToolbarPluginFactory(options: {
 		return relevantConfig;
 	};
 
-	const getIsToolbarSuppressed = (editorState: EditorState) => {
-		const userIntentEnabled = Boolean(
-			api?.userIntent &&
-				expValEqualsNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true),
-		);
-
-		if (userIntentEnabled) {
-			return false;
-		}
-
-		for (let index = 0; index < floatingToolbarHandlers.length; index++) {
-			const handler = floatingToolbarHandlers[index];
-			const config = handler(editorState, intl, providerFactory);
-			if (config?.__suppressAllToolbars) {
-				return true;
-			}
-		}
+	const getIsToolbarSuppressed = () => {
 		return false;
 	};
 
@@ -714,8 +658,8 @@ export function floatingToolbarPluginFactory(options: {
 				return { getConfigWithNodeInfo };
 			},
 			apply: expValEquals('platform_editor_lovability_suppress_toolbar_event', 'isEnabled', true)
-				? (_tr, _pluginState, __oldEditorState, newEditorState) => {
-						const suppressedToolbar = getIsToolbarSuppressed(newEditorState);
+				? (_tr, _pluginState, __oldEditorState) => {
+						const suppressedToolbar = getIsToolbarSuppressed();
 
 						const newPluginState: FloatingToolbarPluginState = {
 							getConfigWithNodeInfo,

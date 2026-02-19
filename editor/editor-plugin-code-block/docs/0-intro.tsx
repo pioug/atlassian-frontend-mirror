@@ -26,22 +26,34 @@ ${createEditorUseOnlyNotice('Editor Plugin Code Block', [
   ## Usage
 ---
 
-The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\` of the plugin are defined
+The \`dependencies\`, \`configuration\`, \`shared state\`, and \`actions\` of the plugin are defined
 below:
 
 ${code`
 type CodeBlockPlugin = NextEditorPlugin<
   'codeBlock',
   {
-    pluginConfiguration: CodeBlockPluginOptions;
+    pluginConfiguration: CodeBlockPluginOptions | undefined;
     dependencies: [
-      typeof decorationsPlugin,
-      typeof compositionPlugin,
-      OptionalPlugin<typeof analyticsPlugin>,
+      DecorationsPlugin,
+      CompositionPlugin,
+      OptionalPlugin<AnalyticsPlugin>,
+      OptionalPlugin<EditorDisabledPlugin>,
+      OptionalPlugin<FeatureFlagsPlugin>,
+      OptionalPlugin<InteractionPlugin>,
+      OptionalPlugin<EditorViewModePlugin>,
+      OptionalPlugin<BlockMenuPlugin>,
+      OptionalPlugin<SelectionPlugin>,
+      OptionalPlugin<ToolbarPlugin>,
     ];
     actions: {
       insertCodeBlock: (inputMethod: INPUT_METHOD) => Command;
     };
+    sharedState:
+      | {
+          copyButtonHoverNode: PMNode;
+        }
+      | undefined;
   }
 >;
 `}

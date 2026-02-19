@@ -177,6 +177,7 @@ export interface RendererProps {
 	smartLinks?: SmartLinksOptions;
 	stickyHeaders?: StickyHeaderProps;
 	textHighlighter?: TextHighlighter;
+	timeZone?: string;
 	truncated?: boolean;
 	UNSTABLE_allowTableAlignment?: boolean;
 

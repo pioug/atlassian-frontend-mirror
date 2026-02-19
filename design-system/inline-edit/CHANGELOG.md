@@ -1,5 +1,13 @@
 # @atlaskit/inline-edit
 
+## 15.6.5
+
+### Patch Changes
+
+- [`1dc3b51d1f95e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1dc3b51d1f95e) -
+  Fix accessible edit button label rendering as [object Object] when a ReactNode is provided for the
+  label prop
+
 ## 15.6.4
 
 ### Patch Changes

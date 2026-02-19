@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.24.8",
+	"version": "43.24.9",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -230,6 +230,9 @@
 			"type": "boolean"
 		},
 		"platform_navx_sl_lozenge_max_width": {
+			"type": "boolean"
+		},
+		"platform_navx_lp_invalid_url_error": {
 			"type": "boolean"
 		},
 		"platform_navx_send_context_to_ugs_for_rel_links": {

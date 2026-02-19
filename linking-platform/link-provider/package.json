@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-provider",
-	"version": "4.2.0",
+	"version": "4.2.1",
 	"description": "Contains provider with react context for anything link related and the link http client",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -60,6 +60,9 @@
 	},
 	"platform-feature-flags": {
 		"platform_linking_force_no_cache_smart_card_client": {
+			"type": "boolean"
+		},
+		"platform_navx_lp_invalid_url_error": {
 			"type": "boolean"
 		}
 	},

@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.2.6
+
+### Patch Changes
+
+- [`33f328a1704e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/33f328a1704e1) -
+  FG cleanup - platform_ufo_browser_backgrounded_abort_timestamp
+
 ## 5.2.5
 
 ### Patch Changes

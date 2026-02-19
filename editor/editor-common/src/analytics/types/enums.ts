@@ -258,6 +258,7 @@ export enum INPUT_METHOD {
 	SYNCED_BLOCK_TB = 'syncedBlockToolbar',
 	BLOCK_MENU = 'blockMenu',
 	SMART_LINK = 'smartLink',
+	ELEMENT_BROWSER = 'elementBrowser',
 }
 
 export enum INSERT_MEDIA_VIA {

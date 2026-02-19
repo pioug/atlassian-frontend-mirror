@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { ExtractInjectionAPI, NextEditorPlugin } from '../types';
 
@@ -22,19 +21,10 @@ export const UserIntentPopupWrapper = ({
 	userIntent?: PopupUserIntent;
 }) => {
 	useEffect(() => {
-		api?.core.actions.execute(
-			api?.userIntent?.commands.setCurrentUserIntent(
-				expValEqualsNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true)
-					? userIntent
-					: 'popupOpen',
-			),
-		);
+		api?.core.actions.execute(api?.userIntent?.commands.setCurrentUserIntent(userIntent));
 
 		return () => {
-			if (
-				!expValEqualsNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true) ||
-				userIntent === api?.userIntent?.sharedState.currentState()?.currentUserIntent
-			) {
+			if (userIntent === api?.userIntent?.sharedState.currentState()?.currentUserIntent) {
 				if (fg('platform_editor_fix_popup_user_intent')) {
 					// Defer the reset to avoid interfering with ongoing ProseMirror transactions
 					// This fixes a race condition where cleanup happens during a transaction

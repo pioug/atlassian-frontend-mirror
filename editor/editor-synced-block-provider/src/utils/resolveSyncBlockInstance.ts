@@ -1,3 +1,6 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { getPageIdAndTypeFromConfluencePageAri } from '../clients/confluence/ari';
 import { SyncBlockError } from '../common/types';
 import type { SyncBlockInstance } from '../providers/types';
 
@@ -38,8 +41,34 @@ export const resolveSyncBlockInstance = (
 			...newResult.data,
 			sourceURL: newResult.data?.sourceURL || oldResult.data?.sourceURL || undefined,
 			sourceTitle: newResult.data?.sourceTitle || oldResult.data?.sourceTitle || undefined,
-			sourceSubType: newResult.data?.sourceSubType || oldResult.data?.sourceSubType || undefined,
+			sourceSubType: fg('platform_synced_block_patch_3')
+				? mergeSubType(oldResult, newResult)
+				: newResult.data?.sourceSubType || oldResult.data?.sourceSubType || undefined,
 			onSameDocument: newResult.data?.onSameDocument || oldResult.data?.onSameDocument || undefined,
 		},
 	};
+};
+
+const mergeSubType = (
+	oldResult: SyncBlockInstance,
+	newResult: SyncBlockInstance,
+): string | null | undefined => {
+	// for classic pages, subType is 'null'
+	if (newResult.data?.sourceSubType !== undefined) {
+		return newResult.data.sourceSubType;
+	}
+
+	if (newResult.data?.sourceAri) {
+		// for blogposts, subType is always undefined
+		try {
+			const { type: pageType } = getPageIdAndTypeFromConfluencePageAri({
+				ari: newResult.data?.sourceAri,
+			});
+			if (pageType === 'blogpost') {
+				return newResult.data?.sourceSubType;
+			}
+		} catch {}
+	}
+
+	return oldResult.data?.sourceSubType;
 };

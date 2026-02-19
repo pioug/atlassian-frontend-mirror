@@ -549,13 +549,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-10-24
-	platform_editor_lovability_user_intent: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-10-13
 	platform_editor_media_error_analytics: {
 		defaultValue: boolean;
@@ -945,6 +938,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-02-17
+	platform_editor_aifc_sync_block_stream_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-12-22
 	platform_editor_localid_ime_composition_fix: {
 		defaultValue: boolean;
@@ -1215,6 +1215,27 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-02-17
+	confluence_frontend_fix_date_hydration_error: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-02-18
+	platform_editor_fix_advanced_codeblocks_crlf_patch: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-02-12
+	platform_editor_a11y_escape_link_dialog: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	}
 } = {
 	// new format to avoid collisions with other users when updating the file
 
@@ -1680,7 +1701,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-
+	// Added 2026-02-17
+	platform_editor_aifc_sync_block_stream_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_aifc_sync_block_stream_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-05-07
 	platform_editor_ai_quickstart_command: createBooleanExperiment({
 		productKeys: {
@@ -2053,14 +2081,6 @@ export const editorExperimentsConfig: {
 	platform_use_llm_space_recommendations: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_use_llm_space_recommendations',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-10-24
-	platform_editor_lovability_user_intent: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_lovability_user_intent',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2594,6 +2614,32 @@ export const editorExperimentsConfig: {
 	platform_editor_remove_reactserializer_fromschema: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_remove_reactserializer_fromschema',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-02-17
+	confluence_frontend_fix_date_hydration_error: createBooleanExperiment({
+		productKeys: {
+			confluence: 'confluence_frontend_fix_date_hydration_error',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-02-18
+	platform_editor_fix_advanced_codeblocks_crlf_patch: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_fix_advanced_codeblocks_crlf_patch',
+			jira: 'platform_editor_fix_advanced_codeblocks_crlf_patch',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-02-12
+	platform_editor_a11y_escape_link_dialog: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_a11y_escape_link_dialog',
+			jira: 'platform_editor_a11y_escape_link_dialog',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

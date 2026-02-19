@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 7.4.0
+
+### Minor Changes
+
+- [`8fb68ee0471cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8fb68ee0471cc) -
+  Add analytic event input method when selecting from Insert Element Browser.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.3.4
 
 ### Patch Changes

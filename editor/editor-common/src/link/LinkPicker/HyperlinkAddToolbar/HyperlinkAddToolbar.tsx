@@ -9,6 +9,7 @@ import React, { PureComponent } from 'react';
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 import debounce from 'lodash/debounce';
 import { flushSync } from 'react-dom';
+import FocusLock from 'react-focus-lock';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { defineMessages, injectIntl } from 'react-intl-next';
 
@@ -617,7 +618,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 			? narrowContainerWidth
 			: !!activityProvider && containerWithProvider;
 
-		return (
+		const hyperlinkElement = (
 			<div
 				aria-label={
 					fg('platform_editor_dec_a11y_fixes')
@@ -748,6 +749,16 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 				</div>
 			</div>
 		);
+
+		if (expValEquals('platform_editor_a11y_escape_link_dialog', 'isEnabled', true)) {
+			return (
+				<FocusLock returnFocus={true}>
+					{hyperlinkElement}
+				</FocusLock>
+			)
+		}
+
+		return hyperlinkElement;
 	}
 
 	private isUrlPopulatedWithSelectedItem = () => {

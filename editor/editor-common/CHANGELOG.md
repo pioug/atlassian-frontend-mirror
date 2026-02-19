@@ -1,5 +1,39 @@
 # @atlaskit/editor-common
 
+## 111.16.0
+
+### Minor Changes
+
+- [`8fb68ee0471cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8fb68ee0471cc) -
+  Add analytic event input method when selecting from Insert Element Browser.
+
+### Patch Changes
+
+- [`954a1eed1f43b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/954a1eed1f43b) -
+  [A11Y-35924] wrap LinkPicker in focus lock to return focus to trigger after escaping Link dialog
+- Updated dependencies
+
+## 111.15.1
+
+### Patch Changes
+
+- [`7ef3027df8198`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ef3027df8198) -
+  remove platform_editor_lovability_user_intent experiment
+- Updated dependencies
+
+## 111.15.0
+
+### Minor Changes
+
+- [`aac76ca1cde5b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aac76ca1cde5b) -
+  Fix hydration error with dates in task lists
+- [`9d211d563dcfb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d211d563dcfb) -
+  Add transformer option to requestDocument core API.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 111.14.3
 
 ### Patch Changes

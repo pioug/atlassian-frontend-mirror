@@ -5,6 +5,7 @@ import pThrottle from 'p-throttle';
 import {
 	type InvokePayload,
 	APIError,
+	InvalidUrlError,
 	type InvocationSearchPayload,
 	type EnvironmentsKeys,
 	getResolverUrl,
@@ -306,8 +307,18 @@ export default class CardClient implements CardClientInterface {
 		return this.urlLoadersByDomain[hostname];
 	}
 
+	private getHostName(url: string): string {
+		try {
+			return new URL(url).hostname;
+		} catch (error) {
+			throw new InvalidUrlError(error);
+		}
+	}
+
 	private async resolveUrl(url: string, force: boolean = false) {
-		const hostname = new URL(url).hostname;
+		const hostname = fg('platform_navx_lp_invalid_url_error')
+			? this.getHostName(url)
+			: new URL(url).hostname;
 		const loader = this.getLoader(hostname);
 
 		let responsePromise: Promise<SuccessResponse | ErrorResponse> | undefined;

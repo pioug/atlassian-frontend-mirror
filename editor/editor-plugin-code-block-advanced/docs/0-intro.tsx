@@ -33,17 +33,25 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-type CodeBlockAdvancedPlugin = NextEditorPlugin<
+export type CodeBlockAdvancedPlugin = NextEditorPlugin<
 	'codeBlockAdvanced',
 	{
-		dependencies: [CodeBlockPlugin];
-		pluginConfiguration:
-			| {
-					extensions?: Extension[];
-			  }
-			| undefined;
+		dependencies: [
+			OptionalPlugin<CodeBlockPlugin>,
+			SelectionPlugin,
+			OptionalPlugin<EditorDisabledPlugin>,
+			OptionalPlugin<SelectionMarkerPlugin>,
+			OptionalPlugin<FindReplacePlugin>,
+			OptionalPlugin<ContentFormatPlugin>,
+		];
+		pluginConfiguration: CodeBlockAdvancedPluginOptions | undefined;
 	}
 >;
+
+export type CodeBlockAdvancedPluginOptions = {
+	allowCodeFolding?: boolean;
+	extensions?: Extension[];
+};
 `}
 
 

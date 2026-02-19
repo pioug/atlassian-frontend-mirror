@@ -5,6 +5,7 @@ import { render } from '@testing-library/react';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 import AKLink from '@atlaskit/link';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import * as UseAnalyticsEventsExports from '../../../common/analytics/generated/use-analytics-events';
 import * as UseSmartCardActionsExports from '../../../state/actions';
@@ -345,6 +346,42 @@ describe('LinkUrl', () => {
 					'operational.hyperlink.unresolved',
 					expect.any(Object),
 				);
+			});
+
+			ffTest.on('platform_navx_lp_invalid_url_error', '', () => {
+				it('should not fire analytics event for InvalidUrlError', async () => {
+					useSmartCardActionsMock.mockReturnValue({
+						register: mockRegister,
+					} as unknown as ReturnType<typeof UseSmartCardActionsExports.useSmartCardActions>);
+
+					useScheduledRegisterMock.mockReturnValue(batchedRegisterMock);
+
+					useSmartCardStateMock.mockReturnValue({
+						status: 'errored',
+						details: {
+							meta: {
+								definitionId: 'test-definition-id',
+							},
+						},
+						error: {
+							name: 'InvalidUrlError',
+						},
+					});
+
+					render(
+						<SmartCardProvider client={new CardClient()}>
+							<TestComponent
+								enableResolve={true}
+								href="https://atlassianmpsa-my.sharepoint.com/personal/test"
+							/>
+						</SmartCardProvider>,
+					);
+
+					expect(fireEventMock).not.toHaveBeenCalledWith(
+						'operational.hyperlink.unresolved',
+						expect.any(Object),
+					);
+				});
 			});
 		});
 	});

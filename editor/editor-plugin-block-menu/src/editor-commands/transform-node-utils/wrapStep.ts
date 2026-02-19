@@ -1,4 +1,5 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { removeDisallowedMarks } from './marks';
 import type { TransformStep } from './types';
@@ -25,8 +26,20 @@ export const wrapStep: TransformStep = (nodes, context) => {
 		});
 	}
 
-	const outputNode = schema.nodes[targetNodeTypeName].createAndFill(
-		{},
+	const targetNodeType = schema.nodes[targetNodeTypeName];
+
+	// [FEATURE FLAG: platform_editor_block_menu_expand_localid_fix]
+	// Pre-assigns a localId so the localId plugin's appendTransaction does not replace the node
+	// object (via setNodeAttribute), which would invalidate the expandedState WeakMap entry set
+	// in transformNode.ts and cause the expand to render as collapsed.
+	// To clean up: remove the if-else, always use the flag-on branch (isExpandType with uuid).
+	const isExpandType = targetNodeTypeName === 'expand' || targetNodeTypeName === 'nestedExpand';
+	const nodeAttrs = isExpandType && fg('platform_editor_block_menu_expand_localid_fix')
+		? { localId: crypto.randomUUID() }
+		: {};
+
+	const outputNode = targetNodeType.createAndFill(
+		nodeAttrs,
 		removeDisallowedMarks(processedNodes, schema.nodes[targetNodeTypeName]),
 	);
 

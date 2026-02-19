@@ -29,14 +29,48 @@ ${createEditorUseOnlyNotice('Editor Plugin Base', [
 The \`dependencies\`, \`configuration\`, and \`state\` of the plugin are defined below:
 
 ${code`
+export interface BasePluginOptions {
+  allowInlineCursorTarget?: boolean;
+  allowScrollGutter?: ScrollGutterPluginOptions;
+  /** deprecated do not use */
+  browserFreezeTracking?: BrowserFreezetracking;
+  /** deprecated do not use */
+  inputTracking?: InputTracking;
+}
+
+export type BasePluginState = {
+  allowScrollGutter?: ScrollGutterPluginOptions;
+  /** Current height of keyboard (+ custom toolbar) in iOS app */
+  keyboardHeight: number | undefined;
+};
+
 export type BasePlugin = NextEditorPlugin<
   'base',
   {
+    actions: {
+      registerMarks: (callback: Callback) => void;
+      resolveMarks: (from: number, to: number, tr: Transaction) => void;
+      setKeyboardHeight: typeof setKeyboardHeight;
+    };
+    dependencies: [OptionalPlugin<FeatureFlagsPlugin>, OptionalPlugin<ContextIdentifierPlugin>];
     pluginConfiguration: BasePluginOptions | undefined;
-    dependencies: [OptionalPlugin<FeatureFlagsPlugin>];
     sharedState: BasePluginState;
   }
 >;
+
+export type Callback = ({
+  node,
+  tr,
+  pos,
+  from,
+  to,
+}: {
+  from: number;
+  node: PMNode;
+  pos: number;
+  to: number;
+  tr: Transaction;
+}) => void;
 `}
 
 

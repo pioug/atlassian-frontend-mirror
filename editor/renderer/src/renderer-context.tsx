@@ -12,6 +12,8 @@ export type RendererContextProps = {
 	isTopLevelRenderer?: boolean;
 	// used for analytics to track the type of nested renderer this is
 	nestedRendererType?: NestedRendererType;
+	// IANA timezone string for consistent date formatting between SSR and client
+	timeZone?: string;
 };
 
 const RendererContext = React.createContext({});

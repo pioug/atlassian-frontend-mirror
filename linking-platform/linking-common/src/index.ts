@@ -34,7 +34,7 @@ export {
 } from './actions';
 export type { CardActionParams, CardBaseActionCreator } from './actions';
 
-export { APIError } from './errors';
+export { APIError, InvalidUrlError } from './errors';
 export type { APIErrorKind, ErrorType, ServerErrorType } from './errors';
 export type { CardState, CardStore } from './store';
 export { getUrl } from './store';

@@ -4,6 +4,7 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import { expandedState } from '@atlaskit/editor-common/expand';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
 import {
 	expandSelectionToBlockRange,
@@ -72,6 +73,22 @@ export const transformNode: (
 
 		const content = resultNodes.length > 0 ? resultNodes : sourceNodes;
 		const sliceStart = isList ? $from.pos - 1 : $from.pos;
+
+		// [FEATURE FLAG: platform_editor_block_menu_expand_localid_fix]
+		// Pre-populates the expandedState WeakMap so ExpandNodeView initializes newly created
+		// expand/nestedExpand nodes as expanded rather than collapsed. Works in conjunction with
+		// the localId pre-assignment in the transform steps — without a pre-assigned localId the
+		// localId plugin's appendTransaction replaces the node object (via setNodeAttribute),
+		// invalidating this WeakMap entry. The else branch preserves the previous behaviour.
+		// To clean up: remove the if-else block and keep only the flag-on body.
+		if (fg('platform_editor_block_menu_expand_localid_fix')) {
+			const { expand, nestedExpand } = nodes;
+			content.forEach((node) => {
+				if (node.type === expand || node.type === nestedExpand) {
+					expandedState.set(node, true);
+				}
+			});
+		}
 
 		if (
 			preservedSelection instanceof NodeSelection &&

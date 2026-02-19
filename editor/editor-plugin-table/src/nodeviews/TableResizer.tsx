@@ -32,7 +32,6 @@ import {
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { insm } from '@atlaskit/insm';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -250,7 +249,6 @@ export const TableResizer = ({
 	const [snappingEnabled, setSnappingEnabled] = useState(false);
 
 	const { formatMessage } = useIntl();
-	const isToolbarAIFCEnabled = Boolean(pluginInjectionApi?.toolbar);
 
 	const currentSelection = editorView.state?.selection;
 	const tableFromSelection = useMemo(() => {
@@ -429,13 +427,7 @@ export const TableResizer = ({
 			name: TABLE_OVERFLOW_CHANGE_TRIGGER.RESIZED,
 		});
 
-		if (
-			expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) ||
-			isToolbarAIFCEnabled ||
-			expValEqualsNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true)
-		) {
-			pluginInjectionApi?.userIntent?.commands.setCurrentUserIntent('resizing')({ tr });
-		}
+		pluginInjectionApi?.userIntent?.commands.setCurrentUserIntent('resizing')({ tr });
 
 		dispatch(tr);
 
@@ -463,7 +455,6 @@ export const TableResizer = ({
 		displayGapCursor,
 		node.attrs.localId,
 		tableRef,
-		isToolbarAIFCEnabled,
 		isTableScalingEnabled,
 		isFullWidthModeEnabled,
 		lineLength,
@@ -623,13 +614,7 @@ export const TableResizer = ({
 				tableRef: null,
 			});
 			tr.setMeta('is-resizer-resizing', false);
-			if (
-				expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true) ||
-				isToolbarAIFCEnabled ||
-				expValEqualsNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true)
-			) {
-				pluginInjectionApi?.userIntent?.commands.setCurrentUserIntent('default')({ tr });
-			}
+			pluginInjectionApi?.userIntent?.commands.setCurrentUserIntent('default')({ tr });
 			const frameRateSamples = endMeasure();
 
 			if (frameRateSamples.length > 0) {
@@ -723,7 +708,6 @@ export const TableResizer = ({
 			node,
 			isCommentEditor,
 			widthToWidest,
-			isToolbarAIFCEnabled,
 			endMeasure,
 			displayGapCursor,
 			displayGuideline,

@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import * as measure from '../../../utils/performance';
 import { useSmartCardActions } from '../../actions';
@@ -43,8 +45,12 @@ const useResolveHyperlink = ({ href }: { href: string }) => {
 					duration: measure.getMeasure(id, state.status)?.duration ?? null,
 				});
 			} else if (
-				state.error?.type !== 'ResolveUnsupportedError' &&
-				state.error?.type !== 'UnsupportedError'
+				fg('platform_navx_lp_invalid_url_error')
+					? state.error?.type !== 'ResolveUnsupportedError' &&
+						state.error?.type !== 'UnsupportedError' &&
+						state.error?.name !== 'InvalidUrlError'
+					: state.error?.type !== 'ResolveUnsupportedError' &&
+						state.error?.type !== 'UnsupportedError'
 			) {
 				fireEvent('operational.hyperlink.unresolved', {
 					definitionId: definitionId ?? null,

@@ -1,5 +1,6 @@
 import type { Node as PMNode, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { removeDisallowedMarks } from '../marks';
 import type { TransformStep, NodeTypeName } from '../types';
@@ -44,7 +45,15 @@ const createNodeContentContainer = (
 	nodeContent: PMNode[],
 	targetNodeType: NodeType,
 ): PMNode | null => {
-	return targetNodeType.createAndFill({}, nodeContent);
+	// [FEATURE FLAG: platform_editor_block_menu_expand_localid_fix]
+	// Pre-assigns a localId so the localId plugin's appendTransaction does not replace the node
+	// object, preserving the expandedState WeakMap entry set in transformNode.ts.
+	// To clean up: remove the if-else, always use the flag-on branch.
+	const isExpandType = targetNodeType.name === 'expand' || targetNodeType.name === 'nestedExpand';
+	const nodeAttrs = isExpandType && fg('platform_editor_block_menu_expand_localid_fix')
+		? { localId: crypto.randomUUID() }
+		: {};
+	return targetNodeType.createAndFill(nodeAttrs, nodeContent);
 };
 
 /**
@@ -90,7 +99,14 @@ const handleEmptyContainerEdgeCase = (
 	}
 
 	const emptyParagraph = schema.nodes.paragraph.create();
-	const emptyContainer = targetNodeType.create({}, emptyParagraph);
+	// [FEATURE FLAG: platform_editor_block_menu_expand_localid_fix]
+	// Same localId pre-assignment rationale as createNodeContentContainer above.
+	// To clean up: remove the if-else, always use the flag-on branch.
+	const isExpandType = targetNodeTypeName === 'expand' || targetNodeTypeName === 'nestedExpand';
+	const emptyContainerAttrs = isExpandType && fg('platform_editor_block_menu_expand_localid_fix')
+		? { localId: crypto.randomUUID() }
+		: {};
+	const emptyContainer = targetNodeType.create(emptyContainerAttrs, emptyParagraph);
 	return [emptyContainer, ...result];
 };
 

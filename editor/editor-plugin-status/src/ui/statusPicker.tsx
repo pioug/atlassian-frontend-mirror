@@ -25,7 +25,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import type { ColorType as Color } from '@atlaskit/status/picker';
 import { StatusPicker as AkStatusPicker } from '@atlaskit/status/picker';
 import { N0 } from '@atlaskit/theme/colors';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
@@ -253,36 +252,28 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 	) {
 		const { isNew, focusStatusInput, api } = this.props;
 		const { color, text } = this.state;
-		const renderPicker = () => (
-			// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
-			<div
-				css={pickerContainerStyles}
-				tabIndex={-1}
-				ref={this.setRef(setOutsideClickTargetRef)}
-				onClick={this.handlePopupClick}
-				onKeyDown={this.onKeyDown}
-			>
-				<AkStatusPicker
-					autoFocus={isNew || focusStatusInput}
-					selectedColor={color}
-					text={text}
-					onColorClick={this.onColorClick}
-					onColorHover={this.onColorHover}
-					onTextChanged={this.onTextChanged}
-					onEnter={this.onEnter}
-				/>
-			</div>
+		return (
+			<UserIntentPopupWrapper api={api} userIntent="statusPickerOpen">
+				{/* eslint-disable-next-line @atlassian/a11y/no-static-element-interactions */}
+				<div
+					css={pickerContainerStyles}
+					tabIndex={-1}
+					ref={this.setRef(setOutsideClickTargetRef)}
+					onClick={this.handlePopupClick}
+					onKeyDown={this.onKeyDown}
+				>
+					<AkStatusPicker
+						autoFocus={isNew || focusStatusInput}
+						selectedColor={color}
+						text={text}
+						onColorClick={this.onColorClick}
+						onColorHover={this.onColorHover}
+						onTextChanged={this.onTextChanged}
+						onEnter={this.onEnter}
+					/>
+				</div>
+			</UserIntentPopupWrapper>
 		);
-
-		if (expValEqualsNoExposure('platform_editor_lovability_user_intent', 'isEnabled', true)) {
-			return (
-				<UserIntentPopupWrapper api={api} userIntent="statusPickerOpen">
-					{renderPicker()}
-				</UserIntentPopupWrapper>
-			);
-		}
-
-		return renderPicker();
 	}
 
 	render() {

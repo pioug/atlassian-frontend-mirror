@@ -1,5 +1,26 @@
 # @atlaskit/editor-core
 
+## 216.10.0
+
+### Minor Changes
+
+- [`8fb68ee0471cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8fb68ee0471cc) -
+  Add analytic event input method when selecting from Insert Element Browser.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 216.9.8
+
+### Patch Changes
+
+- [`791e28216dcb1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/791e28216dcb1) -
+  [ux] EDITOR-5400 fix telepointer inside synced block is cut off
+- [`7ef3027df8198`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ef3027df8198) -
+  remove platform_editor_lovability_user_intent experiment
+- Updated dependencies
+
 ## 216.9.7
 
 ### Patch Changes

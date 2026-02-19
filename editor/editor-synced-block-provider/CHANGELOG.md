@@ -1,5 +1,26 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.30.0
+
+### Minor Changes
+
+- [`05e18ecc17fb3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05e18ecc17fb3) -
+  Use GraphQL to also fetch the URLs for draft + unpublished pages
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.29.3
+
+### Patch Changes
+
+- [`e4b932a41725c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e4b932a41725c) -
+  [ux] EDITOR-5459 fix merging logic for subtype in resolve sync block instance
+- [`aef1e97f7c9f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aef1e97f7c9f4) -
+  [EDITOR-5278] Append operation name to graphql call url for better observability
+- Updated dependencies
+
 ## 3.29.2
 
 ### Patch Changes

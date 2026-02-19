@@ -34,7 +34,7 @@ function sendExtensionQuickInsertAnalytics(
 	item: MenuItem,
 	selection: Selection,
 	createAnalyticsEvent?: CreateUIAnalyticsEvent,
-	source?: INPUT_METHOD.TOOLBAR | INPUT_METHOD.QUICK_INSERT,
+	source?: INPUT_METHOD.TOOLBAR | INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.ELEMENT_BROWSER,
 ) {
 	if (createAnalyticsEvent) {
 		const insertLocation = findInsertLocation(selection);
@@ -48,6 +48,7 @@ function sendExtensionQuickInsertAnalytics(
 					extensionType: item.extensionType,
 					extensionKey: item.extensionKey,
 					key: item.key,
+					// @note inputMethod defaults to QUICK_INSERT if not provided
 					inputMethod: source || INPUT_METHOD.QUICK_INSERT,
 					...(insertLocation ? { insertLocation } : {}),
 				},

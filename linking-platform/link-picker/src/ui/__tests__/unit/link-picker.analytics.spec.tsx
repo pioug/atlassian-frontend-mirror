@@ -94,6 +94,7 @@ describe('LinkPicker analytics', () => {
 		previewableLinksOnly = false,
 		additionalError,
 		submitOnInputChange = false,
+		alwaysShowTabs = false,
 	}: Partial<LinkPickerProps> = {}) => {
 		const spy = jest.fn();
 		const onSubmit = jest.fn();
@@ -106,6 +107,7 @@ describe('LinkPicker analytics', () => {
 			previewableLinksOnly,
 			additionalError,
 			submitOnInputChange,
+			alwaysShowTabs,
 		}: LinkPickerTestProps) => (
 			<AnalyticsListener channel={ANALYTICS_CHANNEL} onEvent={spy}>
 				<LinkPicker
@@ -117,6 +119,7 @@ describe('LinkPicker analytics', () => {
 					previewableLinksOnly={previewableLinksOnly}
 					additionalError={additionalError}
 					submitOnInputChange={submitOnInputChange}
+					alwaysShowTabs={alwaysShowTabs}
 				/>
 			</AnalyticsListener>
 		);
@@ -130,6 +133,7 @@ describe('LinkPicker analytics', () => {
 				previewableLinksOnly,
 				additionalError,
 				submitOnInputChange,
+				alwaysShowTabs,
 			}),
 		);
 
@@ -998,6 +1002,44 @@ describe('LinkPicker analytics', () => {
 						},
 					},
 				});
+			});
+		});
+
+		describe('alwaysShowTabs', () => {
+			it('should show tab for a single plugin when alwaysShowTabs is true', async () => {
+				setupLinkPicker({
+					plugins: [
+						{
+							tabKey: 'confluence',
+							tabTitle: 'Confluence',
+							resolve: async () => ({
+								data: [],
+							}),
+						},
+					],
+					alwaysShowTabs: true,
+				});
+
+				expect(await screen.findByRole('tab', { name: 'Confluence' })).toBeInTheDocument();
+			});
+
+			it('should not show tab for a single plugin when alwaysShowTabs is false', async () => {
+				setupLinkPicker({
+					plugins: [
+						{
+							tabKey: 'confluence',
+							tabTitle: 'Confluence',
+							resolve: async () => ({
+								data: [],
+							}),
+						},
+					],
+					alwaysShowTabs: false,
+				});
+
+				// Ensure the link picker renders
+				expect(await screen.findByTestId(testIds.urlInputField)).toBeInTheDocument();
+				expect(screen.queryByRole('tab', { name: 'Confluence' })).not.toBeInTheDocument();
 			});
 		});
 

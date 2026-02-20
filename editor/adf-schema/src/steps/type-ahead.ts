@@ -31,7 +31,7 @@ export class InsertTypeAheadStep extends Step {
 		this.selectedIndex = selectedIndex;
 	}
 
-	invert() {
+	invert(): InsertTypeAheadStep {
 		const config = {
 			stage: this.stage,
 			query: this.query,
@@ -41,7 +41,7 @@ export class InsertTypeAheadStep extends Step {
 		return new InsertTypeAheadStep(config, !this.isInvertStep);
 	}
 
-	apply(doc: PMNode) {
+	apply(doc: PMNode): StepResult {
 		return StepResult.ok(doc);
 	}
 
@@ -49,15 +49,15 @@ export class InsertTypeAheadStep extends Step {
 		return null;
 	}
 
-	isInsertionStep() {
+	isInsertionStep(): boolean {
 		return !this.isInvertStep;
 	}
 
-	isUndoingStep() {
+	isUndoingStep(): boolean {
 		return this.isInvertStep;
 	}
 
-	map() {
+	map(): InsertTypeAheadStep {
 		const config = {
 			stage: this.stage,
 			query: this.query,
@@ -68,7 +68,7 @@ export class InsertTypeAheadStep extends Step {
 		return new InsertTypeAheadStep(config, this.isInvertStep);
 	}
 
-	getMap() {
+	getMap(): StepMap {
 		return new StepMap([0, 0, 0]);
 	}
 
@@ -81,7 +81,7 @@ export class InsertTypeAheadStep extends Step {
 		};
 	}
 
-	static fromJSON() {
+	static fromJSON(): ReplaceStep {
 		// This is a "local custom step" once serialized
 		// we need to transform it in a no-operation action
 		return new ReplaceStep(0, 0, Slice.empty);

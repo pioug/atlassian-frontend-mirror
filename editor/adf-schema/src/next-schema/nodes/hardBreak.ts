@@ -1,8 +1,9 @@
+import type { ADFCommonNodeSpec, ADFNode} from '@atlaskit/adf-schema-generator';
 import { adfNode } from '@atlaskit/adf-schema-generator';
 import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
 
-export const hardBreak = adfNode('hardBreak').define({
+export const hardBreak: ADFNode<[string], ADFCommonNodeSpec> = adfNode('hardBreak').define({
 	inline: true,
 	selectable: false,
 	linebreakReplacement: true,

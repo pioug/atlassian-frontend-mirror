@@ -81,7 +81,7 @@ export interface Match {
 	url: string;
 }
 
-export const linkify = LinkifyIt();
+export const linkify: LinkifyIt.LinkifyIt = LinkifyIt();
 linkify.add('sourcetree:', 'http:');
 linkify.add('jamfselfservice:', 'http:');
 
@@ -109,7 +109,7 @@ linkify.tlds(tlds, false);
 
 // linkify-it mishandles closing braces on long urls, so we preference using our own regex first:
 // https://product-fabric.atlassian.net/browse/ED-13669
-export const LINK_REGEXP =
+export const LINK_REGEXP: RegExp =
 	/(https?|ftp|jamfselfservice|gopher|dynamicsnav|integrity|file|smb):\/\/[^\s]+/u;
 
 /** Attempt to find a link match using a regex string defining a URL */
@@ -169,7 +169,7 @@ export function getLinkMatch(str?: string): Match | null {
  * Adds protocol to url if needed.
  * Returns empty string if no url given or if no link match found.
  */
-export function normalizeUrl(url?: string) {
+export function normalizeUrl(url?: string): string {
 	const match = getLinkMatch(url);
 	return (match && match.url) || '';
 }
@@ -177,7 +177,7 @@ export function normalizeUrl(url?: string) {
 /**
  * checks if root relative link
  */
-export function isRootRelative(url: string) {
+export function isRootRelative(url: string): boolean {
 	// Support `#top` and `#` special references as per:
 	// https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#linking_to_an_element_on_the_same_page
 	return url.startsWith('/') || url === '#top' || url === '#';

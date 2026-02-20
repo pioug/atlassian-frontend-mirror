@@ -447,4 +447,17 @@ export const syncBlockMessages = defineMessages({
 		defaultMessage: 'An error occurred while trying to create this synced block. ',
 		description: 'Description in flag which appears when a synced block cannot be created',
 	},
+	inlineExtensionInSyncBlockTitle: {
+		id: 'fabric.editor.inlineExtensionInSyncBlockTitle',
+		defaultMessage: 'Some macros may not work when adding synced blocks to new locations',
+		description:
+			'Title in flag which appears when an inline extension is inserted into a synced block',
+	},
+	inlineExtensionInSyncBlockDescription: {
+		id: 'fabric.editor.inlineExtensionInSyncBlockDescription',
+		defaultMessage:
+			'This may happen if your synced block is used in places that don\'t support certain macros.',
+		description:
+			'Description in flag which appears when an inline extension is inserted into a synced block',
+	},
 });

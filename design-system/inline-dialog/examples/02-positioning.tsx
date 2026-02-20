@@ -18,6 +18,7 @@ const styles: React.CSSProperties = {
 	width: '100%',
 };
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class InlineDialogPositioningExample extends Component<{}, State> {
 	state = {
 		placementIndex: 0,

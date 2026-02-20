@@ -8,6 +8,7 @@ import type { InlineCardDefinition as InlineCard } from './inline-card';
 import type { StatusDefinition as Status } from './status';
 import { caption as captionFactory } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils';
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 /**
  * @name caption_node
@@ -17,7 +18,9 @@ export interface CaptionDefinition {
 		localId?: string;
 	};
 	/**
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @minItems 0
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @allowUnsupportedInline true
 	 */
 	content: Array<
@@ -34,7 +37,7 @@ export interface CaptionDefinition {
 	type: 'caption';
 }
 
-export const caption = captionFactory({
+export const caption: NodeSpec = captionFactory({
 	parseDOM: [
 		{
 			tag: 'figcaption[data-caption]',
@@ -49,7 +52,7 @@ export const caption = captionFactory({
 	},
 });
 
-export const captionWithLocalId = captionFactory({
+export const captionWithLocalId: NodeSpec = captionFactory({
 	parseDOM: [
 		{
 			tag: 'figcaption[data-caption]',

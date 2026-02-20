@@ -119,8 +119,19 @@ export type DatabaseContextPayloadData =
 		csv: string;
 		title: string;
 		url: string;
+		selectedElementIds?: string[];
 	}
 	| undefined;
+
+/** Partial database context for iframe updates (e.g. selection-only). */
+export type DatabaseContextUpdatePayloadData = Partial<
+	NonNullable<DatabaseContextPayloadData>
+>;
+
+export type DatabaseContextPayload = PayloadCore<
+	'database-context-payload',
+	DatabaseContextUpdatePayloadData
+>;
 
 export type BrowserContextPayloadData = {
 	context:
@@ -411,6 +422,7 @@ export type Payload =
 	| EditorAgentChangedPayload
 	| BrowserContextPayload
 	| WhiteboardContextPayload
+	| DatabaseContextPayload
 	| ForgeAppAuthSuccess
 	| ForgeAppAuthFailure
 	| JiraWorkflowWizardActionsPayload

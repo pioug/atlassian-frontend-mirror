@@ -22,7 +22,7 @@ export interface JIRASchemaConfig {
 /**
  * @deprecated [ED-15676] We have stopped supporting product specific schemas. Use `@atlaskit/adf-schema/schema-default` instead.
  **/
-export default function makeSchema(config: JIRASchemaConfig) {
+export default function makeSchema(config: JIRASchemaConfig): Schema<string, string> {
 	const nodes = ['doc', 'paragraph', 'text', 'hardBreak', 'heading', 'rule'];
 	const marks = [
 		'strong',

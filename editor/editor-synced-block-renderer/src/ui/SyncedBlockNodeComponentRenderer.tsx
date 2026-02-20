@@ -8,6 +8,7 @@ import {
 } from '@atlaskit/editor-common/sync-block';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import { SyncBlockError, useFetchSyncBlockData } from '@atlaskit/editor-synced-block-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type MediaSSR, type NodeProps } from '@atlaskit/renderer';
 
 import type { SyncedBlockRendererOptions } from '../types';
@@ -80,13 +81,23 @@ export const SyncedBlockNodeComponentRenderer = ({
 		!syncBlockInstance?.data ||
 		syncBlockInstance.data.status === 'deleted'
 	) {
+		const errorMessage =
+			syncBlockInstance?.error ??
+			(syncBlockInstance?.data?.status === 'deleted'
+				? { type: SyncBlockError.NotFound, reason: syncBlockInstance.data?.deletionReason }
+				: {
+						type: SyncBlockError.Errored,
+						reason: !resourceId ? 'missing resource id' : `missing data for block ${resourceId}`,
+					});
 		return (
 			<SyncedBlockErrorComponent
 				error={
-					syncBlockInstance?.error ??
-					(syncBlockInstance?.data?.status === 'deleted'
-						? { type: SyncBlockError.NotFound }
-						: { type: SyncBlockError.Errored })
+					fg('platform_synced_block_patch_3')
+						? errorMessage
+						: (syncBlockInstance?.error ??
+							(syncBlockInstance?.data?.status === 'deleted'
+								? { type: SyncBlockError.NotFound }
+								: { type: SyncBlockError.Errored }))
 				}
 				resourceId={syncBlockInstance?.resourceId}
 				onRetry={reloadData}

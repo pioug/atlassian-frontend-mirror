@@ -186,6 +186,8 @@ export interface LinkPickerProps {
 	recentSearchListSize?: number;
 	/** Controls showing the image in the no results state */
 	shouldRenderNoResultsImage?: boolean;
+	/** When true, tabs are displayed even if there is only one plugin. */
+	alwaysShowTabs?: boolean;
 }
 
 type CustomLinkPickerMessages = {

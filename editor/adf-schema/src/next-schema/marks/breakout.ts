@@ -1,6 +1,7 @@
+import type { ADFMark, ADFMarkSpec } from '@atlaskit/adf-schema-generator';
 import { adfMark } from '@atlaskit/adf-schema-generator';
 
-export const breakout = adfMark('breakout').define({
+export const breakout: ADFMark<ADFMarkSpec> = adfMark('breakout').define({
 	spanning: false,
 	inclusive: false,
 	attrs: {

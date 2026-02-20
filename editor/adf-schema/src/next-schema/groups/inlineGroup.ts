@@ -1,3 +1,4 @@
+import type { ADFNodeGroup } from '@atlaskit/adf-schema-generator';
 import { adfNodeGroup } from '@atlaskit/adf-schema-generator';
 import { date } from '../nodes/date';
 import { emoji } from '../nodes/emoji';
@@ -14,7 +15,7 @@ import { confluenceUnsupportedInline } from '../nodes/confluenceUnsupportedInlin
 import { image } from '../nodes/image';
 import { confluenceJiraIssue } from '../nodes/confluenceJiraIssue';
 
-export const inlineGroup = adfNodeGroup(
+export const inlineGroup: ADFNodeGroup = adfNodeGroup(
 	'inline',
 	[
 		text,

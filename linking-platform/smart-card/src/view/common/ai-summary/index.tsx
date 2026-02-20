@@ -5,13 +5,13 @@
 import { css, jsx } from '@compiled/react';
 import Markdown from 'markdown-to-jsx';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import type { AISummaryProps } from './types';
 import UList from './ulist';
 
 const baseStyle = css({
-	color: token('color.text.subtle'),
 	font: token('font.body.small'),
 	wordWrap: 'break-word',
 	wordBreak: 'break-word',
@@ -20,6 +20,14 @@ const baseStyle = css({
 	MozUserSelect: 'text',
 	MsUserSelect: 'text',
 	userSelect: 'text',
+});
+
+const textStyleNew = css({
+	color: token('color.text'),
+});
+
+const textStyleOld = css({
+	color: token('color.text.subtle'),
 });
 
 /**
@@ -42,7 +50,10 @@ const AISummary = ({
 			data-testid={testId}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className={className}
-			css={[baseStyle]}
+			css={[
+				baseStyle,
+				fg('platform_sl_3p_auth_rovo_action_kill_switch') ? textStyleNew : textStyleOld,
+			]}
 			children={content}
 			options={{
 				forceWrapper: true,

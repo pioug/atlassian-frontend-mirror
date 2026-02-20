@@ -1,4 +1,4 @@
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { TextDefinition as Text } from './text';
 import type { BreakoutMarkDefinition } from '../marks/breakout';
@@ -9,6 +9,7 @@ import { uuid } from '../../utils';
 export type CodeBlockBaseDefinition = {
 	attrs?: CodeBlockAttrs;
 	/**
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @allowUnsupportedInline true
 	 */
 	content?: Array<Text & NoMark>;
@@ -100,7 +101,7 @@ function parseCodeFromHtml(node: Node) {
 	return code;
 }
 
-export const codeBlock = codeBlockFactory({
+export const codeBlock: NodeSpec = codeBlockFactory({
 	parseDOM: [
 		{
 			tag: 'pre',
@@ -177,7 +178,10 @@ export const codeBlock = codeBlockFactory({
 	},
 });
 
-export const toJSON = (node: PMNode) => ({
+export const toJSON = (node: PMNode): {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    attrs: Record<string, any>;
+} => ({
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attrs: Object.keys(node.attrs).reduce<Record<string, any>>((memo, key) => {
 		if (key === 'uniqueId') {
@@ -193,7 +197,7 @@ export const toJSON = (node: PMNode) => ({
 	}, {}),
 });
 
-export const codeBlockWithLocalId = codeBlockFactory({
+export const codeBlockWithLocalId: NodeSpec = codeBlockFactory({
 	parseDOM: [
 		{
 			tag: 'pre',

@@ -1,7 +1,6 @@
 {
 	"extends": "../../../../tsconfig.local-consumption.json",
 	"compilerOptions": {
-		"declaration": true,
 		"target": "es5",
 		"outDir": "../../../../../confluence/tsDist/@atlaskit__editor-ssr-renderer",
 		"rootDir": "../",
@@ -30,6 +29,9 @@
 		},
 		{
 			"path": "../../editor-prosemirror/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../tmp-editor-statsig/afm-cc/tsconfig.json"

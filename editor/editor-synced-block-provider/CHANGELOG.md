@@ -1,5 +1,21 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.30.2
+
+### Patch Changes
+
+- [`e794387202d1b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e794387202d1b) -
+  EDITOR-4824 add additional error logging for sync blocks
+- Updated dependencies
+
+## 3.30.1
+
+### Patch Changes
+
+- [`94134fec8eb68`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/94134fec8eb68) -
+  Also fetch current pages for retrieving source info
+- Updated dependencies
+
 ## 3.30.0
 
 ### Minor Changes

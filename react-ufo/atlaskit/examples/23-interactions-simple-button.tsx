@@ -4,13 +4,14 @@
  * @jsx jsx
  */
 
-import { useCallback, useEffect, useState } from 'react';
+import { type MouseEvent as ReactMouseEvent, useCallback, useEffect, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
+import { getConfig, setUFOConfig } from '@atlaskit/react-ufo/config';
 import UFOLoadHold from '@atlaskit/react-ufo/load-hold';
 import UFOSegment from '@atlaskit/react-ufo/segment';
+import traceUFOInteraction from '@atlaskit/react-ufo/trace-interaction';
 
 const mainStyles = css({
 	minWidth: '100vw',
@@ -23,23 +24,51 @@ const mainStyles = css({
 	justifyContent: 'center',
 });
 
+const buttonStyle = css({
+	padding: '8px 16px',
+	backgroundColor: '#0052CC',
+	color: 'white',
+	border: 'none',
+	borderRadius: '3px',
+	cursor: 'pointer',
+	fontSize: '14px',
+	'&:hover': {
+		backgroundColor: '#0052CCCC',
+	},
+	marginRight: '10px',
+	marginBottom: '10px',
+});
+
 const SectionContentOne = () => {
 	const [showHold, setShowHold] = useState(false);
-	const handleClick = useCallback(() => {
+	const handleClick = useCallback((event: ReactMouseEvent<HTMLButtonElement>) => {
+		traceUFOInteraction('test-click', event.nativeEvent);
 		setShowHold(true);
 		setTimeout(() => {
 			setShowHold(false);
 		}, 1000);
-	}, [setShowHold]);
+	}, []);
+	const handleUnknownClick = useCallback((event: ReactMouseEvent<HTMLButtonElement>) => {
+		traceUFOInteraction('unknown', event.nativeEvent);
+		setShowHold(true);
+		setTimeout(() => {
+			setShowHold(false);
+		}, 1000);
+	}, []);
 	return (
 		<div id="test-container">
 			<UFOSegment name="buttons-container">
-				<Button id="test-button" onClick={handleClick} interactionName="test-click">
+				<button
+					css={buttonStyle}
+					id="test-button"
+					onClick={handleClick}
+					data-interaction-name="test-click"
+				>
 					new interaction button
-				</Button>
-				<Button id="test-button2" onClick={handleClick}>
+				</button>
+				<button css={buttonStyle} id="test-button2" onClick={handleUnknownClick}>
 					unknown interaction button
-				</Button>
+				</button>
 				{showHold && <UFOLoadHold name="show-hold">Loading</UFOLoadHold>}
 			</UFOSegment>
 		</div>
@@ -47,18 +76,35 @@ const SectionContentOne = () => {
 };
 
 const LongHoldPageLoad = () => {
-	const [showHold, setShowHold] = useState(true);	
+	const [showHold, setShowHold] = useState(true);
 	useEffect(() => {
 		setTimeout(() => {
 			setShowHold(false);
 		}, 1000);
 	}, []);
-	return (
-		showHold ? <UFOLoadHold name="show-page-load-hold">Loading</UFOLoadHold> : null
-	);
+	return showHold ? <UFOLoadHold name="show-page-load-hold">Loading</UFOLoadHold> : null;
 };
 
 export default function Example(): JSX.Element {
+	useEffect(() => {
+		const config = getConfig();
+		if (!config) {
+			return;
+		}
+		const nextConfig = {
+			...config,
+			rates: {
+				...config.rates,
+				unknown: 1,
+			},
+		};
+		setUFOConfig(nextConfig);
+
+		return () => {
+			setUFOConfig(config);
+		};
+	}, []);
+
 	return (
 		<UFOSegment name="app-root">
 			<main id="app-main" css={mainStyles}>

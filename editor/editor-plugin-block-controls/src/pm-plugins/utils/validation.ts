@@ -132,9 +132,7 @@ export function canMoveNodeToIndex(
 	const destParentNodeType = destParent?.type;
 	const activeNodeType = srcNode?.type;
 	const layoutColumnContent = srcNode.content;
-	const isNestingTablesSupported =
-		isNestedTablesSupported(schema) &&
-		editorExperiment('nested-tables-in-tables', true, { exposure: true });
+	const isNestingTablesSupported = isNestedTablesSupported(schema);
 
 	if (activeNodeType === layoutColumn && editorExperiment('advanced_layouts', true)) {
 		// Allow drag layout column and drop into layout section

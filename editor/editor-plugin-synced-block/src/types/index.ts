@@ -10,6 +10,7 @@ export enum FLAG_ID {
 	SYNC_BLOCK_COPIED = 'sync-block-copied',
 	UNPUBLISHED_SYNC_BLOCK_PASTED = 'unpublished-sync-block-pasted',
 	CANNOT_CREATE_SYNC_BLOCK = 'cannot-create-sync-block',
+	INLINE_EXTENSION_IN_SYNC_BLOCK = 'inline-extension-in-sync-block',
 }
 
 type FlagConfig = {

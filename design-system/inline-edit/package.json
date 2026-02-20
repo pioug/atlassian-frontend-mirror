@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/inline-edit",
-	"version": "15.6.5",
+	"version": "15.6.6",
 	"description": "An inline edit displays a custom input component that switches between reading and editing on the same page.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -23,7 +23,7 @@
 	"sideEffects": [
 		"**/*.compiled.css"
 	],
-	"atlaskit:src": "src/index.ts",
+	"atlaskit:src": "src/index.tsx",
 	"homepage": "https://atlassian.design/components/inline-edit/",
 	"atlassian": {
 		"team": "Design System Team",
@@ -93,10 +93,10 @@
 		}
 	},
 	"exports": {
-		"./inline-edit": "./src/entry-points/inline-edit.ts",
-		"./inline-editable-textfield": "./src/entry-points/inline-editable-textfield.ts",
-		"./types": "./src/entry-points/types.ts",
-		".": "./src/index.ts"
+		"./inline-edit": "./src/entry-points/inline-edit.tsx",
+		"./inline-editable-textfield": "./src/entry-points/inline-editable-textfield.tsx",
+		"./types": "./src/entry-points/types.tsx",
+		".": "./src/index.tsx"
 	},
 	"platform-feature-flags": {
 		"platform_design_system_inline_edit_dont_focus": {

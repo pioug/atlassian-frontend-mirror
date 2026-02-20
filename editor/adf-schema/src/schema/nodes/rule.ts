@@ -1,4 +1,4 @@
-import type { DOMOutputSpec } from '@atlaskit/editor-prosemirror/model';
+import type { DOMOutputSpec, NodeSpec } from '@atlaskit/editor-prosemirror/model';
 import { rule as ruleFactory } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils/uuid';
 
@@ -11,14 +11,14 @@ export interface RuleDefinition {
 }
 
 const hrDOM: DOMOutputSpec = ['hr'];
-export const rule = ruleFactory({
+export const rule: NodeSpec = ruleFactory({
 	parseDOM: [{ tag: 'hr' }],
 	toDOM() {
 		return hrDOM;
 	},
 });
 
-export const ruleWithLocalId = ruleFactory({
+export const ruleWithLocalId: NodeSpec = ruleFactory({
 	parseDOM: [{ tag: 'hr', getAttrs: () => ({ localId: uuid.generate() }) }],
 	toDOM(node) {
 		return ['hr', { 'data-local-id': node?.attrs?.localId || undefined }];

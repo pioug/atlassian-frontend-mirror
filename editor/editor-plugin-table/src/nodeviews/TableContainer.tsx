@@ -51,10 +51,15 @@ type InnerContainerProps = {
 	className: string;
 	node: PMNode;
 	style?: React.CSSProperties;
+	tableWrapperHeight?: number;
 };
 
 const InnerContainer = forwardRef<HTMLDivElement, PropsWithChildren<InnerContainerProps>>(
-	({ className, style, node, children }, ref) => {
+	({ className, style, node, children, tableWrapperHeight }, ref) => {
+		const bordersReady = expValEquals('platform_editor_table_borders_ready_fix', 'isEnabled', true)
+			? tableWrapperHeight !== undefined && tableWrapperHeight > 0
+			: undefined;
+
 		return (
 			<div
 				ref={ref}
@@ -64,6 +69,7 @@ const InnerContainer = forwardRef<HTMLDivElement, PropsWithChildren<InnerContain
 				className={className}
 				data-number-column={node.attrs.isNumberColumnEnabled}
 				data-layout={node.attrs.layout}
+				data-borders-ready={bordersReady}
 				data-testid="table-container"
 			>
 				{children}
@@ -490,8 +496,11 @@ export const ResizableTableContainer = React.memo(
 				>
 					{/* eslint-disable-next-line react/jsx-props-no-spreading -- Ignored via go/ees005 */}
 					<TableResizer {...tableResizerProps} disabled={isLivePageViewMode}>
-						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
-						<InnerContainer className={className} node={node}>
+						<InnerContainer
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+							className={className}
+							node={node}
+							tableWrapperHeight={tableWrapperHeight}>
 							{children}
 						</InnerContainer>
 					</TableResizer>
@@ -584,6 +593,7 @@ export const TableContainer = ({
 	return (
 		<InnerContainer
 			node={node}
+			tableWrapperHeight={tableWrapperHeight}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={classNames(className, {
 				'less-padding':

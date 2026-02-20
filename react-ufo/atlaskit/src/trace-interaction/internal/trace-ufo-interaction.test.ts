@@ -15,6 +15,7 @@ import {
 	getDoNotAbortActivePressInteraction,
 	getInteractionRate,
 	getMinorInteractions,
+	isUFOEnabled,
 } from '../../config';
 import { getActiveTrace, setInteractionActiveTrace } from '../../experience-trace-id-context';
 import { DefaultInteractionID } from '../../interaction-id-context';
@@ -32,6 +33,7 @@ const mockGetDoNotAbortActivePressInteraction =
 const mockGetMinorInteractions = getMinorInteractions as jest.MockedFunction<
 	typeof getMinorInteractions
 >;
+const mockIsUFOEnabled = isUFOEnabled as jest.MockedFunction<typeof isUFOEnabled>;
 const mockGetActiveInteraction = getActiveInteraction as jest.MockedFunction<
 	typeof getActiveInteraction
 >;
@@ -60,6 +62,8 @@ describe('internal traceUFOInteraction', () => {
 		mockGetActiveInteraction.mockReturnValue(undefined);
 		mockGetActiveTrace.mockReturnValue(mockTraceContext);
 		mockCreateUUID.mockReturnValue('test-uuid-123');
+		// Mock isUFOEnabled to return true so UFO tracing is enabled
+		mockIsUFOEnabled.mockReturnValue(true);
 
 		// Mock performance.now
 		jest.spyOn(performance, 'now').mockReturnValue(1000);

@@ -1,5 +1,13 @@
 # @atlaskit/link-picker
 
+## 4.2.9
+
+### Patch Changes
+
+- [`8d357ee3705c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d357ee3705c1) -
+  [ux] NAVX-3332 updating link-picker headings to be h3 for a11y
+- Updated dependencies
+
 ## 4.2.8
 
 ### Patch Changes

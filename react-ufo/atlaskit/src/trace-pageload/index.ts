@@ -2,7 +2,7 @@
 import { v4 as createUUID } from 'uuid';
 
 import coinflip from '../coinflip';
-import { getInteractionRate } from '../config';
+import { getInteractionRate, isUFOEnabled } from '../config';
 import { getActiveTrace } from '../experience-trace-id-context';
 import { DefaultInteractionID } from '../interaction-id-context';
 import {
@@ -21,6 +21,11 @@ function traceUFOPageLoad(
 	ufoName?: string | null | undefined,
 	routeName: string | null | undefined = ufoName,
 ): void {
+	// Skip if UFO is disabled (gated behind platform_ufo_enable_killswitch_config)
+	if (!isUFOEnabled()) {
+		return;
+	}
+
 	const activeInteraction = getActiveInteraction();
 	if (activeInteraction && !ufoName) {
 		return;
@@ -70,6 +75,11 @@ export function updatePageloadName(
 	ufoName: string,
 	routeName: string | null | undefined = ufoName,
 ): void {
+	// Skip if UFO is disabled (gated behind platform_ufo_enable_killswitch_config)
+	if (!isUFOEnabled()) {
+		return;
+	}
+
 	const interaction = getActiveInteraction();
 	if (!interaction || (interaction.type !== 'page_load' && interaction.type !== 'transition')) {
 		return;

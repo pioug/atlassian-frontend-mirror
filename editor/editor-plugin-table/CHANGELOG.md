@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-table
 
+## 17.3.22
+
+### Patch Changes
+
+- [`a040c03082274`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a040c03082274) -
+  [ux] EDITOR-507 Clean up main nested tables experiment `platform_editor_nested_tables`
+- Updated dependencies
+
+## 17.3.21
+
+### Patch Changes
+
+- [`dece098c3ab1f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dece098c3ab1f) -
+  [ux] ENGHEALTH-46818 Add focus and blur handlers to table buttons to fix a11y
+- Updated dependencies
+
+## 17.3.20
+
+### Patch Changes
+
+- [`81937b9af604e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81937b9af604e) -
+  [ux] fix table border late render issue
+- Updated dependencies
+
 ## 17.3.19
 
 ### Patch Changes

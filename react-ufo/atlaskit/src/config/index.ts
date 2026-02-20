@@ -245,6 +245,24 @@ export function getConfig(): Config | undefined {
 	return config;
 }
 
+/**
+ * Check if UFO is enabled based on the config.enabled field.
+ *
+ * This function is gated behind the platform_ufo_enable_killswitch_config feature flag.
+ * When the feature flag is disabled, UFO is always considered enabled (default behavior).
+ * When the feature flag is enabled, the config.enabled field is respected.
+ *
+ * @returns true if UFO is enabled, false if disabled
+ */
+export function isUFOEnabled(): boolean {
+	// Only respect the config.enabled field when the killswitch feature flag is enabled
+	if (!fg('platform_ufo_enable_killswitch_config')) {
+		return true;
+	}
+	// Default to enabled if config is not set or enabled is not explicitly false
+	return config?.enabled !== false;
+}
+
 const isValidConfigArray = <T>(array: any): array is T[] => {
 	return Array.isArray(array) && array.length > 0;
 };

@@ -17,10 +17,13 @@ import type { NestedExpandNode } from '../../next-schema/generated/nodeTypes';
 import { nestedExpand as nestedExpandFactory } from '../../next-schema/generated/nodeTypes';
 import type { NodeSpecOptions } from '../createPMSpecFactory';
 import { uuid } from '../../utils/uuid';
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 /**
  * @name nestedExpand_content
+ // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
  * @minItems 1
+ // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
  * @allowUnsupportedBlock true
  */
 export type NestedExpandContent = Array<
@@ -101,9 +104,11 @@ const nestedExpandFactoryOptions: NodeSpecOptions<NestedExpandNode> = {
  * @name nestedExpand
  * @description an expand that can be nested (eg. inside table, layout).
  */
-export const nestedExpand = nestedExpandFactory(nestedExpandFactoryOptions);
+export const nestedExpand: NodeSpec = nestedExpandFactory(
+	nestedExpandFactoryOptions,
+);
 
-export const nestedExpandWithLocalId = nestedExpandFactory({
+export const nestedExpandWithLocalId: NodeSpec = nestedExpandFactory({
 	...nestedExpandFactoryOptions,
 	parseDOM: [
 		...(nestedExpandFactoryOptions.parseDOM || []),

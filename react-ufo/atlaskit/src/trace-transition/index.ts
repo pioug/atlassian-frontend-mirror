@@ -4,7 +4,7 @@ import { useContext, useEffect } from 'react';
 import { v4 as createUUID } from 'uuid';
 
 import coinflip from '../coinflip';
-import { getDoNotAbortActivePressInteractionOnTransition, getInteractionRate } from '../config';
+import { getDoNotAbortActivePressInteractionOnTransition, getInteractionRate, isUFOEnabled } from '../config';
 import { getActiveTrace } from '../experience-trace-id-context';
 import UFOInteractionIDContext, { DefaultInteractionID } from '../interaction-id-context';
 import {
@@ -22,6 +22,11 @@ function traceUFOTransition(
 	ufoName: string | null | undefined,
 	routeName: string | null | undefined = ufoName,
 ): void {
+	// Skip if UFO is disabled (gated behind platform_ufo_enable_killswitch_config)
+	if (!isUFOEnabled()) {
+		return;
+	}
+
 	const pressInteractionsList = getDoNotAbortActivePressInteractionOnTransition();
 	const interaction = getActiveInteraction();
 	if (pressInteractionsList && interaction) {

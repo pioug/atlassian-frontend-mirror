@@ -5,7 +5,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { startLighthouseObserver } from '../additional-payload';
 import { type PostInteractionLogOutput } from '../common';
 import { type VCResult } from '../common/vc/types';
-import { type Config, setUFOConfig } from '../config';
+import { type Config, isUFOEnabled, setUFOConfig } from '../config';
 import {
 	experimentalVC,
 	sinkExperimentalHandler,
@@ -257,12 +257,20 @@ export function init(
 		return;
 	}
 
+	// Always set config first so isUFOEnabled() can check config.enabled
+	setUFOConfig(config);
+
+	// If UFO is disabled via config, skip all initialization
+	// This is gated behind platform_ufo_enable_killswitch_config feature flag
+	if (!isUFOEnabled()) {
+		initialized = true;
+		return;
+	}
+
 	// Initialize pressure observer for CPU usage monitoring
 	initialisePressureObserver();
 
 	initialiseMemoryObserver();
-
-	setUFOConfig(config);
 
 	if (fg('platform_ufo_enable_otel_context_manager')) {
 		// Configure global OTel context manager
@@ -296,9 +304,7 @@ export function init(
 	setupHiddenTimingCapture();
 	startLighthouseObserver();
 
-	if (fg('platform_ufo_is_tab_throttled')) {
-		setupThrottleDetection();
-	}
+	setupThrottleDetection();
 
 	initialized = true;
 

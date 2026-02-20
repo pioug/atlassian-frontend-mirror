@@ -5,6 +5,7 @@ import type { NonNestableBlockContent } from './types/non-nestable-block-content
 import type { DataConsumerDefinition } from '../marks/data-consumer';
 import type { FragmentDefinition } from '../marks/fragment';
 import { bodiedExtension as bodiedExtensionFactory } from '../../next-schema/generated/nodeTypes';
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 /**
  * @name bodiedExtension_node
@@ -12,7 +13,9 @@ import { bodiedExtension as bodiedExtensionFactory } from '../../next-schema/gen
 export interface BodiedExtensionBaseDefinition {
 	attrs: ExtensionAttributes;
 	/**
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @minItems 1
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @allowUnsupportedBlock true
 	 */
 	content: Array<NonNestableBlockContent>;
@@ -27,7 +30,7 @@ export interface BodiedExtensionBaseDefinition {
 export type BodiedExtensionDefinition = BodiedExtensionBaseDefinition &
 	MarksObject<DataConsumerDefinition | FragmentDefinition>;
 
-export const bodiedExtension = bodiedExtensionFactory({
+export const bodiedExtension: NodeSpec = bodiedExtensionFactory({
 	parseDOM: [
 		{
 			context: 'bodiedExtension//',

@@ -5,13 +5,13 @@
  * @jsxFrag Fragment
  */
 
-import { useCallback, useState } from 'react';
+import { type MouseEvent as ReactMouseEvent, useCallback, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
 import UFOLoadHold from '@atlaskit/react-ufo/load-hold';
 import UFOSegment from '@atlaskit/react-ufo/segment';
+import traceUFOInteraction from '@atlaskit/react-ufo/trace-interaction';
 
 import UFOLabel from '../src/label';
 
@@ -27,25 +27,47 @@ const container = css({
 	borderRadius: '5px',
 });
 
+const buttonStyle = css({
+	padding: '8px 16px',
+	backgroundColor: '#0052CC',
+	color: 'white',
+	border: 'none',
+	borderRadius: '3px',
+	cursor: 'pointer',
+	fontSize: '14px',
+	'&:hover': {
+		backgroundColor: '#0052CCCC',
+	},
+});
+
 export default function Example(): JSX.Element {
 	const [showNewSegments, setShowNewSegments] = useState(false);
 	const [showHold, setShowHold] = useState(false);
 
-	const handleClick = useCallback(() => {
-		setShowHold(true);
-		setTimeout(() => {
-			setShowHold(false);
-			setShowNewSegments(!showNewSegments);
-		}, 1000);
-	}, [showNewSegments, setShowHold]);
+	const handleClick = useCallback(
+		(event: ReactMouseEvent<HTMLButtonElement>) => {
+			traceUFOInteraction('show-new-segments', event.nativeEvent);
+			setShowHold(true);
+			setTimeout(() => {
+				setShowHold(false);
+				setShowNewSegments(!showNewSegments);
+			}, 1000);
+		},
+		[showNewSegments],
+	);
 
 	return (
 		<div css={container} data-testid="page-container">
 			<UFOSegment name="level0">
 				<p>level0</p>
-				<Button onClick={handleClick} id="show-new-segments" interactionName="show-new-segments">
+				<button
+					css={buttonStyle}
+					onClick={handleClick}
+					id="show-new-segments"
+					data-interaction-name="show-new-segments"
+				>
 					Toggle new segments
-				</Button>
+				</button>
 				<div css={container}>
 					<UFOSegment name="level1-1">
 						<p>level1-1</p>

@@ -7,6 +7,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 import { di } from 'react-magnetic-di';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type FlexibleUiActionName, SmartLinkSize } from '../../../../../constants';
@@ -74,6 +75,7 @@ const ActionBlock = ({
 	spaceInline,
 	className,
 	testId = 'smart-block-action',
+	hideAISummaryAction,
 }: ActionBlockProps) => {
 	di(ActionFooter);
 
@@ -111,7 +113,11 @@ const ActionBlock = ({
 			return;
 		}
 
-		const arr = Object.keys(context.actions) as FlexibleUiActionName[];
+		let arr = Object.keys(context.actions) as FlexibleUiActionName[];
+
+		if (hideAISummaryAction && fg('platform_sl_3p_auth_rovo_action_kill_switch')) {
+			arr = arr.filter((name) => name !== 'AISummaryAction');
+		}
 
 		arr.sort(sort);
 
@@ -143,6 +149,7 @@ const ActionBlock = ({
 		padding,
 		isLoading,
 		onClick,
+		hideAISummaryAction,
 	]);
 
 	return actions ? (

@@ -1,3 +1,7 @@
+import type {
+	ADFCommonNodeSpec,
+	ADFNode,
+} from '@atlaskit/adf-schema-generator';
 import { adfNode } from '@atlaskit/adf-schema-generator';
 import { annotation } from '../marks/annotation';
 import { code } from '../marks/code';
@@ -13,7 +17,31 @@ import { unsupportedMark } from '../marks/unsupportedMark';
 import { typeAheadQuery } from '../marks/typeAheadQuery';
 import { confluenceInlineComment } from '../marks/confluenceInlineComment';
 
-export const text = adfNode('text')
+export const text: ADFNode<
+	[string, 'with_no_marks', 'link_inline', 'formatted', 'code_inline'],
+	ADFCommonNodeSpec & {
+		marks: never[];
+		noMarks: true;
+	} & {
+		ignore: ('pm-spec' | 'json-schema')[];
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		marks: any[];
+	} & {
+		DANGEROUS_MANUAL_OVERRIDE: {
+			'validator-spec': {
+				'props.marks.items[0][9]': {
+					reason: string;
+					remove: true;
+				};
+			};
+		};
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		marks: any[];
+	} & {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		marks: any[];
+	}
+> = adfNode('text')
 	.define({
 		marks: [],
 		hasEmptyMarks: true,

@@ -1,3 +1,4 @@
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 import { placeholder as placeholderFactory } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils/uuid';
 
@@ -5,21 +6,23 @@ import { uuid } from '../../utils/uuid';
  * @name placeholder_node
  */
 export interface PlaceholderDefinition {
-	type: 'placeholder';
 	attrs: {
-		text: string;
 		localId?: string;
+		text: string;
 	};
+	type: 'placeholder';
 }
 
-export const placeholder = placeholderFactory({
+export const placeholder: NodeSpec = placeholderFactory({
 	parseDOM: [
 		{
 			tag: 'span[data-placeholder]',
 			getAttrs: (dom) => ({
 				text:
 					// eslint-disable-next-line @atlaskit/editor/no-as-casting, @typescript-eslint/no-non-null-assertion
-					(dom as HTMLElement).getAttribute('data-placeholder') || placeholder.attrs!.text.default,
+					(dom as HTMLElement).getAttribute('data-placeholder') ||
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					placeholder.attrs!.text.default,
 			}),
 		},
 	],
@@ -34,14 +37,16 @@ export const placeholder = placeholderFactory({
 	},
 });
 
-export const placeholderWithLocalId = placeholderFactory({
+export const placeholderWithLocalId: NodeSpec = placeholderFactory({
 	parseDOM: [
 		{
 			tag: 'span[data-placeholder]',
 			getAttrs: (dom) => ({
 				text:
 					// eslint-disable-next-line @atlaskit/editor/no-as-casting, @typescript-eslint/no-non-null-assertion
-					(dom as HTMLElement).getAttribute('data-placeholder') || placeholder.attrs!.text.default,
+					(dom as HTMLElement).getAttribute('data-placeholder') ||
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					placeholder.attrs!.text.default,
 				localId: uuid.generate(),
 			}),
 		},

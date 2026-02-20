@@ -16,6 +16,7 @@ import {
 	stickyHeadersUnresizedTableNumberedColumn,
 	stickyHeadersUnresizedTableWithoutHeaderRow,
 } from '../__fixtures__/sticky-header-adf';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import Renderer from '../../ui/Renderer';
 import type { DocNode } from '@atlaskit/adf-schema';
 
@@ -86,6 +87,14 @@ export function StickyHeadersTableInsideLayout(): React.JSX.Element {
 }
 
 export function StickyHeadersTableInsideLayoutBrokenOut(): React.JSX.Element {
+	return <StickyHeaderFixture adf={stickyHeadersTableInsideLayoutBrokenOut} />;
+}
+
+/**
+ * Same as StickyHeadersTableInsideLayoutBrokenOut but with platform_editor_flex_based_centering experiment enabled.
+ */
+export function StickyHeadersTableInsideLayoutBrokenOutWithFlexCentering(): React.JSX.Element {
+	setupEditorExperiments('test', { platform_editor_flex_based_centering: true });
 	return <StickyHeaderFixture adf={stickyHeadersTableInsideLayoutBrokenOut} />;
 }
 

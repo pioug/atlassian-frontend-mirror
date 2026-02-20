@@ -3,10 +3,9 @@
 
 import React from 'react';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
-import type { RendererContentMode, NestedRendererType } from './ui/Renderer/types';
+import type { NestedRendererType } from './ui/Renderer/types';
 
 export type RendererContextProps = {
-	contentMode?: RendererContentMode;
 	featureFlags?: FeatureFlags;
 	// Keep this uninitialized it will be set to true in the top level renderer
 	isTopLevelRenderer?: boolean;

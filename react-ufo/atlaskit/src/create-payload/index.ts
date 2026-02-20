@@ -720,11 +720,7 @@ async function createInteractionMetricsPayload(
 
 				'ufo:isOpenedInBackground': isOpenedInBackground(interaction.type),
 
-				...(fg('platform_ufo_is_tab_throttled')
-					? {
-							'ufo:isTabThrottled': isTabThrottled(start, end),
-						}
-					: {}),
+				'ufo:isTabThrottled': isTabThrottled(start, end),
 
 				...(fg('ufo_detect_aborting_interaction_during_ssr')
 					? {

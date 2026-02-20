@@ -1,3 +1,4 @@
+import type { ADFCommonNodeSpec, ADFNode} from '@atlaskit/adf-schema-generator';
 import { $onePlus, $or, adfNode } from '@atlaskit/adf-schema-generator';
 import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
@@ -30,7 +31,7 @@ const panelContent = [
 	unsupportedBlock,
 ];
 
-export const panel = adfNode('panel').define({
+export const panel: ADFNode<[string], ADFCommonNodeSpec> = adfNode('panel').define({
 	selectable: true,
 
 	marks: [unsupportedMark, unsupportedNodeAttribute],

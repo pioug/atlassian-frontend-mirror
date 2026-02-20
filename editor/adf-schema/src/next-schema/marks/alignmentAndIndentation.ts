@@ -1,12 +1,15 @@
+import type { ADFMark, ADFMarkSpec } from '@atlaskit/adf-schema-generator';
 import { adfMark, adfMarkGroup } from '@atlaskit/adf-schema-generator';
 
 // These marks defined together because they form a cycle within the excludes.
-export const alignment = adfMark('alignment');
-export const indentation = adfMark('indentation');
+export const alignment: ADFMark<ADFMarkSpec> = adfMark('alignment');
+export const indentation: ADFMark<ADFMarkSpec> = adfMark('indentation');
 
 const alignementMarkExclusionGroup = adfMarkGroup('alignment', [alignment]);
 
-const indentationMarkExclusionGroup = adfMarkGroup('indentation', [indentation]);
+const indentationMarkExclusionGroup = adfMarkGroup('indentation', [
+	indentation,
+]);
 
 alignment.define({
 	excludes: [alignementMarkExclusionGroup, indentationMarkExclusionGroup],

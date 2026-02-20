@@ -1,3 +1,4 @@
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 import { syncBlock as syncBlockFactory } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils';
 import type { BreakoutMarkDefinition } from '../marks';
@@ -25,7 +26,7 @@ export interface SyncBlockDefinition {
 	type: 'syncBlock';
 }
 
-export const syncBlock = syncBlockFactory({
+export const syncBlock: NodeSpec = syncBlockFactory({
 	parseDOM: [
 		{
 			tag: 'div[data-sync-block]',

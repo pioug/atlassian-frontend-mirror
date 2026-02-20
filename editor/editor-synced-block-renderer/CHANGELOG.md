@@ -1,5 +1,13 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 5.8.5
+
+### Patch Changes
+
+- [`e794387202d1b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e794387202d1b) -
+  EDITOR-4824 add analytics event whenever sync block error component is first shown
+- Updated dependencies
+
 ## 5.8.4
 
 ### Patch Changes

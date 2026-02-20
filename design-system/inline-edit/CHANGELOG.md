@@ -1,5 +1,12 @@
 # @atlaskit/inline-edit
 
+## 15.6.6
+
+### Patch Changes
+
+- [`b8934c531e413`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b8934c531e413) -
+  Internal refactoring
+
 ## 15.6.5
 
 ### Patch Changes

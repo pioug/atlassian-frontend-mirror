@@ -7,17 +7,17 @@ export type EditorExperimentOverridesMultivariate = {
 	[K in keyof EditorExperimentsConfig as MultivariateConfig<
 		EditorExperimentsConfig[K]['defaultValue']
 	> extends true
-	? K
-	: never]: EditorExperimentsConfig[K]['defaultValue'];
+		? K
+		: never]: EditorExperimentsConfig[K]['defaultValue'];
 };
 
 export type EditorExperimentOverridesBoolean = {
 	[K in keyof EditorExperimentsConfig as BooleanConfig<
 		EditorExperimentsConfig[K]['defaultValue']
 	> extends true
-	? K
-	: // Optional as boolean will default to true if not specified here
-	never]?: EditorExperimentsConfig[K]['defaultValue'];
+		? K
+		: // Optional as boolean will default to true if not specified here
+			never]?: EditorExperimentsConfig[K]['defaultValue'];
 };
 
 export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = {
@@ -31,7 +31,6 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 	platform_editor_table_sticky_header_improvements: 'test_with_overflow',
 	platform_sl_3p_unauth_paste_as_block_card: 'control',
 	cc_fd_db_top_editor_toolbar: 'control',
-	cc_fd_db_top_editor_toolbar_aa: 'control',
 };
 
 export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
@@ -49,7 +48,6 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	advanced_layouts: false,
 	single_column_layouts: false,
 	support_table_in_comment_jira: false,
-	'nested-tables-in-tables': false,
 	platform_editor_ai_unsplash_page_header: false,
 	platform_editor_blockquote_in_text_formatting_menu: false,
 	platform_editor_element_drag_and_drop_multiselect: false,
@@ -67,5 +65,6 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	platform_editor_find_and_replace_improvements: false,
 	platform_editor_toggle_expand_on_match_found: false,
 	platform_editor_reduce_noisy_steps_ncs: false,
+	platform_editor_prosemirror_rendered_data: false,
 	confluence_compact_text_format: false,
 };

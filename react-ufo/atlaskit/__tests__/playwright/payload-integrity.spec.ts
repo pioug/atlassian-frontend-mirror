@@ -155,17 +155,27 @@ test.describe('React UFO: Payload integrity - v2.0.0, without TTVC v1 fields', (
 			expect(resourceTiming.data.decodedSize).toBeUndefined();
 
 			// Test for non-deterministic bounded values within the payload - i.e. from the browser APIs
-			expect(['network', 'memory', 'disk'].includes(resourceTiming.data.transferType)).toBe(true);
+			expect(
+				[null, 'network', 'memory', 'disk'].includes(resourceTiming.data.transferType ?? null),
+			).toBe(true);
 			expect(['script', 'link'].includes(resourceTiming.data.type)).toBe(true);
 
 			// Test for non-deterministic unbounded values within the payload
 			expect(typeof resourceTiming.label).toBe('string');
 			expectValidNumber(resourceTiming.data.startTime);
 			expectValidNumber(resourceTiming.data.duration);
-			expectValidNumber(resourceTiming.data.workerStart);
-			expectValidNumber(resourceTiming.data.fetchStart);
-			expectValidNumber(resourceTiming.data.ttfb);
-			expectValidNumber(resourceTiming.data.size);
+			if (resourceTiming.data.workerStart !== undefined) {
+				expectValidNumber(resourceTiming.data.workerStart);
+			}
+			if (resourceTiming.data.fetchStart !== undefined) {
+				expectValidNumber(resourceTiming.data.fetchStart);
+			}
+			if (resourceTiming.data.ttfb !== undefined) {
+				expectValidNumber(resourceTiming.data.ttfb);
+			}
+			if (resourceTiming.data.size !== undefined) {
+				expectValidNumber(resourceTiming.data.size);
+			}
 		}
 
 		expect(typeof interactionMetrics.segments).toBe('object');

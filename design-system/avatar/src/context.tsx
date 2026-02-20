@@ -44,6 +44,9 @@ type AvatarContentContextProps = {
 	testId?: string;
 	size: SizeType;
 	stackIndex?: number;
+	'aria-controls'?: string;
+	'aria-expanded'?: boolean;
+	'aria-haspopup'?: boolean | 'dialog';
 };
 
 const defaultAvatarContentProps: AvatarContentContextProps = {

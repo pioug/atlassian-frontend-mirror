@@ -365,6 +365,36 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 			const items = await screen.findAllByRole('listitem');
 			expect(items.length).toEqual(reactions.length);
 		});
+
+		describe('platform-a11y-add-reactions-button-ul-item', () => {
+			ffTest.on('platform-a11y-add-reactions-button-ul-item', 'with gate ON', () => {
+				it('should render add reaction picker as a list item inside the list', async () => {
+					renderReactions();
+
+					const list = await screen.findByRole('list');
+					expect(list).toBeInTheDocument();
+
+					const items = await screen.findAllByRole('listitem');
+					expect(items.length).toEqual(reactions.length + 1);
+
+					expect(screen.getByTestId(RENDER_REACTIONPICKER_TESTID).closest('li')).toBeInTheDocument();
+				});
+			});
+
+			ffTest.off('platform-a11y-add-reactions-button-ul-item', 'with gate OFF', () => {
+				it('should not render add reaction picker as a list item', async () => {
+					renderReactions();
+
+					const list = await screen.findByRole('list');
+					expect(list).toBeInTheDocument();
+
+					const items = await screen.findAllByRole('listitem');
+					expect(items.length).toEqual(reactions.length);
+
+					expect(screen.getByTestId(RENDER_REACTIONPICKER_TESTID).closest('li')).not.toBeInTheDocument();
+				});
+			});
+		});
 	});
 
 	ffTest.off('jfp_a11y_team_comment_actions_semantic', 'with gate OFF', () => {

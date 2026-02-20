@@ -41,9 +41,6 @@
 			"path": "./tsconfig.app.json"
 		},
 		{
-			"path": "../../../build/website/docs/tsconfig.app.json"
-		},
-		{
 			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
 		}
 	]

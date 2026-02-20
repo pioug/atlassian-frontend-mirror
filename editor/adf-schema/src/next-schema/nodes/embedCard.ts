@@ -1,8 +1,9 @@
+import type { ADFCommonNodeSpec, ADFNode} from '@atlaskit/adf-schema-generator';
 import { adfNode } from '@atlaskit/adf-schema-generator';
 import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
 
-export const embedCard = adfNode('embedCard').define({
+export const embedCard: ADFNode<[string], ADFCommonNodeSpec> = adfNode('embedCard').define({
 	selectable: true,
 
 	marks: [unsupportedMark, unsupportedNodeAttribute],

@@ -171,8 +171,7 @@ export const TableFloatingControls = ({
 					styles,
 			]}
 		>
-			{/* eslint-disable-next-line @atlassian/a11y/no-static-element-interactions */}
-			<div onMouseDown={(e) => !isDragAndDropEnabled && e.preventDefault()}>
+			<div role="none" onMouseDown={(e) => !isDragAndDropEnabled && e.preventDefault()}>
 				{isNumberColumnEnabled ? (
 					<NumberColumn
 						editorView={editorView}

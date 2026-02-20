@@ -243,6 +243,16 @@ export const DragControls = ({
 					onClick={handleClick}
 					onMouseOver={handleMouseOver}
 					onMouseOut={handleMouseOut}
+					onBlur={
+						expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
+							? handleMouseOut
+							: undefined
+					}
+					onFocus={
+						expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
+							? handleMouseOver
+							: undefined
+					}
 					toggleDragMenu={toggleDragMenuHandler}
 					editorView={editorView}
 				/>

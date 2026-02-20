@@ -237,9 +237,12 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 		testId,
 		size,
 		stackIndex,
+		'aria-controls': ariaControls,
+		'aria-expanded': ariaExpanded,
+		'aria-haspopup': ariaHasPopup,
 	} = useAvatarContent();
 
-	const isInteractive = Boolean(onClick || href || isDisabled);
+	const isInteractive = Boolean(onClick || href || isDisabled || ariaHasPopup);
 
 	const renderedContent = (
 		<Container
@@ -269,6 +272,9 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 				(ref || contextRef) as React.Ref<HTMLAnchorElement & HTMLButtonElement & HTMLSpanElement>
 			}
 			aria-label={isInteractive ? label : undefined}
+			aria-controls={ariaControls}
+			aria-expanded={ariaExpanded}
+			aria-haspopup={ariaHasPopup}
 			onClick={onClick}
 			tabIndex={tabIndex}
 			data-testid={testId}

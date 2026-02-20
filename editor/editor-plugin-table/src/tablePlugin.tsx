@@ -754,11 +754,8 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 							hasParentNodeOfType(state.schema.nodes.table)(state.selection) &&
 							options?.tableOptions?.allowNestedTables
 						) {
-							// If the experiment is disabled, or we're trying to nest deeper than one level, we insert the table after the top table
-							if (
-								editorExperiment('nested-tables-in-tables', false, { exposure: true }) ||
-								getParentOfTypeCount(state.schema.nodes.table)(state.selection.$from) > 1
-							) {
+							// If trying to nest deeper than one level, we insert the table after the top table
+							if (getParentOfTypeCount(state.schema.nodes.table)(state.selection.$from) > 1) {
 								// Nesting is too deep insert table after the top parent table
 								const positionAfterTopTable = getPositionAfterTopParentNodeOfType(
 									state.schema.nodes.table,

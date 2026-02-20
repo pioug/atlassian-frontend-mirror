@@ -1,3 +1,4 @@
+import type { ADFNodeGroup } from '@atlaskit/adf-schema-generator';
 import { adfNodeGroup } from '@atlaskit/adf-schema-generator';
 import { blockCard } from '../nodes/blockCard';
 import { blockquote } from '../nodes/blockquote';
@@ -19,7 +20,7 @@ import { table } from '../nodes/tableNodes';
 import { taskList } from '../nodes/task';
 import { unsupportedBlock } from '../nodes/unsupportedBlock';
 
-export const blockGroup = adfNodeGroup(
+export const blockGroup: ADFNodeGroup = adfNodeGroup(
 	'block',
 	[
 		blockCard,

@@ -17,7 +17,6 @@
 		"**/stories/**/*.tsx"
 	],
 	"compilerOptions": {
-		"strictNullChecks": true,
 		"noUncheckedIndexedAccess": true
 	}
 }

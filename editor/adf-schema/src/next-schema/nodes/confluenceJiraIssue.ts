@@ -1,10 +1,13 @@
+import type {
+    ADFCommonNodeSpec,
+    ADFNode} from '@atlaskit/adf-schema-generator';
 import {
 	adfNode,
 	JSONSchemaTransformerName,
 	ValidatorSpecTransformerName,
 } from '@atlaskit/adf-schema-generator';
 
-export const confluenceJiraIssue = adfNode('confluenceJiraIssue').define({
+export const confluenceJiraIssue: ADFNode<[string], ADFCommonNodeSpec> = adfNode('confluenceJiraIssue').define({
 	ignore: [JSONSchemaTransformerName, ValidatorSpecTransformerName],
 
 	atom: true,

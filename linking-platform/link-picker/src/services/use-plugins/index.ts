@@ -35,6 +35,7 @@ export function usePlugins(
 	activeTab: number,
 	plugins?: LinkPickerPlugin[],
 	recentSearchListSize?: number,
+	alwaysShowTabs?: boolean,
 ): LinkPickerPluginsService {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const [retries, setRetries] = useState(0);
@@ -104,7 +105,7 @@ export function usePlugins(
 	}, [activePlugin, state, retries, createAnalyticsEvent, dispatch, recentSearchListSize]);
 
 	const tabs = useMemo(() => {
-		if (!plugins || plugins.length <= 1) {
+		if (!plugins || (!alwaysShowTabs && plugins.length <= 1)) {
 			return [];
 		}
 
@@ -113,7 +114,7 @@ export function usePlugins(
 			.map((plugin) => ({
 				tabTitle: plugin.tabTitle!,
 			}));
-	}, [plugins]);
+	}, [plugins, alwaysShowTabs]);
 
 	const handleRetry = useCallback(() => {
 		setRetries((prev) => ++prev);

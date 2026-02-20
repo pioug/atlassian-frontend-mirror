@@ -4,6 +4,7 @@ import type { MarksObject } from './types/mark';
 import type { DataConsumerDefinition } from '../marks/data-consumer';
 import type { FragmentDefinition } from '../marks/fragment';
 import { extension as extensionFactory } from '../../next-schema/generated/nodeTypes';
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 /**
  * @name extension_node
@@ -21,7 +22,7 @@ export interface ExtensionBaseDefinition {
 export type ExtensionDefinition = ExtensionBaseDefinition &
 	MarksObject<DataConsumerDefinition | FragmentDefinition>;
 
-export const extension = extensionFactory({
+export const extension: NodeSpec = extensionFactory({
 	parseDOM: [
 		{
 			tag: '[data-node-type="extension"]',

@@ -62,5 +62,3 @@ export default function UFOIgnoreHolds({
 		</InteractionContext.Provider>
 	);
 }
-
-UFOIgnoreHolds.displayName = 'UFOIgnoreHolds';

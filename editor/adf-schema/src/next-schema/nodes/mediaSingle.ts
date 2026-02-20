@@ -1,3 +1,7 @@
+import type {
+	ADFNode,
+	ADFCommonNodeSpec,
+} from '@atlaskit/adf-schema-generator';
 import { $or, $range, adfNode } from '@atlaskit/adf-schema-generator';
 import { link } from '../marks/link';
 import { unsupportedMark } from '../marks/unsupportedMark';
@@ -6,7 +10,10 @@ import { caption } from './caption';
 import { media } from './media';
 import { unsupportedBlock } from './unsupportedBlock';
 
-export const mediaSingle = adfNode('mediaSingle')
+export const mediaSingle: ADFNode<
+	[string, 'caption', 'full', 'width_type'],
+	ADFCommonNodeSpec
+> = adfNode('mediaSingle')
 	.define({
 		atom: true,
 		selectable: true,
@@ -83,7 +90,8 @@ export const mediaSingle = adfNode('mediaSingle')
 					reason: 'the widthType was not in attrs of original spec',
 				},
 				marks: {
-					value: 'annotation border link unsupportedMark unsupportedNodeAttribute',
+					value:
+						'annotation border link unsupportedMark unsupportedNodeAttribute',
 					reason:
 						"Types and PM Spec don't match, in types base mediaSingle doesn't have children, and in ADF DSL marks are derived from children",
 				},
@@ -109,7 +117,8 @@ export const mediaSingle = adfNode('mediaSingle')
 		DANGEROUS_MANUAL_OVERRIDE: {
 			'pm-spec': {
 				content: {
-					value: 'media|unsupportedBlock+|media (caption|unsupportedBlock) unsupportedBlock*',
+					value:
+						'media|unsupportedBlock+|media (caption|unsupportedBlock) unsupportedBlock*',
 					reason:
 						'The content expression is not correct or redundant around `media|media|unsupportedBlock+`. This case is not supported by the DSL.',
 				},
@@ -118,7 +127,8 @@ export const mediaSingle = adfNode('mediaSingle')
 						layout: { default: 'center' },
 						width: { default: null },
 					},
-					reason: 'the widthType was not in attrs of original spec of mediaSingleWithCaption',
+					reason:
+						'the widthType was not in attrs of original spec of mediaSingleWithCaption',
 				},
 			},
 		},
@@ -131,7 +141,8 @@ export const mediaSingle = adfNode('mediaSingle')
 		DANGEROUS_MANUAL_OVERRIDE: {
 			'pm-spec': {
 				content: {
-					value: 'media|unsupportedBlock+|media (caption|unsupportedBlock) unsupportedBlock*',
+					value:
+						'media|unsupportedBlock+|media (caption|unsupportedBlock) unsupportedBlock*',
 					reason:
 						'The content expression is not correct or redundant around `media|media|unsupportedBlock+`. This case is not supported by the DSL.',
 				},

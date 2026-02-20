@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-user-preferences
 
+## 5.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.9
 
 ### Patch Changes

@@ -49,7 +49,6 @@ import type { CardAdf, CardAppearance, DatasourceAdf } from '@atlaskit/linking-c
 import { fg } from '@atlaskit/platform-feature-flags';
 import { closeHistory } from '@atlaskit/prosemirror-history';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 // TODO: ED-20519 - Needs Macro extraction
 
 import {
@@ -1038,30 +1037,8 @@ export function handleNestedTablePaste(slice: Slice, isNestingTablesSupported?: 
 		});
 
 		if (sliceHasTable) {
-			if (
-				editorExperiment('nested-tables-in-tables', true, {
-					exposure: true,
-				})
-			) {
-				/* TEST COHORT */
-				// if slice has table - if pasting to deeply nested location place paste after top table
-				if (getParentOfTypeCount(schema.nodes.table)(selection.$from) > 1) {
-					const positionAfterTopTable = getPositionAfterTopParentNodeOfType(schema.nodes.table)(
-						selection.$from,
-					);
-
-					let { tr } = state;
-					tr = safeInsert(slice.content, positionAfterTopTable)(tr);
-					tr.scrollIntoView();
-
-					if (dispatch) {
-						dispatch(tr);
-						return true;
-					}
-				}
-			} else {
-				/* CONTROL COHORT */
-				// if slice has table - place paste after top table
+			// if slice has table - if pasting to deeply nested location place paste after top table
+			if (getParentOfTypeCount(schema.nodes.table)(selection.$from) > 1) {
 				const positionAfterTopTable = getPositionAfterTopParentNodeOfType(schema.nodes.table)(
 					selection.$from,
 				);

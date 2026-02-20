@@ -4,7 +4,7 @@
  * @jsxFrag React.Fragment
  */
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { css, jsx } from '@compiled/react';
+import { css, cssMap, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { type UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
@@ -17,6 +17,7 @@ import { type Placement } from '@atlaskit/popper';
 import UFOSegment from '@atlaskit/react-ufo/segment';
 import { token } from '@atlaskit/tokens';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { Box } from '@atlaskit/primitives/compiled';
 
 import {
 	createAndFireSafe,
@@ -77,6 +78,13 @@ const listContainerStyles = css({
 	padding: 0,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'> li': { margin: 0, padding: 0 },
+});
+
+const pickerListItemStyles = cssMap({
+	picker: {
+		display: 'inline-block',
+		marginTop: token('space.050', '4px'),
+	},
 });
 
 /**
@@ -534,6 +542,14 @@ export const Reactions = React.memo(
 		// criteria to show Reactions Dialog
 		const hasEmojiWithFivePlusReactions = reactions.some((reaction) => reaction.count >= 5);
 
+		const shouldShowPicker =
+			!isViewOnly &&
+			!(!onlyRenderPicker && shouldShowSummaryView && allowSelectFromSummaryView);
+		const semanticListEnabled = fg('jfp_a11y_team_comment_actions_semantic');
+		const addReactionButtonAsListItem = fg('platform-a11y-add-reactions-button-ul-item');
+		const pickerInsideList =
+			semanticListEnabled && addReactionButtonAsListItem && shouldShowPicker;
+
 		const sortedReactions = useMemo(() => {
 			return [...memorizedReactions].sort((a, b) => b?.count - a?.count);
 		}, [memorizedReactions]);
@@ -631,6 +647,41 @@ export const Reactions = React.memo(
 										showSubtleStyle={showSubtleDefaultReactions && reactions.length === 0}
 									/>
 								))}
+								{pickerInsideList && (
+									<Box as="li" xcss={pickerListItemStyles.picker}>
+										<ReactionPicker
+											emojiProvider={emojiProvider}
+											allowAllEmojis={allowAllEmojis}
+											pickerQuickReactionEmojiIds={pickerQuickReactionEmojiIds}
+											disabled={status !== ReactionStatus.ready}
+											onSelection={handleOnSelection}
+											onOpen={handlePickerOpen}
+											onCancel={handleOnCancel}
+											onShowMore={handleOnMore}
+											tooltipContent={
+												hoverableSummaryView
+													? null
+													: getTooltip(
+															status,
+															errorMessage,
+															reactionPickerTriggerTooltipContent,
+														)
+											}
+											emojiPickerSize={emojiPickerSize}
+											miniMode={miniMode}
+											showOpaqueBackground={showOpaqueBackground}
+											showAddReactionText={showAddReactionText}
+											subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
+											reactionPickerTriggerIcon={reactionPickerTriggerIcon}
+											reactionPickerTriggerText={reactionPickerTriggerText}
+											isListItem={isListItem}
+											hoverableReactionPicker={hoverableSummaryView}
+											hoverableReactionPickerDelay={hoverableSummaryView ? 300 : 0}
+											reactionPickerPlacement={reactionPickerPlacement}
+											reactionPickerPopperZIndex={reactionPickerPopperZIndex}
+										/>
+									</Box>
+								)}
 							</ul>
 						) : (
 							<>
@@ -657,9 +708,9 @@ export const Reactions = React.memo(
 					   1. Component is view only, thus disabling adding reactions
 					   2. Summary view is being rendered and the picker is shown inside the summary view tray
 					   via allowSelectFromSummaryView, preventing us needing to render it again outside the tray
+					   3. Picker is rendered inside the semantic <ul> as a list item (platform-a11y-add-reactions-button-ul-item)
 					*/}
-					{isViewOnly ||
-					(!onlyRenderPicker && shouldShowSummaryView && allowSelectFromSummaryView) ? null : (
+					{shouldShowPicker && !pickerInsideList && (
 						<ReactionPicker
 							css={reactionPickerStyle}
 							emojiProvider={emojiProvider}

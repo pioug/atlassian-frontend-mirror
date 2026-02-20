@@ -1,7 +1,6 @@
 {
 	"extends": "../../../../tsconfig.local-consumption.json",
 	"compilerOptions": {
-		"declaration": true,
 		"target": "es5",
 		"outDir": "../../../../../confluence/tsDist/@atlaskit__navigation-system",
 		"rootDir": "../",

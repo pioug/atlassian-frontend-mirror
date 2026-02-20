@@ -236,7 +236,7 @@ export const fetchConfluencePageInfo = async (
 
 	if (hasAccess) {
 		const { type: pageType } = getPageIdAndTypeFromConfluencePageAri({ ari: pageAri });
-		const status = fg('platform_synced_block_patch_3') ? ['draft', 'archived'] : undefined;
+		const status = fg('platform_synced_block_patch_3') ? ['draft', 'archived', 'current'] : undefined;
 		const response = await getConfluenceSourceInfo(pageAri, status);
 
 		const contentData = response.data?.content?.nodes?.[0];

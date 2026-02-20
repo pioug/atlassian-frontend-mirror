@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "33.8.13",
+	"version": "33.8.14",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -135,6 +135,9 @@
 			"type": "boolean"
 		},
 		"jfp_a11y_team_comment_actions_semantic": {
+			"type": "boolean"
+		},
+		"platform-a11y-add-reactions-button-ul-item": {
 			"type": "boolean"
 		}
 	},

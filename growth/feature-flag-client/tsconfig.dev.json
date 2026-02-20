@@ -33,7 +33,6 @@
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
-		"strict": true,
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__feature-flag-client/dev"
 	},

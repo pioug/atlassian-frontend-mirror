@@ -1,7 +1,6 @@
 {
 	"extends": "../../../../tsconfig.local-consumption.json",
 	"compilerOptions": {
-		"target": "es2019",
 		"outDir": "../../../../../confluence/tsDist/@atlaskit__adf-schema-generator",
 		"rootDir": "../",
 		"composite": true,

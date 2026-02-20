@@ -1,5 +1,42 @@
 # @atlaskit/editor-common
 
+## 111.16.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 111.16.4
+
+### Patch Changes
+
+- [`3a0ebffbfb871`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a0ebffbfb871) -
+  [ux] Add flag message for when inline extensions added to synced block
+- [`bc0a0c36fcc31`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc0a0c36fcc31) -
+  Add transform error tracking for block menu
+- Updated dependencies
+
+## 111.16.3
+
+### Patch Changes
+
+- [`615e2dfcd1dae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/615e2dfcd1dae) -
+  Editor-5506: Fix getAutoConverter null error in ssr
+
+## 111.16.2
+
+### Patch Changes
+
+- [`81937b9af604e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81937b9af604e) -
+  [ux] fix table border late render issue
+- Updated dependencies
+
+## 111.16.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 111.16.0
 
 ### Minor Changes

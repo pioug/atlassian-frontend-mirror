@@ -58,11 +58,6 @@ export const sortPrioritizedElements = (
 	featuredItems: QuickInsertItem[],
 	formatMessage: (msg: MessageDescriptor) => string,
 ): QuickInsertItem[] => {
-	// temporary for A/A test
-	['new-description', 'orig-description'].includes(
-		expVal('cc_fd_db_top_editor_toolbar_aa', 'cohort', 'control'),
-	)
-
 	if (
 		['new-description', 'orig-description'].includes(
 			expVal('cc_fd_db_top_editor_toolbar', 'cohort', 'control'),

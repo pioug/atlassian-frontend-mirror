@@ -234,7 +234,7 @@ describe('AIMateAnalyticsListener', () => {
 					objectType: 'page',
 					containerType: 'space',
 					containerId: 'space-123',
-					source: 'smartCreate',
+					source: 'aiMate',
 					attributes: {
 						sourceHierarchy: 'aiMate',
 						packageHierarchy: undefined,

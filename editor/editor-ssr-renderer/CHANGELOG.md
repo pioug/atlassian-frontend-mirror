@@ -1,5 +1,35 @@
 # @atlaskit/editor-ssr-renderer
 
+## 2.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.2.0
+
+### Minor Changes
+
+- [`cbc1403b3cae1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cbc1403b3cae1) -
+  [EDITOR-5094](https://hello.jira.atlassian.cloud/browse/EDITOR-5094) - add PerfPortal segments for
+  editor SSR logic
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.6
 
 ### Patch Changes

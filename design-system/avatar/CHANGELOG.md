@@ -1,5 +1,13 @@
 # @atlaskit/avatar
 
+## 25.8.0
+
+### Minor Changes
+
+- [`7140aa6f03a00`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7140aa6f03a00) -
+  Adds aria-controls, aria-expanded, and aria-haspopup props to Avatar, enabling it to be used
+  directly as a popup trigger without needing an external button wrapper.
+
 ## 25.7.5
 
 ### Patch Changes

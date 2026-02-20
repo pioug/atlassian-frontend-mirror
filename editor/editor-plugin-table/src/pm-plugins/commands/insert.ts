@@ -26,7 +26,6 @@ import {
 	findTable,
 	selectedRect,
 } from '@atlaskit/editor-tables/utils';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { PluginInjectionAPI } from '../../types';
 import { updateRowOrColumnMovedTransform } from '../analytics/commands';
@@ -391,11 +390,8 @@ export const insertTableWithNestingSupport: InsertTableWithNestingSupportCommand
 		let insertAt: Selection | undefined;
 		let isNestedTable = false;
 		if (hasParentNodeOfType(schema.nodes.table)(tr.selection) && isNestedTablesSupported(schema)) {
-			// If the experiment is disabled, or we're trying to nest deeper than one level, we insert the table after the top table
-			if (
-				editorExperiment('nested-tables-in-tables', false, { exposure: true }) ||
-				getParentOfTypeCount(schema.nodes.table)(tr.selection.$from) > 1
-			) {
+			// If trying to nest deeper than one level, we insert the table after the top table
+			if (getParentOfTypeCount(schema.nodes.table)(tr.selection.$from) > 1) {
 				const positionAfterTopTable = getPositionAfterTopParentNodeOfType(schema.nodes.table)(
 					tr.selection.$from,
 				);
@@ -432,7 +428,7 @@ export const insertTableWithNestingSupport: InsertTableWithNestingSupportCommand
 								...analyticsPayload.attributes,
 								localId: node.attrs.localId,
 							},
-						}
+					  }
 					: undefined,
 				insertAt,
 			},

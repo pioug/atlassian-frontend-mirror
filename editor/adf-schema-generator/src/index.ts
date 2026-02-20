@@ -22,3 +22,15 @@ export {
 } from './transforms/transformerNames';
 
 export { MarkExcludesAll, MarkExcludesNone } from './types/ADFMarkSpec';
+
+export type { ADFNode } from './adfNode';
+export type { ADFMark } from './adfMark';
+export type { ADFMarkSpec } from './types/ADFMarkSpec';
+export type { ADFCommonNodeSpec } from './types/ADFNodeSpec';
+export type { ADFNodeGroup } from './types/ADFNodeGroup';
+export type {
+	ADFNodeContentOneOrMoreSpec,
+	ADFNodeContentZeroOrMoreSpec,
+	ADFNodeContentRangeSpec,
+} from './types/ADFNodeSpec';
+export type { ADFMarkGroup } from './types/ADFMarkGroup';

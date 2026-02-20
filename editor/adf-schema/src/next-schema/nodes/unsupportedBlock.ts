@@ -1,10 +1,13 @@
+import type {
+    ADFCommonNodeSpec,
+    ADFNode} from '@atlaskit/adf-schema-generator';
 import {
 	adfNode,
 	JSONSchemaTransformerName,
 	ValidatorSpecTransformerName,
 } from '@atlaskit/adf-schema-generator';
 
-export const unsupportedBlock = adfNode('unsupportedBlock').define({
+export const unsupportedBlock: ADFNode<[string], ADFCommonNodeSpec> = adfNode('unsupportedBlock').define({
 	ignore: [JSONSchemaTransformerName, ValidatorSpecTransformerName],
 
 	atom: true,

@@ -9,6 +9,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { CellSelection } from '@atlaskit/editor-tables';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	clearHoverSelection,
@@ -94,7 +95,7 @@ export const ColumnControls = ({
 	const hasHeaderRow = firstRow ? firstRow.getAttribute('data-header-row') : false;
 
 	const rowControlStickyTop = 45;
-	const marginTop = hasHeaderRow && stickyTop !== undefined ? rowControlStickyTop ?? 0 : 0;
+	const marginTop = hasHeaderRow && stickyTop !== undefined ? (rowControlStickyTop ?? 0) : 0;
 
 	const handleClick = useCallback(
 		(event: MouseEvent) => {
@@ -248,6 +249,16 @@ export const ColumnControls = ({
 					onClick={handleClick}
 					onMouseOver={handleMouseOver}
 					onMouseOut={handleMouseOut}
+					onBlur={
+						expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
+							? handleMouseOut
+							: undefined
+					}
+					onFocus={
+						expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
+							? handleMouseOver
+							: undefined
+					}
 					toggleDragMenu={toggleDragMenuHandler}
 					editorView={editorView}
 				/>

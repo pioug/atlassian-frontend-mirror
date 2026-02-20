@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 5.3.24
+
+### Patch Changes
+
+- [`3a0ebffbfb871`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a0ebffbfb871) -
+  [ux] Add flag message for when inline extensions added to synced block
+- Updated dependencies
+
 ## 5.3.23
 
 ### Patch Changes

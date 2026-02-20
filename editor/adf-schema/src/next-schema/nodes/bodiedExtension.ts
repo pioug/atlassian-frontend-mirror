@@ -1,3 +1,7 @@
+import type {
+	ADFCommonNodeSpec,
+	ADFNode,
+} from '@atlaskit/adf-schema-generator';
 import { $onePlus, $or, adfNode } from '@atlaskit/adf-schema-generator';
 import { nonNestableBlockContentGroup } from '../groups/nonNestableBlockContentGroup';
 import { dataConsumer } from '../marks/dataConsumer';
@@ -5,7 +9,15 @@ import { fragment } from '../marks/fragment';
 import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
 
-export const bodiedExtension = adfNode('bodiedExtension')
+export const bodiedExtension: ADFNode<
+	[string, 'with_marks'],
+	ADFCommonNodeSpec & {
+		content: never[];
+		ignore: never[];
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		marks: any[];
+	}
+> = adfNode('bodiedExtension')
 	.define({
 		defining: true,
 		selectable: true,

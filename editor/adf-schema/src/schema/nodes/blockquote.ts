@@ -14,6 +14,7 @@ import type { MediaSingleDefinition as MediaSingle } from './media-single';
 import type { ExtensionDefinition as Extension } from './extension';
 import type { NodeSpecOptions } from '../createPMSpecFactory';
 import { uuid } from '../../utils';
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 /**
  * @name blockquote_node
@@ -23,11 +24,19 @@ export interface BlockQuoteDefinition {
 		localId?: string;
 	};
 	/**
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @minItems 1
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @allowUnsupportedBlock true
 	 */
 	content: Array<
-		Paragraph | OrderedList | BulletList | CodeBlock | MediaGroup | MediaSingle | Extension
+		| Paragraph
+		| OrderedList
+		| BulletList
+		| CodeBlock
+		| MediaGroup
+		| MediaSingle
+		| Extension
 	>;
 	type: 'blockquote';
 }
@@ -39,13 +48,13 @@ const nodeSpecOptions: NodeSpecOptions<BlockquoteNode> = {
 	},
 };
 
-export const blockquote = blockquoteLegacyFactory(nodeSpecOptions);
+export const blockquote: NodeSpec = blockquoteLegacyFactory(nodeSpecOptions);
 
 /**
  * @name extentedBlockquote
  * @description the block quote node with nested code block, media, and extension
  */
-export const extendedBlockquote = blockquoteFactory(nodeSpecOptions);
+export const extendedBlockquote: NodeSpec = blockquoteFactory(nodeSpecOptions);
 
 const nodeSpecOptionsWithLocalId: NodeSpecOptions<BlockquoteNode> = {
 	parseDOM: [
@@ -59,8 +68,14 @@ const nodeSpecOptionsWithLocalId: NodeSpecOptions<BlockquoteNode> = {
 		},
 	],
 	toDOM(node) {
-		return ['blockquote', { 'data-local-id': node?.attrs?.localId || undefined }, 0];
+		return [
+			'blockquote',
+			{ 'data-local-id': node?.attrs?.localId || undefined },
+			0,
+		];
 	},
 };
 
-export const extendedBlockquoteWithLocalId = blockquoteFactory(nodeSpecOptionsWithLocalId);
+export const extendedBlockquoteWithLocalId: NodeSpec = blockquoteFactory(
+	nodeSpecOptionsWithLocalId,
+);

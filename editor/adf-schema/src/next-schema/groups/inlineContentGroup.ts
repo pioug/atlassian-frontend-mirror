@@ -1,3 +1,4 @@
+import type { ADFNodeGroup } from '@atlaskit/adf-schema-generator';
 import { adfNodeGroup } from '@atlaskit/adf-schema-generator';
 import { date } from '../nodes/date';
 import { emoji } from '../nodes/emoji';
@@ -15,6 +16,7 @@ import { image } from '../nodes/image';
 import { confluenceJiraIssue } from '../nodes/confluenceJiraIssue';
 
 /**
+ // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
  * @DSLCompatibilityException
  *
  * Pseudo group used to match existing validator and json schema specs.
@@ -23,7 +25,7 @@ import { confluenceJiraIssue } from '../nodes/confluenceJiraIssue';
  * - no text
  * - no text.use('link_inline')
  */
-export const inlineContentGroup = adfNodeGroup(
+export const inlineContentGroup: ADFNodeGroup = adfNodeGroup(
 	'inline_content',
 	[
 		text.use('formatted'),

@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 
 import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getProductFromSourceAri } from '../clients/block-service/ari';
 import { getPageIdAndTypeFromConfluencePageAri } from '../clients/confluence/ari';
@@ -108,9 +109,11 @@ export class SyncedBlockProvider extends SyncBlockDataProviderInterface {
 						(data) => {
 							return data;
 						},
-						() => {
+						(error) => {
 							return {
-								error: { type: SyncBlockError.Errored },
+								error: fg('platform_synced_block_patch_3')
+									? { type: SyncBlockError.Errored, reason: error }
+									: { type: SyncBlockError.Errored },
 								resourceId: blockIdentifier.resourceId,
 							};
 						},

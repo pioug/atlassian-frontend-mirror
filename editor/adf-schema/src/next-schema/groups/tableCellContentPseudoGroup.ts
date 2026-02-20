@@ -1,3 +1,7 @@
+import type {
+	ADFNode,
+	ADFNodeContentOneOrMoreSpec,
+} from '@atlaskit/adf-schema-generator';
 import { $onePlus, $or } from '@atlaskit/adf-schema-generator';
 import { blockCard } from '../nodes/blockCard';
 import { blockquote } from '../nodes/blockquote';
@@ -16,7 +20,8 @@ import { rule } from '../nodes/rule';
 import { taskList } from '../nodes/task';
 import { unsupportedBlock } from '../nodes/unsupportedBlock';
 
-export const tableCellContentNodes = [
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const tableCellContentNodes: Array<ADFNode<any, any>> = [
 	paragraph.use('with_no_marks'),
 	paragraph.use('with_alignment'),
 	panel,
@@ -45,10 +50,8 @@ export const tableCellContentNodes = [
 // In PM Spec, they contain different items. (tableHeader using tableHeaderContentPseudoGroup, tableCell using tableCellContentPseudoGroup)
 // In JSON Schema, both tableHeader and tableCell points to tableCellContentPseudoGroup
 // The differences are highlighted below.
-export const tableCellContentPseudoGroup = $onePlus(
-	$or(...tableCellContentNodes, unsupportedBlock),
-);
+export const tableCellContentPseudoGroup: ADFNodeContentOneOrMoreSpec =
+	$onePlus($or(...tableCellContentNodes, unsupportedBlock));
 
-export const tableHeaderContentPseudoGroup = $onePlus(
-	$or(...tableCellContentNodes, nestedExpand),
-);
+export const tableHeaderContentPseudoGroup: ADFNodeContentOneOrMoreSpec =
+	$onePlus($or(...tableCellContentNodes, nestedExpand));

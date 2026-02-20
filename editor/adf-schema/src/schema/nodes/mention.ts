@@ -1,4 +1,8 @@
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type {
+	Attrs,
+	NodeSpec,
+	Node as PMNode,
+} from '@atlaskit/editor-prosemirror/model';
 import type { AnnotationMarkDefinition } from '../marks/annotation';
 import { uuid } from '../../utils';
 import { mention as mentionFactory } from '../../next-schema/generated/nodeTypes';
@@ -25,13 +29,14 @@ export interface MentionAttributes {
 export interface MentionDefinition {
 	attrs: MentionAttributes;
 	/**
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @stage 0
 	 */
 	marks?: Array<AnnotationMarkDefinition>;
 	type: 'mention';
 }
 
-export const mention = mentionFactory({
+export const mention: NodeSpec = mentionFactory({
 	parseDOM: [
 		{
 			tag: 'span[data-mention-id]',
@@ -44,7 +49,10 @@ export const mention = mentionFactory({
 					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					text: dom.textContent || mention.attrs!.text.default,
 					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-					accessLevel: dom.getAttribute('data-access-level') || mention.attrs!.accessLevel.default,
+					accessLevel:
+						dom.getAttribute('data-access-level') ||
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						mention.attrs!.accessLevel.default,
 					localId: uuid.generate(),
 				};
 
@@ -79,7 +87,11 @@ const isOptional = (key: string) => {
 	return ['userType', 'localId'].indexOf(key) > -1;
 };
 
-export const toJSON = (node: PMNode) => ({
+export const toJSON = (
+	node: PMNode,
+): {
+	attrs: Attrs;
+} => ({
 	attrs: Object.keys(node.attrs).reduce<typeof node.attrs>((obj, key) => {
 		if (isOptional(key) && !node.attrs[key]) {
 			return obj;

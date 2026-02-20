@@ -142,7 +142,7 @@ export const renderExtension = (
 	const inlineClassName = isInline ? RendererCssClassName.EXTENSION_AS_INLINE : '';
 
 	if (expValEquals('platform_editor_renderer_extension_width_fix', 'isEnabled', true)) {
-		return (
+		const extensionDiv = (
 			<div
 				ref={options.handleRef}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -185,55 +185,90 @@ export const renderExtension = (
 				</div>
 			</div>
 		);
+		return centerAlignClass && expValEquals('platform_editor_flex_based_centering', 'isEnabled', true) ? (
+			<div
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+				className={
+					RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER +
+					' ' +
+					RendererCssClassName.FLEX_CENTER_WRAPPER
+				}
+			>
+				{extensionDiv}
+			</div>
+		) : (
+			extensionDiv
+		);
 	}
 
 	return (
 		<WidthConsumer>
-			{({ width }) => (
-				<div
-					ref={options.handleRef}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={`${RendererCssClassName.EXTENSION} ${inlineClassName} ${options.shadowClassNames} ${centerAlignClass}`}
-					style={{
-						width: isInline
-							? undefined
-							: (
-										expValEquals(
-											'platform_editor_remove_important_in_render_ext',
-											'isEnabled',
-											true,
-										)
-											? isCustomLayout
-											: isTopLevel
-								  )
-								? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-									calcBreakoutWidth(layout, width)
-								: expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
-									? undefined
-									: '100%',
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-						minHeight: isInline ? undefined : `${extensionHeight}px`,
-					}}
-					data-layout={layout}
-					data-local-id={localId}
-				>
+			{({ width }) => {
+				const extensionDiv = (
 					<div
-						tabIndex={fg('platform_editor_dec_a11y_fixes') ? options.tabIndex : undefined}
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-						className={overflowContainerClass}
-						css={[
-							!(
-								isInsideOfInlineExtension &&
-								expValEquals('confluence_inline_insert_excerpt_width_bugfix', 'isEnabled', true)
-							) &&
-								fg('platform_fix_macro_renders_in_layouts') &&
-								containerStyle,
-						]}
+						ref={options.handleRef}
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+						className={`${RendererCssClassName.EXTENSION} ${inlineClassName} ${options.shadowClassNames} ${centerAlignClass}`}
+						style={{
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+							width: isInline
+								? undefined
+								: (
+											expValEquals(
+												'platform_editor_remove_important_in_render_ext',
+												'isEnabled',
+												true,
+											)
+												? isCustomLayout
+												: isTopLevel
+									  )
+									? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+										calcBreakoutWidth(layout, width)
+									: expValEquals(
+												'platform_editor_remove_important_in_render_ext',
+												'isEnabled',
+												true,
+										  )
+										? undefined
+										: '100%',
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+							minHeight: isInline ? undefined : `${extensionHeight}px`,
+						}}
+						data-layout={layout}
+						data-local-id={localId}
 					>
-						{content}
+						<div
+							tabIndex={fg('platform_editor_dec_a11y_fixes') ? options.tabIndex : undefined}
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+							className={overflowContainerClass}
+							css={[
+								!(
+									isInsideOfInlineExtension &&
+									expValEquals('confluence_inline_insert_excerpt_width_bugfix', 'isEnabled', true)
+								) &&
+									fg('platform_fix_macro_renders_in_layouts') &&
+									containerStyle,
+							]}
+						>
+							{content}
+						</div>
 					</div>
-				</div>
-			)}
+				);
+				return centerAlignClass && expValEquals('platform_editor_flex_based_centering', 'isEnabled', true) ? (
+					<div
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+						className={
+							RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER +
+							' ' +
+							RendererCssClassName.FLEX_CENTER_WRAPPER
+						}
+					>
+						{extensionDiv}
+					</div>
+				) : (
+					extensionDiv
+				);
+			}}
 		</WidthConsumer>
 	);
 };

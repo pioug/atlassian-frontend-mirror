@@ -4,8 +4,11 @@ import type {
 } from './task-item';
 import { uuid } from '../../utils/uuid';
 import { taskList as taskListFactory } from '../../next-schema/generated/nodeTypes';
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
-export interface TaskListContent extends Array<TaskItemNode | TaskListDefinition | BlockTaskItem> {
+export interface TaskListContent extends Array<
+	TaskItemNode | TaskListDefinition | BlockTaskItem
+> {
 	0: TaskItemNode | BlockTaskItem;
 }
 
@@ -17,7 +20,9 @@ export interface TaskListDefinition {
 		localId: string;
 	};
 	/**
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @minItems 1
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @allowUnsupportedBlock true
 	 */
 	content: TaskListContent;
@@ -26,9 +31,9 @@ export interface TaskListDefinition {
 
 const name = 'actionList';
 
-export const taskListSelector = `[data-node-type="${name}"]`;
+export const taskListSelector: '[data-node-type="actionList"]' = `[data-node-type="${name}"]`;
 
-export const taskList = taskListFactory({
+export const taskList: NodeSpec = taskListFactory({
 	parseDOM: [
 		{
 			tag: `div${taskListSelector}`,

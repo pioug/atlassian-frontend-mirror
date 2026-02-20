@@ -1,3 +1,4 @@
+import type { ADFCommonNodeSpec, ADFNode} from '@atlaskit/adf-schema-generator';
 import { adfNode } from '@atlaskit/adf-schema-generator';
 import { annotation } from '../marks/annotation';
 import { border } from '../marks/border';
@@ -5,7 +6,7 @@ import { link } from '../marks/link';
 import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
 
-export const mediaInline = adfNode('mediaInline').define({
+export const mediaInline: ADFNode<[string], ADFCommonNodeSpec> = adfNode('mediaInline').define({
 	selectable: true,
 	// atom: false,
 	inline: true,

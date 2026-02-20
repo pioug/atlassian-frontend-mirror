@@ -1,5 +1,32 @@
 # @atlaskit/renderer
 
+## 126.9.5
+
+### Patch Changes
+
+- [`d26d9cd9d451a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d26d9cd9d451a) -
+  NO-ISSUE Clean up feature gate `platform_editor_content_mode_render_context` and revert to it's
+  "off" state as it was never launched due to being problematic
+- Updated dependencies
+
+## 126.9.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 126.9.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 126.9.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 126.9.1
 
 ### Patch Changes

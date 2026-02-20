@@ -1,6 +1,7 @@
 import type { BlockContent } from './types/block-content';
 import { layoutColumn as layoutColumnFactory } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils/uuid';
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 /**
  * @name layoutColumn_node
@@ -9,20 +10,24 @@ export interface LayoutColumnDefinition {
 	attrs: {
 		localId?: string;
 		/**
+		 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 		 * @minimum 0
+		 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 		 * @maximum 100
 		 */
 		width: number;
 	};
 	/**
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @minItems 1
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @allowUnsupportedBlock true
 	 */
 	content: Array<BlockContent>;
 	type: 'layoutColumn';
 }
 
-export const layoutColumn = layoutColumnFactory({
+export const layoutColumn: NodeSpec = layoutColumnFactory({
 	parseDOM: [
 		{
 			context: 'layoutColumn//',
@@ -60,7 +65,7 @@ export const layoutColumn = layoutColumnFactory({
 	},
 });
 
-export const layoutColumnWithLocalId = layoutColumnFactory({
+export const layoutColumnWithLocalId: NodeSpec = layoutColumnFactory({
 	parseDOM: [
 		{
 			context: 'layoutColumn//',

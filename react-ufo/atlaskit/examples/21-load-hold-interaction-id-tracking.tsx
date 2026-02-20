@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
 import { DefaultInteractionID } from '@atlaskit/react-ufo/interaction-id-context';
 import UFOLoadHold from '@atlaskit/react-ufo/load-hold';
 import UFOSegment from '@atlaskit/react-ufo/segment';
@@ -78,6 +77,19 @@ const interactionIdStyle = css({
 	backgroundColor: '#f8f9fa',
 	padding: '2px 4px',
 	borderRadius: '3px',
+});
+
+const buttonStyle = css({
+	padding: '8px 16px',
+	backgroundColor: '#0052CC',
+	color: 'white',
+	border: 'none',
+	borderRadius: '3px',
+	cursor: 'pointer',
+	fontSize: '14px',
+	'&:hover': {
+		backgroundColor: '#0052CCCC',
+	},
 });
 
 // Custom hook for simulating loading states
@@ -157,9 +169,9 @@ export default function LoadHoldInteractionIdTrackingExample(): JSX.Element {
 				<InteractionIdDisplay />
 
 				<div css={buttonContainerStyle}>
-					<Button appearance="primary" onClick={startNewInteraction}>
+					<button css={buttonStyle} onClick={startNewInteraction}>
 						Start New Interaction
-					</Button>
+					</button>
 				</div>
 
 				<div css={sectionStyle}>

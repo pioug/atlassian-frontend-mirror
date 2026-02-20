@@ -1,3 +1,4 @@
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 import { acNameToEmoji, acShortcutToEmoji } from '../../utils/confluence/emoji';
 import type { AnnotationMarkDefinition } from '../marks/annotation';
 import { emoji as emojiFactory } from '../../next-schema/generated/nodeTypes';
@@ -9,6 +10,7 @@ import { uuid } from '../../utils/uuid';
 export interface EmojiDefinition {
 	attrs: EmojiAttributes;
 	/**
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @stage 0
 	 */
 	marks?: Array<AnnotationMarkDefinition>;
@@ -22,7 +24,7 @@ export interface EmojiAttributes {
 	text?: string;
 }
 
-export const emoji = emojiFactory({
+export const emoji: NodeSpec = emojiFactory({
 	parseDOM: [
 		// Handle copy/paste beautiful panel from renderer />
 		{
@@ -36,11 +38,16 @@ export const emoji = emojiFactory({
 				const dom = domNode as HTMLElement;
 				return {
 					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-					shortName: dom.getAttribute('data-emoji-short-name') || emoji.attrs!.shortName.default,
+					shortName:
+						dom.getAttribute('data-emoji-short-name') ||
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						emoji.attrs!.shortName.default,
 					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					id: dom.getAttribute('data-emoji-id') || emoji.attrs!.id.default,
 					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-					text: dom.getAttribute('data-emoji-text') || emoji.attrs!.text.default,
+					text:
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						dom.getAttribute('data-emoji-text') || emoji.attrs!.text.default,
 				};
 			},
 		},
@@ -48,13 +55,21 @@ export const emoji = emojiFactory({
 		{
 			tag: 'img[data-emoticon-name]',
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			getAttrs: (dom) => acNameToEmoji((dom as Element).getAttribute('data-emoticon-name') as any),
+			getAttrs: (dom) =>
+				acNameToEmoji(
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
+					(dom as Element).getAttribute('data-emoticon-name') as any,
+				),
 		},
 		// Handle copy/paste from old <ac:hipchat-emoticons />
 		{
 			tag: 'img[data-hipchat-emoticon]',
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			getAttrs: (dom) => acShortcutToEmoji((dom as Element).getAttribute('data-hipchat-emoticon')!),
+			getAttrs: (dom) =>
+				acShortcutToEmoji(
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					(dom as Element).getAttribute('data-hipchat-emoticon')!,
+				),
 		},
 		// Handle copy/paste from bitbucket's <img class="emoji" />
 		{
@@ -64,11 +79,16 @@ export const emoji = emojiFactory({
 				const dom = domNode as HTMLElement;
 				return {
 					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-					shortName: dom.getAttribute('data-emoji-short-name') || emoji.attrs!.shortName.default,
+					shortName:
+						dom.getAttribute('data-emoji-short-name') ||
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						emoji.attrs!.shortName.default,
 					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					id: dom.getAttribute('data-emoji-id') || emoji.attrs!.id.default,
 					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-					text: dom.getAttribute('data-emoji-text') || emoji.attrs!.text.default,
+					text:
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						dom.getAttribute('data-emoji-text') || emoji.attrs!.text.default,
 				};
 			},
 		},
@@ -85,7 +105,7 @@ export const emoji = emojiFactory({
 	},
 });
 
-export const emojiWithLocalId = emojiFactory({
+export const emojiWithLocalId: NodeSpec = emojiFactory({
 	parseDOM: [
 		// Handle copy/paste beautiful panel from renderer />
 		{
@@ -99,11 +119,16 @@ export const emojiWithLocalId = emojiFactory({
 				const dom = domNode as HTMLElement;
 				return {
 					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-					shortName: dom.getAttribute('data-emoji-short-name') || emoji.attrs!.shortName.default,
+					shortName:
+						dom.getAttribute('data-emoji-short-name') ||
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						emoji.attrs!.shortName.default,
 					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					id: dom.getAttribute('data-emoji-id') || emoji.attrs!.id.default,
 					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-					text: dom.getAttribute('data-emoji-text') || emoji.attrs!.text.default,
+					text:
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						dom.getAttribute('data-emoji-text') || emoji.attrs!.text.default,
 					localId: uuid.generate(),
 				};
 			},
@@ -113,7 +138,10 @@ export const emojiWithLocalId = emojiFactory({
 			tag: 'img[data-emoticon-name]',
 			getAttrs: (dom) => {
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				const attrs = acNameToEmoji((dom as Element).getAttribute('data-emoticon-name') as any);
+				const attrs = acNameToEmoji(
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
+					(dom as Element).getAttribute('data-emoticon-name') as any,
+				);
 				return {
 					...attrs,
 					localId: uuid.generate(),
@@ -125,7 +153,10 @@ export const emojiWithLocalId = emojiFactory({
 			tag: 'img[data-hipchat-emoticon]',
 			getAttrs: (dom) => {
 				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-				const attrs = acShortcutToEmoji((dom as Element).getAttribute('data-hipchat-emoticon')!);
+				const attrs = acShortcutToEmoji(
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					(dom as Element).getAttribute('data-hipchat-emoticon')!,
+				);
 				return {
 					...attrs,
 					localId: uuid.generate(),
@@ -140,11 +171,16 @@ export const emojiWithLocalId = emojiFactory({
 				const dom = domNode as HTMLElement;
 				return {
 					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-					shortName: dom.getAttribute('data-emoji-short-name') || emoji.attrs!.shortName.default,
+					shortName:
+						dom.getAttribute('data-emoji-short-name') ||
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						emoji.attrs!.shortName.default,
 					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					id: dom.getAttribute('data-emoji-id') || emoji.attrs!.id.default,
 					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-					text: dom.getAttribute('data-emoji-text') || emoji.attrs!.text.default,
+					text:
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						dom.getAttribute('data-emoji-text') || emoji.attrs!.text.default,
 					localId: uuid.generate(),
 				};
 			},

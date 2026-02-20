@@ -2,14 +2,20 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useEffect, useLayoutEffect, useState } from 'react';
+import {
+	type MouseEvent as ReactMouseEvent,
+	useCallback,
+	useEffect,
+	useLayoutEffect,
+	useState,
+} from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
 import { getConfig, setUFOConfig } from '@atlaskit/react-ufo/config';
 import UFOLoadHold from '@atlaskit/react-ufo/load-hold';
 import UFOSegment from '@atlaskit/react-ufo/segment';
+import traceUFOInteraction from '@atlaskit/react-ufo/trace-interaction';
 
 const sectionOneStyle = css({
 	backgroundColor: '#FFB3BA', // Pastel Red
@@ -29,7 +35,6 @@ const sectionThreeStyle = css({
 	height: '100vh',
 });
 
-// Define style for the main App component using the `css` function
 const appStyle = css({
 	display: 'grid',
 	gridTemplateColumns: 'repeat(3, 1fr)',
@@ -38,6 +43,19 @@ const appStyle = css({
   `,
 	height: '100vh',
 	fontSize: '1.2em',
+});
+
+const buttonStyle = css({
+	padding: '8px 16px',
+	backgroundColor: '#0052CC',
+	color: 'white',
+	border: 'none',
+	borderRadius: '3px',
+	cursor: 'pointer',
+	fontSize: '14px',
+	'&:hover': {
+		backgroundColor: '#0052CCCC',
+	},
 });
 
 // Custom hook for visibility delay
@@ -57,6 +75,9 @@ const useCounterToVisible = (base: number) => {
 // Define each section component using the custom hook
 const SectionOne = ({ base }: { base: number }) => {
 	const visibleAt = useCounterToVisible(base);
+	const handleClick = useCallback((event: ReactMouseEvent<HTMLButtonElement>) => {
+		traceUFOInteraction('test-new-interaction', event.nativeEvent);
+	}, []);
 	if (!visibleAt) {
 		return <UFOLoadHold name="section-one"></UFOLoadHold>;
 	}
@@ -64,7 +85,9 @@ const SectionOne = ({ base }: { base: number }) => {
 	return (
 		<div data-testid="sectionOne" css={sectionOneStyle}>
 			<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
-			<Button interactionName="test-new-interaction">new interaction button</Button>
+			<button css={buttonStyle} data-interaction-name="test-new-interaction" onClick={handleClick}>
+				new interaction button
+			</button>
 		</div>
 	);
 };

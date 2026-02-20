@@ -82,7 +82,6 @@ export default (
 		objectType,
 		containerType,
 		containerId,
-		source: payloadSource,
 	} = event.payload;
 	const attributes = {
 		listenerVersion,
@@ -103,7 +102,7 @@ export default (
 			case TRACK_EVENT_TYPE:
 				return {
 					eventType,
-					source: payloadSource || source,
+					source: source,
 					actionSubject,
 					action,
 					actionSubjectId,

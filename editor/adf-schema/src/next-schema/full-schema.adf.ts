@@ -7,8 +7,9 @@ import { expand } from './nodes/expand';
 import { codeBlock } from './nodes/codeBlock';
 import { syncBlock } from './nodes/syncBlock';
 import { bodiedSyncBlock } from './nodes/bodiedSyncBlock';
+import type { ADFNode , ADFCommonNodeSpec } from '@atlaskit/adf-schema-generator';
 
-const doc = adfNode('doc').define({
+const doc: ADFNode<[string], ADFCommonNodeSpec> = adfNode('doc').define({
 	root: true,
 	version: 1,
 	content: [

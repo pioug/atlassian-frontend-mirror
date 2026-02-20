@@ -1,5 +1,16 @@
 # @atlaskit/rovo-triggers
 
+## 5.17.0
+
+### Minor Changes
+
+- [`22a1051b209d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22a1051b209d3) -
+  Support database selections in conversation-assistant chat context and chat context store
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.16.0
 
 ### Minor Changes

@@ -1,12 +1,15 @@
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 import { unsupportedInline as unsupportedInlineFactory } from '../../next-schema/generated/nodeTypes';
 
-export const unsupportedInline = unsupportedInlineFactory({
+export const unsupportedInline: NodeSpec = unsupportedInlineFactory({
 	parseDOM: [
 		{
 			tag: '[data-node-type="unsupportedInline"]',
 			getAttrs: (dom) => ({
-				// eslint-disable-next-line @atlaskit/editor/no-as-casting
-				originalValue: JSON.parse((dom as HTMLElement).getAttribute('data-original-value') || '{}'),
+				originalValue: JSON.parse(
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
+					(dom as HTMLElement).getAttribute('data-original-value') || '{}',
+				),
 			}),
 		},
 	],

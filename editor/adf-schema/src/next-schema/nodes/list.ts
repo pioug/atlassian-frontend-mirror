@@ -1,3 +1,6 @@
+import type {
+	ADFCommonNodeSpec,
+	ADFNode} from '@atlaskit/adf-schema-generator';
 import {
 	$onePlus,
 	$or,
@@ -14,8 +17,8 @@ import { unsupportedBlock } from './unsupportedBlock';
 import { decisionList } from './decisionList';
 import { extension } from './extension';
 
-export const orderedList = adfNode('orderedList');
-export const bulletList = adfNode('bulletList');
+export const orderedList: ADFNode<[string], ADFCommonNodeSpec> = adfNode('orderedList');
+export const bulletList: ADFNode<[string], ADFCommonNodeSpec> = adfNode('bulletList');
 
 const listItem = adfNode('listItem')
 	.define({

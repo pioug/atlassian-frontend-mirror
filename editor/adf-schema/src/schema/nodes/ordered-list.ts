@@ -1,9 +1,10 @@
 import { uuid } from '../../utils';
 import { orderedList as orderedListFactory } from '../../next-schema/generated/nodeTypes';
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 export const orderedListSelector = '.ak-ol';
 
-export const orderedList = orderedListFactory({
+export const orderedList: NodeSpec = orderedListFactory({
 	parseDOM: [{ tag: 'ol' }],
 	toDOM() {
 		const attrs = {
@@ -13,7 +14,7 @@ export const orderedList = orderedListFactory({
 	},
 });
 
-export const orderedListWithLocalId = orderedListFactory({
+export const orderedListWithLocalId: NodeSpec = orderedListFactory({
 	parseDOM: [{ tag: 'ol', getAttrs: () => ({ localId: uuid.generate() }) }],
 	toDOM(node) {
 		const attrs = {
@@ -39,7 +40,7 @@ const resolveStart = (start: any): number | undefined => {
 	return Math.floor(Math.max(num, 0));
 };
 
-export const orderedListWithOrder = orderedListFactory({
+export const orderedListWithOrder: NodeSpec = orderedListFactory({
 	parseDOM: [
 		{
 			tag: 'ol',
@@ -67,7 +68,7 @@ export const orderedListWithOrder = orderedListFactory({
 	},
 });
 
-export const orderedListWithOrderAndLocalId = orderedListFactory({
+export const orderedListWithOrderAndLocalId: NodeSpec = orderedListFactory({
 	parseDOM: [
 		{
 			tag: 'ol',

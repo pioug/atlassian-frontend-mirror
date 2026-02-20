@@ -576,8 +576,13 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		const isInsideMultiBodiedExtension = insideMultiBodiedExtension(path, node.type.schema);
 		const isInsideOfTable = insideTable(path, node.type.schema);
 
-		// TODO: EDITOR-3850 - support sticky headers inside breakouts (layouts and expands)
+		const isStickySafeCenteringEnabled = expValEquals(
+			'platform_editor_flex_based_centering',
+			'isEnabled',
+			true,
+		);
 		const isInsideBreakoutExpand =
+			!isStickySafeCenteringEnabled &&
 			expValEquals(
 				'platform_editor_table_sticky_header_improvements',
 				'cohort',
@@ -586,9 +591,13 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			expValEquals('platform_editor_table_sticky_header_patch_11', 'isEnabled', true) &&
 			insideBreakoutExpand(path);
 		const stickyHeaders =
-			!isInsideOfTable && !insideBreakoutLayout(path) && !isInsideBreakoutExpand
-				? this.stickyHeaders
-				: undefined;
+			isStickySafeCenteringEnabled
+				? !isInsideOfTable
+					? this.stickyHeaders
+					: undefined
+				: !isInsideOfTable && !insideBreakoutLayout(path) && !isInsideBreakoutExpand
+					? this.stickyHeaders
+					: undefined;
 
 		return {
 			...this.getProps(node),

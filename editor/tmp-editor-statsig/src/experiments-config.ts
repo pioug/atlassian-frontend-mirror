@@ -145,8 +145,21 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	platform_editor_flex_based_centering: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-01-09
 	platform_editor_render_bodied_extension_as_inline: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-02-11
+	platform_editor_prosemirror_rendered_data: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -245,14 +258,6 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	platform_editor_deduplicate_mark_diff: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// added 2024-11-06
-	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_nested_tables/setup
-	'nested-tables-in-tables': {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -475,6 +480,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-06-26
 	platform_editor_feedback_mandatory_rating: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-02-18
+	platform_editor_table_a11y_eslint_fix: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -905,13 +917,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-12-15
-	platform_editor_ai_exp_inline_date_year_refresh: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-02-02
 	platform_editor_ai_disable_bridge_without_ai: {
 		defaultValue: boolean;
@@ -1158,14 +1163,6 @@ export const editorExperimentsConfig: {
 		typeGuard: (value: unknown) => value is 'control' | 'new-description' | 'orig-description';
 		values: ('control' | 'new-description' | 'orig-description')[];
 	};
-	// Added 2026-02-11
-	cc_fd_db_top_editor_toolbar_aa: {
-		defaultValue: 'control' | 'new-description' | 'orig-description';
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: (value: unknown) => value is 'control' | 'new-description' | 'orig-description';
-		values: ('control' | 'new-description' | 'orig-description')[];
-	};
 	// Added 2026-01-28
 	platform_editor_smartlink_local_cache: {
 		defaultValue: boolean;
@@ -1235,7 +1232,14 @@ export const editorExperimentsConfig: {
 		param: string;
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
-	}
+	};
+	// Added 2026-02-19
+	platform_editor_table_borders_ready_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 } = {
 	// new format to avoid collisions with other users when updating the file
 
@@ -1514,15 +1518,6 @@ export const editorExperimentsConfig: {
 		param: 'cohort',
 		values: ['control', 'test'],
 		defaultValue: 'control',
-	}),
-	// added 2024-11-06
-	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_nested_tables/setup
-	'nested-tables-in-tables': createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_nested_tables',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
 	}),
 	// Added 2024-11-26
 	platform_editor_ai_unsplash_page_header: createBooleanExperiment({
@@ -2178,6 +2173,14 @@ export const editorExperimentsConfig: {
 		defaultValue: false,
 	}),
 
+	platform_editor_flex_based_centering: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_flex_based_centering',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+
 	// Added 2025-12-18
 	platform_editor_blockquote_zero_padding: createBooleanExperiment({
 		productKeys: {
@@ -2259,14 +2262,6 @@ export const editorExperimentsConfig: {
 	platform_editor_add_image_editing: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_add_image_editing',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-12-15
-	platform_editor_ai_exp_inline_date_year_refresh: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_ai_exp_inline_date_year_refresh',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2451,6 +2446,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-02-18
+	platform_editor_table_a11y_eslint_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_table_a11y_eslint_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-01-27
 	platform_editor_table_cell_colour_change: createBooleanExperiment({
 		productKeys: {
@@ -2553,15 +2556,6 @@ export const editorExperimentsConfig: {
 		values: ['control', 'new-description', 'orig-description'],
 		defaultValue: 'control',
 	}),
-	// Added 2026-02-11
-	cc_fd_db_top_editor_toolbar_aa: createMultivariateExperiment({
-		productKeys: {
-			confluence: 'cc_fd_db_top_editor_toolbar_aa',
-		},
-		param: 'cohort',
-		values: ['control', 'new-description', 'orig-description'],
-		defaultValue: 'control',
-	}),
 	// Added 2026-01-28
 	platform_editor_smartlink_local_cache: createBooleanExperiment({
 		productKeys: {
@@ -2640,6 +2634,23 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_a11y_escape_link_dialog',
 			jira: 'platform_editor_a11y_escape_link_dialog',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-02-19
+	platform_editor_table_borders_ready_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_table_borders_ready_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-02-11
+	platform_editor_prosemirror_rendered_data: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_prosemirror_rendered_data',
+			jira: 'platform_editor_prosemirror_rendered_data',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

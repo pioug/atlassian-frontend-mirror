@@ -431,9 +431,11 @@ export class ReferenceSyncBlockStoreManager {
 			});
 			this.fetchSyncBlockSourceInfo(resolvedSyncBlockInstance.resourceId);
 		} else {
-			this.fireAnalyticsEvent?.(
-				fetchErrorPayload(syncBlockInstance.error?.type, syncBlockInstance.resourceId),
-			);
+			const errorMessage = fg('platform_synced_block_patch_3')
+				? syncBlockInstance.error?.reason || syncBlockInstance.error?.type
+				: syncBlockInstance.error?.type;
+
+			this.fireAnalyticsEvent?.(fetchErrorPayload(errorMessage, syncBlockInstance.resourceId));
 		}
 	}
 
@@ -718,12 +720,13 @@ export class ReferenceSyncBlockStoreManager {
 
 		data.forEach((syncBlockInstance) => {
 			if (!syncBlockInstance.resourceId) {
-				this.fireAnalyticsEvent?.(
-					fetchErrorPayload(
+				const payload = fg('platform_synced_block_patch_3')
+					? syncBlockInstance.error?.reason ||
 						syncBlockInstance.error?.type ||
-							'Returned sync block instance does not have resource id',
-					),
-				);
+						'Returned sync block instance does not have resource id'
+					: syncBlockInstance.error?.type ||
+						'Returned sync block instance does not have resource id';
+				this.fireAnalyticsEvent?.(fetchErrorPayload(payload));
 				return;
 			}
 
@@ -752,9 +755,18 @@ export class ReferenceSyncBlockStoreManager {
 			}
 
 			if (syncBlockInstance.error) {
-				this.fireAnalyticsEvent?.(
-					fetchErrorPayload(syncBlockInstance.error.type, syncBlockInstance.resourceId),
-				);
+				if (fg('platform_synced_block_patch_3')) {
+					this.fireAnalyticsEvent?.(
+						fetchErrorPayload(
+							syncBlockInstance.error.reason || syncBlockInstance.error.type,
+							syncBlockInstance.resourceId,
+						),
+					);
+				} else {
+					this.fireAnalyticsEvent?.(
+						fetchErrorPayload(syncBlockInstance.error.type, syncBlockInstance.resourceId),
+					);
+				}
 
 				if (
 					syncBlockInstance.error.type === SyncBlockError.NotFound ||

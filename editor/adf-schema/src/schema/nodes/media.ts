@@ -1,4 +1,4 @@
-import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { AttributeSpec, DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { N30 } from '../../utils/colors';
 import type { BorderMarkDefinition } from '../marks/border';
 import type { LinkDefinition } from '../marks/link';
@@ -78,13 +78,15 @@ export interface ExternalMediaAttributes {
 
 export type MediaADFAttrs = MediaAttributes | ExternalMediaAttributes;
 
-export const defaultAttrs = mediaFactory({}).attrs;
+export const defaultAttrs: {
+    [name: string]: AttributeSpec;
+} | undefined = mediaFactory({}).attrs;
 
 export interface MutableMediaAttributes extends MediaAttributes {
 	[key: string]: string | number | undefined | null | boolean;
 }
 
-export const camelCaseToKebabCase = (str: string) =>
+export const camelCaseToKebabCase = (str: string): string =>
 	// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
 	str.replace(/([^A-Z]+)([A-Z])/gu, (_, x, y) => `${x}-${y.toLowerCase()}`);
 
@@ -241,7 +243,10 @@ export const mediaWithLocalId: NodeSpec = createMediaSpec(
 const optionalAttributes = ['occurrenceKey', 'width', 'height', 'url', 'alt', 'localId'];
 const externalOnlyAttributes = ['type', 'url', 'width', 'height', 'alt', 'localId'];
 
-export const toJSON = (node: PMNode) => ({
+export const toJSON = (node: PMNode): {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    attrs: Record<string, any>;
+} => ({
 	attrs: Object.keys(node.attrs)
 		// Strip private attributes e.g. __fileName, __fileSize, __fileMimeType, etc.
 		.filter((key) => !(key[0] === '_' && key[1] === '_'))

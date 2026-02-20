@@ -1,5 +1,5 @@
 /* eslint-disable @atlaskit/design-system/no-html-button */
-import type { MouseEventHandler } from 'react';
+import type { MouseEventHandler, FocusEventHandler } from 'react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import classnames from 'classnames';
@@ -40,7 +40,9 @@ type DragHandleProps = {
 	hoveredCell?: CellHoverMeta;
 	indexes: number[];
 	isDragMenuTarget: boolean; // this is identify which current handle component is
+	onBlur?: FocusEventHandler;
 	onClick?: MouseEventHandler;
+	onFocus?: FocusEventHandler;
 	onMouseOut?: MouseEventHandler;
 	onMouseOver?: MouseEventHandler;
 	previewHeight?: number;
@@ -63,6 +65,8 @@ const DragHandleComponent = ({
 	previewHeight,
 	onMouseOver,
 	onMouseOut,
+	onFocus,
+	onBlur,
 	toggleDragMenu,
 	hoveredCell,
 	onClick,
@@ -249,16 +253,28 @@ const DragHandleComponent = ({
 				aria-label={formatMessage(isRow ? messages.rowDragHandle : messages.columnDragHandle)}
 				aria-expanded={isDragMenuOpen && isDragMenuTarget ? 'true' : 'false'}
 				aria-haspopup="menu"
-				// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 				onMouseOver={(e) => {
 					setIsHovered(true);
 					onMouseOver && onMouseOver(e);
 				}}
-				// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 				onMouseOut={(e) => {
 					setIsHovered(false);
 					onMouseOut && onMouseOut(e);
 				}}
+				onFocus={
+					expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
+						? (e) => {
+								onFocus && onFocus(e);
+							}
+						: undefined
+				}
+				onBlur={
+					expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
+						? (e) => {
+								onBlur && onBlur(e);
+							}
+						: undefined
+				}
 				onMouseUp={(e) => {
 					// return focus to editor so copying table selections whilst still works, i cannot call e.preventDefault in a mousemove event as this stops dragstart events from firing
 					// -> this is bad for a11y but is the current standard new copy/paste keyboard shortcuts should be introduced instead

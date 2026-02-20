@@ -1,8 +1,9 @@
+import type { ADFCommonNodeSpec, ADFNode} from '@atlaskit/adf-schema-generator';
 import { adfNode } from '@atlaskit/adf-schema-generator';
 import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
 
-export const placeholder = adfNode('placeholder').define({
+export const placeholder: ADFNode<[string], ADFCommonNodeSpec> = adfNode('placeholder').define({
 	selectable: false,
 	inline: true,
 

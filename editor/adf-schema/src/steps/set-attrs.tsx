@@ -17,7 +17,7 @@ export class SetAttrsStep extends Step {
 		this.attrs = attrs;
 	}
 
-	apply(doc: ProseMirrorNode) {
+	apply(doc: ProseMirrorNode): StepResult {
 		const target = doc.nodeAt(this.pos);
 		if (!target) {
 			return StepResult.fail('No node at given position');
@@ -37,7 +37,7 @@ export class SetAttrsStep extends Step {
 		return StepResult.fromReplace(doc, this.pos, this.pos + 1, slice);
 	}
 
-	invert(doc: ProseMirrorNode) {
+	invert(doc: ProseMirrorNode): SetAttrsStep {
 		const target = doc.nodeAt(this.pos);
 		return new SetAttrsStep(this.pos, target ? target.attrs : {});
 	}
@@ -47,11 +47,15 @@ export class SetAttrsStep extends Step {
 		return result.deleted ? null : new SetAttrsStep(result.pos, this.attrs);
 	}
 
-	toJSON() {
+	toJSON(): {
+        attrs: object;
+        pos: number;
+        stepType: string;
+    } {
 		return { stepType: 'setAttrs', pos: this.pos, attrs: this.attrs };
 	}
 
-	static fromJSON(_schema: Schema, json: { attrs: object; pos?: number }) {
+	static fromJSON(_schema: Schema, json: { attrs: object; pos?: number }): SetAttrsStep {
 		if (typeof json.pos !== 'number' || (json.attrs !== null && typeof json.attrs !== 'object')) {
 			throw new RangeError('Invalid input for SetAttrsStep.fromJSON');
 		}

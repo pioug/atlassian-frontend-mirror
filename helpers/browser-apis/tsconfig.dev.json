@@ -39,9 +39,6 @@
 	"references": [
 		{
 			"path": "./tsconfig.app.json"
-		},
-		{
-			"path": "../../../build/website/docs/tsconfig.app.json"
 		}
 	]
 }

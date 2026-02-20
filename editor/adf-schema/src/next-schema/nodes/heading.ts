@@ -1,3 +1,7 @@
+import type {
+	ADFCommonNodeSpec,
+	ADFNode,
+} from '@atlaskit/adf-schema-generator';
 import { $or, $zeroPlus, adfNode } from '@atlaskit/adf-schema-generator';
 import { inlineContentGroup } from '../groups/inlineContentGroup';
 import { inlineGroup } from '../groups/inlineGroup';
@@ -5,7 +9,25 @@ import { alignment, indentation } from '../marks/alignmentAndIndentation';
 import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
 
-export const heading = adfNode('heading')
+export const heading: ADFNode<
+	[string, 'with_alignment', 'with_indentation', 'with_no_marks'],
+	ADFCommonNodeSpec & {
+		content: never[];
+		ignore: never[];
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		marks: any[];
+	} & {
+		content: never[];
+		ignore: never[];
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		marks: any[];
+	} & {
+		content: never[];
+		ignore: never[];
+		marks: never[];
+		noMarks: true;
+	}
+> = adfNode('heading')
 	.define({
 		defining: true,
 		selectable: false,
@@ -34,4 +56,22 @@ export const heading = adfNode('heading')
 		ignore: [],
 	});
 
-export const headingWithMarks = heading;
+export const headingWithMarks: ADFNode<
+	[string, 'with_alignment', 'with_indentation', 'with_no_marks'],
+	ADFCommonNodeSpec & {
+		content: never[];
+		ignore: never[];
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		marks: any[];
+	} & {
+		content: never[];
+		ignore: never[];
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		marks: any[];
+	} & {
+		content: never[];
+		ignore: never[];
+		marks: never[];
+		noMarks: true;
+	}
+> = heading;

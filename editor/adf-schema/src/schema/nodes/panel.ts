@@ -15,6 +15,7 @@ import type { NodeSpecOptions } from '../createPMSpecFactory';
 import type { PanelNode } from '../../next-schema/generated/nodeTypes';
 import { panel as panelFactory } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils/uuid';
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 export enum PanelType {
 	INFO = 'info',
@@ -40,7 +41,9 @@ export interface PanelAttributes {
 export interface PanelDefinition {
 	attrs: PanelAttributes;
 	/**
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @minItems 1
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @allowUnsupportedBlock true
 	 */
 	content: Array<
@@ -114,7 +117,9 @@ const getParseDOMAttrs = (
 		};
 	} else {
 		parseDOMAttrs.panelType =
-			parseDOMAttrs.panelType === PanelType.CUSTOM ? PanelType.INFO : parseDOMAttrs.panelType;
+			parseDOMAttrs.panelType === PanelType.CUSTOM
+				? PanelType.INFO
+				: parseDOMAttrs.panelType;
 	}
 
 	return parseDOMAttrs;
@@ -127,7 +132,8 @@ const createPanelNodeSpecOptions: (
 	parseDOM: [
 		{
 			tag: 'div[data-panel-type]',
-			getAttrs: (dom) => getParseDOMAttrs(allowCustomPanel, dom, generateLocalId),
+			getAttrs: (dom) =>
+				getParseDOMAttrs(allowCustomPanel, dom, generateLocalId),
 		},
 	],
 	toDOM(node) {
@@ -147,8 +153,8 @@ const createPanelNodeSpecOptions: (
  * Specifically, it allows Media, action, code-block, rule and decision nodes in
  * addition to content allowed inside panel
  */
-export const extendedPanel = (allowCustomPanel: boolean) =>
+export const extendedPanel = (allowCustomPanel: boolean): NodeSpec =>
 	panelFactory(createPanelNodeSpecOptions(allowCustomPanel));
 
-export const extendedPanelWithLocalId = (allowCustomPanel: boolean) =>
+export const extendedPanelWithLocalId = (allowCustomPanel: boolean): NodeSpec =>
 	panelFactory(createPanelNodeSpecOptions(allowCustomPanel, true));

@@ -1,5 +1,6 @@
 import React, { type ReactNode, useContext, useEffect, useLayoutEffect, useState } from 'react';
 
+import { isUFOEnabled } from '../config';
 import UFOInteractionContext from '../interaction-context';
 import UFOInteractionIDContext, {
 	subscribeToInteractionIdChanges,
@@ -85,19 +86,27 @@ export default function UFOLoadHold({
 	hold = true,
 	experimental = false,
 }: Props): React.JSX.Element | null {
+	// Check if UFO is enabled (gated behind platform_ufo_enable_killswitch_config feature flag)
+	// Note: isUFOEnabled() returns a stable value based on config, so it's safe to call before hooks
+	const ufoEnabled = isUFOEnabled();
+
 	const currentInteractionId = useInteractionIdValue();
 
 	// react-18: useId instead
 	const context = useContext(UFOInteractionContext);
 
 	useLayoutEffectSAFE(() => {
+		// Skip hold registration if UFO is disabled
+		if (!ufoEnabled) {
+			return;
+		}
 		if (hold && context != null) {
 			if (experimental && context.holdExperimental) {
 				return context.holdExperimental(name);
 			}
 			return context.hold(name);
 		}
-	}, [hold, context, name, currentInteractionId]);
+	}, [hold, context, name, currentInteractionId, ufoEnabled]);
 
 	// react-18: can return children directly
 	return children != null ? <>{children}</> : null;

@@ -1,3 +1,8 @@
+import type {
+	ADFCommonNodeSpec,
+	ADFNode,
+	ADFNodeContentOneOrMoreSpec,
+} from '@atlaskit/adf-schema-generator';
 import { $onePlus, $or, adfNode } from '@atlaskit/adf-schema-generator';
 import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
@@ -21,7 +26,20 @@ const blockQuoteContent = [
 	extension.use('with_marks'),
 ];
 
-export const blockquote = adfNode('blockquote')
+export const blockquote: ADFNode<
+	[string, 'legacy'],
+	ADFCommonNodeSpec & {
+		attrs: {
+			localId: {
+				default: null;
+				optional: true;
+				type: 'string';
+			};
+		};
+		content: ADFNodeContentOneOrMoreSpec[];
+		ignore: ('json-schema' | 'validator-spec')[];
+	}
+> = adfNode('blockquote')
 	.define({
 		defining: true,
 		selectable: true,

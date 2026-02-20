@@ -1,7 +1,6 @@
 {
 	"extends": "../../../../tsconfig.local-consumption.json",
 	"compilerOptions": {
-		"declaration": true,
 		"target": "es5",
 		"verbatimModuleSyntax": false,
 		"outDir": "../../../../../jira/tsDist/@atlaskit__adf-schema/app",
@@ -9,15 +8,16 @@
 		"composite": true,
 		"noCheck": true
 	},
-	"include": [
-		"../src/**/*.ts",
-		"../src/**/*.tsx"
-	],
+	"include": ["../src/**/*.ts", "../src/**/*.tsx"],
 	"exclude": [
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
 		"../src/**/test.*",
-		"../src/json-schema"
+		"../src/json-schema",
+		"../src/next-schema/generated/markTypes.ts",
+		"../src/next-schema/generated/nodeTypes.ts",
+		"../src/next-schema/generated/nodeGroupTypes.ts",
+		"../src/validator-schema/generated/validatorSpec.ts"
 	],
 	"references": [
 		{

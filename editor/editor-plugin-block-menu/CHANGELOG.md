@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.0.46
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.45
+
+### Patch Changes
+
+- [`bc0a0c36fcc31`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc0a0c36fcc31) -
+  Add transform error tracking for block menu
+- Updated dependencies
+
+## 6.0.44
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.43
 
 ### Patch Changes

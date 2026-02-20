@@ -1,8 +1,6 @@
 {
 	"extends": "../../../../tsconfig.local-consumption.json",
-	"include": [
-		"../src/**/*.ts"
-	],
+	"include": ["../src/**/*.ts"],
 	"exclude": [
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
@@ -18,7 +16,8 @@
 		"outDir": "../../../../../jira/tsDist/@atlaskit__platform-feature-flags/app",
 		"rootDir": "../",
 		"composite": true,
-		"noCheck": true
+		"noCheck": true,
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

@@ -25,6 +25,7 @@ import {
 	getDoNotAbortActivePressInteraction,
 	getInteractionRate,
 	getMinorInteractions,
+	isUFOEnabled,
 } from '../config';
 import { getActiveTrace, setInteractionActiveTrace } from '../experience-trace-id-context';
 import UFOInteractionContext, { type LabelStack } from '../interaction-context';
@@ -76,6 +77,11 @@ export default function UFOSegment({
 	mode = 'single',
 	type = 'first-party',
 }: Props): React.JSX.Element {
+	// If UFO is disabled, render children without any tracking overhead
+	// This is gated behind platform_ufo_enable_killswitch_config feature flag
+	// Note: isUFOEnabled() returns a stable value based on config, so it's safe to call before hooks
+	const ufoEnabled = isUFOEnabled();
+
 	const parentContext = useContext(UFOInteractionContext) as EnhancedUFOInteractionContextType;
 
 	const segmentIdMap = useMemo(() => {
@@ -397,6 +403,11 @@ export default function UFOSegment({
 
 	const reactProfilerId = useMemo(() => labelStack.map((l) => l.name).join('/'), [labelStack]);
 
+	// If UFO is disabled, just render children without tracking overhead
+	if (!ufoEnabled) {
+		return <>{children}</>;
+	}
+
 	const ufoSegment = (
 		<UFOInteractionContext.Provider value={interactionContext}>
 			<Profiler id={reactProfilerId} onRender={onRender}>
@@ -415,5 +426,3 @@ export default function UFOSegment({
 
 	return ufoSegment;
 }
-
-UFOSegment.displayName = 'UFOSegment';

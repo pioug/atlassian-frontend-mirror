@@ -1,4 +1,8 @@
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type {
+	NodeSpec,
+	Node as PMNode,
+	Attrs,
+} from '@atlaskit/editor-prosemirror/model';
 import type { BreakoutMarkDefinition } from '../marks';
 import type { MarksObject, NoMark } from './types/mark';
 import type { NonNestableBlockContent } from './types/non-nestable-block-content';
@@ -18,7 +22,9 @@ export interface ExpandBaseDefinition {
 		title?: string;
 	};
 	/**
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @minItems 1
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @allowUnsupportedBlock true
 	 */
 	content: Array<NonNestableBlockContent | NestedExpandDefinition>;
@@ -33,7 +39,8 @@ export type ExpandDefinition = ExpandBaseDefinition & NoMark;
 /**
  * @name expand_root_only_node
  */
-export type ExpandRootOnlyDefinition = ExpandBaseDefinition & MarksObject<BreakoutMarkDefinition>;
+export type ExpandRootOnlyDefinition = ExpandBaseDefinition &
+	MarksObject<BreakoutMarkDefinition>;
 
 function getExpandAttrs(domNode: Node | string) {
 	// eslint-disable-next-line @atlaskit/editor/no-as-casting
@@ -84,9 +91,9 @@ const nodeSpecOptions: NodeSpecOptions<ExpandNode> = {
 	},
 };
 
-export const expandWithNestedExpand = expandFactory(nodeSpecOptions);
+export const expandWithNestedExpand: NodeSpec = expandFactory(nodeSpecOptions);
 
-export const expandWithNestedExpandLocalId = expandFactory({
+export const expandWithNestedExpandLocalId: NodeSpec = expandFactory({
 	parseDOM: [
 		{
 			context: 'table//',
@@ -151,7 +158,11 @@ export const expandWithNestedExpandLocalId = expandFactory({
 	},
 });
 
-export const toJSON = (node: PMNode) => ({
+export const toJSON = (
+	node: PMNode,
+): {
+	attrs: Attrs;
+} => ({
 	attrs: Object.keys(node.attrs)
 		.filter((key) => !key.startsWith('__'))
 		.reduce<typeof node.attrs>((obj, key) => {

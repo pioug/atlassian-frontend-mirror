@@ -1,5 +1,25 @@
 # @atlaskit/editor-tables
 
+## 2.9.35
+
+### Patch Changes
+
+- [`a040c03082274`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a040c03082274) -
+  [ux] EDITOR-507 Clean up main nested tables experiment `platform_editor_nested_tables`
+- Updated dependencies
+
+## 2.9.34
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.9.33
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.9.32
 
 ### Patch Changes

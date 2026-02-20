@@ -222,7 +222,10 @@ const marksInOrder: SchemaBuiltInItem[] = [
 	{ name: 'unsupportedNodeAttribute', spec: unsupportedNodeAttribute },
 ];
 
-export function getNodesAndMarksMap() {
+export function getNodesAndMarksMap(): {
+    marks: Record<string, MarkSpec>;
+    nodes: Record<string, NodeSpec>;
+} {
 	const nodes = nodesInOrder.reduce(
 		(acc, { name, spec }) => {
 			acc[name] = spec as NodeSpec;

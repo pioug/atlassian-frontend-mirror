@@ -1,5 +1,28 @@
 # @atlaskit/smart-card
 
+## 43.25.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 43.25.0
+
+### Minor Changes
+
+- [`af73e2d13f2ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af73e2d13f2ad) -
+  [ux] NAVX-3597 show Rovo AI Summary for Google hovercards
+
+### Patch Changes
+
+- Updated dependencies
+
+## 43.24.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 43.24.9
 
 ### Patch Changes

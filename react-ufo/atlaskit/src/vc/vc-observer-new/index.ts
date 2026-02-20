@@ -53,7 +53,7 @@ const DEFAULT_SELECTOR_CONFIG = {
 
 let hasAbortingEventDuringSSR = false;
 
-export function getHasAbortingEventDuringSSR() {
+export function getHasAbortingEventDuringSSR(): boolean {
 	return hasAbortingEventDuringSSR;
 }
 

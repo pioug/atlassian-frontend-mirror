@@ -13,3 +13,17 @@ export type AISummaryBlockProps = {
 	 */
 	placeholder?: ReactNode;
 } & BlockProps;
+
+export type RovoSummaryBlockProps = {
+	/**
+	 * Minimum height requirement for the AISummary component to prevent fluctuations in a card size on the summary action.
+	 */
+	aiSummaryMinHeight?: number;
+
+	/**
+	 * Placeholder to show when summary is not available
+	 */
+	placeholder?: ReactNode;
+
+	url?: string;
+} & BlockProps;

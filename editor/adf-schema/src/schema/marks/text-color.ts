@@ -31,6 +31,7 @@ import { getDarkModeLCHColor } from '../../utils/lch-color-inversion';
 
 export interface TextColorAttributes {
 	/**
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @pattern "^#[0-9a-fA-F]{6}$"
 	 */
 	color: string;
@@ -104,22 +105,24 @@ const colorArrayPalette: Array<[string, TextColorKey]> = [
 ];
 
 // @see https://product-fabric.atlassian.net/wiki/spaces/E/pages/55979455/Colour+picker+decisions#Colourpickerdecisions-Visualdesigndecisions
-export const colorPalette = new Map<string, TextColorKey>();
+export const colorPalette: Map<string, TextColorKey> = new Map<string, TextColorKey>();
 // eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
 /** @deprecated [ED-15849] The extended palette is now rolled into the main one. Use `colorPalette` instead. */
-export const colorPaletteExtended = colorPalette;
+export const colorPaletteExtended: Map<string, TextColorKey> = colorPalette;
 
 colorArrayPalette.forEach(([color, label]) => colorPalette.set(color.toLowerCase(), label));
 
 // these are for test only
 let testGlobalTheme: string;
-export const setGlobalTheme = (theme: string) => {
+export const setGlobalTheme = (theme: string): void => {
 	testGlobalTheme = theme;
 };
 // This is a minimal duplication of the method from @atlaskit/tokens
 // to minimise the number of dependencies required as these changes are expected
 // to be patched onto CR8.
-export const getGlobalTheme = () => {
+export const getGlobalTheme = (): {
+    colorMode: string;
+} => {
 	// This should only be hit during tests.
 	//
 	// At time of writing Jest mocks are not working in this repository.

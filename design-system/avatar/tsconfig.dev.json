@@ -80,6 +80,9 @@
 			"path": "../link/tsconfig.app.json"
 		},
 		{
+			"path": "../popup/tsconfig.app.json"
+		},
+		{
 			"path": "../primitives/tsconfig.app.json"
 		},
 		{

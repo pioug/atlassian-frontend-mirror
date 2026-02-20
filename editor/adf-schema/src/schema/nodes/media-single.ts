@@ -18,6 +18,7 @@ export type MediaSingleDefinition = MediaSingleFullDefinition | MediaSingleWithC
 
 /**
  * @name mediaSingle_node
+ // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
  * @additionalProperties true
  */
 export interface MediaSingleBaseDefinition {
@@ -27,12 +28,16 @@ export interface MediaSingleBaseDefinition {
 }
 
 /**
+ // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
  * @additionalProperties true
  */
 export interface MediaCaptionContent {
 	/**
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @minItems 1
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @maxItems 2
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @allowUnsupportedBlock true
 	 */
 	content: [Media, Caption?];
@@ -43,12 +48,16 @@ export interface MediaCaptionContent {
 export type MediaSingleWithCaptionDefinition = MediaSingleBaseDefinition & MediaCaptionContent;
 
 /**
+ // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
  * @additionalProperties true
  */
 export interface MediaSingleFullContent {
 	/**
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @minItems 1
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @maxItems 1
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @allowUnsupportedBlock true
 	 */
 	content: Array<Media>;
@@ -218,7 +227,10 @@ export const mediaSingleFullWithLocalId: NodeSpec = mediaSingleSpec({
 	generateLocalId: true,
 });
 
-export const toJSON = (node: PMNode) => ({
+export const toJSON = (node: PMNode): {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    attrs: any;
+} => ({
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attrs: Object.keys(node.attrs).reduce<any>((obj, key) => {
 		if (node.attrs[key] !== null) {

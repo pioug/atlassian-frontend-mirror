@@ -6,6 +6,7 @@ import {
 	layoutSectionFull as layoutSectionFullFactory,
 } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils/uuid';
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 /**
  * @name layoutSection_node
@@ -29,8 +30,11 @@ export type LayoutSectionBaseDefinition = {
  */
 export type LayoutSectionFullDefinition = LayoutSectionBaseDefinition & {
 	/**
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @minItems 2
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @maxItems 3
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @allowUnsupportedBlock true
 	 */
 	content: Array<LayoutColumnDefinition>;
@@ -39,25 +43,30 @@ export type LayoutSectionFullDefinition = LayoutSectionBaseDefinition & {
 };
 
 /**
+ // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
  * @stage 0
  * @name layoutSection_with_single_column_node
  */
-export type LayoutSectionWithSingleColumnDefinition = LayoutSectionBaseDefinition & {
-	/**
+export type LayoutSectionWithSingleColumnDefinition =
+	LayoutSectionBaseDefinition & {
+		/**
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @minItems 1
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @maxItems 3
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @allowUnsupportedBlock true
 	 */
-	content: Array<LayoutColumnDefinition>;
-	marks?: Array<BreakoutMarkDefinition>;
-	type: 'layoutSection';
-};
+		content: Array<LayoutColumnDefinition>;
+		marks?: Array<BreakoutMarkDefinition>;
+		type: 'layoutSection';
+	};
 
 export type LayoutSectionDefinition =
 	| LayoutSectionFullDefinition
 	| LayoutSectionWithSingleColumnDefinition;
 
-export const layoutSection = layoutSectionFactory({
+export const layoutSection: NodeSpec = layoutSectionFactory({
 	parseDOM: [
 		{
 			context: 'layoutSection//|layoutColumn//',
@@ -74,7 +83,7 @@ export const layoutSection = layoutSectionFactory({
 	},
 });
 
-export const layoutSectionFull = layoutSectionFullFactory({
+export const layoutSectionFull: NodeSpec = layoutSectionFullFactory({
 	parseDOM: [
 		{
 			context: 'layoutSection//|layoutColumn//',
@@ -92,32 +101,33 @@ export const layoutSectionFull = layoutSectionFullFactory({
 });
 
 // stage-0 support for columnRuleStyle attribute and 1-5 columns
-export const layoutSectionWithSingleColumn = layoutSectionWithSingleColumnStage0Factory({
-	parseDOM: [
-		{
-			context: 'layoutSection//|layoutColumn//',
-			tag: 'div[data-layout-section]',
-			skip: true,
-		},
-		{
-			tag: 'div[data-layout-section]',
-			getAttrs: (dom) => {
-				const columnRuleStyle = dom.getAttribute('data-column-rule-style');
-				return columnRuleStyle ? { columnRuleStyle } : {};
+export const layoutSectionWithSingleColumn: NodeSpec =
+	layoutSectionWithSingleColumnStage0Factory({
+		parseDOM: [
+			{
+				context: 'layoutSection//|layoutColumn//',
+				tag: 'div[data-layout-section]',
+				skip: true,
 			},
+			{
+				tag: 'div[data-layout-section]',
+				getAttrs: (dom) => {
+					const columnRuleStyle = dom.getAttribute('data-column-rule-style');
+					return columnRuleStyle ? { columnRuleStyle } : {};
+				},
+			},
+		],
+		toDOM(node) {
+			const { columnRuleStyle } = node.attrs;
+			const attrs = {
+				'data-layout-section': 'true',
+				'data-column-rule-style': columnRuleStyle || undefined,
+			};
+			return ['div', attrs, 0];
 		},
-	],
-	toDOM(node) {
-		const { columnRuleStyle } = node.attrs;
-		const attrs = {
-			'data-layout-section': 'true',
-			'data-column-rule-style': columnRuleStyle || undefined,
-		};
-		return ['div', attrs, 0];
-	},
-});
+	});
 
-export const layoutSectionWithLocalId = layoutSectionFactory({
+export const layoutSectionWithLocalId: NodeSpec = layoutSectionFactory({
 	parseDOM: [
 		{
 			context: 'layoutSection//|layoutColumn//',
@@ -139,29 +149,30 @@ export const layoutSectionWithLocalId = layoutSectionFactory({
 	},
 });
 
-export const layoutSectionWithSingleColumnLocalId = layoutSectionWithSingleColumnStage0Factory({
-	parseDOM: [
-		{
-			context: 'layoutSection//|layoutColumn//',
-			tag: 'div[data-layout-section]',
-			skip: true,
-		},
-		{
-			tag: 'div[data-layout-section]',
-			getAttrs: (dom) => {
-				const columnRuleStyle = dom.getAttribute('data-column-rule-style');
-				const localId = uuid.generate();
-				return columnRuleStyle ? { columnRuleStyle, localId } : { localId };
+export const layoutSectionWithSingleColumnLocalId: NodeSpec =
+	layoutSectionWithSingleColumnStage0Factory({
+		parseDOM: [
+			{
+				context: 'layoutSection//|layoutColumn//',
+				tag: 'div[data-layout-section]',
+				skip: true,
 			},
+			{
+				tag: 'div[data-layout-section]',
+				getAttrs: (dom) => {
+					const columnRuleStyle = dom.getAttribute('data-column-rule-style');
+					const localId = uuid.generate();
+					return columnRuleStyle ? { columnRuleStyle, localId } : { localId };
+				},
+			},
+		],
+		toDOM(node) {
+			const { columnRuleStyle } = node.attrs;
+			const attrs = {
+				'data-layout-section': 'true',
+				'data-column-rule-style': columnRuleStyle || undefined,
+				'data-local-id': node?.attrs?.localId || undefined,
+			};
+			return ['div', attrs, 0];
 		},
-	],
-	toDOM(node) {
-		const { columnRuleStyle } = node.attrs;
-		const attrs = {
-			'data-layout-section': 'true',
-			'data-column-rule-style': columnRuleStyle || undefined,
-			'data-local-id': node?.attrs?.localId || undefined,
-		};
-		return ['div', attrs, 0];
-	},
-});
+	});

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.24.9",
+	"version": "43.25.1",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -242,6 +242,9 @@
 			"type": "boolean"
 		},
 		"navx-3264-refactoring-unauth-provider-images-fe": {
+			"type": "boolean"
+		},
+		"platform_sl_3p_auth_rovo_action_kill_switch": {
 			"type": "boolean"
 		}
 	},

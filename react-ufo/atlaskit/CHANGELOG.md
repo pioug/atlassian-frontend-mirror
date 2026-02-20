@@ -1,5 +1,19 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.2.8
+
+### Patch Changes
+
+- [`1350862f67cba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1350862f67cba) -
+  FG cleanup - platform_ufo_is_tab_throttled
+
+## 5.2.7
+
+### Patch Changes
+
+- [`a059dfab456d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a059dfab456d9) -
+  Add back UFO killswitch config
+
 ## 5.2.6
 
 ### Patch Changes

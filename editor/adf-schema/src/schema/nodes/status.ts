@@ -2,6 +2,7 @@ import { uuid } from '../../utils/uuid';
 import type { AnnotationMarkDefinition } from '../marks/annotation';
 import { status as statusFactory } from '../../next-schema/generated/nodeTypes';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 /**
  * @name status_node
@@ -15,18 +16,20 @@ export interface StatusDefinition {
 		 */
 		style?: string;
 		/**
+		 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 		 * @minLength 1
 		 */
 		text: string;
 	};
 	/**
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @stage 0
 	 */
 	marks?: Array<AnnotationMarkDefinition>;
 	type: 'status';
 }
 
-export const status = statusFactory({
+export const status: NodeSpec = statusFactory({
 	parseDOM: [
 		{
 			tag: 'span[data-node-type="status"]',
@@ -44,7 +47,9 @@ export const status = statusFactory({
 					'platform_editor_copy_paste_issue_fix',
 					'isEnabled',
 					true,
-				) ? dom.getAttribute('data-text') || textContent : textContent;
+				)
+					? dom.getAttribute('data-text') || textContent
+					: textContent;
 
 				return {
 					text,

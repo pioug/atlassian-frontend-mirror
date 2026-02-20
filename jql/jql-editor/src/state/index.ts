@@ -18,7 +18,12 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { type EditorState, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { computeJqlInsights, isListOperator, type JQLParseError } from '@atlaskit/jql-ast';
+import {
+	computeJqlInsights,
+	isListOperator,
+	type JQLParseError,
+	normaliseJqlString,
+} from '@atlaskit/jql-ast';
 import { JQLAutocomplete, type JQLRuleSuggestion } from '@atlaskit/jql-autocomplete';
 
 import {
@@ -1044,7 +1049,7 @@ export const useHydratedProject = createHook<
 	{ fieldName: string; id: string }
 >(Store, {
 	selector: (state, { id, fieldName }) => {
-		const project = state.hydratedValues[fieldName]?.get(id);
+		const project = state.hydratedValues[normaliseJqlString(fieldName)]?.get(normaliseJqlString(id));
 		return project && project.type === 'project' ? project : undefined;
 	},
 });

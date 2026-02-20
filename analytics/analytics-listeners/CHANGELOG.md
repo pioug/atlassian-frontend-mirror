@@ -1,5 +1,15 @@
 # @atlaskit/analytics-listeners
 
+## 10.0.0
+
+### Major Changes
+
+- [`1ebc583c239a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ebc583c239a6) -
+  Reverting the source change introduced in this PR
+  https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/277267/diff, which
+  changed the default source for AIMAte events, and started causing issues as seen here
+  https://atlassian.slack.com/archives/C0677M19GU9/p1771456370799029
+
 ## 9.3.0
 
 ### Minor Changes

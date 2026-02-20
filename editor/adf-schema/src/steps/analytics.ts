@@ -111,7 +111,7 @@ export class AnalyticsStep<P extends AnalyticsPayload> extends Step {
 	/**
 	 * Generate new undo/redo analytics event when step is inverted
 	 */
-	invert() {
+	invert(): AnalyticsStep<AnalyticsInvertPayload> {
 		const analyticsEvents: AnalyticsInvert[] = this.analyticsEvents
 			.filter(
 				(analyticsEvent) => this.actionsToIgnore.indexOf(analyticsEvent.payload.action) === -1,
@@ -127,11 +127,11 @@ export class AnalyticsStep<P extends AnalyticsPayload> extends Step {
 		return new AnalyticsStep(analyticsEvents, []);
 	}
 
-	apply(doc: PMNode) {
+	apply(doc: PMNode): StepResult {
 		return StepResult.ok(doc);
 	}
 
-	map(mapping: Mappable) {
+	map(mapping: Mappable): AnalyticsStep<P> {
 		let newPos = this.pos;
 		if (typeof newPos === 'number') {
 			newPos = mapping.map(newPos);
@@ -140,7 +140,7 @@ export class AnalyticsStep<P extends AnalyticsPayload> extends Step {
 		return new AnalyticsStep(this.analyticsEvents, this.actionsToIgnore, newPos);
 	}
 
-	getMap() {
+	getMap(): StepMap {
 		if (typeof this.pos === 'number') {
 			return new StepMap([this.pos, 0, 0]);
 		}
@@ -156,13 +156,15 @@ export class AnalyticsStep<P extends AnalyticsPayload> extends Step {
 		return null;
 	}
 
-	toJSON() {
+	toJSON(): {
+        stepType: string;
+    } {
 		return {
 			stepType: analyticsStepType,
 		};
 	}
 
-	static fromJSON() {
+	static fromJSON(): ReplaceStep {
 		return new ReplaceStep(0, 0, Slice.empty);
 	}
 }

@@ -7,6 +7,7 @@ import { injectIntl } from 'react-intl-next';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable, isTableSelected, selectTable } from '@atlaskit/editor-tables/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { clearHoverSelection, hoverTable } from '../../../pm-plugins/commands';
 import { TableCssClassName as ClassName } from '../../../types';
@@ -50,10 +51,18 @@ class CornerControlComponent extends Component<CornerControlProps & WrappedCompo
 						danger: isActive && isInDanger,
 					})}
 					onClick={this.selectTable}
-					// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 					onMouseOver={this.hoverTable}
-					// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 					onMouseOut={this.clearHoverSelection}
+					onFocus={
+						expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
+							? this.hoverTable
+							: undefined
+					}
+					onBlur={
+						expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
+							? this.clearHoverSelection
+							: undefined
+					}
 				/>
 
 				{!isHeaderRowEnabled && (

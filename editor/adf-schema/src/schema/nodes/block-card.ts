@@ -1,10 +1,15 @@
-import type { Layout, OptionalRichMediaAttributes } from './types/rich-media-common';
+import type {
+	Layout,
+	OptionalRichMediaAttributes,
+} from './types/rich-media-common';
 import { blockCard as blockCardFactory } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils';
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 export interface UrlType {
 	localId?: string;
 	/**
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @validatorFn safeUrl
 	 */
 	url: string;
@@ -12,6 +17,7 @@ export interface UrlType {
 
 export interface DataType {
 	/**
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @additionalProperties true
 	 */
 	data: object;
@@ -22,6 +28,7 @@ export interface DatasourceAttributeProperties {
 	id: string;
 	parameters: object;
 	/**
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @minItems 1
 	 */
 	views: { properties?: object; type: string }[];
@@ -31,6 +38,7 @@ export interface DatasourceAttributes extends OptionalRichMediaAttributes {
 	datasource: DatasourceAttributeProperties;
 	localId?: string;
 	/**
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @validatorFn safeUrl
 	 */
 	url?: string;
@@ -46,7 +54,9 @@ export interface BlockCardDefinition {
 	type: 'blockCard';
 }
 
-const getCommonAttributesFromDom = (dom: string | Node): Partial<BlockCardDefinition['attrs']> => {
+const getCommonAttributesFromDom = (
+	dom: string | Node,
+): Partial<BlockCardDefinition['attrs']> => {
 	const anchor = dom as HTMLAnchorElement;
 	const data = anchor.getAttribute('data-card-data');
 	const datasource = anchor.getAttribute('data-datasource');
@@ -55,7 +65,8 @@ const getCommonAttributesFromDom = (dom: string | Node): Partial<BlockCardDefini
 		data: data ? JSON.parse(data) : undefined,
 		layout: datasource
 			? // eslint-disable-next-line @atlaskit/editor/no-as-casting
-				((dom as HTMLElement).getAttribute('data-layout') as Layout) || undefined
+				((dom as HTMLElement).getAttribute('data-layout') as Layout) ||
+				undefined
 			: undefined,
 		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		width: Number((dom as HTMLElement).getAttribute('data-width')) || undefined,
@@ -63,7 +74,7 @@ const getCommonAttributesFromDom = (dom: string | Node): Partial<BlockCardDefini
 	};
 };
 
-export const blockCard = blockCardFactory({
+export const blockCard: NodeSpec = blockCardFactory({
 	parseDOM: [
 		{
 			tag: 'a[data-block-card]',
@@ -110,7 +121,7 @@ export const blockCard = blockCardFactory({
 	},
 });
 
-export const blockCardWithLocalId = blockCardFactory({
+export const blockCardWithLocalId: NodeSpec = blockCardFactory({
 	parseDOM: [
 		{
 			tag: 'a[data-block-card]',

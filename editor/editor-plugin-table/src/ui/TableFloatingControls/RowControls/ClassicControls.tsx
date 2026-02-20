@@ -6,6 +6,7 @@ import { injectIntl } from 'react-intl-next';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { clearHoverSelection } from '../../../pm-plugins/commands';
 import type { RowParams } from '../../../pm-plugins/utils/row-controls';
@@ -98,10 +99,18 @@ class RowControlsComponent extends Component<Props & WrappedComponentProps> {
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 									className={`${ClassName.ROW_CONTROLS_BUTTON} ${ClassName.CONTROLS_BUTTON}`}
 									onClick={(event) => this.props.selectRow(startIndex, event.shiftKey)}
-									// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 									onMouseOver={() => this.props.hoverRows([startIndex])}
-									// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
+									onFocus={
+										expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
+											? () => this.props.hoverRows([startIndex])
+											: undefined
+									}
 									onMouseOut={this.clearHoverSelection}
+									onBlur={
+										expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
+											? this.clearHoverSelection
+											: undefined
+									}
 									data-start-index={startIndex}
 									data-end-index={endIndex}
 								/>

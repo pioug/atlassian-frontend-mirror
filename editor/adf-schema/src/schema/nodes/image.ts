@@ -1,6 +1,7 @@
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 import { image as imageFactory } from '../../next-schema/generated/nodeTypes';
 
-export const image = imageFactory({
+export const image: NodeSpec = imageFactory({
 	parseDOM: [
 		{
 			tag: 'img[src^="data:image/"]',

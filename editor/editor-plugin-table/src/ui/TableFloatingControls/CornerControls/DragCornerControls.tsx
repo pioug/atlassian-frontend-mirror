@@ -8,6 +8,7 @@ import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks'
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { findTable, isTableSelected, selectTable } from '@atlaskit/editor-tables/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { clearHoverSelection } from '../../../pm-plugins/commands';
 import type { TablePlugin } from '../../../tablePluginType';
@@ -54,8 +55,12 @@ const DragCornerControlsComponent = ({
 			aria-label={formatMessage(messages.cornerControl)}
 			type="button"
 			onClick={handleOnClick}
-			// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 			onMouseOut={handleMouseOut}
+			onBlur={
+				expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
+					? handleMouseOut
+					: undefined
+			}
 			contentEditable={false}
 		>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
@@ -109,8 +114,12 @@ const DragCornerControlsComponentWithSelection = ({
 			aria-label={formatMessage(messages.cornerControl)}
 			type="button"
 			onClick={handleOnClick}
-			// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 			onMouseOut={handleMouseOut}
+			onBlur={
+				expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
+					? handleMouseOut
+					: undefined
+			}
 			contentEditable={false}
 		>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}

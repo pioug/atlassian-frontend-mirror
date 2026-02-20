@@ -47,9 +47,6 @@
 			"path": "../../helpers/browser-apis/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/button/tsconfig.app.json"
-		},
-		{
 			"path": "../../observability/interaction-context/tsconfig.app.json"
 		},
 		{

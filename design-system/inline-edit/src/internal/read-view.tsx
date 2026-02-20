@@ -77,15 +77,25 @@ const DRAG_THRESHOLD = 5;
 
 interface ReadViewProps {
 	editButtonLabel: string;
+	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 	onEditRequested: () => void;
 	postReadViewClick: () => void;
 	editButtonRef: React.RefObject<HTMLButtonElement>;
+	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	readViewFitContainerWidth?: boolean;
 	readView: () => React.ReactNode;
 	testId?: string;
 }
 
-const ReadView: ({ editButtonLabel, onEditRequested, postReadViewClick, editButtonRef, readViewFitContainerWidth, readView, testId, }: ReadViewProps) => JSX.Element = ({
+const ReadView: ({
+	editButtonLabel,
+	onEditRequested,
+	postReadViewClick,
+	editButtonRef,
+	readViewFitContainerWidth,
+	readView,
+	testId,
+}: ReadViewProps) => JSX.Element = ({
 	editButtonLabel,
 	onEditRequested,
 	postReadViewClick,

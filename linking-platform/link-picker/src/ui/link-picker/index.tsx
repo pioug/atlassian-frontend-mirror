@@ -164,6 +164,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 			submitOnInputChange = false,
 			recentSearchListSize,
 			shouldRenderNoResultsImage,
+			alwaysShowTabs,
 		}: LinkPickerProps) => {
 			const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -188,7 +189,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 				error,
 				retry,
 				pluginAction,
-			} = usePlugins(queryState, activeTab, plugins, recentSearchListSize);
+			} = usePlugins(queryState, activeTab, plugins, recentSearchListSize, alwaysShowTabs);
 
 			const isEditing = !!initUrl;
 			const selectedItem: LinkSearchListItemData | undefined = items?.[selectedIndex];

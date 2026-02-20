@@ -1,7 +1,6 @@
 {
 	"extends": "../../../../tsconfig.local-consumption.json",
 	"compilerOptions": {
-		"declaration": true,
 		"target": "es5",
 		"verbatimModuleSyntax": false,
 		"outDir": "../../../../../tsDist/@atlaskit__adf-schema/app",

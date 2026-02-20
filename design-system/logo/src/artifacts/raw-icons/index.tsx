@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::300644d316956dfb8d6eb21b0ed204cd>>
+ * @codegen <<SignedSource::73aa54c99422e4ea067e742fc3f72d33>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 export const adminIcon =
@@ -94,7 +94,7 @@ export const teamsIcon =
 export const trelloIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%231558bc' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23fff' d='M9.39 18.23a.95.95 0 0 0 .95-.95V5.38a.95.95 0 0 0-.95-.95H5.38a.95.95 0 0 0-.95.95v11.91c0 .52.42.95.95.95zm9.23-5.46a.95.95 0 0 0 .95-.95V5.38a.95.95 0 0 0-.95-.95h-4.01a.95.95 0 0 0-.95.95v6.44c0 .52.42.95.95.95z'/> </svg> ";
 
-export const rawIcons = {
+export const rawIcons: Record<string, string> = {
 	admin: adminIcon,
 	align: alignIcon,
 	analytics: analyticsIcon,

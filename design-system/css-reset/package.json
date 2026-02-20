@@ -34,7 +34,7 @@
 	},
 	"devDependencies": {
 		"@af/formatting": "workspace:^",
-		"@af/visual-regression": "workspace:^",
+		"@af/root-path": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",

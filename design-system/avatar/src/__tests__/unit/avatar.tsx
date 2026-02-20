@@ -672,4 +672,73 @@ describe('Avatar', () => {
 		const avatar = screen.getByTestId(testId);
 		expect(avatar).not.toHaveAttribute('aria-labelledby');
 	});
+
+	describe('ARIA trigger props', () => {
+		it('should forward aria-controls, aria-expanded, and aria-haspopup to the inner element when onClick is provided', () => {
+			render(
+				<Avatar
+					testId={testId}
+					name="Alexander Nevermind"
+					onClick={__noop}
+					aria-controls="popup-id"
+					aria-expanded={true}
+					aria-haspopup={true}
+				/>,
+			);
+			const element = screen.getByTestId(`${testId}--inner`);
+
+			expect(element).toHaveAttribute('aria-controls', 'popup-id');
+			expect(element).toHaveAttribute('aria-expanded', 'true');
+			expect(element).toHaveAttribute('aria-haspopup', 'true');
+		});
+
+		it('should forward aria-haspopup="dialog" to the inner element', () => {
+			render(
+				<Avatar
+					testId={testId}
+					name="Alexander Nevermind"
+					onClick={__noop}
+					aria-haspopup="dialog"
+				/>,
+			);
+			const element = screen.getByTestId(`${testId}--inner`);
+
+			expect(element).toHaveAttribute('aria-haspopup', 'dialog');
+		});
+
+		it('should not render ARIA trigger props when they are not provided', () => {
+			render(<Avatar testId={testId} name="Alexander Nevermind" onClick={__noop} />);
+			const element = screen.getByTestId(`${testId}--inner`);
+
+			expect(element).not.toHaveAttribute('aria-controls');
+			expect(element).not.toHaveAttribute('aria-expanded');
+			expect(element).not.toHaveAttribute('aria-haspopup');
+		});
+
+		it('should render as a button when aria-haspopup is set without onClick', () => {
+			render(
+				<Avatar
+					testId={testId}
+					name="Alexander Nevermind"
+					aria-haspopup={true}
+				/>,
+			);
+			const element = screen.getByTestId(`${testId}--inner`);
+
+			expect(element.tagName).toBe('BUTTON');
+		});
+
+		it('should apply aria-label when aria-haspopup is set without onClick', () => {
+			render(
+				<Avatar
+					testId={testId}
+					name="Alexander Nevermind"
+					aria-haspopup={true}
+				/>,
+			);
+			const element = screen.getByTestId(`${testId}--inner`);
+
+			expect(element).toHaveAttribute('aria-label', 'Alexander Nevermind');
+		});
+	});
 });

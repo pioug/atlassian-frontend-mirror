@@ -54,6 +54,7 @@ import TableRowAddBelowIcon from '@atlaskit/icon/core/table-row-add-below';
 import TableRowDeleteIcon from '@atlaskit/icon/core/table-row-delete';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -173,8 +174,12 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			<UserIntentPopupWrapper userIntent="tableContextualMenuPopupOpen" api={api}>
 				<div
 					data-testid="table-cell-contextual-menu"
-					// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 					onMouseLeave={this.closeSubmenu}
+					onBlur={
+						expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
+							? this.closeSubmenu
+							: undefined
+					}
 					ref={this.dropdownMenuRef}
 				>
 					<DropdownMenu

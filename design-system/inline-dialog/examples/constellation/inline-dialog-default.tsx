@@ -25,6 +25,7 @@ const content = (
 	</Box>
 );
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class InlineDialogDefaultExample extends Component<{}, State> {
 	state = {
 		dialogOpen: true,

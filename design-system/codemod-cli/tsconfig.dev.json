@@ -33,7 +33,6 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"target": "es6",
-		"esModuleInterop": true,
 		"lib": [
 			"es5",
 			"scripthost",

@@ -6,6 +6,7 @@ import {
 	getDoNotAbortActivePressInteraction,
 	getInteractionRate,
 	getMinorInteractions,
+	isUFOEnabled,
 } from '../../config';
 import { getActiveTrace, setInteractionActiveTrace } from '../../experience-trace-id-context';
 import { DefaultInteractionID } from '../../interaction-id-context';
@@ -19,6 +20,11 @@ function traceUFOInteraction(
 	interactionType: InteractionType,
 	startTime?: DOMHighResTimeStamp,
 ): void {
+	// Skip if UFO is disabled (gated behind platform_ufo_enable_killswitch_config)
+	if (!isUFOEnabled()) {
+		return;
+	}
+
 	const rate = getInteractionRate(name, interactionType);
 	const pressInteractionsList = getDoNotAbortActivePressInteraction();
 

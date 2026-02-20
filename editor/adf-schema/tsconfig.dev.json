@@ -34,10 +34,13 @@
 		"schema-generators/**/*.ts"
 	],
 	"exclude": [
-		"./src/next-schema/generated/**/*",
 		"./dist/**/*",
 		"./build/**/*",
-		"./node_modules/**/*"
+		"./node_modules/**/*",
+		"src/next-schema/generated/markTypes.ts",
+		"src/next-schema/generated/nodeTypes.ts",
+		"src/next-schema/generated/nodeGroupTypes.ts",
+		"src/validator-schema/generated/validatorSpec.ts"
 	],
 	"compilerOptions": {
 		"composite": true,

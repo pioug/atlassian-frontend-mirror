@@ -1,6 +1,7 @@
 const mockStopMeasureDuration = 1234;
 const mockStartTime = 1;
 const mockResponseTime = 200;
+const mockRequestToResponseTime = 180;
 jest.mock('uuid/v4', () => jest.fn().mockReturnValue('538fd05f-20cd-4f8a-ab02-1b257d43cadb'));
 jest.mock('@atlaskit/editor-common/performance-measures', () => ({
 	...jest.requireActual<Object>('@atlaskit/editor-common/performance-measures'),
@@ -26,10 +27,11 @@ jest.mock('@atlaskit/editor-common/performance-measures', () => ({
 jest.mock('@atlaskit/editor-common/performance/navigation', () => ({
 	...jest.requireActual<Object>('@atlaskit/editor-common/performance/navigation'),
 	getResponseEndTime: jest.fn(() => mockResponseTime),
+	getRequestToResponseTime: jest.fn(() => mockRequestToResponseTime),
 }));
 
 jest.mock('../../../utils/getNodesVisibleInViewport', () => ({
-	getNodesVisibleInViewport: jest.fn(() => Promise.resolve({ testNode: 1 })),
+	getNodesVisibleInViewport: jest.fn(() => ({ testNode: 1 })),
 }));
 
 jest.mock('@atlaskit/editor-common/is-performance-api-available', () => ({
@@ -67,9 +69,13 @@ jest.mock('@atlaskit/editor-common/analytics', () => ({
 	fireAnalyticsEvent: jest.fn(),
 }));
 
+jest.mock('@atlaskit/react-ufo/interaction-id-context', () => ({
+	getInteractionId: jest.fn(() => ({ current: 'test-interaction-id' })),
+}));
+
 import React from 'react';
 
-import { fireEvent, screen, cleanup } from '@testing-library/react';
+import { fireEvent, screen, cleanup, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createIntl } from 'react-intl-next';
 
@@ -100,7 +106,13 @@ import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analy
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { blockquote, code_block, doc, p, mention } from '@atlaskit/editor-test-helpers/doc-builder';
+import {
+	blockquote,
+	code_block,
+	doc,
+	p,
+	mention,
+} from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -110,6 +122,7 @@ import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import type { MentionProvider } from '@atlaskit/mention/resource';
 import { abortAll, getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
@@ -730,6 +743,57 @@ describe('@atlaskit/editor-core', () => {
 					}),
 				}),
 			});
+		});
+	});
+
+describe('proseMirrorRendered analytics event', () => {
+	it('sends attributes', async () => {
+			setupEditorExperiments('test', { platform_editor_prosemirror_rendered_data: true });
+		(getActiveInteraction as jest.Mock).mockReturnValueOnce({
+			type: 'page_load',
+			routeName: 'edit-page',
+		});
+
+			const document = doc(p('hello'))(defaultSchema);
+			const editorProps = {
+				defaultValue: toJSON(document),
+			};
+
+			renderWithIntl(
+				<ReactEditorView
+					{...requiredProps()}
+					{...analyticsProps()}
+					preset={createUniversalPreset({ props: editorProps })}
+					editorProps={editorProps}
+				/>,
+			);
+
+			await waitFor(() => {
+				expect(mockFire).toHaveBeenCalledWith({
+					payload: expect.objectContaining({
+						attributes: expect.objectContaining({
+							duration: mockStopMeasureDuration,
+							startTime: mockStartTime,
+							nodes: expect.any(Object),
+							nodesInViewport: { testNode: 1 },
+							nodeSize: expect.any(Number),
+							ttfb: mockResponseTime,
+							severity: expect.any(String),
+							distortedDuration: false,
+							pageLoadType: 'page_load',
+						pageType: 'edit-page',
+							ufoInteractionId: 'test-interaction-id',
+							timings: expect.objectContaining({
+								'requestStart->responseEnd': mockRequestToResponseTime,
+								bootToRender: expect.any(Number),
+							}),
+							extensionKeys: {},
+						}),
+					}),
+				});
+			});
+
+			setupEditorExperiments('test', {});
 		});
 	});
 

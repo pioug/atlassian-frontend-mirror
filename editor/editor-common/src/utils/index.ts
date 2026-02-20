@@ -235,7 +235,7 @@ export {
  *
  * Private API - should not be used. Use `@atlaskit/editor-common/performance/navigation` if required.
  */
-export { getResponseEndTime } from './performance/navigation';
+export { getRequestToResponseTime, getResponseEndTime } from './performance/navigation';
 export { getExtensionRenderer } from './extension-handler';
 
 export {

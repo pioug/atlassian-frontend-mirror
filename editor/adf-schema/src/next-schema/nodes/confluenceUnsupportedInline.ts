@@ -1,10 +1,13 @@
+import type {
+    ADFCommonNodeSpec,
+    ADFNode} from '@atlaskit/adf-schema-generator';
 import {
 	adfNode,
 	ValidatorSpecTransformerName,
-	JSONSchemaTransformerName,
+	JSONSchemaTransformerName
 } from '@atlaskit/adf-schema-generator';
 
-export const confluenceUnsupportedInline = adfNode('confluenceUnsupportedInline').define({
+export const confluenceUnsupportedInline: ADFNode<[string], ADFCommonNodeSpec> = adfNode('confluenceUnsupportedInline').define({
 	ignore: [JSONSchemaTransformerName, ValidatorSpecTransformerName],
 
 	atom: true,

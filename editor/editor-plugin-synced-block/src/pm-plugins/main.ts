@@ -44,7 +44,10 @@ import {
 import { shouldIgnoreDomEvent } from './utils/ignore-dom-event';
 import { calculateDecorations } from './utils/selection-decorations';
 import { hasEditInSyncBlock, trackSyncBlocks } from './utils/track-sync-blocks';
-import { sliceFullyContainsNode } from './utils/utils';
+import {
+	wasInlineExtensionInsertedInBodiedSyncBlock,
+	sliceFullyContainsNode,
+} from './utils/utils';
 
 export const syncedBlockPluginKey = new PluginKey('syncedBlockPlugin');
 
@@ -97,6 +100,38 @@ const showCopiedFlag = (api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined)
 	}, 0);
 };
 
+const showInlineExtensionInSyncBlockWarningIfNeeded = (
+	tr: Transaction,
+	state: EditorState,
+	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined,
+	inlineExtensionFlagShown: Set<string>,
+) => {
+	if (!fg('platform_synced_block_patch_3')) {
+		return;
+	}
+	if (
+		!tr.docChanged ||
+		tr.getMeta('isRemote') ||
+		Boolean(tr.getMeta(pmHistoryPluginKey)) ||
+		isOfflineMode(api?.connectivity?.sharedState.currentState()?.mode)
+	) {
+		return;
+	}
+	const resourceId = wasInlineExtensionInsertedInBodiedSyncBlock(tr, state);
+	// Only show the flag on the first instance per sync block (same as UNPUBLISHED_SYNC_BLOCK_PASTED)
+	if (resourceId && !inlineExtensionFlagShown.has(resourceId)) {
+		inlineExtensionFlagShown.add(resourceId);
+		// Use setTimeout to dispatch in next tick and avoid re-entrant dispatch from filterTransaction
+		setTimeout(() => {
+			api?.core.actions.execute(({ tr }) => {
+				return tr.setMeta(syncedBlockPluginKey, {
+					activeFlag: { id: FLAG_ID.INLINE_EXTENSION_IN_SYNC_BLOCK },
+				});
+			});
+		}, 0);
+	}
+};
+
 const getDeleteReason = (tr: Transaction): DeletionReason => {
 	const reason = tr.getMeta('deletionReason');
 	if (!reason) {
@@ -117,6 +152,8 @@ export const createPlugin = (
 	let isCopyEvent: boolean = false;
 	// Track which sync blocks have already triggered the unpublished flag
 	const unpublishedFlagShown = new Set<string>();
+	// Track which sync blocks have already triggered the inline extension in sync block flag
+	const inlineExtensionFlagShown = new Set<string>();
 
 	// Set up callback to detect unpublished sync blocks when they're fetched
 	syncBlockStore.referenceManager.setOnUnpublishedSyncBlockDetected((resourceId: string) => {
@@ -419,9 +456,11 @@ export const createPlugin = (
 						return true;
 					}
 					handleBodiedSyncBlockCreation(bodiedSyncBlockAdded, state, api);
-
 					return true;
 				}
+
+				showInlineExtensionInSyncBlockWarningIfNeeded(tr, state, api, inlineExtensionFlagShown);
+				return true;
 			} else {
 				const { removed: syncBlockRemoved, added: syncBlockAdded } = trackSyncBlocks(
 					(node) => node.type.name === 'syncBlock',
@@ -455,7 +494,6 @@ export const createPlugin = (
 					return false;
 				}
 			}
-
 			return true;
 		},
 		appendTransaction: (trs, oldState, newState) => {

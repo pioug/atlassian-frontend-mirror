@@ -26,6 +26,7 @@ import type { TableDefinition as Table } from './tableNodes';
 import type { BlockCardDefinition as BlockCard } from './block-card';
 import type { EmbedCardDefinition as EmbedCard } from './embed-card';
 import type { LayoutSectionDefinition as LayoutSection } from './layout-section';
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 export interface BodiedSyncBlockAttrs {
 	/**
@@ -47,7 +48,9 @@ export interface BodiedSyncBlockAttrs {
 export interface BodiedSyncBlockDefinition {
 	attrs: BodiedSyncBlockAttrs;
 	/**
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @minItems 1
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @allowUnsupportedBlock true
 	 */
 	content: Array<
@@ -75,7 +78,7 @@ export interface BodiedSyncBlockDefinition {
 	type: 'bodiedSyncBlock';
 }
 
-export const bodiedSyncBlock = bodiedSyncBlockFactory({
+export const bodiedSyncBlock: NodeSpec = bodiedSyncBlockFactory({
 	parseDOM: [
 		{
 			tag: 'div[data-bodied-sync-block]',

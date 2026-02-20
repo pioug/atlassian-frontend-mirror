@@ -3,7 +3,6 @@
 	"include": [
 		"**/docs/**/*",
 		"**/__tests__/**/*",
-		"**/vr-tests/**/*",
 		"**/*.test.*",
 		"**/test.*",
 		"**/test-*",
@@ -38,9 +37,6 @@
 	"references": [
 		{
 			"path": "./tsconfig.app.json"
-		},
-		{
-			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
 		},
 		{
 			"path": "../banner/tsconfig.app.json"

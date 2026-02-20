@@ -1,6 +1,7 @@
+import type { ADFMark, ADFMarkSpec } from '@atlaskit/adf-schema-generator';
 import { adfMark } from '@atlaskit/adf-schema-generator';
 
-export const border = adfMark('border').define({
+export const border: ADFMark<ADFMarkSpec> = adfMark('border').define({
 	inclusive: false,
 	attrs: {
 		size: { type: 'number', minimum: 1, maximum: 3 },

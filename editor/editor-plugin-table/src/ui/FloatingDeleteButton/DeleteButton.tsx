@@ -4,6 +4,8 @@ import React from 'react';
 import type { MessageDescriptor, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
 import { TableCssClassName as ClassName } from '../../types';
 
 interface ButtonProps {
@@ -27,10 +29,18 @@ const DeleteButton = ({
 		className={ClassName.CONTROLS_DELETE_BUTTON_WRAP}
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		style={style}
-		// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 		onMouseEnter={onMouseEnter}
-		// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 		onMouseLeave={onMouseLeave}
+		onFocus={
+			expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
+				? onMouseEnter
+				: undefined
+		}
+		onBlur={
+			expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
+				? onMouseLeave
+				: undefined
+		}
 	>
 		<button
 			type="button"

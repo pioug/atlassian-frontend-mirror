@@ -1,5 +1,6 @@
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 
+// When experiment platform_editor_prosemirror_rendered_data is removed, review whether this helper is still needed.
 export function getNodesCount(node: Node): Record<string, number> {
 	const count: Record<string, number> = {};
 

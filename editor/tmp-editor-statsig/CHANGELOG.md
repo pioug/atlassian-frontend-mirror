@@ -1,5 +1,48 @@
 # @atlaskit/editor-statsig-tmp
 
+## 28.0.0
+
+### Major Changes
+
+- [`a040c03082274`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a040c03082274) -
+  [ux] EDITOR-507 Clean up main nested tables experiment `platform_editor_nested_tables`
+
+## 27.1.0
+
+### Minor Changes
+
+- [`0eed66892511e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0eed66892511e) -
+  EDITOR-5120 - Add additional ProseMirror rendered analytics attributes behind the
+  platform_editor_prosemirror_rendered_data experiment.
+
+## 27.0.0
+
+### Major Changes
+
+- [`19911524eaec5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19911524eaec5) -
+  Cleanup A/A test for cc_fd_db_top_editor_toolbar experiment.
+
+### Minor Changes
+
+- [`dece098c3ab1f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dece098c3ab1f) -
+  [ux] ENGHEALTH-46818 Add focus and blur handlers to table buttons to fix a11y
+
+## 26.0.0
+
+### Major Changes
+
+- [`1caeaf4c95a2e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1caeaf4c95a2e) -
+  [NO-ISSUE] Cleaning up platform_editor_ai_exp_inline_date_year_refresh
+
+### Minor Changes
+
+- [`81937b9af604e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81937b9af604e) -
+  [ux] fix table border late render issue
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.7.0
 
 ### Minor Changes

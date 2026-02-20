@@ -1,3 +1,4 @@
+import type { ADFCommonNodeSpec, ADFNode} from '@atlaskit/adf-schema-generator';
 import { $onePlus, $or, adfNode } from '@atlaskit/adf-schema-generator';
 import { blockContentGroup } from '../groups/blockContentGroup';
 import { blockGroup } from '../groups/blockGroup';
@@ -5,7 +6,7 @@ import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
 import { unsupportedBlock } from '../nodes/unsupportedBlock';
 
-export const layoutColumn = adfNode('layoutColumn').define({
+export const layoutColumn: ADFNode<[string], ADFCommonNodeSpec> = adfNode('layoutColumn').define({
 	isolating: true,
 	selectable: false,
 

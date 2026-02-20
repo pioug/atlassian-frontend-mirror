@@ -1,3 +1,4 @@
+import type { ADFCommonNodeSpec, ADFNode} from '@atlaskit/adf-schema-generator';
 import { $onePlus, $or, adfNode } from '@atlaskit/adf-schema-generator';
 import { breakout } from '../marks/breakout';
 import { unsupportedMark } from '../marks/unsupportedMark';
@@ -22,7 +23,7 @@ import { table } from './tableNodes';
 import { taskList } from './task';
 import { layoutSection } from './layoutSection';
 
-export const bodiedSyncBlock = adfNode('bodiedSyncBlock').define({
+export const bodiedSyncBlock: ADFNode<[string], ADFCommonNodeSpec> = adfNode('bodiedSyncBlock').define({
 	selectable: true,
 	isolating: true,
 	marks: [breakout, unsupportedMark, unsupportedNodeAttribute],

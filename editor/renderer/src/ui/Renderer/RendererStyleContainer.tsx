@@ -1376,6 +1376,24 @@ const headerSmartCardStyles = css({
 	},
 });
 
+// Flex wrapper for centering without transform (platform_editor_flex_based_centering).
+// flex: 1 1 0% + minWidth: 0 so the wrapper takes full width when it's a flex item (full-width nodes otherwise render narrow).
+// flexShrink: 0 on child so the node keeps size.
+const centerWrapperStyles = css({
+	[`.${RendererCssClassName.FLEX_CENTER_WRAPPER}`]: {
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'flex-start',
+		width: '100%',
+		flex: '1 1 0%',
+		minWidth: 0,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'& > *': {
+			flexShrink: 0,
+		},
+	},
+});
+
 const baseOtherStylesDuplicateAnchor = css({
 	'& .UnknownBlock': {
 		fontFamily: token('font.family.body'),
@@ -1461,18 +1479,64 @@ const baseOtherStylesDuplicateAnchor = css({
 		[`& .${RendererCssClassName.EXTENSION}:first-child`]: {
 			marginTop: 0,
 		},
+		[`& .${RendererCssClassName.FLEX_CENTER_WRAPPER}:first-child`]: {
+			marginTop: 0,
+		},
 	},
 
 	[`.${RendererCssClassName.DOCUMENT}`]: {
 		[`.${RendererCssClassName.EXTENSION}`]: {
 			marginTop: `${blockNodesVerticalMargin}`,
 		},
-
-		[`.${RendererCssClassName.EXTENSION_CENTER_ALIGN}`]: {
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			marginLeft: '50%',
-			transform: 'translateX(-50%)',
+		/* platform_editor_flex_based_centering: margin on wrapper so it participates in collapse; reset extension margin when wrapped */
+		[`.${RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER}`]: {
+			marginTop: `${blockNodesVerticalMargin}`,
 		},
+		/* When MBE section is first in doc, zero wrapper top margin (patch-on: wrapper is section's child, not DOCUMENT's; matches containerStyles for patch-off) */
+		[`.${RendererCssClassName.DOCUMENT} [data-multiBodiedExtension-container]:first-child .${RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER}`]:
+			{
+				marginTop: 0,
+			},
+		[`.${RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER} .${RendererCssClassName.EXTENSION}`]: {
+			marginTop: 0,
+			marginBottom: 0,
+		},
+		/* platform_editor_flex_based_centering: embed card center wrapper has margin; zero MediaSingle vertical margin when wrapped so it doesn't double */
+		[`.${RendererCssClassName.EMBED_CARD_CENTER_WRAPPER} .mediaSingleView-content-wrap`]: {
+			marginTop: 0,
+			marginBottom: 0,
+		},
+		/* Zero first/last child margin inside flex items so flex container height = content height (matches legacy where those margins collapse) */
+		[`.${RendererCssClassName.STICKY_SAFE_BREAKOUT_INNER} > *:first-child`]: {
+			marginTop: 0,
+		},
+		[`.${RendererCssClassName.STICKY_SAFE_BREAKOUT_INNER} > *:last-child`]: {
+			marginBottom: 0,
+		},
+		[`.${RendererCssClassName.EMBED_CARD_CENTER_WRAPPER} > .mediaSingleView-content-wrap > *:first-child`]:
+			{
+				marginTop: 0,
+			},
+		[`.${RendererCssClassName.EMBED_CARD_CENTER_WRAPPER} > .mediaSingleView-content-wrap > *:last-child`]:
+			{
+				marginBottom: 0,
+			},
+		[`.${RendererCssClassName.BLOCK_CARD_DATASOURCE_CENTER_WRAPPER} > div > *:first-child`]: {
+			marginTop: 0,
+		},
+		[`.${RendererCssClassName.BLOCK_CARD_DATASOURCE_CENTER_WRAPPER} > div > *:last-child`]: {
+			marginBottom: 0,
+		},
+		[`.${RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER} .${RendererCssClassName.EXTENSION} > *:first-child`]:
+			{
+				marginTop: 0,
+			},
+		[`.${RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER} .${RendererCssClassName.EXTENSION} > *:last-child`]:
+			{
+				marginBottom: 0,
+			},
+
+		/* When platform_editor_flex_based_centering is off, EXTENSION_CENTER_ALIGN uses transform (see extensionCenterAlignLegacyStyles) */
 
 		[`.${TableSharedCssClassName.TABLE_NODE_WRAPPER}`]: {
 			overflowX: 'auto',
@@ -1482,6 +1546,16 @@ const baseOtherStylesDuplicateAnchor = css({
 			{
 				display: 'flex',
 			},
+	},
+});
+
+const extensionCenterAlignLegacyStyles = css({
+	[`.${RendererCssClassName.DOCUMENT}`]: {
+		[`.${RendererCssClassName.EXTENSION_CENTER_ALIGN}`]: {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+			marginLeft: '50%',
+			transform: 'translateX(-50%)',
+		},
 	},
 });
 
@@ -1570,18 +1644,64 @@ const baseOtherStyles = css({
 		[`& .${RendererCssClassName.EXTENSION}:first-child`]: {
 			marginTop: 0,
 		},
+		[`& .${RendererCssClassName.FLEX_CENTER_WRAPPER}:first-child`]: {
+			marginTop: 0,
+		},
 	},
 
 	[`.${RendererCssClassName.DOCUMENT}`]: {
 		[`.${RendererCssClassName.EXTENSION}`]: {
 			marginTop: `${blockNodesVerticalMargin}`,
 		},
-
-		[`.${RendererCssClassName.EXTENSION_CENTER_ALIGN}`]: {
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			marginLeft: '50%',
-			transform: 'translateX(-50%)',
+		/* platform_editor_flex_based_centering: margin on wrapper so it participates in collapse; reset extension margin when wrapped */
+		[`.${RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER}`]: {
+			marginTop: `${blockNodesVerticalMargin}`,
 		},
+		/* When MBE section is first in doc, zero wrapper top margin (patch-on: wrapper is section's child, not DOCUMENT's; matches containerStyles for patch-off) */
+		[`.${RendererCssClassName.DOCUMENT} [data-multiBodiedExtension-container]:first-child .${RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER}`]:
+			{
+				marginTop: 0,
+			},
+		[`.${RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER} .${RendererCssClassName.EXTENSION}`]: {
+			marginTop: 0,
+			marginBottom: 0,
+		},
+		/* platform_editor_flex_based_centering: embed card center wrapper has margin; zero MediaSingle vertical margin when wrapped so it doesn't double */
+		[`.${RendererCssClassName.EMBED_CARD_CENTER_WRAPPER} .mediaSingleView-content-wrap`]: {
+			marginTop: 0,
+			marginBottom: 0,
+		},
+		/* Zero first/last child margin inside flex items so flex container height = content height (matches legacy where those margins collapse) */
+		[`.${RendererCssClassName.STICKY_SAFE_BREAKOUT_INNER} > *:first-child`]: {
+			marginTop: 0,
+		},
+		[`.${RendererCssClassName.STICKY_SAFE_BREAKOUT_INNER} > *:last-child`]: {
+			marginBottom: 0,
+		},
+		[`.${RendererCssClassName.EMBED_CARD_CENTER_WRAPPER} > .mediaSingleView-content-wrap > *:first-child`]:
+			{
+				marginTop: 0,
+			},
+		[`.${RendererCssClassName.EMBED_CARD_CENTER_WRAPPER} > .mediaSingleView-content-wrap > *:last-child`]:
+			{
+				marginBottom: 0,
+			},
+		[`.${RendererCssClassName.BLOCK_CARD_DATASOURCE_CENTER_WRAPPER} > div > *:first-child`]: {
+			marginTop: 0,
+		},
+		[`.${RendererCssClassName.BLOCK_CARD_DATASOURCE_CENTER_WRAPPER} > div > *:last-child`]: {
+			marginBottom: 0,
+		},
+		[`.${RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER} .${RendererCssClassName.EXTENSION} > *:first-child`]:
+			{
+				marginTop: 0,
+			},
+		[`.${RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER} .${RendererCssClassName.EXTENSION} > *:last-child`]:
+			{
+				marginBottom: 0,
+			},
+
+		/* When platform_editor_flex_based_centering is off, EXTENSION_CENTER_ALIGN uses transform (see extensionCenterAlignLegacyStyles) */
 
 		[`.${TableSharedCssClassName.TABLE_NODE_WRAPPER}`]: {
 			overflowX: 'auto',
@@ -2943,6 +3063,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)
 					? baseOtherStyles
 					: baseOtherStylesDuplicateAnchor,
+				!expValEquals('platform_editor_flex_based_centering', 'isEnabled', true) &&
+					extensionCenterAlignLegacyStyles,
 				// this should be placed after baseOtherStyles
 				expValEquals('platform_editor_render_bodied_extension_as_inline', 'isEnabled', true) &&
 					(expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
@@ -3003,6 +3125,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				editorExperiment('platform_synced_block', true) &&
 					fg('platform_synced_block_patch_2') &&
 					syncBlockPatch2Styles,
+				centerWrapperStyles,
 			]}
 			data-testid={testId}
 		>

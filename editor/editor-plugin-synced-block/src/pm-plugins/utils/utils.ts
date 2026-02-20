@@ -1,8 +1,9 @@
 import { expandSelectionToBlockRange } from '@atlaskit/editor-common/selection';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { NodeType, Node as PMNode, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
-import type { Selection } from '@atlaskit/editor-prosemirror/state';
-import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import { findParentNodeOfType, findParentNodeOfTypeClosestToPos, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 
 export const findSyncBlock = (
@@ -121,4 +122,92 @@ export const sliceFullyContainsNode = (slice: Slice, node: PMNode): boolean => {
 	}
 
 	return true;
+};
+
+const fragmentContainsInlineExtension = (fragment: Fragment): boolean => {
+	let found = false;
+	fragment.forEach((node) => {
+		if (found) {
+			return;
+		}
+		if (node.type.name === 'inlineExtension') {
+			found = true;
+		} else if (node.content.size) {
+			if (fragmentContainsInlineExtension(node.content)) {
+				found = true;
+			}
+		}
+	});
+	return found;
+};
+
+const sliceContainsInlineExtension = (slice: Slice): boolean =>
+	fragmentContainsInlineExtension(slice.content);
+
+/**
+ * Returns the resourceId of the bodied sync block where an inline extension was inserted, or undefined.
+ * Used to show a warning flag only on the first instance per sync block.
+ */
+export const wasInlineExtensionInsertedInBodiedSyncBlock = (
+	tr: Transaction,
+	state: EditorState,
+): string | undefined => {
+	if (!tr.docChanged || tr.getMeta('isRemote')) {
+		return undefined;
+	}
+
+	const { bodiedSyncBlock } = state.schema.nodes;
+	if (!bodiedSyncBlock) {
+		return undefined;
+	}
+
+	const docs = (tr as Transaction & { docs?: (typeof tr.doc)[] }).docs;
+
+	// When docs is available (e.g. from history plugin), check each replace step
+	if (docs && docs.length > 0) {
+		for (let i = 0; i < tr.steps.length; i++) {
+			const step = tr.steps[i];
+			const isReplaceStep = step instanceof ReplaceStep || step instanceof ReplaceAroundStep;
+			if (!isReplaceStep || !('slice' in step) || !('from' in step)) {
+				continue;
+			}
+			const replaceStep = step as ReplaceStep | ReplaceAroundStep;
+			if (!sliceContainsInlineExtension(replaceStep.slice)) {
+				continue;
+			}
+			const docAfterStep = docs[i + 1] ?? tr.doc;
+			try {
+				const $pos = docAfterStep.resolve(replaceStep.from);
+				const parent = findParentNodeOfTypeClosestToPos($pos, bodiedSyncBlock);
+				if (parent?.node.attrs.resourceId) {
+					return parent.node.attrs.resourceId as string;
+				}
+			} catch {
+				// resolve() can throw if position is invalid
+			}
+		}
+		return undefined;
+	}
+
+	// Fallback: scan final doc for inline extensions inside bodied sync block that were added
+	let resourceId: string | undefined;
+	tr.doc.descendants((node, pos) => {
+		if (resourceId !== undefined) {
+			return false;
+		}
+		if (node.type.name === 'inlineExtension') {
+			const $pos = tr.doc.resolve(pos);
+			const parent = findParentNodeOfTypeClosestToPos($pos, bodiedSyncBlock);
+			if (parent?.node.attrs.resourceId) {
+				const mappedPos = tr.mapping.invert().map(pos);
+				const nodeBefore = state.doc.nodeAt(mappedPos);
+				if (!nodeBefore || nodeBefore.type.name !== 'inlineExtension') {
+					resourceId = parent.node.attrs.resourceId as string;
+					return false;
+				}
+			}
+		}
+		return true;
+	});
+	return resourceId;
 };

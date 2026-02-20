@@ -18,14 +18,36 @@ import type { DatasourceAdfView } from '@atlaskit/link-datasource';
 import { DatasourceTableView } from '@atlaskit/link-datasource';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/schema';
 import { token } from '@atlaskit/tokens';
 import { N40 } from '@atlaskit/theme/colors';
 import { calcBreakoutWidth, canRenderDatasource } from '@atlaskit/editor-common/utils';
 import { usePortal } from '../../ui/Renderer/PortalContext';
+import { RendererCssClassName } from '../../consts';
+
+const datasourceCenterWrapperStyles = css({
+	marginTop: token('space.150', '0.75rem'),
+	marginBottom: token('space.150', '0.75rem'),
+});
 
 const datasourceContainerStyleWithMarginTop = css({
+	borderRadius: `${token('radius.large', '8px')}`,
+	border: `${token('border.width')} solid ${token('color.border', N40)}`,
+	overflow: 'hidden',
+	marginTop: `${token('space.150', '0.75rem')}`,
+	marginBottom: `${token('space.150', '0.75rem')}`,
+});
+
+// No vertical margin when inside center wrapper (wrapper has margin so it participates in collapse). Styles from datasourceContainerStyleLegacy
+const datasourceContainerStyleNoVerticalMargin = css({
+	borderRadius: `${token('radius.large', '8px')}`,
+	border: `${token('border.width')} solid ${token('color.border', N40)}`,
+	overflow: 'hidden',
+});
+
+const datasourceContainerStyleLegacy = css({
 	borderRadius: `${token('radius.large', '8px')}`,
 	border: `${token('border.width')} solid ${token('color.border', N40)}`,
 	overflow: 'hidden',
@@ -112,30 +134,55 @@ export default function BlockCard(props: {
 						{...cardProps}
 					>
 						<WidthConsumer>
-							{({ width }) => (
-								<div
-									css={datasourceContainerStyleWithMarginTop}
-									data-testid="renderer-datasource-table"
-									data-local-id={localId}
-									style={{
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-										width: isNodeNested ? '100%' : calcBreakoutWidth(layout, width),
-									}}
-								>
-									<DatasourceTableView
-										datasourceId={datasource.id}
-										parameters={datasource.parameters}
-										visibleColumnKeys={visibleColumnKeys}
-										columnCustomSizes={columnCustomSizes}
-										wrappedColumnKeys={
-											wrappedColumnKeys && wrappedColumnKeys.length > 0
-												? wrappedColumnKeys
-												: undefined
+							{({ width }) => {
+								const useStickySafeCentering = expValEquals('platform_editor_flex_based_centering', 'isEnabled', true);
+								const useCenterWrapper = !isNodeNested && useStickySafeCentering;
+								const datasourceDiv = (
+									<div
+										css={
+											useCenterWrapper
+												? datasourceContainerStyleNoVerticalMargin
+												: useStickySafeCentering
+													? datasourceContainerStyleWithMarginTop
+													: datasourceContainerStyleLegacy
 										}
-										url={url}
-									/>
-								</div>
-							)}
+										data-testid="renderer-datasource-table"
+										data-local-id={localId}
+										style={{
+											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+											width: isNodeNested ? '100%' : calcBreakoutWidth(layout, width),
+										}}
+									>
+										<DatasourceTableView
+											datasourceId={datasource.id}
+											parameters={datasource.parameters}
+											visibleColumnKeys={visibleColumnKeys}
+											columnCustomSizes={columnCustomSizes}
+											wrappedColumnKeys={
+												wrappedColumnKeys && wrappedColumnKeys.length > 0
+													? wrappedColumnKeys
+													: undefined
+											}
+											url={url}
+										/>
+									</div>
+								);
+								return useCenterWrapper ? (
+									<div
+										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+										className={
+											RendererCssClassName.BLOCK_CARD_DATASOURCE_CENTER_WRAPPER +
+											' ' +
+											RendererCssClassName.FLEX_CENTER_WRAPPER
+										}
+										css={datasourceCenterWrapperStyles}
+									>
+										{datasourceDiv}
+									</div>
+								) : (
+									datasourceDiv
+								);
+							}}
 						</WidthConsumer>
 					</CardErrorBoundary>
 				</AnalyticsContext>

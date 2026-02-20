@@ -1,10 +1,13 @@
+import type {
+    ADFCommonNodeSpec,
+    ADFNode} from '@atlaskit/adf-schema-generator';
 import {
 	adfNode,
 	JSONSchemaTransformerName,
 	ValidatorSpecTransformerName,
 } from '@atlaskit/adf-schema-generator';
 
-export const image = adfNode('image').define({
+export const image: ADFNode<[string], ADFCommonNodeSpec> = adfNode('image').define({
 	ignore: [JSONSchemaTransformerName, ValidatorSpecTransformerName],
 
 	inline: true,

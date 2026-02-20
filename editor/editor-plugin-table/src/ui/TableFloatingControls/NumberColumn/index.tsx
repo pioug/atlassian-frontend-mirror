@@ -6,6 +6,7 @@ import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isRowSelected } from '@atlaskit/editor-tables/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { clearHoverSelection } from '../../../pm-plugins/commands';
 import { getRowHeights } from '../../../pm-plugins/utils/row-controls';
@@ -81,15 +82,23 @@ export default class NumberColumn extends Component<Props, any> {
 							data-index={index}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							style={this.getCellStyles(index, rowHeight)}
-							// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
+							onFocus={
+								expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
+									? () => updateCellHoverLocation(index)
+									: undefined
+							}
 							onMouseOver={() => updateCellHoverLocation(index)}
 						>
 							{hasHeaderRow ? (index > 0 ? index : null) : index + 1}
 						</div>
 					) : (
-						// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
 						<div
 							// Ignored via go/ees005
+							role={
+								expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
+									? 'button'
+									: undefined
+							}
 							// eslint-disable-next-line react/no-array-index-key
 							key={`wrapper-${index}`}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -98,10 +107,36 @@ export default class NumberColumn extends Component<Props, any> {
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							style={this.getCellStyles(index, rowHeight)}
 							onClick={(event) => this.selectRow(index, event)}
-							// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
+							onFocus={
+								expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
+									? () => this.hoverRows(index)
+									: undefined
+							}
 							onMouseOver={() => this.hoverRows(index)}
-							// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
+							tabIndex={
+								expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
+									? 0
+									: undefined
+							}
+							onKeyDown={
+								expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
+									? (event) => {
+											if (event.key === 'Enter' || event.key === ' ') {
+												event.preventDefault();
+												this.selectRow(
+													index,
+													event as unknown as React.MouseEvent<HTMLDivElement, MouseEvent>,
+												);
+											}
+										}
+									: undefined
+							}
 							onMouseOut={this.clearHoverSelection}
+							onBlur={
+								expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
+									? this.clearHoverSelection
+									: undefined
+							}
 						>
 							{hasHeaderRow ? (index > 0 ? index : null) : index + 1}
 						</div>

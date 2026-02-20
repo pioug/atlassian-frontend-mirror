@@ -55,6 +55,11 @@ const containerStyles = css({
 	'&:first-child > .ak-renderer-extension': {
 		marginTop: 0,
 	},
+	// When patch is on, direct child is center wrapper (not extension); same first-child behaviour
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
+	'&:first-child > .ak-renderer-sticky-safe-center-wrapper': {
+		marginTop: 0,
+	},
 });
 
 const MultiBodiedExtensionChildrenContainer = ({ children }: React.PropsWithChildren) => {
@@ -254,6 +259,20 @@ const MultiBodiedExtension = (props: Props) => {
 	`;
 
 	if (expValEquals('platform_editor_renderer_extension_width_fix', 'isEnabled', true)) {
+		const isTopLevel = path.length < 1;
+		const useCenterWrapper =
+			isTopLevel &&
+			['wide', 'full-width'].includes(layout) &&
+			expValEquals('platform_editor_flex_based_centering', 'isEnabled', true);
+		const wrapper = (
+			<MultiBodiedExtensionWrapperNext
+				layout={layout}
+				path={path}
+				rendererAppearance={rendererAppearance}
+			>
+				{renderContent()}
+			</MultiBodiedExtensionWrapperNext>
+		);
 		return (
 			<section
 				css={[containerStyles, containerActiveFrameStyles]}
@@ -264,16 +283,29 @@ const MultiBodiedExtension = (props: Props) => {
 				data-local-id={localId}
 				data-node-type="multiBodiedExtension"
 			>
-				<MultiBodiedExtensionWrapperNext
-					layout={layout}
-					path={path}
-					rendererAppearance={rendererAppearance}
-				>
-					{renderContent()}
-				</MultiBodiedExtensionWrapperNext>
+				{useCenterWrapper ? (
+					<div
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+						className={
+							RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER +
+							' ' +
+							RendererCssClassName.FLEX_CENTER_WRAPPER
+						}
+					>
+						{wrapper}
+					</div>
+				) : (
+					wrapper
+				)}
 			</section>
 		);
 	}
+
+	const isTopLevel = path.length < 1;
+	const useCenterWrapper =
+		isTopLevel &&
+			['wide', 'full-width'].includes(layout) &&
+			expValEquals('platform_editor_flex_based_centering', 'isEnabled', true);
 
 	return (
 		<section
@@ -285,16 +317,32 @@ const MultiBodiedExtension = (props: Props) => {
 			data-local-id={localId}
 		>
 			<WidthConsumer>
-				{({ width }) => (
-					<MultiBodiedExtensionWrapperLegacy
-						layout={layout}
-						width={width}
-						path={path}
-						rendererAppearance={rendererAppearance}
-					>
-						{renderContent()}
-					</MultiBodiedExtensionWrapperLegacy>
-				)}
+				{({ width }) => {
+					const wrapper = (
+						<MultiBodiedExtensionWrapperLegacy
+							layout={layout}
+							width={width}
+							path={path}
+							rendererAppearance={rendererAppearance}
+						>
+							{renderContent()}
+						</MultiBodiedExtensionWrapperLegacy>
+					);
+					return useCenterWrapper ? (
+						<div
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+							className={
+								RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER +
+								' ' +
+								RendererCssClassName.FLEX_CENTER_WRAPPER
+							}
+						>
+							{wrapper}
+						</div>
+					) : (
+						wrapper
+					);
+				}}
 			</WidthConsumer>
 		</section>
 	);

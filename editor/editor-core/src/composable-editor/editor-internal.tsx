@@ -124,7 +124,7 @@ export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.E
 								: {
 										'data-vc-ignore-if-no-layout-shift': true,
 										'data-ssr-placeholder-replace': 'fallback',
-								  }
+									}
 							: {})}
 					>
 						<EditorContext editorActions={editorActions}>
@@ -169,6 +169,7 @@ export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.E
 													minHeight={props.minHeight}
 													onSave={props.onSave ? handleSave : undefined}
 													onCancel={props.onCancel}
+													onSSRMeasure={props.onSSRMeasure}
 													popupsMountPoint={props.popupsMountPoint}
 													popupsBoundariesElement={props.popupsBoundariesElement}
 													popupsScrollableElement={props.popupsScrollableElement}

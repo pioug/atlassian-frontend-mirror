@@ -147,13 +147,13 @@ const handleMouseTripleClickInTables = (event: MouseEvent) => {
 
 	const elementToSelect: Element | null | undefined = anchorInCell
 		? // Ignored via go/ees005
-		  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		  anchorNode!.parentElement?.closest('div,p')
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			anchorNode!.parentElement?.closest('div,p')
 		: focusInCell
-		? // Ignored via go/ees005
-		  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		  focusNode!.parentElement?.closest('div,p')
-		: tableCell;
+			? // Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+				focusNode!.parentElement?.closest('div,p')
+			: tableCell;
 	if (elementToSelect) {
 		selection.selectAllChildren(elementToSelect);
 	}
@@ -238,25 +238,21 @@ export const RendererFunctionalComponent = (
 		[props.dataProviders],
 	);
 
-	const { contentMode: parentContextContentMode, nestedRendererType } = useRendererContext();
+	const { nestedRendererType } = useRendererContext();
 
 	const createRendererContext = useMemo(
 		() =>
 			(
 				featureFlags: RendererProps['featureFlags'],
 				isTopLevelRenderer: RendererProps['isTopLevelRenderer'],
-				contentMode?: RendererProps['contentMode'],
 			) => {
 				const normalizedFeatureFlags = normalizeFeatureFlags(featureFlags);
 				return {
 					featureFlags: normalizedFeatureFlags,
 					isTopLevelRenderer: isTopLevelRenderer === undefined,
-					...(fg('platform_editor_content_mode_render_context') && {
-						contentMode: contentMode || parentContextContentMode,
-					}),
 				};
 			},
-		[parentContextContentMode],
+		[],
 	);
 
 	const fireAnalyticsEventOld: FireAnalyticsCallback = useCallback(
@@ -302,11 +298,7 @@ export const RendererFunctionalComponent = (
 					annotationProvider.inlineComment &&
 					annotationProvider.inlineComment.allowDraftMode,
 			);
-			const { featureFlags } = createRendererContext(
-				props.featureFlags,
-				props.isTopLevelRenderer,
-				props.contentMode,
-			);
+			const { featureFlags } = createRendererContext(props.featureFlags, props.isTopLevelRenderer);
 			return {
 				startPos: props.startPos ?? 0,
 				providers: providerFactory,
@@ -449,7 +441,7 @@ export const RendererFunctionalComponent = (
 										NORMAL_SEVERITY_THRESHOLD,
 									analyticsEventSeverityTracking?.severityDegradedThreshold ??
 										DEGRADED_SEVERITY_THRESHOLD,
-							  )
+								)
 							: undefined;
 
 					const isTTRTrackingExplicitlyDisabled = analyticsEventSeverityTracking?.enabled === false;
@@ -554,16 +546,10 @@ export const RendererFunctionalComponent = (
 
 	const rendererContext = useMemo(
 		() => ({
-			...createRendererContext(props.featureFlags, props.isTopLevelRenderer, props.contentMode),
+			...createRendererContext(props.featureFlags, props.isTopLevelRenderer),
 			timeZone: props.timeZone,
 		}),
-		[
-			props.featureFlags,
-			props.isTopLevelRenderer,
-			createRendererContext,
-			props.contentMode,
-			props.timeZone,
-		],
+		[props.featureFlags, props.isTopLevelRenderer, createRendererContext, props.timeZone],
 	);
 
 	useScrollToBlock(editorRef, props.document);
@@ -604,11 +590,7 @@ export const RendererFunctionalComponent = (
 								<RendererWrapper
 									allowAnnotations={props.allowAnnotations}
 									appearance={props.appearance}
-									contentMode={
-										fg('platform_editor_content_mode_render_context')
-											? props.contentMode || rendererContext.contentMode || 'standard'
-											: props.contentMode || 'standard'
-									}
+									contentMode={props.contentMode || 'standard'}
 									allowNestedHeaderLinks={isNestedHeaderLinksEnabled(props.allowHeadingAnchorLinks)}
 									allowColumnSorting={props.allowColumnSorting}
 									allowCopyToClipboard={props.allowCopyToClipboard}
@@ -665,11 +647,7 @@ export const RendererFunctionalComponent = (
 			<RendererWrapper
 				allowAnnotations={props.allowAnnotations}
 				appearance={props.appearance}
-				contentMode={
-					fg('platform_editor_content_mode_render_context')
-						? props.contentMode || rendererContext.contentMode || 'standard'
-						: props.contentMode || 'standard'
-				}
+				contentMode={props.contentMode || 'standard'}
 				allowCopyToClipboard={props.allowCopyToClipboard}
 				allowWrapCodeBlock={props.allowWrapCodeBlock}
 				allowPlaceholderText={props.allowPlaceholderText}
@@ -688,7 +666,6 @@ export const RendererFunctionalComponent = (
 };
 
 const RendererFunctionalComponentMemoized = React.memo(RendererFunctionalComponent);
-
 const RendererFunctionalComponentWithPortalContext = React.memo(
 	(props: ComponentProps<typeof RendererFunctionalComponent>) => {
 		// If nodeComponents are provided, we don't remove portal from props and use context instead,

@@ -23,5 +23,3 @@ export function UFOThirdPartySegment(props: Omit<SegmentProps, 'type'>): React.J
 		</UFOSegment>
 	);
 }
-
-UFOThirdPartySegment.displayName = 'UFOThirdPartySegment';

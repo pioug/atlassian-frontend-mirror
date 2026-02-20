@@ -10,6 +10,8 @@ export type {
 	WhiteboardContextPayloadData,
 	BrowserContextPayloadData,
 	DatabaseContextPayloadData,
+	DatabaseContextUpdatePayloadData,
+	DatabaseContextPayload,
 	AddStatusRovoPayload,
 	UpdateStatusRovoPayload,
 	DeleteStatusRovoPayload,

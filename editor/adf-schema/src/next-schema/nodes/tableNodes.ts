@@ -1,3 +1,7 @@
+import type {
+	ADFNode,
+	ADFCommonNodeSpec,
+} from '@atlaskit/adf-schema-generator';
 import { $onePlus, $or, adfNode } from '@atlaskit/adf-schema-generator';
 import { fragment } from '../marks/fragment';
 import { unsupportedMark } from '../marks/unsupportedMark';
@@ -13,7 +17,7 @@ import { nestedExpand } from './nestedExpand';
 import { unsupportedBlock } from './unsupportedBlock';
 
 // Declare early to allow for circular references within the file
-const table = adfNode('table');
+const table: ADFNode<[string], ADFCommonNodeSpec> = adfNode('table');
 
 const tableCell = adfNode('tableCell')
 	.define({

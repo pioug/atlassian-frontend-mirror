@@ -33,10 +33,12 @@ interface CommonProps {
 	 * Sets the view when the element blurs and loses focus (this can happen when a user clicks away).
 	 * When set to true, inline edit stays in `editView` when blurred.
 	 */
+	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	keepEditViewOpenOnBlur?: boolean;
 	/**
 	 * Sets whether the confirm and cancel action buttons are displayed in the bottom right of the field.
 	 */
+	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	hideActionButtons?: boolean;
 	/**
 	 * Determines whether the input value can be confirmed as empty.
@@ -45,6 +47,7 @@ interface CommonProps {
 	/**
 	 * Determines whether the `readView` has 100% width within its container, or whether it fits the content.
 	 */
+	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	readViewFitContainerWidth?: boolean;
 	/**
 	 * Accessibility label for button, which is used to enter `editView` from keyboard.
@@ -63,6 +66,7 @@ interface CommonProps {
 	 * Determines whether it begins in `editView` or `readView`. When set to true, `isEditing` begins as true and the inline edit
 	 * starts in `editView`.
 	 */
+	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	startWithEditViewOpen?: boolean;
 	/**
 	 * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests

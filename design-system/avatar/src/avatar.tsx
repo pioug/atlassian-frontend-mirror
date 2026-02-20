@@ -134,6 +134,20 @@ export interface AvatarPropTypes {
 	 * Defines the loading behaviour of the avatar image. Default value is eager.
 	 */
 	imgLoading?: 'lazy' | 'eager';
+	/**
+	 * Identifies the popup element that the avatar controls.
+	 * Used when Avatar is a trigger for a popup.
+	 */
+	'aria-controls'?: string;
+	/**
+	 * Announces to assistive technology whether the controlled popup is currently open or closed.
+	 */
+	'aria-expanded'?: boolean;
+	/**
+	 * Informs assistive technology that this element triggers a popup.
+	 * When set, Avatar will render as a `<button>` element even without `onClick`.
+	 */
+	'aria-haspopup'?: boolean | 'dialog';
 }
 
 /**
@@ -169,6 +183,9 @@ const Avatar: React.ForwardRefExoticComponent<
 			as: AvatarContainer = 'div',
 			isDecorative = false,
 			imgLoading,
+			'aria-controls': ariaControls,
+			'aria-expanded': ariaExpanded,
+			'aria-haspopup': ariaHasPopup,
 		},
 		ref,
 	) => {
@@ -240,7 +257,7 @@ const Avatar: React.ForwardRefExoticComponent<
 			.filter(Boolean)
 			.join(' ');
 
-		const isInteractive = onClick || href || isDisabled;
+		const isInteractive = onClick || href || isDisabled || ariaHasPopup;
 		const containerShouldBeImage = Boolean(!isInteractive && defaultLabel);
 
 		return (
@@ -255,7 +272,7 @@ const Avatar: React.ForwardRefExoticComponent<
 				>
 					<AvatarContentContext.Provider
 						value={{
-							as: getCustomElement(isDisabled, href, onClick),
+							as: getCustomElement(isDisabled, href, onClick, ariaHasPopup),
 							appearance,
 							borderColor,
 							href,
@@ -267,6 +284,9 @@ const Avatar: React.ForwardRefExoticComponent<
 							stackIndex,
 							target,
 							testId: testId ? `${testId}--inner` : undefined,
+							'aria-controls': ariaControls,
+							'aria-expanded': ariaExpanded,
+							'aria-haspopup': ariaHasPopup,
 							avatarImage: (
 								<AvatarImage
 									alt={!containerShouldBeImage && src ? name : undefined}

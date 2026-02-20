@@ -13,6 +13,8 @@ export type WindowWithReactUFOTestGlobals = typeof window & {
 	__websiteReactUfoExtraMetrics: Array<ReactUFOPayload>;
 	__websiteReactUfoExtraSearchPageInteraction: Array<ReactUFOPayload>;
 	__websiteReactUfoTerminalErrors: Array<TerminalErrorPayload>;
+	// Flag to track whether UFO is disabled via config.enabled = false
+	__websiteReactUfoDisabled?: boolean;
 	// Best way to found out when a DOM was "rendered"
 	// We are adding a Mutation Observer inside the `./fixtures.ts`
 	// using the `page.addInitScript`.

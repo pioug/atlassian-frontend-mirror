@@ -1,6 +1,7 @@
+import type { ADFMark, ADFMarkSpec } from '@atlaskit/adf-schema-generator';
 import { adfMark, adfMarkGroup } from '@atlaskit/adf-schema-generator';
 
-export const link = adfMark('link');
+export const link: ADFMark<ADFMarkSpec> = adfMark('link');
 
 // import { linkMarketGroup } from '../groups/linkMarkGroup' would cause circular deps issue
 const linkMarkGroup = adfMarkGroup('link', [link]);

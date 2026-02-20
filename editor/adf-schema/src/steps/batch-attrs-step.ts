@@ -81,7 +81,7 @@ export class BatchAttrsStep extends Step {
 		super();
 	}
 
-	apply(doc: PMNode) {
+	apply(doc: PMNode): StepResult {
 		const resultDoc = this.data.reduce((acc, value) => {
 			if (!acc.doc || acc.failed) {
 				return acc;
@@ -116,7 +116,7 @@ export class BatchAttrsStep extends Step {
 		return resultDoc;
 	}
 
-	invert(doc: PMNode) {
+	invert(doc: PMNode): BatchAttrsStep {
 		const previousData = this.data.reduce((acc, value) => {
 			const { position, nodeType, attrs: nextAttrs } = value;
 
@@ -157,7 +157,7 @@ export class BatchAttrsStep extends Step {
 		return new BatchAttrsStep(previousData, true);
 	}
 
-	map(mapping: Mappable) {
+	map(mapping: Mappable): BatchAttrsStep | null {
 		const mappedData = this.data.reduce((acc, value) => {
 			const { position } = value;
 
@@ -182,7 +182,11 @@ export class BatchAttrsStep extends Step {
 		return new BatchAttrsStep(mappedData, this.inverted);
 	}
 
-	toJSON() {
+	toJSON(): {
+        data: BatchAttrsStepData[];
+        inverted: boolean;
+        stepType: string;
+    } {
 		return {
 			stepType,
 			data: this.data,
@@ -193,7 +197,7 @@ export class BatchAttrsStep extends Step {
 	static fromJSON(
 		_schema: Schema,
 		json: { data: Array<Record<string, unknown>>; inverted?: boolean },
-	) {
+	): BatchAttrsStep {
 		const data = json?.data;
 		if (!isValidData(data)) {
 			throw new Error('Invalid input for BatchAttrsStep.fromJSON');

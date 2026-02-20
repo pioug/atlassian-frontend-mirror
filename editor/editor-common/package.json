@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "111.16.0",
+	"version": "111.16.5",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -102,6 +102,7 @@
 		"./performance/navigation": "./src/utils/performance/navigation.ts",
 		"./performance/measure-render": "./src/utils/performance/measure-render.ts",
 		"./performance/measure-tti": "./src/utils/performance/measure-tti.ts",
+		"./performance/ssr-measures": "./src/performance-ssr-measures/index.ts",
 		"./use-component-render-tracking": "./src/utils/performance/hooks/use-component-render-tracking/index.tsx",
 		"./error-reporter": "./src/utils/error-reporter.ts",
 		"./process-raw-value": "./src/utils/processRawValue.ts",
@@ -325,6 +326,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_fix_unsubscribe_of_provider": {
+			"type": "boolean"
+		},
+		"platform_editor_fix_getautoconverter_null_error": {
 			"type": "boolean"
 		},
 		"platform_editor_legacy_content_macro_visual_update": {

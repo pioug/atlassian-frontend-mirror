@@ -1,4 +1,3 @@
-import AnalyticsWebClient from '@atlassiansox/analytics-web-client';
 import { type Experiment, type Layer, type StatsigClient } from '@statsig/js-client';
 import fetchMock, { type MockResponseInit } from 'jest-fetch-mock';
 
@@ -49,6 +48,11 @@ jest.mock('../NoFetchDataAdapter', () => {
 	};
 });
 const mockDataAdapter = jest.mocked(new NoFetchDataAdapter());
+
+// Mock AnalyticsWebClient to avoid pulling in 30k+ downstream files from @atlassiansox/analytics-web-client
+class MockAnalyticsWebClient {
+	sendOperationalEvent = jest.fn();
+}
 
 const TARGET_APP = 'test';
 const EXPECTED_VALUES_DEV_URL = `https://api.dev.atlassian.com/flags/api/v2/frontend/experimentValues`;
@@ -117,10 +121,7 @@ describe('FeatureGate client', () => {
 	const mockClientSdkKey = 'client-mock-sdk-key';
 	const mockApiKey = 'mock-api-key';
 	const mockExperimentValues = { test: '123' };
-	const client = new AnalyticsWebClient({
-		env: 'local',
-		product: 'js-client',
-	});
+	const client = new MockAnalyticsWebClient();
 	let sendOperationalEventSpy: jest.SpyInstance;
 	let mockProvider: Provider;
 

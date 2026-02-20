@@ -1,9 +1,10 @@
+import type { ADFCommonNodeSpec, ADFNode} from '@atlaskit/adf-schema-generator';
 import { adfNode } from '@atlaskit/adf-schema-generator';
 import { annotation } from '../marks/annotation';
 import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
 
-export const status = adfNode('status').define({
+export const status: ADFNode<[string], ADFCommonNodeSpec> = adfNode('status').define({
 	inline: true,
 	selectable: true,
 

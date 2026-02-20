@@ -18,6 +18,7 @@ export interface LinkAttributes {
 	__confluenceMetadata?: ConfluenceLinkMetadata;
 	collection?: string;
 	/**
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @validatorFn safeUrl
 	 */
 	href: string;
@@ -35,7 +36,10 @@ export interface LinkDefinition {
 	type: 'link';
 }
 
-export const getLinkAttrs = (attribute: string) => (domNode: Node | string) => {
+export const getLinkAttrs = (attribute: string) => (domNode: Node | string): false | {
+    __confluenceMetadata: string;
+    href?: string;
+} => {
 	const dom = domNode as HTMLLinkElement;
 
 	const href = dom.getAttribute(attribute) || '';
@@ -114,7 +118,10 @@ export const link: MarkSpec = linkFactory({
 
 const OPTIONAL_ATTRS = ['title', 'id', 'collection', 'occurrenceKey', '__confluenceMetadata'];
 
-export const toJSON = (mark: Mark) => ({
+export const toJSON = (mark: Mark): {
+    attrs: Record<string, string>;
+    type: string;
+} => ({
 	type: mark.type.name,
 	attrs: Object.keys(mark.attrs).reduce<Record<string, string>>((attrs, key) => {
 		if (OPTIONAL_ATTRS.indexOf(key) === -1 || mark.attrs[key] !== null) {

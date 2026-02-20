@@ -66,6 +66,7 @@ const InlineEditableTextfield = (props: InlineEditableTextfieldProps): React.JSX
 
 	return (
 		<InlineEdit
+			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 			{...props}
 			onCancel={onCancel}
 			defaultValue={defaultValue}

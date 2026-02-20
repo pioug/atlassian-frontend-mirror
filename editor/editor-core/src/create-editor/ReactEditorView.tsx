@@ -22,10 +22,18 @@ import {
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { createDispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { useConstructor, usePreviousState } from '@atlaskit/editor-common/hooks';
+import { isPerformanceAPIAvailable } from '@atlaskit/editor-common/is-performance-api-available';
 import { nodeVisibilityManager } from '@atlaskit/editor-common/node-visibility';
 import { getEnabledFeatureFlagKeys } from '@atlaskit/editor-common/normalize-feature-flags';
 import { measureRender } from '@atlaskit/editor-common/performance/measure-render';
-import { getResponseEndTime } from '@atlaskit/editor-common/performance/navigation';
+import {
+	getRequestToResponseTime,
+	getResponseEndTime,
+} from '@atlaskit/editor-common/performance/navigation';
+import {
+	profileSSROperation,
+	SSRRenderMeasure,
+} from '@atlaskit/editor-common/performance/ssr-measures';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type {
 	AllEditorPresetPluginTypes,
@@ -59,6 +67,7 @@ import type { DirectEditorProps } from '@atlaskit/editor-prosemirror/view';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { EditorSSRRenderer } from '@atlaskit/editor-ssr-renderer';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { getInteractionId } from '@atlaskit/react-ufo/interaction-id-context';
 import { abortAll, getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
@@ -69,6 +78,7 @@ import type { EditorViewStateUpdatedCallbackProps } from '../types/editor-config
 import type { EditorNextProps } from '../types/editor-props';
 import { createFeatureFlagsFromProps } from '../utils/feature-flags-from-props';
 import { getNodesCount } from '../utils/getNodesCount';
+import { getNodesCountWithExtensionKeys } from '../utils/getNodesCountWithExtensionKeys';
 import { getNodesVisibleInViewport } from '../utils/getNodesVisibleInViewport';
 import { isChromeless } from '../utils/is-chromeless';
 import { isFullPage } from '../utils/is-full-page';
@@ -90,6 +100,8 @@ import { useDispatchTransaction } from './ReactEditorView/useDispatchTransaction
 import { useFireFullWidthEvent } from './ReactEditorView/useFireFullWidthEvent';
 
 const EDIT_AREA_ID = 'ak-editor-textarea';
+const SSR_TRACE_SEGMENT_NAME = 'reactEditorView';
+const bootStartTime = isPerformanceAPIAvailable() ? performance.now() : undefined;
 
 export interface EditorViewProps extends WrappedComponentProps {
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
@@ -109,6 +121,11 @@ export interface EditorViewProps extends WrappedComponentProps {
 		eventDispatcher: EventDispatcher;
 		transformer?: Transformer<string>;
 		view: EditorView;
+	}) => void;
+	onSSRMeasure?: (measure: {
+		endTimestamp: number;
+		segmentName: string;
+		startTimestamp: number;
 	}) => void;
 	portalProviderAPI: PortalProviderAPI;
 	preset: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>;
@@ -143,9 +160,13 @@ type ReactEditorViewPlugins = [
 ];
 
 export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
+	// Should be always the first statement in the component
+	const firstRenderStartTimestampRef = useRef(performance.now());
+
 	const {
 		preset,
 		editorProps: {
+			onSSRMeasure,
 			appearance: nextAppearance,
 			disabled,
 			featureFlags: editorPropFeatureFlags,
@@ -157,6 +178,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 		onEditorCreated,
 		onEditorDestroyed,
 	} = props;
+
 	const [editorAPI, setEditorAPI] = useState<PublicPluginAPI<ReactEditorViewPlugins> | undefined>(
 		undefined,
 	);
@@ -643,8 +665,16 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 					);
 
 					if (viewRef.current) {
-						const nodes = getNodesCount(viewRef.current.state.doc);
+						const nodesAndExtensionKeys = expValEquals(
+							'platform_editor_prosemirror_rendered_data',
+							'isEnabled',
+							true,
+						)
+							? getNodesCountWithExtensionKeys(viewRef.current.state.doc)
+							: undefined;
+						const nodes = nodesAndExtensionKeys?.nodes ?? getNodesCount(viewRef.current.state.doc);
 						const ttfb = getResponseEndTime();
+						const requestToResponseTime = getRequestToResponseTime();
 
 						const contextIdentifier = pluginInjectionAPI.current
 							.api()
@@ -677,13 +707,36 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 												return '50000+';
 										}
 									})(),
-							  }
+								}
 							: {};
 
-						dispatchAnalyticsEvent({
-							action: ACTION.PROSEMIRROR_RENDERED,
-							actionSubject: ACTION_SUBJECT.EDITOR,
-							attributes: {
+						if (expValEquals('platform_editor_prosemirror_rendered_data', 'isEnabled', true)) {
+							const extensionKeys = nodesAndExtensionKeys?.extensionKeys ?? {};
+							const interaction = getActiveInteraction();
+							const pageLoadType = interaction?.type;
+							const pageType = interaction?.routeName;
+							const timings = (() => {
+								if (requestToResponseTime === undefined && bootStartTime === undefined) {
+									return undefined;
+								}
+
+								const timingValues: {
+									bootToRender?: number;
+									'requestStart->responseEnd'?: number;
+								} = {};
+
+								if (requestToResponseTime !== undefined) {
+									timingValues['requestStart->responseEnd'] = Math.round(requestToResponseTime);
+								}
+
+								if (bootStartTime !== undefined) {
+									timingValues.bootToRender = Math.round(startTime - bootStartTime);
+								}
+
+								return timingValues;
+							})();
+
+							const attributes = {
 								duration,
 								startTime,
 								nodes,
@@ -695,9 +748,41 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 								severity: proseMirrorRenderedSeverity,
 								objectId: contextIdentifier?.objectId,
 								distortedDuration,
-							},
-							eventType: EVENT_TYPE.OPERATIONAL,
-						});
+								pageLoadType,
+								pageType,
+								timings,
+								extensionKeys,
+								ufoInteractionId: getInteractionId().current,
+							};
+
+							dispatchAnalyticsEvent({
+								action: ACTION.PROSEMIRROR_RENDERED,
+								actionSubject: ACTION_SUBJECT.EDITOR,
+								attributes,
+								eventType: EVENT_TYPE.OPERATIONAL,
+							});
+						} else {
+							const attributes = {
+								duration,
+								startTime,
+								nodes,
+								nodesInViewport,
+								nodeSize,
+								nodeSizeBucket,
+								totalNodes,
+								ttfb,
+								severity: proseMirrorRenderedSeverity,
+								objectId: contextIdentifier?.objectId,
+								distortedDuration,
+							};
+
+							dispatchAnalyticsEvent({
+								action: ACTION.PROSEMIRROR_RENDERED,
+								actionSubject: ACTION_SUBJECT.EDITOR,
+								attributes,
+								eventType: EVENT_TYPE.OPERATIONAL,
+							});
+						}
 					}
 				},
 			);
@@ -1048,18 +1133,34 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 			return null;
 		}
 
-		const plugins = createPluginsList(
-			props.preset,
-			// Don't pass props.editorProps directly, because editoProps in the dependency will lead to
-			// multiple repaints, because props.editorPros is not stable object.
-			{ allowBlockType },
-			pluginInjectionAPI.current,
-		);
-		const schema = createSchema(processPluginsList(plugins));
-		const doc = buildDoc(schema);
+		const doCreatePluginList = () =>
+			createPluginsList(
+				props.preset,
+				// Don't pass props.editorProps directly, because editoProps in the dependency will lead to
+				// multiple repaints, because props.editorPros is not stable object.
+				{ allowBlockType },
+				pluginInjectionAPI.current,
+			);
+		const plugins = fg('platform_editor_better_editor_ssr_spans')
+			? profileSSROperation(
+					`${SSR_TRACE_SEGMENT_NAME}/createPluginsList`,
+					doCreatePluginList,
+					onSSRMeasure,
+				)
+			: doCreatePluginList();
+
+		const doCreateSchema = () => createSchema(processPluginsList(plugins));
+		const schema = fg('platform_editor_better_editor_ssr_spans')
+			? profileSSROperation(`${SSR_TRACE_SEGMENT_NAME}/createSchema`, doCreateSchema, onSSRMeasure)
+			: doCreateSchema();
+
+		const doBuildDoc = () => buildDoc(schema);
+		const doc = fg('platform_editor_better_editor_ssr_spans')
+			? profileSSROperation(`${SSR_TRACE_SEGMENT_NAME}/buildDoc`, doBuildDoc, onSSRMeasure)
+			: doBuildDoc();
 
 		return { plugins, schema, doc };
-	}, [allowBlockType, buildDoc, props.preset]);
+	}, [allowBlockType, buildDoc, props.preset, onSSRMeasure]);
 
 	const { assistiveLabel, assistiveDescribedBy } = props.editorProps;
 
@@ -1088,6 +1189,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				id={EDIT_AREA_ID}
 				aria-describedby={assistiveDescribedBy}
 				data-editor-id={editorId.current}
+				onSSRMeasure={onSSRMeasure}
 				onEditorStateChanged={(state) => {
 					ssrEditorStateRef.current = state;
 					// Notify listeners about the initial SSR state
@@ -1103,8 +1205,9 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 		props.intl,
 		props.portalProviderAPI,
 		assistiveLabel,
-		assistiveDescribedBy,
 		isPageAppearance,
+		assistiveDescribedBy,
+		onSSRMeasure,
 	]);
 
 	const editor = useMemo(
@@ -1129,38 +1232,44 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 		!fg('platform_editor_disable_rerender_tracking_jira') && !featureFlags.lcmPreventRenderTracking;
 
 	return (
-		<ReactEditorViewContext.Provider
-			value={{
-				editorRef: editorRef,
-				editorView: viewRef.current,
-				popupsMountPoint: props.editorProps.popupsMountPoint,
-			}}
+		<SSRRenderMeasure
+			segmentName={SSR_TRACE_SEGMENT_NAME}
+			startTimestampRef={firstRenderStartTimestampRef}
+			onSSRMeasure={fg('platform_editor_better_editor_ssr_spans') ? onSSRMeasure : undefined}
 		>
-			{renderTrackingEnabled && (
-				<RenderTracking
-					componentProps={props}
-					action={ACTION.RE_RENDERED}
-					actionSubject={ACTION_SUBJECT.REACT_EDITOR_VIEW}
-					handleAnalyticsEvent={handleAnalyticsEvent}
-					useShallow={true}
-				/>
-			)}
+			<ReactEditorViewContext.Provider
+				value={{
+					editorRef: editorRef,
+					editorView: viewRef.current,
+					popupsMountPoint: props.editorProps.popupsMountPoint,
+				}}
+			>
+				{renderTrackingEnabled && (
+					<RenderTracking
+						componentProps={props}
+						action={ACTION.RE_RENDERED}
+						actionSubject={ACTION_SUBJECT.REACT_EDITOR_VIEW}
+						handleAnalyticsEvent={handleAnalyticsEvent}
+						useShallow={true}
+					/>
+				)}
 
-			{props.render
-				? props.render?.({
-						editor,
-						view: viewRef.current,
-						config: config.current,
-						eventDispatcher: eventDispatcher,
-						transformer: contentTransformer.current,
-						dispatchAnalyticsEvent: dispatchAnalyticsEvent,
-						editorRef: editorRef,
-						editorAPI: expVal('platform_editor_no_state_plugin_injection_api', 'isEnabled', false)
-							? pluginInjectionAPI.current.api()
-							: editorAPI,
-				  }) ?? editor
-				: editor}
-		</ReactEditorViewContext.Provider>
+				{props.render
+					? (props.render?.({
+							editor,
+							view: viewRef.current,
+							config: config.current,
+							eventDispatcher: eventDispatcher,
+							transformer: contentTransformer.current,
+							dispatchAnalyticsEvent: dispatchAnalyticsEvent,
+							editorRef: editorRef,
+							editorAPI: expVal('platform_editor_no_state_plugin_injection_api', 'isEnabled', false)
+								? pluginInjectionAPI.current.api()
+								: editorAPI,
+						}) ?? editor)
+					: editor}
+			</ReactEditorViewContext.Provider>
+		</SSRRenderMeasure>
 	);
 }
 

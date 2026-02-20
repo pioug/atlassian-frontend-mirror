@@ -1,5 +1,44 @@
 # @atlaskit/editor-core
 
+## 216.11.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 216.11.2
+
+### Patch Changes
+
+- [`0eed66892511e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0eed66892511e) -
+  EDITOR-5120 - Add additional ProseMirror rendered analytics attributes behind the
+  platform_editor_prosemirror_rendered_data experiment.
+- Updated dependencies
+
+## 216.11.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 216.11.0
+
+### Minor Changes
+
+- [`cbc1403b3cae1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cbc1403b3cae1) -
+  [EDITOR-5094](https://hello.jira.atlassian.cloud/browse/EDITOR-5094) - add PerfPortal segments for
+  editor SSR logic
+
+### Patch Changes
+
+- Updated dependencies
+
+## 216.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 216.10.0
 
 ### Minor Changes

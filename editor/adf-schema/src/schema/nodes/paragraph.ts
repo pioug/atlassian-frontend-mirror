@@ -1,7 +1,11 @@
-import type { AlignmentMarkDefinition, IndentationMarkDefinition } from '../marks';
+import type {
+	AlignmentMarkDefinition,
+	IndentationMarkDefinition,
+} from '../marks';
 import type { MarksObject, NoMark } from './types/mark';
 import type { Inline } from './types/inline-content';
 import { paragraph as paragraphFactory } from '../../next-schema/generated/nodeTypes';
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 export interface ParagraphAttributes {
 	/**
@@ -16,6 +20,7 @@ export interface ParagraphAttributes {
 export interface ParagraphBaseDefinition {
 	attrs?: ParagraphAttributes;
 	/**
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @allowUnsupportedInline true
 	 */
 	content?: Array<Inline>;
@@ -54,7 +59,7 @@ export type ParagraphWithMarksDefinition =
 	| ParagraphWithAlignmentDefinition
 	| ParagraphWithIndentationDefinition;
 
-export const paragraph = paragraphFactory({
+export const paragraph: NodeSpec = paragraphFactory({
 	parseDOM: [
 		{
 			tag: 'p',
@@ -62,7 +67,9 @@ export const paragraph = paragraphFactory({
 				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				const dom = domNode as HTMLElement;
 				const attrs: ParagraphAttributes = {
-					localId: dom.getAttribute('data-local-id') || paragraph.attrs?.localId?.default,
+					localId:
+						dom.getAttribute('data-local-id') ||
+						paragraph.attrs?.localId?.default,
 				};
 				return attrs;
 			},
@@ -71,7 +78,10 @@ export const paragraph = paragraphFactory({
 	toDOM(node) {
 		const { localId } = node.attrs;
 		const name = 'p';
-		const attrs = localId !== undefined && localId !== null ? [{ 'data-local-id': localId }] : [];
+		const attrs =
+			localId !== undefined && localId !== null
+				? [{ 'data-local-id': localId }]
+				: [];
 		return [name, ...attrs, 0];
 	},
 });

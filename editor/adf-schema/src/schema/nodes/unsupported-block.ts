@@ -1,12 +1,15 @@
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 import { unsupportedBlock as unsupportedBlockFactory } from '../../next-schema/generated/nodeTypes';
 
-export const unsupportedBlock = unsupportedBlockFactory({
+export const unsupportedBlock: NodeSpec = unsupportedBlockFactory({
 	parseDOM: [
 		{
 			tag: '[data-node-type="unsupportedBlock"]',
 			getAttrs: (dom) => ({
-				// eslint-disable-next-line @atlaskit/editor/no-as-casting
-				originalValue: JSON.parse((dom as HTMLElement).getAttribute('data-original-value') || '{}'),
+				originalValue: JSON.parse(
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
+					(dom as HTMLElement).getAttribute('data-original-value') || '{}',
+				),
 			}),
 		},
 	],

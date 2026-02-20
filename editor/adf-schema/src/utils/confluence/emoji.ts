@@ -16,7 +16,7 @@ const HC_EMOTICON_PREFIX = 'atlassian-';
  * Glyphs that do not map to Fabric Emoji
  * will be mapped to Emoji Id '2b50' (:star:) with preserving ac:name as shortName attribute;
  */
-const acNameToEmojiMap = {
+const acNameToEmojiMap: { 'blue-star': string[]; 'broken-heart': string[]; cheeky: string[]; cross: string[]; 'green-star': string[]; heart: string[]; information: string[]; laugh: string[]; 'light-off': string[]; 'light-on': string[]; minus: string[]; plus: string[]; question: string[]; 'red-star': string[]; sad: string[]; smile: string[]; 'thumbs-down': string[]; 'thumbs-up': string[]; tick: string[]; warning: string[]; wink: string[]; 'yellow-star': string[]; } = {
 	smile: ['1f642', ':slight_smile:', '\uD83D\uDE42'],
 	sad: ['1f641', ':slight_frown:', '\uD83D\uDE41'],
 	cheeky: ['1f61b', ':stuck_out_tongue:', '\uD83D\uDE1B'],
@@ -43,7 +43,11 @@ const acNameToEmojiMap = {
 
 export type NameToEmoji = keyof typeof acNameToEmojiMap;
 
-export function acNameToEmoji(acName: NameToEmoji) {
+export function acNameToEmoji(acName: NameToEmoji): {
+    id: string;
+    shortName: string;
+    text: string;
+} {
 	const emojiData = acNameToEmojiMap[acName];
 	return emojiData
 		? {
@@ -58,7 +62,7 @@ export function acNameToEmoji(acName: NameToEmoji) {
 			};
 }
 
-export function emojiIdToAcName(emojiId: string) {
+export function emojiIdToAcName(emojiId: string): never {
 	const filterEmojis = (acName: keyof typeof acNameToEmojiMap) =>
 		acNameToEmojiMap[acName] ? acNameToEmojiMap[acName][0] === emojiId : false;
 	return (Object.keys(acNameToEmojiMap) as Array<keyof typeof acNameToEmoji>).filter(
@@ -81,7 +85,7 @@ function getAcNameFromShortName(shortName: string) {
 	);
 }
 
-export function getEmojiAcName({ id, shortName }: { id: string; shortName: string }) {
+export function getEmojiAcName({ id, shortName }: { id: string; shortName: string }): string {
 	if (DEFAULT_EMOJI_ID === id) {
 		const possibleName = getAcNameFromShortName(shortName);
 		if (possibleName in acNameToEmojiMap) {

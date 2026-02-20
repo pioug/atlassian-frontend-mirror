@@ -1,4 +1,4 @@
-import type { Mark, MarkSpec } from '@atlaskit/editor-prosemirror/model';
+import type { Mark, MarkSpec , Attrs } from '@atlaskit/editor-prosemirror/model';
 import { dataConsumer as dataConsumerFactory } from '../../next-schema/generated/markTypes';
 import { isDOMElement } from '../../utils/parseDOM';
 
@@ -10,12 +10,14 @@ import { isDOMElement } from '../../utils/parseDOM';
  * We're keeping it to signal that data consumer `sources` shouldn't be empty
  * strings
  *
+ // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
  * // @minLength 1
  */
 type DataConsumerSource = string;
 
 export interface DataConsumerAttributes {
 	/**
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @minItems 1
 	 */
 	sources: Array<DataConsumerSource>;
@@ -36,7 +38,8 @@ export interface DataConsumerMark extends Mark {
 }
 
 const parseDataConsumer = (maybeValue: string | Node) => {
-	const sources = isDOMElement(maybeValue) && maybeValue.getAttribute('data-sources');
+	const sources =
+		isDOMElement(maybeValue) && maybeValue.getAttribute('data-sources');
 	try {
 		return sources ? { sources: JSON.parse(sources) } : false;
 	} catch {
@@ -74,7 +77,12 @@ export const dataConsumer: MarkSpec = dataConsumerFactory({
  * So we'll leave any extra transformation checks in
  * `editor-json-transformer`(?)
  */
-export const toJSON = (mark: Mark) => {
+export const toJSON = (
+	mark: Mark,
+): {
+	attrs: Attrs;
+	type: string;
+} => {
 	// // Remove intemediary state if we don't have any sources on data consumer
 	// if (mark.attrs?.sources?.length < 1) {
 	//   return null;
@@ -83,7 +91,12 @@ export const toJSON = (mark: Mark) => {
 	return {
 		type: mark.type.name,
 		attrs: Object.keys(mark.attrs)
-			.filter((key) => key === 'sources' && mark.attrs[key].length > 0 && mark.attrs[key] !== null)
+			.filter(
+				(key) =>
+					key === 'sources' &&
+					mark.attrs[key].length > 0 &&
+					mark.attrs[key] !== null,
+			)
 			.reduce<typeof mark.attrs>((acc, key) => {
 				return {
 					...acc,

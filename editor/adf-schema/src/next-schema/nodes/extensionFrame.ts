@@ -1,3 +1,4 @@
+import type { ADFCommonNodeSpec, ADFNode} from '@atlaskit/adf-schema-generator';
 import { $onePlus, $or, adfNode } from '@atlaskit/adf-schema-generator';
 import { dataConsumer } from '../marks/dataConsumer';
 import { fragment } from '../marks/fragment';
@@ -21,7 +22,7 @@ import { table } from './tableNodes';
 import { taskList } from './task';
 import { unsupportedBlock } from './unsupportedBlock';
 
-export const extensionFrame = adfNode('extensionFrame').define({
+export const extensionFrame: ADFNode<[string], ADFCommonNodeSpec> = adfNode('extensionFrame').define({
 	stage0: true,
 
 	isolating: true,

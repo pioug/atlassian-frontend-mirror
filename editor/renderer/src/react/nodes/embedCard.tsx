@@ -30,9 +30,11 @@ import {
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { CardErrorBoundary } from './fallback';
+import { RendererCssClassName } from '../../consts';
 
 import type { RendererAppearance } from '../../ui/Renderer/types';
 import { FullPagePadding } from '../../ui/Renderer/style';
@@ -55,8 +57,15 @@ const embedCardWrapperStyles = css({
 	margin: '0 auto',
 });
 
+const embedCardCenterWrapperStyles = css({
+	// Match MediaSingle calcMargin(layout) default for wide/full-width: 24px top/bottom (so wrapper participates in collapse)
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space -- Matches editor-common MediaSingle calcMargin
+	margin: '24px 0',
+});
+
+// Legacy centering when platform_editor_flex_based_centering is off.
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-const uIMediaSingleLayoutStyles = css({
+const uIMediaSingleLayoutStylesLegacy = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	marginLeft: '50%',
 	transform: 'translateX(-50%)',
@@ -191,8 +200,13 @@ function EmbedCardInternal(props: EmbedCardInternalProps) {
 						? Math.min(akEditorFullWidthLayoutWidth, containerWidth - padding)
 						: nonFullWidthSize;
 
+					const useStickySafeCentering = expValEquals('platform_editor_flex_based_centering', 'isEnabled', true);
 					const uiMediaSingleStyles =
-						layout === 'full-width' || layout === 'wide' ? uIMediaSingleLayoutStyles : '';
+						layout === 'full-width' || layout === 'wide'
+							? useStickySafeCentering
+								? undefined
+								: uIMediaSingleLayoutStylesLegacy
+							: '';
 
 					const onError = ({ err }: { err?: Error }) => {
 						if (err) {
@@ -254,34 +268,56 @@ function EmbedCardInternal(props: EmbedCardInternalProps) {
 								embedIframeRef={embedIframeRef}
 								onHeightUpdate={setLiveHeight}
 							>
-								<UIMediaSingle
-									css={uiMediaSingleStyles}
-									layout={layout}
-									width={originalWidth}
-									containerWidth={containerWidth}
-									pctWidth={width}
-									height={originalHeight}
-									fullWidthMode={isFullWidth}
-									nodeType="embedCard"
-									lineLength={isInsideOfBlockNode ? containerWidth : lineLength}
-									hasFallbackContainer={hasPreview}
-									isInsideOfInlineExtension={isInsideOfInlineExtension}
-								>
-									<div css={embedCardWrapperStyles}>
-										<div
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-											className="embedCardView-content-wrap"
-											data-embed-card
-											data-layout={layout}
-											data-width={width}
-											data-card-data={data ? JSON.stringify(data) : undefined}
-											data-card-url={url}
-											data-card-original-height={originalHeight}
+								{(() => {
+									const useCenterWrapper =
+										(layout === 'full-width' || layout === 'wide') &&
+										expValEquals('platform_editor_flex_based_centering', 'isEnabled', true);
+									const mediaSingle = (
+										<UIMediaSingle
+											css={uiMediaSingleStyles}
+											layout={layout}
+											width={originalWidth}
+											containerWidth={containerWidth}
+											pctWidth={width}
+											height={originalHeight}
+											fullWidthMode={isFullWidth}
+											nodeType="embedCard"
+											lineLength={isInsideOfBlockNode ? containerWidth : lineLength}
+											hasFallbackContainer={hasPreview}
+											isInsideOfInlineExtension={isInsideOfInlineExtension}
 										>
-											{cardComponent}
+											<div css={embedCardWrapperStyles}>
+												<div
+													// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+													className="embedCardView-content-wrap"
+													data-embed-card
+													data-layout={layout}
+													data-width={width}
+													data-card-data={data ? JSON.stringify(data) : undefined}
+													data-card-url={url}
+													data-card-original-height={originalHeight}
+												>
+													{cardComponent}
+												</div>
+											</div>
+										</UIMediaSingle>
+									);
+									return useCenterWrapper ? (
+										<div
+											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+											className={
+												RendererCssClassName.EMBED_CARD_CENTER_WRAPPER +
+												' ' +
+												RendererCssClassName.FLEX_CENTER_WRAPPER
+											}
+											css={embedCardCenterWrapperStyles}
+										>
+											{mediaSingle}
 										</div>
-									</div>
-								</UIMediaSingle>
+									) : (
+										mediaSingle
+									);
+								})()}
 							</EmbedResizeMessageListener>
 						</CardErrorBoundary>
 					);

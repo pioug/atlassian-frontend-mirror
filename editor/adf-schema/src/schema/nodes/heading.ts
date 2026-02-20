@@ -1,7 +1,11 @@
-import type { AlignmentMarkDefinition, IndentationMarkDefinition } from '../marks';
+import type {
+	AlignmentMarkDefinition,
+	IndentationMarkDefinition,
+} from '../marks';
 import type { MarksObject, NoMark } from './types/mark';
 import type { Inline } from './types/inline-content';
 import { heading as headingFactory } from '../../next-schema/generated/nodeTypes';
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 /**
  * @name heading_node
@@ -9,7 +13,9 @@ import { heading as headingFactory } from '../../next-schema/generated/nodeTypes
 export interface HeadingBaseDefinition {
 	attrs: {
 		/**
+		 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 		 * @minimum 1
+		 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 		 * @maximum 6
 		 */
 		level: number;
@@ -19,6 +25,7 @@ export interface HeadingBaseDefinition {
 		localId?: string;
 	};
 	/**
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @allowUnsupportedInline true
 	 */
 	content?: Array<Inline>;
@@ -56,7 +63,7 @@ const getAttrs = (level: number) => (domNode: string | HTMLElement) => ({
 		(domNode as HTMLElement).getAttribute('data-local-id') || null,
 });
 
-export const heading = headingFactory({
+export const heading: NodeSpec = headingFactory({
 	parseDOM: [
 		{ tag: 'h1', getAttrs: getAttrs(1) },
 		{ tag: 'h2', getAttrs: getAttrs(2) },
@@ -68,7 +75,10 @@ export const heading = headingFactory({
 	toDOM(node) {
 		const { level, localId } = node.attrs;
 		const name = 'h' + level;
-		const attrs = localId !== undefined && localId !== null ? [{ 'data-local-id': localId }] : [];
+		const attrs =
+			localId !== undefined && localId !== null
+				? [{ 'data-local-id': localId }]
+				: [];
 		return [name, ...attrs, 0];
 	},
 });

@@ -1,5 +1,11 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
@@ -9,6 +15,7 @@ import {
 	SyncBlockError,
 	type SyncBlockInstance,
 } from '@atlaskit/editor-synced-block-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SyncedBlockGenericError } from './SyncedBlockGenericError';
 import { SyncedBlockLoadError } from './SyncedBlockLoadError';
@@ -57,6 +64,23 @@ export const SyncedBlockErrorComponent = ({
 	resourceId?: string;
 	sourceURL?: string;
 }): React.JSX.Element => {
+	useEffect(() => {
+		if (!fg('platform_synced_block_patch_3')) {
+			return;
+		}
+
+		fireAnalyticsEvent?.({
+			action: ACTION.ERROR,
+			actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+			actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_FETCH,
+			attributes: {
+				error: `${error?.reason || error?.type}: error component rendered`,
+				resourceId: resourceId,
+			},
+			eventType: EVENT_TYPE.OPERATIONAL,
+		});
+	}, [error?.reason, error?.type, resourceId, fireAnalyticsEvent]);
+
 	const getErrorContent = useMemo(() => {
 		switch (error?.type) {
 			case SyncBlockError.Offline:

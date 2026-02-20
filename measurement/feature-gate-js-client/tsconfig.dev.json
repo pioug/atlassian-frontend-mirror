@@ -42,9 +42,6 @@
 		},
 		{
 			"path": "../../uip/atlassian-context/tsconfig.app.json"
-		},
-		{
-			"path": "../../atlassian-analytics-pipeline/analytics-web-client/tsconfig.app.json"
 		}
 	]
 }

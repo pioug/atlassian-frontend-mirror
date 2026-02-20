@@ -21,10 +21,10 @@ test.describe('ReactUFO: Interactions Unknown Element name', () => {
 		expect(reactUFOPayload).toBeDefined();
 
 		expect(reactUFOPayload!.attributes.properties.interactionMetrics.unknownElementName).toBe(
-			'button#test-button2 > span',
+			'button#test-button2',
 		);
 		expect(reactUFOPayload!.attributes.properties.interactionMetrics.unknownElementHierarchy).toBe(
-			'UFOSegment[name=buttons-container] > Button > Button > Content',
+			'UFOSegment[name=buttons-container]',
 		);
 	});
 });

@@ -199,6 +199,33 @@ interface EditorBaseProps {
 	// Also provides access to `EditorActions` for controlling editor.
 	onEditorReady?: (editorActions: EditorActions) => void;
 
+	/**
+	 * Callback for measuring Server-Side Rendering (SSR) performance metrics.
+	 * Invoked during SSR to track timing information for different segments of the rendering process.
+	 *
+	 * @param measure - Performance measurement data
+	 * @param measure.startTimestamp - Absolute timestamp when the segment started (from `performance.now()`)
+	 * @param measure.endTimestamp - Absolute timestamp when the segment completed (from `performance.now()`)
+	 * @param measure.segmentName - Name identifier of the SSR segment being measured
+	 *
+	 * @remarks
+	 * Both timestamps are absolute values from `performance.now()`, not relative to measurement start.
+	 * Calculate duration as: `measure.endTimestamp - measure.startTimestamp`
+	 *
+	 * @example
+	 * ```typescript
+	 * onSSRMeasure={(measure) => {
+	 *   const duration = measure.endTimestamp - measure.startTimestamp;
+	 *   console.log(`${measure.segmentName}: ${duration}ms`);
+	 * }}
+	 * ```
+	 */
+	onSSRMeasure?: (measure: {
+		endTimestamp: number;
+		segmentName: string;
+		startTimestamp: number;
+	}) => void;
+
 	persistScrollGutter?: boolean;
 
 	// DOM element used to help calculate correct positioning of popup menus to make sure they dont go offscreen.
@@ -270,9 +297,9 @@ export interface EditorSharedPropsWithPlugins {
 
 export interface EditorProps
 	extends EditorBaseProps,
-	EditorPluginFeatureProps,
-	EditorSharedPropsWithPlugins,
-	EditorProviderProps {
+		EditorPluginFeatureProps,
+		EditorSharedPropsWithPlugins,
+		EditorProviderProps {
 	// Editor assitive describedby. Set aria-describedby to make the editor announcement to include the information
 	// the associated component's content
 	assistiveDescribedBy?: string;
@@ -280,8 +307,8 @@ export interface EditorProps
 
 export interface EditorNextProps
 	extends EditorBaseProps,
-	EditorSharedPropsWithPlugins,
-	EditorProviderProps {
+		EditorSharedPropsWithPlugins,
+		EditorProviderProps {
 	// Editor assitive describedby. Set aria-describedby to make the editor announcement to include the information
 	// the associated component's content
 	assistiveDescribedBy?: string;
@@ -422,10 +449,10 @@ export interface EditorPluginFeatureProps {
 
 	// Enable status, if menuDisabled is passed then plugin is enabled by default
 	allowStatus?:
-	| boolean
-	| {
-		menuDisabled: boolean;
-	};
+		| boolean
+		| {
+				menuDisabled: boolean;
+		  };
 
 	// Enables tables. You can enable individual table features like table header rows and cell background colour.
 	// You will most likely need backend ADF storage for the advanced table features.

@@ -2,15 +2,16 @@ import { type MouseEventHandler } from 'react';
 
 import type { AppearanceType } from './types';
 
-export const getCustomElement: (isDisabled?: boolean, href?: string, onClick?: MouseEventHandler) => "a" | "button" | "span" = (
+export const getCustomElement: (isDisabled?: boolean, href?: string, onClick?: MouseEventHandler, ariaHasPopup?: boolean | 'dialog') => "a" | "button" | "span" = (
 	isDisabled?: boolean,
 	href?: string,
 	onClick?: MouseEventHandler,
+	ariaHasPopup?: boolean | 'dialog',
 ) => {
 	if (href && !isDisabled) {
 		return 'a';
 	}
-	if (onClick || isDisabled) {
+	if (onClick || isDisabled || ariaHasPopup) {
 		return 'button';
 	}
 	return 'span';

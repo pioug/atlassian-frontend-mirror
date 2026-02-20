@@ -2,7 +2,6 @@ import { Fragment, type Slice, type Node } from '@atlaskit/editor-prosemirror/mo
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { CellSelection } from '../cell-selection';
 import { type Rect, TableMap } from '../table-map';
@@ -30,7 +29,6 @@ export function handlePaste(
 	}
 
 	const { schema } = view.state;
-	const isNestingAllowed = editorExperiment('nested-tables-in-tables', true);
 	const isPasteFullTableInsideEmptyCellEnabled = fg(
 		'platform_editor_paste_full_table_inside_empty_cell',
 	);
@@ -46,7 +44,6 @@ export function handlePaste(
 
 	if (
 		isPasteFullTableInsideEmptyCellEnabled &&
-		isNestingAllowed &&
 		!isPartialTablePaste &&
 		// If the selection is not a cell selection, and the selection is empty then we can insert a nested table
 		!isCellSelection &&

@@ -1,7 +1,6 @@
 {
 	"extends": "../../../../tsconfig.local-consumption.json",
 	"compilerOptions": {
-		"declaration": true,
 		"target": "es5",
 		"outDir": "../../../../../jira/tsDist/@atlaskit__editor-ssr-renderer/app",
 		"rootDir": "../",
@@ -30,6 +29,9 @@
 		},
 		{
 			"path": "../../editor-prosemirror/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../tmp-editor-statsig/afm-jira/tsconfig.json"

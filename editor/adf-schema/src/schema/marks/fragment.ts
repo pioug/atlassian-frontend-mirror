@@ -6,6 +6,7 @@ export type LocalId = string;
 
 export interface FragmentAttributes {
 	/**
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @minLength 1
 	 */
 	localId: LocalId;
@@ -62,7 +63,15 @@ export const fragment: MarkSpec = fragmentFactory({
 	},
 });
 
-export const toJSON = (mark: Mark) => {
+export const toJSON = (mark: Mark): {
+    attrs: {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        localId: any;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        name?: any;
+    };
+    type: string;
+} => {
 	return {
 		type: mark.type.name,
 		attrs: {

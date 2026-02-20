@@ -1,17 +1,14 @@
 {
 	"extends": "../../../../tsconfig.local-consumption.json",
 	"compilerOptions": {
-		"declaration": true,
 		"target": "es5",
 		"outDir": "../../../../../jira/tsDist/@atlaskit__page-layout/app",
 		"rootDir": "../",
 		"composite": true,
-		"noCheck": true
+		"noCheck": true,
+		"isolatedDeclarations": true
 	},
-	"include": [
-		"../src/**/*.ts",
-		"../src/**/*.tsx"
-	],
+	"include": ["../src/**/*.ts", "../src/**/*.tsx"],
 	"exclude": [
 		"../src/**/__tests__/*",
 		"../src/storybook/**/*.tsx",

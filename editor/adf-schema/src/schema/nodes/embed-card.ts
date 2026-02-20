@@ -1,14 +1,12 @@
 import type { RichMediaAttributes } from './types/rich-media-common';
 import { embedCard as embedCardFactory } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils/uuid';
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 export interface EmbedCardAttributes extends RichMediaAttributes {
 	localId?: string;
 	originalHeight?: number;
 	originalWidth?: number;
-	/**
-	 * @validatorFn safeUrl
-	 */
 	url: string;
 }
 
@@ -20,7 +18,7 @@ export interface EmbedCardDefinition {
 	type: 'embedCard';
 }
 
-export const embedCard = embedCardFactory({
+export const embedCard: NodeSpec = embedCardFactory({
 	parseDOM: [
 		{
 			tag: 'div[data-embed-card]',
@@ -32,11 +30,15 @@ export const embedCard = embedCardFactory({
 				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				width: Number((dom as HTMLElement).getAttribute('data-width')) || null,
 				originalWidth:
-					// eslint-disable-next-line @atlaskit/editor/no-as-casting
-					Number((dom as HTMLElement).getAttribute('data-card-original-width')) || null,
+					Number(
+						// eslint-disable-next-line @atlaskit/editor/no-as-casting
+						(dom as HTMLElement).getAttribute('data-card-original-width'),
+					) || null,
 				originalHeight:
-					// eslint-disable-next-line @atlaskit/editor/no-as-casting
-					Number((dom as HTMLElement).getAttribute('data-card-original-height')) || null,
+					Number(
+						// eslint-disable-next-line @atlaskit/editor/no-as-casting
+						(dom as HTMLElement).getAttribute('data-card-original-height'),
+					) || null,
 			}),
 		},
 	],
@@ -54,7 +56,7 @@ export const embedCard = embedCardFactory({
 	},
 });
 
-export const embedCardWithLocalId = embedCardFactory({
+export const embedCardWithLocalId: NodeSpec = embedCardFactory({
 	parseDOM: [
 		{
 			tag: 'div[data-embed-card]',
@@ -66,11 +68,15 @@ export const embedCardWithLocalId = embedCardFactory({
 				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				width: Number((dom as HTMLElement).getAttribute('data-width')) || null,
 				originalWidth:
-					// eslint-disable-next-line @atlaskit/editor/no-as-casting
-					Number((dom as HTMLElement).getAttribute('data-card-original-width')) || null,
+					Number(
+						// eslint-disable-next-line @atlaskit/editor/no-as-casting
+						(dom as HTMLElement).getAttribute('data-card-original-width'),
+					) || null,
 				originalHeight:
-					// eslint-disable-next-line @atlaskit/editor/no-as-casting
-					Number((dom as HTMLElement).getAttribute('data-card-original-height')) || null,
+					Number(
+						// eslint-disable-next-line @atlaskit/editor/no-as-casting
+						(dom as HTMLElement).getAttribute('data-card-original-height'),
+					) || null,
 				localId: uuid.generate(),
 			}),
 		},

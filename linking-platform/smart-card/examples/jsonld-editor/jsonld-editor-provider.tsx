@@ -34,7 +34,12 @@ const JsonldEditorProvider = ({
 	);
 
 	return (
-		<SmartCardProvider client={client} isAdminHubAIEnabled={true} product="CONFLUENCE">
+		<SmartCardProvider
+			client={client}
+			isAdminHubAIEnabled={true}
+			product="CONFLUENCE"
+			rovoOptions={{ isRovoEnabled: true, isRovoLLMEnabled: false }}
+		>
 			{children}
 		</SmartCardProvider>
 	);

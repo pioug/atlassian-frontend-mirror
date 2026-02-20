@@ -8,6 +8,7 @@ import {
 	type SyncBlockEventPayload,
 } from '@atlaskit/editor-common/analytics';
 import { fg } from '@atlaskit/platform-feature-flags';
+
 export const stringifyError = (error: unknown) => {
 	try {
 		return JSON.stringify(error);

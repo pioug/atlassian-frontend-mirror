@@ -7,12 +7,14 @@ import type { MultiBodiedExtensionDefinition as MultiBodiedExtension } from './m
 import { doc as docFactory } from '../../next-schema/generated/nodeTypes';
 import type { SyncBlockDefinition as SyncBlock } from './sync-block';
 import type { BodiedSyncBlockDefinition as BodiedSyncBlock } from './bodied-sync-block';
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 /**
  * @name doc_node
  */
 export interface DocNode {
 	/**
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @allowUnsupportedBlock true
 	 */
 	content: Array<
@@ -29,4 +31,4 @@ export interface DocNode {
 	version: 1;
 }
 
-export const doc = docFactory({});
+export const doc: NodeSpec = docFactory({});

@@ -1,9 +1,11 @@
 export type {
+	Attrs,
 	//OrderedMap,
 	AttributeSpec,
 	//DOMOutputSpecArray,
 	MarkSpec,
 	NodeSpec,
+	TagParseRule,
 	ParseOptions,
 	ParseRule,
 	SchemaSpec,

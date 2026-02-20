@@ -1,8 +1,9 @@
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 import { confluenceJiraIssue as confluenceJiraIssueFactory } from '../../next-schema/generated/nodeTypes';
 
 const name = 'confluenceJiraIssue';
 
-export const confluenceJiraIssue = confluenceJiraIssueFactory({
+export const confluenceJiraIssue: NodeSpec = confluenceJiraIssueFactory({
 	parseDOM: [
 		{
 			tag: `span[data-node-type="${name}"]`,

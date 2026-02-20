@@ -1,4 +1,4 @@
-export const generateUuid = () =>
+export const generateUuid = (): string =>
 	// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
 	'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/gu, (c) => {
 		const r = (Math.random() * 16) | 0;
@@ -8,11 +8,11 @@ export const generateUuid = () =>
 let staticValue: string | false = false;
 
 export const uuid = {
-	setStatic(value: string | false) {
+	setStatic(value: string | false): void {
 		staticValue = value;
 	},
 
-	generate() {
+	generate(): string {
 		return staticValue || generateUuid();
 	},
 };

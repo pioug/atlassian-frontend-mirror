@@ -35,7 +35,12 @@ const fieldsetLabelStyles = css({
  * It's recommended that a label has a `space.050` spacing above its associated
  * control element.
  */
-export const Label: ({ children, htmlFor, id, testId }: LabelProps) => JSX.Element = ({ children, htmlFor, id, testId }: LabelProps) => (
+export const Label: ({ children, htmlFor, id, testId }: LabelProps) => JSX.Element = ({
+	children,
+	htmlFor,
+	id,
+	testId,
+}: LabelProps) => (
 	<label css={fieldsetLabelStyles} id={id} htmlFor={htmlFor} data-testid={testId}>
 		{children}
 	</label>

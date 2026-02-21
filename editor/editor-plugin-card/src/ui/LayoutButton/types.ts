@@ -20,8 +20,10 @@ export type LayoutButtonProps = {
 	testId?: string;
 };
 
-export interface LayoutButtonWrapperProps
-	extends Pick<LayoutButtonProps, 'mountPoint' | 'boundariesElement' | 'scrollableElement'> {
+export interface LayoutButtonWrapperProps extends Pick<
+	LayoutButtonProps,
+	'mountPoint' | 'boundariesElement' | 'scrollableElement'
+> {
 	api: ExtractInjectionAPI<typeof cardPlugin> | undefined;
 	editorView: EditorView;
 }

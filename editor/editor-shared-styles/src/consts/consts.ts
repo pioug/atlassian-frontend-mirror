@@ -118,7 +118,8 @@ export const FULL_PAGE_EDITOR_TOOLBAR_HEIGHT = (isToolbarAIFCEnabled?: boolean) 
 	if (
 		// if value is undefined assume this is being called outside of editor where the experiment can be checked
 		isToolbarAIFCEnabled === undefined
-			? (editorExperiment('platform_editor_toolbar_aifc', true) || fg('platform_editor_ai_aifc_streaming'))
+			? editorExperiment('platform_editor_toolbar_aifc', true) ||
+				fg('platform_editor_ai_aifc_streaming')
 			: isToolbarAIFCEnabled
 	) {
 		return '44px';

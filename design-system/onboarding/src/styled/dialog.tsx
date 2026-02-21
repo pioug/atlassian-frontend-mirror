@@ -42,7 +42,10 @@ const actionItemStyles = cssMap({
  *
  * @internal
  */
-export const DialogImage = ({ alt, ...props }: ImgHTMLAttributes<HTMLImageElement>): JSX.Element => (
+export const DialogImage = ({
+	alt,
+	...props
+}: ImgHTMLAttributes<HTMLImageElement>): JSX.Element => (
 	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 	<img css={imageStyles} alt={alt} {...props} />
 );

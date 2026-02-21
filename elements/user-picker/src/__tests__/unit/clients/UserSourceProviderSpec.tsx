@@ -38,12 +38,9 @@ describe('UserSourceProvider', () => {
 						]);
 					}),
 			);
-			const { result, rerender } = renderHook(
-				() => useUserSource('1234', true),
-				{
-					wrapper: createMockedSourceProvider(mockFetch),
-				},
-			);
+			const { result, rerender } = renderHook(() => useUserSource('1234', true), {
+				wrapper: createMockedSourceProvider(mockFetch),
+			});
 
 			expect(mockFetch).toHaveBeenCalled();
 			expect(result.current.loading).toStrictEqual(true);
@@ -66,12 +63,9 @@ describe('UserSourceProvider', () => {
 						reject('Unexpected error');
 					}),
 			);
-			const { result, rerender } = renderHook(
-				() => useUserSource('1234', true),
-				{
-					wrapper: createMockedSourceProvider(mockFetch),
-				},
-			);
+			const { result, rerender } = renderHook(() => useUserSource('1234', true), {
+				wrapper: createMockedSourceProvider(mockFetch),
+			});
 
 			expect(mockFetch).toHaveBeenCalled();
 			expect(result.current.loading).toStrictEqual(true);

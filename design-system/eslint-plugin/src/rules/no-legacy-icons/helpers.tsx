@@ -49,7 +49,8 @@ export type MigrationIconImportList = {
 
 const sizes = ['small', 'medium', 'large', 'xlarge'] as const;
 export type Size = (typeof sizes)[number];
-export const isSize: (size: any) => size is Size = (size: any): size is Size => sizes.includes(size as Size);
+export const isSize: (size: any) => size is Size = (size: any): size is Size =>
+	sizes.includes(size as Size);
 
 /**
  * Returns the migration map object for a legacy icon or null if not found
@@ -57,16 +58,16 @@ export const isSize: (size: any) => size is Size = (size: any): size is Size => 
  * @returns The migration map object for the legacy icon or null if not found
  */
 export const getMigrationMapObject: (iconPackage: string) => {
-    newIcon?: {
-        name: string;
-        package: string;
-        isMigrationUnsafe?: boolean;
-        shouldForceSmallIcon?: boolean;
-    };
-    additionalIcons?: {
-        name: string;
-        package: string;
-    }[];
+	newIcon?: {
+		name: string;
+		package: string;
+		isMigrationUnsafe?: boolean;
+		shouldForceSmallIcon?: boolean;
+	};
+	additionalIcons?: {
+		name: string;
+		package: string;
+	}[];
 	sizeGuidance: Record<Size, IconMigrationSizeGuidance>;
 } | null = (iconPackage: string) => {
 	const key = getIconKey(iconPackage);
@@ -77,7 +78,7 @@ export const getMigrationMapObject: (iconPackage: string) => {
 };
 
 export const getUpcomingIcons: (iconPackage: string) => {
-    sizeGuidance: Record<Size, IconMigrationSizeGuidance>;
+	sizeGuidance: Record<Size, IconMigrationSizeGuidance>;
 } | null = (iconPackage: string) => {
 	const key = getIconKey(iconPackage);
 	if (upcomingIcons.includes(key)) {
@@ -107,7 +108,9 @@ const getIconKey = (iconPackage: string) => {
 /**
  * Checks if a new icon can be auto-migrated based on guidance from the migration map
  */
-export const canAutoMigrateNewIconBasedOnSize: (guidance?: IconMigrationSizeGuidance) => boolean = (guidance?: IconMigrationSizeGuidance): boolean => {
+export const canAutoMigrateNewIconBasedOnSize: (guidance?: IconMigrationSizeGuidance) => boolean = (
+	guidance?: IconMigrationSizeGuidance,
+): boolean => {
 	return guidance
 		? ['swap', 'swap-slight-visual-change', 'swap-visual-change'].includes(guidance)
 		: false;
@@ -143,15 +146,13 @@ const getNewIconNameAndImportPath = (
 /**
  * Creates the written guidance for migrating a legacy icon to a new icon
  */
-export const createGuidance: (
-	props: {
-		iconPackage: string;
-		insideNewButton?: boolean;
-		size?: Size;
-		shouldUseMigrationPath?: boolean;
-		shouldForceSmallIcon?: boolean;
-	},
-) => string = ({
+export const createGuidance: (props: {
+	iconPackage: string;
+	insideNewButton?: boolean;
+	size?: Size;
+	shouldUseMigrationPath?: boolean;
+	shouldForceSmallIcon?: boolean;
+}) => string = ({
 	iconPackage,
 	insideNewButton,
 	size: initialSize,
@@ -281,7 +282,12 @@ export const locToString: (node: Node) => string = (node: Node): string => {
 	}
 };
 
-export const createCantMigrateReExportError: (node: Node, packageName: string, exportName: string, errors: ErrorListManual) => void = (
+export const createCantMigrateReExportError: (
+	node: Node,
+	packageName: string,
+	exportName: string,
+	errors: ErrorListManual,
+) => void = (
 	node: Node,
 	packageName: string,
 	exportName: string,
@@ -298,7 +304,12 @@ export const createCantMigrateReExportError: (node: Node, packageName: string, e
 	pushManualError(locToString(node), errors, myError, packageName, exportName);
 };
 
-export const createCantMigrateIdentifierMapOrArrayError: (node: Node, packageName: string, exportName: string, errors: ErrorListManual) => void = (
+export const createCantMigrateIdentifierMapOrArrayError: (
+	node: Node,
+	packageName: string,
+	exportName: string,
+	errors: ErrorListManual,
+) => void = (
 	node: Node,
 	packageName: string,
 	exportName: string,
@@ -315,7 +326,12 @@ export const createCantMigrateIdentifierMapOrArrayError: (node: Node, packageNam
 	pushManualError(locToString(node), errors, myError, packageName, exportName);
 };
 
-export const createCantMigrateIdentifierError: (node: Node, packageName: string, exportName: string, errors: ErrorListManual) => void = (
+export const createCantMigrateIdentifierError: (
+	node: Node,
+	packageName: string,
+	exportName: string,
+	errors: ErrorListManual,
+) => void = (
 	node: Node,
 	packageName: string,
 	exportName: string,
@@ -332,7 +348,13 @@ export const createCantMigrateIdentifierError: (node: Node, packageName: string,
 	pushManualError(locToString(node), errors, myError, packageName, exportName);
 };
 
-export const createCantFindSuitableReplacementError: (node: Node, importSource: string, iconName: string, errors: ErrorListManual, sizeIssue?: boolean) => void = (
+export const createCantFindSuitableReplacementError: (
+	node: Node,
+	importSource: string,
+	iconName: string,
+	errors: ErrorListManual,
+	sizeIssue?: boolean,
+) => void = (
 	node: Node,
 	importSource: string,
 	iconName: string,
@@ -350,12 +372,12 @@ export const createCantFindSuitableReplacementError: (node: Node, importSource: 
 	};
 	pushManualError(locToString(node), errors, myError, importSource, iconName);
 };
-export const createCantMigrateFunctionUnknownError: (node: Node, importSource: string, iconName: string, errors: ErrorListManual) => void = (
+export const createCantMigrateFunctionUnknownError: (
 	node: Node,
 	importSource: string,
 	iconName: string,
 	errors: ErrorListManual,
-): void => {
+) => void = (node: Node, importSource: string, iconName: string, errors: ErrorListManual): void => {
 	const myError: IconMigrationError = {
 		node,
 		messageId: 'cantMigrateFunctionUnknown',
@@ -367,7 +389,13 @@ export const createCantMigrateFunctionUnknownError: (node: Node, importSource: s
 	pushManualError(locToString(node), errors, myError, importSource, iconName);
 };
 
-export const createCantMigrateColorError: (node: Node, colorValue: string, errors: ErrorListManual, importSource: string, iconName: string) => void = (
+export const createCantMigrateColorError: (
+	node: Node,
+	colorValue: string,
+	errors: ErrorListManual,
+	importSource: string,
+	iconName: string,
+) => void = (
 	node: Node,
 	colorValue: string,
 	errors: ErrorListManual,
@@ -384,7 +412,13 @@ export const createCantMigrateColorError: (node: Node, colorValue: string, error
 	pushManualError(locToString(node), errors, myError, importSource, iconName);
 };
 
-export const createCantMigrateSpreadPropsError: (node: Node, missingProps: string[], errors: ErrorListManual, importSource: string, iconName: string) => void = (
+export const createCantMigrateSpreadPropsError: (
+	node: Node,
+	missingProps: string[],
+	errors: ErrorListManual,
+	importSource: string,
+	iconName: string,
+) => void = (
 	node: Node,
 	missingProps: string[],
 	errors: ErrorListManual,
@@ -401,24 +435,32 @@ export const createCantMigrateSpreadPropsError: (node: Node, missingProps: strin
 	pushManualError(locToString(node), errors, myError, importSource, iconName);
 };
 
-export const createCantMigrateSizeUnknown: (node: Node, errors: ErrorListManual, importSource: string, iconName: string) => void = (
+export const createCantMigrateSizeUnknown: (
 	node: Node,
 	errors: ErrorListManual,
 	importSource: string,
 	iconName: string,
-): void => {
+) => void = (node: Node, errors: ErrorListManual, importSource: string, iconName: string): void => {
 	const myError: IconMigrationError = { node, messageId: 'cantMigrateSizeUnknown' };
 	pushManualError(locToString(node), errors, myError, importSource, iconName);
 };
 
-export const createAutoMigrationError: ({ node, importSource, iconName, errors, spacing, insideNewButton, shouldForceSmallIcon, }: {
-    node: Node;
-    importSource: string;
-    iconName: string;
-    errors: ErrorListAuto;
-    spacing?: string;
-    insideNewButton?: boolean;
-    shouldForceSmallIcon?: boolean;
+export const createAutoMigrationError: ({
+	node,
+	importSource,
+	iconName,
+	errors,
+	spacing,
+	insideNewButton,
+	shouldForceSmallIcon,
+}: {
+	node: Node;
+	importSource: string;
+	iconName: string;
+	errors: ErrorListAuto;
+	spacing?: string;
+	insideNewButton?: boolean;
+	shouldForceSmallIcon?: boolean;
 }) => void = ({
 	node,
 	importSource,
@@ -488,12 +530,12 @@ const getLiteralStringValue = (value: any): string | undefined => {
 };
 
 export const createHelpers: (ctx: Rule.RuleContext) => {
-    /**
-     * Extracts the primaryColor value from a JSXAttribute
-     */
-    getPrimaryColor(attr: JSXAttribute): string | null;
-    getTokenCallValue: (value: any) => string | undefined;
-    getConfigFlag: (key: string, defaultValue: boolean) => boolean;
+	/**
+	 * Extracts the primaryColor value from a JSXAttribute
+	 */
+	getPrimaryColor(attr: JSXAttribute): string | null;
+	getTokenCallValue: (value: any) => string | undefined;
+	getConfigFlag: (key: string, defaultValue: boolean) => boolean;
 } = (
 	ctx: Rule.RuleContext,
 ): {
@@ -561,7 +603,10 @@ export const createHelpers: (ctx: Rule.RuleContext) => {
 	};
 };
 
-export const addToListOfRanges: (node: Node, sortedListOfRangesForErrors: RangeList) => void = (node: Node, sortedListOfRangesForErrors: RangeList): void => {
+export const addToListOfRanges: (node: Node, sortedListOfRangesForErrors: RangeList) => void = (
+	node: Node,
+	sortedListOfRangesForErrors: RangeList,
+): void => {
 	if (node.range && node.range.length >= 2) {
 		sortedListOfRangesForErrors.push({ start: node.range[0], end: node.range[1] });
 	}
@@ -584,7 +629,10 @@ const isInRangeList = (node: Node, sortedListOfRangesForErrors: RangeList): bool
  * @param newButtonImports list of new button import specifiers
  * @returns if Icon is inside a new button
  */
-export const isInsideNewButton: (node: Rule.Node, newButtonImports: Set<string>) => boolean = (node: Rule.Node, newButtonImports: Set<string>): boolean => {
+export const isInsideNewButton: (node: Rule.Node, newButtonImports: Set<string>) => boolean = (
+	node: Rule.Node,
+	newButtonImports: Set<string>,
+): boolean => {
 	let insideNewButton = false;
 	if (
 		node.parent &&
@@ -608,10 +656,10 @@ export const isInsideNewButton: (node: Rule.Node, newButtonImports: Set<string>)
  * @param newButtonImports list of legacy button import specifiers
  * @returns if Icon is inside a legacy button
  */
-export const isInsideLegacyButton: (node: Rule.Node, legacyButtonImports: Set<string>) => boolean = (
+export const isInsideLegacyButton: (
 	node: Rule.Node,
 	legacyButtonImports: Set<string>,
-): boolean => {
+) => boolean = (node: Rule.Node, legacyButtonImports: Set<string>): boolean => {
 	return (
 		node.parent &&
 		isNodeOfType(node.parent, 'JSXExpressionContainer') &&
@@ -631,10 +679,10 @@ export const isInsideLegacyButton: (node: Rule.Node, legacyButtonImports: Set<st
  * @param newButtonImports list of legacy button import specifiers
  * @returns if Icon is inside a legacy button
  */
-export const isInsideIconOnlyLegacyButton: (node: Rule.Node, legacyButtonImports: Set<string>) => boolean = (
+export const isInsideIconOnlyLegacyButton: (
 	node: Rule.Node,
 	legacyButtonImports: Set<string>,
-): boolean => {
+) => boolean = (node: Rule.Node, legacyButtonImports: Set<string>): boolean => {
 	let insideIconOnlyLegacyButton = false;
 
 	if (isInsideLegacyButton(node, legacyButtonImports)) {
@@ -907,12 +955,18 @@ const checkIfNewIconExist = (error: { data?: { importSource?: string } }) => {
 	return Boolean(newIcon);
 };
 
-export const throwManualErrors: ({ errorsManual, errorRanges, guidance, context, isQuietMode, }: {
-    errorsManual: ErrorListManual;
-    errorRanges: RangeList;
-    guidance: GuidanceList;
-    context: Rule.RuleContext;
-    isQuietMode: boolean;
+export const throwManualErrors: ({
+	errorsManual,
+	errorRanges,
+	guidance,
+	context,
+	isQuietMode,
+}: {
+	errorsManual: ErrorListManual;
+	errorRanges: RangeList;
+	guidance: GuidanceList;
+	context: Rule.RuleContext;
+	isQuietMode: boolean;
 }) => void = ({
 	errorsManual,
 	errorRanges,
@@ -970,18 +1024,30 @@ export const throwManualErrors: ({ errorsManual, errorRanges, guidance, context,
 };
 
 // Loops through automatic errors and them after adding the required suggestion/fix
-export const throwAutoErrors: ({ errorsManual, errorsAuto, iconSizesInfo, legacyIconImports, guidance, migrationIconImports, shouldUseMigrationPath, context, }: {
-    errorsManual: ErrorListManual;
-    errorsAuto: ErrorListAuto;
-    iconSizesInfo: Record<string, {
-        small: string[];
-        usageCount: number;
-    }>;
-    legacyIconImports: LegacyIconImportList;
-    guidance: GuidanceList;
-    migrationIconImports: MigrationIconImportList;
-    shouldUseMigrationPath: boolean;
-    context: Rule.RuleContext;
+export const throwAutoErrors: ({
+	errorsManual,
+	errorsAuto,
+	iconSizesInfo,
+	legacyIconImports,
+	guidance,
+	migrationIconImports,
+	shouldUseMigrationPath,
+	context,
+}: {
+	errorsManual: ErrorListManual;
+	errorsAuto: ErrorListAuto;
+	iconSizesInfo: Record<
+		string,
+		{
+			small: string[];
+			usageCount: number;
+		}
+	>;
+	legacyIconImports: LegacyIconImportList;
+	guidance: GuidanceList;
+	migrationIconImports: MigrationIconImportList;
+	shouldUseMigrationPath: boolean;
+	context: Rule.RuleContext;
 }) => void = ({
 	errorsManual,
 	errorsAuto,

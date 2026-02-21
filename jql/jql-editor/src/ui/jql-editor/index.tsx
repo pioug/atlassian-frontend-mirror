@@ -20,7 +20,7 @@ export type JQLEditorInnerProps = JQLEditorUIProps & {
 	 */
 	intl: IntlShape;
 };
-const emptyArray: ExternalMessage[] = []
+const emptyArray: ExternalMessage[] = [];
 const JQLEditorInner = ({
 	analyticsSource,
 	query,

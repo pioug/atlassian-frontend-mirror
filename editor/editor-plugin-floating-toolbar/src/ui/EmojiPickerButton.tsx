@@ -173,9 +173,7 @@ export const EmojiPickerButton: EmojiPickerButtonReturnType = (props) => {
 	const title = props.title || '';
 
 	return (
-		<div
-			css={emojiPickerButtonWrapperVisualRefresh}
-		>
+		<div css={emojiPickerButtonWrapperVisualRefresh}>
 			<Tooltip content={title} position="top">
 				{
 					<IconButton

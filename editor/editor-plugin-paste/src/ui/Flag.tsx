@@ -61,7 +61,7 @@ export const Flag = ({ api }: Props) => {
 				? {
 						content: urlText,
 						href: flagUrlHref,
-				  }
+					}
 				: undefined;
 
 		if (action) {

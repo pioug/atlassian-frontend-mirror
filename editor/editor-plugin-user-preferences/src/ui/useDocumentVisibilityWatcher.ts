@@ -5,7 +5,9 @@ import { bind } from 'bind-event-listener';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import { type UserPreferencesProvider } from '@atlaskit/editor-common/user-preferences';
 
-export const useDocumentVisibilityWatcher = (userPreferencesProvider?: UserPreferencesProvider): void => {
+export const useDocumentVisibilityWatcher = (
+	userPreferencesProvider?: UserPreferencesProvider,
+): void => {
 	useEffect(() => {
 		if (userPreferencesProvider) {
 			const refreshPreferences = async () => {

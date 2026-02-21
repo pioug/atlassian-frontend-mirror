@@ -152,7 +152,7 @@ export const MoreFormattingMenu = ({ children }: { children?: ReactNode }): Reac
 			<ToolbarDropdownMenu
 				iconBefore={<MoreItemsIcon label="" testId="more-formatting" />}
 				label={content}
-				tooltipComponent={<ToolbarTooltip content={formatMessage(toolbarMessages.textFormat)}/>}
+				tooltipComponent={<ToolbarTooltip content={formatMessage(toolbarMessages.textFormat)} />}
 			>
 				{children}
 			</ToolbarDropdownMenu>

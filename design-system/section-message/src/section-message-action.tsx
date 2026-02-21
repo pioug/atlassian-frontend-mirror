@@ -52,63 +52,65 @@ const styles = cssMap({
  *
  * - [Examples](https://atlassian.design/components/section-message/examples#actions)
  */
-const SectionMessageAction: import("react").NamedExoticComponent<SectionMessageActionProps> = memo(function SectionMessageAction({
-	children,
-	onClick,
-	href,
-	testId,
-	linkComponent,
-	target,
-}: SectionMessageActionProps) {
-	if (!linkComponent) {
-		if (href) {
-			return (
-				<span css={[styles.common, styles.anchor]}>
-					<Link testId={testId} onClick={onClick} href={href} target={target}>
+const SectionMessageAction: import('react').NamedExoticComponent<SectionMessageActionProps> = memo(
+	function SectionMessageAction({
+		children,
+		onClick,
+		href,
+		testId,
+		linkComponent,
+		target,
+	}: SectionMessageActionProps) {
+		if (!linkComponent) {
+			if (href) {
+				return (
+					<span css={[styles.common, styles.anchor]}>
+						<Link testId={testId} onClick={onClick} href={href} target={target}>
+							{children}
+						</Link>
+					</span>
+				);
+			}
+
+			if (onClick) {
+				return (
+					<Pressable
+						testId={testId}
+						onClick={onClick}
+						xcss={cx(
+							styles.common,
+							styles.pressable,
+							fg('platform-dst-shape-theme-default') && styles.pressableT26Shape,
+						)}
+					>
 						{children}
-					</Link>
-				</span>
-			);
-		}
+					</Pressable>
+				);
+			}
 
-		if (onClick) {
 			return (
-				<Pressable
-					testId={testId}
-					onClick={onClick}
-					xcss={cx(
-						styles.common,
-						styles.pressable,
-						fg('platform-dst-shape-theme-default') && styles.pressableT26Shape,
-					)}
-				>
+				<Box as="span" testId={testId} xcss={styles.common}>
 					{children}
-				</Pressable>
+				</Box>
 			);
 		}
 
-		return (
-			<Box as="span" testId={testId} xcss={styles.common}>
+		// TODO: Remove this once the deprecated `linkComponent` prop is removed.
+		return onClick || href ? (
+			<Button
+				testId={testId}
+				appearance="link"
+				spacing="none"
+				onClick={onClick}
+				href={href}
+				component={href ? linkComponent : undefined}
+			>
 				{children}
-			</Box>
+			</Button>
+		) : (
+			<Fragment>{children}</Fragment>
 		);
-	}
-
-	// TODO: Remove this once the deprecated `linkComponent` prop is removed.
-	return onClick || href ? (
-		<Button
-			testId={testId}
-			appearance="link"
-			spacing="none"
-			onClick={onClick}
-			href={href}
-			component={href ? linkComponent : undefined}
-		>
-			{children}
-		</Button>
-	) : (
-		<Fragment>{children}</Fragment>
-	);
-});
+	},
+);
 
 export default SectionMessageAction;

@@ -11,15 +11,14 @@ import { EndItem, type EndItemProps } from './end-item';
 
 const HELP_NOTIFICATION_BADGE_ID = 'atlassian-navigation-help-notification-count';
 
-interface HelpProps
-	extends Omit<
-		EndItemProps,
-		| 'icon'
-		// Omitting popup trigger aria attributes as Help should not open a Popup - it should open a Panel.
-		| 'aria-controls'
-		| 'aria-expanded'
-		| 'aria-haspopup'
-	> {
+interface HelpProps extends Omit<
+	EndItemProps,
+	| 'icon'
+	// Omitting popup trigger aria attributes as Help should not open a Popup - it should open a Panel.
+	| 'aria-controls'
+	| 'aria-expanded'
+	| 'aria-haspopup'
+> {
 	/**
 	 * The component to render as the badge.
 	 * You are recommended to use the Badge component from `@atlaskit/badge`.

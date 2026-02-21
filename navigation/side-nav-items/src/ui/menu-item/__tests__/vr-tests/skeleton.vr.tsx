@@ -1,9 +1,6 @@
 import { type Hooks, snapshot, type SnapshotTestOptions } from '@af/visual-regression';
 
-import {
-    SkeletonFlyoutExample,
-    SkeletonMenuItemsExample,
-} from '../../../../../examples/skeleton';
+import { SkeletonFlyoutExample, SkeletonMenuItemsExample } from '../../../../../examples/skeleton';
 
 const lightModeVariant: SnapshotTestOptions<Hooks>['variants'] = [
 	{

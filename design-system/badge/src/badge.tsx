@@ -81,7 +81,7 @@ const badgeValueWithNegativeNumberSupported = (
  * - [Code](https://atlassian.design/components/badge/code)
  * - [Usage](https://atlassian.design/components/badge/usage)
  */
-const Badge: import("react").NamedExoticComponent<BadgeProps> = memo(function Badge({
+const Badge: import('react').NamedExoticComponent<BadgeProps> = memo(function Badge({
 	appearance = 'default',
 	children = 0,
 	max = 99,

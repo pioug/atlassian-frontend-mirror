@@ -42,8 +42,9 @@ const markerColor = cssMap({
  *
  * Similar to `@atlaskit/progress-indicator`, a small visual circle marker
  */
-const ProgressMarker: FC<{ testId?: string, status: Status }> = ({ testId, status = 'unvisited' }) => (
-	<div data-testid={testId} css={[progressMarkerStyles, markerColor[status]]} />
-);
+const ProgressMarker: FC<{ testId?: string; status: Status }> = ({
+	testId,
+	status = 'unvisited',
+}) => <div data-testid={testId} css={[progressMarkerStyles, markerColor[status]]} />;
 
 export default ProgressMarker;

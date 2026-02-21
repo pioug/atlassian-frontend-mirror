@@ -93,11 +93,12 @@ describe('trimVcDebugData', () => {
 			'25': { t: 1000, e: ['sel'] },
 			'90': { t: 2000, e: ['sel2'] },
 		});
-		(properties as Record<string, unknown>)['event:trimmedFields'] = ['interactionMetrics.requestInfo'];
+		(properties as Record<string, unknown>)['event:trimmedFields'] = [
+			'interactionMetrics.requestInfo',
+		];
 
 		trimVcDebugData(properties, 300, MAX_PAYLOAD_SIZE_KB, true);
 		const trimmedFields = ['interactionMetrics.requestInfo', VC_DEBUG_TRIM_TRIMMED_FIELD_PATH];
 		expect(properties['event:trimmedFields']).toEqual(trimmedFields);
 	});
-
 });

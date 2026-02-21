@@ -888,7 +888,7 @@ describe('Channel unit tests', () => {
 				false,
 				expect.any(Object),
 				'/ncs/cloud-id/activ-id/confluence',
-				'ari:cloud:confluence:a436116f-02ce-4520-8fbb-7301462a1674:page/1731046230'
+				'ari:cloud:confluence:a436116f-02ce-4520-8fbb-7301462a1674:page/1731046230',
 			);
 		});
 

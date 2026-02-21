@@ -109,7 +109,9 @@ const optionStyles = cssMap({
 	},
 });
 
-const Option: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(props: OptionProps<Option, IsMulti, Group>) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+const Option: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+	props: OptionProps<Option, IsMulti, Group>,
+) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: OptionProps<Option, IsMulti, Group>,
 ) => {
 	const { children, isDisabled, isFocused, isSelected, innerRef, innerProps, xcss } = props;

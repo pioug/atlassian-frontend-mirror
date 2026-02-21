@@ -34,6 +34,5 @@ export const getAvailableMigrationIds = (): string[] => {
  * Useful for tool descriptions and help text
  */
 export const getAvailableMigrationsDescription = (): string[] => {
-	return Object.values(migrationRegistry)
-		.map((m) => `- "${m.id}": ${m.description}`)
+	return Object.values(migrationRegistry).map((m) => `- "${m.id}": ${m.description}`);
 };

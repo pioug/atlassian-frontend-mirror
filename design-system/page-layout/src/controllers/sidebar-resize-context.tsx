@@ -1,4 +1,11 @@
-import { type Context, createContext, type KeyboardEvent, type MouseEvent, useContext, useEffect } from 'react';
+import {
+	type Context,
+	createContext,
+	type KeyboardEvent,
+	type MouseEvent,
+	useContext,
+	useEffect,
+} from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
 
@@ -46,28 +53,32 @@ const leftSidebarState: LeftSidebarState = {
 };
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const SidebarResizeContext: Context<SidebarResizeContextValue> = createContext<SidebarResizeContextValue>({
-	isLeftSidebarCollapsed: false,
-	expandLeftSidebar: noop,
-	collapseLeftSidebar: noop,
-	leftSidebarState,
-	setLeftSidebarState: noop,
-	toggleLeftSidebar: noop,
-});
+export const SidebarResizeContext: Context<SidebarResizeContextValue> =
+	createContext<SidebarResizeContextValue>({
+		isLeftSidebarCollapsed: false,
+		expandLeftSidebar: noop,
+		collapseLeftSidebar: noop,
+		leftSidebarState,
+		setLeftSidebarState: noop,
+		toggleLeftSidebar: noop,
+	});
 
 export const usePageLayoutResize = (): {
-    isLeftSidebarCollapsed: boolean; expandLeftSidebar: () => void; collapseLeftSidebar: (
-        event?: MouseEvent | KeyboardEvent,
-        collapseWithoutTransition?: boolean
-    ) => void;
-    /**
-     * Conditionally expands or collapses the left sidebar based on the current state.
-     * This is aware of our flyout mode in mobile as well.
-     */
-    toggleLeftSidebar: (
-        event?: MouseEvent | KeyboardEvent,
-        collapseWithoutTransition?: boolean
-    ) => void; leftSidebarState: LeftSidebarState;
+	isLeftSidebarCollapsed: boolean;
+	expandLeftSidebar: () => void;
+	collapseLeftSidebar: (
+		event?: MouseEvent | KeyboardEvent,
+		collapseWithoutTransition?: boolean,
+	) => void;
+	/**
+	 * Conditionally expands or collapses the left sidebar based on the current state.
+	 * This is aware of our flyout mode in mobile as well.
+	 */
+	toggleLeftSidebar: (
+		event?: MouseEvent | KeyboardEvent,
+		collapseWithoutTransition?: boolean,
+	) => void;
+	leftSidebarState: LeftSidebarState;
 } => {
 	const { setLeftSidebarState, ...context } = useContext(SidebarResizeContext);
 	return context;

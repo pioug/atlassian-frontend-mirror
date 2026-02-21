@@ -46,7 +46,8 @@ export const accessibilityUtilsPlugin: AccessibilityUtilsPlugin = ({ api }) => {
 		contentComponent: () => {
 			if (
 				!editorView ||
-				(isSSR() && expValEquals('platform_editor_hydratable_ui', 'isEnabled', true))) {
+				(isSSR() && expValEquals('platform_editor_hydratable_ui', 'isEnabled', true))
+			) {
 				return null;
 			}
 			return <ContentComponent api={api} />;
@@ -91,7 +92,6 @@ export const accessibilityUtilsPlugin: AccessibilityUtilsPlugin = ({ api }) => {
 
 function ContentComponent({
 	api,
-
 }: {
 	api: ExtractInjectionAPI<AccessibilityUtilsPlugin> | undefined;
 }) {
@@ -107,7 +107,6 @@ function ContentComponent({
 		},
 	);
 	const role = ariaLiveElementAttributes?.priority === 'important' ? 'alert' : 'status';
-
 
 	return (
 		<VisuallyHidden

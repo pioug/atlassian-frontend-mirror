@@ -23,7 +23,10 @@ const FloatingToolbarSettings = {
 	isToolbarReducedSpacing: true,
 };
 
-export function FloatingToolbarComponent({ api, editorView }: FloatingToolbarComponentProps): React.JSX.Element {
+export function FloatingToolbarComponent({
+	api,
+	editorView,
+}: FloatingToolbarComponentProps): React.JSX.Element {
 	const { align, isEnabled } = useSharedPluginStateWithSelector(api, ['alignment'], (states) => {
 		return {
 			align: states.alignmentState?.align,

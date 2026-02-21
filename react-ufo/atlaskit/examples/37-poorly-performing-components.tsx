@@ -86,17 +86,17 @@ const useFrequentCounter = (componentName: string) => {
 const CPUHeavyComponent = () => {
 	const executionTimeRef = useRef(0);
 
-    const start = performance.now();
-    let sum = 0;
-    
-    // Run CPU-intensive operation for approximately 50ms
-    while (performance.now() - start < 150) {
-        sum += Math.random();
-    }
-    
-    const end = performance.now();
-    executionTimeRef.current = end - start;
-    console.log('CPU HEAVY', executionTimeRef.current, sum);
+	const start = performance.now();
+	let sum = 0;
+
+	// Run CPU-intensive operation for approximately 50ms
+	while (performance.now() - start < 150) {
+		sum += Math.random();
+	}
+
+	const end = performance.now();
+	executionTimeRef.current = end - start;
+	console.log('CPU HEAVY', executionTimeRef.current, sum);
 
 	return (
 		<div css={cpuHeavyStyle} data-testid="cpu-heavy">
@@ -109,9 +109,9 @@ const CPUHeavyComponent = () => {
 
 // Frequently updating nested component (inside memoized component)
 const FrequentlyUpdatingNestedComponent = ({ children }: { children?: React.ReactNode }) => {
-    console.count('FrequentlyUpdatingNestedComponent');
+	console.count('FrequentlyUpdatingNestedComponent');
 	const { counter, isLoading, loadHoldName } = useFrequentCounter('nested');
-    console.log('NESTED', counter, isLoading);
+	console.log('NESTED', counter, isLoading);
 
 	return (
 		<div css={nestedStyle} data-testid="nested-frequent">
@@ -146,7 +146,7 @@ MemoizedMiddleComponent.displayName = 'MemoizedMiddleComponent';
 
 // Top level component that updates frequently
 const TopLevelFrequentComponent = ({ children }: { children?: React.ReactNode }) => {
-    console.count('TopLevelFrequentComponent');
+	console.count('TopLevelFrequentComponent');
 	const { counter, isLoading, loadHoldName } = useFrequentCounter('top-level');
 
 	return (
@@ -178,9 +178,7 @@ export default function Example(): JSX.Element {
 		<UFOSegment name="poorly-performing-root">
 			<div css={appStyle} data-testid="main">
 				<h1>Performance Test: Poorly Performing Components</h1>
-				<p>
-					This example demonstrates components with various performance characteristics:
-				</p>
+				<p>This example demonstrates components with various performance characteristics:</p>
 				<ul>
 					<li>Top level component updates every 100ms (contains middle component)</li>
 					<li>Middle component is memoized (should not re-render)</li>
@@ -188,94 +186,101 @@ export default function Example(): JSX.Element {
 					<li>CPU heavy component blocks the main thread</li>
 				</ul>
 
-			<UFOSegment name="top-level-frequent">
-				<TopLevelFrequentComponent>
-					{/* <UFOLabel name="ufo-label-test-updated"> */}
-                        <UFOSegment name="memoized-middle">
-                            <MemoizedMiddleComponent>
-                                <UFOSegment name="frequently-updating-nested">
-                                    <FrequentlyUpdatingNestedComponent />
-                                </UFOSegment>
-                            </MemoizedMiddleComponent>
-                        </UFOSegment>
-                        
-                        {/* Optional: Add CPU heavy component as child */}
-                        <UFOSegment name="cpu-heavy-component">
-                            <CPUHeavyComponent />
-                        </UFOSegment>
-                    {/* </UFOLabel> */}
-                    <UFOLabel name="ufo-label-test-2">
-                        <TestComponent />
-                    </UFOLabel>
-					<UFOSegment name="multi-components-one-wrapper">
-						<CPUHeavyComponent />
-						<UFOSegment name="multi-components-heavy"><CPUHeavyComponent /></UFOSegment>
-						<CPUHeavyComponent />
-						<FrequentlyUpdatingNestedComponent><CPUHeavyComponent /></FrequentlyUpdatingNestedComponent>
-						<FrequentlyUpdatingNestedComponent />
-						<FrequentlyUpdatingNestedComponent />
-					</UFOSegment>
-					<UFOSegment name="multi-components-multi-wrappers">
-						<UFOSegment name="multi-components-nested">
+				<UFOSegment name="top-level-frequent">
+					<TopLevelFrequentComponent>
+						{/* <UFOLabel name="ufo-label-test-updated"> */}
+						<UFOSegment name="memoized-middle">
+							<MemoizedMiddleComponent>
+								<UFOSegment name="frequently-updating-nested">
+									<FrequentlyUpdatingNestedComponent />
+								</UFOSegment>
+							</MemoizedMiddleComponent>
+						</UFOSegment>
+
+						{/* Optional: Add CPU heavy component as child */}
+						<UFOSegment name="cpu-heavy-component">
+							<CPUHeavyComponent />
+						</UFOSegment>
+						{/* </UFOLabel> */}
+						<UFOLabel name="ufo-label-test-2">
+							<TestComponent />
+						</UFOLabel>
+						<UFOSegment name="multi-components-one-wrapper">
+							<CPUHeavyComponent />
+							<UFOSegment name="multi-components-heavy">
+								<CPUHeavyComponent />
+							</UFOSegment>
+							<CPUHeavyComponent />
+							<FrequentlyUpdatingNestedComponent>
+								<CPUHeavyComponent />
+							</FrequentlyUpdatingNestedComponent>
+							<FrequentlyUpdatingNestedComponent />
 							<FrequentlyUpdatingNestedComponent />
 						</UFOSegment>
-						<UFOSegment name="multi-components-nested">
-							<FrequentlyUpdatingNestedComponent />
+						<UFOSegment name="multi-components-multi-wrappers">
+							<UFOSegment name="multi-components-nested">
+								<FrequentlyUpdatingNestedComponent />
+							</UFOSegment>
+							<UFOSegment name="multi-components-nested">
+								<FrequentlyUpdatingNestedComponent />
+							</UFOSegment>
+							<UFOSegment name="multi-components-nested">
+								<FrequentlyUpdatingNestedComponent />
+							</UFOSegment>
+							<UFOSegment name="multi-components-nested">
+								<FrequentlyUpdatingNestedComponent />
+							</UFOSegment>
+							<UFOSegment name="multi-components-nested">
+								<FrequentlyUpdatingNestedComponent />
+							</UFOSegment>
 						</UFOSegment>
-						<UFOSegment name="multi-components-nested">
-							<FrequentlyUpdatingNestedComponent />
+						<UFOSegment name="multi-components-list-wrappers">
+							<UFOSegment name="multi-components-nested" mode="list">
+								<FrequentlyUpdatingNestedComponent />
+							</UFOSegment>
+							<UFOSegment name="multi-components-nested" mode="list">
+								<FrequentlyUpdatingNestedComponent />
+							</UFOSegment>
+							<UFOSegment name="multi-components-nested" mode="list">
+								<FrequentlyUpdatingNestedComponent />
+							</UFOSegment>
+							<UFOSegment name="multi-components-nested" mode="list">
+								<FrequentlyUpdatingNestedComponent />
+							</UFOSegment>
+							<UFOSegment name="multi-components-nested" mode="list">
+								<FrequentlyUpdatingNestedComponent />
+							</UFOSegment>
 						</UFOSegment>
-						<UFOSegment name="multi-components-nested">
+						<UFOSegment name="multi-components-mixed-wrappers">
+							<CPUHeavyComponent />
+							<UFOSegment name="multi-components-heavy">
+								<CPUHeavyComponent />
+							</UFOSegment>
+							<CPUHeavyComponent />
+							<FrequentlyUpdatingNestedComponent>
+								<CPUHeavyComponent />
+							</FrequentlyUpdatingNestedComponent>
 							<FrequentlyUpdatingNestedComponent />
-						</UFOSegment>
-						<UFOSegment name="multi-components-nested">
 							<FrequentlyUpdatingNestedComponent />
+							<UFOSegment name="multi-components-nested">
+								<FrequentlyUpdatingNestedComponent />
+							</UFOSegment>
+							<UFOSegment name="multi-components-nested">
+								<FrequentlyUpdatingNestedComponent />
+							</UFOSegment>
+							<UFOSegment name="multi-components-nested" mode="list">
+								<FrequentlyUpdatingNestedComponent />
+							</UFOSegment>
+							<UFOSegment name="multi-components-nested" mode="list">
+								<FrequentlyUpdatingNestedComponent />
+							</UFOSegment>
+							<UFOSegment name="multi-components-nested" mode="list">
+								<FrequentlyUpdatingNestedComponent />
+							</UFOSegment>
 						</UFOSegment>
-					</UFOSegment>
-					<UFOSegment name="multi-components-list-wrappers">
-						<UFOSegment name="multi-components-nested" mode="list">
-							<FrequentlyUpdatingNestedComponent />
-						</UFOSegment>
-						<UFOSegment name="multi-components-nested" mode="list">
-							<FrequentlyUpdatingNestedComponent />
-						</UFOSegment>
-						<UFOSegment name="multi-components-nested" mode="list">
-							<FrequentlyUpdatingNestedComponent />
-						</UFOSegment>
-						<UFOSegment name="multi-components-nested" mode="list">
-							<FrequentlyUpdatingNestedComponent />
-						</UFOSegment>
-						<UFOSegment name="multi-components-nested" mode="list">
-							<FrequentlyUpdatingNestedComponent />
-						</UFOSegment>
-					</UFOSegment>
-					<UFOSegment name="multi-components-mixed-wrappers">
-						<CPUHeavyComponent />
-						<UFOSegment name="multi-components-heavy"><CPUHeavyComponent /></UFOSegment>
-						<CPUHeavyComponent />
-						<FrequentlyUpdatingNestedComponent><CPUHeavyComponent /></FrequentlyUpdatingNestedComponent>
-						<FrequentlyUpdatingNestedComponent />
-						<FrequentlyUpdatingNestedComponent />
-						<UFOSegment name="multi-components-nested">
-							<FrequentlyUpdatingNestedComponent />
-						</UFOSegment>
-						<UFOSegment name="multi-components-nested">
-							<FrequentlyUpdatingNestedComponent />
-						</UFOSegment>
-						<UFOSegment name="multi-components-nested" mode="list">
-							<FrequentlyUpdatingNestedComponent />
-						</UFOSegment>
-						<UFOSegment name="multi-components-nested" mode="list">
-							<FrequentlyUpdatingNestedComponent />
-						</UFOSegment>
-						<UFOSegment name="multi-components-nested" mode="list">
-							<FrequentlyUpdatingNestedComponent />
-						</UFOSegment>
-					</UFOSegment>
-				</TopLevelFrequentComponent>
-			</UFOSegment>
+					</TopLevelFrequentComponent>
+				</UFOSegment>
 			</div>
 		</UFOSegment>
 	);
 }
-

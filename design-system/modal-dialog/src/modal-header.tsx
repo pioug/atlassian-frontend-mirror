@@ -27,8 +27,8 @@ const styles = cssMap({
 		width: '100%',
 	},
 	titleContainer: {
-		minWidth: '0px'
-	}
+		minWidth: '0px',
+	},
 });
 
 export interface ModalHeaderProps {

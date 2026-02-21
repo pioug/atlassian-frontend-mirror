@@ -52,7 +52,7 @@ export const TokenWarning = (): React.JSX.Element => {
 };
 
 const _default_1: {
-    example: () => React.JSX.Element;
-    code: string;
+	example: () => React.JSX.Element;
+	code: string;
 } = { example: TokenWarning, code: TokenWarningCodeBlock };
 export default _default_1;

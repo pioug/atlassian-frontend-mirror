@@ -9,7 +9,8 @@ import ModernAnalyticsContext from './ModernAnalyticsContext';
 import { type AnalyticsContextFunction } from './types';
 
 const AnalyticsContext: AnalyticsContextFunction = (props) => {
-	const isModernContext = isModernContextEnabledEnv || fg('analytics-next-use-legacy-context') === false;
+	const isModernContext =
+		isModernContextEnabledEnv || fg('analytics-next-use-legacy-context') === false;
 
 	return isModernContext ? (
 		<ModernAnalyticsContext {...props} />

@@ -131,7 +131,9 @@ describe('ads_get_icons tool', () => {
 		expect(result.content).toHaveLength(1);
 		const parsed = JSON.parse(result.content[0].text as string);
 		expect(Array.isArray(parsed)).toBe(true);
-		expect(parsed.some((p: { componentName: string }) => p.componentName === 'TestIcon')).toBe(true);
+		expect(parsed.some((p: { componentName: string }) => p.componentName === 'TestIcon')).toBe(
+			true,
+		);
 		expect(parsed.some((p: { componentName: string }) => p.componentName === 'DraftIcon')).toBe(
 			false,
 		);

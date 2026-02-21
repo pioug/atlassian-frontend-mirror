@@ -40,7 +40,10 @@ const colorArrayPalette: Array<[string, BackgroundColorKey]> = [
 ];
 
 // @see https://product-fabric.atlassian.net/wiki/spaces/E/pages/55979455/Colour+picker+decisions#Colourpickerdecisions-Visualdesigndecisions
-export const backgroundColorPalette: Map<string, BackgroundColorKey> = new Map<string, BackgroundColorKey>();
+export const backgroundColorPalette: Map<string, BackgroundColorKey> = new Map<
+	string,
+	BackgroundColorKey
+>();
 colorArrayPalette.forEach(([color, label]) =>
 	backgroundColorPalette.set(color.toLowerCase(), label),
 );

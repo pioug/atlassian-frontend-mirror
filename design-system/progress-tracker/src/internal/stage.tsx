@@ -60,7 +60,7 @@ const listItemStyles = css({
 	marginBlockStart: token('space.0', '0px'),
 	marginInlineEnd: token('space.0', '0px'),
 	marginInlineStart: token('space.0', '0px'),
-	overflowWrap: 'break-word'
+	overflowWrap: 'break-word',
 });
 
 const fadeAnimationBase = css({
@@ -174,7 +174,9 @@ export default class ProgressTrackerStage extends PureComponent<ProgressTrackerS
 						css={[fadeAnimationBase, fadeAnimationActive]}
 						style={{
 							animationPlayState: this.state.transitioning ? 'running' : 'paused',
-							animationDuration: ['visited', 'disabled'].includes(this.props.item.status) ? '0ms' : undefined,
+							animationDuration: ['visited', 'disabled'].includes(this.props.item.status)
+								? '0ms'
+								: undefined,
 						}}
 					>
 						<ProgressBar
@@ -183,12 +185,7 @@ export default class ProgressTrackerStage extends PureComponent<ProgressTrackerS
 						/>
 					</div>
 					<div
-						css={[
-							fadeAnimationBase,
-							titleStyles,
-							textColor[item.status],
-							fontWeight[item.status],
-						]}
+						css={[fadeAnimationBase, titleStyles, textColor[item.status], fontWeight[item.status]]}
 						data-testid={testId && `${testId}-title`}
 					>
 						{this.shouldShowLink() ? render.link({ item }) : item.label}

@@ -124,8 +124,7 @@ describe('Image cropper', () => {
 	});
 
 	describe('image errors', () => {
-		const badImageURI =
-			'data:image/png;base64,bm90IGFuIGltYWdl=='; // === base64 data = btoa("not an image")
+		const badImageURI = 'data:image/png;base64,bm90IGFuIGltYWdl=='; // === base64 data = btoa("not an image")
 
 		it('should call onImageError prop with url error message when bad image url given', () => {
 			const { onImageErrorSpy } = createComponent({

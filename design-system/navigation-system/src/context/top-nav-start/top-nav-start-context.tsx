@@ -7,7 +7,8 @@ import __noop from '@atlaskit/ds-lib/noop';
  * Used to power the side nav flyout by allowing the side nav to bind event listeners to the element, so we can
  * keep the flyout open while the user mouses from the top bar to the side nav.
  */
-export const TopNavStartElement: import("react").Context<HTMLDivElement | null> = createContext<HTMLDivElement | null>(null);
+export const TopNavStartElement: import('react').Context<HTMLDivElement | null> =
+	createContext<HTMLDivElement | null>(null);
 
 /**
  * Context for the callback ref used to respond to the TopNavStart element ref being attached. It is used to update the
@@ -18,4 +19,6 @@ export const TopNavStartElement: import("react").Context<HTMLDivElement | null> 
  * A callback ref is needed because the side nav can be mounted before elements in the top bar (e.g. if the element is lazy loaded),
  * which happens in Jira and Confluence), which would prevent the event listeners from being set up.
  */
-export const TopNavStartAttachRef: import("react").Context<(newVal: HTMLDivElement | null) => void> = createContext<(newVal: HTMLDivElement | null) => void>(__noop);
+export const TopNavStartAttachRef: import('react').Context<
+	(newVal: HTMLDivElement | null) => void
+> = createContext<(newVal: HTMLDivElement | null) => void>(__noop);

@@ -28,8 +28,8 @@ const getExcludedEntryTypes = () => {
 };
 
 const fy26_04_excluded_attributes = [
-	'data-is-hovered' // non-visual attribute
-]
+	'data-is-hovered', // non-visual attribute
+];
 
 export default class VCCalculator_FY26_04 extends VCCalculator_FY25_03 {
 	constructor(revisionNo: string = 'fy26.04') {
@@ -56,7 +56,9 @@ export default class VCCalculator_FY26_04 extends VCCalculator_FY25_03 {
 
 		if (
 			entry.data.type === 'mutation:attribute' &&
-			(!attributeName || (fy26_04_excluded_attributes.includes(attributeName) && fg('platform_ufo_data-is-hovered-v4-exclusion')))
+			(!attributeName ||
+				(fy26_04_excluded_attributes.includes(attributeName) &&
+					fg('platform_ufo_data-is-hovered-v4-exclusion')))
 		) {
 			return false;
 		}

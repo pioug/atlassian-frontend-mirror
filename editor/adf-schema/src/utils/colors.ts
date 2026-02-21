@@ -77,10 +77,7 @@ export const T500 = '#008DA6';
 /**
  * @returns String with HEX-coded color.
  */
-export function normalizeHexColor(
-	color: string | null,
-	defaultColor?: string,
-): string | null {
+export function normalizeHexColor(color: string | null, defaultColor?: string): string | null {
 	if (!color) {
 		return null;
 	}
@@ -178,10 +175,7 @@ export function rgbToHex(value: string): string | null {
 
 	if (matches && matches.length >= 3) {
 		const [red, green, blue] = matches.map(Number);
-		return (
-			'#' +
-			(blue | (green << 8) | (red << 16) | (1 << 24)).toString(16).slice(1)
-		);
+		return '#' + (blue | (green << 8) | (red << 16) | (1 << 24)).toString(16).slice(1);
 	}
 
 	return null;

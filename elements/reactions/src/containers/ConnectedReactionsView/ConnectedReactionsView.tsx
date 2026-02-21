@@ -18,7 +18,8 @@ import {
 import { type ReactionUpdateSuccess } from '../../types/reaction';
 
 export interface ConnectedReactionsViewProps
-	extends Pick<
+	extends
+		Pick<
 			ReactionsProps,
 			| 'quickReactionEmojis'
 			| 'onDialogOpenCallback'

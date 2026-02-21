@@ -36,7 +36,8 @@ Object.defineProperty(global.performance, 'now', {
 });
 
 const mockGetActiveInteraction = interactionMetricsModule.getActiveInteraction as jest.Mock;
-const mockPreviousInteractionLog = interactionMetricsModule.PreviousInteractionLog as interactionMetricsModule.PreviousInteractionLogType;
+const mockPreviousInteractionLog =
+	interactionMetricsModule.PreviousInteractionLog as interactionMetricsModule.PreviousInteractionLogType;
 
 const createMockContext = (
 	overrides: Partial<UFOInteractionContextType> = {},
@@ -68,7 +69,7 @@ describe('terminal-error', () => {
 		mockPerformanceNow.mockReturnValue(1000);
 		sinkTerminalErrorHandler(mockSink);
 		mockGetActiveInteraction.mockReturnValue(undefined);
-		
+
 		// Reset PreviousInteractionLog
 		mockPreviousInteractionLog.id = undefined;
 		mockPreviousInteractionLog.name = undefined;

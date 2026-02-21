@@ -284,11 +284,10 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 	return plugin;
 };
 
-interface ToolbarInsertBlockWithInjectionApiProps
-	extends Omit<
-		ToolbarUiComponentFactoryParams,
-		'eventDispatcher' | 'appearance' | 'containerElement' | 'wrapperElement'
-	> {
+interface ToolbarInsertBlockWithInjectionApiProps extends Omit<
+	ToolbarUiComponentFactoryParams,
+	'eventDispatcher' | 'appearance' | 'containerElement' | 'wrapperElement'
+> {
 	appearance: EditorAppearance | undefined;
 	options: InsertBlockOptions;
 	pluginInjectionApi: ExtractInjectionAPI<typeof insertBlockPlugin> | undefined;
@@ -403,9 +402,15 @@ function ToolbarInsertBlockWithInjectionApi({
 		}
 
 		if (fg('platform_editor_media_insert_check')) {
-			pluginInjectionApi?.mediaInsert?.commands.showMediaInsertPopup ? pluginInjectionApi?.core?.actions.execute(pluginInjectionApi?.mediaInsert?.commands.showMediaInsertPopup(mountInfo)) : showMediaPicker();
+			pluginInjectionApi?.mediaInsert?.commands.showMediaInsertPopup
+				? pluginInjectionApi?.core?.actions.execute(
+						pluginInjectionApi?.mediaInsert?.commands.showMediaInsertPopup(mountInfo),
+					)
+				: showMediaPicker();
 		} else {
-			pluginInjectionApi?.core?.actions.execute(pluginInjectionApi?.mediaInsert?.commands.showMediaInsertPopup(mountInfo));
+			pluginInjectionApi?.core?.actions.execute(
+				pluginInjectionApi?.mediaInsert?.commands.showMediaInsertPopup(mountInfo),
+			);
 		}
 	};
 

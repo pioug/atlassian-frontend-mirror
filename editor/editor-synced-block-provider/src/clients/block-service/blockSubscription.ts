@@ -150,7 +150,9 @@ export const subscribeToBlockUpdates = (
 		return () => {};
 	}
 
-	const unsubscribe = client.subscribe<{ blockService_onBlockUpdated: BlockSubscriptionPayload | null }>(
+	const unsubscribe = client.subscribe<{
+		blockService_onBlockUpdated: BlockSubscriptionPayload | null;
+	}>(
 		{
 			query: SUBSCRIPTION_QUERY,
 			variables: { resourceId: blockAri },
@@ -168,8 +170,7 @@ export const subscribeToBlockUpdates = (
 				}
 			},
 			error: (error) => {
-				const errorMessage =
-					error instanceof Error ? error.message : 'GraphQL subscription error';
+				const errorMessage = error instanceof Error ? error.message : 'GraphQL subscription error';
 				onError?.(new Error(errorMessage));
 			},
 			complete: () => {

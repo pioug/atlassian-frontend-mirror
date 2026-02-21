@@ -6,12 +6,8 @@ import { PredefinedAvatarView } from '../../predefined-avatar-view';
 describe('PredefinedAvatarView', () => {
 	describe('header text', () => {
 		it('should provide the correct description', () => {
-			renderWithIntl(
-				<PredefinedAvatarView avatars={[]} onAvatarSelected={() => {}} />,
-			);
-			expect(screen.getByRole('heading', { level: 2 }).textContent).toEqual(
-				'Default avatars',
-			);
+			renderWithIntl(<PredefinedAvatarView avatars={[]} onAvatarSelected={() => {}} />);
+			expect(screen.getByRole('heading', { level: 2 }).textContent).toEqual('Default avatars');
 		});
 
 		it('should use different caption text when predefinedAvatarsText is passed', () => {
@@ -22,9 +18,7 @@ describe('PredefinedAvatarView', () => {
 					predefinedAvatarsText="default icons"
 				/>,
 			);
-			expect(screen.getByRole('heading', { level: 2 }).textContent).toEqual(
-				'default icons',
-			);
+			expect(screen.getByRole('heading', { level: 2 }).textContent).toEqual('default icons');
 		});
 	});
 });

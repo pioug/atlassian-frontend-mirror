@@ -93,13 +93,13 @@ export const PasswordInput = ({ onSubmit, hasPasswordError, onRender }: PDFPassw
 					<Flex justifyContent="center">
 						<LockIcon label="" color={COLOR_SHADE as any} />
 					</Flex>
-				<Box xcss={headerStyles}>
-					<div css={headingStyle}>
-						<Heading as="h1" size="medium">
-							<FormattedMessage {...messages.password_protected_pdf} />
-						</Heading>
-					</div>
-				</Box>
+					<Box xcss={headerStyles}>
+						<div css={headingStyle}>
+							<Heading as="h1" size="medium">
+								<FormattedMessage {...messages.password_protected_pdf} />
+							</Heading>
+						</div>
+					</Box>
 					<Field name="password" defaultValue="" isRequired>
 						{({ fieldProps }) => (
 							<Box xcss={inputStyle}>

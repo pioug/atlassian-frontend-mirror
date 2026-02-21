@@ -27,9 +27,7 @@ export const TaskListMenuItem = ({ api }: TaskListMenuItemProps): React.JSX.Elem
 	}));
 
 	const handleClick = () => {
-		api?.core.actions.execute(
-			api?.taskDecision?.commands.toggleTaskList(),
-		);
+		api?.core.actions.execute(api?.taskDecision?.commands.toggleTaskList());
 	};
 
 	return (

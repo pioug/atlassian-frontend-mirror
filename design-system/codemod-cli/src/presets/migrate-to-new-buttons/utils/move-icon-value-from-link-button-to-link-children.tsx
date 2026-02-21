@@ -1,5 +1,10 @@
 import { type API, type ASTPath, type JSXElement, type JSXExpressionContainer } from 'jscodeshift';
-const moveIcon: (j: API["jscodeshift"], path: ASTPath<JSXElement>, iconNode: JSXExpressionContainer | undefined | null, beforeOrAfter: "iconBefore" | "iconAfter") => void = (
+const moveIcon: (
+	j: API['jscodeshift'],
+	path: ASTPath<JSXElement>,
+	iconNode: JSXExpressionContainer | undefined | null,
+	beforeOrAfter: 'iconBefore' | 'iconAfter',
+) => void = (
 	j: API['jscodeshift'],
 	path: ASTPath<JSXElement>,
 	iconNode: JSXExpressionContainer | undefined | null,

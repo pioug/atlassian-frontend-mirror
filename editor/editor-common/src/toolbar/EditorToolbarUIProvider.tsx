@@ -38,17 +38,17 @@ export const EditorToolbarUIProvider = ({
 				const shouldFocusEditor = !isKeyboardEscape;
 
 				if (shouldFocusEditor) {
-						// On Dropdown closed, focus is returned to trigger button by default in requestAnimationFrame
-						// Hence, `.focus()` should also be called in requestAnimationFrame
-						setTimeout(
-							() =>
-								requestAnimationFrame(() => {
-									api?.core.actions.focus({ scrollIntoView: false });
-								}),
-							1,
-						);
-					}
-			};
+					// On Dropdown closed, focus is returned to trigger button by default in requestAnimationFrame
+					// Hence, `.focus()` should also be called in requestAnimationFrame
+					setTimeout(
+						() =>
+							requestAnimationFrame(() => {
+								api?.core.actions.focus({ scrollIntoView: false });
+							}),
+						1,
+					);
+				}
+			}
 		},
 		[api],
 	);

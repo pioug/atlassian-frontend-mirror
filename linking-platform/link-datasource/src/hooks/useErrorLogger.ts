@@ -78,7 +78,10 @@ const useErrorLogger = (loggerProps: UseErrorLoggerProps) => {
 	 * We will send to Splunk every single time, though, but we won't send PII risky fields.
 	 */
 	const captureError = useCallback(
-		(errorLocation: DatasourceOperationFailedAttributesType['errorLocation'], error: unknown): void => {
+		(
+			errorLocation: DatasourceOperationFailedAttributesType['errorLocation'],
+			error: unknown,
+		): void => {
 			const { traceId, status, reason } = getNetworkFields(error);
 
 			fireEvent('operational.datasource.operationFailed', {

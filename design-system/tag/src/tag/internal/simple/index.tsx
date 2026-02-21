@@ -100,6 +100,8 @@ const SimpleTagComponent: React.ForwardRefExoticComponent<
  * - [Code](https://atlassian.design/components/tag/code)
  * - [Usage](https://atlassian.design/components/tag/usage)
  */
-const SimpleTag: import("react").MemoExoticComponent<import("react").ForwardRefExoticComponent<SimpleTagProps & import("react").RefAttributes<any>>> = memo(SimpleTagComponent);
+const SimpleTag: import('react').MemoExoticComponent<
+	import('react').ForwardRefExoticComponent<SimpleTagProps & import('react').RefAttributes<any>>
+> = memo(SimpleTagComponent);
 
 export default SimpleTag;

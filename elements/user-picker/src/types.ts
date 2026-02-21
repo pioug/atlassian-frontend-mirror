@@ -138,9 +138,9 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 	 * If message is undefined, default message will be displayed.
 	 */
 	noOptionsMessage?:
-	| ((value: { inputValue: string }) => string | null | React.ReactNode)
-	| null
-	| React.ReactNode;
+		| ((value: { inputValue: string }) => string | null | React.ReactNode)
+		| null
+		| React.ReactNode;
 	/** Callback for when the field loses focus. */
 	onBlur?: OnPicker;
 	/** Callback for value change events fired whenever a selection is inserted or removed. */

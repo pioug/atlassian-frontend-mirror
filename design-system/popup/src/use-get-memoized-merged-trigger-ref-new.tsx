@@ -8,7 +8,12 @@ import memoizeOne, { type MemoizedFn } from 'memoize-one';
  * Compositional popup always uses this variant.
  * @returns Function to set trigger ref
  */
-export const useGetMemoizedMergedTriggerRefNew = (): MemoizedFn<(ref: React.RefCallback<HTMLElement> | React.MutableRefObject<HTMLElement> | null, setTriggerRef: Dispatch<SetStateAction<HTMLElement | null>>) => (node: HTMLElement | null) => void> => {
+export const useGetMemoizedMergedTriggerRefNew = (): MemoizedFn<
+	(
+		ref: React.RefCallback<HTMLElement> | React.MutableRefObject<HTMLElement> | null,
+		setTriggerRef: Dispatch<SetStateAction<HTMLElement | null>>,
+	) => (node: HTMLElement | null) => void
+> => {
 	const [getMemoizedMergedTriggerRefNew] = useState(() =>
 		memoizeOne(
 			(

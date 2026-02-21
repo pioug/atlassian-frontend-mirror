@@ -16,8 +16,8 @@ interface InputSpecificProps<
 	Option = unknown,
 	IsMulti extends boolean = boolean,
 	Group extends GroupBase<Option> = GroupBase<Option>,
-> extends InputHTMLAttributes<HTMLInputElement>,
-		CommonPropsAndClassName<Option, IsMulti, Group> {
+>
+	extends InputHTMLAttributes<HTMLInputElement>, CommonPropsAndClassName<Option, IsMulti, Group> {
 	/**
 	 * Reference to the internal element
 	 */
@@ -143,7 +143,9 @@ const hidden = css({
 	opacity: 0,
 });
 
-const Input: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(props: InputProps<Option, IsMulti, Group>) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+const Input: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+	props: InputProps<Option, IsMulti, Group>,
+) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: InputProps<Option, IsMulti, Group>,
 ) => {
 	const { cx: builtinCX, value, xcss } = props;

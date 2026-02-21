@@ -88,7 +88,10 @@ type UpdateNcsSessionStepMetricProps = {
  * @param steps - The steps to calculate the metrics from.
  * @return void
  */
-export const updateNcsSessionStepMetrics = ({ api, steps }: UpdateNcsSessionStepMetricProps): void => {
+export const updateNcsSessionStepMetrics = ({
+	api,
+	steps,
+}: UpdateNcsSessionStepMetricProps): void => {
 	const sessionId = api?.collabEdit?.sharedState.currentState()?.sessionId;
 	if (!sessionId) {
 		return;

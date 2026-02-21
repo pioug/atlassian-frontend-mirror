@@ -99,7 +99,13 @@ export const useAgentUrlActions = ({ cloudId, source }: { cloudId: string; sourc
 		[cloudId, createAnalyticsEvent, fireEventNext, source],
 	);
 
-	const onConversationStarter = ({ agentId, prompt }: { agentId: string; prompt: string }): void => {
+	const onConversationStarter = ({
+		agentId,
+		prompt,
+	}: {
+		agentId: string;
+		prompt: string;
+	}): void => {
 		const startConversationInNewTab = () => {
 			const baseUrl = `${getATLContextUrl('home')}/chat`;
 			const urlWithParams = encodeParamsToUrl(baseUrl, {

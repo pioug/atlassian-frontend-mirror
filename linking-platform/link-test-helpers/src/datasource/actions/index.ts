@@ -27,7 +27,9 @@ export const ORS_ACTIONS_DISCOVERY_ENDPOINT = /\/gateway\/api\/object-resolver\/
 export const ORS_ACTIONS_EXECUTION_ENDPOINT = /\/gateway\/api\/object-resolver\/actions\/execute$/;
 
 let numberOfLoads = 0;
-export const mockActionsDiscovery = (overrides?: Partial<ActionsServiceDiscoveryResponse>): void => {
+export const mockActionsDiscovery = (
+	overrides?: Partial<ActionsServiceDiscoveryResponse>,
+): void => {
 	fetchMock.post(
 		ORS_ACTIONS_DISCOVERY_ENDPOINT,
 		async (): Promise<ActionsServiceDiscoveryResponse> => {

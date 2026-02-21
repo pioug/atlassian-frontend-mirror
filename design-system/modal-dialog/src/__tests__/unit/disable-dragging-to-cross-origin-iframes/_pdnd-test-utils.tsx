@@ -207,7 +207,13 @@ export function addItemsToEvent({ event, items }: { event: DragEvent; items: Sim
 }
 
 export const nativeDrag = {
-	startExternal({ items, target = document.body }: { items: SimpleItem[]; target?: Element }): void {
+	startExternal({
+		items,
+		target = document.body,
+	}: {
+		items: SimpleItem[];
+		target?: Element;
+	}): void {
 		const event = new DragEvent('dragenter', {
 			cancelable: true,
 			bubbles: true,

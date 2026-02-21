@@ -10,11 +10,14 @@ const usePrevious = (value: any) => {
 	return ref.current;
 };
 
-const useButtonFocusHook: (isEditing: boolean | undefined, isEditingState: boolean) => {
-    editButtonRef: import("react").RefObject<HTMLButtonElement>;
-    editViewRef: import("react").MutableRefObject<HTMLElement | undefined>;
-    shouldBeEditing: boolean;
-    doNotFocusOnEditButton: () => boolean;
+const useButtonFocusHook: (
+	isEditing: boolean | undefined,
+	isEditingState: boolean,
+) => {
+	editButtonRef: import('react').RefObject<HTMLButtonElement>;
+	editViewRef: import('react').MutableRefObject<HTMLElement | undefined>;
+	shouldBeEditing: boolean;
+	doNotFocusOnEditButton: () => boolean;
 } = (isEditing: boolean | undefined, isEditingState: boolean) => {
 	const editButtonRef = useRef<HTMLButtonElement>(null);
 	const editViewRef = useRef<HTMLElement>();

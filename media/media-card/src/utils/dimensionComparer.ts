@@ -5,7 +5,10 @@ import { type CardDimensionValue, type CardDimensions } from '../types';
 const isPixelEquivalent = (dimension: CardDimensionValue) =>
 	typeof dimension === 'number' || containsPixelUnit(`${dimension}`);
 
-export const canCompareDimension = (current?: CardDimensionValue, next?: CardDimensionValue): boolean => {
+export const canCompareDimension = (
+	current?: CardDimensionValue,
+	next?: CardDimensionValue,
+): boolean => {
 	if (!current || !next) {
 		return false;
 	}

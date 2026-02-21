@@ -74,28 +74,30 @@ export const changeImageAlignment =
 		return false;
 	};
 
-export const changeImageAlignmentNext = (align?: AlignmentState) => (tr: Transaction): boolean => {
-	const { from, to } = tr.selection;
-	const initialDoc = tr.doc;
-	tr.doc.nodesBetween(from, to, (node, pos) => {
-		if (node.type === tr.doc.type.schema.nodes.mediaSingle) {
-			tr.setNodeMarkup(pos, undefined, {
-				...node.attrs,
-				layout: align === 'center' ? 'center' : `align-${align}`,
-			});
+export const changeImageAlignmentNext =
+	(align?: AlignmentState) =>
+	(tr: Transaction): boolean => {
+		const { from, to } = tr.selection;
+		const initialDoc = tr.doc;
+		tr.doc.nodesBetween(from, to, (node, pos) => {
+			if (node.type === tr.doc.type.schema.nodes.mediaSingle) {
+				tr.setNodeMarkup(pos, undefined, {
+					...node.attrs,
+					layout: align === 'center' ? 'center' : `align-${align}`,
+				});
+			}
+		});
+
+		// compare tr.doc with initialDoc instead of tr.docChanged
+		// because tr passed in might have been modified prior this function
+		// e.g. see changeAlignmentTr platform/packages/editor/editor-plugin-alignment/src/editor-commands/index.ts:L197
+		if (!tr.doc.eq(initialDoc)) {
+			tr.scrollIntoView();
+			return true;
 		}
-	});
 
-	// compare tr.doc with initialDoc instead of tr.docChanged
-	// because tr passed in might have been modified prior this function
-	// e.g. see changeAlignmentTr platform/packages/editor/editor-plugin-alignment/src/editor-commands/index.ts:L197
-	if (!tr.doc.eq(initialDoc)) {
-		tr.scrollIntoView();
-		return true;
-	}
-
-	return false;
-};
+		return false;
+	};
 
 // Remove this when cleaning up platform_editor_toolbar_aifc
 // eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required

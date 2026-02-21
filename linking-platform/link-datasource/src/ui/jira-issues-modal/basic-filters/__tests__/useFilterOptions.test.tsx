@@ -371,7 +371,7 @@ describe('useFilterOptions', () => {
 		await result.current.fetchFilterOptions();
 
 		await waitFor(() => {
-		expect(result.current).toEqual({
+			expect(result.current).toEqual({
 				filterOptions: [],
 				fetchFilterOptions: expect.any(Function),
 				reset: expect.any(Function),

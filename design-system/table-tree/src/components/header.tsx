@@ -49,7 +49,8 @@ const HeaderComponent = ({ width, children, onClick, id, role = 'columnheader' }
 	);
 };
 
-const Header: (props: HeaderProps & import("..").CellWithColumnWidthProps) => React.JSX.Element = withColumnWidth(HeaderComponent);
+const Header: (props: HeaderProps & import('..').CellWithColumnWidthProps) => React.JSX.Element =
+	withColumnWidth(HeaderComponent);
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default Header;

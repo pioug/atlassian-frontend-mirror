@@ -243,37 +243,43 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 					});
 				}
 				// If already initialized, `connected` means reconnected
-				const shouldBypassOutOfSyncGracePeriod = expValEquals('collab_bypass_out_of_sync_period_experiment', 'isEnabled', true, false);
+				const shouldBypassOutOfSyncGracePeriod = expValEquals(
+					'collab_bypass_out_of_sync_period_experiment',
+					'isEnabled',
+					true,
+					false,
+				);
 
 				if (
 					initialized &&
 					this.disconnectedAt &&
 					// Offline longer than `OUT_OF_SYNC_PERIOD`
-					(shouldBypassOutOfSyncGracePeriod || Date.now() - this.disconnectedAt >= OUT_OF_SYNC_PERIOD)
+					(shouldBypassOutOfSyncGracePeriod ||
+						Date.now() - this.disconnectedAt >= OUT_OF_SYNC_PERIOD)
 				) {
-				this.documentService.throttledCatchupv2(
-					CatchupEventReason.RECONNECTED,
-					{
-						disconnectionPeriodSeconds: Math.floor((Date.now() - this.disconnectedAt) / 1000),
-						offlineStepsLength: editorExperiment('platform_editor_offline_editing_web', true)
-							? getOfflineStepsLength(
-								this.documentService.getUnconfirmedSteps(),
-								this.documentService.getUnconfirmedStepsOrigins(),
+					this.documentService.throttledCatchupv2(
+						CatchupEventReason.RECONNECTED,
+						{
+							disconnectionPeriodSeconds: Math.floor((Date.now() - this.disconnectedAt) / 1000),
+							offlineStepsLength: editorExperiment('platform_editor_offline_editing_web', true)
+								? getOfflineStepsLength(
+										this.documentService.getUnconfirmedSteps(),
+										this.documentService.getUnconfirmedStepsOrigins(),
+									)
+								: undefined,
+							offlineReplaceStepsLength: editorExperiment(
+								'platform_editor_offline_editing_web',
+								true,
 							)
-							: undefined,
-						offlineReplaceStepsLength: editorExperiment(
-							'platform_editor_offline_editing_web',
-							true,
-						)
-							? getOfflineReplaceStepsLength(
-								this.documentService.getUnconfirmedSteps(),
-								this.documentService.getUnconfirmedStepsOrigins(),
-							)
-							: undefined,
-						unconfirmedStepsLength: unconfirmedStepsLength,
-					},
-					this.sessionId,
-				);
+								? getOfflineReplaceStepsLength(
+										this.documentService.getUnconfirmedSteps(),
+										this.documentService.getUnconfirmedStepsOrigins(),
+									)
+								: undefined,
+							unconfirmedStepsLength: unconfirmedStepsLength,
+						},
+						this.sessionId,
+					);
 				}
 				this.participantsService.startInactiveRemover(this.sessionId);
 				if (this.config.batchProps) {

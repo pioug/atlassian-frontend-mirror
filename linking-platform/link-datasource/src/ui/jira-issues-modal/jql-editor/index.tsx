@@ -54,8 +54,8 @@ export const JiraJQLEditor = ({
 			inputRef={inputRef}
 			query={query}
 			aria-label={
-			<FormattedMessage defaultMessage="JQL Query Editor" id='link-datasource.jira.jql-editor' />
-		}
+				<FormattedMessage defaultMessage="JQL Query Editor" id="link-datasource.jira.jql-editor" />
+			}
 		/>
 	);
 };

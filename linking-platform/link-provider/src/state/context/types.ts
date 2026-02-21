@@ -31,7 +31,8 @@ export type CardContext = {
 	}) => void;
 	prefetchStore: Record<string, boolean>;
 	store: Store<CardStore>;
-} & Pick< // Most of the values are coming directly from Props given to CardProvider
+} & Pick<
+	// Most of the values are coming directly from Props given to CardProvider
 	CardProviderProps,
 	| 'rovoOptions'
 	| 'isAdminHubAIEnabled'

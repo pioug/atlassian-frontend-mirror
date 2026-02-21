@@ -84,7 +84,11 @@ const backgroundColor = (isSelected: boolean) => {
  *
  * A presentational indicator with no interactivity
  */
-export const PresentationalIndicator: ({ appearance, isSelected, testId }: CommonProps) => JSX.Element = ({ appearance, isSelected, testId }: CommonProps) => {
+export const PresentationalIndicator: ({
+	appearance,
+	isSelected,
+	testId,
+}: CommonProps) => JSX.Element = ({ appearance, isSelected, testId }: CommonProps) => {
 	return (
 		<Box
 			testId={testId}
@@ -106,7 +110,14 @@ type ButtonIndicatorProps = {
  *
  * An interactive indicator.
  */
-export const ButtonIndicator: ({ appearance, panelId, tabId, isSelected, onClick, testId, }: ButtonIndicatorProps) => JSX.Element = ({
+export const ButtonIndicator: ({
+	appearance,
+	panelId,
+	tabId,
+	isSelected,
+	onClick,
+	testId,
+}: ButtonIndicatorProps) => JSX.Element = ({
 	appearance,
 	panelId,
 	tabId,

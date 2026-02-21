@@ -106,20 +106,11 @@ export function getPathToFilter(
 }
 
 export function tree(filters: TFilter[]): {
-    remove(filterId: string): any;
-    insertBefore({ insert, targetId }: {
-        insert: TFilter;
-        targetId: string;
-    }): any;
-    insertAfter({ insert, targetId }: {
-        insert: TFilter;
-        targetId: string;
-    }): any;
-    insertChild({ insert, targetId }: {
-        insert: TFilter;
-        targetId: string;
-    }): any;
-    build(): TFilter[];
+	remove(filterId: string): any;
+	insertBefore({ insert, targetId }: { insert: TFilter; targetId: string }): any;
+	insertAfter({ insert, targetId }: { insert: TFilter; targetId: string }): any;
+	insertChild({ insert, targetId }: { insert: TFilter; targetId: string }): any;
+	build(): TFilter[];
 } {
 	let result = Array.from(filters);
 

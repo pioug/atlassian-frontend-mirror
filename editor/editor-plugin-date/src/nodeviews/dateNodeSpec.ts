@@ -56,10 +56,12 @@ export const dateToDOM = (
 		'data-prosemirror-content-type': 'node',
 		'data-prosemirror-node-name': 'date',
 		'data-prosemirror-node-inline': 'true',
-		...(expValEquals('platform_editor_copy_paste_issue_fix', 'isEnabled', true) ? {
-			'data-node-type': 'date',
-			'data-timestamp': timestamp,
-		} : {}),
+		...(expValEquals('platform_editor_copy_paste_issue_fix', 'isEnabled', true)
+			? {
+					'data-node-type': 'date',
+					'data-timestamp': timestamp,
+				}
+			: {}),
 		draggable: 'true',
 	};
 	if (fg('platform_editor_adf_with_localid')) {

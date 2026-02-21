@@ -12,8 +12,7 @@ export type AssetsDatasourceParameters = {
 
 export type AssetsDatasourceAdf = DatasourceAdf<AssetsDatasourceParameters>;
 
-export interface AssetsConfigModalProps
-	extends ConfigModalProps<
-		InlineCardAdf | AssetsDatasourceAdf,
-		DatasourceParameters | AssetsDatasourceParameters
-	> {}
+export interface AssetsConfigModalProps extends ConfigModalProps<
+	InlineCardAdf | AssetsDatasourceAdf,
+	DatasourceParameters | AssetsDatasourceParameters
+> {}

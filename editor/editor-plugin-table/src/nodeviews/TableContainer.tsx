@@ -500,7 +500,8 @@ export const ResizableTableContainer = React.memo(
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 							className={className}
 							node={node}
-							tableWrapperHeight={tableWrapperHeight}>
+							tableWrapperHeight={tableWrapperHeight}
+						>
 							{children}
 						</InnerContainer>
 					</TableResizer>

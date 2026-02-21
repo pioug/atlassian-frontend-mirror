@@ -18,7 +18,11 @@ export class NamespaceService {
 	 */
 	// Ignored via go/ees005
 	// eslint-disable-next-line require-await
-	onNamespaceStatusChanged = async ({ isLocked, waitTimeInMs, timestamp }: NamespaceStatus): Promise<void> => {
+	onNamespaceStatusChanged = async ({
+		isLocked,
+		waitTimeInMs,
+		timestamp,
+	}: NamespaceStatus): Promise<void> => {
 		const start = Date.now();
 		logger(`Received a namespace status changed event `, {
 			isLocked,

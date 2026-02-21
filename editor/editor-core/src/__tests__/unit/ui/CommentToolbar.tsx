@@ -23,7 +23,7 @@ const getMockEditorAPIWithToolbar = () =>
 				getComponents: () => [primaryToolbarComponent],
 			},
 		},
-	} as PublicPluginAPI<ToolbarPlugin>);
+	}) as PublicPluginAPI<ToolbarPlugin>;
 
 const getMockEditorAPIEmptyToolbar = () =>
 	({
@@ -32,7 +32,7 @@ const getMockEditorAPIEmptyToolbar = () =>
 				getComponents: () => [{}],
 			},
 		},
-	} as PublicPluginAPI<ToolbarPlugin>);
+	}) as PublicPluginAPI<ToolbarPlugin>;
 
 describe('CommentToolbar', () => {
 	describe('when primary toolbar is registered', () => {

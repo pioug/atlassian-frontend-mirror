@@ -498,9 +498,12 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 		selectedJiraSite?.url,
 	]);
 
-	const updateParametersJql = useCallback((parameters: JiraIssueDatasourceParameters) => {
-		parameters.jql = searchBarJql;
-	}, [searchBarJql]);
+	const updateParametersJql = useCallback(
+		(parameters: JiraIssueDatasourceParameters) => {
+			parameters.jql = searchBarJql;
+		},
+		[searchBarJql],
+	);
 
 	return (
 		<IntlMessagesProvider defaultMessages={i18nEN} loaderFn={fetchMessagesForLocale}>
@@ -578,10 +581,12 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 								testId="jira-datasource-modal--insert-button"
 								url={urlToInsert}
 								getAnalyticsPayload={getInsertButtonAnalyticsPayload}
-								{...(isJqlSubmitFixEnabled ? {
-									onBeforeInsert: updateParametersJql,
-									hasErrors: hasJqlSyntaxErrors,
-								} : {})}
+								{...(isJqlSubmitFixEnabled
+									? {
+											onBeforeInsert: updateParametersJql,
+											hasErrors: hasJqlSyntaxErrors,
+										}
+									: {})}
 							>
 								<FormattedMessage {...modalMessages.insertIssuesButtonTextIssueTermSllv} />
 							</InsertButton>

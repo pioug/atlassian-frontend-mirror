@@ -30,9 +30,9 @@ export const useSetFlyoutMenuOpen = () => useContext(SetIsOpenContext);
 export const OnCloseContext = createContext<
 	React.MutableRefObject<
 		| ((
-			event: Event | React.MouseEvent<HTMLButtonElement> | KeyboardEvent | MouseEvent | null,
-			source?: FlyoutCloseSource,
-		) => void)
+				event: Event | React.MouseEvent<HTMLButtonElement> | KeyboardEvent | MouseEvent | null,
+				source?: FlyoutCloseSource,
+		  ) => void)
 		| null
 	>
 >({ current: null });

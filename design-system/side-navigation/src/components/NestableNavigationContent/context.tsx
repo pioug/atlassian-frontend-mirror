@@ -21,7 +21,9 @@ export interface NestedContextValue {
 /**
  * @internal
  */
-export const NestedContext: import("react").Context<NestedContextValue | undefined> = createContext<NestedContextValue | undefined>(undefined);
+export const NestedContext: import('react').Context<NestedContextValue | undefined> = createContext<
+	NestedContextValue | undefined
+>(undefined);
 
 export const useNestedContext: () => NestedContextValue = (): NestedContextValue => {
 	const context = useContext(NestedContext);
@@ -48,7 +50,7 @@ import { NestableNavigationContent } from '@atlaskit/side-navigation';
  * If it returns `false` - either return `null` or `children` if you have children.
  */
 export const useShouldNestedElementRender: () => {
-    shouldRender: boolean;
+	shouldRender: boolean;
 } = () => {
 	const context = useContext(NestedContext);
 

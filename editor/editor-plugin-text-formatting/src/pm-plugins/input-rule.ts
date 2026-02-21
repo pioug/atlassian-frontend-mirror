@@ -116,7 +116,7 @@ function addMark(
 		}
 
 		if (markType.name === 'code') {
-				api?.base?.actions?.resolveMarks(tr.mapping.map(start), tr.mapping.map(end), tr);
+			api?.base?.actions?.resolveMarks(tr.mapping.map(start), tr.mapping.map(end), tr);
 		}
 
 		const mappedStart = tr.mapping.map(start);

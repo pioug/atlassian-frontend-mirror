@@ -140,7 +140,10 @@ describe('Testing: useRecommendation', () => {
 		});
 
 		await waitFor(() => {
-			expect(getUserRecommendations).toHaveBeenCalledWith(expectedRequestParams(), expect.anything());
+			expect(getUserRecommendations).toHaveBeenCalledWith(
+				expectedRequestParams(),
+				expect.anything(),
+			);
 		});
 	});
 
@@ -171,7 +174,6 @@ describe('Testing: useRecommendation', () => {
 		act(() => {
 			result.current.fetchFilterOptions(mockFetchFilterOptionsProps());
 		});
-
 
 		await waitFor(() => {
 			expect(result.current).toEqual({
@@ -359,7 +361,6 @@ describe('Testing: useRecommendation', () => {
 		act(() => {
 			result.current.fetchFilterOptions(mockFetchFilterOptionsProps('SOME_SEARCH_TERM'));
 		});
-
 
 		await waitFor(() => {
 			expect(result.current).toEqual({

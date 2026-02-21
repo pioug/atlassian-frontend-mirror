@@ -162,7 +162,7 @@ export function getNodeRenderer<T extends Parameters>(
 				// However the out-of-box won't handle this. Confluence uses a custom implementation
 				return preloaded
 					? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-					(resolveImportSync(preloaded) as any)
+						(resolveImportSync(preloaded) as any)
 					: resolveImport(maybePromise.render());
 			}
 		},

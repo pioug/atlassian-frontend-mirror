@@ -6,7 +6,7 @@ import { importSources } from '@atlaskit/eslint-utils/schema';
 
 import { createLintRuleWithTypedConfig } from '../utils/create-rule-with-typed-config';
 
-export const rule: import("eslint").Rule.RuleModule = createLintRuleWithTypedConfig({
+export const rule: import('eslint').Rule.RuleModule = createLintRuleWithTypedConfig({
 	meta: {
 		name: 'no-important-styles',
 		docs: {
@@ -100,7 +100,9 @@ function isImportant(node: Property['value']): boolean {
 		}
 		// Fast check: string must end with 'important' (after optional whitespace)
 		const len = node.value.length;
-		if (len < 10) {return false;} // "!important" is 10 chars minimum
+		if (len < 10) {
+			return false;
+		} // "!important" is 10 chars minimum
 		return IMPORTANT_SUFFIX_REGEX.test(node.value);
 	}
 

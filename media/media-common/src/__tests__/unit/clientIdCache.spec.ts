@@ -1,4 +1,9 @@
-import { setClientIdForFile, getClientIdForFile, clearClientIdCache, extractClientIdsFromHtml } from '../../copyIntent';
+import {
+	setClientIdForFile,
+	getClientIdForFile,
+	clearClientIdCache,
+	extractClientIdsFromHtml,
+} from '../../copyIntent';
 
 describe('clientIdCache', () => {
 	beforeEach(() => {
@@ -75,7 +80,6 @@ describe('clientIdCache', () => {
 			expect(getClientIdForFile('file-2')).toBeUndefined();
 		});
 	});
-
 });
 
 describe('extractClientIdsFromHtml', () => {
@@ -170,4 +174,3 @@ describe('extractClientIdsFromHtml', () => {
 		expect(getClientIdForFile('abc-123-def')).toBe('12345678-90ab-cdef-1234-567890abcdef');
 	});
 });
-

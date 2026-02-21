@@ -125,29 +125,35 @@ function isTextClamped(element: HTMLElement): boolean {
  *
  * To provide a responsive experience, label text will render next to an icon at larger viewports.
  */
-export const AppLogo: ({ name, label, href, icon, onClick, }: {
-    /**
-     * The name of the app. Will be displayed next to the logo in wider viewports, and is used as an accessible label at smaller viewports.
-     */
-    name: string;
-    /**
-     * Provide an accessible label, often used by screen readers.
-     * This label should include the name of the app, and if applicable,
-     * the location the user will navigate to on click.
-     */
-    label: string;
-    /**
-     * The URL to navigate to when the element is clicked.
-     */
-    href: string;
-    /**
-     * The icon to render.
-     */
-    icon: (props: LogoProps) => JSX.Element;
-    /**
-     * Handler called on click.
-     */
-    onClick?: React.MouseEventHandler<HTMLAnchorElement>;
+export const AppLogo: ({
+	name,
+	label,
+	href,
+	icon,
+	onClick,
+}: {
+	/**
+	 * The name of the app. Will be displayed next to the logo in wider viewports, and is used as an accessible label at smaller viewports.
+	 */
+	name: string;
+	/**
+	 * Provide an accessible label, often used by screen readers.
+	 * This label should include the name of the app, and if applicable,
+	 * the location the user will navigate to on click.
+	 */
+	label: string;
+	/**
+	 * The URL to navigate to when the element is clicked.
+	 */
+	href: string;
+	/**
+	 * The icon to render.
+	 */
+	icon: (props: LogoProps) => JSX.Element;
+	/**
+	 * Handler called on click.
+	 */
+	onClick?: React.MouseEventHandler<HTMLAnchorElement>;
 }) => JSX.Element = ({
 	name,
 	label,

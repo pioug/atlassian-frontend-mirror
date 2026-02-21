@@ -12,9 +12,9 @@ export default function useLocale({
 	locale: string;
 	weekStartDay: WeekDay;
 }): {
-    monthsLong: string[];
-    daysShort: string[];
-    daysLong: string[];
+	monthsLong: string[];
+	daysShort: string[];
+	daysLong: string[];
 } {
 	const l10n = useMemo(() => createLocalizationProvider(locale), [locale]);
 

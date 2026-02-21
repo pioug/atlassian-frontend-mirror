@@ -27,46 +27,46 @@ const extractDocumentTypeIcon = (
 	switch (documentType) {
 		case 'schema:BlogPosting':
 			return {
-						icon: IconType.Blog,
-						label
-					};
+				icon: IconType.Blog,
+				label,
+			};
 		case 'schema:DigitalDocument':
 			if (providerId && isConfluenceGenerator(providerId)) {
 				return {
-							icon: IconType.LiveDocument,
-							label
-						};
+					icon: IconType.LiveDocument,
+					label,
+				};
 			} else {
 				return {
-							icon: IconType.File,
-							label
-						};
+					icon: IconType.File,
+					label,
+				};
 			}
 		case 'schema:TextDigitalDocument':
 			return {
-						icon: IconType.Document,
-						label
-					};
+				icon: IconType.Document,
+				label,
+			};
 		case 'schema:PresentationDigitalDocument':
 			return {
-						icon: IconType.Presentation,
-						label
-					};
+				icon: IconType.Presentation,
+				label,
+			};
 		case 'schema:SpreadsheetDigitalDocument':
 			return {
-						icon: IconType.Spreadsheet,
-						label
-					};
+				icon: IconType.Spreadsheet,
+				label,
+			};
 		case 'atlassian:Template':
 			return {
-						icon: IconType.Template,
-						label
-					};
+				icon: IconType.Template,
+				label,
+			};
 		case 'atlassian:UndefinedLink':
 			return {
-						icon: IconType.Document,
-						label
-					};
+				icon: IconType.Document,
+				label,
+			};
 		default:
 			return undefined;
 	}

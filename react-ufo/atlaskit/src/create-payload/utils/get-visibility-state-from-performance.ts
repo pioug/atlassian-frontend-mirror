@@ -1,4 +1,4 @@
-import type { PageVisibility } from "../../common/react-ufo-payload-schema";
+import type { PageVisibility } from '../../common/react-ufo-payload-schema';
 
 export function getVisibilityStateFromPerformance(stop: number): PageVisibility | null {
 	try {

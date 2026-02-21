@@ -50,8 +50,10 @@ export type FocusItem = {
 
 export type Behaviors = 'checkbox' | 'radio' | 'menuitemcheckbox' | 'menuitemradio';
 
-export interface CustomTriggerProps<TriggerElement extends HTMLElement = any>
-	extends Omit<TriggerProps, 'ref'> {
+export interface CustomTriggerProps<TriggerElement extends HTMLElement = any> extends Omit<
+	TriggerProps,
+	'ref'
+> {
 	/**
 	 * Ref that should be applied to the trigger. This is used to calculate the menu position.
 	 */

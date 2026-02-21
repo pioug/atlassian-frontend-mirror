@@ -94,11 +94,11 @@ export class WithHelpTriggerNew extends React.Component<WithHelpTriggerProps> {
 	}
 }
 
-export const WithHelpTrigger = (props: WithHelpTriggerProps) => expValEquals('platform_editor_context_context_types_migration', 'isEnabled', true)
- ? (
-	<WithHelpTriggerNew render={props.render} />
-) : (
-	<WithHelpTriggerOld render={props.render} />
-);
+export const WithHelpTrigger = (props: WithHelpTriggerProps) =>
+	expValEquals('platform_editor_context_context_types_migration', 'isEnabled', true) ? (
+		<WithHelpTriggerNew render={props.render} />
+	) : (
+		<WithHelpTriggerOld render={props.render} />
+	);
 
 export default WithHelpTrigger;

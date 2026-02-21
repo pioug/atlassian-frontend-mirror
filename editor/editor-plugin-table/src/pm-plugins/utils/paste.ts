@@ -63,7 +63,7 @@ const unwrapNestedTables = (
 						),
 					),
 					currentNestDepth,
-			  );
+				);
 		if (transformed) {
 			if (Array.isArray(transformed)) {
 				children.push(...transformed);

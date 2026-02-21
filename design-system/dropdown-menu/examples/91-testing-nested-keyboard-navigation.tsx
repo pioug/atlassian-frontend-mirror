@@ -15,7 +15,14 @@ const NestedDropdown = ({ level = 0 }) => {
 				<ButtonItem
 					{...triggerProps}
 					ref={triggerRef}
-					iconAfter={<ChevronRightIcon size="small" spacing="spacious" color={token('color.icon.subtle')} label="" />}
+					iconAfter={
+						<ChevronRightIcon
+							size="small"
+							spacing="spacious"
+							color={token('color.icon.subtle')}
+							label=""
+						/>
+					}
 				>
 					<span>Nested Menu</span>
 				</ButtonItem>
@@ -29,8 +36,10 @@ const NestedDropdown = ({ level = 0 }) => {
 		</DropdownMenu>
 	);
 };
-const NestedDropdownMenuExample: ({ level }: {
-    level?: number | undefined;
+const NestedDropdownMenuExample: ({
+	level,
+}: {
+	level?: number | undefined;
 }) => React.JSX.Element = ({ level = 0 }): React.JSX.Element => {
 	return (
 		<DropdownMenu shouldRenderToParent trigger="Nested" testId={`nested-${level}`}>

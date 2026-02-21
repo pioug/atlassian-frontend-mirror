@@ -21,7 +21,13 @@ type FormData = {
 	position: { value: number };
 };
 
-export function MoveDialog({ onClose, itemId }: { onClose: () => void; itemId: string }): React.JSX.Element {
+export function MoveDialog({
+	onClose,
+	itemId,
+}: {
+	onClose: () => void;
+	itemId: string;
+}): React.JSX.Element {
 	const { dispatch, getChildrenOfItem, getMoveTargets, getPathToItem } = useContext(TreeContext);
 
 	const options = useMemo(() => {

@@ -103,30 +103,28 @@ export interface MultiBodiedExtensionDefinition {
 	type: 'multiBodiedExtension';
 }
 
-export const multiBodiedExtension: NodeSpec = multiBodiedExtensionStage0Factory(
-	{
-		parseDOM: [
-			{
-				context: 'multiBodiedExtension//',
-				tag: '[data-node-type="multi-bodied-extension"]',
-				skip: true,
-			},
-			{
-				tag: '[data-node-type="multi-bodied-extension"]',
-				getAttrs: (domNode: HTMLElement) => getExtensionAttrs(domNode),
-			},
-		],
-		toDOM(node) {
-			const attrs = {
-				'data-node-type': 'multi-bodied-extension',
-				'data-extension-type': node.attrs.extensionType,
-				'data-extension-key': node.attrs.extensionKey,
-				'data-text': node.attrs.text,
-				'data-parameters': JSON.stringify(node.attrs.parameters),
-				'data-layout': node.attrs.layout,
-				'data-local-id:': node.attrs.localId,
-			};
-			return ['div', attrs, 0];
+export const multiBodiedExtension: NodeSpec = multiBodiedExtensionStage0Factory({
+	parseDOM: [
+		{
+			context: 'multiBodiedExtension//',
+			tag: '[data-node-type="multi-bodied-extension"]',
+			skip: true,
 		},
+		{
+			tag: '[data-node-type="multi-bodied-extension"]',
+			getAttrs: (domNode: HTMLElement) => getExtensionAttrs(domNode),
+		},
+	],
+	toDOM(node) {
+		const attrs = {
+			'data-node-type': 'multi-bodied-extension',
+			'data-extension-type': node.attrs.extensionType,
+			'data-extension-key': node.attrs.extensionKey,
+			'data-text': node.attrs.text,
+			'data-parameters': JSON.stringify(node.attrs.parameters),
+			'data-layout': node.attrs.layout,
+			'data-local-id:': node.attrs.localId,
+		};
+		return ['div', attrs, 0];
 	},
-);
+});

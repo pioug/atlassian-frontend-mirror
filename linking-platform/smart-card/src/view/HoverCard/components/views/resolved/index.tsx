@@ -64,7 +64,7 @@ const HoverCardResolvedView = ({
 	onActionClick,
 	titleBlockProps,
 	id,
-	url
+	url,
 }: HoverCardResolvedProps) => {
 	const { fireEvent } = useAnalyticsEvents();
 	const rovoConfig = useRovoConfig();
@@ -108,13 +108,15 @@ const HoverCardResolvedView = ({
 	const aiSummaryMinHeight = snippet ? snippetHeight.current : 0;
 
 	const isRovoSummaryEnabled =
-		rovoConfig?.isRovoEnabled && extensionKey === 'google-object-provider' && fg('platform_sl_3p_auth_rovo_action_kill_switch');
+		rovoConfig?.isRovoEnabled &&
+		extensionKey === 'google-object-provider' &&
+		fg('platform_sl_3p_auth_rovo_action_kill_switch');
 
 	const aiSummaryProps = fg('platform_sl_3p_auth_rovo_action_kill_switch')
 		? // eslint-disable-next-line react-hooks/rules-of-hooks
 			useAISummaryAction(url)
 		: undefined;
-	const hasSummarised = useRef(false)
+	const hasSummarised = useRef(false);
 
 	useEffect(() => {
 		if (fg('platform_sl_3p_auth_rovo_action_kill_switch')) {

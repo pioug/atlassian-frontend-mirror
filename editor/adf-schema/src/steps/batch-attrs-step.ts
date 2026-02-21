@@ -183,10 +183,10 @@ export class BatchAttrsStep extends Step {
 	}
 
 	toJSON(): {
-        data: BatchAttrsStepData[];
-        inverted: boolean;
-        stepType: string;
-    } {
+		data: BatchAttrsStepData[];
+		inverted: boolean;
+		stepType: string;
+	} {
 		return {
 			stepType,
 			data: this.data,

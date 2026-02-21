@@ -35,7 +35,9 @@ const activeTokens = shapeTokens
 		}),
 	);
 
-export const createShapeStylesFromTemplate: (property: keyof typeof tokenStyles) => string = (property: keyof typeof tokenStyles): string => {
+export const createShapeStylesFromTemplate: (property: keyof typeof tokenStyles) => string = (
+	property: keyof typeof tokenStyles,
+): string => {
 	if (!tokenStyles[property]) {
 		throw new Error(`[codegen] Unknown option found "${property}"`);
 	}

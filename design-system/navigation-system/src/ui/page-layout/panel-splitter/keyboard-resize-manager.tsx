@@ -40,7 +40,7 @@ export function createKeyboardResizeManager({
 	onResizeStart: ResizeStartCallback;
 	onResizeEnd: ResizeEndCallback;
 }): {
-    onResize: ({ initialWidth, finalWidth }: Parameters<ResizeEndCallback>[0]) => void;
+	onResize: ({ initialWidth, finalWidth }: Parameters<ResizeEndCallback>[0]) => void;
 } {
 	let resizingState: ResizingState = {
 		type: 'idle',

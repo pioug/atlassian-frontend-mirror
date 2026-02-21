@@ -13,10 +13,14 @@ type DraggingState<DragType extends AllDragTypes> = {
 };
 
 export function makeMonitor<DragType extends AllDragTypes>(): {
-    dispatchEvent: <EventName extends keyof EventPayloadMap<DragType>>({ eventName, payload, }: {
-        eventName: EventName;
-        payload: EventPayloadMap<DragType>[EventName];
-    }) => void; monitorForConsumers: (args: MonitorArgs<DragType>) => CleanupFn;
+	dispatchEvent: <EventName extends keyof EventPayloadMap<DragType>>({
+		eventName,
+		payload,
+	}: {
+		eventName: EventName;
+		payload: EventPayloadMap<DragType>[EventName];
+	}) => void;
+	monitorForConsumers: (args: MonitorArgs<DragType>) => CleanupFn;
 } {
 	const registry = new Set<MonitorArgs<DragType>>();
 

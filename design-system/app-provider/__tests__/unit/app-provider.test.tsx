@@ -41,7 +41,7 @@ describe('AppProvider', () => {
 
 	it('should throw when there are nested AppProviders', async () => {
 		// @ts-ignore
-		jest.spyOn(global.console, 'error').mockImplementation(() => { });
+		jest.spyOn(global.console, 'error').mockImplementation(() => {});
 
 		const app = (
 			<AppProvider>

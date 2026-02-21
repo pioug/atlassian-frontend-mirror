@@ -96,8 +96,8 @@ export class Api {
 			headers: {
 				...(this.config.permissionTokenRefresh
 					? {
-						'x-token': await this.channel.getChannelToken(),
-					}
+							'x-token': await this.channel.getChannelToken(),
+						}
 					: {}),
 				'x-product': getProduct(this.config.productInfo),
 				'x-subproduct': getSubProduct(this.config.productInfo),

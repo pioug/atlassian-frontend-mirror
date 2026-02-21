@@ -230,7 +230,11 @@ export const setup = async (
 	assertAnalyticsAfterButtonClick: (buttonName: string, payload: any) => Promise<void>;
 	clickSearchButton: () => Promise<void>;
 	component: RenderResult<typeof queries, HTMLElement, HTMLElement>;
-	findByRole: (role: ByRoleMatcher, options?: queries.ByRoleOptions | undefined, waitForElementOptions?: waitForOptions | undefined) => Promise<HTMLElement>;
+	findByRole: (
+		role: ByRoleMatcher,
+		options?: queries.ByRoleOptions | undefined,
+		waitForElementOptions?: waitForOptions | undefined,
+	) => Promise<HTMLElement>;
 	getByRole: (role: ByRoleMatcher, options?: queries.ByRoleOptions | undefined) => HTMLElement;
 	getByTestId: (id: Matcher, options?: MatcherOptions | undefined) => HTMLElement;
 	getByText: (id: Matcher, options?: SelectorMatcherOptions | undefined) => HTMLElement;

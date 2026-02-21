@@ -4,7 +4,7 @@ import Banner from '@atlaskit/banner';
 import Button from '@atlaskit/button/new';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
 
-const Icon = <WarningIcon spacing="spacious" label="Warning"  />;
+const Icon = <WarningIcon spacing="spacious" label="Warning" />;
 
 export default (): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);

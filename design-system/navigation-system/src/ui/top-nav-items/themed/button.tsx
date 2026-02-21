@@ -93,15 +93,13 @@ type OverridenPrimitiveProps = 'aria-label' | 'children' | IgnoredPrimitiveProps
  * Props that are common between link buttons.
  */
 interface LinkVariantCommonProps<RouterLinkConfig extends Record<string, any> = never>
-	extends CommonProps,
-		Omit<AnchorProps<RouterLinkConfig>, OverridenPrimitiveProps> {}
+	extends CommonProps, Omit<AnchorProps<RouterLinkConfig>, OverridenPrimitiveProps> {}
 
 /**
  * Props shared by `Button` and `IconButton`
  */
 interface ActionVariantCommonProps
-	extends CommonProps,
-		Omit<PressableProps, OverridenPrimitiveProps> {}
+	extends CommonProps, Omit<PressableProps, OverridenPrimitiveProps> {}
 
 export const themedButtonBackground = '--ds-top-bar-button-background';
 export const themedButtonBackgroundHovered = '--ds-top-bar-button-background-hovered';
@@ -313,8 +311,7 @@ const ThemedPressable: React.ForwardRefExoticComponent<
 });
 
 interface ThemedAnchorProps<RouterLinkConfig extends Record<string, any> = never>
-	extends ThemedPrimitiveProps,
-		LinkVariantCommonProps<RouterLinkConfig> {}
+	extends ThemedPrimitiveProps, LinkVariantCommonProps<RouterLinkConfig> {}
 
 function ThemedAnchorFn<RouterLinkConfig extends Record<string, any> = never>(
 	{
@@ -417,8 +414,7 @@ export const ThemedButton: React.ForwardRefExoticComponent<
 });
 
 export interface ThemedLinkButtonProps<RouterLinkConfig extends Record<string, any> = never>
-	extends LinkVariantCommonProps<RouterLinkConfig>,
-		TextButtonCommonProps {}
+	extends LinkVariantCommonProps<RouterLinkConfig>, TextButtonCommonProps {}
 
 function ThemedLinkButtonFn<RouterLinkConfig extends Record<string, any> = never>(
 	{ iconBefore: IconBefore, children, ...props }: ThemedLinkButtonProps<RouterLinkConfig>,
@@ -535,8 +531,7 @@ export const ThemedIconButton: React.ForwardRefExoticComponent<
 });
 
 export interface ThemedLinkIconButtonProps<RouterLinkConfig extends Record<string, any> = never>
-	extends LinkVariantCommonProps<RouterLinkConfig>,
-		IconButtonCommonProps {
+	extends LinkVariantCommonProps<RouterLinkConfig>, IconButtonCommonProps {
 	href: string | RouterLinkConfig;
 }
 

@@ -54,7 +54,9 @@ const containerStyles = cssMap({
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const SelectContainer: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(props: ContainerProps<Option, IsMulti, Group>) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+export const SelectContainer: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+	props: ContainerProps<Option, IsMulti, Group>,
+) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: ContainerProps<Option, IsMulti, Group>,
 ) => {
 	const { children, innerProps, isDisabled, isRtl, xcss } = props;
@@ -131,7 +133,9 @@ const valueContainerStyles = cssMap({
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const ValueContainer: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(props: ValueContainerProps<Option, IsMulti, Group>) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+export const ValueContainer: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+	props: ValueContainerProps<Option, IsMulti, Group>,
+) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: ValueContainerProps<Option, IsMulti, Group>,
 ) => {
 	const {
@@ -198,11 +202,13 @@ const indicatorContainerStyles = css({
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IndicatorsContainer: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(props: IndicatorsContainerProps<Option, IsMulti, Group>) => JSX.Element = <
+export const IndicatorsContainer: <
 	Option,
 	IsMulti extends boolean,
 	Group extends GroupBase<Option>,
 >(
+	props: IndicatorsContainerProps<Option, IsMulti, Group>,
+) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: IndicatorsContainerProps<Option, IsMulti, Group>,
 ) => {
 	const { children, innerProps, xcss } = props;

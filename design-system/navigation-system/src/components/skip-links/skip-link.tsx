@@ -73,10 +73,14 @@ function focusElement(element: HTMLElement) {
  *
  * This component is rendered internally and is not exported publicly.
  */
-export const SkipLink: ({ id, children, onBeforeNavigate, }: {
-    id: string;
-    children: ReactNode;
-    onBeforeNavigate?: SkipLinkData["onBeforeNavigate"];
+export const SkipLink: ({
+	id,
+	children,
+	onBeforeNavigate,
+}: {
+	id: string;
+	children: ReactNode;
+	onBeforeNavigate?: SkipLinkData['onBeforeNavigate'];
 }) => JSX.Element = ({
 	id,
 	children,

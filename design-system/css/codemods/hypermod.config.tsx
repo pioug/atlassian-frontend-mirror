@@ -1,10 +1,10 @@
 import primitivesEmotionToCompiled from './0.5.2-primitives-emotion-to-compiled';
 
 const config: {
-    presets: {
-        'primitives-emotion-to-compiled': typeof primitivesEmotionToCompiled;
-    };
-    dependencies: string[];
+	presets: {
+		'primitives-emotion-to-compiled': typeof primitivesEmotionToCompiled;
+	};
+	dependencies: string[];
 } = {
 	presets: {
 		'primitives-emotion-to-compiled': primitivesEmotionToCompiled,

@@ -182,13 +182,7 @@ describe('AvatarTag component', () => {
 	describe('type="agent" (hexagonal avatar)', () => {
 		it('should render with hexagonal avatar', () => {
 			render(
-				<AvatarTag
-					type="agent"
-					text="Rovo"
-					avatar={Avatar}
-					testId={testId}
-					isRemovable={false}
-				/>,
+				<AvatarTag type="agent" text="Rovo" avatar={Avatar} testId={testId} isRemovable={false} />,
 			);
 			expect(screen.getByTestId(testId)).toBeInTheDocument();
 			// Avatar also renders the name for accessibility, so use getAllByText

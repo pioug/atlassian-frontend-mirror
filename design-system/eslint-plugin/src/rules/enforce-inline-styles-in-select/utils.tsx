@@ -153,7 +153,11 @@ function checkSpreadElement(node: Rule.Node, spreadElement: any, context: Rule.R
 	}
 }
 
-export function checkStylesObject(node: Rule.Node, stylesValue: any, context: Rule.RuleContext): void {
+export function checkStylesObject(
+	node: Rule.Node,
+	stylesValue: any,
+	context: Rule.RuleContext,
+): void {
 	if (!stylesValue) {
 		return;
 	}

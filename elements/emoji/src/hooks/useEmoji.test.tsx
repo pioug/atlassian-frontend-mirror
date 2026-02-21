@@ -30,7 +30,9 @@ describe('useEmoji', () => {
 
 	describe('throws', () => {
 		test('when using hook without emoji context', () => {
-			expect(() => renderHook(() => useEmoji())).toThrow('useEmoji must be used within EmojiContext');
+			expect(() => renderHook(() => useEmoji())).toThrow(
+				'useEmoji must be used within EmojiContext',
+			);
 		});
 	});
 

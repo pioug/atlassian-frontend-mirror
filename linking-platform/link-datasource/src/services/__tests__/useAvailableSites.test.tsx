@@ -74,9 +74,7 @@ describe('useAvailableSites', () => {
 		});
 
 		it('should be matching site when cloud id found', async () => {
-			const { result } = renderHook(() =>
-				useAvailableSites('confluence', siteA.cloudId),
-			);
+			const { result } = renderHook(() => useAvailableSites('confluence', siteA.cloudId));
 
 			await waitFor(() => {
 				expect(result.current.availableSites).toStrictEqual([siteB, siteA]);

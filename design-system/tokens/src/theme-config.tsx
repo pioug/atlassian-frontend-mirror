@@ -18,7 +18,7 @@ export type Themes =
 	| 'atlassian-dark-increased-contrast'
 	| 'atlassian-shape'
 	| 'atlassian-spacing'
-	| 'atlassian-typography'
+	| 'atlassian-typography';
 export type ThemeFileNames = Themes;
 
 /**
@@ -68,7 +68,7 @@ export const themeIds = [
 	'dark-increased-contrast',
 	'spacing',
 	'shape',
-	'typography'
+	'typography',
 ] as const;
 
 export type ThemeIds = (typeof themeIds)[number];
@@ -81,7 +81,17 @@ const themeOverrideIds = [] as const;
 
 export type ThemeOverrideIds = (typeof themeOverrideIds)[number];
 
-export const themeIdsWithOverrides: readonly ["light-increased-contrast", "light", "light-future", "dark", "dark-future", "dark-increased-contrast", "spacing", "shape", "typography"] = [...themeIds, ...themeOverrideIds] as const;
+export const themeIdsWithOverrides: readonly [
+	'light-increased-contrast',
+	'light',
+	'light-future',
+	'dark',
+	'dark-future',
+	'dark-increased-contrast',
+	'spacing',
+	'shape',
+	'typography',
+] = [...themeIds, ...themeOverrideIds] as const;
 
 export type ThemeIdsWithOverrides = (typeof themeIdsWithOverrides)[number];
 

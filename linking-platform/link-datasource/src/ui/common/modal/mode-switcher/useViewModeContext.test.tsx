@@ -62,6 +62,8 @@ describe('useViewModeContext custom hook', () => {
 		expect(result.current.disableDisplayDropdown).toBe(true);
 	});
 	it('should throw error if no context exists to wrap the component', () => {
-		expect(() => setup({ defaultViewMode: null })).toThrow(new Error('useViewModeContext must be called within DatasourceViewModeProvider'));
+		expect(() => setup({ defaultViewMode: null })).toThrow(
+			new Error('useViewModeContext must be called within DatasourceViewModeProvider'),
+		);
 	});
 });

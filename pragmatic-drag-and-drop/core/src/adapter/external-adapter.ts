@@ -60,7 +60,11 @@ export function getAvailableItems(dataTransfer: DataTransfer): DataTransferItem[
 
 let didDragStartLocally: boolean = false;
 
-const adapter: { registerUsage: () => CleanupFn; dropTarget: (args: DropTargetArgs<ExternalDragType>) => CleanupFn; monitor: (args: MonitorArgs<ExternalDragType>) => CleanupFn; } = makeAdapter<ExternalDragType>({
+const adapter: {
+	registerUsage: () => CleanupFn;
+	dropTarget: (args: DropTargetArgs<ExternalDragType>) => CleanupFn;
+	monitor: (args: MonitorArgs<ExternalDragType>) => CleanupFn;
+} = makeAdapter<ExternalDragType>({
 	typeKey: 'external',
 	// for external drags, we are generally making a copy of something that is being dragged
 	defaultDropEffect: 'copy',

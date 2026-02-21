@@ -6,9 +6,8 @@ import { createPartialSignedArtifact } from '@atlassian/codegen';
 
 import { createSpacingStylesFromTemplate } from './spacing-codegen-template';
 
-const spacingTokensDependencyPath = require.resolve(
-	'../../../tokens/src/artifacts/tokens-raw/atlassian-spacing',
-);
+const spacingTokensDependencyPath =
+	require.resolve('../../../tokens/src/artifacts/tokens-raw/atlassian-spacing');
 
 const targetPath = join(__dirname, '../', '../', 'src', 'common', 'token-maps.partial.tsx');
 

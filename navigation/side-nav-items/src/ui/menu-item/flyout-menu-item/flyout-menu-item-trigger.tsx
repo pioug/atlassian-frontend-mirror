@@ -17,10 +17,7 @@ import { MenuItemBase } from '../menu-item';
 import { type COLLAPSE_ELEM_BEFORE_TYPE } from '../menu-item-signals';
 import type { MenuItemCommonProps, MenuItemOnClick } from '../types';
 
-import {
-	IsOpenContext,
-	OnCloseContext,
-} from './flyout-menu-item-context';
+import { IsOpenContext, OnCloseContext } from './flyout-menu-item-context';
 
 const elemAfterStyles = cssMap({
 	root: {
@@ -95,20 +92,20 @@ export const FlyoutMenuItemTrigger: React.ForwardRefExoticComponent<
 		const isOpen = useContext(IsOpenContext);
 		const onCloseRef = useContext(OnCloseContext);
 
-		const handleClick = useCallback((
-			event: React.MouseEvent<HTMLButtonElement>,
-			analyticsEvent: UIAnalyticsEvent,
-		) => {
-			// If the flyout is open and the trigger is clicked, close the flyout and call the onClick
-			// handler with the source information set to 'outside-click'.
-			if (fg('platform_dst_nav4_flyout_menu_slots_close_button')) {
-				if (isOpen && onCloseRef.current) {
-					onCloseRef.current(event, 'outside-click');
+		const handleClick = useCallback(
+			(event: React.MouseEvent<HTMLButtonElement>, analyticsEvent: UIAnalyticsEvent) => {
+				// If the flyout is open and the trigger is clicked, close the flyout and call the onClick
+				// handler with the source information set to 'outside-click'.
+				if (fg('platform_dst_nav4_flyout_menu_slots_close_button')) {
+					if (isOpen && onCloseRef.current) {
+						onCloseRef.current(event, 'outside-click');
+					}
 				}
-			}
 
-			onClick?.(event, analyticsEvent);
-		}, [isOpen, onCloseRef, onClick]);
+				onClick?.(event, analyticsEvent);
+			},
+			[isOpen, onCloseRef, onClick],
+		);
 
 		return (
 			<PopupTrigger>

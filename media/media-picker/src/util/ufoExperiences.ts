@@ -56,7 +56,10 @@ export const succeedMediaUploadUfoExperience = (id: string, properties: FileAttr
 	});
 };
 
-export const failMediaUploadUfoExperience = (id: string, properties?: UFOFailedEventPayload): void => {
+export const failMediaUploadUfoExperience = (
+	id: string,
+	properties?: UFOFailedEventPayload,
+): void => {
 	const refinedMetadata = {
 		...properties,
 		packageName,

@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 import { DatasourceTableView } from '@atlaskit/link-datasource';
 import { mockAssetsClientFetchRequests } from '@atlaskit/link-test-helpers/assets';
 

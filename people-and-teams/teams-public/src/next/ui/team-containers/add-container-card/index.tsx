@@ -55,7 +55,14 @@ const AddContainerCardWrapper = ({
 	isDisabled?: boolean;
 }) => {
 	return (
-		<Pressable xcss={cx(styles.container, fg('enable-fix-team-container-height') ? styles.smallCardContainer : null)} isDisabled={isDisabled} onClick={onClick}>
+		<Pressable
+			xcss={cx(
+				styles.container,
+				fg('enable-fix-team-container-height') ? styles.smallCardContainer : null,
+			)}
+			isDisabled={isDisabled}
+			onClick={onClick}
+		>
 			{children}
 		</Pressable>
 	);
@@ -78,7 +85,10 @@ export const AddContainerCard = ({
 
 	return (
 		<AddContainerCardWrapper onClick={onAddAContainerClick} isDisabled={isDisabled}>
-			<Inline space="space.100" xcss={cx(styles.card, fg('enable-fix-team-container-height') ? styles.cardHeight : null)}>
+			<Inline
+				space="space.100"
+				xcss={cx(styles.card, fg('enable-fix-team-container-height') ? styles.cardHeight : null)}
+			>
 				<Box xcss={styles.iconWrapper}>{icon}</Box>
 				<Text maxLines={1} color="color.text.subtlest">
 					{title}

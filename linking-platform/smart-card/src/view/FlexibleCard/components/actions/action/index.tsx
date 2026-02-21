@@ -43,12 +43,7 @@ const Action = ({
 	const isStackItem = as === 'stack-item';
 	const isDropdownItem = as === 'dropdown-item' || asDropDownItem;
 
-	const actionIcon = icon ? (
-		<ActionIcon
-			icon={icon}
-			testId={testId}
-		/>
-	) : undefined;
+	const actionIcon = icon ? <ActionIcon icon={icon} testId={testId} /> : undefined;
 	const iconBefore = icon && iconPosition === 'before' ? actionIcon : undefined;
 	const iconAfter = icon && iconPosition === 'after' ? actionIcon : undefined;
 

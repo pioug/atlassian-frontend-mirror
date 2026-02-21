@@ -17,7 +17,7 @@ const footerStyles = cssMap({
 		borderBlockStartColor: token('color.border'),
 		marginBlockStart: token('space.100'),
 		paddingBlockStart: token('space.100'),
-	}
+	},
 });
 
 export interface FlyoutFooterProps {
@@ -48,5 +48,5 @@ export const FlyoutFooter = (props: FlyoutFooterProps) => {
 		<div data-testid={testId} css={footerStyles.root}>
 			{children}
 		</div>
-	)
+	);
 };

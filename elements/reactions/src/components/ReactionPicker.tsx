@@ -89,7 +89,8 @@ export const RENDER_REACTIONPICKERPANEL_TESTID = 'reactionPickerPanel-testid';
 const PICKER_CONTROL_ID = 'emoji-picker';
 
 export interface ReactionPickerProps
-	extends Pick<SelectorProps, 'pickerQuickReactionEmojiIds'>,
+	extends
+		Pick<SelectorProps, 'pickerQuickReactionEmojiIds'>,
 		Partial<Pick<TriggerProps, 'tooltipContent' | 'miniMode'>> {
 	/**
 	 * Optional Show the "more emoji" selector icon for choosing emoji beyond the default list of emojis (defaults to false)

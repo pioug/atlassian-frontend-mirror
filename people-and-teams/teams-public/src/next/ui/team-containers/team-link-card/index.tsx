@@ -161,7 +161,10 @@ export const TeamLinkCard = ({
 			onKeyDown={handleKeyDown}
 			testId="team-link-card-inner"
 		>
-			<Inline space="space.100" xcss={cx(styles.card, fg('enable-fix-team-container-height') ? styles.cardHeight : null)}>
+			<Inline
+				space="space.100"
+				xcss={cx(styles.card, fg('enable-fix-team-container-height') ? styles.cardHeight : null)}
+			>
 				<ContainerIcon
 					containerType={containerType}
 					title={title}

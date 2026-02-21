@@ -6,7 +6,7 @@ import {
 } from '../utils/create-no-tagged-template-expression-rule';
 import { createLintRule } from '../utils/create-rule';
 
-const rule: import("eslint").Rule.RuleModule = createLintRule({
+const rule: import('eslint').Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'no-keyframes-tagged-template-expression',
 		fixable: 'code',

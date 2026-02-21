@@ -120,7 +120,10 @@ const Message = ({ children, appearance = 'default', fieldId, testId }: Internal
  * 'Password should be more than 4 characters'
  *
  */
-export const HelperMessage: ({ children, testId }: MessageProps) => JSX.Element = ({ children, testId }: MessageProps) => (
+export const HelperMessage: ({ children, testId }: MessageProps) => JSX.Element = ({
+	children,
+	testId,
+}: MessageProps) => (
 	<FieldId.Consumer>
 		{(fieldId) => (
 			<Message fieldId={fieldId ? `${fieldId}-helper` : undefined} testId={testId}>
@@ -137,7 +140,10 @@ export const HelperMessage: ({ children, testId }: MessageProps) => JSX.Element 
  * 'Invalid username, needs to be more than 4 characters'.
  *
  */
-export const ErrorMessage: ({ children, testId }: MessageProps) => JSX.Element = ({ children, testId }: MessageProps) => (
+export const ErrorMessage: ({ children, testId }: MessageProps) => JSX.Element = ({
+	children,
+	testId,
+}: MessageProps) => (
 	<FieldId.Consumer>
 		{(fieldId) => (
 			<Message
@@ -158,7 +164,10 @@ export const ErrorMessage: ({ children, testId }: MessageProps) => JSX.Element =
  * a helper message could be 'Nice one, this username is available'.
  *
  */
-export const ValidMessage: ({ children, testId }: MessageProps) => JSX.Element = ({ children, testId }: MessageProps) => (
+export const ValidMessage: ({ children, testId }: MessageProps) => JSX.Element = ({
+	children,
+	testId,
+}: MessageProps) => (
 	<FieldId.Consumer>
 		{(fieldId) => (
 			<Message
@@ -191,7 +200,9 @@ const MessageWrapperContext = createContext<{ isWrapper: boolean }>({
  * may not render the message.
  *
  */
-export const MessageWrapper: ({ children }: MessageProps) => JSX.Element = ({ children }: MessageProps) => {
+export const MessageWrapper: ({ children }: MessageProps) => JSX.Element = ({
+	children,
+}: MessageProps) => {
 	const contextValue = {
 		isWrapper: true,
 	};

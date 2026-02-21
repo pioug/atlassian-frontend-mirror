@@ -45,10 +45,10 @@ export const DEFAULT_I18N_PROPS_SKIP_LINKS = 'Skip to:';
 
 export const PAGE_LAYOUT_CONTAINER_SELECTOR = 'data-layout-container';
 
-export const LEFT_PANEL_WIDTH: "var(--leftPanelWidth, 0px)" = `var(--${VAR_LEFT_PANEL_WIDTH}, 0px)`;
-export const RIGHT_PANEL_WIDTH: "var(--rightPanelWidth, 0px)" = `var(--${VAR_RIGHT_PANEL_WIDTH}, 0px)`;
-export const LEFT_SIDEBAR_WIDTH: "var(--leftSidebarWidth, 0px)" = `var(--${VAR_LEFT_SIDEBAR_WIDTH}, 0px)`;
-export const RIGHT_SIDEBAR_WIDTH: "var(--rightSidebarWidth, 0px)" = `var(--${VAR_RIGHT_SIDEBAR_WIDTH}, 0px)`;
-export const TOP_NAVIGATION_HEIGHT: "var(--topNavigationHeight, 0px)" = `var(--${VAR_TOP_NAVIGATION_HEIGHT}, 0px)`;
-export const BANNER_HEIGHT: "var(--bannerHeight, 0px)" = `var(--${VAR_BANNER_HEIGHT}, 0px)`;
-export const LEFT_SIDEBAR_FLYOUT_WIDTH: "var(--leftSidebarFlyoutWidth, 240px)" = `var(--${VAR_LEFT_SIDEBAR_FLYOUT}, ${DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH}px)`;
+export const LEFT_PANEL_WIDTH: 'var(--leftPanelWidth, 0px)' = `var(--${VAR_LEFT_PANEL_WIDTH}, 0px)`;
+export const RIGHT_PANEL_WIDTH: 'var(--rightPanelWidth, 0px)' = `var(--${VAR_RIGHT_PANEL_WIDTH}, 0px)`;
+export const LEFT_SIDEBAR_WIDTH: 'var(--leftSidebarWidth, 0px)' = `var(--${VAR_LEFT_SIDEBAR_WIDTH}, 0px)`;
+export const RIGHT_SIDEBAR_WIDTH: 'var(--rightSidebarWidth, 0px)' = `var(--${VAR_RIGHT_SIDEBAR_WIDTH}, 0px)`;
+export const TOP_NAVIGATION_HEIGHT: 'var(--topNavigationHeight, 0px)' = `var(--${VAR_TOP_NAVIGATION_HEIGHT}, 0px)`;
+export const BANNER_HEIGHT: 'var(--bannerHeight, 0px)' = `var(--${VAR_BANNER_HEIGHT}, 0px)`;
+export const LEFT_SIDEBAR_FLYOUT_WIDTH: 'var(--leftSidebarFlyoutWidth, 240px)' = `var(--${VAR_LEFT_SIDEBAR_FLYOUT}, ${DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH}px)`;

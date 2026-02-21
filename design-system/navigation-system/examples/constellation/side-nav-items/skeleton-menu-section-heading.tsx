@@ -8,9 +8,7 @@ import { jsx } from '@atlaskit/css';
 import { SkeletonMenuSectionHeading } from '@atlaskit/side-nav-items/skeleton';
 
 export function SkeletonMenuSectionHeadingExample(): React.JSX.Element {
-    return (
-        <SkeletonMenuSectionHeading />
-    )
-};
+	return <SkeletonMenuSectionHeading />;
+}
 
 export default SkeletonMenuSectionHeadingExample;

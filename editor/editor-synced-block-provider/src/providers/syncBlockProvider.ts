@@ -37,7 +37,7 @@ import {
 } from './types';
 
 export class SyncedBlockProvider extends SyncBlockDataProviderInterface {
-    name = 'syncBlockProvider';
+	name = 'syncBlockProvider';
 	private fetchProvider: ADFFetchProvider;
 	private writeProvider: ADFWriteProvider | undefined;
 	private providerOptions: SyncedBlockRendererProviderOptions;

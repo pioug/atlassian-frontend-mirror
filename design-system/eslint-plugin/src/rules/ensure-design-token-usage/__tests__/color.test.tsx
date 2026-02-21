@@ -1507,8 +1507,18 @@ const colorExceptionTests: Tests = {
 };
 
 const allTests: Tests = {
-	valid: [...colorTests.valid, ...colorSuggestionTests.valid, ...tagBypassTests.valid, ...colorExceptionTests.valid],
-	invalid: [...colorTests.invalid, ...colorSuggestionTests.invalid, ...tagBypassTests.invalid, ...colorExceptionTests.invalid],
+	valid: [
+		...colorTests.valid,
+		...colorSuggestionTests.valid,
+		...tagBypassTests.valid,
+		...colorExceptionTests.valid,
+	],
+	invalid: [
+		...colorTests.invalid,
+		...colorSuggestionTests.invalid,
+		...tagBypassTests.invalid,
+		...colorExceptionTests.invalid,
+	],
 };
 
 tester.run('ensure-design-token-usage', rule, allTests);

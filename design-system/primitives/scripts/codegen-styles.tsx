@@ -13,15 +13,12 @@ import { createSpacingStylesFromTemplate } from './spacing-codegen-template';
 import { createTextStylesFromTemplate } from './text-codegen-template';
 import { createTypographyStylesFromTemplate } from './typography-codegen-template';
 
-const colorTokensDependencyPath = require.resolve(
-	'../../tokens/src/artifacts/tokens-raw/atlassian-light',
-);
-const spacingTokensDependencyPath = require.resolve(
-	'../../tokens/src/artifacts/tokens-raw/atlassian-spacing',
-);
-const shapeTokensDependencyPath = require.resolve(
-	'../../tokens/src/artifacts/tokens-raw/atlassian-shape',
-);
+const colorTokensDependencyPath =
+	require.resolve('../../tokens/src/artifacts/tokens-raw/atlassian-light');
+const spacingTokensDependencyPath =
+	require.resolve('../../tokens/src/artifacts/tokens-raw/atlassian-spacing');
+const shapeTokensDependencyPath =
+	require.resolve('../../tokens/src/artifacts/tokens-raw/atlassian-shape');
 
 const templateFiles = readdirSync(join(__dirname, 'codegen-file-templates'), {
 	withFileTypes: true,

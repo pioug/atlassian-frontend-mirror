@@ -15,7 +15,6 @@ import { ContextualSurvey, type OnDismissArgs, SurveyMarshal } from '../src/new'
 
 import headerImage from './headerImage.svg';
 
-
 const styles = css({
 	paddingTop: token('space.100', '8px'),
 	font: token('font.body.large'),

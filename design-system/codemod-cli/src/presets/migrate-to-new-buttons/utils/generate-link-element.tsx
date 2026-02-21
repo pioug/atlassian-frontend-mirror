@@ -1,6 +1,9 @@
 import { type API, type JSXElement } from 'jscodeshift';
 
-export const modifyLinkAttributes: (element: JSXElement, j: API["jscodeshift"]) => void = (element: JSXElement, j: API['jscodeshift']) => {
+export const modifyLinkAttributes: (element: JSXElement, j: API['jscodeshift']) => void = (
+	element: JSXElement,
+	j: API['jscodeshift'],
+) => {
 	j(element)
 		.find(j.JSXAttribute)
 		.filter(
@@ -25,7 +28,10 @@ export const modifyLinkAttributes: (element: JSXElement, j: API["jscodeshift"]) 
 		.replaceWith(j.jsxAttribute(j.jsxIdentifier('appearance'), j.stringLiteral('subtle')));
 };
 
-export const generateLinkComponent: (element: JSXElement, j: API["jscodeshift"]) => JSXElement | undefined = (element: JSXElement, j: API['jscodeshift']) => {
+export const generateLinkComponent: (
+	element: JSXElement,
+	j: API['jscodeshift'],
+) => JSXElement | undefined = (element: JSXElement, j: API['jscodeshift']) => {
 	const { attributes } = element.openingElement;
 	if (!element.children) {
 		return;

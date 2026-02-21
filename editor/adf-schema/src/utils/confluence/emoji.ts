@@ -16,7 +16,30 @@ const HC_EMOTICON_PREFIX = 'atlassian-';
  * Glyphs that do not map to Fabric Emoji
  * will be mapped to Emoji Id '2b50' (:star:) with preserving ac:name as shortName attribute;
  */
-const acNameToEmojiMap: { 'blue-star': string[]; 'broken-heart': string[]; cheeky: string[]; cross: string[]; 'green-star': string[]; heart: string[]; information: string[]; laugh: string[]; 'light-off': string[]; 'light-on': string[]; minus: string[]; plus: string[]; question: string[]; 'red-star': string[]; sad: string[]; smile: string[]; 'thumbs-down': string[]; 'thumbs-up': string[]; tick: string[]; warning: string[]; wink: string[]; 'yellow-star': string[]; } = {
+const acNameToEmojiMap: {
+	'blue-star': string[];
+	'broken-heart': string[];
+	cheeky: string[];
+	cross: string[];
+	'green-star': string[];
+	heart: string[];
+	information: string[];
+	laugh: string[];
+	'light-off': string[];
+	'light-on': string[];
+	minus: string[];
+	plus: string[];
+	question: string[];
+	'red-star': string[];
+	sad: string[];
+	smile: string[];
+	'thumbs-down': string[];
+	'thumbs-up': string[];
+	tick: string[];
+	warning: string[];
+	wink: string[];
+	'yellow-star': string[];
+} = {
 	smile: ['1f642', ':slight_smile:', '\uD83D\uDE42'],
 	sad: ['1f641', ':slight_frown:', '\uD83D\uDE41'],
 	cheeky: ['1f61b', ':stuck_out_tongue:', '\uD83D\uDE1B'],
@@ -44,9 +67,9 @@ const acNameToEmojiMap: { 'blue-star': string[]; 'broken-heart': string[]; cheek
 export type NameToEmoji = keyof typeof acNameToEmojiMap;
 
 export function acNameToEmoji(acName: NameToEmoji): {
-    id: string;
-    shortName: string;
-    text: string;
+	id: string;
+	shortName: string;
+	text: string;
 } {
 	const emojiData = acNameToEmojiMap[acName];
 	return emojiData

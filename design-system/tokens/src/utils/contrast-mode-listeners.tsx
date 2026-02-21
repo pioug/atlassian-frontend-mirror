@@ -22,7 +22,7 @@ const contrastModeMql = isMatchMediaAvailable && window.matchMedia(moreContrastM
 class ContrastModeObserver {
 	unbindContrastChangeListener: UnbindFn | null = null;
 
-	getContrastMode(): "more" | "no-preference" {
+	getContrastMode(): 'more' | 'no-preference' {
 		if (!contrastModeMql) {
 			return 'no-preference';
 		}

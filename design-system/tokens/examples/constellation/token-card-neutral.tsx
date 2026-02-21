@@ -68,7 +68,7 @@ export const TokenNeutral = (): React.JSX.Element => {
 };
 
 const _default_1: {
-    example: () => React.JSX.Element;
-    code: string;
+	example: () => React.JSX.Element;
+	code: string;
 } = { example: TokenNeutral, code: TokenNeutralCodeBlock };
 export default _default_1;

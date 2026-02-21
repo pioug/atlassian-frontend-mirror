@@ -22,7 +22,9 @@ const NODES_MARKS_OVERRIDES = {
 	multiBodiedExtension: ['unsupportedNodeAttribute', 'unsupportedMark'],
 };
 
-export const buildAttrs = (attrs?: ADFAttributes): NodeSpec['attrs'] | MarkSpec['attrs'] | undefined => {
+export const buildAttrs = (
+	attrs?: ADFAttributes,
+): NodeSpec['attrs'] | MarkSpec['attrs'] | undefined => {
 	let attributes = attrs;
 	if (!attrs) {
 		return undefined;

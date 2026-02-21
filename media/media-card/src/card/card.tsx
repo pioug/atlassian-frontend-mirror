@@ -1,6 +1,4 @@
-import {
-	isFileIdentifier,
-} from '@atlaskit/media-client';
+import { isFileIdentifier } from '@atlaskit/media-client';
 import { withMediaAnalyticsContext } from '@atlaskit/media-common';
 import React, { useEffect } from 'react';
 import { IntlProvider, type WrappedComponentProps, injectIntl } from 'react-intl-next';

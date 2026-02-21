@@ -464,7 +464,8 @@ const handleMouseMoveDebounce = (nodeViewPortalProviderAPI: PortalProviderAPI) =
 	});
 
 export const handleMouseMove =
-	(nodeViewPortalProviderAPI: PortalProviderAPI) => (view: EditorView, event: Event): boolean => {
+	(nodeViewPortalProviderAPI: PortalProviderAPI) =>
+	(view: EditorView, event: Event): boolean => {
 		if (!(event.target instanceof HTMLElement)) {
 			return false;
 		}

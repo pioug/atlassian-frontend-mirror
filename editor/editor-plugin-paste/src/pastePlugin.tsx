@@ -50,7 +50,7 @@ export const pastePlugin: PastePlugin = ({ config, api }) => {
 					}
 
 					return <Flag api={api} />;
-			},
+				},
 
 		getSharedState: (editorState) => {
 			if (!editorState) {

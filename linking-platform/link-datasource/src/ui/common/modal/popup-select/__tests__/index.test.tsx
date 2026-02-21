@@ -13,7 +13,7 @@ const defaultProps: FilterPopupSelectProps = {
 	filterName: 'test-filter',
 	isDisabled: false,
 	menuListProps: {
-        filterName: 'test-filter',
+		filterName: 'test-filter',
 		isLoading: false,
 	},
 	onInputChange: jest.fn(),
@@ -101,4 +101,3 @@ describe('FilterPopupSelect', () => {
 		},
 	);
 });
-

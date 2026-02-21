@@ -4,7 +4,11 @@ import { useContext, useEffect } from 'react';
 import { v4 as createUUID } from 'uuid';
 
 import coinflip from '../coinflip';
-import { getDoNotAbortActivePressInteractionOnTransition, getInteractionRate, isUFOEnabled } from '../config';
+import {
+	getDoNotAbortActivePressInteractionOnTransition,
+	getInteractionRate,
+	isUFOEnabled,
+} from '../config';
 import { getActiveTrace } from '../experience-trace-id-context';
 import UFOInteractionIDContext, { DefaultInteractionID } from '../interaction-id-context';
 import {

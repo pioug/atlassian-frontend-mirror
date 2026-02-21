@@ -82,9 +82,10 @@ export const deleteComment =
 export const revertComment =
 	// Ignored via go/ees005
 	// eslint-disable-next-line require-await
-	(conversationId: string, commentId: string, provider: ResourceProvider) => async (): Promise<void> => {
-		await provider.revertComment(conversationId, commentId);
-	};
+	(conversationId: string, commentId: string, provider: ResourceProvider) =>
+		async (): Promise<void> => {
+			await provider.revertComment(conversationId, commentId);
+		};
 
 // Ignored via go/ees005
 // eslint-disable-next-line require-await

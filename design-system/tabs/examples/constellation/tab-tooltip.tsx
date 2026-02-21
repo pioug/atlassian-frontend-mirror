@@ -29,11 +29,11 @@ const panelStyles = css({
 	paddingInlineStart: token('space.400'),
 });
 
-export const Panel: ({ children }: {
-    children: ReactNode;
-}) => JSX.Element = ({ children }: { children: ReactNode }) => (
-	<div css={panelStyles}>{children}</div>
-);
+export const Panel: ({ children }: { children: ReactNode }) => JSX.Element = ({
+	children,
+}: {
+	children: ReactNode;
+}) => <div css={panelStyles}>{children}</div>;
 
 const TooltipTab = ({ label, tooltip }: { label: string; tooltip: string }) => (
 	<Tooltip content={tooltip}>

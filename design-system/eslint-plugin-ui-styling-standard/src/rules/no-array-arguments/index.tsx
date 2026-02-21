@@ -22,7 +22,7 @@ const schema: JSONSchema4 = [
 	},
 ];
 
-export const rule: import("eslint").Rule.RuleModule = createLintRule({
+export const rule: import('eslint').Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'no-array-arguments',
 		docs: {

@@ -20,7 +20,7 @@ export const OverflowMenu = ({ children }: { children: React.ReactNode }): React
 			<ToolbarDropdownMenu
 				label={tooltipContent}
 				iconBefore={<ShowMoreHorizontalIcon label="" />}
-				tooltipComponent={<ToolbarTooltip content={tooltipContent} position="top"/>}
+				tooltipComponent={<ToolbarTooltip content={tooltipContent} position="top" />}
 			>
 				{children}
 			</ToolbarDropdownMenu>

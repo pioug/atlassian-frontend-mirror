@@ -49,9 +49,7 @@ test.describe('ReactUFO: Framework routing display:none mutations', () => {
 				// The ratios should also not contain the routing container
 				if (fy25_03Revision?.ratios) {
 					const ratioKeys = Object.keys(fy25_03Revision.ratios);
-					expect(ratioKeys).not.toContain(
-						expect.stringContaining('routingContainer'),
-					);
+					expect(ratioKeys).not.toContain(expect.stringContaining('routingContainer'));
 				}
 			});
 
@@ -98,9 +96,7 @@ test.describe('ReactUFO: Framework routing display:none mutations', () => {
 
 				if (fy26_04Revision?.ratios) {
 					const ratioKeys = Object.keys(fy26_04Revision.ratios);
-					expect(ratioKeys).not.toContain(
-						expect.stringContaining('routingContainer'),
-					);
+					expect(ratioKeys).not.toContain(expect.stringContaining('routingContainer'));
 				}
 			});
 		});

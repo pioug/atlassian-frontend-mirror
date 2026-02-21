@@ -33,7 +33,6 @@ import {
 import { buildJQL } from './buildJQL';
 import { modeSwitcherMessages } from './messages';
 
-
 const styles = cssMap({
 	basicSearchInputBoxStyles: {
 		width: '100%',

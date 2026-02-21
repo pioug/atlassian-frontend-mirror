@@ -231,7 +231,7 @@ export const TokenPieChart = (): React.JSX.Element => {
 };
 
 const _default_1: {
-    example: () => React.JSX.Element;
-    code: string;
+	example: () => React.JSX.Element;
+	code: string;
 } = { example: TokenPieChart, code: TokenPieChartCodeBlock };
 export default _default_1;

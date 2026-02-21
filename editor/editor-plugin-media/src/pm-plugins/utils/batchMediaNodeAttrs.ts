@@ -63,7 +63,10 @@ export type MediaAttributesCache = WeakMap<EditorView, MediaAttributesCachePerVi
 const mediaAttributesCache: MediaAttributesCache = new WeakMap();
 const debouncedTime = 500;
 
-export const containsSameAttributes = (a: MediaAttributes, b: Partial<MediaAttributes>): boolean => {
+export const containsSameAttributes = (
+	a: MediaAttributes,
+	b: Partial<MediaAttributes>,
+): boolean => {
 	// a contains b, and want to check if attributes in b are same in a
 	return Object.entries(b).every(([bkey, bValue]) => {
 		if (bkey in a) {

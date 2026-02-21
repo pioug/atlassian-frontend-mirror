@@ -36,7 +36,10 @@ const progressBarStyles = css({
  * A progress bar describes the horizontal tracking bar that traverses each individual step.
  *
  */
-const ProgressBar: ({ percentageComplete, testId }: StageBarProps) => JSX.Element = ({ percentageComplete, testId }: StageBarProps) => (
+const ProgressBar: ({ percentageComplete, testId }: StageBarProps) => JSX.Element = ({
+	percentageComplete,
+	testId,
+}: StageBarProps) => (
 	<div
 		data-testid={testId}
 		style={{

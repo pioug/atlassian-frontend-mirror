@@ -22,6 +22,8 @@ describe('UserInteractionsProvider', () => {
 	});
 
 	test('useDatasourceExperienceId throws if not wrapped in a provider', () => {
-		expect(() => renderHook(() => useDatasourceExperienceId())).toThrow(new Error('useDatasourceExperienceId() must be wrapped in <DatasourceExperienceIdProvider>'));
+		expect(() => renderHook(() => useDatasourceExperienceId())).toThrow(
+			new Error('useDatasourceExperienceId() must be wrapped in <DatasourceExperienceIdProvider>'),
+		);
 	});
 });

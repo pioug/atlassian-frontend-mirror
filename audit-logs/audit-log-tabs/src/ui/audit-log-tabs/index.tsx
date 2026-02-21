@@ -20,22 +20,32 @@ const styles = cssMap({
 	},
 });
 
-export default function AuditLogTabs({ testId = 'audit-log-tabs' }: AuditLogTabsProps): JSX.Element {
+export default function AuditLogTabs({
+	testId = 'audit-log-tabs',
+}: AuditLogTabsProps): JSX.Element {
 	return (
 		<Box testId={testId}>
 			<Tabs id="audit-log-tabs">
 				<TabList>
-					<Tab><FormattedMessage {...messages.homeTab} /></Tab>
-					<Tab><FormattedMessage {...messages.asyncQueriesTab} /></Tab>
+					<Tab>
+						<FormattedMessage {...messages.homeTab} />
+					</Tab>
+					<Tab>
+						<FormattedMessage {...messages.asyncQueriesTab} />
+					</Tab>
 				</TabList>
 				<TabPanel>
 					<Box xcss={styles.container}>
-						<Text as="p"><FormattedMessage {...messages.homeTabContent} /></Text>
+						<Text as="p">
+							<FormattedMessage {...messages.homeTabContent} />
+						</Text>
 					</Box>
 				</TabPanel>
 				<TabPanel>
 					<Box xcss={styles.container}>
-						<Text as="p"><FormattedMessage {...messages.asyncQueriesTabContent} /></Text>
+						<Text as="p">
+							<FormattedMessage {...messages.asyncQueriesTabContent} />
+						</Text>
 					</Box>
 				</TabPanel>
 			</Tabs>

@@ -29,29 +29,12 @@ export default function useControlledDateState({
 	previouslySelected?: Array<string>;
 	defaultPreviouslySelected: Array<string>;
 }): {
-    readonly day: readonly [
-        number,
-        (newValue: number) => void
-    ];
-    readonly month: readonly [
-        number,
-        (newValue: number) => void
-    ];
-    readonly year: readonly [
-        number,
-        (newValue: number) => void
-    ];
-    readonly today: readonly [
-        string
-    ];
-    readonly selected: readonly [
-        string[],
-        (newValue: string[]) => void
-    ];
-    readonly previous: readonly [
-        string[],
-        (newValue: string[]) => void
-    ];
+	readonly day: readonly [number, (newValue: number) => void];
+	readonly month: readonly [number, (newValue: number) => void];
+	readonly year: readonly [number, (newValue: number) => void];
+	readonly today: readonly [string];
+	readonly selected: readonly [string[], (newValue: string[]) => void];
+	readonly previous: readonly [string[], (newValue: string[]) => void];
 } {
 	const {
 		current: { thisDay, thisMonth, thisYear },

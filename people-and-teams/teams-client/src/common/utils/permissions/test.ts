@@ -358,8 +358,7 @@ describe('In invite-only teams', () => {
 describe('In SCIM-synced teams', () => {
 	beforeEach(() => {
 		(fg as jest.Mock).mockImplementation(
-			(flagName) =>
-				flagName !== 'enable_edit_team_name_external_type_teams'
+			(flagName) => flagName !== 'enable_edit_team_name_external_type_teams',
 		);
 		(FeatureGates.getExperimentValue as jest.Mock).mockImplementation((exp) =>
 			exp === 'new_team_profile' ? true : false,

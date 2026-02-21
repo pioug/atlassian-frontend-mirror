@@ -22,14 +22,18 @@ export type ReferenceObject = typeof referenceObject;
 /**
  * Returns the first import in the esprima AST.
  */
-export const getFirstImport: (source: SourceCode) => import("estree").ImportDeclaration | undefined = (source: SourceCode) => {
+export const getFirstImport: (
+	source: SourceCode,
+) => import('estree').ImportDeclaration | undefined = (source: SourceCode) => {
 	return source.ast.body.find((node) => node.type === 'ImportDeclaration');
 };
 
 /**
  * Takes a template literal and returns [key, value] array of the css properties
  */
-export const makeTemplateLiteralIntoEntries: (templateString: string) => string[][] = (templateString: string) => {
+export const makeTemplateLiteralIntoEntries: (templateString: string) => string[][] = (
+	templateString: string,
+) => {
 	return templateString
 		.replace(/\n/g, '')
 		.split(/;|{|}/)
@@ -67,7 +71,9 @@ export const getObjectLikeness: (node: ObjectExpression) => number = (node: Obje
 	return countMatchingKeyValues(styleEntries);
 };
 
-export const countMatchingKeyValues: (styleEntries: KeyValue[]) => number = (styleEntries: KeyValue[]) => {
+export const countMatchingKeyValues: (styleEntries: KeyValue[]) => number = (
+	styleEntries: KeyValue[],
+) => {
 	const matchingStyleEntries = styleEntries.filter(
 		(entry: any): entry is Partial<ReferenceObject> => {
 			return entry.key in referenceObject;

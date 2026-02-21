@@ -14,7 +14,10 @@ const ZoomIn = ({
 	duration = 'small',
 	isPaused,
 	onFinish,
-}: Omit<KeyframesMotionProps, 'animationTimingFunction' | 'animationTimingFunctionExiting'>): React.JSX.Element => {
+}: Omit<
+	KeyframesMotionProps,
+	'animationTimingFunction' | 'animationTimingFunctionExiting'
+>): React.JSX.Element => {
 	return (
 		<KeyframesMotion
 			duration={duration}

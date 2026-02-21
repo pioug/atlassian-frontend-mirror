@@ -187,7 +187,13 @@ export const useFilePreview = ({
 				// where no SSR occurred, so we should skip SSR preview generation entirely.
 				if (ssr === 'server' || ssrData) {
 					try {
-						return getSSRPreview(ssr, mediaClient, identifier.id, imageURLParams, mediaBlobUrlAttrsWithClientId);
+						return getSSRPreview(
+							ssr,
+							mediaClient,
+							identifier.id,
+							imageURLParams,
+							mediaBlobUrlAttrsWithClientId,
+						);
 					} catch (e: any) {
 						ssrReliabilityRef.current = {
 							...ssrReliabilityRef.current,

@@ -8,7 +8,6 @@ import { INPUT_METHOD } from '../../analytics';
 import type { Providers } from '../../provider-factory';
 import type { Diff } from '../../utils';
 
-
 import LinkSearchList from './LinkSearchList';
 import { type RecentSearchProps, type RecentSearchState } from './types';
 import withActivityProvider, {
@@ -296,7 +295,7 @@ const _default_1: {
 		// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 		setState: <K extends never>(
 			state: // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-			| {}
+				| {}
 				| ((
 						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 						prevState: Readonly<{}>,
@@ -413,7 +412,7 @@ const _default_1: {
 		// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 		setState: <K extends never>(
 			state: // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-			| {}
+				| {}
 				| ((
 						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 						prevState: Readonly<{}>,

@@ -70,34 +70,34 @@ function typeToIconDescriptor({
 	switch (type) {
 		case 'atlassian:Goal':
 			return {
-						icon: IconType.Task,
-						label,
-					};
+				icon: IconType.Task,
+				label,
+			};
 		case 'atlassian:Project':
 			return {
-						icon: IconType.Project,
-						label,
-					};
+				icon: IconType.Project,
+				label,
+			};
 		case 'atlassian:SourceCodeCommit':
 			return {
-						icon: IconType.Commit,
-						label,
-					};
+				icon: IconType.Commit,
+				label,
+			};
 		case 'atlassian:SourceCodePullRequest':
 			return {
-						icon: IconType.PullRequest,
-						label,
-					};
+				icon: IconType.PullRequest,
+				label,
+			};
 		case 'atlassian:SourceCodeReference':
 			return {
-						icon: IconType.Branch,
-						label,
-					};
+				icon: IconType.Branch,
+				label,
+			};
 		case 'atlassian:SourceCodeRepository':
 			return {
-						icon: IconType.Repo,
-						label,
-					};
+				icon: IconType.Repo,
+				label,
+			};
 		case 'atlassian:Task':
 			const taskLabel = label || 'Task';
 			const taskIconDescriptor = { icon: IconType.Task, label: taskLabel };

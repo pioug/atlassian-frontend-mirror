@@ -26,10 +26,10 @@ export class LegacyEditorContext extends React.Component<EditorContextProps, Obj
 
 	render() {
 		return (
-		<EditorContext.Provider value={{ editorActions: this.editorActions }}>
-			{this.props.children}
-		</EditorContext.Provider>
-	);
+			<EditorContext.Provider value={{ editorActions: this.editorActions }}>
+				{this.props.children}
+			</EditorContext.Provider>
+		);
 	}
 }
 
@@ -62,8 +62,11 @@ export class LegacyEditorContextOld extends React.Component<EditorContextProps, 
 	}
 }
 
-export default (props: EditorContextProps) => expValEquals('platform_editor_context_context_types_migration', 'isEnabled', true) ? (
-	<LegacyEditorContext editorActions={props.editorActions}>{props.children}</LegacyEditorContext>
-) : (
-	<LegacyEditorContextOld editorActions={props.editorActions}>{props.children}</LegacyEditorContextOld>
-);
+export default (props: EditorContextProps) =>
+	expValEquals('platform_editor_context_context_types_migration', 'isEnabled', true) ? (
+		<LegacyEditorContext editorActions={props.editorActions}>{props.children}</LegacyEditorContext>
+	) : (
+		<LegacyEditorContextOld editorActions={props.editorActions}>
+			{props.children}
+		</LegacyEditorContextOld>
+	);

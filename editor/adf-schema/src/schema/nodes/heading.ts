@@ -1,7 +1,4 @@
-import type {
-	AlignmentMarkDefinition,
-	IndentationMarkDefinition,
-} from '../marks';
+import type { AlignmentMarkDefinition, IndentationMarkDefinition } from '../marks';
 import type { MarksObject, NoMark } from './types/mark';
 import type { Inline } from './types/inline-content';
 import { heading as headingFactory } from '../../next-schema/generated/nodeTypes';
@@ -75,10 +72,7 @@ export const heading: NodeSpec = headingFactory({
 	toDOM(node) {
 		const { level, localId } = node.attrs;
 		const name = 'h' + level;
-		const attrs =
-			localId !== undefined && localId !== null
-				? [{ 'data-local-id': localId }]
-				: [];
+		const attrs = localId !== undefined && localId !== null ? [{ 'data-local-id': localId }] : [];
 		return [name, ...attrs, 0];
 	},
 });

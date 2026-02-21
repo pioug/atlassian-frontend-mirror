@@ -552,7 +552,12 @@ export class DocumentService implements DocumentServiceInterface {
 	};
 
 	// Triggered when page recovery has emitted an 'init' event on a page client is currently connected to.
-	onRestore = async ({ doc, version, metadata, targetClientId }: CollabInitPayload): Promise<void> => {
+	onRestore = async ({
+		doc,
+		version,
+		metadata,
+		targetClientId,
+	}: CollabInitPayload): Promise<void> => {
 		if (!targetClientId) {
 			this.hasRecovered = true;
 		}
@@ -965,7 +970,10 @@ export class DocumentService implements DocumentServiceInterface {
 	 * @param reason
 	 * @example
 	 */
-	sendStepsFromCurrentState(sendAnalyticsEvent?: boolean, reason?: GetResolvedEditorStateReason): void {
+	sendStepsFromCurrentState(
+		sendAnalyticsEvent?: boolean,
+		reason?: GetResolvedEditorStateReason,
+	): void {
 		const state = this.getState?.();
 		if (!state) {
 			this.analyticsHelper?.sendErrorEvent(

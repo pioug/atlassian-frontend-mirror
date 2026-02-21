@@ -376,7 +376,7 @@ describe('spec based validator', () => {
 
 describe('unsupported content levels severity', () => {
 	const createAnalyticsEvent: CreateUIAnalyticsEvent = jest.fn(
-		() => ({ fire() {} } as UIAnalyticsEvent),
+		() => ({ fire() {} }) as UIAnalyticsEvent,
 	);
 
 	let RendererIsolated: any;
@@ -764,7 +764,7 @@ let rafSpy: jest.SpyInstance;
 
 describe('renderer rendered analytics event', () => {
 	const createAnalyticsEvent: CreateUIAnalyticsEvent = jest.fn(
-		() => ({ fire() {} } as UIAnalyticsEvent),
+		() => ({ fire() {} }) as UIAnalyticsEvent,
 	);
 
 	const doc = {

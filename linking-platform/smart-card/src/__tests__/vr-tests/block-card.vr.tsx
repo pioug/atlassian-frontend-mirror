@@ -83,7 +83,7 @@ snapshot(BlockCardUnauthorisedNewDesign, {
 			'card_by_default_only',
 			'card_by_default_and_new_design',
 		],
-		'navx-3264-refactoring-unauth-provider-images-fe': true
+		'navx-3264-refactoring-unauth-provider-images-fe': true,
 	},
 	waitForReactLazy: true,
 });
@@ -104,18 +104,15 @@ snapshot(BlockCardConfluence, {
 	waitForReactLazy: true,
 });
 snapshot(BlockCardTrello, {
-	featureFlags: {
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardAtlas, {
-	featureFlags: {
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardBitbucket, {
-	featureFlags: {
-	},
+	featureFlags: {},
 	waitForNetworkIdle: true,
 	waitForReactLazy: true,
 });
@@ -201,8 +198,7 @@ snapshot(BlockCardLazyIconsFileType4, {
 });
 snapshot(BlockCardEntities, {
 	description: `block card with entity support`,
-	featureFlags: {
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 

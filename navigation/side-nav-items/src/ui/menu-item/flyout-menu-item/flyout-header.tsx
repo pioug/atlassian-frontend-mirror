@@ -27,7 +27,7 @@ const headerStyles = cssMap({
 		flexDirection: 'row-reverse',
 		alignItems: 'center',
 		width: '100%',
-		paddingInlineStart: token('space.025')
+		paddingInlineStart: token('space.025'),
 	},
 });
 
@@ -70,11 +70,12 @@ export const FlyoutHeader = (props: FlyoutHeaderProps) => {
 	const id = useTitleId();
 	const onCloseRef = useContext(OnCloseContext);
 
-	const handleClose = useCallback((
-		event: React.MouseEvent<HTMLButtonElement>,
-	) => {
-		onCloseRef.current?.(event, 'close-button');
-	}, [onCloseRef]);
+	const handleClose = useCallback(
+		(event: React.MouseEvent<HTMLButtonElement>) => {
+			onCloseRef.current?.(event, 'close-button');
+		},
+		[onCloseRef],
+	);
 
 	return (
 		<div css={headerStyles.root} data-testid={testId}>
@@ -90,9 +91,11 @@ export const FlyoutHeader = (props: FlyoutHeaderProps) => {
 					onClick={handleClose}
 					testId={testId && `${testId}--close-button`}
 				/>
-				<Heading size="xsmall" as="h2" id={id}>{title}</Heading>
+				<Heading size="xsmall" as="h2" id={id}>
+					{title}
+				</Heading>
 			</Flex>
 			{children}
 		</div>
-	)
+	);
 };

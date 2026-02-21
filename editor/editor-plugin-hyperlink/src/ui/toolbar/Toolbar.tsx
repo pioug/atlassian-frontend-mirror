@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 
-
 import type { LinkAttributes } from '@atlaskit/adf-schema';
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import type {

@@ -73,7 +73,9 @@ const getCustomDocSize = (doc: PMNode): number => {
 const shouldEnableLimitedModeExpanded = (doc: PMNode): boolean => {
 	const nodeCountThreshold = getNumericExperimentParam('nodeCountThreshold', 5000);
 	const docSizeThreshold = getNumericExperimentParam('docSizeThreshold', 30000);
-	const includeLcmInThreshold = Boolean(expVal('cc_editor_limited_mode_expanded', 'includeLcmInThreshold', false));
+	const includeLcmInThreshold = Boolean(
+		expVal('cc_editor_limited_mode_expanded', 'includeLcmInThreshold', false),
+	);
 
 	// Early exit: doc size exceeds threshold - O(1), no traversal needed
 	if (docSizeThreshold !== undefined && doc.nodeSize > docSizeThreshold) {
@@ -125,7 +127,6 @@ export const createPlugin = () => {
 		},
 		state: {
 			init(config: EditorStateConfig, editorState: EditorState) {
-
 				if (expVal('cc_editor_limited_mode_expanded', 'isEnabled', false)) {
 					return {
 						documentSizeBreachesThreshold: shouldEnableLimitedModeExpanded(editorState.doc),

@@ -377,7 +377,9 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 					const items = await screen.findAllByRole('listitem');
 					expect(items.length).toEqual(reactions.length + 1);
 
-					expect(screen.getByTestId(RENDER_REACTIONPICKER_TESTID).closest('li')).toBeInTheDocument();
+					expect(
+						screen.getByTestId(RENDER_REACTIONPICKER_TESTID).closest('li'),
+					).toBeInTheDocument();
 				});
 			});
 
@@ -391,7 +393,9 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 					const items = await screen.findAllByRole('listitem');
 					expect(items.length).toEqual(reactions.length);
 
-					expect(screen.getByTestId(RENDER_REACTIONPICKER_TESTID).closest('li')).not.toBeInTheDocument();
+					expect(
+						screen.getByTestId(RENDER_REACTIONPICKER_TESTID).closest('li'),
+					).not.toBeInTheDocument();
 				});
 			});
 		});

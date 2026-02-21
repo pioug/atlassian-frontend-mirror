@@ -84,7 +84,11 @@ export const fireFailedOperationalEvent = (
 			: undefined;
 
 	const payload = failReason
-		? getFailedProcessingStatusPayload(fileState?.id || 'unknown-id', fileState, processingFailReason)
+		? getFailedProcessingStatusPayload(
+				fileState?.id || 'unknown-id',
+				fileState,
+				processingFailReason,
+			)
 		: getErrorStatusPayload(fileState?.id || 'unknown-id', error, fileState);
 
 	fireMediaCardEvent(payload, createAnalyticsEvent);

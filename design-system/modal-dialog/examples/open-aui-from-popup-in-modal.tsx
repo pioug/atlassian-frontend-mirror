@@ -67,7 +67,7 @@ const OpenAuiFromModalExample = (): React.JSX.Element => {
 
 	return (
 		<>
-			<Banner icon={<ErrorIcon spacing="spacious" label="Error"  />} testId="basicTestId">
+			<Banner icon={<ErrorIcon spacing="spacious" label="Error" />} testId="basicTestId">
 				This example is intended solely for testing purposes. Please refrain from implementing it in
 				any environments, as it may lead to unintended consequences or vulnerabilities.
 			</Banner>

@@ -9,7 +9,6 @@ import { css, cssMap, jsx } from '@compiled/react';
 import type { IconProps } from '@atlaskit/icon/types';
 import { token } from '@atlaskit/tokens';
 
-
 /**
  * We are hiding these props from consumers as they're used to
  * hack around icon sizing specifically for icon-file-type.
@@ -160,7 +159,7 @@ export const Icon: import('react').NamedExoticComponent<IconProps> = memo(functi
 				dangerouslySetInnerHTML: {
 					__html: dangerouslySetGlyph,
 				},
-		  }
+			}
 		: { children: Glyph ? <Glyph role="presentation" /> : null };
 	const customDimensions = width && height ? { width: width + 'px', height: height + 'px' } : null;
 

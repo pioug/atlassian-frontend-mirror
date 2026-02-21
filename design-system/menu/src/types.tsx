@@ -338,8 +338,9 @@ export interface CustomItemComponentProps {
 	disabled?: boolean;
 }
 
-export interface CustomItemProps<TCustomComponentProps = CustomItemComponentProps>
-	extends MenuItemProps {
+export interface CustomItemProps<
+	TCustomComponentProps = CustomItemComponentProps,
+> extends MenuItemProps {
 	/**
 	 * Custom component to render as an item. This can be both a functional component or a class component.
 	 *

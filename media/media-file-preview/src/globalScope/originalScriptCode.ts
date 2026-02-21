@@ -16,9 +16,17 @@
 	const script = document.currentScript;
 	const globalMedia = ((window as any).__MEDIA_INTERNAL = (window as any).__MEDIA_INTERNAL || {});
 	const mediaCardSsr = (globalMedia.mediaCardSsr = globalMedia.mediaCardSsr || {});
-	const { key, dataURI: paramDataURI, mode: paramMode, srcSet: paramSrcSet, dimensions, error, featureFlags } = params;
+	const {
+		key,
+		dataURI: paramDataURI,
+		mode: paramMode,
+		srcSet: paramSrcSet,
+		dimensions,
+		error,
+		featureFlags,
+	} = params;
 
-	if (featureFlags["media-perf-uplift-mutation-fix"]) {
+	if (featureFlags['media-perf-uplift-mutation-fix']) {
 		const prevData = mediaCardSsr[key];
 		const isPreviousImageLarger =
 			prevData &&
@@ -35,23 +43,23 @@
 			dimensions,
 			error,
 			srcSet,
-			loading: "lazy",
+			loading: 'lazy',
 			loadPromise: undefined,
 			mode: paramMode,
 		};
 
-		const img = script?.parentElement?.querySelector("img");
+		const img = script?.parentElement?.querySelector('img');
 
 		globalMedia.mediaCountSsr = globalMedia.mediaCountSsr || 0;
 
 		if (img) {
 			if (
-				featureFlags["media-perf-lazy-loading-optimisation"] &&
+				featureFlags['media-perf-lazy-loading-optimisation'] &&
 				globalMedia.mediaCountSsr < params.maxEagerLoadCount
 			) {
 				globalMedia.mediaCountSsr++;
-				img.removeAttribute("loading");
-				currData.loading = "";
+				img.removeAttribute('loading');
+				currData.loading = '';
 
 				const observer = new PerformanceObserver((entries) => {
 					entries.getEntries().forEach((entry) => {
@@ -73,9 +81,9 @@
 			}
 			currData.loadPromise = new Promise<void>(function (resolve, reject) {
 				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-				img.addEventListener("load", () => resolve());
+				img.addEventListener('load', () => resolve());
 				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-				img.addEventListener("error", () => reject(new Error("Failed to load image")));
+				img.addEventListener('error', () => reject(new Error('Failed to load image')));
 			});
 		}
 
@@ -91,4 +99,4 @@
 	script?.remove();
 
 	// this replace will be used as a placeholder for the stringified params to be injected into the script
-})({ replace: "" });
+})({ replace: '' });

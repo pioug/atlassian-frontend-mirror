@@ -33,7 +33,11 @@ export function getImportDeclarationCollection(
 		.filter((importDeclarationPath) => importDeclarationPath.node.source.value === importPath);
 }
 
-export function hasDynamicImport(j: JSCodeshift, collection: Collection<any>, importPath: string): boolean {
+export function hasDynamicImport(
+	j: JSCodeshift,
+	collection: Collection<any>,
+	importPath: string,
+): boolean {
 	return getDynamicImportCollection(j, collection, importPath).length > 0;
 }
 
@@ -82,7 +86,9 @@ export function getImportSpecifierCollection(
 		.filter((importSpecifierPath) => importSpecifierPath.node.imported.name === importName);
 }
 
-export function getImportSpecifierName(importSpecifierCollection: Collection<ImportSpecifier>): string | null {
+export function getImportSpecifierName(
+	importSpecifierCollection: Collection<ImportSpecifier>,
+): string | null {
 	if (importSpecifierCollection.length === 0) {
 		return null;
 	}
@@ -207,7 +213,12 @@ export function getJSXSpreadObjectExpressionAttributesByName(
 		);
 }
 
-export const createRemoveFuncFor: (component: string, importName: string, prop: string, comment?: string) => (j: core.JSCodeshift, source: Collection<Node>) => void =
+export const createRemoveFuncFor: (
+	component: string,
+	importName: string,
+	prop: string,
+	comment?: string,
+) => (j: core.JSCodeshift, source: Collection<Node>) => void =
 	(component: string, importName: string, prop: string, comment?: string) =>
 	(j: core.JSCodeshift, source: Collection<Node>) => {
 		const specifier = getNamedSpecifier(j, source, component, importName);
@@ -226,7 +237,11 @@ export const createRemoveFuncFor: (component: string, importName: string, prop: 
 		});
 	};
 
-export const getJSXAttributeByName: (j: JSCodeshift, jsxElementPath: ASTPath<JSXElement>, attributeName: string) => JSXAttribute | undefined = (
+export const getJSXAttributeByName: (
+	j: JSCodeshift,
+	jsxElementPath: ASTPath<JSXElement>,
+	attributeName: string,
+) => JSXAttribute | undefined = (
 	j: JSCodeshift,
 	jsxElementPath: ASTPath<JSXElement>,
 	attributeName: string,
@@ -236,11 +251,11 @@ export const getJSXAttributeByName: (j: JSCodeshift, jsxElementPath: ASTPath<JSX
 	return attributes?.find((attr) => attr.name && attr.name.name === attributeName);
 };
 
-export const addJSXAttributeToJSXElement: (j: JSCodeshift, jsxElementPath: ASTPath<JSXElement>, jsxAttribute: JSXAttribute) => void = (
+export const addJSXAttributeToJSXElement: (
 	j: JSCodeshift,
 	jsxElementPath: ASTPath<JSXElement>,
 	jsxAttribute: JSXAttribute,
-) => {
+) => void = (j: JSCodeshift, jsxElementPath: ASTPath<JSXElement>, jsxAttribute: JSXAttribute) => {
 	j(jsxElementPath)
 		.find(j.JSXOpeningElement)
 		.forEach((openingElement) => {
@@ -248,11 +263,11 @@ export const addJSXAttributeToJSXElement: (j: JSCodeshift, jsxElementPath: ASTPa
 		});
 };
 
-export const removeJSXAttributeByName: (j: JSCodeshift, jsxElementPath: ASTPath<JSXElement>, attrName: string) => void = (
+export const removeJSXAttributeByName: (
 	j: JSCodeshift,
 	jsxElementPath: ASTPath<JSXElement>,
 	attrName: string,
-) => {
+) => void = (j: JSCodeshift, jsxElementPath: ASTPath<JSXElement>, attrName: string) => {
 	const attributes = getJSXAttributes(jsxElementPath);
 	const attr = getJSXAttributeByName(j, jsxElementPath, attrName);
 	if (attr) {
@@ -260,10 +275,16 @@ export const removeJSXAttributeByName: (j: JSCodeshift, jsxElementPath: ASTPath<
 	}
 };
 
-export const getJSXAttributes: (jsxElementPath: ASTPath<JSXElement>) => JSXAttribute[] = (jsxElementPath: ASTPath<JSXElement>) =>
-	jsxElementPath.node.openingElement.attributes as JSXAttribute[];
+export const getJSXAttributes: (jsxElementPath: ASTPath<JSXElement>) => JSXAttribute[] = (
+	jsxElementPath: ASTPath<JSXElement>,
+) => jsxElementPath.node.openingElement.attributes as JSXAttribute[];
 
-export const removeJSXAttributeObjectPropertyByName: (j: JSCodeshift, jsxElementPath: ASTPath<JSXElement>, attrName: string, propertyToRemove: string) => void = (
+export const removeJSXAttributeObjectPropertyByName: (
+	j: JSCodeshift,
+	jsxElementPath: ASTPath<JSXElement>,
+	attrName: string,
+	propertyToRemove: string,
+) => void = (
 	j: JSCodeshift,
 	jsxElementPath: ASTPath<JSXElement>,
 	attrName: string,

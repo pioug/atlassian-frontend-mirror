@@ -52,7 +52,9 @@ const loadAndMountThemeCss = async (themeId: ThemeIds) => {
 	mountThemeCss(themeCss, themeId);
 };
 
-export const loadAndMountThemes: (theme: Partial<Theme>) => Promise<void> = async (theme: Partial<Theme>) => {
+export const loadAndMountThemes: (theme: Partial<Theme>) => Promise<void> = async (
+	theme: Partial<Theme>,
+) => {
 	const themesToLoad = Object.values(theme).filter((themeId): themeId is ThemeIds => !!themeId);
 
 	themesToLoad.forEach(loadAndMountThemeCss);

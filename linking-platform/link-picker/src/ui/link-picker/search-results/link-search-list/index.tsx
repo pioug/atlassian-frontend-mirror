@@ -99,8 +99,10 @@ export const testIds = {
 
 type LinkSearchListElement = HTMLElement;
 
-export interface LinkSearchListProps
-	extends Omit<React.HTMLAttributes<LinkSearchListElement>, 'onSelect' | 'onChange'> {
+export interface LinkSearchListProps extends Omit<
+	React.HTMLAttributes<LinkSearchListElement>,
+	'onSelect' | 'onChange'
+> {
 	items?: LinkSearchListItemData[] | null;
 	isLoading: boolean;
 	selectedIndex: number;
@@ -147,8 +149,9 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 		let itemsContent;
 		let loadingContent;
 
-
-		const linkListTitle = hasSearchTerm ? messages.titleResults : messages.titleRecentlyViewedFormatted;
+		const linkListTitle = hasSearchTerm
+			? messages.titleResults
+			: messages.titleRecentlyViewedFormatted;
 
 		useTrackResultsShown(isLoading, items, hasSearchTerm);
 

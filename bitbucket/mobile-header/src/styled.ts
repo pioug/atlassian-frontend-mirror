@@ -32,17 +32,20 @@ const xPositioning = ({ side, isOpen }: { isOpen: boolean; side: string }) =>
 				transform: translateX(${isOpen ? '0' : '-100vw'});
 			`;
 
+type StyledMobileNavSlider = StyledComponent<
+	{
+		as?: React.ElementType;
+		theme?: Theme;
+	} & {
+		isOpen: boolean;
+		side: string;
+		topOffset: number | undefined;
+		// eslint-disable-next-line @typescript-eslint/ban-types
+	},
+	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+	{}
+>;
 
-type StyledMobileNavSlider = StyledComponent<{
-    as?: React.ElementType;
-    theme?: Theme;
-} & {
-    isOpen: boolean;
-    side: string;
-    topOffset: number | undefined;
-	// eslint-disable-next-line @typescript-eslint/ban-types
-}, DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}>
-			
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const MobileNavSlider: StyledMobileNavSlider = styled.div<{
 	isOpen: boolean;
@@ -64,11 +67,15 @@ export const MobileNavSlider: StyledMobileNavSlider = styled.div<{
 	xPositioning,
 );
 
-type StyledMobilePageHeader = StyledComponent<{
-    as?: React.ElementType;
-    theme?: Theme;
-	// eslint-disable-next-line @typescript-eslint/ban-types
-}, DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>, {}>
+type StyledMobilePageHeader = StyledComponent<
+	{
+		as?: React.ElementType;
+		theme?: Theme;
+		// eslint-disable-next-line @typescript-eslint/ban-types
+	},
+	DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>,
+	{}
+>;
 
 // make space so content below doesn't slip beneath the header
 // since the content is `position: fixed`
@@ -77,13 +84,17 @@ export const MobilePageHeader: StyledMobilePageHeader = styled.header({
 	height: `${mobileHeaderHeight}px`,
 });
 
-type StyledMobilePageHeaderContent = StyledComponent<{
-    as?: React.ElementType;
-    theme?: Theme;
-} & {
-    topOffset: number | undefined;
-	// eslint-disable-next-line @typescript-eslint/ban-types
-}, DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}>
+type StyledMobilePageHeaderContent = StyledComponent<
+	{
+		as?: React.ElementType;
+		theme?: Theme;
+	} & {
+		topOffset: number | undefined;
+		// eslint-disable-next-line @typescript-eslint/ban-types
+	},
+	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+	{}
+>;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const MobilePageHeaderContent: StyledMobilePageHeaderContent = styled.div<{
@@ -122,14 +133,17 @@ const opacityOut = keyframes({
 	},
 });
 
-
-type StyledFakeBlanket = StyledComponent<{
-    as?: React.ElementType;
-    theme?: Theme;
-} & {
-    isOpen: boolean;
-	// eslint-disable-next-line @typescript-eslint/ban-types
-}, DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}>
+type StyledFakeBlanket = StyledComponent<
+	{
+		as?: React.ElementType;
+		theme?: Theme;
+	} & {
+		isOpen: boolean;
+		// eslint-disable-next-line @typescript-eslint/ban-types
+	},
+	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+	{}
+>;
 
 // @atlaskit/blanket has a z-index *higher* than @atlaskit/navigation,
 // so we can't display the AK blanket underneath the navigation.
@@ -147,11 +161,15 @@ export const FakeBlanket: StyledFakeBlanket = styled.div<{
 	animation: ${(p) => (p.isOpen ? opacityIn : opacityOut)} 0.2s ease-out;
 `;
 
-type StyledPageHeading = StyledComponent<{
-    as?: React.ElementType;
-    theme?: Theme;
-	// eslint-disable-next-line @typescript-eslint/ban-types
-}, DetailedHTMLProps<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>, {}>
+type StyledPageHeading = StyledComponent<
+	{
+		as?: React.ElementType;
+		theme?: Theme;
+		// eslint-disable-next-line @typescript-eslint/ban-types
+	},
+	DetailedHTMLProps<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>,
+	{}
+>;
 
 // use proper h1 and header styles but for mobile we don't want a top margin
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766

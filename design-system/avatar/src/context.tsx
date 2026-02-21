@@ -25,9 +25,12 @@ export type AvatarContextProps = {
  * </AvatarContext.Provider>
  * ```
  */
-export const AvatarContext: import("react").Context<AvatarContextProps | undefined> = createContext<AvatarContextProps | undefined>(undefined);
+export const AvatarContext: import('react').Context<AvatarContextProps | undefined> = createContext<
+	AvatarContextProps | undefined
+>(undefined);
 
-export const useAvatarContext: () => AvatarContextProps | undefined = () => useContext(AvatarContext);
+export const useAvatarContext: () => AvatarContextProps | undefined = () =>
+	useContext(AvatarContext);
 
 type AvatarContentContextProps = {
 	as: 'a' | 'button' | 'span';
@@ -63,16 +66,18 @@ const defaultAvatarContentProps: AvatarContentContextProps = {
  * This context provides the props for the AvatarContent component, enabling
  * consumers to compose the AvatarContent with the Avatar component.
  */
-export const AvatarContentContext: import("react").Context<AvatarContentContextProps> =
+export const AvatarContentContext: import('react').Context<AvatarContentContextProps> =
 	createContext<AvatarContentContextProps>(defaultAvatarContentProps);
 
-export const useAvatarContent: () => AvatarContentContextProps = () => useContext(AvatarContentContext);
+export const useAvatarContent: () => AvatarContentContextProps = () =>
+	useContext(AvatarContentContext);
 
 /**
  * Used to ensure Avatar sub-components are used within a Avatar component,
  * and provide a useful error message if not.
  */
-export const EnsureIsInsideAvatarContext: import("react").Context<boolean> = createContext<boolean>(false);
+export const EnsureIsInsideAvatarContext: import('react').Context<boolean> =
+	createContext<boolean>(false);
 
 export const useEnsureIsInsideAvatar: () => void = (): void => {
 	const context = useContext(EnsureIsInsideAvatarContext);

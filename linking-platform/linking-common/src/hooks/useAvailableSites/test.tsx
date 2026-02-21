@@ -253,7 +253,7 @@ describe('useAvailableSitesV2', () => {
 						},
 					]),
 				}),
-			)
+			);
 		});
 	});
 
@@ -279,7 +279,7 @@ describe('useAvailableSitesV2', () => {
 		});
 
 		await waitFor(() => {
-		expect(result.current).toMatchInlineSnapshot(`
+			expect(result.current).toMatchInlineSnapshot(`
 		{
 		  "data": [],
 		  "error": Response {
@@ -297,7 +297,7 @@ describe('useAvailableSitesV2', () => {
 		  "loading": false,
 		}
 	`);
-		})	
+		});
 	});
 });
 

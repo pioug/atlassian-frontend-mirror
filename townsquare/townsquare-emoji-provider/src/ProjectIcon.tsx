@@ -44,10 +44,7 @@ export const ProjectIcon = ({ emoji, isPrivate, height }: Props) => {
 		return getTownsquareEmojiProvider();
 	}, [emoji]);
 
-	const emojiId = useMemo(
-		() => (emoji ? { shortName: emoji } : undefined),
-		[emoji],
-	);
+	const emojiId = useMemo(() => (emoji ? { shortName: emoji } : undefined), [emoji]);
 
 	if (!emojiId) {
 		return null;

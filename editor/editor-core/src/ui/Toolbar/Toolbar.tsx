@@ -95,7 +95,6 @@ export const ToolbarNext = ({
 	// remove offline check when patch6Enabled is cleaned up
 	const isOffline = isOfflineMode(connectivityStateMode);
 
-
 	return (
 		<EditorToolbarProvider
 			editorView={editorView ?? null}

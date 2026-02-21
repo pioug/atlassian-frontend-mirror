@@ -36,31 +36,37 @@ export interface LinkDefinition {
 	type: 'link';
 }
 
-export const getLinkAttrs = (attribute: string) => (domNode: Node | string): false | {
-    __confluenceMetadata: string;
-    href?: string;
-} => {
-	const dom = domNode as HTMLLinkElement;
+export const getLinkAttrs =
+	(attribute: string) =>
+	(
+		domNode: Node | string,
+	):
+		| false
+		| {
+				__confluenceMetadata: string;
+				href?: string;
+		  } => {
+		const dom = domNode as HTMLLinkElement;
 
-	const href = dom.getAttribute(attribute) || '';
-	const attrs: { __confluenceMetadata: string; href?: string } = {
-		__confluenceMetadata: dom.hasAttribute('__confluenceMetadata')
-			? JSON.parse(dom.getAttribute('__confluenceMetadata') || '')
-			: undefined,
-	};
+		const href = dom.getAttribute(attribute) || '';
+		const attrs: { __confluenceMetadata: string; href?: string } = {
+			__confluenceMetadata: dom.hasAttribute('__confluenceMetadata')
+				? JSON.parse(dom.getAttribute('__confluenceMetadata') || '')
+				: undefined,
+		};
 
-	if (!isSafeUrl(href)) {
-		return false;
-	}
+		if (!isSafeUrl(href)) {
+			return false;
+		}
 
-	if (isRootRelative(href)) {
-		attrs.href = href;
+		if (isRootRelative(href)) {
+			attrs.href = href;
+			return attrs;
+		}
+
+		attrs.href = normalizeUrl(href);
 		return attrs;
-	}
-
-	attrs.href = normalizeUrl(href);
-	return attrs;
-};
+	};
 
 export const link: MarkSpec = linkFactory({
 	parseDOM: [
@@ -118,9 +124,11 @@ export const link: MarkSpec = linkFactory({
 
 const OPTIONAL_ATTRS = ['title', 'id', 'collection', 'occurrenceKey', '__confluenceMetadata'];
 
-export const toJSON = (mark: Mark): {
-    attrs: Record<string, string>;
-    type: string;
+export const toJSON = (
+	mark: Mark,
+): {
+	attrs: Record<string, string>;
+	type: string;
 } => ({
 	type: mark.type.name,
 	attrs: Object.keys(mark.attrs).reduce<Record<string, string>>((attrs, key) => {

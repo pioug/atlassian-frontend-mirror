@@ -53,8 +53,10 @@ const LoadingStateAnimationWrapper = styled.div({
 });
 
 const PopupTrigger = forwardRef<HTMLButtonElement, PopupTriggerProps>(
-	({ isSelected, isDisabled, isLoading, selectedOptions, testId, label }, 
-		ref: React.Ref<HTMLButtonElement>) => {
+	(
+		{ isSelected, isDisabled, isLoading, selectedOptions, testId, label },
+		ref: React.Ref<HTMLButtonElement>,
+	) => {
 		const [firstOption] = selectedOptions || [];
 
 		const hasOptions = selectedOptions && selectedOptions.length > 0;
@@ -75,7 +77,8 @@ const PopupTrigger = forwardRef<HTMLButtonElement, PopupTriggerProps>(
 			[label, triggerButtonTestId],
 		);
 
-		const loadingButton = useMemo(() => (
+		const loadingButton = useMemo(
+			() => (
 				<LoadingStateAnimationWrapper>
 					<Button
 						ref={ref}
@@ -122,7 +125,8 @@ const PopupTrigger = forwardRef<HTMLButtonElement, PopupTriggerProps>(
 			],
 		);
 
-		const defaultButton = useMemo(() => (
+		const defaultButton = useMemo(
+			() => (
 				<NewButton
 					ref={ref}
 					isSelected={isSelected || hasOptions}
@@ -161,9 +165,7 @@ const PopupTrigger = forwardRef<HTMLButtonElement, PopupTriggerProps>(
 		 * Hence introducing a Box to make sure ref is always the same and only content is refreshed on re-renders
 		 */
 		return fg('platform_navx_sllv_dropdown_escape_and_focus_fix') ? (
-			<Box testId={triggerButtonTestId}>
-				{showButtonLoading ? loadingButton : defaultButton}
-			</Box>
+			<Box testId={triggerButtonTestId}>{showButtonLoading ? loadingButton : defaultButton}</Box>
 		) : (
 			<Box ref={ref} testId={triggerButtonTestId}>
 				{showButtonLoading ? <LoadingButton /> : <DefaultButton />}

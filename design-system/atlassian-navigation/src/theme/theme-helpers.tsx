@@ -47,5 +47,8 @@ export const generateTextColor = (color: string): string => {
 	return chromatism.contrastRatio(converted).hex;
 };
 
-export const getContrastColor = (contrastValue: number, opacityValue: number, color: string): string =>
-	hexToRGBA(chromatism.contrast(contrastValue, color).hex, opacityValue);
+export const getContrastColor = (
+	contrastValue: number,
+	opacityValue: number,
+	color: string,
+): string => hexToRGBA(chromatism.contrast(contrastValue, color).hex, opacityValue);

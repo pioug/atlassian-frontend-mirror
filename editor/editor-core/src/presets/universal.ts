@@ -316,7 +316,11 @@ export default function createUniversalPresetInternal({
 					getEditorFeatureFlags,
 					isCommentEditor: isComment,
 					isChromelessEditor: isChromeless,
-					allowFixedColumnWidthOption: fg('platform_editor_table_fixed_column_width_prop') ? props.allowTables && typeof props.allowTables !== 'boolean' && props.allowTables.allowFixedColumnWidthOption : false,
+					allowFixedColumnWidthOption: fg('platform_editor_table_fixed_column_width_prop')
+						? props.allowTables &&
+							typeof props.allowTables !== 'boolean' &&
+							props.allowTables.allowFixedColumnWidthOption
+						: false,
 				},
 			],
 			Boolean(props.allowTables),

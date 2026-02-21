@@ -35,7 +35,17 @@ interface AppFrameProps {
 	shouldHideBorder?: boolean;
 }
 
-const AppFrame: ({ children, shouldHideAppBar, shouldHideBorder, content }: AppFrameProps) => JSX.Element = ({ children, shouldHideAppBar, shouldHideBorder, content }: AppFrameProps) => {
+const AppFrame: ({
+	children,
+	shouldHideAppBar,
+	shouldHideBorder,
+	content,
+}: AppFrameProps) => JSX.Element = ({
+	children,
+	shouldHideAppBar,
+	shouldHideBorder,
+	content,
+}: AppFrameProps) => {
 	return (
 		// eslint-disable-next-line
 		<div onClick={(e) => e.preventDefault()} css={styles.container}>

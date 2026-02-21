@@ -45,7 +45,14 @@ const hasAfterStyles = css({
 	maxWidth: '160px',
 });
 
-const Content: ({ isRemovable, text, color, href, linkComponent, testId, }: ContentProps) => JSX.Element = ({
+const Content: ({
+	isRemovable,
+	text,
+	color,
+	href,
+	linkComponent,
+	testId,
+}: ContentProps) => JSX.Element = ({
 	isRemovable = true,
 	text = '',
 	color = 'standard',

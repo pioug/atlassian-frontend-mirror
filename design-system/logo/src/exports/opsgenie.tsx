@@ -12,4 +12,11 @@ import type { LogoProps } from '../types';
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const OpsgenieIcon: ({ size, shouldUseNewLogoDesign, ...props }: LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(LegacyOpsgenieIcon, NewOpsgenieIcon);
+export const OpsgenieIcon: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+	LegacyOpsgenieIcon,
+	NewOpsgenieIcon,
+);

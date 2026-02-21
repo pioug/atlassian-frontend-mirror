@@ -44,10 +44,7 @@ import {
 import { shouldIgnoreDomEvent } from './utils/ignore-dom-event';
 import { calculateDecorations } from './utils/selection-decorations';
 import { hasEditInSyncBlock, trackSyncBlocks } from './utils/track-sync-blocks';
-import {
-	wasInlineExtensionInsertedInBodiedSyncBlock,
-	sliceFullyContainsNode,
-} from './utils/utils';
+import { wasInlineExtensionInsertedInBodiedSyncBlock, sliceFullyContainsNode } from './utils/utils';
 
 export const syncedBlockPluginKey = new PluginKey('syncedBlockPlugin');
 

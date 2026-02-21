@@ -5,11 +5,7 @@
  */
 import { useEffect } from 'react';
 
-import AppProvider, {
-	ThemeProvider,
-	useColorMode,
-	useSetColorMode,
-} from '@atlaskit/app-provider';
+import AppProvider, { ThemeProvider, useColorMode, useSetColorMode } from '@atlaskit/app-provider';
 import Button from '@atlaskit/button/new';
 import { Code } from '@atlaskit/code';
 import { cssMap, jsx } from '@atlaskit/css';
@@ -51,7 +47,6 @@ const Palette = () => {
 		</Inline>
 	);
 };
-
 
 export function SubTreeThemingExample(): JSX.Element {
 	return (

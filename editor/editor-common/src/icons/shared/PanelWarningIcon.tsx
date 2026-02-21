@@ -6,7 +6,6 @@ import { type ComponentProps } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-
 const iconStyles = css({
 	display: 'inline-block',
 	flexShrink: 0,

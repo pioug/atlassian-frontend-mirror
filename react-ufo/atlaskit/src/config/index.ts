@@ -132,7 +132,7 @@ export type Config = {
 	readonly ssr?: {
 		readonly getSSRTimings?: () => SSRTiming[];
 		readonly getSSRDoneTime?: () => number | undefined;
-		readonly enableNativeTracing?: boolean
+		readonly enableNativeTracing?: boolean;
 	};
 	readonly assetsConfig?: AssetsConfig;
 	readonly enableBetterPageVisibilityApi?: boolean;

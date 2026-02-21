@@ -164,7 +164,6 @@ const JsmRovoServiceAgentAvatar = lazy(
 		),
 );
 
-
 type Color = {
 	primary: string;
 	secondary: string;
@@ -377,11 +376,7 @@ const outOfTheBoxAgentAvatar: {
 	},
 	jsm_rovo_service_agent: {
 		getRender: (size: SizeType) => (
-			<JsmRovoServiceAgentAvatar
-				size={AVATAR_SIZES[size]}
-				primaryColor=""
-				secondaryColor=""
-			/>
+			<JsmRovoServiceAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 		),
 		color: yellowColor,
 	},

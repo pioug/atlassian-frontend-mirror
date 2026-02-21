@@ -30,9 +30,7 @@ const Example = (): React.JSX.Element => {
 
 				// Add includeTeamsUpdates flag to the group data to display VerifiedTeamIcon for groups
 				const firstGroup = group[0] as Group;
-				const selectedGroup = firstGroup
-					? { ...firstGroup, includeTeamsUpdates: true }
-					: undefined;
+				const selectedGroup = firstGroup ? { ...firstGroup, includeTeamsUpdates: true } : undefined;
 
 				const defaultValues: OptionData[] = [selectedTeam, selectedGroup].filter(
 					Boolean,

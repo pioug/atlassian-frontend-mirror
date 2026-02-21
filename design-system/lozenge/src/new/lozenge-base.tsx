@@ -532,7 +532,11 @@ const styles = cssMap({
  * A lozenge is a visual indicator used to highlight an item's status for quick recognition.
  * This is the updated version with the new North Star visual language.
  */
-const LozengeBase: import("react").MemoExoticComponent<import("react").ForwardRefExoticComponent<Omit<LozengeBaseProps, "ref"> & import("react").RefAttributes<HTMLButtonElement | HTMLElement>>> = memo(
+const LozengeBase: import('react').MemoExoticComponent<
+	import('react').ForwardRefExoticComponent<
+		Omit<LozengeBaseProps, 'ref'> & import('react').RefAttributes<HTMLButtonElement | HTMLElement>
+	>
+> = memo(
 	forwardRef<HTMLElement | HTMLButtonElement, LozengeBasePropsWithRef>(
 		(
 			{

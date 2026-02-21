@@ -7,19 +7,21 @@ import type { OpenTypeAheadProps } from '../../types';
 import { ACTIONS } from '../actions';
 import { pluginKey } from '../key';
 
-export const openTypeAhead = (props: OpenTypeAheadProps) => (tr: Transaction): void => {
-	const { triggerHandler, inputMethod, query, removePrefixTriggerOnCancel } = props;
+export const openTypeAhead =
+	(props: OpenTypeAheadProps) =>
+	(tr: Transaction): void => {
+		const { triggerHandler, inputMethod, query, removePrefixTriggerOnCancel } = props;
 
-	tr.setMeta(pluginKey, {
-		action: ACTIONS.OPEN_TYPEAHEAD_AT_CURSOR,
-		params: {
-			triggerHandler,
-			inputMethod,
-			query,
-			removePrefixTriggerOnCancel,
-		},
-	});
-};
+		tr.setMeta(pluginKey, {
+			action: ACTIONS.OPEN_TYPEAHEAD_AT_CURSOR,
+			params: {
+				triggerHandler,
+				inputMethod,
+				query,
+				removePrefixTriggerOnCancel,
+			},
+		});
+	};
 
 export const openTypeAheadAtCursor =
 	({

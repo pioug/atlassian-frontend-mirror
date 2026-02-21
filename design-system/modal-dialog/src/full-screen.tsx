@@ -3,11 +3,10 @@ import React from 'react';
 import InternalModalWrapper from './internal/components/modal-wrapper';
 import type { ModalDialogProps } from './types';
 
-export interface FullScreenModalDialogProps
-	extends Omit<
-		ModalDialogProps,
-		'width' | 'height' | 'shouldScrollInViewport' | 'shouldCloseOnOverlayClick' | 'isBlanketHidden'
-	> {}
+export interface FullScreenModalDialogProps extends Omit<
+	ModalDialogProps,
+	'width' | 'height' | 'shouldScrollInViewport' | 'shouldCloseOnOverlayClick' | 'isBlanketHidden'
+> {}
 
 export function FullScreenModalDialog(props: FullScreenModalDialogProps): React.JSX.Element {
 	return (

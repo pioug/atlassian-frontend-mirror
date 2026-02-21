@@ -1049,7 +1049,9 @@ export const useHydratedProject = createHook<
 	{ fieldName: string; id: string }
 >(Store, {
 	selector: (state, { id, fieldName }) => {
-		const project = state.hydratedValues[normaliseJqlString(fieldName)]?.get(normaliseJqlString(id));
+		const project = state.hydratedValues[normaliseJqlString(fieldName)]?.get(
+			normaliseJqlString(id),
+		);
 		return project && project.type === 'project' ? project : undefined;
 	},
 });

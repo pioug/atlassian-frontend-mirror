@@ -203,7 +203,7 @@ export class INSMSession {
 							longScripts: this.longAnimationFrameMeasurer.current,
 							pageLoadTime: this.pageLoadTime,
 							deviceDetails: getDeviceDetails(),
-					  }
+						}
 					: {}),
 				// these health attributes drive our SLOs
 				healthAFPS: periodResults.active.measurements.afps?.average

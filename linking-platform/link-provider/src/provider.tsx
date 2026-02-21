@@ -74,7 +74,7 @@ export function SmartCardProvider({
 			shouldControlDataExport,
 			isPreviewPanelAvailable,
 			openPreviewPanel,
-			rovoOptions
+			rovoOptions,
 		};
 	}, [
 		customAuthFlow,

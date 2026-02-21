@@ -10,12 +10,7 @@ describe('SpotlightPrimaryLink', () => {
 	it('captures and report a11y violations', async () => {
 		const ref = React.createRef<HTMLAnchorElement>();
 		const { container } = render(
-			<SpotlightPrimaryLink
-				ref={ref}
-				href="/get-started"
-				aria-label="Get started"
-				testId={testId}
-			>
+			<SpotlightPrimaryLink ref={ref} href="/get-started" aria-label="Get started" testId={testId}>
 				Get started
 			</SpotlightPrimaryLink>,
 		);

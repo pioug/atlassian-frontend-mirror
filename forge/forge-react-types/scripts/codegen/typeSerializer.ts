@@ -147,7 +147,9 @@ const flattenPickType = (
 				// Currently we only support union type with same property signatures or a superset signature
 				// as we assume this setup is to support gradual type changes behind feature flags.
 				// other use cases are not supported currently.
-				throw new Error(`Unsupported union prop type with multiple different property signatures, ${prop.getName()}`);
+				throw new Error(
+					`Unsupported union prop type with multiple different property signatures, ${prop.getName()}`,
+				);
 			}
 
 			const propertySignature = propertySignatures[0];
@@ -178,7 +180,9 @@ const extractPropertySignatures = (prop: TSSymbol): PropertySignature[] => {
 	if (!declarations) {
 		return [];
 	}
-	const signatures = declarations.filter((decl) => decl.getKind() === SyntaxKind.PropertySignature) as PropertySignature[];
+	const signatures = declarations.filter(
+		(decl) => decl.getKind() === SyntaxKind.PropertySignature,
+	) as PropertySignature[];
 	if (signatures.length <= 1) {
 		return signatures;
 	}
@@ -229,9 +233,11 @@ const isTypeAssignableTo = (prop: TSSymbol, sourceType: TSType, targetType: TSTy
 
 	// ts typecker has an intneral method `isTypeAssignableTo` we can leverage here:
 	//   https://github.com/microsoft/TypeScript/pull/56448
-	return (typeChecker as unknown as {
-		isTypeAssignableTo: (source: unknown, target: unknown) => boolean;
-	}).isTypeAssignableTo(sourceType.compilerType, targetType.compilerType);
+	return (
+		typeChecker as unknown as {
+			isTypeAssignableTo: (source: unknown, target: unknown) => boolean;
+		}
+	).isTypeAssignableTo(sourceType.compilerType, targetType.compilerType);
 };
 
 const getUnresolvableTypes = (tsType: TSType) => {

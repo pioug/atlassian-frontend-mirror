@@ -7,9 +7,9 @@ export const ifHasUnsupportedProps = (
 ): boolean => {
 	let hasUnsupportedProps = Boolean(
 		attributes &&
-			attributes?.some(
-				(node) => node.type === 'JSXAttribute' && unsupportedProps.includes(String(node.name.name)),
-			),
+		attributes?.some(
+			(node) => node.type === 'JSXAttribute' && unsupportedProps.includes(String(node.name.name)),
+		),
 	);
 
 	const hasUnmigratableIcon = () => {

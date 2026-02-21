@@ -20,10 +20,20 @@ const IGNORE_NODES = [
 	'layoutColumn',
 ];
 
-export const IGNORE_NODES_NEXT: string[] = ['tableCell', 'tableHeader', 'tableRow', 'listItem', 'caption'];
+export const IGNORE_NODES_NEXT: string[] = [
+	'tableCell',
+	'tableHeader',
+	'tableRow',
+	'listItem',
+	'caption',
+];
 
 const IGNORE_NODE_DESCENDANTS = ['listItem', 'taskList', 'decisionList', 'mediaSingle'];
-export const IGNORE_NODE_DESCENDANTS_ADVANCED_LAYOUT: string[] = ['listItem', 'taskList', 'decisionList'];
+export const IGNORE_NODE_DESCENDANTS_ADVANCED_LAYOUT: string[] = [
+	'listItem',
+	'taskList',
+	'decisionList',
+];
 
 export const shouldDescendIntoNode = (node: PMNode): boolean => {
 	// Optimisation to avoid drawing node decorations for empty table cells

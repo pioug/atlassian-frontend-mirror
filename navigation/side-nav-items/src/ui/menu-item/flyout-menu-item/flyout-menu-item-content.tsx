@@ -258,7 +258,7 @@ function createResizeObserver(update: ResizeObserverCallback) {
  */
 const UpdatePopperOnContentResize: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<{ children: React.ReactNode; update: () => void }> &
-	React.RefAttributes<HTMLDivElement>
+		React.RefAttributes<HTMLDivElement>
 > = forwardRef(
 	(
 		{ update, children }: { children: React.ReactNode; update: () => void },

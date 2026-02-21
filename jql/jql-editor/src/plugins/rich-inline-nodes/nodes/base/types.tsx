@@ -4,4 +4,4 @@ export type NodeBaseProps = {
 	iconBefore: ReactNode;
 	isLocked?: boolean;
 	text?: string;
-}
+};

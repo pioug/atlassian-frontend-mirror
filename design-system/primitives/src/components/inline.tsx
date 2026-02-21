@@ -120,7 +120,11 @@ const Separator: FC<{ children: string }> = ({ children }) => (
  * ```
  *
  */
-const Inline: React.MemoExoticComponent<React.ForwardRefExoticComponent<Omit<InlineProps<React.ElementType>, "ref"> & React.RefAttributes<any>>> = memo(
+const Inline: React.MemoExoticComponent<
+	React.ForwardRefExoticComponent<
+		Omit<InlineProps<React.ElementType>, 'ref'> & React.RefAttributes<any>
+	>
+> = memo(
 	forwardRef(
 		<T extends ElementType = 'div'>(
 			{

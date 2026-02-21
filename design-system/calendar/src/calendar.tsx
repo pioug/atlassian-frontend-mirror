@@ -256,7 +256,11 @@ const InnerCalendar: React.ForwardRefExoticComponent<
  * - [Code](https://atlassian.design/components/calendar/code)
  * - [Usage](https://atlassian.design/components/calendar/usage)
  */
-const Calendar: import("react").MemoExoticComponent<import("react").ForwardRefExoticComponent<Omit<CalendarProps, "ref"> & import("react").RefAttributes<HTMLDivElement>>> = memo(
+const Calendar: import('react').MemoExoticComponent<
+	import('react').ForwardRefExoticComponent<
+		Omit<CalendarProps, 'ref'> & import('react').RefAttributes<HTMLDivElement>
+	>
+> = memo(
 	forwardRef<HTMLDivElement, CalendarProps>(function Calendar(props, ref) {
 		return <InnerCalendar {...props} ref={ref} />;
 	}),

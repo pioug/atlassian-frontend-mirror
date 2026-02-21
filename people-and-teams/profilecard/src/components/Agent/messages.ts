@@ -24,6 +24,7 @@ export const messages = defineMessages({
 	aiDisclaimer: {
 		id: 'profilecard.agent-profile-card.ai-disclaimer',
 		defaultMessage: 'Uses AI. Verify results.',
-		description: 'Disclaimer text warning users to verify AI-generated content with a link to https://www.atlassian.com/trust/atlassian-intelligence',
+		description:
+			'Disclaimer text warning users to verify AI-generated content with a link to https://www.atlassian.com/trust/atlassian-intelligence',
 	},
 });

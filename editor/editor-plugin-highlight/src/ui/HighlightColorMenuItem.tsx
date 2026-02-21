@@ -12,10 +12,7 @@ import { highlightMessages as messages } from '@atlaskit/editor-common/messages'
 import { getInputMethodFromParentKeys } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
-import {
-	REMOVE_HIGHLIGHT_COLOR,
-	highlightColorPalette,
-} from '@atlaskit/editor-common/ui-color';
+import { REMOVE_HIGHLIGHT_COLOR, highlightColorPalette } from '@atlaskit/editor-common/ui-color';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import { ColorPalette, useToolbarDropdownMenu } from '@atlaskit/editor-toolbar';

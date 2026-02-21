@@ -19,9 +19,7 @@ describe('Avatar List', () => {
 	});
 
 	it('should select avatar when giving one via props', () => {
-		renderWithIntl(
-			<AvatarList avatars={avatars} selectedAvatar={selectedAvatar} />,
-		);
+		renderWithIntl(<AvatarList avatars={avatars} selectedAvatar={selectedAvatar} />);
 		expect(screen.getByRole('radio', { checked: true })).toBeInTheDocument();
 	});
 

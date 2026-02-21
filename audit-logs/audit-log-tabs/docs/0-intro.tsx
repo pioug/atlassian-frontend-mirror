@@ -17,11 +17,6 @@ const _default_1: any = md`
 		/>
 	)}
 
-  ${(
-		<Props
-			heading="AuditLogTabs Props"
-			props={require('!!extract-react-types-loader!../src')}
-		/>
-	)}
+  ${(<Props heading="AuditLogTabs Props" props={require('!!extract-react-types-loader!../src')} />)}
 `;
 export default _default_1;

@@ -105,7 +105,9 @@ export function ToolbarDropdown(props: DropdownProps) {
 			<ListBulletedIcon spacing="spacious" label="" />
 		);
 	} else {
-		activeListIcon = <ListBulletedIcon color="currentColor" spacing="spacious" label={labelLists} />;
+		activeListIcon = (
+			<ListBulletedIcon color="currentColor" spacing="spacious" label={labelLists} />
+		);
 		isSelected = bulletListActive || orderedListActive || isDropdownOpen;
 	}
 

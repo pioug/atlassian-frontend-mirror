@@ -15,6 +15,7 @@ export const getPositionFromParserRule = (ctx: ParserRuleContext): Position => [
 	ctx.stop ? ctx.stop.stopIndex + 1 : ctx.start.stopIndex + 1,
 ];
 
-export const normalizeText = (text: string): string => text.toLowerCase().replace(/\s+/g, ' ').trim();
+export const normalizeText = (text: string): string =>
+	text.toLowerCase().replace(/\s+/g, ' ').trim();
 
 export const isOperator = (maybeOperator: string): boolean => operators.includes(maybeOperator);

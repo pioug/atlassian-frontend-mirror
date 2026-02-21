@@ -10,12 +10,7 @@ describe('SpotlightSecondaryLink', () => {
 	it('captures and report a11y violations', async () => {
 		const ref = React.createRef<HTMLAnchorElement>();
 		const { container } = render(
-			<SpotlightSecondaryLink
-				ref={ref}
-				href="/help"
-				aria-label="Learn more"
-				testId={testId}
-			>
+			<SpotlightSecondaryLink ref={ref} href="/help" aria-label="Learn more" testId={testId}>
 				Learn more
 			</SpotlightSecondaryLink>,
 		);

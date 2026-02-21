@@ -40,12 +40,12 @@ export const AlignmentMenu = ({
 				isDisabled={!isEnabled}
 				testId="text-alignment-menu"
 				label={title}
-				tooltipComponent={<ToolbarTooltip content={title}/>}
+				tooltipComponent={<ToolbarTooltip content={title} />}
 			>
 				{children}
 			</ToolbarDropdownMenu>
 		);
-	};
+	}
 
 	return (
 		<ToolbarTooltip content={title}>

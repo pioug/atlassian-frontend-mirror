@@ -119,9 +119,11 @@ class FindReplace extends React.PureComponent<FindReplaceProps> {
 		return (
 			<div
 				role={'dialog'}
-				aria-label={fg('platform_editor_dec_a11y_fixes')
-					? intl?.formatMessage(messages.findReplaceDialogAriaLabel)
-					: 'Find and Replace'}
+				aria-label={
+					fg('platform_editor_dec_a11y_fixes')
+						? intl?.formatMessage(messages.findReplaceDialogAriaLabel)
+						: 'Find and Replace'
+				}
 				aria-modal={false}
 				ref={this.modalRef}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766

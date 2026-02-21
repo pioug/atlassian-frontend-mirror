@@ -138,27 +138,33 @@ const logoContainerStyles = cssMap({
  * To provide a responsive experience, it requires both a logo and an icon component.
  * The logo component will be used for large viewports, and the icon component will be used for small viewports.
  */
-export const CustomLogo: ({ href, logo, icon, onClick, label, }: {
-    /**
-     * Provide an accessible label, often used by screen readers.
-     */
-    label: string;
-    /**
-     * The URL to navigate to when the element is clicked.
-     */
-    href: string;
-    /**
-     * The logo component to render. It will be used for large viewports.
-     */
-    logo: (props: LogoProps) => JSX.Element;
-    /**
-     * The icon component to render. It will be used for small viewports.
-     */
-    icon: (props: LogoProps) => JSX.Element;
-    /**
-     * Handler called on click.
-     */
-    onClick?: React.MouseEventHandler<HTMLAnchorElement>;
+export const CustomLogo: ({
+	href,
+	logo,
+	icon,
+	onClick,
+	label,
+}: {
+	/**
+	 * Provide an accessible label, often used by screen readers.
+	 */
+	label: string;
+	/**
+	 * The URL to navigate to when the element is clicked.
+	 */
+	href: string;
+	/**
+	 * The logo component to render. It will be used for large viewports.
+	 */
+	logo: (props: LogoProps) => JSX.Element;
+	/**
+	 * The icon component to render. It will be used for small viewports.
+	 */
+	icon: (props: LogoProps) => JSX.Element;
+	/**
+	 * Handler called on click.
+	 */
+	onClick?: React.MouseEventHandler<HTMLAnchorElement>;
 }) => JSX.Element = ({
 	href,
 	logo,

@@ -14,7 +14,10 @@ export type EditorAnalyticsContextProps = {
 /**
  * Provides location attribute to child events
  */
-export const EditorAnalyticsContext = ({ editorView, children }: EditorAnalyticsContextProps): React.JSX.Element => {
+export const EditorAnalyticsContext = ({
+	editorView,
+	children,
+}: EditorAnalyticsContextProps): React.JSX.Element => {
 	const editorAppearance = editorView
 		? getPluginState(editorView.state)?.editorAppearance
 		: undefined;

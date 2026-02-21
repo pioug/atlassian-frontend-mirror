@@ -27,7 +27,10 @@ type MenuGroupContainer = {
 	children?: React.ReactNode;
 };
 
-const MenuGroupContainer: ({ children, growing }: MenuGroupContainer) => JSX.Element = ({ children, growing }: MenuGroupContainer) => {
+const MenuGroupContainer: ({ children, growing }: MenuGroupContainer) => JSX.Element = ({
+	children,
+	growing,
+}: MenuGroupContainer) => {
 	return <Box xcss={cx(styles.base, growing && styles.growing)}>{children}</Box>;
 };
 

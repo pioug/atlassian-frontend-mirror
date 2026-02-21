@@ -1,6 +1,6 @@
 export const RANDOM_USERS: {
-    email: string;
-    name: string;
+	email: string;
+	name: string;
 }[] = [
 	{ email: 'chaki@me.com', name: 'Chaki Caronni' },
 	{ email: 'nanop@outlook.com', name: 'Nanop Rgiersig' },
@@ -24,8 +24,8 @@ export const RANDOM_USERS: {
 	{ email: 'caronni@optonline.net', name: 'Caronni Chaki' },
 ];
 
-export const appearances: readonly [
-    "circle",
-    "square",
-    "hexagon"
-] = ['circle', 'square', 'hexagon'] as const;
+export const appearances: readonly ['circle', 'square', 'hexagon'] = [
+	'circle',
+	'square',
+	'hexagon',
+] as const;

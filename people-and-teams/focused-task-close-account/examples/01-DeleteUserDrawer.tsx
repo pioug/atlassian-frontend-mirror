@@ -48,7 +48,8 @@ export default class DeleteUserDrawerExample extends React.Component {
 		// do nothing
 	};
 
-	toggleIsCurrentUser = (event: any): void => this.setState({ isCurrentUser: event.target.checked });
+	toggleIsCurrentUser = (event: any): void =>
+		this.setState({ isCurrentUser: event.target.checked });
 
 	toggleIsUserDeactivated = (event: any): void =>
 		this.setState({ isUserDeactivated: event.target.checked });

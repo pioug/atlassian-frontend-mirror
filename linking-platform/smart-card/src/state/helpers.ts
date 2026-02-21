@@ -121,7 +121,8 @@ export const getServices = (details?: JsonLd.Response) => (details && details.me
 export const hasResolved = (details?: JsonLd.Response) =>
 	details && isAccessible(details) && isVisible(details);
 
-export const isAccessible = ({ meta: { access } }: JsonLd.Response): boolean => access === 'granted';
+export const isAccessible = ({ meta: { access } }: JsonLd.Response): boolean =>
+	access === 'granted';
 
 export const isVisible = ({ meta: { visibility } }: JsonLd.Response): boolean =>
 	visibility === 'restricted' || visibility === 'public';

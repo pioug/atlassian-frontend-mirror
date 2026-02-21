@@ -17,7 +17,9 @@ export default (): React.JSX.Element => (
 						<Link href="https://ecosystem.atlassian.net/browse/AK-90210">AK-90210</Link>
 					</Text>
 				}
-				icon={<SuccessIcon spacing="spacious" color={token('color.icon.success')} label="Success" />}
+				icon={
+					<SuccessIcon spacing="spacious" color={token('color.icon.success')} label="Success" />
+				}
 				id="1"
 				key="1"
 				title="I am a Flag"

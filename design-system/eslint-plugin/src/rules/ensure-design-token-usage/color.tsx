@@ -88,15 +88,21 @@ const isTagComponentColorProp = (
 	const ast = sourceCode.ast;
 	if (ast?.body) {
 		for (const node of ast.body) {
-			if (!isNodeOfType(node, 'ImportDeclaration')) {continue;}
+			if (!isNodeOfType(node, 'ImportDeclaration')) {
+				continue;
+			}
 			const source = node.source?.value;
-			if (typeof source !== 'string' || !source.match(/^@atlaskit\/tag(\/|$)/)) {continue;}
+			if (typeof source !== 'string' || !source.match(/^@atlaskit\/tag(\/|$)/)) {
+				continue;
+			}
 			const hasMatchingImport = node.specifiers?.some(
 				(s) =>
 					(s.type === 'ImportDefaultSpecifier' && s.local?.name === elementName) ||
 					(s.type === 'ImportSpecifier' && s.local?.name === elementName),
 			);
-			if (hasMatchingImport) {return true;}
+			if (hasMatchingImport) {
+				return true;
+			}
 		}
 	}
 

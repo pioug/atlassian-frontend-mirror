@@ -62,7 +62,17 @@ const enteringStyles = css({
  *
  * Loading items conditionally render based on the useShouldNestedElementRender() hook.
  */
-const LoadingItems: ({ children, isLoading, fallback, testId }: LoadingItemsProps) => JSX.Element = ({ children, isLoading, fallback, testId }: LoadingItemsProps) => {
+const LoadingItems: ({
+	children,
+	isLoading,
+	fallback,
+	testId,
+}: LoadingItemsProps) => JSX.Element = ({
+	children,
+	isLoading,
+	fallback,
+	testId,
+}: LoadingItemsProps) => {
 	const { shouldRender } = useShouldNestedElementRender();
 	if (!shouldRender) {
 		return children as JSX.Element;

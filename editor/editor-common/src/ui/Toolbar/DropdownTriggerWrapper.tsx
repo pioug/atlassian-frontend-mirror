@@ -14,7 +14,6 @@ const triggerWrapperStylesWithPadding = css({
 	paddingRight: token('space.025', '2px'),
 });
 
-
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- This rule thinks this isn't a `css()` call due to the name mapping
 const triggerWrapperStylesUnbounded = cssUnbounded({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -28,13 +27,6 @@ const triggerWrapperStylesUnbounded = cssUnbounded({
 
 export function ToolbarDropdownTriggerWrapper({ children }: { children?: React.ReactNode }) {
 	return (
-		<div
-			css={[
-				triggerWrapperStylesWithPadding,
-				triggerWrapperStylesUnbounded,
-			]}
-		>
-			{children}
-		</div>
+		<div css={[triggerWrapperStylesWithPadding, triggerWrapperStylesUnbounded]}>{children}</div>
 	);
 }

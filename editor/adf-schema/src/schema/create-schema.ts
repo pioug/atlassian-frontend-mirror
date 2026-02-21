@@ -223,8 +223,8 @@ const marksInOrder: SchemaBuiltInItem[] = [
 ];
 
 export function getNodesAndMarksMap(): {
-    marks: Record<string, MarkSpec>;
-    nodes: Record<string, NodeSpec>;
+	marks: Record<string, MarkSpec>;
+	nodes: Record<string, NodeSpec>;
 } {
 	const nodes = nodesInOrder.reduce(
 		(acc, { name, spec }) => {

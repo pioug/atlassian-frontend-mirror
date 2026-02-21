@@ -234,7 +234,8 @@ import {
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const AdminIcon: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewAdminIcon);
+export const AdminIcon: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewAdminIcon);
 /**
  * __Admin logo__
  *
@@ -244,7 +245,8 @@ export const AdminIcon: ({ size, ...props }: import("./types").LogoProps) => Rea
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const AdminLogo: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewAdminLogo);
+export const AdminLogo: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewAdminLogo);
 
 /**
  * __Analytics icon__
@@ -255,7 +257,8 @@ export const AdminLogo: ({ size, ...props }: import("./types").LogoProps) => Rea
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const AnalyticsIcon: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewAnalyticsIcon);
+export const AnalyticsIcon: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewAnalyticsIcon);
 /**
  * __Analytics logo__
  *
@@ -265,7 +268,8 @@ export const AnalyticsIcon: ({ size, ...props }: import("./types").LogoProps) =>
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const AnalyticsLogo: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewAnalyticsLogo);
+export const AnalyticsLogo: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewAnalyticsLogo);
 
 /**
  * __Assets icon__
@@ -276,7 +280,8 @@ export const AnalyticsLogo: ({ size, ...props }: import("./types").LogoProps) =>
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const AssetsIcon: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewAssetsIcon);
+export const AssetsIcon: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewAssetsIcon);
 /**
  * __Assets logo__
  *
@@ -286,7 +291,8 @@ export const AssetsIcon: ({ size, ...props }: import("./types").LogoProps) => Re
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const AssetsLogo: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewAssetsLogo);
+export const AssetsLogo: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewAssetsLogo);
 /**
  * __Chat icon__
  *
@@ -296,7 +302,8 @@ export const AssetsLogo: ({ size, ...props }: import("./types").LogoProps) => Re
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const ChatIcon: (props: import("./types").LogoProps) => React.JSX.Element = teamEUFlaggedIcon(OldChatIcon, ChatNewIcon);
+export const ChatIcon: (props: import('./types').LogoProps) => React.JSX.Element =
+	teamEUFlaggedIcon(OldChatIcon, ChatNewIcon);
 /**
  * __Chat logo__
  *
@@ -306,7 +313,8 @@ export const ChatIcon: (props: import("./types").LogoProps) => React.JSX.Element
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const ChatLogo: (props: import("./types").LogoProps) => React.JSX.Element = teamEUFlaggedIcon(OldChatLogo, ChatNewLogoCS);
+export const ChatLogo: (props: import('./types').LogoProps) => React.JSX.Element =
+	teamEUFlaggedIcon(OldChatLogo, ChatNewLogoCS);
 /**
  * __Customer Service Management icon__
  *
@@ -316,7 +324,12 @@ export const ChatLogo: (props: import("./types").LogoProps) => React.JSX.Element
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const CustomerServiceManagementIcon: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewCustomerServiceManagementIcon);
+export const CustomerServiceManagementIcon: ({
+	size,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = tempSizeWrapper(
+	NewCustomerServiceManagementIcon,
+);
 /**
  * __Customer Service Management logo__
  *
@@ -326,7 +339,12 @@ export const CustomerServiceManagementIcon: ({ size, ...props }: import("./types
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const CustomerServiceManagementLogo: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewCustomerServiceManagementLogo);
+export const CustomerServiceManagementLogo: ({
+	size,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = tempSizeWrapper(
+	NewCustomerServiceManagementLogo,
+);
 /**
  * __Goals icon__
  *
@@ -336,7 +354,8 @@ export const CustomerServiceManagementLogo: ({ size, ...props }: import("./types
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const GoalsIcon: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewGoalsIcon);
+export const GoalsIcon: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewGoalsIcon);
 /**
  * __Goals logo__
  *
@@ -346,7 +365,8 @@ export const GoalsIcon: ({ size, ...props }: import("./types").LogoProps) => Rea
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const GoalsLogo: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewGoalsLogo);
+export const GoalsLogo: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewGoalsLogo);
 /**
  * __Home icon__
  *
@@ -356,7 +376,8 @@ export const GoalsLogo: ({ size, ...props }: import("./types").LogoProps) => Rea
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const HomeIcon: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewHomeIcon);
+export const HomeIcon: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewHomeIcon);
 /**
  * __Home logo__
  *
@@ -366,7 +387,8 @@ export const HomeIcon: ({ size, ...props }: import("./types").LogoProps) => Reac
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const HomeLogo: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewHomeLogo);
+export const HomeLogo: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewHomeLogo);
 /**
  * __Hub icon
  *
@@ -376,7 +398,8 @@ export const HomeLogo: ({ size, ...props }: import("./types").LogoProps) => Reac
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const HubIcon: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewHubIcon);
+export const HubIcon: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewHubIcon);
 /**
  * Hub logo__
  *
@@ -386,7 +409,8 @@ export const HubIcon: ({ size, ...props }: import("./types").LogoProps) => React
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const HubLogo: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewHubLogo);
+export const HubLogo: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewHubLogo);
 /**
  * __Projects icon__
  *
@@ -396,7 +420,8 @@ export const HubLogo: ({ size, ...props }: import("./types").LogoProps) => React
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const ProjectsIcon: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewProjectsIcon);
+export const ProjectsIcon: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewProjectsIcon);
 /**
  * __Projects logo__
  *
@@ -406,7 +431,8 @@ export const ProjectsIcon: ({ size, ...props }: import("./types").LogoProps) => 
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const ProjectsLogo: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewProjectsLogo);
+export const ProjectsLogo: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewProjectsLogo);
 /**
  * __Rovo Dev icon__
  *
@@ -416,7 +442,8 @@ export const ProjectsLogo: ({ size, ...props }: import("./types").LogoProps) => 
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const RovoDevIcon: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewRovoDevIcon);
+export const RovoDevIcon: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewRovoDevIcon);
 /**
  * __Rovo Dev logo__
  *
@@ -426,7 +453,8 @@ export const RovoDevIcon: ({ size, ...props }: import("./types").LogoProps) => R
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const RovoDevLogo: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewRovoDevLogo);
+export const RovoDevLogo: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewRovoDevLogo);
 /**
  * __Rovo Dev Agent icon__
  *
@@ -436,7 +464,10 @@ export const RovoDevLogo: ({ size, ...props }: import("./types").LogoProps) => R
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const RovoDevAgentIcon: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewRovoDevAgentIcon);
+export const RovoDevAgentIcon: ({
+	size,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = tempSizeWrapper(NewRovoDevAgentIcon);
 /**
  * __Rovo Dev Agent logo__
  *
@@ -446,7 +477,10 @@ export const RovoDevAgentIcon: ({ size, ...props }: import("./types").LogoProps)
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const RovoDevAgentLogo: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewRovoDevAgentLogo);
+export const RovoDevAgentLogo: ({
+	size,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = tempSizeWrapper(NewRovoDevAgentLogo);
 /**
  * __Search icon__
  *
@@ -456,7 +490,8 @@ export const RovoDevAgentLogo: ({ size, ...props }: import("./types").LogoProps)
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const SearchIcon: (props: import("./types").LogoProps) => React.JSX.Element = teamEUFlaggedIcon(OldSearchIcon, SearchNewIcon);
+export const SearchIcon: (props: import('./types').LogoProps) => React.JSX.Element =
+	teamEUFlaggedIcon(OldSearchIcon, SearchNewIcon);
 /**
  * __Search logo__
  *
@@ -466,7 +501,8 @@ export const SearchIcon: (props: import("./types").LogoProps) => React.JSX.Eleme
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const SearchLogo: (props: import("./types").LogoProps) => React.JSX.Element = teamEUFlaggedIcon(OldSearchLogo, SearchNewLogoCS);
+export const SearchLogo: (props: import('./types').LogoProps) => React.JSX.Element =
+	teamEUFlaggedIcon(OldSearchLogo, SearchNewLogoCS);
 /**
  * __Studio icon__
  *
@@ -476,7 +512,8 @@ export const SearchLogo: (props: import("./types").LogoProps) => React.JSX.Eleme
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const StudioIcon: (props: import("./types").LogoProps) => React.JSX.Element = teamEUFlaggedIcon(OldStudioIcon, StudioNewIcon);
+export const StudioIcon: (props: import('./types').LogoProps) => React.JSX.Element =
+	teamEUFlaggedIcon(OldStudioIcon, StudioNewIcon);
 /**
  * __Studio logo__
  *
@@ -486,7 +523,8 @@ export const StudioIcon: (props: import("./types").LogoProps) => React.JSX.Eleme
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const StudioLogo: (props: import("./types").LogoProps) => React.JSX.Element = teamEUFlaggedIcon(OldStudioLogo, StudioNewLogoCS);
+export const StudioLogo: (props: import('./types').LogoProps) => React.JSX.Element =
+	teamEUFlaggedIcon(OldStudioLogo, StudioNewLogoCS);
 /**
  * __Talent icon__
  *
@@ -496,7 +534,8 @@ export const StudioLogo: (props: import("./types").LogoProps) => React.JSX.Eleme
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const TalentIcon: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewTalentIcon);
+export const TalentIcon: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewTalentIcon);
 /**
  * __Talent logo__
  *
@@ -506,7 +545,8 @@ export const TalentIcon: ({ size, ...props }: import("./types").LogoProps) => Re
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const TalentLogo: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewTalentLogo);
+export const TalentLogo: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewTalentLogo);
 /**
  * __Teams icon__
  *
@@ -516,7 +556,8 @@ export const TalentLogo: ({ size, ...props }: import("./types").LogoProps) => Re
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const TeamsIcon: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewTeamsIcon);
+export const TeamsIcon: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewTeamsIcon);
 /**
  * __Teams logo__
  *
@@ -526,7 +567,8 @@ export const TeamsIcon: ({ size, ...props }: import("./types").LogoProps) => Rea
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const TeamsLogo: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewTeamsLogo);
+export const TeamsLogo: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewTeamsLogo);
 /**
  * __Bamboo icon__
  *
@@ -536,7 +578,8 @@ export const TeamsLogo: ({ size, ...props }: import("./types").LogoProps) => Rea
  * - [Code](https://atlassian.design/components/{packageName}/code)
  * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
-export const BambooIcon: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewBambooIcon);
+export const BambooIcon: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewBambooIcon);
 /**
  * __Bamboo logo__
  *
@@ -546,7 +589,8 @@ export const BambooIcon: ({ size, ...props }: import("./types").LogoProps) => Re
  * - [Code](https://atlassian.design/components/{packageName}/code)
  * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
-export const BambooLogo: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewBambooLogo);
+export const BambooLogo: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewBambooLogo);
 /**
  * __Bitbucket Data Center icon__
  *
@@ -556,7 +600,10 @@ export const BambooLogo: ({ size, ...props }: import("./types").LogoProps) => Re
  * - [Code](https://atlassian.design/components/{packageName}/code)
  * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
-export const BitbucketDataCenterIcon: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewBitbucketDataCenterIcon);
+export const BitbucketDataCenterIcon: ({
+	size,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = tempSizeWrapper(NewBitbucketDataCenterIcon);
 /**
  * __Bitbucket Data Center logo__
  *
@@ -566,7 +613,10 @@ export const BitbucketDataCenterIcon: ({ size, ...props }: import("./types").Log
  * - [Code](https://atlassian.design/components/{packageName}/code)
  * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
-export const BitbucketDataCenterLogo: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewBitbucketDataCenterLogo);
+export const BitbucketDataCenterLogo: ({
+	size,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = tempSizeWrapper(NewBitbucketDataCenterLogo);
 /**
  * __Confluence Data Center icon__
  *
@@ -576,7 +626,10 @@ export const BitbucketDataCenterLogo: ({ size, ...props }: import("./types").Log
  * - [Code](https://atlassian.design/components/{packageName}/code)
  * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
-export const ConfluenceDataCenterIcon: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewConfluenceDataCenterIcon);
+export const ConfluenceDataCenterIcon: ({
+	size,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = tempSizeWrapper(NewConfluenceDataCenterIcon);
 /**
  * __Confluence Data Center logo__
  *
@@ -586,7 +639,10 @@ export const ConfluenceDataCenterIcon: ({ size, ...props }: import("./types").Lo
  * - [Code](https://atlassian.design/components/{packageName}/code)
  * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
-export const ConfluenceDataCenterLogo: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewConfluenceDataCenterLogo);
+export const ConfluenceDataCenterLogo: ({
+	size,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = tempSizeWrapper(NewConfluenceDataCenterLogo);
 /**
  * __Crowd icon__
  *
@@ -596,7 +652,8 @@ export const ConfluenceDataCenterLogo: ({ size, ...props }: import("./types").Lo
  * - [Code](https://atlassian.design/components/{packageName}/code)
  * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
-export const CrowdIcon: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewCrowdIcon);
+export const CrowdIcon: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewCrowdIcon);
 /**
  * __Crowd logo__
  *
@@ -606,7 +663,8 @@ export const CrowdIcon: ({ size, ...props }: import("./types").LogoProps) => Rea
  * - [Code](https://atlassian.design/components/{packageName}/code)
  * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
-export const CrowdLogo: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewCrowdLogo);
+export const CrowdLogo: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewCrowdLogo);
 
 /**
  * __Jira Data Center icon__
@@ -617,7 +675,10 @@ export const CrowdLogo: ({ size, ...props }: import("./types").LogoProps) => Rea
  * - [Code](https://atlassian.design/components/{packageName}/code)
  * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
-export const JiraDataCenterIcon: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewJiraDataCenterIcon);
+export const JiraDataCenterIcon: ({
+	size,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = tempSizeWrapper(NewJiraDataCenterIcon);
 /**
  * __Jira Data Center logo__
  *
@@ -627,7 +688,10 @@ export const JiraDataCenterIcon: ({ size, ...props }: import("./types").LogoProp
  * - [Code](https://atlassian.design/components/{packageName}/code)
  * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
-export const JiraDataCenterLogo: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewJiraDataCenterLogo);
+export const JiraDataCenterLogo: ({
+	size,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = tempSizeWrapper(NewJiraDataCenterLogo);
 
 /**
  * __Jira Service Management Data Center icon__
@@ -638,7 +702,10 @@ export const JiraDataCenterLogo: ({ size, ...props }: import("./types").LogoProp
  * - [Code](https://atlassian.design/components/{packageName}/code)
  * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
-export const JiraServiceManagementDataCenterIcon: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(
+export const JiraServiceManagementDataCenterIcon: ({
+	size,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = tempSizeWrapper(
 	NewJiraServiceManagementDataCenterIcon,
 );
 /**
@@ -650,7 +717,10 @@ export const JiraServiceManagementDataCenterIcon: ({ size, ...props }: import(".
  * - [Code](https://atlassian.design/components/{packageName}/code)
  * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
-export const JiraServiceManagementDataCenterLogo: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(
+export const JiraServiceManagementDataCenterLogo: ({
+	size,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = tempSizeWrapper(
 	NewJiraServiceManagementDataCenterLogo,
 );
 
@@ -663,7 +733,11 @@ export const JiraServiceManagementDataCenterLogo: ({ size, ...props }: import(".
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const AtlassianAdministrationIcon: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+export const AtlassianAdministrationIcon: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
 	LegacyAtlassianAdministrationIcon,
 	NewAdminIcon,
 );
@@ -677,7 +751,11 @@ export const AtlassianAdministrationIcon: ({ size, shouldUseNewLogoDesign, ...pr
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const AtlassianAdministrationLogo: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+export const AtlassianAdministrationLogo: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
 	LegacyAtlassianAdministrationLogo,
 	NewAdminLogo,
 );
@@ -691,7 +769,11 @@ export const AtlassianAdministrationLogo: ({ size, shouldUseNewLogoDesign, ...pr
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const AtlassianAdminIcon: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+export const AtlassianAdminIcon: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
 	LegacyAtlassianAdminIcon,
 	NewAdminIcon,
 );
@@ -705,7 +787,11 @@ export const AtlassianAdminIcon: ({ size, shouldUseNewLogoDesign, ...props }: im
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const AtlassianAdminLogo: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+export const AtlassianAdminLogo: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
 	LegacyAtlassianAdminLogo,
 	NewAdminLogo,
 );
@@ -719,7 +805,11 @@ export const AtlassianAdminLogo: ({ size, shouldUseNewLogoDesign, ...props }: im
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const AtlassianAnalyticsIcon: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+export const AtlassianAnalyticsIcon: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
 	LegacyAtlassianAnalyticsIcon,
 	NewAnalyticsIcon,
 );
@@ -732,7 +822,11 @@ export const AtlassianAnalyticsIcon: ({ size, shouldUseNewLogoDesign, ...props }
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const AtlassianAnalyticsLogo: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+export const AtlassianAnalyticsLogo: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
 	LegacyAtlassianAnalyticsLogo,
 	NewAnalyticsLogo,
 );
@@ -746,7 +840,14 @@ export const AtlassianAnalyticsLogo: ({ size, shouldUseNewLogoDesign, ...props }
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const BitbucketIcon: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(LegacyBitbucketIcon, NewBitbucketIcon);
+export const BitbucketIcon: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+	LegacyBitbucketIcon,
+	NewBitbucketIcon,
+);
 /**
  * __Bitbucket logo__
  *
@@ -756,7 +857,14 @@ export const BitbucketIcon: ({ size, shouldUseNewLogoDesign, ...props }: import(
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const BitbucketLogo: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(LegacyBitbucketLogo, NewBitbucketLogo);
+export const BitbucketLogo: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+	LegacyBitbucketLogo,
+	NewBitbucketLogo,
+);
 /**
  * __Compass icon__
  *
@@ -766,7 +874,14 @@ export const BitbucketLogo: ({ size, shouldUseNewLogoDesign, ...props }: import(
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const CompassIcon: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(LegacyCompassIcon, NewCompassIcon);
+export const CompassIcon: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+	LegacyCompassIcon,
+	NewCompassIcon,
+);
 /**
  * __Compass logo__
  *
@@ -776,7 +891,14 @@ export const CompassIcon: ({ size, shouldUseNewLogoDesign, ...props }: import(".
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const CompassLogo: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(LegacyCompassLogo, NewCompassLogo);
+export const CompassLogo: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+	LegacyCompassLogo,
+	NewCompassLogo,
+);
 /**
  * __DX icon__
  *
@@ -786,7 +908,8 @@ export const CompassLogo: ({ size, shouldUseNewLogoDesign, ...props }: import(".
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const DxIcon: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewDXIcon);
+export const DxIcon: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewDXIcon);
 /**
  * __Confluence icon__
  *
@@ -796,7 +919,11 @@ export const DxIcon: ({ size, ...props }: import("./types").LogoProps) => React.
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const ConfluenceIcon: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+export const ConfluenceIcon: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
 	LegacyConfluenceIcon,
 	NewConfluenceIcon,
 );
@@ -809,7 +936,11 @@ export const ConfluenceIcon: ({ size, shouldUseNewLogoDesign, ...props }: import
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const ConfluenceLogo: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+export const ConfluenceLogo: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
 	LegacyConfluenceLogo,
 	NewConfluenceLogo,
 );
@@ -823,7 +954,8 @@ export const ConfluenceLogo: ({ size, shouldUseNewLogoDesign, ...props }: import
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const AlignIcon: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewAlignIcon);
+export const AlignIcon: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewAlignIcon);
 /**
  * __Align logo__
  *
@@ -833,7 +965,8 @@ export const AlignIcon: ({ size, ...props }: import("./types").LogoProps) => Rea
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const AlignLogo: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewAlignLogo);
+export const AlignLogo: ({ size, ...props }: import('./types').LogoProps) => React.JSX.Element =
+	tempSizeWrapper(NewAlignLogo);
 
 /**
  * __Jira Align icon__
@@ -844,7 +977,14 @@ export const AlignLogo: ({ size, ...props }: import("./types").LogoProps) => Rea
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const JiraAlignIcon: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(LegacyJiraAlignIcon, NewAlignIcon);
+export const JiraAlignIcon: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+	LegacyJiraAlignIcon,
+	NewAlignIcon,
+);
 /**
  * __Jira Align logo__
  *
@@ -854,7 +994,14 @@ export const JiraAlignIcon: ({ size, shouldUseNewLogoDesign, ...props }: import(
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const JiraAlignLogo: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(LegacyJiraAlignLogo, NewAlignLogo);
+export const JiraAlignLogo: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+	LegacyJiraAlignLogo,
+	NewAlignLogo,
+);
 
 /**
  * __Jira icon__
@@ -865,7 +1012,14 @@ export const JiraAlignLogo: ({ size, shouldUseNewLogoDesign, ...props }: import(
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const JiraIcon: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(LegacyJiraIcon, NewJiraIcon);
+export const JiraIcon: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+	LegacyJiraIcon,
+	NewJiraIcon,
+);
 /**
  * __Jira logo__
  *
@@ -875,7 +1029,14 @@ export const JiraIcon: ({ size, shouldUseNewLogoDesign, ...props }: import("./ty
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const JiraLogo: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(LegacyJiraLogo, NewJiraLogo);
+export const JiraLogo: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+	LegacyJiraLogo,
+	NewJiraLogo,
+);
 /**
  * __Jira product discovery icon__
  *
@@ -885,7 +1046,14 @@ export const JiraLogo: ({ size, shouldUseNewLogoDesign, ...props }: import("./ty
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const JiraProductDiscoveryIcon: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(LegacyJPDIcon, NewJPDIcon);
+export const JiraProductDiscoveryIcon: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+	LegacyJPDIcon,
+	NewJPDIcon,
+);
 
 /**
  * __Jira product discovery logo__
@@ -896,7 +1064,14 @@ export const JiraProductDiscoveryIcon: ({ size, shouldUseNewLogoDesign, ...props
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const JiraProductDiscoveryLogo: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(LegacyJPDLogo, NewJPDLogo);
+export const JiraProductDiscoveryLogo: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+	LegacyJPDLogo,
+	NewJPDLogo,
+);
 
 /**
  * __Jira service management icon__
@@ -907,10 +1082,12 @@ export const JiraProductDiscoveryLogo: ({ size, shouldUseNewLogoDesign, ...props
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const JiraServiceManagementIcon: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedServiceCollectionComponent(
-	LegacyJSMIcon,
-	NewJSMIcon,
-);
+export const JiraServiceManagementIcon: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element =
+	createFeatureFlaggedServiceCollectionComponent(LegacyJSMIcon, NewJSMIcon);
 
 /**
  * __Jira service management logo__
@@ -921,10 +1098,12 @@ export const JiraServiceManagementIcon: ({ size, shouldUseNewLogoDesign, ...prop
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const JiraServiceManagementLogo: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedServiceCollectionComponent(
-	LegacyJSMLogo,
-	NewJSMLogo,
-);
+export const JiraServiceManagementLogo: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element =
+	createFeatureFlaggedServiceCollectionComponent(LegacyJSMLogo, NewJSMLogo);
 
 /**
  * __Loom icon__
@@ -935,7 +1114,14 @@ export const JiraServiceManagementLogo: ({ size, shouldUseNewLogoDesign, ...prop
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const LoomIcon: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(LegacyLoomIcon, NewLoomIcon);
+export const LoomIcon: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+	LegacyLoomIcon,
+	NewLoomIcon,
+);
 /**
  * __Loom logo__
  *
@@ -945,7 +1131,14 @@ export const LoomIcon: ({ size, shouldUseNewLogoDesign, ...props }: import("./ty
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const LoomLogo: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(LegacyLoomLogo, NewLoomLogo);
+export const LoomLogo: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+	LegacyLoomLogo,
+	NewLoomLogo,
+);
 /**
  * __Loom Attribution icon__
  *
@@ -955,7 +1148,11 @@ export const LoomLogo: ({ size, shouldUseNewLogoDesign, ...props }: import("./ty
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const LoomAttributionIcon: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+export const LoomAttributionIcon: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
 	LegacyLoomAttributionIcon,
 	NewLoomIcon,
 );
@@ -968,7 +1165,11 @@ export const LoomAttributionIcon: ({ size, shouldUseNewLogoDesign, ...props }: i
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const LoomAttributionLogo: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+export const LoomAttributionLogo: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
 	LegacyLoomAttributionLogo,
 	NewLoomAttributionLogo,
 );
@@ -981,7 +1182,10 @@ export const LoomAttributionLogo: ({ size, shouldUseNewLogoDesign, ...props }: i
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const LoomBlurpleLogo: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewLoomInternalLogo);
+export const LoomBlurpleLogo: ({
+	size,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = tempSizeWrapper(NewLoomInternalLogo);
 /**
  * __Loom (Blurple) icon__
  *
@@ -991,7 +1195,10 @@ export const LoomBlurpleLogo: ({ size, ...props }: import("./types").LogoProps) 
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const LoomBlurpleIcon: ({ size, ...props }: import("./types").LogoProps) => React.JSX.Element = tempSizeWrapper(NewLoomInternalIcon);
+export const LoomBlurpleIcon: ({
+	size,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = tempSizeWrapper(NewLoomInternalIcon);
 /**
  * __Opsgenie icon__
  *
@@ -1001,10 +1208,12 @@ export const LoomBlurpleIcon: ({ size, ...props }: import("./types").LogoProps) 
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const OpsgenieIcon: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedServiceCollectionComponent(
-	LegacyOpsgenieIcon,
-	NewOpsgenieIcon,
-);
+export const OpsgenieIcon: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element =
+	createFeatureFlaggedServiceCollectionComponent(LegacyOpsgenieIcon, NewOpsgenieIcon);
 /**
  * __Opsgenie logo__
  *
@@ -1014,10 +1223,12 @@ export const OpsgenieIcon: ({ size, shouldUseNewLogoDesign, ...props }: import("
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const OpsgenieLogo: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedServiceCollectionComponent(
-	LegacyOpsgenieLogo,
-	NewOpsgenieLogo,
-);
+export const OpsgenieLogo: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element =
+	createFeatureFlaggedServiceCollectionComponent(LegacyOpsgenieLogo, NewOpsgenieLogo);
 
 /**
  * __Statuspage icon__
@@ -1028,10 +1239,12 @@ export const OpsgenieLogo: ({ size, shouldUseNewLogoDesign, ...props }: import("
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const StatuspageIcon: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedServiceCollectionComponent(
-	LegacyStatuspageIcon,
-	NewStatuspageIcon,
-);
+export const StatuspageIcon: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element =
+	createFeatureFlaggedServiceCollectionComponent(LegacyStatuspageIcon, NewStatuspageIcon);
 /**
  * __Statuspage logo__
  *
@@ -1041,10 +1254,12 @@ export const StatuspageIcon: ({ size, shouldUseNewLogoDesign, ...props }: import
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const StatuspageLogo: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedServiceCollectionComponent(
-	LegacyStatuspageLogo,
-	NewStatuspageLogo,
-);
+export const StatuspageLogo: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element =
+	createFeatureFlaggedServiceCollectionComponent(LegacyStatuspageLogo, NewStatuspageLogo);
 /**
  * __Trello icon__
  *
@@ -1054,7 +1269,14 @@ export const StatuspageLogo: ({ size, shouldUseNewLogoDesign, ...props }: import
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const TrelloIcon: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(LegacyTrelloIcon, NewTrelloIcon);
+export const TrelloIcon: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+	LegacyTrelloIcon,
+	NewTrelloIcon,
+);
 /**
  * __Trello logo__
  *
@@ -1064,7 +1286,14 @@ export const TrelloIcon: ({ size, shouldUseNewLogoDesign, ...props }: import("./
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const TrelloLogo: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(LegacyTrelloLogo, NewTrelloLogo);
+export const TrelloLogo: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+	LegacyTrelloLogo,
+	NewTrelloLogo,
+);
 /**
  * __Rovo icon__
  *
@@ -1085,9 +1314,12 @@ export const TrelloLogo: ({ size, shouldUseNewLogoDesign, ...props }: import("./
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const RovoIcon: ({ shouldUseHexLogo, ...props }: import("./types").LogoProps & {
-    shouldUseNewLogoDesign?: boolean;
-    shouldUseHexLogo?: boolean;
+export const RovoIcon: ({
+	shouldUseHexLogo,
+	...props
+}: import('./types').LogoProps & {
+	shouldUseNewLogoDesign?: boolean;
+	shouldUseHexLogo?: boolean;
 }) => React.JSX.Element = createFeatureFlaggedRovoComponent(
 	LegacyRovoIcon,
 	NewRovoIcon,
@@ -1102,9 +1334,12 @@ export const RovoIcon: ({ shouldUseHexLogo, ...props }: import("./types").LogoPr
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const RovoLogo: ({ shouldUseHexLogo, ...props }: import("./types").LogoProps & {
-    shouldUseNewLogoDesign?: boolean;
-    shouldUseHexLogo?: boolean;
+export const RovoLogo: ({
+	shouldUseHexLogo,
+	...props
+}: import('./types').LogoProps & {
+	shouldUseNewLogoDesign?: boolean;
+	shouldUseHexLogo?: boolean;
 }) => React.JSX.Element = createFeatureFlaggedRovoComponent(
 	LegacyRovoLogo,
 	NewRovoLogo,
@@ -1120,7 +1355,14 @@ export const RovoLogo: ({ shouldUseHexLogo, ...props }: import("./types").LogoPr
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const GuardIcon: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(LegacyGuardIcon, NewGuardIcon);
+export const GuardIcon: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+	LegacyGuardIcon,
+	NewGuardIcon,
+);
 /**
  * __Guard logo__
  *
@@ -1130,7 +1372,14 @@ export const GuardIcon: ({ size, shouldUseNewLogoDesign, ...props }: import("./t
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const GuardLogo: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(LegacyGuardLogo, NewGuardLogo);
+export const GuardLogo: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+	LegacyGuardLogo,
+	NewGuardLogo,
+);
 
 /**
  * __Focus icon__
@@ -1141,7 +1390,14 @@ export const GuardLogo: ({ size, shouldUseNewLogoDesign, ...props }: import("./t
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const FocusIcon: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(LegacyFocusIcon, NewFocusIcon);
+export const FocusIcon: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+	LegacyFocusIcon,
+	NewFocusIcon,
+);
 /**
  * __Focus logo__
  *
@@ -1151,6 +1407,13 @@ export const FocusIcon: ({ size, shouldUseNewLogoDesign, ...props }: import("./t
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const FocusLogo: ({ size, shouldUseNewLogoDesign, ...props }: import("./types").LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(LegacyFocusLogo, NewFocusLogo);
+export const FocusLogo: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = createFeatureFlaggedComponent(
+	LegacyFocusLogo,
+	NewFocusLogo,
+);
 
 export type { LogoProps } from './types';

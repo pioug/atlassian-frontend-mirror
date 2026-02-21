@@ -48,7 +48,10 @@ export const handleInit = (
 	}
 };
 
-export const handleConnection = (connectionData: CollabEventConnectionData, view: EditorView): void => {
+export const handleConnection = (
+	connectionData: CollabEventConnectionData,
+	view: EditorView,
+): void => {
 	const {
 		state: { tr },
 	} = view;
@@ -120,7 +123,10 @@ export const applyRemoteSteps = (
 	}
 };
 
-export const handleTelePointer = (telepointerData: CollabTelepointerPayload, view: EditorView): void => {
+export const handleTelePointer = (
+	telepointerData: CollabTelepointerPayload,
+	view: EditorView,
+): void => {
 	const {
 		state: { tr },
 	} = view;

@@ -19,7 +19,8 @@ const _default: () => JSX.Element = () => {
 		{ label: 'Neutral', value: 'neutral' as const },
 	];
 
-	const [currentStatus, setCurrentStatus] = useState<(typeof statusOptions)[number]['value']>('success');
+	const [currentStatus, setCurrentStatus] =
+		useState<(typeof statusOptions)[number]['value']>('success');
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
 	return (

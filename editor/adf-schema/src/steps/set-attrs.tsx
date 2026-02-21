@@ -48,10 +48,10 @@ export class SetAttrsStep extends Step {
 	}
 
 	toJSON(): {
-        attrs: object;
-        pos: number;
-        stepType: string;
-    } {
+		attrs: object;
+		pos: number;
+		stepType: string;
+	} {
 		return { stepType: 'setAttrs', pos: this.pos, attrs: this.attrs };
 	}
 

@@ -1,7 +1,12 @@
 import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
 
-import { ACTION_SUBJECT_ID, ACTION_SUBJECT, EVENT_TYPE, TABLE_ACTION } from '@atlaskit/editor-common/analytics';
+import {
+	ACTION_SUBJECT_ID,
+	ACTION_SUBJECT,
+	EVENT_TYPE,
+	TABLE_ACTION,
+} from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { getParentOfTypeCount } from '@atlaskit/editor-common/nesting';
 import { nodeVisibilityManager } from '@atlaskit/editor-common/node-visibility';
@@ -54,7 +59,8 @@ const HEADER_ROW_SCROLL_RESET_DEBOUNCE_TIMEOUT = 400;
 
 export default class TableRowNativeStickyWithFallback
 	extends TableNodeView<HTMLTableRowElement>
-	implements NodeView {
+	implements NodeView
+{
 	private nodeVisibilityObserverCleanupFn?: () => void;
 
 	cleanup = (): void => {
@@ -177,17 +183,17 @@ export default class TableRowNativeStickyWithFallback
 		bottom: SentinelData;
 		top: SentinelData;
 	} = {
-			top: {
-				isIntersecting: false,
-				boundingClientRect: null,
-				rootBounds: null,
-			},
-			bottom: {
-				isIntersecting: false,
-				boundingClientRect: null,
-				rootBounds: null,
-			},
-		};
+		top: {
+			isIntersecting: false,
+			boundingClientRect: null,
+			rootBounds: null,
+		},
+		bottom: {
+			isIntersecting: false,
+			boundingClientRect: null,
+			rootBounds: null,
+		},
+	};
 	private stickyRowHeight?: number;
 	private listening = false;
 	private padding: number = 0;
@@ -350,7 +356,13 @@ export default class TableRowNativeStickyWithFallback
 					 */
 					entries.forEach((entry) => {
 						const tableWrapper = this.dom.closest(`.${ClassName.TABLE_NODE_WRAPPER}`);
-						if (tableWrapper && tableWrapper instanceof HTMLElement && ((!areAllRectsZero(entry) && expValEquals('platform_editor_table_sticky_header_patch_10', 'isEnabled', true)) || !expValEquals('platform_editor_table_sticky_header_patch_10', 'isEnabled', true))) {
+						if (
+							tableWrapper &&
+							tableWrapper instanceof HTMLElement &&
+							((!areAllRectsZero(entry) &&
+								expValEquals('platform_editor_table_sticky_header_patch_10', 'isEnabled', true)) ||
+								!expValEquals('platform_editor_table_sticky_header_patch_10', 'isEnabled', true))
+						) {
 							if (entry.isIntersecting) {
 								tableWrapper.classList.add(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
 								this.dom.classList.add(ClassName.NATIVE_STICKY);
@@ -484,7 +496,7 @@ export default class TableRowNativeStickyWithFallback
 						attributes: {
 							nativeStickyHeaderEnabled: entry.isIntersecting,
 						},
-					})
+					});
 				}
 			});
 		}, options);
@@ -697,8 +709,8 @@ export default class TableRowNativeStickyWithFallback
 					const newHeight = entry.contentRect
 						? entry.contentRect.height
 						: // Ignored via go/ees005
-						// eslint-disable-next-line @atlaskit/editor/no-as-casting
-						(entry.target as HTMLElement).offsetHeight;
+							// eslint-disable-next-line @atlaskit/editor/no-as-casting
+							(entry.target as HTMLElement).offsetHeight;
 
 					if (
 						this.sentinels.bottom &&
@@ -707,8 +719,9 @@ export default class TableRowNativeStickyWithFallback
 						Math.abs(newHeight - (this.stickyRowHeight || 0)) > stickyHeaderBorderBottomWidth
 					) {
 						this.stickyRowHeight = newHeight;
-						this.sentinels.bottom.style.bottom = `${tableScrollbarOffset + stickyRowOffsetTop + newHeight
-							}px`;
+						this.sentinels.bottom.style.bottom = `${
+							tableScrollbarOffset + stickyRowOffsetTop + newHeight
+						}px`;
 
 						updateTableMargin(table);
 					}

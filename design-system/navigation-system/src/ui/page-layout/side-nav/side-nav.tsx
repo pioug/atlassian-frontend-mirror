@@ -1193,18 +1193,15 @@ function SideNavInternal({
 					// We are explicitly using the `isExpandedOnDesktop` and `isExpandedOnMobile` values here to ensure we are displaying the
 					// correct state during SSR render, as the context value would not have been set yet. These values are derived from the
 					// component props (defaultCollapsed) if context hasn't been set yet.
-					isExpandedOnDesktop &&
-					!isExpandedOnMobile &&
-					!isFlyoutVisible &&
-					styles.hiddenMobileOnly,
+					isExpandedOnDesktop && !isExpandedOnMobile && !isFlyoutVisible && styles.hiddenMobileOnly,
 					!isExpandedOnDesktop &&
-					isExpandedOnMobile &&
-					!isFlyoutVisible &&
-					styles.hiddenDesktopOnly,
+						isExpandedOnMobile &&
+						!isFlyoutVisible &&
+						styles.hiddenDesktopOnly,
 					!isExpandedOnDesktop &&
-					!isExpandedOnMobile &&
-					!isFlyoutVisible &&
-					styles.hiddenMobileAndDesktop,
+						!isExpandedOnMobile &&
+						!isFlyoutVisible &&
+						styles.hiddenMobileAndDesktop,
 
 					isFhsEnabled && styles.animationRTLSupport,
 					// Expand/collapse animation styles
@@ -1215,36 +1212,36 @@ function SideNavInternal({
 					!isExpandedOnMobile && shouldShowSidebarToggleAnimation && styles.collapseAnimationMobile,
 					isExpandedOnDesktop && shouldShowSidebarToggleAnimation && styles.expandAnimationDesktop,
 					!isExpandedOnDesktop &&
-					shouldShowSidebarToggleAnimation &&
-					styles.collapseAnimationDesktop,
+						shouldShowSidebarToggleAnimation &&
+						styles.collapseAnimationDesktop,
 
 					// Flyout styles
 					sideNavState?.flyout === 'open' && !isFhsEnabled && styles.flyoutOpen,
 					sideNavState?.flyout === 'triggered-animate-close' &&
-					!isFhsEnabled &&
-					styles.flyoutAnimateClosed,
+						!isFhsEnabled &&
+						styles.flyoutAnimateClosed,
 
 					(sideNavState?.flyout === 'open' || sideNavState?.flyout === 'triggered-animate-close') &&
-					!isFirefox &&
-					isFhsEnabled &&
-					styles.flyoutBaseStylesFullHeightSidebar,
+						!isFirefox &&
+						isFhsEnabled &&
+						styles.flyoutBaseStylesFullHeightSidebar,
 					sideNavState?.flyout === 'triggered-animate-close' &&
-					!isFirefox &&
-					isFhsEnabled &&
-					styles.flyoutAnimateClosedFullHeightSidebar,
+						!isFirefox &&
+						isFhsEnabled &&
+						styles.flyoutAnimateClosedFullHeightSidebar,
 					sideNavState?.flyout === 'open' &&
-					!isFirefox &&
-					isFhsEnabled &&
-					styles.flyoutOpenFullHeightSidebar,
+						!isFirefox &&
+						isFhsEnabled &&
+						styles.flyoutOpenFullHeightSidebar,
 					sideNavState?.flyout === 'triggered-animate-close' &&
-					!isFirefox &&
-					isFhsEnabled &&
-					styles.flyoutAnimateClosedFullHeightSidebar,
+						!isFirefox &&
+						isFhsEnabled &&
+						styles.flyoutAnimateClosedFullHeightSidebar,
 					// Flyout is not using full height styles
 					isFlyoutClosed &&
-					isFhsEnabled &&
-					!fg('platform-dst-side-nav-layering-fixes') &&
-					styles.fullHeightSidebar,
+						isFhsEnabled &&
+						!fg('platform-dst-side-nav-layering-fixes') &&
+						styles.fullHeightSidebar,
 				]}
 				data-testid={testId}
 			>
@@ -1287,8 +1284,8 @@ function SideNavInternal({
 						fg('platform-dst-side-nav-layering-fixes')
 							? !isFlyoutVisible
 							: // Old behaviour has a bug: the panel splitter would only be visible on sm screens (between 48rem and 64rem)
-							// if the side nav was expanded on desktop.
-							isExpandedOnDesktop && !isFlyoutVisible
+								// if the side nav was expanded on desktop.
+								isExpandedOnDesktop && !isFlyoutVisible
 					}
 					shortcut={isShortcutEnabled ? sideNavToggleTooltipKeyboardShortcut : undefined}
 				>
@@ -1305,17 +1302,17 @@ function SideNavInternal({
 						panelSplitterPortalTargetStyles.root,
 						// We need to apply the same styles to hide the panel splitter when the side nav is hidden, as it is rendered outside of the side nav.
 						isExpandedOnDesktop &&
-						!isExpandedOnMobile &&
-						!isFlyoutVisible &&
-						styles.hiddenMobileOnly,
+							!isExpandedOnMobile &&
+							!isFlyoutVisible &&
+							styles.hiddenMobileOnly,
 						!isExpandedOnDesktop &&
-						isExpandedOnMobile &&
-						!isFlyoutVisible &&
-						styles.hiddenDesktopOnly,
+							isExpandedOnMobile &&
+							!isFlyoutVisible &&
+							styles.hiddenDesktopOnly,
 						!isExpandedOnDesktop &&
-						!isExpandedOnMobile &&
-						!isFlyoutVisible &&
-						styles.hiddenMobileAndDesktop,
+							!isExpandedOnMobile &&
+							!isFlyoutVisible &&
+							styles.hiddenMobileAndDesktop,
 					]}
 					style={
 						{

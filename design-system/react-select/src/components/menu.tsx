@@ -252,8 +252,8 @@ export interface MenuProps<
 	Option = unknown,
 	IsMulti extends boolean = boolean,
 	Group extends GroupBase<Option> = GroupBase<Option>,
-> extends CommonPropsAndClassName<Option, IsMulti, Group>,
-		MenuPlacementProps {
+>
+	extends CommonPropsAndClassName<Option, IsMulti, Group>, MenuPlacementProps {
 	/**
 	 * Reference to the internal element, consumed by the MenuPlacer component
 	 */
@@ -278,8 +278,7 @@ interface ChildrenProps {
 }
 
 interface MenuPlacerProps<Option, IsMulti extends boolean, Group extends GroupBase<Option>>
-	extends CommonProps<Option, IsMulti, Group>,
-		MenuPlacementProps {
+	extends CommonProps<Option, IsMulti, Group>, MenuPlacementProps {
 	/**
 	 * The children to be rendered.
 	 */
@@ -321,7 +320,13 @@ const PortalPlacementContext = createContext<{
 
 // NOTE: internal only
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const MenuPlacer: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(props: MenuPlacerProps<Option, IsMulti, Group>) => ReactElement<any, string | import("react").JSXElementConstructor<any>> = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+export const MenuPlacer: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+	props: MenuPlacerProps<Option, IsMulti, Group>,
+) => ReactElement<any, string | import('react').JSXElementConstructor<any>> = <
+	Option,
+	IsMulti extends boolean,
+	Group extends GroupBase<Option>,
+>(
 	props: MenuPlacerProps<Option, IsMulti, Group>,
 ) => {
 	const {
@@ -383,7 +388,9 @@ export const MenuPlacer: <Option, IsMulti extends boolean, Group extends GroupBa
 	});
 };
 
-const Menu: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(props: MenuProps<Option, IsMulti, Group>) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+const Menu: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+	props: MenuProps<Option, IsMulti, Group>,
+) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: MenuProps<Option, IsMulti, Group>,
 ) => {
 	const { children, innerRef, innerProps, placement = 'bottom', xcss } = props;
@@ -452,7 +459,9 @@ const menuListStyles = css({
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const MenuList: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(props: MenuListProps<Option, IsMulti, Group>) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+export const MenuList: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+	props: MenuListProps<Option, IsMulti, Group>,
+) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: MenuListProps<Option, IsMulti, Group>,
 ) => {
 	const { children, innerProps, innerRef, isMulti, maxHeight, xcss } = props;
@@ -508,7 +517,16 @@ export interface NoticeProps<
 }
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const NoOptionsMessage: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({ children, innerProps, xcss, ...restProps }: NoticeProps<Option, IsMulti, Group>) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
+export const NoOptionsMessage: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
+	children,
+	innerProps,
+	xcss,
+	...restProps
+}: NoticeProps<Option, IsMulti, Group>) => JSX.Element = <
+	Option,
+	IsMulti extends boolean,
+	Group extends GroupBase<Option>,
+>({
 	children = 'No options',
 	innerProps,
 	xcss,
@@ -539,7 +557,16 @@ export const NoOptionsMessage: <Option, IsMulti extends boolean, Group extends G
 };
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const LoadingMessage: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({ children, innerProps, xcss, ...restProps }: NoticeProps<Option, IsMulti, Group>) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
+export const LoadingMessage: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
+	children,
+	innerProps,
+	xcss,
+	...restProps
+}: NoticeProps<Option, IsMulti, Group>) => JSX.Element = <
+	Option,
+	IsMulti extends boolean,
+	Group extends GroupBase<Option>,
+>({
 	children = 'Loading...',
 	innerProps,
 	xcss,
@@ -573,8 +600,11 @@ export const LoadingMessage: <Option, IsMulti extends boolean, Group extends Gro
 // Menu Portal
 // ==============================
 
-export interface MenuPortalProps<Option, IsMulti extends boolean, Group extends GroupBase<Option>>
-	extends CommonPropsAndClassName<Option, IsMulti, Group> {
+export interface MenuPortalProps<
+	Option,
+	IsMulti extends boolean,
+	Group extends GroupBase<Option>,
+> extends CommonPropsAndClassName<Option, IsMulti, Group> {
 	appendTo: HTMLElement | undefined;
 	children: ReactNode; // ideally Menu<MenuProps>
 	controlElement: HTMLDivElement | null;
@@ -610,7 +640,9 @@ const menuPortalStyles = cssMap({
 	},
 });
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const MenuPortal: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(props: MenuPortalProps<Option, IsMulti, Group>) => JSX.Element | null = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+export const MenuPortal: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+	props: MenuPortalProps<Option, IsMulti, Group>,
+) => JSX.Element | null = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: MenuPortalProps<Option, IsMulti, Group>,
 ) => {
 	const { appendTo, children, controlElement, innerProps, menuPlacement, menuPosition, xcss } =

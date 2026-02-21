@@ -146,9 +146,7 @@ export const hasEditInSyncBlock = (tr: Transaction, state: EditorState): boolean
 			for (const pos of positions) {
 				const newPos = map.map(pos);
 				if (newPos >= 0 && newPos <= docAfterStep.content.size) {
-					if (
-						findParentNodeOfTypeClosestToPos(docAfterStep.resolve(newPos), bodiedSyncBlock)
-					) {
+					if (findParentNodeOfTypeClosestToPos(docAfterStep.resolve(newPos), bodiedSyncBlock)) {
 						return true;
 					}
 				}

@@ -8,7 +8,7 @@ import { css, cssMap, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
-import {fg} from "@atlaskit/platform-feature-flags";
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -212,7 +212,7 @@ const NewUnauthorisedBlock = ({
 	let isHardcodedImage = !overrideUrl;
 	if (isHardcodedImage) {
 		if (fg('navx-3264-refactoring-unauth-provider-images-fe')) {
-			overrideUrl = unauthIllustrationGeneral
+			overrideUrl = unauthIllustrationGeneral;
 		} else {
 			switch (extensionKey) {
 				case 'figma-object-provider':

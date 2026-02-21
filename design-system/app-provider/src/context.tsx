@@ -5,7 +5,7 @@ import { createContext, useContext } from 'react';
  *
  * A context that indicates if the current component is inside an AppProvider.
  */
-export const InsideAppProviderContext: import("react").Context<boolean> = createContext(false);
+export const InsideAppProviderContext: import('react').Context<boolean> = createContext(false);
 
 export const useIsInsideAppProvider: () => boolean = () => {
 	return useContext(InsideAppProviderContext);
@@ -16,9 +16,9 @@ export const useIsInsideAppProvider: () => boolean = () => {
  *
  * A context that indicates if the AppProvider is enabled for theming.
  */
-export const AppProviderThemingEnabledContext: import("react").Context<boolean> = createContext(false);
+export const AppProviderThemingEnabledContext: import('react').Context<boolean> =
+	createContext(false);
 
 export const useIsAppProviderThemingEnabled: () => boolean = () => {
 	return useContext(AppProviderThemingEnabledContext);
 };
-

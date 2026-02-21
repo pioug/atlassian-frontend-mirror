@@ -29,8 +29,8 @@ describe('SSR - Resourced Task Item', () => {
 		// No other errors from e.g. hydrate (allow SSR warnings about useLayoutEffect)
 		// eslint-disable-next-line no-console
 		const mockCalls = (console.error as jest.Mock).mock.calls;
-		const actualErrors = mockCalls.filter(([message]) =>
-			!message.includes('useLayoutEffect does nothing on the server')
+		const actualErrors = mockCalls.filter(
+			([message]) => !message.includes('useLayoutEffect does nothing on the server'),
 		);
 		expect(actualErrors).toHaveLength(0);
 	});

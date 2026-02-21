@@ -142,7 +142,8 @@ export const getAvatarUrl = (optionData: OptionData) => {
 export const isPopupUserPickerByComponent = (SelectComponent: React.ComponentType<any>): boolean =>
 	SelectComponent === PopupSelect;
 
-export const isPopupUserPickerByProps = (selectProps: any): boolean => selectProps.searchThreshold === -1;
+export const isPopupUserPickerByProps = (selectProps: any): boolean =>
+	selectProps.searchThreshold === -1;
 
 export const isLozengeText = (
 	lozengeProp: ReactNode | LozengeProps,

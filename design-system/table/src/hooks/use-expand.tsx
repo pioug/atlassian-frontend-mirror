@@ -17,13 +17,11 @@ const ExpandContext = createContext<ExpandContextState>({
  *
  * An expand context provider.
  */
-export const ExpandContextProvider: (
-	props: {
-		children: React.ReactNode;
-		isExpanded?: boolean;
-		isDefaultExpanded?: boolean;
-	},
-) => React.JSX.Element = ({ children, isExpanded: isExpandedProp, isDefaultExpanded = false }) => {
+export const ExpandContextProvider: (props: {
+	children: React.ReactNode;
+	isExpanded?: boolean;
+	isDefaultExpanded?: boolean;
+}) => React.JSX.Element = ({ children, isExpanded: isExpandedProp, isDefaultExpanded = false }) => {
 	const [isExpanded, setIsExpanded] = useState(isDefaultExpanded);
 
 	const toggleExpanded = useCallback(() => {

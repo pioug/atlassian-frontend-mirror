@@ -29,7 +29,9 @@ export interface ButtonProps extends BaseProps {}
  * - [Code](https://atlassian.design/components/button/button-legacy/code)
  * - [Usage](https://atlassian.design/components/button/button-legacy/usage)
  */
-const Button: React.MemoExoticComponent<React.ForwardRefExoticComponent<ButtonProps & React.RefAttributes<HTMLElement>>> = React.memo(
+const Button: React.MemoExoticComponent<
+	React.ForwardRefExoticComponent<ButtonProps & React.RefAttributes<HTMLElement>>
+> = React.memo(
 	React.forwardRef(function Button(
 		{
 			appearance = 'default',

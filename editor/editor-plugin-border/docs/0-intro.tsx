@@ -12,8 +12,8 @@ const warnStyles = xcss({ marginTop: 'space.100' });
 const _default_1: any = md`
 
   ${createEditorUseOnlyNotice('Editor Plugin Border', [
-	{ name: 'Editor Core', link: '/packages/editor/editor-core' },
-])}
+		{ name: 'Editor Core', link: '/packages/editor/editor-core' },
+	])}
 
   ${(
 		<Box xcss={warnStyles}>

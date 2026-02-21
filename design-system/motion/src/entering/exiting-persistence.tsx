@@ -164,87 +164,87 @@ const getMissingKeys = (current: ElementWithKey[], previous: ElementWithKey[]) =
  *
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/motion/docs/entering-motions)
  */
-const ExitingPersistence: React.MemoExoticComponent<({ appear, children, exitThenEnter }: ExitingPersistenceProps) => any> = memo(
-	({ appear = false, children, exitThenEnter }: ExitingPersistenceProps): any => {
-		const [stateChildren, setChildren] = useState<[React.ReactNode | null, React.ReactNode]>([
-			null,
-			children,
-		]);
+const ExitingPersistence: React.MemoExoticComponent<
+	({ appear, children, exitThenEnter }: ExitingPersistenceProps) => any
+> = memo(({ appear = false, children, exitThenEnter }: ExitingPersistenceProps): any => {
+	const [stateChildren, setChildren] = useState<[React.ReactNode | null, React.ReactNode]>([
+		null,
+		children,
+	]);
 
-		const [exitingChildren, setExitingChildren] = useState<ElementWithKey[]>([]);
+	const [exitingChildren, setExitingChildren] = useState<ElementWithKey[]>([]);
 
-		const [defaultContext, setDefaultContext] = useState(() => ({ appear, isExiting: false }));
+	const [defaultContext, setDefaultContext] = useState(() => ({ appear, isExiting: false }));
 
-		useEffect(() => {
-			if (!defaultContext.appear) {
-				setDefaultContext({ appear: true, isExiting: false });
-			}
-			// eslint-disable-next-line react-hooks/exhaustive-deps
-		}, []);
-
-		/**
-		 * NOTE: This is a workaround for the test case written in Jira where the stateChildren is a boolean value because
-		 * useState is mocked to return a boolean value.
-		 */
-		if (typeof stateChildren === 'boolean') {
-			return children;
+	useEffect(() => {
+		if (!defaultContext.appear) {
+			setDefaultContext({ appear: true, isExiting: false });
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
-		const [previousChildren, currentChildren] = stateChildren;
+	/**
+	 * NOTE: This is a workaround for the test case written in Jira where the stateChildren is a boolean value because
+	 * useState is mocked to return a boolean value.
+	 */
+	if (typeof stateChildren === 'boolean') {
+		return children;
+	}
 
-		const previous = childrenToArray(previousChildren);
-		const current = childrenToArray(currentChildren);
+	const [previousChildren, currentChildren] = stateChildren;
 
-		if (currentChildren !== children) {
-			setChildren([currentChildren as any, children]);
-		}
+	const previous = childrenToArray(previousChildren);
+	const current = childrenToArray(currentChildren);
 
-		const missingKeys = getMissingKeys(current, previous);
-		const isSomeChildRemoved = !!missingKeys.size;
+	if (currentChildren !== children) {
+		setChildren([currentChildren as any, children]);
+	}
 
-		let visibleChildren = current;
+	const missingKeys = getMissingKeys(current, previous);
+	const isSomeChildRemoved = !!missingKeys.size;
 
-		if (isSomeChildRemoved) {
-			visibleChildren = spliceNewElementsIntoPrevious(current, previous);
-		}
+	let visibleChildren = current;
 
-		if (exitThenEnter) {
-			if (exitingChildren.length) {
-				visibleChildren = exitingChildren;
-			} else {
-				const nextExitingChildren = visibleChildren.filter((child) => missingKeys.has(child.key));
-				if (nextExitingChildren.length) {
-					setExitingChildren(nextExitingChildren);
-				}
-			}
-		}
+	if (isSomeChildRemoved) {
+		visibleChildren = spliceNewElementsIntoPrevious(current, previous);
+	}
 
-		if (missingKeys.size) {
-			visibleChildren = visibleChildren.map((child) => {
-				const isExiting = missingKeys.has(child.key);
-				return wrapChildWithContextProvider(child, {
-					appear: true,
-					isExiting,
-					onFinish: isExiting
-						? () => {
-								missingKeys.delete(child.key);
-								if (missingKeys.size === 0) {
-									setChildren([null, children]);
-									setExitingChildren([]);
-								}
-							}
-						: undefined,
-				});
-			}) as ElementWithKey[];
+	if (exitThenEnter) {
+		if (exitingChildren.length) {
+			visibleChildren = exitingChildren;
 		} else {
-			visibleChildren = visibleChildren.map((child) =>
-				wrapChildWithContextProvider(child, defaultContext),
-			) as ElementWithKey[];
+			const nextExitingChildren = visibleChildren.filter((child) => missingKeys.has(child.key));
+			if (nextExitingChildren.length) {
+				setExitingChildren(nextExitingChildren);
+			}
 		}
+	}
 
-		return visibleChildren;
-	},
-);
+	if (missingKeys.size) {
+		visibleChildren = visibleChildren.map((child) => {
+			const isExiting = missingKeys.has(child.key);
+			return wrapChildWithContextProvider(child, {
+				appear: true,
+				isExiting,
+				onFinish: isExiting
+					? () => {
+							missingKeys.delete(child.key);
+							if (missingKeys.size === 0) {
+								setChildren([null, children]);
+								setExitingChildren([]);
+							}
+						}
+					: undefined,
+			});
+		}) as ElementWithKey[];
+	} else {
+		visibleChildren = visibleChildren.map((child) =>
+			wrapChildWithContextProvider(child, defaultContext),
+		) as ElementWithKey[];
+	}
+
+	return visibleChildren;
+});
 
 export const useExitingPersistence = (): ExitingChildContext => {
 	return useContext(ExitingContext);

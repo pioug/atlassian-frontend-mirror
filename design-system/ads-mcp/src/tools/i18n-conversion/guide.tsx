@@ -274,7 +274,7 @@ export function MyComponent() {
 		'Using wrong import path - "jira" path needs @atlassian/jira-intl (with eslint-disable), others use react-intl-next',
 		'Adding eslint-disable for defineMessage in non-Jira files or forgetting it in Jira files',
 		'Missing useIntl hook when using formatMessage pattern, generic placeholder names, descriptions < 40 chars, or descriptions that do not follow the translator guidelines (missing UI element location, missing action explanation, etc.)',
-		'Using placeholder names that don\'t match variable names - placeholder names in defaultMessage must exactly match the keys in the values object or formatMessage parameters',
+		"Using placeholder names that don't match variable names - placeholder names in defaultMessage must exactly match the keys in the values object or formatMessage parameters",
 		'Modifying pre-existing messages or working outside specified path scope',
 	],
 	additionalResources: [

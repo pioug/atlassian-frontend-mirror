@@ -561,7 +561,7 @@ export const setSelectedCardAppearance: (
 				appearance,
 				selectedNode,
 				state.selection.$from.parent.type.name === 'bodiedSyncBlock',
-		  )
+			)
 		: getAttrsForAppearance(appearance, selectedNode);
 
 	const { from, to } = state.selection;
@@ -742,9 +742,9 @@ export const getAttrsForAppearance = (
 			layout: 'center',
 			...(isInsideBodiedSyncBlock
 				? // When converting to embed, width attribute is set to null and when the document is published, the width attribute is set to 100 as per schema default
-				  // For editor, width is not required to render the embed card, but it's required in renderer
-				  // Because sync block has nested renderer in editor, we need width to be defined even in editor so embed in reference sync block can be rendered properly
-				  { width: selectedNode.attrs.width ?? 100 }
+					// For editor, width is not required to render the embed card, but it's required in renderer
+					// Because sync block has nested renderer in editor, we need width to be defined even in editor so embed in reference sync block can be rendered properly
+					{ width: selectedNode.attrs.width ?? 100 }
 				: {}),
 		};
 	}

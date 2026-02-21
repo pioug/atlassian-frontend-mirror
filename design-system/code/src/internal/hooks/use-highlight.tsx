@@ -19,9 +19,9 @@ export const useHighlightLines = ({
 	highlight = '',
 	testId,
 }: Pick<CodeBlockProps, 'highlight' | 'testId'>): {
-        getHighlightStyles: (lineNumber: number, highlightedLines: number[]) => HTMLProps<HTMLElement>;
-        highlightedLines: number[];
-    } => {
+	getHighlightStyles: (lineNumber: number, highlightedLines: number[]) => HTMLProps<HTMLElement>;
+	highlightedLines: number[];
+} => {
 	const highlightedLines = useMemo(() => {
 		if (!highlight) {
 			return [];

@@ -71,10 +71,9 @@ export const getStyles = memoizeOne(
 										: token('color.background.input.hovered', N30),
 					},
 					padding: 0,
-					minHeight: (height) || isCompact ? 'none' : 44,
+					minHeight: height || isCompact ? 'none' : 44,
 					/* IE 11 needs to set height explicitly to be vertical align when being in not compact mode */
-					height:
-						height ? height : isCompact || isMulti ? '100%' : 44,
+					height: height ? height : isCompact || isMulti ? '100%' : 44,
 					maxWidth: '100%',
 				};
 			},

@@ -148,7 +148,10 @@ export const ListsIndentationHeroButtonNew = ({
 	);
 };
 
-export const ListsIndentationHeroButton = ({ api, parents }: ListsIndentationHeroButtonProps): React.JSX.Element => {
+export const ListsIndentationHeroButton = ({
+	api,
+	parents,
+}: ListsIndentationHeroButtonProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 
 	const { bulletListActive, bulletListDisabled, orderedListActive, taskListActive } =

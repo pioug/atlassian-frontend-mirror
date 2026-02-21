@@ -416,7 +416,11 @@ const InnerTextArea: React.ForwardRefExoticComponent<
  * - [Code](https://atlassian.design/components/textarea/code)
  * - [Usage](https://atlassian.design/components/textarea/usage)
  */
-const TextArea: React.MemoExoticComponent<React.ForwardRefExoticComponent<Omit<TextAreaProps, "ref"> & React.RefAttributes<HTMLTextAreaElement>>> = memo(
+const TextArea: React.MemoExoticComponent<
+	React.ForwardRefExoticComponent<
+		Omit<TextAreaProps, 'ref'> & React.RefAttributes<HTMLTextAreaElement>
+	>
+> = memo(
 	forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea(
 		props: TextAreaProps,
 		ref: React.Ref<HTMLTextAreaElement>,

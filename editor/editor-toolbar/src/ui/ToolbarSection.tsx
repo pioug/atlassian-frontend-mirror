@@ -48,7 +48,8 @@ type ToolbarSectionProps = {
 
 const ToolbarSeparator = () => {
 	return (
-		<div css={[separator, marginInlineOverridden]}
+		<div
+			css={[separator, marginInlineOverridden]}
 			data-toolbar-component="separator"
 			role="separator"
 			aria-orientation="vertical"

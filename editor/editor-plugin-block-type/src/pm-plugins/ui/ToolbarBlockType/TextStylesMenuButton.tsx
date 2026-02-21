@@ -24,7 +24,10 @@ const usePluginState = (api?: ExtractInjectionAPI<BlockTypePlugin>) => {
 	}));
 };
 
-export const TextStylesMenuButton = ({ api, children }: TextStylesMenuButtonProps): React.JSX.Element => {
+export const TextStylesMenuButton = ({
+	api,
+	children,
+}: TextStylesMenuButtonProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 
 	const { blockTypesDisabled, currentBlockType } = usePluginState(api);
@@ -66,7 +69,9 @@ export const TextStylesMenuButton = ({ api, children }: TextStylesMenuButtonProp
 			<ToolbarDropdownMenu
 				isDisabled={blockTypesDisabled}
 				iconBefore={TriggerIcon}
-				tooltipComponent={<ToolbarTooltip content={formatMessage(toolbarMessages.textStylesTooltip)}/>}
+				tooltipComponent={
+					<ToolbarTooltip content={formatMessage(toolbarMessages.textStylesTooltip)} />
+				}
 			>
 				{children}
 			</ToolbarDropdownMenu>

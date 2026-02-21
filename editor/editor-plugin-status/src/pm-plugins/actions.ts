@@ -173,7 +173,8 @@ export const removeStatus =
 	};
 
 export const setFocusOnStatusInput =
-	() => (state: EditorState, dispatch: CommandDispatch | undefined): boolean => {
+	() =>
+	(state: EditorState, dispatch: CommandDispatch | undefined): boolean => {
 		if (!dispatch) {
 			return false;
 		}
@@ -196,40 +197,42 @@ const handleClosingByArrows = (
 		tr = tr.setSelection(Selection.near(state.tr.doc.resolve(showStatusPickerAt + 1)));
 	}
 };
-export const commitStatusPicker = (closingPayload?: ClosingPayload) => (editorView: EditorView): void => {
-	const { state, dispatch } = editorView;
-	const { showStatusPickerAt } = pluginKey.getState(state) || {};
-	const { closingMethod } = closingPayload || {};
-	if (!showStatusPickerAt) {
-		return;
-	}
-
-	const statusNode = state.tr.doc.nodeAt(showStatusPickerAt);
-
-	if (!statusNode) {
-		return;
-	}
-
-	let tr = state.tr;
-	tr = tr.setMeta(pluginKey, {
-		showStatusPickerAt: null,
-		focusStatusInput: false,
-		isNew: false,
-	});
-
-	if (closingMethod) {
-		handleClosingByArrows(closingMethod, state, showStatusPickerAt, tr);
-	} else if (statusNode.attrs.text) {
-		// still has content - keep content
-		// move selection after status if selection did not change
-		if (tr.selection.from === showStatusPickerAt) {
-			tr = tr.setSelection(Selection.near(state.tr.doc.resolve(showStatusPickerAt + 2)));
+export const commitStatusPicker =
+	(closingPayload?: ClosingPayload) =>
+	(editorView: EditorView): void => {
+		const { state, dispatch } = editorView;
+		const { showStatusPickerAt } = pluginKey.getState(state) || {};
+		const { closingMethod } = closingPayload || {};
+		if (!showStatusPickerAt) {
+			return;
 		}
-	} else {
-		// no content - remove node
-		tr = tr.delete(showStatusPickerAt, showStatusPickerAt + 1);
-	}
 
-	dispatch(tr);
-	editorView.focus();
-};
+		const statusNode = state.tr.doc.nodeAt(showStatusPickerAt);
+
+		if (!statusNode) {
+			return;
+		}
+
+		let tr = state.tr;
+		tr = tr.setMeta(pluginKey, {
+			showStatusPickerAt: null,
+			focusStatusInput: false,
+			isNew: false,
+		});
+
+		if (closingMethod) {
+			handleClosingByArrows(closingMethod, state, showStatusPickerAt, tr);
+		} else if (statusNode.attrs.text) {
+			// still has content - keep content
+			// move selection after status if selection did not change
+			if (tr.selection.from === showStatusPickerAt) {
+				tr = tr.setSelection(Selection.near(state.tr.doc.resolve(showStatusPickerAt + 2)));
+			}
+		} else {
+			// no content - remove node
+			tr = tr.delete(showStatusPickerAt, showStatusPickerAt + 1);
+		}
+
+		dispatch(tr);
+		editorView.focus();
+	};

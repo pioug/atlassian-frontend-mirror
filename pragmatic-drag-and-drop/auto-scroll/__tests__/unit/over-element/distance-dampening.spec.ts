@@ -1,7 +1,6 @@
 import { fireEvent } from '@testing-library/dom';
 import { bind } from 'bind-event-listener';
 
-
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import {
 	draggable,

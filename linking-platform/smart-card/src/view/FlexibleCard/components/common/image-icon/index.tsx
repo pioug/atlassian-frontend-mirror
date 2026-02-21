@@ -24,9 +24,9 @@ const styles = cssMap({
 const messages = defineMessages({
 	imageAltText: {
 		id: 'smart-link.image-icon.altText',
-		defaultMessage: 'Link Icon'
-	}
-})
+		defaultMessage: 'Link Icon',
+	},
+});
 
 const ImageIcon = ({
 	defaultIcon,

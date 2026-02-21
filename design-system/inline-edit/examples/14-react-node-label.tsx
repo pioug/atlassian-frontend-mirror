@@ -25,7 +25,9 @@ const InlineEditReactNodeLabelExample = (): React.JSX.Element => {
 				defaultValue={editValue}
 				label={<>Team name ReactNode</>}
 				editButtonLabel={editValue || initialValue}
-				editView={({ errorMessage: _errorMessage, ...fieldProps }) => <Textfield {...fieldProps} autoFocus />}
+				editView={({ errorMessage: _errorMessage, ...fieldProps }) => (
+					<Textfield {...fieldProps} autoFocus />
+				)}
 				readView={() => (
 					<Box xcss={readViewContainerStyles.root} testId="read-view">
 						{editValue || initialValue}

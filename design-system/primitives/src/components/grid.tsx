@@ -111,7 +111,15 @@ const gridTemplateAreasVar = '--ds-grid--grid-template-areas';
 const gridTemplateColumnsVar = '--ds-grid--grid-template-columns';
 const gridTemplateRowsVar = '--ds-grid--grid-template-rows';
 
-const justifyContentMap: { readonly start: SerializedStyles; readonly center: SerializedStyles; readonly end: SerializedStyles; readonly 'space-between': SerializedStyles; readonly 'space-around': SerializedStyles; readonly 'space-evenly': SerializedStyles; readonly stretch: SerializedStyles; } = {
+const justifyContentMap: {
+	readonly start: SerializedStyles;
+	readonly center: SerializedStyles;
+	readonly end: SerializedStyles;
+	readonly 'space-between': SerializedStyles;
+	readonly 'space-around': SerializedStyles;
+	readonly 'space-evenly': SerializedStyles;
+	readonly stretch: SerializedStyles;
+} = {
 	start: css({ justifyContent: 'start' }),
 	center: css({ justifyContent: 'center' }),
 	end: css({ justifyContent: 'end' }),
@@ -122,10 +130,10 @@ const justifyContentMap: { readonly start: SerializedStyles; readonly center: Se
 } as const;
 
 const justifyItemsMap: {
-    readonly start: SerializedStyles;
-    readonly center: SerializedStyles;
-    readonly end: SerializedStyles;
-    readonly stretch: SerializedStyles;
+	readonly start: SerializedStyles;
+	readonly center: SerializedStyles;
+	readonly end: SerializedStyles;
+	readonly stretch: SerializedStyles;
 } = {
 	start: css({ justifyItems: 'start' }),
 	center: css({ justifyItems: 'center' }),
@@ -133,7 +141,15 @@ const justifyItemsMap: {
 	stretch: css({ justifyItems: 'stretch' }),
 } as const;
 
-const alignContentMap: { readonly start: SerializedStyles; readonly center: SerializedStyles; readonly end: SerializedStyles; readonly 'space-between': SerializedStyles; readonly 'space-around': SerializedStyles; readonly 'space-evenly': SerializedStyles; readonly stretch: SerializedStyles; } = {
+const alignContentMap: {
+	readonly start: SerializedStyles;
+	readonly center: SerializedStyles;
+	readonly end: SerializedStyles;
+	readonly 'space-between': SerializedStyles;
+	readonly 'space-around': SerializedStyles;
+	readonly 'space-evenly': SerializedStyles;
+	readonly stretch: SerializedStyles;
+} = {
 	start: css({ alignContent: 'start' }),
 	center: css({ alignContent: 'center' }),
 	end: css({ alignContent: 'end' }),
@@ -144,10 +160,10 @@ const alignContentMap: { readonly start: SerializedStyles; readonly center: Seri
 } as const;
 
 const alignItemsMap: {
-    readonly start: SerializedStyles;
-    readonly center: SerializedStyles;
-    readonly baseline: SerializedStyles;
-    readonly end: SerializedStyles;
+	readonly start: SerializedStyles;
+	readonly center: SerializedStyles;
+	readonly baseline: SerializedStyles;
+	readonly end: SerializedStyles;
 } = {
 	start: css({ alignItems: 'start' }),
 	center: css({ alignItems: 'center' }),
@@ -165,7 +181,13 @@ const baseStyles = css({
 
 type AutoFlow = keyof typeof gridAutoFlowMap;
 
-const gridAutoFlowMap: { readonly row: SerializedStyles; readonly column: SerializedStyles; readonly dense: SerializedStyles; readonly 'row dense': SerializedStyles; readonly 'column dense': SerializedStyles; } = {
+const gridAutoFlowMap: {
+	readonly row: SerializedStyles;
+	readonly column: SerializedStyles;
+	readonly dense: SerializedStyles;
+	readonly 'row dense': SerializedStyles;
+	readonly 'column dense': SerializedStyles;
+} = {
 	row: css({ gridAutoFlow: 'row' }),
 	column: css({ gridAutoFlow: 'column' }),
 	dense: css({ gridAutoFlow: 'dense' }),
@@ -194,7 +216,9 @@ const gridAutoFlowMap: { readonly row: SerializedStyles; readonly column: Serial
  * )
  * ```
  */
-const Grid: MemoExoticComponent<ForwardRefExoticComponent<Omit<GridProps<ElementType>, "ref"> & RefAttributes<any>>> = memo(
+const Grid: MemoExoticComponent<
+	ForwardRefExoticComponent<Omit<GridProps<ElementType>, 'ref'> & RefAttributes<any>>
+> = memo(
 	forwardRef(
 		<T extends ElementType = 'div'>(
 			{

@@ -102,7 +102,10 @@ export class FileStateFactory {
 		);
 	}
 
-	public updateIdentifier = (identifier: FileIdentifier, fileDetails?: Partial<FileDetails>): void => {
+	public updateIdentifier = (
+		identifier: FileIdentifier,
+		fileDetails?: Partial<FileDetails>,
+	): void => {
 		this.identifier = identifier;
 		this.fileDetails = fileDetails || createFileDetails(this.identifier.id);
 		this.observable = createMediaSubject();

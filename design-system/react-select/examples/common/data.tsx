@@ -1,6 +1,6 @@
 export const cities: {
-    label: string;
-    value: string;
+	label: string;
+	value: string;
 }[] = [
 	{ label: 'Adelaide', value: 'adelaide' },
 	{ label: 'Brisbane', value: 'brisbane' },
@@ -13,8 +13,8 @@ export const cities: {
 ];
 
 export const longFormValues: {
-    label: string;
-    value: string;
+	label: string;
+	value: string;
 }[] = [
 	{ label: 'foo@foo@foo@foo@test@test.com', value: 'silly' },
 	{

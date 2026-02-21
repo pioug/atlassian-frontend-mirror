@@ -1,8 +1,4 @@
-import type {
-	NodeSpec,
-	Node as PMNode,
-	Attrs,
-} from '@atlaskit/editor-prosemirror/model';
+import type { NodeSpec, Node as PMNode, Attrs } from '@atlaskit/editor-prosemirror/model';
 import type { BreakoutMarkDefinition } from '../marks';
 import type { MarksObject, NoMark } from './types/mark';
 import type { NonNestableBlockContent } from './types/non-nestable-block-content';
@@ -39,8 +35,7 @@ export type ExpandDefinition = ExpandBaseDefinition & NoMark;
 /**
  * @name expand_root_only_node
  */
-export type ExpandRootOnlyDefinition = ExpandBaseDefinition &
-	MarksObject<BreakoutMarkDefinition>;
+export type ExpandRootOnlyDefinition = ExpandBaseDefinition & MarksObject<BreakoutMarkDefinition>;
 
 function getExpandAttrs(domNode: Node | string) {
 	// eslint-disable-next-line @atlaskit/editor/no-as-casting

@@ -7,7 +7,6 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import type { SnapPointsProps } from '../types';
 import { calcPxFromColumns, wrappedLayouts } from '../ui/MediaSingle/grid';
 
-
 export const shouldAddDefaultWrappedWidth = (
 	layout: RichMediaLayout,
 	width?: number,

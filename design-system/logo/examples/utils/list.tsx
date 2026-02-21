@@ -189,28 +189,32 @@ const logoMap: {
 	{ name: 'jira-work-management', logo: JiraWorkManagementLogo, icon: JiraWorkManagementIcon },
 ];
 
-export const logos: ComponentType<{
-    size?: "small" | "large" | "medium" | "xlarge" | "xsmall" | "xxsmall";
-    appearance?: "brand" | "neutral" | "inverse";
-    textColor?: string;
-    iconColor?: string;
-    label?: string;
-    testId?: string;
-    shouldUseNewLogoDesign?: boolean;
-} & {
-    shouldUseHexLogo?: boolean;
-}>[] = logoMap.map(({ logo }) => logo);
-export const icons: ComponentType<{
-    size?: "small" | "large" | "medium" | "xlarge" | "xsmall" | "xxsmall";
-    appearance?: "brand" | "neutral" | "inverse";
-    textColor?: string;
-    iconColor?: string;
-    label?: string;
-    testId?: string;
-    shouldUseNewLogoDesign?: boolean;
-} & {
-    shouldUseHexLogo?: boolean;
-}>[] = logoMap.map(({ icon }) => icon);
+export const logos: ComponentType<
+	{
+		size?: 'small' | 'large' | 'medium' | 'xlarge' | 'xsmall' | 'xxsmall';
+		appearance?: 'brand' | 'neutral' | 'inverse';
+		textColor?: string;
+		iconColor?: string;
+		label?: string;
+		testId?: string;
+		shouldUseNewLogoDesign?: boolean;
+	} & {
+		shouldUseHexLogo?: boolean;
+	}
+>[] = logoMap.map(({ logo }) => logo);
+export const icons: ComponentType<
+	{
+		size?: 'small' | 'large' | 'medium' | 'xlarge' | 'xsmall' | 'xxsmall';
+		appearance?: 'brand' | 'neutral' | 'inverse';
+		textColor?: string;
+		iconColor?: string;
+		label?: string;
+		testId?: string;
+		shouldUseNewLogoDesign?: boolean;
+	} & {
+		shouldUseHexLogo?: boolean;
+	}
+>[] = logoMap.map(({ icon }) => icon);
 
 /**
  * Helper function to find logo schema by name
@@ -228,63 +232,87 @@ const filterByType = (type: 'legacy' | 'migration' | 'new' | 'rovo-hex') =>
 	});
 
 export const legacyOnlyLogosAndIcons: {
-    name: (typeof logoDocsSchema)[number]["name"];
-    logo: ComponentType<LogoProps & {
-        shouldUseHexLogo?: boolean;
-    }>;
-    icon: ComponentType<LogoProps & {
-        shouldUseHexLogo?: boolean;
-    }>;
+	name: (typeof logoDocsSchema)[number]['name'];
+	logo: ComponentType<
+		LogoProps & {
+			shouldUseHexLogo?: boolean;
+		}
+	>;
+	icon: ComponentType<
+		LogoProps & {
+			shouldUseHexLogo?: boolean;
+		}
+	>;
 }[] = filterByType('legacy');
 export const migrationLogosAndIcons: {
-    name: (typeof logoDocsSchema)[number]["name"];
-    logo: ComponentType<LogoProps & {
-        shouldUseHexLogo?: boolean;
-    }>;
-    icon: ComponentType<LogoProps & {
-        shouldUseHexLogo?: boolean;
-    }>;
+	name: (typeof logoDocsSchema)[number]['name'];
+	logo: ComponentType<
+		LogoProps & {
+			shouldUseHexLogo?: boolean;
+		}
+	>;
+	icon: ComponentType<
+		LogoProps & {
+			shouldUseHexLogo?: boolean;
+		}
+	>;
 }[] = filterByType('migration');
 export const newOnlyLogosAndIcons: {
-    name: (typeof logoDocsSchema)[number]["name"];
-    logo: ComponentType<LogoProps & {
-        shouldUseHexLogo?: boolean;
-    }>;
-    icon: ComponentType<LogoProps & {
-        shouldUseHexLogo?: boolean;
-    }>;
+	name: (typeof logoDocsSchema)[number]['name'];
+	logo: ComponentType<
+		LogoProps & {
+			shouldUseHexLogo?: boolean;
+		}
+	>;
+	icon: ComponentType<
+		LogoProps & {
+			shouldUseHexLogo?: boolean;
+		}
+	>;
 }[] = filterByType('new');
 export const rovoHexLogosAndIcons: {
-    name: (typeof logoDocsSchema)[number]["name"];
-    logo: ComponentType<LogoProps & {
-        shouldUseHexLogo?: boolean;
-    }>;
-    icon: ComponentType<LogoProps & {
-        shouldUseHexLogo?: boolean;
-    }>;
+	name: (typeof logoDocsSchema)[number]['name'];
+	logo: ComponentType<
+		LogoProps & {
+			shouldUseHexLogo?: boolean;
+		}
+	>;
+	icon: ComponentType<
+		LogoProps & {
+			shouldUseHexLogo?: boolean;
+		}
+	>;
 }[] = filterByType('rovo-hex');
 
 export const deprecatedLogos: {
-    name: (typeof logoDocsSchema)[number]["name"];
-    logo: ComponentType<LogoProps & {
-        shouldUseHexLogo?: boolean;
-    }>;
-    icon: ComponentType<LogoProps & {
-        shouldUseHexLogo?: boolean;
-    }>;
+	name: (typeof logoDocsSchema)[number]['name'];
+	logo: ComponentType<
+		LogoProps & {
+			shouldUseHexLogo?: boolean;
+		}
+	>;
+	icon: ComponentType<
+		LogoProps & {
+			shouldUseHexLogo?: boolean;
+		}
+	>;
 }[] = logoMap.filter(({ name }) => {
 	const logo = getLogoSchema(name);
 	return logo?.deprecated;
 });
 
 export const logosAndIcons: {
-    name: (typeof logoDocsSchema)[number]["name"];
-    logo: ComponentType<LogoProps & {
-        shouldUseHexLogo?: boolean;
-    }>;
-    icon: ComponentType<LogoProps & {
-        shouldUseHexLogo?: boolean;
-    }>;
+	name: (typeof logoDocsSchema)[number]['name'];
+	logo: ComponentType<
+		LogoProps & {
+			shouldUseHexLogo?: boolean;
+		}
+	>;
+	icon: ComponentType<
+		LogoProps & {
+			shouldUseHexLogo?: boolean;
+		}
+	>;
 }[] = logoMap.sort((a, b) => {
 	const aIndex = logoDocsSchema.findIndex(({ name: logoName }) => logoName === a.name);
 	const bIndex = logoDocsSchema.findIndex(({ name: logoName }) => logoName === b.name);

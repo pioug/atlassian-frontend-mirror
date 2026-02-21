@@ -90,10 +90,10 @@ export default (): React.JSX.Element => {
 						xcss={focusRingBoxStyles}
 					>
 						<InteractionSurface>
-							<WarningIcon spacing="spacious"
+							<WarningIcon
+								spacing="spacious"
 								label="icon button"
 								color={token('color.icon.inverse')}
-								
 							/>
 						</InteractionSurface>
 					</Pressable>
@@ -114,10 +114,10 @@ export default (): React.JSX.Element => {
 						padding="space.050"
 					>
 						<InteractionSurface>
-							<WarningIcon spacing="spacious"
+							<WarningIcon
+								spacing="spacious"
 								label="icon button"
 								color={token('color.icon.warning.inverse')}
-								
 							/>
 						</InteractionSurface>
 					</Pressable>

@@ -31,7 +31,10 @@ type CommentButtonProps = {
 	api?: ExtractInjectionAPI<AnnotationPlugin>;
 };
 
-export const CommentButton = ({ api, annotationProviders }: CommentButtonProps): React.JSX.Element | null => {
+export const CommentButton = ({
+	api,
+	annotationProviders,
+}: CommentButtonProps): React.JSX.Element | null => {
 	const isVisible = useSharedPluginStateSelector(api, 'annotation.isVisible');
 	const bookmark = useSharedPluginStateSelector(api, 'annotation.bookmark');
 	const { editorView } = useEditorToolbar();

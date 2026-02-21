@@ -182,7 +182,7 @@ class ExtensionComponentInner extends Component<PropsInner, State> {
 		const position = typeof getPos === 'function' && getPos();
 
 		const resolvedPosition = position && editorView.state.doc.resolve(position);
- 
+
 		const isNodeNested = !!(resolvedPosition && resolvedPosition.depth > 0);
 
 		if (node.type.name === 'multiBodiedExtension') {

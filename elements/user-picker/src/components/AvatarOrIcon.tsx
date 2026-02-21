@@ -24,12 +24,12 @@ const iconStyle = css({
 	alignItems: 'center',
 	justifyContent: 'center',
 	flexShrink: 0,
-})
+});
 
 const iconSizes = {
-	xsmall: css({width: '20px', height: '20px'}),	
-	small: css({width: '28px', height: '28px'}),
-	medium: css({width: '36px', height: '36px'}),
+	xsmall: css({ width: '20px', height: '20px' }),
+	small: css({ width: '28px', height: '28px' }),
+	medium: css({ width: '36px', height: '36px' }),
 };
 
 export const AvatarOrIcon = ({
@@ -45,7 +45,9 @@ export const AvatarOrIcon = ({
 	if (icon) {
 		const avatarSize = getAvatarSize(appearance);
 		return (
-			<div css={[iconStyle, iconSizes[avatarSize]]} style={{color: iconColor}}>{icon}</div>
+			<div css={[iconStyle, iconSizes[avatarSize]]} style={{ color: iconColor }}>
+				{icon}
+			</div>
 		);
 	}
 
@@ -60,5 +62,3 @@ export const AvatarOrIcon = ({
 		/>
 	);
 };
-
-

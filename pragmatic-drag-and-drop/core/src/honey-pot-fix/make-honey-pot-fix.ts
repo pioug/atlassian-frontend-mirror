@@ -238,10 +238,14 @@ function mountHoneyPot({ initial }: { initial: Position }): FinishHoneyPotFn {
 }
 
 export function makeHoneyPotFix(): {
-    bindEvents: () => CleanupFn; getOnPostDispatch: () => ({ eventName, payload, }: {
-        eventName: keyof EventPayloadMap<AllDragTypes>;
-        payload: BaseEventPayload<AllDragTypes>;
-    }) => void;
+	bindEvents: () => CleanupFn;
+	getOnPostDispatch: () => ({
+		eventName,
+		payload,
+	}: {
+		eventName: keyof EventPayloadMap<AllDragTypes>;
+		payload: BaseEventPayload<AllDragTypes>;
+	}) => void;
 } {
 	let latestPointerMove: Position | null = null;
 	function bindEvents(): CleanupFn {

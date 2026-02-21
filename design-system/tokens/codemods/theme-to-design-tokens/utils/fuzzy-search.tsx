@@ -3,7 +3,12 @@
 /**
  * Fuzzy search ripped from the internet.
  */
-const FuzzySet: (arr?: string[], useLevenshtein?: boolean, gramSizeLower?: number, gramSizeUpper?: number) => any = function (
+const FuzzySet: (
+	arr?: string[],
+	useLevenshtein?: boolean,
+	gramSizeLower?: number,
+	gramSizeUpper?: number,
+) => any = function (
 	arr: string[] = [],
 	useLevenshtein?: boolean,
 	gramSizeLower: number = 2,

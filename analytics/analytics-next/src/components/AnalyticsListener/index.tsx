@@ -9,7 +9,8 @@ import ModernAnalyticsListener from './ModernAnalyticsListener';
 import { type AnalyticsListenerFunction } from './types';
 
 const AnalyticsListener: AnalyticsListenerFunction = (props) => {
-	const isModernContext = isModernContextEnabledEnv || fg('analytics-next-use-legacy-context') === false;
+	const isModernContext =
+		isModernContextEnabledEnv || fg('analytics-next-use-legacy-context') === false;
 
 	return isModernContext ? (
 		<ModernAnalyticsListener {...props} />

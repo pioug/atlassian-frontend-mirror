@@ -16,9 +16,15 @@ interface MetaData {
 }
 
 export const FontWeight: {
-    lint(node: Rule.Node, { context, config }: MetaData): void;
-    _check(node: Rule.Node, { context, config }: MetaData): node is Property & Rule.NodeParentExtension;
-    _fix(node: Property & Rule.NodeParentExtension, context: Rule.RuleContext): (fixer: Rule.RuleFixer) => Rule.Fix[];
+	lint(node: Rule.Node, { context, config }: MetaData): void;
+	_check(
+		node: Rule.Node,
+		{ context, config }: MetaData,
+	): node is Property & Rule.NodeParentExtension;
+	_fix(
+		node: Property & Rule.NodeParentExtension,
+		context: Rule.RuleContext,
+	): (fixer: Rule.RuleFixer) => Rule.Fix[];
 } = {
 	lint(node: Rule.Node, { context, config }: MetaData): void {
 		// Check whether all criteria needed to make a transformation are met

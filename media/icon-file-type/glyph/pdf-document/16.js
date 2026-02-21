@@ -1,16 +1,26 @@
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+Object.defineProperty(exports, '__esModule', {
+	value: true,
 });
 exports.default = void 0;
-var _react = _interopRequireDefault(require("react"));
-var _icon = require("../../src/internal/icon.tsx");
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
-const PdfDocument16Icon = props => /*#__PURE__*/_react.default.createElement(_icon.Icon, Object.assign({
-  dangerouslySetGlyph: `<svg width="16" height="16" viewBox="0 0 16 16" role="presentation"><path fill="#ff5630" fill-rule="evenodd" d="M2 0h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2m1.23 8.113h.323c.744 0 .802-.214.802-.517 0-.346-.179-.514-.545-.514h-.58zm4.194 1.456h.443c.494 0 1-.147 1-1.237 0-1.1-.534-1.24-1-1.24h-.443zM2.975 10.66h-.72A.256.256 0 0 1 2 10.404V6.255c0-.14.114-.255.255-.255h1.663c.989 0 1.68.656 1.68 1.596 0 .953-.677 1.593-1.683 1.593H3.23v1.215a.256.256 0 0 1-.256.256m4.968 0H6.448a.256.256 0 0 1-.255-.256V6.255c0-.14.114-.255.255-.255h1.495c1.404 0 2.178.825 2.178 2.323 0 1.507-.774 2.337-2.178 2.337m3.85 0h-.72a.256.256 0 0 1-.256-.256V6.255c0-.14.114-.255.255-.255h2.673c.14 0 .255.115.255.255v.587a.256.256 0 0 1-.255.255h-1.697v.76h1.528c.141 0 .255.115.255.256v.577c0 .14-.114.256-.255.256h-1.528v1.458a.256.256 0 0 1-.255.256"/></svg>`
-}, props, {
-  size: "small"
-}));
+var _react = _interopRequireDefault(require('react'));
+var _icon = require('../../src/internal/icon.tsx');
+function _interopRequireDefault(e) {
+	return e && e.__esModule ? e : { default: e };
+}
+const PdfDocument16Icon = (props) =>
+	/*#__PURE__*/ _react.default.createElement(
+		_icon.Icon,
+		Object.assign(
+			{
+				dangerouslySetGlyph: `<svg width="16" height="16" viewBox="0 0 16 16" role="presentation"><path fill="#ff5630" fill-rule="evenodd" d="M2 0h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2m1.23 8.113h.323c.744 0 .802-.214.802-.517 0-.346-.179-.514-.545-.514h-.58zm4.194 1.456h.443c.494 0 1-.147 1-1.237 0-1.1-.534-1.24-1-1.24h-.443zM2.975 10.66h-.72A.256.256 0 0 1 2 10.404V6.255c0-.14.114-.255.255-.255h1.663c.989 0 1.68.656 1.68 1.596 0 .953-.677 1.593-1.683 1.593H3.23v1.215a.256.256 0 0 1-.256.256m4.968 0H6.448a.256.256 0 0 1-.255-.256V6.255c0-.14.114-.255.255-.255h1.495c1.404 0 2.178.825 2.178 2.323 0 1.507-.774 2.337-2.178 2.337m3.85 0h-.72a.256.256 0 0 1-.256-.256V6.255c0-.14.114-.255.255-.255h2.673c.14 0 .255.115.255.255v.587a.256.256 0 0 1-.255.255h-1.697v.76h1.528c.141 0 .255.115.255.256v.577c0 .14-.114.256-.255.256h-1.528v1.458a.256.256 0 0 1-.255.256"/></svg>`,
+			},
+			props,
+			{
+				size: 'small',
+			},
+		),
+	);
 PdfDocument16Icon.displayName = 'PdfDocument16Icon';
-var _default = exports.default = PdfDocument16Icon;
+var _default = (exports.default = PdfDocument16Icon);

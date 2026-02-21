@@ -169,9 +169,9 @@ test('will timeout if no new containers are created within the timeout period', 
 
 	for (let i = 0; i < 14; i++) {
 		act(() => {
-		  jest.advanceTimersByTime(INTERVAL_TIME);
+			jest.advanceTimersByTime(INTERVAL_TIME);
 		});
-	  }
+	}
 	expect(refetchTeamContainers).toHaveBeenCalledTimes(14);
 
 	jest.advanceTimersByTime(INTERVAL_TIME);

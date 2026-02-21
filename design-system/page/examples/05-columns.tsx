@@ -11,7 +11,7 @@ import { Dummy } from './common/dummy';
 const columns = 12;
 const ColumnsStory = (): React.JSX.Element => (
 	<Page testId="page">
-		<Banner appearance="warning" icon={<WarningIcon spacing="spacious" label="Warning"  />}>
+		<Banner appearance="warning" icon={<WarningIcon spacing="spacious" label="Warning" />}>
 			We are planning on deprecating Page component. We recommend using the Page layout component
 			instead.
 			<Link target="_blank" href="https://atlassian.design/components/page-layout">

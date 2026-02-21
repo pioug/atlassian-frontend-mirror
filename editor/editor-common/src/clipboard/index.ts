@@ -61,7 +61,10 @@ export const copyToClipboard = async (textToCopy: string): Promise<void> => {
 	}
 };
 
-export const copyHTMLToClipboard = async (elementToCopy: HTMLElement, plainTextToCopy?: string): Promise<void> => {
+export const copyHTMLToClipboard = async (
+	elementToCopy: HTMLElement,
+	plainTextToCopy?: string,
+): Promise<void> => {
 	// @ts-ignore
 	if (isClipboardApiSupported() && typeof ClipboardItem !== 'undefined') {
 		try {

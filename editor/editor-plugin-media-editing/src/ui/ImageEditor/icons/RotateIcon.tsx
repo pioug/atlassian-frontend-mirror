@@ -6,55 +6,55 @@ import { css, cssMap, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 const sizeStyles = cssMap({
-    small: {
-        width: '20px',
-        height: '20px',
-    },
-    medium: {
-        width: '24px',
-        height: '24px',
-    },
-    large: {
-        width: '32px',
-        height: '32px',
-    },
-    xlarge: {
-        width: '48px',
-        height: '48px',
-    },
+	small: {
+		width: '20px',
+		height: '20px',
+	},
+	medium: {
+		width: '24px',
+		height: '24px',
+	},
+	large: {
+		width: '32px',
+		height: '32px',
+	},
+	xlarge: {
+		width: '48px',
+		height: '48px',
+	},
 });
 const svgStyles = css({
-    fill: token('elevation.surface'),
-    overflow: 'hidden',
-    pointerEvents: 'none',
+	fill: token('elevation.surface'),
+	overflow: 'hidden',
+	pointerEvents: 'none',
 });
 interface RotateIconProps {
-    isDisabled?: boolean;
-    label: string;
-    primaryColor?: string;
-    secondaryColor?: string;
-    size?: 'small' | 'medium' | 'large' | 'xlarge';
+	isDisabled?: boolean;
+	label: string;
+	primaryColor?: string;
+	secondaryColor?: string;
+	size?: 'small' | 'medium' | 'large' | 'xlarge';
 }
 
-export const RotateIcon = ({    
-    label,
-    size = 'small',
-    primaryColor = 'currentColor',
-    secondaryColor,
-    isDisabled,
+export const RotateIcon = ({
+	label,
+	size = 'small',
+	primaryColor = 'currentColor',
+	secondaryColor,
+	isDisabled,
 }: RotateIconProps) => (
-    <svg
-        viewBox="0 0 16 16"
-        xmlns="http://www.w3.org/2000/svg"
-        css={[svgStyles, sizeStyles[size]]}
-        style={{ 
-            color: primaryColor,
-            fill: secondaryColor,
-            opacity: isDisabled ? 0.5 : 1 
-        }}
-        aria-label={label || undefined}
-        role={label ? 'img' : 'presentation'}
-    >
+	<svg
+		viewBox="0 0 16 16"
+		xmlns="http://www.w3.org/2000/svg"
+		css={[svgStyles, sizeStyles[size]]}
+		style={{
+			color: primaryColor,
+			fill: secondaryColor,
+			opacity: isDisabled ? 0.5 : 1,
+		}}
+		aria-label={label || undefined}
+		role={label ? 'img' : 'presentation'}
+	>
 		<path
 			fillRule="evenodd"
 			clipRule="evenodd"

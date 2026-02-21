@@ -12,7 +12,10 @@ const defaultProps: PopupTriggerProps = {
 	testId: 'test-popup',
 };
 
-const renderPopupTrigger = (props: Partial<PopupTriggerProps> = {}, ref?: React.Ref<HTMLButtonElement>) => {
+const renderPopupTrigger = (
+	props: Partial<PopupTriggerProps> = {},
+	ref?: React.Ref<HTMLButtonElement>,
+) => {
 	return render(<PopupTrigger ref={ref} {...defaultProps} {...props} />);
 };
 
@@ -21,7 +24,7 @@ describe('PopupTrigger', () => {
 		it('should capture and report a11y violations', async () => {
 			const { container } = renderPopupTrigger();
 			await expect(container).toBeAccessible();
-		});	
+		});
 
 		it('should render the trigger button with the label', () => {
 			renderPopupTrigger();
@@ -44,7 +47,7 @@ describe('PopupTrigger', () => {
 			expect(button).toBeDisabled();
 		});
 
-        it('should render loading button when isLoading is true', () => {
+		it('should render loading button when isLoading is true', () => {
 			renderPopupTrigger({ isLoading: true });
 
 			expect(screen.getByTestId('test-popup-trigger--loading-button')).toBeInTheDocument();
@@ -157,4 +160,3 @@ describe('PopupTrigger', () => {
 		});
 	});
 });
-

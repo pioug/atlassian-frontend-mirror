@@ -4,7 +4,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { memo, type NamedExoticComponent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+	memo,
+	type NamedExoticComponent,
+	useCallback,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';

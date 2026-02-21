@@ -21,7 +21,9 @@ export const removeBreakoutFromRendererSyncBlockHTML = (html: string): string =>
 
 	doc.querySelectorAll(`div.${BreakoutCssClassName.BREAKOUT_MARK}`).forEach((breakoutDiv) => {
 		// Check if this breakout div directly contains a renderer sync block
-		const rendererDiv = breakoutDiv.querySelector(`:scope > div[${SyncBlockRendererDataAttributeName}]`);
+		const rendererDiv = breakoutDiv.querySelector(
+			`:scope > div[${SyncBlockRendererDataAttributeName}]`,
+		);
 
 		if (rendererDiv) {
 			breakoutDiv.replaceWith(rendererDiv);

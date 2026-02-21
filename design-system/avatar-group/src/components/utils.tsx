@@ -1,6 +1,9 @@
 import { type AvatarProps } from './types';
 
-export const composeUniqueKey: (props: AvatarProps, index: number) => string | number = (props: AvatarProps, index: number) => {
+export const composeUniqueKey: (props: AvatarProps, index: number) => string | number = (
+	props: AvatarProps,
+	index: number,
+) => {
 	if (props.key) {
 		return props.key;
 	}

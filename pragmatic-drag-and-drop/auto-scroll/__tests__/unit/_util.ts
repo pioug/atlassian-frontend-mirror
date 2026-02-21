@@ -192,7 +192,13 @@ export const userEvent = {
 	leaveWindow(): void {
 		fireEvent.dragLeave(document.documentElement, { relatedTarget: null });
 	},
-	startExternalDrag({ types, target = document.body }: { types: string[]; target?: Element }): void {
+	startExternalDrag({
+		types,
+		target = document.body,
+	}: {
+		types: string[];
+		target?: Element;
+	}): void {
 		const event = new DragEvent('dragenter', {
 			cancelable: true,
 			bubbles: true,

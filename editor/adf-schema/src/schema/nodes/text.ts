@@ -16,6 +16,5 @@ export interface TextDefinition {
 }
 
 export const text: NodeSpec = textFactory({
-	toDebugString:
-		process.env.NODE_ENV !== 'production' ? undefined : () => 'text_node',
+	toDebugString: process.env.NODE_ENV !== 'production' ? undefined : () => 'text_node',
 });

@@ -13,7 +13,10 @@ import type {
 
 import { type TeamContainer } from '../../../common/types';
 
-import { useConnectedTeams as useConnectedTeamsMulti, useTeamContainers as useTeamContainersMulti } from './multi-team';
+import {
+	useConnectedTeams as useConnectedTeamsMulti,
+	useTeamContainers as useTeamContainersMulti,
+} from './multi-team';
 
 type ConnectedTeams = {
 	containerId: string | undefined;
@@ -319,7 +322,7 @@ export const useTeamContainers = (teamId: string, enable = true) => {
 export const useConnectedTeams = (teamId?: string) => {
 	const [state, actions] = useTeamContainersHook();
 	const useMultiTeam = fg('enable_multi_team_containers_state');
-	const multiTeamResult = useConnectedTeamsMulti(useMultiTeam ? (teamId || '') : '');
+	const multiTeamResult = useConnectedTeamsMulti(useMultiTeam ? teamId || '' : '');
 
 	const { fireEvent } = useAnalyticsEvents();
 

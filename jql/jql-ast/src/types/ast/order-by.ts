@@ -14,9 +14,7 @@ export type OrderByDirectionValue = typeof ORDER_BY_DIRECTION_ASC | typeof ORDER
  * Details of the order-by JQL clause.
  */
 export interface OrderBy
-	extends AstNode<ParentOfOrderBy & AstNode>,
-		Removable,
-		Replaceable<OrderBy> {
+	extends AstNode<ParentOfOrderBy & AstNode>, Removable, Replaceable<OrderBy> {
 	/**
 	 * The list of order-by clause fields and their ordering directives.
 	 */
@@ -72,9 +70,7 @@ export interface OrderByOperator extends AstNode {
  * An element of the order-by JQL clause.
  */
 export interface OrderByField
-	extends AstNode<OrderBy & AstNode>,
-		Removable,
-		Replaceable<OrderByField> {
+	extends AstNode<OrderBy & AstNode>, Removable, Replaceable<OrderByField> {
 	/**
 	 * The direction in which to order the results.
 	 */

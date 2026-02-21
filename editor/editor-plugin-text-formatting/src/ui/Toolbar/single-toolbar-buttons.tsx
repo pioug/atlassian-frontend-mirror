@@ -7,9 +7,7 @@ import React, { useCallback } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import {
-	buttonGroupStyle,
-} from '@atlaskit/editor-common/styles';
+import { buttonGroupStyle } from '@atlaskit/editor-common/styles';
 import type { Command } from '@atlaskit/editor-common/types';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

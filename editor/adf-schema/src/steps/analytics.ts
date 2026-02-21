@@ -157,8 +157,8 @@ export class AnalyticsStep<P extends AnalyticsPayload> extends Step {
 	}
 
 	toJSON(): {
-        stepType: string;
-    } {
+		stepType: string;
+	} {
 		return {
 			stepType: analyticsStepType,
 		};

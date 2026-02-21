@@ -14,7 +14,8 @@ describe('Element: Preview', () => {
 		render(
 			<IntlProvider locale={'en'}>
 				<Preview overrideUrl="src-loaded" />
-			</IntlProvider>);
+			</IntlProvider>,
+		);
 
 		const element = await screen.findByTestId(testId);
 		const image = await screen.findByTestId(`${testId}-image-image`);
@@ -41,7 +42,8 @@ describe('Element: Preview', () => {
 		const { container } = render(
 			<IntlProvider locale={'en'}>
 				<Preview overrideUrl="src-loaded" />
-			</IntlProvider>);
+			</IntlProvider>,
+		);
 		await expect(container).toBeAccessible();
 	});
 });

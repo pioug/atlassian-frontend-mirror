@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { IconButton } from "@atlaskit/button/new";
-import CrossIcon from "@atlaskit/icon/core/cross";
+import { IconButton } from '@atlaskit/button/new';
+import CrossIcon from '@atlaskit/icon/core/cross';
 
 type CloseButtonProps = {
 	/**
 	 * The accessible name to give to the close button.
 	 *
 	 * Used as the aria-label for the close button to ensure screen reader
-		 * accessibility.
+	 * accessibility.
 	 */
 	label: string;
 
@@ -21,7 +21,7 @@ type CloseButtonProps = {
 
 	/**
 	 * A unique string that appears as data attribute data-testid in the
-		 * rendered code, serving as a hook for automated tests.
+	 * rendered code, serving as a hook for automated tests.
 	 */
 	testId?: string;
 };

@@ -53,10 +53,10 @@ export const enterKeyCommand =
 			const { $from } = selection;
 			const { listItem, codeBlock } = state.schema.nodes;
 
-		// the list item is the parent of the gap cursor
-		// while for text, list item is the grandparent of the text node
-		const isGapCursorSelection = selection instanceof GapCursorSelection;
-		const wrapper = isGapCursorSelection ? $from.parent : $from.node($from.depth - 1);
+			// the list item is the parent of the gap cursor
+			// while for text, list item is the grandparent of the text node
+			const isGapCursorSelection = selection instanceof GapCursorSelection;
+			const wrapper = isGapCursorSelection ? $from.parent : $from.node($from.depth - 1);
 
 			if (wrapper && wrapper.type === listItem) {
 				/** Check if the wrapper has any visible content */

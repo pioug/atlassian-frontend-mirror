@@ -1,7 +1,10 @@
 import React, { type ComponentProps } from 'react';
 
 // Custom icon ejection - these icons have been migrated away from the deprecated Custom / SVG components to native SVG. Please review whether this icon should be contributed to @atlaskit/icon-lab or whether it can be replaced by an existing icon from either @atlaskit/icon or @atlaskit/icon-lab
-const IconUrlGlyph = ({ 'aria-label': ariaLabel, style }: Pick<ComponentProps<'svg'>, 'aria-label' | 'style'>) => {
+const IconUrlGlyph = ({
+	'aria-label': ariaLabel,
+	style,
+}: Pick<ComponentProps<'svg'>, 'aria-label' | 'style'>) => {
 	return (
 		<svg
 			width="32"

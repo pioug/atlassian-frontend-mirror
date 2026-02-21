@@ -220,7 +220,11 @@ export class ItemStateManager {
 		this.scheduleGetTaskState();
 	}
 
-	subscribe(objectKey: ObjectKey, handler: Handler, item?: BaseItem<TaskState | DecisionState>): void {
+	subscribe(
+		objectKey: ObjectKey,
+		handler: Handler,
+		item?: BaseItem<TaskState | DecisionState>,
+	): void {
 		const key = objectKeyToString(objectKey);
 		const handlers = this.subscribers.get(key) || [];
 		handlers.push(handler);
@@ -397,7 +401,11 @@ export default class TaskDecisionResource implements TaskDecisionProvider {
 		return this.itemStateManager.toggleTask(objectKey, state);
 	}
 
-	subscribe(objectKey: ObjectKey, handler: Handler, item?: BaseItem<TaskState | DecisionState>): void {
+	subscribe(
+		objectKey: ObjectKey,
+		handler: Handler,
+		item?: BaseItem<TaskState | DecisionState>,
+	): void {
 		this.itemStateManager.subscribe(objectKey, handler, item);
 	}
 

@@ -74,21 +74,21 @@ const server = new Server(
 
 const generateLogger =
 	(level: 'info' | 'error' | 'debug' | 'notice' | 'warning' | 'critical' | 'alert' | 'emergency') =>
-		(...args: any[]) => {
-			// NOTE: We do not have logging enabled as it's not implemented consistently in MCP specs
-			// server.sendLoggingMessage({
-			// 	level,
-			// 	data: args,
-			// });
+	(...args: any[]) => {
+		// NOTE: We do not have logging enabled as it's not implemented consistently in MCP specs
+		// server.sendLoggingMessage({
+		// 	level,
+		// 	data: args,
+		// });
 
-			// Log to console if ADSMCP_DEBUG is set to true
-			// using console.error since the only one that works for logging is `stderr`
-			// using console.log / other console.fn that use `stdout` will cause an error
-			// ref: https://www.mcpevals.io/blog/debugging-mcp-servers-tips-and-best-practices
-			if (String(process.env.ADSMCP_DEBUG) === 'true') {
-				console.error(`[ads-mcp.custom-logging][${level}]`, ...args);
-			}
-		};
+		// Log to console if ADSMCP_DEBUG is set to true
+		// using console.error since the only one that works for logging is `stderr`
+		// using console.log / other console.fn that use `stdout` will cause an error
+		// ref: https://www.mcpevals.io/blog/debugging-mcp-servers-tips-and-best-practices
+		if (String(process.env.ADSMCP_DEBUG) === 'true') {
+			console.error(`[ads-mcp.custom-logging][${level}]`, ...args);
+		}
+	};
 
 export const getToolRegistry = (): Record<
 	string,

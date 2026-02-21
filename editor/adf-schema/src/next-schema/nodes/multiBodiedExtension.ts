@@ -1,10 +1,12 @@
-import type { ADFCommonNodeSpec, ADFNode} from '@atlaskit/adf-schema-generator';
+import type { ADFCommonNodeSpec, ADFNode } from '@atlaskit/adf-schema-generator';
 import { $onePlus, $or, adfNode } from '@atlaskit/adf-schema-generator';
 import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
 import { extensionFrame } from './extensionFrame';
 
-export const multiBodiedExtension: ADFNode<[string], ADFCommonNodeSpec> = adfNode('multiBodiedExtension').define({
+export const multiBodiedExtension: ADFNode<[string], ADFCommonNodeSpec> = adfNode(
+	'multiBodiedExtension',
+).define({
 	stage0: true,
 
 	definingAsContext: true,

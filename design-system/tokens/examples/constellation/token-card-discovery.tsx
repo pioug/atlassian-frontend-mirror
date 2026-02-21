@@ -52,7 +52,7 @@ const TokenDiscovery = (): React.JSX.Element => {
 };
 
 const _default_1: {
-    example: () => React.JSX.Element;
-    code: string;
+	example: () => React.JSX.Element;
+	code: string;
 } = { example: TokenDiscovery, code: TokenDiscoveryCodeBlock };
 export default _default_1;

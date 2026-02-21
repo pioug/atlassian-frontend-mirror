@@ -8,7 +8,6 @@ import { css, jsx } from '@compiled/react';
 import Heading from '@atlaskit/heading';
 import { token } from '@atlaskit/tokens';
 
-
 export const WhatsNewTypeTitle = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<Heading size="xsmall" as="h3">
 		{children}
@@ -24,7 +23,6 @@ const whatsNewIconContainerStyles = css({
 export const WhatsNewIconContainer = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<div css={whatsNewIconContainerStyles}>{children}</div>
 );
-
 
 export const WhatsNewTitleText = ({ children }: { children: React.ReactNode }): JSX.Element => (
 	<Heading size="xsmall" as="h4">

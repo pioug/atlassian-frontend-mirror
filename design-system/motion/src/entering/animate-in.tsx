@@ -6,8 +6,10 @@ import type { AnimationCurve } from './types';
 /**
  * Props for controlling the behavior of the AnimateIn animation
  */
-export interface AnimateKeyframesMotionProps
-	extends Omit<KeyframesMotionProps, 'animationTimingFunctionExiting'> {
+export interface AnimateKeyframesMotionProps extends Omit<
+	KeyframesMotionProps,
+	'animationTimingFunctionExiting'
+> {
 	/**
 	 * CSS keyframes for the entering animation.
 	 */

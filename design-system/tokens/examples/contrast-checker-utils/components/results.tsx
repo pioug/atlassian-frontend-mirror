@@ -173,53 +173,58 @@ export function getCustomTheme(
 	customBaseTokens: typeof baseTokens,
 	baseThemeType: ColorMode,
 ): {
-    value: string | number | {
-        radius: number;
-        offset: {
-            x: number;
-            y: number;
-        };
-        color: string;
-        opacity: number;
-        spread?: number;
-        inset?: boolean;
-    }[];
-    filePath: string;
-    isSource: boolean;
-    attributes: {
-        group: string;
-        state: string;
-        introduced: string;
-        description: string;
-        suggest?: string[];
-        deprecated?: string;
-        replacement?: string;
-    };
-    original: {
-        value: string | {
-            radius: number;
-            offset: {
-                x: number;
-                y: number;
-            };
-            color: string;
-            opacity: number;
-            spread?: number;
-            inset?: boolean;
-        }[];
-        attributes: {
-            group: string;
-            state: string;
-            introduced: string;
-            description: string;
-            suggest?: string[];
-            deprecated?: string;
-            replacement?: string;
-        };
-    };
-    name: string;
-    path: string[];
-    cleanName: string;
+	value:
+		| string
+		| number
+		| {
+				radius: number;
+				offset: {
+					x: number;
+					y: number;
+				};
+				color: string;
+				opacity: number;
+				spread?: number;
+				inset?: boolean;
+		  }[];
+	filePath: string;
+	isSource: boolean;
+	attributes: {
+		group: string;
+		state: string;
+		introduced: string;
+		description: string;
+		suggest?: string[];
+		deprecated?: string;
+		replacement?: string;
+	};
+	original: {
+		value:
+			| string
+			| {
+					radius: number;
+					offset: {
+						x: number;
+						y: number;
+					};
+					color: string;
+					opacity: number;
+					spread?: number;
+					inset?: boolean;
+			  }[];
+		attributes: {
+			group: string;
+			state: string;
+			introduced: string;
+			description: string;
+			suggest?: string[];
+			deprecated?: string;
+			replacement?: string;
+		};
+	};
+	name: string;
+	path: string[];
+	cleanName: string;
 }[] {
 	const baseRawTokens = baseThemeType === 'light' ? rawTokensLight : rawTokensDark;
 

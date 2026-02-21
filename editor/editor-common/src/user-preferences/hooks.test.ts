@@ -48,9 +48,7 @@ describe('createProseMirrorMetadata', () => {
 			persistenceAPI,
 			defaultUserPreferences,
 		);
-		const { result } = renderHook(() =>
-			useResolvedUserPreferences(userPreferencesProvider),
-		);
+		const { result } = renderHook(() => useResolvedUserPreferences(userPreferencesProvider));
 
 		expect(userPreferencesProvider.isInitialized).toBe(false);
 		expect(result.current.resolvedUserPreferences).toEqual({ toolbarDockingPosition: 'none' });
@@ -65,14 +63,12 @@ describe('createProseMirrorMetadata', () => {
 			{ ...persistenceAPI, getInitialUserPreferences },
 			defaultUserPreferences,
 		);
-		const { result } = renderHook(() =>
-			useResolvedUserPreferences(userPreferencesProvider),
-		);
+		const { result } = renderHook(() => useResolvedUserPreferences(userPreferencesProvider));
 
 		expect(userPreferencesProvider.isInitialized).toBe(true);
 		expect(result.current.resolvedUserPreferences).toEqual({ toolbarDockingPosition: 'top' });
 		userPreferencesProvider.updatePreference('toolbarDockingPosition', 'none');
-		await waitFor(() => {	
+		await waitFor(() => {
 			expect(result.current.resolvedUserPreferences).toEqual({ toolbarDockingPosition: 'none' });
 		});
 	});
@@ -82,9 +78,7 @@ describe('createProseMirrorMetadata', () => {
 			{ ...persistenceAPI, getInitialUserPreferences: () => ({}) },
 			defaultUserPreferences,
 		);
-		const { result } = renderHook(() =>
-			useResolvedUserPreferences(userPreferencesProvider),
-		);
+		const { result } = renderHook(() => useResolvedUserPreferences(userPreferencesProvider));
 
 		expect(userPreferencesProvider.isInitialized).toBe(true);
 		expect(result.current.resolvedUserPreferences).toEqual({ toolbarDockingPosition: 'none' });

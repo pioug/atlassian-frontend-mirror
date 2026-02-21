@@ -9,11 +9,7 @@ import { Popup } from '@atlaskit/popup/experimental';
 import { MenuListItem } from '../menu-list-item';
 
 import type { FlyoutCloseSource } from './flyout-menu-item-content';
-import {
-	IsOpenContext,
-	OnCloseContext,
-	SetIsOpenContext,
-} from './flyout-menu-item-context';
+import { IsOpenContext, OnCloseContext, SetIsOpenContext } from './flyout-menu-item-context';
 
 export type FlyoutMenuItemProps = {
 	/**
@@ -76,12 +72,13 @@ export const FlyoutMenuItem: React.ForwardRefExoticComponent<
 		const [isOpen, setIsOpen] = useControlled(isOpenControlled, () => isDefaultOpen);
 
 		const previousIsOpen = usePreviousValue(isOpen);
-		const onCloseRef = useRef<
-			(
-				event: Event | React.MouseEvent<HTMLButtonElement> | KeyboardEvent | MouseEvent | null,
-				source?: FlyoutCloseSource,
-			) => void
-		>(null);
+		const onCloseRef =
+			useRef<
+				(
+					event: Event | React.MouseEvent<HTMLButtonElement> | KeyboardEvent | MouseEvent | null,
+					source?: FlyoutCloseSource,
+				) => void
+			>(null);
 
 		const { createAnalyticsEvent } = useAnalyticsEvents();
 

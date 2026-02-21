@@ -6,9 +6,7 @@ import {
 	ValidatorSpecTransformerName,
 } from '@atlaskit/adf-schema-generator';
 
-export const unsupportedMark: ADFMark<ADFMarkSpec> = adfMark(
-	'unsupportedMark',
-).define({
+export const unsupportedMark: ADFMark<ADFMarkSpec> = adfMark('unsupportedMark').define({
 	ignore: [JSONSchemaTransformerName, ValidatorSpecTransformerName],
 	excludes: MarkExcludesNone,
 	allowExcludesEmpty: true,

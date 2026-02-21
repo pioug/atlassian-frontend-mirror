@@ -104,7 +104,6 @@ type StickyToolbarProps = {
 const StickyToolbar = (props: StickyToolbarProps) => {
 	const [top, setTop] = useState(0);
 
-
 	// ED-15802: if externalToolbarRef is passed in, set top to externalToolbarRef?.current?.clientHeight
 	// else if offsetTop is a number set top to offsetTop
 	// otherwise top is 0 as initial state

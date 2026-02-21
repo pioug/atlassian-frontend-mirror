@@ -28,6 +28,8 @@ describe('UserInteractionsProvider', () => {
 	});
 
 	test('useUserInteractions throws if the render is not wrapped in a Context', () => {
-		expect(() => renderHook(() => useUserInteractions())).toThrow(new Error('useUserInteractions() must be wrapped in <UserInteractionsProvider>'));
+		expect(() => renderHook(() => useUserInteractions())).toThrow(
+			new Error('useUserInteractions() must be wrapped in <UserInteractionsProvider>'),
+		);
 	});
 });

@@ -1,5 +1,8 @@
 /** Exists in its own module to allow mocking in unit tests */
-export const isRangeInsideOfRendererContainer = (rendererDOM: HTMLElement, range: Range): boolean => {
+export const isRangeInsideOfRendererContainer = (
+	rendererDOM: HTMLElement,
+	range: Range,
+): boolean => {
 	const sourceRange = document.createRange();
 	sourceRange.selectNode(rendererDOM);
 

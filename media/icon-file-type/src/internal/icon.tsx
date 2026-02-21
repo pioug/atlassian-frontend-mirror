@@ -160,7 +160,7 @@ export const Icon: import('react').NamedExoticComponent<IconProps> = memo(functi
 				dangerouslySetInnerHTML: {
 					__html: dangerouslySetGlyph,
 				},
-		  }
+			}
 		: { children: Glyph ? <Glyph role="presentation" /> : null };
 	const customDimensions = width && height ? { width: width + 'px', height: height + 'px' } : null;
 

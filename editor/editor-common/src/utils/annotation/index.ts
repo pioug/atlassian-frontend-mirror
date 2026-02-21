@@ -272,7 +272,10 @@ export function getAnnotationMarksForPos(pos: ResolvedPos): Mark[] | undefined {
  * Checks if selection contains only empty text
  * e.g. when you select across multiple empty paragraphs
  */
-export function isEmptyTextSelection(selection: TextSelection | AllSelection, schema: Schema): boolean {
+export function isEmptyTextSelection(
+	selection: TextSelection | AllSelection,
+	schema: Schema,
+): boolean {
 	const { text, paragraph } = schema.nodes;
 	let hasContent = false;
 	selection.content().content.descendants((node) => {

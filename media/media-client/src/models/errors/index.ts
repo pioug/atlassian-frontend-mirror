@@ -13,12 +13,12 @@ export { isMediaClientError, getMediaClientErrorReason } from './helpers';
  * Base class for media errors
  */
 export abstract class BaseMediaClientError<
-		Reason extends MediaClientErrorReason,
-		Metadata extends MediaClientErrorMetadata | undefined,
-		InnerError extends Error | undefined,
-		// TODO: Deprecate attributes getter https://product-fabric.atlassian.net/browse/CXP-4665
-		Attributes extends MediaClientErrorAttributes,
-	>
+	Reason extends MediaClientErrorReason,
+	Metadata extends MediaClientErrorMetadata | undefined,
+	InnerError extends Error | undefined,
+	// TODO: Deprecate attributes getter https://product-fabric.atlassian.net/browse/CXP-4665
+	Attributes extends MediaClientErrorAttributes,
+>
 	extends Error
 	// TODO: Deprecate attributes getter https://product-fabric.atlassian.net/browse/CXP-4665
 	implements MediaClientError<Attributes>

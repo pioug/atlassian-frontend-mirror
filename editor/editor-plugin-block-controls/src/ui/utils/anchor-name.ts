@@ -14,7 +14,11 @@ type RefreshAnchorNameParams = {
  * Checks for plugin state for latest anchorName based on the position, returns
  * provided anchorName if available
  */
-export const refreshAnchorName = ({ getPos, view, anchorName }: RefreshAnchorNameParams): string => {
+export const refreshAnchorName = ({
+	getPos,
+	view,
+	anchorName,
+}: RefreshAnchorNameParams): string => {
 	let newAnchorName = anchorName || '';
 	if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
 		return newAnchorName;

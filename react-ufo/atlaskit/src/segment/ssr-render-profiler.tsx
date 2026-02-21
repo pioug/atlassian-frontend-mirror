@@ -125,7 +125,9 @@ export const SsrRenderProfilerInner = ({
 	);
 };
 
-const SsrRenderProfiler = (props: Parameters<typeof SsrRenderProfilerInner>[0]): React.JSX.Element => {
+const SsrRenderProfiler = (
+	props: Parameters<typeof SsrRenderProfilerInner>[0],
+): React.JSX.Element => {
 	if (isInSSR) {
 		return <SsrRenderProfilerInner {...props} />;
 	}

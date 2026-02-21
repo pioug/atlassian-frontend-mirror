@@ -311,13 +311,13 @@ export const DragControls = ({
 				gridTemplateRows: heights,
 				gridTemplateColumns: isDragging
 					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					  `${dropTargetExtendedWidth}px ${dragRowControlsWidth}px ${tableWidth}px`
+						`${dropTargetExtendedWidth}px ${dragRowControlsWidth}px ${tableWidth}px`
 					: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					  `0px ${dragRowControlsWidth}px 0px`,
+						`0px ${dragRowControlsWidth}px 0px`,
 				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 				left: isDragging
 					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					  `-${dropTargetExtendedWidth + 2}px`
+						`-${dropTargetExtendedWidth + 2}px`
 					: token('space.negative.025', '-2px'),
 			}}
 			onMouseMove={handleMouseMove}

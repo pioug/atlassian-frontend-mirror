@@ -91,8 +91,8 @@ const getVariant = ({ medium, columns }: { medium: number; columns: number }): C
  *
  * @internal
  */
-export const GridColumnContext: import("react").Context<{
-    medium: number;
+export const GridColumnContext: import('react').Context<{
+	medium: number;
 }> = createContext({ medium: defaultMedium });
 
 /**
@@ -102,7 +102,11 @@ export const GridColumnContext: import("react").Context<{
  *
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/page)
  */
-const GridColumn: ({ medium, children, testId }: GridColumnProps) => JSX.Element = ({ medium = defaultMedium, children, testId }: GridColumnProps) => {
+const GridColumn: ({ medium, children, testId }: GridColumnProps) => JSX.Element = ({
+	medium = defaultMedium,
+	children,
+	testId,
+}: GridColumnProps) => {
 	const { columns } = useContext(GridContext);
 
 	const contextValue = useMemo(() => ({ medium }), [medium]);

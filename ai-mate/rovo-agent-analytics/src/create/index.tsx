@@ -1,6 +1,10 @@
 import { useCallback, useContext, useRef } from 'react';
 
-import { type AnalyticsEventPayload, AnalyticsReactContext, useAnalyticsEvents } from '@atlaskit/analytics-next';
+import {
+	type AnalyticsEventPayload,
+	AnalyticsReactContext,
+	useAnalyticsEvents,
+} from '@atlaskit/analytics-next';
 
 import { ANALYTICS_CHANNEL } from '../common/constants';
 import { useRovoAgentCSID } from '../common/csid';
@@ -69,7 +73,10 @@ export const useRovoAgentCreateAnalytics = (commonAttributes: CommonAnalyticsAtt
 	 * To start the create agent flow, use trackCreateSessionStart
 	 */
 	const trackCreateSession = useCallback(
-		(action: Omit<AgentCreateActions, AgentCreateActions.START>, attributes?: CommonAnalyticsAttributes) => {
+		(
+			action: Omit<AgentCreateActions, AgentCreateActions.START>,
+			attributes?: CommonAnalyticsAttributes,
+		) => {
 			fireAnalyticsEvent({
 				actionSubject: 'rovoAgent',
 				action,

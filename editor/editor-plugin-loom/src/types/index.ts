@@ -42,23 +42,22 @@ export type LoomProviderOptions = {
 	getClient: () => GetClient;
 };
 
-export interface ButtonComponentProps
-	extends Pick<
-		AKButtonProps,
-		| 'selected'
-		| 'isDisabled'
-		| 'onBlur'
-		| 'onFocus'
-		| 'onKeyDown'
-		| 'onMouseEnter'
-		| 'onMouseLeave'
-		| 'aria-controls'
-		| 'aria-expanded'
-		| 'aria-haspopup'
-		| 'href'
-		| 'target'
-		| 'rel'
-	> {
+export interface ButtonComponentProps extends Pick<
+	AKButtonProps,
+	| 'selected'
+	| 'isDisabled'
+	| 'onBlur'
+	| 'onFocus'
+	| 'onKeyDown'
+	| 'onMouseEnter'
+	| 'onMouseLeave'
+	| 'aria-controls'
+	| 'aria-expanded'
+	| 'aria-haspopup'
+	| 'href'
+	| 'target'
+	| 'rel'
+> {
 	'data-ds--level'?: string;
 	/**
 	 * on click handler that will only be called before the Loom SDK is initialised.

@@ -251,11 +251,7 @@ export const findNearestCellIndexToPoint = (
 };
 
 export const areAllRectsZero = (entry: IntersectionObserverEntry): boolean => {
-	const rects = [
-		entry.boundingClientRect,
-		entry.rootBounds,
-		entry.intersectionRect
-	];
+	const rects = [entry.boundingClientRect, entry.rootBounds, entry.intersectionRect];
 
 	return rects.every(
 		(rect) =>
@@ -269,4 +265,4 @@ export const areAllRectsZero = (entry: IntersectionObserverEntry): boolean => {
 			rect.x === 0 &&
 			rect.y === 0,
 	);
-}
+};

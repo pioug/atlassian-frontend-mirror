@@ -55,7 +55,9 @@ const styles = cssMap({
 	},
 });
 
-const SingleValue: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(props: SingleValueProps<Option, IsMulti, Group>) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+const SingleValue: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+	props: SingleValueProps<Option, IsMulti, Group>,
+) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: SingleValueProps<Option, IsMulti, Group>,
 ) => {
 	const { children, isDisabled, innerProps, xcss } = props;

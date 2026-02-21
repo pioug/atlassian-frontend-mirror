@@ -590,14 +590,13 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			) &&
 			expValEquals('platform_editor_table_sticky_header_patch_11', 'isEnabled', true) &&
 			insideBreakoutExpand(path);
-		const stickyHeaders =
-			isStickySafeCenteringEnabled
-				? !isInsideOfTable
-					? this.stickyHeaders
-					: undefined
-				: !isInsideOfTable && !insideBreakoutLayout(path) && !isInsideBreakoutExpand
-					? this.stickyHeaders
-					: undefined;
+		const stickyHeaders = isStickySafeCenteringEnabled
+			? !isInsideOfTable
+				? this.stickyHeaders
+				: undefined
+			: !isInsideOfTable && !insideBreakoutLayout(path) && !isInsideBreakoutExpand
+				? this.stickyHeaders
+				: undefined;
 
 		return {
 			...this.getProps(node),

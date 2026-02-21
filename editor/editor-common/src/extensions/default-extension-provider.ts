@@ -9,9 +9,9 @@ import type {
 import type { Parameters } from './types/extension-parameters';
 import type { ExtensionProvider } from './types/extension-provider';
 
-export default class DefaultExtensionProvider<T extends Parameters>
-	implements ExtensionProvider<T>
-{
+export default class DefaultExtensionProvider<
+	T extends Parameters,
+> implements ExtensionProvider<T> {
 	protected manifestsPromise: Promise<ExtensionManifest<T>[]>;
 	protected manifestsCache: ExtensionManifest<T>[] = [];
 	protected autoConvertHandlers?: ExtensionAutoConvertHandler[];

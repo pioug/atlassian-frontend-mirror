@@ -1,6 +1,7 @@
 const hackerNouns = ['system', 'protocol', 'microchip', 'alarm', 'protocol', 'panel', 'pixel'];
 
-export const getHackerNoun = (): string => hackerNouns[Math.round(Math.random() * hackerNouns.length)];
+export const getHackerNoun = (): string =>
+	hackerNouns[Math.round(Math.random() * hackerNouns.length)];
 
 const commonFileName = [
 	'kwanza_industrial_neural',

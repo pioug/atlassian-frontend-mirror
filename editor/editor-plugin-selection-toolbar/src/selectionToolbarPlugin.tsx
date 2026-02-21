@@ -187,7 +187,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 				? getToolbarDockingV2(
 						contextualFormattingEnabled,
 						api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition,
-				  )
+					)
 				: getToolbarDocking(contextualFormattingEnabled, userPreferencesProvider);
 
 			return [
@@ -477,7 +477,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 							onPositionCalculated,
 						};
 					},
-			  },
+				},
 
 		contentComponent:
 			editorExperiment('platform_editor_controls', 'variant1') &&
@@ -485,7 +485,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 			fg('platform_editor_user_preferences_provider_update')
 				? () => (
 						<PageVisibilityWatcher api={api} userPreferencesProvider={userPreferencesProvider} />
-				  )
+					)
 				: undefined,
 
 		primaryToolbarComponent:

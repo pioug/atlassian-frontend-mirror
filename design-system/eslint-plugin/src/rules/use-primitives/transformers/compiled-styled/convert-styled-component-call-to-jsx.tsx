@@ -17,7 +17,11 @@ import { styledObjectToXcssTokens } from '../css-to-xcss';
  * })
  * ```
  */
-export const convertStyledComponentToXcss: (styles: VariableDeclarator, newStylesVariableName: string, fixer: Rule.RuleFixer) => (Rule.Fix | undefined)[] = (
+export const convertStyledComponentToXcss: (
+	styles: VariableDeclarator,
+	newStylesVariableName: string,
+	fixer: Rule.RuleFixer,
+) => (Rule.Fix | undefined)[] = (
 	styles: VariableDeclarator,
 	newStylesVariableName: string,
 	fixer: Rule.RuleFixer,

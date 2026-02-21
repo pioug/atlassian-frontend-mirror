@@ -2,7 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, type ForwardRefExoticComponent, type RefAttributes, useEffect, useState } from 'react';
+import {
+	forwardRef,
+	type ForwardRefExoticComponent,
+	type RefAttributes,
+	useEffect,
+	useState,
+} from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
@@ -95,33 +101,33 @@ export default (): JSX.Element => {
 	);
 };
 
-export const AsyncLoadedContent: ForwardRefExoticComponent<{
-    timeout: number;
-} & RefAttributes<HTMLDivElement>> = forwardRef<HTMLDivElement, { timeout: number }>(
-	({ timeout }, ref) => {
-		const [isLoading, setIsLoading] = useState(true);
+export const AsyncLoadedContent: ForwardRefExoticComponent<
+	{
+		timeout: number;
+	} & RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, { timeout: number }>(({ timeout }, ref) => {
+	const [isLoading, setIsLoading] = useState(true);
 
-		useEffect(() => {
-			setTimeout(() => {
-				setIsLoading(false);
-			}, timeout);
-		});
+	useEffect(() => {
+		setTimeout(() => {
+			setIsLoading(false);
+		}, timeout);
+	});
 
-		if (isLoading) {
-			return <div ref={ref}>Loading</div>;
-		}
+	if (isLoading) {
+		return <div ref={ref}>Loading</div>;
+	}
 
-		return (
-			<Stack ref={ref}>
-				<div>Multi</div>
-				<div>line</div>
-				<div>content</div>
-				<div>that</div>
-				<div>shows</div>
-				<div>Spotlight</div>
-				<div>reflow</div>
-				<div>behaviour</div>
-			</Stack>
-		);
-	},
-);
+	return (
+		<Stack ref={ref}>
+			<div>Multi</div>
+			<div>line</div>
+			<div>content</div>
+			<div>that</div>
+			<div>shows</div>
+			<div>Spotlight</div>
+			<div>reflow</div>
+			<div>behaviour</div>
+		</Stack>
+	);
+});

@@ -38,9 +38,7 @@ describe('ProjectIcon', () => {
 	});
 
 	it('should render project icon and lock status when isPrivate is true', () => {
-		render(
-			<ProjectIcon emoji=":lock:" isPrivate={true} />
-		);
+		render(<ProjectIcon emoji=":lock:" isPrivate={true} />);
 
 		const emoji = screen.getByTestId('resourced-emoji');
 		expect(emoji.textContent).toBe(':lock:');
@@ -50,9 +48,7 @@ describe('ProjectIcon', () => {
 	});
 
 	it('should render project icon without lock status when isPrivate is false', () => {
-		render(
-			<ProjectIcon emoji=":lock:" isPrivate={false} />
-		);
+		render(<ProjectIcon emoji=":lock:" isPrivate={false} />);
 
 		const emoji = screen.getByTestId('resourced-emoji');
 		expect(emoji.textContent).toBe(':lock:');

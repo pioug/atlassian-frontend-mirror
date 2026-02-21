@@ -34,7 +34,12 @@ const mockIconOptions: IconLabelOption[] = [
 // Mock lozenge label options (for status filter)
 const mockLozengeOptions: LozengeLabelOption[] = [
 	{ label: 'To Do', value: 'todo', appearance: 'default', optionType: 'lozengeLabel' },
-	{ label: 'In Progress', value: 'in-progress', appearance: 'inprogress', optionType: 'lozengeLabel' },
+	{
+		label: 'In Progress',
+		value: 'in-progress',
+		appearance: 'inprogress',
+		optionType: 'lozengeLabel',
+	},
 	{ label: 'In Review', value: 'in-review', appearance: 'moved', optionType: 'lozengeLabel' },
 	{ label: 'Done', value: 'done', appearance: 'success', optionType: 'lozengeLabel' },
 	{ label: 'Blocked', value: 'blocked', appearance: 'removed', optionType: 'lozengeLabel' },
@@ -47,7 +52,12 @@ const mockAvatarOptions: AvatarLabelOption[] = [
 	{ label: 'John Smith', value: 'john-smith', optionType: 'avatarLabel' },
 	{ label: 'Alice Johnson', value: 'alice-johnson', optionType: 'avatarLabel' },
 	{ label: 'Bob Williams', value: 'bob-williams', optionType: 'avatarLabel' },
-	{ label: 'Engineering Team', value: 'engineering-team', isGroup: true, optionType: 'avatarLabel' },
+	{
+		label: 'Engineering Team',
+		value: 'engineering-team',
+		isGroup: true,
+		optionType: 'avatarLabel',
+	},
 	{ label: 'Design Team', value: 'design-team', isGroup: true, optionType: 'avatarLabel' },
 ];
 
@@ -74,7 +84,9 @@ const PopupSelectExample = ({
 }: PopupSelectExampleProps) => {
 	const [selectedOptions, setSelectedOptions] = useState<ValueType<SelectOption, true>>([]);
 	const [filteredOptions, setFilteredOptions] = useState<SelectOption[]>(options);
-	const [status, setStatus] = useState<'empty' | 'loading' | 'resolved' | 'rejected' | 'loadingMore'>(initialStatus);
+	const [status, setStatus] = useState<
+		'empty' | 'loading' | 'resolved' | 'rejected' | 'loadingMore'
+	>(initialStatus);
 
 	const handleSelectionChange = useCallback((newValue: ValueType<SelectOption, true>) => {
 		setSelectedOptions(newValue);

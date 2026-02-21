@@ -6,9 +6,7 @@ import { uuid } from '../../utils/uuid';
 import { taskList as taskListFactory } from '../../next-schema/generated/nodeTypes';
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
-export interface TaskListContent extends Array<
-	TaskItemNode | TaskListDefinition | BlockTaskItem
-> {
+export interface TaskListContent extends Array<TaskItemNode | TaskListDefinition | BlockTaskItem> {
 	0: TaskItemNode | BlockTaskItem;
 }
 

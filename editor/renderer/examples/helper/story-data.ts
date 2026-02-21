@@ -4623,7 +4623,10 @@ map.put(3, 10);`,
 				{
 					text: 'Custom: black',
 					type: 'text',
-					marks: [{ type: 'backgroundColor', attrs: { color: '#000000' } }, { type: 'textColor', attrs: { color: '#ffffff' } },],
+					marks: [
+						{ type: 'backgroundColor', attrs: { color: '#000000' } },
+						{ type: 'textColor', attrs: { color: '#ffffff' } },
+					],
 				},
 				{ text: ', ', type: 'text' },
 				{

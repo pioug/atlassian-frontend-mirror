@@ -13,7 +13,14 @@ const NestedDropdown = () => {
 				<DropdownItem
 					{...triggerProps}
 					ref={triggerRef}
-					elemAfter={<ChevronRightIcon size="small" spacing="spacious" color={token('color.icon.subtle', '')} label="" />}
+					elemAfter={
+						<ChevronRightIcon
+							size="small"
+							spacing="spacious"
+							color={token('color.icon.subtle', '')}
+							label=""
+						/>
+					}
 				>
 					<span>Nested Menu</span>
 				</DropdownItem>

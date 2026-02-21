@@ -382,7 +382,9 @@ describe('ToolbarModeRenderer', () => {
 	it('should handle empty components array', async () => {
 		const toolbar = createTestToolbar();
 		const fallbacks = createDefaultFallbacks();
-		const { container } = render(<ToolbarModelRenderer toolbar={toolbar} components={[]} fallbacks={fallbacks} />);
+		const { container } = render(
+			<ToolbarModelRenderer toolbar={toolbar} components={[]} fallbacks={fallbacks} />,
+		);
 
 		expect(screen.getByTestId('toolbar')).toBeInTheDocument();
 		expect(screen.queryByTestId('section')).not.toBeInTheDocument();

@@ -240,33 +240,35 @@ const InviteItemWithEmailDomain = ({
 
 	const displayName = query && emailDomain ? possibleEmail : undefined;
 
-	return displayName && (
+	return (
+		displayName && (
 			<div
-			role="button"
-			tabIndex={0}
-			css={[mentionItemStyle, selected && mentionItemSelectedStyle]}
-			onMouseDown={onSelected}
-			onKeyDown={onSelected}
-			onMouseEnter={onItemMouseEnter}
-			onFocus={onItemFocus}
-			data-id={INVITE_ITEM_DESCRIPTION.id}
-		>
-			<div css={style.rowStyle}>
-				<span css={style.avatar}>
-					{shouldShowError ? (
-						<StatusErrorIcon label="Error" color={token('color.icon.danger')} />
-					) : (
-						<EmailIcon label="Email" color={token('color.icon.subtle', N300)} />
-					)}
-				</span>
-				<div css={style.nameSection} data-testid="name-section">
+				role="button"
+				tabIndex={0}
+				css={[mentionItemStyle, selected && mentionItemSelectedStyle]}
+				onMouseDown={onSelected}
+				onKeyDown={onSelected}
+				onMouseEnter={onItemMouseEnter}
+				onFocus={onItemFocus}
+				data-id={INVITE_ITEM_DESCRIPTION.id}
+			>
+				<div css={style.rowStyle}>
+					<span css={style.avatar}>
+						{shouldShowError ? (
+							<StatusErrorIcon label="Error" color={token('color.icon.danger')} />
+						) : (
+							<EmailIcon label="Email" color={token('color.icon.subtle', N300)} />
+						)}
+					</span>
+					<div css={style.nameSection} data-testid="name-section">
 						<>
 							<div>{displayName}</div>
 							<div css={style.byline}>{getByline()}</div>
 						</>
+					</div>
 				</div>
 			</div>
-		</div>
+		)
 	);
 };
 

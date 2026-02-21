@@ -94,10 +94,9 @@ export interface FetchMockRequestDetails {
 	method: string;
 }
 
-interface ResolveBatchRequest
-	extends Array<{
-		resourceUrl: string;
-	}> {}
+interface ResolveBatchRequest extends Array<{
+	resourceUrl: string;
+}> {}
 
 let numberOfLoads = 0;
 

@@ -12,7 +12,11 @@ import type { LogoProps } from '../types';
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const JiraServiceManagementIcon: ({ size, shouldUseNewLogoDesign, ...props }: LogoProps) => React.JSX.Element = createFeatureFlaggedServiceCollectionComponent(
+export const JiraServiceManagementIcon: ({
+	size,
+	shouldUseNewLogoDesign,
+	...props
+}: LogoProps) => React.JSX.Element = createFeatureFlaggedServiceCollectionComponent(
 	LegacyJSIcon,
 	NewJSIcon,
 );

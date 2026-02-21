@@ -60,7 +60,7 @@ export const InsertButton = <Parameters extends DatasourceParameters>({
 
 			if (isJqlSubmitFixEnabled) {
 				onBeforeInsert?.(parameters);
-			};
+			}
 
 			const insertButtonClickedEvent = analyticsEvent.update({
 				actionSubjectId: 'insert',

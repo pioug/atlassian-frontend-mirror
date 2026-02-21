@@ -83,7 +83,14 @@ const PopupComponent = () => {
 					testId="popup-trigger"
 					onClick={() => setIsOpen(!isOpen)}
 					isSelected={isOpen}
-					elemAfter={<ChevronRightIcon size="small" spacing="spacious" color={token('color.icon.subtle', '')} label="" />}
+					elemAfter={
+						<ChevronRightIcon
+							size="small"
+							spacing="spacious"
+							color={token('color.icon.subtle', '')}
+							label=""
+						/>
+					}
 				>
 					<Text>Open Popup</Text>
 				</DropdownItem>

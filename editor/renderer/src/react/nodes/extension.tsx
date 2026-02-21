@@ -185,7 +185,8 @@ export const renderExtension = (
 				</div>
 			</div>
 		);
-		return centerAlignClass && expValEquals('platform_editor_flex_based_centering', 'isEnabled', true) ? (
+		return centerAlignClass &&
+			expValEquals('platform_editor_flex_based_centering', 'isEnabled', true) ? (
 			<div
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 				className={
@@ -254,7 +255,8 @@ export const renderExtension = (
 						</div>
 					</div>
 				);
-				return centerAlignClass && expValEquals('platform_editor_flex_based_centering', 'isEnabled', true) ? (
+				return centerAlignClass &&
+					expValEquals('platform_editor_flex_based_centering', 'isEnabled', true) ? (
 					<div
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 						className={

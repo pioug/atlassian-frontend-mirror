@@ -51,7 +51,14 @@ const styles = cssMap({
  *
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/page)
  */
-const Page: ({ isBannerOpen, bannerHeight, banner, navigation, children, testId, }: PageProps) => JSX.Element = ({
+const Page: ({
+	isBannerOpen,
+	bannerHeight,
+	banner,
+	navigation,
+	children,
+	testId,
+}: PageProps) => JSX.Element = ({
 	isBannerOpen = false,
 	bannerHeight = defaultBannerHeight,
 	banner,

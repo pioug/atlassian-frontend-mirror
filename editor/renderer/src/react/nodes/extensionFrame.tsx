@@ -19,7 +19,7 @@ const containerCSS = css({
 	minHeight: '100px',
 	// by default all frames are hidden, this style is overridden in multiBodiedExtensions for active frame
 	display: 'none',
-})
+});
 
 type Props = React.PropsWithChildren<{
 	// Ignored via go/ees005
@@ -46,10 +46,7 @@ type Props = React.PropsWithChildren<{
 
 const ExtensionFrame = (props: Props) => {
 	return (
-		<div
-			css={[containerCSS]}
-			data-extension-frame="true"
-		>
+		<div css={[containerCSS]} data-extension-frame="true">
 			{props.children}
 		</div>
 	);

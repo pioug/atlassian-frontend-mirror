@@ -18,11 +18,9 @@ describe('Element: Lozenge', () => {
 	const defaultText = 'Some status';
 	const defaultAppearance = 'inprogress';
 
-	
-
 	const renderComponent = (props?: Partial<BaseLozengeElementProps>) => {
-		const {text = defaultText, appearance = defaultAppearance, ...rest} = props || {};
-		
+		const { text = defaultText, appearance = defaultAppearance, ...rest } = props || {};
+
 		const overrideCss = css({
 			fontStyle: 'italic',
 		});

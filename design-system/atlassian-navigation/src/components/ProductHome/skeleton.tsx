@@ -128,7 +128,11 @@ const siteTitleStyles = css({
 
 // Not exported to consumers, only used in NavigationSkeleton
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const ProductHomeSkeleton = ({ showSiteName }: { showSiteName: boolean }): React.JSX.Element => {
+export const ProductHomeSkeleton = ({
+	showSiteName,
+}: {
+	showSiteName: boolean;
+}): React.JSX.Element => {
 	const theme = useTheme();
 	const primaryButton = theme.mode.primaryButton;
 

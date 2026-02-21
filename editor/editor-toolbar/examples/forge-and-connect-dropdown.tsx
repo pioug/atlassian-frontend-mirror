@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 import { cssMap } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -23,47 +22,46 @@ const styles = cssMap({
 
 const ForgeAndConnectItems = (): React.JSX.Element => {
 	return (
-			<Toolbar label="Editor Toolbar">
-				<ToolbarSection>
-                    <ToolbarDropdownMenu iconBefore={<MoreItemsIcon label="More options" />}>
-                        <ToolbarDropdownItemSection>
-                            <ToolbarDropdownItem
-                                title="Connect App"
-                                href="https://www.google.com"
-                                data-vc="menuitem"
-                                data-key="connect-app"
-                                data-testid="connect-app-test-id"
-                            >
-                            Connect App
-                            </ToolbarDropdownItem>
-                            <ToolbarDropdownItem
-                                title="Forge App 1"
-                                data-key="forge-app-1"
-                                data-testid="forge-app-1-test-id"
-                            >
-                            Forge App
-                            </ToolbarDropdownItem>
-                            <ToolbarDropdownItem
-                                title="Forge App 2"
-                                data-key="forge-app-2"
-                                data-testid="forge-app-2-test-id"
-                            >
-                            Forge App
-                            </ToolbarDropdownItem>
-                            <ToolbarDropdownItem
-                                title="Forge App 3"
-                                data-key="forge-app-3"
-                                data-testid="forge-app-3-test-id"
-                            >
-                            Forge App
-                            </ToolbarDropdownItem>
-                        </ToolbarDropdownItemSection>
-                    </ToolbarDropdownMenu>
-                </ToolbarSection>
-            </Toolbar>
-        )
+		<Toolbar label="Editor Toolbar">
+			<ToolbarSection>
+				<ToolbarDropdownMenu iconBefore={<MoreItemsIcon label="More options" />}>
+					<ToolbarDropdownItemSection>
+						<ToolbarDropdownItem
+							title="Connect App"
+							href="https://www.google.com"
+							data-vc="menuitem"
+							data-key="connect-app"
+							data-testid="connect-app-test-id"
+						>
+							Connect App
+						</ToolbarDropdownItem>
+						<ToolbarDropdownItem
+							title="Forge App 1"
+							data-key="forge-app-1"
+							data-testid="forge-app-1-test-id"
+						>
+							Forge App
+						</ToolbarDropdownItem>
+						<ToolbarDropdownItem
+							title="Forge App 2"
+							data-key="forge-app-2"
+							data-testid="forge-app-2-test-id"
+						>
+							Forge App
+						</ToolbarDropdownItem>
+						<ToolbarDropdownItem
+							title="Forge App 3"
+							data-key="forge-app-3"
+							data-testid="forge-app-3-test-id"
+						>
+							Forge App
+						</ToolbarDropdownItem>
+					</ToolbarDropdownItemSection>
+				</ToolbarDropdownMenu>
+			</ToolbarSection>
+		</Toolbar>
+	);
 };
-
 
 const App = (): React.JSX.Element => {
 	return (

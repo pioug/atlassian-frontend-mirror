@@ -142,7 +142,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 				layout,
 				isTopLevelNode,
 				editorAppearance,
-		  })
+			})
 		: legacyShouldBreakout;
 
 	// We don't want to show border for non-empty 1p bodied extensions in live pages
@@ -243,7 +243,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 							onMouseEnter={() => handleMouseEvent(true)}
 							onMouseLeave={() => handleMouseEvent(false)}
 						/>
-				  )}
+					)}
 			{!showLegacyContentHeader && showMacroInteractionDesignUpdates && !isLivePageViewMode && (
 				<ExtensionLozenge
 					isNodeSelected={isNodeSelected}

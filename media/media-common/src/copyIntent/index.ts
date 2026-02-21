@@ -1,2 +1,6 @@
-export { setClientIdForFile, getClientIdForFile, clearClientIdCache, extractClientIdsFromHtml } from './clientIdCache';
-
+export {
+	setClientIdForFile,
+	getClientIdForFile,
+	clearClientIdCache,
+	extractClientIdsFromHtml,
+} from './clientIdCache';

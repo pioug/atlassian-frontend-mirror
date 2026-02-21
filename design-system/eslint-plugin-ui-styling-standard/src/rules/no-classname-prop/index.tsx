@@ -10,7 +10,7 @@ const isXcssProp = (propName: string): propName is `${string}Xcss` | `xcss` => {
 	return propName.endsWith('Xcss');
 };
 
-export const rule: import("eslint").Rule.RuleModule = createLintRule({
+export const rule: import('eslint').Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'no-classname-prop',
 		docs: {

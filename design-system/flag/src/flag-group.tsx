@@ -60,7 +60,8 @@ const defaultFlagGroupContext = {
 };
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const FlagGroupContext: import("react").Context<FlagGroupAPI> = createContext<FlagGroupAPI>(defaultFlagGroupContext);
+export const FlagGroupContext: import('react').Context<FlagGroupAPI> =
+	createContext<FlagGroupAPI>(defaultFlagGroupContext);
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export function useFlagGroup(): FlagGroupAPI {

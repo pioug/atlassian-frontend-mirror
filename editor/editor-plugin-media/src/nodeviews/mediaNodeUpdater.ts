@@ -475,7 +475,10 @@ export class MediaNodeUpdater {
 	};
 
 	// Copies the pasted node into the current collection using a getPos handler
-	copyNodeFromPos = async (getPos: ProsemirrorGetPosHandler, traceContext?: MediaTraceContext): Promise<void> => {
+	copyNodeFromPos = async (
+		getPos: ProsemirrorGetPosHandler,
+		traceContext?: MediaTraceContext,
+	): Promise<void> => {
 		const attrs = this.getAttrs() as MediaAttributes;
 		if (!attrs || (attrs && !isMediaTypeSupported(attrs.type))) {
 			return;
@@ -526,7 +529,9 @@ export class MediaNodeUpdater {
 		}
 
 		const mediaClient = getMediaClient(uploadMediaClientConfig);
-		const clientId = fg('platform_media_cross_client_copy_with_auth') ? getClientIdForFile(id) : undefined;
+		const clientId = fg('platform_media_cross_client_copy_with_auth')
+			? getClientIdForFile(id)
+			: undefined;
 
 		const currentCollectionName = mediaProvider.uploadParams.collection;
 		const objectId = await this.getObjectId();

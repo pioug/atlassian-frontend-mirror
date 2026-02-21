@@ -84,7 +84,8 @@ export const editorBackgroundPalette = {
 	}, // source for hex code was legacy token B50
 	/** blue - medium */
 	['#B3D4FF']: {
-		getValue: (fallback: string): string => getTokenValue('color.background.accent.blue.subtler', fallback),
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.blue.subtler', fallback),
 		token: token(
 			'color.background.accent.blue.subtler',
 			'#B3D4FF',
@@ -92,7 +93,8 @@ export const editorBackgroundPalette = {
 	}, // source for hex code was legacy token B75
 	/** blue - strong */
 	['#4C9AFF']: {
-		getValue: (fallback: string): string => getTokenValue('color.background.accent.blue.subtle', fallback),
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.blue.subtle', fallback),
 		token: token(
 			'color.background.accent.blue.subtle',
 			'#4C9AFF',
@@ -111,7 +113,8 @@ export const editorBackgroundPalette = {
 	},
 	/** teal - medium */
 	['#B3F5FF']: {
-		getValue: (fallback: string): string => getTokenValue('color.background.accent.teal.subtler', fallback),
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.teal.subtler', fallback),
 		token: token(
 			'color.background.accent.teal.subtler',
 			'#B3F5FF',
@@ -119,7 +122,8 @@ export const editorBackgroundPalette = {
 	},
 	/** teal - strong */
 	['#79E2F2']: {
-		getValue: (fallback: string): string => getTokenValue('color.background.accent.teal.subtle', fallback),
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.teal.subtle', fallback),
 		token: token(
 			'color.background.accent.teal.subtle',
 			'#79E2F2',
@@ -147,7 +151,8 @@ export const editorBackgroundPalette = {
 	},
 	/** green - strong */
 	['#57D9A3']: {
-		getValue: (fallback: string): string => getTokenValue('color.background.accent.green.subtle', fallback),
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.green.subtle', fallback),
 		token: token(
 			'color.background.accent.green.subtle',
 			'#57D9A3',
@@ -186,7 +191,8 @@ export const editorBackgroundPalette = {
 	// red
 	/** red - light */
 	['#FFEBE6']: {
-		getValue: (fallback: string): string => getTokenValue('color.background.accent.red.subtlest', fallback),
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.red.subtlest', fallback),
 		token: token(
 			'color.background.accent.red.subtlest',
 			'#FFEBE6',
@@ -194,7 +200,8 @@ export const editorBackgroundPalette = {
 	},
 	/** red - medium */
 	['#FFBDAD']: {
-		getValue: (fallback: string): string => getTokenValue('color.background.accent.red.subtler', fallback),
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.red.subtler', fallback),
 		token: token(
 			'color.background.accent.red.subtler',
 			'#FFBDAD',
@@ -202,7 +209,8 @@ export const editorBackgroundPalette = {
 	},
 	/** red - strong */
 	['#FF8F73']: {
-		getValue: (fallback: string): string => getTokenValue('color.background.accent.red.subtle', fallback),
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.red.subtle', fallback),
 		token: token(
 			'color.background.accent.red.subtle',
 			'#FF8F73',
@@ -255,7 +263,8 @@ export const editorBackgroundPalette = {
 	},
 	/** whiteGray - strong */
 	['#B3BAC5']: {
-		getValue: (fallback: string): string => getTokenValue('color.background.accent.gray.subtle', fallback),
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.gray.subtle', fallback),
 		token: token(
 			'color.background.accent.gray.subtle',
 			'#B3BAC5',

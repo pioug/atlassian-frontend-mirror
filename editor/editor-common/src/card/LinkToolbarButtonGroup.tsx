@@ -72,10 +72,7 @@ export const LinkToolbarButtonGroup = ({ options }: LinkToolbarButtonGroupProps)
 				}) => {
 					const ButtonIcon = icon as (props: NewCoreIconProps) => JSX.Element;
 					return (
-						<DisallowedWrapper
-							key={testId}
-							disabled={disabled}
-						>
+						<DisallowedWrapper key={testId} disabled={disabled}>
 							<Button
 								css={disabled ? buttonStyleNoneEvent : buttonStyle}
 								title={title}

@@ -109,6 +109,6 @@ export function FlagsProvider({
 	);
 }
 
-export const withFlagsProvider: (fn: () => React.ReactNode) => React.JSX.Element = (fn: () => React.ReactNode): React.JSX.Element => (
-	<FlagsProvider>{fn()}</FlagsProvider>
-);
+export const withFlagsProvider: (fn: () => React.ReactNode) => React.JSX.Element = (
+	fn: () => React.ReactNode,
+): React.JSX.Element => <FlagsProvider>{fn()}</FlagsProvider>;

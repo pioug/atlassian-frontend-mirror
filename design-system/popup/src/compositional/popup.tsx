@@ -70,7 +70,7 @@ export const Popup = ({
 	children,
 	id: providedId,
 	isOpen = false,
-	role
+	role,
 }: PopupProps): React.JSX.Element => {
 	const [triggerRef, setTriggerRef] = useState<HTMLElement | null>(null);
 
@@ -121,7 +121,9 @@ export const PopupTrigger = ({ children }: PopupTriggerProps): React.JSX.Element
 					'aria-controls': id,
 					'aria-expanded': isOpen,
 					'aria-haspopup':
-						role === 'dialog' && fg('platform_dst_nav4_flyout_menu_slots_close_button') ? 'dialog' : true,
+						role === 'dialog' && fg('platform_dst_nav4_flyout_menu_slots_close_button')
+							? 'dialog'
+							: true,
 				})
 			}
 		</Reference>
@@ -229,7 +231,7 @@ export const PopupContent = ({
 	shouldFitViewport,
 	shouldDisableGpuAcceleration = false,
 	role,
-	titleId
+	titleId,
 }: PopupContentProps): React.JSX.Element | null => {
 	useEnsureIsInsidePopup();
 	const isOpen = useContext(IsOpenContext);

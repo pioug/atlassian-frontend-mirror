@@ -38,6 +38,6 @@ const utility: AttributeSchema<UtilTokenSchema<BaseToken>> = {
 
 // eslint-disable-next-line import/no-anonymous-default-export
 const _default_1: {
-    utility: AttributeSchema<UtilTokenSchema<PaletteValues>>;
+	utility: AttributeSchema<UtilTokenSchema<PaletteValues>>;
 } = { utility };
 export default _default_1;

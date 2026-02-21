@@ -63,109 +63,107 @@ describe('useFilePreview', () => {
 	});
 
 	describe('Cross-client copy with auth', () => {
-		ffTest.on(
-			'platform_media_cross_client_copy_with_auth',
-			'when feature flag is enabled',
-			() => {
-				it('should fetch clientId and include it in preview blob URL', async () => {
-					const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
-					const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
-						initialItems: fileItem,
-					});
-
-					// Add getClientId to mediaApi mock
-					const mockGetClientId = jest.fn().mockResolvedValue('test-client-id');
-					(mediaApi as any).getClientId = mockGetClientId;
-
-					const { result } = renderHook(useFilePreview, {
-						wrapper: ({ children }) => (
-							<MockedMediaClientProvider>{children}</MockedMediaClientProvider>
-						),
-						initialProps: {
-							identifier,
-						},
-					});
-
-					// Wait for clientId to be fetched
-					await waitFor(() => expect(mockGetClientId).toHaveBeenCalledWith(identifier.collectionName));
-
-					// Wait for preview to be complete
-					await waitFor(() => expect(result?.current.status).toBe('complete'));
-
-					// Verify clientId is in the blob URL
-					expect(result?.current.preview?.dataURI).toContain('clientId=test-client-id');
+		ffTest.on('platform_media_cross_client_copy_with_auth', 'when feature flag is enabled', () => {
+			it('should fetch clientId and include it in preview blob URL', async () => {
+				const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+				const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
+					initialItems: fileItem,
 				});
 
-				it('should update preview with clientId when clientId becomes available after preview', async () => {
-					const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
-					const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
-						initialItems: fileItem,
-					});
+				// Add getClientId to mediaApi mock
+				const mockGetClientId = jest.fn().mockResolvedValue('test-client-id');
+				(mediaApi as any).getClientId = mockGetClientId;
 
-					let resolveClientId: (value: string) => void = () => {};
-					const clientIdPromise = new Promise<string>((resolve) => {
-						resolveClientId = resolve;
-					});
-
-					// Add getClientId to mediaApi mock
-					const mockGetClientId = jest.fn().mockReturnValue(clientIdPromise);
-					(mediaApi as any).getClientId = mockGetClientId;
-
-					const { result } = renderHook(useFilePreview, {
-						wrapper: ({ children }) => (
-							<MockedMediaClientProvider>{children}</MockedMediaClientProvider>
-						),
-						initialProps: {
-							identifier,
-						},
-					});
-
-					// Wait for preview to be complete (before clientId is available)
-					await waitFor(() => expect(result?.current.status).toBe('complete'));
-
-					// Verify preview exists but doesn't have clientId yet
-					expect(result?.current.preview?.dataURI).not.toContain('clientId=');
-
-					// Now resolve the clientId
-					resolveClientId('delayed-client-id');
-
-					// Wait for preview to be updated with clientId
-					await waitFor(() =>
-						expect(result?.current.preview?.dataURI).toContain('clientId=delayed-client-id'),
-					);
+				const { result } = renderHook(useFilePreview, {
+					wrapper: ({ children }) => (
+						<MockedMediaClientProvider>{children}</MockedMediaClientProvider>
+					),
+					initialProps: {
+						identifier,
+					},
 				});
 
-				it('should handle clientId unavailable gracefully', async () => {
-					const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
-					const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
-						initialItems: fileItem,
-					});
+				// Wait for clientId to be fetched
+				await waitFor(() =>
+					expect(mockGetClientId).toHaveBeenCalledWith(identifier.collectionName),
+				);
 
-					// Return undefined instead of rejecting to simulate clientId not being available
-					const mockGetClientId = jest.fn().mockResolvedValue(undefined);
-					(mediaApi as any).getClientId = mockGetClientId;
+				// Wait for preview to be complete
+				await waitFor(() => expect(result?.current.status).toBe('complete'));
 
-					const { result } = renderHook(useFilePreview, {
-						wrapper: ({ children }) => (
-							<MockedMediaClientProvider>{children}</MockedMediaClientProvider>
-						),
-						initialProps: {
-							identifier,
-						},
-					});
+				// Verify clientId is in the blob URL
+				expect(result?.current.preview?.dataURI).toContain('clientId=test-client-id');
+			});
 
-					// Wait for clientId fetch to complete
-					await waitFor(() => expect(mockGetClientId).toHaveBeenCalled());
-
-					// Wait for preview to be complete
-					await waitFor(() => expect(result?.current.status).toBe('complete'));
-
-					// Preview should still work without clientId
-					expect(result?.current.preview?.dataURI).toBeDefined();
-					expect(result?.current.preview?.dataURI).not.toContain('clientId=');
+			it('should update preview with clientId when clientId becomes available after preview', async () => {
+				const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+				const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
+					initialItems: fileItem,
 				});
-			},
-		);
+
+				let resolveClientId: (value: string) => void = () => {};
+				const clientIdPromise = new Promise<string>((resolve) => {
+					resolveClientId = resolve;
+				});
+
+				// Add getClientId to mediaApi mock
+				const mockGetClientId = jest.fn().mockReturnValue(clientIdPromise);
+				(mediaApi as any).getClientId = mockGetClientId;
+
+				const { result } = renderHook(useFilePreview, {
+					wrapper: ({ children }) => (
+						<MockedMediaClientProvider>{children}</MockedMediaClientProvider>
+					),
+					initialProps: {
+						identifier,
+					},
+				});
+
+				// Wait for preview to be complete (before clientId is available)
+				await waitFor(() => expect(result?.current.status).toBe('complete'));
+
+				// Verify preview exists but doesn't have clientId yet
+				expect(result?.current.preview?.dataURI).not.toContain('clientId=');
+
+				// Now resolve the clientId
+				resolveClientId('delayed-client-id');
+
+				// Wait for preview to be updated with clientId
+				await waitFor(() =>
+					expect(result?.current.preview?.dataURI).toContain('clientId=delayed-client-id'),
+				);
+			});
+
+			it('should handle clientId unavailable gracefully', async () => {
+				const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+				const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
+					initialItems: fileItem,
+				});
+
+				// Return undefined instead of rejecting to simulate clientId not being available
+				const mockGetClientId = jest.fn().mockResolvedValue(undefined);
+				(mediaApi as any).getClientId = mockGetClientId;
+
+				const { result } = renderHook(useFilePreview, {
+					wrapper: ({ children }) => (
+						<MockedMediaClientProvider>{children}</MockedMediaClientProvider>
+					),
+					initialProps: {
+						identifier,
+					},
+				});
+
+				// Wait for clientId fetch to complete
+				await waitFor(() => expect(mockGetClientId).toHaveBeenCalled());
+
+				// Wait for preview to be complete
+				await waitFor(() => expect(result?.current.status).toBe('complete'));
+
+				// Preview should still work without clientId
+				expect(result?.current.preview?.dataURI).toBeDefined();
+				expect(result?.current.preview?.dataURI).not.toContain('clientId=');
+			});
+		});
 
 		ffTest.off(
 			'platform_media_cross_client_copy_with_auth',

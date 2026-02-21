@@ -94,7 +94,8 @@ function randomPresenceState() {
 
 export const getPersonAvatarUrl: (identity: string) => string = (identity: string) =>
 	`http://api.adorable.io/avatar/32/${identity}`;
-export const getContainerAvatarUrl: (idx: number) => string = (idx: number) => `http://lorempixel.com/32/32/nature/${idx}`;
+export const getContainerAvatarUrl: (idx: number) => string = (idx: number) =>
+	`http://lorempixel.com/32/32/nature/${idx}`;
 
 function randomProduct() {
 	const products = ['jira', 'confluence'];

@@ -107,7 +107,10 @@ test.describe('React UFO: isTabThrottled detection - throttled tab scenario with
 			// Inject a fake throttle measurement that indicates the tab was throttled
 			await page.evaluate((currentTime) => {
 				const hiddenTiming = (window as any).__reactUfoHiddenTiming;
-				if (hiddenTiming && typeof hiddenTiming.__injectThrottleMeasurementForTesting === 'function') {
+				if (
+					hiddenTiming &&
+					typeof hiddenTiming.__injectThrottleMeasurementForTesting === 'function'
+				) {
 					// Inject a measurement at a time that will be within the next interaction's time window
 					hiddenTiming.__injectThrottleMeasurementForTesting({
 						time: currentTime + 100, // slightly in the future to be within the upcoming interaction

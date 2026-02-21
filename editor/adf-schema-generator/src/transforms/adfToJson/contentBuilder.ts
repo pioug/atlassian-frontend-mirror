@@ -105,7 +105,9 @@ export function processContentTypes(contentTypes: string[]): JSONSchema4 | undef
 	}
 }
 
-export function processContentGroups(content: Array<ContentVisitorReturnType>): (JSONSchema4 | undefined)[] {
+export function processContentGroups(
+	content: Array<ContentVisitorReturnType>,
+): (JSONSchema4 | undefined)[] {
 	return content.map((item) => processContentTypes(item.contentTypes)).filter(Boolean);
 }
 

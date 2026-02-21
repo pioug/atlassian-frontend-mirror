@@ -307,7 +307,11 @@ export function getCss({
 }
 
 // inline-flex child
-export function getIconStyle({ spacing }: { spacing: Spacing }): import("@emotion/react").SerializedStyles {
+export function getIconStyle({
+	spacing,
+}: {
+	spacing: Spacing;
+}): import('@emotion/react').SerializedStyles {
 	return css({
 		display: 'flex',
 		// icon size cannot grow and shrink
@@ -325,7 +329,11 @@ export function getIconStyle({ spacing }: { spacing: Spacing }): import("@emotio
 }
 
 // inline-flex child
-export function getContentStyle({ spacing }: { spacing: Spacing }): import("@emotion/react").SerializedStyles {
+export function getContentStyle({
+	spacing,
+}: {
+	spacing: Spacing;
+}): import('@emotion/react').SerializedStyles {
 	return css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		margin: spacing === 'none' ? 0 : innerMargin.content,
@@ -341,7 +349,11 @@ export function getContentStyle({ spacing }: { spacing: Spacing }): import("@emo
 	});
 }
 
-export function getFadingCss({ hasOverlay }: { hasOverlay: boolean }): import("@emotion/react").SerializedStyles {
+export function getFadingCss({
+	hasOverlay,
+}: {
+	hasOverlay: boolean;
+}): import('@emotion/react').SerializedStyles {
 	return css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		opacity: hasOverlay ? 0 : 1,

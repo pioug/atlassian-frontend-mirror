@@ -130,7 +130,7 @@ export const ToolbarKeyboardNavigationProvider = ({
 					break;
 				}
 				default:
-			};
+			}
 		};
 
 		const globalKeyDownHandler = (event: KeyboardEvent): void => {

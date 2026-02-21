@@ -102,9 +102,16 @@ export interface WithSortedPageRowsProps {
 export default function withSortedPageRows<
 	WrappedComponentProps extends WithSortedPageRowsProps & TableProps,
 	RefType = HTMLTableSectionElement,
->(WrappedComponent: React.ComponentType<WrappedComponentProps>): React.ForwardRefExoticComponent<React.PropsWithoutRef<Omit<WrappedComponentProps & TableProps, "pageRows"> & {
-    forwardedRef?: React.Ref<RefType>;
-}> & React.RefAttributes<RefType>> {
+>(
+	WrappedComponent: React.ComponentType<WrappedComponentProps>,
+): React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<
+		Omit<WrappedComponentProps & TableProps, 'pageRows'> & {
+			forwardedRef?: React.Ref<RefType>;
+		}
+	> &
+		React.RefAttributes<RefType>
+> {
 	type InternalWithSortedPageRowsProps = Omit<WrappedComponentProps & TableProps, 'pageRows'> & {
 		forwardedRef?: React.Ref<RefType>;
 	};

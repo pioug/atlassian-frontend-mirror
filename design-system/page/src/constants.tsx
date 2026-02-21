@@ -5,9 +5,9 @@ export const defaultGridColumns = 12;
 export const defaultGridColumnWidth: number = defaultGridSize * 10;
 
 export const spacingMapping: {
-    readonly comfortable: number;
-    readonly cosy: number;
-    readonly compact: number;
+	readonly comfortable: number;
+	readonly cosy: number;
+	readonly compact: number;
 } = {
 	comfortable: defaultGridSize * 5,
 	cosy: defaultGridSize * 2,

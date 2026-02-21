@@ -77,7 +77,10 @@ const GET_SOURCE_INFO_QUERY = `query ${GET_SOURCE_INFO_OPERATION_NAME} ($id: ID!
 	}
 }`;
 
-const getConfluenceSourceInfo = async (ari: string, status?: string[]): Promise<GetSourceInfoResult> => {
+const getConfluenceSourceInfo = async (
+	ari: string,
+	status?: string[],
+): Promise<GetSourceInfoResult> => {
 	const variables: { id: string; status?: string[] } = {
 		id: ari,
 	};
@@ -187,7 +190,9 @@ export const fetchConfluencePageInfoOld = async (
 ): Promise<SyncBlockSourceInfo | undefined> => {
 	try {
 		const { type: pageType } = getPageIdAndTypeFromConfluencePageAri({ ari: pageAri });
-        const status = fg('platform_synced_block_patch_3') ? ['draft', 'archived', 'current'] : undefined;
+		const status = fg('platform_synced_block_patch_3')
+			? ['draft', 'archived', 'current']
+			: undefined;
 		const response = await getConfluenceSourceInfo(pageAri, status);
 
 		const contentData = response.data?.content?.nodes?.[0];
@@ -236,7 +241,9 @@ export const fetchConfluencePageInfo = async (
 
 	if (hasAccess) {
 		const { type: pageType } = getPageIdAndTypeFromConfluencePageAri({ ari: pageAri });
-		const status = fg('platform_synced_block_patch_3') ? ['draft', 'archived', 'current'] : undefined;
+		const status = fg('platform_synced_block_patch_3')
+			? ['draft', 'archived', 'current']
+			: undefined;
 		const response = await getConfluenceSourceInfo(pageAri, status);
 
 		const contentData = response.data?.content?.nodes?.[0];

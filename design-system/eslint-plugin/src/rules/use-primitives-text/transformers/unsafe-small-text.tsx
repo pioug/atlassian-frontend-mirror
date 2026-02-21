@@ -40,7 +40,7 @@ export const UnsafeSmallText = {
 			return sizeAttribute.value.value === 'UNSAFE_small';
 		}
 
-		return false
+		return false;
 	},
 
 	_fix(node: JSXElement): Rule.ReportFixer {
@@ -53,8 +53,7 @@ export const UnsafeSmallText = {
 				return [valueFix];
 			}
 
-			return [
-			]
+			return [];
 		};
 	},
 };

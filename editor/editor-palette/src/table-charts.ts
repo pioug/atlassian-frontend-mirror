@@ -79,21 +79,24 @@ export type EditorTableChartsPaletteKey = keyof EditorTableChartsPalette;
  */
 const editorTableChartsPalette = {
 	['#7AB2FF']: {
-		getValue: (fallback: string): string => getTokenValue('color.background.accent.blue.subtle', fallback),
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.blue.subtle', fallback),
 		token: token(
 			'color.background.accent.blue.subtle',
 			'#7AB2FF',
 		) as 'var(--ds-background-accent-blue-subtle, #7AB2FF)',
 	},
 	['#60C6D2']: {
-		getValue: (fallback: string): string => getTokenValue('color.background.accent.teal.subtle', fallback),
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.teal.subtle', fallback),
 		token: token(
 			'color.background.accent.teal.subtle',
 			'#60C6D2',
 		) as 'var(--ds-background-accent-teal-subtle, #60C6D2)',
 	},
 	['#6BE1B0']: {
-		getValue: (fallback: string): string => getTokenValue('color.background.accent.green.subtle', fallback),
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.green.subtle', fallback),
 		token: token(
 			'color.background.accent.green.subtle',
 			'#6BE1B0',
@@ -116,7 +119,8 @@ const editorTableChartsPalette = {
 		) as 'var(--ds-background-accent-orange-subtle, #FAA53D)',
 	},
 	['#FF8F73']: {
-		getValue: (fallback: string): string => getTokenValue('color.background.accent.red.subtle', fallback),
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.red.subtle', fallback),
 		token: token(
 			'color.background.accent.red.subtle',
 			'#FF8F73',
@@ -139,7 +143,8 @@ const editorTableChartsPalette = {
 		) as 'var(--ds-background-accent-purple-subtle, #B5A7FB)',
 	},
 	['#8993A5']: {
-		getValue: (fallback: string): string => getTokenValue('color.background.accent.gray.subtler', fallback),
+		getValue: (fallback: string): string =>
+			getTokenValue('color.background.accent.gray.subtler', fallback),
 		token: token(
 			'color.background.accent.gray.subtler',
 			'#8993A5',

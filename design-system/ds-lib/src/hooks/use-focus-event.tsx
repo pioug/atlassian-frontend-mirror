@@ -6,11 +6,11 @@ import { useEffect, useRef, useState } from 'react';
  * - `onFocus` and `onBlur` which when triggered set `isFocused` accordingly.
  */
 export default function useFocus(): {
-    isFocused: boolean;
-    bindFocus: {
-        onFocus: () => void;
-        onBlur: () => void;
-    };
+	isFocused: boolean;
+	bindFocus: {
+		onFocus: () => void;
+		onBlur: () => void;
+	};
 } {
 	const [isFocused, setIsFocused] = useState(false);
 

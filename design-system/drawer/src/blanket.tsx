@@ -23,7 +23,11 @@ const styles = cssMap({
 /**
  * A wrapper around `@atlaskit/blanket` that adds a fade in/out transition.
  */
-const Blanket: ({ isOpen, onBlanketClicked, testId }: BlanketProps) => JSX.Element = ({ isOpen, onBlanketClicked, testId }: BlanketProps) => {
+const Blanket: ({ isOpen, onBlanketClicked, testId }: BlanketProps) => JSX.Element = ({
+	isOpen,
+	onBlanketClicked,
+	testId,
+}: BlanketProps) => {
 	return (
 		<ExitingPersistence appear>
 			{isOpen && (

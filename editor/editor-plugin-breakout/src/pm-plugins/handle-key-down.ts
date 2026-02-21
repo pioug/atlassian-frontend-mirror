@@ -56,8 +56,8 @@ export const handleKeyDown =
 		if (metaKey && event.altKey && isBracketKey) {
 			const { expand, codeBlock, layoutSection } = view.state.schema.nodes;
 			const breakoutResizableNodes = editorExperiment('platform_synced_block', true)
-											? getBreakoutResizableNodeTypes(view.state.schema)
-											: new Set([expand, codeBlock, layoutSection]);
+				? getBreakoutResizableNodeTypes(view.state.schema)
+				: new Set([expand, codeBlock, layoutSection]);
 
 			const result = getAncestorResizableNode(view, breakoutResizableNodes);
 			if (result) {

@@ -9,13 +9,13 @@ type Callee = CallExpression['callee'];
 type Reference = Scope.Reference;
 
 export const CSS_IN_JS_IMPORTS: {
-    readonly compiled: "@compiled/react";
-    readonly emotionReact: "@emotion/react";
-    readonly emotionCore: "@emotion/core";
-    readonly emotionStyled: "@emotion/styled";
-    readonly styledComponents: "styled-components";
-    readonly atlaskitCss: "@atlaskit/css";
-    readonly atlaskitPrimitives: "@atlaskit/primitives";
+	readonly compiled: '@compiled/react';
+	readonly emotionReact: '@emotion/react';
+	readonly emotionCore: '@emotion/core';
+	readonly emotionStyled: '@emotion/styled';
+	readonly styledComponents: 'styled-components';
+	readonly atlaskitCss: '@atlaskit/css';
+	readonly atlaskitPrimitives: '@atlaskit/primitives';
 } = {
 	compiled: '@compiled/react',
 	emotionReact: '@emotion/react',
@@ -49,7 +49,9 @@ export const DEFAULT_IMPORT_SOURCES: ImportSource[] = Object.values(CSS_IN_JS_IM
  * @returns An array of strings representing what CSS-in-JS packages that should be checked, based
  *          on the rule options configuration.
  */
-export const getImportSources: (context: Rule.RuleContext) => ImportSource[] = (context: Rule.RuleContext): ImportSource[] => {
+export const getImportSources: (context: Rule.RuleContext) => ImportSource[] = (
+	context: Rule.RuleContext,
+): ImportSource[] => {
 	// TODO: JFP-2823 - this type cast was added due to Jira's ESLint v9 migration
 	const { options } = context as Omit<Rule.RuleContext, 'options'> & {
 		options: Array<{ importSources?: ImportSource[] }>;
@@ -174,12 +176,18 @@ export const hasStyleObjectArguments: SupportedNameChecker = (node, references, 
 		return checker(node, references, importSources);
 	});
 
-export const isImportedFrom: (moduleName: string, exactMatch?: boolean) => (nodeToCheck: Callee, referencesInScope: Reference[], 
-/**
- * If we strictly have specific import sources in the config scope, pass them to make this more performant.
- * Pass `null` if you don't care if its configured or not.
- */
-importSources?: ImportSource[] | null) => boolean =
+export const isImportedFrom: (
+	moduleName: string,
+	exactMatch?: boolean,
+) => (
+	nodeToCheck: Callee,
+	referencesInScope: Reference[],
+	/**
+	 * If we strictly have specific import sources in the config scope, pass them to make this more performant.
+	 * Pass `null` if you don't care if its configured or not.
+	 */
+	importSources?: ImportSource[] | null,
+) => boolean =
 	(moduleName: string, exactMatch = true) =>
 	(
 		nodeToCheck: Callee,
@@ -227,7 +235,23 @@ importSources?: ImportSource[] | null) => boolean =
  *
  * This can be cleaned up when `'styled-components'` is no longer a valid ImportSource.
  */
-export const isStyledComponents: (nodeToCheck: Callee, referencesInScope: Reference[], importSources?: ImportSource[] | null) => boolean = isImportedFrom('styled-components');
-export const isCompiled: (nodeToCheck: Callee, referencesInScope: Reference[], importSources?: ImportSource[] | null) => boolean = isImportedFrom('@compiled/', false);
-export const isEmotion: (nodeToCheck: Callee, referencesInScope: Reference[], importSources?: ImportSource[] | null) => boolean = isImportedFrom('@emotion/', false);
-export const isAtlasKitCSS: (nodeToCheck: Callee, referencesInScope: Reference[], importSources?: ImportSource[] | null) => boolean = isImportedFrom('@atlaskit/css', false);
+export const isStyledComponents: (
+	nodeToCheck: Callee,
+	referencesInScope: Reference[],
+	importSources?: ImportSource[] | null,
+) => boolean = isImportedFrom('styled-components');
+export const isCompiled: (
+	nodeToCheck: Callee,
+	referencesInScope: Reference[],
+	importSources?: ImportSource[] | null,
+) => boolean = isImportedFrom('@compiled/', false);
+export const isEmotion: (
+	nodeToCheck: Callee,
+	referencesInScope: Reference[],
+	importSources?: ImportSource[] | null,
+) => boolean = isImportedFrom('@emotion/', false);
+export const isAtlasKitCSS: (
+	nodeToCheck: Callee,
+	referencesInScope: Reference[],
+	importSources?: ImportSource[] | null,
+) => boolean = isImportedFrom('@atlaskit/css', false);

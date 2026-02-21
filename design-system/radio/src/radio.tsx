@@ -255,7 +255,10 @@ const InnerRadio: React.ForwardRefExoticComponent<
 					// New path: conditionally apply styles based on props
 					!isDisabled && fg('platform-radio-atomic-styles') && radioInteractiveStyles,
 					isDisabled && fg('platform-radio-atomic-styles') && radioDisabledStyles,
-					isDisabled && isChecked && fg('platform-radio-atomic-styles') && radioDisabledCheckedStyles,
+					isDisabled &&
+						isChecked &&
+						fg('platform-radio-atomic-styles') &&
+						radioDisabledCheckedStyles,
 					isInvalid && !isDisabled && fg('platform-radio-atomic-styles') && radioInvalidStyles,
 				]}
 				ref={ref}

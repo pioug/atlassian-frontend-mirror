@@ -23,8 +23,8 @@ export default function useHandleDateSelect({
 	onSelect: (event: SelectEvent) => void;
 	navigate: (type: ArrowKeys) => void;
 }): {
-    handleClickDay: ({ year, month, day }: DateObj) => void;
-    handleContainerKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
+	handleClickDay: ({ year, month, day }: DateObj) => void;
+	handleContainerKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
 } {
 	const dateRef = useRef({
 		day: dayValue,

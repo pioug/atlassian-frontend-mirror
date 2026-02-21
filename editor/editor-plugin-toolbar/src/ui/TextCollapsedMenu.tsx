@@ -24,7 +24,9 @@ export const TextCollapsedMenu = ({ children }: TextStylesMenuButtonProps): Reac
 					<TextIcon label={formatMessage(toolbarMessages.textStylesTooltip)} size="small" />
 				}
 				enableMaxHeight
-				tooltipComponent={<ToolbarTooltip content={formatMessage(toolbarMessages.textStylesTooltip)}/>}
+				tooltipComponent={
+					<ToolbarTooltip content={formatMessage(toolbarMessages.textStylesTooltip)} />
+				}
 			>
 				{children}
 			</ToolbarDropdownMenu>

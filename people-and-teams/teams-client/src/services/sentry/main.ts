@@ -32,7 +32,11 @@ function decorateScope(scope: Scope, context: Context): Scope {
 	return scope;
 }
 
-export async function logException(ex: Error | unknown, name: string, context: Context = {}): Promise<void> {
+export async function logException(
+	ex: Error | unknown,
+	name: string,
+	context: Context = {},
+): Promise<void> {
 	try {
 		const sentryClient = await getSentryClient();
 		if (!sentryClient || typeof sentryClient.captureException !== 'function') {

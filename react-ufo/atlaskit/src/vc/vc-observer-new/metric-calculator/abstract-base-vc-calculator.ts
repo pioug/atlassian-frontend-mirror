@@ -38,8 +38,8 @@ type EnhancedVcLogEntry = {
 
 // Helper function for reporting ratios
 function roundDecimal(value: number, decimals: number = 3): number {
-  const factor = Math.pow(10, decimals);
-  return Math.round(value * factor) / factor;
+	const factor = Math.pow(10, decimals);
+	return Math.round(value * factor) / factor;
 }
 
 export default abstract class AbstractVCCalculatorBase implements VCCalculator {
@@ -155,11 +155,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 			for (const entry of vcLogs) {
 				const { time, viewportPercentage, entries } = entry;
 
-				if (
-					includeSSRRatio &&
-					ssrRatio === -1 &&
-					entries.some((e) => e.elementName === 'SSR')
-				) {
+				if (includeSSRRatio && ssrRatio === -1 && entries.some((e) => e.elementName === 'SSR')) {
 					ssrRatio = viewportPercentage;
 				}
 
@@ -221,10 +217,10 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		// Only calculate enhanced debug details if devtool callbacks exist
 
 		const shouldCalculateDebugDetails =
-				!isPostInteraction &&
-				(typeof window?.__ufo_devtool_onVCRevisionReady__ === 'function' ||
-					typeof window?.__on_ufo_vc_debug_data_ready === 'function' ||
-					typeof window?.__ufo_devtool_vc_3p_debug_data === 'function');
+			!isPostInteraction &&
+			(typeof window?.__ufo_devtool_onVCRevisionReady__ === 'function' ||
+				typeof window?.__on_ufo_vc_debug_data_ready === 'function' ||
+				typeof window?.__ufo_devtool_vc_3p_debug_data === 'function');
 
 		if (shouldCalculateDebugDetails && allEntries && vcLogs) {
 			// Pre-sort vcLogs by time for efficient lookups

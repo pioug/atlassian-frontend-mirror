@@ -12,7 +12,7 @@ export type DonutChartProps = PieChartProps & {
 	/**
 	 * Adds a border onto the chart. Defaults to true.
 	 */
-	showBorder?: boolean; 
+	showBorder?: boolean;
 };
 
 /**

@@ -7,7 +7,8 @@ import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equ
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 
 export const handleMouseDown =
-	(api?: ExtractInjectionAPI<BlockControlsPlugin>) => (view: EditorView, event: MouseEvent): boolean => {
+	(api?: ExtractInjectionAPI<BlockControlsPlugin>) =>
+	(view: EditorView, event: MouseEvent): boolean => {
 		if (!(event.target instanceof HTMLElement)) {
 			return false;
 		}

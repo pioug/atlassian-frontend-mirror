@@ -6,9 +6,7 @@ import { useMutation, graphql } from 'react-relay';
 import Button from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import {
-	type SyncBlockProduct,
-} from '@atlaskit/editor-synced-block-provider';
+import { type SyncBlockProduct } from '@atlaskit/editor-synced-block-provider';
 import Heading from '@atlaskit/heading';
 import StatusSuccessIcon from '@atlaskit/icon/core/status-success';
 import Image from '@atlaskit/image';
@@ -44,7 +42,11 @@ export interface SyncedBlockPermissionDeniedProps {
 	sourceProduct: SyncBlockProduct;
 }
 
-const SyncedBlockPermissionDeniedConfluencePage = ({ sourceContentId }: { sourceContentId: string }) => {
+const SyncedBlockPermissionDeniedConfluencePage = ({
+	sourceContentId,
+}: {
+	sourceContentId: string;
+}) => {
 	const { formatMessage } = useIntl();
 	const [requestAccessState, setRequestAccessState] = useState<RequestAccessState>(
 		RequestAccessState.default,
@@ -87,14 +89,23 @@ const SyncedBlockPermissionDeniedConfluencePage = ({ sourceContentId }: { source
 
 	return (
 		<Box xcss={styles.wrapper}>
-			<Image src={PermissionDenied} alt={formatMessage(messages.permissionDeniedAltText)} width="48" height="48" />
-			<Stack space='space.100'>
+			<Image
+				src={PermissionDenied}
+				alt={formatMessage(messages.permissionDeniedAltText)}
+				width="48"
+				height="48"
+			/>
+			<Stack space="space.100">
 				<Heading size="xsmall">{formatMessage(messages.permissionDeniedHeading)}</Heading>
 				<Text color="color.text.subtle">{formatMessage(messages.permissionDeniedDescription)}</Text>
 				{requestAccessState === RequestAccessState.pending ? (
 					<Flex columnGap="space.050" alignItems="center">
 						<StatusSuccessIcon size="small" color={token('color.icon.subtle')} label="" />
-						<Text color="color.text.subtlest" weight="bold" testId="sync-block-access-requested-msg">
+						<Text
+							color="color.text.subtlest"
+							weight="bold"
+							testId="sync-block-access-requested-msg"
+						>
 							{formatMessage(messages.accessRequested)}
 						</Text>
 					</Flex>

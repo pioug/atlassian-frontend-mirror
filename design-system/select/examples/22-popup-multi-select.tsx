@@ -16,7 +16,7 @@ const options: OptionsType = [
 	{ label: 'Sydney', value: 'sydney' },
 ];
 
-const defaults = { options, placeholder: "" };
+const defaults = { options, placeholder: '' };
 
 interface State {
 	values: OptionsType;

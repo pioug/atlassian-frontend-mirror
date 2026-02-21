@@ -180,7 +180,7 @@ export const tryRebuildCompleteTableHtml = (incompleteTableHtml: string): string
 
 	const didPreserveTableElements = Boolean(
 		!nonTableWrappedDoc.body.querySelector('th, td') &&
-			tableWrappedDoc.body.querySelector('th, td'),
+		tableWrappedDoc.body.querySelector('th, td'),
 	);
 
 	const isExpectedStructure =

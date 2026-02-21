@@ -113,7 +113,7 @@ snapshot(InlineCardTextWrap, {
 snapshot(InlineCardError, {
 	description: 'inline card error view',
 	featureFlags: {
-		'navx-2565-inline-card-error-state-underline': true
+		'navx-2565-inline-card-error-state-underline': true,
 	},
 });
 snapshot(InlineCardError, {

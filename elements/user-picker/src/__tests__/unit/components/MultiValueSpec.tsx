@@ -28,7 +28,7 @@ const mockHtmlElement = (rect: Partial<DOMRect>): HTMLDivElement =>
 	({
 		getBoundingClientRect: jest.fn(() => rect),
 		scrollIntoView: jest.fn(),
-	} as any);
+	}) as any;
 
 describe('MultiValue', () => {
 	const data = {

@@ -69,8 +69,8 @@ export const reduceMotionAsPerUserPreference = {
  * You should hardcode the `prefers-reduced-motion` media query in your file instead.
  */
 export const prefersReducedMotion = (): {
-    readonly '@media (prefers-reduced-motion: reduce)': {
-        readonly animation: "none";
-        readonly transition: "none";
-    };
+	readonly '@media (prefers-reduced-motion: reduce)': {
+		readonly animation: 'none';
+		readonly transition: 'none';
+	};
 } => reduceMotionAsPerUserPreference;

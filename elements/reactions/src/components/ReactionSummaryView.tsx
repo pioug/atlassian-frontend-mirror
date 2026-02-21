@@ -44,7 +44,8 @@ const styles = cssMap({
 export const RENDER_SUMMARY_VIEW_POPUP_TESTID = 'render-summary-view-popup';
 
 interface ReactionSummaryViewProps
-	extends Pick<
+	extends
+		Pick<
 			ReactionsProps,
 			| 'emojiProvider'
 			| 'reactions'

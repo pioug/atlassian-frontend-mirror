@@ -1,13 +1,13 @@
-import type {
-    ADFCommonNodeSpec,
-    ADFNode} from '@atlaskit/adf-schema-generator';
+import type { ADFCommonNodeSpec, ADFNode } from '@atlaskit/adf-schema-generator';
 import {
 	adfNode,
 	ValidatorSpecTransformerName,
-	JSONSchemaTransformerName
+	JSONSchemaTransformerName,
 } from '@atlaskit/adf-schema-generator';
 
-export const confluenceUnsupportedBlock: ADFNode<[string], ADFCommonNodeSpec> = adfNode('confluenceUnsupportedBlock').define({
+export const confluenceUnsupportedBlock: ADFNode<[string], ADFCommonNodeSpec> = adfNode(
+	'confluenceUnsupportedBlock',
+).define({
 	ignore: [JSONSchemaTransformerName, ValidatorSpecTransformerName],
 
 	attrs: {

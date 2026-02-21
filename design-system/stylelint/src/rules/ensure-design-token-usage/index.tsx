@@ -17,10 +17,10 @@ export const ruleName = 'design-system/ensure-design-token-usage';
 
 const tokenUrl = 'https://atlassian.design/components/tokens/examples';
 export const messages: {
-    noHardcodedColors: string;
-    noHardcodedSpacing: string;
-    noHardcodedTypography: string;
-    noNonTokenVars: string;
+	noHardcodedColors: string;
+	noHardcodedSpacing: string;
+	noHardcodedTypography: string;
+	noNonTokenVars: string;
 } = stylelint.utils.ruleMessages(ruleName, {
 	noHardcodedColors: `Color values should be design tokens. See ${tokenUrl} for guidance.`,
 	noHardcodedSpacing: `Spacing values should be design tokens. See ${tokenUrl} for guidance.`,

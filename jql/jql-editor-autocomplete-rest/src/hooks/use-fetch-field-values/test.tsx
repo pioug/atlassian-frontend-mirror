@@ -3,17 +3,13 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { getAutocompleteSuggestionsUrl } from './index';
 
 describe('getAutocompleteSuggestionsUrl', () => {
-	ffTest.both(
-		'empanada_jql_editor_uri_encode_suggestions_params',
-		'default cases',
-		() => {
-			it('should return the correct url', () => {
-				expect(getAutocompleteSuggestionsUrl('testField', 'testQuery')).toBe(
-					'/rest/api/latest/jql/autocompletedata/suggestions?fieldName=testField&fieldValue=testQuery',
-				);
-			});
-		}
-	);
+	ffTest.both('empanada_jql_editor_uri_encode_suggestions_params', 'default cases', () => {
+		it('should return the correct url', () => {
+			expect(getAutocompleteSuggestionsUrl('testField', 'testQuery')).toBe(
+				'/rest/api/latest/jql/autocompletedata/suggestions?fieldName=testField&fieldValue=testQuery',
+			);
+		});
+	});
 
 	ffTest.on(
 		'empanada_jql_editor_uri_encode_suggestions_params',

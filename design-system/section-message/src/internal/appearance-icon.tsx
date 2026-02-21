@@ -47,25 +47,20 @@ const appearanceIconSchema: {
 	},
 };
 
-export function getAppearanceIconStyles(appearance: Appearance, icon: SectionMessageProps['icon']): {
-    Icon: React.ElementType<any, keyof React.JSX.IntrinsicElements> | (({ primaryColor, }: {
-        primaryColor: string;
-    }) => React.JSX.Element);
-    backgroundColor: string;
-    primaryIconColor: string;
-    LegacyFallbackIcon?: ComponentType<any>;
+export function getAppearanceIconStyles(
+	appearance: Appearance,
+	icon: SectionMessageProps['icon'],
+): {
+	Icon:
+		| React.ElementType<any, keyof React.JSX.IntrinsicElements>
+		| (({ primaryColor }: { primaryColor: string }) => React.JSX.Element);
+	backgroundColor: string;
+	primaryIconColor: string;
+	LegacyFallbackIcon?: ComponentType<any>;
 } {
 	const appearanceIconStyles = appearanceIconSchema[appearance] || appearanceIconSchema.information;
-	const AppearanceIcon = ({
-		primaryColor,
-	}: {
-		primaryColor: string;
-	}): React.JSX.Element => (
-		<appearanceIconStyles.Icon
-			color={primaryColor}
-			spacing="spacious"
-			label={appearance}
-		/>
+	const AppearanceIcon = ({ primaryColor }: { primaryColor: string }): React.JSX.Element => (
+		<appearanceIconStyles.Icon color={primaryColor} spacing="spacious" label={appearance} />
 	);
 	const Icon = icon || AppearanceIcon;
 

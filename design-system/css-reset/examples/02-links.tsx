@@ -13,7 +13,7 @@ import Link from '@atlaskit/link';
  */
 export default (): React.JSX.Element => (
 	<>
-		<Banner appearance="warning" icon={<WarningIcon spacing="spacious" label="Warning"  />}>
+		<Banner appearance="warning" icon={<WarningIcon spacing="spacious" label="Warning" />}>
 			You should not rely on the default styles of links in your application. Use the{' '}
 			<Link href="https://atlassian.design/components/link/examples">Link component</Link> instead.
 		</Banner>

@@ -20,7 +20,10 @@ export { default as Focusable } from './components/focusable';
 export type { FocusableProps } from './components/focusable';
 
 // TODO: This is still not figured out from before…
-export { useSurface as UNSAFE_useSurface, SurfaceContext as UNSAFE_SurfaceContext } from '../utils/surface-provider';
+export {
+	useSurface as UNSAFE_useSurface,
+	SurfaceContext as UNSAFE_SurfaceContext,
+} from '../utils/surface-provider';
 
 export type { BackgroundColorToken as BackgroundColor } from '../utils/types';
 

@@ -9,8 +9,8 @@ import { token } from '@atlaskit/tokens';
 const _default_1: any = md`
 
   ${createEditorUseOnlyNotice('Editor Plugin Avatar Group', [
-	{ name: 'Editor Core', link: '/packages/editor/editor-core' },
-])}
+		{ name: 'Editor Core', link: '/packages/editor/editor-core' },
+	])}
 
   ${(
 		<>

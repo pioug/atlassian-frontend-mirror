@@ -1,7 +1,7 @@
 const supported: {
-    values: {
-        ignore: string[];
-    };
+	values: {
+		ignore: string[];
+	};
 } = {
 	values: {
 		ignore: [

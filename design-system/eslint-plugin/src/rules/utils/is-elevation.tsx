@@ -26,10 +26,12 @@ const legacyElevation: Record<
 	},
 };
 
-export const isLegacyElevation: (name: string) => false | {
-    background: keyof typeof tokens;
-    shadow: keyof typeof tokens;
-} = (name: string) => {
+export const isLegacyElevation: (name: string) =>
+	| false
+	| {
+			background: keyof typeof tokens;
+			shadow: keyof typeof tokens;
+	  } = (name: string) => {
 	if (Object.keys(legacyElevation).includes(name)) {
 		return legacyElevation[name];
 	}

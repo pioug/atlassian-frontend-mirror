@@ -314,9 +314,7 @@ describe('InlineEdit component', () => {
 				/>,
 			);
 
-			expect(
-				screen.getByRole('button', { name: 'Edit, Team name, edit' }),
-			).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: 'Edit, Team name, edit' })).toBeInTheDocument();
 		});
 	});
 
@@ -391,7 +389,9 @@ describe('InlineEdit component', () => {
 					<InlineEdit
 						defaultValue={defaultValue}
 						label="Inline edit"
-						editView={({ errorMessage: _errorMessage, ...fieldProps }) => <Textfield {...fieldProps} autoFocus />}
+						editView={({ errorMessage: _errorMessage, ...fieldProps }) => (
+							<Textfield {...fieldProps} autoFocus />
+						)}
 						readView={() => <span>{defaultValue || 'Click to enter value'}</span>}
 						onConfirm={onConfirm}
 						testId="test"

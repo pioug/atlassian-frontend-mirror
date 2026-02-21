@@ -1,5 +1,12 @@
 # @atlaskit/renderer
 
+## 126.10.0
+
+### Minor Changes
+
+- [`cf045c04cbad9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf045c04cbad9) -
+  [ux] Fix renderer nested table sticky header behaviour and reenable
+
 ## 126.9.5
 
 ### Patch Changes

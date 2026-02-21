@@ -19,14 +19,14 @@ export function markBlockAsInline({
 	function isInlineBodiedExtension(node?: PMNode | null): boolean {
 		return Boolean(
 			node?.type.name === 'bodiedExtension' &&
-				shouldDisplayExtensionAsInline({
-					type: node.type.name,
-					extensionKey: node.attrs?.extensionKey,
-					extensionType: node.attrs?.extensionType,
-					parameters: node.attrs?.parameters,
-					content: node.content,
-					localId: node.attrs?.localId,
-				}),
+			shouldDisplayExtensionAsInline({
+				type: node.type.name,
+				extensionKey: node.attrs?.extensionKey,
+				extensionType: node.attrs?.extensionType,
+				parameters: node.attrs?.parameters,
+				content: node.content,
+				localId: node.attrs?.localId,
+			}),
 		);
 	}
 

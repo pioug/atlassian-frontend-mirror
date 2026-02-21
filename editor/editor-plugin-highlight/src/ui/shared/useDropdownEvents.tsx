@@ -45,7 +45,13 @@ export const useDropdownEvents = (args: UseDropdownEventArgs) => {
 				toolbarItemRef?.current?.focus();
 			}
 		},
-		handleColorChange: ({ color, inputMethod }: { color: string; inputMethod: INPUT_METHOD }): void => {
+		handleColorChange: ({
+			color,
+			inputMethod,
+		}: {
+			color: string;
+			inputMethod: INPUT_METHOD;
+		}): void => {
 			pluginInjectionApi?.core?.actions.execute(
 				changeColor(pluginInjectionApi?.analytics?.actions)({
 					color,

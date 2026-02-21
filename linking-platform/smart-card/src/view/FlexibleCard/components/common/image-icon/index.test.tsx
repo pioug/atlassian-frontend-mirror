@@ -82,8 +82,9 @@ describe('ImageIcon', () => {
 						url="https://example.com/image2.png"
 						testId="image-test"
 						hideLoadingSkeleton={true}
-					/>,
-				</IntlProvider>
+					/>
+					,
+				</IntlProvider>,
 			);
 			expect(screen.queryByTestId('default-icon')).not.toBeInTheDocument();
 			expect(screen.getByRole('presentation')).toBeInTheDocument();

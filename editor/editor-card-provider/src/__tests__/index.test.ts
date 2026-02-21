@@ -1581,59 +1581,17 @@ describe('providers > editor', () => {
 			setupEditorExperiments('test', {});
 		});
 
-		ffTest.on(
-			'platform_sl_3p_unauth_paste_as_block_card_gate',
-			'when feature flag is on',
-			() => {
-				it.each<EditorExperimentsConfig['platform_sl_3p_unauth_paste_as_block_card']['defaultValue']>([
-					'control',
-					'card_by_default_only',
-					'card_by_default_and_new_design',
-				])(
-					'should fire exposure for %s variant when unauthorized 3P link is inserted',
-					async (variant) => {
-						mockGetExperimentValue.mockImplementation((experimentName, _param, defaultValue) => {
-							if (experimentName === 'platform_sl_3p_unauth_paste_as_block_card') {
-								return variant;
-							}
-							// Return default value for other experiments
-							return defaultValue;
-						});
-
-						// Mock CardClient.fetchData to return unauthorized response
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any
-						mockCardClientFetchData.mockResolvedValue(mocks.unauthorized as any);
-
-						const url = getUniqueURL('https://drive.google.com/file/d/123/view?usp=sharing');
-						const provider = new EditorCardProvider();
-
-						mockFetch.mockResolvedValueOnce({
-							json: async () => getMockProvidersResponse(),
-							ok: true,
-						});
-
-						await provider.resolve(url, 'inline', false, true);
-
-						expect(mockGetExperimentValue).toHaveBeenCalledWith(
-							'platform_sl_3p_unauth_paste_as_block_card',
-							'cohort',
-							'control',
-							{ fireExperimentExposure: true },
-						);
-					},
-				);
-			},
-		);
-
-		ffTest.off(
-			'platform_sl_3p_unauth_paste_as_block_card_gate',
-			'when feature flag is off',
-			() => {
-				const setup = async () => {
+		ffTest.on('platform_sl_3p_unauth_paste_as_block_card_gate', 'when feature flag is on', () => {
+			it.each<EditorExperimentsConfig['platform_sl_3p_unauth_paste_as_block_card']['defaultValue']>(
+				['control', 'card_by_default_only', 'card_by_default_and_new_design'],
+			)(
+				'should fire exposure for %s variant when unauthorized 3P link is inserted',
+				async (variant) => {
 					mockGetExperimentValue.mockImplementation((experimentName, _param, defaultValue) => {
 						if (experimentName === 'platform_sl_3p_unauth_paste_as_block_card') {
-							return 'card_by_default_only';
+							return variant;
 						}
+						// Return default value for other experiments
 						return defaultValue;
 					});
 
@@ -1649,28 +1607,60 @@ describe('providers > editor', () => {
 						ok: true,
 					});
 
-					const adf = await provider.resolve(url, 'inline', false, true);
+					await provider.resolve(url, 'inline', false, true);
 
-					return { url, adf };
-				};
-
-				it('should not return block card even with treatment variant', async () => {
-					const { url, adf } = await setup();
-
-					expect(adf).toEqual(expectedInlineAdf(url));
-				});
-
-				it('should not fire experiment exposure', async () => {
-					await setup();
-
-					expect(mockGetExperimentValue).not.toHaveBeenCalledWith(
+					expect(mockGetExperimentValue).toHaveBeenCalledWith(
 						'platform_sl_3p_unauth_paste_as_block_card',
 						'cohort',
 						'control',
 						{ fireExperimentExposure: true },
 					);
+				},
+			);
+		});
+
+		ffTest.off('platform_sl_3p_unauth_paste_as_block_card_gate', 'when feature flag is off', () => {
+			const setup = async () => {
+				mockGetExperimentValue.mockImplementation((experimentName, _param, defaultValue) => {
+					if (experimentName === 'platform_sl_3p_unauth_paste_as_block_card') {
+						return 'card_by_default_only';
+					}
+					return defaultValue;
 				});
-			},
-		);
+
+				// Mock CardClient.fetchData to return unauthorized response
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				mockCardClientFetchData.mockResolvedValue(mocks.unauthorized as any);
+
+				const url = getUniqueURL('https://drive.google.com/file/d/123/view?usp=sharing');
+				const provider = new EditorCardProvider();
+
+				mockFetch.mockResolvedValueOnce({
+					json: async () => getMockProvidersResponse(),
+					ok: true,
+				});
+
+				const adf = await provider.resolve(url, 'inline', false, true);
+
+				return { url, adf };
+			};
+
+			it('should not return block card even with treatment variant', async () => {
+				const { url, adf } = await setup();
+
+				expect(adf).toEqual(expectedInlineAdf(url));
+			});
+
+			it('should not fire experiment exposure', async () => {
+				await setup();
+
+				expect(mockGetExperimentValue).not.toHaveBeenCalledWith(
+					'platform_sl_3p_unauth_paste_as_block_card',
+					'cohort',
+					'control',
+					{ fireExperimentExposure: true },
+				);
+			});
+		});
 	});
 });

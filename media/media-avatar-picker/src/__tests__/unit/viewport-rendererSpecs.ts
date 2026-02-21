@@ -46,9 +46,7 @@ describe('Viewport Renderer', () => {
 		const toDataURL = getCanvasMock.canvas.toDataURL! as jest.Mock;
 		toDataURL.mockReturnValue('some-data-url');
 
-		jest.mocked(getCanvas).mockImplementation(() =>
-			getCanvasMock as any,
-		);
+		jest.mocked(getCanvas).mockImplementation(() => getCanvasMock as any);
 	});
 
 	/* test the combinations of translate, scale, rotate required to achieve the orientation transforms */

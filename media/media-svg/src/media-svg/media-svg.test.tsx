@@ -5,7 +5,6 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
-
 import * as svgRendererModule from '../media-svg/svgRenderer-compiled';
 import { failDataURIConversionOnce } from '../test-helpers';
 

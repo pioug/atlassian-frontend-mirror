@@ -10,8 +10,8 @@ import { type MutableRefObject, useEffect, useRef, useState } from 'react';
  * @returns Scrollbar width of the container and the element ref.
  */
 export default function useScrollbarWidth(): {
-    width: number;
-    ref: MutableRefObject<HTMLDivElement | null>;
+	width: number;
+	ref: MutableRefObject<HTMLDivElement | null>;
 } {
 	const [scrollbarWidth, setScrollbarWidth] = useState(0);
 	const elementRef = useRef<HTMLDivElement | null>(null);

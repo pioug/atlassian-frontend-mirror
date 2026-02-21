@@ -32,8 +32,10 @@ import type { SectionProps as SectionProps_2 } from '@atlaskit/menu/types';
 import type { TriggerProps } from '@atlaskit/popup/types';
 
 // @public (undocumented)
-export interface CustomTriggerProps<TriggerElement extends HTMLElement = HTMLElement>
-	extends Omit<TriggerProps, 'ref'> {
+export interface CustomTriggerProps<TriggerElement extends HTMLElement = HTMLElement> extends Omit<
+	TriggerProps,
+	'ref'
+> {
 	isSelected?: boolean;
 	onClick?: (e: KeyboardEvent_2 | MouseEvent_2) => void;
 	testId?: string;

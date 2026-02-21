@@ -9,9 +9,5 @@ import { SyncedBlockErrorStateCard } from './SyncedBlockErrorStateCard';
 export const SyncedBlockOfflineError = () => {
 	const { formatMessage } = useIntl();
 
-	return (
-		<SyncedBlockErrorStateCard
-			description={formatMessage(messages.offlineError)}
-		/>
-	);
+	return <SyncedBlockErrorStateCard description={formatMessage(messages.offlineError)} />;
 };

@@ -23,25 +23,27 @@ interface WeekHeaderProps {
 	testId?: string;
 }
 
-const WeekHeader: import("react").NamedExoticComponent<WeekHeaderProps> = memo<WeekHeaderProps>(function WeekHeader({ daysShort, testId }) {
-	return (
-		<WeekDayGrid isHidden testId={testId && `${testId}--column-headers`}>
-			{daysShort.map((shortDay) => (
-				<Box
-					padding="space.100"
-					xcss={styles.columnHeader}
-					key={shortDay}
-					role="columnheader"
-					testId={testId && `${testId}--column-header`}
-				>
-					<Text weight="bold" size="small" align="center" color="color.text.subtle">
-						{shortDay}
-					</Text>
-				</Box>
-			))}
-		</WeekDayGrid>
-	);
-});
+const WeekHeader: import('react').NamedExoticComponent<WeekHeaderProps> = memo<WeekHeaderProps>(
+	function WeekHeader({ daysShort, testId }) {
+		return (
+			<WeekDayGrid isHidden testId={testId && `${testId}--column-headers`}>
+				{daysShort.map((shortDay) => (
+					<Box
+						padding="space.100"
+						xcss={styles.columnHeader}
+						key={shortDay}
+						role="columnheader"
+						testId={testId && `${testId}--column-header`}
+					>
+						<Text weight="bold" size="small" align="center" color="color.text.subtle">
+							{shortDay}
+						</Text>
+					</Box>
+				))}
+			</WeekDayGrid>
+		);
+	},
+);
 
 WeekHeader.displayName = 'WeekHeader';
 

@@ -1,6 +1,9 @@
 import tokens from '@atlaskit/tokens/token-names';
 
-export const constructTokenFunctionCall: (token: string, fallback: string | ShadowDefinition) => string = (token: string, fallback: string | ShadowDefinition) => {
+export const constructTokenFunctionCall: (
+	token: string,
+	fallback: string | ShadowDefinition,
+) => string = (token: string, fallback: string | ShadowDefinition) => {
 	if (Array.isArray(fallback)) {
 		fallback = constructShadow(fallback);
 	}
@@ -45,9 +48,13 @@ export const or: <T extends any>(...fns: BooleanCallback<T>[]) => (val: T) => bo
 	<T extends any>(...fns: BooleanCallback<T>[]) =>
 	(val: T) =>
 		fns.some((fn) => fn(val));
-export const capitalize: (str: string) => string = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
+export const capitalize: (str: string) => string = (str: string) =>
+	str.charAt(0).toUpperCase() + str.slice(1);
 
-export const generateTypeDefs: (typedTokens: string[], tokenNames?: string[]) => string = (typedTokens: string[], tokenNames?: string[]) => {
+export const generateTypeDefs: (typedTokens: string[], tokenNames?: string[]) => string = (
+	typedTokens: string[],
+	tokenNames?: string[],
+) => {
 	return typedTokens
 		.map((t, i) => {
 			return `'${Array.isArray(tokenNames) ? tokenNames[i] : t}': 'var(${tokens[t as keyof typeof tokens]})'`;

@@ -13,7 +13,10 @@ import {
 } from './consts';
 import type { TableSortMeta } from './types';
 
-export const unsort = (oldOrder: { index: number; value: number }[], tableElement: HTMLElement): void => {
+export const unsort = (
+	oldOrder: { index: number; value: number }[],
+	tableElement: HTMLElement,
+): void => {
 	const tbody = tableElement.querySelector(`:scope > tbody`);
 	const rows = tableElement.querySelectorAll(`:scope > tbody > tr`);
 

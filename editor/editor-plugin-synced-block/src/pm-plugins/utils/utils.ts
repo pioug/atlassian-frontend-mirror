@@ -3,7 +3,11 @@ import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { NodeType, Node as PMNode, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
-import { findParentNodeOfType, findParentNodeOfTypeClosestToPos, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import {
+	findParentNodeOfType,
+	findParentNodeOfTypeClosestToPos,
+	findSelectedNodeOfType,
+} from '@atlaskit/editor-prosemirror/utils';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 
 export const findSyncBlock = (
@@ -56,7 +60,9 @@ const UNSUPPORTED_NODE_TYPES = new Set([
  * stripping out unsupported marks (breakout on codeblock/expand/layout), as well as from and to positions,
  * or false if conversion is not possible
  */
-export const canBeConvertedToSyncBlock = (selection: Selection): SyncBlockConversionInfo | false => {
+export const canBeConvertedToSyncBlock = (
+	selection: Selection,
+): SyncBlockConversionInfo | false => {
 	const { $from, range } = expandSelectionToBlockRange(selection);
 
 	if (!range) {

@@ -435,32 +435,33 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 
 		pluginsOptions: {
 			quickInsert: ({ formatMessage }) =>
-				!api?.mediaInsert && fg('platform_editor_media_insert_check') ?
-					[
-						{
-							id: 'media',
-							title: formatMessage(messages.mediaFiles),
-							description: formatMessage(messages.mediaFilesDescription),
-							priority: 400,
-							keywords: ['attachment', 'gif', 'media', 'picture', 'image', 'video', 'file'],
-							icon: () => <IconImages />,
-							isDisabledOffline: true,
-							action(insert, state) {
-								const pluginState = stateKey.getState(state);
-								pluginState?.showMediaPicker();
-								const tr = insert('');
-								api?.analytics?.actions.attachAnalyticsEvent({
-									action: ACTION.OPENED,
-									actionSubject: ACTION_SUBJECT.PICKER,
-									actionSubjectId: ACTION_SUBJECT_ID.PICKER_CLOUD,
-									attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
-									eventType: EVENT_TYPE.UI,
-								})(tr);
+				!api?.mediaInsert && fg('platform_editor_media_insert_check')
+					? [
+							{
+								id: 'media',
+								title: formatMessage(messages.mediaFiles),
+								description: formatMessage(messages.mediaFilesDescription),
+								priority: 400,
+								keywords: ['attachment', 'gif', 'media', 'picture', 'image', 'video', 'file'],
+								icon: () => <IconImages />,
+								isDisabledOffline: true,
+								action(insert, state) {
+									const pluginState = stateKey.getState(state);
+									pluginState?.showMediaPicker();
+									const tr = insert('');
+									api?.analytics?.actions.attachAnalyticsEvent({
+										action: ACTION.OPENED,
+										actionSubject: ACTION_SUBJECT.PICKER,
+										actionSubjectId: ACTION_SUBJECT_ID.PICKER_CLOUD,
+										attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
+										eventType: EVENT_TYPE.UI,
+									})(tr);
 
-								return tr;
+									return tr;
+								},
 							},
-						},
-					] : [],
+						]
+					: [],
 
 			floatingToolbar: (state, intl, providerFactory) =>
 				floatingToolbar(

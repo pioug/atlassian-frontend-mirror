@@ -275,8 +275,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 			maxNumberOfResults,
 			query,
 			searchEmail: isEmail,
-			...(verifiedTeams === true &&
-				fg('smart-user-picker-managed-teams-gate') && { verifiedTeams: true }),
+			...(verifiedTeams === true && { verifiedTeams: true }),
 			/*
 				For email-based searches, we have decided to filter out apps.
 				Also - because the other 2 filters ((NOT not_mentionable:true) AND (account_status:active)) are included
@@ -289,7 +288,9 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 					? '(NOT not_mentionable:true) AND (account_status:active) AND (NOT account_type:app)'
 					: searchQueryFilter,
 			...(restrictTo && fg('smart-user-picker-restrict-to-gate') && { restrictTo }),
-			...(isTeamSyncedToGroupDirectoryFilter === true && { isTeamSyncedToGroupDirectoryFilter: true }),
+			...(isTeamSyncedToGroupDirectoryFilter === true && {
+				isTeamSyncedToGroupDirectoryFilter: true,
+			}),
 		};
 		try {
 			const { query } = this.state;

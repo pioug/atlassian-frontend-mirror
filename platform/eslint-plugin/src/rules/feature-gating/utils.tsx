@@ -23,7 +23,11 @@ export function isIdentifierImportedFrom(
 	return false;
 }
 
-export function isAPIimport(functionName: string, context: Rule.RuleContext, node: EstreeNode): boolean {
+export function isAPIimport(
+	functionName: string,
+	context: Rule.RuleContext,
+	node: EstreeNode,
+): boolean {
 	return isIdentifierImportedFrom(functionName, FEATURE_API_IMPORT_SOURCES, context, node);
 }
 

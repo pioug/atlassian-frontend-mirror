@@ -1,9 +1,11 @@
 import { legacyColorMixins, legacyColors } from './legacy-colors';
 import { namedColors } from './named-colors';
 
-export const isLegacyColor: (value: string) => boolean = (value: string) => legacyColors.includes(value);
+export const isLegacyColor: (value: string) => boolean = (value: string) =>
+	legacyColors.includes(value);
 
-export const isLegacyNamedColor: (value: string) => boolean = (value: string) => legacyColorMixins.includes(value);
+export const isLegacyNamedColor: (value: string) => boolean = (value: string) =>
+	legacyColorMixins.includes(value);
 
 const colorRegexp =
 	/#(?:[a-f0-9]{3}|[a-f0-9]{6}|[a-f0-9]{8})\b|(?:rgb|rgba|hsl|hsla|lch|lab|color)\([^\)]*\)/;

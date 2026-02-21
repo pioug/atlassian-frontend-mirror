@@ -43,11 +43,11 @@ export const ToolbarMenu = ({
 				iconBefore={<Icon label="" />}
 				isDisabled={config.isDisabled}
 				onClick={config.onClick}
-				tooltipComponent={<ToolbarTooltip content={config.tooltip}/>}
+				tooltipComponent={<ToolbarTooltip content={config.tooltip} />}
 			>
 				{children}
 			</ToolbarDropdownMenu>
-		);	
+		);
 	}
 
 	return (

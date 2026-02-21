@@ -1,4 +1,9 @@
-import type { AttributeSpec, DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type {
+	AttributeSpec,
+	DOMOutputSpec,
+	NodeSpec,
+	Node as PMNode,
+} from '@atlaskit/editor-prosemirror/model';
 import { N30 } from '../../utils/colors';
 import type { BorderMarkDefinition } from '../marks/border';
 import type { LinkDefinition } from '../marks/link';
@@ -78,9 +83,11 @@ export interface ExternalMediaAttributes {
 
 export type MediaADFAttrs = MediaAttributes | ExternalMediaAttributes;
 
-export const defaultAttrs: {
-    [name: string]: AttributeSpec;
-} | undefined = mediaFactory({}).attrs;
+export const defaultAttrs:
+	| {
+			[name: string]: AttributeSpec;
+	  }
+	| undefined = mediaFactory({}).attrs;
 
 export interface MutableMediaAttributes extends MediaAttributes {
 	[key: string]: string | number | undefined | null | boolean;
@@ -243,9 +250,11 @@ export const mediaWithLocalId: NodeSpec = createMediaSpec(
 const optionalAttributes = ['occurrenceKey', 'width', 'height', 'url', 'alt', 'localId'];
 const externalOnlyAttributes = ['type', 'url', 'width', 'height', 'alt', 'localId'];
 
-export const toJSON = (node: PMNode): {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    attrs: Record<string, any>;
+export const toJSON = (
+	node: PMNode,
+): {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	attrs: Record<string, any>;
 } => ({
 	attrs: Object.keys(node.attrs)
 		// Strip private attributes e.g. __fileName, __fileSize, __fileMimeType, etc.

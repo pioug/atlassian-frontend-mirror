@@ -44,7 +44,11 @@ export function getPerformanceOptions(view: EditorView): {
 	};
 }
 
-export function startMeasureReactNodeViewRendered({ nodeTypeName }: { nodeTypeName: string }): void {
+export function startMeasureReactNodeViewRendered({
+	nodeTypeName,
+}: {
+	nodeTypeName: string;
+}): void {
 	startMeasure(`🦉${nodeTypeName}::ReactNodeView`);
 }
 

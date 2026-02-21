@@ -154,8 +154,10 @@ function createPlugin(
 	});
 }
 
-interface LayoutButtonWrapperProps
-	extends Omit<LayoutButtonProps, 'node' | 'breakoutMode' | 'isBreakoutNodePresent'> {
+interface LayoutButtonWrapperProps extends Omit<
+	LayoutButtonProps,
+	'node' | 'breakoutMode' | 'isBreakoutNodePresent'
+> {
 	api: ExtractInjectionAPI<typeof breakoutPlugin> | undefined;
 }
 

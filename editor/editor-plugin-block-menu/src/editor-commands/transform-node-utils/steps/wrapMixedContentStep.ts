@@ -50,9 +50,10 @@ const createNodeContentContainer = (
 	// object, preserving the expandedState WeakMap entry set in transformNode.ts.
 	// To clean up: remove the if-else, always use the flag-on branch.
 	const isExpandType = targetNodeType.name === 'expand' || targetNodeType.name === 'nestedExpand';
-	const nodeAttrs = isExpandType && fg('platform_editor_block_menu_expand_localid_fix')
-		? { localId: crypto.randomUUID() }
-		: {};
+	const nodeAttrs =
+		isExpandType && fg('platform_editor_block_menu_expand_localid_fix')
+			? { localId: crypto.randomUUID() }
+			: {};
 	return targetNodeType.createAndFill(nodeAttrs, nodeContent);
 };
 
@@ -103,9 +104,10 @@ const handleEmptyContainerEdgeCase = (
 	// Same localId pre-assignment rationale as createNodeContentContainer above.
 	// To clean up: remove the if-else, always use the flag-on branch.
 	const isExpandType = targetNodeTypeName === 'expand' || targetNodeTypeName === 'nestedExpand';
-	const emptyContainerAttrs = isExpandType && fg('platform_editor_block_menu_expand_localid_fix')
-		? { localId: crypto.randomUUID() }
-		: {};
+	const emptyContainerAttrs =
+		isExpandType && fg('platform_editor_block_menu_expand_localid_fix')
+			? { localId: crypto.randomUUID() }
+			: {};
 	const emptyContainer = targetNodeType.create(emptyContainerAttrs, emptyParagraph);
 	return [emptyContainer, ...result];
 };

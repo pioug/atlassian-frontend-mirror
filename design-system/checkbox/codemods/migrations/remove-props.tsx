@@ -1,8 +1,14 @@
 import { createRemoveFuncFor } from '../utils';
 
-export const removeFullWidth: (j: import("jscodeshift/src/core").JSCodeshift, source: import("jscodeshift/src/Collection").Collection<Node>) => void = createRemoveFuncFor('@atlaskit/checkbox', 'Checkbox', 'isFullWidth');
+export const removeFullWidth: (
+	j: import('jscodeshift/src/core').JSCodeshift,
+	source: import('jscodeshift/src/Collection').Collection<Node>,
+) => void = createRemoveFuncFor('@atlaskit/checkbox', 'Checkbox', 'isFullWidth');
 
-export const removeOverrides: (j: import("jscodeshift/src/core").JSCodeshift, source: import("jscodeshift/src/Collection").Collection<Node>) => void = createRemoveFuncFor(
+export const removeOverrides: (
+	j: import('jscodeshift/src/core').JSCodeshift,
+	source: import('jscodeshift/src/Collection').Collection<Node>,
+) => void = createRemoveFuncFor(
 	'@atlaskit/checkbox',
 	'Checkbox',
 	'overrides',
@@ -13,7 +19,10 @@ export const removeOverrides: (j: import("jscodeshift/src/core").JSCodeshift, so
   of Checkbox will have likely changed.`,
 );
 
-export const removeTheme: (j: import("jscodeshift/src/core").JSCodeshift, source: import("jscodeshift/src/Collection").Collection<Node>) => void = createRemoveFuncFor(
+export const removeTheme: (
+	j: import('jscodeshift/src/core').JSCodeshift,
+	source: import('jscodeshift/src/Collection').Collection<Node>,
+) => void = createRemoveFuncFor(
 	'@atlaskit/checkbox',
 	'Checkbox',
 	'theme',
@@ -24,4 +33,7 @@ export const removeTheme: (j: import("jscodeshift/src/core").JSCodeshift, source
   The appearance of Checkbox will have likely changed.`,
 );
 
-export const removeSize: (j: import("jscodeshift/src/core").JSCodeshift, source: import("jscodeshift/src/Collection").Collection<Node>) => void = createRemoveFuncFor('@atlaskit/checkbox', 'Checkbox', 'size');
+export const removeSize: (
+	j: import('jscodeshift/src/core').JSCodeshift,
+	source: import('jscodeshift/src/Collection').Collection<Node>,
+) => void = createRemoveFuncFor('@atlaskit/checkbox', 'Checkbox', 'size');

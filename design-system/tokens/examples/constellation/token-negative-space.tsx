@@ -45,10 +45,10 @@ const TokenNegativeSpace = (): JSX.Element => {
 };
 
 const _default_1: {
-    example: () => JSX.Element;
-    code: string;
+	example: () => JSX.Element;
+	code: string;
 } = {
-    example: TokenNegativeSpace,
-    code: TokenNegativeSpaceCodeBlock,
+	example: TokenNegativeSpace,
+	code: TokenNegativeSpaceCodeBlock,
 };
 export default _default_1;

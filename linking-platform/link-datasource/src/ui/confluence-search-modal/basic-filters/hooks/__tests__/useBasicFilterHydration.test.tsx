@@ -54,7 +54,7 @@ describe('TESTING: useBasicFilterHydration hook', () => {
 		act(() => {
 			result.current.hydrateUsersFromAccountIds([]);
 		});
-		
+
 		await waitFor(() => {
 			expect(result.current).toEqual({
 				hydrateUsersFromAccountIds: expect.any(Function),

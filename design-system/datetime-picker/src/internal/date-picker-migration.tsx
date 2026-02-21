@@ -24,16 +24,17 @@ import { convertTokens } from './parse-tokens';
 
 import { defaultDateFormat, padToTwo, placeholderDatetime } from './index';
 
-export const isDateDisabled: (date: string, di: {
-    disabled: string[];
-}) => boolean = (date: string, di: { disabled: string[] }): boolean => {
+export const isDateDisabled: (
+	date: string,
+	di: {
+		disabled: string[];
+	},
+) => boolean = (date: string, di: { disabled: string[] }): boolean => {
 	const { disabled } = di;
 	return disabled.indexOf(date) > -1;
 };
 
-export const getParsedISO: (di: {
-    iso: string;
-}) => string = (di: { iso: string }): string => {
+export const getParsedISO: (di: { iso: string }) => string = (di: { iso: string }): string => {
 	const { iso } = di;
 	const [year, month, date] = iso.split('-');
 
@@ -65,11 +66,14 @@ export const getParsedISO: (di: {
  *   1. `parseInputValue`
  *   2. `locale`
  */
-export const parseDate: (date: string, di: {
-    parseInputValue: ((date: string, dateFormat: string) => Date) | undefined;
-    dateFormat: string | undefined;
-    l10n: LocalizationProvider;
-}) => Date = (
+export const parseDate: (
+	date: string,
+	di: {
+		parseInputValue: ((date: string, dateFormat: string) => Date) | undefined;
+		dateFormat: string | undefined;
+		l10n: LocalizationProvider;
+	},
+) => Date = (
 	date: string,
 	di: {
 		parseInputValue: ((date: string, dateFormat: string) => Date) | undefined;
@@ -92,11 +96,14 @@ export const parseDate: (date: string, di: {
  *   2. `dateFormat`
  *   3. `locale`
  */
-export const formatDate: (value: string, di: {
-    formatDisplayLabel: ((value: string, dateFormat: string) => string) | undefined;
-    dateFormat: string | undefined;
-    l10n: LocalizationProvider;
-}) => string = (
+export const formatDate: (
+	value: string,
+	di: {
+		formatDisplayLabel: ((value: string, dateFormat: string) => string) | undefined;
+		dateFormat: string | undefined;
+		l10n: LocalizationProvider;
+	},
+) => string = (
 	value: string,
 	di: {
 		formatDisplayLabel: ((value: string, dateFormat: string) => string) | undefined;
@@ -115,12 +122,9 @@ export const formatDate: (value: string, di: {
 };
 
 export const getPlaceholder: (di: {
-    placeholder: string | undefined;
-    l10n: LocalizationProvider;
-}) => string = (di: {
 	placeholder: string | undefined;
 	l10n: LocalizationProvider;
-}): string => {
+}) => string = (di: { placeholder: string | undefined; l10n: LocalizationProvider }): string => {
 	const { placeholder, l10n } = di;
 	return placeholder || l10n.formatDate(placeholderDatetime);
 };

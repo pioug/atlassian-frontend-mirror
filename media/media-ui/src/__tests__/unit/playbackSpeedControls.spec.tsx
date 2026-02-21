@@ -132,9 +132,7 @@ describe('<PlaybackSpeedControls />', () => {
 		it('should have proper testId', () => {
 			const { element } = getTargetElement();
 			const { getByTestId } = renderWithIntl(<>{element}</>);
-			expect(
-				getByTestId('custom-media-player-playback-speed-toggle-button'),
-			).toBeInTheDocument();
+			expect(getByTestId('custom-media-player-playback-speed-toggle-button')).toBeInTheDocument();
 		});
 
 		it('should have aria-expanded true when isOpen is true', () => {

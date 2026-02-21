@@ -51,10 +51,7 @@ export type Clause = CompoundClause | TerminalClause | NotClause;
  * for more information about precedence in JQL queries.
  */
 export interface CompoundClause
-	extends AstNode<ParentOfClause & AstNode>,
-		Removable,
-		Replaceable<Clause>,
-		ParentOfClause {
+	extends AstNode<ParentOfClause & AstNode>, Removable, Replaceable<Clause>, ParentOfClause {
 	/**
 	 * Append the provided clause to this compound clause. If the clause to append is also a compound clause sharing the
 	 * same operator as this node then the two compound clauses will be merged.
@@ -79,9 +76,7 @@ export interface CompoundClause
  * A leaf JQL query clause that asserts a field value (present or past), or whether that value has changed.
  */
 export interface TerminalClause
-	extends AstNode<ParentOfClause & AstNode>,
-		Removable,
-		Replaceable<Clause> {
+	extends AstNode<ParentOfClause & AstNode>, Removable, Replaceable<Clause> {
 	/**
 	 * Function to add operand to existing operand
 	 */
@@ -120,10 +115,7 @@ export interface TerminalClause
  * expression. For example, <code>NOT (labels in (urgent, blocker) OR lastCommentedBy = currentUser())</code>.
  */
 export interface NotClause
-	extends AstNode<ParentOfClause & AstNode>,
-		Removable,
-		Replaceable<Clause>,
-		ParentOfClause {
+	extends AstNode<ParentOfClause & AstNode>, Removable, Replaceable<Clause>, ParentOfClause {
 	clause: Clause;
 	clauseType: typeof CLAUSE_TYPE_NOT;
 	operator: NotClauseOperator;

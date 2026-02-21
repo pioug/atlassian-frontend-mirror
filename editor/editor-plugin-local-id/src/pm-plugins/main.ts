@@ -172,9 +172,9 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 			if (addedNodes.size > 0 && fg('platform_editor_use_localid_dedupe')) {
 				newState.doc.descendants((node) => {
 					// Also track existing UUIDs in the global Set for short UUID collision detection
-				if (node.attrs?.localId && !hasInitializedExistingUUIDs) {
-					generatedShortUUIDs.add(node.attrs.localId);
-				}
+					if (node.attrs?.localId && !hasInitializedExistingUUIDs) {
+						generatedShortUUIDs.add(node.attrs.localId);
+					}
 
 					if (addedNodes.has(node)) {
 						return true;
@@ -188,11 +188,11 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 				const seenIds = new Set<string>();
 
 				for (const node of addedNodes) {
-				if (
-					!node.attrs.localId ||
-					localIds.has(node.attrs.localId) ||
-					seenIds.has(node.attrs.localId)
-				) {
+					if (
+						!node.attrs.localId ||
+						localIds.has(node.attrs.localId) ||
+						seenIds.has(node.attrs.localId)
+					) {
 						const pos = addedNodePos.get(node);
 						if (pos !== undefined) {
 							if (fg('platform_editor_localid_improvements')) {

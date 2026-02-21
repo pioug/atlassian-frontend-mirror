@@ -208,7 +208,11 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 		return !(isCurrentNodeBlockCard && isNewNodeDatasource);
 	}
 
-	update(node: Node, decorations: ReadonlyArray<Decoration>, _innerDecorations?: DecorationSource): boolean {
+	update(
+		node: Node,
+		decorations: ReadonlyArray<Decoration>,
+		_innerDecorations?: DecorationSource,
+	): boolean {
 		return super.update(node, decorations, _innerDecorations, this.validUpdate);
 	}
 

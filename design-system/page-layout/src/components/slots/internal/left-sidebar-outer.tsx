@@ -2,7 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, type ForwardRefExoticComponent, type MouseEventHandler, type ReactNode, type Ref, type RefAttributes, useContext } from 'react';
+import {
+	forwardRef,
+	type ForwardRefExoticComponent,
+	type MouseEventHandler,
+	type ReactNode,
+	type Ref,
+	type RefAttributes,
+	useContext,
+} from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -173,7 +181,9 @@ const LeftSidebarOuterComponent = (
 	);
 };
 
-const LeftSidebarOuter: ForwardRefExoticComponent<LeftSidebarOuterProps & RefAttributes<HTMLDivElement>> = forwardRef(LeftSidebarOuterComponent);
+const LeftSidebarOuter: ForwardRefExoticComponent<
+	LeftSidebarOuterProps & RefAttributes<HTMLDivElement>
+> = forwardRef(LeftSidebarOuterComponent);
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default LeftSidebarOuter;

@@ -39,7 +39,7 @@ function AppProviderTheme(): React.JSX.Element {
 }
 
 const _default_1: {
-    example: typeof AppProviderTheme;
-    code: string;
+	example: typeof AppProviderTheme;
+	code: string;
 } = { example: AppProviderTheme, code: AppProviderThemeCodeBlock };
 export default _default_1;

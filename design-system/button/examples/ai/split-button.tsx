@@ -5,23 +5,24 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdow
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 
 const _default_1: React.JSX.Element = (
-    <SplitButton spacing="compact">
-        <Button>Link work item</Button>
-        <DropdownMenu
-            shouldRenderToParent
-            trigger={({ triggerRef, ...triggerProps }) => (
-                <IconButton
-                    ref={triggerRef}
-                    {...triggerProps}
-                    icon={ChevronDownIcon}
-                    label="More link work item options" />
-            )}
-        >
-            <DropdownItemGroup>
-                <DropdownItem>Create new link</DropdownItem>
-                <DropdownItem>Link existing item</DropdownItem>
-            </DropdownItemGroup>
-        </DropdownMenu>
-    </SplitButton>
+	<SplitButton spacing="compact">
+		<Button>Link work item</Button>
+		<DropdownMenu
+			shouldRenderToParent
+			trigger={({ triggerRef, ...triggerProps }) => (
+				<IconButton
+					ref={triggerRef}
+					{...triggerProps}
+					icon={ChevronDownIcon}
+					label="More link work item options"
+				/>
+			)}
+		>
+			<DropdownItemGroup>
+				<DropdownItem>Create new link</DropdownItem>
+				<DropdownItem>Link existing item</DropdownItem>
+			</DropdownItemGroup>
+		</DropdownMenu>
+	</SplitButton>
 );
 export default _default_1;

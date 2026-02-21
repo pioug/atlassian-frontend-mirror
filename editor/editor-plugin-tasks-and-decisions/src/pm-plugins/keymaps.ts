@@ -932,7 +932,6 @@ export function keymapPlugin(
 		: {};
 
 	const toggleTaskListShortcut = (state: EditorState, dispatch?: (tr: Transaction) => void) => {
-
 		if (!state.schema.nodes.taskItem) {
 			return false;
 		}

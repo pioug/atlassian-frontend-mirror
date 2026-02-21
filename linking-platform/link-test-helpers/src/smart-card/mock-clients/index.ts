@@ -27,7 +27,7 @@ import {
 	image2,
 	imageForbiddenJiraEmbed,
 	onedriveUnauthImage,
-	slackUnauthImage
+	slackUnauthImage,
 } from '../images';
 
 import { MockCardClient } from './mock-card-client';

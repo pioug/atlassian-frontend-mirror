@@ -38,7 +38,9 @@ const highlightStyles = css({
 	},
 });
 
-const ScrollableContent = ({ shouldHighlightNth = false }: ScrollableContentProps): React.JSX.Element => {
+const ScrollableContent = ({
+	shouldHighlightNth = false,
+}: ScrollableContentProps): React.JSX.Element => {
 	const items = useMemo(
 		() =>
 			Array.from({ length: 50 }, (_, i) => (

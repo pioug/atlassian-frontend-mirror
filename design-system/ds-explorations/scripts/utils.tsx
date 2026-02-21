@@ -1,10 +1,10 @@
 import type { CSSProperties } from 'react';
 
-export const tokenToStyle: (prop: keyof CSSProperties, token: string, fallback: string | ShadowDefintion) => string = (
+export const tokenToStyle: (
 	prop: keyof CSSProperties,
 	token: string,
 	fallback: string | ShadowDefintion,
-) => {
+) => string = (prop: keyof CSSProperties, token: string, fallback: string | ShadowDefintion) => {
 	if (Array.isArray(fallback)) {
 		fallback = constructShadow(fallback);
 	}
@@ -38,8 +38,10 @@ export const pick: <T extends any>(key: keyof T) => (obj: T) => T[keyof T] =
 	(obj: T) =>
 		obj[key];
 export const isAccent: (str: string) => boolean = (str: string): boolean => str.includes('accent');
-export const isPressed: (str: string) => boolean = (str: string): boolean => str.includes('pressed');
-export const isHovered: (str: string) => boolean = (str: string): boolean => str.includes('hovered');
+export const isPressed: (str: string) => boolean = (str: string): boolean =>
+	str.includes('pressed');
+export const isHovered: (str: string) => boolean = (str: string): boolean =>
+	str.includes('hovered');
 export const not: <T extends any>(cb: BooleanCallback<T>) => (val: T) => boolean =
 	<T extends any>(cb: BooleanCallback<T>) =>
 	(val: T): boolean =>
@@ -48,4 +50,5 @@ export const or: <T extends any>(...fns: BooleanCallback<T>[]) => (val: T) => bo
 	<T extends any>(...fns: BooleanCallback<T>[]) =>
 	(val: T): boolean =>
 		fns.some((fn) => fn(val));
-export const capitalize: (str: string) => string = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1);
+export const capitalize: (str: string) => string = (str: string): string =>
+	str.charAt(0).toUpperCase() + str.slice(1);

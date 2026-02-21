@@ -13,13 +13,14 @@ ${createEditorUseOnlyNotice('Editor Plugin Accessibility Utils', [
 ])}
 
 
-${(
+${
+	(
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		<div style={{ marginTop: token('space.100', '8px') }}>
 			<AtlassianInternalWarning />
 		</div>
 	)
-	}
+}
 
 This package includes the table plugin used by \`@atlaskit/editor-core\`.
 

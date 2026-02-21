@@ -20,4 +20,3 @@ export function isNetworkError(error: MediaCardError | undefined): boolean {
 
 	return false;
 }
-

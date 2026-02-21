@@ -1,6 +1,6 @@
-const resetOptionsInGroup: (group: {
-    [key: string]: boolean | undefined;
-}) => {} = (group: { [key: string]: boolean | undefined }) => {
+const resetOptionsInGroup: (group: { [key: string]: boolean | undefined }) => {} = (group: {
+	[key: string]: boolean | undefined;
+}) => {
 	return Object.keys(group || {}).reduce(
 		(accumulator, current) => ({
 			...accumulator,

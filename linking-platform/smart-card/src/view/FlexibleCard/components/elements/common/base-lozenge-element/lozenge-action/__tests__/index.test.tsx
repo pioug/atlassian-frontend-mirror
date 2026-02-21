@@ -1001,30 +1001,23 @@ describe('LozengeAction', () => {
 		expect(onAfterChanged).toHaveBeenCalledTimes(1);
 	});
 
-	ffTest.on(
-		'platform_navx_flex_card_status_dropdown_a11y_fix',
-		'',
-		async () => {
-			it('should render aria-label when feature flag is enabled', async () => {
-				renderComponent();
+	ffTest.on('platform_navx_flex_card_status_dropdown_a11y_fix', '', async () => {
+		it('should render aria-label when feature flag is enabled', async () => {
+			renderComponent();
 
-				const element = await screen.findByTestId(triggerTestId);
-		
-				expect(element).toHaveAttribute('aria-label', `Change status: ${text}`);
-			});
-		},
-	);	
+			const element = await screen.findByTestId(triggerTestId);
 
-	ffTest.off(
-		'platform_navx_flex_card_status_dropdown_a11y_fix',
-		'',
-		async () => {
-			it('should not render aria-label when feature flag is disabled', async () => {	
-				renderComponent();
+			expect(element).toHaveAttribute('aria-label', `Change status: ${text}`);
+		});
+	});
 
-				const element = await screen.findByTestId(triggerTestId);
+	ffTest.off('platform_navx_flex_card_status_dropdown_a11y_fix', '', async () => {
+		it('should not render aria-label when feature flag is disabled', async () => {
+			renderComponent();
 
-				expect(element).not.toHaveAttribute('aria-label');
-			},);
+			const element = await screen.findByTestId(triggerTestId);
+
+			expect(element).not.toHaveAttribute('aria-label');
+		});
 	});
 });

@@ -21,11 +21,12 @@ interface RadioGroupContextProps {
  * __Radio group context__
  * Context provider that wraps each DropdownItemRadioGroup
  */
-export const RadioGroupContext: React.Context<RadioGroupContextProps> = createContext<RadioGroupContextProps>({
-	id: '',
-	radioGroupState: {},
-	selectRadioItem: noop,
-});
+export const RadioGroupContext: React.Context<RadioGroupContextProps> =
+	createContext<RadioGroupContextProps>({
+		id: '',
+		radioGroupState: {},
+		selectRadioItem: noop,
+	});
 
 /**
  * __Dropdown item radio group__

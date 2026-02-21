@@ -26,7 +26,13 @@ const fieldContentIconStyles = css({
 /**
  * Used to emulate a select
  */
-export function FieldContentWithIcon({ children, icon }: { children: ReactNode; icon: ReactNode }): React.JSX.Element {
+export function FieldContentWithIcon({
+	children,
+	icon,
+}: {
+	children: ReactNode;
+	icon: ReactNode;
+}): React.JSX.Element {
 	return (
 		<div css={fieldContentWithIconStyles}>
 			<div css={fieldContentIconStyles}>{icon}</div>

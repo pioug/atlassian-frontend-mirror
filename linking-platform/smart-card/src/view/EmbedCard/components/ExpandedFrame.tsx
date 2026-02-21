@@ -86,9 +86,7 @@ const ExpandedFrame = ({
 	const handleMouseDown = useMouseDownEvent();
 
 	const CompetitorPromptComponent =
-		CompetitorPrompt && href ? (
-			<CompetitorPrompt sourceUrl={href} linkType="embed" />
-		) : null;
+		CompetitorPrompt && href ? <CompetitorPrompt sourceUrl={href} linkType="embed" /> : null;
 
 	const renderHeader = () => {
 		return (
@@ -311,9 +309,7 @@ const ExpandedFrameUpdated = ({
 	const handleMouseDown = useMouseDownEvent();
 
 	const CompetitorPromptComponent =
-		CompetitorPrompt && href ? (
-			<CompetitorPrompt sourceUrl={href} linkType="embed" />
-		) : null;
+		CompetitorPrompt && href ? <CompetitorPrompt sourceUrl={href} linkType="embed" /> : null;
 
 	const renderHeader = () => {
 		return (

@@ -21,7 +21,7 @@ const darkModeMql = isMatchMediaAvailable && window.matchMedia(darkModeMediaQuer
 class ColorModeObserver {
 	unbindThemeChangeListener: UnbindFn | null = null;
 
-	getColorMode(): "dark" | "light" {
+	getColorMode(): 'dark' | 'light' {
 		if (!darkModeMql) {
 			return 'light';
 		}

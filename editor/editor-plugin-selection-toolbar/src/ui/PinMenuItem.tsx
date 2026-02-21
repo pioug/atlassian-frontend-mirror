@@ -33,7 +33,11 @@ const usePluginState = (_api?: ExtractInjectionAPI<SelectionToolbarPlugin> | und
  */
 export const PinMenuItem = ({ api }: PinMenuItemProps): React.JSX.Element | null => {
 	const intl = useIntl();
-	const { editorViewMode, editorToolbarDockingPreference, isOffline: isDisabled } = usePluginState(api);
+	const {
+		editorViewMode,
+		editorToolbarDockingPreference,
+		isOffline: isDisabled,
+	} = usePluginState(api);
 	const isToolbarDocked = editorToolbarDockingPreference === 'top';
 
 	if (!shouldShowPinMenuItem(editorViewMode)) {

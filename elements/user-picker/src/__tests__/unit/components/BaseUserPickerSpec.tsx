@@ -107,18 +107,17 @@ const CUSTOM_ID = '12345678-1234-1234-1234-123456789014';
 
 const getBasePicker =
 	(BasePickerComponent: React.JSXElementConstructor<BaseUserPickerProps>) =>
-	(props: Partial<BaseUserPickerProps> = {}) =>
-		(
-			<BasePickerComponent
-				inputId="test"
-				fieldId="test"
-				SelectComponent={Select}
-				styles={{}}
-				components={getComponents(props.isMulti)}
-				width="100%"
-				{...props}
-			/>
-		);
+	(props: Partial<BaseUserPickerProps> = {}) => (
+		<BasePickerComponent
+			inputId="test"
+			fieldId="test"
+			SelectComponent={Select}
+			styles={{}}
+			components={getComponents(props.isMulti)}
+			width="100%"
+			{...props}
+		/>
+	);
 
 const getBasePickerWithoutAnalytics = getBasePicker(BaseUserPickerWithoutAnalytics);
 

@@ -24,7 +24,13 @@ const styles = cssMap({
 	},
 });
 
-export const CustomItemFooter: ({ children, ...props }: CustomItemComponentProps) => JSX.Element = ({ children, ...props }: CustomItemComponentProps) => {
+export const CustomItemFooter: ({
+	children,
+	...props
+}: CustomItemComponentProps) => JSX.Element = ({
+	children,
+	...props
+}: CustomItemComponentProps) => {
 	const Component = props.onClick ? 'a' : 'div';
 	return (
 		<Component

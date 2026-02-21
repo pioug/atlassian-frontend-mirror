@@ -121,7 +121,7 @@ export const TextColorHighlightMenu = ({
 					{children}
 				</ToolbarDropdownMenu>
 			</ToolbarDropdownMenuProvider>
-		)
+		);
 	}
 
 	return (

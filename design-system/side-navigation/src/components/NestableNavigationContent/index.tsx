@@ -124,7 +124,9 @@ const nestingRootStyles = css({
  * - [Examples](https://atlassian.design/components/side-navigation/examples#nested-navigation)
  * - [Code](https://atlassian.design/components/side-navigation/code)
  */
-const NestableNavigationContent: (props: NestableNavigationContentProps) => JSX.Element = (props: NestableNavigationContentProps) => {
+const NestableNavigationContent: (props: NestableNavigationContentProps) => JSX.Element = (
+	props: NestableNavigationContentProps,
+) => {
 	const containerRef = useRef<HTMLDivElement | null>(null);
 	const {
 		children,

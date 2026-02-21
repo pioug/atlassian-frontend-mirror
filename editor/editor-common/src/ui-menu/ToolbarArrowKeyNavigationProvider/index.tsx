@@ -370,7 +370,6 @@ function isElementOrAncestorHiddenOrDisabled(
 function getFilteredFocusableElements(rootNode: HTMLElement | null): Array<HTMLElement> {
 	// The focusable elements from child components such as dropdown menus / popups are ignored
 	return getFocusableElements(rootNode).filter((elm) => {
-
 		// Check if element or any ancestor is hidden or disabled
 		const isHiddenOrDisabled = isElementOrAncestorHiddenOrDisabled(elm, rootNode);
 

@@ -48,11 +48,11 @@ export default function useHandleDateChange({
 	shouldSetFocus: readonly [boolean, (newValue: boolean) => void];
 	onChange: (event: ChangeEvent) => void;
 }): {
-    navigate: (type: ArrowKeys) => void;
-    handleClickNextMonth: () => void;
-    handleClickNextYear: () => void;
-    handleClickPrevMonth: () => void;
-    handleClickPrevYear: () => void;
+	navigate: (type: ArrowKeys) => void;
+	handleClickNextMonth: () => void;
+	handleClickNextYear: () => void;
+	handleClickPrevMonth: () => void;
+	handleClickPrevYear: () => void;
 } {
 	const dateRef = useRef({
 		day: dayValue,

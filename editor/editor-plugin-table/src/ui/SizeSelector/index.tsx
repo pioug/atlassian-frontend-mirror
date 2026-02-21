@@ -13,8 +13,10 @@ import { TableSelectorPopup, type TableSelectorPopupProps } from '@atlaskit/edit
 import { pluginKey } from '../../pm-plugins/table-size-selector';
 import type { TablePlugin } from '../../tablePluginType';
 
-interface SizeSelectorProps
-	extends Omit<TableSelectorPopupProps, 'handleClickOutside' | 'onSelection' | 'unUnmount'> {
+interface SizeSelectorProps extends Omit<
+	TableSelectorPopupProps,
+	'handleClickOutside' | 'onSelection' | 'unUnmount'
+> {
 	api?: ExtractInjectionAPI<TablePlugin>;
 }
 

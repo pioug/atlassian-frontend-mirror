@@ -22,7 +22,10 @@ export const createInsertItem = (onInsert?: (item: QuickInsertItem) => void) =>
 // this method was adapted from the typeahead plugin so we respect the API for quick insert items
 const insertItem =
 	(onInsert?: (item: QuickInsertItem) => void) =>
-	(item: QuickInsertItem, source?: INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR | INPUT_METHOD.ELEMENT_BROWSER): Command =>
+	(
+		item: QuickInsertItem,
+		source?: INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR | INPUT_METHOD.ELEMENT_BROWSER,
+	): Command =>
 	(state, dispatch) => {
 		const insert = (
 			maybeNode?: Node | Object | string | Fragment,

@@ -4,9 +4,11 @@ import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-hel
 import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
-import { multiBodiedExtensionNodeAdf,
+import {
+	multiBodiedExtensionNodeAdf,
 	multiBodiedExtensionExtNodeFullWidthAdf,
-	multiBodiedExtensionExtNodeWideAdf,  } from '../__fixtures__/full-width-adf';
+	multiBodiedExtensionExtNodeWideAdf,
+} from '../__fixtures__/full-width-adf';
 import { generateRendererComponent } from '../__helpers/rendererComponents';
 
 // Create the extension provider synchronously to avoid timing issues
@@ -25,22 +27,21 @@ export const MultiBodiedExtensionRenderer = generateRendererComponent({
 	dataProviders: providerFactory,
 });
 
-
-export const MultiBodiedExtensionRendererFullPage =  generateRendererComponent({
+export const MultiBodiedExtensionRendererFullPage = generateRendererComponent({
 	appearance: 'full-page',
 	document: multiBodiedExtensionNodeAdf,
 	extensionHandlers: extensionHandlers,
 	dataProviders: providerFactory,
 });
 
-export const MultiBodiedExtensionRendererFullPageWideMode =  generateRendererComponent({
+export const MultiBodiedExtensionRendererFullPageWideMode = generateRendererComponent({
 	appearance: 'full-page',
 	document: multiBodiedExtensionExtNodeWideAdf,
 	extensionHandlers: extensionHandlers,
 	dataProviders: providerFactory,
 });
 
-export const MultiBodiedExtensionRendererFullPageFullWidth =  generateRendererComponent({
+export const MultiBodiedExtensionRendererFullPageFullWidth = generateRendererComponent({
 	appearance: 'full-page',
 	document: multiBodiedExtensionExtNodeFullWidthAdf,
 	extensionHandlers: extensionHandlers,

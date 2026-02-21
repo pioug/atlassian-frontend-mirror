@@ -227,9 +227,11 @@ export const mediaSingleFullWithLocalId: NodeSpec = mediaSingleSpec({
 	generateLocalId: true,
 });
 
-export const toJSON = (node: PMNode): {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    attrs: any;
+export const toJSON = (
+	node: PMNode,
+): {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	attrs: any;
 } => ({
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attrs: Object.keys(node.attrs).reduce<any>((obj, key) => {

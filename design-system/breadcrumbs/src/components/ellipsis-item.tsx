@@ -81,7 +81,9 @@ const styles = cssMap({
 	},
 });
 
-const EllipsisItem: import("react").MemoExoticComponent<({ label, onClick, testId }: EllipsisItemProps) => JSX.Element> = memo(({ label, onClick = noop, testId }: EllipsisItemProps) => (
+const EllipsisItem: import('react').MemoExoticComponent<
+	({ label, onClick, testId }: EllipsisItemProps) => JSX.Element
+> = memo(({ label, onClick = noop, testId }: EllipsisItemProps) => (
 	<li css={itemWrapperStyles}>
 		{fg('platform_dst_breadcrumbs_step_conversion') ? (
 			<Pressable aria-label={label} onClick={onClick} xcss={styles.root} testId={testId}>

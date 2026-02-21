@@ -101,8 +101,8 @@ function stop(): void {
 }
 
 export const preventUnhandled: {
-    start: typeof start;
-    stop: typeof stop;
+	start: typeof start;
+	stop: typeof stop;
 } = {
 	start,
 	stop,

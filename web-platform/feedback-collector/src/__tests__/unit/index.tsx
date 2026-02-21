@@ -720,7 +720,7 @@ We have some formatting here
 					fireEvent.click(submitBtn);
 					await waitFor(() => {
 						const calls = mocked.mock.calls;
-						const hasExpectedCall = calls.some(call => {
+						const hasExpectedCall = calls.some((call) => {
 							const url = typeof call[0] === 'string' ? call[0] : call[0]?.url;
 							return url === expected;
 						});

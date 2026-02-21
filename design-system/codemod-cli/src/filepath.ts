@@ -6,7 +6,10 @@ const { readFile } = promises;
 /**
  * Return products packages filePaths for running codemods from specified dependent package
  */
-export async function findDependentPackagePaths(crawlPaths: string[], dependencyPackage: string): Promise<string[]> {
+export async function findDependentPackagePaths(
+	crawlPaths: string[],
+	dependencyPackage: string,
+): Promise<string[]> {
 	// Get file paths leading to package.jsons
 	const searchStrings = crawlPaths.map((crawlPath) => {
 		//Replace leading './' due to bug with node-glob not properly ignoring files https://github.com/isaacs/node-glob/issues/309

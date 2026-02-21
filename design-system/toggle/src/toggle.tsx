@@ -176,7 +176,9 @@ const analyticsAttributes = {
  * - [Code](https://atlassian.design/components/toggle/code)
  * - [Usage](https://atlassian.design/components/toggle/usage)
  */
-const Toggle: React.MemoExoticComponent<React.ForwardRefExoticComponent<Omit<ToggleProps, "ref"> & React.RefAttributes<HTMLInputElement>>> = memo(
+const Toggle: React.MemoExoticComponent<
+	React.ForwardRefExoticComponent<Omit<ToggleProps, 'ref'> & React.RefAttributes<HTMLInputElement>>
+> = memo(
 	forwardRef<HTMLInputElement, ToggleProps>((props, ref) => {
 		const {
 			defaultChecked = false,

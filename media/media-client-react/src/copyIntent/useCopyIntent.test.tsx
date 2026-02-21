@@ -1,4 +1,4 @@
-	import React from 'react';
+import React from 'react';
 
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -279,65 +279,62 @@ describe('useCopyIntent', () => {
 	});
 
 	describe('Cross-client copy with auth', () => {
-		ffTest.on(
-			'platform_media_cross_client_copy_with_auth',
-			'when feature flag is enabled',
-			() => {
-				ffTest.on('platform_media_cross_client_copy', 'and copy intent flag is enabled', () => {
-					it('should inject clientId into clipboard HTML when copying', async () => {
-						const user = userEvent.setup();
-						const mockGetClientId = jest.fn().mockResolvedValue('test-client-id');
-						mockedMediaApi.resolveAuth = jest.fn().mockResolvedValue({
-							...auth,
-							clientId: 'test-client-id',
-						});
-
-						render(
-							<MockedMediaClientProvider
-								mockedMediaApi={mockedMediaApi}
-								mockGetClientId={mockGetClientId}
-							>
-								<div>from here</div>
-								<DummyComponent id="some-id" collectionName="some-collection" />
-								<div>to here</div>
-								<div>other text</div>
-							</MockedMediaClientProvider>,
-						);
-
-						// Wait for clientId to be fetched
-						await waitFor(() => expect(mockGetClientId).toHaveBeenCalledWith('some-collection'));
-
-						await user.pointer({
-							keys: '[MouseLeft][MouseLeft>]',
-							target: screen.getByText('from here'),
-							offset: 0,
-						});
-
-						await user.pointer({
-							target: screen.getByText('to here'),
-						});
-
-						// Create a mock ClipboardEvent with HTML that matches what the implementation expects
-						const clipboardData = new DataTransfer();
-						clipboardData.setData(
-							'text/html',
-							'<div data-node-type="media" data-id="some-file-id" data-context-id="some-context">some content</div>',
-						);
-
-						const copyEvent = new ClipboardEvent('copy', {
-							clipboardData,
-							bubbles: true,
-							cancelable: true,
-						});
-
-						// Dispatch the copy event
-						document.dispatchEvent(copyEvent);
-
-						// Verify the HTML was modified with clientId
-						const modifiedHtml = clipboardData.getData('text/html');
-						expect(modifiedHtml).toContain('data-client-id="test-client-id"');
-						expect(modifiedHtml).toContain('data-node-type="media"');
+		ffTest.on('platform_media_cross_client_copy_with_auth', 'when feature flag is enabled', () => {
+			ffTest.on('platform_media_cross_client_copy', 'and copy intent flag is enabled', () => {
+				it('should inject clientId into clipboard HTML when copying', async () => {
+					const user = userEvent.setup();
+					const mockGetClientId = jest.fn().mockResolvedValue('test-client-id');
+					mockedMediaApi.resolveAuth = jest.fn().mockResolvedValue({
+						...auth,
+						clientId: 'test-client-id',
 					});
+
+					render(
+						<MockedMediaClientProvider
+							mockedMediaApi={mockedMediaApi}
+							mockGetClientId={mockGetClientId}
+						>
+							<div>from here</div>
+							<DummyComponent id="some-id" collectionName="some-collection" />
+							<div>to here</div>
+							<div>other text</div>
+						</MockedMediaClientProvider>,
+					);
+
+					// Wait for clientId to be fetched
+					await waitFor(() => expect(mockGetClientId).toHaveBeenCalledWith('some-collection'));
+
+					await user.pointer({
+						keys: '[MouseLeft][MouseLeft>]',
+						target: screen.getByText('from here'),
+						offset: 0,
+					});
+
+					await user.pointer({
+						target: screen.getByText('to here'),
+					});
+
+					// Create a mock ClipboardEvent with HTML that matches what the implementation expects
+					const clipboardData = new DataTransfer();
+					clipboardData.setData(
+						'text/html',
+						'<div data-node-type="media" data-id="some-file-id" data-context-id="some-context">some content</div>',
+					);
+
+					const copyEvent = new ClipboardEvent('copy', {
+						clipboardData,
+						bubbles: true,
+						cancelable: true,
+					});
+
+					// Dispatch the copy event
+					document.dispatchEvent(copyEvent);
+
+					// Verify the HTML was modified with clientId
+					const modifiedHtml = clipboardData.getData('text/html');
+					expect(modifiedHtml).toContain('data-client-id="test-client-id"');
+					expect(modifiedHtml).toContain('data-node-type="media"');
+				});
 
 				it('should not inject clientId if clientId is not available', async () => {
 					const user = userEvent.setup();
@@ -450,8 +447,7 @@ describe('useCopyIntent', () => {
 					expect(modifiedHtml).toContain('data-node-type="media"');
 				});
 			});
-		},
-	);
+		});
 
 		ffTest.off(
 			'platform_media_cross_client_copy_with_auth',

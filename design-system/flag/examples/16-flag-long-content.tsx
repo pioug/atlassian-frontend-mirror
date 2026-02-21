@@ -11,7 +11,9 @@ export default (): React.JSX.Element => (
 		<Text>Flag with long content that should scroll</Text>
 		<FlagGroup>
 			<Flag
-				icon={<SuccessIcon spacing="spacious" label="Success" color={token('color.icon.success')} />}
+				icon={
+					<SuccessIcon spacing="spacious" label="Success" color={token('color.icon.success')} />
+				}
 				id="success"
 				key="success"
 				title="Connected"

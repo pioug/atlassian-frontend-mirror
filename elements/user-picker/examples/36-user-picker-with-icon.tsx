@@ -12,7 +12,7 @@ const agentUsers: User[] = [
 		id: '1',
 		name: 'Tom Adams',
 		appType: 'person',
-	    icon: <EmailIcon label="Email" />,
+		icon: <EmailIcon label="Email" />,
 		byline: 'Add new user',
 	},
 	{
@@ -30,7 +30,7 @@ const Example = (): React.JSX.Element => {
 			{({ options, onInputChange, onSelection }) => (
 				<UserPicker
 					fieldId="example"
-					options={[...agentUsers, ...options,]}
+					options={[...agentUsers, ...options]}
 					onChange={console.log}
 					onInputChange={onInputChange}
 					onSelection={onSelection}

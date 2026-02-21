@@ -12,7 +12,7 @@ interface PresetAPI<Preset extends EditorPresetBuilder<any, any>> {
 	// Due to TypeScript limitation (see: https://github.com/microsoft/TypeScript/issues/34933)
 	// we may be need to return any
 	editorApi: // eslint-disable-next-line @typescript-eslint/no-explicit-any
-	(Preset extends EditorPresetBuilder<any, any> ? ExtractPresetAPI<Preset> : never) | undefined;
+		(Preset extends EditorPresetBuilder<any, any> ? ExtractPresetAPI<Preset> : never) | undefined;
 	preset: Preset;
 }
 

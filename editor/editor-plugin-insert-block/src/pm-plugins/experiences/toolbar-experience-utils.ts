@@ -275,7 +275,10 @@ const matchesNodeInsertMarker = (node: Node): boolean => {
 	if (!(node instanceof HTMLElement)) {
 		return false;
 	}
-	return node.matches(COMBINED_NODE_INSERT_SELECTOR) || !!node.querySelector(COMBINED_NODE_INSERT_SELECTOR);
+	return (
+		node.matches(COMBINED_NODE_INSERT_SELECTOR) ||
+		!!node.querySelector(COMBINED_NODE_INSERT_SELECTOR)
+	);
 };
 
 /**
@@ -320,4 +323,3 @@ export const handleEditorNodeInsertDomMutation = ({
 
 	return undefined;
 };
-

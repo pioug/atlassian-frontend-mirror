@@ -45,7 +45,12 @@ export function getMediaNearPos(
 	return null;
 }
 
-export const isTextBlockNearPos = (doc: PMNode, schema: Schema, $pos: ResolvedPos, dir: number): boolean => {
+export const isTextBlockNearPos = (
+	doc: PMNode,
+	schema: Schema,
+	$pos: ResolvedPos,
+	dir: number,
+): boolean => {
 	let $currentPos = $pos;
 	let currentNode: PMNode | null | undefined =
 		dir === -1 ? $currentPos.nodeBefore : $currentPos.nodeAfter;

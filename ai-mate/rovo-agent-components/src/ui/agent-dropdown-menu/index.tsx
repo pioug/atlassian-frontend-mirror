@@ -117,7 +117,12 @@ type AgentDropdownMenuProps = {
 	}>;
 } & ViewAgentOptionProps &
 	ViewAgentFullProfileProps &
-	Partial<Pick<AgentVerificationDropdownItemProps, 'agentRef' | 'userPermissionsRef' | 'onVerificationSuccess'>>;
+	Partial<
+		Pick<
+			AgentVerificationDropdownItemProps,
+			'agentRef' | 'userPermissionsRef' | 'onVerificationSuccess'
+		>
+	>;
 
 export const AgentDropdownMenu = ({
 	isAutodevTemplateAgent,

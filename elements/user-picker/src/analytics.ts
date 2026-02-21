@@ -152,8 +152,13 @@ export const deleteEvent: EventCreator = (
 		journeyId,
 		value: optionData2Analytics(args[0]),
 		pickerOpen: state.menuIsOpen,
-		...(FeatureGates.getExperimentValue('team_member_suggestions_while_creating_team', 'isEnabled', false) &&
-			args[0]?.isSuggestedMember !== undefined ? { isSuggestedMember: args[0].isSuggestedMember } : {}),
+		...(FeatureGates.getExperimentValue(
+			'team_member_suggestions_while_creating_team',
+			'isEnabled',
+			false,
+		) && args[0]?.isSuggestedMember !== undefined
+			? { isSuggestedMember: args[0].isSuggestedMember }
+			: {}),
 	});
 
 export const cancelEvent: EventCreator = (

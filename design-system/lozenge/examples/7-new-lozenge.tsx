@@ -155,22 +155,14 @@ export default function NewLozengeExample(): JSX.Element {
 			<Box>
 				<Heading size="medium">Metric appearance override</Heading>
 				<Text>
-					Use <code>trailingMetricAppearance</code> to override the metric badge appearance. If
-					not provided, it inherits the lozenge appearance.
+					Use <code>trailingMetricAppearance</code> to override the metric badge appearance. If not
+					provided, it inherits the lozenge appearance.
 				</Text>
 				<Box xcss={styles.group}>
-					<Lozenge
-						appearance="success"
-						trailingMetric="3"
-						trailingMetricAppearance="danger"
-					>
+					<Lozenge appearance="success" trailingMetric="3" trailingMetricAppearance="danger">
 						Success lozenge + danger metric
 					</Lozenge>
-					<Lozenge
-						appearance="information"
-						trailingMetric="99"
-						trailingMetricAppearance="warning"
-					>
+					<Lozenge appearance="information" trailingMetric="99" trailingMetricAppearance="warning">
 						Info lozenge + warning metric
 					</Lozenge>
 					<Lozenge appearance="neutral" trailingMetric="12" trailingMetricAppearance="success">

@@ -243,7 +243,7 @@ describe('Socket io provider', () => {
 		it('should set x-client-platform header when platform_editor_send_client_platform_header is ON', () => {
 			expValEqualsMock.mockImplementation(
 				(experimentName: string, param: string) =>
-					experimentName === 'platform_editor_send_client_platform_header'
+					experimentName === 'platform_editor_send_client_platform_header',
 			);
 			const socket = createSocketIOSocket(url);
 

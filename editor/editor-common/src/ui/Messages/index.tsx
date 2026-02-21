@@ -61,13 +61,17 @@ export const ErrorMessage = ({ children }: Props) => {
 		>
 			<span css={iconWrapperStyle}>
 				<ErrorIcon
-					label={fg('platform_editor_dec_a11y_fixes') ? intl.formatMessage(commonMessages.error) : "error"}
-					aria-label={fg('platform_editor_dec_a11y_fixes') ? undefined : "error"}
+					label={
+						fg('platform_editor_dec_a11y_fixes')
+							? intl.formatMessage(commonMessages.error)
+							: 'error'
+					}
+					aria-label={fg('platform_editor_dec_a11y_fixes') ? undefined : 'error'}
 				/>
 			</span>
 			{children}
 		</div>
-	)
+	);
 };
 
 export const ValidMessage = ({ children }: Props) => {
@@ -79,12 +83,13 @@ export const ValidMessage = ({ children }: Props) => {
 			}}
 		>
 			<span css={iconWrapperStyle}>
-				{fg('platform_editor_dec_a11y_fixes')
-					? <SuccessIcon label={intl.formatMessage(commonMessages.success)} />
-					: <SuccessIcon label="success" />
-				}
+				{fg('platform_editor_dec_a11y_fixes') ? (
+					<SuccessIcon label={intl.formatMessage(commonMessages.success)} />
+				) : (
+					<SuccessIcon label="success" />
+				)}
 			</span>
 			{children}
 		</div>
-	)
+	);
 };

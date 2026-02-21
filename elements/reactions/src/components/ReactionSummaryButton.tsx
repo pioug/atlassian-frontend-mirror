@@ -49,8 +49,10 @@ const styles = cssMap({
 	},
 });
 
-interface ReactionSummaryButtonProps
-	extends Pick<ReactionsProps, 'emojiProvider' | 'reactions' | 'useButtonAlignmentStyling'> {
+interface ReactionSummaryButtonProps extends Pick<
+	ReactionsProps,
+	'emojiProvider' | 'reactions' | 'useButtonAlignmentStyling'
+> {
 	/**
 	 * The number of emojis to show in the summary button
 	 */

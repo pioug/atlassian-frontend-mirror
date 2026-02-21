@@ -11,7 +11,6 @@ import { token } from '@atlaskit/tokens';
 
 import doneSvg from './assets/checkIcon.svg';
 
-
 const styles = cssMap({
 	container: {
 		gap: token('space.150', '12px'),
@@ -30,5 +29,4 @@ export default ({ children }: Props): JSX.Element => (
 		<Image width="88px" height="88px" src={doneSvg} alt="Success" />
 		{children}
 	</Stack>
-
 );

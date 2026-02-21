@@ -40,8 +40,8 @@ export const getValidPos = (tr: ReadonlyTransaction, pos: number) => {
 		return backwardSelection
 			? backwardSelection.from
 			: forwardSelection
-			? forwardSelection.from
-			: pos;
+				? forwardSelection.from
+				: pos;
 	}
 	return endOfDocPos;
 };

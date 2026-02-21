@@ -51,7 +51,7 @@ import {
 } from '../feature-flags-accessed';
 import type { LabelStack, SegmentLabel } from '../interaction-context';
 import { getInteractionId } from '../interaction-id-context';
-import { flushSsrRenderProfilerTraces } from '../segment/ssr-render-profiler'
+import { flushSsrRenderProfilerTraces } from '../segment/ssr-render-profiler';
 import { newVCObserver } from '../vc';
 import { type VCObserverInterface } from '../vc/types';
 
@@ -963,23 +963,27 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 					return;
 				}
 
-			// If all holds (including 3p) are cleared, finish the interaction
-			if (noMoreActiveHolds && noMoreActive3pHolds) {
-				if (!activeSubmitted) {
-					// Set end3p to current time when 3p holds cleared, but ensure it's at least interaction.end
-					const currentTime = endTime ?? performance.now();
-					interaction.end3p = interaction.end !== 0 && currentTime < interaction.end
-						? interaction.end
-						: currentTime;
-					finishInteraction(interactionId, interaction, interaction.end !== 0 ? interaction.end : endTime);
-					if (getConfig()?.extraInteractionMetrics?.enabled) {
-						interactionExtraMetrics.updateFinishedInteraction(interaction);
-					}
+				// If all holds (including 3p) are cleared, finish the interaction
+				if (noMoreActiveHolds && noMoreActive3pHolds) {
+					if (!activeSubmitted) {
+						// Set end3p to current time when 3p holds cleared, but ensure it's at least interaction.end
+						const currentTime = endTime ?? performance.now();
+						interaction.end3p =
+							interaction.end !== 0 && currentTime < interaction.end
+								? interaction.end
+								: currentTime;
+						finishInteraction(
+							interactionId,
+							interaction,
+							interaction.end !== 0 ? interaction.end : endTime,
+						);
+						if (getConfig()?.extraInteractionMetrics?.enabled) {
+							interactionExtraMetrics.updateFinishedInteraction(interaction);
+						}
 
 						if (
 							getConfig()?.extraSearchPageInteraction?.enabled &&
-							interaction.ufoName ===
-								getConfig()?.extraSearchPageInteraction?.searchPageMetricName
+							interaction.ufoName === getConfig()?.extraSearchPageInteraction?.searchPageMetricName
 						) {
 							onSearchPageInteractionComplete(interactionId, interaction);
 						}
@@ -1008,7 +1012,10 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 				}
 			} else {
 				// Original behavior when feature flag is not active
-				if (noMoreActiveHolds && interactionExtraMetrics.finishedInteraction?.id !== interactionId) {
+				if (
+					noMoreActiveHolds &&
+					interactionExtraMetrics.finishedInteraction?.id !== interactionId
+				) {
 					// If it's not waiting for extra metrics to complete, finish the interaction as normal
 					if (!activeSubmitted) {
 						finishInteraction(interactionId, interaction, endTime);
@@ -1018,8 +1025,7 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 
 						if (
 							getConfig()?.extraSearchPageInteraction?.enabled &&
-							interaction.ufoName ===
-								getConfig()?.extraSearchPageInteraction?.searchPageMetricName
+							interaction.ufoName === getConfig()?.extraSearchPageInteraction?.searchPageMetricName
 						) {
 							onSearchPageInteractionComplete(interactionId, interaction);
 						}
@@ -1081,8 +1087,7 @@ export function abort(interactionId: string, abortReason: AbortReasonType): void
 			interaction.type,
 		);
 		const noMoreActiveHolds = interaction.holdActive.size === 0;
-		const has3pHoldsActive =
-			interaction.hold3pActive && interaction.hold3pActive.size > 0;
+		const has3pHoldsActive = interaction.hold3pActive && interaction.hold3pActive.size > 0;
 
 		// If only third-party holds are active, finish as successful instead of aborting
 		if (shouldUseRawDataThirdParty && noMoreActiveHolds && has3pHoldsActive) {
@@ -1128,14 +1133,13 @@ export function abortByNewInteraction(interactionId: string, interactionName: st
 			interaction.type,
 		);
 		const noMoreActiveHolds = interaction.holdActive.size === 0;
-		const has3pHoldsActive =
-			interaction.hold3pActive && interaction.hold3pActive.size > 0;
+		const has3pHoldsActive = interaction.hold3pActive && interaction.hold3pActive.size > 0;
 
 		// If only third-party holds are active, finish as successful instead of aborting
 		if (shouldUseRawDataThirdParty && noMoreActiveHolds && has3pHoldsActive) {
 			const endTime = interaction.end !== 0 ? interaction.end : performance.now();
 			// Set end3p to current time, but ensure it's at least interaction.end
-			interaction.end3p =  performance.now();
+			interaction.end3p = performance.now();
 			finishInteraction(interactionId, interaction, endTime);
 			postInteractionLog.reset();
 			postInteractionLog.stopVCObserver();
@@ -1197,8 +1201,7 @@ export function abortAll(abortReason: AbortReasonType, abortedByInteractionName?
 			interaction.type,
 		);
 		const noMoreActiveHolds = interaction.holdActive.size === 0;
-		const has3pHoldsActive =
-			interaction.hold3pActive && interaction.hold3pActive.size > 0;
+		const has3pHoldsActive = interaction.hold3pActive && interaction.hold3pActive.size > 0;
 
 		// If only third-party holds are active, finish as successful instead of aborting
 		if (shouldUseRawDataThirdParty && noMoreActiveHolds && has3pHoldsActive) {
@@ -1290,11 +1293,11 @@ export function addNewInteraction(
 	const config = getConfig();
 
 	const searchPageConfig = fg('rovo_search_page_ttvc_ignoring_smart_answers_fix')
-			? {
-					enableSmartAnswersMutations: config?.extraSearchPageInteraction?.enabled,
-					searchPageRoute: config?.extraSearchPageInteraction?.searchPageRoute,
-				}
-			: undefined;
+		? {
+				enableSmartAnswersMutations: config?.extraSearchPageInteraction?.enabled,
+				searchPageRoute: config?.extraSearchPageInteraction?.searchPageRoute,
+			}
+		: undefined;
 
 	if (config && config.vc) {
 		const vcOptions = {
@@ -1404,10 +1407,7 @@ export function addNewInteraction(
 		if (coinflip(getExperimentalInteractionRate(ufoName, type))) {
 			experimentalVC.start({ startTime });
 		}
-		if (
-			config?.extraInteractionMetrics?.enabled &&
-			fg('platform_ufo_enable_ttai_with_3p')
-		) {
+		if (config?.extraInteractionMetrics?.enabled && fg('platform_ufo_enable_ttai_with_3p')) {
 			interactionExtraMetrics.startVCObserver({ startTime }, interactionId);
 		}
 	}

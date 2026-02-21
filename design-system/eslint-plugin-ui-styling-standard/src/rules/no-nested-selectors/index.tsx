@@ -37,7 +37,7 @@ function isAllowedSelector(selector: Selector): boolean {
 
 const cssSelectorProcessor = cssSelectorParser();
 
-export const rule: import("eslint").Rule.RuleModule = createLintRuleWithTypedConfig({
+export const rule: import('eslint').Rule.RuleModule = createLintRuleWithTypedConfig({
 	meta: {
 		name: 'no-nested-selectors',
 		docs: {

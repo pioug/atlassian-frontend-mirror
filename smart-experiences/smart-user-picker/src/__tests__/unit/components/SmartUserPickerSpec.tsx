@@ -101,9 +101,6 @@ jest.mock('@atlaskit/platform-feature-flags', () => ({
 		if (flag === 'twcg-444-invite-usd-improvements-m2-gate') {
 			return true;
 		}
-		if (flag === 'smart-user-picker-managed-teams-gate') {
-			return true;
-		}
 		return false;
 	}),
 }));
@@ -2147,65 +2144,6 @@ describe('SmartUserPicker', () => {
 				expect(request.verifiedTeams).toBe(true);
 				expect(request.includeTeams).toBe(true);
 			});
-
-			it('should not pass verifiedTeams to backend when feature flag is disabled even if verifiedTeams prop is true', async () => {
-				const { fg } = require('@atlaskit/platform-feature-flags');
-				fg.mockImplementation((flag: string) => {
-					if (flag === 'smart-user-picker-managed-teams-gate') {
-						return false;
-					}
-					if (flag === 'twcg-444-invite-usd-improvements-m2-gate') {
-						return true;
-					}
-					return false;
-				});
-
-				const mockAllTeams: OptionData[] = [
-					{
-						id: 'verified-team-1',
-						name: 'Verified Team 1',
-						type: 'team',
-						verified: true,
-					},
-					{
-						id: 'unverified-team-1',
-						name: 'Unverified Team 1',
-						type: 'team',
-						verified: false,
-					},
-				];
-
-				getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockAllTeams));
-
-				renderSmartUserPicker({
-					includeTeams: true,
-					verifiedTeams: true,
-				});
-
-				const input = screen.getByRole('combobox');
-				await userEvent.click(input);
-
-				await waitFor(() => {
-					expect(screen.getByText('Verified Team 1')).toBeInTheDocument();
-					expect(screen.getByText('Unverified Team 1')).toBeInTheDocument();
-				});
-
-				// Verify the API was called with verifiedTeams: undefined (because feature flag is disabled)
-				const lastCall =
-					getUserRecommendationsMock.mock.calls[getUserRecommendationsMock.mock.calls.length - 1];
-				expect(lastCall[0].verifiedTeams).toBeUndefined();
-
-				// Reset mock for other tests
-				fg.mockImplementation((flag: string) => {
-					if (flag === 'twcg-444-invite-usd-improvements-m2-gate') {
-						return true;
-					}
-					if (flag === 'smart-user-picker-managed-teams-gate') {
-						return true;
-					}
-					return false;
-				});
-			});
 		});
 	});
 
@@ -2213,9 +2151,6 @@ describe('SmartUserPicker', () => {
 		afterEach(() => {
 			jest.mocked(fg).mockImplementation((flag: string) => {
 				if (flag === 'twcg-444-invite-usd-improvements-m2-gate') {
-					return true;
-				}
-				if (flag === 'smart-user-picker-managed-teams-gate') {
 					return true;
 				}
 				return false;

@@ -47,7 +47,9 @@ describe('useDatasourceTableFlag', () => {
 	};
 
 	it('throws when FlagProvider is not provided', async () => {
-		expect(() => renderHook(() => useDatasourceTableFlag())).toThrow(new Error('Unable to find FlagProviderContext'));
+		expect(() => renderHook(() => useDatasourceTableFlag())).toThrow(
+			new Error('Unable to find FlagProviderContext'),
+		);
 		await expect(document.body).toBeAccessible();
 	});
 

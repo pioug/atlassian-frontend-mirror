@@ -167,7 +167,9 @@ export const InsertButton = ({
 			case 'media':
 				if (showMediaPicker) {
 					if (fg('platform_editor_media_insert_check')) {
-						api?.mediaInsert?.commands.showMediaInsertPopup ? api?.core?.actions.execute(api?.mediaInsert?.commands.showMediaInsertPopup()) : showMediaPicker?.();
+						api?.mediaInsert?.commands.showMediaInsertPopup
+							? api?.core?.actions.execute(api?.mediaInsert?.commands.showMediaInsertPopup())
+							: showMediaPicker?.();
 					} else {
 						api?.core?.actions.execute(api?.mediaInsert?.commands.showMediaInsertPopup());
 					}

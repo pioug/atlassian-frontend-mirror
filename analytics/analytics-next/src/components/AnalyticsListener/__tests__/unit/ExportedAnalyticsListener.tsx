@@ -19,7 +19,7 @@ jest.mock('../../ModernAnalyticsListener', () => ({
 describe('ExportedAnalyticsListener', () => {
 	ffTest(
 		'analytics-next-use-legacy-context',
-				() => {
+		() => {
 			const onEvent = jest.fn();
 			render(<AnalyticsListener onEvent={onEvent} />);
 

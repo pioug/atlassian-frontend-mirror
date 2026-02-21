@@ -80,8 +80,10 @@ const getLeftSidebarPercentage = (currentWidth: number, maxWidth: number): numbe
 	return Math.floor(total * 100);
 };
 
-const getPageLayoutSlotSelector = (slotName: string): {
-    "data-ds--page-layout--slot": string;
+const getPageLayoutSlotSelector = (
+	slotName: string,
+): {
+	'data-ds--page-layout--slot': string;
 } => ({
 	[PAGE_LAYOUT_SLOT_SELECTOR]: slotName,
 });

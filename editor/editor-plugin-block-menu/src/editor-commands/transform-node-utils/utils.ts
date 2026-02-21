@@ -117,7 +117,10 @@ export const convertExpandToNestedExpand = (node: PMNode, schema: Schema): PMNod
 	const localIdAttr = fg('platform_editor_block_menu_expand_localid_fix')
 		? { localId: crypto.randomUUID() }
 		: {};
-	return nestedExpandType.createAndFill({ title: node.attrs?.title || '', ...localIdAttr }, node.content);
+	return nestedExpandType.createAndFill(
+		{ title: node.attrs?.title || '', ...localIdAttr },
+		node.content,
+	);
 };
 
 /**

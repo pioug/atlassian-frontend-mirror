@@ -6,14 +6,13 @@ import type { TriggerProps } from '@atlaskit/popup/types';
 
 import { IconButton } from './themed/migration';
 
-interface AppSwitcherProps
-	extends Partial<
-		Omit<
-			TriggerProps,
-			| 'ref' // not necessary because we're using forwardRef
-			| 'data-ds--level' // this doesn't look like it should be exposed
-		>
-	> {
+interface AppSwitcherProps extends Partial<
+	Omit<
+		TriggerProps,
+		| 'ref' // not necessary because we're using forwardRef
+		| 'data-ds--level' // this doesn't look like it should be exposed
+	>
+> {
 	/**
 	 * Provide an accessible label, often used by screen readers.
 	 */

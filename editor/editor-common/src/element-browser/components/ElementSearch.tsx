@@ -132,9 +132,11 @@ function ElementSearch({
 					</div>
 				}
 				placeholder={formatMessage(commonMessages.placeHolderMessage)}
-				aria-label={fg('platform_editor_dec_a11y_fixes')
-					? formatMessage(commonMessages.searchAriaLabel)
-					: "search"}
+				aria-label={
+					fg('platform_editor_dec_a11y_fixes')
+						? formatMessage(commonMessages.searchAriaLabel)
+						: 'search'
+				}
 				aria-labelledby="search-assistive"
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className="js-search-input"

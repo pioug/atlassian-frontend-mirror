@@ -377,7 +377,7 @@ export function DropdownMenuItem({
 		setSubmenuActive(
 			Boolean(
 				event.target instanceof HTMLElement &&
-					event.target.closest(`.${DropdownMenuSharedCssClassName.SUBMENU}`),
+				event.target.closest(`.${DropdownMenuSharedCssClassName.SUBMENU}`),
 			),
 		);
 	};
@@ -459,7 +459,7 @@ export function DropdownMenuItem({
 }
 
 export const DropdownMenuWithKeyboardNavigation = React.memo(
-			// Ignored via go/ees005
+	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	({ ...props }: React.PropsWithChildren<any>) => {
 		const keyDownHandlerContext = useContext(KeyDownHandlerContext);
@@ -472,9 +472,9 @@ export const DropdownMenuWithKeyboardNavigation = React.memo(
 					...props.arrowKeyNavigationProviderOptions,
 					keyDownHandlerContext,
 				}}
-			// eslint-disable-next-line react/jsx-props-no-spreading -- Spreading props to pass through dynamic component props
-			{...props}
-		/>
-	);
-},
+				// eslint-disable-next-line react/jsx-props-no-spreading -- Spreading props to pass through dynamic component props
+				{...props}
+			/>
+		);
+	},
 );

@@ -134,6 +134,6 @@ export const EmojiItemComponent: FC<EmojiProps> = (props) => {
 			resourceConfig={resourceConfig}
 		/>
 	);
-}
+};
 
 export default memo(EmojiItemComponent);

@@ -31,7 +31,7 @@ export default function RowExample(): React.JSX.Element {
 						<Lozenge appearance="moved">Overdue</Lozenge>
 					</Cell>
 					<Cell align="icon">
-						<Icon  spacing="spacious" label="archive" />
+						<Icon spacing="spacious" label="archive" />
 					</Cell>
 				</Row>
 			</TBody>

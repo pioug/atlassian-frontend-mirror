@@ -328,7 +328,7 @@ export const toReact = (
 		...nodeComponents,
 	};
 
-		if (fg('jfp-magma-ssr-iv-editor-codeblock')) {
+	if (fg('jfp-magma-ssr-iv-editor-codeblock')) {
 		if (node.type.name === 'codeBlock') {
 			if (flags?.allowWindowedCodeBlock === true) {
 				return nodes.windowedCodeBlock ?? WindowedCodeBlock;
@@ -337,7 +337,7 @@ export const toReact = (
 		}
 	}
 
-	nodes['multiBodiedExtension'] =  MultiBodiedExtension;
+	nodes['multiBodiedExtension'] = MultiBodiedExtension;
 	return nodes[node.type.name];
 };
 

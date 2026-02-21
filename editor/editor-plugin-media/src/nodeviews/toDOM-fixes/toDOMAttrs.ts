@@ -52,14 +52,14 @@ export const getMediaAttrs = (
 		to: Record<string, any>,
 		map?: (str: string) => string,
 	) => {
-			if (node.attrs) {
-				Object.keys(node.attrs).forEach((key) => {
-					if (key[0] === '_' && key[1] === '_' && from[key]) {
-						to[map ? map(key) : key] = from[key];
-					}
-				});
-			}
-		};
+		if (node.attrs) {
+			Object.keys(node.attrs).forEach((key) => {
+				if (key[0] === '_' && key[1] === '_' && from[key]) {
+					to[map ? map(key) : key] = from[key];
+				}
+			});
+		}
+	};
 
 	const attrs = {
 		'data-id': node.attrs.id,

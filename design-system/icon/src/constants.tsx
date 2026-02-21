@@ -15,22 +15,22 @@ export const sizeMap: Record<Size, Size> = {
 };
 
 export const dimensions: {
-    readonly small: {
-        readonly width: string;
-        readonly height: string;
-    };
-    readonly medium: {
-        readonly width: string;
-        readonly height: string;
-    };
-    readonly large: {
-        readonly width: string;
-        readonly height: string;
-    };
-    readonly xlarge: {
-        readonly width: string;
-        readonly height: string;
-    };
+	readonly small: {
+		readonly width: string;
+		readonly height: string;
+	};
+	readonly medium: {
+		readonly width: string;
+		readonly height: string;
+	};
+	readonly large: {
+		readonly width: string;
+		readonly height: string;
+	};
+	readonly xlarge: {
+		readonly width: string;
+		readonly height: string;
+	};
 } = {
 	small: {
 		width: sizes.small,

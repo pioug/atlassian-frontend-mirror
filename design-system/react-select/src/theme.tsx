@@ -1,23 +1,23 @@
 import { type Theme } from './types';
 
 export const colors: {
-    primary: string;
-    primary75: string;
-    primary50: string;
-    primary25: string;
-    danger: string;
-    dangerLight: string;
-    neutral0: string;
-    neutral5: string;
-    neutral10: string;
-    neutral20: string;
-    neutral30: string;
-    neutral40: string;
-    neutral50: string;
-    neutral60: string;
-    neutral70: string;
-    neutral80: string;
-    neutral90: string;
+	primary: string;
+	primary75: string;
+	primary50: string;
+	primary25: string;
+	danger: string;
+	dangerLight: string;
+	neutral0: string;
+	neutral5: string;
+	neutral10: string;
+	neutral20: string;
+	neutral30: string;
+	neutral40: string;
+	neutral50: string;
+	neutral60: string;
+	neutral70: string;
+	neutral80: string;
+	neutral90: string;
 } = {
 	primary: '#2684FF',
 	primary75: '#4C9AFF',
@@ -49,9 +49,9 @@ const controlHeight = 38;
 const menuGutter = baseUnit * 2;
 
 export const spacing: {
-    baseUnit: number;
-    controlHeight: number;
-    menuGutter: number;
+	baseUnit: number;
+	controlHeight: number;
+	menuGutter: number;
 } = {
 	baseUnit,
 	controlHeight,

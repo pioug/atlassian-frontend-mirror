@@ -79,7 +79,7 @@ describe('Element: Icon', () => {
 		render(
 			<IntlProvider locale={'en'}>
 				<IconElement icon={IconType.Document} url="src-loaded" />
-			</IntlProvider>
+			</IntlProvider>,
 		);
 
 		const element = await screen.findByTestId('smart-element-icon-image');
@@ -91,7 +91,7 @@ describe('Element: Icon', () => {
 		render(
 			<IntlProvider locale={'en'}>
 				<IconElement icon={IconType.Document} url="src-loaded" appearance="round" />
-			</IntlProvider>
+			</IntlProvider>,
 		);
 
 		await screen.findByTestId('smart-element-icon-image');
@@ -143,7 +143,8 @@ describe('Element: Icon', () => {
 			render(
 				<IntlProvider locale={'en'}>
 					<IconElement icon={IconType.Document} render={renderCustomIcon} url="src-loaded" />
-				</IntlProvider>);
+				</IntlProvider>,
+			);
 
 			const imageIcon = await screen.findByTestId('smart-element-icon-image');
 			const akIcon = screen.queryByTestId('smart-element-icon-icon');
@@ -201,7 +202,8 @@ describe('Element: Icon', () => {
 				render(
 					<IntlProvider locale={'en'}>
 						<IconElement url="src-loading" />
-					</IntlProvider>);
+					</IntlProvider>,
+				);
 
 				const element = await screen.findByTestId('smart-element-icon-loading');
 
@@ -212,7 +214,8 @@ describe('Element: Icon', () => {
 				render(
 					<IntlProvider locale={'en'}>
 						<IconElement url="src-error" />
-					</IntlProvider>);
+					</IntlProvider>,
+				);
 
 				const element = await screen.findByTestId('smart-element-icon-default');
 
@@ -225,7 +228,7 @@ describe('Element: Icon', () => {
 				render(
 					<IntlProvider locale={'en'}>
 						<IconElement url="src-loading" hideLoadingSkeleton={true} />
-					</IntlProvider>
+					</IntlProvider>,
 				);
 
 				const loading = screen.queryByTestId('smart-element-icon-loading');
@@ -244,7 +247,7 @@ describe('Element: Icon', () => {
 		render(
 			<IntlProvider locale={'en'}>
 				<IconElement css={overrideCss} />
-			</IntlProvider>
+			</IntlProvider>,
 		);
 
 		const element = await screen.findByTestId('smart-element-icon');

@@ -22,7 +22,6 @@ export const highlightMessages = defineMessages({
 	removeHighlight: {
 		id: 'fabric.editor.highlight.removeHighlight',
 		defaultMessage: 'Remove highlight',
-		description:
-			'Button content for removing the applied highlight color.',
+		description: 'Button content for removing the applied highlight color.',
 	},
 });

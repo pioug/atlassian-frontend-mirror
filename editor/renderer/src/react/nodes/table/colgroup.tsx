@@ -280,7 +280,6 @@ const renderScaleDownColgroup = (
 		});
 	}
 
-
 	return targetWidths.map((colWidth) => {
 		const width =
 			fixColumnWidth({ columnWidth: colWidth, zeroWidthColumnsCount, scaleDownPercent }) ||

@@ -1,6 +1,14 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { getEarliestHiddenTiming, getPageVisibilityState, getThrottleMeasurements, isTabThrottled, setupHiddenTimingCapture, setupThrottleDetection, stopThrottleDetection } from '../../index';
+import {
+	getEarliestHiddenTiming,
+	getPageVisibilityState,
+	getThrottleMeasurements,
+	isTabThrottled,
+	setupHiddenTimingCapture,
+	setupThrottleDetection,
+	stopThrottleDetection,
+} from '../../index';
 
 jest.mock('@atlaskit/platform-feature-flags', () => ({
 	fg: jest.fn(),
@@ -26,7 +34,7 @@ const createVisibilityEntry = (name: 'hidden' | 'visible', startTime: number): P
 				duration: 0,
 			};
 		},
-	} as PerformanceEntry);
+	}) as PerformanceEntry;
 
 const originalGetEntriesByType = performanceWithEntries.getEntriesByType;
 
@@ -180,14 +188,19 @@ describe('hidden-timing with timings which is smaller than 50(SIZE)', () => {
 describe('getHasHiddenTimingBeforeSetup', () => {
 	it('should return false by default when setupHiddenTimingCapture is not called', () => {
 		jest.isolateModules(() => {
-			const { getHasHiddenTimingBeforeSetup: isolatedGetHasHiddenTimingBeforeSetup } = require('../../index');
+			const {
+				getHasHiddenTimingBeforeSetup: isolatedGetHasHiddenTimingBeforeSetup,
+			} = require('../../index');
 			expect(isolatedGetHasHiddenTimingBeforeSetup()).toBe(false);
 		});
 	});
 
 	it('should return false when no visibility entries exist before setup', () => {
 		jest.isolateModules(() => {
-			const { getHasHiddenTimingBeforeSetup: isolatedGetHasHiddenTimingBeforeSetup, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+			const {
+				getHasHiddenTimingBeforeSetup: isolatedGetHasHiddenTimingBeforeSetup,
+				setupHiddenTimingCapture: isolatedSetup,
+			} = require('../../index');
 			const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
 
 			getEntriesSpy.mockReturnValue([]);
@@ -202,7 +215,10 @@ describe('getHasHiddenTimingBeforeSetup', () => {
 
 	it('should return false when only visible entries exist before setup', () => {
 		jest.isolateModules(() => {
-			const { getHasHiddenTimingBeforeSetup: isolatedGetHasHiddenTimingBeforeSetup, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+			const {
+				getHasHiddenTimingBeforeSetup: isolatedGetHasHiddenTimingBeforeSetup,
+				setupHiddenTimingCapture: isolatedSetup,
+			} = require('../../index');
 			const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
 
 			const visibilityEntries = [
@@ -221,7 +237,10 @@ describe('getHasHiddenTimingBeforeSetup', () => {
 
 	it('should return true when hidden entry exists before setup', () => {
 		jest.isolateModules(() => {
-			const { getHasHiddenTimingBeforeSetup: isolatedGetHasHiddenTimingBeforeSetup, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+			const {
+				getHasHiddenTimingBeforeSetup: isolatedGetHasHiddenTimingBeforeSetup,
+				setupHiddenTimingCapture: isolatedSetup,
+			} = require('../../index');
 			const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
 
 			const visibilityEntries = [
@@ -240,7 +259,10 @@ describe('getHasHiddenTimingBeforeSetup', () => {
 
 	it('should return true when multiple hidden entries exist before setup', () => {
 		jest.isolateModules(() => {
-			const { getHasHiddenTimingBeforeSetup: isolatedGetHasHiddenTimingBeforeSetup, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+			const {
+				getHasHiddenTimingBeforeSetup: isolatedGetHasHiddenTimingBeforeSetup,
+				setupHiddenTimingCapture: isolatedSetup,
+			} = require('../../index');
 			const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
 
 			const visibilityEntries = [
@@ -261,7 +283,10 @@ describe('getHasHiddenTimingBeforeSetup', () => {
 
 	it('should work correctly with platform_ufo_use_native_page_visibility_api enabled', () => {
 		jest.isolateModules(() => {
-			const { getHasHiddenTimingBeforeSetup: isolatedGetHasHiddenTimingBeforeSetup, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+			const {
+				getHasHiddenTimingBeforeSetup: isolatedGetHasHiddenTimingBeforeSetup,
+				setupHiddenTimingCapture: isolatedSetup,
+			} = require('../../index');
 			const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
 
 			const visibilityEntries = [
@@ -282,7 +307,10 @@ describe('getHasHiddenTimingBeforeSetup', () => {
 
 	it('should handle performance.getEntriesByType throwing an error gracefully', () => {
 		jest.isolateModules(() => {
-			const { getHasHiddenTimingBeforeSetup: isolatedGetHasHiddenTimingBeforeSetup, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+			const {
+				getHasHiddenTimingBeforeSetup: isolatedGetHasHiddenTimingBeforeSetup,
+				setupHiddenTimingCapture: isolatedSetup,
+			} = require('../../index');
 			const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
 
 			getEntriesSpy.mockImplementation(() => {
@@ -298,7 +326,10 @@ describe('getHasHiddenTimingBeforeSetup', () => {
 
 	it('should detect hidden entry in visibility state entries', () => {
 		jest.isolateModules(() => {
-			const { getHasHiddenTimingBeforeSetup: isolatedGetHasHiddenTimingBeforeSetup, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+			const {
+				getHasHiddenTimingBeforeSetup: isolatedGetHasHiddenTimingBeforeSetup,
+				setupHiddenTimingCapture: isolatedSetup,
+			} = require('../../index');
 			const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
 
 			const visibilityEntries = [
@@ -406,7 +437,10 @@ describe('isOpenedInBackground', () => {
 	describe('fallback with time threshold', () => {
 		it('should return true when setup runs early (< 100ms) and page is hidden', () => {
 			jest.isolateModules(() => {
-				const { isOpenedInBackground: isolatedIsOpenedInBackground, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+				const {
+					isOpenedInBackground: isolatedIsOpenedInBackground,
+					setupHiddenTimingCapture: isolatedSetup,
+				} = require('../../index');
 				const visibilitySpy = jest.spyOn(window.document, 'visibilityState', 'get');
 				const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
 				const performanceNowSpy = jest.spyOn(window.performance, 'now');
@@ -427,7 +461,10 @@ describe('isOpenedInBackground', () => {
 
 		it('should return false when setup runs late (>= 100ms) even if page is hidden', () => {
 			jest.isolateModules(() => {
-				const { isOpenedInBackground: isolatedIsOpenedInBackground, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+				const {
+					isOpenedInBackground: isolatedIsOpenedInBackground,
+					setupHiddenTimingCapture: isolatedSetup,
+				} = require('../../index');
 				const visibilitySpy = jest.spyOn(window.document, 'visibilityState', 'get');
 				const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
 				const performanceNowSpy = jest.spyOn(window.performance, 'now');
@@ -448,7 +485,10 @@ describe('isOpenedInBackground', () => {
 
 		it('should return false when setup runs early but page is visible', () => {
 			jest.isolateModules(() => {
-				const { isOpenedInBackground: isolatedIsOpenedInBackground, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+				const {
+					isOpenedInBackground: isolatedIsOpenedInBackground,
+					setupHiddenTimingCapture: isolatedSetup,
+				} = require('../../index');
 				const visibilitySpy = jest.spyOn(window.document, 'visibilityState', 'get');
 				const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
 				const performanceNowSpy = jest.spyOn(window.performance, 'now');
@@ -469,7 +509,10 @@ describe('isOpenedInBackground', () => {
 
 		it('should return false when page is hidden later after setup', () => {
 			jest.isolateModules(() => {
-				const { isOpenedInBackground: isolatedIsOpenedInBackground, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+				const {
+					isOpenedInBackground: isolatedIsOpenedInBackground,
+					setupHiddenTimingCapture: isolatedSetup,
+				} = require('../../index');
 				const visibilitySpy = jest.spyOn(window.document, 'visibilityState', 'get');
 				const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
 				const performanceNowSpy = jest.spyOn(window.performance, 'now');
@@ -495,7 +538,10 @@ describe('isOpenedInBackground', () => {
 
 		it('should handle getEntriesByType throwing an error gracefully', () => {
 			jest.isolateModules(() => {
-				const { isOpenedInBackground: isolatedIsOpenedInBackground, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+				const {
+					isOpenedInBackground: isolatedIsOpenedInBackground,
+					setupHiddenTimingCapture: isolatedSetup,
+				} = require('../../index');
 				const visibilitySpy = jest.spyOn(window.document, 'visibilityState', 'get');
 				const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
 				const performanceNowSpy = jest.spyOn(window.performance, 'now');
@@ -573,7 +619,11 @@ describe('Throttle Detection', () => {
 
 		it('should return false when timer runs normally (no throttling)', () => {
 			jest.isolateModules(() => {
-				const { setupThrottleDetection: isolatedSetup, stopThrottleDetection: isolatedStop, isTabThrottled: isolatedIsThrottled } = require('../../index');
+				const {
+					setupThrottleDetection: isolatedSetup,
+					stopThrottleDetection: isolatedStop,
+					isTabThrottled: isolatedIsThrottled,
+				} = require('../../index');
 				const performanceNowSpy = jest.spyOn(performance, 'now');
 
 				// Start at 0ms
@@ -597,7 +647,11 @@ describe('Throttle Detection', () => {
 
 		it('should return true when timer is throttled (significant drift detected)', () => {
 			jest.isolateModules(() => {
-				const { setupThrottleDetection: isolatedSetup, stopThrottleDetection: isolatedStop, isTabThrottled: isolatedIsThrottled } = require('../../index');
+				const {
+					setupThrottleDetection: isolatedSetup,
+					stopThrottleDetection: isolatedStop,
+					isTabThrottled: isolatedIsThrottled,
+				} = require('../../index');
 				const performanceNowSpy = jest.spyOn(performance, 'now');
 
 				// Start at 0ms
@@ -617,7 +671,11 @@ describe('Throttle Detection', () => {
 
 		it('should return false when throttling occurred outside the queried time window', () => {
 			jest.isolateModules(() => {
-				const { setupThrottleDetection: isolatedSetup, stopThrottleDetection: isolatedStop, isTabThrottled: isolatedIsThrottled } = require('../../index');
+				const {
+					setupThrottleDetection: isolatedSetup,
+					stopThrottleDetection: isolatedStop,
+					isTabThrottled: isolatedIsThrottled,
+				} = require('../../index');
 				const performanceNowSpy = jest.spyOn(performance, 'now');
 
 				// Start at 0ms
@@ -654,7 +712,11 @@ describe('Throttle Detection', () => {
 
 		it('should return measurements within the specified time window', () => {
 			jest.isolateModules(() => {
-				const { setupThrottleDetection: isolatedSetup, stopThrottleDetection: isolatedStop, getThrottleMeasurements: isolatedGetMeasurements } = require('../../index');
+				const {
+					setupThrottleDetection: isolatedSetup,
+					stopThrottleDetection: isolatedStop,
+					getThrottleMeasurements: isolatedGetMeasurements,
+				} = require('../../index');
 				const performanceNowSpy = jest.spyOn(performance, 'now');
 
 				// Start at 0ms
@@ -683,7 +745,12 @@ describe('Throttle Detection', () => {
 	describe('stopThrottleDetection', () => {
 		it('should clear measurements and reset state', () => {
 			jest.isolateModules(() => {
-				const { setupThrottleDetection: isolatedSetup, stopThrottleDetection: isolatedStop, isTabThrottled: isolatedIsThrottled, getThrottleMeasurements: isolatedGetMeasurements } = require('../../index');
+				const {
+					setupThrottleDetection: isolatedSetup,
+					stopThrottleDetection: isolatedStop,
+					isTabThrottled: isolatedIsThrottled,
+					getThrottleMeasurements: isolatedGetMeasurements,
+				} = require('../../index');
 				const performanceNowSpy = jest.spyOn(performance, 'now');
 
 				performanceNowSpy.mockReturnValue(0);

@@ -19,10 +19,10 @@ const SYNCED_BLOCK_PRIMARY_TOOLBAR_GROUP = {
 	type: SYNCED_BLOCK_GROUP.type,
 	key: SYNCED_BLOCK_GROUP.key,
 	component: ({ children }: { children: React.ReactNode }) => (
-			<Show above="md">
-				<ToolbarButtonGroup>{children}</ToolbarButtonGroup>
-			</Show>
-		),
+		<Show above="md">
+			<ToolbarButtonGroup>{children}</ToolbarButtonGroup>
+		</Show>
+	),
 	parents: [
 		{
 			type: INSERT_BLOCK_SECTION.type,

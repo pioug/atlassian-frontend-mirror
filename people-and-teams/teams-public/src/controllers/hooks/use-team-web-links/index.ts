@@ -5,9 +5,11 @@ import { teamsClient } from '@atlaskit/teams-client';
 
 import { type NewTeamWebLink } from '../../../common/types';
 
-import { useTeamWebLinksActions as useTeamWebLinksActionsMulti, useTeamWebLinks as useTeamWebLinksMulti } from './multi-team';
+import {
+	useTeamWebLinksActions as useTeamWebLinksActionsMulti,
+	useTeamWebLinks as useTeamWebLinksMulti,
+} from './multi-team';
 import { type StoreApi, type TeamWebLinksState } from './types';
-
 
 const initialState: TeamWebLinksState = {
 	teamId: '',

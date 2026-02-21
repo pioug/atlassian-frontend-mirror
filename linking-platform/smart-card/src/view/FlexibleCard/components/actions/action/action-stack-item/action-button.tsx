@@ -61,9 +61,7 @@ const ActionButton = ({
 
 	const icon =
 		iconOption && isLoading ? (
-			<ActionIcon
-				icon={<Spinner testId={`${testId}-loading`} />}
-			/>
+			<ActionIcon icon={<Spinner testId={`${testId}-loading`} />} />
 		) : (
 			iconOption
 		);

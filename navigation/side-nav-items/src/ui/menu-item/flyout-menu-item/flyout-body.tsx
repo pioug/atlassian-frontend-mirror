@@ -22,7 +22,7 @@ const bodyStyles = cssMap({
 		paddingInlineStart: token('space.100'),
 		paddingInlineEnd: token('space.100'),
 		paddingBlockEnd: token('space.100'),
-	}
+	},
 });
 
 export interface FlyoutBodyProps {
@@ -62,27 +62,25 @@ export interface FlyoutBodyProps {
  * FlyoutHeader and FlyoutFooter (if present), as is scrollable if the content
  * exceeds the available space.
  */
-export const FlyoutBody = React.forwardRef<HTMLDivElement, FlyoutBodyProps>(
-	(props, ref) => {
-		const { children, testId, onKeyDown, onKeyUp, onBlurCapture } = props;
+export const FlyoutBody = React.forwardRef<HTMLDivElement, FlyoutBodyProps>((props, ref) => {
+	const { children, testId, onKeyDown, onKeyUp, onBlurCapture } = props;
 
-		return (
-			// The presentation role is used to satisfy the
-			// eslint-plugin-jsx-a11y/no-noninteractive-element-interactions
-			// linting rule. The event handlers (onKeyDown, onKeyUp, onBlurCapture)
-			// are here to capture bubbled events from child elements, not to make
-			// this div itself interactive.
-			<div
-				ref={ref}
-				css={bodyStyles.root}
-				data-testid={testId}
-				onKeyDown={onKeyDown}
-				onKeyUp={onKeyUp}
-				onBlurCapture={onBlurCapture}
-				role="presentation"
-			>
-				{children}
-			</div>
-		);
-	},
-);
+	return (
+		// The presentation role is used to satisfy the
+		// eslint-plugin-jsx-a11y/no-noninteractive-element-interactions
+		// linting rule. The event handlers (onKeyDown, onKeyUp, onBlurCapture)
+		// are here to capture bubbled events from child elements, not to make
+		// this div itself interactive.
+		<div
+			ref={ref}
+			css={bodyStyles.root}
+			data-testid={testId}
+			onKeyDown={onKeyDown}
+			onKeyUp={onKeyUp}
+			onBlurCapture={onBlurCapture}
+			role="presentation"
+		>
+			{children}
+		</div>
+	);
+});

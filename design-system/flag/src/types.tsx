@@ -111,8 +111,7 @@ export interface AutoDismissFlagProps extends AutoDismissFlagPropsWithoutId, Fla
 
 // This is extended by CreateFlagArgs
 export interface FlagPropsWithoutId
-	extends AutoDismissFlagPropsWithoutId,
-		WithAnalyticsEventsProps {
+	extends AutoDismissFlagPropsWithoutId, WithAnalyticsEventsProps {
 	/**
 	 * Standard onBlur event, applied to Flag by AutoDismissFlag.
 	 */

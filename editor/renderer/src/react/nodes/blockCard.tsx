@@ -135,7 +135,11 @@ export default function BlockCard(props: {
 					>
 						<WidthConsumer>
 							{({ width }) => {
-								const useStickySafeCentering = expValEquals('platform_editor_flex_based_centering', 'isEnabled', true);
+								const useStickySafeCentering = expValEquals(
+									'platform_editor_flex_based_centering',
+									'isEnabled',
+									true,
+								);
 								const useCenterWrapper = !isNodeNested && useStickySafeCentering;
 								const datasourceDiv = (
 									<div

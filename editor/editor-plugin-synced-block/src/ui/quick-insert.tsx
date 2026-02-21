@@ -5,7 +5,10 @@
 import { css, jsx } from '@compiled/react';
 
 import { blockTypeMessages } from '@atlaskit/editor-common/messages';
-import type { QuickInsertActionInsert, QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+import type {
+	QuickInsertActionInsert,
+	QuickInsertItem,
+} from '@atlaskit/editor-common/provider-factory';
 import { IconSyncBlock } from '@atlaskit/editor-common/quick-insert';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -27,7 +30,11 @@ export const getQuickInsertConfig = (
 	config: { enableSourceCreation?: boolean } | undefined,
 	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined,
 	syncBlockStore: SyncBlockStoreManager,
-): (({ formatMessage }: { formatMessage: (message: { id: string; defaultMessage: string }) => string }) => QuickInsertItem[]) => {
+): (({
+	formatMessage,
+}: {
+	formatMessage: (message: { id: string; defaultMessage: string }) => string;
+}) => QuickInsertItem[]) => {
 	return ({ formatMessage }) => {
 		if (!config?.enableSourceCreation) {
 			return [];

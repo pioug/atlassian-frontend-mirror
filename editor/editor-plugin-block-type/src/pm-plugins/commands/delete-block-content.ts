@@ -23,8 +23,8 @@ const isSelectedNodeSoleDecisionItem = (state: EditorState): boolean => {
 const isSelectedNodeMediaGroup = (state: EditorState): boolean => {
 	return Boolean(
 		state.selection instanceof NodeSelection &&
-			state.selection.node.type.name === 'media' &&
-			state.selection.$head.parent.type.name === 'mediaGroup',
+		state.selection.node.type.name === 'media' &&
+		state.selection.$head.parent.type.name === 'mediaGroup',
 	);
 };
 

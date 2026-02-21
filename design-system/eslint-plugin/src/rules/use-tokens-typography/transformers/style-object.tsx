@@ -70,11 +70,16 @@ interface FixerRefs {
 }
 
 export const StyleObject: {
-    lint(node: Rule.Node, { context, config }: MetaData): {
-        success: boolean;
-    } | undefined;
-    _check(node: ObjectExpression & Rule.NodeParentExtension, { context, config }: MetaData): Check;
-    _fix(refs: FixerRefs, context: Rule.RuleContext): (fixer: Rule.RuleFixer) => Rule.Fix[];
+	lint(
+		node: Rule.Node,
+		{ context, config }: MetaData,
+	):
+		| {
+				success: boolean;
+		  }
+		| undefined;
+	_check(node: ObjectExpression & Rule.NodeParentExtension, { context, config }: MetaData): Check;
+	_fix(refs: FixerRefs, context: Rule.RuleContext): (fixer: Rule.RuleFixer) => Rule.Fix[];
 } = {
 	lint(node: Rule.Node, { context, config }: MetaData) {
 		// To force the correct node type

@@ -78,7 +78,8 @@ const duplicateFieldRegex = /:[0-9]+$/;
 
 export const isDuplicateField = (key: string): boolean => duplicateFieldRegex.test(key);
 
-export const getNameFromDuplicateField = (key: string): string => key.replace(duplicateFieldRegex, '');
+export const getNameFromDuplicateField = (key: string): string =>
+	key.replace(duplicateFieldRegex, '');
 
 // An overly cautious parser for sanitizing configuration parameters of UGC
 export const parseParamType = (

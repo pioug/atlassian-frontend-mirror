@@ -37,7 +37,6 @@ export const mentionMessages = defineMessages({
 	sendInvite: {
 		id: 'fabric.editor.inviteItem.sendInvite',
 		defaultMessage: 'Send request to invite teammate',
-		description:
-			'By line text for send request to invite teammate option shown in mentions.'
+		description: 'By line text for send request to invite teammate option shown in mentions.',
 	},
 });

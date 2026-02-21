@@ -47,9 +47,8 @@ export type LayoutSectionFullDefinition = LayoutSectionBaseDefinition & {
  * @stage 0
  * @name layoutSection_with_single_column_node
  */
-export type LayoutSectionWithSingleColumnDefinition =
-	LayoutSectionBaseDefinition & {
-		/**
+export type LayoutSectionWithSingleColumnDefinition = LayoutSectionBaseDefinition & {
+	/**
 	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @minItems 1
 	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
@@ -57,10 +56,10 @@ export type LayoutSectionWithSingleColumnDefinition =
 	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @allowUnsupportedBlock true
 	 */
-		content: Array<LayoutColumnDefinition>;
-		marks?: Array<BreakoutMarkDefinition>;
-		type: 'layoutSection';
-	};
+	content: Array<LayoutColumnDefinition>;
+	marks?: Array<BreakoutMarkDefinition>;
+	type: 'layoutSection';
+};
 
 export type LayoutSectionDefinition =
 	| LayoutSectionFullDefinition
@@ -101,31 +100,30 @@ export const layoutSectionFull: NodeSpec = layoutSectionFullFactory({
 });
 
 // stage-0 support for columnRuleStyle attribute and 1-5 columns
-export const layoutSectionWithSingleColumn: NodeSpec =
-	layoutSectionWithSingleColumnStage0Factory({
-		parseDOM: [
-			{
-				context: 'layoutSection//|layoutColumn//',
-				tag: 'div[data-layout-section]',
-				skip: true,
-			},
-			{
-				tag: 'div[data-layout-section]',
-				getAttrs: (dom) => {
-					const columnRuleStyle = dom.getAttribute('data-column-rule-style');
-					return columnRuleStyle ? { columnRuleStyle } : {};
-				},
-			},
-		],
-		toDOM(node) {
-			const { columnRuleStyle } = node.attrs;
-			const attrs = {
-				'data-layout-section': 'true',
-				'data-column-rule-style': columnRuleStyle || undefined,
-			};
-			return ['div', attrs, 0];
+export const layoutSectionWithSingleColumn: NodeSpec = layoutSectionWithSingleColumnStage0Factory({
+	parseDOM: [
+		{
+			context: 'layoutSection//|layoutColumn//',
+			tag: 'div[data-layout-section]',
+			skip: true,
 		},
-	});
+		{
+			tag: 'div[data-layout-section]',
+			getAttrs: (dom) => {
+				const columnRuleStyle = dom.getAttribute('data-column-rule-style');
+				return columnRuleStyle ? { columnRuleStyle } : {};
+			},
+		},
+	],
+	toDOM(node) {
+		const { columnRuleStyle } = node.attrs;
+		const attrs = {
+			'data-layout-section': 'true',
+			'data-column-rule-style': columnRuleStyle || undefined,
+		};
+		return ['div', attrs, 0];
+	},
+});
 
 export const layoutSectionWithLocalId: NodeSpec = layoutSectionFactory({
 	parseDOM: [

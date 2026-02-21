@@ -784,9 +784,7 @@ export class TableContainer extends React.Component<
 								isinsideMultiBodiedExtension={isinsideMultiBodiedExtension}
 								allowTableResizing={allowTableResizing}
 								isPresentational={isPresentational}
-								allowFixedColumnWidthOption={
-									allowFixedColumnWidthOption
-								}
+								allowFixedColumnWidthOption={allowFixedColumnWidthOption}
 							>
 								{this.grabFirstRowRef(children)}
 							</Table>
@@ -811,9 +809,7 @@ export class TableContainer extends React.Component<
 								isinsideMultiBodiedExtension={isinsideMultiBodiedExtension}
 								allowTableResizing={allowTableResizing}
 								isPresentational={isPresentational}
-								allowFixedColumnWidthOption={
-									allowFixedColumnWidthOption
-								}
+								allowFixedColumnWidthOption={allowFixedColumnWidthOption}
 							>
 								{this.grabFirstRowRef(children)}
 							</Table>
@@ -1083,7 +1079,7 @@ const _default_1: {
 		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
 		setState: <K extends never>(
 			state: // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-			| {}
+				| {}
 				| ((
 						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 						prevState: Readonly<{}>,
@@ -1180,7 +1176,7 @@ const _default_1: {
 		// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any
 		setState: <K extends never>(
 			state: // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-			| {}
+				| {}
 				| ((
 						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 						prevState: Readonly<{}>,

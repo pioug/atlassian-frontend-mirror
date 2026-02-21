@@ -23,7 +23,9 @@ export type CSSPropStyleObject = {
 /**
  * Note: Not recursive. Only handles top level key/value pairs
  */
-export const convertASTObjectExpressionToJSObject: (styles: ObjectExpression & Partial<Rule.NodeParentExtension>) => CSSPropStyleObject = (
+export const convertASTObjectExpressionToJSObject: (
+	styles: ObjectExpression & Partial<Rule.NodeParentExtension>,
+) => CSSPropStyleObject = (
 	styles: ObjectExpression & Partial<Rule.NodeParentExtension>,
 ): CSSPropStyleObject => {
 	const styleObj: CSSPropStyleObject = {

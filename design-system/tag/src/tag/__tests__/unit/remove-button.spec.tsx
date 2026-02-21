@@ -4,7 +4,6 @@ import { fireEvent, render, screen } from '@testing-library/react';
 
 import { skipA11yAudit } from '@af/accessibility-testing';
 
-
 import RemoveButton from '../../internal/removable/remove-button';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage

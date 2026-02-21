@@ -5,11 +5,14 @@ import { type Action, createHook, createStore } from 'react-sweet-state';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
 import { teamsClient } from '@atlaskit/teams-client';
-import type { TeamContainers, TeamWithMemberships, UnlinkContainerMutationError } from '@atlaskit/teams-client/types';
+import type {
+	TeamContainers,
+	TeamWithMemberships,
+	UnlinkContainerMutationError,
+} from '@atlaskit/teams-client/types';
 
 import { type TeamContainer } from '../../../common/types';
 import { usePeopleAndTeamAnalytics } from '../../../common/utils/analytics';
-
 
 type ConnectedTeams = {
 	containerId: string | undefined;

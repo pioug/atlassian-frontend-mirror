@@ -72,10 +72,20 @@ const DrawersExample: () => JSX.Element = () => {
 	);
 };
 
-export const DrawerWidthNarrowExample: () => JSX.Element = () => <Drawer label="narrow" width="narrow" isOpen />;
-export const DrawerWidthMediumExample: () => JSX.Element = () => <Drawer label="medium" width="medium" isOpen />;
-export const DrawerWidthWideExample: () => JSX.Element = () => <Drawer label="wide" width="wide" isOpen />;
-export const DrawerWidthExtendedExample: () => JSX.Element = () => <Drawer label="extended" width="extended" isOpen />;
-export const DrawerWidthFullExample: () => JSX.Element = () => <Drawer label="full" width="full" isOpen />;
+export const DrawerWidthNarrowExample: () => JSX.Element = () => (
+	<Drawer label="narrow" width="narrow" isOpen />
+);
+export const DrawerWidthMediumExample: () => JSX.Element = () => (
+	<Drawer label="medium" width="medium" isOpen />
+);
+export const DrawerWidthWideExample: () => JSX.Element = () => (
+	<Drawer label="wide" width="wide" isOpen />
+);
+export const DrawerWidthExtendedExample: () => JSX.Element = () => (
+	<Drawer label="extended" width="extended" isOpen />
+);
+export const DrawerWidthFullExample: () => JSX.Element = () => (
+	<Drawer label="full" width="full" isOpen />
+);
 
 export default DrawersExample;

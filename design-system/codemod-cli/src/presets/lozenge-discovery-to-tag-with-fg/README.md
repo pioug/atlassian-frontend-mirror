@@ -1,6 +1,8 @@
 # Lozenge Discovery to Tag with Feature Gate Codemod
 
-This codemod migrates Lozenge components with `appearance="new"` or `appearance="discovery"` to Tag components behind the `platform-dst-lozenge-tag-badge-visual-uplifts` feature gate. It also includes discovery Lozenges with `isBold` or `isBold={true}`.
+This codemod migrates Lozenge components with `appearance="new"` or `appearance="discovery"` to Tag
+components behind the `platform-dst-lozenge-tag-badge-visual-uplifts` feature gate. It also includes
+discovery Lozenges with `isBold` or `isBold={true}`.
 
 ## What it does
 
@@ -8,12 +10,15 @@ This codemod migrates Lozenge components with `appearance="new"` or `appearance=
 
 ```tsx
 // Before
-<Lozenge appearance="new">New Feature</Lozenge>
+<Lozenge appearance="new">New Feature</Lozenge>;
 
 // After
-{fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? 
-  <Tag text="New Feature" color="purple" /> : 
-  <Lozenge appearance="new">New Feature</Lozenge>
+{
+	fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? (
+		<Tag text="New Feature" color="purple" />
+	) : (
+		<Lozenge appearance="new">New Feature</Lozenge>
+	);
 }
 ```
 
@@ -21,12 +26,19 @@ This codemod migrates Lozenge components with `appearance="new"` or `appearance=
 
 ```tsx
 // Before
-<Lozenge appearance="discovery" isBold={true}>Bold Discovery</Lozenge>
+<Lozenge appearance="discovery" isBold={true}>
+	Bold Discovery
+</Lozenge>;
 
 // After
-{fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? 
-  <Tag text="Bold Discovery" color="purple" /> : 
-  <Lozenge appearance="discovery" isBold={true}>Bold Discovery</Lozenge>
+{
+	fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? (
+		<Tag text="Bold Discovery" color="purple" />
+	) : (
+		<Lozenge appearance="discovery" isBold={true}>
+			Bold Discovery
+		</Lozenge>
+	);
 }
 ```
 
@@ -51,8 +63,8 @@ import Tag from '@atlaskit/tag';
 import { fg } from '@atlassian/jira-feature-gating';
 
 export default function App() {
-  return {fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? 
-    <Lozenge appearance="new">New</Lozenge> : 
+  return {fg('platform-dst-lozenge-tag-badge-visual-uplifts') ?
+    <Lozenge appearance="new">New</Lozenge> :
     <Tag text="New" color="purple" />
   };
 }
@@ -64,24 +76,33 @@ All props except `appearance` and `isBold` are preserved on the Tag:
 
 ```tsx
 // Before
-<Lozenge appearance="new" testId="my-lozenge" maxWidth={150}>New</Lozenge>
+<Lozenge appearance="new" testId="my-lozenge" maxWidth={150}>
+	New
+</Lozenge>;
 
 // After
-{fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? 
-  <Lozenge appearance="new" testId="my-lozenge" maxWidth={150}>New</Lozenge> : 
-  <Tag text="New" color="purple" testId="my-lozenge" maxWidth={150} />
+{
+	fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? (
+		<Lozenge appearance="new" testId="my-lozenge" maxWidth={150}>
+			New
+		</Lozenge>
+	) : (
+		<Tag text="New" color="purple" testId="my-lozenge" maxWidth={150} />
+	);
 }
 ```
 
 ## What gets migrated
 
 ### ✅ Migrated:
+
 - `<Lozenge appearance="new">`
 - `<Lozenge appearance="discovery">`
 - `<Lozenge appearance="discovery" isBold={true}>`
 - `<Lozenge appearance="discovery" isBold>` (boolean prop)
 
 ### ❌ NOT Migrated:
+
 - `<Lozenge appearance="success">` (other appearances)
 - `<Lozenge appearance="default">` (other appearances)
 - Any other Lozenge variants
@@ -113,6 +134,7 @@ npx @atlaskit/codemod-cli --preset lozenge-discovery-to-tag-with-fg packages/*/s
 ## Files that will be transformed
 
 The codemod only transforms files that:
+
 - Import Lozenge from `@atlaskit/lozenge`
 - Use Lozenge with `appearance="new"` or `appearance="discovery"`
 

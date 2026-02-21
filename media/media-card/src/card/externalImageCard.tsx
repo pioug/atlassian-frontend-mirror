@@ -24,10 +24,7 @@ import {
 import { type SSRStatus } from '../utils/analytics';
 import { generateUniqueId } from '../utils/generateUniqueId';
 import { getMediaCardCursor } from '../utils/getMediaCardCursor';
-import {
-	shouldPerformanceBeSampled,
-	useMediaCardUfoExperience,
-} from '../utils/ufoExperiences';
+import { shouldPerformanceBeSampled, useMediaCardUfoExperience } from '../utils/ufoExperiences';
 import { useCurrentValueRef } from '../utils/useCurrentValueRef';
 import { getDefaultCardDimensions } from '../utils/cardDimensions';
 import { usePrevious } from '../utils/usePrevious';

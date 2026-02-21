@@ -218,7 +218,7 @@ describe('MediaTable', () => {
 		expect(onPreviewOpenMock).toHaveBeenCalledTimes(1);
 
 		// eslint-disable-next-line @atlassian/a11y/no-violation-count
-		await expect(document.body).toBeAccessible({violationCount: 1});
+		await expect(document.body).toBeAccessible({ violationCount: 1 });
 	});
 
 	it('should open MediaViewer and call onPreviewOpen when pressing enter on a row', async () => {
@@ -250,7 +250,7 @@ describe('MediaTable', () => {
 		expect(onPreviewOpenMock).toHaveBeenCalledTimes(1);
 
 		// eslint-disable-next-line @atlassian/a11y/no-violation-count
-		await expect(document.body).toBeAccessible({violationCount: 1});
+		await expect(document.body).toBeAccessible({ violationCount: 1 });
 	});
 
 	it('should close the MediaViwer and call onPreviewClose when the preview is closed', async () => {

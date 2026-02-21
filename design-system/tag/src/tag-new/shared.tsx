@@ -49,11 +49,11 @@ export function useTagRemoval(
 	onBeforeRemoveAction: (() => boolean) | undefined,
 	onAfterRemoveAction: ((text: string) => void) | undefined,
 ): {
-    status: TagStatus;
-    handleRemoveRequest: () => void;
-    onKeyPress: (e: React.KeyboardEvent<HTMLButtonElement>) => void;
-    removingTag: () => void;
-    showingTag: () => void;
+	status: TagStatus;
+	handleRemoveRequest: () => void;
+	onKeyPress: (e: React.KeyboardEvent<HTMLButtonElement>) => void;
+	removingTag: () => void;
+	showingTag: () => void;
 } {
 	const [status, setStatus] = useState<TagStatus>(TagStatus.Showing);
 
@@ -97,39 +97,44 @@ export function useTagRemoval(
 /**
  * Shared hook for link handling
  */
-export function useLink(href: string | undefined, linkComponent: ComponentType<any> | undefined): {
-    isLink: boolean;
-    LinkComponent: ComponentType<any> | (<RouterLinkConfig extends Record<string, any> = never>(
-        props: LinkProps<RouterLinkConfig> & { ref?: import("react").Ref<HTMLAnchorElement> }
-    ) => JSX.Element);
+export function useLink(
+	href: string | undefined,
+	linkComponent: ComponentType<any> | undefined,
+): {
+	isLink: boolean;
+	LinkComponent:
+		| ComponentType<any>
+		| (<RouterLinkConfig extends Record<string, any> = never>(
+				props: LinkProps<RouterLinkConfig> & { ref?: import('react').Ref<HTMLAnchorElement> },
+		  ) => JSX.Element);
 } {
-    const isLink = Boolean(href);
-    const LinkComponent = linkComponent ?? Link;
+	const isLink = Boolean(href);
+	const LinkComponent = linkComponent ?? Link;
 
-    return { isLink, LinkComponent };
+	return { isLink, LinkComponent };
 }
 /**
  * Hook for tracking link/button hover/focus state (replaces CSS :has() selectors in this component)
  */
 export function useButtonInteraction(): {
-    isLinkHovered: boolean;
-    isOverButton: boolean;
-    isButtonFocused: boolean;
-    isLinkFocused: boolean;
-    buttonHandlers: {
-        onMouseEnter: () => void;
-        onMouseLeave: () => void;
-        onMouseDown: () => void;
-        onFocus: () => void;
-        onBlur: () => void;
-    };
-    linkHandlers: {
-        onMouseEnter: () => void;
-        onMouseLeave: () => void;
-        onMouseDown: () => void;
-        onFocus: () => void;
-        onBlur: () => void;
-    };
+	isLinkHovered: boolean;
+	isOverButton: boolean;
+	isButtonFocused: boolean;
+	isLinkFocused: boolean;
+	buttonHandlers: {
+		onMouseEnter: () => void;
+		onMouseLeave: () => void;
+		onMouseDown: () => void;
+		onFocus: () => void;
+		onBlur: () => void;
+	};
+	linkHandlers: {
+		onMouseEnter: () => void;
+		onMouseLeave: () => void;
+		onMouseDown: () => void;
+		onFocus: () => void;
+		onBlur: () => void;
+	};
 } {
 	const [isLinkHovered, setIsLinkHovered] = useState(false);
 	const [isOverButton, setIsOverButton] = useState(false);
@@ -277,7 +282,18 @@ interface RemovableWrapperProps {
 }
 
 // Shared component for motion wrapper
-export function RemovableWrapper({ isRemovable, status, children }: RemovableWrapperProps): string | number | boolean | JSX.Element | Iterable<ReactNode> | null | undefined {
+export function RemovableWrapper({
+	isRemovable,
+	status,
+	children,
+}: RemovableWrapperProps):
+	| string
+	| number
+	| boolean
+	| JSX.Element
+	| Iterable<ReactNode>
+	| null
+	| undefined {
 	if (isRemovable) {
 		return (
 			<ExitingPersistence>

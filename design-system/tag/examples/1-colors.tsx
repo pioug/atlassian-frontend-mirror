@@ -199,7 +199,12 @@ const _default: () => JSX.Element = () => (
 		<Heading size="medium">AvatarTag - Other/Team (Gray Only)</Heading>
 		<div css={avatarTagContainerStyles}>
 			<AvatarTag type="other" text="Design System Team" avatar={TeamAvatar} isRemovable={false} />
-			<AvatarTag type="other" text="Removable Team" avatar={TeamAvatar} removeButtonLabel="Remove" />
+			<AvatarTag
+				type="other"
+				text="Removable Team"
+				avatar={TeamAvatar}
+				removeButtonLabel="Remove"
+			/>
 			<AvatarTag
 				type="other"
 				text="Linked Team"

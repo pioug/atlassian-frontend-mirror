@@ -40,10 +40,10 @@ const appearances: { [key: string]: { description: string; title: string } } = {
 const iconMap = (key: string) => {
 	const icons: { [key: string]: ReactElement } = {
 		normal: <Tick spacing="spacious" label="Normal success" color={token('color.icon.success')} />,
-		info: <Info spacing="spacious" label="Info"  />,
-		success: <Tick spacing="spacious" label="Success"  />,
-		warning: <Warning spacing="spacious" label="Warning"  />,
-		error: <Error spacing="spacious" label="Error"  />,
+		info: <Info spacing="spacious" label="Info" />,
+		success: <Tick spacing="spacious" label="Success" />,
+		warning: <Warning spacing="spacious" label="Warning" />,
+		error: <Error spacing="spacious" label="Error" />,
 	};
 
 	return key ? icons[key] : icons;

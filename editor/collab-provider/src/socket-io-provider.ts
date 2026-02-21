@@ -67,14 +67,7 @@ export function createSocketIOSocket(
 		'x-subproduct': getSubProduct(productInfo),
 	};
 
-	if (
-		expValEquals(
-			'platform_editor_send_client_platform_header',
-			'isEnabled',
-			true,
-			false,
-		)
-	) {
+	if (expValEquals('platform_editor_send_client_platform_header', 'isEnabled', true, false)) {
 		extraHeaders['x-client-platform'] = 'web';
 	}
 
@@ -89,8 +82,8 @@ export function createSocketIOSocket(
 		auth,
 		extraHeaders,
 		query: {
-			sourceId: documentAri?.split('/')[1]
-		}
+			sourceId: documentAri?.split('/')[1],
+		},
 	});
 
 	return client;

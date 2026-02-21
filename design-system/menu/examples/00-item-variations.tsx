@@ -90,7 +90,10 @@ const ItemVariants: () => JSX.Element = () => {
 				the head of a statute (such as an act of Parliament or of Congress) or other legislative
 				instrument.
 			</ButtonItem>
-			<ButtonItem testId="item-button-before" iconBefore={<EmojiCustomIcon spacing="spacious" label="" />}>
+			<ButtonItem
+				testId="item-button-before"
+				iconBefore={<EmojiCustomIcon spacing="spacious" label="" />}
+			>
 				With iconBefore prop
 			</ButtonItem>
 			<ButtonItem testId="item-button-after" iconAfter={<StarIcon spacing="spacious" label="" />}>

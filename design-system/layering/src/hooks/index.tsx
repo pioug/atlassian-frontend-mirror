@@ -71,9 +71,9 @@ export function useCloseOnEscapePress({ onClose, isDisabled }: UseCloseOnEscapeP
  *
  */
 export function useLayering(): {
-    currentLevel: number;
-    isLayerDisabled: () => boolean;
-    getTopLevel: () => number | null;
+	currentLevel: number;
+	isLayerDisabled: () => boolean;
+	getTopLevel: () => number | null;
 } {
 	const currentLevel = useContext(LevelContext);
 

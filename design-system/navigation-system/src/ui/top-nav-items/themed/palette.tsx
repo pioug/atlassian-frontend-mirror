@@ -5,46 +5,46 @@
  * through public API and we shouldn't use the private API of another package.
  */
 export const palette: {
-    'DarkNeutral-100': string;
-    'DarkNeutral-100A': string;
-    DarkNeutral0: string;
-    DarkNeutral100: string;
-    DarkNeutral100A: string;
-    DarkNeutral200: string;
-    DarkNeutral200A: string;
-    DarkNeutral250: string;
-    DarkNeutral250A: string;
-    DarkNeutral300: string;
-    DarkNeutral300A: string;
-    DarkNeutral350: string;
-    DarkNeutral350A: string;
-    DarkNeutral400: string;
-    DarkNeutral400A: string;
-    DarkNeutral500: string;
-    DarkNeutral500A: string;
-    DarkNeutral600: string;
-    DarkNeutral700: string;
-    DarkNeutral800: string;
-    DarkNeutral900: string;
-    DarkNeutral1000: string;
-    DarkNeutral1100: string;
-    Neutral0: string;
-    Neutral100: string;
-    Neutral100A: string;
-    Neutral200: string;
-    Neutral200A: string;
-    Neutral300: string;
-    Neutral300A: string;
-    Neutral400: string;
-    Neutral400A: string;
-    Neutral500: string;
-    Neutral500A: string;
-    Neutral600: string;
-    Neutral700: string;
-    Neutral800: string;
-    Neutral900: string;
-    Neutral1000: string;
-    Neutral1100: string;
+	'DarkNeutral-100': string;
+	'DarkNeutral-100A': string;
+	DarkNeutral0: string;
+	DarkNeutral100: string;
+	DarkNeutral100A: string;
+	DarkNeutral200: string;
+	DarkNeutral200A: string;
+	DarkNeutral250: string;
+	DarkNeutral250A: string;
+	DarkNeutral300: string;
+	DarkNeutral300A: string;
+	DarkNeutral350: string;
+	DarkNeutral350A: string;
+	DarkNeutral400: string;
+	DarkNeutral400A: string;
+	DarkNeutral500: string;
+	DarkNeutral500A: string;
+	DarkNeutral600: string;
+	DarkNeutral700: string;
+	DarkNeutral800: string;
+	DarkNeutral900: string;
+	DarkNeutral1000: string;
+	DarkNeutral1100: string;
+	Neutral0: string;
+	Neutral100: string;
+	Neutral100A: string;
+	Neutral200: string;
+	Neutral200A: string;
+	Neutral300: string;
+	Neutral300A: string;
+	Neutral400: string;
+	Neutral400A: string;
+	Neutral500: string;
+	Neutral500A: string;
+	Neutral600: string;
+	Neutral700: string;
+	Neutral800: string;
+	Neutral900: string;
+	Neutral1000: string;
+	Neutral1100: string;
 } = {
 	'DarkNeutral-100': '#111213',
 	'DarkNeutral-100A': '#01040475',
@@ -89,18 +89,18 @@ export const palette: {
 };
 
 export const paletteRgba: {
-    DarkNeutral300A: {
-        r: number;
-        g: number;
-        b: number;
-        a: number;
-    };
-    Neutral300A: {
-        r: number;
-        g: number;
-        b: number;
-        a: number;
-    };
+	DarkNeutral300A: {
+		r: number;
+		g: number;
+		b: number;
+		a: number;
+	};
+	Neutral300A: {
+		r: number;
+		g: number;
+		b: number;
+		a: number;
+	};
 } = {
 	DarkNeutral300A: { r: 0xe3, g: 0xe4, b: 0xf2, a: 0x1f / 255 },
 	Neutral300A: { r: 0x0b, g: 0x12, b: 0x0e, a: 0x24 / 255 },

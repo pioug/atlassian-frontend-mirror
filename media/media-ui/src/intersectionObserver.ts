@@ -1,1 +1,2 @@
-export const isIntersectionObserverSupported = (): boolean => typeof IntersectionObserver !== 'undefined';
+export const isIntersectionObserverSupported = (): boolean =>
+	typeof IntersectionObserver !== 'undefined';

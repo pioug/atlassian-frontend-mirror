@@ -121,7 +121,7 @@ export const setGlobalTheme = (theme: string): void => {
 // to minimise the number of dependencies required as these changes are expected
 // to be patched onto CR8.
 export const getGlobalTheme = (): {
-    colorMode: string;
+	colorMode: string;
 } => {
 	// This should only be hit during tests.
 	//

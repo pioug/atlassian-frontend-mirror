@@ -34,5 +34,7 @@ export type ModalAttributes = {
 };
 
 /* eslint-disable @repo/internal/react/require-jsdoc */
-export const ModalContext: Context<ModalAttributes | null> = createContext<ModalAttributes | null>(null);
+export const ModalContext: Context<ModalAttributes | null> = createContext<ModalAttributes | null>(
+	null,
+);
 export const ScrollContext: Context<boolean | null> = createContext<boolean | null>(null);

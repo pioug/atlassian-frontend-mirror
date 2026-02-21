@@ -409,11 +409,14 @@ describe('ThemeProvider', () => {
 		});
 
 		it('should return default theme when UNSAFE_isThemingDisabled is true', async () => {
-			document.documentElement.setAttribute('data-theme', tokens.themeObjectToString({
-				light: 'dark',
-				dark: 'dark',
-				spacing: 'spacing',
-			}));
+			document.documentElement.setAttribute(
+				'data-theme',
+				tokens.themeObjectToString({
+					light: 'dark',
+					dark: 'dark',
+					spacing: 'spacing',
+				}),
+			);
 
 			const InnerComponent = () => {
 				const theme = useTheme();
@@ -426,7 +429,10 @@ describe('ThemeProvider', () => {
 				</AppProvider>,
 			);
 
-			expect(document.documentElement).toHaveAttribute('data-theme', 'light:dark dark:dark spacing:spacing');
+			expect(document.documentElement).toHaveAttribute(
+				'data-theme',
+				'light:dark dark:dark spacing:spacing',
+			);
 			expect(screen.getByTestId('theme-light')).toHaveTextContent('dark');
 		});
 	});
@@ -639,7 +645,8 @@ describe('ThemeProvider', () => {
 							}),
 						);
 					});
-				});
+				},
+			);
 
 			ffTest.on(
 				'platform_dst_subtree_theming',

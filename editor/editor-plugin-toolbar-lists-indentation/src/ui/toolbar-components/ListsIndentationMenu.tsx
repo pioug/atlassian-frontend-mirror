@@ -52,7 +52,7 @@ export const ListsIndentationMenu = ({
 				isDisabled={allItemsDisabled}
 				testId="editor-toolbar__lists-and-indentation-menu"
 				label={formatMessage(messages.lists)}
-				tooltipComponent={<ToolbarTooltip content={formatMessage(messages.lists)}/>}
+				tooltipComponent={<ToolbarTooltip content={formatMessage(messages.lists)} />}
 			>
 				{children}
 			</ToolbarDropdownMenu>

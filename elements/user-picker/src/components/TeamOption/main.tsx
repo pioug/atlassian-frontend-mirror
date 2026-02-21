@@ -140,7 +140,13 @@ export class TeamOption extends React.PureComponent<TeamOptionProps> {
 		} = this.props;
 		if (icon) {
 			return (
-				<AvatarOrIcon appearance="big" icon={icon} iconColor={iconColor} src={avatarUrl} type="team" />
+				<AvatarOrIcon
+					appearance="big"
+					icon={icon}
+					iconColor={iconColor}
+					src={avatarUrl}
+					type="team"
+				/>
 			);
 		}
 		// Fallback to original behavior

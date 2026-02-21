@@ -14,7 +14,8 @@ export default function BodiedSyncBlock(props: Props): React.JSX.Element {
 			data-bodied-sync-block
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className={BodiedSyncBlockSharedCssClassName.renderer}
-			data-local-id={localId} data-resource-id={resourceId}
+			data-local-id={localId}
+			data-resource-id={resourceId}
 		>
 			{children}
 		</div>

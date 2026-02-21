@@ -82,8 +82,9 @@ export interface CustomItemComponentProps {
 }
 
 // @public (undocumented)
-export interface CustomItemProps<TCustomComponentProps = CustomItemComponentProps>
-	extends BaseItemProps {
+export interface CustomItemProps<
+	TCustomComponentProps = CustomItemComponentProps,
+> extends BaseItemProps {
 	component?: React.ComponentType<TCustomComponentProps>;
 }
 

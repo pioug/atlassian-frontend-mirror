@@ -15,8 +15,6 @@ export const isNativeStickySupported = (isDragAndDropEnabled: boolean): boolean 
 
 	return (
 		// Safari has a bug with position: sticky and content editable, so we don't support it
-		!isBrowserSafari &&
-		isAnchorSupported() &&
-		isDragAndDropEnabled
+		!isBrowserSafari && isAnchorSupported() && isDragAndDropEnabled
 	);
 };

@@ -19,4 +19,3 @@ export default async function transformer(file: FileInfo, api: API): Promise<str
 
 	return src;
 }
-

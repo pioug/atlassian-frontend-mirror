@@ -156,7 +156,18 @@ export interface MultiValueGenericProps<
 }
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const MultiValueContainer: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({ children, innerProps, isFocused, isDisabled, className, xcss, }: MultiValueGenericProps<Option, IsMulti, Group>) => JSX.Element = <
+export const MultiValueContainer: <
+	Option,
+	IsMulti extends boolean,
+	Group extends GroupBase<Option>,
+>({
+	children,
+	innerProps,
+	isFocused,
+	isDisabled,
+	className,
+	xcss,
+}: MultiValueGenericProps<Option, IsMulti, Group>) => JSX.Element = <
 	Option,
 	IsMulti extends boolean,
 	Group extends GroupBase<Option>,
@@ -185,7 +196,18 @@ export const MultiValueContainer: <Option, IsMulti extends boolean, Group extend
 };
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const MultiValueLabel: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({ children, innerProps, isDisabled, hasEllipsis, className, xcss, }: MultiValueGenericProps<Option, IsMulti, Group>) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
+export const MultiValueLabel: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
+	children,
+	innerProps,
+	isDisabled,
+	hasEllipsis,
+	className,
+	xcss,
+}: MultiValueGenericProps<Option, IsMulti, Group>) => JSX.Element = <
+	Option,
+	IsMulti extends boolean,
+	Group extends GroupBase<Option>,
+>({
 	children,
 	innerProps,
 	isDisabled,
@@ -257,7 +279,9 @@ export function MultiValueRemove<Option, IsMulti extends boolean, Group extends 
 	);
 }
 
-const MultiValue: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(props: MultiValueProps<Option, IsMulti, Group>) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+const MultiValue: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+	props: MultiValueProps<Option, IsMulti, Group>,
+) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: MultiValueProps<Option, IsMulti, Group>,
 ) => {
 	const {

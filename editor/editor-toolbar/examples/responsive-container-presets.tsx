@@ -95,8 +95,6 @@ export default function ResponsiveContainerPresetsExample() {
 					<FullToolbarWithPreset breakpointPreset="confluence-comment" />
 				</div>
 			</div>
-
-	
 		</div>
 	);
 }

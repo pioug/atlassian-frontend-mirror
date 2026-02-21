@@ -13,8 +13,10 @@ import { EditorLinkPicker } from '../EditorLinkPicker';
 
 import HyperlinkAddToolbarComp from './HyperlinkAddToolbar';
 
-export interface HyperlinkAddToolbarProps
-	extends Pick<EditorLinkPickerProps, 'onCancel' | 'invokeMethod' | 'onClose'> {
+export interface HyperlinkAddToolbarProps extends Pick<
+	EditorLinkPickerProps,
+	'onCancel' | 'invokeMethod' | 'onClose'
+> {
 	displayText?: string;
 	displayUrl?: string;
 	editorAppearance?: EditorAppearance;

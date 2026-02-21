@@ -12,7 +12,10 @@ import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 // eslint-disable-next-line import/no-extraneous-dependencies -- used by example only, not a regular dependency
 import { nativeEmbedsPlugin } from '@atlaskit/editor-plugin-native-embeds';
-import { TitleInput , getNativeEmbedsExtensionProvider } from '@atlaskit/editor-test-helpers/example-helpers';
+import {
+	TitleInput,
+	getNativeEmbedsExtensionProvider,
+} from '@atlaskit/editor-test-helpers/example-helpers';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
@@ -145,10 +148,7 @@ const NativeEmbedsEditorExample = (): React.JSX.Element => {
 		[],
 	);
 	const appearance = 'full-page';
-	const nativeEmbedsExtensionProvider = React.useMemo(
-		() => getNativeEmbedsExtensionProvider(),
-		[],
-	);
+	const nativeEmbedsExtensionProvider = React.useMemo(() => getNativeEmbedsExtensionProvider(), []);
 
 	const { preset: fullPagePreset } = useConfluenceFullPagePreset({
 		editorAppearance: appearance,
@@ -157,10 +157,7 @@ const NativeEmbedsEditorExample = (): React.JSX.Element => {
 		},
 	});
 
-	const { preset } = usePreset(
-		() => fullPagePreset.add(nativeEmbedsPlugin),
-		[fullPagePreset],
-	);
+	const { preset } = usePreset(() => fullPagePreset.add(nativeEmbedsPlugin), [fullPagePreset]);
 
 	return (
 		<IntlProvider locale="en">
@@ -173,11 +170,7 @@ const NativeEmbedsEditorExample = (): React.JSX.Element => {
 					disabled={false}
 					contentComponents={<TitleInput value="Native Embeds Editor Testing" />}
 					primaryToolbarIconBefore={
-						<Button
-							iconBefore={<AtlassianIcon />}
-							appearance="subtle"
-							shouldFitContainer
-						></Button>
+						<Button iconBefore={<AtlassianIcon />} appearance="subtle" shouldFitContainer></Button>
 					}
 					extensionProviders={[nativeEmbedsExtensionProvider]}
 					// eslint-disable-next-line react/jsx-props-no-spreading -- needed only for providers

@@ -25,8 +25,8 @@ import handleFocus from '../utils/handle-focus';
  *
  */
 export const FocusManagerContext: React.Context<{
-    menuItemRefs: FocusableElementRef[];
-    registerRef(ref: FocusableElementRef): void;
+	menuItemRefs: FocusableElementRef[];
+	registerRef(ref: FocusableElementRef): void;
 }> = createContext<{
 	menuItemRefs: FocusableElementRef[];
 	registerRef(ref: FocusableElementRef): void;

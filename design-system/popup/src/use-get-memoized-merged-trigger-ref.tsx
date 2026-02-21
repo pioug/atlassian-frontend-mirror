@@ -12,7 +12,13 @@ import memoizeOne, { type MemoizedFn } from 'memoize-one';
  *  - `useState.setTriggerRef`
  *  - `renderProps.ref`
  */
-export const useGetMemoizedMergedTriggerRef = (): MemoizedFn<(ref: React.RefCallback<HTMLElement> | React.MutableRefObject<HTMLElement> | null, setTriggerRef: Dispatch<SetStateAction<HTMLElement | null>>, isOpen: boolean) => (node: HTMLElement | null) => void> => {
+export const useGetMemoizedMergedTriggerRef = (): MemoizedFn<
+	(
+		ref: React.RefCallback<HTMLElement> | React.MutableRefObject<HTMLElement> | null,
+		setTriggerRef: Dispatch<SetStateAction<HTMLElement | null>>,
+		isOpen: boolean,
+	) => (node: HTMLElement | null) => void
+> => {
 	const [getMemoizedMergedTriggerRef] = useState(() =>
 		memoizeOne(
 			(

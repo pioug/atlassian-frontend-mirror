@@ -20,11 +20,9 @@ export type JiraIssueDatasourceParameters = {
 
 export type JiraIssuesDatasourceAdf = DatasourceAdf<JiraIssueDatasourceParameters>;
 
-export interface JiraConfigModalProps
-	extends ConfigModalProps<
-		InlineCardAdf | DatasourceAdf,
-		DatasourceParameters | JiraIssueDatasourceParameters
-	> {}
+export interface JiraConfigModalProps extends ConfigModalProps<
+	InlineCardAdf | DatasourceAdf,
+	DatasourceParameters | JiraIssueDatasourceParameters
+> {}
 
-export interface ConnectedJiraConfigModalProps
-	extends ConnectedConfigModalProps<JiraIssueDatasourceParameters> {}
+export interface ConnectedJiraConfigModalProps extends ConnectedConfigModalProps<JiraIssueDatasourceParameters> {}

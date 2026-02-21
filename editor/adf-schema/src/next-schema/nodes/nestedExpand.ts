@@ -1,4 +1,4 @@
-import type { ADFCommonNodeSpec, ADFNode} from '@atlaskit/adf-schema-generator';
+import type { ADFCommonNodeSpec, ADFNode } from '@atlaskit/adf-schema-generator';
 import { $onePlus, $or, adfNode } from '@atlaskit/adf-schema-generator';
 import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
@@ -32,13 +32,16 @@ const nestedExpandContent = [
 	blockquote,
 	unsupportedBlock,
 ];
-export const nestedExpand: ADFNode<[string, "content", "with_no_marks"], ADFCommonNodeSpec & {
-    ignore: "pm-spec"[];
-} & {
-    content: never[];
-    marks: never[];
-    noMarks: true;
-}> = adfNode('nestedExpand')
+export const nestedExpand: ADFNode<
+	[string, 'content', 'with_no_marks'],
+	ADFCommonNodeSpec & {
+		ignore: 'pm-spec'[];
+	} & {
+		content: never[];
+		marks: never[];
+		noMarks: true;
+	}
+> = adfNode('nestedExpand')
 	.define({
 		isolating: true,
 		selectable: true,

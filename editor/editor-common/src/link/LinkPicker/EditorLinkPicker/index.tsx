@@ -17,8 +17,10 @@ import { useEscapeClickaway } from './useEscapeClickaway';
  */
 type OptionalKeys<T extends Object, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
-export interface EditorLinkPickerProps
-	extends OptionalKeys<React.ComponentProps<typeof LazyLinkPicker>, 'onCancel'> {
+export interface EditorLinkPickerProps extends OptionalKeys<
+	React.ComponentProps<typeof LazyLinkPicker>,
+	'onCancel'
+> {
 	editorAppearance?: EditorAppearance;
 	/**
 	 * Used for analytics purposes to describe how the link picker was invoked

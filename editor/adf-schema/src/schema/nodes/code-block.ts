@@ -178,9 +178,11 @@ export const codeBlock: NodeSpec = codeBlockFactory({
 	},
 });
 
-export const toJSON = (node: PMNode): {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    attrs: Record<string, any>;
+export const toJSON = (
+	node: PMNode,
+): {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	attrs: Record<string, any>;
 } => ({
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attrs: Object.keys(node.attrs).reduce<Record<string, any>>((memo, key) => {

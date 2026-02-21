@@ -170,9 +170,7 @@ const JQLEditorReadOnlyWithoutTheme = ({ query }: ReadOnlyProps) => {
 					// Therefore the autocomplete combobox is never shown to the users
 					aria-expanded={false}
 					aria-controls="dummy-jql-editor-auto-complete-id"
-					aria-label={
-						formatMessage(messages.inputLabel)
-					}
+					aria-label={formatMessage(messages.inputLabel)}
 					defaultRows={defaultRows}
 				>
 					{blocks.map((block, index) => (

@@ -7,7 +7,8 @@ import type { BackgroundColorToken } from './types';
  *
  * A surface context provides context information on the current background (if set).
  */
-export const SurfaceContext: Context<BackgroundColorToken> = createContext<BackgroundColorToken>('elevation.surface');
+export const SurfaceContext: Context<BackgroundColorToken> =
+	createContext<BackgroundColorToken>('elevation.surface');
 
 /**
  * __useSurface__

@@ -13,7 +13,6 @@ import { Stack } from '@atlaskit/primitives/compiled';
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-
 interface Props {
 	children: React.ReactNode;
 	headerImage?: string;
@@ -38,10 +37,8 @@ const styles = cssMap({
 		position: 'absolute',
 		top: token('space.100', '8px'),
 		right: token('space.100', '8px'),
-	}
-
+	},
 });
-
 
 export default ({ children, onDismiss, headerImage }: Props): JSX.Element => {
 	return (
@@ -50,9 +47,7 @@ export default ({ children, onDismiss, headerImage }: Props): JSX.Element => {
 				<Button icon={CrossIcon} label="Dismiss" appearance="subtle" onClick={onDismiss} />
 			</div>
 			{headerImage && <Image width="384px" height="112px" src={headerImage} alt="Header" />}
-			<Stack xcss={styles.container} >
-				{children}
-			</Stack>
+			<Stack xcss={styles.container}>{children}</Stack>
 		</div>
 	);
 };

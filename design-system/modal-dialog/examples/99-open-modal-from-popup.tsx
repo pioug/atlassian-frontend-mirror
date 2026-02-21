@@ -1,6 +1,12 @@
 import React, { useCallback, useState } from 'react';
 
-import { type BoundActions, createHook, createStore, type HookFunction, type StoreActionApi } from 'react-sweet-state';
+import {
+	type BoundActions,
+	createHook,
+	createStore,
+	type HookFunction,
+	type StoreActionApi,
+} from 'react-sweet-state';
 
 import Button from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
@@ -24,27 +30,40 @@ const Store = createStore({
 	// actions that trigger store mutation
 	actions: {
 		setFocused:
-			(focused: any): ({ setState }: StoreActionApi<{
+			(
+				focused: any,
+			): (({
+				setState,
+			}: StoreActionApi<{
 				focused: boolean;
-			}>) => void =>
-				({ setState }) => {
-					// mutate state synchronously
-					setState({
-						focused: focused,
-					});
-				},
+			}>) => void) =>
+			({ setState }) => {
+				// mutate state synchronously
+				setState({
+					focused: focused,
+				});
+			},
 	},
 });
 
-export const useIsFocused: HookFunction<{
-	focused: boolean;
-}, BoundActions<{
-	focused: boolean;
-}, {
-	setFocused: (focused: any) => ({ setState }: StoreActionApi<{
+export const useIsFocused: HookFunction<
+	{
 		focused: boolean;
-	}>) => void;
-}>, void> = createHook(Store);
+	},
+	BoundActions<
+		{
+			focused: boolean;
+		},
+		{
+			setFocused: (focused: any) => ({
+				setState,
+			}: StoreActionApi<{
+				focused: boolean;
+			}>) => void;
+		}
+	>,
+	void
+> = createHook(Store);
 
 const contentStyles = cssMap({
 	root: {

@@ -6,14 +6,15 @@ indicators and Tags for lower-prominence categorization.
 
 ## Migration Strategy with Fallback Support
 
-This codemod adds **migration-specific props** to all migrated Tag components to support a gradual, 
+This codemod adds **migration-specific props** to all migrated Tag components to support a gradual,
 feature-flag-controlled rollout:
 
-- `migration_fallback="lozenge"` - Tells the Tag component to render as a Lozenge until the feature flag is enabled
+- `migration_fallback="lozenge"` - Tells the Tag component to render as a Lozenge until the feature
+  flag is enabled
 - `isRemovable={false}` - Ensures Tags are not removable by default (matching Lozenge behavior)
 
-This approach allows Jira teams to migrate their code first, then enable the visual change via feature flag in the Tag source code,
-avoiding surprise visual changes during deployment.
+This approach allows Jira teams to migrate their code first, then enable the visual change via
+feature flag in the Tag source code, avoiding surprise visual changes during deployment.
 
 ## What it does
 
@@ -39,8 +40,9 @@ avoiding surprise visual changes during deployment.
 <Tag text="Subtle" color="standard" isRemovable={false} migration_fallback="lozenge" />
 ```
 
-**Note:** The `migration_fallback="lozenge"` prop ensures the component renders as a Lozenge until 
-the feature flag `platform-dst-lozenge-tag-badge-visual-uplifts` is enabled, allowing for gradual rollout.
+**Note:** The `migration_fallback="lozenge"` prop ensures the component renders as a Lozenge until
+the feature flag `platform-dst-lozenge-tag-badge-visual-uplifts` is enabled, allowing for gradual
+rollout.
 
 ### 2. Maps appearance to color values
 
@@ -183,7 +185,13 @@ Components with `style` props are migrated but include a warning:
 ```tsx
 // After migration (with warning)
 /* TODO: This Tag component has a style prop that was kept during migration... */
-<Tag text="Styled" color="lime" style={{ backgroundColor: 'red' }} isRemovable={false} migration_fallback="lozenge" />
+<Tag
+	text="Styled"
+	color="lime"
+	style={{ backgroundColor: 'red' }}
+	isRemovable={false}
+	migration_fallback="lozenge"
+/>
 ```
 
 ### Unknown appearance values
@@ -219,16 +227,18 @@ npx @atlaskit/codemod-cli --preset lozenge-to-tag-migration src/components/MyCom
    - Consider if a simpler component would work better
    - Use a different approach if Tag cannot represent the content
 
-3. **Enable the feature flag when ready**: The migrated Tags will render as Lozenges until you enable
-   the `platform-dst-lozenge-tag-badge-visual-uplifts` feature flag, allowing you to:
+3. **Enable the feature flag when ready**: The migrated Tags will render as Lozenges until you
+   enable the `platform-dst-lozenge-tag-badge-visual-uplifts` feature flag, allowing you to:
    - Complete the code migration across your codebase
    - Test thoroughly before any visual changes occur
    - Enable the new visual style in a controlled manner
 
-4. **Clean up migration props later**: After the feature flag is fully rolled out and stable, a follow-up
-   codemod can be run to remove the `migration_fallback` and adjust `isRemovable` props as needed
+4. **Clean up migration props later**: After the feature flag is fully rolled out and stable, a
+   follow-up codemod can be run to remove the `migration_fallback` and adjust `isRemovable` props as
+   needed
 
-5. **Test visual appearance**: Verify that migrated Tags have the expected visual prominence (after feature flag is enabled)
+5. **Test visual appearance**: Verify that migrated Tags have the expected visual prominence (after
+   feature flag is enabled)
 
 6. **Update tests**: Test IDs and component references may need updates
 
@@ -315,7 +325,8 @@ const status = getStatus(); // Make sure this returns a string
 ### "Tag component uses a variable as the text prop" warning
 
 - **Cause**: You have variable or member expression children
-- **Fix**: Verify the variable is a string type, or convert it: `<Tag text={String(variable)} isRemovable={false} migration_fallback="lozenge" />`
+- **Fix**: Verify the variable is a string type, or convert it:
+  `<Tag text={String(variable)} isRemovable={false} migration_fallback="lozenge" />`
 
 ### "complex children that couldn't be automatically migrated" warning
 

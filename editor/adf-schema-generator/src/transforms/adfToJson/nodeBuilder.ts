@@ -98,35 +98,35 @@ export function buildNodeMarks(
 	},
 ):
 	| {
-		marks: {
-			items: {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				anyOf: any[];
+			marks: {
+				items: {
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
+					anyOf: any[];
+				};
+				maxItems: number | undefined;
+				type: string;
 			};
-			maxItems: number | undefined;
-			type: string;
-		};
-	}
+	  }
 	| {
-		marks: {
-			items?: undefined;
-			maxItems: number | undefined;
-			type: string;
-		};
-	}
-	| {
-		marks?: undefined;
-	}
-	| {
-		marks: {
-			items: {
-				$ref: string;
+			marks: {
+				items?: undefined;
+				maxItems: number | undefined;
+				type: string;
 			};
-			maxItems: number | undefined;
-			type: string;
-		};
-	} {
+	  }
+	| {
+			marks?: undefined;
+	  }
+	| {
+			marks: {
+				items: {
+					$ref: string;
+				};
+				maxItems: number | undefined;
+				type: string;
+			};
+	  } {
 	const { hasNoMarks, hasEmptyMarks, marksMaxItems } = opts;
 	if (hasNoMarks) {
 		return {

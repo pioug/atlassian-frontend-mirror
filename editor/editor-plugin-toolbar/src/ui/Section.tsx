@@ -94,9 +94,7 @@ export const Section = ({
 	return (
 		<ToolbarSection
 			testId={testId}
-			hasSeparator={
-				hasSeparator ? SeparatorPosition.START : hasSeparator
-			}
+			hasSeparator={hasSeparator ? SeparatorPosition.START : hasSeparator}
 		>
 			{children}
 		</ToolbarSection>

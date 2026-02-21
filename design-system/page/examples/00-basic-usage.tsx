@@ -7,7 +7,7 @@ import Page, { Grid, GridColumn } from '@atlaskit/page';
 
 const PageBanner = () => {
 	return (
-		<Banner appearance="warning" icon={<WarningIcon spacing="spacious" label="Warning"  />}>
+		<Banner appearance="warning" icon={<WarningIcon spacing="spacious" label="Warning" />}>
 			We are planning on deprecating Page component. We recommend using the Page layout component
 			instead.
 			<Link target="_blank" href="https://atlassian.design/components/page-layout">

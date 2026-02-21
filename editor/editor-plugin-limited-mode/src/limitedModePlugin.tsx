@@ -33,7 +33,6 @@ export const limitedModePlugin: LimitedModePlugin = ({ api }) => {
 		},
 		usePluginHook: ({ editorView }) => {
 			usePluginStateEffect(api, ['limitedMode'], ({ limitedModeState }) => {
-
 				if (expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
 					if (fg('platform_editor_native_anchor_patch_2')) {
 						const isEnabled = limitedModeState?.enabled ?? false;

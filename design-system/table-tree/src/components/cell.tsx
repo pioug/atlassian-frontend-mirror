@@ -50,7 +50,8 @@ const CellComponent = ({
 	</CommonCell>
 );
 
-const Cell: (props: CellProps & import("..").CellWithColumnWidthProps) => React.JSX.Element = withColumnWidth(CellComponent);
+const Cell: (props: CellProps & import('..').CellWithColumnWidthProps) => React.JSX.Element =
+	withColumnWidth(CellComponent);
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default Cell;

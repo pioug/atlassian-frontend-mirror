@@ -1,7 +1,4 @@
-import type {
-	Layout,
-	OptionalRichMediaAttributes,
-} from './types/rich-media-common';
+import type { Layout, OptionalRichMediaAttributes } from './types/rich-media-common';
 import { blockCard as blockCardFactory } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils';
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
@@ -54,9 +51,7 @@ export interface BlockCardDefinition {
 	type: 'blockCard';
 }
 
-const getCommonAttributesFromDom = (
-	dom: string | Node,
-): Partial<BlockCardDefinition['attrs']> => {
+const getCommonAttributesFromDom = (dom: string | Node): Partial<BlockCardDefinition['attrs']> => {
 	const anchor = dom as HTMLAnchorElement;
 	const data = anchor.getAttribute('data-card-data');
 	const datasource = anchor.getAttribute('data-datasource');
@@ -65,8 +60,7 @@ const getCommonAttributesFromDom = (
 		data: data ? JSON.parse(data) : undefined,
 		layout: datasource
 			? // eslint-disable-next-line @atlaskit/editor/no-as-casting
-				((dom as HTMLElement).getAttribute('data-layout') as Layout) ||
-				undefined
+				((dom as HTMLElement).getAttribute('data-layout') as Layout) || undefined
 			: undefined,
 		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		width: Number((dom as HTMLElement).getAttribute('data-width')) || undefined,

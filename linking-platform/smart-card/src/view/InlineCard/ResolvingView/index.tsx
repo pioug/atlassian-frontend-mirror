@@ -55,7 +55,7 @@ export const InlineCardResolvingView = ({
 	const renderSpinner = React.useCallback(
 		() => (
 			<Box as="span" xcss={styles.spinnerWrapper}>
-				<Spinner size={14} interactionName='smart-card-inline-card-spinner' />
+				<Spinner size={14} interactionName="smart-card-inline-card-spinner" />
 			</Box>
 		),
 		[],

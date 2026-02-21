@@ -59,8 +59,8 @@ const JsonldEditor = ({
 		setIsEmbedSupported(
 			Boolean(
 				preview ||
-					response?.meta?.access === 'unauthorized' ||
-					response?.meta?.access === 'forbidden',
+				response?.meta?.access === 'unauthorized' ||
+				response?.meta?.access === 'forbidden',
 			),
 		);
 	}, []);

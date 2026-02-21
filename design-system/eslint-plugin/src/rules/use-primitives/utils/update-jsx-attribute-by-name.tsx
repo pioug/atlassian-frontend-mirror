@@ -1,7 +1,12 @@
 import type { Rule } from 'eslint';
 import { jsxAttribute, type JSXElement, jsxIdentifier } from 'eslint-codemod-utils';
 
-export const updateJSXAttributeByName: (oldName: string, newName: string, node: JSXElement, fixer: Rule.RuleFixer) => Rule.Fix | never[] = (
+export const updateJSXAttributeByName: (
+	oldName: string,
+	newName: string,
+	node: JSXElement,
+	fixer: Rule.RuleFixer,
+) => Rule.Fix | never[] = (
 	oldName: string,
 	newName: string,
 	node: JSXElement,

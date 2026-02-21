@@ -8,4 +8,5 @@ import type { OpenLayerObserverInternalAPI } from './types';
  * We are setting the default value to `null` so we can check if there are nested context providers,
  * so we know to update the layer count in the parent context as well.
  */
-export const OpenLayerObserverContext: import("react").Context<OpenLayerObserverInternalAPI | null> = createContext<OpenLayerObserverInternalAPI | null>(null);
+export const OpenLayerObserverContext: import('react').Context<OpenLayerObserverInternalAPI | null> =
+	createContext<OpenLayerObserverInternalAPI | null>(null);

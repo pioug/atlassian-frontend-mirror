@@ -4,16 +4,16 @@ const whereToGetHelp =
 	"If you think this should be allowed, or if you're running into issues, reach out in #help-ui-styling-standard";
 
 export const messages: {
-    'no-array-values': string;
-    'no-conditional-values': string;
-    'no-dynamic-keys': string;
-    'no-function-calls': string;
-    'no-identifier-arguments': string;
-    'no-object-access': string;
-    'no-object-references': string;
-    'no-spread-elements': string;
-    'no-unsafe-values': string;
-    'no-variables': string;
+	'no-array-values': string;
+	'no-conditional-values': string;
+	'no-dynamic-keys': string;
+	'no-function-calls': string;
+	'no-identifier-arguments': string;
+	'no-object-access': string;
+	'no-object-references': string;
+	'no-spread-elements': string;
+	'no-unsafe-values': string;
+	'no-variables': string;
 } = {
 	'no-array-values': outdent`
     Arrays are not allowed in style objects. Support is inconsistent between styling libraries.

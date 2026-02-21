@@ -152,10 +152,7 @@ const FloatingToolbarButton = (
 							ref={(buttonElement) => {
 								setSpotlightReferenceElement(buttonElement);
 
-								if (
-									forwardedRef &&
-									editorExperiment('platform_synced_block', true)
-								) {
+								if (forwardedRef && editorExperiment('platform_synced_block', true)) {
 									if (typeof forwardedRef === 'function') {
 										forwardedRef(buttonElement);
 									} else if (typeof forwardedRef === 'object') {

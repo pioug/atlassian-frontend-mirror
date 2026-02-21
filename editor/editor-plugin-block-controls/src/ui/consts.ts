@@ -31,7 +31,7 @@ export const DRAG_HANDLE_PARAGRAPH_TOP_ADJUSTMENT = 2;
  */
 export const DRAG_HANDLE_MAX_SHIFT_CLICK_DEPTH = 3;
 export const STICKY_CONTROLS_TOP_MARGIN = 8;
-export const STICKY_CONTROLS_TOP_MARGIN_FOR_STICKY_HEADER = 24
+export const STICKY_CONTROLS_TOP_MARGIN_FOR_STICKY_HEADER = 24;
 
 export const QUICK_INSERT_HEIGHT = 24;
 export const QUICK_INSERT_WIDTH = 24;
@@ -47,8 +47,8 @@ export const dragHandleGap = (nodeType: string, parentNodeType?: string) => {
 	}
 
 	const breakoutResizableNodesList = editorExperiment('platform_synced_block', true)
-								? breakoutResizableNodesNew
-								: breakoutResizableNodes;
+		? breakoutResizableNodesNew
+		: breakoutResizableNodes;
 
 	if (
 		editorExperiment('platform_editor_breakout_resizing', true) &&
@@ -74,8 +74,8 @@ export const dragHandleGap = (nodeType: string, parentNodeType?: string) => {
 // use for returning hap only for root level elements
 export const rootElementGap = (nodeType: string) => {
 	const breakoutResizableNodesList = editorExperiment('platform_synced_block', true)
-								? breakoutResizableNodesNew
-								: breakoutResizableNodes;
+		? breakoutResizableNodesNew
+		: breakoutResizableNodes;
 
 	if (
 		nodeTypeExcludeList.includes(nodeType) ||

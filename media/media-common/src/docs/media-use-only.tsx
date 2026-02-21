@@ -14,8 +14,8 @@ function AlternativePackagesMessage({
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
 			<p>
-				Consider using{' '}
-				<Link href={alternatePackages[0].link}>{alternatePackages[0].name}</Link> instead.
+				Consider using <Link href={alternatePackages[0].link}>{alternatePackages[0].name}</Link>{' '}
+				instead.
 			</p>
 		);
 	}

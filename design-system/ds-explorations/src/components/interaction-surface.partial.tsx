@@ -41,7 +41,11 @@ interface InteractionSurfaceProps extends BasePrimitiveProps {
  * </Pressable>
  * ```
  */
-const InteractionSurface = ({ appearance, children, testId }: InteractionSurfaceProps): React.JSX.Element => {
+const InteractionSurface = ({
+	appearance,
+	children,
+	testId,
+}: InteractionSurfaceProps): React.JSX.Element => {
 	const defaultSurface = useContext(SurfaceContext);
 	let surface = (appearance || defaultSurface) as InteractionBackgroundColor;
 

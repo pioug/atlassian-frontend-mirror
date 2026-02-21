@@ -1,23 +1,26 @@
 import { defineMessages } from 'react-intl-next';
 
 export const messages: {
-    asyncQueriesTab: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    }; asyncQueriesTabContent: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    }; homeTab: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    }; homeTabContent: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    };
+	asyncQueriesTab: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	asyncQueriesTabContent: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	homeTab: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	homeTabContent: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 } = defineMessages({
 	homeTab: {
 		id: 'audit-log-tabs.home-tab',

@@ -187,7 +187,7 @@ export const InlineCard = ({
 					onClick={handleFrameClick}
 					testId={testIdWithStatus || 'inline-card-errored-view'}
 					truncateInline={truncateInline}
-					{...fg('navx-2565-inline-card-error-state-underline') ? { viewType: 'errored' } : {}}
+					{...(fg('navx-2565-inline-card-error-state-underline') ? { viewType: 'errored' } : {})}
 				/>
 			);
 	}

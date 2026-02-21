@@ -856,7 +856,12 @@ async function createInteractionMetricsPayload(
 	// If the payload size continues to exceed the limit and interactionMetrics is already trimmed,
 	// trim VC debug data (early viewport checkpoints). PIR-30543 - AFO-5033
 	const isVCRevisionTrimEnabled = fg('ufo_vc_revision_trim_enabled');
-	trimVcDebugData(properties, getPayloadSize(properties), MAX_PAYLOAD_SIZE, isVCRevisionTrimEnabled);
+	trimVcDebugData(
+		properties,
+		getPayloadSize(properties),
+		MAX_PAYLOAD_SIZE,
+		isVCRevisionTrimEnabled,
+	);
 
 	return payload;
 }

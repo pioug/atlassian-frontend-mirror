@@ -104,9 +104,7 @@ const nestedExpandFactoryOptions: NodeSpecOptions<NestedExpandNode> = {
  * @name nestedExpand
  * @description an expand that can be nested (eg. inside table, layout).
  */
-export const nestedExpand: NodeSpec = nestedExpandFactory(
-	nestedExpandFactoryOptions,
-);
+export const nestedExpand: NodeSpec = nestedExpandFactory(nestedExpandFactoryOptions);
 
 export const nestedExpandWithLocalId: NodeSpec = nestedExpandFactory({
 	...nestedExpandFactoryOptions,

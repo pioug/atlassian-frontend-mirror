@@ -66,11 +66,11 @@ export const extractInvokePreviewAction = (
 
 	const hasPreviewPanelParams = Boolean(
 		expValEquals('platform_hover_card_preview_panel', 'cohort', 'test') &&
-			isPreviewPanelAvailable &&
-			openPreviewPanel &&
-			ari &&
-			url &&
-			name,
+		isPreviewPanelAvailable &&
+		openPreviewPanel &&
+		ari &&
+		url &&
+		name,
 	);
 
 	const hasPreviewPanel = hasPreviewPanelParams && isPreviewPanelAvailable!({ ari: ari! });

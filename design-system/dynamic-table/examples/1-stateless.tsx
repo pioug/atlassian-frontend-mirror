@@ -16,7 +16,7 @@ export default function TableControlled(): React.JSX.Element {
 
 	return (
 		<>
-			<Banner appearance="warning" icon={<WarningIcon spacing="spacious" label=""  />}>
+			<Banner appearance="warning" icon={<WarningIcon spacing="spacious" label="" />}>
 				This is a stateless table example, which doesn't have pagination support. To navigate pages,
 				use the "Previous page" and "Next page" buttons.
 			</Banner>

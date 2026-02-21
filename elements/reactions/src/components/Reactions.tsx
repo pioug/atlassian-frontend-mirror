@@ -116,7 +116,8 @@ export const RENDER_VIEWALL_REACTED_USERS_DIALOG = 'viewall-reacted-users-dialog
 export const RENDER_REACTIONS_SUMMARY_TESTID = 'reaction-summary-view';
 
 export interface ReactionsProps
-	extends Pick<
+	extends
+		Pick<
 			ReactionPickerProps,
 			| 'allowAllEmojis'
 			| 'emojiProvider'
@@ -543,12 +544,10 @@ export const Reactions = React.memo(
 		const hasEmojiWithFivePlusReactions = reactions.some((reaction) => reaction.count >= 5);
 
 		const shouldShowPicker =
-			!isViewOnly &&
-			!(!onlyRenderPicker && shouldShowSummaryView && allowSelectFromSummaryView);
+			!isViewOnly && !(!onlyRenderPicker && shouldShowSummaryView && allowSelectFromSummaryView);
 		const semanticListEnabled = fg('jfp_a11y_team_comment_actions_semantic');
 		const addReactionButtonAsListItem = fg('platform-a11y-add-reactions-button-ul-item');
-		const pickerInsideList =
-			semanticListEnabled && addReactionButtonAsListItem && shouldShowPicker;
+		const pickerInsideList = semanticListEnabled && addReactionButtonAsListItem && shouldShowPicker;
 
 		const sortedReactions = useMemo(() => {
 			return [...memorizedReactions].sort((a, b) => b?.count - a?.count);
@@ -661,11 +660,7 @@ export const Reactions = React.memo(
 											tooltipContent={
 												hoverableSummaryView
 													? null
-													: getTooltip(
-															status,
-															errorMessage,
-															reactionPickerTriggerTooltipContent,
-														)
+													: getTooltip(status, errorMessage, reactionPickerTriggerTooltipContent)
 											}
 											emojiPickerSize={emojiPickerSize}
 											miniMode={miniMode}

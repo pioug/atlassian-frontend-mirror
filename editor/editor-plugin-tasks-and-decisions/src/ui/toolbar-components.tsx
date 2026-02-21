@@ -19,7 +19,6 @@ type GetTasksAndDecisionsToolbarComponentsProps = {
 export const getTasksAndDecisionsToolbarComponents = ({
 	api,
 }: GetTasksAndDecisionsToolbarComponentsProps): RegisterComponent[] => {
-
 	return [
 		{
 			type: TASK_LIST_MENU_ITEM.type,

@@ -751,11 +751,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 		);
 
 		if (expValEquals('platform_editor_a11y_escape_link_dialog', 'isEnabled', true)) {
-			return (
-				<FocusLock returnFocus={true}>
-					{hyperlinkElement}
-				</FocusLock>
-			)
+			return <FocusLock returnFocus={true}>{hyperlinkElement}</FocusLock>;
 		}
 
 		return hyperlinkElement;

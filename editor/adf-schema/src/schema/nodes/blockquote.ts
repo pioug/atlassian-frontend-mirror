@@ -30,13 +30,7 @@ export interface BlockQuoteDefinition {
 	 * @allowUnsupportedBlock true
 	 */
 	content: Array<
-		| Paragraph
-		| OrderedList
-		| BulletList
-		| CodeBlock
-		| MediaGroup
-		| MediaSingle
-		| Extension
+		Paragraph | OrderedList | BulletList | CodeBlock | MediaGroup | MediaSingle | Extension
 	>;
 	type: 'blockquote';
 }
@@ -68,11 +62,7 @@ const nodeSpecOptionsWithLocalId: NodeSpecOptions<BlockquoteNode> = {
 		},
 	],
 	toDOM(node) {
-		return [
-			'blockquote',
-			{ 'data-local-id': node?.attrs?.localId || undefined },
-			0,
-		];
+		return ['blockquote', { 'data-local-id': node?.attrs?.localId || undefined }, 0];
 	},
 };
 

@@ -18,11 +18,7 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import {
-	buttonGroupStyle,
-	separatorStyles,
-	wrapperStyle,
-} from '@atlaskit/editor-common/styles';
+import { buttonGroupStyle, separatorStyles, wrapperStyle } from '@atlaskit/editor-common/styles';
 import type { TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
 import { Popup, TableSelectorPopup } from '@atlaskit/editor-common/ui';
 import type { MenuItem, ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';

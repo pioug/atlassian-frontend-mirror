@@ -27,18 +27,16 @@ export type GetTargetRef = (
 	name: string,
 ) => TargetRef;
 
-const dest = createContext<
-    GetTargetRef | undefined
->(undefined);
+const dest = createContext<GetTargetRef | undefined>(undefined);
 const TargetConsumer: React.Consumer<GetTargetRef | undefined> = dest.Consumer;
 const TargetProvider: React.Provider<GetTargetRef | undefined> = dest.Provider;
 
 const SpotlightContext: React.Context<{
-    opened: () => void;
-    closed: () => void;
-    targets: {
-        [key: string]: HTMLElement | undefined;
-    };
+	opened: () => void;
+	closed: () => void;
+	targets: {
+		[key: string]: HTMLElement | undefined;
+	};
 }> = createContext<{
 	opened: () => void;
 	closed: () => void;
@@ -52,18 +50,18 @@ const SpotlightContext: React.Context<{
 });
 
 const SpotlightStateConsumer: React.Consumer<{
-    opened: () => void;
-    closed: () => void;
-    targets: {
-        [key: string]: HTMLElement | undefined;
-    };
+	opened: () => void;
+	closed: () => void;
+	targets: {
+		[key: string]: HTMLElement | undefined;
+	};
 }> = SpotlightContext.Consumer;
 const SpotlightStateProvider: React.Provider<{
-    opened: () => void;
-    closed: () => void;
-    targets: {
-        [key: string]: HTMLElement | undefined;
-    };
+	opened: () => void;
+	closed: () => void;
+	targets: {
+		[key: string]: HTMLElement | undefined;
+	};
 }> = SpotlightContext.Provider;
 
 export { TargetConsumer };
@@ -150,17 +148,20 @@ export default class SpotlightManager extends PureComponent<
 	 * error happens.
 	 * This is to fix this error by wrapping the state update in startTransition as suggested by React: https://react.dev/errors/421?invariant=421
 	 */
-	getTargetRef: (name: string) => (element: HTMLElement | null | undefined) => void = fg('platform_fix_component_state_update_for_suspense')
-		? (name: string) => (element: HTMLElement | null | undefined): void => {
-				startTransition(() => {
-					this.setState((state) => ({
-						targets: {
-							...state.targets,
-							[name]: element || undefined,
-						},
-					}));
-				});
-			}
+	getTargetRef: (name: string) => (element: HTMLElement | null | undefined) => void = fg(
+		'platform_fix_component_state_update_for_suspense',
+	)
+		? (name: string) =>
+				(element: HTMLElement | null | undefined): void => {
+					startTransition(() => {
+						this.setState((state) => ({
+							targets: {
+								...state.targets,
+								[name]: element || undefined,
+							},
+						}));
+					});
+				}
 		: (name: string) => (element: HTMLElement | null | undefined) => {
 				this.setState((state) => ({
 					targets: {
@@ -178,19 +179,28 @@ export default class SpotlightManager extends PureComponent<
 		this.setState((state) => ({ spotlightCount: state.spotlightCount - 1 }));
 	};
 
-	getStateProviderValue: MemoizedFn<(this: any, targets: any) => {
-        opened: () => void;
-        closed: () => void;
-        targets: any;
-    }> = memoizeOne((targets: any): {
-        opened: () => void;
-        closed: () => void;
-        targets: any;
-    } => ({
-		opened: this.spotlightOpen,
-		closed: this.spotlightClose,
-		targets,
-	}));
+	getStateProviderValue: MemoizedFn<
+		(
+			this: any,
+			targets: any,
+		) => {
+			opened: () => void;
+			closed: () => void;
+			targets: any;
+		}
+	> = memoizeOne(
+		(
+			targets: any,
+		): {
+			opened: () => void;
+			closed: () => void;
+			targets: any;
+		} => ({
+			opened: this.spotlightOpen,
+			closed: this.spotlightClose,
+			targets,
+		}),
+	);
 
 	render(): React.JSX.Element {
 		const { blanketIsTinted, children, component: Tag, onBlanketClicked } = this.props;

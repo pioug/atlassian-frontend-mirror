@@ -125,7 +125,9 @@ describe.skip('DocViewer', () => {
 		await getSuccessDocument();
 		await nextTick();
 		// DocViewer shows DocumentViewer on success - check for document scroll root
-		expect(document.getElementById('document-scroll-root') ?? screen.queryByRole('document')).toBeTruthy();
+		expect(
+			document.getElementById('document-scroll-root') ?? screen.queryByRole('document'),
+		).toBeTruthy();
 	});
 
 	it('triggers media-viewed when successful', async () => {
@@ -153,7 +155,9 @@ describe.skip('DocViewer', () => {
 		await nextTick();
 		await nextTick();
 		await nextTick();
-		expect((mediaClient.file.getArtifactURL as jest.Mock).mock.calls[0]?.[2]).toEqual(collectionName);
+		expect((mediaClient.file.getArtifactURL as jest.Mock).mock.calls[0]?.[2]).toEqual(
+			collectionName,
+		);
 	});
 
 	it('should call getFileBinaryURL when status is failed-processing', async () => {

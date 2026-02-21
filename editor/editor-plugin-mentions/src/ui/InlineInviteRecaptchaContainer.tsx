@@ -34,10 +34,7 @@ type ProviderWithRecaptcha = MentionProvider & {
  * and wires showRecaptcha to the provider. When user clicks invite item, type-ahead calls
  * mentionProvider.showInlineInviteRecaptcha(email) which passes email to the component.
  */
-export const InlineInviteRecaptchaContainer = ({
-	mentionProvider,
-	api,
-}: Props) => {
+export const InlineInviteRecaptchaContainer = ({ mentionProvider, api }: Props) => {
 	const [provider, setProvider] = useState<ProviderWithRecaptcha | null>(null);
 
 	useEffect(() => {
@@ -66,10 +63,7 @@ export const InlineInviteRecaptchaContainer = ({
 
 	const handleSuccess = useCallback(
 		(userId: string, email: string) => {
-			if (
-				!api?.mention?.commands?.insertMention ||
-				!api?.core?.actions?.execute
-			) {
+			if (!api?.mention?.commands?.insertMention || !api?.core?.actions?.execute) {
 				return;
 			}
 

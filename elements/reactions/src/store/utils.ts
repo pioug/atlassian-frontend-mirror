@@ -39,8 +39,10 @@ export const readyState = (reactions: ReactionSummary[]): ReactionsReadyState =>
 	reactions: reactions.filter((reaction) => reaction.count > 0),
 });
 
-export const byEmojiId = (emojiId: string) => (reaction: ReactionSummary): boolean =>
-	reaction.emojiId === emojiId;
+export const byEmojiId =
+	(emojiId: string) =>
+	(reaction: ReactionSummary): boolean =>
+		reaction.emojiId === emojiId;
 
 export const addOne = (reaction: ReactionSummary): ReactionSummary => ({
 	...reaction,

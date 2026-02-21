@@ -142,7 +142,10 @@ function prepareCsvData(items: ReplacementDetail[]): string[] {
 	);
 }
 
-export async function writeReports(details: TransformationDetails, reportFolder: string): Promise<void> {
+export async function writeReports(
+	details: TransformationDetails,
+	reportFolder: string,
+): Promise<void> {
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const replacementsFilePath = path.join(reportFolder, `${uuidv4()}_success.csv`);
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead

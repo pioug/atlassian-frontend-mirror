@@ -54,7 +54,13 @@ function getAvailableTargets({
 	return [...options, ...children];
 }
 
-export function FilterMoveModal({ onClose, filter }: { filter: TFilter; onClose: () => void }): JSX.Element {
+export function FilterMoveModal({
+	onClose,
+	filter,
+}: {
+	filter: TFilter;
+	onClose: () => void;
+}): JSX.Element {
 	const dispatch = useDispatch();
 	const getData = useGetData();
 

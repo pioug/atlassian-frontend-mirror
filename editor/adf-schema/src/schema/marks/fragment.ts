@@ -63,14 +63,16 @@ export const fragment: MarkSpec = fragmentFactory({
 	},
 });
 
-export const toJSON = (mark: Mark): {
-    attrs: {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        localId: any;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        name?: any;
-    };
-    type: string;
+export const toJSON = (
+	mark: Mark,
+): {
+	attrs: {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		localId: any;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		name?: any;
+	};
+	type: string;
 } => {
 	return {
 		type: mark.type.name,

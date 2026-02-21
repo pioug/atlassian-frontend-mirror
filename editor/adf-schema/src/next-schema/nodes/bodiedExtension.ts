@@ -1,7 +1,4 @@
-import type {
-	ADFCommonNodeSpec,
-	ADFNode,
-} from '@atlaskit/adf-schema-generator';
+import type { ADFCommonNodeSpec, ADFNode } from '@atlaskit/adf-schema-generator';
 import { $onePlus, $or, adfNode } from '@atlaskit/adf-schema-generator';
 import { nonNestableBlockContentGroup } from '../groups/nonNestableBlockContentGroup';
 import { dataConsumer } from '../marks/dataConsumer';

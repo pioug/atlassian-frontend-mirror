@@ -62,4 +62,3 @@ describe('isNetworkError', () => {
 		// However, in CardView, upload errors are checked first, so network error check won't run
 	});
 });
-

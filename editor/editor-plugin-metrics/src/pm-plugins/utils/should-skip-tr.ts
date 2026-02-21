@@ -9,8 +9,8 @@ const isResolvingLink = (tr: ReadonlyTransaction): boolean => {
 
 	return Boolean(
 		hasReplaceStep &&
-			linkStep instanceof LinkMetaStep &&
-			linkStep.getMetadata()?.cardAction === 'RESOLVE',
+		linkStep instanceof LinkMetaStep &&
+		linkStep.getMetadata()?.cardAction === 'RESOLVE',
 	);
 };
 

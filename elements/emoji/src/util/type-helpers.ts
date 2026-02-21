@@ -69,7 +69,10 @@ export const toOptionalEmojiId = (emoji: OptionalEmojiDescription): EmojiId | un
 export const isEmojiIdEqual = (l?: EmojiId, r?: EmojiId) =>
 	l === r || (l && r && l.id === r.id && l.shortName === r.shortName);
 
-export const containsEmojiId = (emojis: EmojiDescription[], emojiId: EmojiId | undefined): boolean => {
+export const containsEmojiId = (
+	emojis: EmojiDescription[],
+	emojiId: EmojiId | undefined,
+): boolean => {
 	if (!emojiId) {
 		return false;
 	}

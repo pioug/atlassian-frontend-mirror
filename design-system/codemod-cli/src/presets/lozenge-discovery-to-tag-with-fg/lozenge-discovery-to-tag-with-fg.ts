@@ -5,7 +5,7 @@ import lozengeDiscoveryToTagWithFgTransformer from './codemods/lozenge-discovery
 export default async function transformer(file: FileInfo, api: API): Promise<string> {
 	const transformers = [lozengeDiscoveryToTagWithFgTransformer];
 	let src = file.source;
-	
+
 	transformers.forEach((transformer) => {
 		if (typeof src === 'undefined') {
 			return;

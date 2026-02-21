@@ -7,8 +7,8 @@ import { findTable } from '@atlaskit/editor-tables/utils';
 
 interface IsTableCollapsibleResult {
 	findWrappingRes?: // Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	Array<{ attrs?: { [key: string]: any } | null; type: NodeType }> | null | undefined;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		Array<{ attrs?: { [key: string]: any } | null; type: NodeType }> | null | undefined;
 	range?: NodeRange;
 	tableIsCollapsible: boolean;
 }

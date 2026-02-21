@@ -18,9 +18,7 @@ declare global {
 }
 
 // this should fire around 10% of the time
-const shouldSamplePerfObserver = () => 
-	Math.random() < 0.1
-
+const shouldSamplePerfObserver = () => Math.random() < 0.1;
 
 const urlRegex =
 	/(?:https:\/\/(?:media\.(?:dev|staging|prod)\.atl-paas\.net|api\.media\.atlassian\.com|media-cdn(?:\.stg\.|\.)atlassian\.com)\/|media-api\/)file\/([^/]+)\/image.*[?&]source=mediaCard/;

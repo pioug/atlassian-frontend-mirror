@@ -7,9 +7,13 @@ import type { DrawerProps } from './types';
 /**
  * Context used to share the `onClose` prop value with sub-components.
  */
-export const OnCloseContext: Context<((event: SyntheticEvent<HTMLElement>, analyticsEvent?: any) => void) | undefined> = createContext<DrawerProps['onClose']>(undefined);
+export const OnCloseContext: Context<
+	((event: SyntheticEvent<HTMLElement>, analyticsEvent?: any) => void) | undefined
+> = createContext<DrawerProps['onClose']>(undefined);
 
-export const useOnClose = (): ((event: SyntheticEvent<HTMLElement>, analyticsEvent?: any) => void) | undefined => useContext(OnCloseContext);
+export const useOnClose = ():
+	| ((event: SyntheticEvent<HTMLElement>, analyticsEvent?: any) => void)
+	| undefined => useContext(OnCloseContext);
 
 /**
  * Used to ensure Drawer sub-components are used within a Drawer component,

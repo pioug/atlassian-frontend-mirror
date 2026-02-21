@@ -48,16 +48,18 @@ describe('OpenLayerObserver', () => {
 	});
 
 	it('should throw an error when there are nested layer observers', () => {
-		expect(() => renderHook(useOpenLayerObserver, {
-			wrapper: ({ children }) => (
-				<OpenLayerObserver>
-					{children}
+		expect(() =>
+			renderHook(useOpenLayerObserver, {
+				wrapper: ({ children }) => (
 					<OpenLayerObserver>
-						<MockLayerComponent />
+						{children}
+						<OpenLayerObserver>
+							<MockLayerComponent />
+						</OpenLayerObserver>
 					</OpenLayerObserver>
-				</OpenLayerObserver>
-			),
-		})).toThrow(
+				),
+			}),
+		).toThrow(
 			new Error(
 				'Invariant failed: `OpenLayerObserver` cannot be nested within another `OpenLayerObserver`.',
 			),
@@ -331,7 +333,7 @@ describe('OpenLayerObserver', () => {
 				wrapper: ({ children }: { children: React.ReactNode }) => (
 					<OpenLayerObserver>
 						{children}
-						{isOpen && <MockLayerComponent />}	
+						{isOpen && <MockLayerComponent />}
 					</OpenLayerObserver>
 				),
 			});
@@ -497,7 +499,7 @@ describe('OpenLayerObserver', () => {
 
 			expect(listener).not.toHaveBeenCalled();
 
-			// Rerender with the layer opened to increase the layer count	
+			// Rerender with the layer opened to increase the layer count
 			isOpen = true;
 			rerender();
 
@@ -775,7 +777,7 @@ describe('OpenLayerObserver', () => {
 
 		it('should no longer call the namespaced onChange callback when the unsubscribe function has been called', () => {
 			let isOpen = true;
-			const { result, rerender } = renderHook(useOpenLayerObserver, {	
+			const { result, rerender } = renderHook(useOpenLayerObserver, {
 				wrapper: ({ children }) => (
 					<OpenLayerObserver>
 						{children}

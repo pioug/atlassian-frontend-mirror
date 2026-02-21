@@ -80,7 +80,13 @@ export const ModalBody = ({ children }: { children: ReactNode }): JSX.Element =>
  *
  * @internal
  */
-export const ModalHeading = ({ children, id }: { children: ReactNode; id: string }): JSX.Element => {
+export const ModalHeading = ({
+	children,
+	id,
+}: {
+	children: ReactNode;
+	id: string;
+}): JSX.Element => {
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/use-heading
 		<h1 css={modalHeadingStyles} id={id}>

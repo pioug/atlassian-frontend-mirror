@@ -127,10 +127,13 @@ describe('RovoPostMessagePubsubListener', () => {
 		expect(publishMock).toHaveBeenCalledTimes(1);
 		expect(publishMock).toHaveBeenCalledWith({ type: 'chat-new' });
 		expect(postMessageMock).toHaveBeenCalledTimes(1);
-		expect(postMessageMock).toHaveBeenCalledWith({
-			eventType: ROVO_POST_MESSAGE_ACK_EVENT_TYPE,
-			payloadId: '13412',
-		}, undefined);
+		expect(postMessageMock).toHaveBeenCalledWith(
+			{
+				eventType: ROVO_POST_MESSAGE_ACK_EVENT_TYPE,
+				payloadId: '13412',
+			},
+			undefined,
+		);
 	});
 });
 

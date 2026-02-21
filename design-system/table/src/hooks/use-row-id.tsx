@@ -11,4 +11,4 @@ export const useRowId: () => number | undefined = () => useContext(RowContext);
  * __Row provider__
  * @internal
  */
-export const RowProvider: import("react").Provider<number | undefined> = RowContext.Provider;
+export const RowProvider: import('react').Provider<number | undefined> = RowContext.Provider;

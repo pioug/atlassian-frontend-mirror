@@ -11,8 +11,8 @@ const warnStyles = xcss({ marginTop: 'space.100' });
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const _default_1: any = md`
   ${createEditorUseOnlyNotice('Editor Plugin Scroll-into-view', [
-	{ name: 'Editor Core', link: '/packages/editor/editor-core' },
-])}
+		{ name: 'Editor Core', link: '/packages/editor/editor-core' },
+	])}
   ${(
 		<Box xcss={warnStyles}>
 			<AtlassianInternalWarning />

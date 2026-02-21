@@ -23,7 +23,9 @@ export const mockLoadImage = (
 	loadImageMock = Promise.resolve({ naturalHeight, naturalWidth });
 };
 
-export const mockLoadImageError = (errorMessage: string = 'some-image-failed-to-load-reason'): void => {
+export const mockLoadImageError = (
+	errorMessage: string = 'some-image-failed-to-load-reason',
+): void => {
 	getOrientationMock = Promise.resolve(1);
 	loadImageMock = Promise.reject(new Error(errorMessage));
 };

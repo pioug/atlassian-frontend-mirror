@@ -67,7 +67,11 @@ export interface ThemeProviderProps {
  *
  * Provides global theming configuration.
  */
-function ThemeProvider({ children, defaultColorMode = 'auto', defaultTheme }: ThemeProviderProps): JSX.Element {
+function ThemeProvider({
+	children,
+	defaultColorMode = 'auto',
+	defaultTheme,
+}: ThemeProviderProps): JSX.Element {
 	const [chosenColorMode, setChosenColorMode] = useState<ThemeColorModes>(defaultColorMode);
 	const [reconciledColorMode, setReconciledColorMode] = useState<ReconciledColorMode>(
 		getReconciledColorMode(defaultColorMode),
@@ -92,7 +96,8 @@ function ThemeProvider({ children, defaultColorMode = 'auto', defaultTheme }: Th
 	const isInsideAppProvider = useIsInsideAppProvider();
 	const isAppProviderThemingEnabled = useIsAppProviderThemingEnabled();
 	const isInsideThemeProvider = useIsInsideThemeProvider();
-	const isRootThemeProvider = isInsideAppProvider && !isInsideThemeProvider && isAppProviderThemingEnabled;
+	const isRootThemeProvider =
+		isInsideAppProvider && !isInsideThemeProvider && isAppProviderThemingEnabled;
 
 	const shouldUseGlobalTheming =
 		/**
@@ -164,7 +169,14 @@ function ThemeProvider({ children, defaultColorMode = 'auto', defaultTheme }: Th
 			// we treat them as sub-tree themes that do not load global theme state.
 			loadAndMountThemes(theme);
 		}
-	}, [isInsideAppProvider, isInsideThemeProvider, isRootThemeProvider, reconciledColorMode, shouldUseGlobalTheming, theme,]);
+	}, [
+		isInsideAppProvider,
+		isInsideThemeProvider,
+		isRootThemeProvider,
+		reconciledColorMode,
+		shouldUseGlobalTheming,
+		theme,
+	]);
 
 	useEffect(() => {
 		if (!prefersDarkModeMql) {
@@ -201,7 +213,9 @@ function ThemeProvider({ children, defaultColorMode = 'auto', defaultTheme }: Th
 								<div {...attrs} css={contentStyles.body}>
 									{children}
 								</div>
-							) : children}
+							) : (
+								children
+							)}
 						</SetThemeContext.Provider>
 					</ThemeContext.Provider>
 				</SetColorModeContext.Provider>

@@ -30,7 +30,9 @@ const BasicExample = (): React.JSX.Element => {
 				<NavigationContent>
 					<Section>
 						<HeadingItem>This is a simple flat sidebar</HeadingItem>
-						<ButtonItem iconBefore={<ButtonIcon spacing="spacious" label="" />}>It can contain buttons</ButtonItem>
+						<ButtonItem iconBefore={<ButtonIcon spacing="spacious" label="" />}>
+							It can contain buttons
+						</ButtonItem>
 						{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid */}
 						<LinkItem href="#" iconBefore={<LinkIcon spacing="spacious" label="" />}>
 							Or anchor links

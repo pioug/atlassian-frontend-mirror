@@ -97,9 +97,9 @@ const emStyles = css({
 
 type TextAlign = keyof typeof textAlignMap;
 const textAlignMap: {
-    center: SerializedStyles;
-    end: SerializedStyles;
-    start: SerializedStyles;
+	center: SerializedStyles;
+	end: SerializedStyles;
+	start: SerializedStyles;
 } = {
 	center: css({ textAlign: 'center' }),
 	end: css({ textAlign: 'end' }),

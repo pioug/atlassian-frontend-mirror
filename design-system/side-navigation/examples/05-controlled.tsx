@@ -42,7 +42,11 @@ interface Option {
 
 const LanguageSettings = () => {
 	return (
-		<NestingItem iconBefore={<LanguageIcon spacing="spacious" label="" />} id="3-1" title="Language settings">
+		<NestingItem
+			iconBefore={<LanguageIcon spacing="spacious" label="" />}
+			id="3-1"
+			title="Language settings"
+		>
 			<ButtonItem>Customize</ButtonItem>
 
 			<NestingItem id="3-1-1" title="German Settings">
@@ -118,7 +122,11 @@ const ControlledExample: () => JSX.Element = () => {
 						<LinkItem href="#" iconBefore={<CustomerIcon spacing="spacious" label="" />}>
 							Your customers
 						</LinkItem>
-						<NestingItem id="1" title="Queues view" iconBefore={<QueueIcon spacing="spacious" label="" />}>
+						<NestingItem
+							id="1"
+							title="Queues view"
+							iconBefore={<QueueIcon spacing="spacious" label="" />}
+						>
 							<Section>
 								<HeadingItem>Queues</HeadingItem>
 								<ButtonItem>Untriaged</ButtonItem>
@@ -157,7 +165,11 @@ const ControlledExample: () => JSX.Element = () => {
 								<ButtonItem>View all filters</ButtonItem>
 							</Section>
 						</NestingItem>
-						<NestingItem id="3" iconBefore={<SettingsIcon spacing="spacious" label="" />} title="Settings">
+						<NestingItem
+							id="3"
+							iconBefore={<SettingsIcon spacing="spacious" label="" />}
+							title="Settings"
+						>
 							<LanguageSettings />
 						</NestingItem>
 					</Section>

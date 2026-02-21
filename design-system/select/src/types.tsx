@@ -44,8 +44,10 @@ export interface OptionType {
 // eslint-disable-next-line @repo/internal/react/consistent-types-definitions
 export type OptionsType<Option = OptionType> = RSOptionsType<Option>;
 
-export interface OptionProps<Option = OptionType, IsMulti extends boolean = false>
-	extends ReactSelectOptionProps<Option, IsMulti> {
+export interface OptionProps<
+	Option = OptionType,
+	IsMulti extends boolean = false,
+> extends ReactSelectOptionProps<Option, IsMulti> {
 	[key: string]: any;
 	Icon?: React.ComponentType<{
 		label: string;
@@ -93,8 +95,7 @@ interface CustomSelectProps extends WithAnalyticsEventsProps {
 }
 
 export interface SelectProps<Option, IsMulti extends boolean = false>
-	extends ReactSelectProps<Option, IsMulti>,
-		CustomSelectProps {
+	extends ReactSelectProps<Option, IsMulti>, CustomSelectProps {
 	formatOptionLabel?: (
 		data: Option,
 		formatOptionLabelMeta: FormatOptionLabelMeta<Option>,
@@ -105,15 +106,13 @@ export interface SelectProps<Option, IsMulti extends boolean = false>
 }
 
 export interface AsyncSelectProps<Option, IsMulti extends boolean = false>
-	extends AsyncProps<Option, IsMulti, GroupType<Option>>,
-		CustomSelectProps {
+	extends AsyncProps<Option, IsMulti, GroupType<Option>>, CustomSelectProps {
 	// temp fix to support unofficial props. https://product-fabric.atlassian.net/browse/DSP-21074
 	[key: string]: any;
 }
 
 export interface CreatableSelectProps<Option, IsMulti extends boolean = false>
-	extends CreatableProps<Option, IsMulti, GroupType<Option>>,
-		CustomSelectProps {
+	extends CreatableProps<Option, IsMulti, GroupType<Option>>, CustomSelectProps {
 	// temp fix to support unofficial props. https://product-fabric.atlassian.net/browse/DSP-21074
 	[key: string]: any;
 }

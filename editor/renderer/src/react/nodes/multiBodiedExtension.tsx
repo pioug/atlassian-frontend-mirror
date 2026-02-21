@@ -304,8 +304,8 @@ const MultiBodiedExtension = (props: Props) => {
 	const isTopLevel = path.length < 1;
 	const useCenterWrapper =
 		isTopLevel &&
-			['wide', 'full-width'].includes(layout) &&
-			expValEquals('platform_editor_flex_based_centering', 'isEnabled', true);
+		['wide', 'full-width'].includes(layout) &&
+		expValEquals('platform_editor_flex_based_centering', 'isEnabled', true);
 
 	return (
 		<section

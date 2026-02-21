@@ -92,11 +92,11 @@ describe('transformNodesMissingContent', () => {
 			it.each([
 				['when content is an empty array', mediaSingleInvalidEmptyContent],
 				['when content is null', mediaSingleInvalidNullContent],
-		])('%s', (_, adf) => {
-			const { isTransformed, transformedAdf } = transformNodesMissingContent(adf as ADFEntity);
-			expect(isTransformed).toEqual(true);
-			expect(transformedAdf).toMatchSnapshot();
+			])('%s', (_, adf) => {
+				const { isTransformed, transformedAdf } = transformNodesMissingContent(adf as ADFEntity);
+				expect(isTransformed).toEqual(true);
+				expect(transformedAdf).toMatchSnapshot();
+			});
 		});
 	});
-});
 });

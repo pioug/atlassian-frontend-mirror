@@ -143,7 +143,8 @@ snapshotInformational(StickyHeadersTableInsideLayoutBrokenOut, {
 });
 
 snapshotInformational(StickyHeadersTableInsideLayoutBrokenOutWithFlexCentering, {
-	description: 'should have the header stick for an table within layout and brokenout (platform_editor_flex_based_centering enabled)',
+	description:
+		'should have the header stick for an table within layout and brokenout (platform_editor_flex_based_centering enabled)',
 	prepare: async (page: Page, component: Locator) => {
 		await scrollToPos(page, 120);
 	},

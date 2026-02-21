@@ -1,7 +1,4 @@
-import type {
-	ADFCommonNodeSpec,
-	ADFNode,
-} from '@atlaskit/adf-schema-generator';
+import type { ADFCommonNodeSpec, ADFNode } from '@atlaskit/adf-schema-generator';
 import { $onePlus, $or, adfNode } from '@atlaskit/adf-schema-generator';
 
 import { breakout } from '../marks/breakout';
@@ -29,11 +26,7 @@ export const expand: ADFNode<
 			__expanded: { type: 'boolean', default: true, optional: true },
 			localId: { type: 'string', default: null, optional: true },
 		},
-		content: [
-			$onePlus(
-				$or(nonNestableBlockContentGroup, nestedExpand.use('with_no_marks')),
-			),
-		],
+		content: [$onePlus($or(nonNestableBlockContentGroup, nestedExpand.use('with_no_marks')))],
 	})
 	.variant('root_only', {
 		marks: [breakout, unsupportedMark, unsupportedNodeAttribute],

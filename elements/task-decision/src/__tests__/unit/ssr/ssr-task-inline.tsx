@@ -30,9 +30,9 @@ describe('SSR - Task Inline', () => {
 		// eslint-disable-next-line no-console
 		const mockCalls = (console.error as jest.Mock).mock.calls.filter(
 			([firstArg]) =>
-			  typeof firstArg !== 'string' ||
-			  !firstArg.includes('useLayoutEffect does nothing on the server')
-		  );
+				typeof firstArg !== 'string' ||
+				!firstArg.includes('useLayoutEffect does nothing on the server'),
+		);
 		expect(mockCalls).toHaveLength(0);
 	});
 });

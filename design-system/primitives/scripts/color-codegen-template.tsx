@@ -58,7 +58,9 @@ const activeTokens = tokens
 		}),
 	);
 
-export const createColorStylesFromTemplate: (colorProperty: keyof typeof tokenStyles) => string = (colorProperty: keyof typeof tokenStyles) => {
+export const createColorStylesFromTemplate: (colorProperty: keyof typeof tokenStyles) => string = (
+	colorProperty: keyof typeof tokenStyles,
+) => {
 	if (!tokenStyles[colorProperty]) {
 		throw new Error(`[codegen] Unknown option found "${colorProperty}"`);
 	}

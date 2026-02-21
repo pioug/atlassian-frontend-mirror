@@ -74,7 +74,12 @@ describe('mapMediaFileToFileState', () => {
 	});
 
 	it('should map processing status failed with different failReason values', () => {
-		const failReasons = ['operation-failed', 'timeout', 'unsupported-file-type', 'unknown'] as const;
+		const failReasons = [
+			'operation-failed',
+			'timeout',
+			'unsupported-file-type',
+			'unknown',
+		] as const;
 
 		failReasons.forEach((failReason) => {
 			const mediaFile: MediaStoreResponse<MediaFile> = {

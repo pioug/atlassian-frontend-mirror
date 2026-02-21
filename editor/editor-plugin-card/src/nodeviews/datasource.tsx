@@ -54,8 +54,7 @@ export interface DatasourceProps extends ReactComponentProps {
 }
 
 interface DatasourceComponentProps
-	extends ReactComponentProps,
-		Pick<DatasourceProps, 'node' | 'view' | 'getPos'> {}
+	extends ReactComponentProps, Pick<DatasourceProps, 'node' | 'view' | 'getPos'> {}
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class DatasourceComponent extends React.PureComponent<DatasourceComponentProps> {

@@ -210,7 +210,7 @@ export const floatingToolbar = (
 		const toolbarOffset: { offset: [number, number] } | Object = isEmbedCard
 			? {
 					offset: [0, 24],
-			  }
+				}
 			: {};
 
 		// Applies padding override for when link picker is currently displayed
@@ -468,7 +468,7 @@ const generateToolbarItems =
 								/>
 							),
 						},
-				  ]
+					]
 				: [
 						{
 							id: 'editor.link.edit',
@@ -481,7 +481,7 @@ const generateToolbarItems =
 							onClick: getEditLinkCallback(editorAnalyticsApi, true),
 						},
 						{ type: 'separator' },
-				  ];
+					];
 
 			const commentItems: Array<FloatingToolbarItem<Command>> = isCommentEnabled
 				? [
@@ -494,11 +494,12 @@ const generateToolbarItems =
 							title: intl.formatMessage(annotationMessages.createComment),
 							showTitle: editorExperiment('platform_editor_controls', 'control') ? undefined : true,
 							onClick: onCommentButtonClick,
-							disabled:
-								isOfflineMode(pluginInjectionApi?.connectivity?.sharedState?.currentState()?.mode),
+							disabled: isOfflineMode(
+								pluginInjectionApi?.connectivity?.sharedState?.currentState()?.mode,
+							),
 						},
 						{ type: 'separator' },
-				  ]
+					]
 				: [];
 
 			const openLinkInputMethod = INPUT_METHOD.FLOATING_TB;
@@ -521,7 +522,7 @@ const generateToolbarItems =
 								/>
 							),
 						},
-				  ]
+					]
 				: [
 						{
 							id: 'editor.link.edit',
@@ -533,7 +534,7 @@ const generateToolbarItems =
 							testId: 'link-toolbar-edit-link-button',
 							onClick: getEditLinkCallback(editorAnalyticsApi, true),
 						},
-				  ];
+					];
 
 			const openPreviewPanelItems: FloatingToolbarItem<Command>[] = editorExperiment(
 				'platform_editor_preview_panel_linking_exp',
@@ -553,7 +554,7 @@ const generateToolbarItems =
 								/>
 							),
 						},
-				  ]
+					]
 				: [];
 
 			const toolbarItems: Array<FloatingToolbarItem<Command>> = areAllNewToolbarFlagsDisabled
@@ -609,7 +610,7 @@ const generateToolbarItems =
 							title: intl.formatMessage(commonMessages.remove),
 							onClick: withToolbarMetadata(removeCard(editorAnalyticsApi)),
 						},
-				  ]
+					]
 				: [
 						...editButtonItems,
 						...([
@@ -639,7 +640,7 @@ const generateToolbarItems =
 						...(commentItems.length > 1
 							? [{ type: 'separator', fullHeight: true } as const, commentItems[0]]
 							: commentItems),
-				  ];
+					];
 
 			if (currentAppearance === 'embed') {
 				const alignmentOptions = buildAlignmentOptions(
@@ -686,7 +687,7 @@ const generateToolbarItems =
 										areAnyNewToolbarFlagsEnabled={false}
 									/>
 								),
-						  }
+							}
 						: getLinkAppearanceDropdown({
 								url,
 								intl,
@@ -704,7 +705,7 @@ const generateToolbarItems =
 								),
 								isDatasourceView: isDatasource,
 								areAnyNewToolbarFlagsEnabled: !areAllNewToolbarFlagsDisabled,
-						  }),
+							}),
 					...(showDatasourceAppearance && areAllNewToolbarFlagsDisabled
 						? [
 								{
@@ -722,7 +723,7 @@ const generateToolbarItems =
 										/>
 									),
 								} satisfies FloatingToolbarItem<never>,
-						  ]
+							]
 						: []),
 					...(!areAllNewToolbarFlagsDisabled
 						? []
@@ -798,7 +799,7 @@ const getUnlinkButtonGroup = (
 					onClick: withToolbarMetadata(unlinkCard(node, state, editorAnalyticsApi)),
 				},
 				...(areAnyNewToolbarFlagsEnabled ? [] : [{ type: 'separator' }]),
-		  ] as Array<FloatingToolbarItem<Command>>)
+			] as Array<FloatingToolbarItem<Command>>)
 		: [];
 };
 
@@ -1096,7 +1097,7 @@ export const getStartingToolbarItems = (
 							);
 						},
 					},
-			  ]
+				]
 			: [
 					{
 						id: 'editor.link.edit',
@@ -1111,7 +1112,7 @@ export const getStartingToolbarItems = (
 					{
 						type: 'separator',
 					},
-			  ];
+				];
 
 		if (!areAllNewToolbarFlagsDisabled) {
 			const hyperlinkAppearance = [

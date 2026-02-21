@@ -2,7 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ElementType, forwardRef, type ForwardRefExoticComponent, memo, type MemoExoticComponent, type ReactNode, type Ref, type RefAttributes } from 'react';
+import {
+	type ElementType,
+	forwardRef,
+	type ForwardRefExoticComponent,
+	memo,
+	type MemoExoticComponent,
+	type ReactNode,
+	type Ref,
+	type RefAttributes,
+} from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
@@ -74,7 +83,15 @@ type JustifyContent = keyof typeof justifyContentMap;
 type Direction = keyof typeof flexDirectionMap;
 type Wrap = keyof typeof flexWrapMap;
 
-const justifyContentMap: { readonly start: SerializedStyles; readonly center: SerializedStyles; readonly end: SerializedStyles; readonly 'space-between': SerializedStyles; readonly 'space-around': SerializedStyles; readonly 'space-evenly': SerializedStyles; readonly stretch: SerializedStyles; } = {
+const justifyContentMap: {
+	readonly start: SerializedStyles;
+	readonly center: SerializedStyles;
+	readonly end: SerializedStyles;
+	readonly 'space-between': SerializedStyles;
+	readonly 'space-around': SerializedStyles;
+	readonly 'space-evenly': SerializedStyles;
+	readonly stretch: SerializedStyles;
+} = {
 	start: css({ justifyContent: 'start' }),
 	center: css({ justifyContent: 'center' }),
 	end: css({ justifyContent: 'end' }),
@@ -85,22 +102,28 @@ const justifyContentMap: { readonly start: SerializedStyles; readonly center: Se
 } as const;
 
 const flexDirectionMap: {
-    readonly column: SerializedStyles;
-    readonly row: SerializedStyles;
+	readonly column: SerializedStyles;
+	readonly row: SerializedStyles;
 } = {
 	column: css({ flexDirection: 'column' }),
 	row: css({ flexDirection: 'row' }),
 } as const;
 
 const flexWrapMap: {
-    readonly wrap: SerializedStyles;
-    readonly nowrap: SerializedStyles;
+	readonly wrap: SerializedStyles;
+	readonly nowrap: SerializedStyles;
 } = {
 	wrap: css({ flexWrap: 'wrap' }),
 	nowrap: css({ flexWrap: 'nowrap' }),
 } as const;
 
-const alignItemsMap: { readonly start: SerializedStyles; readonly center: SerializedStyles; readonly baseline: SerializedStyles; readonly end: SerializedStyles; readonly stretch: SerializedStyles; } = {
+const alignItemsMap: {
+	readonly start: SerializedStyles;
+	readonly center: SerializedStyles;
+	readonly baseline: SerializedStyles;
+	readonly end: SerializedStyles;
+	readonly stretch: SerializedStyles;
+} = {
 	start: css({ alignItems: 'start' }),
 	center: css({ alignItems: 'center' }),
 	baseline: css({ alignItems: 'baseline' }),
@@ -134,7 +157,9 @@ const baseStyles = css({
  * )
  * ```
  */
-const Flex: MemoExoticComponent<ForwardRefExoticComponent<Omit<FlexProps<ElementType>, "ref"> & RefAttributes<any>>> = memo(
+const Flex: MemoExoticComponent<
+	ForwardRefExoticComponent<Omit<FlexProps<ElementType>, 'ref'> & RefAttributes<any>>
+> = memo(
 	forwardRef(
 		<T extends ElementType = 'div'>(
 			{

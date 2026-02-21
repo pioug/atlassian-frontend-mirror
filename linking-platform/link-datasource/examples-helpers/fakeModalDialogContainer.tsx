@@ -19,10 +19,12 @@ const styles = cssMap({
 	},
 });
 
-export const FakeModalDialogContainer = ({ children, hasOverflow = true }: { children: React.ReactNode, hasOverflow?: boolean }): React.JSX.Element => {
-	return (
-		<Box xcss={cx(styles.tableWrapper, hasOverflow && styles.hasOverflow)}>
-			{children}
-		</Box>
-	);
+export const FakeModalDialogContainer = ({
+	children,
+	hasOverflow = true,
+}: {
+	children: React.ReactNode;
+	hasOverflow?: boolean;
+}): React.JSX.Element => {
+	return <Box xcss={cx(styles.tableWrapper, hasOverflow && styles.hasOverflow)}>{children}</Box>;
 };

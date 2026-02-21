@@ -311,8 +311,8 @@ export default class ToolsDrawer extends React.Component<Props, State> {
 						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 						<div css={content}>
 							<div style={{ padding: `${token('space.150', '4px')} 0` }}>
-								️️️⚠️ Atlassians, for Media integration to work in non-mocked state, make sure
-								you're logged into // Ignored via go/ees005 // eslint-disable-next-line
+								️️️⚠️ Atlassians, for Media integration to work in non-mocked state, make sure you're
+								logged into // Ignored via go/ees005 // eslint-disable-next-line
 								react/jsx-no-target-blank
 								<Link href="https://id.stg.internal.atlassian.com" target="_blank" rel="noreferrer">
 									staging Identity server.

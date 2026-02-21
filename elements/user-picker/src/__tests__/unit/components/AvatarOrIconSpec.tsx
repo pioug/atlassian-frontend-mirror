@@ -126,7 +126,9 @@ describe('AvatarOrIcon', () => {
 			});
 			const sizeableAvatar = screen.getByTestId('sizeable-avatar');
 
-			expect(sizeableAvatar).toHaveTextContent(`"avatarAppearanceShape":"${avatarAppearanceShape}"`);
+			expect(sizeableAvatar).toHaveTextContent(
+				`"avatarAppearanceShape":"${avatarAppearanceShape}"`,
+			);
 		});
 
 		it('should use default type "person" when type is not provided', () => {
@@ -168,4 +170,3 @@ describe('AvatarOrIcon', () => {
 		});
 	});
 });
-

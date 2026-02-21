@@ -179,11 +179,7 @@ const Heading: React.ForwardRefExoticComponent<
 			data-testid={testId}
 			role={needsAriaRole ? 'heading' : undefined}
 			aria-level={needsAriaRole ? hLevel : undefined}
-			css={[
-				styles.reset,
-				headingSizeStyles[size],
-				headingColorStyles[color],
-			]}
+			css={[styles.reset, headingSizeStyles[size], headingColorStyles[color]]}
 		>
 			{children}
 		</Component>

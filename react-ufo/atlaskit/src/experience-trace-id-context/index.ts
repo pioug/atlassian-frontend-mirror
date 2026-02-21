@@ -12,9 +12,9 @@ const state: TraceIdContextStateType = {
 	context: null,
 };
 
-const traceIdKey = createContextKey("traceId");
-const spanIdKey = createContextKey("spanId");
-const experienceTypeKey = createContextKey("type");
+const traceIdKey = createContextKey('traceId');
+const spanIdKey = createContextKey('spanId');
+const experienceTypeKey = createContextKey('type');
 
 // DO NOT CALL THIS FUNCTION DIRECTLY!!!!
 // It is only to be called by React UFO libraries for the automatic handling of trace context for experiences.
@@ -35,8 +35,7 @@ export function setInteractionActiveTrace(interactionId: string, experienceType:
 // Calling this may cause trace context to be broken
 export function setActiveTrace(traceId: string, spanId: string, type: string): void {
 	if (fg('platform_ufo_enable_otel_context_manager')) {
-		const activeTraceContext: Context = ROOT_CONTEXT
-			.setValue(traceIdKey, traceId)
+		const activeTraceContext: Context = ROOT_CONTEXT.setValue(traceIdKey, traceId)
 			.setValue(spanIdKey, spanId)
 			.setValue(experienceTypeKey, type);
 
@@ -44,7 +43,7 @@ export function setActiveTrace(traceId: string, spanId: string, type: string): v
 		// Using type assertion because we've "extended" the ContextManager type
 		if (getContextManager() instanceof UFOContextManager) {
 			let contextManager = getContextManager() as UFOContextManager;
-			
+
 			contextManager.setActive(activeTraceContext);
 		}
 	} else {
@@ -63,10 +62,12 @@ export function getActiveTrace(): TraceIdContext | undefined {
 			traceId: String(context.active().getValue(traceIdKey)),
 			spanId: String(context.active().getValue(spanIdKey)),
 			type: String(context.active().getValue(experienceTypeKey)),
-		}
+		};
 
 		// Return activeTraceContext if traceId and spanId are not "undefined"
-		return activeTraceContext.traceId !== 'undefined' && activeTraceContext.spanId !== 'undefined' ? activeTraceContext : undefined
+		return activeTraceContext.traceId !== 'undefined' && activeTraceContext.spanId !== 'undefined'
+			? activeTraceContext
+			: undefined;
 	} else {
 		return state.context || undefined;
 	}
@@ -83,7 +84,7 @@ export function clearActiveTrace(): void {
 			let contextManager = getContextManager() as UFOContextManager;
 
 			// ROOT_CONTEXT is an empty context used to initialise ContextManagers
-			contextManager.setActive(ROOT_CONTEXT);	
+			contextManager.setActive(ROOT_CONTEXT);
 		}
 	} else {
 		state.context = null;

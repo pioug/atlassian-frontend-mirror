@@ -59,7 +59,10 @@ const whitelistedURLPatterns = [
 export const isSafeUrl = (url: string | undefined): boolean => {
 	const urlTrimmed = url?.trim();
 
-	if (urlTrimmed === undefined && expValEquals('platform_editor_safe_url_trim_fix', 'isEnabled', true)) {
+	if (
+		urlTrimmed === undefined &&
+		expValEquals('platform_editor_safe_url_trim_fix', 'isEnabled', true)
+	) {
 		return true;
 	}
 
@@ -67,7 +70,7 @@ export const isSafeUrl = (url: string | undefined): boolean => {
 	if ((urlTrimmed as string).length === 0) {
 		return true;
 	}
-	return whitelistedURLPatterns.some((p) => p.test((urlTrimmed as string)));
+	return whitelistedURLPatterns.some((p) => p.test(urlTrimmed as string));
 };
 
 export interface Match {
@@ -98,10 +101,9 @@ linkify.add('file:', urlWithoutSpacesValidator);
 
 linkify.add('notes:', 'http:');
 
-const tlds =
-	'biz|com|edu|gov|net|org|pro|web|xxx|aero|asia|coop|info|museum|name|shop|рф'.split(
-		'|',
-	);
+const tlds = 'biz|com|edu|gov|net|org|pro|web|xxx|aero|asia|coop|info|museum|name|shop|рф'.split(
+	'|',
+);
 const tlds2Char =
 	'a[cdefgilmnoqrtuwxz]|b[abdefghijmnorstvwyz]|c[acdfghiklmnoruvwxyz]|d[ejkmoz]|e[cegrstu]|f[ijkmor]|g[abdefghilmnpqrstuwy]|h[kmnrtu]|i[delmnoqrst]|j[emop]|k[eghimnprwyz]|l[abcikrstuvy]|m[acdeghklmnopqrtuvwxyz]|n[acefgilopruz]|om|p[aefghkmnrtw]|qa|r[eosuw]|s[abcdegijklmnrtuvxyz]|t[cdfghjklmnortvwz]|u[agksyz]|v[aceginu]|w[fs]|y[et]|z[amw]';
 tlds.push(tlds2Char);

@@ -1,7 +1,4 @@
-import type {
-	ADFNode,
-	ADFCommonNodeSpec,
-} from '@atlaskit/adf-schema-generator';
+import type { ADFNode, ADFCommonNodeSpec } from '@atlaskit/adf-schema-generator';
 import { $onePlus, $or, adfNode } from '@atlaskit/adf-schema-generator';
 import { fragment } from '../marks/fragment';
 import { unsupportedMark } from '../marks/unsupportedMark';
@@ -41,8 +38,7 @@ const tableCell = adfNode('tableCell')
 		DANGEROUS_MANUAL_OVERRIDE: {
 			'validator-spec': {
 				required: {
-					reason:
-						'@DSLCompatibilityException - required for tableCell validator spec',
+					reason: '@DSLCompatibilityException - required for tableCell validator spec',
 					value: ['content'],
 				},
 			},
@@ -75,8 +71,7 @@ const tableHeader = adfNode('tableHeader')
 		DANGEROUS_MANUAL_OVERRIDE: {
 			'validator-spec': {
 				required: {
-					reason:
-						'@DSLCompatibilityException - required for tableHeader validator spec',
+					reason: '@DSLCompatibilityException - required for tableHeader validator spec',
 					value: ['content'],
 				},
 			},
@@ -99,8 +94,7 @@ const tableRow = adfNode('tableRow')
 		DANGEROUS_MANUAL_OVERRIDE: {
 			'validator-spec': {
 				'props.content.minItems': {
-					reason:
-						'@DSLCompatibilityException - required for tableRow validator spec',
+					reason: '@DSLCompatibilityException - required for tableRow validator spec',
 					remove: true,
 				},
 			},
@@ -108,12 +102,7 @@ const tableRow = adfNode('tableRow')
 	})
 	.variant('with_nested_table', {
 		content: [
-			$onePlus(
-				$or(
-					tableCell.use('with_nested_table'),
-					tableHeader.use('with_nested_table'),
-				),
-			),
+			$onePlus($or(tableCell.use('with_nested_table'), tableHeader.use('with_nested_table'))),
 		],
 		ignore: ['json-schema', 'validator-spec'],
 	});
@@ -140,14 +129,7 @@ table
 			},
 			layout: {
 				type: 'enum',
-				values: [
-					'wide',
-					'full-width',
-					'center',
-					'align-end',
-					'align-start',
-					'default',
-				],
+				values: ['wide', 'full-width', 'center', 'align-end', 'align-start', 'default'],
 				default: 'default',
 				optional: true,
 			},

@@ -140,7 +140,8 @@ export const onboardingJiraSpotlight: MigrationGuide = {
 	examples: [
 		{
 			title: 'Internal <JiraSpotlight /> migration',
-			description: 'Internal migrations are possible for JiraSpotlight usages which only pass simple/textual content to JiraSpotlight children',
+			description:
+				'Internal migrations are possible for JiraSpotlight usages which only pass simple/textual content to JiraSpotlight children',
 			before: `
 // file1.tsx
 import { JiraSpotlight } from '@atlassian/jira-spotlight/src/ui/jira-spotlight.tsx';
@@ -244,7 +245,8 @@ export const SomeFeature = () => {
 
 		{
 			title: 'Complex <JiraSpotlight /> migration',
-			description: 'Complex migrations are necessary for JiraSpotlight usages that make heavy use of the `children` prop to achieve customisation instead of relying on the `heading`, `body`, `image`, and/or `actions` props.',
+			description:
+				'Complex migrations are necessary for JiraSpotlight usages that make heavy use of the `children` prop to achieve customisation instead of relying on the `heading`, `body`, `image`, and/or `actions` props.',
 			before: `
 // file1.tsx
 import { JiraSpotlight } from '@atlassian/jira-spotlight/src/ui/jira-spotlight.tsx';

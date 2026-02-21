@@ -1,63 +1,76 @@
 import { defineMessages } from 'react-intl-next';
 
 export const defaultMessages: {
-    ariaLabelCheckbox: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    }; cancel: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    }; errorFlagDescription: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    }; errorFlagTitle: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    }; export: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    }; exportButton: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    }; exportTermsDescription: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    }; exportTermsError: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    }; exportTermsTitle: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    }; modalDescription: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    }; modalDescription2: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    }; modalTitle: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    }; successFlagDescription: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    }; successFlagTitle: {
-        defaultMessage: string;
-        description: string;
-        id: string;
-    };
+	ariaLabelCheckbox: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	cancel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	errorFlagDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	errorFlagTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	export: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	exportButton: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	exportTermsDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	exportTermsError: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	exportTermsTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	modalDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	modalDescription2: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	modalTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	successFlagDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	successFlagTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 } = defineMessages({
 	exportButton: {
 		id: 'organization.audit.log.export.button',

@@ -453,7 +453,6 @@ describe('<MediaPlayer />', () => {
 				expect(await getCaptionsAdminControls()).toBeInTheDocument();
 			});
 		});
-
 	});
 
 	describe('interaction', () => {

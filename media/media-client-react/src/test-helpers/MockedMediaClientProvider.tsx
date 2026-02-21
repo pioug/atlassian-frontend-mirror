@@ -42,7 +42,11 @@ export const MockedMediaClientProvider = ({
 	);
 
 	const mediaClient = useMemo(() => {
-		const client = new MediaClient(resolvedMediaClientConfig, currentStore, mockedMediaApi as MediaApi);
+		const client = new MediaClient(
+			resolvedMediaClientConfig,
+			currentStore,
+			mockedMediaApi as MediaApi,
+		);
 		// Override getClientId if mock is provided
 		if (mockGetClientId) {
 			client.getClientId = mockGetClientId;

@@ -17,7 +17,12 @@ const containerStyles = xcss({
 	textAlign: 'center',
 });
 
-export const EmptyState = ({ testId, header, description, renderImage }: EmptyStateProps): React.JSX.Element => {
+export const EmptyState = ({
+	testId,
+	header,
+	description,
+	renderImage,
+}: EmptyStateProps): React.JSX.Element => {
 	return (
 		<Flex
 			xcss={containerStyles}

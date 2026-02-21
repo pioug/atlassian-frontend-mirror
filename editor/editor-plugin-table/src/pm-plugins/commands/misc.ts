@@ -308,7 +308,10 @@ export const getTableElementMoveTypeBySlice = (slice: Slice, state: EditorState)
 	}
 };
 
-export const isInsideFirstCellOfRowOrColumn = (selection: Selection, type?: 'row' | 'column'): boolean => {
+export const isInsideFirstCellOfRowOrColumn = (
+	selection: Selection,
+	type?: 'row' | 'column',
+): boolean => {
 	const table = findTable(selection);
 
 	if (!table || !type) {

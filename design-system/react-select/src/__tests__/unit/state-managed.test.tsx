@@ -2,7 +2,6 @@
 //@ts-nocheck
 import React from 'react';
 
-
 import { type EventType, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import cases from 'jest-in-case';

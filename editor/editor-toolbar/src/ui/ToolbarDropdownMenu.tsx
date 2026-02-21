@@ -104,7 +104,11 @@ const ToolbarDropdownMenuContent = ({
 							triggerProps.onClick && triggerProps.onClick(e);
 						}}
 						onFocus={triggerProps.onFocus}
-						id={expValEquals('platform_editor_renderer_toolbar_updates', 'isEnabled', true) ? id : undefined}
+						id={
+							expValEquals('platform_editor_renderer_toolbar_updates', 'isEnabled', true)
+								? id
+								: undefined
+						}
 						testId={testId}
 						iconBefore={iconBefore}
 						isDisabled={isDisabled}
@@ -112,12 +116,15 @@ const ToolbarDropdownMenuContent = ({
 					/>
 				);
 
-				if (tooltipComponent && expValEquals('platform_editor_hide_toolbar_tooltips_fix', 'isEnabled', true)) {
+				if (
+					tooltipComponent &&
+					expValEquals('platform_editor_hide_toolbar_tooltips_fix', 'isEnabled', true)
+				) {
 					return React.cloneElement(tooltipComponent as React.ReactElement, {
 						children: toolbarButton,
 					});
 				}
-				
+
 				return toolbarButton;
 			}}
 			onOpenChange={handleOpenChange}
@@ -144,11 +151,17 @@ export const ToolbarDropdownMenu = ({
 		<ToolbarDropdownMenuContent
 			iconBefore={iconBefore}
 			isDisabled={isDisabled}
-			id={expValEquals('platform_editor_renderer_toolbar_updates', 'isEnabled', true) ? id : undefined}
+			id={
+				expValEquals('platform_editor_renderer_toolbar_updates', 'isEnabled', true) ? id : undefined
+			}
 			testId={testId}
 			label={label}
 			onClick={onClick}
-			tooltipComponent={expValEquals('platform_editor_hide_toolbar_tooltips_fix', 'isEnabled', true) ? tooltipComponent : undefined}
+			tooltipComponent={
+				expValEquals('platform_editor_hide_toolbar_tooltips_fix', 'isEnabled', true)
+					? tooltipComponent
+					: undefined
+			}
 		>
 			<Box
 				xcss={cx(

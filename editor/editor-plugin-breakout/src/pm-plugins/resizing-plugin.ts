@@ -202,8 +202,8 @@ export const createResizingPlugin = (
 
 			const { expand, codeBlock, layoutSection } = newState.schema.nodes;
 			const breakoutResizableNodes = editorExperiment('platform_synced_block', true)
-											? getBreakoutResizableNodeTypes(newState.schema)
-											: new Set([expand, codeBlock, layoutSection]);
+				? getBreakoutResizableNodeTypes(newState.schema)
+				: new Set([expand, codeBlock, layoutSection]);
 
 			const isFullWidthEnabled = !(options?.allowBreakoutButton === true);
 

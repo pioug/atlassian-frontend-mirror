@@ -114,7 +114,8 @@ describe('reconnection analytics', () => {
 
 	afterEach(jest.clearAllMocks);
 
-	eeTest.describe('collab_bypass_out_of_sync_period_experiment', 'experiment disabled')
+	eeTest
+		.describe('collab_bypass_out_of_sync_period_experiment', 'experiment disabled')
 		.variant(false, () => {
 			it('Should not reconnecting analytics after being disconnected for less than 3s', async () => {
 				const fakeAnalyticsWebClient = {
@@ -350,7 +351,8 @@ describe('reconnection analytics', () => {
 		provider.destroy();
 	});
 
-	eeTest.describe('collab_bypass_out_of_sync_period_experiment', 'experiment enabled')
+	eeTest
+		.describe('collab_bypass_out_of_sync_period_experiment', 'experiment enabled')
 		.variant(true, () => {
 			it('Should trigger reconnecting analytics after being disconnected for less than 3s when experiment is enabled', async () => {
 				// Reset catchupv2 mock to return empty steps for this test
@@ -406,7 +408,7 @@ describe('reconnection analytics', () => {
 				});
 				provider.destroy();
 			});
-		})
+		});
 
 	eeTest
 		.describe('platform_editor_offline_editing_web', 'With experiment enabled')

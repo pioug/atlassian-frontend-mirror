@@ -38,7 +38,8 @@ jest.mock('../../src/tools/get-lint-rules/lint-rules-structured-content.codegen'
 			content: {
 				ruleName: 'DuplicateRule',
 				description: 'example rule description',
-				content: '# DuplicateRule\n\nexample rule description\n\n## Options\n\nThis rule has options.\n',
+				content:
+					'# DuplicateRule\n\nexample rule description\n\n## Options\n\nThis rule has options.\n',
 			},
 		},
 	],
@@ -53,7 +54,10 @@ describe('ads_get_lint_rules tool', () => {
 		expect(result.content).toHaveLength(1);
 		const parsed = JSON.parse(result.content[0].text as string);
 		expect(parsed).toHaveProperty('ruleName', 'icon-label');
-		expect(parsed).toHaveProperty('description', 'Icon labels are used to describe what the icon is.');
+		expect(parsed).toHaveProperty(
+			'description',
+			'Icon labels are used to describe what the icon is.',
+		);
 		expect(parsed).toHaveProperty('content');
 		expect(parsed.content).toContain('# icon-label');
 		expect(Object.keys(parsed)).toEqual(['ruleName', 'description', 'content']);

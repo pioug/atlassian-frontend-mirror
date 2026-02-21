@@ -22,7 +22,13 @@ describe('iconMessage', () => {
 describe('CheckInternetConnection', () => {
 	it('should render correctly', () => {
 		const component = shallow(
-			<IntlProvider locale="en" messages={{ 'fabric.media.check_internet_connection': 'Failed to load. Please check your internet connection' }}>
+			<IntlProvider
+				locale="en"
+				messages={{
+					'fabric.media.check_internet_connection':
+						'Failed to load. Please check your internet connection',
+				}}
+			>
 				<CheckInternetConnection />
 			</IntlProvider>,
 		);

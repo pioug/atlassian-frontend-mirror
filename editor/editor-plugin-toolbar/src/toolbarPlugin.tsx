@@ -240,25 +240,25 @@ export const toolbarPlugin: ToolbarPlugin = ({
 					},
 				},
 				...(!disableSelectionToolbar &&
-					expValEquals('platform_editor_experience_tracking', 'isEnabled', true)
+				expValEquals('platform_editor_experience_tracking', 'isEnabled', true)
 					? [
-						{
-							name: 'selectionToolbarOpenExperience',
-							plugin: () =>
-								getSelectionToolbarOpenExperiencePlugin({
-									refs,
-									dispatchAnalyticsEvent: (payload) =>
-										api?.analytics?.actions?.fireAnalyticsEvent(payload),
-								}),
-						},
-					]
+							{
+								name: 'selectionToolbarOpenExperience',
+								plugin: () =>
+									getSelectionToolbarOpenExperiencePlugin({
+										refs,
+										dispatchAnalyticsEvent: (payload) =>
+											api?.analytics?.actions?.fireAnalyticsEvent(payload),
+									}),
+							},
+						]
 					: []),
 			];
 		},
 
 		contentComponent: !disableSelectionToolbar
 			? ({ editorView, popupsMountPoint }) => {
-				refs.popupsMountPoint = popupsMountPoint || undefined;
+					refs.popupsMountPoint = popupsMountPoint || undefined;
 
 					if (!editorView) {
 						return null;

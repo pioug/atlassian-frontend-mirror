@@ -11,5 +11,5 @@ export {
 	type FlyoutHeaderProps,
 	FlyoutMenuItemTrigger,
 	type FlyoutMenuItemTriggerProps,
-	COLLAPSE_ELEM_BEFORE
+	COLLAPSE_ELEM_BEFORE,
 } from '@atlaskit/side-nav-items/flyout-menu-item';

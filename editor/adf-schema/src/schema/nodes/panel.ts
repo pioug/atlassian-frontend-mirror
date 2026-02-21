@@ -117,9 +117,7 @@ const getParseDOMAttrs = (
 		};
 	} else {
 		parseDOMAttrs.panelType =
-			parseDOMAttrs.panelType === PanelType.CUSTOM
-				? PanelType.INFO
-				: parseDOMAttrs.panelType;
+			parseDOMAttrs.panelType === PanelType.CUSTOM ? PanelType.INFO : parseDOMAttrs.panelType;
 	}
 
 	return parseDOMAttrs;
@@ -132,8 +130,7 @@ const createPanelNodeSpecOptions: (
 	parseDOM: [
 		{
 			tag: 'div[data-panel-type]',
-			getAttrs: (dom) =>
-				getParseDOMAttrs(allowCustomPanel, dom, generateLocalId),
+			getAttrs: (dom) => getParseDOMAttrs(allowCustomPanel, dom, generateLocalId),
 		},
 	],
 	toDOM(node) {

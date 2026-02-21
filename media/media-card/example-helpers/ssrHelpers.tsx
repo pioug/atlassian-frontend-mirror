@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom';
 import ReactDOMServer from 'react-dom/server';
 import { SSRAnalyticsWrapper } from '.';
 
-export interface SimulateSsrParams
-	extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+export interface SimulateSsrParams extends React.DetailedHTMLProps<
+	React.HTMLAttributes<HTMLDivElement>,
+	HTMLDivElement
+> {
 	serverPage: React.ReactNode;
 	hydratePage?: React.ReactNode;
 }

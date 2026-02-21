@@ -253,7 +253,6 @@ describe('useIncomingOutgoingLinks', () => {
 					['third-party ARI', THIRD_PARTY_ARI],
 					['cloud ARI without siteId', CLOUD_ARI_WITHOUT_SITE_ID],
 				])('with %s', (_, ari) => {
-
 					it(`should call /_edge/tenant_info`, async () => {
 						const { getIncomingOutgoingAris } = setup();
 
@@ -268,11 +267,7 @@ describe('useIncomingOutgoingLinks', () => {
 						await getIncomingOutgoingAris(ari);
 
 						expect(fetchMock).toHaveBeenCalledTimes(2);
-						expect(fetchMock).toHaveBeenNthCalledWith(
-							1,
-							'/_edge/tenant_info',
-							expect.any(Object),
-						);
+						expect(fetchMock).toHaveBeenNthCalledWith(1, '/_edge/tenant_info', expect.any(Object));
 						expect(fetchMock).toHaveBeenNthCalledWith(
 							2,
 							'/gateway/api/graphql',

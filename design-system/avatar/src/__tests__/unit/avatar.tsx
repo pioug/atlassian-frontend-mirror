@@ -716,26 +716,14 @@ describe('Avatar', () => {
 		});
 
 		it('should render as a button when aria-haspopup is set without onClick', () => {
-			render(
-				<Avatar
-					testId={testId}
-					name="Alexander Nevermind"
-					aria-haspopup={true}
-				/>,
-			);
+			render(<Avatar testId={testId} name="Alexander Nevermind" aria-haspopup={true} />);
 			const element = screen.getByTestId(`${testId}--inner`);
 
 			expect(element.tagName).toBe('BUTTON');
 		});
 
 		it('should apply aria-label when aria-haspopup is set without onClick', () => {
-			render(
-				<Avatar
-					testId={testId}
-					name="Alexander Nevermind"
-					aria-haspopup={true}
-				/>,
-			);
+			render(<Avatar testId={testId} name="Alexander Nevermind" aria-haspopup={true} />);
 			const element = screen.getByTestId(`${testId}--inner`);
 
 			expect(element).toHaveAttribute('aria-label', 'Alexander Nevermind');

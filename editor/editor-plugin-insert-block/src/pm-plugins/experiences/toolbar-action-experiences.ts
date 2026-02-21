@@ -110,7 +110,10 @@ export const getToolbarActionExperiencesPlugin = ({
 			buttonTestId: TOOLBAR_BUTTON_TEST_ID.EMOJI,
 		},
 		{
-			experience: createPopupExperience('media', '[id="local-media-upload-button"], [data-testid="media-picker-file-input"]'),
+			experience: createPopupExperience(
+				'media',
+				'[id="local-media-upload-button"], [data-testid="media-picker-file-input"]',
+			),
 			buttonTestId: TOOLBAR_BUTTON_TEST_ID.MEDIA,
 		},
 		{
@@ -133,7 +136,10 @@ export const getToolbarActionExperiencesPlugin = ({
 			buttonTestId: TOOLBAR_BUTTON_TEST_ID.TABLE,
 		},
 		{
-			experience: createPopupExperience('tableSelector', '[aria-label*="table size"], [data-testid*="table-selector"]'),
+			experience: createPopupExperience(
+				'tableSelector',
+				'[aria-label*="table size"], [data-testid*="table-selector"]',
+			),
 			buttonTestId: TOOLBAR_BUTTON_TEST_ID.TABLE_SELECTOR,
 		},
 		{
@@ -141,7 +147,10 @@ export const getToolbarActionExperiencesPlugin = ({
 			buttonTestId: TOOLBAR_BUTTON_TEST_ID.LAYOUT,
 		},
 		{
-			experience: createPopupExperience('image', '[id="local-media-upload-button"], [data-testid="media-picker-file-input"]'),
+			experience: createPopupExperience(
+				'image',
+				'[id="local-media-upload-button"], [data-testid="media-picker-file-input"]',
+			),
 			buttonTestId: TOOLBAR_BUTTON_TEST_ID.IMAGE,
 		},
 		{

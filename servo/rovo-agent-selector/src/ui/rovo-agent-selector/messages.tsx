@@ -16,7 +16,6 @@ const messages = defineMessages({
 		defaultMessage: 'No agents found',
 		description: 'Message displayed when no options are available',
 	},
-	
 });
 
 export default messages;

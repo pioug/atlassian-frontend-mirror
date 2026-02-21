@@ -34,11 +34,8 @@ const ImageEditorFunctionalComponent = ({
 	api,
 	editorView,
 }: ImageEditorFunctionalComponentProps) => {
-	const {
-		isImageEditorVisible,
-		imageEditorSelectedMedia,
-		uploadMediaClientConfig,
-	} = useSharedPluginStateWithSelector(api, ['mediaEditing', 'media'], imageEditorStateSelector);
+	const { isImageEditorVisible, imageEditorSelectedMedia, uploadMediaClientConfig } =
+		useSharedPluginStateWithSelector(api, ['mediaEditing', 'media'], imageEditorStateSelector);
 
 	if (!isImageEditorVisible || !imageEditorSelectedMedia || !uploadMediaClientConfig) {
 		return null;

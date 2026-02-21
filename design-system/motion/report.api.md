@@ -100,11 +100,10 @@ export interface FadeKeyframesMotionProps extends KeyframesMotionProps {
 export const isReducedMotion: () => boolean;
 
 // @public
-interface KeyframesMotionProps
-	extends MotionProps<{
-		className: string;
-		ref: Ref<any>;
-	}> {
+interface KeyframesMotionProps extends MotionProps<{
+	className: string;
+	ref: Ref<any>;
+}> {
 	isPaused?: boolean;
 }
 
@@ -158,10 +157,9 @@ export const ShrinkOut: ({ children, duration, onFinish }: ShrinkOutProps) => an
 export const shrinkOutAnimation: () => CSSObject;
 
 // @public (undocumented)
-export interface ShrinkOutProps
-	extends MotionProps<{
-		ref: React_2.Ref<any>;
-	}> {}
+export interface ShrinkOutProps extends MotionProps<{
+	ref: React_2.Ref<any>;
+}> {}
 
 // @public
 export const SlideIn: ({

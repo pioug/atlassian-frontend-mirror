@@ -414,8 +414,8 @@ describe('Team Option', () => {
 
 		it('should render AvatarOrIcon when icon is provided', () => {
 			const teamWithIcon = buildTeam({
-					icon: mockIcon,
-				});
+				icon: mockIcon,
+			});
 
 			const component = shallowOption({}, teamWithIcon);
 			const avatarItemOption = component.find(AvatarItemOption);

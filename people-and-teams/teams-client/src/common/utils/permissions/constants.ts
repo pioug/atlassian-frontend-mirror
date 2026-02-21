@@ -126,14 +126,16 @@ const getActiveTeamPermissionMap = (
 		return {
 			...allPermissions(permission === 'FULL_WRITE', isMember, isOrgAdmin),
 			...openPermissions(permission),
-			ARCHIVE_TEAM: newTeamProfileEnabled && permission === 'FULL_WRITE' && (isMember || isOrgAdmin),
+			ARCHIVE_TEAM:
+				newTeamProfileEnabled && permission === 'FULL_WRITE' && (isMember || isOrgAdmin),
 		};
 	}
 	if (settings === 'MEMBER_INVITE') {
 		return {
 			...allPermissions(permission === 'FULL_WRITE', isMember, isOrgAdmin),
 			...inviteOnlyPermissions(permission),
-			ARCHIVE_TEAM: newTeamProfileEnabled && permission === 'FULL_WRITE' && (isMember || isOrgAdmin),
+			ARCHIVE_TEAM:
+				newTeamProfileEnabled && permission === 'FULL_WRITE' && (isMember || isOrgAdmin),
 		};
 	} else if (settings === 'EXTERNAL') {
 		return {

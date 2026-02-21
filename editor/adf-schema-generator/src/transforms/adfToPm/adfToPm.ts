@@ -32,9 +32,9 @@ function isGroupReturnValue(
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function transform(adf: ADFNode<any, any>): {
-    markResMap: Record<string, MarkSpecResMap>;
-    nodeGroupMap: Record<string, string[]>;
-    nodeResMap: Record<string, NodeSpecResMap>;
+	markResMap: Record<string, MarkSpecResMap>;
+	nodeGroupMap: Record<string, string[]>;
+	nodeResMap: Record<string, NodeSpecResMap>;
 } {
 	const nodeResMap: Record<string, NodeSpecResMap> = {};
 	const markResMap: Record<string, MarkSpecResMap> = {};
@@ -215,11 +215,13 @@ export function transform(adf: ADFNode<any, any>): {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function adfToPm(adfNode: ADFNode<any>): {
-    pmMarks: string;
-    pmNodeGroups: string;
-    pmNodes: string;
-} | undefined {
+export function adfToPm(adfNode: ADFNode<any>):
+	| {
+			pmMarks: string;
+			pmNodeGroups: string;
+			pmNodes: string;
+	  }
+	| undefined {
 	try {
 		const { nodeGroupMap, markResMap, nodeResMap } = transform(adfNode);
 		return {

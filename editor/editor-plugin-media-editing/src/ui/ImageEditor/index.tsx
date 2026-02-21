@@ -217,9 +217,7 @@ export const ImageEditor = ({
 																	`${item}Button` as keyof typeof mediaEditingMessages
 																],
 															)}
-															{aspectRatioSelection === item && (
-																<CheckMarkIcon label="selected" />
-															)}
+															{aspectRatioSelection === item && <CheckMarkIcon label="selected" />}
 														</div>
 													</DropdownItem>
 												),
@@ -237,10 +235,7 @@ export const ImageEditor = ({
 									testId="image-editor-rotate-right-btn"
 									appearance="subtle"
 								>
-									<RotateIcon
-										label="rotate right button"
-										isDisabled={!isImageReady || isSaving}
-									/>
+									<RotateIcon label="rotate right button" isDisabled={!isImageReady || isSaving} />
 								</Button>
 								<Button
 									onClick={flipVertical}

@@ -6,7 +6,10 @@ import type { ImportDeclaration } from 'eslint-codemod-utils';
  * @param {string} path The path specified to find
  * @returns {ImportDeclaration}
  */
-export const getImportedNodeBySource: (source: SourceCode, path: string) => ImportDeclaration | undefined = (source: SourceCode, path: string) => {
+export const getImportedNodeBySource: (
+	source: SourceCode,
+	path: string,
+) => ImportDeclaration | undefined = (source: SourceCode, path: string) => {
 	return source.ast.body
 		.filter((node): node is ImportDeclaration => node.type === 'ImportDeclaration')
 		.find((node) => node.source.value === path);
@@ -17,10 +20,15 @@ export const getImportedNodeBySource: (source: SourceCode, path: string) => Impo
  *
  * getModuleOfIdentifier(source, 'Button'); // "@atlaskit/button"
  */
-export const getModuleOfIdentifier: (source: SourceCode, identifierName: string) => {
-    moduleName: string;
-    importName: string;
-} | undefined = (
+export const getModuleOfIdentifier: (
+	source: SourceCode,
+	identifierName: string,
+) =>
+	| {
+			moduleName: string;
+			importName: string;
+	  }
+	| undefined = (
 	source: SourceCode,
 	identifierName: string,
 ): { moduleName: string; importName: string } | undefined => {

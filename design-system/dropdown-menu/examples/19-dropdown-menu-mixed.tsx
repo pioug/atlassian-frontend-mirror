@@ -129,8 +129,12 @@ const OptionsContent = () => (
 		</Box>
 		<Box role="menu" paddingBlock="space.200">
 			<HeadingItem>Your collaborators</HeadingItem>
-			<DropdownItem elemAfter={<EditorAddIcon spacing="spacious" label="" />}>Invite collaborator</DropdownItem>
-			<DropdownItem elemAfter={<EditorPeopleIcon spacing="spacious" label="" />}>Create team</DropdownItem>
+			<DropdownItem elemAfter={<EditorAddIcon spacing="spacious" label="" />}>
+				Invite collaborator
+			</DropdownItem>
+			<DropdownItem elemAfter={<EditorPeopleIcon spacing="spacious" label="" />}>
+				Create team
+			</DropdownItem>
 		</Box>
 		<Box paddingBlock="space.200">
 			<HeadingItem>Filter menu</HeadingItem>

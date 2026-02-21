@@ -68,7 +68,11 @@ const getWidth = (width: number | null, mode: BreakoutMode) => {
  */
 export default function Breakout(props: MarkProps<BreakoutMarkAttrs>) {
 	const width = getWidth('width' in props ? props.width : null, props.mode);
-	const useStickySafeCentering = expValEquals('platform_editor_flex_based_centering', 'isEnabled', true);
+	const useStickySafeCentering = expValEquals(
+		'platform_editor_flex_based_centering',
+		'isEnabled',
+		true,
+	);
 
 	if (useStickySafeCentering) {
 		return (

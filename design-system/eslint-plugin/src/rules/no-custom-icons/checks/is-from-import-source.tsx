@@ -4,9 +4,9 @@ import type { ImportDeclaration } from 'eslint-codemod-utils';
 import { type ImportedJSXElement, isImportedJSXElement } from './is-imported-jsx-element';
 
 export function createIsFromImportSourceFor(...importSources: (string | RegExp)[]): {
-    (node: Rule.Node): node is ImportedJSXElement;
-    importDeclarationHook(node: ImportDeclaration): void;
-    getImportSource(node: Rule.Node): string;
+	(node: Rule.Node): node is ImportedJSXElement;
+	importDeclarationHook(node: ImportDeclaration): void;
+	getImportSource(node: Rule.Node): string;
 } {
 	const literalImportSources = importSources.filter((s): s is string => typeof s === 'string');
 	const matchImportSources = importSources.filter((s): s is RegExp => s instanceof RegExp);

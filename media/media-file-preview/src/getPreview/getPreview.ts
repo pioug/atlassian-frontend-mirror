@@ -92,9 +92,11 @@ export const isRemotePreview = (preview: MediaFilePreview): boolean => {
 	return remoteSources.includes(preview.source);
 };
 
-export const isSSRClientPreview = (preview: MediaFilePreview): boolean => preview.source === 'ssr-client';
+export const isSSRClientPreview = (preview: MediaFilePreview): boolean =>
+	preview.source === 'ssr-client';
 
-export const isSSRDataPreview = (preview: MediaFilePreview): boolean => preview.source === 'ssr-data';
+export const isSSRDataPreview = (preview: MediaFilePreview): boolean =>
+	preview.source === 'ssr-data';
 
 export const isSSRPreview = (preview: MediaFilePreview): boolean => {
 	const ssrClientSources: MediaFilePreviewSource[] = ['ssr-client', 'ssr-server', 'ssr-data'];

@@ -95,7 +95,9 @@ async function main() {
 	const light = requireJsonish(path.join(prebuiltRoot, 'tokens-raw', 'atlassian-light.js'));
 	const shape = requireJsonish(path.join(prebuiltRoot, 'tokens-raw', 'atlassian-shape.js'));
 	const spacing = requireJsonish(path.join(prebuiltRoot, 'tokens-raw', 'atlassian-spacing.js'));
-	const typography = requireJsonish(path.join(prebuiltRoot, 'tokens-raw', 'atlassian-typography.js'));
+	const typography = requireJsonish(
+		path.join(prebuiltRoot, 'tokens-raw', 'atlassian-typography.js'),
+	);
 
 	const lightValues = getThemeValues(light);
 	const shapeValues = getThemeValues(shape);

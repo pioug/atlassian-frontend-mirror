@@ -4,7 +4,9 @@ import { bind } from 'bind-event-listener';
 
 import { getDocument } from '@atlaskit/browser-apis';
 
-export const useFocusWithin = (ref: MutableRefObject<HTMLDivElement | undefined> | undefined): Element | null => {
+export const useFocusWithin = (
+	ref: MutableRefObject<HTMLDivElement | undefined> | undefined,
+): Element | null => {
 	const [active, setActive] = useState<Element | null>(null);
 
 	const updateFocusedElement = useCallback(() => {

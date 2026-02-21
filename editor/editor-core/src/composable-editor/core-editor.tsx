@@ -136,11 +136,11 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 	);
 	const isFullPageAppearance = Boolean(
 		props.appearance &&
-			[
-				'full-page',
-				'full-width',
-				...(editorExperiment('platform_synced_block', true) ? ['max'] : []),
-			].includes(props.appearance),
+		[
+			'full-page',
+			'full-width',
+			...(editorExperiment('platform_synced_block', true) ? ['max'] : []),
+		].includes(props.appearance),
 	);
 
 	return (

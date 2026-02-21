@@ -19,15 +19,13 @@ export interface EditDatasourceToolbarButtonWithCommonProps {
 	onLinkEditClick: Command;
 }
 
-export interface EditDatasourceToolbarButtonWithUrlProps
-	extends EditDatasourceToolbarButtonWithCommonProps {
+export interface EditDatasourceToolbarButtonWithUrlProps extends EditDatasourceToolbarButtonWithCommonProps {
 	cardContext?: CardContext;
 	datasourceId?: string;
 	url: string;
 }
 
-export interface EditDatasourceToolbarButtonWithDatasourceIdProps
-	extends EditDatasourceToolbarButtonWithCommonProps {
+export interface EditDatasourceToolbarButtonWithDatasourceIdProps extends EditDatasourceToolbarButtonWithCommonProps {
 	datasourceId: string;
 	node: Node;
 }

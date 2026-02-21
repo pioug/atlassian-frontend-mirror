@@ -72,7 +72,12 @@ const shimmerStyles = css({
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/menu/docs/skeleton-heading-item)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/menu)
  */
-const SkeletonHeadingItem: ({ isShimmering, testId, width, xcss, }: SkeletonHeadingItemProps) => JSX.Element = ({
+const SkeletonHeadingItem: ({
+	isShimmering,
+	testId,
+	width,
+	xcss,
+}: SkeletonHeadingItemProps) => JSX.Element = ({
 	isShimmering = false,
 	testId,
 	width,

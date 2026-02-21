@@ -8,7 +8,6 @@ import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { render, screen, userEvent } from '@atlassian/testing-library';
 
-
 import { ButtonMenuItem } from '../../button-menu-item';
 import { ExpandableMenuItem } from '../../expandable-menu-item/expandable-menu-item';
 import { ExpandableMenuItemContent } from '../../expandable-menu-item/expandable-menu-item-content';

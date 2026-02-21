@@ -210,7 +210,12 @@ const getScheduler = (
  * @param {Readonly<Transaction[]>} props.transactions - The transactions that contain the steps.
  * @param {(data: StepMetadataAnalytics[]) => void} props.onTrackDataProcessed - Callback function to be called with the processed data.
  */
-export const track = ({ api, newEditorState, transactions, onTrackDataProcessed }: TrackProps): void => {
+export const track = ({
+	api,
+	newEditorState,
+	transactions,
+	onTrackDataProcessed,
+}: TrackProps): void => {
 	const newSteps = transactions.flatMap((t) => t.steps);
 	const collabState = sendableSteps(newEditorState);
 	const scheduler = getScheduler(window);

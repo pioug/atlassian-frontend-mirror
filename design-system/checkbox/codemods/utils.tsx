@@ -61,7 +61,11 @@ export function getJSXAttributesByName(
 		});
 }
 
-export function hasImportDeclaration(j: core.JSCodeshift, source: any, importPath: string): boolean {
+export function hasImportDeclaration(
+	j: core.JSCodeshift,
+	source: any,
+	importPath: string,
+): boolean {
 	const imports = source
 		.find(j.ImportDeclaration)
 		.filter(
@@ -223,7 +227,12 @@ export function addToImport({
 		});
 }
 
-export const createRenameFuncFor: (component: string, importName: string, from: string, to: string) => (j: core.JSCodeshift, source: Collection<Node>) => void =
+export const createRenameFuncFor: (
+	component: string,
+	importName: string,
+	from: string,
+	to: string,
+) => (j: core.JSCodeshift, source: Collection<Node>) => void =
 	(component: string, importName: string, from: string, to: string) =>
 	(j: core.JSCodeshift, source: Collection<Node>) => {
 		const specifier = getNamedSpecifier(j, source, component, importName);
@@ -253,7 +262,12 @@ export const createRenameFuncFor: (component: string, importName: string, from: 
 		}
 	};
 
-export const createRemoveFuncFor: (component: string, importName: string, prop: string, comment?: string) => (j: core.JSCodeshift, source: Collection<Node>) => void =
+export const createRemoveFuncFor: (
+	component: string,
+	importName: string,
+	prop: string,
+	comment?: string,
+) => (j: core.JSCodeshift, source: Collection<Node>) => void =
 	(component: string, importName: string, prop: string, comment?: string) =>
 	(j: core.JSCodeshift, source: Collection<Node>) => {
 		const specifier =
@@ -274,11 +288,16 @@ export const createRemoveFuncFor: (component: string, importName: string, prop: 
 		});
 	};
 
-export const createRenameImportFor: ({ componentName, newComponentName, oldPackagePath, newPackagePath, }: {
-    componentName: string;
-    newComponentName?: string;
-    oldPackagePath: string;
-    newPackagePath: string;
+export const createRenameImportFor: ({
+	componentName,
+	newComponentName,
+	oldPackagePath,
+	newPackagePath,
+}: {
+	componentName: string;
+	newComponentName?: string;
+	oldPackagePath: string;
+	newPackagePath: string;
 }) => (j: core.JSCodeshift, source: Collection<Node>) => void =
 	({
 		componentName,
@@ -360,10 +379,14 @@ export const createRenameImportFor: ({ componentName, newComponentName, oldPacka
 			.remove();
 	};
 
-export const createRemoveImportsFor: ({ importsToRemove, packagePath, comment, }: {
-    importsToRemove: string[];
-    packagePath: string;
-    comment: string;
+export const createRemoveImportsFor: ({
+	importsToRemove,
+	packagePath,
+	comment,
+}: {
+	importsToRemove: string[];
+	packagePath: string;
+	comment: string;
 }) => (j: core.JSCodeshift, source: Collection<Node>) => void =
 	({
 		importsToRemove,
@@ -434,9 +457,12 @@ export const createRemoveImportsFor: ({ importsToRemove, packagePath, comment, }
 		}
 	};
 
-export const createTransformer: (component: string, migrates: {
-    (j: core.JSCodeshift, source: Collection<Node>): void;
-}[]) => (fileInfo: FileInfo, { jscodeshift }: API, options: Options) => string =
+export const createTransformer: (
+	component: string,
+	migrates: {
+		(j: core.JSCodeshift, source: Collection<Node>): void;
+	}[],
+) => (fileInfo: FileInfo, { jscodeshift }: API, options: Options) => string =
 	(component: string, migrates: { (j: core.JSCodeshift, source: Collection<Node>): void }[]) =>
 	(fileInfo: FileInfo, { jscodeshift }: API, options: Options) => {
 		const source: Collection<Node> = jscodeshift(fileInfo.source);

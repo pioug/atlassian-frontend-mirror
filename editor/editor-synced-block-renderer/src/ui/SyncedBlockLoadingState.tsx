@@ -22,6 +22,5 @@ export const SyncedBlockLoadingState = (): React.JSX.Element => {
 				<Spinner size="small" label="Loading synced content" />
 			</Box>
 		</div>
-
 	);
 };

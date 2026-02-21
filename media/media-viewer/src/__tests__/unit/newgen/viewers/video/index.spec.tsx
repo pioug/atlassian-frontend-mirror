@@ -131,9 +131,7 @@ describe('Video viewer', () => {
 
 	it('should always use HD artifact when available', async () => {
 		const { mediaClient } = setup({ item: videoItem });
-		await waitFor(() =>
-			expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
-		);
+		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
 
 		expectToEqual(
 			asMockFunction(mediaClient.file.getArtifactURL).mock.calls[0][1],

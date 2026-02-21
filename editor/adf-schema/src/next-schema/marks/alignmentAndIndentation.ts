@@ -7,9 +7,7 @@ export const indentation: ADFMark<ADFMarkSpec> = adfMark('indentation');
 
 const alignementMarkExclusionGroup = adfMarkGroup('alignment', [alignment]);
 
-const indentationMarkExclusionGroup = adfMarkGroup('indentation', [
-	indentation,
-]);
+const indentationMarkExclusionGroup = adfMarkGroup('indentation', [indentation]);
 
 alignment.define({
 	excludes: [alignementMarkExclusionGroup, indentationMarkExclusionGroup],

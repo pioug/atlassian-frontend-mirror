@@ -510,16 +510,7 @@ describe('interaction-metrics timeout behavior', () => {
 			const interactionId = 'test-prev-interaction-3';
 			const startTime = 1000;
 
-			addNewInteraction(
-				interactionId,
-				'test-ufo-name',
-				'press',
-				startTime,
-				1,
-				null,
-				null,
-				null,
-			);
+			addNewInteraction(interactionId, 'test-ufo-name', 'press', startTime, 1, null, null, null);
 
 			tryComplete(interactionId, 2000);
 
@@ -555,7 +546,16 @@ describe('interaction-metrics timeout behavior', () => {
 			const transitionId = 'test-prev-interaction-6';
 			mockPerformanceNow.mockReturnValue(3000);
 
-			addNewInteraction(transitionId, 'transition-interaction', 'transition', 1000, 1, null, null, null);
+			addNewInteraction(
+				transitionId,
+				'transition-interaction',
+				'transition',
+				1000,
+				1,
+				null,
+				null,
+				null,
+			);
 			tryComplete(transitionId, 3000);
 
 			expect(PreviousInteractionLog.id).toBe(transitionId);

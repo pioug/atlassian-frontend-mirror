@@ -49,7 +49,10 @@ const buttonWrapperStyles = css({
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#skeleton-button)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
-export const SkeletonCreateButton = ({ text, testId }: SkeletonCreateButtonProps): React.JSX.Element => {
+export const SkeletonCreateButton = ({
+	text,
+	testId,
+}: SkeletonCreateButtonProps): React.JSX.Element => {
 	const theme = useTheme();
 
 	return (

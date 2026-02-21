@@ -2,7 +2,16 @@ import { B200, B400, N0, N100, N400, N600, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 // TODO: This is where we need to add tokens for all appearance color values
-export const getColorsFromAppearanceOldLogos = (appearance?: string, colorMode?: string): { iconGradientStart: string | undefined; iconGradientStop: string | undefined; iconColor: string | undefined; textColor: string | undefined; atlassianLogoTextColor: string | undefined; } => {
+export const getColorsFromAppearanceOldLogos = (
+	appearance?: string,
+	colorMode?: string,
+): {
+	iconGradientStart: string | undefined;
+	iconGradientStop: string | undefined;
+	iconColor: string | undefined;
+	textColor: string | undefined;
+	atlassianLogoTextColor: string | undefined;
+} => {
 	let iconGradientStart, iconGradientStop, iconColor, textColor, atlassianLogoTextColor;
 
 	switch (appearance) {
@@ -48,10 +57,13 @@ export const getColorsFromAppearanceOldLogos = (appearance?: string, colorMode?:
 	};
 };
 
-export const getColorsFromAppearance = (appearance?: string, colorMode?: string): {
-    iconColor: string | undefined;
-    textColor: string | undefined;
-    atlassianLogoTextColor: string | undefined;
+export const getColorsFromAppearance = (
+	appearance?: string,
+	colorMode?: string,
+): {
+	iconColor: string | undefined;
+	textColor: string | undefined;
+	atlassianLogoTextColor: string | undefined;
 } => {
 	let iconColor, textColor, atlassianLogoTextColor;
 
@@ -100,9 +112,12 @@ export const getColorsFromAppearance = (appearance?: string, colorMode?: string)
 	};
 };
 
-export const getColorsForLoom = (appearance?: string, colorMode?: string): {
-    iconColor: string | undefined;
-    textColor: string | undefined;
+export const getColorsForLoom = (
+	appearance?: string,
+	colorMode?: string,
+): {
+	iconColor: string | undefined;
+	textColor: string | undefined;
 } => {
 	let iconColor = getColorsFromAppearance(appearance, colorMode).iconColor;
 	let textColor = getColorsFromAppearance(appearance, colorMode).textColor;

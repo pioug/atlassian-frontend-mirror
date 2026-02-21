@@ -21,7 +21,7 @@ export const AFFECTED_ATLASKIT_PACKAGES: Record<string, string[]> = {
 export const ATLASKIT_FORM_PACKAGE = '@atlaskit/form';
 export const ATLASKIT_FIELD_IMPORT = 'Field';
 
-const rule: import("eslint").Rule.RuleModule = createLintRule({
+const rule: import('eslint').Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'no-placeholder',
 		type: 'problem',

@@ -35,10 +35,7 @@ export const TickBoxWrapper = (props: TickBoxProps) => {
 	return (
 		<div
 			id="tickBoxWrapper"
-			css={[
-				wrapperStyles,
-				props.selected && selectedStyles,
-			]}
+			css={[wrapperStyles, props.selected && selectedStyles]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={tickBoxClassName}
 		>

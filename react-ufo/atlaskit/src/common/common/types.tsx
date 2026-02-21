@@ -230,9 +230,7 @@ export interface LazyLoadProfilerContext {
 }
 
 export interface EnhancedUFOInteractionContextType
-	extends UFOInteractionContextType,
-		RelayMetricsRecorder,
-		LazyLoadProfilerContext {
+	extends UFOInteractionContextType, RelayMetricsRecorder, LazyLoadProfilerContext {
 	// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 	_internalHold(labelStack: LabelStack, name: string, experimental?: boolean): void | (() => void);
 

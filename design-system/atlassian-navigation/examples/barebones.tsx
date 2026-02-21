@@ -22,11 +22,7 @@ const PopupContents = () => (
 			<ButtonItem
 				description="But what is an Atlassian, anyway?"
 				iconBefore={
-					<QuestionCircleIcon
-						color={token('color.icon.information')}
-						label=""
-						 spacing="spacious"
-					/>
+					<QuestionCircleIcon color={token('color.icon.information')} label="" spacing="spacious" />
 				}
 			>
 				About

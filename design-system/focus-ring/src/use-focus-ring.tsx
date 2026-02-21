@@ -9,9 +9,11 @@ import type { FocusEventHandlers, FocusState } from './types';
  * This is not typically a good practice for accessibility, so don’t do this unless you’ve consulted with the accessibility team.
  *
  */
-const useFocusRing = (initialState: FocusState = 'off'): {
-    readonly focusState: "on" | "off";
-    readonly focusProps: FocusEventHandlers;
+const useFocusRing = (
+	initialState: FocusState = 'off',
+): {
+	readonly focusState: 'on' | 'off';
+	readonly focusProps: FocusEventHandlers;
 } => {
 	const [focusState, setFocusState] = useState<'on' | 'off'>(initialState);
 	const focusProps = useRef<FocusEventHandlers>({

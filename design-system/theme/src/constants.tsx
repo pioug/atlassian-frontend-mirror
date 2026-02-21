@@ -76,14 +76,14 @@ export const visuallyHidden = () => {
  * Please use `@atlaskit/visually-hidden`
  */
 export const assistive: () => {
-    border: string;
-    clip: string;
-    height: string;
-    overflow: "hidden";
-    padding: string;
-    position: "absolute";
-    width: string;
-    whiteSpace: "nowrap";
+	border: string;
+	clip: string;
+	height: string;
+	overflow: 'hidden';
+	padding: string;
+	position: 'absolute';
+	width: string;
+	whiteSpace: 'nowrap';
 } = visuallyHidden;
 
 /**
@@ -93,20 +93,21 @@ export const assistive: () => {
  * Please update both.
  */
 export const skeletonShimmer = (): {
-    readonly css: {
-        readonly backgroundColor: "var(--ds-skeleton)";
-        readonly animationDuration: "1.5s";
-        readonly animationIterationCount: "infinite";
-        readonly animationTimingFunction: "linear";
-        readonly animationDirection: "alternate";
-    }; readonly keyframes: {
-        readonly from: {
-            readonly backgroundColor: "var(--ds-skeleton)";
-        };
-        readonly to: {
-            readonly backgroundColor: "var(--ds-skeleton-subtle)";
-        };
-    };
+	readonly css: {
+		readonly backgroundColor: 'var(--ds-skeleton)';
+		readonly animationDuration: '1.5s';
+		readonly animationIterationCount: 'infinite';
+		readonly animationTimingFunction: 'linear';
+		readonly animationDirection: 'alternate';
+	};
+	readonly keyframes: {
+		readonly from: {
+			readonly backgroundColor: 'var(--ds-skeleton)';
+		};
+		readonly to: {
+			readonly backgroundColor: 'var(--ds-skeleton-subtle)';
+		};
+	};
 } =>
 	({
 		css: {

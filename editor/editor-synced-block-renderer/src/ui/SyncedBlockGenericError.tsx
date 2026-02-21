@@ -10,8 +10,6 @@ export const SyncedBlockGenericError = (): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 
 	return (
-		<SyncedBlockErrorStateCard
-			description={formatMessage(messages.generalErrorDescription)}
-		/>
+		<SyncedBlockErrorStateCard description={formatMessage(messages.generalErrorDescription)} />
 	);
 };

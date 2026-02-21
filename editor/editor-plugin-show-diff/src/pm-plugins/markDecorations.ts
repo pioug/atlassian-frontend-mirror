@@ -27,13 +27,13 @@ const extractMarkStep = (step: ProseMirrorStep): MarkStep | undefined => {
 export const getMarkChangeRanges = (steps: ProseMirrorStep[]): StepRange[] => {
 	if (!expValEquals('platform_editor_deduplicate_mark_diff', 'isEnabled', true)) {
 		return steps
-		  .map((step) => {
-			if (step instanceof AddMarkStep || step instanceof RemoveMarkStep) {
-				return { fromB: step.from, toB: step.to };
-			}
-			return undefined;
-		})
-		.filter(filterUndefined)
+			.map((step) => {
+				if (step instanceof AddMarkStep || step instanceof RemoveMarkStep) {
+					return { fromB: step.from, toB: step.to };
+				}
+				return undefined;
+			})
+			.filter(filterUndefined);
 	}
 
 	const resultRanges: StepRange[] = [];
@@ -41,7 +41,9 @@ export const getMarkChangeRanges = (steps: ProseMirrorStep[]): StepRange[] => {
 
 	for (const step of steps) {
 		const op = extractMarkStep(step);
-		if (!op) {continue;}
+		if (!op) {
+			continue;
+		}
 
 		// Check if previous operation cancels this one
 		if (

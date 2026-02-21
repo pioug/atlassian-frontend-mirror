@@ -18,10 +18,12 @@ import type {
 } from '../../nativeEmbedsPluginType';
 import { getSelectedNativeEmbedExtension } from '../utils/getSelectedNativeEmbedExtension';
 
-const createHandlerCommand = (handler?: () => void): Command => () => {
-	handler?.();
-	return true;
-};
+const createHandlerCommand =
+	(handler?: () => void): Command =>
+	() => {
+		handler?.();
+		return true;
+	};
 
 interface GetToolbarConfigProps {
 	api?: ExtractInjectionAPI<EditorPluginNativeEmbedsPlugin>;
@@ -38,10 +40,7 @@ export const getToolbarConfig =
 
 		const getDomRef = (view: EditorView) => {
 			try {
-				const node = findDomRefAtPos(
-					selectedNativeEmbed.pos,
-					view.domAtPos.bind(view),
-				);
+				const node = findDomRefAtPos(selectedNativeEmbed.pos, view.domAtPos.bind(view));
 				return node instanceof HTMLElement ? node : undefined;
 			} catch {
 				return undefined;

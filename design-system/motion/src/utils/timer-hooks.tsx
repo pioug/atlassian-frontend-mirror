@@ -21,7 +21,9 @@ const getHookDeps = (opts: Opts) => {
 /**
  * Will return request animation frame as a function which will clean itself up.
  */
-export const useRequestAnimationFrame = (opts: Opts = { cleanup: 'unmount' }): (handler: FrameRequestCallback) => void => {
+export const useRequestAnimationFrame = (
+	opts: Opts = { cleanup: 'unmount' },
+): ((handler: FrameRequestCallback) => void) => {
 	const frames = useRef<number[]>([]);
 
 	useEffect(() => {

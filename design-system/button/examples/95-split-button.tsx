@@ -331,8 +331,12 @@ const JiraWorkItemViewActionsExample = () => {
 					placement="bottom-end"
 				>
 					<DropdownItemGroup>
-						<DropdownItem elemBefore={<PageIcon spacing="spacious" label="" />}>Link Confluence page</DropdownItem>
-						<DropdownItem elemBefore={<WorldIcon spacing="spacious" label="" />}>Add web link</DropdownItem>
+						<DropdownItem elemBefore={<PageIcon spacing="spacious" label="" />}>
+							Link Confluence page
+						</DropdownItem>
+						<DropdownItem elemBefore={<WorldIcon spacing="spacious" label="" />}>
+							Add web link
+						</DropdownItem>
 					</DropdownItemGroup>
 				</DropdownMenu>
 			</SplitButton>
@@ -361,8 +365,12 @@ const WithWrappersExample = () => {
 						placement="bottom-end"
 					>
 						<DropdownItemGroup>
-							<DropdownItem elemBefore={<PageIcon spacing="spacious" label="" />}>Link Confluence page</DropdownItem>
-							<DropdownItem elemBefore={<WorldIcon spacing="spacious" label="" />}>Add web link</DropdownItem>
+							<DropdownItem elemBefore={<PageIcon spacing="spacious" label="" />}>
+								Link Confluence page
+							</DropdownItem>
+							<DropdownItem elemBefore={<WorldIcon spacing="spacious" label="" />}>
+								Add web link
+							</DropdownItem>
 						</DropdownItemGroup>
 					</DropdownMenu>
 				</div>
@@ -392,8 +400,12 @@ const WithWrappersExample = () => {
 							placement="bottom-end"
 						>
 							<DropdownItemGroup>
-								<DropdownItem elemBefore={<PageIcon spacing="spacious" label="" />}>Link Confluence page</DropdownItem>
-								<DropdownItem elemBefore={<WorldIcon spacing="spacious" label="" />}>Add web link</DropdownItem>
+								<DropdownItem elemBefore={<PageIcon spacing="spacious" label="" />}>
+									Link Confluence page
+								</DropdownItem>
+								<DropdownItem elemBefore={<WorldIcon spacing="spacious" label="" />}>
+									Add web link
+								</DropdownItem>
 							</DropdownItemGroup>
 						</DropdownMenu>
 					</span>

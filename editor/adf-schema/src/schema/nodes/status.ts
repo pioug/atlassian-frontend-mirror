@@ -43,11 +43,7 @@ export const status: NodeSpec = statusFactory({
 
 				// Prefer data-text attribute over textContent
 				// When NodeView DOM is copied, inner text content may not be preserved
-				const text = expValEquals(
-					'platform_editor_copy_paste_issue_fix',
-					'isEnabled',
-					true,
-				)
+				const text = expValEquals('platform_editor_copy_paste_issue_fix', 'isEnabled', true)
 					? dom.getAttribute('data-text') || textContent
 					: textContent;
 

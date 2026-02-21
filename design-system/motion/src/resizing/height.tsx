@@ -47,8 +47,8 @@ export const useResizingHeight = ({
 	duration: calcDuration = () => durations.medium,
 	timingFunction: calcTimingFunction = () => easeInOut,
 }: ResizingHeightOpts = {}): {
-        ref: CallbackRef;
-    } => {
+	ref: CallbackRef;
+} => {
 	const prevDimensions = useRef<Dimensions>();
 	const [element, setElementRef] = useElementRef();
 	// We cleanup on the next effect to prevent the previous timeout being called during

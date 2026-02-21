@@ -32,8 +32,14 @@ const noop = () => [];
 // eslint-disable-next-line @repo/internal/react/no-class-components
 class AnalyticsListener extends Component<Props> {
 	context: any;
-	static contextTypes: { getAtlaskitAnalyticsEventHandlers: PropTypes.Requireable<(...args: any[]) => any>; getAtlaskitAnalyticsContext: PropTypes.Requireable<(...args: any[]) => any>; } = ContextTypes;
-	static childContextTypes: { getAtlaskitAnalyticsEventHandlers: PropTypes.Requireable<(...args: any[]) => any>; getAtlaskitAnalyticsContext: PropTypes.Requireable<(...args: any[]) => any>; } = ContextTypes;
+	static contextTypes: {
+		getAtlaskitAnalyticsEventHandlers: PropTypes.Requireable<(...args: any[]) => any>;
+		getAtlaskitAnalyticsContext: PropTypes.Requireable<(...args: any[]) => any>;
+	} = ContextTypes;
+	static childContextTypes: {
+		getAtlaskitAnalyticsEventHandlers: PropTypes.Requireable<(...args: any[]) => any>;
+		getAtlaskitAnalyticsContext: PropTypes.Requireable<(...args: any[]) => any>;
+	} = ContextTypes;
 
 	contextValue: AnalyticsReactContextInterface;
 
@@ -47,9 +53,9 @@ class AnalyticsListener extends Component<Props> {
 	}
 
 	getChildContext = (): {
-        getAtlaskitAnalyticsContext: () => any;
-        getAtlaskitAnalyticsEventHandlers: () => any[];
-    } => ({
+		getAtlaskitAnalyticsContext: () => any;
+		getAtlaskitAnalyticsEventHandlers: () => any[];
+	} => ({
 		getAtlaskitAnalyticsEventHandlers: this.getAnalyticsEventHandlers,
 		getAtlaskitAnalyticsContext: this.getAtlaskitAnalyticsContext,
 	});

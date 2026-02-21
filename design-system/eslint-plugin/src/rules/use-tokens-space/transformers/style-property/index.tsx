@@ -27,15 +27,20 @@ type Check =
 	  };
 
 export const StyleProperty: {
-    lint(node: Rule.Node, { context }: {
-        context: Rule.RuleContext;
-    }): void;
-    _check(node: Rule.Node): Check;
-    /**
-     * All required validation steps have been taken care of before this
-     * transformer is called, so it just goes ahead providing all necessary fixes
-     */
-    _fix(ref: Ref, context: Rule.RuleContext): (fixer: Rule.RuleFixer) => Rule.Fix[];
+	lint(
+		node: Rule.Node,
+		{
+			context,
+		}: {
+			context: Rule.RuleContext;
+		},
+	): void;
+	_check(node: Rule.Node): Check;
+	/**
+	 * All required validation steps have been taken care of before this
+	 * transformer is called, so it just goes ahead providing all necessary fixes
+	 */
+	_fix(ref: Ref, context: Rule.RuleContext): (fixer: Rule.RuleFixer) => Rule.Fix[];
 } = {
 	lint(node: Rule.Node, { context }: { context: Rule.RuleContext }): void {
 		// Check whether all criteria needed to make a transformation are met

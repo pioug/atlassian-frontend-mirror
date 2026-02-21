@@ -47,7 +47,22 @@ const LoadingIndicator = ({
  * if a CheckboxItem or RadioItem is clicked.
  * It also sets focus to the first menu item when opened.
  */
-const MenuWrapper: ({ children, isLoading, maxHeight, maxWidth, onClose, onUpdate, statusLabel, setInitialFocusRef, shouldRenderToParent, spacing, testId, isTriggeredUsingKeyboard, autoFocus, menuLabel, }: MenuWrapperProps) => JSX.Element = ({
+const MenuWrapper: ({
+	children,
+	isLoading,
+	maxHeight,
+	maxWidth,
+	onClose,
+	onUpdate,
+	statusLabel,
+	setInitialFocusRef,
+	shouldRenderToParent,
+	spacing,
+	testId,
+	isTriggeredUsingKeyboard,
+	autoFocus,
+	menuLabel,
+}: MenuWrapperProps) => JSX.Element = ({
 	children,
 	isLoading,
 	maxHeight,
@@ -98,7 +113,10 @@ const MenuWrapper: ({ children, isLoading, maxHeight, maxWidth, onClose, onUpdat
 				.map(({ current }) => current)
 				.find((el) => !!el && !el.hasAttribute('disabled')) ?? null;
 
-		if ((fg('platform_dst_menu_item_focus') || shouldRenderToParent) && (isTriggeredUsingKeyboard || autoFocus)) {
+		if (
+			(fg('platform_dst_menu_item_focus') || shouldRenderToParent) &&
+			(isTriggeredUsingKeyboard || autoFocus)
+		) {
 			firstFocusableRef?.focus();
 		}
 

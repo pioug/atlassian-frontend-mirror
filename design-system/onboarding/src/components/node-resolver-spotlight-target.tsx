@@ -28,8 +28,13 @@ const spanStyles = css({
  * @returns {ReactElement} The children wrapped with NodeResolver if hasNodeResolver is true, wrape the children in a div setting innerRef with ref to the div.
  */
 const NodeResolverSpotlightTarget: {
-    ({ hasNodeResolver, children, getTargetRef, name, }: NodeResolverSpotlightTargetProps): JSX.Element;
-    displayName: string;
+	({
+		hasNodeResolver,
+		children,
+		getTargetRef,
+		name,
+	}: NodeResolverSpotlightTargetProps): JSX.Element;
+	displayName: string;
 } = ({
 	hasNodeResolver,
 	children,

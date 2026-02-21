@@ -73,9 +73,7 @@ export const ProjectNode = (props: NodeViewProps<Props>) => {
 				)
 			}
 			text={
-				(privateProject || project?.privateProject)
-					? formatMessage(messages.restrictedProject)
-					: name
+				privateProject || project?.privateProject ? formatMessage(messages.restrictedProject) : name
 			}
 			{...rest}
 			isLocked={project?.privateProject}

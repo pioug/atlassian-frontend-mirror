@@ -63,7 +63,9 @@ export function classNames(
 // Clean Value
 // ==============================
 
-export const cleanValue: <Option>(value: PropsValue<Option>) => Options<Option> = <Option,>(value: PropsValue<Option>): Options<Option> => {
+export const cleanValue: <Option>(value: PropsValue<Option>) => Options<Option> = <Option,>(
+	value: PropsValue<Option>,
+): Options<Option> => {
 	if (isArray(value)) {
 		return value.filter(Boolean);
 	}
@@ -77,7 +79,14 @@ export const cleanValue: <Option>(value: PropsValue<Option>) => Options<Option> 
 // Clean Common Props
 // ==============================
 
-export const cleanCommonProps: <Option, IsMulti extends boolean, Group extends GroupBase<Option>, AdditionalProps>(props: Partial<CommonPropsAndClassName<Option, IsMulti, Group>> & AdditionalProps) => Omit<AdditionalProps, keyof CommonPropsAndClassName<Option, IsMulti, Group>> = <
+export const cleanCommonProps: <
+	Option,
+	IsMulti extends boolean,
+	Group extends GroupBase<Option>,
+	AdditionalProps,
+>(
+	props: Partial<CommonPropsAndClassName<Option, IsMulti, Group>> & AdditionalProps,
+) => Omit<AdditionalProps, keyof CommonPropsAndClassName<Option, IsMulti, Group>> = <
 	Option,
 	IsMulti extends boolean,
 	Group extends GroupBase<Option>,
@@ -110,9 +119,22 @@ export const cleanCommonProps: <Option, IsMulti extends boolean, Group extends G
 // Get Style Props
 // ==============================
 
-export const getStyleProps: <Option, IsMulti extends boolean, Group extends GroupBase<Option>, Key extends keyof StylesProps<Option, IsMulti, Group>>(props: Pick<CommonPropsAndClassName<Option, IsMulti, Group>, "cx" | "getStyles" | "getClassNames" | "className"> & StylesProps<Option, IsMulti, Group>[Key], name: Key, classNamesState?: ClassNamesState) => {
-    css: any;
-    className: string;
+export const getStyleProps: <
+	Option,
+	IsMulti extends boolean,
+	Group extends GroupBase<Option>,
+	Key extends keyof StylesProps<Option, IsMulti, Group>,
+>(
+	props: Pick<
+		CommonPropsAndClassName<Option, IsMulti, Group>,
+		'cx' | 'getStyles' | 'getClassNames' | 'className'
+	> &
+		StylesProps<Option, IsMulti, Group>[Key],
+	name: Key,
+	classNamesState?: ClassNamesState,
+) => {
+	css: any;
+	className: string;
 } = <
 	Option,
 	IsMulti extends boolean,
@@ -284,12 +306,12 @@ export function scrollIntoView(menuEl: HTMLElement, focusedEl: HTMLElement): voi
 
 // cannot get keys using array notation with DOMRect
 export function getBoundingClientObj(element: HTMLElement): {
-    bottom: number;
-    height: number;
-    left: number;
-    right: number;
-    top: number;
-    width: number;
+	bottom: number;
+	height: number;
+	left: number;
+	right: number;
+	top: number;
+	width: number;
 } {
 	const rect = element.getBoundingClientRect();
 	return {
@@ -380,7 +402,10 @@ export function multiValueAsValue<Option, IsMulti extends boolean>(
 	return multiValue as OnChangeValue<Option, IsMulti>;
 }
 
-export const removeProps: <Props extends object, K extends string[]>(propsObj: Props, ...properties: K) => Omit<Props, K[number]> = <Props extends object, K extends string[]>(
+export const removeProps: <Props extends object, K extends string[]>(
+	propsObj: Props,
+	...properties: K
+) => Omit<Props, K[number]> = <Props extends object, K extends string[]>(
 	propsObj: Props,
 	...properties: K
 ): Omit<Props, K[number]> => {
@@ -397,7 +422,9 @@ export const removeProps: <Props extends object, K extends string[]>(propsObj: P
  * @param styles - The styles object to filter.
  * @returns A new object containing only supported styles.
  */
-export const filterUnsupportedSelectors: (styles: Record<string, any>) => Record<string, any> = (styles: Record<string, any>): Record<string, any> => {
+export const filterUnsupportedSelectors: (styles: Record<string, any>) => Record<string, any> = (
+	styles: Record<string, any>,
+): Record<string, any> => {
 	const unsupportedSelectors = [
 		':', // pseudo-classes/elements
 		'[', // attribute selectors

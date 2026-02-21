@@ -62,11 +62,7 @@ export class StatusNodeView implements NodeView {
 		if (this.textContainer && node.attrs.text !== this.node.attrs.text) {
 			this.textContainer.textContent = node.attrs.text;
 			// Also update data-text on outer wrapper for parseDOM extraction when copying
-			if (expValEquals(
-				'platform_editor_copy_paste_issue_fix',
-				'isEnabled',
-				true,
-			)) {
+			if (expValEquals('platform_editor_copy_paste_issue_fix', 'isEnabled', true)) {
 				this.domElement?.setAttribute('data-text', node.attrs.text);
 			}
 		}
@@ -74,11 +70,7 @@ export class StatusNodeView implements NodeView {
 		if (node.attrs.color !== this.node.attrs.color) {
 			this.box?.setAttribute('data-color', node.attrs.color);
 			// Also update data-color on outer wrapper for parseDOM extraction when copying
-			if (expValEquals(
-				'platform_editor_copy_paste_issue_fix',
-				'isEnabled',
-				true,
-			)) {
+			if (expValEquals('platform_editor_copy_paste_issue_fix', 'isEnabled', true)) {
 				this.domElement?.setAttribute('data-color', node.attrs.color);
 			}
 		}

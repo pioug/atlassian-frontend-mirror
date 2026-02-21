@@ -49,7 +49,7 @@ export function setTerminalError(
 	additionalAttributes?: TerminalErrorAdditionalAttributes,
 	labelStack?: LabelStack,
 ): void {
-	if(additionalAttributes?.isClientNetworkError) {
+	if (additionalAttributes?.isClientNetworkError) {
 		// Exclude client network errors from being reported to UFO
 		return;
 	}
@@ -65,7 +65,9 @@ export function setTerminalError(
 
 	// Calculate time since previous interaction
 	const timeSincePreviousInteraction =
-		PreviousInteractionLog.timestamp != null ? currentTime - PreviousInteractionLog.timestamp : null;
+		PreviousInteractionLog.timestamp != null
+			? currentTime - PreviousInteractionLog.timestamp
+			: null;
 
 	const context: TerminalErrorContext = {
 		labelStack: labelStack ?? null,

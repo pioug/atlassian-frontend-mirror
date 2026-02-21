@@ -66,9 +66,9 @@ const iconMap = (key: string) => {
 				<Spinner size="small" appearance="invert" />
 			</Box>
 		),
-		success: <Tick spacing="spacious" label="Success"  />,
-		warning: <Warning spacing="spacious" label="Warning"  />,
-		error: <Error spacing="spacious" label="Error"  />,
+		success: <Tick spacing="spacious" label="Success" />,
+		warning: <Warning spacing="spacious" label="Warning" />,
+		error: <Error spacing="spacious" label="Error" />,
 	};
 
 	return key ? icons[key] : icons;

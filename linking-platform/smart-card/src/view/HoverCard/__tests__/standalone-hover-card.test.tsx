@@ -5,7 +5,6 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
-
 import Heading from '@atlaskit/heading';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import type { CardStore } from '@atlaskit/linking-common';

@@ -498,10 +498,7 @@ describe('Raw Data Third Party Behavior', () => {
 			const removeHold = addHold(interactionId, labelStack, 'regular-hold', false);
 			removeHold();
 
-			const onInteractionCompleteSpy = jest.spyOn(
-				interactionExtraMetrics,
-				'onInteractionComplete',
-			);
+			const onInteractionCompleteSpy = jest.spyOn(interactionExtraMetrics, 'onInteractionComplete');
 			const updateFinishedInteractionSpy = jest.spyOn(
 				interactionExtraMetrics,
 				'updateFinishedInteraction',
@@ -602,4 +599,3 @@ describe('Raw Data Third Party Behavior', () => {
 		});
 	});
 });
-

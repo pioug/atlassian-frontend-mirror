@@ -55,11 +55,7 @@ export const actions = {
 			const currentLinks = currentTeamState?.links || [];
 
 			// Only skip if already loaded and not currently loading (prevents duplicate fetches)
-			if (
-				currentTeamState?.hasLoaded &&
-				!currentTeamState.isLoading &&
-				currentLinks.length > 0
-			) {
+			if (currentTeamState?.hasLoaded && !currentTeamState.isLoading && currentLinks.length > 0) {
 				return;
 			}
 			// Skip if currently loading to prevent concurrent fetches

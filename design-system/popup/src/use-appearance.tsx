@@ -17,8 +17,8 @@ export function usePopupAppearance({
 	appearance: 'default' | 'UNSAFE_modal-below-sm';
 	shouldRenderToParent?: boolean;
 }): {
-    appearance: "default" | "UNSAFE_modal-below-sm";
-    shouldRenderToParent: boolean | undefined;
+	appearance: 'default' | 'UNSAFE_modal-below-sm';
+	shouldRenderToParent: boolean | undefined;
 } {
 	const mq = useMediaQuery('below.sm', (e) => {
 		setIsSmallViewport(!!e.matches);

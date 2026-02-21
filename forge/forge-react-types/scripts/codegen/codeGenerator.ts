@@ -185,18 +185,23 @@ class ImportDeclarationProxy implements IImportDeclaration {
 
 	public getText() {
 		const code = this.base.getText();
-		
-		const match = code.match(/^(import(?:\s+type)?)\s+(?:(\w+)\s*,?\s*)?(?:\{([^}]*)\})?\s*from\s*['"](.+)['"];?$/);
+
+		const match = code.match(
+			/^(import(?:\s+type)?)\s+(?:(\w+)\s*,?\s*)?(?:\{([^}]*)\})?\s*from\s*['"](.+)['"];?$/,
+		);
 		if (!match) {
 			return this.base.getText();
 		}
-		
-		let [_, importKeyword, defaultImport, namedImportsStr, packageName] = match;
-		
-		let namedImportsList = namedImportsStr
-			? namedImportsStr.trim().split(',').map((text) => text.trim()).filter(Boolean)
-			: [];
 
+		let [_, importKeyword, defaultImport, namedImportsStr, packageName] = match;
+
+		let namedImportsList = namedImportsStr
+			? namedImportsStr
+					.trim()
+					.split(',')
+					.map((text) => text.trim())
+					.filter(Boolean)
+			: [];
 
 		if (this.removedNamedImports.size > 0) {
 			namedImportsList = namedImportsList.filter((text) => !this.removedNamedImports.has(text));
@@ -204,7 +209,7 @@ class ImportDeclarationProxy implements IImportDeclaration {
 		if (this.addedNamedImports) {
 			namedImportsList = Array.from(new Set([...namedImportsList, ...this.addedNamedImports]));
 		}
-		
+
 		// Build the import statement
 		const parts: string[] = [];
 		if (defaultImport) {
@@ -213,12 +218,12 @@ class ImportDeclarationProxy implements IImportDeclaration {
 		if (namedImportsList.length > 0) {
 			parts.push(`{ ${namedImportsList.sort().join(', ')} }`);
 		}
-		
+
 		// If no imports left, don't output anything
 		if (parts.length === 0) {
 			return '';
 		}
-		
+
 		return `${importKeyword} ${parts.join(', ')} from '${packageName}';`;
 	}
 }
@@ -342,7 +347,10 @@ const mergeImportsFromSameModule = (code: string): string => {
 	}
 
 	// Add merged imports back
-	for (const [module, { typeOnly, regular, defaultImport, namespaceImport, isTypeOnly }] of importsByModule) {
+	for (const [
+		module,
+		{ typeOnly, regular, defaultImport, namespaceImport, isTypeOnly },
+	] of importsByModule) {
 		// Handle namespace imports separately (can't be combined with named imports)
 		if (namespaceImport) {
 			tempFile.addImportDeclaration({
@@ -383,7 +391,6 @@ const mergeImportsFromSameModule = (code: string): string => {
 
 	return tempFile.getFullText();
 };
-
 
 // handles imports from platform/packages/forge/forge-ui/src/components/UIKit/tokens.partial.tsx
 // (can be type-only imports OR mixed value/type imports)
@@ -1005,11 +1012,11 @@ const extractImportsForVariables = (
 
 	for (const importDecl of imports) {
 		const moduleSpecifier = importDecl.getModuleSpecifierValue();
-		
+
 		// Handle imports from @atlaskit packages or tokens.partial file
 		const isAtlaskitImport = moduleSpecifier.startsWith('@atlaskit/');
 		const isTokensImport = isTokensPartialImport(moduleSpecifier);
-		
+
 		if (isAtlaskitImport || isTokensImport) {
 			const namedImports = importDecl.getNamedImports();
 			const isTypeOnlyImport = importDecl.isTypeOnly();
@@ -1039,7 +1046,7 @@ const extractImportsForVariables = (
 			if (usedNamedImports.length > 0 || usedTypeImports.length > 0) {
 				// Rewrite tokens.partial imports to tokens.codegen
 				const targetModule = isTokensImport ? './tokens.codegen' : moduleSpecifier;
-				
+
 				// Combine type and value imports into a single { } block
 				const allImports: string[] = [
 					...usedTypeImports.map((name) => `type ${name}`),
@@ -1090,7 +1097,7 @@ const handleXCSSProp: CodeConsolidator = ({
 		const xcssValidatorDeclarationCode = utilsFile.getEmitOutput({
 			emitOnlyDtsFiles: true,
 		}).compilerObject.outputFiles[0].text;
-		
+
 		const xcssValidatorVariableDeclarationCode = [
 			xcssValidatorDeclarationCode,
 			variableImportsCode,
@@ -1112,7 +1119,7 @@ const handleXCSSProp: CodeConsolidator = ({
 		]
 			.filter((code) => !!code)
 			.join('\n\n');
-		
+
 		// Merge duplicate imports from the same module (e.g., multiple tokens.codegen imports)
 		return mergeImportsFromSameModule(allCode);
 	} finally {

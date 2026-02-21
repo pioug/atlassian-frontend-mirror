@@ -175,8 +175,11 @@ export type Animations =
  * These are props that motions should use as their external props for consumers.
  * See [FadeIn](packages/helpers/motion/src/entering/fade-in.tsx) for an example usage.
  */
-export interface KeyframesMotionProps
-	extends MotionProps<{ className: string; style: Record<string, any>; ref: Ref<any> }> {
+export interface KeyframesMotionProps extends MotionProps<{
+	className: string;
+	style: Record<string, any>;
+	ref: Ref<any>;
+}> {
 	/**
 	 * Can be used to pause the animation before it has finished.
 	 */

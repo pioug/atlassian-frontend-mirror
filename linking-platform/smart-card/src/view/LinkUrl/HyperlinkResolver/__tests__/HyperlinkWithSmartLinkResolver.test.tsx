@@ -102,7 +102,7 @@ describe('HyperlinkWithSmartLinkResolver - Connect Button Logic', () => {
 					experimentName === 'platform_linking_bluelink_connect_jira'
 				) {
 					return true;
-				} 
+				}
 				return false;
 			});
 		});

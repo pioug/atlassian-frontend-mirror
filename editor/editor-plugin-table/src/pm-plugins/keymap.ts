@@ -240,7 +240,11 @@ export function keymapPlugin(
 		moveColumnLeft.common &&
 		moveColumnRight.common
 	) {
-		const isNewKeyMapExperiment = expValEquals('editor-a11y-fy26-keyboard-move-row-column', 'isEnabled', true);
+		const isNewKeyMapExperiment = expValEquals(
+			'editor-a11y-fy26-keyboard-move-row-column',
+			'isEnabled',
+			true,
+		);
 		// Move row/column shortcuts
 		/**
 		 * NOTE: If the keyboard shortcut for moving rows or columns is changed, we need to update the handleKeyDown function

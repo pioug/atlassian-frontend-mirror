@@ -4,7 +4,6 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import '@atlaskit/link-test-helpers/jest';
 import { IntlProvider } from 'react-intl-next';
 
-
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { FlagsProvider } from '@atlaskit/flag';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';

@@ -144,7 +144,9 @@ const headingStyles = css({
 export const groupHeadingCSS: () => {} = () => ({});
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const GroupHeading: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(props: GroupHeadingProps<Option, IsMulti, Group>) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+export const GroupHeading: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+	props: GroupHeadingProps<Option, IsMulti, Group>,
+) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: GroupHeadingProps<Option, IsMulti, Group>,
 ) => {
 	const { xcss } = props;

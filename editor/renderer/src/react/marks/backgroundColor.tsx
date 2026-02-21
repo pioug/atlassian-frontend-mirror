@@ -43,7 +43,7 @@ export default function BackgroundColor(props: MarkProps<TextColorAttributes>): 
 		() =>
 			({
 				['--custom-palette-color']: paletteColorValue,
-			} as React.CSSProperties),
+			}) as React.CSSProperties,
 		[paletteColorValue],
 	);
 

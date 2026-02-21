@@ -29,7 +29,9 @@ export interface NavigationHeaderProps {
  * - [Examples](https://atlassian.design/components/side-navigation/examples#header-and-footer)
  * - [Code](https://atlassian.design/components/side-navigation/code)
  */
-const NavigationHeader: (props: NavigationHeaderProps) => JSX.Element = (props: NavigationHeaderProps) => {
+const NavigationHeader: (props: NavigationHeaderProps) => JSX.Element = (
+	props: NavigationHeaderProps,
+) => {
 	const { children } = props;
 	return (
 		<Box xcss={styles.navigationFooter} data-navheader>

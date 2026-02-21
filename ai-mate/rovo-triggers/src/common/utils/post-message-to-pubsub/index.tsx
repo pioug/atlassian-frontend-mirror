@@ -58,9 +58,14 @@ export const RovoPostMessagePubsubListener = () => {
 						eventType: ROVO_POST_MESSAGE_ACK_EVENT_TYPE,
 						payloadId: eventData.payloadId,
 					};
-					event.source?.postMessage(ackPayload, fg('ai-mate-pub-sub-post-message-origin-fix') ? {
-						targetOrigin: '*',
-					} : undefined);
+					event.source?.postMessage(
+						ackPayload,
+						fg('ai-mate-pub-sub-post-message-origin-fix')
+							? {
+									targetOrigin: '*',
+								}
+							: undefined,
+					);
 					publish(event.data.payload);
 				}
 			},

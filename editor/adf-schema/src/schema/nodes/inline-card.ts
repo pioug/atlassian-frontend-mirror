@@ -31,10 +31,7 @@ export const inlineCard: NodeSpec = inlineCardFactory({
 
 				/* Support attrs from Editor and Renderer */
 				return {
-					url:
-						anchor.getAttribute('href') ||
-						anchor.getAttribute('data-card-url') ||
-						null,
+					url: anchor.getAttribute('href') || anchor.getAttribute('data-card-url') || null,
 					data: data ? JSON.parse(data) : null,
 				};
 			},
@@ -83,10 +80,7 @@ export const inlineCardWithLocalId: NodeSpec = inlineCardFactory({
 
 				/* Support attrs from Editor and Renderer */
 				return {
-					url:
-						anchor.getAttribute('href') ||
-						anchor.getAttribute('data-card-url') ||
-						null,
+					url: anchor.getAttribute('href') || anchor.getAttribute('data-card-url') || null,
 					data: data ? JSON.parse(data) : null,
 					localId: uuid.generate(),
 				};

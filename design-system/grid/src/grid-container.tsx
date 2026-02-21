@@ -78,7 +78,7 @@ const gridMaxWidthMap = cssMap({
  * A grid container context used to detect to detect wether a component is inside a grid container.
  *
  */
-export const GridContainerContext: import("react").Context<boolean> = createContext(false);
+export const GridContainerContext: import('react').Context<boolean> = createContext(false);
 
 /**
  * __GridContainer__

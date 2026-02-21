@@ -33,9 +33,7 @@ export const isSpecialKey = (event: React.MouseEvent | React.KeyboardEvent): boo
 
 export const isSpecialClick = (event: React.MouseEvent): boolean => event.button === 1;
 
-export const getIconForFileType = (
-	fileMimeType: string,
-): React.ReactNode | undefined => {
+export const getIconForFileType = (fileMimeType: string): React.ReactNode | undefined => {
 	if (!fileMimeType) {
 		return;
 	}
@@ -262,9 +260,7 @@ export const getLazyIcons = (): Partial<
 	};
 };
 
-const getTypeToIconMap = (
-	fileFormat: string,
-): IconLabelMap | null => {
+const getTypeToIconMap = (fileFormat: string): IconLabelMap | null => {
 	const iconDescriptor = extractFileFormatIcon(fileFormat);
 	if (!iconDescriptor?.icon) {
 		return null;
@@ -286,13 +282,16 @@ export const getIframeSandboxAttribute = (isTrusted: boolean) => {
 	return sandboxPermissions;
 };
 
-export const handleOnClick = (handler: Function) => (e: React.BaseSyntheticEvent): void => {
-	e.preventDefault();
-	e.stopPropagation();
-	handler();
-};
+export const handleOnClick =
+	(handler: Function) =>
+	(e: React.BaseSyntheticEvent): void => {
+		e.preventDefault();
+		e.stopPropagation();
+		handler();
+	};
 
-export const isIntersectionObserverSupported = (): boolean => typeof IntersectionObserver !== 'undefined';
+export const isIntersectionObserverSupported = (): boolean =>
+	typeof IntersectionObserver !== 'undefined';
 
 export const sleep = (ms: number): Promise<void> => {
 	return new Promise((resolve) => setTimeout(resolve, ms));

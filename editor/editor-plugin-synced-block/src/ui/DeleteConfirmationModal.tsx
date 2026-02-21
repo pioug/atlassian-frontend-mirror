@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { cssMap } from '@compiled/react';
 import { useIntl, type IntlShape, type MessageDescriptor } from 'react-intl-next';
 
-
 import Button from '@atlaskit/button/new';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
@@ -210,28 +209,28 @@ export const DeleteConfirmationModal = ({
 					testId="sync-block-delete-confirmation"
 					height={184}
 				>
-						<>
-							{referenceCount === undefined ? (
-								<Box xcss={styles.spinner}>
-									<Spinner size="large" />
-								</Box>
-							) : (
-								<ModalContent
-									content={
-										fg('platform_synced_block_patch_2')
-											? modalContentMapNew[deleteReason]
-											: modalContentMap[deleteReason]
-									}
-									referenceCount={referenceCount}
-									handleClick={handleClick}
-									formatMessage={formatMessage}
-									isDeleting={bodiedSyncBlockDeletionStatus === 'processing'}
-									isDisabled={isOfflineMode(mode)}
-									deleteReason={deleteReason}
-									sourceCount={syncBlockIds?.length || 0}
-								/>
-							)}
-						</>
+					<>
+						{referenceCount === undefined ? (
+							<Box xcss={styles.spinner}>
+								<Spinner size="large" />
+							</Box>
+						) : (
+							<ModalContent
+								content={
+									fg('platform_synced_block_patch_2')
+										? modalContentMapNew[deleteReason]
+										: modalContentMap[deleteReason]
+								}
+								referenceCount={referenceCount}
+								handleClick={handleClick}
+								formatMessage={formatMessage}
+								isDeleting={bodiedSyncBlockDeletionStatus === 'processing'}
+								isDisabled={isOfflineMode(mode)}
+								deleteReason={deleteReason}
+								sourceCount={syncBlockIds?.length || 0}
+							/>
+						)}
+					</>
 				</ModalDialog>
 			)}
 		</ModalTransition>

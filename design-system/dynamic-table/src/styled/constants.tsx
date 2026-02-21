@@ -12,7 +12,9 @@ export interface TruncateStyleProps {
 	className?: string;
 }
 
-export const getTruncationStyleVars: ({ width }: TruncateStyleProps) => {
-    "--local-dynamic-table-width": string;
-} | undefined = ({ width }: TruncateStyleProps) =>
+export const getTruncationStyleVars: ({ width }: TruncateStyleProps) =>
+	| {
+			'--local-dynamic-table-width': string;
+	  }
+	| undefined = ({ width }: TruncateStyleProps) =>
 	typeof width !== 'undefined' ? { [CSS_VAR_WIDTH]: `${width}%` } : undefined;

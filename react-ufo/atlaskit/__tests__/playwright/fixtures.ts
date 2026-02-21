@@ -30,7 +30,7 @@ const prepareParams = (params?: { [key: string]: string | boolean }) => {
 	if (!params) {
 		return { urlParams: {}, featureFlags: '' };
 	}
-   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const { featureFlag, ...rest } = params;
 
 	// url param in string format: '&featureFlag=feature-flag-key&featureFlag=feature-flag-key'
@@ -764,13 +764,17 @@ export const viewports: {
  * Custom test fixture that allows simulating a page opened in a background tab.
  * This is done by injecting a script before page load that overrides visibilityState.
  */
-export const testWithBackgroundTab: TestType<PlaywrightTestArgs & PlaywrightTestOptions & {
-    skipAxeCheck: () => void;
-} & PlaywrightCoverageOptions & {
-    simulateBackgroundTab: boolean;
-    featureFlags: string[];
-    waitForReactUFOPayload: () => Promise<ReactUFOPayload | null>;
-}, PlaywrightWorkerArgs & PlaywrightWorkerOptions> = base.extend<{
+export const testWithBackgroundTab: TestType<
+	PlaywrightTestArgs &
+		PlaywrightTestOptions & {
+			skipAxeCheck: () => void;
+		} & PlaywrightCoverageOptions & {
+			simulateBackgroundTab: boolean;
+			featureFlags: string[];
+			waitForReactUFOPayload: () => Promise<ReactUFOPayload | null>;
+		},
+	PlaywrightWorkerArgs & PlaywrightWorkerOptions
+> = base.extend<{
 	simulateBackgroundTab: boolean;
 	featureFlags: string[];
 	waitForReactUFOPayload: () => Promise<ReactUFOPayload | null>;
@@ -796,13 +800,20 @@ export const testWithBackgroundTab: TestType<PlaywrightTestArgs & PlaywrightTest
 				performance.getEntriesByType = (type: string) => {
 					if (type === 'visibility-state') {
 						// Return a mock entry indicating the page was hidden from the start
-						return [{
-							name: 'hidden',
-							entryType: 'visibility-state',
-							startTime: 0,
-							duration: 0,
-							toJSON: () => ({ name: 'hidden', entryType: 'visibility-state', startTime: 0, duration: 0 }),
-						}] as unknown as PerformanceEntryList;
+						return [
+							{
+								name: 'hidden',
+								entryType: 'visibility-state',
+								startTime: 0,
+								duration: 0,
+								toJSON: () => ({
+									name: 'hidden',
+									entryType: 'visibility-state',
+									startTime: 0,
+									duration: 0,
+								}),
+							},
+						] as unknown as PerformanceEntryList;
 					}
 					return originalGetEntriesByType(type);
 				};
@@ -868,5 +879,3 @@ export const testWithBackgroundTab: TestType<PlaywrightTestArgs & PlaywrightTest
 		await use(getPayload);
 	},
 });
-
-

@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 import type { IntlShape } from 'react-intl-next';
 
 import { INPUT_METHOD, VIEW_METHOD } from '@atlaskit/editor-common/analytics';

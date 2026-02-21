@@ -8,8 +8,11 @@ import { isFunction, isWord } from '../../utils/rules';
 
 export const ruleName = 'design-system/no-deprecated-design-token-usage';
 export const messages: {
-    invalidToken: (name: string | number | boolean | RegExp, replacement: string | number | boolean | RegExp) => string;
-    deprecatedToken: (name: string | number | boolean | RegExp) => string;
+	invalidToken: (
+		name: string | number | boolean | RegExp,
+		replacement: string | number | boolean | RegExp,
+	) => string;
+	deprecatedToken: (name: string | number | boolean | RegExp) => string;
 } = stylelint.utils.ruleMessages(ruleName, {
 	invalidToken: (name, replacement): string =>
 		`The token '${name}' has been deprecated. Please use ${replacement} instead.`,

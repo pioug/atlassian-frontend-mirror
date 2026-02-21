@@ -175,8 +175,7 @@ export const TeamLinkCard = ({
 	const { fireEvent } = useAnalyticsEvents();
 
 	const isNewTeamProfilePageEnabled = !isFedRamp() || fg('new_team_profile_fedramp');
-	const isOpenWebLinkInNewTabEnabled =
-		containerType === 'WebLink' && isNewTeamProfilePageEnabled;
+	const isOpenWebLinkInNewTabEnabled = containerType === 'WebLink' && isNewTeamProfilePageEnabled;
 
 	const handleMouseEnter = () => {
 		if (isReadOnly) {

@@ -236,14 +236,17 @@ strings. Do NOT modify pre-existing message constants that were already in the c
   - **NO `messages.tsx` files**: Messages are NOT in separate `messages.tsx` files
   - Each message is a separate constant: `const myMessage = defineMessage({...})`
   - Usage: `formatMessage(myMessage)` NOT `formatMessage(messages.myMessage)`
-- [ ] **CRITICAL: Always use .ai-non-final suffix**: ALL new message IDs MUST end with `.ai-non-final` suffix
+- [ ] **CRITICAL: Always use .ai-non-final suffix**: ALL new message IDs MUST end with
+      `.ai-non-final` suffix
   - **REQUIRED**: Every newly created message ID must end with `.ai-non-final`
   - Format: `{message-key}.ai-non-final`
   - Example: `applinks.administration.list.applinks-table.system-label.ai-non-final`
-  - **This applies even if existing messages in the file don't have this suffix** - new messages must always include it
+  - **This applies even if existing messages in the file don't have this suffix** - new messages
+    must always include it
   - The suffix indicates the message is AI-generated and may need review before finalization
   - ❌ Bad: `id: 'applinks.administration.list.applinks-table.system-label'` (missing suffix)
-  - ✅ Good: `id: 'applinks.administration.list.applinks-table.system-label.ai-non-final'` (has suffix)
+  - ✅ Good: `id: 'applinks.administration.list.applinks-table.system-label.ai-non-final'` (has
+    suffix)
 - [ ] **Reuse existing constants**: Before creating new message constants, check if similar ones
       exist in the same file
   - Look for existing `defineMessage` calls at the top of the file that might match the use case
@@ -253,10 +256,11 @@ strings. Do NOT modify pre-existing message constants that were already in the c
   - **No component name needed**: Since messages are colocated in the component file, don't include
     the component name in the constant name or message ID
     - ❌ Bad: `onboardingwizardinnerLoading` (includes component name unnecessarily)
-    - ❌ Bad: `id: 'admin.pages.onboarding-hub-wizard.onboardingwizardinner-loading.ai-non-final'` (includes
-      component name in ID)
+    - ❌ Bad: `id: 'admin.pages.onboarding-hub-wizard.onboardingwizardinner-loading.ai-non-final'`
+      (includes component name in ID)
     - ✅ Good: `loading` (simple, context is already clear from file location)
-    - ✅ Good: `id: 'admin.pages.onboarding-hub-wizard.loading.ai-non-final'` (no component name in ID)
+    - ✅ Good: `id: 'admin.pages.onboarding-hub-wizard.loading.ai-non-final'` (no component name in
+      ID)
   - **Component context**: Look at component name, file path, and surrounding code for understanding
     context, but don't duplicate it in the key name
   - **Example**: In `UserProfile.tsx`, a key like `userName` is better than `name`, but don't use

@@ -106,7 +106,9 @@ export function RovoAgentSelector({
 					externalConfigReference: agent?.externalConfigReference ?? undefined,
 					identityAccountId: agent?.identityAccountId ?? undefined,
 					isForgeAgent: fg('rovo_agent_support_a2a_avatar')
-						? agent?.creatorType === 'THIRD_PARTY' || agent?.creatorType === 'FORGE' || agent?.creatorType === 'REMOTE_A2A'
+						? agent?.creatorType === 'THIRD_PARTY' ||
+							agent?.creatorType === 'FORGE' ||
+							agent?.creatorType === 'REMOTE_A2A'
 						: agent?.creatorType === 'FORGE',
 				}))
 				.filter((option: AgentOption) => option.label) ?? []

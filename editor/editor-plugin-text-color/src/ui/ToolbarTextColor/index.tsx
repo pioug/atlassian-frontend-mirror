@@ -22,9 +22,7 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import {
-	DynamicStrokeIconDecoration,
-} from '@atlaskit/editor-common/icons';
+import { DynamicStrokeIconDecoration } from '@atlaskit/editor-common/icons';
 import { textColorMessages as messages } from '@atlaskit/editor-common/messages';
 import {
 	expandIconContainerStyle,

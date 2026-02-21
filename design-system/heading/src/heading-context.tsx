@@ -17,10 +17,9 @@ const useHeadingLevel = (): HeadingLevel => {
 /**
  * Infers the correct heading markup based on the current heading level context.
  */
-export const useHeading: (fallback: HeadingElement) => readonly [
-    HeadingLevel,
-    HeadingElement
-] = (fallback: HeadingElement) => {
+export const useHeading: (fallback: HeadingElement) => readonly [HeadingLevel, HeadingElement] = (
+	fallback: HeadingElement,
+) => {
 	const hLevel = useHeadingLevel();
 	/**
 	 * Order here is important, we for now apply
@@ -61,7 +60,10 @@ interface HeadingLevelContextProps {
  * </HeadingContext>
  * ```
  */
-const HeadingLevelContextProvider = ({ children, value }: HeadingLevelContextProps): React.JSX.Element => {
+const HeadingLevelContextProvider = ({
+	children,
+	value,
+}: HeadingLevelContextProps): React.JSX.Element => {
 	const parentHeadingLevel = useHeadingLevel();
 	const headingLevel = (parentHeadingLevel + 1) as HeadingLevel;
 	return (

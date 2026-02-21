@@ -44,7 +44,9 @@ const placeholderStyles = cssMap({
 	},
 });
 
-const Placeholder: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(props: PlaceholderProps<Option, IsMulti, Group>) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+const Placeholder: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+	props: PlaceholderProps<Option, IsMulti, Group>,
+) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: PlaceholderProps<Option, IsMulti, Group>,
 ) => {
 	const { children, innerProps, isDisabled, xcss } = props;

@@ -378,8 +378,7 @@ export const dropTargetDecorations = (
 		}
 
 		const parentTypesWithEndDropTarget =
-			editorExperiment('platform_synced_block', true) &&
-			fg('platform_synced_block_patch_2')
+			editorExperiment('platform_synced_block', true) && fg('platform_synced_block_patch_2')
 				? PARENT_WITH_END_DROP_TARGET_NEXT
 				: PARENT_WITH_END_DROP_TARGET;
 

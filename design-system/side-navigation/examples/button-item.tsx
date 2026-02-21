@@ -12,10 +12,16 @@ const Example = (): React.JSX.Element => (
 		<ButtonItem iconAfter={<OpenIcon spacing="spacious" label="" />}>Create article</ButtonItem>
 		<ButtonItem description="Will create an article">Create article</ButtonItem>
 		<ButtonItem iconBefore={<AddItemIcon spacing="spacious" label="" />}>Create article</ButtonItem>
-		<ButtonItem iconBefore={<AddItemIcon spacing="spacious" label="" />} iconAfter={<OpenIcon spacing="spacious" label="" />}>
+		<ButtonItem
+			iconBefore={<AddItemIcon spacing="spacious" label="" />}
+			iconAfter={<OpenIcon spacing="spacious" label="" />}
+		>
 			Create article
 		</ButtonItem>
-		<ButtonItem description="Will create an article" iconBefore={<AddItemIcon spacing="spacious" label="" />}>
+		<ButtonItem
+			description="Will create an article"
+			iconBefore={<AddItemIcon spacing="spacious" label="" />}
+		>
 			Create article
 		</ButtonItem>
 		<ButtonItem

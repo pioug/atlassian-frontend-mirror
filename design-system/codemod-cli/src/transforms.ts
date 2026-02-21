@@ -38,7 +38,8 @@ export const getTransforms = (packages?: ParsedPkg[]): ParsedPath[] => {
 		.sort();
 };
 
-export const parseTransformPath = (transformPath: string): path.ParsedPath => path.parse(transformPath);
+export const parseTransformPath = (transformPath: string): path.ParsedPath =>
+	path.parse(transformPath);
 
 export const getTransformPath = ({ dir, base }: ParsedPath) => `${dir}/${base}`;
 

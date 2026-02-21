@@ -19,16 +19,16 @@ ReactDOM.render(<ReactRenderer document={DOCUMENT} />, container);
 ## Example
 
 ${(
-		<Example
-			// Ignored via go/ees005
-			// eslint-disable-next-line import/no-commonjs
-			Component={require('../examples/1-with-providers').default}
-			title="With Providers"
-			// Ignored via go/ees005
-			// eslint-disable-next-line import/no-commonjs
-			source={require('!!raw-loader!../examples/1-with-providers')}
-		/>
-	)}
+	<Example
+		// Ignored via go/ees005
+		// eslint-disable-next-line import/no-commonjs
+		Component={require('../examples/1-with-providers').default}
+		title="With Providers"
+		// Ignored via go/ees005
+		// eslint-disable-next-line import/no-commonjs
+		source={require('!!raw-loader!../examples/1-with-providers')}
+	/>
+)}
 
 ## Best practices to prevent performance issues
 
@@ -129,16 +129,16 @@ ReactDOM.render(<ReactRenderer document={DOCUMENT} truncated={true} maxHeight={7
 `}
 
 ${(
-		<Example
-			// Ignored via go/ees005
-			// eslint-disable-next-line import/no-commonjs
-			Component={require('../examples/15-truncated').default}
-			title="Truncated"
-			// Ignored via go/ees005
-			// eslint-disable-next-line import/no-commonjs
-			source={require('!!raw-loader!../examples/15-truncated')}
-		/>
-	)}
+	<Example
+		// Ignored via go/ees005
+		// eslint-disable-next-line import/no-commonjs
+		Component={require('../examples/15-truncated').default}
+		title="Truncated"
+		// Ignored via go/ees005
+		// eslint-disable-next-line import/no-commonjs
+		source={require('!!raw-loader!../examples/15-truncated')}
+	/>
+)}
 
 ## Theming and dark mode support
 To render certain ADF content correctly in different color themes, such as light and dark mode, this package utilise
@@ -149,12 +149,12 @@ Full light and dark mode support for the Editor is a work in progress. Currently
 - Custom table backgrounds
 
 ${(
-		<Props
-			heading="Props"
-			// Ignored via go/ees005
-			// eslint-disable-next-line import/no-commonjs
-			props={require('!!extract-react-types-loader!../src/ui/Renderer/index')}
-		/>
-	)}
+	<Props
+		heading="Props"
+		// Ignored via go/ees005
+		// eslint-disable-next-line import/no-commonjs
+		props={require('!!extract-react-types-loader!../src/ui/Renderer/index')}
+	/>
+)}
 `;
 export default _default_1;

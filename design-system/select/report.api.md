@@ -313,8 +313,7 @@ export const AsyncSelect: {
 
 // @public (undocumented)
 export interface AsyncSelectProps<Option, IsMulti extends boolean = false>
-	extends AsyncProps<Option, IsMulti, GroupType<Option>>,
-		CustomSelectProps {}
+	extends AsyncProps<Option, IsMulti, GroupType<Option>>, CustomSelectProps {}
 
 // @public (undocumented)
 export const CheckboxOption: FC<OptionProps<OptionType, true>>;
@@ -468,8 +467,7 @@ export const CreatableSelect: {
 
 // @public (undocumented)
 interface CreatableSelectProps<Option, IsMulti extends boolean = false>
-	extends CreatableProps<Option, IsMulti, GroupType<Option>>,
-		CustomSelectProps {}
+	extends CreatableProps<Option, IsMulti, GroupType<Option>>, CustomSelectProps {}
 
 export { createFilter };
 
@@ -672,8 +670,10 @@ export { MultiValueRemoveProps };
 export { NoticeProps };
 
 // @public (undocumented)
-export interface OptionProps<Option = OptionType, IsMulti extends boolean = false>
-	extends OptionProps_2<Option, IsMulti> {
+export interface OptionProps<
+	Option = OptionType,
+	IsMulti extends boolean = false,
+> extends OptionProps_2<Option, IsMulti> {
 	// (undocumented)
 	[key: string]: any;
 	// (undocumented)
@@ -1061,8 +1061,7 @@ export { SelectInstance };
 
 // @public (undocumented)
 export interface SelectProps<Option, IsMulti extends boolean = false>
-	extends ReactSelectProps<Option, IsMulti>,
-		CustomSelectProps {}
+	extends ReactSelectProps<Option, IsMulti>, CustomSelectProps {}
 
 // @public (undocumented)
 export const SelectWithoutAnalytics: {

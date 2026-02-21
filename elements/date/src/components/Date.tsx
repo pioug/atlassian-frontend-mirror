@@ -9,7 +9,7 @@ export type OnClick = (value: ValueType, event: React.SyntheticEvent<any>) => vo
 
 export type Props = {
 	children?: // eslint-disable-next-line @typescript-eslint/ban-types
-	React.FunctionComponent<React.PropsWithChildren<Props>> | string | React.ReactNode;
+		React.FunctionComponent<React.PropsWithChildren<Props>> | string | React.ReactNode;
 	className?: string;
 	color?: Color;
 	format?: string;

@@ -165,9 +165,7 @@ const createInitialState =
 		return {
 			// When plugin is initialised, editor state is defined with selection
 			// hence returning the list state based on the selection to avoid list button in primary toolbar flickering during initial load
-			...(isToolbarAIFCEnabled
-				? getListState(state.doc, state.selection)
-				: initialState),
+			...(isToolbarAIFCEnabled ? getListState(state.doc, state.selection) : initialState),
 			decorationSet: getDecorations(state.doc, state, featureFlags),
 		};
 	};

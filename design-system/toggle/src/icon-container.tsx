@@ -56,7 +56,17 @@ type IconContainerProps = {
  *
  * Positions a toggle's check and close icons.
  */
-const IconContainer: ({ children, size, isHidden, position }: IconContainerProps) => JSX.Element = ({ children, size, isHidden, position }: IconContainerProps) => {
+const IconContainer: ({
+	children,
+	size,
+	isHidden,
+	position,
+}: IconContainerProps) => JSX.Element = ({
+	children,
+	size,
+	isHidden,
+	position,
+}: IconContainerProps) => {
 	return (
 		<Box
 			as="span"

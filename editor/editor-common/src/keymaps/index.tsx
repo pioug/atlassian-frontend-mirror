@@ -88,16 +88,16 @@ export const addColumnBeforeVO = makeKeyMapWithCommon('Add Column Before', 'Mod-
 
 // When cleaning up editor-a11y-fy26-keyboard-move-row-column experiment
 // Remove moveColumn<Left/Right>Old and moveRow<Up/Down>Old
-export const moveColumnLeftOld = makeKeyMapWithCommon('Move Column Left', 'Ctrl-Alt-Shift-ArrowLeft');
+export const moveColumnLeftOld = makeKeyMapWithCommon(
+	'Move Column Left',
+	'Ctrl-Alt-Shift-ArrowLeft',
+);
 export const moveColumnLeft = makeKeyMapWithCommon('Move Column Left', 'Mod-Alt-Shift--');
 export const moveColumnRightOld = makeKeyMapWithCommon(
 	'Move Column Right',
 	'Ctrl-Alt-Shift-ArrowRight',
 );
-export const moveColumnRight = makeKeyMapWithCommon(
-	'Move Column Right',
-	'Mod-Alt-Shift-=',
-);
+export const moveColumnRight = makeKeyMapWithCommon('Move Column Right', 'Mod-Alt-Shift-=');
 export const moveRowDownOld = makeKeyMapWithCommon('Move Row Down', 'Ctrl-Alt-Shift-ArrowDown');
 export const moveRowDown = makeKeyMapWithCommon('Move Row Down', 'Mod-Alt-Shift-]');
 export const moveRowUpOld = makeKeyMapWithCommon('Move Row Up', 'Ctrl-Alt-Shift-ArrowUp');

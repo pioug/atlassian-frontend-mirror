@@ -11,13 +11,14 @@ ${createEditorUseOnlyNotice('Editor Node Data Provider', [
 	{ name: 'Editor Core', link: '/packages/editor/editor-core' },
 ])}
 
-${(
+${
+	(
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		<div style={{ marginTop: token('space.100', '8px') }}>
 			<AtlassianInternalWarning />
 		</div>
 	)
-	}
+}
 
 This package includes the Node Data Provider tooling used by @atlaskit/editor-core and plugins.
 

@@ -11,14 +11,10 @@ import {
 	setActiveTrace,
 } from '../index';
 
-
 jest.mock('@atlaskit/platform-feature-flags');
 const mockFg = fg as jest.Mock;
 
-const fg_combinations = [
-	[],
-	['platform_ufo_enable_otel_context_manager']
-]
+const fg_combinations = [[], ['platform_ufo_enable_otel_context_manager']];
 
 // Configure global context manager or the OTel Context API will just undefined for the tests
 const contextManager = new UFOContextManager();
@@ -27,7 +23,6 @@ setContextManager(contextManager);
 // Register the context manager with the global OTel API
 contextManager.enable();
 context.setGlobalContextManager(contextManager);
-
 
 describe(`Trace context operation test suite`, () => {
 	for (const fg_set of fg_combinations) {
@@ -83,7 +78,7 @@ describe(`Trace context operation test suite`, () => {
 				// then
 				expect(headers).toMatchObject({
 					'X-B3-TraceId': 'trace-id',
-					'X-B3-SpanId': 'span-id'
+					'X-B3-SpanId': 'span-id',
 				});
 			});
 

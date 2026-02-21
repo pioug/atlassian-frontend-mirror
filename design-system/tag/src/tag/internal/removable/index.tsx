@@ -252,6 +252,10 @@ const RemovableTagComponent: React.ForwardRefExoticComponent<
  * Once a tag has been removed, it cannot be re-rendered. Removable tags are visible in "edit" mode or in multi-select controls.
  *
  */
-const RemovableTag: import("react").MemoExoticComponent<import("react").ForwardRefExoticComponent<Omit<RemovableTagProps, "ref"> & import("react").RefAttributes<any>>> = memo(RemovableTagComponent);
+const RemovableTag: import('react').MemoExoticComponent<
+	import('react').ForwardRefExoticComponent<
+		Omit<RemovableTagProps, 'ref'> & import('react').RefAttributes<any>
+	>
+> = memo(RemovableTagComponent);
 
 export default RemovableTag;

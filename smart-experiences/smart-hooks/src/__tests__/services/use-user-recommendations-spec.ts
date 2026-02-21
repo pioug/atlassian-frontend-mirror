@@ -89,9 +89,7 @@ describe('useUserRecommendations hook', () => {
 		jest.resetModules();
 	});
 
-	const setUpInstrumentation = (
-		result: { current: ReturnType<typeof useUserRecommendations> },
-	) => {
+	const setUpInstrumentation = (result: { current: ReturnType<typeof useUserRecommendations> }) => {
 		expect(result.current.recommendations).toEqual(instrumentFailureOption);
 		expect(result.current.isLoading).toEqual(false);
 		expect(result.current.error).toBeUndefined();
@@ -156,9 +154,7 @@ describe('useUserRecommendations hook', () => {
 	});
 
 	it('should respect preload', async () => {
-		const { result } = renderHook(() =>
-			useUserRecommendations({ ...mockProps, preload: true }),
-		);
+		const { result } = renderHook(() => useUserRecommendations({ ...mockProps, preload: true }));
 
 		expect(result.current.recommendations).toEqual(instrumentFailureOption);
 		expect(result.current.isLoading).toEqual(true);

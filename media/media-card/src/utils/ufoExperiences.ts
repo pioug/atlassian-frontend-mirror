@@ -64,7 +64,9 @@ const findPerformanceEntryByName = (
 	const entries = performance.getEntriesByType('resource');
 	const ssrPerformanceEntries = getMediaGlobalScope().performanceEntries ?? [];
 
-	return [...ssrPerformanceEntries, ...entries].find((entry) => name.includes(entry.name)) as ExperimentalPerformanceResourceTiming | undefined;
+	return [...ssrPerformanceEntries, ...entries].find((entry) => name.includes(entry.name)) as
+		| ExperimentalPerformanceResourceTiming
+		| undefined;
 };
 
 /**

@@ -1,14 +1,17 @@
-export const presidents: ({
-    id: number;
-    name: string;
-    party: string;
-    number: number;
-} | {
-    id: number;
-    name: string;
-    party: string;
-    number: string;
-})[] = [
+export const presidents: (
+	| {
+			id: number;
+			name: string;
+			party: string;
+			number: number;
+	  }
+	| {
+			id: number;
+			name: string;
+			party: string;
+			number: string;
+	  }
+)[] = [
 	{
 		id: 1,
 		name: 'George Washington',

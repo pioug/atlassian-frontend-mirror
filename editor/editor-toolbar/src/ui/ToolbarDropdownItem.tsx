@@ -46,7 +46,7 @@ const styles = cssMap({
 		},
 		'&:visited': {
 			color: token('color.text.subtle'),
-		}
+		},
 	},
 	enabled: {
 		'&:hover': {
@@ -125,7 +125,11 @@ const CustomDropdownMenuItemButton = forwardRef<
 				editorExperiment('platform_synced_block', true) ? 'menu-item' : undefined
 			}
 			ref={ref}
-			title={expValEquals('platform_editor_renderer_toolbar_updates', 'isEnabled', true) ? title : undefined}
+			title={
+				expValEquals('platform_editor_renderer_toolbar_updates', 'isEnabled', true)
+					? title
+					: undefined
+			}
 		>
 			{children}
 		</Pressable>
@@ -189,7 +193,7 @@ const CustomDropdownMenuItemAnchor = forwardRef<
 				expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
 					? 'menuitem'
 					: undefined
-			}	
+			}
 			testId={testId as string}
 			xcss={cx(
 				styles.toolbarDropdownItem,
@@ -290,7 +294,9 @@ export const ToolbarDropdownItem = ({
 			title={title}
 			shouldTitleWrap={shouldTitleWrap}
 			// eslint-disable-next-line react/jsx-props-no-spreading
-			{...(expValEquals('platform_editor_renderer_toolbar_updates', 'isEnabled', true) ? dataAttributes : {})}
+			{...(expValEquals('platform_editor_renderer_toolbar_updates', 'isEnabled', true)
+				? dataAttributes
+				: {})}
 		>
 			{children}
 		</DropdownItem>

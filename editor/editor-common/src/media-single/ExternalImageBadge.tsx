@@ -46,7 +46,7 @@ export const isUnbadgedUrl = (url: string | undefined): boolean => {
 
 	return Boolean(
 		hostname &&
-			NO_EXTERNAL_BADGE_HOSTS.some((host) => hostname === host || hostname.endsWith(`.${host}`)),
+		NO_EXTERNAL_BADGE_HOSTS.some((host) => hostname === host || hostname.endsWith(`.${host}`)),
 	);
 };
 

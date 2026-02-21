@@ -1,7 +1,4 @@
-import type {
-	ADFNode,
-	ADFNodeContentOneOrMoreSpec,
-} from '@atlaskit/adf-schema-generator';
+import type { ADFNode, ADFNodeContentOneOrMoreSpec } from '@atlaskit/adf-schema-generator';
 import { $onePlus, $or } from '@atlaskit/adf-schema-generator';
 import { blockCard } from '../nodes/blockCard';
 import { blockquote } from '../nodes/blockquote';
@@ -50,8 +47,10 @@ export const tableCellContentNodes: Array<ADFNode<any, any>> = [
 // In PM Spec, they contain different items. (tableHeader using tableHeaderContentPseudoGroup, tableCell using tableCellContentPseudoGroup)
 // In JSON Schema, both tableHeader and tableCell points to tableCellContentPseudoGroup
 // The differences are highlighted below.
-export const tableCellContentPseudoGroup: ADFNodeContentOneOrMoreSpec =
-	$onePlus($or(...tableCellContentNodes, unsupportedBlock));
+export const tableCellContentPseudoGroup: ADFNodeContentOneOrMoreSpec = $onePlus(
+	$or(...tableCellContentNodes, unsupportedBlock),
+);
 
-export const tableHeaderContentPseudoGroup: ADFNodeContentOneOrMoreSpec =
-	$onePlus($or(...tableCellContentNodes, nestedExpand));
+export const tableHeaderContentPseudoGroup: ADFNodeContentOneOrMoreSpec = $onePlus(
+	$or(...tableCellContentNodes, nestedExpand),
+);

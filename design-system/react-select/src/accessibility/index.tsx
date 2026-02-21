@@ -148,7 +148,9 @@ export interface AriaLiveMessages<
 }
 
 export const defaultAriaLiveMessages = {
-	onChange: <Option, IsMulti extends boolean>(props: AriaOnChangeProps<Option, IsMulti>): string => {
+	onChange: <Option, IsMulti extends boolean>(
+		props: AriaOnChangeProps<Option, IsMulti>,
+	): string => {
 		const { action, label = '', isDisabled } = props;
 
 		switch (action) {

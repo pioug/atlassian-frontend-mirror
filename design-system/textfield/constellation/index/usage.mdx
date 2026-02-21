@@ -4,8 +4,9 @@ order: 2
 
 ## Usage
 
-Use text fields in [forms](https://atlassian.design/components/form/usage) to help people enter, select, and search for text. Text
-fields are normally found within a form but can also be part of a modal, search, or card.
+Use text fields in [forms](https://atlassian.design/components/form/usage) to help people enter,
+select, and search for text. Text fields are normally found within a form but can also be part of a
+modal, search, or card.
 
 Common text input types include: usernames, descriptions, URLs, emails, addresses, and plain text
 searches.
@@ -14,38 +15,42 @@ searches.
 
 ![The text field component is made up of three parts, a label that is left-aligned above the field input area, the input area, and helper text which is below the input area.](images/text-field-anatomy.png)
 
-1. **Label:** Must indicate the information the field requires and be left-aligned directly
-   above the input area.
-3. **Input area:** This is where people enter text.
-4. **Helper text (optional):** Use to provide extra information about the field or to give specific formats the text area will accept (for example: `Passwords must contain at least 8 characters`).
+1. **Label:** Must indicate the information the field requires and be left-aligned directly above
+   the input area.
+2. **Input area:** This is where people enter text.
+3. **Helper text (optional):** Use to provide extra information about the field or to give specific
+   formats the text area will accept (for example: `Passwords must contain at least 8 characters`).
 
 ## Accessibility
 
 - Make sure all fields have a visible label. If you're not using the provided
-[field label](/components/form/examples#field) component, make sure the label is associated properly
-to the field for accessibility.
-- Don’t use placeholder text. Make sure any critical information is communicated in the field label or helper text below the field. Search fields are the only exception, but only if they include a search icon and accessible label.
+  [field label](/components/form/examples#field) component, make sure the label is associated
+  properly to the field for accessibility.
+- Don’t use placeholder text. Make sure any critical information is communicated in the field label
+  or helper text below the field. Search fields are the only exception, but only if they include a
+  search icon and accessible label.
 - Don’t nest interactive elements in the text field, as it will cause focus issues.
 - To announce errors in the helper text area during custom validation (reference to
-[Custom validation example](https://atlassian.design/components/textfield/examples#custom-validation)):
-
+  [Custom validation example](https://atlassian.design/components/textfield/examples#custom-validation)):
   - Validate field onBlur.
   - Make sure your error container would have `aria-live` attribute value being explicitly set to
-  `polite` by default.
-  - Add `aria-relevant="all" aria-atomic="false"` to error container when field lose focus and remove
-  those when field is focused again.
+    `polite` by default.
+  - Add `aria-relevant="all" aria-atomic="false"` to error container when field lose focus and
+    remove those when field is focused again.
   - Dynamically manipulate error's text content to trigger live region content changes.
 
 - When you use the above techniques, the announcement behavior is:
-
   - Chrome announces the error message onBlur.
   - Safari announces the error message both onBlur and on keyup events after first loss of focus.
 
 ## Character counter
 
-You can add a character counter to a text area. It shows people how many characters can be entered and provides real-time feedback on characters used and remaining.
+You can add a character counter to a text area. It shows people how many characters can be entered
+and provides real-time feedback on characters used and remaining.
 
-A counter can be set to show a maximum length, minimum length, and both a minimum and maximum length. View [details and examples of character counters](https://atlassian.design/components/form/usage#character-counter).
+A counter can be set to show a maximum length, minimum length, and both a minimum and maximum
+length. View
+[details and examples of character counters](https://atlassian.design/components/form/usage#character-counter).
 
 ## Content guidelines
 

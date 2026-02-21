@@ -117,7 +117,10 @@ describe('createTerminalErrorPayload', () => {
 			timeSincePreviousInteraction: 1500,
 		};
 
-		const result = createTerminalErrorPayload(mockTerminalErrorData, contextWithPreviousInteraction);
+		const result = createTerminalErrorPayload(
+			mockTerminalErrorData,
+			contextWithPreviousInteraction,
+		);
 
 		expect(result?.attributes.properties.previousInteractionId).toBe('prev-interaction-456');
 		expect(result?.attributes.properties.previousInteractionName).toBe('previous-ufo-interaction');

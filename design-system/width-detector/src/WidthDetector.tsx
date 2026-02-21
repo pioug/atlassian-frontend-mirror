@@ -71,8 +71,8 @@ export default class WidthDetector extends React.Component<WidthDetectorProps, S
 	};
 
 	handleResize: (() => void) & {
-        cancel(): void;
-    } = rafSchedule((): void => {
+		cancel(): void;
+	} = rafSchedule((): void => {
 		const { container } = this;
 		if (!container) {
 			return;

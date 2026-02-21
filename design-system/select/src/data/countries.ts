@@ -315,14 +315,14 @@ const allCountries: Array<Country> = [
 
 // separate countries into groups
 export const groupedCountries: readonly [
-    {
-        readonly label: "Suggested";
-        readonly options: Country[];
-    },
-    {
-        readonly label: "All Countries";
-        readonly options: Country[];
-    }
+	{
+		readonly label: 'Suggested';
+		readonly options: Country[];
+	},
+	{
+		readonly label: 'All Countries';
+		readonly options: Country[];
+	},
 ] = [
 	{
 		label: 'Suggested',

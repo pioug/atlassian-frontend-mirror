@@ -2,7 +2,9 @@ import { type API, type JSXAttribute, type JSXElement, type JSXSpreadAttribute }
 
 import { NEW_BUTTON_VARIANTS } from '../utils/constants';
 
-export const getIconAttributes: (attributes: (JSXAttribute | JSXSpreadAttribute)[]) => JSXAttribute[] | null = (
+export const getIconAttributes: (
+	attributes: (JSXAttribute | JSXSpreadAttribute)[],
+) => JSXAttribute[] | null = (
 	attributes: (JSXAttribute | JSXSpreadAttribute)[],
 ): JSXAttribute[] | null => {
 	const iconAttr = attributes?.filter(
@@ -18,7 +20,9 @@ export const getIconAttributes: (attributes: (JSXAttribute | JSXSpreadAttribute)
 	return null;
 };
 
-export const getIconElement: (iconAttr: JSXAttribute) => JSXElement | null = (iconAttr: JSXAttribute) => {
+export const getIconElement: (iconAttr: JSXAttribute) => JSXElement | null = (
+	iconAttr: JSXAttribute,
+) => {
 	if (
 		iconAttr &&
 		iconAttr.value?.type === 'JSXExpressionContainer' &&
@@ -42,11 +46,11 @@ export const getIconElement: (iconAttr: JSXAttribute) => JSXElement | null = (ic
  * @param j
  * @param iconRenamed
  */
-export const handleIconAttributes: (element: JSXElement, j: API["jscodeshift"], iconRenamed?: boolean) => void = (
+export const handleIconAttributes: (
 	element: JSXElement,
 	j: API['jscodeshift'],
-	iconRenamed: boolean = false,
-) => {
+	iconRenamed?: boolean,
+) => void = (element: JSXElement, j: API['jscodeshift'], iconRenamed: boolean = false) => {
 	const { attributes: buttonAttributes } = element.openingElement;
 	// Get iconBefore and iconAfter attributes
 	const buttonIconAttributes = buttonAttributes && getIconAttributes(buttonAttributes);
@@ -145,7 +149,11 @@ export const handleIconAttributes: (element: JSXElement, j: API["jscodeshift"], 
 	});
 };
 
-export const generateNewElement: (variant: (typeof NEW_BUTTON_VARIANTS)[keyof typeof NEW_BUTTON_VARIANTS], element: JSXElement, j: API["jscodeshift"]) => JSXElement = (
+export const generateNewElement: (
+	variant: (typeof NEW_BUTTON_VARIANTS)[keyof typeof NEW_BUTTON_VARIANTS],
+	element: JSXElement,
+	j: API['jscodeshift'],
+) => JSXElement = (
 	variant: (typeof NEW_BUTTON_VARIANTS)[keyof typeof NEW_BUTTON_VARIANTS],
 	element: JSXElement,
 	j: API['jscodeshift'],
@@ -202,11 +210,11 @@ export const generateNewElement: (variant: (typeof NEW_BUTTON_VARIANTS)[keyof ty
 	});
 };
 
-export const modifyButtonAttributes: (element: JSXElement, j: API["jscodeshift"], hasSpacingNone: boolean) => void = (
+export const modifyButtonAttributes: (
 	element: JSXElement,
 	j: API['jscodeshift'],
 	hasSpacingNone: boolean,
-) => {
+) => void = (element: JSXElement, j: API['jscodeshift'], hasSpacingNone: boolean) => {
 	j(element)
 		.find(j.JSXAttribute)
 		.filter(

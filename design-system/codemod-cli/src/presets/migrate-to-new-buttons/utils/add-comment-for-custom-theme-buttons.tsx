@@ -5,10 +5,10 @@ import { addCommentBefore } from '@atlaskit/codemod-utils';
 import { addCommentForOverlayProp } from './add-comment-for-overlay-prop';
 import { customThemeButtonComment, entryPointsMapping } from './constants';
 
-export const addCommentForCustomThemeButtons: (fileSource: Collection<any>, j: API["jscodeshift"]) => void = (
+export const addCommentForCustomThemeButtons: (
 	fileSource: Collection<any>,
 	j: API['jscodeshift'],
-) => {
+) => void = (fileSource: Collection<any>, j: API['jscodeshift']) => {
 	let customThemeButtonImportName: string | undefined;
 	fileSource
 		.find(j.ImportDeclaration)

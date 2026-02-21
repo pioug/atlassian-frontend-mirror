@@ -83,7 +83,9 @@ export const WrapperAnchor = forwardRef<HTMLAnchorElement, WrapperProps>(
 					isHovered && !withoutBackground && hoveredWithBackgroundStyles,
 					isSelected ? selectedStyles : notSelectedStyle,
 					isInteractive && interactiveStyles,
-					viewType === 'errored' && fg('navx-2565-inline-card-error-state-underline') && errorViewTypeStyles,
+					viewType === 'errored' &&
+						fg('navx-2565-inline-card-error-state-underline') &&
+						errorViewTypeStyles,
 				]}
 				ref={ref}
 				{...props}

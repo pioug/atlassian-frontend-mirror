@@ -136,7 +136,7 @@ export const panelContentCheck = (newState: EditorState, oldState: EditorState):
 	);
 	return Boolean(
 		isNodeSelection &&
-			isParentTypePanel?.node.childCount === 1 &&
-			(isparentTypeDecision?.node.childCount === 1 || isNodeTypeRuleOrCodeBlock),
+		isParentTypePanel?.node.childCount === 1 &&
+		(isparentTypeDecision?.node.childCount === 1 || isNodeTypeRuleOrCodeBlock),
 	);
 };

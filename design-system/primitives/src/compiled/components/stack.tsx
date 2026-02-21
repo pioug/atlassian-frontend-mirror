@@ -11,7 +11,7 @@ import {
 	type MemoExoticComponent,
 	type ReactNode,
 	type Ref,
-    type RefAttributes,
+	type RefAttributes,
 } from 'react';
 
 import { jsx } from '@compiled/react';
@@ -85,7 +85,9 @@ const styles = cssMap({
  * ```
  *
  */
-const Stack: MemoExoticComponent<ForwardRefExoticComponent<Omit<StackProps<ElementType>, "ref"> & RefAttributes<any>>> = memo(
+const Stack: MemoExoticComponent<
+	ForwardRefExoticComponent<Omit<StackProps<ElementType>, 'ref'> & RefAttributes<any>>
+> = memo(
 	forwardRef(
 		<T extends ElementType = 'div'>(
 			{

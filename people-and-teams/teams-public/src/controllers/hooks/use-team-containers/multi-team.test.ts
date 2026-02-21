@@ -1,7 +1,6 @@
 import { teamsClient } from '@atlaskit/teams-client';
 import { renderHook, waitFor } from '@atlassian/testing-library';
 
-
 import { MOCK_CONNECTED_TEAMS_RESULT } from './mocks';
 import { useConnectedTeams, useTeamContainers } from './multi-team';
 

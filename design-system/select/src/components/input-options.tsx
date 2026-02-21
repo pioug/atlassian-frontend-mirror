@@ -201,7 +201,7 @@ const CheckboxIcon = (props: IconProps) => {
 			role={label ? 'img' : 'presentation'}
 		>
 			<g fillRule="evenodd">
-				<rect x="5.5" y="5.5" width="13" height="13" rx="1.5" fill="currentColor"/>
+				<rect x="5.5" y="5.5" width="13" height="13" rx="1.5" fill="currentColor" />
 				<path
 					fillRule="evenodd"
 					clipRule="evenodd"
@@ -235,9 +235,9 @@ const RadioIcon = (props: IconProps) => {
 /**
  * __Checkbox option__
  */
-export const CheckboxOption: <OptionT extends OptionType>(props: OptionProps<OptionT, true>) => JSX.Element = <OptionT extends OptionType>(
+export const CheckboxOption: <OptionT extends OptionType>(
 	props: OptionProps<OptionT, true>,
-): JSX.Element => (
+) => JSX.Element = <OptionT extends OptionType>(props: OptionProps<OptionT, true>): JSX.Element => (
 	<ControlOption<OptionT, true>
 		Icon={CheckboxIcon}
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
@@ -248,7 +248,9 @@ export const CheckboxOption: <OptionT extends OptionType>(props: OptionProps<Opt
 /**
  * __Radio option__
  */
-export const RadioOption: <OptionT extends OptionType>(props: OptionProps<OptionT, false>) => JSX.Element = <OptionT extends OptionType>(props: OptionProps<OptionT, false>) => (
+export const RadioOption: <OptionT extends OptionType>(
+	props: OptionProps<OptionT, false>,
+) => JSX.Element = <OptionT extends OptionType>(props: OptionProps<OptionT, false>) => (
 	// TODO https://product-fabric.atlassian.net/browse/DSP-20769
 	<ControlOption
 		Icon={RadioIcon}

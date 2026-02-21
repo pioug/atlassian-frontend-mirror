@@ -57,9 +57,7 @@ const Palette = () => {
 };
 
 const PlainElement = () => {
-	return (
-		<p>I'm a plain paragraph. I rely on global styles from the CSS reset.</p>
-	);
+	return <p>I'm a plain paragraph. I rely on global styles from the CSS reset.</p>;
 };
 
 export function SubTreeThemingExample(): JSX.Element {
@@ -266,8 +264,8 @@ const ControlledSubtreeThemeContent = () => {
 						onChange={(option) =>
 							option?.value
 								? setTheme({
-									light: option.value as ThemeState['light'],
-								})
+										light: option.value as ThemeState['light'],
+									})
 								: undefined
 						}
 					/>
@@ -281,8 +279,8 @@ const ControlledSubtreeThemeContent = () => {
 						onChange={(option) =>
 							option?.value
 								? setTheme({
-									dark: option.value as ThemeState['dark'],
-								})
+										dark: option.value as ThemeState['dark'],
+									})
 								: undefined
 						}
 					/>

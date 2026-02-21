@@ -34,9 +34,10 @@ export const wrapStep: TransformStep = (nodes, context) => {
 	// in transformNode.ts and cause the expand to render as collapsed.
 	// To clean up: remove the if-else, always use the flag-on branch (isExpandType with uuid).
 	const isExpandType = targetNodeTypeName === 'expand' || targetNodeTypeName === 'nestedExpand';
-	const nodeAttrs = isExpandType && fg('platform_editor_block_menu_expand_localid_fix')
-		? { localId: crypto.randomUUID() }
-		: {};
+	const nodeAttrs =
+		isExpandType && fg('platform_editor_block_menu_expand_localid_fix')
+			? { localId: crypto.randomUUID() }
+			: {};
 
 	const outputNode = targetNodeType.createAndFill(
 		nodeAttrs,

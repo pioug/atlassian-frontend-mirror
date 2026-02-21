@@ -1,4 +1,4 @@
-import type { Mark, MarkSpec , Attrs } from '@atlaskit/editor-prosemirror/model';
+import type { Mark, MarkSpec, Attrs } from '@atlaskit/editor-prosemirror/model';
 import { dataConsumer as dataConsumerFactory } from '../../next-schema/generated/markTypes';
 import { isDOMElement } from '../../utils/parseDOM';
 
@@ -38,8 +38,7 @@ export interface DataConsumerMark extends Mark {
 }
 
 const parseDataConsumer = (maybeValue: string | Node) => {
-	const sources =
-		isDOMElement(maybeValue) && maybeValue.getAttribute('data-sources');
+	const sources = isDOMElement(maybeValue) && maybeValue.getAttribute('data-sources');
 	try {
 		return sources ? { sources: JSON.parse(sources) } : false;
 	} catch {
@@ -91,12 +90,7 @@ export const toJSON = (
 	return {
 		type: mark.type.name,
 		attrs: Object.keys(mark.attrs)
-			.filter(
-				(key) =>
-					key === 'sources' &&
-					mark.attrs[key].length > 0 &&
-					mark.attrs[key] !== null,
-			)
+			.filter((key) => key === 'sources' && mark.attrs[key].length > 0 && mark.attrs[key] !== null)
 			.reduce<typeof mark.attrs>((acc, key) => {
 				return {
 					...acc,

@@ -1,6 +1,6 @@
 export const restrictedPaths: {
-    path: string;
-    message: string;
+	path: string;
+	message: string;
 }[] = [
 	{
 		path: '@atlaskit/ds-lib',

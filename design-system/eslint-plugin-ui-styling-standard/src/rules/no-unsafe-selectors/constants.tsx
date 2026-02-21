@@ -82,7 +82,12 @@ export const allowedPseudos: Set<string> = new Set(
 	cssPseudos.map((pseudo) => pseudo.slice(1)),
 );
 
-export const legacyPseudoElements: Set<string> = new Set([':after', ':before', ':first-letter', ':first-line']);
+export const legacyPseudoElements: Set<string> = new Set([
+	':after',
+	':before',
+	':first-letter',
+	':first-line',
+]);
 
 export const ignoredAtRules: Set<string> = new Set([
 	'@container', // ignored because it's covered by `no-container-queries`

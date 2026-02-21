@@ -104,7 +104,6 @@ describe('usePlugins', () => {
 				expect(result.current.items).not.toBeNull();
 				expect(result.current.items?.length).toEqual(RECENT_SEARCH_LIST_SIZE);
 			});
-
 		});
 
 		it('Should return available tabs and tabTitle', async () => {

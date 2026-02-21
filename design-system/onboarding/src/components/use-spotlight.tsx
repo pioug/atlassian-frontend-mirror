@@ -8,8 +8,8 @@ import { SpotlightContext } from './spotlight-manager';
  * @deprecated Use `@atlaskit/spotlight` instead.
  */
 export default function useSpotlight(): {
-    isTargetRendered: (target: string) => boolean;
-    checkVisibility: (target: string) => (options?: CheckVisibilityOptions) => boolean;
+	isTargetRendered: (target: string) => boolean;
+	checkVisibility: (target: string) => (options?: CheckVisibilityOptions) => boolean;
 } {
 	const { targets } = useContext(SpotlightContext);
 	const targetRef = useRef(targets);

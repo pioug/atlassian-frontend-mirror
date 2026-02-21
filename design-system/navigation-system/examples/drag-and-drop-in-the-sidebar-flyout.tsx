@@ -33,7 +33,7 @@ import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
 import { token } from '@atlaskit/tokens';
 
-import { WithResponsiveViewport } from './utils/example-utils'
+import { WithResponsiveViewport } from './utils/example-utils';
 
 const headingStyles = cssMap({
 	root: {

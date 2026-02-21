@@ -532,12 +532,14 @@ describe('VCObserverNew', () => {
 			});
 
 			it('should use rawDataStopTime for raw data handler when provided', async () => {
-				mockEntriesTimeline.getOrderedEntries.mockImplementation(({ stop }: { start?: number | null | undefined; stop?: number | null | undefined }) => {
-					if (stop === 200) {
-						return mockExtendedEntries;
-					}
-					return mockEntries;
-				});
+				mockEntriesTimeline.getOrderedEntries.mockImplementation(
+					({ stop }: { start?: number | null | undefined; stop?: number | null | undefined }) => {
+						if (stop === 200) {
+							return mockExtendedEntries;
+						}
+						return mockEntries;
+					},
+				);
 				(VCCalculator_FY25_03.prototype.calculate as jest.Mock).mockResolvedValue({
 					revision: 'fy25.03',
 					clean: true,

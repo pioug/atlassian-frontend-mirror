@@ -52,7 +52,9 @@ export function isOpenedInBackground(interactionType: InteractionType): boolean 
 	try {
 		const entries = performance.getEntriesByType('visibility-state');
 		if (entries.length > 0) {
-			return entries.some((entry) => entry.name === 'hidden' && entry.startTime <= OPENED_IN_BACKGROUND_THRESHOLD_MS);
+			return entries.some(
+				(entry) => entry.name === 'hidden' && entry.startTime <= OPENED_IN_BACKGROUND_THRESHOLD_MS,
+			);
 		}
 	} catch {
 		// visibility-state not supported (Firefox/Safari)
@@ -282,7 +284,12 @@ export function isTabThrottled(startTime: number, endTime: number): boolean {
 	// Check if any measurement within the time window indicates throttling
 	for (let i = 0; i < throttleMeasurements.length; i++) {
 		const measurement = throttleMeasurements[i];
-		if (measurement && measurement.time >= startTime && measurement.time <= endTime && measurement.isThrottled) {
+		if (
+			measurement &&
+			measurement.time >= startTime &&
+			measurement.time <= endTime &&
+			measurement.isThrottled
+		) {
 			return true;
 		}
 	}
@@ -305,7 +312,7 @@ export function getThrottleMeasurements(startTime: number, endTime: number): Thr
 	}
 
 	return throttleMeasurements.filter(
-		(measurement) => measurement && measurement.time >= startTime && measurement.time <= endTime
+		(measurement) => measurement && measurement.time >= startTime && measurement.time <= endTime,
 	);
 }
 

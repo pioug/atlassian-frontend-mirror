@@ -55,134 +55,142 @@ describe('FlyoutMenuItem', () => {
 			await expect(baseElement).toBeAccessible();
 		});
 
-		ffTest.off('platform_dst_nav4_flyout_menu_slots_close_button', 'does not include updates to flyout menu to have slots and close button', () => {
-			it('should pass a11y checks when popup is open', async () => {
-				const { baseElement } = render(
-					<NavWrapper>
-						<FlyoutMenuItem isDefaultOpen>
-							<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
-							<FlyoutMenuItemContent>
-								<NavWrapper label="secondary">
-									<ButtonMenuItem>Item 1</ButtonMenuItem>
-								</NavWrapper>
-							</FlyoutMenuItemContent>
-						</FlyoutMenuItem>
-					</NavWrapper>,
-				);
-
-				await expect(baseElement).toBeAccessible();
-			});
-		});
-
-		ffTest.on('platform_dst_nav4_flyout_menu_slots_close_button', 'includes updates to flyout menu to have slots and close button', () => {
-			it('should pass a11y checks when popup is open', async () => {
-				const { baseElement } = render(
-					<NavWrapper>
-						<FlyoutMenuItem isDefaultOpen>
-							<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
-							<FlyoutMenuItemContent>
-								<FlyoutHeader title='Title' closeButtonLabel='Close flyout menu' />
-								<FlyoutBody>
+		ffTest.off(
+			'platform_dst_nav4_flyout_menu_slots_close_button',
+			'does not include updates to flyout menu to have slots and close button',
+			() => {
+				it('should pass a11y checks when popup is open', async () => {
+					const { baseElement } = render(
+						<NavWrapper>
+							<FlyoutMenuItem isDefaultOpen>
+								<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
+								<FlyoutMenuItemContent>
 									<NavWrapper label="secondary">
 										<ButtonMenuItem>Item 1</ButtonMenuItem>
 									</NavWrapper>
+								</FlyoutMenuItemContent>
+							</FlyoutMenuItem>
+						</NavWrapper>,
+					);
+
+					await expect(baseElement).toBeAccessible();
+				});
+			},
+		);
+
+		ffTest.on(
+			'platform_dst_nav4_flyout_menu_slots_close_button',
+			'includes updates to flyout menu to have slots and close button',
+			() => {
+				it('should pass a11y checks when popup is open', async () => {
+					const { baseElement } = render(
+						<NavWrapper>
+							<FlyoutMenuItem isDefaultOpen>
+								<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
+								<FlyoutMenuItemContent>
+									<FlyoutHeader title="Title" closeButtonLabel="Close flyout menu" />
+									<FlyoutBody>
+										<NavWrapper label="secondary">
+											<ButtonMenuItem>Item 1</ButtonMenuItem>
+										</NavWrapper>
+									</FlyoutBody>
+									<FlyoutFooter />
+								</FlyoutMenuItemContent>
+							</FlyoutMenuItem>
+						</NavWrapper>,
+					);
+
+					await expect(baseElement).toBeAccessible();
+				});
+
+				it('should have the correct aria attributes for the trigger', async () => {
+					render(
+						<FlyoutMenuItem>
+							<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
+							<FlyoutMenuItemContent>
+								<ButtonMenuItem>Item 1</ButtonMenuItem>
+							</FlyoutMenuItemContent>
+						</FlyoutMenuItem>,
+					);
+
+					expect(screen.getByRole('button', { name: 'Trigger' })).toHaveAttribute(
+						'aria-haspopup',
+						'dialog',
+					);
+					expect(screen.getByRole('button', { name: 'Trigger' })).toHaveAttribute(
+						'aria-expanded',
+						'false',
+					);
+				});
+
+				it('should have role set to dialog for the flyout menu container', async () => {
+					render(
+						<FlyoutMenuItem>
+							<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
+							<FlyoutMenuItemContent>
+								<ButtonMenuItem>Item 1</ButtonMenuItem>
+							</FlyoutMenuItemContent>
+						</FlyoutMenuItem>,
+					);
+
+					await userEvent.click(screen.getByRole('button', { name: 'Trigger' }));
+
+					const dialog = await screen.findByRole('dialog');
+					expect(dialog).toBeInTheDocument();
+				});
+
+				it('should have aria-labelledby set to the title id for the flyout menu container', async () => {
+					render(
+						<FlyoutMenuItem>
+							<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
+							<FlyoutMenuItemContent containerTestId="container-test">
+								<FlyoutHeader title="Title" closeButtonLabel="Close flyout menu" />
+								<FlyoutBody>
+									<ButtonMenuItem>Item 1</ButtonMenuItem>
 								</FlyoutBody>
 								<FlyoutFooter />
 							</FlyoutMenuItemContent>
-						</FlyoutMenuItem>
-					</NavWrapper>,
-				);
+						</FlyoutMenuItem>,
+					);
 
-				await expect(baseElement).toBeAccessible();
-			});
+					await userEvent.click(screen.getByRole('button', { name: 'Trigger' }));
 
-			it('should have the correct aria attributes for the trigger', async () => {
-				render(
-					<FlyoutMenuItem>
-						<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
-						<FlyoutMenuItemContent>
-							<ButtonMenuItem>Item 1</ButtonMenuItem>
-						</FlyoutMenuItemContent>
-					</FlyoutMenuItem>,
-				);
+					const container = screen.getByTestId('container-test');
 
-				expect(screen.getByRole('button', { name: 'Trigger' })).toHaveAttribute(
-					'aria-haspopup',
-					'dialog',
-				);
-				expect(screen.getByRole('button', { name: 'Trigger' })).toHaveAttribute(
-					'aria-expanded',
-					'false',
-				);
-			});
+					const title = within(container).getByText('Title');
+					expect(title).toHaveAttribute('id');
+					const titleId = title.getAttribute('id') as string;
 
-			it('should have role set to dialog for the flyout menu container', async () => {
-				render(
-					<FlyoutMenuItem>
-						<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
-						<FlyoutMenuItemContent>
-							<ButtonMenuItem>Item 1</ButtonMenuItem>
-						</FlyoutMenuItemContent>
-					</FlyoutMenuItem>
-				);
-
-				await userEvent.click(screen.getByRole('button', { name: 'Trigger' }));
-
-				const dialog = await screen.findByRole('dialog');
-				expect(dialog).toBeInTheDocument();
-			});
-
-			it('should have aria-labelledby set to the title id for the flyout menu container', async () => {
-				render(
-					<FlyoutMenuItem>
-						<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
-						<FlyoutMenuItemContent containerTestId='container-test'>
-							<FlyoutHeader title='Title' closeButtonLabel='Close flyout menu' />
-							<FlyoutBody>
-								<ButtonMenuItem>Item 1</ButtonMenuItem>
-							</FlyoutBody>
-							<FlyoutFooter />
-						</FlyoutMenuItemContent>
-					</FlyoutMenuItem>
-				);
-
-				await userEvent.click(screen.getByRole('button', { name: 'Trigger' }));
-
-				const container = screen.getByTestId('container-test');
-
-				const title = within(container).getByText('Title');
-				expect(title).toHaveAttribute('id');
-				const titleId = title.getAttribute('id') as string;
-
-				expect(container).toHaveAttribute('aria-labelledby', titleId);
-			});
-
-			it('dismisses dialog on escape and returns focus to the trigger', async () => {
-				render(
-					<FlyoutMenuItem>
-						<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
-						<FlyoutMenuItemContent>
-							<ButtonMenuItem>Item 1</ButtonMenuItem>
-						</FlyoutMenuItemContent>
-					</FlyoutMenuItem>
-				);
-
-				const trigger = screen.getByRole('button', { name: 'Trigger' });
-				expect(trigger).toHaveAttribute('aria-haspopup', 'dialog');
-				await userEvent.click(trigger);
-
-				const dialog = await screen.findByRole('dialog');
-				expect(dialog).toBeInTheDocument();
-
-				await userEvent.keyboard('{Escape}');
-
-				await waitFor(() => {
-					expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+					expect(container).toHaveAttribute('aria-labelledby', titleId);
 				});
 
-				expect(trigger).toHaveFocus();
-			});
-		});
+				it('dismisses dialog on escape and returns focus to the trigger', async () => {
+					render(
+						<FlyoutMenuItem>
+							<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
+							<FlyoutMenuItemContent>
+								<ButtonMenuItem>Item 1</ButtonMenuItem>
+							</FlyoutMenuItemContent>
+						</FlyoutMenuItem>,
+					);
+
+					const trigger = screen.getByRole('button', { name: 'Trigger' });
+					expect(trigger).toHaveAttribute('aria-haspopup', 'dialog');
+					await userEvent.click(trigger);
+
+					const dialog = await screen.findByRole('dialog');
+					expect(dialog).toBeInTheDocument();
+
+					await userEvent.keyboard('{Escape}');
+
+					await waitFor(() => {
+						expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+					});
+
+					expect(trigger).toHaveFocus();
+				});
+			},
+		);
 	});
 
 	it('should only render the trigger by default', () => {
@@ -541,27 +549,31 @@ describe('FlyoutMenuItem', () => {
 			expect(onClick).toHaveBeenCalled();
 		});
 
-		ffTest.off('platform_dst_nav4_flyout_menu_slots_close_button', 'does not include updates to flyout menu to have slots and close button', () => {
-			it('should have the correct aria attributes', async () => {
-				render(
-					<FlyoutMenuItem>
-						<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
-						<FlyoutMenuItemContent>
-							<ButtonMenuItem>Item 1</ButtonMenuItem>
-						</FlyoutMenuItemContent>
-					</FlyoutMenuItem>,
-				);
+		ffTest.off(
+			'platform_dst_nav4_flyout_menu_slots_close_button',
+			'does not include updates to flyout menu to have slots and close button',
+			() => {
+				it('should have the correct aria attributes', async () => {
+					render(
+						<FlyoutMenuItem>
+							<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
+							<FlyoutMenuItemContent>
+								<ButtonMenuItem>Item 1</ButtonMenuItem>
+							</FlyoutMenuItemContent>
+						</FlyoutMenuItem>,
+					);
 
-				expect(screen.getByRole('button', { name: 'Trigger' })).toHaveAttribute(
-					'aria-haspopup',
-					'true',
-				);
-				expect(screen.getByRole('button', { name: 'Trigger' })).toHaveAttribute(
-					'aria-expanded',
-					'false',
-				);
-			});
-		});
+					expect(screen.getByRole('button', { name: 'Trigger' })).toHaveAttribute(
+						'aria-haspopup',
+						'true',
+					);
+					expect(screen.getByRole('button', { name: 'Trigger' })).toHaveAttribute(
+						'aria-expanded',
+						'false',
+					);
+				});
+			},
+		);
 
 		it('should have the correct aria attributes when the popup is open', async () => {
 			render(
@@ -670,59 +682,69 @@ describe('FlyoutMenuItem', () => {
 		});
 	});
 
-	ffTest.on('platform_dst_nav4_flyout_menu_slots_close_button', 'includes updates to flyout menu to have slots and close button', () => {
-		describe('maxHeight', () => {
-			it('should use the provided maxHeight value when maxHeight prop is provided', () => {
-				const customMaxHeight = 500;
+	ffTest.on(
+		'platform_dst_nav4_flyout_menu_slots_close_button',
+		'includes updates to flyout menu to have slots and close button',
+		() => {
+			describe('maxHeight', () => {
+				it('should use the provided maxHeight value when maxHeight prop is provided', () => {
+					const customMaxHeight = 500;
 
-				render(
-					<FlyoutMenuItem isDefaultOpen>
-						<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
-						<FlyoutMenuItemContent maxHeight={customMaxHeight} containerTestId="content">
-							<FlyoutHeader title="Title" closeButtonLabel="Close" />
-							<FlyoutBody>
-								<ButtonMenuItem>Item 1</ButtonMenuItem>
-								<ButtonMenuItem>Item 2</ButtonMenuItem>
-								<ButtonMenuItem>Item 3</ButtonMenuItem>
-							</FlyoutBody>
-						</FlyoutMenuItemContent>
-					</FlyoutMenuItem>,
-				);
+					render(
+						<FlyoutMenuItem isDefaultOpen>
+							<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
+							<FlyoutMenuItemContent maxHeight={customMaxHeight} containerTestId="content">
+								<FlyoutHeader title="Title" closeButtonLabel="Close" />
+								<FlyoutBody>
+									<ButtonMenuItem>Item 1</ButtonMenuItem>
+									<ButtonMenuItem>Item 2</ButtonMenuItem>
+									<ButtonMenuItem>Item 3</ButtonMenuItem>
+								</FlyoutBody>
+							</FlyoutMenuItemContent>
+						</FlyoutMenuItem>,
+					);
 
-				const computedMaxHeight = screen.getByTestId('content--container').style.maxHeight;
+					const computedMaxHeight = screen.getByTestId('content--container').style.maxHeight;
 
-				// Remove all whitespace (newlines, tabs, spaces) for comparison
-				const normalisedMaxHeight = computedMaxHeight.replace(/\s+/g, '');
-				const expectedMaxHeight = `min(calc(100vh - 26px), ${customMaxHeight}px)`.replace(/\s+/g, '');
+					// Remove all whitespace (newlines, tabs, spaces) for comparison
+					const normalisedMaxHeight = computedMaxHeight.replace(/\s+/g, '');
+					const expectedMaxHeight = `min(calc(100vh - 26px), ${customMaxHeight}px)`.replace(
+						/\s+/g,
+						'',
+					);
 
-				expect(normalisedMaxHeight).toBe(expectedMaxHeight);
+					expect(normalisedMaxHeight).toBe(expectedMaxHeight);
+				});
+
+				it('should use the default maxHeight value (760px) when maxHeight prop is not provided', () => {
+					const defaultMaxHeight = 760;
+
+					render(
+						<FlyoutMenuItem isDefaultOpen>
+							<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
+							<FlyoutMenuItemContent containerTestId="content">
+								<FlyoutHeader title="Title" closeButtonLabel="Close" />
+								<FlyoutBody>
+									<ButtonMenuItem>Item 1</ButtonMenuItem>
+									<ButtonMenuItem>Item 2</ButtonMenuItem>
+									<ButtonMenuItem>Item 3</ButtonMenuItem>
+								</FlyoutBody>
+							</FlyoutMenuItemContent>
+						</FlyoutMenuItem>,
+					);
+
+					const computedMaxHeight = screen.getByTestId('content--container').style.maxHeight;
+
+					// Remove all whitespace (newlines, tabs, spaces) for comparison
+					const normalisedMaxHeight = computedMaxHeight.replace(/\s+/g, '');
+					const expectedMaxHeight = `min(calc(100vh - 26px), ${defaultMaxHeight}px)`.replace(
+						/\s+/g,
+						'',
+					);
+
+					expect(normalisedMaxHeight).toBe(expectedMaxHeight);
+				});
 			});
-
-			it('should use the default maxHeight value (760px) when maxHeight prop is not provided', () => {
-				const defaultMaxHeight = 760;
-
-				render(
-					<FlyoutMenuItem isDefaultOpen>
-						<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
-						<FlyoutMenuItemContent containerTestId="content">
-							<FlyoutHeader title="Title" closeButtonLabel="Close" />
-							<FlyoutBody>
-								<ButtonMenuItem>Item 1</ButtonMenuItem>
-								<ButtonMenuItem>Item 2</ButtonMenuItem>
-								<ButtonMenuItem>Item 3</ButtonMenuItem>
-							</FlyoutBody>
-						</FlyoutMenuItemContent>
-					</FlyoutMenuItem>,
-				);
-
-				const computedMaxHeight = screen.getByTestId('content--container').style.maxHeight;
-
-				// Remove all whitespace (newlines, tabs, spaces) for comparison
-				const normalisedMaxHeight = computedMaxHeight.replace(/\s+/g, '');
-				const expectedMaxHeight = `min(calc(100vh - 26px), ${defaultMaxHeight}px)`.replace(/\s+/g, '');
-
-				expect(normalisedMaxHeight).toBe(expectedMaxHeight);
-			});
-		});
-	});
+		},
+	);
 });

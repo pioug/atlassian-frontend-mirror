@@ -69,7 +69,9 @@ type ModalProps = {
  */
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export default class BenefitsModal extends Component<ModalProps> {
-	headerComponent = (props: ModalProps): React.ElementType<HeaderComponentProps> | (() => React.JSX.Element) => {
+	headerComponent = (
+		props: ModalProps,
+	): React.ElementType<HeaderComponentProps> | (() => React.JSX.Element) => {
 		const { header: HeaderElement, image: src } = props;
 
 		const ImageElement = () => <ModalImage src={src} alt="" />;
@@ -77,7 +79,9 @@ export default class BenefitsModal extends Component<ModalProps> {
 		return HeaderElement || ImageElement;
 	};
 
-	footerComponent = (props: ModalProps): React.ElementType<FooterComponentProps> | (() => React.JSX.Element | null) => {
+	footerComponent = (
+		props: ModalProps,
+	): React.ElementType<FooterComponentProps> | (() => React.JSX.Element | null) => {
 		const {
 			footer: FooterElement,
 			actions: actionList,

@@ -36,7 +36,11 @@ const preventEvent = (e: MouseEvent | KeyboardEvent) => {
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/menu/docs/link-item)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/menu)
  */
-const LinkItem: import("react").MemoExoticComponent<import("react").ForwardRefExoticComponent<LinkItemProps & import("react").RefAttributes<HTMLElement>>> = memo(
+const LinkItem: import('react').MemoExoticComponent<
+	import('react').ForwardRefExoticComponent<
+		LinkItemProps & import('react').RefAttributes<HTMLElement>
+	>
+> = memo(
 	forwardRef<HTMLElement, LinkItemProps>((props, ref) => {
 		const {
 			children,

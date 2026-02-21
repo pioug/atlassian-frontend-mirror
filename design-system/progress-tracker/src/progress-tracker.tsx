@@ -79,7 +79,14 @@ export interface ProgressTrackerProps {
  * - [Code](https://atlassian.design/components/progress-tracker/code)
  * - [Usage](https://atlassian.design/components/progress-tracker/usage)
  */
-const ProgressTracker: ({ items, spacing, render, animated, testId, label, }: ProgressTrackerProps) => JSX.Element = ({
+const ProgressTracker: ({
+	items,
+	spacing,
+	render,
+	animated,
+	testId,
+	label,
+}: ProgressTrackerProps) => JSX.Element = ({
 	items = [],
 	spacing = 'cozy',
 	render = {

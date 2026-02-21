@@ -9,8 +9,10 @@ import type {
 
 import { getRuleUrl } from './create-rule';
 
-export interface LintRule<Schema extends JSONSchema, Config>
-	extends Omit<BaseLintRule, 'meta' | 'create'> {
+export interface LintRule<Schema extends JSONSchema, Config> extends Omit<
+	BaseLintRule,
+	'meta' | 'create'
+> {
 	meta: LintRuleMeta<Schema>;
 
 	create(context: Rule.RuleContext, config: Config): Rule.RuleListener;

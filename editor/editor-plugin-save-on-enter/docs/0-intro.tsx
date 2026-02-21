@@ -8,8 +8,8 @@ import { createEditorUseOnlyNotice } from './editor-use-only';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const _default_1: any = md`
   ${createEditorUseOnlyNotice('Editor Plugin Save-on-enter', [
-	{ name: 'Editor Core', link: '/packages/editor/editor-core' },
-])}
+		{ name: 'Editor Core', link: '/packages/editor/editor-core' },
+	])}
   ${(
 		<>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}

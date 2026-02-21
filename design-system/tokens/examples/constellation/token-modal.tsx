@@ -82,7 +82,7 @@ export const TokenModal = (): JSX.Element => {
 };
 
 const _default_1: {
-    example: () => JSX.Element;
-    code: string;
+	example: () => JSX.Element;
+	code: string;
 } = { example: TokenModal, code: TokenModalCodeBlock };
 export default _default_1;

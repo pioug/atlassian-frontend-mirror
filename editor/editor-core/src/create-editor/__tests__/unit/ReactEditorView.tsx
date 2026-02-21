@@ -106,13 +106,7 @@ import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analy
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-	blockquote,
-	code_block,
-	doc,
-	p,
-	mention,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import { blockquote, code_block, doc, p, mention } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -746,13 +740,13 @@ describe('@atlaskit/editor-core', () => {
 		});
 	});
 
-describe('proseMirrorRendered analytics event', () => {
-	it('sends attributes', async () => {
+	describe('proseMirrorRendered analytics event', () => {
+		it('sends attributes', async () => {
 			setupEditorExperiments('test', { platform_editor_prosemirror_rendered_data: true });
-		(getActiveInteraction as jest.Mock).mockReturnValueOnce({
-			type: 'page_load',
-			routeName: 'edit-page',
-		});
+			(getActiveInteraction as jest.Mock).mockReturnValueOnce({
+				type: 'page_load',
+				routeName: 'edit-page',
+			});
 
 			const document = doc(p('hello'))(defaultSchema);
 			const editorProps = {
@@ -781,7 +775,7 @@ describe('proseMirrorRendered analytics event', () => {
 							severity: expect.any(String),
 							distortedDuration: false,
 							pageLoadType: 'page_load',
-						pageType: 'edit-page',
+							pageType: 'edit-page',
 							ufoInteractionId: 'test-interaction-id',
 							timings: expect.objectContaining({
 								'requestStart->responseEnd': mockRequestToResponseTime,

@@ -2,7 +2,11 @@ import React from 'react';
 
 import type { ThemeColorModes } from '@atlaskit/tokens';
 
-import { AppProviderThemingEnabledContext, InsideAppProviderContext, useIsInsideAppProvider } from './context';
+import {
+	AppProviderThemingEnabledContext,
+	InsideAppProviderContext,
+	useIsInsideAppProvider,
+} from './context';
 import RouterLinkProvider, { type RouterLinkComponent } from './router-link-provider';
 import ThemeProvider from './theme-provider';
 import { type Theme } from './theme-provider/context/theme';

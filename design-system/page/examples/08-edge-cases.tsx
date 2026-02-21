@@ -12,7 +12,7 @@ import VerticalSpace from './common/vertical-space';
 const BasicExample = (): React.JSX.Element => {
 	return (
 		<Page>
-			<Banner appearance="warning" icon={<WarningIcon spacing="spacious" label="Warning"  />}>
+			<Banner appearance="warning" icon={<WarningIcon spacing="spacious" label="Warning" />}>
 				We are planning on deprecating Page component. We recommend using the Page layout component
 				instead.
 				<Link target="_blank" href="https://atlassian.design/components/page-layout">

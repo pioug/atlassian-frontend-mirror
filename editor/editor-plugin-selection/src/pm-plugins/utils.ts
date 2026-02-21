@@ -440,10 +440,7 @@ export const isSelectionAtEndOfLayoutColumn = ($pos: ResolvedPos): boolean => {
 	}
 
 	const panelOrExpandParent = findParentNodeClosestToPos($pos, isPanelOrExpandNode);
-	if (
-		panelOrExpandParent &&
-		panelOrExpandParent.pos > layoutColumnParent.pos
-	) {
+	if (panelOrExpandParent && panelOrExpandParent.pos > layoutColumnParent.pos) {
 		return false;
 	}
 

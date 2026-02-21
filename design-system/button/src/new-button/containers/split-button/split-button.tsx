@@ -85,7 +85,11 @@ type DividerProps = {
 /**
  * TODO: Add JSDoc
  */
-export const Divider: ({ appearance, spacing, isDisabled }: DividerProps) => JSX.Element = ({ appearance, spacing, isDisabled = false }: DividerProps) => {
+export const Divider: ({ appearance, spacing, isDisabled }: DividerProps) => JSX.Element = ({
+	appearance,
+	spacing,
+	isDisabled = false,
+}: DividerProps) => {
 	const isDefaultDivider = appearance === 'default' && !isDisabled;
 	return (
 		// I find it funny to provide a div for Divider
@@ -143,10 +147,14 @@ const buttonStyles = cssMap({
 /**
  * TODO: Add JSdoc
  */
-export const SplitButtonContainer: ({ appearance, children, isDisabled, }: {
-    appearance: SplitButtonAppearance;
-    children: ReactNode;
-    isDisabled?: boolean;
+export const SplitButtonContainer: ({
+	appearance,
+	children,
+	isDisabled,
+}: {
+	appearance: SplitButtonAppearance;
+	children: ReactNode;
+	isDisabled?: boolean;
 }) => JSX.Element = ({
 	appearance,
 	children,
@@ -181,7 +189,12 @@ export const SplitButtonContainer: ({ appearance, children, isDisabled, }: {
  * - [Code](https://atlassian.design/components/button/split-button/code)
  * - [Usage](https://atlassian.design/components/button/split-button/usage)
  */
-export const SplitButton: ({ children, appearance, spacing, isDisabled, }: SplitButtonProps) => JSX.Element = ({
+export const SplitButton: ({
+	children,
+	appearance,
+	spacing,
+	isDisabled,
+}: SplitButtonProps) => JSX.Element = ({
 	children,
 	appearance = 'default',
 	spacing = 'default',
@@ -225,7 +238,13 @@ type SplitButtonWithSlotsProps = {
  * - [Code](https://atlassian.design/components/{packageName}/code)
  * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
-export const SplitButtonWithSlots: ({ primaryAction, secondaryAction, appearance, spacing, isDisabled, }: SplitButtonWithSlotsProps) => JSX.Element = ({
+export const SplitButtonWithSlots: ({
+	primaryAction,
+	secondaryAction,
+	appearance,
+	spacing,
+	isDisabled,
+}: SplitButtonWithSlotsProps) => JSX.Element = ({
 	primaryAction,
 	secondaryAction,
 	appearance = 'default',

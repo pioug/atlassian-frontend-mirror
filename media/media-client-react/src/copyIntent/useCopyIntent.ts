@@ -71,8 +71,8 @@ export const useCopyIntent = (id: string, options: UseCopyIntentOptions = {}) =>
 				if (fg('platform_media_cross_client_copy_with_auth')) {
 					const clientId = clientIdRef.current;
 					const html = event.clipboardData?.getData('text/html');
-				// Look for media nodes by data-node-type which is always present
-				if (html && html.includes('data-node-type="media') && clientId) {
+					// Look for media nodes by data-node-type which is always present
+					if (html && html.includes('data-node-type="media') && clientId) {
 						// Insert data-client-id after data-node-type="media" or data-node-type="mediaInline"
 						const modifiedHtml = html.replace(
 							/(<[^>]*data-node-type="media(?:Inline)?")([^>]*>)/g,

@@ -166,7 +166,9 @@ const InnerBreadcrumbs: React.ForwardRefExoticComponent<
 	);
 });
 
-const Breadcrumbs: React.MemoExoticComponent<React.ForwardRefExoticComponent<Omit<BreadcrumbsProps, "ref"> & React.RefAttributes<any>>> = memo(
+const Breadcrumbs: React.MemoExoticComponent<
+	React.ForwardRefExoticComponent<Omit<BreadcrumbsProps, 'ref'> & React.RefAttributes<any>>
+> = memo(
 	forwardRef(
 		(
 			{

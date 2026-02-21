@@ -28,7 +28,9 @@ const BasicExample = (): React.JSX.Element => {
 						<SkeletonHeadingItem />
 						<SkeletonItem hasAvatar />
 						<SkeletonItem hasIcon />
-						<ButtonItem iconBefore={<CustomerIcon spacing="spacious" label="" />}>Create</ButtonItem>
+						<ButtonItem iconBefore={<CustomerIcon spacing="spacious" label="" />}>
+							Create
+						</ButtonItem>
 						<SkeletonItem width="100%" />
 						<SkeletonItem />
 						<SkeletonItem />

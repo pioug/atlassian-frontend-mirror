@@ -3,10 +3,9 @@ import type { MediaSingleDefinition as MediaSingle } from '../media-single';
 import type { CodeBlockDefinition as CodeBlock } from '../code-block';
 import type { TaskListDefinition as TaskList } from '../task-list';
 
-export interface ListItemArray
-	extends Array<
-		Paragraph | OrderedListDefinition | BulletListDefinition | TaskList | MediaSingle | CodeBlock
-	> {
+export interface ListItemArray extends Array<
+	Paragraph | OrderedListDefinition | BulletListDefinition | TaskList | MediaSingle | CodeBlock
+> {
 	0: Paragraph | MediaSingle | CodeBlock;
 }
 

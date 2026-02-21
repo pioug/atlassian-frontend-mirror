@@ -48,43 +48,54 @@ const silentIconStyles = css({
  *
  * Button for toggling the side nav. It should be used in the top bar.
  */
-export const SideNavToggleButton: ({ defaultCollapsed, expandLabel, collapseLabel, testId, interactionName, onClick, }: {
-    /**
-     * @deprecated
-     *
-     * This prop is being replaced by `defaultSideNavCollapsed` on the `Root` element,
-     * and will be removed in the future.
-     *
-     * ---
-     *
-     * Whether the side nav should be collapsed by default __on desktop screens__.
-     *
-     * It is always collapsed by default for mobile screens.
-     *
-     * __Note:__ If using this prop, ensure that it is also provided to the `SideNav` slot.
-     * This is to ensure the state is in sync before post-SSR hydration.
-     */
-    defaultCollapsed?: boolean;
-    /**
-     * The label when the toggle button will expand the side nav.
-     */
-    expandLabel: React.ReactNode;
-    /**
-     * The label when the toggle button will collapse the side nav.
-     */
-    collapseLabel: React.ReactNode;
-    /**
-     * A unique string that appears as data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
-     */
-    testId?: string;
-    /**
-     * An optional name used to identify events for [React UFO (Unified Frontend Observability) press interactions](https://developer.atlassian.com/platform/ufo/react-ufo/react-ufo/getting-started/#quick-start--press-interactions). For more information, see [React UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
-     */
-    interactionName?: string;
-    /**
-     * The callback function that is called when the toggle button is clicked.
-     */
-    onClick?: (e: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent, attributes?: SideNavVisibilityChangeAnalyticsAttributes) => void;
+export const SideNavToggleButton: ({
+	defaultCollapsed,
+	expandLabel,
+	collapseLabel,
+	testId,
+	interactionName,
+	onClick,
+}: {
+	/**
+	 * @deprecated
+	 *
+	 * This prop is being replaced by `defaultSideNavCollapsed` on the `Root` element,
+	 * and will be removed in the future.
+	 *
+	 * ---
+	 *
+	 * Whether the side nav should be collapsed by default __on desktop screens__.
+	 *
+	 * It is always collapsed by default for mobile screens.
+	 *
+	 * __Note:__ If using this prop, ensure that it is also provided to the `SideNav` slot.
+	 * This is to ensure the state is in sync before post-SSR hydration.
+	 */
+	defaultCollapsed?: boolean;
+	/**
+	 * The label when the toggle button will expand the side nav.
+	 */
+	expandLabel: React.ReactNode;
+	/**
+	 * The label when the toggle button will collapse the side nav.
+	 */
+	collapseLabel: React.ReactNode;
+	/**
+	 * A unique string that appears as data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
+	 */
+	testId?: string;
+	/**
+	 * An optional name used to identify events for [React UFO (Unified Frontend Observability) press interactions](https://developer.atlassian.com/platform/ufo/react-ufo/react-ufo/getting-started/#quick-start--press-interactions). For more information, see [React UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
+	 */
+	interactionName?: string;
+	/**
+	 * The callback function that is called when the toggle button is clicked.
+	 */
+	onClick?: (
+		e: React.MouseEvent<HTMLElement>,
+		analyticsEvent: UIAnalyticsEvent,
+		attributes?: SideNavVisibilityChangeAnalyticsAttributes,
+	) => void;
 }) => JSX.Element = ({
 	defaultCollapsed = false,
 	expandLabel,

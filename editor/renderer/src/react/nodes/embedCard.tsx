@@ -200,7 +200,11 @@ function EmbedCardInternal(props: EmbedCardInternalProps) {
 						? Math.min(akEditorFullWidthLayoutWidth, containerWidth - padding)
 						: nonFullWidthSize;
 
-					const useStickySafeCentering = expValEquals('platform_editor_flex_based_centering', 'isEnabled', true);
+					const useStickySafeCentering = expValEquals(
+						'platform_editor_flex_based_centering',
+						'isEnabled',
+						true,
+					);
 					const uiMediaSingleStyles =
 						layout === 'full-width' || layout === 'wide'
 							? useStickySafeCentering

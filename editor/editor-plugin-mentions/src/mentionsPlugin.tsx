@@ -149,12 +149,8 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 						return (
 							<>
 								<Component mentionProvider={mentionProvider} api={api} />
-								{ fg('jira_invites_auto_tag_new_user_in_mentions_fg') && (
-									<InlineInviteRecaptchaContainer
-										mentionProvider={mentionProvider}
-										api={api}
-										
-									/>
+								{fg('jira_invites_auto_tag_new_user_in_mentions_fg') && (
+									<InlineInviteRecaptchaContainer mentionProvider={mentionProvider} api={api} />
 								)}
 							</>
 						);

@@ -204,7 +204,9 @@ describe('AbstractVCCalculatorBase V1', () => {
 		];
 
 		// Mock the function to return empty result for testing filtering
-		jest.spyOn(percentileCalc, 'calculateTTVCPercentilesWithDebugInfo').mockResolvedValue({ entries: [], speedIndex: 0 });
+		jest
+			.spyOn(percentileCalc, 'calculateTTVCPercentilesWithDebugInfo')
+			.mockResolvedValue({ entries: [], speedIndex: 0 });
 
 		await mockCalculator.calculate({
 			orderedEntries: entries,

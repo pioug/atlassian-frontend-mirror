@@ -123,7 +123,7 @@ const ComponentInfo: FC<ComponentInfoProps> = ({
 							<Box paddingBlockStart="space.100">
 								<Banner
 									appearance="warning"
-									icon={<WarningIcon spacing="spacious" label="Warning"  />}
+									icon={<WarningIcon spacing="spacious" label="Warning" />}
 								>
 									{alerts?.leftSide}
 								</Banner>
@@ -150,7 +150,7 @@ const ComponentInfo: FC<ComponentInfoProps> = ({
 							<Box paddingBlockStart="space.100">
 								<Banner
 									appearance="warning"
-									icon={<WarningIcon spacing="spacious" label="Warning"  />}
+									icon={<WarningIcon spacing="spacious" label="Warning" />}
 								>
 									{alerts?.rightSide}
 								</Banner>

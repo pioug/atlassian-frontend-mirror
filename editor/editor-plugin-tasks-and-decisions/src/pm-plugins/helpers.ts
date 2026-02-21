@@ -308,10 +308,10 @@ export const liftBlock = (
 
 export function getTaskItemDataAtPos(view: EditorView):
 	| {
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		localId: any;
-		pos: number;
-	}
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			localId: any;
+			pos: number;
+	  }
 	| undefined {
 	const { state } = view;
 	const { selection, schema } = state;
@@ -406,10 +406,10 @@ export function getTaskItemDataToFocus(
 	direction: 'next' | 'previous',
 ):
 	| {
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		localId: any;
-		pos: number;
-	}
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			localId: any;
+			pos: number;
+	  }
 	| undefined {
 	const allTaskItems = getAllTaskItemsDataInRootTaskList(view);
 

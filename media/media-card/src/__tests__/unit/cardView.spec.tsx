@@ -16,7 +16,10 @@ import { type CardStatus } from '../../types';
 import { type FileDetails } from '@atlaskit/media-client';
 import { getDefaultCardDimensions } from '../../utils/cardDimensions';
 import { getElementDimension } from '../../utils/getElementDimension';
-import { createPollingMaxAttemptsError, createMediaStoreError } from '@atlaskit/media-client/test-helpers';
+import {
+	createPollingMaxAttemptsError,
+	createMediaStoreError,
+} from '@atlaskit/media-client/test-helpers';
 import { imgTestId, spinnerTestId, cardTestId, cardBlanketTestId } from '../utils/_testIDs';
 import { MediaCardError } from '../../errors';
 import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';

@@ -3,7 +3,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, type ForwardRefExoticComponent, Fragment, type RefAttributes, useCallback } from 'react';
+import {
+	forwardRef,
+	type ForwardRefExoticComponent,
+	Fragment,
+	type RefAttributes,
+	useCallback,
+} from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@compiled/react';
@@ -84,68 +90,69 @@ export interface InternalRatingProps extends RatingProps {
 	render: RatingRender;
 }
 
-const Rating: ForwardRefExoticComponent<InternalRatingProps & RefAttributes<HTMLLabelElement>> = forwardRef<HTMLLabelElement, InternalRatingProps>(
-	({ isChecked, name, testId, label, id, value, onChange, render, ...props }, ref) => {
-		const onChangeHandler = useCallback(
-			(e: React.ChangeEvent<HTMLInputElement>) => {
-				onChange && onChange(e.target.checked ? value : undefined);
-			},
-			[onChange, value],
-		);
+const Rating: ForwardRefExoticComponent<InternalRatingProps & RefAttributes<HTMLLabelElement>> =
+	forwardRef<HTMLLabelElement, InternalRatingProps>(
+		({ isChecked, name, testId, label, id, value, onChange, render, ...props }, ref) => {
+			const onChangeHandler = useCallback(
+				(e: React.ChangeEvent<HTMLInputElement>) => {
+					onChange && onChange(e.target.checked ? value : undefined);
+				},
+				[onChange, value],
+			);
 
-		return (
-			<Fragment>
-				{/* eslint-disable-next-line @atlassian/a11y/label-has-for*/}
-				<label
-					{...props}
-					ref={ref}
-					htmlFor={id}
-					data-testid={testId && `${testId}--label`}
-					style={{
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						transition: `transform ${durations.small}ms ${easeInOut}`,
-						transform: isChecked ? 'scale(1.2)' : undefined,
-					}}
-				>
-					<Tooltip testId={testId && `${testId}--tooltip`} content={label} delay={10}>
-						{/* When tooltip doesn't render markup move it above <label /> */}
-						<div>
-							<VisuallyHidden>{label}</VisuallyHidden>
-							{/* We render two slots for the two states of the radio button so we don't need to use react state. */}
-							<span
-								aria-hidden="true"
-								data-rating-icon
-								data-testid={testId && `${testId}--icon-container`}
-							>
-								{render({ isChecked: false })}
-							</span>
-							<span
-								aria-hidden="true"
-								data-rating-icon-checked
-								data-testid={testId && `${testId}--icon-checked-container`}
-							>
-								{render({ isChecked: true })}
-							</span>
-						</div>
-					</Tooltip>
-				</label>
+			return (
+				<Fragment>
+					{/* eslint-disable-next-line @atlassian/a11y/label-has-for*/}
+					<label
+						{...props}
+						ref={ref}
+						htmlFor={id}
+						data-testid={testId && `${testId}--label`}
+						style={{
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							transition: `transform ${durations.small}ms ${easeInOut}`,
+							transform: isChecked ? 'scale(1.2)' : undefined,
+						}}
+					>
+						<Tooltip testId={testId && `${testId}--tooltip`} content={label} delay={10}>
+							{/* When tooltip doesn't render markup move it above <label /> */}
+							<div>
+								<VisuallyHidden>{label}</VisuallyHidden>
+								{/* We render two slots for the two states of the radio button so we don't need to use react state. */}
+								<span
+									aria-hidden="true"
+									data-rating-icon
+									data-testid={testId && `${testId}--icon-container`}
+								>
+									{render({ isChecked: false })}
+								</span>
+								<span
+									aria-hidden="true"
+									data-rating-icon-checked
+									data-testid={testId && `${testId}--icon-checked-container`}
+								>
+									{render({ isChecked: true })}
+								</span>
+							</div>
+						</Tooltip>
+					</label>
 
-				{/* When tooltip doesn't render markup add another to the input so when it gains focus the tooltip is displayed */}
-				<VisuallyHidden testId={`input-container${!!isChecked ? '-checked' : ''}`}>
-					{/* eslint-disable-next-line @atlaskit/design-system/no-html-radio */}
-					<input
-						id={id}
-						onChange={onChangeHandler}
-						checked={!!isChecked}
-						value={value}
-						name={name}
-						data-testid={testId && `${testId}--input`}
-						type="radio"
-					/>
-				</VisuallyHidden>
-			</Fragment>
-		);
-	},
-);
+					{/* When tooltip doesn't render markup add another to the input so when it gains focus the tooltip is displayed */}
+					<VisuallyHidden testId={`input-container${!!isChecked ? '-checked' : ''}`}>
+						{/* eslint-disable-next-line @atlaskit/design-system/no-html-radio */}
+						<input
+							id={id}
+							onChange={onChangeHandler}
+							checked={!!isChecked}
+							value={value}
+							name={name}
+							data-testid={testId && `${testId}--input`}
+							type="radio"
+						/>
+					</VisuallyHidden>
+				</Fragment>
+			);
+		},
+	);
 
 export default Rating;

@@ -108,7 +108,11 @@ const getCurrentArticleItemSlim = (
 
 	if (article) {
 		if (type === ARTICLE_TYPE.HELP_ARTICLE) {
-			const { body: _body, relatedArticles: _relatedArticles, ...articleItemData } = article as Article;
+			const {
+				body: _body,
+				relatedArticles: _relatedArticles,
+				...articleItemData
+			} = article as Article;
 			const currentArticleSlimData: ArticleItem = articleItemData;
 
 			return currentArticleSlimData;

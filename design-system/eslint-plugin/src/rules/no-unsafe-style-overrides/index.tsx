@@ -8,7 +8,7 @@ import { getJSXElementName } from '../utils/jsx';
 
 const unsafeOverrides = ['css', 'className', 'theme', 'cssFn', 'styles'];
 
-const rule: import("eslint").Rule.RuleModule = createLintRule({
+const rule: import('eslint').Rule.RuleModule = createLintRule({
 	meta: {
 		docs: {
 			recommended: true,

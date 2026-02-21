@@ -238,5 +238,12 @@ export default ({
 		tryDismiss(DismissTrigger.Manual);
 	}, [tryDismiss, tryClearTimeout]);
 
-	return <SurveyContainer headerImage={ currentStep === 'SURVEY' ? headerImage : undefined} onDismiss={manualDismiss}>{content}</SurveyContainer>;
+	return (
+		<SurveyContainer
+			headerImage={currentStep === 'SURVEY' ? headerImage : undefined}
+			onDismiss={manualDismiss}
+		>
+			{content}
+		</SurveyContainer>
+	);
 };

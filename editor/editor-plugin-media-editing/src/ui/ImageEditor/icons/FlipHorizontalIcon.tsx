@@ -48,11 +48,11 @@ export const FlipHorizontalIcon = ({
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
 		css={[svgStyles, sizeStyles[size]]}
-		style={{ 
-            color: primaryColor,
+		style={{
+			color: primaryColor,
 			fill: secondaryColor,
-            opacity: isDisabled ? 0.5 : 1 
-        }}
+			opacity: isDisabled ? 0.5 : 1,
+		}}
 		aria-label={label || undefined}
 		role={label ? 'img' : 'presentation'}
 	>

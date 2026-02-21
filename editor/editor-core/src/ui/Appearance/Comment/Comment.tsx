@@ -215,7 +215,6 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 		</div>
 	);
 
-
 	return (
 		<WithFlash animate={maxContentSizeReached}>
 			<WidthProvider>

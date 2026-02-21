@@ -78,7 +78,7 @@ export default ({ onChange, value, scoreSubtext }: Props): JSX.Element => (
 		</div>
 		<div css={descriptionWrapperStyles} aria-hidden>
 			<Text color="color.text.subtlest" size="small" weight="regular" align="start">
-				 {scoreSubtext ? scoreSubtext[0] : 'Not at all'}
+				{scoreSubtext ? scoreSubtext[0] : 'Not at all'}
 			</Text>
 			<Text color="color.text.subtlest" size="small" weight="regular" align="center">
 				{scoreSubtext ? scoreSubtext[1] : 'Neutral'}

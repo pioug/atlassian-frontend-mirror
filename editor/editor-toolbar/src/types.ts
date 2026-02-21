@@ -14,4 +14,4 @@ export type ToolbarKeyboardNavigationProviderConfig = {
 
 export type DataAttributes = {
 	[K in `data-${string}`]?: string | number | boolean | undefined;
-  };
+};

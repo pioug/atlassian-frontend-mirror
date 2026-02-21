@@ -405,36 +405,62 @@ export { DateTimePickerComponent as DateTimePickerWithoutAnalytics };
  * - [Code](https://atlassian.design/components/datetime-picker/code)
  * - [Usage](https://atlassian.design/components/datetime-picker/usage)
  */
-const DateTimePicker: React.ForwardRefExoticComponent<Omit<Omit<Pick<Omit<DateTimePickerBaseProps, keyof import("@atlaskit/analytics-next").WithAnalyticsEventsProps>, never> & {
-    appearance?: import("..").Appearance | undefined;
-    isDisabled?: boolean | undefined;
-    innerProps?: React.AllHTMLAttributes<HTMLElement> | undefined;
-    defaultValue?: string | undefined;
-    autoFocus?: boolean | undefined;
-    id?: string | undefined;
-    'aria-describedby'?: string | undefined;
-    onFocus?: React.FocusEventHandler<HTMLInputElement> | undefined;
-    onBlur?: React.FocusEventHandler<HTMLInputElement> | undefined;
-    onChange?: ((value: string) => void) | undefined;
-    value?: string | undefined;
-    name?: string | undefined;
-    testId?: string | undefined;
-    locale?: string | undefined;
-    clearControlLabel?: string | undefined;
-    isInvalid?: boolean | undefined;
-    isRequired?: boolean | undefined;
-    spacing?: import("..").Spacing | undefined;
-    datePickerProps?: import("..").DatePickerProps | undefined;
-    timePickerProps?: import("..").TimePickerProps | undefined;
-    parseValue?: ((dateTimeValue: string, date: string, time: string, timezone: string) => {
-        dateValue: string;
-        timeValue: string;
-        zoneValue: string;
-    }) | undefined;
-} & {
-    ref?: React.Ref<any> | undefined;
-    createAnalyticsEvent?: import("@atlaskit/analytics-next").CreateUIAnalyticsEvent | undefined;
-}, "ref"> & React.RefAttributes<any> & import("@atlaskit/analytics-next").WithContextProps, "ref"> & React.RefAttributes<any>> = withAnalyticsContext({
+const DateTimePicker: React.ForwardRefExoticComponent<
+	Omit<
+		Omit<
+			Pick<
+				Omit<
+					DateTimePickerBaseProps,
+					keyof import('@atlaskit/analytics-next').WithAnalyticsEventsProps
+				>,
+				never
+			> & {
+				appearance?: import('..').Appearance | undefined;
+				isDisabled?: boolean | undefined;
+				innerProps?: React.AllHTMLAttributes<HTMLElement> | undefined;
+				defaultValue?: string | undefined;
+				autoFocus?: boolean | undefined;
+				id?: string | undefined;
+				'aria-describedby'?: string | undefined;
+				onFocus?: React.FocusEventHandler<HTMLInputElement> | undefined;
+				onBlur?: React.FocusEventHandler<HTMLInputElement> | undefined;
+				onChange?: ((value: string) => void) | undefined;
+				value?: string | undefined;
+				name?: string | undefined;
+				testId?: string | undefined;
+				locale?: string | undefined;
+				clearControlLabel?: string | undefined;
+				isInvalid?: boolean | undefined;
+				isRequired?: boolean | undefined;
+				spacing?: import('..').Spacing | undefined;
+				datePickerProps?: import('..').DatePickerProps | undefined;
+				timePickerProps?: import('..').TimePickerProps | undefined;
+				parseValue?:
+					| ((
+							dateTimeValue: string,
+							date: string,
+							time: string,
+							timezone: string,
+					  ) => {
+							dateValue: string;
+							timeValue: string;
+							zoneValue: string;
+					  })
+					| undefined;
+			} & {
+				ref?: React.Ref<any> | undefined;
+				createAnalyticsEvent?:
+					| import('@atlaskit/analytics-next').CreateUIAnalyticsEvent
+					| undefined;
+			},
+			'ref'
+		> &
+			React.RefAttributes<any> &
+			import('@atlaskit/analytics-next').WithContextProps,
+		'ref'
+	> &
+		React.RefAttributes<any>
+> = withAnalyticsContext({
 	componentName: 'dateTimePicker',
 	packageName,
 	packageVersion,

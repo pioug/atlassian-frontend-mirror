@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl-next';
 
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { useEditorToolbar , TOOLBAR_BUTTON_TEST_ID } from '@atlaskit/editor-common/toolbar';
+import { useEditorToolbar, TOOLBAR_BUTTON_TEST_ID } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import { ToolbarButton, ToolbarTooltip, ImageIcon } from '@atlaskit/editor-toolbar';

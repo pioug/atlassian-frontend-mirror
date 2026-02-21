@@ -871,7 +871,8 @@ const generateMediaSingleFloatingToolbar = (
 
 		if (
 			allowAdvancedToolBarOptions &&
-			allowImageEditing && expValEquals('platform_editor_add_image_editing', 'isEnabled', true)
+			allowImageEditing &&
+			expValEquals('platform_editor_add_image_editing', 'isEnabled', true)
 		) {
 			const selectedMediaSingleNode = getSelectedMediaSingle(state);
 			const mediaNode = selectedMediaSingleNode?.node.content.firstChild;

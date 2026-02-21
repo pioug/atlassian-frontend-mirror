@@ -341,7 +341,8 @@ describe('SingleValue', () => {
 
 	describe('icon support', () => {
 		const mockIcon = <div data-testid="test-icon">Icon</div>;
-		const iconAsString = '{"type":"div","key":null,"ref":null,"props":{"data-testid":"test-icon","children":"Icon"},"_owner":null,"_store":{}}';
+		const iconAsString =
+			'{"type":"div","key":null,"ref":null,"props":{"data-testid":"test-icon","children":"Icon"},"_owner":null,"_store":{}}';
 
 		it('should render AvatarOrIcon when icon is provided', async () => {
 			const userWithIcon = {

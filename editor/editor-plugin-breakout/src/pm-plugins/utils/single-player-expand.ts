@@ -12,7 +12,12 @@ interface UpdateExpandedStateNew {
 	tr: Transaction;
 }
 
-export const updateExpandedStateNew = ({ tr, node, pos, isLivePage }: UpdateExpandedStateNew): void => {
+export const updateExpandedStateNew = ({
+	tr,
+	node,
+	pos,
+	isLivePage,
+}: UpdateExpandedStateNew): void => {
 	if (isLivePage || fg('platform-editor-single-player-expand')) {
 		const wasExpandExpanded = expandedState.get(node);
 		const newExpand = tr.doc.nodeAt(pos);

@@ -26,10 +26,10 @@ const defaultProps: Partial<UseUserRecommendationsProps> = {
 };
 
 export const instrumentFailureOption: {
-    id: string;
-    name: string;
-    entityType: EntityType;
-    avatarUrl: string;
+	id: string;
+	name: string;
+	entityType: EntityType;
+	avatarUrl: string;
 }[] = [
 	{
 		id: 'not-used',
@@ -39,13 +39,21 @@ export const instrumentFailureOption: {
 	},
 ];
 
-const useUserRecommendations = (props: UseUserRecommendationsProps): {
-    recommendations: {
-        id: string;
-        name: string;
-        entityType: EntityType;
-        avatarUrl: string;
-    }[] | UserSearchItem[]; triggerSearchFactory: MemoizedFn<() => (query?: string) => void>; selectUserFactory: MemoizedFn<() => (userId: string) => void>; isLoading: boolean; error: any;
+const useUserRecommendations = (
+	props: UseUserRecommendationsProps,
+): {
+	recommendations:
+		| {
+				id: string;
+				name: string;
+				entityType: EntityType;
+				avatarUrl: string;
+		  }[]
+		| UserSearchItem[];
+	triggerSearchFactory: MemoizedFn<() => (query?: string) => void>;
+	selectUserFactory: MemoizedFn<() => (userId: string) => void>;
+	isLoading: boolean;
+	error: any;
 } => {
 	const {
 		baseUrl,

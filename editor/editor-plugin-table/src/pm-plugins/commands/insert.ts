@@ -428,7 +428,7 @@ export const insertTableWithNestingSupport: InsertTableWithNestingSupportCommand
 								...analyticsPayload.attributes,
 								localId: node.attrs.localId,
 							},
-					  }
+						}
 					: undefined,
 				insertAt,
 			},

@@ -8,7 +8,7 @@ import React from 'react';
 import { css, cssMap, jsx, keyframes } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { N40A, } from '@atlaskit/theme/colors';
+import { N40A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { type DefaultProgressBarProps } from '../types';
@@ -90,7 +90,13 @@ const decreasingBarStyles = css({
  * - [Code](https://atlassian.design/components/progress-bar/code)
  * - [Usage](https://atlassian.design/components/progress-bar/usage)
  */
-const ProgressBar: ({ appearance, ariaLabel, isIndeterminate, testId, value, }: DefaultProgressBarProps) => JSX.Element = ({
+const ProgressBar: ({
+	appearance,
+	ariaLabel,
+	isIndeterminate,
+	testId,
+	value,
+}: DefaultProgressBarProps) => JSX.Element = ({
 	appearance = 'default',
 	ariaLabel,
 	isIndeterminate = false,

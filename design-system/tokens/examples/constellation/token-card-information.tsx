@@ -52,7 +52,7 @@ const TokenInformation = (): React.JSX.Element => {
 };
 
 const _default_1: {
-    example: () => React.JSX.Element;
-    code: string;
+	example: () => React.JSX.Element;
+	code: string;
 } = { example: TokenInformation, code: TokenInformationCodeBlock };
 export default _default_1;

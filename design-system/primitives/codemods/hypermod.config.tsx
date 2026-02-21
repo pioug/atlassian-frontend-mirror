@@ -1,9 +1,9 @@
 import compiledForkStage1 from './compiled-fork-stage1/transform';
 
 const config: {
-    presets: {
-        'compiled-fork-stage1': typeof compiledForkStage1;
-    };
+	presets: {
+		'compiled-fork-stage1': typeof compiledForkStage1;
+	};
 } = {
 	presets: {
 		'compiled-fork-stage1': compiledForkStage1,

@@ -10,7 +10,6 @@ import {
 	LeftArrow,
 	RightArrow,
 } from './wrappers';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 export { LeftArrow, RightArrow } from './wrappers';
 
@@ -119,6 +118,7 @@ export class FilmstripView extends React.Component<FilmstripViewProps, Filmstrip
 		this.childOffsets = [];
 		try {
 			this.mutationObserver = new MutationObserver(debounce(this.handleMutation, 30, true));
+			// eslint-disable-next-line no-unused-vars
 		} catch (e) {
 			// in the case where we are running on an unsupported browser,
 			// or where tests include the FilmstripView but do not mock the MutationObserver - we catch it and handle safely here.
@@ -176,15 +176,6 @@ export class FilmstripView extends React.Component<FilmstripViewProps, Filmstrip
 			mutationObserver.disconnect();
 			mutationObserver.observe(this.bufferElement, MUTATION_CONFIG);
 		}
-	}
-
-	triggerScrollEvent(): void {
-		if (!this.windowElement) {
-			return;
-		}
-		const event = document.createEvent('MouseEvents');
-		event.initEvent('scroll', true, true);
-		this.windowElement.dispatchEvent(event);
 	}
 
 	// find the child that is cut off on the left edge of the window and change the window offset to
@@ -444,13 +435,6 @@ export class FilmstripView extends React.Component<FilmstripViewProps, Filmstrip
 
 	componentDidUpdate(): void {
 		this.previousOffset = this.offset;
-
-		if (!fg('platform_editor_disable_trigger_scroll_event')) {
-			// trigger a "real" scroll event so lazily loaded cards realize they've been shown
-			// note: we have to wait for the transition to end, otherwise the cards not visible when the scroll
-			// event is triggered will be forever stuck in the loading screen (due to the lazy load)
-			window.setTimeout(() => this.triggerScrollEvent(), this.transitionDuration * 1000);
-		}
 	}
 
 	render(): JSX.Element {

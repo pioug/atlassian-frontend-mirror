@@ -1,6 +1,7 @@
 import React from 'react';
-// eslint-disable-next-line
-import stuff from '!!style-loader!css-loader!../src/bundle.css';
+
+import '@atlaskit/reduced-ui-pack';
+
 import Warning from './utils/warning';
 
 export default () => (

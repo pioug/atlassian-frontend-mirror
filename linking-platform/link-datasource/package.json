@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "4.33.5",
+	"version": "4.33.6",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -197,6 +197,9 @@
 			"type": "boolean"
 		},
 		"platform_navx_sllv_j2ws_dropdown_for_single_row": {
+			"type": "boolean"
+		},
+		"platform-button-icon-spacing-cleanup": {
 			"type": "boolean"
 		}
 	},

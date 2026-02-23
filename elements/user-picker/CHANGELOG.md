@@ -1,5 +1,13 @@
 # @atlaskit/user-picker
 
+## 11.23.0
+
+### Minor Changes
+
+- [`4222fa748c46e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4222fa748c46e) -
+  [ux] Feature flag clean up to enable keyboard interactions in with header prop plugin in
+  Confluence
+
 ## 11.22.0
 
 ### Minor Changes

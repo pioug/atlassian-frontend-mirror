@@ -6,6 +6,7 @@ import React from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
@@ -31,13 +32,18 @@ const styles = cssMap({
 		lineHeight: 0,
 		userSelect: 'none',
 	},
+	common: {
+		transition: 'opacity 0.3s',
+	},
+	fade: {
+		opacity: 0,
+	},
 	/**
 	 * These CSS variables consumed by the new icons, to allow them to have appropriate
 	 * padding inside Button while also maintaining spacing for the existing icons.
 	 *
-	 * These styles can be removed once the new icons are fully rolled out, feature flag
-	 * platform-visual-refresh-icons is cleaned up,
-	 * and we bump Button to set padding based on the new icons.
+	 * These styles will be removed once platform-button-icon-spacing-cleanup feature flag
+	 * is fully rolled out and cleaned up.
 	 */
 	beforeIcon: {
 		'--ds--button--new-icon-padding-start': token('space.050'),
@@ -46,12 +52,6 @@ const styles = cssMap({
 	afterIcon: {
 		'--ds--button--new-icon-padding-start': token('space.025'),
 		'--ds--button--new-icon-padding-end': token('space.050'),
-	},
-	common: {
-		transition: 'opacity 0.3s',
-	},
-	fade: {
-		opacity: 0,
 	},
 });
 
@@ -75,8 +75,8 @@ const Content = ({ children, type = 'text', isLoading, position }: ContentProps)
 				type === 'text' && styles.text,
 				type === 'icon' && styles.icon,
 				isLoading && styles.fade,
-				position === 'before' && styles.beforeIcon,
-				position === 'after' && styles.afterIcon,
+				!fg('platform-button-icon-spacing-cleanup') && position === 'before' && styles.beforeIcon, //TODO Remove this line when platform-button-icon-spacing-cleanup is removed
+				!fg('platform-button-icon-spacing-cleanup') && position === 'after' && styles.afterIcon, //TODO Remove this line when platform-button-icon-spacing-cleanup is removed
 			]}
 		>
 			{children}

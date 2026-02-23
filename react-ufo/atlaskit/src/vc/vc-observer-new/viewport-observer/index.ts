@@ -10,7 +10,7 @@ import { type VCObserverEntryType } from '../types';
 import { createIntersectionObserver, type VCIntersectionObserver } from './intersection-observer';
 import createMutationObserver from './mutation-observer';
 import createPerformanceObserver from './performance-observer';
-import { type MutationData } from './types';
+import { type MutationData, type MutationDataWithTimestamp } from './types';
 import checkWithinComponent, { cleanupCaches } from './utils/check-within-component';
 import { isContainedWithinSmartAnswers } from './utils/is-contained-within-smart-answers';
 import { isElementVisible } from './utils/is-element-visible';
@@ -31,6 +31,7 @@ export type ViewPortObserverConstructorArgs = {
 	}): void;
 	getSSRState?: () => any;
 	getSSRPlaceholderHandler?: () => any;
+	trackLayoutShiftOffenders?: boolean;
 	searchPageConfig?: SearchPageConfig;
 };
 
@@ -45,7 +46,7 @@ const createElementMutationsWatcher =
 		getSSRState?: () => any,
 		getSSRPlaceholderHandler?: () => any,
 	) =>
-	({ target, rect }: { rect: DOMRectReadOnly; target: HTMLElement }) => {
+	({ target, rect }: { rect: DOMRectReadOnly; target: HTMLElement }): VCObserverEntryType => {
 		if (getSSRState) {
 			const ssrState = getSSRState();
 			const SSRStateEnum = { normal: 1, waitingForFirstRender: 2, ignoring: 3 };
@@ -133,6 +134,171 @@ const createElementMutationsWatcher =
 		return 'mutation:element';
 	};
 
+const createElementMutationsWatcherNew =
+	(
+		removedNodeRects: (DOMRect | undefined)[],
+		isWithinThirdPartySegment: boolean,
+		isWithinSmartAnswersSegment: boolean,
+		hasSameDeletedNode: boolean,
+		timestamp: number,
+		isTargetReactRoot: boolean,
+		getSSRState?: () => any,
+		getSSRPlaceholderHandler?: () => any,
+	) =>
+	({
+		target,
+		rect,
+	}: {
+		rect: DOMRectReadOnly;
+		target: HTMLElement;
+	}): { type: VCObserverEntryType; mutationData: MutationDataWithTimestamp } => {
+		if (getSSRState) {
+			const ssrState = getSSRState();
+			const SSRStateEnum = { normal: 1, waitingForFirstRender: 2, ignoring: 3 };
+
+			if (
+				ssrState.state === SSRStateEnum.waitingForFirstRender &&
+				timestamp > ssrState.renderStart &&
+				isTargetReactRoot
+			) {
+				ssrState.state = SSRStateEnum.ignoring;
+				if (ssrState.renderStop === -1) {
+					// arbitrary 500ms DOM update window
+					ssrState.renderStop = timestamp + 500;
+				}
+				return {
+					type: 'ssr-hydration',
+					mutationData: {
+						timestamp,
+					},
+				};
+			}
+
+			if (
+				ssrState.state === SSRStateEnum.ignoring &&
+				timestamp > ssrState.renderStart &&
+				isTargetReactRoot
+			) {
+				if (timestamp <= ssrState.renderStop) {
+					return {
+						type: 'ssr-hydration',
+						mutationData: {
+							timestamp,
+						},
+					};
+				} else {
+					ssrState.state = SSRStateEnum.normal;
+				}
+			}
+		}
+
+		if (getSSRPlaceholderHandler) {
+			const ssrPlaceholderHandler = getSSRPlaceholderHandler();
+			if (ssrPlaceholderHandler) {
+				if (
+					(ssrPlaceholderHandler.isPlaceholderV4(target) ||
+						ssrPlaceholderHandler.isPlaceholderIgnored(target)) &&
+					ssrPlaceholderHandler.checkIfExistedAndSizeMatchingV3(target)
+				) {
+					return {
+						type: 'mutation:ssr-placeholder',
+						mutationData: {
+							timestamp,
+						},
+					};
+				}
+
+				if (
+					(ssrPlaceholderHandler.isPlaceholderReplacementV4(target) ||
+						ssrPlaceholderHandler.isPlaceholderIgnored(target)) &&
+					ssrPlaceholderHandler.validateReactComponentMatchToPlaceholderV4(target)
+				) {
+					return {
+						type: 'mutation:ssr-placeholder',
+						mutationData: {
+							timestamp,
+						},
+					};
+				}
+			}
+		}
+
+		if (hasSameDeletedNode && isInVCIgnoreIfNoLayoutShiftMarker(target)) {
+			return {
+				type: 'mutation:remount',
+				mutationData: {
+					timestamp,
+				},
+			};
+		}
+
+		if (isContainedWithinMediaWrapper(target)) {
+			return {
+				type: 'mutation:media',
+				mutationData: {
+					timestamp,
+				},
+			};
+		}
+
+		if (isWithinThirdPartySegment) {
+			return {
+				type: 'mutation:third-party-element',
+				mutationData: {
+					timestamp,
+				},
+			};
+		}
+
+		if (isWithinSmartAnswersSegment) {
+			return {
+				type: 'mutation:smart-answers-element',
+				mutationData: {
+					timestamp,
+				},
+			};
+		}
+
+		const isInIgnoreLsMarker = isInVCIgnoreIfNoLayoutShiftMarker(target);
+
+		if (!isInIgnoreLsMarker) {
+			return {
+				type: 'mutation:element',
+				mutationData: {
+					timestamp,
+				},
+			};
+		}
+
+		const isRLLPlaceholder = RLLPlaceholderHandlers.getInstance().isRLLPlaceholderHydration(rect);
+		if (isRLLPlaceholder && isInIgnoreLsMarker) {
+			return {
+				type: 'mutation:rll-placeholder',
+				mutationData: {
+					timestamp,
+				},
+			};
+		}
+
+		const wasDeleted = removedNodeRects.some((nr) => isSameRectDimensions(nr, rect));
+
+		if (wasDeleted && isInIgnoreLsMarker) {
+			return {
+				type: 'mutation:element-replacement',
+				mutationData: {
+					timestamp,
+				},
+			};
+		}
+
+		return {
+			type: 'mutation:element',
+			mutationData: {
+				timestamp,
+			},
+		};
+	};
+
 export default class ViewportObserver {
 	private intersectionObserver: VCIntersectionObserver | null;
 	private mutationObserver: MutationObserver | null;
@@ -141,6 +307,7 @@ export default class ViewportObserver {
 	private mapIs3pResult: WeakMap<HTMLElement, boolean>;
 	private onChange: ViewPortObserverConstructorArgs['onChange'];
 	private isStarted: boolean;
+	private trackLayoutShiftOffenders: boolean;
 	private searchPageConfig: SearchPageConfig | undefined;
 
 	// SSR context functions
@@ -151,6 +318,7 @@ export default class ViewportObserver {
 		onChange,
 		getSSRState,
 		getSSRPlaceholderHandler,
+		trackLayoutShiftOffenders = false,
 		searchPageConfig,
 	}: ViewPortObserverConstructorArgs) {
 		this.mapVisibleNodeRects = new WeakMap();
@@ -160,6 +328,7 @@ export default class ViewportObserver {
 		this.intersectionObserver = null;
 		this.mutationObserver = null;
 		this.performanceObserver = null;
+		this.trackLayoutShiftOffenders = trackLayoutShiftOffenders;
 
 		// Initialize SSR context functions
 		this.getSSRState = getSSRState;
@@ -250,7 +419,9 @@ export default class ViewportObserver {
 
 			this.intersectionObserver?.watchAndTag(
 				addedNode,
-				createElementMutationsWatcher(
+				(this.trackLayoutShiftOffenders
+					? createElementMutationsWatcherNew
+					: createElementMutationsWatcher)(
 					removedNodeRects,
 					isWithinThirdPartySegment,
 					isWithinSmartAnswersSegment,
@@ -269,11 +440,13 @@ export default class ViewportObserver {
 		attributeName,
 		oldValue,
 		newValue,
+		timestamp,
 	}: {
 		target: HTMLElement;
 		attributeName: string;
 		oldValue?: string | undefined | null;
 		newValue?: string | undefined | null;
+		timestamp: DOMHighResTimeStamp;
 	}) => {
 		this.intersectionObserver?.watchAndTag(target, ({ target, rect }) => {
 			if (isContainedWithinMediaWrapper(target)) {
@@ -283,6 +456,7 @@ export default class ViewportObserver {
 						attributeName,
 						oldValue,
 						newValue,
+						timestamp,
 					},
 				};
 			}
@@ -300,6 +474,7 @@ export default class ViewportObserver {
 							attributeName,
 							oldValue,
 							newValue,
+							timestamp,
 						},
 					};
 				}
@@ -323,6 +498,7 @@ export default class ViewportObserver {
 						attributeName,
 						oldValue,
 						newValue,
+						timestamp,
 					},
 				};
 			}
@@ -334,6 +510,7 @@ export default class ViewportObserver {
 						attributeName,
 						oldValue,
 						newValue,
+						timestamp,
 					},
 				};
 			}
@@ -345,6 +522,7 @@ export default class ViewportObserver {
 						attributeName,
 						oldValue,
 						newValue,
+						timestamp,
 					},
 				};
 			}
@@ -357,6 +535,7 @@ export default class ViewportObserver {
 						attributeName,
 						oldValue,
 						newValue,
+						timestamp,
 					},
 				};
 			}
@@ -369,6 +548,7 @@ export default class ViewportObserver {
 						attributeName,
 						oldValue,
 						newValue,
+						timestamp,
 					},
 				};
 			}
@@ -379,6 +559,7 @@ export default class ViewportObserver {
 					attributeName,
 					oldValue,
 					newValue,
+					timestamp,
 				},
 			};
 		});

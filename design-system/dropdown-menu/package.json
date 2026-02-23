@@ -78,9 +78,6 @@
 		"platform_dst_popup-disable-focuslock": {
 			"type": "boolean"
 		},
-		"platform-visual-refresh-icons": {
-			"type": "boolean"
-		},
 		"select-avoid-duplicated-registered-ref": {
 			"type": "boolean"
 		},

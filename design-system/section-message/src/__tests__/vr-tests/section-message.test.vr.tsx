@@ -11,16 +11,13 @@ snapshot(Basic, {
 	variants: [
 		{
 			name: 'default',
-			environment: {},
+			environment: {}
 		},
-	],
+	]
 });
 
 snapshot(AppearanceVariations, {
-	featureFlags: {
-		'platform-visual-refresh-icons': [true, false],
-	},
-});
+	});
 
 snapshot(Actions);
 
@@ -29,17 +26,17 @@ snapshot(Testing, {
 	variants: [
 		{
 			name: 'mobile chrome',
-			device: Device.MOBILE_CHROME,
+			device: Device.MOBILE_CHROME
 		},
 		{
 			name: 'desktop chrome',
-			device: Device.DESKTOP_CHROME,
+			device: Device.DESKTOP_CHROME
 		},
-	],
+	]
 });
 
 snapshot(ExplicitFontStyles, {
-	description: 'Explicit font styles - default state',
+	description: 'Explicit font styles - default state'
 });
 
 snapshot(Dismissible);

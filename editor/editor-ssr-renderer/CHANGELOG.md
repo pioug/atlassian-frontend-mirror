@@ -1,5 +1,11 @@
 # @atlaskit/editor-ssr-renderer
 
+## 2.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.2.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 5.3.25
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.24
 
 ### Patch Changes

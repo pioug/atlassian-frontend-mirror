@@ -59,52 +59,56 @@ across apps. Each semantic represents a specific intent — for example, danger 
 removal, or critical information. Using a semantic appearance that doesn’t represent the information
 being conveyed can cause confusion for users and create inconsistent experiences across apps.
 
-<DoDont
-	type="do"
-	image={{
-		url: badgeDo1Light,
-		urlDarkMode: badgeDo1Dark,
-		alt: 'Badge showing -10 with danger appearance (red)',
-	}}
->
-	Use the correct semantic color for your use case.
-</DoDont>
-<DoDont
-	type="dont"
-	image={{
-		url: badgeDont1Light,
-		urlDarkMode: badgeDont1Dark,
-		alt: 'Badge showing -10 with information appearance (blue)',
-	}}
->
-	Don't deviate from established semantics.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: badgeDo1Light,
+			urlDarkMode: badgeDo1Dark,
+			alt: 'Badge showing -10 with danger appearance (red)',
+		}}
+	>
+		Use the correct semantic color for your use case.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: badgeDont1Light,
+			urlDarkMode: badgeDont1Dark,
+			alt: 'Badge showing -10 with information appearance (blue)',
+		}}
+	>
+		Don't deviate from established semantics.
+	</DoDont>
+</DoDontGrid>
 
 ### Provide additional cues to avoid ambiguity
 
 Use badges alongside a label to clearly show which item is quantified. If a badge stands alone, add
 a tooltip on hover for context.
 
-<DoDont
-	type="do"
-	image={{
-		url: badgeDo2Light,
-		urlDarkMode: badgeDo2Dark,
-		alt: 'Badges displayed alongside labels in a tab navigation, showing About and Updates with a badge showing 13',
-	}}
->
-	Use badges alongside labels or with single items.
-</DoDont>
-<DoDont
-	type="dont"
-	image={{
-		url: badgeDont2Light,
-		urlDarkMode: badgeDont2Dark,
-		alt: 'Multiple badges shown together without context: 13, 8, and 15',
-	}}
->
-	Don't use badges without context, unless they contain an attached tooltip.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: badgeDo2Light,
+			urlDarkMode: badgeDo2Dark,
+			alt: 'Badges displayed alongside labels in a tab navigation, showing About and Updates with a badge showing 13',
+		}}
+	>
+		Use badges alongside labels or with single items.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: badgeDont2Light,
+			urlDarkMode: badgeDont2Dark,
+			alt: 'Multiple badges shown together without context: 13, 8, and 15',
+		}}
+	>
+		Don't use badges without context, unless they contain an attached tooltip.
+	</DoDont>
+</DoDontGrid>
 
 ## Accessibility
 

@@ -327,6 +327,64 @@ export function __injectThrottleMeasurementForTesting(measurement: ThrottleMeasu
 	throttleInsertIndex = (throttleInsertIndex + 1) % THROTTLE_BUFFER_SIZE;
 }
 
+/**
+ * Returns the page visibility timeline entries within the specified time window.
+ * Each entry contains the time (relative to startTime) and whether the page was hidden.
+ *
+ * @param startTime - The start timestamp of the window (DOMHighResTimeStamp)
+ * @param endTime - The end timestamp of the window (DOMHighResTimeStamp)
+ * @returns Array of HiddenTimingItem entries within the time window, with times relative to startTime
+ */
+export function getPageVisibilityTimeline(
+	startTime: number,
+	endTime: number,
+): HiddenTimingItem[] {
+	// Input validation
+	if (!Number.isFinite(startTime) || !Number.isFinite(endTime) || startTime >= endTime) {
+		return [];
+	}
+
+	if (timings.length === 0) {
+		return [];
+	}
+
+	const result: HiddenTimingItem[] = [];
+
+	// Find the most recent entry at or before startTime to establish initial state
+	let initialEntry: HiddenTimingItem | undefined;
+	const currentSize = timings.length;
+
+	for (let i = 0; i < currentSize; i++) {
+		const idx = (insertIndex + i) % currentSize;
+		const entry = timings[idx];
+		if (entry && entry.time <= startTime) {
+			initialEntry = entry;
+		}
+	}
+
+	// Add the initial visibility state at the start of the window
+	if (initialEntry) {
+		result.push({
+			time: 0,
+			hidden: initialEntry.hidden,
+		});
+	}
+
+	// Add all entries within the time window
+	for (let i = 0; i < currentSize; i++) {
+		const idx = (insertIndex + i) % currentSize;
+		const entry = timings[idx];
+		if (entry && entry.time > startTime && entry.time <= endTime) {
+			result.push({
+				time: Math.round(entry.time - startTime),
+				hidden: entry.hidden,
+			});
+		}
+	}
+
+	return result;
+}
+
 // Expose testing API on window for integration tests
 if (typeof window !== 'undefined') {
 	(window as any).__reactUfoHiddenTiming = {

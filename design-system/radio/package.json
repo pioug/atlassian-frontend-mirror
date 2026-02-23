@@ -94,9 +94,6 @@
 	},
 	"homepage": "https://atlassian.design/components/radio/",
 	"platform-feature-flags": {
-		"platform-visual-refresh-icons": {
-			"type": "boolean"
-		},
 		"platform-radio-atomic-styles": {
 			"type": "boolean"
 		}

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-status
 
+## 8.1.19
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.18
 
 ### Patch Changes

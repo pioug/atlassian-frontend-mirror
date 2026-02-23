@@ -25,14 +25,12 @@ import {
 
 snapshot(IconTypeAttachment, {
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypeCheckItem, {
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	ignoredErrors: [
 		{
@@ -46,7 +44,6 @@ snapshot(IconTypeCheckItem, {
 
 snapshot(IconTypeComment, {
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	ignoredErrors: [
 		{
@@ -60,7 +57,6 @@ snapshot(IconTypeComment, {
 
 snapshot(IconTypeView, {
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	ignoredErrors: [
 		{
@@ -74,7 +70,6 @@ snapshot(IconTypeView, {
 
 snapshot(IconTypeReact, {
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	ignoredErrors: [
 		{
@@ -88,84 +83,72 @@ snapshot(IconTypeReact, {
 
 snapshot(IconTypeVote, {
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityBlocker, {
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityCritical, {
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityHigh, {
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityHighest, {
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityLow, {
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityLowest, {
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityMajor, {
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityMedium, {
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityMinor, {
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityTrivial, {
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityUndefined, {
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	ignoredErrors: [
 		{
@@ -179,7 +162,6 @@ snapshot(IconTypePriorityUndefined, {
 
 snapshot(IconTypeProgrammingLanguage, {
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	ignoredErrors: [
 		{
@@ -193,7 +175,6 @@ snapshot(IconTypeProgrammingLanguage, {
 
 snapshot(IconTypeSubscriber, {
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	ignoredErrors: [
 		{
@@ -207,7 +188,6 @@ snapshot(IconTypeSubscriber, {
 
 snapshot(IconTypeSubTasksProgress, {
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	ignoredErrors: [
 		{

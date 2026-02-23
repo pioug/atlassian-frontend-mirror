@@ -49,6 +49,9 @@
 			"path": "../form/tsconfig.app.json"
 		},
 		{
+			"path": "../heading/tsconfig.app.json"
+		},
+		{
 			"path": "../link/tsconfig.app.json"
 		},
 		{
@@ -56,6 +59,9 @@
 		},
 		{
 			"path": "../section-message/tsconfig.app.json"
+		},
+		{
+			"path": "../textfield/tsconfig.app.json"
 		},
 		{
 			"path": "../tokens/tsconfig.app.json"

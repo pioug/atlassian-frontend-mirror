@@ -98,6 +98,9 @@
 		"jira_ai_agent_avatar_issue_view_comment_mentions": {
 			"type": "boolean"
 		},
+		"mentions_custom_headers": {
+			"type": "boolean"
+		},
 		"team-avatar-in-mention-picker": {
 			"type": "boolean"
 		}
@@ -127,5 +130,5 @@
 			]
 		}
 	},
-	"version": "24.4.11"
+	"version": "24.5.0"
 }

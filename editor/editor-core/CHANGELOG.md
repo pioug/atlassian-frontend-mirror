@@ -1,5 +1,32 @@
 # @atlaskit/editor-core
 
+## 216.12.1
+
+### Patch Changes
+
+- [`b7751c58914be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b7751c58914be) -
+  Remove old storybook addon (knobs)
+- [`3e57aae5b06fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e57aae5b06fd) -
+  Bump storybook v6 to v8
+- Updated dependencies
+
+## 216.12.0
+
+### Minor Changes
+
+- [`dfe1c3b4007f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dfe1c3b4007f4) -
+  [ux] Adding the ability to provide a Lozenge to Quick Insert Menu Items.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 216.11.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 216.11.3
 
 ### Patch Changes

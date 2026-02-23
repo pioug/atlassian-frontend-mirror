@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-hooks",
-	"version": "0.3.6",
+	"version": "0.3.7",
 	"license": "Apache-2.0",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,7 +43,6 @@
 	},
 	"devDependencies": {
 		"@atlassian/a11y-jest-testing": "workspace:^",
-		"@storybook/addon-knobs": "root:*",
 		"@testing-library/react": "root:*",
 		"@welldone-software/why-did-you-render": "root:*",
 		"enzyme": "root:*",

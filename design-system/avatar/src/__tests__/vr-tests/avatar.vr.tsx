@@ -6,7 +6,6 @@ import InteractiveAvatar from '../../../examples/10-basic-avatar-interactive';
 snapshot(BasicAvatar, {
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 		platform_dst_avatar_tile: [true, false],
 	},
 	variants: [

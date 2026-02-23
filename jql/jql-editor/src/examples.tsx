@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { withKnobs } from '@storybook/addon-knobs';
 import { injectable } from 'react-magnetic-di';
 
 import { Text } from '@atlaskit/primitives/compiled';
@@ -29,7 +28,7 @@ const _default_1: {
 		query: '',
 		batchUpdates: true,
 	},
-	decorators: [withKnobs],
+	decorators: [],
 };
 export default _default_1;
 
@@ -50,7 +49,6 @@ export const SimpleEditorWithDefaultRows: () => React.JSX.Element = Template.bin
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 (SimpleEditorWithDefaultRows as any).decorators = [
-	withKnobs,
 	withPlatformFeatureGates({
 		list_lovability_improving_filters: true,
 	}),

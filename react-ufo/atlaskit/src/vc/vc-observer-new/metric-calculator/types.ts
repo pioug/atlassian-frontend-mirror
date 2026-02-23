@@ -14,6 +14,7 @@ export type VCCalculatorParam = {
 	interactionType: InteractionType;
 	isPageVisible: boolean;
 	interactionAbortReason?: AbortReasonType;
+	reportLayoutShiftOffenders?: boolean;
 };
 
 export interface VCCalculator {

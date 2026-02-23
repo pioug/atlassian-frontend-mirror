@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "216.11.3",
+	"version": "216.12.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -117,7 +117,6 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/search-provider": "workspace:^",
 		"@emotion/jest": "root:*",
-		"@storybook/addon-knobs": "root:*",
 		"@testing-library/react": "root:*",
 		"@types/diff": "root:*",
 		"@types/is-number": "root:*",
@@ -172,10 +171,6 @@
 		},
 		"platform_editor_toolbar_responsive_fixes": {
 			"type": "boolean"
-		},
-		"platform-visual-refresh-icons": {
-			"type": "boolean",
-			"referenceOnly": true
 		},
 		"platform_editor_typography_ugc": {
 			"type": "boolean",

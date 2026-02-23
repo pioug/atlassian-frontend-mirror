@@ -1,27 +1,36 @@
-/* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import Button, { ButtonGroup } from '@atlaskit/button';
 import AudioIcon from '@atlaskit/icon/core/audio';
 import { token } from '@atlaskit/tokens';
 
+const rowStyles = css({
+	paddingBlockEnd: token('space.100', '8px'),
+	paddingBlockStart: token('space.100', '8px'),
+	paddingInlineEnd: token('space.100', '8px'),
+	paddingInlineStart: token('space.100', '8px')
+});
+
+const constrainedRowStyles = css({
+	width: 180,
+	overflowX: 'scroll',
+});
+
 const Row = (props: { children: React.ReactNode }) => (
-	<div css={{ padding: token('space.100', '8px') }}>{props.children}</div>
+	<div css={rowStyles}>{props.children}</div>
 );
 const ConstrainedRow = (props: { children: React.ReactNode }) => (
 	<div
-		css={{
-			padding: token('space.100', '8px'),
-			width: 180,
-			overflowX: 'scroll',
-		}}
+		css={[
+			rowStyles,
+			constrainedRowStyles,
+		]}
 	>
 		{props.children}
 	</div>

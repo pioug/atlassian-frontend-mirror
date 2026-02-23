@@ -1,16 +1,31 @@
-/* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
 import React, { useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { type Appearance, LoadingButton as Button } from '@atlaskit/button';
 import { Checkbox } from '@atlaskit/checkbox';
 import { token } from '@atlaskit/tokens';
+
+const tableStyles = css({
+	display: 'table',
+});
+
+const cellStyles = css({
+	width: '100px',
+	paddingBlockEnd: token('space.050', '4px'),
+	paddingBlockStart: token('space.050', '4px'),
+	paddingInlineEnd: 0,
+	paddingInlineStart: 0
+});
+
+const rowStyles = css({
+	display: 'flex',
+	flexWrap: 'wrap',
+});
 
 const appearances: Appearance[] = [
 	'default',
@@ -23,13 +38,13 @@ const appearances: Appearance[] = [
 ];
 
 const Table = (props: React.HTMLProps<HTMLDivElement>) => (
-	<div css={{ display: 'table' }}>{props.children}</div>
+	<div css={tableStyles}>{props.children}</div>
 );
 const Row = (props: React.HTMLProps<HTMLDivElement>) => (
-	<div css={{ display: 'flex', flexWrap: 'wrap' }}>{props.children}</div>
+	<div css={rowStyles}>{props.children}</div>
 );
 const Cell = (props: React.HTMLProps<HTMLDivElement>) => (
-	<div css={{ width: '100px', padding: `${token('space.050', '4px')} 0` }}>{props.children}</div>
+	<div css={cellStyles}>{props.children}</div>
 );
 
 function capitalize(str: string) {

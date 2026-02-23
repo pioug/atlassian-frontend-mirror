@@ -461,9 +461,11 @@ describe('VCObserverNew', () => {
 				isPostInteraction: false,
 				excludeSmartAnswersInSearch: undefined,
 				include3p: undefined,
+				includeSSRRatio: undefined,
 				interactionAbortReason: undefined,
 				interactionType: 'page_load',
 				isPageVisible: true,
+				reportLayoutShiftOffenders: false,
 			});
 			expect(VCCalculator_FY26_04.prototype.calculate).toHaveBeenCalledWith({
 				orderedEntries: mockEntries,
@@ -473,9 +475,11 @@ describe('VCObserverNew', () => {
 				isPostInteraction: false,
 				excludeSmartAnswersInSearch: undefined,
 				include3p: undefined,
+				includeSSRRatio: undefined,
 				interactionAbortReason: undefined,
 				interactionType: 'page_load',
 				isPageVisible: true,
+				reportLayoutShiftOffenders: false,
 			});
 		});
 

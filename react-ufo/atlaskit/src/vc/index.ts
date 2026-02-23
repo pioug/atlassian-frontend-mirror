@@ -36,6 +36,7 @@ export class VCObserverWrapper implements VCObserverInterface {
 					enablePageLayoutPlaceholder: opts.ssrEnablePageLayoutPlaceholder ?? false,
 				},
 				ssrPlaceholderHandler: this.ssrPlaceholderHandler,
+				trackLayoutShiftOffenders: opts.trackLayoutShiftOffenders ?? false,
 				searchPageConfig: opts.searchPageConfig,
 			});
 		}
@@ -144,6 +145,7 @@ export class VCObserverWrapper implements VCObserverInterface {
 						includeRawData,
 						includeSSRInV3: param.includeSSRInV3,
 						rawDataStopTime: param.rawDataStopTime,
+						reportLayoutShiftOffenders: param.reportLayoutShiftOffenders,
 					})
 				: [];
 

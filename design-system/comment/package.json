@@ -96,9 +96,5 @@
 		"./types": "./src/types.tsx",
 		".": "./src/index.tsx"
 	},
-	"platform-feature-flags": {
-		"platform-visual-refresh-icons": {
-			"type": "boolean"
-		}
-	}
+	"platform-feature-flags": {}
 }

@@ -1,5 +1,19 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.25.1
+
+### Patch Changes
+
+- [`2595e04a5295b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2595e04a5295b) -
+  Add starButton viewed (team) event
+
+## 1.25.0
+
+### Minor Changes
+
+- [`8204a3c66c06b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8204a3c66c06b) -
+  Add analytics for starred mutations
+
 ## 1.24.2
 
 ### Patch Changes

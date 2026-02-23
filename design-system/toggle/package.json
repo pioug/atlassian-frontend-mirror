@@ -95,9 +95,5 @@
 		".": "./src/index.tsx"
 	},
 	"homepage": "https://atlassian.design/components/toggle/",
-	"platform-feature-flags": {
-		"platform-visual-refresh-icons": {
-			"type": "boolean"
-		}
-	}
+	"platform-feature-flags": {}
 }

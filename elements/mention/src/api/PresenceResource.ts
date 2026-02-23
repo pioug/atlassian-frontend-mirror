@@ -1,4 +1,7 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { type Presence } from '../types';
+import { buildAtlAttributionHeaderValue } from '../util/atl-attribution';
 import debug from '../util/logger';
 import { AbstractResource, type ResourceProvider } from './MentionResource';
 
@@ -6,12 +9,59 @@ export interface PresenceMap {
 	[userId: string]: Presence;
 }
 
+/**
+ * Configuration for the PresenceResource, which manages real-time user
+ * presence (online/offline/busy/focus status) by querying a GraphQL-based
+ * presence service.
+ */
 export interface PresenceResourceConfig {
+	/**
+	 * The activation ID for the current product instance, used to build
+	 * the `atl-attribution` header for presence service requests.
+	 */
+	activationId?: string;
+
+	/**
+	 * A custom cache implementation for storing presence data. If not provided,
+	 * a {@link DefaultPresenceCache} is used with the specified `cacheExpiry`.
+	 */
 	cache?: PresenceCache;
+
+	/**
+	 * The expiry time in milliseconds for cached presence entries.
+	 * Defaults to 20,000ms (20 seconds) when using the default cache.
+	 */
 	cacheExpiry?: number;
+
+	/**
+	 * The cloud ID (organization ID) of the Atlassian site. Required.
+	 * Used as the `organizationId` variable in the presence GraphQL query.
+	 */
 	cloudId: string;
+
+	/**
+	 * Custom HTTP headers to include in presence service requests.
+	 * Only applied when the `mentions_custom_headers` feature flag is enabled.
+	 */
+	headers?: Record<string, string>;
+
+	/**
+	 * A custom parser for transforming raw presence service responses into
+	 * a {@link PresenceMap}. If not provided, a {@link DefaultPresenceParser} is used,
+	 * which maps `'available'` → `'online'` and `'unavailable'` → `'offline'`.
+	 */
 	parser?: PresenceParser;
+
+	/**
+	 * The product identifier (e.g. `'confluence'`, `'jira'`) passed as the
+	 * `product` variable in the presence GraphQL query to scope results.
+	 */
 	productId?: string;
+
+	/**
+	 * The base URL of the presence service endpoint. Required.
+	 * A trailing slash will be appended automatically if not present.
+	 */
 	url: string;
 }
 
@@ -150,10 +200,19 @@ class PresenceResource extends AbstractPresenceResource {
 			query.variables['productId'] = this.config.productId;
 		}
 
+		const configHeaders = fg('mentions_custom_headers') ? this.config.headers : undefined;
+		const atlAttributionHeader = buildAtlAttributionHeaderValue({
+			cloudId: this.config.cloudId,
+			productId: this.config.productId,
+			activationId: this.config.activationId,
+		});
+
 		const options: RequestInit = {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
+				...atlAttributionHeader,
+				...configHeaders,
 			},
 			credentials: 'include',
 			body: JSON.stringify(query),

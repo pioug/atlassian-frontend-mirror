@@ -4,7 +4,7 @@
  */
 import { type ReactNode, useState } from 'react';
 
-import { jsx } from '@compiled/react';
+import { css, jsx } from '@compiled/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
@@ -12,6 +12,14 @@ import { ConfluenceIcon, JiraServiceManagementIcon } from '@atlaskit/logo';
 import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
 
 import { Block, Centered, RetryContainer } from './utils';
+
+const buttonContainerStyles = css({
+	textAlign: 'center',
+});
+
+const relativeContainerStyles = css({
+	position: 'relative',
+});
 
 const EnteringBlock = ({
 	children,
@@ -58,8 +66,7 @@ export default (): JSX.Element => {
 
 	return (
 		<RetryContainer>
-			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-			<div css={{ textAlign: 'center' }}>
+			<div css={buttonContainerStyles}>
 				<ButtonGroup label="Motion options">
 					<Button onClick={() => setIndex((prev) => (prev + 1) % elements.length)}>Switch</Button>
 
@@ -79,8 +86,7 @@ export default (): JSX.Element => {
 				</ButtonGroup>
 
 				<Centered>
-					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-					<div css={{ position: 'relative' }}>
+					<div css={relativeContainerStyles}>
 						<ExitingPersistence appear={appear} exitThenEnter={exitThenEnter}>
 							<div key={index}>{elements[index](exitThenEnter)}</div>
 						</ExitingPersistence>

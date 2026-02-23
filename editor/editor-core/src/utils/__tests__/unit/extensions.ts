@@ -352,6 +352,37 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 		});
 	});
 
+	describe('lozenge passthrough via `getItems()`', () => {
+		it('should include lozenge on quick insert item when extension module has lozenge', async () => {
+			const lozengeContent = 'New';
+			const extensionWithLozenge = replaceCustomQuickInsertModules(
+				createFakeExtensionManifest({
+					title: 'Extension with lozenge',
+					type: 'com.atlassian.forge',
+					extensionKey: 'with-lozenge',
+				}),
+				{
+					key: 'default',
+					action: jest.fn(),
+					lozenge: lozengeContent,
+				},
+			);
+
+			const provider = setup([extensionWithLozenge]);
+
+			const quickInsertProvider = await extensionProviderToQuickInsertProvider(
+				provider,
+				{} as EditorActions,
+				{ current: undefined },
+			);
+
+			const items = await quickInsertProvider.getItems();
+
+			// First two items are from default dummy extensions, third is our custom one
+			expect(items[2]).toHaveProperty('lozenge', lozengeContent);
+		});
+	});
+
 	describe('priority parsing & passthrough via `getItems()`', () => {
 		it('should include priority property when feature gate is enabled and priority is set', async () => {
 			const mockFg = fg as jest.MockedFunction<typeof fg>;

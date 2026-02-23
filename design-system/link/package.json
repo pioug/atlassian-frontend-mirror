@@ -92,9 +92,6 @@
 	},
 	"homepage": "https://atlassian.design/components/link",
 	"platform-feature-flags": {
-		"platform-visual-refresh-icons": {
-			"type": "boolean"
-		},
 		"platform-dst-shape-theme-default": {
 			"type": "boolean"
 		}

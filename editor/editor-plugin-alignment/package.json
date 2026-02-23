@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-alignment",
-	"version": "8.0.19",
+	"version": "8.0.20",
 	"description": "Alignment plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -21,10 +21,6 @@
 		"singleton": true
 	},
 	"platform-feature-flags": {
-		"platform-visual-refresh-icons": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_use_preferences_plugin": {
 			"type": "boolean"
 		}

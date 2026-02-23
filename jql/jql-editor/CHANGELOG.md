@@ -1,5 +1,14 @@
 # @atlaskit/jql-editor
 
+## 5.13.1
+
+### Patch Changes
+
+- [`b7751c58914be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b7751c58914be) -
+  Remove old storybook addon (knobs)
+- [`3e57aae5b06fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e57aae5b06fd) -
+  Bump storybook v6 to v8
+
 ## 5.13.0
 
 ### Minor Changes

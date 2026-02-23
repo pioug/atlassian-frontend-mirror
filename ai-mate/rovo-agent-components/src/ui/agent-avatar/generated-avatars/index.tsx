@@ -164,6 +164,47 @@ const JsmRovoServiceAgentAvatar = lazy(
 		),
 );
 
+/**
+ * OOTB Agents avatars - start
+ */
+const AmplitudeAgentAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-AmplitudeAgentAvatar"*/ './assets/amplitude-agent'
+		),
+);
+
+const BoxAgentAvatar = lazy(
+	() => import(/* webpackChunkName: "@atlaskit-rovo-avatar-BoxAgentAvatar"*/ './assets/box-agent'),
+);
+
+const CanvaAgentAvatar = lazy(
+	() =>
+		import(/* webpackChunkName: "@atlaskit-rovo-avatar-CanvaAgentAvatar"*/ './assets/canva-agent'),
+);
+
+const FigmaAgentAvatar = lazy(
+	() =>
+		import(/* webpackChunkName: "@atlaskit-rovo-avatar-FigmaAgentAvatar"*/ './assets/figma-agent'),
+);
+
+const HubSpotAgentAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-HubSpotAgentAvatar"*/ './assets/hubspot-agent'
+		),
+);
+
+const IntercomAgentAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-IntercomAgentAvatar"*/ './assets/intercom-agent'
+		),
+);
+/**
+ * OOTB Agents avatars - end
+ */
+
 type Color = {
 	primary: string;
 	secondary: string;
@@ -176,6 +217,9 @@ export const blueColor = { primary: '#357DE8', secondary: '#669DF1' };
 
 const colorList: Color[] = [yellowColor, purpleColor, greenColor, blueColor];
 
+/**
+ * NOTE: DO NOT ADD OOTB AGENTAVATARS TO THIS LIST
+ */
 const avatarList = [
 	CustomerInsightAvatar,
 	BacklogBuddyAvatar,
@@ -379,6 +423,42 @@ const outOfTheBoxAgentAvatar: {
 			<JsmRovoServiceAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 		),
 		color: yellowColor,
+	},
+	mcp_amplitude_agent: {
+		getRender: (size: SizeType) => (
+			<AmplitudeAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+		),
+		color: blueColor,
+	},
+	mcp_box_agent: {
+		getRender: (size: SizeType) => (
+			<BoxAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+		),
+		color: blueColor,
+	},
+	mcp_canva_agent: {
+		getRender: (size: SizeType) => (
+			<CanvaAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+		),
+		color: blueColor,
+	},
+	mcp_figma_agent: {
+		getRender: (size: SizeType) => (
+			<FigmaAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+		),
+		color: blueColor,
+	},
+	mcp_hubspot_agent: {
+		getRender: (size: SizeType) => (
+			<HubSpotAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+		),
+		color: blueColor,
+	},
+	mcp_intercom_agent: {
+		getRender: (size: SizeType) => (
+			<IntercomAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+		),
+		color: blueColor,
 	},
 };
 

@@ -51,26 +51,27 @@ positioned outside the field so it remains visible at all times.
 Use helper text when it’s important to explain or give more information about what to enter in the
 text field.
 
-<DoDont
-	type="do"
-	image={{
-		url: SelectA11yDo,
-		alt: 'Select with the field label "Jira work items" and helper text "Select all Jira work items associated with your ticket"',
-	}}
->
-	Use a field label and helper text to ensure all users can understand what’s required.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: SelectA11yDont,
-		alt: 'Do not select where there is no field label or helper text.',
-	}}
->
-	Don't use placeholder text instead of a field label. It’s not accessible and disappears when
-	information is entered.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: SelectA11yDo,
+			alt: 'Select with the field label "Jira work items" and helper text "Select all Jira work items associated with your ticket"',
+		}}
+	>
+		Use a field label and helper text to ensure all users can understand what’s required.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: SelectA11yDont,
+			alt: 'Do not select where there is no field label or helper text.',
+		}}
+	>
+		Don't use placeholder text instead of a field label. It’s not accessible and disappears when
+		information is entered.
+	</DoDont>
+</DoDontGrid>
 
 ### Removed clear control
 

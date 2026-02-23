@@ -111,6 +111,7 @@ export async function extensionProviderToQuickInsertProvider(
 							priority: item.priority,
 						}),
 						categories: item.categories,
+						...(item.lozenge != null && { lozenge: item.lozenge }),
 						isDisabledOffline: true,
 						action: (insert, state, source) => {
 							if (typeof item.node === 'function') {

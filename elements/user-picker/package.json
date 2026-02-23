@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/user-picker",
-	"version": "11.22.0",
+	"version": "11.23.0",
 	"description": "Fabric component for display a dropdown to select a user from",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -127,9 +127,6 @@
 			"type": "boolean"
 		},
 		"jira_ai_agent_avatar_user_picker_user_option": {
-			"type": "boolean"
-		},
-		"a11y-create-team-is-not-focusable-and-has-no-btn": {
 			"type": "boolean"
 		}
 	}

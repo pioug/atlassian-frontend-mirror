@@ -22,6 +22,7 @@ import {
 	handleDeleteDomMutation,
 	handleMenuOpenDomMutation,
 	handleMoveDomMutation,
+	handleTransformDomMutation,
 	isBlockMenuVisible,
 	isDragHandleElement,
 } from './experience-check-utils';
@@ -122,6 +123,19 @@ export const getBlockMenuExperiencesPlugin = ({
 		],
 	});
 
+	const blockTransformExperience = new Experience(EXPERIENCE_ID.MENU_ACTION, {
+		action: ACTION.TRANSFORMED,
+		actionSubjectId: ACTION_SUBJECT_ID.TRANSFORM_BLOCK,
+		dispatchAnalyticsEvent,
+		checks: [
+			new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
+			new ExperienceCheckDomMutation({
+				onDomMutation: handleTransformDomMutation,
+				observeConfig: actionObserveConfig,
+			}),
+		],
+	});
+
 	const handleMenuOpened = (method: StartMethod) => {
 		// Don't start if block menu is already visible
 		if (isBlockMenuVisible(getPopupsTarget())) {
@@ -131,7 +145,29 @@ export const getBlockMenuExperiencesPlugin = ({
 		blockMenuOpenExperience.start({ method });
 	};
 
+	const handleTransformActioned = (target: HTMLElement): boolean => {
+		if (!target.closest('[data-testid="editor-turn-into-menu--content"]')) {
+			return false;
+		}
+
+		const turnIntoButton = target.closest('button');
+		if (
+			turnIntoButton &&
+			turnIntoButton instanceof HTMLElement &&
+			!turnIntoButton.hasAttribute('disabled') &&
+			turnIntoButton.getAttribute('aria-disabled') !== 'true'
+		) {
+			blockTransformExperience.start();
+		}
+
+		return true;
+	};
+
 	const handleItemActioned = (target: HTMLElement) => {
+		if (handleTransformActioned(target)) {
+			return;
+		}
+
 		const button = target.closest('button[data-testid]');
 
 		if (
@@ -213,6 +249,7 @@ export const getBlockMenuExperiencesPlugin = ({
 					blockMoveUpExperience.abort({ reason: ABORT_REASON.EDITOR_DESTROYED });
 					blockMoveDownExperience.abort({ reason: ABORT_REASON.EDITOR_DESTROYED });
 					blockDeleteExperience.abort({ reason: ABORT_REASON.EDITOR_DESTROYED });
+					blockTransformExperience.abort({ reason: ABORT_REASON.EDITOR_DESTROYED });
 					editorView = undefined;
 					unbindClickListener();
 					unbindKeydownListener();

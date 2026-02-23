@@ -37,6 +37,7 @@
 		"graphql-ws": "root:*",
 		"lodash": "root:*",
 		"raf-schd": "root:*",
+		"relay-runtime": "root:*",
 		"uuid": "root:*"
 	},
 	"peerDependencies": {
@@ -83,7 +84,7 @@
 		}
 	},
 	"name": "@atlaskit/editor-synced-block-provider",
-	"version": "3.30.2",
+	"version": "3.30.4",
 	"description": "Synced Block Provider for @atlaskit/editor-plugin-synced-block",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

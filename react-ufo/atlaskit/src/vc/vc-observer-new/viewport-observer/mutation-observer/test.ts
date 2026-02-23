@@ -24,7 +24,7 @@ describe('createMutationObserver', () => {
 			disconnect: jest.fn(),
 		} as unknown as MutationObserver;
 
-		jest.spyOn(window, 'MutationObserver').mockImplementation((callback) => {
+		jest.spyOn(window, 'MutationObserver').mockImplementation((_callback) => {
 			return mockObserver;
 		});
 
@@ -241,6 +241,7 @@ describe('createMutationObserver', () => {
 			attributeName: 'data-testid',
 			newValue: 'new-value',
 			oldValue: 'old-value',
+			timestamp: expect.any(Number),
 		});
 
 		// ChildList mutations should be batched
@@ -370,6 +371,7 @@ describe('createMutationObserver', () => {
 			attributeName: 'data-testid',
 			newValue: 'new-value',
 			oldValue: 'old-value',
+			timestamp: expect.any(Number),
 		});
 	});
 });

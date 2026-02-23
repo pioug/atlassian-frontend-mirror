@@ -1,5 +1,28 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.3.0
+
+### Minor Changes
+
+- [`f3d9985c540ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3d9985c540ec) -
+  Add page visibility timeline to UFO payload behind platform_ufo_page_visibility_timeline feature
+  gate. New getPageVisibilityTimeline export from hidden-timing module returns visibility state
+  transitions within a time window.
+
+## 5.2.10
+
+### Patch Changes
+
+- [`06d7af199b6c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06d7af199b6c7) -
+  Added experimental API to track VC offenders
+
+## 5.2.9
+
+### Patch Changes
+
+- [`9adf0a8a1c055`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9adf0a8a1c055) -
+  FG cleanup - platform_ufo_enable_late_mutation_label_stacks
+
 ## 5.2.8
 
 ### Patch Changes

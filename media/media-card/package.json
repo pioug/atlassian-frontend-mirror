@@ -116,9 +116,6 @@
 		"platform.media-card-performance-observer_a803k": {
 			"type": "boolean"
 		},
-		"platform-visual-refresh-icons": {
-			"type": "boolean"
-		},
 		"platform_media_card_ufo_network_metrics": {
 			"type": "boolean"
 		},

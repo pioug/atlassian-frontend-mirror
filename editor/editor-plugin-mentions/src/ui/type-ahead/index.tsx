@@ -357,6 +357,7 @@ export const createTypeAheadConfig = ({
 										sessionId,
 										contextIdentifierProvider,
 										mentionProvider.userRole,
+										(fg('jira_invites_auto_tag_new_user_in_mentions_fg') ? {isInlineInviteMentionsEnabled: mentionProvider.getShouldEnableInlineInvite?.()} : {})
 									),
 								);
 							},
@@ -420,6 +421,8 @@ export const createTypeAheadConfig = ({
 							query,
 							contextIdentifierProvider,
 							mentionProvider.userRole,
+							(fg('jira_invites_auto_tag_new_user_in_mentions_fg') ? {isInlineInviteMentionsEnabled: mentionProvider.getShouldEnableInlineInvite?.()} : {})
+
 						),
 					);
 

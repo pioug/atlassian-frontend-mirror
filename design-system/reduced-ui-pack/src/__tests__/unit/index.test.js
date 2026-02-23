@@ -1,4 +1,4 @@
-import reducedUiPackStyles from '../..';
+import reducedUiPackStyles from '../../index';
 
 describe('styleSheet', () => {
 	it('should not have [object Object]', () => {

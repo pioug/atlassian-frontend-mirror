@@ -1,5 +1,12 @@
 # @atlaskit/jql-editor-autocomplete-rest
 
+## 3.1.1
+
+### Patch Changes
+
+- [`f7e846bf70f8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7e846bf70f8d) -
+  jql_editor_uri_encode_suggestions_params fg cleanup
+
 ## 3.1.0
 
 ### Minor Changes

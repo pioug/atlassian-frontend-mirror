@@ -1,8 +1,9 @@
-import React, { memo, useMemo } from 'react';
+import React, { memo, useEffect, useMemo } from 'react';
 
 import type { DocNode } from '@atlaskit/adf-schema';
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import { handleSSRErrorsAnalytics } from '@atlaskit/editor-common/sync-block';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { SyncedBlockPlugin } from '@atlaskit/editor-plugin-synced-block';
 import {
@@ -28,6 +29,17 @@ const SyncedBlockRendererComponent = ({
 	syncBlockFetchResult,
 	api,
 }: SyncedBlockRendererProps): React.JSX.Element => {
+	useEffect(() => {
+		const timeoutId = setTimeout(() => {
+			handleSSRErrorsAnalytics(api?.analytics?.actions.fireAnalyticsEvent);
+		}, 0);
+
+		return () => {
+			clearTimeout(timeoutId);
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
 	const { isLoading, providerFactory, reloadData, ssrProviders, syncBlockInstance } =
 		syncBlockFetchResult;
 

@@ -6,6 +6,7 @@ export type CreateMutationObserverProps = {
 		attributeName: string;
 		oldValue?: string | undefined | null;
 		newValue?: string | undefined | null;
+		timestamp: DOMHighResTimeStamp;
 	}) => void;
 
 	onMutationFinished?: (props: { targets: Array<HTMLElement> }) => void;
@@ -71,6 +72,7 @@ function createMutationObserver({
 						attributeName: mut.attributeName ?? 'unknown',
 						oldValue,
 						newValue,
+						timestamp: (mut as any).timestamp || performance.now(),
 					});
 				}
 

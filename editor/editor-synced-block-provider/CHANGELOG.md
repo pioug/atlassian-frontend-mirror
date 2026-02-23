@@ -1,5 +1,21 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.30.4
+
+### Patch Changes
+
+- [`610719fffa0ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/610719fffa0ba) -
+  Move subscription API to pass in environment for subscription instead
+- Updated dependencies
+
+## 3.30.3
+
+### Patch Changes
+
+- [`5ddfc9ed0352f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ddfc9ed0352f) -
+  Switched from browser session storage to in memory session storage
+- Updated dependencies
+
 ## 3.30.2
 
 ### Patch Changes

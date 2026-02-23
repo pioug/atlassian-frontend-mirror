@@ -4,12 +4,16 @@
  */
 import React, { useState } from 'react';
 
-import { jsx } from '@compiled/react';
+import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
 import { ExitingPersistence, StaggeredEntrance, ZoomIn } from '@atlaskit/motion';
 
 import { Block, Centered, RetryContainer } from './utils';
+
+const centeredStyles = css({
+	height: '82px',
+});
 
 export default (): JSX.Element => {
 	const [isIn, setIsIn] = useState(true);
@@ -21,7 +25,7 @@ export default (): JSX.Element => {
 				<Button onClick={() => setIsIn((prev) => !prev)}>{isIn ? 'Exit' : 'Enter'}</Button>
 			</div>
 
-			<Centered css={{ height: '82px' }}>
+			<Centered css={centeredStyles}>
 				<StaggeredEntrance>
 					<ExitingPersistence appear>
 						{isIn && (

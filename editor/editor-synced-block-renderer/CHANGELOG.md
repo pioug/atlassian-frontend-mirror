@@ -1,5 +1,16 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 5.9.0
+
+### Minor Changes
+
+- [`1a363f7706a2f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a363f7706a2f) -
+  EDITOR-4193 add anaytics for ssr errors
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.8.5
 
 ### Patch Changes

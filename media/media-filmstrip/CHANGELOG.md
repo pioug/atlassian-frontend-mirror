@@ -1,5 +1,12 @@
 # @atlaskit/media-filmstrip
 
+## 51.2.0
+
+### Minor Changes
+
+- [`5998a9dd8fa32`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5998a9dd8fa32) -
+  Cleanup platform_editor_disable_trigger_scroll_event feature gate
+
 ## 51.1.10
 
 ### Patch Changes

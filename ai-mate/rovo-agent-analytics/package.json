@@ -25,6 +25,7 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
+		"./actions/tool-actions": "./src/actions/tool-actions/index.tsx",
 		"./actions": "./src/actions/index.tsx",
 		"./create": "./src/create/index.tsx"
 	},

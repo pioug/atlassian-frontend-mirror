@@ -33,6 +33,7 @@ import {
 	getEarliestHiddenTiming,
 	getHasHiddenTimingBeforeSetup,
 	getPageVisibilityState,
+	getPageVisibilityTimeline,
 	isOpenedInBackground,
 	isTabThrottled,
 } from '../hidden-timing';
@@ -722,6 +723,12 @@ async function createInteractionMetricsPayload(
 
 				'ufo:isTabThrottled': isTabThrottled(start, end),
 
+				...(fg('platform_ufo_page_visibility_timeline')
+					? {
+							'ufo:pageVisibilityTimeline': getPageVisibilityTimeline(start, end),
+						}
+					: {}),
+
 				...(fg('ufo_detect_aborting_interaction_during_ssr')
 					? {
 							'ufo:hasAbortingInteractionDuringSSR': getHasAbortingEventDuringSSR(),
@@ -825,6 +832,9 @@ async function createInteractionMetricsPayload(
 	const interactionMetricsFieldsToTrim = fg('ufo_remove_featureflags_from_trimmed_fields')
 		? ['requestInfo', 'resourceTimings']
 		: ['requestInfo', 'featureFlags', 'resourceTimings'];
+
+	// Top-level properties that can be trimmed if payload exceeds size limit
+	const topLevelFieldsToTrim = ['ufo:pageVisibilityTimeline'];
 	type TrimmableProperties = typeof payload.attributes.properties & {
 		interactionMetrics?: typeof payload.attributes.properties.interactionMetrics &
 			Record<string, unknown>;
@@ -853,6 +863,23 @@ async function createInteractionMetricsPayload(
 			properties['event:trimmedFields'] = trimmedFields;
 		}
 	}
+	// Trim top-level properties if payload still exceeds the limit
+	for (const field of topLevelFieldsToTrim) {
+		if (getPayloadSize(properties) <= MAX_PAYLOAD_SIZE) {
+			continue;
+		}
+
+		(properties as Record<string, unknown>)[field] = undefined;
+		properties['event:isTrimmed'] = true;
+
+		let trimmedFields = properties['event:trimmedFields'];
+		if (!Array.isArray(trimmedFields)) {
+			trimmedFields = [];
+		}
+		trimmedFields.push(field);
+		properties['event:trimmedFields'] = trimmedFields;
+	}
+
 	// If the payload size continues to exceed the limit and interactionMetrics is already trimmed,
 	// trim VC debug data (early viewport checkpoints). PIR-30543 - AFO-5033
 	const isVCRevisionTrimEnabled = fg('ufo_vc_revision_trim_enabled');

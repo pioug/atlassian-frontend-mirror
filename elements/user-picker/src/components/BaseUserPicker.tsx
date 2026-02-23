@@ -52,7 +52,6 @@ import {
 import { groupOptionsByType } from '../util/group-options-by-type';
 import { userPickerOptionsShownUfoExperience } from '../util/ufoExperiences';
 import type { AriaAttributes } from 'react';
-import { fg } from '@atlaskit/platform-feature-flags';
 import type { SelectComponentsConfig, PopupSelectProps, StylesConfig } from '@atlaskit/select';
 import type { EmailValidator } from './emailValidation';
 
@@ -320,10 +319,6 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 		this.optionsShownUfoExperienceInstance.start();
 	};
 
-	private get isCreateTeamA11yEnabled() {
-		return fg('a11y-create-team-is-not-focusable-and-has-no-btn');
-	}
-
 	private executeLoadOptions = (search?: string) => {
 		const { loadOptions } = this.props;
 		if (loadOptions) {
@@ -367,10 +362,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 	};
 
 	private handleBlur = () => {
-		if (
-			this.isCreateTeamA11yEnabled &&
-			(this.props.isFooterFocused || this.props.isHeaderFocused)
-		) {
+		if (this.props.isFooterFocused || this.props.isHeaderFocused) {
 			return;
 		}
 		callCallback(this.props.onBlur, this.getSessionId());
@@ -388,10 +380,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 	};
 
 	private handleClose = () => {
-		if (
-			this.isCreateTeamA11yEnabled &&
-			(this.props.isFooterFocused || this.props.isHeaderFocused)
-		) {
+		if (this.props.isFooterFocused || this.props.isHeaderFocused) {
 			return;
 		}
 
@@ -443,7 +432,6 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 
 		// Close menu when isFooterFocused or isHeaderFocused changes from true to false
 		if (
-			this.isCreateTeamA11yEnabled &&
 			menuIsOpen &&
 			((prevProps.isFooterFocused === true && this.props.isFooterFocused === false) ||
 				(prevProps.isHeaderFocused === true && this.props.isHeaderFocused === false)) &&
@@ -526,23 +514,21 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 		}
 		this.props.onKeyDown && this.props.onKeyDown(event);
 
-		if (this.isCreateTeamA11yEnabled) {
-			if (event.key === 'Escape') {
-				this.setState({
-					menuIsOpen: false,
-					options: [],
-				});
-				this.props.setIsFooterFocused && this.props.setIsFooterFocused(false);
-				this.props.setIsHeaderFocused && this.props.setIsHeaderFocused(false);
-			}
+		if (event.key === 'Escape') {
+			this.setState({
+				menuIsOpen: false,
+				options: [],
+			});
+			this.props.setIsFooterFocused && this.props.setIsFooterFocused(false);
+			this.props.setIsHeaderFocused && this.props.setIsHeaderFocused(false);
+		}
 
-			if (event.key === 'Tab' && this.props.setIsFooterFocused && this.props.footer) {
-				this.props.setIsFooterFocused(true);
-			}
+		if (event.key === 'Tab' && this.props.setIsFooterFocused && this.props.footer) {
+			this.props.setIsFooterFocused(true);
+		}
 
-			if (event.key === 'Tab' && this.props.setIsHeaderFocused && this.props.header) {
-				this.props.setIsHeaderFocused(true);
-			}
+		if (event.key === 'Tab' && this.props.setIsHeaderFocused && this.props.header) {
+			this.props.setIsHeaderFocused(true);
 		}
 	};
 
@@ -784,9 +770,9 @@ export const BaseUserPicker: React.ForwardRefExoticComponent<
 				name?: string;
 				noBorder?: boolean;
 				noOptionsMessage?:
-					| ((value: { inputValue: string }) => string | null | React.ReactNode)
-					| null
-					| React.ReactNode;
+				| ((value: { inputValue: string }) => string | null | React.ReactNode)
+				| null
+				| React.ReactNode;
 				onBlur?: OnPicker;
 				onChange?: OnChange;
 				onClear?: OnPicker;

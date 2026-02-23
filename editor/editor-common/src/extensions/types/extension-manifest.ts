@@ -1,4 +1,4 @@
-import type { ComponentType } from 'react';
+import type { ComponentType, ReactNode } from 'react';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
@@ -55,6 +55,7 @@ export type ExtensionModule<T extends Parameters = Parameters> = {
 	icon?: () => ExtensionIconModule;
 	key: string;
 	keywords?: string[];
+	lozenge?: ReactNode;
 	parameters?: T;
 	priority?: number;
 	title?: string;

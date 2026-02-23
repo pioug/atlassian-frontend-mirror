@@ -28,7 +28,9 @@ import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { ApplyChangeHandler, ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
+import type { CopyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
@@ -281,7 +283,7 @@ const breakoutOptions = (
 				extensionState,
 				breakoutEnabled,
 				editorAnalyticsAPI,
-			);
+		  );
 };
 
 const editButton = (
@@ -402,14 +404,18 @@ const calculateToolbarPosition = (
  * if the current selected extension is an unsupported content extension.
  */
 export const createOnClickCopyButton = ({
+	formatMessage,
 	extensionApi,
 	extensionProvider,
 	getUnsupportedContent,
 	state,
+	locale,
 }: {
 	extensionApi: GetToolbarConfigProps['extensionApi'];
 	extensionProvider?: ExtensionProvider;
+	formatMessage: IntlShape['formatMessage'];
 	getUnsupportedContent?: ExtensionPluginOptions['getUnsupportedContent'];
+	locale: string;
 	state: EditorState;
 }): Command | undefined => {
 	if (!extensionProvider) {
@@ -440,14 +446,21 @@ export const createOnClickCopyButton = ({
 
 	// this command copies the text content of the unsupported content extension to the clipboard
 	return (editorState) => {
-		const error = copyUnsupportedContentToClipboard({
+		copyUnsupportedContentToClipboard({
+			locale,
 			unsupportedContent: adf,
 			schema: state.schema,
-		});
-		if (error) {
-			onCopyFailed({ error, extensionApi, state: editorState });
-			return false;
-		}
+			api: extensionApi,
+		})
+			.then(() => {
+				extensionApi?.copyButton?.actions.afterCopy(
+					formatMessage(commonMessages.copiedToClipboard),
+				);
+			})
+			.catch((error) => {
+				onCopyFailed({ error, extensionApi, state: editorState });
+			});
+
 		return true;
 	};
 };
@@ -455,7 +468,16 @@ export const createOnClickCopyButton = ({
 interface GetToolbarConfigProps {
 	breakoutEnabled: boolean | undefined;
 	extensionApi?:
-		| PublicPluginAPI<[ContextPanelPlugin, AnalyticsPlugin, DecorationsPlugin, ConnectivityPlugin]>
+		| PublicPluginAPI<
+				[
+					ContextPanelPlugin,
+					AnalyticsPlugin,
+					DecorationsPlugin,
+					ConnectivityPlugin,
+					MentionsPlugin,
+					CopyButtonPlugin,
+				]
+		  >
 		| undefined;
 	getUnsupportedContent?: ExtensionPluginOptions['getUnsupportedContent'];
 }
@@ -467,7 +489,7 @@ export const getToolbarConfig =
 		getUnsupportedContent,
 	}: GetToolbarConfigProps): FloatingToolbarHandler =>
 	(state, intl) => {
-		const { formatMessage } = intl;
+		const { formatMessage, locale } = intl;
 		const extensionState = getPluginState(state);
 
 		const { extensionProvider } = extensionState;
@@ -570,11 +592,13 @@ export const getToolbarConfig =
 								true,
 							)
 								? createOnClickCopyButton({
+										formatMessage,
 										extensionApi,
 										extensionProvider,
 										getUnsupportedContent,
 										state,
-									})
+										locale,
+								  })
 								: undefined,
 						},
 					],

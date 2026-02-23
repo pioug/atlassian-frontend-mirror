@@ -289,6 +289,7 @@ export function init(
 			devToolsEnabled: config.vc.devToolsEnabled,
 			selectorConfig: config.vc.selectorConfig,
 			ssrEnablePageLayoutPlaceholder: config.vc.ssrEnablePageLayoutPlaceholder,
+			trackLayoutShiftOffenders: config.vc.trackLayoutShiftOffenders,
 		};
 
 		postInteractionLog.initializeVCObserver(vcOptions);

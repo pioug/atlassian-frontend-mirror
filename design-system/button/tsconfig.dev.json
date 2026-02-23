@@ -70,9 +70,6 @@
 			"path": "../ds-lib/tsconfig.app.json"
 		},
 		{
-			"path": "../form/tsconfig.app.json"
-		},
-		{
 			"path": "../heading/tsconfig.app.json"
 		},
 		{
@@ -98,12 +95,6 @@
 		},
 		{
 			"path": "../section-message/tsconfig.app.json"
-		},
-		{
-			"path": "../select/tsconfig.app.json"
-		},
-		{
-			"path": "../theme/tsconfig.app.json"
 		},
 		{
 			"path": "../toggle/tsconfig.app.json"

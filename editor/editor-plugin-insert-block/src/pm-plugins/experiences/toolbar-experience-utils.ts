@@ -11,6 +11,14 @@ import {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 /**
+ * Popup check type determines how popups are observed based on their DOM location:
+ * - 'inline': Popups appearing in toolbar button-groups (emoji, media, table selector, image)
+ * - 'editorRoot': Popups attached to editor root (e.g., mention popups)
+ * - 'editorContent': Content-level popups or modals in portal containers (e.g., block menu)
+ */
+export type PopupCheckType = 'inline' | 'editorRoot' | 'editorContent';
+
+/**
  * DOM marker selectors for node types inserted via toolbar actions.
  * Matches outermost wrapper elements set synchronously by ReactNodeView
  * (`{nodeTypeName}View-content-wrap`) or schema `toDOM` attributes.
@@ -39,54 +47,85 @@ export const isToolbarButtonClick = (target: HTMLElement, testId: string): boole
 	return !button.disabled && button.getAttribute('aria-disabled') !== 'true';
 };
 
-/**
- * ExperienceCheck that observes popup mount point and all its
- * `[data-editor-popup]` children with `{ childList: true }` (no subtree).
- *
- * Detects when a popup containing the given nested element is added to the
- * DOM — either as a new `[data-editor-popup]` direct child, or as content
- * rendered inside an existing `[data-editor-popup]` wrapper.
- */
-export const TYPEAHEAD_DECORATION_SELECTOR = '[data-type-ahead="typeaheadDecoration"]';
-
-export const handleTypeAheadOpenDomMutation = ({
-	mutations,
-}: {
-	mutations: MutationRecord[];
-}): ExperienceCheckResult | undefined => {
-	for (const mutation of mutations) {
-		if (mutation.type !== 'childList') {
-			continue;
-		}
-		for (const node of mutation.addedNodes) {
-			if (!(node instanceof HTMLElement)) {
-				continue;
-			}
-			if (
-				node.matches(TYPEAHEAD_DECORATION_SELECTOR) ||
-				node.querySelector(TYPEAHEAD_DECORATION_SELECTOR)
-			) {
-				return { status: 'success' };
-			}
-		}
-	}
-	return undefined;
-};
-
 export class ExperienceCheckPopupMutation implements ExperienceCheck {
 	private nestedElementQuery: string;
 	private getTarget: () => HTMLElement | undefined | null;
 	private getEditorDom: () => HTMLElement | undefined | null;
+	private type: PopupCheckType;
 	private observers: MutationObserver[] = [];
 
 	constructor(
 		nestedElementQuery: string,
 		getTarget: () => HTMLElement | undefined | null,
 		getEditorDom: () => HTMLElement | undefined | null,
+		type: PopupCheckType = 'editorRoot',
 	) {
 		this.nestedElementQuery = nestedElementQuery;
 		this.getTarget = getTarget;
 		this.getEditorDom = getEditorDom;
+		this.type = type;
+	}
+
+	/**
+	 * Returns the list of DOM elements to observe based on popup type.
+	 */
+	private getObserveTargets(): HTMLElement[] {
+		switch (this.type) {
+			case 'inline':
+				return this.getInlineTargets();
+			case 'editorRoot':
+				return this.getEditorRootTargets();
+		}
+		// Should never reach here - all types handled above
+		return [];
+	}
+
+	/**
+	 * For 'inline' type: observe only the button-group container.
+	 * The target passed in should be the button-group (or button within it) from getInlinePopupTarget().
+	 * Inline popups appear as direct children of button-group elements.
+	 */
+	private getInlineTargets(): HTMLElement[] {
+		const target = this.getTarget();
+
+		if (!target) {
+			return [];
+		}
+
+		// Walk up to find the button-group container
+		const buttonGroup = target.closest<HTMLElement>('[data-toolbar-component="button-group"]');
+
+		// Target is already the button-group or button from getInlinePopupTarget()
+		// Just observe this single element
+		return buttonGroup ? [buttonGroup, target] : [target];
+	}
+
+	/**
+	 * For 'editorRoot' type: observe the actual editor root container.
+	 * The editorDom is the ProseMirror element, but popups appear as direct children
+	 * of the parent .akEditor container. So we observe the parent of editorDom.
+	 * No portal observation needed.
+	 */
+	private getEditorRootTargets(): HTMLElement[] {
+		const targets: HTMLElement[] = [];
+		const editorDom = this.getEditorDom();
+
+		if (editorDom) {
+			// Find the actual editor root (.akEditor) by walking up the DOM
+			const editorRoot = editorDom.closest('.akEditor') || editorDom.parentElement;
+
+			if (editorRoot instanceof HTMLElement) {
+				targets.push(editorRoot);
+
+				// Observe existing [data-editor-popup] wrappers
+				const wrappers = editorRoot.querySelectorAll<HTMLElement>('[data-editor-popup]');
+				for (const wrapper of wrappers) {
+					targets.push(wrapper);
+				}
+			}
+		}
+
+		return targets;
 	}
 
 	start(callback: ExperienceCheckCallback): void {
@@ -121,11 +160,12 @@ export class ExperienceCheckPopupMutation implements ExperienceCheck {
 					if (!(node instanceof HTMLElement)) {
 						continue;
 					}
-					if (
+					const found =
 						popupWithNestedElement(node, query) ||
 						node.matches(query) ||
-						!!node.querySelector(query)
-					) {
+						!!node.querySelector(query);
+
+					if (found) {
 						this.stop();
 						callback({ status: 'success' });
 						return;
@@ -140,65 +180,11 @@ export class ExperienceCheckPopupMutation implements ExperienceCheck {
 			this.observers.push(observer);
 		};
 
-		observe(target);
-
-		for (const wrapper of target.querySelectorAll<HTMLElement>('[data-editor-popup]')) {
-			observe(wrapper);
+		// Get type-specific targets and observe them
+		const observeTargets = this.getObserveTargets();
+		for (const observeTarget of observeTargets) {
+			observe(observeTarget);
 		}
-
-		const portalContainer = doc.querySelector('.atlaskit-portal-container');
-		if (portalContainer instanceof HTMLElement) {
-			const observePortal = (portal: HTMLElement) => {
-				observe(portal);
-				for (const child of portal.children) {
-					if (child instanceof HTMLElement) {
-						observe(child);
-					}
-				}
-			};
-
-			const containerObserver = new MutationObserver((mutations) => {
-				for (const mutation of mutations) {
-					if (mutation.type !== 'childList') {
-						continue;
-					}
-					for (const node of mutation.addedNodes) {
-						if (node instanceof HTMLElement) {
-							observePortal(node);
-						}
-					}
-				}
-				onMutation(mutations);
-			});
-			containerObserver.observe(portalContainer, { childList: true });
-			this.observers.push(containerObserver);
-
-			for (const portal of portalContainer.querySelectorAll<HTMLElement>('.atlaskit-portal')) {
-				observePortal(portal);
-			}
-		}
-
-		const editorDom = this.getEditorDom();
-		if (editorDom?.parentElement) {
-			observe(editorDom.parentElement);
-		}
-
-		// Two-frame DOM check to handle cases where rendering happens before
-		// observers are attached.
-		const checkDom = () => {
-			if (doc.querySelector(query)) {
-				this.stop();
-				callback({ status: 'success' });
-				return;
-			}
-			requestAnimationFrame(() => {
-				if (doc.querySelector(query)) {
-					this.stop();
-					callback({ status: 'success' });
-				}
-			});
-		};
-		requestAnimationFrame(checkDom);
 	}
 
 	stop(): void {

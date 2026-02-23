@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 4.33.6
+
+### Patch Changes
+
+- [`c085330e0dde8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c085330e0dde8) -
+  Remove new icon button styling hack
+- Updated dependencies
+
 ## 4.33.5
 
 ### Patch Changes

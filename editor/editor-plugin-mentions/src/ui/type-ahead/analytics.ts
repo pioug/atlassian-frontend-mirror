@@ -79,6 +79,7 @@ export const buildTypeAheadInviteItemViewedPayload = (
 	sessionId: string,
 	contextIdentifierProvider?: ContextIdentifierProvider,
 	userRole?: UserRole,
+	additionalAttributes?: Record<string, unknown>,
 ): AnalyticsEventPayload => {
 	const { containerId, objectId, childObjectId } = (contextIdentifierProvider ||
 		{}) as ContextIdentifierProvider;
@@ -95,6 +96,7 @@ export const buildTypeAheadInviteItemViewedPayload = (
 			userRole,
 			sessionId,
 			source: MENTION_SOURCE,
+			...additionalAttributes
 		},
 	};
 };
@@ -108,6 +110,7 @@ export const buildTypeAheadInviteItemClickedPayload = (
 	query?: string,
 	contextIdentifierProvider?: ContextIdentifierProvider,
 	userRole?: UserRole,
+	additionalAttributes?: Record<string, unknown>,
 ): AnalyticsEventPayload => {
 	const { queryLength, spaceInQuery } = extractAttributesFromQuery(query);
 	const { containerId, objectId, childObjectId } = (contextIdentifierProvider ||
@@ -130,6 +133,7 @@ export const buildTypeAheadInviteItemClickedPayload = (
 			userRole,
 			sessionId,
 			keyboardKey: isClicked(insertType) ? undefined : insertType,
+			...additionalAttributes,
 		},
 	};
 };

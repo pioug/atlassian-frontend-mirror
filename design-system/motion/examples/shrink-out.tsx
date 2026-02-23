@@ -4,7 +4,7 @@
  */
 import { useState } from 'react';
 
-import { jsx } from '@compiled/react';
+import { css, jsx } from '@compiled/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
@@ -12,6 +12,23 @@ import { ExitingPersistence, ShrinkOut } from '@atlaskit/motion';
 import { token } from '@atlaskit/tokens';
 
 import { Block, Centered } from './utils';
+
+const buttonContainerStyles = css({
+	textAlign: 'center',
+});
+
+const blockStyles = css({
+	width: 'auto',
+	marginBlockEnd: token('space.050', '4px'),
+	marginBlockStart: token('space.050', '4px'),
+	marginInlineEnd: token('space.050', '4px'),
+	marginInlineStart: token('space.050', '4px'),
+	overflow: 'hidden'
+});
+
+const centeredStyles = css({
+	height: '82px',
+});
 
 const apps = [
 	'Confluence',
@@ -27,27 +44,18 @@ export default (): JSX.Element => {
 
 	return (
 		<div>
-			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-			<div css={{ textAlign: 'center' }}>
+			<div css={buttonContainerStyles}>
 				<ButtonGroup label="App options">
 					<Button onClick={() => setApps(apps)}>Reset</Button>
 				</ButtonGroup>
 			</div>
 
-			<Centered css={{ height: '82px' }}>
+			<Centered css={centeredStyles}>
 				<ExitingPersistence>
 					{actualApps.map((app) => (
 						<ShrinkOut key={app}>
 							{(props) => (
-								<Block
-									{...props}
-									appearance="small"
-									css={{
-										width: 'auto',
-										margin: token('space.050', '4px'),
-										overflow: 'hidden',
-									}}
-								>
+								<Block {...props} appearance="small" css={blockStyles}>
 									<Button
 										onClick={() => {
 											setApps((prods) => prods.filter((val) => val !== app));

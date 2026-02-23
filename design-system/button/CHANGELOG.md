@@ -1,5 +1,12 @@
 # @atlaskit/button
 
+## 23.9.8
+
+### Patch Changes
+
+- [`c085330e0dde8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c085330e0dde8) -
+  Remove new icon button styling hack
+
 ## 23.9.7
 
 ### Patch Changes

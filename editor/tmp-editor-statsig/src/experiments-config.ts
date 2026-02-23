@@ -186,6 +186,12 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	platform_editor_sel_toolbar_scroll_pos_fix_exp: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-08-28
 	editor_enable_image_alignment_in_expand: {
 		defaultValue: boolean;
@@ -919,13 +925,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-02-02
 	platform_editor_ai_disable_bridge_without_ai: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2025-12-15
-	platform_editor_ai_exp_suggestion_date_comma_delim: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1893,6 +1892,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	platform_editor_sel_toolbar_scroll_pos_fix_exp: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_sel_toolbar_scroll_pos_fix_exp',
+			jira: 'platform_editor_sel_toolbar_scroll_pos_fix_exp',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-07-31
 	platform_editor_breakout_interaction_rerender: createBooleanExperiment({
 		productKeys: {
@@ -2262,14 +2269,6 @@ export const editorExperimentsConfig: {
 	platform_editor_add_image_editing: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_add_image_editing',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-12-15
-	platform_editor_ai_exp_suggestion_date_comma_delim: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_ai_exp_suggestion_date_comma_delim',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

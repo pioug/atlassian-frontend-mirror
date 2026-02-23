@@ -1,5 +1,13 @@
 # @atlaskit/mention
 
+## 24.5.0
+
+### Minor Changes
+
+- [`7c31932dc85c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c31932dc85c7) -
+  Adds ability to send custom headers to API requests and adds atl-attribution header to
+  PresenceResource API requests
+
 ## 24.4.11
 
 ### Patch Changes

@@ -6,12 +6,15 @@ import {
 	getExamplesProviders,
 	useConfluenceFullPagePreset,
 } from '@af/editor-examples-helpers/example-presets';
+import { DevTools } from '@af/editor-examples-helpers/utils';
 import type { DocNode } from '@atlaskit/adf-schema';
 import Button from '@atlaskit/button/standard-button';
+import type { EditorActions } from '@atlaskit/editor-core';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
-// eslint-disable-next-line import/no-extraneous-dependencies -- used by example only, not a regular dependency
 import { nativeEmbedsPlugin } from '@atlaskit/editor-plugin-native-embeds';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+// eslint-disable-next-line import/no-extraneous-dependencies -- used by example only, not a regular dependency
 import {
 	TitleInput,
 	getNativeEmbedsExtensionProvider,
@@ -137,6 +140,7 @@ const nativeEmbedsDefaultDoc: DocNode = {
 };
 
 const NativeEmbedsEditorExample = (): React.JSX.Element => {
+	const [editorView, setEditorView] = React.useState<EditorView | undefined>();
 	const smartCardClient = React.useMemo(() => new CardClient('staging'), []);
 	const providers = React.useMemo(() => getExamplesProviders({ sanitizePrivateContent: true }), []);
 	const collabEditProvider = React.useMemo(
@@ -159,9 +163,14 @@ const NativeEmbedsEditorExample = (): React.JSX.Element => {
 
 	const { preset } = usePreset(() => fullPagePreset.add(nativeEmbedsPlugin), [fullPagePreset]);
 
+	const onEditorReady = React.useCallback((editorActions: EditorActions) => {
+		setEditorView(editorActions._privateGetEditorView());
+	}, []);
+
 	return (
 		<IntlProvider locale="en">
 			<SmartCardProvider client={smartCardClient}>
+				<DevTools editorView={editorView} />
 				<ComposableEditor
 					preset={preset}
 					appearance={appearance}
@@ -173,6 +182,7 @@ const NativeEmbedsEditorExample = (): React.JSX.Element => {
 						<Button iconBefore={<AtlassianIcon />} appearance="subtle" shouldFitContainer></Button>
 					}
 					extensionProviders={[nativeEmbedsExtensionProvider]}
+					onEditorReady={onEditorReady}
 					// eslint-disable-next-line react/jsx-props-no-spreading -- needed only for providers
 					{...providers}
 				/>

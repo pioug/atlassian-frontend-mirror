@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-mentions
 
+## 9.2.10
+
+### Patch Changes
+
+- [`0e487e05b9e61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e487e05b9e61) -
+  additional analytics attributes
+- Updated dependencies
+
+## 9.2.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.2.8
 
 ### Patch Changes

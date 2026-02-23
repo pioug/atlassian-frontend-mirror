@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
 import type {
@@ -17,10 +19,11 @@ export type MenuItem = {
 	icon: Icon;
 	key: string;
 	keywords: string[];
+	lozenge?: ReactNode;
 	node: ADFEntity | ExtensionModuleActionHandler;
+	priority?: number;
 	summary?: string;
 	title: string;
-	priority?: number;
 };
 
 export type MenuItemMap = { [key: string]: MenuItem };

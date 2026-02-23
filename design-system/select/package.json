@@ -104,9 +104,6 @@
 		"platform-component-visual-refresh": {
 			"type": "boolean"
 		},
-		"platform-visual-refresh-icons": {
-			"type": "boolean"
-		},
 		"platform-dst-shape-theme-default": {
 			"type": "boolean"
 		},

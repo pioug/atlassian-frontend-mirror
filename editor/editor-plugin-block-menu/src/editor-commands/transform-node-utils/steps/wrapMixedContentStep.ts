@@ -1,4 +1,5 @@
-import type { Node as PMNode, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
+import { breakoutResizableNodes } from '@atlaskit/editor-common/utils';
+import type { Mark, Node as PMNode, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -9,11 +10,13 @@ import { convertTextNodeToParagraph, createTextContent, isTextNode } from '../ut
 
 /**
  * Creates a layout section with two columns, where the first column contains the provided content.
+ * Preserves breakout marks if provided.
  */
 const createLayoutSection = (
 	content: PMNode[],
 	layoutSection: NodeType,
 	layoutColumn: NodeType,
+	marks?: readonly Mark[],
 ): PMNode | null => {
 	const columnOne = layoutColumn.createAndFill({}, removeDisallowedMarks(content, layoutColumn));
 	const columnTwo = layoutColumn.createAndFill();
@@ -22,7 +25,7 @@ const createLayoutSection = (
 		return null;
 	}
 
-	return layoutSection.createAndFill({}, [columnOne, columnTwo]);
+	return layoutSection.createAndFill({}, [columnOne, columnTwo], marks);
 };
 
 /**
@@ -161,6 +164,22 @@ export const wrapMixedContentStep: TransformStep = (nodes, context) => {
 	const isCodeblock = targetNodeTypeName === 'codeBlock';
 	const { layoutSection, layoutColumn } = schema.nodes;
 
+	// [FEATURE FLAG: platform_editor_preserve_breakout_on_transform]
+	// Preserves breakout mark width when transforming to layoutSection from resizable nodes.
+	// This ensures that custom width settings are maintained during block type transformations.
+	// To clean up: remove the if-else block and keep only the flag-on behavior (lines 151-159).
+	let breakoutMark: Mark | undefined;
+	if (fg('platform_editor_preserve_breakout_on_transform')) {
+		// NEW BEHAVIOR: Preserve breakout mark when both source and target support resizing
+		const sourceSupportsBreakout = breakoutResizableNodes.includes(fromNode.type.name);
+		const targetSupportsBreakout = breakoutResizableNodes.includes(targetNodeTypeName);
+		const shouldPreserveBreakout = sourceSupportsBreakout && targetSupportsBreakout;
+		if (shouldPreserveBreakout) {
+			breakoutMark = fromNode.marks.find((mark) => mark.type.name === 'breakout');
+		}
+	}
+	// else: OLD BEHAVIOR - no breakout mark preservation (to be removed when flag is cleaned up)
+
 	const result: PMNode[] = [];
 	let currentContainerContent: Array<PMNode | string> = [];
 	let hasCreatedContainer = false;
@@ -177,6 +196,7 @@ export const wrapMixedContentStep: TransformStep = (nodes, context) => {
 				currentContainerContent as PMNode[],
 				layoutSection,
 				layoutColumn,
+				breakoutMark ? [breakoutMark] : undefined,
 			);
 		} else if (isCodeblock) {
 			container = createTextContentContainer(

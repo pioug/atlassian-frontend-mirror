@@ -16,6 +16,7 @@ import VCCalculator_Next from './metric-calculator/vc-next';
 import RawDataHandler from './raw-data-handler';
 import type { VCObserverGetVCResultParam, VCObserverLabelStacks, ViewportEntryData } from './types';
 import ViewportObserver from './viewport-observer';
+import type { AttributeMutationData, MutationDataWithTimestamp } from './viewport-observer/types';
 import WindowEventObserver from './window-event-observer';
 
 export type VCObserverNewConfig = {
@@ -25,6 +26,7 @@ export type VCObserverNewConfig = {
 		enablePageLayoutPlaceholder?: boolean;
 	};
 	ssrPlaceholderHandler?: SSRPlaceholderHandlers | null;
+	trackLayoutShiftOffenders?: boolean;
 	searchPageConfig?: SearchPageConfig;
 };
 
@@ -64,6 +66,7 @@ export default class VCObserverNew {
 
 	private entriesTimeline: EntriesTimeline;
 	private isPostInteraction: boolean;
+	private trackLayoutShiftOffenders: boolean;
 
 	// SSR related properties
 	private ssrPlaceholderHandler: SSRPlaceholderHandlers | null = null;
@@ -89,6 +92,8 @@ export default class VCObserverNew {
 			});
 		}
 
+		this.trackLayoutShiftOffenders = config.trackLayoutShiftOffenders ?? false;
+
 		this.viewportObserver = new ViewportObserver({
 			onChange: (onChangeArg) => {
 				const { time, type, elementRef, visible, rect, previousRect, mutationData } = onChangeArg;
@@ -105,9 +110,10 @@ export default class VCObserverNew {
 					rect,
 					previousRect,
 					visible,
-					attributeName: mutationData?.attributeName,
-					oldValue: mutationData?.oldValue,
-					newValue: mutationData?.newValue,
+					attributeName: (mutationData as AttributeMutationData)?.attributeName,
+					oldValue: (mutationData as AttributeMutationData)?.oldValue,
+					newValue: (mutationData as AttributeMutationData)?.newValue,
+					originalMutationTimestamp: (mutationData as MutationDataWithTimestamp)?.timestamp,
 				};
 
 				if (element) {
@@ -126,6 +132,7 @@ export default class VCObserverNew {
 			getSSRState: () => this.getSSRState(),
 			getSSRPlaceholderHandler: () => this.getSSRPlaceholderHandler(),
 			searchPageConfig: config.searchPageConfig,
+			trackLayoutShiftOffenders: this.trackLayoutShiftOffenders,
 		});
 
 		this.windowEventObserver = new WindowEventObserver({
@@ -311,6 +318,7 @@ export default class VCObserverNew {
 					includeSSRRatio,
 					isPageVisible,
 					interactionAbortReason,
+					reportLayoutShiftOffenders: this.trackLayoutShiftOffenders,
 				})
 			: null;
 
@@ -338,6 +346,7 @@ export default class VCObserverNew {
 			includeSSRRatio,
 			isPageVisible,
 			interactionAbortReason,
+			reportLayoutShiftOffenders: this.trackLayoutShiftOffenders,
 		};
 
 		const [fy26_04, vcNext] = await Promise.all([

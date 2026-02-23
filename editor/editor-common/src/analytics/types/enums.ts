@@ -401,6 +401,7 @@ export enum ACTION_SUBJECT_ID {
 	DELETE_BLOCK = 'deleteBlock',
 	MOVE_UP_BLOCK = 'moveUpBlock',
 	MOVE_DOWN_BLOCK = 'moveDownBlock',
+	TRANSFORM_BLOCK = 'transformBlock',
 	FORMAT_MENU = 'formatMenu',
 	CREATE_INLINE_COMMENT_FROM_HIGHLIGHT_ACTIONS_MENU = 'createInlineCommentFromHighlightActionsMenu',
 	DATE = 'date',
@@ -556,6 +557,7 @@ export enum ACTION_SUBJECT_ID {
 	SYNCED_BLOCK_FETCH = 'syncedBlockFetch',
 	SYNCED_BLOCK_FETCH_REFERENCES = 'syncedBlockFetchReferences',
 	SYNCED_BLOCK_CLICK_SYNCED_LOCATION = 'syncedBlockClickSyncedLocation',
+	SYNCED_BLOCK_SSR_ERROR = 'syncedBlockSSRError',
 	TABLE_STICKY_HEADER = 'tableStickyHeader',
 }
 

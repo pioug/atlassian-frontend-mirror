@@ -1,5 +1,16 @@
 # @atlaskit/rovo-agent-components
 
+## 3.34.0
+
+### Minor Changes
+
+- [`beb9688ab2b20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/beb9688ab2b20) -
+  Add avatar for Amplitude, Box, Canva, Figma, HubSpot and Intercom agents (OOTB)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.33.0
 
 ### Minor Changes

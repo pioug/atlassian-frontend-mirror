@@ -23,8 +23,10 @@ import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-identifier';
 import type { ApplyChangeHandler, ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
+import type { CopyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import type { Fragment, Node as PmNode } from '@atlaskit/editor-prosemirror/model';
@@ -121,6 +123,8 @@ export type ExtensionPluginDependencies = [
 	OptionalPlugin<ContextIdentifierPlugin>,
 	OptionalPlugin<ConnectivityPlugin>,
 	OptionalPlugin<ToolbarPlugin>,
+	OptionalPlugin<MentionsPlugin>,
+	OptionalPlugin<CopyButtonPlugin>,
 ];
 
 export type ExtensionPluginActions = {
@@ -140,11 +144,11 @@ export type ExtensionPlugin = NextEditorPlugin<
 		dependencies: ExtensionPluginDependencies;
 		pluginConfiguration: ExtensionPluginOptions | undefined;
 		sharedState:
-			| {
-					extensionProvider?: ExtensionState['extensionProvider'];
-					processParametersAfter?: ExtensionState['processParametersAfter'];
-					showContextPanel: boolean | undefined;
-			  }
-			| undefined;
+		| {
+			extensionProvider?: ExtensionState['extensionProvider'];
+			processParametersAfter?: ExtensionState['processParametersAfter'];
+			showContextPanel: boolean | undefined;
+		}
+		| undefined;
 	}
 >;

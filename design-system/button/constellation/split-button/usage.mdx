@@ -39,25 +39,26 @@ When there isn’t a clear default action, present all options equally using a
 [basic dropdown menu](/components/dropdown-menu/examples) or
 [button group](/components/button-group/examples).
 
-<DoDont
-	type="do"
-	image={{
-		url: relatedDo,
-		alt: 'An Update button next to a menu of related actions like Save as draft and Save without notifying watchers.',
-	}}
->
-	Group related actions under the split button dropdown.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: relatedDont,
-		alt: 'An Update button next to a menu of related actions with Save as draft, Save without notifying watchers, and Delete, which is not related to updates.',
-	}}
->
-	Don't use a split button to group actions that aren't directly related or similar.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: relatedDo,
+			alt: 'An Update button next to a menu of related actions like Save as draft and Save without notifying watchers.',
+		}}
+	>
+		Group related actions under the split button dropdown.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: relatedDont,
+			alt: 'An Update button next to a menu of related actions with Save as draft, Save without notifying watchers, and Delete, which is not related to updates.',
+		}}
+	>
+		Don't use a split button to group actions that aren't directly related or similar.
+	</DoDont>
+</DoDontGrid>
 
 ## Accessibility
 
@@ -71,26 +72,26 @@ button. The text should say something like "More 'main action' actions."
 Avoid disabling buttons and follow all
 [general button accessibility guidance](/components/button/usage#accessibility).
 
-<DoDont
-	type="do"
-	width="full"
-	image={{
-		url: labelDo,
-		alt: "A dropdown icon button with the label 'More save actions', allowing assistive technology to announce the name.",
-	}}
->
-	Give icon buttons an accessible name with the label prop.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: disabledDont,
-		alt: 'A tooltip on a disabled button. This is inaccessible because they can’t be triggered on focus.',
-	}}
->
-	Don't use a tooltip on a disabled button.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: labelDo,
+			alt: "A dropdown icon button with the label 'More save actions', allowing assistive technology to announce the name.",
+		}}
+	>
+		Give icon buttons an accessible name with the label prop.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: disabledDont,
+			alt: 'A tooltip on a disabled button. This is inaccessible because they can’t be triggered on focus.',
+		}}
+	>
+		Don't use a tooltip on a disabled button.
+	</DoDont>
+</DoDontGrid>
 
 ## Best practices
 
@@ -103,25 +104,26 @@ Remember that some users may miss the secondary action entirely, so ensure users
 interact with the secondary action to proceed. In other words, make sure the main action button
 allows people to proceed in most cases.
 
-<DoDont
-	type="do"
-	image={{
-		url: lengthDo,
-		alt: 'A dropdown menu with three options.',
-	}}
->
-	Keep the number of dropdown menu items to a minimum.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: lengthDont,
-		alt: 'A dropdown menu with eight options.',
-	}}
->
-	Don't use more than six menu items in a dropdown menu.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: lengthDo,
+			alt: 'A dropdown menu with three options.',
+		}}
+	>
+		Keep the number of dropdown menu items to a minimum.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: lengthDont,
+			alt: 'A dropdown menu with eight options.',
+		}}
+	>
+		Don't use more than six menu items in a dropdown menu.
+	</DoDont>
+</DoDontGrid>
 
 ### Secondary actions should open a dropdown menu
 
@@ -147,25 +149,26 @@ there’s a proper noun in the label.
 Don’t include the default action as one of the dropdown menu items. This helps keep the number of
 items to a minimum.
 
-<DoDont
-	type="do"
-	image={{
-		url: repeatDo,
-		alt: 'A "link work items" button with a menu of related link options, such as Link Confluence page and Link URL.',
-	}}
->
-	Use clear and concise labels for the main and secondary actions.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: repeatDont,
-		alt: 'A "link work items" button with a menu of related link options. The link work items option is repeated in the menu and the button.',
-	}}
->
-	Don't repeat the main action as one of the dropdown items.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: repeatDo,
+			alt: 'A "link work items" button with a menu of related link options, such as Link Confluence page and Link URL.',
+		}}
+	>
+		Use clear and concise labels for the main and secondary actions.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: repeatDont,
+			alt: 'A "link work items" button with a menu of related link options. The link work items option is repeated in the menu and the button.',
+		}}
+	>
+		Don't repeat the main action as one of the dropdown items.
+	</DoDont>
+</DoDontGrid>
 
 ## Mobile guidelines
 

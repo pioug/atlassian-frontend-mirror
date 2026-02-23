@@ -199,7 +199,6 @@ snapshot(InlineCardForbiddenDefaultIcon, {
 snapshot(InlineCardForbiddenDefaultIcon, {
 	description: 'inline card forbidden view with default icon',
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 		'platform-component-visual-refresh': true,
 		'jfp-magma-platform-lozenge-jump-fix': [true, false],
 	},
@@ -330,7 +329,6 @@ snapshot(InlineCardUnauthorisedDefaultIcon, {
 snapshot(InlineCardUnauthorisedDefaultIcon, {
 	description: 'inline card unauthorised view with default icon',
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 		'platform-component-visual-refresh': true,
 	},
 });
@@ -338,7 +336,6 @@ snapshot(InlineCardUnauthorisedDefaultIcon, {
 snapshot.skip(InlineCardIcons, {
 	description: `inline card icons`,
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 });
 

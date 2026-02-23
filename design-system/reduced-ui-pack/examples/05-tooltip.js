@@ -1,6 +1,7 @@
 import React from 'react';
-// eslint-disable-next-line
-import stuff from '!!style-loader!css-loader!../src/bundle.css';
+
+import '@atlaskit/reduced-ui-pack';
+
 import Warning from './utils/warning';
 
 export default () => (
@@ -12,6 +13,7 @@ export default () => (
 		</p>
 		<h2>Button triggers</h2>
 		<button
+			type="button"
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className="ak-button ak-button__appearance-default"
 			data-ak-tooltip="Oh hi there"
@@ -20,6 +22,7 @@ export default () => (
 			Top
 		</button>
 		<button
+			type="button"
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className="ak-button ak-button__appearance-default"
 			data-ak-tooltip="Oh hi there"
@@ -28,6 +31,7 @@ export default () => (
 			Right
 		</button>
 		<button
+			type="button"
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className="ak-button ak-button__appearance-default"
 			data-ak-tooltip="Oh hi there"
@@ -36,6 +40,7 @@ export default () => (
 			Bottom
 		</button>
 		<button
+			type="button"
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className="ak-button ak-button__appearance-default"
 			data-ak-tooltip="Oh hi there"
@@ -44,6 +49,7 @@ export default () => (
 			Left
 		</button>
 		<button
+			type="button"
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className="ak-button ak-button__appearance-default"
 			data-ak-tooltip="Oh hi there I am a tooltip with way too much text, let us see how I behave!"

@@ -1,5 +1,20 @@
 # @atlaskit/editor-card-provider
 
+## 6.4.9
+
+### Patch Changes
+
+- [`50a2e34ed2f69`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50a2e34ed2f69) -
+  Optimize SmartCardLocalCacheClient: in-memory caching, async writes, singleton pattern, and write
+  batching.
+- Updated dependencies
+
+## 6.4.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.4.7
 
 ### Patch Changes

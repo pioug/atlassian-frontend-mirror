@@ -105,9 +105,6 @@
 		"platform.design-system-team.avatar-item-font-size_830x6": {
 			"type": "boolean"
 		},
-		"platform-visual-refresh-icons": {
-			"type": "boolean"
-		},
 		"platform_dst_avatar_tile": {
 			"type": "boolean"
 		},

@@ -133,7 +133,7 @@ export const expandStyles: SerializedStyles = css({
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		fontSize: 'calc(14rem / 16)', // relativeFontSizeToBase16(14),
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		lineHeight: 1.714, // If fg('platform-visual-refresh-icons') then this needs to be overridden
+		lineHeight: 1.714,
 		fontWeight: token('font.weight.regular'),
 		color: token('color.text.subtlest'),
 		background: 'transparent',

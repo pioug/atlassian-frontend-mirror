@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::404bdf7d30df1f4487b74a9e3c00c09d>>
+ * @codegen <<SignedSource::c6459d5c7859139ba640983c40f5c40e>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -679,6 +679,7 @@ export type TeamContainerLinkerViewedAttributesType = {
 export type TeamContainerLinkerResultsViewedAttributesType = {
 	screen: string;
 };
+export type StarButtonViewedTeamAttributesType = {};
 export type ConnectJiraProjectTabClickedAttributesType = {};
 export type ConnectLoomSpaceTabClickedAttributesType = {};
 export type ConnectConfluenceSpaceTabClickedAttributesType = {};
@@ -1496,6 +1497,13 @@ export type RequestedContainersFailedAttributesType = {
 	teamId: string;
 	tryAgainCount: number | null;
 };
+export type StarredSucceededTeamAttributesType = {
+	starred: boolean;
+};
+export type StarredFailedTeamAttributesType = {
+	starred: boolean;
+	errorMessage: string;
+};
 
 export type AnalyticsEventAttributes = {
 	/**
@@ -1931,6 +1939,9 @@ export type AnalyticsEventAttributes = {
 	'ui.teamContainerLinker.viewed': TeamContainerLinkerViewedAttributesType;
 	/** */
 	'ui.teamContainerLinkerResults.viewed': TeamContainerLinkerResultsViewedAttributesType;
+	/**
+	 * fired when the star team button is viewed */
+	'ui.starButton.viewed.team': StarButtonViewedTeamAttributesType;
 	/** */
 	'ui.connectJiraProjectTab.clicked': ConnectJiraProjectTabClickedAttributesType;
 	/** */
@@ -2527,6 +2538,12 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * Fired when the user fails to add requested containers */
 	'track.requestedContainers.failed': RequestedContainersFailedAttributesType;
+	/**
+	 * fired when a team is starred or unstarred succeeds */
+	'track.starred.succeeded.team': StarredSucceededTeamAttributesType;
+	/**
+	 * fired when starring or unstarring a team fails */
+	'track.starred.failed.team': StarredFailedTeamAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.25.1",
+	"version": "43.25.3",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -175,9 +175,6 @@
 		".": "./src/index.ts"
 	},
 	"platform-feature-flags": {
-		"platform-visual-refresh-icons": {
-			"type": "boolean"
-		},
 		"platform-component-visual-refresh": {
 			"type": "boolean"
 		},
@@ -242,6 +239,9 @@
 			"type": "boolean"
 		},
 		"navx-3264-refactoring-unauth-provider-images-fe": {
+			"type": "boolean"
+		},
+		"platform-button-icon-spacing-cleanup": {
 			"type": "boolean"
 		},
 		"platform_sl_3p_auth_rovo_action_kill_switch": {

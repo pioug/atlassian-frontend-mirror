@@ -7,8 +7,10 @@ import {
 } from '@atlaskit/analytics-next';
 
 import { ANALYTICS_CHANNEL } from '../common/constants';
-import type { RemainingRequired } from '../common/types';
+import type { BaseAgentAnalyticsAttributes, RemainingRequired } from '../common/types';
 import { getAttributesFromContexts, getDefaultTrackEventConfig } from '../common/utils';
+
+import type { AgentToolActions, ToolsExecutionAttributes } from './tool-actions';
 
 export enum AgentDebugActions {
 	/* View debug modal - https://data-portal.internal.atlassian.com/analytics/registry/97183 */
@@ -44,31 +46,32 @@ export enum AgentCommonActions {
 	UNVERIFY = 'unverify',
 }
 
-type CommonAnalyticsAttributes = {
-	touchPoint: string;
-	agentId: string;
-};
-
 type EmptyAttributes = {};
 
 type ActionAttributes = {
 	/* Common agent actions attributes */
-	[AgentCommonActions.VIEW]: CommonAnalyticsAttributes;
-	[AgentCommonActions.EDIT]: CommonAnalyticsAttributes;
-	[AgentCommonActions.UPDATED]: CommonAnalyticsAttributes & { agentType: string; field: string };
-	[AgentCommonActions.COPY_LINK]: CommonAnalyticsAttributes;
-	[AgentCommonActions.DELETE]: CommonAnalyticsAttributes;
-	[AgentCommonActions.DUPLICATE]: CommonAnalyticsAttributes;
-	[AgentCommonActions.STAR]: CommonAnalyticsAttributes;
-	[AgentCommonActions.CHAT]: CommonAnalyticsAttributes;
-	[AgentCommonActions.VERIFY]: CommonAnalyticsAttributes;
-	[AgentCommonActions.UNVERIFY]: CommonAnalyticsAttributes;
+	[AgentCommonActions.VIEW]: BaseAgentAnalyticsAttributes;
+	[AgentCommonActions.EDIT]: BaseAgentAnalyticsAttributes;
+	[AgentCommonActions.UPDATED]: BaseAgentAnalyticsAttributes & { agentType: string; field: string };
+	[AgentCommonActions.COPY_LINK]: BaseAgentAnalyticsAttributes;
+	[AgentCommonActions.DELETE]: BaseAgentAnalyticsAttributes;
+	[AgentCommonActions.DUPLICATE]: BaseAgentAnalyticsAttributes;
+	[AgentCommonActions.STAR]: BaseAgentAnalyticsAttributes;
+	[AgentCommonActions.CHAT]: BaseAgentAnalyticsAttributes;
+	[AgentCommonActions.VERIFY]: BaseAgentAnalyticsAttributes;
+	[AgentCommonActions.UNVERIFY]: BaseAgentAnalyticsAttributes;
 
 	/* Debug modal actions attributes */
 	[AgentDebugActions.COPY_ALL]: EmptyAttributes;
 	[AgentDebugActions.COPY]: EmptyAttributes;
 	[AgentDebugActions.TOGGLE_SKILL_INFO]: { toolId: string; isExpanded: boolean };
 	[AgentDebugActions.VIEW]: EmptyAttributes;
+
+	/* Tool actions attributes */
+	[AgentToolActions.TOOLS_EXECUTION_CONFIRMED]: ToolsExecutionAttributes;
+	[AgentToolActions.TOOLS_EXECUTION_STREAM_STOPPED]: ToolsExecutionAttributes;
+	[AgentToolActions.TOOLS_EXECUTION_RESULT_VIEWED]: ToolsExecutionAttributes;
+	[AgentToolActions.TOOLS_EXECUTION_RESULT_ERROR]: ToolsExecutionAttributes;
 };
 
 const globalEventConfig = getDefaultTrackEventConfig();

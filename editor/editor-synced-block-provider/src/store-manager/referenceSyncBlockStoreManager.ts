@@ -40,7 +40,9 @@ import { resolveSyncBlockInstance } from '../utils/resolveSyncBlockInstance';
 import { parseResourceId } from '../utils/resourceId';
 import { createSyncBlockNode } from '../utils/utils';
 
-const SESSION_STORAGE_KEY_PREFIX = 'sync-block-data-';
+import { syncBlockInMemorySessionCache } from './syncBlockInMemorySessionCache';
+
+const CACHE_KEY_PREFIX = 'sync-block-data-';
 
 // A store manager responsible for the lifecycle and state management of reference sync blocks in an editor instance.
 // Designed to manage local in-memory state and synchronize with an external data provider.
@@ -131,8 +133,8 @@ export class ReferenceSyncBlockStoreManager {
 		this.subscriptionChangeListeners = new Set();
 		this.newlyAddedSyncBlocks = new Set();
 
-		// The provider might have SSR data cache already set, so we need to update the cache in session storage
-		this.setSSRDataInSessionStorage(this.dataProvider?.getNodeDataCacheKeys());
+		// The provider might have SSR data cache already set, so we need to update the cache in session memory storage
+		this.setSSRDataInSessionCache(this.dataProvider?.getNodeDataCacheKeys());
 	}
 
 	/**
@@ -262,64 +264,33 @@ export class ReferenceSyncBlockStoreManager {
 
 	public getInitialSyncBlockData(resourceId: ResourceId): SyncBlockInstance | undefined {
 		const syncBlockNode = createSyncBlockNode('', resourceId);
-
-		const data = this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data;
-		if (data) {
-			return data;
+		const providerData = this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data;
+		if (providerData) {
+			return providerData;
 		}
-
-		if (fg('platform_synced_block_patch_3')) {
-			const sessionData = this.getSyncBlockDataFromSessionStorage(resourceId);
-			if (sessionData) {
-				return sessionData;
-			}
-		}
-
-		return undefined;
+		return this.getFromSessionCache(resourceId);
 	}
 
-	private updateCacheInSessionStorage(resourceId: ResourceId) {
-		try {
-			const latestData = this.getFromCache(resourceId);
-			if (latestData) {
-				sessionStorage.setItem(
-					`${SESSION_STORAGE_KEY_PREFIX}${resourceId}`,
-					JSON.stringify(latestData),
-				);
-			}
-		} catch (error) {
-			logException(error as Error, {
-				location:
-					'editor-synced-block-provider/referenceSyncBlockStoreManager/updateCacheInSessionStorage',
-			});
+	private updateSessionCache(resourceId: ResourceId): void {
+		const latestData = this.getFromCache(resourceId);
+		if (latestData) {
+			syncBlockInMemorySessionCache.setItem(
+				`${CACHE_KEY_PREFIX}${resourceId}`,
+				JSON.stringify(latestData),
+			);
 		}
 	}
 
-	private getSyncBlockDataFromSessionStorage(
-		resourceId: ResourceId,
-	): SyncBlockInstance | undefined {
-		let sessionData: string | null = null;
-
+	private getFromSessionCache(resourceId: ResourceId): SyncBlockInstance | undefined {
 		try {
-			sessionData = sessionStorage.getItem(`${SESSION_STORAGE_KEY_PREFIX}${resourceId}`);
+			const raw = syncBlockInMemorySessionCache.getItem(`${CACHE_KEY_PREFIX}${resourceId}`);
+			if (!raw) {
+				return undefined;
+			}
+			return JSON.parse(raw) as SyncBlockInstance;
 		} catch (error) {
 			logException(error as Error, {
-				location:
-					'editor-synced-block-provider/referenceSyncBlockStoreManager/getSyncBlockDataFromSessionStorage',
-			});
-			return undefined;
-		}
-
-		if (!sessionData) {
-			return undefined;
-		}
-
-		try {
-			return JSON.parse(sessionData);
-		} catch (error) {
-			logException(error as Error, {
-				location:
-					'editor-synced-block-provider/referenceSyncBlockStoreManager/getSyncBlockDataFromSessionStorage',
+				location: 'editor-synced-block-provider/referenceSyncBlockStoreManager/getFromSessionCache',
 			});
 			return undefined;
 		}
@@ -827,7 +798,7 @@ export class ReferenceSyncBlockStoreManager {
 				});
 			}
 			if (fg('platform_synced_block_patch_3')) {
-				this.updateCacheInSessionStorage(resourceId);
+				this.updateSessionCache(resourceId);
 			}
 		}
 	}
@@ -869,13 +840,13 @@ export class ReferenceSyncBlockStoreManager {
 		}
 	}
 
-	private setSSRDataInSessionStorage(resourceIds: string[] | undefined): void {
+	private setSSRDataInSessionCache(resourceIds: string[] | undefined): void {
 		if (!resourceIds || resourceIds.length === 0) {
 			return;
 		}
 
 		resourceIds.forEach((resourceId) => {
-			this.updateCacheInSessionStorage(resourceId);
+			this.updateSessionCache(resourceId);
 		});
 	}
 
@@ -909,7 +880,6 @@ export class ReferenceSyncBlockStoreManager {
 
 		const syncBlockNode = createSyncBlockNode(localId, resourceId);
 
-		// call the callback immediately if we have cached data
 		const cachedData = this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data;
 
 		if (cachedData) {

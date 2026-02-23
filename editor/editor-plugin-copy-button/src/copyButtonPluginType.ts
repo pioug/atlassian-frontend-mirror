@@ -13,6 +13,7 @@ export type CopyButtonPlugin = NextEditorPlugin<
 	'copyButton',
 	{
 		actions: {
+			afterCopy: (message: string) => void;
 			processCopyButtonItems: typeof processCopyButtonItemsWithAnalytics;
 		};
 		dependencies: [OptionalPlugin<AnalyticsPlugin>, OptionalPlugin<AccessibilityUtilsPlugin>];

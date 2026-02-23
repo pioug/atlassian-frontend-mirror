@@ -32,7 +32,6 @@ import FlexibleUiErroredTitleBlockCompetitorPrompt from '../../../examples/vr-fl
 snapshot(BlockCardErrorView, {
 	description: 'block card error view with design refresh FF',
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	waitForReactLazy: true,
 });
@@ -44,7 +43,6 @@ snapshot(BlockCardErrorView, {
 snapshot(BlockCardForbiddenView, {
 	description: 'block card forbidden view with design refresh FF',
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	waitForReactLazy: true,
 });
@@ -59,7 +57,6 @@ snapshot(BlockCardForbiddenView, {
 snapshot(BlockCardNotFoundView, {
 	description: 'block card not found view with design refresh FF',
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	waitForReactLazy: true,
 });
@@ -125,14 +122,12 @@ snapshot(BlockCardForbiddenViews, {
 snapshot(BlockCardLazyIcon1, {
 	description: `block card with lazy load icons, slice 1`,
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIcon2, {
 	description: `block card with lazy load icons, slice 2`,
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 		'navx-1895-new-logo-design': [true, false],
 	},
 	waitForReactLazy: true,
@@ -140,7 +135,6 @@ snapshot(BlockCardLazyIcon2, {
 snapshot(BlockCardLazyIcon3, {
 	description: `block card with lazy load icons, slice 3`,
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 		'navx-1895-new-logo-design': [true, false],
 	},
 	waitForReactLazy: true,
@@ -148,7 +142,6 @@ snapshot(BlockCardLazyIcon3, {
 snapshot(BlockCardLazyIcon4, {
 	description: `block card with lazy load icons, slice 4`,
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 		'navx-1895-new-logo-design': [true, false],
 	},
 	waitForReactLazy: true,
@@ -156,7 +149,6 @@ snapshot(BlockCardLazyIcon4, {
 snapshot(BlockCardLazyIcon5, {
 	description: `block card with lazy load icons, slice 5`,
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 		'navx-1895-new-logo-design': [true, false],
 	},
 	waitForReactLazy: true,
@@ -164,35 +156,30 @@ snapshot(BlockCardLazyIcon5, {
 snapshot(BlockCardLazyIcon6, {
 	description: `block card with lazy load icons, slice 6`,
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIconsFileType1, {
 	description: `block card with lazy load icons per file format, slice 1`,
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIconsFileType2, {
 	description: `block card with lazy load icons per file format, slice 2`,
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIconsFileType3, {
 	description: `block card with lazy load icons per file format, slice 3`,
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIconsFileType4, {
 	description: `block card with lazy load icons per file format, slice 4`,
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	waitForReactLazy: true,
 });

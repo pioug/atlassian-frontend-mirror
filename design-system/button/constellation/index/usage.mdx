@@ -39,25 +39,26 @@ Only include one primary button or call to action (CTA) in a page or area.
 Primary buttons indicate the most important action in a group or area. Having multiple primary CTAs
 in one area can be confusing or visually overwhelming because they compete for attention.
 
-<DoDont
-	type="do"
-	image={{
-		url: buttonPrimaryDo,
-		alt: 'Two buttons in a group. One says cancel and is grey, the other says primary and is blue, making it the more promenint call to action.',
-	}}
->
-	Use one primary call to action to help people proceed.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: buttonPrimaryDont,
-		alt: 'Two buttons in a group. One says cancel and the other says primary. Both are primary blue, causing them to compete for attention.',
-	}}
->
-	Don’t use many calls to action in one page or container.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: buttonPrimaryDo,
+			alt: 'Two buttons in a group. One says cancel and is grey, the other says primary and is blue, making it the more promenint call to action.',
+		}}
+	>
+		Use one primary call to action to help people proceed.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: buttonPrimaryDont,
+			alt: 'Two buttons in a group. One says cancel and the other says primary. Both are primary blue, causing them to compete for attention.',
+		}}
+	>
+		Don’t use many calls to action in one page or container.
+	</DoDont>
+</DoDontGrid>
 
 ### Consider button sizes in context
 
@@ -86,26 +87,27 @@ Disabled buttons don’t explain why the button isn’t usable. They also aren�
 order and don’t receive hover, focus, or click events, making them entirely inaccessible to some
 people.
 
-<DoDont
-	type="do"
-	image={{
-		url: buttonDisableDo,
-		alt: 'A form that is incomplete. The button remains visible and pressable, and validation text explains what must be done to proceed.',
-	}}
->
-	Use validation or other clear on-screen directions to help people proceed.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: buttonDisableDont,
-		alt: 'A form that is incomplete. The button is disabled and light grey in color, which is difficult to see. There is no explanation of what to do to proceed.',
-	}}
->
-	Don’t disable form submission buttons, as this doesn't give people clear a direction for how to
-	proceed.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: buttonDisableDo,
+			alt: 'A form that is incomplete. The button remains visible and pressable, and validation text explains what must be done to proceed.',
+		}}
+	>
+		Use validation or other clear on-screen directions to help people proceed.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: buttonDisableDont,
+			alt: 'A form that is incomplete. The button is disabled and light grey in color, which is difficult to see. There is no explanation of what to do to proceed.',
+		}}
+	>
+		Don’t disable form submission buttons, as this doesn't give people clear a direction for how to
+		proceed.
+	</DoDont>
+</DoDontGrid>
 
 ### Never put tooltips on disabled buttons
 
@@ -139,100 +141,104 @@ Only capitalize the first letter of the button and any proper nouns. Most featur
 capitalized or considered proper nouns when following
 [our capitalization guidance](/content/language-and-grammar#capitalization).
 
-<DoDont
-	type="do"
-	image={{
-		url: buttonCapitalizationDo,
-		alt: 'Button that says Complete sprint. Only the first letter is capitalized.',
-	}}
->
-	Use sentence-case capitalization.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: buttonCapitalizationDont,
-		alt: 'Buttons that say Complete sprint text in title case and all caps.',
-	}}
->
-	Don't use title case capitalization or all caps.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: buttonCapitalizationDo,
+			alt: 'Button that says Complete sprint. Only the first letter is capitalized.',
+		}}
+	>
+		Use sentence-case capitalization.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: buttonCapitalizationDont,
+			alt: 'Buttons that say Complete sprint text in title case and all caps.',
+		}}
+	>
+		Don't use title case capitalization or all caps.
+	</DoDont>
+</DoDontGrid>
 
 ### Keep button labels short
 
 Keep labels short and free of punctuation. Drop unnecessary articles, such as ‘a’ or ‘the’, for a
 more concise label.
 
-<DoDont
-	type="do"
-	image={{
-		url: buttonConciseDo,
-		alt: 'Button that says Reset Password.',
-	}}
->
-	Use concise, easy to scan button labels to describe the action.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: buttonConciseDont,
-		alt: 'Button that says Send a password reset email.',
-	}}
->
-	Don't use long, redundant button labels.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: buttonConciseDo,
+			alt: 'Button that says Reset Password.',
+		}}
+	>
+		Use concise, easy to scan button labels to describe the action.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: buttonConciseDont,
+			alt: 'Button that says Send a password reset email.',
+		}}
+	>
+		Don't use long, redundant button labels.
+	</DoDont>
+</DoDontGrid>
 
 ### Use specific labels wherever possible
 
 Start with the verb and specify what is being acted on. Use dynamic text to make the button very
 specific if possible.
 
-<DoDont
-	type="do"
-	image={{
-		url: buttonActionDo,
-		alt: 'Text that asks delete unpublished page? Followed by a delete CTA button and a cancel button',
-	}}
->
-	Use active verbs or phrases that clearly indicate action.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: buttonActionDont,
-		alt: 'Text that asks delete unpublished page? Followed by a Yes CTA button and a No button',
-	}}
->
-	Don't use vague and generic labels that make the user read the dialog before taking action.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: buttonActionDo,
+			alt: 'Text that asks delete unpublished page? Followed by a delete CTA button and a cancel button',
+		}}
+	>
+		Use active verbs or phrases that clearly indicate action.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: buttonActionDont,
+			alt: 'Text that asks delete unpublished page? Followed by a Yes CTA button and a No button',
+		}}
+	>
+		Don't use vague and generic labels that make the user read the dialog before taking action.
+	</DoDont>
+</DoDontGrid>
 
 ### Make labels consistent with other UI in view
 
 For example, if a button is part of a larger modal, use the same language in the button as in
 headings and other related text.
 
-<DoDont
-	type="do"
-	image={{
-		url: buttonLabelDo,
-		alt: 'Confirmation modal asking do you want to discard? Button label also says Discard',
-	}}
->
-	Use consistent language for the button and other text descibing the same action.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: buttonLabelDont,
-		alt: 'Confirmation modal asking do you want to discard? Button label says Delete',
-	}}
->
-	Don't use different words to refer to the same action.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: buttonLabelDo,
+			alt: 'Confirmation modal asking do you want to discard? Button label also says Discard',
+		}}
+	>
+		Use consistent language for the button and other text descibing the same action.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: buttonLabelDont,
+			alt: 'Confirmation modal asking do you want to discard? Button label says Delete',
+		}}
+	>
+		Don't use different words to refer to the same action.
+	</DoDont>
+</DoDontGrid>
 
 ## Data Center apps
 

@@ -20,6 +20,7 @@ export type GetVCResultType = {
 	interactionAbortReason?: AbortReasonType;
 	includeRawData?: boolean;
 	rawDataStopTime?: number;
+	reportLayoutShiftOffenders?: boolean;
 };
 
 export type SelectorConfig = {
@@ -53,6 +54,7 @@ export type VCObserverOptions = {
 	isPostInteraction?: boolean;
 	ssrEnablePageLayoutPlaceholder?: boolean;
 	ssrPlaceholderHandler?: any; // SSRPlaceholderHandlers | null - using any to avoid circular import
+	trackLayoutShiftOffenders?: boolean;
 	searchPageConfig?: SearchPageConfig;
 };
 

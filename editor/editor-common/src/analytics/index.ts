@@ -235,4 +235,5 @@ export type { BreakoutEventPayload, BreakoutSupportedNodes } from './types/break
 export type {
 	RendererSyncBlockEventPayload,
 	SyncBlockEventPayload,
+	SyncedBlockSSRErrorAEP,
 } from './types/sync-block-events';

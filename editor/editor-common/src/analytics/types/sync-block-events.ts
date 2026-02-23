@@ -158,6 +158,22 @@ export type SyncedLocationClickAEP = OperationalAEP<
 	SyncedBlockSuccessAttributes
 >;
 
+type SyncedBlockSSRErrorAttributes = {
+	code: string;
+	errorMessage?: string;
+	errorName?: string;
+	isBlog?: boolean;
+	missingSyncedBlocksCount?: number;
+	syncedBlocksCount?: number;
+};
+
+export type SyncedBlockSSRErrorAEP = OperationalAEP<
+	ACTION.ERROR,
+	ACTION_SUBJECT.SYNCED_BLOCK,
+	ACTION_SUBJECT_ID.SYNCED_BLOCK_SSR_ERROR,
+	SyncedBlockSSRErrorAttributes
+>;
+
 export type SyncBlockEventPayload =
 	| SyncedBlockSourceURLErrorAEP
 	| SyncedBlockUpdateCacheErrorAEP
@@ -179,6 +195,7 @@ export type SyncBlockEventPayload =
 	| SyncedBlockCopyAEP
 	| SyncedBlockCopyErrorAEP
 	| SyncedLocationClickAEP
+	| SyncedBlockSSRErrorAEP
 	| InsertSourceSyncedBlockPayload;
 
 export type RendererSyncBlockEventPayload =

@@ -156,7 +156,8 @@ export class EditorCardProvider
 	private transformer: Transformer;
 	private providersLoader: DataLoader<string, ProvidersData | undefined>;
 	private cardClient: CardClient;
-	private smartCardLocalCacheClient: SmartCardLocalCacheClient = new SmartCardLocalCacheClient();
+	private smartCardLocalCacheClient: SmartCardLocalCacheClient =
+		SmartCardLocalCacheClient.getInstance();
 	private onResolve: ((url: string, ari: string) => void) | undefined;
 
 	constructor(

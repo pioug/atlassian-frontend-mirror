@@ -94,9 +94,6 @@
 	"platform-feature-flags": {
 		"platform-component-visual-refresh": {
 			"type": "boolean"
-		},
-		"platform-visual-refresh-icons": {
-			"type": "boolean"
 		}
 	}
 }

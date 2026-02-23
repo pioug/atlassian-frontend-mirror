@@ -29,50 +29,52 @@ The default link appearance has an underline and color, making it distinguishabl
 which is an accessibility requirement. Don't use 'subtle' appearance links in this context, as they
 are difficult to differentiate from regular text.
 
-<DoDont
-	type="do"
-	image={{
-		url: link1Do,
-		alt: 'A link using the default appearance, surrounded by regular text. The default appearance provides color and an underline to differentiate the link from regular text.',
-	}}
->
-	Use the default link appearance when surrounded by regular text.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: link1Dont,
-		alt: 'A link using the subtle appearance, surrounded by regular text. The subtle appearance is difficult to differentiate the link from regular text.',
-	}}
->
-	Use the subtle link appearance when surrounded by regular text.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: link1Do,
+			alt: 'A link using the default appearance, surrounded by regular text. The default appearance provides color and an underline to differentiate the link from regular text.',
+		}}
+	>
+		Use the default link appearance when surrounded by regular text.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: link1Dont,
+			alt: 'A link using the subtle appearance, surrounded by regular text. The subtle appearance is difficult to differentiate the link from regular text.',
+		}}
+	>
+		Use the subtle link appearance when surrounded by regular text.
+	</DoDont>
+</DoDontGrid>
 
 ### Don't use subtle links unless other context already indicates it's a link
 
 Only use the 'subtle' appearance if the surrounding context makes it clear that it's a link, such as
 in navigation or breadcrumbs.
 
-<DoDont
-	type="do"
-	image={{
-		url: link2Do,
-		alt: 'Links in a navigation section. The links use the subtle appearance, which is appropriate because the surrounding context makes it clear that they are links.',
-	}}
->
-	Use the subtle appearance when surrounding context makes it clear it's a link.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: link2Dont,
-		alt: 'Links in a navigation section. The links use the default appearance, which is not required because the surrounding context makes it clear that they are links.',
-	}}
->
-	Use the default appearance when surrounding context already makes it clear it's a link.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: link2Do,
+			alt: 'Links in a navigation section. The links use the subtle appearance, which is appropriate because the surrounding context makes it clear that they are links.',
+		}}
+	>
+		Use the subtle appearance when surrounding context makes it clear it's a link.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: link2Dont,
+			alt: 'Links in a navigation section. The links use the default appearance, which is not required because the surrounding context makes it clear that they are links.',
+		}}
+	>
+		Use the default appearance when surrounding context already makes it clear it's a link.
+	</DoDont>
+</DoDontGrid>
 
 <Snippet name="links-descriptive-text" />
 

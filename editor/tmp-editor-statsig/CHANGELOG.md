@@ -1,5 +1,36 @@
 # @atlaskit/editor-statsig-tmp
 
+## 29.2.0
+
+### Minor Changes
+
+- [`50a2e34ed2f69`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50a2e34ed2f69) -
+  Optimize SmartCardLocalCacheClient: in-memory caching, async writes, singleton pattern, and write
+  batching.
+
+## 29.1.0
+
+### Minor Changes
+
+- [`48b6616a3fefc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/48b6616a3fefc) -
+  Add new logic to detect scrollable containers when calculating position for selection toolbar.
+  This fixes issues when used inside modals and other surfaces.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.0.0
+
+### Major Changes
+
+- [`d3d133a22950e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3d133a22950e) -
+  [CLEANUP] Cleanup platform_editor_ai_exp_suggestion_date_comma_delim
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 28.0.0
 
 ### Major Changes

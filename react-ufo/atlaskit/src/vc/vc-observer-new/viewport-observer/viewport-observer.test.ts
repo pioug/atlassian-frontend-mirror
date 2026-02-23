@@ -14,6 +14,7 @@ import createMutationObserver, { type CreateMutationObserverProps } from './muta
 import createPerformanceObserver, {
 	type CreatePerformanceObserverArgs,
 } from './performance-observer';
+import type { AttributeMutationData } from './types';
 import { isContainedWithinSmartAnswers } from './utils/is-contained-within-smart-answers';
 
 import ViewportObserver from './index';
@@ -316,7 +317,7 @@ describe('ViewportObserver', () => {
 			it('should handle attribute mutation', () => {
 				const target = document.createElement('div');
 
-				onAttributeMutation({ target, attributeName: 'style' });
+				onAttributeMutation({ target, attributeName: 'style', timestamp: 100 });
 
 				expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
 					target,
@@ -338,13 +339,15 @@ describe('ViewportObserver', () => {
 					throw new Error('unexpected error');
 				}
 				expect(taggedMutationType?.type).toEqual('mutation:attribute');
-				expect(taggedMutationType?.mutationData.attributeName).toEqual('style');
+				expect((taggedMutationType?.mutationData as AttributeMutationData).attributeName).toEqual(
+					'style',
+				);
 			});
 
 			it('should handle rll placeholder attribute mutations', () => {
 				const target = document.createElement('div');
 				mockIsRLLPlaceholderHydration.mockReturnValue(true);
-				onAttributeMutation({ target, attributeName: 'style' });
+				onAttributeMutation({ target, attributeName: 'style', timestamp: 100 });
 
 				expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
 					target,
@@ -363,7 +366,9 @@ describe('ViewportObserver', () => {
 					throw new Error('unexpected error');
 				}
 				expect(taggedMutationType?.type).toEqual('mutation:rll-placeholder');
-				expect(taggedMutationType?.mutationData.attributeName).toEqual('style');
+				expect((taggedMutationType?.mutationData as AttributeMutationData).attributeName).toEqual(
+					'style',
+				);
 				expect(mockIsRLLPlaceholderHydration).toHaveBeenCalledWith(rect);
 			});
 
@@ -375,6 +380,7 @@ describe('ViewportObserver', () => {
 					attributeName: 'style',
 					oldValue: 'color: red',
 					newValue: 'color: blue',
+					timestamp: 100,
 				});
 
 				expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
@@ -393,9 +399,15 @@ describe('ViewportObserver', () => {
 					throw new Error('unexpected error');
 				}
 				expect(taggedMutationType?.type).toEqual('mutation:attribute' as VCObserverEntryType);
-				expect(taggedMutationType?.mutationData.attributeName).toEqual('style');
-				expect(taggedMutationType?.mutationData.oldValue).toEqual('color: red');
-				expect(taggedMutationType?.mutationData.newValue).toEqual('color: blue');
+				expect((taggedMutationType?.mutationData as AttributeMutationData).attributeName).toEqual(
+					'style',
+				);
+				expect((taggedMutationType?.mutationData as AttributeMutationData).oldValue).toEqual(
+					'color: red',
+				);
+				expect((taggedMutationType?.mutationData as AttributeMutationData).newValue).toEqual(
+					'color: blue',
+				);
 			});
 
 			it('should handle attribute mutation with no layout shift and oldValue/newValue', () => {
@@ -415,6 +427,7 @@ describe('ViewportObserver', () => {
 					attributeName: 'style',
 					oldValue: 'color: red',
 					newValue: 'color: blue',
+					timestamp: 100,
 				});
 
 				expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
@@ -435,9 +448,15 @@ describe('ViewportObserver', () => {
 				expect(taggedMutationType?.type).toEqual(
 					'mutation:attribute:no-layout-shift' as VCObserverEntryType,
 				);
-				expect(taggedMutationType?.mutationData.attributeName).toEqual('style');
-				expect(taggedMutationType?.mutationData.oldValue).toEqual('color: red');
-				expect(taggedMutationType?.mutationData.newValue).toEqual('color: blue');
+				expect((taggedMutationType?.mutationData as AttributeMutationData).attributeName).toEqual(
+					'style',
+				);
+				expect((taggedMutationType?.mutationData as AttributeMutationData).oldValue).toEqual(
+					'color: red',
+				);
+				expect((taggedMutationType?.mutationData as AttributeMutationData).newValue).toEqual(
+					'color: blue',
+				);
 			});
 
 			it('should handle attribute with no layout shift', () => {
@@ -452,7 +471,7 @@ describe('ViewportObserver', () => {
 					mutationData: null,
 				});
 
-				onAttributeMutation({ target, attributeName: 'style' });
+				onAttributeMutation({ target, attributeName: 'style', timestamp: 100 });
 
 				expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
 					target,
@@ -474,14 +493,16 @@ describe('ViewportObserver', () => {
 					throw new Error('unexpected error');
 				}
 				expect(taggedMutationType?.type).toEqual('mutation:attribute:no-layout-shift');
-				expect(taggedMutationType?.mutationData.attributeName).toEqual('style');
+				expect((taggedMutationType?.mutationData as AttributeMutationData).attributeName).toEqual(
+					'style',
+				);
 			});
 		});
 
 		it('should handle media wrapper attribute mutations', () => {
 			const target = document.createElement('div');
 			(isContainedWithinMediaWrapper as jest.Mock).mockReturnValue(true);
-			onAttributeMutation({ target, attributeName: 'class' });
+			onAttributeMutation({ target, attributeName: 'class', timestamp: 100 });
 
 			expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
 				target,
@@ -499,7 +520,9 @@ describe('ViewportObserver', () => {
 				throw new Error('unexpected error');
 			}
 			expect(taggedMutationType?.type).toEqual('mutation:media');
-			expect(taggedMutationType?.mutationData.attributeName).toEqual('class');
+			expect((taggedMutationType?.mutationData as AttributeMutationData).attributeName).toEqual(
+				'class',
+			);
 		});
 
 		it('should handle media wrapper attribute mutations with previous rect', () => {
@@ -514,7 +537,7 @@ describe('ViewportObserver', () => {
 				type: 'mutation:media',
 				mutationData: null,
 			});
-			onAttributeMutation({ target, attributeName: 'class' });
+			onAttributeMutation({ target, attributeName: 'class', timestamp: 100 });
 
 			expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
 				target,
@@ -534,7 +557,9 @@ describe('ViewportObserver', () => {
 				throw new Error('unexpected error');
 			}
 			expect(taggedMutationType?.type).toEqual('mutation:media');
-			expect(taggedMutationType?.mutationData.attributeName).toEqual('class');
+			expect((taggedMutationType?.mutationData as AttributeMutationData).attributeName).toEqual(
+				'class',
+			);
 		});
 
 		describe('smart answers mutations', () => {
@@ -696,7 +721,7 @@ describe('ViewportObserver', () => {
 
 						const target = document.createElement('div');
 
-						onAttributeMutation({ target, attributeName: 'style' });
+						onAttributeMutation({ target, attributeName: 'style', timestamp: 100 });
 
 						expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
 							target,
@@ -719,7 +744,9 @@ describe('ViewportObserver', () => {
 						}
 						expect(isContainedWithinSmartAnswers).toHaveBeenCalled();
 						expect(taggedMutationType?.type).toEqual('mutation:smart-answers-attribute');
-						expect(taggedMutationType?.mutationData.attributeName).toEqual('style');
+						expect(
+							(taggedMutationType?.mutationData as AttributeMutationData).attributeName,
+						).toEqual('style');
 					});
 
 					it('should not identify smart answers elements as mutation:smart-answers-attribute if not contained within smart answers', () => {
@@ -727,7 +754,7 @@ describe('ViewportObserver', () => {
 
 						const target = document.createElement('div');
 
-						onAttributeMutation({ target, attributeName: 'style' });
+						onAttributeMutation({ target, attributeName: 'style', timestamp: 100 });
 
 						expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
 							target,
@@ -750,7 +777,9 @@ describe('ViewportObserver', () => {
 						}
 						expect(isContainedWithinSmartAnswers).toHaveBeenCalled();
 						expect(taggedMutationType?.type).toEqual('mutation:attribute');
-						expect(taggedMutationType?.mutationData.attributeName).toEqual('style');
+						expect(
+							(taggedMutationType?.mutationData as AttributeMutationData).attributeName,
+						).toEqual('style');
 					});
 				});
 			});
@@ -790,7 +819,7 @@ describe('ViewportObserver', () => {
 
 						const target = document.createElement('div');
 
-						onAttributeMutation({ target, attributeName: 'style' });
+						onAttributeMutation({ target, attributeName: 'style', timestamp: 100 });
 
 						expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
 							target,
@@ -813,7 +842,9 @@ describe('ViewportObserver', () => {
 						}
 						expect(isContainedWithinSmartAnswers).not.toHaveBeenCalled();
 						expect(taggedMutationType?.type).toEqual('mutation:attribute');
-						expect(taggedMutationType?.mutationData.attributeName).toEqual('style');
+						expect(
+							(taggedMutationType?.mutationData as AttributeMutationData).attributeName,
+						).toEqual('style');
 					});
 				});
 			});

@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.0.48
+
+### Patch Changes
+
+- [`3cfeff169fe0d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3cfeff169fe0d) -
+  [ux] Persist width marks for supported node types when transforming
+- [`8d553b883996b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d553b883996b) -
+  Add block menu transform experience tracking
+- Updated dependencies
+
+## 6.0.47
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.46
 
 ### Patch Changes

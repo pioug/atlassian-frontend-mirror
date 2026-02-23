@@ -99,76 +99,80 @@ The focus should move as follows:
 
 When adding buttons to the footer, place them on the right.
 
-<DoDont
-	type="do"
-	image={{
-		url: bottomRightDo,
-		alt: 'Two buttons in a group are correctly placed in the bottom-right corner of the modal. The first is a secondary subtle button without a border and says cancel. The second is a primary button, blue in color, and says duplicate.',
-	}}
->
-	Align buttons on the right in the footer. <br /> <br /> If you have more than 1 button, place the
-	primary button to the right of the secondary button.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: bottomRightDont,
-		alt: 'Two buttons in a group are incorrectly placed in the bottom-left corner of the modal. The first is a primary button, blue in color, and says duplicate. The second is a secondary subtle button without a border and says cancel.',
-	}}
->
-	Don’t place buttons to the left or middle of the footer. This can confuse users and disrupt the
-	expected flow of actions. <br/> <br/> Don't put primary buttons to the left of secondary or tertiary buttons.
-
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: bottomRightDo,
+			alt: 'Two buttons in a group are correctly placed in the bottom-right corner of the modal. The first is a secondary subtle button without a border and says cancel. The second is a primary button, blue in color, and says duplicate.',
+		}}
+	>
+		Align buttons on the right in the footer. <br /> <br /> If you have more than 1 button, place
+		the primary button to the right of the secondary button.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: bottomRightDont,
+			alt: 'Two buttons in a group are incorrectly placed in the bottom-left corner of the modal. The first is a primary button, blue in color, and says duplicate. The second is a secondary subtle button without a border and says cancel.',
+		}}
+	>
+		Don’t place buttons to the left or middle of the footer. This can confuse users and disrupt the
+		expected flow of actions. <br /> <br /> Don't put primary buttons to the left of secondary or
+		tertiary buttons.
+	</DoDont>
+</DoDontGrid>
 
 ### Simple and focused experiences
 
 Avoid complex experiences and scrolling behavior as they reduce the usability of the experience.
 
-<DoDont
-	type="do"
-	image={{
-		url: focusDo,
-		alt: 'A simple share permissions modal with a form field labeled details, a permissions section to decide who can access or edit the page, and two buttons located at the bottom right of the modal: a secondary subtle cancel button and a primary blue share button.',
-	}}
->
-	Keep `h1` headings and body content concise and clear. Focus on a single task or message.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: focusDont,
-		alt: 'A complex share permissions modal with 3 tabs titled permissions, admin, and public, a general access section with 3 calls to action titled open, can edit, and copy link, additional content that is partially hidden, and two buttons located at the bottom right of the modal: a secondary subtle cancel button and a primary blue share button.',
-	}}
->
-	Don’t use a modal dialog for complex interactions or large tables. <br /> <br /> Avoid horizontal
-	scrolling and minimize vertical scrolling whenever possible.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: focusDo,
+			alt: 'A simple share permissions modal with a form field labeled details, a permissions section to decide who can access or edit the page, and two buttons located at the bottom right of the modal: a secondary subtle cancel button and a primary blue share button.',
+		}}
+	>
+		Keep `h1` headings and body content concise and clear. Focus on a single task or message.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: focusDont,
+			alt: 'A complex share permissions modal with 3 tabs titled permissions, admin, and public, a general access section with 3 calls to action titled open, can edit, and copy link, additional content that is partially hidden, and two buttons located at the bottom right of the modal: a secondary subtle cancel button and a primary blue share button.',
+		}}
+	>
+		Don’t use a modal dialog for complex interactions or large tables. <br /> <br /> Avoid
+		horizontal scrolling and minimize vertical scrolling whenever possible.
+	</DoDont>
+</DoDontGrid>
 
 ### Nesting
 
-<DoDont
-	type="do"
-	image={{
-		url: nestingDo,
-		alt: 'A single modal with 3 lines of body copy explaining how to duplicate a page and two buttons located at the bottom right of the footer: a secondary subtle cancel button and a primary blue confirm button.',
-	}}
->
-	Modal dialogs should appear above a blanket that covers the main page content. Use one at a time.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: nestingDont,
-		alt: 'A second modal titled select location opens on top of another modal, hiding the content of the first modal. It contains a form field labeled space, a dropdown selection, and two buttons located at the bottom right of the modal: a secondary subtle cancel button and a primary blue confirm button. The same buttons can be seen in the modal underneath, so it is not clear which one to select.',
-	}}
->
-	Don’t use dialogs to trigger other dialogs, as this is inaccessible and confusing. <br /> <br />{' '}
-	Instead, make sure links or buttons open in a new tab or dismiss the modal.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: nestingDo,
+			alt: 'A single modal with 3 lines of body copy explaining how to duplicate a page and two buttons located at the bottom right of the footer: a secondary subtle cancel button and a primary blue confirm button.',
+		}}
+	>
+		Modal dialogs should appear above a blanket that covers the main page content. Use one at a
+		time.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: nestingDont,
+			alt: 'A second modal titled select location opens on top of another modal, hiding the content of the first modal. It contains a form field labeled space, a dropdown selection, and two buttons located at the bottom right of the modal: a secondary subtle cancel button and a primary blue confirm button. The same buttons can be seen in the modal underneath, so it is not clear which one to select.',
+		}}
+	>
+		Don’t use dialogs to trigger other dialogs, as this is inaccessible and confusing. <br /> <br />{' '}
+		Instead, make sure links or buttons open in a new tab or dismiss the modal.
+	</DoDont>
+</DoDontGrid>
 
 ## Content guidelines
 

@@ -109,9 +109,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform-visual-refresh-icons": {
-			"type": "boolean"
-		},
 		"platform-dst-lozenge-tag-badge-visual-uplifts": {
 			"type": "boolean"
 		}

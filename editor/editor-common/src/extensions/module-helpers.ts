@@ -61,6 +61,7 @@ export function buildMenuItem<T extends Parameters>(
 			fg('rovo_chat_enable_skills_ui_m1')) && {
 			priority: extensionModule.priority,
 		}),
+		...(extensionModule.lozenge != null && { lozenge: extensionModule.lozenge }),
 		icon: extensionModule.icon || manifest.icons['48'],
 		node,
 	};

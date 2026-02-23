@@ -1,6 +1,8 @@
 /* eslint-disable require-unicode-regexp  */
 import { useMemo } from 'react';
 
+import type { IEnvironment } from 'relay-runtime';
+
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -29,6 +31,7 @@ import {
 	type SyncBlockStatus,
 } from '../../common/types';
 import { stringifyError } from '../../utils/errorHandling';
+import { createRelaySubscriptionFunction } from '../../utils/relaySubscriptionUtils';
 import { createResourceIdForReference } from '../../utils/resourceId';
 import { convertContentUpdatedAt } from '../../utils/utils';
 import type {
@@ -362,6 +365,7 @@ export const batchFetchData = async (
 interface BlockServiceADFFetchProviderProps {
 	cloudId: string; // the cloudId of the block. E.G the cloudId of the confluence page, or the cloudId of the Jira instance
 	parentAri: string | undefined; // the ARI of the parent of the block. E.G the ARI of the confluence page, or the ARI of the Jira work item
+	relayEnvironment?: IEnvironment; 
 }
 
 /**
@@ -370,10 +374,12 @@ interface BlockServiceADFFetchProviderProps {
 class BlockServiceADFFetchProvider implements ADFFetchProvider {
 	private cloudId: string;
 	private parentAri: string | undefined;
+	private relayEnvironment?: IEnvironment;
 
-	constructor({ cloudId, parentAri }: BlockServiceADFFetchProviderProps) {
+	constructor({ cloudId, parentAri, relayEnvironment }: BlockServiceADFFetchProviderProps) {
 		this.cloudId = cloudId;
 		this.parentAri = parentAri;
+		this.relayEnvironment = relayEnvironment;
 	}
 
 	// resourceId of the reference synced block.
@@ -484,6 +490,7 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 
 	/**
 	 * Subscribes to real-time updates for a specific block using GraphQL WebSocket subscriptions.
+	 * If a Relay environment is provided, uses Relay subscriptions; otherwise falls back to WebSocket.
 	 * @param resourceId - The resource ID of the block to subscribe to
 	 * @param onUpdate - Callback function invoked when the block is updated
 	 * @param onError - Optional callback function invoked on subscription errors
@@ -496,6 +503,14 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 	): () => void {
 		const blockAri = generateBlockAriFromReference({ cloudId: this.cloudId, resourceId });
 
+		// If Relay environment is available, use Relay subscriptions
+		if (this.relayEnvironment && fg('platform_synced_block_patch_3')) {
+			const relaySubscribeToBlockUpdates = createRelaySubscriptionFunction(this.cloudId, this.relayEnvironment);
+			
+			return relaySubscribeToBlockUpdates(resourceId, onUpdate, onError);
+		}
+
+		// Fall back to WebSocket subscriptions
 		return subscribeToBlockUpdatesWS(
 			blockAri,
 			(parsedData) => {
@@ -693,6 +708,7 @@ interface BlockServiceAPIProvidersProps {
 	parentAri: string | undefined; // the ARI of the parent of the block. E.G the ARI of the confluence page, or the ARI of the Jira work item
 	parentId?: string; // the parentId of the block. E.G the pageId for a confluence page, or the issueId for a Jira work item
 	product: SyncBlockProduct; // the product of the block. E.G 'confluence-page', 'jira-work-item'
+	relayEnvironment?: IEnvironment;
 }
 
 const createBlockServiceAPIProviders = ({
@@ -701,6 +717,7 @@ const createBlockServiceAPIProviders = ({
 	parentId,
 	product,
 	getVersion,
+	relayEnvironment,
 }: BlockServiceAPIProvidersProps): {
 	fetchProvider: BlockServiceADFFetchProvider;
 	writeProvider: BlockServiceADFWriteProvider;
@@ -709,6 +726,7 @@ const createBlockServiceAPIProviders = ({
 		fetchProvider: new BlockServiceADFFetchProvider({
 			cloudId,
 			parentAri,
+			relayEnvironment,
 		}),
 		writeProvider: new BlockServiceADFWriteProvider({
 			cloudId,
@@ -726,6 +744,7 @@ export const useMemoizedBlockServiceAPIProviders = ({
 	parentId,
 	product,
 	getVersion,
+	relayEnvironment,
 }: BlockServiceAPIProvidersProps): {
 	fetchProvider: BlockServiceADFFetchProvider;
 	writeProvider: BlockServiceADFWriteProvider;
@@ -737,8 +756,9 @@ export const useMemoizedBlockServiceAPIProviders = ({
 			parentId,
 			product,
 			getVersion,
+			relayEnvironment,
 		});
-	}, [cloudId, parentAri, parentId, product, getVersion]);
+	}, [cloudId, parentAri, parentId, product, getVersion, relayEnvironment]);
 };
 
 interface BlockServiceFetchOnlyAPIProviderProps {

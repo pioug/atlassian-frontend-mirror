@@ -77,7 +77,8 @@ export function createIntersectionObserver({
 					if (
 						tagOrCallbackResult &&
 						typeof tagOrCallbackResult !== 'string' &&
-						tagOrCallbackResult.type === 'mutation:attribute'
+						tagOrCallbackResult.type === 'mutation:attribute' &&
+						'oldValue' in tagOrCallbackResult.mutationData
 					) {
 						const { attributeName, oldValue, newValue } = tagOrCallbackResult.mutationData;
 						const isRoutingMutation =

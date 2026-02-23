@@ -1306,6 +1306,7 @@ export function addNewInteraction(
 			devToolsEnabled: config.vc.devToolsEnabled,
 			selectorConfig: config.vc.selectorConfig,
 			ssrEnablePageLayoutPlaceholder: config.vc.ssrEnablePageLayoutPlaceholder,
+			trackLayoutShiftOffenders: config.vc.trackLayoutShiftOffenders,
 			searchPageConfig,
 		};
 		vcObserver = newVCObserver(vcOptions);

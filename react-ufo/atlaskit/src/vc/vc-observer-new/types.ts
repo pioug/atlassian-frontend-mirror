@@ -37,6 +37,7 @@ export type ViewportEntryData = {
 	readonly oldValue?: string | null | undefined;
 	readonly newValue?: string | null | undefined;
 	readonly labelStacks?: VCObserverLabelStacks;
+	readonly originalMutationTimestamp?: DOMHighResTimeStamp;
 };
 
 export type VCObserverLabelStacks = {
@@ -69,4 +70,5 @@ export type VCObserverGetVCResultParam = {
 	includeRawData?: boolean;
 	includeSSRInV3?: boolean;
 	rawDataStopTime?: number;
+	reportLayoutShiftOffenders?: boolean;
 };

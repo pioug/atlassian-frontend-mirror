@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import ButtonBase from '../shared/button-base';
 import Content from '../shared/content';
@@ -89,19 +89,17 @@ const Button: React.MemoExoticComponent<
 				interactionName={interactionName}
 				{...saferRest}
 			>
-				<Fragment>
-					{iconBefore && (
-						<Content type="icon" position="before" isLoading={isLoading}>
-							<IconRenderer icon={iconBefore} />
-						</Content>
-					)}
-					{children && <Content isLoading={isLoading}>{children}</Content>}
-					{iconAfter && (
-						<Content type="icon" position="after" isLoading={isLoading}>
-							<IconRenderer icon={iconAfter} />
-						</Content>
-					)}
-				</Fragment>
+				{iconBefore && (
+					<Content type="icon" position="before" isLoading={isLoading}>
+						<IconRenderer icon={iconBefore} />
+					</Content>
+				)}
+				{children && <Content isLoading={isLoading}>{children}</Content>}
+				{iconAfter && (
+					<Content type="icon" position="after" isLoading={isLoading}>
+						<IconRenderer icon={iconAfter} />
+					</Content>
+				)}
 			</ButtonBase>
 		);
 	}),

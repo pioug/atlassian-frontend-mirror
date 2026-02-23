@@ -12,3 +12,8 @@ export {
 	SyncBlockActionsProvider,
 	useSyncBlockActions,
 } from './sync-block/SyncBlockActionsContext';
+export type {
+	SyncedBlocksSSRErrorMetadata,
+	SyncedBlocksSSRErrorCode,
+} from './sync-block/ssr_error';
+export { handleSSRErrorsAnalytics, SyncedBlocksSSRErrorCodeMap } from './sync-block/ssr_error';

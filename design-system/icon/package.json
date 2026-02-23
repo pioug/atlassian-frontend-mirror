@@ -132,12 +132,6 @@
 		".": "./src/index.tsx"
 	},
 	"platform-feature-flags": {
-		"platform-visual-refresh-icons": {
-			"type": "boolean"
-		},
-		"platform-visual-refresh-icons-facade-button-fix": {
-			"type": "boolean"
-		},
 		"platform_dst_new_icon_tile": {
 			"type": "boolean"
 		},

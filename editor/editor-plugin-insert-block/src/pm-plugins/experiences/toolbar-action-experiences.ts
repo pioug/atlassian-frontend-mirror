@@ -16,9 +16,9 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import {
 	ExperienceCheckPopupMutation,
+	type PopupCheckType,
 	getParentDOMAtSelection,
 	handleEditorNodeInsertDomMutation,
-	handleTypeAheadOpenDomMutation,
 	isToolbarButtonClick,
 } from './toolbar-experience-utils';
 
@@ -50,6 +50,7 @@ export const getToolbarActionExperiencesPlugin = ({
 }: ToolbarActionExperienceOptions) => {
 	let editorView: EditorView | undefined;
 	let popupTargetEl: HTMLElement | undefined;
+	let lastClickedToolbarButton: HTMLElement | undefined;
 
 	const getPopupsTarget = () => {
 		if (!popupTargetEl) {
@@ -63,6 +64,18 @@ export const getToolbarActionExperiencesPlugin = ({
 			return editorView.dom;
 		}
 		return null;
+	};
+
+	/**
+	 * For inline popups, returns the button-group ancestor of the clicked toolbar button.
+	 * This allows inline popup checks to observe only the relevant button-group.
+	 */
+	const getInlinePopupTarget = (): HTMLElement | undefined => {
+		if (!lastClickedToolbarButton) {
+			return undefined;
+		}
+
+		return lastClickedToolbarButton;
 	};
 
 	const narrowParentObserveConfig = () => ({
@@ -93,42 +106,49 @@ export const getToolbarActionExperiencesPlugin = ({
 			],
 		});
 
-	const createPopupExperience = (action: string, popupSelector: string) =>
+	const createPopupExperience = (
+		action: string,
+		popupSelector: string,
+		type: PopupCheckType = 'editorRoot',
+	) =>
 		new Experience(EXPERIENCE_ID.TOOLBAR_ACTION, {
 			action,
 			actionSubjectId: PRIMARY_TOOLBAR,
 			dispatchAnalyticsEvent,
 			checks: [
 				new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
-				new ExperienceCheckPopupMutation(popupSelector, getPopupsTarget, getEditorDom),
+				new ExperienceCheckPopupMutation(
+					popupSelector,
+					type === 'inline' ? getInlinePopupTarget : getPopupsTarget,
+					getEditorDom,
+					type,
+				),
 			],
 		});
 
 	const experienceButtonMappings: ExperienceButtonMapping[] = [
 		{
-			experience: createPopupExperience('emoji', '[data-emoji-picker-container]'),
-			buttonTestId: TOOLBAR_BUTTON_TEST_ID.EMOJI,
+			experience: createPopupExperience('insert', '[data-testid="popup-wrapper"]', 'inline'),
+			buttonTestId: TOOLBAR_BUTTON_TEST_ID.INSERT,
 		},
 		{
 			experience: createPopupExperience(
-				'media',
-				'[id="local-media-upload-button"], [data-testid="media-picker-file-input"]',
+				'emoji',
+				'[data-emoji-picker-container], [data-emoji-picker-container="true"], [data-testid="popup-wrapper"]',
+				'inline',
 			),
+			buttonTestId: TOOLBAR_BUTTON_TEST_ID.EMOJI,
+		},
+		{
+			experience: createPopupExperience('media', '[data-testid="popup-wrapper"]', 'inline'),
 			buttonTestId: TOOLBAR_BUTTON_TEST_ID.MEDIA,
 		},
 		{
-			experience: new Experience(EXPERIENCE_ID.TOOLBAR_ACTION, {
-				action: 'mention',
-				actionSubjectId: PRIMARY_TOOLBAR,
-				dispatchAnalyticsEvent,
-				checks: [
-					new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
-					new ExperienceCheckDomMutation({
-						onDomMutation: handleTypeAheadOpenDomMutation,
-						observeConfig: narrowParentObserveConfig,
-					}),
-				],
-			}),
+			experience: createPopupExperience(
+				'mention',
+				'[data-testid="popup-wrapper"], [data-type-ahead="typeaheadDecoration"]',
+				'editorRoot',
+			),
 			buttonTestId: TOOLBAR_BUTTON_TEST_ID.MENTION,
 		},
 		{
@@ -139,6 +159,7 @@ export const getToolbarActionExperiencesPlugin = ({
 			experience: createPopupExperience(
 				'tableSelector',
 				'[aria-label*="table size"], [data-testid*="table-selector"]',
+				'inline',
 			),
 			buttonTestId: TOOLBAR_BUTTON_TEST_ID.TABLE_SELECTOR,
 		},
@@ -147,10 +168,7 @@ export const getToolbarActionExperiencesPlugin = ({
 			buttonTestId: TOOLBAR_BUTTON_TEST_ID.LAYOUT,
 		},
 		{
-			experience: createPopupExperience(
-				'image',
-				'[id="local-media-upload-button"], [data-testid="media-picker-file-input"]',
-			),
+			experience: createPopupExperience('image', '[data-testid="popup-wrapper"]', 'inline'),
 			buttonTestId: TOOLBAR_BUTTON_TEST_ID.IMAGE,
 		},
 		{
@@ -162,6 +180,8 @@ export const getToolbarActionExperiencesPlugin = ({
 	const handleToolbarButtonClick = (target: HTMLElement) => {
 		for (const { experience, buttonTestId } of experienceButtonMappings) {
 			if (isToolbarButtonClick(target, buttonTestId)) {
+				// Store the clicked button so inline popup checks can find its button-group
+				lastClickedToolbarButton = target;
 				experience.start({ forceRestart: true });
 				return;
 			}

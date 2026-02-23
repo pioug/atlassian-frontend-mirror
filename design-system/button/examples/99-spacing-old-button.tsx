@@ -5,20 +5,35 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button';
 import { token } from '@atlaskit/tokens';
 
+const tableStyles = css({
+	display: 'table',
+});
+
+const rowStyles = css({
+	display: 'table-row',
+});
+
+const cellStyles = css({
+	display: 'table-cell',
+	paddingBlockEnd: token('space.050', '4px'),
+	paddingBlockStart: token('space.050', '4px'),
+	paddingInlineEnd: token('space.050', '4px'),
+	paddingInlineStart: token('space.050', '4px')
+});
+
 const Table = (props: React.HTMLProps<HTMLDivElement>) => (
-	<div css={{ display: 'table' }}>{props.children}</div>
+	<div css={tableStyles}>{props.children}</div>
 );
 const Row = (props: React.HTMLProps<HTMLDivElement>) => (
-	<div css={{ display: 'table-row' }}>{props.children}</div>
+	<div css={rowStyles}>{props.children}</div>
 );
 const Cell = (props: React.HTMLProps<HTMLDivElement>) => (
-	<div css={{ display: 'table-cell', padding: token('space.050', '4px') }}>{props.children}</div>
+	<div css={cellStyles}>{props.children}</div>
 );
 
 const ButtonSpacing = (): React.JSX.Element => (

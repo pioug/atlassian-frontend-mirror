@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-copy-button
 
+## 7.1.5
+
+### Patch Changes
+
+- [`abdf6c5320b01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/abdf6c5320b01) -
+  [EDITOR-5370] Support Unsupported Content: handle copy content from nodes like mention
+- Updated dependencies
+
+## 7.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.1.3
 
 ### Patch Changes

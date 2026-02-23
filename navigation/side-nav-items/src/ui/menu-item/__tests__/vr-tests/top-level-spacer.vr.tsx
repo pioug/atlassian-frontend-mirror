@@ -12,6 +12,5 @@ const lightModeVariant: SnapshotTestOptions<Hooks>['variants'] = [
 snapshot(TopLevelSpacerExample, {
 	variants: lightModeVariant,
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 });

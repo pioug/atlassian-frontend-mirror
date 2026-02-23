@@ -147,14 +147,12 @@ snapshot(RadioExample, {
 snapshot(RadioExample, {
 	description: 'Visual refresh style',
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 });
 
 snapshot(RadioExample, {
 	description: 'Visual refresh style - unchecked - hover',
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	states: [
 		{
@@ -169,7 +167,6 @@ snapshot(RadioExample, {
 snapshot(RadioExample, {
 	description: 'Visual refresh style - unchecked - focused',
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	states: [
 		{
@@ -184,7 +181,6 @@ snapshot(RadioExample, {
 snapshot(RadioExample, {
 	description: 'Visual refresh style - unchecked - hovered and focused',
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	states: [
 		{
@@ -205,7 +201,6 @@ snapshot(RadioExample, {
 snapshot(RadioExample, {
 	description: 'Visual refresh style - checked - hover',
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	states: [
 		{
@@ -220,7 +215,6 @@ snapshot(RadioExample, {
 snapshot(RadioExample, {
 	description: 'Visual refresh style - checked - focused',
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	states: [
 		{
@@ -235,7 +229,6 @@ snapshot(RadioExample, {
 snapshot(RadioExample, {
 	description: 'Visual refresh style - checked - hovered and focused',
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	states: [
 		{
@@ -256,7 +249,6 @@ snapshot(RadioExample, {
 snapshot(RadioExample, {
 	description: 'Visual refresh style - unchecked - disabled',
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	states: [
 		{
@@ -271,7 +263,6 @@ snapshot(RadioExample, {
 snapshot(RadioExample, {
 	description: 'Visual refresh style - checked - disabled',
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	states: [
 		{
@@ -286,7 +277,6 @@ snapshot(RadioExample, {
 snapshot(RadioExample, {
 	description: 'Visual refresh style - checked - disabled - hovered',
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	states: [
 		{
@@ -301,7 +291,6 @@ snapshot(RadioExample, {
 snapshot(RadioExample, {
 	description: 'Visual refresh style - checked - disabled - hovered and focused',
 	featureFlags: {
-		'platform-visual-refresh-icons': true,
 	},
 	states: [
 		{

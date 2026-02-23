@@ -67,22 +67,24 @@ the field. For example, at the bottom right in a left-to-right reading order.
   [inline editable textfield component](/components/inline-edit/inline-editable-textfield/examples)
   to get our recommended default settings.
 
-<DoDont
-	type="do"
-	image={{
-		url: inlineEditDo,
-		alt: 'Inline edit header in read view and edit view with the same styling and layout.',
-	}}
->
-	To avoid confusing experiences, ensure read view and edit view components have identical styling.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: inlineEditDont,
-		alt: 'When editing, the inline edit has a different text size and font weight.',
-	}}
->
-	Pass in read view and edit view components that have different styling.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: inlineEditDo,
+			alt: 'Inline edit header in read view and edit view with the same styling and layout.',
+		}}
+	>
+		To avoid confusing experiences, ensure read view and edit view components have identical
+		styling.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: inlineEditDont,
+			alt: 'When editing, the inline edit has a different text size and font weight.',
+		}}
+	>
+		Pass in read view and edit view components that have different styling.
+	</DoDont>
+</DoDontGrid>

@@ -9,6 +9,7 @@ import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { closestElement, findNodePosByLocalIds } from '@atlaskit/editor-common/utils';
 import { JSONTransformer, type JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions';
 import type { Mark, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { DomAtPos, NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
@@ -17,6 +18,7 @@ import {
 	findParentNodeOfType,
 	findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
+import { isResolvingMentionProvider } from '@atlaskit/mention/resource';
 
 export const getSelectedExtension = (state: EditorState, searchParent: boolean = false) => {
 	const { inlineExtension, extension, bodiedExtension, multiBodiedExtension } = state.schema.nodes;
@@ -71,7 +73,7 @@ export const getSelectedDomElement = (
 		(isContentExtension // Search down
 			? selectedExtensionDomNode.querySelector<HTMLElement>('.extension-container') // Try searching up and then down
 			: closestElement(selectedExtensionDomNode, '.extension-container') ||
-				selectedExtensionDomNode.querySelector<HTMLElement>('.extension-container')) ||
+			selectedExtensionDomNode.querySelector<HTMLElement>('.extension-container')) ||
 		selectedExtensionDomNode
 	);
 };
@@ -101,18 +103,111 @@ export interface Position {
 }
 
 /**
+ * Converts a ProseMirror node to its text representation.
+ * Handles text nodes with marks (links) and inline nodes (status, mention, emoji).
+ * Returns the content for this node, with a trailing separator for text blocks.
+ */
+const convertNodeToText = (
+	node: PMNode,
+	mentionSet: Set<string>,
+	parent: PMNode | null,
+	locale?: string,
+): string => {
+	if (node.isInline) {
+		const schema = node.type.schema;
+		let finalText = '';
+
+		if (node.isText) {
+			finalText = node.text || '';
+			if (node.marks.length > 0) {
+				for (const mark of node.marks) {
+					// if it's link, include the href in the text
+					if (mark.type === schema.marks.link) {
+						const href = mark.attrs.href;
+						const text = node.text || '';
+						// If the text differs from the href, include both
+						if (text && text !== href) {
+							finalText = `${text} ${href}`;
+						} else {
+							finalText = href;
+						}
+					}
+				}
+			}
+		} else {
+			switch (node.type) {
+				case schema.nodes.status:
+					finalText = node.attrs.text || '';
+					break;
+				case schema.nodes.mention:
+					mentionSet.add(node.attrs.id);
+					finalText = `@${node.attrs.id}`;
+					break;
+				case schema.nodes.emoji:
+					finalText = node.attrs.shortName || '';
+					break;
+				case schema.nodes.date:
+					const timestamp = new Date(Number(node.attrs.timestamp));
+					finalText = !isNaN(timestamp.getTime())
+						? timestamp.toLocaleDateString(locale ?? 'en-US')
+						: String(node.attrs.timestamp);
+					break;
+				default:
+					finalText = node.textContent;
+					break;
+			}
+		}
+
+		if (parent && parent.isTextblock && node === parent.lastChild && parent.childCount > 0) {
+			finalText += '\n\n';
+		}
+
+		return finalText;
+	}
+
+	return '';
+};
+
+/**
+ * Resolves mention IDs to their display names and replaces them in the text.
+ * Returns the text with resolved mentions, or the original text if the provider is unavailable.
+ */
+const resolveMentionsInText = async (
+	text: string,
+	mentionSet: Set<string>,
+	api?: PublicPluginAPI<[MentionsPlugin]>,
+): Promise<string> => {
+	const mentionProvider = api?.mention?.sharedState?.currentState()?.mentionProvider;
+	if (!mentionProvider || !isResolvingMentionProvider(mentionProvider)) {
+		return text;
+	}
+
+	let resolvedText = text;
+	for (const id of mentionSet) {
+		const mention = await mentionProvider.resolveMentionName(id);
+		resolvedText = resolvedText.replace(`@${id}`, `@${mention.name}` || '@…');
+	}
+
+	return resolvedText;
+};
+
+/**
  * copying ADF from the unsupported content extension as text to clipboard
  */
-export const copyUnsupportedContentToClipboard = ({
+export const copyUnsupportedContentToClipboard = async ({
+	locale,
 	schema,
 	unsupportedContent,
+	api,
 }: {
+	api?: PublicPluginAPI<[MentionsPlugin]>;
+	locale?: string;
 	schema: Schema;
 	unsupportedContent?: JSONDocNode;
-}): Error | undefined => {
+}): Promise<void> => {
 	try {
 		if (!unsupportedContent) {
-			return new Error('No nested content found');
+			throw new Error('No nested content found');
 		}
 
 		if (unsupportedContent.type !== 'doc') {
@@ -125,10 +220,21 @@ export const copyUnsupportedContentToClipboard = ({
 
 		const transformer = new JSONTransformer(schema);
 		const pmNode = transformer.parse(unsupportedContent);
-		const text = pmNode.textBetween(0, pmNode.content.size, '\n\n');
+		let text = '';
+		const mentionSet = new Set<string>();
+
+		pmNode.nodesBetween(0, pmNode.content.size, (node, _pos, parent) => {
+			text += convertNodeToText(node, mentionSet, parent, locale);
+		});
+
+		// Trim leading/trailing whitespace from the collected text
+		text = text.trim();
+
+		text = await resolveMentionsInText(text, mentionSet, api);
+
 		copyToClipboard(text);
 	} catch (error) {
-		return error instanceof Error ? error : new Error('Failed to copy content');
+		throw error instanceof Error ? error : new Error('Failed to copy content');
 	}
 };
 

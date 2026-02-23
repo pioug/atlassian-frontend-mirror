@@ -8,10 +8,9 @@ import type {
 	FloatingToolbarSeparator,
 	MarkOptions,
 	NodeOptions,
-	CommandDispatch,
 } from '@atlaskit/editor-common/types';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import CopyIcon from '@atlaskit/icon/core/copy';
 
 import type { CopyButtonPlugin } from '../copyButtonPluginType';
@@ -38,25 +37,18 @@ function isNodeOptions(options: MarkOptions | NodeOptions): options is NodeOptio
  * - Sets the copied state in the editor state
  * - Announces the copied message to the user
  */
-function afterCopy({
-	api,
-	dispatch,
-	editorState,
-	message,
-}: {
-	api?: ExtractInjectionAPI<CopyButtonPlugin>;
-	dispatch?: CommandDispatch;
-	editorState: EditorState;
-	message: string;
-}) {
-	const copyToClipboardTr = editorState.tr;
-	copyToClipboardTr.setMeta(copyButtonPluginKey, { copied: true });
-	copyToClipboardTr.setMeta('scrollIntoView', false);
-	dispatch?.(copyToClipboardTr);
+export const afterCopy = (api?: ExtractInjectionAPI<CopyButtonPlugin>) => (message: string) => {
+
+	api?.core.actions.execute(({ tr }: { tr: Transaction }) => {
+		return tr
+			.setMeta(copyButtonPluginKey, { copied: true })
+			.setMeta('scrollIntoView', false)
+	})
 
 	api?.accessibilityUtils?.actions.ariaNotify(message, {
 		priority: 'important',
 	});
+
 }
 
 export function getCopyButtonConfig(
@@ -95,12 +87,7 @@ export function getCopyButtonConfig(
 		if (onClick) {
 			buttonActionHandlers.onClick = (editorState, dispatch, editorView) => {
 				if (onClick(editorState, dispatch, editorView)) {
-					afterCopy({
-						api,
-						dispatch,
-						editorState,
-						message: formatMessage(commonMessages.copiedToClipboard),
-					});
+					afterCopy(api)(formatMessage(commonMessages.copiedToClipboard));
 					return true;
 				}
 				return false;

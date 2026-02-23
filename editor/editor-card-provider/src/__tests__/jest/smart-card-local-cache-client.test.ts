@@ -15,25 +15,27 @@ jest.mock('@atlaskit/frontend-utilities/storage-client', () => ({
 }));
 
 describe('SmartCardLocalCacheClient', () => {
-	let localStorage: Map<string, unknown>;
+	let storageClient: Map<string, unknown>;
 	let cacheClient: SmartCardLocalCacheClient;
 
 	beforeEach(() => {
-		localStorage = new Map();
-
 		jest.resetAllMocks();
+		SmartCardLocalCacheClient.resetInstance();
+
+		storageClient = new Map();
+
 		// Mock Date.now() to return a fixed timestamp
 		jest.spyOn(Date, 'now').mockReturnValue(5000);
-		mockStorageClientGetItem.mockImplementation((key) => localStorage.get(key));
+		mockStorageClientGetItem.mockImplementation((key) => storageClient.get(key));
 		mockStorageClientSetItemWithExpiry.mockImplementation((key, value) =>
-			localStorage.set(key, value),
+			storageClient.set(key, value),
 		);
-		cacheClient = new SmartCardLocalCacheClient();
 	});
 
 	afterEach(() => {
 		jest.clearAllMocks();
 		jest.restoreAllMocks();
+		SmartCardLocalCacheClient.resetInstance();
 	});
 
 	describe('getCache', () => {
@@ -43,9 +45,10 @@ describe('SmartCardLocalCacheClient', () => {
 				'https://example1.com': { data: response, timestamp: 1000 },
 				'https://example2.com': { data: response, timestamp: 2000 },
 			});
-			localStorage.set('response-cache', cache);
+			storageClient.set('response-cache', cache);
 			mockStorageClientGetItem.mockReturnValue(cache);
 
+			cacheClient = SmartCardLocalCacheClient.getInstance();
 			const result = cacheClient.getCache();
 			expect(mockStorageClientGetItem).toHaveBeenCalledWith('response-cache', {
 				useExpiredItem: true,
@@ -59,6 +62,7 @@ describe('SmartCardLocalCacheClient', () => {
 		it('should return an empty object if no cache exists', () => {
 			mockStorageClientGetItem.mockReturnValue(undefined);
 
+			cacheClient = SmartCardLocalCacheClient.getInstance();
 			const result = cacheClient.getCache();
 			expect(mockStorageClientGetItem).toHaveBeenCalledWith('response-cache', {
 				useExpiredItem: true,
@@ -68,16 +72,20 @@ describe('SmartCardLocalCacheClient', () => {
 	});
 
 	describe('setItem', () => {
-		it('should store the response in the cache', () => {
+		it('should store the response in the cache', async () => {
 			const url = 'https://example.com';
 			const response: SmartLinkResponse = { meta: { visibility: 'public' } } as SmartLinkResponse;
 			const existingCache = JSON.stringify({
 				'https://lol.com': { data: { meta: { visibility: 'restricted' } }, timestamp: 1000 },
 			});
-			localStorage.set('response-cache', existingCache);
+			storageClient.set('response-cache', existingCache);
 			mockStorageClientGetItem.mockReturnValue(existingCache);
 
+			cacheClient = SmartCardLocalCacheClient.getInstance();
 			cacheClient.setItem(url, response);
+
+			// Wait for async write
+			await new Promise((resolve) => queueMicrotask(() => resolve(undefined)));
 
 			expect(mockStorageClientSetItemWithExpiry).toHaveBeenCalledWith(
 				'response-cache',
@@ -88,12 +96,16 @@ describe('SmartCardLocalCacheClient', () => {
 			);
 		});
 
-		it('should create a new cache if none exists', () => {
+		it('should create a new cache if none exists', async () => {
 			const url = 'https://example.com';
 			const response: SmartLinkResponse = { meta: { visibility: 'public' } } as SmartLinkResponse;
 			mockStorageClientGetItem.mockReturnValue(null);
 
+			cacheClient = SmartCardLocalCacheClient.getInstance();
 			cacheClient.setItem(url, response);
+
+			// Wait for async write
+			await new Promise((resolve) => queueMicrotask(() => resolve(undefined)));
 
 			expect(mockStorageClientSetItemWithExpiry).toHaveBeenCalledWith(
 				'response-cache',
@@ -103,7 +115,7 @@ describe('SmartCardLocalCacheClient', () => {
 			);
 		});
 
-		it('should overwrite existing cache entry for the same URL', () => {
+		it('should overwrite existing cache entry for the same URL', async () => {
 			const url = 'https://example.com';
 			const initialResponse: SmartLinkResponse = {
 				meta: { visibility: 'public' },
@@ -114,10 +126,14 @@ describe('SmartCardLocalCacheClient', () => {
 			const existingCache = JSON.stringify({
 				[url]: { data: initialResponse, timestamp: 1000 },
 			});
-			localStorage.set('response-cache', existingCache);
+			storageClient.set('response-cache', existingCache);
 			mockStorageClientGetItem.mockReturnValue(existingCache);
 
+			cacheClient = SmartCardLocalCacheClient.getInstance();
 			cacheClient.setItem(url, updatedResponse);
+
+			// Wait for async write
+			await new Promise((resolve) => queueMicrotask(() => resolve(undefined)));
 
 			expect(mockStorageClientSetItemWithExpiry).toHaveBeenCalledWith(
 				'response-cache',
@@ -127,8 +143,7 @@ describe('SmartCardLocalCacheClient', () => {
 			);
 		});
 
-		it('should enforce maxItems limit with FIFO eviction', () => {
-			const cacheClientWithLimit = new SmartCardLocalCacheClient(3); // max 3 items
+		it('should enforce maxItems limit with FIFO eviction', async () => {
 			const response: SmartLinkResponse = { meta: { visibility: 'public' } } as SmartLinkResponse;
 
 			// Simulate adding items over time with different timestamps
@@ -137,11 +152,15 @@ describe('SmartCardLocalCacheClient', () => {
 				'https://url2.com': { data: response, timestamp: 2000 },
 				'https://url3.com': { data: response, timestamp: 3000 },
 			});
-			localStorage.set('response-cache', existingCache);
+			storageClient.set('response-cache', existingCache);
 			mockStorageClientGetItem.mockReturnValue(existingCache);
 
 			// Add a 4th item - should evict the oldest (url1 with timestamp 1000)
+			const cacheClientWithLimit = SmartCardLocalCacheClient.getInstance(3); // max 3 items
 			cacheClientWithLimit.setItem('https://url4.com', response);
+
+			// Wait for async write
+			await new Promise((resolve) => queueMicrotask(() => resolve(undefined)));
 
 			expect(mockStorageClientSetItemWithExpiry).toHaveBeenCalledWith(
 				'response-cache',
@@ -153,8 +172,7 @@ describe('SmartCardLocalCacheClient', () => {
 			);
 		});
 
-		it('should evict multiple oldest items when cache exceeds limit by more than one', () => {
-			const cacheClientWithLimit = new SmartCardLocalCacheClient(2); // max 2 items
+		it('should evict multiple oldest items when cache exceeds limit by more than one', async () => {
 			const response: SmartLinkResponse = { meta: { visibility: 'public' } } as SmartLinkResponse;
 
 			const existingCache = JSON.stringify({
@@ -162,11 +180,15 @@ describe('SmartCardLocalCacheClient', () => {
 				'https://url2.com': { data: response, timestamp: 2000 },
 				'https://url3.com': { data: response, timestamp: 3000 },
 			});
-			localStorage.set('response-cache', existingCache);
+			storageClient.set('response-cache', existingCache);
 			mockStorageClientGetItem.mockReturnValue(existingCache);
 
 			// Add another item with max 2 - should evict url1 and url2
+			const cacheClientWithLimit = SmartCardLocalCacheClient.getInstance(2); // max 2 items
 			cacheClientWithLimit.setItem('https://url4.com', response);
+
+			// Wait for async write
+			await new Promise((resolve) => queueMicrotask(() => resolve(undefined)));
 
 			expect(mockStorageClientSetItemWithExpiry).toHaveBeenCalledWith(
 				'response-cache',
@@ -177,19 +199,22 @@ describe('SmartCardLocalCacheClient', () => {
 			);
 		});
 
-		it('should not evict items when cache is below maxItems', () => {
-			const cacheClientWithLimit = new SmartCardLocalCacheClient(5); // max 5 items
+		it('should not evict items when cache is below maxItems', async () => {
 			const response: SmartLinkResponse = { meta: { visibility: 'public' } } as SmartLinkResponse;
 
 			const existingCache = JSON.stringify({
 				'https://url1.com': { data: response, timestamp: 1000 },
 				'https://url2.com': { data: response, timestamp: 2000 },
 			});
-			localStorage.set('response-cache', existingCache);
+			storageClient.set('response-cache', existingCache);
 			mockStorageClientGetItem.mockReturnValue(existingCache);
 
 			// Add a 3rd item - should not evict anything
+			const cacheClientWithLimit = SmartCardLocalCacheClient.getInstance(5); // max 5 items
 			cacheClientWithLimit.setItem('https://url3.com', response);
+
+			// Wait for async write
+			await new Promise((resolve) => queueMicrotask(() => resolve(undefined)));
 
 			expect(mockStorageClientSetItemWithExpiry).toHaveBeenCalledWith(
 				'response-cache',
@@ -209,9 +234,10 @@ describe('SmartCardLocalCacheClient', () => {
 			const cache = JSON.stringify({
 				[url]: { data: response, timestamp: 1000 },
 			});
-			localStorage.set('response-cache', cache);
+			storageClient.set('response-cache', cache);
 			mockStorageClientGetItem.mockReturnValue(cache);
 
+			cacheClient = SmartCardLocalCacheClient.getInstance();
 			const result = cacheClient.getItem(url);
 			expect(mockStorageClientGetItem).toHaveBeenCalledWith('response-cache', {
 				useExpiredItem: true,
@@ -225,9 +251,10 @@ describe('SmartCardLocalCacheClient', () => {
 			const cache = JSON.stringify({
 				'https://lol.com': { data: response, timestamp: 1000 },
 			});
-			localStorage.set('response-cache', cache);
+			storageClient.set('response-cache', cache);
 			mockStorageClientGetItem.mockReturnValue(cache);
 
+			cacheClient = SmartCardLocalCacheClient.getInstance();
 			const result = cacheClient.getItem(url);
 			expect(mockStorageClientGetItem).toHaveBeenCalledWith('response-cache', {
 				useExpiredItem: true,
@@ -239,6 +266,7 @@ describe('SmartCardLocalCacheClient', () => {
 			const url = 'https://example.com';
 			mockStorageClientGetItem.mockReturnValue(undefined);
 
+			cacheClient = SmartCardLocalCacheClient.getInstance();
 			const result = cacheClient.getItem(url);
 			expect(mockStorageClientGetItem).toHaveBeenCalledWith('response-cache', {
 				useExpiredItem: true,
@@ -247,6 +275,7 @@ describe('SmartCardLocalCacheClient', () => {
 		});
 
 		it('should return undefined if the URL is undefined', () => {
+			cacheClient = SmartCardLocalCacheClient.getInstance();
 			const result = cacheClient.getItem(undefined);
 			expect(result).toBeUndefined();
 		});
@@ -259,9 +288,10 @@ describe('SmartCardLocalCacheClient', () => {
 			const cache = JSON.stringify({
 				[url]: { data: response, timestamp: 1000 },
 			});
-			localStorage.set('response-cache', cache);
+			storageClient.set('response-cache', cache);
 			mockStorageClientGetItem.mockReturnValue(cache);
 
+			cacheClient = SmartCardLocalCacheClient.getInstance();
 			const result = cacheClient.isUrlInCache(url);
 			expect(mockStorageClientGetItem).toHaveBeenCalledWith('response-cache', {
 				useExpiredItem: true,
@@ -275,9 +305,10 @@ describe('SmartCardLocalCacheClient', () => {
 			const cache = JSON.stringify({
 				'https://lol.com': { data: response, timestamp: 1000 },
 			});
-			localStorage.set('response-cache', cache);
+			storageClient.set('response-cache', cache);
 			mockStorageClientGetItem.mockReturnValue(cache);
 
+			cacheClient = SmartCardLocalCacheClient.getInstance();
 			const result = cacheClient.isUrlInCache(url);
 			expect(mockStorageClientGetItem).toHaveBeenCalledWith('response-cache', {
 				useExpiredItem: true,

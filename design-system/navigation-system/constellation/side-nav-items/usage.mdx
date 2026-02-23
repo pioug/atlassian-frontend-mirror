@@ -96,25 +96,26 @@ Side nav menus are reserved for use directly within the
 Menus anywhere else in the app, including those triggered from the top navigation, should also use
 regular [menu](/components/menu) or [dropdown menu](/components/dropdown-menu).
 
-<DoDont
-	type="do"
-	image={{
-		url: sideNavDo1,
-		alt: 'A side nav with side nav items only.',
-	}}
->
-	Use side nav menus directly in the side nav or flyout menu content.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: sideNavDont1,
-		alt: 'Side nav items incorrectly used in the top nav.',
-	}}
->
-	Don’t use side nav menus in other parts of the app.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: sideNavDo1,
+			alt: 'A side nav with side nav items only.',
+		}}
+	>
+		Use side nav menus directly in the side nav or flyout menu content.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: sideNavDont1,
+			alt: 'Side nav items incorrectly used in the top nav.',
+		}}
+	>
+		Don’t use side nav menus in other parts of the app.
+	</DoDont>
+</DoDontGrid>
 
 ### Use dropdown menu for menus triggered from the side nav
 
@@ -124,56 +125,54 @@ Ensure you follow the general usage guidance for dropdown menu and use the follo
 - default density (cozy)
 - default placement (bottom-start; adjusts accordingly when space is limited)
 
-<DoDont
-	type="do"
-	image={{
-		url: sideNavDo2,
-		alt: 'An open dropdown menu with a list of items.',
-	}}
-	isFullWidth
->
-	Use dropdown menu for menus triggered by actions or actionsOnHover.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: sideNavDont2,
-		alt: 'A dropdown menu with a list of items.',
-	}}
->
-	Don’t use side nav menu in dropdown menus.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: sideNavDont3,
-		alt: 'A dropdown menu with menu item that uses compact density.',
-	}}
->
-	Don’t use compact density for dropdown menus.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: sideNavDont4,
-		alt: 'A dropdown menu with menu item that does not have a selected state.',
-	}}
->
-	Don’t omit the selected state on the dropdown trigger when open.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: sideNavDont5,
-		alt: 'A dropdown menu with a disabled menu item.',
-	}}
->
-	Don’t use disabled menu items, see [menu](/components/menu/usage) guidance.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: sideNavDo2,
+			alt: 'An open dropdown menu with a list of items.',
+		}}
+		isFullWidth
+	>
+		Use dropdown menu for menus triggered by actions or actionsOnHover.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: sideNavDont2,
+			alt: 'A dropdown menu with a list of items.',
+		}}
+	>
+		Don’t use side nav menu in dropdown menus.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: sideNavDont3,
+			alt: 'A dropdown menu with menu item that uses compact density.',
+		}}
+	>
+		Don’t use compact density for dropdown menus.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: sideNavDont4,
+			alt: 'A dropdown menu with menu item that does not have a selected state.',
+		}}
+	>
+		Don’t omit the selected state on the dropdown trigger when open.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: sideNavDont5,
+			alt: 'A dropdown menu with a disabled menu item.',
+		}}
+	>
+		Don’t use disabled menu items, see [menu](/components/menu/usage) guidance.
+	</DoDont>
+</DoDontGrid>
 
 ## Best practices
 
@@ -185,25 +184,26 @@ Use [`elemBefore`](/components/navigation-system/side-nav-items/examples#elembef
 [`actionsOnHover`](/components/navigation-system/side-nav-items/examples#actions-and-actionsonhover)
 slots for configuring menu items.
 
-<DoDont
-	type="do"
-	image={{
-		url: sideNavDo3,
-		alt: 'A menu item with "Templates" label and "TRY" text properly placed in a designated slot on the right.',
-	}}
->
-	Use the slots in side nav menus as intended.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: sideNavDont6,
-		alt: 'A menu item with "Templates" label and "TRY" text incorrectly placed within the same text area.',
-	}}
->
-	Don't add custom elements where they're not intended, such as within the label.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: sideNavDo3,
+			alt: 'A menu item with "Templates" label and "TRY" text properly placed in a designated slot on the right.',
+		}}
+	>
+		Use the slots in side nav menus as intended.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: sideNavDont6,
+			alt: 'A menu item with "Templates" label and "TRY" text incorrectly placed within the same text area.',
+		}}
+	>
+		Don't add custom elements where they're not intended, such as within the label.
+	</DoDont>
+</DoDontGrid>
 
 ### Apply icon sizes correctly
 
@@ -215,26 +215,27 @@ Consider the following when applying icon sizes:
 - Chevrons always use small (12px) icons, regardless of where they're being applied.
 - All icons in side nav menu items use [spacious padding](/components/icon/examples#spacing-props).
 
-<DoDont
-	type="do"
-	image={{
-		url: sideNavDo4,
-		alt: 'A menu item with "Projects" label, 16px rocket icon on the left, and 12px plus and ellipsis icons on the right.',
-	}}
->
-	Use small (12px) icons for actions, actionOnHover, and elemAfter. Use default (medium 16px) icons
-	for elemBefore.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: sideNavDont7,
-		alt: 'A menu item with "Projects" label, rocket icon, and incorrectly sized plus and ellipsis icons on the right.',
-	}}
->
-	Don't use incorrect icons sizes in menu items, which can feel unbalanced.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: sideNavDo4,
+			alt: 'A menu item with "Projects" label, 16px rocket icon on the left, and 12px plus and ellipsis icons on the right.',
+		}}
+	>
+		Use small (12px) icons for actions, actionOnHover, and elemAfter. Use default (medium 16px)
+		icons for elemBefore.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: sideNavDont7,
+			alt: 'A menu item with "Projects" label, rocket icon, and incorrectly sized plus and ellipsis icons on the right.',
+		}}
+	>
+		Don't use incorrect icons sizes in menu items, which can feel unbalanced.
+	</DoDont>
+</DoDontGrid>
 
 ### Apply icon button correctly
 
@@ -243,49 +244,51 @@ such as in `actions` and `actionsOnHover`, or `elemBefore` in expandable menu it
 
 For `actions` and `actionsOnHover`, when there is more than one icon button, use 4px spacing.
 
-<DoDont
-	type="do"
-	image={{
-		url: sideNavDo5,
-		alt: 'A menu item with "Projects" label, rocket icon, and subtle compact plus and ellipsis icon buttons with hover tooltip.',
-	}}
->
-	Use subtle compact icon buttons in side nav menu items.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: sideNavDont8,
-		alt: 'A menu item with "Projects" label, rocket icon, and default icon buttons instead of subtle compact ones.',
-	}}
->
-	Don't use default icon buttons in side nav menu items.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: sideNavDo5,
+			alt: 'A menu item with "Projects" label, rocket icon, and subtle compact plus and ellipsis icon buttons with hover tooltip.',
+		}}
+	>
+		Use subtle compact icon buttons in side nav menu items.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: sideNavDont8,
+			alt: 'A menu item with "Projects" label, rocket icon, and default icon buttons instead of subtle compact ones.',
+		}}
+	>
+		Don't use default icon buttons in side nav menu items.
+	</DoDont>
+</DoDontGrid>
 
 ### Use ContainerAvatar
 
-<DoDont
-	type="do"
-	image={{
-		url: sideNavDo6,
-		alt: 'A menu item with "Mobile app" label and ContainerAvatar icon on the left.',
-	}}
->
-	Use{' '}
-	<a href="/components/navigation-system/side-nav-items/code#containeravatar">ContainerAvatar</a> in
-	side nav menu items, which are designed with the correct size and spacing.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: sideNavDont9,
-		alt: 'A menu item with "Mobile app" label and regular avatar icon instead of ContainerAvatar.',
-	}}
->
-	Don't use <a href="/components/avatar">regular avatar</a> in side nav menu items.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: sideNavDo6,
+			alt: 'A menu item with "Mobile app" label and ContainerAvatar icon on the left.',
+		}}
+	>
+		Use{' '}
+		<a href="/components/navigation-system/side-nav-items/code#containeravatar">ContainerAvatar</a>{' '}
+		in side nav menu items, which are designed with the correct size and spacing.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: sideNavDont9,
+			alt: 'A menu item with "Mobile app" label and regular avatar icon instead of ContainerAvatar.',
+		}}
+	>
+		Don't use <a href="/components/avatar">regular avatar</a> in side nav menu items.
+	</DoDont>
+</DoDontGrid>
 
 ## Content guidelines
 
@@ -296,26 +299,27 @@ or feature name that has been approved by legal.
 
 If the menu name is user generated, display as is.
 
-<DoDont
-	type="do"
-	image={{
-		url: sideNavDo7,
-		alt: 'A menu item with "For you" label using sentence case.',
-	}}
->
-	Only capitalize the first letter of the first word of the label.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: sideNavDont10,
-		alt: 'A menu item with "For You" label using title case.',
-	}}
->
-	Don't capitalize other parts of the label unless it is a trademarked app or feature name (not all
-	features are capitalized).
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: sideNavDo7,
+			alt: 'A menu item with "For you" label using sentence case.',
+		}}
+	>
+		Only capitalize the first letter of the first word of the label.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: sideNavDont10,
+			alt: 'A menu item with "For You" label using title case.',
+		}}
+	>
+		Don't capitalize other parts of the label unless it is a trademarked app or feature name (not
+		all features are capitalized).
+	</DoDont>
+</DoDontGrid>
 
 ## Related
 

@@ -1,7 +1,7 @@
 // AFP-2532 TODO: Fix automatic suppressions below
 import { colors } from '@atlaskit/theme';
 
-import css from './utils/evaluate-inner';
+import evaluateInner from './utils/evaluate-inner';
 
 const grid = 4;
 const fontSize = 3 * grid;
@@ -13,7 +13,7 @@ const leftAndRightTextPadding = 2 * grid;
 const topAndBottomPadding = grid / 2;
 const marginDistance = 2 * grid;
 
-export default css`
+export default evaluateInner`
 	a[href][data-ak-tooltip],
 	button[data-ak-tooltip] {
 		overflow: visible;

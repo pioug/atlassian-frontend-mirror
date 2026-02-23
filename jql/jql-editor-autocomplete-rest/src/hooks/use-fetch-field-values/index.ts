@@ -1,15 +1,12 @@
 import { useCallback } from 'react';
 
 import { type AutocompleteOptions, EventType } from '@atlaskit/jql-editor-common';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { Action, ActionSubject, type JqlEditorAutocompleteAnalyticsEvent } from '../../analytics';
 import { type GetAutocompleteSuggestions } from '../../common/types';
 
 export const getAutocompleteSuggestionsUrl = (field: string, query?: string) =>
-	fg('empanada_jql_editor_uri_encode_suggestions_params')
-		? `/rest/api/latest/jql/autocompletedata/suggestions?fieldName=${encodeURIComponent(field)}&fieldValue=${encodeURIComponent(query ?? '')}`
-		: `/rest/api/latest/jql/autocompletedata/suggestions?fieldName=${field}&fieldValue=${query ?? ''}`;
+	`/rest/api/latest/jql/autocompletedata/suggestions?fieldName=${encodeURIComponent(field)}&fieldValue=${encodeURIComponent(query ?? '')}`;
 
 export const useFetchFieldValues = (
 	getSuggestions: GetAutocompleteSuggestions,

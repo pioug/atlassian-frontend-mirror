@@ -89,25 +89,26 @@ Components that can be used within a form include
   and accessible label. This ensures that people using assistive technologies understand what type
   of field it is.
 
-<DoDont
-	type="do"
-	image={{
-		url: FormPlaceholderDo,
-		alt: 'Text field in a formwith helper text saying"Minimum 12 characters. Use a mix of symbols, numbers, and lower and upper case letters.',
-	}}
->
-	Use helper text to give information that helps people fill in the field.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: FormPlaceholderDont,
-		alt: 'Text field in a formwith placeholder text saying "Minimum 12 characters".',
-	}}
->
-	Don't use placeholder text to give critical information.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: FormPlaceholderDo,
+			alt: 'Text field in a formwith helper text saying"Minimum 12 characters. Use a mix of symbols, numbers, and lower and upper case letters.',
+		}}
+	>
+		Use helper text to give information that helps people fill in the field.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: FormPlaceholderDont,
+			alt: 'Text field in a formwith placeholder text saying "Minimum 12 characters".',
+		}}
+	>
+		Don't use placeholder text to give critical information.
+	</DoDont>
+</DoDontGrid>
 
 ## Layout
 
@@ -117,48 +118,50 @@ Use [form sections](https://atlassian.design/components/form/examples#form-secti
 fields into logical sections. This helps people better understand the information they need to
 enter.
 
-<DoDont
-	type="do"
-	image={{
-		url: FormGroupingDo,
-		alt: 'Form example where the fields "Project" and "Work type" are grouped under the subheading "Location and type".',
-	}}
->
-	Group related information into form sections.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: FormGroupingDont,
-		alt: 'Form example where the fields are not grouped.',
-	}}
->
-	Don't provide a form of unrelated information.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: FormGroupingDo,
+			alt: 'Form example where the fields "Project" and "Work type" are grouped under the subheading "Location and type".',
+		}}
+	>
+		Group related information into form sections.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: FormGroupingDont,
+			alt: 'Form example where the fields are not grouped.',
+		}}
+	>
+		Don't provide a form of unrelated information.
+	</DoDont>
+</DoDontGrid>
 
 Use one form column as it’s easier to follow and comprehend. People using screen magnifiers may also
 miss content in a second column.
 
-<DoDont
-	type="do"
-	image={{
-		url: FormOneColumnDo,
-		alt: 'All form fields are in one column.',
-	}}
->
-	Use only one column in a form.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: FormOneColumnDont,
-		alt: 'Form fields spread over two columns',
-	}}
->
-	Don't use multiple form columns.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: FormOneColumnDo,
+			alt: 'All form fields are in one column.',
+		}}
+	>
+		Use only one column in a form.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: FormOneColumnDont,
+			alt: 'Form fields spread over two columns',
+		}}
+	>
+		Don't use multiple form columns.
+	</DoDont>
+</DoDontGrid>
 
 ## Fields and labels
 
@@ -171,45 +174,44 @@ miss content in a second column.
 - The length of a field should reflect the intended length of content. Available lengths are 75px,
   150px, 250px, 350px, and 500px.
 
-<DoDont
-	type="do"
-	image={{
-		url: FormDefaultValuesDo,
-		alt: 'Account preferences form with the default language set to English (AU) and time zone set to Australia/Brisbane.',
-	}}
->
-	Provide smart default values.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: FormDefaultValuesDont,
-		alt: 'Account preferences form with the default language set to English (AU) and time zone set to Europe/Amsterdam.',
-	}}
->
-	Don't give random default values.
-</DoDont>
-
-<DoDont
-	type="do"
-	image={{
-		url: FormInputMasksDo,
-		alt: 'The password field is obscured by an input mask.',
-	}}
->
-	Use input masks to help users understand correct field formats.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: FormInputMasksDont,
-		alt: 'The password field shows plain text while typing.',
-	}}
->
-	Don’t use default inputs for particular fields.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: FormDefaultValuesDo,
+			alt: 'Account preferences form with the default language set to English (AU) and time zone set to Australia/Brisbane.',
+		}}
+	>
+		Provide smart default values.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: FormDefaultValuesDont,
+			alt: 'Account preferences form with the default language set to English (AU) and time zone set to Europe/Amsterdam.',
+		}}
+	>
+		Don't give random default values.
+	</DoDont>
+	<DoDont
+		type="do"
+		image={{
+			url: FormInputMasksDo,
+			alt: 'The password field is obscured by an input mask.',
+		}}
+	>
+		Use input masks to help users understand correct field formats.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: FormInputMasksDont,
+			alt: 'The password field shows plain text while typing.',
+		}}
+	>
+		Don’t use default inputs for particular fields.
+	</DoDont>
+</DoDontGrid>
 
 ### Required fields
 
@@ -220,25 +222,26 @@ after the field label.
 - If a form has a description, place the legend after the description.
 - Use a red asterisk (\*) after the field label to clearly show which fields are required.
 
-<DoDont
-	type="do"
-	image={{
-		url: FormRequiredFieldDo,
-		alt: 'A form that has the required field legend under its header.',
-	}}
->
-	Always include the legend: Required fields are marked with an asterisk *.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: FormRequiredFieldDont,
-		alt: 'A form that has asterisks (*) next to field labels but without a legend.',
-	}}
->
-	Don’t forget the legend and only mark a required field with an asterisk (*).
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: FormRequiredFieldDo,
+			alt: 'A form that has the required field legend under its header.',
+		}}
+	>
+		Always include the legend: Required fields are marked with an asterisk *.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: FormRequiredFieldDont,
+			alt: 'A form that has asterisks (*) next to field labels but without a legend.',
+		}}
+	>
+		Don’t forget the legend and only mark a required field with an asterisk (*).
+	</DoDont>
+</DoDontGrid>
 
 ### Labels
 
@@ -246,47 +249,49 @@ after the field label.
 - The only exception is for a search field that has a search icon, accessible label, and placeholder
   text.
 
-<DoDont
-	type="do"
-	image={{
-		url: FormVisibleLabelDo,
-		alt: 'Two text fields in a form show a visible label above them.',
-	}}
->
-	Always include a visible label.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: FormVisibleLabelDont,
-		alt: 'Two form text fields have inaccessibleplaceholder text inside them',
-	}}
->
-	Don’t use placeholder text instead of a visible label.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: FormVisibleLabelDo,
+			alt: 'Two text fields in a form show a visible label above them.',
+		}}
+	>
+		Always include a visible label.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: FormVisibleLabelDont,
+			alt: 'Two form text fields have inaccessibleplaceholder text inside them',
+		}}
+	>
+		Don’t use placeholder text instead of a visible label.
+	</DoDont>
+</DoDontGrid>
 
 Write concise labels and avoid using verbs.
 
-<DoDont
-	type="do"
-	image={{
-		url: FormConciseLabelDo,
-		alt: 'The visible label uses a noun "Description"',
-	}}
->
-	Describe the field.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: FormConciseLabelDont,
-		alt: 'The visible label uses a verb before the noun "Add a description".',
-	}}
->
-	Don’t use a verb or action in a label.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: FormConciseLabelDo,
+			alt: 'The visible label uses a noun "Description"',
+		}}
+	>
+		Describe the field.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: FormConciseLabelDont,
+			alt: 'The visible label uses a verb before the noun "Add a description".',
+		}}
+	>
+		Don’t use a verb or action in a label.
+	</DoDont>
+</DoDontGrid>
 
 ## Buttons
 
@@ -297,69 +302,72 @@ Write concise labels and avoid using verbs.
 Avoid multiple action buttons and reset buttons. This will reduce confusion about how to submit the
 form.
 
-<DoDont
-	type="do"
-	image={{
-		url: FormMultipleActionButtonsDo,
-		alt: 'Form with a single primary "Create" button and a secondary "Cancel" button.',
-	}}
->
-	Use clear, binary actions in button labels.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: FormMultipleActionButtonsDont,
-		alt: 'Form with a single primary "Create" button, a secondary "Manage trials" button and a subtle "Cancel" button.',
-	}}
->
-	Don't use multiple action buttons and a cancel button in the footer of a form.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: FormMultipleActionButtonsDo,
+			alt: 'Form with a single primary "Create" button and a secondary "Cancel" button.',
+		}}
+	>
+		Use clear, binary actions in button labels.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: FormMultipleActionButtonsDont,
+			alt: 'Form with a single primary "Create" button, a secondary "Manage trials" button and a subtle "Cancel" button.',
+		}}
+	>
+		Don't use multiple action buttons and a cancel button in the footer of a form.
+	</DoDont>
+</DoDontGrid>
 
 Ensure the primary action button provides feedback that the form is being submitted.
 
-<DoDont
-	type="do"
-	image={{
-		url: FormButtonFeedbackDo,
-		alt: 'Form where the "Create" button is replaced by a spinner.',
-	}}
->
-	Give feedback, like a spinner, to show the form is being submitted.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: FormButtonFeedbackDont,
-		alt: 'Form where the "Create" button remains the same and shows no feedback.',
-	}}
->
-	Don't let the user question whether their action might not have worked.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: FormButtonFeedbackDo,
+			alt: 'Form where the "Create" button is replaced by a spinner.',
+		}}
+	>
+		Give feedback, like a spinner, to show the form is being submitted.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: FormButtonFeedbackDont,
+			alt: 'Form where the "Create" button remains the same and shows no feedback.',
+		}}
+	>
+		Don't let the user question whether their action might not have worked.
+	</DoDont>
+</DoDontGrid>
 
 The button’s label should reflect the action in the heading.
 
-<DoDont
-	type="do"
-	image={{
-		url: FormReflectActionDo,
-		alt: 'Form heading and button both give "log in" as the action.',
-	}}
->
-	If your form has an action (verb) in the heading, use the same action in the button label.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: FormReflectActionDont,
-		alt: 'Form heading says "log in" but the button says "Submit".',
-	}}
->
-	Don’t show a different action in the button label. Align it with the form’s heading.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: FormReflectActionDo,
+			alt: 'Form heading and button both give "log in" as the action.',
+		}}
+	>
+		If your form has an action (verb) in the heading, use the same action in the button label.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: FormReflectActionDont,
+			alt: 'Form heading says "log in" but the button says "Submit".',
+		}}
+	>
+		Don’t show a different action in the button label. Align it with the form’s heading.
+	</DoDont>
+</DoDontGrid>
 
 ### Positioning buttons in forms
 

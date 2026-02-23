@@ -7,6 +7,7 @@ import PresenceResource, {
 	DefaultPresenceParser,
 	type PresenceMap,
 } from '../../../api/PresenceResource';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { validPresenceData, invalidPresenceData } from '@atlaskit/util-data-test/presence-data';
@@ -222,6 +223,90 @@ describe('PresenceResource', () => {
 			} catch (err) {
 				done(err);
 			}
+		});
+	});
+
+	ffTest.on('mentions_custom_headers', 'custom headers in presence requests', () => {
+		it('should include custom headers in presence requests when flag is on', async () => {
+			const customHeaders = { 'X-Custom-Header': 'presence-test-value' };
+			const resource = new PresenceResource({
+				...apiConfig,
+				headers: customHeaders,
+			});
+
+			resource.refreshPresence(testIds);
+
+			// Wait for the fetch to complete
+			await new Promise((resolve) => setTimeout(resolve, 50));
+
+			const calls = fetchMock.calls(mockName);
+			expect(calls.length).toBeGreaterThan(0);
+			const lastCall = calls[calls.length - 1];
+			const headers = lastCall[1]?.headers as Record<string, string>;
+			expect(headers['X-Custom-Header']).toBe('presence-test-value');
+			expect(headers['Content-Type']).toBe('application/json');
+		});
+
+		it('should include atl-attribution header when flag is on', async () => {
+			const activationId = 'test-activation-id-123';
+			const resource = new PresenceResource({
+				...apiConfig,
+				productId: 'jira',
+				activationId,
+			});
+
+			resource.refreshPresence(testIds);
+
+			// Wait for the fetch to complete
+			await new Promise((resolve) => setTimeout(resolve, 50));
+
+			const calls = fetchMock.calls(mockName);
+			expect(calls.length).toBeGreaterThan(0);
+			const lastCall = calls[calls.length - 1];
+			const headers = lastCall[1]?.headers as Record<string, string>;
+			const atlAttribution = JSON.parse(headers['atl-attribution']);
+			expect(atlAttribution).toEqual({
+				tenantId: dummyId,
+				product: 'jira',
+				atlWorkspaceId: `ari:cloud:jira:${dummyId}:workspace/${activationId}`,
+			});
+		});
+	});
+
+	ffTest.off('mentions_custom_headers', 'no custom headers when flag is off', () => {
+		it('should not include custom headers when flag is off', async () => {
+			const customHeaders = { 'X-Custom-Header': 'presence-test-value' };
+			const resource = new PresenceResource({
+				...apiConfig,
+				headers: customHeaders,
+			});
+
+			resource.refreshPresence(testIds);
+
+			// Wait for the fetch to complete
+			await new Promise((resolve) => setTimeout(resolve, 50));
+
+			const calls = fetchMock.calls(mockName);
+			expect(calls.length).toBeGreaterThan(0);
+			const lastCall = calls[calls.length - 1];
+			const headers = lastCall[1]?.headers as Record<string, string>;
+			expect(headers['X-Custom-Header']).toBeUndefined();
+			expect(headers['Content-Type']).toBe('application/json');
+		});
+
+		it('should not include atl-attribution header when flag is off', async () => {
+			const resource = new PresenceResource(apiConfig);
+
+			resource.refreshPresence(testIds);
+
+			// Wait for the fetch to complete
+			await new Promise((resolve) => setTimeout(resolve, 50));
+
+			const calls = fetchMock.calls(mockName);
+			expect(calls.length).toBeGreaterThan(0);
+			const lastCall = calls[calls.length - 1];
+			const headers = lastCall[1]?.headers as Record<string, string>;
+			expect(headers['atl-attribution']).toBeUndefined();
 		});
 	});
 });

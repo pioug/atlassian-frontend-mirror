@@ -1,4 +1,5 @@
 import { type createPayloads } from '../create-payload';
+import type { HiddenTimingItem } from '../hidden-timing';
 import { type LabelStack } from '../interaction-context';
 import { type VCObserver } from '../vc/vc-observer';
 
@@ -143,6 +144,7 @@ export type ReactUFOPayload = {
 			'ufo:wasPageHiddenBeforeInit'?: boolean;
 			'ufo:isOpenedInBackground'?: boolean;
 			'ufo:isTabThrottled'?: boolean;
+			'ufo:pageVisibilityTimeline'?: HiddenTimingItem[];
 
 			// TODO: align this better with `InteractionMetrics` type - that is outdated now, this is the type as sent by the UFO payload as of 10th April 2025
 			interactionMetrics: {

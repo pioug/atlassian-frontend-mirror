@@ -96,28 +96,29 @@ The main difference between Aside, Panel and Modal dialog is their behaviours:
 
 ### Design using grid in the Main area
 
-<DoDont
-	type="do"
-	image={{
-		url: layoutDo,
-		alt: 'A layout with a grid overlay on the Main area.',
-	}}
-	isFullWidth
->
-	When designing, use <a href="/foundations/grid-beta">Grid</a> to position content within the Main
-	area only.
-</DoDont>
-
-<DoDont
-	type="dont"
-	image={{
-		url: layoutDont,
-		alt: 'A layout with a grid overlay on the Main area, but also on the Side nav, Aside and Panel areas.',
-	}}
-	isFullWidth
->
-	Don't include Side nav, Aside or Panel areas as part of your Grid.
-</DoDont>
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: layoutDo,
+			alt: 'A layout with a grid overlay on the Main area.',
+		}}
+		isFullWidth
+	>
+		When designing, use <a href="/foundations/grid-beta">Grid</a> to position content within the
+		Main area only.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: layoutDont,
+			alt: 'A layout with a grid overlay on the Main area, but also on the Side nav, Aside and Panel areas.',
+		}}
+		isFullWidth
+	>
+		Don't include Side nav, Aside or Panel areas as part of your Grid.
+	</DoDont>
+</DoDontGrid>
 
 ## Related
 

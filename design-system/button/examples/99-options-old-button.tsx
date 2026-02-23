@@ -5,14 +5,25 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button';
 import { AtlassianIcon } from '@atlaskit/logo';
 import { token } from '@atlaskit/tokens';
 
 const Icon = <AtlassianIcon label="" size="small" />;
+
+const buttonWrapperStyles = css({
+	display: 'inline-block',
+	paddingBlockEnd: token('space.050', '4px'),
+	paddingBlockStart: token('space.050', '4px'),
+	paddingInlineEnd: token('space.050', '4px'),
+	paddingInlineStart: token('space.050', '4px')
+});
+
+const blockStyles = css({
+	display: 'block',
+});
 
 const ButtonWrapper = ({
 	inline = true,
@@ -22,10 +33,10 @@ const ButtonWrapper = ({
 	children: React.ReactNode;
 }) => (
 	<div
-		css={{
-			display: inline ? 'inline-block' : 'block',
-			padding: token('space.050', '4px'),
-		}}
+		css={[
+			buttonWrapperStyles,
+			!inline && blockStyles,
+		]}
 	>
 		{children}
 	</div>

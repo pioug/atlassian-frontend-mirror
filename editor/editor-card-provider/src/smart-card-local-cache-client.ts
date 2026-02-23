@@ -10,24 +10,58 @@ type CacheEntry = {
 	timestamp: number;
 };
 
+/**
+ * Singleton cache client for smart link responses. Uses sessionStorage for per-tab isolation (no cross-tab conflicts).
+ * If switching to localStorage for cross-tab sharing, add a 'storage' event listener in the constructor to sync
+ * memoryCache when other tabs modify the cache, preventing race conditions from concurrent writes.
+ */
 export class SmartCardLocalCacheClient {
+	private static instance: SmartCardLocalCacheClient | null = null;
+
 	private readonly storageClient = new StorageClient(SMART_CARD_CACHE_CLIENT_KEY, {
 		storageEngine: 'sessionStorage',
 	});
 	private maxItems: number;
+	private memoryCache: Record<string, CacheEntry>;
+	private pendingWrite: boolean = false;
 
-	constructor(maxItems: number = SMART_CARD_CACHE_DEFAULT_MAX_ITEMS) {
+	private constructor(maxItems: number = SMART_CARD_CACHE_DEFAULT_MAX_ITEMS) {
 		this.maxItems = maxItems;
+		// Load cache from storage into memory on instantiation
+		const stored = this.storageClient.getItem(SMART_CARD_CACHE_KEY, { useExpiredItem: true });
+		this.memoryCache = stored ? (JSON.parse(stored) as Record<string, CacheEntry>) : {};
 	}
 
 	/**
-	 * Retrieves the entire cache object from storage
+	 * Gets the singleton instance of SmartCardLocalCacheClient.
+	 * This ensures all callers share the same in-memory cache and prevents
+	 * race conditions when multiple instances write to the same storage key.
+	 * @param maxItems Maximum number of items to store in the cache (only used on first instantiation)
+	 * @returns The singleton instance
+	 */
+	public static getInstance(
+		maxItems: number = SMART_CARD_CACHE_DEFAULT_MAX_ITEMS,
+	): SmartCardLocalCacheClient {
+		if (!SmartCardLocalCacheClient.instance) {
+			SmartCardLocalCacheClient.instance = new SmartCardLocalCacheClient(maxItems);
+		}
+		return SmartCardLocalCacheClient.instance;
+	}
+
+	/**
+	 * Resets the singleton instance. Only intended for testing purposes.
+	 * @internal
+	 */
+	public static resetInstance(): void {
+		SmartCardLocalCacheClient.instance = null;
+	}
+
+	/**
+	 * Retrieves the entire cache object from memory
 	 * @returns The entire cache object
 	 */
 	public getCache = (): Record<string, CacheEntry> => {
-		const stored = this.storageClient.getItem(SMART_CARD_CACHE_KEY, { useExpiredItem: true });
-		const persistentCache = stored ? (JSON.parse(stored) as Record<string, CacheEntry>) : {};
-		return persistentCache;
+		return this.memoryCache;
 	};
 
 	/**
@@ -36,25 +70,42 @@ export class SmartCardLocalCacheClient {
 	 * @param response The SmartLinkResponse to be cached in storage
 	 */
 	public setItem = (url: string, response: SmartLinkResponse) => {
-		const newCache = this.getCache();
-
 		// Add or update the item in the cache with current timestamp
-		newCache[url] = { data: response, timestamp: Date.now() };
+		this.memoryCache[url] = { data: response, timestamp: Date.now() };
 
 		// Apply FIFO behavior if cache exceeds maxItems
-		const cacheKeys = Object.keys(newCache);
+		const cacheKeys = Object.keys(this.memoryCache);
 		if (cacheKeys.length > this.maxItems) {
 			// Sort keys by timestamp (oldest first) and remove the oldest items
-			const sortedKeys = cacheKeys.sort((a, b) => newCache[a].timestamp - newCache[b].timestamp);
+			const sortedKeys = cacheKeys.sort(
+				(a, b) => this.memoryCache[a].timestamp - this.memoryCache[b].timestamp,
+			);
 			const itemsToRemove = cacheKeys.length - this.maxItems;
 			const keysToRemove = sortedKeys.slice(0, itemsToRemove);
 
 			keysToRemove.forEach((key) => {
-				delete newCache[key];
+				delete this.memoryCache[key];
 			});
 		}
 
-		this.storageClient.setItemWithExpiry(SMART_CARD_CACHE_KEY, JSON.stringify(newCache));
+		// Write through to storage asynchronously (non-blocking)
+		// Debounced to batch multiple rapid calls into a single write
+		if (!this.pendingWrite) {
+			this.pendingWrite = true;
+			queueMicrotask(() => {
+				try {
+					this.storageClient.setItemWithExpiry(
+						SMART_CARD_CACHE_KEY,
+						JSON.stringify(this.memoryCache),
+					);
+				} catch (_) {
+					// Ignore storage write errors (e.g. quota exceeded) to prevent blocking future writes
+					// Cache will still function in-memory for the session, but won't persist
+				} finally {
+					this.pendingWrite = false;
+				}
+			});
+		}
 	};
 
 	/**
@@ -67,8 +118,7 @@ export class SmartCardLocalCacheClient {
 			return;
 		}
 
-		const persistentCache = this.getCache();
-		const response = persistentCache?.[url]?.data;
+		const response = this.memoryCache?.[url]?.data;
 		return response;
 	};
 
@@ -78,7 +128,6 @@ export class SmartCardLocalCacheClient {
 	 * @returns True if a cached entry exists, else false
 	 */
 	public isUrlInCache = (url: string): boolean => {
-		const persistentCache = this.getCache();
-		return persistentCache ? url in persistentCache : false;
+		return url in this.memoryCache;
 	};
 }

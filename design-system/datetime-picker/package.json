@@ -112,9 +112,6 @@
 		"dst-date-time-picker-use-functional-component": {
 			"type": "boolean"
 		},
-		"platform-visual-refresh-icons": {
-			"type": "boolean"
-		},
 		"platform-dst-shape-theme-default": {
 			"type": "boolean"
 		}

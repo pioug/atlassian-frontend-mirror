@@ -72,10 +72,16 @@
 			"path": "../editor-plugin-context-panel/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-copy-button/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-decorations/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-mentions/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-toolbar/tsconfig.app.json"
@@ -106,6 +112,9 @@
 		},
 		{
 			"path": "../../design-system/link/tsconfig.app.json"
+		},
+		{
+			"path": "../../elements/mention/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"

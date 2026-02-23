@@ -1454,6 +1454,11 @@ events:
         <<: *PackageMetaDataContext
         screen:
           type: string
+  - starButton viewed (team):
+      type: ui
+      description: fired when the star team button is viewed
+      attributes:
+        <<: *PackageMetaDataContext
   - connectJiraProjectTab clicked:
       type: ui
       attributes:
@@ -3166,7 +3171,8 @@ events:
         <<: *NewUserProfileAttribute
   - userProfileWorkingWithMe viewed:
       type: screen
-      description: fired when user profile working with me section is viewed (only when section has content)
+      description:
+        fired when user profile working with me section is viewed (only when section has content)
   - teamAgentsPanel viewed:
       type: screen
       description: fired when team agents panel is viewed
@@ -3325,3 +3331,22 @@ events:
           required: false
           type: number
           description: The number of times the user has tried to add requested containers
+  - starred succeeded (team):
+      type: track
+      description: fired when a team is starred or unstarred succeeds
+      attributes:
+        <<: *PackageMetaDataContext
+        starred:
+          type: boolean
+          description: Whether the team is starred or not
+  - starred failed (team):
+      type: track
+      description: fired when starring or unstarring a team fails
+      attributes:
+        <<: *PackageMetaDataContext
+        starred:
+          type: boolean
+          description: Whether the action was to star or unstar the team
+        errorMessage:
+          type: string
+          description: The error message describing why the action failed

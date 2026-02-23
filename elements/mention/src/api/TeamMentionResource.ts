@@ -1,4 +1,5 @@
 import { SLI_EVENT_TYPE } from './../util/analytics';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type KeyValues, utils as serviceUtils } from '@atlaskit/util-service-support';
 
 import {
@@ -63,9 +64,13 @@ export default class TeamMentionResource extends MentionResource implements Ment
 		const getUserPromise = super.remoteInitialState(contextIdentifier);
 
 		const queryParams: KeyValues = this.getQueryParamsOfTeamMentionConfig(contextIdentifier);
+		const configHeaders = fg('mentions_custom_headers')
+			? this.teamMentionConfig.headers
+			: undefined;
 		const options = {
 			path: 'bootstrap',
 			queryParams,
+			...(configHeaders && { requestInit: { headers: configHeaders } }),
 		};
 		const getTeamsPromise = serviceUtils.requestService<Team[]>(this.teamMentionConfig, options);
 
@@ -182,6 +187,9 @@ export default class TeamMentionResource extends MentionResource implements Ment
 		query: string,
 		contextIdentifier?: MentionContextIdentifier,
 	): Promise<MentionsResult> {
+		const configHeaders = fg('mentions_custom_headers')
+			? this.teamMentionConfig.headers
+			: undefined;
 		const options = {
 			path: 'search',
 			queryParams: {
@@ -189,6 +197,7 @@ export default class TeamMentionResource extends MentionResource implements Ment
 				limit: MAX_QUERY_TEAMS,
 				...this.getQueryParamsOfTeamMentionConfig(contextIdentifier),
 			},
+			...(configHeaders && { requestInit: { headers: configHeaders } }),
 		};
 		try {
 			const teamResult = await serviceUtils.requestService<Team[]>(this.teamMentionConfig, options);

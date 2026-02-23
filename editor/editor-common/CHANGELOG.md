@@ -1,5 +1,48 @@
 # @atlaskit/editor-common
 
+## 111.18.0
+
+### Minor Changes
+
+- [`1a363f7706a2f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a363f7706a2f) -
+  EDITOR-4193 add anaytics for ssr errors
+
+### Patch Changes
+
+- Updated dependencies
+
+## 111.17.1
+
+### Patch Changes
+
+- [`0e487e05b9e61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e487e05b9e61) -
+  additional analytics attributes
+- Updated dependencies
+
+## 111.17.0
+
+### Minor Changes
+
+- [`46a2d3f1807fb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/46a2d3f1807fb) -
+  Remove feature gate for block menu drag handle offset
+- [`dfe1c3b4007f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dfe1c3b4007f4) -
+  [ux] Adding the ability to provide a Lozenge to Quick Insert Menu Items.
+
+### Patch Changes
+
+- [`48b6616a3fefc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/48b6616a3fefc) -
+  Add new logic to detect scrollable containers when calculating position for selection toolbar.
+  This fixes issues when used inside modals and other surfaces.
+- [`8d553b883996b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d553b883996b) -
+  Add block menu transform experience tracking
+- Updated dependencies
+
+## 111.16.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 111.16.5
 
 ### Patch Changes

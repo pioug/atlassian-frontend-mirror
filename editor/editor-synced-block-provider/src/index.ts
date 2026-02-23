@@ -83,11 +83,26 @@ export type {
 // store managers
 export { ReferenceSyncBlockStoreManager } from './store-manager/referenceSyncBlockStoreManager';
 export {
+	SyncBlockInMemorySessionCache,
+	syncBlockInMemorySessionCache,
+} from './store-manager/syncBlockInMemorySessionCache';
+export {
 	SyncBlockStoreManager,
 	useMemoizedSyncBlockStoreManager,
 } from './store-manager/syncBlockStoreManager';
 
 // utils
+export { BLOCK_SERVICE_SUBSCRIPTION_QUERY } from './clients/block-service/sharedSubscriptionUtils';
+export { type BlockSubscriptionPayload, parseSubscriptionPayload } from './clients/block-service/sharedSubscriptionUtils';
+export { 
+	convertRelayResponseToSyncBlockInstance,
+	type RelayBlockUpdateResponse 
+} from './utils/relayResponseConverter';
+export {
+	createRelayBlockSubscription,
+	createRelaySubscriptionFunction,
+	type RelayBlockSubscriptionConfig
+} from './utils/relaySubscriptionUtils';
 export { resolveSyncBlockInstance } from './utils/resolveSyncBlockInstance';
 export { parseResourceId, createResourceIdForReference } from './utils/resourceId';
 export {

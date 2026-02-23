@@ -1,5 +1,12 @@
 # @atlaskit/reduced-ui-pack
 
+## 19.1.1
+
+### Patch Changes
+
+- [`b1606e2b42667`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b1606e2b42667) -
+  Internal refactoring
+
 ## 19.1.0
 
 ### Minor Changes

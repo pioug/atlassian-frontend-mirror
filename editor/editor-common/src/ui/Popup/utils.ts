@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 export interface Position {
 	bottom?: number;
 	left?: number;
@@ -447,12 +445,8 @@ export function calculatePosition({
 
 	// Calculate scrollbar dimensions to adjust positions
 	// clientWidth/Height excludes scrollbars, offsetWidth/Height includes them
-	const scrollbarWidth = fg('platform_editor_popup_calc_pos_scrollbar')
-		? popupOffsetParent.offsetWidth - popupOffsetParent.clientWidth
-		: 0;
-	const scrollbarHeight = fg('platform_editor_popup_calc_pos_scrollbar')
-		? popupOffsetParent.offsetHeight - popupOffsetParent.clientHeight
-		: 0;
+	const scrollbarWidth = popupOffsetParent.offsetWidth - popupOffsetParent.clientWidth;
+	const scrollbarHeight = popupOffsetParent.offsetHeight - popupOffsetParent.clientHeight;
 
 	const {
 		top: targetTop,

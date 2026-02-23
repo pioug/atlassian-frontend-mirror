@@ -58,7 +58,8 @@
 		"estraverse": "root:*",
 		"json-schema-to-ts": "root:*",
 		"lodash": "root:*",
-		"semver": "root:*"
+		"semver": "root:*",
+		"tsx": "root:*"
 	},
 	"devDependencies": {
 		"@af/formatting": "workspace:^",

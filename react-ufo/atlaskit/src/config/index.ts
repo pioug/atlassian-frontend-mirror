@@ -160,6 +160,7 @@ export type Config = {
 			all: readonly TTVCRevision[];
 			byExperience?: Record<string, readonly TTVCRevision[]>;
 		};
+		readonly trackLayoutShiftOffenders?: boolean;
 	};
 	readonly postInteractionLog?: {
 		readonly enabled?: boolean;

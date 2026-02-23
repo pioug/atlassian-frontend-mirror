@@ -4,9 +4,10 @@
  */
 import { useState } from 'react';
 
-import { jsx } from '@compiled/react';
+import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
+import Heading from '@atlaskit/heading';
 import {
 	BitbucketIcon,
 	ConfluenceIcon,
@@ -19,6 +20,41 @@ import { ExitingPersistence, FadeIn, StaggeredEntrance } from '@atlaskit/motion'
 import { token } from '@atlaskit/tokens';
 
 import { Block, RetryContainer } from './utils';
+
+const buttonContainerStyles = css({
+	textAlign: 'center',
+});
+
+const ulStyles = css({
+	maxWidth: '474px',
+	padding: 0,
+	marginBlockEnd: token('space.200', '16px'),
+	marginBlockStart: token('space.200', '16px'),
+	marginInlineEnd: 'auto',
+	marginInlineStart: 'auto',
+});
+
+const liStyles = css({
+	display: 'block',
+	padding: 0,
+	marginBlockEnd: token('space.100', '8px'),
+	marginBlockStart: token('space.100', '8px'),
+	marginInlineEnd: token('space.100', '8px'),
+	marginInlineStart: token('space.100', '8px'),
+});
+
+const innerDivStyles = css({
+	display: 'flex',
+	width: '100%',
+	alignItems: 'center',
+	paddingInlineStart: token('space.100', '8px'),
+});
+
+const blockStyles = css({
+	width: '100%',
+	height: '48px',
+	borderRadius: token('radius.small', '3px'),
+});
 
 const logos = [
 	[<BitbucketIcon size="small" />, 'Bitbucket'],
@@ -40,26 +76,11 @@ export default (): JSX.Element => {
 
 	return (
 		<RetryContainer>
-			<div
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				css={{
-					textAlign: 'center',
-					'> *': { marginRight: token('space.050', '4px') },
-				}}
-			>
+			<div css={buttonContainerStyles}>
 				<Button onClick={() => setItems((list) => randRemove(list))}>Random remove</Button>
 				<Button onClick={() => setItems(logos)}>Reset</Button>
 
-				<ul
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-					css={{
-						maxWidth: '474px',
-						height: '328px',
-						padding: 0,
-						margin: `${token('space.200', '16px')} auto !important`,
-						div: { margin: '0' },
-					}}
-				>
+				<ul css={ulStyles}>
 					<StaggeredEntrance>
 						<ExitingPersistence appear>
 							{items.map((logo) => (
@@ -72,40 +93,15 @@ export default (): JSX.Element => {
 											className={props.className}
 											// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 											style={props.style}
-											// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-											css={{
-												display: 'block',
-												padding: 0,
-												margin: token('space.100', '8px'),
-											}}
+											css={liStyles}
 										>
 											<Block
-												css={{
-													width: '100%',
-													height: '48px',
-													borderRadius: token('radius.small', '3px'),
-												}}
-											>
-												<div
-													// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-													css={{
-														width: '100%',
-														display: 'flex',
-														alignItems: 'center',
-														paddingLeft: token('space.100', '8px'),
-													}}
-												>
+												css={blockStyles}>
+												<div css={innerDivStyles}>
 													{logo[0]}
-													<h3
-														// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-														css={{
-															margin: 0,
-															fontWeight: 300,
-															marginLeft: token('space.100', '8px'),
-														}}
-													>
+													<Heading as="h3" size="small">
 														{logo[1]}
-													</h3>
+													</Heading>
 												</div>
 											</Block>
 										</li>

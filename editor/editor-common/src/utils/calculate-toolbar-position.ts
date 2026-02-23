@@ -84,12 +84,53 @@ export const calculateToolbarPositionAboveSelection =
 	};
 
 const findContainingElement = (editorView: EditorView) => {
-	// First, try to find .fabric-editor-popup-scroll-parent
+	if (expValEquals('platform_editor_sel_toolbar_scroll_pos_fix_exp', 'isEnabled', true)) {
+		// Traverse DOM Tree upwards looking for scroll parents with "overflow: scroll"
+		// or fixed/absolute positioned containers.
+		let parent: Element | null = editorView.dom;
+
+		// Ignored via go/ees005
+		// eslint-disable-next-line no-cond-assign
+		while ((parent = parent.parentElement)) {
+			const style = window.getComputedStyle(parent);
+
+			// Check for explicit scroll parent class
+			if (parent.classList.contains('fabric-editor-popup-scroll-parent')) {
+				return { container: parent, isFixed: false };
+			}
+
+			// Check for overflow scroll containers
+			if (
+				style.overflow === 'scroll' ||
+				style.overflowX === 'scroll' ||
+				style.overflowY === 'scroll' ||
+				style.overflow === 'auto' ||
+				style.overflowX === 'auto' ||
+				style.overflowY === 'auto'
+			) {
+				return { container: parent, isFixed: false };
+			}
+
+			// Check for fixed or absolute positioned containers (modal wrappers, sidebars)
+			if (style.position === 'fixed' || style.position === 'absolute') {
+				return { container: parent, isFixed: style.position === 'fixed' };
+			}
+
+			// Stop at body
+			if (parent === document.body) {
+				break;
+			}
+		}
+
+		// Fall back to document.body if no suitable container found
+		return { container: document.body, isFixed: false };
+	}
+
+	// Original logic
 	const scrollParent = editorView.dom.closest('.fabric-editor-popup-scroll-parent');
 	if (scrollParent) {
 		return { container: scrollParent, isFixed: false };
 	} else {
-		// If no scroll parent, look for a fixed positioned parent
 		let fixedParent: Element | null = editorView.dom.parentElement;
 		while (fixedParent && fixedParent !== document.body) {
 			const computedStyle = window.getComputedStyle(fixedParent);
@@ -246,11 +287,14 @@ export const calculateToolbarPositionTrackHeadNew = (toolbarTitle: string) => {
 		}
 		const toolbarRect = toolbar.getBoundingClientRect();
 		const { head, anchor } = editorView.state.selection;
+
+		let top;
+		let left;
+
 		const topCoords = editorView.coordsAtPos(Math.min(head, anchor));
 		const bottomCoords = editorView.coordsAtPos(
 			Math.max(head, anchor) - Math.min(range.endOffset, 1),
 		);
-		let top;
 		// If not the same line AND we are selecting downwards, display toolbar below.
 		if (head > anchor && topCoords.top !== bottomCoords.top) {
 			// We are taking the previous pos to the maxium, so avoid end of line positions
@@ -259,7 +303,7 @@ export const calculateToolbarPositionTrackHeadNew = (toolbarTitle: string) => {
 		} else {
 			top = (topCoords.top || 0) - toolbarRect.height * 1.5;
 		}
-		let left = (head > anchor ? bottomCoords.right : topCoords.left) - toolbarRect.width / 2;
+		left = (head > anchor ? bottomCoords.right : topCoords.left) - toolbarRect.width / 2;
 
 		// Place toolbar below selection if not sufficient space above
 		if (top < containerBounds.top) {

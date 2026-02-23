@@ -1,3 +1,4 @@
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type KeyValues, utils as serviceUtils } from '@atlaskit/util-service-support';
 
 import {
@@ -41,7 +42,21 @@ export type {
 import { SLI_EVENT_TYPE } from '../util/analytics';
 import debounce from 'lodash/debounce';
 
+/**
+ * Configuration for the TeamMentionResource, which extends {@link MentionResourceConfig}
+ * to support fetching team mentions from a separate team search service endpoint.
+ *
+ * Used as the second argument when constructing a {@link TeamMentionResource}, alongside
+ * a standard `MentionResourceConfig` for user mentions.
+ */
 export interface TeamMentionResourceConfig extends MentionResourceConfig {
+	/**
+	 * A custom resolver function to generate the URL for a team's profile page.
+	 * If not provided, a default link of `{window.location.origin}/people/team/{teamId}` is used.
+	 *
+	 * @param teamId - The ID of the team (with any ARI prefix already trimmed).
+	 * @returns The full URL to the team's profile page.
+	 */
 	teamLinkResolver?: (teamId: string) => string;
 }
 
@@ -379,9 +394,11 @@ export class MentionResource extends AbstractMentionResource implements Resolvin
 		contextIdentifier?: MentionContextIdentifier,
 	): Promise<MentionsResult> {
 		const queryParams: KeyValues = this.getQueryParams(contextIdentifier);
+		const configHeaders = fg('mentions_custom_headers') ? this.config.headers : undefined;
 		const options = {
 			path: 'bootstrap',
 			queryParams,
+			...(configHeaders && { requestInit: { headers: configHeaders } }),
 		};
 		try {
 			const result = await serviceUtils.requestService<MentionsResult>(this.config, options);
@@ -403,6 +420,7 @@ export class MentionResource extends AbstractMentionResource implements Resolvin
 		query: string,
 		contextIdentifier?: MentionContextIdentifier,
 	): Promise<MentionsResult> {
+		const configHeaders = fg('mentions_custom_headers') ? this.config.headers : undefined;
 		const options = {
 			path: 'search',
 			queryParams: {
@@ -410,6 +428,7 @@ export class MentionResource extends AbstractMentionResource implements Resolvin
 				limit: MAX_QUERY_ITEMS,
 				...this.getQueryParams(contextIdentifier),
 			},
+			...(configHeaders && { requestInit: { headers: configHeaders } }),
 		};
 		try {
 			const result = await serviceUtils.requestService<MentionsResult>(this.config, options);

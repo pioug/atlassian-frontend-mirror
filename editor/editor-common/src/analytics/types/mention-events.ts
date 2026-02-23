@@ -35,6 +35,7 @@ type MentionTypeaheadInviteItemViewedPayload = UIAEP<
 		sessionId: string;
 		source: string;
 		userRole?: string;
+		isInlineInviteMentionsEnabled?: boolean;
 	},
 	undefined
 >;
@@ -56,6 +57,7 @@ type MentionTypeaheadInviteItemClickedPayload = UIAEP<
 		spaceInQuery?: boolean;
 		upKeyCount: number;
 		userRole?: string;
+		isInlineInviteMentionsEnabled?: boolean;
 	},
 	undefined
 >;

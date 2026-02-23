@@ -1,5 +1,30 @@
 # @atlaskit/renderer
 
+## 126.11.0
+
+### Minor Changes
+
+- [`1a363f7706a2f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a363f7706a2f) -
+  EDITOR-4193 add anaytics for ssr errors
+
+### Patch Changes
+
+- Updated dependencies
+
+## 126.10.2
+
+### Patch Changes
+
+- [`c085330e0dde8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c085330e0dde8) -
+  Remove new icon button styling hack
+- Updated dependencies
+
+## 126.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 126.10.0
 
 ### Minor Changes

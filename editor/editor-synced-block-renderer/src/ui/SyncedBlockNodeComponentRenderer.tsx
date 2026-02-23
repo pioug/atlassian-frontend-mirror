@@ -1,10 +1,11 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import type { DocNode } from '@atlaskit/adf-schema';
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import {
 	SyncBlockSharedCssClassName,
 	SyncBlockRendererDataAttributeName,
+	handleSSRErrorsAnalytics,
 } from '@atlaskit/editor-common/sync-block';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import { SyncBlockError, useFetchSyncBlockData } from '@atlaskit/editor-synced-block-provider';
@@ -36,6 +37,17 @@ export const SyncedBlockNodeComponentRenderer = ({
 	rendererOptions,
 }: SyncedBlockNodeComponentRendererProps): React.JSX.Element => {
 	const { resourceId, localId, fireAnalyticsEvent } = nodeProps;
+
+	useEffect(() => {
+		const timeoutId = setTimeout(() => {
+			handleSSRErrorsAnalytics(fireAnalyticsEvent);
+		}, 0);
+
+		return () => {
+			clearTimeout(timeoutId);
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	syncBlockStoreManager.referenceManager.updateFireAnalyticsEvent(fireAnalyticsEvent);
 

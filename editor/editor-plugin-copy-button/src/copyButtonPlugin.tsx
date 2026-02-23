@@ -1,6 +1,6 @@
 import type { CopyButtonPlugin } from './copyButtonPluginType';
 import createPlugin from './pm-plugins/main';
-import { processCopyButtonItems } from './ui/toolbar';
+import { processCopyButtonItems, afterCopy } from './ui/toolbar';
 
 export const copyButtonPlugin: CopyButtonPlugin = ({ api }) => ({
 	name: 'copyButton',
@@ -14,5 +14,6 @@ export const copyButtonPlugin: CopyButtonPlugin = ({ api }) => ({
 	},
 	actions: {
 		processCopyButtonItems: processCopyButtonItems(api?.analytics?.actions, api),
+		afterCopy: (message: string) => afterCopy(api)(message),
 	},
 });

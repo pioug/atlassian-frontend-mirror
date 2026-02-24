@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-status
 
+## 8.1.20
+
+### Patch Changes
+
+- [`d2f1426fe5b85`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2f1426fe5b85) -
+  [ux] ENGHEALTH-46817 Add feature gated a11y eslint fixes across editor packages
+- Updated dependencies
+
 ## 8.1.19
 
 ### Patch Changes

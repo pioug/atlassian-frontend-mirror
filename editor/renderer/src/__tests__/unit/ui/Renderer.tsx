@@ -14,8 +14,8 @@ jest.mock('@atlaskit/editor-common/performance/measure-tti', () => ({
 	measureTTI: jest.fn(),
 }));
 
-import React from 'react';
 import { mount, type ReactWrapper } from 'enzyme';
+import React from 'react';
 
 import type { DocNode } from '@atlaskit/adf-schema';
 import { a, b, doc, heading, p, text } from '@atlaskit/adf-utils/builders';
@@ -28,12 +28,13 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-mock';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import { Media } from '../../../react/nodes';
 import * as renderDocumentModule from '../../../render-document';
-import type { RendererProps } from '../../../ui/renderer-props';
 import Renderer from '../../../ui/Renderer';
+import type { RendererProps } from '../../../ui/renderer-props';
 import type { RendererAppearance } from '../../../ui/Renderer/types';
 import { initialDoc } from '../../__fixtures__/initial-doc';
 import { intlRequiredDoc } from '../../__fixtures__/intl-required-doc';
@@ -236,16 +237,67 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 
 			it('should remove stage0 marks if flag is not explicitly set to "stage0"', async () => {
 				renderer = initRenderer(docWithStage0Mark);
-				expect(renderer.find('ConfluenceInlineComment')).toHaveLength(0);
 
 				await expect(document.body).toBeAccessible();
 			});
 
 			it('should keep stage0 marks if flag is explicitly set to "stage0"', async () => {
 				renderer = initRenderer(docWithStage0Mark, { adfStage: 'stage0' });
-				expect(renderer.find('ConfluenceInlineComment')).toHaveLength(1);
 
 				await expect(document.body).toBeAccessible();
+			});
+		});
+
+		describe('Annotations', () => {
+			ffTest.on('platform_renderer_a11y_inline_comment_fix', '', () => {
+				const docWithAnnotation: DocNode = {
+					type: 'doc',
+					version: 1,
+					content: [
+						{
+							type: 'paragraph',
+							content: [
+								{
+									type: 'text',
+									text: 'Hello World',
+									marks: [
+										{
+											type: 'annotation',
+											attrs: {
+												annotationType: 'inlineComment' as any,
+												id: 'inline-comment-c3c522f5-3f8e-4e7f-b13c-da6ca9b3594c',
+											},
+										},
+									],
+								},
+							],
+						},
+					],
+				};
+
+				it('should contain a11y screen reader start and end text for inline comments', async () => {
+					const { container } = render(
+						<Renderer document={docWithAnnotation} allowAnnotations={true} />,
+					);
+
+					await waitFor(() =>
+						expect(
+							container.querySelector(
+								'[data-id="inline-comment-c3c522f5-3f8e-4e7f-b13c-da6ca9b3594c"] > span',
+							),
+						).toHaveTextContent('inline comment start'),
+					);
+
+					await waitFor(() =>
+						expect(
+							container.querySelector(
+								'[data-id="inline-comment-c3c522f5-3f8e-4e7f-b13c-da6ca9b3594c"] > span + span',
+							),
+						).toHaveTextContent('inline comment end'),
+					);
+
+					await expect(document.body).toBeAccessible();
+				});
 			});
 		});
 

@@ -1,5 +1,25 @@
 # @atlassian/navigation-system
 
+## 5.39.0
+
+### Minor Changes
+
+- [`c987f6814195b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c987f6814195b) -
+  Fixes a bug where the panel splitter would not be resizable when some browser extensions were
+  installed. This change was previousuly behind the feature flag
+  `platform-dst-panel-splitter-drag-start-client-x`, which has now been cleaned up.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.38.1
+
+### Patch Changes
+
+- [`ceba2f0da51d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ceba2f0da51d4) -
+  Add @starting-style to ESLint ignoredAtRules to allow usage without eslint-disable comments
+
 ## 5.38.0
 
 ### Minor Changes

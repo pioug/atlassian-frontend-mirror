@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 
+import { bind, type UnbindFn } from 'bind-event-listener';
 import _isEqual from 'lodash/isEqual';
 import _mergeRecursive from 'lodash/merge';
 import memoizeOne from 'memoize-one';
@@ -8,6 +9,7 @@ import { injectIntl } from 'react-intl-next';
 
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { withAnalyticsContext, withAnalyticsEvents } from '@atlaskit/analytics-next';
+import { getDocument } from '@atlaskit/browser-apis';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import {
@@ -34,6 +36,7 @@ import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider
 import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
 import Form, { FormFooter } from '@atlaskit/form';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ExtensionPlugin, RejectSave } from '../../extensionPluginType';
@@ -204,6 +207,7 @@ type State = {
 // eslint-disable-next-line @repo/internal/react/no-class-components
 class ConfigPanel extends React.Component<Props, State> {
 	onFieldChange: OnFieldChange | null;
+	unbindKeyDownHandler: UnbindFn | null;
 
 	constructor(props: Props) {
 		super(props);
@@ -215,16 +219,28 @@ class ConfigPanel extends React.Component<Props, State> {
 		};
 
 		this.onFieldChange = null;
+		this.unbindKeyDownHandler = null;
 	}
 
 	componentDidMount() {
 		const { fields, parameters } = this.props;
 		this.parseParameters(fields, parameters);
+		if (expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)) {
+			const doc = getDocument();
+			if (doc) {
+				this.unbindKeyDownHandler = bind(doc, {
+					type: 'keydown',
+					listener: this.handleKeyDown,
+				});
+			}
+		}
 	}
 
 	componentWillUnmount() {
 		const { createAnalyticsEvent, extensionManifest, fields } = this.props;
 		const { currentParameters } = this.state;
+
+		this.unbindKeyDownHandler?.();
 
 		fireAnalyticsEvent(createAnalyticsEvent)({
 			payload: {
@@ -237,7 +253,7 @@ class ConfigPanel extends React.Component<Props, State> {
 					...(extensionManifest?.key && ALLOWED_LOGGED_MACRO_PARAMS[extensionManifest.key]
 						? {
 								parameters: getLoggedParameters(extensionManifest.key, currentParameters, fields),
-							}
+						  }
 						: {}),
 				},
 			},
@@ -284,7 +300,7 @@ class ConfigPanel extends React.Component<Props, State> {
 		}
 	}
 
-	handleKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
+	handleKeyDown = (e: KeyboardEvent | React.KeyboardEvent<HTMLFormElement>) => {
 		if ((e.key === 'Esc' || e.key === 'Escape') && this.props.closeOnEsc) {
 			this.props.onCancel();
 		}
@@ -501,13 +517,16 @@ class ConfigPanel extends React.Component<Props, State> {
 							{(onFieldChange) => {
 								this.onFieldChange = onFieldChange;
 								return (
-									// eslint-disable-next-line @atlassian/a11y/no-noninteractive-element-interactions
 									<form
 										// Ignored via go/ees005
 										// eslint-disable-next-line react/jsx-props-no-spreading
 										{...formProps}
 										noValidate
-										onKeyDown={handleKeyDown}
+										onKeyDown={
+											expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)
+												? undefined
+												: handleKeyDown
+										}
 										data-testid="extension-config-panel"
 									>
 										{this.renderHeader(extensionManifest)}

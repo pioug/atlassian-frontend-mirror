@@ -181,7 +181,6 @@ const styles = cssMap({
 				 * starting values for when the element is first displayed, so the
 				 * transition animation knows where to start from.
 				 */
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 				'@starting-style': {
 					transform: 'translateX(-100%)',
 				},
@@ -240,7 +239,6 @@ const styles = cssMap({
 			 * starting values for when the element is first displayed, so the
 			 * transition animation knows where to start from.
 			 */
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'@starting-style': {
 				transform: 'translateX(calc(-100% * var(--animation-direction)))',
 			},
@@ -304,7 +302,6 @@ const styles = cssMap({
 			 * starting values for when the element is first displayed, so the
 			 * transition animation knows where to start from.
 			 */
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'@starting-style': {
 				transform: 'translateX(calc(-100% * var(--animation-direction)))',
 			},
@@ -337,7 +334,6 @@ const styles = cssMap({
 			 * starting values for when the element is first displayed, so the
 			 * transition animation knows where to start from.
 			 */
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'@starting-style': {
 				transform: 'translateX(calc(-100% * var(--animation-direction)))',
 			},

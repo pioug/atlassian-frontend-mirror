@@ -81,6 +81,11 @@ export type LoomPluginOptionsWithProvider = {
 	 * @param ButtonComponent Loom toolbar button component (mainly UI)
 	 */
 	renderButton?: RenderButton;
+	/**
+	 * Due to contrainsts with the toolbar model the menu needs to know if any menu items will truely render. Right now
+	 * it's not possible to inspect the output of renderButton to detemine this so we need to pass it in as a prop.
+	 */
+	shouldRenderButton?: () => boolean;
 	shouldShowToolbarButton?: boolean;
 };
 
@@ -93,6 +98,11 @@ export type LoomPluginOptionsWithoutProvider = {
 	 * @param ButtonComponent Loom toolbar button component (mainly UI)
 	 */
 	renderButton: RenderButton;
+	/**
+	 * Due to contrainsts with the toolbar model the menu needs to know if any menu items will truely render. Right now
+	 * it's not possible to inspect the output of renderButton to detemine this so we need to pass it in as a prop.
+	 */
+	shouldRenderButton?: () => boolean;
 	shouldShowToolbarButton?: boolean;
 };
 

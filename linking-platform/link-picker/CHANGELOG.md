@@ -1,5 +1,13 @@
 # @atlaskit/link-picker
 
+## 4.2.10
+
+### Patch Changes
+
+- [`0f1cfed063364`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f1cfed063364) -
+  NAVX-3742 Refactoring link picker helper message for text fields to be read by screen readers for
+  a11y
+
 ## 4.2.9
 
 ### Patch Changes

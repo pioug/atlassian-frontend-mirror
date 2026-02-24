@@ -47,7 +47,7 @@ export const LoomMenuItem = ({
 	}
 };
 
-const CustomisableLoomMenuItem = (api: ExtractInjectionAPI<LoomPlugin> | undefined) =>
+export const CustomisableLoomMenuItem = (api: ExtractInjectionAPI<LoomPlugin> | undefined) =>
 	React.forwardRef<HTMLElement, ButtonComponentProps>(
 		({ isDisabled = false, onClickBeforeInit, href, target, rel }, ref) => {
 			const loomEnabled = !!useLoomEnabled(api);

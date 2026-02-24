@@ -10,6 +10,7 @@ import { css, jsx } from '@emotion/react';
 
 import { OverlayButton } from '@atlaskit/editor-common/link';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 const ConfigureOverlayWrapperStyles = css({
@@ -43,18 +44,34 @@ const OverlayWrapper = ({
 
 	return (
 		<span
-			// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 			onMouseEnter={() => {
 				setShowConfigureButton(true);
 				hoverCallback(true);
 			}}
-			// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 			onMouseLeave={() => {
 				if (!dropdownOpen) {
 					setShowConfigureButton(false);
 					hoverCallback(false);
 				}
 			}}
+			onFocus={
+				expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)
+					? () => {
+							setShowConfigureButton(true);
+							hoverCallback(true);
+					  }
+					: undefined
+			}
+			onBlur={
+				expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)
+					? () => {
+							if (!dropdownOpen) {
+								setShowConfigureButton(false);
+								hoverCallback(false);
+							}
+					  }
+					: undefined
+			}
 			data-testid="inline-card-overlay-wrapper"
 		>
 			<span css={ConfigureOverlayWrapperStyles}>

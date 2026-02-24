@@ -33,6 +33,9 @@
 			"path": "../../editor-plugin-connectivity/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-editor-viewmode/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-hyperlink/afm-products/tsconfig.json"
 		},
 		{

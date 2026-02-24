@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-picker",
-	"version": "4.2.9",
+	"version": "4.2.10",
 	"description": "Standalone link picker",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
@@ -47,6 +47,9 @@
 			"type": "boolean"
 		},
 		"navx-3332-update-link-picker-heading-levels": {
+			"type": "boolean"
+		},
+		"navx-3742-refactoring-link-picker-helper-text-a11y": {
 			"type": "boolean"
 		}
 	},

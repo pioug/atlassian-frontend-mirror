@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 10.3.17
+
+### Patch Changes
+
+- [`52d4b8fab3118`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/52d4b8fab3118) -
+  Add platform_editor_toolbar_hide_overflow_menu experiment, add logic to hide menu button if there
+  are no menu items rendered
+- Updated dependencies
+
 ## 10.3.16
 
 ### Patch Changes

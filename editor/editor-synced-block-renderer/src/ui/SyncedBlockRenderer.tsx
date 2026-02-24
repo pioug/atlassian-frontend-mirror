@@ -43,9 +43,11 @@ const SyncedBlockRendererComponent = ({
 	const { isLoading, providerFactory, reloadData, ssrProviders, syncBlockInstance } =
 		syncBlockFetchResult;
 
+	const isSSRMode = isSSR();
+
 	const rendererOptions = useMemo(() => {
 		if (
-			!isSSR() ||
+			!isSSRMode ||
 			syncBlockRendererOptions?.media?.ssr || // already has ssr config
 			!ssrProviders?.media?.viewMediaClientConfig
 		) {
@@ -64,7 +66,7 @@ const SyncedBlockRendererComponent = ({
 				ssr: mediaSSR,
 			},
 		};
-	}, [syncBlockRendererOptions, ssrProviders]);
+	}, [syncBlockRendererOptions, ssrProviders, isSSRMode]);
 
 	const { isCollabOffline } = useSharedPluginStateWithSelector(
 		api,
@@ -76,7 +78,7 @@ const SyncedBlockRendererComponent = ({
 
 	// Show offline error only when collaboration is offline and not in SSR mode
 	// In SSR, we should always attempt to render content
-	if (isCollabOffline && !isSSR()) {
+	if (isCollabOffline && !isSSRMode) {
 		return <SyncedBlockErrorComponent error={{ type: SyncBlockError.Offline }} />;
 	}
 
@@ -86,7 +88,7 @@ const SyncedBlockRendererComponent = ({
 
 	// In SSR, if server returned error, we should render loading state instead of error state
 	// since  FE will do another fetch and render the error state or proper data then
-	if (isSSR() && syncBlockInstance.error) {
+	if (isSSRMode && syncBlockInstance.error) {
 		return <SyncedBlockLoadingState />;
 	}
 

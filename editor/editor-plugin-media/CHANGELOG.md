@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-media
 
+## 9.5.6
+
+### Patch Changes
+
+- [`5ad6e24098de0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ad6e24098de0) -
+  tidy up fg platform_editor_media_video_check_fix_new
+- Updated dependencies
+
+## 9.5.5
+
+### Patch Changes
+
+- [`231bc5802c7de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/231bc5802c7de) -
+  fix stale node position issue in media single
+- Updated dependencies
+
 ## 9.5.4
 
 ### Patch Changes

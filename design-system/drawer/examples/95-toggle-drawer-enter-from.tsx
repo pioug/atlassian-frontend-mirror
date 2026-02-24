@@ -6,7 +6,7 @@ import Drawer, { DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlask
 import { Label } from '@atlaskit/form';
 import { type Direction } from '@atlaskit/motion';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Inline } from '@atlaskit/primitives';
+import { Box, Inline } from "@atlaskit/primitives/compiled";
 
 const DrawersExample = (): React.JSX.Element => {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);

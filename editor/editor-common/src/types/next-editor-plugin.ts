@@ -15,10 +15,8 @@ import type { EditorCommand, EditorCommandWithMetadata } from './editor-command'
 import type { EditorPlugin } from './editor-plugin';
 
 export interface Transformer<T> {
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	encode(node: Node): T;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	parse(content: T): Node;
+	encode: (node: Node) => T;
+	parse: (content: T) => Node;
 }
 
 export type CorePlugin = NextEditorPlugin<
@@ -39,10 +37,9 @@ export type CorePlugin = NextEditorPlugin<
 			 * @param schema Schema of the document
 			 * @returns Transformer which can be used to request a document
 			 */
-			// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-			createTransformer<Format>(
+			createTransformer: <Format>(
 				cb: (schema: Schema) => Transformer<Format>,
-			): Transformer<Format> | undefined;
+			) => Transformer<Format> | undefined;
 			/**
 			 * Dispatches an EditorCommand to ProseMirror
 			 *
@@ -106,14 +103,14 @@ export type CorePlugin = NextEditorPlugin<
 			 * @param options.alwaysFire If true, always return a value in `onReceive` handler rather than skipping throttled calls
 			 */
 			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style -- method-signature-style ignored via go/ees013 (to be fixed)
-			requestDocument<GenericTransformer extends Transformer<any> = Transformer<JSONDocNode>>(
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			requestDocument: <GenericTransformer extends Transformer<any> = Transformer<JSONDocNode>>(
 				onReceive: (document: TransformerResult<GenericTransformer> | undefined) => void,
 				options?: {
 					alwaysFire?: boolean;
 					transformer?: GenericTransformer;
 				},
-			): void;
+			) => void;
 
 			/**
 			 * Request the editor document asynchronously.

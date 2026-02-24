@@ -12,6 +12,7 @@ import {
 	type SyncedBlockProvider,
 	type SyncBlockPrefetchData,
 } from '@atlaskit/editor-synced-block-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SyncedBlockRendererOptions } from './types';
 import {
@@ -52,10 +53,18 @@ export const useMemoizedSyncedBlockNodeComponent = ({
 
 	// Process prefetched data early, if available
 	useEffect(() => {
-		let prefetchedData: SyncBlockPrefetchData | undefined;
 		if (getPrefetchedData) {
-			prefetchedData = getPrefetchedData();
-			syncBlockStoreManager.referenceManager.processPrefetchedData(prefetchedData);
+			if (fg('platform_synced_block_patch_4')) {
+				try {
+					const prefetchedData = getPrefetchedData();
+					syncBlockStoreManager.referenceManager.processPrefetchedData(prefetchedData);
+				} catch {
+					// Silently ignore errors from getPrefetchedData so the fetch effect can still run
+				}
+			} else {
+				const prefetchedData = getPrefetchedData();
+				syncBlockStoreManager.referenceManager.processPrefetchedData(prefetchedData);
+			}
 		}
 	}, [getPrefetchedData, syncBlockStoreManager.referenceManager]);
 

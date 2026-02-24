@@ -9,6 +9,8 @@ import type * as ESTree from 'eslint-codemod-utils';
 
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
+import { allowedGroupedAtRules } from './constants';
+
 type CssMapVisitorArgs =
 	| {
 			type: 'variant' | 'declaration' | 'ruleset' | 'selectors';
@@ -141,11 +143,14 @@ function walkCssMapAtRuleGrouping({
 		return;
 	}
 
-	visitor({
-		type: 'grouped-at-rules',
-		node: atRuleGrouping,
-		atRule,
-	});
+	// Skip reporting if the at-rule is allowed to be grouped
+	if (!allowedGroupedAtRules.has(atRule)) {
+		visitor({
+			type: 'grouped-at-rules',
+			node: atRuleGrouping,
+			atRule,
+		});
+	}
 
 	if (atRuleGrouping.value.type !== 'ObjectExpression') {
 		return;

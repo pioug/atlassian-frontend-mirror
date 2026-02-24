@@ -15,31 +15,20 @@ export type GetResolvedEditorStateReason = 'publish' | 'draft-sync' | 'get-conte
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface EditorActionsOptions<T = any> {
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	appendText(text: string): boolean;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	blur(): boolean;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	clear(): boolean;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	focus(): boolean;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	getNodeByFragmentLocalId(id: string): Node | undefined;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	getNodeByLocalId(id: string): Node | undefined;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	getResolvedEditorState(
+	appendText: (text: string) => boolean;
+	blur: () => boolean;
+	clear: () => boolean;
+	focus: () => boolean;
+	getNodeByFragmentLocalId: (id: string) => Node | undefined;
+	getNodeByLocalId: (id: string) => Node | undefined;
+	getResolvedEditorState: (
 		reason: GetResolvedEditorStateReason,
-	): Promise<ResolvedEditorState | undefined>;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	getSelectedNode(): Node | undefined;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	getValue(): Promise<T | JSONDocNode | undefined>;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	isDocumentEmpty(): boolean;
+	) => Promise<ResolvedEditorState | undefined>;
+	getSelectedNode: () => Node | undefined;
+	getValue: () => Promise<T | JSONDocNode | undefined>;
+	isDocumentEmpty: () => boolean;
 	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style -- method-signature-style ignored via go/ees013 (to be fixed)
-	replaceDocument(rawValue: any): boolean;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	replaceSelection(rawValue: ReplaceRawValue | Array<ReplaceRawValue>): boolean;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	replaceDocument: (rawValue: any) => boolean;
+	replaceSelection: (rawValue: ReplaceRawValue | Array<ReplaceRawValue>) => boolean;
 }

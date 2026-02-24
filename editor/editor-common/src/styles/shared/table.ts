@@ -161,7 +161,7 @@ const tableSharedStyle = () => {
 		}`
 			: ''}
 		/* display right border to avoid visual layout shift when table-right-border is not ready since it's waiting for table to render */
-		${expValEquals('platform_editor_table_borders_ready_fix', 'isEnabled', true)
+		${expValEquals('platform_editor_vc90_transition_fixes_batch_1', 'isEnabled', true)
 			? `.${TableSharedCssClassName.TABLE_CONTAINER}:not([data-borders-ready='true']) table {
 				border-right-color: ${token('color.background.accent.gray.subtler', akEditorTableBorder)};
 			}`

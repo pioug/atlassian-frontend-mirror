@@ -1,6 +1,5 @@
 import type { IntlShape } from 'react-intl-next';
 
-import { getDocument } from '@atlaskit/browser-apis';
 import { expandClassNames } from '@atlaskit/editor-common/styles';
 import { expandMessages } from '@atlaskit/editor-common/ui';
 
@@ -40,7 +39,7 @@ export function renderExpandButton(container: HTMLElement, buttonProps: ButtonPr
 			existingButton.setAttribute('disabled', 'true');
 		}
 	} else {
-		const doc = getDocument();
+		const doc = container.ownerDocument;
 		if (!doc) {
 			return;
 		}

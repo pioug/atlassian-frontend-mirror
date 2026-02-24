@@ -55,7 +55,6 @@ import {
 	akEditorGutterPaddingReduced,
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -74,6 +73,17 @@ export const resizerNextTestId = 'mediaSingle.resizerNext.testid';
 
 type ResizableMediaSingleNextProps = Props & {
 	showLegacyNotification?: boolean;
+};
+
+const getNodePosition = (getPos: Props['getPos']): number | null => {
+	if (typeof getPos !== 'function') {
+		return null;
+	}
+	const pos = getPos();
+	if (Number.isNaN(pos) || typeof pos !== 'number') {
+		return null;
+	}
+	return pos;
 };
 
 const calcPxHeight = (props: {
@@ -279,21 +289,13 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 	const lastSnappedGuidelineKeysRef = useRef<string[]>([]);
 	const [snaps, setSnaps] = useState<Snap>({});
 	const [isResizing, setIsResizing] = useState<boolean>(false);
-	const [isVideoFile, setIsVideoFile] = useState<boolean>(
-		!fg('platform_editor_media_video_check_fix_new'),
-	);
+	const [isVideoFile, setIsVideoFile] = useState<boolean>(false);
 	const [hasResized, setHasResized] = useState<boolean>(false);
 
-	const nodePosition = useMemo(() => {
-		if (typeof getPos !== 'function') {
-			return null;
-		}
-		const pos = getPos();
-		if (Number.isNaN(pos) || typeof pos !== 'number') {
-			return null;
-		}
-		return pos;
-	}, [getPos]);
+	const nodePosition = expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true)
+		? getNodePosition(getPos)
+		: // eslint-disable-next-line react-hooks/rules-of-hooks
+			useMemo(() => getNodePosition(getPos), [getPos]);
 	const isNestedNode = useMemo(() => {
 		if (nodePosition === null) {
 			return false;

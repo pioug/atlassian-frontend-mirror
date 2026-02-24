@@ -157,8 +157,8 @@ const ModalDialog = (props: InternalModalDialogProps): JSX.Element => {
 	const defaultTestId = testId || 'modal-dialog';
 	// https://product-fabric.atlassian.net/browse/DSP-24307
 	// If flag and falsy, use true instead.
-	const autoFocus =
-		!providedAutoFocus && fg('platform_dst_autofocus-never-false') ? true : providedAutoFocus;
+	// When we remove boolean `autoFocus`, we won't have to worry about this
+	const autoFocus = !providedAutoFocus ? true : providedAutoFocus;
 
 	useEffect(() => {
 		// Modal dialogs can appear on top of iframe elements that are on another domain.

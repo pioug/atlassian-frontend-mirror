@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+import { render, screen } from '@atlassian/testing-library';
 
 import type {
 	RegisterToolbar,
@@ -469,4 +470,291 @@ describe('ToolbarModeRenderer', () => {
 		]);
 		await expect(container).toBeAccessible();
 	});
+
+	eeTest
+		.describe('platform_editor_toolbar_hide_overflow_menu', 'isHidden functionality')
+		.variant(true, () => {
+			it('should hide menu when all menu items have isHidden returning true', async () => {
+				const toolbar = createTestToolbar();
+				const sections = createTestSections();
+				const groups = createTestGroups();
+				const menu = createTestMenu();
+				const menuSection = createTestMenuSection();
+
+				const menuItemsWithIsHidden: RegisterToolbarMenuItem[] = [
+					{
+						key: 'test-menu-item-first',
+						type: 'menu-item',
+						component: ({ parents }) => <MockMenuItem parents={parents} rank={100} />,
+						parents: [{ key: 'test-menu-section', type: 'menu-section', rank: 100 }],
+						isHidden: () => true,
+					},
+					{
+						key: 'test-menu-item-second',
+						type: 'menu-item',
+						component: ({ parents }) => <MockMenuItem parents={parents} rank={200} />,
+						parents: [{ key: 'test-menu-section', type: 'menu-section', rank: 200 }],
+						isHidden: () => true,
+					},
+				];
+
+				const components = [...sections, ...groups, menu, menuSection, ...menuItemsWithIsHidden];
+				const fallbacks = createDefaultFallbacks();
+
+				const { container } = render(
+					<ToolbarModelRenderer toolbar={toolbar} components={components} fallbacks={fallbacks} />,
+				);
+
+				expect(screen.getByTestId('toolbar')).toBeInTheDocument();
+				expect(screen.queryByTestId('menu')).not.toBeInTheDocument();
+				expect(screen.queryByTestId('menu-item')).not.toBeInTheDocument();
+				await expect(container).toBeAccessible();
+			});
+
+			it('should show menu when at least one menu item has isHidden returning false', async () => {
+				const toolbar = createTestToolbar();
+				const sections = createTestSections();
+				const groups = createTestGroups();
+				const menu = createTestMenu();
+				const menuSection = createTestMenuSection();
+
+				const menuItemsWithMixedVisibility: RegisterToolbarMenuItem[] = [
+					{
+						key: 'test-menu-item-first',
+						type: 'menu-item',
+						component: ({ parents }) => <MockMenuItem parents={parents} rank={100} />,
+						parents: [{ key: 'test-menu-section', type: 'menu-section', rank: 100 }],
+						isHidden: () => true,
+					},
+					{
+						key: 'test-menu-item-second',
+						type: 'menu-item',
+						component: ({ parents }) => <MockMenuItem parents={parents} rank={200} />,
+						parents: [{ key: 'test-menu-section', type: 'menu-section', rank: 200 }],
+						isHidden: () => false,
+					},
+				];
+
+				const components = [
+					...sections,
+					...groups,
+					menu,
+					menuSection,
+					...menuItemsWithMixedVisibility,
+				];
+				const fallbacks = createDefaultFallbacks();
+
+				const { container } = render(
+					<ToolbarModelRenderer toolbar={toolbar} components={components} fallbacks={fallbacks} />,
+				);
+
+				expect(screen.getByTestId('toolbar')).toBeInTheDocument();
+				expect(screen.getByTestId('menu')).toBeInTheDocument();
+				expect(screen.getByTestId('menu-section')).toBeInTheDocument();
+				await expect(container).toBeAccessible();
+			});
+
+			it('should show menu when menu items do not have isHidden property', async () => {
+				const toolbar = createTestToolbar();
+				const components = createTestComponents();
+				const fallbacks = createDefaultFallbacks();
+
+				const { container } = render(
+					<ToolbarModelRenderer toolbar={toolbar} components={components} fallbacks={fallbacks} />,
+				);
+
+				expect(screen.getByTestId('toolbar')).toBeInTheDocument();
+				expect(screen.getByTestId('menu')).toBeInTheDocument();
+				expect(screen.getAllByTestId('menu-item')).toHaveLength(2);
+				await expect(container).toBeAccessible();
+			});
+
+			it('should show menu when some menu items have isHidden and others do not', async () => {
+				const toolbar = createTestToolbar();
+				const sections = createTestSections();
+				const groups = createTestGroups();
+				const menu = createTestMenu();
+				const menuSection = createTestMenuSection();
+
+				const menuItemsWithPartialIsHidden: RegisterToolbarMenuItem[] = [
+					{
+						key: 'test-menu-item-first',
+						type: 'menu-item',
+						component: ({ parents }) => <MockMenuItem parents={parents} rank={100} />,
+						parents: [{ key: 'test-menu-section', type: 'menu-section', rank: 100 }],
+						isHidden: () => true,
+					},
+					{
+						key: 'test-menu-item-second',
+						type: 'menu-item',
+						component: ({ parents }) => <MockMenuItem parents={parents} rank={200} />,
+						parents: [{ key: 'test-menu-section', type: 'menu-section', rank: 200 }],
+						// No isHidden property
+					},
+				];
+
+				const components = [
+					...sections,
+					...groups,
+					menu,
+					menuSection,
+					...menuItemsWithPartialIsHidden,
+				];
+				const fallbacks = createDefaultFallbacks();
+
+				const { container } = render(
+					<ToolbarModelRenderer toolbar={toolbar} components={components} fallbacks={fallbacks} />,
+				);
+
+				expect(screen.getByTestId('toolbar')).toBeInTheDocument();
+				expect(screen.getByTestId('menu')).toBeInTheDocument();
+				expect(screen.getByTestId('menu-section')).toBeInTheDocument();
+				await expect(container).toBeAccessible();
+			});
+
+			it('should handle isHidden as a dynamic function that can change', async () => {
+				const toolbar = createTestToolbar();
+				const sections = createTestSections();
+				const groups = createTestGroups();
+				const menu = createTestMenu();
+				const menuSection = createTestMenuSection();
+
+				let shouldHide = true;
+
+				const menuItemsWithDynamicVisibility: RegisterToolbarMenuItem[] = [
+					{
+						key: 'test-menu-item-first',
+						type: 'menu-item',
+						component: ({ parents }) => <MockMenuItem parents={parents} rank={100} />,
+						parents: [{ key: 'test-menu-section', type: 'menu-section', rank: 100 }],
+						isHidden: () => shouldHide,
+					},
+				];
+
+				const components = [
+					...sections,
+					...groups,
+					menu,
+					menuSection,
+					...menuItemsWithDynamicVisibility,
+				];
+				const fallbacks = createDefaultFallbacks();
+
+				const { container, rerender } = render(
+					<ToolbarModelRenderer toolbar={toolbar} components={components} fallbacks={fallbacks} />,
+				);
+
+				expect(screen.queryByTestId('menu')).not.toBeInTheDocument();
+
+				// Change the visibility
+				shouldHide = false;
+
+				rerender(
+					<ToolbarModelRenderer toolbar={toolbar} components={components} fallbacks={fallbacks} />,
+				);
+
+				expect(screen.getByTestId('menu')).toBeInTheDocument();
+				await expect(container).toBeAccessible();
+			});
+
+			it('should hide menu when all menu items across multiple menu sections are hidden', async () => {
+				const toolbar = createTestToolbar();
+				const sections = createTestSections();
+				const groups = createTestGroups();
+				const menu = createTestMenu();
+
+				const menuSections: RegisterToolbarMenuSection[] = [
+					{
+						key: 'test-menu-section-1',
+						type: 'menu-section',
+						component: MockMenuSection,
+						parents: [{ key: 'test-menu', type: 'menu', rank: 100 }],
+					},
+					{
+						key: 'test-menu-section-2',
+						type: 'menu-section',
+						component: MockMenuSection,
+						parents: [{ key: 'test-menu', type: 'menu', rank: 200 }],
+					},
+				];
+
+				const menuItems: RegisterToolbarMenuItem[] = [
+					{
+						key: 'test-menu-item-1',
+						type: 'menu-item',
+						component: ({ parents }) => <MockMenuItem parents={parents} rank={100} />,
+						parents: [{ key: 'test-menu-section-1', type: 'menu-section', rank: 100 }],
+						isHidden: () => true,
+					},
+					{
+						key: 'test-menu-item-2',
+						type: 'menu-item',
+						component: ({ parents }) => <MockMenuItem parents={parents} rank={200} />,
+						parents: [{ key: 'test-menu-section-2', type: 'menu-section', rank: 100 }],
+						isHidden: () => true,
+					},
+				];
+
+				const components = [...sections, ...groups, menu, ...menuSections, ...menuItems];
+				const fallbacks = createDefaultFallbacks();
+
+				const { container } = render(
+					<ToolbarModelRenderer toolbar={toolbar} components={components} fallbacks={fallbacks} />,
+				);
+
+				expect(screen.getByTestId('toolbar')).toBeInTheDocument();
+				expect(screen.queryByTestId('menu')).not.toBeInTheDocument();
+				await expect(container).toBeAccessible();
+			});
+
+			it('should show menu when at least one menu item in any section is visible', async () => {
+				const toolbar = createTestToolbar();
+				const sections = createTestSections();
+				const groups = createTestGroups();
+				const menu = createTestMenu();
+
+				const menuSections: RegisterToolbarMenuSection[] = [
+					{
+						key: 'test-menu-section-1',
+						type: 'menu-section',
+						component: MockMenuSection,
+						parents: [{ key: 'test-menu', type: 'menu', rank: 100 }],
+					},
+					{
+						key: 'test-menu-section-2',
+						type: 'menu-section',
+						component: MockMenuSection,
+						parents: [{ key: 'test-menu', type: 'menu', rank: 200 }],
+					},
+				];
+
+				const menuItems: RegisterToolbarMenuItem[] = [
+					{
+						key: 'test-menu-item-1',
+						type: 'menu-item',
+						component: ({ parents }) => <MockMenuItem parents={parents} rank={100} />,
+						parents: [{ key: 'test-menu-section-1', type: 'menu-section', rank: 100 }],
+						isHidden: () => true,
+					},
+					{
+						key: 'test-menu-item-2',
+						type: 'menu-item',
+						component: ({ parents }) => <MockMenuItem parents={parents} rank={200} />,
+						parents: [{ key: 'test-menu-section-2', type: 'menu-section', rank: 100 }],
+						isHidden: () => false,
+					},
+				];
+
+				const components = [...sections, ...groups, menu, ...menuSections, ...menuItems];
+				const fallbacks = createDefaultFallbacks();
+
+				const { container } = render(
+					<ToolbarModelRenderer toolbar={toolbar} components={components} fallbacks={fallbacks} />,
+				);
+
+				expect(screen.getByTestId('toolbar')).toBeInTheDocument();
+				expect(screen.getByTestId('menu')).toBeInTheDocument();
+				await expect(container).toBeAccessible();
+			});
+		});
 });

@@ -5,6 +5,7 @@ import { useIntl } from 'react-intl-next';
 
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import EyeOpenStrikethroughIcon from '@atlaskit/icon/core/eye-open-strikethrough';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor, Text } from '@atlaskit/primitives/compiled';
 
 import { SyncedBlockErrorStateCard } from './SyncedBlockErrorStateCard';
@@ -26,7 +27,12 @@ export const SyncedBlockUnpublishedError = ({
 		link: (chunks: React.ReactNode[]) =>
 			sourceURL ? (
 				<Text>
-					<Anchor href={sourceURL} target="_blank" xcss={styles.link}>
+					<Anchor
+						href={sourceURL}
+						target="_blank"
+						rel={fg('platform_synced_block_patch_4') ? 'noopener noreferrer' : undefined}
+						xcss={styles.link}
+					>
 						{chunks}
 					</Anchor>
 				</Text>

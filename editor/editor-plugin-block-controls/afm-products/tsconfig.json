@@ -30,6 +30,9 @@
 			"path": "../../../helpers/browser-apis/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/button/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-accessibility-utils/afm-products/tsconfig.json"
 		},
 		{
@@ -79,6 +82,9 @@
 		},
 		{
 			"path": "../../../design-system/icon/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon-lab/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/link/afm-products/tsconfig.json"

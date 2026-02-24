@@ -1,6 +1,5 @@
 import React from 'react';
 import { md, Example, TSProps, code, DevPreviewWarning } from '@atlaskit/docs';
-import { token } from '@atlaskit/tokens';
 
 // This is used by the website generator to define which components are tabs, and the tab order.
 // If this export is not present, tabs are generated in case-sensitive alphabetical-order (not source-code order).
@@ -11,14 +10,7 @@ export const Code: React.JSX.Element = (
 );
 
 export const Usage: any = md`
-  ${
-		(
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			<div style={{ margin: token('space.100', '8px') }}>
-				<DevPreviewWarning />
-			</div>
-		)
-	}
+  ${(<DevPreviewWarning />)}
 
   ## Usage
 

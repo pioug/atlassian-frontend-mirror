@@ -43,12 +43,14 @@ import {
 	ExpandableMenuItemTrigger,
 } from '@atlaskit/side-nav-items/expandable-menu-item';
 import {
+	FlyoutBody,
+	FlyoutFooter,
+	FlyoutHeader,
 	FlyoutMenuItem,
 	FlyoutMenuItemContent,
 	FlyoutMenuItemTrigger,
 } from '@atlaskit/side-nav-items/flyout-menu-item';
 import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
-import { Divider } from '@atlaskit/side-nav-items/menu-section';
 import { token } from '@atlaskit/tokens';
 
 import { WithResponsiveViewport } from './utils/with-responsive-viewport';
@@ -142,16 +144,20 @@ function MenuItemsDeeplyNestedExample({
 								Recent
 							</FlyoutMenuItemTrigger>
 							<FlyoutMenuItemContent>
-								<LinkMenuItem href="#" elemBefore={<BoardIcon label="" color="currentColor" />}>
-									YNG board
-								</LinkMenuItem>
-								<Divider />
-								<LinkMenuItem
-									href="#"
-									elemBefore={<AlignTextLeftIcon label="" color="currentColor" />}
-								>
-									View all starred items
-								</LinkMenuItem>
+								<FlyoutHeader title="Recent" closeButtonLabel="Close menu" />
+								<FlyoutBody>
+									<LinkMenuItem href="#" elemBefore={<BoardIcon label="" color="currentColor" />}>
+										YNG board
+									</LinkMenuItem>
+								</FlyoutBody>
+								<FlyoutFooter>
+									<LinkMenuItem
+										href="#"
+										elemBefore={<AlignTextLeftIcon label="" color="currentColor" />}
+									>
+										View all starred items
+									</LinkMenuItem>
+								</FlyoutFooter>
 							</FlyoutMenuItemContent>
 						</FlyoutMenuItem>
 						<NestedExpandable label="Project 1">
@@ -278,17 +284,23 @@ function MenuItemsDeeplyNestedExample({
 																												Nested flyout menu item
 																											</FlyoutMenuItemTrigger>
 																											<FlyoutMenuItemContent>
-																												<LinkMenuItem
-																													href="#"
-																													elemBefore={
-																														<BoardIcon
-																															label=""
-																															color="currentColor"
-																														/>
-																													}
-																												>
-																													Flyout content
-																												</LinkMenuItem>
+																												<FlyoutHeader
+																													title="Nested flyout"
+																													closeButtonLabel="Close menu"
+																												/>
+																												<FlyoutBody>
+																													<LinkMenuItem
+																														href="#"
+																														elemBefore={
+																															<BoardIcon
+																																label=""
+																																color="currentColor"
+																															/>
+																														}
+																													>
+																														Flyout content
+																													</LinkMenuItem>
+																												</FlyoutBody>
 																											</FlyoutMenuItemContent>
 																										</FlyoutMenuItem>
 																									</NestedExpandable>

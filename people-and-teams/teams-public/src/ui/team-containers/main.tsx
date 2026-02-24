@@ -7,7 +7,8 @@ import FeatureGates from '@atlaskit/feature-gate-js-client';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Grid, Inline, Stack } from '@atlaskit/primitives';
+import { Grid } from "@atlaskit/primitives";
+import { Inline, Stack } from "@atlaskit/primitives/compiled";
 import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
 import {
 	hasProductPermission,

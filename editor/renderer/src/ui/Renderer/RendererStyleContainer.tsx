@@ -2871,6 +2871,7 @@ const syncBlockStyles = css({
 			borderRadius: token('radius.small', '3px'),
 			marginTop: token('space.075', '6px'),
 			paddingBlock: token('space.150', '12px'),
+			overflow: 'visible',
 		},
 
 	[`.${SyncBlockSharedCssClassName.renderer}`]: {
@@ -2894,21 +2895,6 @@ const syncBlockStyles = css({
 	[`.${SyncBlockSharedCssClassName.loading}`]: {
 		boxShadow: `0 0 0 1px ${token('color.border')}`,
 	},
-});
-
-const syncBlockOverflowStyles = css({
-	[`.${SyncBlockSharedCssClassName.renderer}, .${BodiedSyncBlockSharedCssClassName.renderer}, .${SyncBlockSharedCssClassName.error}, .${SyncBlockSharedCssClassName.loading}`]:
-		{
-			// Contain floated elements (wrap-left/wrap-right) within synced block borders
-			overflow: 'hidden',
-		},
-});
-
-const syncBlockPatch2Styles = css({
-	[`.${SyncBlockSharedCssClassName.renderer}, .${BodiedSyncBlockSharedCssClassName.renderer}, .${SyncBlockSharedCssClassName.error}, .${SyncBlockSharedCssClassName.loading}`]:
-		{
-			overflow: 'visible',
-		},
 });
 
 type RendererStyleContainerProps = Pick<
@@ -2967,8 +2953,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 		? getBrowserInfo()
 		: browserLegacy;
 	return (
-		// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
 		<div
+			role="none"
 			ref={innerRef}
 			onClick={onClick}
 			onMouseDown={onMouseDown}
@@ -3031,8 +3017,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 						? paragraphStylesUGCScaledMargin
 						: paragraphSharedStylesWithEditorUGC
 					: isCompactModeSupported
-						? paragraphSharedStyleScaledMargin
-						: paragraphSharedStyles,
+					? paragraphSharedStyleScaledMargin
+					: paragraphSharedStyles,
 				listsSharedStyles,
 				browser.gecko && listsSharedStylesForGekko,
 				indentationSharedStyles,
@@ -3118,13 +3104,9 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 						? scaledDenseEmojiStyles
 						: scaledEmojiStyles
 					: isCompactModeEnabled
-						? denseStyles
-						: undefined,
+					? denseStyles
+					: undefined,
 				editorExperiment('platform_synced_block', true) && syncBlockStyles,
-				editorExperiment('platform_synced_block', true) && syncBlockOverflowStyles,
-				editorExperiment('platform_synced_block', true) &&
-					fg('platform_synced_block_patch_2') &&
-					syncBlockPatch2Styles,
 				centerWrapperStyles,
 			]}
 			data-testid={testId}

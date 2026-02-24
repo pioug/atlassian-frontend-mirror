@@ -296,7 +296,7 @@ describe('Team Option', () => {
 				defaultMessage="{teamTypeName} {verifiedIcon} • {count} {count, plural, one {member} other {members}}"
 				description="Byline to show the number of members in the team when the current user is not a member of the team"
 				values={{
-					verifiedIcon: <VerifiedTeamIcon label="" size="small" spacing="none" />,
+					verifiedIcon: <VerifiedTeamIcon label="" size="small" />,
 					count: 2,
 					teamTypeName: 'Managed team',
 				}}
@@ -345,7 +345,7 @@ describe('Team Option', () => {
 				defaultMessage="{teamTypeName} {verifiedIcon} • 50+ members"
 				description="Byline to show the number of members in the team when the number exceeds 50"
 				values={{
-					verifiedIcon: <VerifiedTeamIcon label="" size="small" spacing="none" />,
+					verifiedIcon: <VerifiedTeamIcon label="" size="small" />,
 					teamTypeName: 'Enterprise team',
 				}}
 			/>,
@@ -372,7 +372,7 @@ describe('Team Option', () => {
 				defaultMessage="{teamTypeName} {verifiedIcon} • {count} {count, plural, one {member} other {members}}, including you"
 				description="Byline to show the number of members in the team when the current user is also a member of the team"
 				values={{
-					verifiedIcon: <VerifiedTeamIcon label="" size="small" spacing="none" />,
+					verifiedIcon: <VerifiedTeamIcon label="" size="small" />,
 					count: 10,
 					teamTypeName: 'Project team',
 				}}
@@ -400,7 +400,7 @@ describe('Team Option', () => {
 				defaultMessage="{teamTypeName} {verifiedIcon} • 50+ members, including you"
 				description="Byline to show the number of members in the team when the number exceeds 50 and also includes the current user"
 				values={{
-					verifiedIcon: <VerifiedTeamIcon label="" size="small" spacing="none" />,
+					verifiedIcon: <VerifiedTeamIcon label="" size="small" />,
 					teamTypeName: 'Organization team',
 				}}
 			/>,

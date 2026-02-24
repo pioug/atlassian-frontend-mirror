@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+/* eslint-disable jsdoc/check-tag-names */
 import {
 	Fragment,
 	useState,
@@ -197,6 +198,16 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 	} = props;
 	const portal = usePortal(props);
 	const cardContext = useSmartCardContext();
+	const SuspenseWrapperForUrl = smartLinks?.SuspenseWrapperForUrl;
+
+	// Helper fn to conditionally wrap cards when suspense boundary is passed in via product
+	const wrapWithSuspense = (card: JSX.Element) => {
+		if (SuspenseWrapperForUrl && url) {
+			return <SuspenseWrapperForUrl url={url}>{card}</SuspenseWrapperForUrl>;
+		}
+		return card;
+	};
+
 	const reload = useSmartLinkReload({ url: url || '' });
 	const [isResolvedViewRendered, setIsResolvedViewRendered] = useState(false);
 
@@ -263,26 +274,30 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 					{...inlineAnnotationProps}
 				>
 					<AnalyticsContext data={analyticsData}>
-						<CardSSR
-							appearance="inline"
-							url={url}
-							showHoverPreview={!hideHoverPreview}
-							actionOptions={actionOptions}
-							onClick={onClick}
-						/>
+						{wrapWithSuspense(
+							<CardSSR
+								appearance="inline"
+								url={url}
+								showHoverPreview={!hideHoverPreview}
+								actionOptions={actionOptions}
+								onClick={onClick}
+							/>,
+						)}
 					</AnalyticsContext>
 				</span>
 			);
 		}
 		return (
 			<AnalyticsContext data={analyticsData}>
-				<CardSSR
-					appearance="inline"
-					url={url}
-					showHoverPreview={!hideHoverPreview}
-					actionOptions={actionOptions}
-					onClick={onClick}
-				/>
+				{wrapWithSuspense(
+					<CardSSR
+						appearance="inline"
+						url={url}
+						showHoverPreview={!hideHoverPreview}
+						actionOptions={actionOptions}
+						onClick={onClick}
+					/>,
+				)}
 				{CompetitorPromptComponent}
 			</AnalyticsContext>
 		);
@@ -314,26 +329,28 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 							isResolvedViewRendered={isResolvedViewRendered}
 							fireAnalyticsEvent={fireAnalyticsEvent}
 						>
-							<CardSSR
-								appearance="inline"
-								url={url}
-								showHoverPreview={!hideHoverPreview}
-								actionOptions={actionOptions}
-								onClick={onClick}
-								onResolve={(data) => {
-									if (!data.url || !data.title) {
-										return;
-									}
+							{wrapWithSuspense(
+								<CardSSR
+									appearance="inline"
+									url={url}
+									showHoverPreview={!hideHoverPreview}
+									actionOptions={actionOptions}
+									onClick={onClick}
+									onResolve={(data) => {
+										if (!data.url || !data.title) {
+											return;
+										}
 
-									props.smartCardStorage.set(data.url, data.title);
+										props.smartCardStorage.set(data.url, data.title);
 
-									if (data.title) {
-										setIsResolvedViewRendered(true);
-									}
-								}}
-								onError={onError}
-								disablePreviewPanel={true}
-							/>
+										if (data.title) {
+											setIsResolvedViewRendered(true);
+										}
+									}}
+									onError={onError}
+									disablePreviewPanel={true}
+								/>,
+							)}
 						</MaybeOverlay>
 					</AnalyticsContext>
 				</span>
@@ -347,26 +364,28 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 					isResolvedViewRendered={isResolvedViewRendered}
 					fireAnalyticsEvent={fireAnalyticsEvent}
 				>
-					<CardSSR
-						appearance="inline"
-						url={url}
-						showHoverPreview={!hideHoverPreview}
-						actionOptions={actionOptions}
-						onClick={onClick}
-						onResolve={(data) => {
-							if (!data.url || !data.title) {
-								return;
-							}
+					{wrapWithSuspense(
+						<CardSSR
+							appearance="inline"
+							url={url}
+							showHoverPreview={!hideHoverPreview}
+							actionOptions={actionOptions}
+							onClick={onClick}
+							onResolve={(data) => {
+								if (!data.url || !data.title) {
+									return;
+								}
 
-							props.smartCardStorage.set(data.url, data.title);
+								props.smartCardStorage.set(data.url, data.title);
 
-							if (data.title) {
-								setIsResolvedViewRendered(true);
-							}
-						}}
-						onError={onError}
-						disablePreviewPanel={true}
-					/>
+								if (data.title) {
+									setIsResolvedViewRendered(true);
+								}
+							}}
+							onError={onError}
+							disablePreviewPanel={true}
+						/>,
+					)}
 				</MaybeOverlay>
 				{CompetitorPromptComponent}
 			</AnalyticsContext>
@@ -396,31 +415,33 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 						isResolvedViewRendered={isResolvedViewRendered}
 						fireAnalyticsEvent={fireAnalyticsEvent}
 					>
-						<Card
-							appearance="inline"
-							showHoverPreview={!hideHoverPreview}
-							actionOptions={actionOptions}
-							// Ignored via go/ees005
-							// eslint-disable-next-line react/jsx-props-no-spreading
-							{...cardProps}
-							onResolve={(data) => {
-								if (!data.url || !data.title) {
-									return;
-								}
+						{wrapWithSuspense(
+							<Card
+								appearance="inline"
+								showHoverPreview={!hideHoverPreview}
+								actionOptions={actionOptions}
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/jsx-props-no-spreading
+								{...cardProps}
+								onResolve={(data) => {
+									if (!data.url || !data.title) {
+										return;
+									}
 
-								props.smartCardStorage.set(data.url, data.title);
+									props.smartCardStorage.set(data.url, data.title);
 
-								if (data.title) {
-									setIsResolvedViewRendered(true);
-								}
-							}}
-							onError={onError}
-							disablePreviewPanel={editorExperiment(
-								'platform_editor_preview_panel_linking_exp',
-								true,
-								{ exposure: true },
-							)}
-						/>
+									if (data.title) {
+										setIsResolvedViewRendered(true);
+									}
+								}}
+								onError={onError}
+								disablePreviewPanel={editorExperiment(
+									'platform_editor_preview_panel_linking_exp',
+									true,
+									{ exposure: true },
+								)}
+							/>,
+						)}
 					</MaybeOverlay>
 					{CompetitorPromptComponent}
 				</CardErrorBoundary>

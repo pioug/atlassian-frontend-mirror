@@ -75,6 +75,52 @@ tester.run('no-restricted-at-rules', rule, {
         });
       `,
 		},
+		{
+			name: '@starting-style',
+			code: `
+        import { css } from '@compiled/react';
+
+        css({
+          '@starting-style': {
+            opacity: 0,
+          }
+        });
+      `,
+		},
+		{
+			name: '@starting-style in cssMap',
+			code: `
+        import { cssMap } from '@compiled/react';
+
+        cssMap({
+          fade: {
+            opacity: 1,
+            '@starting-style': {
+              opacity: 0,
+            }
+          }
+        });
+      `,
+		},
+		{
+			name: '@starting-style nested in @media',
+			code: `
+        import { cssMap } from '@compiled/react';
+
+        cssMap({
+          flyoutOpen: {
+            '@media (prefers-reduced-motion: no-preference)': {
+              transitionProperty: 'transform, display',
+              transitionDuration: '0.2s',
+              transitionBehavior: 'allow-discrete',
+              '@starting-style': {
+                transform: 'translateX(-100%)',
+              },
+            },
+          },
+        });
+      `,
+		},
 	],
 	invalid: [
 		{

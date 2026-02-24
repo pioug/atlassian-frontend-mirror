@@ -1,5 +1,12 @@
 # @atlaskit/empty-state
 
+## 10.1.13
+
+### Patch Changes
+
+- [`3752ebde7865b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3752ebde7865b) -
+  Removes redundant internal barrel file in favour of directly importing modules
+
 ## 10.1.12
 
 ### Patch Changes

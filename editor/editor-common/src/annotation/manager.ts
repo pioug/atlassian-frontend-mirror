@@ -38,7 +38,7 @@ export class SharedAnnotationManager implements AnnotationManager {
 
 	setPreemptiveGate(handler: () => Promise<boolean>): AnnotationManager {
 		this.preemptiveGate = handler;
-		return this;
+		return this as AnnotationManager;
 	}
 
 	checkPreemptiveGate(): Promise<boolean> {
@@ -60,31 +60,31 @@ export class SharedAnnotationManager implements AnnotationManager {
 
 	onDraftAnnotationStarted(handler: (data: AnnotationDraftStartedData) => void): AnnotationManager {
 		this.emitter.on('draftAnnotationStarted', handler);
-		return this;
+		return this as AnnotationManager;
 	}
 	offDraftAnnotationStarted(
 		handler: (data: AnnotationDraftStartedData) => void,
 	): AnnotationManager {
 		this.emitter.off('draftAnnotationStarted', handler);
-		return this;
+		return this as AnnotationManager;
 	}
 
 	onAnnotationSelectionChange(
 		handler: (data: AnnotationSelectedChangeData) => void,
 	): AnnotationManager {
 		this.emitter.on('annotationSelectionChanged', handler);
-		return this;
+		return this as AnnotationManager;
 	}
 	offAnnotationSelectionChange(
 		handler: (data: AnnotationSelectedChangeData) => void,
 	): AnnotationManager {
 		this.emitter.off('annotationSelectionChanged', handler);
-		return this;
+		return this as AnnotationManager;
 	}
 
 	emit(event: AnnotationManagerEvents): AnnotationManager {
-		this.emitter.emit(event.name, event.data);
-		return this;
+		this.emitter.emit(event.name, 'data' in event ? event.data : undefined);
+		return this as AnnotationManager;
 	}
 
 	hook<H extends keyof AnnotationManagerMethods>(
@@ -92,7 +92,7 @@ export class SharedAnnotationManager implements AnnotationManager {
 		handler: AnnotationManagerMethods[H],
 	): AnnotationManager {
 		this.hooks.set(method, handler);
-		return this;
+		return this as AnnotationManager;
 	}
 
 	unhook<H extends keyof AnnotationManagerMethods>(
@@ -100,10 +100,10 @@ export class SharedAnnotationManager implements AnnotationManager {
 		handler: AnnotationManagerMethods[H],
 	): AnnotationManager {
 		if (!this.hooks.has(method) || this.hooks.get(method) !== handler) {
-			return this;
+			return this as AnnotationManager;
 		}
 		this.hooks.delete(method);
-		return this;
+		return this as AnnotationManager;
 	}
 
 	allowAnnotation(): boolean {
@@ -115,7 +115,7 @@ export class SharedAnnotationManager implements AnnotationManager {
 
 		try {
 			return fn();
-		} catch (error) {
+		} catch {
 			return false;
 		}
 	}
@@ -129,9 +129,9 @@ export class SharedAnnotationManager implements AnnotationManager {
 
 		try {
 			return fn();
-		} catch (error) {
-			return { success: false, reason: 'hook-execution-error' };
-		}
+        } catch {
+            return { success: false, reason: 'hook-execution-error' };
+        }
 	}
 
 	clearDraft(): ClearDraftResult {
@@ -141,9 +141,9 @@ export class SharedAnnotationManager implements AnnotationManager {
 		}
 		try {
 			return fn();
-		} catch (error) {
-			return { success: false, reason: 'hook-execution-error' };
-		}
+        } catch {
+            return { success: false, reason: 'hook-execution-error' };
+        }
 	}
 
 	applyDraft(id: AnnotationId): ApplyDraftResult {
@@ -155,9 +155,9 @@ export class SharedAnnotationManager implements AnnotationManager {
 
 		try {
 			return fn(id);
-		} catch (error) {
-			return { success: false, reason: 'hook-execution-error' };
-		}
+        } catch {
+            return { success: false, reason: 'hook-execution-error' };
+        }
 	}
 
 	getDraft(): GetDraftResult {
@@ -167,9 +167,9 @@ export class SharedAnnotationManager implements AnnotationManager {
 		}
 		try {
 			return fn();
-		} catch (error) {
-			return { success: false, reason: 'hook-execution-error' };
-		}
+        } catch {
+            return { success: false, reason: 'hook-execution-error' };
+        }
 	}
 
 	setIsAnnotationSelected(id: string, isSelected: boolean): SelectAnnotationResult {
@@ -185,9 +185,9 @@ export class SharedAnnotationManager implements AnnotationManager {
 			// because the hook is responsible for the state of the selection. The manager is not responsible for the state of
 			// the selection.
 			return fn(id, isSelected);
-		} catch (error) {
-			return { success: false, reason: 'hook-execution-error' };
-		}
+        } catch {
+            return { success: false, reason: 'hook-execution-error' };
+        }
 	}
 
 	setIsAnnotationHovered(id: string, isHovered: boolean): HoverAnnotationResult {
@@ -200,9 +200,9 @@ export class SharedAnnotationManager implements AnnotationManager {
 
 		try {
 			return fn(id, isHovered);
-		} catch (error) {
-			return { success: false, reason: 'hook-execution-error' };
-		}
+        } catch {
+            return { success: false, reason: 'hook-execution-error' };
+        }
 	}
 
 	clearAnnotation(id: AnnotationId): ClearAnnotationResult {
@@ -212,8 +212,8 @@ export class SharedAnnotationManager implements AnnotationManager {
 		}
 		try {
 			return fn(id);
-		} catch (error) {
-			return { success: false, reason: 'hook-execution-error' };
-		}
+        } catch {
+            return { success: false, reason: 'hook-execution-error' };
+        }
 	}
 }

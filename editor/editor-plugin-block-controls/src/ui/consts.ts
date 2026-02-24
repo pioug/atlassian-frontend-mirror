@@ -38,6 +38,12 @@ export const QUICK_INSERT_WIDTH = 24;
 export const QUICK_INSERT_DIMENSIONS = { width: QUICK_INSERT_WIDTH, height: QUICK_INSERT_HEIGHT };
 export const QUICK_INSERT_LEFT_OFFSET = 16;
 
+export const REMIX_BUTTON_HEIGHT = 24;
+export const REMIX_BUTTON_WIDTH = 24;
+export const REMIX_BUTTON_DIMENSIONS = { width: REMIX_BUTTON_WIDTH, height: REMIX_BUTTON_HEIGHT };
+/** Extra offset to the right for the right-side Remix button (px) */
+export const REMIX_BUTTON_RIGHT_OFFSET = 55;
+
 const nodeTypeExcludeList = ['embedCard', 'mediaSingle', 'table'];
 const breakoutResizableNodes = ['expand', 'layoutSection', 'codeBlock'];
 

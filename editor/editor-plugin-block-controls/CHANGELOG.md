@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 8.5.1
+
+### Patch Changes
+
+- [`85444e8a5672a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85444e8a5672a) -
+  EDITOR-5526 clean up platform_synced_block_patch_2
+- Updated dependencies
+
+## 8.5.0
+
+### Minor Changes
+
+- [`db19daf3a712a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db19daf3a712a) -
+  [ux] Add remix button to platform
+
 ## 8.4.4
 
 ### Patch Changes

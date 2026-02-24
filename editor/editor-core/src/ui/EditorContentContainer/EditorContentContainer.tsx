@@ -630,7 +630,6 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							layoutSelectedStylesNotAdvanced,
 					editorExperiment('platform_synced_block', true) &&
-						fg('platform_synced_block_patch_2') &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						layoutSelectedStylesAdvancedFix,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -638,7 +637,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					editorExperiment('advanced_layouts', true) && layoutResponsiveBaseStyles,
 					fg('platform_editor_nested_dnd_styles_changes') &&
-						(editorExperiment('platform_synced_block', true) && fg('platform_synced_block_patch_2')
+						(editorExperiment('platform_synced_block', true)
 							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 								layoutBaseStylesFixesUnderNestedDnDFGExcludingBodiedSync
 							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

@@ -64,11 +64,9 @@ export const convertPMNodeToSyncBlockNode = (node: PMNode): SyncBlockNode | unde
 };
 
 export const convertPMNodesToSyncBlockNodes = (nodes: PMNode[]): SyncBlockNode[] => {
-	return (
-		nodes
-			.map((node) => convertPMNodeToSyncBlockNode(node))
-			.filter((node: SyncBlockNode | undefined): node is SyncBlockNode => node !== undefined) || []
-	);
+	return nodes
+		.map((node) => convertPMNodeToSyncBlockNode(node))
+		.filter((node: SyncBlockNode | undefined): node is SyncBlockNode => node !== undefined);
 };
 
 /*

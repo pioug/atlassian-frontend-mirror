@@ -87,6 +87,9 @@ export type AnnotationManagerEvents =
 			name: 'draftAnnotationStarted';
 	  }
 	| {
+			name: 'draftAnnotationCleared';
+	  }
+	| {
 			data: AnnotationSelectedChangeData;
 			name: 'annotationSelectionChanged';
 	  };
@@ -183,16 +186,14 @@ export type AnnotationManager = AnnotationManagerMethods & {
 	 * @private
 	 * @internal
 	 */
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	checkPreemptiveGate(): Promise<boolean>;
+	checkPreemptiveGate: () => Promise<boolean>;
 
 	/**
 	 * @private
 	 * @internal
 	 * This method is intended for internal Platform use only. It is not intended for use by Product code.
 	 */
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	emit(
+	emit: (
 		event:
 			| {
 					data: AnnotationDraftStartedData;
@@ -205,50 +206,47 @@ export type AnnotationManager = AnnotationManagerMethods & {
 					data: AnnotationSelectedChangeData;
 					name: 'annotationSelectionChanged';
 			  },
-	): AnnotationManager;
+	) => AnnotationManager;
 
 	/**
 	 * @private
 	 * @internal
 	 * This method is intended for internal Platform use only. It is not intended for use by Product code.
 	 */
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	hook<H extends keyof AnnotationManagerMethods>(
+	hook: <H extends keyof AnnotationManagerMethods>(
 		method: H,
 		handler: AnnotationManagerMethods[H],
-	): AnnotationManager;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	offAnnotationSelectionChange(
+	) => AnnotationManager;
+	offAnnotationSelectionChange: (
 		handler: (data: AnnotationSelectedChangeData) => void,
-	): AnnotationManager;
+	) => AnnotationManager;
 
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	offDraftAnnotationStarted(handler: (data: AnnotationDraftStartedData) => void): AnnotationManager;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	onAnnotationSelectionChange(
+	offDraftAnnotationStarted: (
+		handler: (data: AnnotationDraftStartedData) => void,
+	) => AnnotationManager;
+	onAnnotationSelectionChange: (
 		handler: (data: AnnotationSelectedChangeData) => void,
-	): AnnotationManager;
+	) => AnnotationManager;
 
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	onDraftAnnotationStarted(handler: (data: AnnotationDraftStartedData) => void): AnnotationManager;
+	onDraftAnnotationStarted: (
+		handler: (data: AnnotationDraftStartedData) => void,
+	) => AnnotationManager;
 
 	/**
 	 * This method is used to set a preemptive gate. A preemptive gate is a function that will be called
 	 * before the manager performs an action. If the function returns false, the action will not be performed.
 	 */
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	setPreemptiveGate(handler: () => Promise<boolean>): AnnotationManager;
+	setPreemptiveGate: (handler: () => Promise<boolean>) => AnnotationManager;
 
 	/**
 	 *
 	 * @internal
 	 * This method is intended for internal Platform use only. It is not intended for use by Product code.
 	 */
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	unhook<H extends keyof AnnotationManagerMethods>(
+	unhook: <H extends keyof AnnotationManagerMethods>(
 		method: H,
 		handler: AnnotationManagerMethods[H],
-	): AnnotationManager;
+	) => AnnotationManager;
 };
 
 /**

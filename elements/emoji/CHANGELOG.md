@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 69.10.20
+
+### Patch Changes
+
+- [`de02dc0a51052`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de02dc0a51052) -
+  [ux] [EDITOR-4986] change default emoji size to XXXHDPI
+- Updated dependencies
+
 ## 69.10.19
 
 ### Patch Changes

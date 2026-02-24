@@ -7,17 +7,17 @@ export type EditorExperimentOverridesMultivariate = {
 	[K in keyof EditorExperimentsConfig as MultivariateConfig<
 		EditorExperimentsConfig[K]['defaultValue']
 	> extends true
-		? K
-		: never]: EditorExperimentsConfig[K]['defaultValue'];
+	? K
+	: never]: EditorExperimentsConfig[K]['defaultValue'];
 };
 
 export type EditorExperimentOverridesBoolean = {
 	[K in keyof EditorExperimentsConfig as BooleanConfig<
 		EditorExperimentsConfig[K]['defaultValue']
 	> extends true
-		? K
-		: // Optional as boolean will default to true if not specified here
-			never]?: EditorExperimentsConfig[K]['defaultValue'];
+	? K
+	: // Optional as boolean will default to true if not specified here
+	never]?: EditorExperimentsConfig[K]['defaultValue'];
 };
 
 export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = {
@@ -31,6 +31,7 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 	platform_editor_table_sticky_header_improvements: 'test_with_overflow',
 	platform_sl_3p_unauth_paste_as_block_card: 'control',
 	cc_fd_db_top_editor_toolbar: 'control',
+	cwr_blank_object_experiment: 'control',
 };
 
 export const testBooleanOverrides: EditorExperimentOverridesBoolean = {

@@ -1,8 +1,21 @@
-import React from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from 'styled-components';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+
 import stringRaw from 'string-raw';
 import CodeBlock from '@atlaskit/code/block';
+import { cssMap, jsx } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+
+const wrapperStyles = cssMap({
+	root: {
+		marginBlockStart: token('space.100'),
+		marginBlockEnd: token('space.100'),
+		overflow: 'auto',
+		maxWidth: 'calc(100vw - 4rem)',
+	},
+});
 
 /*
  * Tag function to render a code block, e.g. code`console.log("hello world")`
@@ -21,16 +34,8 @@ export default function code(
 	source = source.replace(/(\n\s*)+$/g, ''); // Remove trailing newlines
 
 	return (
-		<CodeWrapper>
+		<div css={wrapperStyles.root}>
 			<CodeBlock language="jsx" text={source} highlight={highlight} />
-		</CodeWrapper>
+		</div>
 	);
 }
-
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- Ignored via go/DSP-18766
-const CodeWrapper = styled.div`
-	display: block;
-	margin-top: 8px;
-	overflow: auto;
-	max-width: calc(100vw - 4rem);
-`;

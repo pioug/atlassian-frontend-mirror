@@ -155,7 +155,7 @@ export class TeamOption extends React.PureComponent<TeamOptionProps> {
 
 	private renderVerifiedIcon = () => {
 		if (this.props.team.verified) {
-			return <VerifiedTeamIcon label="" size="small" spacing="none" />;
+			return <VerifiedTeamIcon label="" size="small" />;
 		}
 		return undefined;
 	};

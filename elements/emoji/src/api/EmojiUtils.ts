@@ -4,6 +4,7 @@ import {
 	type ServiceConfig,
 	utils as serviceUtils,
 } from '@atlaskit/util-service-support';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import type {
 	AltRepresentations,
 	EmojiDescription,
@@ -65,6 +66,15 @@ export const emojiRequest = (
 };
 
 const calculateScale = (getRatio: () => number): KeyValues => {
+	if (expValEquals('platform_editor_emoji_default_scale', 'isEnabled', true)) {
+		// retina display
+		if (getRatio() > 1) {
+			return { scale: 'XXXHDPI', altScale: 'XXXHDPI' };
+		}
+		// default set used for desktop
+		return { altScale: 'XXXHDPI' };
+	}
+	
 	// Retina display
 	if (getRatio() > 1) {
 		return { scale: 'XHDPI', altScale: 'XXXHDPI' };
@@ -173,7 +183,12 @@ export const denormaliseEmojiServiceResponse = (emojiData: EmojiServiceResponse)
 			const newSkinVariations = denormaliseSkinEmoji(emoji, emojiData.meta);
 
 			// create trimmedServiceDesc which is emoji with no representations or skinVariations
-			const { representation, skinVariations, altRepresentations, ...trimmedServiceDesc } = emoji;
+			const {
+				representation: _representation,
+				skinVariations: _skinVariations,
+				altRepresentations: _altRepresentations,
+				...trimmedServiceDesc
+			} = emoji;
 
 			const response: EmojiDescriptionWithVariations = {
 				...trimmedServiceDesc,

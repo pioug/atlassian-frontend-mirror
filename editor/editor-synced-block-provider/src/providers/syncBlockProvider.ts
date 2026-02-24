@@ -1,8 +1,9 @@
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 
 import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react';
 
 import { getProductFromSourceAri } from '../clients/block-service/ari';
 import { getPageIdAndTypeFromConfluencePageAri } from '../clients/confluence/ari';
@@ -374,7 +375,7 @@ const createSyncedBlockProvider = ({
 	return new SyncedBlockProvider(fetchProvider, writeProvider);
 };
 
-export const useMemoizedSyncedBlockProvider = ({
+const useMemoizedSyncedBlockProviderBase = ({
 	fetchProvider,
 	writeProvider,
 	providerOptions,
@@ -394,3 +395,38 @@ export const useMemoizedSyncedBlockProvider = ({
 
 	return syncBlockProvider;
 };
+
+const useMemoizedSyncedBlockProviderPatched = ({
+	fetchProvider,
+	writeProvider,
+	providerOptions,
+	getSSRData,
+}: UseMemoizedSyncedBlockProviderProps) => {
+	const syncBlockProvider = useMemo(
+		() => createSyncedBlockProvider({ fetchProvider, writeProvider }),
+		[fetchProvider, writeProvider],
+	);
+
+	const prevProviderOptionsRef = useRef<SyncedBlockRendererProviderOptions | undefined>(undefined);
+	if (providerOptions !== prevProviderOptionsRef.current) {
+		prevProviderOptionsRef.current = providerOptions;
+		syncBlockProvider.setProviderOptions(providerOptions);
+	}
+
+	const prevSSRDataRef = useRef<Record<string, SyncBlockInstance> | undefined>(undefined);
+	const ssrData = getSSRData?.();
+	if (ssrData !== prevSSRDataRef.current) {
+		prevSSRDataRef.current = ssrData;
+		if (ssrData) {
+			syncBlockProvider.setSSRData(ssrData);
+		}
+	}
+
+	return syncBlockProvider;
+};
+
+export const useMemoizedSyncedBlockProvider = conditionalHooksFactory(
+	() => fg('platform_synced_block_patch_4'),
+	useMemoizedSyncedBlockProviderPatched,
+	useMemoizedSyncedBlockProviderBase,
+);

@@ -3,7 +3,7 @@
  *
  * Structured content for MCP (JSON) for icons from icon-metadata.
  *
- * @codegen <<SignedSource::e7dc76c7fd5eff8f6689f9370332e6cc>>
+ * @codegen <<SignedSource::b64fcae3e8dbbabb3ffce9c06d07150b>>
  * @codegenCommand yarn build structured-docs
  */
 export interface IconStructuredContent {
@@ -13,15 +13,8 @@ export interface IconStructuredContent {
 
 export const iconMcpStructuredContent: IconStructuredContent[] = [
 	{
-		content: {
-			componentName: 'AccessibilityIcon',
-			package: '@atlaskit/icon/core/accessibility',
-			categorization: 'single-purpose',
-			usage:
-				'Reserved for representing accessibility and accessibility-related features and settings',
-			keywords: ['accessibility', 'icon', 'a11y', 'accessibility', 'WCAG'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"AccessibilityIcon","package":"@atlaskit/icon/core/accessibility","categorization":"single-purpose","usage":"Reserved for representing accessibility and accessibility-related features and settings","keywords":["accessibility","icon","a11y","accessibility","WCAG"],"status":"published"}',
 		componentName: 'AccessibilityIcon',
 		keywords: ['accessibility', 'icon', 'a11y', 'accessibility', 'WCAG'],
 		categorization: 'single-purpose',
@@ -30,14 +23,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'AddIcon',
-			package: '@atlaskit/icon/core/add',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for creating and adding an object.',
-			keywords: ['add', 'plus', 'create', 'new', 'icon', 'create', 'plus', 'jira status'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"AddIcon","package":"@atlaskit/icon/core/add","categorization":"single-purpose","usage":"Single purpose - Reserved for creating and adding an object.","keywords":["add","plus","create","new","icon","create","plus","jira status"],"status":"published"}',
 		componentName: 'AddIcon',
 		keywords: ['add', 'plus', 'create', 'new', 'icon', 'create', 'plus', 'jira status'],
 		categorization: 'single-purpose',
@@ -45,14 +32,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'AiAgentIcon',
-			package: '@atlaskit/icon/core/ai-agent',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for Rovo Agent.',
-			keywords: ['ai-agent', 'aiagent', 'icon', 'Rovo', 'AI', 'chat agent', 'ai'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"AiAgentIcon","package":"@atlaskit/icon/core/ai-agent","categorization":"single-purpose","usage":"Single purpose - Reserved for Rovo Agent.","keywords":["ai-agent","aiagent","icon","Rovo","AI","chat agent","ai"],"status":"published"}',
 		componentName: 'AiAgentIcon',
 		keywords: ['ai-agent', 'aiagent', 'icon', 'Rovo', 'AI', 'chat agent', 'ai'],
 		categorization: 'single-purpose',
@@ -60,14 +41,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'AiChatIcon',
-			package: '@atlaskit/icon/core/ai-chat',
-			categorization: 'single-purpose',
-			usage: 'Reserved for white label Rovo experiences.',
-			keywords: ['ai-chat', 'aichat', 'icon', 'Rovo', 'AI', 'chat agent', 'white label'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"AiChatIcon","package":"@atlaskit/icon/core/ai-chat","categorization":"single-purpose","usage":"Reserved for white label Rovo experiences.","keywords":["ai-chat","aichat","icon","Rovo","AI","chat agent","white label"],"status":"published"}',
 		componentName: 'AiChatIcon',
 		keywords: ['ai-chat', 'aichat', 'icon', 'Rovo', 'AI', 'chat agent', 'white label'],
 		categorization: 'single-purpose',
@@ -75,23 +50,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'AiGenerativeTextSummaryIcon',
-			package: '@atlaskit/icon/core/ai-generative-text-summary',
-			categorization: 'single-purpose',
-			usage: 'Reserved for summarizing content with Atlassian Intelligence & Loom',
-			keywords: [
-				'ai-generative-text-summary',
-				'aigenerativetextsummary',
-				'icon',
-				'summarize',
-				'summarise',
-				'summary',
-				'automation',
-				'AI',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"AiGenerativeTextSummaryIcon","package":"@atlaskit/icon/core/ai-generative-text-summary","categorization":"single-purpose","usage":"Reserved for summarizing content with Atlassian Intelligence & Loom","keywords":["ai-generative-text-summary","aigenerativetextsummary","icon","summarize","summarise","summary","automation","AI"],"status":"published"}',
 		componentName: 'AiGenerativeTextSummaryIcon',
 		keywords: [
 			'ai-generative-text-summary',
@@ -108,14 +68,26 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'AlertIcon',
-			package: '@atlaskit/icon/core/alert',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for alerts in JSM and Compass.',
-			keywords: ['alert', 'icon', 'alert', 'event', 'operations'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"AiSparkleIcon","package":"@atlaskit/icon/core/ai-sparkle","categorization":"single-purpose","usage":"Reserved for representing AI-powered features and functionality.  Note: The \'Editions\' gem icon has replaced the sparkle icon for representing premium features in upsell experiences.","keywords":["ai-sparkle","aisparkle","icon","AI","sparkles","generative AI","AI functionality"],"status":"published"}',
+		componentName: 'AiSparkleIcon',
+		keywords: [
+			'ai-sparkle',
+			'aisparkle',
+			'icon',
+			'AI',
+			'sparkles',
+			'generative AI',
+			'AI functionality',
+		],
+		categorization: 'single-purpose',
+		usage:
+			"Reserved for representing AI-powered features and functionality.  Note: The 'Editions' gem icon has replaced the sparkle icon for representing premium features in upsell experiences.",
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AlertIcon","package":"@atlaskit/icon/core/alert","categorization":"single-purpose","usage":"Single purpose - Reserved for alerts in JSM and Compass.","keywords":["alert","icon","alert","event","operations"],"status":"published"}',
 		componentName: 'AlertIcon',
 		keywords: ['alert', 'icon', 'alert', 'event', 'operations'],
 		categorization: 'single-purpose',
@@ -123,23 +95,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'AlignImageCenterIcon',
-			package: '@atlaskit/icon/core/align-image-center',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for center aligning media and content.',
-			keywords: [
-				'align-image-center',
-				'alignimagecenter',
-				'icon',
-				'content',
-				'media',
-				'image',
-				'alignment',
-				'centre',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"AlignImageCenterIcon","package":"@atlaskit/icon/core/align-image-center","categorization":"single-purpose","usage":"Single purpose - Reserved for center aligning media and content.","keywords":["align-image-center","alignimagecenter","icon","content","media","image","alignment","centre"],"status":"published"}',
 		componentName: 'AlignImageCenterIcon',
 		keywords: [
 			'align-image-center',
@@ -156,23 +113,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'AlignImageLeftIcon',
-			package: '@atlaskit/icon/core/align-image-left',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for left aligning media and content.',
-			keywords: [
-				'align-image-left',
-				'alignimageleft',
-				'icon',
-				'content',
-				'media',
-				'image',
-				'alignment',
-				'left',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"AlignImageLeftIcon","package":"@atlaskit/icon/core/align-image-left","categorization":"single-purpose","usage":"Single purpose - Reserved for left aligning media and content.","keywords":["align-image-left","alignimageleft","icon","content","media","image","alignment","left"],"status":"published"}',
 		componentName: 'AlignImageLeftIcon',
 		keywords: [
 			'align-image-left',
@@ -189,23 +131,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'AlignImageRightIcon',
-			package: '@atlaskit/icon/core/align-image-right',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for right aligning media and content.',
-			keywords: [
-				'align-image-right',
-				'alignimageright',
-				'icon',
-				'content',
-				'media',
-				'image',
-				'alignment',
-				'right',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"AlignImageRightIcon","package":"@atlaskit/icon/core/align-image-right","categorization":"single-purpose","usage":"Single purpose - Reserved for right aligning media and content.","keywords":["align-image-right","alignimageright","icon","content","media","image","alignment","right"],"status":"published"}',
 		componentName: 'AlignImageRightIcon',
 		keywords: [
 			'align-image-right',
@@ -222,14 +149,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'AlignTextCenterIcon',
-			package: '@atlaskit/icon/core/align-text-center',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: align text center, align center.',
-			keywords: ['align-text-center', 'aligntextcenter', 'icon', 'alignment', 'text', 'content'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"AlignTextCenterIcon","package":"@atlaskit/icon/core/align-text-center","categorization":"multi-purpose","usage":"Multi purpose - Known uses: align text center, align center.","keywords":["align-text-center","aligntextcenter","icon","alignment","text","content"],"status":"published"}',
 		componentName: 'AlignTextCenterIcon',
 		keywords: ['align-text-center', 'aligntextcenter', 'icon', 'alignment', 'text', 'content'],
 		categorization: 'multi-purpose',
@@ -237,22 +158,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'AlignTextLeftIcon',
-			package: '@atlaskit/icon/core/align-text-left',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: align text left, align content left, summary.',
-			keywords: [
-				'align-text-left',
-				'aligntextleft',
-				'icon',
-				'alignment',
-				'text',
-				'content',
-				'summary',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"AlignTextLeftIcon","package":"@atlaskit/icon/core/align-text-left","categorization":"multi-purpose","usage":"Multi purpose - Known uses: align text left, align content left, summary.","keywords":["align-text-left","aligntextleft","icon","alignment","text","content","summary"],"status":"published"}',
 		componentName: 'AlignTextLeftIcon',
 		keywords: [
 			'align-text-left',
@@ -268,14 +175,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'AlignTextRightIcon',
-			package: '@atlaskit/icon/core/align-text-right',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: align text right, align content right.',
-			keywords: ['align-text-right', 'aligntextright', 'icon', 'alignment', 'text', 'content'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"AlignTextRightIcon","package":"@atlaskit/icon/core/align-text-right","categorization":"multi-purpose","usage":"Multi purpose - Known uses: align text right, align content right.","keywords":["align-text-right","aligntextright","icon","alignment","text","content"],"status":"published"}',
 		componentName: 'AlignTextRightIcon',
 		keywords: ['align-text-right', 'aligntextright', 'icon', 'alignment', 'text', 'content'],
 		categorization: 'multi-purpose',
@@ -283,23 +184,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'AngleBracketsIcon',
-			package: '@atlaskit/icon/core/angle-brackets',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: code or source code in Bitbucket and Jira.',
-			keywords: [
-				'angle-brackets',
-				'anglebrackets',
-				'icon',
-				'code',
-				'<>',
-				'</>',
-				'syntax',
-				'jira status',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"AngleBracketsIcon","package":"@atlaskit/icon/core/angle-brackets","categorization":"multi-purpose","usage":"Multi purpose - Known uses: code or source code in Bitbucket and Jira.","keywords":["angle-brackets","anglebrackets","icon","code","<>","</>","syntax","jira status"],"status":"published"}',
 		componentName: 'AngleBracketsIcon',
 		keywords: [
 			'angle-brackets',
@@ -316,14 +202,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ApiIcon',
-			package: '@atlaskit/icon/core/api',
-			categorization: 'single-purpose',
-			usage: 'Reserved for representing Application Programming Interfaces (APIs).',
-			keywords: ['api', 'icon', 'application programming interface', 'api', 'operations'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ApiIcon","package":"@atlaskit/icon/core/api","categorization":"single-purpose","usage":"Reserved for representing Application Programming Interfaces (APIs).","keywords":["api","icon","application programming interface","api","operations"],"status":"published"}',
 		componentName: 'ApiIcon',
 		keywords: ['api', 'icon', 'application programming interface', 'api', 'operations'],
 		categorization: 'single-purpose',
@@ -331,14 +211,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'AppIcon',
-			package: '@atlaskit/icon/core/app',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for marketplace apps and integrations across apps.',
-			keywords: ['app', 'icon', 'plugin', 'external app', 'third-party app', 'add-on', 'add on'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"AppIcon","package":"@atlaskit/icon/core/app","categorization":"single-purpose","usage":"Single purpose - Reserved for marketplace apps and integrations across apps.","keywords":["app","icon","plugin","external app","third-party app","add-on","add on"],"status":"published"}',
 		componentName: 'AppIcon',
 		keywords: ['app', 'icon', 'plugin', 'external app', 'third-party app', 'add-on', 'add on'],
 		categorization: 'single-purpose',
@@ -346,22 +220,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'AppSwitcherIcon',
-			package: '@atlaskit/icon/core/app-switcher',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for app switcher in global app navigation.',
-			keywords: [
-				'app-switcher',
-				'appswitcher',
-				'icon',
-				'application switcher',
-				'change app',
-				'switch app',
-				'app switcher',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"AppSwitcherIcon","package":"@atlaskit/icon/core/app-switcher","categorization":"single-purpose","usage":"Single purpose - Reserved for app switcher in global app navigation.","keywords":["app-switcher","appswitcher","icon","application switcher","change app","switch app","app switcher"],"status":"published"}',
 		componentName: 'AppSwitcherIcon',
 		keywords: [
 			'app-switcher',
@@ -377,22 +237,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'AppSwitcherLegacyIcon',
-			package: '@atlaskit/icon/core/app-switcher-legacy',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for the legacy app switcher in global app navigation.',
-			keywords: [
-				'app-switcher-legacy',
-				'appswitcherlegacy',
-				'icon',
-				'application switcher',
-				'change app',
-				'switch app',
-				'app switcher',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"AppSwitcherLegacyIcon","package":"@atlaskit/icon/core/app-switcher-legacy","categorization":"single-purpose","usage":"Single purpose - Reserved for the legacy app switcher in global app navigation.","keywords":["app-switcher-legacy","appswitcherlegacy","icon","application switcher","change app","switch app","app switcher"],"status":"published"}',
 		componentName: 'AppSwitcherLegacyIcon',
 		keywords: [
 			'app-switcher-legacy',
@@ -408,14 +254,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'AppsIcon',
-			package: '@atlaskit/icon/core/apps',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for adding or viewing apps.',
-			keywords: ['apps', 'icon', 'third-party', 'applications'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"AppsIcon","package":"@atlaskit/icon/core/apps","categorization":"single-purpose","usage":"Single purpose - Reserved for adding or viewing apps.","keywords":["apps","icon","third-party","applications"],"status":"published"}',
 		componentName: 'AppsIcon',
 		keywords: ['apps', 'icon', 'third-party', 'applications'],
 		categorization: 'single-purpose',
@@ -423,14 +263,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ArchiveBoxIcon',
-			package: '@atlaskit/icon/core/archive-box',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: archiving pages, storage.',
-			keywords: ['archive-box', 'archivebox', 'icon', 'file box'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ArchiveBoxIcon","package":"@atlaskit/icon/core/archive-box","categorization":"multi-purpose","usage":"Multi purpose - Known uses: archiving pages, storage.","keywords":["archive-box","archivebox","icon","file box"],"status":"published"}',
 		componentName: 'ArchiveBoxIcon',
 		keywords: ['archive-box', 'archivebox', 'icon', 'file box'],
 		categorization: 'multi-purpose',
@@ -438,14 +272,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ArrowDownIcon',
-			package: '@atlaskit/icon/core/arrow-down',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Know uses: sorting table headers or Bitbucket code difference.',
-			keywords: ['arrow-down', 'arrowdown', 'icon', 'down', 'bottom', 'sorting'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ArrowDownIcon","package":"@atlaskit/icon/core/arrow-down","categorization":"multi-purpose","usage":"Multi purpose - Know uses: sorting table headers or Bitbucket code difference.","keywords":["arrow-down","arrowdown","icon","down","bottom","sorting"],"status":"published"}',
 		componentName: 'ArrowDownIcon',
 		keywords: ['arrow-down', 'arrowdown', 'icon', 'down', 'bottom', 'sorting'],
 		categorization: 'multi-purpose',
@@ -453,22 +281,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ArrowDownLeftIcon',
-			package: '@atlaskit/icon/core/arrow-down-left',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: Adding content from Rovo Chat into Editor.',
-			keywords: [
-				'arrow-down-left',
-				'arrowdownleft',
-				'icon',
-				'diagonal arrow',
-				'down',
-				'left',
-				'south west',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ArrowDownLeftIcon","package":"@atlaskit/icon/core/arrow-down-left","categorization":"multi-purpose","usage":"Known uses: Adding content from Rovo Chat into Editor.","keywords":["arrow-down-left","arrowdownleft","icon","diagonal arrow","down","left","south west"],"status":"published"}',
 		componentName: 'ArrowDownLeftIcon',
 		keywords: [
 			'arrow-down-left',
@@ -484,22 +298,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ArrowDownRightIcon',
-			package: '@atlaskit/icon/core/arrow-down-right',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: TBC',
-			keywords: [
-				'arrow-down-right',
-				'arrowdownright',
-				'icon',
-				'diagonal arrow',
-				'down',
-				'right',
-				'south east',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ArrowDownRightIcon","package":"@atlaskit/icon/core/arrow-down-right","categorization":"multi-purpose","usage":"Known uses: TBC","keywords":["arrow-down-right","arrowdownright","icon","diagonal arrow","down","right","south east"],"status":"published"}',
 		componentName: 'ArrowDownRightIcon',
 		keywords: [
 			'arrow-down-right',
@@ -515,14 +315,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ArrowLeftIcon',
-			package: '@atlaskit/icon/core/arrow-left',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: back to previous screen, previous slide.',
-			keywords: ['arrow-left', 'arrowleft', 'back', 'previous', 'icon', 'back', 'previous'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ArrowLeftIcon","package":"@atlaskit/icon/core/arrow-left","categorization":"multi-purpose","usage":"Multi purpose - Known uses: back to previous screen, previous slide.","keywords":["arrow-left","arrowleft","back","previous","icon","back","previous"],"status":"published"}',
 		componentName: 'ArrowLeftIcon',
 		keywords: ['arrow-left', 'arrowleft', 'back', 'previous', 'icon', 'back', 'previous'],
 		categorization: 'multi-purpose',
@@ -530,15 +324,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ArrowRightIcon',
-			package: '@atlaskit/icon/core/arrow-right',
-			categorization: 'multi-purpose',
-			usage:
-				'Multi purpose - Known uses: link to nested menu item, a linked menu item, next slide.',
-			keywords: ['arrow-right', 'arrowright', 'forward', 'next', 'icon', 'forward', 'next', 'link'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ArrowRightIcon","package":"@atlaskit/icon/core/arrow-right","categorization":"multi-purpose","usage":"Multi purpose - Known uses: link to nested menu item, a linked menu item, next slide.","keywords":["arrow-right","arrowright","forward","next","icon","forward","next","link"],"status":"published"}',
 		componentName: 'ArrowRightIcon',
 		keywords: ['arrow-right', 'arrowright', 'forward', 'next', 'icon', 'forward', 'next', 'link'],
 		categorization: 'multi-purpose',
@@ -546,14 +333,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ArrowUpIcon',
-			package: '@atlaskit/icon/core/arrow-up',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: back to top.',
-			keywords: ['arrow-up', 'arrowup', 'icon', 'improvement', 'jira status'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ArrowUpIcon","package":"@atlaskit/icon/core/arrow-up","categorization":"multi-purpose","usage":"Multi purpose - Known uses: back to top.","keywords":["arrow-up","arrowup","icon","improvement","jira status"],"status":"published"}',
 		componentName: 'ArrowUpIcon',
 		keywords: ['arrow-up', 'arrowup', 'icon', 'improvement', 'jira status'],
 		categorization: 'multi-purpose',
@@ -561,22 +342,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ArrowUpLeftIcon',
-			package: '@atlaskit/icon/core/arrow-up-left',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: TBC',
-			keywords: [
-				'arrow-up-left',
-				'arrowupleft',
-				'icon',
-				'diagonal arrow',
-				'up',
-				'right',
-				'north east',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ArrowUpLeftIcon","package":"@atlaskit/icon/core/arrow-up-left","categorization":"multi-purpose","usage":"Known uses: TBC","keywords":["arrow-up-left","arrowupleft","icon","diagonal arrow","up","right","north east"],"status":"published"}',
 		componentName: 'ArrowUpLeftIcon',
 		keywords: [
 			'arrow-up-left',
@@ -592,14 +359,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ArrowUpRightIcon',
-			package: '@atlaskit/icon/core/arrow-up-right',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose',
-			keywords: ['arrow-up-right', 'arrowupright', 'icon', 'open', 'diagonal arrow'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ArrowUpRightIcon","package":"@atlaskit/icon/core/arrow-up-right","categorization":"multi-purpose","usage":"Multi purpose","keywords":["arrow-up-right","arrowupright","icon","open","diagonal arrow"],"status":"published"}',
 		componentName: 'ArrowUpRightIcon',
 		keywords: ['arrow-up-right', 'arrowupright', 'icon', 'open', 'diagonal arrow'],
 		categorization: 'multi-purpose',
@@ -607,14 +368,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'AssetsIcon',
-			package: '@atlaskit/icon/core/assets',
-			categorization: 'single-purpose',
-			usage: 'Reserved for JSM Assets.',
-			keywords: ['assets', 'icon', 'assets', 'CMDB', 'configuration management database'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"AssetsIcon","package":"@atlaskit/icon/core/assets","categorization":"single-purpose","usage":"Reserved for JSM Assets.","keywords":["assets","icon","assets","CMDB","configuration management database"],"status":"published"}',
 		componentName: 'AssetsIcon',
 		keywords: ['assets', 'icon', 'assets', 'CMDB', 'configuration management database'],
 		categorization: 'single-purpose',
@@ -622,14 +377,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'AtlassianIntelligenceIcon',
-			package: '@atlaskit/icon/core/atlassian-intelligence',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for Atlassian Intelligence apps or experiences.',
-			keywords: ['atlassian-intelligence', 'atlassianintelligence', 'icon', 'AI'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"AtlassianIntelligenceIcon","package":"@atlaskit/icon/core/atlassian-intelligence","categorization":"single-purpose","usage":"Single purpose - Reserved for Atlassian Intelligence apps or experiences.","keywords":["atlassian-intelligence","atlassianintelligence","icon","AI"],"status":"published"}',
 		componentName: 'AtlassianIntelligenceIcon',
 		keywords: ['atlassian-intelligence', 'atlassianintelligence', 'icon', 'AI'],
 		categorization: 'single-purpose',
@@ -637,14 +386,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'AttachmentIcon',
-			package: '@atlaskit/icon/core/attachment',
-			categorization: 'single-purpose',
-			usage: 'Reserved for attaching files to work types or other objects.',
-			keywords: ['attachment', 'paperclip', 'icon', 'paperclip', 'attach', 'attachment'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"AttachmentIcon","package":"@atlaskit/icon/core/attachment","categorization":"single-purpose","usage":"Reserved for attaching files to work types or other objects.","keywords":["attachment","paperclip","icon","paperclip","attach","attachment"],"status":"published"}',
 		componentName: 'AttachmentIcon',
 		keywords: ['attachment', 'paperclip', 'icon', 'paperclip', 'attach', 'attachment'],
 		categorization: 'single-purpose',
@@ -652,14 +395,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'AudioIcon',
-			package: '@atlaskit/icon/core/audio',
-			categorization: 'single-purpose',
-			usage: '📦 @atlaskit/icon/core/audio',
-			keywords: ['audio', 'music', 'note', 'sound', 'icon', 'music', 'musical note'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"AudioIcon","package":"@atlaskit/icon/core/audio","categorization":"single-purpose","usage":"📦 @atlaskit/icon/core/audio","keywords":["audio","music","note","sound","icon","music","musical note"],"status":"published"}',
 		componentName: 'AudioIcon',
 		keywords: ['audio', 'music', 'note', 'sound', 'icon', 'music', 'musical note'],
 		categorization: 'single-purpose',
@@ -667,14 +404,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'AutomationIcon',
-			package: '@atlaskit/icon/core/automation',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved to represent an Automation.',
-			keywords: ['automation', 'icon', 'lightningbolt', 'automation rule'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"AutomationIcon","package":"@atlaskit/icon/core/automation","categorization":"single-purpose","usage":"Single purpose - Reserved to represent an Automation.","keywords":["automation","icon","lightningbolt","automation rule"],"status":"published"}',
 		componentName: 'AutomationIcon',
 		keywords: ['automation', 'icon', 'lightningbolt', 'automation rule'],
 		categorization: 'single-purpose',
@@ -682,14 +413,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'BacklogIcon',
-			package: '@atlaskit/icon/core/backlog',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for backlogs in Jira.',
-			keywords: ['backlog', 'icon', 'rows'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"BacklogIcon","package":"@atlaskit/icon/core/backlog","categorization":"single-purpose","usage":"Single purpose - Reserved for backlogs in Jira.","keywords":["backlog","icon","rows"],"status":"published"}',
 		componentName: 'BacklogIcon',
 		keywords: ['backlog', 'icon', 'rows'],
 		categorization: 'single-purpose',
@@ -697,14 +422,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'BasketballIcon',
-			package: '@atlaskit/icon/core/basketball',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known usages: Sport emoji category.',
-			keywords: ['basketball', 'icon', 'ball', 'sports', 'basketball'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"BasketballIcon","package":"@atlaskit/icon/core/basketball","categorization":"multi-purpose","usage":"Multi purpose - Known usages: Sport emoji category.","keywords":["basketball","icon","ball","sports","basketball"],"status":"published"}',
 		componentName: 'BasketballIcon',
 		keywords: ['basketball', 'icon', 'ball', 'sports', 'basketball'],
 		categorization: 'multi-purpose',
@@ -712,14 +431,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'BoardIcon',
-			package: '@atlaskit/icon/core/board',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for boards in Jira.',
-			keywords: ['board', 'icon', 'columns', 'active sprint'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"BoardIcon","package":"@atlaskit/icon/core/board","categorization":"single-purpose","usage":"Single purpose - Reserved for boards in Jira.","keywords":["board","icon","columns","active sprint"],"status":"published"}',
 		componentName: 'BoardIcon',
 		keywords: ['board', 'icon', 'columns', 'active sprint'],
 		categorization: 'single-purpose',
@@ -727,14 +440,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'BoardsIcon',
-			package: '@atlaskit/icon/core/boards',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved as the icon to represent multiple boards.',
-			keywords: ['boards', 'icon'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"BoardsIcon","package":"@atlaskit/icon/core/boards","categorization":"single-purpose","usage":"Single purpose - Reserved as the icon to represent multiple boards.","keywords":["boards","icon"],"status":"published"}',
 		componentName: 'BoardsIcon',
 		keywords: ['boards', 'icon'],
 		categorization: 'single-purpose',
@@ -742,15 +449,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'BookWithBookmarkIcon',
-			package: '@atlaskit/icon/core/book-with-bookmark',
-			categorization: 'multi-purpose',
-			usage:
-				'Multi purpose - Known uses: knowledge bases, articles, and other representations of books or info.',
-			keywords: ['book-with-bookmark', 'bookwithbookmark', 'icon', 'knowledge base', 'article'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"BookWithBookmarkIcon","package":"@atlaskit/icon/core/book-with-bookmark","categorization":"multi-purpose","usage":"Multi purpose - Known uses: knowledge bases, articles, and other representations of books or info.","keywords":["book-with-bookmark","bookwithbookmark","icon","knowledge base","article"],"status":"published"}',
 		componentName: 'BookWithBookmarkIcon',
 		keywords: ['book-with-bookmark', 'bookwithbookmark', 'icon', 'knowledge base', 'article'],
 		categorization: 'multi-purpose',
@@ -759,22 +459,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'BorderIcon',
-			package: '@atlaskit/icon/core/border',
-			categorization: 'single-purpose',
-			usage: 'Reserved for toggling the visibility of a border on an object.',
-			keywords: [
-				'border',
-				'icon',
-				'border',
-				'image border',
-				'content border',
-				'editor',
-				'confluence',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"BorderIcon","package":"@atlaskit/icon/core/border","categorization":"single-purpose","usage":"Reserved for toggling the visibility of a border on an object.","keywords":["border","icon","border","image border","content border","editor","confluence"],"status":"published"}',
 		componentName: 'BorderIcon',
 		keywords: [
 			'border',
@@ -790,14 +476,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'BranchIcon',
-			package: '@atlaskit/icon/core/branch',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for branches in Bitbucket and Jira.',
-			keywords: ['branch', 'icon', 'git branch', 'bitbucket branch', 'branches', 'jira status'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"BranchIcon","package":"@atlaskit/icon/core/branch","categorization":"single-purpose","usage":"Single purpose - Reserved for branches in Bitbucket and Jira.","keywords":["branch","icon","git branch","bitbucket branch","branches","jira status"],"status":"published"}',
 		componentName: 'BranchIcon',
 		keywords: ['branch', 'icon', 'git branch', 'bitbucket branch', 'branches', 'jira status'],
 		categorization: 'single-purpose',
@@ -805,14 +485,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'BriefcaseIcon',
-			package: '@atlaskit/icon/core/briefcase',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: Job title in Atlas, Operations in JSM.',
-			keywords: ['briefcase', 'icon', 'suitcase', 'toolbox', 'operations', 'business'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"BriefcaseIcon","package":"@atlaskit/icon/core/briefcase","categorization":"multi-purpose","usage":"Multi purpose - Known uses: Job title in Atlas, Operations in JSM.","keywords":["briefcase","icon","suitcase","toolbox","operations","business"],"status":"published"}',
 		componentName: 'BriefcaseIcon',
 		keywords: ['briefcase', 'icon', 'suitcase', 'toolbox', 'operations', 'business'],
 		categorization: 'multi-purpose',
@@ -820,14 +494,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'BugIcon',
-			package: '@atlaskit/icon/core/bug',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: Request types in JSM, bugs in Jira.',
-			keywords: ['bug', 'icon', 'bug report', 'test'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"BugIcon","package":"@atlaskit/icon/core/bug","categorization":"multi-purpose","usage":"Multi purpose - Known uses: Request types in JSM, bugs in Jira.","keywords":["bug","icon","bug report","test"],"status":"published"}',
 		componentName: 'BugIcon',
 		keywords: ['bug', 'icon', 'bug report', 'test'],
 		categorization: 'multi-purpose',
@@ -835,15 +503,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'CalendarIcon',
-			package: '@atlaskit/icon/core/calendar',
-			categorization: 'multi-purpose',
-			usage:
-				'Multi purpose - Known uses: date metadata, date input field, calendar view, jira status.',
-			keywords: ['calendar', 'date', 'icon', 'date', 'month', 'day', 'year', 'jira status'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"CalendarIcon","package":"@atlaskit/icon/core/calendar","categorization":"multi-purpose","usage":"Multi purpose - Known uses: date metadata, date input field, calendar view, jira status.","keywords":["calendar","date","icon","date","month","day","year","jira status"],"status":"published"}',
 		componentName: 'CalendarIcon',
 		keywords: ['calendar', 'date', 'icon', 'date', 'month', 'day', 'year', 'jira status'],
 		categorization: 'multi-purpose',
@@ -852,14 +513,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'CalendarPlusIcon',
-			package: '@atlaskit/icon/core/calendar-plus',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: Auto-scheduling in Jira Plans. Scheduled dates.',
-			keywords: ['calendar-plus', 'calendarplus', 'icon', 'calendar', 'add', 'plus', 'schedule'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"CalendarPlusIcon","package":"@atlaskit/icon/core/calendar-plus","categorization":"multi-purpose","usage":"Known uses: Auto-scheduling in Jira Plans. Scheduled dates.","keywords":["calendar-plus","calendarplus","icon","calendar","add","plus","schedule"],"status":"published"}',
 		componentName: 'CalendarPlusIcon',
 		keywords: ['calendar-plus', 'calendarplus', 'icon', 'calendar', 'add', 'plus', 'schedule'],
 		categorization: 'multi-purpose',
@@ -867,14 +522,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'CameraIcon',
-			package: '@atlaskit/icon/core/camera',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: upload photo in Trello, photos.',
-			keywords: ['camera', 'photo', 'icon'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"CameraIcon","package":"@atlaskit/icon/core/camera","categorization":"multi-purpose","usage":"Multi purpose - Known uses: upload photo in Trello, photos.","keywords":["camera","photo","icon"],"status":"published"}',
 		componentName: 'CameraIcon',
 		keywords: ['camera', 'photo', 'icon'],
 		categorization: 'multi-purpose',
@@ -882,14 +531,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'CaptureIcon',
-			package: '@atlaskit/icon/core/capture',
-			categorization: 'single-purpose',
-			usage: 'Reserved for representing Focus Areas.',
-			keywords: ['capture', 'icon', 'focus', 'focus area', 'capture'],
-			status: 'deprecated',
-		},
+		content:
+			'{"componentName":"CaptureIcon","package":"@atlaskit/icon/core/capture","categorization":"single-purpose","usage":"Reserved for representing Focus Areas.","keywords":["capture","icon","focus","focus area","capture"],"status":"deprecated"}',
 		componentName: 'CaptureIcon',
 		keywords: ['capture', 'icon', 'focus', 'focus area', 'capture'],
 		categorization: 'single-purpose',
@@ -897,14 +540,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'deprecated',
 	},
 	{
-		content: {
-			componentName: 'CardIcon',
-			package: '@atlaskit/icon/core/card',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: Representing cards in Trello. Toggling card detail in Jira.',
-			keywords: ['card', 'icon', 'card'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"CardIcon","package":"@atlaskit/icon/core/card","categorization":"multi-purpose","usage":"Known uses: Representing cards in Trello. Toggling card detail in Jira.","keywords":["card","icon","card"],"status":"published"}',
 		componentName: 'CardIcon',
 		keywords: ['card', 'icon', 'card'],
 		categorization: 'multi-purpose',
@@ -912,14 +549,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'CashIcon',
-			package: '@atlaskit/icon/core/cash',
-			categorization: 'multi-purpose',
-			usage: "Known usages: 'Sales' work type.",
-			keywords: ['cash', 'icon', 'currency', 'money', 'cash', 'dollar', 'bill', 'work type'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"CashIcon","package":"@atlaskit/icon/core/cash","categorization":"multi-purpose","usage":"Known usages: \'Sales\' work type.","keywords":["cash","icon","currency","money","cash","dollar","bill","work type"],"status":"published"}',
 		componentName: 'CashIcon',
 		keywords: ['cash', 'icon', 'currency', 'money', 'cash', 'dollar', 'bill', 'work type'],
 		categorization: 'multi-purpose',
@@ -927,14 +558,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ChangesIcon',
-			package: '@atlaskit/icon/core/changes',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for changes in Jira.',
-			keywords: ['changes', 'icon', 'jira status', 'horizontal arrows'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ChangesIcon","package":"@atlaskit/icon/core/changes","categorization":"single-purpose","usage":"Single purpose - Reserved for changes in Jira.","keywords":["changes","icon","jira status","horizontal arrows"],"status":"published"}',
 		componentName: 'ChangesIcon',
 		keywords: ['changes', 'icon', 'jira status', 'horizontal arrows'],
 		categorization: 'single-purpose',
@@ -942,23 +567,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ChartBarIcon',
-			package: '@atlaskit/icon/core/chart-bar',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: Bar charts; Reports in JSM, Space Analytics in Confluence',
-			keywords: [
-				'chart-bar',
-				'chartbar',
-				'icon',
-				'graph',
-				'bar',
-				'analytics',
-				'report',
-				'column chart',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ChartBarIcon","package":"@atlaskit/icon/core/chart-bar","categorization":"multi-purpose","usage":"Known uses: Bar charts; Reports in JSM, Space Analytics in Confluence","keywords":["chart-bar","chartbar","icon","graph","bar","analytics","report","column chart"],"status":"published"}',
 		componentName: 'ChartBarIcon',
 		keywords: [
 			'chart-bar',
@@ -975,14 +585,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ChartBubbleIcon',
-			package: '@atlaskit/icon/core/chart-bubble',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: Bubble and matrix charts; Matrix view in in JPD',
-			keywords: ['chart-bubble', 'chartbubble', 'icon', 'graph', 'matrix', 'bubble', 'plot'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ChartBubbleIcon","package":"@atlaskit/icon/core/chart-bubble","categorization":"multi-purpose","usage":"Known uses: Bubble and matrix charts; Matrix view in in JPD","keywords":["chart-bubble","chartbubble","icon","graph","matrix","bubble","plot"],"status":"published"}',
 		componentName: 'ChartBubbleIcon',
 		keywords: ['chart-bubble', 'chartbubble', 'icon', 'graph', 'matrix', 'bubble', 'plot'],
 		categorization: 'multi-purpose',
@@ -990,14 +594,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ChartMatrixIcon',
-			package: '@atlaskit/icon/core/chart-matrix',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: Matrix view in in JPD, and other matrix charts.',
-			keywords: ['chart-matrix', 'chartmatrix', 'icon', 'dot chart', 'graph', 'matrix', ''],
-			status: 'deprecated',
-		},
+		content:
+			'{"componentName":"ChartMatrixIcon","package":"@atlaskit/icon/core/chart-matrix","categorization":"multi-purpose","usage":"Multi purpose - Known uses: Matrix view in in JPD, and other matrix charts.","keywords":["chart-matrix","chartmatrix","icon","dot chart","graph","matrix",""],"status":"deprecated"}',
 		componentName: 'ChartMatrixIcon',
 		keywords: ['chart-matrix', 'chartmatrix', 'icon', 'dot chart', 'graph', 'matrix', ''],
 		categorization: 'multi-purpose',
@@ -1005,14 +603,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'deprecated',
 	},
 	{
-		content: {
-			componentName: 'ChartPieIcon',
-			package: '@atlaskit/icon/core/chart-pie',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: Pie and segment charts',
-			keywords: ['chart-pie', 'chartpie', 'icon', 'segment', 'chart', 'graph', 'pie'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ChartPieIcon","package":"@atlaskit/icon/core/chart-pie","categorization":"multi-purpose","usage":"Known uses: Pie and segment charts","keywords":["chart-pie","chartpie","icon","segment","chart","graph","pie"],"status":"published"}',
 		componentName: 'ChartPieIcon',
 		keywords: ['chart-pie', 'chartpie', 'icon', 'segment', 'chart', 'graph', 'pie'],
 		categorization: 'multi-purpose',
@@ -1020,14 +612,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ChartTrendIcon',
-			package: '@atlaskit/icon/core/chart-trend',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: charts, reports in Jira, and sprint insights.',
-			keywords: ['chart-trend', 'charttrend', 'icon', 'reports', 'graph', 'impact effort', ''],
-			status: 'deprecated',
-		},
+		content:
+			'{"componentName":"ChartTrendIcon","package":"@atlaskit/icon/core/chart-trend","categorization":"multi-purpose","usage":"Multi purpose - Known uses: charts, reports in Jira, and sprint insights.","keywords":["chart-trend","charttrend","icon","reports","graph","impact effort",""],"status":"deprecated"}',
 		componentName: 'ChartTrendIcon',
 		keywords: ['chart-trend', 'charttrend', 'icon', 'reports', 'graph', 'impact effort', ''],
 		categorization: 'multi-purpose',
@@ -1035,23 +621,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'deprecated',
 	},
 	{
-		content: {
-			componentName: 'ChartTrendDownIcon',
-			package: '@atlaskit/icon/core/chart-trend-down',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: Downward trending data; Trend charts',
-			keywords: [
-				'chart-trend-down',
-				'charttrenddown',
-				'icon',
-				'reports',
-				'graph',
-				'impact',
-				'effort',
-				'downward trend',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ChartTrendDownIcon","package":"@atlaskit/icon/core/chart-trend-down","categorization":"multi-purpose","usage":"Known uses: Downward trending data; Trend charts","keywords":["chart-trend-down","charttrenddown","icon","reports","graph","impact","effort","downward trend"],"status":"published"}',
 		componentName: 'ChartTrendDownIcon',
 		keywords: [
 			'chart-trend-down',
@@ -1068,23 +639,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ChartTrendUpIcon',
-			package: '@atlaskit/icon/core/chart-trend-up',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: Upward trending data; Trend charts; Reports in Jira; Sprint insights.',
-			keywords: [
-				'chart-trend-up',
-				'charttrendup',
-				'icon',
-				'reports',
-				'graph',
-				'impact',
-				'effort',
-				'upward trend',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ChartTrendUpIcon","package":"@atlaskit/icon/core/chart-trend-up","categorization":"multi-purpose","usage":"Known uses: Upward trending data; Trend charts; Reports in Jira; Sprint insights.","keywords":["chart-trend-up","charttrendup","icon","reports","graph","impact","effort","upward trend"],"status":"published"}',
 		componentName: 'ChartTrendUpIcon',
 		keywords: [
 			'chart-trend-up',
@@ -1101,22 +657,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ChatWidgetIcon',
-			package: '@atlaskit/icon/core/chat-widget',
-			categorization: 'single-purpose',
-			usage: 'Reserved for representing a chat widget triggered by a floating action button.',
-			keywords: [
-				'chat-widget',
-				'chatwidget',
-				'icon',
-				'chat',
-				'widget',
-				'virtual service agent',
-				'vsa',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ChatWidgetIcon","package":"@atlaskit/icon/core/chat-widget","categorization":"single-purpose","usage":"Reserved for representing a chat widget triggered by a floating action button.","keywords":["chat-widget","chatwidget","icon","chat","widget","virtual service agent","vsa"],"status":"published"}',
 		componentName: 'ChatWidgetIcon',
 		keywords: [
 			'chat-widget',
@@ -1132,15 +674,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'CheckCircleIcon',
-			package: '@atlaskit/icon/core/check-circle',
-			categorization: 'multi-purpose',
-			usage:
-				'Known uses: completed items, productivity emoji category. Completed task work type in JSM Calendar view.',
-			keywords: ['check-circle', 'checkcircle', 'tick', 'icon', 'tick', 'yes', 'completed'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"CheckCircleIcon","package":"@atlaskit/icon/core/check-circle","categorization":"multi-purpose","usage":"Known uses: completed items, productivity emoji category. Completed task work type in JSM Calendar view.","keywords":["check-circle","checkcircle","tick","icon","tick","yes","completed"],"status":"published"}',
 		componentName: 'CheckCircleIcon',
 		keywords: ['check-circle', 'checkcircle', 'tick', 'icon', 'tick', 'yes', 'completed'],
 		categorization: 'multi-purpose',
@@ -1149,20 +684,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'CheckCircleUncheckedIcon',
-			package: '@atlaskit/icon/core/check-circle-unchecked',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: Incomplete items',
-			keywords: [
-				'check-circle-unchecked',
-				'checkcircleunchecked',
-				'icon',
-				'incomplete',
-				'unchecked',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"CheckCircleUncheckedIcon","package":"@atlaskit/icon/core/check-circle-unchecked","categorization":"multi-purpose","usage":"Known uses: Incomplete items","keywords":["check-circle-unchecked","checkcircleunchecked","icon","incomplete","unchecked"],"status":"published"}',
 		componentName: 'CheckCircleUncheckedIcon',
 		keywords: ['check-circle-unchecked', 'checkcircleunchecked', 'icon', 'incomplete', 'unchecked'],
 		categorization: 'multi-purpose',
@@ -1170,14 +693,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'CheckMarkIcon',
-			package: '@atlaskit/icon/core/check-mark',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: table cells, checkboxes.',
-			keywords: ['check-mark', 'checkmark', 'icon', 'tick'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"CheckMarkIcon","package":"@atlaskit/icon/core/check-mark","categorization":"multi-purpose","usage":"Multi purpose - Known uses: table cells, checkboxes.","keywords":["check-mark","checkmark","icon","tick"],"status":"published"}',
 		componentName: 'CheckMarkIcon',
 		keywords: ['check-mark', 'checkmark', 'icon', 'tick'],
 		categorization: 'multi-purpose',
@@ -1185,15 +702,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'CheckboxCheckedIcon',
-			package: '@atlaskit/icon/core/checkbox-checked',
-			categorization: 'multi-purpose',
-			usage:
-				'Multi purpose - Reserved for interactive checkbox experiences. Consider using the checkbox component.',
-			keywords: ['checkbox-checked', 'checkboxchecked', 'icon', 'filled', 'checked', 'select all'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"CheckboxCheckedIcon","package":"@atlaskit/icon/core/checkbox-checked","categorization":"multi-purpose","usage":"Multi purpose - Reserved for interactive checkbox experiences. Consider using the checkbox component.","keywords":["checkbox-checked","checkboxchecked","icon","filled","checked","select all"],"status":"published"}',
 		componentName: 'CheckboxCheckedIcon',
 		keywords: ['checkbox-checked', 'checkboxchecked', 'icon', 'filled', 'checked', 'select all'],
 		categorization: 'multi-purpose',
@@ -1202,15 +712,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'CheckboxIndeterminateIcon',
-			package: '@atlaskit/icon/core/checkbox-indeterminate',
-			categorization: 'multi-purpose',
-			usage:
-				'Multi purpose - Reserved for interactive checkbox experiences. Consider using the checkbox component.',
-			keywords: ['checkbox-indeterminate', 'checkboxindeterminate', 'icon', 'filled', 'mixed'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"CheckboxIndeterminateIcon","package":"@atlaskit/icon/core/checkbox-indeterminate","categorization":"multi-purpose","usage":"Multi purpose - Reserved for interactive checkbox experiences. Consider using the checkbox component.","keywords":["checkbox-indeterminate","checkboxindeterminate","icon","filled","mixed"],"status":"published"}',
 		componentName: 'CheckboxIndeterminateIcon',
 		keywords: ['checkbox-indeterminate', 'checkboxindeterminate', 'icon', 'filled', 'mixed'],
 		categorization: 'multi-purpose',
@@ -1219,15 +722,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'CheckboxUncheckedIcon',
-			package: '@atlaskit/icon/core/checkbox-unchecked',
-			categorization: 'multi-purpose',
-			usage:
-				'Multi purpose - Reserved for interactive checkbox experiences. Consider using the checkbox component.',
-			keywords: ['checkbox-unchecked', 'checkboxunchecked', 'icon', 'unchecked'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"CheckboxUncheckedIcon","package":"@atlaskit/icon/core/checkbox-unchecked","categorization":"multi-purpose","usage":"Multi purpose - Reserved for interactive checkbox experiences. Consider using the checkbox component.","keywords":["checkbox-unchecked","checkboxunchecked","icon","unchecked"],"status":"published"}',
 		componentName: 'CheckboxUncheckedIcon',
 		keywords: ['checkbox-unchecked', 'checkboxunchecked', 'icon', 'unchecked'],
 		categorization: 'multi-purpose',
@@ -1236,22 +732,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ChevronDoubleLeftIcon',
-			package: '@atlaskit/icon/core/chevron-double-left',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: Navigate to previous year in calendar/date picker',
-			keywords: [
-				'chevron-double-left',
-				'chevrondoubleleft',
-				'icon',
-				'double chevron',
-				'previous year',
-				'left',
-			],
-			status: 'published',
-			shouldRecommendSmallIcon: true,
-		},
+		content:
+			'{"componentName":"ChevronDoubleLeftIcon","package":"@atlaskit/icon/core/chevron-double-left","categorization":"multi-purpose","usage":"Known uses: Navigate to previous year in calendar/date picker","keywords":["chevron-double-left","chevrondoubleleft","icon","double chevron","previous year","left"],"status":"published","shouldRecommendSmallIcon":true}',
 		componentName: 'ChevronDoubleLeftIcon',
 		keywords: [
 			'chevron-double-left',
@@ -1266,22 +748,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ChevronDoubleRightIcon',
-			package: '@atlaskit/icon/core/chevron-double-right',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: Navigate to next year in calendar/date picker',
-			keywords: [
-				'chevron-double-right',
-				'chevrondoubleright',
-				'icon',
-				'double chevron',
-				'right',
-				'next year',
-			],
-			status: 'published',
-			shouldRecommendSmallIcon: true,
-		},
+		content:
+			'{"componentName":"ChevronDoubleRightIcon","package":"@atlaskit/icon/core/chevron-double-right","categorization":"multi-purpose","usage":"Known uses: Navigate to next year in calendar/date picker","keywords":["chevron-double-right","chevrondoubleright","icon","double chevron","right","next year"],"status":"published","shouldRecommendSmallIcon":true}',
 		componentName: 'ChevronDoubleRightIcon',
 		keywords: [
 			'chevron-double-right',
@@ -1296,25 +764,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ChevronDownIcon',
-			package: '@atlaskit/icon/core/chevron-down',
-			categorization: 'multi-purpose',
-			usage:
-				'Do not use 16px chevrons within buttons, icon buttons, or dropdowns to maintain visual cohesion with ADS which uses 12px chevrons. Known uses: Open dropdown menu, expanded tree item, collapse tree item',
-			keywords: [
-				'chevron-down',
-				'chevrondown',
-				'expand',
-				'collapse',
-				'icon',
-				'chevron down',
-				'expand',
-				'open',
-			],
-			status: 'published',
-			shouldRecommendSmallIcon: true,
-		},
+		content:
+			'{"componentName":"ChevronDownIcon","package":"@atlaskit/icon/core/chevron-down","categorization":"multi-purpose","usage":"Do not use 16px chevrons within buttons, icon buttons, or dropdowns to maintain visual cohesion with ADS which uses 12px chevrons. Known uses: Open dropdown menu, expanded tree item, collapse tree item","keywords":["chevron-down","chevrondown","expand","collapse","icon","chevron down","expand","open"],"status":"published","shouldRecommendSmallIcon":true}',
 		componentName: 'ChevronDownIcon',
 		keywords: [
 			'chevron-down',
@@ -1332,25 +783,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ChevronLeftIcon',
-			package: '@atlaskit/icon/core/chevron-left',
-			categorization: 'multi-purpose',
-			usage:
-				'Do not use 16px chevrons within buttons, icon buttons, or dropdowns to maintain visual cohesion with ADS which uses 12px chevrons. Known uses: Navigate back, show previous page of pagination results',
-			keywords: [
-				'chevron-left',
-				'chevronleft',
-				'back',
-				'previous',
-				'icon',
-				'chevron left',
-				'back',
-				'previous',
-			],
-			status: 'published',
-			shouldRecommendSmallIcon: true,
-		},
+		content:
+			'{"componentName":"ChevronLeftIcon","package":"@atlaskit/icon/core/chevron-left","categorization":"multi-purpose","usage":"Do not use 16px chevrons within buttons, icon buttons, or dropdowns to maintain visual cohesion with ADS which uses 12px chevrons. Known uses: Navigate back, show previous page of pagination results","keywords":["chevron-left","chevronleft","back","previous","icon","chevron left","back","previous"],"status":"published","shouldRecommendSmallIcon":true}',
 		componentName: 'ChevronLeftIcon',
 		keywords: [
 			'chevron-left',
@@ -1368,27 +802,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ChevronRightIcon',
-			package: '@atlaskit/icon/core/chevron-right',
-			categorization: 'multi-purpose',
-			usage:
-				'Do not use 16px chevrons within buttons, icon buttons, or dropdowns to maintain visual cohesion with ADS which uses 12px chevrons. Known uses: Next page of pagination results, collapsed tree item, expand tree item',
-			keywords: [
-				'chevron-right',
-				'chevronright',
-				'forward',
-				'next',
-				'icon',
-				'chevron right',
-				'next',
-				'collapsed',
-				'expand',
-				'show children',
-			],
-			status: 'published',
-			shouldRecommendSmallIcon: true,
-		},
+		content:
+			'{"componentName":"ChevronRightIcon","package":"@atlaskit/icon/core/chevron-right","categorization":"multi-purpose","usage":"Do not use 16px chevrons within buttons, icon buttons, or dropdowns to maintain visual cohesion with ADS which uses 12px chevrons. Known uses: Next page of pagination results, collapsed tree item, expand tree item","keywords":["chevron-right","chevronright","forward","next","icon","chevron right","next","collapsed","expand","show children"],"status":"published","shouldRecommendSmallIcon":true}',
 		componentName: 'ChevronRightIcon',
 		keywords: [
 			'chevron-right',
@@ -1408,25 +823,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ChevronUpIcon',
-			package: '@atlaskit/icon/core/chevron-up',
-			categorization: 'multi-purpose',
-			usage:
-				'Do not use 16px chevrons within buttons, icon buttons, or dropdowns to maintain visual cohesion with ADS which uses 12px chevrons. Known uses: Close dropdown menu',
-			keywords: [
-				'chevron-up',
-				'chevronup',
-				'expand',
-				'collapse',
-				'icon',
-				'chevron up',
-				'close dropdown menu',
-				'collapse',
-			],
-			status: 'published',
-			shouldRecommendSmallIcon: true,
-		},
+		content:
+			'{"componentName":"ChevronUpIcon","package":"@atlaskit/icon/core/chevron-up","categorization":"multi-purpose","usage":"Do not use 16px chevrons within buttons, icon buttons, or dropdowns to maintain visual cohesion with ADS which uses 12px chevrons. Known uses: Close dropdown menu","keywords":["chevron-up","chevronup","expand","collapse","icon","chevron up","close dropdown menu","collapse"],"status":"published","shouldRecommendSmallIcon":true}',
 		componentName: 'ChevronUpIcon',
 		keywords: [
 			'chevron-up',
@@ -1444,22 +842,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ChildWorkItemsIcon',
-			package: '@atlaskit/icon/core/child-work-items',
-			categorization: 'single-purpose',
-			usage: 'Reserved for child work items.',
-			keywords: [
-				'child-work-items',
-				'childworkitems',
-				'icon',
-				'children',
-				'child',
-				'related',
-				'work items',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ChildWorkItemsIcon","package":"@atlaskit/icon/core/child-work-items","categorization":"single-purpose","usage":"Reserved for child work items.","keywords":["child-work-items","childworkitems","icon","children","child","related","work items"],"status":"published"}',
 		componentName: 'ChildWorkItemsIcon',
 		keywords: [
 			'child-work-items',
@@ -1475,14 +859,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ClipboardIcon',
-			package: '@atlaskit/icon/core/clipboard',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: Pasting content from clipboard.',
-			keywords: ['clipboard', 'icon', 'clipboard', 'paste'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ClipboardIcon","package":"@atlaskit/icon/core/clipboard","categorization":"multi-purpose","usage":"Known uses: Pasting content from clipboard.","keywords":["clipboard","icon","clipboard","paste"],"status":"published"}',
 		componentName: 'ClipboardIcon',
 		keywords: ['clipboard', 'icon', 'clipboard', 'paste'],
 		categorization: 'multi-purpose',
@@ -1490,15 +868,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ClockIcon',
-			package: '@atlaskit/icon/core/clock',
-			categorization: 'multi-purpose',
-			usage:
-				'Known uses: recent, time input, sprint time remaining, overdue task work type status.',
-			keywords: ['clock', 'icon', 'time', 'recent', 'history'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ClockIcon","package":"@atlaskit/icon/core/clock","categorization":"multi-purpose","usage":"Known uses: recent, time input, sprint time remaining, overdue task work type status.","keywords":["clock","icon","time","recent","history"],"status":"published"}',
 		componentName: 'ClockIcon',
 		keywords: ['clock', 'icon', 'time', 'recent', 'history'],
 		categorization: 'multi-purpose',
@@ -1506,14 +877,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'CloseIcon',
-			package: '@atlaskit/icon/core/close',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: closing modals, panels, and transient views; removing tags',
-			keywords: ['close', 'icon', 'cross', 'x', 'close', 'remove'],
-			status: 'deprecated',
-		},
+		content:
+			'{"componentName":"CloseIcon","package":"@atlaskit/icon/core/close","categorization":"multi-purpose","usage":"Known uses: closing modals, panels, and transient views; removing tags","keywords":["close","icon","cross","x","close","remove"],"status":"deprecated"}',
 		componentName: 'CloseIcon',
 		keywords: ['close', 'icon', 'cross', 'x', 'close', 'remove'],
 		categorization: 'multi-purpose',
@@ -1521,14 +886,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'deprecated',
 	},
 	{
-		content: {
-			componentName: 'CloudArrowUpIcon',
-			package: '@atlaskit/icon/core/cloud-arrow-up',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: deployments in Jira.',
-			keywords: ['cloud-arrow-up', 'cloudarrowup', 'icon', 'deployments', 'up arrow'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"CloudArrowUpIcon","package":"@atlaskit/icon/core/cloud-arrow-up","categorization":"multi-purpose","usage":"Multi purpose - Known uses: deployments in Jira.","keywords":["cloud-arrow-up","cloudarrowup","icon","deployments","up arrow"],"status":"published"}',
 		componentName: 'CloudArrowUpIcon',
 		keywords: ['cloud-arrow-up', 'cloudarrowup', 'icon', 'deployments', 'up arrow'],
 		categorization: 'multi-purpose',
@@ -1536,22 +895,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'CollapseHorizontalIcon',
-			package: '@atlaskit/icon/core/collapse-horizontal',
-			categorization: 'single-purpose',
-			usage:
-				'Single purpose - Reserved for contracting or reducing the width of an element to its smallest size.',
-			keywords: [
-				'collapse-horizontal',
-				'collapsehorizontal',
-				'icon',
-				'collapse',
-				'width',
-				'horizontal arrows',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"CollapseHorizontalIcon","package":"@atlaskit/icon/core/collapse-horizontal","categorization":"single-purpose","usage":"Single purpose - Reserved for contracting or reducing the width of an element to its smallest size.","keywords":["collapse-horizontal","collapsehorizontal","icon","collapse","width","horizontal arrows"],"status":"published"}',
 		componentName: 'CollapseHorizontalIcon',
 		keywords: [
 			'collapse-horizontal',
@@ -1567,22 +912,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'CollapseVerticalIcon',
-			package: '@atlaskit/icon/core/collapse-vertical',
-			categorization: 'single-purpose',
-			usage:
-				'Single purpose - Reserved for contracting or reducing the height of an element to its smallest size.',
-			keywords: [
-				'collapse-vertical',
-				'collapsevertical',
-				'icon',
-				'collapse',
-				'height',
-				'vertical arrows',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"CollapseVerticalIcon","package":"@atlaskit/icon/core/collapse-vertical","categorization":"single-purpose","usage":"Single purpose - Reserved for contracting or reducing the height of an element to its smallest size.","keywords":["collapse-vertical","collapsevertical","icon","collapse","height","vertical arrows"],"status":"published"}',
 		componentName: 'CollapseVerticalIcon',
 		keywords: [
 			'collapse-vertical',
@@ -1598,14 +929,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'CommentIcon',
-			package: '@atlaskit/icon/core/comment',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for comments on objects.',
-			keywords: ['comment', 'chat', 'speech', 'icon', 'speech bubble'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"CommentIcon","package":"@atlaskit/icon/core/comment","categorization":"single-purpose","usage":"Single purpose - Reserved for comments on objects.","keywords":["comment","chat","speech","icon","speech bubble"],"status":"published"}',
 		componentName: 'CommentIcon',
 		keywords: ['comment', 'chat', 'speech', 'icon', 'speech bubble'],
 		categorization: 'single-purpose',
@@ -1613,14 +938,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'CommentAddIcon',
-			package: '@atlaskit/icon/core/comment-add',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for adding a comment to an object.',
-			keywords: ['comment-add', 'commentadd', 'icon', 'speech bubble', 'plus'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"CommentAddIcon","package":"@atlaskit/icon/core/comment-add","categorization":"single-purpose","usage":"Single purpose - Reserved for adding a comment to an object.","keywords":["comment-add","commentadd","icon","speech bubble","plus"],"status":"published"}',
 		componentName: 'CommentAddIcon',
 		keywords: ['comment-add', 'commentadd', 'icon', 'speech bubble', 'plus'],
 		categorization: 'single-purpose',
@@ -1628,14 +947,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'CommitIcon',
-			package: '@atlaskit/icon/core/commit',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for commits in Jira or Bitbucket.',
-			keywords: ['commit', 'icon', 'git commit', 'bitbucket commit'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"CommitIcon","package":"@atlaskit/icon/core/commit","categorization":"single-purpose","usage":"Single purpose - Reserved for commits in Jira or Bitbucket.","keywords":["commit","icon","git commit","bitbucket commit"],"status":"published"}',
 		componentName: 'CommitIcon',
 		keywords: ['commit', 'icon', 'git commit', 'bitbucket commit'],
 		categorization: 'single-purpose',
@@ -1643,14 +956,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'CompassIcon',
-			package: '@atlaskit/icon/core/compass',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: templates.',
-			keywords: ['compass', 'icon', 'template'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"CompassIcon","package":"@atlaskit/icon/core/compass","categorization":"multi-purpose","usage":"Multi purpose - Known uses: templates.","keywords":["compass","icon","template"],"status":"published"}',
 		componentName: 'CompassIcon',
 		keywords: ['compass', 'icon', 'template'],
 		categorization: 'multi-purpose',
@@ -1658,14 +965,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ComponentIcon',
-			package: '@atlaskit/icon/core/component',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for components in Jira and Compass.',
-			keywords: ['component', 'block', 'lego', 'icon', 'lego', 'brick', 'block'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ComponentIcon","package":"@atlaskit/icon/core/component","categorization":"single-purpose","usage":"Single purpose - Reserved for components in Jira and Compass.","keywords":["component","block","lego","icon","lego","brick","block"],"status":"published"}',
 		componentName: 'ComponentIcon',
 		keywords: ['component', 'block', 'lego', 'icon', 'lego', 'brick', 'block'],
 		categorization: 'single-purpose',
@@ -1673,24 +974,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ContentWidthNarrowIcon',
-			package: '@atlaskit/icon/core/content-width-narrow',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for setting media and content to a narrow width.',
-			keywords: [
-				'content-width-narrow',
-				'contentwidthnarrow',
-				'icon',
-				'content',
-				'media',
-				'image',
-				'width',
-				'fixed',
-				'narrow',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ContentWidthNarrowIcon","package":"@atlaskit/icon/core/content-width-narrow","categorization":"single-purpose","usage":"Single purpose - Reserved for setting media and content to a narrow width.","keywords":["content-width-narrow","contentwidthnarrow","icon","content","media","image","width","fixed","narrow"],"status":"published"}',
 		componentName: 'ContentWidthNarrowIcon',
 		keywords: [
 			'content-width-narrow',
@@ -1708,24 +993,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ContentWidthWideIcon',
-			package: '@atlaskit/icon/core/content-width-wide',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for setting media and content to a wide width.',
-			keywords: [
-				'content-width-wide',
-				'contentwidthwide',
-				'icon',
-				'content',
-				'media',
-				'image',
-				'width',
-				'fixed',
-				'wide',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ContentWidthWideIcon","package":"@atlaskit/icon/core/content-width-wide","categorization":"single-purpose","usage":"Single purpose - Reserved for setting media and content to a wide width.","keywords":["content-width-wide","contentwidthwide","icon","content","media","image","width","fixed","wide"],"status":"published"}',
 		componentName: 'ContentWidthWideIcon',
 		keywords: [
 			'content-width-wide',
@@ -1743,25 +1012,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ContentWrapLeftIcon',
-			package: '@atlaskit/icon/core/content-wrap-left',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for left aligning media and content with wrapping enabled.',
-			keywords: [
-				'content-wrap-left',
-				'contentwrapleft',
-				'icon',
-				'content',
-				'media',
-				'image',
-				'alignment',
-				'left',
-				'inline',
-				'wrap',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ContentWrapLeftIcon","package":"@atlaskit/icon/core/content-wrap-left","categorization":"single-purpose","usage":"Single purpose - Reserved for left aligning media and content with wrapping enabled.","keywords":["content-wrap-left","contentwrapleft","icon","content","media","image","alignment","left","inline","wrap"],"status":"published"}',
 		componentName: 'ContentWrapLeftIcon',
 		keywords: [
 			'content-wrap-left',
@@ -1780,26 +1032,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ContentWrapRightIcon',
-			package: '@atlaskit/icon/core/content-wrap-right',
-			categorization: 'single-purpose',
-			usage:
-				'Single purpose - Reserved for right aligning media and content with wrapping enabled.',
-			keywords: [
-				'content-wrap-right',
-				'contentwrapright',
-				'icon',
-				'content',
-				'media',
-				'image',
-				'alignment',
-				'right',
-				'inline',
-				'wrap',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ContentWrapRightIcon","package":"@atlaskit/icon/core/content-wrap-right","categorization":"single-purpose","usage":"Single purpose - Reserved for right aligning media and content with wrapping enabled.","keywords":["content-wrap-right","contentwrapright","icon","content","media","image","alignment","right","inline","wrap"],"status":"published"}',
 		componentName: 'ContentWrapRightIcon',
 		keywords: [
 			'content-wrap-right',
@@ -1818,14 +1052,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'CopyIcon',
-			package: '@atlaskit/icon/core/copy',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for copying data such as text, code or other objects.',
-			keywords: ['copy', 'duplicate', 'icon', 'copy', 'object'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"CopyIcon","package":"@atlaskit/icon/core/copy","categorization":"single-purpose","usage":"Single purpose - Reserved for copying data such as text, code or other objects.","keywords":["copy","duplicate","icon","copy","object"],"status":"published"}',
 		componentName: 'CopyIcon',
 		keywords: ['copy', 'duplicate', 'icon', 'copy', 'object'],
 		categorization: 'single-purpose',
@@ -1833,14 +1061,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'CreditCardIcon',
-			package: '@atlaskit/icon/core/credit-card',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: billing in Admin, invoices in PPC, payments.',
-			keywords: ['credit-card', 'creditcard', 'icon', 'payment', 'invoice'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"CreditCardIcon","package":"@atlaskit/icon/core/credit-card","categorization":"multi-purpose","usage":"Multi purpose - Known uses: billing in Admin, invoices in PPC, payments.","keywords":["credit-card","creditcard","icon","payment","invoice"],"status":"published"}',
 		componentName: 'CreditCardIcon',
 		keywords: ['credit-card', 'creditcard', 'icon', 'payment', 'invoice'],
 		categorization: 'multi-purpose',
@@ -1848,14 +1070,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'CrossIcon',
-			package: '@atlaskit/icon/core/cross',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: closing modals, panels, and transient views; removing tags',
-			keywords: ['cross', 'close', 'x', 'cancel', 'icon', 'cross', 'x', 'close', 'remove'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"CrossIcon","package":"@atlaskit/icon/core/cross","categorization":"multi-purpose","usage":"Known uses: closing modals, panels, and transient views; removing tags","keywords":["cross","close","x","cancel","icon","cross","x","close","remove"],"status":"published"}',
 		componentName: 'CrossIcon',
 		keywords: ['cross', 'close', 'x', 'cancel', 'icon', 'cross', 'x', 'close', 'remove'],
 		categorization: 'multi-purpose',
@@ -1863,26 +1079,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'CrossCircleIcon',
-			package: '@atlaskit/icon/core/cross-circle',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: clear text field, error status.',
-			keywords: [
-				'cross-circle',
-				'crosscircle',
-				'close',
-				'x',
-				'cancel',
-				'icon',
-				'x',
-				'exit',
-				'clear',
-				'no',
-				'filled',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"CrossCircleIcon","package":"@atlaskit/icon/core/cross-circle","categorization":"multi-purpose","usage":"Multi purpose - Known uses: clear text field, error status.","keywords":["cross-circle","crosscircle","close","x","cancel","icon","x","exit","clear","no","filled"],"status":"published"}',
 		componentName: 'CrossCircleIcon',
 		keywords: [
 			'cross-circle',
@@ -1902,21 +1100,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'CurlyBracketsIcon',
-			package: '@atlaskit/icon/core/curly-brackets',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: Represents Smart values in Proforma.',
-			keywords: [
-				'curly-brackets',
-				'curlybrackets',
-				'icon',
-				'curly brackets',
-				'braces',
-				'smart value',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"CurlyBracketsIcon","package":"@atlaskit/icon/core/curly-brackets","categorization":"multi-purpose","usage":"Known uses: Represents Smart values in Proforma.","keywords":["curly-brackets","curlybrackets","icon","curly brackets","braces","smart value"],"status":"published"}',
 		componentName: 'CurlyBracketsIcon',
 		keywords: [
 			'curly-brackets',
@@ -1931,23 +1116,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'CustomizeIcon',
-			package: '@atlaskit/icon/core/customize',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: customize sidebar, customize view, settings.',
-			keywords: [
-				'customize',
-				'icon',
-				'customise',
-				'configure',
-				'modify',
-				'preferences',
-				'settings',
-				'sliders',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"CustomizeIcon","package":"@atlaskit/icon/core/customize","categorization":"multi-purpose","usage":"Multi purpose - Known uses: customize sidebar, customize view, settings.","keywords":["customize","icon","customise","configure","modify","preferences","settings","sliders"],"status":"published"}',
 		componentName: 'CustomizeIcon',
 		keywords: [
 			'customize',
@@ -1964,14 +1134,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'DashboardIcon',
-			package: '@atlaskit/icon/core/dashboard',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for dashboards in Jira.',
-			keywords: ['dashboard', 'window', 'grid', 'icon', 'activity', 'view'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"DashboardIcon","package":"@atlaskit/icon/core/dashboard","categorization":"single-purpose","usage":"Single purpose - Reserved for dashboards in Jira.","keywords":["dashboard","window","grid","icon","activity","view"],"status":"published"}',
 		componentName: 'DashboardIcon',
 		keywords: ['dashboard', 'window', 'grid', 'icon', 'activity', 'view'],
 		categorization: 'single-purpose',
@@ -1979,14 +1143,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'DataFlowIcon',
-			package: '@atlaskit/icon/core/data-flow',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known usages: Database schema in Jira.',
-			keywords: ['data-flow', 'dataflow', 'icon', 'relationship', 'data', 'flow chart'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"DataFlowIcon","package":"@atlaskit/icon/core/data-flow","categorization":"multi-purpose","usage":"Multi purpose - Known usages: Database schema in Jira.","keywords":["data-flow","dataflow","icon","relationship","data","flow chart"],"status":"published"}',
 		componentName: 'DataFlowIcon',
 		keywords: ['data-flow', 'dataflow', 'icon', 'relationship', 'data', 'flow chart'],
 		categorization: 'multi-purpose',
@@ -1994,14 +1152,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'DataNumberIcon',
-			package: '@atlaskit/icon/core/data-number',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: Representing number datatype fields in Proforma and databases.',
-			keywords: ['data-number', 'datanumber', 'icon', 'numbers', '123', 'proforma', 'datatype'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"DataNumberIcon","package":"@atlaskit/icon/core/data-number","categorization":"multi-purpose","usage":"Known uses: Representing number datatype fields in Proforma and databases.","keywords":["data-number","datanumber","icon","numbers","123","proforma","datatype"],"status":"published"}',
 		componentName: 'DataNumberIcon',
 		keywords: ['data-number', 'datanumber', 'icon', 'numbers', '123', 'proforma', 'datatype'],
 		categorization: 'multi-purpose',
@@ -2009,23 +1161,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'DataStringIcon',
-			package: '@atlaskit/icon/core/data-string',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: Representing string datatype fields in Proforma and databases.',
-			keywords: [
-				'data-string',
-				'datastring',
-				'icon',
-				'string',
-				'letters',
-				'abc',
-				'proforma',
-				'datatype',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"DataStringIcon","package":"@atlaskit/icon/core/data-string","categorization":"multi-purpose","usage":"Known uses: Representing string datatype fields in Proforma and databases.","keywords":["data-string","datastring","icon","string","letters","abc","proforma","datatype"],"status":"published"}',
 		componentName: 'DataStringIcon',
 		keywords: [
 			'data-string',
@@ -2042,14 +1179,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'DatabaseIcon',
-			package: '@atlaskit/icon/core/database',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for databases in Confluence.',
-			keywords: ['database', 'icon', 'spreadsheet', 'table', 'data', 'cells'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"DatabaseIcon","package":"@atlaskit/icon/core/database","categorization":"single-purpose","usage":"Single purpose - Reserved for databases in Confluence.","keywords":["database","icon","spreadsheet","table","data","cells"],"status":"published"}',
 		componentName: 'DatabaseIcon',
 		keywords: ['database', 'icon', 'spreadsheet', 'table', 'data', 'cells'],
 		categorization: 'single-purpose',
@@ -2057,14 +1188,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'DecisionIcon',
-			package: '@atlaskit/icon/core/decision',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for decisions.',
-			keywords: ['decision', 'icon', 'fork', 'diagonal arrow'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"DecisionIcon","package":"@atlaskit/icon/core/decision","categorization":"single-purpose","usage":"Single purpose - Reserved for decisions.","keywords":["decision","icon","fork","diagonal arrow"],"status":"published"}',
 		componentName: 'DecisionIcon',
 		keywords: ['decision', 'icon', 'fork', 'diagonal arrow'],
 		categorization: 'single-purpose',
@@ -2072,14 +1197,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'DefectIcon',
-			package: '@atlaskit/icon/core/defect',
-			categorization: 'single-purpose',
-			usage: 'Reserved for defect work type.',
-			keywords: ['defect', 'icon', 'defect', 'fragile', 'cracked', 'work type'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"DefectIcon","package":"@atlaskit/icon/core/defect","categorization":"single-purpose","usage":"Reserved for defect work type.","keywords":["defect","icon","defect","fragile","cracked","work type"],"status":"published"}',
 		componentName: 'DefectIcon',
 		keywords: ['defect', 'icon', 'defect', 'fragile', 'cracked', 'work type'],
 		categorization: 'single-purpose',
@@ -2087,14 +1206,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'DeleteIcon',
-			package: '@atlaskit/icon/core/delete',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for removing or deleting an object.',
-			keywords: ['delete', 'icon', 'trash', 'bin', 'remove'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"DeleteIcon","package":"@atlaskit/icon/core/delete","categorization":"single-purpose","usage":"Single purpose - Reserved for removing or deleting an object.","keywords":["delete","icon","trash","bin","remove"],"status":"published"}',
 		componentName: 'DeleteIcon',
 		keywords: ['delete', 'icon', 'trash', 'bin', 'remove'],
 		categorization: 'single-purpose',
@@ -2102,15 +1215,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'DepartmentIcon',
-			package: '@atlaskit/icon/core/department',
-			categorization: 'single-purpose',
-			usage:
-				'Single purpose - Reserved for departments, reporting lines, or other tree chart representations.',
-			keywords: ['department', 'icon', 'organization', 'organisation', 'org chart', 'hierarchy'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"DepartmentIcon","package":"@atlaskit/icon/core/department","categorization":"single-purpose","usage":"Single purpose - Reserved for departments, reporting lines, or other tree chart representations.","keywords":["department","icon","organization","organisation","org chart","hierarchy"],"status":"published"}',
 		componentName: 'DepartmentIcon',
 		keywords: ['department', 'icon', 'organization', 'organisation', 'org chart', 'hierarchy'],
 		categorization: 'single-purpose',
@@ -2119,14 +1225,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'DeviceMobileIcon',
-			package: '@atlaskit/icon/core/device-mobile',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: call, contact us.',
-			keywords: ['device-mobile', 'devicemobile', 'icon', 'iphone', 'mobile phone', 'cell phone'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"DeviceMobileIcon","package":"@atlaskit/icon/core/device-mobile","categorization":"multi-purpose","usage":"Multi purpose - Known uses: call, contact us.","keywords":["device-mobile","devicemobile","icon","iphone","mobile phone","cell phone"],"status":"published"}',
 		componentName: 'DeviceMobileIcon',
 		keywords: ['device-mobile', 'devicemobile', 'icon', 'iphone', 'mobile phone', 'cell phone'],
 		categorization: 'multi-purpose',
@@ -2134,23 +1234,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'DevicesIcon',
-			package: '@atlaskit/icon/core/devices',
-			categorization: 'multi-purpose',
-			usage: "Known usages: 'Asset' work type.",
-			keywords: [
-				'devices',
-				'icon',
-				'devices',
-				'assets',
-				'laptop',
-				'phone',
-				'hardware',
-				'work type',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"DevicesIcon","package":"@atlaskit/icon/core/devices","categorization":"multi-purpose","usage":"Known usages: \'Asset\' work type.","keywords":["devices","icon","devices","assets","laptop","phone","hardware","work type"],"status":"published"}',
 		componentName: 'DevicesIcon',
 		keywords: ['devices', 'icon', 'devices', 'assets', 'laptop', 'phone', 'hardware', 'work type'],
 		categorization: 'multi-purpose',
@@ -2158,15 +1243,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'DiscoveryIcon',
-			package: '@atlaskit/icon/core/discovery',
-			categorization: 'single-purpose',
-			usage:
-				'Reserved for discovery statuses and messaging. Filled status icons provide higher visual contrast to draw attention to important information.',
-			keywords: ['discovery', 'icon', 'discovery', 'note', 'filled', 'onboarding', 'status'],
-			status: 'deprecated',
-		},
+		content:
+			'{"componentName":"DiscoveryIcon","package":"@atlaskit/icon/core/discovery","categorization":"single-purpose","usage":"Reserved for discovery statuses and messaging. Filled status icons provide higher visual contrast to draw attention to important information.","keywords":["discovery","icon","discovery","note","filled","onboarding","status"],"status":"deprecated"}',
 		componentName: 'DiscoveryIcon',
 		keywords: ['discovery', 'icon', 'discovery', 'note', 'filled', 'onboarding', 'status'],
 		categorization: 'single-purpose',
@@ -2175,14 +1253,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'deprecated',
 	},
 	{
-		content: {
-			componentName: 'DownloadIcon',
-			package: '@atlaskit/icon/core/download',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for file downloads.',
-			keywords: ['download', 'cloud', 'icon', 'down arrow', 'file download'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"DownloadIcon","package":"@atlaskit/icon/core/download","categorization":"single-purpose","usage":"Single purpose - Reserved for file downloads.","keywords":["download","cloud","icon","down arrow","file download"],"status":"published"}',
 		componentName: 'DownloadIcon',
 		keywords: ['download', 'cloud', 'icon', 'down arrow', 'file download'],
 		categorization: 'single-purpose',
@@ -2190,22 +1262,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'DragHandleHorizontalIcon',
-			package: '@atlaskit/icon/core/drag-handle-horizontal',
-			categorization: 'single-purpose',
-			usage: 'Reserved for dragging elements along a horizontal axis.',
-			keywords: [
-				'drag-handle-horizontal',
-				'draghandlehorizontal',
-				'icon',
-				'drag handler',
-				'reorder',
-				'move',
-				'reorder horizontal',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"DragHandleHorizontalIcon","package":"@atlaskit/icon/core/drag-handle-horizontal","categorization":"single-purpose","usage":"Reserved for dragging elements along a horizontal axis.","keywords":["drag-handle-horizontal","draghandlehorizontal","icon","drag handler","reorder","move","reorder horizontal"],"status":"published"}',
 		componentName: 'DragHandleHorizontalIcon',
 		keywords: [
 			'drag-handle-horizontal',
@@ -2221,22 +1279,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'DragHandleVerticalIcon',
-			package: '@atlaskit/icon/core/drag-handle-vertical',
-			categorization: 'single-purpose',
-			usage: 'Reserved for dragging elements along a vertical axis.',
-			keywords: [
-				'drag-handle-vertical',
-				'draghandlevertical',
-				'icon',
-				'drag handler',
-				'reorder',
-				'move',
-				'reorder vertical',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"DragHandleVerticalIcon","package":"@atlaskit/icon/core/drag-handle-vertical","categorization":"single-purpose","usage":"Reserved for dragging elements along a vertical axis.","keywords":["drag-handle-vertical","draghandlevertical","icon","drag handler","reorder","move","reorder vertical"],"status":"published"}',
 		componentName: 'DragHandleVerticalIcon',
 		keywords: [
 			'drag-handle-vertical',
@@ -2252,14 +1296,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'EditIcon',
-			package: '@atlaskit/icon/core/edit',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for editing objects.',
-			keywords: ['edit', 'pencil', 'write', 'icon', 'pencil', 'pencil on page'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"EditIcon","package":"@atlaskit/icon/core/edit","categorization":"single-purpose","usage":"Single purpose - Reserved for editing objects.","keywords":["edit","pencil","write","icon","pencil","pencil on page"],"status":"published"}',
 		componentName: 'EditIcon',
 		keywords: ['edit', 'pencil', 'write', 'icon', 'pencil', 'pencil on page'],
 		categorization: 'single-purpose',
@@ -2267,14 +1305,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'EditBulkIcon',
-			package: '@atlaskit/icon/core/edit-bulk',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for editing multiple objects in bulk.',
-			keywords: ['edit-bulk', 'editbulk', 'icon', 'edit', 'pencil', 'multiple', 'bulk', 'change'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"EditBulkIcon","package":"@atlaskit/icon/core/edit-bulk","categorization":"single-purpose","usage":"Single purpose - Reserved for editing multiple objects in bulk.","keywords":["edit-bulk","editbulk","icon","edit","pencil","multiple","bulk","change"],"status":"published"}',
 		componentName: 'EditBulkIcon',
 		keywords: ['edit-bulk', 'editbulk', 'icon', 'edit', 'pencil', 'multiple', 'bulk', 'change'],
 		categorization: 'single-purpose',
@@ -2282,14 +1314,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'EmailIcon',
-			package: '@atlaskit/icon/core/email',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for when an email-related things.',
-			keywords: ['email', 'icon', 'envelope', 'message'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"EmailIcon","package":"@atlaskit/icon/core/email","categorization":"single-purpose","usage":"Single purpose - Reserved for when an email-related things.","keywords":["email","icon","envelope","message"],"status":"published"}',
 		componentName: 'EmailIcon',
 		keywords: ['email', 'icon', 'envelope', 'message'],
 		categorization: 'single-purpose',
@@ -2297,14 +1323,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'EmojiIcon',
-			package: '@atlaskit/icon/core/emoji',
-			categorization: 'single-purpose',
-			usage: "Single purpose - Reserved for Editor as a category for Emoji's.",
-			keywords: ['emoji', 'emoticon', 'smiley', 'icon', 'smiley face', 'emoticon'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"EmojiIcon","package":"@atlaskit/icon/core/emoji","categorization":"single-purpose","usage":"Single purpose - Reserved for Editor as a category for Emoji\'s.","keywords":["emoji","emoticon","smiley","icon","smiley face","emoticon"],"status":"published"}',
 		componentName: 'EmojiIcon',
 		keywords: ['emoji', 'emoticon', 'smiley', 'icon', 'smiley face', 'emoticon'],
 		categorization: 'single-purpose',
@@ -2312,14 +1332,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'EmojiAddIcon',
-			package: '@atlaskit/icon/core/emoji-add',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for adding an emoji reaction.',
-			keywords: ['emoji-add', 'emojiadd', 'icon', 'smiley face', 'emoticon', 'plus'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"EmojiAddIcon","package":"@atlaskit/icon/core/emoji-add","categorization":"single-purpose","usage":"Single purpose - Reserved for adding an emoji reaction.","keywords":["emoji-add","emojiadd","icon","smiley face","emoticon","plus"],"status":"published"}',
 		componentName: 'EmojiAddIcon',
 		keywords: ['emoji-add', 'emojiadd', 'icon', 'smiley face', 'emoticon', 'plus'],
 		categorization: 'single-purpose',
@@ -2327,23 +1341,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'EmojiCasualIcon',
-			package: '@atlaskit/icon/core/emoji-casual',
-			categorization: 'single-purpose',
-			usage: 'Reserved for representing a casual or relaxed tone or sentiment.',
-			keywords: [
-				'emoji-casual',
-				'emojicasual',
-				'icon',
-				'emoij',
-				'casual',
-				'sunglasses',
-				'chill',
-				'relaxed',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"EmojiCasualIcon","package":"@atlaskit/icon/core/emoji-casual","categorization":"single-purpose","usage":"Reserved for representing a casual or relaxed tone or sentiment.","keywords":["emoji-casual","emojicasual","icon","emoij","casual","sunglasses","chill","relaxed"],"status":"published"}',
 		componentName: 'EmojiCasualIcon',
 		keywords: [
 			'emoji-casual',
@@ -2360,14 +1359,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'EmojiNeutralIcon',
-			package: '@atlaskit/icon/core/emoji-neutral',
-			categorization: 'single-purpose',
-			usage: 'Reserved for representing a neutral tone or sentiment.',
-			keywords: ['emoji-neutral', 'emojineutral', 'icon', 'emoji', 'neutral', 'ambivalent'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"EmojiNeutralIcon","package":"@atlaskit/icon/core/emoji-neutral","categorization":"single-purpose","usage":"Reserved for representing a neutral tone or sentiment.","keywords":["emoji-neutral","emojineutral","icon","emoji","neutral","ambivalent"],"status":"published"}',
 		componentName: 'EmojiNeutralIcon',
 		keywords: ['emoji-neutral', 'emojineutral', 'icon', 'emoji', 'neutral', 'ambivalent'],
 		categorization: 'single-purpose',
@@ -2375,14 +1368,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'EmojiRemoveIcon',
-			package: '@atlaskit/icon/core/emoji-remove',
-			categorization: 'single-purpose',
-			usage: 'Reserved for removing emoji.',
-			keywords: ['emoji-remove', 'emojiremove', 'icon', 'emoji', 'remove', 'strikethrough'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"EmojiRemoveIcon","package":"@atlaskit/icon/core/emoji-remove","categorization":"single-purpose","usage":"Reserved for removing emoji.","keywords":["emoji-remove","emojiremove","icon","emoji","remove","strikethrough"],"status":"published"}',
 		componentName: 'EmojiRemoveIcon',
 		keywords: ['emoji-remove', 'emojiremove', 'icon', 'emoji', 'remove', 'strikethrough'],
 		categorization: 'single-purpose',
@@ -2390,14 +1377,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'EpicIcon',
-			package: '@atlaskit/icon/core/epic',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for epics in Jira.',
-			keywords: ['epic', 'icon', 'lightning bolt', 'jira status', 'filled'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"EpicIcon","package":"@atlaskit/icon/core/epic","categorization":"single-purpose","usage":"Single purpose - Reserved for epics in Jira.","keywords":["epic","icon","lightning bolt","jira status","filled"],"status":"published"}',
 		componentName: 'EpicIcon',
 		keywords: ['epic', 'icon', 'lightning bolt', 'jira status', 'filled'],
 		categorization: 'single-purpose',
@@ -2405,26 +1386,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ErrorIcon',
-			package: '@atlaskit/icon/core/error',
-			categorization: 'single-purpose',
-			usage:
-				'Reserved for error statuses and messaging. Filled status icons provide higher visual contrast to draw attention to important information.',
-			keywords: [
-				'error',
-				'warning',
-				'alert',
-				'icon',
-				'filled',
-				'status',
-				'danger',
-				'exclamation',
-				'!',
-				'error',
-			],
-			status: 'deprecated',
-		},
+		content:
+			'{"componentName":"ErrorIcon","package":"@atlaskit/icon/core/error","categorization":"single-purpose","usage":"Reserved for error statuses and messaging. Filled status icons provide higher visual contrast to draw attention to important information.","keywords":["error","warning","alert","icon","filled","status","danger","exclamation","!","error"],"status":"deprecated"}',
 		componentName: 'ErrorIcon',
 		keywords: [
 			'error',
@@ -2444,22 +1407,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'deprecated',
 	},
 	{
-		content: {
-			componentName: 'ExclamationSquareIcon',
-			package: '@atlaskit/icon/core/exclamation-square',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: Exclamation work type.',
-			keywords: [
-				'exclamation-square',
-				'exclamationsquare',
-				'icon',
-				'!',
-				'exclaim',
-				'square',
-				'work type',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ExclamationSquareIcon","package":"@atlaskit/icon/core/exclamation-square","categorization":"multi-purpose","usage":"Known uses: Exclamation work type.","keywords":["exclamation-square","exclamationsquare","icon","!","exclaim","square","work type"],"status":"published"}',
 		componentName: 'ExclamationSquareIcon',
 		keywords: [
 			'exclamation-square',
@@ -2475,24 +1424,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ExpandHorizontalIcon',
-			package: '@atlaskit/icon/core/expand-horizontal',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for expanding an element to its maximum width.',
-			keywords: [
-				'expand-horizontal',
-				'expandhorizontal',
-				'icon',
-				'expand',
-				'width',
-				'horizontal arrows',
-				'maximum width',
-				'stretch',
-				'fit',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ExpandHorizontalIcon","package":"@atlaskit/icon/core/expand-horizontal","categorization":"single-purpose","usage":"Single purpose - Reserved for expanding an element to its maximum width.","keywords":["expand-horizontal","expandhorizontal","icon","expand","width","horizontal arrows","maximum width","stretch","fit"],"status":"published"}',
 		componentName: 'ExpandHorizontalIcon',
 		keywords: [
 			'expand-horizontal',
@@ -2510,24 +1443,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ExpandVerticalIcon',
-			package: '@atlaskit/icon/core/expand-vertical',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for expanding an element to its maximum height.',
-			keywords: [
-				'expand-vertical',
-				'expandvertical',
-				'icon',
-				'expand',
-				'height',
-				'vertical arrows',
-				'maximum height',
-				'stretch',
-				'fit',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ExpandVerticalIcon","package":"@atlaskit/icon/core/expand-vertical","categorization":"single-purpose","usage":"Single purpose - Reserved for expanding an element to its maximum height.","keywords":["expand-vertical","expandvertical","icon","expand","height","vertical arrows","maximum height","stretch","fit"],"status":"published"}',
 		componentName: 'ExpandVerticalIcon',
 		keywords: [
 			'expand-vertical',
@@ -2545,15 +1462,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'EyeOpenIcon',
-			package: '@atlaskit/icon/core/eye-open',
-			categorization: 'multi-purpose',
-			usage:
-				'Multi purpose - Known uses: watch page in Confluence, show password in text field, and following in Atlas.',
-			keywords: ['eye-open', 'eyeopen', 'icon', 'watch', 'visible', 'visbility', 'permissions'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"EyeOpenIcon","package":"@atlaskit/icon/core/eye-open","categorization":"multi-purpose","usage":"Multi purpose - Known uses: watch page in Confluence, show password in text field, and following in Atlas.","keywords":["eye-open","eyeopen","icon","watch","visible","visbility","permissions"],"status":"published"}',
 		componentName: 'EyeOpenIcon',
 		keywords: ['eye-open', 'eyeopen', 'icon', 'watch', 'visible', 'visbility', 'permissions'],
 		categorization: 'multi-purpose',
@@ -2562,23 +1472,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'EyeOpenFilledIcon',
-			package: '@atlaskit/icon/core/eye-open-filled',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: watched pages in Confluence.',
-			keywords: [
-				'eye-open-filled',
-				'eyeopenfilled',
-				'icon',
-				'watching',
-				'visible',
-				'visbility',
-				'permissions',
-				'filled',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"EyeOpenFilledIcon","package":"@atlaskit/icon/core/eye-open-filled","categorization":"multi-purpose","usage":"Multi purpose - Known uses: watched pages in Confluence.","keywords":["eye-open-filled","eyeopenfilled","icon","watching","visible","visbility","permissions","filled"],"status":"published"}',
 		componentName: 'EyeOpenFilledIcon',
 		keywords: [
 			'eye-open-filled',
@@ -2595,23 +1490,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'EyeOpenStrikethroughIcon',
-			package: '@atlaskit/icon/core/eye-open-strikethrough',
-			categorization: 'multi-purpose',
-			usage:
-				'Multi purpose - Intended uses: unwatch page in Confluence, hide password in text field, and unfollow in Atlas.',
-			keywords: [
-				'eye-open-strikethrough',
-				'eyeopenstrikethrough',
-				'icon',
-				'unwatch',
-				'invisible',
-				'visibility',
-				'permissions',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"EyeOpenStrikethroughIcon","package":"@atlaskit/icon/core/eye-open-strikethrough","categorization":"multi-purpose","usage":"Multi purpose - Intended uses: unwatch page in Confluence, hide password in text field, and unfollow in Atlas.","keywords":["eye-open-strikethrough","eyeopenstrikethrough","icon","unwatch","invisible","visibility","permissions"],"status":"published"}',
 		componentName: 'EyeOpenStrikethroughIcon',
 		keywords: [
 			'eye-open-strikethrough',
@@ -2628,14 +1508,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'FeedIcon',
-			package: '@atlaskit/icon/core/feed',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for update feeds in Atlassian Home.',
-			keywords: ['feed', 'icon', 'feed', 'updates', 'release notes', "what's new"],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"FeedIcon","package":"@atlaskit/icon/core/feed","categorization":"single-purpose","usage":"Single purpose - Reserved for update feeds in Atlassian Home.","keywords":["feed","icon","feed","updates","release notes","what\'s new"],"status":"published"}',
 		componentName: 'FeedIcon',
 		keywords: ['feed', 'icon', 'feed', 'updates', 'release notes', "what's new"],
 		categorization: 'single-purpose',
@@ -2643,24 +1517,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'FeedbackIcon',
-			package: '@atlaskit/icon/core/feedback',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Known uses: customer feedback.',
-			keywords: [
-				'feedback',
-				'announce',
-				'speaker',
-				'megaphone',
-				'icon',
-				'diagonal arrow',
-				'chat bubble',
-				'survey',
-				'critique',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"FeedbackIcon","package":"@atlaskit/icon/core/feedback","categorization":"single-purpose","usage":"Single purpose - Known uses: customer feedback.","keywords":["feedback","announce","speaker","megaphone","icon","diagonal arrow","chat bubble","survey","critique"],"status":"published"}',
 		componentName: 'FeedbackIcon',
 		keywords: [
 			'feedback',
@@ -2678,14 +1536,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'FieldIcon',
-			package: '@atlaskit/icon/core/field',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known usages: Field suggestions provided by Atlassian Intelligence.',
-			keywords: ['field', 'icon', 'field', 'form', 'input', 'label'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"FieldIcon","package":"@atlaskit/icon/core/field","categorization":"multi-purpose","usage":"Multi purpose - Known usages: Field suggestions provided by Atlassian Intelligence.","keywords":["field","icon","field","form","input","label"],"status":"published"}',
 		componentName: 'FieldIcon',
 		keywords: ['field', 'icon', 'field', 'form', 'input', 'label'],
 		categorization: 'multi-purpose',
@@ -2693,14 +1545,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'FieldAlertIcon',
-			package: '@atlaskit/icon/core/field-alert',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: Changed field values in Automation.',
-			keywords: ['field-alert', 'fieldalert', 'icon', 'field', 'alert', 'warning', 'change'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"FieldAlertIcon","package":"@atlaskit/icon/core/field-alert","categorization":"multi-purpose","usage":"Known uses: Changed field values in Automation.","keywords":["field-alert","fieldalert","icon","field","alert","warning","change"],"status":"published"}',
 		componentName: 'FieldAlertIcon',
 		keywords: ['field-alert', 'fieldalert', 'icon', 'field', 'alert', 'warning', 'change'],
 		categorization: 'multi-purpose',
@@ -2708,24 +1554,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'FieldCheckboxGroupIcon',
-			package: '@atlaskit/icon/core/field-checkbox-group',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: Checkbox group field type in Proforma.',
-			keywords: [
-				'field-checkbox-group',
-				'fieldcheckboxgroup',
-				'icon',
-				'form',
-				'field',
-				'input type',
-				'checkbox',
-				'multi-select',
-				'options',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"FieldCheckboxGroupIcon","package":"@atlaskit/icon/core/field-checkbox-group","categorization":"multi-purpose","usage":"Known uses: Checkbox group field type in Proforma.","keywords":["field-checkbox-group","fieldcheckboxgroup","icon","form","field","input type","checkbox","multi-select","options"],"status":"published"}',
 		componentName: 'FieldCheckboxGroupIcon',
 		keywords: [
 			'field-checkbox-group',
@@ -2743,14 +1573,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'FieldDropdownIcon',
-			package: '@atlaskit/icon/core/field-dropdown',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: Dropdown field type in Proforma.',
-			keywords: ['field-dropdown', 'fielddropdown', 'icon', 'form', 'field', 'select', 'dropdown'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"FieldDropdownIcon","package":"@atlaskit/icon/core/field-dropdown","categorization":"multi-purpose","usage":"Known uses: Dropdown field type in Proforma.","keywords":["field-dropdown","fielddropdown","icon","form","field","select","dropdown"],"status":"published"}',
 		componentName: 'FieldDropdownIcon',
 		keywords: ['field-dropdown', 'fielddropdown', 'icon', 'form', 'field', 'select', 'dropdown'],
 		categorization: 'multi-purpose',
@@ -2758,24 +1582,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'FieldRadioGroupIcon',
-			package: '@atlaskit/icon/core/field-radio-group',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: Radio group field type in Proforma.',
-			keywords: [
-				'field-radio-group',
-				'fieldradiogroup',
-				'icon',
-				'form',
-				'field',
-				'input type',
-				'radio',
-				'single-select',
-				'options',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"FieldRadioGroupIcon","package":"@atlaskit/icon/core/field-radio-group","categorization":"multi-purpose","usage":"Known uses: Radio group field type in Proforma.","keywords":["field-radio-group","fieldradiogroup","icon","form","field","input type","radio","single-select","options"],"status":"published"}',
 		componentName: 'FieldRadioGroupIcon',
 		keywords: [
 			'field-radio-group',
@@ -2793,15 +1601,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'FileIcon',
-			package: '@atlaskit/icon/core/file',
-			categorization: 'multi-purpose',
-			usage:
-				"Multi purpose - Known uses: document, file. Do not use to represent a page — use the dedicated 'Page' icon instead.",
-			keywords: ['file', 'document', 'paper', 'page', 'sheet', 'icon', 'document', 'file', 'paper'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"FileIcon","package":"@atlaskit/icon/core/file","categorization":"multi-purpose","usage":"Multi purpose - Known uses: document, file. Do not use to represent a page — use the dedicated \'Page\' icon instead.","keywords":["file","document","paper","page","sheet","icon","document","file","paper"],"status":"published"}',
 		componentName: 'FileIcon',
 		keywords: ['file', 'document', 'paper', 'page', 'sheet', 'icon', 'document', 'file', 'paper'],
 		categorization: 'multi-purpose',
@@ -2810,15 +1611,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'FilesIcon',
-			package: '@atlaskit/icon/core/files',
-			categorization: 'multi-purpose',
-			usage:
-				"Multi purpose - Known uses: documents, files. Do not use to represent pages — use the dedicated 'Pages' icon instead.",
-			keywords: ['files', 'icon', 'documents', 'files', 'papers'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"FilesIcon","package":"@atlaskit/icon/core/files","categorization":"multi-purpose","usage":"Multi purpose - Known uses: documents, files. Do not use to represent pages — use the dedicated \'Pages\' icon instead.","keywords":["files","icon","documents","files","papers"],"status":"published"}',
 		componentName: 'FilesIcon',
 		keywords: ['files', 'icon', 'documents', 'files', 'papers'],
 		categorization: 'multi-purpose',
@@ -2827,14 +1621,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'FilterIcon',
-			package: '@atlaskit/icon/core/filter',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for filterting data or objects.',
-			keywords: ['filter', 'icon', 'funnel', 'refine'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"FilterIcon","package":"@atlaskit/icon/core/filter","categorization":"single-purpose","usage":"Single purpose - Reserved for filterting data or objects.","keywords":["filter","icon","funnel","refine"],"status":"published"}',
 		componentName: 'FilterIcon',
 		keywords: ['filter', 'icon', 'funnel', 'refine'],
 		categorization: 'single-purpose',
@@ -2842,14 +1630,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'FlagIcon',
-			package: '@atlaskit/icon/core/flag',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: flags in Editor, feature flags.',
-			keywords: ['flag', 'icon', 'important', 'emoji category'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"FlagIcon","package":"@atlaskit/icon/core/flag","categorization":"multi-purpose","usage":"Multi purpose - Known uses: flags in Editor, feature flags.","keywords":["flag","icon","important","emoji category"],"status":"published"}',
 		componentName: 'FlagIcon',
 		keywords: ['flag', 'icon', 'important', 'emoji category'],
 		categorization: 'multi-purpose',
@@ -2857,14 +1639,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'FlagFilledIcon',
-			package: '@atlaskit/icon/core/flag-filled',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: active feature flags.',
-			keywords: ['flag-filled', 'flagfilled', 'icon', 'flag', 'important', 'filled'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"FlagFilledIcon","package":"@atlaskit/icon/core/flag-filled","categorization":"multi-purpose","usage":"Multi purpose - Known uses: active feature flags.","keywords":["flag-filled","flagfilled","icon","flag","important","filled"],"status":"published"}',
 		componentName: 'FlagFilledIcon',
 		keywords: ['flag-filled', 'flagfilled', 'icon', 'flag', 'important', 'filled'],
 		categorization: 'multi-purpose',
@@ -2872,14 +1648,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'FlaskIcon',
-			package: '@atlaskit/icon/core/flask',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: labs in Jira.',
-			keywords: ['flask', 'icon', 'labs', 'test', 'erlenmeyer flask', 'beaker'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"FlaskIcon","package":"@atlaskit/icon/core/flask","categorization":"multi-purpose","usage":"Multi purpose - Known uses: labs in Jira.","keywords":["flask","icon","labs","test","erlenmeyer flask","beaker"],"status":"published"}',
 		componentName: 'FlaskIcon',
 		keywords: ['flask', 'icon', 'labs', 'test', 'erlenmeyer flask', 'beaker'],
 		categorization: 'multi-purpose',
@@ -2887,14 +1657,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'FocusAreaIcon',
-			package: '@atlaskit/icon/core/focus-area',
-			categorization: 'single-purpose',
-			usage: 'Reserved for representing Focus Areas.',
-			keywords: ['focus-area', 'focusarea', 'icon', 'focus', 'focus area', 'capture'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"FocusAreaIcon","package":"@atlaskit/icon/core/focus-area","categorization":"single-purpose","usage":"Reserved for representing Focus Areas.","keywords":["focus-area","focusarea","icon","focus","focus area","capture"],"status":"published"}',
 		componentName: 'FocusAreaIcon',
 		keywords: ['focus-area', 'focusarea', 'icon', 'focus', 'focus area', 'capture'],
 		categorization: 'single-purpose',
@@ -2902,14 +1666,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'FolderClosedIcon',
-			package: '@atlaskit/icon/core/folder-closed',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for folders in Confluence.',
-			keywords: ['folder-closed', 'folderclosed', 'icon', 'directory'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"FolderClosedIcon","package":"@atlaskit/icon/core/folder-closed","categorization":"single-purpose","usage":"Single purpose - Reserved for folders in Confluence.","keywords":["folder-closed","folderclosed","icon","directory"],"status":"published"}',
 		componentName: 'FolderClosedIcon',
 		keywords: ['folder-closed', 'folderclosed', 'icon', 'directory'],
 		categorization: 'single-purpose',
@@ -2917,14 +1675,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'FolderOpenIcon',
-			package: '@atlaskit/icon/core/folder-open',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for open folders in Confluence.',
-			keywords: ['folder-open', 'folderopen', 'icon', 'directory'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"FolderOpenIcon","package":"@atlaskit/icon/core/folder-open","categorization":"single-purpose","usage":"Single purpose - Reserved for open folders in Confluence.","keywords":["folder-open","folderopen","icon","directory"],"status":"published"}',
 		componentName: 'FolderOpenIcon',
 		keywords: ['folder-open', 'folderopen', 'icon', 'directory'],
 		categorization: 'single-purpose',
@@ -2932,14 +1684,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'FormIcon',
-			package: '@atlaskit/icon/core/form',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: Represents forms across Atlassian apps, including Proforma.',
-			keywords: ['form', 'icon', 'form', 'fields'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"FormIcon","package":"@atlaskit/icon/core/form","categorization":"multi-purpose","usage":"Known uses: Represents forms across Atlassian apps, including Proforma.","keywords":["form","icon","form","fields"],"status":"published"}',
 		componentName: 'FormIcon',
 		keywords: ['form', 'icon', 'form', 'fields'],
 		categorization: 'multi-purpose',
@@ -2947,14 +1693,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'FullscreenEnterIcon',
-			package: '@atlaskit/icon/core/fullscreen-enter',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for full screen videos or objects.',
-			keywords: ['fullscreen-enter', 'fullscreenenter', 'icon', 'full screen'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"FullscreenEnterIcon","package":"@atlaskit/icon/core/fullscreen-enter","categorization":"single-purpose","usage":"Single purpose - Reserved for full screen videos or objects.","keywords":["fullscreen-enter","fullscreenenter","icon","full screen"],"status":"published"}',
 		componentName: 'FullscreenEnterIcon',
 		keywords: ['fullscreen-enter', 'fullscreenenter', 'icon', 'full screen'],
 		categorization: 'single-purpose',
@@ -2962,14 +1702,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'FullscreenExitIcon',
-			package: '@atlaskit/icon/core/fullscreen-exit',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for return screen videos or objects.',
-			keywords: ['fullscreen-exit', 'fullscreenexit', 'icon', 'un-full screen', 'un-fullscreen'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"FullscreenExitIcon","package":"@atlaskit/icon/core/fullscreen-exit","categorization":"single-purpose","usage":"Single purpose - Reserved for return screen videos or objects.","keywords":["fullscreen-exit","fullscreenexit","icon","un-full screen","un-fullscreen"],"status":"published"}',
 		componentName: 'FullscreenExitIcon',
 		keywords: ['fullscreen-exit', 'fullscreenexit', 'icon', 'un-full screen', 'un-fullscreen'],
 		categorization: 'single-purpose',
@@ -2977,15 +1711,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'GlassesIcon',
-			package: '@atlaskit/icon/core/glasses',
-			categorization: 'multi-purpose',
-			usage:
-				'Known uses: Changing tone of written content to Educational with Atlassian Intelligence.',
-			keywords: ['glasses', 'icon', 'glasses', 'knowledge', 'learning', 'spectacles', 'education'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"GlassesIcon","package":"@atlaskit/icon/core/glasses","categorization":"multi-purpose","usage":"Known uses: Changing tone of written content to Educational with Atlassian Intelligence.","keywords":["glasses","icon","glasses","knowledge","learning","spectacles","education"],"status":"published"}',
 		componentName: 'GlassesIcon',
 		keywords: ['glasses', 'icon', 'glasses', 'knowledge', 'learning', 'spectacles', 'education'],
 		categorization: 'multi-purpose',
@@ -2994,15 +1721,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'GlobeIcon',
-			package: '@atlaskit/icon/core/globe',
-			categorization: 'multi-purpose',
-			usage:
-				'Multi purpose - Known uses: public link in Confluence share dialog, global rules in Automation.',
-			keywords: ['globe', 'icon', 'world'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"GlobeIcon","package":"@atlaskit/icon/core/globe","categorization":"multi-purpose","usage":"Multi purpose - Known uses: public link in Confluence share dialog, global rules in Automation.","keywords":["globe","icon","world"],"status":"published"}',
 		componentName: 'GlobeIcon',
 		keywords: ['globe', 'icon', 'world'],
 		categorization: 'multi-purpose',
@@ -3011,14 +1731,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'GoalIcon',
-			package: '@atlaskit/icon/core/goal',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for goals in Atlas.',
-			keywords: ['goal', 'icon', 'target'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"GoalIcon","package":"@atlaskit/icon/core/goal","categorization":"single-purpose","usage":"Single purpose - Reserved for goals in Atlas.","keywords":["goal","icon","target"],"status":"published"}',
 		componentName: 'GoalIcon',
 		keywords: ['goal', 'icon', 'target'],
 		categorization: 'single-purpose',
@@ -3026,15 +1740,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'GridIcon',
-			package: '@atlaskit/icon/core/grid',
-			categorization: 'multi-purpose',
-			usage:
-				'Multi purpose - Known uses: spaces in Confluence, and grid view, all content in Confluence.',
-			keywords: ['grid', 'icon', 'view all content', 'tile view', 'layout', 'grid', 'tiles'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"GridIcon","package":"@atlaskit/icon/core/grid","categorization":"multi-purpose","usage":"Multi purpose - Known uses: spaces in Confluence, and grid view, all content in Confluence.","keywords":["grid","icon","view all content","tile view","layout","grid","tiles"],"status":"published"}',
 		componentName: 'GridIcon',
 		keywords: ['grid', 'icon', 'view all content', 'tile view', 'layout', 'grid', 'tiles'],
 		categorization: 'multi-purpose',
@@ -3043,22 +1750,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'GrowDiagonalIcon',
-			package: '@atlaskit/icon/core/grow-diagonal',
-			categorization: 'single-purpose',
-			usage:
-				'Single purpose - Reserved for increasing the size of an element when height and width are changed concurrently.',
-			keywords: [
-				'grow-diagonal',
-				'growdiagonal',
-				'icon',
-				'grow',
-				'width and height',
-				'diagonal arrows',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"GrowDiagonalIcon","package":"@atlaskit/icon/core/grow-diagonal","categorization":"single-purpose","usage":"Single purpose - Reserved for increasing the size of an element when height and width are changed concurrently.","keywords":["grow-diagonal","growdiagonal","icon","grow","width and height","diagonal arrows"],"status":"published"}',
 		componentName: 'GrowDiagonalIcon',
 		keywords: [
 			'grow-diagonal',
@@ -3074,14 +1767,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'GrowHorizontalIcon',
-			package: '@atlaskit/icon/core/grow-horizontal',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for increasing the width of an element.',
-			keywords: ['grow-horizontal', 'growhorizontal', 'icon', 'grow', 'width', 'horizontal arrows'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"GrowHorizontalIcon","package":"@atlaskit/icon/core/grow-horizontal","categorization":"single-purpose","usage":"Single purpose - Reserved for increasing the width of an element.","keywords":["grow-horizontal","growhorizontal","icon","grow","width","horizontal arrows"],"status":"published"}',
 		componentName: 'GrowHorizontalIcon',
 		keywords: ['grow-horizontal', 'growhorizontal', 'icon', 'grow', 'width', 'horizontal arrows'],
 		categorization: 'single-purpose',
@@ -3089,14 +1776,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'GrowVerticalIcon',
-			package: '@atlaskit/icon/core/grow-vertical',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for increasing the height of an element.',
-			keywords: ['grow-vertical', 'growvertical', 'icon', 'grow', 'height', 'vertical arrows'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"GrowVerticalIcon","package":"@atlaskit/icon/core/grow-vertical","categorization":"single-purpose","usage":"Single purpose - Reserved for increasing the height of an element.","keywords":["grow-vertical","growvertical","icon","grow","height","vertical arrows"],"status":"published"}',
 		componentName: 'GrowVerticalIcon',
 		keywords: ['grow-vertical', 'growvertical', 'icon', 'grow', 'height', 'vertical arrows'],
 		categorization: 'single-purpose',
@@ -3104,14 +1785,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'HashtagIcon',
-			package: '@atlaskit/icon/core/hashtag',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: topics in Atlas, tags.',
-			keywords: ['hashtag', 'icon', 'tag', 'topic', 'pound'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"HashtagIcon","package":"@atlaskit/icon/core/hashtag","categorization":"multi-purpose","usage":"Multi purpose - Known uses: topics in Atlas, tags.","keywords":["hashtag","icon","tag","topic","pound"],"status":"published"}',
 		componentName: 'HashtagIcon',
 		keywords: ['hashtag', 'icon', 'tag', 'topic', 'pound'],
 		categorization: 'multi-purpose',
@@ -3119,14 +1794,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'HeadphonesIcon',
-			package: '@atlaskit/icon/core/headphones',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: music, audio.',
-			keywords: ['headphones', 'icon', 'audio', 'music', 'headphones'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"HeadphonesIcon","package":"@atlaskit/icon/core/headphones","categorization":"multi-purpose","usage":"Known uses: music, audio.","keywords":["headphones","icon","audio","music","headphones"],"status":"published"}',
 		componentName: 'HeadphonesIcon',
 		keywords: ['headphones', 'icon', 'audio', 'music', 'headphones'],
 		categorization: 'multi-purpose',
@@ -3134,14 +1803,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'HeartIcon',
-			package: '@atlaskit/icon/core/heart',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: emoji symbols in Editor.',
-			keywords: ['heart', 'icon', 'like', 'love', 'emoji category'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"HeartIcon","package":"@atlaskit/icon/core/heart","categorization":"multi-purpose","usage":"Multi purpose - Known uses: emoji symbols in Editor.","keywords":["heart","icon","like","love","emoji category"],"status":"published"}',
 		componentName: 'HeartIcon',
 		keywords: ['heart', 'icon', 'like', 'love', 'emoji category'],
 		categorization: 'multi-purpose',
@@ -3149,14 +1812,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'HighlightIcon',
-			package: '@atlaskit/icon/core/highlight',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for highlight text tool in Confluence Editor.',
-			keywords: ['highlight', 'icon', 'highlight', 'highlighter', 'stabilo', 'pen'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"HighlightIcon","package":"@atlaskit/icon/core/highlight","categorization":"single-purpose","usage":"Single purpose - Reserved for highlight text tool in Confluence Editor.","keywords":["highlight","icon","highlight","highlighter","stabilo","pen"],"status":"published"}',
 		componentName: 'HighlightIcon',
 		keywords: ['highlight', 'icon', 'highlight', 'highlighter', 'stabilo', 'pen'],
 		categorization: 'single-purpose',
@@ -3164,15 +1821,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'HomeIcon',
-			package: '@atlaskit/icon/core/home',
-			categorization: 'single-purpose',
-			usage:
-				'Single purpose - Reserved for home in navigation. When a user clicks on this, they should return to the homepage.',
-			keywords: ['home', 'icon', 'house', 'building'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"HomeIcon","package":"@atlaskit/icon/core/home","categorization":"single-purpose","usage":"Single purpose - Reserved for home in navigation. When a user clicks on this, they should return to the homepage.","keywords":["home","icon","house","building"],"status":"published"}',
 		componentName: 'HomeIcon',
 		keywords: ['home', 'icon', 'house', 'building'],
 		categorization: 'single-purpose',
@@ -3181,14 +1831,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ImageIcon',
-			package: '@atlaskit/icon/core/image',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: images, image upload.',
-			keywords: ['image', 'picture', 'photo', 'icon', 'picture', 'asset'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ImageIcon","package":"@atlaskit/icon/core/image","categorization":"multi-purpose","usage":"Multi purpose - Known uses: images, image upload.","keywords":["image","picture","photo","icon","picture","asset"],"status":"published"}',
 		componentName: 'ImageIcon',
 		keywords: ['image', 'picture', 'photo', 'icon', 'picture', 'asset'],
 		categorization: 'multi-purpose',
@@ -3196,14 +1840,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ImageFullscreenIcon',
-			package: '@atlaskit/icon/core/image-fullscreen',
-			categorization: 'single-purpose',
-			usage: 'Reserved for viewing an image in a fullscreen view or modal.',
-			keywords: ['image-fullscreen', 'imagefullscreen', 'icon', 'image', 'fullscreen', 'enlarge'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ImageFullscreenIcon","package":"@atlaskit/icon/core/image-fullscreen","categorization":"single-purpose","usage":"Reserved for viewing an image in a fullscreen view or modal.","keywords":["image-fullscreen","imagefullscreen","icon","image","fullscreen","enlarge"],"status":"published"}',
 		componentName: 'ImageFullscreenIcon',
 		keywords: ['image-fullscreen', 'imagefullscreen', 'icon', 'image', 'fullscreen', 'enlarge'],
 		categorization: 'single-purpose',
@@ -3211,14 +1849,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ImageInlineIcon',
-			package: '@atlaskit/icon/core/image-inline',
-			categorization: 'single-purpose',
-			usage: 'Reserved for representing inline images in Editor.',
-			keywords: ['image-inline', 'imageinline', 'icon', 'image', 'layout', 'inline'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ImageInlineIcon","package":"@atlaskit/icon/core/image-inline","categorization":"single-purpose","usage":"Reserved for representing inline images in Editor.","keywords":["image-inline","imageinline","icon","image","layout","inline"],"status":"published"}',
 		componentName: 'ImageInlineIcon',
 		keywords: ['image-inline', 'imageinline', 'icon', 'image', 'layout', 'inline'],
 		categorization: 'single-purpose',
@@ -3226,14 +1858,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ImageScaledIcon',
-			package: '@atlaskit/icon/core/image-scaled',
-			categorization: 'single-purpose',
-			usage: 'Reserved for representing scaled images in layouts akin to display block.',
-			keywords: ['image-scaled', 'imagescaled', 'icon', 'image', 'layout', 'scaled'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ImageScaledIcon","package":"@atlaskit/icon/core/image-scaled","categorization":"single-purpose","usage":"Reserved for representing scaled images in layouts akin to display block.","keywords":["image-scaled","imagescaled","icon","image","layout","scaled"],"status":"published"}',
 		componentName: 'ImageScaledIcon',
 		keywords: ['image-scaled', 'imagescaled', 'icon', 'image', 'layout', 'scaled'],
 		categorization: 'single-purpose',
@@ -3241,14 +1867,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'InboxIcon',
-			package: '@atlaskit/icon/core/inbox',
-			categorization: 'multi-purpose',
-			usage: "Multi purpose - Known uses: 'Your work' in Confluence, inbox, mail.",
-			keywords: ['inbox', 'icon', 'document tray', 'work', 'letter', 'post'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"InboxIcon","package":"@atlaskit/icon/core/inbox","categorization":"multi-purpose","usage":"Multi purpose - Known uses: \'Your work\' in Confluence, inbox, mail.","keywords":["inbox","icon","document tray","work","letter","post"],"status":"published"}',
 		componentName: 'InboxIcon',
 		keywords: ['inbox', 'icon', 'document tray', 'work', 'letter', 'post'],
 		categorization: 'multi-purpose',
@@ -3256,14 +1876,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'IncidentIcon',
-			package: '@atlaskit/icon/core/incident',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for incidents in Jira.',
-			keywords: ['incident', 'icon', 'witches hat', 'traffic cone', 'jira status'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"IncidentIcon","package":"@atlaskit/icon/core/incident","categorization":"single-purpose","usage":"Single purpose - Reserved for incidents in Jira.","keywords":["incident","icon","witches hat","traffic cone","jira status"],"status":"published"}',
 		componentName: 'IncidentIcon',
 		keywords: ['incident', 'icon', 'witches hat', 'traffic cone', 'jira status'],
 		categorization: 'single-purpose',
@@ -3271,15 +1885,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'InformationIcon',
-			package: '@atlaskit/icon/core/information',
-			categorization: 'single-purpose',
-			usage:
-				"Reserved for information statuses and messaging.  Filled status icons provide higher visual contrast to draw attention to important information. For information tooltips, use the unfilled 'information circle' icon.",
-			keywords: ['information', 'icon', 'info', 'filled', 'status', 'information'],
-			status: 'deprecated',
-		},
+		content:
+			'{"componentName":"InformationIcon","package":"@atlaskit/icon/core/information","categorization":"single-purpose","usage":"Reserved for information statuses and messaging.  Filled status icons provide higher visual contrast to draw attention to important information. For information tooltips, use the unfilled \'information circle\' icon.","keywords":["information","icon","info","filled","status","information"],"status":"deprecated"}',
 		componentName: 'InformationIcon',
 		keywords: ['information', 'icon', 'info', 'filled', 'status', 'information'],
 		categorization: 'single-purpose',
@@ -3288,22 +1895,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'deprecated',
 	},
 	{
-		content: {
-			componentName: 'InformationCircleIcon',
-			package: '@atlaskit/icon/core/information-circle',
-			categorization: 'multi-purpose',
-			usage:
-				'Known uses: For highlighting information when less visual emphasis is needed within the UI compared to the filled information status icon.',
-			keywords: [
-				'information-circle',
-				'informationcircle',
-				'icon',
-				'information',
-				'circle',
-				'info',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"InformationCircleIcon","package":"@atlaskit/icon/core/information-circle","categorization":"multi-purpose","usage":"Known uses: For highlighting information when less visual emphasis is needed within the UI compared to the filled information status icon.","keywords":["information-circle","informationcircle","icon","information","circle","info"],"status":"published"}',
 		componentName: 'InformationCircleIcon',
 		keywords: ['information-circle', 'informationcircle', 'icon', 'information', 'circle', 'info'],
 		categorization: 'multi-purpose',
@@ -3312,25 +1905,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'KeyResultIcon',
-			package: '@atlaskit/icon/core/key-result',
-			categorization: 'single-purpose',
-			usage: 'Reserved for representing key results.',
-			keywords: [
-				'key-result',
-				'keyresult',
-				'icon',
-				'target',
-				'bullseye',
-				'key result',
-				'arrow',
-				'bow',
-				'archery',
-				'OKR',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"KeyResultIcon","package":"@atlaskit/icon/core/key-result","categorization":"single-purpose","usage":"Reserved for representing key results.","keywords":["key-result","keyresult","icon","target","bullseye","key result","arrow","bow","archery","OKR"],"status":"published"}',
 		componentName: 'KeyResultIcon',
 		keywords: [
 			'key-result',
@@ -3349,14 +1925,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'LayoutOneColumnIcon',
-			package: '@atlaskit/icon/core/layout-one-column',
-			categorization: 'single-purpose',
-			usage: 'Reserved for single column layout option in Confluence Editor',
-			keywords: ['layout-one-column', 'layoutonecolumn', 'icon', 'layout', 'column', '1 col'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"LayoutOneColumnIcon","package":"@atlaskit/icon/core/layout-one-column","categorization":"single-purpose","usage":"Reserved for single column layout option in Confluence Editor","keywords":["layout-one-column","layoutonecolumn","icon","layout","column","1 col"],"status":"published"}',
 		componentName: 'LayoutOneColumnIcon',
 		keywords: ['layout-one-column', 'layoutonecolumn', 'icon', 'layout', 'column', '1 col'],
 		categorization: 'single-purpose',
@@ -3364,22 +1934,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'LayoutThreeColumnsIcon',
-			package: '@atlaskit/icon/core/layout-three-columns',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for 3 column layout option in Confluence Editor.',
-			keywords: [
-				'layout-three-columns',
-				'layoutthreecolumns',
-				'icon',
-				'layout',
-				'columns',
-				'3 col',
-				'3 cols',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"LayoutThreeColumnsIcon","package":"@atlaskit/icon/core/layout-three-columns","categorization":"single-purpose","usage":"Single purpose - Reserved for 3 column layout option in Confluence Editor.","keywords":["layout-three-columns","layoutthreecolumns","icon","layout","columns","3 col","3 cols"],"status":"published"}',
 		componentName: 'LayoutThreeColumnsIcon',
 		keywords: [
 			'layout-three-columns',
@@ -3395,25 +1951,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'LayoutThreeColumnsSidebarsIcon',
-			package: '@atlaskit/icon/core/layout-three-columns-sidebars',
-			categorization: 'single-purpose',
-			usage:
-				'Single purpose - Reserved for 3 column layout with left and right sidebars option in Confluence Editor.',
-			keywords: [
-				'layout-three-columns-sidebars',
-				'layoutthreecolumnssidebars',
-				'icon',
-				'layout',
-				'columns',
-				'3 col',
-				'3 cols',
-				'sidebars',
-				'asides',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"LayoutThreeColumnsSidebarsIcon","package":"@atlaskit/icon/core/layout-three-columns-sidebars","categorization":"single-purpose","usage":"Single purpose - Reserved for 3 column layout with left and right sidebars option in Confluence Editor.","keywords":["layout-three-columns-sidebars","layoutthreecolumnssidebars","icon","layout","columns","3 col","3 cols","sidebars","asides"],"status":"published"}',
 		componentName: 'LayoutThreeColumnsSidebarsIcon',
 		keywords: [
 			'layout-three-columns-sidebars',
@@ -3432,22 +1971,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'LayoutTwoColumnsIcon',
-			package: '@atlaskit/icon/core/layout-two-columns',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for 2 column layout option in Confluence Editor.',
-			keywords: [
-				'layout-two-columns',
-				'layouttwocolumns',
-				'icon',
-				'layout',
-				'columns',
-				'2 col',
-				'2 cols',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"LayoutTwoColumnsIcon","package":"@atlaskit/icon/core/layout-two-columns","categorization":"single-purpose","usage":"Single purpose - Reserved for 2 column layout option in Confluence Editor.","keywords":["layout-two-columns","layouttwocolumns","icon","layout","columns","2 col","2 cols"],"status":"published"}',
 		componentName: 'LayoutTwoColumnsIcon',
 		keywords: [
 			'layout-two-columns',
@@ -3463,25 +1988,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'LayoutTwoColumnsSidebarLeftIcon',
-			package: '@atlaskit/icon/core/layout-two-columns-sidebar-left',
-			categorization: 'single-purpose',
-			usage:
-				'Single purpose - Reserved for 2 column layout with left sidebar option in Confluence Editor.',
-			keywords: [
-				'layout-two-columns-sidebar-left',
-				'layouttwocolumnssidebarleft',
-				'icon',
-				'layout',
-				'columns',
-				'2 col',
-				'2 cols',
-				'sidebar',
-				'aside',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"LayoutTwoColumnsSidebarLeftIcon","package":"@atlaskit/icon/core/layout-two-columns-sidebar-left","categorization":"single-purpose","usage":"Single purpose - Reserved for 2 column layout with left sidebar option in Confluence Editor.","keywords":["layout-two-columns-sidebar-left","layouttwocolumnssidebarleft","icon","layout","columns","2 col","2 cols","sidebar","aside"],"status":"published"}',
 		componentName: 'LayoutTwoColumnsSidebarLeftIcon',
 		keywords: [
 			'layout-two-columns-sidebar-left',
@@ -3500,25 +2008,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'LayoutTwoColumnsSidebarRightIcon',
-			package: '@atlaskit/icon/core/layout-two-columns-sidebar-right',
-			categorization: 'single-purpose',
-			usage:
-				'Single purpose - Reserved for 2 column layout with right sidebar option in Confluence Editor.',
-			keywords: [
-				'layout-two-columns-sidebar-right',
-				'layouttwocolumnssidebarright',
-				'icon',
-				'layout',
-				'columns',
-				'2 col',
-				'2 cols',
-				'sidebar',
-				'aside',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"LayoutTwoColumnsSidebarRightIcon","package":"@atlaskit/icon/core/layout-two-columns-sidebar-right","categorization":"single-purpose","usage":"Single purpose - Reserved for 2 column layout with right sidebar option in Confluence Editor.","keywords":["layout-two-columns-sidebar-right","layouttwocolumnssidebarright","icon","layout","columns","2 col","2 cols","sidebar","aside"],"status":"published"}',
 		componentName: 'LayoutTwoColumnsSidebarRightIcon',
 		keywords: [
 			'layout-two-columns-sidebar-right',
@@ -3537,14 +2028,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'LibraryIcon',
-			package: '@atlaskit/icon/core/library',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for library view in Atlassian Home.',
-			keywords: ['library', 'icon', 'library', 'drawer', 'drawers', 'filing cabinet'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"LibraryIcon","package":"@atlaskit/icon/core/library","categorization":"single-purpose","usage":"Single purpose - Reserved for library view in Atlassian Home.","keywords":["library","icon","library","drawer","drawers","filing cabinet"],"status":"published"}',
 		componentName: 'LibraryIcon',
 		keywords: ['library', 'icon', 'library', 'drawer', 'drawers', 'filing cabinet'],
 		categorization: 'single-purpose',
@@ -3552,14 +2037,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'LightbulbIcon',
-			package: '@atlaskit/icon/core/lightbulb',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: learnings in Atlas.',
-			keywords: ['lightbulb', 'idea', 'hint', 'icon', 'idea', 'initiative', 'tip', 'learnings'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"LightbulbIcon","package":"@atlaskit/icon/core/lightbulb","categorization":"multi-purpose","usage":"Known uses: learnings in Atlas.","keywords":["lightbulb","idea","hint","icon","idea","initiative","tip","learnings"],"status":"published"}',
 		componentName: 'LightbulbIcon',
 		keywords: ['lightbulb', 'idea', 'hint', 'icon', 'idea', 'initiative', 'tip', 'learnings'],
 		categorization: 'multi-purpose',
@@ -3567,14 +2046,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'LinkIcon',
-			package: '@atlaskit/icon/core/link',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for links, urls, or copy link.',
-			keywords: ['link', 'icon', 'url', 'hyperlink', 'website', 'www', 'http', ''],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"LinkIcon","package":"@atlaskit/icon/core/link","categorization":"single-purpose","usage":"Single purpose - Reserved for links, urls, or copy link.","keywords":["link","icon","url","hyperlink","website","www","http",""],"status":"published"}',
 		componentName: 'LinkIcon',
 		keywords: ['link', 'icon', 'url', 'hyperlink', 'website', 'www', 'http', ''],
 		categorization: 'single-purpose',
@@ -3582,26 +2055,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'LinkBrokenIcon',
-			package: '@atlaskit/icon/core/link-broken',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for removing a link.',
-			keywords: [
-				'link-broken',
-				'linkbroken',
-				'icon',
-				'unlink',
-				'remove link',
-				'break link',
-				'url',
-				'hyperlink',
-				'website',
-				'www',
-				'https',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"LinkBrokenIcon","package":"@atlaskit/icon/core/link-broken","categorization":"single-purpose","usage":"Single purpose - Reserved for removing a link.","keywords":["link-broken","linkbroken","icon","unlink","remove link","break link","url","hyperlink","website","www","https"],"status":"published"}',
 		componentName: 'LinkBrokenIcon',
 		keywords: [
 			'link-broken',
@@ -3621,31 +2076,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'LinkExternalIcon',
-			package: '@atlaskit/icon/core/link-external',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for links that open up a new tab.',
-			keywords: [
-				'link-external',
-				'linkexternal',
-				'icon',
-				'new tab',
-				'new window',
-				'open in',
-				'url',
-				'hyperlink',
-				'www',
-				'http',
-				'https',
-				'website',
-				'external',
-				'shortcut',
-				'diagonal arrow',
-				'offsite',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"LinkExternalIcon","package":"@atlaskit/icon/core/link-external","categorization":"single-purpose","usage":"Single purpose - Reserved for links that open up a new tab.","keywords":["link-external","linkexternal","icon","new tab","new window","open in","url","hyperlink","www","http","https","website","external","shortcut","diagonal arrow","offsite"],"status":"published"}',
 		componentName: 'LinkExternalIcon',
 		keywords: [
 			'link-external',
@@ -3670,14 +2102,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ListBulletedIcon',
-			package: '@atlaskit/icon/core/list-bulleted',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: bulleted lists, view all.',
-			keywords: ['list-bulleted', 'listbulleted', 'icon', 'bullets', 'unordered list'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ListBulletedIcon","package":"@atlaskit/icon/core/list-bulleted","categorization":"multi-purpose","usage":"Multi purpose - Known uses: bulleted lists, view all.","keywords":["list-bulleted","listbulleted","icon","bullets","unordered list"],"status":"published"}',
 		componentName: 'ListBulletedIcon',
 		keywords: ['list-bulleted', 'listbulleted', 'icon', 'bullets', 'unordered list'],
 		categorization: 'multi-purpose',
@@ -3685,24 +2111,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ListChecklistIcon',
-			package: '@atlaskit/icon/core/list-checklist',
-			categorization: 'multi-purpose',
-			usage: "Known usages: Checklist, 'Requirement' work type.",
-			keywords: [
-				'list-checklist',
-				'listchecklist',
-				'icon',
-				'list',
-				'check mark',
-				'to-do',
-				'requirements',
-				'checklist',
-				'work type',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ListChecklistIcon","package":"@atlaskit/icon/core/list-checklist","categorization":"multi-purpose","usage":"Known usages: Checklist, \'Requirement\' work type.","keywords":["list-checklist","listchecklist","icon","list","check mark","to-do","requirements","checklist","work type"],"status":"published"}',
 		componentName: 'ListChecklistIcon',
 		keywords: [
 			'list-checklist',
@@ -3720,14 +2130,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ListNumberedIcon',
-			package: '@atlaskit/icon/core/list-numbered',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known usages: Numbered list in Confluence Editor.',
-			keywords: ['list-numbered', 'listnumbered', 'icon', 'list', 'numbers'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ListNumberedIcon","package":"@atlaskit/icon/core/list-numbered","categorization":"multi-purpose","usage":"Multi purpose - Known usages: Numbered list in Confluence Editor.","keywords":["list-numbered","listnumbered","icon","list","numbers"],"status":"published"}',
 		componentName: 'ListNumberedIcon',
 		keywords: ['list-numbered', 'listnumbered', 'icon', 'list', 'numbers'],
 		categorization: 'multi-purpose',
@@ -3735,14 +2139,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'LobbyBellIcon',
-			package: '@atlaskit/icon/core/lobby-bell',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: risks in Atlas.',
-			keywords: ['lobby-bell', 'lobbybell', 'icon', 'ding', 'risks'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"LobbyBellIcon","package":"@atlaskit/icon/core/lobby-bell","categorization":"multi-purpose","usage":"Multi purpose - Known uses: risks in Atlas.","keywords":["lobby-bell","lobbybell","icon","ding","risks"],"status":"published"}',
 		componentName: 'LobbyBellIcon',
 		keywords: ['lobby-bell', 'lobbybell', 'icon', 'ding', 'risks'],
 		categorization: 'multi-purpose',
@@ -3750,14 +2148,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'LocationIcon',
-			package: '@atlaskit/icon/core/location',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: location in Atlas.',
-			keywords: ['location', 'pin', 'gps', 'map', 'icon', 'map', 'pin', 'address'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"LocationIcon","package":"@atlaskit/icon/core/location","categorization":"multi-purpose","usage":"Multi purpose - Known uses: location in Atlas.","keywords":["location","pin","gps","map","icon","map","pin","address"],"status":"published"}',
 		componentName: 'LocationIcon',
 		keywords: ['location', 'pin', 'gps', 'map', 'icon', 'map', 'pin', 'address'],
 		categorization: 'multi-purpose',
@@ -3765,26 +2157,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'LockLockedIcon',
-			package: '@atlaskit/icon/core/lock-locked',
-			categorization: 'multi-purpose',
-			usage:
-				'Multi purpose - Known uses: secure password in textfields, locked page in Confluence.',
-			keywords: [
-				'lock-locked',
-				'locklocked',
-				'icon',
-				'permissions',
-				'no access',
-				'restricted',
-				'security',
-				'secure',
-				'forbidden',
-				'authentication',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"LockLockedIcon","package":"@atlaskit/icon/core/lock-locked","categorization":"multi-purpose","usage":"Multi purpose - Known uses: secure password in textfields, locked page in Confluence.","keywords":["lock-locked","locklocked","icon","permissions","no access","restricted","security","secure","forbidden","authentication"],"status":"published"}',
 		componentName: 'LockLockedIcon',
 		keywords: [
 			'lock-locked',
@@ -3803,23 +2177,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'LockUnlockedIcon',
-			package: '@atlaskit/icon/core/lock-unlocked',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: unlocked page in Confluence.',
-			keywords: [
-				'lock-unlocked',
-				'lockunlocked',
-				'icon',
-				'open permissions',
-				'unrestricted access',
-				'security',
-				'insecure',
-				'authentication',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"LockUnlockedIcon","package":"@atlaskit/icon/core/lock-unlocked","categorization":"multi-purpose","usage":"Multi purpose - Known uses: unlocked page in Confluence.","keywords":["lock-unlocked","lockunlocked","icon","open permissions","unrestricted access","security","insecure","authentication"],"status":"published"}',
 		componentName: 'LockUnlockedIcon',
 		keywords: [
 			'lock-unlocked',
@@ -3836,14 +2195,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'LogInIcon',
-			package: '@atlaskit/icon/core/log-in',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for log in.',
-			keywords: ['log-in', 'login', 'icon', 'sign in', 'enter', 'account'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"LogInIcon","package":"@atlaskit/icon/core/log-in","categorization":"single-purpose","usage":"Single purpose - Reserved for log in.","keywords":["log-in","login","icon","sign in","enter","account"],"status":"published"}',
 		componentName: 'LogInIcon',
 		keywords: ['log-in', 'login', 'icon', 'sign in', 'enter', 'account'],
 		categorization: 'single-purpose',
@@ -3851,14 +2204,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'LogOutIcon',
-			package: '@atlaskit/icon/core/log-out',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for log out.',
-			keywords: ['log-out', 'logout', 'icon', 'sign out', 'exit', 'account'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"LogOutIcon","package":"@atlaskit/icon/core/log-out","categorization":"single-purpose","usage":"Single purpose - Reserved for log out.","keywords":["log-out","logout","icon","sign out","exit","account"],"status":"published"}',
 		componentName: 'LogOutIcon',
 		keywords: ['log-out', 'logout', 'icon', 'sign out', 'exit', 'account'],
 		categorization: 'single-purpose',
@@ -3866,14 +2213,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'MagicWandIcon',
-			package: '@atlaskit/icon/core/magic-wand',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose',
-			keywords: ['magic-wand', 'magicwand', 'icon', 'magic', 'wand', 'suggestion'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"MagicWandIcon","package":"@atlaskit/icon/core/magic-wand","categorization":"multi-purpose","usage":"Multi purpose","keywords":["magic-wand","magicwand","icon","magic","wand","suggestion"],"status":"published"}',
 		componentName: 'MagicWandIcon',
 		keywords: ['magic-wand', 'magicwand', 'icon', 'magic', 'wand', 'suggestion'],
 		categorization: 'multi-purpose',
@@ -3881,14 +2222,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'MarkdownIcon',
-			package: '@atlaskit/icon/core/markdown',
-			categorization: 'single-purpose',
-			usage: 'Reserved for representing the Markdown markup language.',
-			keywords: ['markdown', 'icon', 'markdown', 'md', 'markup'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"MarkdownIcon","package":"@atlaskit/icon/core/markdown","categorization":"single-purpose","usage":"Reserved for representing the Markdown markup language.","keywords":["markdown","icon","markdown","md","markup"],"status":"published"}',
 		componentName: 'MarkdownIcon',
 		keywords: ['markdown', 'icon', 'markdown', 'md', 'markup'],
 		categorization: 'single-purpose',
@@ -3896,23 +2231,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'MarketplaceIcon',
-			package: '@atlaskit/icon/core/marketplace',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for Atlassian Marketplace.',
-			keywords: [
-				'marketplace',
-				'store',
-				'shop',
-				'icon',
-				'app store',
-				'storefront',
-				'stand',
-				'third-party developer',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"MarketplaceIcon","package":"@atlaskit/icon/core/marketplace","categorization":"single-purpose","usage":"Single purpose - Reserved for Atlassian Marketplace.","keywords":["marketplace","store","shop","icon","app store","storefront","stand","third-party developer"],"status":"published"}',
 		componentName: 'MarketplaceIcon',
 		keywords: [
 			'marketplace',
@@ -3929,15 +2249,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'MaximizeIcon',
-			package: '@atlaskit/icon/core/maximize',
-			categorization: 'single-purpose',
-			usage:
-				'Single purpose - Reserved for resizing screens, panels, modals, or media to its maximum size.',
-			keywords: ['maximize', 'icon', 'diagonal', 'resize', 'enlarge'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"MaximizeIcon","package":"@atlaskit/icon/core/maximize","categorization":"single-purpose","usage":"Single purpose - Reserved for resizing screens, panels, modals, or media to its maximum size.","keywords":["maximize","icon","diagonal","resize","enlarge"],"status":"published"}',
 		componentName: 'MaximizeIcon',
 		keywords: ['maximize', 'icon', 'diagonal', 'resize', 'enlarge'],
 		categorization: 'single-purpose',
@@ -3946,14 +2259,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'MegaphoneIcon',
-			package: '@atlaskit/icon/core/megaphone',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: feedback in apps.',
-			keywords: ['megaphone', 'icon', 'announcement', 'bullhorn', 'feedback', 'news'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"MegaphoneIcon","package":"@atlaskit/icon/core/megaphone","categorization":"multi-purpose","usage":"Multi purpose - Known uses: feedback in apps.","keywords":["megaphone","icon","announcement","bullhorn","feedback","news"],"status":"published"}',
 		componentName: 'MegaphoneIcon',
 		keywords: ['megaphone', 'icon', 'announcement', 'bullhorn', 'feedback', 'news'],
 		categorization: 'multi-purpose',
@@ -3961,14 +2268,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'MentionIcon',
-			package: '@atlaskit/icon/core/mention',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for user mentions.',
-			keywords: ['mention', 'user', 'person', '@', 'icon', 'at symbol', '@', 'tag', 'username'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"MentionIcon","package":"@atlaskit/icon/core/mention","categorization":"single-purpose","usage":"Single purpose - Reserved for user mentions.","keywords":["mention","user","person","@","icon","at symbol","@","tag","username"],"status":"published"}',
 		componentName: 'MentionIcon',
 		keywords: ['mention', 'user', 'person', '@', 'icon', 'at symbol', '@', 'tag', 'username'],
 		categorization: 'single-purpose',
@@ -3976,25 +2277,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'MenuIcon',
-			package: '@atlaskit/icon/core/menu',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for accessing the menu in global app navigation.',
-			keywords: [
-				'menu',
-				'hamburger',
-				'navigation',
-				'switcher',
-				'app switcher',
-				'icon',
-				'menu',
-				'top navigation',
-				'3 lines',
-				'hamburger',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"MenuIcon","package":"@atlaskit/icon/core/menu","categorization":"single-purpose","usage":"Single purpose - Reserved for accessing the menu in global app navigation.","keywords":["menu","hamburger","navigation","switcher","app switcher","icon","menu","top navigation","3 lines","hamburger"],"status":"published"}',
 		componentName: 'MenuIcon',
 		keywords: [
 			'menu',
@@ -4013,24 +2297,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'MergeFailureIcon',
-			package: '@atlaskit/icon/core/merge-failure',
-			categorization: 'single-purpose',
-			usage:
-				'Single purpose - Reserved for branches in Bitbucket and Jira that have failed to merge.',
-			keywords: [
-				'merge-failure',
-				'mergefailure',
-				'icon',
-				'git merge',
-				'bitbucket merge',
-				'merge fail',
-				'cross',
-				'x',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"MergeFailureIcon","package":"@atlaskit/icon/core/merge-failure","categorization":"single-purpose","usage":"Single purpose - Reserved for branches in Bitbucket and Jira that have failed to merge.","keywords":["merge-failure","mergefailure","icon","git merge","bitbucket merge","merge fail","cross","x"],"status":"published"}',
 		componentName: 'MergeFailureIcon',
 		keywords: [
 			'merge-failure',
@@ -4048,23 +2316,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'MergeSuccessIcon',
-			package: '@atlaskit/icon/core/merge-success',
-			categorization: 'single-purpose',
-			usage:
-				'Single purpose - Reserved for branches in Bitbucket and Jira that have successfully merged.',
-			keywords: [
-				'merge-success',
-				'mergesuccess',
-				'icon',
-				'git merge',
-				'bitbucket merge',
-				'merge success',
-				'check mark',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"MergeSuccessIcon","package":"@atlaskit/icon/core/merge-success","categorization":"single-purpose","usage":"Single purpose - Reserved for branches in Bitbucket and Jira that have successfully merged.","keywords":["merge-success","mergesuccess","icon","git merge","bitbucket merge","merge success","check mark"],"status":"published"}',
 		componentName: 'MergeSuccessIcon',
 		keywords: [
 			'merge-success',
@@ -4081,14 +2334,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'MicrophoneIcon',
-			package: '@atlaskit/icon/core/microphone',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: record sounds in Trello.',
-			keywords: ['microphone', 'icon', 'mic', 'mic on', 'voice', 'speak'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"MicrophoneIcon","package":"@atlaskit/icon/core/microphone","categorization":"multi-purpose","usage":"Multi purpose - Known uses: record sounds in Trello.","keywords":["microphone","icon","mic","mic on","voice","speak"],"status":"published"}',
 		componentName: 'MicrophoneIcon',
 		keywords: ['microphone', 'icon', 'mic', 'mic on', 'voice', 'speak'],
 		categorization: 'multi-purpose',
@@ -4096,15 +2343,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'MinimizeIcon',
-			package: '@atlaskit/icon/core/minimize',
-			categorization: 'single-purpose',
-			usage:
-				'Single purpose - Reserved for minimizing or docking modals to the bottom of the viewport.',
-			keywords: ['minimize', 'icon', 'minimize', 'dock'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"MinimizeIcon","package":"@atlaskit/icon/core/minimize","categorization":"single-purpose","usage":"Single purpose - Reserved for minimizing or docking modals to the bottom of the viewport.","keywords":["minimize","icon","minimize","dock"],"status":"published"}',
 		componentName: 'MinimizeIcon',
 		keywords: ['minimize', 'icon', 'minimize', 'dock'],
 		categorization: 'single-purpose',
@@ -4113,14 +2353,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'MinusIcon',
-			package: '@atlaskit/icon/core/minus',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: horizontal rule in Editor.',
-			keywords: ['minus', 'icon', 'rule', 'horizontal line', 'divider', 'minus', 'subtract'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"MinusIcon","package":"@atlaskit/icon/core/minus","categorization":"multi-purpose","usage":"Multi purpose - Known uses: horizontal rule in Editor.","keywords":["minus","icon","rule","horizontal line","divider","minus","subtract"],"status":"published"}',
 		componentName: 'MinusIcon',
 		keywords: ['minus', 'icon', 'rule', 'horizontal line', 'divider', 'minus', 'subtract'],
 		categorization: 'multi-purpose',
@@ -4128,14 +2362,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'MinusSquareIcon',
-			package: '@atlaskit/icon/core/minus-square',
-			categorization: 'multi-purpose',
-			usage: "Known usages: 'Remove feature' work type.",
-			keywords: ['minus-square', 'minussquare', 'icon', 'square', 'minus', 'subtract', 'work type'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"MinusSquareIcon","package":"@atlaskit/icon/core/minus-square","categorization":"multi-purpose","usage":"Known usages: \'Remove feature\' work type.","keywords":["minus-square","minussquare","icon","square","minus","subtract","work type"],"status":"published"}',
 		componentName: 'MinusSquareIcon',
 		keywords: ['minus-square', 'minussquare', 'icon', 'square', 'minus', 'subtract', 'work type'],
 		categorization: 'multi-purpose',
@@ -4143,14 +2371,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'NodeIcon',
-			package: '@atlaskit/icon/core/node',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for a non-expandable item in a page tree.',
-			keywords: ['node', 'icon', 'page', 'dot', 'page tree', 'navigation'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"NodeIcon","package":"@atlaskit/icon/core/node","categorization":"single-purpose","usage":"Single purpose - Reserved for a non-expandable item in a page tree.","keywords":["node","icon","page","dot","page tree","navigation"],"status":"published"}',
 		componentName: 'NodeIcon',
 		keywords: ['node', 'icon', 'page', 'dot', 'page tree', 'navigation'],
 		categorization: 'single-purpose',
@@ -4158,14 +2380,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'NoteIcon',
-			package: '@atlaskit/icon/core/note',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for notes.',
-			keywords: ['note', 'icon', 'note', 'post-it', 'sticky'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"NoteIcon","package":"@atlaskit/icon/core/note","categorization":"single-purpose","usage":"Single purpose - Reserved for notes.","keywords":["note","icon","note","post-it","sticky"],"status":"published"}',
 		componentName: 'NoteIcon',
 		keywords: ['note', 'icon', 'note', 'post-it', 'sticky'],
 		categorization: 'single-purpose',
@@ -4173,15 +2389,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'NotificationIcon',
-			package: '@atlaskit/icon/core/notification',
-			categorization: 'single-purpose',
-			usage:
-				'Single purpose - Reserved for notifications within global app navigation and within app screens.',
-			keywords: ['notification', 'bell', 'alarm', 'icon', 'bell', 'alert'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"NotificationIcon","package":"@atlaskit/icon/core/notification","categorization":"single-purpose","usage":"Single purpose - Reserved for notifications within global app navigation and within app screens.","keywords":["notification","bell","alarm","icon","bell","alert"],"status":"published"}',
 		componentName: 'NotificationIcon',
 		keywords: ['notification', 'bell', 'alarm', 'icon', 'bell', 'alert'],
 		categorization: 'single-purpose',
@@ -4190,22 +2399,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'NotificationMutedIcon',
-			package: '@atlaskit/icon/core/notification-muted',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for muting or disabling notifications.',
-			keywords: [
-				'notification-muted',
-				'notificationmuted',
-				'icon',
-				'bell',
-				'alert',
-				'notification',
-				'mute',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"NotificationMutedIcon","package":"@atlaskit/icon/core/notification-muted","categorization":"single-purpose","usage":"Single purpose - Reserved for muting or disabling notifications.","keywords":["notification-muted","notificationmuted","icon","bell","alert","notification","mute"],"status":"published"}',
 		componentName: 'NotificationMutedIcon',
 		keywords: [
 			'notification-muted',
@@ -4221,14 +2416,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ObjectiveIcon',
-			package: '@atlaskit/icon/core/objective',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for objectives.',
-			keywords: ['objective', 'icon', 'target', 'bullseye', 'objective'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ObjectiveIcon","package":"@atlaskit/icon/core/objective","categorization":"single-purpose","usage":"Single purpose - Reserved for objectives.","keywords":["objective","icon","target","bullseye","objective"],"status":"published"}',
 		componentName: 'ObjectiveIcon',
 		keywords: ['objective', 'icon', 'target', 'bullseye', 'objective'],
 		categorization: 'single-purpose',
@@ -4236,21 +2425,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'OfficeBuildingIcon',
-			package: '@atlaskit/icon/core/office-building',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: office in Atlas, company.',
-			keywords: [
-				'office-building',
-				'officebuilding',
-				'icon',
-				'organization',
-				'organisation',
-				'business',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"OfficeBuildingIcon","package":"@atlaskit/icon/core/office-building","categorization":"multi-purpose","usage":"Multi purpose - Known uses: office in Atlas, company.","keywords":["office-building","officebuilding","icon","organization","organisation","business"],"status":"published"}',
 		componentName: 'OfficeBuildingIcon',
 		keywords: [
 			'office-building',
@@ -4265,14 +2441,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'OnCallIcon',
-			package: '@atlaskit/icon/core/on-call',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for representing on-call across Atlassian apps.',
-			keywords: ['on-call', 'oncall', 'icon', 'phone', 'on-call', 'support'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"OnCallIcon","package":"@atlaskit/icon/core/on-call","categorization":"single-purpose","usage":"Single purpose - Reserved for representing on-call across Atlassian apps.","keywords":["on-call","oncall","icon","phone","on-call","support"],"status":"published"}',
 		componentName: 'OnCallIcon',
 		keywords: ['on-call', 'oncall', 'icon', 'phone', 'on-call', 'support'],
 		categorization: 'single-purpose',
@@ -4280,23 +2450,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'OperationsIcon',
-			package: '@atlaskit/icon/core/operations',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for IT Operations.',
-			keywords: [
-				'operations',
-				'icon',
-				'incident management',
-				'alerting',
-				'opsgenie',
-				'it operations',
-				'it ops',
-				'radar',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"OperationsIcon","package":"@atlaskit/icon/core/operations","categorization":"single-purpose","usage":"Single purpose - Reserved for IT Operations.","keywords":["operations","icon","incident management","alerting","opsgenie","it operations","it ops","radar"],"status":"published"}',
 		componentName: 'OperationsIcon',
 		keywords: [
 			'operations',
@@ -4313,23 +2468,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PageIcon',
-			package: '@atlaskit/icon/core/page',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for pages in Confluence.',
-			keywords: [
-				'page',
-				'file',
-				'document',
-				'icon',
-				'single page',
-				'feed',
-				'document',
-				'jira status',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PageIcon","package":"@atlaskit/icon/core/page","categorization":"single-purpose","usage":"Single purpose - Reserved for pages in Confluence.","keywords":["page","file","document","icon","single page","feed","document","jira status"],"status":"published"}',
 		componentName: 'PageIcon',
 		keywords: [
 			'page',
@@ -4346,14 +2486,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PagesIcon',
-			package: '@atlaskit/icon/core/pages',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for multipe pages in Confluence.',
-			keywords: ['pages', 'icon', 'multiple pages', 'feeds', 'documents'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PagesIcon","package":"@atlaskit/icon/core/pages","categorization":"single-purpose","usage":"Single purpose - Reserved for multipe pages in Confluence.","keywords":["pages","icon","multiple pages","feeds","documents"],"status":"published"}',
 		componentName: 'PagesIcon',
 		keywords: ['pages', 'icon', 'multiple pages', 'feeds', 'documents'],
 		categorization: 'single-purpose',
@@ -4361,23 +2495,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PaintBucketIcon',
-			package: '@atlaskit/icon/core/paint-bucket',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known usages: Customize fill color.',
-			keywords: [
-				'paint-bucket',
-				'paintbucket',
-				'icon',
-				'paint',
-				'bucket',
-				'fill',
-				'background',
-				'customize',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PaintBucketIcon","package":"@atlaskit/icon/core/paint-bucket","categorization":"multi-purpose","usage":"Multi purpose - Known usages: Customize fill color.","keywords":["paint-bucket","paintbucket","icon","paint","bucket","fill","background","customize"],"status":"published"}',
 		componentName: 'PaintBucketIcon',
 		keywords: [
 			'paint-bucket',
@@ -4394,14 +2513,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PaintPaletteIcon',
-			package: '@atlaskit/icon/core/paint-palette',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known usages: Customize.',
-			keywords: ['paint-palette', 'paintpalette', 'icon', 'background', 'customize'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PaintPaletteIcon","package":"@atlaskit/icon/core/paint-palette","categorization":"multi-purpose","usage":"Multi purpose - Known usages: Customize.","keywords":["paint-palette","paintpalette","icon","background","customize"],"status":"published"}',
 		componentName: 'PaintPaletteIcon',
 		keywords: ['paint-palette', 'paintpalette', 'icon', 'background', 'customize'],
 		categorization: 'multi-purpose',
@@ -4409,24 +2522,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PanelLeftIcon',
-			package: '@atlaskit/icon/core/panel-left',
-			categorization: 'single-purpose',
-			usage:
-				'Reserved for opening a preview panel to the left of the viewport edge. Use for right-to-left languages which invert the navigational chrome.',
-			keywords: [
-				'panel-left',
-				'panelleft',
-				'icon',
-				'detail view',
-				'left rail',
-				'drawer',
-				'preview panel',
-				'sidebar',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PanelLeftIcon","package":"@atlaskit/icon/core/panel-left","categorization":"single-purpose","usage":"Reserved for opening a preview panel to the left of the viewport edge. Use for right-to-left languages which invert the navigational chrome.","keywords":["panel-left","panelleft","icon","detail view","left rail","drawer","preview panel","sidebar"],"status":"published"}',
 		componentName: 'PanelLeftIcon',
 		keywords: [
 			'panel-left',
@@ -4444,24 +2541,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PanelRightIcon',
-			package: '@atlaskit/icon/core/panel-right',
-			categorization: 'single-purpose',
-			usage:
-				'Reserved for opening a preview panel to the right of the viewport edge. Use only for left-to-right languages.',
-			keywords: [
-				'panel-right',
-				'panelright',
-				'icon',
-				'detail view',
-				'right rail',
-				'drawer',
-				'preview panel',
-				'sidebar',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PanelRightIcon","package":"@atlaskit/icon/core/panel-right","categorization":"single-purpose","usage":"Reserved for opening a preview panel to the right of the viewport edge. Use only for left-to-right languages.","keywords":["panel-right","panelright","icon","detail view","right rail","drawer","preview panel","sidebar"],"status":"published"}',
 		componentName: 'PanelRightIcon',
 		keywords: [
 			'panel-right',
@@ -4479,14 +2560,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PenIcon',
-			package: '@atlaskit/icon/core/pen',
-			categorization: 'multi-purpose',
-			usage: "Known usages: 'Design task' work type.",
-			keywords: ['pen', 'icon', 'pen tool', 'nib', 'fountain pen', 'design', 'work type'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PenIcon","package":"@atlaskit/icon/core/pen","categorization":"multi-purpose","usage":"Known usages: \'Design task\' work type.","keywords":["pen","icon","pen tool","nib","fountain pen","design","work type"],"status":"published"}',
 		componentName: 'PenIcon',
 		keywords: ['pen', 'icon', 'pen tool', 'nib', 'fountain pen', 'design', 'work type'],
 		categorization: 'multi-purpose',
@@ -4494,24 +2569,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PeopleGroupIcon',
-			package: '@atlaskit/icon/core/people-group',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Known uses: representing a group or collection of people or users.',
-			keywords: [
-				'people-group',
-				'peoplegroup',
-				'person',
-				'user',
-				'group',
-				'icon',
-				'users',
-				'customers',
-				'people',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PeopleGroupIcon","package":"@atlaskit/icon/core/people-group","categorization":"single-purpose","usage":"Single purpose - Known uses: representing a group or collection of people or users.","keywords":["people-group","peoplegroup","person","user","group","icon","users","customers","people"],"status":"published"}',
 		componentName: 'PeopleGroupIcon',
 		keywords: [
 			'people-group',
@@ -4529,14 +2588,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PersonIcon',
-			package: '@atlaskit/icon/core/person',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Known uses: representing a person or user, owner, contributor.',
-			keywords: ['person', 'person', 'user', 'avatar', 'icon', 'user', 'customer'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PersonIcon","package":"@atlaskit/icon/core/person","categorization":"single-purpose","usage":"Single purpose - Known uses: representing a person or user, owner, contributor.","keywords":["person","person","user","avatar","icon","user","customer"],"status":"published"}',
 		componentName: 'PersonIcon',
 		keywords: ['person', 'person', 'user', 'avatar', 'icon', 'user', 'customer'],
 		categorization: 'single-purpose',
@@ -4544,14 +2597,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PersonAddIcon',
-			package: '@atlaskit/icon/core/person-add',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for adding a user to an object.',
-			keywords: ['person-add', 'personadd', 'icon', 'user', 'customer', 'plus'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PersonAddIcon","package":"@atlaskit/icon/core/person-add","categorization":"single-purpose","usage":"Single purpose - Reserved for adding a user to an object.","keywords":["person-add","personadd","icon","user","customer","plus"],"status":"published"}',
 		componentName: 'PersonAddIcon',
 		keywords: ['person-add', 'personadd', 'icon', 'user', 'customer', 'plus'],
 		categorization: 'single-purpose',
@@ -4559,14 +2606,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PersonAddedIcon',
-			package: '@atlaskit/icon/core/person-added',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for a user added to an object.',
-			keywords: ['person-added', 'personadded', 'icon', 'user', 'customer', 'check', 'tick'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PersonAddedIcon","package":"@atlaskit/icon/core/person-added","categorization":"single-purpose","usage":"Single purpose - Reserved for a user added to an object.","keywords":["person-added","personadded","icon","user","customer","check","tick"],"status":"published"}',
 		componentName: 'PersonAddedIcon',
 		keywords: ['person-added', 'personadded', 'icon', 'user', 'customer', 'check', 'tick'],
 		categorization: 'single-purpose',
@@ -4574,14 +2615,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PersonAvatarIcon',
-			package: '@atlaskit/icon/core/person-avatar',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for user avatar.',
-			keywords: ['person-avatar', 'personavatar', 'icon', 'user', 'customer'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PersonAvatarIcon","package":"@atlaskit/icon/core/person-avatar","categorization":"single-purpose","usage":"Single purpose - Reserved for user avatar.","keywords":["person-avatar","personavatar","icon","user","customer"],"status":"published"}',
 		componentName: 'PersonAvatarIcon',
 		keywords: ['person-avatar', 'personavatar', 'icon', 'user', 'customer'],
 		categorization: 'single-purpose',
@@ -4589,14 +2624,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PersonOffboardIcon',
-			package: '@atlaskit/icon/core/person-offboard',
-			categorization: 'single-purpose',
-			usage: '📦 @atlaskit/icon/core/person-offboard',
-			keywords: ['person-offboard', 'personoffboard', 'icon', 'user', 'customer', 'right arrow'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PersonOffboardIcon","package":"@atlaskit/icon/core/person-offboard","categorization":"single-purpose","usage":"📦 @atlaskit/icon/core/person-offboard","keywords":["person-offboard","personoffboard","icon","user","customer","right arrow"],"status":"published"}',
 		componentName: 'PersonOffboardIcon',
 		keywords: ['person-offboard', 'personoffboard', 'icon', 'user', 'customer', 'right arrow'],
 		categorization: 'single-purpose',
@@ -4604,14 +2633,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PersonRemoveIcon',
-			package: '@atlaskit/icon/core/person-remove',
-			categorization: 'single-purpose',
-			usage: 'Reserved for removing and unfollowing people and teammates.',
-			keywords: ['person-remove', 'personremove', 'icon', 'person', 'remove', 'delete', 'unfollow'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PersonRemoveIcon","package":"@atlaskit/icon/core/person-remove","categorization":"single-purpose","usage":"Reserved for removing and unfollowing people and teammates.","keywords":["person-remove","personremove","icon","person","remove","delete","unfollow"],"status":"published"}',
 		componentName: 'PersonRemoveIcon',
 		keywords: ['person-remove', 'personremove', 'icon', 'person', 'remove', 'delete', 'unfollow'],
 		categorization: 'single-purpose',
@@ -4619,14 +2642,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PersonWarningIcon',
-			package: '@atlaskit/icon/core/person-warning',
-			categorization: 'single-purpose',
-			usage: 'Reserved for showing a warning related to a person or teammate.',
-			keywords: ['person-warning', 'personwarning', 'icon', 'person', 'warning', 'alert'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PersonWarningIcon","package":"@atlaskit/icon/core/person-warning","categorization":"single-purpose","usage":"Reserved for showing a warning related to a person or teammate.","keywords":["person-warning","personwarning","icon","person","warning","alert"],"status":"published"}',
 		componentName: 'PersonWarningIcon',
 		keywords: ['person-warning', 'personwarning', 'icon', 'person', 'warning', 'alert'],
 		categorization: 'single-purpose',
@@ -4634,14 +2651,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PhoneIcon',
-			package: '@atlaskit/icon/core/phone',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: call us, phone number input.',
-			keywords: ['phone', 'icon', 'call', 'dial out'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PhoneIcon","package":"@atlaskit/icon/core/phone","categorization":"multi-purpose","usage":"Multi purpose - Known uses: call us, phone number input.","keywords":["phone","icon","call","dial out"],"status":"published"}',
 		componentName: 'PhoneIcon',
 		keywords: ['phone', 'icon', 'call', 'dial out'],
 		categorization: 'multi-purpose',
@@ -4649,14 +2660,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PinIcon',
-			package: '@atlaskit/icon/core/pin',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: unpinned fields.',
-			keywords: ['pin', 'icon', 'push pin', 'thumbtack', 'tack'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PinIcon","package":"@atlaskit/icon/core/pin","categorization":"multi-purpose","usage":"Known uses: unpinned fields.","keywords":["pin","icon","push pin","thumbtack","tack"],"status":"published"}',
 		componentName: 'PinIcon',
 		keywords: ['pin', 'icon', 'push pin', 'thumbtack', 'tack'],
 		categorization: 'multi-purpose',
@@ -4664,14 +2669,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PinFilledIcon',
-			package: '@atlaskit/icon/core/pin-filled',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: pinned fields.',
-			keywords: ['pin-filled', 'pinfilled', 'icon', 'push pin', 'thumbtack', 'tack', 'filled'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PinFilledIcon","package":"@atlaskit/icon/core/pin-filled","categorization":"multi-purpose","usage":"Known uses: pinned fields.","keywords":["pin-filled","pinfilled","icon","push pin","thumbtack","tack","filled"],"status":"published"}',
 		componentName: 'PinFilledIcon',
 		keywords: ['pin-filled', 'pinfilled', 'icon', 'push pin', 'thumbtack', 'tack', 'filled'],
 		categorization: 'multi-purpose',
@@ -4679,14 +2678,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PlusSquareIcon',
-			package: '@atlaskit/icon/core/plus-square',
-			categorization: 'multi-purpose',
-			usage: "Known usages: 'New feature' work type.",
-			keywords: ['plus-square', 'plussquare', 'icon', 'square', 'plus', 'add', 'work type'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PlusSquareIcon","package":"@atlaskit/icon/core/plus-square","categorization":"multi-purpose","usage":"Known usages: \'New feature\' work type.","keywords":["plus-square","plussquare","icon","square","plus","add","work type"],"status":"published"}',
 		componentName: 'PlusSquareIcon',
 		keywords: ['plus-square', 'plussquare', 'icon', 'square', 'plus', 'add', 'work type'],
 		categorization: 'multi-purpose',
@@ -4694,14 +2687,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PowerPlugIcon',
-			package: '@atlaskit/icon/core/power-plug',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: plugins, add ons.',
-			keywords: ['power-plug', 'powerplug', 'icon', 'plug-in', 'add-on', 'socket'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PowerPlugIcon","package":"@atlaskit/icon/core/power-plug","categorization":"multi-purpose","usage":"Multi purpose - Known uses: plugins, add ons.","keywords":["power-plug","powerplug","icon","plug-in","add-on","socket"],"status":"published"}',
 		componentName: 'PowerPlugIcon',
 		keywords: ['power-plug', 'powerplug', 'icon', 'plug-in', 'add-on', 'socket'],
 		categorization: 'multi-purpose',
@@ -4709,14 +2696,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PremiumIcon',
-			package: '@atlaskit/icon/core/premium',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for premium features.',
-			keywords: ['premium', 'icon', 'AI', 'sparkles', 'stars', 'new', 'feature'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PremiumIcon","package":"@atlaskit/icon/core/premium","categorization":"single-purpose","usage":"Single purpose - Reserved for premium features.","keywords":["premium","icon","AI","sparkles","stars","new","feature"],"status":"published"}',
 		componentName: 'PremiumIcon',
 		keywords: ['premium', 'icon', 'AI', 'sparkles', 'stars', 'new', 'feature'],
 		categorization: 'single-purpose',
@@ -4724,22 +2705,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PresenterModeIcon',
-			package: '@atlaskit/icon/core/presenter-mode',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for presenter mode in Confluence.',
-			keywords: [
-				'presenter-mode',
-				'presentermode',
-				'icon',
-				'pointer',
-				'cursor',
-				'presentation',
-				'present',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PresenterModeIcon","package":"@atlaskit/icon/core/presenter-mode","categorization":"single-purpose","usage":"Single purpose - Reserved for presenter mode in Confluence.","keywords":["presenter-mode","presentermode","icon","pointer","cursor","presentation","present"],"status":"published"}',
 		componentName: 'PresenterModeIcon',
 		keywords: [
 			'presenter-mode',
@@ -4755,14 +2722,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PrinterIcon',
-			package: '@atlaskit/icon/core/printer',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: print page, print-friendly view.',
-			keywords: ['printer', 'icon', 'print'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PrinterIcon","package":"@atlaskit/icon/core/printer","categorization":"multi-purpose","usage":"Multi purpose - Known uses: print page, print-friendly view.","keywords":["printer","icon","print"],"status":"published"}',
 		componentName: 'PrinterIcon',
 		keywords: ['printer', 'icon', 'print'],
 		categorization: 'multi-purpose',
@@ -4770,21 +2731,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PriorityBlockerIcon',
-			package: '@atlaskit/icon/core/priority-blocker',
-			categorization: 'single-purpose',
-			usage: 'Reserved for blocker work type priority.',
-			keywords: [
-				'priority-blocker',
-				'priorityblocker',
-				'icon',
-				'blocked',
-				'showstopper',
-				'work type status',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PriorityBlockerIcon","package":"@atlaskit/icon/core/priority-blocker","categorization":"single-purpose","usage":"Reserved for blocker work type priority.","keywords":["priority-blocker","priorityblocker","icon","blocked","showstopper","work type status"],"status":"published"}',
 		componentName: 'PriorityBlockerIcon',
 		keywords: [
 			'priority-blocker',
@@ -4799,14 +2747,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PriorityCriticalIcon',
-			package: '@atlaskit/icon/core/priority-critical',
-			categorization: 'single-purpose',
-			usage: 'Reserved for critical work type priority.',
-			keywords: ['priority-critical', 'prioritycritical', 'icon', 'priority', 'work type status'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PriorityCriticalIcon","package":"@atlaskit/icon/core/priority-critical","categorization":"single-purpose","usage":"Reserved for critical work type priority.","keywords":["priority-critical","prioritycritical","icon","priority","work type status"],"status":"published"}',
 		componentName: 'PriorityCriticalIcon',
 		keywords: ['priority-critical', 'prioritycritical', 'icon', 'priority', 'work type status'],
 		categorization: 'single-purpose',
@@ -4814,14 +2756,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PriorityHighIcon',
-			package: '@atlaskit/icon/core/priority-high',
-			categorization: 'single-purpose',
-			usage: 'Reserved for high work type priority.',
-			keywords: ['priority-high', 'priorityhigh', 'icon', 'priority', 'work type status'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PriorityHighIcon","package":"@atlaskit/icon/core/priority-high","categorization":"single-purpose","usage":"Reserved for high work type priority.","keywords":["priority-high","priorityhigh","icon","priority","work type status"],"status":"published"}',
 		componentName: 'PriorityHighIcon',
 		keywords: ['priority-high', 'priorityhigh', 'icon', 'priority', 'work type status'],
 		categorization: 'single-purpose',
@@ -4829,14 +2765,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PriorityHighestIcon',
-			package: '@atlaskit/icon/core/priority-highest',
-			categorization: 'single-purpose',
-			usage: 'Reserved for highest work type priority.',
-			keywords: ['priority-highest', 'priorityhighest', 'icon', 'priority', 'work type status'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PriorityHighestIcon","package":"@atlaskit/icon/core/priority-highest","categorization":"single-purpose","usage":"Reserved for highest work type priority.","keywords":["priority-highest","priorityhighest","icon","priority","work type status"],"status":"published"}',
 		componentName: 'PriorityHighestIcon',
 		keywords: ['priority-highest', 'priorityhighest', 'icon', 'priority', 'work type status'],
 		categorization: 'single-purpose',
@@ -4844,14 +2774,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PriorityLowIcon',
-			package: '@atlaskit/icon/core/priority-low',
-			categorization: 'single-purpose',
-			usage: 'Reserved for low work type priority.',
-			keywords: ['priority-low', 'prioritylow', 'icon', 'priority', 'work type status'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PriorityLowIcon","package":"@atlaskit/icon/core/priority-low","categorization":"single-purpose","usage":"Reserved for low work type priority.","keywords":["priority-low","prioritylow","icon","priority","work type status"],"status":"published"}',
 		componentName: 'PriorityLowIcon',
 		keywords: ['priority-low', 'prioritylow', 'icon', 'priority', 'work type status'],
 		categorization: 'single-purpose',
@@ -4859,14 +2783,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PriorityLowestIcon',
-			package: '@atlaskit/icon/core/priority-lowest',
-			categorization: 'single-purpose',
-			usage: 'Reserved for lowest work type priority.',
-			keywords: ['priority-lowest', 'prioritylowest', 'icon', 'priority', 'work type status'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PriorityLowestIcon","package":"@atlaskit/icon/core/priority-lowest","categorization":"single-purpose","usage":"Reserved for lowest work type priority.","keywords":["priority-lowest","prioritylowest","icon","priority","work type status"],"status":"published"}',
 		componentName: 'PriorityLowestIcon',
 		keywords: ['priority-lowest', 'prioritylowest', 'icon', 'priority', 'work type status'],
 		categorization: 'single-purpose',
@@ -4874,14 +2792,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PriorityMajorIcon',
-			package: '@atlaskit/icon/core/priority-major',
-			categorization: 'single-purpose',
-			usage: 'Reserved for major work type priority.',
-			keywords: ['priority-major', 'prioritymajor', 'icon', 'priority', 'work type status'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PriorityMajorIcon","package":"@atlaskit/icon/core/priority-major","categorization":"single-purpose","usage":"Reserved for major work type priority.","keywords":["priority-major","prioritymajor","icon","priority","work type status"],"status":"published"}',
 		componentName: 'PriorityMajorIcon',
 		keywords: ['priority-major', 'prioritymajor', 'icon', 'priority', 'work type status'],
 		categorization: 'single-purpose',
@@ -4889,14 +2801,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PriorityMediumIcon',
-			package: '@atlaskit/icon/core/priority-medium',
-			categorization: 'single-purpose',
-			usage: 'Reserved for medium work type priority.',
-			keywords: ['priority-medium', 'prioritymedium', 'icon', 'priority', 'work type status'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PriorityMediumIcon","package":"@atlaskit/icon/core/priority-medium","categorization":"single-purpose","usage":"Reserved for medium work type priority.","keywords":["priority-medium","prioritymedium","icon","priority","work type status"],"status":"published"}',
 		componentName: 'PriorityMediumIcon',
 		keywords: ['priority-medium', 'prioritymedium', 'icon', 'priority', 'work type status'],
 		categorization: 'single-purpose',
@@ -4904,14 +2810,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PriorityMinorIcon',
-			package: '@atlaskit/icon/core/priority-minor',
-			categorization: 'single-purpose',
-			usage: 'Reserved for minor work type priority.',
-			keywords: ['priority-minor', 'priorityminor', 'icon', 'priority', 'work type status'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PriorityMinorIcon","package":"@atlaskit/icon/core/priority-minor","categorization":"single-purpose","usage":"Reserved for minor work type priority.","keywords":["priority-minor","priorityminor","icon","priority","work type status"],"status":"published"}',
 		componentName: 'PriorityMinorIcon',
 		keywords: ['priority-minor', 'priorityminor', 'icon', 'priority', 'work type status'],
 		categorization: 'single-purpose',
@@ -4919,14 +2819,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PriorityTrivialIcon',
-			package: '@atlaskit/icon/core/priority-trivial',
-			categorization: 'single-purpose',
-			usage: 'Reserved for trivial work type priority.',
-			keywords: ['priority-trivial', 'prioritytrivial', 'icon', 'priority', 'work type status'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PriorityTrivialIcon","package":"@atlaskit/icon/core/priority-trivial","categorization":"single-purpose","usage":"Reserved for trivial work type priority.","keywords":["priority-trivial","prioritytrivial","icon","priority","work type status"],"status":"published"}',
 		componentName: 'PriorityTrivialIcon',
 		keywords: ['priority-trivial', 'prioritytrivial', 'icon', 'priority', 'work type status'],
 		categorization: 'single-purpose',
@@ -4934,14 +2828,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ProblemIcon',
-			package: '@atlaskit/icon/core/problem',
-			categorization: 'single-purpose',
-			usage: 'Reserved for problem work type priority.',
-			keywords: ['problem', 'icon', 'stop', 'priority', 'work type status'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ProblemIcon","package":"@atlaskit/icon/core/problem","categorization":"single-purpose","usage":"Reserved for problem work type priority.","keywords":["problem","icon","stop","priority","work type status"],"status":"published"}',
 		componentName: 'ProblemIcon',
 		keywords: ['problem', 'icon', 'stop', 'priority', 'work type status'],
 		categorization: 'single-purpose',
@@ -4949,14 +2837,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ProjectIcon',
-			package: '@atlaskit/icon/core/project',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for projects in Jira.',
-			keywords: ['project', 'icon', 'rocket', 'rocketship', 'spaceship'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ProjectIcon","package":"@atlaskit/icon/core/project","categorization":"single-purpose","usage":"Single purpose - Reserved for projects in Jira.","keywords":["project","icon","rocket","rocketship","spaceship"],"status":"published"}',
 		componentName: 'ProjectIcon',
 		keywords: ['project', 'icon', 'rocket', 'rocketship', 'spaceship'],
 		categorization: 'single-purpose',
@@ -4964,14 +2846,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ProjectStatusIcon',
-			package: '@atlaskit/icon/core/project-status',
-			categorization: 'single-purpose',
-			usage: 'Reserved for representing project status in Atlassian Home.',
-			keywords: ['project-status', 'projectstatus', 'icon', 'status', 'traffic lights'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ProjectStatusIcon","package":"@atlaskit/icon/core/project-status","categorization":"single-purpose","usage":"Reserved for representing project status in Atlassian Home.","keywords":["project-status","projectstatus","icon","status","traffic lights"],"status":"published"}',
 		componentName: 'ProjectStatusIcon',
 		keywords: ['project-status', 'projectstatus', 'icon', 'status', 'traffic lights'],
 		categorization: 'single-purpose',
@@ -4979,22 +2855,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ProjectionScreenIcon',
-			package: '@atlaskit/icon/core/projection-screen',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Intended usages: Presentation mode.',
-			keywords: [
-				'projection-screen',
-				'projectionscreen',
-				'icon',
-				'present',
-				'presentation',
-				'projector screen',
-				'keynote',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ProjectionScreenIcon","package":"@atlaskit/icon/core/projection-screen","categorization":"multi-purpose","usage":"Multi purpose - Intended usages: Presentation mode.","keywords":["projection-screen","projectionscreen","icon","present","presentation","projector screen","keynote"],"status":"published"}',
 		componentName: 'ProjectionScreenIcon',
 		keywords: [
 			'projection-screen',
@@ -5010,21 +2872,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PullRequestIcon',
-			package: '@atlaskit/icon/core/pull-request',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for pull requests.',
-			keywords: [
-				'pull-request',
-				'pullrequest',
-				'icon',
-				'git pull request',
-				'bitbucket pull request',
-				'jira status',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PullRequestIcon","package":"@atlaskit/icon/core/pull-request","categorization":"single-purpose","usage":"Single purpose - Reserved for pull requests.","keywords":["pull-request","pullrequest","icon","git pull request","bitbucket pull request","jira status"],"status":"published"}',
 		componentName: 'PullRequestIcon',
 		keywords: [
 			'pull-request',
@@ -5039,14 +2888,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'PulseIcon',
-			package: '@atlaskit/icon/core/pulse',
-			categorization: 'multi-purpose',
-			usage: 'Single purpose - Known uses: work health in Atlassian Home.',
-			keywords: ['pulse', 'icon', 'pulse', 'wave', 'heartbeat', 'health'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"PulseIcon","package":"@atlaskit/icon/core/pulse","categorization":"multi-purpose","usage":"Single purpose - Known uses: work health in Atlassian Home.","keywords":["pulse","icon","pulse","wave","heartbeat","health"],"status":"published"}',
 		componentName: 'PulseIcon',
 		keywords: ['pulse', 'icon', 'pulse', 'wave', 'heartbeat', 'health'],
 		categorization: 'multi-purpose',
@@ -5054,23 +2897,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'QuestionCircleIcon',
-			package: '@atlaskit/icon/core/question-circle',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: help, tip.',
-			keywords: [
-				'question-circle',
-				'questioncircle',
-				'help',
-				'icon',
-				'help',
-				'answers',
-				'faq',
-				'jira status',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"QuestionCircleIcon","package":"@atlaskit/icon/core/question-circle","categorization":"multi-purpose","usage":"Multi purpose - Known uses: help, tip.","keywords":["question-circle","questioncircle","help","icon","help","answers","faq","jira status"],"status":"published"}',
 		componentName: 'QuestionCircleIcon',
 		keywords: [
 			'question-circle',
@@ -5087,22 +2915,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'QuotationMarkIcon',
-			package: '@atlaskit/icon/core/quotation-mark',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: blockquote, comment, testimonial, blogs in Confluence.',
-			keywords: [
-				'quotation-mark',
-				'quotationmark',
-				'icon',
-				'quote',
-				'testimonial',
-				'blockquote',
-				'jira status',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"QuotationMarkIcon","package":"@atlaskit/icon/core/quotation-mark","categorization":"multi-purpose","usage":"Multi purpose - Known uses: blockquote, comment, testimonial, blogs in Confluence.","keywords":["quotation-mark","quotationmark","icon","quote","testimonial","blockquote","jira status"],"status":"published"}',
 		componentName: 'QuotationMarkIcon',
 		keywords: [
 			'quotation-mark',
@@ -5118,14 +2932,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'RadioCheckedIcon',
-			package: '@atlaskit/icon/core/radio-checked',
-			categorization: 'single-purpose',
-			usage: 'Reserved for the selected state of radio controls.',
-			keywords: ['radio-checked', 'radiochecked', 'icon', 'radio', 'input type', 'selected'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"RadioCheckedIcon","package":"@atlaskit/icon/core/radio-checked","categorization":"single-purpose","usage":"Reserved for the selected state of radio controls.","keywords":["radio-checked","radiochecked","icon","radio","input type","selected"],"status":"published"}',
 		componentName: 'RadioCheckedIcon',
 		keywords: ['radio-checked', 'radiochecked', 'icon', 'radio', 'input type', 'selected'],
 		categorization: 'single-purpose',
@@ -5133,14 +2941,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'RadioUncheckedIcon',
-			package: '@atlaskit/icon/core/radio-unchecked',
-			categorization: 'single-purpose',
-			usage: 'Reserved for the unselected state of radio controls.',
-			keywords: ['radio-unchecked', 'radiounchecked', 'icon', 'radio', 'input type', 'unselected'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"RadioUncheckedIcon","package":"@atlaskit/icon/core/radio-unchecked","categorization":"single-purpose","usage":"Reserved for the unselected state of radio controls.","keywords":["radio-unchecked","radiounchecked","icon","radio","input type","unselected"],"status":"published"}',
 		componentName: 'RadioUncheckedIcon',
 		keywords: ['radio-unchecked', 'radiounchecked', 'icon', 'radio', 'input type', 'unselected'],
 		categorization: 'single-purpose',
@@ -5148,14 +2950,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'RedoIcon',
-			package: '@atlaskit/icon/core/redo',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for redo in Editor.',
-			keywords: ['redo', 'icon', 'editor', 'redo', 'backwards'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"RedoIcon","package":"@atlaskit/icon/core/redo","categorization":"single-purpose","usage":"Single purpose - Reserved for redo in Editor.","keywords":["redo","icon","editor","redo","backwards"],"status":"published"}',
 		componentName: 'RedoIcon',
 		keywords: ['redo', 'icon', 'editor', 'redo', 'backwards'],
 		categorization: 'single-purpose',
@@ -5163,23 +2959,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'RefreshIcon',
-			package: '@atlaskit/icon/core/refresh',
-			categorization: 'single-purpose',
-			usage: 'Reserved for reloading or replaying content',
-			keywords: [
-				'refresh',
-				'cycle',
-				'icon',
-				'refresh',
-				'reload',
-				'update',
-				'circular arrows',
-				'replay',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"RefreshIcon","package":"@atlaskit/icon/core/refresh","categorization":"single-purpose","usage":"Reserved for reloading or replaying content","keywords":["refresh","cycle","icon","refresh","reload","update","circular arrows","replay"],"status":"published"}',
 		componentName: 'RefreshIcon',
 		keywords: [
 			'refresh',
@@ -5196,14 +2977,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ReleaseIcon',
-			package: '@atlaskit/icon/core/release',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for releases in Jira.',
-			keywords: ['release', 'icon', 'ship', 'boat'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ReleaseIcon","package":"@atlaskit/icon/core/release","categorization":"single-purpose","usage":"Single purpose - Reserved for releases in Jira.","keywords":["release","icon","ship","boat"],"status":"published"}',
 		componentName: 'ReleaseIcon',
 		keywords: ['release', 'icon', 'ship', 'boat'],
 		categorization: 'single-purpose',
@@ -5211,14 +2986,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'RetryIcon',
-			package: '@atlaskit/icon/core/retry',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for retry.',
-			keywords: ['retry', 'icon', 'try again', ''],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"RetryIcon","package":"@atlaskit/icon/core/retry","categorization":"single-purpose","usage":"Single purpose - Reserved for retry.","keywords":["retry","icon","try again",""],"status":"published"}',
 		componentName: 'RetryIcon',
 		keywords: ['retry', 'icon', 'try again', ''],
 		categorization: 'single-purpose',
@@ -5226,14 +2995,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'RoadmapIcon',
-			package: '@atlaskit/icon/core/roadmap',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for roadmaps in Jira or Trello.',
-			keywords: ['roadmap', 'icon'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"RoadmapIcon","package":"@atlaskit/icon/core/roadmap","categorization":"single-purpose","usage":"Single purpose - Reserved for roadmaps in Jira or Trello.","keywords":["roadmap","icon"],"status":"published"}',
 		componentName: 'RoadmapIcon',
 		keywords: ['roadmap', 'icon'],
 		categorization: 'single-purpose',
@@ -5241,14 +3004,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'RovoChatIcon',
-			package: '@atlaskit/icon/core/rovo-chat',
-			categorization: 'single-purpose',
-			usage: 'Reserved for branded Rovo chat experiences.',
-			keywords: ['rovo-chat', 'rovochat', 'icon', 'Rovo', 'AI', 'chat agent'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"RovoChatIcon","package":"@atlaskit/icon/core/rovo-chat","categorization":"single-purpose","usage":"Reserved for branded Rovo chat experiences.","keywords":["rovo-chat","rovochat","icon","Rovo","AI","chat agent"],"status":"published"}',
 		componentName: 'RovoChatIcon',
 		keywords: ['rovo-chat', 'rovochat', 'icon', 'Rovo', 'AI', 'chat agent'],
 		categorization: 'single-purpose',
@@ -5256,14 +3013,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ScalesIcon',
-			package: '@atlaskit/icon/core/scales',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known usages: Customer rating in Jira.',
-			keywords: ['scales', 'icon', 'scales', 'rule', 'law'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ScalesIcon","package":"@atlaskit/icon/core/scales","categorization":"multi-purpose","usage":"Multi purpose - Known usages: Customer rating in Jira.","keywords":["scales","icon","scales","rule","law"],"status":"published"}',
 		componentName: 'ScalesIcon',
 		keywords: ['scales', 'icon', 'scales', 'rule', 'law'],
 		categorization: 'multi-purpose',
@@ -5271,14 +3022,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ScorecardIcon',
-			package: '@atlaskit/icon/core/scorecard',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for Scorecard in Analytics.',
-			keywords: ['scorecard', 'icon', 'tick', 'check', 'circle', 'unfinished'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ScorecardIcon","package":"@atlaskit/icon/core/scorecard","categorization":"single-purpose","usage":"Single purpose - Reserved for Scorecard in Analytics.","keywords":["scorecard","icon","tick","check","circle","unfinished"],"status":"published"}',
 		componentName: 'ScorecardIcon',
 		keywords: ['scorecard', 'icon', 'tick', 'check', 'circle', 'unfinished'],
 		categorization: 'single-purpose',
@@ -5286,23 +3031,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ScreenIcon',
-			package: '@atlaskit/icon/core/screen',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: assets in Jira.',
-			keywords: [
-				'screen',
-				'desktop',
-				'computer',
-				'monitor',
-				'icon',
-				'display',
-				'monitor',
-				'desktop',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ScreenIcon","package":"@atlaskit/icon/core/screen","categorization":"multi-purpose","usage":"Multi purpose - Known uses: assets in Jira.","keywords":["screen","desktop","computer","monitor","icon","display","monitor","desktop"],"status":"published"}',
 		componentName: 'ScreenIcon',
 		keywords: ['screen', 'desktop', 'computer', 'monitor', 'icon', 'display', 'monitor', 'desktop'],
 		categorization: 'multi-purpose',
@@ -5310,23 +3040,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ScreenPlusIcon',
-			package: '@atlaskit/icon/core/screen-plus',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: TBC',
-			keywords: [
-				'screen-plus',
-				'screenplus',
-				'icon',
-				'screen',
-				'display',
-				'monitor',
-				'plus',
-				'add',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ScreenPlusIcon","package":"@atlaskit/icon/core/screen-plus","categorization":"multi-purpose","usage":"Known uses: TBC","keywords":["screen-plus","screenplus","icon","screen","display","monitor","plus","add"],"status":"published"}',
 		componentName: 'ScreenPlusIcon',
 		keywords: ['screen-plus', 'screenplus', 'icon', 'screen', 'display', 'monitor', 'plus', 'add'],
 		categorization: 'multi-purpose',
@@ -5334,14 +3049,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'SearchIcon',
-			package: '@atlaskit/icon/core/search',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for searching objects.',
-			keywords: ['search', 'find', 'magnify', 'icon', 'magnifying glass'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"SearchIcon","package":"@atlaskit/icon/core/search","categorization":"single-purpose","usage":"Single purpose - Reserved for searching objects.","keywords":["search","find","magnify","icon","magnifying glass"],"status":"published"}',
 		componentName: 'SearchIcon',
 		keywords: ['search', 'find', 'magnify', 'icon', 'magnifying glass'],
 		categorization: 'single-purpose',
@@ -5349,14 +3058,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'SendIcon',
-			package: '@atlaskit/icon/core/send',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for sending messages in Rovo Chat.',
-			keywords: ['send', 'mail', 'icon', 'submit', 'paper airplane', 'paper aeroplane'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"SendIcon","package":"@atlaskit/icon/core/send","categorization":"single-purpose","usage":"Single purpose - Reserved for sending messages in Rovo Chat.","keywords":["send","mail","icon","submit","paper airplane","paper aeroplane"],"status":"published"}',
 		componentName: 'SendIcon',
 		keywords: ['send', 'mail', 'icon', 'submit', 'paper airplane', 'paper aeroplane'],
 		categorization: 'single-purpose',
@@ -5364,23 +3067,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'SettingsIcon',
-			package: '@atlaskit/icon/core/settings',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for any object or user settings.',
-			keywords: [
-				'settings',
-				'cog',
-				'options',
-				'configuration',
-				'icon',
-				'system preferences',
-				'gear',
-				'cog',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"SettingsIcon","package":"@atlaskit/icon/core/settings","categorization":"single-purpose","usage":"Single purpose - Reserved for any object or user settings.","keywords":["settings","cog","options","configuration","icon","system preferences","gear","cog"],"status":"published"}',
 		componentName: 'SettingsIcon',
 		keywords: [
 			'settings',
@@ -5397,14 +3085,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ShapesIcon',
-			package: '@atlaskit/icon/core/shapes',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for shapes in Whiteboards.',
-			keywords: ['shapes', 'icon', 'objects', 'whiteboard', 'asset', 'graphic'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ShapesIcon","package":"@atlaskit/icon/core/shapes","categorization":"single-purpose","usage":"Single purpose - Reserved for shapes in Whiteboards.","keywords":["shapes","icon","objects","whiteboard","asset","graphic"],"status":"published"}',
 		componentName: 'ShapesIcon',
 		keywords: ['shapes', 'icon', 'objects', 'whiteboard', 'asset', 'graphic'],
 		categorization: 'single-purpose',
@@ -5412,14 +3094,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ShareIcon',
-			package: '@atlaskit/icon/core/share',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for sharing an object.',
-			keywords: ['share', 'icon', 'share', 'access'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ShareIcon","package":"@atlaskit/icon/core/share","categorization":"single-purpose","usage":"Single purpose - Reserved for sharing an object.","keywords":["share","icon","share","access"],"status":"published"}',
 		componentName: 'ShareIcon',
 		keywords: ['share', 'icon', 'share', 'access'],
 		categorization: 'single-purpose',
@@ -5427,24 +3103,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ShieldIcon',
-			package: '@atlaskit/icon/core/shield',
-			categorization: 'multi-purpose',
-			usage:
-				'Multi purpose - Known uses: classifications in Enterprise Trust, security in Jira (Spork)',
-			keywords: [
-				'shield',
-				'icon',
-				'security',
-				'secure',
-				'safety',
-				'defence',
-				'protection',
-				'guard',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ShieldIcon","package":"@atlaskit/icon/core/shield","categorization":"multi-purpose","usage":"Multi purpose - Known uses: classifications in Enterprise Trust, security in Jira (Spork)","keywords":["shield","icon","security","secure","safety","defence","protection","guard"],"status":"published"}',
 		componentName: 'ShieldIcon',
 		keywords: ['shield', 'icon', 'security', 'secure', 'safety', 'defence', 'protection', 'guard'],
 		categorization: 'multi-purpose',
@@ -5453,26 +3113,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ShieldStrikethroughIcon',
-			package: '@atlaskit/icon/core/shield-strikethrough',
-			categorization: 'multi-purpose',
-			usage: 'Known uses: No classification in Enterprise Trust',
-			keywords: [
-				'shield-strikethrough',
-				'shieldstrikethrough',
-				'icon',
-				'️security',
-				'secure',
-				'safety',
-				'defence',
-				'protection',
-				'guard',
-				'strikethrough',
-				'classification',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ShieldStrikethroughIcon","package":"@atlaskit/icon/core/shield-strikethrough","categorization":"multi-purpose","usage":"Known uses: No classification in Enterprise Trust","keywords":["shield-strikethrough","shieldstrikethrough","icon","️security","secure","safety","defence","protection","guard","strikethrough","classification"],"status":"published"}',
 		componentName: 'ShieldStrikethroughIcon',
 		keywords: [
 			'shield-strikethrough',
@@ -5492,14 +3134,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ShortcutIcon',
-			package: '@atlaskit/icon/core/shortcut',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for shortcuts in Jira.',
-			keywords: ['shortcut', 'export', 'icon', 'addshortcut', 'square', 'plus'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ShortcutIcon","package":"@atlaskit/icon/core/shortcut","categorization":"single-purpose","usage":"Single purpose - Reserved for shortcuts in Jira.","keywords":["shortcut","export","icon","addshortcut","square","plus"],"status":"published"}',
 		componentName: 'ShortcutIcon',
 		keywords: ['shortcut', 'export', 'icon', 'addshortcut', 'square', 'plus'],
 		categorization: 'single-purpose',
@@ -5507,22 +3143,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ShowMoreHorizontalIcon',
-			package: '@atlaskit/icon/core/show-more-horizontal',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for more action menus.',
-			keywords: [
-				'show-more-horizontal',
-				'showmorehorizontal',
-				'icon',
-				'ellipses',
-				'three dots',
-				'meatball',
-				'more actions',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ShowMoreHorizontalIcon","package":"@atlaskit/icon/core/show-more-horizontal","categorization":"single-purpose","usage":"Single purpose - Reserved for more action menus.","keywords":["show-more-horizontal","showmorehorizontal","icon","ellipses","three dots","meatball","more actions"],"status":"published"}',
 		componentName: 'ShowMoreHorizontalIcon',
 		keywords: [
 			'show-more-horizontal',
@@ -5538,21 +3160,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ShowMoreVerticalIcon',
-			package: '@atlaskit/icon/core/show-more-vertical',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for more action menus, traditionally on mobile.',
-			keywords: [
-				'show-more-vertical',
-				'showmorevertical',
-				'icon',
-				'three dots',
-				'kebab',
-				'more actions',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ShowMoreVerticalIcon","package":"@atlaskit/icon/core/show-more-vertical","categorization":"single-purpose","usage":"Single purpose - Reserved for more action menus, traditionally on mobile.","keywords":["show-more-vertical","showmorevertical","icon","three dots","kebab","more actions"],"status":"published"}',
 		componentName: 'ShowMoreVerticalIcon',
 		keywords: [
 			'show-more-vertical',
@@ -5567,15 +3176,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ShrinkDiagonalIcon',
-			package: '@atlaskit/icon/core/shrink-diagonal',
-			categorization: 'single-purpose',
-			usage:
-				'Single purpose - Reserved for shrinking the height and width of modals, panels, media, or objects.',
-			keywords: ['shrink-diagonal', 'shrinkdiagonal', 'icon', 'resize', 'diagonal arrows'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ShrinkDiagonalIcon","package":"@atlaskit/icon/core/shrink-diagonal","categorization":"single-purpose","usage":"Single purpose - Reserved for shrinking the height and width of modals, panels, media, or objects.","keywords":["shrink-diagonal","shrinkdiagonal","icon","resize","diagonal arrows"],"status":"published"}',
 		componentName: 'ShrinkDiagonalIcon',
 		keywords: ['shrink-diagonal', 'shrinkdiagonal', 'icon', 'resize', 'diagonal arrows'],
 		categorization: 'single-purpose',
@@ -5584,21 +3186,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ShrinkHorizontalIcon',
-			package: '@atlaskit/icon/core/shrink-horizontal',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for contracting or reducing the width of an element.',
-			keywords: [
-				'shrink-horizontal',
-				'shrinkhorizontal',
-				'icon',
-				'contract',
-				'width',
-				'horizontal arrows',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ShrinkHorizontalIcon","package":"@atlaskit/icon/core/shrink-horizontal","categorization":"single-purpose","usage":"Single purpose - Reserved for contracting or reducing the width of an element.","keywords":["shrink-horizontal","shrinkhorizontal","icon","contract","width","horizontal arrows"],"status":"published"}',
 		componentName: 'ShrinkHorizontalIcon',
 		keywords: [
 			'shrink-horizontal',
@@ -5613,21 +3202,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ShrinkVerticalIcon',
-			package: '@atlaskit/icon/core/shrink-vertical',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for contracting or reducing the height of an element.',
-			keywords: [
-				'shrink-vertical',
-				'shrinkvertical',
-				'icon',
-				'contract',
-				'height',
-				'vertical arrows',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ShrinkVerticalIcon","package":"@atlaskit/icon/core/shrink-vertical","categorization":"single-purpose","usage":"Single purpose - Reserved for contracting or reducing the height of an element.","keywords":["shrink-vertical","shrinkvertical","icon","contract","height","vertical arrows"],"status":"published"}',
 		componentName: 'ShrinkVerticalIcon',
 		keywords: [
 			'shrink-vertical',
@@ -5642,14 +3218,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'SidebarCollapseIcon',
-			package: '@atlaskit/icon/core/sidebar-collapse',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for collapsing the navigation sidebar.',
-			keywords: ['sidebar-collapse', 'sidebarcollapse', 'icon', 'navigation', 'close sidebar'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"SidebarCollapseIcon","package":"@atlaskit/icon/core/sidebar-collapse","categorization":"single-purpose","usage":"Single purpose - Reserved for collapsing the navigation sidebar.","keywords":["sidebar-collapse","sidebarcollapse","icon","navigation","close sidebar"],"status":"published"}',
 		componentName: 'SidebarCollapseIcon',
 		keywords: ['sidebar-collapse', 'sidebarcollapse', 'icon', 'navigation', 'close sidebar'],
 		categorization: 'single-purpose',
@@ -5657,14 +3227,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'SidebarExpandIcon',
-			package: '@atlaskit/icon/core/sidebar-expand',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for expanding the navigation sidebar.',
-			keywords: ['sidebar-expand', 'sidebarexpand', 'icon', 'navigation', 'open sidebar'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"SidebarExpandIcon","package":"@atlaskit/icon/core/sidebar-expand","categorization":"single-purpose","usage":"Single purpose - Reserved for expanding the navigation sidebar.","keywords":["sidebar-expand","sidebarexpand","icon","navigation","open sidebar"],"status":"published"}',
 		componentName: 'SidebarExpandIcon',
 		keywords: ['sidebar-expand', 'sidebarexpand', 'icon', 'navigation', 'open sidebar'],
 		categorization: 'single-purpose',
@@ -5672,14 +3236,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'SmartLinkIcon',
-			package: '@atlaskit/icon/core/smart-link',
-			categorization: 'single-purpose',
-			usage: 'Reserved for representing Smart links.',
-			keywords: ['smart-link', 'smartlink', 'icon', 'smart link'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"SmartLinkIcon","package":"@atlaskit/icon/core/smart-link","categorization":"single-purpose","usage":"Reserved for representing Smart links.","keywords":["smart-link","smartlink","icon","smart link"],"status":"published"}',
 		componentName: 'SmartLinkIcon',
 		keywords: ['smart-link', 'smartlink', 'icon', 'smart link'],
 		categorization: 'single-purpose',
@@ -5687,22 +3245,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'SmartLinkCardIcon',
-			package: '@atlaskit/icon/core/smart-link-card',
-			categorization: 'single-purpose',
-			usage: 'Reserved for representing Smart link preview cards.',
-			keywords: [
-				'smart-link-card',
-				'smartlinkcard',
-				'icon',
-				'smart link',
-				'url',
-				'card',
-				'link preview',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"SmartLinkCardIcon","package":"@atlaskit/icon/core/smart-link-card","categorization":"single-purpose","usage":"Reserved for representing Smart link preview cards.","keywords":["smart-link-card","smartlinkcard","icon","smart link","url","card","link preview"],"status":"published"}',
 		componentName: 'SmartLinkCardIcon',
 		keywords: [
 			'smart-link-card',
@@ -5718,14 +3262,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'SmartLinkEmbedIcon',
-			package: '@atlaskit/icon/core/smart-link-embed',
-			categorization: 'single-purpose',
-			usage: 'Reserved for representing Smart link embeds.',
-			keywords: ['smart-link-embed', 'smartlinkembed', 'icon', 'smart link', 'url', 'embed'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"SmartLinkEmbedIcon","package":"@atlaskit/icon/core/smart-link-embed","categorization":"single-purpose","usage":"Reserved for representing Smart link embeds.","keywords":["smart-link-embed","smartlinkembed","icon","smart link","url","embed"],"status":"published"}',
 		componentName: 'SmartLinkEmbedIcon',
 		keywords: ['smart-link-embed', 'smartlinkembed', 'icon', 'smart link', 'url', 'embed'],
 		categorization: 'single-purpose',
@@ -5733,14 +3271,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'SmartLinkInlineIcon',
-			package: '@atlaskit/icon/core/smart-link-inline',
-			categorization: 'single-purpose',
-			usage: 'Reserved for representing inline Smart link lozenges.',
-			keywords: ['smart-link-inline', 'smartlinkinline', 'icon', 'smart link', 'url', 'inline'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"SmartLinkInlineIcon","package":"@atlaskit/icon/core/smart-link-inline","categorization":"single-purpose","usage":"Reserved for representing inline Smart link lozenges.","keywords":["smart-link-inline","smartlinkinline","icon","smart link","url","inline"],"status":"published"}',
 		componentName: 'SmartLinkInlineIcon',
 		keywords: ['smart-link-inline', 'smartlinkinline', 'icon', 'smart link', 'url', 'inline'],
 		categorization: 'single-purpose',
@@ -5748,24 +3280,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'SmartLinkListIcon',
-			package: '@atlaskit/icon/core/smart-link-list',
-			categorization: 'single-purpose',
-			usage: 'Reserved for representing Smart link embedded link lists.',
-			keywords: [
-				'smart-link-list',
-				'smartlinklist',
-				'icon',
-				'smart link',
-				'url',
-				'embed',
-				'list',
-				'table',
-				'linked search results',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"SmartLinkListIcon","package":"@atlaskit/icon/core/smart-link-list","categorization":"single-purpose","usage":"Reserved for representing Smart link embedded link lists.","keywords":["smart-link-list","smartlinklist","icon","smart link","url","embed","list","table","linked search results"],"status":"published"}',
 		componentName: 'SmartLinkListIcon',
 		keywords: [
 			'smart-link-list',
@@ -5783,14 +3299,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'SnippetIcon',
-			package: '@atlaskit/icon/core/snippet',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for snippets in Bitbucket.',
-			keywords: ['snippet', 'icon', 'scissors', 'cut'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"SnippetIcon","package":"@atlaskit/icon/core/snippet","categorization":"single-purpose","usage":"Single purpose - Reserved for snippets in Bitbucket.","keywords":["snippet","icon","scissors","cut"],"status":"published"}',
 		componentName: 'SnippetIcon',
 		keywords: ['snippet', 'icon', 'scissors', 'cut'],
 		categorization: 'single-purpose',
@@ -5798,14 +3308,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'SortAscendingIcon',
-			package: '@atlaskit/icon/core/sort-ascending',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for sorting data.',
-			keywords: ['sort-ascending', 'sortascending', 'icon', 'data', 'sort', 'up'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"SortAscendingIcon","package":"@atlaskit/icon/core/sort-ascending","categorization":"single-purpose","usage":"Single purpose - Reserved for sorting data.","keywords":["sort-ascending","sortascending","icon","data","sort","up"],"status":"published"}',
 		componentName: 'SortAscendingIcon',
 		keywords: ['sort-ascending', 'sortascending', 'icon', 'data', 'sort', 'up'],
 		categorization: 'single-purpose',
@@ -5813,14 +3317,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'SortDescendingIcon',
-			package: '@atlaskit/icon/core/sort-descending',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for sorting data.',
-			keywords: ['sort-descending', 'sortdescending', 'icon', 'data', 'sort', 'down'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"SortDescendingIcon","package":"@atlaskit/icon/core/sort-descending","categorization":"single-purpose","usage":"Single purpose - Reserved for sorting data.","keywords":["sort-descending","sortdescending","icon","data","sort","down"],"status":"published"}',
 		componentName: 'SortDescendingIcon',
 		keywords: ['sort-descending', 'sortdescending', 'icon', 'data', 'sort', 'down'],
 		categorization: 'single-purpose',
@@ -5828,22 +3326,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'SpreadsheetIcon',
-			package: '@atlaskit/icon/core/spreadsheet',
-			categorization: 'single-purpose',
-			usage: 'Reserved for tables, tabular data, and spreadsheets.',
-			keywords: [
-				'spreadsheet',
-				'icon',
-				'table',
-				'cells',
-				'tabular data',
-				'data table',
-				'spreadsheet',
-			],
-			status: 'deprecated',
-		},
+		content:
+			'{"componentName":"SpreadsheetIcon","package":"@atlaskit/icon/core/spreadsheet","categorization":"single-purpose","usage":"Reserved for tables, tabular data, and spreadsheets.","keywords":["spreadsheet","icon","table","cells","tabular data","data table","spreadsheet"],"status":"deprecated"}',
 		componentName: 'SpreadsheetIcon',
 		keywords: [
 			'spreadsheet',
@@ -5859,14 +3343,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'deprecated',
 	},
 	{
-		content: {
-			componentName: 'SprintIcon',
-			package: '@atlaskit/icon/core/sprint',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for sprints in Jira.',
-			keywords: ['sprint', 'icon', 'loop', 'iterate'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"SprintIcon","package":"@atlaskit/icon/core/sprint","categorization":"single-purpose","usage":"Single purpose - Reserved for sprints in Jira.","keywords":["sprint","icon","loop","iterate"],"status":"published"}',
 		componentName: 'SprintIcon',
 		keywords: ['sprint', 'icon', 'loop', 'iterate'],
 		categorization: 'single-purpose',
@@ -5874,14 +3352,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'StarStarredIcon',
-			package: '@atlaskit/icon/core/star-starred',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for starred or favourited objects.',
-			keywords: ['star-starred', 'starstarred', 'icon', 'favourite', 'star', 'starred', 'filled'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"StarStarredIcon","package":"@atlaskit/icon/core/star-starred","categorization":"single-purpose","usage":"Single purpose - Reserved for starred or favourited objects.","keywords":["star-starred","starstarred","icon","favourite","star","starred","filled"],"status":"published"}',
 		componentName: 'StarStarredIcon',
 		keywords: ['star-starred', 'starstarred', 'icon', 'favourite', 'star', 'starred', 'filled'],
 		categorization: 'single-purpose',
@@ -5889,14 +3361,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'StarUnstarredIcon',
-			package: '@atlaskit/icon/core/star-unstarred',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for starring or favoriting objects.',
-			keywords: ['star-unstarred', 'starunstarred', 'icon', 'favourite', 'star'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"StarUnstarredIcon","package":"@atlaskit/icon/core/star-unstarred","categorization":"single-purpose","usage":"Single purpose - Reserved for starring or favoriting objects.","keywords":["star-unstarred","starunstarred","icon","favourite","star"],"status":"published"}',
 		componentName: 'StarUnstarredIcon',
 		keywords: ['star-unstarred', 'starunstarred', 'icon', 'favourite', 'star'],
 		categorization: 'single-purpose',
@@ -5904,24 +3370,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'StatusDiscoveryIcon',
-			package: '@atlaskit/icon/core/status-discovery',
-			categorization: 'single-purpose',
-			usage:
-				'Reserved for discovery statuses and messaging. Filled status icons provide higher visual contrast to draw attention to important information.',
-			keywords: [
-				'status-discovery',
-				'statusdiscovery',
-				'icon',
-				'discovery',
-				'note',
-				'filled',
-				'onboarding',
-				'status',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"StatusDiscoveryIcon","package":"@atlaskit/icon/core/status-discovery","categorization":"single-purpose","usage":"Reserved for discovery statuses and messaging. Filled status icons provide higher visual contrast to draw attention to important information.","keywords":["status-discovery","statusdiscovery","icon","discovery","note","filled","onboarding","status"],"status":"published"}',
 		componentName: 'StatusDiscoveryIcon',
 		keywords: [
 			'status-discovery',
@@ -5939,25 +3389,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'StatusErrorIcon',
-			package: '@atlaskit/icon/core/status-error',
-			categorization: 'single-purpose',
-			usage:
-				'Reserved for error statuses and messaging. Filled status icons provide higher visual contrast to draw attention to important information.',
-			keywords: [
-				'status-error',
-				'statuserror',
-				'icon',
-				'filled',
-				'status',
-				'danger',
-				'exclamation',
-				'!',
-				'error',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"StatusErrorIcon","package":"@atlaskit/icon/core/status-error","categorization":"single-purpose","usage":"Reserved for error statuses and messaging. Filled status icons provide higher visual contrast to draw attention to important information.","keywords":["status-error","statuserror","icon","filled","status","danger","exclamation","!","error"],"status":"published"}',
 		componentName: 'StatusErrorIcon',
 		keywords: [
 			'status-error',
@@ -5976,23 +3409,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'StatusInformationIcon',
-			package: '@atlaskit/icon/core/status-information',
-			categorization: 'single-purpose',
-			usage:
-				"Reserved for information statuses and messaging.  Filled status icons provide higher visual contrast to draw attention to important information. For information tooltips, use the unfilled 'information circle' icon.",
-			keywords: [
-				'status-information',
-				'statusinformation',
-				'icon',
-				'info',
-				'filled',
-				'status',
-				'information',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"StatusInformationIcon","package":"@atlaskit/icon/core/status-information","categorization":"single-purpose","usage":"Reserved for information statuses and messaging.  Filled status icons provide higher visual contrast to draw attention to important information. For information tooltips, use the unfilled \'information circle\' icon.","keywords":["status-information","statusinformation","icon","info","filled","status","information"],"status":"published"}',
 		componentName: 'StatusInformationIcon',
 		keywords: [
 			'status-information',
@@ -6009,25 +3427,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'StatusSuccessIcon',
-			package: '@atlaskit/icon/core/status-success',
-			categorization: 'single-purpose',
-			usage:
-				'Reserved for success statuses and messaging. Filled status icons provide higher visual contrast to draw attention to important information.',
-			keywords: [
-				'status-success',
-				'statussuccess',
-				'icon',
-				'tick',
-				'completed',
-				'success',
-				'filled',
-				'check mark',
-				'status',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"StatusSuccessIcon","package":"@atlaskit/icon/core/status-success","categorization":"single-purpose","usage":"Reserved for success statuses and messaging. Filled status icons provide higher visual contrast to draw attention to important information.","keywords":["status-success","statussuccess","icon","tick","completed","success","filled","check mark","status"],"status":"published"}',
 		componentName: 'StatusSuccessIcon',
 		keywords: [
 			'status-success',
@@ -6046,15 +3447,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'StatusVerifiedIcon',
-			package: '@atlaskit/icon/core/status-verified',
-			categorization: 'single-purpose',
-			usage:
-				'Reserved for representing verified content. Filled status icons provide higher visual contrast draw attention to important information.',
-			keywords: ['status-verified', 'statusverified', 'icon', 'verified badge', 'status'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"StatusVerifiedIcon","package":"@atlaskit/icon/core/status-verified","categorization":"single-purpose","usage":"Reserved for representing verified content. Filled status icons provide higher visual contrast draw attention to important information.","keywords":["status-verified","statusverified","icon","verified badge","status"],"status":"published"}',
 		componentName: 'StatusVerifiedIcon',
 		keywords: ['status-verified', 'statusverified', 'icon', 'verified badge', 'status'],
 		categorization: 'single-purpose',
@@ -6063,25 +3457,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'StatusWarningIcon',
-			package: '@atlaskit/icon/core/status-warning',
-			categorization: 'single-purpose',
-			usage:
-				'Reserved for warning statuses. Filled status icons provide higher visual contrast to draw attention to important information.',
-			keywords: [
-				'status-warning',
-				'statuswarning',
-				'icon',
-				'alert',
-				'filled',
-				'exclamation',
-				'!',
-				'warning',
-				'status',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"StatusWarningIcon","package":"@atlaskit/icon/core/status-warning","categorization":"single-purpose","usage":"Reserved for warning statuses. Filled status icons provide higher visual contrast to draw attention to important information.","keywords":["status-warning","statuswarning","icon","alert","filled","exclamation","!","warning","status"],"status":"published"}',
 		componentName: 'StatusWarningIcon',
 		keywords: [
 			'status-warning',
@@ -6100,14 +3477,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'StopwatchIcon',
-			package: '@atlaskit/icon/core/stopwatch',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: timer in Confluence Whiteboards.',
-			keywords: ['stopwatch', 'icon', 'timer'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"StopwatchIcon","package":"@atlaskit/icon/core/stopwatch","categorization":"multi-purpose","usage":"Multi purpose - Known uses: timer in Confluence Whiteboards.","keywords":["stopwatch","icon","timer"],"status":"published"}',
 		componentName: 'StopwatchIcon',
 		keywords: ['stopwatch', 'icon', 'timer'],
 		categorization: 'multi-purpose',
@@ -6115,14 +3486,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'StoryIcon',
-			package: '@atlaskit/icon/core/story',
-			categorization: 'single-purpose',
-			usage: 'Reserved for story work type.',
-			keywords: ['story', 'icon', 'bookmark', 'work type'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"StoryIcon","package":"@atlaskit/icon/core/story","categorization":"single-purpose","usage":"Reserved for story work type.","keywords":["story","icon","bookmark","work type"],"status":"published"}',
 		componentName: 'StoryIcon',
 		keywords: ['story', 'icon', 'bookmark', 'work type'],
 		categorization: 'single-purpose',
@@ -6130,26 +3495,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'StrokeWeightExtraLargeIcon',
-			package: '@atlaskit/icon/core/stroke-weight-extra-large',
-			categorization: 'single-purpose',
-			usage: 'Reserved for representing the thickest border stroke width.',
-			keywords: [
-				'stroke-weight-extra-large',
-				'strokeweightextralarge',
-				'icon',
-				'border',
-				'weight',
-				'thickness',
-				'stroke',
-				'confluence',
-				'editor',
-				'whiteboards',
-				'thickest',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"StrokeWeightExtraLargeIcon","package":"@atlaskit/icon/core/stroke-weight-extra-large","categorization":"single-purpose","usage":"Reserved for representing the thickest border stroke width.","keywords":["stroke-weight-extra-large","strokeweightextralarge","icon","border","weight","thickness","stroke","confluence","editor","whiteboards","thickest"],"status":"published"}',
 		componentName: 'StrokeWeightExtraLargeIcon',
 		keywords: [
 			'stroke-weight-extra-large',
@@ -6169,26 +3516,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'StrokeWeightLargeIcon',
-			package: '@atlaskit/icon/core/stroke-weight-large',
-			categorization: 'single-purpose',
-			usage: 'Reserved for representing thick border stroke widths.',
-			keywords: [
-				'stroke-weight-large',
-				'strokeweightlarge',
-				'icon',
-				'border',
-				'weight',
-				'thickness',
-				'stroke',
-				'thick',
-				'confluence',
-				'editor',
-				'whiteboards',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"StrokeWeightLargeIcon","package":"@atlaskit/icon/core/stroke-weight-large","categorization":"single-purpose","usage":"Reserved for representing thick border stroke widths.","keywords":["stroke-weight-large","strokeweightlarge","icon","border","weight","thickness","stroke","thick","confluence","editor","whiteboards"],"status":"published"}',
 		componentName: 'StrokeWeightLargeIcon',
 		keywords: [
 			'stroke-weight-large',
@@ -6208,26 +3537,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'StrokeWeightMediumIcon',
-			package: '@atlaskit/icon/core/stroke-weight-medium',
-			categorization: 'single-purpose',
-			usage: 'Reserved for representing medium border stroke widths.',
-			keywords: [
-				'stroke-weight-medium',
-				'strokeweightmedium',
-				'icon',
-				'border',
-				'weight',
-				'stroke',
-				'medium',
-				'thickness',
-				'confluence',
-				'editor',
-				'whiteboards',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"StrokeWeightMediumIcon","package":"@atlaskit/icon/core/stroke-weight-medium","categorization":"single-purpose","usage":"Reserved for representing medium border stroke widths.","keywords":["stroke-weight-medium","strokeweightmedium","icon","border","weight","stroke","medium","thickness","confluence","editor","whiteboards"],"status":"published"}',
 		componentName: 'StrokeWeightMediumIcon',
 		keywords: [
 			'stroke-weight-medium',
@@ -6247,26 +3558,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'StrokeWeightSmallIcon',
-			package: '@atlaskit/icon/core/stroke-weight-small',
-			categorization: 'single-purpose',
-			usage: 'Reserved for representing thin border stroke widths.',
-			keywords: [
-				'stroke-weight-small',
-				'strokeweightsmall',
-				'icon',
-				'border',
-				'weight',
-				'thickness',
-				'stroke',
-				'confluence',
-				'editor',
-				'whiteboards',
-				'thin',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"StrokeWeightSmallIcon","package":"@atlaskit/icon/core/stroke-weight-small","categorization":"single-purpose","usage":"Reserved for representing thin border stroke widths.","keywords":["stroke-weight-small","strokeweightsmall","icon","border","weight","thickness","stroke","confluence","editor","whiteboards","thin"],"status":"published"}',
 		componentName: 'StrokeWeightSmallIcon',
 		keywords: [
 			'stroke-weight-small',
@@ -6286,14 +3579,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'SubtasksIcon',
-			package: '@atlaskit/icon/core/subtasks',
-			categorization: 'single-purpose',
-			usage: 'Reserved for subtask work type.',
-			keywords: ['subtasks', 'icon', 'todo', 'checklist', 'work type'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"SubtasksIcon","package":"@atlaskit/icon/core/subtasks","categorization":"single-purpose","usage":"Reserved for subtask work type.","keywords":["subtasks","icon","todo","checklist","work type"],"status":"published"}',
 		componentName: 'SubtasksIcon',
 		keywords: ['subtasks', 'icon', 'todo', 'checklist', 'work type'],
 		categorization: 'single-purpose',
@@ -6301,24 +3588,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'SuccessIcon',
-			package: '@atlaskit/icon/core/success',
-			categorization: 'single-purpose',
-			usage:
-				'Reserved for success statuses and messaging. Filled status icons provide higher visual contrast to draw attention to important information.',
-			keywords: [
-				'success',
-				'icon',
-				'tick',
-				'completed',
-				'success',
-				'filled',
-				'check mark',
-				'status',
-			],
-			status: 'deprecated',
-		},
+		content:
+			'{"componentName":"SuccessIcon","package":"@atlaskit/icon/core/success","categorization":"single-purpose","usage":"Reserved for success statuses and messaging. Filled status icons provide higher visual contrast to draw attention to important information.","keywords":["success","icon","tick","completed","success","filled","check mark","status"],"status":"deprecated"}',
 		componentName: 'SuccessIcon',
 		keywords: ['success', 'icon', 'tick', 'completed', 'success', 'filled', 'check mark', 'status'],
 		categorization: 'single-purpose',
@@ -6327,23 +3598,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'deprecated',
 	},
 	{
-		content: {
-			componentName: 'SupportIcon',
-			package: '@atlaskit/icon/core/support',
-			categorization: 'single-purpose',
-			usage: 'Reserved for representing help support.',
-			keywords: [
-				'support',
-				'icon',
-				'support',
-				'help',
-				'life raft',
-				'life ring',
-				'lifebuoy',
-				'life preserver',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"SupportIcon","package":"@atlaskit/icon/core/support","categorization":"single-purpose","usage":"Reserved for representing help support.","keywords":["support","icon","support","help","life raft","life ring","lifebuoy","life preserver"],"status":"published"}',
 		componentName: 'SupportIcon',
 		keywords: [
 			'support',
@@ -6360,23 +3616,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TableIcon',
-			package: '@atlaskit/icon/core/table',
-			categorization: 'single-purpose',
-			usage: 'Reserved for tables, tabular data, and spreadsheets.',
-			keywords: [
-				'table',
-				'grid',
-				'icon',
-				'table',
-				'cells',
-				'tabular data',
-				'data table',
-				'spreadsheet',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TableIcon","package":"@atlaskit/icon/core/table","categorization":"single-purpose","usage":"Reserved for tables, tabular data, and spreadsheets.","keywords":["table","grid","icon","table","cells","tabular data","data table","spreadsheet"],"status":"published"}',
 		componentName: 'TableIcon',
 		keywords: [
 			'table',
@@ -6393,14 +3634,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TableCellClearIcon',
-			package: '@atlaskit/icon/core/table-cell-clear',
-			categorization: 'single-purpose',
-			usage: 'Reserved for clearing the contents of table cells.',
-			keywords: ['table-cell-clear', 'tablecellclear', 'icon', 'table', 'cell', 'clear', 'empty'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TableCellClearIcon","package":"@atlaskit/icon/core/table-cell-clear","categorization":"single-purpose","usage":"Reserved for clearing the contents of table cells.","keywords":["table-cell-clear","tablecellclear","icon","table","cell","clear","empty"],"status":"published"}',
 		componentName: 'TableCellClearIcon',
 		keywords: ['table-cell-clear', 'tablecellclear', 'icon', 'table', 'cell', 'clear', 'empty'],
 		categorization: 'single-purpose',
@@ -6408,23 +3643,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TableCellMergeIcon',
-			package: '@atlaskit/icon/core/table-cell-merge',
-			categorization: 'single-purpose',
-			usage: 'Reserved for merging table cells.',
-			keywords: [
-				'table-cell-merge',
-				'tablecellmerge',
-				'icon',
-				'table',
-				'cell',
-				'merge',
-				'combine',
-				'join',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TableCellMergeIcon","package":"@atlaskit/icon/core/table-cell-merge","categorization":"single-purpose","usage":"Reserved for merging table cells.","keywords":["table-cell-merge","tablecellmerge","icon","table","cell","merge","combine","join"],"status":"published"}',
 		componentName: 'TableCellMergeIcon',
 		keywords: [
 			'table-cell-merge',
@@ -6441,23 +3661,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TableCellSplitIcon',
-			package: '@atlaskit/icon/core/table-cell-split',
-			categorization: 'single-purpose',
-			usage: 'Reserved for splitting joined table cells.',
-			keywords: [
-				'table-cell-split',
-				'tablecellsplit',
-				'icon',
-				'table',
-				'cell',
-				'split',
-				'divide',
-				'separate',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TableCellSplitIcon","package":"@atlaskit/icon/core/table-cell-split","categorization":"single-purpose","usage":"Reserved for splitting joined table cells.","keywords":["table-cell-split","tablecellsplit","icon","table","cell","split","divide","separate"],"status":"published"}',
 		componentName: 'TableCellSplitIcon',
 		keywords: [
 			'table-cell-split',
@@ -6474,24 +3679,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TableColumnAddLeftIcon',
-			package: '@atlaskit/icon/core/table-column-add-left',
-			categorization: 'single-purpose',
-			usage: 'Reserved for adding a table column to the left of the selected column.',
-			keywords: [
-				'table-column-add-left',
-				'tablecolumnaddleft',
-				'icon',
-				'table',
-				'column',
-				'add',
-				'plus',
-				'left',
-				'before',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TableColumnAddLeftIcon","package":"@atlaskit/icon/core/table-column-add-left","categorization":"single-purpose","usage":"Reserved for adding a table column to the left of the selected column.","keywords":["table-column-add-left","tablecolumnaddleft","icon","table","column","add","plus","left","before"],"status":"published"}',
 		componentName: 'TableColumnAddLeftIcon',
 		keywords: [
 			'table-column-add-left',
@@ -6509,23 +3698,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TableColumnAddRightIcon',
-			package: '@atlaskit/icon/core/table-column-add-right',
-			categorization: 'single-purpose',
-			usage: 'Reserved for adding a table column to the right of the selected column.',
-			keywords: [
-				'table-column-add-right',
-				'tablecolumnaddright',
-				'icon',
-				'table',
-				'column',
-				'add',
-				'right',
-				'after',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TableColumnAddRightIcon","package":"@atlaskit/icon/core/table-column-add-right","categorization":"single-purpose","usage":"Reserved for adding a table column to the right of the selected column.","keywords":["table-column-add-right","tablecolumnaddright","icon","table","column","add","right","after"],"status":"published"}',
 		componentName: 'TableColumnAddRightIcon',
 		keywords: [
 			'table-column-add-right',
@@ -6542,23 +3716,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TableColumnDeleteIcon',
-			package: '@atlaskit/icon/core/table-column-delete',
-			categorization: 'single-purpose',
-			usage: 'Reserved for deleting a table column.',
-			keywords: [
-				'table-column-delete',
-				'tablecolumndelete',
-				'icon',
-				'table',
-				'column',
-				'delete',
-				'remove',
-				'x',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TableColumnDeleteIcon","package":"@atlaskit/icon/core/table-column-delete","categorization":"single-purpose","usage":"Reserved for deleting a table column.","keywords":["table-column-delete","tablecolumndelete","icon","table","column","delete","remove","x"],"status":"published"}',
 		componentName: 'TableColumnDeleteIcon',
 		keywords: [
 			'table-column-delete',
@@ -6575,23 +3734,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TableColumnMoveLeftIcon',
-			package: '@atlaskit/icon/core/table-column-move-left',
-			categorization: 'single-purpose',
-			usage: 'Reserved for moving a table column to the left of its current location.',
-			keywords: [
-				'table-column-move-left',
-				'tablecolumnmoveleft',
-				'icon',
-				'table',
-				'column',
-				'move',
-				'left',
-				'arrow',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TableColumnMoveLeftIcon","package":"@atlaskit/icon/core/table-column-move-left","categorization":"single-purpose","usage":"Reserved for moving a table column to the left of its current location.","keywords":["table-column-move-left","tablecolumnmoveleft","icon","table","column","move","left","arrow"],"status":"published"}',
 		componentName: 'TableColumnMoveLeftIcon',
 		keywords: [
 			'table-column-move-left',
@@ -6608,23 +3752,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TableColumnMoveRightIcon',
-			package: '@atlaskit/icon/core/table-column-move-right',
-			categorization: 'single-purpose',
-			usage: 'Reserved for moving a table column to the right of its current location.',
-			keywords: [
-				'table-column-move-right',
-				'tablecolumnmoveright',
-				'icon',
-				'table',
-				'column',
-				'move',
-				'right',
-				'arrow',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TableColumnMoveRightIcon","package":"@atlaskit/icon/core/table-column-move-right","categorization":"single-purpose","usage":"Reserved for moving a table column to the right of its current location.","keywords":["table-column-move-right","tablecolumnmoveright","icon","table","column","move","right","arrow"],"status":"published"}',
 		componentName: 'TableColumnMoveRightIcon',
 		keywords: [
 			'table-column-move-right',
@@ -6641,23 +3770,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TableColumnsDistributeIcon',
-			package: '@atlaskit/icon/core/table-columns-distribute',
-			categorization: 'single-purpose',
-			usage: 'Reserved for distributing the width of table columns evenly.',
-			keywords: [
-				'table-columns-distribute',
-				'tablecolumnsdistribute',
-				'icon',
-				'table',
-				'columns',
-				'distribute',
-				'even',
-				'equidistant',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TableColumnsDistributeIcon","package":"@atlaskit/icon/core/table-columns-distribute","categorization":"single-purpose","usage":"Reserved for distributing the width of table columns evenly.","keywords":["table-columns-distribute","tablecolumnsdistribute","icon","table","columns","distribute","even","equidistant"],"status":"published"}',
 		componentName: 'TableColumnsDistributeIcon',
 		keywords: [
 			'table-columns-distribute',
@@ -6674,24 +3788,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TableRowAddAboveIcon',
-			package: '@atlaskit/icon/core/table-row-add-above',
-			categorization: 'single-purpose',
-			usage: 'Reserved for adding a table row above the selected row.',
-			keywords: [
-				'table-row-add-above',
-				'tablerowaddabove',
-				'icon',
-				'table',
-				'row',
-				'add',
-				'plus',
-				'above',
-				'up',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TableRowAddAboveIcon","package":"@atlaskit/icon/core/table-row-add-above","categorization":"single-purpose","usage":"Reserved for adding a table row above the selected row.","keywords":["table-row-add-above","tablerowaddabove","icon","table","row","add","plus","above","up"],"status":"published"}',
 		componentName: 'TableRowAddAboveIcon',
 		keywords: [
 			'table-row-add-above',
@@ -6709,24 +3807,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TableRowAddBelowIcon',
-			package: '@atlaskit/icon/core/table-row-add-below',
-			categorization: 'single-purpose',
-			usage: 'Reserved for adding a table row below the selected row.',
-			keywords: [
-				'table-row-add-below',
-				'tablerowaddbelow',
-				'icon',
-				'table',
-				'row',
-				'add',
-				'plus',
-				'below',
-				'down',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TableRowAddBelowIcon","package":"@atlaskit/icon/core/table-row-add-below","categorization":"single-purpose","usage":"Reserved for adding a table row below the selected row.","keywords":["table-row-add-below","tablerowaddbelow","icon","table","row","add","plus","below","down"],"status":"published"}',
 		componentName: 'TableRowAddBelowIcon',
 		keywords: [
 			'table-row-add-below',
@@ -6744,23 +3826,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TableRowDeleteIcon',
-			package: '@atlaskit/icon/core/table-row-delete',
-			categorization: 'single-purpose',
-			usage: 'Reserved for deleting a table row.',
-			keywords: [
-				'table-row-delete',
-				'tablerowdelete',
-				'icon',
-				'table',
-				'row',
-				'delete',
-				'remove',
-				'x',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TableRowDeleteIcon","package":"@atlaskit/icon/core/table-row-delete","categorization":"single-purpose","usage":"Reserved for deleting a table row.","keywords":["table-row-delete","tablerowdelete","icon","table","row","delete","remove","x"],"status":"published"}',
 		componentName: 'TableRowDeleteIcon',
 		keywords: [
 			'table-row-delete',
@@ -6777,24 +3844,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TableRowMoveDownIcon',
-			package: '@atlaskit/icon/core/table-row-move-down',
-			categorization: 'single-purpose',
-			usage: 'Reserved for moving a table row below its current location.',
-			keywords: [
-				'table-row-move-down',
-				'tablerowmovedown',
-				'icon',
-				'table',
-				'row',
-				'move',
-				'down',
-				'arrow',
-				'after',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TableRowMoveDownIcon","package":"@atlaskit/icon/core/table-row-move-down","categorization":"single-purpose","usage":"Reserved for moving a table row below its current location.","keywords":["table-row-move-down","tablerowmovedown","icon","table","row","move","down","arrow","after"],"status":"published"}',
 		componentName: 'TableRowMoveDownIcon',
 		keywords: [
 			'table-row-move-down',
@@ -6812,24 +3863,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TableRowMoveUpIcon',
-			package: '@atlaskit/icon/core/table-row-move-up',
-			categorization: 'single-purpose',
-			usage: 'Reserved for moving a table row above its current location.',
-			keywords: [
-				'table-row-move-up',
-				'tablerowmoveup',
-				'icon',
-				'table',
-				'row',
-				'move',
-				'up',
-				'arrow',
-				'above',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TableRowMoveUpIcon","package":"@atlaskit/icon/core/table-row-move-up","categorization":"single-purpose","usage":"Reserved for moving a table row above its current location.","keywords":["table-row-move-up","tablerowmoveup","icon","table","row","move","up","arrow","above"],"status":"published"}',
 		componentName: 'TableRowMoveUpIcon',
 		keywords: [
 			'table-row-move-up',
@@ -6847,14 +3882,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TagIcon',
-			package: '@atlaskit/icon/core/tag',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for tags in Atlas.',
-			keywords: ['tag', 'icon', 'label', 'topic'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TagIcon","package":"@atlaskit/icon/core/tag","categorization":"single-purpose","usage":"Single purpose - Reserved for tags in Atlas.","keywords":["tag","icon","label","topic"],"status":"published"}',
 		componentName: 'TagIcon',
 		keywords: ['tag', 'icon', 'label', 'topic'],
 		categorization: 'single-purpose',
@@ -6862,23 +3891,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TakeoutFoodIcon',
-			package: '@atlaskit/icon/core/takeout-food',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known usages: Food emoji category.',
-			keywords: [
-				'takeout-food',
-				'takeoutfood',
-				'icon',
-				'takeaway',
-				'takeout',
-				'food',
-				'burger',
-				'drink',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TakeoutFoodIcon","package":"@atlaskit/icon/core/takeout-food","categorization":"multi-purpose","usage":"Multi purpose - Known usages: Food emoji category.","keywords":["takeout-food","takeoutfood","icon","takeaway","takeout","food","burger","drink"],"status":"published"}',
 		componentName: 'TakeoutFoodIcon',
 		keywords: [
 			'takeout-food',
@@ -6895,14 +3909,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TargetIcon',
-			package: '@atlaskit/icon/core/target',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for targets.',
-			keywords: ['target', 'icon', 'target', 'bullseye'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TargetIcon","package":"@atlaskit/icon/core/target","categorization":"single-purpose","usage":"Single purpose - Reserved for targets.","keywords":["target","icon","target","bullseye"],"status":"published"}',
 		componentName: 'TargetIcon',
 		keywords: ['target', 'icon', 'target', 'bullseye'],
 		categorization: 'single-purpose',
@@ -6910,24 +3918,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TaskIcon',
-			package: '@atlaskit/icon/core/task',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for tasks in Jira.',
-			keywords: [
-				'task',
-				'check',
-				'tick',
-				'icon',
-				'single task',
-				'todo',
-				'list',
-				'check mark',
-				'tick',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TaskIcon","package":"@atlaskit/icon/core/task","categorization":"single-purpose","usage":"Single purpose - Reserved for tasks in Jira.","keywords":["task","check","tick","icon","single task","todo","list","check mark","tick"],"status":"published"}',
 		componentName: 'TaskIcon',
 		keywords: [
 			'task',
@@ -6945,22 +3937,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TaskInProgressIcon',
-			package: '@atlaskit/icon/core/task-in-progress',
-			categorization: 'single-purpose',
-			usage: 'Reserved for in progress task status. Used in JSM Calendar view.',
-			keywords: [
-				'task-in-progress',
-				'taskinprogress',
-				'icon',
-				'calendar',
-				'task',
-				'status',
-				'in progress',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TaskInProgressIcon","package":"@atlaskit/icon/core/task-in-progress","categorization":"single-purpose","usage":"Reserved for in progress task status. Used in JSM Calendar view.","keywords":["task-in-progress","taskinprogress","icon","calendar","task","status","in progress"],"status":"published"}',
 		componentName: 'TaskInProgressIcon',
 		keywords: [
 			'task-in-progress',
@@ -6976,14 +3954,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TaskToDoIcon',
-			package: '@atlaskit/icon/core/task-to-do',
-			categorization: 'single-purpose',
-			usage: 'Reserved for to-do task status. Used in JSM Calendar view.',
-			keywords: ['task-to-do', 'tasktodo', 'icon', 'calendar', 'task', 'to-do', 'todo', 'status'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TaskToDoIcon","package":"@atlaskit/icon/core/task-to-do","categorization":"single-purpose","usage":"Reserved for to-do task status. Used in JSM Calendar view.","keywords":["task-to-do","tasktodo","icon","calendar","task","to-do","todo","status"],"status":"published"}',
 		componentName: 'TaskToDoIcon',
 		keywords: ['task-to-do', 'tasktodo', 'icon', 'calendar', 'task', 'to-do', 'todo', 'status'],
 		categorization: 'single-purpose',
@@ -6991,14 +3963,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TasksIcon',
-			package: '@atlaskit/icon/core/tasks',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for multiple tasks in Jira.',
-			keywords: ['tasks', 'icon', 'multiple tasks', 'todo', 'list', 'check mark', 'tick'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TasksIcon","package":"@atlaskit/icon/core/tasks","categorization":"single-purpose","usage":"Single purpose - Reserved for multiple tasks in Jira.","keywords":["tasks","icon","multiple tasks","todo","list","check mark","tick"],"status":"published"}',
 		componentName: 'TasksIcon',
 		keywords: ['tasks', 'icon', 'multiple tasks', 'todo', 'list', 'check mark', 'tick'],
 		categorization: 'single-purpose',
@@ -7006,14 +3972,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TeamsIcon',
-			package: '@atlaskit/icon/core/teams',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for teams in Atlassian.',
-			keywords: ['teams', 'icon', 'infinite love', 'people', 'persons', 'customers', 'users'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TeamsIcon","package":"@atlaskit/icon/core/teams","categorization":"single-purpose","usage":"Single purpose - Reserved for teams in Atlassian.","keywords":["teams","icon","infinite love","people","persons","customers","users"],"status":"published"}',
 		componentName: 'TeamsIcon',
 		keywords: ['teams', 'icon', 'infinite love', 'people', 'persons', 'customers', 'users'],
 		categorization: 'single-purpose',
@@ -7021,14 +3981,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TextIcon',
-			package: '@atlaskit/icon/core/text',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for representing text objects.',
-			keywords: ['text', 'icon', 'character', 'font', 'letter', 'type', 'typography', 'text'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TextIcon","package":"@atlaskit/icon/core/text","categorization":"single-purpose","usage":"Single purpose - Reserved for representing text objects.","keywords":["text","icon","character","font","letter","type","typography","text"],"status":"published"}',
 		componentName: 'TextIcon',
 		keywords: ['text', 'icon', 'character', 'font', 'letter', 'type', 'typography', 'text'],
 		categorization: 'single-purpose',
@@ -7036,14 +3990,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TextBoldIcon',
-			package: '@atlaskit/icon/core/text-bold',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for bolding text.',
-			keywords: ['text-bold', 'textbold', 'icon', 'text', 'type', 'bold', 'font'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TextBoldIcon","package":"@atlaskit/icon/core/text-bold","categorization":"single-purpose","usage":"Single purpose - Reserved for bolding text.","keywords":["text-bold","textbold","icon","text","type","bold","font"],"status":"published"}',
 		componentName: 'TextBoldIcon',
 		keywords: ['text-bold', 'textbold', 'icon', 'text', 'type', 'bold', 'font'],
 		categorization: 'single-purpose',
@@ -7051,23 +3999,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TextHeadingIcon',
-			package: '@atlaskit/icon/core/text-heading',
-			categorization: 'single-purpose',
-			usage: 'Reserved for representing heading styles',
-			keywords: [
-				'text-heading',
-				'textheading',
-				'icon',
-				'text',
-				'heading',
-				'H',
-				'editor',
-				'text style',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TextHeadingIcon","package":"@atlaskit/icon/core/text-heading","categorization":"single-purpose","usage":"Reserved for representing heading styles","keywords":["text-heading","textheading","icon","text","heading","H","editor","text style"],"status":"published"}',
 		componentName: 'TextHeadingIcon',
 		keywords: [
 			'text-heading',
@@ -7084,14 +4017,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TextIndentLeftIcon',
-			package: '@atlaskit/icon/core/text-indent-left',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for shifting the indent of text content left.',
-			keywords: ['text-indent-left', 'textindentleft', 'icon', 'text', 'outdent', 'left', 'arrow'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TextIndentLeftIcon","package":"@atlaskit/icon/core/text-indent-left","categorization":"single-purpose","usage":"Single purpose - Reserved for shifting the indent of text content left.","keywords":["text-indent-left","textindentleft","icon","text","outdent","left","arrow"],"status":"published"}',
 		componentName: 'TextIndentLeftIcon',
 		keywords: ['text-indent-left', 'textindentleft', 'icon', 'text', 'outdent', 'left', 'arrow'],
 		categorization: 'single-purpose',
@@ -7099,22 +4026,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TextIndentRightIcon',
-			package: '@atlaskit/icon/core/text-indent-right',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for shifting the indent of text content right.',
-			keywords: [
-				'text-indent-right',
-				'textindentright',
-				'icon',
-				'text',
-				'indent',
-				'right',
-				'arrow',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TextIndentRightIcon","package":"@atlaskit/icon/core/text-indent-right","categorization":"single-purpose","usage":"Single purpose - Reserved for shifting the indent of text content right.","keywords":["text-indent-right","textindentright","icon","text","indent","right","arrow"],"status":"published"}',
 		componentName: 'TextIndentRightIcon',
 		keywords: ['text-indent-right', 'textindentright', 'icon', 'text', 'indent', 'right', 'arrow'],
 		categorization: 'single-purpose',
@@ -7122,14 +4035,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TextItalicIcon',
-			package: '@atlaskit/icon/core/text-italic',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for italicizing text.',
-			keywords: ['text-italic', 'textitalic', 'icon', 'text', 'type', 'italic', 'font'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TextItalicIcon","package":"@atlaskit/icon/core/text-italic","categorization":"single-purpose","usage":"Single purpose - Reserved for italicizing text.","keywords":["text-italic","textitalic","icon","text","type","italic","font"],"status":"published"}',
 		componentName: 'TextItalicIcon',
 		keywords: ['text-italic', 'textitalic', 'icon', 'text', 'type', 'italic', 'font'],
 		categorization: 'single-purpose',
@@ -7137,23 +4044,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TextShortenIcon',
-			package: '@atlaskit/icon/core/text-shorten',
-			categorization: 'single-purpose',
-			usage: 'Reserved for shortening text content with Atlassian Intelligence.',
-			keywords: [
-				'text-shorten',
-				'textshorten',
-				'icon',
-				'text',
-				'shorten',
-				'abbreviate',
-				'condense',
-				'AI',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TextShortenIcon","package":"@atlaskit/icon/core/text-shorten","categorization":"single-purpose","usage":"Reserved for shortening text content with Atlassian Intelligence.","keywords":["text-shorten","textshorten","icon","text","shorten","abbreviate","condense","AI"],"status":"published"}',
 		componentName: 'TextShortenIcon',
 		keywords: [
 			'text-shorten',
@@ -7170,22 +4062,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TextSpellcheckIcon',
-			package: '@atlaskit/icon/core/text-spellcheck',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for spellchecking.',
-			keywords: [
-				'text-spellcheck',
-				'textspellcheck',
-				'icon',
-				'text',
-				'spelling',
-				'typo',
-				'spellcheck',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TextSpellcheckIcon","package":"@atlaskit/icon/core/text-spellcheck","categorization":"single-purpose","usage":"Single purpose - Reserved for spellchecking.","keywords":["text-spellcheck","textspellcheck","icon","text","spelling","typo","spellcheck"],"status":"published"}',
 		componentName: 'TextSpellcheckIcon',
 		keywords: [
 			'text-spellcheck',
@@ -7201,22 +4079,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TextStrikethroughIcon',
-			package: '@atlaskit/icon/core/text-strikethrough',
-			categorization: 'single-purpose',
-			usage: 'Reserved for strikethrough text tool',
-			keywords: [
-				'text-strikethrough',
-				'textstrikethrough',
-				'icon',
-				'text',
-				'strikethrough',
-				'editor',
-				'cross out',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TextStrikethroughIcon","package":"@atlaskit/icon/core/text-strikethrough","categorization":"single-purpose","usage":"Reserved for strikethrough text tool","keywords":["text-strikethrough","textstrikethrough","icon","text","strikethrough","editor","cross out"],"status":"published"}',
 		componentName: 'TextStrikethroughIcon',
 		keywords: [
 			'text-strikethrough',
@@ -7232,23 +4096,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TextStyleIcon',
-			package: '@atlaskit/icon/core/text-style',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for text styles in Editor.',
-			keywords: [
-				'text-style',
-				'textstyle',
-				'icon',
-				'characters',
-				'font',
-				'letters',
-				'type',
-				'typography',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TextStyleIcon","package":"@atlaskit/icon/core/text-style","categorization":"single-purpose","usage":"Single purpose - Reserved for text styles in Editor.","keywords":["text-style","textstyle","icon","characters","font","letters","type","typography"],"status":"published"}',
 		componentName: 'TextStyleIcon',
 		keywords: [
 			'text-style',
@@ -7265,14 +4114,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TextUnderlineIcon',
-			package: '@atlaskit/icon/core/text-underline',
-			categorization: 'single-purpose',
-			usage: 'Reserved for underlined text tool',
-			keywords: ['text-underline', 'textunderline', 'icon', 'text', 'underline', 'U', 'editor'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TextUnderlineIcon","package":"@atlaskit/icon/core/text-underline","categorization":"single-purpose","usage":"Reserved for underlined text tool","keywords":["text-underline","textunderline","icon","text","underline","U","editor"],"status":"published"}',
 		componentName: 'TextUnderlineIcon',
 		keywords: ['text-underline', 'textunderline', 'icon', 'text', 'underline', 'U', 'editor'],
 		categorization: 'single-purpose',
@@ -7280,14 +4123,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TextWrapIcon',
-			package: '@atlaskit/icon/core/text-wrap',
-			categorization: 'single-purpose',
-			usage: 'Reserved for wrapping text so it spans multiple lines.',
-			keywords: ['text-wrap', 'textwrap', 'icon', 'text', 'wrap', 'line wrap'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TextWrapIcon","package":"@atlaskit/icon/core/text-wrap","categorization":"single-purpose","usage":"Reserved for wrapping text so it spans multiple lines.","keywords":["text-wrap","textwrap","icon","text","wrap","line wrap"],"status":"published"}',
 		componentName: 'TextWrapIcon',
 		keywords: ['text-wrap', 'textwrap', 'icon', 'text', 'wrap', 'line wrap'],
 		categorization: 'single-purpose',
@@ -7295,14 +4132,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ThemeIcon',
-			package: '@atlaskit/icon/core/theme',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for representing themes and theme switching.',
-			keywords: ['theme', 'icon', 'theme', 'light mode', 'dark mode', 'theme switcher'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ThemeIcon","package":"@atlaskit/icon/core/theme","categorization":"single-purpose","usage":"Single purpose - Reserved for representing themes and theme switching.","keywords":["theme","icon","theme","light mode","dark mode","theme switcher"],"status":"published"}',
 		componentName: 'ThemeIcon',
 		keywords: ['theme', 'icon', 'theme', 'light mode', 'dark mode', 'theme switcher'],
 		categorization: 'single-purpose',
@@ -7310,23 +4141,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ThumbsDownIcon',
-			package: '@atlaskit/icon/core/thumbs-down',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: voting, feedback in AI.',
-			keywords: [
-				'thumbs-down',
-				'thumbsdown',
-				'icon',
-				'vote',
-				'downvote',
-				'dislike',
-				'feedback',
-				'hand',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ThumbsDownIcon","package":"@atlaskit/icon/core/thumbs-down","categorization":"multi-purpose","usage":"Multi purpose - Known uses: voting, feedback in AI.","keywords":["thumbs-down","thumbsdown","icon","vote","downvote","dislike","feedback","hand"],"status":"published"}',
 		componentName: 'ThumbsDownIcon',
 		keywords: [
 			'thumbs-down',
@@ -7343,14 +4159,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ThumbsUpIcon',
-			package: '@atlaskit/icon/core/thumbs-up',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known uses: voting options in Jira, like.',
-			keywords: ['thumbs-up', 'thumbsup', 'icon', 'vote', 'upvote', 'like', 'feedback', 'hand'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ThumbsUpIcon","package":"@atlaskit/icon/core/thumbs-up","categorization":"multi-purpose","usage":"Multi purpose - Known uses: voting options in Jira, like.","keywords":["thumbs-up","thumbsup","icon","vote","upvote","like","feedback","hand"],"status":"published"}',
 		componentName: 'ThumbsUpIcon',
 		keywords: ['thumbs-up', 'thumbsup', 'icon', 'vote', 'upvote', 'like', 'feedback', 'hand'],
 		categorization: 'multi-purpose',
@@ -7358,14 +4168,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TimelineIcon',
-			package: '@atlaskit/icon/core/timeline',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for timelines in Jira or Trello.',
-			keywords: ['timeline', 'icon', 'gantt', 'calendar'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TimelineIcon","package":"@atlaskit/icon/core/timeline","categorization":"single-purpose","usage":"Single purpose - Reserved for timelines in Jira or Trello.","keywords":["timeline","icon","gantt","calendar"],"status":"published"}',
 		componentName: 'TimelineIcon',
 		keywords: ['timeline', 'icon', 'gantt', 'calendar'],
 		categorization: 'single-purpose',
@@ -7373,14 +4177,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ToolsIcon',
-			package: '@atlaskit/icon/core/tools',
-			categorization: 'multi-purpose',
-			usage: "Known usages: 'Service request' Jira work type.",
-			keywords: ['tools', 'icon', 'tools', 'wrench', 'spanner', 'screwdriver'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ToolsIcon","package":"@atlaskit/icon/core/tools","categorization":"multi-purpose","usage":"Known usages: \'Service request\' Jira work type.","keywords":["tools","icon","tools","wrench","spanner","screwdriver"],"status":"published"}',
 		componentName: 'ToolsIcon',
 		keywords: ['tools', 'icon', 'tools', 'wrench', 'spanner', 'screwdriver'],
 		categorization: 'multi-purpose',
@@ -7388,14 +4186,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TransitionIcon',
-			package: '@atlaskit/icon/core/transition',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for transitions in Analytics.',
-			keywords: ['transition', 'icon', 'connector', 'movement'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TransitionIcon","package":"@atlaskit/icon/core/transition","categorization":"single-purpose","usage":"Single purpose - Reserved for transitions in Analytics.","keywords":["transition","icon","connector","movement"],"status":"published"}',
 		componentName: 'TransitionIcon',
 		keywords: ['transition', 'icon', 'connector', 'movement'],
 		categorization: 'single-purpose',
@@ -7403,22 +4195,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TranslateIcon',
-			package: '@atlaskit/icon/core/translate',
-			categorization: 'single-purpose',
-			usage: 'Reserved for representing language translations.',
-			keywords: [
-				'translate',
-				'icon',
-				'translate',
-				'language',
-				'i18n',
-				'internationalization',
-				'internationalisation',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TranslateIcon","package":"@atlaskit/icon/core/translate","categorization":"single-purpose","usage":"Reserved for representing language translations.","keywords":["translate","icon","translate","language","i18n","internationalization","internationalisation"],"status":"published"}',
 		componentName: 'TranslateIcon',
 		keywords: [
 			'translate',
@@ -7434,14 +4212,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'TreeIcon',
-			package: '@atlaskit/icon/core/tree',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known usages: Nature emoji category.',
-			keywords: ['tree', 'icon', 'tree', 'nature'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"TreeIcon","package":"@atlaskit/icon/core/tree","categorization":"multi-purpose","usage":"Multi purpose - Known usages: Nature emoji category.","keywords":["tree","icon","tree","nature"],"status":"published"}',
 		componentName: 'TreeIcon',
 		keywords: ['tree', 'icon', 'tree', 'nature'],
 		categorization: 'multi-purpose',
@@ -7449,14 +4221,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'UndoIcon',
-			package: '@atlaskit/icon/core/undo',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for undo in Editor.',
-			keywords: ['undo', 'icon', 'backward', 'mistake', 'correct'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"UndoIcon","package":"@atlaskit/icon/core/undo","categorization":"single-purpose","usage":"Single purpose - Reserved for undo in Editor.","keywords":["undo","icon","backward","mistake","correct"],"status":"published"}',
 		componentName: 'UndoIcon',
 		keywords: ['undo', 'icon', 'backward', 'mistake', 'correct'],
 		categorization: 'single-purpose',
@@ -7464,14 +4230,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'UploadIcon',
-			package: '@atlaskit/icon/core/upload',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for upload in Editor.',
-			keywords: ['upload', 'cloud', 'icon', 'stream', 'file'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"UploadIcon","package":"@atlaskit/icon/core/upload","categorization":"single-purpose","usage":"Single purpose - Reserved for upload in Editor.","keywords":["upload","cloud","icon","stream","file"],"status":"published"}',
 		componentName: 'UploadIcon',
 		keywords: ['upload', 'cloud', 'icon', 'stream', 'file'],
 		categorization: 'single-purpose',
@@ -7479,14 +4239,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'VehicleCarIcon',
-			package: '@atlaskit/icon/core/vehicle-car',
-			categorization: 'multi-purpose',
-			usage: 'Multi purpose - Known usages: Transport emoji category.',
-			keywords: ['vehicle-car', 'vehiclecar', 'icon', 'car', 'transportation', 'vehicle'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"VehicleCarIcon","package":"@atlaskit/icon/core/vehicle-car","categorization":"multi-purpose","usage":"Multi purpose - Known usages: Transport emoji category.","keywords":["vehicle-car","vehiclecar","icon","car","transportation","vehicle"],"status":"published"}',
 		componentName: 'VehicleCarIcon',
 		keywords: ['vehicle-car', 'vehiclecar', 'icon', 'car', 'transportation', 'vehicle'],
 		categorization: 'multi-purpose',
@@ -7494,14 +4248,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'VideoIcon',
-			package: '@atlaskit/icon/core/video',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for representing video content across Atlassian and Loom.',
-			keywords: ['video', 'icon', 'media', 'movie'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"VideoIcon","package":"@atlaskit/icon/core/video","categorization":"single-purpose","usage":"Single purpose - Reserved for representing video content across Atlassian and Loom.","keywords":["video","icon","media","movie"],"status":"published"}',
 		componentName: 'VideoIcon',
 		keywords: ['video', 'icon', 'media', 'movie'],
 		categorization: 'single-purpose',
@@ -7509,14 +4257,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'VideoNextIcon',
-			package: '@atlaskit/icon/core/video-next',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for next video in Media.',
-			keywords: ['video-next', 'videonext', 'icon', 'skip', 'next', 'media', 'forward'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"VideoNextIcon","package":"@atlaskit/icon/core/video-next","categorization":"single-purpose","usage":"Single purpose - Reserved for next video in Media.","keywords":["video-next","videonext","icon","skip","next","media","forward"],"status":"published"}',
 		componentName: 'VideoNextIcon',
 		keywords: ['video-next', 'videonext', 'icon', 'skip', 'next', 'media', 'forward'],
 		categorization: 'single-purpose',
@@ -7524,23 +4266,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'VideoNextOverlayIcon',
-			package: '@atlaskit/icon/core/video-next-overlay',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for next video when icon is overlayed on Media.',
-			keywords: [
-				'video-next-overlay',
-				'videonextoverlay',
-				'icon',
-				'skip',
-				'next',
-				'media',
-				'forward',
-				'filled',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"VideoNextOverlayIcon","package":"@atlaskit/icon/core/video-next-overlay","categorization":"single-purpose","usage":"Single purpose - Reserved for next video when icon is overlayed on Media.","keywords":["video-next-overlay","videonextoverlay","icon","skip","next","media","forward","filled"],"status":"published"}',
 		componentName: 'VideoNextOverlayIcon',
 		keywords: [
 			'video-next-overlay',
@@ -7557,14 +4284,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'VideoPauseIcon',
-			package: '@atlaskit/icon/core/video-pause',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for pause video in Media.',
-			keywords: ['video-pause', 'videopause', 'icon', 'media', 'video'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"VideoPauseIcon","package":"@atlaskit/icon/core/video-pause","categorization":"single-purpose","usage":"Single purpose - Reserved for pause video in Media.","keywords":["video-pause","videopause","icon","media","video"],"status":"published"}',
 		componentName: 'VideoPauseIcon',
 		keywords: ['video-pause', 'videopause', 'icon', 'media', 'video'],
 		categorization: 'single-purpose',
@@ -7572,14 +4293,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'VideoPauseOverlayIcon',
-			package: '@atlaskit/icon/core/video-pause-overlay',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for pause video when icon is overlayed on Media.',
-			keywords: ['video-pause-overlay', 'videopauseoverlay', 'icon', 'media', 'video', 'filled'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"VideoPauseOverlayIcon","package":"@atlaskit/icon/core/video-pause-overlay","categorization":"single-purpose","usage":"Single purpose - Reserved for pause video when icon is overlayed on Media.","keywords":["video-pause-overlay","videopauseoverlay","icon","media","video","filled"],"status":"published"}',
 		componentName: 'VideoPauseOverlayIcon',
 		keywords: ['video-pause-overlay', 'videopauseoverlay', 'icon', 'media', 'video', 'filled'],
 		categorization: 'single-purpose',
@@ -7587,14 +4302,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'VideoPlayIcon',
-			package: '@atlaskit/icon/core/video-play',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for play video in Media.',
-			keywords: ['video-play', 'videoplay', 'icon', 'media', 'video'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"VideoPlayIcon","package":"@atlaskit/icon/core/video-play","categorization":"single-purpose","usage":"Single purpose - Reserved for play video in Media.","keywords":["video-play","videoplay","icon","media","video"],"status":"published"}',
 		componentName: 'VideoPlayIcon',
 		keywords: ['video-play', 'videoplay', 'icon', 'media', 'video'],
 		categorization: 'single-purpose',
@@ -7602,14 +4311,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'VideoPlayOverlayIcon',
-			package: '@atlaskit/icon/core/video-play-overlay',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for play video when icon is overlayed on Media.',
-			keywords: ['video-play-overlay', 'videoplayoverlay', 'icon', 'media', 'video', 'filled'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"VideoPlayOverlayIcon","package":"@atlaskit/icon/core/video-play-overlay","categorization":"single-purpose","usage":"Single purpose - Reserved for play video when icon is overlayed on Media.","keywords":["video-play-overlay","videoplayoverlay","icon","media","video","filled"],"status":"published"}',
 		componentName: 'VideoPlayOverlayIcon',
 		keywords: ['video-play-overlay', 'videoplayoverlay', 'icon', 'media', 'video', 'filled'],
 		categorization: 'single-purpose',
@@ -7617,14 +4320,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'VideoPreviousIcon',
-			package: '@atlaskit/icon/core/video-previous',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for previous video in Media.',
-			keywords: ['video-previous', 'videoprevious', 'icon', 'media', 'video', 'back', 'previous'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"VideoPreviousIcon","package":"@atlaskit/icon/core/video-previous","categorization":"single-purpose","usage":"Single purpose - Reserved for previous video in Media.","keywords":["video-previous","videoprevious","icon","media","video","back","previous"],"status":"published"}',
 		componentName: 'VideoPreviousIcon',
 		keywords: ['video-previous', 'videoprevious', 'icon', 'media', 'video', 'back', 'previous'],
 		categorization: 'single-purpose',
@@ -7632,23 +4329,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'VideoPreviousOverlayIcon',
-			package: '@atlaskit/icon/core/video-previous-overlay',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for previous video when icon is overlayed on Media.',
-			keywords: [
-				'video-previous-overlay',
-				'videopreviousoverlay',
-				'icon',
-				'media',
-				'video',
-				'back',
-				'previous',
-				'filled',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"VideoPreviousOverlayIcon","package":"@atlaskit/icon/core/video-previous-overlay","categorization":"single-purpose","usage":"Single purpose - Reserved for previous video when icon is overlayed on Media.","keywords":["video-previous-overlay","videopreviousoverlay","icon","media","video","back","previous","filled"],"status":"published"}',
 		componentName: 'VideoPreviousOverlayIcon',
 		keywords: [
 			'video-previous-overlay',
@@ -7665,24 +4347,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'VideoSkipBackwardFifteenIcon',
-			package: '@atlaskit/icon/core/video-skip-backward-fifteen',
-			categorization: 'single-purpose',
-			usage: 'Reserved for skipping video content backward by 15 seconds.',
-			keywords: [
-				'video-skip-backward-fifteen',
-				'videoskipbackwardfifteen',
-				'icon',
-				'video',
-				'media',
-				'skip',
-				'backwards',
-				'15',
-				'seconds',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"VideoSkipBackwardFifteenIcon","package":"@atlaskit/icon/core/video-skip-backward-fifteen","categorization":"single-purpose","usage":"Reserved for skipping video content backward by 15 seconds.","keywords":["video-skip-backward-fifteen","videoskipbackwardfifteen","icon","video","media","skip","backwards","15","seconds"],"status":"published"}',
 		componentName: 'VideoSkipBackwardFifteenIcon',
 		keywords: [
 			'video-skip-backward-fifteen',
@@ -7700,24 +4366,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'VideoSkipBackwardTenIcon',
-			package: '@atlaskit/icon/core/video-skip-backward-ten',
-			categorization: 'single-purpose',
-			usage: 'Reserved for skipping video content backwards by 10 seconds.',
-			keywords: [
-				'video-skip-backward-ten',
-				'videoskipbackwardten',
-				'icon',
-				'video',
-				'media',
-				'skip',
-				'backwards',
-				'10',
-				'seconds',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"VideoSkipBackwardTenIcon","package":"@atlaskit/icon/core/video-skip-backward-ten","categorization":"single-purpose","usage":"Reserved for skipping video content backwards by 10 seconds.","keywords":["video-skip-backward-ten","videoskipbackwardten","icon","video","media","skip","backwards","10","seconds"],"status":"published"}',
 		componentName: 'VideoSkipBackwardTenIcon',
 		keywords: [
 			'video-skip-backward-ten',
@@ -7735,24 +4385,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'VideoSkipForwardFifteenIcon',
-			package: '@atlaskit/icon/core/video-skip-forward-fifteen',
-			categorization: 'single-purpose',
-			usage: 'Reserved for skipping video content forward by 15 seconds.',
-			keywords: [
-				'video-skip-forward-fifteen',
-				'videoskipforwardfifteen',
-				'icon',
-				'video',
-				'media',
-				'skip',
-				'forward',
-				'15',
-				'seconds',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"VideoSkipForwardFifteenIcon","package":"@atlaskit/icon/core/video-skip-forward-fifteen","categorization":"single-purpose","usage":"Reserved for skipping video content forward by 15 seconds.","keywords":["video-skip-forward-fifteen","videoskipforwardfifteen","icon","video","media","skip","forward","15","seconds"],"status":"published"}',
 		componentName: 'VideoSkipForwardFifteenIcon',
 		keywords: [
 			'video-skip-forward-fifteen',
@@ -7770,24 +4404,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'VideoSkipForwardTenIcon',
-			package: '@atlaskit/icon/core/video-skip-forward-ten',
-			categorization: 'single-purpose',
-			usage: 'Reserved for skipping video content forward by 10 seconds.',
-			keywords: [
-				'video-skip-forward-ten',
-				'videoskipforwardten',
-				'icon',
-				'video',
-				'media',
-				'skip',
-				'forward',
-				'10',
-				'seconds',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"VideoSkipForwardTenIcon","package":"@atlaskit/icon/core/video-skip-forward-ten","categorization":"single-purpose","usage":"Reserved for skipping video content forward by 10 seconds.","keywords":["video-skip-forward-ten","videoskipforwardten","icon","video","media","skip","forward","10","seconds"],"status":"published"}',
 		componentName: 'VideoSkipForwardTenIcon',
 		keywords: [
 			'video-skip-forward-ten',
@@ -7805,14 +4423,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'VideoStopIcon',
-			package: '@atlaskit/icon/core/video-stop',
-			categorization: 'single-purpose',
-			usage: 'Reserved for stopping video content.',
-			keywords: ['video-stop', 'videostop', 'icon', 'video', 'stop'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"VideoStopIcon","package":"@atlaskit/icon/core/video-stop","categorization":"single-purpose","usage":"Reserved for stopping video content.","keywords":["video-stop","videostop","icon","video","stop"],"status":"published"}',
 		componentName: 'VideoStopIcon',
 		keywords: ['video-stop', 'videostop', 'icon', 'video', 'stop'],
 		categorization: 'single-purpose',
@@ -7820,22 +4432,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'VideoStopOverlayIcon',
-			package: '@atlaskit/icon/core/video-stop-overlay',
-			categorization: 'single-purpose',
-			usage: 'Reserved for stopping video content. Use on dark or translucent backgrounds.',
-			keywords: [
-				'video-stop-overlay',
-				'videostopoverlay',
-				'icon',
-				'video',
-				'stop',
-				'overlay',
-				'inverse',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"VideoStopOverlayIcon","package":"@atlaskit/icon/core/video-stop-overlay","categorization":"single-purpose","usage":"Reserved for stopping video content. Use on dark or translucent backgrounds.","keywords":["video-stop-overlay","videostopoverlay","icon","video","stop","overlay","inverse"],"status":"published"}',
 		componentName: 'VideoStopOverlayIcon',
 		keywords: [
 			'video-stop-overlay',
@@ -7851,14 +4449,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'VolumeHighIcon',
-			package: '@atlaskit/icon/core/volume-high',
-			categorization: 'multi-purpose',
-			usage: '📦 @atlaskit/icon/core/volume-high',
-			keywords: ['volume-high', 'volumehigh', 'icon', 'louder', 'volume up'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"VolumeHighIcon","package":"@atlaskit/icon/core/volume-high","categorization":"multi-purpose","usage":"📦 @atlaskit/icon/core/volume-high","keywords":["volume-high","volumehigh","icon","louder","volume up"],"status":"published"}',
 		componentName: 'VolumeHighIcon',
 		keywords: ['volume-high', 'volumehigh', 'icon', 'louder', 'volume up'],
 		categorization: 'multi-purpose',
@@ -7866,14 +4458,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'VolumeLowIcon',
-			package: '@atlaskit/icon/core/volume-low',
-			categorization: 'multi-purpose',
-			usage: '📦 @atlaskit/icon/core/volume-low',
-			keywords: ['volume-low', 'volumelow', 'icon', 'quiter', 'volume down'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"VolumeLowIcon","package":"@atlaskit/icon/core/volume-low","categorization":"multi-purpose","usage":"📦 @atlaskit/icon/core/volume-low","keywords":["volume-low","volumelow","icon","quiter","volume down"],"status":"published"}',
 		componentName: 'VolumeLowIcon',
 		keywords: ['volume-low', 'volumelow', 'icon', 'quiter', 'volume down'],
 		categorization: 'multi-purpose',
@@ -7881,14 +4467,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'VolumeMutedIcon',
-			package: '@atlaskit/icon/core/volume-muted',
-			categorization: 'multi-purpose',
-			usage: '📦 @atlaskit/icon/core/volume-muted',
-			keywords: ['volume-muted', 'volumemuted', 'icon', 'volume off', 'no volume'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"VolumeMutedIcon","package":"@atlaskit/icon/core/volume-muted","categorization":"multi-purpose","usage":"📦 @atlaskit/icon/core/volume-muted","keywords":["volume-muted","volumemuted","icon","volume off","no volume"],"status":"published"}',
 		componentName: 'VolumeMutedIcon',
 		keywords: ['volume-muted', 'volumemuted', 'icon', 'volume off', 'no volume'],
 		categorization: 'multi-purpose',
@@ -7896,26 +4476,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'WarningIcon',
-			package: '@atlaskit/icon/core/warning',
-			categorization: 'single-purpose',
-			usage:
-				'Reserved for warning statuses. Filled status icons provide higher visual contrast to draw attention to important information.',
-			keywords: [
-				'warning',
-				'error',
-				'alert',
-				'icon',
-				'alert',
-				'filled',
-				'exclamation',
-				'!',
-				'warning',
-				'status',
-			],
-			status: 'deprecated',
-		},
+		content:
+			'{"componentName":"WarningIcon","package":"@atlaskit/icon/core/warning","categorization":"single-purpose","usage":"Reserved for warning statuses. Filled status icons provide higher visual contrast to draw attention to important information.","keywords":["warning","error","alert","icon","alert","filled","exclamation","!","warning","status"],"status":"deprecated"}',
 		componentName: 'WarningIcon',
 		keywords: [
 			'warning',
@@ -7935,14 +4497,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'deprecated',
 	},
 	{
-		content: {
-			componentName: 'WhiteboardIcon',
-			package: '@atlaskit/icon/core/whiteboard',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for whiteboards in Confluence.',
-			keywords: ['whiteboard', 'icon', 'shapes', 'canvas'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"WhiteboardIcon","package":"@atlaskit/icon/core/whiteboard","categorization":"single-purpose","usage":"Single purpose - Reserved for whiteboards in Confluence.","keywords":["whiteboard","icon","shapes","canvas"],"status":"published"}',
 		componentName: 'WhiteboardIcon',
 		keywords: ['whiteboard', 'icon', 'shapes', 'canvas'],
 		categorization: 'single-purpose',
@@ -7950,14 +4506,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'WorkItemIcon',
-			package: '@atlaskit/icon/core/work-item',
-			categorization: 'single-purpose',
-			usage: 'Reserved for work items.',
-			keywords: ['work-item', 'workitem', 'icon', 'check mark', 'tick', 'work item', 'work type'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"WorkItemIcon","package":"@atlaskit/icon/core/work-item","categorization":"single-purpose","usage":"Reserved for work items.","keywords":["work-item","workitem","icon","check mark","tick","work item","work type"],"status":"published"}',
 		componentName: 'WorkItemIcon',
 		keywords: ['work-item', 'workitem', 'icon', 'check mark', 'tick', 'work item', 'work type'],
 		categorization: 'single-purpose',
@@ -7965,22 +4515,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'WorkItemsIcon',
-			package: '@atlaskit/icon/core/work-items',
-			categorization: 'single-purpose',
-			usage: 'Reserved for representing multiple work items.',
-			keywords: [
-				'work-items',
-				'workitems',
-				'icon',
-				'check mark',
-				'tick',
-				'work items',
-				'work type',
-			],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"WorkItemsIcon","package":"@atlaskit/icon/core/work-items","categorization":"single-purpose","usage":"Reserved for representing multiple work items.","keywords":["work-items","workitems","icon","check mark","tick","work items","work type"],"status":"published"}',
 		componentName: 'WorkItemsIcon',
 		keywords: ['work-items', 'workitems', 'icon', 'check mark', 'tick', 'work items', 'work type'],
 		categorization: 'single-purpose',
@@ -7988,14 +4524,8 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ZoomInIcon',
-			package: '@atlaskit/icon/core/zoom-in',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for zooming in of an object or view.',
-			keywords: ['zoom-in', 'zoomin', 'icon', 'magnify', 'magnifying glass'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ZoomInIcon","package":"@atlaskit/icon/core/zoom-in","categorization":"single-purpose","usage":"Single purpose - Reserved for zooming in of an object or view.","keywords":["zoom-in","zoomin","icon","magnify","magnifying glass"],"status":"published"}',
 		componentName: 'ZoomInIcon',
 		keywords: ['zoom-in', 'zoomin', 'icon', 'magnify', 'magnifying glass'],
 		categorization: 'single-purpose',
@@ -8003,18 +4533,6915 @@ export const iconMcpStructuredContent: IconStructuredContent[] = [
 		status: 'published',
 	},
 	{
-		content: {
-			componentName: 'ZoomOutIcon',
-			package: '@atlaskit/icon/core/zoom-out',
-			categorization: 'single-purpose',
-			usage: 'Single purpose - Reserved for zooming out of an object or view.',
-			keywords: ['zoom-out', 'zoomout', 'icon', 'minify', 'magnifying glass'],
-			status: 'published',
-		},
+		content:
+			'{"componentName":"ZoomOutIcon","package":"@atlaskit/icon/core/zoom-out","categorization":"single-purpose","usage":"Single purpose - Reserved for zooming out of an object or view.","keywords":["zoom-out","zoomout","icon","minify","magnifying glass"],"status":"published"}',
 		componentName: 'ZoomOutIcon',
 		keywords: ['zoom-out', 'zoomout', 'icon', 'minify', 'magnifying glass'],
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for zooming out of an object or view.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AiBotIcon","package":"@atlaskit/icon-lab/core/ai-bot","categorization":"single-purpose","usage":"Reserved for representing AI bots.","keywords":["ai-bot","aibot","icon","icon-lab","AI","chat bot"],"status":"published"}',
+		componentName: 'AiBotIcon',
+		keywords: ['ai-bot', 'aibot', 'icon', 'icon-lab', 'AI', 'chat bot'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing AI bots.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AiComputeIcon","package":"@atlaskit/icon-lab/core/ai-compute","categorization":"single-purpose","usage":"Reserved for representing AI compute and memory.","keywords":["ai-compute","aicompute","icon","icon-lab","AI","brain","circuit","memory","compute"],"status":"published"}',
+		componentName: 'AiComputeIcon',
+		keywords: [
+			'ai-compute',
+			'aicompute',
+			'icon',
+			'icon-lab',
+			'AI',
+			'brain',
+			'circuit',
+			'memory',
+			'compute',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing AI compute and memory.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AiGenerativeAudioBriefingIcon","package":"@atlaskit/icon-lab/core/ai-generative-audio-briefing","categorization":"single-purpose","usage":"Reserved for Audio Briefings, a new feature launching within Confluence to help people develop an expanded awareness on a topic by generating AI-powered podcasts about their work.","keywords":["ai-generative-audio-briefing","aigenerativeaudiobriefing","icon","icon-lab","audio briefing","breifing","podcast","headphones","AI"],"status":"published"}',
+		componentName: 'AiGenerativeAudioBriefingIcon',
+		keywords: [
+			'ai-generative-audio-briefing',
+			'aigenerativeaudiobriefing',
+			'icon',
+			'icon-lab',
+			'audio briefing',
+			'breifing',
+			'podcast',
+			'headphones',
+			'AI',
+		],
+		categorization: 'single-purpose',
+		usage:
+			'Reserved for Audio Briefings, a new feature launching within Confluence to help people develop an expanded awareness on a topic by generating AI-powered podcasts about their work.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AiGenerativeChaptersIcon","package":"@atlaskit/icon-lab/core/ai-generative-chapters","categorization":"single-purpose","usage":"Reserved for auto chapters functionality in Loom.","keywords":["ai-generative-chapters","aigenerativechapters","icon","icon-lab","book","AI","automation"],"status":"published"}',
+		componentName: 'AiGenerativeChaptersIcon',
+		keywords: [
+			'ai-generative-chapters',
+			'aigenerativechapters',
+			'icon',
+			'icon-lab',
+			'book',
+			'AI',
+			'automation',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for auto chapters functionality in Loom.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AiGenerativeCleanupIcon","package":"@atlaskit/icon-lab/core/ai-generative-cleanup","categorization":"single-purpose","usage":"Reserved for automated cleanup and tidy functionality","keywords":["ai-generative-cleanup","aigenerativecleanup","icon","icon-lab","broom","tidy","clean up"],"status":"published"}',
+		componentName: 'AiGenerativeCleanupIcon',
+		keywords: [
+			'ai-generative-cleanup',
+			'aigenerativecleanup',
+			'icon',
+			'icon-lab',
+			'broom',
+			'tidy',
+			'clean up',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for automated cleanup and tidy functionality',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AiGenerativeRemoveIcon","package":"@atlaskit/icon-lab/core/ai-generative-remove","categorization":"single-purpose","usage":"Reserved for remove filler words functionality in Loom","keywords":["ai-generative-remove","aigenerativeremove","icon","icon-lab","eraser","AI","automation"],"status":"published"}',
+		componentName: 'AiGenerativeRemoveIcon',
+		keywords: [
+			'ai-generative-remove',
+			'aigenerativeremove',
+			'icon',
+			'icon-lab',
+			'eraser',
+			'AI',
+			'automation',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for remove filler words functionality in Loom',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AiGenerativeRemoveSilenceIcon","package":"@atlaskit/icon-lab/core/ai-generative-remove-silence","categorization":"single-purpose","usage":"Reserved for silence removal functionality in Loom","keywords":["ai-generative-remove-silence","aigenerativeremovesilence","icon","icon-lab","empty","AI","automation","pauses","silences"],"status":"published"}',
+		componentName: 'AiGenerativeRemoveSilenceIcon',
+		keywords: [
+			'ai-generative-remove-silence',
+			'aigenerativeremovesilence',
+			'icon',
+			'icon-lab',
+			'empty',
+			'AI',
+			'automation',
+			'pauses',
+			'silences',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for silence removal functionality in Loom',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AiGenerativeTextIcon","package":"@atlaskit/icon-lab/core/ai-generative-text","categorization":"single-purpose","usage":"Reserved for auto draft functionality in Loom.","keywords":["ai-generative-text","aigenerativetext","icon","icon-lab","pencil","AI","automation"],"status":"published"}',
+		componentName: 'AiGenerativeTextIcon',
+		keywords: [
+			'ai-generative-text',
+			'aigenerativetext',
+			'icon',
+			'icon-lab',
+			'pencil',
+			'AI',
+			'automation',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for auto draft functionality in Loom.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AiGenerativeTextTitleIcon","package":"@atlaskit/icon-lab/core/ai-generative-text-title","categorization":"single-purpose","usage":"Reserved for auto titles functionality in Loom","keywords":["ai-generative-text-title","aigenerativetexttitle","icon","icon-lab","text","AI","automation","header"],"status":"published"}',
+		componentName: 'AiGenerativeTextTitleIcon',
+		keywords: [
+			'ai-generative-text-title',
+			'aigenerativetexttitle',
+			'icon',
+			'icon-lab',
+			'text',
+			'AI',
+			'automation',
+			'header',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for auto titles functionality in Loom',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AiModelIcon","package":"@atlaskit/icon-lab/core/ai-model","categorization":"single-purpose","usage":"Reserved for representing large language and reasoning models.","keywords":["ai-model","aimodel","icon","icon-lab","machine learning","AI","model","brain","reasoning","LLM","large language model"],"status":"published"}',
+		componentName: 'AiModelIcon',
+		keywords: [
+			'ai-model',
+			'aimodel',
+			'icon',
+			'icon-lab',
+			'machine learning',
+			'AI',
+			'model',
+			'brain',
+			'reasoning',
+			'LLM',
+			'large language model',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing large language and reasoning models.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AiSearchIcon","package":"@atlaskit/icon-lab/core/ai-search","categorization":"single-purpose","usage":"Reserved for search interactions powered by Rovo/AI.","keywords":["ai-search","aisearch","icon","icon-lab","search sparkle","rovo sparkle","search","rovo","AI search"],"status":"published"}',
+		componentName: 'AiSearchIcon',
+		keywords: [
+			'ai-search',
+			'aisearch',
+			'icon',
+			'icon-lab',
+			'search sparkle',
+			'rovo sparkle',
+			'search',
+			'rovo',
+			'AI search',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for search interactions powered by Rovo/AI.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AlignContentBottomIcon","package":"@atlaskit/icon-lab/core/align-content-bottom","categorization":"multi-purpose","usage":"Used for aligning bottom edges of content in Whiteboards","keywords":["align-content-bottom","aligncontentbottom","icon","icon-lab","align","alignment","content","bottom","vertical"],"status":"published"}',
+		componentName: 'AlignContentBottomIcon',
+		keywords: [
+			'align-content-bottom',
+			'aligncontentbottom',
+			'icon',
+			'icon-lab',
+			'align',
+			'alignment',
+			'content',
+			'bottom',
+			'vertical',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Used for aligning bottom edges of content in Whiteboards',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AlignContentCenterHorizontalIcon","package":"@atlaskit/icon-lab/core/align-content-center-horizontal","categorization":"multi-purpose","usage":"Used for aligning horizontal centers of content in Whiteboards","keywords":["align-content-center-horizontal","aligncontentcenterhorizontal","icon","icon-lab","align","alignment","content","center","middle","horizontal"],"status":"published"}',
+		componentName: 'AlignContentCenterHorizontalIcon',
+		keywords: [
+			'align-content-center-horizontal',
+			'aligncontentcenterhorizontal',
+			'icon',
+			'icon-lab',
+			'align',
+			'alignment',
+			'content',
+			'center',
+			'middle',
+			'horizontal',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Used for aligning horizontal centers of content in Whiteboards',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AlignContentCenterVerticalIcon","package":"@atlaskit/icon-lab/core/align-content-center-vertical","categorization":"multi-purpose","usage":"Used for aligning vertical centers of content in Whiteboards","keywords":["align-content-center-vertical","aligncontentcentervertical","icon","icon-lab","align","alignment","content","center","vertical"],"status":"published"}',
+		componentName: 'AlignContentCenterVerticalIcon',
+		keywords: [
+			'align-content-center-vertical',
+			'aligncontentcentervertical',
+			'icon',
+			'icon-lab',
+			'align',
+			'alignment',
+			'content',
+			'center',
+			'vertical',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Used for aligning vertical centers of content in Whiteboards',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AlignContentLeftIcon","package":"@atlaskit/icon-lab/core/align-content-left","categorization":"multi-purpose","usage":"Used for aligning left edges of content in Whiteboards","keywords":["align-content-left","aligncontentleft","icon","icon-lab","align","alignment","content","left","horizontal"],"status":"published"}',
+		componentName: 'AlignContentLeftIcon',
+		keywords: [
+			'align-content-left',
+			'aligncontentleft',
+			'icon',
+			'icon-lab',
+			'align',
+			'alignment',
+			'content',
+			'left',
+			'horizontal',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Used for aligning left edges of content in Whiteboards',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AlignContentRightIcon","package":"@atlaskit/icon-lab/core/align-content-right","categorization":"multi-purpose","usage":"Used for aligning right edges of content in Whiteboards","keywords":["align-content-right","aligncontentright","icon","icon-lab","align","alignment","content","right","horizontal"],"status":"published"}',
+		componentName: 'AlignContentRightIcon',
+		keywords: [
+			'align-content-right',
+			'aligncontentright',
+			'icon',
+			'icon-lab',
+			'align',
+			'alignment',
+			'content',
+			'right',
+			'horizontal',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Used for aligning right edges of content in Whiteboards',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AlignContentTopIcon","package":"@atlaskit/icon-lab/core/align-content-top","categorization":"multi-purpose","usage":"Used for aligning top edges of content in Whiteboards","keywords":["align-content-top","aligncontenttop","icon","icon-lab","align","alignment","content","top","vertical"],"status":"published"}',
+		componentName: 'AlignContentTopIcon',
+		keywords: [
+			'align-content-top',
+			'aligncontenttop',
+			'icon',
+			'icon-lab',
+			'align',
+			'alignment',
+			'content',
+			'top',
+			'vertical',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Used for aligning top edges of content in Whiteboards',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AlignPositionBottomIcon","package":"@atlaskit/icon-lab/core/align-position-bottom","categorization":"multi-purpose","usage":"Bottom-aligned text position within sticky notes in Whiteboards.","keywords":["align-position-bottom","alignpositionbottom","icon","icon-lab","align","alignment","middle","text position","bottom","vertical"],"status":"published"}',
+		componentName: 'AlignPositionBottomIcon',
+		keywords: [
+			'align-position-bottom',
+			'alignpositionbottom',
+			'icon',
+			'icon-lab',
+			'align',
+			'alignment',
+			'middle',
+			'text position',
+			'bottom',
+			'vertical',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Bottom-aligned text position within sticky notes in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AlignPositionCenterVerticalIcon","package":"@atlaskit/icon-lab/core/align-position-center-vertical","categorization":"multi-purpose","usage":"Center-aligned text position within sticky notes in Whiteboards.","keywords":["align-position-center-vertical","alignpositioncentervertical","icon","icon-lab","align","alignment","middle","center","text position","vertical"],"status":"published"}',
+		componentName: 'AlignPositionCenterVerticalIcon',
+		keywords: [
+			'align-position-center-vertical',
+			'alignpositioncentervertical',
+			'icon',
+			'icon-lab',
+			'align',
+			'alignment',
+			'middle',
+			'center',
+			'text position',
+			'vertical',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Center-aligned text position within sticky notes in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AlignPositionTopIcon","package":"@atlaskit/icon-lab/core/align-position-top","categorization":"multi-purpose","usage":"Top-aligned text position within sticky notes in Whiteboards.","keywords":["align-position-top","alignpositiontop","icon","icon-lab","align","alignment","top edge","text position","vertical"],"status":"published"}',
+		componentName: 'AlignPositionTopIcon',
+		keywords: [
+			'align-position-top',
+			'alignpositiontop',
+			'icon',
+			'icon-lab',
+			'align',
+			'alignment',
+			'top edge',
+			'text position',
+			'vertical',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Top-aligned text position within sticky notes in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ArrowCurvedDownLeftIcon","package":"@atlaskit/icon-lab/core/arrow-curved-down-left","categorization":"multi-purpose","usage":"","keywords":["arrow-curved-down-left","arrowcurveddownleft","icon","icon-lab","arrow","curved","turn","rotate","corner"],"status":"published"}',
+		componentName: 'ArrowCurvedDownLeftIcon',
+		keywords: [
+			'arrow-curved-down-left',
+			'arrowcurveddownleft',
+			'icon',
+			'icon-lab',
+			'arrow',
+			'curved',
+			'turn',
+			'rotate',
+			'corner',
+		],
+		categorization: 'multi-purpose',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ArrowCurvedDownRightIcon","package":"@atlaskit/icon-lab/core/arrow-curved-down-right","categorization":"multi-purpose","usage":"","keywords":["arrow-curved-down-right","arrowcurveddownright","icon","icon-lab","arrow","curved","turn","rotate","corner"],"status":"published"}',
+		componentName: 'ArrowCurvedDownRightIcon',
+		keywords: [
+			'arrow-curved-down-right',
+			'arrowcurveddownright',
+			'icon',
+			'icon-lab',
+			'arrow',
+			'curved',
+			'turn',
+			'rotate',
+			'corner',
+		],
+		categorization: 'multi-purpose',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ArrowCurvedLeftDownIcon","package":"@atlaskit/icon-lab/core/arrow-curved-left-down","categorization":"multi-purpose","usage":"","keywords":["arrow-curved-left-down","arrowcurvedleftdown","icon","icon-lab","arrow","curved","turn","rotate","corner"],"status":"published"}',
+		componentName: 'ArrowCurvedLeftDownIcon',
+		keywords: [
+			'arrow-curved-left-down',
+			'arrowcurvedleftdown',
+			'icon',
+			'icon-lab',
+			'arrow',
+			'curved',
+			'turn',
+			'rotate',
+			'corner',
+		],
+		categorization: 'multi-purpose',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ArrowCurvedLeftUpIcon","package":"@atlaskit/icon-lab/core/arrow-curved-left-up","categorization":"multi-purpose","usage":"","keywords":["arrow-curved-left-up","arrowcurvedleftup","icon","icon-lab","arrow","curved","turn","rotate","corner"],"status":"published"}',
+		componentName: 'ArrowCurvedLeftUpIcon',
+		keywords: [
+			'arrow-curved-left-up',
+			'arrowcurvedleftup',
+			'icon',
+			'icon-lab',
+			'arrow',
+			'curved',
+			'turn',
+			'rotate',
+			'corner',
+		],
+		categorization: 'multi-purpose',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ArrowCurvedRightDownIcon","package":"@atlaskit/icon-lab/core/arrow-curved-right-down","categorization":"multi-purpose","usage":"","keywords":["arrow-curved-right-down","arrowcurvedrightdown","icon","icon-lab","arrow","curved","turn","rotate","corner"],"status":"published"}',
+		componentName: 'ArrowCurvedRightDownIcon',
+		keywords: [
+			'arrow-curved-right-down',
+			'arrowcurvedrightdown',
+			'icon',
+			'icon-lab',
+			'arrow',
+			'curved',
+			'turn',
+			'rotate',
+			'corner',
+		],
+		categorization: 'multi-purpose',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ArrowCurvedRightUpIcon","package":"@atlaskit/icon-lab/core/arrow-curved-right-up","categorization":"multi-purpose","usage":"","keywords":["arrow-curved-right-up","arrowcurvedrightup","icon","icon-lab","arrow","curved","turn","rotate","corner"],"status":"published"}',
+		componentName: 'ArrowCurvedRightUpIcon',
+		keywords: [
+			'arrow-curved-right-up',
+			'arrowcurvedrightup',
+			'icon',
+			'icon-lab',
+			'arrow',
+			'curved',
+			'turn',
+			'rotate',
+			'corner',
+		],
+		categorization: 'multi-purpose',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ArrowCurvedUpLeftIcon","package":"@atlaskit/icon-lab/core/arrow-curved-up-left","categorization":"multi-purpose","usage":"","keywords":["arrow-curved-up-left","arrowcurvedupleft","icon","icon-lab","arrow","curved","turn","rotate","corner"],"status":"published"}',
+		componentName: 'ArrowCurvedUpLeftIcon',
+		keywords: [
+			'arrow-curved-up-left',
+			'arrowcurvedupleft',
+			'icon',
+			'icon-lab',
+			'arrow',
+			'curved',
+			'turn',
+			'rotate',
+			'corner',
+		],
+		categorization: 'multi-purpose',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ArrowCurvedUpRightIcon","package":"@atlaskit/icon-lab/core/arrow-curved-up-right","categorization":"multi-purpose","usage":"","keywords":["arrow-curved-up-right","arrowcurvedupright","icon","icon-lab","arrow","curved","turn","rotate","corner"],"status":"published"}',
+		componentName: 'ArrowCurvedUpRightIcon',
+		keywords: [
+			'arrow-curved-up-right',
+			'arrowcurvedupright',
+			'icon',
+			'icon-lab',
+			'arrow',
+			'curved',
+			'turn',
+			'rotate',
+			'corner',
+		],
+		categorization: 'multi-purpose',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ArrowEndIcon","package":"@atlaskit/icon-lab/core/arrow-end","categorization":"multi-purpose","usage":"Used for moving an object to the back or ending of a container, moving a column to last position","keywords":["arrow-end","arrowend","icon","icon-lab","move to end","move to back","move to last position","move to far right"],"status":"published"}',
+		componentName: 'ArrowEndIcon',
+		keywords: [
+			'arrow-end',
+			'arrowend',
+			'icon',
+			'icon-lab',
+			'move to end',
+			'move to back',
+			'move to last position',
+			'move to far right',
+		],
+		categorization: 'multi-purpose',
+		usage:
+			'Used for moving an object to the back or ending of a container, moving a column to last position',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ArrowStartIcon","package":"@atlaskit/icon-lab/core/arrow-start","categorization":"multi-purpose","usage":"Used for moving an object to the front or beginning of a container, moving a column to first position","keywords":["arrow-start","arrowstart","icon","icon-lab","move to front","move to start","move to far left","move to first position"],"status":"published"}',
+		componentName: 'ArrowStartIcon',
+		keywords: [
+			'arrow-start',
+			'arrowstart',
+			'icon',
+			'icon-lab',
+			'move to front',
+			'move to start',
+			'move to far left',
+			'move to first position',
+		],
+		categorization: 'multi-purpose',
+		usage:
+			'Used for moving an object to the front or beginning of a container, moving a column to first position',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ArrowsDiagonalUpRightDownLeftIcon","package":"@atlaskit/icon-lab/core/arrows-diagonal-up-right-down-left","categorization":"multi-purpose","usage":"Used within Jira Pages to connect or switch to a Space or page.","keywords":["arrows-diagonal-up-right-down-left","arrowsdiagonaluprightdownleft","icon","icon-lab","Arrows","Switch","Space","Swap","crossflow"],"status":"published"}',
+		componentName: 'ArrowsDiagonalUpRightDownLeftIcon',
+		keywords: [
+			'arrows-diagonal-up-right-down-left',
+			'arrowsdiagonaluprightdownleft',
+			'icon',
+			'icon-lab',
+			'Arrows',
+			'Switch',
+			'Space',
+			'Swap',
+			'crossflow',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Used within Jira Pages to connect or switch to a Space or page.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AskIcon","package":"@atlaskit/icon-lab/core/ask","categorization":"single-purpose","usage":"Reserved for representing Asks in Focus. An ask is structured request made by one team or user to another, representing work needed to complete other work.","keywords":["ask","icon","icon-lab","collaboration","hand shake","ask","focus","structured request","negotation","dependency"],"status":"published"}',
+		componentName: 'AskIcon',
+		keywords: [
+			'ask',
+			'icon',
+			'icon-lab',
+			'collaboration',
+			'hand shake',
+			'ask',
+			'focus',
+			'structured request',
+			'negotation',
+			'dependency',
+		],
+		categorization: 'single-purpose',
+		usage:
+			'Reserved for representing Asks in Focus. An ask is structured request made by one team or user to another, representing work needed to complete other work.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AssetsDataManagerIcon","package":"@atlaskit/icon-lab/core/assets-data-manager","categorization":"single-purpose","usage":"Reserved for JSM Assets.","keywords":["assets-data-manager","assetsdatamanager","icon","icon-lab","data manager","assets","CMDB","configuration management database"],"status":"published"}',
+		componentName: 'AssetsDataManagerIcon',
+		keywords: [
+			'assets-data-manager',
+			'assetsdatamanager',
+			'icon',
+			'icon-lab',
+			'data manager',
+			'assets',
+			'CMDB',
+			'configuration management database',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for JSM Assets.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AssetsGraphIcon","package":"@atlaskit/icon-lab/core/assets-graph","categorization":"single-purpose","usage":"Reserved for representing Assets graph","keywords":["assets-graph","assetsgraph","icon","icon-lab","assets","graph"],"status":"published"}',
+		componentName: 'AssetsGraphIcon',
+		keywords: ['assets-graph', 'assetsgraph', 'icon', 'icon-lab', 'assets', 'graph'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing Assets graph',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AssetsObjectIcon","package":"@atlaskit/icon-lab/core/assets-object","categorization":"single-purpose","usage":"Reserved for representing objects in Assets.","keywords":["assets-object","assetsobject","icon","icon-lab","assets","object","box"],"status":"published"}',
+		componentName: 'AssetsObjectIcon',
+		keywords: ['assets-object', 'assetsobject', 'icon', 'icon-lab', 'assets', 'object', 'box'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing objects in Assets.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AssetsObjectTypeIcon","package":"@atlaskit/icon-lab/core/assets-object-type","categorization":"single-purpose","usage":"Reserved for representing object types in Assets.","keywords":["assets-object-type","assetsobjecttype","icon","icon-lab","assets","object type","collection"],"status":"published"}',
+		componentName: 'AssetsObjectTypeIcon',
+		keywords: [
+			'assets-object-type',
+			'assetsobjecttype',
+			'icon',
+			'icon-lab',
+			'assets',
+			'object type',
+			'collection',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing object types in Assets.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AssetsSchemaIcon","package":"@atlaskit/icon-lab/core/assets-schema","categorization":"single-purpose","usage":"Reserved for representing schema in Assets.","keywords":["assets-schema","assetsschema","icon","icon-lab","assets","CMDB","configuration management database"],"status":"published"}',
+		componentName: 'AssetsSchemaIcon',
+		keywords: [
+			'assets-schema',
+			'assetsschema',
+			'icon',
+			'icon-lab',
+			'assets',
+			'CMDB',
+			'configuration management database',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing schema in Assets.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AtomIcon","package":"@atlaskit/icon-lab/core/atom","categorization":"multi-purpose","usage":"","keywords":["atom","icon","icon-lab","atom","molecule","atomic design"],"status":"published"}',
+		componentName: 'AtomIcon',
+		keywords: ['atom', 'icon', 'icon-lab', 'atom', 'molecule', 'atomic design'],
+		categorization: 'multi-purpose',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"AudioWaveformIcon","package":"@atlaskit/icon-lab/core/audio-waveform","categorization":"multi-purpose","usage":"Known uses: show waveform editor in Loom.","keywords":["audio-waveform","audiowaveform","icon","icon-lab","waveform","audio","soundwave","dialogue","speak"],"status":"published"}',
+		componentName: 'AudioWaveformIcon',
+		keywords: [
+			'audio-waveform',
+			'audiowaveform',
+			'icon',
+			'icon-lab',
+			'waveform',
+			'audio',
+			'soundwave',
+			'dialogue',
+			'speak',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: show waveform editor in Loom.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"BeachUmbrellaIcon","package":"@atlaskit/icon-lab/core/beach-umbrella","categorization":"multi-purpose","usage":"User-selectable icon choice for calendars","keywords":["beach-umbrella","beachumbrella","icon","icon-lab","vacation","beach umbrella","sun shade","holiday"],"status":"published"}',
+		componentName: 'BeachUmbrellaIcon',
+		keywords: [
+			'beach-umbrella',
+			'beachumbrella',
+			'icon',
+			'icon-lab',
+			'vacation',
+			'beach umbrella',
+			'sun shade',
+			'holiday',
+		],
+		categorization: 'multi-purpose',
+		usage: 'User-selectable icon choice for calendars',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"BlastRadiusIcon","package":"@atlaskit/icon-lab/core/blast-radius","categorization":"single-purpose","usage":"Reserved for representing blast radius in Object Graph.","keywords":["blast-radius","blastradius","icon","icon-lab","blast radius","impact area"],"status":"published"}',
+		componentName: 'BlastRadiusIcon',
+		keywords: ['blast-radius', 'blastradius', 'icon', 'icon-lab', 'blast radius', 'impact area'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing blast radius in Object Graph.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"BlockSyncedIcon","package":"@atlaskit/icon-lab/core/block-synced","categorization":"single-purpose","usage":"Reserved for syncing content blocks in Editor experiences.","keywords":["block-synced","blocksynced","icon","icon-lab","sync","synced","content block","snippet"],"status":"published"}',
+		componentName: 'BlockSyncedIcon',
+		keywords: [
+			'block-synced',
+			'blocksynced',
+			'icon',
+			'icon-lab',
+			'sync',
+			'synced',
+			'content block',
+			'snippet',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for syncing content blocks in Editor experiences.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"BluetoothIcon","package":"@atlaskit/icon-lab/core/bluetooth","categorization":"single-purpose","usage":"Reserved for Bluetooth","keywords":["bluetooth","icon","icon-lab","bluetooth","connectivity","bt"],"status":"published"}',
+		componentName: 'BluetoothIcon',
+		keywords: ['bluetooth', 'icon', 'icon-lab', 'bluetooth', 'connectivity', 'bt'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for Bluetooth',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"BlurIcon","package":"@atlaskit/icon-lab/core/blur","categorization":"single-purpose","usage":"Reserved for blurring an element in Loom","keywords":["blur","icon","icon-lab"],"status":"published"}',
+		componentName: 'BlurIcon',
+		keywords: ['blur', 'icon', 'icon-lab'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for blurring an element in Loom',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"BookOpenIcon","package":"@atlaskit/icon-lab/core/book-open","categorization":"multi-purpose","usage":"Known uses: None","keywords":["book-open","bookopen","icon","icon-lab","book","knowledgebase article"],"status":"published"}',
+		componentName: 'BookOpenIcon',
+		keywords: ['book-open', 'bookopen', 'icon', 'icon-lab', 'book', 'knowledgebase article'],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: None',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"BooleanIcon","package":"@atlaskit/icon-lab/core/boolean","categorization":"single-purpose","usage":"Reserved for representing boolean data types and operations.","keywords":["boolean","icon","icon-lab","true","false","binary","boolean","on","off"],"status":"published"}',
+		componentName: 'BooleanIcon',
+		keywords: ['boolean', 'icon', 'icon-lab', 'true', 'false', 'binary', 'boolean', 'on', 'off'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing boolean data types and operations.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"BrowserExtensionIcon","package":"@atlaskit/icon-lab/core/browser-extension","categorization":"single-purpose","usage":"Reserved for chrome extensions","keywords":["browser-extension","browserextension","icon","icon-lab","extension","puzzle piece","add on","jigsaw","chrome web store"],"status":"published"}',
+		componentName: 'BrowserExtensionIcon',
+		keywords: [
+			'browser-extension',
+			'browserextension',
+			'icon',
+			'icon-lab',
+			'extension',
+			'puzzle piece',
+			'add on',
+			'jigsaw',
+			'chrome web store',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for chrome extensions',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"CalculateIcon","package":"@atlaskit/icon-lab/core/calculate","categorization":"single-purpose","usage":"Calculate for databases","keywords":["calculate","icon","icon-lab","Calculate","databases","summation"],"status":"published"}',
+		componentName: 'CalculateIcon',
+		keywords: ['calculate', 'icon', 'icon-lab', 'Calculate', 'databases', 'summation'],
+		categorization: 'single-purpose',
+		usage: 'Calculate for databases',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"CapabilityIcon","package":"@atlaskit/icon-lab/core/capability","categorization":"single-purpose","usage":"Reserved for representing capabilities.","keywords":["capability","icon","icon-lab","capability","capabilities","instance"],"status":"published"}',
+		componentName: 'CapabilityIcon',
+		keywords: ['capability', 'icon', 'icon-lab', 'capability', 'capabilities', 'instance'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing capabilities.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"CartIcon","package":"@atlaskit/icon-lab/core/cart","categorization":"single-purpose","usage":"Reserved for representing the cart in online purchase experiences.","keywords":["cart","icon","icon-lab","shopping cart","shopping trolley","checkout"],"status":"published"}',
+		componentName: 'CartIcon',
+		keywords: ['cart', 'icon', 'icon-lab', 'shopping cart', 'shopping trolley', 'checkout'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing the cart in online purchase experiences.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ChartAreaIcon","package":"@atlaskit/icon-lab/core/chart-area","categorization":"multi-purpose","usage":"Known uses: Area charts","keywords":["chart-area","chartarea","icon","icon-lab","chart","area","analytics","graph"],"status":"published"}',
+		componentName: 'ChartAreaIcon',
+		keywords: [
+			'chart-area',
+			'chartarea',
+			'icon',
+			'icon-lab',
+			'chart',
+			'area',
+			'analytics',
+			'graph',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Area charts',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ChartBarLineIcon","package":"@atlaskit/icon-lab/core/chart-bar-line","categorization":"multi-purpose","usage":"Known uses: Bar charts with trend lines","keywords":["chart-bar-line","chartbarline","icon","icon-lab","chart","bar","line","trend","graph","analytics"],"status":"published"}',
+		componentName: 'ChartBarLineIcon',
+		keywords: [
+			'chart-bar-line',
+			'chartbarline',
+			'icon',
+			'icon-lab',
+			'chart',
+			'bar',
+			'line',
+			'trend',
+			'graph',
+			'analytics',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Bar charts with trend lines',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ChartBoxPlotIcon","package":"@atlaskit/icon-lab/core/chart-box-plot","categorization":"multi-purpose","usage":"Known uses: Box plot charts","keywords":["chart-box-plot","chartboxplot","icon","icon-lab","chart","box plot","whisker","distribution","quartile","analytics"],"status":"published"}',
+		componentName: 'ChartBoxPlotIcon',
+		keywords: [
+			'chart-box-plot',
+			'chartboxplot',
+			'icon',
+			'icon-lab',
+			'chart',
+			'box plot',
+			'whisker',
+			'distribution',
+			'quartile',
+			'analytics',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Box plot charts',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ChartBulletIcon","package":"@atlaskit/icon-lab/core/chart-bullet","categorization":"multi-purpose","usage":"Known uses: Bullet charts or graphs","keywords":["chart-bullet","chartbullet","icon","icon-lab","bullet","chart","graph","primary measure"],"status":"published"}',
+		componentName: 'ChartBulletIcon',
+		keywords: [
+			'chart-bullet',
+			'chartbullet',
+			'icon',
+			'icon-lab',
+			'bullet',
+			'chart',
+			'graph',
+			'primary measure',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Bullet charts or graphs',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ChartExtrapolateIcon","package":"@atlaskit/icon-lab/core/chart-extrapolate","categorization":"multi-purpose","usage":"Known uses: Chart trend extrapolation in Analytics.","keywords":["chart-extrapolate","chartextrapolate","icon","icon-lab","chart","trend","extrapolate","analytics"],"status":"published"}',
+		componentName: 'ChartExtrapolateIcon',
+		keywords: [
+			'chart-extrapolate',
+			'chartextrapolate',
+			'icon',
+			'icon-lab',
+			'chart',
+			'trend',
+			'extrapolate',
+			'analytics',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Chart trend extrapolation in Analytics.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ChartFunnelIcon","package":"@atlaskit/icon-lab/core/chart-funnel","categorization":"multi-purpose","usage":"Known uses: Chart funnels","keywords":["chart-funnel","chartfunnel","icon","icon-lab","chart","funnel","sales process","revenue"],"status":"published"}',
+		componentName: 'ChartFunnelIcon',
+		keywords: [
+			'chart-funnel',
+			'chartfunnel',
+			'icon',
+			'icon-lab',
+			'chart',
+			'funnel',
+			'sales process',
+			'revenue',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Chart funnels',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ChartScatterPlotIcon","package":"@atlaskit/icon-lab/core/chart-scatter-plot","categorization":"multi-purpose","usage":"Known uses: Scatter plot chart","keywords":["chart-scatter-plot","chartscatterplot","icon","icon-lab","chart","scatter","dot plot","distribution","analytics"],"status":"published"}',
+		componentName: 'ChartScatterPlotIcon',
+		keywords: [
+			'chart-scatter-plot',
+			'chartscatterplot',
+			'icon',
+			'icon-lab',
+			'chart',
+			'scatter',
+			'dot plot',
+			'distribution',
+			'analytics',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Scatter plot chart',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"CloudIcon","package":"@atlaskit/icon-lab/core/cloud","categorization":"multi-purpose","usage":"Known uses: Cloud resource, Cloud online","keywords":["cloud","icon","icon-lab","cloud"],"status":"published"}',
+		componentName: 'CloudIcon',
+		keywords: ['cloud', 'icon', 'icon-lab', 'cloud'],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Cloud resource, Cloud online',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"CloudOfflineIcon","package":"@atlaskit/icon-lab/core/cloud-offline","categorization":"single-purpose","usage":"Reserved for showing when a connection can\'t be established to the cloud.","keywords":["cloud-offline","cloudoffline","icon","icon-lab","cloud","offline","disconnected","strikethrough"],"status":"published"}',
+		componentName: 'CloudOfflineIcon',
+		keywords: [
+			'cloud-offline',
+			'cloudoffline',
+			'icon',
+			'icon-lab',
+			'cloud',
+			'offline',
+			'disconnected',
+			'strikethrough',
+		],
+		categorization: 'single-purpose',
+		usage: "Reserved for showing when a connection can't be established to the cloud.",
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"CloudSavedIcon","package":"@atlaskit/icon-lab/core/cloud-saved","categorization":"single-purpose","usage":"Reserved for showing saved status after successful cloud synchronisation.","keywords":["cloud-saved","cloudsaved","icon","icon-lab","cloud","check mark","saved","success"],"status":"published"}',
+		componentName: 'CloudSavedIcon',
+		keywords: [
+			'cloud-saved',
+			'cloudsaved',
+			'icon',
+			'icon-lab',
+			'cloud',
+			'check mark',
+			'saved',
+			'success',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for showing saved status after successful cloud synchronisation.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"CoinsIcon","package":"@atlaskit/icon-lab/core/coins","categorization":"multi-purpose","usage":"Multi purpose","keywords":["coins","icon","icon-lab","money","loose change","currency"],"status":"published"}',
+		componentName: 'CoinsIcon',
+		keywords: ['coins', 'icon', 'icon-lab', 'money', 'loose change', 'currency'],
+		categorization: 'multi-purpose',
+		usage: 'Multi purpose',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ColourNoneIcon","package":"@atlaskit/icon-lab/core/colour-none","categorization":"single-purpose","usage":"Remove colours from Whiteboard\'s colour picker","keywords":["colour-none","colournone","icon","icon-lab","Colour","Color","Remove","None","Colour picker"],"status":"published"}',
+		componentName: 'ColourNoneIcon',
+		keywords: [
+			'colour-none',
+			'colournone',
+			'icon',
+			'icon-lab',
+			'Colour',
+			'Color',
+			'Remove',
+			'None',
+			'Colour picker',
+		],
+		categorization: 'single-purpose',
+		usage: "Remove colours from Whiteboard's colour picker",
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"CompareIcon","package":"@atlaskit/icon-lab/core/compare","categorization":"single-purpose","usage":"Reserved for compare functionality in Bitbucket.","keywords":["compare","icon","icon-lab","compare","git","bitbucket","diff"],"status":"published"}',
+		componentName: 'CompareIcon',
+		keywords: ['compare', 'icon', 'icon-lab', 'compare', 'git', 'bitbucket', 'diff'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for compare functionality in Bitbucket.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"CompassHingedIcon","package":"@atlaskit/icon-lab/core/compass-hinged","categorization":"multi-purpose","usage":"","keywords":["compass-hinged","compasshinged","icon","icon-lab","compass","calipers","divider"],"status":"published"}',
+		componentName: 'CompassHingedIcon',
+		keywords: [
+			'compass-hinged',
+			'compasshinged',
+			'icon',
+			'icon-lab',
+			'compass',
+			'calipers',
+			'divider',
+		],
+		categorization: 'multi-purpose',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ContinueWhenIcon","package":"@atlaskit/icon-lab/core/continue-when","categorization":"single-purpose","usage":"Reserved for continue when delay in automation.","keywords":["continue-when","continuewhen","icon","icon-lab"],"status":"published"}',
+		componentName: 'ContinueWhenIcon',
+		keywords: ['continue-when', 'continuewhen', 'icon', 'icon-lab'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for continue when delay in automation.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"CornerRadiusRoundedIcon","package":"@atlaskit/icon-lab/core/corner-radius-rounded","categorization":"single-purpose","usage":"Reserved for rounded corners option for experiences that offer user customization of corner radius.","keywords":["corner-radius-rounded","cornerradiusrounded","icon","icon-lab","corner radius","radii","rounded corner","round corners"],"status":"published"}',
+		componentName: 'CornerRadiusRoundedIcon',
+		keywords: [
+			'corner-radius-rounded',
+			'cornerradiusrounded',
+			'icon',
+			'icon-lab',
+			'corner radius',
+			'radii',
+			'rounded corner',
+			'round corners',
+		],
+		categorization: 'single-purpose',
+		usage:
+			'Reserved for rounded corners option for experiences that offer user customization of corner radius.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"CornerRadiusSquaredIcon","package":"@atlaskit/icon-lab/core/corner-radius-squared","categorization":"single-purpose","usage":"Reserved for squared corners option for experiences that offer user customization of corner radius.","keywords":["corner-radius-squared","cornerradiussquared","icon","icon-lab","corner radius","radii","squared corner","square corners"],"status":"published"}',
+		componentName: 'CornerRadiusSquaredIcon',
+		keywords: [
+			'corner-radius-squared',
+			'cornerradiussquared',
+			'icon',
+			'icon-lab',
+			'corner radius',
+			'radii',
+			'squared corner',
+			'square corners',
+		],
+		categorization: 'single-purpose',
+		usage:
+			'Reserved for squared corners option for experiences that offer user customization of corner radius.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"CrossOctagonIcon","package":"@atlaskit/icon-lab/core/cross-octagon","categorization":"multi-purpose","usage":"Multi purpose","keywords":["cross-octagon","crossoctagon","icon","icon-lab","cross","stop","block","octagon"],"status":"published"}',
+		componentName: 'CrossOctagonIcon',
+		keywords: [
+			'cross-octagon',
+			'crossoctagon',
+			'icon',
+			'icon-lab',
+			'cross',
+			'stop',
+			'block',
+			'octagon',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Multi purpose',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"CursorIcon","package":"@atlaskit/icon-lab/core/cursor","categorization":"multi-purpose","usage":"Selecting the cursor in Whiteboards","keywords":["cursor","icon","icon-lab","Whiteboards","Cursor"],"status":"published"}',
+		componentName: 'CursorIcon',
+		keywords: ['cursor', 'icon', 'icon-lab', 'Whiteboards', 'Cursor'],
+		categorization: 'multi-purpose',
+		usage: 'Selecting the cursor in Whiteboards',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"CursorStrikethroughIcon","package":"@atlaskit/icon-lab/core/cursor-strikethrough","categorization":"multi-purpose","usage":"Hide collaborator cursors in the Whiteboard","keywords":["cursor-strikethrough","cursorstrikethrough","icon","icon-lab","Cursor","Cursors","Hide cursor","Whiteboard cursor","Cursor strikethrough"],"status":"published"}',
+		componentName: 'CursorStrikethroughIcon',
+		keywords: [
+			'cursor-strikethrough',
+			'cursorstrikethrough',
+			'icon',
+			'icon-lab',
+			'Cursor',
+			'Cursors',
+			'Hide cursor',
+			'Whiteboard cursor',
+			'Cursor strikethrough',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Hide collaborator cursors in the Whiteboard',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DashDoubleIcon","package":"@atlaskit/icon-lab/core/dash-double","categorization":"multi-purpose","usage":"Known uses: representing no change or keeping a value as-is.","keywords":["dash-double","dashdouble","icon","icon-lab","double dash","no change","unchanged value","same value"],"status":"published"}',
+		componentName: 'DashDoubleIcon',
+		keywords: [
+			'dash-double',
+			'dashdouble',
+			'icon',
+			'icon-lab',
+			'double dash',
+			'no change',
+			'unchanged value',
+			'same value',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: representing no change or keeping a value as-is.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DataAppIcon","package":"@atlaskit/icon-lab/core/data-app","categorization":"single-purpose","usage":"Reserved for representing data products and apps.","keywords":["data-app","dataapp","icon","icon-lab","database","data product","data app"],"status":"published"}',
+		componentName: 'DataAppIcon',
+		keywords: ['data-app', 'dataapp', 'icon', 'icon-lab', 'database', 'data product', 'data app'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing data products and apps.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DataBucketIcon","package":"@atlaskit/icon-lab/core/data-bucket","categorization":"single-purpose","usage":"Reserved for bucketing data.","keywords":["data-bucket","databucket","icon","icon-lab","data bucketing","segmentation"],"status":"published"}',
+		componentName: 'DataBucketIcon',
+		keywords: ['data-bucket', 'databucket', 'icon', 'icon-lab', 'data bucketing', 'segmentation'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for bucketing data.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DataFormulaIcon","package":"@atlaskit/icon-lab/core/data-formula","categorization":"single-purpose","usage":"Reserved for data formulas.","keywords":["data-formula","dataformula","icon","icon-lab","data formula"],"status":"published"}',
+		componentName: 'DataFormulaIcon',
+		keywords: ['data-formula', 'dataformula', 'icon', 'icon-lab', 'data formula'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for data formulas.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DataFunctionIcon","package":"@atlaskit/icon-lab/core/data-function","categorization":"single-purpose","usage":"Reserved for data functions.","keywords":["data-function","datafunction","icon","icon-lab","data function"],"status":"published"}',
+		componentName: 'DataFunctionIcon',
+		keywords: ['data-function', 'datafunction', 'icon', 'icon-lab', 'data function'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for data functions.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DataPivotIcon","package":"@atlaskit/icon-lab/core/data-pivot","categorization":"single-purpose","usage":"Reserved for pivoting data.","keywords":["data-pivot","datapivot","icon","icon-lab","data pivot","column","row"],"status":"published"}',
+		componentName: 'DataPivotIcon',
+		keywords: ['data-pivot', 'datapivot', 'icon', 'icon-lab', 'data pivot', 'column', 'row'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for pivoting data.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DataTransposeIcon","package":"@atlaskit/icon-lab/core/data-transpose","categorization":"single-purpose","usage":"Reserved for transposing data.","keywords":["data-transpose","datatranspose","icon","icon-lab","transposition","transpose","column","row","data"],"status":"published"}',
+		componentName: 'DataTransposeIcon',
+		keywords: [
+			'data-transpose',
+			'datatranspose',
+			'icon',
+			'icon-lab',
+			'transposition',
+			'transpose',
+			'column',
+			'row',
+			'data',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for transposing data.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DataUnpivotIcon","package":"@atlaskit/icon-lab/core/data-unpivot","categorization":"single-purpose","usage":"Reserved for unpivoting data.","keywords":["data-unpivot","dataunpivot","icon","icon-lab","data unpivot","column","row"],"status":"published"}',
+		componentName: 'DataUnpivotIcon',
+		keywords: ['data-unpivot', 'dataunpivot', 'icon', 'icon-lab', 'data unpivot', 'column', 'row'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for unpivoting data.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DataVisualizationHeatmapIcon","package":"@atlaskit/icon-lab/core/data-visualization-heatmap","categorization":"single-purpose","usage":"Reserved for representing heatmap data visualizations.","keywords":["data-visualization-heatmap","datavisualizationheatmap","icon","icon-lab","chart","heatmap","data visualization","data visualisation"],"status":"published"}',
+		componentName: 'DataVisualizationHeatmapIcon',
+		keywords: [
+			'data-visualization-heatmap',
+			'datavisualizationheatmap',
+			'icon',
+			'icon-lab',
+			'chart',
+			'heatmap',
+			'data visualization',
+			'data visualisation',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing heatmap data visualizations.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DataVisualizationMetricIcon","package":"@atlaskit/icon-lab/core/data-visualization-metric","categorization":"single-purpose","usage":"Reserved for single data indicator or metric visualizations.","keywords":["data-visualization-metric","datavisualizationmetric","icon","icon-lab","single data indicator","metric card","data visualization","data visualisation"],"status":"published"}',
+		componentName: 'DataVisualizationMetricIcon',
+		keywords: [
+			'data-visualization-metric',
+			'datavisualizationmetric',
+			'icon',
+			'icon-lab',
+			'single data indicator',
+			'metric card',
+			'data visualization',
+			'data visualisation',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for single data indicator or metric visualizations.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DataZeroFillIcon","package":"@atlaskit/icon-lab/core/data-zero-fill","categorization":"single-purpose","usage":"Reserved for replacing empty data fields with zero.","keywords":["data-zero-fill","datazerofill","icon","icon-lab","zero","0","data transform"],"status":"published"}',
+		componentName: 'DataZeroFillIcon',
+		keywords: ['data-zero-fill', 'datazerofill', 'icon', 'icon-lab', 'zero', '0', 'data transform'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for replacing empty data fields with zero.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DatabaseStorageIcon","package":"@atlaskit/icon-lab/core/database-storage","categorization":"multi-purpose","usage":"Known uses: SQL database in Developer Console","keywords":["database-storage","databasestorage","icon","icon-lab","database","db","storage","sql"],"status":"published"}',
+		componentName: 'DatabaseStorageIcon',
+		keywords: [
+			'database-storage',
+			'databasestorage',
+			'icon',
+			'icon-lab',
+			'database',
+			'db',
+			'storage',
+			'sql',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: SQL database in Developer Console',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DatabaseStorageCacheIcon","package":"@atlaskit/icon-lab/core/database-storage-cache","categorization":"multi-purpose","usage":"Known uses: Storage cache in Developer Console.","keywords":["database-storage-cache","databasestoragecache","icon","icon-lab","database","db","storage","sql","cache"],"status":"published"}',
+		componentName: 'DatabaseStorageCacheIcon',
+		keywords: [
+			'database-storage-cache',
+			'databasestoragecache',
+			'icon',
+			'icon-lab',
+			'database',
+			'db',
+			'storage',
+			'sql',
+			'cache',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Storage cache in Developer Console.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArchitectureMapIcon","package":"@atlaskit/icon-lab/core/diagram-architecture-map","categorization":"single-purpose","usage":"Reserved for architecture map diagram type in Whiteboards.","keywords":["diagram-architecture-map","diagramarchitecturemap","icon","icon-lab","diagram","architecture map","cloud"],"status":"published"}',
+		componentName: 'DiagramArchitectureMapIcon',
+		keywords: [
+			'diagram-architecture-map',
+			'diagramarchitecturemap',
+			'icon',
+			'icon-lab',
+			'diagram',
+			'architecture map',
+			'cloud',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for architecture map diagram type in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadAggregationLeftIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-aggregation-left","categorization":"single-purpose","usage":"Reserved for left-facing aggregation diagram arrowhead in Whiteboards.","keywords":["diagram-arrowhead-aggregation-left","diagramarrowheadaggregationleft","icon","icon-lab","arrowhead","aggregation","start point","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadAggregationLeftIcon',
+		keywords: [
+			'diagram-arrowhead-aggregation-left',
+			'diagramarrowheadaggregationleft',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'aggregation',
+			'start point',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for left-facing aggregation diagram arrowhead in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadAggregationRightIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-aggregation-right","categorization":"single-purpose","usage":"Reserved for right-facing aggregation diagram arrowhead in Whiteboards.","keywords":["diagram-arrowhead-aggregation-right","diagramarrowheadaggregationright","icon","icon-lab","arrowhead","aggregation","end point","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadAggregationRightIcon',
+		keywords: [
+			'diagram-arrowhead-aggregation-right',
+			'diagramarrowheadaggregationright',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'aggregation',
+			'end point',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for right-facing aggregation diagram arrowhead in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadAggregationUpRightIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-aggregation-up-right","categorization":"single-purpose","usage":"Reserved for aggregation diagram in Whiteboards.","keywords":["diagram-arrowhead-aggregation-up-right","diagramarrowheadaggregationupright","icon","icon-lab","arrowhead","aggregation","diagonal","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadAggregationUpRightIcon',
+		keywords: [
+			'diagram-arrowhead-aggregation-up-right',
+			'diagramarrowheadaggregationupright',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'aggregation',
+			'diagonal',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for aggregation diagram in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadAssociationLeftIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-association-left","categorization":"single-purpose","usage":"Reserved for left-facing association diagram arrowhead in Whiteboards.","keywords":["diagram-arrowhead-association-left","diagramarrowheadassociationleft","icon","icon-lab","arrowhead","association","start point","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadAssociationLeftIcon',
+		keywords: [
+			'diagram-arrowhead-association-left',
+			'diagramarrowheadassociationleft',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'association',
+			'start point',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for left-facing association diagram arrowhead in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadAssociationRightIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-association-right","categorization":"single-purpose","usage":"Reserved for right-facing association diagram arrowhead in Whiteboards.","keywords":["diagram-arrowhead-association-right","diagramarrowheadassociationright","icon","icon-lab","arrowhead","association","end point","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadAssociationRightIcon',
+		keywords: [
+			'diagram-arrowhead-association-right',
+			'diagramarrowheadassociationright',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'association',
+			'end point',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for right-facing association diagram arrowhead in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadAssociationUpRightIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-association-up-right","categorization":"single-purpose","usage":"Reserved for association diagram in Whiteboards.","keywords":["diagram-arrowhead-association-up-right","diagramarrowheadassociationupright","icon","icon-lab","arrowhead","association","diagonal","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadAssociationUpRightIcon',
+		keywords: [
+			'diagram-arrowhead-association-up-right',
+			'diagramarrowheadassociationupright',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'association',
+			'diagonal',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for association diagram in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadCircleLeftIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-circle-left","categorization":"single-purpose","usage":"Reserved for left-facing circle diagram arrowhead in Whiteboards.","keywords":["diagram-arrowhead-circle-left","diagramarrowheadcircleleft","icon","icon-lab","arrowhead","circle","start point","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadCircleLeftIcon',
+		keywords: [
+			'diagram-arrowhead-circle-left',
+			'diagramarrowheadcircleleft',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'circle',
+			'start point',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for left-facing circle diagram arrowhead in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadCircleRightIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-circle-right","categorization":"single-purpose","usage":"Reserved for right-facing circle diagram arrowhead in Whiteboards.","keywords":["diagram-arrowhead-circle-right","diagramarrowheadcircleright","icon","icon-lab","arrowhead","circle","diagram","end point"],"status":"published"}',
+		componentName: 'DiagramArrowheadCircleRightIcon',
+		keywords: [
+			'diagram-arrowhead-circle-right',
+			'diagramarrowheadcircleright',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'circle',
+			'diagram',
+			'end point',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for right-facing circle diagram arrowhead in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadCircleUpRightIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-circle-up-right","categorization":"single-purpose","usage":"Reserved for circle diagram in Whiteboards.","keywords":["diagram-arrowhead-circle-up-right","diagramarrowheadcircleupright","icon","icon-lab","arrowhead","circle","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadCircleUpRightIcon',
+		keywords: [
+			'diagram-arrowhead-circle-up-right',
+			'diagramarrowheadcircleupright',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'circle',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for circle diagram in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadCompositionLeftIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-composition-left","categorization":"single-purpose","usage":"Reserved for left-facing composition diagram arrowhead in Whiteboards.","keywords":["diagram-arrowhead-composition-left","diagramarrowheadcompositionleft","icon","icon-lab","arrowhead","composition","start point","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadCompositionLeftIcon',
+		keywords: [
+			'diagram-arrowhead-composition-left',
+			'diagramarrowheadcompositionleft',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'composition',
+			'start point',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for left-facing composition diagram arrowhead in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadCompositionRightIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-composition-right","categorization":"single-purpose","usage":"Reserved for right-facing composition diagram arrowhead in Whiteboards.","keywords":["diagram-arrowhead-composition-right","diagramarrowheadcompositionright","icon","icon-lab","arrowhead","composition","end point","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadCompositionRightIcon',
+		keywords: [
+			'diagram-arrowhead-composition-right',
+			'diagramarrowheadcompositionright',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'composition',
+			'end point',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for right-facing composition diagram arrowhead in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadCompositionUpRightIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-composition-up-right","categorization":"single-purpose","usage":"Reserved for composition diagram in Whiteboards.","keywords":["diagram-arrowhead-composition-up-right","diagramarrowheadcompositionupright","icon","icon-lab","arrowhead","composition","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadCompositionUpRightIcon',
+		keywords: [
+			'diagram-arrowhead-composition-up-right',
+			'diagramarrowheadcompositionupright',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'composition',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for composition diagram in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadDefaultFlowLeftIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-default-flow-left","categorization":"single-purpose","usage":"Reserved for left-facing default flow diagram arrowhead in Whiteboards.","keywords":["diagram-arrowhead-default-flow-left","diagramarrowheaddefaultflowleft","icon","icon-lab","arrowhead","default flow","start point","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadDefaultFlowLeftIcon',
+		keywords: [
+			'diagram-arrowhead-default-flow-left',
+			'diagramarrowheaddefaultflowleft',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'default flow',
+			'start point',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for left-facing default flow diagram arrowhead in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadDefaultFlowRightIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-default-flow-right","categorization":"single-purpose","usage":"Reserved for right-facing default flow diagram arrowhead in Whiteboards.","keywords":["diagram-arrowhead-default-flow-right","diagramarrowheaddefaultflowright","icon","icon-lab","arrowhead","default flow","end point","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadDefaultFlowRightIcon',
+		keywords: [
+			'diagram-arrowhead-default-flow-right',
+			'diagramarrowheaddefaultflowright',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'default flow',
+			'end point',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for right-facing default flow diagram arrowhead in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadDefaultFlowUpRightIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-default-flow-up-right","categorization":"single-purpose","usage":"Reserved for default flow diagram in Whiteboards.","keywords":["diagram-arrowhead-default-flow-up-right","diagramarrowheaddefaultflowupright","icon","icon-lab","arrowhead","default flow","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadDefaultFlowUpRightIcon',
+		keywords: [
+			'diagram-arrowhead-default-flow-up-right',
+			'diagramarrowheaddefaultflowupright',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'default flow',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for default flow diagram in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadInheritanceLeftIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-inheritance-left","categorization":"single-purpose","usage":"Reserved for left-facing inheritance diagram arrowhead in Whiteboards.","keywords":["diagram-arrowhead-inheritance-left","diagramarrowheadinheritanceleft","icon","icon-lab","arrowhead","inheritance","start point","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadInheritanceLeftIcon',
+		keywords: [
+			'diagram-arrowhead-inheritance-left',
+			'diagramarrowheadinheritanceleft',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'inheritance',
+			'start point',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for left-facing inheritance diagram arrowhead in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadInheritanceRightIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-inheritance-right","categorization":"single-purpose","usage":"Reserved for right-facing inheritance diagram arrowhead in Whiteboards.","keywords":["diagram-arrowhead-inheritance-right","diagramarrowheadinheritanceright","icon","icon-lab","arrowhead","inheritance","end point","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadInheritanceRightIcon',
+		keywords: [
+			'diagram-arrowhead-inheritance-right',
+			'diagramarrowheadinheritanceright',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'inheritance',
+			'end point',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for right-facing inheritance diagram arrowhead in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadInheritanceUpRightIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-inheritance-up-right","categorization":"single-purpose","usage":"Reserved for inheritance diagram in Whiteboards.","keywords":["diagram-arrowhead-inheritance-up-right","diagramarrowheadinheritanceupright","icon","icon-lab","arrowhead","inheritance","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadInheritanceUpRightIcon',
+		keywords: [
+			'diagram-arrowhead-inheritance-up-right',
+			'diagramarrowheadinheritanceupright',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'inheritance',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for inheritance diagram in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadManyLeftIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-many-left","categorization":"single-purpose","usage":"Reserved for left-facing many diagram arrowhead in Whiteboards.","keywords":["diagram-arrowhead-many-left","diagramarrowheadmanyleft","icon","icon-lab","arrowhead","many","start point","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadManyLeftIcon',
+		keywords: [
+			'diagram-arrowhead-many-left',
+			'diagramarrowheadmanyleft',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'many',
+			'start point',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for left-facing many diagram arrowhead in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadManyRightIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-many-right","categorization":"single-purpose","usage":"Reserved for right-facing many diagram arrowhead in Whiteboards.","keywords":["diagram-arrowhead-many-right","diagramarrowheadmanyright","icon","icon-lab","arrowhead","many","end point","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadManyRightIcon',
+		keywords: [
+			'diagram-arrowhead-many-right',
+			'diagramarrowheadmanyright',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'many',
+			'end point',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for right-facing many diagram arrowhead in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadManyUpRightIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-many-up-right","categorization":"single-purpose","usage":"Reserved for many diagram in Whiteboards.","keywords":["diagram-arrowhead-many-up-right","diagramarrowheadmanyupright","icon","icon-lab","arrowhead","many","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadManyUpRightIcon',
+		keywords: [
+			'diagram-arrowhead-many-up-right',
+			'diagramarrowheadmanyupright',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'many',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for many diagram in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadOneLeftIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-one-left","categorization":"single-purpose","usage":"Reserved for left-facing one diagram arrowhead in Whiteboards.","keywords":["diagram-arrowhead-one-left","diagramarrowheadoneleft","icon","icon-lab","arrowhead","one","start point","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadOneLeftIcon',
+		keywords: [
+			'diagram-arrowhead-one-left',
+			'diagramarrowheadoneleft',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'one',
+			'start point',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for left-facing one diagram arrowhead in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadOneOrManyLeftIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-one-or-many-left","categorization":"single-purpose","usage":"Reserved for left-facing one or many diagram arrowhead in Whiteboards.","keywords":["diagram-arrowhead-one-or-many-left","diagramarrowheadoneormanyleft","icon","icon-lab","arrowhead","one or many","start point","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadOneOrManyLeftIcon',
+		keywords: [
+			'diagram-arrowhead-one-or-many-left',
+			'diagramarrowheadoneormanyleft',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'one or many',
+			'start point',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for left-facing one or many diagram arrowhead in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadOneOrManyRightIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-one-or-many-right","categorization":"single-purpose","usage":"Reserved for right-facing one or many diagram arrowhead in Whiteboards.","keywords":["diagram-arrowhead-one-or-many-right","diagramarrowheadoneormanyright","icon","icon-lab","arrowhead","one or many","end point","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadOneOrManyRightIcon',
+		keywords: [
+			'diagram-arrowhead-one-or-many-right',
+			'diagramarrowheadoneormanyright',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'one or many',
+			'end point',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for right-facing one or many diagram arrowhead in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadOneOrManyUpRightIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-one-or-many-up-right","categorization":"single-purpose","usage":"Reserved for one or many diagram in Whiteboards.","keywords":["diagram-arrowhead-one-or-many-up-right","diagramarrowheadoneormanyupright","icon","icon-lab","arrowhead","one or many","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadOneOrManyUpRightIcon',
+		keywords: [
+			'diagram-arrowhead-one-or-many-up-right',
+			'diagramarrowheadoneormanyupright',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'one or many',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for one or many diagram in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadOneRightIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-one-right","categorization":"single-purpose","usage":"Reserved for right-facing one diagram arrowhead in Whiteboards.","keywords":["diagram-arrowhead-one-right","diagramarrowheadoneright","icon","icon-lab","arrowhead","one","end point","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadOneRightIcon',
+		keywords: [
+			'diagram-arrowhead-one-right',
+			'diagramarrowheadoneright',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'one',
+			'end point',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for right-facing one diagram arrowhead in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadOneUpRightIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-one-up-right","categorization":"single-purpose","usage":"Reserved for one diagram in Whiteboards.","keywords":["diagram-arrowhead-one-up-right","diagramarrowheadoneupright","icon","icon-lab","arrowhead","one","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadOneUpRightIcon',
+		keywords: [
+			'diagram-arrowhead-one-up-right',
+			'diagramarrowheadoneupright',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'one',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for one diagram in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadOnlyOneLeftIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-only-one-left","categorization":"single-purpose","usage":"Reserved for left-facing only one diagram arrowhead in Whiteboards.","keywords":["diagram-arrowhead-only-one-left","diagramarrowheadonlyoneleft","icon","icon-lab","arrowhead","only one","start point","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadOnlyOneLeftIcon',
+		keywords: [
+			'diagram-arrowhead-only-one-left',
+			'diagramarrowheadonlyoneleft',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'only one',
+			'start point',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for left-facing only one diagram arrowhead in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadOnlyOneRightIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-only-one-right","categorization":"single-purpose","usage":"Reserved for right-facing only one diagram arrowhead in Whiteboards.","keywords":["diagram-arrowhead-only-one-right","diagramarrowheadonlyoneright","icon","icon-lab","arrowhead","only one","end point","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadOnlyOneRightIcon',
+		keywords: [
+			'diagram-arrowhead-only-one-right',
+			'diagramarrowheadonlyoneright',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'only one',
+			'end point',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for right-facing only one diagram arrowhead in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadOnlyOneUpRightIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-only-one-up-right","categorization":"single-purpose","usage":"Reserved for only one diagram in Whiteboards.","keywords":["diagram-arrowhead-only-one-up-right","diagramarrowheadonlyoneupright","icon","icon-lab","arrowhead","only one","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadOnlyOneUpRightIcon',
+		keywords: [
+			'diagram-arrowhead-only-one-up-right',
+			'diagramarrowheadonlyoneupright',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'only one',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for only one diagram in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadSequenceLeftIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-sequence-left","categorization":"single-purpose","usage":"Reserved for left-facing sequence diagram arrowhead in Whiteboards.","keywords":["diagram-arrowhead-sequence-left","diagramarrowheadsequenceleft","icon","icon-lab","arrowhead","sequence","start point","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadSequenceLeftIcon',
+		keywords: [
+			'diagram-arrowhead-sequence-left',
+			'diagramarrowheadsequenceleft',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'sequence',
+			'start point',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for left-facing sequence diagram arrowhead in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadSequenceRightIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-sequence-right","categorization":"single-purpose","usage":"Reserved for right-facing sequence diagram arrowhead in Whiteboards.","keywords":["diagram-arrowhead-sequence-right","diagramarrowheadsequenceright","icon","icon-lab","arrowhead","sequence","end point","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadSequenceRightIcon',
+		keywords: [
+			'diagram-arrowhead-sequence-right',
+			'diagramarrowheadsequenceright',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'sequence',
+			'end point',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for right-facing sequence diagram arrowhead in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadSequenceUpRightIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-sequence-up-right","categorization":"single-purpose","usage":"Reserved for sequence diagram in Whiteboards.","keywords":["diagram-arrowhead-sequence-up-right","diagramarrowheadsequenceupright","icon","icon-lab","arrowhead","sequence","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadSequenceUpRightIcon',
+		keywords: [
+			'diagram-arrowhead-sequence-up-right',
+			'diagramarrowheadsequenceupright',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'sequence',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for sequence diagram in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadZeroOrManyLeftIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-zero-or-many-left","categorization":"single-purpose","usage":"Reserved for left-facing zero or many diagram arrowhead in Whiteboards.","keywords":["diagram-arrowhead-zero-or-many-left","diagramarrowheadzeroormanyleft","icon","icon-lab","arrowhead","zero or many","start point","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadZeroOrManyLeftIcon',
+		keywords: [
+			'diagram-arrowhead-zero-or-many-left',
+			'diagramarrowheadzeroormanyleft',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'zero or many',
+			'start point',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for left-facing zero or many diagram arrowhead in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadZeroOrManyRightIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-zero-or-many-right","categorization":"single-purpose","usage":"Reserved for right-facing zero or many diagram arrowhead in Whiteboards.","keywords":["diagram-arrowhead-zero-or-many-right","diagramarrowheadzeroormanyright","icon","icon-lab","arrowhead","zero or many","end point","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadZeroOrManyRightIcon',
+		keywords: [
+			'diagram-arrowhead-zero-or-many-right',
+			'diagramarrowheadzeroormanyright',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'zero or many',
+			'end point',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for right-facing zero or many diagram arrowhead in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadZeroOrManyUpRightIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-zero-or-many-up-right","categorization":"single-purpose","usage":"Reserved for zero or many diagram in Whiteboards.","keywords":["diagram-arrowhead-zero-or-many-up-right","diagramarrowheadzeroormanyupright","icon","icon-lab","arrowhead","zero or many","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadZeroOrManyUpRightIcon',
+		keywords: [
+			'diagram-arrowhead-zero-or-many-up-right',
+			'diagramarrowheadzeroormanyupright',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'zero or many',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for zero or many diagram in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadZeroOrOneLeftIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-zero-or-one-left","categorization":"single-purpose","usage":"Reserved for left-facing zero or one diagram arrowhead in Whiteboards.","keywords":["diagram-arrowhead-zero-or-one-left","diagramarrowheadzerooroneleft","icon","icon-lab","arrowhead","zero or one","start point","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadZeroOrOneLeftIcon',
+		keywords: [
+			'diagram-arrowhead-zero-or-one-left',
+			'diagramarrowheadzerooroneleft',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'zero or one',
+			'start point',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for left-facing zero or one diagram arrowhead in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadZeroOrOneRightIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-zero-or-one-right","categorization":"single-purpose","usage":"Reserved for right-facing zero or one diagram arrowhead in Whiteboards.","keywords":["diagram-arrowhead-zero-or-one-right","diagramarrowheadzerooroneright","icon","icon-lab","arrowhead","zero or one","end point","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadZeroOrOneRightIcon',
+		keywords: [
+			'diagram-arrowhead-zero-or-one-right',
+			'diagramarrowheadzerooroneright',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'zero or one',
+			'end point',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for right-facing zero or one diagram arrowhead in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramArrowheadZeroOrOneUpRightIcon","package":"@atlaskit/icon-lab/core/diagram-arrowhead-zero-or-one-up-right","categorization":"single-purpose","usage":"Reserved for zero or one diagram in Whiteboards.","keywords":["diagram-arrowhead-zero-or-one-up-right","diagramarrowheadzerooroneupright","icon","icon-lab","arrowhead","zero or one","diagram"],"status":"published"}',
+		componentName: 'DiagramArrowheadZeroOrOneUpRightIcon',
+		keywords: [
+			'diagram-arrowhead-zero-or-one-up-right',
+			'diagramarrowheadzerooroneupright',
+			'icon',
+			'icon-lab',
+			'arrowhead',
+			'zero or one',
+			'diagram',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for zero or one diagram in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramObjectBoundaryIcon","package":"@atlaskit/icon-lab/core/diagram-object-boundary","categorization":"single-purpose","usage":"Reserved for Diagram object boundary in Whiteboards","keywords":["diagram-object-boundary","diagramobjectboundary","icon","icon-lab","Diagram","object","boundary","Whiteboards"],"status":"published"}',
+		componentName: 'DiagramObjectBoundaryIcon',
+		keywords: [
+			'diagram-object-boundary',
+			'diagramobjectboundary',
+			'icon',
+			'icon-lab',
+			'Diagram',
+			'object',
+			'boundary',
+			'Whiteboards',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for Diagram object boundary in Whiteboards',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramObjectEntityIcon","package":"@atlaskit/icon-lab/core/diagram-object-entity","categorization":"single-purpose","usage":"Reserved for diagram symbol entity object in Whiteboards","keywords":["diagram-object-entity","diagramobjectentity","icon","icon-lab","Diagram","Whiteboards","entity","object"],"status":"published"}',
+		componentName: 'DiagramObjectEntityIcon',
+		keywords: [
+			'diagram-object-entity',
+			'diagramobjectentity',
+			'icon',
+			'icon-lab',
+			'Diagram',
+			'Whiteboards',
+			'entity',
+			'object',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for diagram symbol entity object in Whiteboards',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolActionIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-action","categorization":"single-purpose","usage":"Reserved for action diagram symbol.","keywords":["diagram-symbol-action","diagramsymbolaction","icon","icon-lab","diagram","symbol","action"],"status":"published"}',
+		componentName: 'DiagramSymbolActionIcon',
+		keywords: [
+			'diagram-symbol-action',
+			'diagramsymbolaction',
+			'icon',
+			'icon-lab',
+			'diagram',
+			'symbol',
+			'action',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for action diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolActivationIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-activation","categorization":"single-purpose","usage":"Reserved for activation UML diagram symbol.","keywords":["diagram-symbol-activation","diagramsymbolactivation","icon","icon-lab","diagram symbol","UML shape","activation"],"status":"published"}',
+		componentName: 'DiagramSymbolActivationIcon',
+		keywords: [
+			'diagram-symbol-activation',
+			'diagramsymbolactivation',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'UML shape',
+			'activation',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for activation UML diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolActorIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-actor","categorization":"single-purpose","usage":"Reserved for actor UML diagram symbol in Whiteboards.","keywords":["diagram-symbol-actor","diagramsymbolactor","icon","icon-lab","diagram symbol","actor","person","UML shape"],"status":"published"}',
+		componentName: 'DiagramSymbolActorIcon',
+		keywords: [
+			'diagram-symbol-actor',
+			'diagramsymbolactor',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'actor',
+			'person',
+			'UML shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for actor UML diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolAdHocIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-ad-hoc","categorization":"single-purpose","usage":"Reserved for ad hoc BPMN diagram symbol in Whiteboards.","keywords":["diagram-symbol-ad-hoc","diagramsymboladhoc","icon","icon-lab","diagram symbol","ad hoc","BPMN shape"],"status":"published"}',
+		componentName: 'DiagramSymbolAdHocIcon',
+		keywords: [
+			'diagram-symbol-ad-hoc',
+			'diagramsymboladhoc',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'ad hoc',
+			'BPMN shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for ad hoc BPMN diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolAlternateProcessIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-alternate-process","categorization":"single-purpose","usage":"Reserved for alternate process diagram symbol.","keywords":["diagram-symbol-alternate-process","diagramsymbolalternateprocess","icon","icon-lab","diagram","symbol","alternate process"],"status":"published"}',
+		componentName: 'DiagramSymbolAlternateProcessIcon',
+		keywords: [
+			'diagram-symbol-alternate-process',
+			'diagramsymbolalternateprocess',
+			'icon',
+			'icon-lab',
+			'diagram',
+			'symbol',
+			'alternate process',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for alternate process diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolArrowLeftIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-arrow-left","categorization":"single-purpose","usage":"Reserved for left-facing arrow BPMN diagram symbol in Whiteboards.","keywords":["diagram-symbol-arrow-left","diagramsymbolarrowleft","icon","icon-lab","diagram symbol","left arrow","start point","BPMN shape"],"status":"published"}',
+		componentName: 'DiagramSymbolArrowLeftIcon',
+		keywords: [
+			'diagram-symbol-arrow-left',
+			'diagramsymbolarrowleft',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'left arrow',
+			'start point',
+			'BPMN shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for left-facing arrow BPMN diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolArrowLeftFilledIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-arrow-left-filled","categorization":"single-purpose","usage":"Reserved for left-facing arrow BPMN diagram symbol in Whiteboards.","keywords":["diagram-symbol-arrow-left-filled","diagramsymbolarrowleftfilled","icon","icon-lab","diagram symbol","left arrow","start point","filled","BPMN shape"],"status":"published"}',
+		componentName: 'DiagramSymbolArrowLeftFilledIcon',
+		keywords: [
+			'diagram-symbol-arrow-left-filled',
+			'diagramsymbolarrowleftfilled',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'left arrow',
+			'start point',
+			'filled',
+			'BPMN shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for left-facing arrow BPMN diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolArrowRightIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-arrow-right","categorization":"single-purpose","usage":"Reserved for right-facing arrow BPMN diagram symbol in Whiteboards.","keywords":["diagram-symbol-arrow-right","diagramsymbolarrowright","icon","icon-lab","diagram symbol","right arrow","end point","BPMN shape"],"status":"published"}',
+		componentName: 'DiagramSymbolArrowRightIcon',
+		keywords: [
+			'diagram-symbol-arrow-right',
+			'diagramsymbolarrowright',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'right arrow',
+			'end point',
+			'BPMN shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for right-facing arrow BPMN diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolArrowRightFilledIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-arrow-right-filled","categorization":"single-purpose","usage":"Reserved for right-facing arrow BPMN diagram symbol in Whiteboards.","keywords":["diagram-symbol-arrow-right-filled","diagramsymbolarrowrightfilled","icon","icon-lab","diagram symbol","right arrow","end point","filled","BPMN shape"],"status":"published"}',
+		componentName: 'DiagramSymbolArrowRightFilledIcon',
+		keywords: [
+			'diagram-symbol-arrow-right-filled',
+			'diagramsymbolarrowrightfilled',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'right arrow',
+			'end point',
+			'filled',
+			'BPMN shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for right-facing arrow BPMN diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolAssemblyIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-assembly","categorization":"single-purpose","usage":"Reserved for assembly UML diagram symbol in Whiteboards.","keywords":["diagram-symbol-assembly","diagramsymbolassembly","icon","icon-lab","diagram symbol","assembly","UML shape"],"status":"published"}',
+		componentName: 'DiagramSymbolAssemblyIcon',
+		keywords: [
+			'diagram-symbol-assembly',
+			'diagramsymbolassembly',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'assembly',
+			'UML shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for assembly UML diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolBrowserIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-browser","categorization":"single-purpose","usage":"Reserved for browser diagram symbol in Whiteboards.","keywords":["diagram-symbol-browser","diagramsymbolbrowser","icon","icon-lab","diagram symbol","web browser"],"status":"published"}',
+		componentName: 'DiagramSymbolBrowserIcon',
+		keywords: [
+			'diagram-symbol-browser',
+			'diagramsymbolbrowser',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'web browser',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for browser diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolClassIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-class","categorization":"single-purpose","usage":"Reserved for class UML diagram symbol in Whiteboards.","keywords":["diagram-symbol-class","diagramsymbolclass","icon","icon-lab","diagram symbol","class","UML shape"],"status":"published"}',
+		componentName: 'DiagramSymbolClassIcon',
+		keywords: [
+			'diagram-symbol-class',
+			'diagramsymbolclass',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'class',
+			'UML shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for class UML diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolCloudIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-cloud","categorization":"single-purpose","usage":"Reserved for cloud diagram symbol in Whiteboards.","keywords":["diagram-symbol-cloud","diagramsymbolcloud","icon","icon-lab","diagram symbol","cloud","advanced shape"],"status":"published"}',
+		componentName: 'DiagramSymbolCloudIcon',
+		keywords: [
+			'diagram-symbol-cloud',
+			'diagramsymbolcloud',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'cloud',
+			'advanced shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for cloud diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolCollaborationIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-collaboration","categorization":"single-purpose","usage":"Reserved for collaboration diagram symbol in Whiteboards.","keywords":["diagram-symbol-collaboration","diagramsymbolcollaboration","icon","icon-lab","diagram symbol","collaboration","collaborate"],"status":"published"}',
+		componentName: 'DiagramSymbolCollaborationIcon',
+		keywords: [
+			'diagram-symbol-collaboration',
+			'diagramsymbolcollaboration',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'collaboration',
+			'collaborate',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for collaboration diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolCollateIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-collate","categorization":"single-purpose","usage":"Reserved for collate diagram symbol.","keywords":["diagram-symbol-collate","diagramsymbolcollate","icon","icon-lab","diagram","symbol","collate"],"status":"published"}',
+		componentName: 'DiagramSymbolCollateIcon',
+		keywords: [
+			'diagram-symbol-collate',
+			'diagramsymbolcollate',
+			'icon',
+			'icon-lab',
+			'diagram',
+			'symbol',
+			'collate',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for collate diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolCommentLeftIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-comment-left","categorization":"single-purpose","usage":"Reserved for comment left diagram symbol.","keywords":["diagram-symbol-comment-left","diagramsymbolcommentleft","icon","icon-lab","comment","left","diagram","symbol"],"status":"published"}',
+		componentName: 'DiagramSymbolCommentLeftIcon',
+		keywords: [
+			'diagram-symbol-comment-left',
+			'diagramsymbolcommentleft',
+			'icon',
+			'icon-lab',
+			'comment',
+			'left',
+			'diagram',
+			'symbol',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for comment left diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolCommentRightIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-comment-right","categorization":"single-purpose","usage":"Reserved for comment right diagram symbol.","keywords":["diagram-symbol-comment-right","diagramsymbolcommentright","icon","icon-lab","comment","right","diagram","symbol"],"status":"published"}',
+		componentName: 'DiagramSymbolCommentRightIcon',
+		keywords: [
+			'diagram-symbol-comment-right',
+			'diagramsymbolcommentright',
+			'icon',
+			'icon-lab',
+			'comment',
+			'right',
+			'diagram',
+			'symbol',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for comment right diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolComplexIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-complex","categorization":"single-purpose","usage":"Reserved for complex BPMN diagram symbol in Whiteboards.","keywords":["diagram-symbol-complex","diagramsymbolcomplex","icon","icon-lab","diagram symbol","complex","BPMN shape","asterisk"],"status":"published"}',
+		componentName: 'DiagramSymbolComplexIcon',
+		keywords: [
+			'diagram-symbol-complex',
+			'diagramsymbolcomplex',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'complex',
+			'BPMN shape',
+			'asterisk',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for complex BPMN diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolComponentIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-component","categorization":"single-purpose","usage":"Reserved for component UML diagram symbol in Whiteboards.","keywords":["diagram-symbol-component","diagramsymbolcomponent","icon","icon-lab","diagram symbol","component","UML shape"],"status":"published"}',
+		componentName: 'DiagramSymbolComponentIcon',
+		keywords: [
+			'diagram-symbol-component',
+			'diagramsymbolcomponent',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'component',
+			'UML shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for component UML diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolComponentBoxIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-component-box","categorization":"single-purpose","usage":"Reserved for component box UML diagram symbol in Whiteboards.","keywords":["diagram-symbol-component-box","diagramsymbolcomponentbox","icon","icon-lab","diagram symbol","component box","UML shape"],"status":"published"}',
+		componentName: 'DiagramSymbolComponentBoxIcon',
+		keywords: [
+			'diagram-symbol-component-box',
+			'diagramsymbolcomponentbox',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'component box',
+			'UML shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for component box UML diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolComputeIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-compute","categorization":"single-purpose","usage":"Reserved for compute diagram symbol in Whiteboards.","keywords":["diagram-symbol-compute","diagramsymbolcompute","icon","icon-lab","diagram symbol","compute","processor","microchip","advanced shape"],"status":"published"}',
+		componentName: 'DiagramSymbolComputeIcon',
+		keywords: [
+			'diagram-symbol-compute',
+			'diagramsymbolcompute',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'compute',
+			'processor',
+			'microchip',
+			'advanced shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for compute diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolConnectorOffPageIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-connector-off-page","categorization":"single-purpose","usage":"Reserved for off-page connector diagram symbol.","keywords":["diagram-symbol-connector-off-page","diagramsymbolconnectoroffpage","icon","icon-lab","off-page","diagram","symbol","connector"],"status":"published"}',
+		componentName: 'DiagramSymbolConnectorOffPageIcon',
+		keywords: [
+			'diagram-symbol-connector-off-page',
+			'diagramsymbolconnectoroffpage',
+			'icon',
+			'icon-lab',
+			'off-page',
+			'diagram',
+			'symbol',
+			'connector',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for off-page connector diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolConnectorOnPageIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-connector-on-page","categorization":"single-purpose","usage":"Reserved for on-page connector diagram symbol.","keywords":["diagram-symbol-connector-on-page","diagramsymbolconnectoronpage","icon","icon-lab","diagram","symbol","on-page","connector"],"status":"published"}',
+		componentName: 'DiagramSymbolConnectorOnPageIcon',
+		keywords: [
+			'diagram-symbol-connector-on-page',
+			'diagramsymbolconnectoronpage',
+			'icon',
+			'icon-lab',
+			'diagram',
+			'symbol',
+			'on-page',
+			'connector',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for on-page connector diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolContainerIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-container","categorization":"single-purpose","usage":"Reserved for container diagram symbol in Whiteboards.","keywords":["diagram-symbol-container","diagramsymbolcontainer","icon","icon-lab","diagram symbol","container"],"status":"published"}',
+		componentName: 'DiagramSymbolContainerIcon',
+		keywords: [
+			'diagram-symbol-container',
+			'diagramsymbolcontainer',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'container',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for container diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolDatabaseIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-database","categorization":"single-purpose","usage":"Reserved for database diagram symbol.","keywords":["diagram-symbol-database","diagramsymboldatabase","icon","icon-lab","diagram","symbol","database"],"status":"published"}',
+		componentName: 'DiagramSymbolDatabaseIcon',
+		keywords: [
+			'diagram-symbol-database',
+			'diagramsymboldatabase',
+			'icon',
+			'icon-lab',
+			'diagram',
+			'symbol',
+			'database',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for database diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolDatabaseSourceIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-database-source","categorization":"single-purpose","usage":"Reserved for database source diagram symbol in Whiteboards.","keywords":["diagram-symbol-database-source","diagramsymboldatabasesource","icon","icon-lab","diagram symbol","database","db","source","advanced shape"],"status":"published"}',
+		componentName: 'DiagramSymbolDatabaseSourceIcon',
+		keywords: [
+			'diagram-symbol-database-source',
+			'diagramsymboldatabasesource',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'database',
+			'db',
+			'source',
+			'advanced shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for database source diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolDecisionIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-decision","categorization":"single-purpose","usage":"Reserved for decision diagram symbol.","keywords":["diagram-symbol-decision","diagramsymboldecision","icon","icon-lab","diagram","symbol","decision"],"status":"published"}',
+		componentName: 'DiagramSymbolDecisionIcon',
+		keywords: [
+			'diagram-symbol-decision',
+			'diagramsymboldecision',
+			'icon',
+			'icon-lab',
+			'diagram',
+			'symbol',
+			'decision',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for decision diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolDelayIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-delay","categorization":"single-purpose","usage":"Reserved for delay diagram symbol.","keywords":["diagram-symbol-delay","diagramsymboldelay","icon","icon-lab","diagram","symbol","delay"],"status":"published"}',
+		componentName: 'DiagramSymbolDelayIcon',
+		keywords: [
+			'diagram-symbol-delay',
+			'diagramsymboldelay',
+			'icon',
+			'icon-lab',
+			'diagram',
+			'symbol',
+			'delay',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for delay diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolDisplayIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-display","categorization":"single-purpose","usage":"Reserved for display diagram symbol.","keywords":["diagram-symbol-display","diagramsymboldisplay","icon","icon-lab","diagram","symbol","display"],"status":"published"}',
+		componentName: 'DiagramSymbolDisplayIcon',
+		keywords: [
+			'diagram-symbol-display',
+			'diagramsymboldisplay',
+			'icon',
+			'icon-lab',
+			'diagram',
+			'symbol',
+			'display',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for display diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolDocumentIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-document","categorization":"single-purpose","usage":"Reserved for single document diagram symbol.","keywords":["diagram-symbol-document","diagramsymboldocument","icon","icon-lab","diagram","symbol","document"],"status":"published"}',
+		componentName: 'DiagramSymbolDocumentIcon',
+		keywords: [
+			'diagram-symbol-document',
+			'diagramsymboldocument',
+			'icon',
+			'icon-lab',
+			'diagram',
+			'symbol',
+			'document',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for single document diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolDocumentsIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-documents","categorization":"single-purpose","usage":"Reserved for multiple documents diagram symbol","keywords":["diagram-symbol-documents","diagramsymboldocuments","icon","icon-lab","diagram","symbol","multiple documents"],"status":"published"}',
+		componentName: 'DiagramSymbolDocumentsIcon',
+		keywords: [
+			'diagram-symbol-documents',
+			'diagramsymboldocuments',
+			'icon',
+			'icon-lab',
+			'diagram',
+			'symbol',
+			'multiple documents',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for multiple documents diagram symbol',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolEndIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-end","categorization":"single-purpose","usage":"Reserved for end UML diagram symbol in Whiteboards.","keywords":["diagram-symbol-end","diagramsymbolend","icon","icon-lab","diagram symbol","end","UML shape"],"status":"published"}',
+		componentName: 'DiagramSymbolEndIcon',
+		keywords: [
+			'diagram-symbol-end',
+			'diagramsymbolend',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'end',
+			'UML shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for end UML diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolErrorIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-error","categorization":"single-purpose","usage":"Reserved for error BPMN diagram symbol in Whiteboards.","keywords":["diagram-symbol-error","diagramsymbolerror","icon","icon-lab","diagram symbol","error","lightning bolt","BPMN shape"],"status":"published"}',
+		componentName: 'DiagramSymbolErrorIcon',
+		keywords: [
+			'diagram-symbol-error',
+			'diagramsymbolerror',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'error',
+			'lightning bolt',
+			'BPMN shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for error BPMN diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolErrorFilledIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-error-filled","categorization":"single-purpose","usage":"Reserved for error BPMN diagram symbol in Whiteboards.","keywords":["diagram-symbol-error-filled","diagramsymbolerrorfilled","icon","icon-lab","diagram symbol","error","filled","lightning bolt","BPMN shape"],"status":"published"}',
+		componentName: 'DiagramSymbolErrorFilledIcon',
+		keywords: [
+			'diagram-symbol-error-filled',
+			'diagramsymbolerrorfilled',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'error',
+			'filled',
+			'lightning bolt',
+			'BPMN shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for error BPMN diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolEventBasedIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-event-based","categorization":"single-purpose","usage":"Reserved for event based BPMN diagram symbol in Whiteboards.","keywords":["diagram-symbol-event-based","diagramsymboleventbased","icon","icon-lab","diagram symbol","event based","pentagon","BPMN shape"],"status":"published"}',
+		componentName: 'DiagramSymbolEventBasedIcon',
+		keywords: [
+			'diagram-symbol-event-based',
+			'diagramsymboleventbased',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'event based',
+			'pentagon',
+			'BPMN shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for event based BPMN diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolEventBasedFilledIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-event-based-filled","categorization":"single-purpose","usage":"Reserved for event based BPMN diagram symbol in Whiteboards.","keywords":["diagram-symbol-event-based-filled","diagramsymboleventbasedfilled","icon","icon-lab","diagram symbol","event based","pentagon","filled","BPMN shape"],"status":"published"}',
+		componentName: 'DiagramSymbolEventBasedFilledIcon',
+		keywords: [
+			'diagram-symbol-event-based-filled',
+			'diagramsymboleventbasedfilled',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'event based',
+			'pentagon',
+			'filled',
+			'BPMN shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for event based BPMN diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolExclusiveIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-exclusive","categorization":"single-purpose","usage":"Reserved for exclusive BPMN diagram symbol in Whiteboards.","keywords":["diagram-symbol-exclusive","diagramsymbolexclusive","icon","icon-lab","diagram symbol","exclusive","cross","x","BPMN shape"],"status":"published"}',
+		componentName: 'DiagramSymbolExclusiveIcon',
+		keywords: [
+			'diagram-symbol-exclusive',
+			'diagramsymbolexclusive',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'exclusive',
+			'cross',
+			'x',
+			'BPMN shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for exclusive BPMN diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolExclusiveFilledIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-exclusive-filled","categorization":"single-purpose","usage":"Reserved for exclusive BPMN diagram symbol in Whiteboards.","keywords":["diagram-symbol-exclusive-filled","diagramsymbolexclusivefilled","icon","icon-lab","diagram symbol","exclusive","filled","cross","x","BPMN shape"],"status":"published"}',
+		componentName: 'DiagramSymbolExclusiveFilledIcon',
+		keywords: [
+			'diagram-symbol-exclusive-filled',
+			'diagramsymbolexclusivefilled',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'exclusive',
+			'filled',
+			'cross',
+			'x',
+			'BPMN shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for exclusive BPMN diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolFileIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-file","categorization":"single-purpose","usage":"Reserved for file diagram symbol in Whiteboards.","keywords":["diagram-symbol-file","diagramsymbolfile","icon","icon-lab","diagram symbol","file","advanced shape","document"],"status":"published"}',
+		componentName: 'DiagramSymbolFileIcon',
+		keywords: [
+			'diagram-symbol-file',
+			'diagramsymbolfile',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'file',
+			'advanced shape',
+			'document',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for file diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolForkHorizontalIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-fork-horizontal","categorization":"single-purpose","usage":"Reserved for horizontal fork UML diagram symbol in Whiteboards.","keywords":["diagram-symbol-fork-horizontal","diagramsymbolforkhorizontal","icon","icon-lab","diagram symbol","horizontal fork","UML shape","filled"],"status":"published"}',
+		componentName: 'DiagramSymbolForkHorizontalIcon',
+		keywords: [
+			'diagram-symbol-fork-horizontal',
+			'diagramsymbolforkhorizontal',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'horizontal fork',
+			'UML shape',
+			'filled',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for horizontal fork UML diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolForkVerticalIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-fork-vertical","categorization":"single-purpose","usage":"Reserved for vertical fork UML diagram symbol in Whiteboards.","keywords":["diagram-symbol-fork-vertical","diagramsymbolforkvertical","icon","icon-lab","diagram symbol","vertical fork","UML shape","filled"],"status":"published"}',
+		componentName: 'DiagramSymbolForkVerticalIcon',
+		keywords: [
+			'diagram-symbol-fork-vertical',
+			'diagramsymbolforkvertical',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'vertical fork',
+			'UML shape',
+			'filled',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for vertical fork UML diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolFrameIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-frame","categorization":"single-purpose","usage":"Reserved for frame diagram symbol in Whiteboards.","keywords":["diagram-symbol-frame","diagramsymbolframe","icon","icon-lab","diagram symbol","frame","container","section"],"status":"published"}',
+		componentName: 'DiagramSymbolFrameIcon',
+		keywords: [
+			'diagram-symbol-frame',
+			'diagramsymbolframe',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'frame',
+			'container',
+			'section',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for frame diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolFrontendIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-frontend","categorization":"single-purpose","usage":"Reserved for frontend diagram symbol in Whiteboards.","keywords":["diagram-symbol-frontend","diagramsymbolfrontend","icon","icon-lab","diagram symbol","frontend","advanced shape","<>","angle brackets","code"],"status":"published"}',
+		componentName: 'DiagramSymbolFrontendIcon',
+		keywords: [
+			'diagram-symbol-frontend',
+			'diagramsymbolfrontend',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'frontend',
+			'advanced shape',
+			'<>',
+			'angle brackets',
+			'code',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for frontend diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolHardDiskIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-hard-disk","categorization":"single-purpose","usage":"Reserved for hard disk diagram symbol.","keywords":["diagram-symbol-hard-disk","diagramsymbolharddisk","icon","icon-lab","diagram","symbol","hard disk","hard drive","storage"],"status":"published"}',
+		componentName: 'DiagramSymbolHardDiskIcon',
+		keywords: [
+			'diagram-symbol-hard-disk',
+			'diagramsymbolharddisk',
+			'icon',
+			'icon-lab',
+			'diagram',
+			'symbol',
+			'hard disk',
+			'hard drive',
+			'storage',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for hard disk diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolHistoryIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-history","categorization":"single-purpose","usage":"Reserved for history UML diagram symbol in Whiteboards.","keywords":["diagram-symbol-history","diagramsymbolhistory","icon","icon-lab","diagram symbol","history","UML shape"],"status":"published"}',
+		componentName: 'DiagramSymbolHistoryIcon',
+		keywords: [
+			'diagram-symbol-history',
+			'diagramsymbolhistory',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'history',
+			'UML shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for history UML diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolInputOutputIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-input-output","categorization":"single-purpose","usage":"Reserved for input or output diagram symbols.","keywords":["diagram-symbol-input-output","diagramsymbolinputoutput","icon","icon-lab","diagram","symbol","input","output"],"status":"published"}',
+		componentName: 'DiagramSymbolInputOutputIcon',
+		keywords: [
+			'diagram-symbol-input-output',
+			'diagramsymbolinputoutput',
+			'icon',
+			'icon-lab',
+			'diagram',
+			'symbol',
+			'input',
+			'output',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for input or output diagram symbols.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolInterfaceAttributesIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-interface-attributes","categorization":"single-purpose","usage":"Reserved for interface attributes UML diagram symbol in Whiteboards.","keywords":["diagram-symbol-interface-attributes","diagramsymbolinterfaceattributes","icon","icon-lab","diagram symbol","UI","interface","attributes","UML shape"],"status":"published"}',
+		componentName: 'DiagramSymbolInterfaceAttributesIcon',
+		keywords: [
+			'diagram-symbol-interface-attributes',
+			'diagramsymbolinterfaceattributes',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'UI',
+			'interface',
+			'attributes',
+			'UML shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for interface attributes UML diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolInternalStorageIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-internal-storage","categorization":"single-purpose","usage":"Reserved for internal storage diagram symbol.","keywords":["diagram-symbol-internal-storage","diagramsymbolinternalstorage","icon","icon-lab","diagram","symbol","internal storage"],"status":"published"}',
+		componentName: 'DiagramSymbolInternalStorageIcon',
+		keywords: [
+			'diagram-symbol-internal-storage',
+			'diagramsymbolinternalstorage',
+			'icon',
+			'icon-lab',
+			'diagram',
+			'symbol',
+			'internal storage',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for internal storage diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolLoopLimitIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-loop-limit","categorization":"single-purpose","usage":"Reserved for loop limit diagram symbol.","keywords":["diagram-symbol-loop-limit","diagramsymbollooplimit","icon","icon-lab","diagram","symbol","loop limit"],"status":"published"}',
+		componentName: 'DiagramSymbolLoopLimitIcon',
+		keywords: [
+			'diagram-symbol-loop-limit',
+			'diagramsymbollooplimit',
+			'icon',
+			'icon-lab',
+			'diagram',
+			'symbol',
+			'loop limit',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for loop limit diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolManualIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-manual","categorization":"single-purpose","usage":"Reserved for manual BPMN diagram symbol in Whiteboards.","keywords":["diagram-symbol-manual","diagramsymbolmanual","icon","icon-lab","diagram symbol","manual","hand","BPMN shape"],"status":"published"}',
+		componentName: 'DiagramSymbolManualIcon',
+		keywords: [
+			'diagram-symbol-manual',
+			'diagramsymbolmanual',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'manual',
+			'hand',
+			'BPMN shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for manual BPMN diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolManualInputIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-manual-input","categorization":"single-purpose","usage":"Reserved for manual input diagram symbol.","keywords":["diagram-symbol-manual-input","diagramsymbolmanualinput","icon","icon-lab","diagram","symbol","manual input"],"status":"published"}',
+		componentName: 'DiagramSymbolManualInputIcon',
+		keywords: [
+			'diagram-symbol-manual-input',
+			'diagramsymbolmanualinput',
+			'icon',
+			'icon-lab',
+			'diagram',
+			'symbol',
+			'manual input',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for manual input diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolManualOperationIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-manual-operation","categorization":"single-purpose","usage":"Reserved for manual operation diagram symbol.","keywords":["diagram-symbol-manual-operation","diagramsymbolmanualoperation","icon","icon-lab","diagram","symbol","manual operation"],"status":"published"}',
+		componentName: 'DiagramSymbolManualOperationIcon',
+		keywords: [
+			'diagram-symbol-manual-operation',
+			'diagramsymbolmanualoperation',
+			'icon',
+			'icon-lab',
+			'diagram',
+			'symbol',
+			'manual operation',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for manual operation diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolMergeIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-merge","categorization":"single-purpose","usage":"Reserved for merge diagram symbol.","keywords":["diagram-symbol-merge","diagramsymbolmerge","icon","icon-lab","diagram","symbol","merge","triangle"],"status":"published"}',
+		componentName: 'DiagramSymbolMergeIcon',
+		keywords: [
+			'diagram-symbol-merge',
+			'diagramsymbolmerge',
+			'icon',
+			'icon-lab',
+			'diagram',
+			'symbol',
+			'merge',
+			'triangle',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for merge diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolMindMapIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-mind-map","categorization":"single-purpose","usage":"Reserved for mind map diagram symbol.","keywords":["diagram-symbol-mind-map","diagramsymbolmindmap","icon","icon-lab","diagram","symbol","mind map"],"status":"published"}',
+		componentName: 'DiagramSymbolMindMapIcon',
+		keywords: [
+			'diagram-symbol-mind-map',
+			'diagramsymbolmindmap',
+			'icon',
+			'icon-lab',
+			'diagram',
+			'symbol',
+			'mind map',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for mind map diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolNodeIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-node","categorization":"single-purpose","usage":"Reserved for node diagram symbol in Whiteboards.","keywords":["diagram-symbol-node","diagramsymbolnode","icon","icon-lab","diagram symbol","node","cube"],"status":"published"}',
+		componentName: 'DiagramSymbolNodeIcon',
+		keywords: [
+			'diagram-symbol-node',
+			'diagramsymbolnode',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'node',
+			'cube',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for node diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolNoteIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-note","categorization":"single-purpose","usage":"Reserved for note UML diagram symbol in Whiteboards.","keywords":["diagram-symbol-note","diagramsymbolnote","icon","icon-lab","diagram symbol","note","UML shape"],"status":"published"}',
+		componentName: 'DiagramSymbolNoteIcon',
+		keywords: [
+			'diagram-symbol-note',
+			'diagramsymbolnote',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'note',
+			'UML shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for note UML diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolOrIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-or","categorization":"single-purpose","usage":"Reserved for or diagram symbol.","keywords":["diagram-symbol-or","diagramsymbolor","icon","icon-lab","diagram","symbol","or","logic"],"status":"published"}',
+		componentName: 'DiagramSymbolOrIcon',
+		keywords: [
+			'diagram-symbol-or',
+			'diagramsymbolor',
+			'icon',
+			'icon-lab',
+			'diagram',
+			'symbol',
+			'or',
+			'logic',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for or diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolPackageIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-package","categorization":"single-purpose","usage":"Reserved for package diagram symbol in Whiteboards.","keywords":["diagram-symbol-package","diagramsymbolpackage","icon","icon-lab","diagram symbol","container","package"],"status":"published"}',
+		componentName: 'DiagramSymbolPackageIcon',
+		keywords: [
+			'diagram-symbol-package',
+			'diagramsymbolpackage',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'container',
+			'package',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for package diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolParallelEvenBasedIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-parallel-even-based","categorization":"single-purpose","usage":"Reserved for parallel even based BPMN diagram symbol in Whiteboards.","keywords":["diagram-symbol-parallel-even-based","diagramsymbolparallelevenbased","icon","icon-lab","diagram symbol","plus","parallel even based","BPMN shape"],"status":"published"}',
+		componentName: 'DiagramSymbolParallelEvenBasedIcon',
+		keywords: [
+			'diagram-symbol-parallel-even-based',
+			'diagramsymbolparallelevenbased',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'plus',
+			'parallel even based',
+			'BPMN shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for parallel even based BPMN diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolParallelEvenBasedFilledIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-parallel-even-based-filled","categorization":"single-purpose","usage":"Reserved for parallel even based BPMN diagram symbol in Whiteboards.","keywords":["diagram-symbol-parallel-even-based-filled","diagramsymbolparallelevenbasedfilled","icon","icon-lab","diagram symbol","plus","filled","parallel even based","BPMN shape"],"status":"published"}',
+		componentName: 'DiagramSymbolParallelEvenBasedFilledIcon',
+		keywords: [
+			'diagram-symbol-parallel-even-based-filled',
+			'diagramsymbolparallelevenbasedfilled',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'plus',
+			'filled',
+			'parallel even based',
+			'BPMN shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for parallel even based BPMN diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolParallelMiIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-parallel-mi","categorization":"single-purpose","usage":"Reserved for parallel mi BPMN diagram symbol in Whiteboards.","keywords":["diagram-symbol-parallel-mi","diagramsymbolparallelmi","icon","icon-lab","diagram symbol","parallel mi","BPMN shape"],"status":"published"}',
+		componentName: 'DiagramSymbolParallelMiIcon',
+		keywords: [
+			'diagram-symbol-parallel-mi',
+			'diagramsymbolparallelmi',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'parallel mi',
+			'BPMN shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for parallel mi BPMN diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolPinLeftIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-pin-left","categorization":"single-purpose","usage":"Reserved for left-facing pin UML diagram symbol in Whiteboards.","keywords":["diagram-symbol-pin-left","diagramsymbolpinleft","icon","icon-lab","diagram symbol","arrow left","pin","UML shape"],"status":"published"}',
+		componentName: 'DiagramSymbolPinLeftIcon',
+		keywords: [
+			'diagram-symbol-pin-left',
+			'diagramsymbolpinleft',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'arrow left',
+			'pin',
+			'UML shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for left-facing pin UML diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolPinLeftFilledIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-pin-left-filled","categorization":"single-purpose","usage":"Reserved for right-facing pin UML diagram symbol in Whiteboards.","keywords":["diagram-symbol-pin-left-filled","diagramsymbolpinleftfilled","icon","icon-lab","diagram symbol","left arrow","filled","pin","UML shape"],"status":"published"}',
+		componentName: 'DiagramSymbolPinLeftFilledIcon',
+		keywords: [
+			'diagram-symbol-pin-left-filled',
+			'diagramsymbolpinleftfilled',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'left arrow',
+			'filled',
+			'pin',
+			'UML shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for right-facing pin UML diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolPinRightIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-pin-right","categorization":"single-purpose","usage":"Reserved for right-facing pin UML diagram symbol in Whiteboards.","keywords":["diagram-symbol-pin-right","diagramsymbolpinright","icon","icon-lab","diagram symbol","right arrow","pin","UML shape"],"status":"published"}',
+		componentName: 'DiagramSymbolPinRightIcon',
+		keywords: [
+			'diagram-symbol-pin-right',
+			'diagramsymbolpinright',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'right arrow',
+			'pin',
+			'UML shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for right-facing pin UML diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolPinRightFilledIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-pin-right-filled","categorization":"single-purpose","usage":"Reserved for right-facing pin UML diagram symbol in Whiteboards.","keywords":["diagram-symbol-pin-right-filled","diagramsymbolpinrightfilled","icon","icon-lab","diagram symbol","right arrow","filled","pin","UML shape"],"status":"published"}',
+		componentName: 'DiagramSymbolPinRightFilledIcon',
+		keywords: [
+			'diagram-symbol-pin-right-filled',
+			'diagramsymbolpinrightfilled',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'right arrow',
+			'filled',
+			'pin',
+			'UML shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for right-facing pin UML diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolPoolHorizontalIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-pool-horizontal","categorization":"single-purpose","usage":"Reserved for horizontal pool diagram symbol in Whiteboards.","keywords":["diagram-symbol-pool-horizontal","diagramsymbolpoolhorizontal","icon","icon-lab","diagram symbol","horizontal pool","container"],"status":"published"}',
+		componentName: 'DiagramSymbolPoolHorizontalIcon',
+		keywords: [
+			'diagram-symbol-pool-horizontal',
+			'diagramsymbolpoolhorizontal',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'horizontal pool',
+			'container',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for horizontal pool diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolPoolVerticalIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-pool-vertical","categorization":"single-purpose","usage":"Reserved for vertical pool diagram symbol in Whiteboards.","keywords":["diagram-symbol-pool-vertical","diagramsymbolpoolvertical","icon","icon-lab","diagram symbol","vertical pool","container"],"status":"published"}',
+		componentName: 'DiagramSymbolPoolVerticalIcon',
+		keywords: [
+			'diagram-symbol-pool-vertical',
+			'diagramsymbolpoolvertical',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'vertical pool',
+			'container',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for vertical pool diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolPredefinedProcessIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-predefined-process","categorization":"single-purpose","usage":"Reserved for predefined process diagram symbol.","keywords":["diagram-symbol-predefined-process","diagramsymbolpredefinedprocess","icon","icon-lab","diagram","symbol","predefined process"],"status":"published"}',
+		componentName: 'DiagramSymbolPredefinedProcessIcon',
+		keywords: [
+			'diagram-symbol-predefined-process',
+			'diagramsymbolpredefinedprocess',
+			'icon',
+			'icon-lab',
+			'diagram',
+			'symbol',
+			'predefined process',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for predefined process diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolPreparationIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-preparation","categorization":"single-purpose","usage":"Reserved for preparation diagram symbol.","keywords":["diagram-symbol-preparation","diagramsymbolpreparation","icon","icon-lab","diagram","symbol","preparation"],"status":"published"}',
+		componentName: 'DiagramSymbolPreparationIcon',
+		keywords: [
+			'diagram-symbol-preparation',
+			'diagramsymbolpreparation',
+			'icon',
+			'icon-lab',
+			'diagram',
+			'symbol',
+			'preparation',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for preparation diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolProvidedInterfaceIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-provided-interface","categorization":"single-purpose","usage":"Reserved for provided interface UML diagram symbol in Whiteboards.","keywords":["diagram-symbol-provided-interface","diagramsymbolprovidedinterface","icon","icon-lab","diagram symbol","provided interface","UML shape"],"status":"published"}',
+		componentName: 'DiagramSymbolProvidedInterfaceIcon',
+		keywords: [
+			'diagram-symbol-provided-interface',
+			'diagramsymbolprovidedinterface',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'provided interface',
+			'UML shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for provided interface UML diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolReceiveSignalIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-receive-signal","categorization":"single-purpose","usage":"Reserved for receive signal UML diagram symbol in Whiteboards.","keywords":["diagram-symbol-receive-signal","diagramsymbolreceivesignal","icon","icon-lab","diagram symbol","receive signal","UML shape"],"status":"published"}',
+		componentName: 'DiagramSymbolReceiveSignalIcon',
+		keywords: [
+			'diagram-symbol-receive-signal',
+			'diagramsymbolreceivesignal',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'receive signal',
+			'UML shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for receive signal UML diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolRequiredInterfaceIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-required-interface","categorization":"single-purpose","usage":"Reserved for required interface UML diagram symbol in Whiteboards.","keywords":["diagram-symbol-required-interface","diagramsymbolrequiredinterface","icon","icon-lab","diagram symbol","required interface","UML shape"],"status":"published"}',
+		componentName: 'DiagramSymbolRequiredInterfaceIcon',
+		keywords: [
+			'diagram-symbol-required-interface',
+			'diagramsymbolrequiredinterface',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'required interface',
+			'UML shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for required interface UML diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolSendIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-send","categorization":"single-purpose","usage":"Reserved for send BPMN diagram symbol in Whiteboards.","keywords":["diagram-symbol-send","diagramsymbolsend","icon","icon-lab","diagram symbol","send","envelope","email","BPMN shape"],"status":"published"}',
+		componentName: 'DiagramSymbolSendIcon',
+		keywords: [
+			'diagram-symbol-send',
+			'diagramsymbolsend',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'send',
+			'envelope',
+			'email',
+			'BPMN shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for send BPMN diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolSendSignalIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-send-signal","categorization":"single-purpose","usage":"Reserved for send signal UML diagram symbol in Whiteboards.","keywords":["diagram-symbol-send-signal","diagramsymbolsendsignal","icon","icon-lab","diagram symbol","send signal","UML shape"],"status":"published"}',
+		componentName: 'DiagramSymbolSendSignalIcon',
+		keywords: [
+			'diagram-symbol-send-signal',
+			'diagramsymbolsendsignal',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'send signal',
+			'UML shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for send signal UML diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolShieldIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-shield","categorization":"single-purpose","usage":"Reserved for shield diagram symbol in Whiteboards.","keywords":["diagram-symbol-shield","diagramsymbolshield","icon","icon-lab","diagram symbol","shield","checkmark","advanced shape"],"status":"published"}',
+		componentName: 'DiagramSymbolShieldIcon',
+		keywords: [
+			'diagram-symbol-shield',
+			'diagramsymbolshield',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'shield',
+			'checkmark',
+			'advanced shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for shield diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolSignalIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-signal","categorization":"single-purpose","usage":"Reserved for signal BPMN diagram symbol in Whiteboards.","keywords":["diagram-symbol-signal","diagramsymbolsignal","icon","icon-lab","diagram symbol","signal","triangle","BPMN shape"],"status":"published"}',
+		componentName: 'DiagramSymbolSignalIcon',
+		keywords: [
+			'diagram-symbol-signal',
+			'diagramsymbolsignal',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'signal',
+			'triangle',
+			'BPMN shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for signal BPMN diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolSignalFilledIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-signal-filled","categorization":"single-purpose","usage":"Reserved for signal BPMN diagram symbol in Whiteboards.","keywords":["diagram-symbol-signal-filled","diagramsymbolsignalfilled","icon","icon-lab","diagram symbol","signal","filled","triangle","BPMN shape"],"status":"published"}',
+		componentName: 'DiagramSymbolSignalFilledIcon',
+		keywords: [
+			'diagram-symbol-signal-filled',
+			'diagramsymbolsignalfilled',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'signal',
+			'filled',
+			'triangle',
+			'BPMN shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for signal BPMN diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolSortIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-sort","categorization":"single-purpose","usage":"Reserved for sort diagram symbol.","keywords":["diagram-symbol-sort","diagramsymbolsort","icon","icon-lab","diagram","symbol","sort"],"status":"published"}',
+		componentName: 'DiagramSymbolSortIcon',
+		keywords: [
+			'diagram-symbol-sort',
+			'diagramsymbolsort',
+			'icon',
+			'icon-lab',
+			'diagram',
+			'symbol',
+			'sort',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for sort diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolStartIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-start","categorization":"single-purpose","usage":"Reserved for start UML diagram symbol in Whiteboards.","keywords":["diagram-symbol-start","diagramsymbolstart","icon","icon-lab","diagram symbol","start","circle","UML shape"],"status":"published"}',
+		componentName: 'DiagramSymbolStartIcon',
+		keywords: [
+			'diagram-symbol-start',
+			'diagramsymbolstart',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'start',
+			'circle',
+			'UML shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for start UML diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolStoredDataIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-stored-data","categorization":"single-purpose","usage":"Reserved for stored data diagram symbol.","keywords":["diagram-symbol-stored-data","diagramsymbolstoreddata","icon","icon-lab","diagram","symbol","stored data"],"status":"published"}',
+		componentName: 'DiagramSymbolStoredDataIcon',
+		keywords: [
+			'diagram-symbol-stored-data',
+			'diagramsymbolstoreddata',
+			'icon',
+			'icon-lab',
+			'diagram',
+			'symbol',
+			'stored data',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for stored data diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolSummingJunctionIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-summing-junction","categorization":"single-purpose","usage":"Reserved for summing junction diagram symbol.","keywords":["diagram-symbol-summing-junction","diagramsymbolsummingjunction","icon","icon-lab","diagram","symbol","summing junction","cross"],"status":"published"}',
+		componentName: 'DiagramSymbolSummingJunctionIcon',
+		keywords: [
+			'diagram-symbol-summing-junction',
+			'diagramsymbolsummingjunction',
+			'icon',
+			'icon-lab',
+			'diagram',
+			'symbol',
+			'summing junction',
+			'cross',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for summing junction diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolSwimlanesHorizontalIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-swimlanes-horizontal","categorization":"single-purpose","usage":"Reserved for horizontal swimlanes diagram symbol in Whiteboards.","keywords":["diagram-symbol-swimlanes-horizontal","diagramsymbolswimlaneshorizontal","icon","icon-lab","diagram symbol","horizontal swimlanes","container"],"status":"published"}',
+		componentName: 'DiagramSymbolSwimlanesHorizontalIcon',
+		keywords: [
+			'diagram-symbol-swimlanes-horizontal',
+			'diagramsymbolswimlaneshorizontal',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'horizontal swimlanes',
+			'container',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for horizontal swimlanes diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolSwimlanesVerticalIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-swimlanes-vertical","categorization":"single-purpose","usage":"Reserved for vertical swimlanes diagram symbol in Whiteboards.","keywords":["diagram-symbol-swimlanes-vertical","diagramsymbolswimlanesvertical","icon","icon-lab","diagram symbol","vertical swimlanes","columns","container"],"status":"published"}',
+		componentName: 'DiagramSymbolSwimlanesVerticalIcon',
+		keywords: [
+			'diagram-symbol-swimlanes-vertical',
+			'diagramsymbolswimlanesvertical',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'vertical swimlanes',
+			'columns',
+			'container',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for vertical swimlanes diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolSwitchIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-switch","categorization":"single-purpose","usage":"Reserved for switch diagram symbol in Whiteboards.","keywords":["diagram-symbol-switch","diagramsymbolswitch","icon","icon-lab","diagram symbol","switch","ethernet","advanced shape","network"],"status":"published"}',
+		componentName: 'DiagramSymbolSwitchIcon',
+		keywords: [
+			'diagram-symbol-switch',
+			'diagramsymbolswitch',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'switch',
+			'ethernet',
+			'advanced shape',
+			'network',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for switch diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolTemplateIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-template","categorization":"single-purpose","usage":"Reserved for template UML diagram symbol in Whiteboards.","keywords":["diagram-symbol-template","diagramsymboltemplate","icon","icon-lab","diagram symbol","template","UML shape","dashed"],"status":"published"}',
+		componentName: 'DiagramSymbolTemplateIcon',
+		keywords: [
+			'diagram-symbol-template',
+			'diagramsymboltemplate',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'template',
+			'UML shape',
+			'dashed',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for template UML diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolTerminatorIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-terminator","categorization":"single-purpose","usage":"Reserved for terminator (start or end point) diagram symbol.","keywords":["diagram-symbol-terminator","diagramsymbolterminator","icon","icon-lab","diagram","symbol","terminator","terminal","start point","end point"],"status":"published"}',
+		componentName: 'DiagramSymbolTerminatorIcon',
+		keywords: [
+			'diagram-symbol-terminator',
+			'diagramsymbolterminator',
+			'icon',
+			'icon-lab',
+			'diagram',
+			'symbol',
+			'terminator',
+			'terminal',
+			'start point',
+			'end point',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for terminator (start or end point) diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DiagramSymbolUseCaseIcon","package":"@atlaskit/icon-lab/core/diagram-symbol-use-case","categorization":"single-purpose","usage":"Reserved for use case UML diagram symbol in Whiteboards.","keywords":["diagram-symbol-use-case","diagramsymbolusecase","icon","icon-lab","diagram symbol","use case","oval","UML shape"],"status":"published"}',
+		componentName: 'DiagramSymbolUseCaseIcon',
+		keywords: [
+			'diagram-symbol-use-case',
+			'diagramsymbolusecase',
+			'icon',
+			'icon-lab',
+			'diagram symbol',
+			'use case',
+			'oval',
+			'UML shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for use case UML diagram symbol in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DirectoryIcon","package":"@atlaskit/icon-lab/core/directory","categorization":"single-purpose","usage":"Reserved for directory experiences.","keywords":["directory","icon","icon-lab","directory","address book"],"status":"published"}',
+		componentName: 'DirectoryIcon',
+		keywords: ['directory', 'icon', 'icon-lab', 'directory', 'address book'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for directory experiences.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DistributeSpacingHorizontalIcon","package":"@atlaskit/icon-lab/core/distribute-spacing-horizontal","categorization":"single-purpose","usage":"Evenly distributing the horizontal space between multiple selected objects on Whiteboards","keywords":["distribute-spacing-horizontal","distributespacinghorizontal","icon","icon-lab","Distribute","Horizontal spacing","Tidy up","Clean up"],"status":"published"}',
+		componentName: 'DistributeSpacingHorizontalIcon',
+		keywords: [
+			'distribute-spacing-horizontal',
+			'distributespacinghorizontal',
+			'icon',
+			'icon-lab',
+			'Distribute',
+			'Horizontal spacing',
+			'Tidy up',
+			'Clean up',
+		],
+		categorization: 'single-purpose',
+		usage:
+			'Evenly distributing the horizontal space between multiple selected objects on Whiteboards',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DistributeSpacingVerticalIcon","package":"@atlaskit/icon-lab/core/distribute-spacing-vertical","categorization":"single-purpose","usage":"Evenly distributing the vertical space between multiple selected objects on Whiteboards","keywords":["distribute-spacing-vertical","distributespacingvertical","icon","icon-lab","Distribute","Vertical spacing","Clean up","Tidy"],"status":"published"}',
+		componentName: 'DistributeSpacingVerticalIcon',
+		keywords: [
+			'distribute-spacing-vertical',
+			'distributespacingvertical',
+			'icon',
+			'icon-lab',
+			'Distribute',
+			'Vertical spacing',
+			'Clean up',
+			'Tidy',
+		],
+		categorization: 'single-purpose',
+		usage:
+			'Evenly distributing the vertical space between multiple selected objects on Whiteboards',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DividerElementIcon","package":"@atlaskit/icon-lab/core/divider-element","categorization":"single-purpose","usage":"Reserved for inserting divider elements in Confluence","keywords":["divider-element","dividerelement","icon","icon-lab","divider","line break","horizontal rule"],"status":"published"}',
+		componentName: 'DividerElementIcon',
+		keywords: [
+			'divider-element',
+			'dividerelement',
+			'icon',
+			'icon-lab',
+			'divider',
+			'line break',
+			'horizontal rule',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for inserting divider elements in Confluence',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DockToolbarTopIcon","package":"@atlaskit/icon-lab/core/dock-toolbar-top","categorization":"single-purpose","usage":"Reserved for docking a toolbar to the top of a page","keywords":["dock-toolbar-top","docktoolbartop","icon","icon-lab","dock to top","fix to top","pin to top"],"status":"published"}',
+		componentName: 'DockToolbarTopIcon',
+		keywords: [
+			'dock-toolbar-top',
+			'docktoolbartop',
+			'icon',
+			'icon-lab',
+			'dock to top',
+			'fix to top',
+			'pin to top',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for docking a toolbar to the top of a page',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DrawIcon","package":"@atlaskit/icon-lab/core/draw","categorization":"multi-purpose","usage":"For drawing and annotation","keywords":["draw","icon","icon-lab","pencil","drawing","annotate"],"status":"published"}',
+		componentName: 'DrawIcon',
+		keywords: ['draw', 'icon', 'icon-lab', 'pencil', 'drawing', 'annotate'],
+		categorization: 'multi-purpose',
+		usage: 'For drawing and annotation',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DropShadowIcon","package":"@atlaskit/icon-lab/core/drop-shadow","categorization":"single-purpose","usage":"Toggle drop shadow on and off","keywords":["drop-shadow","dropshadow","icon","icon-lab","Drop shadow"],"status":"published"}',
+		componentName: 'DropShadowIcon',
+		keywords: ['drop-shadow', 'dropshadow', 'icon', 'icon-lab', 'Drop shadow'],
+		categorization: 'single-purpose',
+		usage: 'Toggle drop shadow on and off',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"DuplicateIcon","package":"@atlaskit/icon-lab/core/duplicate","categorization":"single-purpose","usage":"Reserved for cloning and duplicating objects.","keywords":["duplicate","icon","icon-lab","clone","duplicate","plus"],"status":"published"}',
+		componentName: 'DuplicateIcon',
+		keywords: ['duplicate', 'icon', 'icon-lab', 'clone', 'duplicate', 'plus'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for cloning and duplicating objects.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"EditionsIcon","package":"@atlaskit/icon-lab/core/editions","categorization":"single-purpose","usage":"Reserved for representing premium features in upsell experiences. The Editions gem icon has officially replaced the sparkle icon.","keywords":["editions","icon","icon-lab","gem","premium","diamond","precious stone","editions"],"status":"published"}',
+		componentName: 'EditionsIcon',
+		keywords: [
+			'editions',
+			'icon',
+			'icon-lab',
+			'gem',
+			'premium',
+			'diamond',
+			'precious stone',
+			'editions',
+		],
+		categorization: 'single-purpose',
+		usage:
+			'Reserved for representing premium features in upsell experiences. The Editions gem icon has officially replaced the sparkle icon.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ExpandElementIcon","package":"@atlaskit/icon-lab/core/expand-element","categorization":"single-purpose","usage":"Reserved for inserting expand elements in Confluence","keywords":["expand-element","expandelement","icon","icon-lab","expand","editor object"],"status":"published"}',
+		componentName: 'ExpandElementIcon',
+		keywords: ['expand-element', 'expandelement', 'icon', 'icon-lab', 'expand', 'editor object'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for inserting expand elements in Confluence',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"EyedropperIcon","package":"@atlaskit/icon-lab/core/eyedropper","categorization":"multi-purpose","usage":"Sampling a color with a color picker","keywords":["eyedropper","icon","icon-lab","eyedropper","pipette","color picker","color sample"],"status":"published"}',
+		componentName: 'EyedropperIcon',
+		keywords: [
+			'eyedropper',
+			'icon',
+			'icon-lab',
+			'eyedropper',
+			'pipette',
+			'color picker',
+			'color sample',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Sampling a color with a color picker',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"FieldSelectIcon","package":"@atlaskit/icon-lab/core/field-select","categorization":"single-purpose","usage":"Reserved for representing single and multi-option select field types.","keywords":["field-select","fieldselect","icon","icon-lab","dropdown","single-select","multi-select","select field type"],"status":"published"}',
+		componentName: 'FieldSelectIcon',
+		keywords: [
+			'field-select',
+			'fieldselect',
+			'icon',
+			'icon-lab',
+			'dropdown',
+			'single-select',
+			'multi-select',
+			'select field type',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing single and multi-option select field types.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"FieldTextIcon","package":"@atlaskit/icon-lab/core/field-text","categorization":"multi-purpose","usage":"Multi purpose","keywords":["field-text","fieldtext","icon","icon-lab","form","input","label","cursor","text field"],"status":"published"}',
+		componentName: 'FieldTextIcon',
+		keywords: [
+			'field-text',
+			'fieldtext',
+			'icon',
+			'icon-lab',
+			'form',
+			'input',
+			'label',
+			'cursor',
+			'text field',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Multi purpose',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"FlowerIcon","package":"@atlaskit/icon-lab/core/flower","categorization":"multi-purpose","usage":"","keywords":["flower","icon","icon-lab","flower","daisy","growth","plant"],"status":"published"}',
+		componentName: 'FlowerIcon',
+		keywords: ['flower', 'icon', 'icon-lab', 'flower', 'daisy', 'growth', 'plant'],
+		categorization: 'multi-purpose',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"FolderSharedIcon","package":"@atlaskit/icon-lab/core/folder-shared","categorization":"single-purpose","usage":"Reserved for shared folders","keywords":["folder-shared","foldershared","icon","icon-lab","Shared","User","Public"],"status":"published"}',
+		componentName: 'FolderSharedIcon',
+		keywords: ['folder-shared', 'foldershared', 'icon', 'icon-lab', 'Shared', 'User', 'Public'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for shared folders',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"GenerativeDateIcon","package":"@atlaskit/icon-lab/core/generative-date","categorization":"single-purpose","usage":"Reserved for suggested dates.","keywords":["generative-date","generativedate","icon","icon-lab","calendar","suggested date"],"status":"published"}',
+		componentName: 'GenerativeDateIcon',
+		keywords: [
+			'generative-date',
+			'generativedate',
+			'icon',
+			'icon-lab',
+			'calendar',
+			'suggested date',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for suggested dates.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"GenerativeIndicatorIcon","package":"@atlaskit/icon-lab/core/generative-indicator","categorization":"single-purpose","usage":"Reserved for indicating generative and suggested content.","keywords":["generative-indicator","generativeindicator","icon","icon-lab","AI","suggested","generative","suggestion"],"status":"published"}',
+		componentName: 'GenerativeIndicatorIcon',
+		keywords: [
+			'generative-indicator',
+			'generativeindicator',
+			'icon',
+			'icon-lab',
+			'AI',
+			'suggested',
+			'generative',
+			'suggestion',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for indicating generative and suggested content.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"GiftIcon","package":"@atlaskit/icon-lab/core/gift","categorization":"multi-purpose","usage":"User-selectable icon choice for calendars","keywords":["gift","icon","icon-lab","gift","present"],"status":"published"}',
+		componentName: 'GiftIcon',
+		keywords: ['gift', 'icon', 'icon-lab', 'gift', 'present'],
+		categorization: 'multi-purpose',
+		usage: 'User-selectable icon choice for calendars',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"GlobeStrikethroughIcon","package":"@atlaskit/icon-lab/core/globe-strikethrough","categorization":"multi-purpose","usage":"Known uses: Limited share permissions which are not public","keywords":["globe-strikethrough","globestrikethrough","icon","icon-lab","globe","strikethrough","private","not public"],"status":"published"}',
+		componentName: 'GlobeStrikethroughIcon',
+		keywords: [
+			'globe-strikethrough',
+			'globestrikethrough',
+			'icon',
+			'icon-lab',
+			'globe',
+			'strikethrough',
+			'private',
+			'not public',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Limited share permissions which are not public',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"GroupIcon","package":"@atlaskit/icon-lab/core/group","categorization":"single-purpose","usage":"Reserved for grouping data","keywords":["group","icon","icon-lab","group","grouping","stack","related data"],"status":"published"}',
+		componentName: 'GroupIcon',
+		keywords: ['group', 'icon', 'icon-lab', 'group', 'grouping', 'stack', 'related data'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for grouping data',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"GroupSelectionIcon","package":"@atlaskit/icon-lab/core/group-selection","categorization":"multi-purpose","usage":"Grouping selected objects in Whiteboards","keywords":["group-selection","groupselection","icon","icon-lab","group","selection","layers"],"status":"published"}',
+		componentName: 'GroupSelectionIcon',
+		keywords: [
+			'group-selection',
+			'groupselection',
+			'icon',
+			'icon-lab',
+			'group',
+			'selection',
+			'layers',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Grouping selected objects in Whiteboards',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"GroupUngroupSelectionIcon","package":"@atlaskit/icon-lab/core/group-ungroup-selection","categorization":"multi-purpose","usage":"Ungrouping selected objects in Whiteboards","keywords":["group-ungroup-selection","groupungroupselection","icon","icon-lab","ungroup","selection","layers"],"status":"published"}',
+		componentName: 'GroupUngroupSelectionIcon',
+		keywords: [
+			'group-ungroup-selection',
+			'groupungroupselection',
+			'icon',
+			'icon-lab',
+			'ungroup',
+			'selection',
+			'layers',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Ungrouping selected objects in Whiteboards',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"HandClosedIcon","package":"@atlaskit/icon-lab/core/hand-closed","categorization":"multi-purpose","usage":"Known uses: Hand tool in Whiteboards when actively moving objects.","keywords":["hand-closed","handclosed","icon","icon-lab","hand tool","closed hand","grab","moving"],"status":"published"}',
+		componentName: 'HandClosedIcon',
+		keywords: [
+			'hand-closed',
+			'handclosed',
+			'icon',
+			'icon-lab',
+			'hand tool',
+			'closed hand',
+			'grab',
+			'moving',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Hand tool in Whiteboards when actively moving objects.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"HandOpenIcon","package":"@atlaskit/icon-lab/core/hand-open","categorization":"multi-purpose","usage":"Known uses: Hand tool in Whiteboards for moving objects.","keywords":["hand-open","handopen","icon","icon-lab","hand tool","open hand","move tool"],"status":"published"}',
+		componentName: 'HandOpenIcon',
+		keywords: ['hand-open', 'handopen', 'icon', 'icon-lab', 'hand tool', 'open hand', 'move tool'],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Hand tool in Whiteboards for moving objects.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"HandRaisedIcon","package":"@atlaskit/icon-lab/core/hand-raised","categorization":"multi-purpose","usage":"Used for farewell feed in Atlassian Home.","keywords":["hand-raised","handraised","icon","icon-lab","hand","farewell","wave"],"status":"published"}',
+		componentName: 'HandRaisedIcon',
+		keywords: ['hand-raised', 'handraised', 'icon', 'icon-lab', 'hand', 'farewell', 'wave'],
+		categorization: 'multi-purpose',
+		usage: 'Used for farewell feed in Atlassian Home.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"HistoryIcon","package":"@atlaskit/icon-lab/core/history","categorization":"single-purpose","usage":"Reserved for history and recent","keywords":["history","icon","icon-lab","version control","past","arrow","clock","time","history","recent"],"status":"published"}',
+		componentName: 'HistoryIcon',
+		keywords: [
+			'history',
+			'icon',
+			'icon-lab',
+			'version control',
+			'past',
+			'arrow',
+			'clock',
+			'time',
+			'history',
+			'recent',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for history and recent',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"HourglassIcon","package":"@atlaskit/icon-lab/core/hourglass","categorization":"multi-purpose","usage":"Aging or expiring items","keywords":["hourglass","icon","icon-lab"],"status":"published"}',
+		componentName: 'HourglassIcon',
+		keywords: ['hourglass', 'icon', 'icon-lab'],
+		categorization: 'multi-purpose',
+		usage: 'Aging or expiring items',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"IfElseIcon","package":"@atlaskit/icon-lab/core/if-else","categorization":"single-purpose","usage":"Reserved for If Else conditions","keywords":["if-else","ifelse","icon","icon-lab","condition","statement","branch"],"status":"published"}',
+		componentName: 'IfElseIcon',
+		keywords: ['if-else', 'ifelse', 'icon', 'icon-lab', 'condition', 'statement', 'branch'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for If Else conditions',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ImageAltTextIcon","package":"@atlaskit/icon-lab/core/image-alt-text","categorization":"single-purpose","usage":"Reserved for creating alt text for an image","keywords":["image-alt-text","imagealttext","icon","icon-lab"],"status":"published"}',
+		componentName: 'ImageAltTextIcon',
+		keywords: ['image-alt-text', 'imagealttext', 'icon', 'icon-lab'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for creating alt text for an image',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ImageCropIcon","package":"@atlaskit/icon-lab/core/image-crop","categorization":"single-purpose","usage":"Reserved for cropping images","keywords":["image-crop","imagecrop","icon","icon-lab","crop","crop tool","trim"],"status":"published"}',
+		componentName: 'ImageCropIcon',
+		keywords: ['image-crop', 'imagecrop', 'icon', 'icon-lab', 'crop', 'crop tool', 'trim'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for cropping images',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ImageStrikethroughIcon","package":"@atlaskit/icon-lab/core/image-strikethrough","categorization":"multi-purpose","usage":"Known uses: Represents \'hide images\' action in Loom Workflows.","keywords":["image-strikethrough","imagestrikethrough","icon","icon-lab","image","strikethrough","hide images"],"status":"published"}',
+		componentName: 'ImageStrikethroughIcon',
+		keywords: [
+			'image-strikethrough',
+			'imagestrikethrough',
+			'icon',
+			'icon-lab',
+			'image',
+			'strikethrough',
+			'hide images',
+		],
+		categorization: 'multi-purpose',
+		usage: "Known uses: Represents 'hide images' action in Loom Workflows.",
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"IncognitoIcon","package":"@atlaskit/icon-lab/core/incognito","categorization":"single-purpose","usage":"Toggle Whiteboards private mode on and off.","keywords":["incognito","icon","icon-lab","Whiteboards","Private","Incognito"],"status":"published"}',
+		componentName: 'IncognitoIcon',
+		keywords: ['incognito', 'icon', 'icon-lab', 'Whiteboards', 'Private', 'Incognito'],
+		categorization: 'single-purpose',
+		usage: 'Toggle Whiteboards private mode on and off.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"InitiativeIcon","package":"@atlaskit/icon-lab/core/initiative","categorization":"single-purpose","usage":"Reserved for initiative work type.","keywords":["initiative","icon","icon-lab","crystal ball","system object","work collection","work type"],"status":"published"}',
+		componentName: 'InitiativeIcon',
+		keywords: [
+			'initiative',
+			'icon',
+			'icon-lab',
+			'crystal ball',
+			'system object',
+			'work collection',
+			'work type',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for initiative work type.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"JiraIcon","package":"@atlaskit/icon-lab/core/jira","categorization":"single-purpose","usage":"Representing JIRA","keywords":["jira","icon","icon-lab"],"status":"published"}',
+		componentName: 'JiraIcon',
+		keywords: ['jira', 'icon', 'icon-lab'],
+		categorization: 'single-purpose',
+		usage: 'Representing JIRA',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"JiraAddIcon","package":"@atlaskit/icon-lab/core/jira-add","categorization":"single-purpose","usage":"Reserved for adding Jira work items","keywords":["jira-add","jiraadd","icon","icon-lab","Jira","Work items","Create"],"status":"published"}',
+		componentName: 'JiraAddIcon',
+		keywords: ['jira-add', 'jiraadd', 'icon', 'icon-lab', 'Jira', 'Work items', 'Create'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for adding Jira work items',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"JiraUploadIcon","package":"@atlaskit/icon-lab/core/jira-upload","categorization":"single-purpose","usage":"Reserved for importing Jira work items","keywords":["jira-upload","jiraupload","icon","icon-lab","Jira","Work items","Import","Arrow up"],"status":"published"}',
+		componentName: 'JiraUploadIcon',
+		keywords: [
+			'jira-upload',
+			'jiraupload',
+			'icon',
+			'icon-lab',
+			'Jira',
+			'Work items',
+			'Import',
+			'Arrow up',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for importing Jira work items',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"JourneysIcon","package":"@atlaskit/icon-lab/core/journeys","categorization":"single-purpose","usage":"Reserved for representing Journeys in JSM.","keywords":["journeys","icon","icon-lab","JSM","journey","lifecycle","map","process"],"status":"published"}',
+		componentName: 'JourneysIcon',
+		keywords: ['journeys', 'icon', 'icon-lab', 'JSM', 'journey', 'lifecycle', 'map', 'process'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing Journeys in JSM.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"KanbanIcon","package":"@atlaskit/icon-lab/core/kanban","categorization":"single-purpose","usage":"Kanban board","keywords":["kanban","icon","icon-lab"],"status":"published"}',
+		componentName: 'KanbanIcon',
+		keywords: ['kanban', 'icon', 'icon-lab'],
+		categorization: 'single-purpose',
+		usage: 'Kanban board',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"KeyIcon","package":"@atlaskit/icon-lab/core/key","categorization":"multi-purpose","usage":"Known uses: Foreign key or primary key of a data table.","keywords":["key","icon","icon-lab","key"],"status":"published"}',
+		componentName: 'KeyIcon',
+		keywords: ['key', 'icon', 'icon-lab', 'key'],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Foreign key or primary key of a data table.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"LayoutFiveColumnsIcon","package":"@atlaskit/icon-lab/core/layout-five-columns","categorization":"single-purpose","usage":"Reserved for 5 column layout option in Confluence Editor.","keywords":["layout-five-columns","layoutfivecolumns","icon","icon-lab","layout","columns","5 col","5 cols"],"status":"published"}',
+		componentName: 'LayoutFiveColumnsIcon',
+		keywords: [
+			'layout-five-columns',
+			'layoutfivecolumns',
+			'icon',
+			'icon-lab',
+			'layout',
+			'columns',
+			'5 col',
+			'5 cols',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for 5 column layout option in Confluence Editor.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"LayoutFourColumnsIcon","package":"@atlaskit/icon-lab/core/layout-four-columns","categorization":"single-purpose","usage":"Reserved for 4 columns layout option in Confluence Editor.","keywords":["layout-four-columns","layoutfourcolumns","icon","icon-lab","layout","columns","4 col","4 cols"],"status":"published"}',
+		componentName: 'LayoutFourColumnsIcon',
+		keywords: [
+			'layout-four-columns',
+			'layoutfourcolumns',
+			'icon',
+			'icon-lab',
+			'layout',
+			'columns',
+			'4 col',
+			'4 cols',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for 4 columns layout option in Confluence Editor.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"LayoutThreeColumnsSidebarsLeftIcon","package":"@atlaskit/icon-lab/core/layout-three-columns-sidebars-left","categorization":"single-purpose","usage":"Reserved for 3 column layout with 2 sidebars on left option in Confluence Editor.","keywords":["layout-three-columns-sidebars-left","layoutthreecolumnssidebarsleft","icon","icon-lab","layout","columns","3 col","3 cols","sidebars","asides"],"status":"published"}',
+		componentName: 'LayoutThreeColumnsSidebarsLeftIcon',
+		keywords: [
+			'layout-three-columns-sidebars-left',
+			'layoutthreecolumnssidebarsleft',
+			'icon',
+			'icon-lab',
+			'layout',
+			'columns',
+			'3 col',
+			'3 cols',
+			'sidebars',
+			'asides',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for 3 column layout with 2 sidebars on left option in Confluence Editor.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"LayoutThreeColumnsSidebarsRightIcon","package":"@atlaskit/icon-lab/core/layout-three-columns-sidebars-right","categorization":"single-purpose","usage":"Reserved for 3 column layout with 2 sidebars on right option in Confluence Editor.","keywords":["layout-three-columns-sidebars-right","layoutthreecolumnssidebarsright","icon","icon-lab","layout","columns","3 col","3 cols","sidebars","asides"],"status":"published"}',
+		componentName: 'LayoutThreeColumnsSidebarsRightIcon',
+		keywords: [
+			'layout-three-columns-sidebars-right',
+			'layoutthreecolumnssidebarsright',
+			'icon',
+			'icon-lab',
+			'layout',
+			'columns',
+			'3 col',
+			'3 cols',
+			'sidebars',
+			'asides',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for 3 column layout with 2 sidebars on right option in Confluence Editor.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"LinkRestrictedAccessIcon","package":"@atlaskit/icon-lab/core/link-restricted-access","categorization":"single-purpose","usage":"Reserved for when there is limited link permissions","keywords":["link-restricted-access","linkrestrictedaccess","icon","icon-lab","link","strikethrough","limited"],"status":"published"}',
+		componentName: 'LinkRestrictedAccessIcon',
+		keywords: [
+			'link-restricted-access',
+			'linkrestrictedaccess',
+			'icon',
+			'icon-lab',
+			'link',
+			'strikethrough',
+			'limited',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for when there is limited link permissions',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"LozengeIcon","package":"@atlaskit/icon-lab/core/lozenge","categorization":"single-purpose","usage":"Reserved for inserting status lozenges in Editor.","keywords":["lozenge","icon","icon-lab","insert","status","badge"],"status":"published"}',
+		componentName: 'LozengeIcon',
+		keywords: ['lozenge', 'icon', 'icon-lab', 'insert', 'status', 'badge'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for inserting status lozenges in Editor.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"MergeQueueIcon","package":"@atlaskit/icon-lab/core/merge-queue","categorization":"single-purpose","usage":"Reserved for representing merge queue functionality.","keywords":["merge-queue","mergequeue","icon","icon-lab","bitbucket","repository","merge queue","git","version control"],"status":"published"}',
+		componentName: 'MergeQueueIcon',
+		keywords: [
+			'merge-queue',
+			'mergequeue',
+			'icon',
+			'icon-lab',
+			'bitbucket',
+			'repository',
+			'merge queue',
+			'git',
+			'version control',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing merge queue functionality.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"MicrophoneStrikethroughIcon","package":"@atlaskit/icon-lab/core/microphone-strikethrough","categorization":"multi-purpose","usage":"Reserved for no microphone input","keywords":["microphone-strikethrough","microphonestrikethrough","icon","icon-lab","mic","no audio","off"],"status":"published"}',
+		componentName: 'MicrophoneStrikethroughIcon',
+		keywords: [
+			'microphone-strikethrough',
+			'microphonestrikethrough',
+			'icon',
+			'icon-lab',
+			'mic',
+			'no audio',
+			'off',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Reserved for no microphone input',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"MilestoneCompleteIcon","package":"@atlaskit/icon-lab/core/milestone-complete","categorization":"single-purpose","usage":"Reserved for representing a completed milestone.","keywords":["milestone-complete","milestonecomplete","icon","icon-lab","milestone","completed","check mark","roadmaps","calendar"],"status":"published"}',
+		componentName: 'MilestoneCompleteIcon',
+		keywords: [
+			'milestone-complete',
+			'milestonecomplete',
+			'icon',
+			'icon-lab',
+			'milestone',
+			'completed',
+			'check mark',
+			'roadmaps',
+			'calendar',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing a completed milestone.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"MilestoneIncompleteIcon","package":"@atlaskit/icon-lab/core/milestone-incomplete","categorization":"single-purpose","usage":"Reserved for representing an incomplete milestone.","keywords":["milestone-incomplete","milestoneincomplete","icon","icon-lab","milestone","incompleted","roadmaps","calendar"],"status":"published"}',
+		componentName: 'MilestoneIncompleteIcon',
+		keywords: [
+			'milestone-incomplete',
+			'milestoneincomplete',
+			'icon',
+			'icon-lab',
+			'milestone',
+			'incompleted',
+			'roadmaps',
+			'calendar',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing an incomplete milestone.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"MilestoneMultipleIcon","package":"@atlaskit/icon-lab/core/milestone-multiple","categorization":"single-purpose","usage":"Reserved for use when multiple milestones occur on a single date or point in time.","keywords":["milestone-multiple","milestonemultiple","icon","icon-lab","milestone","milestones","multiple milestones","roadmaps","calendar"],"status":"published"}',
+		componentName: 'MilestoneMultipleIcon',
+		keywords: [
+			'milestone-multiple',
+			'milestonemultiple',
+			'icon',
+			'icon-lab',
+			'milestone',
+			'milestones',
+			'multiple milestones',
+			'roadmaps',
+			'calendar',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for use when multiple milestones occur on a single date or point in time.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"MilestoneOverdueIcon","package":"@atlaskit/icon-lab/core/milestone-overdue","categorization":"single-purpose","usage":"Reserved for representing an overdue milestone.","keywords":["milestone-overdue","milestoneoverdue","icon","icon-lab","overdue","past due","milestone","roadmaps","calendar"],"status":"published"}',
+		componentName: 'MilestoneOverdueIcon',
+		keywords: [
+			'milestone-overdue',
+			'milestoneoverdue',
+			'icon',
+			'icon-lab',
+			'overdue',
+			'past due',
+			'milestone',
+			'roadmaps',
+			'calendar',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing an overdue milestone.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"MissedCallIcon","package":"@atlaskit/icon-lab/core/missed-call","categorization":"single-purpose","usage":"Reserved for representing missed calls and missed call settings.","keywords":["missed-call","missedcall","icon","icon-lab","missed phone call","rejected call"],"status":"published"}',
+		componentName: 'MissedCallIcon',
+		keywords: [
+			'missed-call',
+			'missedcall',
+			'icon',
+			'icon-lab',
+			'missed phone call',
+			'rejected call',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing missed calls and missed call settings.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"NodeParallelBottomLeftIcon","package":"@atlaskit/icon-lab/core/node-parallel-bottom-left","categorization":"single-purpose","usage":"Reserved for whiteboard’s node parallel-bottom-left","keywords":["node-parallel-bottom-left","nodeparallelbottomleft","icon","icon-lab","Node","Parallel","Bottom","Left"],"status":"published"}',
+		componentName: 'NodeParallelBottomLeftIcon',
+		keywords: [
+			'node-parallel-bottom-left',
+			'nodeparallelbottomleft',
+			'icon',
+			'icon-lab',
+			'Node',
+			'Parallel',
+			'Bottom',
+			'Left',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for whiteboard’s node parallel-bottom-left',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"NodeParallelBottomRightIcon","package":"@atlaskit/icon-lab/core/node-parallel-bottom-right","categorization":"single-purpose","usage":"Reserved for whiteboard’s node parallel-bottom-right","keywords":["node-parallel-bottom-right","nodeparallelbottomright","icon","icon-lab","Node","parallel","bottom","right"],"status":"published"}',
+		componentName: 'NodeParallelBottomRightIcon',
+		keywords: [
+			'node-parallel-bottom-right',
+			'nodeparallelbottomright',
+			'icon',
+			'icon-lab',
+			'Node',
+			'parallel',
+			'bottom',
+			'right',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for whiteboard’s node parallel-bottom-right',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"NodeParallelTopLeftIcon","package":"@atlaskit/icon-lab/core/node-parallel-top-left","categorization":"single-purpose","usage":"Reserved for whiteboard’s node parallel-top-left","keywords":["node-parallel-top-left","nodeparalleltopleft","icon","icon-lab","Node","Parallel","Top","Left"],"status":"published"}',
+		componentName: 'NodeParallelTopLeftIcon',
+		keywords: [
+			'node-parallel-top-left',
+			'nodeparalleltopleft',
+			'icon',
+			'icon-lab',
+			'Node',
+			'Parallel',
+			'Top',
+			'Left',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for whiteboard’s node parallel-top-left',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"NodeParallelTopRightIcon","package":"@atlaskit/icon-lab/core/node-parallel-top-right","categorization":"single-purpose","usage":"Reserved for whiteboard’s node parallel-top-right","keywords":["node-parallel-top-right","nodeparalleltopright","icon","icon-lab","Node","parallel","top","right"],"status":"published"}',
+		componentName: 'NodeParallelTopRightIcon',
+		keywords: [
+			'node-parallel-top-right',
+			'nodeparalleltopright',
+			'icon',
+			'icon-lab',
+			'Node',
+			'parallel',
+			'top',
+			'right',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for whiteboard’s node parallel-top-right',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"NodeSingleLeftIcon","package":"@atlaskit/icon-lab/core/node-single-left","categorization":"single-purpose","usage":"Reserved for whiteboard’s node single-left alignment","keywords":["node-single-left","nodesingleleft","icon","icon-lab","Node","Single","Left"],"status":"published"}',
+		componentName: 'NodeSingleLeftIcon',
+		keywords: ['node-single-left', 'nodesingleleft', 'icon', 'icon-lab', 'Node', 'Single', 'Left'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for whiteboard’s node single-left alignment',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"NodeSingleRightIcon","package":"@atlaskit/icon-lab/core/node-single-right","categorization":"single-purpose","usage":"Reserved for whiteboard’s node single-right","keywords":["node-single-right","nodesingleright","icon","icon-lab","Node","single","right"],"status":"published"}',
+		componentName: 'NodeSingleRightIcon',
+		keywords: [
+			'node-single-right',
+			'nodesingleright',
+			'icon',
+			'icon-lab',
+			'Node',
+			'single',
+			'right',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for whiteboard’s node single-right',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"NotepadIcon","package":"@atlaskit/icon-lab/core/notepad","categorization":"multi-purpose","usage":"Whiteboard component \'card\'","keywords":["notepad","icon","icon-lab","Card","Note","Notepad","Memo"],"status":"published"}',
+		componentName: 'NotepadIcon',
+		keywords: ['notepad', 'icon', 'icon-lab', 'Card', 'Note', 'Notepad', 'Memo'],
+		categorization: 'multi-purpose',
+		usage: "Whiteboard component 'card'",
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"PageLiveDocIcon","package":"@atlaskit/icon-lab/core/page-live-doc","categorization":"single-purpose","usage":"Reserved for Live Document content type.","keywords":["page-live-doc","pagelivedoc","icon","icon-lab","page","live edit","lightning bolt","multiplayer","document","live doc"],"status":"published"}',
+		componentName: 'PageLiveDocIcon',
+		keywords: [
+			'page-live-doc',
+			'pagelivedoc',
+			'icon',
+			'icon-lab',
+			'page',
+			'live edit',
+			'lightning bolt',
+			'multiplayer',
+			'document',
+			'live doc',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for Live Document content type.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"PaintBrushIcon","package":"@atlaskit/icon-lab/core/paint-brush","categorization":"multi-purpose","usage":"Multi purpose","keywords":["paint-brush","paintbrush","icon","icon-lab","brush","appearance","paint"],"status":"published"}',
+		componentName: 'PaintBrushIcon',
+		keywords: ['paint-brush', 'paintbrush', 'icon', 'icon-lab', 'brush', 'appearance', 'paint'],
+		categorization: 'multi-purpose',
+		usage: 'Multi purpose',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"PaintRollerIcon","package":"@atlaskit/icon-lab/core/paint-roller","categorization":"multi-purpose","usage":"Multi purpose","keywords":["paint-roller","paintroller","icon","icon-lab","roller","background","paint"],"status":"published"}',
+		componentName: 'PaintRollerIcon',
+		keywords: ['paint-roller', 'paintroller', 'icon', 'icon-lab', 'roller', 'background', 'paint'],
+		categorization: 'multi-purpose',
+		usage: 'Multi purpose',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"PanelIcon","package":"@atlaskit/icon-lab/core/panel","categorization":"multi-purpose","usage":"Panel category in Confluence","keywords":["panel","icon","icon-lab","panel","card"],"status":"published"}',
+		componentName: 'PanelIcon',
+		keywords: ['panel', 'icon', 'icon-lab', 'panel', 'card'],
+		categorization: 'multi-purpose',
+		usage: 'Panel category in Confluence',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"PartyPopperIcon","package":"@atlaskit/icon-lab/core/party-popper","categorization":"multi-purpose","usage":"User-selectable icon choice for calendars","keywords":["party-popper","partypopper","icon","icon-lab","party","celebrate","celebration","confetti"],"status":"published"}',
+		componentName: 'PartyPopperIcon',
+		keywords: [
+			'party-popper',
+			'partypopper',
+			'icon',
+			'icon-lab',
+			'party',
+			'celebrate',
+			'celebration',
+			'confetti',
+		],
+		categorization: 'multi-purpose',
+		usage: 'User-selectable icon choice for calendars',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"PencilIcon","package":"@atlaskit/icon-lab/core/pencil","categorization":"multi-purpose","usage":"Known uses: compose video title in Loom","keywords":["pencil","icon","icon-lab","compose","write","pen"],"status":"published"}',
+		componentName: 'PencilIcon',
+		keywords: ['pencil', 'icon', 'icon-lab', 'compose', 'write', 'pen'],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: compose video title in Loom',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"PersonVoiceoverIcon","package":"@atlaskit/icon-lab/core/person-voiceover","categorization":"single-purpose","usage":"Known uses: voiceover within Loom Variables","keywords":["person-voiceover","personvoiceover","icon","icon-lab","voice","speak","speech","human","user"],"status":"published"}',
+		componentName: 'PersonVoiceoverIcon',
+		keywords: [
+			'person-voiceover',
+			'personvoiceover',
+			'icon',
+			'icon-lab',
+			'voice',
+			'speak',
+			'speech',
+			'human',
+			'user',
+		],
+		categorization: 'single-purpose',
+		usage: 'Known uses: voiceover within Loom Variables',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"PinStrikethroughIcon","package":"@atlaskit/icon-lab/core/pin-strikethrough","categorization":"multi-purpose","usage":"Known uses: Unpinning comments in Jira","keywords":["pin-strikethrough","pinstrikethrough","icon","icon-lab","push pin","thumbtack","tack","unpin"],"status":"published"}',
+		componentName: 'PinStrikethroughIcon',
+		keywords: [
+			'pin-strikethrough',
+			'pinstrikethrough',
+			'icon',
+			'icon-lab',
+			'push pin',
+			'thumbtack',
+			'tack',
+			'unpin',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Unpinning comments in Jira',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"PipelineIcon","package":"@atlaskit/icon-lab/core/pipeline","categorization":"single-purpose","usage":"Reserved for representing pipelines","keywords":["pipeline","icon","icon-lab","pipeline","build process","bitbucket"],"status":"published"}',
+		componentName: 'PipelineIcon',
+		keywords: ['pipeline', 'icon', 'icon-lab', 'pipeline', 'build process', 'bitbucket'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing pipelines',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"PlanIcon","package":"@atlaskit/icon-lab/core/plan","categorization":"single-purpose","usage":"Reserved for representing plans.","keywords":["plan","icon","icon-lab","roadmaps","plan"],"status":"published"}',
+		componentName: 'PlanIcon',
+		keywords: ['plan', 'icon', 'icon-lab', 'roadmaps', 'plan'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing plans.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"PlaylistIcon","package":"@atlaskit/icon-lab/core/playlist","categorization":"single-purpose","usage":"Representing the playlist feature","keywords":["playlist","icon","icon-lab","playlist","listen","audio","play","briefing"],"status":"published"}',
+		componentName: 'PlaylistIcon',
+		keywords: ['playlist', 'icon', 'icon-lab', 'playlist', 'listen', 'audio', 'play', 'briefing'],
+		categorization: 'single-purpose',
+		usage: 'Representing the playlist feature',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"PlaylistAddIcon","package":"@atlaskit/icon-lab/core/playlist-add","categorization":"single-purpose","usage":"Adding items to your playlist (feature).","keywords":["playlist-add","playlistadd","icon","icon-lab","playlist","add","include","bookmark","listen","save"],"status":"published"}',
+		componentName: 'PlaylistAddIcon',
+		keywords: [
+			'playlist-add',
+			'playlistadd',
+			'icon',
+			'icon-lab',
+			'playlist',
+			'add',
+			'include',
+			'bookmark',
+			'listen',
+			'save',
+		],
+		categorization: 'single-purpose',
+		usage: 'Adding items to your playlist (feature).',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"PlaylistAddedIcon","package":"@atlaskit/icon-lab/core/playlist-added","categorization":"single-purpose","usage":"Indicating when things have been added to your playlist (feature)","keywords":["playlist-added","playlistadded","icon","icon-lab","playlist","added","include","play"],"status":"published"}',
+		componentName: 'PlaylistAddedIcon',
+		keywords: [
+			'playlist-added',
+			'playlistadded',
+			'icon',
+			'icon-lab',
+			'playlist',
+			'added',
+			'include',
+			'play',
+		],
+		categorization: 'single-purpose',
+		usage: 'Indicating when things have been added to your playlist (feature)',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"PlaylistRemoveIcon","package":"@atlaskit/icon-lab/core/playlist-remove","categorization":"single-purpose","usage":"Represents the action for removing things from the playlist feature.","keywords":["playlist-remove","playlistremove","icon","icon-lab","playlist","remove","cancel","delete"],"status":"published"}',
+		componentName: 'PlaylistRemoveIcon',
+		keywords: [
+			'playlist-remove',
+			'playlistremove',
+			'icon',
+			'icon-lab',
+			'playlist',
+			'remove',
+			'cancel',
+			'delete',
+		],
+		categorization: 'single-purpose',
+		usage: 'Represents the action for removing things from the playlist feature.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"PlusCircleIcon","package":"@atlaskit/icon-lab/core/plus-circle","categorization":"multi-purpose","usage":"Known uses: add task in Loom","keywords":["plus-circle","pluscircle","icon","icon-lab","add"],"status":"published"}',
+		componentName: 'PlusCircleIcon',
+		keywords: ['plus-circle', 'pluscircle', 'icon', 'icon-lab', 'add'],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: add task in Loom',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"PowerIcon","package":"@atlaskit/icon-lab/core/power","categorization":"multi-purpose","usage":"Known uses: Turn off Loom companion in Chrome extension","keywords":["power","icon","icon-lab","energy","turn on","turn off","power off"],"status":"published"}',
+		componentName: 'PowerIcon',
+		keywords: ['power', 'icon', 'icon-lab', 'energy', 'turn on', 'turn off', 'power off'],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Turn off Loom companion in Chrome extension',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"PowerCableIcon","package":"@atlaskit/icon-lab/core/power-cable","categorization":"multi-purpose","usage":"Suggested uses: Data connectivity, Connection, Plugins, Extensions, Extensibility","keywords":["power-cable","powercable","icon","icon-lab","plugs","plugin","plug-in","connection","connectivity","cable","extensibility","power cord"],"status":"published"}',
+		componentName: 'PowerCableIcon',
+		keywords: [
+			'power-cable',
+			'powercable',
+			'icon',
+			'icon-lab',
+			'plugs',
+			'plugin',
+			'plug-in',
+			'connection',
+			'connectivity',
+			'cable',
+			'extensibility',
+			'power cord',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Suggested uses: Data connectivity, Connection, Plugins, Extensions, Extensibility',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"QrCodeIcon","package":"@atlaskit/icon-lab/core/qr-code","categorization":"single-purpose","usage":"Reserved for QR code experiences.","keywords":["qr-code","qrcode","icon","icon-lab","QR code","barcode"],"status":"published"}',
+		componentName: 'QrCodeIcon',
+		keywords: ['qr-code', 'qrcode', 'icon', 'icon-lab', 'QR code', 'barcode'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for QR code experiences.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"QueuePopInIcon","package":"@atlaskit/icon-lab/core/queue-pop-in","categorization":"single-purpose","usage":"Reserved for JSM queue navigation to move back to sidebar","keywords":["queue-pop-in","queuepopin","icon","icon-lab","Queues","pop-in","pop in","move back to sidebar"],"status":"published"}',
+		componentName: 'QueuePopInIcon',
+		keywords: [
+			'queue-pop-in',
+			'queuepopin',
+			'icon',
+			'icon-lab',
+			'Queues',
+			'pop-in',
+			'pop in',
+			'move back to sidebar',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for JSM queue navigation to move back to sidebar',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"QueuePopOutIcon","package":"@atlaskit/icon-lab/core/queue-pop-out","categorization":"single-purpose","usage":"Reserved for JSM queue navigation to pop out from sidebar","keywords":["queue-pop-out","queuepopout","icon","icon-lab","pop-out","pop out","Queues","Move out from sidebar"],"status":"published"}',
+		componentName: 'QueuePopOutIcon',
+		keywords: [
+			'queue-pop-out',
+			'queuepopout',
+			'icon',
+			'icon-lab',
+			'pop-out',
+			'pop out',
+			'Queues',
+			'Move out from sidebar',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for JSM queue navigation to pop out from sidebar',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"RandomizeIcon","package":"@atlaskit/icon-lab/core/randomize","categorization":"single-purpose","usage":"Reserved for randomizing or shuffling functionality.","keywords":["randomize","icon","icon-lab","randomize","randomise","shuffle"],"status":"published"}',
+		componentName: 'RandomizeIcon',
+		keywords: ['randomize', 'icon', 'icon-lab', 'randomize', 'randomise', 'shuffle'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for randomizing or shuffling functionality.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"RepeatIcon","package":"@atlaskit/icon-lab/core/repeat","categorization":"single-purpose","usage":"Reserved for setting objects to recur (eg Work items, Forms)","keywords":["repeat","icon","icon-lab","recur","recurring","repeat","repeating"],"status":"published"}',
+		componentName: 'RepeatIcon',
+		keywords: ['repeat', 'icon', 'icon-lab', 'recur', 'recurring', 'repeat', 'repeating'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for setting objects to recur (eg Work items, Forms)',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ReplyLeftIcon","package":"@atlaskit/icon-lab/core/reply-left","categorization":"single-purpose","usage":"Known uses: replying to a message thread","keywords":["reply-left","replyleft","icon","icon-lab","arrow","reply","respond","message"],"status":"published"}',
+		componentName: 'ReplyLeftIcon',
+		keywords: [
+			'reply-left',
+			'replyleft',
+			'icon',
+			'icon-lab',
+			'arrow',
+			'reply',
+			'respond',
+			'message',
+		],
+		categorization: 'single-purpose',
+		usage: 'Known uses: replying to a message thread',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ReplyRightIcon","package":"@atlaskit/icon-lab/core/reply-right","categorization":"single-purpose","usage":"Known uses: replying to a message thread","keywords":["reply-right","replyright","icon","icon-lab"],"status":"published"}',
+		componentName: 'ReplyRightIcon',
+		keywords: ['reply-right', 'replyright', 'icon', 'icon-lab'],
+		categorization: 'single-purpose',
+		usage: 'Known uses: replying to a message thread',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ReturnIcon","package":"@atlaskit/icon-lab/core/return","categorization":"single-purpose","usage":"Reserved for submitting text fields without dedicated button, mainly AI prompts","keywords":["return","icon","icon-lab","submit","return","enter","confirm"],"status":"published"}',
+		componentName: 'ReturnIcon',
+		keywords: ['return', 'icon', 'icon-lab', 'submit', 'return', 'enter', 'confirm'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for submitting text fields without dedicated button, mainly AI prompts',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"RoadmapsPlanIcon","package":"@atlaskit/icon-lab/core/roadmaps-plan","categorization":"single-purpose","usage":"Reserved for representing plans.","keywords":["roadmaps-plan","roadmapsplan","icon","icon-lab","roadmaps","plan"],"status":"deprecated"}',
+		componentName: 'RoadmapsPlanIcon',
+		keywords: ['roadmaps-plan', 'roadmapsplan', 'icon', 'icon-lab', 'roadmaps', 'plan'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing plans.',
+		status: 'deprecated',
+	},
+	{
+		content:
+			'{"componentName":"RoadmapsServiceIcon","package":"@atlaskit/icon-lab/core/roadmaps-service","categorization":"single-purpose","usage":"Reserved for roadmaps service.","keywords":["roadmaps-service","roadmapsservice","icon","icon-lab","roadmaps","service","roadmap"],"status":"deprecated"}',
+		componentName: 'RoadmapsServiceIcon',
+		keywords: [
+			'roadmaps-service',
+			'roadmapsservice',
+			'icon',
+			'icon-lab',
+			'roadmaps',
+			'service',
+			'roadmap',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for roadmaps service.',
+		status: 'deprecated',
+	},
+	{
+		content:
+			'{"componentName":"RovoIcon","package":"@atlaskit/icon-lab/core/rovo","categorization":"single-purpose","usage":"Reserved for representing Rovo","keywords":["rovo","icon","icon-lab","rovo","AI chat"],"status":"published"}',
+		componentName: 'RovoIcon',
+		keywords: ['rovo', 'icon', 'icon-lab', 'rovo', 'AI chat'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing Rovo',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"RssFeedIcon","package":"@atlaskit/icon-lab/core/rss-feed","categorization":"single-purpose","usage":"Reserved for RSS feeds","keywords":["rss-feed","rssfeed","icon","icon-lab","rss","really simply syndication","web feed","xml"],"status":"published"}',
+		componentName: 'RssFeedIcon',
+		keywords: [
+			'rss-feed',
+			'rssfeed',
+			'icon',
+			'icon-lab',
+			'rss',
+			'really simply syndication',
+			'web feed',
+			'xml',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for RSS feeds',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"SaveIcon","package":"@atlaskit/icon-lab/core/save","categorization":"single-purpose","usage":"Reserved for saving","keywords":["save","icon","icon-lab","floppy disk","save","floppy drive","storage","diskette"],"status":"published"}',
+		componentName: 'SaveIcon',
+		keywords: [
+			'save',
+			'icon',
+			'icon-lab',
+			'floppy disk',
+			'save',
+			'floppy drive',
+			'storage',
+			'diskette',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for saving',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ScreenRecordIcon","package":"@atlaskit/icon-lab/core/screen-record","categorization":"single-purpose","usage":"Known uses: screen recorder with the cam bubble for Loom","keywords":["screen-record","screenrecord","icon","icon-lab","screen recorder","camera","cam bubble"],"status":"published"}',
+		componentName: 'ScreenRecordIcon',
+		keywords: [
+			'screen-record',
+			'screenrecord',
+			'icon',
+			'icon-lab',
+			'screen recorder',
+			'camera',
+			'cam bubble',
+		],
+		categorization: 'single-purpose',
+		usage: 'Known uses: screen recorder with the cam bubble for Loom',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"SectionIcon","package":"@atlaskit/icon-lab/core/section","categorization":"multi-purpose","usage":"Used for section tool in Whiteboards","keywords":["section","icon","icon-lab","section","related content"],"status":"published"}',
+		componentName: 'SectionIcon',
+		keywords: ['section', 'icon', 'icon-lab', 'section', 'related content'],
+		categorization: 'multi-purpose',
+		usage: 'Used for section tool in Whiteboards',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ServiceIcon","package":"@atlaskit/icon-lab/core/service","categorization":"single-purpose","usage":"Reserved for roadmaps service.","keywords":["service","icon","icon-lab","roadmaps","service","roadmap"],"status":"published"}',
+		componentName: 'ServiceIcon',
+		keywords: ['service', 'icon', 'icon-lab', 'roadmaps', 'service', 'roadmap'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for roadmaps service.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ShapeDiamondIcon","package":"@atlaskit/icon-lab/core/shape-diamond","categorization":"multi-purpose","usage":"Diamond shape tool in Whiteboards","keywords":["shape-diamond","shapediamond","icon","icon-lab","diamond","shape tool"],"status":"published"}',
+		componentName: 'ShapeDiamondIcon',
+		keywords: ['shape-diamond', 'shapediamond', 'icon', 'icon-lab', 'diamond', 'shape tool'],
+		categorization: 'multi-purpose',
+		usage: 'Diamond shape tool in Whiteboards',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ShapeEllipseIcon","package":"@atlaskit/icon-lab/core/shape-ellipse","categorization":"multi-purpose","usage":"Ellipse shape tool in Whiteboards","keywords":["shape-ellipse","shapeellipse","icon","icon-lab","ellipse","circle","shape tool"],"status":"published"}',
+		componentName: 'ShapeEllipseIcon',
+		keywords: [
+			'shape-ellipse',
+			'shapeellipse',
+			'icon',
+			'icon-lab',
+			'ellipse',
+			'circle',
+			'shape tool',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Ellipse shape tool in Whiteboards',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ShapeParallelogramSkewLeftIcon","package":"@atlaskit/icon-lab/core/shape-parallelogram-skew-left","categorization":"multi-purpose","usage":"Left parallelogram shape tool in Whiteboards","keywords":["shape-parallelogram-skew-left","shapeparallelogramskewleft","icon","icon-lab","parallelogram","skewed","left","shape tool"],"status":"published"}',
+		componentName: 'ShapeParallelogramSkewLeftIcon',
+		keywords: [
+			'shape-parallelogram-skew-left',
+			'shapeparallelogramskewleft',
+			'icon',
+			'icon-lab',
+			'parallelogram',
+			'skewed',
+			'left',
+			'shape tool',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Left parallelogram shape tool in Whiteboards',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ShapeParallelogramSkewRightIcon","package":"@atlaskit/icon-lab/core/shape-parallelogram-skew-right","categorization":"multi-purpose","usage":"Right parallelogram shape tool in Whiteboards","keywords":["shape-parallelogram-skew-right","shapeparallelogramskewright","icon","icon-lab","parallelogram","skewed","shape tool","right"],"status":"published"}',
+		componentName: 'ShapeParallelogramSkewRightIcon',
+		keywords: [
+			'shape-parallelogram-skew-right',
+			'shapeparallelogramskewright',
+			'icon',
+			'icon-lab',
+			'parallelogram',
+			'skewed',
+			'shape tool',
+			'right',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Right parallelogram shape tool in Whiteboards',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ShapeRectangleIcon","package":"@atlaskit/icon-lab/core/shape-rectangle","categorization":"multi-purpose","usage":"Rectangle shape tool in Whiteboards","keywords":["shape-rectangle","shaperectangle","icon","icon-lab","shape tool","rectangle","square"],"status":"published"}',
+		componentName: 'ShapeRectangleIcon',
+		keywords: [
+			'shape-rectangle',
+			'shaperectangle',
+			'icon',
+			'icon-lab',
+			'shape tool',
+			'rectangle',
+			'square',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Rectangle shape tool in Whiteboards',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ShapeRectangleRoundedIcon","package":"@atlaskit/icon-lab/core/shape-rectangle-rounded","categorization":"multi-purpose","usage":"Rounded rectangle shape tool in Whiteboards","keywords":["shape-rectangle-rounded","shaperectanglerounded","icon","icon-lab","shape tool","rectangle","rounded","square"],"status":"published"}',
+		componentName: 'ShapeRectangleRoundedIcon',
+		keywords: [
+			'shape-rectangle-rounded',
+			'shaperectanglerounded',
+			'icon',
+			'icon-lab',
+			'shape tool',
+			'rectangle',
+			'rounded',
+			'square',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Rounded rectangle shape tool in Whiteboards',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ShapeTriangleIcon","package":"@atlaskit/icon-lab/core/shape-triangle","categorization":"multi-purpose","usage":"Triangle shape tool in Whiteboards","keywords":["shape-triangle","shapetriangle","icon","icon-lab","triangle","shape tool","equilateral"],"status":"published"}',
+		componentName: 'ShapeTriangleIcon',
+		keywords: [
+			'shape-triangle',
+			'shapetriangle',
+			'icon',
+			'icon-lab',
+			'triangle',
+			'shape tool',
+			'equilateral',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Triangle shape tool in Whiteboards',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ShapeTriangleInvertedIcon","package":"@atlaskit/icon-lab/core/shape-triangle-inverted","categorization":"multi-purpose","usage":"Upside down triangle shape tool in Whiteboards","keywords":["shape-triangle-inverted","shapetriangleinverted","icon","icon-lab","triangle","shape tool","equilateral"],"status":"published"}',
+		componentName: 'ShapeTriangleInvertedIcon',
+		keywords: [
+			'shape-triangle-inverted',
+			'shapetriangleinverted',
+			'icon',
+			'icon-lab',
+			'triangle',
+			'shape tool',
+			'equilateral',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Upside down triangle shape tool in Whiteboards',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"SignatureIcon","package":"@atlaskit/icon-lab/core/signature","categorization":"multi-purpose","usage":"Toggle author visibility on sticky notes in Whiteboards.","keywords":["signature","icon","icon-lab","signature","scribble","author","authour","sticky note","post-it"],"status":"published"}',
+		componentName: 'SignatureIcon',
+		keywords: [
+			'signature',
+			'icon',
+			'icon-lab',
+			'signature',
+			'scribble',
+			'author',
+			'authour',
+			'sticky note',
+			'post-it',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Toggle author visibility on sticky notes in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"SignpostIcon","package":"@atlaskit/icon-lab/core/signpost","categorization":"multi-purpose","usage":"","keywords":["signpost","icon","icon-lab","signpost","direction","milestone"],"status":"published"}',
+		componentName: 'SignpostIcon',
+		keywords: ['signpost', 'icon', 'icon-lab', 'signpost', 'direction', 'milestone'],
+		categorization: 'multi-purpose',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"SkillIcon","package":"@atlaskit/icon-lab/core/skill","categorization":"single-purpose","usage":"Reserved for skill functionality. Skills are a combination of tools and a prompt to allow an agent to perform a multistep process.","keywords":["skill","icon","icon-lab","skill","skills","agent","agentic","tools","tool"],"status":"published"}',
+		componentName: 'SkillIcon',
+		keywords: ['skill', 'icon', 'icon-lab', 'skill', 'skills', 'agent', 'agentic', 'tools', 'tool'],
+		categorization: 'single-purpose',
+		usage:
+			'Reserved for skill functionality. Skills are a combination of tools and a prompt to allow an agent to perform a multistep process.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"SkipIcon","package":"@atlaskit/icon-lab/core/skip","categorization":"single-purpose","usage":"Reserved for skipping steps.","keywords":["skip","icon","icon-lab","skip","miss"],"status":"published"}',
+		componentName: 'SkipIcon',
+		keywords: ['skip', 'icon', 'icon-lab', 'skip', 'miss'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for skipping steps.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"SkipUnskipIcon","package":"@atlaskit/icon-lab/core/skip-unskip","categorization":"single-purpose","usage":"Reserved for reinstating a previously skipped step.","keywords":["skip-unskip","skipunskip","icon","icon-lab","unskip","reinstate step"],"status":"published"}',
+		componentName: 'SkipUnskipIcon',
+		keywords: ['skip-unskip', 'skipunskip', 'icon', 'icon-lab', 'unskip', 'reinstate step'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for reinstating a previously skipped step.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"SortOptionsIcon","package":"@atlaskit/icon-lab/core/sort-options","categorization":"single-purpose","usage":"Reserved for accessing sorting options.","keywords":["sort-options","sortoptions","icon","icon-lab","sorting","ordering","alphabetization","alphabetisation","reordering"],"status":"published"}',
+		componentName: 'SortOptionsIcon',
+		keywords: [
+			'sort-options',
+			'sortoptions',
+			'icon',
+			'icon-lab',
+			'sorting',
+			'ordering',
+			'alphabetization',
+			'alphabetisation',
+			'reordering',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for accessing sorting options.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"SpacesIcon","package":"@atlaskit/icon-lab/core/spaces","categorization":"single-purpose","usage":"Reserved for use for Jira Projects for now. This will replace the Jira rocket.   More context: Later, it will eventually replace the Confluence Spaces icon later when Jira Projects -> Jira Spaces. This is a planned phased rollout.","keywords":["spaces","icon","icon-lab","space","spaces","projects"],"status":"published"}',
+		componentName: 'SpacesIcon',
+		keywords: ['spaces', 'icon', 'icon-lab', 'space', 'spaces', 'projects'],
+		categorization: 'single-purpose',
+		usage:
+			'Reserved for use for Jira Projects for now. This will replace the Jira rocket.   More context: Later, it will eventually replace the Confluence Spaces icon later when Jira Projects -> Jira Spaces. This is a planned phased rollout.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"SpeedometerLeftIcon","package":"@atlaskit/icon-lab/core/speedometer-left","categorization":"multi-purpose","usage":"Known uses: video is set to a slower playback speed","keywords":["speedometer-left","speedometerleft","icon","icon-lab","speed","performance","dial","slow"],"status":"published"}',
+		componentName: 'SpeedometerLeftIcon',
+		keywords: [
+			'speedometer-left',
+			'speedometerleft',
+			'icon',
+			'icon-lab',
+			'speed',
+			'performance',
+			'dial',
+			'slow',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: video is set to a slower playback speed',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"SpeedometerRightIcon","package":"@atlaskit/icon-lab/core/speedometer-right","categorization":"multi-purpose","usage":"Known uses: video is set to a faster playback speed","keywords":["speedometer-right","speedometerright","icon","icon-lab","speed","performance","dial","fast"],"status":"published"}',
+		componentName: 'SpeedometerRightIcon',
+		keywords: [
+			'speedometer-right',
+			'speedometerright',
+			'icon',
+			'icon-lab',
+			'speed',
+			'performance',
+			'dial',
+			'fast',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: video is set to a faster playback speed',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"SpeedometerUpIcon","package":"@atlaskit/icon-lab/core/speedometer-up","categorization":"multi-purpose","usage":"Known uses: video is set a normal playback speed","keywords":["speedometer-up","speedometerup","icon","icon-lab","speed","performance","dial"],"status":"published"}',
+		componentName: 'SpeedometerUpIcon',
+		keywords: [
+			'speedometer-up',
+			'speedometerup',
+			'icon',
+			'icon-lab',
+			'speed',
+			'performance',
+			'dial',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: video is set a normal playback speed',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"SplitParallelIcon","package":"@atlaskit/icon-lab/core/split-parallel","categorization":"single-purpose","usage":"Reserved for split parallel branches in Automation","keywords":["split-parallel","splitparallel","icon","icon-lab","router","branches"],"status":"published"}',
+		componentName: 'SplitParallelIcon',
+		keywords: ['split-parallel', 'splitparallel', 'icon', 'icon-lab', 'router', 'branches'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for split parallel branches in Automation',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"StampIcon","package":"@atlaskit/icon-lab/core/stamp","categorization":"multi-purpose","usage":"Used for stamp tool in Whiteboards","keywords":["stamp","icon","icon-lab","stamp","rubber stamp","handstamp"],"status":"published"}',
+		componentName: 'StampIcon',
+		keywords: ['stamp', 'icon', 'icon-lab', 'stamp', 'rubber stamp', 'handstamp'],
+		categorization: 'multi-purpose',
+		usage: 'Used for stamp tool in Whiteboards',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"StatusWorkflowCancelledIcon","package":"@atlaskit/icon-lab/core/status-workflow-cancelled","categorization":"single-purpose","usage":"Reserved for representing statuses that indicated work or a process has been cancelled","keywords":["status-workflow-cancelled","statusworkflowcancelled","icon","icon-lab","status","workflow phase","cross","cancelled"],"status":"published"}',
+		componentName: 'StatusWorkflowCancelledIcon',
+		keywords: [
+			'status-workflow-cancelled',
+			'statusworkflowcancelled',
+			'icon',
+			'icon-lab',
+			'status',
+			'workflow phase',
+			'cross',
+			'cancelled',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing statuses that indicated work or a process has been cancelled',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"StatusWorkflowDangerIcon","package":"@atlaskit/icon-lab/core/status-workflow-danger","categorization":"single-purpose","usage":"Reserved for representing statuses that signal critical issues that demand attention","keywords":["status-workflow-danger","statusworkflowdanger","icon","icon-lab","status","workflow phase","danger","critical","blocking","error"],"status":"published"}',
+		componentName: 'StatusWorkflowDangerIcon',
+		keywords: [
+			'status-workflow-danger',
+			'statusworkflowdanger',
+			'icon',
+			'icon-lab',
+			'status',
+			'workflow phase',
+			'danger',
+			'critical',
+			'blocking',
+			'error',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing statuses that signal critical issues that demand attention',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"StatusWorkflowInProgressIcon","package":"@atlaskit/icon-lab/core/status-workflow-in-progress","categorization":"single-purpose","usage":"Reserved for representing in progress statuses such as \'In progress\', \'In development\', \'Draft\'","keywords":["status-workflow-in-progress","statusworkflowinprogress","icon","icon-lab","status","workflow phase","in progress","WIP"],"status":"published"}',
+		componentName: 'StatusWorkflowInProgressIcon',
+		keywords: [
+			'status-workflow-in-progress',
+			'statusworkflowinprogress',
+			'icon',
+			'icon-lab',
+			'status',
+			'workflow phase',
+			'in progress',
+			'WIP',
+		],
+		categorization: 'single-purpose',
+		usage:
+			"Reserved for representing in progress statuses such as 'In progress', 'In development', 'Draft'",
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"StatusWorkflowInReviewIcon","package":"@atlaskit/icon-lab/core/status-workflow-in-review","categorization":"single-purpose","usage":"Reserved for representing statuses that signal consideration, assessment, and review","keywords":["status-workflow-in-review","statusworkflowinreview","icon","icon-lab","status","workflow phase","reviewing","considering","assessing","in review"],"status":"published"}',
+		componentName: 'StatusWorkflowInReviewIcon',
+		keywords: [
+			'status-workflow-in-review',
+			'statusworkflowinreview',
+			'icon',
+			'icon-lab',
+			'status',
+			'workflow phase',
+			'reviewing',
+			'considering',
+			'assessing',
+			'in review',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing statuses that signal consideration, assessment, and review',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"StatusWorkflowInactiveIcon","package":"@atlaskit/icon-lab/core/status-workflow-inactive","categorization":"single-purpose","usage":"Reserved for representing statuses that indicate work or a process is in an inactive state","keywords":["status-workflow-inactive","statusworkflowinactive","icon","icon-lab","status","workflow phase","inactive"],"status":"published"}',
+		componentName: 'StatusWorkflowInactiveIcon',
+		keywords: [
+			'status-workflow-inactive',
+			'statusworkflowinactive',
+			'icon',
+			'icon-lab',
+			'status',
+			'workflow phase',
+			'inactive',
+		],
+		categorization: 'single-purpose',
+		usage:
+			'Reserved for representing statuses that indicate work or a process is in an inactive state',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"StatusWorkflowIncompleteIcon","package":"@atlaskit/icon-lab/core/status-workflow-incomplete","categorization":"single-purpose","usage":"Reserved for representing incomplete statuses such as \'To do\', \'Backlog\', \'Not started\', \'Pending\'","keywords":["status-workflow-incomplete","statusworkflowincomplete","icon","icon-lab","status","workflow phase","incomplete"],"status":"published"}',
+		componentName: 'StatusWorkflowIncompleteIcon',
+		keywords: [
+			'status-workflow-incomplete',
+			'statusworkflowincomplete',
+			'icon',
+			'icon-lab',
+			'status',
+			'workflow phase',
+			'incomplete',
+		],
+		categorization: 'single-purpose',
+		usage:
+			"Reserved for representing incomplete statuses such as 'To do', 'Backlog', 'Not started', 'Pending'",
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"StatusWorkflowPausedIcon","package":"@atlaskit/icon-lab/core/status-workflow-paused","categorization":"single-purpose","usage":"Reserved for representing statuses that indicate work or a process has paused","keywords":["status-workflow-paused","statusworkflowpaused","icon","icon-lab","status","workflow phase","pause","paused"],"status":"published"}',
+		componentName: 'StatusWorkflowPausedIcon',
+		keywords: [
+			'status-workflow-paused',
+			'statusworkflowpaused',
+			'icon',
+			'icon-lab',
+			'status',
+			'workflow phase',
+			'pause',
+			'paused',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing statuses that indicate work or a process has paused',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"StatusWorkflowReturnedIcon","package":"@atlaskit/icon-lab/core/status-workflow-returned","categorization":"single-purpose","usage":"Reserved for representing statuses that return to a previous state in the process such as \'Redeploy\', \'Needs more information\'","keywords":["status-workflow-returned","statusworkflowreturned","icon","icon-lab","status","workflow phase","redeploy","return","revert","rerun"],"status":"published"}',
+		componentName: 'StatusWorkflowReturnedIcon',
+		keywords: [
+			'status-workflow-returned',
+			'statusworkflowreturned',
+			'icon',
+			'icon-lab',
+			'status',
+			'workflow phase',
+			'redeploy',
+			'return',
+			'revert',
+			'rerun',
+		],
+		categorization: 'single-purpose',
+		usage:
+			"Reserved for representing statuses that return to a previous state in the process such as 'Redeploy', 'Needs more information'",
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"StatusWorkflowScheduledIcon","package":"@atlaskit/icon-lab/core/status-workflow-scheduled","categorization":"single-purpose","usage":"Reserved for representing statuses that indicate work or a process is scheduled or waiting to commence","keywords":["status-workflow-scheduled","statusworkflowscheduled","icon","icon-lab","status","workflow phase","waiting","scheduled"],"status":"published"}',
+		componentName: 'StatusWorkflowScheduledIcon',
+		keywords: [
+			'status-workflow-scheduled',
+			'statusworkflowscheduled',
+			'icon',
+			'icon-lab',
+			'status',
+			'workflow phase',
+			'waiting',
+			'scheduled',
+		],
+		categorization: 'single-purpose',
+		usage:
+			'Reserved for representing statuses that indicate work or a process is scheduled or waiting to commence',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"StatusWorkflowStoppedIcon","package":"@atlaskit/icon-lab/core/status-workflow-stopped","categorization":"single-purpose","usage":"Reserved for representing statuses that indicate work or a process has stopped","keywords":["status-workflow-stopped","statusworkflowstopped","icon","icon-lab","status","workflow phase","stop","stopped"],"status":"published"}',
+		componentName: 'StatusWorkflowStoppedIcon',
+		keywords: [
+			'status-workflow-stopped',
+			'statusworkflowstopped',
+			'icon',
+			'icon-lab',
+			'status',
+			'workflow phase',
+			'stop',
+			'stopped',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing statuses that indicate work or a process has stopped',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"StatusWorkflowSuccessIcon","package":"@atlaskit/icon-lab/core/status-workflow-success","categorization":"single-purpose","usage":"Reserved for representing statuses that signal positive outcome — success, accomplishment, achievement, or optimal state","keywords":["status-workflow-success","statusworkflowsuccess","icon","icon-lab","status","workflow phase","success","accomplished","achieved","optimal state","completed","complete"],"status":"published"}',
+		componentName: 'StatusWorkflowSuccessIcon',
+		keywords: [
+			'status-workflow-success',
+			'statusworkflowsuccess',
+			'icon',
+			'icon-lab',
+			'status',
+			'workflow phase',
+			'success',
+			'accomplished',
+			'achieved',
+			'optimal state',
+			'completed',
+			'complete',
+		],
+		categorization: 'single-purpose',
+		usage:
+			'Reserved for representing statuses that signal positive outcome — success, accomplishment, achievement, or optimal state',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"StatusWorkflowWarningIcon","package":"@atlaskit/icon-lab/core/status-workflow-warning","categorization":"single-purpose","usage":"Reserved for representing statuses that signal potential issues requiring awareness or intervention","keywords":["status-workflow-warning","statusworkflowwarning","icon","icon-lab","status","workflow phase","warning","alert","awareness","intervention"],"status":"published"}',
+		componentName: 'StatusWorkflowWarningIcon',
+		keywords: [
+			'status-workflow-warning',
+			'statusworkflowwarning',
+			'icon',
+			'icon-lab',
+			'status',
+			'workflow phase',
+			'warning',
+			'alert',
+			'awareness',
+			'intervention',
+		],
+		categorization: 'single-purpose',
+		usage:
+			'Reserved for representing statuses that signal potential issues requiring awareness or intervention',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"StickerIcon","package":"@atlaskit/icon-lab/core/sticker","categorization":"multi-purpose","usage":"Used for sticker tool in Whiteboards","keywords":["sticker","icon","icon-lab","sticker","peel-off"],"status":"published"}',
+		componentName: 'StickerIcon',
+		keywords: ['sticker', 'icon', 'icon-lab', 'sticker', 'peel-off'],
+		categorization: 'multi-purpose',
+		usage: 'Used for sticker tool in Whiteboards',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"StrokeCurvatureCurvedIcon","package":"@atlaskit/icon-lab/core/stroke-curvature-curved","categorization":"single-purpose","usage":"Reserved for curved line type setting for line tool in Whiteboards.","keywords":["stroke-curvature-curved","strokecurvaturecurved","icon","icon-lab","line tool","shape property","stroke style","border","smooth"],"status":"published"}',
+		componentName: 'StrokeCurvatureCurvedIcon',
+		keywords: [
+			'stroke-curvature-curved',
+			'strokecurvaturecurved',
+			'icon',
+			'icon-lab',
+			'line tool',
+			'shape property',
+			'stroke style',
+			'border',
+			'smooth',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for curved line type setting for line tool in Whiteboards.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"StrokeCurvatureDynamicIcon","package":"@atlaskit/icon-lab/core/stroke-curvature-dynamic","categorization":"single-purpose","usage":"Reserved for dynamic line type setting for line tool in Whiteboards","keywords":["stroke-curvature-dynamic","strokecurvaturedynamic","icon","icon-lab","line tool","shape property","stroke style","border"],"status":"published"}',
+		componentName: 'StrokeCurvatureDynamicIcon',
+		keywords: [
+			'stroke-curvature-dynamic',
+			'strokecurvaturedynamic',
+			'icon',
+			'icon-lab',
+			'line tool',
+			'shape property',
+			'stroke style',
+			'border',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for dynamic line type setting for line tool in Whiteboards',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"StrokeCurvatureStraightIcon","package":"@atlaskit/icon-lab/core/stroke-curvature-straight","categorization":"single-purpose","usage":"Reserved for straight line type setting for line tool in Whiteboards","keywords":["stroke-curvature-straight","strokecurvaturestraight","icon","icon-lab","line tool","shape property","stroke style","sharp corners","border"],"status":"published"}',
+		componentName: 'StrokeCurvatureStraightIcon',
+		keywords: [
+			'stroke-curvature-straight',
+			'strokecurvaturestraight',
+			'icon',
+			'icon-lab',
+			'line tool',
+			'shape property',
+			'stroke style',
+			'sharp corners',
+			'border',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for straight line type setting for line tool in Whiteboards',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"StrokePropertiesIcon","package":"@atlaskit/icon-lab/core/stroke-properties","categorization":"single-purpose","usage":"Reserved for stroke properties in Whiteboards","keywords":["stroke-properties","strokeproperties","icon","icon-lab","stroke properties","border options"],"status":"published"}',
+		componentName: 'StrokePropertiesIcon',
+		keywords: [
+			'stroke-properties',
+			'strokeproperties',
+			'icon',
+			'icon-lab',
+			'stroke properties',
+			'border options',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for stroke properties in Whiteboards',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"StrokeStyleDashedIcon","package":"@atlaskit/icon-lab/core/stroke-style-dashed","categorization":"single-purpose","usage":"Reserved for representing dashed stroke and border styles.","keywords":["stroke-style-dashed","strokestyledashed","icon","icon-lab","border","stroke","border style","dashed","outline"],"status":"published"}',
+		componentName: 'StrokeStyleDashedIcon',
+		keywords: [
+			'stroke-style-dashed',
+			'strokestyledashed',
+			'icon',
+			'icon-lab',
+			'border',
+			'stroke',
+			'border style',
+			'dashed',
+			'outline',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing dashed stroke and border styles.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"StrokeStyleDottedIcon","package":"@atlaskit/icon-lab/core/stroke-style-dotted","categorization":"single-purpose","usage":"Reserved for representing dotted stroke and border styles.","keywords":["stroke-style-dotted","strokestyledotted","icon","icon-lab","border","stroke","border style","dotted","outline"],"status":"published"}',
+		componentName: 'StrokeStyleDottedIcon',
+		keywords: [
+			'stroke-style-dotted',
+			'strokestyledotted',
+			'icon',
+			'icon-lab',
+			'border',
+			'stroke',
+			'border style',
+			'dotted',
+			'outline',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing dotted stroke and border styles.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"StrokeStyleSolidIcon","package":"@atlaskit/icon-lab/core/stroke-style-solid","categorization":"single-purpose","usage":"Reserved for representing solid stroke and border styles.","keywords":["stroke-style-solid","strokestylesolid","icon","icon-lab","border","stroke","border style","solid","outline"],"status":"published"}',
+		componentName: 'StrokeStyleSolidIcon',
+		keywords: [
+			'stroke-style-solid',
+			'strokestylesolid',
+			'icon',
+			'icon-lab',
+			'border',
+			'stroke',
+			'border style',
+			'solid',
+			'outline',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing solid stroke and border styles.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"StudioIcon","package":"@atlaskit/icon-lab/core/studio","categorization":"single-purpose","usage":"Reserved for functional representation of Atlassian Studio","keywords":["studio","icon","icon-lab","studio","atlassian studio"],"status":"published"}',
+		componentName: 'StudioIcon',
+		keywords: ['studio', 'icon', 'icon-lab', 'studio', 'atlassian studio'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for functional representation of Atlassian Studio',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"SuggestedEditIcon","package":"@atlaskit/icon-lab/core/suggested-edit","categorization":"single-purpose","usage":"Reserved for suggestions powered by Atlassian Intelligence","keywords":["suggested-edit","suggestededit","icon","icon-lab","AI","suggestion","suggested edit","suggest","generative"],"status":"published"}',
+		componentName: 'SuggestedEditIcon',
+		keywords: [
+			'suggested-edit',
+			'suggestededit',
+			'icon',
+			'icon-lab',
+			'AI',
+			'suggestion',
+			'suggested edit',
+			'suggest',
+			'generative',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for suggestions powered by Atlassian Intelligence',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"SunsetIcon","package":"@atlaskit/icon-lab/core/sunset","categorization":"multi-purpose","usage":"Farewell feed in hello.","keywords":["sunset","icon","icon-lab","sun","horizon","farewell","goodbye","sky","farewell feed"],"status":"published"}',
+		componentName: 'SunsetIcon',
+		keywords: [
+			'sunset',
+			'icon',
+			'icon-lab',
+			'sun',
+			'horizon',
+			'farewell',
+			'goodbye',
+			'sky',
+			'farewell feed',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Farewell feed in hello.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"SurveyIcon","package":"@atlaskit/icon-lab/core/survey","categorization":"single-purpose","usage":"Reserved for surveys.","keywords":["survey","icon","icon-lab","survey","intake form","clipboard","questionnaire","research"],"status":"published"}',
+		componentName: 'SurveyIcon',
+		keywords: [
+			'survey',
+			'icon',
+			'icon-lab',
+			'survey',
+			'intake form',
+			'clipboard',
+			'questionnaire',
+			'research',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for surveys.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"SwapIcon","package":"@atlaskit/icon-lab/core/swap","categorization":"single-purpose","usage":"Swapping between Jira tickets in Whiteboard smart section","keywords":["swap","icon","icon-lab","Swap","Jira status","Whiteboards","Smart section"],"status":"published"}',
+		componentName: 'SwapIcon',
+		keywords: ['swap', 'icon', 'icon-lab', 'Swap', 'Jira status', 'Whiteboards', 'Smart section'],
+		categorization: 'single-purpose',
+		usage: 'Swapping between Jira tickets in Whiteboard smart section',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"SwitchCaseIcon","package":"@atlaskit/icon-lab/core/switch-case","categorization":"single-purpose","usage":"Reserved for switch case conditions in automation","keywords":["switch-case","switchcase","icon","icon-lab","conditions","if","else","else if"],"status":"published"}',
+		componentName: 'SwitchCaseIcon',
+		keywords: [
+			'switch-case',
+			'switchcase',
+			'icon',
+			'icon-lab',
+			'conditions',
+			'if',
+			'else',
+			'else if',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for switch case conditions in automation',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"SyncIcon","package":"@atlaskit/icon-lab/core/sync","categorization":"single-purpose","usage":"Reserved for syncing changes and save operations.","keywords":["sync","icon","icon-lab","sync","synch","synchronise","synchronize","saving","arrows"],"status":"published"}',
+		componentName: 'SyncIcon',
+		keywords: [
+			'sync',
+			'icon',
+			'icon-lab',
+			'sync',
+			'synch',
+			'synchronise',
+			'synchronize',
+			'saving',
+			'arrows',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for syncing changes and save operations.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TabIcon","package":"@atlaskit/icon-lab/core/tab","categorization":"single-purpose","usage":"Reserved for representing tab key.","keywords":["tab","icon","icon-lab","key","tab"],"status":"published"}',
+		componentName: 'TabIcon',
+		keywords: ['tab', 'icon', 'icon-lab', 'key', 'tab'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing tab key.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TableRowLimitIcon","package":"@atlaskit/icon-lab/core/table-row-limit","categorization":"single-purpose","usage":"Reserved for limiting table rows.","keywords":["table-row-limit","tablerowlimit","icon","icon-lab","table","limit rows","range"],"status":"published"}',
+		componentName: 'TableRowLimitIcon',
+		keywords: [
+			'table-row-limit',
+			'tablerowlimit',
+			'icon',
+			'icon-lab',
+			'table',
+			'limit rows',
+			'range',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for limiting table rows.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TakeoutContainerIcon","package":"@atlaskit/icon-lab/core/takeout-container","categorization":"multi-purpose","usage":"Known usages: Alternative option for food emoji category.","keywords":["takeout-container","takeoutcontainer","icon","icon-lab","takeout","food","takeaway"],"status":"published"}',
+		componentName: 'TakeoutContainerIcon',
+		keywords: [
+			'takeout-container',
+			'takeoutcontainer',
+			'icon',
+			'icon-lab',
+			'takeout',
+			'food',
+			'takeaway',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Known usages: Alternative option for food emoji category.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TalentIcon","package":"@atlaskit/icon-lab/core/talent","categorization":"single-purpose","usage":"Reserved for functional representation of Talent app","keywords":["talent","icon","icon-lab","talent","person","star"],"status":"published"}',
+		componentName: 'TalentIcon',
+		keywords: ['talent', 'icon', 'icon-lab', 'talent', 'person', 'star'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for functional representation of Talent app',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TeamworkGraphIcon","package":"@atlaskit/icon-lab/core/teamwork-graph","categorization":"single-purpose","usage":"Reserved for Teamwork Graph features.","keywords":["teamwork-graph","teamworkgraph","icon","icon-lab","teamwork graph"],"status":"published"}',
+		componentName: 'TeamworkGraphIcon',
+		keywords: ['teamwork-graph', 'teamworkgraph', 'icon', 'icon-lab', 'teamwork graph'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for Teamwork Graph features.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TelescopeIcon","package":"@atlaskit/icon-lab/core/telescope","categorization":"multi-purpose","usage":"Known uses: Discover feature in Atlassian Home","keywords":["telescope","icon","icon-lab","telescope","scope","discover","discovery"],"status":"published"}',
+		componentName: 'TelescopeIcon',
+		keywords: ['telescope', 'icon', 'icon-lab', 'telescope', 'scope', 'discover', 'discovery'],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Discover feature in Atlassian Home',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TemplateIcon","package":"@atlaskit/icon-lab/core/template","categorization":"single-purpose","usage":"Reserved fore templates.","keywords":["template","icon","icon-lab","template","templates"],"status":"published"}',
+		componentName: 'TemplateIcon',
+		keywords: ['template', 'icon', 'icon-lab', 'template', 'templates'],
+		categorization: 'single-purpose',
+		usage: 'Reserved fore templates.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TemplateSyncIcon","package":"@atlaskit/icon-lab/core/template-sync","categorization":"single-purpose","usage":"Reserved for saving and updating templates.","keywords":["template-sync","templatesync","icon","icon-lab","template","sync","save","update"],"status":"published"}',
+		componentName: 'TemplateSyncIcon',
+		keywords: [
+			'template-sync',
+			'templatesync',
+			'icon',
+			'icon-lab',
+			'template',
+			'sync',
+			'save',
+			'update',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for saving and updating templates.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TerminalIcon","package":"@atlaskit/icon-lab/core/terminal","categorization":"multi-purpose","usage":"","keywords":["terminal","icon","icon-lab","terminal","IDE","code editor","command line"],"status":"published"}',
+		componentName: 'TerminalIcon',
+		keywords: ['terminal', 'icon', 'icon-lab', 'terminal', 'IDE', 'code editor', 'command line'],
+		categorization: 'multi-purpose',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextAdjustLengthIcon","package":"@atlaskit/icon-lab/core/text-adjust-length","categorization":"single-purpose","usage":"Reserved for accessing text length generative AI actions.","keywords":["text-adjust-length","textadjustlength","icon","icon-lab","text length","change text length","adjust text length"],"status":"published"}',
+		componentName: 'TextAdjustLengthIcon',
+		keywords: [
+			'text-adjust-length',
+			'textadjustlength',
+			'icon',
+			'icon-lab',
+			'text length',
+			'change text length',
+			'adjust text length',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for accessing text length generative AI actions.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextAudioTranscriptIcon","package":"@atlaskit/icon-lab/core/text-audio-transcript","categorization":"single-purpose","usage":"Reserved for viewing transcript in Loom","keywords":["text-audio-transcript","textaudiotranscript","icon","icon-lab","microphone","script","paragraph"],"status":"published"}',
+		componentName: 'TextAudioTranscriptIcon',
+		keywords: [
+			'text-audio-transcript',
+			'textaudiotranscript',
+			'icon',
+			'icon-lab',
+			'microphone',
+			'script',
+			'paragraph',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for viewing transcript in Loom',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextBoldItalicIcon","package":"@atlaskit/icon-lab/core/text-bold-italic","categorization":"single-purpose","usage":"Reserved for bold text with italic","keywords":["text-bold-italic","textbolditalic","icon","icon-lab","Text","Type","Font","Bold","Italic"],"status":"published"}',
+		componentName: 'TextBoldItalicIcon',
+		keywords: [
+			'text-bold-italic',
+			'textbolditalic',
+			'icon',
+			'icon-lab',
+			'Text',
+			'Type',
+			'Font',
+			'Bold',
+			'Italic',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for bold text with italic',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextBoldItalicStrikethroughIcon","package":"@atlaskit/icon-lab/core/text-bold-italic-strikethrough","categorization":"single-purpose","usage":"Reserved for italic bold text with a strikethrough","keywords":["text-bold-italic-strikethrough","textbolditalicstrikethrough","icon","icon-lab","Text","Type","strikethrough","Bold","Italic"],"status":"published"}',
+		componentName: 'TextBoldItalicStrikethroughIcon',
+		keywords: [
+			'text-bold-italic-strikethrough',
+			'textbolditalicstrikethrough',
+			'icon',
+			'icon-lab',
+			'Text',
+			'Type',
+			'strikethrough',
+			'Bold',
+			'Italic',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for italic bold text with a strikethrough',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextBoldItalicUnderlineIcon","package":"@atlaskit/icon-lab/core/text-bold-italic-underline","categorization":"single-purpose","usage":"Reserved for bold italic text with underline","keywords":["text-bold-italic-underline","textbolditalicunderline","icon","icon-lab","Text","Type","Font","Bold","Italic","Underline"],"status":"published"}',
+		componentName: 'TextBoldItalicUnderlineIcon',
+		keywords: [
+			'text-bold-italic-underline',
+			'textbolditalicunderline',
+			'icon',
+			'icon-lab',
+			'Text',
+			'Type',
+			'Font',
+			'Bold',
+			'Italic',
+			'Underline',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for bold italic text with underline',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextBoldItalicUnderlineStrikethroughIcon","package":"@atlaskit/icon-lab/core/text-bold-italic-underline-strikethrough","categorization":"single-purpose","usage":"Reserved for bold italic text with underline and strikethrough","keywords":["text-bold-italic-underline-strikethrough","textbolditalicunderlinestrikethrough","icon","icon-lab","text formatting","bold","underline","strikethrough","italic"],"status":"published"}',
+		componentName: 'TextBoldItalicUnderlineStrikethroughIcon',
+		keywords: [
+			'text-bold-italic-underline-strikethrough',
+			'textbolditalicunderlinestrikethrough',
+			'icon',
+			'icon-lab',
+			'text formatting',
+			'bold',
+			'underline',
+			'strikethrough',
+			'italic',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for bold italic text with underline and strikethrough',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextBoldStrikethroughIcon","package":"@atlaskit/icon-lab/core/text-bold-strikethrough","categorization":"single-purpose","usage":"Reserved for bold strikethrough text","keywords":["text-bold-strikethrough","textboldstrikethrough","icon","icon-lab","Text","Type","Bold","strikethrough"],"status":"published"}',
+		componentName: 'TextBoldStrikethroughIcon',
+		keywords: [
+			'text-bold-strikethrough',
+			'textboldstrikethrough',
+			'icon',
+			'icon-lab',
+			'Text',
+			'Type',
+			'Bold',
+			'strikethrough',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for bold strikethrough text',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextBoldUnderlineIcon","package":"@atlaskit/icon-lab/core/text-bold-underline","categorization":"single-purpose","usage":"Reserved for bold text with underline","keywords":["text-bold-underline","textboldunderline","icon","icon-lab","bold","underline","text formatting"],"status":"published"}',
+		componentName: 'TextBoldUnderlineIcon',
+		keywords: [
+			'text-bold-underline',
+			'textboldunderline',
+			'icon',
+			'icon-lab',
+			'bold',
+			'underline',
+			'text formatting',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for bold text with underline',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextBoldUnderlineStrikethroughIcon","package":"@atlaskit/icon-lab/core/text-bold-underline-strikethrough","categorization":"single-purpose","usage":"Reserved for bold text with underline and strikethrough","keywords":["text-bold-underline-strikethrough","textboldunderlinestrikethrough","icon","icon-lab","text formatting","bold","strikethrough","underline"],"status":"published"}',
+		componentName: 'TextBoldUnderlineStrikethroughIcon',
+		keywords: [
+			'text-bold-underline-strikethrough',
+			'textboldunderlinestrikethrough',
+			'icon',
+			'icon-lab',
+			'text formatting',
+			'bold',
+			'strikethrough',
+			'underline',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for bold text with underline and strikethrough',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextConclusionAddIcon","package":"@atlaskit/icon-lab/core/text-conclusion-add","categorization":"single-purpose","usage":"Confluence Editor AI action for generating a conclusion","keywords":["text-conclusion-add","textconclusionadd","icon","icon-lab","text","conclusion","AI","generative"],"status":"published"}',
+		componentName: 'TextConclusionAddIcon',
+		keywords: [
+			'text-conclusion-add',
+			'textconclusionadd',
+			'icon',
+			'icon-lab',
+			'text',
+			'conclusion',
+			'AI',
+			'generative',
+		],
+		categorization: 'single-purpose',
+		usage: 'Confluence Editor AI action for generating a conclusion',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextCursorIcon","package":"@atlaskit/icon-lab/core/text-cursor","categorization":"multi-purpose","usage":"Known uses: Renaming","keywords":["text-cursor","textcursor","icon","icon-lab","text cursor","rename"],"status":"published"}',
+		componentName: 'TextCursorIcon',
+		keywords: ['text-cursor', 'textcursor', 'icon', 'icon-lab', 'text cursor', 'rename'],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Renaming',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextDensityCompressIcon","package":"@atlaskit/icon-lab/core/text-density-compress","categorization":"single-purpose","usage":"Reserved for increasing the density of text by reducing font size and/or line height.","keywords":["text-density-compress","textdensitycompress","icon","icon-lab","text density","compact density"],"status":"published"}',
+		componentName: 'TextDensityCompressIcon',
+		keywords: [
+			'text-density-compress',
+			'textdensitycompress',
+			'icon',
+			'icon-lab',
+			'text density',
+			'compact density',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for increasing the density of text by reducing font size and/or line height.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextDensityExpandIcon","package":"@atlaskit/icon-lab/core/text-density-expand","categorization":"single-purpose","usage":"Reserved for reducing the density of text by increasing font size and/or line height.","keywords":["text-density-expand","textdensityexpand","icon","icon-lab","text density","default density"],"status":"published"}',
+		componentName: 'TextDensityExpandIcon',
+		keywords: [
+			'text-density-expand',
+			'textdensityexpand',
+			'icon',
+			'icon-lab',
+			'text density',
+			'default density',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for reducing the density of text by increasing font size and/or line height.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextHeadingFiveIcon","package":"@atlaskit/icon-lab/core/text-heading-five","categorization":"single-purpose","usage":"Reserved for H5 / Heading 5 text style","keywords":["text-heading-five","textheadingfive","icon","icon-lab","heading 5","H5","text style"],"status":"published"}',
+		componentName: 'TextHeadingFiveIcon',
+		keywords: [
+			'text-heading-five',
+			'textheadingfive',
+			'icon',
+			'icon-lab',
+			'heading 5',
+			'H5',
+			'text style',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for H5 / Heading 5 text style',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextHeadingFourIcon","package":"@atlaskit/icon-lab/core/text-heading-four","categorization":"single-purpose","usage":"Reserved for H4 / Heading 4 text style","keywords":["text-heading-four","textheadingfour","icon","icon-lab","heading 4","H4","text style"],"status":"published"}',
+		componentName: 'TextHeadingFourIcon',
+		keywords: [
+			'text-heading-four',
+			'textheadingfour',
+			'icon',
+			'icon-lab',
+			'heading 4',
+			'H4',
+			'text style',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for H4 / Heading 4 text style',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextHeadingOneIcon","package":"@atlaskit/icon-lab/core/text-heading-one","categorization":"single-purpose","usage":"Reserved for H1 / Heading 1 text style","keywords":["text-heading-one","textheadingone","icon","icon-lab","Heading 1","H1","text style"],"status":"published"}',
+		componentName: 'TextHeadingOneIcon',
+		keywords: [
+			'text-heading-one',
+			'textheadingone',
+			'icon',
+			'icon-lab',
+			'Heading 1',
+			'H1',
+			'text style',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for H1 / Heading 1 text style',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextHeadingSixIcon","package":"@atlaskit/icon-lab/core/text-heading-six","categorization":"single-purpose","usage":"Reserved for H6 / Heading 6 text style","keywords":["text-heading-six","textheadingsix","icon","icon-lab","heading 6","H6","text style"],"status":"published"}',
+		componentName: 'TextHeadingSixIcon',
+		keywords: [
+			'text-heading-six',
+			'textheadingsix',
+			'icon',
+			'icon-lab',
+			'heading 6',
+			'H6',
+			'text style',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for H6 / Heading 6 text style',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextHeadingThreeIcon","package":"@atlaskit/icon-lab/core/text-heading-three","categorization":"single-purpose","usage":"Reserved for H3 / Heading 3 text style","keywords":["text-heading-three","textheadingthree","icon","icon-lab","heading 3","H3","text style"],"status":"published"}',
+		componentName: 'TextHeadingThreeIcon',
+		keywords: [
+			'text-heading-three',
+			'textheadingthree',
+			'icon',
+			'icon-lab',
+			'heading 3',
+			'H3',
+			'text style',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for H3 / Heading 3 text style',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextHeadingTwoIcon","package":"@atlaskit/icon-lab/core/text-heading-two","categorization":"single-purpose","usage":"Reserved for H2 / Heading 2 text style","keywords":["text-heading-two","textheadingtwo","icon","icon-lab","Heading 2","H2","text style"],"status":"published"}',
+		componentName: 'TextHeadingTwoIcon',
+		keywords: [
+			'text-heading-two',
+			'textheadingtwo',
+			'icon',
+			'icon-lab',
+			'Heading 2',
+			'H2',
+			'text style',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for H2 / Heading 2 text style',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextIntroductionAddIcon","package":"@atlaskit/icon-lab/core/text-introduction-add","categorization":"single-purpose","usage":"Confluence Editor AI action for generating an introduction","keywords":["text-introduction-add","textintroductionadd","icon","icon-lab","text","introduction","AI","generative"],"status":"published"}',
+		componentName: 'TextIntroductionAddIcon',
+		keywords: [
+			'text-introduction-add',
+			'textintroductionadd',
+			'icon',
+			'icon-lab',
+			'text',
+			'introduction',
+			'AI',
+			'generative',
+		],
+		categorization: 'single-purpose',
+		usage: 'Confluence Editor AI action for generating an introduction',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextItalicStrikethroughIcon","package":"@atlaskit/icon-lab/core/text-italic-strikethrough","categorization":"single-purpose","usage":"Reserved for italic text with strikethrough","keywords":["text-italic-strikethrough","textitalicstrikethrough","icon","icon-lab","Text","Type","Font","Italic","Strikethrough"],"status":"published"}',
+		componentName: 'TextItalicStrikethroughIcon',
+		keywords: [
+			'text-italic-strikethrough',
+			'textitalicstrikethrough',
+			'icon',
+			'icon-lab',
+			'Text',
+			'Type',
+			'Font',
+			'Italic',
+			'Strikethrough',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for italic text with strikethrough',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextItalicUnderlineIcon","package":"@atlaskit/icon-lab/core/text-italic-underline","categorization":"single-purpose","usage":"Reserved for italic text with underline","keywords":["text-italic-underline","textitalicunderline","icon","icon-lab","Text","Type","Font","Underline","Italic"],"status":"published"}',
+		componentName: 'TextItalicUnderlineIcon',
+		keywords: [
+			'text-italic-underline',
+			'textitalicunderline',
+			'icon',
+			'icon-lab',
+			'Text',
+			'Type',
+			'Font',
+			'Underline',
+			'Italic',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for italic text with underline',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextItalicUnderlineStrikethroughIcon","package":"@atlaskit/icon-lab/core/text-italic-underline-strikethrough","categorization":"single-purpose","usage":"Reserved for italic text with underline and strikethrough","keywords":["text-italic-underline-strikethrough","textitalicunderlinestrikethrough","icon","icon-lab","text formatting","italic","underline","strikethrough"],"status":"published"}',
+		componentName: 'TextItalicUnderlineStrikethroughIcon',
+		keywords: [
+			'text-italic-underline-strikethrough',
+			'textitalicunderlinestrikethrough',
+			'icon',
+			'icon-lab',
+			'text formatting',
+			'italic',
+			'underline',
+			'strikethrough',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for italic text with underline and strikethrough',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextLengthenIcon","package":"@atlaskit/icon-lab/core/text-lengthen","categorization":"single-purpose","usage":"Lengthening text content with Atlassian Intelligence","keywords":["text-lengthen","textlengthen","icon","icon-lab","text","lengthen","expand","AI","generative"],"status":"published"}',
+		componentName: 'TextLengthenIcon',
+		keywords: [
+			'text-lengthen',
+			'textlengthen',
+			'icon',
+			'icon-lab',
+			'text',
+			'lengthen',
+			'expand',
+			'AI',
+			'generative',
+		],
+		categorization: 'single-purpose',
+		usage: 'Lengthening text content with Atlassian Intelligence',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextLetterCaseIcon","package":"@atlaskit/icon-lab/core/text-letter-case","categorization":"single-purpose","usage":"Reserved for letter casing and text-transform","keywords":["text-letter-case","textlettercase","icon","icon-lab","text case","letter case","uppercase","lowercase","sentence case","title case","Aa"],"status":"published"}',
+		componentName: 'TextLetterCaseIcon',
+		keywords: [
+			'text-letter-case',
+			'textlettercase',
+			'icon',
+			'icon-lab',
+			'text case',
+			'letter case',
+			'uppercase',
+			'lowercase',
+			'sentence case',
+			'title case',
+			'Aa',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for letter casing and text-transform',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextParagraphIcon","package":"@atlaskit/icon-lab/core/text-paragraph","categorization":"multi-purpose","usage":"Confluence Editor AI action for reformatting paragraphs into multiple shorter paragraphs","keywords":["text-paragraph","textparagraph","icon","icon-lab","text","paragraph break","AI","generative","reformat"],"status":"published"}',
+		componentName: 'TextParagraphIcon',
+		keywords: [
+			'text-paragraph',
+			'textparagraph',
+			'icon',
+			'icon-lab',
+			'text',
+			'paragraph break',
+			'AI',
+			'generative',
+			'reformat',
+		],
+		categorization: 'multi-purpose',
+		usage:
+			'Confluence Editor AI action for reformatting paragraphs into multiple shorter paragraphs',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextRephraseIcon","package":"@atlaskit/icon-lab/core/text-rephrase","categorization":"single-purpose","usage":"Confluence Editor AI action for rephrasing text","keywords":["text-rephrase","textrephrase","icon","icon-lab","text","rephrase","AI","generative"],"status":"published"}',
+		componentName: 'TextRephraseIcon',
+		keywords: [
+			'text-rephrase',
+			'textrephrase',
+			'icon',
+			'icon-lab',
+			'text',
+			'rephrase',
+			'AI',
+			'generative',
+		],
+		categorization: 'single-purpose',
+		usage: 'Confluence Editor AI action for rephrasing text',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextSubscriptIcon","package":"@atlaskit/icon-lab/core/text-subscript","categorization":"single-purpose","usage":"Reserved for subscript text formatting.","keywords":["text-subscript","textsubscript","icon","icon-lab","subscript","text formatting"],"status":"published"}',
+		componentName: 'TextSubscriptIcon',
+		keywords: [
+			'text-subscript',
+			'textsubscript',
+			'icon',
+			'icon-lab',
+			'subscript',
+			'text formatting',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for subscript text formatting.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextSuperscriptIcon","package":"@atlaskit/icon-lab/core/text-superscript","categorization":"single-purpose","usage":"Reserved for superscript text formatting.","keywords":["text-superscript","textsuperscript","icon","icon-lab","superscript","text formatting"],"status":"published"}',
+		componentName: 'TextSuperscriptIcon',
+		keywords: [
+			'text-superscript',
+			'textsuperscript',
+			'icon',
+			'icon-lab',
+			'superscript',
+			'text formatting',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for superscript text formatting.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TextUnderlineStrikethroughIcon","package":"@atlaskit/icon-lab/core/text-underline-strikethrough","categorization":"single-purpose","usage":"Reserved for underline text with a strikethrough","keywords":["text-underline-strikethrough","textunderlinestrikethrough","icon","icon-lab","text","type","font","strikethrough","underline"],"status":"published"}',
+		componentName: 'TextUnderlineStrikethroughIcon',
+		keywords: [
+			'text-underline-strikethrough',
+			'textunderlinestrikethrough',
+			'icon',
+			'icon-lab',
+			'text',
+			'type',
+			'font',
+			'strikethrough',
+			'underline',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for underline text with a strikethrough',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TicketIcon","package":"@atlaskit/icon-lab/core/ticket","categorization":"multi-purpose","usage":"Multi purpose","keywords":["ticket","icon","icon-lab","stub","ticket"],"status":"published"}',
+		componentName: 'TicketIcon',
+		keywords: ['ticket', 'icon', 'icon-lab', 'stub', 'ticket'],
+		categorization: 'multi-purpose',
+		usage: 'Multi purpose',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"TidyIcon","package":"@atlaskit/icon-lab/core/tidy","categorization":"single-purpose","usage":"Tidy up objects on Whiteboards","keywords":["tidy","icon","icon-lab","Tidy","Clean up","Tidy up","Grid"],"status":"published"}',
+		componentName: 'TidyIcon',
+		keywords: ['tidy', 'icon', 'icon-lab', 'Tidy', 'Clean up', 'Tidy up', 'Grid'],
+		categorization: 'single-purpose',
+		usage: 'Tidy up objects on Whiteboards',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"VariableIcon","package":"@atlaskit/icon-lab/core/variable","categorization":"single-purpose","usage":"Reserved for Variables functionality in Loom","keywords":["variable","icon","icon-lab"],"status":"published"}',
+		componentName: 'VariableIcon',
+		keywords: ['variable', 'icon', 'icon-lab'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for Variables functionality in Loom',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"VehicleAirplaneIcon","package":"@atlaskit/icon-lab/core/vehicle-airplane","categorization":"multi-purpose","usage":"User-selectable icon choice for calendars","keywords":["vehicle-airplane","vehicleairplane","icon","icon-lab","plane","airplane","aeroplane","travel","vehicle"],"status":"published"}',
+		componentName: 'VehicleAirplaneIcon',
+		keywords: [
+			'vehicle-airplane',
+			'vehicleairplane',
+			'icon',
+			'icon-lab',
+			'plane',
+			'airplane',
+			'aeroplane',
+			'travel',
+			'vehicle',
+		],
+		categorization: 'multi-purpose',
+		usage: 'User-selectable icon choice for calendars',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"VehicleTrainIcon","package":"@atlaskit/icon-lab/core/vehicle-train","categorization":"multi-purpose","usage":"Known usages: Alternative option for transport emoji category.","keywords":["vehicle-train","vehicletrain","icon","icon-lab","transportation","vehicle","car"],"status":"published"}',
+		componentName: 'VehicleTrainIcon',
+		keywords: [
+			'vehicle-train',
+			'vehicletrain',
+			'icon',
+			'icon-lab',
+			'transportation',
+			'vehicle',
+			'car',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Known usages: Alternative option for transport emoji category.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"VideoCaptionsStylizedIcon","package":"@atlaskit/icon-lab/core/video-captions-stylized","categorization":"single-purpose","usage":"Reserved for stylized captions functionality in Loom","keywords":["video-captions-stylized","videocaptionsstylized","icon","icon-lab","CC","subtitles"],"status":"published"}',
+		componentName: 'VideoCaptionsStylizedIcon',
+		keywords: [
+			'video-captions-stylized',
+			'videocaptionsstylized',
+			'icon',
+			'icon-lab',
+			'CC',
+			'subtitles',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for stylized captions functionality in Loom',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"VideoClipIcon","package":"@atlaskit/icon-lab/core/video-clip","categorization":"multi-purpose","usage":"Known uses: add clip in Loom video editor","keywords":["video-clip","videoclip","icon","icon-lab","film","film strip","video","media","file"],"status":"published"}',
+		componentName: 'VideoClipIcon',
+		keywords: [
+			'video-clip',
+			'videoclip',
+			'icon',
+			'icon-lab',
+			'film',
+			'film strip',
+			'video',
+			'media',
+			'file',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: add clip in Loom video editor',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"VideoClosedCaptionsIcon","package":"@atlaskit/icon-lab/core/video-closed-captions","categorization":"single-purpose","usage":"Reserved for enabling closed captions for videos.","keywords":["video-closed-captions","videoclosedcaptions","icon","icon-lab","CC","closed captions","subtitles"],"status":"published"}',
+		componentName: 'VideoClosedCaptionsIcon',
+		keywords: [
+			'video-closed-captions',
+			'videoclosedcaptions',
+			'icon',
+			'icon-lab',
+			'CC',
+			'closed captions',
+			'subtitles',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for enabling closed captions for videos.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"VideoClosedCaptionsFilledIcon","package":"@atlaskit/icon-lab/core/video-closed-captions-filled","categorization":"single-purpose","usage":"Reserved to show that closed captions are enabled for videos.","keywords":["video-closed-captions-filled","videoclosedcaptionsfilled","icon","icon-lab"],"status":"published"}',
+		componentName: 'VideoClosedCaptionsFilledIcon',
+		keywords: ['video-closed-captions-filled', 'videoclosedcaptionsfilled', 'icon', 'icon-lab'],
+		categorization: 'single-purpose',
+		usage: 'Reserved to show that closed captions are enabled for videos.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"VideoFastForwardIcon","package":"@atlaskit/icon-lab/core/video-fast-forward","categorization":"single-purpose","usage":"Reserved for fast forwarding media and representing fast forward BPMN diagram symbol.","keywords":["video-fast-forward","videofastforward","icon","icon-lab","video","media","fast forward","FFD","BPMN shape","diagram symbol"],"status":"published"}',
+		componentName: 'VideoFastForwardIcon',
+		keywords: [
+			'video-fast-forward',
+			'videofastforward',
+			'icon',
+			'icon-lab',
+			'video',
+			'media',
+			'fast forward',
+			'FFD',
+			'BPMN shape',
+			'diagram symbol',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for fast forwarding media and representing fast forward BPMN diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"VideoFastForwardOverlayIcon","package":"@atlaskit/icon-lab/core/video-fast-forward-overlay","categorization":"single-purpose","usage":"Reserved for fast forwarding media when icon is shown on an overlay, and representing fast forward BPMN diagram symbol.","keywords":["video-fast-forward-overlay","videofastforwardoverlay","icon","icon-lab","video","media","fast forward","FFD","filled","BPMN shape","diagram symbol"],"status":"published"}',
+		componentName: 'VideoFastForwardOverlayIcon',
+		keywords: [
+			'video-fast-forward-overlay',
+			'videofastforwardoverlay',
+			'icon',
+			'icon-lab',
+			'video',
+			'media',
+			'fast forward',
+			'FFD',
+			'filled',
+			'BPMN shape',
+			'diagram symbol',
+		],
+		categorization: 'single-purpose',
+		usage:
+			'Reserved for fast forwarding media when icon is shown on an overlay, and representing fast forward BPMN diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"VideoHdIcon","package":"@atlaskit/icon-lab/core/video-hd","categorization":"single-purpose","usage":"Single purpose - Reserved for enabling high definition videos","keywords":["video-hd","videohd","icon","icon-lab","high definition","hi def"],"status":"published"}',
+		componentName: 'VideoHdIcon',
+		keywords: ['video-hd', 'videohd', 'icon', 'icon-lab', 'high definition', 'hi def'],
+		categorization: 'single-purpose',
+		usage: 'Single purpose - Reserved for enabling high definition videos',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"VideoHdFilledIcon","package":"@atlaskit/icon-lab/core/video-hd-filled","categorization":"single-purpose","usage":"Single purpose - Reserved to show that high definition is enabled for videos","keywords":["video-hd-filled","videohdfilled","icon","icon-lab","high definition","hi def"],"status":"published"}',
+		componentName: 'VideoHdFilledIcon',
+		keywords: ['video-hd-filled', 'videohdfilled', 'icon', 'icon-lab', 'high definition', 'hi def'],
+		categorization: 'single-purpose',
+		usage: 'Single purpose - Reserved to show that high definition is enabled for videos',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"VideoMiniplayerIcon","package":"@atlaskit/icon-lab/core/video-miniplayer","categorization":"single-purpose","usage":"Reserved for picture-in-picture functionality for videos.","keywords":["video-miniplayer","videominiplayer","icon","icon-lab","picture in picture","PIP"],"status":"published"}',
+		componentName: 'VideoMiniplayerIcon',
+		keywords: [
+			'video-miniplayer',
+			'videominiplayer',
+			'icon',
+			'icon-lab',
+			'picture in picture',
+			'PIP',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for picture-in-picture functionality for videos.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"VideoOverlayToolsIcon","package":"@atlaskit/icon-lab/core/video-overlay-tools","categorization":"single-purpose","usage":"Reserved for overlays over a video.","keywords":["video-overlay-tools","videooverlaytools","icon","icon-lab","overlays","video","add text","add arrow","add box"],"status":"published"}',
+		componentName: 'VideoOverlayToolsIcon',
+		keywords: [
+			'video-overlay-tools',
+			'videooverlaytools',
+			'icon',
+			'icon-lab',
+			'overlays',
+			'video',
+			'add text',
+			'add arrow',
+			'add box',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for overlays over a video.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"VideoPlayCircleIcon","package":"@atlaskit/icon-lab/core/video-play-circle","categorization":"multi-purpose","usage":"Known uses: play video in Loom","keywords":["video-play-circle","videoplaycircle","icon","icon-lab","video","start"],"status":"published"}',
+		componentName: 'VideoPlayCircleIcon',
+		keywords: ['video-play-circle', 'videoplaycircle', 'icon', 'icon-lab', 'video', 'start'],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: play video in Loom',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"VideoRecordIcon","package":"@atlaskit/icon-lab/core/video-record","categorization":"single-purpose","usage":"Reserved for when a video is recording","keywords":["video-record","videorecord","icon","icon-lab","live","circle","ellipse","recording"],"status":"published"}',
+		componentName: 'VideoRecordIcon',
+		keywords: [
+			'video-record',
+			'videorecord',
+			'icon',
+			'icon-lab',
+			'live',
+			'circle',
+			'ellipse',
+			'recording',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for when a video is recording',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"VideoRewindIcon","package":"@atlaskit/icon-lab/core/video-rewind","categorization":"single-purpose","usage":"Reserved for rewinding media and representing rewind diagram symbol.","keywords":["video-rewind","videorewind","icon","icon-lab","video","media","playback control","rewind","RWD","diagram symbol","BPMN shape"],"status":"published"}',
+		componentName: 'VideoRewindIcon',
+		keywords: [
+			'video-rewind',
+			'videorewind',
+			'icon',
+			'icon-lab',
+			'video',
+			'media',
+			'playback control',
+			'rewind',
+			'RWD',
+			'diagram symbol',
+			'BPMN shape',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for rewinding media and representing rewind diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"VideoRewindOverlayIcon","package":"@atlaskit/icon-lab/core/video-rewind-overlay","categorization":"single-purpose","usage":"Reserved for rewinding media and representing rewind diagram symbol.","keywords":["video-rewind-overlay","videorewindoverlay","icon","icon-lab","rewind back","video","media","playback control","rewind","RWD","diagram symbol","BPMN shape","filled"],"status":"published"}',
+		componentName: 'VideoRewindOverlayIcon',
+		keywords: [
+			'video-rewind-overlay',
+			'videorewindoverlay',
+			'icon',
+			'icon-lab',
+			'rewind back',
+			'video',
+			'media',
+			'playback control',
+			'rewind',
+			'RWD',
+			'diagram symbol',
+			'BPMN shape',
+			'filled',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for rewinding media and representing rewind diagram symbol.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"VideoSkipBackwardFiveIcon","package":"@atlaskit/icon-lab/core/video-skip-backward-five","categorization":"single-purpose","usage":"Reserved for skipping video content backward by 5 seconds.","keywords":["video-skip-backward-five","videoskipbackwardfive","icon","icon-lab","video","media","skip","forward","5","seconds"],"status":"published"}',
+		componentName: 'VideoSkipBackwardFiveIcon',
+		keywords: [
+			'video-skip-backward-five',
+			'videoskipbackwardfive',
+			'icon',
+			'icon-lab',
+			'video',
+			'media',
+			'skip',
+			'forward',
+			'5',
+			'seconds',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for skipping video content backward by 5 seconds.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"VideoSkipForwardFiveIcon","package":"@atlaskit/icon-lab/core/video-skip-forward-five","categorization":"single-purpose","usage":"Reserved for skipping video content forward by 5 seconds.","keywords":["video-skip-forward-five","videoskipforwardfive","icon","icon-lab","video","media","skip","forward","5","seconds"],"status":"published"}',
+		componentName: 'VideoSkipForwardFiveIcon',
+		keywords: [
+			'video-skip-forward-five',
+			'videoskipforwardfive',
+			'icon',
+			'icon-lab',
+			'video',
+			'media',
+			'skip',
+			'forward',
+			'5',
+			'seconds',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for skipping video content forward by 5 seconds.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"VideoStrikethroughIcon","package":"@atlaskit/icon-lab/core/video-strikethrough","categorization":"multi-purpose","usage":"Reserved for no video input","keywords":["video-strikethrough","videostrikethrough","icon","icon-lab","video","no video","camera off","off"],"status":"published"}',
+		componentName: 'VideoStrikethroughIcon',
+		keywords: [
+			'video-strikethrough',
+			'videostrikethrough',
+			'icon',
+			'icon-lab',
+			'video',
+			'no video',
+			'camera off',
+			'off',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Reserved for no video input',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"VideoTheaterModeIcon","package":"@atlaskit/icon-lab/core/video-theater-mode","categorization":"single-purpose","usage":"Reserved for theater mode functionality within video player.","keywords":["video-theater-mode","videotheatermode","icon","icon-lab","theater mode","view","viewport","video","wide"],"status":"published"}',
+		componentName: 'VideoTheaterModeIcon',
+		keywords: [
+			'video-theater-mode',
+			'videotheatermode',
+			'icon',
+			'icon-lab',
+			'theater mode',
+			'view',
+			'viewport',
+			'video',
+			'wide',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for theater mode functionality within video player.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"VideoTimelineClipSplitIcon","package":"@atlaskit/icon-lab/core/video-timeline-clip-split","categorization":"single-purpose","usage":"Reserved for split clip functionality in Loom.","keywords":["video-timeline-clip-split","videotimelineclipsplit","icon","icon-lab","split","clip","edit","enhance","video","timeline","trim"],"status":"published"}',
+		componentName: 'VideoTimelineClipSplitIcon',
+		keywords: [
+			'video-timeline-clip-split',
+			'videotimelineclipsplit',
+			'icon',
+			'icon-lab',
+			'split',
+			'clip',
+			'edit',
+			'enhance',
+			'video',
+			'timeline',
+			'trim',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for split clip functionality in Loom.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"VideoTimelineEditorIcon","package":"@atlaskit/icon-lab/core/video-timeline-editor","categorization":"single-purpose","usage":"Reserved for timeline editor functionality in Loom","keywords":["video-timeline-editor","videotimelineeditor","icon","icon-lab","track","edit","video"],"status":"published"}',
+		componentName: 'VideoTimelineEditorIcon',
+		keywords: [
+			'video-timeline-editor',
+			'videotimelineeditor',
+			'icon',
+			'icon-lab',
+			'track',
+			'edit',
+			'video',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for timeline editor functionality in Loom',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"VideoWatchLaterRemoveIcon","package":"@atlaskit/icon-lab/core/video-watch-later-remove","categorization":"single-purpose","usage":"Reserved for watch later functionality in Loom","keywords":["video-watch-later-remove","videowatchlaterremove","icon","icon-lab","bookmark","x","remove","cross"],"status":"published"}',
+		componentName: 'VideoWatchLaterRemoveIcon',
+		keywords: [
+			'video-watch-later-remove',
+			'videowatchlaterremove',
+			'icon',
+			'icon-lab',
+			'bookmark',
+			'x',
+			'remove',
+			'cross',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for watch later functionality in Loom',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"VideoWatchLaterSavedIcon","package":"@atlaskit/icon-lab/core/video-watch-later-saved","categorization":"single-purpose","usage":"Reserved for watch later functionality in Loom","keywords":["video-watch-later-saved","videowatchlatersaved","icon","icon-lab","bookmark","check","saved"],"status":"published"}',
+		componentName: 'VideoWatchLaterSavedIcon',
+		keywords: [
+			'video-watch-later-saved',
+			'videowatchlatersaved',
+			'icon',
+			'icon-lab',
+			'bookmark',
+			'check',
+			'saved',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for watch later functionality in Loom',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ViewTypeBoardHomeIcon","package":"@atlaskit/icon-lab/core/view-type-board-home","categorization":"single-purpose","usage":"Home view for database board layout","keywords":["view-type-board-home","viewtypeboardhome","icon","icon-lab","board view","databases","home","default view"],"status":"published"}',
+		componentName: 'ViewTypeBoardHomeIcon',
+		keywords: [
+			'view-type-board-home',
+			'viewtypeboardhome',
+			'icon',
+			'icon-lab',
+			'board view',
+			'databases',
+			'home',
+			'default view',
+		],
+		categorization: 'single-purpose',
+		usage: 'Home view for database board layout',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ViewTypeCardHomeIcon","package":"@atlaskit/icon-lab/core/view-type-card-home","categorization":"single-purpose","usage":"Home view for database card layout","keywords":["view-type-card-home","viewtypecardhome","icon","icon-lab","card view","databases","home","default view"],"status":"published"}',
+		componentName: 'ViewTypeCardHomeIcon',
+		keywords: [
+			'view-type-card-home',
+			'viewtypecardhome',
+			'icon',
+			'icon-lab',
+			'card view',
+			'databases',
+			'home',
+			'default view',
+		],
+		categorization: 'single-purpose',
+		usage: 'Home view for database card layout',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ViewTypeTableHomeIcon","package":"@atlaskit/icon-lab/core/view-type-table-home","categorization":"single-purpose","usage":"Home view for database table layout","keywords":["view-type-table-home","viewtypetablehome","icon","icon-lab","table view","databases","home","default view"],"status":"published"}',
+		componentName: 'ViewTypeTableHomeIcon',
+		keywords: [
+			'view-type-table-home',
+			'viewtypetablehome',
+			'icon',
+			'icon-lab',
+			'table view',
+			'databases',
+			'home',
+			'default view',
+		],
+		categorization: 'single-purpose',
+		usage: 'Home view for database table layout',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"ViewsIcon","package":"@atlaskit/icon-lab/core/views","categorization":"single-purpose","usage":"Reserved for representing saved views.","keywords":["views","icon","icon-lab","saved views","view types"],"status":"published"}',
+		componentName: 'ViewsIcon',
+		keywords: ['views', 'icon', 'icon-lab', 'saved views', 'view types'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing saved views.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"VulnerabilityIcon","package":"@atlaskit/icon-lab/core/vulnerability","categorization":"single-purpose","usage":"Reserved for security vulnerabilities.","keywords":["vulnerability","icon","icon-lab","vulnerability","security","alert","warning"],"status":"published"}',
+		componentName: 'VulnerabilityIcon',
+		keywords: [
+			'vulnerability',
+			'icon',
+			'icon-lab',
+			'vulnerability',
+			'security',
+			'alert',
+			'warning',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for security vulnerabilities.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"WalletIcon","package":"@atlaskit/icon-lab/core/wallet","categorization":"multi-purpose","usage":"Multi purpose","keywords":["wallet","icon","icon-lab","money","sales","payment","wallet"],"status":"published"}',
+		componentName: 'WalletIcon',
+		keywords: ['wallet', 'icon', 'icon-lab', 'money', 'sales', 'payment', 'wallet'],
+		categorization: 'multi-purpose',
+		usage: 'Multi purpose',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"WarningOutlineIcon","package":"@atlaskit/icon-lab/core/warning-outline","categorization":"multi-purpose","usage":"Low-impact warnings. Overdue dates in Atlassian Home.","keywords":["warning-outline","warningoutline","icon","icon-lab","warning","exclamation","overdue","past due","late"],"status":"published"}',
+		componentName: 'WarningOutlineIcon',
+		keywords: [
+			'warning-outline',
+			'warningoutline',
+			'icon',
+			'icon-lab',
+			'warning',
+			'exclamation',
+			'overdue',
+			'past due',
+			'late',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Low-impact warnings. Overdue dates in Atlassian Home.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"WebhookIcon","package":"@atlaskit/icon-lab/core/webhook","categorization":"single-purpose","usage":"Reserved for using a webhook to send data between applications via HTTP","keywords":["webhook","icon","icon-lab","api","callback","payload"],"status":"published"}',
+		componentName: 'WebhookIcon',
+		keywords: ['webhook', 'icon', 'icon-lab', 'api', 'callback', 'payload'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for using a webhook to send data between applications via HTTP',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"WelcomeFeedIcon","package":"@atlaskit/icon-lab/core/welcome-feed","categorization":"multi-purpose","usage":"Known uses: Intro blog feed picker on Hello","keywords":["welcome-feed","welcomefeed","icon","icon-lab","welcome","hello","blog","smile","intro"],"status":"published"}',
+		componentName: 'WelcomeFeedIcon',
+		keywords: [
+			'welcome-feed',
+			'welcomefeed',
+			'icon',
+			'icon-lab',
+			'welcome',
+			'hello',
+			'blog',
+			'smile',
+			'intro',
+		],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Intro blog feed picker on Hello',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"WorkItemAddIcon","package":"@atlaskit/icon-lab/core/work-item-add","categorization":"single-purpose","usage":"Reserved for adding or creating a new work item.","keywords":["work-item-add","workitemadd","icon","icon-lab","work item","work type","add","plus","create"],"status":"published"}',
+		componentName: 'WorkItemAddIcon',
+		keywords: [
+			'work-item-add',
+			'workitemadd',
+			'icon',
+			'icon-lab',
+			'work item',
+			'work type',
+			'add',
+			'plus',
+			'create',
+		],
+		categorization: 'single-purpose',
+		usage: 'Reserved for adding or creating a new work item.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"WorkflowControlsIcon","package":"@atlaskit/icon-lab/core/workflow-controls","categorization":"single-purpose","usage":"Reserved for workflow controls in automation","keywords":["workflow-controls","workflowcontrols","icon","icon-lab","orchestration"],"status":"published"}',
+		componentName: 'WorkflowControlsIcon',
+		keywords: ['workflow-controls', 'workflowcontrols', 'icon', 'icon-lab', 'orchestration'],
+		categorization: 'single-purpose',
+		usage: 'Reserved for workflow controls in automation',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"WorldIcon","package":"@atlaskit/icon-lab/core/world","categorization":"multi-purpose","usage":"Known uses: Geographical data visualization.","keywords":["world","icon","icon-lab","world","globe","atlas","geography"],"status":"published"}',
+		componentName: 'WorldIcon',
+		keywords: ['world', 'icon', 'icon-lab', 'world', 'globe', 'atlas', 'geography'],
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Geographical data visualization.',
+		status: 'published',
+	},
+	{
+		content:
+			'{"componentName":"WrenchIcon","package":"@atlaskit/icon-lab/core/wrench","categorization":"multi-purpose","usage":"Multi purpose","keywords":["wrench","icon","icon-lab","wrench","spanner","tool"],"status":"published"}',
+		componentName: 'WrenchIcon',
+		keywords: ['wrench', 'icon', 'icon-lab', 'wrench', 'spanner', 'tool'],
+		categorization: 'multi-purpose',
+		usage: 'Multi purpose',
 		status: 'published',
 	},
 ];

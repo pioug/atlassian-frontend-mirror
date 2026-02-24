@@ -1,5 +1,34 @@
 # @atlaskit/editor-statsig-tmp
 
+## 29.5.0
+
+### Minor Changes
+
+- [`52d4b8fab3118`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/52d4b8fab3118) -
+  Add platform_editor_toolbar_hide_overflow_menu experiment, add logic to hide menu button if there
+  are no menu items rendered
+
+## 29.4.0
+
+### Minor Changes
+
+- [`63173c2b1171a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63173c2b1171a) -
+  [ux] Enable sticky header for reference synced blocks in Editor
+
+## 29.3.0
+
+### Minor Changes
+
+- [`de02dc0a51052`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de02dc0a51052) -
+  [EDITOR-4986] add experiment to statsig config file
+- [`f290bdd4d27bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f290bdd4d27bd) -
+  [ux] Hides editor cursor placeholder text on full page editor / live docs behind Rovo Blank Object
+  experiment
+- [`4af588e6196fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4af588e6196fe) -
+  batch experiment for page transition
+- [`d2f1426fe5b85`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2f1426fe5b85) -
+  [ux] ENGHEALTH-46817 Add feature gated a11y eslint fixes across editor packages
+
 ## 29.2.0
 
 ### Minor Changes

@@ -13,7 +13,7 @@ const isSyncBlockProduct = (product: string): product is SyncBlockProduct => {
  *
  * Format
  * - {product}/{contentId}/{uuid}
- *   - product: a recognized `SyncBlockProduct` (e.g. 'confluence-page', 'jira-issue')
+ *   - product: a recognized `SyncBlockProduct` (e.g. 'confluence-page', 'jira-work-item')
  *   - contentId: the host content identifier (e.g. page ID or issue ID)
  *   - uuid: the UUID for the specific synced block instance
  *
@@ -26,7 +26,7 @@ const isSyncBlockProduct = (product: string): product is SyncBlockProduct => {
  * - No extra segments; returns `undefined` on any invalid input
  *
  * Notes
- * - `product` is a qualified domain like 'confluence-page' or 'jira-issue',
+ * - `product` is a qualified domain like 'confluence-page' or 'jira-work-item',
  *   not just 'confluence' or 'jira'.
  */
 

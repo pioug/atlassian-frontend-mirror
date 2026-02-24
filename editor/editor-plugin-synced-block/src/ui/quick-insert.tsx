@@ -14,7 +14,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import Lozenge from '@atlaskit/lozenge';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { createSyncedBlock } from '../editor-commands';
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
@@ -33,7 +32,7 @@ export const getQuickInsertConfig = (
 ): (({
 	formatMessage,
 }: {
-	formatMessage: (message: { id: string; defaultMessage: string }) => string;
+	formatMessage: (message: { defaultMessage: string; id: string }) => string;
 }) => QuickInsertItem[]) => {
 	return ({ formatMessage }) => {
 		if (!config?.enableSourceCreation) {
@@ -59,12 +58,10 @@ export const getQuickInsertConfig = (
 				],
 				isDisabledOffline: true,
 				keyshortcut: '',
-				lozenge: fg('platform_synced_block_patch_2') ? (
+				lozenge: (
 					<span css={lozengeWrapperStyles}>
 						<Lozenge appearance="new">{formatMessage(blockTypeMessages.newLozenge)}</Lozenge>
 					</span>
-				) : (
-					<Lozenge appearance="new">{formatMessage(blockTypeMessages.newLozenge)}</Lozenge>
 				),
 				icon: () => <IconSyncBlock label={formatMessage(blockTypeMessages.syncedBlock)} />,
 				action: (insert: QuickInsertActionInsert, state: EditorState) => {

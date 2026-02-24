@@ -48,13 +48,15 @@ import {
 	ExpandableMenuItemTrigger,
 } from '@atlaskit/side-nav-items/expandable-menu-item';
 import {
+	FlyoutBody,
+	FlyoutFooter,
+	FlyoutHeader,
 	FlyoutMenuItem,
 	FlyoutMenuItemContent,
 	FlyoutMenuItemTrigger,
 } from '@atlaskit/side-nav-items/flyout-menu-item';
 import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
-import { Divider } from '@atlaskit/side-nav-items/menu-section';
 import { token } from '@atlaskit/tokens';
 
 import { WithResponsiveViewport } from './utils/with-responsive-viewport';
@@ -135,18 +137,27 @@ export function MenuItemScrollIntoView() {
 									Recent
 								</FlyoutMenuItemTrigger>
 								<FlyoutMenuItemContent>
-									<MenuList>
-										<LinkMenuItem href="#" elemBefore={<BoardIcon label="" color="currentColor" />}>
-											YNG board
-										</LinkMenuItem>
-										<Divider />
-										<LinkMenuItem
-											href="#"
-											elemBefore={<AlignTextLeftIcon label="" color="currentColor" />}
-										>
-											View all starred items
-										</LinkMenuItem>
-									</MenuList>
+									<FlyoutHeader title="Recent" closeButtonLabel="Close menu" />
+									<FlyoutBody>
+										<MenuList>
+											<LinkMenuItem
+												href="#"
+												elemBefore={<BoardIcon label="" color="currentColor" />}
+											>
+												YNG board
+											</LinkMenuItem>
+										</MenuList>
+									</FlyoutBody>
+									<FlyoutFooter>
+										<MenuList>
+											<LinkMenuItem
+												href="#"
+												elemBefore={<AlignTextLeftIcon label="" color="currentColor" />}
+											>
+												View all starred items
+											</LinkMenuItem>
+										</MenuList>
+									</FlyoutFooter>
 								</FlyoutMenuItemContent>
 							</FlyoutMenuItem>
 							<LinkMenuItem

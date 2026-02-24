@@ -101,9 +101,9 @@ export const getFetchSourceInfoExperience = (
 /**
  * This experience tracks when a source sync block is deleted from the BE.
  *
- * Start: When the fetchSourceInfo function is called.
- * Success: When the fetching the data is successful within the timeout duration of start.
- * Failure: When the timeout duration passes without the data being successfully fetched, or the fetch fails
+ * Start: When the delete source sync block function is called.
+ * Success: When the sync block deletion is successful within the timeout duration of start.
+ * Failure: When the timeout duration passes without the sync block being successfully deleted, or the deletion fails
  */
 export const getDeleteSourceExperience = (
 	fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void,
@@ -118,9 +118,9 @@ export const getDeleteSourceExperience = (
 /**
  * This experience tracks when a source sync block is created and registered to the BE.
  *
- * Start: When the fetchSourceInfo function is called.
- * Success: When the fetching the data is successful within the timeout duration of start.
- * Failure: When the timeout duration passes without the data being successfully fetched, or the fetch fails
+ * Start: When the create source sync block function is called.
+ * Success: When the sync block creation is successful within the timeout duration of start.
+ * Failure: When the timeout duration passes without the sync block being successfully created, or the creation fails
  */
 export const getCreateSourceExperience = (
 	fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void,
@@ -133,11 +133,11 @@ export const getCreateSourceExperience = (
 };
 
 /**
- * This experience tracks when a source sync block is created and registered to the BE.
+ * This experience tracks when references for a sync block are fetched from the BE.
  *
- * Start: When the fetchSourceInfo function is called.
- * Success: When the fetching the data is successful within the timeout duration of start.
- * Failure: When the timeout duration passes without the data being successfully fetched, or the fetch fails
+ * Start: When the fetchReferences function is called.
+ * Success: When the fetching of references is successful within the timeout duration of start.
+ * Failure: When the timeout duration passes without references being successfully fetched, or the fetch fails
  */
 export const getFetchReferencesExperience = (
 	fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void,

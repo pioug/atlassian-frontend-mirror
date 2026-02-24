@@ -573,41 +573,37 @@ export interface CollabEvents {
 export type SyncUpErrorFunction = (attributes: NewCollabSyncUpErrorAttributes) => void;
 
 export interface CollabEditProvider<Events extends CollabEvents = CollabEvents> {
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	getFinalAcknowledgedState(reason: GetResolvedEditorStateReason): Promise<ResolvedEditorState>;
+	getFinalAcknowledgedState: (
+		reason: GetResolvedEditorStateReason,
+	) => Promise<ResolvedEditorState>;
 
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	getIsNamespaceLocked(): boolean;
-
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style -- method-signature-style ignored via go/ees013 (to be fixed)
-	initialize(getState: () => any, createStep: (json: object) => Step): this; // TO-DO: deprecate this
+	getIsNamespaceLocked: () => boolean;
 
 	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style -- method-signature-style ignored via go/ees013 (to be fixed)
-	off(evt: keyof Events, handler: (...args: any) => void): this;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	initialize: (getState: () => any, createStep: (json: object) => Step) => this; // TO-DO: deprecate this
 
 	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style -- method-signature-style ignored via go/ees013 (to be fixed)
-	on(evt: keyof Events, handler: (...args: any) => void): this;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	off: (evt: keyof Events, handler: (...args: any) => void) => this;
 
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	send(tr: Transaction, oldState: EditorState, newState: EditorState): void;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	on: (evt: keyof Events, handler: (...args: any) => void) => this;
 
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	sendMessage<K extends keyof Events>(data: { type: K } & Events[K]): void;
+	send: (tr: Transaction, oldState: EditorState, newState: EditorState) => void;
 
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	setup(props: {
+	sendMessage: <K extends keyof Events>(data: { type: K } & Events[K]) => void;
+
+	setup: (props: {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		editorApi?: any;
 		getState?: () => EditorState;
 		onSyncUpError?: SyncUpErrorFunction;
-	}): this;
+	}) => this;
 
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	unsubscribeAll(evt: keyof Events): this;
+	unsubscribeAll: (evt: keyof Events) => this;
 }
 
 export type CollabEditOptions = {

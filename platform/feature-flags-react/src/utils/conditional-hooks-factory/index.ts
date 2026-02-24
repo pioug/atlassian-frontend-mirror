@@ -62,12 +62,12 @@ export function DO_NOT_USE_THIS_IN_PRODUCTION_EVER_resetConditionalHooksFactoryC
  * @param oldHook The old hook to call if the condition is false.
  * @returns A migrator hook that will call either the new hook or the old hook based on the condition.
  */
-export function conditionalHooksFactory<Result, A>(
+export function conditionalHooksFactory<Result, Args extends unknown[]>(
 	condition: () => boolean,
-	newHook: (...args: A[]) => Result,
-	oldHook: (...args: A[]) => Result,
-): (...args: A[]) => Result {
-	const hookFn = (...args: A[]) => {
+	newHook: (...args: Args) => Result,
+	oldHook: (...args: Args) => Result,
+): (...args: Args) => Result {
+	const hookFn = (...args: Args) => {
 		// call each time so we can track exposures
 		const conditionResult = condition();
 		const cache: WeakMap<(...args: never[]) => unknown, boolean> = globalThis[CACHE_MAP_KEY];

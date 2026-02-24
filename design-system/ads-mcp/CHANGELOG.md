@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 0.17.0
+
+### Minor Changes
+
+- [`f5a9fb963d33b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5a9fb963d33b) -
+  Include guidelines from structured content in the ADS MCP
+
 ## 0.16.0
 
 ### Minor Changes

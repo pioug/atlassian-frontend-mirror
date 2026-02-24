@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 5.18.0
+
+### Minor Changes
+
+- [`0cf05c1fb7671`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0cf05c1fb7671) -
+  jiraCreateContext added to the chat context store
+
 ## 5.17.0
 
 ### Minor Changes

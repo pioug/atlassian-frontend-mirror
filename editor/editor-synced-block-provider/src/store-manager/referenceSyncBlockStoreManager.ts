@@ -375,6 +375,9 @@ export class ReferenceSyncBlockStoreManager {
 	 */
 	private handleGraphQLSubscriptionUpdate(syncBlockInstance: SyncBlockInstance): void {
 		if (!syncBlockInstance.resourceId) {
+			if (fg('platform_synced_block_patch_4')) {
+				return;
+			}
 			throw new Error(
 				'Sync block instance provided to graphql subscription update missing resource id',
 			);
@@ -693,10 +696,10 @@ export class ReferenceSyncBlockStoreManager {
 			if (!syncBlockInstance.resourceId) {
 				const payload = fg('platform_synced_block_patch_3')
 					? syncBlockInstance.error?.reason ||
-						syncBlockInstance.error?.type ||
-						'Returned sync block instance does not have resource id'
+					  syncBlockInstance.error?.type ||
+					  'Returned sync block instance does not have resource id'
 					: syncBlockInstance.error?.type ||
-						'Returned sync block instance does not have resource id';
+					  'Returned sync block instance does not have resource id';
 				this.fireAnalyticsEvent?.(fetchErrorPayload(payload));
 				return;
 			}
@@ -823,20 +826,15 @@ export class ReferenceSyncBlockStoreManager {
 	}
 
 	private debouncedBatchedFetchSyncBlocks(resourceId: string): void {
-		if (fg('platform_synced_block_patch_2')) {
-			// Only add to pending requests if there are active subscriptions for this resource
-			if (
-				this.subscriptions.has(resourceId) &&
-				Object.keys(this.subscriptions.get(resourceId) || {}).length > 0
-			) {
-				this.pendingFetchRequests.add(resourceId);
-				this.scheduledBatchFetch();
-			} else {
-				this.pendingFetchRequests.delete(resourceId);
-			}
-		} else {
+		// Only add to pending requests if there are active subscriptions for this resource
+		if (
+			this.subscriptions.has(resourceId) &&
+			Object.keys(this.subscriptions.get(resourceId) || {}).length > 0
+		) {
 			this.pendingFetchRequests.add(resourceId);
 			this.scheduledBatchFetch();
+		} else {
+			this.pendingFetchRequests.delete(resourceId);
 		}
 	}
 
@@ -1175,16 +1173,14 @@ export class ReferenceSyncBlockStoreManager {
 		}
 
 		// Prevent concurrent flushes to avoid race conditions with lastFlushedSyncedBlocks
-		if (fg('platform_synced_block_patch_2')) {
-			if (this.isFlushInProgress) {
-				// Mark that another flush is needed after the current one completes
-				this.flushNeededAfterCurrent = true;
+		if (this.isFlushInProgress) {
+			// Mark that another flush is needed after the current one completes
+			this.flushNeededAfterCurrent = true;
 
-				// We return true here because we know the pending flush will handle the dirty cache
-				return true;
-			} else {
-				this.isFlushInProgress = true;
-			}
+			// We return true here because we know the pending flush will handle the dirty cache
+			return true;
+		} else {
+			this.isFlushInProgress = true;
 		}
 
 		let success = true;
@@ -1199,38 +1195,26 @@ export class ReferenceSyncBlockStoreManager {
 
 			const blocks: SyncBlockAttrs[] = [];
 
-			if (fg('platform_synced_block_patch_2')) {
-				// First, build the complete subscription structure
-				for (const [resourceId, callbacks] of this.subscriptions.entries()) {
-					syncedBlocksToFlush[resourceId] = {};
+			// First, build the complete subscription structure
+			for (const [resourceId, callbacks] of this.subscriptions.entries()) {
+				syncedBlocksToFlush[resourceId] = {};
 
-					Object.keys(callbacks).forEach((localId) => {
-						blocks.push({
-							resourceId,
-							localId,
-						});
-						syncedBlocksToFlush[resourceId][localId] = true;
+				Object.keys(callbacks).forEach((localId) => {
+					blocks.push({
+						resourceId,
+						localId,
 					});
-				}
-
-				// Then, compare with the last flushed structure to detect changes
-				// We check against the last flushed structure to prevent unnecessary flushes
-				// Note that we will always flush at least once when editor starts
-				// This is useful for eventual consistency between the editor and the BE.
-				if (isEqual(syncedBlocksToFlush, this.lastFlushedSyncedBlocks)) {
-					this.isCacheDirty = false; // Reset since we're considering this a successful no-op flush
-					return true;
-				}
-			} else {
-				// Collect all reference synced blocks on the current document
-				Array.from(this.subscriptions.entries()).forEach(([resourceId, callbacks]) => {
-					Object.keys(callbacks).forEach((localId) => {
-						blocks.push({
-							resourceId,
-							localId,
-						});
-					});
+					syncedBlocksToFlush[resourceId][localId] = true;
 				});
+			}
+
+			// Then, compare with the last flushed structure to detect changes
+			// We check against the last flushed structure to prevent unnecessary flushes
+			// Note that we will always flush at least once when editor starts
+			// This is useful for eventual consistency between the editor and the BE.
+			if (isEqual(syncedBlocksToFlush, this.lastFlushedSyncedBlocks)) {
+				this.isCacheDirty = false; // Reset since we're considering this a successful no-op flush
+				return true;
 			}
 
 			// reset isCacheDirty early to prevent race condition
@@ -1267,26 +1251,22 @@ export class ReferenceSyncBlockStoreManager {
 				// set isCacheDirty back to true for cases where it failed to update the reference synced blocks on the BE
 				this.isCacheDirty = true;
 			} else {
-				if (fg('platform_synced_block_patch_2')) {
-					this.lastFlushedSyncedBlocks = syncedBlocksToFlush;
-				}
+				this.lastFlushedSyncedBlocks = syncedBlocksToFlush;
 				this.saveExperience?.success();
 			}
 
-			if (fg('platform_synced_block_patch_2')) {
-				// Always reset isFlushInProgress regardless of feature flag
-				this.isFlushInProgress = false;
+			// Always reset isFlushInProgress
+			this.isFlushInProgress = false;
 
-				// If another flush was requested while this one was in progress, execute it now
-				if (this.flushNeededAfterCurrent) {
-					this.flushNeededAfterCurrent = false;
-					// Use setTimeout to avoid deep recursion and run queued flush asynchronously
-					// Note: flush() handles all exceptions internally and never rejects
-					this.queuedFlushTimeout = setTimeout(() => {
-						this.queuedFlushTimeout = undefined;
-						void this.flush();
-					}, 0);
-				}
+			// If another flush was requested while this one was in progress, execute it now
+			if (this.flushNeededAfterCurrent) {
+				this.flushNeededAfterCurrent = false;
+				// Use setTimeout to avoid deep recursion and run queued flush asynchronously
+				// Note: flush() handles all exceptions internally and never rejects
+				this.queuedFlushTimeout = setTimeout(() => {
+					this.queuedFlushTimeout = undefined;
+					void this.flush();
+				}, 0);
 			}
 		}
 

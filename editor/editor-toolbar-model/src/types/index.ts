@@ -126,6 +126,7 @@ export type RegisterToolbarMenuSection = ToolbarMenuSectionType & {
 
 export type RegisterToolbarMenuItem = ToolbarMenuItemType & {
 	component?: ToolbarMenuItemComponent;
+	isHidden?: () => boolean;
 	parents: Parents<ToolbarMenuSectionType>;
 };
 

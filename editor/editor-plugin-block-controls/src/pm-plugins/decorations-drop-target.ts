@@ -11,7 +11,6 @@ import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -93,8 +92,7 @@ const shouldCollapseMargin = (prevNode?: PMNode, nextNode?: PMNode) => {
 };
 
 const getGapAndOffset = (prevNode?: PMNode, nextNode?: PMNode, parentNode?: PMNode | null) => {
-	const isSyncBlockOffsetPatchEnabled =
-		editorExperiment('platform_synced_block', true) && fg('platform_synced_block_patch_2');
+	const isSyncBlockOffsetPatchEnabled = editorExperiment('platform_synced_block', true);
 
 	if (!prevNode && nextNode) {
 		// first node - adjust for bodied containers
@@ -377,10 +375,9 @@ export const dropTargetDecorations = (
 			}
 		}
 
-		const parentTypesWithEndDropTarget =
-			editorExperiment('platform_synced_block', true) && fg('platform_synced_block_patch_2')
-				? PARENT_WITH_END_DROP_TARGET_NEXT
-				: PARENT_WITH_END_DROP_TARGET;
+		const parentTypesWithEndDropTarget = editorExperiment('platform_synced_block', true)
+			? PARENT_WITH_END_DROP_TARGET_NEXT
+			: PARENT_WITH_END_DROP_TARGET;
 
 		if (
 			parent.lastChild === node &&

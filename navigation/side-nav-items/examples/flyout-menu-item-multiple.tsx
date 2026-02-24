@@ -11,11 +11,14 @@ import { Root } from '@atlaskit/navigation-system/layout/root';
 import { SideNav, SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import {
+	FlyoutBody,
+	FlyoutFooter,
+	FlyoutHeader,
 	FlyoutMenuItem,
 	FlyoutMenuItemContent,
 	FlyoutMenuItemTrigger,
 } from '@atlaskit/side-nav-items/flyout-menu-item';
-import { Divider } from '@atlaskit/side-nav-items/menu-section';
+import { MenuList } from '@atlaskit/side-nav-items/menu-list';
 
 import { WithResponsiveViewport } from './utils/with-responsive-viewport';
 
@@ -145,13 +148,21 @@ export default function MultipleFlyoutMenuExample(): React.JSX.Element {
 								shortcutKey="r"
 								elemBefore={<ClockIcon label="" color="currentColor" />}
 							>
-								<ButtonMenuItem elemBefore={<BoardIcon label="" color="currentColor" />}>
-									ABC board
-								</ButtonMenuItem>
-								<Divider />
-								<ButtonMenuItem elemBefore={<AlignTextLeftIcon label="" color="currentColor" />}>
-									View all recent items
-								</ButtonMenuItem>
+								<FlyoutHeader title="Recent" closeButtonLabel="Close menu" />
+								<FlyoutBody>
+									<ButtonMenuItem elemBefore={<BoardIcon label="" color="currentColor" />}>
+										ABC board
+									</ButtonMenuItem>
+								</FlyoutBody>
+								<FlyoutFooter>
+									<MenuList>
+										<ButtonMenuItem
+											elemBefore={<AlignTextLeftIcon label="" color="currentColor" />}
+										>
+											View all recent items
+										</ButtonMenuItem>
+									</MenuList>
+								</FlyoutFooter>
 							</FlyoutWithShortcut>
 
 							<FlyoutWithShortcut
@@ -159,13 +170,21 @@ export default function MultipleFlyoutMenuExample(): React.JSX.Element {
 								shortcutKey="s"
 								elemBefore={<StarUnstarredIcon label="" color="currentColor" />}
 							>
-								<ButtonMenuItem elemBefore={<BoardIcon label="" color="currentColor" />}>
-									YNG board
-								</ButtonMenuItem>
-								<Divider />
-								<ButtonMenuItem elemBefore={<AlignTextLeftIcon label="" color="currentColor" />}>
-									View all starred items
-								</ButtonMenuItem>
+								<FlyoutHeader title="Starred" closeButtonLabel="Close menu" />
+								<FlyoutBody>
+									<ButtonMenuItem elemBefore={<BoardIcon label="" color="currentColor" />}>
+										YNG board
+									</ButtonMenuItem>
+								</FlyoutBody>
+								<FlyoutFooter>
+									<MenuList>
+										<ButtonMenuItem
+											elemBefore={<AlignTextLeftIcon label="" color="currentColor" />}
+										>
+											View all starred items
+										</ButtonMenuItem>
+									</MenuList>
+								</FlyoutFooter>
 							</FlyoutWithShortcut>
 						</ManagerContext.Provider>
 

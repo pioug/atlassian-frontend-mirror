@@ -21,6 +21,8 @@ import { TopNav } from '@atlaskit/navigation-system/layout/top-nav';
 import { Stack } from '@atlaskit/primitives/compiled';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import {
+	FlyoutBody,
+	FlyoutHeader,
 	FlyoutMenuItem,
 	FlyoutMenuItemContent,
 	FlyoutMenuItemTrigger,
@@ -93,7 +95,10 @@ export default function FlyoutMenuItemAsyncContentExample() {
 								Recent
 							</FlyoutMenuItemTrigger>
 							<FlyoutMenuItemContent>
-								<AsyncContentItems behavior="skeleton-shorter-than-content" />
+								<FlyoutHeader title="Recent" closeButtonLabel="Close menu" />
+								<FlyoutBody>
+									<AsyncContentItems behavior="skeleton-shorter-than-content" />
+								</FlyoutBody>
 							</FlyoutMenuItemContent>
 						</FlyoutMenuItem>
 
@@ -104,7 +109,10 @@ export default function FlyoutMenuItemAsyncContentExample() {
 								Starred
 							</FlyoutMenuItemTrigger>
 							<FlyoutMenuItemContent>
-								<AsyncContentItems behavior="skeleton-longer-than-content" />
+								<FlyoutHeader title="Starred" closeButtonLabel="Close menu" />
+								<FlyoutBody>
+									<AsyncContentItems behavior="skeleton-longer-than-content" />
+								</FlyoutBody>
 							</FlyoutMenuItemContent>
 						</FlyoutMenuItem>
 					</MenuList>

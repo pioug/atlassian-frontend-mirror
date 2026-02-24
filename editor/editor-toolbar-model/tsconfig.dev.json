@@ -44,7 +44,13 @@
 			"path": "../editor-toolbar/tsconfig.app.json"
 		},
 		{
+			"path": "../tmp-editor-statsig/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/testing-library/tsconfig.app.json"
 		}
 	]
 }

@@ -77,6 +77,18 @@ function setComputedWidth(element: HTMLElement, width: number): () => void {
 	};
 }
 
+function drag({ element, fromX, toX }: { element: HTMLElement; fromX: number; toX: number }): void {
+	// We are explicitly firing a mousedown event to replicate what happens in browsers.
+	// Our code uses the initial client location captured from the mousedown event, not from the dragstart event,
+	// as some browser extensions can cause the client locations (e.g. clientX) in the `dragstart` event to incorrectly return 0.
+	fireEvent.mouseDown(element, { clientX: fromX });
+	fireEvent.dragStart(element, { clientX: fromX });
+
+	fireEvent.dragOver(element, { clientX: toX });
+
+	rafStub.step();
+}
+
 const TestComponent = ({
 	textDirection = 'ltr',
 	onResizeStart,
@@ -209,10 +221,7 @@ describe('PanelSplitter', () => {
 
 				const splitter = screen.getByTestId('panel-splitter');
 
-				fireEvent.dragStart(splitter, { clientX: 100 });
-				fireEvent.dragOver(splitter, { clientX: 200 });
-
-				rafStub.step();
+				drag({ element: splitter, fromX: 100, toX: 200 });
 
 				expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
 					[resizingCssVar]: 'clamp(50px, 200px, 500px)',
@@ -229,10 +238,7 @@ describe('PanelSplitter', () => {
 
 				const splitter = screen.getByTestId('panel-splitter');
 
-				fireEvent.dragStart(splitter, { clientX: 200 });
-				fireEvent.dragOver(splitter, { clientX: 100 });
-
-				rafStub.step();
+				drag({ element: splitter, fromX: 200, toX: 100 });
 
 				expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
 					[resizingCssVar]: 'clamp(50px, 100px, 500px)',
@@ -252,10 +258,7 @@ describe('PanelSplitter', () => {
 
 				const splitter = screen.getByTestId('panel-splitter');
 
-				fireEvent.dragStart(splitter, { clientX: 100 });
-				fireEvent.dragOver(splitter, { clientX: 150 });
-
-				rafStub.step();
+				drag({ element: splitter, fromX: 100, toX: 150 });
 
 				expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
 					[resizingCssVar]: 'clamp(50px, 50px, 500px)',
@@ -272,10 +275,7 @@ describe('PanelSplitter', () => {
 				);
 				const splitter = screen.getByTestId('panel-splitter');
 
-				fireEvent.dragStart(splitter, { clientX: 200 });
-				fireEvent.dragOver(splitter, { clientX: 100 });
-
-				rafStub.step();
+				drag({ element: splitter, fromX: 200, toX: 100 });
 
 				expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
 					[resizingCssVar]: 'clamp(50px, 300px, 500px)',
@@ -297,10 +297,7 @@ describe('PanelSplitter', () => {
 
 				const splitter = screen.getByTestId('panel-splitter');
 
-				fireEvent.dragStart(splitter, { clientX: 200 });
-				fireEvent.dragOver(splitter, { clientX: 300 });
-
-				rafStub.step();
+				drag({ element: splitter, fromX: 200, toX: 300 });
 
 				expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
 					[resizingCssVar]: 'clamp(50px, 100px, 500px)',
@@ -318,10 +315,7 @@ describe('PanelSplitter', () => {
 
 				const splitter = screen.getByTestId('panel-splitter');
 
-				fireEvent.dragStart(splitter, { clientX: 200 });
-				fireEvent.dragOver(splitter, { clientX: 100 });
-
-				rafStub.step();
+				drag({ element: splitter, fromX: 200, toX: 100 });
 
 				expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
 					[resizingCssVar]: 'clamp(50px, 300px, 500px)',
@@ -342,10 +336,7 @@ describe('PanelSplitter', () => {
 
 				const splitter = screen.getByTestId('panel-splitter');
 
-				fireEvent.dragStart(splitter, { clientX: 200 });
-				fireEvent.dragOver(splitter, { clientX: 300 });
-
-				rafStub.step();
+				drag({ element: splitter, fromX: 200, toX: 300 });
 
 				expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
 					[resizingCssVar]: 'clamp(50px, 300px, 500px)',
@@ -364,10 +355,7 @@ describe('PanelSplitter', () => {
 
 				const splitter = screen.getByTestId('panel-splitter');
 
-				fireEvent.dragStart(splitter, { clientX: 200 });
-				fireEvent.dragOver(splitter, { clientX: 100 });
-
-				rafStub.step();
+				drag({ element: splitter, fromX: 200, toX: 100 });
 
 				expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
 					[resizingCssVar]: 'clamp(50px, 100px, 500px)',
@@ -393,9 +381,7 @@ describe('PanelSplitter', () => {
 		const splitter = screen.getByTestId('panel-splitter');
 
 		// Dragging right will increase it's width
-		fireEvent.dragStart(splitter, { clientX: 100 });
-		fireEvent.dragOver(splitter, { clientX: 200 });
-		rafStub.step();
+		drag({ element: splitter, fromX: 100, toX: 200 });
 
 		expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
 			[resizingCssVar]: 'clamp(50px, 200px, 500px)',
@@ -419,9 +405,7 @@ describe('PanelSplitter', () => {
 
 		// Dragging left will increase it's width as it's positioned
 		// on the right hand side of the screen
-		fireEvent.dragStart(splitter, { clientX: 800 });
-		fireEvent.dragOver(splitter, { clientX: 700 });
-		rafStub.step();
+		drag({ element: splitter, fromX: 800, toX: 700 });
 
 		expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
 			[resizingCssVar]: 'clamp(50px, 300px, 500px)',
@@ -798,9 +782,7 @@ describe('PanelSplitter', () => {
 
 			const getPixelWidthMock = jest.spyOn(panelSplitterWidthUtils, 'getPixelWidth');
 
-			fireEvent.dragStart(splitter, { clientX: 200 });
-			fireEvent.dragOver(splitter, { clientX: finalWidth });
-			rafStub.step();
+			drag({ element: splitter, fromX: 200, toX: finalWidth });
 
 			expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
 				[resizingCssVar]: `clamp(50px, ${finalWidth}px, 500px)`,
@@ -882,10 +864,7 @@ describe('PanelSplitter', () => {
 
 		const splitter = screen.getByTestId('panel-splitter');
 
-		fireEvent.dragStart(splitter, { clientX: 100 });
-		fireEvent.dragOver(splitter, { clientX: 200 });
-
-		rafStub.step();
+		drag({ element: splitter, fromX: 100, toX: 200 });
 
 		expect(screen.getByTestId('panel-splitter-parent')).toHaveStyle({
 			[resizingCssVar]: 'clamp(50px, 200px, 500px)',

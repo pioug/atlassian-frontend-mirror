@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import { Inline as PlatformInline } from '@atlaskit/primitives';
+import { Inline as PlatformInline } from "@atlaskit/primitives/compiled";
 
 type PlatformInlineProps = React.ComponentProps<typeof PlatformInline>;
 

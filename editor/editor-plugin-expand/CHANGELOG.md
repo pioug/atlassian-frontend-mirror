@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-expand
 
+## 8.3.0
+
+### Minor Changes
+
+- [`01e7751e6b213`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01e7751e6b213) -
+  [EDITOR-5538](https://hello.jira.atlassian.cloud/browse/EDITOR-5538) - fix how navite expand icon
+  is rendered in SSR
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.2.14
 
 ### Patch Changes

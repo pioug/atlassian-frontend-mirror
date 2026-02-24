@@ -35,6 +35,8 @@ import {
 	ExpandableMenuItemTrigger,
 } from '@atlaskit/side-nav-items/expandable-menu-item';
 import {
+	FlyoutBody,
+	FlyoutHeader,
 	FlyoutMenuItem,
 	FlyoutMenuItemContent,
 	FlyoutMenuItemTrigger,
@@ -236,7 +238,10 @@ function OurFlyoutMenuItem({
 					Flyout menu item
 				</FlyoutMenuItemTrigger>
 				<FlyoutMenuItemContent>
-					<ReorderMenu />
+					<FlyoutHeader title="Flyout menu item" closeButtonLabel="Close menu" />
+					<FlyoutBody>
+						<ReorderMenu />
+					</FlyoutBody>
 				</FlyoutMenuItemContent>
 			</FlyoutMenuItem>
 			{dragPreview}

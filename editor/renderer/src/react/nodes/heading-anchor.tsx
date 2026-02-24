@@ -143,8 +143,12 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 				data-testid="anchor-button"
 				id={this.copyLinkId}
 				css={copyAnchorButtonStyles}
-				// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 				onMouseLeave={this.resetMessage}
+				onBlur={
+					expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)
+						? this.resetMessage
+						: undefined
+				}
 				onClick={this.copyToClipboard}
 				aria-hidden={hideFromScreenReader}
 				tabIndex={tabIndex}

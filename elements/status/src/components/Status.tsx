@@ -2,9 +2,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { PureComponent, type MouseEvent } from 'react';
+import { PureComponent, type MouseEvent, type KeyboardEvent, type FocusEvent } from 'react';
 import { css, jsx } from '@compiled/react';
 import Lozenge, { type ThemeAppearance } from '@atlaskit/lozenge';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import {
 	type WithAnalyticsEventsProps,
 	type CreateUIAnalyticsEvent,
@@ -82,6 +83,28 @@ class StatusInternal extends PureComponent<Props, any> {
 		this.hoverStartTime = 0;
 	};
 
+	private handleKeyDown = (e: KeyboardEvent<HTMLSpanElement>) => {
+		const { onClick } = this.props;
+		if (onClick && (e.key === 'Enter' || e.key === ' ')) {
+			e.preventDefault();
+			onClick(e);
+		}
+	};
+
+	private handleFocus = (_e: FocusEvent<HTMLSpanElement>) => {
+		this.hoverStartTime = Date.now();
+	};
+
+	private handleBlur = (_e: FocusEvent<HTMLSpanElement>) => {
+		const { onHover } = this.props;
+		const delay = Date.now() - this.hoverStartTime;
+
+		if (delay >= ANALYTICS_HOVER_DELAY && onHover) {
+			onHover();
+		}
+		this.hoverStartTime = 0;
+	};
+
 	componentWillUnmount() {
 		this.hoverStartTime = 0;
 	}
@@ -95,16 +118,37 @@ class StatusInternal extends PureComponent<Props, any> {
 		const appearance = colorToLozengeAppearanceMap[color] || DEFAULT_APPEARANCE;
 		// Note: ommitted data-local-id attribute to avoid copying/pasting the same localId
 		return (
-			// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/click-events-have-key-events
 			<span
 				css={[isAndroidChromium ? inlineBlockStyles : undefined]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className="status-lozenge-span"
 				onClick={onClick}
-				// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
+				onKeyDown={
+					expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)
+						? onClick
+							? this.handleKeyDown
+							: undefined
+						: undefined
+				}
 				onMouseEnter={this.handleMouseEnter}
-				// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 				onMouseLeave={this.handleMouseLeave}
+				onFocus={
+					expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)
+						? this.handleFocus
+						: undefined
+				}
+				onBlur={
+					expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)
+						? this.handleBlur
+						: undefined
+				}
+				tabIndex={
+					expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)
+						? onClick
+							? -1
+							: undefined
+						: undefined
+				}
 				data-node-type="status"
 				data-color={color}
 				data-style={style}

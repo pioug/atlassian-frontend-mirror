@@ -1,5 +1,12 @@
 # @atlaskit/react-select
 
+## 3.13.7
+
+### Patch Changes
+
+- [`3752ebde7865b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3752ebde7865b) -
+  Removes redundant internal barrel file in favour of directly importing modules
+
 ## 3.13.6
 
 ### Patch Changes

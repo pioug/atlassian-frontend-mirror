@@ -15,56 +15,46 @@ export type Props = {
 
 const RESOLVE_BEFORE_MACROS = ['jira'];
 
-// Ignored via go/ees005
-// eslint-disable-next-line @repo/internal/react/no-class-components
-class FullPageWithFF extends React.Component<
-	Props,
-	{
-		reloadEditor: boolean;
-		resolveBeforeMacros: string[];
-	}
-> {
-	constructor(props: Props) {
-		super(props);
+function FullPageWithFF({ doc }: Props) {
+	const [resolveBeforeMacros, setResolveBeforeMacros] =
+		React.useState<string[]>(RESOLVE_BEFORE_MACROS);
+	const [reloadEditor, setReloadEditor] = React.useState(false);
 
-		this.state = {
-			resolveBeforeMacros: RESOLVE_BEFORE_MACROS,
-			reloadEditor: false,
-		};
-	}
+	const toggleFF = React.useCallback(() => {
+		const nextResolveBeforeMacros = resolveBeforeMacros.length ? [] : RESOLVE_BEFORE_MACROS;
+		setResolveBeforeMacros(nextResolveBeforeMacros);
+		setReloadEditor(true);
+	}, [resolveBeforeMacros]);
 
-	toggleFF = () => {
-		const resolveBeforeMacros = this.state.resolveBeforeMacros.length ? [] : RESOLVE_BEFORE_MACROS;
-		this.setState({ resolveBeforeMacros, reloadEditor: true }, () => {
-			this.setState({ reloadEditor: false });
-		});
-	};
+	React.useEffect(() => {
+		if (reloadEditor) {
+			setReloadEditor(false);
+		}
+	}, [reloadEditor]);
 
-	render() {
-		return (
+	return (
+		<div>
 			<div>
-				<div>
-					<Toggle isChecked={!!this.state.resolveBeforeMacros.length} onChange={this.toggleFF} />
-					Priortise smart links over {RESOLVE_BEFORE_MACROS.join(',')} macros
-				</div>
-				{!this.state.reloadEditor && (
-					<FullPageExample
-						editorProps={{
-							defaultValue: this.props.doc,
-							smartLinks: {
-								// This is how we pass in the provider for smart cards
-								provider: Promise.resolve(cardProvider),
-								resolveBeforeMacros: this.state.resolveBeforeMacros,
-								allowBlockCards: true,
-								allowEmbeds: true,
-								allowResizing: true,
-							},
-						}}
-					/>
-				)}
+				<Toggle isChecked={!!resolveBeforeMacros.length} onChange={toggleFF} />
+				Priortise smart links over {RESOLVE_BEFORE_MACROS.join(',')} macros
 			</div>
-		);
-	}
+			{!reloadEditor && (
+				<FullPageExample
+					editorProps={{
+						defaultValue: doc,
+						smartLinks: {
+							// This is how we pass in the provider for smart cards
+							provider: Promise.resolve(cardProvider),
+							resolveBeforeMacros,
+							allowBlockCards: true,
+							allowEmbeds: true,
+							allowResizing: true,
+						},
+					}}
+				/>
+			)}
+		</div>
+	);
 }
 
 const cardClient = new ConfluenceCardClient('staging');
@@ -81,13 +71,7 @@ export function Example(doc?: string | Object): React.JSX.Element {
 				<SectionMessage title="Smart Cards in Confluence Editor">
 					<p>
 						Make sure you're logged into{' '}
-						<Link
-							href="https://pug.jira-dev.com"
-							// Ignored via go/ees005
-							// eslint-disable-next-line react/jsx-no-target-blank
-							target="_blank"
-							rel="noreferrer"
-						>
+						<Link href="https://pug.jira-dev.com" target="_blank" rel="noreferrer">
 							Atlassian Cloud on Staging
 						</Link>
 						. Try pasting URLs to Hello, Google Drive, Asana, Dropbox, Trello etc. Links pasted in

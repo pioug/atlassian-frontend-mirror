@@ -12,6 +12,7 @@ import { injectIntl } from 'react-intl-next';
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
 import { N80, R300 } from '@atlaskit/theme/colors';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -68,11 +69,28 @@ const RemovableField = ({
 		>
 			{children}
 			{canRemoveField && (
-				// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
 				<div
+					role={
+						expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)
+							? 'button'
+							: undefined
+					}
 					css={removeButtonWrapperStyles}
 					data-testid={`remove-field-${name}`}
 					onClick={onClickCallback}
+					onKeyDown={
+						expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)
+							? onClickCallback
+							: undefined
+					}
+					onFocus={
+						expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)
+							? onClickCallback
+							: undefined
+					}
+					tabIndex={
+						expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true) ? 0 : undefined
+					}
 				>
 					<Tooltip content={intl.formatMessage(messages.removeField)} position="left">
 						<CrossCircleIcon spacing="none" label={intl.formatMessage(messages.removeField)} />

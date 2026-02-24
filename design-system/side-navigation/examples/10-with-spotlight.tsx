@@ -8,7 +8,7 @@ import QueueIcon from '@atlaskit/icon/core/pages';
 import CustomerIcon from '@atlaskit/icon/core/person';
 import SettingsIcon from '@atlaskit/icon/core/settings';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Inline, Text } from '@atlaskit/primitives';
+import { Box, Inline, Text } from "@atlaskit/primitives/compiled";
 import {
 	ButtonItem,
 	LinkItem,

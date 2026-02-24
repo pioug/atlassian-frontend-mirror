@@ -90,13 +90,6 @@ export class NodeAnchorProvider {
 	}
 
 	public setIdForNode(node: PMNode, id: string): void {
-		// [FEATURE FLAG: platform_editor_fix_node_anchor_dom_cache]
-		// This method is part of the fix to prevent drag handle misalignment.
-		// To clean up: remove the feature flag check, keep the method body
-		if (!fg('platform_editor_fix_node_anchor_dom_cache')) {
-			return;
-		}
-
 		if (this.limitedMode) {
 			return;
 		}

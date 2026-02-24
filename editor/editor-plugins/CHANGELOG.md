@@ -1,5 +1,40 @@
 # @atlaskit/editor-plugins
 
+## 12.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.0
+
+### Minor Changes
+
+- [`53b2139bd64f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53b2139bd64f1) -
+  Add @atlaskit/editor-plugin-ui-control-registry package
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.52
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.0.51
 
 ### Patch Changes

@@ -55,6 +55,18 @@ export const getToolbarComponents = (
 			component: () => {
 				return <LoomMenuItem api={api} renderButton={config.renderButton} />;
 			},
+			isHidden: () => {
+				const loomState = api?.loom?.sharedState.currentState();
+				const editorViewMode = api?.editorViewMode?.sharedState.currentState() ?? 'edit';
+				// if shouldRenderButton is not provided, default to true
+				const shouldRenderButton = config?.shouldRenderButton?.() ?? true;
+
+				return (
+					('renderButton' in config && shouldRenderButton === false) ||
+					loomState?.isEnabled === undefined ||
+					editorViewMode !== 'edit'
+				);
+			},
 		},
 	];
 };

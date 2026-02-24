@@ -1,5 +1,17 @@
 # @atlaskit/docs
 
+## 11.4.0
+
+### Minor Changes
+
+- [`dfe619011bc14`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dfe619011bc14) -
+  Changes to bring the Atlaskit website closer to the Atlassian Design System website:
+  - Increased spacing between elements within package docs (headings, code blocks, examples,
+    paragraphs, lists, section messages)
+  - Updated relative links to no longer cause a full page reload
+  - Refactored some components to use Compiled instead of styled-components, and function components
+    instead of class components
+
 ## 11.3.5
 
 ### Patch Changes

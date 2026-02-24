@@ -18,7 +18,6 @@ import { bind } from 'bind-event-listener';
 import { createPortal } from 'react-dom';
 import invariant from 'tiny-invariant';
 
-import noop from '@atlaskit/ds-lib/noop';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
 import { useOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
@@ -258,7 +257,7 @@ const PanelSplitterTooltip = forwardRef<HTMLDivElement, TooltipContainerProps>(
 				css={[
 					tooltipStyles.root,
 					fg('platform-dst-side-nav-layering-fixes') &&
-						tooltipStyles.fullHeightSidebarWithLayeringFixes,
+					tooltipStyles.fullHeightSidebarWithLayeringFixes,
 				]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				style={style}
@@ -327,15 +326,15 @@ const PortaledPanelSplitter = ({
 	tooltipContent,
 	shortcut,
 }: PanelSplitterProps & { panel: HTMLElement; portal: HTMLElement } & Pick<
-		PanelSplitterContextType,
-		| 'panelId'
-		| 'panelWidth'
-		| 'onCompleteResize'
-		| 'getResizeBounds'
-		| 'resizingCssVar'
-		| 'position'
-		| 'shortcut'
-	>): ReactNode => {
+	PanelSplitterContextType,
+	| 'panelId'
+	| 'panelWidth'
+	| 'onCompleteResize'
+	| 'getResizeBounds'
+	| 'resizingCssVar'
+	| 'position'
+	| 'shortcut'
+>): ReactNode => {
 	const isFhsEnabled = useIsFhsEnabled();
 	const splitterRef = useRef<HTMLDivElement | null>(null);
 	const labelId = useId();
@@ -385,14 +384,12 @@ const PortaledPanelSplitter = ({
 			 * I also tried only binding an event listener inside pragmatic-drag-and-drop's `onDragStart`, which seemd to work
 			 * but did not feel as robust, and might have timing issues as it happens slightly later.
 			 */
-			fg('platform-dst-panel-splitter-drag-start-client-x')
-				? bind(splitter, {
-						type: 'mousedown',
-						listener: (event) => {
-							initialClientXRef.current = event.clientX;
-						},
-					})
-				: noop,
+			bind(splitter, {
+				type: 'mousedown',
+				listener: (event) => {
+					initialClientXRef.current = event.clientX;
+				},
+			}),
 			draggable({
 				element: splitter,
 				onGenerateDragPreview: ({ nativeSetDragImage }) => {
@@ -441,9 +438,7 @@ const PortaledPanelSplitter = ({
 
 					const { initialWidth, resizeBounds, direction } = source.data;
 
-					if (fg('platform-dst-panel-splitter-drag-start-client-x')) {
-						invariant(initialClientXRef.current !== null, 'initialClientX must be set');
-					}
+					invariant(initialClientXRef.current !== null, 'initialClientX must be set');
 
 					/**
 					 * How wide the element would be if there were no width constraints,

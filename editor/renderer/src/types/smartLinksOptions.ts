@@ -38,4 +38,11 @@ export interface SmartLinksOptions {
 	 * Component: inline
 	 */
 	ssr?: boolean;
+	/**
+	 * A Suspense boundary wrapper to enable inline SmartLinks to wait until data fetchers have completed before rendering
+	 * Default is undefined.
+	 *
+	 * Component: inline
+	 */
+	SuspenseWrapperForUrl?: React.ComponentType<{ children: React.ReactNode; url?: string }>;
 }

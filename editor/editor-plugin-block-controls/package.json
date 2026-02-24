@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "8.4.4",
+	"version": "8.5.1",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -33,6 +33,7 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",
 		"@atlaskit/browser-apis": "workspace:^",
+		"@atlaskit/button": "workspace:^",
 		"@atlaskit/editor-plugin-accessibility-utils": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-editor-disabled": "workspace:^",
@@ -50,6 +51,7 @@
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/editor-tables": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/icon-lab": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/pragmatic-drag-and-drop": "workspace:^",
@@ -146,9 +148,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_native_anchor_patch_2": {
-			"type": "boolean"
-		},
-		"platform_synced_block_patch_2": {
 			"type": "boolean"
 		},
 		"platform_editor_selection_sync_fix": {

@@ -20,8 +20,7 @@ export enum ContentType {
 }
 
 interface CompareOptions {
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	getInlineCardTextFromStore(attrs: CardAttributes): string | null; // null means that could not find the title
+	getInlineCardTextFromStore: (attrs: CardAttributes) => string | null; // null means that could not find the title
 }
 
 interface NodeMetaGenerator<Type, Value> {

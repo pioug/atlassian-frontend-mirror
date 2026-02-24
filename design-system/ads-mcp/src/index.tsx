@@ -30,6 +30,11 @@ import {
 import { getAllIconsTool, listGetAllIconsTool } from './tools/get-all-icons';
 import { getAllTokensTool, listGetAllTokensTool } from './tools/get-all-tokens';
 import { getComponentsTool, listGetComponentsTool } from './tools/get-components';
+import {
+	getGuidelinesInputSchema,
+	getGuidelinesTool,
+	listGetGuidelinesTool,
+} from './tools/get-guidelines';
 import { getIconsInputSchema, getIconsTool, listGetIconsTool } from './tools/get-icons';
 import {
 	getLintRulesInputSchema,
@@ -174,6 +179,11 @@ export const getToolRegistry = (): Record<
 			handler: getLintRulesTool,
 			inputSchema: getLintRulesInputSchema,
 			tool: listGetLintRulesTool,
+		} as (typeof baseTools)[string];
+		baseTools[listGetGuidelinesTool.name] = {
+			handler: getGuidelinesTool,
+			inputSchema: getGuidelinesInputSchema,
+			tool: listGetGuidelinesTool,
 		} as (typeof baseTools)[string];
 	} else {
 		baseTools[listGetAllTokensTool.name] = {

@@ -1,5 +1,42 @@
 # @atlaskit/editor-common
 
+## 111.19.2
+
+### Patch Changes
+
+- [`e18437c28f9ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e18437c28f9ab) -
+  Improve synced blocks robustness.
+- Updated dependencies
+
+## 111.19.1
+
+### Patch Changes
+
+- [`85444e8a5672a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85444e8a5672a) -
+  EDITOR-5526 clean up platform_synced_block_patch_2
+- Updated dependencies
+
+## 111.19.0
+
+### Minor Changes
+
+- [`46efd73fe9c9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/46efd73fe9c9d) -
+  [ux] Cleanup fg: platform_editor_fix_node_anchor_dom_cache
+
+### Patch Changes
+
+- [`2d2e663457f9a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d2e663457f9a) -
+  Convert method signatures to property signature syntax to comply with
+  @typescript-eslint/method-signature-style rule. Removed 62 eslint-disable comments.
+
+## 111.18.1
+
+### Patch Changes
+
+- [`4af588e6196fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4af588e6196fe) -
+  batch experiment for page transition
+- Updated dependencies
+
 ## 111.18.0
 
 ### Minor Changes

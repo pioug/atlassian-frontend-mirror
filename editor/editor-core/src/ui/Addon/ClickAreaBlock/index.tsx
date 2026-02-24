@@ -8,6 +8,7 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { clickAreaClickHandler } from '../click-area-helper';
 
@@ -37,12 +38,18 @@ export const ClickAreaBlock = ({ editorView, editorDisabled, children }: Props) 
 	);
 
 	return (
-		// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 		<div
 			data-editor-click-wrapper
 			data-testid="click-wrapper"
 			css={clickWrapper}
 			onMouseDown={handleMouseDown}
+			// This div is a presentational container that captures mouse events
+			// for programmatic editor focus management, not user interaction.
+			role={
+				expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)
+					? 'presentation'
+					: undefined
+			}
 		>
 			{children}
 		</div>

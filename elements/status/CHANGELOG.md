@@ -1,5 +1,13 @@
 # @atlaskit/status
 
+## 3.1.6
+
+### Patch Changes
+
+- [`d2f1426fe5b85`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2f1426fe5b85) -
+  [ux] ENGHEALTH-46817 Add feature gated a11y eslint fixes across editor packages
+- Updated dependencies
+
 ## 3.1.5
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.1.0
+
+### Minor Changes
+
+- [`042eb4751bd4d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/042eb4751bd4d) -
+  [ux] Cleanup fg: platform_editor_table_transform_selection_fix
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.48
 
 ### Patch Changes

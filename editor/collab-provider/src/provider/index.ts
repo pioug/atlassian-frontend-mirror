@@ -59,9 +59,7 @@ const OUT_OF_SYNC_PERIOD = 3 * 1000; // 3 seconds
 export const MAX_STEP_REJECTED_ERROR = 15;
 export const MAX_STEP_REJECTED_ERROR_AGGRESSIVE = 2;
 
-type BaseEvents = Pick<CollabEditProvider<CollabEvents>, 'setup' | 'send' | 'sendMessage'>;
-
-export class Provider extends Emitter<CollabEvents> implements BaseEvents {
+export class Provider extends Emitter<CollabEvents> implements CollabEditProvider<CollabEvents> {
 	api: Api | NullApi;
 	private channel: Channel;
 	private config: Config;
@@ -366,17 +364,22 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 	 */
 	setup({
 		getState,
-		_editorApi, // eslint says unused vars should start with _
+		editorApi: _editorApi, // eslint says unused vars should start with _
 		onSyncUpError,
 	}: {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		_editorApi?: any;
-		getState: () => EditorState;
+		editorApi?: any;
+		getState?: () => EditorState;
 		onSyncUpError?: SyncUpErrorFunction;
 	}): this {
 		this.checkForCookies();
 		try {
+			if (!getState) {
+				throw new ProviderInitialisationError(
+					'Collab provider attempted to initialise, but getState is required',
+				);
+			}
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const collabPlugin = getState().plugins.find((p: any) => p.key === 'collab$');
@@ -631,7 +634,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 	 * @deprecated use destroy instead, it does the same thing
 	 * @throws {DestroyError} Something went wrong while shutting down the collab provider
 	 */
-	unsubscribeAll() {
+	unsubscribeAll(): this {
 		try {
 			super.unsubscribeAll();
 			this.channel.disconnect();

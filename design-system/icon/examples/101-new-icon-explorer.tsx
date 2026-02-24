@@ -14,7 +14,7 @@ import coreIconLabMetadata from '@atlaskit/icon-lab/metadata';
 import metadata, { coreIconMetadata } from '@atlaskit/icon/metadata';
 import migrationMap from '@atlaskit/icon/migration-map';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Inline, Stack } from '@atlaskit/primitives';
+import { Box, Inline, Stack } from "@atlaskit/primitives/compiled";
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 

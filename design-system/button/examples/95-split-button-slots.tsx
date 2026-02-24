@@ -4,7 +4,7 @@ import Button, { IconButton } from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
 import ChevronDown from '@atlaskit/icon/core/chevron-down';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Inline, Stack } from '@atlaskit/primitives';
+import { Box, Inline, Stack } from "@atlaskit/primitives/compiled";
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { SplitButtonWithSlots } from '../src/new-button/containers/split-button';

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 17.3.25
+
+### Patch Changes
+
+- [`4af588e6196fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4af588e6196fe) -
+  batch experiment for page transition
+- Updated dependencies
+
 ## 17.3.24
 
 ### Patch Changes

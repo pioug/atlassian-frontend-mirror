@@ -25,6 +25,7 @@ import { HelperMessage } from '@atlaskit/form';
 import { CardClient } from '@atlaskit/link-provider';
 import { isSafeUrl, normalizeUrl } from '@atlaskit/linking-common/url';
 import { browser } from '@atlaskit/linking-common/user-agent';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import LinkUrl from '@atlaskit/smart-card/link-url';
 import { N700 } from '@atlaskit/theme/colors';
@@ -92,7 +93,6 @@ export const testIds = {
 	linkPicker: 'link-picker',
 	urlInputField: 'link-url',
 	textInputField: 'link-text',
-	linkHelperText: 'link-helper-text',
 	...searchTestIds,
 	...formFooterTestIds,
 	...textFieldTestIds,
@@ -345,7 +345,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 										hasPreview: false,
 									});
 								}
-							} catch (error) {
+							} catch {
 								return dispatch({
 									invalidUrl: true,
 								});
@@ -597,12 +597,21 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 								readOnly={isSubmitting}
 								onClear={handleClear}
 								onChange={handleChangeText}
+								{...(fg('navx-3742-refactoring-link-picker-helper-text-a11y')
+									? {
+											helperMessage: intl.formatMessage(
+												customMessages?.linkHelperTextLabel ?? linkTextMessages.linkHelperTextLabel,
+											),
+										}
+									: {})}
 							/>
-							<HelperMessage testId={testIds.linkHelperText}>
-								{customMessages?.linkHelperTextLabel
-									? intl.formatMessage(customMessages?.linkHelperTextLabel)
-									: intl.formatMessage(linkTextMessages.linkHelperTextLabel)}
-							</HelperMessage>
+							{!fg('navx-3742-refactoring-link-picker-helper-text-a11y') && (
+								<HelperMessage testId={testIds.linkHelperText}>
+									{customMessages?.linkHelperTextLabel
+										? intl.formatMessage(customMessages?.linkHelperTextLabel)
+										: intl.formatMessage(linkTextMessages.linkHelperTextLabel)}
+								</HelperMessage>
+							)}
 						</Fragment>
 					)}
 					{moveSubmitButton && (

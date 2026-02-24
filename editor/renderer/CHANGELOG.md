@@ -1,5 +1,38 @@
 # @atlaskit/renderer
 
+## 126.12.1
+
+### Patch Changes
+
+- [`85444e8a5672a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85444e8a5672a) -
+  EDITOR-5526 clean up platform_synced_block_patch_2
+- Updated dependencies
+
+## 126.12.0
+
+### Minor Changes
+
+- [`e1489e8d410d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1489e8d410d5) -
+  Exposing optional URL-based Suspense boundaries through SmartCardProvider for renderer inline card
+  nodes
+
+### Patch Changes
+
+- [`63173c2b1171a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63173c2b1171a) -
+  [ux] Enable sticky header for reference synced blocks in Editor
+- Updated dependencies
+
+## 126.11.1
+
+### Patch Changes
+
+- [`39034774c001f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39034774c001f) -
+  [ux] Fixed regression CONFCLOUD-83763 where inline comments screen reader would see css variables
+  instead of start/end comment text markers
+- [`d2f1426fe5b85`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2f1426fe5b85) -
+  [ux] ENGHEALTH-46817 Add feature gated a11y eslint fixes across editor packages
+- Updated dependencies
+
 ## 126.11.0
 
 ### Minor Changes

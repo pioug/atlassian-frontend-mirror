@@ -262,7 +262,7 @@ const GET_BLOCK_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_GET_BLOCK';
 const buildGetDocumentReferenceBlocksQuery = (
 	documentAri: string,
 ) => `query ${GET_DOCUMENT_REFERENCE_BLOCKS_OPERATION_NAME} {
-	blockService_getDocumentReferenceBlocks(documentAri: "${documentAri}") {
+	blockService_getDocumentReferenceBlocks(documentAri: ${fg('platform_synced_block_patch_4') ? JSON.stringify(documentAri) : `"${documentAri}"`}) {
 		blocks {
 			blockAri
 			blockInstanceId
@@ -342,11 +342,16 @@ const buildDeleteBlockMutation = (blockAri: string, deletionReason?: string) => 
  * 'jira-work-item' -> 'JIRA_WORK_ITEM'
  */
 const convertProductToGraphQLEnum = (product: SyncBlockProduct): string => {
-	if (product === 'confluence-page') {
-		return 'CONFLUENCE_PAGE';
+	switch (product) {
+		case 'confluence-page':
+			return 'CONFLUENCE_PAGE';
+		case 'jira-work-item':
+			return 'JIRA_WORK_ITEM';
+		default: {
+			const exhaustiveCheck: never = product;
+			throw new Error(`Unsupported product: ${exhaustiveCheck}`);
+		}
 	}
-	// product must be 'jira-work-item' at this point
-	return 'JIRA_WORK_ITEM';
 };
 
 const buildCreateBlockMutation = (
@@ -589,7 +594,10 @@ export const deleteSyncedBlock = async ({
 		throw new Error(result.errors.map((e) => e.message).join(', '));
 	}
 
-	if (!result.data?.blockService_deleteBlock.deleted) {
+	const isDeleted = fg('platform_synced_block_patch_4')
+		? result.data?.blockService_deleteBlock?.deleted
+		: result.data?.blockService_deleteBlock.deleted;
+	if (!isDeleted) {
 		throw new Error('Block deletion failed; deleted flag is false');
 	}
 };

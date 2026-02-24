@@ -1,8 +1,11 @@
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
+
 
 import type { SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react';
 
 import { getProductFromSourceAri } from '../clients/block-service/ari';
 import {
@@ -36,7 +39,7 @@ export class SyncBlockStoreManager {
 	private fetchSourceInfoExperience: Experience | undefined;
 
 	constructor(dataProvider?: SyncBlockDataProviderInterface) {
-		// In future, if reference manager needs to reach to source manager and read it's current in memorey cache
+		// In future, if reference manager needs to reach to source manager and read its current in memory cache
 		// we can pass the source manager as a parameter to the reference manager constructor
 		this.sourceSyncBlockStoreManager = new SourceSyncBlockStoreManager(dataProvider);
 		this.referenceSyncBlockStoreManager = new ReferenceSyncBlockStoreManager(dataProvider);
@@ -155,15 +158,40 @@ const createSyncBlockStoreManager = (dataProvider?: SyncBlockDataProviderInterfa
 	return new SyncBlockStoreManager(dataProvider);
 };
 
-export const useMemoizedSyncBlockStoreManager = (
+const useMemoizedSyncBlockStoreManagerBase = (
 	dataProvider?: SyncBlockDataProviderInterface,
 	fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void,
 ) => {
 	const syncBlockStoreManager = useMemo(() => {
-		const syncBlockStoreManager = createSyncBlockStoreManager(dataProvider);
-		return syncBlockStoreManager;
+		return createSyncBlockStoreManager(dataProvider);
 	}, [dataProvider]);
 
 	syncBlockStoreManager.setFireAnalyticsEvent(fireAnalyticsEvent);
 	return syncBlockStoreManager;
 };
+
+const useMemoizedSyncBlockStoreManagerPatched = (
+	dataProvider?: SyncBlockDataProviderInterface,
+	fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void,
+) => {
+	const syncBlockStoreManager = useMemo(() => {
+		return createSyncBlockStoreManager(dataProvider);
+	}, [dataProvider]);
+
+	const prevFireAnalyticsEventRef = useRef<((payload: SyncBlockEventPayload) => void) | undefined>(
+		undefined,
+	);
+
+	if (fireAnalyticsEvent !== prevFireAnalyticsEventRef.current) {
+		prevFireAnalyticsEventRef.current = fireAnalyticsEvent;
+		syncBlockStoreManager.setFireAnalyticsEvent(fireAnalyticsEvent);
+	}
+
+	return syncBlockStoreManager;
+};
+
+export const useMemoizedSyncBlockStoreManager = conditionalHooksFactory(
+	() => fg('platform_synced_block_patch_4'),
+	useMemoizedSyncBlockStoreManagerPatched,
+	useMemoizedSyncBlockStoreManagerBase,
+);

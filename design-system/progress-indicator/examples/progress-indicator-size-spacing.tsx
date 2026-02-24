@@ -2,7 +2,7 @@ import React, { type FC, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Inline, Stack, Text } from '@atlaskit/primitives';
+import { Box, Inline, Stack, Text } from "@atlaskit/primitives/compiled";
 import { ProgressIndicator } from '@atlaskit/progress-indicator';
 
 const SpreadInlineLayout = ({ children }: { children: React.ReactNode }) => {

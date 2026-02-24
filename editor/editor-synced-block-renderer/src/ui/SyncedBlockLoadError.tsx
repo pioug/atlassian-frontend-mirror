@@ -18,8 +18,7 @@ const styles = cssMap({
 	},
 });
 
-interface SyncedBlockNotFoundProps {
-	contentId?: string;
+interface SyncedBlockLoadErrorProps {
 	isLoading?: boolean;
 	onRetry?: () => void;
 }
@@ -27,7 +26,7 @@ interface SyncedBlockNotFoundProps {
 export const SyncedBlockLoadError = ({
 	onRetry,
 	isLoading,
-}: SyncedBlockNotFoundProps): React.JSX.Element => {
+}: SyncedBlockLoadErrorProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 
 	const button = (

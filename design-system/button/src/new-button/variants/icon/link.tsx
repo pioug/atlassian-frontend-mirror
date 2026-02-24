@@ -340,8 +340,8 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 							isSelected && selectedStyles.root,
 							isSelected && appearance === 'discovery' && selectedStyles.discovery,
 							isDisabled && styles.disabled,
-							spacing === 'compact' && styles.spacingCompact,
 							styles.iconButton,
+							spacing === 'compact' && styles.spacingCompact,
 							shape === 'circle' && styles.circle,
 						)}
 						onMouseDownCapture={onMouseDownCapture}

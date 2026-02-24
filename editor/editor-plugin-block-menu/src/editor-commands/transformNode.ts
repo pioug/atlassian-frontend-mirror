@@ -118,14 +118,7 @@ export const transformNode: (
 				tr.replaceWith(sliceStart, $to.pos, content);
 			}
 
-			// [FEATURE FLAG: platform_editor_table_transform_selection_fix]
-			// Fixes table cell selection not being preserved after transform to expand/layout.
-			// When a table with CellSelection is transformed, we need to re-select the wrapper node.
-			// To clean up: remove the if-else block and keep only the flag-on behavior.
-			if (
-				preservedSelection instanceof CellSelection &&
-				fg('platform_editor_table_transform_selection_fix')
-			) {
+			if (preservedSelection instanceof CellSelection) {
 				const insertedNode = tr.doc.nodeAt($from.pos);
 				const isSelectable = insertedNode && NodeSelection.isSelectable(insertedNode);
 
@@ -133,8 +126,6 @@ export const transformNode: (
 					const nodeSelection = NodeSelection.create(tr.doc, $from.pos);
 					tr.setSelection(nodeSelection);
 
-					// Update preserved selection to match the new NodeSelection
-					// This prevents appendTransaction from restoring the old table selection positions
 					api?.blockControls?.commands.startPreservingSelection()({ tr });
 				}
 			}

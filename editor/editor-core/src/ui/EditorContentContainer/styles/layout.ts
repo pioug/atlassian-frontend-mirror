@@ -622,8 +622,6 @@ export const layoutBaseStylesFixesUnderNestedDnDFGExcludingBodiedSync: Serialize
 	},
 });
 
-// platform_synced_block_patch_2
-
 /**
  * Layout in view mode styles for selected state when advanced layouts experiment is on.
  */

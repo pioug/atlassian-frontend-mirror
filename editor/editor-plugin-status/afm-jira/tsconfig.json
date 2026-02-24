@@ -30,6 +30,9 @@
 			"path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../helpers/browser-apis/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-analytics/afm-jira/tsconfig.json"
 		},
 		{

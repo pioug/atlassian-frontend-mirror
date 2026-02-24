@@ -5,6 +5,6 @@ export { Example } from './example';
 export { default as Props, PropsTable } from './Props';
 export { replaceSrc } from './replace-src';
 export { Prop } from 'pretty-proptypes';
-export { AtlassianInternalWarning, DevPreviewWarning } from './SectionMessages';
+export { AtlassianInternalWarning, DevPreviewWarning } from './section-messages';
 export { TabLink } from './tabLink';
 export { TSProps } from './TSProps';

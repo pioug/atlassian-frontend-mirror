@@ -1,5 +1,12 @@
 # @atlaskit/platform-feature-flags-react
 
+## 0.4.4
+
+### Patch Changes
+
+- [`e18437c28f9ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e18437c28f9ab) -
+  Improve synced blocks robustness.
+
 ## 0.4.3
 
 ### Patch Changes

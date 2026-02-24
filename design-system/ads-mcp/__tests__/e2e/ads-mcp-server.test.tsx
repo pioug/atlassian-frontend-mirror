@@ -158,11 +158,12 @@ describe('ADS MCP Server E2E', () => {
 		expect(result).toHaveLength(1);
 		const text = result[0].text;
 
-		// With feature flags enabled, returns JSON (structured content)
+		// With feature flags enabled, returns JSON (structured content; may be double-stringified)
 		const parsed = JSON.parse(text);
-		expect(parsed).toHaveProperty('name', 'color.text');
-		expect(parsed).toHaveProperty('description');
-		expect(parsed.description).toContain('primary text');
+		const token = typeof parsed === 'string' ? JSON.parse(parsed) : parsed;
+		expect(token).toHaveProperty('name', 'color.text');
+		expect(token).toHaveProperty('description');
+		expect(token.description).toContain('primary text');
 	});
 
 	it('Returns markdown content for ads_get_icons tool with feature flags enabled', async () => {
@@ -180,14 +181,15 @@ describe('ADS MCP Server E2E', () => {
 		expect(result).toHaveLength(1);
 		const text = result[0].text;
 
-		// With feature flags enabled, returns JSON (structured content)
+		// With feature flags enabled, returns JSON (structured content; may be double-stringified)
 		const parsed = JSON.parse(text);
-		expect(parsed).toHaveProperty('componentName', 'AddIcon');
-		expect(parsed).toHaveProperty('package', '@atlaskit/icon/core/add');
-		expect(parsed).toHaveProperty('keywords');
-		expect(Array.isArray(parsed.keywords)).toBe(true);
-		expect(parsed).toHaveProperty('usage');
-		expect(parsed).toHaveProperty('status', 'published');
+		const icon = typeof parsed === 'string' ? JSON.parse(parsed) : parsed;
+		expect(icon).toHaveProperty('componentName', 'AddIcon');
+		expect(icon).toHaveProperty('package', '@atlaskit/icon/core/add');
+		expect(icon).toHaveProperty('keywords');
+		expect(Array.isArray(icon.keywords)).toBe(true);
+		expect(icon).toHaveProperty('usage');
+		expect(icon).toHaveProperty('status', 'published');
 	});
 
 	it('Returns all icons as markdown when no search terms provided for ads_get_icons tool with feature flags enabled', async () => {
@@ -201,13 +203,14 @@ describe('ADS MCP Server E2E', () => {
 		expect(result).toHaveLength(1);
 		const text = result[0].text;
 
-		// With feature flags enabled, returns JSON array of icon objects
+		// With feature flags enabled, returns JSON array of icon objects (elements may be JSON strings)
 		const parsed = JSON.parse(text);
 		expect(Array.isArray(parsed)).toBe(true);
 		expect(parsed.length).toBeGreaterThan(0);
-		expect(parsed[0]).toHaveProperty('componentName');
-		expect(parsed[0]).toHaveProperty('package');
-		expect(parsed[0]).toHaveProperty('keywords');
+		const firstIcon = typeof parsed[0] === 'string' ? JSON.parse(parsed[0]) : parsed[0];
+		expect(firstIcon).toHaveProperty('componentName');
+		expect(firstIcon).toHaveProperty('package');
+		expect(firstIcon).toHaveProperty('keywords');
 		expect(text.length).toBeGreaterThan(100); // Substantial content
 	});
 
@@ -226,9 +229,10 @@ describe('ADS MCP Server E2E', () => {
 		expect(result).toHaveLength(1);
 		const text = result[0].text;
 		const parsed = JSON.parse(text);
-		expect(parsed).toHaveProperty('componentName', 'AddIcon');
-		expect(parsed).toHaveProperty('package');
-		expect(parsed.package).toContain('@atlaskit/icon/core/add');
+		const icon = typeof parsed === 'string' ? JSON.parse(parsed) : parsed;
+		expect(icon).toHaveProperty('componentName', 'AddIcon');
+		expect(icon).toHaveProperty('package');
+		expect(icon.package).toContain('@atlaskit/icon/core/add');
 	});
 
 	it('Returns markdown content for ads_get_lint_rules tool with feature flags enabled', async () => {

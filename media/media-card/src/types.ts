@@ -1,6 +1,5 @@
 /**
  * Entry Point: @atlaskit/media-card/types
- * tsconfig.entry-points.json
  */
 import { type MouseEvent } from 'react';
 import {

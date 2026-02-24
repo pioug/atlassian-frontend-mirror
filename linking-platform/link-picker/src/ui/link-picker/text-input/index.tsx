@@ -17,8 +17,9 @@ import { css, jsx } from '@compiled/react';
 import { useMergeRefs } from 'use-callback-ref';
 
 import { cssMap } from '@atlaskit/css';
-import { ErrorMessage, Field } from '@atlaskit/form';
+import { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
 import Selectclear from '@atlaskit/icon/core/cross-circle';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Pressable } from '@atlaskit/primitives/compiled';
 import Textfield, { type TextFieldProps } from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
@@ -90,11 +91,13 @@ export type TextInputProps = Omit<TextFieldProps, 'name' | 'value'> &
 		error?: React.ReactNode;
 		/** Ref to the link picker search input. */
 		inputRef?: Ref<HTMLInputElement>;
+		helperMessage?: string;
 	};
 
 export const testIds = {
 	urlError: 'link-error',
 	clearUrlButton: 'clear-text',
+	linkHelperText: 'link-helper-text',
 };
 
 export const TextInput = ({
@@ -110,6 +113,7 @@ export const TextInput = ({
 	spotlightTargetName,
 	inputRef: inputRefProp,
 	isRequired = false,
+	helperMessage,
 	...restProps
 }: TextInputProps) => {
 	const inputRef: MutableRefObject<HTMLInputElement | null> = useRef<HTMLInputElement>(null);
@@ -194,8 +198,11 @@ export const TextInput = ({
 									ref={textfieldRef}
 									elemAfterInput={clearText}
 									isInvalid={!!error}
-									aria-describedby={`${restProps['aria-describedby']} ${fieldProps.id}-error`}
+									aria-describedby={`${restProps['aria-describedby']} ${fieldProps.id}-error ${fg('navx-3742-refactoring-link-picker-helper-text-a11y') ? `${fieldProps.id}-helper` : ''}`}
 								/>
+								{helperMessage && fg('navx-3742-refactoring-link-picker-helper-text-a11y') && (
+									<HelperMessage testId={testIds.linkHelperText}>{helperMessage}</HelperMessage>
+								)}
 								{error && <ErrorMessage testId={testIds.urlError}>{error}</ErrorMessage>}
 							</Fragment>
 						</ConditionalSpotlightTargetWrapper>

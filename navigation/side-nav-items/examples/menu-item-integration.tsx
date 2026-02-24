@@ -52,13 +52,15 @@ import {
 	ExpandableMenuItemTrigger,
 } from '@atlaskit/side-nav-items/expandable-menu-item';
 import {
+	FlyoutBody,
+	FlyoutFooter,
+	FlyoutHeader,
 	FlyoutMenuItem,
 	FlyoutMenuItemContent,
 	FlyoutMenuItemTrigger,
 } from '@atlaskit/side-nav-items/flyout-menu-item';
 import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
-import { Divider } from '@atlaskit/side-nav-items/menu-section';
 import { token } from '@atlaskit/tokens';
 
 const headingStyles = cssMap({
@@ -135,15 +137,23 @@ export default function MenuItemIntegrationExample() {
 								Recent
 							</FlyoutMenuItemTrigger>
 							<FlyoutMenuItemContent>
-								<MenuList>
-									<ButtonMenuItem elemBefore={<BoardIcon label="" color="currentColor" />}>
-										YNG board
-									</ButtonMenuItem>
-									<Divider />
-									<ButtonMenuItem elemBefore={<AlignTextLeftIcon label="" color="currentColor" />}>
-										View all recent items
-									</ButtonMenuItem>
-								</MenuList>
+								<FlyoutHeader title="Recent" closeButtonLabel="Close menu" />
+								<FlyoutBody>
+									<MenuList>
+										<ButtonMenuItem elemBefore={<BoardIcon label="" color="currentColor" />}>
+											YNG board
+										</ButtonMenuItem>
+									</MenuList>
+								</FlyoutBody>
+								<FlyoutFooter>
+									<MenuList>
+										<ButtonMenuItem
+											elemBefore={<AlignTextLeftIcon label="" color="currentColor" />}
+										>
+											View all recent items
+										</ButtonMenuItem>
+									</MenuList>
+								</FlyoutFooter>
 							</FlyoutMenuItemContent>
 						</FlyoutMenuItem>
 						<ButtonMenuItem

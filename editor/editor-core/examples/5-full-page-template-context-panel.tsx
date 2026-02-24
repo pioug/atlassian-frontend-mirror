@@ -64,6 +64,12 @@ templates[1] = {
 };
 
 const templateCard = css({
+	display: 'block',
+	width: '100%',
+	textAlign: 'left',
+	background: 'none',
+	cursor: 'pointer',
+	font: 'inherit',
 	border: `${token('border.width')} solid ${token('color.border')}`,
 	padding: token('space.100', '8px'),
 	marginBottom: token('space.100', '8px'),
@@ -193,12 +199,16 @@ class TemplatePanel extends React.Component<TemplatePanelProps, TemplatePanelSta
 		return (
 			<ContextPanel visible={this.state.panelVisible} editorAPI={this.props.editorAPI}>
 				<div>
-					{templates.map((tmpl, idx) => (
-						// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, react/no-array-index-key, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
-						<div css={templateCard} key={idx} onClick={() => this.selectTemplate(tmpl)}>
+					{templates.map((tmpl) => (
+						<button
+							type="button"
+							css={templateCard}
+							key={tmpl.title}
+							onClick={() => this.selectTemplate(tmpl)}
+						>
 							<h4>{tmpl.title}</h4>
 							<p>{tmpl.desc}</p>
-						</div>
+						</button>
 					))}
 				</div>
 			</ContextPanel>

@@ -37,7 +37,6 @@ type SubscriptionCallback = (data: ParsedBlockSubscriptionData) => void;
 type ErrorCallback = (error: Error) => void;
 type Unsubscribe = () => void;
 
-
 /**
  * Creates a GraphQL subscription to block updates using the shared graphql-ws client.
  *

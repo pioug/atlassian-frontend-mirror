@@ -18,8 +18,8 @@ export type EditorExperimentsConfig = typeof editorExperimentsConfig;
  */
 export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
-		? true // Boolean: only 'true' is allowed as expected value
-		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+	? true // Boolean: only 'true' is allowed as expected value
+	: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
 
 /**
  * Extract valid default values.
@@ -28,8 +28,8 @@ export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimen
  */
 export type ExperimentDefaultValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
-		? false // Boolean: only 'false' is allowed as default value
-		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+	? false // Boolean: only 'false' is allowed as default value
+	: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
 
 /**
  * When adding a new experiment, you need to add it here.
@@ -242,6 +242,12 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	confluence_remix_icon_right_side: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2024-08-08
 	'example-boolean': {
 		defaultValue: boolean;
@@ -271,6 +277,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-09-11
 	platform_editor_add_aria_checked_to_inline_img_btn: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-02-19
+	platform_editor_a11y_eslint_fix: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -445,6 +458,12 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-09-08
 	platform_editor_editor_width_analytics: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	platform_editor_toolbar_hide_overflow_menu: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1232,8 +1251,23 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-02-19
-	platform_editor_table_borders_ready_fix: {
+	// Added 2026-02-23
+	platform_editor_vc90_transition_fixes_batch_1: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-02-23
+	cwr_blank_object_experiment: {
+		defaultValue: 'control' | 'variant1' | 'variant2' | 'variant3';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (value: unknown) => value is 'control' | 'variant1' | 'variant2' | 'variant3';
+		values: ('control' | 'variant1' | 'variant2' | 'variant3')[];
+	};
+	// Added 2026-02-24
+	platform_editor_emoji_default_scale: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1305,6 +1339,13 @@ export const editorExperimentsConfig: {
 	confluence_max_width_breakout_extension_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'confluence_max_width_breakout_extension_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	confluence_remix_icon_right_side: createBooleanExperiment({
+		productKeys: {
+			confluence: 'confluence_remix_icon_right_side',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -1723,6 +1764,14 @@ export const editorExperimentsConfig: {
 	platform_editor_enable_single_player_step_merging: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_enable_single_player_step_merging',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	platform_editor_toolbar_hide_overflow_menu: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_toolbar_hide_overflow_menu',
+			jira: 'platform_editor_toolbar_hide_overflow_menu',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2619,7 +2668,15 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-02-18
+	// Added 2026-02-19
+	platform_editor_a11y_eslint_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_a11y_eslint_fix',
+			jira: 'platform_editor_a11y_eslint_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	platform_editor_fix_advanced_codeblocks_crlf_patch: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_fix_advanced_codeblocks_crlf_patch',
@@ -2637,10 +2694,10 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-02-19
-	platform_editor_table_borders_ready_fix: createBooleanExperiment({
+	// Added 2026-02-23
+	platform_editor_vc90_transition_fixes_batch_1: createBooleanExperiment({
 		productKeys: {
-			confluence: 'platform_editor_table_borders_ready_fix',
+			confluence: 'platform_editor_vc90_transition_fixes_batch_1',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2650,6 +2707,24 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_prosemirror_rendered_data',
 			jira: 'platform_editor_prosemirror_rendered_data',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-02-23
+	cwr_blank_object_experiment: createMultivariateExperiment({
+		productKeys: {
+			confluence: 'cwr_blank_object_experiment',
+		},
+		param: 'cohort',
+		values: ['control', 'variant1', 'variant2', 'variant3'],
+		defaultValue: 'control',
+	}),
+	// Added 2026-02-24
+	platform_editor_emoji_default_scale: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_emoji_default_scale',
+			jira: 'platform_editor_emoji_default_scale',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

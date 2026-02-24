@@ -486,6 +486,14 @@ const exampleDocumentWithComments = {
 		},
 	],
 };
+
+const annotationCheckboxStyles = css({
+	background: 'none',
+	border: 'none',
+	padding: 0,
+	cursor: 'pointer',
+});
+
 const updateAnnotationSubscriber = new AnnotationUpdateEmitter();
 const AnnotationCheckbox = (props: {
 	id: string;
@@ -510,8 +518,9 @@ const AnnotationCheckbox = (props: {
 				checked={state === AnnotationMarkStates.ACTIVE}
 			/>
 
-			{/* eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions */}
-			<span onClick={onClick}>{id}</span>
+			<button type="button" onClick={onClick} css={annotationCheckboxStyles}>
+				{id}
+			</button>
 		</div>
 	);
 };

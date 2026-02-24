@@ -62,6 +62,9 @@
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags-react/tsconfig.app.json"
+		},
+		{
 			"path": "../../elements/task-decision/tsconfig.app.json"
 		}
 	],

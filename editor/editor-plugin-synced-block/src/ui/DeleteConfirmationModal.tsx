@@ -20,7 +20,6 @@ import ModalDialog, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Text, Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 
@@ -34,24 +33,8 @@ type ModalContent = {
 	titleMultiple: MessageDescriptor;
 	titleSingle: MessageDescriptor;
 };
-const modalContentMap: Record<'source-block-deleted' | 'source-block-unsynced', ModalContent> = {
-	'source-block-deleted': {
-		titleMultiple: messages.deleteConfirmationModalTitleMultiple,
-		titleSingle: messages.deleteConfirmationModalTitleSingle,
-		descriptionSingle: messages.deleteConfirmationModalDescriptionNoRef,
-		descriptionMultiple: messages.deleteConfirmationModalDescriptionMultiple,
-		confirmButtonLabel: messages.deleteConfirmationModalDeleteButton,
-	},
-	'source-block-unsynced': {
-		titleMultiple: messages.unsyncConfirmationModalTitle,
-		titleSingle: messages.unsyncConfirmationModalTitle,
-		descriptionSingle: messages.unsyncConfirmationModalDescriptionSingle,
-		descriptionMultiple: messages.unsyncConfirmationModalDescriptionMultiple,
-		confirmButtonLabel: messages.deleteConfirmationModalUnsyncButton,
-	},
-};
 
-const modalContentMapNew: Record<'source-block-deleted' | 'source-block-unsynced', ModalContent> = {
+const modalContentMap: Record<'source-block-deleted' | 'source-block-unsynced', ModalContent> = {
 	'source-block-deleted': {
 		titleMultiple: messages.deleteConfirmationModalTitleMultiple,
 		titleSingle: messages.deletionConfirmationModalTitleSingle,
@@ -216,11 +199,7 @@ export const DeleteConfirmationModal = ({
 							</Box>
 						) : (
 							<ModalContent
-								content={
-									fg('platform_synced_block_patch_2')
-										? modalContentMapNew[deleteReason]
-										: modalContentMap[deleteReason]
-								}
+								content={modalContentMap[deleteReason]}
 								referenceCount={referenceCount}
 								handleClick={handleClick}
 								formatMessage={formatMessage}

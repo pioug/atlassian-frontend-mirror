@@ -56,37 +56,6 @@ const templateCard = css({
 	},
 });
 
-// when loading a document on a small viewport, the tables plugin resizes
-// the column widths. this causes the editor's ADF to diverge from the
-// ADF of the template.
-//
-// normalises column widths between documents by clearing them.
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const clearTableWidths = (adf: any) => {
-	if (!adf.content) {
-		// leaf node
-		return adf;
-	}
-
-	// recursively fix children
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	adf.content = adf.content.map((child: any) => {
-		if (child.type === 'tableCell' || child.type === 'tableHeader') {
-			child.attrs.colwidth = [];
-		}
-
-		if (child.content) {
-			return clearTableWidths(child);
-		} else {
-			return child;
-		}
-	});
-
-	return adf;
-};
-
 type TemplatePanelState = {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -135,9 +104,20 @@ class TemplatePanel extends React.Component<
 		return (
 			<ContextPanel visible={true} editorAPI={this.props.editorAPI}>
 				<div>
-					{templates.map((tmpl, idx) => (
-						// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, react/no-array-index-key, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
-						<div css={templateCard} key={idx} onClick={() => this.selectTemplate(tmpl)}>
+					{templates.map((tmpl) => (
+						<div
+							css={templateCard}
+							key={tmpl.title}
+							role="button"
+							tabIndex={0}
+							onClick={() => this.selectTemplate(tmpl)}
+							onKeyDown={(e: React.KeyboardEvent) => {
+								if (e.key === 'Enter' || e.key === ' ') {
+									e.preventDefault();
+									this.selectTemplate(tmpl);
+								}
+							}}
+						>
 							<h4>{tmpl.title}</h4>
 							<p>{tmpl.desc}</p>
 						</div>

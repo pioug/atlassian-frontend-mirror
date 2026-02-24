@@ -7,7 +7,10 @@
 		"composite": true,
 		"noCheck": true
 	},
-	"include": ["../src/**/*.ts", "../src/**/*.tsx"],
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
 	"exclude": [
 		"../src/**/__tests__/*",
 		"../src/**/*.test.*",
@@ -301,6 +304,9 @@
 		},
 		{
 			"path": "../../editor-plugin-ufo/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-ui-control-registry/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-undo-redo/afm-cc/tsconfig.json"

@@ -63,7 +63,7 @@ export const LinkAppearanceMenu = ({
 				editorState,
 				Fragment.from(editorState.schema.nodes.blockCard.createChecked({})),
 				currentAppearance,
-			)
+		  )
 		: false;
 
 	const isEmbedCardLinkSupportedInParent = allowEmbeds
@@ -71,7 +71,7 @@ export const LinkAppearanceMenu = ({
 				editorState,
 				Fragment.from(editorState.schema.nodes.embedCard.createChecked({})),
 				currentAppearance,
-			)
+		  )
 		: false;
 
 	const embedOption = allowEmbeds &&
@@ -178,16 +178,17 @@ export const LinkAppearanceMenu = ({
 					dispatchCommand={dispatchCommand}
 				/>
 			</Section>
-			<Section hasSeparator>
-				{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid -- See https://go/a11y-anchor-is-valid for more details */}
-				<LinkItem
-					iconBefore={Icon && <Icon label="Settings" />}
-					href={'href' in settingsConfig ? settingsConfig.href : undefined}
-					target={'target' in settingsConfig ? settingsConfig.target : undefined}
-				>
-					{intl.formatMessage(linkToolbarMessages.preferencesLink)}
-				</LinkItem>
-			</Section>
+			{'href' in settingsConfig && settingsConfig.href && (
+				<Section hasSeparator>
+					<LinkItem
+						iconBefore={Icon && <Icon label="Settings" />}
+						href={settingsConfig.href}
+						target={'target' in settingsConfig ? settingsConfig.target : undefined}
+					>
+						{intl.formatMessage(linkToolbarMessages.preferencesLink)}
+					</LinkItem>
+				</Section>
+			)}
 		</MenuGroup>
 	);
 };

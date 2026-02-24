@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::c6459d5c7859139ba640983c40f5c40e>>
+ * @codegen <<SignedSource::e9b8e3d67597c5c85abc4fe33e0c4bd8>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -1504,6 +1504,12 @@ export type StarredFailedTeamAttributesType = {
 	starred: boolean;
 	errorMessage: string;
 };
+export type StarTeamFailedAttributesType = {
+	error: string;
+	errorMessage: string;
+	errorType: string | null;
+	source: string;
+};
 
 export type AnalyticsEventAttributes = {
 	/**
@@ -2544,6 +2550,9 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when starring or unstarring a team fails */
 	'track.starred.failed.team': StarredFailedTeamAttributesType;
+	/**
+	 * fired when fetching starred teams or rendering the star team component fails */
+	'track.starTeam.failed': StarTeamFailedAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

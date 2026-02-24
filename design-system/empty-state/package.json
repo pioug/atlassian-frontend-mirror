@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/empty-state",
-	"version": "10.1.12",
+	"version": "10.1.13",
 	"description": "An empty state appears when there is no data to display and describes what the user can do next.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

@@ -16,6 +16,8 @@ import {
 	ExpandableMenuItemTrigger,
 } from '@atlaskit/side-nav-items/expandable-menu-item';
 import {
+	FlyoutBody,
+	FlyoutHeader,
 	FlyoutMenuItem,
 	FlyoutMenuItemContent,
 	FlyoutMenuItemTrigger,
@@ -251,8 +253,11 @@ export function FlyoutMenuItemExample() {
 										{content[contentKey]}
 									</FlyoutMenuItemTrigger>
 									<FlyoutMenuItemContent>
-										<ButtonMenuItem>{content.short}</ButtonMenuItem>
-										<ButtonMenuItem>{content.long}</ButtonMenuItem>
+										<FlyoutHeader title="Menu" closeButtonLabel="Close menu" />
+										<FlyoutBody>
+											<ButtonMenuItem>{content.short}</ButtonMenuItem>
+											<ButtonMenuItem>{content.long}</ButtonMenuItem>
+										</FlyoutBody>
 									</FlyoutMenuItemContent>
 								</FlyoutMenuItem>
 							);
@@ -270,8 +275,11 @@ export function FlyoutMenuItemExample() {
 								{content.long}
 							</FlyoutMenuItemTrigger>
 							<FlyoutMenuItemContent>
-								<ButtonMenuItem>{content.short}</ButtonMenuItem>
-								<ButtonMenuItem>{content.long}</ButtonMenuItem>
+								<FlyoutHeader title="Menu" closeButtonLabel="Close menu" />
+								<FlyoutBody>
+									<ButtonMenuItem>{content.short}</ButtonMenuItem>
+									<ButtonMenuItem>{content.long}</ButtonMenuItem>
+								</FlyoutBody>
 							</FlyoutMenuItemContent>
 						</FlyoutMenuItem>
 					</MenuList>

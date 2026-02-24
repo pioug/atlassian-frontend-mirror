@@ -103,12 +103,6 @@ export const syncBlockMessages = defineMessages({
 		defaultMessage: 'This content is synced. Edit it at the source.',
 		description: 'Tooltip that shows when you hover over a task in the destination synced block',
 	},
-	deleteConfirmationModalTitleSingle: {
-		id: 'fabric.editor.deleteConfirmationModalTitleSingle',
-		defaultMessage: 'Delete synced block?',
-		description:
-			'Title of delete confirmation modal that appears when user tries to delete source synced block that has no reference',
-	},
 	deletionConfirmationModalTitleSingle: {
 		id: 'fabric.editor.deletionConfirmationModalTitleSingle',
 		defaultMessage: 'Delete synced content?',
@@ -139,31 +133,10 @@ export const syncBlockMessages = defineMessages({
 		description:
 			'Text on button which retries deleting the sync block when the previous deletion failed',
 	},
-	deleteConfirmationModalDescriptionMultiple: {
-		id: 'fabric.editor.deleteConfirmationModalDescriptionMultiple',
-		defaultMessage:
-			'Deleting this content will also remove it from synced locations, where it will appear as an “Unsynced block”.',
-		description:
-			'Description of delete confirmation modal that appears when user tries to delete source synced block',
-	},
-	deleteConfirmationModalDescription: {
-		id: 'fabric.editor.deleteConfirmationModalDescriptionSingle',
-		defaultMessage:
-			'Deleting this content will also remove {syncBlockCount, plural, one {a synced block. References to this block} other {# synced blocks. References to these blocks}} in other locations will show an error. Continue with deletion?',
-		description:
-			'Description of delete confirmation modal that appears when user tries to delete source synced block',
-	},
 	deletionConfirmationModalDescription: {
 		id: 'fabric.editor.deletionConfirmationModalDescription',
 		defaultMessage:
 			'If you delete this synced block, it will become an “Unsynced block” in other locations. This action is permanent and cannot be undone.',
-		description:
-			'Description of delete confirmation modal that appears when user tries to delete source synced block',
-	},
-	deleteConfirmationModalDescriptionNoRef: {
-		id: 'fabric.editor.deleteConfirmationModalDescriptionNoRef',
-		defaultMessage:
-			"You'll no longer be able to reuse this synced block to keep content updated across locations. ",
 		description:
 			'Description of delete confirmation modal that appears when user tries to delete source synced block',
 	},
@@ -230,6 +203,11 @@ export const syncBlockMessages = defineMessages({
 			'You appear to be offline. Please connect to the internet to create synced content.',
 		description:
 			'Description in flag which appears when a sync block cannot be created in offline mode',
+	},
+	loadingSyncedContent: {
+		id: 'fabric.editor.syncedBlockLoadingSyncedContent',
+		defaultMessage: 'Loading synced content',
+		description: 'Accessible label for the loading spinner shown while synced block content is being fetched',
 	},
 	generalErrorDescription: {
 		id: 'fabric.editor.syncedBlockGeneralErrorDescription',
@@ -394,25 +372,12 @@ export const syncBlockMessages = defineMessages({
 		description:
 			'Title of unsync confirmation modal that appears when user tries to unsync source synced block',
 	},
-	unsyncConfirmationModalDescriptionSingle: {
-		id: 'fabric.editor.unsyncConfirmationModalDescriptionSingle',
-		defaultMessage: 'Your content will stay here. It will no longer be a synced block.',
-		description:
-			'Description of unsync confirmation modal that appears when user tries to unsync source synced block with no reference',
-	},
 	unsyncConfirmModalDescriptionSingle: {
 		id: 'fabric.editor.unsyncConfirmModalDescriptionSingle',
 		defaultMessage:
 			'Your content will stay here. It will no longer be a synced block. This action is permanent and cannot be undone.',
 		description:
 			'Description of unsync confirmation modal that appears when user tries to unsync source synced block with no reference',
-	},
-	unsyncConfirmationModalDescriptionMultiple: {
-		id: 'fabric.editor.unsyncConfirmationModalDescriptionMultiple',
-		defaultMessage:
-			'Your content will stay here. In {syncBlockCount, plural, one {1 other synced location} other {# other synced locations}} it will appear as an “Unsynced block”. ',
-		description:
-			'Description of unsync confirmation modal that appears when user tries to unsync source synced block with multiple references',
 	},
 	unsyncConfirmModalDescriptionMultiple: {
 		id: 'fabric.editor.unsyncConfirmModalDescriptionMultiple',

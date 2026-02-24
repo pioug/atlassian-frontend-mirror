@@ -384,8 +384,7 @@ function getPortalChildren<ExtraComponentProps>({
 }: {
 	Component: InlineNodeViewComponent<ExtraComponentProps>;
 	currentNode: PMNode;
-	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
-	dispatchAnalyticsEvent(payload: AnalyticsEventPayload): void;
+	dispatchAnalyticsEvent: (payload: AnalyticsEventPayload) => void;
 	extraComponentProps: ExtraComponentProps;
 	nodeViewParams: NodeViewParams;
 }) {

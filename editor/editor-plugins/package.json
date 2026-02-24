@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugins",
-	"version": "12.0.51",
+	"version": "12.1.3",
 	"description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -127,6 +127,7 @@
 		"./track-changes": "./src/track-changes/index.ts",
 		"./type-ahead": "./src/type-ahead/index.ts",
 		"./ufo": "./src/ufo/index.ts",
+		"./ui-control-registry": "./src/ui-control-registry/index.ts",
 		"./undo-redo": "./src/undo-redo/index.ts",
 		"./unsupported-content": "./src/unsupported-content/index.ts",
 		"./user-intent": "./src/user-intent/index.ts",
@@ -231,6 +232,7 @@
 		"@atlaskit/editor-plugin-track-changes": "workspace:*",
 		"@atlaskit/editor-plugin-type-ahead": "workspace:*",
 		"@atlaskit/editor-plugin-ufo": "workspace:*",
+		"@atlaskit/editor-plugin-ui-control-registry": "workspace:*",
 		"@atlaskit/editor-plugin-undo-redo": "workspace:*",
 		"@atlaskit/editor-plugin-unsupported-content": "workspace:*",
 		"@atlaskit/editor-plugin-user-intent": "workspace:*",

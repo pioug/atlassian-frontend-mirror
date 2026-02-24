@@ -1,4 +1,5 @@
 import { logException } from '@atlaskit/editor-common/monitoring';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { fetchWithRetry } from '../../utils/retry';
 
@@ -90,11 +91,14 @@ export const fetchMediaToken = async (contentId: string): Promise<TokenData> => 
 			throw new Error('Failed to get content media session data');
 		}
 
-		return Promise.resolve({ config: configuration, token, collectionId: collection });
+		return { config: configuration, token, collectionId: collection };
 	} catch (error) {
 		logException(error as Error, {
 			location: 'editor-synced-block-provider/fetchMediaToken',
 		});
-		throw new Error(`Failed to get content media session: ${error}`);
+		const errorMsg = fg('platform_synced_block_patch_4')
+			? (error instanceof Error ? error.message : String(error))
+			: String(error);
+		throw new Error(`Failed to get content media session: ${errorMsg}`);
 	}
 };

@@ -145,6 +145,15 @@ export type WorkflowContextPayloadData = {
 	currentWorkflowDocument?: Record<string, unknown>;
 };
 
+export type JiraCreateContextPayloadData = {
+	draftWorkItems: {
+		projectIdOrKey: string;
+		issueTypeId: string;
+		summary: string;
+		fields: Record<string, any>;
+	}[];
+};
+
 // Not using the PayloadCore because the `data: type | undefined` is necessary
 // but `| undefined` will cause `data` to be removed by PayloadCore
 export type EditorContextPayload = PayloadCore<'editor-context-payload'> & {
@@ -161,6 +170,12 @@ export type BrowserContextPayload = PayloadCore<'browser-context-payload'> & {
 // but `| undefined` will cause `data` to be removed by PayloadCore
 export type WhiteboardContextPayload = PayloadCore<'whiteboard-context-payload'> & {
 	data: WhiteboardContextPayloadData;
+};
+
+// Not using the PayloadCore because the `data: type | undefined` is necessary
+// but `| undefined` will cause `data` to be removed by PayloadCore
+export type JiraCreateContextPayload = PayloadCore<'jira-create-context-payload'> & {
+	data: JiraCreateContextPayloadData;
 };
 
 export type ChatDraftPayload = PayloadCore<'chat-draft'>;
@@ -420,6 +435,7 @@ export type Payload =
 	| EditorAgentChangedPayload
 	| BrowserContextPayload
 	| WhiteboardContextPayload
+	| JiraCreateContextPayload
 	| DatabaseContextPayload
 	| ForgeAppAuthSuccess
 	| ForgeAppAuthFailure

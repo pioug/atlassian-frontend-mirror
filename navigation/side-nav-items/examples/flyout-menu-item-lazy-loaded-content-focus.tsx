@@ -7,19 +7,21 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
 import AlignTextLeftIcon from '@atlaskit/icon/core/align-text-left';
 import BoardIcon from '@atlaskit/icon/core/board';
 import SearchIcon from '@atlaskit/icon/core/search';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled';
 import {
+	FlyoutBody,
+	FlyoutFooter,
+	FlyoutHeader,
 	FlyoutMenuItem,
 	FlyoutMenuItemContent,
 	FlyoutMenuItemTrigger,
 } from '@atlaskit/side-nav-items/flyout-menu-item';
 import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
-import { Divider, MenuSection, MenuSectionHeading } from '@atlaskit/side-nav-items/menu-section';
+import { MenuSection, MenuSectionHeading } from '@atlaskit/side-nav-items/menu-section';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
@@ -61,10 +63,7 @@ function LazyLoadedContent() {
 
 	return (
 		<>
-			<Stack space="space.050" xcss={contentContainerStyles.heading}>
-				<Heading size="xsmall" as="span">
-					Recent
-				</Heading>
+			<FlyoutHeader title="Recent" closeButtonLabel="Close menu">
 				<Textfield
 					ref={initialFocusRef}
 					isCompact
@@ -79,42 +78,44 @@ function LazyLoadedContent() {
 					}
 					placeholder="Search recent items"
 				/>
-			</Stack>
-			<MenuSection>
-				<MenuSectionHeading>This week</MenuSectionHeading>
+			</FlyoutHeader>
+			<FlyoutBody>
+				<MenuSection>
+					<MenuSectionHeading>This week</MenuSectionHeading>
+					<MenuList>
+						<LinkMenuItem
+							href="#"
+							elemBefore={<BoardIcon label="" spacing="spacious" />}
+							description="5 days ago"
+						>
+							My Kanban Project
+						</LinkMenuItem>
+						<LinkMenuItem href="#" description="6 days ago">
+							Business projects
+						</LinkMenuItem>
+					</MenuList>
+				</MenuSection>
+
+				<MenuSection>
+					<MenuSectionHeading>This month</MenuSectionHeading>
+					<MenuList>
+						<LinkMenuItem
+							href="#"
+							elemBefore={<BoardIcon label="" spacing="spacious" />}
+							description="5 days ago"
+						>
+							KO Board
+						</LinkMenuItem>
+					</MenuList>
+				</MenuSection>
+			</FlyoutBody>
+			<FlyoutFooter>
 				<MenuList>
-					<LinkMenuItem
-						href="#"
-						elemBefore={<BoardIcon label="" spacing="spacious" />}
-						description="5 days ago"
-					>
-						My Kanban Project
-					</LinkMenuItem>
-					<LinkMenuItem href="#" description="6 days ago">
-						Business projects
+					<LinkMenuItem href="#" elemBefore={<AlignTextLeftIcon label="" />}>
+						View all recent items
 					</LinkMenuItem>
 				</MenuList>
-			</MenuSection>
-
-			<MenuSection>
-				<MenuSectionHeading>This month</MenuSectionHeading>
-				<MenuList>
-					<LinkMenuItem
-						href="#"
-						elemBefore={<BoardIcon label="" spacing="spacious" />}
-						description="5 days ago"
-					>
-						KO Board
-					</LinkMenuItem>
-				</MenuList>
-			</MenuSection>
-
-			<Divider />
-			<MenuList>
-				<LinkMenuItem href="#" elemBefore={<AlignTextLeftIcon label="" />}>
-					View all recent items
-				</LinkMenuItem>
-			</MenuList>
+			</FlyoutFooter>
 		</>
 	);
 }

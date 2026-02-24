@@ -25,13 +25,41 @@ const levelToSize: Record<HeadingLevel, HeadingProps['size']> = {
 	6: 'xxsmall',
 };
 
+// If a heading is the first child, we don't need the additional top margin as it creates too
+// much empty vertical space. So, the style is overriden in wrapperStyles.reducedSpacingForFirstChild
 const levelToSpace = cssMap({
-	1: { paddingBlockStart: token('space.400') },
-	2: { paddingBlockStart: token('space.300') },
-	3: { paddingBlockStart: token('space.200') },
-	4: { paddingBlockStart: token('space.150') },
-	5: { paddingBlockStart: token('space.100') },
-	6: { paddingBlockStart: token('space.050') },
+	1: { marginBlockStart: token('space.400'), marginBlockEnd: token('space.200') },
+	2: { marginBlockStart: token('space.300'), marginBlockEnd: token('space.200') },
+	3: { marginBlockStart: token('space.200'), marginBlockEnd: token('space.100') },
+	4: { marginBlockStart: token('space.200'), marginBlockEnd: token('space.100') },
+	5: { marginBlockStart: token('space.100') },
+	6: { marginBlockStart: token('space.050') },
+});
+
+const wrapperStyles = cssMap({
+	root: {
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		// These CSS variables are used in the `CopyLinkToHeadingButton` component.
+		// We want to show the button when the user hovers over the wrapper element containing the heading.
+		'--btn-opacity': '0',
+		'--btn-transform': `translateX(${token('space.050')})`,
+		'&:hover': {
+			// @ts-ignore
+			'--btn-opacity': '1',
+			'--btn-transform': 'none',
+		},
+	},
+	// If a heading is the first child, we don't need the additional top margin, as it creates too
+	// much empty vertical space.
+	reducedSpacingForFirstChild: {
+		// @ts-ignore
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:first-of-type': {
+			marginBlockStart: 0
+		}
+	}
 });
 
 /**
@@ -73,23 +101,6 @@ function getHeadingId(value: React.ReactNode): string | null {
 	return text.replace(/\s+/g, '-').toLowerCase();
 }
 
-const wrapperStyles = cssMap({
-	root: {
-		display: 'flex',
-		flexDirection: 'row',
-		alignItems: 'center',
-		// These CSS variables are used in the `CopyLinkToHeadingButton` component.
-		// We want to show the button when the user hovers over the wrapper element containing the heading.
-		'--btn-opacity': '0',
-		'--btn-transform': `translateX(${token('space.050')})`,
-		'&:hover': {
-			// @ts-ignore
-			'--btn-opacity': '1',
-			'--btn-transform': 'none',
-		},
-	},
-});
-
 /**
  * A heading with a button that appears on hover of the heading (or focus of the button),
  * that allows the user to copy a link to the heading.
@@ -109,7 +120,7 @@ export function HeadingWithSectionLink({
 	const showCopyLinkButton = headingId && !USE_HASH_ROUTER;
 
 	return (
-		<div css={[wrapperStyles.root, levelToSpace[level]]}>
+		<div css={[wrapperStyles.root, levelToSpace[level], wrapperStyles.reducedSpacingForFirstChild]}>
 			{showCopyLinkButton && <CopyLinkToHeadingButton headingId={headingId} />}
 
 			<Heading size={levelToSize[level]} id={headingId ?? undefined}>

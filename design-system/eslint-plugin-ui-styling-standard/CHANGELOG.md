@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 1.5.1
+
+### Patch Changes
+
+- [`ceba2f0da51d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ceba2f0da51d4) -
+  Add @starting-style to ESLint ignoredAtRules to allow usage without eslint-disable comments
+
 ## 1.5.0
 
 ### Minor Changes

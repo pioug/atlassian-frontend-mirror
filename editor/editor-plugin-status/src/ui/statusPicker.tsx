@@ -11,6 +11,7 @@ import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
+import { getDocument } from '@atlaskit/browser-apis';
 import { statusMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
@@ -25,6 +26,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import type { ColorType as Color } from '@atlaskit/status/picker';
 import { StatusPicker as AkStatusPicker } from '@atlaskit/status/picker';
 import { N0 } from '@atlaskit/theme/colors';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
@@ -199,9 +201,12 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 	private handleTabPress = (event: React.KeyboardEvent) => {
 		const colorButtons = event.currentTarget.querySelectorAll('button');
 		const inputField = event.currentTarget.querySelector<HTMLInputElement>('input');
-		const isInputFocussed = document.activeElement === inputField;
+		const activeElement = expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)
+			? getDocument()?.activeElement
+			: document?.activeElement;
+		const isInputFocussed = activeElement === inputField;
 		const isButtonFocussed = Array.from(colorButtons).some((buttonElement) => {
-			return document?.activeElement === buttonElement;
+			return activeElement === buttonElement;
 		});
 		if (event?.shiftKey) {
 			/* shift + tab */
@@ -225,7 +230,10 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 		}
 	};
 	private handleArrow = (event: React.KeyboardEvent, closingMethod: closingMethods) => {
-		if (document?.activeElement === this.popupBodyWrapper.current) {
+		const activeElement = expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true)
+			? getDocument()?.activeElement
+			: document?.activeElement;
+		if (activeElement === this.popupBodyWrapper.current) {
 			event.preventDefault();
 			this.popupBodyWrapper?.current?.blur();
 			this.props.closeStatusPicker({ closingMethod });
@@ -254,10 +262,9 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 		const { color, text } = this.state;
 		return (
 			<UserIntentPopupWrapper api={api} userIntent="statusPickerOpen">
-				{/* eslint-disable-next-line @atlassian/a11y/no-static-element-interactions */}
 				<div
 					css={pickerContainerStyles}
-					tabIndex={-1}
+					role="none"
 					ref={this.setRef(setOutsideClickTargetRef)}
 					onClick={this.handlePopupClick}
 					onKeyDown={this.onKeyDown}

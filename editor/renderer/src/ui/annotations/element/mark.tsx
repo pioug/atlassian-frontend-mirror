@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import type React from 'react';
-import { useMemo, useCallback } from 'react';
+import { useMemo, useCallback, Fragment } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
@@ -32,7 +32,9 @@ const markStyles = css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'&[data-has-focus="true"]': {
 			background: token('color.background.accent.yellow.subtler'),
-			borderBottom: `${token('border.width.selected')} solid ${token('color.border.accent.yellow')}`,
+			borderBottom: `${token('border.width.selected')} solid ${token(
+				'color.border.accent.yellow',
+			)}`,
 			// TODO: DSP-4147 - Annotation shadow
 			boxShadow: token('elevation.shadow.overlay'),
 			cursor: 'pointer',
@@ -117,7 +119,7 @@ const isMobile = () => {
 	return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 };
 
-const accessibilityStyles = css({
+const accessibilityStylesOld = css({
 	'&::before, &::after': {
 		clipPath: 'inset(100%)',
 		clip: 'rect(1px, 1px, 1px, 1px)',
@@ -135,6 +137,16 @@ const accessibilityStyles = css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 		content: `' [var(--ak-renderer-annotation-endmarker)] '`,
 	},
+});
+
+const accessibilityStylesNew = css({
+	clipPath: 'inset(100%)',
+	clip: 'rect(1px, 1px, 1px, 1px)',
+	height: '1px',
+	overflow: 'hidden',
+	position: 'absolute',
+	whiteSpace: 'nowrap',
+	width: '1px',
 });
 
 type MarkComponentProps = {
@@ -243,7 +255,7 @@ export const MarkComponent = ({
 				'data-mark-annotation-state': state,
 				'data-has-focus': hasFocus,
 				'data-is-hovered': isHovered,
-			};
+		  };
 
 	const desktopAccessibilityAttributes = isMobile()
 		? {}
@@ -252,7 +264,7 @@ export const MarkComponent = ({
 				tabIndex: 0,
 				onKeyDown: onMarkEnter,
 				'aria-expanded': hasFocus,
-			};
+		  };
 
 	const accessibility =
 		state !== AnnotationMarkStates.ACTIVE
@@ -260,7 +272,7 @@ export const MarkComponent = ({
 			: {
 					'aria-details': annotationIds.join(', '),
 					...desktopAccessibilityAttributes,
-				};
+			  };
 
 	return jsx(
 		useBlockLevel ? 'div' : 'mark',
@@ -276,19 +288,37 @@ export const MarkComponent = ({
 					markStylesLayeringFix,
 					fg('editor_inline_comments_on_inline_nodes') && markStylesWithInlineComments,
 					markStylesWithCommentsPanel,
-					!isMobile() && accessibilityStyles,
+					!fg('platform_renderer_a11y_inline_comment_fix') && !isMobile() && accessibilityStylesOld,
 					markStylesWithUpdatedShadow,
 				],
-				style: {
-					'--ak-renderer-annotation-startmarker': intl.formatMessage(
-						inlineCommentMessages.contentRendererInlineCommentMarkerStart,
-					),
-					'--ak-renderer-annotation-endmarker': intl.formatMessage(
-						inlineCommentMessages.contentRendererInlineCommentMarkerEnd,
-					),
-				},
+				style: fg('platform_renderer_a11y_inline_comment_fix')
+					? {}
+					: {
+							'--ak-renderer-annotation-startmarker': intl.formatMessage(
+								inlineCommentMessages.contentRendererInlineCommentMarkerStart,
+							),
+							'--ak-renderer-annotation-endmarker': intl.formatMessage(
+								inlineCommentMessages.contentRendererInlineCommentMarkerEnd,
+							),
+					  },
 			}),
 		},
-		children,
+		fg('platform_renderer_a11y_inline_comment_fix') ? (
+			useBlockLevel || isMobile() ? (
+				children
+			) : (
+				<Fragment>
+					<span css={accessibilityStylesNew}>
+						{intl.formatMessage(inlineCommentMessages.contentRendererInlineCommentMarkerStart)}
+					</span>
+					{children}
+					<span css={accessibilityStylesNew}>
+						{intl.formatMessage(inlineCommentMessages.contentRendererInlineCommentMarkerEnd)}
+					</span>
+				</Fragment>
+			)
+		) : (
+			children
+		),
 	);
 };

@@ -58,6 +58,10 @@ import {
 	findQuickInsertInsertButtonDecoration,
 	quickInsertButtonDecoration,
 } from './decorations-quick-insert-button';
+import {
+	findRemixButtonDecoration,
+	remixButtonDecoration,
+} from './decorations-remix-button';
 import { handleMouseDown } from './handle-mouse-down';
 import { handleMouseOver } from './handle-mouse-over';
 import { boundKeydownHandler } from './keymap';
@@ -624,6 +628,14 @@ export const apply = (
 				activeNode?.rootPos,
 			);
 			decorations = decorations.remove(oldQuickInsertButton);
+			if (expValEquals('confluence_remix_icon_right_side', 'isEnabled', true)) {
+				const oldRemixButton = findRemixButtonDecoration(
+					decorations,
+					activeNode?.rootPos,
+					activeNode?.rootPos,
+				);
+				decorations = decorations.remove(oldRemixButton);
+			}
 		}
 	} else if (api) {
 		if (shouldRecreateHandle) {
@@ -671,6 +683,35 @@ export const apply = (
 				editorState: newState,
 			});
 			decorations = decorations.add(newState.doc, [quickInsertButton]);
+
+			if (expValEquals('confluence_remix_icon_right_side', 'isEnabled', true)) {
+				const oldRemixButton = findRemixButtonDecoration(
+					decorations,
+					activeNode?.rootPos,
+					activeNode?.rootPos,
+				);
+				decorations = decorations.remove(oldRemixButton);
+				const remixButton = remixButtonDecoration({
+					api,
+					formatMessage,
+					anchorName: latestActiveNode?.anchorName,
+					nodeType: latestActiveNode?.nodeType,
+					nodeViewPortalProviderAPI,
+					rootPos: latestActiveNode?.rootPos,
+					rootAnchorName: latestActiveNode?.rootAnchorName,
+					rootNodeType: latestActiveNode?.rootNodeType,
+					editorState: newState,
+				});
+				decorations = decorations.add(newState.doc, [remixButton]);
+			} else {
+				// Remove remix decoration when experiment is off so it disappears when flag is toggled
+				const oldRemixButton = findRemixButtonDecoration(
+					decorations,
+					activeNode?.rootPos,
+					activeNode?.rootPos,
+				);
+				decorations = decorations.remove(oldRemixButton);
+			}
 		}
 	}
 

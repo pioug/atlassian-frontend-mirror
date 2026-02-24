@@ -72,10 +72,13 @@ const FlyoutMenuItemControlled = () => {
 					Flyout Menu Item (controlled)
 				</FlyoutMenuItemTrigger>
 				<FlyoutMenuItemContent onClose={() => setIsOpen(false)}>
-					<MenuList>
-						<ButtonMenuItem>Menu Button 1</ButtonMenuItem>
-						<ButtonMenuItem>Menu Button 2</ButtonMenuItem>
-					</MenuList>
+					<FlyoutHeader title="Menu" closeButtonLabel="Close menu" />
+					<FlyoutBody>
+						<MenuList>
+							<ButtonMenuItem>Menu Button 1</ButtonMenuItem>
+							<ButtonMenuItem>Menu Button 2</ButtonMenuItem>
+						</MenuList>
+					</FlyoutBody>
 				</FlyoutMenuItemContent>
 			</FlyoutMenuItem>
 		</ExampleWrapper>
@@ -160,10 +163,13 @@ export const FlyoutMenuItemExample = () => (
 		<FlyoutMenuItem>
 			<FlyoutMenuItemTrigger>Flyout Menu Item</FlyoutMenuItemTrigger>
 			<FlyoutMenuItemContent>
-				<MenuList>
-					<ButtonMenuItem>Menu Button 1</ButtonMenuItem>
-					<ButtonMenuItem>Menu Button 2</ButtonMenuItem>
-				</MenuList>
+				<FlyoutHeader title="Menu" closeButtonLabel="Close menu" />
+				<FlyoutBody>
+					<MenuList>
+						<ButtonMenuItem>Menu Button 1</ButtonMenuItem>
+						<ButtonMenuItem>Menu Button 2</ButtonMenuItem>
+					</MenuList>
+				</FlyoutBody>
 			</FlyoutMenuItemContent>
 		</FlyoutMenuItem>
 
@@ -174,30 +180,39 @@ export const FlyoutMenuItemExample = () => (
 				Flyout Menu Item with icon and long text
 			</FlyoutMenuItemTrigger>
 			<FlyoutMenuItemContent>
-				<MenuList>
-					<ButtonMenuItem>Button Menu Item 1</ButtonMenuItem>
-					<ButtonMenuItem>Button Menu Item 2</ButtonMenuItem>
-				</MenuList>
+				<FlyoutHeader title="Menu" closeButtonLabel="Close menu" />
+				<FlyoutBody>
+					<MenuList>
+						<ButtonMenuItem>Button Menu Item 1</ButtonMenuItem>
+						<ButtonMenuItem>Button Menu Item 2</ButtonMenuItem>
+					</MenuList>
+				</FlyoutBody>
 			</FlyoutMenuItemContent>
 		</FlyoutMenuItem>
 
 		<FlyoutMenuItem>
 			<FlyoutMenuItemTrigger elemBefore="🙂">Flyout with emoji</FlyoutMenuItemTrigger>
 			<FlyoutMenuItemContent>
-				<MenuList>
-					<ButtonMenuItem>Button Menu Item 1</ButtonMenuItem>
-					<ButtonMenuItem>Button Menu Item 2</ButtonMenuItem>
-				</MenuList>
+				<FlyoutHeader title="Menu" closeButtonLabel="Close menu" />
+				<FlyoutBody>
+					<MenuList>
+						<ButtonMenuItem>Button Menu Item 1</ButtonMenuItem>
+						<ButtonMenuItem>Button Menu Item 2</ButtonMenuItem>
+					</MenuList>
+				</FlyoutBody>
 			</FlyoutMenuItemContent>
 		</FlyoutMenuItem>
 
 		<FlyoutMenuItem>
 			<FlyoutMenuItemTrigger isSelected>Flyout Menu Item - selected</FlyoutMenuItemTrigger>
 			<FlyoutMenuItemContent>
-				<MenuList>
-					<ButtonMenuItem>Menu Button 1</ButtonMenuItem>
-					<ButtonMenuItem>Menu Button 2</ButtonMenuItem>
-				</MenuList>
+				<FlyoutHeader title="Menu" closeButtonLabel="Close menu" />
+				<FlyoutBody>
+					<MenuList>
+						<ButtonMenuItem>Menu Button 1</ButtonMenuItem>
+						<ButtonMenuItem>Menu Button 2</ButtonMenuItem>
+					</MenuList>
+				</FlyoutBody>
 			</FlyoutMenuItemContent>
 		</FlyoutMenuItem>
 
@@ -206,10 +221,13 @@ export const FlyoutMenuItemExample = () => (
 				Flyout with collapsed elemBefore
 			</FlyoutMenuItemTrigger>
 			<FlyoutMenuItemContent>
-				<MenuList>
-					<ButtonMenuItem>Menu Button 1</ButtonMenuItem>
-					<ButtonMenuItem>Menu Button 2</ButtonMenuItem>
-				</MenuList>
+				<FlyoutHeader title="Menu" closeButtonLabel="Close menu" />
+				<FlyoutBody>
+					<MenuList>
+						<ButtonMenuItem>Menu Button 1</ButtonMenuItem>
+						<ButtonMenuItem>Menu Button 2</ButtonMenuItem>
+					</MenuList>
+				</FlyoutBody>
 			</FlyoutMenuItemContent>
 		</FlyoutMenuItem>
 	</ExampleWrapper>
@@ -225,22 +243,25 @@ export const FlyoutMenuItemDefaultOpenExample = ({ isSelected }: { isSelected?: 
 				Flyout Menu Item
 			</FlyoutMenuItemTrigger>
 			<FlyoutMenuItemContent>
-				<MenuList>
-					<ButtonMenuItem>Button Menu Item 1</ButtonMenuItem>
-					<ButtonMenuItem
-						actions={
-							<IconButton
-								key="add"
-								label="Add"
-								icon={(iconProps) => <AddIcon {...iconProps} size="small" />}
-								appearance="subtle"
-								spacing="compact"
-							/>
-						}
-					>
-						Button Menu Item 2
-					</ButtonMenuItem>
-				</MenuList>
+				<FlyoutHeader title="Menu" closeButtonLabel="Close menu" />
+				<FlyoutBody>
+					<MenuList>
+						<ButtonMenuItem>Button Menu Item 1</ButtonMenuItem>
+						<ButtonMenuItem
+							actions={
+								<IconButton
+									key="add"
+									label="Add"
+									icon={(iconProps) => <AddIcon {...iconProps} size="small" />}
+									appearance="subtle"
+									spacing="compact"
+								/>
+							}
+						>
+							Button Menu Item 2
+						</ButtonMenuItem>
+					</MenuList>
+				</FlyoutBody>
 			</FlyoutMenuItemContent>
 		</FlyoutMenuItem>
 	</ExampleWrapper>
@@ -269,39 +290,42 @@ export const FlyoutMenuItemWithNestedPopupExample = ({
 			>
 				<FlyoutMenuItemTrigger>Flyout with nested popup</FlyoutMenuItemTrigger>
 				<FlyoutMenuItemContent>
-					<MenuList>
-						<ButtonMenuItem
-							actions={
-								<Popup
-									shouldRenderToParent
-									isOpen={isNestedPopupOpen}
-									onClose={() => setIsNestedPopupOpen(false)}
-									placement="right-start"
-									content={() => (
-										<div>
-											<ButtonItem>Menu button 1</ButtonItem>
-											<ButtonItem>Menu button 2</ButtonItem>
-											<ButtonItem>Menu button 3</ButtonItem>
-										</div>
-									)}
-									trigger={(triggerProps) => (
-										<IconButton
-											{...triggerProps}
-											icon={(iconProps) => <AddIcon {...iconProps} size="small" />}
-											label="Add"
-											appearance="subtle"
-											spacing="compact"
-											onClick={() => setIsNestedPopupOpen(!isNestedPopupOpen)}
-											isSelected={isNestedPopupOpen}
-										/>
-									)}
-								/>
-							}
-						>
-							With a popup
-						</ButtonMenuItem>
-						<ButtonMenuItem>Menu Item 2</ButtonMenuItem>
-					</MenuList>
+					<FlyoutHeader title="Menu" closeButtonLabel="Close menu" />
+					<FlyoutBody>
+						<MenuList>
+							<ButtonMenuItem
+								actions={
+									<Popup
+										shouldRenderToParent
+										isOpen={isNestedPopupOpen}
+										onClose={() => setIsNestedPopupOpen(false)}
+										placement="right-start"
+										content={() => (
+											<div>
+												<ButtonItem>Menu button 1</ButtonItem>
+												<ButtonItem>Menu button 2</ButtonItem>
+												<ButtonItem>Menu button 3</ButtonItem>
+											</div>
+										)}
+										trigger={(triggerProps) => (
+											<IconButton
+												{...triggerProps}
+												icon={(iconProps) => <AddIcon {...iconProps} size="small" />}
+												label="Add"
+												appearance="subtle"
+												spacing="compact"
+												onClick={() => setIsNestedPopupOpen(!isNestedPopupOpen)}
+												isSelected={isNestedPopupOpen}
+											/>
+										)}
+									/>
+								}
+							>
+								With a popup
+							</ButtonMenuItem>
+							<ButtonMenuItem>Menu Item 2</ButtonMenuItem>
+						</MenuList>
+					</FlyoutBody>
 				</FlyoutMenuItemContent>
 			</FlyoutMenuItem>
 		</ExampleWrapper>

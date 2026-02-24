@@ -1,6 +1,5 @@
 /**
  * Entry Point: @atlaskit/media-card
- * tsconfig.entry-points.json
  */
 export type { NumericalCardDimensions } from '@atlaskit/media-common';
 

@@ -20,6 +20,7 @@ const wrapperStyles = cssMap({
 		boxSizing: 'border-box',
 		color: token('color.text.subtle'),
 		marginBlockStart: token('space.250'),
+		marginBlockEnd: token('space.250'),
 		maxWidth: 'calc(100vw - 4rem)',
 		display: 'flex',
 		flexDirection: 'column',
@@ -52,7 +53,7 @@ const toggleStyles = cssMap({
 		paddingInlineStart: token('space.100'),
 		paddingInlineEnd: token('space.100'),
 		backgroundColor: token('color.background.neutral'),
-		borderRadius: token('radius.small'),
+		borderRadius: token('radius.medium'),
 		'&:hover': {
 			backgroundColor: token('color.background.neutral.hovered'),
 		},

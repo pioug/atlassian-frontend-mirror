@@ -28,7 +28,6 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import { akEditorWideLayoutWidth } from '@atlaskit/editor-shared-styles';
 import type { MediaClientConfig } from '@atlaskit/media-core';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -53,7 +52,7 @@ export default class ResizableMediaSingle extends React.Component<Props, State> 
 			this.props.view.dom,
 			undefined,
 		),
-		isVideoFile: !fg('platform_editor_media_video_check_fix_new'),
+		isVideoFile: false,
 	};
 
 	componentDidUpdate(prevProps: Props) {

@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.25.2
+
+### Patch Changes
+
+- [`0dd4d571a5040`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0dd4d571a5040) -
+  Add starTeam failed event
+
 ## 1.25.1
 
 ### Patch Changes

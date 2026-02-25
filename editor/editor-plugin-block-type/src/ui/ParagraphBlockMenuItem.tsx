@@ -7,6 +7,7 @@ import { blockMenuMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import TextParagraphIcon from '@atlaskit/icon-lab/core/text-paragraph';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockTypePlugin } from '../blockTypePluginType';
 
@@ -36,8 +37,13 @@ const ParagraphBlockMenuItem = ({ api }: ParagraphBlockMenuItemProps) => {
 		});
 	};
 
+	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
+	// Adds size="small" to icons for better visual consistency in block menu.
+	// To clean up: remove conditional, keep only size="small" version.
+	const iconSize = fg('platform_editor_block_menu_v2_patch_3') ? 'small' : undefined;
+
 	return (
-		<ToolbarDropdownItem onClick={handleClick} elemBefore={<TextParagraphIcon label="" />}>
+		<ToolbarDropdownItem onClick={handleClick} elemBefore={<TextParagraphIcon label="" size={iconSize} />}>
 			{formatMessage(blockMenuMessages.paragraph)}
 		</ToolbarDropdownItem>
 	);

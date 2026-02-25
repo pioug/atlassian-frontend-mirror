@@ -44,7 +44,6 @@ const BasicPopper = () => (
 				<Popup
 					data-testid="expanded-popup"
 					ref={ref}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					style={style}
 					css={[referenceShown, isReferenceHidden && referenceHidden]}
 					data-placement={placement}

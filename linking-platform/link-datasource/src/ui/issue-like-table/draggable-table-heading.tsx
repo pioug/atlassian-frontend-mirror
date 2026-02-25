@@ -407,8 +407,8 @@ export const DraggableTableHeading = ({
 					? ChevronUp
 					: ChevronDown
 				: isWideEnoughToHaveChevron
-				? GlyphPlaceholder
-				: undefined,
+					? GlyphPlaceholder
+					: undefined,
 		[shouldShowTriggerIcon, isDropdownOpen, isWideEnoughToHaveChevron],
 	);
 

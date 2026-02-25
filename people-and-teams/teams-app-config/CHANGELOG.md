@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-config
 
+## 1.12.12
+
+### Patch Changes
+
+- [`fbf4518548377`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fbf4518548377) -
+  IC url handling
+
 ## 1.12.11
 
 ### Patch Changes

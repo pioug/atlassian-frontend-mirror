@@ -56,7 +56,11 @@ type InnerContainerProps = {
 
 const InnerContainer = forwardRef<HTMLDivElement, PropsWithChildren<InnerContainerProps>>(
 	({ className, style, node, children, tableWrapperHeight }, ref) => {
-		const bordersReady = expValEquals('platform_editor_vc90_transition_fixes_batch_1', 'isEnabled', true)
+		const bordersReady = expValEquals(
+			'platform_editor_vc90_transition_fixes_batch_1',
+			'isEnabled',
+			true,
+		)
 			? tableWrapperHeight !== undefined && tableWrapperHeight > 0
 			: undefined;
 

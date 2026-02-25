@@ -256,6 +256,10 @@ export interface SmartProps {
 	 */
 	siteId: string;
 	/**
+	 * Identifier for the product activation.
+	 */
+	activationId?: string;
+	/**
 	 * Identifier for the organization in which to search for teams.
 	 */
 	orgId?: string;

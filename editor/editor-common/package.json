@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "111.19.2",
+	"version": "111.20.1",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -143,6 +143,7 @@
 		"@atlaskit/analytics-namespaced-context": "workspace:^",
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/atlassian-context": "workspace:^",
+		"@atlaskit/browser-apis": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/codemod-utils": "workspace:^",
 		"@atlaskit/css": "workspace:^",
@@ -281,6 +282,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_blocktaskitem_patch_3": {
+			"type": "boolean"
+		},
+		"platform_editor_block_menu_v2_patch_3": {
 			"type": "boolean"
 		},
 		"media-perf-uplift-mutation-fix": {

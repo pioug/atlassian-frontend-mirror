@@ -91,6 +91,7 @@ export const gapCursorStyles: SerializedStyles = css({
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
 		[`&.${hideCaretModifier}`]: {
+			// Clean this up with platform_synced_block_patch_4
 			caretColor: 'transparent',
 		},
 
@@ -183,5 +184,17 @@ export const gapCursorStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
 	[marginDeepChildrenFixSelector]: {
 		marginTop: 0,
+	},
+});
+
+// Hide native caret when gap cursor widget is present (no class toggle = no VC90 mutation)
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const gapCursorStylesVisibilityFix: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		[`&:has(${gapCursorSelector})`]: {
+			caretColor: 'transparent',
+		},
 	},
 });

@@ -2,7 +2,14 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl-next';
 
-import { INPUT_METHOD, type EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import {
+	INPUT_METHOD,
+	type EditorAnalyticsAPI,
+	ACTION,
+	ACTION_SUBJECT,
+	EVENT_TYPE,
+	type ExtensionType,
+} from '@atlaskit/editor-common/analytics';
 import {
 	messages,
 	NATIVE_EMBED_EXTENSION_TYPE,
@@ -283,7 +290,7 @@ const breakoutOptions = (
 				extensionState,
 				breakoutEnabled,
 				editorAnalyticsAPI,
-		  );
+			);
 };
 
 const editButton = (
@@ -446,6 +453,16 @@ export const createOnClickCopyButton = ({
 
 	// this command copies the text content of the unsupported content extension to the clipboard
 	return (editorState) => {
+		extensionApi?.analytics?.actions.fireAnalyticsEvent({
+			action: ACTION.CLICKED,
+			actionSubject: ACTION_SUBJECT.COPY_BUTTON,
+			actionSubjectId: node.type.name as ExtensionType,
+			eventType: EVENT_TYPE.UI,
+			attributes: {
+				extensionType: node.attrs.extensionType,
+				extensionKey: node.attrs.extensionKey,
+			},
+		});
 		copyUnsupportedContentToClipboard({
 			locale,
 			unsupportedContent: adf,
@@ -598,7 +615,7 @@ export const getToolbarConfig =
 										getUnsupportedContent,
 										state,
 										locale,
-								  })
+									})
 								: undefined,
 						},
 					],

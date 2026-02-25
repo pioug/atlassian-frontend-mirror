@@ -21,6 +21,10 @@ import {
 	focusToContextMenuTrigger,
 	increaseMediaSize,
 	insertRule,
+	moveColumnLeft,
+	moveColumnRight,
+	moveRowDown,
+	moveRowUp,
 	navToEditorToolbar,
 	navToFloatingToolbar,
 	pastePlainText,
@@ -52,6 +56,7 @@ import {
 	blockTypeMessages,
 	listMessages,
 	helpDialogMessages as messages,
+	tableMessages,
 	toolbarInsertBlockMessages,
 	toolbarMessages,
 	undoRedoMessages,
@@ -744,6 +749,29 @@ const focusTableResizeHandleFormatting: (intl: IntlShape) => Format[] = ({ forma
 	},
 ];
 
+const moveTableRowColumnFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
+	{
+		name: formatMessage(tableMessages.moveColumnLeftHelpDialogLabel),
+		type: 'table',
+		keymap: () => moveColumnLeft,
+	},
+	{
+		name: formatMessage(tableMessages.moveColumnRightHelpDialogLabel),
+		type: 'table',
+		keymap: () => moveColumnRight,
+	},
+	{
+		name: formatMessage(tableMessages.moveRowUpHelpDialogLabel),
+		type: 'table',
+		keymap: () => moveRowUp,
+	},
+	{
+		name: formatMessage(tableMessages.moveRowDownHelpDialogLabel),
+		type: 'table',
+		keymap: () => moveRowDown,
+	},
+];
+
 const openCellOptionsFormattingtoFormat: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
 	{
 		name: formatMessage(messages.openCellOptions),
@@ -807,5 +835,8 @@ export const getSupportedFormatting = (
 			? newResizeInformationFormatting(intl)
 			: resizeInformationFormatting(intl)),
 		...openCellOptionsFormattingtoFormat(intl),
+		...(expValEquals('editor-a11y-fy26-keyboard-move-row-column', 'isEnabled', true)
+			? moveTableRowColumnFormatting(intl)
+			: []),
 	];
 };

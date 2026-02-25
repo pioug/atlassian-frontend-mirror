@@ -1,5 +1,12 @@
 # @atlaskit/tokens
 
+## 11.0.1
+
+### Patch Changes
+
+- [`5db9e3f21a52f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5db9e3f21a52f) -
+  Internal refactoring
+
 ## 11.0.0
 
 ### Major Changes

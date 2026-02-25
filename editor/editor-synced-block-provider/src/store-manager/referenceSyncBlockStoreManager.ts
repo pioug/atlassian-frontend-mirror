@@ -696,10 +696,10 @@ export class ReferenceSyncBlockStoreManager {
 			if (!syncBlockInstance.resourceId) {
 				const payload = fg('platform_synced_block_patch_3')
 					? syncBlockInstance.error?.reason ||
-					  syncBlockInstance.error?.type ||
-					  'Returned sync block instance does not have resource id'
+						syncBlockInstance.error?.type ||
+						'Returned sync block instance does not have resource id'
 					: syncBlockInstance.error?.type ||
-					  'Returned sync block instance does not have resource id';
+						'Returned sync block instance does not have resource id';
 				this.fireAnalyticsEvent?.(fetchErrorPayload(payload));
 				return;
 			}

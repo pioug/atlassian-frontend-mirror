@@ -1,5 +1,33 @@
 # @atlaskit/editor-common
 
+## 111.20.1
+
+### Patch Changes
+
+- [`a4f09d516e927`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4f09d516e927) -
+  [NO-ISSUE] Analytics for onclick for extensions copy
+- Updated dependencies
+
+## 111.20.0
+
+### Minor Changes
+
+- [`edfa57e62aec0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edfa57e62aec0) -
+  Adding i18n for the table move row/column help dialog text
+
+### Patch Changes
+
+- Updated dependencies
+
+## 111.19.3
+
+### Patch Changes
+
+- [`57f499d6937db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57f499d6937db) -
+  Extract ExperienceCheckPopupMutation logic to be reusable for block menu experience tracking
+- [`7ea2e225c0abb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ea2e225c0abb) -
+  [ux] Minor styling, wording changes for block menu and sync blocks
+
 ## 111.19.2
 
 ### Patch Changes

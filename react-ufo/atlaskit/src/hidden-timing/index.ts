@@ -335,10 +335,7 @@ export function __injectThrottleMeasurementForTesting(measurement: ThrottleMeasu
  * @param endTime - The end timestamp of the window (DOMHighResTimeStamp)
  * @returns Array of HiddenTimingItem entries within the time window, with times relative to startTime
  */
-export function getPageVisibilityTimeline(
-	startTime: number,
-	endTime: number,
-): HiddenTimingItem[] {
+export function getPageVisibilityTimeline(startTime: number, endTime: number): HiddenTimingItem[] {
 	// Input validation
 	if (!Number.isFinite(startTime) || !Number.isFinite(endTime) || startTime >= endTime) {
 		return [];

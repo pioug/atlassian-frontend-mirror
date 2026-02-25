@@ -57,9 +57,9 @@ const wrapperStyles = cssMap({
 		// @ts-ignore
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'&:first-of-type': {
-			marginBlockStart: 0
-		}
-	}
+			marginBlockStart: 0,
+		},
+	},
 });
 
 /**

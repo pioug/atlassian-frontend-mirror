@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-user-picker",
-	"version": "9.0.0",
+	"version": "9.0.1",
 	"license": "Apache-2.0",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -80,6 +80,9 @@
 			"type": "boolean"
 		},
 		"smart_user_picker_allow_email_if_team_is_found": {
+			"type": "boolean"
+		},
+		"smart-user-picker-attribution-header": {
 			"type": "boolean"
 		}
 	}

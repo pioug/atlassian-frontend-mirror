@@ -1,6 +1,5 @@
 import { useMemo, useRef } from 'react';
 
-
 import type { SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';

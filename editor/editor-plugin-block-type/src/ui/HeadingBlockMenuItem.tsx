@@ -12,6 +12,7 @@ import TextHeadingOneIcon from '@atlaskit/icon-lab/core/text-heading-one';
 import TextHeadingSixIcon from '@atlaskit/icon-lab/core/text-heading-six';
 import TextHeadingThreeIcon from '@atlaskit/icon-lab/core/text-heading-three';
 import TextHeadingTwoIcon from '@atlaskit/icon-lab/core/text-heading-two';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockTypePlugin } from '../blockTypePluginType';
 
@@ -63,8 +64,13 @@ const HeadingBlockMenuItem = ({ level, api }: HeadingBlockMenuItemProps) => {
 		});
 	};
 
+	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
+	// Adds size="small" to icons for better visual consistency in block menu.
+	// To clean up: remove conditional, keep only size="small" version.
+	const iconSize = fg('platform_editor_block_menu_v2_patch_3') ? 'small' : undefined;
+
 	return (
-		<ToolbarDropdownItem onClick={handleClick} elemBefore={<Icon label="" />}>
+		<ToolbarDropdownItem onClick={handleClick} elemBefore={<Icon label="" size={iconSize} />}>
 			{formatMessage(message)}
 		</ToolbarDropdownItem>
 	);

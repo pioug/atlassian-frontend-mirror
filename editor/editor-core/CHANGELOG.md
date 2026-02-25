@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 216.12.5
+
+### Patch Changes
+
+- [`c80e69ac247a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c80e69ac247a1) -
+  Adding fallback value for Border width
+- Updated dependencies
+
+## 216.12.4
+
+### Patch Changes
+
+- [`8872ed42db4ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8872ed42db4ef) -
+  Handle gap cursor caret visibility via CSS selector instead of plugin state
+- [`abf0f1a208ab4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/abf0f1a208ab4) -
+  EDITOR-5441 Update comment editor border raidus
+- Updated dependencies
+
 ## 216.12.3
 
 ### Patch Changes

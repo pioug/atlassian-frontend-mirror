@@ -1,5 +1,18 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.31.0
+
+### Minor Changes
+
+- [`6590226f4f11a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6590226f4f11a) -
+  EDITOR-2914 implement bulk update for synced blocks
+
+### Patch Changes
+
+- [`f4633c591d70f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f4633c591d70f) -
+  Revert 610719f because the query stopped sending
+- Updated dependencies
+
 ## 3.30.6
 
 ### Patch Changes

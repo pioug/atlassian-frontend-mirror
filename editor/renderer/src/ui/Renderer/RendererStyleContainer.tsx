@@ -1115,7 +1115,7 @@ const oldExtensionAsInlineStyle = css({
 			overflowX: 'visible',
 			containerType: 'normal',
 		},
-	[`.${RendererCssClassName.EXTENSION_AS_INLINE} div, .${RendererCssClassName.EXTENSION_AS_INLINE} p`]:
+	[`.${RendererCssClassName.EXTENSION_AS_INLINE} .${RendererCssClassName.EXTENSION_INNER_WRAPPER}`]:
 		{
 			display: 'inline-block',
 		},
@@ -1136,7 +1136,7 @@ const extensionAsInlineStyle = css({
 			overflowX: 'visible',
 			containerType: 'normal',
 		},
-	[`.${RendererCssClassName.EXTENSION_AS_INLINE} div, .${RendererCssClassName.EXTENSION_AS_INLINE} p`]:
+	[`.${RendererCssClassName.EXTENSION_AS_INLINE} .${RendererCssClassName.EXTENSION_INNER_WRAPPER}`]:
 		{
 			display: 'inline-block',
 		},
@@ -3017,8 +3017,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 						? paragraphStylesUGCScaledMargin
 						: paragraphSharedStylesWithEditorUGC
 					: isCompactModeSupported
-					? paragraphSharedStyleScaledMargin
-					: paragraphSharedStyles,
+						? paragraphSharedStyleScaledMargin
+						: paragraphSharedStyles,
 				listsSharedStyles,
 				browser.gecko && listsSharedStylesForGekko,
 				indentationSharedStyles,
@@ -3104,8 +3104,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 						? scaledDenseEmojiStyles
 						: scaledEmojiStyles
 					: isCompactModeEnabled
-					? denseStyles
-					: undefined,
+						? denseStyles
+						: undefined,
 				editorExperiment('platform_synced_block', true) && syncBlockStyles,
 				centerWrapperStyles,
 			]}

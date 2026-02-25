@@ -91,12 +91,10 @@ export default (): JSX.Element => {
 											ref={props.ref}
 											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 											className={props.className}
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 											style={props.style}
 											css={liStyles}
 										>
-											<Block
-												css={blockStyles}>
+											<Block css={blockStyles}>
 												<div css={innerDivStyles}>
 													{logo[0]}
 													<Heading as="h3" size="small">

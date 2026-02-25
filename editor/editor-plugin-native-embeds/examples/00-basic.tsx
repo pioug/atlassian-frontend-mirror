@@ -12,7 +12,6 @@ import Button from '@atlaskit/button/standard-button';
 import type { EditorActions } from '@atlaskit/editor-core';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
-import { nativeEmbedsPlugin } from '@atlaskit/editor-plugin-native-embeds';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 // eslint-disable-next-line import/no-extraneous-dependencies -- used by example only, not a regular dependency
 import {
@@ -22,9 +21,17 @@ import {
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
+
+import { nativeEmbedsPlugin } from '../src';
+
+setupEditorExperiments('test', {
+	platform_editor_controls: 'variant1',
+});
 
 const NATIVE_EMBEDS_EXAMPLE_URLS = {
-	localDefault: 'http://localhost:9000/examples/editor/editor-core/full-page-with-native-embeds',
+	localDefault:
+		'http://localhost:9000/examples/editor/editor-plugin-native-embeds/basic',
 	whiteboard: 'https://example.atlassian.net/wiki/spaces/DEMO/whiteboard/12345',
 	dbExperience: 'https://example.atlassian.net/wiki/spaces/DEMO/pages/12345/db/67890',
 };

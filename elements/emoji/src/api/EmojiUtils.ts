@@ -74,7 +74,7 @@ const calculateScale = (getRatio: () => number): KeyValues => {
 		// default set used for desktop
 		return { altScale: 'XXXHDPI' };
 	}
-	
+
 	// Retina display
 	if (getRatio() > 1) {
 		return { scale: 'XHDPI', altScale: 'XXXHDPI' };

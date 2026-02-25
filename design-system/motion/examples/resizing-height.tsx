@@ -45,7 +45,7 @@ const itemStyles = css({
 	paddingInlineStart: token('space.200', '16px'),
 	'&:hover': {
 		backgroundColor: token('color.background.neutral.subtle.hovered'),
-	}
+	},
 });
 
 const logos = [
@@ -98,7 +98,6 @@ export default (): JSX.Element => {
 											css={itemStyles}
 											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 											className={motion.className}
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 											style={motion.style}
 											ref={motion.ref}
 										>

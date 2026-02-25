@@ -32,6 +32,14 @@ export type MentionsChangedHandler = (
 export interface MentionsPluginOptions extends MentionPluginConfig {
 	allowZeroWidthSpaceAfter?: boolean;
 	handleMentionsChanged?: MentionsChangedHandler;
+	/**
+	 * User ID to highlight as a self-mention (typically the current user).
+	 *
+	 * When provided, mentions matching this ID will be highlighted immediately,
+	 * without waiting for the mention provider to load. This enables instant highlighting on initial render.
+	 * Takes priority over `MentionProvider.shouldHighlightMention()` if both are present.
+	 */
+	currentUserId?: string;
 	mentionProvider?: Providers['mentionProvider'];
 	sanitizePrivateContent?: boolean;
 }

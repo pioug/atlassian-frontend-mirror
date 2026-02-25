@@ -146,14 +146,12 @@ snapshot(RadioExample, {
 
 snapshot(RadioExample, {
 	description: 'Visual refresh style',
-	featureFlags: {
-	},
+	featureFlags: {},
 });
 
 snapshot(RadioExample, {
 	description: 'Visual refresh style - unchecked - hover',
-	featureFlags: {
-	},
+	featureFlags: {},
 	states: [
 		{
 			state: 'hovered',
@@ -166,8 +164,7 @@ snapshot(RadioExample, {
 
 snapshot(RadioExample, {
 	description: 'Visual refresh style - unchecked - focused',
-	featureFlags: {
-	},
+	featureFlags: {},
 	states: [
 		{
 			state: 'focused',
@@ -180,8 +177,7 @@ snapshot(RadioExample, {
 
 snapshot(RadioExample, {
 	description: 'Visual refresh style - unchecked - hovered and focused',
-	featureFlags: {
-	},
+	featureFlags: {},
 	states: [
 		{
 			state: 'hovered',
@@ -200,8 +196,7 @@ snapshot(RadioExample, {
 
 snapshot(RadioExample, {
 	description: 'Visual refresh style - checked - hover',
-	featureFlags: {
-	},
+	featureFlags: {},
 	states: [
 		{
 			state: 'hovered',
@@ -214,8 +209,7 @@ snapshot(RadioExample, {
 
 snapshot(RadioExample, {
 	description: 'Visual refresh style - checked - focused',
-	featureFlags: {
-	},
+	featureFlags: {},
 	states: [
 		{
 			state: 'focused',
@@ -228,8 +222,7 @@ snapshot(RadioExample, {
 
 snapshot(RadioExample, {
 	description: 'Visual refresh style - checked - hovered and focused',
-	featureFlags: {
-	},
+	featureFlags: {},
 	states: [
 		{
 			state: 'hovered',
@@ -248,8 +241,7 @@ snapshot(RadioExample, {
 
 snapshot(RadioExample, {
 	description: 'Visual refresh style - unchecked - disabled',
-	featureFlags: {
-	},
+	featureFlags: {},
 	states: [
 		{
 			state: 'focused',
@@ -262,8 +254,7 @@ snapshot(RadioExample, {
 
 snapshot(RadioExample, {
 	description: 'Visual refresh style - checked - disabled',
-	featureFlags: {
-	},
+	featureFlags: {},
 	states: [
 		{
 			state: 'focused',
@@ -276,8 +267,7 @@ snapshot(RadioExample, {
 
 snapshot(RadioExample, {
 	description: 'Visual refresh style - checked - disabled - hovered',
-	featureFlags: {
-	},
+	featureFlags: {},
 	states: [
 		{
 			state: 'hovered',
@@ -290,8 +280,7 @@ snapshot(RadioExample, {
 
 snapshot(RadioExample, {
 	description: 'Visual refresh style - checked - disabled - hovered and focused',
-	featureFlags: {
-	},
+	featureFlags: {},
 	states: [
 		{
 			state: 'hovered',

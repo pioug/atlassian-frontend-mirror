@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.25.3
+
+### Patch Changes
+
+- [`3e341ed734ff1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e341ed734ff1) -
+  Remove source from track.starTeam.failed
+
 ## 1.25.2
 
 ### Patch Changes

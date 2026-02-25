@@ -1,5 +1,12 @@
 # @atlaskit/popper
 
+## 7.1.8
+
+### Patch Changes
+
+- [`5db9e3f21a52f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5db9e3f21a52f) -
+  Internal refactoring
+
 ## 7.1.7
 
 ### Patch Changes

@@ -28,6 +28,10 @@ const styles = cssMap({
 		gap: token('space.050'),
 	},
 
+	rovoIconWrapper: {
+		display: 'flex',
+	},
+
 	name: {
 		justifyContent: 'space-between',
 		alignItems: 'flex-start',
@@ -199,7 +203,9 @@ export const AgentProfileCreator = ({
 
 	return creatorRender ? (
 		<Box xcss={styles.clickableItem}>
-			<RovoIcon appearance="brand" size="small" />
+			<Box xcss={styles.rovoIconWrapper} testId="rovo-icon-wrapper" aria-hidden="true">
+				<RovoIcon appearance="brand" size="small" />
+			</Box>
 			{creatorRender}
 		</Box>
 	) : null;

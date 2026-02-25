@@ -187,9 +187,6 @@
 			"path": "../editor-plugin-media-insert/tsconfig.app.json"
 		},
 		{
-			"path": "../editor-plugin-native-embeds/tsconfig.app.json"
-		},
-		{
 			"path": "../editor-plugin-paste/tsconfig.app.json"
 		},
 		{

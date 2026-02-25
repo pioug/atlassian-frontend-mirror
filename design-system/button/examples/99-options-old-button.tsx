@@ -18,7 +18,7 @@ const buttonWrapperStyles = css({
 	paddingBlockEnd: token('space.050', '4px'),
 	paddingBlockStart: token('space.050', '4px'),
 	paddingInlineEnd: token('space.050', '4px'),
-	paddingInlineStart: token('space.050', '4px')
+	paddingInlineStart: token('space.050', '4px'),
 });
 
 const blockStyles = css({
@@ -31,16 +31,7 @@ const ButtonWrapper = ({
 }: {
 	inline?: boolean;
 	children: React.ReactNode;
-}) => (
-	<div
-		css={[
-			buttonWrapperStyles,
-			!inline && blockStyles,
-		]}
-	>
-		{children}
-	</div>
-);
+}) => <div css={[buttonWrapperStyles, !inline && blockStyles]}>{children}</div>;
 
 const ButtonOptions = (): React.JSX.Element => (
 	<div>

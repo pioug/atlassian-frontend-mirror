@@ -12,7 +12,7 @@ import {
 } from '@atlaskit/editor-common/messages';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import { IconMention } from '@atlaskit/editor-common/quick-insert';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import type { TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import {
@@ -28,6 +28,7 @@ import type { MentionsPlugin } from './mentionsPluginType';
 import { mentionNodeSpec } from './nodeviews/mentionNodeSpec';
 import { mentionPluginKey } from './pm-plugins/key';
 import { ACTIONS, createMentionPlugin } from './pm-plugins/main';
+import { createMentionPlaceholderPlugin } from './pm-plugins/mentionPlaceholder';
 import type { FireElementsChannelEvent, MentionSharedState } from './types';
 import { InlineInviteRecaptchaContainer } from './ui/InlineInviteRecaptchaContainer';
 import { SecondaryToolbarComponent } from './ui/SecondaryToolbarComponent';
@@ -127,13 +128,23 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 		},
 
 		pmPlugins() {
-			return [
+			const plugins = [
 				{
 					name: 'mention',
-					plugin: (pmPluginFactoryParams) =>
+					plugin: (pmPluginFactoryParams: PMPluginFactoryParams) =>
 						createMentionPlugin({ pmPluginFactoryParams, fireEvent, options, api }),
 				},
 			];
+
+				if (fg('jira_invites_auto_tag_new_user_in_mentions_fg')) {
+					plugins.push({
+						name: 'mentionPlaceholder',
+						plugin: () => createMentionPlaceholderPlugin(),
+					});
+				}
+
+
+			return plugins;
 		},
 
 		contentComponent({ editorView, providerFactory }) {

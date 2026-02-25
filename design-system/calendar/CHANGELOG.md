@@ -1,5 +1,13 @@
 # @atlaskit/calendar
 
+## 17.2.8
+
+### Patch Changes
+
+- [`5db9e3f21a52f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5db9e3f21a52f) -
+  Internal refactoring
+- Updated dependencies
+
 ## 17.2.7
 
 ### Patch Changes

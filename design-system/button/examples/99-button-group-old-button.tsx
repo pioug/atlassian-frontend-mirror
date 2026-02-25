@@ -14,7 +14,7 @@ const rowStyles = css({
 	paddingBlockEnd: token('space.100', '8px'),
 	paddingBlockStart: token('space.100', '8px'),
 	paddingInlineEnd: token('space.100', '8px'),
-	paddingInlineStart: token('space.100', '8px')
+	paddingInlineStart: token('space.100', '8px'),
 });
 
 const constrainedRowStyles = css({
@@ -22,18 +22,9 @@ const constrainedRowStyles = css({
 	overflowX: 'scroll',
 });
 
-const Row = (props: { children: React.ReactNode }) => (
-	<div css={rowStyles}>{props.children}</div>
-);
+const Row = (props: { children: React.ReactNode }) => <div css={rowStyles}>{props.children}</div>;
 const ConstrainedRow = (props: { children: React.ReactNode }) => (
-	<div
-		css={[
-			rowStyles,
-			constrainedRowStyles,
-		]}
-	>
-		{props.children}
-	</div>
+	<div css={[rowStyles, constrainedRowStyles]}>{props.children}</div>
 );
 
 const CustomComponent = (props: { label?: string }) => {

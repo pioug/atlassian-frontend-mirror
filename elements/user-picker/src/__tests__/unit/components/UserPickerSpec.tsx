@@ -124,6 +124,7 @@ describe('UserPicker', () => {
 				false,
 				false,
 				undefined,
+				undefined,
 			);
 
 			await expect(document.body).toBeAccessible();
@@ -139,6 +140,7 @@ describe('UserPicker', () => {
 				false,
 				false,
 				undefined,
+				undefined,
 			);
 
 			await expect(document.body).toBeAccessible();
@@ -153,6 +155,7 @@ describe('UserPicker', () => {
 				undefined,
 				false,
 				false,
+				undefined,
 				undefined,
 			);
 
@@ -170,6 +173,7 @@ describe('UserPicker', () => {
 				false,
 				false,
 				undefined,
+				undefined,
 			);
 
 			await expect(document.body).toBeAccessible();
@@ -185,6 +189,7 @@ describe('UserPicker', () => {
 				undefined,
 				false,
 				false,
+				undefined,
 				undefined,
 			);
 
@@ -207,6 +212,7 @@ describe('UserPicker', () => {
 				false,
 				false,
 				undefined,
+				undefined,
 			);
 
 			await expect(document.body).toBeAccessible();
@@ -225,6 +231,7 @@ describe('UserPicker', () => {
 				undefined,
 				false,
 				false,
+				undefined,
 				undefined,
 			);
 

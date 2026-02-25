@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block
 
+## 9.0.20
+
+### Patch Changes
+
+- [`7ea2e225c0abb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ea2e225c0abb) -
+  [ux] Minor styling, wording changes for block menu and sync blocks
+- Updated dependencies
+
 ## 9.0.19
 
 ### Patch Changes

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 5.3.28
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.3.27
+
+### Patch Changes
+
+- [`7ea2e225c0abb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ea2e225c0abb) -
+  [ux] Minor styling, wording changes for block menu and sync blocks
+- Updated dependencies
+
 ## 5.3.26
 
 ### Patch Changes

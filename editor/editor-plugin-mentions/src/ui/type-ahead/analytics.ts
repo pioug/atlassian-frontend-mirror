@@ -96,7 +96,7 @@ export const buildTypeAheadInviteItemViewedPayload = (
 			userRole,
 			sessionId,
 			source: MENTION_SOURCE,
-			...additionalAttributes
+			...additionalAttributes,
 		},
 	};
 };

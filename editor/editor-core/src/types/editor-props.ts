@@ -296,8 +296,7 @@ export interface EditorSharedPropsWithPlugins {
 }
 
 export interface EditorProps
-	extends
-		EditorBaseProps,
+	extends EditorBaseProps,
 		EditorPluginFeatureProps,
 		EditorSharedPropsWithPlugins,
 		EditorProviderProps {
@@ -307,7 +306,9 @@ export interface EditorProps
 }
 
 export interface EditorNextProps
-	extends EditorBaseProps, EditorSharedPropsWithPlugins, EditorProviderProps {
+	extends EditorBaseProps,
+		EditorSharedPropsWithPlugins,
+		EditorProviderProps {
 	// Editor assitive describedby. Set aria-describedby to make the editor announcement to include the information
 	// the associated component's content
 	assistiveDescribedBy?: string;
@@ -527,7 +528,7 @@ export interface EditorPluginFeatureProps {
 	// 	     title: messages.cannotPasteSyncedBlockTitle,
 	// 	     description: messages.cannotPasteSyncedBlockDescription,
 	// 	     urlText: messages.cannotPasteSyncedBlockAction,
-	// 	     urlHref: 'https://hello.atlassian.net/wiki/x/tAtCeAE'
+	// 	     urlHref: 'https://support.atlassian.com/confluence-cloud/docs/reuse-content-with-synced-blocks'
 	//   }}
 	//}
 	pasteWarningOptions?: PasteWarningOptions;

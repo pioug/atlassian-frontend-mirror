@@ -96,20 +96,40 @@ export const messages = defineMessages({
 		defaultMessage: 'Move {0, plural, one {column} other {columns}} left',
 		description: 'Moves a column or columns to the left.',
 	},
+	moveColumnLeftHelpDialogLabel: {
+		id: 'fabric.editor.moveColumnLeftHelpDialogLabel',
+		defaultMessage: 'Move column left',
+		description: 'Description of a keymap that moves one column or multiple columns left, this is in the help dialog and can be simpler than the puralisation version'
+	},
 	moveColumnRight: {
 		id: 'fabric.editor.moveColumnRight',
 		defaultMessage: 'Move {0, plural, one {column} other {columns}} right',
 		description: 'Moves a column or columns to the right.',
+	},
+	moveColumnRightHelpDialogLabel: {
+		id: 'fabric.editor.moveColumnRightHelpDialogLabel',
+		defaultMessage: 'Move column right',
+		description: 'Description of a keymap that moves one column or multiple columns right, this is in the help dialog and can be simpler than the puralisation version'
 	},
 	moveRowUp: {
 		id: 'fabric.editor.moveRowUp',
 		defaultMessage: 'Move {0, plural, one {row} other {rows}} up',
 		description: 'Moves a row or selected rows up.',
 	},
+	moveRowUpHelpDialogLabel: {
+		id: 'fabric.editor.moveRowUpHelpDialogLabel',
+		defaultMessage: 'Move row up',
+		description: 'Description of a keymap that moves one row or multiple rows up, this is in the help dialog and can be simpler than the puralisation version'
+	},
 	moveRowDown: {
 		id: 'fabric.editor.moveDownDown',
 		defaultMessage: 'Move {0, plural, one {row} other {rows}} down',
 		description: 'Moves a row or selected rows down.',
+	},
+	moveRowDownHelpDialogLabel: {
+		id: 'fabric.editor.moveRowDownHelpDialogLabel',
+		defaultMessage: 'Move row down',
+		description: 'Description of a keymap that moves one row or multiple rows down, this is in the help dialog and can be simpler than the puralisation version'
 	},
 	insertRowDrag: {
 		id: 'fabric.editor.insertRowDrag',

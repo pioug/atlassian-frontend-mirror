@@ -171,7 +171,7 @@ export const renderExtension = (
 				<div
 					tabIndex={fg('platform_editor_dec_a11y_fixes') ? options.tabIndex : undefined}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-					className={overflowContainerClass}
+					className={`${RendererCssClassName.EXTENSION_INNER_WRAPPER} ${overflowContainerClass}`}
 					css={[
 						!(
 							isInsideOfInlineExtension &&
@@ -241,7 +241,7 @@ export const renderExtension = (
 						<div
 							tabIndex={fg('platform_editor_dec_a11y_fixes') ? options.tabIndex : undefined}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-							className={overflowContainerClass}
+							className={`${RendererCssClassName.EXTENSION_INNER_WRAPPER} ${overflowContainerClass}`}
 							css={[
 								!(
 									isInsideOfInlineExtension &&

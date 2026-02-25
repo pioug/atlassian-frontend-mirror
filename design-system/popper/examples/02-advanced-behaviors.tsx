@@ -1,7 +1,6 @@
 /**
  * @jsxRuntime classic
  * @jsx jsx
- * @jsxFrag Fragment
  */
 
 import { Fragment } from 'react';
@@ -87,7 +86,6 @@ const BasicPopper = ({
 				{({ ref, style, placement, isReferenceHidden }) => (
 					<Popup
 						ref={ref}
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						style={style}
 						css={[referenceShown, isReferenceHidden && referenceHidden]}
 						data-placement={placement}
@@ -101,7 +99,7 @@ const BasicPopper = ({
 );
 
 const Test = () => (
-	<>
+	<Fragment>
 		{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 		<div style={{ display: 'flex' }}>
 			<BasicPopper>Popper</BasicPopper>
@@ -146,7 +144,7 @@ const Test = () => (
 		>
 			<BasicPopper>Not visible when reference is obscured</BasicPopper>
 		</div>
-	</>
+	</Fragment>
 );
 
 const scrollContainerStyles = css({

@@ -121,6 +121,7 @@ export class UserPickerWithoutAnalytics extends React.Component<UserPickerProps>
 								fg('platform-component-visual-refresh'),
 								false,
 								this.props.height,
+								this.props.minHeight,
 							)}
 							components={getComponents(
 								isMulti,

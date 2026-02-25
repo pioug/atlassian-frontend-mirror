@@ -129,6 +129,8 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 	menuPosition?: 'absolute' | 'fixed';
 	/** Whether to block scrolling actions */
 	menuShouldBlockScroll?: boolean;
+	/** Sets the minimum height of the user picker. If not set, the minimum height will be based on the "height" prop then "compact" or "normal" appearance if height is not set. */
+	minHeight?: number | string;
 	/** Name to use for input element. */
 	name?: string;
 	/** Display the picker with no border. */

@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 7.2.0
+
+### Minor Changes
+
+- [`edfa57e62aec0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edfa57e62aec0) -
+  Add table move column/row keyboard shortcuts
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.1.18
 
 ### Patch Changes

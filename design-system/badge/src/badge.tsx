@@ -92,7 +92,6 @@ const Badge: import('react').NamedExoticComponent<BadgeProps> = memo(function Ba
 		// Map old appearance names to new ones
 		const newAppearance = appearanceMapping[appearance];
 		return (
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			<BadgeNew appearance={newAppearance} max={max} style={style} testId={testId}>
 				{children}
 			</BadgeNew>

@@ -146,6 +146,34 @@ export class SyncedBlockProvider extends SyncBlockDataProviderInterface {
 		if (!this.writeProvider) {
 			return Promise.reject(new Error('Write provider not set'));
 		}
+
+		// Use batch write only when feature flag is enabled and method is available
+		if (this.writeProvider.writeDataBatch && fg('platform_synced_block_patch_4')) {
+			// Separate data into valid (with content) and invalid (without content)
+			const validDataWithIndices: SyncBlockData[] = [];
+			const invalidResults: WriteSyncBlockResult[] = [];
+
+			data.forEach((blockData) => {
+				if (blockData.content) {
+					validDataWithIndices.push(blockData);
+				} else {
+					invalidResults.push({
+						error: 'No Synced Block content to write',
+						resourceId: blockData.resourceId,
+					});
+				}
+			});
+
+			// Process valid data in batch
+			let batchResults: WriteSyncBlockResult[] = [];
+			if (validDataWithIndices.length > 0) {
+				batchResults = await this.writeProvider.writeDataBatch(validDataWithIndices);
+			}
+
+			return [...batchResults, ...invalidResults];
+		}
+
+		// Fall back to individual writes
 		const results = await Promise.allSettled(
 			nodes.map((_node, index) => {
 				if (!this.writeProvider) {

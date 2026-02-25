@@ -6,7 +6,7 @@
 import { cssMap, jsx } from '@compiled/react';
 
 import InlineMessage from '@atlaskit/inline-message';
-import { Inline, Text } from "@atlaskit/primitives/compiled";
+import { Inline, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

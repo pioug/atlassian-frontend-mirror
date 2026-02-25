@@ -31,10 +31,6 @@ export const TemplateReadOnly = ({
 	isCompact = controls.isCompact.defaultValue,
 }: TemplateReadOnlyArgs) => (
 	<Container>
-		<JQLEditorReadOnly
-			isSearch={isSearch}
-			isCompact={isCompact}
-			query={query}
-		/>
+		<JQLEditorReadOnly isSearch={isSearch} isCompact={isCompact} query={query} />
 	</Container>
 );

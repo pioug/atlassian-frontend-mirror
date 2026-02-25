@@ -1,4 +1,5 @@
 import { getDocument } from '@atlaskit/browser-apis';
+import { BLOCK_MENU_TEST_ID } from '@atlaskit/editor-common/block-menu';
 
 export const fixBlockMenuPositionAndScroll = (firstSelectedNode: Element | undefined) => {
 	const doc = getDocument();
@@ -6,7 +7,7 @@ export const fixBlockMenuPositionAndScroll = (firstSelectedNode: Element | undef
 		return;
 	}
 
-	const blockMenuEl = doc.querySelector('[data-testid="editor-block-menu"]');
+	const blockMenuEl = doc.querySelector(`[data-testid="${BLOCK_MENU_TEST_ID}"]`);
 	if (!blockMenuEl?.parentElement) {
 		return;
 	}

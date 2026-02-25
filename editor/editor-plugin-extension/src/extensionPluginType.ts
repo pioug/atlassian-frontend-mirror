@@ -144,11 +144,11 @@ export type ExtensionPlugin = NextEditorPlugin<
 		dependencies: ExtensionPluginDependencies;
 		pluginConfiguration: ExtensionPluginOptions | undefined;
 		sharedState:
-		| {
-			extensionProvider?: ExtensionState['extensionProvider'];
-			processParametersAfter?: ExtensionState['processParametersAfter'];
-			showContextPanel: boolean | undefined;
-		}
-		| undefined;
+			| {
+					extensionProvider?: ExtensionState['extensionProvider'];
+					processParametersAfter?: ExtensionState['processParametersAfter'];
+					showContextPanel: boolean | undefined;
+			  }
+			| undefined;
 	}
 >;

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Lozenge, { type ThemeAppearance } from '@atlaskit/lozenge';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Inline, Stack, Text } from "@atlaskit/primitives/compiled";
+import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 
 const APPEARANCES: { label: string; value: ThemeAppearance }[] = [
 	{ label: 'Default', value: 'default' },

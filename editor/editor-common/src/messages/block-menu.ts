@@ -19,9 +19,16 @@ export const messages = defineMessages({
 	copyLink: {
 		id: 'fabric.editor.block.menu.copy.link',
 		defaultMessage: 'Copy link',
-		description: 'Copy link to the selected block',
+		description: 'Copy link to the selected content',
 	},
 	copyLinkToBlock: {
+		id: 'fabric.editor.block.menu.copy.link.to.block',
+		defaultMessage: 'Copy link to selection',
+		description: 'Copy link to the selected content',
+	},
+	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
+	// Old message retained for flag-off state. To clean up: remove this when flag is removed.
+	copyLinkToBlockOld: {
 		id: 'fabric.editor.block.menu.copy.link.to.block',
 		defaultMessage: 'Copy link to block',
 		description: 'Copy link to the selected block',

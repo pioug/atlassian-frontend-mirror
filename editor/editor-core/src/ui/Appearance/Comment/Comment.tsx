@@ -24,6 +24,7 @@ import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { EditorAppearanceComponentProps } from '../../../types';
@@ -42,6 +43,28 @@ import { MainToolbar } from './Toolbar';
 
 const MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT = 490;
 
+// Remove when platform_editor_comment_editor_border_radius is cleaned up
+const commentEditorStylesOld = css({
+	display: 'flex',
+	flexDirection: 'column',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'.less-margin > .ProseMirror': {
+		margin: `${token('space.150', '12px')} ${token('space.100', '8px')} ${token(
+			'space.100',
+			'8px',
+		)}`,
+	},
+	minWidth: '272px',
+	height: 'auto',
+	backgroundColor: token('color.background.input', 'white'),
+	border: `${token('border.width', '1px')} solid ${token('color.border.input')}`,
+	boxSizing: 'border-box',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	borderRadius: token('radius.small', '3px'),
+	maxWidth: 'inherit',
+	wordWrap: 'break-word',
+});
+
 const commentEditorStyles = css({
 	display: 'flex',
 	flexDirection: 'column',
@@ -57,8 +80,7 @@ const commentEditorStyles = css({
 	backgroundColor: token('color.background.input', 'white'),
 	border: `${token('border.width')} solid ${token('color.border.input')}`,
 	boxSizing: 'border-box',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderRadius: token('radius.small', '3px'),
+	borderRadius: token('radius.medium', '6px'),
 	maxWidth: 'inherit',
 	wordWrap: 'break-word',
 });
@@ -220,7 +242,9 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 			<WidthProvider>
 				<div
 					css={[
-						commentEditorStyles,
+						expValEquals('platform_editor_comment_editor_border_radius', 'isEnabled', true)
+							? commentEditorStyles
+							: commentEditorStylesOld,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 						css({
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766

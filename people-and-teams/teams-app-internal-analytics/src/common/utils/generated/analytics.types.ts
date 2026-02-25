@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::e9b8e3d67597c5c85abc4fe33e0c4bd8>>
+ * @codegen <<SignedSource::291243b3bb3f0ae95b6cd18a60d7200b>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -1508,7 +1508,6 @@ export type StarTeamFailedAttributesType = {
 	error: string;
 	errorMessage: string;
 	errorType: string | null;
-	source: string;
 };
 
 export type AnalyticsEventAttributes = {

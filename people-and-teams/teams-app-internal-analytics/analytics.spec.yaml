@@ -3364,6 +3364,3 @@ events:
           type: string
           required: false
           description: Specific type of error encountered
-        source:
-          type: string
-          description: The component where the error occurred

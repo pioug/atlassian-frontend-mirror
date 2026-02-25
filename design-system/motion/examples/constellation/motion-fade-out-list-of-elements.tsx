@@ -38,7 +38,6 @@ const MotionFadeOutListOfElementsExample = (): JSX.Element => {
 										ref={props.ref}
 										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 										className={props.className}
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 										style={props.style}
 										css={listItemStyles}
 									>
@@ -117,7 +116,6 @@ const listItemStyles = css({
 const blockStyles = css({
 	width: '100%',
 	height: '48px',
-	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 	borderRadius: token('radius.small', '3px'),
 });
 

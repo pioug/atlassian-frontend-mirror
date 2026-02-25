@@ -7,6 +7,7 @@ import { listMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import ListBulletedIcon from '@atlaskit/icon/core/list-bulleted';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ListPlugin } from '../listPluginType';
 
@@ -36,8 +37,13 @@ const BulletedListBlockMenuItem = ({ api }: BulletedListBlockMenuItemProps) => {
 		});
 	};
 
+	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
+	// Adds size="small" to icons for better visual consistency in block menu.
+	// To clean up: remove conditional, keep only size="small" version.
+	const iconSize = fg('platform_editor_block_menu_v2_patch_3') ? 'small' : undefined;
+
 	return (
-		<ToolbarDropdownItem onClick={handleClick} elemBefore={<ListBulletedIcon label="" />}>
+		<ToolbarDropdownItem onClick={handleClick} elemBefore={<ListBulletedIcon label="" size={iconSize} />}>
 			{formatMessage(listMessages.bulletedList)}
 		</ToolbarDropdownItem>
 	);

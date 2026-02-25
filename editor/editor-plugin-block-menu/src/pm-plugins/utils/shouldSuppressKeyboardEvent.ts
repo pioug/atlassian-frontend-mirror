@@ -6,7 +6,7 @@
  * - Backspace/Delete: Allow deleting selected content
  * - Copy/Cut/Paste: Allow clipboard operations (Cmd/Ctrl+C, Cmd/Ctrl+X, Cmd/Ctrl+V)
  * - Undo/Redo: Allow undo/redo operations (Cmd/Ctrl+Z, Cmd/Ctrl+Y)
- * - Copy Link to Block: Allow the keyboard shortcut (Cmd/Ctrl+Alt+A)
+ * - Copy Link to Selection: Allow the keyboard shortcut (Cmd/Ctrl+Alt+A)
  *
  * @param event - The keyboard event to check
  * @returns true if the event should be suppressed, false if it should be allowed

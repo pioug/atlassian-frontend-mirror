@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-expand
 
+## 8.3.2
+
+### Patch Changes
+
+- [`50f96b87a6d02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50f96b87a6d02) -
+  batch/change experiment
+- Updated dependencies
+
+## 8.3.1
+
+### Patch Changes
+
+- [`7ea2e225c0abb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ea2e225c0abb) -
+  [ux] Minor styling, wording changes for block menu and sync blocks
+- Updated dependencies
+
 ## 8.3.0
 
 ### Minor Changes

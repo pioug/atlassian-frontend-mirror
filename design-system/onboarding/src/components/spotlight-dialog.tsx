@@ -181,7 +181,6 @@ class SpotlightDialogComponent extends Component<SpotlightDialogProps, State> {
 					<ValueChanged value={dialogWidth} onChange={update}>
 						<FocusLock disabled={focusLockDisabled} returnFocus={false} autoFocus>
 							<Box
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 								style={style}
 								ref={ref}
 								aria-modal={true}

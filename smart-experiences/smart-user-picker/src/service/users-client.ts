@@ -1,6 +1,6 @@
 import { type User } from '@atlaskit/user-picker';
 import { UNKNOWN_USER } from './constants';
-import { graphqlQuery } from './graphqlUtils';
+import { graphqlQuery, type AtlAttributionHeaderData } from './graphqlUtils';
 import { config } from '../config';
 
 interface UserData {
@@ -28,10 +28,14 @@ const buildUsersQuery = (accountIds: string[]) => ({
 	variables: { accountIds },
 });
 
-const makeRequest = async (url: string, accountIds: string[]) => {
+const makeRequest = async (
+	url: string,
+	accountIds: string[],
+	attributionData?: Partial<AtlAttributionHeaderData>,
+) => {
 	const query = buildUsersQuery(accountIds);
 
-	return await graphqlQuery<ApiClientResponse>(url, query);
+	return await graphqlQuery<ApiClientResponse>(url, query, attributionData);
 };
 
 const modifyResponse = (users: UserData[]): User[] =>
@@ -42,10 +46,14 @@ const modifyResponse = (users: UserData[]): User[] =>
 		type: 'user',
 	}));
 
-const getHydratedUsers = (baseUrl: string | undefined, userIds: string[]): Promise<User[]> => {
+const getHydratedUsers = (
+	baseUrl: string | undefined,
+	userIds: string[],
+	attributionData?: Partial<AtlAttributionHeaderData>,
+): Promise<User[]> => {
 	const url = config.getGraphQLUrl(baseUrl);
 	return new Promise((resolve) => {
-		makeRequest(url, userIds)
+		makeRequest(url, userIds, attributionData)
 			.then((data) => {
 				resolve(modifyResponse(data.users));
 			})

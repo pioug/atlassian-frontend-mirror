@@ -136,6 +136,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 				this.props.defaultValue,
 				this.props.productKey,
 				this.props.siteId,
+				{ tenantId: this.props.siteId, activationId: this.props.activationId },
 			);
 
 			this.setState({

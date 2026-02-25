@@ -23,6 +23,10 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { createSingleMentionFragment } from '../../editor-commands';
 import type { MentionsPlugin } from '../../mentionsPluginType';
+import {
+	mentionPlaceholderPluginKey,
+	MENTION_PLACEHOLDER_ACTIONS,
+} from '../../pm-plugins/mentionPlaceholder';
 import { getMentionPluginState } from '../../pm-plugins/utils';
 import type { FireElementsChannelEvent, TeamInfoAttrAnalytics } from '../../types';
 import InviteItem, { INVITE_ITEM_DESCRIPTION } from '../InviteItem';
@@ -357,7 +361,12 @@ export const createTypeAheadConfig = ({
 										sessionId,
 										contextIdentifierProvider,
 										mentionProvider.userRole,
-										(fg('jira_invites_auto_tag_new_user_in_mentions_fg') ? {isInlineInviteMentionsEnabled: mentionProvider.getShouldEnableInlineInvite?.()} : {})
+										fg('jira_invites_auto_tag_new_user_in_mentions_fg')
+											? {
+													isInlineInviteMentionsEnabled:
+														mentionProvider.getShouldEnableInlineInvite?.(),
+												}
+											: {},
 									),
 								);
 							},
@@ -421,8 +430,9 @@ export const createTypeAheadConfig = ({
 							query,
 							contextIdentifierProvider,
 							mentionProvider.userRole,
-							(fg('jira_invites_auto_tag_new_user_in_mentions_fg') ? {isInlineInviteMentionsEnabled: mentionProvider.getShouldEnableInlineInvite?.()} : {})
-
+							fg('jira_invites_auto_tag_new_user_in_mentions_fg')
+								? { isInlineInviteMentionsEnabled: mentionProvider.getShouldEnableInlineInvite?.() }
+								: {},
 						),
 					);
 
@@ -440,6 +450,12 @@ export const createTypeAheadConfig = ({
 						// If query already includes @, use it as is
 						if (email && mentionProvider.showInlineInviteRecaptcha) {
 							mentionProvider.showInlineInviteRecaptcha(email);
+							const { tr } = state;
+							tr.setMeta(mentionPlaceholderPluginKey, {
+								action: MENTION_PLACEHOLDER_ACTIONS.SHOW_PLACEHOLDER,
+								placeholder: `@${query}`,
+							});
+							return tr;
 						}
 					} else if (mentionProvider.onInviteItemClick) {
 						// Fallback to old behavior for backward compatibility

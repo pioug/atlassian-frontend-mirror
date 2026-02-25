@@ -58,10 +58,7 @@ import {
 	findQuickInsertInsertButtonDecoration,
 	quickInsertButtonDecoration,
 } from './decorations-quick-insert-button';
-import {
-	findRemixButtonDecoration,
-	remixButtonDecoration,
-} from './decorations-remix-button';
+import { findRemixButtonDecoration, remixButtonDecoration } from './decorations-remix-button';
 import { handleMouseDown } from './handle-mouse-down';
 import { handleMouseOver } from './handle-mouse-over';
 import { boundKeydownHandler } from './keymap';

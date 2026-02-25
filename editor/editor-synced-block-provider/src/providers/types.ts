@@ -122,6 +122,12 @@ export interface ADFWriteProvider {
 		noContent?: boolean,
 	) => Promise<UpdateReferenceSyncBlockResult>;
 	writeData: (data: SyncBlockData) => Promise<WriteSyncBlockResult>;
+	/**
+	 * Batch write multiple synced blocks.
+	 * @param data Array of SyncBlockData to write
+	 * @returns Array of write results, one for each block
+	 */
+	writeDataBatch?: (data: SyncBlockData[]) => Promise<WriteSyncBlockResult[]>;
 }
 
 export type MediaEmojiProviderOptions = {

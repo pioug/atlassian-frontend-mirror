@@ -11,7 +11,7 @@ import Button, { ButtonGroup } from '@atlaskit/button';
 const styles = css({
 	display: 'flex',
 	alignItems: 'center',
-	flexDirection: 'column'
+	flexDirection: 'column',
 });
 
 function Overlay() {
@@ -24,9 +24,7 @@ function Overlay() {
 	);
 
 	return (
-		<div
-			css={styles}
-		>
+		<div css={styles}>
 			<Button onClick={() => setOverlay((value) => !value)}>
 				Use overlay: {overlay ? 'true' : 'false'}
 			</Button>

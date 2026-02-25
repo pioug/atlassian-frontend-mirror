@@ -8,7 +8,7 @@ import Grid, { GridItem } from '@atlaskit/grid';
 import Heading, { HeadingContextProvider } from '@atlaskit/heading';
 import { JiraServiceManagementLogo } from '@atlaskit/logo';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Inline, Stack } from "@atlaskit/primitives/compiled";
+import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
 import { token, useThemeObserver } from '@atlaskit/tokens';
 

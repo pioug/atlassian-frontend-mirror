@@ -166,7 +166,6 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 			// @ts-expect-error we don't allow `a` on Focusable for makers as they should use Anchor instead
 			as={Component}
 			className={xcss}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- TODO: Properly type this and allow pass-through if we can determine the type
 			style={style}
 			ref={ref}
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

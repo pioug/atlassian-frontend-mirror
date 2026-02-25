@@ -5,11 +5,12 @@ import {
 	ACTION_SUBJECT_ID,
 	type DispatchAnalyticsEvent,
 } from '@atlaskit/editor-common/analytics';
-import { BLOCK_MENU_ACTION_TEST_ID } from '@atlaskit/editor-common/block-menu';
+import { BLOCK_MENU_ACTION_TEST_ID, BLOCK_MENU_TEST_ID } from '@atlaskit/editor-common/block-menu';
 import {
 	Experience,
 	EXPERIENCE_ID,
 	ExperienceCheckDomMutation,
+	ExperienceCheckPopupMutation,
 	ExperienceCheckTimeout,
 	getPopupContainerFromEditorView,
 } from '@atlaskit/editor-common/experiences';
@@ -20,7 +21,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	getParentDOMAtSelection,
 	handleDeleteDomMutation,
-	handleMenuOpenDomMutation,
 	handleMoveDomMutation,
 	handleTransformDomMutation,
 	isBlockMenuVisible,
@@ -64,17 +64,23 @@ export const getBlockMenuExperiencesPlugin = ({
 		return popupTargetEl;
 	};
 
+	const getEditorDom = (): HTMLElement | null => {
+		if (editorView?.dom instanceof HTMLElement) {
+			return editorView.dom;
+		}
+		return null;
+	};
+
 	const blockMenuOpenExperience = new Experience(EXPERIENCE_ID.MENU_OPEN, {
 		actionSubjectId: ACTION_SUBJECT_ID.BLOCK_MENU,
 		dispatchAnalyticsEvent,
 		checks: [
 			new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
-			new ExperienceCheckDomMutation({
-				onDomMutation: handleMenuOpenDomMutation,
-				observeConfig: () => ({
-					target: getPopupsTarget(),
-					options: { childList: true },
-				}),
+			new ExperienceCheckPopupMutation({
+				nestedElementQuery: `[data-testid="${BLOCK_MENU_TEST_ID}"]`,
+				getTarget: getPopupsTarget,
+				getEditorDom,
+				type: 'editorContent',
 			}),
 		],
 	});

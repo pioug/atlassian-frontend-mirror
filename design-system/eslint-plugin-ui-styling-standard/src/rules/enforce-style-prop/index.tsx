@@ -169,6 +169,63 @@ function isPropertyValueAllowed(property: ObjProperty, context: Rule.RuleContext
 	return true;
 }
 
+/**
+ * Returns true if the property is not nested within another property.
+ */
+function isShallowProperty(property: Property & Rule.NodeParentExtension): boolean {
+	const objectPattern = property.parent;
+	if (!isNodeOfType(objectPattern, 'ObjectPattern')) {
+		return false;
+	}
+
+	return (
+		isNodeOfType(objectPattern.parent, 'VariableDeclarator') ||
+		isNodeOfType(objectPattern.parent, 'FunctionDeclaration') ||
+		isNodeOfType(objectPattern.parent, 'FunctionExpression') ||
+		isNodeOfType(objectPattern.parent, 'ArrowFunctionExpression')
+	);
+}
+
+function isAllowedName(name: Identifier): boolean {
+	return name.name === 'style';
+}
+
+function isAllowedDefinition(definition: Scope.Definition): boolean {
+	const name = definition.name as IdentifierWithParent;
+	const { parent } = name;
+
+	if (!isNodeOfType(parent, 'Property')) {
+		return false;
+	}
+
+	if (
+		!isNodeOfType(parent.key, 'Identifier') ||
+		!isNodeOfType(parent.value, 'Identifier') ||
+		!isAllowedName(parent.key) ||
+		!isAllowedName(parent.value)
+	) {
+		return false;
+	}
+
+	if (!isShallowProperty(parent)) {
+		return false;
+	}
+
+	return true;
+}
+
+function isFirstParameter(identifier: IdentifierWithParent): boolean {
+	if (
+		!isNodeOfType(identifier.parent, 'FunctionDeclaration') &&
+		!isNodeOfType(identifier.parent, 'ArrowFunctionExpression') &&
+		!isNodeOfType(identifier.parent, 'FunctionExpression')
+	) {
+		return false;
+	}
+
+	return identifier.parent.params[0] === identifier;
+}
+
 export const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'enforce-style-prop',
@@ -219,6 +276,45 @@ export const rule: Rule.RuleModule = createLintRule({
 						identifier: node.expression,
 					});
 
+					const definition = variable?.defs?.[0];
+
+					/**
+					 * Allow passing a function parameter directly to the style prop
+					 *
+					 * @example
+					 * function Component({ style }) { return <div style={style} />; }
+					 *
+					 * @example
+					 * <Popper>
+					 *   {({ ref, style }) => <div ref={ref} style={style} />}
+					 * </Popper>
+					 */
+					if (definition?.type === 'Parameter' && isAllowedDefinition(definition)) {
+						return;
+					}
+
+					/**
+					 * Allow passing a value destructured in the body from a function parameter to the style prop
+					 *
+					 * @example
+					 * function Component(props) {
+					 * 	 const { style } = props;
+					 * 	 return <div style={style} />;
+					 * }
+					 */
+					if (definition?.type === 'Variable' && definition.node.init?.type === 'Identifier') {
+						const sourceVariable = findVariable({
+							identifier: definition.node.init,
+							sourceCode: getSourceCode(context),
+						});
+
+						const sourceDefinition = sourceVariable?.defs[0];
+
+						if (sourceDefinition?.type === 'Parameter' && isAllowedDefinition(definition)) {
+							return;
+						}
+					}
+
 					// Types are alluding us here, but we really only want an ObjectExpression here
 					// Additionally, if we have multiple variable definitions, we're in some unhandled scenario
 					// so we're only going to look at the first one…
@@ -229,6 +325,27 @@ export const rule: Rule.RuleModule = createLintRule({
 					}
 
 					reportOnNodeExpression = true;
+				} else if (node.expression.type === 'MemberExpression') {
+					/**
+					 * Allow passing `props.style` to the style prop
+					 */
+					if (
+						node.expression.object.type === 'Identifier' &&
+						node.expression.property.type === 'Identifier' &&
+						isAllowedName(node.expression.property)
+					) {
+						const variable = findVariable({
+							sourceCode: getSourceCode(context),
+							identifier: node.expression.object,
+						});
+						const definition = variable?.defs?.[0];
+						if (
+							definition?.type === 'Parameter' &&
+							isFirstParameter(definition.name as IdentifierWithParent)
+						) {
+							return;
+						}
+					}
 				}
 
 				if (!expression?.properties) {

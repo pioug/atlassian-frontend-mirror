@@ -70,7 +70,7 @@ const useErrorInfo = (reason?: string, url?: string, title?: string) => {
 	}
 
 	const { icon, description } = fg('platform_synced_block_patch_4')
-		? errorMap[reason || 'generic'] ?? errorMap['generic']
+		? (errorMap[reason || 'generic'] ?? errorMap['generic'])
 		: errorMap[reason || 'generic'];
 	return {
 		description: formatMessage(description, {

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 8.7.4
+
+### Patch Changes
+
+- [`57f499d6937db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57f499d6937db) -
+  Extract ExperienceCheckPopupMutation logic to be reusable for block menu experience tracking
+- Updated dependencies
+
 ## 8.7.3
 
 ### Patch Changes

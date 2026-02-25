@@ -17,6 +17,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { DIRECTION } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import ArrowDownIcon from '@atlaskit/icon/core/arrow-down';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 
@@ -77,11 +78,16 @@ const MoveDownDropdownItemContent = ({ api }: Props & WrappedComponentProps) => 
 		});
 	};
 
+	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
+	// Adds size="small" to icons for better visual consistency in block menu.
+	// To clean up: remove conditional, keep only size="small" version.
+	const iconSize = fg('platform_editor_block_menu_v2_patch_3') ? 'small' : undefined;
+
 	return (
 		<ToolbarDropdownItem
 			triggerRef={moveDownRef}
 			onClick={handleClick}
-			elemBefore={<ArrowDownIcon label="" />}
+			elemBefore={<ArrowDownIcon label="" size={iconSize} />}
 			isDisabled={!canMoveDown}
 			testId={BLOCK_MENU_ACTION_TEST_ID.MOVE_DOWN}
 		>

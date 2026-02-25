@@ -31,8 +31,7 @@ import FlexibleUiErroredTitleBlockCompetitorPrompt from '../../../examples/vr-fl
 
 snapshot(BlockCardErrorView, {
 	description: 'block card error view with design refresh FF',
-	featureFlags: {
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardErrorView, {
@@ -42,8 +41,7 @@ snapshot(BlockCardErrorView, {
 });
 snapshot(BlockCardForbiddenView, {
 	description: 'block card forbidden view with design refresh FF',
-	featureFlags: {
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardForbiddenView, {
@@ -56,8 +54,7 @@ snapshot(BlockCardForbiddenView, {
 });
 snapshot(BlockCardNotFoundView, {
 	description: 'block card not found view with design refresh FF',
-	featureFlags: {
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardNotFoundView, {
@@ -121,8 +118,7 @@ snapshot(BlockCardForbiddenViews, {
 });
 snapshot(BlockCardLazyIcon1, {
 	description: `block card with lazy load icons, slice 1`,
-	featureFlags: {
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIcon2, {
@@ -155,32 +151,27 @@ snapshot(BlockCardLazyIcon5, {
 });
 snapshot(BlockCardLazyIcon6, {
 	description: `block card with lazy load icons, slice 6`,
-	featureFlags: {
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIconsFileType1, {
 	description: `block card with lazy load icons per file format, slice 1`,
-	featureFlags: {
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIconsFileType2, {
 	description: `block card with lazy load icons per file format, slice 2`,
-	featureFlags: {
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIconsFileType3, {
 	description: `block card with lazy load icons per file format, slice 3`,
-	featureFlags: {
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIconsFileType4, {
 	description: `block card with lazy load icons per file format, slice 4`,
-	featureFlags: {
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardEntities, {

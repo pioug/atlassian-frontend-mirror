@@ -13,4 +13,4 @@ export const normaliseSyncBlockStatus = (
 	value: string | null | undefined,
 ): SyncBlockStatus | undefined => {
 	return value === 'active' || value === 'unpublished' || value === 'deleted' ? value : undefined;
-}
+};

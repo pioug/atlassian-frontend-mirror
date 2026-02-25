@@ -10,6 +10,7 @@ export const RendererCssClassName = {
 	EXTENSION_AS_INLINE: `${clPrefix}extension-as-inline`,
 	EXTENSION_CENTER_ALIGN: `${clPrefix}extension-center-align`,
 	EXTENSION_OVERFLOW_CONTAINER: `${clPrefix}extension-overflow-container`,
+	EXTENSION_INNER_WRAPPER: `${clPrefix}extension-inner-wrapper`,
 	/** Wrapper for center-aligned extensions/MBE; margin here so it participates in collapse */
 	STICKY_SAFE_CENTER_WRAPPER: `${clPrefix}sticky-safe-center-wrapper`,
 	/** Wrapper for center-aligned embed card (wide/full-width); margin here so it participates in collapse */

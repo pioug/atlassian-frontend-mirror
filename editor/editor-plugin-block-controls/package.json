@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "8.5.1",
+	"version": "8.6.0",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -148,9 +148,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_native_anchor_patch_2": {
-			"type": "boolean"
-		},
-		"platform_editor_selection_sync_fix": {
 			"type": "boolean"
 		}
 	}

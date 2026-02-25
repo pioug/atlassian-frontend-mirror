@@ -23,7 +23,7 @@ const blockStyles = css({
 	marginBlockStart: token('space.050', '4px'),
 	marginInlineEnd: token('space.050', '4px'),
 	marginInlineStart: token('space.050', '4px'),
-	overflow: 'hidden'
+	overflow: 'hidden',
 });
 
 const centeredStyles = css({

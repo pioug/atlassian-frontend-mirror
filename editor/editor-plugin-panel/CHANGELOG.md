@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-panel
 
+## 9.0.23
+
+### Patch Changes
+
+- [`987ba0e62afac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/987ba0e62afac) -
+  render panel icon as native DOM instead of via nodeViewPortalProviderAPI
+- Updated dependencies
+
+## 9.0.22
+
+### Patch Changes
+
+- [`7ea2e225c0abb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ea2e225c0abb) -
+  [ux] Minor styling, wording changes for block menu and sync blocks
+- Updated dependencies
+
 ## 9.0.21
 
 ### Patch Changes

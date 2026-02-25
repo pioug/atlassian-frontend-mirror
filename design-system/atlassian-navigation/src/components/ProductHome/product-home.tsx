@@ -8,7 +8,7 @@ import React, { Fragment, type MouseEvent } from 'react';
 import { css, jsx } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Inline, Text } from "@atlaskit/primitives/compiled";
+import { Inline, Text } from '@atlaskit/primitives/compiled';
 import { N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

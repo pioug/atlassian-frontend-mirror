@@ -1,8 +1,6 @@
 /* eslint-disable require-unicode-regexp  */
 import { useMemo } from 'react';
 
-import type { IEnvironment } from 'relay-runtime';
-
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -17,8 +15,10 @@ import {
 	getSyncedBlockContent,
 	updateReferenceSyncedBlockOnDocument,
 	updateSyncedBlock,
+	updateSyncedBlocks,
 	type ErrorResponse,
 	type BlockContentResponse,
+	type BatchUpdateSyncedBlockRequest,
 } from '../../clients/block-service/blockService';
 import { subscribeToBlockUpdates as subscribeToBlockUpdatesWS } from '../../clients/block-service/blockSubscription';
 import {
@@ -31,7 +31,6 @@ import {
 	type SyncBlockStatus,
 } from '../../common/types';
 import { stringifyError } from '../../utils/errorHandling';
-import { createRelaySubscriptionFunction } from '../../utils/relaySubscriptionUtils';
 import { createResourceIdForReference } from '../../utils/resourceId';
 import { convertContentUpdatedAt } from '../../utils/utils';
 import type {
@@ -362,10 +361,102 @@ export const batchFetchData = async (
 	}
 };
 
+/**
+ * Batch writes multiple synced blocks.
+ * @param cloudId - The cloudId of the block. E.G the cloudId of the confluence page, or the cloudId of the Jira instance
+ * @param parentAri - The ARI of the parent of the block. E.G the ARI of the confluence page, or the ARI of the Jira work item
+ * @param parentId - The parentId of the block. E.G the pageId for a confluence page, or the issueId for a Jira work item
+ * @param product - The product of the block. E.G 'confluence-page', 'jira-work-item'
+ * @param data - Array of SyncBlockData to write
+ * @param stepVersion - Optional version number
+ * @returns Array of WriteSyncBlockResult results
+ */
+export const writeDataBatch = async (
+	cloudId: string,
+	parentAri: string | undefined,
+	parentId: string | undefined,
+	product: SyncBlockProduct,
+	data: SyncBlockData[],
+	stepVersion?: number,
+): Promise<WriteSyncBlockResult[]> => {
+	if (!parentAri || !parentId) {
+		return data.map((block) => ({ error: SyncBlockError.Errored, resourceId: block.resourceId }));
+	}
+
+	try {
+		// Create a map from blockAri to original resourceId for matching responses
+		const blockAriToResourceIdMap = new Map<string, string>();
+
+		const blocks: BatchUpdateSyncedBlockRequest[] = data.map((block) => {
+			const blockAri = generateBlockAri({
+				cloudId,
+				parentId,
+				product,
+				resourceId: block.resourceId,
+			});
+
+			blockAriToResourceIdMap.set(blockAri, block.resourceId);
+
+			return {
+				blockAri,
+				content: JSON.stringify(block.content),
+				status: block.status,
+				stepVersion,
+			};
+		});
+
+		const response = await updateSyncedBlocks({ blocks });
+
+		const results: WriteSyncBlockResult[] = [];
+
+		// Process successful updates
+		if (response.success) {
+			const successResourceIds = new Set(
+				response.success.map((block) => blockAriToResourceIdMap.get(block.blockAri)),
+			);
+
+			for (const block of data) {
+				if (successResourceIds.has(block.resourceId)) {
+					results.push({ resourceId: block.resourceId });
+				}
+			}
+		}
+
+		if (response.error) {
+			const errorResourceIds = new Map<string, SyncBlockError>(
+				response.error.map((err) => [
+					// Use the map to get the original resourceId
+					blockAriToResourceIdMap.get(err.blockAri) || '',
+					mapErrorResponseCode(err.code),
+				]),
+			);
+
+			for (const block of data) {
+				const error = errorResourceIds.get(block.resourceId);
+				if (error) {
+					results.push({ error, resourceId: block.resourceId });
+				} else if (!results.some((r) => r.resourceId === block.resourceId)) {
+					// If not in success or error lists, mark as errored
+					results.push({ error: SyncBlockError.Errored, resourceId: block.resourceId });
+				}
+			}
+		}
+
+		return results;
+	} catch (error) {
+		if (error instanceof BlockError) {
+			return data.map((block) => ({
+				error: mapBlockError(error),
+				resourceId: block.resourceId,
+			}));
+		}
+		return data.map((block) => ({ error: stringifyError(error), resourceId: block.resourceId }));
+	}
+};
+
 interface BlockServiceADFFetchProviderProps {
 	cloudId: string; // the cloudId of the block. E.G the cloudId of the confluence page, or the cloudId of the Jira instance
 	parentAri: string | undefined; // the ARI of the parent of the block. E.G the ARI of the confluence page, or the ARI of the Jira work item
-	relayEnvironment?: IEnvironment; 
 }
 
 /**
@@ -374,12 +465,10 @@ interface BlockServiceADFFetchProviderProps {
 class BlockServiceADFFetchProvider implements ADFFetchProvider {
 	private cloudId: string;
 	private parentAri: string | undefined;
-	private relayEnvironment?: IEnvironment;
 
-	constructor({ cloudId, parentAri, relayEnvironment }: BlockServiceADFFetchProviderProps) {
+	constructor({ cloudId, parentAri }: BlockServiceADFFetchProviderProps) {
 		this.cloudId = cloudId;
 		this.parentAri = parentAri;
-		this.relayEnvironment = relayEnvironment;
 	}
 
 	// resourceId of the reference synced block.
@@ -490,7 +579,6 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 
 	/**
 	 * Subscribes to real-time updates for a specific block using GraphQL WebSocket subscriptions.
-	 * If a Relay environment is provided, uses Relay subscriptions; otherwise falls back to WebSocket.
 	 * @param resourceId - The resource ID of the block to subscribe to
 	 * @param onUpdate - Callback function invoked when the block is updated
 	 * @param onError - Optional callback function invoked on subscription errors
@@ -503,14 +591,6 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 	): () => void {
 		const blockAri = generateBlockAriFromReference({ cloudId: this.cloudId, resourceId });
 
-		// If Relay environment is available, use Relay subscriptions
-		if (this.relayEnvironment && fg('platform_synced_block_patch_3')) {
-			const relaySubscribeToBlockUpdates = createRelaySubscriptionFunction(this.cloudId, this.relayEnvironment);
-			
-			return relaySubscribeToBlockUpdates(resourceId, onUpdate, onError);
-		}
-
-		// Fall back to WebSocket subscriptions
 		return subscribeToBlockUpdatesWS(
 			blockAri,
 			(parsedData) => {
@@ -673,6 +753,15 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 		return crypto.randomUUID();
 	}
 
+	generateBlockAri(resourceId: ResourceId): string {
+		return generateBlockAri({
+			cloudId: this.cloudId,
+			parentId: this.parentId || '',
+			product: this.product,
+			resourceId,
+		});
+	}
+
 	async updateReferenceData(
 		blocks: SyncBlockAttrs[],
 		noContent?: boolean,
@@ -700,6 +789,79 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 			return { success: false, error: stringifyError(error) };
 		}
 	}
+
+	async writeDataBatch(data: SyncBlockData[]): Promise<WriteSyncBlockResult[]> {
+		if (!this.parentAri || !this.parentId) {
+			return data.map((block) => ({ error: SyncBlockError.Errored, resourceId: block.resourceId }));
+		}
+
+		const stepVersion = this.getVersion ? await this.getVersion() : undefined;
+
+		try {
+			// Create a map from blockAri to original resourceId for matching responses
+			const blockAriToResourceIdMap = new Map<string, string>();
+
+			const blocks: BatchUpdateSyncedBlockRequest[] = data.map((block) => {
+				const blockAri = this.generateBlockAri(block.resourceId);
+
+				blockAriToResourceIdMap.set(blockAri, block.resourceId);
+
+				return {
+					blockAri,
+					content: JSON.stringify(block.content),
+					status: block.status,
+					stepVersion,
+				};
+			});
+
+			const response = await updateSyncedBlocks({ blocks });
+
+			const results: WriteSyncBlockResult[] = [];
+
+			// Process successful updates
+			if (response.success) {
+				const successResourceIds = new Set(
+					response.success.map((block) => blockAriToResourceIdMap.get(block.blockAri)),
+				);
+
+				for (const block of data) {
+					if (successResourceIds.has(block.resourceId)) {
+						results.push({ resourceId: block.resourceId });
+					}
+				}
+			}
+
+			if (response.error) {
+				const errorResourceIds = new Map<string, SyncBlockError>(
+					response.error.map((err) => [
+						// Use the map to get the original resourceId
+						blockAriToResourceIdMap.get(err.blockAri) || '',
+						mapErrorResponseCode(err.code),
+					]),
+				);
+
+				for (const block of data) {
+					const error = errorResourceIds.get(block.resourceId);
+					if (error) {
+						results.push({ error, resourceId: block.resourceId });
+					} else if (!results.some((r) => r.resourceId === block.resourceId)) {
+						// If not in success or error lists, mark as errored
+						results.push({ error: SyncBlockError.Errored, resourceId: block.resourceId });
+					}
+				}
+			}
+
+			return results;
+		} catch (error) {
+			if (error instanceof BlockError) {
+				return data.map((block) => ({
+					error: mapBlockError(error),
+					resourceId: block.resourceId,
+				}));
+			}
+			return data.map((block) => ({ error: stringifyError(error), resourceId: block.resourceId }));
+		}
+	}
 }
 
 interface BlockServiceAPIProvidersProps {
@@ -708,7 +870,6 @@ interface BlockServiceAPIProvidersProps {
 	parentAri: string | undefined; // the ARI of the parent of the block. E.G the ARI of the confluence page, or the ARI of the Jira work item
 	parentId?: string; // the parentId of the block. E.G the pageId for a confluence page, or the issueId for a Jira work item
 	product: SyncBlockProduct; // the product of the block. E.G 'confluence-page', 'jira-work-item'
-	relayEnvironment?: IEnvironment;
 }
 
 const createBlockServiceAPIProviders = ({
@@ -717,7 +878,6 @@ const createBlockServiceAPIProviders = ({
 	parentId,
 	product,
 	getVersion,
-	relayEnvironment,
 }: BlockServiceAPIProvidersProps): {
 	fetchProvider: BlockServiceADFFetchProvider;
 	writeProvider: BlockServiceADFWriteProvider;
@@ -726,7 +886,6 @@ const createBlockServiceAPIProviders = ({
 		fetchProvider: new BlockServiceADFFetchProvider({
 			cloudId,
 			parentAri,
-			relayEnvironment,
 		}),
 		writeProvider: new BlockServiceADFWriteProvider({
 			cloudId,
@@ -744,7 +903,6 @@ export const useMemoizedBlockServiceAPIProviders = ({
 	parentId,
 	product,
 	getVersion,
-	relayEnvironment,
 }: BlockServiceAPIProvidersProps): {
 	fetchProvider: BlockServiceADFFetchProvider;
 	writeProvider: BlockServiceADFWriteProvider;
@@ -756,9 +914,8 @@ export const useMemoizedBlockServiceAPIProviders = ({
 			parentId,
 			product,
 			getVersion,
-			relayEnvironment,
 		});
-	}, [cloudId, parentAri, parentId, product, getVersion, relayEnvironment]);
+	}, [cloudId, parentAri, parentId, product, getVersion]);
 };
 
 interface BlockServiceFetchOnlyAPIProviderProps {

@@ -9,6 +9,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import { SyncBlocksIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import Lozenge from '@atlaskit/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { canBeConvertedToSyncBlock } from '../pm-plugins/utils/utils';
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
@@ -46,9 +47,14 @@ const CreateSyncedBlockDropdownItem = ({
 
 	const isOffline = isOfflineMode(mode);
 
+	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
+	// Adds size="small" to icons for better visual consistency in block menu.
+	// To clean up: remove conditional, keep only size="small" version.
+	const iconSize = fg('platform_editor_block_menu_v2_patch_3') ? 'small' : undefined;
+
 	return (
 		<ToolbarDropdownItem
-			elemBefore={<SyncBlocksIcon label="" />}
+			elemBefore={<SyncBlocksIcon label="" size={iconSize} />}
 			onClick={onClick}
 			isDisabled={isOffline}
 			testId={SYNCED_BLOCK_BUTTON_TEST_ID.blockMenuCreate}
@@ -76,9 +82,14 @@ const CopySyncedBlockDropdownItem = ({
 		api?.core?.actions.execute(api?.blockControls?.commands?.toggleBlockMenu({ closeMenu: true }));
 	};
 
+	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
+	// Adds size="small" to icons for better visual consistency in block menu.
+	// To clean up: remove conditional, keep only size="small" version.
+	const iconSize = fg('platform_editor_block_menu_v2_patch_3') ? 'small' : undefined;
+
 	return (
 		<ToolbarDropdownItem
-			elemBefore={<SyncBlocksIcon label="" />}
+			elemBefore={<SyncBlocksIcon label="" size={iconSize} />}
 			onClick={onClick}
 			isDisabled={isOfflineMode(mode)}
 			elemAfter={<Lozenge appearance="new">{formatMessage(blockMenuMessages.newLozenge)}</Lozenge>}

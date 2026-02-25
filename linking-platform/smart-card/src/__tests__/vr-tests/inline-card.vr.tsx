@@ -335,8 +335,7 @@ snapshot(InlineCardUnauthorisedDefaultIcon, {
 
 snapshot.skip(InlineCardIcons, {
 	description: `inline card icons`,
-	featureFlags: {
-	},
+	featureFlags: {},
 });
 
 snapshot(VRInlineCardAllExamplesInText, {

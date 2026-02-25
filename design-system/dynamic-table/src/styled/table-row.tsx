@@ -49,7 +49,6 @@ export const TableBodyRow: React.ForwardRefExoticComponent<
 	({ isHighlighted, children, style, testId, className, ...rest }, ref) => {
 		return (
 			<tr
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={style}
 				css={[rowStyles, isHighlighted ? rowHighlightedBackgroundStyles : rowBackgroundStyles]}
 				/**

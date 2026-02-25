@@ -36,7 +36,7 @@ export type {
 	BatchRetrieveSyncedBlocksResponse,
 	ErrorResponse,
 } from './clients/block-service/blockService';
-export { BlockError } from './clients/block-service/blockService';
+export { BlockError, updateSyncedBlocks } from './clients/block-service/blockService';
 export {
 	getConfluencePageAri,
 	getPageIdAndTypeFromConfluencePageAri,
@@ -54,6 +54,7 @@ export {
 	useMemoizedBlockServiceFetchOnlyAPIProvider,
 	fetchReferences,
 	batchFetchData,
+	writeDataBatch,
 	blockAriToResourceId,
 	convertToSyncBlockData,
 	extractResourceIdFromBlockAri,
@@ -92,17 +93,6 @@ export {
 } from './store-manager/syncBlockStoreManager';
 
 // utils
-export { BLOCK_SERVICE_SUBSCRIPTION_QUERY } from './clients/block-service/sharedSubscriptionUtils';
-export { type BlockSubscriptionPayload, parseSubscriptionPayload } from './clients/block-service/sharedSubscriptionUtils';
-export { 
-	convertRelayResponseToSyncBlockInstance,
-	type RelayBlockUpdateResponse 
-} from './utils/relayResponseConverter';
-export {
-	createRelayBlockSubscription,
-	createRelaySubscriptionFunction,
-	type RelayBlockSubscriptionConfig
-} from './utils/relaySubscriptionUtils';
 export { resolveSyncBlockInstance } from './utils/resolveSyncBlockInstance';
 export { parseResourceId, createResourceIdForReference } from './utils/resourceId';
 export {

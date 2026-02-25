@@ -7,7 +7,7 @@ import { detectLayoutShiftCause } from './detect-layout-shift-cause';
  * e.g. TypeError: Cannot read private member #channel from an object whose class did not declare it
  */
 const makeRect = (x: number, y: number, width: number, height: number) =>
-	({ x, y, width, height } as unknown as DOMRect);
+	({ x, y, width, height }) as unknown as DOMRect;
 
 const makeViewportEntry = (
 	time: number,

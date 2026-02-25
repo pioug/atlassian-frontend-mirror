@@ -73,7 +73,7 @@ export const getSelectedDomElement = (
 		(isContentExtension // Search down
 			? selectedExtensionDomNode.querySelector<HTMLElement>('.extension-container') // Try searching up and then down
 			: closestElement(selectedExtensionDomNode, '.extension-container') ||
-			selectedExtensionDomNode.querySelector<HTMLElement>('.extension-container')) ||
+				selectedExtensionDomNode.querySelector<HTMLElement>('.extension-container')) ||
 		selectedExtensionDomNode
 	);
 };

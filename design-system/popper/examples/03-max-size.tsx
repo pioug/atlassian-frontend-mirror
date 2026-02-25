@@ -74,7 +74,6 @@ function MaxSizeExample({ children, placement }: { children: ReactNode; placemen
 				{({ ref, style }) => (
 					<div
 						ref={ref}
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 						style={style}
 						css={popupStyles.root}
 						data-testid={`placement--${placement}`}

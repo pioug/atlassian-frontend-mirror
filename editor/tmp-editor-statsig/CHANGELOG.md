@@ -1,5 +1,26 @@
 # @atlaskit/editor-statsig-tmp
 
+## 29.6.2
+
+### Patch Changes
+
+- [`50f96b87a6d02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50f96b87a6d02) -
+  batch/change experiment
+
+## 29.6.1
+
+### Patch Changes
+
+- [`abf0f1a208ab4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/abf0f1a208ab4) -
+  EDITOR-5441 Update comment editor border raidus
+
+## 29.6.0
+
+### Minor Changes
+
+- [`521f5d212eb21`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/521f5d212eb21) -
+  [ux] Add support for dynamic UI flow in AIFC
+
 ## 29.5.0
 
 ### Minor Changes

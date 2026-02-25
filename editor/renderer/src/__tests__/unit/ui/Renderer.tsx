@@ -28,7 +28,6 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-mock';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import { Media } from '../../../react/nodes';
@@ -245,59 +244,6 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 				renderer = initRenderer(docWithStage0Mark, { adfStage: 'stage0' });
 
 				await expect(document.body).toBeAccessible();
-			});
-		});
-
-		describe('Annotations', () => {
-			ffTest.on('platform_renderer_a11y_inline_comment_fix', '', () => {
-				const docWithAnnotation: DocNode = {
-					type: 'doc',
-					version: 1,
-					content: [
-						{
-							type: 'paragraph',
-							content: [
-								{
-									type: 'text',
-									text: 'Hello World',
-									marks: [
-										{
-											type: 'annotation',
-											attrs: {
-												annotationType: 'inlineComment' as any,
-												id: 'inline-comment-c3c522f5-3f8e-4e7f-b13c-da6ca9b3594c',
-											},
-										},
-									],
-								},
-							],
-						},
-					],
-				};
-
-				it('should contain a11y screen reader start and end text for inline comments', async () => {
-					const { container } = render(
-						<Renderer document={docWithAnnotation} allowAnnotations={true} />,
-					);
-
-					await waitFor(() =>
-						expect(
-							container.querySelector(
-								'[data-id="inline-comment-c3c522f5-3f8e-4e7f-b13c-da6ca9b3594c"] > span',
-							),
-						).toHaveTextContent('inline comment start'),
-					);
-
-					await waitFor(() =>
-						expect(
-							container.querySelector(
-								'[data-id="inline-comment-c3c522f5-3f8e-4e7f-b13c-da6ca9b3594c"] > span + span',
-							),
-						).toHaveTextContent('inline comment end'),
-					);
-
-					await expect(document.body).toBeAccessible();
-				});
 			});
 		});
 

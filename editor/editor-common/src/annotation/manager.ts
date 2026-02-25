@@ -129,9 +129,9 @@ export class SharedAnnotationManager implements AnnotationManager {
 
 		try {
 			return fn();
-        } catch {
-            return { success: false, reason: 'hook-execution-error' };
-        }
+		} catch {
+			return { success: false, reason: 'hook-execution-error' };
+		}
 	}
 
 	clearDraft(): ClearDraftResult {
@@ -141,9 +141,9 @@ export class SharedAnnotationManager implements AnnotationManager {
 		}
 		try {
 			return fn();
-        } catch {
-            return { success: false, reason: 'hook-execution-error' };
-        }
+		} catch {
+			return { success: false, reason: 'hook-execution-error' };
+		}
 	}
 
 	applyDraft(id: AnnotationId): ApplyDraftResult {
@@ -155,9 +155,9 @@ export class SharedAnnotationManager implements AnnotationManager {
 
 		try {
 			return fn(id);
-        } catch {
-            return { success: false, reason: 'hook-execution-error' };
-        }
+		} catch {
+			return { success: false, reason: 'hook-execution-error' };
+		}
 	}
 
 	getDraft(): GetDraftResult {
@@ -167,9 +167,9 @@ export class SharedAnnotationManager implements AnnotationManager {
 		}
 		try {
 			return fn();
-        } catch {
-            return { success: false, reason: 'hook-execution-error' };
-        }
+		} catch {
+			return { success: false, reason: 'hook-execution-error' };
+		}
 	}
 
 	setIsAnnotationSelected(id: string, isSelected: boolean): SelectAnnotationResult {
@@ -185,9 +185,9 @@ export class SharedAnnotationManager implements AnnotationManager {
 			// because the hook is responsible for the state of the selection. The manager is not responsible for the state of
 			// the selection.
 			return fn(id, isSelected);
-        } catch {
-            return { success: false, reason: 'hook-execution-error' };
-        }
+		} catch {
+			return { success: false, reason: 'hook-execution-error' };
+		}
 	}
 
 	setIsAnnotationHovered(id: string, isHovered: boolean): HoverAnnotationResult {
@@ -200,9 +200,9 @@ export class SharedAnnotationManager implements AnnotationManager {
 
 		try {
 			return fn(id, isHovered);
-        } catch {
-            return { success: false, reason: 'hook-execution-error' };
-        }
+		} catch {
+			return { success: false, reason: 'hook-execution-error' };
+		}
 	}
 
 	clearAnnotation(id: AnnotationId): ClearAnnotationResult {
@@ -212,8 +212,8 @@ export class SharedAnnotationManager implements AnnotationManager {
 		}
 		try {
 			return fn(id);
-        } catch {
-            return { success: false, reason: 'hook-execution-error' };
-        }
+		} catch {
+			return { success: false, reason: 'hook-execution-error' };
+		}
 	}
 }

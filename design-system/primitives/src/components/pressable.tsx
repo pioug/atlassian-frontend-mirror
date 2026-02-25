@@ -215,7 +215,6 @@ const Pressable: React.ForwardRefExoticComponent<
 
 		return (
 			<button
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={style}
 				ref={ref}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

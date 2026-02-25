@@ -30,9 +30,11 @@ import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
 import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { PanelPlugin, PanelPluginOptions } from '../panelPluginType';
 import { panelAttrsToDom } from '../pm-plugins/utils/utils';
+import { renderPanelIcon } from '../ui/renderPanelIcon';
 
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Mapping export
@@ -143,18 +145,30 @@ class PanelNodeView {
 		// set contentEditable as false to be able to select the custom panels with keyboard
 		this.icon.contentEditable = 'false';
 
-		this.nodeViewPortalProviderAPI.render(
-			() => (
-				<PanelIcon
-					pluginInjectionApi={api}
-					allowCustomPanel={pluginOptions.allowCustomPanel}
-					panelAttributes={node.attrs as PanelAttributes}
-					providerFactory={this.providerFactory}
-				/>
-			),
-			this.icon,
-			this.key,
-		);
+		const panelAttrs = node.attrs as PanelAttributes;
+
+		// Determine if this is a standard panel type (info, note, success, warning, error)
+		const isStandardPanel = panelAttrs.panelType &&
+			[PanelType.INFO, PanelType.NOTE, PanelType.SUCCESS, PanelType.WARNING, PanelType.ERROR].includes(panelAttrs.panelType);
+
+		// For standard panels (info, note, success, warning, error), render icon directly as native DOM
+		// This avoids Portal rendering delays that cause flickering on SSR and page transitions
+		if (isStandardPanel && expValEquals('platform_editor_vc90_transition_fixes_batch_1', 'isEnabled', true)) {
+			renderPanelIcon(panelAttrs.panelType, this.icon);
+		} else {
+			this.nodeViewPortalProviderAPI.render(
+				() => (
+					<PanelIcon
+						pluginInjectionApi={api}
+						allowCustomPanel={pluginOptions.allowCustomPanel}
+						panelAttributes={panelAttrs}
+						providerFactory={this.providerFactory}
+					/>
+				),
+				this.icon,
+				this.key,
+			);
+		}
 	}
 
 	ignoreMutation(mutation: MutationRecord | { target: Node; type: 'selection' }): boolean {
@@ -169,7 +183,14 @@ class PanelNodeView {
 	}
 
 	destroy(): void {
-		this.nodeViewPortalProviderAPI.remove(this.key);
+		const panelAttrs = this.node.attrs as PanelAttributes;
+		// Determine if this is a standard panel type (info, note, success, warning, error)
+		const isStandardPanel = panelAttrs.panelType &&
+			[PanelType.INFO, PanelType.NOTE, PanelType.SUCCESS, PanelType.WARNING, PanelType.ERROR].includes(panelAttrs.panelType);
+		// Only remove Portal if it was used (for custom emoji panels)
+		if (!(isStandardPanel && expValEquals('platform_editor_vc90_transition_fixes_batch_1', 'isEnabled', true))) {
+			this.nodeViewPortalProviderAPI.remove(this.key);
+		}
 	}
 }
 

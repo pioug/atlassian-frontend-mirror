@@ -15,7 +15,7 @@ const styles = cssMap({
 	root: {
 		background: 'transparent',
 		position: 'absolute',
-		top: token('space.0'),
+		insetBlockStart: token('space.0'),
 	},
 	popperStyles: {
 		zIndex: 300,
@@ -88,7 +88,6 @@ export default class FixedLayer extends React.Component<FixedLayerProps> {
 						return (
 							<div
 								ref={ref as React.Ref<HTMLDivElement>}
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 								style={style}
 								css={styles.popperStyles}
 								data-testid={testId && `${testId}--popper--container`}

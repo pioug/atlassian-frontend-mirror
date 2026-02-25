@@ -146,6 +146,8 @@ export const DELETE_MENU_ITEM = {
 	key: 'delete-menu-item',
 };
 
+export const BLOCK_MENU_TEST_ID = 'editor-block-menu';
+
 // Experience tracking test IDs
 // Used by experience tracking to detect menu action clicks
 

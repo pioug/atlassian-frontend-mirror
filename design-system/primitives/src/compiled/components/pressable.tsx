@@ -138,7 +138,6 @@ const Pressable: React.ForwardRefExoticComponent<
 				// Adding a tabIndex of 0 to the button will allow it to be focused on click.
 				// This is a known issue in Safari that is meant to be "intended", see https://bugs.webkit.org/show_bug.cgi?id=22261
 				tabIndex={tabIndex ?? (isSafari() && !isDisabled ? 0 : undefined)}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- TODO: Properly type this and allow pass-through if we can determine the type
 				style={style}
 				{...safeHtmlAttributes}
 				type={type}

@@ -42,7 +42,7 @@ const ulStyles = css({
 const liStyles = css({
 	display: 'block',
 	margin: 0,
-	padding: 0
+	padding: 0,
 });
 
 const logos = [
@@ -94,7 +94,6 @@ export default (): JSX.Element => {
 											ref={props.ref}
 											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 											className={props.className}
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 											style={props.style}
 											css={liStyles}
 										>

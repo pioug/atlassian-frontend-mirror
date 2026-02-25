@@ -33,7 +33,7 @@ const cellStyles = css({
 	paddingBlockEnd: token('space.050', '4px'),
 	paddingBlockStart: token('space.050', '4px'),
 	paddingInlineEnd: 0,
-	paddingInlineStart: 0
+	paddingInlineStart: 0,
 });
 
 /**
@@ -52,9 +52,7 @@ const animationStyles = css({
 const Table = (props: React.HTMLProps<HTMLDivElement>) => (
 	<div css={tableStyles}>{props.children}</div>
 );
-const Row = (props: React.HTMLProps<HTMLDivElement>) => (
-	<div css={rowStyles}>{props.children}</div>
-);
+const Row = (props: React.HTMLProps<HTMLDivElement>) => <div css={rowStyles}>{props.children}</div>;
 const Cell = (props: React.HTMLProps<HTMLDivElement>) => (
 	<div css={cellStyles}>{props.children}</div>
 );

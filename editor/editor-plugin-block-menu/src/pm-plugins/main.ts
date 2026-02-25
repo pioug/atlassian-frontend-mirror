@@ -42,7 +42,7 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockMenuPlugin> | undefin
 				}
 
 				// Block further handling of key events when block menu is open
-				// Except for backspace/delete/copy/cut/paste/undo/redo/copy-link-to-block which should be handled by the selection preservation plugin
+				// Except for backspace/delete/copy/cut/paste/undo/redo/copy-link-to-selection which should be handled by the selection preservation plugin
 				return shouldSuppressKeyboardEvent(event);
 			},
 		},

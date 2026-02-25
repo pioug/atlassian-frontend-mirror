@@ -63,7 +63,7 @@ export const LinkAppearanceMenu = ({
 				editorState,
 				Fragment.from(editorState.schema.nodes.blockCard.createChecked({})),
 				currentAppearance,
-		  )
+			)
 		: false;
 
 	const isEmbedCardLinkSupportedInParent = allowEmbeds
@@ -71,7 +71,7 @@ export const LinkAppearanceMenu = ({
 				editorState,
 				Fragment.from(editorState.schema.nodes.embedCard.createChecked({})),
 				currentAppearance,
-		  )
+			)
 		: false;
 
 	const embedOption = allowEmbeds &&

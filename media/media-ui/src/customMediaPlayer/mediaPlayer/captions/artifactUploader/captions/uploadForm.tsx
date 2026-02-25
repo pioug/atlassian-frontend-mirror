@@ -9,7 +9,7 @@ import Modal, {
 } from '@atlaskit/modal-dialog';
 import LocaleSelect, { defaultLocales, type Locale } from '@atlaskit/locale/LocaleSelect';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Inline } from "@atlaskit/primitives/compiled";
+import { Box, Inline } from '@atlaskit/primitives/compiled';
 import FileIcon from '@atlaskit/icon/core/file';
 import { token } from '@atlaskit/tokens';
 import { Label } from '@atlaskit/form';

@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import type React from 'react';
-import { useMemo, useCallback, Fragment } from 'react';
+import { useMemo, useCallback } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
@@ -140,13 +140,23 @@ const accessibilityStylesOld = css({
 });
 
 const accessibilityStylesNew = css({
-	clipPath: 'inset(100%)',
-	clip: 'rect(1px, 1px, 1px, 1px)',
-	height: '1px',
-	overflow: 'hidden',
-	position: 'absolute',
-	whiteSpace: 'nowrap',
-	width: '1px',
+	'&::before, &::after': {
+		clipPath: 'inset(100%)',
+		clip: 'rect(1px, 1px, 1px, 1px)',
+		height: '1px',
+		overflow: 'hidden',
+		position: 'absolute',
+		whiteSpace: 'nowrap',
+		width: '1px',
+	},
+	'&::before': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		content: ['var(--ak-renderer-annotation-startmarker)'],
+	},
+	'&::after': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		content: ['var(--ak-renderer-annotation-endmarker)'],
+	},
 });
 
 type MarkComponentProps = {
@@ -255,7 +265,7 @@ export const MarkComponent = ({
 				'data-mark-annotation-state': state,
 				'data-has-focus': hasFocus,
 				'data-is-hovered': isHovered,
-		  };
+			};
 
 	const desktopAccessibilityAttributes = isMobile()
 		? {}
@@ -264,7 +274,7 @@ export const MarkComponent = ({
 				tabIndex: 0,
 				onKeyDown: onMarkEnter,
 				'aria-expanded': hasFocus,
-		  };
+			};
 
 	const accessibility =
 		state !== AnnotationMarkStates.ACTIVE
@@ -272,7 +282,7 @@ export const MarkComponent = ({
 			: {
 					'aria-details': annotationIds.join(', '),
 					...desktopAccessibilityAttributes,
-			  };
+				};
 
 	return jsx(
 		useBlockLevel ? 'div' : 'mark',
@@ -288,11 +298,21 @@ export const MarkComponent = ({
 					markStylesLayeringFix,
 					fg('editor_inline_comments_on_inline_nodes') && markStylesWithInlineComments,
 					markStylesWithCommentsPanel,
-					!fg('platform_renderer_a11y_inline_comment_fix') && !isMobile() && accessibilityStylesOld,
+					!isMobile() &&
+						(fg('platform_renderer_a11y_inline_comment_fix')
+							? accessibilityStylesNew
+							: accessibilityStylesOld),
 					markStylesWithUpdatedShadow,
 				],
 				style: fg('platform_renderer_a11y_inline_comment_fix')
-					? {}
+					? {
+							'--ak-renderer-annotation-startmarker': `"${intl.formatMessage(
+								inlineCommentMessages.contentRendererInlineCommentMarkerStart,
+							)}"`,
+							'--ak-renderer-annotation-endmarker': `"${intl.formatMessage(
+								inlineCommentMessages.contentRendererInlineCommentMarkerEnd,
+							)}"`,
+					  }
 					: {
 							'--ak-renderer-annotation-startmarker': intl.formatMessage(
 								inlineCommentMessages.contentRendererInlineCommentMarkerStart,
@@ -300,25 +320,9 @@ export const MarkComponent = ({
 							'--ak-renderer-annotation-endmarker': intl.formatMessage(
 								inlineCommentMessages.contentRendererInlineCommentMarkerEnd,
 							),
-					  },
+						},
 			}),
 		},
-		fg('platform_renderer_a11y_inline_comment_fix') ? (
-			useBlockLevel || isMobile() ? (
-				children
-			) : (
-				<Fragment>
-					<span css={accessibilityStylesNew}>
-						{intl.formatMessage(inlineCommentMessages.contentRendererInlineCommentMarkerStart)}
-					</span>
-					{children}
-					<span css={accessibilityStylesNew}>
-						{intl.formatMessage(inlineCommentMessages.contentRendererInlineCommentMarkerEnd)}
-					</span>
-				</Fragment>
-			)
-		) : (
-			children
-		),
+		children,
 	);
 };

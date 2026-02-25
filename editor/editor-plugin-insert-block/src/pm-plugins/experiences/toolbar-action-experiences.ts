@@ -7,6 +7,7 @@ import {
 	EXPERIENCE_ID,
 	ExperienceCheckDomMutation,
 	ExperienceCheckTimeout,
+	type PopupCheckType,
 	getPopupContainerFromEditorView,
 } from '@atlaskit/editor-common/experiences';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -16,7 +17,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import {
 	ExperienceCheckPopupMutation,
-	type PopupCheckType,
 	getParentDOMAtSelection,
 	handleEditorNodeInsertDomMutation,
 	isToolbarButtonClick,
@@ -75,7 +75,11 @@ export const getToolbarActionExperiencesPlugin = ({
 			return undefined;
 		}
 
-		return lastClickedToolbarButton;
+		return (
+			lastClickedToolbarButton.closest<HTMLElement>(
+				'[data-toolbar-component="button-group"]',
+			) ?? lastClickedToolbarButton
+		);
 	};
 
 	const narrowParentObserveConfig = () => ({
@@ -117,12 +121,12 @@ export const getToolbarActionExperiencesPlugin = ({
 			dispatchAnalyticsEvent,
 			checks: [
 				new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
-				new ExperienceCheckPopupMutation(
-					popupSelector,
-					type === 'inline' ? getInlinePopupTarget : getPopupsTarget,
-					getEditorDom,
-					type,
-				),
+			new ExperienceCheckPopupMutation({
+				nestedElementQuery: popupSelector,
+				getTarget: type === 'inline' ? getInlinePopupTarget : getPopupsTarget,
+				getEditorDom,
+				type,
+			}),
 			],
 		});
 

@@ -112,7 +112,6 @@ const Clone = (props: CloneProps): React.JSX.Element => {
 			pulse={pulse}
 			bgColor={targetBgColor}
 			radius={targetRadius}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={style}
 		>
 			<div

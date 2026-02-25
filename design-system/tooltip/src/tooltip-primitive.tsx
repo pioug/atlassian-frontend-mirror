@@ -38,12 +38,7 @@ const TooltipPrimitive: React.ForwardRefExoticComponent<
 	ref,
 ) {
 	return (
-		<div
-			ref={ref}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			style={style}
-			data-testid={testId ? `${testId}--wrapper` : undefined}
-		>
+		<div ref={ref} style={style} data-testid={testId ? `${testId}--wrapper` : undefined}>
 			{/* Re: non-interactive element interactions: Because we are creating a tooltip, we *need* these mouse handlers. */}
 			<div
 				role="tooltip"

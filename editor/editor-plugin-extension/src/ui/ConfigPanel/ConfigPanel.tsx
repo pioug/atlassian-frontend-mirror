@@ -253,7 +253,7 @@ class ConfigPanel extends React.Component<Props, State> {
 					...(extensionManifest?.key && ALLOWED_LOGGED_MACRO_PARAMS[extensionManifest.key]
 						? {
 								parameters: getLoggedParameters(extensionManifest.key, currentParameters, fields),
-						  }
+							}
 						: {}),
 				},
 			},

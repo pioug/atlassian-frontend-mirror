@@ -205,7 +205,8 @@ export class CommentEditorWithFeedback extends React.Component<Props, State> {
 												cannotPasteSyncedBlock: {
 													title: syncBlockMessages.cannotPasteSyncedBlockTitle,
 													description: syncBlockMessages.cannotPasteSyncedBlockDescription,
-													urlHref: 'https://hello.atlassian.net/wiki/x/tAtCeAE',
+													urlHref:
+														'https://support.atlassian.com/confluence-cloud/docs/reuse-content-with-synced-blocks',
 													urlText: syncBlockMessages.cannotPasteSyncedBlockAction,
 												},
 											}}

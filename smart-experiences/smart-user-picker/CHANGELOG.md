@@ -1,5 +1,12 @@
 # @atlassian/smart-user-picker
 
+## 9.0.1
+
+### Patch Changes
+
+- [`94aa45d957856`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/94aa45d957856) -
+  Add atl-attribution header to network requests for metrics attribution in AGG
+
 ## 9.0.0
 
 ### Major Changes

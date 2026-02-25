@@ -229,6 +229,59 @@ typescriptEslintTester.run(
         };
       `,
 			},
+			{
+				name: 'Style prop pass-through - member expression',
+				code: `
+					function Badge(props) {
+						return <div style={props.style} />
+					}
+				`,
+			},
+			{
+				name: 'Style prop pass-through - named function',
+				code: `
+					function Badge({ style }: BadgeProps) {
+						return <div style={style} />
+					}
+				`,
+			},
+			{
+				name: 'Style prop pass-through - arrow function',
+				code: `
+					<Manager>
+						<Reference>
+							{({ ref }) => <div ref={ref} />}
+						</Reference>
+						<Popper>
+							{({ ref, style }: PopperChildrenProps) => {
+								return (
+									<div
+										ref={ref}
+										style={style}
+									/>
+								);
+							}}
+						</Popper>
+					</Manager>
+				`,
+			},
+			{
+				name: 'Style prop pass-through - function expression',
+				code: `
+					const Badge = function Badge({ style }: BadgeProps) {
+						return <div style={style} />
+					}
+				`,
+			},
+			{
+				name: 'Style prop pass-through - destructured from props',
+				code: `
+					function Component(props) {
+						const { style } = props;
+						return <div style={style} />;
+					}
+				`,
+			},
 		],
 		invalid: [
 			{
@@ -381,6 +434,121 @@ typescriptEslintTester.run(
 								: 5;
 
 						return <Component style={{ height: canvasHeight }} />
+					}
+				`,
+				errors: [{ messageId: 'enforce-style-prop' }],
+			},
+			{
+				name: 'Deep destructing in parameters',
+				code: `
+					function Component({ other: { style } }) {
+						return <div style={style} />;
+					}
+				`,
+				errors: [{ messageId: 'enforce-style-prop' }],
+			},
+			{
+				name: 'Deep destructing in body',
+				code: `
+					function Component(props) {
+					  const { other: { style } } = props;
+						return <div style={style} />;
+					}
+				`,
+				errors: [{ messageId: 'enforce-style-prop' }],
+			},
+			{
+				name: 'MemberExpression on function parameter',
+				code: `
+					function Component(props) {
+						const { style } = props.other;
+						return <div style={style} />;
+					}
+				`,
+				errors: [{ messageId: 'enforce-style-prop' }],
+			},
+			{
+				name: 'Deep destructing in body',
+				code: `
+					function Component(props) {
+						const { other: { style } } = props;
+						return <div style={style} />;
+					}
+				`,
+				errors: [{ messageId: 'enforce-style-prop' }],
+			},
+			{
+				name: 'Deep prop pass-through',
+				code: `
+					function Badge(props) {
+						return <div style={props.other.style} />
+					}
+				`,
+				errors: [{ messageId: 'enforce-style-prop' }],
+			},
+			{
+				name: 'Random prop pass-through - member expression',
+				code: `
+					function Badge(props) {
+						return <div style={props.other} />
+					}
+				`,
+				errors: [{ messageId: 'enforce-style-prop' }],
+			},
+			{
+				name: 'Random prop pass-through - named function',
+				code: `
+					function Badge({ other }: BadgeProps) {
+						return <div style={other} />
+					}
+				`,
+				errors: [{ messageId: 'enforce-style-prop' }],
+			},
+			{
+				name: 'Random prop pass-through - named function',
+				code: `
+					function Badge({ other: style }: BadgeProps) {
+						return <div style={style} />
+					}
+				`,
+				errors: [{ messageId: 'enforce-style-prop' }],
+			},
+			{
+				name: 'Random prop pass-through - anonymous function',
+				code: `
+					<Manager>
+						<Reference>
+							{({ ref }) => <div ref={ref} />}
+						</Reference>
+						<Popper>
+							{({ ref, other }: PopperChildrenProps) => {
+								return (
+									<div
+										ref={ref}
+										style={other}
+									/>
+								);
+							}}
+						</Popper>
+					</Manager>
+				`,
+				errors: [{ messageId: 'enforce-style-prop' }],
+			},
+			{
+				name: 'Random prop pass-through - destructured from props',
+				code: `
+					function Component(props) {
+						const { other } = props;
+						return <div style={other} />;
+					}
+				`,
+				errors: [{ messageId: 'enforce-style-prop' }],
+			},
+			{
+				name: 'Deep style MemberExpression',
+				code: `
+					function Component({ innerProps }) {
+						return <div style={innerProps.style} />;
 					}
 				`,
 				errors: [{ messageId: 'enforce-style-prop' }],

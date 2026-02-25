@@ -770,9 +770,9 @@ export const BaseUserPicker: React.ForwardRefExoticComponent<
 				name?: string;
 				noBorder?: boolean;
 				noOptionsMessage?:
-				| ((value: { inputValue: string }) => string | null | React.ReactNode)
-				| null
-				| React.ReactNode;
+					| ((value: { inputValue: string }) => string | null | React.ReactNode)
+					| null
+					| React.ReactNode;
 				onBlur?: OnPicker;
 				onChange?: OnChange;
 				onClear?: OnPicker;

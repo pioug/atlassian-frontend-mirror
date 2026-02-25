@@ -1,5 +1,13 @@
 # @atlaskit/tooltip
 
+## 20.14.4
+
+### Patch Changes
+
+- [`5db9e3f21a52f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5db9e3f21a52f) -
+  Internal refactoring
+- Updated dependencies
+
 ## 20.14.3
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-components
 
+## 3.35.0
+
+### Minor Changes
+
+- [`28160ba7270df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28160ba7270df) -
+  Fixed various decorative icon a11y issues
+
 ## 3.34.1
 
 ### Patch Changes

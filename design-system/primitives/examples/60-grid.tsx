@@ -14,7 +14,6 @@ const customBorderStyles = xcss({
 const Block = ({ style }: { style?: BoxProps<'div'>['style'] }) => (
 	<Box
 		xcss={customBorderStyles}
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		style={style}
 		backgroundColor="color.background.neutral"
 		padding="space.600"

@@ -1,5 +1,12 @@
 # @atlaskit/motion
 
+## 5.3.11
+
+### Patch Changes
+
+- [`5db9e3f21a52f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5db9e3f21a52f) -
+  Internal refactoring
+
 ## 5.3.10
 
 ### Patch Changes

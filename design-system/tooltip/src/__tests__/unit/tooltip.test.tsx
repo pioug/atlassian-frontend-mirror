@@ -603,7 +603,6 @@ describe('Tooltip', () => {
 		const CustomTooltip: React.ForwardRefExoticComponent<
 			React.PropsWithoutRef<TooltipPrimitiveProps> & React.RefAttributes<HTMLDivElement>
 		> = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(({ style, testId }, ref) => (
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			<strong ref={ref} style={style} data-testid={testId}>
 				Im a custom tooltip
 			</strong>

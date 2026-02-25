@@ -10,6 +10,7 @@ import { css, jsx } from '@emotion/react';
 
 import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 const MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT = 490;
@@ -82,6 +83,10 @@ const mainToolbarWithRadiusStyle = css({
 	borderRadius: `${token('radius.small', '3px')} ${token('radius.small', '3px')} 0 0`,
 });
 
+const mainToolbarRadius = css({
+	borderRadius: `${token('radius.medium', '6px')} ${token('radius.medium', '6px')} 0 0`,
+});
+
 const stickyToolbarWrapperStyleNew = css({
 	position: 'sticky',
 	paddingBottom: token('space.100', '8px'),
@@ -150,7 +155,11 @@ const FixedToolbar = (props: FixedToolbarProps) => (
 			props.twoLineEditorToolbar && mainToolbarTwoLineStylesNew,
 			mainToolbarWrapperStylesVisualRefresh,
 			props.isNewToolbarEnabled && mainToolbarWithoutLeftPadding,
-			fg('platform_editor_comments_border_radius') && mainToolbarWithRadiusStyle,
+			!expValEquals('platform_editor_comment_editor_border_radius', 'isEnabled', true) &&
+				fg('platform_editor_comments_border_radius') &&
+				mainToolbarWithRadiusStyle,
+			expValEquals('platform_editor_comment_editor_border_radius', 'isEnabled', true) &&
+				mainToolbarRadius,
 		]}
 		data-testid="ak-editor-main-toolbar"
 	>

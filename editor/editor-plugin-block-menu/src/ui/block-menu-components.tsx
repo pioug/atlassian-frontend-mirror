@@ -49,6 +49,11 @@ import { MoveDownDropdownItem } from './move-down';
 import { MoveUpDropdownItem } from './move-up';
 import { SuggestedItemsMenuSection } from './suggested-items-menu-section';
 import { SuggestedMenuItems } from './suggested-menu-items';
+import {
+	hasContentBeforeCreate,
+	hasContentBeforeStructure,
+	hasContentBeforeHeadings,
+} from './utils/checkHasPreviousSectionContent';
 import { createMenuItemsMap } from './utils/createMenuItemsMap';
 import { getSuggestedItemsFromSelection } from './utils/getSuggestedItemsFromSelection';
 
@@ -167,7 +172,11 @@ const getTurnIntoMenuComponents = (
 				rank: TRANSFORM_MENU_ITEM_RANK[TRANSFORM_CREATE_MENU_SECTION.key],
 			},
 			component: ({ children }: { children: React.ReactNode } = { children: null }) => {
-				return <MenuSection title={blockMenuMessages.create}>{children}</MenuSection>;
+				return (
+					<MenuSection title={blockMenuMessages.create} hasSeparator={hasContentBeforeCreate(api)}>
+						{children}
+					</MenuSection>
+				);
 			},
 		},
 		{
@@ -179,7 +188,14 @@ const getTurnIntoMenuComponents = (
 				rank: TRANSFORM_MENU_ITEM_RANK[TRANSFORM_STRUCTURE_MENU_SECTION.key],
 			},
 			component: ({ children }: { children: React.ReactNode } = { children: null }) => {
-				return <MenuSection title={blockMenuMessages.structure}>{children}</MenuSection>;
+				return (
+					<MenuSection
+						title={blockMenuMessages.structure}
+						hasSeparator={hasContentBeforeStructure(api)}
+					>
+						{children}
+					</MenuSection>
+				);
 			},
 		},
 		{
@@ -192,7 +208,7 @@ const getTurnIntoMenuComponents = (
 			},
 			component: ({ children }: { children: React.ReactNode } = { children: null }) => {
 				return (
-					<MenuSection title={blockMenuMessages.headings} hasSeparator>
+					<MenuSection title={blockMenuMessages.headings} hasSeparator={hasContentBeforeHeadings(api)}>
 						{children}
 					</MenuSection>
 				);

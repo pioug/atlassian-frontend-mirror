@@ -101,6 +101,7 @@ function SafeSmartUserPicker({
 				makeCompat(safeValue),
 				productKey,
 				undefined, // no need to override siteId
+				{ tenantId: siteId },
 			);
 
 			if (cancel || !isOptionData(hydrated)) {
@@ -115,7 +116,7 @@ function SafeSmartUserPicker({
 		return () => {
 			cancel = true;
 		};
-	}, [safeValue, productKey]);
+	}, [safeValue, productKey, siteId]);
 
 	return (
 		<SmartUserPicker

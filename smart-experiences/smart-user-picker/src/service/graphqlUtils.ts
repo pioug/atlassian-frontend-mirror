@@ -1,6 +1,15 @@
-const buildHeaders = () => {
+import { fg } from '@atlaskit/platform-feature-flags';
+import { createAtlAttributionHeader, type AtlAttributionHeaderData } from './atl-attribution';
+export type { AtlAttributionHeaderData } from './atl-attribution';
+
+const buildHeaders = (attributionData?: Partial<AtlAttributionHeaderData>) => {
 	const headers = new Headers();
 	headers.append('Content-Type', 'application/json');
+
+	if (fg('smart-user-picker-attribution-header')) {
+		const atlAttributionHeader = createAtlAttributionHeader(attributionData);
+		headers.append('atl-attribution', atlAttributionHeader['atl-attribution']);
+	}
 
 	return headers;
 };
@@ -18,9 +27,14 @@ export interface GraphQLError {
 /**
  * @param {string} serviceUrl - GraphQL service endpoint
  * @param {Query} query - GraphQL query
+ * @param {Partial<AtlAttributionHeaderData>} attributionData - Optional attribution data for the atl-attribution header
  */
-export function graphqlQuery<D>(serviceUrl: string, query: Query): Promise<D> {
-	const headers = buildHeaders();
+export function graphqlQuery<D>(
+	serviceUrl: string,
+	query: Query,
+	attributionData?: Partial<AtlAttributionHeaderData>,
+): Promise<D> {
+	const headers = buildHeaders(attributionData);
 
 	return fetch(
 		new Request(`${serviceUrl}`, {

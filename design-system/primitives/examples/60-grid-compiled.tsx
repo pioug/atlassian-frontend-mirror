@@ -34,7 +34,6 @@ const styles = cssMap({
 const Block = ({ style }: { style?: BoxProps<'div'>['style'] }) => (
 	<Box
 		xcss={styles.customBorder}
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 		style={style}
 		backgroundColor="color.background.neutral"
 		padding="space.600"

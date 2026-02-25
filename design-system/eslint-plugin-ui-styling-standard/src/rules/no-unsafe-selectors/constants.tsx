@@ -7,13 +7,13 @@ import type { CSSPseudos } from '@compiled/react';
 type Validate<T extends true> = T;
 type HasAllUnique<Tuple, Union, Seen = never> = Tuple extends readonly [infer Head, ...infer Tail]
 	? Head extends Seen
-	? {
-		ERROR: ['The following key appears more than once in the tuple:', Head];
-	}
-	: HasAllUnique<Tail, Exclude<Union, Head>, Head | Seen>
+		? {
+				ERROR: ['The following key appears more than once in the tuple:', Head];
+			}
+		: HasAllUnique<Tail, Exclude<Union, Head>, Head | Seen>
 	: [Union] extends [never]
-	? true
-	: { ERROR: ['Some keys are missing from the tuple:', Union] };
+		? true
+		: { ERROR: ['Some keys are missing from the tuple:', Union] };
 
 /**
  * Exporting this so it isn't considered unused.

@@ -207,7 +207,8 @@ export const syncBlockMessages = defineMessages({
 	loadingSyncedContent: {
 		id: 'fabric.editor.syncedBlockLoadingSyncedContent',
 		defaultMessage: 'Loading synced content',
-		description: 'Accessible label for the loading spinner shown while synced block content is being fetched',
+		description:
+			'Accessible label for the loading spinner shown while synced block content is being fetched',
 	},
 	generalErrorDescription: {
 		id: 'fabric.editor.syncedBlockGeneralErrorDescription',

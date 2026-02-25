@@ -76,7 +76,11 @@ export const RemixButton = ({
 
 	// Same positioning pattern as quick insert / drag handle: anchor(start/end) or offset-based left/top
 	const calculatePosition = useCallback((): CSSProperties => {
-		const safeAnchorName = refreshAnchorName({ getPos, view, anchorName: rootAnchorName ?? anchorName });
+		const safeAnchorName = refreshAnchorName({
+			getPos,
+			view,
+			anchorName: rootAnchorName ?? anchorName,
+		});
 
 		const dom: HTMLElement | null = view.dom.querySelector(
 			`[${getAnchorAttrName()}="${safeAnchorName}"]`,

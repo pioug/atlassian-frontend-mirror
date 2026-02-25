@@ -97,7 +97,9 @@ export const fetchMediaToken = async (contentId: string): Promise<TokenData> => 
 			location: 'editor-synced-block-provider/fetchMediaToken',
 		});
 		const errorMsg = fg('platform_synced_block_patch_4')
-			? (error instanceof Error ? error.message : String(error))
+			? error instanceof Error
+				? error.message
+				: String(error)
 			: String(error);
 		throw new Error(`Failed to get content media session: ${errorMsg}`);
 	}

@@ -82,7 +82,7 @@ export default class SpotlightNodeExample extends Component<Object, State> {
 								}}
 							>
 								{({ ref, className, style }) => (
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-classname-prop
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 									<div ref={ref} style={style} className={className}>
 										<Highlight ref={this.drawer} color="green">
 											<Stack space="space.100" xcss={targetElementStyles.root}>

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-extension
 
+## 10.1.8
+
+### Patch Changes
+
+- [`a4f09d516e927`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4f09d516e927) -
+  [NO-ISSUE] Analytics for onclick for extensions copy
+- Updated dependencies
+
 ## 10.1.7
 
 ### Patch Changes

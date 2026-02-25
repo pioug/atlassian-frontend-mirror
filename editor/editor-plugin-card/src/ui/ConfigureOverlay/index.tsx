@@ -59,7 +59,7 @@ const OverlayWrapper = ({
 					? () => {
 							setShowConfigureButton(true);
 							hoverCallback(true);
-					  }
+						}
 					: undefined
 			}
 			onBlur={
@@ -69,7 +69,7 @@ const OverlayWrapper = ({
 								setShowConfigureButton(false);
 								hoverCallback(false);
 							}
-					  }
+						}
 					: undefined
 			}
 			data-testid="inline-card-overlay-wrapper"

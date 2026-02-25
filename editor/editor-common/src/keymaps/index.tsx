@@ -58,7 +58,11 @@ export const redo = makeKeymap('Redo', 'Ctrl-y', 'Mod-Shift-z');
 export const openHelp = makeKeyMapWithCommon('Open Help', 'Mod-/');
 export const addLink = makeKeyMapWithCommon('Link', 'Mod-k');
 export const addInlineComment = makeKeyMapWithCommon('Annotate', 'Mod-Alt-c');
-export const copyLinkToBlock = makeKeyMapWithCommon('Copy link to block', 'Mod-Alt-a');
+// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
+// Updated wording from "Copy link to block" to "Copy link to selection" for better UX clarity.
+// The actual displayed text is conditionally shown in the UI component based on the flag.
+// To clean up: This can remain as-is since it's the canonical name for the action.
+export const copyLinkToBlock = makeKeyMapWithCommon('Copy link to selection', 'Mod-Alt-a');
 export const submit = makeKeyMapWithCommon('Submit Content', 'Mod-Enter');
 export const enter = makeKeyMapWithCommon('Enter', 'Enter');
 export const shiftEnter = makeKeyMapWithCommon('Shift Enter', 'Shift-Enter');

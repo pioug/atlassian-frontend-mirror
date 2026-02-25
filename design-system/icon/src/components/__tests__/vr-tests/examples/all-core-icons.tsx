@@ -16,7 +16,7 @@ import React from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Inline } from "@atlaskit/primitives/compiled";
+import { Inline } from '@atlaskit/primitives/compiled';
 
 import AccessibilityIcon from '../../../../../core/accessibility';
 import AddIcon from '../../../../../core/add';

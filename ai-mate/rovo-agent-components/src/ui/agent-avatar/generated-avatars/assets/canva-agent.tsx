@@ -10,6 +10,7 @@ export default ({ size }: AvatarIconProps): React.JSX.Element => (
 		viewBox="0 0 32 32"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
+		aria-hidden="true"
 	>
 		<g clipPath="url(#clip0_995_20751)">
 			<rect width={size} height={size} rx="8" fill="#7D2AE7" />

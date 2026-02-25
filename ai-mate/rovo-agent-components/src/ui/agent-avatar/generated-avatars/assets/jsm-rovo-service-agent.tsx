@@ -7,7 +7,14 @@ export default ({
 	primaryColor: _primaryColor,
 	secondaryColor: _secondaryColor,
 }: AvatarIconProps): React.JSX.Element => (
-	<svg width="45" height="50" viewBox="0 0 45 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+	<svg
+		width="45"
+		height="50"
+		viewBox="0 0 45 50"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+		aria-hidden="true"
+	>
 		<path
 			d="M19.2938 1.13426C21.0414 0.127121 23.1945 0.12712 24.9421 1.13426L41.4117 10.6258C43.1593 11.633 44.2359 13.4943 44.2359 15.5085V34.4917C44.2359 36.506 43.1593 38.3673 41.4117 39.3744L24.9421 48.866C23.1945 49.8731 21.0414 49.8731 19.2938 48.866L2.82414 39.3744C1.07656 38.3673 0 36.506 0 34.4917V15.5085C0 13.4943 1.07656 11.633 2.82414 10.6258L19.2938 1.13426Z"
 			fill="#FFC716"

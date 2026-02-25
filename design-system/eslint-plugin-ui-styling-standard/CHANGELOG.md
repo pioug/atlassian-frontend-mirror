@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 1.6.0
+
+### Minor Changes
+
+- [`5db9e3f21a52f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5db9e3f21a52f) -
+  Changes the `@atlaskit/ui-styling-standard/enforce-style-prop` ESLint rule to allow pass-through
+  styles.
+
 ## 1.5.1
 
 ### Patch Changes

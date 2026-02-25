@@ -34,30 +34,30 @@ const spaceItems = [
 const styles = cssMap({
 	block: {
 		borderRadius: token('radius.xsmall'),
-		paddingTop: token('space.200'),
-		paddingRight: token('space.200'),
-		paddingBottom: token('space.200'),
-		paddingLeft: token('space.200'),
+		paddingBlockStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		paddingBlockEnd: token('space.200'),
+		paddingInlineStart: token('space.200'),
 	},
 	blockSmall: {
-		paddingTop: token('space.050'),
-		paddingRight: token('space.050'),
-		paddingBottom: token('space.050'),
-		paddingLeft: token('space.050'),
+		paddingBlockStart: token('space.050'),
+		paddingInlineEnd: token('space.050'),
+		paddingBlockEnd: token('space.050'),
+		paddingInlineStart: token('space.050'),
 	},
 	container: {
 		display: 'flex',
 		borderRadius: token('radius.xsmall'),
-		paddingTop: token('space.050'),
-		paddingRight: token('space.050'),
-		paddingBottom: token('space.050'),
-		paddingLeft: token('space.050'),
+		paddingBlockStart: token('space.050'),
+		paddingInlineEnd: token('space.050'),
+		paddingBlockEnd: token('space.050'),
+		paddingInlineStart: token('space.050'),
 	},
 	exampleWrapper: {
-		paddingTop: token('space.200'),
-		paddingRight: token('space.200'),
-		paddingBottom: token('space.200'),
-		paddingLeft: token('space.200'),
+		paddingBlockStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		paddingBlockEnd: token('space.200'),
+		paddingInlineStart: token('space.200'),
 	},
 	setWidth: { width: '200px' },
 	setHeight: { width: '200px' },
@@ -68,7 +68,6 @@ const Block = (props: { compact?: boolean; style?: CSSProperties; children?: Rea
 	<Box
 		xcss={cx(styles.block, props.compact && styles.blockSmall)}
 		backgroundColor="color.background.discovery.bold"
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 		style={props.style}
 	>
 		{props.children}

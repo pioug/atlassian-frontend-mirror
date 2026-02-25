@@ -24,14 +24,12 @@ import {
 } from '../../../examples/vr-flexible-card/vr-flexible-ui-icon';
 
 snapshot(IconTypeAttachment, {
-	featureFlags: {
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypeCheckItem, {
-	featureFlags: {
-	},
+	featureFlags: {},
 	ignoredErrors: [
 		{
 			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
@@ -43,8 +41,7 @@ snapshot(IconTypeCheckItem, {
 });
 
 snapshot(IconTypeComment, {
-	featureFlags: {
-	},
+	featureFlags: {},
 	ignoredErrors: [
 		{
 			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
@@ -56,8 +53,7 @@ snapshot(IconTypeComment, {
 });
 
 snapshot(IconTypeView, {
-	featureFlags: {
-	},
+	featureFlags: {},
 	ignoredErrors: [
 		{
 			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
@@ -69,8 +65,7 @@ snapshot(IconTypeView, {
 });
 
 snapshot(IconTypeReact, {
-	featureFlags: {
-	},
+	featureFlags: {},
 	ignoredErrors: [
 		{
 			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
@@ -82,74 +77,62 @@ snapshot(IconTypeReact, {
 });
 
 snapshot(IconTypeVote, {
-	featureFlags: {
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityBlocker, {
-	featureFlags: {
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityCritical, {
-	featureFlags: {
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityHigh, {
-	featureFlags: {
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityHighest, {
-	featureFlags: {
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityLow, {
-	featureFlags: {
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityLowest, {
-	featureFlags: {
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityMajor, {
-	featureFlags: {
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityMedium, {
-	featureFlags: {
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityMinor, {
-	featureFlags: {
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityTrivial, {
-	featureFlags: {
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityUndefined, {
-	featureFlags: {
-	},
+	featureFlags: {},
 	ignoredErrors: [
 		{
 			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
@@ -161,8 +144,7 @@ snapshot(IconTypePriorityUndefined, {
 });
 
 snapshot(IconTypeProgrammingLanguage, {
-	featureFlags: {
-	},
+	featureFlags: {},
 	ignoredErrors: [
 		{
 			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
@@ -174,8 +156,7 @@ snapshot(IconTypeProgrammingLanguage, {
 });
 
 snapshot(IconTypeSubscriber, {
-	featureFlags: {
-	},
+	featureFlags: {},
 	ignoredErrors: [
 		{
 			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
@@ -187,8 +168,7 @@ snapshot(IconTypeSubscriber, {
 });
 
 snapshot(IconTypeSubTasksProgress, {
-	featureFlags: {
-	},
+	featureFlags: {},
 	ignoredErrors: [
 		{
 			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,

@@ -287,6 +287,19 @@ describe('AgentProfileCreator', () => {
 		expect(screen.queryByTestId('agent-profile-creator-skeleton')).not.toBeInTheDocument();
 	});
 
+	test('should apply aria-hidden to the decorative rovo icon element', () => {
+		render(
+			<AgentProfileCreator
+				creator={getAgentCreator({ creatorType: 'SYSTEM' })}
+				isLoading={false}
+				onCreatorLinkClick={() => {}}
+			/>,
+			{ wrapper },
+		);
+		// aria-hidden is applied on a wrapper element because RovoIcon does not support aria-hidden directly
+		expect(screen.getByTestId('rovo-icon-wrapper')).toHaveAttribute('aria-hidden', 'true');
+	});
+
 	test('render correctly without creator', () => {
 		const { container } = render(
 			<AgentProfileCreator creator={undefined} isLoading={false} onCreatorLinkClick={() => {}} />,

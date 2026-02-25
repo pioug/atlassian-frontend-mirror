@@ -16,6 +16,7 @@ export const getStyles = memoizeOne(
 		isVisualRefresh?: boolean,
 		isPopupStyles?: boolean,
 		height?: number | string,
+		minHeight?: number | string,
 	): StylesConfig => {
 		let styles: StylesConfig = {
 			menu: (css, state) => ({
@@ -71,13 +72,13 @@ export const getStyles = memoizeOne(
 										: token('color.background.input.hovered', N30),
 					},
 					padding: 0,
-					minHeight: height || isCompact ? 'none' : 44,
+					minHeight: minHeight ? minHeight : height || isCompact ? 'none' : 44,
 					/* IE 11 needs to set height explicitly to be vertical align when being in not compact mode */
 					height: height ? height : isCompact || isMulti ? '100%' : 44,
 					maxWidth: '100%',
 				};
 			},
-			clearIndicator: ({ paddingTop, paddingBottom, paddingLeft, paddingRight, ...css }) => ({
+			clearIndicator: ({ _paddingTop, _paddingBottom, _paddingLeft, _paddingRight, ...css }) => ({
 				...css,
 				// By default show clear indicator, except for on devices where "hover" is supported.
 				// This means mobile devices (which do not support hover) will be able to see the clear indicator.
@@ -96,7 +97,7 @@ export const getStyles = memoizeOne(
 				...css,
 				paddingRight: token('space.050', '4px'),
 			}),
-			valueContainer: ({ paddingTop, paddingBottom, position, ...css }, state) => {
+			valueContainer: ({ _paddingTop, _paddingBottom, _position, ...css }, state) => {
 				const isMulti = state.selectProps.isMulti;
 
 				return {

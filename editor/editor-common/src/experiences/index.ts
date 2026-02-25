@@ -7,7 +7,10 @@ export { EXPERIENCE_ABORT_REASON, EXPERIENCE_FAILURE_REASON, EXPERIENCE_ID } fro
 
 export { ExperienceCheckComposite } from './ExperienceCheckComposite';
 export { ExperienceCheckDomMutation } from './ExperienceCheckDomMutation';
+export { ExperienceCheckPopupMutation } from './ExperienceCheckPopupMutation';
 export { ExperienceCheckTimeout } from './ExperienceCheckTimeout';
+
+export type { ExperienceCheckPopupMutationConfig, PopupCheckType } from './ExperienceCheckPopupMutation';
 
 export type {
 	ExperienceCheck,

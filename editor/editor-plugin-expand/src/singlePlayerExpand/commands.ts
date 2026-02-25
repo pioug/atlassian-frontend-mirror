@@ -291,9 +291,9 @@ export const focusIcon =
 			return false;
 		}
 
-		// TODO: ED-29205 - During platform_editor_native_expand_button cleanup, rename `iconContainer` to `iconButton`.
+		// TODO: ED-29205 - During platform_editor_vc90_transition_fixes_batch_1 cleanup, rename `iconContainer` to `iconButton`.
 		const iconContainer = (
-			expValEquals('platform_editor_native_expand_button', 'isEnabled', true)
+			expValEquals('platform_editor_vc90_transition_fixes_batch_1', 'isEnabled', true)
 				? expand.querySelector(`.${expandClassNames.iconButton}`)
 				: expand.querySelector(`.${expandClassNames.iconContainer}`)
 		) as HTMLElement | null;

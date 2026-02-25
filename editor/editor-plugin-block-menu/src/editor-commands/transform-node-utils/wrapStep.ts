@@ -10,7 +10,7 @@ import { convertExpandToNestedExpand } from './utils';
  * Wraps nodes into the target container type.
  * When wrapping into expand, any expand children are converted to nestedExpand
  * since expand cannot be a direct child of expand.
- * 
+ *
  * Preserves breakout marks when both source and target nodes support resizing
  * (codeBlock, expand, layoutSection).
  */

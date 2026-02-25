@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-type
 
+## 11.2.21
+
+### Patch Changes
+
+- [`7ea2e225c0abb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ea2e225c0abb) -
+  [ux] Minor styling, wording changes for block menu and sync blocks
+- Updated dependencies
+
 ## 11.2.20
 
 ### Patch Changes

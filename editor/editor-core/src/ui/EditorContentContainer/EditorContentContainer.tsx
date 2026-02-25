@@ -91,7 +91,7 @@ import {
 import { firstBlockNodeStyles } from './styles/firstBlockNodeStyles';
 import { firstFloatingToolbarButtonStyles } from './styles/floatingToolbarStyles';
 import { fullPageEditorStyles } from './styles/fullPageEditorStyles';
-import { gapCursorStyles } from './styles/gapCursorStyles';
+import { gapCursorStyles, gapCursorStylesVisibilityFix } from './styles/gapCursorStyles';
 import { gridStyles } from './styles/gridStyles';
 import { indentationStyles } from './styles/indentationStyles';
 import { InlineNodeViewSharedStyles } from './styles/inlineNodeViewSharedStyles';
@@ -459,6 +459,10 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					telepointerColorAndCommonStyle,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					gapCursorStyles,
+					expValEquals('platform_synced_block', 'isEnabled', true) &&
+						fg('platform_synced_block_patch_4') &&
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							gapCursorStylesVisibilityFix,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					panelStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

@@ -119,8 +119,12 @@ export const SelectionExtensionDropdownItem = ({
 						IconComponent ? (
 							<IconComponent
 								size={
-									extensionLocation === 'inline-toolbar' &&
-									fg('platform_editor_block_menu_v2_patch_1')
+									// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
+									// To clean up: simplify conditional to just check if extensionLocation is inline-toolbar or block-menu
+									(extensionLocation === 'inline-toolbar' ||
+										extensionLocation === 'block-menu') &&
+									(fg('platform_editor_block_menu_v2_patch_1') ||
+										fg('platform_editor_block_menu_v2_patch_3'))
 										? 'small'
 										: undefined
 								}
@@ -152,7 +156,11 @@ export const SelectionExtensionDropdownItem = ({
 				IconComponent ? (
 					<IconComponent
 						size={
-							extensionLocation === 'inline-toolbar' && fg('platform_editor_block_menu_v2_patch_1')
+							// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
+							// To clean up: simplify conditional to just check if extensionLocation is inline-toolbar or block-menu
+							(extensionLocation === 'inline-toolbar' || extensionLocation === 'block-menu') &&
+							(fg('platform_editor_block_menu_v2_patch_1') ||
+								fg('platform_editor_block_menu_v2_patch_3'))
 								? 'small'
 								: undefined
 						}

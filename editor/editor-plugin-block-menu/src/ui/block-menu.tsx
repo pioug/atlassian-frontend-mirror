@@ -10,6 +10,7 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import { BLOCK_MENU_TEST_ID } from '@atlaskit/editor-common/block-menu';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { DRAG_HANDLE_SELECTOR, DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles';
@@ -168,7 +169,7 @@ const BlockMenuContent = ({
 
 	return (
 		<Box
-			testId="editor-block-menu"
+			testId={BLOCK_MENU_TEST_ID}
 			role={
 				expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
 					? 'menu'

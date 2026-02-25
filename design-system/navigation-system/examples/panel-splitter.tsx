@@ -13,7 +13,7 @@ import {
 	type ResizeBounds,
 } from '@atlaskit/navigation-system/layout/panel-splitter';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Inline } from "@atlaskit/primitives/compiled";
+import { Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const widthVar = '--panel-width';
@@ -43,10 +43,10 @@ export const PanelSplitterWithPixelBounds: () => JSX.Element = () => {
 	}, []);
 
 	return (
-        // PanelSplitter accesses the open layer observer, so needs to be wrapped in the provider.
-        // In apps using nav4 correctly, the OpenLayerObserver is provided by `Root`.
-        <OpenLayerObserver>
-            <div
+		// PanelSplitter accesses the open layer observer, so needs to be wrapped in the provider.
+		// In apps using nav4 correctly, the OpenLayerObserver is provided by `Root`.
+		<OpenLayerObserver>
+			<div
 				ref={panelSplitterParentRef}
 				css={[styles.root, styles.positionEnd]}
 				style={
@@ -66,8 +66,8 @@ export const PanelSplitterWithPixelBounds: () => JSX.Element = () => {
 					<PanelSplitter label="Resize panel" testId="panel-splitter" />
 				</PanelSplitterProvider>
 			</div>
-        </OpenLayerObserver>
-    );
+		</OpenLayerObserver>
+	);
 };
 
 export const PanelSplitterWithRelativeBounds: () => JSX.Element = () => {
@@ -79,10 +79,10 @@ export const PanelSplitterWithRelativeBounds: () => JSX.Element = () => {
 	}, []);
 
 	return (
-        // PanelSplitter accesses the open layer observer, so needs to be wrapped in the provider.
-        // In apps using nav4 correctly, the OpenLayerObserver is provided by `Root`.
-        <OpenLayerObserver>
-            <div
+		// PanelSplitter accesses the open layer observer, so needs to be wrapped in the provider.
+		// In apps using nav4 correctly, the OpenLayerObserver is provided by `Root`.
+		<OpenLayerObserver>
+			<div
 				ref={panelSplitterParentRef}
 				css={[styles.root, styles.positionEnd]}
 				style={
@@ -102,8 +102,8 @@ export const PanelSplitterWithRelativeBounds: () => JSX.Element = () => {
 					<PanelSplitter label="Resize panel" testId="panel-splitter" />
 				</PanelSplitterProvider>
 			</div>
-        </OpenLayerObserver>
-    );
+		</OpenLayerObserver>
+	);
 };
 
 export const PanelSplitterPositionStart: () => JSX.Element = () => {
@@ -115,10 +115,10 @@ export const PanelSplitterPositionStart: () => JSX.Element = () => {
 	}, []);
 
 	return (
-        // PanelSplitter accesses the open layer observer, so needs to be wrapped in the provider.
-        // In apps using nav4 correctly, the OpenLayerObserver is provided by `Root`.
-        <OpenLayerObserver>
-            <div
+		// PanelSplitter accesses the open layer observer, so needs to be wrapped in the provider.
+		// In apps using nav4 correctly, the OpenLayerObserver is provided by `Root`.
+		<OpenLayerObserver>
+			<div
 				ref={panelSplitterParentRef}
 				css={[styles.root, styles.positionStart]}
 				style={
@@ -141,8 +141,8 @@ export const PanelSplitterPositionStart: () => JSX.Element = () => {
 					<PanelSplitter label="Resize panel" testId="panel-splitter" />
 				</PanelSplitterProvider>
 			</div>
-        </OpenLayerObserver>
-    );
+		</OpenLayerObserver>
+	);
 };
 
 export const PanelSplitterPositionEnd: () => JSX.Element = () => {
@@ -154,10 +154,10 @@ export const PanelSplitterPositionEnd: () => JSX.Element = () => {
 	}, []);
 
 	return (
-        // PanelSplitter accesses the open layer observer, so needs to be wrapped in the provider.
-        // In apps using nav4 correctly, the OpenLayerObserver is provided by `Root`.
-        <OpenLayerObserver>
-            <div
+		// PanelSplitter accesses the open layer observer, so needs to be wrapped in the provider.
+		// In apps using nav4 correctly, the OpenLayerObserver is provided by `Root`.
+		<OpenLayerObserver>
+			<div
 				ref={panelSplitterParentRef}
 				css={[styles.root, styles.positionEnd]}
 				style={
@@ -180,8 +180,8 @@ export const PanelSplitterPositionEnd: () => JSX.Element = () => {
 					<PanelSplitter label="Resize panel" testId="panel-splitter" />
 				</PanelSplitterProvider>
 			</div>
-        </OpenLayerObserver>
-    );
+		</OpenLayerObserver>
+	);
 };
 
 export const PanelSplitterWithTooltip: () => JSX.Element = () => {

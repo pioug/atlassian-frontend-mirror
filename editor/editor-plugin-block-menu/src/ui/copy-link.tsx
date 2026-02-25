@@ -88,14 +88,26 @@ const CopyLinkDropdownItemContent = ({ api, config }: Props & WrappedComponentPr
 		return null;
 	}
 
+	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
+	// Conditionally display message based on feature flag
+	// To clean up: remove the conditional and use only copyLinkToBlock message
+	const message = fg('platform_editor_block_menu_v2_patch_3')
+		? messages.copyLinkToBlock
+		: messages.copyLinkToBlockOld;
+
+	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
+	// Adds size="small" to icons for better visual consistency in block menu.
+	// To clean up: remove conditional, keep only size="small" version.
+	const iconSize = fg('platform_editor_block_menu_v2_patch_3') ? 'small' : undefined;
+
 	return (
 		<ToolbarDropdownItem
 			onClick={handleClick}
-			elemBefore={<LinkIcon label="" />}
+			elemBefore={<LinkIcon label="" size={iconSize} />}
 			elemAfter={shortcut ? <ToolbarKeyboardShortcutHint shortcut={shortcut} /> : undefined}
 			ariaKeyshortcuts={shortcut}
 		>
-			{formatMessage(messages.copyLinkToBlock)}
+			{formatMessage(message)}
 		</ToolbarDropdownItem>
 	);
 };

@@ -1,9 +1,19 @@
-# Editor plugin mentions
+# Editor Plugin Mentions
 
 Mentions plugin for @atlaskit/editor-core
 
 **Note:** This component is designed for internal Atlassian development.
 External contributors will be able to use this component but will not be able to submit issues.
+
+## Overview
+
+The Mentions plugin provides the ability to mention users and other entities within the Atlassian Editor. It integrates with @atlaskit/editor-core to enable mention functionality for editor users.
+
+## Key features
+
+- **User mentions** - Mention users within editor content
+- **Entity resolution** - Resolve mentions to user profiles and data
+- **Mention rendering** - Display mentions with appropriate styling and information
 
 ## Install
 ---

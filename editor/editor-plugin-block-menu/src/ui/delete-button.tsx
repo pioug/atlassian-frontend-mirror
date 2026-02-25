@@ -19,6 +19,7 @@ import {
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import DeleteIcon from '@atlaskit/icon/core/delete';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/box';
 import Text from '@atlaskit/primitives/text';
 import { token } from '@atlaskit/tokens';
@@ -99,6 +100,11 @@ const DeleteDropdownItemContent = ({ api }: Props) => {
 		};
 	}, [onRemoveHoverDecoration]);
 
+	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
+	// Adds size="small" to icons for better visual consistency in block menu.
+	// To clean up: remove conditional, keep only size="small" version.
+	const iconSize = fg('platform_editor_block_menu_v2_patch_3') ? 'small' : undefined;
+
 	return (
 		<Box
 			onMouseEnter={onShowHoverDecoration}
@@ -107,7 +113,7 @@ const DeleteDropdownItemContent = ({ api }: Props) => {
 			onBlur={onRemoveHoverDecoration}
 		>
 			<ToolbarDropdownItem
-				elemBefore={<DeleteIcon color={token('color.icon.danger')} label="" />}
+				elemBefore={<DeleteIcon color={token('color.icon.danger')} label="" size={iconSize} />}
 				onClick={onClick}
 				testId={BLOCK_MENU_ACTION_TEST_ID.DELETE}
 			>

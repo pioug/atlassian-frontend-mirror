@@ -1,3 +1,4 @@
+import { BLOCK_MENU_TEST_ID } from '@atlaskit/editor-common/block-menu';
 import {
 	popupWithNestedElement,
 	type ExperienceCheckResult,
@@ -25,7 +26,7 @@ export const isBlockMenuVisible = (popupsTarget: HTMLElement | undefined): boole
 	if (!popupsTarget) {
 		return false;
 	}
-	return popupWithNestedElement(popupsTarget, '[data-testid="editor-block-menu"]') !== null;
+	return popupWithNestedElement(popupsTarget, `[data-testid="${BLOCK_MENU_TEST_ID}"]`) !== null;
 };
 
 /**
@@ -70,7 +71,7 @@ const isBlockMenuAddedInMutation = ({ type, addedNodes }: MutationRecord) => {
 };
 
 const isBlockMenuWithinNode = (node?: Node | null) => {
-	return popupWithNestedElement(node, '[data-testid="editor-block-menu"]') !== null;
+	return popupWithNestedElement(node, `[data-testid="${BLOCK_MENU_TEST_ID}"]`) !== null;
 };
 
 /**
@@ -167,9 +168,7 @@ export const handleTransformDomMutation = ({
 	const hasRemovedNodes = mutations.some(
 		(m) => m.type === 'childList' && m.removedNodes.length > 0,
 	);
-	const hasAddedNodes = mutations.some(
-		(m) => m.type === 'childList' && m.addedNodes.length > 0,
-	);
+	const hasAddedNodes = mutations.some((m) => m.type === 'childList' && m.addedNodes.length > 0);
 
 	if (hasRemovedNodes && hasAddedNodes) {
 		return { status: 'success' };

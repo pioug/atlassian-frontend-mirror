@@ -34,14 +34,14 @@ const liStyles = css({
 	marginBlockEnd: token('space.100', '8px'),
 	marginBlockStart: token('space.100', '8px'),
 	marginInlineEnd: token('space.100', '8px'),
-	marginInlineStart: token('space.100', '8px')
+	marginInlineStart: token('space.100', '8px'),
 });
 
 const innerDivStyles = css({
 	display: 'flex',
 	width: '100%',
 	alignItems: 'center',
-	paddingInlineStart: token('space.100', '8px')
+	paddingInlineStart: token('space.100', '8px'),
 });
 
 const logos = [
@@ -65,7 +65,6 @@ export default (): JSX.Element => {
 								<li
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 									className={props.className}
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 									style={props.style}
 									css={liStyles}
 								>

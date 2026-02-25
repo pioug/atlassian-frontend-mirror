@@ -257,7 +257,7 @@ const PanelSplitterTooltip = forwardRef<HTMLDivElement, TooltipContainerProps>(
 				css={[
 					tooltipStyles.root,
 					fg('platform-dst-side-nav-layering-fixes') &&
-					tooltipStyles.fullHeightSidebarWithLayeringFixes,
+						tooltipStyles.fullHeightSidebarWithLayeringFixes,
 				]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				style={style}
@@ -326,15 +326,15 @@ const PortaledPanelSplitter = ({
 	tooltipContent,
 	shortcut,
 }: PanelSplitterProps & { panel: HTMLElement; portal: HTMLElement } & Pick<
-	PanelSplitterContextType,
-	| 'panelId'
-	| 'panelWidth'
-	| 'onCompleteResize'
-	| 'getResizeBounds'
-	| 'resizingCssVar'
-	| 'position'
-	| 'shortcut'
->): ReactNode => {
+		PanelSplitterContextType,
+		| 'panelId'
+		| 'panelWidth'
+		| 'onCompleteResize'
+		| 'getResizeBounds'
+		| 'resizingCssVar'
+		| 'position'
+		| 'shortcut'
+	>): ReactNode => {
 	const isFhsEnabled = useIsFhsEnabled();
 	const splitterRef = useRef<HTMLDivElement | null>(null);
 	const labelId = useId();

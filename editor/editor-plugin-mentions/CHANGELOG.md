@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-mentions
 
+## 9.3.0
+
+### Minor Changes
+
+- [`0e055e3f3f4e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e055e3f3f4e9) -
+  [ux] Mentionplaceholder plugin to display placeholder for inline invite
+- [`0942e8da58d56`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0942e8da58d56) -
+  Add currentUserId option to support immediate self-mention highlighting without waiting for
+  provider
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.2.10
 
 ### Patch Changes

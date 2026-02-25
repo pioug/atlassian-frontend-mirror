@@ -58,7 +58,7 @@ export function setTerminalError(
 	const currentTime = performance.now();
 	const errorData: TerminalErrorData = {
 		errorType: error.name || 'Error',
-		errorMessage: error.message.slice(0, 100),
+		errorMessage: error.message?.slice(0, 100) || 'Unknown error',
 		timestamp: currentTime,
 		...additionalAttributes,
 	};

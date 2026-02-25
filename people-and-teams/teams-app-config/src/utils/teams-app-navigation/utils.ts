@@ -1,6 +1,6 @@
 import type React from 'react';
 
-import { getATLContextUrl, isFedRamp } from '@atlaskit/atlassian-context';
+import { getATLContextUrl, getDomainInContext, isFedRamp, isIsolatedCloud } from '@atlaskit/atlassian-context';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type {
@@ -42,8 +42,19 @@ export function generateTeamsAppPath(
 
 	const orgIdString = config.orgId ? `/o/${config.orgId}` : '';
 
+	if (isIsolatedCloud()) {
+		return `${getDomainInContext('home', getEnvironment())}${orgIdString}${pathWithPeoplePrefix}${anchor ? `#${anchor}` : ''}${queryString}`;
+	}
+
 	return `${getATLContextUrl('home')}${orgIdString}${pathWithPeoplePrefix}${anchor ? `#${anchor}` : ''}${queryString}`;
 }
+
+export const getEnvironment = (): 'prod' | 'staging' => {
+	// @ts-expect-error
+	return document.querySelector('meta[name=ajs-environment]')?.content === 'staging'
+		? 'staging'
+		: 'prod';
+};
 
 export function generatePath(
 	path: string,

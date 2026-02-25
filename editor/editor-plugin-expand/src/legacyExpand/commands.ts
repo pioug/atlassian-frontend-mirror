@@ -277,9 +277,9 @@ export const focusIcon =
 			return false;
 		}
 
-		// TODO: ED-29205 - During platform_editor_native_expand_button cleanup, rename `iconContainer` to `iconButton`.
+		// TODO: ED-29205 - During platform_editor_vc90_transition_fixes_batch_1 cleanup, rename `iconContainer` to `iconButton`.
 		const iconContainer = (
-			expValEquals('platform_editor_native_expand_button', 'isEnabled', true)
+			expValEquals('platform_editor_vc90_transition_fixes_batch_1', 'isEnabled', true)
 				? expand.querySelector(`.${expandClassNames.iconButton}`)
 				: expand.querySelector(`.${expandClassNames.iconContainer}`)
 		) as HTMLElement | null;
@@ -318,7 +318,7 @@ export const setSelectionInsideExpand =
 
 export const toggleExpandWithMatch =
 	(_selection: Selection): EditorCommand =>
-	({ tr }) => {
+	({ tr: _tr }) => {
 		// this action exists so that we can keep the plugin types consistent across the
 		// the legacy expand plugin and the single player expand plugin until
 		// we will remove the legacy expand plugin

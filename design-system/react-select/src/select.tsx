@@ -650,11 +650,11 @@ function buildCategorizedOptions<Option, IsMulti extends boolean, Group extends 
 					.filter((categorizedOption) => isFocusable(props, categorizedOption));
 				return categorizedOptions.length > 0
 					? {
-						type: 'group' as const,
-						data: groupOrOption,
-						options: categorizedOptions,
-						index: groupOrOptionIndex,
-					}
+							type: 'group' as const,
+							data: groupOrOption,
+							options: categorizedOptions,
+							index: groupOrOptionIndex,
+						}
 					: undefined;
 			}
 			const categorizedOption = toCategorizedOption(
@@ -909,19 +909,19 @@ export default class Select<
 		state: State<unknown, boolean, GroupBase<unknown>>,
 	):
 		| {
-			prevProps: SelectProps<unknown, boolean, GroupBase<unknown>>;
-			ariaSelection: AriaSelection<unknown, boolean> | null;
-			prevWasFocused: boolean;
-			inputIsHidden: boolean;
-			inputIsHiddenAfterUpdate: undefined;
-		}
+				prevProps: SelectProps<unknown, boolean, GroupBase<unknown>>;
+				ariaSelection: AriaSelection<unknown, boolean> | null;
+				prevWasFocused: boolean;
+				inputIsHidden: boolean;
+				inputIsHiddenAfterUpdate: undefined;
+		  }
 		| {
-			prevProps: SelectProps<unknown, boolean, GroupBase<unknown>>;
-			ariaSelection: AriaSelection<unknown, boolean> | null;
-			prevWasFocused: boolean;
-			inputIsHidden?: undefined;
-			inputIsHiddenAfterUpdate?: undefined;
-		} {
+				prevProps: SelectProps<unknown, boolean, GroupBase<unknown>>;
+				ariaSelection: AriaSelection<unknown, boolean> | null;
+				prevWasFocused: boolean;
+				inputIsHidden?: undefined;
+				inputIsHiddenAfterUpdate?: undefined;
+		  } {
 		const {
 			prevProps,
 			clearFocusValueOnUpdate,
@@ -945,9 +945,9 @@ export default class Select<
 
 			const focusableOptionsWithIds = menuIsOpen
 				? buildFocusableOptionsWithIds(
-					buildCategorizedOptions(props, selectValue),
-					`${instancePrefix}-option`,
-				)
+						buildCategorizedOptions(props, selectValue),
+						`${instancePrefix}-option`,
+					)
 				: [];
 
 			const focusedValue = clearFocusValueOnUpdate ? getNextFocusedValue(state, selectValue) : null;
@@ -967,9 +967,9 @@ export default class Select<
 		const newInputIsHiddenState =
 			inputIsHiddenAfterUpdate != null && props !== prevProps
 				? {
-					inputIsHidden: inputIsHiddenAfterUpdate,
-					inputIsHiddenAfterUpdate: undefined,
-				}
+						inputIsHidden: inputIsHiddenAfterUpdate,
+						inputIsHiddenAfterUpdate: undefined,
+					}
 				: {};
 
 		let newAriaSelection = ariaSelection;
@@ -2482,8 +2482,8 @@ export default class Select<
 										// add aditional label on listbox for safari to announce first option
 										...(isSafari() &&
 											!this.props['UNSAFE_is_experimental_generic'] && {
-											'aria-describedby': this.inputRef?.id || this.getElementId('input'),
-										}),
+												'aria-describedby': this.inputRef?.id || this.getElementId('input'),
+											}),
 									}}
 									isLoading={isLoading}
 									maxHeight={maxHeight}
@@ -2649,11 +2649,11 @@ export default class Select<
 							...(commonProps.isMulti &&
 								commonProps.hasValue &&
 								!isAppleDevice() && {
-								// Required to keep JAWS from popping out of forms mode when using LEFT/RIGHT arrow keys.
-								// This is Jedi Master level ARIA and not taken lightly. Do not modify without consulting
-								// DST Accessibility.
-								role: 'application',
-							}),
+									// Required to keep JAWS from popping out of forms mode when using LEFT/RIGHT arrow keys.
+									// This is Jedi Master level ARIA and not taken lightly. Do not modify without consulting
+									// DST Accessibility.
+									role: 'application',
+								}),
 						}}
 					>
 						{this.renderPlaceholderOrValue()}

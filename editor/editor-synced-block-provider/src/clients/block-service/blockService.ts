@@ -106,6 +106,16 @@ type GetBlockGraphQLResponse = {
 	errors?: Array<{ message: string }>;
 };
 
+type BatchUpdateBlocksGraphQLResponse = {
+	data?: {
+		blockService_batchUpdateBlocks: {
+			error?: Array<ErrorResponse>;
+			success?: Array<BlockContentResponse>;
+		};
+	};
+	errors?: Array<{ message: string }>;
+};
+
 /**
  * Retrieves all synced blocks referenced in a document.
  *
@@ -197,6 +207,22 @@ export type UpdateSyncedBlockRequest = {
 	stepVersion?: number; // the current NCS step version number
 };
 
+export type BatchUpdateSyncedBlockRequest = {
+	blockAri: string; // the ARI of the block. E.G ari:cloud:blocks:site-123:synced-block/uuid-456
+	content: string;
+	status?: SyncBlockStatus; // the status of the block. 'unpublished' if the page is unpublished, 'active' otherwise
+	stepVersion?: number; // the current NCS step version number
+};
+
+export type BatchUpdateSyncedBlocksRequest = {
+	blocks: BatchUpdateSyncedBlockRequest[];
+};
+
+export type BatchUpdateSyncedBlocksResponse = {
+	error?: Array<ErrorResponse>;
+	success?: Array<BlockContentResponse>;
+};
+
 export type CreateSyncedBlockRequest = {
 	blockAri: string; // the ARI of the block. E.G ari:cloud:blocks:site-123:synced-block/uuid-456
 	blockInstanceId: string; // the instance ID of the block (the localId of the synced block node)
@@ -258,6 +284,7 @@ const UPDATE_DOCUMENT_REFERENCES_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_UPDATE_DO
 const BATCH_RETRIEVE_BLOCKS_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_BATCH_RETRIEVE_BLOCKS';
 const GET_BLOCK_REFERENCES_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_GET_REFERENCES';
 const GET_BLOCK_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_GET_BLOCK';
+const BATCH_UPDATE_BLOCKS_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_BATCH_UPDATE_BLOCKS';
 
 const buildGetDocumentReferenceBlocksQuery = (
 	documentAri: string,
@@ -471,6 +498,53 @@ const buildGetBlockReferencesQuery = (blockAri: string) => {
 			documentAri
 		}
 		errors {
+			blockAri
+			code
+			reason
+		}
+	}
+}`;
+};
+
+const buildBatchUpdateBlocksMutation = (
+	blocks: Array<{
+		blockAri: string;
+		content: string;
+		status?: SyncBlockStatus;
+		stepVersion?: number;
+	}>,
+) => {
+	const blocksArray = blocks
+		.map((block) => {
+			const inputParts = [
+				`blockAri: ${JSON.stringify(block.blockAri)}`,
+				`content: ${JSON.stringify(block.content)}`,
+			];
+			if (block.stepVersion !== undefined) {
+				inputParts.push(`stepVersion: ${block.stepVersion}`);
+			}
+			if (block.status !== undefined) {
+				inputParts.push(`status: ${JSON.stringify(block.status)}`);
+			}
+			return `{ ${inputParts.join(', ')} }`;
+		})
+		.join(', ');
+	return `mutation ${BATCH_UPDATE_BLOCKS_OPERATION_NAME} {
+	blockService_batchUpdateBlocks(input: { blocks: [${blocksArray}] }) {
+		success {
+			blockAri
+			blockInstanceId
+			content
+			contentUpdatedAt
+			createdAt
+			createdBy
+			deletionReason
+			product
+			sourceAri
+			status
+			version
+		}
+		error {
 			blockAri
 			code
 			reason
@@ -755,5 +829,65 @@ export const getReferenceSyncedBlocksByBlockAri = async ({
 		blockAri,
 		references: graphqlResponse.references || [],
 		errors: graphqlResponse.errors || [],
+	};
+};
+
+/**
+ * Batch updates multiple synced blocks.
+ *
+ * Calls the Block Service GraphQL API: `blockService_batchUpdateBlocks`
+ *
+ * @param blocks - Array of block updates to apply
+ * @returns A promise containing arrays of successfully updated blocks and any errors encountered
+ *
+ * @example
+ * ```typescript
+ * const result = await updateSyncedBlocks({
+ *   blocks: [
+ *     {
+ *       blockAri: 'ari:cloud:blocks:site-123:synced-block/uuid-456',
+ *       content: '{"type":"doc","version":1,"content":[]}',
+ *       status: 'active',
+ *       stepVersion: 42
+ *     }
+ *   ]
+ * });
+ * ```
+ */
+export const updateSyncedBlocks = async ({
+	blocks,
+}: BatchUpdateSyncedBlocksRequest): Promise<BatchUpdateSyncedBlocksResponse> => {
+	const bodyData = {
+		query: buildBatchUpdateBlocksMutation(blocks),
+		operationName: BATCH_UPDATE_BLOCKS_OPERATION_NAME,
+	};
+
+	const url = fg('platform_synced_block_patch_3')
+		? `${GRAPHQL_ENDPOINT}?operation=editorSyncedBlockBatchUpdateBlocks`
+		: GRAPHQL_ENDPOINT;
+	const response = await fetchWithRetry(url, {
+		method: 'POST',
+		headers: COMMON_HEADERS,
+		body: JSON.stringify(bodyData),
+	});
+
+	if (!response.ok) {
+		throw new BlockError(response.status);
+	}
+
+	const result: BatchUpdateBlocksGraphQLResponse = await response.json();
+
+	if (result.errors && result.errors.length > 0) {
+		throw new Error(result.errors.map((e) => e.message).join(', '));
+	}
+
+	if (!result.data?.blockService_batchUpdateBlocks) {
+		throw new Error('No data returned from GraphQL mutation');
+	}
+
+	const graphqlResponse = result.data.blockService_batchUpdateBlocks;
+	return {
+		success: graphqlResponse.success,
+		error: graphqlResponse.error,
 	};
 };

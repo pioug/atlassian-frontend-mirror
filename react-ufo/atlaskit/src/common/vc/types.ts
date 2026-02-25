@@ -174,7 +174,7 @@ export type LayoutShiftInsightsPayload = {
 	same: {
 		dir: boolean;
 		dist: boolean;
-	},
+	};
 	total_mut: number;
 	mut: Array<{
 		e: string;
@@ -187,8 +187,8 @@ export type LayoutShiftInsightsPayload = {
 			p_h_overlap: 'all' | 'some' | 'none';
 			p_v_overlap: 'all' | 'some' | 'none';
 			p_same_offset: 'all' | 'some' | 'none';
-		}
-	}>
+		};
+	}>;
 };
 
 export type RevisionPayloadEntry = {
@@ -247,7 +247,10 @@ export type LayoutShiftOffender = {
 };
 
 export type LayoutShiftInsights = {
-	layoutShiftOffendersResult: { layoutShiftVariables: LayoutShiftVariables; layoutShiftOffenders: LayoutShiftOffender[] };
+	layoutShiftOffendersResult: {
+		layoutShiftVariables: LayoutShiftVariables;
+		layoutShiftOffenders: LayoutShiftOffender[];
+	};
 	layoutShiftEntriesCount: number;
 	layoutShiftImpact: number;
 } | null;

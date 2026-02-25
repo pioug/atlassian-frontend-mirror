@@ -25,7 +25,7 @@ const centeredStyles = css({
 	marginBlockStart: 0,
 	marginInlineEnd: 'auto',
 	marginInlineStart: 'auto',
-	overflow: 'hidden'
+	overflow: 'hidden',
 });
 
 const blockStyles = css({
@@ -34,7 +34,7 @@ const blockStyles = css({
 	marginBlockEnd: 'auto',
 	marginBlockStart: 'auto',
 	marginInlineEnd: 'auto',
-	marginInlineStart: 'auto'
+	marginInlineStart: 'auto',
 });
 
 const froms: Direction[] = ['top', 'right', 'bottom', 'left'];

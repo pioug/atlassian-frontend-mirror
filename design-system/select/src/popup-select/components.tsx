@@ -54,7 +54,6 @@ export const MenuDialog: React.ForwardRefExoticComponent<
 		<div
 			ref={ref}
 			css={[menuDialogStyles, fg('platform-dst-shape-theme-default') && menuDialogStylesT26Shape]}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={style}
 			id={id}
 			data-testid={testId && `${testId}--menu`}

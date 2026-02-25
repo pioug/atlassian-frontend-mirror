@@ -11,7 +11,7 @@ import Drawer, {
 import { widths } from '@atlaskit/drawer/constants';
 import { Label } from '@atlaskit/form';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Inline } from "@atlaskit/primitives/compiled";
+import { Box, Inline } from '@atlaskit/primitives/compiled';
 
 const DrawersExample = (): React.JSX.Element => {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);

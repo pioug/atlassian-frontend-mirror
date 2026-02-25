@@ -37,18 +37,14 @@ describe('buildAtlAttributionHeaderValue', () => {
 				activationId,
 			});
 			const parsed = JSON.parse(result!['atl-attribution']);
-			expect(parsed.atlWorkspaceId).toBe(
-				`ari:cloud:jira:${cloudId}:workspace/${activationId}`,
-			);
+			expect(parsed.atlWorkspaceId).toBe(`ari:cloud:jira:${cloudId}:workspace/${activationId}`);
 		});
 
 		it('should use default product in atlWorkspaceId when productId is not supplied', () => {
 			const activationId = 'activation-789';
 			const result = buildAtlAttributionHeaderValue({ cloudId, activationId });
 			const parsed = JSON.parse(result!['atl-attribution']);
-			expect(parsed.atlWorkspaceId).toBe(
-				`ari:cloud:platform:${cloudId}:workspace/${activationId}`,
-			);
+			expect(parsed.atlWorkspaceId).toBe(`ari:cloud:platform:${cloudId}:workspace/${activationId}`);
 			expect(parsed.product).toBe('platform');
 		});
 

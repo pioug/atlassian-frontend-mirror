@@ -31,17 +31,57 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
-type MentionsPlugin = NextEditorPlugin<
-  'mentions',
+export type MentionActionOpenTypeAhead = (inputMethod: TypeAheadInputMethod) => boolean;
+
+export type MentionActionAnnounceMentionsInsertion = (
+  mentionIds: {
+    id: string;
+    localId: string;
+    taskLocalId?: string;
+    type: 'added' | 'deleted';
+  }[],
+) => void;
+
+export type MentionActionSetProvider = (provider: Promise<MentionProvider>) => Promise<boolean>;
+
+export type MentionActions = {
+  announceMentionsInsertion: MentionActionAnnounceMentionsInsertion;
+  openTypeAhead: MentionActionOpenTypeAhead;
+  setProvider: MentionActionSetProvider;
+};
+
+export type MentionPluginDependencies = [
+  OptionalPlugin<AnalyticsPlugin>,
+  TypeAheadPlugin,
+  OptionalPlugin<ContextIdentifierPlugin>,
+  OptionalPlugin<BasePlugin>,
+  OptionalPlugin<SelectionPlugin>,
+];
+
+export type MentionsPlugin = NextEditorPlugin<
+  'mention',
   {
-    pluginConfiguration: MentionsPluginOptions;
-    sharedState: MentionSharedState;
-    dependencies: [
-      OptionalPlugin<AnalyticsPlugin>, TypeAheadPlugin
-    ];
-    actions: {
-      openTypeAhead: (inputMethod: TypeAheadInputMethod) => boolean;
-    }
+    actions: MentionActions;
+    commands: {
+      /**
+       * Inserts mention node into the document based on parameters.
+       *
+       * !Warning at this stage only inserts single mentions
+       *
+       * @param params.name string
+       * @param params.id string
+       * @param params.userType string (optional)
+       * @param params.nickname string (optional)
+       * @param params.localId string (optional)
+       * @param params.accessLevel string (optional)
+       * @param params.isXProductUser boolean (optional)
+       * @returns
+       */
+      insertMention: (params: InsertMentionParameters) => EditorCommand;
+    };
+    dependencies: MentionPluginDependencies;
+    pluginConfiguration: MentionPluginOptions | undefined;
+    sharedState: MentionSharedState | undefined;
   }
 >;
 `}

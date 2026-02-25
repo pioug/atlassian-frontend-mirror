@@ -283,6 +283,7 @@ export enum ACTION_SUBJECT {
 	COLLAB = 'collab',
 	TOOLBAR_BUTTON = 'toolbarButton',
 	BUTTON = 'button',
+	COPY_BUTTON = 'copyButton',
 	CONFIG_PANEL = 'configPanel',
 	CONTENT_COMPONENT = 'contentComponent',
 	DATE = 'date',

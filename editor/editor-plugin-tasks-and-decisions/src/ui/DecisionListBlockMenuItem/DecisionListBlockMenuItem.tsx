@@ -7,6 +7,7 @@ import { blockMenuMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import DecisionIcon from '@atlaskit/icon/core/decision';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { TasksAndDecisionsPlugin } from '../../tasksAndDecisionsPluginType';
 
@@ -39,8 +40,13 @@ export const DecisionListBlockMenuItem = ({
 		});
 	};
 
+	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
+	// Adds size="small" to icons for better visual consistency in block menu.
+	// To clean up: remove conditional, keep only size="small" version.
+	const iconSize = fg('platform_editor_block_menu_v2_patch_3') ? 'small' : undefined;
+
 	return (
-		<ToolbarDropdownItem onClick={onClick} elemBefore={<DecisionIcon label="" />}>
+		<ToolbarDropdownItem onClick={onClick} elemBefore={<DecisionIcon label="" size={iconSize} />}>
 			{formatMessage(blockMenuMessages.decisionList)}
 		</ToolbarDropdownItem>
 	);

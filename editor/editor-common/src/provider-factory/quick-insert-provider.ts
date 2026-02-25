@@ -74,8 +74,6 @@ export type QuickInsertItem = TypeAheadItem & {
 	id?: QuickInsertItemId;
 	/** other names used to find the item */
 	keywords?: Array<string>;
-	/** optional sorting priority */
-	priority?: number;
 };
 
 export type QuickInsertProvider = {

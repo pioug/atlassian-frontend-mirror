@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection
 
+## 7.0.20
+
+### Patch Changes
+
+- [`8872ed42db4ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8872ed42db4ef) -
+  Handle gap cursor caret visibility via CSS selector instead of plugin state
+- Updated dependencies
+
 ## 7.0.19
 
 ### Patch Changes

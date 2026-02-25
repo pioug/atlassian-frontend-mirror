@@ -88,9 +88,7 @@ export const getGuidelinesTool = async (
 		threshold: 0.4,
 	});
 
-	const results = searchTerms
-		.map((term) => fuse.search(term).slice(0, limit))
-		.flat();
+	const results = searchTerms.map((term) => fuse.search(term).slice(0, limit)).flat();
 
 	// Remove duplicates by content (same guideline can match multiple terms)
 	const seen = new Set<string>();
@@ -103,7 +101,9 @@ export const getGuidelinesTool = async (
 		return true;
 	});
 
-	const matchedGuidelines = uniqueResults.map((result) => result.item as GuidelineStructuredContent);
+	const matchedGuidelines = uniqueResults.map(
+		(result) => result.item as GuidelineStructuredContent,
+	);
 	const formattedGuidelines = matchedGuidelines
 		.map((guideline: GuidelineStructuredContent) => guideline.content)
 		.join('\n\n');

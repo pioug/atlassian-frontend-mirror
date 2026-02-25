@@ -180,7 +180,7 @@ export class ExpandNodeView implements NodeView {
 		this.content = this.dom.querySelector<HTMLElement>(`.${expandClassNames.content}`);
 		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		this.renderKey = uuid();
-		if (expValEquals('platform_editor_native_expand_button', 'isEnabled', true)) {
+		if (expValEquals('platform_editor_vc90_transition_fixes_batch_1', 'isEnabled', true)) {
 			this.renderNativeIcon(this.node);
 		} else {
 			this.renderIcon(this.intl);
@@ -712,7 +712,7 @@ export class ExpandNodeView implements NodeView {
 				// we toggle a class name to hide the content and animate the chevron.
 				if (this.dom) {
 					this.dom.classList.toggle(expandClassNames.expanded);
-					if (expValEquals('platform_editor_native_expand_button', 'isEnabled', true)) {
+					if (expValEquals('platform_editor_vc90_transition_fixes_batch_1', 'isEnabled', true)) {
 						this.renderNativeIcon(node);
 					} else {
 						this.renderIcon(this && this.intl, node);

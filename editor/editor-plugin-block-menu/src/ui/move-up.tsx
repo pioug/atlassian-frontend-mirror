@@ -17,6 +17,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { DIRECTION } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import ArrowUpIcon from '@atlaskit/icon/core/arrow-up';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 
@@ -75,11 +76,17 @@ const MoveUpDropdownItemContent = ({ api }: Props & WrappedComponentProps) => {
 			fixBlockMenuPositionAndScroll(newFirstNode);
 		});
 	};
+
+	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
+	// Adds size="small" to icons for better visual consistency in block menu.
+	// To clean up: remove conditional, keep only size="small" version.
+	const iconSize = fg('platform_editor_block_menu_v2_patch_3') ? 'small' : undefined;
+
 	return (
 		<ToolbarDropdownItem
 			triggerRef={moveUpRef}
 			onClick={handleClick}
-			elemBefore={<ArrowUpIcon label="" />}
+			elemBefore={<ArrowUpIcon label="" size={iconSize} />}
 			isDisabled={!canMoveUp}
 			testId={BLOCK_MENU_ACTION_TEST_ID.MOVE_UP}
 		>

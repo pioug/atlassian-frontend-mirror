@@ -7,9 +7,7 @@ export interface UserPreferencesProvider {
 	 * meaning that consumers should prefetch the user preference and make it available initially
 	 * @param key
 	 */
-	getPreference: <K extends keyof UserPreferences>(
-		key: K,
-	) => UserPreferences[K] | undefined | null;
+	getPreference: <K extends keyof UserPreferences>(key: K) => UserPreferences[K] | undefined | null;
 
 	/**
 	 * This method fetches the latest user preferences

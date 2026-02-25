@@ -1,6 +1,15 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { getEarliestHiddenTiming, getPageVisibilityState, getPageVisibilityTimeline, getThrottleMeasurements, isTabThrottled, setupHiddenTimingCapture, setupThrottleDetection, stopThrottleDetection } from '../../index';
+import {
+	getEarliestHiddenTiming,
+	getPageVisibilityState,
+	getPageVisibilityTimeline,
+	getThrottleMeasurements,
+	isTabThrottled,
+	setupHiddenTimingCapture,
+	setupThrottleDetection,
+	stopThrottleDetection,
+} from '../../index';
 
 jest.mock('@atlaskit/platform-feature-flags', () => ({
 	fg: jest.fn(),
@@ -594,7 +603,10 @@ describe('getPageVisibilityTimeline', () => {
 
 	it('should return the initial visibility state and transitions within the window', () => {
 		jest.isolateModules(() => {
-			const { getPageVisibilityTimeline: isolatedGetTimeline, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+			const {
+				getPageVisibilityTimeline: isolatedGetTimeline,
+				setupHiddenTimingCapture: isolatedSetup,
+			} = require('../../index');
 			const visibilitySpy = jest.spyOn(window.document, 'visibilityState', 'get');
 			const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
 			const performanceSpy = jest.spyOn(window.performance, 'now');
@@ -614,9 +626,9 @@ describe('getPageVisibilityTimeline', () => {
 			// Window from 5 to 50: initial state at 5 is visible (from t=0), then hidden at 10, visible at 40
 			const timeline = isolatedGetTimeline(5, 50);
 			expect(timeline).toEqual([
-				{ time: 0, hidden: false },   // initial state at start of window (visible at t=0)
-				{ time: 5, hidden: true },     // hidden at t=10, relative: 10-5=5
-				{ time: 35, hidden: false },   // visible at t=40, relative: 40-5=35
+				{ time: 0, hidden: false }, // initial state at start of window (visible at t=0)
+				{ time: 5, hidden: true }, // hidden at t=10, relative: 10-5=5
+				{ time: 35, hidden: false }, // visible at t=40, relative: 40-5=35
 			]);
 
 			getEntriesSpy.mockRestore();
@@ -627,7 +639,10 @@ describe('getPageVisibilityTimeline', () => {
 
 	it('should return only initial state when no transitions occur within the window', () => {
 		jest.isolateModules(() => {
-			const { getPageVisibilityTimeline: isolatedGetTimeline, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+			const {
+				getPageVisibilityTimeline: isolatedGetTimeline,
+				setupHiddenTimingCapture: isolatedSetup,
+			} = require('../../index');
 			const visibilitySpy = jest.spyOn(window.document, 'visibilityState', 'get');
 			const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
 
@@ -640,7 +655,7 @@ describe('getPageVisibilityTimeline', () => {
 			// Query window where no transitions happen (only the initial state at t=0)
 			const timeline = isolatedGetTimeline(1, 100);
 			expect(timeline).toEqual([
-				{ time: 0, hidden: false },  // initial state is visible
+				{ time: 0, hidden: false }, // initial state is visible
 			]);
 
 			getEntriesSpy.mockRestore();
@@ -650,7 +665,10 @@ describe('getPageVisibilityTimeline', () => {
 
 	it('should return empty array when window is before any recorded timings', () => {
 		jest.isolateModules(() => {
-			const { getPageVisibilityTimeline: isolatedGetTimeline, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+			const {
+				getPageVisibilityTimeline: isolatedGetTimeline,
+				setupHiddenTimingCapture: isolatedSetup,
+			} = require('../../index');
 			const visibilitySpy = jest.spyOn(window.document, 'visibilityState', 'get');
 			const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
 			const performanceSpy = jest.spyOn(window.performance, 'now');
@@ -669,7 +687,7 @@ describe('getPageVisibilityTimeline', () => {
 			// Window from 50 to 150: initial state at 50 is hidden (from t=0), visible at 200 is outside
 			const timeline = isolatedGetTimeline(50, 150);
 			expect(timeline).toEqual([
-				{ time: 0, hidden: true },  // initial state from t=0 entry
+				{ time: 0, hidden: true }, // initial state from t=0 entry
 			]);
 
 			getEntriesSpy.mockRestore();
@@ -680,7 +698,10 @@ describe('getPageVisibilityTimeline', () => {
 
 	it('should handle multiple transitions within the window', () => {
 		jest.isolateModules(() => {
-			const { getPageVisibilityTimeline: isolatedGetTimeline, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+			const {
+				getPageVisibilityTimeline: isolatedGetTimeline,
+				setupHiddenTimingCapture: isolatedSetup,
+			} = require('../../index');
 			const visibilitySpy = jest.spyOn(window.document, 'visibilityState', 'get');
 			const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
 			const performanceSpy = jest.spyOn(window.performance, 'now');
@@ -707,10 +728,10 @@ describe('getPageVisibilityTimeline', () => {
 			// Window from 50 to 350
 			const timeline = isolatedGetTimeline(50, 350);
 			expect(timeline).toEqual([
-				{ time: 0, hidden: false },   // initial state (visible at t=0)
-				{ time: 50, hidden: true },    // hidden at 100, relative: 100-50=50
-				{ time: 150, hidden: false },  // visible at 200, relative: 200-50=150
-				{ time: 250, hidden: true },   // hidden at 300, relative: 300-50=250
+				{ time: 0, hidden: false }, // initial state (visible at t=0)
+				{ time: 50, hidden: true }, // hidden at 100, relative: 100-50=50
+				{ time: 150, hidden: false }, // visible at 200, relative: 200-50=150
+				{ time: 250, hidden: true }, // hidden at 300, relative: 300-50=250
 			]);
 
 			getEntriesSpy.mockRestore();
@@ -721,7 +742,10 @@ describe('getPageVisibilityTimeline', () => {
 
 	it('should handle window that starts after some transitions', () => {
 		jest.isolateModules(() => {
-			const { getPageVisibilityTimeline: isolatedGetTimeline, setupHiddenTimingCapture: isolatedSetup } = require('../../index');
+			const {
+				getPageVisibilityTimeline: isolatedGetTimeline,
+				setupHiddenTimingCapture: isolatedSetup,
+			} = require('../../index');
 			const visibilitySpy = jest.spyOn(window.document, 'visibilityState', 'get');
 			const getEntriesSpy = jest.spyOn(window.performance, 'getEntriesByType');
 			const performanceSpy = jest.spyOn(window.performance, 'now');
@@ -744,8 +768,8 @@ describe('getPageVisibilityTimeline', () => {
 			// Window from 150 to 250: initial state at 150 is hidden (from t=100), visible at 200
 			const timeline = isolatedGetTimeline(150, 250);
 			expect(timeline).toEqual([
-				{ time: 0, hidden: true },    // initial state (hidden from t=100)
-				{ time: 50, hidden: false },   // visible at 200, relative: 200-150=50
+				{ time: 0, hidden: true }, // initial state (hidden from t=100)
+				{ time: 50, hidden: false }, // visible at 200, relative: 200-150=50
 			]);
 
 			getEntriesSpy.mockRestore();

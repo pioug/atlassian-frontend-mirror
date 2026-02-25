@@ -1,5 +1,14 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 5.9.2
+
+### Patch Changes
+
+- [`6998dc542380a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6998dc542380a) -
+  [EDITOR-5580] Pass media.ssr prop for reference sync block in view page for both client and ssr
+  environment
+- Updated dependencies
+
 ## 5.9.1
 
 ### Patch Changes

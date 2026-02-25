@@ -173,9 +173,25 @@ export class MentionNodeView implements NodeView {
 		}
 	}
 
+	private shouldHighlightMention(mentionProvider: MentionProvider | undefined): boolean {
+		const { currentUserId } = this.config.options ?? {};
+		// Check options first (immediate), then provider (async), then default to false
+		if (currentUserId && this.node.attrs.id === currentUserId) {
+			return true;
+		} else {
+			return mentionProvider?.shouldHighlightMention({ id: this.node.attrs.id }) ?? false;
+		}
+	}
+
 	private async updateState(mentionProvider: MentionProvider | undefined) {
-		const isHighlighted =
-			mentionProvider?.shouldHighlightMention({ id: this.node.attrs.id }) ?? false;
+		const isHighlighted = expValEquals(
+			'platform_editor_vc90_transition_fixes_batch_1',
+			'isEnabled',
+			true,
+		)
+			? this.shouldHighlightMention(mentionProvider)
+			: (mentionProvider?.shouldHighlightMention({ id: this.node.attrs.id }) ?? false);
+
 		const newState = getNewState(isHighlighted, isRestricted(this.node.attrs.accessLevel));
 		if (newState !== this.state) {
 			this.setClassList(newState);

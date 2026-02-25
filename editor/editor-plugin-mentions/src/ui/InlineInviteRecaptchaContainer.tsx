@@ -11,6 +11,10 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { MentionProvider } from '@atlaskit/mention/resource';
 
 import type { MentionsPlugin } from '../mentionsPluginType';
+import {
+	mentionPlaceholderPluginKey,
+	MENTION_PLACEHOLDER_ACTIONS,
+} from '../pm-plugins/mentionPlaceholder';
 import { MENTION_SOURCE } from '../ui/type-ahead/analytics';
 
 interface Props {
@@ -77,13 +81,27 @@ export const InlineInviteRecaptchaContainer = ({ mentionProvider, api }: Props) 
 					accessLevel: 'CONTAINER',
 				}),
 			);
+			api.core.actions.execute(({ tr }) => {
+				tr.setMeta(mentionPlaceholderPluginKey, {
+					action: MENTION_PLACEHOLDER_ACTIONS.HIDE_PLACEHOLDER,
+				});
+				return tr;
+			});
 		},
 		[api],
 	);
 
 	const handleClose = useCallback(() => {
-		// No-op: recaptcha state is managed by the hook-based component
-	}, []);
+		if (!api?.core?.actions?.execute) {
+			return;
+		}
+		api.core.actions.execute(({ tr }) => {
+			tr.setMeta(mentionPlaceholderPluginKey, {
+				action: MENTION_PLACEHOLDER_ACTIONS.HIDE_PLACEHOLDER,
+			});
+			return tr;
+		});
+	}, [api]);
 
 	const handleReady = useCallback(
 		(showRecaptcha: ((email: string) => void) | null) => {

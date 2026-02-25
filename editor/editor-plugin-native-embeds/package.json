@@ -36,6 +36,7 @@
 		"@atlaskit/editor-plugin-extension": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/toggle": "workspace:^",
 		"@babel/runtime": "root:*",
 		"react-intl-next": "root:*"
 	},
@@ -44,6 +45,15 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
+		"@af/editor-examples-helpers": "workspace:*",
+		"@atlaskit/adf-schema": "workspace:^",
+		"@atlaskit/button": "workspace:^",
+		"@atlaskit/editor-core": "workspace:^",
+		"@atlaskit/editor-test-helpers": "workspace:^",
+		"@atlaskit/link-provider": "workspace:^",
+		"@atlaskit/logo": "workspace:^",
+		"@atlaskit/synchrony-test-helpers": "workspace:^",
+		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"typescript": "root:*"
 	},
 	"techstack": {

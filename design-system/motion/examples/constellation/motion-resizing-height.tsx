@@ -122,7 +122,6 @@ const MotionResizeHeightExample = (): JSX.Element => {
 											ref={motion.ref}
 											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 											className={motion.className}
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 											style={motion.style}
 											css={logoContainerStyles}
 										>

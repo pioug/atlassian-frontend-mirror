@@ -52,6 +52,9 @@
 			"path": "../../uip/atlassian-context/tsconfig.app.json"
 		},
 		{
+			"path": "../../helpers/browser-apis/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/button/tsconfig.app.json"
 		},
 		{

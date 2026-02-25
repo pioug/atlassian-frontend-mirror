@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 126.12.2
+
+### Patch Changes
+
+- [`6c36c47f10a70`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6c36c47f10a70) -
+  [ux] Fixed the inline comment screen reader text markers to use the ::before ::after css elements
+  instead of inline spans. This is because spans will affect the text selection range for comments
+  which try to be added directly after the inline comment causing the wrong part of the document to
+  be highlighted when another comment is started
+- [`6fe8b0bce516c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fe8b0bce516c) -
+  [ux] EDITOR-5604 - Inline Bodied Extension: Fix wrong style for nested block elements
+- Updated dependencies
+
 ## 126.12.1
 
 ### Patch Changes

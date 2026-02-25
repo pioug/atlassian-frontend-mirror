@@ -424,23 +424,24 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 			};
 		}
 
-		const { vcDetails, ssrRatio, speedIndex, VC90layoutShiftInsights } = await this.calculateWithDebugInfo(
-			filteredEntries,
-			startTime,
-			stopTime,
-			isPostInteraction,
-			isVCClean,
-			interactionType,
-			isPageVisible,
-			interactionId,
-			dirtyReason,
-			orderedEntries,
-			include3p,
-			excludeSmartAnswersInSearch,
-			interactionAbortReason,
-			includeSSRRatio,
-			reportLayoutShiftOffenders,
-		);
+		const { vcDetails, ssrRatio, speedIndex, VC90layoutShiftInsights } =
+			await this.calculateWithDebugInfo(
+				filteredEntries,
+				startTime,
+				stopTime,
+				isPostInteraction,
+				isVCClean,
+				interactionType,
+				isPageVisible,
+				interactionId,
+				dirtyReason,
+				orderedEntries,
+				include3p,
+				excludeSmartAnswersInSearch,
+				interactionAbortReason,
+				includeSSRRatio,
+				reportLayoutShiftOffenders,
+			);
 
 		let layoutShiftInsightsPayload: LayoutShiftInsightsPayload | undefined;
 
@@ -456,20 +457,23 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 					dist: layoutShiftOffendersResult?.layoutShiftVariables.allMovedSameAmount ?? false,
 				},
 				total_mut: layoutShiftOffendersResult?.layoutShiftOffenders.length ?? 0,
-				mut: layoutShiftOffendersResult?.layoutShiftOffenders.sort((a, b) => Math.abs(a.distanceToLS) - Math.abs(b.distanceToLS)).slice(0, 5).map((offender) => ({
-					e: offender.offender,
-					size: -1, // @todo: calculate size
-					attr: {
-						t_before: offender.happenedBefore,
-						t_distance: offender.distanceToLS,
-						p_above: offender.isAbove,
-						p_left: offender.isLeft,
-						p_right: offender.isRight,
-						p_h_overlap: offender.hasHorizontalOverlap,
-						p_v_overlap: offender.hasVerticalOverlap,
-						p_same_offset: offender.matchesLayoutShiftDelta ? 'all' : 'none',
-					},
-				})),
+				mut: layoutShiftOffendersResult?.layoutShiftOffenders
+					.sort((a, b) => Math.abs(a.distanceToLS) - Math.abs(b.distanceToLS))
+					.slice(0, 5)
+					.map((offender) => ({
+						e: offender.offender,
+						size: -1, // @todo: calculate size
+						attr: {
+							t_before: offender.happenedBefore,
+							t_distance: offender.distanceToLS,
+							p_above: offender.isAbove,
+							p_left: offender.isLeft,
+							p_right: offender.isRight,
+							p_h_overlap: offender.hasHorizontalOverlap,
+							p_v_overlap: offender.hasVerticalOverlap,
+							p_same_offset: offender.matchesLayoutShiftDelta ? 'all' : 'none',
+						},
+					})),
 			};
 		}
 

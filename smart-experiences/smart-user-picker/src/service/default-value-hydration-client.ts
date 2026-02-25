@@ -155,6 +155,7 @@ const hydrateAccountIds = async (
 	baseUrl: string | undefined,
 	productKey: string,
 	values: OptionIdentifier[],
+	atlAttributes?: { tenantId?: string; activationId?: string },
 ): Promise<OptionData[]> => {
 	if (values.length === 0) {
 		return [];
@@ -168,7 +169,10 @@ const hydrateAccountIds = async (
 				productKey,
 				accountIds,
 			})
-		: await getHydratedUsersFromPrs(baseUrl, accountIds);
+		: await getHydratedUsersFromPrs(baseUrl, accountIds, {
+				product: productKey,
+				...atlAttributes,
+			});
 };
 
 async function hydrateDefaultValues(
@@ -176,6 +180,7 @@ async function hydrateDefaultValues(
 	value: DefaultValue,
 	productKey: string,
 	siteId: string | undefined,
+	atlAttributes?: { tenantId?: string; activationId?: string },
 ): Promise<DefaultValue> {
 	//return if no value
 	if (!value || (Array.isArray(value) && value.length === 0)) {
@@ -194,6 +199,7 @@ async function hydrateDefaultValues(
 			baseUrl,
 			productKey,
 			values.filter((val) => !isOptionData(val) && val.type === 'user'),
+			atlAttributes,
 		),
 		hydrateTeamIds(
 			baseUrl,

@@ -72,9 +72,7 @@ function generateNestedChain(depth: number, currentDepth: number): JSX.Element {
 
 	return (
 		<div css={nestedContainerStyle} data-depth={currentDepth}>
-			<div css={nestedChildStyle}>
-				{generateNestedChain(depth, currentDepth + 1)}
-			</div>
+			<div css={nestedChildStyle}>{generateNestedChain(depth, currentDepth + 1)}</div>
 		</div>
 	);
 }
@@ -84,10 +82,7 @@ function generateNestedChain(depth: number, currentDepth: number): JSX.Element {
  * Creates `divsPerLevel` parallel chains, each going `depth` levels deep.
  * Total nodes = divsPerLevel * depth (linear, not exponential).
  */
-function generateNestedDivs({
-	depth,
-	divsPerLevel,
-}: GenerateNestedDivsOptions): JSX.Element {
+function generateNestedDivs({ depth, divsPerLevel }: GenerateNestedDivsOptions): JSX.Element {
 	const chains = Array.from({ length: divsPerLevel }, (_, index) => (
 		<div key={index} css={nestedChildStyle} data-chain={index}>
 			{generateNestedChain(depth, 1)}

@@ -573,9 +573,7 @@ export interface CollabEvents {
 export type SyncUpErrorFunction = (attributes: NewCollabSyncUpErrorAttributes) => void;
 
 export interface CollabEditProvider<Events extends CollabEvents = CollabEvents> {
-	getFinalAcknowledgedState: (
-		reason: GetResolvedEditorStateReason,
-	) => Promise<ResolvedEditorState>;
+	getFinalAcknowledgedState: (reason: GetResolvedEditorStateReason) => Promise<ResolvedEditorState>;
 
 	getIsNamespaceLocked: () => boolean;
 

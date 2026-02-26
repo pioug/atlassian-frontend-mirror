@@ -65,7 +65,7 @@ export const handleBodiedSyncBlockRemoval = (
 		},
 		(success) => {
 			api?.core?.actions.execute(({ tr }) => {
-				let newState;
+				let newState: Record<string, unknown>;
 				if (!success) {
 					newState = {
 						activeFlag: {
@@ -74,6 +74,8 @@ export const handleBodiedSyncBlockRemoval = (
 							onDismissed: onDismissed(syncBlockStore),
 						} as ActiveFlag,
 					};
+				} else {
+					newState = { activeFlag: false };
 				}
 				newState = {
 					...newState,

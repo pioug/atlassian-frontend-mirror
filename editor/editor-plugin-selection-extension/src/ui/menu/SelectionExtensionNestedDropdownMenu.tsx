@@ -64,13 +64,19 @@ export const SelectionExtensionNestedDropdownMenu = ({
 				IconComponent ? (
 					// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
 					// To clean up: keep only size="small"
-					<IconComponent label="" size={fg('platform_editor_block_menu_v2_patch_3') ? 'small' : undefined} />
+					<IconComponent
+						label=""
+						size={fg('platform_editor_block_menu_v2_patch_3') ? 'small' : undefined}
+					/>
 				) : undefined
 			}
 			elemAfter={
 				// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
 				// To clean up: keep only size="small"
-				<ChevronRightIcon label="" size={fg('platform_editor_block_menu_v2_patch_3') ? 'small' : undefined} />
+				<ChevronRightIcon
+					label=""
+					size={fg('platform_editor_block_menu_v2_patch_3') ? 'small' : undefined}
+				/>
 			}
 			onClick={handleClick}
 			dropdownTestId="editor-selection-extension-menu"

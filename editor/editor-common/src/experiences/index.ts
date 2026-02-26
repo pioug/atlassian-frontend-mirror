@@ -10,7 +10,10 @@ export { ExperienceCheckDomMutation } from './ExperienceCheckDomMutation';
 export { ExperienceCheckPopupMutation } from './ExperienceCheckPopupMutation';
 export { ExperienceCheckTimeout } from './ExperienceCheckTimeout';
 
-export type { ExperienceCheckPopupMutationConfig, PopupCheckType } from './ExperienceCheckPopupMutation';
+export type {
+	ExperienceCheckPopupMutationConfig,
+	PopupCheckType,
+} from './ExperienceCheckPopupMutation';
 
 export type {
 	ExperienceCheck,

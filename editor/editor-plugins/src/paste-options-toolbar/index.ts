@@ -5,4 +5,5 @@ export { pasteOptionsToolbarPlugin } from '@atlaskit/editor-plugin-paste-options
 export type {
 	PasteOptionsToolbarPlugin,
 	PasteOptionsToolbarPluginDependencies,
+	PasteOptionsToolbarSharedState,
 } from '@atlaskit/editor-plugin-paste-options-toolbar';

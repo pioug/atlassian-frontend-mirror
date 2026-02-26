@@ -36,6 +36,10 @@
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__native-embeds-common/app"
 	},
-	"references": [],
+	"references": [
+		{
+			"path": "../../design-system/icon/tsconfig.app.json"
+		}
+	],
 	"files": []
 }

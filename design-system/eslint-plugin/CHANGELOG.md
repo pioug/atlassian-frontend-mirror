@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.40.2
+
+### Patch Changes
+
+- [`f3af0f1353dd5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3af0f1353dd5) -
+  Remove legacy icon glyphs and oldName prop support from metadata core.
+- Updated dependencies
+
 ## 13.40.1
 
 ### Patch Changes

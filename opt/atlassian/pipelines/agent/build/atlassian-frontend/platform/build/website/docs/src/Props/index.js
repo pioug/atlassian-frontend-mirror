@@ -2,8 +2,8 @@
 import React from 'react';
 import PrettyProps, { PropsTable as PT } from 'pretty-proptypes';
 import Button from '@atlaskit/button';
-import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
-import ChevronUpIcon from '@atlaskit/icon/glyph/chevron-up';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
+import ChevronUpIcon from '@atlaskit/icon/core/chevron-up';
 import components from './components';
 
 components.Button = ({ isCollapsed, ...rest }) => {

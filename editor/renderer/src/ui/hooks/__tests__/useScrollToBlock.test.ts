@@ -2,12 +2,6 @@ import { renderHook, act } from '@atlassian/testing-library';
 import type { DocNode } from '@atlaskit/adf-schema';
 import { useScrollToBlock } from '../useScrollToBlock';
 import * as blockMenuUtils from '@atlaskit/editor-common/block-menu';
-import * as statsig from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
-// Mock the statsig experiment check
-jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
-	expValEquals: jest.fn(),
-}));
 
 // Mock the block menu utilities
 jest.mock('@atlaskit/editor-common/block-menu', () => ({
@@ -30,7 +24,6 @@ jest.mock('../useStableScroll', () => ({
 }));
 
 describe('useScrollToBlock', () => {
-	const mockExpValEquals = statsig.expValEquals as jest.Mock;
 	const mockFindNodeWithExpandParents = blockMenuUtils.findNodeWithExpandParents as jest.Mock;
 	const mockGetLocalIdSelector = blockMenuUtils.getLocalIdSelector as jest.Mock;
 	const mockIsExpandCollapsed = blockMenuUtils.isExpandCollapsed as jest.Mock;
@@ -66,7 +59,6 @@ describe('useScrollToBlock', () => {
 		});
 
 		// Default mock implementations
-		mockExpValEquals.mockReturnValue(true); // Enable the experiment by default
 		mockWaitForStability.mockImplementation((_container, _callback) => {
 			// Don't call callback immediately by default - let tests control when stability is achieved
 		});
@@ -91,20 +83,7 @@ describe('useScrollToBlock', () => {
 		});
 	});
 
-	describe('basic functionality (duplicated from useScrollToLocalId)', () => {
-		it('should not run when experiment is disabled', () => {
-			expect.assertions(1);
-			mockExpValEquals.mockReturnValue(false);
-
-			const containerDiv = document.createElement('div');
-			const containerRef = { current: containerDiv };
-			const adfDoc: DocNode = { type: 'doc', version: 1, content: [] };
-
-			renderHook(() => useScrollToBlock(containerRef, adfDoc));
-
-			expect(mockFindNodeWithExpandParents).not.toHaveBeenCalled();
-		});
-
+	describe('basic functionality', () => {
 		it('should not run when containerRef is null', () => {
 			expect.assertions(1);
 			const containerRef = { current: null };

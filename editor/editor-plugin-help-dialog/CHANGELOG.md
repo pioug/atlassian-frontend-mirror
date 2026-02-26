@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 7.2.3
+
+### Patch Changes
+
+- [`e0a94dfe793c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0a94dfe793c5) -
+  [ux] Added missing aria label and role to modal context
+
+## 7.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.2.0
 
 ### Minor Changes

@@ -1,5 +1,41 @@
 # @atlaskit/editor-plugins
 
+## 12.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.2.0
+
+### Minor Changes
+
+- [`a0aa8f73bbd02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0aa8f73bbd02) -
+  [ux] EDITOR-5466 Introduce new popup menu for paste actions which includes existing functionality
+  used by the existing floatingToolbar implementation
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.7
 
 ### Patch Changes

@@ -49,7 +49,9 @@ export const SyncedBlockNodeComponentRenderer = ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	syncBlockStoreManager.referenceManager.updateFireAnalyticsEvent(fireAnalyticsEvent);
+	useEffect(() => {
+		syncBlockStoreManager.referenceManager.updateFireAnalyticsEvent(fireAnalyticsEvent);
+	}, [syncBlockStoreManager.referenceManager, fireAnalyticsEvent]);
 
 	const { syncBlockInstance, isLoading, reloadData, providerFactory, ssrProviders } =
 		useFetchSyncBlockData(syncBlockStoreManager, resourceId, localId, fireAnalyticsEvent);
@@ -63,13 +65,16 @@ export const SyncedBlockNodeComponentRenderer = ({
 			return rendererOptions;
 		}
 
-
 		const mediaSSR = {
 			// Use synced block's media config so auth uses source contentId, not current page.
 			// Server: during SSR; client: after hydration (avoids using page's MediaClient).
-			mode: fg('platform_synced_block_patch_4') ? (isSSR() ? 'server' : 'client') : 'server' as const,
+			mode: fg('platform_synced_block_patch_4')
+				? isSSR()
+					? 'server'
+					: 'client'
+				: ('server' as const),
 			config: ssrProviders?.media.viewMediaClientConfig,
-		} as MediaSSR
+		} as MediaSSR;
 
 		return {
 			...rendererOptions,
@@ -101,9 +106,9 @@ export const SyncedBlockNodeComponentRenderer = ({
 			(syncBlockInstance?.data?.status === 'deleted'
 				? { type: SyncBlockError.NotFound, reason: syncBlockInstance.data?.deletionReason }
 				: {
-					type: SyncBlockError.Errored,
-					reason: !resourceId ? 'missing resource id' : `missing data for block ${resourceId}`,
-				});
+						type: SyncBlockError.Errored,
+						reason: !resourceId ? 'missing resource id' : `missing data for block ${resourceId}`,
+					});
 		return (
 			<SyncedBlockErrorComponent
 				error={

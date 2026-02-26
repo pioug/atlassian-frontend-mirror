@@ -53,6 +53,9 @@
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
+			"path": "../../native-embeds/native-embeds-common/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/toggle/tsconfig.app.json"
 		}
 	]

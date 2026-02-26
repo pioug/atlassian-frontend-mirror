@@ -148,12 +148,22 @@ class PanelNodeView {
 		const panelAttrs = node.attrs as PanelAttributes;
 
 		// Determine if this is a standard panel type (info, note, success, warning, error)
-		const isStandardPanel = panelAttrs.panelType &&
-			[PanelType.INFO, PanelType.NOTE, PanelType.SUCCESS, PanelType.WARNING, PanelType.ERROR].includes(panelAttrs.panelType);
+		const isStandardPanel =
+			panelAttrs.panelType &&
+			[
+				PanelType.INFO,
+				PanelType.NOTE,
+				PanelType.SUCCESS,
+				PanelType.WARNING,
+				PanelType.ERROR,
+			].includes(panelAttrs.panelType);
 
 		// For standard panels (info, note, success, warning, error), render icon directly as native DOM
 		// This avoids Portal rendering delays that cause flickering on SSR and page transitions
-		if (isStandardPanel && expValEquals('platform_editor_vc90_transition_fixes_batch_1', 'isEnabled', true)) {
+		if (
+			isStandardPanel &&
+			expValEquals('platform_editor_vc90_transition_fixes_batch_1', 'isEnabled', true)
+		) {
 			renderPanelIcon(panelAttrs.panelType, this.icon);
 		} else {
 			this.nodeViewPortalProviderAPI.render(
@@ -185,10 +195,22 @@ class PanelNodeView {
 	destroy(): void {
 		const panelAttrs = this.node.attrs as PanelAttributes;
 		// Determine if this is a standard panel type (info, note, success, warning, error)
-		const isStandardPanel = panelAttrs.panelType &&
-			[PanelType.INFO, PanelType.NOTE, PanelType.SUCCESS, PanelType.WARNING, PanelType.ERROR].includes(panelAttrs.panelType);
+		const isStandardPanel =
+			panelAttrs.panelType &&
+			[
+				PanelType.INFO,
+				PanelType.NOTE,
+				PanelType.SUCCESS,
+				PanelType.WARNING,
+				PanelType.ERROR,
+			].includes(panelAttrs.panelType);
 		// Only remove Portal if it was used (for custom emoji panels)
-		if (!(isStandardPanel && expValEquals('platform_editor_vc90_transition_fixes_batch_1', 'isEnabled', true))) {
+		if (
+			!(
+				isStandardPanel &&
+				expValEquals('platform_editor_vc90_transition_fixes_batch_1', 'isEnabled', true)
+			)
+		) {
 			this.nodeViewPortalProviderAPI.remove(this.key);
 		}
 	}

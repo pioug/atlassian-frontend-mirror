@@ -7,13 +7,13 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 
-import type { PasteOtionsPluginState } from '../../types/types';
+import type { PasteOptionsPluginState } from '../../types/types';
 
 import { escapeLinks } from './index';
 
 export const formatMarkdown = (
 	tr: Transaction,
-	pluginState: PasteOtionsPluginState,
+	pluginState: PasteOptionsPluginState,
 ): Transaction => {
 	let pasteStartPos = pluginState.pasteStartPos;
 	const pasteEndPos = pluginState.pasteEndPos;
@@ -51,7 +51,7 @@ export const formatMarkdown = (
 
 export const formatRichText = (
 	tr: Transaction,
-	pluginState: PasteOtionsPluginState,
+	pluginState: PasteOptionsPluginState,
 ): Transaction => {
 	let pasteStartPos = pluginState.pasteStartPos;
 	const pasteEndPos = pluginState.pasteEndPos;
@@ -83,7 +83,7 @@ export const formatRichText = (
 
 export const formatPlainText = (
 	tr: Transaction,
-	pluginState: PasteOtionsPluginState,
+	pluginState: PasteOptionsPluginState,
 ): Transaction => {
 	let pasteStartPos = pluginState.pasteStartPos;
 	const pasteEndPos = pluginState.pasteEndPos;

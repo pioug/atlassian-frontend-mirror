@@ -1,13 +1,7 @@
 /**
  * All alignment values (for dropdowns / iteration). Single source of truth for alignment options.
  */
-export const ALIGNMENT_VALUES = [
-	'left',
-	'center',
-	'right',
-	'wrap-left',
-	'wrap-right',
-] as const;
+export const ALIGNMENT_VALUES = ['left', 'center', 'right', 'wrap-left', 'wrap-right'] as const;
 
 /**
  * Alignment value for native embed extension parameters.

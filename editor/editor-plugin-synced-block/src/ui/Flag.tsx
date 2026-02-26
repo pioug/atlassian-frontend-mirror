@@ -127,8 +127,9 @@ export const Flag = ({ api }: Props) => {
 			return [
 				{
 					content: formatMessage(action),
-					href: 'https://atlaskit.atlassian.com/',
+					href: 'https://support.atlassian.com/confluence-cloud/docs/reuse-content-with-synced-blocks',
 					target: '_blank',
+					rel: 'noopener noreferrer',
 				},
 			];
 		}

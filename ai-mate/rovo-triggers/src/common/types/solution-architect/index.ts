@@ -44,3 +44,10 @@ export type UpdateAgentConfigurationPayload = PayloadCore<'agent-configuration-u
 		ari: string;
 	};
 };
+
+export type StudioLandingPageRedirectPayload = PayloadCore<'studio-landing-page-redirect'> & {
+	data: {
+		ari: string;
+		prompt: string;
+	};
+};

@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-extension
 
+## 10.1.10
+
+### Patch Changes
+
+- [`42b2a9cd2af92`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42b2a9cd2af92) -
+  Remove legacy icon glyphs and oldName prop support from metadata core.
+- Updated dependencies
+
+## 10.1.9
+
+### Patch Changes
+
+- [`f3af0f1353dd5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3af0f1353dd5) -
+  Remove legacy icon glyphs and oldName prop support from metadata core.
+- Updated dependencies
+
 ## 10.1.8
 
 ### Patch Changes

@@ -75,6 +75,9 @@
 		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../../native-embeds/native-embeds-core/tsconfig.app.json"
 		}
 	]
 }

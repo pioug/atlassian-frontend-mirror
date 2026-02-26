@@ -22,6 +22,7 @@ import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
+import { getNativeEmbedFacade } from '@atlassian/native-embeds-core';
 
 import { nativeEmbedsPlugin } from '../src';
 
@@ -30,8 +31,7 @@ setupEditorExperiments('test', {
 });
 
 const NATIVE_EMBEDS_EXAMPLE_URLS = {
-	localDefault:
-		'http://localhost:9000/examples/editor/editor-plugin-native-embeds/basic',
+	localDefault: 'http://localhost:9000/examples/editor/editor-plugin-native-embeds/basic',
 	whiteboard: 'https://example.atlassian.net/wiki/spaces/DEMO/whiteboard/12345',
 	dbExperience: 'https://example.atlassian.net/wiki/spaces/DEMO/pages/12345/db/67890',
 };
@@ -168,7 +168,40 @@ const NativeEmbedsEditorExample = (): React.JSX.Element => {
 		},
 	});
 
-	const { preset } = usePreset(() => fullPagePreset.add(nativeEmbedsPlugin), [fullPagePreset]);
+	const { preset } = usePreset(
+		() =>
+			fullPagePreset.add([
+				nativeEmbedsPlugin,
+				{
+					getEditorToolbarActions: (url: string) => {
+						const facade = getNativeEmbedFacade();
+						const manifest = facade.getManifestByUrl(url);
+						return manifest?.uiConfig?.editorToolbarActions;
+					},
+					actionHandlers: {
+						refresh: () => {
+							// eslint-disable-next-line no-console
+							console.log('Refresh clicked (custom action)');
+						},
+						openInNewWindow: () => {
+							// eslint-disable-next-line no-console
+							console.log('Open in new window clicked');
+						},
+					},
+					handlers: {
+						onRefreshClick: () => {
+							// eslint-disable-next-line no-console
+							console.log('Refresh clicked (built-in)');
+						},
+						onOpenInNewWindowClick: () => {
+							// eslint-disable-next-line no-console
+							console.log('Open in new window clicked (built-in)');
+						},
+					},
+				},
+			]),
+		[fullPagePreset],
+	);
 
 	const onEditorReady = React.useCallback((editorActions: EditorActions) => {
 		setEditorView(editorActions._privateGetEditorView());

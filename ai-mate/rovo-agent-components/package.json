@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-agent-components",
-	"version": "3.35.0",
+	"version": "3.36.0",
 	"description": "This package host public components related to rovo agents, the components here are needed for other public atlaskit packages",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -33,6 +33,7 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
+		"./agent-name-side-nav": "./src/ui/agent-name-side-nav/index.tsx",
 		"./agent-verification-dropdown-item": "./src/ui/agent-verification-dropdown-item/index.tsx",
 		"./agent-verified": "./src/ui/agent-verified/index.tsx",
 		"./common/ui/ChatIcon": "./src/common/ui/chat-icon/index.tsx",

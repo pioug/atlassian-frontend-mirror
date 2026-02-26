@@ -8,11 +8,7 @@ import SimpleMentionList from '../../../examples/simple-mention-list';
 import MentionItemWithAgent from '../../../examples/11-mention-item-with-agent';
 
 // Simple mention item
-snapshot(SimpleMentionItem, {
-	featureFlags: {
-		'team-avatar-in-mention-picker': [false, true],
-	},
-});
+snapshot(SimpleMentionItem);
 
 // Mention item with avatar and details
 snapshot(MentionItem);

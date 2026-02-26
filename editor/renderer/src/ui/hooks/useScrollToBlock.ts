@@ -9,7 +9,6 @@ import {
 	findNodeWithExpandParents,
 	getLocalIdSelector,
 } from '@atlaskit/editor-common/block-menu';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { useStableScroll } from './useStableScroll';
 
 /**
@@ -22,13 +21,6 @@ import { useStableScroll } from './useStableScroll';
  * This implementation waits for the container to stabilize (no layout shifts) before scrolling,
  * which prevents issues with images loading, dynamic content, or other async operations that
  * cause layout changes.
- *
- * This hook replaces useScrollToLocalId when the platform_editor_expand_on_scroll_to_block experiment is enabled.
- *
- * When platform_editor_expand_on_scroll_to_block experiment is cleaned up:
- *       - Remove the experiment check
- *       - Delete the deprecated useScrollToLocalId hook
- *       - Make this the default scroll-to-block behavior
  *
  * @param containerRef - Optional ref to the renderer container (RendererStyleContainer)
  * @param adfDoc - The ADF document to search for nodes and expand parents
@@ -48,16 +40,13 @@ export const useScrollToBlock = (
 			return;
 		}
 
-		if (!expValEquals('platform_editor_expand_on_scroll_to_block', 'isEnabled', true)) {
-			return;
-		}
-
 		// Parse hash fragment for block ID (format: #block-{localId}).
 		const hash = window.location.hash;
 		const defaultPrefixWithHash = `#${DEFAULT_BLOCK_LINK_HASH_PREFIX}`;
-		const blockId = hash.startsWith(defaultPrefixWithHash)
-			? hash.slice(defaultPrefixWithHash.length)
-			: null;
+		const blockId =
+			hash && hash.startsWith(defaultPrefixWithHash)
+				? hash.slice(defaultPrefixWithHash.length)
+				: null;
 
 		if (!blockId) {
 			return;

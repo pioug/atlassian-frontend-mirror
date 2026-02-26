@@ -187,36 +187,36 @@ export const createSelectionPreservationPlugin =
 				});
 
 				return {
-				update(updateView: EditorView, prevState: EditorState) {
-					view = updateView;
+					update(updateView: EditorView, prevState: EditorState) {
+						view = updateView;
 
-					const prevPreservedSelection =
-						selectionPreservationPluginKey.getState(prevState)?.preservedSelection;
-					const currPreservedSelection = selectionPreservationPluginKey.getState(
-						view.state,
-					)?.preservedSelection;
-					const prevActiveNode = key.getState(prevState)?.activeNode;
-					const currActiveNode = key.getState(view.state)?.activeNode;
+						const prevPreservedSelection =
+							selectionPreservationPluginKey.getState(prevState)?.preservedSelection;
+						const currPreservedSelection = selectionPreservationPluginKey.getState(
+							view.state,
+						)?.preservedSelection;
+						const prevActiveNode = key.getState(prevState)?.activeNode;
+						const currActiveNode = key.getState(view.state)?.activeNode;
 
-					// Sync DOM selection when the preserved selection or active node changes
-					// AND the document has changed (e.g., nodes moved)
-					// This prevents stealing focus during menu navigation while still fixing ghost highlighting
-					const hasPreservedSelection = !!currPreservedSelection;
-					const preservedSelectionChanged = !compareSelections(
-						prevPreservedSelection,
-						currPreservedSelection,
-					);
-					const activeNodeChanged = prevActiveNode !== currActiveNode;
-					const docChanged = prevState.doc !== view.state.doc;
-					const shouldSyncDOMSelection =
-						hasPreservedSelection &&
-						(preservedSelectionChanged || activeNodeChanged) &&
-						docChanged;
+						// Sync DOM selection when the preserved selection or active node changes
+						// AND the document has changed (e.g., nodes moved)
+						// This prevents stealing focus during menu navigation while still fixing ghost highlighting
+						const hasPreservedSelection = !!currPreservedSelection;
+						const preservedSelectionChanged = !compareSelections(
+							prevPreservedSelection,
+							currPreservedSelection,
+						);
+						const activeNodeChanged = prevActiveNode !== currActiveNode;
+						const docChanged = prevState.doc !== view.state.doc;
+						const shouldSyncDOMSelection =
+							hasPreservedSelection &&
+							(preservedSelectionChanged || activeNodeChanged) &&
+							docChanged;
 
-					if (shouldSyncDOMSelection) {
-						syncDOMSelection(view.state.selection, view);
-					}
-				},
+						if (shouldSyncDOMSelection) {
+							syncDOMSelection(view.state.selection, view);
+						}
+					},
 					destroy() {
 						unbindDocumentMouseDown();
 					},

@@ -6,7 +6,11 @@ import {
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 import type { BlockMenuPlugin } from '../../blockMenuPluginType';
-import { buildChildrenMap, getChildrenMapKey, willComponentRender } from '../block-menu-renderer/utils';
+import {
+	buildChildrenMap,
+	getChildrenMapKey,
+	willComponentRender,
+} from '../block-menu-renderer/utils';
 
 /**
  * Checks if a section has any visible content (items that will render)

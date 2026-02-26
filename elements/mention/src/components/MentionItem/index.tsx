@@ -1,7 +1,4 @@
-import Avatar, { getAppearanceForAppType } from '@atlaskit/avatar';
 import Lozenge from '@atlaskit/lozenge';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { N30 } from '@atlaskit/theme/colors';
 import React from 'react';
 import { token } from '@atlaskit/tokens';
 import EditorPanelIcon from '@atlaskit/icon/core/status-information';
@@ -84,23 +81,13 @@ export default class MentionItem extends React.PureComponent<Props, {}> {
 
 	render(): React.JSX.Element {
 		const { mention, selected, forwardedRef } = this.props;
-		const {
-			id,
-			highlight,
-			avatarUrl,
-			presence,
-			name,
-			mentionName,
-			lozenge,
-			accessLevel,
-			isXProductUser,
-		} = mention;
-		const { status, time } = presence || ({} as Presence);
+		const { id, highlight, presence, name, mentionName, lozenge, accessLevel, isXProductUser } =
+			mention;
+		const { time } = presence || ({} as Presence);
 		const restricted = isRestricted(accessLevel);
 
 		const nameHighlights = highlight && highlight.name;
 
-		const borderColor = selected ? token('color.border', N30) : undefined;
 		const xProductUserInfoIconColor = selected
 			? token('color.icon.selected', '#0C66E4')
 			: token('color.icon', '#44546F');
@@ -121,21 +108,7 @@ export default class MentionItem extends React.PureComponent<Props, {}> {
 				>
 					<RowStyle>
 						<AvatarStyle restricted={restricted}>
-							{fg('team-avatar-in-mention-picker') ? (
-								<MentionAvatar selected={selected} mention={mention} />
-							) : (
-								<Avatar
-									src={avatarUrl}
-									size="medium"
-									presence={status}
-									borderColor={borderColor}
-									appearance={
-										fg('jira_ai_agent_avatar_issue_view_comment_mentions')
-											? getAppearanceForAppType(mention.appType)
-											: undefined
-									}
-								/>
-							)}
+							<MentionAvatar selected={selected} mention={mention} />
 						</AvatarStyle>
 						<NameSectionStyle restricted={restricted}>
 							{renderHighlight(FullNameStyle, name, nameHighlights)}

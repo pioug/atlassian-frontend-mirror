@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-loom
 
+## 9.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.3.3
 
 ### Patch Changes

@@ -76,9 +76,8 @@ export const getToolbarActionExperiencesPlugin = ({
 		}
 
 		return (
-			lastClickedToolbarButton.closest<HTMLElement>(
-				'[data-toolbar-component="button-group"]',
-			) ?? lastClickedToolbarButton
+			lastClickedToolbarButton.closest<HTMLElement>('[data-toolbar-component="button-group"]') ??
+			lastClickedToolbarButton
 		);
 	};
 
@@ -121,12 +120,12 @@ export const getToolbarActionExperiencesPlugin = ({
 			dispatchAnalyticsEvent,
 			checks: [
 				new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
-			new ExperienceCheckPopupMutation({
-				nestedElementQuery: popupSelector,
-				getTarget: type === 'inline' ? getInlinePopupTarget : getPopupsTarget,
-				getEditorDom,
-				type,
-			}),
+				new ExperienceCheckPopupMutation({
+					nestedElementQuery: popupSelector,
+					getTarget: type === 'inline' ? getInlinePopupTarget : getPopupsTarget,
+					getEditorDom,
+					type,
+				}),
 			],
 		});
 

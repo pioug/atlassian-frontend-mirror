@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 8.6.2
+
+### Patch Changes
+
+- [`ddbc57daa880f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ddbc57daa880f) -
+  EDITOR-4477 Removed the heading with alignment patch in the newGetSelection
+- Updated dependencies
+
+## 8.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.6.0
 
 ### Minor Changes

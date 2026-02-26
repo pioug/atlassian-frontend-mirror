@@ -12,30 +12,30 @@ Design System components.
 ### Incorrect
 
 ```js
-import ActivityIcon from '@atlaskit/icon/glyph/activity'
+import DashboardIcon from '@atlaskit/icon/glyph/dashboard'
 
-<ActivityIcon>
-^^^^^^^^^^^^^^ missing `label` prop
+<DashboardIcon>
+^^^^^^^^^^^^^^^ missing `label` prop
 
-<Button iconLeft={<ActivityIcon label="">} />
-                                ^^^^^ label should be defined
+<Button iconLeft={<DashboardIcon label="">} />
+                                 ^^^^^ label should be defined
 
-<ButtonItem iconBefore={<ActivityIcon label="">}>
-                                      ^^^^^ label should not be defined
-  My activity
+<ButtonItem iconBefore={<DashboardIcon label="">}>
+                                       ^^^^^ label should not be defined
+  My dashboard
 </ButtonItem>
 ```
 
 ### Correct
 
 ```js
-import ActivityIcon from '@atlaskit/icon/glyph/activity'
+import DashboardIcon from '@atlaskit/icon/glyph/dashboard'
 
-<ActivityIcon label="Activity">
+<DashboardIcon label="Dashboard">
 
-<Button iconLeft={<ActivityIcon label="Activity">} />
+<Button iconLeft={<DashboardIcon label="Add">} />
 
-<ButtonItem iconBefore={<ActivityIcon label="">}>
-  My activity
+<ButtonItem iconBefore={<DashboardIcon label="">}>
+  My dashboard
 </ButtonItem>
 ```

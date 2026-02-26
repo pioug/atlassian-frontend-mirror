@@ -1,5 +1,19 @@
 # @atlaskit/rovo-triggers
 
+## 5.20.0
+
+### Minor Changes
+
+- [`b60a9e8f66f3b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b60a9e8f66f3b) -
+  [ux] Add new action to redirect user to landing page and auto trigger prompt
+
+## 5.19.0
+
+### Minor Changes
+
+- [`88e83be9c053a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88e83be9c053a) -
+  [ux] add 'Add to dashboard' button for rovo charts
+
 ## 5.18.0
 
 ### Minor Changes

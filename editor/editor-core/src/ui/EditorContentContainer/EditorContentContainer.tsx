@@ -461,8 +461,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					gapCursorStyles,
 					expValEquals('platform_synced_block', 'isEnabled', true) &&
 						fg('platform_synced_block_patch_4') &&
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							gapCursorStylesVisibilityFix,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						gapCursorStylesVisibilityFix,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					panelStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

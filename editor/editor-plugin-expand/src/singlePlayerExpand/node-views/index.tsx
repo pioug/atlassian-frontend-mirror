@@ -23,6 +23,7 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { redo, undo } from '@atlaskit/prosemirror-history';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -68,7 +69,7 @@ export class ExpandNodeView implements NodeView {
 		allowInteractiveExpand: boolean = true,
 		private __livePage = false,
 		private cleanUpEditorDisabledOnChange?: () => void,
-		private isExpanded: boolean | undefined = false,
+		private isExpanded: { expanded: boolean; localId?: string } = { expanded: false },
 	) {
 		this.intl = getIntl();
 		this.nodeViewPortalProviderAPI = nodeViewPortalProviderAPI;
@@ -76,6 +77,15 @@ export class ExpandNodeView implements NodeView {
 		this.getPos = getPos;
 		this.view = view;
 		this.node = node;
+
+		if (
+			expValEquals('platform_editor_block_menu', 'isEnabled', true) &&
+			fg('platform_editor_block_menu_v2_patch_3')
+		) {
+			this.isExpanded.expanded = expandedState.get(node) ?? false;
+			this.isExpanded.localId = node.attrs.localId;
+		}
+
 		const { dom, contentDOM } = DOMSerializer.renderSpec(
 			document,
 			toDOM(
@@ -603,7 +613,13 @@ export class ExpandNodeView implements NodeView {
 
 			if (expValEquals('platform_editor_toggle_expand_on_match_found', 'isEnabled', true)) {
 				this.node = node;
-				const hasChanged = this.isExpanded !== expandedState.get(node);
+				const currentExpanded = expandedState.get(node) ?? false;
+				const hasChanged =
+					expValEquals('platform_editor_block_menu', 'isEnabled', true) &&
+					fg('platform_editor_block_menu_v2_patch_3')
+						? this.isExpanded.expanded !== currentExpanded &&
+							this.isExpanded.localId === node.attrs.localId
+						: this.isExpanded.expanded !== currentExpanded;
 				if (hasChanged) {
 					this.updateExpandToggleIcon(node);
 
@@ -644,7 +660,11 @@ export class ExpandNodeView implements NodeView {
 		}
 		this.updateExpandBodyContentEditable();
 		if (expValEquals('platform_editor_toggle_expand_on_match_found', 'isEnabled', true)) {
-			this.isExpanded = expanded;
+			this.isExpanded =
+				expValEquals('platform_editor_block_menu', 'isEnabled', true) &&
+				fg('platform_editor_block_menu_v2_patch_3')
+					? { expanded: expanded ?? false, localId: node.attrs.localId }
+					: { expanded: expanded ?? false };
 		}
 	}
 

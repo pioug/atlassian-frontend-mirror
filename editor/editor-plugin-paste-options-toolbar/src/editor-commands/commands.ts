@@ -23,14 +23,14 @@ import {
 	formatPlainText,
 	formatRichText,
 } from '../pm-plugins/util/format-handlers';
-import type { PasteOtionsPluginState } from '../types/types';
+import type { PasteOptionsPluginState } from '../types/types';
 import { pasteOptionsPluginKey, ToolbarDropdownOption } from '../types/types';
 
 export const showToolbar = (
 	lastContentPasted: LastContentPasted,
 	selectedOption: ToolbarDropdownOption,
 ): Command => {
-	const commandAction = (editorState: EditorState) => {
+	const commandAction = (_editorState: EditorState) => {
 		return {
 			type: ActionTypes.SHOW_PASTE_OPTIONS,
 			data: {
@@ -49,14 +49,14 @@ export const showToolbar = (
 
 export const changeToPlainText = (): Command => {
 	const plaintextTransformer = (tr: Transaction, state: EditorState) => {
-		const pluginState: PasteOtionsPluginState = pasteOptionsPluginKey.getState(state);
+		const pluginState: PasteOptionsPluginState = pasteOptionsPluginKey.getState(state);
 		if (pluginState.selectedOption === ToolbarDropdownOption.PlainText) {
 			return tr;
 		}
 
 		return formatPlainText(tr, pluginState);
 	};
-	const commandAction = (editorState: EditorState) => {
+	const commandAction = (_editorState: EditorState) => {
 		return {
 			type: ActionTypes.CHANGE_FORMAT,
 			data: {
@@ -88,14 +88,14 @@ export const dropdownClickHandler = (): Command => {
 
 export const changeToRichText = (): Command => {
 	const transformer = (tr: Transaction, state: EditorState) => {
-		const pluginState: PasteOtionsPluginState = pasteOptionsPluginKey.getState(state);
+		const pluginState: PasteOptionsPluginState = pasteOptionsPluginKey.getState(state);
 		if (pluginState.selectedOption === ToolbarDropdownOption.RichText) {
 			return tr;
 		}
 
 		return formatRichText(tr, pluginState);
 	};
-	const commandAction = (editorState: EditorState) => {
+	const commandAction = (_editorState: EditorState) => {
 		return {
 			type: ActionTypes.CHANGE_FORMAT,
 			data: {
@@ -109,7 +109,7 @@ export const changeToRichText = (): Command => {
 export const changeToRichTextWithAnalytics =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) => (): Command => {
 		const payloadCallback = (state: EditorState): AnalyticsEventPayload | undefined => {
-			const pastePluginState = pasteOptionsPluginKey.getState(state) as PasteOtionsPluginState;
+			const pastePluginState = pasteOptionsPluginKey.getState(state) as PasteOptionsPluginState;
 
 			return {
 				action: ACTION.PASTED,
@@ -129,7 +129,7 @@ export const changeToRichTextWithAnalytics =
 
 export const changeToMarkDown = (): Command => {
 	const markdownTransformer = (tr: Transaction, state: EditorState) => {
-		const pluginState: PasteOtionsPluginState = pasteOptionsPluginKey.getState(state);
+		const pluginState: PasteOptionsPluginState = pasteOptionsPluginKey.getState(state);
 		if (pluginState.selectedOption === ToolbarDropdownOption.Markdown) {
 			return tr;
 		}
@@ -137,7 +137,7 @@ export const changeToMarkDown = (): Command => {
 		return formatMarkdown(tr, pluginState);
 	};
 
-	const commandAction = (editorState: EditorState) => {
+	const commandAction = (_editorState: EditorState) => {
 		return {
 			type: ActionTypes.CHANGE_FORMAT,
 			data: {
@@ -164,7 +164,7 @@ export const changeToMarkdownWithAnalytics =
 	};
 
 export const highlightContent = (): Command => {
-	const commandAction = (editorState: EditorState) => {
+	const commandAction = (_editorState: EditorState) => {
 		return {
 			type: ActionTypes.HIGHLIGHT_CONTENT,
 		};
@@ -173,7 +173,7 @@ export const highlightContent = (): Command => {
 };
 
 export const hideToolbar = (): Command => {
-	const commandAction = (editorState: EditorState) => {
+	const commandAction = (_editorState: EditorState) => {
 		return {
 			type: ActionTypes.HIDE_PASTE_OPTIONS,
 		};

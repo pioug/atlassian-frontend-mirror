@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-native-embeds",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"description": "EditorPluginNativeEmbeds plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,6 +36,7 @@
 		"@atlaskit/editor-plugin-extension": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/native-embeds-common": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
 		"@babel/runtime": "root:*",
 		"react-intl-next": "root:*"

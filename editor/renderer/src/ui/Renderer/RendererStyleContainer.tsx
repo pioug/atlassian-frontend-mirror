@@ -7,7 +7,6 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, jsx } from '@emotion/react';
-import { useScrollToLocalId } from '../hooks/useScrollToLocalId';
 import {
 	B300,
 	B400,
@@ -27,7 +26,6 @@ import { token } from '@atlaskit/tokens';
 import { type RendererWrapperProps } from './index';
 import { FullPagePadding } from './style';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { RendererCssClassName } from '../../consts';
 import {
 	akEditorBlockquoteBorderColor,
@@ -2928,12 +2926,6 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 		innerRef,
 		testId,
 	} = props;
-
-	// Scroll to localId functionality
-	useScrollToLocalId(
-		innerRef,
-		expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true),
-	);
 
 	const isAdvancedLayoutsOn = editorExperiment('advanced_layouts', true);
 	const isPreviewPanelResponsivenessOn = editorExperiment(

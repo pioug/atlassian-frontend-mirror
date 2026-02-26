@@ -1,6 +1,11 @@
 import type React from 'react';
 
-import { getATLContextUrl, getDomainInContext, isFedRamp, isIsolatedCloud } from '@atlaskit/atlassian-context';
+import {
+	getATLContextUrl,
+	getDomainInContext,
+	isFedRamp,
+	isIsolatedCloud,
+} from '@atlaskit/atlassian-context';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type {

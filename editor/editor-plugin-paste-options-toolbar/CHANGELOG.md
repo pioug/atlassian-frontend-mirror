@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 8.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.1.0
+
+### Minor Changes
+
+- [`a0aa8f73bbd02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0aa8f73bbd02) -
+  [ux] EDITOR-5466 Introduce new popup menu for paste actions which includes existing functionality
+  used by the existing floatingToolbar implementation
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.3
 
 ### Patch Changes

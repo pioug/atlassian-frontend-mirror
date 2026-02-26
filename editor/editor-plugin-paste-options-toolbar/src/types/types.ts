@@ -11,7 +11,7 @@ export enum ToolbarDropdownOption {
 	None,
 }
 
-export interface PasteOtionsPluginState {
+export interface PasteOptionsPluginState {
 	highlightContent: boolean;
 	highlightDecorationSet: DecorationSet;
 	isPlainText: boolean;

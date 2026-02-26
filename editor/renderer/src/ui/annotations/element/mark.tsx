@@ -312,7 +312,7 @@ export const MarkComponent = ({
 							'--ak-renderer-annotation-endmarker': `"${intl.formatMessage(
 								inlineCommentMessages.contentRendererInlineCommentMarkerEnd,
 							)}"`,
-					  }
+						}
 					: {
 							'--ak-renderer-annotation-startmarker': intl.formatMessage(
 								inlineCommentMessages.contentRendererInlineCommentMarkerStart,

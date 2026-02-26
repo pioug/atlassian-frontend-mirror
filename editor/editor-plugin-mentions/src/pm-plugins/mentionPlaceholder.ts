@@ -33,15 +33,15 @@ export function createMentionPlaceholderPlugin() {
 		},
 		props: {
 			decorations: (state) => {
-				const pluginState = mentionPlaceholderPluginKey.getState(state) as MentionPlaceholderPluginState;
+				const pluginState = mentionPlaceholderPluginKey.getState(
+					state,
+				) as MentionPlaceholderPluginState;
 				if (pluginState?.placeholder) {
 					const { selection } = state;
 					const span = document.createElement('span');
 					span.textContent = pluginState.placeholder;
 					span.style.setProperty('color', token('color.text.accent.blue', B400));
-					return DecorationSet.create(state.doc, [
-						Decoration.widget(selection.from, span),
-					]);
+					return DecorationSet.create(state.doc, [Decoration.widget(selection.from, span)]);
 				}
 				return null;
 			},

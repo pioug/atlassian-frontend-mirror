@@ -1,5 +1,12 @@
 # @atlaskit/json-schema-generator
 
+## 3.3.12
+
+### Patch Changes
+
+- [`3908dc390cd26`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3908dc390cd26) -
+  set moduleResolution to 'Bundler' when generating types
+
 ## 3.3.11
 
 ### Patch Changes
@@ -324,43 +331,36 @@ Bumped dependencies.
 ## 2.1.1
 
 - [patch][d13fad66df](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d13fad66df):
-
   - Enable esModuleInterop for typescript, this allows correct use of default exports
 
 ## 2.1.0
 
 - [minor][e36f791fd6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e36f791fd6):
-
   - Improve types
 
 ## 2.0.0
 
 - [major][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-
   - Dropped ES5 distributables from the typescript packages
 
 ## 1.3.0
 
 - [minor][1eb20bca95](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1eb20bca95):
-
   - ED-6368: No implicit any for editor-\*-transformer packages
 
 ## 1.2.3
 
 - [patch][9f43a40e1e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9f43a40e1e):
-
   - run prettier with bablyon as default parser; removes a bunch of warnings
 
 ## 1.2.2
 
 - [patch][d5eec5a831](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d5eec5a831):
-
   - Fix ts-node config because it can not resolve type package as the name doesn't match
 
 ## 1.2.1
 
 - [patch][11d4b85](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/11d4b85):
-
   - ED-5606 Spec generator now produces object for empty type
 
 ## 1.2.0

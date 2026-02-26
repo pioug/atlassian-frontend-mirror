@@ -9,9 +9,9 @@ import {
 	ObjectFlags,
 	createProgram,
 	type StringLiteralType,
+	ModuleResolutionKind,
 } from 'typescript';
-import { readFileSync, writeFileSync, existsSync } from 'fs';
-import JSON5 from 'json5';
+import { writeFileSync } from 'fs';
 import { resolve, join } from 'path';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-namespace
@@ -59,21 +59,10 @@ export default (
 	root = 'doc_node',
 	description = 'Schema for Atlassian Document Format.',
 ): Promise<void> => {
-	// We check whether we're in the monorepo or not, and get paths if we are
-	const project = join(__dirname, '../tsconfig.json');
-	const dev = existsSync(project);
-	let entryPointsTsConfig;
-	if (dev) {
-		entryPointsTsConfig = JSON5.parse(
-			readFileSync(join(__dirname, '../../../../tsconfig.entry-points.json'), 'utf8'),
-		);
-	}
 	const program = createProgram(files, {
 		jsx: JsxEmit.React,
-		// We need our paths configuration here to compile atlaskit dependencies now that we no longer
-		// have root index.ts files
 		baseUrl: join(__dirname, '..'),
-		paths: entryPointsTsConfig?.compilerOptions.paths,
+		moduleResolution: ModuleResolutionKind.Bundler,
 	});
 	const checker = program.getTypeChecker();
 	const typeIdToDefName: Map<number, string> = new Map();

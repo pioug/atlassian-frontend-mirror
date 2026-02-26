@@ -1,5 +1,18 @@
 # @atlaskit/mention
 
+## 24.5.2
+
+### Patch Changes
+
+- [`570b29ea65e1d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/570b29ea65e1d) -
+  [ux] [PTC-15461]: FG Cleanup - Remove team-avatar-in-mention-picker
+
+## 24.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.5.0
 
 ### Minor Changes

@@ -208,7 +208,10 @@ const getTurnIntoMenuComponents = (
 			},
 			component: ({ children }: { children: React.ReactNode } = { children: null }) => {
 				return (
-					<MenuSection title={blockMenuMessages.headings} hasSeparator={hasContentBeforeHeadings(api)}>
+					<MenuSection
+						title={blockMenuMessages.headings}
+						hasSeparator={hasContentBeforeHeadings(api)}
+					>
 						{children}
 					</MenuSection>
 				);

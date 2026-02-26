@@ -68,4 +68,5 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	platform_editor_reduce_noisy_steps_ncs: false,
 	platform_editor_prosemirror_rendered_data: false,
 	confluence_compact_text_format: false,
+	platform_editor_paste_actions_menu: false,
 };

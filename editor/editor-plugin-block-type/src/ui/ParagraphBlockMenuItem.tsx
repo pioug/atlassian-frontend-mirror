@@ -43,7 +43,10 @@ const ParagraphBlockMenuItem = ({ api }: ParagraphBlockMenuItemProps) => {
 	const iconSize = fg('platform_editor_block_menu_v2_patch_3') ? 'small' : undefined;
 
 	return (
-		<ToolbarDropdownItem onClick={handleClick} elemBefore={<TextParagraphIcon label="" size={iconSize} />}>
+		<ToolbarDropdownItem
+			onClick={handleClick}
+			elemBefore={<TextParagraphIcon label="" size={iconSize} />}
+		>
 			{formatMessage(blockMenuMessages.paragraph)}
 		</ToolbarDropdownItem>
 	);

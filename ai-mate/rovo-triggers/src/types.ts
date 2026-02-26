@@ -7,6 +7,7 @@ import type {
 	SolutionArchitectHandoffPayload,
 	SolutionPlanStateUpdatePayload,
 	StudioAutomationBuildUpdatePayload,
+	StudioLandingPageRedirectPayload,
 	UpdateAgentConfigurationPayload,
 } from './common/types/solution-architect';
 import type { ChatContextPayload } from './common/utils/chat-context/types';
@@ -15,6 +16,7 @@ export const Topics = {
 	AI_MATE: 'ai-mate',
 	AI_MATE_ACTIONS: 'ai-mate-actions',
 	AI_MATE_INSERT_URLS: 'ai-mate-chat-inserts',
+	AVP: 'avp',
 } as const;
 export type Topic = (typeof Topics)[keyof typeof Topics];
 
@@ -272,6 +274,23 @@ export type SelectActionPayload = PayloadCore<
 	}
 >;
 
+/**
+ * Result shape when a chart is added to an AVP dashboard.
+ * Matches the return type of ChartApiService.addChartToDashboard().
+ */
+export type AddChartToDashboardResult = {
+	chart: Record<string, unknown> | null;
+	canvasLayout: Record<string, unknown> | null;
+};
+
+/**
+ * Fired when a chart is added to an AVP dashboard from a Rovo generated chart
+ */
+export type AddChartToDashboardPayload = PayloadCore<
+	'add-chart-to-dashboard',
+	AddChartToDashboardResult
+>;
+
 export type TransitionId = string;
 export type StatusId = string;
 export type StatusCategory = 'TODO' | 'IN_PROGRESS' | 'DONE' | 'UNDEFINED';
@@ -445,6 +464,7 @@ export type Payload =
 	| SetChatContextPayload
 	| InsertUrlsPayload
 	| SelectActionPayload
+	| AddChartToDashboardPayload
 	| GenericExternalActionErrorPayload
 	| OpenChatDebugModalPayload
 	| OpenChatFeedbackModalPayload
@@ -454,7 +474,8 @@ export type Payload =
 	| SolutionPlanStateUpdatePayload
 	| SolutionDraftAgentUpdatePayload
 	| SolutionArchitectAgentActivationPayload
-	| UpdateAgentConfigurationPayload;
+	| UpdateAgentConfigurationPayload
+	| StudioLandingPageRedirectPayload;
 
 export type Callback = (payload: Payload) => void;
 

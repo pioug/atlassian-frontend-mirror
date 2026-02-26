@@ -1,5 +1,24 @@
 # @atlaskit/renderer
 
+## 126.13.0
+
+### Minor Changes
+
+- [`c67bc7d9fda55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c67bc7d9fda55) -
+  [ux] Cleanup fg: platform_editor_expand_on_scroll_to_block
+
+## 126.12.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 126.12.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 126.12.2
 
 ### Patch Changes

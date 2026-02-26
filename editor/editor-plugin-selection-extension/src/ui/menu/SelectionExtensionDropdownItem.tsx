@@ -121,8 +121,7 @@ export const SelectionExtensionDropdownItem = ({
 								size={
 									// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
 									// To clean up: simplify conditional to just check if extensionLocation is inline-toolbar or block-menu
-									(extensionLocation === 'inline-toolbar' ||
-										extensionLocation === 'block-menu') &&
+									(extensionLocation === 'inline-toolbar' || extensionLocation === 'block-menu') &&
 									(fg('platform_editor_block_menu_v2_patch_1') ||
 										fg('platform_editor_block_menu_v2_patch_3'))
 										? 'small'

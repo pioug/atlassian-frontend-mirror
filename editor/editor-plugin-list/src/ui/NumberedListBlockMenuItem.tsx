@@ -43,7 +43,10 @@ const NumberedListBlockMenuItem = ({ api }: NumberedListBlockMenuItemProps) => {
 	const iconSize = fg('platform_editor_block_menu_v2_patch_3') ? 'small' : undefined;
 
 	return (
-		<ToolbarDropdownItem onClick={handleClick} elemBefore={<ListNumberedIcon label="" size={iconSize} />}>
+		<ToolbarDropdownItem
+			onClick={handleClick}
+			elemBefore={<ListNumberedIcon label="" size={iconSize} />}
+		>
 			{formatMessage(listMessages.orderedList)}
 		</ToolbarDropdownItem>
 	);

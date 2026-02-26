@@ -1,5 +1,19 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 5.9.4
+
+### Patch Changes
+
+- [`469aa2343e484`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/469aa2343e484) -
+  Misc fixes for synced blocks
+- Updated dependencies
+
+## 5.9.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.9.2
 
 ### Patch Changes

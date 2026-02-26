@@ -1,5 +1,25 @@
 # @atlaskit/editor-statsig-tmp
 
+## 30.0.0
+
+### Major Changes
+
+- [`bd1a52462d558`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd1a52462d558) -
+  Remove `platform_editor_ai_create_use_new_parser` experiment a it is fully rolled out.
+
+### Minor Changes
+
+- [`3ce77a10a8e99`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ce77a10a8e99) -
+  EDITOR-5521 - escape early for unhealthy editor AIFC streaming fragment
+
+## 29.7.0
+
+### Minor Changes
+
+- [`a0aa8f73bbd02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0aa8f73bbd02) -
+  [ux] EDITOR-5466 Introduce new popup menu for paste actions which includes existing functionality
+  used by the existing floatingToolbar implementation
+
 ## 29.6.2
 
 ### Patch Changes

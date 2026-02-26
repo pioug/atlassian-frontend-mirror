@@ -228,7 +228,7 @@ const getConfluenceSubTypeIcon = (sourceAri: string, subType?: string | null) =>
 };
 
 const ProductIcon = ({ product }: { product?: SyncBlockProduct }) => {
-	const ProductIcon = product ? productIconMap[product] ?? AtlassianIcon : AtlassianIcon;
+	const ProductIcon = product ? (productIconMap[product] ?? AtlassianIcon) : AtlassianIcon;
 
 	return (
 		<span css={logoTileStyles}>
@@ -411,6 +411,7 @@ const DropdownContent = ({ syncBlockStore, resourceId, intl, isSource, localId, 
 												href={reference.url}
 												target="_blank"
 												key={reference.title}
+												rel="noopener noreferrer"
 												onClick={() => handleLocationClick()}
 											>
 												<ItemTitle
@@ -484,6 +485,7 @@ const NoResultScreen = ({ formatMessage }: { formatMessage: IntlShape['formatMes
 				<Anchor
 					href="https://support.atlassian.com/confluence-cloud/docs/reuse-content-with-synced-blocks"
 					target="_blank"
+					rel="noopener noreferrer"
 					xcss={styles.learnMoreLink}
 				>
 					{formatMessage(messages.syncedLocationDropdownLearnMoreLink)}

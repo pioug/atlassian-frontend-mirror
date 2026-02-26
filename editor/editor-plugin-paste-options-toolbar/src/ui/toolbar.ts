@@ -31,7 +31,7 @@ import {
 	hasRuleNode,
 	isPastedFromFabricEditor,
 } from '../pm-plugins/util';
-import type { PasteOtionsPluginState, Position } from '../types/types';
+import type { PasteOptionsPluginState, Position } from '../types/types';
 import { pasteOptionsPluginKey, ToolbarDropdownOption } from '../types/types';
 
 import EditorPasteIcon from './paste-icon';
@@ -69,7 +69,7 @@ export const isToolbarVisible = (
 };
 
 export const getToolbarMenuConfig = (
-	pluginState: PasteOtionsPluginState,
+	pluginState: PasteOptionsPluginState,
 	intl: IntlShape,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ): FloatingToolbarDropdown<Command> => {
@@ -136,7 +136,7 @@ export const buildToolbar = (
 	};
 };
 
-const onPositionCalculated = (editorView: EditorView, nextPos: Position) => {
+const onPositionCalculated = (editorView: EditorView, _nextPos: Position) => {
 	const { from } = editorView.state.selection;
 	const fromCoords = editorView.coordsAtPos(from);
 

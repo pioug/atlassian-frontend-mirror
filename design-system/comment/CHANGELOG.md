@@ -1,5 +1,11 @@
 # @atlaskit/comment
 
+## 13.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.2.6
 
 ### Patch Changes

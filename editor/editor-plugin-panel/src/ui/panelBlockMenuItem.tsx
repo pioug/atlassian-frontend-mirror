@@ -43,7 +43,10 @@ const PanelBlockMenuItem = ({ api }: Props) => {
 	const iconSize = fg('platform_editor_block_menu_v2_patch_3') ? 'small' : undefined;
 
 	return (
-		<ToolbarDropdownItem onClick={handleClick} elemBefore={<InformationCircleIcon label="" size={iconSize} />}>
+		<ToolbarDropdownItem
+			onClick={handleClick}
+			elemBefore={<InformationCircleIcon label="" size={iconSize} />}
+		>
 			{formatMessage(blockTypeMessages.panel)}
 		</ToolbarDropdownItem>
 	);

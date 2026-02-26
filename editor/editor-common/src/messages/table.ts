@@ -99,7 +99,8 @@ export const messages = defineMessages({
 	moveColumnLeftHelpDialogLabel: {
 		id: 'fabric.editor.moveColumnLeftHelpDialogLabel',
 		defaultMessage: 'Move column left',
-		description: 'Description of a keymap that moves one column or multiple columns left, this is in the help dialog and can be simpler than the puralisation version'
+		description:
+			'Description of a keymap that moves one column or multiple columns left, this is in the help dialog and can be simpler than the puralisation version',
 	},
 	moveColumnRight: {
 		id: 'fabric.editor.moveColumnRight',
@@ -109,7 +110,8 @@ export const messages = defineMessages({
 	moveColumnRightHelpDialogLabel: {
 		id: 'fabric.editor.moveColumnRightHelpDialogLabel',
 		defaultMessage: 'Move column right',
-		description: 'Description of a keymap that moves one column or multiple columns right, this is in the help dialog and can be simpler than the puralisation version'
+		description:
+			'Description of a keymap that moves one column or multiple columns right, this is in the help dialog and can be simpler than the puralisation version',
 	},
 	moveRowUp: {
 		id: 'fabric.editor.moveRowUp',
@@ -119,7 +121,8 @@ export const messages = defineMessages({
 	moveRowUpHelpDialogLabel: {
 		id: 'fabric.editor.moveRowUpHelpDialogLabel',
 		defaultMessage: 'Move row up',
-		description: 'Description of a keymap that moves one row or multiple rows up, this is in the help dialog and can be simpler than the puralisation version'
+		description:
+			'Description of a keymap that moves one row or multiple rows up, this is in the help dialog and can be simpler than the puralisation version',
 	},
 	moveRowDown: {
 		id: 'fabric.editor.moveDownDown',
@@ -129,7 +132,8 @@ export const messages = defineMessages({
 	moveRowDownHelpDialogLabel: {
 		id: 'fabric.editor.moveRowDownHelpDialogLabel',
 		defaultMessage: 'Move row down',
-		description: 'Description of a keymap that moves one row or multiple rows down, this is in the help dialog and can be simpler than the puralisation version'
+		description:
+			'Description of a keymap that moves one row or multiple rows down, this is in the help dialog and can be simpler than the puralisation version',
 	},
 	insertRowDrag: {
 		id: 'fabric.editor.insertRowDrag',

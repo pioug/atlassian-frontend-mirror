@@ -20,7 +20,7 @@ const quickInsert: ExtensionModule[] = exampleFields.map((field) => ({
 	description: `type: ${field.type} (${field.name})`,
 	icon: () =>
 		import(
-			/* webpackChunkName: "@atlaskit-internal_icon-code" */ '@atlaskit/icon/glyph/editor/code'
+			/* webpackChunkName: "@atlaskit-internal_icon-code" */ '@atlaskit/icon/core/angle-brackets'
 		).then((mod) => mod.default),
 	action: {
 		type: 'node',
@@ -51,7 +51,7 @@ const manifest: ExtensionManifest = {
 	icons: {
 		'48': () =>
 			import(
-				/* webpackChunkName: "@atlaskit-internal_icon-code" */ '@atlaskit/icon/glyph/editor/code'
+				/* webpackChunkName: "@atlaskit-internal_icon-code" */ '@atlaskit/icon/core/angle-brackets'
 			).then((mod) => mod.default),
 	},
 	modules: {

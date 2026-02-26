@@ -43,7 +43,10 @@ const BulletedListBlockMenuItem = ({ api }: BulletedListBlockMenuItemProps) => {
 	const iconSize = fg('platform_editor_block_menu_v2_patch_3') ? 'small' : undefined;
 
 	return (
-		<ToolbarDropdownItem onClick={handleClick} elemBefore={<ListBulletedIcon label="" size={iconSize} />}>
+		<ToolbarDropdownItem
+			onClick={handleClick}
+			elemBefore={<ListBulletedIcon label="" size={iconSize} />}
+		>
 			{formatMessage(listMessages.bulletedList)}
 		</ToolbarDropdownItem>
 	);

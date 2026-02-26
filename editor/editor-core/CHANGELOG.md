@@ -1,5 +1,27 @@
 # @atlaskit/editor-core
 
+## 216.12.8
+
+### Patch Changes
+
+- [`469aa2343e484`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/469aa2343e484) -
+  Misc fixes for synced blocks
+- Updated dependencies
+
+## 216.12.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 216.12.6
+
+### Patch Changes
+
+- [`0356685770e37`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0356685770e37) -
+  Update Synced Block support doc url
+- Updated dependencies
+
 ## 216.12.5
 
 ### Patch Changes

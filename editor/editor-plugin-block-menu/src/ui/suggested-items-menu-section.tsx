@@ -25,19 +25,19 @@ export const SuggestedItemsMenuSection = React.memo<SuggestedItemsMenuSectionPro
 		const suggestedItems = useSuggestedItems(api);
 		const { formatMessage } = useIntl();
 
-	if (suggestedItems.length === 0) {
-		return null;
-	}
+		if (suggestedItems.length === 0) {
+			return null;
+		}
 
-	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
-	// Conditionally show separator based on whether there's content after this section.
-	// Old behavior: always show separator (true).
-	// To clean up: remove conditional, keep only the hasCreateSectionContent || hasStructureSectionContent logic.
-	const hasSeparator = fg('platform_editor_block_menu_v2_patch_3')
-		? hasCreateSectionContent(api) || hasStructureSectionContent(api)
-		: true;
+		// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
+		// Conditionally show separator based on whether there's content after this section.
+		// Old behavior: always show separator (true).
+		// To clean up: remove conditional, keep only the hasCreateSectionContent || hasStructureSectionContent logic.
+		const hasSeparator = fg('platform_editor_block_menu_v2_patch_3')
+			? hasCreateSectionContent(api) || hasStructureSectionContent(api)
+			: true;
 
-	return (
+		return (
 			<ToolbarDropdownItemSection
 				title={formatMessage(blockMenuMessages.suggested)}
 				hasSeparator={hasSeparator}

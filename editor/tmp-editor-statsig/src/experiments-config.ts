@@ -158,6 +158,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-02-25
+	platform_editor_ai_escape_early_for_unhealthy_node: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-02-11
 	platform_editor_prosemirror_rendered_data: {
 		defaultValue: boolean;
@@ -209,6 +216,13 @@ export const editorExperimentsConfig: {
 
 	// Added 2025-09-04
 	editor_refactor_backspace_task_and_decisions: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-02-24
+	platform_editor_paste_actions_menu: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -343,13 +357,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-01-26
-	platform_editor_ai_create_use_new_parser: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-08-05
 	platform_editor_august_a11y: {
 		defaultValue: boolean;
@@ -373,13 +380,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025--8-05
 	platform_editor_block_menu: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-01-30
-	platform_editor_expand_on_scroll_to_block: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1230,7 +1230,7 @@ export const editorExperimentsConfig: {
 		param: string;
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
-	}
+	};
 	// Added 2026-02-17
 	confluence_frontend_fix_date_hydration_error: {
 		defaultValue: boolean;
@@ -1418,15 +1418,6 @@ export const editorExperimentsConfig: {
 		defaultValue: false,
 	}),
 
-	// Added 2026-01-26
-	platform_editor_ai_create_use_new_parser: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_ai_create_use_new_parser',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-
 	// Added 2025-05-27
 	platform_editor_reduce_noisy_steps_ncs: createBooleanExperiment({
 		productKeys: {
@@ -1571,6 +1562,14 @@ export const editorExperimentsConfig: {
 	platform_editor_ai_unsplash_page_header: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_unsplash_page_header',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-02-24
+	platform_editor_paste_actions_menu: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_paste_actions_menu',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -1908,14 +1907,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-01-30
-	platform_editor_expand_on_scroll_to_block: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_expand_on_scroll_to_block',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-07-23
 	// Added 2025-07-24
 	editor_enghealth_hyperlink_toolbar_aria_values: createBooleanExperiment({
@@ -2084,6 +2075,14 @@ export const editorExperimentsConfig: {
 	platform_editor_render_bodied_extension_as_inline: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_render_bodied_extension_as_inline',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-02-25
+	platform_editor_ai_escape_early_for_unhealthy_node: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_escape_early_for_unhealthy_node',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

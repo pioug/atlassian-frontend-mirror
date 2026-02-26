@@ -3,11 +3,11 @@
  * @jsx jsx
  */
 /** @jsxFrag */
-import React from 'react';
+import { Fragment } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import { browser as browserLegacy, getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { helpDialogMessages as messages } from '@atlaskit/editor-common/messages';
@@ -31,11 +31,18 @@ export const ModalContent = ({ formatting, onClose }: ModalContentProps) => {
 	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
 		? getBrowserInfo()
 		: browserLegacy;
+	const intl = useIntl();
+	const isA11yFixEnabled = expValEquals('platform_editor_a11y_eslint_fix', 'isEnabled', true);
 	return (
-		<>
+		<Fragment>
 			<ModalHeader onClose={onClose} />
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage, @atlassian/a11y/no-noninteractive-tabindex -- Ignored via go/DSP-18766 */}
-			<div css={contentWrapper} tabIndex={0}>
+			<div
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+				css={contentWrapper}
+				tabIndex={0}
+				role={isA11yFixEnabled ? 'region' : undefined}
+				aria-label={isA11yFixEnabled ? intl.formatMessage(messages.editorHelp) : undefined}
+			>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<div css={line} />
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
@@ -114,7 +121,7 @@ export const ModalContent = ({ formatting, onClose }: ModalContentProps) => {
 				</div>
 			</div>
 			<ModalFooter />
-		</>
+		</Fragment>
 	);
 };
 

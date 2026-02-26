@@ -43,7 +43,10 @@ const QuoteBlockMenuItem = ({ api }: QuoteBlockMenuItemProps) => {
 	const iconSize = fg('platform_editor_block_menu_v2_patch_3') ? 'small' : undefined;
 
 	return (
-		<ToolbarDropdownItem onClick={handleClick} elemBefore={<QuotationMarkIcon label="" size={iconSize} />}>
+		<ToolbarDropdownItem
+			onClick={handleClick}
+			elemBefore={<QuotationMarkIcon label="" size={iconSize} />}
+		>
 			{formatMessage(blockTypeMessages.blockquote)}
 		</ToolbarDropdownItem>
 	);

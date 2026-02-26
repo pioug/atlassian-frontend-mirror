@@ -67,7 +67,10 @@ const plugin = new SafePlugin({
 		}
 		return {
 			update(view) {
-				if (expValEquals('platform_synced_block', 'isEnabled', true) && fg('platform_synced_block_patch_4')) {
+				if (
+					expValEquals('platform_synced_block', 'isEnabled', true) &&
+					fg('platform_synced_block_patch_4')
+				) {
 					// Caret visibility now handled directly via CSS selector in gapCursorStyles.ts
 					return;
 				}

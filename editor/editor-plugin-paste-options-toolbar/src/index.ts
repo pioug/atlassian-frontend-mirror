@@ -5,4 +5,5 @@ export { pasteOptionsToolbarPlugin } from './pasteOptionsToolbarPlugin';
 export type {
 	PasteOptionsToolbarPlugin,
 	PasteOptionsToolbarPluginDependencies,
+	PasteOptionsToolbarSharedState,
 } from './pasteOptionsToolbarPluginType';

@@ -100,9 +100,6 @@
 		},
 		"mentions_custom_headers": {
 			"type": "boolean"
-		},
-		"team-avatar-in-mention-picker": {
-			"type": "boolean"
 		}
 	},
 	"publishConfig": {
@@ -130,5 +127,5 @@
 			]
 		}
 	},
-	"version": "24.5.0"
+	"version": "24.5.2"
 }

@@ -43,7 +43,10 @@ const ExpandBlockMenuItem = ({ api }: Props) => {
 	const iconSize = fg('platform_editor_block_menu_v2_patch_3') ? 'small' : undefined;
 
 	return (
-		<ToolbarDropdownItem onClick={handleClick} elemBefore={<ExpandElementIcon label="" size={iconSize} />}>
+		<ToolbarDropdownItem
+			onClick={handleClick}
+			elemBefore={<ExpandElementIcon label="" size={iconSize} />}
+		>
 			{formatMessage(toolbarInsertBlockMessages.expand)}
 		</ToolbarDropdownItem>
 	);

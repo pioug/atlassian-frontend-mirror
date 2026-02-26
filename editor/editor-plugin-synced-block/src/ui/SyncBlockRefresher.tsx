@@ -10,7 +10,6 @@ import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
 export const SYNC_BLOCK_FETCH_INTERVAL = 3000;
 
 // Component that manages synced block data synchronization.
-// Component that manages synced block data synchronization.
 // Uses provider-based GraphQL subscriptions for updates when online.
 // Falls back to polling at regular intervals when offline.
 export const SyncBlockRefresher = ({
@@ -34,22 +33,15 @@ export const SyncBlockRefresher = ({
 	}, [syncBlockStoreManager, isOnline]);
 
 	useEffect(() => {
-		const useRealTimeSubscriptions = isOnline;
-		if (useRealTimeSubscriptions) {
+		if (isOnline) {
 			return;
 		}
 
-		let interval: number = -1;
-		if (isOnline) {
-			interval = window.setInterval(() => {
-				// check if document is visible to avoid unnecessary refreshes
-				if (document?.visibilityState === 'visible') {
-					syncBlockStoreManager.referenceManager.refreshSubscriptions();
-				}
-			}, SYNC_BLOCK_FETCH_INTERVAL);
-		} else if (interval !== -1) {
-			window.clearInterval(interval);
-		}
+		const interval = window.setInterval(() => {
+			if (document?.visibilityState === 'visible') {
+				syncBlockStoreManager.referenceManager.refreshSubscriptions();
+			}
+		}, SYNC_BLOCK_FETCH_INTERVAL);
 
 		return () => {
 			window.clearInterval(interval);

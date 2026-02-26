@@ -164,21 +164,14 @@ export const wrapMixedContentStep: TransformStep = (nodes, context) => {
 	const isCodeblock = targetNodeTypeName === 'codeBlock';
 	const { layoutSection, layoutColumn } = schema.nodes;
 
-	// [FEATURE FLAG: platform_editor_preserve_breakout_on_transform]
-	// Preserves breakout mark width when transforming to layoutSection from resizable nodes.
-	// This ensures that custom width settings are maintained during block type transformations.
-	// To clean up: remove the if-else block and keep only the flag-on behavior (lines 151-159).
+	const sourceSupportsBreakout = breakoutResizableNodes.includes(fromNode.type.name);
+	const targetSupportsBreakout = breakoutResizableNodes.includes(targetNodeTypeName);
+	const shouldPreserveBreakout = sourceSupportsBreakout && targetSupportsBreakout;
+
 	let breakoutMark: Mark | undefined;
-	if (fg('platform_editor_preserve_breakout_on_transform')) {
-		// NEW BEHAVIOR: Preserve breakout mark when both source and target support resizing
-		const sourceSupportsBreakout = breakoutResizableNodes.includes(fromNode.type.name);
-		const targetSupportsBreakout = breakoutResizableNodes.includes(targetNodeTypeName);
-		const shouldPreserveBreakout = sourceSupportsBreakout && targetSupportsBreakout;
-		if (shouldPreserveBreakout) {
-			breakoutMark = fromNode.marks.find((mark) => mark.type.name === 'breakout');
-		}
+	if (shouldPreserveBreakout) {
+		breakoutMark = fromNode.marks.find((mark) => mark.type.name === 'breakout');
 	}
-	// else: OLD BEHAVIOR - no breakout mark preservation (to be removed when flag is cleaned up)
 
 	const result: PMNode[] = [];
 	let currentContainerContent: Array<PMNode | string> = [];

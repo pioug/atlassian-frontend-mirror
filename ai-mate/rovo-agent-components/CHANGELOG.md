@@ -1,5 +1,19 @@
 # @atlaskit/rovo-agent-components
 
+## 3.36.0
+
+### Minor Changes
+
+- [`9ad74d8309d6f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ad74d8309d6f) -
+  Extracted `AgentNameSideNav` into new entry-point
+  `@atlaskit/rovo-agent-components/agent-name-side-nav`
+
+## 3.35.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.35.0
 
 ### Minor Changes

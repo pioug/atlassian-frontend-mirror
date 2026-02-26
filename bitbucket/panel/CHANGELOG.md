@@ -1,5 +1,11 @@
 # @atlaskit/panel
 
+## 0.12.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.12.4
 
 ### Patch Changes

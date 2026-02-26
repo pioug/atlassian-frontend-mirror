@@ -11,6 +11,7 @@ import {
 } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { selectTableClosestToPos } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
@@ -129,7 +130,8 @@ export const newGetSelection = (doc: PMNode, selectionEmpty: boolean, start: num
 		if (
 			nodeName === 'heading' &&
 			node?.marks.some((mark) => mark.type.name === 'alignment') &&
-			doc.nodeAt(start - 1)?.type.name === 'layoutColumn'
+			doc.nodeAt(start - 1)?.type.name === 'layoutColumn' &&
+			!fg('platform_editor_block_menu_v2_patch_3')
 		) {
 			return TextSelection.create(doc, start, start + nodeSize);
 		}

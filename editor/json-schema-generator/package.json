@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/json-schema-generator",
-	"version": "3.3.11",
+	"version": "3.3.12",
 	"description": "A CLI tool for generating JSON Schema from typescript",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,10 +29,8 @@
 	},
 	"dependencies": {
 		"@babel/runtime": "root:*",
-		"@types/json5": "root:*",
 		"@types/mkdirp": "root:*",
 		"@types/prettier": "root:*",
-		"json5": "root:*",
 		"meow": "root:*",
 		"mkdirp": "root:*",
 		"prettier": "root:*",

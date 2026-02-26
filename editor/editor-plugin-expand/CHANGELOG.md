@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-expand
 
+## 8.3.5
+
+### Patch Changes
+
+- [`fb11822025800`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb11822025800) -
+  EDITOR-4473 Fix the selection changes on mouse move after multi turn into expand
+
+## 8.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.3.2
 
 ### Patch Changes

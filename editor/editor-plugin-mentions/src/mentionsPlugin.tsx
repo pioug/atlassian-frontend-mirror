@@ -136,13 +136,12 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 				},
 			];
 
-				if (fg('jira_invites_auto_tag_new_user_in_mentions_fg')) {
-					plugins.push({
-						name: 'mentionPlaceholder',
-						plugin: () => createMentionPlaceholderPlugin(),
-					});
-				}
-
+			if (fg('jira_invites_auto_tag_new_user_in_mentions_fg')) {
+				plugins.push({
+					name: 'mentionPlaceholder',
+					plugin: () => createMentionPlaceholderPlugin(),
+				});
+			}
 
 			return plugins;
 		},

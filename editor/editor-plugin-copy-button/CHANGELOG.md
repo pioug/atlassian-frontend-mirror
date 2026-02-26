@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-copy-button
 
+## 7.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.1.5
 
 ### Patch Changes

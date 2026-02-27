@@ -1,5 +1,14 @@
 # @atlaskit/feature-gate-js-client
 
+## 5.5.8
+
+### Patch Changes
+
+- [`c68a6884df01e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c68a6884df01e) -
+  Make the underlying Statsig client properties merge in the backend evaluated properties. This is
+  to prevent Statsig showing false positive "BootstrapPartialUserMatch" errors in its UI when
+  bootstrapping frontend SDKs.
+
 ## 5.5.7
 
 ### Patch Changes

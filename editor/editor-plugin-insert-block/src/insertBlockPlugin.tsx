@@ -268,7 +268,6 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 					name: 'toolbarActionExperiences',
 					plugin: () =>
 						getToolbarActionExperiencesPlugin({
-							refs,
 							dispatchAnalyticsEvent: (payload) =>
 								api?.analytics?.actions?.fireAnalyticsEvent(payload),
 						}),

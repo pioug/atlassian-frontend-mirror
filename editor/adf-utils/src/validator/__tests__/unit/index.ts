@@ -361,3 +361,218 @@ describe('validator', () => {
 		expect(run).not.toThrowError();
 	});
 });
+
+describe('flexible list indentation validation', () => {
+	const validate = validator();
+
+	it('should validate bulletList with nested list as first child in listItem (flexible first child)', () => {
+		const doc = {
+			version: 1,
+			type: 'doc',
+			content: [
+				{
+					type: 'bulletList',
+					content: [
+						{
+							type: 'listItem',
+							content: [
+								{
+									type: 'bulletList',
+									content: [
+										{
+											type: 'listItem',
+											content: [
+												{
+													type: 'paragraph',
+													content: [{ type: 'text', text: 'Indented first item' }],
+												},
+											],
+										},
+									],
+								},
+							],
+						},
+						{
+							type: 'listItem',
+							content: [
+								{
+									type: 'paragraph',
+									content: [{ type: 'text', text: 'Second item' }],
+								},
+							],
+						},
+					],
+				},
+			],
+		};
+		const run = () => {
+			const { valid, entity } = validate(doc);
+			expect(valid).toBe(true);
+			expect(entity).toEqual(doc);
+		};
+		expect(run).not.toThrowError();
+	});
+
+	it('should validate orderedList with nested list as first child in listItem', () => {
+		const doc = {
+			version: 1,
+			type: 'doc',
+			content: [
+				{
+					type: 'orderedList',
+					content: [
+						{
+							type: 'listItem',
+							content: [
+								{
+									type: 'orderedList',
+									content: [
+										{
+											type: 'listItem',
+											content: [
+												{
+													type: 'paragraph',
+													content: [{ type: 'text', text: 'Nested ordered item' }],
+												},
+											],
+										},
+									],
+								},
+							],
+						},
+					],
+				},
+			],
+		};
+		const run = () => {
+			const { valid, entity } = validate(doc);
+			expect(valid).toBe(true);
+			expect(entity).toEqual(doc);
+		};
+		expect(run).not.toThrowError();
+	});
+
+	it('should validate mixed nested lists (bulletList inside orderedList)', () => {
+		const doc = {
+			version: 1,
+			type: 'doc',
+			content: [
+				{
+					type: 'orderedList',
+					content: [
+						{
+							type: 'listItem',
+							content: [
+								{
+									type: 'bulletList',
+									content: [
+										{
+											type: 'listItem',
+											content: [
+												{
+													type: 'paragraph',
+													content: [{ type: 'text', text: 'Bullet inside ordered' }],
+												},
+											],
+										},
+									],
+								},
+							],
+						},
+					],
+				},
+			],
+		};
+		const run = () => {
+			const { valid, entity } = validate(doc);
+			expect(valid).toBe(true);
+			expect(entity).toEqual(doc);
+		};
+		expect(run).not.toThrowError();
+	});
+
+	it('should validate deeply nested lists with flexible first child', () => {
+		const doc = {
+			version: 1,
+			type: 'doc',
+			content: [
+				{
+					type: 'bulletList',
+					content: [
+						{
+							type: 'listItem',
+							content: [
+								{
+									type: 'bulletList',
+									content: [
+										{
+											type: 'listItem',
+											content: [
+												{
+													type: 'bulletList',
+													content: [
+														{
+															type: 'listItem',
+															content: [
+																{
+																	type: 'paragraph',
+																	content: [{ type: 'text', text: 'Level 3 content' }],
+																},
+															],
+														},
+													],
+												},
+											],
+										},
+									],
+								},
+							],
+						},
+					],
+				},
+			],
+		};
+		const run = () => {
+			const { valid, entity } = validate(doc);
+			expect(valid).toBe(true);
+			expect(entity).toEqual(doc);
+		};
+		expect(run).not.toThrowError();
+	});
+
+	it('should validate taskList as first child in listItem', () => {
+		const doc = {
+			version: 1,
+			type: 'doc',
+			content: [
+				{
+					type: 'bulletList',
+					content: [
+						{
+							type: 'listItem',
+							content: [
+								{
+									type: 'taskList',
+									attrs: { localId: 'task-list-1' },
+									content: [
+										{
+											type: 'taskItem',
+											attrs: { localId: 'task-1', state: 'TODO' },
+											content: [{ type: 'text', text: 'Task inside list' }],
+										},
+									],
+								},
+							],
+						},
+					],
+				},
+			],
+		};
+		const run = () => {
+			const { valid, entity } = validate(doc);
+			expect(valid).toBe(true);
+			expect(entity).toEqual(doc);
+		};
+		expect(run).not.toThrowError();
+	});
+});

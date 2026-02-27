@@ -1,6 +1,7 @@
 import type { IntlShape } from 'react-intl-next';
 
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type {
 	DIRECTION,
 	EditorCommand,
@@ -20,9 +21,9 @@ import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
-import type { Selection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Mapping } from '@atlaskit/editor-prosemirror/transform';
-import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 export type ActiveNode = {
 	anchorName: string;
@@ -111,6 +112,21 @@ export type BlockControlsSharedState =
 
 export type HandleOptions = { isFocused: boolean } | undefined;
 
+export type NodeDecorationFactoryParams = {
+	anchorName: string;
+	editorState: EditorState;
+	nodeType: string;
+	nodeViewPortalProviderAPI: PortalProviderAPI;
+	rootAnchorName?: string;
+	rootNodeType?: string;
+	rootPos: number;
+};
+
+export type NodeDecorationFactory = {
+	create: (params: NodeDecorationFactoryParams) => Decoration;
+	type: string;
+};
+
 export type MoveNode = (
 	start: number,
 	to: number,
@@ -138,6 +154,10 @@ export type BlockControlsPluginDependencies = [
 export type BlockControlsPlugin = NextEditorPlugin<
 	'blockControls',
 	{
+		actions: {
+			registerNodeDecoration: (factory: NodeDecorationFactory) => void;
+			unregisterNodeDecoration: (type: string) => void;
+		};
 		commands: {
 			handleKeyDownWithPreservedSelection: (event: KeyboardEvent) => EditorCommand;
 			mapPreservedSelection: (mapping: Mapping) => EditorCommand;

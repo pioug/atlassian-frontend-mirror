@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 4.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.0
+
+### Minor Changes
+
+- [`ec61e21a60034`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec61e21a60034) -
+  Adds new commands to scroll to each diff change in the UI.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.15
 
 ### Patch Changes

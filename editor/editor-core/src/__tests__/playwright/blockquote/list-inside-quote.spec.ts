@@ -63,22 +63,32 @@ test.describe('List inside a blockquote', () => {
 			await expect(editor).toMatchDocument(doc(blockquote(p(''))));
 		});
 
-		test(`should insert an action item outside the blockquote on trying to add an action item in a list inside blockquote`, async ({
-			editor,
-		}) => {
-			await editor.selection.set({ anchor: 2, head: 2 });
-			// Add a list item
-			await editor.keyboard.type('- item 1');
-			await editor.keyboard.press('Enter');
-			// Add an action item from the toolbar
-			const toolbar = EditorMainToolbarModel.from(editor);
-			await toolbar.clickAt('Action item');
-			// action item should be inserted outside the blockquote
-			await expect(editor).toMatchDocument(
-				doc(
-					blockquote(ul(li(p('item 1')), li(p(''), taskList({})(taskItem({ state: 'TODO' })(''))))),
-				),
-			);
+		[true, false].forEach((flexibleListIndentation) => {
+			test.use({
+				editorExperiments: {
+					platform_editor_flexible_list_indentation: flexibleListIndentation,
+				},
+			});
+
+			test(`should insert an action item in a list inside blockquote - flexibleListIndentation:${flexibleListIndentation}`, async ({
+				editor,
+			}) => {
+				await editor.selection.set({ anchor: 2, head: 2 });
+				// Add a list item
+				await editor.keyboard.type('- item 1');
+				await editor.keyboard.press('Enter');
+				// Add an action item from the toolbar
+				const toolbar = EditorMainToolbarModel.from(editor);
+				await toolbar.clickAt('Action item');
+				// action item should be inserted inside the list item within the blockquote
+				await expect(editor).toMatchDocument(
+					doc(
+						blockquote(
+							ul(li(p('item 1')), li(p(''), taskList({})(taskItem({ state: 'TODO' })('')))),
+						),
+					),
+				);
+			});
 		});
 	});
 
@@ -141,7 +151,7 @@ test.describe('List inside a blockquote', () => {
 			});
 
 			await editor.keyboard.press('Backspace');
-			await expect(editor).toMatchDocument(doc(blockquote(ol()(li(p(''), p())))));
+			await expect(editor).toMatchDocument(doc(blockquote(ol()(li(p(''))))));
 		});
 	});
 });

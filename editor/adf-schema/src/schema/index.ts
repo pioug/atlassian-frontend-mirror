@@ -46,7 +46,7 @@ export {
 	layoutSectionWithSingleColumn,
 	layoutSectionWithSingleColumnLocalId,
 	listItem,
-	listItemWithDecisionStage0,
+	listItemWithFlexibleFirstChildStage0,
 	listItemWithLocalId,
 	media,
 	mediaGroup,

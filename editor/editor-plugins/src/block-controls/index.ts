@@ -8,6 +8,8 @@ export type {
 	HandleOptions,
 	MoveNodeMethod,
 	BlockControlsPluginDependencies,
+	NodeDecorationFactory,
+	NodeDecorationFactoryParams,
 	PluginState,
 	MoveNode,
 } from '@atlaskit/editor-plugin-block-controls';

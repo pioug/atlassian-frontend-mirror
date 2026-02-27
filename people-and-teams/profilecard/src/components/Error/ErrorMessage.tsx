@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
 import type { FireEventType } from '@atlaskit/teams-app-internal-analytics';
 
@@ -40,30 +39,18 @@ const ErrorMessage = (props: Props): React.JSX.Element => {
 		if (errorReason === 'NotFound') {
 			return (
 				<ErrorTitle>
-					{fg('people-teams-fix-no-literal-string-in-jsx') ? (
-						<FormattedMessage {...messages.errorUserNotFound} />
-					) : (
-						'The user is no longer available for the site'
-					)}
+					<FormattedMessage {...messages.errorUserNotFound} />
 				</ErrorTitle>
 			);
 		}
 
 		return (
 			<ErrorTitle>
-				{fg('people-teams-fix-no-literal-string-in-jsx') ? (
-					<FormattedMessage {...messages.errorGeneric} />
-				) : (
-					'Oops, looks like we’re having issues'
-				)}
+				<FormattedMessage {...messages.errorGeneric} />
 				<br />
 				{reload && (
 					<Text color="color.text.subtlest">
-						{fg('people-teams-fix-no-literal-string-in-jsx') ? (
-							<FormattedMessage {...messages.errorRetrySuggestion} />
-						) : (
-							'Try again and we’ll give it another shot'
-						)}
+						<FormattedMessage {...messages.errorRetrySuggestion} />
 					</Text>
 				)}
 			</ErrorTitle>
@@ -76,11 +63,7 @@ const ErrorMessage = (props: Props): React.JSX.Element => {
 			{errorContent()}
 			{reload && (
 				<Button onClick={reload}>
-					{fg('people-teams-fix-no-literal-string-in-jsx') ? (
-						<FormattedMessage {...messages.errorTryAgain} />
-					) : (
-						'Try again'
-					)}
+					<FormattedMessage {...messages.errorTryAgain} />
 				</Button>
 			)}
 		</ErrorWrapper>

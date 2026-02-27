@@ -42,6 +42,7 @@ import type {
 	BlockControlsMeta,
 	BlockControlsPlugin,
 	MultiSelectDnD,
+	NodeDecorationFactory,
 	PluginState,
 } from '../blockControlsPluginType';
 import { getAnchorAttrName } from '../ui/utils/dom-attr-name';
@@ -58,7 +59,6 @@ import {
 	findQuickInsertInsertButtonDecoration,
 	quickInsertButtonDecoration,
 } from './decorations-quick-insert-button';
-import { findRemixButtonDecoration, remixButtonDecoration } from './decorations-remix-button';
 import { handleMouseDown } from './handle-mouse-down';
 import { handleMouseOver } from './handle-mouse-over';
 import { boundKeydownHandler } from './keymap';
@@ -314,6 +314,7 @@ export const apply = (
 	newState: EditorState,
 	flags: FlagType,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
+	nodeDecorationRegistry: NodeDecorationFactory[],
 	anchorRectCache?: AnchorRectCache,
 	resizeObserverWidth?: ResizeObserver,
 	pragmaticCleanup?: (() => void) | null,
@@ -625,13 +626,11 @@ export const apply = (
 				activeNode?.rootPos,
 			);
 			decorations = decorations.remove(oldQuickInsertButton);
-			if (expValEquals('confluence_remix_icon_right_side', 'isEnabled', true)) {
-				const oldRemixButton = findRemixButtonDecoration(
-					decorations,
-					activeNode?.rootPos,
-					activeNode?.rootPos,
-				);
-				decorations = decorations.remove(oldRemixButton);
+			if (fg('platform_editor_expose_block_controls_deco_api')) {
+				for (const factory of nodeDecorationRegistry) {
+					const old = decorations.find(activeNode?.rootPos, activeNode?.rootPos, (spec) => spec.type === factory.type);
+					decorations = decorations.remove(old);
+				}
 			}
 		}
 	} else if (api) {
@@ -681,33 +680,21 @@ export const apply = (
 			});
 			decorations = decorations.add(newState.doc, [quickInsertButton]);
 
-			if (expValEquals('confluence_remix_icon_right_side', 'isEnabled', true)) {
-				const oldRemixButton = findRemixButtonDecoration(
-					decorations,
-					activeNode?.rootPos,
-					activeNode?.rootPos,
-				);
-				decorations = decorations.remove(oldRemixButton);
-				const remixButton = remixButtonDecoration({
-					api,
-					formatMessage,
-					anchorName: latestActiveNode?.anchorName,
-					nodeType: latestActiveNode?.nodeType,
-					nodeViewPortalProviderAPI,
-					rootPos: latestActiveNode?.rootPos,
-					rootAnchorName: latestActiveNode?.rootAnchorName,
-					rootNodeType: latestActiveNode?.rootNodeType,
-					editorState: newState,
-				});
-				decorations = decorations.add(newState.doc, [remixButton]);
-			} else {
-				// Remove remix decoration when experiment is off so it disappears when flag is toggled
-				const oldRemixButton = findRemixButtonDecoration(
-					decorations,
-					activeNode?.rootPos,
-					activeNode?.rootPos,
-				);
-				decorations = decorations.remove(oldRemixButton);
+			if (fg('platform_editor_expose_block_controls_deco_api')) {
+				for (const factory of nodeDecorationRegistry) {
+					const old = decorations.find(activeNode?.rootPos, activeNode?.rootPos, (spec) => spec.type === factory.type);
+					decorations = decorations.remove(old);
+					const dec = factory.create({
+						editorState: newState,
+						nodeViewPortalProviderAPI,
+						anchorName: latestActiveNode?.anchorName,
+						nodeType: latestActiveNode?.nodeType,
+						rootPos: latestActiveNode?.rootPos,
+						rootAnchorName: latestActiveNode?.rootAnchorName,
+						rootNodeType: latestActiveNode?.rootNodeType,
+					});
+					decorations = decorations.add(newState.doc, [dec]);
+				}
 			}
 		}
 	}
@@ -874,6 +861,7 @@ export const createPlugin = (
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined,
 	getIntl: () => IntlShape,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
+	nodeDecorationRegistry: NodeDecorationFactory[],
 ): SafePlugin<
 	| PluginState
 	| {
@@ -959,6 +947,7 @@ export const createPlugin = (
 					newState,
 					flags,
 					nodeViewPortalProviderAPI,
+					nodeDecorationRegistry,
 					anchorRectCache,
 					resizeObserverWidth,
 					pragmaticCleanup,

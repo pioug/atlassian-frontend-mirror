@@ -9,6 +9,7 @@ import { css, jsx } from '@emotion/react';
 
 import { ButtonItem, Section } from '@atlaskit/menu';
 import { N30 } from '@atlaskit/theme/colors';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 const buttonStyles = css({
@@ -52,7 +53,7 @@ export const MoreOptions = ({ onClick, isFocused, title, ariaLabel, iconBefore }
 				onClick();
 				// Prevent keydown listener in TypeaheadList from handling Enter pressed
 				e.stopPropagation();
-			} else if (e.key === 'Tab') {
+			} else if (e.key === 'Tab' && !expValEquals('platform_editor_a11y_typeahead_tab_keypress', 'isEnabled', true)) {
 				// TypeaheadList will try to insert selected item on Tab press
 				// hence stop propagation to prevent that and treat this as noop
 				e.stopPropagation();

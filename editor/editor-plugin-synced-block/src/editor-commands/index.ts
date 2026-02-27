@@ -35,6 +35,7 @@ import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provid
 import { syncedBlockPluginKey } from '../pm-plugins/main';
 import {
 	canBeConvertedToSyncBlock,
+	deferDispatch,
 	findSyncBlock,
 	findSyncBlockOrBodiedSyncBlock,
 	isBodiedSyncBlockNode,
@@ -169,15 +170,13 @@ export const copySyncedBlockReferenceToClipboard: (
 		inputMethod: INPUT_METHOD,
 		api?: ExtractInjectionAPI<SyncedBlockPlugin>,
 	) =>
-	(state: EditorState, _dispatch?: CommandDispatch, _view?: EditorView) => {
-		return copySyncedBlockReferenceToClipboardInternal(
+	(state: EditorState, _dispatch?: CommandDispatch, _view?: EditorView) => copySyncedBlockReferenceToClipboardInternal(
 			state.tr.doc.type.schema,
 			state.tr.selection,
 			syncBlockStore,
 			inputMethod,
 			api,
 		);
-	};
 
 const copySyncedBlockReferenceToClipboardInternal = (
 	schema: Schema,
@@ -253,8 +252,7 @@ const copySyncedBlockReferenceToClipboardInternal = (
 	const domNode = toDOM(referenceSyncBlockNode, schema);
 	copyDomNode(domNode, referenceSyncBlockNode.type, selection);
 
-	// Use setTimeout to dispatch transaction in next tick and avoid re-entrant dispatch
-	setTimeout(() => {
+	deferDispatch(() => {
 		api?.core.actions.execute(({ tr }) => {
 			api?.analytics?.actions?.fireAnalyticsEvent({
 				eventType: EVENT_TYPE.OPERATIONAL,
@@ -271,7 +269,7 @@ const copySyncedBlockReferenceToClipboardInternal = (
 				activeFlag: { id: FLAG_ID.SYNC_BLOCK_COPIED },
 			});
 		});
-	}, 0);
+	});
 
 	return true;
 };
@@ -301,7 +299,7 @@ export const editSyncedBlockSource =
 
 			window.open(syncBlockURL, '_blank');
 		} else {
-			const tr = state.tr;
+			const {tr} = state;
 			api?.analytics?.actions?.attachAnalyticsEvent({
 				eventType: EVENT_TYPE.OPERATIONAL,
 				action: ACTION.ERROR,
@@ -382,7 +380,7 @@ export const unsync = (
 
 	if (isBodiedSyncBlock) {
 		const content = syncBlock?.node.content;
-		const tr = state.tr;
+		const {tr} = state;
 		tr.replaceWith(syncBlock.pos, syncBlock.pos + syncBlock.node.nodeSize, content).setMeta(
 			'deletionReason',
 			'source-block-unsynced',

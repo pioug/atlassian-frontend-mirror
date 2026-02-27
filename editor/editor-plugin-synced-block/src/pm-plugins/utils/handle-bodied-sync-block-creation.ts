@@ -10,6 +10,8 @@ import type { SyncedBlockPlugin } from '../../syncedBlockPluginType';
 import { FLAG_ID, type SyncBlockInfo } from '../../types';
 import { syncedBlockPluginKey } from '../main';
 
+import { deferDispatch } from './utils';
+
 const onRetry = (api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined, resourceId: string) => {
 	return () => {
 		api?.core?.actions.focus();
@@ -93,7 +95,7 @@ export const handleBodiedSyncBlockCreation = (
 		const retryCreationPos = { from: node.from, to: node.to };
 		const resourceId = node.attrs.resourceId;
 
-		setTimeout(() => {
+		deferDispatch(() => {
 			api?.core?.actions.execute(({ tr }) => {
 				return tr.setMeta(syncedBlockPluginKey, {
 					retryCreationPos: { resourceId, pos: retryCreationPos },

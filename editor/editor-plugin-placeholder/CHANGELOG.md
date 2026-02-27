@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 7.3.0
+
+### Minor Changes
+
+- [`0a0a5831dfc2d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a0a5831dfc2d) -
+  [ux] Adds isPlaceholderHidden param to placeholder plugin init. Removes isEmbedded option from
+  placeholder plugin, and removes cwr_blank_object_experiment editor experiment override
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.2.19
 
 ### Patch Changes

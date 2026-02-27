@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-paste
 
+## 8.2.8
+
+### Patch Changes
+
+- [`19274be1b1972`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19274be1b1972) -
+  [ux] EDITOR-5417 Flexible list indentation ADF schema + validator support
+- Updated dependencies
+
+## 8.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.2.6
 
 ### Patch Changes

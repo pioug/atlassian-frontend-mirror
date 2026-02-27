@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 8.7.8
+
+### Patch Changes
+
+- [`64fe39d800a84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64fe39d800a84) -
+  Improve ExperienceCheckPopupMutation logic to be more performant
+- Updated dependencies
+
+## 8.7.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.7.6
 
 ### Patch Changes

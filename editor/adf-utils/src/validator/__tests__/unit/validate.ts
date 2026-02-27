@@ -1,10 +1,10 @@
 import { validator } from '../../../validator';
 
 import {
-	fullValidJsonSchema,
 	fullInvalidJsonSchema,
-	stage0ValidJsonSchema,
+	fullValidJsonSchema,
 	stage0InvalidJsonSchema,
+	stage0ValidJsonSchema,
 } from '@atlassian/adf-schema-json';
 
 const validate = validator();
@@ -18,8 +18,6 @@ describe('validate valid schema', () => {
 		// the following also have empty marks, which fails
 		'nestedExpand-with-codeBlock.json',
 		'panel-with-codeBlock.json',
-		// is failing in master https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/3619620
-		'list-item-with-decision.json',
 	];
 	const valid = fullValidJsonSchema.concat(stage0ValidJsonSchema);
 
@@ -84,6 +82,8 @@ describe('validate invalid schema', () => {
 		'blockQuote-with-attrs.json',
 		'listItem-with-attrs.json',
 		'rule-with-attrs.json',
+		// now valid with flexible list indentation support - listItem can have list as first child
+		'listItem-with-list-as-first-child.json',
 	];
 	const expectAnyErrorList = [
 		'extension-with-empty-local-id.json',

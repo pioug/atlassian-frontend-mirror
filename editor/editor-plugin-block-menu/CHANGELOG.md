@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.1.5
+
+### Patch Changes
+
+- [`64fe39d800a84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64fe39d800a84) -
+  Improve ExperienceCheckPopupMutation logic to be more performant
+- Updated dependencies
+
+## 6.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.3
 
 ### Patch Changes

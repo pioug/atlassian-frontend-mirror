@@ -39,19 +39,19 @@ export default {
   'fabric.elements.user-picker.source.other-atlassian': 'Other Atlassian products',
   'fabric.elements.user-picker.source.other-atlassian-appify': 'Other Atlassian apps',
   'fabric.elements.user-picker.team.byline': 'Team',
-  'fabric.elements.user-picker.team.byline.official': 'Official team {verifiedIcon}',
+  'fabric.elements.user-picker.team.byline.official': '{teamTypeName} {verifiedIcon}',
   'fabric.elements.user-picker.team.member.50plus': 'Team • 50+ members',
   'fabric.elements.user-picker.team.member.50plus.including.you': 'Team • 50+ members, including you',
-  'fabric.elements.user-picker.team.member.50plus.official': 'Official team {verifiedIcon} • 50+ members',
+  'fabric.elements.user-picker.team.member.50plus.official': '{teamTypeName} {verifiedIcon} • 50+ members',
   'fabric.elements.user-picker.team.member.50plus.official.including.you':
-    'Official team {verifiedIcon} • 50+ members, including you',
+    '{teamTypeName} {verifiedIcon} • 50+ members, including you',
   'fabric.elements.user-picker.team.member.count': 'Team • {count} {count, plural, one {member} other {members}}',
   'fabric.elements.user-picker.team.member.count.including.you':
     'Team • {count} {count, plural, one {member} other {members}}, including you',
   'fabric.elements.user-picker.team.member.count.official':
-    'Official team {verifiedIcon} • {count} {count, plural, one {member} other {members}}',
+    '{teamTypeName} {verifiedIcon} • {count} {count, plural, one {member} other {members}}',
   'fabric.elements.user-picker.team.member.count.official.including.you':
-    'Official team {verifiedIcon} • {count} {count, plural, one {member} other {members}}, including you',
+    '{teamTypeName} {verifiedIcon} • {count} {count, plural, one {member} other {members}}, including you',
   'fabric.elements.user-picker.team.type.label': 'Teams',
   'fabric.elements.user-picker.user.type.label': 'People',
 };

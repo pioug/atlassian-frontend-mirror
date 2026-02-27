@@ -30,10 +30,10 @@ import {
 import type { RunMacroAutoConvert } from '@atlaskit/editor-plugin-extension';
 import type { FindRootParentListNode } from '@atlaskit/editor-plugin-list';
 import type { InsertMediaAsMediaSingle } from '@atlaskit/editor-plugin-media/types';
-import { Fragment, Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Mark, MarkType, Schema } from '@atlaskit/editor-prosemirror/model';
-import { AllSelection, NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { Fragment, Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { AllSelection, NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import {
 	canInsert,
 	contains,
@@ -49,6 +49,7 @@ import type { CardAdf, CardAppearance, DatasourceAdf } from '@atlaskit/linking-c
 import { fg } from '@atlaskit/platform-feature-flags';
 import { closeHistory } from '@atlaskit/prosemirror-history';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 // TODO: ED-20519 - Needs Macro extraction
 
 import {
@@ -1077,7 +1078,7 @@ export function handleExpandPaste(slice: Slice): Command {
 				hasExpand = true;
 				try {
 					return nestedExpand.createChecked(maybeNode.attrs, maybeNode.content, maybeNode.marks);
-				} catch (e) {
+				} catch {
 					tr = safeInsert(maybeNode, tr.selection.$to.pos)(tr);
 					return Fragment.empty;
 				}
@@ -1338,7 +1339,13 @@ export function handleRichText(
 
 		if (!isSliceContentTaskListNodes && (isSliceContentListNodes || isTargetPanelEmpty)) {
 			insertSliceForLists({ tr, slice, schema });
-		} else if (noNeedForSafeInsert) {
+		} else if (
+			noNeedForSafeInsert &&
+			!(
+				expValEqualsNoExposure('platform_editor_flexible_list_indentation', 'isEnabled', true) &&
+				checkTaskListInList(state, slice)
+			)
+		) {
 			if (
 				firstChildOfSlice?.type?.name === 'blockquote' &&
 				firstChildOfSlice?.content.firstChild?.type.name &&
@@ -1374,7 +1381,7 @@ export function handleRichText(
 		} else {
 			// need to scan the slice if there's a block node or list items inside it
 			let sliceHasList = false;
-			slice.content.nodesBetween(0, slice.content.size, (node, start) => {
+			slice.content.nodesBetween(0, slice.content.size, (node) => {
 				if (node.type === state.schema.nodes.listItem) {
 					sliceHasList = true;
 					return false;
@@ -1488,7 +1495,7 @@ export const handleSelectedTable =
 export function checkTaskListInList(state: EditorState, slice: Slice): boolean {
 	return Boolean(
 		isInListItem(state) &&
-		['taskList', 'taskItem'].includes(slice.content.firstChild?.type?.name || ''),
+			['taskList', 'taskItem'].includes(slice.content.firstChild?.type?.name || ''),
 	);
 }
 

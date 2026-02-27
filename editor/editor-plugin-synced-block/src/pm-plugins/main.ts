@@ -44,7 +44,11 @@ import {
 import { shouldIgnoreDomEvent } from './utils/ignore-dom-event';
 import { calculateDecorations } from './utils/selection-decorations';
 import { hasEditInSyncBlock, trackSyncBlocks } from './utils/track-sync-blocks';
-import { wasInlineExtensionInsertedInBodiedSyncBlock, sliceFullyContainsNode } from './utils/utils';
+import {
+	deferDispatch,
+	wasInlineExtensionInsertedInBodiedSyncBlock,
+	sliceFullyContainsNode,
+} from './utils/utils';
 
 export const syncedBlockPluginKey = new PluginKey('syncedBlockPlugin');
 
@@ -64,7 +68,7 @@ const mapRetryCreationPosMap = (
 	const resourceId = newRetryCreationPos?.resourceId;
 	const newMap = new Map(oldMap);
 	if (resourceId) {
-		const pos = newRetryCreationPos.pos;
+		const { pos } = newRetryCreationPos;
 
 		if (!pos) {
 			newMap.delete(resourceId);
@@ -87,14 +91,13 @@ const mapRetryCreationPosMap = (
 };
 
 const showCopiedFlag = (api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined) => {
-	// Use setTimeout to dispatch transaction in next tick and avoid re-entrant dispatch
-	setTimeout(() => {
-		api?.core.actions.execute(({ tr }) => {
-			return tr.setMeta(syncedBlockPluginKey, {
+	deferDispatch(() => {
+		api?.core.actions.execute(({ tr }) =>
+			tr.setMeta(syncedBlockPluginKey, {
 				activeFlag: { id: FLAG_ID.SYNC_BLOCK_COPIED },
-			});
-		});
-	}, 0);
+			}),
+		);
+	});
 };
 
 const showInlineExtensionInSyncBlockWarningIfNeeded = (
@@ -118,14 +121,13 @@ const showInlineExtensionInSyncBlockWarningIfNeeded = (
 	// Only show the flag on the first instance per sync block (same as UNPUBLISHED_SYNC_BLOCK_PASTED)
 	if (resourceId && !inlineExtensionFlagShown.has(resourceId)) {
 		inlineExtensionFlagShown.add(resourceId);
-		// Use setTimeout to dispatch in next tick and avoid re-entrant dispatch from filterTransaction
-		setTimeout(() => {
-			api?.core.actions.execute(({ tr }) => {
-				return tr.setMeta(syncedBlockPluginKey, {
+		deferDispatch(() => {
+			api?.core.actions.execute(({ tr }) =>
+				tr.setMeta(syncedBlockPluginKey, {
 					activeFlag: { id: FLAG_ID.INLINE_EXTENSION_IN_SYNC_BLOCK },
-				});
-			});
-		}, 0);
+				}),
+			);
+		});
 	}
 };
 
@@ -137,6 +139,174 @@ const getDeleteReason = (tr: Transaction): DeletionReason => {
 	return reason as DeletionReason;
 };
 
+type FilterTransactionOnlineParams = {
+	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined;
+	bodiedSyncBlockAdded: ReturnType<typeof trackSyncBlocks>['added'];
+	bodiedSyncBlockRemoved: ReturnType<typeof trackSyncBlocks>['removed'];
+	confirmationTransactionRef: TransactionRef;
+	inlineExtensionFlagShown: Set<string>;
+	state: EditorState;
+	syncBlockStore: SyncBlockStoreManager;
+	tr: Transaction;
+};
+
+const filterTransactionOnline = ({
+	tr,
+	state,
+	syncBlockStore,
+	api,
+	confirmationTransactionRef,
+	bodiedSyncBlockRemoved,
+	bodiedSyncBlockAdded,
+	inlineExtensionFlagShown,
+}: FilterTransactionOnlineParams): boolean => {
+	const { removed: syncBlockRemoved, added: syncBlockAdded } = trackSyncBlocks(
+		(node) => node.type.name === 'syncBlock',
+		tr,
+		state,
+	);
+
+	syncBlockRemoved.forEach((syncBlock) => {
+		api?.analytics?.actions?.fireAnalyticsEvent({
+			action: ACTION.DELETED,
+			actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+			actionSubjectId: ACTION_SUBJECT_ID.REFERENCE_SYNCED_BLOCK_DELETE,
+			attributes: {
+				resourceId: syncBlock.attrs.resourceId,
+				blockInstanceId: syncBlock.attrs.localId,
+			},
+			eventType: EVENT_TYPE.OPERATIONAL,
+		});
+	});
+
+	syncBlockAdded.forEach((syncBlock) => {
+		if (fg('platform_synced_block_patch_3')) {
+			api?.analytics?.actions?.fireAnalyticsEvent({
+				action: ACTION.INSERTED,
+				actionSubject: ACTION_SUBJECT.DOCUMENT,
+				actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK,
+				attributes: {
+					resourceId: syncBlock.attrs.resourceId,
+					blockInstanceId: syncBlock.attrs.localId,
+				},
+				eventType: EVENT_TYPE.TRACK,
+			});
+		} else {
+			api?.analytics?.actions?.fireAnalyticsEvent({
+				action: ACTION.INSERTED,
+				actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+				actionSubjectId: ACTION_SUBJECT_ID.REFERENCE_SYNCED_BLOCK_CREATE,
+				attributes: {
+					resourceId: syncBlock.attrs.resourceId,
+					blockInstanceId: syncBlock.attrs.localId,
+				},
+				eventType: EVENT_TYPE.OPERATIONAL,
+			});
+		}
+	});
+
+	if (bodiedSyncBlockRemoved.length > 0) {
+		// eslint-disable-next-line no-param-reassign
+		confirmationTransactionRef.current = tr;
+		return handleBodiedSyncBlockRemoval(
+			bodiedSyncBlockRemoved,
+			syncBlockStore,
+			api,
+			confirmationTransactionRef,
+			getDeleteReason(tr),
+		);
+	}
+
+	if (bodiedSyncBlockAdded.length > 0) {
+		if (tr.getMeta(pmHistoryPluginKey)) {
+			// We don't allow bodiedSyncBlock creation via redo, however, we need to return true here to let transaction through so history can be updated properly.
+			// If we simply returns false, creation from redo is blocked as desired, but this results in editor showing redo as possible even though it's not.
+			// After true is returned here and the node is created, we delete the node in the filterTransaction immediately, which cancels out the creation
+			return true;
+		}
+		handleBodiedSyncBlockCreation(bodiedSyncBlockAdded, state, api);
+		return true;
+	}
+
+	showInlineExtensionInSyncBlockWarningIfNeeded(tr, state, api, inlineExtensionFlagShown);
+	return true;
+};
+
+type FilterTransactionOfflineParams = {
+	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined;
+	bodiedSyncBlockAdded: ReturnType<typeof trackSyncBlocks>['added'];
+	bodiedSyncBlockRemoved: ReturnType<typeof trackSyncBlocks>['removed'];
+	isConfirmedSyncBlockDeletion: boolean;
+	state: EditorState;
+	tr: Transaction;
+};
+
+const filterTransactionOffline = ({
+	tr,
+	state,
+	api,
+	isConfirmedSyncBlockDeletion,
+	bodiedSyncBlockRemoved,
+	bodiedSyncBlockAdded,
+}: FilterTransactionOfflineParams): boolean => {
+	const { removed: syncBlockRemoved, added: syncBlockAdded } = trackSyncBlocks(
+		(node) => node.type.name === 'syncBlock',
+		tr,
+		state,
+	);
+	let errorFlag: FLAG_ID | false = false;
+
+	if (
+		isConfirmedSyncBlockDeletion ||
+		bodiedSyncBlockRemoved.length > 0 ||
+		syncBlockRemoved.length > 0
+	) {
+		errorFlag = FLAG_ID.CANNOT_DELETE_WHEN_OFFLINE;
+	} else if (bodiedSyncBlockAdded.length > 0 || syncBlockAdded.length > 0) {
+		errorFlag = FLAG_ID.CANNOT_CREATE_WHEN_OFFLINE;
+	} else if (hasEditInSyncBlock(tr, state)) {
+		errorFlag = FLAG_ID.CANNOT_EDIT_WHEN_OFFLINE;
+	}
+
+	if (errorFlag) {
+		deferDispatch(() => {
+			api?.core.actions.execute(({ tr }) =>
+				tr.setMeta(syncedBlockPluginKey, {
+					activeFlag: { id: errorFlag },
+				}),
+			);
+		});
+		return false;
+	}
+	return true;
+};
+
+/**
+ * Encapsulates mutable state that persists across transactions in the
+ * synced block plugin. Replaces module-level closure variables so state
+ * is explicitly scoped to a single plugin instance.
+ */
+class SyncedBlockPluginContext {
+	readonly confirmationTransactionRef: TransactionRef = { current: undefined };
+	private _isCopyEvent = false;
+	readonly unpublishedFlagShown = new Set<string>();
+	readonly inlineExtensionFlagShown = new Set<string>();
+
+	get isCopyEvent(): boolean {
+		return this._isCopyEvent;
+	}
+
+	markCopyEvent(): void {
+		this._isCopyEvent = true;
+	}
+
+	consumeCopyEvent(): boolean {
+		const was = this._isCopyEvent;
+		this._isCopyEvent = false;
+		return was;
+	}
+}
+
 export const createPlugin = (
 	options: SyncedBlockPluginOptions | undefined,
 	pmPluginFactoryParams: PMPluginFactoryParams,
@@ -144,27 +314,27 @@ export const createPlugin = (
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>,
 ) => {
 	const { useLongPressSelection = false } = options || {};
-	const confirmationTransactionRef: TransactionRef = { current: undefined };
-	// Track if a copy event occurred to distinguish copy from drag and drop
+
+	const ctx = fg('platform_synced_block_patch_5') ? new SyncedBlockPluginContext() : undefined;
+	const confirmationTransactionRef: TransactionRef = ctx?.confirmationTransactionRef ?? {
+		current: undefined,
+	};
 	let isCopyEvent: boolean = false;
-	// Track which sync blocks have already triggered the unpublished flag
-	const unpublishedFlagShown = new Set<string>();
-	// Track which sync blocks have already triggered the inline extension in sync block flag
-	const inlineExtensionFlagShown = new Set<string>();
+	const unpublishedFlagShown = ctx?.unpublishedFlagShown ?? new Set<string>();
+	const inlineExtensionFlagShown = ctx?.inlineExtensionFlagShown ?? new Set<string>();
 
 	// Set up callback to detect unpublished sync blocks when they're fetched
 	syncBlockStore.referenceManager.setOnUnpublishedSyncBlockDetected((resourceId: string) => {
 		// Only show the flag once per sync block
 		if (!unpublishedFlagShown.has(resourceId)) {
 			unpublishedFlagShown.add(resourceId);
-			// Use setTimeout to dispatch transaction in next tick and avoid re-entrant dispatch
-			setTimeout(() => {
-				api?.core.actions.execute(({ tr }) => {
-					return tr.setMeta(syncedBlockPluginKey, {
+			deferDispatch(() => {
+				api?.core.actions.execute(({ tr }) =>
+					tr.setMeta(syncedBlockPluginKey, {
 						activeFlag: { id: FLAG_ID.UNPUBLISHED_SYNC_BLOCK_PASTED },
-					});
-				});
-			}, 0);
+					}),
+				);
+			});
 		}
 	});
 
@@ -222,12 +392,12 @@ export const createPlugin = (
 		},
 		props: {
 			nodeViews: {
-				syncBlock: (node, view, getPos, _decorations) => {
+				syncBlock: (node, view, getPos, _decorations) =>
 					// To support SSR, pass `syncBlockStore` here
 					// and do not use lazy loading.
 					// We cannot start rendering and then load `syncBlockStore` asynchronously,
 					// because obtaining it is asynchronous (sharedPluginState.currentState() is delayed).
-					return new SyncBlockView({
+					new SyncBlockView({
 						api,
 						options,
 						node,
@@ -236,8 +406,7 @@ export const createPlugin = (
 						portalProviderAPI: pmPluginFactoryParams.portalProviderAPI,
 						eventDispatcher: pmPluginFactoryParams.eventDispatcher,
 						syncBlockStore: syncBlockStore,
-					}).init();
-				},
+					}).init(),
 				bodiedSyncBlock: lazyBodiedSyncBlockView({
 					pluginOptions: options,
 					pmPluginFactoryParams,
@@ -308,7 +477,11 @@ export const createPlugin = (
 					return shouldIgnoreDomEvent(view, event, api);
 				},
 				copy: () => {
-					isCopyEvent = true;
+					if (ctx) {
+						ctx.markCopyEvent();
+					} else {
+						isCopyEvent = true;
+					}
 					return false;
 				},
 			},
@@ -316,8 +489,10 @@ export const createPlugin = (
 				const pluginState = syncedBlockPluginKey.getState(state);
 				const syncBlockStore = pluginState?.syncBlockStore;
 				const { schema } = state;
-				const isCopy = isCopyEvent;
-				isCopyEvent = false;
+				const isCopy = ctx ? ctx.consumeCopyEvent() : isCopyEvent;
+				if (!ctx) {
+					isCopyEvent = false;
+				}
 
 				if (!syncBlockStore || !isCopy) {
 					return slice;
@@ -362,7 +537,6 @@ export const createPlugin = (
 			// Track newly added reference sync blocks before processing the transaction
 			if (tr.docChanged && !tr.getMeta('isRemote')) {
 				const { added } = trackSyncBlocks((node) => node.type.name === 'syncBlock', tr, state);
-				// Mark newly added sync blocks so we can detect unpublished status when data is fetched
 				added.forEach((nodeInfo) => {
 					if (nodeInfo.attrs?.resourceId) {
 						syncBlockStore.referenceManager.markAsNewlyAdded(nodeInfo.attrs.resourceId);
@@ -370,10 +544,6 @@ export const createPlugin = (
 				});
 			}
 
-			// Ignore transactions that don't change the document
-			// or are from remote (collab) or already confirmed sync block deletion
-			// We only care about local changes that change the document
-			// and are not yet confirmed for sync block deletion
 			if (
 				!tr.docChanged ||
 				Boolean(tr.getMeta('isRemote')) ||
@@ -387,6 +557,28 @@ export const createPlugin = (
 				tr,
 				state,
 			);
+
+			if (fg('platform_synced_block_patch_5')) {
+				return isOffline
+					? filterTransactionOffline({
+							tr,
+							state,
+							api,
+							isConfirmedSyncBlockDeletion,
+							bodiedSyncBlockRemoved,
+							bodiedSyncBlockAdded,
+					  })
+					: filterTransactionOnline({
+							tr,
+							state,
+							syncBlockStore,
+							api,
+							confirmationTransactionRef,
+							bodiedSyncBlockRemoved,
+							bodiedSyncBlockAdded,
+							inlineExtensionFlagShown,
+					  });
+			}
 
 			if (!isOffline) {
 				const { removed: syncBlockRemoved, added: syncBlockAdded } = trackSyncBlocks(
@@ -446,7 +638,7 @@ export const createPlugin = (
 				}
 
 				if (bodiedSyncBlockAdded.length > 0) {
-					if (Boolean(tr.getMeta(pmHistoryPluginKey))) {
+					if (tr.getMeta(pmHistoryPluginKey)) {
 						// We don't allow bodiedSyncBlock creation via redo, however, we need to return true here to let transaction through so history can be updated properly.
 						// If we simply returns false, creation from redo is blocked as desired, but this results in editor showing redo as possible even though it's not.
 						// After true is returned here and the node is created, we delete the node in the filterTransaction immediately, which cancels out the creation
@@ -458,39 +650,38 @@ export const createPlugin = (
 
 				showInlineExtensionInSyncBlockWarningIfNeeded(tr, state, api, inlineExtensionFlagShown);
 				return true;
-			} else {
-				const { removed: syncBlockRemoved, added: syncBlockAdded } = trackSyncBlocks(
-					(node) => node.type.name === 'syncBlock',
-					tr,
-					state,
-				);
-				let errorFlag: FLAG_ID | false = false;
-
-				// Disable (bodied)syncBlock node deletion/creation/edition in offline mode and trigger an error flag instead
-				if (
-					isConfirmedSyncBlockDeletion ||
-					bodiedSyncBlockRemoved.length > 0 ||
-					syncBlockRemoved.length > 0
-				) {
-					errorFlag = FLAG_ID.CANNOT_DELETE_WHEN_OFFLINE;
-				} else if (bodiedSyncBlockAdded.length > 0 || syncBlockAdded.length > 0) {
-					errorFlag = FLAG_ID.CANNOT_CREATE_WHEN_OFFLINE;
-				} else if (hasEditInSyncBlock(tr, state)) {
-					errorFlag = FLAG_ID.CANNOT_EDIT_WHEN_OFFLINE;
-				}
-
-				if (errorFlag) {
-					// Use setTimeout to dispatch transaction in next tick and avoid re-entrant dispatch
-					setTimeout(() => {
-						api?.core.actions.execute(({ tr }) => {
-							return tr.setMeta(syncedBlockPluginKey, {
-								activeFlag: { id: errorFlag },
-							});
-						});
-					}, 0);
-					return false;
-				}
 			}
+			const { removed: syncBlockRemoved, added: syncBlockAdded } = trackSyncBlocks(
+				(node) => node.type.name === 'syncBlock',
+				tr,
+				state,
+			);
+			let errorFlag: FLAG_ID | false = false;
+
+			// Disable (bodied)syncBlock node deletion/creation/edition in offline mode and trigger an error flag instead
+			if (
+				isConfirmedSyncBlockDeletion ||
+				bodiedSyncBlockRemoved.length > 0 ||
+				syncBlockRemoved.length > 0
+			) {
+				errorFlag = FLAG_ID.CANNOT_DELETE_WHEN_OFFLINE;
+			} else if (bodiedSyncBlockAdded.length > 0 || syncBlockAdded.length > 0) {
+				errorFlag = FLAG_ID.CANNOT_CREATE_WHEN_OFFLINE;
+			} else if (hasEditInSyncBlock(tr, state)) {
+				errorFlag = FLAG_ID.CANNOT_EDIT_WHEN_OFFLINE;
+			}
+
+			if (errorFlag) {
+				deferDispatch(() => {
+					api?.core.actions.execute(({ tr }) =>
+						tr.setMeta(syncedBlockPluginKey, {
+							activeFlag: { id: errorFlag },
+						}),
+					);
+				});
+				return false;
+			}
+
 			return true;
 		},
 		appendTransaction: (trs, oldState, newState) => {
@@ -507,22 +698,25 @@ export const createPlugin = (
 				});
 
 			for (const tr of trs) {
-				if (!tr.getMeta(pmHistoryPluginKey)) {
-					continue;
-				}
-				const { added } = trackSyncBlocks(syncBlockStore.sourceManager.isSourceBlock, tr, oldState);
+				if (tr.getMeta(pmHistoryPluginKey)) {
+					const { added } = trackSyncBlocks(
+						syncBlockStore.sourceManager.isSourceBlock,
+						tr,
+						oldState,
+					);
 
-				if (added.length > 0) {
-					// Delete bodiedSyncBlock if it's originated from history, i.e. redo creation
-					// See filterTransaction above for more details
-					const tr = newState.tr;
-					added.forEach((node) => {
-						if (node.from !== undefined && node.to !== undefined) {
-							tr.delete(node.from, node.to);
-						}
-					});
+					if (added.length > 0) {
+						// Delete bodiedSyncBlock if it's originated from history, i.e. redo creation
+						// See filterTransaction above for more details
+						const { tr } = newState;
+						added.forEach((node) => {
+							if (node.from !== undefined && node.to !== undefined) {
+								tr.delete(node.from, node.to);
+							}
+						});
 
-					return tr;
+						return tr;
+					}
 				}
 			}
 

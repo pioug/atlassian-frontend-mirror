@@ -1259,6 +1259,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-02-20
+	platform_editor_flexible_list_indentation: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-02-23
 	platform_editor_vc90_transition_fixes_batch_1: {
 		defaultValue: boolean;
@@ -1266,16 +1273,22 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-02-23
-	cwr_blank_object_experiment: {
-		defaultValue: 'control' | 'variant1' | 'variant2' | 'variant3';
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: (value: unknown) => value is 'control' | 'variant1' | 'variant2' | 'variant3';
-		values: ('control' | 'variant1' | 'variant2' | 'variant3')[];
-	};
 	// Added 2026-02-24
 	platform_editor_emoji_default_scale: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-02-26
+	platform_editor_toolbar_update_jira_config: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-02-25
+	platform_editor_a11y_typeahead_tab_keypress: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2727,20 +2740,35 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-02-23
-	cwr_blank_object_experiment: createMultivariateExperiment({
+	// Added 2026-02-19
+	platform_editor_flexible_list_indentation: createBooleanExperiment({
 		productKeys: {
-			confluence: 'cwr_blank_object_experiment',
+			confluence: 'platform_editor_flexible_list_indentation',
 		},
-		param: 'cohort',
-		values: ['control', 'variant1', 'variant2', 'variant3'],
-		defaultValue: 'control',
+		param: 'isEnabled',
+		defaultValue: false,
 	}),
 	// Added 2026-02-24
 	platform_editor_emoji_default_scale: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_emoji_default_scale',
 			jira: 'platform_editor_emoji_default_scale',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-02-26
+	platform_editor_toolbar_update_jira_config: createBooleanExperiment({
+		productKeys: {
+			jira: 'platform_editor_toolbar_update_jira_config',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-02-25
+	platform_editor_a11y_typeahead_tab_keypress: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_a11y_typeahead_tab_keypress',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

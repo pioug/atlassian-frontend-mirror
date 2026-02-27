@@ -24,12 +24,28 @@ const editingStyle = convertToInlineCss({
 	textDecorationColor: token('color.border.accent.purple'),
 });
 
+const editingStyleActive = convertToInlineCss({
+	background: token('color.background.accent.purple.subtler'),
+	textDecoration: 'underline',
+	textDecorationStyle: 'dotted',
+	textDecorationThickness: token('space.025'),
+	textDecorationColor: token('color.text.accent.purple'),
+});
+
 const traditionalInsertStyle = convertToInlineCss({
 	background: token('color.background.accent.green.subtlest'),
 	textDecoration: 'underline',
 	textDecorationStyle: 'solid',
 	textDecorationThickness: token('space.025'),
 	textDecorationColor: token('color.border.accent.green'),
+});
+
+const traditionalInsertStyleActive = convertToInlineCss({
+	background: token('color.background.accent.green.subtler'),
+	textDecoration: 'underline',
+	textDecorationStyle: 'solid',
+	textDecorationThickness: token('space.025'),
+	textDecorationColor: token('color.text.accent.green'),
 });
 
 /**
@@ -41,18 +57,29 @@ const traditionalInsertStyle = convertToInlineCss({
 export const createInlineChangedDecoration = (
 	change: { fromB: number; toB: number },
 	colourScheme?: 'standard' | 'traditional',
-) =>
-	Decoration.inline(
+	isActive: boolean = false,
+) => {
+	let style: string;
+	if (colourScheme === 'traditional') {
+		style = isActive ? traditionalInsertStyleActive : traditionalInsertStyle;
+	} else {
+		style = isActive ? editingStyleActive : editingStyle;
+	}
+	return Decoration.inline(
 		change.fromB,
 		change.toB,
 		{
-			style: colourScheme === 'traditional' ? traditionalInsertStyle : editingStyle,
+			style,
 			'data-testid': 'show-diff-changed-decoration',
 		},
 		{},
 	);
+};
 
-const getEditorStyleNode = (nodeName: string, colourScheme?: 'standard' | 'traditional') => {
+const getEditorStyleNode = (
+	nodeName: string,
+	colourScheme?: 'standard' | 'traditional',
+) => {
 	switch (nodeName) {
 		case 'blockquote':
 			return colourScheme === 'traditional' ? traditionalStyleQuoteNode : editingStyleQuoteNode;
@@ -138,11 +165,27 @@ const deletedContentStyle = convertToInlineCss({
 	opacity: 0.6,
 });
 
+const deletedContentStyleActive = convertToInlineCss({
+	color: token('color.text'),
+	textDecoration: 'line-through',
+	textDecorationColor: token('color.text.accent.gray'),
+	position: 'relative',
+	opacity: 1,
+});
+
 const deletedContentStyleNew = convertToInlineCss({
 	color: token('color.text.accent.gray'),
 	textDecoration: 'line-through',
 	position: 'relative',
 	opacity: 0.8,
+});
+
+const deletedContentStyleNewActive = convertToInlineCss({
+	color: token('color.text'),
+	textDecoration: 'line-through',
+	textDecorationColor: token('color.text.accent.gray'),
+	position: 'relative',
+	opacity: 1,
 });
 
 const deletedContentStyleUnbounded = convertToInlineCss({
@@ -179,12 +222,22 @@ export const getDeletedContentStyleUnbounded = (
 		? deletedTraditionalContentStyleUnbounded
 		: deletedContentStyleUnbounded;
 
-export const getDeletedContentStyle = (colourScheme?: 'standard' | 'traditional'): string =>
-	colourScheme === 'traditional'
-		? deletedTraditionalContentStyle
-		: expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
-			? deletedContentStyleNew
-			: deletedContentStyle;
+export const getDeletedContentStyle = (
+	colourScheme?: 'standard' | 'traditional',
+	isActive: boolean = false,
+): string => {
+	if (colourScheme === 'traditional') {
+		return deletedTraditionalContentStyle;
+	}
+	if (isActive) {
+		return expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
+			? deletedContentStyleNewActive
+			: deletedContentStyleActive;
+	}
+	return expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
+		? deletedContentStyleNew
+		: deletedContentStyle;
+};
 
 const getNodeClass = (name: string) => {
 	switch (name) {
@@ -221,6 +274,7 @@ interface DeletedContentDecorationProps {
 	colourScheme?: 'standard' | 'traditional';
 	doc: PMNode;
 	intl: IntlShape;
+	isActive?: boolean;
 	newDoc: PMNode;
 	nodeViewSerializer: NodeViewSerializer;
 }
@@ -232,6 +286,7 @@ export const createDeletedContentDecoration = ({
 	colourScheme,
 	newDoc,
 	intl,
+	isActive = false,
 }: DeletedContentDecorationProps) => {
 	const slice = doc.slice(change.fromA, change.toA);
 
@@ -277,7 +332,6 @@ export const createDeletedContentDecoration = ({
 	 * and if it's the first or last content, we go in however many the sliced Open
 	 * or sliced End depth is and match only the entire node.
 	 */
-
 	slice.content.forEach((node) => {
 		// Create a wrapper for each node with strikethrough
 		const createWrapperWithStrikethrough = () => {
@@ -286,7 +340,7 @@ export const createDeletedContentDecoration = ({
 				position: 'relative',
 				width: 'fit-content',
 			});
-			wrapper.setAttribute('style', `${baseStyle}${getDeletedContentStyle(colourScheme)}`);
+			wrapper.setAttribute('style', `${baseStyle}${getDeletedContentStyle(colourScheme, isActive)}`);
 
 			const strikethrough = document.createElement('span');
 			strikethrough.setAttribute('style', getDeletedContentStyleUnbounded(colourScheme));
@@ -384,7 +438,7 @@ export const createDeletedContentDecoration = ({
 		} else {
 			const fallbackNode = fallbackSerialization();
 			if (fallbackNode) {
-				const wrapper = createDeletedStyleWrapperWithoutOpacity(colourScheme);
+				const wrapper = createDeletedStyleWrapperWithoutOpacity(colourScheme, isActive);
 				wrapper.append(fallbackNode);
 				dom.append(wrapper);
 			}

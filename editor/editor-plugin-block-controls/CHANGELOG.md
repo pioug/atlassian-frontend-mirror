@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 8.7.0
+
+### Minor Changes
+
+- [`f5af4a28f2237`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5af4a28f2237) -
+  Add node decoration registration API to block-controls plugin
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.6.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.6.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.6.2
 
 ### Patch Changes

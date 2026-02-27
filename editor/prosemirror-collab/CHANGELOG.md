@@ -1,5 +1,17 @@
 # @atlaskit/prosemirror-collab
 
+## 0.22.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.22.22
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.22.21
 
 ### Patch Changes

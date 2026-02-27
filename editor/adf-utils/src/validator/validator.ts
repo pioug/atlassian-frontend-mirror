@@ -1,9 +1,10 @@
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
+import type { ADFEntity, ADFEntityMark } from '../types';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-namespace
 import * as specs from './specs';
-import type { ADFEntity, ADFEntityMark } from '../types';
 import {
 	copy,
 	isBoolean,
@@ -16,25 +17,25 @@ import {
 } from './utils';
 
 import type {
-	NodeValidationResult,
-	ValidatorSpec,
 	AttributesSpec,
-	ValidationErrorMap,
-	ValidationError,
-	ErrorCallback,
-	ValidationOptions,
 	Content,
-	ValidationErrorType,
-	ValidatorContent,
-	MarkValidationResult,
-	SpecValidatorResult,
-	Err,
-	Validate,
-	ValidatorSpecAttrs,
 	CreateSpecReturn,
+	Err,
+	ErrorCallback,
+	MarkValidationResult,
+	NodeValidationResult,
+	SpecValidatorResult,
+	Validate,
+	ValidationError,
+	ValidationErrorMap,
+	ValidationErrorType,
+	ValidationOptions,
+	ValidatorContent,
+	ValidatorSpec,
+	ValidatorSpecAttrs,
 } from '../types/validatorTypes';
-import { validatorFnMap } from './rules';
 import { extractAllowedContent } from './extractAllowedContent';
+import { validatorFnMap } from './rules';
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -372,12 +373,38 @@ const unsupportedNodeAttributesContent = (
 	}
 };
 
+/**
+ * Replaces base validator specs with their designated variant overrides
+ */
+const applyVariantSpecOverrides = (validatorSpecs: CreateSpecReturn) => {
+	/**
+	 * Map of base spec names to a variant spec that should be used in their place during validation.
+	 *
+	 * WARNING: The variant spec must be a strict superset of the base spec, i.e. any content valid
+	 * under the base spec must also be valid under the variant
+	 */
+	const variantSpecOverrides: Record<string, string> = {
+		listItem: 'listItem_with_flexible_first_child',
+	};
+
+	Object.entries(variantSpecOverrides).forEach(([base, variant]) => {
+		if (validatorSpecs[base] && validatorSpecs[variant]) {
+			validatorSpecs[base] = validatorSpecs[variant];
+		}
+	});
+};
+
 export function validator(
 	nodes?: Array<string>,
 	marks?: Array<string>,
 	options?: ValidationOptions,
 ): Validate {
 	const validatorSpecs = createSpec(nodes, marks);
+
+	if (expValEqualsNoExposure('platform_editor_flexible_list_indentation', 'isEnabled', true)) {
+		applyVariantSpecOverrides(validatorSpecs);
+	}
+
 	const { mode = 'strict', allowPrivateAttributes = false } = options || {};
 	const validate: Validate = (entity, errorCallback, allowed, parentSpec) => {
 		if (!allowed && fg('platform_editor_ai_aifc_patch_ga')) {

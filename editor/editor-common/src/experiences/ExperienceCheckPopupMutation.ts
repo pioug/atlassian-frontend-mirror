@@ -12,43 +12,52 @@ import type { ExperienceCheck, ExperienceCheckCallback } from './ExperienceCheck
  */
 export type PopupCheckType = 'inline' | 'editorRoot' | 'editorContent';
 
-export type ExperienceCheckPopupMutationConfig = {
-	getEditorDom: () => HTMLElement | undefined | null;
+type InlineConfig = {
 	getTarget: () => HTMLElement | undefined | null;
 	nestedElementQuery: string;
-	type?: PopupCheckType;
+	/**
+	 * Observe the entire subtree for mutations, not just direct children.
+	 * Use with caution — only enable when the observed DOM subtree is small/lightweight
+	 * (e.g. a single toolbar button). Enabling on large subtrees can cause performance issues.
+	 */
+	subtree?: boolean;
+	type: 'inline';
 };
 
-export class ExperienceCheckPopupMutation implements ExperienceCheck {
-	private getEditorDom: () => HTMLElement | undefined | null;
-	private getTarget: () => HTMLElement | undefined | null;
-	private nestedElementQuery: string;
-	private observers: MutationObserver[] = [];
-	private type: PopupCheckType;
+type EditorRootConfig = {
+	getEditorDom: () => HTMLElement | undefined | null;
+	nestedElementQuery: string;
+	type: 'editorRoot';
+};
 
-	constructor({
-		getEditorDom,
-		getTarget,
-		nestedElementQuery,
-		type = 'editorRoot',
-	}: ExperienceCheckPopupMutationConfig) {
-		this.getEditorDom = getEditorDom;
-		this.getTarget = getTarget;
-		this.nestedElementQuery = nestedElementQuery;
-		this.type = type;
+type EditorContentConfig = {
+	getTarget: () => HTMLElement | undefined | null;
+	nestedElementQuery: string;
+	type: 'editorContent';
+};
+
+export type ExperienceCheckPopupMutationConfig = InlineConfig | EditorRootConfig | EditorContentConfig;
+
+export class ExperienceCheckPopupMutation implements ExperienceCheck {
+	private config: ExperienceCheckPopupMutationConfig;
+	private observers: MutationObserver[] = [];
+
+	constructor(config: ExperienceCheckPopupMutationConfig) {
+		this.config = config;
 	}
 
 	/**
 	 * Returns the list of DOM elements to observe based on popup type.
 	 */
 	private getObserveTargets(): HTMLElement[] {
-		switch (this.type) {
+		const { config } = this;
+		switch (config.type) {
 			case 'inline':
-				return this.getInlineTargets();
+				return this.getInlineTargets(config);
 			case 'editorRoot':
-				return this.getEditorRootTargets();
+				return this.getEditorRootTargets(config);
 			case 'editorContent':
-				return this.getEditorContentTargets();
+				return this.getEditorContentTargets(config);
 		}
 	}
 
@@ -57,8 +66,8 @@ export class ExperienceCheckPopupMutation implements ExperienceCheck {
 	 * [data-editor-popup] wrappers within it. Content-level popups and modals
 	 * appear in portal containers.
 	 */
-	private getEditorContentTargets(): HTMLElement[] {
-		const target = this.getTarget();
+	private getEditorContentTargets(config: EditorContentConfig): HTMLElement[] {
+		const target = config.getTarget();
 
 		if (!target) {
 			return [];
@@ -77,8 +86,8 @@ export class ExperienceCheckPopupMutation implements ExperienceCheck {
 	 * The caller is responsible for resolving the correct container
 	 * (e.g. the toolbar button-group) via the getTarget function.
 	 */
-	private getInlineTargets(): HTMLElement[] {
-		const target = this.getTarget();
+	private getInlineTargets(config: InlineConfig): HTMLElement[] {
+		const target = config.getTarget();
 
 		if (!target) {
 			return [];
@@ -92,20 +101,15 @@ export class ExperienceCheckPopupMutation implements ExperienceCheck {
 	 * The editorDom is the ProseMirror element, but popups appear as direct children
 	 * of the parent .akEditor container. So we observe the parent of editorDom.
 	 */
-	private getEditorRootTargets(): HTMLElement[] {
+	private getEditorRootTargets(config: EditorRootConfig): HTMLElement[] {
 		const targets: HTMLElement[] = [];
-		const editorDom = this.getEditorDom();
+		const editorDom = config.getEditorDom();
 
 		if (editorDom) {
 			const editorRoot = editorDom.closest('.akEditor') || editorDom.parentElement;
 
 			if (editorRoot instanceof HTMLElement) {
 				targets.push(editorRoot);
-
-				const wrappers = editorRoot.querySelectorAll<HTMLElement>('[data-editor-popup]');
-				for (const wrapper of wrappers) {
-					targets.push(wrapper);
-				}
 			}
 		}
 
@@ -113,9 +117,7 @@ export class ExperienceCheckPopupMutation implements ExperienceCheck {
 	}
 
 	start(callback: ExperienceCheckCallback): void {
-		this.stop();
-
-		const target = this.getTarget();
+		const target = this.config.type === 'editorRoot' ? this.config.getEditorDom() : this.config.getTarget();
 		const doc = getDocument();
 		if (!target || !doc) {
 			callback({
@@ -127,33 +129,31 @@ export class ExperienceCheckPopupMutation implements ExperienceCheck {
 
 		const observeTargets = this.getObserveTargets();
 
-		const query = this.nestedElementQuery;
+		const query = this.config.nestedElementQuery;
 
+		const subtree = this.config.type === 'inline' && this.config.subtree === true;
 		const observe = (el: HTMLElement) => {
 			const observer = new MutationObserver(onMutation);
-			observer.observe(el, { childList: true });
+			observer.observe(el, { childList: true, subtree });
 			this.observers.push(observer);
 		};
 
 		const onMutation = (mutations: MutationRecord[]) => {
-			for (const mutation of mutations) {
-				if (mutation.type !== 'childList') {
-					continue;
-				}
-				for (const node of mutation.addedNodes) {
-					if (!(node instanceof HTMLElement)) {
-						continue;
-					}
-					const found =
-						popupWithNestedElement(node, query) ||
-						node.matches(query) ||
-						!!node.querySelector(query);
+			const found = mutations.some(
+				({ type, addedNodes }) =>
+					type === 'childList' &&
+					[...addedNodes].some(
+						(node) =>
+							node instanceof HTMLElement &&
+							(popupWithNestedElement(node, query) ||
+								node.matches(query) ||
+								node.querySelector(query) !== null),
+					),
+			);
 
-					if (found) {
-						callback({ status: 'success' });
-						return;
-					}
-				}
+			if (found) {
+				callback({ status: 'success' });
+				return;
 			}
 		};
 

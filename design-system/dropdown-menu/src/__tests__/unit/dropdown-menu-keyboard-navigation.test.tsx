@@ -488,4 +488,80 @@ describe('dropdown menu keyboard navigation', () => {
 		expect(screen.getByTestId(`${testId}--content`)).toBeInTheDocument();
 		expect(onOpenChange).not.toHaveBeenCalled();
 	});
+
+	describe('shouldPreventEscapePropagation', () => {
+		it('should close the dropdown and call stopPropagation when Escape is pressed and shouldPreventEscapePropagation is true', () => {
+			const mockOnOpenChange = jest.fn();
+
+			render(
+				<DropdownMenu
+					trigger={triggerText}
+					testId={testId}
+					onOpenChange={mockOnOpenChange}
+					shouldPreventEscapePropagation={true}
+				>
+					<DropdownItemGroup>
+						{items.map((text) => (
+							<DropdownItem>{text}</DropdownItem>
+						))}
+					</DropdownItemGroup>
+				</DropdownMenu>,
+			);
+
+			openDropdownWithClick(screen.getByTestId(`${testId}--trigger`));
+			expect(screen.getByTestId(`${testId}--content`)).toBeInTheDocument();
+			mockOnOpenChange.mockClear();
+
+			const event = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true });
+			const spy = jest.spyOn(event, 'stopPropagation');
+
+			fireEvent(screen.getByTestId(`${testId}--content`), event);
+			requestAnimationFrame.step();
+
+			expect(screen.queryByTestId(`${testId}--content`)).not.toBeInTheDocument();
+			expect(mockOnOpenChange).toHaveBeenCalledWith({
+				isOpen: false,
+				event: expect.any(Object),
+			});
+			expect(spy).toHaveBeenCalled();
+			spy.mockRestore();
+		});
+
+		it('should close the dropdown and NOT call stopPropagation when Escape is pressed and shouldPreventEscapePropagation is false (default)', () => {
+			const mockOnOpenChange = jest.fn();
+
+			render(
+				<DropdownMenu
+					trigger={triggerText}
+					testId={testId}
+					onOpenChange={mockOnOpenChange}
+					shouldPreventEscapePropagation={false}
+				>
+					<DropdownItemGroup>
+						{items.map((text) => (
+							<DropdownItem>{text}</DropdownItem>
+						))}
+					</DropdownItemGroup>
+				</DropdownMenu>,
+			);
+
+			openDropdownWithClick(screen.getByTestId(`${testId}--trigger`));
+			expect(screen.getByTestId(`${testId}--content`)).toBeInTheDocument();
+			mockOnOpenChange.mockClear();
+
+			const event = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true });
+			const spy = jest.spyOn(event, 'stopPropagation');
+
+			fireEvent(screen.getByTestId(`${testId}--content`), event);
+			requestAnimationFrame.step();
+
+			expect(screen.queryByTestId(`${testId}--content`)).not.toBeInTheDocument();
+			expect(mockOnOpenChange).toHaveBeenCalledWith({
+				isOpen: false,
+				event: expect.any(Object),
+			});
+			expect(spy).not.toHaveBeenCalled();
+			spy.mockRestore();
+		});
+	});
 });

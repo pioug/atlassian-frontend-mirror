@@ -7,3 +7,7 @@ export {
 
 export { getSyncedBlockRenderer } from './getSyncedBlockRenderer';
 export type { SyncedBlockNodeProps } from './ui/SyncedBlockNodeComponentRenderer';
+export {
+	renderSyncedBlockContent,
+	type RenderSyncedBlockContentParams,
+} from './ui/renderSyncedBlockContent';

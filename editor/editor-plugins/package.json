@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugins",
-	"version": "12.2.2",
+	"version": "12.2.8",
 	"description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,6 +36,7 @@
 		"./batch-attribute-updates": "./src/batch-attribute-updates/index.ts",
 		"./before-primary-toolbar": "./src/before-primary-toolbar/index.ts",
 		"./better-type-history": "./src/better-type-history/index.ts",
+		"./block-controls/block-decoration-utils": "./src/block-controls/ui/block-decoration-utils.ts",
 		"./block-controls": "./src/block-controls/index.ts",
 		"./block-menu": "./src/block-menu/index.ts",
 		"./block-type/consts": "./src/block-type/ui/consts.ts",

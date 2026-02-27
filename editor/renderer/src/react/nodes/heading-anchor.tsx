@@ -179,6 +179,11 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 					position="top"
 					delay={0}
 					key={tooltipMessage}
+					isScreenReaderAnnouncementDisabled={
+						expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)
+							? true
+							: false
+					}
 				>
 					{this.renderAnchorButton()}
 				</Tooltip>

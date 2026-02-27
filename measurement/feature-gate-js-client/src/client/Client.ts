@@ -39,6 +39,7 @@ import {
 	type Provider,
 } from './types';
 import {
+	deepAssign,
 	getOptionsWithDefaults,
 	migrateInitializationOptions,
 	shallowEquals,
@@ -977,7 +978,8 @@ export class Client {
 			...restClientOptions
 		} = newClientOptions;
 
-		this.user = toStatsigUser(identifiers, customAttributes);
+		const frontendUser = toStatsigUser(identifiers, customAttributes);
+		this.user = deepAssign({}, initializeValues.user, frontendUser);
 
 		const statsigOptions: StatsigOptions = {
 			...restClientOptions,
@@ -1099,7 +1101,8 @@ export class Client {
 		let initializeValues, user;
 		try {
 			initializeValues = await initializeValuesPromise;
-			user = toStatsigUser(identifiers, initializeValues.customAttributesFromFetch);
+			const frontendUser = toStatsigUser(identifiers, initializeValues.customAttributesFromFetch);
+			user = deepAssign({}, initializeValues.experimentValues.user, frontendUser);
 		} catch (err) {
 			// Make sure the updateUserCompletionCallback is called for any errors in our custom code.
 			// This is not necessary for the updateUserWithValues call, because the Statsig client will

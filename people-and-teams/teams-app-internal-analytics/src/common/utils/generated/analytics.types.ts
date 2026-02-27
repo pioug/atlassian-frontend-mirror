@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::291243b3bb3f0ae95b6cd18a60d7200b>>
+ * @codegen <<SignedSource::59c4bdd833e5deaf51ba7b43a7658597>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -1509,6 +1509,16 @@ export type StarTeamFailedAttributesType = {
 	errorMessage: string;
 	errorType: string | null;
 };
+export type ParentTeamPickerOpenedAttributesType = {};
+export type ParentTeamPickerClosedAttributesType = {
+	newParentTeamId: string;
+	isCanceled: boolean;
+};
+export type TeamPickerFailedAttributesType = {
+	error: string;
+	errorMessage: string;
+	errorType: string | null;
+};
 
 export type AnalyticsEventAttributes = {
 	/**
@@ -2552,6 +2562,15 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when fetching starred teams or rendering the star team component fails */
 	'track.starTeam.failed': StarTeamFailedAttributesType;
+	/**
+	 * fired when the parent team picker is opened */
+	'ui.parentTeamPicker.opened': ParentTeamPickerOpenedAttributesType;
+	/**
+	 * fired when the parent team picker is closed */
+	'ui.parentTeamPicker.closed': ParentTeamPickerClosedAttributesType;
+	/**
+	 * fired when the team picker fails */
+	'track.teamPicker.failed': TeamPickerFailedAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

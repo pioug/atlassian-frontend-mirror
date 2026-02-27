@@ -85,7 +85,9 @@ const calculateDiffDecorationsInner = ({
 	nodeViewSerializer,
 	colourScheme,
 	intl,
+	activeIndexPos,
 }: {
+	activeIndexPos?: { from: number; to: number };
 	colourScheme?: 'standard' | 'traditional';
 	intl: IntlShape;
 	nodeViewSerializer: NodeViewSerializer;
@@ -126,13 +128,15 @@ const calculateDiffDecorationsInner = ({
 	const optimizedChanges = optimizeChanges(changes);
 	const decorations: Decoration[] = [];
 	optimizedChanges.forEach((change) => {
+		const isActive = activeIndexPos && change.fromB >= activeIndexPos.from && change.toB <= activeIndexPos.to;
 		if (change.inserted.length > 0) {
-			decorations.push(createInlineChangedDecoration(change, colourScheme));
+			decorations.push(createInlineChangedDecoration(change, colourScheme, isActive));
 			decorations.push(
 				...calculateNodesForBlockDecoration(tr.doc, change.fromB, change.toB, colourScheme),
 			);
 		}
 		if (change.deleted.length > 0) {
+			const isActive = activeIndexPos && change.fromB >= activeIndexPos.from && change.toB <= activeIndexPos.to;
 			const decoration = createDeletedContentDecoration({
 				change,
 				doc: originalDoc,
@@ -140,6 +144,7 @@ const calculateDiffDecorationsInner = ({
 				colourScheme,
 				newDoc: tr.doc,
 				intl,
+				isActive,
 			});
 			if (decoration) {
 				decorations.push(...decoration);
@@ -147,7 +152,8 @@ const calculateDiffDecorationsInner = ({
 		}
 	});
 	getMarkChangeRanges(steps).forEach((change) => {
-		decorations.push(createInlineChangedDecoration(change, colourScheme));
+		const isActive = activeIndexPos && change.fromB >= activeIndexPos.from && change.toB <= activeIndexPos.to;
+		decorations.push(createInlineChangedDecoration(change, colourScheme, isActive));
 	});
 	getAttrChangeRanges(tr.doc, attrSteps).forEach((change) => {
 		decorations.push(
@@ -162,13 +168,14 @@ export const calculateDiffDecorations = memoizeOne(
 	calculateDiffDecorationsInner,
 	// Cache results unless relevant inputs change
 	(
-		[{ pluginState, state, colourScheme, intl }],
+		[{ pluginState, state, colourScheme, intl, activeIndexPos }],
 		[
 			{
 				pluginState: lastPluginState,
 				state: lastState,
 				colourScheme: lastColourScheme,
 				intl: lastIntl,
+				activeIndexPos: lastActiveIndexPos,
 			},
 		],
 	) => {
@@ -181,7 +188,8 @@ export const calculateDiffDecorations = memoizeOne(
 				isEqual(pluginState.steps, lastPluginState.steps) &&
 				state.doc.eq(lastState.doc) &&
 				colourScheme === lastColourScheme &&
-				intl.locale === lastIntl.locale) ??
+				intl.locale === lastIntl.locale &&
+				isEqual(activeIndexPos, lastActiveIndexPos)) ??
 			false
 		);
 	},

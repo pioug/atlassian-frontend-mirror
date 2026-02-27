@@ -7,6 +7,7 @@ import type { AllowedStyles, ApplySchema, CompiledStyles } from '@compiled/react
 
 import { cssMap, cx } from '@atlaskit/css';
 import { Box, type MediaQuery } from '@atlaskit/primitives/compiled';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import type { DesignTokenStyles } from '@atlaskit/tokens/css-type-schema';
 
 const styles = cssMap({
@@ -221,6 +222,65 @@ const styles = cssMap({
 			},
 		},
 	},
+	// Preset: jira-issue updated (280, 507, 679, 1024)
+	// Gated behind platform_editor_toolbar_update_jira_config experiment
+	jiraIssueUpdated: {
+		// @ts-expect-error - container queries are not typed in cssMap
+		'&&': {
+			'@container toolbar-container (max-width: 279px)': {
+				'.show-above-sm': {
+					display: 'none',
+				},
+				'.show-below-sm': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (min-width: 280px) and (max-width: 506px)': {
+				'.show-only-sm': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (max-width: 506px)': {
+				'.show-above-md': {
+					display: 'none',
+				},
+				'.show-below-md': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (min-width: 507px) and (max-width: 678px)': {
+				'.show-only-md': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (max-width: 678px)': {
+				'.show-above-lg': {
+					display: 'none',
+				},
+				'.show-below-lg': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (min-width: 679px) and (max-width: 1023px)': {
+				'.show-only-lg': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (max-width: 1023px)': {
+				'.show-above-xl': {
+					display: 'none',
+				},
+				'.show-below-xl': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (min-width: 1024px)': {
+				'.show-only-xl': {
+					display: 'block',
+				},
+			},
+		},
+	},
 	// Preset: jsm-comment (365, 500, 630, 1024)
 	// Used for JSM comment editor with canned responses button
 	jsmComment: {
@@ -248,6 +308,65 @@ const styles = cssMap({
 				},
 			},
 			'@container toolbar-container (min-width: 500px) and (max-width: 629px)': {
+				'.show-only-md': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (max-width: 629px)': {
+				'.show-above-lg': {
+					display: 'none',
+				},
+				'.show-below-lg': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (min-width: 630px) and (max-width: 1023px)': {
+				'.show-only-lg': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (max-width: 1023px)': {
+				'.show-above-xl': {
+					display: 'none',
+				},
+				'.show-below-xl': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (min-width: 1024px)': {
+				'.show-only-xl': {
+					display: 'block',
+				},
+			},
+		},
+	},
+	// Preset: jsm-comment updated (365, 391, 630, 1024)
+	// Gated behind platform_editor_toolbar_update_jira_config experiment
+	jsmCommentUpdated: {
+		// @ts-expect-error - container queries are not typed in cssMap
+		'&&': {
+			'@container toolbar-container (max-width: 364px)': {
+				'.show-above-sm': {
+					display: 'none',
+				},
+				'.show-below-sm': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (min-width: 365px) and (max-width: 390px)': {
+				'.show-only-sm': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (max-width: 390px)': {
+				'.show-above-md': {
+					display: 'none',
+				},
+				'.show-below-md': {
+					display: 'block',
+				},
+			},
+			'@container toolbar-container (min-width: 391px) and (max-width: 629px)': {
 				'.show-only-md': {
 					display: 'block',
 				},
@@ -414,16 +533,19 @@ export type BreakpointPreset =
 	| 'jsm-comment'
 	| 'confluence-comment';
 
-// Map preset names to camelCase style keys
-const presetStyleMap: Record<
-	BreakpointPreset,
-	CompiledStyles<ApplySchema<AllowedStyles<MediaQuery>, DesignTokenStyles, ''>>
-> = {
+type PresetStyle = CompiledStyles<ApplySchema<AllowedStyles<MediaQuery>, DesignTokenStyles, ''>>;
+
+const presetStyleMap: Record<BreakpointPreset, PresetStyle> = {
 	fullpage: styles.fullpage,
 	reduced: styles.reduced,
 	'jira-issue': styles.jiraIssue,
 	'jsm-comment': styles.jsmComment,
 	'confluence-comment': styles.confluenceComment,
+};
+
+const updatedPresetStyleMap: Partial<Record<BreakpointPreset, PresetStyle>> = {
+	'jira-issue': styles.jiraIssueUpdated,
+	'jsm-comment': styles.jsmCommentUpdated,
 };
 
 export type ResponsiveContainerProps = {
@@ -490,13 +612,19 @@ export const ResponsiveContainer = ({
 	children,
 	breakpointPreset,
 }: ResponsiveContainerProps): React.JSX.Element => {
+	const isUpdatedConfig =
+		expValEquals('platform_editor_toolbar_update_jira_config', 'isEnabled', true) &&
+		breakpointPreset in updatedPresetStyleMap;
+
 	return (
 		<Box
 			xcss={cx(
 				breakpointPreset === 'fullpage'
 					? styles.responsiveContainerFullPage
 					: styles.responsiveContainer,
-				presetStyleMap[breakpointPreset],
+				isUpdatedConfig
+					? updatedPresetStyleMap[breakpointPreset]
+					: presetStyleMap[breakpointPreset],
 			)}
 		>
 			{children}

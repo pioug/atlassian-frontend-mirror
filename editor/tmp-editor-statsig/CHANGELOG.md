@@ -1,5 +1,35 @@
 # @atlaskit/editor-statsig-tmp
 
+## 31.3.0
+
+### Minor Changes
+
+- [`3a649003f9b55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a649003f9b55) -
+  [A11Y-22843] add experiment to statsig config
+
+## 31.2.0
+
+### Minor Changes
+
+- [`19274be1b1972`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19274be1b1972) -
+  [ux] EDITOR-5417 Flexible list indentation ADF schema + validator support
+
+## 31.1.0
+
+### Minor Changes
+
+- [`db3bf19a55517`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db3bf19a55517) -
+  Update breakpoint values for jira editor and jsm under platform_editor_toolbar_update_jira_config
+  experiment.
+
+## 31.0.0
+
+### Major Changes
+
+- [`0a0a5831dfc2d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a0a5831dfc2d) -
+  [ux] Adds isPlaceholderHidden param to placeholder plugin init. Removes isEmbedded option from
+  placeholder plugin, and removes cwr_blank_object_experiment editor experiment override
+
 ## 30.0.0
 
 ### Major Changes

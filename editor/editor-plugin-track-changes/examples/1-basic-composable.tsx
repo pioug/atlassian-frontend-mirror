@@ -53,6 +53,9 @@ import { trackChangesPlugin } from '../src/trackChangesPlugin';
 
 const styles = cssMap({
 	aboveEditor: {
+		position: 'fixed',
+		bottom: 0,
+		zIndex: 800,
 		paddingTop: token('space.100'),
 		paddingBottom: token('space.100'),
 	},
@@ -116,6 +119,7 @@ function Editor(): React.JSX.Element {
 	const { preset, editorApi } = usePreset(createPreset);
 
 	const isSelected = useSharedPluginStateSelector(editorApi, 'trackChanges.isDisplayingChanges');
+	const activeIndex = useSharedPluginStateSelector(editorApi, 'showDiff.activeIndex');
 	const isShowDiffAvailable = useSharedPluginStateSelector(
 		editorApi,
 		'trackChanges.isShowDiffAvailable',
@@ -135,6 +139,23 @@ function Editor(): React.JSX.Element {
 					>
 						Show Diff
 					</Button>
+					<Button
+						appearance="primary"
+						onClick={() => {
+							editorApi?.core.actions.execute(editorApi?.showDiff.commands.scrollToNext);
+						}}
+					>
+						Next
+					</Button>
+					<Button
+						appearance="primary"
+						onClick={() => {
+							editorApi?.core.actions.execute(editorApi?.showDiff.commands.scrollToPrevious);
+						}}
+					>
+						Previous
+					</Button>
+					<Button>{activeIndex}</Button>
 				</Box>
 				<ComposableEditor preset={preset} appearance="comment" />
 			</Box>

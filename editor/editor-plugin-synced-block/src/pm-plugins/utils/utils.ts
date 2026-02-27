@@ -9,6 +9,19 @@ import {
 	findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+/**
+ * Defers a callback to the next microtask (when gated) or next macrotask via setTimeout(0).
+ * Used to avoid re-entrant ProseMirror dispatch cycles.
+ */
+export const deferDispatch = (fn: () => void): void => {
+	if (fg('platform_synced_block_patch_5')) {
+		queueMicrotask(fn);
+	} else {
+		setTimeout(fn, 0);
+	}
+};
 
 export const findSyncBlock = (
 	schema: Schema,

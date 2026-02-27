@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.4.0
+
+### Minor Changes
+
+- [`d95ffd10bec80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d95ffd10bec80) -
+  remove old FG used by Criterion for reading UFO payloads
+
 ## 5.3.0
 
 ### Minor Changes

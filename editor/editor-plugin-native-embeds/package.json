@@ -39,6 +39,7 @@
 		"@atlaskit/native-embeds-common": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
 		"@babel/runtime": "root:*",
+		"@emotion/react": "root:*",
 		"react-intl-next": "root:*"
 	},
 	"peerDependencies": {

@@ -65,6 +65,7 @@ test.describe('Cursor Inline Nodes', () => {
 			editorProps: {
 				appearance: 'full-page',
 				allowStatus: true,
+				allowExtension: true,
 			},
 			adf: inlineExtensionADF,
 		});
@@ -98,6 +99,7 @@ test.describe('Cursor Inline Nodes', () => {
 			editorProps: {
 				appearance: 'full-page',
 				allowStatus: true,
+				allowDate: true,
 			},
 			adf: dateADF,
 		});

@@ -214,11 +214,7 @@ const ServiceAccountProfileCardDetails = (props: ProfilecardProps) => {
 			{renderName(nickname, fullName)}
 
 			<AppTitleLabel>
-				{fg('people-teams-fix-no-literal-string-in-jsx') ? (
-					<FormattedMessage {...messages.serviceAccountLabel} />
-				) : (
-					'SERVICE ACCOUNT'
-				)}
+				<FormattedMessage {...messages.serviceAccountLabel} />
 			</AppTitleLabel>
 		</DetailsGroup>
 	);
@@ -232,11 +228,7 @@ const BotProfileCardDetails = (props: ProfilecardProps) => {
 			{renderName(nickname, fullName)}
 
 			<AppTitleLabel>
-				{fg('people-teams-fix-no-literal-string-in-jsx') ? (
-					<FormattedMessage {...messages.botAccountLabel} />
-				) : (
-					'APP'
-				)}
+				<FormattedMessage {...messages.botAccountLabel} />
 			</AppTitleLabel>
 		</DetailsGroup>
 	);

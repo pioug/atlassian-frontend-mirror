@@ -1,5 +1,22 @@
 # @atlaskit/adf-schema
 
+## 52.0.0
+
+### Major Changes
+
+- [`19274be1b1972`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19274be1b1972) -
+  [ux] EDITOR-5417 Flexible list indentation ADF schema + validator support
+
+### Patch Changes
+
+- Updated dependencies
+
+## 51.5.23
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 51.5.22
 
 ### Patch Changes

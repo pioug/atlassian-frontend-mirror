@@ -7,11 +7,11 @@ import {
 	multiBodiedExtension,
 	expandWithNestedExpand,
 	tableWithNestedTable,
-	listItemWithDecisionStage0,
+	listItemWithFlexibleFirstChildStage0,
 	tableRowWithNestedTable,
 	tableCellWithNestedTable,
 	tableHeaderWithNestedTable,
-} from './nodes';
+	} from './nodes';
 import type { SchemaConfig } from './create-schema';
 import { createSchema } from './create-schema';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
@@ -187,7 +187,7 @@ export const getSchemaBasedOnStage: MemoizedFn<
 				multiBodiedExtension: multiBodiedExtension,
 				extensionFrame: extensionFrame,
 				expand: expandWithNestedExpand,
-				listItem: listItemWithDecisionStage0,
+				listItem: listItemWithFlexibleFirstChildStage0,
 				table: tableWithNestedTable,
 				tableRow: tableRowWithNestedTable,
 				tableCell: tableCellWithNestedTable,

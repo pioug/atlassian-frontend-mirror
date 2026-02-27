@@ -18,6 +18,7 @@ import type {
 	BlockControlsSharedState,
 	HandleOptions,
 	MultiSelectDnD,
+	NodeDecorationFactory,
 	TriggerByNode,
 } from './blockControlsPluginType';
 import { handleKeyDownWithPreservedSelection } from './editor-commands/handle-key-down-with-preserved-selection';
@@ -41,15 +42,30 @@ import { createSelectionPreservationPlugin } from './pm-plugins/selection-preser
 import { selectNode } from './pm-plugins/utils/getSelection';
 import { GlobalStylesWrapper } from './ui/global-styles';
 
-export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
+export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => {
+	const nodeDecorationRegistry: NodeDecorationFactory[] = [];
+
+	return {
 	name: 'blockControls',
+
+	actions: {
+		registerNodeDecoration: (factory: NodeDecorationFactory) => {
+			nodeDecorationRegistry.push(factory);
+		},
+		unregisterNodeDecoration: (type: string) => {
+			const idx = nodeDecorationRegistry.findIndex((f) => f.type === type);
+			if (idx !== -1) {
+				nodeDecorationRegistry.splice(idx, 1);
+			}
+		},
+	},
 
 	pmPlugins() {
 		const pmPlugins: PMPlugin[] = [
 			{
 				name: 'blockControlsPmPlugin',
 				plugin: ({ getIntl, nodeViewPortalProviderAPI }) =>
-					createPlugin(api, getIntl, nodeViewPortalProviderAPI),
+					createPlugin(api, getIntl, nodeViewPortalProviderAPI, nodeDecorationRegistry),
 			},
 		];
 
@@ -333,4 +349,5 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 	contentComponent() {
 		return <GlobalStylesWrapper api={api} />;
 	},
-});
+	};
+};

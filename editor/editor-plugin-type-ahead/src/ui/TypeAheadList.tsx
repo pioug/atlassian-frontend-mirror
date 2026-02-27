@@ -21,6 +21,7 @@ import { AssistiveText } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { MenuGroup } from '@atlaskit/menu';
 import { Text, Box } from '@atlaskit/primitives/compiled';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { type InputMethodType } from '../pm-plugins/analytics';
@@ -126,6 +127,9 @@ const TypeAheadListComponent = React.memo(
 		const actions = useMemo(() => ({ onItemClick }), [onItemClick]);
 
 		const isNavigationKey = (event: KeyboardEvent): boolean => {
+			if (expValEquals('platform_editor_a11y_typeahead_tab_keypress', 'isEnabled', true)) {
+				return ['ArrowDown', 'ArrowUp', 'Tab', 'Enter', 'Shift'].includes(event.key);
+			}
 			return ['ArrowDown', 'ArrowUp', 'Tab', 'Enter'].includes(event.key);
 		};
 
@@ -289,10 +293,14 @@ const TypeAheadListComponent = React.memo(
 							event.stopPropagation();
 							break;
 
-						// TODO: DTR-1401 - why is this calling item click when hitting tab? fix this in DTR-1401
 						case 'Tab':
-							//Tab key quick inserts the selected item.
-							onItemClick(SelectItemMode.TAB, selectedIndex, INPUT_METHOD.KEYBOARD);
+							if (expValEquals('platform_editor_a11y_typeahead_tab_keypress', 'isEnabled', true)) {
+								event.shiftKey ? selectPreviousItem() : selectNextItem();
+								break;
+							} else {
+								//Tab key quick inserts the selected item.
+								onItemClick(SelectItemMode.TAB, selectedIndex, INPUT_METHOD.KEYBOARD);
+							}
 							event.preventDefault();
 							break;
 

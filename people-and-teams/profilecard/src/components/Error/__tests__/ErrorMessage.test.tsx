@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { render } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
 
 import ErrorMessage from '../ErrorMessage';
 
@@ -34,7 +35,11 @@ describe('ErrorMessage', () => {
 	});
 
 	it('should render the error message', () => {
-		render(<ErrorMessage fireAnalytics={mockFireAnalytics} />);
+		render(
+			<IntlProvider locale="en">
+				<ErrorMessage fireAnalytics={mockFireAnalytics} />
+			</IntlProvider>,
+		);
 		expect(mockFireAnalytics).toHaveBeenCalledWith(
 			`${event.eventType}.${event.actionSubject}.${event.action}.${event.actionSubjectId}`,
 			event.attributes,
@@ -42,7 +47,11 @@ describe('ErrorMessage', () => {
 	});
 
 	it('should capture and report a11y violations', async () => {
-		const { container } = render(<ErrorMessage fireAnalytics={mockFireAnalytics} />);
+		const { container } = render(
+			<IntlProvider locale="en">
+				<ErrorMessage fireAnalytics={mockFireAnalytics} />
+			</IntlProvider>,
+		);
 		await expect(container).toBeAccessible();
 	});
 });

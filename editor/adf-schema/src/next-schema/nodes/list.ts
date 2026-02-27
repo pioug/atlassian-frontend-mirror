@@ -1,17 +1,26 @@
-import type { ADFCommonNodeSpec, ADFNode } from '@atlaskit/adf-schema-generator';
-import { $onePlus, $or, $zeroPlus, adfNode } from '@atlaskit/adf-schema-generator';
+import type {
+	ADFCommonNodeSpec,
+	ADFNode,
+} from '@atlaskit/adf-schema-generator';
+import {
+	$onePlus,
+	$or,
+	$zeroPlus,
+	adfNode,
+} from '@atlaskit/adf-schema-generator';
 import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
 import { codeBlock } from './codeBlock';
+import { extension } from './extension';
 import { mediaSingle } from './mediaSingle';
 import { paragraph } from './paragraph';
 import { taskList } from './task';
 import { unsupportedBlock } from './unsupportedBlock';
-import { decisionList } from './decisionList';
-import { extension } from './extension';
 
-export const orderedList: ADFNode<[string], ADFCommonNodeSpec> = adfNode('orderedList');
-export const bulletList: ADFNode<[string], ADFCommonNodeSpec> = adfNode('bulletList');
+export const orderedList: ADFNode<[string], ADFCommonNodeSpec> =
+	adfNode('orderedList');
+export const bulletList: ADFNode<[string], ADFCommonNodeSpec> =
+	adfNode('bulletList');
 
 const listItem = adfNode('listItem')
 	.define({
@@ -48,36 +57,7 @@ const listItem = adfNode('listItem')
 			),
 		],
 	})
-	.variant('with_nested_decision', {
-		content: [
-			$or(
-				paragraph.use('with_no_marks'),
-				mediaSingle.use('caption'),
-				mediaSingle.use('full'),
-				codeBlock,
-				unsupportedBlock,
-				decisionList,
-				extension.use('with_marks'),
-			),
-			$zeroPlus(
-				$or(
-					paragraph.use('with_no_marks'),
-					bulletList,
-					orderedList,
-					taskList,
-					mediaSingle.use('caption'),
-					mediaSingle.use('full'),
-					codeBlock,
-					unsupportedBlock,
-					decisionList,
-					extension.use('with_marks'),
-				),
-			),
-		],
-		noExtend: true,
-		stage0: true,
-	})
-	.variant('flexible_first_child', {
+	.variant('with_flexible_first_child', {
 		content: [
 			$onePlus(
 				$or(
@@ -111,11 +91,7 @@ orderedList.define({
 		},
 		localId: { type: 'string', default: null, optional: true },
 	},
-	content: [
-		$onePlus(
-			$or(listItem, listItem.use('with_nested_decision'), listItem.use('flexible_first_child')),
-		),
-	],
+	content: [$onePlus($or(listItem, listItem.use('with_flexible_first_child')))],
 });
 
 bulletList.define({
@@ -123,11 +99,7 @@ bulletList.define({
 
 	marks: [unsupportedMark, unsupportedNodeAttribute],
 
-	content: [
-		$onePlus(
-			$or(listItem, listItem.use('with_nested_decision'), listItem.use('flexible_first_child')),
-		),
-	],
+	content: [$onePlus($or(listItem, listItem.use('with_flexible_first_child')))],
 	attrs: {
 		localId: { type: 'string', default: null, optional: true },
 	},

@@ -1,5 +1,43 @@
 # @atlaskit/editor-plugins
 
+## 12.2.8
+
+### Patch Changes
+
+- [`f5af4a28f2237`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5af4a28f2237) -
+  Add node decoration registration API to block-controls plugin
+- Updated dependencies
+
+## 12.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.2.2
 
 ### Patch Changes

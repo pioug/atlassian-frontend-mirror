@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-media
 
+## 9.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.6.0
+
+### Minor Changes
+
+- [`88ce28af57fa3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88ce28af57fa3) -
+  Support starting createCommentExperience from editor media toolbar
+
 ## 9.5.8
 
 ### Patch Changes

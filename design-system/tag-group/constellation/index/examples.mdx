@@ -13,7 +13,11 @@ handles overflow by wrapping to the next line.
 
 Tags inside of a tag group should be of the same type to provide a consistent user experience.
 
-<Example Component={TagGroupDefault} packageName="@atlaskit/tag-group" />
+<Example
+	Component={TagGroupDefault}
+	packageName="@atlaskit/tag-group"
+	featureFlagSwitchers={['labelling']}
+/>
 
 ## Alignment
 
@@ -26,14 +30,22 @@ tag is removed.
 Set the `alignment` prop to `"start"` to align the tags to the start of the tag group container.
 Tags will animate out to the left when removed.
 
-<Example Component={TagGroupAlignmentStart} packageName="@atlaskit/tag-group" />
+<Example
+	Component={TagGroupAlignmentStart}
+	packageName="@atlaskit/tag-group"
+	featureFlagSwitchers={['labelling']}
+/>
 
 ### End
 
 Set the `alignment` prop to `"end"` to align the tags to the end of the group. Tags will animate out
 to the right when removed.
 
-<Example Component={TagGroupAlignmentEnd} packageName="@atlaskit/tag-group" />
+<Example
+	Component={TagGroupAlignmentEnd}
+	packageName="@atlaskit/tag-group"
+	featureFlagSwitchers={['labelling']}
+/>
 
 ## Focus
 

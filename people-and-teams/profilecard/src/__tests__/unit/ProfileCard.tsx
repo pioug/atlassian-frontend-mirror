@@ -38,7 +38,12 @@ const defaultProps: Parameters<typeof ProfileCard>[0] = {
 	companyName: 'Atlassian',
 };
 
-const renderComponent = (props = {}) => render(<ProfileCard {...defaultProps} {...props} />);
+const renderComponent = (props = {}) =>
+	render(
+		<IntlProvider locale="en">
+			<ProfileCard {...defaultProps} {...props} />
+		</IntlProvider>,
+	);
 
 describe('ProfileCard', () => {
 	it('should be possible to create a component', () => {

@@ -284,13 +284,7 @@ export const bulletList = {
     },
     content: {
       type: 'array',
-      items: [
-        [
-          'listItem',
-          'listItem_with_nested_decision',
-          'listItem_flexible_first_child',
-        ],
-      ],
+      items: [['listItem', 'listItem_with_flexible_first_child']],
       minItems: 1,
     },
   },
@@ -875,7 +869,7 @@ export const listItem = {
   },
 };
 
-export const listItem_flexible_first_child = [
+export const listItem_with_flexible_first_child = [
   'listItem',
   {
     props: {
@@ -890,41 +884,6 @@ export const listItem_flexible_first_child = [
             'mediaSingle_caption',
             'mediaSingle_full',
             'codeBlock',
-            'extension_with_marks',
-          ],
-        ],
-        minItems: 1,
-        allowUnsupportedBlock: true,
-      },
-    },
-  },
-];
-
-export const listItem_with_nested_decision = [
-  'listItem',
-  {
-    props: {
-      content: {
-        type: 'array',
-        isTupleLike: true,
-        items: [
-          [
-            'paragraph_with_no_marks',
-            'mediaSingle_caption',
-            'mediaSingle_full',
-            'codeBlock',
-            'decisionList',
-            'extension_with_marks',
-          ],
-          [
-            'paragraph_with_no_marks',
-            'bulletList',
-            'orderedList',
-            'taskList',
-            'mediaSingle_caption',
-            'mediaSingle_full',
-            'codeBlock',
-            'decisionList',
             'extension_with_marks',
           ],
         ],
@@ -1224,13 +1183,7 @@ export const orderedList = {
     },
     content: {
       type: 'array',
-      items: [
-        [
-          'listItem',
-          'listItem_with_nested_decision',
-          'listItem_flexible_first_child',
-        ],
-      ],
+      items: [['listItem', 'listItem_with_flexible_first_child']],
       minItems: 1,
     },
   },

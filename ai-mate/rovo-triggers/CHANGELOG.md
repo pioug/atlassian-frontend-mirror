@@ -1,5 +1,16 @@
 # @atlaskit/rovo-triggers
 
+## 5.21.0
+
+### Minor Changes
+
+- [`c7af7fabff9dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c7af7fabff9dc) -
+  publish context with jira-create-context-payload
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.20.0
 
 ### Minor Changes

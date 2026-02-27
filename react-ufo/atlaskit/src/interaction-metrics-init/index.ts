@@ -104,16 +104,6 @@ function sinkExperimentalInteractionMetrics(
 
 			payloadPromise.then((payload) => {
 				if (payload) {
-					if (fg('enable_ufo_devtools_api_for_extra_events')) {
-						// NOTE: This API is used by the UFO DevTool Chrome Extension and Criterion
-						const devToolObserver = (globalThis as unknown as WindowWithUfoDevToolExtension)
-							.__ufo_devtool_onUfoPayload;
-
-						if (typeof devToolObserver === 'function') {
-							devToolObserver?.(payload);
-						}
-					}
-
 					instance.sendOperationalEvent(payload);
 				}
 			});
@@ -133,16 +123,6 @@ function sinkPostInteractionLog(
 		scheduleIdleCallback(() => {
 			const payload = createPostInteractionLogPayload(logOutput);
 			if (payload) {
-				// NOTE: This API is used by the UFO DevTool Chrome Extension and also by Criterion
-				if (fg('enable_ufo_devtools_api_for_extra_events')) {
-					const devToolObserver = (globalThis as unknown as WindowWithUfoDevToolExtension)
-						.__ufo_devtool_onUfoPayload;
-
-					if (typeof devToolObserver === 'function') {
-						devToolObserver?.(payload);
-					}
-				}
-
 				instance.sendOperationalEvent(payload);
 			}
 		});
@@ -157,14 +137,6 @@ function sinkTerminalErrors(
 		scheduleIdleCallback(() => {
 			const payload = createTerminalErrorPayload(errorData, context);
 			if (payload) {
-				if (fg('enable_ufo_devtools_api_for_extra_events')) {
-					const devToolObserver = (globalThis as unknown as WindowWithUfoDevToolExtension)
-						.__ufo_devtool_onUfoPayload;
-
-					if (typeof devToolObserver === 'function') {
-						devToolObserver?.(payload);
-					}
-				}
 				instance.sendOperationalEvent(payload);
 			}
 		});
@@ -195,15 +167,6 @@ function sinkInteractionExtraMetrics(
 					lastInteractionFinishVCResult,
 				);
 				if (payload) {
-					// NOTE: This API is used by the UFO DevTool Chrome Extension and also by Criterion
-					if (fg('enable_ufo_devtools_api_for_extra_events')) {
-						const devToolObserver = (globalThis as unknown as WindowWithUfoDevToolExtension)
-							.__ufo_devtool_onUfoPayload;
-
-						if (typeof devToolObserver === 'function') {
-							devToolObserver?.(payload);
-						}
-					}
 					instance.sendOperationalEvent(payload);
 				}
 			});

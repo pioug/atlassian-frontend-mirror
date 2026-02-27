@@ -6,9 +6,9 @@ import {
 	Experience,
 	EXPERIENCE_ID,
 	ExperienceCheckDomMutation,
+	ExperienceCheckPopupMutation,
+	type ExperienceCheckPopupMutationConfig,
 	ExperienceCheckTimeout,
-	type PopupCheckType,
-	getPopupContainerFromEditorView,
 } from '@atlaskit/editor-common/experiences';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { TOOLBAR_BUTTON_TEST_ID } from '@atlaskit/editor-common/toolbar';
@@ -16,7 +16,6 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import {
-	ExperienceCheckPopupMutation,
 	getParentDOMAtSelection,
 	handleEditorNodeInsertDomMutation,
 	isToolbarButtonClick,
@@ -34,9 +33,6 @@ const ABORT_REASON = {
 
 type ToolbarActionExperienceOptions = {
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
-	refs: {
-		popupsMountPoint?: HTMLElement;
-	};
 };
 
 type ExperienceButtonMapping = {
@@ -45,19 +41,10 @@ type ExperienceButtonMapping = {
 };
 
 export const getToolbarActionExperiencesPlugin = ({
-	refs,
 	dispatchAnalyticsEvent,
 }: ToolbarActionExperienceOptions) => {
 	let editorView: EditorView | undefined;
-	let popupTargetEl: HTMLElement | undefined;
 	let lastClickedToolbarButton: HTMLElement | undefined;
-
-	const getPopupsTarget = () => {
-		if (!popupTargetEl) {
-			popupTargetEl = refs.popupsMountPoint || getPopupContainerFromEditorView(editorView?.dom);
-		}
-		return popupTargetEl;
-	};
 
 	const getEditorDom = (): HTMLElement | null => {
 		if (editorView?.dom instanceof HTMLElement) {
@@ -66,15 +53,10 @@ export const getToolbarActionExperiencesPlugin = ({
 		return null;
 	};
 
-	/**
-	 * For inline popups, returns the button-group ancestor of the clicked toolbar button.
-	 * This allows inline popup checks to observe only the relevant button-group.
-	 */
 	const getInlinePopupTarget = (): HTMLElement | undefined => {
 		if (!lastClickedToolbarButton) {
 			return undefined;
 		}
-
 		return (
 			lastClickedToolbarButton.closest<HTMLElement>('[data-toolbar-component="button-group"]') ??
 			lastClickedToolbarButton
@@ -109,10 +91,33 @@ export const getToolbarActionExperiencesPlugin = ({
 			],
 		});
 
+	const buildPopupMutationConfig = (
+		popupSelector: string,
+		type: 'inline' | 'editorRoot',
+		subtree?: boolean,
+	): ExperienceCheckPopupMutationConfig => {
+		switch (type) {
+			case 'inline':
+				return {
+					type,
+					nestedElementQuery: popupSelector,
+					getTarget: getInlinePopupTarget,
+					subtree,
+				};
+			case 'editorRoot':
+				return {
+					type,
+					nestedElementQuery: popupSelector,
+					getEditorDom,
+				};
+		}
+	};
+
 	const createPopupExperience = (
 		action: string,
 		popupSelector: string,
-		type: PopupCheckType = 'editorRoot',
+		type: 'inline' | 'editorRoot',
+		subtree?: boolean,
 	) =>
 		new Experience(EXPERIENCE_ID.TOOLBAR_ACTION, {
 			action,
@@ -120,12 +125,7 @@ export const getToolbarActionExperiencesPlugin = ({
 			dispatchAnalyticsEvent,
 			checks: [
 				new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
-				new ExperienceCheckPopupMutation({
-					nestedElementQuery: popupSelector,
-					getTarget: type === 'inline' ? getInlinePopupTarget : getPopupsTarget,
-					getEditorDom,
-					type,
-				}),
+				new ExperienceCheckPopupMutation(buildPopupMutationConfig(popupSelector, type, subtree)),
 			],
 		});
 
@@ -143,7 +143,7 @@ export const getToolbarActionExperiencesPlugin = ({
 			buttonTestId: TOOLBAR_BUTTON_TEST_ID.EMOJI,
 		},
 		{
-			experience: createPopupExperience('media', '[data-testid="popup-wrapper"]', 'inline'),
+			experience: createPopupExperience('media', '[data-testid="popup-wrapper"]', 'inline', true),
 			buttonTestId: TOOLBAR_BUTTON_TEST_ID.MEDIA,
 		},
 		{
@@ -159,11 +159,7 @@ export const getToolbarActionExperiencesPlugin = ({
 			buttonTestId: TOOLBAR_BUTTON_TEST_ID.TABLE,
 		},
 		{
-			experience: createPopupExperience(
-				'tableSelector',
-				'[aria-label*="table size"], [data-testid*="table-selector"]',
-				'inline',
-			),
+			experience: createPopupExperience('tableSelector', '[data-testid="popup-wrapper"]', 'inline', true),
 			buttonTestId: TOOLBAR_BUTTON_TEST_ID.TABLE_SELECTOR,
 		},
 		{
@@ -232,7 +228,6 @@ export const getToolbarActionExperiencesPlugin = ({
 				destroy: () => {
 					abortAllExperiences(ABORT_REASON.EDITOR_DESTROYED);
 					editorView = undefined;
-					popupTargetEl = undefined;
 					unbindClickListener();
 					unbindKeydownListener();
 				},

@@ -1,9 +1,6 @@
 import type { ExperienceCheckResult } from '@atlaskit/editor-common/experiences';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-// eslint-disable-next-line @atlaskit/editor/no-re-export
-export { ExperienceCheckPopupMutation } from '@atlaskit/editor-common/experiences';
-
 /**
  * DOM marker selectors for node types inserted via toolbar actions.
  * Matches outermost wrapper elements set synchronously by ReactNodeView

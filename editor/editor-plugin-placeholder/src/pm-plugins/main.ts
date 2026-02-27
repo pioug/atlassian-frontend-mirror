@@ -26,6 +26,7 @@ export default function createPlugin(
 	emptyLinePlaceholder?: string,
 	placeholderPrompts?: string[],
 	withEmptyParagraph?: boolean,
+	initialIsPlaceholderHidden?: boolean,
 	placeholderADF?: DocNode,
 	api?: ExtractInjectionAPI<PlaceholderPlugin>,
 ): SafePlugin | undefined {
@@ -63,6 +64,7 @@ export default function createPlugin(
 					userHadTyped: false,
 					intl,
 					withEmptyParagraph,
+					isPlaceholderHidden: initialIsPlaceholderHidden,
 				}),
 
 			apply: (tr, placeholderState, _oldEditorState, newEditorState) => {

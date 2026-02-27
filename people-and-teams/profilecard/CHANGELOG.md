@@ -1,5 +1,12 @@
 # @atlaskit/profilecard
 
+## 24.37.2
+
+### Patch Changes
+
+- [`470059b31bd32`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/470059b31bd32) -
+  Clean up FG people-teams-fix-no-literal-string-in-jsx
+
 ## 24.37.1
 
 ### Patch Changes

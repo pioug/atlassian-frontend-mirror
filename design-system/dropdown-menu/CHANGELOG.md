@@ -1,5 +1,16 @@
 # @atlaskit/dropdown-menu
 
+## 16.5.0
+
+### Minor Changes
+
+- [`77b41dc46e2c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/77b41dc46e2c3) -
+  Add new option `shouldPreventEscapePropagation` to prevent ESCAPE key events from propagating.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.4.7
 
 ### Patch Changes

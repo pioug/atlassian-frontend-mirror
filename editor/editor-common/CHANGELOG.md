@@ -1,5 +1,28 @@
 # @atlaskit/editor-common
 
+## 111.20.6
+
+### Patch Changes
+
+- [`6197fb38452ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6197fb38452ae) -
+  [ux] Sets height auto explicitly when static position is applied to address latent bug discovered
+  by ForgeAdfRenderer.
+- Updated dependencies
+
+## 111.20.5
+
+### Patch Changes
+
+- [`64fe39d800a84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64fe39d800a84) -
+  Improve ExperienceCheckPopupMutation logic to be more performant
+- Updated dependencies
+
+## 111.20.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 111.20.3
 
 ### Patch Changes

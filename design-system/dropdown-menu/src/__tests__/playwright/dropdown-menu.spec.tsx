@@ -413,4 +413,56 @@ test.describe('Returns focus to trigger', () => {
 			await expect(trigger).toBeFocused();
 		});
 	});
+
+	test.describe('shouldPreventEscapePropagation', () => {
+		test.beforeEach(async ({ page }) => {
+			await page.visitExample(
+				'design-system',
+				'dropdown-menu',
+				'testing-should-prevent-escape-propagation',
+			);
+		});
+
+		test('should close dropdown but keep popup open when Escape is pressed', async ({ page }) => {
+			await page.getByTestId('popup-trigger').click();
+			await expect(page.getByTestId('popup-content')).toBeVisible();
+
+			await page.getByTestId('dropdown-in-popup--trigger').click();
+			await expect(page.getByTestId('dropdown-in-popup--content')).toBeVisible();
+
+			await page.keyboard.press('Escape');
+			await expect(page.getByTestId('dropdown-in-popup--content')).toBeHidden();
+			await expect(page.getByTestId('popup-content')).toBeVisible();
+		});
+
+		test('should close dropdown but keep modal open when Escape is pressed', async ({ page }) => {
+			await page.getByTestId('modal-trigger').click();
+			await expect(page.getByTestId('modal')).toBeVisible();
+
+			await page.getByTestId('dropdown-in-modal--trigger').click();
+			await expect(page.getByTestId('dropdown-in-modal--content')).toBeVisible();
+
+			await page.keyboard.press('Escape');
+			await expect(page.getByTestId('dropdown-in-modal--content')).toBeHidden();
+			await expect(page.getByTestId('modal')).toBeVisible();
+		});
+
+		test('should close nested dropdown but keep parent dropdown open when Escape is pressed', async ({
+			page,
+		}) => {
+			await page.getByTestId('popup-trigger').click();
+			await expect(page.getByTestId('popup-content')).toBeVisible();
+
+			await page.getByTestId('dropdown-in-popup--trigger').click();
+			await expect(page.getByTestId('dropdown-in-popup--content')).toBeVisible();
+
+			await page.getByTestId('nested-0--trigger').click();
+			await expect(page.getByTestId('nested-0--content')).toBeVisible();
+
+			await page.keyboard.press('Escape');
+			await expect(page.getByTestId('nested-0--content')).toBeHidden();
+			await expect(page.getByTestId('dropdown-in-popup--content')).toBeVisible();
+			await expect(page.getByTestId('popup-content')).toBeVisible();
+		});
+	});
 });

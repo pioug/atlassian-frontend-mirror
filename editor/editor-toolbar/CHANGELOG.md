@@ -1,5 +1,20 @@
 # @atlaskit/editor-toolbar
 
+## 0.19.34
+
+### Patch Changes
+
+- [`db3bf19a55517`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db3bf19a55517) -
+  Update breakpoint values for jira editor and jsm under platform_editor_toolbar_update_jira_config
+  experiment.
+- Updated dependencies
+
+## 0.19.33
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.19.32
 
 ### Patch Changes

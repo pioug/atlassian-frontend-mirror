@@ -10,11 +10,13 @@ import {
 	SyncBlockError,
 	type UseFetchSyncBlockDataResult,
 } from '@atlaskit/editor-synced-block-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { MediaSSR } from '@atlaskit/renderer';
 
 import type { SyncedBlockRendererOptions } from '../types';
 
 import { AKRendererWrapper } from './AKRendererWrapper';
+import { renderSyncedBlockContent } from './renderSyncedBlockContent';
 import { SyncedBlockErrorComponent } from './SyncedBlockErrorComponent';
 import { SyncedBlockLoadingState } from './SyncedBlockLoadingState';
 
@@ -75,6 +77,20 @@ const SyncedBlockRendererComponent = ({
 			isCollabOffline: connectivityState?.mode === 'collab-offline',
 		}),
 	);
+
+	if (fg('platform_synced_block_patch_5')) {
+		const result = renderSyncedBlockContent({
+			syncBlockInstance,
+			isLoading,
+			rendererOptions,
+			providerFactory,
+			reloadData,
+			fireAnalyticsEvent: api?.analytics?.actions.fireAnalyticsEvent,
+			resourceId: syncBlockInstance?.resourceId,
+			isOffline: isCollabOffline,
+		});
+		return result.element;
+	}
 
 	// Show offline error only when collaboration is offline and not in SSR mode
 	// In SSR, we should always attempt to render content

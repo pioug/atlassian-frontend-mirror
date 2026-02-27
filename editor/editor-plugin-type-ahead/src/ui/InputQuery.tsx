@@ -90,7 +90,7 @@ const isUndoRedoShortcut = (event: KeyboardEvent): 'historyUndo' | 'historyRedo'
 	return false;
 };
 
-const getAriaLabel = (triggerPrefix: string, intl: IntlShape) => {
+const getAriaLabel = (triggerPrefix: string, _intl: IntlShape) => {
 	switch (triggerPrefix) {
 		case '@':
 			return typeAheadListMessages.mentionInputLabel;
@@ -161,7 +161,7 @@ export const InputQuery = React.memo(
 		}, []);
 
 		const onKeyUp = useCallback(
-			(event: React.KeyboardEvent<HTMLSpanElement>) => {
+			(_event: React.KeyboardEvent<HTMLSpanElement>) => {
 				const text = cleanedInputContent();
 
 				onQueryChange(text);
@@ -247,21 +247,26 @@ export const InputQuery = React.memo(
 						}
 						break;
 					case 'Tab':
-						if (selectedIndex === -1) {
-							/**
-							 * TODO DTR-1401: (also see ED-17200) There are two options
-							 * here, either
-							 * - set the index directly to 1 in WrapperTypeAhead.tsx's
-							 *   `insertSelectedItem` at the cost of breaking some of the a11y
-							 *   focus changes,
-							 * - or do this jank at the cost of some small analytics noise.
-							 *
-							 */
-							selectPreviousItem();
-							selectNextItem();
+						if (expValEquals('platform_editor_a11y_typeahead_tab_keypress', 'isEnabled', true)) {
+							event.shiftKey ? selectPreviousItem() : selectNextItem();
+							break;
+						} else {
+							if (selectedIndex === -1) {
+								/**
+								 * TODO DTR-1401: (also see ED-17200) There are two options
+								 * here, either
+								 * - set the index directly to 1 in WrapperTypeAhead.tsx's
+								 *   `insertSelectedItem` at the cost of breaking some of the a11y
+								 *   focus changes,
+								 * - or do this jank at the cost of some small analytics noise.
+								 *
+								 */
+								selectPreviousItem();
+								selectNextItem();
+							}
+							// TODO: DTR-1401 - why is this calling select item when hitting tab? fix this in DTR-1401
+							onItemSelect(SelectItemMode.TAB);
 						}
-						// TODO: DTR-1401 - why is this calling select item when hitting tab? fix this in DTR-1401
-						onItemSelect(SelectItemMode.TAB);
 						break;
 					case 'ArrowDown':
 						selectNextItem();
@@ -304,7 +309,7 @@ export const InputQuery = React.memo(
 				: browserLegacy;
 			const { current: element } = ref;
 			const { removePrefixTriggerOnCancel } = getPluginState(editorView.state) || {};
-			const onFocusIn = (event: FocusEvent) => {
+			const onFocusIn = (_event: FocusEvent) => {
 				onQueryFocus();
 			};
 

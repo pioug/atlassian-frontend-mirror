@@ -14,6 +14,7 @@ import {
 	akEditorFullPageMaxWidth,
 	akEditorFullWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { nonWrappedLayouts } from '../../utils';
@@ -435,6 +436,7 @@ export const mediaWrapperStyle = (props: MediaWrapperProps) => css`
 	/* Renderer */
 	[data-node-type='media'] {
 		position: static !important;
+		${fg('platform_forge_ui_support_images_in_adfrenderer') ? 'height: auto !important;' : ''}
 
 		> div {
 			position: absolute;

@@ -70,6 +70,21 @@ export interface MediaPluginOptions {
 	allowTemplatePlaceholders?: boolean | PlaceholderTextOptions;
 	// returns array of validation errors based on value, if no errors returned - value is considered to be valid
 	altTextValidator?: (value: string) => string[];
+	createCommentExperience?: {
+		initExperience: {
+			start: () => void;
+		};
+		start: (_: {
+			attributes:
+				| {
+						annotationId?: undefined;
+						blockType: 'media';
+						commentType: 'block';
+						entryPoint?: 'highlightActionsSimple';
+						pageClass: 'editor';
+				  };
+		}) => void;
+	};
 	customDropzoneContainer?: HTMLElement;
 	customMediaPicker?: CustomMediaPicker;
 	disableQuickInsert?: boolean;
@@ -205,6 +220,7 @@ export type MediaFloatingToolbarOptions = {
 	allowResizing?: boolean;
 	allowResizingInTables?: boolean;
 	altTextValidator?: (value: string) => string[];
+	createCommentExperience?: MediaPluginOptions['createCommentExperience'];
 	fullWidthEnabled?: boolean;
 	isViewOnly?: boolean;
 	onCommentButtonMount?: () => void;

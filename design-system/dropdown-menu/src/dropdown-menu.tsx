@@ -108,6 +108,7 @@ const DropdownMenu = <T extends HTMLElement = any>({
 	interactionName,
 	strategy,
 	menuLabel,
+	shouldPreventEscapePropagation = false,
 }: DropdownMenuProps<T>): React.JSX.Element => {
 	const [isLocalOpen, setLocalIsOpen] = useControlledState(isOpen, () => defaultOpen);
 	const triggerRef = useRef<HTMLElement | null>(null);
@@ -156,6 +157,15 @@ const DropdownMenu = <T extends HTMLElement = any>({
 		) => {
 			const isTabOrEscapeKey =
 				isKeyboardEvent(event) && (event.key === 'Tab' || event.key === 'Escape');
+
+			// Stop propagation on ESCAPE key if shouldPreventEscapePropagation is true
+			if (
+				shouldPreventEscapePropagation &&
+				isKeyboardEvent(event) &&
+				event.key === 'Escape'
+			) {
+				event.stopPropagation();
+			}
 
 			if (
 				event !== null &&
@@ -208,7 +218,7 @@ const DropdownMenu = <T extends HTMLElement = any>({
 
 			onOpenChange({ isOpen: newValue, event });
 		},
-		[itemRef, onOpenChange, returnFocusRef, setLocalIsOpen],
+		[itemRef, onOpenChange, returnFocusRef, setLocalIsOpen, shouldPreventEscapePropagation],
 	);
 
 	const { isFocused, bindFocus } = useFocus();

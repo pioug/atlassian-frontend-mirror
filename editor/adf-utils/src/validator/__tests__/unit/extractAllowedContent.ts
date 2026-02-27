@@ -1,5 +1,5 @@
-import { createSpec } from '../../validator';
 import { extractAllowedContent } from '../../extractAllowedContent';
+import { createSpec } from '../../validator';
 
 it('should extract the expected additional media single specs', () => {
 	const validatorSpecs = createSpec();
@@ -91,7 +91,8 @@ it('should extract the expected additional panel specs', () => {
 
 it('should extract the expected additional listItem specs', () => {
 	const validatorSpecs = createSpec();
-	expect(extractAllowedContent(validatorSpecs, { type: 'listItem' })).toEqual([]);
+	const result = extractAllowedContent(validatorSpecs, { type: 'listItem' });
+	expect(result.length).toBe(1);
 });
 
 it('should extract the expected additional media specs', () => {

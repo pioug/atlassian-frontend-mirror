@@ -49,6 +49,7 @@ export {
 	layoutSection_with_single_column,
 	link,
 	listItem,
+	listItem_with_flexible_first_child,
 	media,
 	mediaGroup,
 	mediaInline,

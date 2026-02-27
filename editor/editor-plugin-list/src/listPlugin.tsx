@@ -4,6 +4,7 @@ import {
 	bulletList,
 	bulletListWithLocalId,
 	listItem,
+	listItemWithFlexibleFirstChildStage0,
 	listItemWithLocalId,
 	orderedListWithOrder,
 	orderedListWithOrderAndLocalId,
@@ -19,6 +20,7 @@ import { toggleBulletList, toggleOrderedList, tooltip } from '@atlaskit/editor-c
 import { listMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconList, IconListNumber } from '@atlaskit/editor-common/quick-insert';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { ListPlugin } from './listPluginType';
@@ -46,7 +48,7 @@ import { getListComponents } from './ui';
  * List plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
  * from `@atlaskit/editor-core`.
  */
-export const listPlugin: ListPlugin = ({ config: options, api }) => {
+export const listPlugin: ListPlugin = ({ api }) => {
 	const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
 	const editorAnalyticsAPI = api?.analytics?.actions;
 
@@ -75,6 +77,15 @@ export const listPlugin: ListPlugin = ({ config: options, api }) => {
 		},
 
 		nodes() {
+			const getListItemNode = () => {
+				if (expValEquals('platform_editor_flexible_list_indentation', 'isEnabled', true)) {
+					return listItemWithFlexibleFirstChildStage0;
+				} else if (fg('platform_editor_adf_with_localid')) {
+					return listItemWithLocalId;
+				}
+				return listItem;
+			};
+
 			return [
 				{
 					name: 'bulletList',
@@ -88,7 +99,7 @@ export const listPlugin: ListPlugin = ({ config: options, api }) => {
 				},
 				{
 					name: 'listItem',
-					node: fg('platform_editor_adf_with_localid') ? listItemWithLocalId : listItem,
+					node: getListItemNode(),
 				},
 			];
 		},
@@ -101,7 +112,7 @@ export const listPlugin: ListPlugin = ({ config: options, api }) => {
 				},
 				{
 					name: 'listInputRule',
-					plugin: ({ schema, featureFlags }) => inputRulePlugin(schema, api?.analytics?.actions),
+					plugin: ({ schema }) => inputRulePlugin(schema, api?.analytics?.actions),
 				},
 				{
 					name: 'listKeymap',

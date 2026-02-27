@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.26.0
+
+### Minor Changes
+
+- [`9002e8f46f8a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9002e8f46f8a6) -
+  [ux] Added parent team picker
+
 ## 1.25.3
 
 ### Patch Changes

@@ -64,13 +64,6 @@ export const getBlockMenuExperiencesPlugin = ({
 		return popupTargetEl;
 	};
 
-	const getEditorDom = (): HTMLElement | null => {
-		if (editorView?.dom instanceof HTMLElement) {
-			return editorView.dom;
-		}
-		return null;
-	};
-
 	const blockMenuOpenExperience = new Experience(EXPERIENCE_ID.MENU_OPEN, {
 		actionSubjectId: ACTION_SUBJECT_ID.BLOCK_MENU,
 		dispatchAnalyticsEvent,
@@ -79,7 +72,6 @@ export const getBlockMenuExperiencesPlugin = ({
 			new ExperienceCheckPopupMutation({
 				nestedElementQuery: `[data-testid="${BLOCK_MENU_TEST_ID}"]`,
 				getTarget: getPopupsTarget,
-				getEditorDom,
 				type: 'editorContent',
 			}),
 		],

@@ -21,7 +21,10 @@ import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import PageIcon from '@atlaskit/icon/core/page';
 import RefreshIcon from '@atlaskit/icon/core/refresh';
 import {
+	ALIGNMENT_VALUES,
 	BUILTIN_TOOLBAR_KEYS,
+	DEFAULT_ALIGNMENT,
+	type AlignmentValue,
 	type EditorToolbarAction,
 	type ManifestEditorToolbarActions,
 } from '@atlaskit/native-embeds-common';
@@ -31,9 +34,9 @@ import type {
 	EditorPluginNativeEmbedsPlugin,
 	EditorPluginNativeEmbedsToolbarHandlers,
 } from '../../nativeEmbedsPluginType';
-import { ALIGNMENT_VALUES, DEFAULT_ALIGNMENT, type AlignmentValue } from '../../types/alignment';
 import { createOpenInNewWindowCommand, createUpdateAlignmentCommand } from '../commands';
 import { getSelectedNativeEmbedExtension } from '../utils/getSelectedNativeEmbedExtension';
+
 
 import { getMoreOptionsDropdown } from './more-options-dropdown';
 
@@ -169,6 +172,7 @@ function createBuiltinToolbarRegistry(
 			tabIndex: null,
 		},
 		[BUILTIN_TOOLBAR_KEYS.MORE_OPTIONS]: getMoreOptionsDropdown(
+			api,
 			selectedNativeEmbed,
 			deleteHoverPropsFactory(nodeType),
 		),

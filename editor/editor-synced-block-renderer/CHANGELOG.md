@@ -1,5 +1,13 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 5.9.5
+
+### Patch Changes
+
+- [`6424f86f6390a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6424f86f6390a) -
+  Improve Synced Blocks robustness
+- Updated dependencies
+
 ## 5.9.4
 
 ### Patch Changes

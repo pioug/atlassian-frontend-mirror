@@ -3364,3 +3364,34 @@ events:
           type: string
           required: false
           description: Specific type of error encountered
+  - parentTeamPicker opened:
+      type: ui
+      description: fired when the parent team picker is opened
+      attributes:
+        <<: *PackageMetaDataContext
+  - parentTeamPicker closed:
+      type: ui
+      description: fired when the parent team picker is closed
+      attributes:
+        <<: *PackageMetaDataContext
+        newParentTeamId:
+          type: string
+          description: the id of the new parent team
+        isCanceled:
+          type: boolean
+          description: whether the parent team picker is cancelled
+  - teamPicker failed:
+      type: track
+      description: fired when the team picker fails
+      attributes:
+        <<: *PackageMetaDataContext
+        error:
+          type: string
+          description: the error message
+        errorMessage:
+          type: string
+          description: the error message
+        errorType:
+          type: string
+          required: false
+          description: the error type

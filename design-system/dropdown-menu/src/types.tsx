@@ -248,6 +248,12 @@ interface InternalDropdownMenuProps<TriggerElement extends HTMLElement = any> {
 	 * Provide an accessible label for the menu element for assistive technology.
 	 */
 	menuLabel?: string;
+
+	/**
+	 * When set to true, will call stopPropagation on the ESCAPE key event.
+	 * This prevents the ESCAPE event from bubbling up to parent elements.
+	 */
+	shouldPreventEscapePropagation?: boolean;
 }
 
 type StandardDropdownMenuProps<TriggerElement extends HTMLElement = any> =

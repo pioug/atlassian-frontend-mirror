@@ -148,12 +148,14 @@ export type WorkflowContextPayloadData = {
 };
 
 export type JiraCreateContextPayloadData = {
-	draftWorkItems: {
-		projectIdOrKey: string;
-		issueTypeId: string;
-		summary: string;
-		fields: Record<string, any>;
-	}[];
+	draftWorkItems:
+		| {
+				projectIdOrKey: string;
+				issueTypeId: string;
+				summary: string;
+				fields: Record<string, any>;
+		  }[]
+		| null;
 };
 
 // Not using the PayloadCore because the `data: type | undefined` is necessary

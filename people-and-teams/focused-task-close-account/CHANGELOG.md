@@ -1,5 +1,12 @@
 # @atlaskit/focused-task-close-account
 
+## 3.3.2
+
+### Patch Changes
+
+- [`0ff81a1e241cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ff81a1e241cc) -
+  Clean up FG people-teams-fix-no-literal-string-in-jsx
+
 ## 3.3.1
 
 ### Patch Changes

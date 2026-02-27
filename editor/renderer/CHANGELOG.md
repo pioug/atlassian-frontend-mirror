@@ -1,5 +1,25 @@
 # @atlaskit/renderer
 
+## 126.13.3
+
+### Patch Changes
+
+- [`a0df2f63c24ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0df2f63c24ef) -
+  [NO-ISSUE] Stop copy heading link button tooltip from being read by screenreaders
+- Updated dependencies
+
+## 126.13.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 126.13.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 126.13.0
 
 ### Minor Changes

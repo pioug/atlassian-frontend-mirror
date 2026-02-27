@@ -1,8 +1,9 @@
 import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import type { AlignmentValue } from '@atlaskit/native-embeds-common';
+import { updateParameters } from '@atlaskit/native-embeds-common';
 
 import type { EditorPluginNativeEmbedsPlugin } from '../../nativeEmbedsPluginType';
-import { createAlignmentUpdate, type AlignmentValue } from '../../types/alignment';
 
 export const createUpdateAlignmentCommand =
 	(
@@ -21,7 +22,7 @@ export const createUpdateAlignmentCommand =
 			return false;
 		}
 
-		extensionApi.doc.update(localId, (current) => createAlignmentUpdate(current, alignment));
+		extensionApi.doc.update(localId, (current) => updateParameters(current, { alignment }));
 
 		return true;
 	};

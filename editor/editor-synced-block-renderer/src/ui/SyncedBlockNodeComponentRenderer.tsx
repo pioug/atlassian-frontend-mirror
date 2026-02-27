@@ -15,6 +15,7 @@ import { type MediaSSR, type NodeProps } from '@atlaskit/renderer';
 import type { SyncedBlockRendererOptions } from '../types';
 
 import { AKRendererWrapper } from './AKRendererWrapper';
+import { renderSyncedBlockContent } from './renderSyncedBlockContent';
 import { SyncedBlockErrorComponent } from './SyncedBlockErrorComponent';
 import { SyncedBlockLoadingState } from './SyncedBlockLoadingState';
 
@@ -85,6 +86,40 @@ export const SyncedBlockNodeComponentRenderer = ({
 		};
 	}, [rendererOptions, ssrProviders]);
 
+	if (fg('platform_synced_block_patch_5')) {
+		const errorForDisplay =
+			syncBlockInstance?.error ??
+			(syncBlockInstance?.data?.status === 'deleted'
+				? { type: SyncBlockError.NotFound, reason: syncBlockInstance.data?.deletionReason }
+				: {
+						type: SyncBlockError.Errored,
+						reason: !resourceId ? 'missing resource id' : `missing data for block ${resourceId}`,
+				  });
+		const result = renderSyncedBlockContent({
+			syncBlockInstance: syncBlockInstance ?? undefined,
+			isLoading,
+			rendererOptions: finalRendererOptions,
+			providerFactory,
+			reloadData,
+			fireAnalyticsEvent,
+			resourceId,
+			error: errorForDisplay,
+		});
+		if (result.isSuccess) {
+			return (
+				<div
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+					className={SyncBlockSharedCssClassName.renderer}
+					// eslint-disable-next-line react/jsx-props-no-spreading
+					{...{ [SyncBlockRendererDataAttributeName]: true }}
+				>
+					{result.element}
+				</div>
+			);
+		}
+		return result.element;
+	}
+
 	if (isLoading && !syncBlockInstance) {
 		return <SyncedBlockLoadingState />;
 	}
@@ -108,16 +143,16 @@ export const SyncedBlockNodeComponentRenderer = ({
 				: {
 						type: SyncBlockError.Errored,
 						reason: !resourceId ? 'missing resource id' : `missing data for block ${resourceId}`,
-					});
+				  });
 		return (
 			<SyncedBlockErrorComponent
 				error={
 					fg('platform_synced_block_patch_3')
 						? errorMessage
-						: (syncBlockInstance?.error ??
-							(syncBlockInstance?.data?.status === 'deleted'
+						: syncBlockInstance?.error ??
+						  (syncBlockInstance?.data?.status === 'deleted'
 								? { type: SyncBlockError.NotFound }
-								: { type: SyncBlockError.Errored }))
+								: { type: SyncBlockError.Errored })
 				}
 				resourceId={syncBlockInstance?.resourceId}
 				onRetry={reloadData}

@@ -1,5 +1,19 @@
 # @atlaskit/editor-core
 
+## 216.12.10
+
+### Patch Changes
+
+- [`19274be1b1972`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19274be1b1972) -
+  [ux] EDITOR-5417 Flexible list indentation ADF schema + validator support
+- Updated dependencies
+
+## 216.12.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 216.12.8
 
 ### Patch Changes

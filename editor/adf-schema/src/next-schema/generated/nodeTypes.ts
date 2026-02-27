@@ -305,9 +305,7 @@ export const bodiedSyncBlock = createPMNodeSpecFactory<BodiedSyncBlockNode>({
 export interface BulletListDefinition {
   type: 'bulletList';
   content: Array<
-    | ListItemDefinition
-    | ListItemFlexibleFirstChildStage0Definition
-    | ListItemWithNestedDecisionStage0Definition
+    ListItemDefinition | ListItemWithFlexibleFirstChildStage0Definition
   >;
   marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
   attrs: { localId?: string };
@@ -1171,7 +1169,7 @@ export const listItem = createPMNodeSpecFactory<ListItemNode>({
   defining: true,
 });
 
-export interface ListItemFlexibleFirstChildStage0Definition {
+export interface ListItemWithFlexibleFirstChildStage0Definition {
   type: 'listItem';
   content: Array<
     | BulletListDefinition
@@ -1188,51 +1186,13 @@ export interface ListItemFlexibleFirstChildStage0Definition {
   attrs: { localId?: string };
 }
 
-export type ListItemFlexibleFirstChildStage0Node = PMNode &
-  ListItemFlexibleFirstChildStage0Definition;
+export type ListItemWithFlexibleFirstChildStage0Node = PMNode &
+  ListItemWithFlexibleFirstChildStage0Definition;
 
-export const listItemFlexibleFirstChildStage0 =
-  createPMNodeSpecFactory<ListItemFlexibleFirstChildStage0Node>({
+export const listItemWithFlexibleFirstChildStage0 =
+  createPMNodeSpecFactory<ListItemWithFlexibleFirstChildStage0Node>({
     content:
       '(paragraph | bulletList | orderedList | taskList | mediaSingle | codeBlock | unsupportedBlock | extension)+',
-    marks: 'unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
-    attrs: { localId: { default: null } },
-    selectable: false,
-    defining: true,
-  });
-
-export interface ListItemWithNestedDecisionStage0Definition {
-  type: 'listItem';
-  content: Array<
-    | BulletListDefinition
-    | CodeBlockDefinition
-    | CodeBlockDefinition
-    | DecisionListDefinition
-    | DecisionListDefinition
-    | ExtensionWithMarksDefinition
-    | ExtensionWithMarksDefinition
-    | MediaSingleCaptionDefinition
-    | MediaSingleCaptionDefinition
-    | MediaSingleFullDefinition
-    | MediaSingleFullDefinition
-    | OrderedListDefinition
-    | ParagraphWithNoMarksDefinition
-    | ParagraphWithNoMarksDefinition
-    | TaskListDefinition
-    | UnsupportedBlockDefinition
-    | UnsupportedBlockDefinition
-  >;
-  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-  attrs: { localId?: string };
-}
-
-export type ListItemWithNestedDecisionStage0Node = PMNode &
-  ListItemWithNestedDecisionStage0Definition;
-
-export const listItemWithNestedDecisionStage0 =
-  createPMNodeSpecFactory<ListItemWithNestedDecisionStage0Node>({
-    content:
-      '(paragraph | mediaSingle | codeBlock | unsupportedBlock | decisionList | extension) (paragraph | bulletList | orderedList | taskList | mediaSingle | codeBlock | unsupportedBlock | decisionList | extension)*',
     marks: 'unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
     attrs: { localId: { default: null } },
     selectable: false,
@@ -1726,9 +1686,7 @@ export const nestedExpandWithNoMarks =
 export interface OrderedListDefinition {
   type: 'orderedList';
   content: Array<
-    | ListItemDefinition
-    | ListItemFlexibleFirstChildStage0Definition
-    | ListItemWithNestedDecisionStage0Definition
+    ListItemDefinition | ListItemWithFlexibleFirstChildStage0Definition
   >;
   marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
   attrs: { order?: number; localId?: string };

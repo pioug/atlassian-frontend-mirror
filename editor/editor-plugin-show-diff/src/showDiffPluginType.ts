@@ -26,22 +26,32 @@ export type PMDiffParams = {
 	steps: Step[];
 };
 
-export type ACTION = 'SHOW_DIFF' | 'HIDE_DIFF';
+export type ACTION = 'SHOW_DIFF' | 'HIDE_DIFF' | 'SCROLL_TO_NEXT' | 'SCROLL_TO_PREVIOUS';
 
 export type ShowDiffPlugin = NextEditorPlugin<
 	'showDiff',
 	{
 		commands: {
 			hideDiff: EditorCommand;
+			scrollToNext: EditorCommand;
+			scrollToPrevious: EditorCommand;
 			showDiff: (config: PMDiffParams) => EditorCommand;
 		};
 		pluginConfiguration: DiffParams | undefined;
 		sharedState: {
 			/**
+			 * The index of the current diff being viewed.
+			 */
+			activeIndex?: number;
+			/**
 			 * Whether the show diff feature is currently displaying changes.
 			 * Defaults to false.
 			 */
 			isDisplayingChanges: boolean;
+			/**
+			 * The number of changes being displayed
+			 */
+			numberOfChanges?: number
 		};
 	}
 >;

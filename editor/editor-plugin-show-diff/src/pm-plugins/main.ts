@@ -5,12 +5,16 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
 	PluginKey,
+	NodeSelection,
+	TextSelection,
 	type EditorState,
 	type ReadonlyTransaction,
+	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type DiffParams } from '../showDiffPluginType';
 
@@ -20,6 +24,8 @@ import { NodeViewSerializer } from './NodeViewSerializer';
 export const showDiffPluginKey = new PluginKey<ShowDiffPluginState>('showDiffPlugin');
 
 export type ShowDiffPluginState = {
+	activeIndex?: number;
+	activeIndexPos?: { from: number; to: number };
 	decorations: DecorationSet;
 	isDisplayingChanges: boolean;
 	originalDoc: PMNode | undefined;
@@ -36,6 +42,49 @@ export const createPlugin = (config: DiffParams | undefined, getIntl: () => Intl
 
 	return new SafePlugin<ShowDiffPluginState>({
 		key: showDiffPluginKey,
+		appendTransaction(
+			transactions: readonly Transaction[],
+			oldState: EditorState,
+			newState: EditorState,
+		) {
+			if (!fg('platform_editor_show_diff_scroll_navigation')) {
+				return;
+			}
+			// Check if any transaction contains scroll actions
+			const scrollTransaction = transactions.find(
+				(tr) =>
+					tr.getMeta(showDiffPluginKey)?.action === 'SCROLL_TO_NEXT' ||
+					tr.getMeta(showDiffPluginKey)?.action === 'SCROLL_TO_PREVIOUS',
+			);
+
+			if (!scrollTransaction) {
+				return;
+			}
+
+			const pluginState = showDiffPluginKey.getState(newState);
+			if (!pluginState || pluginState.decorations.find().length === 0) {
+				return;
+			}
+
+			const decorations = pluginState.decorations.find();
+			const decoration = decorations[pluginState.activeIndex ?? 0];
+			if (!decoration) {
+				return;
+			}
+
+			const { from, to } = decoration;
+			const $pos = newState.doc.resolve(from);
+			const isNodeSelection =
+				$pos.nodeAfter && $pos.nodeAfter.nodeSize === to - from && !$pos.nodeAfter.isInline;
+
+			const tr = newState.tr;
+			if (isNodeSelection) {
+				tr.setSelection(NodeSelection.create(newState.doc, from));
+			} else {
+				tr.setSelection(TextSelection.create(newState.doc, from));
+			}
+			return tr.scrollIntoView();
+		},
 		state: {
 			init(_: EditorStateConfig, _state: EditorState) {
 				// We do initial setup after we setup the editor view
@@ -62,6 +111,7 @@ export const createPlugin = (config: DiffParams | undefined, getIntl: () => Intl
 							...currentPluginState,
 							...meta,
 							isDisplayingChanges: true,
+							activeIndex: 0,
 						};
 						// Calculate and store decorations in state
 						const decorations = calculateDiffDecorations({
@@ -70,6 +120,9 @@ export const createPlugin = (config: DiffParams | undefined, getIntl: () => Intl
 							nodeViewSerializer,
 							colourScheme: config?.colourScheme,
 							intl: getIntl(),
+							activeIndexPos: fg('platform_editor_show_diff_scroll_navigation')
+								? newPluginState.activeIndexPos
+								: undefined,
 						});
 						// Update the decorations
 						newPluginState.decorations = decorations;
@@ -79,7 +132,40 @@ export const createPlugin = (config: DiffParams | undefined, getIntl: () => Intl
 							...meta,
 							decorations: DecorationSet.empty,
 							isDisplayingChanges: false,
+							activeIndex: undefined,
 						};
+					} else if (
+						(meta?.action === 'SCROLL_TO_NEXT' || meta?.action === 'SCROLL_TO_PREVIOUS') &&
+						fg('platform_editor_show_diff_scroll_navigation')
+					) {
+						// Update the active index in plugin state and recalculate decorations
+						const decorations = currentPluginState.decorations.find();
+						if (decorations.length > 0) {
+							let nextIndex = currentPluginState.activeIndex ?? 0;
+							if (meta.action === 'SCROLL_TO_NEXT') {
+								nextIndex = (nextIndex + 1) % decorations.length;
+							} else {
+								nextIndex = (nextIndex - 1 + decorations.length) % decorations.length;
+							}
+							const activeDecoration = decorations[nextIndex];
+							newPluginState = {
+								...currentPluginState,
+								activeIndex: nextIndex,
+								activeIndexPos: activeDecoration
+									? { from: activeDecoration.from, to: activeDecoration.to }
+									: undefined,
+							};
+							// Recalculate decorations with the new active index
+							const updatedDecorations = calculateDiffDecorations({
+								state: newState,
+								pluginState: newPluginState,
+								nodeViewSerializer,
+								colourScheme: config?.colourScheme,
+								intl: getIntl(),
+								activeIndexPos: newPluginState.activeIndexPos,
+							});
+							newPluginState.decorations = updatedDecorations;
+						}
 					} else {
 						newPluginState = { ...currentPluginState, ...meta };
 					}

@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 7.0.24
+
+### Patch Changes
+
+- [`3a649003f9b55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a649003f9b55) -
+  [ux] [A11Y-22843] handle Tab and Shift+Tab keypress inside typeahead list
+- Updated dependencies
+
+## 7.0.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.22
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.21
 
 ### Patch Changes

@@ -55,6 +55,7 @@ export const placeholderPlugin: PlaceholderPlugin = ({ config: options, api }) =
 							options && options.emptyLinePlaceholder,
 							options && options.placeholderPrompts,
 							options?.withEmptyParagraph,
+							options?.isPlaceholderHidden,
 							options && options.placeholderADF,
 							api,
 						),
@@ -99,7 +100,7 @@ export const placeholderPlugin: PlaceholderPlugin = ({ config: options, api }) =
 					}
 
 					return null;
-				}
+			  }
 			: undefined,
 	};
 };

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-grid
 
+## 7.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.14
 
 ### Patch Changes

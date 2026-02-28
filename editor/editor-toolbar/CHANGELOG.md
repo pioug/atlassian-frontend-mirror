@@ -1,5 +1,13 @@
 # @atlaskit/editor-toolbar
 
+## 0.19.35
+
+### Patch Changes
+
+- [`8b94becba79f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b94becba79f4) -
+  [EDITOR-4640] clean up platform_editor_aifc_remove_duplicate_role experiment
+- Updated dependencies
+
 ## 0.19.34
 
 ### Patch Changes

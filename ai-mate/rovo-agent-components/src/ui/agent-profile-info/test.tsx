@@ -3,6 +3,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import { AgentProfileCreator, getAgentCreator } from './index';
 
 describe('getAgentCreator', () => {
@@ -36,6 +38,16 @@ describe('getAgentCreator', () => {
 				authoringTeam: undefined,
 			},
 			expected: { type: 'FORGE', name: '' },
+		},
+		{
+			testName: 'remote A2A without feature flag returns undefined',
+			params: {
+				creatorType: 'REMOTE_A2A',
+				userCreator: undefined,
+				forgeCreator: 'Remote App Name',
+				authoringTeam: undefined,
+			},
+			expected: undefined,
 		},
 		{
 			testName: 'ootb',
@@ -164,6 +176,28 @@ describe('getAgentCreator', () => {
 				});
 				expect(creator).toEqual(expected);
 			});
+		});
+	});
+
+	ffTest.on('rovo_agent_support_a2a_avatar', 'with rovo_agent_support_a2a_avatar on', () => {
+		it('should return FORGE creator for remote A2A with forge creator', () => {
+			const creator = getAgentCreator({
+				creatorType: 'REMOTE_A2A',
+				userCreator: undefined,
+				forgeCreator: 'Remote App Name',
+				authoringTeam: undefined,
+			});
+			expect(creator).toEqual({ type: 'FORGE', name: 'Remote App Name' });
+		});
+
+		it('should return FORGE creator for remote A2A without forge creator', () => {
+			const creator = getAgentCreator({
+				creatorType: 'REMOTE_A2A',
+				userCreator: undefined,
+				forgeCreator: undefined,
+				authoringTeam: undefined,
+			});
+			expect(creator).toEqual({ type: 'FORGE', name: '' });
 		});
 	});
 });

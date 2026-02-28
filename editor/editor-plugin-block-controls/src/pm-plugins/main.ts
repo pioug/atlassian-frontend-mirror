@@ -628,7 +628,11 @@ export const apply = (
 			decorations = decorations.remove(oldQuickInsertButton);
 			if (fg('platform_editor_expose_block_controls_deco_api')) {
 				for (const factory of nodeDecorationRegistry) {
-					const old = decorations.find(activeNode?.rootPos, activeNode?.rootPos, (spec) => spec.type === factory.type);
+					const old = decorations.find(
+						activeNode?.rootPos,
+						activeNode?.rootPos,
+						(spec) => spec.type === factory.type,
+					);
 					decorations = decorations.remove(old);
 				}
 			}
@@ -682,7 +686,11 @@ export const apply = (
 
 			if (fg('platform_editor_expose_block_controls_deco_api')) {
 				for (const factory of nodeDecorationRegistry) {
-					const old = decorations.find(activeNode?.rootPos, activeNode?.rootPos, (spec) => spec.type === factory.type);
+					const old = decorations.find(
+						activeNode?.rootPos,
+						activeNode?.rootPos,
+						(spec) => spec.type === factory.type,
+					);
 					decorations = decorations.remove(old);
 					const dec = factory.create({
 						editorState: newState,

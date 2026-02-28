@@ -1,5 +1,13 @@
 # @atlaskit/media-common
 
+## 13.0.0
+
+### Major Changes
+
+- [`bc6f294d90d3f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc6f294d90d3f) -
+  Upgrade immer dependency to 11.1.4 (COMMIT-24745). Addresses dependency debt and version conflicts
+  for downstream consumers. Uses `produce` API which is compatible across v8–v11.
+
 ## 12.4.0
 
 ### Minor Changes

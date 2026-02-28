@@ -54,11 +54,7 @@ export type { EmojiAttributes, EmojiDefinition } from './emoji';
 export { image } from './image';
 export { mention, toJSON as mentionToJSON } from './mention';
 export type { MentionAttributes, UserType as MentionUserType, MentionDefinition } from './mention';
-export {
-	listItem,
-	listItemWithFlexibleFirstChildStage0,
-	listItemWithLocalId,
-} from './list-item';
+export { listItem, listItemWithFlexibleFirstChildStage0, listItemWithLocalId } from './list-item';
 export type { ListItemArray, ListItemDefinition } from './types/list';
 export { extendedPanel, extendedPanelWithLocalId, PanelType } from './panel';
 export type { PanelAttributes, PanelDefinition } from './panel';

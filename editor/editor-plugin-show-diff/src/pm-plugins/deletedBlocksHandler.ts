@@ -195,7 +195,7 @@ export const createBlockNodeWrapper = () => {
  */
 export const createDeletedStyleWrapperWithoutOpacity = (
 	colourScheme?: 'standard' | 'traditional',
-	isActive?: boolean
+	isActive?: boolean,
 ) => {
 	const wrapper = document.createElement('span');
 	wrapper.setAttribute('style', getDeletedContentStyle(colourScheme, isActive));

@@ -19,7 +19,12 @@ import LinkIcon from '@atlaskit/icon/core/link';
 import Toggle from '@atlaskit/toggle';
 
 import type { EditorPluginNativeEmbedsPlugin } from '../../nativeEmbedsPluginType';
-import { createCopyLinkCommand, createDeleteCommand, createToggleAlwaysShowTitle, getAlwaysShowTitleState } from '../commands';
+import {
+	createCopyLinkCommand,
+	createDeleteCommand,
+	createToggleAlwaysShowTitle,
+	getAlwaysShowTitleState,
+} from '../commands';
 
 const noopCommand: Command = () => {
 	return true;
@@ -37,7 +42,6 @@ const toggleButtonStyles = css({
 		minHeight: 'unset',
 	},
 });
-
 
 type DeleteHoverProps = Pick<
 	DropdownOptionT<Command>,
@@ -71,7 +75,10 @@ export const getMoreOptionsDropdown = (
 							toggleAlwaysShowTitle();
 						}}
 					>
-						<Toggle isChecked={getAlwaysShowTitleState(selectedNativeEmbed)} label="Always show title" />
+						<Toggle
+							isChecked={getAlwaysShowTitleState(selectedNativeEmbed)}
+							label="Always show title"
+						/>
 					</button>
 				),
 				onClick: () => {

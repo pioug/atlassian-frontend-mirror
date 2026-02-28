@@ -11,7 +11,7 @@ import {
 	tableRowWithNestedTable,
 	tableCellWithNestedTable,
 	tableHeaderWithNestedTable,
-	} from './nodes';
+} from './nodes';
 import type { SchemaConfig } from './create-schema';
 import { createSchema } from './create-schema';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';

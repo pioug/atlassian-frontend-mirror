@@ -1,5 +1,28 @@
 # @atlaskit/editor-statsig-tmp
 
+## 32.2.0
+
+### Minor Changes
+
+- [`ca3fbbec7f693`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca3fbbec7f693) -
+  Removes fg: company_hub_deprecate_atlaskit_onboarding
+
+## 32.1.0
+
+### Minor Changes
+
+- [`f726b988e0c1f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f726b988e0c1f) -
+  Change MAUI experiment name from cc-mui-experiment to cc-maui-experiment
+
+## 32.0.0
+
+### Major Changes
+
+- [`715d7c4db3977`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/715d7c4db3977) -
+  [EDITOR-4953] clean up platform_editor_table_cell_colour_change experiment
+- [`8b94becba79f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b94becba79f4) -
+  [EDITOR-4640] clean up platform_editor_aifc_remove_duplicate_role experiment
+
 ## 31.3.0
 
 ### Minor Changes

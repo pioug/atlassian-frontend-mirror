@@ -24,13 +24,14 @@ export const createToggleAlwaysShowTitle =
 			return;
 		}
 
-		const current = (selectedNativeEmbed.node.attrs.parameters?.alwaysShowTitle as boolean) ?? false;
+		const current =
+			(selectedNativeEmbed.node.attrs.parameters?.alwaysShowTitle as boolean) ?? false;
 
 		extensionApi.doc.update(localId, (node) =>
 			updateParameters(node, { alwaysShowTitle: !current }),
 		);
 	};
-	
+
 export const getAlwaysShowTitleState = (selectedNativeEmbed: ContentNodeWithPos) => {
-		return (selectedNativeEmbed.node.attrs.parameters?.alwaysShowTitle as boolean) ?? false;
-	};
+	return (selectedNativeEmbed.node.attrs.parameters?.alwaysShowTitle as boolean) ?? false;
+};

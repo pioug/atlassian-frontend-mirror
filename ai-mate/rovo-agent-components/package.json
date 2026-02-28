@@ -152,6 +152,9 @@
 		},
 		"rovo_agents_agent_verification": {
 			"type": "boolean"
+		},
+		"rovo_agent_support_a2a_avatar": {
+			"type": "boolean"
 		}
 	}
 }

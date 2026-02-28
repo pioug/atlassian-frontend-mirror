@@ -653,10 +653,19 @@ const generateMediaSingleFloatingToolbar = (
 
 		if (!areAnyNewToolbarFlagsEnabled) {
 			if (allowCommentsOnMedia) {
-				toolbarButtons.push(commentButton(intl, state, pluginInjectionApi, onCommentButtonMount, createCommentExperience), {
-					type: 'separator',
-					supportsViewMode: true,
-				});
+				toolbarButtons.push(
+					commentButton(
+						intl,
+						state,
+						pluginInjectionApi,
+						onCommentButtonMount,
+						createCommentExperience,
+					),
+					{
+						type: 'separator',
+						supportsViewMode: true,
+					},
+				);
 			}
 
 			if (allowLinking && shouldShowMediaLinkToolbar(state)) {
@@ -941,7 +950,15 @@ const generateMediaSingleFloatingToolbar = (
 
 		if (allowAdvancedToolBarOptions && allowCommentsOnMedia) {
 			updateToFullHeightSeparator(toolbarButtons);
-			toolbarButtons.push(commentButton(intl, state, pluginInjectionApi, onCommentButtonMount, createCommentExperience));
+			toolbarButtons.push(
+				commentButton(
+					intl,
+					state,
+					pluginInjectionApi,
+					onCommentButtonMount,
+					createCommentExperience,
+				),
+			);
 		}
 
 		return toolbarButtons;

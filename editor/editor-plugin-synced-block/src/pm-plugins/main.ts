@@ -567,7 +567,7 @@ export const createPlugin = (
 							isConfirmedSyncBlockDeletion,
 							bodiedSyncBlockRemoved,
 							bodiedSyncBlockAdded,
-					  })
+						})
 					: filterTransactionOnline({
 							tr,
 							state,
@@ -577,7 +577,7 @@ export const createPlugin = (
 							bodiedSyncBlockRemoved,
 							bodiedSyncBlockAdded,
 							inlineExtensionFlagShown,
-					  });
+						});
 			}
 
 			if (!isOffline) {

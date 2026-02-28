@@ -76,10 +76,7 @@ export const createInlineChangedDecoration = (
 	);
 };
 
-const getEditorStyleNode = (
-	nodeName: string,
-	colourScheme?: 'standard' | 'traditional',
-) => {
+const getEditorStyleNode = (nodeName: string, colourScheme?: 'standard' | 'traditional') => {
 	switch (nodeName) {
 		case 'blockquote':
 			return colourScheme === 'traditional' ? traditionalStyleQuoteNode : editingStyleQuoteNode;
@@ -340,7 +337,10 @@ export const createDeletedContentDecoration = ({
 				position: 'relative',
 				width: 'fit-content',
 			});
-			wrapper.setAttribute('style', `${baseStyle}${getDeletedContentStyle(colourScheme, isActive)}`);
+			wrapper.setAttribute(
+				'style',
+				`${baseStyle}${getDeletedContentStyle(colourScheme, isActive)}`,
+			);
 
 			const strikethrough = document.createElement('span');
 			strikethrough.setAttribute('style', getDeletedContentStyleUnbounded(colourScheme));

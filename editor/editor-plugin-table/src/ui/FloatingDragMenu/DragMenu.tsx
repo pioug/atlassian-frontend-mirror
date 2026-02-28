@@ -50,7 +50,6 @@ import PaintBucketIcon from '@atlaskit/icon/core/paint-bucket';
 import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import Toggle from '@atlaskit/toggle';
 
 import { clearHoverSelection, hoverColumns, hoverRows } from '../../pm-plugins/commands';
@@ -588,10 +587,8 @@ const DragMenu = React.memo(
 			if (shouldCloseMenu(state)) {
 				if (target && focusTarget === 'handle') {
 					(target as HTMLElement | null)?.focus();
-				} else if (expValEquals('platform_editor_table_cell_colour_change', 'isEnabled', true)) {
-					editorView.focus();
 				} else {
-					editorView.dom.focus();
+					editorView.focus();
 				}
 				toggleDragMenu(false, direction, index)(state, dispatch);
 			}

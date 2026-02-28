@@ -1,13 +1,5 @@
-import type {
-	ADFCommonNodeSpec,
-	ADFNode,
-} from '@atlaskit/adf-schema-generator';
-import {
-	$onePlus,
-	$or,
-	$zeroPlus,
-	adfNode,
-} from '@atlaskit/adf-schema-generator';
+import type { ADFCommonNodeSpec, ADFNode } from '@atlaskit/adf-schema-generator';
+import { $onePlus, $or, $zeroPlus, adfNode } from '@atlaskit/adf-schema-generator';
 import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
 import { codeBlock } from './codeBlock';
@@ -17,10 +9,8 @@ import { paragraph } from './paragraph';
 import { taskList } from './task';
 import { unsupportedBlock } from './unsupportedBlock';
 
-export const orderedList: ADFNode<[string], ADFCommonNodeSpec> =
-	adfNode('orderedList');
-export const bulletList: ADFNode<[string], ADFCommonNodeSpec> =
-	adfNode('bulletList');
+export const orderedList: ADFNode<[string], ADFCommonNodeSpec> = adfNode('orderedList');
+export const bulletList: ADFNode<[string], ADFCommonNodeSpec> = adfNode('bulletList');
 
 const listItem = adfNode('listItem')
 	.define({

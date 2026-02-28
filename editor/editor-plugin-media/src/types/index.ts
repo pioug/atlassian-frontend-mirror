@@ -75,14 +75,13 @@ export interface MediaPluginOptions {
 			start: () => void;
 		};
 		start: (_: {
-			attributes:
-				| {
-						annotationId?: undefined;
-						blockType: 'media';
-						commentType: 'block';
-						entryPoint?: 'highlightActionsSimple';
-						pageClass: 'editor';
-				  };
+			attributes: {
+				annotationId?: undefined;
+				blockType: 'media';
+				commentType: 'block';
+				entryPoint?: 'highlightActionsSimple';
+				pageClass: 'editor';
+			};
 		}) => void;
 	};
 	customDropzoneContainer?: HTMLElement;

@@ -4,7 +4,6 @@
  */
 import { type MouseEvent, useCallback } from 'react';
 import Tooltip from '@atlaskit/tooltip';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { css, jsx } from '@atlaskit/css';
 import { css as cssUnbounded } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
@@ -57,9 +56,6 @@ const ColorCard = ({
 					sharedColorContainerStyles,
 					swatchSize === 'small' ? smallColorContainerSize : defaultColorContainerSize,
 					colorCardButtonStyles,
-					expanded &&
-						!fg('platform-design-system-dsp-20821-color-pickr-focus') &&
-						colorCardButtonFocusedStyles,
 				]}
 				disabled={isDisabled}
 				onClick={handleClick}
@@ -124,11 +120,6 @@ const colorCardButtonStyles = cssUnbounded({
 		borderColor: token('color.border.focused', B100),
 		outline: 'none',
 	},
-});
-
-const colorCardButtonFocusedStyles = css({
-	borderColor: token('color.border.focused', B100),
-	outline: 'none',
 });
 
 const colorCardWrapperStyles = css({

@@ -3,6 +3,7 @@ order: 0
 ---
 
 import DateTimePickerDefault from '../../examples/constellation/datetime-picker-default';
+import DateTimePickerDefaultCompact from '../../examples/constellation/datetime-picker-default-compact';
 import DateTimePickerForm from '../../examples/constellation/datetime-picker-form';
 import DateTimePickerRequired from '../../examples/constellation/datetime-picker-required';
 import DateTimePickerValidation from '../../examples/constellation/datetime-picker-validation';
@@ -55,6 +56,13 @@ Keep helper text as short as possible. For complex information, provide a link t
 in a new browser tab. Use the [messaging guidelines](/content/messaging-guidelines) for more help.
 
 <Example Component={DateTimePickerValidation} packageName="@atlaskit/datetime-picker" />
+
+### Spacing
+
+Use `spacing` to control the vertical spacing of the date time picker. The default spacing is
+`gridSize() * 5`, and compact spacing is `gridSize() * 4`.
+
+<Example Component={DateTimePickerDefaultCompact} packageName="@atlaskit/datetime-picker" />
 
 ## Disabled dates
 

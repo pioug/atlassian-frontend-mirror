@@ -159,11 +159,7 @@ const DropdownMenu = <T extends HTMLElement = any>({
 				isKeyboardEvent(event) && (event.key === 'Tab' || event.key === 'Escape');
 
 			// Stop propagation on ESCAPE key if shouldPreventEscapePropagation is true
-			if (
-				shouldPreventEscapePropagation &&
-				isKeyboardEvent(event) &&
-				event.key === 'Escape'
-			) {
+			if (shouldPreventEscapePropagation && isKeyboardEvent(event) && event.key === 'Escape') {
 				event.stopPropagation();
 			}
 

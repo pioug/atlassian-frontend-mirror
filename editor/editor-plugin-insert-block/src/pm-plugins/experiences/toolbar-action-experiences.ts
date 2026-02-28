@@ -159,7 +159,12 @@ export const getToolbarActionExperiencesPlugin = ({
 			buttonTestId: TOOLBAR_BUTTON_TEST_ID.TABLE,
 		},
 		{
-			experience: createPopupExperience('tableSelector', '[data-testid="popup-wrapper"]', 'inline', true),
+			experience: createPopupExperience(
+				'tableSelector',
+				'[data-testid="popup-wrapper"]',
+				'inline',
+				true,
+			),
 			buttonTestId: TOOLBAR_BUTTON_TEST_ID.TABLE_SELECTOR,
 		},
 		{

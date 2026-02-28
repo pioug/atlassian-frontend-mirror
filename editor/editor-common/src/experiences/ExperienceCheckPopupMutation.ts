@@ -36,7 +36,10 @@ type EditorContentConfig = {
 	type: 'editorContent';
 };
 
-export type ExperienceCheckPopupMutationConfig = InlineConfig | EditorRootConfig | EditorContentConfig;
+export type ExperienceCheckPopupMutationConfig =
+	| InlineConfig
+	| EditorRootConfig
+	| EditorContentConfig;
 
 export class ExperienceCheckPopupMutation implements ExperienceCheck {
 	private config: ExperienceCheckPopupMutationConfig;
@@ -117,7 +120,8 @@ export class ExperienceCheckPopupMutation implements ExperienceCheck {
 	}
 
 	start(callback: ExperienceCheckCallback): void {
-		const target = this.config.type === 'editorRoot' ? this.config.getEditorDom() : this.config.getTarget();
+		const target =
+			this.config.type === 'editorRoot' ? this.config.getEditorDom() : this.config.getTarget();
 		const doc = getDocument();
 		if (!target || !doc) {
 			callback({

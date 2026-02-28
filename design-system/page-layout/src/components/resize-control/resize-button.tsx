@@ -12,7 +12,6 @@ import { css, jsx } from '@emotion/react';
 import ChevronRight from '@atlaskit/icon/core/chevron-right';
 import { easeOut } from '@atlaskit/motion/curves';
 import { durations } from '@atlaskit/motion/durations';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { UNSAFE_media } from '@atlaskit/primitives/responsive';
 import { B100, B200, N0, N200, N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -108,7 +107,7 @@ const ResizeButton = ({
 			// Prevents focus staying attached to the button when pressed
 			onMouseDown={preventDefault}
 			onClick={onClick}
-			{...(fg('platform_dst_spread-props-page-layout') ? {} : restProps)}
+			{...restProps}
 		>
 			<ChevronRight label="" color="currentColor" size="small" />
 			<span css={hitAreaSpanStyles} />

@@ -170,7 +170,8 @@ export const copySyncedBlockReferenceToClipboard: (
 		inputMethod: INPUT_METHOD,
 		api?: ExtractInjectionAPI<SyncedBlockPlugin>,
 	) =>
-	(state: EditorState, _dispatch?: CommandDispatch, _view?: EditorView) => copySyncedBlockReferenceToClipboardInternal(
+	(state: EditorState, _dispatch?: CommandDispatch, _view?: EditorView) =>
+		copySyncedBlockReferenceToClipboardInternal(
 			state.tr.doc.type.schema,
 			state.tr.selection,
 			syncBlockStore,
@@ -299,7 +300,7 @@ export const editSyncedBlockSource =
 
 			window.open(syncBlockURL, '_blank');
 		} else {
-			const {tr} = state;
+			const { tr } = state;
 			api?.analytics?.actions?.attachAnalyticsEvent({
 				eventType: EVENT_TYPE.OPERATIONAL,
 				action: ACTION.ERROR,
@@ -380,7 +381,7 @@ export const unsync = (
 
 	if (isBodiedSyncBlock) {
 		const content = syncBlock?.node.content;
-		const {tr} = state;
+		const { tr } = state;
 		tr.replaceWith(syncBlock.pos, syncBlock.pos + syncBlock.node.nodeSize, content).setMeta(
 			'deletionReason',
 			'source-block-unsynced',

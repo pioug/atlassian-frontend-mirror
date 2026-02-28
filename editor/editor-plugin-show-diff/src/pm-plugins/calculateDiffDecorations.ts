@@ -128,7 +128,8 @@ const calculateDiffDecorationsInner = ({
 	const optimizedChanges = optimizeChanges(changes);
 	const decorations: Decoration[] = [];
 	optimizedChanges.forEach((change) => {
-		const isActive = activeIndexPos && change.fromB >= activeIndexPos.from && change.toB <= activeIndexPos.to;
+		const isActive =
+			activeIndexPos && change.fromB >= activeIndexPos.from && change.toB <= activeIndexPos.to;
 		if (change.inserted.length > 0) {
 			decorations.push(createInlineChangedDecoration(change, colourScheme, isActive));
 			decorations.push(
@@ -136,7 +137,8 @@ const calculateDiffDecorationsInner = ({
 			);
 		}
 		if (change.deleted.length > 0) {
-			const isActive = activeIndexPos && change.fromB >= activeIndexPos.from && change.toB <= activeIndexPos.to;
+			const isActive =
+				activeIndexPos && change.fromB >= activeIndexPos.from && change.toB <= activeIndexPos.to;
 			const decoration = createDeletedContentDecoration({
 				change,
 				doc: originalDoc,
@@ -152,7 +154,8 @@ const calculateDiffDecorationsInner = ({
 		}
 	});
 	getMarkChangeRanges(steps).forEach((change) => {
-		const isActive = activeIndexPos && change.fromB >= activeIndexPos.from && change.toB <= activeIndexPos.to;
+		const isActive =
+			activeIndexPos && change.fromB >= activeIndexPos.from && change.toB <= activeIndexPos.to;
 		decorations.push(createInlineChangedDecoration(change, colourScheme, isActive));
 	});
 	getAttrChangeRanges(tr.doc, attrSteps).forEach((change) => {

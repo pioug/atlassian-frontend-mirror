@@ -132,13 +132,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-12-29
-	company_hub_deprecate_atlaskit_onboarding: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	platform_editor_fix_emoji_paste_html: {
 		defaultValue: boolean;
 		param: string;
@@ -1032,13 +1025,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-01-20
-	platform_editor_aifc_remove_duplicate_role: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-01-27 - AI create-page expand collapse fix
 	platform_editor_aifc_expand_collapses_oncreate_fix: {
 		defaultValue: boolean;
@@ -1069,13 +1055,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-01-26
 	platform_editor_ai_fix_streaming_json_escape: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-01-27
-	platform_editor_table_cell_colour_change: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1246,7 +1225,7 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	// Added 2026-02-23
-	'cc-mui-experiment': {
+	'cc-maui-experiment': {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1502,13 +1481,6 @@ export const editorExperimentsConfig: {
 	'company_hub_carousel_thumbnails-refactor': createBooleanExperiment({
 		productKeys: {
 			confluence: 'company_hub_carousel_thumbnails-refactor',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	company_hub_deprecate_atlaskit_onboarding: createBooleanExperiment({
-		productKeys: {
-			confluence: 'company_hub_deprecate_atlaskit_onboarding',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2464,15 +2436,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-01-20
-	platform_editor_aifc_remove_duplicate_role: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_aifc_remove_duplicate_role',
-			jira: 'platform_editor_aifc_remove_duplicate_role',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-01-27 - AI create-page expand collapse fix
 	platform_editor_aifc_expand_collapses_oncreate_fix: createBooleanExperiment({
 		productKeys: {
@@ -2519,14 +2482,6 @@ export const editorExperimentsConfig: {
 	platform_editor_table_a11y_eslint_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_table_a11y_eslint_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-01-27
-	platform_editor_table_cell_colour_change: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_table_cell_colour_change',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2707,9 +2662,9 @@ export const editorExperimentsConfig: {
 		defaultValue: false,
 	}),
 	// Added 2026-02-23
-	'cc-mui-experiment': createBooleanExperiment({
+	'cc-maui-experiment': createBooleanExperiment({
 		productKeys: {
-			confluence: 'cc-mui-experiment',
+			confluence: 'cc-maui-experiment',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

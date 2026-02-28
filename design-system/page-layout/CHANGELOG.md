@@ -1,5 +1,12 @@
 # @atlaskit/page-layout
 
+## 4.2.30
+
+### Patch Changes
+
+- [`3ab7f43a5b43d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ab7f43a5b43d) -
+  Abandon flag to clean up spread props because of usability regressions.
+
 ## 4.2.29
 
 ### Patch Changes

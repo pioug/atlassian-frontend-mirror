@@ -51,7 +51,7 @@ export type ShowDiffPlugin = NextEditorPlugin<
 			/**
 			 * The number of changes being displayed
 			 */
-			numberOfChanges?: number
+			numberOfChanges?: number;
 		};
 	}
 >;

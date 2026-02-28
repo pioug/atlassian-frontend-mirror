@@ -4,7 +4,6 @@ import React, { type ReactNode } from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { useToolbarUI } from '../hooks/ui-context';
@@ -101,11 +100,6 @@ export const Toolbar = ({
 				styles.toolbarSeparator,
 				styles.hiddenSelectorsPatch,
 			)}
-			role={
-				expValEquals('platform_editor_aifc_remove_duplicate_role', 'isEnabled', true)
-					? undefined
-					: 'toolbar'
-			}
 			aria-label={label}
 			testId={testId}
 			data-toolbar-type="inline"
@@ -161,11 +155,6 @@ export const PrimaryToolbar = ({
 		<ResponsiveContainer breakpointPreset={breakpointPreset}>
 			<Box
 				xcss={cx(styles.toolbarBase, styles.primaryToolbar, styles.hiddenSelectors)}
-				role={
-					expValEquals('platform_editor_aifc_remove_duplicate_role', 'isEnabled', true)
-						? undefined
-						: 'toolbar'
-				}
 				aria-label={label}
 				data-toolbar-type="primary"
 			>

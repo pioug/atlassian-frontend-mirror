@@ -1,15 +1,6 @@
-import {
-	fromHTML,
-	toHTML,
-} from '@af/adf-test-helpers/src/adf-schema/html-helpers';
+import { fromHTML, toHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
 
-import {
-	doc,
-	nodeFactory,
-	ol,
-	p,
-	ul,
-} from '@af/adf-test-helpers/src/adf-schema/schema-builder';
+import { doc, nodeFactory, ol, p, ul } from '@af/adf-test-helpers/src/adf-schema/schema-builder';
 
 import { schema } from '@af/adf-test-helpers/src/adf-schema';
 import { listItem, uuid } from '../../../..';
@@ -54,28 +45,18 @@ describe(`${packageName}/schema listItem node`, () => {
 	});
 
 	it('should be possible to create a list item with a single paragraph', () => {
-		const html = toHTML(
-			schema.nodes.listItem.create({}, schema.nodes.paragraph.create()),
-			schema,
-		);
+		const html = toHTML(schema.nodes.listItem.create({}, schema.nodes.paragraph.create()), schema);
 		expect(html).toContain('<li><p></p></li>');
 	});
 
 	it('should not be possible to have blockquote inside list', () => {
-		const docFromHTML = fromHTML(
-			'<ol><li><blockquote>text</blockquote></li></ol>',
-			schema,
-		);
-		expect(docFromHTML.toJSON()).toEqual(
-			doc(ol({ order: 1 })(liWithLocalId(p('text')))).toJSON(),
-		);
+		const docFromHTML = fromHTML('<ol><li><blockquote>text</blockquote></li></ol>', schema);
+		expect(docFromHTML.toJSON()).toEqual(doc(ol({ order: 1 })(liWithLocalId(p('text')))).toJSON());
 	});
 
 	it('should be possible to have paragraph inside list', () => {
 		const docFromHTML = fromHTML('<ol><li><p>text</p></li></ol>', schema);
-		expect(docFromHTML.toJSON()).toEqual(
-			doc(ol({ order: 1 })(liWithLocalId(p('text')))).toJSON(),
-		);
+		expect(docFromHTML.toJSON()).toEqual(doc(ol({ order: 1 })(liWithLocalId(p('text')))).toJSON());
 	});
 
 	it('should be possible to have sublist inside list', () => {
@@ -85,27 +66,15 @@ describe(`${packageName}/schema listItem node`, () => {
 		);
 		expect(docFromHTML.toJSON()).toEqual(
 			doc(
-				ol({ order: 1 })(
-					liWithLocalId(
-						p('text'),
-						ol({ order: 1 })(liWithLocalId(p('sublist'))),
-					),
-				),
+				ol({ order: 1 })(liWithLocalId(p('text'), ol({ order: 1 })(liWithLocalId(p('sublist'))))),
 			).toJSON(),
 		);
 	});
 
 	it('should be possible to have a nested list as the first child', () => {
-		const docFromHTML = fromHTML(
-			'<ol><li><ol><li><p>sublist</p></li></ol></li></ol>',
-			schema,
-		);
+		const docFromHTML = fromHTML('<ol><li><ol><li><p>sublist</p></li></ol></li></ol>', schema);
 		expect(docFromHTML.toJSON()).toEqual(
-			doc(
-				ol({ order: 1 })(
-					liWithLocalId(ol({ order: 1 })(liWithLocalId(p('sublist')))),
-				),
-			).toJSON(),
+			doc(ol({ order: 1 })(liWithLocalId(ol({ order: 1 })(liWithLocalId(p('sublist')))))).toJSON(),
 		);
 	});
 
@@ -116,21 +85,13 @@ describe(`${packageName}/schema listItem node`, () => {
 		);
 		expect(docFromHTML.toJSON()).toEqual(
 			doc(
-				ol({ order: 1 })(
-					liWithLocalId(
-						ol({ order: 1 })(liWithLocalId(p('sublist'))),
-						p('text'),
-					),
-				),
+				ol({ order: 1 })(liWithLocalId(ol({ order: 1 })(liWithLocalId(p('sublist'))), p('text'))),
 			).toJSON(),
 		);
 	});
 
 	it('should be possible to have list items that only contain a nested list', () => {
-		const docFromHTML = fromHTML(
-			'<ul><li><ul><li><p>sublist</p></li></ul></li></ul>',
-			schema,
-		);
+		const docFromHTML = fromHTML('<ul><li><ul><li><p>sublist</p></li></ul></li></ul>', schema);
 		expect(docFromHTML.toJSON()).toEqual(
 			doc(ul(liWithLocalId(ul(liWithLocalId(p('sublist')))))).toJSON(),
 		);

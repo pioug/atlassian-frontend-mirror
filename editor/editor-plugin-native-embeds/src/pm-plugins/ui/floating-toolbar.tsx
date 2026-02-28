@@ -37,7 +37,6 @@ import type {
 import { createOpenInNewWindowCommand, createUpdateAlignmentCommand } from '../commands';
 import { getSelectedNativeEmbedExtension } from '../utils/getSelectedNativeEmbedExtension';
 
-
 import { getMoreOptionsDropdown } from './more-options-dropdown';
 
 type DeleteHoverProps = Pick<

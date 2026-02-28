@@ -1,5 +1,17 @@
 # @atlaskit/media-state
 
+## 2.0.0
+
+### Major Changes
+
+- [`bc6f294d90d3f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc6f294d90d3f) -
+  Upgrade immer dependency to 11.1.4 (COMMIT-24745). Addresses dependency debt and version conflicts
+  for downstream consumers. Uses immer via zustand middleware, compatible across v8–v11.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.8.0
 
 ### Minor Changes

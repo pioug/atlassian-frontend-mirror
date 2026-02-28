@@ -100,7 +100,7 @@ export const placeholderPlugin: PlaceholderPlugin = ({ config: options, api }) =
 					}
 
 					return null;
-			  }
+				}
 			: undefined,
 	};
 };

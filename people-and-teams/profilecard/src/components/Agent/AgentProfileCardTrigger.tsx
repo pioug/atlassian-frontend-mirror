@@ -1,6 +1,10 @@
 import React, { forwardRef, Suspense } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+import {
+	type AgentCreatorType,
+	isForgeAgentByCreatorType,
+} from '@atlaskit/rovo-agent-components/ui/AgentAvatar';
 import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';
 import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
 
@@ -36,6 +40,13 @@ export const AgentProfileCardTrigger = forwardRef<ProfileCardHandle, AgentProfil
 		}) => {
 			if (!creator) {
 				return undefined;
+			}
+
+			if (
+				isForgeAgentByCreatorType(creator_type as AgentCreatorType) &&
+				fg('rovo_agent_support_a2a_avatar')
+			) {
+				return { type: 'THIRD_PARTY' as const, name: creator ?? '' };
 			}
 
 			switch (creator_type) {
@@ -79,7 +90,7 @@ export const AgentProfileCardTrigger = forwardRef<ProfileCardHandle, AgentProfil
 								: `/people/${userId}`,
 							id: userId,
 						};
-					} catch (error) {
+					} catch {
 						return undefined;
 					}
 

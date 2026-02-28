@@ -101,9 +101,7 @@ describe(`${packageName}/schema blockquote node`, () => {
 
 	it('should be possible to have bullet list inside blockquote', () => {
 		const docFromHTML = fromHTML('<blockquote><ul><li>text</li></ul></blockquote>', schema);
-		expect(docFromHTML.toJSON()).toEqual(
-			doc(blockquote(ul(liWithLocalId(p('text'))))).toJSON(),
-		);
+		expect(docFromHTML.toJSON()).toEqual(doc(blockquote(ul(liWithLocalId(p('text'))))).toJSON());
 	});
 
 	it('should be possible to have codeblock inside blockquote', () => {

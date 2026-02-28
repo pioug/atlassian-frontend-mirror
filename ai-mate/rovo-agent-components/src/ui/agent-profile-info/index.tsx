@@ -18,6 +18,7 @@ import Tooltip from '@atlaskit/tooltip';
 
 import { HiddenIcon } from '../../common/ui/hidden-icon';
 import { StarIconButton } from '../../common/ui/star-icon-button';
+import { type AgentCreatorType, isForgeAgentByCreatorType } from '../agent-avatar';
 
 import { messages } from './messages';
 
@@ -96,8 +97,11 @@ export const getAgentCreator = ({
 		return { type: 'SYSTEM' as const };
 	}
 
-	// THIRD_PARTY is deprecated in convo-ai, use FORGE instead
-	if (creatorType === 'FORGE' || creatorType === 'THIRD_PARTY') {
+	if (
+		fg('rovo_agent_support_a2a_avatar')
+			? isForgeAgentByCreatorType(creatorType as AgentCreatorType)
+			: creatorType === 'FORGE' || creatorType === 'THIRD_PARTY' // THIRD_PARTY is deprecated in convo-ai, use FORGE instead
+	) {
 		return { type: 'FORGE' as const, name: forgeCreator ?? '' };
 	}
 

@@ -94,7 +94,7 @@ export const SyncedBlockNodeComponentRenderer = ({
 				: {
 						type: SyncBlockError.Errored,
 						reason: !resourceId ? 'missing resource id' : `missing data for block ${resourceId}`,
-				  });
+					});
 		const result = renderSyncedBlockContent({
 			syncBlockInstance: syncBlockInstance ?? undefined,
 			isLoading,
@@ -143,16 +143,16 @@ export const SyncedBlockNodeComponentRenderer = ({
 				: {
 						type: SyncBlockError.Errored,
 						reason: !resourceId ? 'missing resource id' : `missing data for block ${resourceId}`,
-				  });
+					});
 		return (
 			<SyncedBlockErrorComponent
 				error={
 					fg('platform_synced_block_patch_3')
 						? errorMessage
-						: syncBlockInstance?.error ??
-						  (syncBlockInstance?.data?.status === 'deleted'
+						: (syncBlockInstance?.error ??
+							(syncBlockInstance?.data?.status === 'deleted'
 								? { type: SyncBlockError.NotFound }
-								: { type: SyncBlockError.Errored })
+								: { type: SyncBlockError.Errored }))
 				}
 				resourceId={syncBlockInstance?.resourceId}
 				onRetry={reloadData}

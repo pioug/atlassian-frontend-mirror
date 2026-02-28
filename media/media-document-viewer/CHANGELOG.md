@@ -1,5 +1,11 @@
 # @atlaskit/media-document-viewer
 
+## 0.6.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.6.7
 
 ### Patch Changes

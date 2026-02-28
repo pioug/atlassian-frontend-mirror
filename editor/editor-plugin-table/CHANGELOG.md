@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 17.3.31
+
+### Patch Changes
+
+- [`715d7c4db3977`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/715d7c4db3977) -
+  [EDITOR-4953] clean up platform_editor_table_cell_colour_change experiment
+- Updated dependencies
+
 ## 17.3.30
 
 ### Patch Changes

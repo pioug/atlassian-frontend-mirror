@@ -7,17 +7,17 @@ export type EditorExperimentOverridesMultivariate = {
 	[K in keyof EditorExperimentsConfig as MultivariateConfig<
 		EditorExperimentsConfig[K]['defaultValue']
 	> extends true
-	? K
-	: never]: EditorExperimentsConfig[K]['defaultValue'];
+		? K
+		: never]: EditorExperimentsConfig[K]['defaultValue'];
 };
 
 export type EditorExperimentOverridesBoolean = {
 	[K in keyof EditorExperimentsConfig as BooleanConfig<
 		EditorExperimentsConfig[K]['defaultValue']
 	> extends true
-	? K
-	: // Optional as boolean will default to true if not specified here
-	never]?: EditorExperimentsConfig[K]['defaultValue'];
+		? K
+		: // Optional as boolean will default to true if not specified here
+			never]?: EditorExperimentsConfig[K]['defaultValue'];
 };
 
 export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = {

@@ -1,5 +1,12 @@
 # @atlaskit/color-picker
 
+## 5.3.6
+
+### Patch Changes
+
+- [`ead5f19e8a930`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ead5f19e8a930) -
+  Roll out focus ring focus on trigger when popup is open
+
 ## 5.3.5
 
 ### Patch Changes

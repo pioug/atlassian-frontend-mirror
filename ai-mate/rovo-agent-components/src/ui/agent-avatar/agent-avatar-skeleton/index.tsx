@@ -8,7 +8,6 @@ import { AVATAR_SIZES, type SizeType } from '@atlaskit/avatar';
 import { Box } from '@atlaskit/primitives/compiled';
 import Skeleton from '@atlaskit/skeleton';
 
-// eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import { AGENT_AVATAR_CLIP_PATH } from '../index';
 
 type AgentAvatarSkeletonProps = {

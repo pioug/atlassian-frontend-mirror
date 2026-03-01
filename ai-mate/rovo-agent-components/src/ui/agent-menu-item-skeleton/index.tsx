@@ -6,7 +6,6 @@ import { Box } from '@atlaskit/primitives/compiled';
 import Skeleton from '@atlaskit/skeleton';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import { AgentAvatarSkeleton } from '../agent-avatar/agent-avatar-skeleton';
 const styles = cssMap({
 	skeletonContainer: {

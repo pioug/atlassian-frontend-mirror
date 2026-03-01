@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 24.37.3
+
+### Patch Changes
+
+- [`3828b60d0308e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3828b60d0308e) -
+  Profile card now supports A2A agent authors properly
+- Updated dependencies
+
 ## 24.37.2
 
 ### Patch Changes

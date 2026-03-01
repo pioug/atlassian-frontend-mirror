@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-components
 
+## 3.36.1
+
+### Patch Changes
+
+- [`3828b60d0308e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3828b60d0308e) -
+  Profile card now supports A2A agent authors properly
+
 ## 3.36.0
 
 ### Minor Changes

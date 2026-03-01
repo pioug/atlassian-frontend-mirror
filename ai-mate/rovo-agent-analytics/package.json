@@ -47,9 +47,6 @@
 	},
 	"techstack": {
 		"@atlassian/frontend": {
-			"code-structure": [
-				"tangerine-next"
-			],
 			"import-structure": [
 				"atlassian-conventions"
 			],
@@ -82,11 +79,6 @@
 				"import-no-extraneous-disable-for-examples-and-docs"
 			]
 		}
-	},
-	"techstackIgnore": {
-		"stricter": [
-			"@atlassian/tangerine/project-structure"
-		]
 	},
 	"name": "@atlaskit/rovo-agent-analytics",
 	"version": "0.16.0",

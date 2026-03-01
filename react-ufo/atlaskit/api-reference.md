@@ -1,24 +1,45 @@
 ---
 title: React-UFO - Instrumentation API Reference
-description: 'Complete API reference for @atlaskit/react-ufo performance instrumentation'
+description: Complete API reference for @atlaskit/react-ufo performance instrumentation
 platform: platform
 product: ufo
 category: devguide
 subcategory: react-ufo
-date: '2025-11-10'
+date: '2026-02-27'
 ---
 
 # React UFO Instrumentation API Reference
 
-React UFO provides performance instrumentation components and utilities to measure user experience
-metrics across Atlassian products. This library captures key performance indicators like Time to
-Interactive (TTI), Time to Visual Complete (TTVC), and custom interaction metrics.
+React UFO is a performance monitoring library for React applications at Atlassian. It measures user
+experience metrics including Time to App Idle (TTAI), Visual Completion (VC90/VC100), First
+Meaningful Paint (FMP), and interaction responsiveness metrics like Input Delay (ID) and Input to
+Next Paint (INP).
+
+For a deep dive into how React UFO calculates these metrics, see
+[An overview of how React UFO calculates frontend performance metrics](https://hello.atlassian.net/wiki/spaces/APD/pages/5046492124).
 
 ## Getting Started
 
 ```bash
 yarn add @atlaskit/react-ufo
 ```
+
+## Key Metrics
+
+| Metric                                     | Description                                                                                                                                   |
+| ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| **TTAI** (Time to App Idle)                | Time from interaction start until the next paint after all UFO holds become inactive and DOM mutations finish                                 |
+| **VC90 / VC100** (Visual Completion)       | Time until 90% / 100% of visible viewport mutations are complete                                                                              |
+| **FMP** (First Meaningful Paint)           | Time for primary page content to become visible. Derived from BM3 instrumentation, SSR timing, or defaults to TTAI                            |
+| **TTI** (Time to Interactive)              | When the page is visible and ready for interaction. Calculated via BM3 manual instrumentation, earliest Apdex `stopTime`, or defaults to TTAI |
+| **INP** (Input to Next Paint)              | Time for browser to render the next frame after receiving user input                                                                          |
+| **ID** (Input Delay)                       | Time from the physical user action until first script execution                                                                               |
+| **Response**                               | Time to next active React UFO hold rendered on the page. If no hold is active, equals Result (TTAI)                                           |
+| **Result**                                 | Time to next render when no React UFO hold is active. Equivalent to TTAI                                                                      |
+| **IVC100** (Interaction Visually Complete) | Time until last mutation visible in viewport for press interactions                                                                           |
+| **TBT** (Total Blocking Time)              | Sum of blocking time from long tasks (>50ms) between FCP and TTI                                                                              |
+| **CLS** (Cumulative Layout Shift)          | Largest burst of layout shift scores during the interaction window                                                                            |
+| **LCP** (Largest Contentful Paint)         | Render time of the largest image or text block                                                                                                |
 
 ## API Reference
 
@@ -28,41 +49,53 @@ yarn add @atlaskit/react-ufo
 - [traceUFOPress](#traceufopress)
 - [traceUFOTransition](#traceufotransition)
 - [traceUFOInteraction](#traceufointeraction)
-- [traceUFORedirect](#traceuforedirect)
+- [traceUFOHover](#traceufohover)
+- [traceUFORedirect](#traceufodirect)
 
 ### React Components
 
 - [UFOSegment](#ufosegment)
+- [UFOThirdPartySegment](#ufothirdpartysegment)
 - [UFOLabel](#ufolabel)
 - [UFOLoadHold](#ufoloadhold)
+- [UFOInteractionIgnore](#ufointeractionignore)
 - [Suspense](#suspense)
 - [UFOCustomData](#ufocustomdata)
-- [UFOCustomCohortData](#ufocustomcohortdata) ⚠️ Experimental
+- [UFOCustomCohortData](#ufocustomcohortdata)
+- [UFOCustomMark](#ufocustommark)
+- [Placeholder](#placeholder)
 
 ### React Hooks
 
 - [usePressTracing](#usepresstracing)
-- [useUFOTypingPerformanceTracing](#useufotypingperformancetracing) ⚠️ Experimental
+- [useUFOTypingPerformanceTracing](#useufotypingperformancetracing)
 - [useUFOTransitionCompleter](#useufotransitioncompleter)
 - [useUFOReportError](#useuforeporterror)
+- [useReportTerminalError](#usereportterminaerror)
 
 ### Utility Functions
 
 - [addUFOCustomData](#addufocustomdata)
-- [addUFOCustomCohortData](#addufocustomcohortdata) ⚠️ Experimental
+- [addUFOCustomCohortData](#addufocustomcohortdata)
+- [addUFOCustomMark](#addufocustommark-1)
+- [addCustomSpans](#addcustomspans)
+- [addBM3TimingsToUFO](#addbm3timingstoufo)
 - [addFeatureFlagAccessed](#addfeatureflagaccessed)
 - [setInteractionError](#setinteractionerror)
+- [setTerminalError](#setterminalerror)
+- [sinkTerminalErrorHandler](#sinkterminalerrorhandler)
 - [getUFORouteName](#getuforoutename)
+- [updatePageloadName](#updatepageloadname)
 
 ### Component Integration
 
-- [interactionName Property](#interactionname)
+- [interactionName Property](#interactionname-property)
 
 ### Advanced APIs
 
 - [SSR Configuration](#ssr-configuration)
-- [VC (Visual Completion) Observer](#vc-observer)
-- [Third-Party Segments](#third-party-segments)
+- [Configuration](#configuration)
+- [Experience Trace ID Context](#experience-trace-id-context)
 
 ---
 
@@ -70,8 +103,14 @@ yarn add @atlaskit/react-ufo
 
 ### traceUFOPageLoad
 
-Initializes measurement of page load performance for a specific route or page. This function should
-be called early in the page lifecycle to capture accurate timing data.
+Initializes measurement of page load performance for a specific route or page. Should be called
+early in the page lifecycle to capture accurate timing data. Uses sampling rates configured in your
+UFO settings.
+
+Only one page load interaction can be active at a time. If called without a `ufoName` while no
+interaction is active, it creates a new interaction with a hold until a name is provided. If called
+with a `ufoName` while an unnamed page load interaction is active, it updates the name and releases
+the hold.
 
 **Import:**
 
@@ -79,39 +118,47 @@ be called early in the page lifecycle to capture accurate timing data.
 import traceUFOPageLoad from '@atlaskit/react-ufo/trace-pageload';
 ```
 
-**Usage:**
+**Signature:**
 
 ```typescript
-traceUFOPageLoad('issue-view');
+function traceUFOPageLoad(
+	ufoName?: string | null | undefined,
+	routeName?: string | null | undefined, // defaults to ufoName
+): void;
 ```
 
 **Parameters:**
 
-- `ufoName` (string): The UFO interaction name used for sampling and event identification
+- `ufoName` (string, optional): The UFO interaction name used for sampling and event identification
+- `routeName` (string, optional): The route name for context. Defaults to `ufoName` if not provided
 
 **Example:**
 
 ```typescript
-// In your route component
-import { useEffect } from 'react';
 import traceUFOPageLoad from '@atlaskit/react-ufo/trace-pageload';
 
-function IssueView() {
-	useEffect(() => {
-		traceUFOPageLoad('issue-view');
-	}, []);
+// Simple usage
+traceUFOPageLoad('issue-view');
 
-	return <div>Issue content...</div>;
-}
+// With separate route name
+traceUFOPageLoad('issue-view', 'jira-issue-route');
 ```
 
-**Note:** The function uses sampling rates configured in your UFO settings to control which page
-loads are measured.
+**Also exports:**
+
+```typescript
+import { updatePageloadName } from '@atlaskit/react-ufo/trace-pageload';
+```
+
+See [updatePageloadName](#updatepageloadname) for details.
 
 ### traceUFOPress
 
 Measures user interaction performance from a press/click event until all loading is complete. Use
 this when `usePressTracing` hook or the `interactionName` property on components isn't suitable.
+
+Only one interaction can be active at a time. Starting a new press interaction aborts any currently
+active interaction. Aborted interactions do **not** report metrics to prevent data skewing.
 
 **Import:**
 
@@ -119,17 +166,16 @@ this when `usePressTracing` hook or the `interactionName` property on components
 import traceUFOPress from '@atlaskit/react-ufo/trace-press';
 ```
 
-**Usage:**
+**Signature:**
 
 ```typescript
-traceUFOPress('button-click');
-traceUFOPress('menu-open', performance.now()); // with custom timestamp
+function traceUFOPress(name: string, timestamp?: number): void;
 ```
 
 **Parameters:**
 
 - `name` (string): Unique identifier for the interaction
-- `timestamp` (number, optional): Custom timestamp, defaults to `performance.now()`
+- `timestamp` (number, optional): Custom timestamp. Defaults to `performance.now()`
 
 **Example:**
 
@@ -137,13 +183,12 @@ traceUFOPress('menu-open', performance.now()); // with custom timestamp
 import traceUFOPress from '@atlaskit/react-ufo/trace-press';
 
 function CustomButton() {
-	const handleClick = () => {
-		traceUFOPress('custom-action');
-		// Trigger your action that may cause loading states
-		performAsyncAction();
-	};
+  const handleClick = () => {
+    traceUFOPress('custom-action');
+    performAsyncAction();
+  };
 
-	return <button onClick={handleClick}>Custom Action</button>;
+  return <button onClick={handleClick}>Custom Action</button>;
 }
 ```
 
@@ -159,8 +204,7 @@ function CustomButton() {
 ### traceUFOTransition
 
 Measures navigation transition performance between routes or major state changes within a
-single-page application. This function aborts active interactions and starts measuring the new
-transition.
+single-page application. Aborts all active interactions and starts measuring the new transition.
 
 **Import:**
 
@@ -168,40 +212,45 @@ transition.
 import traceUFOTransition from '@atlaskit/react-ufo/trace-transition';
 ```
 
-**Usage:**
+**Signature:**
 
 ```typescript
-traceUFOTransition('board-to-backlog');
+function traceUFOTransition(
+	ufoName: string | null | undefined,
+	routeName?: string | null | undefined, // defaults to ufoName
+): void;
 ```
 
 **Parameters:**
 
 - `ufoName` (string): The UFO name for the transition
+- `routeName` (string, optional): The route name for context. Defaults to `ufoName`
 
 **Example:**
 
 ```typescript
 import { useRouter } from '@atlassian/react-resource-router';
 import traceUFOTransition from '@atlaskit/react-ufo/trace-transition';
+import getUFORouteName from '@atlaskit/react-ufo/route-name';
 
 function NavigationHandler() {
-	const [routerState] = useRouter();
+  const [routerState] = useRouter();
 
-	useEffect(() => {
-		const routeName = getUFORouteName(routerState.route);
-		if (routeName) {
-			traceUFOTransition(routeName);
-		}
-	}, [routerState]);
+  useEffect(() => {
+    const routeName = getUFORouteName(routerState.route);
+    if (routeName) {
+      traceUFOTransition(routeName);
+    }
+  }, [routerState]);
 
-	return <div>Page content...</div>;
+  return <div>Page content...</div>;
 }
 ```
 
 ### traceUFOInteraction
 
-Measures performance of user interactions based on browser events. This function automatically
-detects the interaction type from the event and applies appropriate timing.
+Measures performance of user interactions based on browser events. Automatically detects the
+interaction type (press or hover) from the event and applies appropriate timing.
 
 **Import:**
 
@@ -209,10 +258,10 @@ detects the interaction type from the event and applies appropriate timing.
 import traceUFOInteraction from '@atlaskit/react-ufo/trace-interaction';
 ```
 
-**Usage:**
+**Signature:**
 
 ```typescript
-traceUFOInteraction('dropdown-open', event);
+function traceUFOInteraction(name: string, event: Event | UIEvent): void;
 ```
 
 **Parameters:**
@@ -222,11 +271,13 @@ traceUFOInteraction('dropdown-open', event);
 
 **Supported Event Types:**
 
-- `click`
-- `dblclick`
-- `mousedown`
-- `mouseenter`
-- `mouseover`
+| Event Type   | Maps to Interaction Type |
+| ------------ | ------------------------ |
+| `click`      | `press`                  |
+| `dblclick`   | `press`                  |
+| `mousedown`  | `press`                  |
+| `mouseenter` | `hover`                  |
+| `mouseover`  | `hover`                  |
 
 **Example:**
 
@@ -234,39 +285,78 @@ traceUFOInteraction('dropdown-open', event);
 import traceUFOInteraction from '@atlaskit/react-ufo/trace-interaction';
 
 function InteractiveComponent() {
-	const handleClick = (event: React.MouseEvent) => {
-		traceUFOInteraction('component-action', event.nativeEvent);
+  const handleClick = (event: React.MouseEvent) => {
+    traceUFOInteraction('component-action', event.nativeEvent);
+    setShowModal(true);
+  };
 
-		// Your interaction logic
-		setShowModal(true);
-	};
-
-	return <div onClick={handleClick}>Click me</div>;
+  return <div onClick={handleClick}>Click me</div>;
 }
 ```
 
 **Notes:**
 
 - Only trusted events (user-initiated) are processed
-- Unsupported event types are ignored
+- Unsupported event types are silently ignored
 - Event timestamp is automatically extracted from the event object
+
+### traceUFOHover
+
+Measures performance of hover interactions. Use this for tracking hover-triggered loading states
+such as popups, tooltips, or preview cards.
+
+**Import:**
+
+```typescript
+import traceUFOHover from '@atlaskit/react-ufo/trace-hover';
+```
+
+**Signature:**
+
+```typescript
+function traceUFOHover(name: string, timestamp?: number): void;
+```
+
+**Parameters:**
+
+- `name` (string): Unique identifier for the hover interaction
+- `timestamp` (number, optional): Custom timestamp. Defaults to `performance.now()`
+
+**Example:**
+
+```typescript
+import traceUFOHover from '@atlaskit/react-ufo/trace-hover';
+
+function HoverCard() {
+  const handleMouseEnter = () => {
+    traceUFOHover('user-profile-hover');
+    loadUserProfile();
+  };
+
+  return <div onMouseEnter={handleMouseEnter}>Hover for details</div>;
+}
+```
 
 ### traceUFORedirect
 
-Specialized function for tracking navigation between routes, providing detailed route transition
-information. This is typically used with routing libraries like `@atlassian/react-resource-router`.
+Tracks navigation redirects between routes, providing detailed route transition information. This is
+typically used with routing libraries like `@atlassian/react-resource-router`.
 
 **Import:**
 
 ```typescript
 import traceUFORedirect from '@atlaskit/react-ufo/trace-redirect';
-import getUFORouteName from '@atlaskit/react-ufo/route-name';
 ```
 
-**Usage:**
+**Signature:**
 
 ```typescript
-traceUFORedirect(fromUfoName, nextUfoName, nextRouteName, timestamp);
+function traceUFORedirect(
+	fromUfoName: string,
+	nextUfoName: string,
+	nextRouteName: string,
+	time: number,
+): void;
 ```
 
 **Parameters:**
@@ -276,7 +366,7 @@ traceUFORedirect(fromUfoName, nextUfoName, nextRouteName, timestamp);
 - `nextRouteName` (string): Target route name from route definition
 - `time` (number): High-precision timestamp from `performance.now()`
 
-**Example with React Resource Router:**
+**Example:**
 
 ```typescript
 import { matchRoute, useRouter } from '@atlassian/react-resource-router';
@@ -288,7 +378,6 @@ function NavigationTracker() {
 
 	const handleNavigation = (nextLocation) => {
 		const currentRouteName = getUFORouteName(routerState.route);
-
 		const nextMatchObject = matchRoute(routes, nextLocation.pathname, nextLocation.search);
 		const { route: nextRoute } = nextMatchObject;
 		const nextRouteUfoName = getUFORouteName(nextRoute);
@@ -296,15 +385,9 @@ function NavigationTracker() {
 		traceUFORedirect(currentRouteName, nextRouteUfoName, nextRoute.name, performance.now());
 	};
 
-	return null; // This is typically a side-effect component
+	return null;
 }
 ```
-
-**Use Cases:**
-
-- Single-page application route changes
-- Cross-product navigation
-- Complex navigation patterns requiring detailed tracking
 
 ---
 
@@ -321,41 +404,37 @@ segment generates its own performance payload, allowing granular analysis of dif
 import UFOSegment from '@atlaskit/react-ufo/segment';
 ```
 
-**Basic Usage:**
+**Props:**
 
-```typescript
-<UFOSegment name="sidebar">
-	<SidebarComponent />
-</UFOSegment>
-```
+| Prop       | Type                             | Required | Description                                         |
+| ---------- | -------------------------------- | -------- | --------------------------------------------------- |
+| `name`     | `string`                         | Yes      | Unique identifier for this page segment             |
+| `children` | `ReactNode`                      | Yes      | Components to be measured within this segment       |
+| `mode`     | `'list' \| 'single'`             | No       | Rendering mode for the segment                      |
+| `type`     | `'first-party' \| 'third-party'` | No       | Segment ownership type. Defaults to `'first-party'` |
 
-**Parameters:**
-
-- `name` (string): Unique identifier for this page segment
-- `children` (ReactNode): Components to be measured within this segment
-
-**Real-world Example:**
+**Example:**
 
 ```typescript
 import UFOSegment from '@atlaskit/react-ufo/segment';
 
 function IssuePage() {
-	return (
-		<div>
-			<UFOSegment name="issue-header">
-				<IssueHeader />
-			</UFOSegment>
+  return (
+    <div>
+      <UFOSegment name="issue-header">
+        <IssueHeader />
+      </UFOSegment>
 
-			<UFOSegment name="issue-content">
-				<IssueDescription />
-				<IssueComments />
-			</UFOSegment>
+      <UFOSegment name="issue-content">
+        <IssueDescription />
+        <IssueComments />
+      </UFOSegment>
 
-			<UFOSegment name="issue-sidebar">
-				<IssueSidebar />
-			</UFOSegment>
-		</div>
-	);
+      <UFOSegment name="issue-sidebar">
+        <IssueSidebar />
+      </UFOSegment>
+    </div>
+  );
 }
 ```
 
@@ -371,26 +450,47 @@ function IssuePage() {
 
 - Use distinct, meaningful names for each segment
 - Represent logical page sections that could theoretically render independently
-- Avoid generic names like "content" or "main" - be specific
+- Avoid generic names like "content" or "main" — be specific
 - Segments with identical names are aggregated in analytics
 - Nesting is supported but use judiciously
 
-**Third-Party Extensions:**
+### UFOThirdPartySegment
+
+A specialized segment for tracking external or plugin content separately from first-party code.
+Wraps `UFOSegment` with `type="third-party"`.
+
+**Import:**
+
+```typescript
+import { UFOThirdPartySegment } from '@atlaskit/react-ufo/segment';
+```
+
+**Props:**
+
+Same as `UFOSegment` except `type` is automatically set to `'third-party'`.
+
+**Example:**
 
 ```typescript
 import { UFOThirdPartySegment } from '@atlaskit/react-ufo/segment';
 
-// For external/plugin content that should be tracked separately
 <UFOThirdPartySegment name="confluence-macro-calendar">
-	<CalendarMacro />
-</UFOThirdPartySegment>;
+  <CalendarMacro />
+</UFOThirdPartySegment>
 ```
+
+**Use Cases:**
+
+- External service integrations
+- Third-party plugins or widgets
+- Partner-provided components
+- Any content not directly controlled by your team
 
 ### UFOLabel
 
 A React context provider used to annotate sections of your component tree with descriptive names.
 Unlike segments, labels don't generate separate events but provide context for debugging and
-analysis.
+analysis in VC revision data.
 
 **Import:**
 
@@ -398,13 +498,12 @@ analysis.
 import UFOLabel from '@atlaskit/react-ufo/label';
 ```
 
-**Usage:**
+**Props:**
 
-```typescript
-<UFOLabel name="welcome_banner">
-	<Text>Hello folks</Text>
-</UFOLabel>
-```
+| Prop       | Type        | Required | Description                            |
+| ---------- | ----------- | -------- | -------------------------------------- |
+| `name`     | `string`    | Yes      | Descriptive name for this section      |
+| `children` | `ReactNode` | Yes      | Components within this labeled section |
 
 **Example:**
 
@@ -412,32 +511,33 @@ import UFOLabel from '@atlaskit/react-ufo/label';
 import UFOLabel from '@atlaskit/react-ufo/label';
 
 function CommentThread() {
-	return (
-		<UFOLabel name="comment_thread">
-			<div>
-				<UFOLabel name="comment_author">
-					<UserAvatar user={author} />
-				</UFOLabel>
-				<UFOLabel name="comment_content">
-					<CommentBody content={comment.body} />
-				</UFOLabel>
-			</div>
-		</UFOLabel>
-	);
+  return (
+    <UFOLabel name="comment_thread">
+      <div>
+        <UFOLabel name="comment_author">
+          <UserAvatar user={author} />
+        </UFOLabel>
+        <UFOLabel name="comment_content">
+          <CommentBody content={comment.body} />
+        </UFOLabel>
+      </div>
+    </UFOLabel>
+  );
 }
 ```
 
 **Guidelines:**
 
-- Use static strings only - no dynamic values
+- Use static strings only — no dynamic values
 - Focus on being distinct rather than semantically perfect
-- No need to label every component - use judiciously
+- No need to label every component — use judiciously
 - Helps with debugging performance issues in specific UI areas
 
 ### UFOLoadHold
 
-Identifies loading elements and prevents interaction completion until they are no longer visible to
-the user. This component is crucial for accurate TTI (Time to Interactive) measurements.
+Identifies loading elements and prevents interaction completion until they are no longer active.
+This component is crucial for accurate TTAI measurements — an interaction's TTAI is determined by
+the point at which the last hold is released.
 
 **Import:**
 
@@ -445,17 +545,26 @@ the user. This component is crucial for accurate TTI (Time to Interactive) measu
 import UFOLoadHold from '@atlaskit/react-ufo/load-hold';
 ```
 
+**Props:**
+
+| Prop           | Type        | Required | Default     | Description                                                                     |
+| -------------- | ----------- | -------- | ----------- | ------------------------------------------------------------------------------- |
+| `name`         | `string`    | Yes      | —           | Unique identifier for this loading state                                        |
+| `hold`         | `boolean`   | No       | `undefined` | Controls whether the hold is active. When omitted, hold is active while mounted |
+| `children`     | `ReactNode` | No       | —           | Components wrapped by the hold                                                  |
+| `experimental` | `boolean`   | No       | `undefined` | Enables experimental hold behavior                                              |
+
 **Usage Patterns:**
 
-**1. Wrapping loading elements:**
+**1. Wrapping loading elements (hold while mounted):**
 
 ```typescript
 if (isLoading) {
-	return (
-		<UFOLoadHold name="card-loading">
-			<Skeleton />
-		</UFOLoadHold>
-	);
+  return (
+    <UFOLoadHold name="card-loading">
+      <Skeleton />
+    </UFOLoadHold>
+  );
 }
 ```
 
@@ -463,18 +572,18 @@ if (isLoading) {
 
 ```typescript
 return (
-	<>
-		<Skeleton />
-		<UFOLoadHold name="card-loading" />
-	</>
+  <>
+    <Skeleton />
+    <UFOLoadHold name="card-loading" />
+  </>
 );
 ```
 
-**3. Conditional wrapping:**
+**3. Conditional hold via prop:**
 
 ```typescript
 <UFOLoadHold name="card" hold={isLoading}>
-	<Card />
+  <Card />
 </UFOLoadHold>
 ```
 
@@ -482,58 +591,69 @@ return (
 
 ```typescript
 return (
-	<>
-		<Card />
-		<UFOLoadHold name="card" hold={isLoading} />
-	</>
+  <>
+    <Card />
+    <UFOLoadHold name="card" hold={isLoading} />
+  </>
 );
-```
-
-**Parameters:**
-
-- `name` (string): Unique identifier for this loading state
-- `hold` (boolean, optional): Controls whether the hold is active
-- `children` (ReactNode, optional): Components wrapped by the hold
-
-**Real-world Examples:**
-
-```typescript
-import UFOLoadHold from '@atlaskit/react-ufo/load-hold';
-
-// Loading skeleton
-function IssueCard({ issue }) {
-	if (!issue) {
-		return (
-			<UFOLoadHold name="issue-card-loading">
-				<IssueCardSkeleton />
-			</UFOLoadHold>
-		);
-	}
-
-	return <IssueCardContent issue={issue} />;
-}
-
-// Conditional loading
-function CommentsSection({ loading, comments }) {
-	return (
-		<div>
-			<UFOLoadHold name="comments-loading" hold={loading} />
-			{loading ? <CommentsSkeleton /> : <CommentsList comments={comments} />}
-		</div>
-	);
-}
 ```
 
 **Notes:**
 
 - Only instrument loading elements once if they're reused
 - Multiple holds with the same name are fine
-- Holds automatically release when component unmounts
+- Holds automatically release when the component unmounts
+- Holds that are added after the interaction is already complete (after TTAI) are called "late
+  holds" and are tracked separately
+
+### UFOInteractionIgnore
+
+Prevents a subtree from holding up an interaction. Use this when a component loads late but isn't
+considered a breach of your SLO.
+
+**Import:**
+
+```typescript
+import UFOInteractionIgnore from '@atlaskit/react-ufo/interaction-ignore';
+```
+
+**Props:**
+
+| Prop       | Type                    | Required | Default | Description                             |
+| ---------- | ----------------------- | -------- | ------- | --------------------------------------- |
+| `children` | `ReactNode`             | No       | —       | Components within the ignored subtree   |
+| `ignore`   | `boolean`               | No       | `true`  | Whether to ignore holds in this subtree |
+| `reason`   | `'third-party-element'` | No       | —       | Reason for ignoring holds               |
+
+**Example:**
+
+```typescript
+import UFOInteractionIgnore from '@atlaskit/react-ufo/interaction-ignore';
+
+function PageLayout() {
+  return (
+    <App>
+      <Main />
+      <Sidebar>
+        <UFOInteractionIgnore>
+          <InsightsButton />
+        </UFOInteractionIgnore>
+      </Sidebar>
+    </App>
+  );
+}
+
+// Conditional usage
+<UFOInteractionIgnore ignore={!isCriticalContent}>
+  <OptionalWidget />
+</UFOInteractionIgnore>
+```
 
 ### Suspense
 
-An enhanced Suspense boundary that provides UFO instrumentation. Use this as a drop-in replacement
-for React's `Suspense` component.
+An enhanced React Suspense boundary that integrates with UFO instrumentation. Wraps React's
+`Suspense` component and adds a `UFOLoadHold` around the fallback, so the interaction is held until
+the suspended component resolves.
 
 **Import:**
 
@@ -541,19 +661,13 @@ for React's `Suspense` component.
 import Suspense from '@atlaskit/react-ufo/suspense';
 ```
 
-**Usage:**
+**Props:**
 
-```typescript
-<Suspense name="lazy-component" fallback={<Skeleton />}>
-	<LazyComponent />
-</Suspense>
-```
-
-**Parameters:**
-
-- `name` (string): Unique identifier for this suspense boundary
-- `fallback` (ReactNode): Component to show while suspended
-- `children` (ReactNode): Components that might suspend
+| Prop              | Type        | Required | Description                                                          |
+| ----------------- | ----------- | -------- | -------------------------------------------------------------------- |
+| `interactionName` | `string`    | Yes      | Unique identifier for this suspense boundary (used as the hold name) |
+| `fallback`        | `ReactNode` | Yes      | Component to show while suspended                                    |
+| `children`        | `ReactNode` | Yes      | Components that might suspend                                        |
 
 **Example:**
 
@@ -563,18 +677,18 @@ import Suspense from '@atlaskit/react-ufo/suspense';
 const LazyIssueView = lazy(() => import('./IssueView'));
 
 function App() {
-	return (
-		<Suspense name="issue-view-lazy" fallback={<IssueViewSkeleton />}>
-			<LazyIssueView />
-		</Suspense>
-	);
+  return (
+    <Suspense interactionName="issue-view-lazy" fallback={<IssueViewSkeleton />}>
+      <LazyIssueView />
+    </Suspense>
+  );
 }
 ```
 
 ### UFOCustomData
 
 Adds custom metadata to the current UFO interaction. This data appears in analytics events with a
-"custom:" prefix.
+`custom:` prefix.
 
 **Import:**
 
@@ -582,11 +696,11 @@ Adds custom metadata to the current UFO interaction. This data appears in analyt
 import UFOCustomData from '@atlaskit/react-ufo/custom-data';
 ```
 
-**Usage:**
+**Props:**
 
-```typescript
-<UFOCustomData data={{ viewType: 'list', itemCount: 42 }} />
-```
+| Prop   | Type                      | Required | Description                    |
+| ------ | ------------------------- | -------- | ------------------------------ |
+| `data` | `Record<string, unknown>` | Yes      | Key-value pairs of custom data |
 
 **Example:**
 
@@ -594,18 +708,12 @@ import UFOCustomData from '@atlaskit/react-ufo/custom-data';
 import UFOCustomData from '@atlaskit/react-ufo/custom-data';
 
 function IssueList({ issues, viewType }) {
-	const customData = {
-		viewType,
-		issueCount: issues.length,
-		hasFilters: filters.length > 0,
-	};
-
-	return (
-		<div>
-			<UFOCustomData data={customData} />
-			<IssueTable issues={issues} />
-		</div>
-	);
+  return (
+    <div>
+      <UFOCustomData data={{ viewType, issueCount: issues.length }} />
+      <IssueTable issues={issues} />
+    </div>
+  );
 }
 ```
 
@@ -614,16 +722,13 @@ function IssueList({ issues, viewType }) {
 ```javascript
 {
   'custom:viewType': 'list',
-  'custom:issueCount': 42,
-  'custom:hasFilters': true
+  'custom:issueCount': 42
 }
 ```
 
-### UFOCustomCohortData ⚠️ Experimental
+### UFOCustomCohortData
 
-**Note: This is an experimental feature that may change or be removed in future versions.**
-
-Adds cohort-specific custom data to UFO interactions. This is used for A/B testing and feature flag
+Adds cohort-specific custom data to UFO interactions. Used for A/B testing and feature flag
 correlation.
 
 **Import:**
@@ -632,27 +737,103 @@ correlation.
 import UFOCustomCohortData from '@atlaskit/react-ufo/custom-cohort-data';
 ```
 
-**Usage:**
+**Props:**
 
-```typescript
-<UFOCustomCohortData dataKey="experiment_variant" value="control" />
-```
+| Prop      | Type                                               | Required | Description       |
+| --------- | -------------------------------------------------- | -------- | ----------------- |
+| `dataKey` | `string`                                           | Yes      | Cohort data key   |
+| `value`   | `string \| number \| boolean \| null \| undefined` | Yes      | Cohort data value |
 
 **Example:**
 
 ```typescript
 import UFOCustomCohortData from '@atlaskit/react-ufo/custom-cohort-data';
-import { fg } from '@atlassian/jira-feature-gating';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 function ExperimentalFeature() {
-	const variant = fg('new_issue_view') ? 'treatment' : 'control';
+  const variant = fg('new_issue_view') ? 'treatment' : 'control';
 
-	return (
-		<div>
-			<UFOCustomCohortData dataKey="new_issue_view_variant" value={variant} />
-			{variant === 'treatment' ? <NewIssueView /> : <OldIssueView />}
-		</div>
-	);
+  return (
+    <div>
+      <UFOCustomCohortData dataKey="new_issue_view_variant" value={variant} />
+      {variant === 'treatment' ? <NewIssueView /> : <OldIssueView />}
+    </div>
+  );
+}
+```
+
+### UFOCustomMark
+
+Records a custom performance mark at a specific point in time during the current interaction.
+
+**Import:**
+
+```typescript
+import UFOCustomMark from '@atlaskit/react-ufo/custom-mark';
+```
+
+**Props:**
+
+| Prop        | Type     | Required | Description                                       |
+| ----------- | -------- | -------- | ------------------------------------------------- |
+| `name`      | `string` | Yes      | Name of the mark                                  |
+| `timestamp` | `number` | No       | Custom timestamp. Defaults to `performance.now()` |
+
+**Example:**
+
+```typescript
+import UFOCustomMark from '@atlaskit/react-ufo/custom-mark';
+
+function DataTable({ data }) {
+  return (
+    <div>
+      <UFOCustomMark name="data-table-render-start" />
+      <Table data={data} />
+    </div>
+  );
+}
+```
+
+**Also available:** `UFOCustomMarks` component for setting multiple marks at once:
+
+```typescript
+import { UFOCustomMarks } from '@atlaskit/react-ufo/custom-mark';
+
+<UFOCustomMarks data={{ 'mark-a': timestamp1, 'mark-b': timestamp2 }} />
+```
+
+### Placeholder
+
+A UFO-instrumented wrapper around lazy-loaded components using Suspense. Provides hold tracking for
+lazy-loaded content.
+
+**Import:**
+
+```typescript
+import Placeholder from '@atlaskit/react-ufo/placeholder';
+```
+
+**Props:**
+
+| Prop       | Type        | Required | Description                            |
+| ---------- | ----------- | -------- | -------------------------------------- |
+| `name`     | `string`    | Yes      | Unique identifier for this placeholder |
+| `children` | `ReactNode` | No       | Lazy-loaded components                 |
+| `fallback` | `ReactNode` | No       | Component to show while loading        |
+
+**Example:**
+
+```typescript
+import Placeholder from '@atlaskit/react-ufo/placeholder';
+
+const LazyPanel = lazy(() => import('./Panel'));
+
+function App() {
+  return (
+    <Placeholder name="panel-placeholder" fallback={<PanelSkeleton />}>
+      <LazyPanel />
+    </Placeholder>
+  );
 }
 ```
 
@@ -671,31 +852,10 @@ that need interaction tracking.
 import usePressTracing from '@atlaskit/react-ufo/use-press-tracing';
 ```
 
-**Usage:**
+**Signature:**
 
 ```typescript
-const traceInteraction = usePressTracing('custom-button-click');
-```
-
-**Example:**
-
-```typescript
-import { useCallback } from 'react';
-import usePressTracing from '@atlaskit/react-ufo/use-press-tracing';
-
-function CustomButton({ onAction }) {
-	const traceInteraction = usePressTracing('custom-action');
-
-	const handleClick = useCallback(
-		(event) => {
-			traceInteraction(event.timeStamp);
-			onAction();
-		},
-		[traceInteraction, onAction],
-	);
-
-	return <button onClick={handleClick}>Custom Action</button>;
-}
+function usePressTracing(name: string): (timeStamp?: number) => void;
 ```
 
 **Parameters:**
@@ -704,14 +864,32 @@ function CustomButton({ onAction }) {
 
 **Returns:**
 
-- `traceInteraction` (function): Function to call when interaction starts
-  - `timeStamp` (number, optional): Custom timestamp
+- A function to call when the interaction starts. Accepts an optional `timeStamp` parameter.
+
+**Example:**
+
+```typescript
+import { useCallback } from 'react';
+import usePressTracing from '@atlaskit/react-ufo/use-press-tracing';
+
+function CustomButton({ onAction }) {
+  const traceInteraction = usePressTracing('custom-action');
+
+  const handleClick = useCallback(
+    (event) => {
+      traceInteraction(event.timeStamp);
+      onAction();
+    },
+    [traceInteraction, onAction],
+  );
+
+  return <button onClick={handleClick}>Custom Action</button>;
+}
+```
 
 **Note:** Results are sent as `inline-result` type events.
 
-### useUFOTypingPerformanceTracing ⚠️ Experimental
-
-**Note: This is an experimental feature that may change or be removed in future versions.**
+### useUFOTypingPerformanceTracing
 
 Measures typing latency in input fields to track user experience during text input.
 
@@ -721,11 +899,19 @@ Measures typing latency in input fields to track user experience during text inp
 import useUFOTypingPerformanceTracing from '@atlaskit/react-ufo/typing-performance-tracing';
 ```
 
-**Usage:**
+**Signature:**
 
 ```typescript
-const typingRef = useUFOTypingPerformanceTracing<HTMLInputElement>('text-input-typing');
+function useUFOTypingPerformanceTracing<T extends HTMLElement>(name: string): React.RefObject<T>;
 ```
+
+**Parameters:**
+
+- `name` (string): Identifier for the typing performance trace
+
+**Returns:**
+
+- A React ref to attach to the input element
 
 **Example:**
 
@@ -733,9 +919,9 @@ const typingRef = useUFOTypingPerformanceTracing<HTMLInputElement>('text-input-t
 import useUFOTypingPerformanceTracing from '@atlaskit/react-ufo/typing-performance-tracing';
 
 function CommentEditor() {
-	const typingRef = useUFOTypingPerformanceTracing<HTMLTextAreaElement>('comment-editor-typing');
+  const typingRef = useUFOTypingPerformanceTracing<HTMLTextAreaElement>('comment-editor-typing');
 
-	return <textarea ref={typingRef} placeholder="Write a comment..." />;
+  return <textarea ref={typingRef} placeholder="Write a comment..." />;
 }
 ```
 
@@ -756,22 +942,12 @@ function CommentEditor() {
 ### useUFOTransitionCompleter
 
 Automatically completes UFO transitions when the component mounts. Use this in destination route
-components.
+components to signal that the transition is complete.
 
 **Import:**
 
 ```typescript
 import { useUFOTransitionCompleter } from '@atlaskit/react-ufo/trace-transition';
-```
-
-**Usage:**
-
-```typescript
-function MyPageComponent() {
-	useUFOTransitionCompleter();
-
-	return <div>Page content</div>;
-}
 ```
 
 **Example:**
@@ -780,22 +956,21 @@ function MyPageComponent() {
 import { useUFOTransitionCompleter } from '@atlaskit/react-ufo/trace-transition';
 
 function IssueViewPage() {
-	// This will complete any active transition when the page renders
-	useUFOTransitionCompleter();
+  useUFOTransitionCompleter();
 
-	return (
-		<div>
-			<IssueHeader />
-			<IssueContent />
-		</div>
-	);
+  return (
+    <div>
+      <IssueHeader />
+      <IssueContent />
+    </div>
+  );
 }
 ```
 
 ### useUFOReportError
 
-A hook that provides a function to report errors within UFO interactions. This allows you to capture
-and track errors that occur during performance-critical user flows.
+A hook that provides a function to report errors within UFO interactions. Errors are automatically
+associated with the currently active UFO interaction.
 
 **Import:**
 
@@ -803,26 +978,15 @@ and track errors that occur during performance-critical user flows.
 import { useUFOReportError } from '@atlaskit/react-ufo/report-error';
 ```
 
-**Usage:**
-
-```typescript
-const reportError = useUFOReportError();
-```
-
-**Parameters:**
-
-- None
-
 **Returns:**
 
-- `reportError` (function): Function to report errors to the current UFO interaction
-  - `error` (object): Error information with the following properties:
-    - `name` (string): Error name/type
-    - `errorMessage` (string): Error description
-    - `errorStack` (string, optional): Error stack trace
-    - `forcedError` (boolean, optional): Whether this was intentionally triggered
-    - `errorHash` (string, optional): Custom error identifier
-    - `errorStatusCode` (number, optional): HTTP status code if applicable
+- A function that accepts an error object with:
+  - `name` (string): Error name/type
+  - `errorMessage` (string): Error description
+  - `errorStack` (string, optional): Error stack trace
+  - `forcedError` (boolean, optional): Whether this was intentionally triggered
+  - `errorHash` (string, optional): Custom error identifier
+  - `errorStatusCode` (number, optional): HTTP status code if applicable
 
 **Example:**
 
@@ -843,7 +1007,7 @@ function DataLoader({ issueId }) {
 				errorStack: error.stack,
 				errorStatusCode: error.status,
 			});
-			throw error; // Re-throw for component error handling
+			throw error;
 		}
 	};
 
@@ -851,35 +1015,47 @@ function DataLoader({ issueId }) {
 }
 ```
 
-**Advanced Example with Context:**
+### useReportTerminalError
+
+A hook that reports a terminal error to UFO when the error is first set. Terminal errors represent
+critical failures that prevent the user from completing their task — typically rendered via error
+boundaries.
+
+**Import:**
 
 ```typescript
-import { useUFOReportError } from '@atlaskit/react-ufo/report-error';
-
-function SearchComponent() {
-	const reportError = useUFOReportError();
-
-	const handleSearchError = (error, searchContext) => {
-		reportError({
-			name: 'SearchAPIError',
-			errorMessage: `Search failed: ${error.message}`,
-			errorStack: error.stack,
-			errorStatusCode: error.response?.status,
-			// Custom error hash for grouping similar errors
-			errorHash: `search-${searchContext.query}-${error.type}`,
-		});
-	};
-
-	return <div>{/* Search UI */}</div>;
-}
+import { useReportTerminalError } from '@atlaskit/react-ufo/set-terminal-error';
 ```
 
-**Notes:**
+**Signature:**
 
-- Errors are automatically associated with the currently active UFO interaction
-- If no interaction is active, errors are added to all active interactions
-- Use meaningful error names for better categorization in analytics
-- Include stack traces when possible for debugging
+```typescript
+function useReportTerminalError(
+	error: Error | null | undefined,
+	additionalAttributes?: TerminalErrorAdditionalAttributes,
+): void;
+```
+
+**Parameters:**
+
+- `error` (Error | null | undefined): The error to report. Only reported once when first set.
+- `additionalAttributes` (optional): See [setTerminalError](#setterminalerror) for details.
+
+**Example:**
+
+```typescript
+import { useReportTerminalError } from '@atlaskit/react-ufo/set-terminal-error';
+
+function ErrorBoundaryFallback({ error }) {
+  useReportTerminalError(error, {
+    errorBoundaryId: 'issue-view',
+    fallbackType: 'page',
+    teamName: 'my-team',
+  });
+
+  return <ErrorPage />;
+}
+```
 
 ---
 
@@ -895,10 +1071,10 @@ Programmatically adds custom data to the current UFO interaction without using a
 import { addUFOCustomData } from '@atlaskit/react-ufo/custom-data';
 ```
 
-**Usage:**
+**Signature:**
 
 ```typescript
-addUFOCustomData({ key: 'value', count: 42 });
+function addUFOCustomData(data: Record<string, unknown>): void;
 ```
 
 **Example:**
@@ -917,9 +1093,7 @@ function performSearch(query) {
 }
 ```
 
-### addUFOCustomCohortData ⚠️ Experimental
-
-**Note: This is an experimental feature that may change or be removed in future versions.**
+### addUFOCustomCohortData
 
 Programmatically adds cohort data for A/B testing and feature flag tracking.
 
@@ -929,17 +1103,20 @@ Programmatically adds cohort data for A/B testing and feature flag tracking.
 import { addUFOCustomCohortData } from '@atlaskit/react-ufo/custom-cohort-data';
 ```
 
-**Usage:**
+**Signature:**
 
 ```typescript
-addUFOCustomCohortData('feature_flag_key', true);
+function addUFOCustomCohortData(
+	key: string,
+	value: number | boolean | string | null | undefined,
+): void;
 ```
 
 **Example:**
 
 ```typescript
 import { addUFOCustomCohortData } from '@atlaskit/react-ufo/custom-cohort-data';
-import { fg } from '@atlassian/jira-feature-gating';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 function initializeExperiment() {
 	const isNewDesignEnabled = fg('new_design_system');
@@ -947,6 +1124,99 @@ function initializeExperiment() {
 	addUFOCustomCohortData('design_system_version', isNewDesignEnabled ? 'v2' : 'v1');
 	addUFOCustomCohortData('user_segment', getUserSegment());
 }
+```
+
+### addUFOCustomMark
+
+Programmatically records a custom performance mark at a specific point in time.
+
+**Import:**
+
+```typescript
+import { addUFOCustomMark } from '@atlaskit/react-ufo/custom-mark';
+```
+
+**Signature:**
+
+```typescript
+function addUFOCustomMark(name: string, timestamp?: number): void;
+```
+
+**Parameters:**
+
+- `name` (string): Name of the mark
+- `timestamp` (number, optional): Custom timestamp. Defaults to `performance.now()`
+
+**Example:**
+
+```typescript
+import { addUFOCustomMark } from '@atlaskit/react-ufo/custom-mark';
+
+function onDataFetched() {
+	addUFOCustomMark('data-fetch-complete');
+}
+```
+
+### addCustomSpans
+
+Records a custom performance span (a time range with a start and end) to all active interactions.
+
+**Import:**
+
+```typescript
+import { addCustomSpans } from '@atlaskit/react-ufo/custom-spans';
+```
+
+**Signature:**
+
+```typescript
+function addCustomSpans(
+	name: string,
+	start: number,
+	end?: number, // defaults to performance.now()
+	size?: number, // defaults to 0
+): void;
+```
+
+**Example:**
+
+```typescript
+import { addCustomSpans } from '@atlaskit/react-ufo/custom-spans';
+
+async function fetchData() {
+	const start = performance.now();
+	const data = await api.getData();
+	addCustomSpans('api-fetch', start, performance.now(), data.length);
+	return data;
+}
+```
+
+### addBM3TimingsToUFO
+
+Converts BM3 (Browser Metrics 3) timing marks into UFO custom timings. Useful for migrating from BM3
+instrumentation to UFO.
+
+**Import:**
+
+```typescript
+import { addBM3TimingsToUFO } from '@atlaskit/react-ufo/custom-timings';
+```
+
+**Signature:**
+
+```typescript
+function addBM3TimingsToUFO(
+	marks?: { [key: string]: number },
+	timingsConfig?: Array<{ key: string; startMark?: string; endMark?: string }>,
+): void;
+```
+
+**Also available as a component:**
+
+```typescript
+import { UFOBM3TimingsToUFO } from '@atlaskit/react-ufo/custom-timings';
+
+<UFOBM3TimingsToUFO marks={marks} timings={timingsConfig} />
 ```
 
 ### addFeatureFlagAccessed
@@ -959,26 +1229,20 @@ Records feature flag usage for correlation with performance metrics.
 import { addFeatureFlagAccessed } from '@atlaskit/react-ufo/feature-flags-accessed';
 ```
 
-**Usage:**
+**Signature:**
 
 ```typescript
-addFeatureFlagAccessed('feature_flag_name', flagValue);
+function addFeatureFlagAccessed(featureFlagName: string, featureFlagValue: FeatureFlagValue): void;
 ```
 
 **Example:**
 
 ```typescript
 import { addFeatureFlagAccessed } from '@atlaskit/react-ufo/feature-flags-accessed';
-import { fg } from '@atlassian/jira-feature-gating';
 
 function checkFeatureFlag(flagKey) {
 	const flagValue = fg(flagKey);
-
-	// Record this flag access for performance correlation
-	if (shouldRecordFeatureFlagForUFO(flagKey)) {
-		addFeatureFlagAccessed(flagKey, flagValue);
-	}
-
+	addFeatureFlagAccessed(flagKey, flagValue);
 	return flagValue;
 }
 ```
@@ -987,7 +1251,7 @@ function checkFeatureFlag(flagKey) {
 
 ### setInteractionError
 
-Manually records an error for the current UFO interaction.
+Manually records an error for a specific named interaction.
 
 **Import:**
 
@@ -995,13 +1259,13 @@ Manually records an error for the current UFO interaction.
 import { setInteractionError } from '@atlaskit/react-ufo/set-interaction-error';
 ```
 
-**Usage:**
+**Signature:**
 
 ```typescript
-setInteractionError('interaction-name', {
-	errorMessage: 'Something went wrong',
-	name: 'CustomError',
-});
+function setInteractionError(
+	interactionName: string,
+	error: { errorMessage: string; name: string },
+): void;
 ```
 
 **Example:**
@@ -1022,9 +1286,84 @@ function loadIssueData(issueId) {
 }
 ```
 
+### setTerminalError
+
+Reports a terminal (critical) error to UFO. Terminal errors represent failures that prevent the user
+from completing their task, such as errors caught by error boundaries.
+
+**Import:**
+
+```typescript
+import { setTerminalError } from '@atlaskit/react-ufo/set-terminal-error';
+```
+
+**Signature:**
+
+```typescript
+function setTerminalError(
+	error: Error,
+	additionalAttributes?: TerminalErrorAdditionalAttributes,
+	labelStack?: LabelStack,
+): void;
+```
+
+**`TerminalErrorAdditionalAttributes`:**
+
+| Property               | Type                           | Description                                                      |
+| ---------------------- | ------------------------------ | ---------------------------------------------------------------- |
+| `teamName`             | `string`                       | Team responsible for the component                               |
+| `packageName`          | `string`                       | Package where the error occurred                                 |
+| `errorBoundaryId`      | `string`                       | Identifier of the error boundary                                 |
+| `errorHash`            | `string`                       | Custom error identifier for grouping                             |
+| `traceId`              | `string`                       | Trace ID for distributed tracing                                 |
+| `fallbackType`         | `'page' \| 'flag' \| 'custom'` | Type of fallback rendered                                        |
+| `statusCode`           | `number`                       | HTTP status code if applicable                                   |
+| `isClientNetworkError` | `boolean`                      | Whether this is a client network error (excluded from reporting) |
+
+**Example:**
+
+```typescript
+import { setTerminalError } from '@atlaskit/react-ufo/set-terminal-error';
+
+class AppErrorBoundary extends React.Component {
+	componentDidCatch(error) {
+		setTerminalError(error, {
+			errorBoundaryId: 'app-root',
+			fallbackType: 'page',
+			teamName: 'my-team',
+			packageName: '@atlassian/my-app',
+		});
+	}
+}
+```
+
+### sinkTerminalErrorHandler
+
+Registers a handler function that is called when terminal errors are reported via
+`setTerminalError`. This is used to configure how terminal error data is consumed (e.g., sent to
+analytics).
+
+**Import:**
+
+```typescript
+import { sinkTerminalErrorHandler } from '@atlaskit/react-ufo/set-terminal-error';
+```
+
+**Signature:**
+
+```typescript
+function sinkTerminalErrorHandler(
+	fn: (errorData: TerminalErrorData, context: TerminalErrorContext) => void | Promise<void>,
+): void;
+```
+
+The `TerminalErrorContext` provides information about the interaction state when the error occurred,
+including the active and previous interaction names, IDs, and types.
+
 ### getUFORouteName
 
-Extracts the UFO name from a route configuration object.
+Extracts the UFO name from a route configuration object. Returns `ufoName` if defined, otherwise
+falls back to `name`.
 
 **Import:**
 
@@ -1032,10 +1371,10 @@ Extracts the UFO name from a route configuration object.
 import getUFORouteName from '@atlaskit/react-ufo/route-name';
 ```
 
-**Usage:**
+**Signature:**
 
 ```typescript
-const ufoName = getUFORouteName(route);
+function getUFORouteName(route: { ufoName?: string; name: string }): string;
 ```
 
 **Example:**
@@ -1058,6 +1397,42 @@ function RouteAnalytics() {
 }
 ```
 
+### updatePageloadName
+
+Updates the UFO name of an active page load or transition interaction. Useful when the route name
+isn't known at the time `traceUFOPageLoad` is first called.
+
+**Import:**
+
+```typescript
+import { updatePageloadName } from '@atlaskit/react-ufo/trace-pageload';
+```
+
+**Signature:**
+
+```typescript
+function updatePageloadName(
+	ufoName: string,
+	routeName?: string | null | undefined, // defaults to ufoName
+): void;
+```
+
+**Example:**
+
+```typescript
+import { updatePageloadName } from '@atlaskit/react-ufo/trace-pageload';
+
+function RouteResolver({ routeName }) {
+	useEffect(() => {
+		if (routeName) {
+			updatePageloadName(routeName);
+		}
+	}, [routeName]);
+
+	return null;
+}
+```
+
 ---
 
 ## Component Integration
@@ -1067,43 +1442,28 @@ function RouteAnalytics() {
 Many Atlassian Design System components support an `interactionName` prop that automatically adds
 UFO tracking.
 
-**Supported Components:**
-
 **@atlaskit/button:**
 
 ```typescript
 import Button from '@atlaskit/button';
 
-<Button interactionName="save-issue">Save</Button>;
+// Triggers a UFO press interaction on click
+<Button interactionName="save-issue" onClick={handleSave}>
+  Save
+</Button>
 ```
+
+When no `interactionName` is provided, the button defaults to `unknown`. Unknown interactions are
+tracked for volume purposes but are **not** aggregated into metrics.
 
 **@atlaskit/spinner:**
 
 ```typescript
 import Spinner from '@atlaskit/spinner';
 
-<Spinner interactionName="loading-comments" size="medium" />;
+// Adds a UFO hold while the spinner is mounted
+<Spinner interactionName="loading-comments" size="medium" />
 ```
-
-**Examples:**
-
-```typescript
-// Button with interaction tracking
-<Button interactionName="create-issue" onClick={handleCreateIssue}>
-	Create Issue
-</Button>;
-
-// Spinner that holds interaction until unmounted
-{
-	isLoading && <Spinner interactionName="issue-loading" size="large" />;
-}
-```
-
-**Notes:**
-
-- Button: Triggers a UFO press interaction on click
-- Spinner: Adds a UFO hold while the spinner is mounted
-- Use descriptive, unique names for each interaction
 
 ---
 
@@ -1111,8 +1471,7 @@ import Spinner from '@atlaskit/spinner';
 
 ### SSR Configuration
 
-Configure UFO for Server-Side Rendering scenarios. This will produce a more accurate FMP Topline
-Metric in Glance.
+Configure UFO for Server-Side Rendering scenarios. This produces a more accurate FMP metric.
 
 **Import:**
 
@@ -1120,22 +1479,21 @@ Metric in Glance.
 import { configure } from '@atlaskit/react-ufo/ssr';
 ```
 
-**Usage:**
+**Signature:**
 
 ```typescript
-configure({
-	getDoneMark: () => performance.now(),
-	getFeatureFlags: () => ({ flag1: true, flag2: false }),
-	getTimings: () => ({
-		total: { startTime: 0, duration: 1200 },
-		render: { startTime: 100, duration: 800 },
-	}),
-	getSsrPhaseSuccess: () => ({
-		prefetch: true,
-		earlyFlush: true,
-		done: true,
-	}),
-});
+type SSRConfig = {
+	getDoneMark: () => number | null;
+	getFeatureFlags: () => SSRFeatureFlags | null;
+	getTimings?: () => ReportedTimings | null;
+	getSsrPhaseSuccess?: () => {
+		prefetch?: boolean;
+		earlyFlush?: boolean;
+		done?: boolean;
+	};
+};
+
+function configure(ssrConfig: SSRConfig): void;
 ```
 
 **Configuration Options:**
@@ -1143,32 +1501,71 @@ configure({
 - `getDoneMark()`: Returns timestamp when SSR rendering completed
 - `getFeatureFlags()`: Returns feature flags used during SSR
 - `getTimings()`: Returns detailed SSR timing breakdown
-- `getSsrPhaseSuccess()`: Returns success status for SSR phases
+- `getSsrPhaseSuccess()`: Returns success status for each SSR phase
 
-### Third-Party Segments
+**Additional SSR exports:**
 
-Special segment type for tracking external or plugin content separately from first-party code.
+```typescript
+import {
+	getSSRTimings,
+	getSSRSuccess,
+	getSSRPhaseSuccess,
+	getSSRDoneTime,
+	getSSRFeatureFlags,
+} from '@atlaskit/react-ufo/ssr';
+```
+
+### Configuration
+
+Set the global UFO configuration for your product.
 
 **Import:**
 
 ```typescript
-import { UFOThirdPartySegment } from '@atlaskit/react-ufo/segment';
+import { setUFOConfig, getConfig, isUFOEnabled } from '@atlaskit/react-ufo/config';
 ```
 
-**Usage:**
+**Key configuration fields:**
+
+| Field                                          | Type                     | Description                                                 |
+| ---------------------------------------------- | ------------------------ | ----------------------------------------------------------- |
+| `enabled`                                      | `boolean`                | Whether UFO is enabled                                      |
+| `product`                                      | `string`                 | Product identifier (e.g., `'jira'`, `'confluence'`)         |
+| `region`                                       | `string`                 | Deployment region                                           |
+| `rates`                                        | `Rates`                  | Sampling rates for different interaction types              |
+| `interactionTimeout`                           | `Record<string, number>` | Custom timeouts per interaction                             |
+| `minorInteractions`                            | `string[]`               | Interactions classified as minor                            |
+| `doNotAbortActivePressInteraction`             | `string[]`               | Press interactions that should not be aborted               |
+| `doNotAbortActivePressInteractionOnTransition` | `string[]`               | Press interactions that should not be aborted on transition |
+| `finishInteractionOnTransition`                | `string[]`               | Interactions to finish (not abort) on transition            |
+| `vc`                                           | `object`                 | Visual Completion observer configuration                    |
+| `terminalErrors`                               | `object`                 | Terminal error reporting configuration                      |
+
+### Experience Trace ID Context
+
+Manage distributed tracing context for UFO interactions. Enables correlation of frontend performance
+data with backend traces.
+
+**Import:**
 
 ```typescript
-<UFOThirdPartySegment name="external-calendar-widget">
-	<CalendarWidget />
-</UFOThirdPartySegment>
+import {
+	getActiveTrace,
+	setActiveTrace,
+	clearActiveTrace,
+	getActiveTraceHttpRequestHeaders,
+	getActiveTraceAsQueryParams,
+} from '@atlaskit/react-ufo/experience-trace-id-context';
 ```
 
-**Use Cases:**
+**Key Functions:**
 
-- External service integrations
-- Third-party plugins or widgets
-- Partner-provided components
-- Any content not directly controlled by your team
+- `getActiveTrace()`: Returns the current active trace context
+- `setActiveTrace(traceId, spanId, type)`: Sets the active trace
+- `clearActiveTrace()`: Clears the active trace
+- `getActiveTraceHttpRequestHeaders(url?)`: Returns `X-B3-TraceId` and `X-B3-SpanId` headers for
+  HTTP requests
+- `getActiveTraceAsQueryParams(url?)`: Returns trace context as query parameters
 
 ---
 
@@ -1183,29 +1580,37 @@ import { UFOThirdPartySegment } from '@atlaskit/react-ufo/segment';
 
 ### Performance Considerations
 
-- Don't over-instrument - focus on key user journeys
+- Don't over-instrument — focus on key user journeys
 - Use segments for logical page sections (like header, content, sidebar)
 - Be selective with custom data to avoid large payloads
 - Prefer component-level holds over page-level holds for granular tracking
-- Use meaningful, descriptive names that help identify performance bottlenecks
-- Consider using UFOThirdPartySegment for external content that may impact performance
+- Use `UFOThirdPartySegment` for external content that may impact performance
+- Use `UFOInteractionIgnore` for non-critical components that load late
 
-### Debugging
+### Interaction Lifecycle
 
-- Use browser dev tools to inspect UFO events
-- Check network tab for UFO payload requests (look for analytics events)
-- Use UFO labels to identify problematic code areas
-- Monitor UFO events in your application's analytics dashboard
-- Enable verbose logging in development to see interaction lifecycle
-- Use meaningful names for segments and holds to quickly identify issues
-- Test with feature flags to ensure performance tracking works across variants
-- Pay attention to "holds" that never release - they prevent interactions from completing
+1. An interaction starts via `traceUFOPageLoad`, `traceUFOTransition`, `traceUFOPress`, or
+   `traceUFOHover`
+2. `UFOLoadHold` components register active holds that prevent completion
+3. The interaction completes (TTAI) at the next paint after all holds are released
+4. VC metrics are calculated based on viewport mutations during the interaction window
+5. Only one interaction can be active at a time — new interactions abort previous ones
 
-### Migration Guide
+### Feature Gating
 
-- Use `interactionName` props on ADS components when possible
-- Migrate from manual event tracking to UFO components
-- Consider SSR implications when adding new instrumentation
+All changes to React UFO should use feature gates:
+
+```typescript
+import { fg } from '@atlaskit/platform-feature-flags';
+
+if (fg('my_feature_gate')) {
+	// New behavior
+} else {
+	// Existing behavior
+}
+```
+
+Register feature gates in `package.json` under `platform-feature-flags`.
 
 ---
 
@@ -1215,15 +1620,15 @@ import { UFOThirdPartySegment } from '@atlaskit/react-ufo/segment';
 
 ```typescript
 function MyPage() {
-	useEffect(() => {
-		traceUFOPageLoad('my-page');
-	}, []);
+  useEffect(() => {
+    traceUFOPageLoad('my-page');
+  }, []);
 
-	return (
-		<UFOSegment name="main-content">
-			<PageContent />
-		</UFOSegment>
-	);
+  return (
+    <UFOSegment name="main-content">
+      <PageContent />
+    </UFOSegment>
+  );
 }
 ```
 
@@ -1231,19 +1636,19 @@ function MyPage() {
 
 ```typescript
 function DataComponent() {
-	const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
-	return (
-		<UFOSegment name="data-section">
-			{loading ? (
-				<UFOLoadHold name="data-loading">
-					<Skeleton />
-				</UFOLoadHold>
-			) : (
-				<DataTable />
-			)}
-		</UFOSegment>
-	);
+  return (
+    <UFOSegment name="data-section">
+      {loading ? (
+        <UFOLoadHold name="data-loading">
+          <Skeleton />
+        </UFOLoadHold>
+      ) : (
+        <DataTable />
+      )}
+    </UFOSegment>
+  );
 }
 ```
 
@@ -1251,18 +1656,36 @@ function DataComponent() {
 
 ```typescript
 function NavigationWrapper() {
-	const [routerState] = useRouter();
+  const [routerState] = useRouter();
 
-	useEffect(() => {
-		const ufoName = getUFORouteName(routerState.route);
-		if (ufoName) {
-			traceUFOTransition(ufoName);
-		}
-	}, [routerState]);
+  useEffect(() => {
+    const ufoName = getUFORouteName(routerState.route);
+    if (ufoName) {
+      traceUFOTransition(ufoName);
+    }
+  }, [routerState]);
 
-	return <Router />;
+  return <Router />;
 }
 ```
+
+### Error Boundary with Terminal Error Reporting
+
+```typescript
+import { useReportTerminalError } from '@atlaskit/react-ufo/set-terminal-error';
+
+function ErrorBoundaryFallback({ error }) {
+  useReportTerminalError(error, {
+    errorBoundaryId: 'main-content',
+    fallbackType: 'page',
+    teamName: 'my-team',
+  });
+
+  return <ErrorPage message="Something went wrong" />;
+}
+```
+
+---
 
 ## Troubleshooting
 
@@ -1273,21 +1696,41 @@ function NavigationWrapper() {
 - Check for holds that are never released (components that mount `UFOLoadHold` but never unmount)
 - Verify all async operations complete properly
 - Ensure error boundaries don't prevent holds from releasing
+- Use `UFOInteractionIgnore` for non-critical components that load late
 
 **Missing Analytics Events**
 
-- Verify UFO configuration is properly set up in your application
+- Verify UFO configuration is properly set up via `setUFOConfig`
 - Check that sampling rates are configured for your interaction names
 - Ensure you're calling trace functions early in the component lifecycle
 
+**Aborted Interactions**
+
+- Only one interaction can be active at a time
+- A new press interaction aborts the previous interaction
+- Aborted interactions do **not** report metrics to prevent data skewing
+- Check `doNotAbortActivePressInteraction` config if your interaction is unexpectedly aborted
+
 **Performance Impact**
 
-- Avoid over-instrumentation - focus on critical user journeys
+- Avoid over-instrumentation — focus on critical user journeys
 - Use feature flags to control UFO instrumentation in production
 - Monitor payload sizes if adding extensive custom data
 
 **SSR Compatibility**
 
 - Use the SSR configuration APIs for server-side rendered applications
-- Ensure UFO components handle server-side rendering gracefully
+- Confluence uses `window.performance.mark("CFP-63.ssr-ttr")` for SSR timing via `getDoneMark`
 - Test SSR placeholder behavior with your specific setup
+
+---
+
+## Additional Resources
+
+- [React UFO Overview](https://hello.atlassian.net/wiki/spaces/UFO/pages/2305847386/react-ufo+UFO+v2)
+- [How React UFO calculates metrics](https://hello.atlassian.net/wiki/spaces/APD/pages/5046492124)
+- [React UFO Contribution Guidelines](https://hello.atlassian.net/wiki/spaces/APD/pages/4717459313)
+- [Press Interactions Overview](https://hello.atlassian.net/wiki/spaces/APD/pages/5770720615)
+- [Interactivity Metrics](https://hello.atlassian.net/wiki/spaces/APD/pages/5026355203)
+- [React UFO for Platform Components](https://hello.atlassian.net/wiki/spaces/APD/pages/6170852473)
+- [React UFO: A Deeper Understanding](https://hello.atlassian.net/wiki/spaces/UFO/blog/2022/12/16/2280380649/react-UFO+A+deeper+understanding+of+performance)

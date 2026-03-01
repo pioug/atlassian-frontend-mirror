@@ -63,9 +63,6 @@
 	},
 	"techstack": {
 		"@atlassian/frontend": {
-			"code-structure": [
-				"tangerine-next"
-			],
 			"import-structure": [
 				"atlassian-conventions"
 			],

@@ -20,4 +20,9 @@ export type ToolsExecutionAttributes = BaseAgentAnalyticsAttributes & {
 		toolSource: string;
 		resolutionType: string;
 	}[];
+	singleInstrumentationId: string | undefined;
+};
+
+export type ToolsExecutionResultAttributes = ToolsExecutionAttributes & {
+	scenarioId: string | null | undefined;
 };

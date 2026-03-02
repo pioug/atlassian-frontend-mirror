@@ -1,5 +1,21 @@
 # @atlaskit/rovo-agent-analytics
 
+## 0.18.0
+
+### Minor Changes
+
+- [`c2adfceefe4d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c2adfceefe4d2) -
+  Add scenarioId to chat; add more guardrail for rovo agent analytics; add single instrumentation id
+  for rovoAgent toolsExecutionResult; add trackAIMauAction
+
+## 0.17.0
+
+### Minor Changes
+
+- [`0f9bf8c0ac300`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f9bf8c0ac300) -
+  Add examplePromptKey attribute in analytics context for when example prompt is used. Add SA_DRAFT
+  event for rovo agent analytics"
+
 ## 0.16.0
 
 ### Minor Changes

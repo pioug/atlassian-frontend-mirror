@@ -33,6 +33,7 @@ import { SmartLinkAnalyticsContext } from '../../utils/analytics/SmartLinkAnalyt
 import { isFlexibleUiCard } from '../../utils/flexible';
 import * as measure from '../../utils/performance';
 import { BlockCard } from '../BlockCard';
+import type { InternalCardActionOptions } from '../Card/types.ts';
 import { EmbedCard, EmbedCardUpdated } from '../EmbedCard';
 import FlexibleCard from '../FlexibleCard';
 import { InlineCard } from '../InlineCard';
@@ -809,10 +810,24 @@ export const CardWithUrlContent = (props: CardWithUrlContentProps): React.JSX.El
 		? CardDisplay.Flexible
 		: props.appearance;
 
+	const actionOptions: InternalCardActionOptions | undefined = fg(
+		'platform_sl_3p_auth_rovo_action_kill_switch',
+	)
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useMemo(() => {
+				return props.actionOptions
+					? { rovoChatAction: true, ...props?.actionOptions }
+					: { hide: false, rovoChatAction: true };
+			}, [props.actionOptions])
+		: undefined;
+
 	return (
 		<SmartLinkModalProvider>
 			<SmartLinkAnalyticsContext url={props.url} id={props.id} display={display}>
-				<CardWithUrlContentComponent {...props} />
+				<CardWithUrlContentComponent
+					{...props}
+					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ? { actionOptions } : undefined)}
+				/>
 			</SmartLinkAnalyticsContext>
 		</SmartLinkModalProvider>
 	);

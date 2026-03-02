@@ -55,7 +55,7 @@ const lcmHeaderStyles = css({
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > .legacy-content-header-text': {
-		font: token('font.body.UNSAFE_small', '12px'),
+		font: token('font.body.small', '12px'),
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'& span': {

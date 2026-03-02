@@ -5,7 +5,7 @@ import { type CardProviderRenderers } from '@atlaskit/link-provider';
 import { type InvokeHandler } from '../../model/invoke-handler';
 import { type CardState } from '../../state/types';
 import type {
-	CardActionOptions,
+	InternalCardActionOptions as CardActionOptions,
 	CardPlatform,
 	EmbedIframeUrlType,
 	OnResolveCallback,

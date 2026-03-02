@@ -1180,6 +1180,7 @@ export interface ListItemWithFlexibleFirstChildStage0Definition {
     | OrderedListDefinition
     | ParagraphWithNoMarksDefinition
     | TaskListDefinition
+    | TaskListWithFlexibleFirstChildStage0Definition
     | UnsupportedBlockDefinition
   >;
   marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
@@ -2305,6 +2306,30 @@ export const taskList = createPMNodeSpecFactory<TaskListNode>({
   selectable: false,
   defining: true,
 });
+
+export interface TaskListWithFlexibleFirstChildStage0Definition {
+  type: 'taskList';
+  content: Array<
+    | BlockTaskItemDefinition
+    | TaskItemDefinition
+    | TaskListDefinition
+    | UnsupportedBlockDefinition
+  >;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: { localId: string };
+}
+
+export type TaskListWithFlexibleFirstChildStage0Node = PMNode &
+  TaskListWithFlexibleFirstChildStage0Definition;
+
+export const taskListWithFlexibleFirstChildStage0 =
+  createPMNodeSpecFactory<TaskListWithFlexibleFirstChildStage0Node>({
+    content: '(taskItem | taskList | unsupportedBlock | blockTaskItem)+',
+    marks: 'unsupportedMark unsupportedNodeAttribute',
+    attrs: { localId: { default: '' } },
+    selectable: false,
+    defining: true,
+  });
 
 export interface TextDefinition {
   type: 'text';

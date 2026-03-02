@@ -3,7 +3,10 @@ import { type EventHandler, type KeyboardEvent, type MouseEvent } from 'react';
 import { type CardProviderRenderers } from '@atlaskit/link-provider';
 
 import { type CardState } from '../../state/types';
-import type { CardActionOptions, OnResolveCallback } from '../Card/types';
+import type {
+	InternalCardActionOptions as CardActionOptions,
+	OnResolveCallback,
+} from '../Card/types';
 import { type HoverPreviewOptions } from '../HoverCard/types';
 import { type InlinePreloaderStyle, type OnErrorCallback } from '../types';
 

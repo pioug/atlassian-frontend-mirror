@@ -1,5 +1,6 @@
 import { type IntlShape } from 'react-intl-next';
 
+import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
 import { DOMSerializer, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { type NodeView } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -13,6 +14,8 @@ import { decisionItemToDOM } from './decisionItemNodeSpec';
 export class DecisionItemNodeView implements NodeView {
 	dom: Node;
 	public contentDOM?: HTMLElement;
+	private icon: HTMLElement | null = null;
+	private intl: IntlShape | undefined;
 	private hasChildren: boolean | undefined = undefined;
 
 	/**
@@ -25,8 +28,34 @@ export class DecisionItemNodeView implements NodeView {
 		if (currentlyHasChildren !== this.hasChildren) {
 			this.hasChildren = currentlyHasChildren;
 			this.contentDOM?.toggleAttribute('data-empty', !currentlyHasChildren);
+			if (expValEquals('editor_a11y_decision_aria_label', 'isEnabled', true)) {
+				this.setIconAriaLabel(!currentlyHasChildren);
+			}
 		}
 		return this.hasChildren;
+	}
+
+	private setIcon(dom?: HTMLElement | Node): void {
+		if (!dom || !(dom instanceof HTMLElement)) {
+			return;
+		}
+		const maybeIcon = dom.querySelector('[data-component="icon"] > [role="img"]');
+
+		if (maybeIcon && maybeIcon instanceof HTMLElement) {
+			this.icon = maybeIcon;
+		}
+	}
+
+	private setIconAriaLabel(isEmpty: boolean): void {
+		if (!this.icon || !this.intl) {
+			return;
+		}
+
+		const ariaLabel = isEmpty
+			? this.intl.formatMessage(tasksAndDecisionsMessages.undefinedDecisionAriaLabel)
+			: this.intl.formatMessage(tasksAndDecisionsMessages.decisionAriaLabel);
+
+		this.icon.setAttribute('aria-label', ariaLabel);
 	}
 
 	/**
@@ -43,6 +72,10 @@ export class DecisionItemNodeView implements NodeView {
 		const { dom, contentDOM } = DOMSerializer.renderSpec(document, spec);
 		this.dom = dom;
 		this.contentDOM = contentDOM;
+		if (expValEquals('editor_a11y_decision_aria_label', 'isEnabled', true)) {
+			this.setIcon(this.dom);
+			this.intl = intl;
+		}
 	}
 
 	/**

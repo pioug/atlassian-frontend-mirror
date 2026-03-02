@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 5.3.35
+
+### Patch Changes
+
+- [`d144f08676a16`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d144f08676a16) -
+  [EDITOR-5528] Remove lazy loading for bodiedSyncBlock node
+
 ## 5.3.34
 
 ### Patch Changes

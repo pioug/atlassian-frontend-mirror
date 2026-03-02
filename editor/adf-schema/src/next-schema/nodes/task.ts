@@ -1,16 +1,27 @@
-import type { ADFCommonNodeSpec, ADFNode } from '@atlaskit/adf-schema-generator';
-import { $onePlus, $or, $zeroPlus, adfNode } from '@atlaskit/adf-schema-generator';
+import type {
+	ADFCommonNodeSpec,
+	ADFNode,
+} from '@atlaskit/adf-schema-generator';
+import {
+	$onePlus,
+	$or,
+	$zeroPlus,
+	adfNode,
+} from '@atlaskit/adf-schema-generator';
 import { inlineContentGroup } from '../groups/inlineContentGroup';
 import { inlineGroup } from '../groups/inlineGroup';
 import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
-import { unsupportedBlock } from './unsupportedBlock';
-import { paragraph } from './paragraph';
 import { extension } from './extension';
+import { paragraph } from './paragraph';
+import { unsupportedBlock } from './unsupportedBlock';
 
-export const taskItem: ADFNode<[string], ADFCommonNodeSpec> = adfNode('taskItem');
-export const taskList: ADFNode<[string], ADFCommonNodeSpec> = adfNode('taskList');
-export const blockTaskItem: ADFNode<[string], ADFCommonNodeSpec> = adfNode('blockTaskItem');
+export const taskItem: ADFNode<[string], ADFCommonNodeSpec> =
+	adfNode('taskItem');
+export const taskList: ADFNode<[string], ADFCommonNodeSpec> =
+	adfNode('taskList');
+export const blockTaskItem: ADFNode<[string], ADFCommonNodeSpec> =
+	adfNode('blockTaskItem');
 
 const commonTaskItemProps = {
 	defining: true,
@@ -67,8 +78,13 @@ taskList.define({
 	],
 });
 
-taskList.variant('flexible_first_child', {
-	contentMinItems: 1,
-	content: [$onePlus($or(taskItem, taskList, unsupportedBlock, blockTaskItem))],
-	stage0: true,
-});
+export const taskListWithFlexibleFirstChild = taskList.variant(
+	'with_flexible_first_child',
+	{
+		contentMinItems: 1,
+		content: [
+			$onePlus($or(taskItem, taskList, unsupportedBlock, blockTaskItem)),
+		],
+		stage0: true,
+	},
+);

@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.40.3
+
+### Patch Changes
+
+- [`000d0a2d3aca2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/000d0a2d3aca2) -
+  Remove non-erasable syntax (e.g. enums, namespaces with runtime code) from package
+
 ## 13.40.2
 
 ### Patch Changes

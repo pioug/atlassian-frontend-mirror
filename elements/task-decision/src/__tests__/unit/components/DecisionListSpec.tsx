@@ -1,38 +1,49 @@
 import React from 'react';
+import { IntlProvider } from 'react-intl-next';
 import { mount } from 'enzyme';
 import { DecisionList, DecisionItem } from '../../../';
 
 describe('<DecisionList/>', () => {
 	it('should render all DecisionItems', () => {
 		const component = mount(
-			<DecisionList>
-				<DecisionItem>1</DecisionItem>
-				<DecisionItem>2</DecisionItem>
-			</DecisionList>,
+			<IntlProvider locale="en">
+				<DecisionList>
+					<DecisionItem>1</DecisionItem>
+					<DecisionItem>2</DecisionItem>
+				</DecisionList>
+			</IntlProvider>,
 		);
 		expect(component.find('li').length).toBe(2);
 		expect(component.find(DecisionItem).length).toBe(2);
 	});
 	it('should render single DecisionItem', () => {
 		const component = mount(
-			<DecisionList>
-				<DecisionItem>1</DecisionItem>
-			</DecisionList>,
+			<IntlProvider locale="en">
+				<DecisionList>
+					<DecisionItem>1</DecisionItem>
+				</DecisionList>
+			</IntlProvider>,
 		);
 		expect(component.find('li').length).toBe(1);
 		expect(component.find(DecisionItem).length).toBe(1);
 	});
 	it("shouldn't render list when no items", () => {
-		const component = mount(<DecisionList />);
+		const component = mount(
+			<IntlProvider locale="en">
+				<DecisionList />
+			</IntlProvider>,
+		);
 		expect(component.find('ul').length).toBe(0);
 		expect(component.find('li').length).toBe(0);
 		expect(component.find(DecisionItem).length).toBe(0);
 	});
 	it('should include data attributes on ol/li', () => {
 		const component = mount(
-			<DecisionList>
-				<DecisionItem>1</DecisionItem>
-			</DecisionList>,
+			<IntlProvider locale="en">
+				<DecisionList>
+					<DecisionItem>1</DecisionItem>
+				</DecisionList>
+			</IntlProvider>,
 		);
 		const ol = component.find('ol');
 		expect(ol.length).toEqual(1);

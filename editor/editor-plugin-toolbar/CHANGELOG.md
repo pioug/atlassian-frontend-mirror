@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 4.1.26
+
+### Patch Changes
+
+- [`56b1e9c2172d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56b1e9c2172d0) -
+  Fixes toolbar open experience that tracks a failure when block menu opens and closes quickly.
+- Updated dependencies
+
 ## 4.1.25
 
 ### Patch Changes

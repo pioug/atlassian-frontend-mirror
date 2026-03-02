@@ -59,7 +59,6 @@ export const decisionItemSpecWithFixedToDOM = () => {
 							'span',
 							{
 								role: 'img',
-								'aria-label': 'Decision',
 								style: convertToInlineCss({
 									width: '32px',
 									height: '32px',

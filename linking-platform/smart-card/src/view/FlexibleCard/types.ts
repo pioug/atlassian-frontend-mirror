@@ -8,9 +8,10 @@ import { type FireEventFunction } from '../../common/analytics/types';
 import { type SmartLinkSize, type SmartLinkStatus, type SmartLinkTheme } from '../../constants';
 import { type AISummaryConfig } from '../../state/hooks/use-ai-summary-config/types';
 import { type ResolveFunction } from '../../state/hooks/use-resolve';
+import type { RovoConfig } from '../../state/hooks/use-rovo-config';
 import { type AnalyticsOrigin } from '../../utils/types';
 import {
-	type CardActionOptions,
+	type InternalCardActionOptions as CardActionOptions,
 	type CardInnerAppearance,
 	type OnResolveCallback,
 } from '../Card/types';
@@ -223,6 +224,7 @@ export type ExtractFlexibleUiDataContextParams = Pick<
 	}) => void;
 	resolve?: ResolveFunction;
 	response?: SmartLinkResponse;
+	rovoConfig?: RovoConfig;
 	status?: SmartLinkStatus;
 };
 

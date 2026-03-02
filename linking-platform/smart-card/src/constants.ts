@@ -164,6 +164,7 @@ export enum ActionName {
 
 export enum InternalActionName {
 	AISummaryAction = 'AISummaryAction',
+	RovoChatAction = 'RovoChatAction',
 	UnresolvedAction = 'UnresolvedAction',
 	ViewRelatedLinksAction = 'ViewRelatedLinksAction',
 }

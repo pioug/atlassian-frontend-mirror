@@ -105,17 +105,19 @@ export type CustomAttributes = {
 	[key: string]: string | number | boolean | Array<string>;
 };
 
-export enum FeatureGateEnvironment {
-	Development = 'development',
-	Staging = 'staging',
-	Production = 'production',
-}
+export const FeatureGateEnvironment = {
+	Development: 'development',
+	Staging: 'staging',
+	Production: 'production',
+} as const;
+export type FeatureGateEnvironment = (typeof FeatureGateEnvironment)[keyof typeof FeatureGateEnvironment];
 
 // If adding new values here, please check FeatureGates.getDefaultPerimeter to make sure it still returns something sensible.
-export enum PerimeterType {
-	COMMERCIAL = 'commercial',
-	FEDRAMP_MODERATE = 'fedramp-moderate',
-}
+export const PerimeterType = {
+	COMMERCIAL: 'commercial',
+	FEDRAMP_MODERATE: 'fedramp-moderate',
+} as const;
+export type PerimeterType = (typeof PerimeterType)[keyof typeof PerimeterType];
 
 export interface CheckGateOptions {
 	/**

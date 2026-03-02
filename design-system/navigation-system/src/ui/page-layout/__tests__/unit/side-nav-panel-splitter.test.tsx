@@ -80,12 +80,13 @@ describe('SideNavPanelSplitter', () => {
 			expect(onCollapse).toHaveBeenCalledTimes(1);
 			expect(onCollapse).toHaveBeenCalledWith({
 				screen: 'desktop',
+				trigger: 'double-click',
 			});
 		});
 
 		ffTest.on('navx-full-height-sidebar', 'callback should include trigger', async () => {
 			// Trigger info is behind separate instrumentation flag
-			ffTest.on('platform_dst_nav4_fhs_instrumentation_1', 'analytics', () => {
+			describe('analytics', () => {
 				it('should collapse the side nav on double click by default', async () => {
 					const user = createUser();
 					const onCollapse = jest.fn();

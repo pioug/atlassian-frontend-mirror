@@ -37,6 +37,8 @@ export enum AgentCreateActions {
 	BROWSE_CLICK_NO_SKILLS_MODAL = 'browseClickNoSkillsModal',
 	/* Discard no skills modal - https://data-portal.internal.atlassian.com/analytics/registry/97437 */
 	DISCARD_NO_SKILLS_MODAL = 'discardNoSkillsModal',
+	/* Draft created from solution architect plan card - https://data-portal.internal.atlassian.com/analytics/registry/97924 */
+	SA_DRAFT = 'saDraft',
 }
 
 const globalEventConfig = getDefaultTrackEventConfig();

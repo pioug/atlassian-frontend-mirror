@@ -1,5 +1,41 @@
 # @atlaskit/docs
 
+## 11.5.0
+
+### Minor Changes
+
+- [`a87a82e668a46`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a87a82e668a46) - -
+  `@atlaskit/docs` has been updated to support types.
+  - The method for defining tabs in a docs page has been updated to use the new `DocsTab` and
+    `DocsTabs` types. This has been done to improve the type safety and remove ambiguity on how tabs
+    are defined. It also enables custom tab names to be specified which aren't necessarily the same
+    as the file name.
+
+  Example:
+
+  ```tsx
+  import type { DocsTabs } from '@atlaskit/docs';
+
+  import { ExamplesTab } from './tabs/examples';
+  import { UsageTab } from './tabs/usage';
+  import { DragAndDropTab } from './tabs/drag-and-drop';
+
+  export const _DocsTabs: DocsTabs = [
+  	{
+  		content: ExamplesTab,
+  		name: 'Examples',
+  	},
+  	{
+  		content: DragAndDropTab,
+  		name: 'Drag and Drop',
+  	},
+  	{
+  		content: UsageTab,
+  		name: 'Usage',
+  	},
+  ];
+  ```
+
 ## 11.4.2
 
 ### Patch Changes

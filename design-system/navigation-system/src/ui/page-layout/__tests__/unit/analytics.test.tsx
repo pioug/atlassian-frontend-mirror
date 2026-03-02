@@ -26,8 +26,8 @@ function filterByAction(mockFn: OnAnalyticsEventMock, action: string) {
 
 window.scrollTo = noop;
 
-ffTest.on('platform_dst_nav4_fhs_instrumentation_1', 'analytics', () => {
-	// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
+describe('analytics', () => {
 	describe('sideNavMenu viewedOnLoad', () => {
 		it('should fire if the menu is open on initial load (desktop)', () => {
 			setMediaQuery('(min-width: 64rem)', { initial: true });

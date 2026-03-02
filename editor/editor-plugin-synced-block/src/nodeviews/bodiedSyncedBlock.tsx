@@ -15,6 +15,8 @@ import {
 	type Node as PMNode,
 } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 import { BodiedSyncBlockWrapper } from '../ui/BodiedSyncBlockWrapper';
@@ -26,6 +28,7 @@ export interface BodiedSyncBlockNodeViewProps extends ReactComponentProps {
 	node: PMNode;
 	pluginOptions: SyncedBlockPluginOptions | undefined;
 	portalProviderAPI: PortalProviderAPI;
+	syncBlockStore?: SyncBlockStoreManager;
 	view: EditorView;
 }
 
@@ -38,10 +41,11 @@ const toDOM = (): DOMOutputSpec => [
 	0,
 ];
 
-class BodiedSyncBlock extends ReactNodeView<BodiedSyncBlockNodeViewProps> {
+export class BodiedSyncBlock extends ReactNodeView<BodiedSyncBlockNodeViewProps> {
 	private cleanupConnectivityModeListener?: () => void;
 	private cleanupViewModeListener?: () => void;
 	private api?: ExtractInjectionAPI<SyncedBlockPlugin>;
+	private syncBlockStore?: SyncBlockStoreManager;
 
 	constructor(props: BodiedSyncBlockNodeViewProps) {
 		super(
@@ -53,6 +57,7 @@ class BodiedSyncBlock extends ReactNodeView<BodiedSyncBlockNodeViewProps> {
 			props,
 		);
 		this.api = props.api;
+		this.syncBlockStore = props.syncBlockStore;
 		this.handleConnectivityModeChange();
 		this.handleViewModeChange();
 	}
@@ -111,7 +116,9 @@ class BodiedSyncBlock extends ReactNodeView<BodiedSyncBlockNodeViewProps> {
 	}
 
 	render(_props: never, forwardRef: ForwardRef) {
-		const syncBlockStore = this.api?.syncedBlock.sharedState?.currentState()?.syncBlockStore;
+		// Use passed syncBlockStore for SSR where sharedState.currentState() is delayed
+		const syncBlockStore =
+			this.api?.syncedBlock.sharedState?.currentState()?.syncBlockStore ?? this.syncBlockStore;
 
 		if (!syncBlockStore) {
 			return null;
@@ -130,9 +137,11 @@ class BodiedSyncBlock extends ReactNodeView<BodiedSyncBlockNodeViewProps> {
 
 	getContentDOM() {
 		const { dom, contentDOM } = DOMSerializer.renderSpec(document, toDOM());
-		if (dom instanceof HTMLElement) {
+		// In SSR, the first check won't work, so fallback to nodeType check
+		if (dom instanceof HTMLElement || (dom.nodeType === 1 && fg('platform_synced_block_patch_5'))) {
 			this.updateContentEditable({ contentDOM });
-			return { dom, contentDOM };
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
+			return { dom: dom as HTMLElement, contentDOM };
 		}
 
 		return undefined;
@@ -152,6 +161,7 @@ export interface BodiedSyncBlockNodeViewProperties {
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
 	pluginOptions: SyncedBlockPluginOptions | undefined;
 	pmPluginFactoryParams: PMPluginFactoryParams;
+	syncBlockStore?: SyncBlockStoreManager;
 }
 
 export const bodiedSyncBlockNodeView: (
@@ -161,21 +171,22 @@ export const bodiedSyncBlockNodeView: (
 	view: EditorView,
 	getPos: getPosHandler,
 ) => ReactNodeView<BodiedSyncBlockNodeViewProps> =
-	({ pluginOptions, pmPluginFactoryParams, api }: BodiedSyncBlockNodeViewProperties) =>
-	(
-		node: PMNode,
-		view: EditorView,
-		getPos: getPosHandler,
-	): ReactNodeView<BodiedSyncBlockNodeViewProps> => {
-		const { portalProviderAPI, eventDispatcher } = pmPluginFactoryParams;
+	({ pluginOptions, pmPluginFactoryParams, api, syncBlockStore }: BodiedSyncBlockNodeViewProperties) =>
+		(
+			node: PMNode,
+			view: EditorView,
+			getPos: getPosHandler,
+		): ReactNodeView<BodiedSyncBlockNodeViewProps> => {
+			const { portalProviderAPI, eventDispatcher } = pmPluginFactoryParams;
 
-		return new BodiedSyncBlock({
-			api,
-			pluginOptions,
-			node,
-			view,
-			getPos,
-			portalProviderAPI,
-			eventDispatcher,
-		}).init();
-	};
+			return new BodiedSyncBlock({
+				api,
+				pluginOptions,
+				node,
+				view,
+				getPos,
+				portalProviderAPI,
+				eventDispatcher,
+				syncBlockStore,
+			}).init();
+		};

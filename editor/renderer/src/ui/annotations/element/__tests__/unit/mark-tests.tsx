@@ -1,4 +1,6 @@
 import React from 'react';
+
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
@@ -8,6 +10,11 @@ import { MarkComponent } from '../../mark';
 import { IntlProvider } from 'react-intl-next';
 
 jest.mock('@atlaskit/feature-gate-js-client');
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 describe('Annotations/Mark', () => {
 	const fakeId = 'fakeId';

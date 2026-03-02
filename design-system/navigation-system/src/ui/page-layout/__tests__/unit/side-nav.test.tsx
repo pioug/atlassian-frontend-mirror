@@ -2,7 +2,6 @@ import React from 'react';
 
 import { renderToString } from 'react-dom/server';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
 import { act, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
@@ -223,7 +222,7 @@ describe('Side nav', () => {
 				}),
 			);
 			expect(onExpand).toHaveBeenCalledTimes(1);
-			expect(onExpand).toHaveBeenCalledWith({ screen: 'mobile' });
+			expect(onExpand).toHaveBeenCalledWith({ screen: 'mobile', trigger: 'toggle-button' });
 		});
 
 		it('should call onExpand when it is forcibly expanded for desktop', async () => {
@@ -264,10 +263,10 @@ describe('Side nav', () => {
 			// Change back to desktop
 			act(() => matches(true));
 			expect(onExpand).toHaveBeenCalledTimes(1);
-			expect(onExpand).toHaveBeenCalledWith({ screen: 'desktop' });
+			expect(onExpand).toHaveBeenCalledWith({ screen: 'desktop', trigger: 'screen-resize' });
 		});
 
-		ffTest.on('platform_dst_nav4_fhs_instrumentation_1', 'onExpand', () => {
+		describe('onExpand', () => {
 			it('should call onExpand with the correct screen and trigger type', async () => {
 				const user = userEvent.setup();
 				const onExpand = jest.fn();
@@ -521,7 +520,7 @@ describe('Side nav', () => {
 				}),
 			);
 			expect(onCollapse).toHaveBeenCalledTimes(1);
-			expect(onCollapse).toHaveBeenCalledWith({ screen: 'mobile' });
+			expect(onCollapse).toHaveBeenCalledWith({ screen: 'mobile', trigger: 'toggle-button' });
 		});
 
 		it('should not call onCollapse when transitioning to mobile', async () => {
@@ -553,7 +552,7 @@ describe('Side nav', () => {
 			expect(onCollapse).toHaveBeenCalledTimes(0);
 		});
 
-		ffTest.on('platform_dst_nav4_fhs_instrumentation_1', 'onCollapse', () => {
+		describe('onCollapse', () => {
 			it('should call onCollapse with the correct screen and trigger type', async () => {
 				const user = userEvent.setup();
 				const onCollapse = jest.fn();
@@ -1022,10 +1021,13 @@ describe('Side nav', () => {
 			await user.click(screen.getByTestId('outside-click-target'));
 			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'large');
 			expect(onCollapse).toHaveBeenCalledTimes(1);
-			expect(onCollapse).toHaveBeenCalledWith({ screen: 'mobile' });
+			expect(onCollapse).toHaveBeenCalledWith({
+				screen: 'mobile',
+				trigger: 'click-outside-on-mobile',
+			});
 		});
 
-		ffTest.on('platform_dst_nav4_fhs_instrumentation_1', 'onCollapse', () => {
+		describe('onCollapse', () => {
 			it('should collapse the side nav when the user clicks outside of the side nav on small viewports', async () => {
 				const user = userEvent.setup();
 				const onCollapse = jest.fn();

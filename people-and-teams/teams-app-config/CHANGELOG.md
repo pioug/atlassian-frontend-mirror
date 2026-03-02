@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-config
 
+## 1.12.13
+
+### Patch Changes
+
+- [`d6eb4412d0287`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d6eb4412d0287) -
+  fix hardcoding of urls in isolated cloud
+
 ## 1.12.12
 
 ### Patch Changes

@@ -1,3 +1,4 @@
+// eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import { getImportDeclaration } from '@hypermod/utils';
 import {
 	type API,

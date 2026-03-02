@@ -1,5 +1,13 @@
 # @atlaskit/adf-utils
 
+## 19.27.3
+
+### Patch Changes
+
+- [`aeb46591ec80a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aeb46591ec80a) -
+  [ux] EDITOR-5627 flexible task list indentation adf schema updates
+- Updated dependencies
+
 ## 19.27.2
 
 ### Patch Changes

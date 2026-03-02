@@ -1,5 +1,18 @@
 # @atlassian/navigation-system
 
+## 5.40.0
+
+### Minor Changes
+
+- [`d181fe4b076de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d181fe4b076de) -
+  Tidies the `platform_dst_nav4_fhs_instrumentation_1` feature gate. Analytics events for
+  `sideNavMenu viewedOnLoad` + `sideNavButton hovered` + `sideNav expanded` + `sideNav collapsed`
+  are now always fired.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.39.1
 
 ### Patch Changes

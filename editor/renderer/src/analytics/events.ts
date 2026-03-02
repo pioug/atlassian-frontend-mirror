@@ -343,6 +343,13 @@ type NestedTableTransformedAEP = OperationalAEP<
 	undefined
 >;
 
+type NativeEmbedsTransformedAEP = OperationalAEP<
+	ACTION.NATIVE_EMBEDS_TRANSFORMED,
+	ACTION_SUBJECT.RENDERER,
+	undefined,
+	undefined
+>;
+
 export type MediaRenderErrorEvent = UIAEP<
 	ACTION.ERRORED,
 	ACTION_SUBJECT.RENDERER,
@@ -406,6 +413,7 @@ export type AnalyticsEventPayload<_T = void> =
 	| MediaLnkTransformedAEP
 	| InvalidProsemirrorDocumentErrorAEP
 	| NestedTableTransformedAEP
+	| NativeEmbedsTransformedAEP
 	| MediaRenderErrorEvent
 	| SyncedBlockFetchErrorAEP
 	| SyncedBlockGetSourceInfoErrorAEP

@@ -45,10 +45,13 @@ export class Linter {
 	private readonly allowedDynamicKeys: AllowList;
 	private readonly allowedFunctionCalls: AllowList;
 
-	constructor(
-		private readonly context: Rule.RuleContext,
-		private readonly baseNode: CallExpression,
-	) {
+	private readonly context: Rule.RuleContext;
+	private readonly baseNode: CallExpression;
+
+	constructor(context: Rule.RuleContext, baseNode: CallExpression) {
+		this.context = context;
+		this.baseNode = baseNode;
+
 		this.allowedDynamicKeys = getAllowedDynamicKeys(context.options);
 		this.allowedFunctionCalls = getAllowedFunctionCalls(context.options);
 	}

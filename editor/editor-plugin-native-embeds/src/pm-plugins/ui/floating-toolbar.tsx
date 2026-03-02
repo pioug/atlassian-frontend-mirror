@@ -105,8 +105,6 @@ function createBuiltinToolbarRegistry(
 	handlers: EditorPluginNativeEmbedsToolbarHandlers | undefined,
 	currentAlignment: AlignmentValue,
 	selectedNativeEmbed: ContentNodeWithPos,
-	deleteHoverPropsFactory: DeleteHoverPropsFactory,
-	nodeType: NodeType,
 ): Record<string, FloatingToolbarItem<Command>> {
 	const alignmentOptions: DropdownOptionT<Command>[] = ALIGNMENT_VALUES.map((alignment) => ({
 		id: `native-embed-alignment-${alignment}`,
@@ -170,42 +168,37 @@ function createBuiltinToolbarRegistry(
 			focusEditoronEnter: true,
 			tabIndex: null,
 		},
-		[BUILTIN_TOOLBAR_KEYS.MORE_OPTIONS]: getMoreOptionsDropdown(
-			api,
-			selectedNativeEmbed,
-			deleteHoverPropsFactory(nodeType),
-		),
 	};
 }
 
 /**
- * Resolves toolbar items from the manifest's order array.
+ * Resolves toolbar items from the manifest's items array.
  * Looks up each key in the built-in registry or customActions.
  */
-function resolveToolbarItemsFromOrder(
-	order: string[],
+function resolveToolbarItemsFromItems(
+	items: string[],
 	builtinRegistry: Record<string, FloatingToolbarItem<Command>>,
 	customActions: Record<string, EditorToolbarAction> | undefined,
 	actionHandlers?: EditorPluginNativeEmbedsActionHandlers,
 ): FloatingToolbarItem<Command>[] {
-	const items: FloatingToolbarItem<Command>[] = [];
+	const resolvedItems: FloatingToolbarItem<Command>[] = [];
 
-	for (const key of order) {
+	for (const key of items) {
 		if (key === BUILTIN_TOOLBAR_KEYS.SEPARATOR) {
-			items.push({ type: 'separator' });
+			resolvedItems.push({ type: 'separator' });
 		} else if (key in builtinRegistry) {
-			items.push(builtinRegistry[key]);
+			resolvedItems.push(builtinRegistry[key]);
 		} else if (customActions && key in customActions) {
-			items.push(convertCustomActionToToolbarItem(customActions[key], actionHandlers));
+			resolvedItems.push(convertCustomActionToToolbarItem(customActions[key], actionHandlers));
 		}
 	}
 
-	return items;
+	return resolvedItems;
 }
 
 /**
  * Converts manifest-defined toolbar actions to FloatingToolbarItems.
- * Uses `order` array with built-in registry + custom actions.
+ * Uses `items` array with built-in registry + custom actions.
  */
 function convertManifestActionsToToolbarItems(
 	manifestActions: ManifestEditorToolbarActions,
@@ -213,11 +206,9 @@ function convertManifestActionsToToolbarItems(
 	handlers: EditorPluginNativeEmbedsToolbarHandlers | undefined,
 	currentAlignment: AlignmentValue,
 	selectedNativeEmbed: ContentNodeWithPos,
-	deleteHoverPropsFactory: DeleteHoverPropsFactory,
-	nodeType: NodeType,
 	actionHandlers?: EditorPluginNativeEmbedsActionHandlers,
 ): FloatingToolbarItem<Command>[] {
-	if (!manifestActions.order) {
+	if (!manifestActions.items) {
 		return [];
 	}
 
@@ -226,11 +217,9 @@ function convertManifestActionsToToolbarItems(
 		handlers,
 		currentAlignment,
 		selectedNativeEmbed,
-		deleteHoverPropsFactory,
-		nodeType,
 	);
-	return resolveToolbarItemsFromOrder(
-		manifestActions.order,
+	return resolveToolbarItemsFromItems(
+		manifestActions.items,
 		builtinRegistry,
 		manifestActions.customActions,
 		actionHandlers,
@@ -255,9 +244,21 @@ const DEFAULT_TOOLBAR_ITEMS: string[] = [
 	BUILTIN_TOOLBAR_KEYS.ALIGNMENT,
 	BUILTIN_TOOLBAR_KEYS.SEPARATOR,
 	BUILTIN_TOOLBAR_KEYS.OPEN_IN_NEW_WINDOW,
-	BUILTIN_TOOLBAR_KEYS.SEPARATOR,
-	BUILTIN_TOOLBAR_KEYS.MORE_OPTIONS,
 ];
+
+/**
+ * Resolves the DOM element to anchor the toolbar to, so it stays underneath the
+ * aligned embed (left/center/right/wrap-left/wrap-right) instead of the full-width wrapper.
+ * Prefers .extension-container when present (as child or ancestor).
+ */
+export function getToolbarAnchorElement(node: Node | null): HTMLElement | undefined {
+	if (!(node instanceof HTMLElement)) {
+		return undefined;
+	}
+	const container =
+		node.querySelector('.extension-container') ?? node.closest('.extension-container');
+	return (container instanceof HTMLElement ? container : node);
+}
 
 /**
  * Returns the default toolbar items when no manifest actions are provided.
@@ -267,18 +268,14 @@ function getDefaultToolbarItems(
 	handlers: EditorPluginNativeEmbedsToolbarHandlers | undefined,
 	currentAlignment: AlignmentValue,
 	selectedNativeEmbed: ContentNodeWithPos,
-	deleteHoverPropsFactory: DeleteHoverPropsFactory,
-	nodeType: NodeType,
 ): FloatingToolbarItem<Command>[] {
 	const builtinRegistry = createBuiltinToolbarRegistry(
 		api,
 		handlers,
 		currentAlignment,
 		selectedNativeEmbed,
-		deleteHoverPropsFactory,
-		nodeType,
 	);
-	return resolveToolbarItemsFromOrder(DEFAULT_TOOLBAR_ITEMS, builtinRegistry, undefined, undefined);
+	return resolveToolbarItemsFromItems(DEFAULT_TOOLBAR_ITEMS, builtinRegistry, undefined, undefined);
 }
 
 export const getToolbarConfig =
@@ -310,7 +307,7 @@ export const getToolbarConfig =
 		const getDomRef = (view: EditorView) => {
 			try {
 				const node = findDomRefAtPos(selectedNativeEmbed.pos, view.domAtPos.bind(view));
-				return node instanceof HTMLElement ? node : undefined;
+				return getToolbarAnchorElement(node);
 			} catch {
 				return undefined;
 			}
@@ -323,30 +320,43 @@ export const getToolbarConfig =
 		const manifestActions = url ? getEditorToolbarActions?.(url) : undefined;
 
 		// Convert manifest actions to FloatingToolbarItems, or fall back to default items
-		const items = manifestActions
+		const items: FloatingToolbarItem<Command>[] = manifestActions
 			? convertManifestActionsToToolbarItems(
 					manifestActions,
 					api,
 					handlers,
 					currentAlignment,
 					selectedNativeEmbed,
-					deleteHoverPropsFactory,
-					nodeType,
 					actionHandlers,
 				)
-			: getDefaultToolbarItems(
+			: getDefaultToolbarItems(api, handlers, currentAlignment, selectedNativeEmbed);
+
+		// Auto-append the "More Options" dropdown when there are items to show.
+		// Default toolbar (no manifest): always show with default items.
+		// Manifest toolbar: only show when moreItems is provided with items.
+		const showMoreOptions = manifestActions?.moreItems
+			? Boolean(manifestActions.moreItems?.length)
+			: true;
+
+		if (showMoreOptions) {
+			items.push(
+				{ type: 'separator' },
+				getMoreOptionsDropdown(
 					api,
-					handlers,
-					currentAlignment,
 					selectedNativeEmbed,
-					deleteHoverPropsFactory,
-					nodeType,
-				);
+					deleteHoverPropsFactory(nodeType),
+					manifestActions?.moreItems as string[] | undefined,
+					manifestActions?.customActions,
+					actionHandlers,
+				),
+			);
+		}
 
 		return {
 			title: 'Native Embed floating toolbar',
 			getDomRef,
 			nodeType: state.schema.nodes.extension,
+			offset: [0, 8],
 			items,
 		};
 	};

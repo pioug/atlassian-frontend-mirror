@@ -10,6 +10,7 @@ import { extractPlaceHolderCardState } from '../../extractors/flexible/extract-p
 import { FlexibleCardContext, type FlexibleCardContextType } from '../../state/flexible-ui-context';
 import { useAISummaryConfig } from '../../state/hooks/use-ai-summary-config';
 import useResolve from '../../state/hooks/use-resolve';
+import useRovoConfig from '../../state/hooks/use-rovo-config';
 
 import Container from './components/container';
 import { type FlexibleCardProps } from './types';
@@ -46,6 +47,11 @@ const FlexibleCard = ({
 	const resolve = useResolve();
 	const { isPreviewPanelAvailable, openPreviewPanel } = useSmartLinkContext();
 
+	const rovoConfig = fg('platform_sl_3p_auth_rovo_action_kill_switch')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useRovoConfig()
+		: undefined;
+
 	const { fireEvent } = useAnalyticsEvents();
 
 	const { status: cardType, details } = cardState;
@@ -77,6 +83,7 @@ const FlexibleCard = ({
 				origin,
 				renderers,
 				resolve,
+				...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ? { rovoConfig } : undefined),
 				actionOptions,
 				status: placeholderCardState ? placeHolderStatus : status,
 				url,
@@ -98,6 +105,7 @@ const FlexibleCard = ({
 			placeHolderStatus,
 			renderers,
 			resolve,
+			rovoConfig,
 			status,
 			url,
 			fireEvent,

@@ -17,7 +17,7 @@ import { canShowAction } from '../../utils/actions/can-show-action';
 import { type AnalyticsOrigin } from '../../utils/types';
 import {
 	CardAction,
-	type CardActionOptions,
+	type InternalCardActionOptions as CardActionOptions,
 	type CardInnerAppearance,
 } from '../../view/Card/types';
 import { extractInvokePreviewAction } from '../action/extract-invoke-preview-action';

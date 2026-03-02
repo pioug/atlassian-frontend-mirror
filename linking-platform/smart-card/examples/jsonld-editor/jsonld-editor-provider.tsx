@@ -38,7 +38,7 @@ const JsonldEditorProvider = ({
 			client={client}
 			isAdminHubAIEnabled={true}
 			product="CONFLUENCE"
-			rovoOptions={{ isRovoEnabled: true, isRovoLLMEnabled: false }}
+			rovoOptions={{ isRovoEnabled: true, isRovoLLMEnabled: true }}
 		>
 			{children}
 		</SmartCardProvider>

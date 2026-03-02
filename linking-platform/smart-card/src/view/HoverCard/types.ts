@@ -7,7 +7,7 @@ import { type SmartLinkResponse } from '@atlaskit/linking-types';
 
 import type { ActionName } from '../../constants';
 import { type AnalyticsHandler } from '../../utils/types';
-import type { CardActionOptions } from '../Card/types';
+import type { CardActionOptions, InternalCardActionOptions } from '../Card/types';
 
 export interface HoverCardProps extends WithAnalyticsEventsProps {
 	/**
@@ -94,21 +94,22 @@ export interface HoverCardProps extends WithAnalyticsEventsProps {
  * or experiment props that will not be or are yet ready to be available on
  * standalone hover card.
  */
-export interface HoverCardInternalProps {
+export interface HoverCardInternalProps extends HoverCardProps {
+	actionOptions?: InternalCardActionOptions;
 	/**
 	 * Suspend hover card UI delays (fade-in, fade-out) for VR testing purposes.
 	 */
 	noFadeDelay?: boolean;
 }
 
-export interface HoverCardComponentProps extends HoverCardProps, HoverCardInternalProps {
+export interface HoverCardComponentProps extends HoverCardInternalProps {
 	analyticsHandler?: AnalyticsHandler;
 	canOpen?: boolean;
 	closeOnChildClick?: boolean;
 }
 
 export type HoverCardContentProps = {
-	actionOptions?: CardActionOptions;
+	actionOptions?: InternalCardActionOptions;
 	cardState: CardState;
 	hoverPreviewOptions?: HoverPreviewOptions;
 	id?: string;

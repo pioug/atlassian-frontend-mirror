@@ -16,4 +16,14 @@ export const messages = defineMessages({
 		defaultMessage: 'Mark task as not completed',
 		description: 'Button to mark a task as not complete in the editor',
 	},
+	decisionAriaLabel: {
+		id: 'platform.taskDecision.decisionAriaLabel',
+		defaultMessage: 'Decision',
+		description: 'Descriptive text for a decision element',
+	},
+	undefinedDecisionAriaLabel: {
+		id: 'platform.taskDecision.undefinedDecisionAriaLabel',
+		defaultMessage: 'Undefined decision',
+		description: 'Descriptive text for an undefined decision element',
+	},
 });

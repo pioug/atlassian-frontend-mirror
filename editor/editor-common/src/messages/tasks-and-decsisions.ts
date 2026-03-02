@@ -48,4 +48,14 @@ export const tasksAndDecisionsMessages = defineMessages({
 		defaultMessage: 'Task list',
 		description: 'Label for the task list in the editor',
 	},
+	decisionAriaLabel: {
+		id: 'fabric.editor.decisionAriaLabel',
+		defaultMessage: 'Decision',
+		description: 'Descriptive text for a decision element',
+	},
+	undefinedDecisionAriaLabel: {
+		id: 'fabric.editor.undefinedDecisionAriaLabel',
+		defaultMessage: 'Undefined decision',
+		description: 'Descriptive text for an undefined decision element',
+	},
 });

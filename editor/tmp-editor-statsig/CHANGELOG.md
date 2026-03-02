@@ -1,5 +1,23 @@
 # @atlaskit/editor-statsig-tmp
 
+## 32.4.0
+
+### Minor Changes
+
+- [`d78ff724d3bce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d78ff724d3bce) -
+  Add editor_a11y_decision_aria_label boolean experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.3.0
+
+### Minor Changes
+
+- [`4446a5fc716d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4446a5fc716d9) -
+  [ux] proactively catch up on ncs connected
+
 ## 32.2.0
 
 ### Minor Changes

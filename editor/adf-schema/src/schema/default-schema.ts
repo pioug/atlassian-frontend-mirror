@@ -8,6 +8,7 @@ import {
 	expandWithNestedExpand,
 	tableWithNestedTable,
 	listItemWithFlexibleFirstChildStage0,
+	taskListWithFlexibleFirstChildStage0,
 	tableRowWithNestedTable,
 	tableCellWithNestedTable,
 	tableHeaderWithNestedTable,
@@ -171,7 +172,7 @@ const getDefaultSchemaConfig = (): SchemaConfig<DefaultSchemaNodes, DefaultSchem
 };
 
 export const defaultSchemaConfig: SchemaConfig<DefaultSchemaNodes, DefaultSchemaMarks> =
-	getDefaultSchemaConfig();
+getDefaultSchemaConfig();
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getSchemaBasedOnStage: MemoizedFn<
@@ -188,6 +189,7 @@ export const getSchemaBasedOnStage: MemoizedFn<
 				extensionFrame: extensionFrame,
 				expand: expandWithNestedExpand,
 				listItem: listItemWithFlexibleFirstChildStage0,
+				taskList: taskListWithFlexibleFirstChildStage0,
 				table: tableWithNestedTable,
 				tableRow: tableRowWithNestedTable,
 				tableCell: tableCellWithNestedTable,

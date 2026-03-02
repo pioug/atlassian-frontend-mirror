@@ -723,11 +723,7 @@ async function createInteractionMetricsPayload(
 
 				'ufo:isTabThrottled': isTabThrottled(start, end),
 
-				...(fg('platform_ufo_page_visibility_timeline')
-					? {
-							'ufo:pageVisibilityTimeline': getPageVisibilityTimeline(start, end),
-						}
-					: {}),
+				'ufo:pageVisibilityTimeline': getPageVisibilityTimeline(start, end),
 
 				...(fg('ufo_detect_aborting_interaction_during_ssr')
 					? {

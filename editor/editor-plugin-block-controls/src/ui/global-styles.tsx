@@ -423,7 +423,7 @@ const quickInsertStyles = () =>
 			maxWidth: '240px',
 			backgroundColor: token('color.background.neutral.bold'),
 			color: token('color.text.inverse'),
-			font: token('font.body.UNSAFE_small'),
+			font: token('font.body.small'),
 			insetBlockStart: token('space.0', '0px'),
 			insetInlineStart: token('space.0', '0px'),
 			overflowWrap: 'break-word',

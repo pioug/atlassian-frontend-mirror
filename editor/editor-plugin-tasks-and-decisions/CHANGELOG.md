@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 10.2.0
+
+### Minor Changes
+
+- [`d78ff724d3bce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d78ff724d3bce) -
+  i18n aria labels for decision image icon (either Decision or Undefined decision)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.28
+
+### Patch Changes
+
+- [`aeb46591ec80a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aeb46591ec80a) -
+  [ux] EDITOR-5627 flexible task list indentation adf schema updates
+- Updated dependencies
+
 ## 10.1.27
 
 ### Patch Changes

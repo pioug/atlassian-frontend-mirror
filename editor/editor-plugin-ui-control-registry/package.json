@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-ui-control-registry",
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"description": "UiControlRegistry plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -31,6 +31,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
+		"@atlaskit/editor-ui-control-model": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {

@@ -4,7 +4,7 @@
     "paths": {}
   },
   "include": [
-    "../src/**/*.ts"
+    "../src/**/*.tsx"
   ],
   "exclude": [
     "../src/**/__tests__/*",

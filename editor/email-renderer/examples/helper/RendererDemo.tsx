@@ -107,8 +107,6 @@ export default class RendererDemo extends React.Component<DemoRendererProps, Dem
 	render(): React.JSX.Element {
 		return (
 			<div
-				// eslint-disable-next-line react/no-string-refs -- Ignored via go/ED-25883
-				ref="root"
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={{ padding: token('space.250', '20px') }}
 			>

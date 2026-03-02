@@ -1,5 +1,17 @@
 # @atlaskit/profilecard
 
+## 24.38.0
+
+### Minor Changes
+
+- [`6162db4501346`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6162db4501346) -
+  [ux] Removes feature gate rovo_agent_show_creator_on_profile_card_fix and deprecated function to
+  get creator details.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.37.3
 
 ### Patch Changes

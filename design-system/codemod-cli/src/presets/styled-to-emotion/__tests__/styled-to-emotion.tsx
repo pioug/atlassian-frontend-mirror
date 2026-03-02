@@ -1,8 +1,8 @@
 jest.autoMockOff();
 
-const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
-
 import transformer from '../styled-to-emotion';
+
+const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('Transform import', () => {
 	defineInlineTest(

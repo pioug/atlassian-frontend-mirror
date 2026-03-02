@@ -4,7 +4,10 @@ import { type AISummaryActionData } from '../../../state/flexible-ui-context/typ
 import { type AISummaryConfig } from '../../../state/hooks/use-ai-summary-config/types';
 import { canShowAction } from '../../../utils/actions/can-show-action';
 import { getIsAISummaryEnabled } from '../../../utils/ai-summary';
-import { CardAction, type CardActionOptions } from '../../../view/Card/types';
+import {
+	CardAction,
+	type InternalCardActionOptions as CardActionOptions,
+} from '../../../view/Card/types';
 
 export const extractAISummaryAction = (
 	response: JsonLd.Response,

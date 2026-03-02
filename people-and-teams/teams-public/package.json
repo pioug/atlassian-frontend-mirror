@@ -78,6 +78,7 @@
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
+		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ptc-test-utils": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
@@ -121,7 +122,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.70.1",
+	"version": "0.70.2",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

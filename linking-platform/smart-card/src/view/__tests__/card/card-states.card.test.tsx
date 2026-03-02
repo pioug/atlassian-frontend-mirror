@@ -23,7 +23,7 @@ import { useControlDataExportConfig } from '../../../state/hooks/use-control-dat
 import { fakeFactory, mockGenerator, mocks } from '../../../utils/mocks';
 import { getIsDataExportEnabled } from '../../../utils/should-data-export';
 import { Card } from '../../Card';
-import type { CardActionOptions } from '../../Card/types';
+import type { InternalCardActionOptions as CardActionOptions } from '../../Card/types';
 
 const mockUrl = 'https://some.url';
 

@@ -1,15 +1,11 @@
 import React from 'react';
-import { md, Example, TSProps, code, DevPreviewWarning } from '@atlaskit/docs';
+import { md, Example, TSProps, code, DevPreviewWarning, type DocsTabs } from '@atlaskit/docs';
 
-// This is used by the website generator to define which components are tabs, and the tab order.
-// If this export is not present, tabs are generated in case-sensitive alphabetical-order (not source-code order).
-export const _PageTabs: string[] = ['Code', 'Usage'];
-
-export const Code: React.JSX.Element = (
+const Code: React.JSX.Element = (
 	<TSProps props={require('!!@af/ts-morph-loader?export=Notifications!../src/Notifications.tsx')} />
 );
 
-export const Usage: any = md`
+const Usage: any = md`
   ${(<DevPreviewWarning />)}
 
   ## Usage
@@ -25,3 +21,16 @@ export const Usage: any = md`
 		/>
 	)}
 `;
+
+// This is used by the website generator to define which components are tabs, and the tab order.
+// If this export is not present, tabs are generated in case-sensitive alphabetical-order (not source-code order).
+export const _DocsTabs: DocsTabs = [
+	{
+		content: Code,
+		name: 'Code',
+	},
+	{
+		content: Usage,
+		name: 'Usage',
+	},
+];

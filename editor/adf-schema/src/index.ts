@@ -122,6 +122,7 @@ export {
 	blockTaskItem,
 	taskList,
 	taskListSelector,
+	taskListWithFlexibleFirstChildStage0,
 	text,
 	textColor,
 	toJSONTableCell,

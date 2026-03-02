@@ -57,10 +57,16 @@
 			"path": "../elements-test-helpers/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/icon/tsconfig.app.json"
+		},
+		{
 			"path": "../../editor/renderer/tsconfig.app.json"
 		},
 		{
 			"path": "../../../build/test-tooling/ssr/tsconfig.app.json"
+		},
+		{
+			"path": "../../editor/tmp-editor-statsig/tsconfig.app.json"
 		},
 		{
 			"path": "../util-data-test/tsconfig.app.json"

@@ -25,6 +25,7 @@ export type SetUpParams = {
 	mock?: any;
 	mockFetch?: () => unknown;
 	product?: ProductType;
+	rovoOptions?: React.ComponentProps<typeof Provider>['rovoOptions'];
 	storeOptions?: React.ComponentProps<typeof Provider>['storeOptions'];
 	testId?: string;
 	userEventOptions?: {
@@ -45,6 +46,7 @@ export const setup = async ({
 	component,
 	extraCardProps,
 	mockFetch = jest.fn(() => Promise.resolve(mock)),
+	rovoOptions,
 	storeOptions,
 	userEventOptions = { delay: null },
 	product,
@@ -65,7 +67,12 @@ export const setup = async ({
 			<FabricAnalyticsListeners client={mockAnalyticsClient}>
 				<AnalyticsListener channel={analytics.ANALYTICS_CHANNEL} onEvent={analyticsSpy}>
 					<IntlProvider locale="en">
-						<Provider client={mockClient} product={product} storeOptions={storeOptions}>
+						<Provider
+							client={mockClient}
+							product={product}
+							rovoOptions={rovoOptions}
+							storeOptions={storeOptions}
+						>
 							{component ? (
 								component
 							) : (

@@ -3,6 +3,7 @@
  * @jsx jsx
  */
 
+// @ts-ignore - missing types for string-raw
 import stringRaw from 'string-raw';
 import CodeBlock from '@atlaskit/code/block';
 import { cssMap, jsx } from '@compiled/react';
@@ -23,8 +24,8 @@ const wrapperStyles = cssMap({
  */
 export default function code(
 	// Tagged Template Literal support is still WIP for flow: https://github.com/facebook/flow/issues/2616
-	sources,
-	...substitutions
+	sources: any,
+	...substitutions: any[]
 ) {
 	let source = stringRaw(sources, substitutions);
 	const highlightRaw = /^highlight=(.*)/.exec(source);

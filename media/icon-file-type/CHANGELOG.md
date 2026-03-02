@@ -1,5 +1,19 @@
 # @atlaskit/icon-file-type
 
+## 7.0.12
+
+### Patch Changes
+
+- [`e853b1fd9d7ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e853b1fd9d7ce) -
+  Use package export pattern for internal icon to fix AFM and published package compatibility.
+
+## 7.0.11
+
+### Patch Changes
+
+- [`df0ac7e2afd63`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df0ac7e2afd63) -
+  Remove reference to icon-priority within codemod
+
 ## 7.0.10
 
 ### Patch Changes

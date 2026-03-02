@@ -97,6 +97,7 @@ export {
 	blockTaskItem,
 	taskList,
 	taskListSelector,
+	taskListWithFlexibleFirstChildStage0,
 	text,
 	toJSONTableCell,
 	toJSONTableHeader,

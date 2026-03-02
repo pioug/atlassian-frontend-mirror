@@ -389,7 +389,7 @@ describe('Side nav keyboard shortcut', () => {
 		});
 
 		// Trigger info is behind separate instrumentation flag
-		ffTest.on('platform_dst_nav4_fhs_instrumentation_1', 'analytics', () => {
+		describe('analytics', () => {
 			it('should set the correct trigger type', async () => {
 				const user = userEvent.setup();
 				setMediaQuery('(min-width: 64rem)', { initial: true });

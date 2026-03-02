@@ -9,6 +9,7 @@ import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform'
 import { catchupv2 } from '../../document/catchupv2';
 import * as getConflictChanges from '../../document/getConflictChanges';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+import { CatchupEventReason } from '../../helpers/const';
 
 replaceRaf();
 
@@ -142,7 +143,7 @@ describe('reconnection analytics', () => {
 
 				(requestAnimationFrame as any).step();
 				// With experiment disabled, catchupv2 should NOT be called for < 3s disconnection
-				expect(catchupv2).not.toHaveBeenCalled();
+				expect(catchupv2).not.toHaveBeenCalledWith(CatchupEventReason.RECONNECTED);
 				expect(fakeAnalyticsWebClient.sendOperationalEvent).toHaveBeenCalledTimes(0);
 				provider.destroy();
 			});

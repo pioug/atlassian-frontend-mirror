@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 
 import usePreviousValue from '@atlaskit/ds-lib/use-previous-value';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type SideNavTrigger } from './types';
 
@@ -52,17 +51,9 @@ export function useSideNavVisibilityCallbacks({
 		}
 
 		if (isExpandedOnDesktop) {
-			if (fg('platform_dst_nav4_fhs_instrumentation_1')) {
-				onExpandRef.current?.({ screen: 'desktop', trigger: lastTrigger });
-			} else {
-				onExpandRef.current?.({ screen: 'desktop' });
-			}
+			onExpandRef.current?.({ screen: 'desktop', trigger: lastTrigger });
 		} else {
-			if (fg('platform_dst_nav4_fhs_instrumentation_1')) {
-				onCollapseRef.current?.({ screen: 'desktop', trigger: lastTrigger });
-			} else {
-				onCollapseRef.current?.({ screen: 'desktop' });
-			}
+			onCollapseRef.current?.({ screen: 'desktop', trigger: lastTrigger });
 		}
 	}, [previousIsExpandedOnDesktop, isExpandedOnDesktop, lastTrigger]);
 
@@ -83,17 +74,9 @@ export function useSideNavVisibilityCallbacks({
 		}
 
 		if (isExpandedOnMobile) {
-			if (fg('platform_dst_nav4_fhs_instrumentation_1')) {
-				onExpandRef.current?.({ screen: 'mobile', trigger: lastTrigger });
-			} else {
-				onExpandRef.current?.({ screen: 'mobile' });
-			}
+			onExpandRef.current?.({ screen: 'mobile', trigger: lastTrigger });
 		} else {
-			if (fg('platform_dst_nav4_fhs_instrumentation_1')) {
-				onCollapseRef.current?.({ screen: 'mobile', trigger: lastTrigger });
-			} else {
-				onCollapseRef.current?.({ screen: 'mobile' });
-			}
+			onCollapseRef.current?.({ screen: 'mobile', trigger: lastTrigger });
 		}
 	}, [previousIsExpandedOnMobile, isExpandedOnMobile, lastTrigger]);
 }

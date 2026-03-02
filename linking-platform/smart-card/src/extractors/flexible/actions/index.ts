@@ -1,11 +1,16 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type FireEventFunction } from '../../../common/analytics/types';
 import { ActionName, InternalActionName } from '../../../constants';
 import { type FlexibleUiActions } from '../../../state/flexible-ui-context/types';
 import { type AISummaryConfig } from '../../../state/hooks/use-ai-summary-config/types';
+import type { RovoConfig } from '../../../state/hooks/use-rovo-config';
 import { type AnalyticsOrigin } from '../../../utils/types';
-import { type CardActionOptions, type CardInnerAppearance } from '../../../view/Card/types';
+import {
+	type InternalCardActionOptions as CardActionOptions,
+	type CardInnerAppearance,
+} from '../../../view/Card/types';
 
 import { extractAISummaryAction } from './extract-ai-summary-action';
 import { extractAutomationAction } from './extract-automation-action';
@@ -13,6 +18,7 @@ import { extractCopyLinkClientAction } from './extract-copy-link-action';
 import { extractDownloadClientAction } from './extract-download-action';
 import extractFollowAction from './extract-follow-action';
 import { extractPreviewClientAction } from './extract-preview-action';
+import extractRovoChatAction from './extract-rovo-chat-action';
 import { extractViewRelatedLinksAction } from './extract-view-related-links-action';
 
 export type ExtractActionsParam = {
@@ -31,6 +37,7 @@ export type ExtractActionsParam = {
 	}) => void;
 	origin?: AnalyticsOrigin;
 	response: JsonLd.Response;
+	rovoConfig?: RovoConfig;
 	url?: string;
 };
 
@@ -42,6 +49,7 @@ export const extractFlexibleCardActions = ({
 	id,
 	origin,
 	response,
+	rovoConfig,
 	url,
 	isPreviewPanelAvailable,
 	openPreviewPanel,
@@ -77,6 +85,15 @@ export const extractFlexibleCardActions = ({
 			actionOptions,
 			aiSummaryConfig,
 		),
+		...(fg('platform_sl_3p_auth_rovo_action_kill_switch')
+			? {
+					[InternalActionName.RovoChatAction]: extractRovoChatAction(
+						response,
+						rovoConfig,
+						actionOptions,
+					),
+				}
+			: undefined),
 		[InternalActionName.ViewRelatedLinksAction]: extractViewRelatedLinksAction(response),
 	};
 

@@ -80,6 +80,13 @@ export const editorExperimentsConfig: {
 		typeGuard: (value: unknown) => value is 'control' | 'test';
 		values: ('control' | 'test')[];
 	};
+	// Added 2026-02-20
+	editor_a11y_decision_aria_label: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 03-09-2025
 	cc_editor_interactivity_monitoring: {
 		defaultValue: boolean;
@@ -1273,6 +1280,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-02-27
+	platform_editor_early_exit_return_draft: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 } = {
 	// new format to avoid collisions with other users when updating the file
 
@@ -1299,6 +1313,15 @@ export const editorExperimentsConfig: {
 	cc_fix_hydration_ttvc: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_fix_hydration_ttvc',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-02-20
+	editor_a11y_decision_aria_label: createBooleanExperiment({
+		productKeys: {
+			confluence: 'editor_a11y_decision_aria_label',
+			jira: 'editor_a11y_decision_aria_label',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2724,6 +2747,14 @@ export const editorExperimentsConfig: {
 	platform_editor_a11y_typeahead_tab_keypress: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_a11y_typeahead_tab_keypress',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-02-27
+	platform_editor_early_exit_return_draft: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_early_exit_return_draft',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

@@ -257,9 +257,6 @@
 		},
 		"platform_ufo_enable_killswitch_config": {
 			"type": "boolean"
-		},
-		"platform_ufo_page_visibility_timeline": {
-			"type": "boolean"
 		}
 	}
 }

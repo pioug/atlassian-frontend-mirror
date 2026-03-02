@@ -3,12 +3,15 @@
  * @jsx jsx
  */
 import { css, jsx } from '@compiled/react';
+import { useIntl } from 'react-intl-next';
 
 import DecisionIcon from '@atlaskit/icon/core/decision';
-
-import Item from './Item';
-import { type Appearance, type ContentRef } from '../types';
 import { token } from '@atlaskit/tokens';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
+import { type Appearance, type ContentRef } from '../types';
+import Item from './Item';
+import { messages } from './i18n';
 
 const iconStyles = css({
 	flex: '0 0 16px',
@@ -45,10 +48,22 @@ const DecisionItem = ({
 	placeholder,
 	showPlaceholder,
 	dataAttributes,
-}: Props) => {
+	}: Props) => {
+		const { formatMessage } = useIntl();
+
 	const icon = (
 		<span contentEditable={false} css={[iconStyles, showPlaceholder && iconStylesWithPlaceholder]}>
-			<DecisionIcon label="Decision" spacing="spacious" color="currentColor" />
+			<DecisionIcon
+				label={
+					expValEquals('editor_a11y_decision_aria_label', 'isEnabled', true)
+						? showPlaceholder && children === undefined
+							? formatMessage(messages.undefinedDecisionAriaLabel)
+							: formatMessage(messages.decisionAriaLabel)
+						: 'Decision'
+				}
+				spacing="spacious"
+				color="currentColor"
+			/>
 		</span>
 	);
 

@@ -18,7 +18,7 @@ import type {
  * For Oasis EAP, reserved names are assumed to exist in every IC.
  */
 export const ReservedNameMapping: IsolatedCloudDomainTypeEnumeration = {
-	[COMMERCIAL]: ['home', 'start', 'id', 'api', 'admin', 'auth', 'bitbucket'],
+	[COMMERCIAL]: ['home', 'team', 'start', 'id', 'api', 'admin', 'auth', 'bitbucket'],
 };
 
 /**

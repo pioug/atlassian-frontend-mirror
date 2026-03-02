@@ -36,6 +36,9 @@
 	"references": [
 		{
 			"path": "../editor-common/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-ui-control-model/tsconfig.app.json"
 		}
 	]
 }

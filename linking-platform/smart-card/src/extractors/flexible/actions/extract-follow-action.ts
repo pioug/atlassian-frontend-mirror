@@ -5,7 +5,10 @@ import { SmartLinkActionType } from '@atlaskit/linking-types';
 import { type ServerActionProp } from '../../../state/flexible-ui-context/types';
 import { getExtensionKey } from '../../../state/helpers';
 import { canShowAction } from '../../../utils/actions/can-show-action';
-import { CardAction, type CardActionOptions } from '../../../view/Card/types';
+import {
+	CardAction,
+	type InternalCardActionOptions as CardActionOptions,
+} from '../../../view/Card/types';
 import extractServerAction from '../extract-server-action';
 
 const extractFollowAction = (

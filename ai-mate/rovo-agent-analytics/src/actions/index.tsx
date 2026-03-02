@@ -10,7 +10,7 @@ import { ANALYTICS_CHANNEL } from '../common/constants';
 import type { BaseAgentAnalyticsAttributes, RemainingRequired } from '../common/types';
 import { getAttributesFromContexts, getDefaultTrackEventConfig } from '../common/utils';
 
-import type { AgentToolActions, ToolsExecutionAttributes } from './tool-actions';
+import type { AgentToolActions, ToolsExecutionAttributes, ToolsExecutionResultAttributes } from './tool-actions';
 
 export enum AgentDebugActions {
 	/* View debug modal - https://data-portal.internal.atlassian.com/analytics/registry/97183 */
@@ -70,7 +70,7 @@ type ActionAttributes = {
 	/* Tool actions attributes */
 	[AgentToolActions.TOOLS_EXECUTION_CONFIRMED]: ToolsExecutionAttributes;
 	[AgentToolActions.TOOLS_EXECUTION_STREAM_STOPPED]: ToolsExecutionAttributes;
-	[AgentToolActions.TOOLS_EXECUTION_RESULT_VIEWED]: ToolsExecutionAttributes;
+	[AgentToolActions.TOOLS_EXECUTION_RESULT_VIEWED]: ToolsExecutionResultAttributes;
 	[AgentToolActions.TOOLS_EXECUTION_RESULT_ERROR]: ToolsExecutionAttributes;
 };
 

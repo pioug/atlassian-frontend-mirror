@@ -881,6 +881,7 @@ export const listItem_with_flexible_first_child = [
             'bulletList',
             'orderedList',
             'taskList',
+            'taskList_with_flexible_first_child',
             'mediaSingle_caption',
             'mediaSingle_full',
             'codeBlock',
@@ -1513,6 +1514,20 @@ export const taskList = {
     },
   },
 };
+
+export const taskList_with_flexible_first_child = [
+  'taskList',
+  {
+    props: {
+      content: {
+        type: 'array',
+        items: [['taskItem', 'taskList', 'blockTaskItem']],
+        minItems: 1,
+        allowUnsupportedBlock: true,
+      },
+    },
+  },
+];
 
 export const text = {
   props: {

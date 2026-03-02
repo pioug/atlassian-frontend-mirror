@@ -10,6 +10,7 @@ import {
 	extractSmartLinkUrl,
 	extractType,
 } from '@atlaskit/link-extractors';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type FlexibleUiDataContext } from '../../state/flexible-ui-context/types';
 import { isNewBlockcardUnauthorizedRefreshExperimentEnabled } from '../../utils/experiments';
@@ -61,6 +62,7 @@ const extractFlexibleUiContext = ({
 	onClick,
 	origin,
 	resolve,
+	rovoConfig,
 	actionOptions,
 	response,
 	status,
@@ -85,6 +87,7 @@ const extractFlexibleUiContext = ({
 			fireEvent,
 			id,
 			origin,
+			...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ? { rovoConfig } : undefined),
 			response,
 			url: props.url, // Use the original URL in edge cases, such as short links for AI summary and copy link actions.
 			isPreviewPanelAvailable,

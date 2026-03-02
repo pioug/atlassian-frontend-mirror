@@ -1,5 +1,16 @@
 # @atlaskit/task-decision
 
+## 19.3.0
+
+### Minor Changes
+
+- [`d78ff724d3bce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d78ff724d3bce) -
+  i18n aria labels for the Decision and if a decision is undefined provide an appropriate label
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.2.24
 
 ### Patch Changes

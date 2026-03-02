@@ -4,22 +4,23 @@ export type EvaluationDetails = {
 	reason: EvaluationReason;
 };
 
-export enum EvaluationReason {
+export const EvaluationReason = {
 	// Order is important since the logic for migrating from a new client reason to an old one
 	// returns the first which is a substring of the new client reason
-	Error = 'Error',
-	LocalOverride = 'LocalOverride',
-	Unrecognized = 'Unrecognized',
-	Uninitialized = 'Uninitialized',
-	NetworkNotModified = 'NetworkNotModified',
-	Network = 'Network',
-	InvalidBootstrap = 'InvalidBootstrap',
-	Bootstrap = 'Bootstrap',
-	Cache = 'Cache',
+	Error: 'Error',
+	LocalOverride: 'LocalOverride',
+	Unrecognized: 'Unrecognized',
+	Uninitialized: 'Uninitialized',
+	NetworkNotModified: 'NetworkNotModified',
+	Network: 'Network',
+	InvalidBootstrap: 'InvalidBootstrap',
+	Bootstrap: 'Bootstrap',
+	Cache: 'Cache',
 
 	// For when we could not migrate the reason from the new client
-	Unknown = 'Unknown',
-}
+	Unknown: 'Unknown',
+} as const;
+export type EvaluationReason = (typeof EvaluationReason)[keyof typeof EvaluationReason]
 
 // Reference: https://github.com/statsig-io/js-lite/blob/main/src/StatsigSDKOptions.ts
 export type StatsigOptions = {

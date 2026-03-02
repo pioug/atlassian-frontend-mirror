@@ -15,18 +15,19 @@ import '@atlaskit/link-test-helpers/jest';
 
 import React from 'react';
 
-import { act, render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
+import { CardSSR } from '../../../ssr.tsx';
 import * as useSmartCardActions from '../../../state/actions';
 import { fakeFactory } from '../../../utils/mocks';
 import { Card } from '../../Card';
 
-import { mockConfluenceResponse, mockSSRResponse } from './__mocks__/mocks';
+import { mockBaseResponse, mockConfluenceResponse, mockSSRResponse } from './__mocks__/mocks';
 import { analyticsTests } from './common/analytics.test-utils';
 import {
 	forbiddenViewTests,
@@ -258,6 +259,43 @@ describe('HoverCard', () => {
 					</Provider>,
 				);
 				await expect(container).toBeAccessible();
+			});
+		});
+
+		describe('with rovo chat prompt experiment', () => {
+			const mock = {
+				...mockBaseResponse,
+				meta: { ...mockBaseResponse.meta, key: 'google-object-provider' },
+			};
+			const rovoOptions = { isRovoEnabled: true, isRovoLLMEnabled: true };
+
+			ffTest.on('platform_sl_3p_auth_rovo_action_kill_switch', '', () => {
+				it('should enable rovoChat experiment via experiment prop', async () => {
+					await setup({
+						mock,
+						rovoOptions,
+					});
+
+					const actionBlock = await screen.findByTestId('smart-block-action');
+					const rovoChatAction = await within(actionBlock).findByTestId(
+						'smart-action-rovo-chat-action-1',
+					);
+					expect(rovoChatAction).toBeInTheDocument();
+				});
+
+				it('should enable rovoChat experiment via experiment prop with CardSSR', async () => {
+					await setup({
+						component: <CardSSR appearance="inline" url={mockUrl} showHoverPreview={true} />,
+						mock,
+						rovoOptions,
+					});
+
+					const actionBlock = await screen.findByTestId('smart-block-action');
+					const rovoChatAction = await within(actionBlock).findByTestId(
+						'smart-action-rovo-chat-action-1',
+					);
+					expect(rovoChatAction).toBeInTheDocument();
+				});
 			});
 		});
 	});

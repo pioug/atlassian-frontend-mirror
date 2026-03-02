@@ -2,9 +2,11 @@ import assert from 'assert';
 import sinon from 'sinon';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import {
+	nativeEmbedsFallbackTransform,
 	NodeNestingTransformError,
 	transformNestedTablesIncomingDocument,
 } from '@atlaskit/adf-utils/transforms';
+import { fg } from '@atlaskit/platform-feature-flags';
 /**
  * TS 3.9+ defines non-configurable property for exports, that's why it's not possible to mock them like this anymore:
  *
@@ -23,10 +25,20 @@ jest.mock('@atlaskit/editor-common/validator', () => ({
 jest.mock('@atlaskit/adf-utils/transforms', () => ({
 	__esModule: true,
 	...jest.requireActual<Object>('@atlaskit/adf-utils/transforms'),
+	nativeEmbedsFallbackTransform: jest.fn((adf) => ({
+		transformedAdf: adf,
+		isTransformed: false,
+	})),
 	transformNestedTablesIncomingDocument: jest.fn((adf) => ({
 		transformedAdf: adf,
 		isTransformed: true,
 	})),
+}));
+
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	__esModule: true,
+	...jest.requireActual<Object>('@atlaskit/platform-feature-flags'),
+	fg: jest.fn(() => false),
 }));
 
 import * as common from '@atlaskit/editor-common/validator';
@@ -260,7 +272,7 @@ describe('Renderer', () => {
 						undefined,
 						dispatchAnalyticsEvent,
 					);
-				} catch (e) {}
+				} catch {}
 
 				expect(dispatchAnalyticsEvent).toHaveBeenCalledWith(
 					expect.objectContaining({
@@ -389,6 +401,96 @@ describe('Renderer', () => {
 				);
 
 				expect(transformNestedTablesIncomingDocument).toHaveBeenCalledWith(document);
+			});
+		});
+
+		describe('native embeds fallback feature gate', () => {
+			const gateOffDocument = {
+				type: 'doc',
+				version: 1,
+				content: [
+					{
+						attrs: {
+							localId: null,
+						},
+						type: 'paragraph',
+						content: [{ type: 'text', text: 'native embeds gate test' }],
+					},
+				],
+			};
+
+			const gateOnDocument = {
+				type: 'doc',
+				version: 1,
+				content: [
+					{
+						attrs: {
+							localId: null,
+						},
+						type: 'paragraph',
+						content: [{ type: 'text', text: 'native embeds gate test on' }],
+					},
+				],
+			};
+
+			const mockDispatchAnalyticsEvent = jest.fn();
+
+			beforeEach(() => {
+				jest.clearAllMocks();
+				(fg as jest.Mock).mockImplementation(() => false);
+				(
+					nativeEmbedsFallbackTransform as jest.MockedFunction<
+						typeof nativeEmbedsFallbackTransform
+					>
+				).mockImplementation((adf) => ({
+					transformedAdf: adf,
+					isTransformed: false,
+				}));
+			});
+
+			it('should not run nativeEmbedsFallbackTransform when gate is off', () => {
+				renderDocument(
+					gateOffDocument,
+					serializer,
+					schema,
+					undefined,
+					true,
+					undefined,
+					mockDispatchAnalyticsEvent,
+				);
+
+				expect(nativeEmbedsFallbackTransform).not.toHaveBeenCalled();
+			});
+
+			it('should run nativeEmbedsFallbackTransform and fire analytics when gate is on', () => {
+				(fg as jest.Mock).mockImplementation(
+					(flagName: string) => flagName === 'platform_editor_native_embeds_fallback_transform',
+				);
+				(
+					nativeEmbedsFallbackTransform as jest.MockedFunction<
+						typeof nativeEmbedsFallbackTransform
+					>
+				).mockImplementation((adf) => ({
+					transformedAdf: adf,
+					isTransformed: true,
+				}));
+
+				renderDocument(
+					gateOnDocument,
+					serializer,
+					schema,
+					undefined,
+					true,
+					undefined,
+					mockDispatchAnalyticsEvent,
+				);
+
+				expect(nativeEmbedsFallbackTransform).toHaveBeenCalledWith(gateOnDocument);
+				expect(mockDispatchAnalyticsEvent).toHaveBeenCalledWith({
+					action: ACTION.NATIVE_EMBEDS_TRANSFORMED,
+					actionSubject: ACTION_SUBJECT.RENDERER,
+					eventType: EVENT_TYPE.OPERATIONAL,
+				});
 			});
 		});
 	});

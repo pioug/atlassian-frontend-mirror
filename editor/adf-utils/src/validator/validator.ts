@@ -79,6 +79,22 @@ const partitionObject = <T extends { [key: string]: any }>(
 	);
 
 /**
+ * Checks if a spec is a variant spec.
+ * A variant spec is an array where the first element is a string (base spec name)
+ * and the second element is a ValidatorSpec object { props: { ... } }
+ *
+ * @param spec - The spec to check
+ * @returns true if the spec is a variant spec, false otherwise
+ */
+const isVariant = (spec: unknown): spec is { 0: string; 1: ValidatorSpec } =>
+	typeof spec === 'object' &&
+	!!spec &&
+	0 in spec &&
+	1 in spec &&
+	typeof spec[0] === 'string' &&
+	typeof spec[1] === 'object';
+
+/**
  * Normalizes the structure of files imported from './specs'.
  * We denormalised the spec to save bundle size.
  */
@@ -88,7 +104,21 @@ export function createSpec(nodes?: Array<string>, marks?: Array<string>): Create
 	return Object.keys(specs).reduce<CreateSpecReturn>((newSpecs, k) => {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		const spec = { ...(specs as any)[k] };
+		let spec = { ...(specs as any)[k] };
+
+		if (
+			expValEqualsNoExposure('platform_editor_flexible_list_indentation', 'isEnabled', true) &&
+			isVariant(spec) &&
+			// Only apply to variants which are explicitly marked for override in `variantSpecOverrides`
+			Object.values(variantSpecOverrides).includes(k)
+		) {
+			// This allows the variant spec to also have the content normalization applied to it
+			// When the spec is a variant it will be in the form of ['base_spec_name', { props: { ... } }]
+			// So the actual validator spec of the variant will be the second item in the array
+			// We also need to shallow clone this to ensure we don't mutate the original spec
+			spec = { ...spec[1] };
+		}
+
 		if (spec.props) {
 			spec.props = { ...spec.props };
 			if (spec.props.content) {
@@ -374,22 +404,35 @@ const unsupportedNodeAttributesContent = (
 };
 
 /**
+ * Map of base spec names to a preferred variant spec that should be used in their place during validation.
+ *
+ * WARNING: The variant spec must be a strict superset of the base spec, i.e. any content valid
+ * under the base spec must also be valid under the variant
+ */
+const variantSpecOverrides: Record<string, string> = {
+	listItem: 'listItem_with_flexible_first_child',
+	taskList: 'taskList_with_flexible_first_child',
+};
+
+/**
  * Replaces base validator specs with their designated variant overrides
  */
 const applyVariantSpecOverrides = (validatorSpecs: CreateSpecReturn) => {
-	/**
-	 * Map of base spec names to a variant spec that should be used in their place during validation.
-	 *
-	 * WARNING: The variant spec must be a strict superset of the base spec, i.e. any content valid
-	 * under the base spec must also be valid under the variant
-	 */
-	const variantSpecOverrides: Record<string, string> = {
-		listItem: 'listItem_with_flexible_first_child',
-	};
-
 	Object.entries(variantSpecOverrides).forEach(([base, variant]) => {
-		if (validatorSpecs[base] && validatorSpecs[variant]) {
-			validatorSpecs[base] = validatorSpecs[variant];
+		const baseSpec = validatorSpecs[base];
+		const variantOverride = validatorSpecs[variant];
+
+		if (
+			baseSpec?.props &&
+			variantOverride?.props &&
+			typeof baseSpec.props === 'object' &&
+			typeof variantOverride.props === 'object'
+		) {
+			// Merge variant overrides INTO the base spec
+			baseSpec.props = {
+				...baseSpec.props, // keeps type, attrs, marks, etc.
+				...variantOverride.props, // overrides content (and anything else the variant changes)
+			};
 		}
 	});
 };

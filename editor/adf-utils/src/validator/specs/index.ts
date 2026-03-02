@@ -80,6 +80,7 @@ export {
 	tableRow,
 	taskItem,
 	taskList,
+	taskList_with_flexible_first_child,
 	text,
 	textColor,
 	text_code_inline,

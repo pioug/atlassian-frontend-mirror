@@ -34,30 +34,60 @@ type EditorPluginNativeEmbedsPlugin = NextEditorPlugin<
   'editorPluginNativeEmbeds',
   {
     dependencies: [OptionalPlugin<AnalyticsPlugin>, DecorationsPlugin, ExtensionPlugin];
-    pluginConfiguration: { handlers?: EditorPluginNativeEmbedsToolbarHandlers } | undefined;
+    pluginConfiguration: EditorPluginNativeEmbedsPluginConfig | undefined;
   }
 >
+
+interface EditorPluginNativeEmbedsPluginConfig {
+  actionHandlers?: Record<string, () => void>;
+  getEditorToolbarActions?: (url: string) => ManifestEditorToolbarActions | undefined;
+  handlers?: EditorPluginNativeEmbedsToolbarHandlers;
+}
 `}
 
-To use the plugin with optional toolbar handlers:
+### Manifest-driven toolbar (recommended)
+
+Use \`getEditorToolbarActions\` to provide toolbar and "More Options" dropdown
+configuration per embed URL, with \`actionHandlers\` to wire up custom actions:
 
 ${code`
+import { nativeEmbedsPlugin } from '@atlaskit/editor-plugin-native-embeds';
 import {
-  nativeEmbedsPlugin,
-  type EditorPluginNativeEmbedsToolbarHandlers,
-} from '@atlaskit/editor-plugin-native-embeds';
+  createEditorToolbarActions,
+  BUILTIN_TOOLBAR_KEYS,
+} from '@atlaskit/native-embeds-common';
 
-const handlers: EditorPluginNativeEmbedsToolbarHandlers = {
-  onRefreshClick: () => { /* handle refresh */ },
-  onEmbedClick: () => { /* handle embed */ },
-  onChangeBorderClick: () => { /* handle border change */ },
-  onAlignmentClick: () => { /* handle alignment */ },
-  onOpenInNewWindowClick: () => { /* handle open in new window */ },
-  onMoreOptionsClick: () => { /* handle more options */ },
-};
+const toolbarActions = createEditorToolbarActions({
+  customActions: {
+    myAction: {
+      type: 'button',
+      key: 'myAction',
+      handlerKey: 'doThing',
+      label: 'Do Thing',
+      icon: SomeIcon,
+    },
+  },
+  items: [
+    BUILTIN_TOOLBAR_KEYS.REFRESH,
+    BUILTIN_TOOLBAR_KEYS.ALIGNMENT,
+    BUILTIN_TOOLBAR_KEYS.SEPARATOR,
+    'myAction',
+  ],
+  moreItems: [
+    BUILTIN_TOOLBAR_KEYS.COPY_LINK,
+    'myAction',
+    BUILTIN_TOOLBAR_KEYS.SEPARATOR,
+    BUILTIN_TOOLBAR_KEYS.DELETE,
+  ],
+});
 
 new EditorPresetBuilder()
-  .add([nativeEmbedsPlugin, { handlers }]);
+  .add([nativeEmbedsPlugin, {
+    getEditorToolbarActions: (url) => toolbarActions,
+    actionHandlers: {
+      doThing: () => { /* handle custom action */ },
+    },
+  }]);
 `}
 
 

@@ -3,7 +3,7 @@ import React from 'react';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type LozengeProps } from '../../../types';
-import type { CardActionOptions } from '../../Card/types';
+import type { InternalCardActionOptions as CardActionOptions } from '../../Card/types';
 import { HoverCard } from '../../HoverCard';
 import { type HoverPreviewOptions } from '../../HoverCard/types';
 import InlineLozenge from '../common/inline-lozenge';

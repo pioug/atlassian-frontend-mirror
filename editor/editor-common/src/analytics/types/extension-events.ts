@@ -88,8 +88,9 @@ type ExtensionAPICalledPayload = TrackAEP<
 type ExtensionCopyAEP = UIAEP<
 	ACTION.CLICKED,
 	ACTION_SUBJECT.COPY_BUTTON,
-	ExtensionType,
+	ACTION_SUBJECT_ID.EXTENSION,
 	{
+		extensionDynamicType: ExtensionType;
 		extensionKey: string;
 		extensionType: string;
 	}

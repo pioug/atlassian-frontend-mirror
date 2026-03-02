@@ -411,14 +411,10 @@ type SideNavProps = CommonSlotProps & {
 	defaultWidth?: number;
 	/**
 	 * Called when the side nav is expanded.
-	 *
-	 * Note: The trigger parameter is only provided when the `platform_dst_nav4_fhs_instrumentation_1` feature flag is enabled.
 	 */
 	onExpand?: VisibilityCallback;
 	/**
 	 * Called when the side nav is collapsed.
-	 *
-	 * Note: The trigger parameter is only provided when the `platform_dst_nav4_fhs_instrumentation_1` feature flag is enabled.
 	 */
 	onCollapse?: VisibilityCallback;
 
@@ -512,7 +508,7 @@ function SideNavInternal({
 	 * Only firing on desktop because the nav is never open by default on mobile.
 	 */
 	useEffect(() => {
-		if (initialIsExpandedOnDesktop && fg('platform_dst_nav4_fhs_instrumentation_1')) {
+		if (initialIsExpandedOnDesktop) {
 			const isDesktop = window.matchMedia('(min-width: 64rem)').matches;
 			if (isDesktop) {
 				const navigationAnalyticsEvent = createAnalyticsEvent({
@@ -739,23 +735,19 @@ function SideNavInternal({
 
 	const handleExpand = useCallback<VisibilityCallback>(
 		({ screen, trigger }) => {
-			if (fg('platform_dst_nav4_fhs_instrumentation_1')) {
-				onExpand?.({ screen, trigger });
+			onExpand?.({ screen, trigger });
 
-				const navigationAnalyticsEvent = createAnalyticsEvent({
-					source: 'topNav',
-					actionSubject: 'sideNav',
-					action: 'expanded',
-					actionSubjectId: 'sideNavMenu',
-					attributes: {
-						trigger,
-					},
-				});
+			const navigationAnalyticsEvent = createAnalyticsEvent({
+				source: 'topNav',
+				actionSubject: 'sideNav',
+				action: 'expanded',
+				actionSubjectId: 'sideNavMenu',
+				attributes: {
+					trigger,
+				},
+			});
 
-				navigationAnalyticsEvent.fire('navigation');
-			} else {
-				onExpand?.({ screen });
-			}
+			navigationAnalyticsEvent.fire('navigation');
 
 			// When the side nav gets expanded, we close the flyout to reset it.
 			// This prevents the flyout from staying open and ensures we are respecting the user's intent to expand.
@@ -766,23 +758,19 @@ function SideNavInternal({
 
 	const handleCollapse = useCallback<VisibilityCallback>(
 		({ screen, trigger }) => {
-			if (fg('platform_dst_nav4_fhs_instrumentation_1')) {
-				onCollapse?.({ screen, trigger });
+			onCollapse?.({ screen, trigger });
 
-				const navigationAnalyticsEvent = createAnalyticsEvent({
-					source: 'topNav',
-					actionSubject: 'sideNav',
-					action: 'collapsed',
-					actionSubjectId: 'sideNavMenu',
-					attributes: {
-						trigger,
-					},
-				});
+			const navigationAnalyticsEvent = createAnalyticsEvent({
+				source: 'topNav',
+				actionSubject: 'sideNav',
+				action: 'collapsed',
+				actionSubjectId: 'sideNavMenu',
+				attributes: {
+					trigger,
+				},
+			});
 
-				navigationAnalyticsEvent.fire('navigation');
-			} else {
-				onCollapse?.({ screen });
-			}
+			navigationAnalyticsEvent.fire('navigation');
 
 			// When the side nav gets collapsed, we close the flyout to reset it.
 			// This prevents the flyout from staying open and ensures we are respecting the user's intent to collapse.

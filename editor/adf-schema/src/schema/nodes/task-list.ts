@@ -1,12 +1,16 @@
-import type {
-	TaskItemDefinition as TaskItemNode,
-	BlockTaskItemDefinition as BlockTaskItem,
-} from './task-item';
-import { uuid } from '../../utils/uuid';
-import { taskList as taskListFactory } from '../../next-schema/generated/nodeTypes';
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+import {
+	taskList as taskListFactory,
+	taskListWithFlexibleFirstChildStage0 as taskListWithFlexibleFirstChildStage0Factory,
+} from '../../next-schema/generated/nodeTypes';
+import { uuid } from '../../utils/uuid';
+import type {
+	BlockTaskItemDefinition as BlockTaskItem,
+	TaskItemDefinition as TaskItemNode,
+} from './task-item';
 
-export interface TaskListContent extends Array<TaskItemNode | TaskListDefinition | BlockTaskItem> {
+export interface TaskListContent
+	extends Array<TaskItemNode | TaskListDefinition | BlockTaskItem> {
 	0: TaskItemNode | BlockTaskItem;
 }
 
@@ -31,7 +35,7 @@ const name = 'actionList';
 
 export const taskListSelector: '[data-node-type="actionList"]' = `[data-node-type="${name}"]`;
 
-export const taskList: NodeSpec = taskListFactory({
+const taskListParseDOMAndToDOM = {
 	parseDOM: [
 		{
 			tag: `div${taskListSelector}`,
@@ -45,7 +49,7 @@ export const taskList: NodeSpec = taskListFactory({
 			}),
 		},
 	],
-	toDOM(node) {
+	toDOM(node: { attrs: { localId?: string } }) {
 		const { localId } = node.attrs;
 		const attrs = {
 			'data-node-type': name,
@@ -53,6 +57,21 @@ export const taskList: NodeSpec = taskListFactory({
 			style: 'list-style: none; padding-left: 0',
 		};
 
-		return ['div', attrs, 0];
+		return ['div', attrs, 0] as const;
 	},
-});
+};
+
+export const taskList: NodeSpec = taskListFactory(taskListParseDOMAndToDOM);
+
+const taskListWithFlexibleFirstChild =
+	taskListWithFlexibleFirstChildStage0Factory(taskListParseDOMAndToDOM);
+
+/**
+ * @name task_list_with_flexible_first_child_stage0
+ * @description stage0 taskList with flexible first child content (see EDITOR-5417)
+ */
+export const taskListWithFlexibleFirstChildStage0: NodeSpec = {
+	...taskListWithFlexibleFirstChild,
+	// Generated spec omits PM group; keep taskList in block content for doc validation.
+	group: 'block',
+};

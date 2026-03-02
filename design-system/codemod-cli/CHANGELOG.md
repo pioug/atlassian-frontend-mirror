@@ -1,5 +1,12 @@
 # @atlaskit/codemod-cli
 
+## 0.34.7
+
+### Patch Changes
+
+- [`5367a27d5fe5a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5367a27d5fe5a) -
+  Internal refactoring
+
 ## 0.34.6
 
 ### Patch Changes

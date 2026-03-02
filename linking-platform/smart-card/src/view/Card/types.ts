@@ -64,6 +64,17 @@ export type CardActionVisibilityOptions =
 	  }
 	| { exclude?: Array<CardAction>; hide: false };
 
+/**
+ * Internal configuration for actionOptions.
+ * This can be used for experiment before the prop become public API after experiment is successful.
+ * Warning: Internal prop can be changed/refactored anytime without notice.
+ */
+export type InternalCardActionOptions = CardActionOptions & {
+	// Contain configuration for rovo chat action for 3P experiment
+	// Decision to be made after experiment whether this action will be an opt-in, an opt-out, or abandoned.
+	rovoChatAction?: boolean;
+};
+
 interface ActionProps {
 	/**
 	 * Configure visibility of actions available.
@@ -221,8 +232,7 @@ export interface FlexibleProps extends ActionProps, HoverPreviewProps {
 }
 
 export interface CardProps
-	extends
-		BaseCardProps,
+	extends BaseCardProps,
 		InlineProps,
 		BlockProps,
 		EmbedProps,

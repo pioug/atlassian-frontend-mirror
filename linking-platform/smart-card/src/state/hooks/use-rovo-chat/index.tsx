@@ -3,6 +3,7 @@ import { useCallback, useMemo } from 'react';
 import { useRovoPostMessageToPubsub } from '@atlaskit/rovo-triggers/post-message-to-pubsub';
 import type { ChatNewPayload } from '@atlaskit/rovo-triggers/types';
 
+import { getIsRovoChatEnabled } from '../../../utils/rovo';
 import useRovoConfig from '../use-rovo-config';
 
 const SMART_LINK_TO_ROVO_SOURCE = 'smart-link';
@@ -13,7 +14,7 @@ const useRovoChat = () => {
 	const config = useRovoConfig();
 	const { publishWithPostMessage } = useRovoPostMessageToPubsub();
 
-	const isRovoChatEnabled = config?.isRovoEnabled && config?.isRovoLLMEnabled ? true : false;
+	const isRovoChatEnabled = getIsRovoChatEnabled(config);
 
 	const sendPromptMessage = useCallback(
 		(data: SendPromptMessageData) => {

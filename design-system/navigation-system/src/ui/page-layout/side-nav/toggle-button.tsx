@@ -13,7 +13,6 @@ import { type NewCoreIconProps } from '@atlaskit/icon';
 import SidebarCollapseIcon from '@atlaskit/icon/core/sidebar-collapse';
 import SidebarExpandIcon from '@atlaskit/icon/core/sidebar-expand';
 import { useOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { IconButton } from '../../top-nav-items/themed/migration';
@@ -212,10 +211,6 @@ export const SideNavToggleButton: ({
 	);
 
 	const handlePointerEnter = useCallback(() => {
-		if (!fg('platform_dst_nav4_fhs_instrumentation_1')) {
-			return;
-		}
-
 		// Hovers don't do anything on mobile, so not capturing
 		const isDesktop = window.matchMedia('(min-width: 64rem)').matches;
 		if (!isDesktop) {

@@ -20,6 +20,9 @@
 	],
 	"references": [
 		{
+			"path": "../../editor-ui-control-model/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-products/tsconfig.json"
 		}
 	]

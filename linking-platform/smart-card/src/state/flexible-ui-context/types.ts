@@ -309,6 +309,7 @@ export type FlexibleUiActions = {
 	/* Contains data needed to show a preview action that open embed modal.*/
 	[ActionName.PreviewAction]?: PreviewActionData;
 	[InternalActionName.AISummaryAction]?: AISummaryActionData;
+	[InternalActionName.RovoChatAction]?: boolean;
 	[InternalActionName.UnresolvedAction]?: UnresolvedActionData;
 	[InternalActionName.ViewRelatedLinksAction]?: ViewRelatedLinksActionData;
 };

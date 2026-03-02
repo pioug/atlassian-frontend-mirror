@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { type ComponentProps } from 'react';
 
 import { Example } from '@atlaskit/docs';
 
 type FlexibleUiExampleProps = {
 	background?: boolean;
-} & typeof Example;
+} & ComponentProps<typeof Example>;
 
-const CustomExample = ({ background, source, ...props }: FlexibleUiExampleProps) => {
+const CustomExample = ({ background: _background, source, ...props }: FlexibleUiExampleProps) => {
 	// Fix hover card entrypoint
 	const replaceCode = source.replace('../src/hoverCard', '../src/hover-card');
 

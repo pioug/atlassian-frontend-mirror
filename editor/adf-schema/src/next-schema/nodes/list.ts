@@ -6,7 +6,7 @@ import { codeBlock } from './codeBlock';
 import { extension } from './extension';
 import { mediaSingle } from './mediaSingle';
 import { paragraph } from './paragraph';
-import { taskList } from './task';
+import { taskList, taskListWithFlexibleFirstChild } from './task';
 import { unsupportedBlock } from './unsupportedBlock';
 
 export const orderedList: ADFNode<[string], ADFCommonNodeSpec> = adfNode('orderedList');
@@ -55,6 +55,7 @@ const listItem = adfNode('listItem')
 					bulletList,
 					orderedList,
 					taskList,
+					taskListWithFlexibleFirstChild.use('with_flexible_first_child'),
 					mediaSingle.use('caption'),
 					mediaSingle.use('full'),
 					codeBlock,

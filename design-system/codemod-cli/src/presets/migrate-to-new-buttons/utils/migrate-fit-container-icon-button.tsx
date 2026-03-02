@@ -1,5 +1,4 @@
-import type { API, ASTPath } from 'jscodeshift';
-import { type JSXElement } from 'jscodeshift';
+import type { API, ASTPath, JSXElement } from 'jscodeshift';
 
 import { addCommentBefore } from '@atlaskit/codemod-utils';
 

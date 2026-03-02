@@ -1,5 +1,32 @@
 # @atlaskit/editor-common
 
+## 111.21.0
+
+### Minor Changes
+
+- [`d78ff724d3bce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d78ff724d3bce) -
+  Add i18n strings for tasks and decisions image aria label
+
+### Patch Changes
+
+- Updated dependencies
+
+## 111.20.10
+
+### Patch Changes
+
+- [`b75fe85bfe1a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b75fe85bfe1a4) -
+  [NO-ISSUE] Fixing analytics for extension copy button
+- Updated dependencies
+
+## 111.20.9
+
+### Patch Changes
+
+- [`6a189c569f766`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a189c569f766) -
+  updated deprecated token to use the stable token
+- Updated dependencies
+
 ## 111.20.8
 
 ### Patch Changes

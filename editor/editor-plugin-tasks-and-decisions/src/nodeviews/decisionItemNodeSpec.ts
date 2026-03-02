@@ -2,7 +2,9 @@ import { type IntlShape } from 'react-intl-next';
 
 import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
 import { type DOMOutputSpec, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
+// When cleaning up editor_a11y_decision_aria_label remove this iconDOM variable
 // This value can be a fixed constant as it doesn't depend on runtime values or arguments.
 const iconDOM = [
 	'span',
@@ -55,6 +57,82 @@ const iconDOM = [
 		],
 	],
 ] satisfies DOMOutputSpec;
+
+/**
+ * Determine if the decision item node is empty
+ *
+ * @param node The decision item node
+ * @returns true if the decision item is empty and false otherwise
+ */
+const isDecisionItemEmpty = (node: PMNode) => node.childCount <= 0;
+
+/**
+ * Creates a DOM element for the decision icon with an accessible aria label.
+ *
+ * Generates a decision icon DOM structure with an aria label that changes based on whether
+ * the decision item is empty. An empty decision item receives the "undefined" aria label,
+ * while non-empty decision items receive the standard "decision" aria label.
+ *
+ * @param node - The ProseMirror node representing the decision item
+ * @param intl - The intl object used to format internationalized messages for the aria label
+ * @returns A DOMOutputSpec array representing the icon element with nested SVG graphics
+ */
+const createIconDOM = ({ node, intl }: { intl: IntlShape; node: PMNode }) => {
+	const ariaLabel = isDecisionItemEmpty(node)
+		? intl.formatMessage(tasksAndDecisionsMessages.undefinedDecisionAriaLabel)
+		: intl.formatMessage(tasksAndDecisionsMessages.decisionAriaLabel);
+	return [
+		'span',
+		{
+			contentEditable: false,
+			'data-component': 'icon',
+		},
+		[
+			'span',
+			{
+				role: 'img',
+				'aria-label': ariaLabel,
+			},
+			[
+				'http://www.w3.org/2000/svg svg',
+				{
+					viewBox: `0 0 24 24`,
+					role: 'presentation',
+					width: '24',
+					height: '24',
+					'data-icon-source': 'legacy',
+				},
+				[
+					'http://www.w3.org/2000/svg path',
+					{
+						fill: 'currentcolor',
+						'fill-rule': 'evenodd',
+						d: 'm9.414 8 3.293 3.293c.187.187.293.442.293.707v5a1 1 0 0 1-2 0v-4.586l-3-3V10.5a1 1 0 0 1-2 0V7a1 1 0 0 1 1-1h3.5a1 1 0 0 1 0 2zm8.293-1.707a1 1 0 0 1 0 1.414l-2.5 2.5a.997.997 0 0 1-1.414 0 1 1 0 0 1 0-1.414l2.5-2.5a1 1 0 0 1 1.414 0',
+					},
+				],
+			],
+			[
+				'http://www.w3.org/2000/svg svg',
+				{
+					viewBox: `-4 -4 24 24`,
+					fill: 'none',
+					role: 'presentation',
+					width: '24',
+					height: '24',
+					'data-icon-source': 'refreshed',
+				},
+				[
+					'http://www.w3.org/2000/svg path',
+					{
+						fill: 'currentcolor',
+						'fill-rule': 'evenodd',
+						d: 'm13.97.97-4.5 4.5 1.06 1.06 4.5-4.5zM3.56 2.5H8V1H1.75a.75.75 0 0 0-.75.75V8h1.5V3.56l4.604 4.604a.5.5 0 0 1 .146.354V15h1.5V8.518a2 2 0 0 0-.586-1.414z',
+					},
+				],
+			],
+		],
+	] satisfies DOMOutputSpec;
+};
 
 export const decisionItemToDOM = (
 	node: PMNode,
@@ -154,7 +232,12 @@ export const decisionItemToDOM = (
 		  )[]
 	)[],
 ] => {
-	const contentDomDataAttrs = node.childCount > 0 ? {} : { 'data-empty': 'true' };
+	let contentDomDataAttrs;
+	if (expValEquals('editor_a11y_decision_aria_label', 'isEnabled', true)) {
+		contentDomDataAttrs = isDecisionItemEmpty(node) ? { 'data-empty': 'true' } : {};
+	} else {
+		contentDomDataAttrs = node.childCount > 0 ? {} : { 'data-empty': 'true' };
+	}
 
 	return [
 		'li',
@@ -170,7 +253,9 @@ export const decisionItemToDOM = (
 				'data-testid': 'elements-decision-item',
 				'data-decision-wrapper': true,
 			},
-			iconDOM,
+			expValEquals('editor_a11y_decision_aria_label', 'isEnabled', true)
+				? createIconDOM({ node, intl })
+				: iconDOM,
 			// renderPlaceholder
 			[
 				'span',

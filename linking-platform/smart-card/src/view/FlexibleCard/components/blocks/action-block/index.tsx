@@ -10,7 +10,11 @@ import { di } from 'react-magnetic-di';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import { type FlexibleUiActionName, SmartLinkSize } from '../../../../../constants';
+import {
+	type FlexibleUiActionName,
+	InternalActionName,
+	SmartLinkSize,
+} from '../../../../../constants';
 import {
 	useFlexibleUiContext,
 	useFlexibleUiOptionContext,
@@ -75,12 +79,15 @@ const ActionBlock = ({
 	spaceInline,
 	className,
 	testId = 'smart-block-action',
-	hideAISummaryAction,
 }: ActionBlockProps) => {
 	di(ActionFooter);
 
 	const context = useFlexibleUiContext();
 	const ui = useFlexibleUiOptionContext();
+
+	const isRovoChatActionAvailable = fg('platform_sl_3p_auth_rovo_action_kill_switch')
+		? context?.actions?.[InternalActionName.RovoChatAction] === true
+		: undefined;
 
 	const [message, setMessage] = useState<ActionMessage>();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -113,11 +120,13 @@ const ActionBlock = ({
 			return;
 		}
 
-		let arr = Object.keys(context.actions) as FlexibleUiActionName[];
-
-		if (hideAISummaryAction && fg('platform_sl_3p_auth_rovo_action_kill_switch')) {
-			arr = arr.filter((name) => name !== 'AISummaryAction');
-		}
+		const arr = fg('platform_sl_3p_auth_rovo_action_kill_switch')
+			? isRovoChatActionAvailable
+				? [InternalActionName.RovoChatAction]
+				: (Object.keys(context.actions) as FlexibleUiActionName[]).filter(
+						(name) => name !== InternalActionName.RovoChatAction,
+					)
+			: (Object.keys(context.actions) as FlexibleUiActionName[]);
 
 		arr.sort(sort);
 
@@ -141,6 +150,7 @@ const ActionBlock = ({
 		});
 	}, [
 		context?.actions,
+		isRovoChatActionAvailable,
 		spaceInline,
 		onError,
 		onLoadingChange,
@@ -149,7 +159,6 @@ const ActionBlock = ({
 		padding,
 		isLoading,
 		onClick,
-		hideAISummaryAction,
 	]);
 
 	return actions ? (

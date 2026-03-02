@@ -166,6 +166,7 @@ export enum ACTION {
 	 */
 	ON_CHANGE_CALLBACK = 'onChangeCalled',
 	NESTED_TABLE_TRANSFORMED = 'nestedTableTransformed',
+	NATIVE_EMBEDS_TRANSFORMED = 'nativeEmbedsTransformed',
 	NEW_COLLAB_SYNC_UP_ERROR_NO_STEPS = 'newCollabSyncUpErrorNoSteps',
 	REMOVE_ICON = 'removedIcon',
 	INVALID_PROSEMIRROR_DOCUMENT = 'invalidProsemirrorDocument',

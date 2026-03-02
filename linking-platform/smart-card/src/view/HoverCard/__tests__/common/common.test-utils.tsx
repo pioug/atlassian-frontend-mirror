@@ -7,7 +7,10 @@ import type { SmartLinkResponse } from '@atlaskit/linking-types';
 
 import { PROVIDER_KEYS_WITH_THEMING } from '../../../../extractors/constants';
 import * as analytics from '../../../../utils/analytics/analytics';
-import { CardAction, type CardActionOptions } from '../../../../view/Card/types';
+import {
+	CardAction,
+	type InternalCardActionOptions as CardActionOptions,
+} from '../../../../view/Card/types';
 import {
 	mockBaseResponseWithErrorPreview,
 	mockConfluenceResponse,

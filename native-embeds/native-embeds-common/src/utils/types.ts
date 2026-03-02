@@ -59,26 +59,40 @@ export type BuiltinToolbarKey = (typeof BUILTIN_TOOLBAR_KEYS)[keyof typeof BUILT
 /**
  * Configuration for editor toolbar actions in the manifest.
  *
- * Use `customActions` map + `order` array to mix custom and built-in actions.
+ * Use `customActions` map + `items` array to mix custom and built-in actions.
  *
  * @typeParam TCustomActions - The type of the customActions record. Keys are automatically
- * inferred and used to type-check the `order` array.
+ * inferred and used to type-check the `items` array.
  */
 export type ManifestEditorToolbarActions<
 	TCustomActions extends Record<string, EditorToolbarAction> = Record<string, EditorToolbarAction>,
 > = {
 	/**
 	 * Custom action definitions, keyed by unique identifier.
-	 * These can be referenced in the `order` array alongside built-in keys.
+	 * These can be referenced in the `items` array alongside built-in keys.
 	 */
 	customActions?: TCustomActions;
 
 	/**
 	 * Ordered array of keys specifying which toolbar items to show and in what order.
+	 * The "More Options" dropdown is appended automatically based on `moreItems`.
+	 *
 	 * Can include:
-	 * - Built-in keys: 'refresh', 'embed', 'border', 'alignment', 'openInNewWindow', 'moreOptions'
+	 * - Built-in keys: 'refresh', 'embed', 'border', 'alignment', 'openInNewWindow'
 	 * - 'separator' for visual separators between groups
 	 * - Custom keys defined in `customActions`
 	 */
-	order?: (BuiltinToolbarKey | keyof TCustomActions)[];
+	items?: (BuiltinToolbarKey | keyof TCustomActions)[];
+
+	/**
+	 * Ordered array of keys specifying which items appear in the "More Options" dropdown.
+	 * When provided with at least one item, a separator and the dropdown are automatically
+	 * appended to the toolbar. When omitted, the default set of dropdown items is used.
+	 *
+	 * Can include:
+	 * - Built-in keys: 'alwaysShowTitle', 'setEmbedType', 'copyLink', 'delete'
+	 * - 'separator' for visual separators between groups
+	 * - Custom keys defined in `customActions` (shared with the toolbar)
+	 */
+	moreItems?: (BuiltinToolbarKey | keyof TCustomActions)[];
 };

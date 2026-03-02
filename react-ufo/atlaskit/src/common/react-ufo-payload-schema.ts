@@ -144,7 +144,7 @@ export type ReactUFOPayload = {
 			'ufo:wasPageHiddenBeforeInit'?: boolean;
 			'ufo:isOpenedInBackground'?: boolean;
 			'ufo:isTabThrottled'?: boolean;
-			'ufo:pageVisibilityTimeline'?: HiddenTimingItem[];
+			'ufo:pageVisibilityTimeline': HiddenTimingItem[];
 
 			// TODO: align this better with `InteractionMetrics` type - that is outdated now, this is the type as sent by the UFO payload as of 10th April 2025
 			interactionMetrics: {

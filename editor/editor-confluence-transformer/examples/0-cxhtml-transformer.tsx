@@ -4,7 +4,7 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
-import { Component } from 'react';
+import { Component, createRef } from 'react';
 import { pd } from 'pretty-data';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
@@ -103,9 +103,7 @@ class Example extends Component<ExampleProps, ExampleState> {
 		output: '',
 	};
 
-	refs!: {
-		input: HTMLTextAreaElement;
-	};
+	inputRef = createRef<HTMLTextAreaElement>();
 
 	shouldComponentUpdate(_nextProps: ExampleProps, nextState: ExampleState) {
 		return nextState.input !== this.state.input || nextState.output !== this.state.output;
@@ -113,8 +111,7 @@ class Example extends Component<ExampleProps, ExampleState> {
 
 	render() {
 		return (
-			// eslint-disable-next-line react/no-string-refs -- Ignored via go/ED-25883
-			<div ref="root">
+			<div>
 				<fieldset
 					style={{
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -140,8 +137,7 @@ class Example extends Component<ExampleProps, ExampleState> {
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							height: 100,
 						}}
-						// eslint-disable-next-line react/no-string-refs -- Ignored via go/ED-25883
-						ref="input"
+						ref={this.inputRef}
 					/>
 					<button onClick={this.handleImportClick}>Import</button>
 					<button onClick={this.handleInsertCodeClick}>Code</button>
@@ -196,8 +192,7 @@ class Example extends Component<ExampleProps, ExampleState> {
 		);
 	}
 
-	// eslint-disable-next-line react/no-string-refs -- Ignored via go/ED-25883
-	private handleImportClick = () => this.setState({ input: this.refs.input.value });
+	private handleImportClick = () => this.setState({ input: this.inputRef.current?.value ?? '' });
 	private handleInsertCodeClick = () => this.setState({ input: CODE_MACRO });
 	private handleInsertJiraIssueClick = () => this.setState({ input: JIRA_ISSUE });
 	private handleInsertJiraIssuesListClick = () => this.setState({ input: JIRA_ISSUES_LIST });
@@ -250,8 +245,7 @@ export default class ExampleWrapper extends Component<ExampleWrapperProps, Examp
 		const xml = this.state.prettify ? pd.xml(this.state.cxhtml || '') : this.state.cxhtml || '';
 
 		return (
-			// eslint-disable-next-line react/no-string-refs -- Ignored via go/ED-25883
-			<div ref="root">
+			<div>
 				<Example onChange={this.handleChange} />
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 				<fieldset style={{ marginTop: token('space.250', '20px') }}>

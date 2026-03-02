@@ -15,7 +15,7 @@
 			"es2017"
 		]
 	},
-	"include": ["./src/**/*.ts"],
+	"include": ["./src/**/*.tsx"],
 	"ts-node": {
 		"transpileOnly": true,
 		"files": true

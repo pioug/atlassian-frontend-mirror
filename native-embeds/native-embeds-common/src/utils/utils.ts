@@ -1,4 +1,4 @@
-import type { ManifestEditorToolbarActions, EditorToolbarAction } from './types';
+import type { ManifestEditorToolbarActions, EditorToolbarAction, BuiltinToolbarKey } from './types';
 
 /**
  * Generic utility to update parameters on a native embed extension node.
@@ -33,7 +33,8 @@ export function updateParameters(
  *   customActions: {
  *     myAction: { type: 'button', key: 'myAction', ... },
  *   },
- *   order: ['refresh', 'myAction', 'separator'], // 'myAction' is type-checked
+ *   items: ['refresh', 'myAction', 'separator'], // 'myAction' is type-checked
+ *   moreItems: ['copyLink', 'myAction', 'separator', 'delete'], // 'myAction' is type-checked
  * });
  * ```
  */
@@ -41,5 +42,6 @@ export const createEditorToolbarActions = <
 	const TCustomActions extends Record<string, EditorToolbarAction>,
 >(config: {
 	customActions: TCustomActions;
-	order: (keyof TCustomActions | string)[];
+	items: (BuiltinToolbarKey | keyof TCustomActions)[];
+	moreItems?: (BuiltinToolbarKey | keyof TCustomActions)[];
 }): ManifestEditorToolbarActions<TCustomActions> => config;

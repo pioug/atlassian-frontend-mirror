@@ -1,5 +1,12 @@
 # @atlaskit/emoji
 
+## 69.10.26
+
+### Patch Changes
+
+- [`6d87d08be8526`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d87d08be8526) -
+  Add dependency for a11y testing.
+
 ## 69.10.25
 
 ### Patch Changes

@@ -9,6 +9,7 @@ import {
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	type ExtensionType,
+	ACTION_SUBJECT_ID,
 } from '@atlaskit/editor-common/analytics';
 import {
 	messages,
@@ -290,7 +291,7 @@ const breakoutOptions = (
 				extensionState,
 				breakoutEnabled,
 				editorAnalyticsAPI,
-			);
+		  );
 };
 
 const editButton = (
@@ -456,9 +457,10 @@ export const createOnClickCopyButton = ({
 		extensionApi?.analytics?.actions.fireAnalyticsEvent({
 			action: ACTION.CLICKED,
 			actionSubject: ACTION_SUBJECT.COPY_BUTTON,
-			actionSubjectId: node.type.name as ExtensionType,
 			eventType: EVENT_TYPE.UI,
+			actionSubjectId: ACTION_SUBJECT_ID.EXTENSION,
 			attributes: {
+				extensionDynamicType: node.type.name as ExtensionType,
 				extensionType: node.attrs.extensionType,
 				extensionKey: node.attrs.extensionKey,
 			},
@@ -615,7 +617,7 @@ export const getToolbarConfig =
 										getUnsupportedContent,
 										state,
 										locale,
-									})
+								  })
 								: undefined,
 						},
 					],

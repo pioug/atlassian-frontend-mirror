@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 8.7.2
+
+### Patch Changes
+
+- [`6a189c569f766`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a189c569f766) -
+  updated deprecated token to use the stable token
+- Updated dependencies
+
 ## 8.7.1
 
 ### Patch Changes

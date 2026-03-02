@@ -26,6 +26,7 @@ import {
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { lazyBodiedSyncBlockView } from '../nodeviews/bodiedLazySyncedBlock';
+import { bodiedSyncBlockNodeView } from '../nodeviews/bodiedSyncedBlock';
 import { SyncBlock as SyncBlockView } from '../nodeviews/syncedBlock';
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 import {
@@ -407,11 +408,18 @@ export const createPlugin = (
 						eventDispatcher: pmPluginFactoryParams.eventDispatcher,
 						syncBlockStore: syncBlockStore,
 					}).init(),
-				bodiedSyncBlock: lazyBodiedSyncBlockView({
-					pluginOptions: options,
-					pmPluginFactoryParams,
-					api,
-				}),
+				bodiedSyncBlock: fg('platform_synced_block_patch_5')
+					? bodiedSyncBlockNodeView({
+							pluginOptions: options,
+							pmPluginFactoryParams,
+							api,
+							syncBlockStore,
+						})
+					: lazyBodiedSyncBlockView({
+							pluginOptions: options,
+							pmPluginFactoryParams,
+							api,
+						}),
 			},
 			decorations: (state) => {
 				const currentPluginState = syncedBlockPluginKey.getState(state);

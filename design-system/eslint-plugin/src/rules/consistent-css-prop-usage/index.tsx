@@ -110,12 +110,22 @@ class JSXExpressionLinter {
 	 * @param configuration What css-related functions to account for (eg. css, xcss, cssMap), and whether to detect bottom vs top expressions.
 	 * @param expression The expression to traverse and lint.
 	 */
+	private context: Rule.RuleContext;
+	private cssAttributeName: CssAttributeName;
+	private configuration: Required<RuleConfig>;
+	private expression: ES.Expression | ES.SpreadElement;
+
 	constructor(
-		private context: Rule.RuleContext,
-		private cssAttributeName: CssAttributeName,
-		private configuration: Required<RuleConfig>,
-		private expression: ES.Expression | ES.SpreadElement,
+		context: Rule.RuleContext,
+		cssAttributeName: CssAttributeName,
+		configuration: Required<RuleConfig>,
+		expression: ES.Expression | ES.SpreadElement,
 	) {
+		this.context = context;
+		this.cssAttributeName = cssAttributeName;
+		this.configuration = configuration;
+		this.expression = expression;
+
 		this.hoistedCss = [];
 	}
 

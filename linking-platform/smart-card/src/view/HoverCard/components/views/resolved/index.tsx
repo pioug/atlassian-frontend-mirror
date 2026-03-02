@@ -5,6 +5,7 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
+import { di } from 'react-magnetic-di';
 
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -66,6 +67,8 @@ const HoverCardResolvedView = ({
 	id,
 	url,
 }: HoverCardResolvedProps) => {
+	di(useAISummaryAction);
+
 	const { fireEvent } = useAnalyticsEvents();
 	const rovoConfig = useRovoConfig();
 

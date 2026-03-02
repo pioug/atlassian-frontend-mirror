@@ -1919,6 +1919,9 @@
                 "$ref": "#/definitions/taskList_node"
               },
               {
+                "$ref": "#/definitions/taskList_with_flexible_first_child_node"
+              },
+              {
                 "$ref": "#/definitions/mediaSingle_caption_node"
               },
               {
@@ -3120,6 +3123,37 @@
       },
       "additionalProperties": false,
       "required": ["type", "attrs", "content"]
+    },
+    "taskList_with_flexible_first_child_node": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/taskList_node"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "content": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/taskItem_node"
+                  },
+                  {
+                    "$ref": "#/definitions/taskList_node"
+                  },
+                  {
+                    "$ref": "#/definitions/blockTaskItem_node"
+                  }
+                ]
+              },
+              "minItems": 1
+            }
+          },
+          "required": ["content"],
+          "additionalProperties": true
+        }
+      ]
     },
     "text_node": {
       "type": "object",

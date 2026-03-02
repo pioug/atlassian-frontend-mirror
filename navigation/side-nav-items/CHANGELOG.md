@@ -1,5 +1,13 @@
 # @atlaskit/side-nav-items
 
+## 1.7.4
+
+### Patch Changes
+
+- [`6d87d08be8526`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d87d08be8526) -
+  Add dependency for a11y testing.
+- Updated dependencies
+
 ## 1.7.3
 
 ### Patch Changes

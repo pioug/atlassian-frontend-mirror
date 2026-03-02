@@ -1,8 +1,8 @@
 import { type API, type FileInfo, type Options } from 'jscodeshift';
 
-const applyTransform = require('jscodeshift/dist/testUtils').applyTransform;
-
 import formatSync from '@af/formatting/sync';
+
+const applyTransform = require('jscodeshift/dist/testUtils').applyTransform;
 
 type Transformer = (file: FileInfo, jscodeshift: API, options: Options) => void;
 

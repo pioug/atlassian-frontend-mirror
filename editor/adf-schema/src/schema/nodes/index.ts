@@ -141,7 +141,11 @@ export { decisionList, decisionListSelector } from './decision-list';
 export type { DecisionListDefinition } from './decision-list';
 export { decisionItem } from './decision-item';
 export type { DecisionItemDefinition } from './decision-item';
-export { taskList, taskListSelector } from './task-list';
+export {
+	taskList,
+	taskListSelector,
+	taskListWithFlexibleFirstChildStage0,
+} from './task-list';
 export type { TaskListDefinition, TaskListContent } from './task-list';
 export { taskItem, blockTaskItem } from './task-item';
 export type { TaskItemDefinition, BlockTaskItemDefinition } from './task-item';

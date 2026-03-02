@@ -10,6 +10,7 @@ import {
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey, type Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const pluginKey = new PluginKey('selectionToolbarOpenExperience');
 
@@ -85,6 +86,18 @@ export const getSelectionToolbarOpenExperiencePlugin = ({
 		],
 	});
 
+	const shouldSkipExperienceStart = (selection: Selection) => {
+		if (isSelectionWithoutTextContent(selection) || isSelectionWithinCodeBlock(selection)) {
+			return true;
+		}
+
+		const target = getTarget();
+		return (
+			isSelectionToolbarWithinNode(target) ||
+			(isBlockMenuWithinNode(target) && fg('platform_editor_toolbar_open_experience_fix'))
+		);
+	};
+
 	return new SafePlugin({
 		key: pluginKey,
 		state: {
@@ -112,12 +125,7 @@ export const getSelectionToolbarOpenExperiencePlugin = ({
 					mouseDownPos = { x: e.clientX, y: e.clientY };
 				},
 				mouseup: (view: EditorView, e: MouseEvent) => {
-					if (
-						!mouseDownPos ||
-						isSelectionWithoutTextContent(view.state.selection) ||
-						isSelectionWithinCodeBlock(view.state.selection) ||
-						isSelectionToolbarWithinNode(getTarget())
-					) {
+					if (!mouseDownPos || shouldSkipExperienceStart(view.state.selection)) {
 						return;
 					}
 
@@ -126,11 +134,7 @@ export const getSelectionToolbarOpenExperiencePlugin = ({
 					}
 				},
 				dblclick: (view: EditorView) => {
-					if (
-						isSelectionWithoutTextContent(view.state.selection) ||
-						isSelectionWithinCodeBlock(view.state.selection) ||
-						isSelectionToolbarWithinNode(getTarget())
-					) {
+					if (shouldSkipExperienceStart(view.state.selection)) {
 						return;
 					}
 

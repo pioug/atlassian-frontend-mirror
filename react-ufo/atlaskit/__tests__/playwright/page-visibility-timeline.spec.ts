@@ -4,14 +4,13 @@
 import { expect, test } from './fixtures';
 
 test.describe('React UFO: pageVisibilityTimeline field', () => {
-	test.describe('when feature flag is enabled and page stays visible', () => {
+	test.describe('when page stays visible', () => {
 		test.use({
 			examplePage: 'basic',
 			viewport: {
 				width: 1920,
 				height: 1080,
 			},
-			featureFlags: ['platform_ufo_page_visibility_timeline'],
 		});
 
 		test('should include pageVisibilityTimeline in payload with initial visible state', async ({
@@ -29,7 +28,7 @@ test.describe('React UFO: pageVisibilityTimeline field', () => {
 
 			const ufoProperties = reactUFOPayload!.attributes.properties;
 
-			// The field should be present when the feature flag is enabled
+			// The field should always be present
 			expect('ufo:pageVisibilityTimeline' in ufoProperties).toBe(true);
 
 			const timeline = ufoProperties['ufo:pageVisibilityTimeline'];
@@ -53,36 +52,6 @@ test.describe('React UFO: pageVisibilityTimeline field', () => {
 		});
 	});
 
-	test.describe('when feature flag is disabled', () => {
-		test.use({
-			examplePage: 'basic',
-			viewport: {
-				width: 1920,
-				height: 1080,
-			},
-			// No feature flag enabled
-		});
-
-		test('should not include pageVisibilityTimeline in payload', async ({
-			page,
-			waitForReactUFOPayload,
-		}) => {
-			const mainDiv = page.locator('[data-testid="main"]');
-			const sections = page.locator('[data-testid="main"] > div');
-
-			await expect(mainDiv).toBeVisible();
-			await expect(sections.nth(9)).toBeVisible();
-
-			const reactUFOPayload = await waitForReactUFOPayload();
-			expect(reactUFOPayload).toBeDefined();
-
-			const ufoProperties = reactUFOPayload!.attributes.properties;
-
-			// The field should NOT be present when the feature flag is disabled
-			expect('ufo:pageVisibilityTimeline' in ufoProperties).toBe(false);
-		});
-	});
-
 	test.describe('when page is backgrounded during interaction', () => {
 		test.use({
 			examplePage: 'interactions-simple-button',
@@ -90,7 +59,6 @@ test.describe('React UFO: pageVisibilityTimeline field', () => {
 				width: 1920,
 				height: 1080,
 			},
-			featureFlags: ['platform_ufo_page_visibility_timeline'],
 		});
 
 		test('should capture visibility transitions in the timeline', async ({
@@ -129,7 +97,7 @@ test.describe('React UFO: pageVisibilityTimeline field', () => {
 
 			const ufoProperties = reactUFOPayload!.attributes.properties;
 
-			// The field should be present when the feature flag is enabled
+			// The field should always be present
 			expect('ufo:pageVisibilityTimeline' in ufoProperties).toBe(true);
 
 			const timeline = ufoProperties['ufo:pageVisibilityTimeline'];
@@ -156,14 +124,13 @@ test.describe('React UFO: pageVisibilityTimeline field', () => {
 		});
 	});
 
-	test.describe('press interaction with feature flag enabled', () => {
+	test.describe('press interaction', () => {
 		test.use({
 			examplePage: 'interactions-simple-button',
 			viewport: {
 				width: 1920,
 				height: 1080,
 			},
-			featureFlags: ['platform_ufo_page_visibility_timeline'],
 		});
 
 		test('should include pageVisibilityTimeline for press interactions', async ({
@@ -188,7 +155,7 @@ test.describe('React UFO: pageVisibilityTimeline field', () => {
 			// Verify it's a press interaction
 			expect(interactionProperties.interactionMetrics.type).toBe('press');
 
-			// The field should be present for press interactions too
+			// The field should always be present for press interactions too
 			expect('ufo:pageVisibilityTimeline' in interactionProperties).toBe(true);
 
 			const timeline = interactionProperties['ufo:pageVisibilityTimeline'];

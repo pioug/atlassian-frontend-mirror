@@ -1,5 +1,12 @@
 # @atlaskit/feature-gate-js-client
 
+## 5.5.9
+
+### Patch Changes
+
+- [`000d0a2d3aca2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/000d0a2d3aca2) -
+  Remove non-erasable syntax (e.g. enums, namespaces with runtime code) from package
+
 ## 5.5.8
 
 ### Patch Changes

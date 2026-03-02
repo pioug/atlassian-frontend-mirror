@@ -3,6 +3,7 @@
 
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import {
+	nativeEmbedsFallbackTransform,
 	transformMediaLinkMarks,
 	transformNestedTablesIncomingDocument,
 } from '@atlaskit/adf-utils/transforms';
@@ -137,6 +138,20 @@ const _validation = (
 				errorStack: `${e instanceof Error && e.name === 'NodeNestingTransformError' ? 'NodeNestingTransformError - Failed to encode one or more nested tables' : undefined}`,
 			},
 		});
+	}
+
+	if (result && fg('platform_editor_native_embeds_fallback_transform')) {
+		const { transformedAdf, isTransformed } = nativeEmbedsFallbackTransform(result);
+
+		if (isTransformed) {
+			dispatchAnalyticsEvent?.({
+				action: ACTION.NATIVE_EMBEDS_TRANSFORMED,
+				actionSubject: ACTION_SUBJECT.RENDERER,
+				eventType: EVENT_TYPE.OPERATIONAL,
+			});
+
+			result = transformedAdf || result;
+		}
 	}
 
 	return result;

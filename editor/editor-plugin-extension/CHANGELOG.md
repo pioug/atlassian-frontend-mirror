@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-extension
 
+## 10.1.14
+
+### Patch Changes
+
+- [`b75fe85bfe1a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b75fe85bfe1a4) -
+  [NO-ISSUE] Fixing analytics for extension copy button
+- Updated dependencies
+
 ## 10.1.13
 
 ### Patch Changes

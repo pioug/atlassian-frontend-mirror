@@ -56,69 +56,6 @@ export const AgentProfileCardResourced = (
 		cloudId: props.cloudId,
 	});
 
-	/**
-	 * @TODO replace with `getAgentCreator` from `@atlassian/rovo-agent-components`
-	 * @deprecated use `getAgentCreator` from `@atlassian/rovo-agent-components`
-	 */
-	const getCreatorDeprecated = useCallback(
-		async ({
-			creator_type,
-			creator,
-			authoringTeam,
-		}: {
-			creator_type: string;
-			creator?: string;
-			authoringTeam?: RovoAgentAgg['authoringTeam'];
-		}) => {
-			if (!creator) {
-				return undefined;
-			}
-			switch (creator_type) {
-				case 'SYSTEM':
-					return { type: 'SYSTEM' as const };
-
-				case 'THIRD_PARTY':
-					return { type: 'THIRD_PARTY' as const, name: creator ?? '' };
-
-				case 'CUSTOMER':
-					try {
-						if (!creatorUserId || !props.cloudId) {
-							return undefined;
-						}
-
-						if (authoringTeam) {
-							return {
-								type: 'CUSTOMER' as const,
-								name: authoringTeam.displayName ?? '',
-								profileLink: authoringTeam.profileUrl ?? '',
-							};
-						}
-
-						const creatorInfo = await props.resourceClient.getProfile(
-							props.cloudId,
-							creatorUserId,
-							fireEvent,
-						);
-
-						return {
-							type: 'CUSTOMER' as const,
-							name: creatorInfo.fullName,
-							profileLink: fg('platform-adopt-teams-nav-config')
-								? profileHref
-								: `/people/${creatorUserId}`,
-							id: creatorUserId,
-						};
-					} catch {
-						return undefined;
-					}
-
-				default:
-					return undefined;
-			}
-		},
-		[creatorUserId, fireEvent, props.cloudId, props.resourceClient, profileHref],
-	);
-
 	const getCreator = useCallback(
 		async ({
 			creator_type,
@@ -182,25 +119,18 @@ export const AgentProfileCardResourced = (
 				authoringTeam: profileResult.aggData?.authoringTeam ?? undefined,
 			};
 
-			if (fg('rovo_agent_show_creator_on_profile_card_fix')) {
-				const agentCreatorInfo = await getCreator(creatorInfoProps);
-				setAgentData({
-					...profileData,
-					creatorInfo: agentCreatorInfo,
-				});
-			} else {
-				const agentCreatorInfoDeprecated = await getCreatorDeprecated(creatorInfoProps);
-				setAgentData({
-					...profileData,
-					creatorInfo: agentCreatorInfoDeprecated,
-				});
-			}
+			const agentCreatorInfo = await getCreator(creatorInfoProps);
+
+			setAgentData({
+				...profileData,
+				creatorInfo: agentCreatorInfo,
+			});
 		} catch (err: any) {
 			setError(err);
 		} finally {
 			setIsLoading(false);
 		}
-	}, [fireEvent, getCreator, props.accountId, props.resourceClient, getCreatorDeprecated]);
+	}, [fireEvent, getCreator, props.accountId, props.resourceClient]);
 
 	useEffect(() => {
 		fetchData();

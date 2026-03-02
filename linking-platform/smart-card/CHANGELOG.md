@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 43.25.8
+
+### Patch Changes
+
+- [`6d87d08be8526`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d87d08be8526) -
+  Add dependency for a11y testing.
+- [`99b4e01a15832`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/99b4e01a15832) -
+  Extract RovoCardAction for experiment
+- [`df0ac7e2afd63`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df0ac7e2afd63) -
+  Migrate icon-priority icons to local native SVG components with feature gate
+- Updated dependencies
+
 ## 43.25.7
 
 ### Patch Changes

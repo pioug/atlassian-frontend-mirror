@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/codemod-cli",
-	"version": "0.34.6",
+	"version": "0.34.7",
 	"description": "A cli for distributing codemods for atlassian-frontend components and services",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -18,20 +18,20 @@
 			]
 		}
 	},
-	"atlaskit:src": "src/index.ts",
+	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		".": {
-			"types": "./src/index.ts",
-			"publish": "./src/index.ts",
+			"types": "./src/index.tsx",
+			"publish": "./src/index.tsx",
 			"default": "./index.js"
 		},
-		"./cli": "./src/cli.ts",
-		"./filepath": "./src/filepath.ts",
-		"./main": "./src/main.ts",
-		"./sinceRef": "./src/sinceRef.ts",
-		"./transforms": "./src/transforms.ts",
-		"./types": "./src/types.ts",
-		"./utils": "./src/utils.ts"
+		"./cli": "./src/cli.tsx",
+		"./filepath": "./src/filepath.tsx",
+		"./main": "./src/main.tsx",
+		"./sinceRef": "./src/sinceRef.tsx",
+		"./transforms": "./src/transforms.tsx",
+		"./types": "./src/types.tsx",
+		"./utils": "./src/utils.tsx"
 	},
 	"atlassian": {
 		"team": "Design System Team"

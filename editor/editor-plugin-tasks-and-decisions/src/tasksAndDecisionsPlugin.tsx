@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { decisionList, taskList } from '@atlaskit/adf-schema';
+import { decisionList, taskList, taskListWithFlexibleFirstChildStage0 } from '@atlaskit/adf-schema';
 import { css, jsx } from '@atlaskit/css';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
@@ -206,7 +206,9 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 				{ name: 'decisionItem', node: decisionItemSpecWithFixedToDOM() },
 				{
 					name: 'taskList',
-					node: taskList,
+					node: expValEquals('platform_editor_flexible_list_indentation', 'isEnabled', true)
+						? taskListWithFlexibleFirstChildStage0
+						: taskList,
 				},
 				{ name: 'taskItem', node: taskItemNodeSpec() },
 				...(expValEquals('platform_editor_blocktaskitem_node_tenantid', 'isEnabled', true) &&

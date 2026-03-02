@@ -1,5 +1,13 @@
 # @atlaskit/collab-provider
 
+## 15.3.20
+
+### Patch Changes
+
+- [`4446a5fc716d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4446a5fc716d9) -
+  [ux] proactively catch up on ncs connected
+- Updated dependencies
+
 ## 15.3.19
 
 ### Patch Changes

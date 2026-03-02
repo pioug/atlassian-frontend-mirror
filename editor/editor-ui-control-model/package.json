@@ -26,6 +26,9 @@
 	"dependencies": {
 		"@babel/runtime": "root:*"
 	},
+	"peerDependencies": {
+		"react": "^18.2.0"
+	},
 	"techstack": {
 		"@atlassian/frontend": {
 			"import-structure": [
@@ -62,7 +65,7 @@
 		}
 	},
 	"name": "@atlaskit/editor-ui-control-model",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"description": "Rendering logic and model-types for Editor controls registry ( editor-plugin-ui-control-registry)",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -2,7 +2,7 @@ import type React from 'react';
 
 import {
 	getATLContextUrl,
-	getDomainInContext,
+	getUrlForDomainInContext,
 	isFedRamp,
 	isIsolatedCloud,
 } from '@atlaskit/atlassian-context';
@@ -48,7 +48,7 @@ export function generateTeamsAppPath(
 	const orgIdString = config.orgId ? `/o/${config.orgId}` : '';
 
 	if (isIsolatedCloud()) {
-		return `${getDomainInContext('home', getEnvironment())}${orgIdString}${pathWithPeoplePrefix}${anchor ? `#${anchor}` : ''}${queryString}`;
+		return `${getUrlForDomainInContext('home', getEnvironment())}${orgIdString}${pathWithPeoplePrefix}${anchor ? `#${anchor}` : ''}${queryString}`;
 	}
 
 	return `${getATLContextUrl('home')}${orgIdString}${pathWithPeoplePrefix}${anchor ? `#${anchor}` : ''}${queryString}`;

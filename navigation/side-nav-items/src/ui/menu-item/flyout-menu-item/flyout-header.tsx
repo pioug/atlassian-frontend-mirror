@@ -16,10 +16,13 @@ import { OnCloseContext, useTitleId } from './flyout-menu-item-context';
 const headerStyles = cssMap({
 	root: {
 		paddingInlineStart: token('space.050'),
-		paddingBlockEnd: token('space.075'),
+		paddingBlockEnd: token('space.025'),
 		display: 'flex',
 		flexDirection: 'column',
 		gap: token('space.075'),
+	},
+	hasChildren: {
+		paddingBlockEnd: token('space.050'),
 	},
 	flex: {
 		justifyContent: 'space-between',
@@ -78,7 +81,10 @@ export const FlyoutHeader = (props: FlyoutHeaderProps) => {
 	);
 
 	return (
-		<div css={headerStyles.root} data-testid={testId}>
+		<div
+			css={[headerStyles.root, Boolean(children) && headerStyles.hasChildren]}
+			data-testid={testId}
+		>
 			{
 				// The reason we are putting the close button first in the DOM and then
 				// reordering them is to ensure that users of assistive technology get

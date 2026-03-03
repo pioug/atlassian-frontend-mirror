@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 111.21.2
+
+### Patch Changes
+
+- [`796722e0def07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/796722e0def07) -
+  [ux] Set tabpanel role only when tablist it defined in the element broser.
+- [`f623524e57d49`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f623524e57d49) -
+  Add portalRoot type to ExperienceCheckPopupMutation
+
+## 111.21.1
+
+### Patch Changes
+
+- [`baa2904c84a79`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/baa2904c84a79) -
+  [ux] Replaced aria-labelledby attribute with aria-describedby for search input field in the insert
+  menu.
+- Updated dependencies
+
 ## 111.21.0
 
 ### Minor Changes

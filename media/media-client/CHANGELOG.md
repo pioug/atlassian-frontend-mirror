@@ -1,5 +1,12 @@
 # @atlaskit/media-client
 
+## 36.0.1
+
+### Patch Changes
+
+- [`acb61d1d6efd9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/acb61d1d6efd9) -
+  Add dependency for a11y testing.
+
 ## 36.0.0
 
 ### Patch Changes

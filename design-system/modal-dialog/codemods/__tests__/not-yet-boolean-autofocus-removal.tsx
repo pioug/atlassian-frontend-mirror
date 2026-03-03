@@ -152,4 +152,74 @@ describe('Remove autoFocus prop', () => {
     `,
 		'should remove autoFocus prop with aliased import',
 	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
+      import React from 'react';
+      import Button from '@atlaskit/button';
+      import { ModalDialog } from '@atlaskit/modal-dialog';
+
+      const SimpleModalDialog = () => {
+        return (
+          <ModalDialog onClose={closeModal} width={1100}>
+            <Button appearance="primary" onClick={closeModal} autoFocus>
+              Close
+            </Button>
+          </ModalDialog>
+        );
+      }
+    `,
+		`
+      import React from 'react';
+      import Button from '@atlaskit/button';
+      import { ModalDialog } from '@atlaskit/modal-dialog';
+
+      const SimpleModalDialog = () => {
+        return (
+          <ModalDialog onClose={closeModal} width={1100}>
+            <Button appearance="primary" onClick={closeModal} autoFocus>
+              Close
+            </Button>
+          </ModalDialog>
+        );
+      }
+    `,
+		'should not remove autoFocus prop from component inside modal',
+	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
+      import React from 'react';
+      import Button from '@atlaskit/button';
+      import { ModalDialog } from '@atlaskit/modal-dialog';
+
+      const SimpleModalDialog = () => {
+        return (
+          <ModalDialog onClose={closeModal} width={1100} autoFocus={false}>
+            <Button appearance="primary" onClick={closeModal} autoFocus>
+              Close
+            </Button>
+          </ModalDialog>
+        );
+      }
+    `,
+		`
+      import React from 'react';
+      import Button from '@atlaskit/button';
+      import { ModalDialog } from '@atlaskit/modal-dialog';
+
+      const SimpleModalDialog = () => {
+        return (
+          <ModalDialog onClose={closeModal} width={1100}>
+            <Button appearance="primary" onClick={closeModal} autoFocus>
+              Close
+            </Button>
+          </ModalDialog>
+        );
+      }
+    `,
+		'should remove modal autoFocus but not from component inside modal',
+	);
 });

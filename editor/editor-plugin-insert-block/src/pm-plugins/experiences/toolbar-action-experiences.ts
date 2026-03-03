@@ -94,7 +94,6 @@ export const getToolbarActionExperiencesPlugin = ({
 	const buildPopupMutationConfig = (
 		popupSelector: string,
 		type: 'inline' | 'editorRoot',
-		subtree?: boolean,
 	): ExperienceCheckPopupMutationConfig => {
 		switch (type) {
 			case 'inline':
@@ -102,7 +101,7 @@ export const getToolbarActionExperiencesPlugin = ({
 					type,
 					nestedElementQuery: popupSelector,
 					getTarget: getInlinePopupTarget,
-					subtree,
+					subtree: true,
 				};
 			case 'editorRoot':
 				return {
@@ -117,7 +116,6 @@ export const getToolbarActionExperiencesPlugin = ({
 		action: string,
 		popupSelector: string,
 		type: 'inline' | 'editorRoot',
-		subtree?: boolean,
 	) =>
 		new Experience(EXPERIENCE_ID.TOOLBAR_ACTION, {
 			action,
@@ -125,7 +123,7 @@ export const getToolbarActionExperiencesPlugin = ({
 			dispatchAnalyticsEvent,
 			checks: [
 				new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
-				new ExperienceCheckPopupMutation(buildPopupMutationConfig(popupSelector, type, subtree)),
+				new ExperienceCheckPopupMutation(buildPopupMutationConfig(popupSelector, type)),
 			],
 		});
 
@@ -143,7 +141,7 @@ export const getToolbarActionExperiencesPlugin = ({
 			buttonTestId: TOOLBAR_BUTTON_TEST_ID.EMOJI,
 		},
 		{
-			experience: createPopupExperience('media', '[data-testid="popup-wrapper"]', 'inline', true),
+			experience: createPopupExperience('media', '[data-testid="popup-wrapper"]', 'inline'),
 			buttonTestId: TOOLBAR_BUTTON_TEST_ID.MEDIA,
 		},
 		{
@@ -159,12 +157,7 @@ export const getToolbarActionExperiencesPlugin = ({
 			buttonTestId: TOOLBAR_BUTTON_TEST_ID.TABLE,
 		},
 		{
-			experience: createPopupExperience(
-				'tableSelector',
-				'[data-testid="popup-wrapper"]',
-				'inline',
-				true,
-			),
+			experience: createPopupExperience('tableSelector', '[data-testid="popup-wrapper"]', 'inline'),
 			buttonTestId: TOOLBAR_BUTTON_TEST_ID.TABLE_SELECTOR,
 		},
 		{

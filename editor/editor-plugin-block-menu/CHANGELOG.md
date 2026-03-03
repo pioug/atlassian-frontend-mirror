@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.1.7
+
+### Patch Changes
+
+- [`f623524e57d49`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f623524e57d49) -
+  Add portalRoot type to ExperienceCheckPopupMutation
+- Updated dependencies
+
 ## 6.1.6
 
 ### Patch Changes

@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
 
 import { messages } from '../../common/utils/get-container-properties';
@@ -31,6 +32,11 @@ jest.mock('../../controllers/hooks/use-product-permission', () => ({
 jest.mock('../../controllers/hooks/use-team-links-and-containers', () => ({
 	useTeamLinksAndContainers: jest.fn(),
 }));
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 const mockFg = fg as jest.Mock;
 

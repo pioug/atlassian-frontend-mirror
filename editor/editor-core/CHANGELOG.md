@@ -1,5 +1,24 @@
 # @atlaskit/editor-core
 
+## 216.13.1
+
+### Patch Changes
+
+- [`566fb75af84dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/566fb75af84dd) -
+  fix resize layout/expand/codeblock issue in max mode appearance in editor
+- Updated dependencies
+
+## 216.13.0
+
+### Minor Changes
+
+- [`050e73fa93cfe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/050e73fa93cfe) -
+  [FFCLEANUP-87580] clean up feature gate platform_editor_nested_tables_sticky_header_bug
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 216.12.11
 
 ### Patch Changes

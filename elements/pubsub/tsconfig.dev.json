@@ -30,7 +30,8 @@
 		"**/stories/*.ts",
 		"**/stories/*.tsx",
 		"**/stories/**/*.ts",
-		"**/stories/**/*.tsx"
+		"**/stories/**/*.tsx",
+		"./*.ts"
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {

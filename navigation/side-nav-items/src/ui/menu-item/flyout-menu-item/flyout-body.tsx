@@ -21,6 +21,7 @@ const bodyStyles = cssMap({
 		marginBlockEnd: token('space.negative.100'),
 		paddingInlineStart: token('space.100'),
 		paddingInlineEnd: token('space.100'),
+		paddingBlockStart: token('space.050'),
 		paddingBlockEnd: token('space.100'),
 	},
 });

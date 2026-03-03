@@ -29,6 +29,11 @@ import {
 
 const TIMEOUT_DURATION = 1000;
 
+const PORTAL_TEST_ID = {
+	LINK_COPIED_TO_CLIPBOARD: 'link-copied-to-clipboard',
+	SYNC_BLOCK_DELETE_CONFIRMATION: 'sync-block-delete-confirmation',
+} as const;
+
 const pluginKey = new PluginKey('blockMenuExperiences');
 
 const START_METHOD = {
@@ -118,6 +123,10 @@ export const getBlockMenuExperiencesPlugin = ({
 				onDomMutation: handleDeleteDomMutation,
 				observeConfig: actionObserveConfig,
 			}),
+			new ExperienceCheckPopupMutation({
+				nestedElementQuery: `[data-testid="${PORTAL_TEST_ID.SYNC_BLOCK_DELETE_CONFIRMATION}"]`,
+				type: 'portalRoot',
+			}),
 		],
 	});
 
@@ -130,6 +139,19 @@ export const getBlockMenuExperiencesPlugin = ({
 			new ExperienceCheckDomMutation({
 				onDomMutation: handleTransformDomMutation,
 				observeConfig: actionObserveConfig,
+			}),
+		],
+	});
+
+	const blockCopyLinkExperience = new Experience(EXPERIENCE_ID.MENU_ACTION, {
+		action: ACTION.COPIED,
+		actionSubjectId: ACTION_SUBJECT_ID.COPY_LINK_TO_BLOCK,
+		dispatchAnalyticsEvent,
+		checks: [
+			new ExperienceCheckTimeout({ durationMs: TIMEOUT_DURATION }),
+			new ExperienceCheckPopupMutation({
+				nestedElementQuery: `[data-testid="${PORTAL_TEST_ID.LINK_COPIED_TO_CLIPBOARD}"]`,
+				type: 'portalRoot',
 			}),
 		],
 	});
@@ -193,6 +215,9 @@ export const getBlockMenuExperiencesPlugin = ({
 			case BLOCK_MENU_ACTION_TEST_ID.DELETE:
 				blockDeleteExperience.start();
 				break;
+			case BLOCK_MENU_ACTION_TEST_ID.COPY_LINK:
+				blockCopyLinkExperience.start();
+				break;
 		}
 	};
 
@@ -248,6 +273,7 @@ export const getBlockMenuExperiencesPlugin = ({
 					blockMoveDownExperience.abort({ reason: ABORT_REASON.EDITOR_DESTROYED });
 					blockDeleteExperience.abort({ reason: ABORT_REASON.EDITOR_DESTROYED });
 					blockTransformExperience.abort({ reason: ABORT_REASON.EDITOR_DESTROYED });
+					blockCopyLinkExperience.abort({ reason: ABORT_REASON.EDITOR_DESTROYED });
 					editorView = undefined;
 					unbindClickListener();
 					unbindKeydownListener();

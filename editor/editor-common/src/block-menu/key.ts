@@ -155,4 +155,5 @@ export const BLOCK_MENU_ACTION_TEST_ID = {
 	MOVE_UP: 'block-menu-move-up',
 	MOVE_DOWN: 'block-menu-move-down',
 	DELETE: 'block-menu-delete',
+	COPY_LINK: 'block-menu-copy-link',
 } as const;

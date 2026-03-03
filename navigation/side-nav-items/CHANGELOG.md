@@ -1,5 +1,16 @@
 # @atlaskit/side-nav-items
 
+## 1.8.0
+
+### Minor Changes
+
+- [`0de59b20501c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0de59b20501c1) -
+  Adjusts the padding on the flyout header and body slots to prevent focus ring clipping.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.7.4
 
 ### Patch Changes

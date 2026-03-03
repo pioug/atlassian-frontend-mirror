@@ -80,7 +80,7 @@
 		}
 	},
 	"name": "@atlaskit/native-embeds-common",
-	"version": "0.0.0",
+	"version": "0.1.0",
 	"description": "A shared package for native embeds to be used across experiences and plugin",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

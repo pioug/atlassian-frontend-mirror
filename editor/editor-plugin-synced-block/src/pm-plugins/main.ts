@@ -20,8 +20,8 @@ import { DecorationSet, Decoration } from '@atlaskit/editor-prosemirror/view';
 import {
 	convertPMNodesToSyncBlockNodes,
 	rebaseTransaction,
-	type DeletionReason,
 	type SyncBlockStoreManager,
+	type DeletionReason,
 } from '@atlaskit/editor-synced-block-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -56,6 +56,7 @@ export const syncedBlockPluginKey = new PluginKey('syncedBlockPlugin');
 type SyncedBlockPluginState = {
 	activeFlag: ActiveFlag;
 	bodiedSyncBlockDeletionStatus?: BodiedSyncBlockDeletionStatus;
+	hasUnsavedBodiedSyncBlockChanges?: boolean;
 	retryCreationPosMap: RetryCreationPosMap;
 	selectionDecorationSet: DecorationSet;
 	syncBlockStore: SyncBlockStoreManager;
@@ -358,6 +359,9 @@ export const createPlugin = (
 					activeFlag: false,
 					syncBlockStore: syncBlockStore,
 					retryCreationPosMap: new Map(),
+					hasUnsavedBodiedSyncBlockChanges: fg('platform_synced_block_patch_5')
+						? syncBlockStore.sourceManager.hasUnsavedChanges()
+						: undefined,
 				};
 			},
 			apply: (tr, currentPluginState, oldEditorState) => {
@@ -388,6 +392,9 @@ export const createPlugin = (
 					retryCreationPosMap: newRetryCreationPosMap,
 					bodiedSyncBlockDeletionStatus:
 						meta?.bodiedSyncBlockDeletionStatus ?? bodiedSyncBlockDeletionStatus,
+					hasUnsavedBodiedSyncBlockChanges: fg('platform_synced_block_patch_5')
+						? syncBlockStore.sourceManager.hasUnsavedChanges()
+						: undefined,
 				};
 			},
 		},

@@ -379,6 +379,9 @@ const Content = React.forwardRef<
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 								className={classnames('ak-editor-content-area', 'appearance-full-page', {
 									'fabric-editor--full-width-mode': fullWidthMode,
+									...(fg('platform_editor_max_width_mode_resize_fix') && {
+										'fabric-editor--max-width-mode': Boolean(maxWidthMode),
+									}),
 								})}
 								ref={contentAreaRef}
 							>

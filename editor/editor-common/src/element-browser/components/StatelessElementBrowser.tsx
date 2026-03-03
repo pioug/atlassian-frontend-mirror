@@ -464,6 +464,7 @@ function MobileBrowser({
 					selectedCategory={selectedCategory}
 					searchTerm={searchTerm}
 					cache={cache}
+					hasTabListContext={false}
 				/>
 			</div>
 			{onViewMore && <ViewMore onViewMore={onViewMore} focus={focusOnViewMore} />}
@@ -576,6 +577,7 @@ function DesktopBrowser({
 					searchTerm={searchTerm}
 					setFocusedCategoryIndex={showCategories ? setFocusedCategoryIndex : undefined}
 					cache={cache}
+					hasTabListContext={showCategories}
 				/>
 			</div>
 		</div>

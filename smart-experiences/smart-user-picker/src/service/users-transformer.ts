@@ -15,6 +15,7 @@ import { type IntlShape } from 'react-intl-next';
 import { messages } from '../i18n';
 import type { UserEntityType } from '../types';
 import { EntityType } from '../types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 interface ServerItem {
 	id: string;
@@ -69,7 +70,6 @@ const getLozenzeProperties = (
 	if (entity.attributes?.workspaceMember) {
 		return intl.formatMessage(messages.memberLozengeText);
 	}
-
 	if (entity.attributes?.isConfluenceExternalCollaborator) {
 		const lozengeTooltipMessage =
 			entity.entityType === EntityType.GROUP
@@ -80,6 +80,10 @@ const getLozenzeProperties = (
 			tooltip: intl.formatMessage(lozengeTooltipMessage),
 			appearance: 'default',
 		};
+	}
+	const isJiraGuestUser = fg('user_picker_guest_lozenges') && entity.attributes?.isJiraGuest;
+	if (isJiraGuestUser) {
+		return intl.formatMessage(messages.guestLozengeText);
 	}
 
 	return undefined;

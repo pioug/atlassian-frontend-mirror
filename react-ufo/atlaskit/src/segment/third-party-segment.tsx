@@ -6,7 +6,10 @@ import UFOIgnoreHolds from '../ignore-holds';
 
 import UFOSegment, { type Props as SegmentProps } from './segment';
 
-export function UFOThirdPartySegment(props: Omit<SegmentProps, 'type'>): React.JSX.Element {
+export const UFOThirdPartySegment: {
+	(props: Omit<SegmentProps, 'type'>): React.JSX.Element;
+	displayName: string;
+} = (props: Omit<SegmentProps, 'type'>): React.JSX.Element => {
 	const { children, ...otherProps } = props;
 	return fg('platform_ufo_enable_ttai_with_3p') ? (
 		<UFOSegment type="third-party" {...otherProps}>
@@ -22,4 +25,6 @@ export function UFOThirdPartySegment(props: Omit<SegmentProps, 'type'>): React.J
 			</UFOIgnoreHolds>
 		</UFOSegment>
 	);
-}
+};
+
+UFOThirdPartySegment.displayName = 'UFOThirdPartySegment';

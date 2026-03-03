@@ -44,6 +44,9 @@
 			"path": "../../design-system/accessibility-testing/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/design-system-docs-ui/tsconfig.app.json"
+		},
+		{
 			"path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
 		},
 		{
@@ -87,6 +90,12 @@
 		},
 		{
 			"path": "../../design-system/icon-lab/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/image/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/link/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/logo/tsconfig.app.json"

@@ -5,6 +5,13 @@ Current state: Early Access
 The official Model Context Protocol (MCP) server for the Atlassian Design System. This server
 provides tools to access design tokens, icons, and components/primitives programmatically.
 
+**New: Remote MCP Server** A hosted version of the ADS MCP server is now available at
+`https://mcp.atlassian.com/v1/ads/public/mcp`. Simply point your MCP client to this URL to get started. See the [Usage](#usage) section for per-IDE configuration examples.
+
+Or, just click one of the buttons below to easily add the server to Cursor or VS Code.
+
+[![Install in Cursor](https://img.shields.io/badge/Cursor-Install_ads--mcp-000000?style=for-the-badge&logo=cursor&logoColor=ffffff)](vscode:mcp/install?%7B%22name%22%3A%22ads-mcp%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fmcp.atlassian.com%2Fv1%2Fads%2Fpublic%2Fmcp%22%7D) [![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_ads--mcp-0098FF?style=for-the-badge&logo=githubcopilot&logoColor=ffffff)](vscode:mcp/install?%7B%22name%22%3A%22ads-mcp%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fmcp.atlassian.com%2Fv1%2Fads%2Fpublic%2Fmcp%22%7D)
+
 **New: Accessibility Analysis & Guidance** The server now includes comprehensive accessibility tools
 to help ensure your interfaces are accessible to all users.
 
@@ -19,10 +26,18 @@ to help ensure your interfaces are accessible to all users.
   - [For AFM Users (internal Atlassians only)](#for-afm-users-internal-atlassians-only)
   - [For non-AFM Users](#for-non-afm-users)
     - [Cursor IDE](#cursor-ide)
+      - [Local (stdio)](#local-stdio)
+      - [Remote](#remote)
     - [Visual Studio Code](#visual-studio-code)
       - [Github Copilot](#github-copilot)
+        - [Local (stdio)](#local-stdio-1)
+        - [Remote](#remote-1)
       - [Codelassian](#codelassian)
+        - [Local (stdio)](#local-stdio-2)
+        - [Remote](#remote-2)
     - [Rovodev](#rovodev)
+      - [Local (stdio)](#local-stdio-3)
+      - [Remote](#remote-3)
     - [MCP Plugin for Atlas CLI](#mcp-plugin-for-atlas-cli)
   - [Environment Variables](#environment-variables)
 - [Analytics](#analytics)
@@ -142,6 +157,8 @@ ads-mcp.
 
 #### Cursor IDE
 
+##### Local (stdio)
+
 Add the following entry to your `mcp.json` file (located at `~/.cursor/mcp.json` for user-level or
 `.cursor/mcp.json` in your workspace):
 
@@ -159,9 +176,25 @@ Add the following entry to your `mcp.json` file (located at `~/.cursor/mcp.json`
 }
 ```
 
+##### Remote
+
+Click [![Install in Cursor](https://img.shields.io/badge/Cursor-Install_ads--mcp-000000?style=for-the-badge&logo=cursor&logoColor=ffffff)](vscode:mcp/install?%7B%22name%22%3A%22ads-mcp%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fmcp.atlassian.com%2Fv1%2Fads%2Fpublic%2Fmcp%22%7D) to add or add the following to the same `mcp.json` file:
+
+```json
+{
+	"mcpServers": {
+		"ads-mcp": {
+			"url": "https://mcp.atlassian.com/v1/ads/public/mcp"
+		}
+	}
+}
+```
+
 #### Visual Studio Code
 
 ##### Github Copilot
+
+###### Local (stdio)
 
 Add the following entry to your `mcp.json` file (located at
 `~/Library/Application Support/Code/User/mcp.json` for user-level or `.vscode/mcp.json` in your
@@ -182,7 +215,24 @@ workspace):
 }
 ```
 
+###### Remote
+
+Click [![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_ads--mcp-0098FF?style=for-the-badge&logo=githubcopilot&logoColor=ffffff)](vscode:mcp/install?%7B%22name%22%3A%22ads-mcp%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fmcp.atlassian.com%2Fv1%2Fads%2Fpublic%2Fmcp%22%7D) or add the following to the same `mcp.json` file:
+
+```json
+{
+	"servers": {
+		"ads-mcp": {
+			"type": "http",
+			"url": "https://mcp.atlassian.com/v1/ads/public/mcp"
+		}
+	}
+}
+```
+
 ##### Codelassian
+
+###### Local (stdio)
 
 Add the following entry to your `mcp.json` file (located at `~/.codelassian/mcp.json` for user-level
 or `.codelassian/mcp.json` in your workspace):
@@ -201,7 +251,25 @@ or `.codelassian/mcp.json` in your workspace):
 }
 ```
 
+###### Remote
+
+No local installation required. Add the following to the same `mcp.json` file:
+
+```json
+{
+	"mcpServers": {
+		"ads-mcp": {
+			"type": "streamableHttp",
+			"url": "https://mcp.atlassian.com/v1/ads/public/mcp",
+			"disabled": false
+		}
+	}
+}
+```
+
 #### Rovodev
+
+##### Local (stdio)
 
 Add the following entry to your `mcp.json` file (located at `~/.rovodev/mcp.json` for user-level or
 `mcp.json` in your workspace):
@@ -225,6 +293,20 @@ Add the following entry to your `mcp.json` file (located at `~/.rovodev/mcp.json
 > `"timeout": 300` will specify the maximum time in **seconds** that the MCP server will wait before
 > terminating the process if it becomes unresponsive. Adjust this value as needed for your
 > environment or workflow.
+
+##### Remote
+
+No local installation required. Add the following to the same `mcp.json` file:
+
+```json
+{
+	"mcpServers": {
+		"ads-mcp": {
+			"url": "https://mcp.atlassian.com/v1/ads/public/mcp"
+		}
+	}
+}
+```
 
 #### MCP Plugin for Atlas CLI
 

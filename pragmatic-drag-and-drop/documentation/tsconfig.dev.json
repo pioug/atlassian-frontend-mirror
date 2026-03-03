@@ -29,7 +29,8 @@
 		"**/stories/*.ts",
 		"**/stories/*.tsx",
 		"**/stories/**/*.ts",
-		"**/stories/**/*.tsx"
+		"**/stories/**/*.tsx",
+		"./scripts/*.ts"
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
@@ -144,6 +145,9 @@
 		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/codegen/tsconfig.app.json"
 		},
 		{
 			"path": "../../monorepo-tooling/gemini/tsconfig.app.json"

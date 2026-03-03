@@ -1,7 +1,10 @@
+import isEqual from 'lodash/isEqual';
+
 import { type SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	type ResourceId,
@@ -62,6 +65,7 @@ export class SourceSyncBlockStoreManager {
 	private fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void;
 
 	private syncBlockCache: Map<ResourceId, SyncBlockData>;
+	private hasReceivedContentChange: boolean = false;
 
 	private confirmationCallback?: ConfirmationCallback;
 	private deletionRetryInfo?: {
@@ -115,7 +119,19 @@ export class SourceSyncBlockStoreManager {
 			}
 
 			const syncBlockData = convertSyncBlockPMNodeToSyncBlockData(syncBlockNode);
-			this.syncBlockCache.set(resourceId, { ...syncBlockData, isDirty: true });
+
+			if (fg('platform_synced_block_patch_5')) {
+				const cachedBlock = this.syncBlockCache.get(resourceId);
+				if (cachedBlock && !isEqual(syncBlockData.content, cachedBlock.content)) {
+					this.hasReceivedContentChange = true;
+				}
+			}
+
+			this.syncBlockCache.set(resourceId, {
+				...syncBlockData,
+				isDirty: true,
+			});
+
 			return true;
 		} catch (error) {
 			logException(error as Error, {
@@ -218,6 +234,13 @@ export class SourceSyncBlockStoreManager {
 
 			return false;
 		}
+	}
+
+	public hasUnsavedChanges(): boolean {
+		return (
+			this.hasReceivedContentChange &&
+			Array.from(this.syncBlockCache.values()).some((syncBlockData) => syncBlockData.isDirty)
+		);
 	}
 
 	public isPendingCreation(resourceId: ResourceId): boolean {

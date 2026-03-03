@@ -28,7 +28,8 @@
 		"**/stories/*.ts",
 		"**/stories/*.tsx",
 		"**/stories/**/*.ts",
-		"**/stories/**/*.tsx"
+		"**/stories/**/*.tsx",
+		"./build/*.tsx"
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
@@ -38,6 +39,9 @@
 	"references": [
 		{
 			"path": "./tsconfig.app.json"
+		},
+		{
+			"path": "../icon-build-process/tsconfig.app.json"
 		},
 		{
 			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"

@@ -2,7 +2,6 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-
 // @ts-ignore - missing types for string-raw
 import stringRaw from 'string-raw';
 import CodeBlock from '@atlaskit/code/block';
@@ -26,7 +25,7 @@ export default function code(
 	// Tagged Template Literal support is still WIP for flow: https://github.com/facebook/flow/issues/2616
 	sources: any,
 	...substitutions: any[]
-) {
+): JSX.Element {
 	let source = stringRaw(sources, substitutions);
 	const highlightRaw = /^highlight=(.*)/.exec(source);
 	const highlight = highlightRaw && highlightRaw[1] ? highlightRaw[1] : undefined;

@@ -31,8 +31,10 @@ setupEditorExperiments('test', {
 });
 
 const NATIVE_EMBEDS_EXAMPLE_URLS = {
-	localDefault: 'http://localhost:9000/examples/editor/editor-plugin-native-embeds/basic',
-	whiteboard: 'https://example.atlassian.net/wiki/spaces/DEMO/whiteboard/12345',
+	localDefault:
+		'https://pug.jira-dev.com/wiki/spaces/~437732578/whiteboard/455327744365',
+	whiteboard:
+		'https://pug.jira-dev.com/wiki/spaces/~437732578/whiteboard/455327744365',
 	dbExperience: 'https://example.atlassian.net/wiki/spaces/DEMO/pages/12345/db/67890',
 };
 

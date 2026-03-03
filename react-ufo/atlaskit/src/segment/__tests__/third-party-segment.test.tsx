@@ -30,6 +30,9 @@ jest.mock('../../ignore-holds', () => {
 // Mock feature flags
 jest.mock('@atlaskit/platform-feature-flags', () => ({
 	fg: jest.fn((flag: string) => {
+		if (flag === 'platform_ufo_reenable_3p_tracking') {
+			return true;
+		}
 		if (flag === 'platform_ufo_exclude_3p_elements_from_ttai') {
 			return false;
 		}
@@ -41,6 +44,10 @@ describe('UFOThirdPartySegment', () => {
 	beforeEach(() => {
 		// Clear the stored props before each test
 		(window as any).__mockUFOSegmentProps = null;
+	});
+
+	it('should have the correct displayName', () => {
+		expect(UFOThirdPartySegment.displayName).toBe('UFOThirdPartySegment');
 	});
 
 	it('should call UFOSegment with type="third-party"', async () => {

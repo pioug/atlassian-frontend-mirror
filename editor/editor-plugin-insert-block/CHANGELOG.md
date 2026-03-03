@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 8.7.10
+
+### Patch Changes
+
+- [`f623524e57d49`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f623524e57d49) -
+  Add portalRoot type to ExperienceCheckPopupMutation
+- Updated dependencies
+
 ## 8.7.9
 
 ### Patch Changes

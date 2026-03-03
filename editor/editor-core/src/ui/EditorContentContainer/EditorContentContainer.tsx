@@ -39,6 +39,7 @@ import {
 	editorLargeGutterPuddingBaseStyles,
 	editorLargeGutterPuddingBaseStylesEditorControls,
 	editorLargeGutterPuddingReducedBaseStyles,
+	maxModeReizeFixStyles,
 } from './styles/baseStyles';
 import { blockMarksStyles } from './styles/blockMarksStyles';
 import {
@@ -326,6 +327,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 				css={[
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					baseStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					fg('platform_editor_max_width_mode_resize_fix') && maxModeReizeFixStyles,
 					expValEquals('platform_editor_media_vc_fixes', 'isEnabled', true) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						baseStylesMaxContainerWidthFixes,

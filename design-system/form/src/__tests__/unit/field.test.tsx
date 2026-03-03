@@ -5,7 +5,6 @@ import Button from '@atlaskit/button/new';
 import __noop from '@atlaskit/ds-lib/noop';
 import Select, { type ValueType } from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { fireEvent, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
 import Form, { ErrorMessage, Field, HelperMessage, ValidMessage } from '../../index';
@@ -1197,66 +1196,60 @@ describe('Field', () => {
 			expect(screen.getByText(error)).toBeInTheDocument();
 		});
 
-		ffTest.on(
-			'platform_dst_form_fix_isrequired_effect',
-			'when platform_dst_form_fix_isrequired_effect is enabled',
-			async () => {
-				it('should re-validate the form if isRequired is changed', async () => {
-					render(
-						<WithState defaultState={false}>
-							{(isRequired, setIsRequired) => (
-								<>
-									<Form onSubmit={jest.fn()}>
-										{({ formProps }) => (
-											<form {...formProps}>
-												<Field
-													name="test123"
-													label="Username"
-													defaultValue=""
-													isRequired={isRequired}
-													validate={(value) =>
-														isRequired && !value ? 'value is required' : undefined
-													}
-												>
-													{({ fieldProps, error }) => (
-														<>
-															<TextField {...fieldProps} />
-															{error && <ErrorMessage>{error}</ErrorMessage>}
-														</>
-													)}
-												</Field>
-											</form>
-										)}
-									</Form>
-									<Button testId="SetRequiredButton" onClick={() => setIsRequired(!isRequired)}>
-										Change required status
-									</Button>
-									<Button
-										testId="SubmitButton"
-										onClick={() => user.click(screen.getByTestId('SubmitButton'))}
-									>
-										Submit
-									</Button>
-								</>
-							)}
-						</WithState>,
-					);
+		it('should re-validate the form if isRequired is changed', async () => {
+			render(
+				<WithState defaultState={false}>
+					{(isRequired, setIsRequired) => (
+						<>
+							<Form onSubmit={jest.fn()}>
+								{({ formProps }) => (
+									<form {...formProps}>
+										<Field
+											name="test123"
+											label="Username"
+											defaultValue=""
+											isRequired={isRequired}
+											validate={(value) =>
+												isRequired && !value ? 'value is required' : undefined
+											}
+										>
+											{({ fieldProps, error }) => (
+												<>
+													<TextField {...fieldProps} />
+													{error && <ErrorMessage>{error}</ErrorMessage>}
+												</>
+											)}
+										</Field>
+									</form>
+								)}
+							</Form>
+							<Button testId="SetRequiredButton" onClick={() => setIsRequired(!isRequired)}>
+								Change required status
+							</Button>
+							<Button
+								testId="SubmitButton"
+								onClick={() => user.click(screen.getByTestId('SubmitButton'))}
+							>
+								Submit
+							</Button>
+						</>
+					)}
+				</WithState>,
+			);
 
-					const setRequiredButton = screen.getByTestId('SetRequiredButton');
-					const input = screen.getByRole('textbox');
-					fireEvent.focus(input);
-					fireEvent.blur(input);
+			const setRequiredButton = screen.getByTestId('SetRequiredButton');
+			const input = screen.getByRole('textbox');
+			fireEvent.focus(input);
+			fireEvent.blur(input);
 
-					expect(() => screen.getByText('value is required')).toThrow();
+			expect(() => screen.getByText('value is required')).toThrow();
 
-					await user.click(setRequiredButton);
+			await user.click(setRequiredButton);
 
-					fireEvent.focus(input);
-					fireEvent.blur(input);
+			fireEvent.focus(input);
+			fireEvent.blur(input);
 
-					expect(screen.getByText('value is required')).toBeInTheDocument();
-				});
-			},
-		);
+			expect(screen.getByText('value is required')).toBeInTheDocument();
+		});
 	});
 });

@@ -1,8 +1,11 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import {
 	type Config,
 	getAwaitBM3TTIList,
 	getCapabilityRate,
 	getConfig,
+	getDefaultTTVCRevision,
 	getDoNotAbortActivePressInteraction,
 	getDoNotAbortActivePressInteractionOnTransition,
 	getEnabledVCRevisions,
@@ -20,11 +23,14 @@ import {
 	shouldUseRawDataThirdPartyBehavior,
 } from './index';
 
+jest.mock('@atlaskit/platform-feature-flags');
+
 describe('UFO Configuration Module', () => {
 	beforeEach(() => {
 		// Reset configuration before each test
 		// @ts-ignore
 		setUFOConfig(undefined);
+		(fg as jest.Mock).mockImplementation(() => false);
 	});
 
 	describe('setUFOConfig and getConfig', () => {
@@ -33,10 +39,57 @@ describe('UFO Configuration Module', () => {
 			setUFOConfig(config);
 			expect(getConfig()).toEqual(config);
 		});
+
+		it('should NOT enforce default revision into enabledVCRevisions.all when byExperience is absent and FG is off', () => {
+			(fg as jest.Mock).mockImplementation(() => false);
+			const config: Config = {
+				product: 'testProduct',
+				region: 'testRegion',
+				vc: {
+					enabled: true,
+					enabledVCRevisions: {
+						all: ['fy26.04'],
+					},
+				},
+			};
+			setUFOConfig(config);
+			// Without FG, enforcement is bypassed when byExperience is absent
+			expect(getConfig()?.vc?.enabledVCRevisions?.all).toEqual(['fy26.04']);
+		});
+
+		it('should enforce default revision into enabledVCRevisions.all when byExperience is absent and FG is on', () => {
+			(fg as jest.Mock).mockImplementation(() => true);
+			const config: Config = {
+				product: 'testProduct',
+				region: 'testRegion',
+				vc: {
+					enabled: true,
+					enabledVCRevisions: {
+						all: ['fy25.01'],
+					},
+				},
+			};
+			setUFOConfig(config);
+			// With FG, enforcement always applies - fy26.04 is forced in
+			expect(getConfig()?.vc?.enabledVCRevisions?.all).toEqual(['fy26.04', 'fy25.01']);
+		});
+	});
+
+	describe('getDefaultTTVCRevision', () => {
+		it('should return fy25.03 when FG is off', () => {
+			(fg as jest.Mock).mockImplementation(() => false);
+			expect(getDefaultTTVCRevision()).toBe('fy25.03');
+		});
+
+		it('should return fy26.04 when FG is on', () => {
+			(fg as jest.Mock).mockImplementation(() => true);
+			expect(getDefaultTTVCRevision()).toBe('fy26.04');
+		});
 	});
 
 	describe('getEnabledVCRevisions', () => {
-		it('should return default revision if VC config is enabled, but no `enabledVCRevisions` config is set', () => {
+		it('should return default revision (fy25.03) if VC config is enabled but no `enabledVCRevisions` config is set and FG is off', () => {
+			(fg as jest.Mock).mockImplementation(() => false);
 			const config: Config = {
 				product: 'testProduct',
 				region: 'testRegion',
@@ -44,6 +97,17 @@ describe('UFO Configuration Module', () => {
 			};
 			setUFOConfig(config);
 			expect(getEnabledVCRevisions()).toEqual(['fy25.03']);
+		});
+
+		it('should return default revision (fy26.04) if VC config is enabled but no `enabledVCRevisions` config is set and FG is on', () => {
+			(fg as jest.Mock).mockImplementation(() => true);
+			const config: Config = {
+				product: 'testProduct',
+				region: 'testRegion',
+				vc: { enabled: true },
+			};
+			setUFOConfig(config);
+			expect(getEnabledVCRevisions()).toEqual(['fy26.04']);
 		});
 
 		it('should return revisions based on experienceKey when config is set', () => {

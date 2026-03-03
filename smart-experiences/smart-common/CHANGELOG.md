@@ -1,5 +1,12 @@
 # @atlaskit/smart-common
 
+## 2.0.1
+
+### Patch Changes
+
+- [`cd870c596ec95`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd870c596ec95) -
+  Add UserSearchJiraAttributes interface for Jira guest entitlement support
+
 ## 2.0.0
 
 ### Major Changes

@@ -56,7 +56,13 @@ type Rates = {
 };
 
 export type TTVCRevision = 'fy25.01' | 'fy25.02' | 'fy25.03' | 'fy26.04' | 'next';
-export const DEFAULT_TTVC_REVISION = 'fy25.03';
+export const DEFAULT_TTVC_REVISION = 'fy26.04';
+
+export function getDefaultTTVCRevision(): TTVCRevision {
+	return fg('ufo_update_and_enforce_ttvc_v4_default_version')
+		? DEFAULT_TTVC_REVISION
+		: ('fy25.03' as TTVCRevision);
+}
 
 export const UNKNOWN_INTERACTION_RATE = 1000;
 
@@ -219,21 +225,30 @@ export type Config = {
 export function setUFOConfig(newConfig: Config): void {
 	// Handle edge cases with `enabledVCRevisions`
 	const { enabledVCRevisions } = newConfig?.vc ?? {};
-	if (typeof enabledVCRevisions?.byExperience === 'object') {
+	if (
+		fg('ufo_update_and_enforce_ttvc_v4_default_version')
+			? enabledVCRevisions
+			: typeof enabledVCRevisions?.byExperience === 'object'
+	) {
+		const byExperience =
+			typeof enabledVCRevisions?.byExperience === 'object'
+				? enabledVCRevisions.byExperience
+				: {};
 		config = {
 			...newConfig,
 			vc: {
 				...newConfig.vc,
 				enabledVCRevisions: {
-					// enforce axiom about `enabledVCRevisions.all` config
+					// enforce axiom about `enabledVCRevisions.all` config:
+					// DEFAULT_TTVC_REVISION must always be present in `all`
 					all: Array.from(
 						new Set([
-							DEFAULT_TTVC_REVISION,
-							...enabledVCRevisions?.all,
-							...Object.values(enabledVCRevisions?.byExperience).flat(),
+							getDefaultTTVCRevision(),
+							...(enabledVCRevisions?.all ?? []),
+							...Object.values(byExperience).flat(),
 						]),
 					),
-					byExperience: { ...enabledVCRevisions?.byExperience },
+					byExperience,
 				},
 			},
 		};
@@ -285,7 +300,7 @@ export function getEnabledVCRevisions(experienceKey: string = ''): readonly TTVC
 				return enabledVCRevisions.all;
 			}
 
-			return [DEFAULT_TTVC_REVISION];
+			return [getDefaultTTVCRevision()];
 		}
 
 		return [];

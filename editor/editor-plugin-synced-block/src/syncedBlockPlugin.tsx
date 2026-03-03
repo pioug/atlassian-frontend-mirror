@@ -135,12 +135,16 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 				syncBlockStore: currentSyncBlockStore,
 				bodiedSyncBlockDeletionStatus,
 				retryCreationPosMap,
+				hasUnsavedBodiedSyncBlockChanges,
 			} = syncedBlockPluginKey.getState(editorState);
 			return {
 				activeFlag,
 				syncBlockStore: currentSyncBlockStore,
 				bodiedSyncBlockDeletionStatus,
 				retryCreationPosMap,
+				hasUnsavedBodiedSyncBlockChanges: fg('platform_synced_block_patch_5')
+					? hasUnsavedBodiedSyncBlockChanges
+					: undefined,
 			};
 		},
 	};

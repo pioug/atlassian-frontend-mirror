@@ -29,7 +29,8 @@
 		"**/stories/*.ts",
 		"**/stories/*.tsx",
 		"**/stories/**/*.ts",
-		"**/stories/**/*.tsx"
+		"**/stories/**/*.tsx",
+		"./build/*.ts"
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
@@ -39,6 +40,9 @@
 	"references": [
 		{
 			"path": "./tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/icon-build-process/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/button/tsconfig.app.json"

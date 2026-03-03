@@ -7,15 +7,30 @@ import {
 
 const messageId = 'use-spotlight-package';
 
+const BANNED_IMPORTS = [
+	// 'Modal',
+	'Spotlight',
+	'SpotlightCard',
+	'SpotlightManager',
+	'SpotlightTarget',
+	'SpotlightTransition',
+	// 'modalButtonTheme',
+	'spotlightButtonTheme',
+	'useSpotlight',
+	// 'ModalTransition',
+	'SpotlightPulse',
+]
+
+
 type Check =
 	| {
-			success: false;
-			ref: undefined;
-	  }
+		success: false;
+		ref: undefined;
+	}
 	| {
-			success: true;
-			ref: ImportDeclarationNode;
-	  };
+		success: true;
+		ref: ImportDeclarationNode;
+	};
 
 export const ImportDeclaration = {
 	lint(node: Rule.Node, { context }: { context: Rule.RuleContext }): void {
@@ -34,6 +49,23 @@ export const ImportDeclaration = {
 
 	_check(node: Rule.Node): Check {
 		if (!isNodeOfType(node, 'ImportDeclaration')) {
+			return { success: false, ref: undefined };
+		}
+
+		if (!node.specifiers) {
+			return { success: false, ref: undefined };
+		}
+
+
+		const isViolation = node.specifiers.some((specifier) => {
+			if (!isNodeOfType(specifier, 'ImportSpecifier')) {
+				return false
+			}
+
+			return BANNED_IMPORTS.includes(specifier.imported.name)
+		})
+
+		if (!isViolation) {
 			return { success: false, ref: undefined };
 		}
 

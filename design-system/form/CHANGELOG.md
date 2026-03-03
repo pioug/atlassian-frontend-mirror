@@ -1,5 +1,13 @@
 # @atlaskit/form
 
+## 15.3.7
+
+### Patch Changes
+
+- [`dcf8070f2b6ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dcf8070f2b6ca) -
+  Cleans-up internal platform feature flag `platform_dst_form_fix_isrequired_effect`. Resolving a
+  bug where form fields were not marked as required when the `isRequired` prop was changed.
+
 ## 15.3.6
 
 ### Patch Changes

@@ -68,6 +68,7 @@ export interface Props {
 	columnCount: number;
 	emptyStateHandler?: EmptyStateHandler;
 	focusOnEmptyStateButton?: boolean;
+	hasTabListContext?: boolean;
 	items: QuickInsertItem[];
 	mode: keyof typeof Modes;
 	onInsertItem: (item: QuickInsertItem) => void;
@@ -96,6 +97,7 @@ function ElementList({
 	setFocusedItemIndex,
 	cache,
 	onInsertItem,
+	hasTabListContext = false,
 }: Props & SelectedItemProps & WithAnalyticsEventsProps) {
 	const { containerWidth, ContainerWidthMonitor } = useContainerWidth();
 	const [scrollbarWidth, setScrollbarWidth] = useState(SCROLLBAR_WIDTH);
@@ -155,11 +157,17 @@ function ElementList({
 				data-testid="element-items"
 				id={selectedCategory ? `browse-category-${selectedCategory}-tab` : 'browse-category-tab'}
 				aria-labelledby={
-					selectedCategory
-						? `browse-category--${selectedCategory}-button`
-						: 'browse-category-button'
+					!hasTabListContext && fg('platform_editor_ally_remove_role_tabpanel')
+						? undefined
+						: selectedCategory
+							? `browse-category--${selectedCategory}-button`
+							: 'browse-category-button'
 				}
-				role="tabpanel"
+				role={
+					!hasTabListContext && fg('platform_editor_ally_remove_role_tabpanel')
+						? undefined
+						: 'tabpanel'
+				}
 				tabIndex={items.length === 0 ? 0 : undefined}
 			>
 				{!items.length ? (

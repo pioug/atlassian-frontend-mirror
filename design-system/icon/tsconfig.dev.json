@@ -29,7 +29,8 @@
 		"**/stories/*.ts",
 		"**/stories/*.tsx",
 		"**/stories/**/*.ts",
-		"**/stories/**/*.tsx"
+		"**/stories/**/*.tsx",
+		"./build/*.tsx"
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
@@ -42,6 +43,9 @@
 		},
 		{
 			"path": "../accessibility-testing/tsconfig.app.json"
+		},
+		{
+			"path": "../icon-build-process/tsconfig.app.json"
 		},
 		{
 			"path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"

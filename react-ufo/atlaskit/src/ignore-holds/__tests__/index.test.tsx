@@ -52,6 +52,11 @@ describe('UFO Interaction Ignore', () => {
 		mountCounter = 1;
 		jest.resetAllMocks();
 	});
+
+	it('should have the correct displayName', () => {
+		expect(UFOIgnoreHolds.displayName).toBe('UFOIgnoreHolds');
+	});
+
 	it('renders the children when there is no interaction context', async () => {
 		const { rerender } = render(<MyFixtureComponent ignore={true} />);
 

@@ -6,6 +6,7 @@ import {
 	FlyoutMenuItemDefaultOpenSelectedVR,
 	FlyoutMenuItemExample,
 	FlyoutMenuItemRTL,
+	FlyoutMenuItemSingleItemDefaultOpen,
 	FlyoutMenuItemSlotsManyDefaultOpen,
 	FlyoutMenuItemWithNestedPopupDefaultOpenExample,
 } from '../../../../../examples/flyout-menu-item';
@@ -44,6 +45,15 @@ snapshot(FlyoutMenuItemWithNestedPopupDefaultOpenExample, {
 	description: 'A flyout menu with a nested popup using `shouldRenderToParent`',
 	variants: lightModeVariant,
 	drawsOutsideBounds: true,
+});
+
+snapshot(FlyoutMenuItemSingleItemDefaultOpen, {
+	description: 'Flyout body item focus ring is not clipped',
+	variants: lightModeVariant,
+	drawsOutsideBounds: true,
+	states: [
+		{ state: 'focused', selector: { byRole: 'button', options: { name: 'Button menu item' } } },
+	],
 });
 
 snapshot(FlyoutMenuItemSlotsManyDefaultOpen, {

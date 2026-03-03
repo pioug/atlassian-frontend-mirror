@@ -10,7 +10,13 @@ import type {
 } from '../common';
 import type { PageVisibility } from '../common/react-ufo-payload-schema';
 import type { RevisionPayload, VCResult } from '../common/vc/types';
-import { DEFAULT_TTVC_REVISION, getConfig, getExtraInteractionRate } from '../config';
+import {
+	DEFAULT_TTVC_REVISION,
+	getConfig,
+	getDefaultTTVCRevision,
+	getExtraInteractionRate,
+	getMostRecentVCRevision,
+} from '../config';
 import type { OptimizedLabelStack } from '../create-payload/common/types';
 import {
 	buildSegmentTree,
@@ -207,8 +213,11 @@ async function createInteractionExtraLogPayload(
 
 	// Check if VC is clean and has valid metric
 	const vcRevisionPayload = finalVCMetrics?.['ufo:vc:rev'] as RevisionPayload;
+	const effectiveRevision = fg('ufo_update_and_enforce_ttvc_v4_default_version')
+		? (getMostRecentVCRevision(ufoName) ?? DEFAULT_TTVC_REVISION)
+		: getDefaultTTVCRevision();
 	const effectiveVCRevisionPayload = vcRevisionPayload?.find(
-		({ revision }) => revision === DEFAULT_TTVC_REVISION,
+		({ revision }) => revision === effectiveRevision,
 	);
 	if (
 		!effectiveVCRevisionPayload?.clean ||
@@ -248,7 +257,7 @@ async function createInteractionExtraLogPayload(
 			'ufo:vc:rev'
 		] as RevisionPayload;
 		const lastInteractionFinishRevision = lastInteractionFinishVCRev?.find(
-			({ revision }) => revision === DEFAULT_TTVC_REVISION,
+			({ revision }) => revision === effectiveRevision,
 		);
 		if (lastInteractionFinishRevision?.clean) {
 			lastInteractionFinishVCClean = true;
@@ -376,7 +385,7 @@ async function createInteractionExtraLogPayload(
 					customData: filteredData.customData,
 					...getDetailedInteractionMetrics(),
 				},
-				'vc:effective:revision': DEFAULT_TTVC_REVISION,
+				'vc:effective:revision': effectiveRevision,
 				lastInteractionFinish: {
 					start: lastInteractionFinishStart,
 					end: lastInteractionFinishEnd,

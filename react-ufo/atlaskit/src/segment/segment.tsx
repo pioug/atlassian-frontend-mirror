@@ -71,12 +71,15 @@ let tryCompleteHandle: number | undefined;
 let hasMarkedFirstSegmentLoad = false;
 
 /** A portion of the page we apply measurement to */
-export default function UFOSegment({
+const UFOSegment: {
+	(props: Props): React.JSX.Element;
+	displayName: string;
+} = ({
 	name: segmentName,
 	children,
 	mode = 'single',
 	type = 'first-party',
-}: Props): React.JSX.Element {
+}: Props): React.JSX.Element => {
 	// If UFO is disabled, render children without any tracking overhead
 	// This is gated behind platform_ufo_enable_killswitch_config feature flag
 	// Note: isUFOEnabled() returns a stable value based on config, so it's safe to call before hooks
@@ -425,4 +428,8 @@ export default function UFOSegment({
 	}
 
 	return ufoSegment;
-}
+};
+
+UFOSegment.displayName = 'UFOSegment';
+
+export default UFOSegment;

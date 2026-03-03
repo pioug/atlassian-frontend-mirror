@@ -1,5 +1,12 @@
 # @atlassian/smart-user-picker
 
+## 9.1.0
+
+### Minor Changes
+
+- [`cd870c596ec95`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd870c596ec95) -
+  Add support for Jira guest user lozenges via user_picker_guest_lozenges feature flag
+
 ## 9.0.1
 
 ### Patch Changes

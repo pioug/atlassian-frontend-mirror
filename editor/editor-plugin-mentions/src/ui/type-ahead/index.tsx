@@ -54,7 +54,7 @@ const createInviteItem = ({
 }): TypeAheadItem => ({
 	title: INVITE_ITEM_DESCRIPTION.id,
 	render: ({ isSelected, onClick, onHover }) =>
-		mentionProvider.getShouldEnableInlineInvite?.() &&
+		emailDomain && mentionProvider.getShouldEnableInlineInvite?.() &&
 		fg('jira_invites_auto_tag_new_user_in_mentions_fg') ? (
 			<InviteItemWithEmailDomain
 				productName={mentionProvider ? mentionProvider.productName : undefined}

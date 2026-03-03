@@ -62,7 +62,7 @@ export interface State {
 	bootstrapOptions: OptionData[];
 }
 
-export type ProductAttributes = BitbucketAttributes | ConfluenceAttributes;
+export type ProductAttributes = BitbucketAttributes | ConfluenceAttributes | JiraAttributes;
 
 export type FilterOptions = (options: OptionData[], query: string) => OptionData[];
 
@@ -86,6 +86,13 @@ export interface ConfluenceAttributes {
 	 * Identifies whether this user is part of a Confluence site that is entitled for guests
 	 */
 	isEntitledConfluenceExternalCollaborator?: boolean;
+}
+
+export interface JiraAttributes {
+	/**
+	 * Identifies whether this user is part of a Jira site that is entitled for guests
+	 */
+	isEntitledJiraGuest?: boolean;
 }
 
 export enum EntityType {

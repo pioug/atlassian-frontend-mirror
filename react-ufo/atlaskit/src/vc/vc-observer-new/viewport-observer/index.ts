@@ -309,6 +309,7 @@ export default class ViewportObserver {
 	private isStarted: boolean;
 	private trackLayoutShiftOffenders: boolean;
 	private searchPageConfig: SearchPageConfig | undefined;
+	private enableThirdPartyTracking: boolean | undefined;
 
 	// SSR context functions
 	private getSSRState?: () => any;
@@ -334,6 +335,7 @@ export default class ViewportObserver {
 		this.getSSRState = getSSRState;
 		this.getSSRPlaceholderHandler = getSSRPlaceholderHandler;
 		this.searchPageConfig = searchPageConfig;
+		this.enableThirdPartyTracking = fg('platform_ufo_reenable_3p_tracking');
 	}
 
 	private handleIntersectionEntry = ({
@@ -405,11 +407,11 @@ export default class ViewportObserver {
 				return n.isEqualNode(addedNode);
 			});
 
-			const { isWithin: isWithinThirdPartySegment } = checkWithinComponent(
+			const { isWithin: isWithinThirdPartySegment } = this.enableThirdPartyTracking ? checkWithinComponent(
 				addedNode,
 				'UFOThirdPartySegment',
 				this.mapIs3pResult,
-			);
+			) : { isWithin: false } ;
 
 			const isWithinSmartAnswersSegment = Boolean(
 				this.shouldCheckSmartAnswersMutations() && isContainedWithinSmartAnswers(addedNode),
@@ -462,11 +464,11 @@ export default class ViewportObserver {
 			}
 
 			if (fg('platform_ufo_exclude_3p_attribute_changes')) {
-				const { isWithin: isWithinThirdPartySegment } = checkWithinComponent(
+				const { isWithin: isWithinThirdPartySegment } = this.enableThirdPartyTracking ? checkWithinComponent(
 					target,
 					'UFOThirdPartySegment',
 					this.mapIs3pResult,
-				);
+				) : { isWithin: false };
 				if (isWithinThirdPartySegment) {
 					return {
 						type: 'mutation:third-party-attribute',

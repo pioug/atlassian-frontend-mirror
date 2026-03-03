@@ -28,6 +28,9 @@
 		"team": "Editor: Collaboration",
 		"website": {
 			"name": "Emoji"
+		},
+		"react-compiler": {
+			"disabled": true
 		}
 	},
 	"config": {

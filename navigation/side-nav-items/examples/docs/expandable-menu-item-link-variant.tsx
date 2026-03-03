@@ -1,0 +1,275 @@
+/**
+ * @jsxfrag
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import React, { useState } from 'react';
+
+import Button, { IconButton } from '@atlaskit/button/new';
+import { jsx } from '@atlaskit/css';
+import AddIcon from '@atlaskit/icon/core/add';
+import ChartBarIcon from '@atlaskit/icon/core/chart-bar';
+import HomeIcon from '@atlaskit/icon/core/home';
+import InboxIcon from '@atlaskit/icon/core/inbox';
+import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
+import { JiraIcon } from '@atlaskit/logo';
+import Lozenge from '@atlaskit/lozenge';
+import { SideNavContent } from '@atlaskit/navigation-system/layout/side-nav';
+import { Inline, Stack } from '@atlaskit/primitives/compiled';
+import { ContainerAvatar } from '@atlaskit/side-nav-items/container-avatar';
+import {
+	ExpandableMenuItem,
+	ExpandableMenuItemContent,
+	ExpandableMenuItemTrigger,
+} from '@atlaskit/side-nav-items/expandable-menu-item';
+import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
+import { MenuList } from '@atlaskit/side-nav-items/menu-list';
+import { MenuSection, MenuSectionHeading } from '@atlaskit/side-nav-items/menu-section';
+
+import MoneyIcon from '../images/money.svg';
+
+import { MockSideNav } from './common/mock-side-nav';
+
+const exampleHref = '#example-href';
+
+function PlaceholderExpandableContent() {
+	return (
+		<ExpandableMenuItemContent>
+			<LinkMenuItem href={exampleHref}>Expandable menu item content</LinkMenuItem>
+		</ExpandableMenuItemContent>
+	);
+}
+
+function AddAction() {
+	return (
+		<IconButton
+			spacing="compact"
+			appearance="subtle"
+			label="Add"
+			icon={(iconProps) => <AddIcon {...iconProps} size="small" />}
+		/>
+	);
+}
+
+function MoreAction() {
+	return (
+		<IconButton
+			spacing="compact"
+			appearance="subtle"
+			label="More"
+			icon={(iconProps) => <MoreIcon {...iconProps} size="small" />}
+		/>
+	);
+}
+
+// Examples of the link variant of the expandable menu item.
+// This means there is an href provided.
+export function ExpandableMenuItemLinkVariantExample() {
+	const [showSelectedStateExample, setShowSelectedStateExample] = useState(false);
+
+	return (
+		<Stack space="space.100">
+			<Inline space="space.600">
+				<MockSideNav>
+					<SideNavContent>
+						<MenuList>
+							<ExpandableMenuItem>
+								<ExpandableMenuItemTrigger href={exampleHref}>
+									Exp link menu item (default)
+								</ExpandableMenuItemTrigger>
+								<PlaceholderExpandableContent />
+							</ExpandableMenuItem>
+
+							<ExpandableMenuItem>
+								<ExpandableMenuItemTrigger
+									href={exampleHref}
+									elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
+								>
+									Exp link menu item (icon)
+								</ExpandableMenuItemTrigger>
+								<PlaceholderExpandableContent />
+							</ExpandableMenuItem>
+
+							<ExpandableMenuItem>
+								<ExpandableMenuItemTrigger
+									href={exampleHref}
+									elemBefore={<ContainerAvatar src={MoneyIcon} />}
+								>
+									Exp link menu item (ContainerAvatar)
+								</ExpandableMenuItemTrigger>
+								<PlaceholderExpandableContent />
+							</ExpandableMenuItem>
+
+							<ExpandableMenuItem>
+								<ExpandableMenuItemTrigger
+									href={exampleHref}
+									elemBefore={<JiraIcon label="" shouldUseNewLogoDesign size="xsmall" />}
+								>
+									Exp link menu item (app tile)
+								</ExpandableMenuItemTrigger>
+								<PlaceholderExpandableContent />
+							</ExpandableMenuItem>
+
+							<ExpandableMenuItem isDefaultExpanded>
+								<ExpandableMenuItemTrigger href={exampleHref}>
+									Exp link menu item (level 0)
+								</ExpandableMenuItemTrigger>
+								<ExpandableMenuItemContent>
+									<MenuSection isMenuListItem>
+										<MenuSectionHeading>Menus section heading (Level 1)</MenuSectionHeading>
+										<MenuList>
+											<ExpandableMenuItem>
+												<ExpandableMenuItemTrigger
+													href={exampleHref}
+													elemBefore={<InboxIcon label="" />}
+												>
+													Exp link menu item (level 1)
+												</ExpandableMenuItemTrigger>
+												<ExpandableMenuItemContent>
+													<ExpandableMenuItem>
+														<ExpandableMenuItemTrigger
+															href={exampleHref}
+															elemBefore={<ChartBarIcon label="" />}
+														>
+															Exp link menu item (level 2)
+														</ExpandableMenuItemTrigger>
+														<ExpandableMenuItemContent>
+															<LinkMenuItem href={exampleHref}>
+																Expandable menu item content
+															</LinkMenuItem>
+														</ExpandableMenuItemContent>
+													</ExpandableMenuItem>
+												</ExpandableMenuItemContent>
+											</ExpandableMenuItem>
+
+											<ExpandableMenuItem isDefaultExpanded>
+												<ExpandableMenuItemTrigger
+													href={exampleHref}
+													elemBefore={<InboxIcon label="" />}
+												>
+													Exp link menu item (level 1)
+												</ExpandableMenuItemTrigger>
+												<ExpandableMenuItemContent>
+													<ExpandableMenuItem>
+														<ExpandableMenuItemTrigger
+															href={exampleHref}
+															elemBefore={<ChartBarIcon label="" />}
+														>
+															Exp link menu item (level 2)
+														</ExpandableMenuItemTrigger>
+														<ExpandableMenuItemContent>
+															<LinkMenuItem href={exampleHref}>
+																Expandable menu item content
+															</LinkMenuItem>
+														</ExpandableMenuItemContent>
+													</ExpandableMenuItem>
+												</ExpandableMenuItemContent>
+											</ExpandableMenuItem>
+										</MenuList>
+									</MenuSection>
+								</ExpandableMenuItemContent>
+							</ExpandableMenuItem>
+						</MenuList>
+					</SideNavContent>
+				</MockSideNav>
+
+				<MockSideNav>
+					<SideNavContent>
+						<MenuList>
+							<ExpandableMenuItem>
+								<ExpandableMenuItemTrigger
+									href={exampleHref}
+									elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
+									actions={
+										<>
+											<AddAction />
+											<MoreAction />
+										</>
+									}
+								>
+									Exp link menu item (actions)
+								</ExpandableMenuItemTrigger>
+								<PlaceholderExpandableContent />
+							</ExpandableMenuItem>
+
+							<ExpandableMenuItem>
+								<ExpandableMenuItemTrigger
+									href={exampleHref}
+									elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
+									actionsOnHover={
+										<>
+											<AddAction />
+											<MoreAction />
+										</>
+									}
+								>
+									Exp link menu item (actionsOnHover)
+								</ExpandableMenuItemTrigger>
+								<PlaceholderExpandableContent />
+							</ExpandableMenuItem>
+
+							<ExpandableMenuItem>
+								<ExpandableMenuItemTrigger
+									elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
+									actions={<MoreAction />}
+									actionsOnHover={<AddAction />}
+								>
+									Exp link menu item (actions & actionsOnHover)
+								</ExpandableMenuItemTrigger>
+								<PlaceholderExpandableContent />
+							</ExpandableMenuItem>
+
+							<ExpandableMenuItem>
+								<ExpandableMenuItemTrigger
+									href={exampleHref}
+									elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
+									elemAfter={<Lozenge>New</Lozenge>}
+								>
+									Exp link menu item (elemAfter)
+								</ExpandableMenuItemTrigger>
+								<PlaceholderExpandableContent />
+							</ExpandableMenuItem>
+
+							<ExpandableMenuItem>
+								<ExpandableMenuItemTrigger
+									href={exampleHref}
+									elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
+									elemAfter={<Lozenge>New</Lozenge>}
+									actions={<MoreAction />}
+									actionsOnHover={<AddAction />}
+								>
+									Exp link menu item (elemAfter, actions & actionsOnHover)
+								</ExpandableMenuItemTrigger>
+								<PlaceholderExpandableContent />
+							</ExpandableMenuItem>
+						</MenuList>
+					</SideNavContent>
+				</MockSideNav>
+			</Inline>
+
+			<Button onClick={() => setShowSelectedStateExample(!showSelectedStateExample)}>
+				{showSelectedStateExample ? 'Hide' : 'Show'} selected state example
+			</Button>
+			<MockSideNav>
+				{showSelectedStateExample && (
+					<SideNavContent>
+						<MenuList>
+							<ExpandableMenuItem>
+								<ExpandableMenuItemTrigger
+									href={exampleHref}
+									elemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}
+									isSelected={showSelectedStateExample}
+								>
+									Exp link menu item (selected state)
+								</ExpandableMenuItemTrigger>
+								<PlaceholderExpandableContent />
+							</ExpandableMenuItem>
+						</MenuList>
+					</SideNavContent>
+				)}
+			</MockSideNav>
+		</Stack>
+	);
+}
+
+export default ExpandableMenuItemLinkVariantExample;

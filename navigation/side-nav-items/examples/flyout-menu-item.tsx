@@ -158,6 +158,23 @@ export const FlyoutMenuItemSlotsManyDefaultOpen = () => (
 	</ExampleWrapper>
 );
 
+// A single item so that we can test the focus ring styling and ensure it is not clipped
+export const FlyoutMenuItemSingleItemDefaultOpen = () => (
+	<ExampleWrapper>
+		<FlyoutMenuItem isDefaultOpen>
+			<FlyoutMenuItemTrigger>Flyout menu item</FlyoutMenuItemTrigger>
+			<FlyoutMenuItemContent>
+				<FlyoutHeader title="Menu" closeButtonLabel="Close menu" />
+				<FlyoutBody>
+					<MenuList>
+						<ButtonMenuItem>Button menu item</ButtonMenuItem>
+					</MenuList>
+				</FlyoutBody>
+			</FlyoutMenuItemContent>
+		</FlyoutMenuItem>
+	</ExampleWrapper>
+);
+
 export const FlyoutMenuItemExample = () => (
 	<ExampleWrapper>
 		<FlyoutMenuItem>

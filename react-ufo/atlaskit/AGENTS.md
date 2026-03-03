@@ -111,9 +111,14 @@ graph LR
 
 The package supports multiple TTVC calculation algorithms:
 
-- `fy25.01`, `fy25.02`: Legacy revisions
-- `fy25.03`: Current default revision (`DEFAULT_TTVC_REVISION`)
-- `fy26.04`, `next`: Experimental revisions
+- `fy25.01`, `fy25.02`, `fy25.03`: Legacy revisions
+- `fy26.04`: Current default revision (`DEFAULT_TTVC_REVISION`)
+- `next`: Experimental revision
+
+> **Important**: Changing `DEFAULT_TTVC_REVISION` (i.e. cleaning up the feature gate after full
+> rollout) is a **breaking change** and must use a **major version bump** in the changeset. This is
+> because downstream consumers may depend on the specific revision for VC metric calculations and
+> payload processing.
 
 ## Directory Structure
 
@@ -455,12 +460,18 @@ interface Config {
 
 When making changes:
 
-1. Run unit tests: `cd platform && yarn test packages/react-ufo`
-2. Run integration tests to verify VC measurement accuracy
-3. Consider impact on downstream Glance/Performance Portal processing
-4. Update sampling rates carefully as they affect data volume
-5. Feature flag new functionality for gradual rollout
-6. Coordinate with the FeObs team (`#help-devinfra-fe-observability`) for major changes
+1. **Always create a changeset** for any changes outside of tests and documentation:
+   ```bash
+   yarn changeset --ni @atlaskit/react-ufo patch "Description of change"
+   ```
+   Use `major` for breaking changes (e.g. changing `DEFAULT_TTVC_REVISION`), `minor` for new
+   features, and `patch` for bug fixes.
+2. Run unit tests: `cd platform && afm test packages/react-ufo/atlaskit`
+3. Run integration tests to verify VC measurement accuracy
+4. Consider impact on downstream Glance/Performance Portal processing
+5. Update sampling rates carefully as they affect data volume
+6. Feature flag new functionality for gradual rollout
+7. Coordinate with the FeObs team (`#help-devinfra-fe-observability`) for major changes
 
 ## Dangerous Operations — Never Do These
 

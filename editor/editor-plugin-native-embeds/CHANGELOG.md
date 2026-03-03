@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-native-embeds
 
+## 0.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.0.2
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.40.4
+
+### Patch Changes
+
+- [`1f45f35f80c0a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f45f35f80c0a) -
+  use-spotlight-package now triggers for specific import specifiers, and ignores modal related
+  specifiers.
+- Updated dependencies
+
 ## 13.40.3
 
 ### Patch Changes

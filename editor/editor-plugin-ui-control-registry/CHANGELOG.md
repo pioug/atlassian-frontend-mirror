@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-ui-control-registry
 
+## 1.1.0
+
+### Minor Changes
+
+- [`031e535207444`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/031e535207444) -
+  Implements the surface renderer for the new Editor UI controls registry, providing a unified
+  component for rendering editor menu trees.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.0
 
 ### Major Changes

@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 43.25.9
+
+### Patch Changes
+
+- [`acb61d1d6efd9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/acb61d1d6efd9) -
+  Add dependency for a11y testing.
+- Updated dependencies
+
 ## 43.25.8
 
 ### Patch Changes

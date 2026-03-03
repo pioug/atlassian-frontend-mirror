@@ -87,9 +87,6 @@
 				{
 					"title": "Side nav items",
 					"id": "side-nav-items",
-					"status": {
-						"type": "beta"
-					},
 					"sortKey": 2
 				},
 				{

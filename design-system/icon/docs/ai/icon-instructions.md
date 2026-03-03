@@ -79,7 +79,7 @@ in `elemBefore`. This applies to `LinkMenuItem`, `ButtonMenuItem` and `FlyoutMen
 For navigation links to different pages/sections:
 
 ```tsx
-import { LinkMenuItem } from '@atlaskit/navigation-system/side-nav-items/link-menu-item';
+import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
 
 <LinkMenuItem
 	href="/dashboard"
@@ -95,7 +95,7 @@ import { LinkMenuItem } from '@atlaskit/navigation-system/side-nav-items/link-me
 For actions that trigger functionality without navigation:
 
 ```tsx
-import { ButtonMenuItem } from '@atlaskit/navigation-system/side-nav-items/button-menu-item';
+import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 
 <ButtonMenuItem
 	onClick={handleAction}
@@ -115,7 +115,7 @@ import {
 	FlyoutMenuItem,
 	FlyoutMenuItemContent,
 	FlyoutMenuItemTrigger,
-} from '@atlaskit/navigation-system/side-nav-items/flyout-menu-item';
+} from '@atlaskit/side-nav-items/flyout-menu-item';
 
 <FlyoutMenuItem>
 	<FlyoutMenuItemTrigger elemBefore={<ProjectIcon label="" />}>Projects</FlyoutMenuItemTrigger>

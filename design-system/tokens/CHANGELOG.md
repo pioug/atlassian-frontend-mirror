@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 11.0.2
+
+### Patch Changes
+
+- [`18a6ca6a0c98c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18a6ca6a0c98c) -
+  Widen React peer dependency from ^18.2.0 to ^18.2.0 || ^19.0.0 to support React 19
+- Updated dependencies
+
 ## 11.0.1
 
 ### Patch Changes

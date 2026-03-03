@@ -17,7 +17,6 @@ import { type FieldState } from 'final-form';
 
 import { css, jsx } from '@atlaskit/css';
 import { useId } from '@atlaskit/ds-lib/use-id';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { FieldId } from './field-id-context';
@@ -224,9 +223,9 @@ export default function Field<
 
 	const [state, setState] = useState<State<FieldValue, Element>>({
 		fieldProps: {
-			onChange: () => {},
-			onBlur: () => {},
-			onFocus: () => {},
+			onChange: () => { },
+			onBlur: () => { },
+			onFocus: () => { },
 			/* Previously, defaultValue was being set as undefined in Field.defaultProps, which
 			 * effectively made it an optional prop to external consumers of Field. However the
 			 * prop types defined defaultValue as required, so inside the component it was not
@@ -256,10 +255,6 @@ export default function Field<
 	});
 
 	const latestStateRef = usePreviousRef(state);
-
-	const isRequiredDependency = fg('platform_dst_form_fix_isrequired_effect')
-		? props.isRequired
-		: undefined;
 
 	useEffect(() => {
 		function fieldStateToMeta(value: Partial<FieldState<FieldValue>> = {}): Meta {
@@ -406,7 +401,7 @@ export default function Field<
 		latestStateRef,
 		registerField,
 		props.name,
-		isRequiredDependency,
+		props.isRequired,
 		isDefaultValueChanged,
 	]);
 

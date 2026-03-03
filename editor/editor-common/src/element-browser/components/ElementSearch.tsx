@@ -137,7 +137,12 @@ function ElementSearch({
 						? formatMessage(commonMessages.searchAriaLabel)
 						: 'search'
 				}
-				aria-labelledby="search-assistive"
+				aria-labelledby={
+					fg('platform_editor_ally_remove_role_tabpanel') ? undefined : 'search-assistive'
+				}
+				aria-describedby={
+					fg('platform_editor_ally_remove_role_tabpanel') ? 'search-assistive' : undefined
+				}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className="js-search-input"
 				role="combobox"

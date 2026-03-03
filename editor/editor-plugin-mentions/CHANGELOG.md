@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-mentions
 
+## 9.3.6
+
+### Patch Changes
+
+- [`f80d1f0c9b54b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f80d1f0c9b54b) -
+  fallback to old invite CTA when emailDomain not present
+- Updated dependencies
+
 ## 9.3.5
 
 ### Patch Changes

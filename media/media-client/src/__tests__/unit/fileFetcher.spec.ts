@@ -35,6 +35,7 @@ import { fromObservable, toPromise } from '../../utils/mediaSubscribable';
 import { isMimeTypeSupportedByServer } from '@atlaskit/media-common/mediaTypeUtils';
 import type * as MediaStoreModule from '../../client/media-store';
 import { createMediaStore, mediaStore as fileStateStore } from '@atlaskit/media-state';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 jest.mock('../../utils/getDimensionsFromBlob', () => {
 	return {
@@ -43,6 +44,11 @@ jest.mock('../../utils/getDimensionsFromBlob', () => {
 });
 
 jest.mock('../../uploader');
+
+// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
+// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
+// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
+skipAutoA11yFile();
 
 describe('FileFetcher', () => {
 	const fileId = 'some-file-id';

@@ -31,9 +31,17 @@ export interface UserSearchConfluenceAttributes {
 	isEntitledConfluenceExternalCollaborator?: boolean;
 }
 
+export interface UserSearchJiraAttributes {
+	/**
+	 * Identifies whether this user is part of a Jira site that is entitled for guests
+	 */
+	isEntitledJiraGuest?: boolean;
+}
+
 export type UserSearchProductAttributes =
 	| UserSearchBitbucketAttributes
-	| UserSearchConfluenceAttributes;
+	| UserSearchConfluenceAttributes
+	| UserSearchJiraAttributes;
 
 export interface UserSearchContext {
 	childObjectId?: string;

@@ -1,5 +1,21 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.4.2
+
+### Patch Changes
+
+- [`59746ec1f8366`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/59746ec1f8366) -
+  Bring back the displayNames that were removed from the ufo components
+
+## 5.4.1
+
+### Patch Changes
+
+- [`44280d02aa09f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/44280d02aa09f) -
+  Fix 3P metrics silently discarded when TTVC v3 disabled: use dynamic revision resolution via
+  getMostRecentVCRevision instead of hardcoded DEFAULT_TTVC_REVISION, update default to fy26.04, and
+  fix setUFOConfig enforcement to apply regardless of byExperience presence
+
 ## 5.4.0
 
 ### Minor Changes

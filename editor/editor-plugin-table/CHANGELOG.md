@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-table
 
+## 17.4.0
+
+### Minor Changes
+
+- [`050e73fa93cfe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/050e73fa93cfe) -
+  [FFCLEANUP-87580] clean up feature gate platform_editor_nested_tables_sticky_header_bug
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.3.32
 
 ### Patch Changes

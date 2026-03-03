@@ -280,10 +280,15 @@ export const createRemoveFuncIfBooleanFor: (
 
 		source.findJSXElements(specifier).forEach((element) => {
 			getJSXAttributesByName(j, element, prop).forEach((attribute) => {
+				const el = attribute.parent.value;
 				if (
-					attribute.value.value === null ||
-					(attribute.value.value?.type === 'JSXExpressionContainer' &&
-						attribute.value.value.expression.type === 'BooleanLiteral')
+					// Verify the element we are working on is the element we want
+					el.type === 'JSXOpeningElement' &&
+					el.name.type === 'JSXIdentifier' &&
+					el.name.name === specifier &&
+					(attribute.value.value === null ||
+						(attribute.value.value?.type === 'JSXExpressionContainer' &&
+							attribute.value.value.expression.type === 'BooleanLiteral'))
 				) {
 					j(attribute).remove();
 					if (comment) {

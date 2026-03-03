@@ -4,13 +4,16 @@ import { EXPERIENCE_FAILURE_REASON } from './consts';
 import { popupWithNestedElement } from './experience-utils';
 import type { ExperienceCheck, ExperienceCheckCallback } from './ExperienceCheck';
 
+const PORTAL_CONTAINER_SELECTOR = 'body > .atlaskit-portal-container';
+
 /**
  * Popup check type determines how popups are observed based on their DOM location:
  * - 'inline': Popups appearing in toolbar button-groups (emoji, media, table selector, image)
  * - 'editorRoot': Popups attached to editor root (e.g., mention popups)
  * - 'editorContent': Content-level popups or modals in portal containers (e.g., block menu)
+ * - 'portalRoot': Popups in body > .atlaskit-portal-container (e.g., flags, modals)
  */
-export type PopupCheckType = 'inline' | 'editorRoot' | 'editorContent';
+export type PopupCheckType = 'inline' | 'editorRoot' | 'editorContent' | 'portalRoot';
 
 type InlineConfig = {
 	getTarget: () => HTMLElement | undefined | null;
@@ -36,10 +39,16 @@ type EditorContentConfig = {
 	type: 'editorContent';
 };
 
+type PortalRootConfig = {
+	nestedElementQuery: string;
+	type: 'portalRoot';
+};
+
 export type ExperienceCheckPopupMutationConfig =
 	| InlineConfig
 	| EditorRootConfig
-	| EditorContentConfig;
+	| EditorContentConfig
+	| PortalRootConfig;
 
 export class ExperienceCheckPopupMutation implements ExperienceCheck {
 	private config: ExperienceCheckPopupMutationConfig;
@@ -61,7 +70,18 @@ export class ExperienceCheckPopupMutation implements ExperienceCheck {
 				return this.getEditorRootTargets(config);
 			case 'editorContent':
 				return this.getEditorContentTargets(config);
+			case 'portalRoot':
+				return this.getPortalRootTargets();
 		}
+	}
+
+	/**
+	 * For 'portalRoot' type: observe .atlaskit-portal-container.
+	 * Popups like flags and modals render in body > .atlaskit-portal-container.
+	 */
+	private getPortalRootTargets(): HTMLElement[] {
+		const portalContainer = getDocument()?.querySelector<HTMLElement>(PORTAL_CONTAINER_SELECTOR);
+		return portalContainer ? [portalContainer] : [];
 	}
 
 	/**
@@ -120,18 +140,15 @@ export class ExperienceCheckPopupMutation implements ExperienceCheck {
 	}
 
 	start(callback: ExperienceCheckCallback): void {
-		const target =
-			this.config.type === 'editorRoot' ? this.config.getEditorDom() : this.config.getTarget();
 		const doc = getDocument();
-		if (!target || !doc) {
+		const observeTargets = this.getObserveTargets();
+		if (!doc || !observeTargets.length) {
 			callback({
 				status: 'failure',
 				reason: EXPERIENCE_FAILURE_REASON.DOM_MUTATION_TARGET_NOT_FOUND,
 			});
 			return;
 		}
-
-		const observeTargets = this.getObserveTargets();
 
 		const query = this.config.nestedElementQuery;
 

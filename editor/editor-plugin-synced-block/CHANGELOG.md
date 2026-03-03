@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 5.3.37
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.3.36
+
+### Patch Changes
+
+- [`432dbdcd07917`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/432dbdcd07917) -
+  EDITOR-5500 add hasUnsavedBodiedSyncBlocks state to synced block plugin to allow confluence to
+  check whether changes have been saved yet before leaving the page
+- Updated dependencies
+
 ## 5.3.35
 
 ### Patch Changes

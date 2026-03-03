@@ -50,6 +50,10 @@ export type SyncedBlockSharedState = {
 	 * The current sync block store manager, used to manage fetching and updating sync block data
 	 */
 	syncBlockStore: SyncBlockStoreManager;
+	/**
+	 * Whether there are unsaved bodiedSyncBlock changes in the cache
+	 */
+	hasUnsavedBodiedSyncBlockChanges: boolean;
 };
 
 export type SyncBlockAttrs = {

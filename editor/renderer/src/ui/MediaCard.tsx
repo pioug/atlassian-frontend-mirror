@@ -36,6 +36,7 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export type MediaProvider = {
 	viewMediaClientConfig: MediaClientConfig;
@@ -61,9 +62,17 @@ export interface MediaCardProps {
 	id?: string;
 	imageStatus?: ImageStatus;
 	localId?: string;
+	/**
+	 * Indicates if media node is nested under a bodiedSyncBlock
+	 */
+	nestedUnder?: string;
 	occurrenceKey?: string;
 	originalDimensions?: NumericalCardDimensions;
 	rendererAppearance?: RendererAppearance;
+	/**
+	 * Renderer context that includes nestedRendererType for detecting renderer nesting.
+	 * When nestedRendererType is 'syncedBlock', it indicates media is inside renderer inside a syncBlock.
+	 */
 	rendererContext?: RendererContext;
 	resizeMode?: ImageResizeMode;
 	shouldEnableDownloadButton?: boolean;
@@ -190,6 +199,8 @@ export class MediaCardView extends Component<
 	};
 
 	private onError = (reason: string) => {
+		const { nestedUnder, rendererContext } = this.props;
+
 		this.props.fireAnalyticsEvent?.({
 			action: ACTION.ERRORED,
 			actionSubject: ACTION_SUBJECT.RENDERER,
@@ -198,6 +209,16 @@ export class MediaCardView extends Component<
 			attributes: {
 				reason,
 				external: false,
+				...(nestedUnder &&
+				expValEquals('platform_synced_block', 'isEnabled', true) &&
+				fg('platform_synced_block_patch_5')
+					? { nestedUnder }
+					: {}),
+				...(rendererContext?.nestedRendererType &&
+				expValEquals('platform_synced_block', 'isEnabled', true) &&
+				fg('platform_synced_block_patch_5')
+					? { nestedRendererType: rendererContext.nestedRendererType }
+					: {}),
 			},
 		});
 	};

@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-block-type
 
+## 11.2.28
+
+### Patch Changes
+
+- [`47211917d90fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/47211917d90fc) -
+  Editor 5281 fix block menu icon cut off when zoom
+
+## 11.2.27
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.2.26
 
 ### Patch Changes

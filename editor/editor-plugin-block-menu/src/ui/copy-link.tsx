@@ -91,10 +91,10 @@ const CopyLinkDropdownItemContent = ({ api, config }: Props & WrappedComponentPr
 
 	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
 	// Conditionally display message based on feature flag
-	// To clean up: remove the conditional and use only copyLinkToBlock message
+	// To clean up: remove the conditional and use only copyLinkToSelection message
 	const message = fg('platform_editor_block_menu_v2_patch_3')
-		? messages.copyLinkToBlock
-		: messages.copyLinkToBlockOld;
+		? messages.copyLinkToSelection
+		: messages.copyLinkToBlock;
 
 	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
 	// Adds size="small" to icons for better visual consistency in block menu.

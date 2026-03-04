@@ -354,7 +354,7 @@ export type MediaRenderErrorEvent = UIAEP<
 	ACTION.ERRORED,
 	ACTION_SUBJECT.RENDERER,
 	ACTION_SUBJECT_ID.MEDIA,
-	{ external?: boolean; reason: string }
+	{ external?: boolean; nestedUnder?: string; reason: string }
 >;
 
 type SyncedBlockFetchErrorAEP = OperationalAEP<

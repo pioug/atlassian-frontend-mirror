@@ -17,7 +17,7 @@ import { Label } from '@atlaskit/form';
 import Heading from '@atlaskit/heading';
 import LocaleSelect, { type Locale } from '@atlaskit/locale/LocaleSelect';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import Select, { components, type ValueType } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
@@ -32,17 +32,17 @@ type WeekStartDayOption = {
 
 const selectContainerStyles = cssMap({
 	root: {
-		marginBottom: token('space.100'),
-		marginTop: token('space.100'),
-		marginLeft: token('space.0'),
-		marginRight: token('space.0'),
+		marginBlockEnd: token('space.100'),
+		marginBlockStart: token('space.100'),
+		marginInlineStart: token('space.0'),
+		marginInlineEnd: token('space.0'),
 		width: '300px',
 	},
 });
 
 const selectDropDownIndicatorStyles = cssMap({
 	root: {
-		paddingLeft: token('space.0'),
+		paddingInlineStart: token('space.0'),
 	},
 });
 

@@ -20,7 +20,6 @@ const wrapperStyles = cssMap({
 	},
 });
 
-
 export function SkeletonMenuItemDescriptionExample(): React.JSX.Element {
 	return (
 		<MockSideNav>

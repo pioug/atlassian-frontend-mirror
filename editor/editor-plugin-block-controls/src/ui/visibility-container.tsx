@@ -2,23 +2,27 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { akEditorFullPageNarrowBreakout } from '@atlaskit/editor-shared-styles';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 
+const RIGHT_CONTROL_HIDE_DELAY_MS = 150;
+
 interface VisibilityContainerProps {
 	api?: ExtractInjectionAPI<BlockControlsPlugin>;
 	children: React.ReactNode;
+	controlSide?: 'left' | 'right';
 }
 
 const baseStyles = xcss({
@@ -55,15 +59,85 @@ const hiddenStylesCSS = css({
 	visibility: 'hidden',
 });
 
-export const VisibilityContainer = ({ api, children }: VisibilityContainerProps) => {
-	const isTypeAheadOpen = useSharedPluginStateSelector(api, 'typeAhead.isOpen');
-	const isEditing = useSharedPluginStateSelector(api, 'blockControls.isEditing');
-	const isMouseOut = useSharedPluginStateSelector(api, 'blockControls.isMouseOut');
+export const VisibilityContainer = ({ api, children, controlSide }: VisibilityContainerProps) => {
+	const {
+		isTypeAheadOpen,
+		isEditing,
+		isMouseOut,
+		hoverSide,
+		editorViewMode,
+		userIntent,
+		rightSideControlsEnabled,
+	} = useSharedPluginStateWithSelector(
+		api,
+		['typeAhead', 'blockControls', 'editorViewMode', 'userIntent'],
+		(states) => ({
+			isTypeAheadOpen: states.typeAheadState?.isOpen,
+			isEditing: states.blockControlsState?.isEditing,
+			isMouseOut: states.blockControlsState?.isMouseOut,
+			hoverSide: states.blockControlsState?.hoverSide,
+			editorViewMode: states.editorViewModeState?.mode,
+			userIntent: states.userIntentState?.currentUserIntent,
+			rightSideControlsEnabled: states.blockControlsState?.rightSideControlsEnabled,
+		}),
+	);
 
-	// when ai streaming, hide the block controls
-	const userIntent = useSharedPluginStateSelector(api, 'userIntent.currentUserIntent');
+	const isViewMode = editorViewMode === 'view';
+	const shouldRestrictBySide =
+		rightSideControlsEnabled &&
+		expValEquals('confluence_remix_icon_right_side', 'isEnabled', true) &&
+		controlSide !== undefined &&
+		!isViewMode;
+	// Only restrict by side when hoverSide is known (after mousemove). When undefined, show both
+	// controls so drag handle is visible on load and for keyboard-only users.
+	const sideHidden =
+		shouldRestrictBySide && hoverSide !== undefined ? hoverSide !== controlSide : false;
+	// In view mode with right-side controls, we delay hiding on isMouseOut (see below) so the right-edge
+	// button stays visible when the user moves from the block toward the button (e.g. in edit/live
+	// pages), avoiding flicker as the mouse crosses boundaries.
+	const hideOnMouseOut = isMouseOut;
+	const shouldHideImmediate =
+		isTypeAheadOpen ||
+		isEditing ||
+		hideOnMouseOut ||
+		userIntent === 'aiStreaming' ||
+		sideHidden;
 
-	const shouldHide = isTypeAheadOpen || isEditing || isMouseOut || userIntent === 'aiStreaming';
+	// Delay hiding the right control in view mode to reduce flickering when moving from block
+	// toward the right-edge button (avoids rapid show/hide as mouse crosses boundaries).
+	const isRightControlViewMode =
+		isViewMode &&
+		rightSideControlsEnabled &&
+		expValEquals('confluence_remix_icon_right_side', 'isEnabled', true) &&
+		controlSide === 'right';
+	// When in right-control view mode, we delay hiding so start visible; useEffect will update after delay
+	const [delayedShouldHide, setDelayedShouldHide] = useState(false);
+	const hideTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+	useEffect(() => {
+		if (!isRightControlViewMode) {
+			return;
+		}
+		if (!shouldHideImmediate) {
+			if (hideTimeoutRef.current) {
+				clearTimeout(hideTimeoutRef.current);
+				hideTimeoutRef.current = null;
+			}
+			setDelayedShouldHide(false);
+			return;
+		}
+		hideTimeoutRef.current = setTimeout(() => {
+			hideTimeoutRef.current = null;
+			setDelayedShouldHide(true);
+		}, RIGHT_CONTROL_HIDE_DELAY_MS);
+		return () => {
+			if (hideTimeoutRef.current) {
+				clearTimeout(hideTimeoutRef.current);
+			}
+		};
+	}, [shouldHideImmediate, isRightControlViewMode]);
+
+	const shouldHide = isRightControlViewMode ? delayedShouldHide : shouldHideImmediate;
 
 	if (
 		editorExperiment('platform_editor_preview_panel_responsiveness', true, {

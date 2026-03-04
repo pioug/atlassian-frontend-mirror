@@ -44,6 +44,9 @@ const LozengeDropdownTrigger: import('react').MemoExoticComponent<
 				style,
 				analyticsContext,
 				interactionName,
+				'aria-controls': ariaControls,
+				'aria-expanded': ariaExpanded,
+				'aria-haspopup': ariaHaspopup,
 			},
 			ref,
 		) => {
@@ -62,6 +65,9 @@ const LozengeDropdownTrigger: import('react').MemoExoticComponent<
 				analyticsContext,
 				interactionName,
 				children,
+				'aria-controls': ariaControls,
+				'aria-expanded': ariaExpanded,
+				'aria-haspopup': ariaHaspopup,
 			};
 			return (
 				<LozengeBase ref={ref} {...baseProps}>

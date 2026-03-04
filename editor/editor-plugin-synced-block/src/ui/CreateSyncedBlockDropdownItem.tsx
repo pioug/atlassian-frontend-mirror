@@ -52,6 +52,13 @@ const CreateSyncedBlockDropdownItem = ({
 	// To clean up: remove conditional, keep only size="small" version.
 	const iconSize = fg('platform_editor_block_menu_v2_patch_3') ? 'small' : undefined;
 
+	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
+	// Changes wording from "Create synced block" to "Sync block" for conciseness.
+	// To clean up: remove conditional, keep only the syncBlock message.
+	const message = fg('platform_editor_block_menu_v2_patch_3')
+		? blockMenuMessages.syncBlock
+		: blockMenuMessages.createSyncedBlock;
+
 	return (
 		<ToolbarDropdownItem
 			elemBefore={<SyncBlocksIcon label="" size={iconSize} />}
@@ -60,7 +67,7 @@ const CreateSyncedBlockDropdownItem = ({
 			testId={SYNCED_BLOCK_BUTTON_TEST_ID.blockMenuCreate}
 			elemAfter={<Lozenge appearance="new">{formatMessage(blockMenuMessages.newLozenge)}</Lozenge>}
 		>
-			{formatMessage(blockMenuMessages.createSyncedBlock)}
+			{formatMessage(message)}
 		</ToolbarDropdownItem>
 	);
 };

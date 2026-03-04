@@ -26,7 +26,6 @@ const interactions: InteractionState[] = ['disabled', 'selected', 'active', 'hov
 const base: CSSObject = getCss({
 	appearance: 'default',
 	spacing: 'default',
-	mode: 'light',
 	isSelected: false,
 	shouldFitContainer: false,
 	isOnlySingleIcon: false,

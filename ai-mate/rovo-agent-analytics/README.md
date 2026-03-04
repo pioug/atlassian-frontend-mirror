@@ -37,29 +37,81 @@ trackAgentAction(AgentDebugActions.VIEW, {});
 trackAgentAction(AgentDebugActions.COPY, {});
 ```
 
-## Adding New Actions
+## Action Groups
 
-### Step 1: Add the action to the appropriate enum
+Actions are organized into **groups** — self-contained files that define their actions, attribute
+types, and a group name that gets automatically sent as `attributes.actionGroup` in every fired event.
 
-Add your new action to either `AgentCommonActions` or `AgentDebugActions` in
-`src/actions/index.tsx`:
+All groups live in **one place**: `src/actions/groups/`.
+
+| Group | File | Hook | Description |
+| --- | --- | --- | --- |
+| `agentInteractions` | `agent-interactions.ts` | actions | User-initiated interactions from overflow menu / profile (view, edit, delete, duplicate, star, chat, verify…) |
+| `editing` | `editing.ts` | actions | Agent save/mutation events (updated) |
+| `debug` | `debug.ts` | actions | Debug modal actions (view, copy, toggle skill info) |
+| `tools` | `tools.ts` | actions | Tool execution actions (confirm, stream stop, result viewed, error) |
+| `createFlow` | `create-flow.ts` | create | Create agent funnel steps (start, skip NL, review, activate, restart, error, land, discard) |
+| `addToolsPrompt` | `add-tools-prompt.ts` | create | Add tools prompt modal shown when activating an agent with no tools (shown, browse, dismiss) |
+
+The `actionGroup` value is visible in Databricks via `attributes.actionGroup`.
+
+## Adding a New Action
+
+### To an existing group
+
+1. Open the group file (e.g. `src/actions/groups/agent-interactions.ts` or `src/actions/groups/create-flow.ts`)
+2. Add the action to the enum with a data-portal registry link:
 
 ```typescript
-export enum AgentCommonActions {
+export enum AgentInteractionActions {
 	// ... existing actions
 	/* My new action - https://data-portal.internal.atlassian.com/analytics/registry/XXXXX */
 	MY_NEW_ACTION = 'myNewAction',
 }
 ```
 
-### Step 2: Define attributes for the action
-
-Add an entry to `ActionAttributes` to specify which attributes this action requires:
+3. Add the attribute type in the same file:
 
 ```typescript
-type ActionAttributes = {
+export type AgentInteractionAttributes = {
 	// ... existing actions
-	[AgentCommonActions.MY_NEW_ACTION]: CommonAnalyticsAttributes;
+	[AgentInteractionActions.MY_NEW_ACTION]: BaseAgentAnalyticsAttributes;
+};
+```
+
+That's it — the action is automatically registered and will fire with `actionGroup: 'agentInteractions'`.
+
+### To a new group
+
+If your action doesn't fit any existing group, create a new one:
+
+1. Create a new file in `src/actions/groups/`. Use any existing group file as a template — each one
+   has a header comment explaining the structure.
+
+2. Register the group in `src/actions/registry.ts`:
+
+```typescript
+// 1. Import the group
+import {
+	MyFeatureActions,
+	type MyFeatureActionAttributes,
+	ACTION_GROUP as MY_FEATURE_GROUP,
+} from './groups/my-feature';
+
+// 2. Add to the combined type
+export type ActionAttributes = AgentInteractionAttributes &
+	EditingActionAttributes &
+	DebugActionAttributes &
+	ToolsActionAttributes &
+	MyFeatureActionAttributes;
+
+// 3. Add to the runtime group map
+export const ACTION_TO_GROUP: Record<string, string> = {
+	...mapActionsToGroup(AgentInteractionActions, AGENT_INTERACTIONS_GROUP),
+	...mapActionsToGroup(AgentEditingActions, EDITING_GROUP),
+	...mapActionsToGroup(AgentDebugActions, DEBUG_GROUP),
+	...mapActionsToGroup(AgentToolActions, TOOLS_GROUP),
+	...mapActionsToGroup(MyFeatureActions, MY_FEATURE_GROUP),
 };
 ```
 
@@ -68,31 +120,30 @@ type ActionAttributes = {
 Each action can have its own specific attributes. The `trackAgentAction` function is generic and
 will enforce the correct attributes based on the action you pass.
 
-### Using CommonAnalyticsAttributes
+### Using BaseAgentAnalyticsAttributes
 
 For actions that only need `touchPoint` and `agentId`:
 
 ```typescript
-type ActionAttributes = {
-	[AgentCommonActions.VIEW]: CommonAnalyticsAttributes;
+export type AgentInteractionAttributes = {
+	[AgentInteractionActions.VIEW]: BaseAgentAnalyticsAttributes;
 };
 ```
 
 ### Using Custom Attributes
 
-For actions that need additional attributes beyond the common ones:
+For actions that need additional attributes beyond the base ones:
 
 ```typescript
-type ActionAttributes = {
-	[AgentCommonActions.STAR]: CommonAnalyticsAttributes & { isStarred: boolean };
+export type EditingActionAttributes = {
+	[AgentEditingActions.UPDATED]: BaseAgentAnalyticsAttributes & { agentType: string; field: string };
 };
 ```
 
 When calling `trackAgentAction`, TypeScript will enforce the custom attributes:
 
 ```typescript
-// TypeScript will require isStarred to be provided
-trackAgentAction(AgentCommonActions.STAR, { isStarred: true });
+trackAgentAction(AgentEditingActions.UPDATED, { agentType: 'custom', field: 'name' });
 ```
 
 ### How Type Inference Works

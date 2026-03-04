@@ -50,12 +50,14 @@
 		"@af/editor-examples-helpers": "workspace:*",
 		"@atlaskit/adf-schema": "workspace:^",
 		"@atlaskit/button": "workspace:^",
+		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-core": "workspace:^",
 		"@atlaskit/editor-test-helpers": "workspace:^",
 		"@atlaskit/link-provider": "workspace:^",
 		"@atlaskit/logo": "workspace:^",
 		"@atlaskit/synchrony-test-helpers": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
+		"@atlassian/native-embeds-fallback-editor-extension": "workspace:^",
 		"typescript": "root:*"
 	},
 	"techstack": {

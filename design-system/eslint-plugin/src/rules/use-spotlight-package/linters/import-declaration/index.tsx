@@ -19,18 +19,17 @@ const BANNED_IMPORTS = [
 	'useSpotlight',
 	// 'ModalTransition',
 	'SpotlightPulse',
-]
-
+];
 
 type Check =
 	| {
-		success: false;
-		ref: undefined;
-	}
+			success: false;
+			ref: undefined;
+	  }
 	| {
-		success: true;
-		ref: ImportDeclarationNode;
-	};
+			success: true;
+			ref: ImportDeclarationNode;
+	  };
 
 export const ImportDeclaration = {
 	lint(node: Rule.Node, { context }: { context: Rule.RuleContext }): void {
@@ -56,14 +55,13 @@ export const ImportDeclaration = {
 			return { success: false, ref: undefined };
 		}
 
-
 		const isViolation = node.specifiers.some((specifier) => {
 			if (!isNodeOfType(specifier, 'ImportSpecifier')) {
-				return false
+				return false;
 			}
 
-			return BANNED_IMPORTS.includes(specifier.imported.name)
-		})
+			return BANNED_IMPORTS.includes(specifier.imported.name);
+		});
 
 		if (!isViolation) {
 			return { success: false, ref: undefined };

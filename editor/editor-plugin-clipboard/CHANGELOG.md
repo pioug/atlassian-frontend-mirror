@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-clipboard
 
+## 7.1.0
+
+### Minor Changes
+
+- [`a0f86fbc3de86`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0f86fbc3de86) -
+  [FFCLEANUP-79685] clean up platform_editor_fix_captions_on_copy feature gate
+
 ## 7.0.0
 
 ### Patch Changes

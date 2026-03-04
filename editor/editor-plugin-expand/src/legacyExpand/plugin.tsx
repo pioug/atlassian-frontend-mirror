@@ -16,6 +16,7 @@ import {
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconExpand } from '@atlaskit/editor-common/quick-insert';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { toggleExpandRange } from '../editor-commands/toggleExpandRange';
@@ -75,6 +76,14 @@ export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 		commands: {
 			toggleExpandWithMatch: (selection) => toggleExpandWithMatch(selection),
 			toggleExpandRange,
+		},
+
+		getSharedState() {
+			return expValEquals('platform_editor_expand_paste_in_comment_editor', 'isEnabled', true)
+				? {
+						allowInsertion: options?.allowInsertion ?? true,
+					}
+				: undefined;
 		},
 
 		pmPlugins() {

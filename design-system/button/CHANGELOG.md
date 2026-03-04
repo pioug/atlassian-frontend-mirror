@@ -1,5 +1,18 @@
 # @atlaskit/button
 
+## 23.10.0
+
+### Minor Changes
+
+- [`4d78aaa844538`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d78aaa844538) -
+  Hard-codes color-mode light as the default color scheme for legacy buttons. These buttons were
+  dependant on an old @ak/theming API which is non-functional and will be removed entirely in a
+  following release
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.9.9
 
 ### Patch Changes

@@ -4,6 +4,7 @@ import type { UnbindFn } from 'bind-event-listener';
 import { bind } from 'bind-event-listener';
 import memoizeOne from 'memoize-one';
 
+
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import type {
@@ -15,6 +16,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { ImageLoaderProps } from '@atlaskit/editor-common/utils';
 import { setNodeSelection, setTextSelection, withImageLoader } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import type {
@@ -276,7 +278,35 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 	);
 
 	private onError = (reason: string) => {
-		this.props.api?.media.actions.handleMediaNodeRenderError(this.props.node, reason);
+		const nestedUnder = fg('platform_synced_block_patch_5') ? this.getNestedUnder() : undefined;
+		this.props.api?.media.actions.handleMediaNodeRenderError(this.props.node, reason, nestedUnder);
+	};
+
+	/**
+	 * This function checks if the media node is nested under a certain nodes, and if so,
+	 * returns the name of the parent node type. This is used for providing more context in media render errors.
+	 * @returns
+	 */
+	private getNestedUnder = (): string | undefined => {
+		const pos = this.props.getPos();
+		if (typeof pos !== 'number') {
+			return undefined;
+		}
+
+		const { doc, schema } = this.props.view.state;
+		const { bodiedSyncBlock } = schema.nodes;
+		if (!bodiedSyncBlock) {
+			return undefined;
+		}
+
+		const resolvedPos = doc.resolve(pos);
+
+		const bodiedSyncBlockNode = findParentNodeClosestToPos(
+			resolvedPos,
+			(currentNode) => currentNode.type === bodiedSyncBlock,
+		);
+
+		return bodiedSyncBlockNode?.node.type.name;
 	};
 
 	render(): React.JSX.Element {

@@ -7,6 +7,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { type FireEventType, useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
 import { layers } from '@atlaskit/theme/constants';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import filterActionsInner from '../../internal/filterActions';
 import getLabelMessage from '../../internal/getLabelMessage';
@@ -42,6 +43,7 @@ function ProfileCardContent({
 	hasError,
 	errorType,
 	agentActions,
+	isRenderedInPortal,
 	addFlag,
 	hideAgentMoreActions,
 	hideAiDisclaimer,
@@ -54,6 +56,13 @@ function ProfileCardContent({
 	trigger?: TriggerType;
 	product?: string;
 	isAgent: boolean;
+	/**
+	 * Indicates whether the profile card is rendered in a portal.
+	 *
+	 * If true, the profile card will auto-focus the name element when opened for better accessibility,
+	 * keeping the user's focus in the tab trap.
+	 */
+	isRenderedInPortal?: boolean;
 	profileCardAction: ProfileCardAction[];
 	hasError?: boolean;
 	errorType?: ProfileCardErrorType;
@@ -81,6 +90,7 @@ function ProfileCardContent({
 			<Suspense fallback={null}>
 				<ProfileCardLazy
 					{...profilecardProps}
+					isRenderedInPortal={isRenderedInPortal}
 					actions={profileCardAction}
 					hasError={hasError}
 					errorType={errorType}
@@ -115,6 +125,7 @@ export default function ProfilecardTriggerNext({
 	hideAiDisclaimer,
 	ariaHideProfileTrigger = false,
 	isVisible: propsIsVisible,
+	isRenderedInPortal,
 	ssrPlaceholderId,
 	showDelay: customShowDelay,
 	hideDelay: customHideDelay,
@@ -453,6 +464,7 @@ export default function ProfilecardTriggerNext({
 									addFlag={addFlag}
 									hideAgentMoreActions={hideAgentMoreActions}
 									hideAiDisclaimer={hideAiDisclaimer}
+									isRenderedInPortal={isRenderedInPortal}
 								/>
 							)
 						)}
@@ -493,7 +505,13 @@ export default function ProfilecardTriggerNext({
 				}}
 				zIndex={layers.modal()}
 				shouldUseCaptureOnOutsideClick
-				autoFocus={autoFocus ?? trigger === 'click'}
+				autoFocus={
+					expValEquals('editor_a11y_7152_profile_card_tab_order', 'isEnabled', true)
+						? isRenderedInPortal && isTriggeredUsingKeyboard
+							? false
+							: (autoFocus ?? trigger === 'click')
+						: (autoFocus ?? trigger === 'click')
+				}
 				// This feature gate is currently enabled only for Jira_Web to avoid UI issues in Confluence_Web.
 				shouldRenderToParent={fg('enable_appropriate_reading_order_in_profile_card')}
 				shouldDisableFocusLock={fg('enable_appropriate_reading_order_in_profile_card')}

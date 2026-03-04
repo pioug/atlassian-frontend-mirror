@@ -6,6 +6,7 @@ import { FormattedMessage } from 'react-intl-next';
 import Lozenge from '@atlaskit/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text } from '@atlaskit/primitives/compiled';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -98,6 +99,8 @@ const renderName = (
 	fullName?: string,
 	meta?: string,
 	nameRef?: React.RefObject<HTMLHeadingElement>,
+	isRenderedInPortal?: boolean,
+	isTriggeredUsingKeyboard?: boolean,
 ) => {
 	if (!fullName && !nickname) {
 		return null;
@@ -137,12 +140,20 @@ const renderName = (
 				)}
 				testId="profilecard-name"
 				id="profilecard-name-label"
+				tabIndex={
+					isTriggeredUsingKeyboard &&
+					isRenderedInPortal &&
+					expValEquals('editor_a11y_7152_profile_card_tab_order', 'isEnabled', true)
+						? -1
+						: undefined
+				}
 			>
 				{displayName}
 			</Box>
 		</Tooltip>
 	) : (
 		<Box
+			ref={nameRef}
 			as="h2"
 			xcss={cx(
 				styles.fullNameLabel,
@@ -157,6 +168,13 @@ const renderName = (
 			)}
 			testId="profilecard-name"
 			id="profilecard-name-label"
+			tabIndex={
+				isTriggeredUsingKeyboard &&
+				isRenderedInPortal &&
+				expValEquals('editor_a11y_7152_profile_card_tab_order', 'isEnabled', true)
+					? -1
+					: undefined
+			}
 		>
 			{displayName}
 		</Box>
@@ -287,8 +305,24 @@ const DisabledProfileCardDetails = (
 export const ProfileCardDetails = (
 	props: ProfilecardProps & AnalyticsWithDurationProps,
 ): React.JSX.Element => {
-	const { meta, status } = props;
+	const { meta, status, isRenderedInPortal, isTriggeredUsingKeyboard } = props;
 	const nameRef = useRef<HTMLHeadingElement>(null);
+
+	React.useEffect(() => {
+		if (
+			nameRef?.current &&
+			isRenderedInPortal &&
+			isTriggeredUsingKeyboard &&
+			expValEquals('editor_a11y_7152_profile_card_tab_order', 'isEnabled', true)
+		) {
+			const rafId = requestAnimationFrame(() => {
+				nameRef.current?.focus();
+			});
+			return () => {
+				cancelAnimationFrame(rafId);
+			};
+		}
+	}, [isRenderedInPortal, isTriggeredUsingKeyboard]);
 
 	if (props.isServiceAccount) {
 		return <ServiceAccountProfileCardDetails {...props} />;
@@ -306,7 +340,14 @@ export const ProfileCardDetails = (
 
 	return (
 		<DetailsGroup>
-			{renderName(props.nickname, props.fullName, meta, nameRef)}
+			{renderName(
+				props.nickname,
+				props.fullName,
+				meta,
+				nameRef,
+				isRenderedInPortal,
+				isTriggeredUsingKeyboard,
+			)}
 			{meta && <JobTitleLabel>{meta}</JobTitleLabel>}
 			{meta && props.customLozenges && props.customLozenges.length > 0 ? (
 				<Box paddingBlockStart="space.150">{lozenges}</Box>

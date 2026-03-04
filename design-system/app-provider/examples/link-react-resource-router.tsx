@@ -9,14 +9,14 @@ import {
 } from 'react-resource-router';
 
 import AppProvider, { type RouterLinkComponentProps, useRouterLink } from '@atlaskit/app-provider';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 
 type LinkConfig = Pick<LinkProps, 'to' | 'href' | 'replace'>;
 
+
 const MyRouterLinkComponent: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<RouterLinkComponentProps<LinkConfig>> &
-		React.RefAttributes<HTMLAnchorElement>
+	React.RefAttributes<HTMLAnchorElement>
 > = forwardRef(
 	(
 		{ href, children, ...rest }: RouterLinkComponentProps<LinkConfig>,

@@ -27,7 +27,11 @@ the default appearance.
 
 **New:** `appearance="neutral"` **Legacy:** `appearance="default"` (or omit the prop)
 
-<Example Component={BadgeNewNeutral} packageName="@atlaskit/badge" />
+<Example
+	Component={BadgeNewNeutral}
+	packageName="@atlaskit/badge"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>
 
 ### Information
 
@@ -36,7 +40,11 @@ numeric data.
 
 **New:** `appearance="information"` **Legacy:** `appearance="primary"`
 
-<Example Component={BadgeNewInformation} packageName="@atlaskit/badge" />
+<Example
+	Component={BadgeNewInformation}
+	packageName="@atlaskit/badge"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>
 
 ### Inverse
 
@@ -44,7 +52,12 @@ Use `inverse` when high contrast against a darker background color is needed.
 
 **New:** `appearance="inverse"` **Legacy:** `appearance="primaryInverted"`
 
-<Example Component={BadgeNewInverse} packageName="@atlaskit/badge" backgroundColor="blue" />
+<Example
+	Component={BadgeNewInverse}
+	packageName="@atlaskit/badge"
+	backgroundColor="blue"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>
 
 ### Success
 
@@ -53,7 +66,11 @@ of code in Bitbucket, or when displaying growth metrics.
 
 **New:** `appearance="success"` **Legacy:** `appearance="added"`
 
-<Example Component={BadgeNewSuccess} packageName="@atlaskit/badge" />
+<Example
+	Component={BadgeNewSuccess}
+	packageName="@atlaskit/badge"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>
 
 ### Danger
 
@@ -62,7 +79,11 @@ characters are removed from a line of code in Bitbucket, or when displaying crit
 
 **New:** `appearance="danger"` **Legacy:** `appearance="removed"`
 
-<Example Component={BadgeNewDanger} packageName="@atlaskit/badge" />
+<Example
+	Component={BadgeNewDanger}
+	packageName="@atlaskit/badge"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>
 
 ### Warning
 
@@ -72,7 +93,11 @@ actions or items requiring attention.
 **New:** `appearance="warning"` (no direct legacy equivalent - would render as default with feature
 flag off)
 
-<Example Component={BadgeNewWarning} packageName="@atlaskit/badge" />
+<Example
+	Component={BadgeNewWarning}
+	packageName="@atlaskit/badge"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>
 
 ### Discovery
 
@@ -81,7 +106,11 @@ Use `discovery` to highlight new features, discoveries, or exploratory informati
 **New:** `appearance="discovery"` (no direct legacy equivalent - would render as default with
 feature flag off)
 
-<Example Component={BadgeNewDiscovery} packageName="@atlaskit/badge" />
+<Example
+	Component={BadgeNewDiscovery}
+	packageName="@atlaskit/badge"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>
 
 ## Max value
 
@@ -90,11 +119,19 @@ feature flag off)
 Use the `max` prop to cap the value of a badge. When the value to display is greater than the `max`
 prop, a `+` will be appended. The default `max` value is `99`.
 
-<Example Component={BadgeNewMaxValue} packageName="@atlaskit/badge" />
+<Example
+	Component={BadgeNewMaxValue}
+	packageName="@atlaskit/badge"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>
 
 ### Unlimited values
 
 Set the `max` prop to `false` to display the value as provided, without a plus symbol (`+`)
 appended.
 
-<Example Component={BadgeNewMaxValueDisabled} packageName="@atlaskit/badge" />
+<Example
+	Component={BadgeNewMaxValueDisabled}
+	packageName="@atlaskit/badge"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>

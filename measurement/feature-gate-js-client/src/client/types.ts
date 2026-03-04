@@ -110,7 +110,8 @@ export const FeatureGateEnvironment = {
 	Staging: 'staging',
 	Production: 'production',
 } as const;
-export type FeatureGateEnvironment = (typeof FeatureGateEnvironment)[keyof typeof FeatureGateEnvironment];
+export type FeatureGateEnvironment =
+	(typeof FeatureGateEnvironment)[keyof typeof FeatureGateEnvironment];
 
 // If adding new values here, please check FeatureGates.getDefaultPerimeter to make sure it still returns something sensible.
 export const PerimeterType = {

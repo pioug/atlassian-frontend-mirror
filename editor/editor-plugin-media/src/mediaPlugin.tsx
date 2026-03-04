@@ -27,6 +27,7 @@ import { NodeSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MediaNextEditorPluginType } from './mediaPluginType';
 import { lazyMediaGroupView } from './nodeviews/lazy-media-group';
@@ -168,19 +169,29 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 		},
 
 		actions: {
-			handleMediaNodeRenderError: (node: PMNode, reason: string) => {
-				// Only fire the errored event once per media node
-				if (mediaErrorLocalIds.has(node.attrs.localId)) {
-					return;
+			handleMediaNodeRenderError: (node: PMNode, reason: string, nestedUnder?: string) => {
+				if (!fg('platform_synced_block_patch_5')) {
+					// Only fire the errored event once per media node
+					if (mediaErrorLocalIds.has(node.attrs.localId)) {
+						return;
+					}
+					mediaErrorLocalIds.add(node.attrs.localId);
 				}
-				mediaErrorLocalIds.add(node.attrs.localId);
 
 				api?.analytics?.actions.fireAnalyticsEvent({
 					action: ACTION.ERRORED,
 					actionSubject: ACTION_SUBJECT.EDITOR,
 					actionSubjectId: ACTION_SUBJECT_ID.MEDIA,
 					eventType: EVENT_TYPE.UI,
-					attributes: { reason, external: node.attrs.__external },
+					attributes: {
+						reason,
+						external: node.attrs.__external,
+						...(nestedUnder &&
+						expValEquals('platform_synced_block', 'isEnabled', true) &&
+						fg('platform_synced_block_patch_5')
+							? { nestedUnder }
+							: {}),
+					},
 				});
 			},
 

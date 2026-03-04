@@ -1,8 +1,7 @@
 import React from 'react';
 
 import Banner from '@atlaskit/banner';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 
 export default (): React.JSX.Element => (
 	<>

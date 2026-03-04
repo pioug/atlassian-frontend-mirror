@@ -1,5 +1,19 @@
 # @atlaskit/lozenge
 
+## 13.4.5
+
+### Patch Changes
+
+- [`a18e28278b0ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a18e28278b0ac) -
+  Fixed percentage maxWidth truncation in new lozenge component. Text now correctly truncates with
+  ellipsis when maxWidth is set to a percentage value (e.g., '50%', '100%').
+
+  Add aria-controls, aria-expanded, and aria-haspopup props support to LozengeDropdownTrigger for
+  improved accessibility when used with DropdownMenu or Popup components. These props are now
+  properly passed through to the underlying button element.
+
+- Updated dependencies
+
 ## 13.4.4
 
 ### Patch Changes

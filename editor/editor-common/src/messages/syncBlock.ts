@@ -152,6 +152,13 @@ export const syncBlockMessages = defineMessages({
 		defaultMessage: 'Create synced block',
 		description: 'Label for button which creates a new synced block',
 	},
+	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
+	// New message with updated wording. To clean up: remove old message and feature flag check when flag is removed.
+	syncBlockLabel: {
+		id: 'fabric.editor.syncBlockLabel',
+		defaultMessage: 'Sync block',
+		description: 'Label for button which creates a new synced block',
+	},
 	newLozenge: {
 		id: 'fabric.editor.syncBlock.toolbar.newLozenge',
 		defaultMessage: 'New',

@@ -48,8 +48,8 @@ const DecisionItem = ({
 	placeholder,
 	showPlaceholder,
 	dataAttributes,
-	}: Props) => {
-		const { formatMessage } = useIntl();
+}: Props) => {
+	const { formatMessage } = useIntl();
 
 	const icon = (
 		<span contentEditable={false} css={[iconStyles, showPlaceholder && iconStylesWithPlaceholder]}>

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-card
 
+## 12.3.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.3.18
+
+### Patch Changes
+
+- [`8d4d473fe4cd8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d4d473fe4cd8) -
+  Only reload cached smartlinks when the url changes and we sucessfully got the data from cache
+- Updated dependencies
+
 ## 12.3.17
 
 ### Patch Changes

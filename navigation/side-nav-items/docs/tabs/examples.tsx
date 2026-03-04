@@ -31,13 +31,13 @@ For menu items that trigger an action, instead use [button menu item](/packages/
 Use the [app provider](https://atlassian.design/components/app-provider/examples) to specify a custom router link component.
 
 ${(
-		<Example
-			packageName="@atlaskit/side-nav-items"
-			Component={require('../../examples/docs/link-menu-item').LinkMenuItemExample}
-			title="Link menu item"
-			source={require('!!raw-loader!../../examples/docs/link-menu-item')}
-		/>
-	)}
+	<Example
+		packageName="@atlaskit/side-nav-items"
+		Component={require('../../examples/docs/link-menu-item').LinkMenuItemExample}
+		title="Link menu item"
+		source={require('!!raw-loader!../../examples/docs/link-menu-item')}
+	/>
+)}
 
 ### Button menu item
 
@@ -51,13 +51,13 @@ something other than navigating to another location.
   an unintended appearance if this component has no disabled states.
 
 ${(
-		<Example
-			packageName="@atlaskit/side-nav-items"
-			Component={require('../../examples/docs/button-menu-item').ButtonMenuItemExample}
-			title="Button menu item"
-			source={require('!!raw-loader!../../examples/docs/button-menu-item')}
-		/>
-	)}
+	<Example
+		packageName="@atlaskit/side-nav-items"
+		Component={require('../../examples/docs/button-menu-item').ButtonMenuItemExample}
+		title="Button menu item"
+		source={require('!!raw-loader!../../examples/docs/button-menu-item')}
+	/>
+)}
 
 ### Expandable menu item
 
@@ -75,16 +75,16 @@ hierarchies.
 - Every menu item type can be nested inside an expandable menu item.
 
 ${(
-		<Example
-			packageName="@atlaskit/side-nav-items"
-			Component={
-				require('../../examples/docs/expandable-menu-item-default-variant')
-					.ExpandableMenuItemDefaultVariantExample
-			}
-			title="Expandable menu item (default)"
-			source={require('!!raw-loader!../../examples/docs/expandable-menu-item-default-variant')}
-		/>
-	)}
+	<Example
+		packageName="@atlaskit/side-nav-items"
+		Component={
+			require('../../examples/docs/expandable-menu-item-default-variant')
+				.ExpandableMenuItemDefaultVariantExample
+		}
+		title="Expandable menu item (default)"
+		source={require('!!raw-loader!../../examples/docs/expandable-menu-item-default-variant')}
+	/>
+)}
 
 #### Link
 
@@ -95,16 +95,16 @@ The expandable menu item can also be a link location.
 - A tootlip is not applied to the icon button.
 
 ${(
-		<Example
-			packageName="@atlaskit/side-nav-items"
-			Component={
-				require('../../examples/docs/expandable-menu-item-link-variant')
-					.ExpandableMenuItemLinkVariantExample
-			}
-			title="Expandable menu item (link)"
-			source={require('!!raw-loader!../../examples/docs/expandable-menu-item-link-variant')}
-		/>
-	)}
+	<Example
+		packageName="@atlaskit/side-nav-items"
+		Component={
+			require('../../examples/docs/expandable-menu-item-link-variant')
+				.ExpandableMenuItemLinkVariantExample
+		}
+		title="Expandable menu item (link)"
+		source={require('!!raw-loader!../../examples/docs/expandable-menu-item-link-variant')}
+	/>
+)}
 
 ### Flyout menu item
 
@@ -117,13 +117,13 @@ contain other items, such as search bars and filters.
 - The flyout menu content has a fixed 400px width. Height is not defined and can be set by makers.
 
 ${(
-		<Example
-			packageName="@atlaskit/side-nav-items"
-			Component={require('../../examples/docs/flyout-menu-item').FlyoutMenuItemExample}
-			title="Flyout menu item"
-			source={require('!!raw-loader!../../examples/docs/flyout-menu-item')}
-		/>
-	)}
+	<Example
+		packageName="@atlaskit/side-nav-items"
+		Component={require('../../examples/docs/flyout-menu-item').FlyoutMenuItemExample}
+		title="Flyout menu item"
+		source={require('!!raw-loader!../../examples/docs/flyout-menu-item')}
+	/>
+)}
 
 #### Responsive flyout menu
 
@@ -152,13 +152,13 @@ When using icons and icon buttons, follow the
 [usage guidance](/packages/navigation/side-nav-items?tab=usage) on the correct sizes.
 
 ${(
-		<Example
-			packageName="@atlaskit/side-nav-items"
-			Component={require('../../examples/docs/elem-before').ElemBeforeExample}
-			title="elemBefore"
-			source={require('!!raw-loader!../../examples/docs/elem-before')}
-		/>
-	)}
+	<Example
+		packageName="@atlaskit/side-nav-items"
+		Component={require('../../examples/docs/elem-before').ElemBeforeExample}
+		title="elemBefore"
+		source={require('!!raw-loader!../../examples/docs/elem-before')}
+	/>
+)}
 
 #### ContainerAvatar
 
@@ -169,13 +169,13 @@ sizing for the side nav menu items.
 - Only use ContainerAvatar with the side nav menu items.
 
 ${(
-		<Example
-			packageName="@atlaskit/side-nav-items"
-			Component={require('../../examples/docs/container-avatar').ContainerAvatarExample}
-			title="ContainerAvatar"
-			source={require('!!raw-loader!../../examples/docs/container-avatar')}
-		/>
-	)}
+	<Example
+		packageName="@atlaskit/side-nav-items"
+		Component={require('../../examples/docs/container-avatar').ContainerAvatarExample}
+		title="ContainerAvatar"
+		source={require('!!raw-loader!../../examples/docs/container-avatar')}
+	/>
+)}
 
 ### elemAfter
 
@@ -191,13 +191,13 @@ A slot for custom elements to be added to the end position of the menu item.
   \`elemAfter\` to the left.
 
 ${(
-		<Example
-			packageName="@atlaskit/side-nav-items"
-			Component={require('../../examples/docs/elem-after').ElemAfterExample}
-			title="elemAfter"
-			source={require('!!raw-loader!../../examples/docs/elem-after')}
-		/>
-	)}
+	<Example
+		packageName="@atlaskit/side-nav-items"
+		Component={require('../../examples/docs/elem-after').ElemAfterExample}
+		title="elemAfter"
+		source={require('!!raw-loader!../../examples/docs/elem-after')}
+	/>
+)}
 
 ### actions and actionsOnHover
 
@@ -214,15 +214,15 @@ Slots for icon buttons that trigger actions independent from the menu item.
 - Do not apply side nav items in dropdown menus triggered by \`actions\` or \`actionsOnHover\`.
 
 ${(
-		<Example
-			packageName="@atlaskit/side-nav-items"
-			Component={
-				require('../../examples/docs/actions-and-actions-on-hover').ActionsAndActionsOnHoverExample
-			}
-			title="actions and actionsOnHover"
-			source={require('!!raw-loader!../../examples/docs/actions-and-actions-on-hover')}
-		/>
-	)}
+	<Example
+		packageName="@atlaskit/side-nav-items"
+		Component={
+			require('../../examples/docs/actions-and-actions-on-hover').ActionsAndActionsOnHoverExample
+		}
+		title="actions and actionsOnHover"
+		source={require('!!raw-loader!../../examples/docs/actions-and-actions-on-hover')}
+	/>
+)}
 
 ### Truncation
 
@@ -230,13 +230,13 @@ When the label or description of side nav menu items exceed the available horizo
 becomes truncated. Tooltips expose the full menu label and are positioned right-start.
 
 ${(
-		<Example
-			packageName="@atlaskit/side-nav-items"
-			Component={require('../../examples/docs/truncation').TruncationExample}
-			title="Truncation"
-			source={require('!!raw-loader!../../examples/docs/truncation')}
-		/>
-	)}
+	<Example
+		packageName="@atlaskit/side-nav-items"
+		Component={require('../../examples/docs/truncation').TruncationExample}
+		title="Truncation"
+		source={require('!!raw-loader!../../examples/docs/truncation')}
+	/>
+)}
 
 ### Menu section and menu section heading
 
@@ -247,13 +247,13 @@ A **menu section heading** is optional. When using, make sure it's both a visual
 label to name a menu section.
 
 ${(
-		<Example
-			packageName="@atlaskit/side-nav-items"
-			Component={require('../../examples/docs/menu-section').MenuSectionExample}
-			title="Menu section"
-			source={require('!!raw-loader!../../examples/docs/menu-section')}
-		/>
-	)}
+	<Example
+		packageName="@atlaskit/side-nav-items"
+		Component={require('../../examples/docs/menu-section').MenuSectionExample}
+		title="Menu section"
+		source={require('!!raw-loader!../../examples/docs/menu-section')}
+	/>
+)}
 
 ### Menu divider
 
@@ -263,39 +263,39 @@ Reserve for use in [flyout menu content](/packages/navigation/side-nav-items#fly
 use [top level spacer](/packages/navigation/side-nav-items#top-level-spacer) instead to create separation.
 
 ${(
-		<Example
-			packageName="@atlaskit/side-nav-items"
-			Component={require('../../examples/docs/menu-divider').MenuDividerExample}
-			title="Menu divider"
-			source={require('!!raw-loader!../../examples/docs/menu-divider')}
-		/>
-	)}
+	<Example
+		packageName="@atlaskit/side-nav-items"
+		Component={require('../../examples/docs/menu-divider').MenuDividerExample}
+		title="Menu divider"
+		source={require('!!raw-loader!../../examples/docs/menu-divider')}
+	/>
+)}
 
 ### Top level spacer
 
 A 12px space to separate level 0 menu items or sections.
 
 ${(
-		<Example
-			packageName="@atlaskit/side-nav-items"
-			Component={require('../../examples/docs/top-level-spacer').TopLevelSpacerExample}
-			title="Top level spacer"
-			source={require('!!raw-loader!../../examples/docs/top-level-spacer')}
-		/>
-	)}
+	<Example
+		packageName="@atlaskit/side-nav-items"
+		Component={require('../../examples/docs/top-level-spacer').TopLevelSpacerExample}
+		title="Top level spacer"
+		source={require('!!raw-loader!../../examples/docs/top-level-spacer')}
+	/>
+)}
 
 ### Right to left languages
 
 All side nav items support right to left languages.
 
 ${(
-		<Example
-			packageName="@atlaskit/side-nav-items"
-			Component={require('../../examples/docs/right-to-left').RightToLeftExample}
-			title="Right to left languages"
-			source={require('!!raw-loader!../../examples/docs/right-to-left')}
-		/>
-	)}
+	<Example
+		packageName="@atlaskit/side-nav-items"
+		Component={require('../../examples/docs/right-to-left').RightToLeftExample}
+		title="Right to left languages"
+		source={require('!!raw-loader!../../examples/docs/right-to-left')}
+	/>
+)}
 
 ## Loading states
 
@@ -307,16 +307,16 @@ Menu item skeletons can include a description, a secondary line of text. Use the
 prop to match the corresponding menu item that will be loaded.
 
 ${(
-		<Example
-			packageName="@atlaskit/side-nav-items"
-			Component={
-				require('../../examples/docs/skeleton-menu-item-description')
-					.SkeletonMenuItemDescriptionExample
-			}
-			title="Menu item skeleton with description"
-			source={require('!!raw-loader!../../examples/docs/skeleton-menu-item-description')}
-		/>
-	)}
+	<Example
+		packageName="@atlaskit/side-nav-items"
+		Component={
+			require('../../examples/docs/skeleton-menu-item-description')
+				.SkeletonMenuItemDescriptionExample
+		}
+		title="Menu item skeleton with description"
+		source={require('!!raw-loader!../../examples/docs/skeleton-menu-item-description')}
+	/>
+)}
 
 #### With icon
 
@@ -324,27 +324,27 @@ Menu item skeletons can include an icon or avatar before the label. Use the \`ha
 match the corresponding menu item that will be loaded.
 
 ${(
-		<Example
-			packageName="@atlaskit/side-nav-items"
-			Component={
-				require('../../examples/docs/skeleton-menu-item-elem-before')
-					.SkeletonMenuItemElemBeforeExample
-			}
-			title="Menu item skeleton with icon"
-			source={require('!!raw-loader!../../examples/docs/skeleton-menu-item-elem-before')}
-		/>
-	)}
+	<Example
+		packageName="@atlaskit/side-nav-items"
+		Component={
+			require('../../examples/docs/skeleton-menu-item-elem-before')
+				.SkeletonMenuItemElemBeforeExample
+		}
+		title="Menu item skeleton with icon"
+		source={require('!!raw-loader!../../examples/docs/skeleton-menu-item-elem-before')}
+	/>
+)}
 
 ### Menu section heading skeleton
 
 ${(
-		<Example
-			packageName="@atlaskit/side-nav-items"
-			Component={
-				require('../../examples/docs/skeleton-menu-section-heading').SkeletonMenuSectionHeadingExample
-			}
-			title="Menu section heading skeleton"
-			source={require('!!raw-loader!../../examples/docs/skeleton-menu-section-heading')}
-		/>
-	)}
+	<Example
+		packageName="@atlaskit/side-nav-items"
+		Component={
+			require('../../examples/docs/skeleton-menu-section-heading').SkeletonMenuSectionHeadingExample
+		}
+		title="Menu section heading skeleton"
+		source={require('!!raw-loader!../../examples/docs/skeleton-menu-section-heading')}
+	/>
+)}
 `;

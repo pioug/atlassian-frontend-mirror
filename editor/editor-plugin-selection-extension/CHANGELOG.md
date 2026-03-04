@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 10.3.23
+
+### Patch Changes
+
+- [`47211917d90fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/47211917d90fc) -
+  Editor 5281 fix block menu icon cut off when zoom
+- Updated dependencies
+
 ## 10.3.22
 
 ### Patch Changes

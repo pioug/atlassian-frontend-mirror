@@ -1,7 +1,7 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Stack } from '@atlaskit/primitives';
+import { Box, Stack } from '@atlaskit/primitives/compiled';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import variants from '../src/utils/variants';

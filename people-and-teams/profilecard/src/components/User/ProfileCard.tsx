@@ -237,6 +237,7 @@ export const ProfilecardInternal = (
 								actions={realActions}
 								fireAnalyticsWithDuration={fireAnalyticsWithDuration}
 								isTriggeredUsingKeyboard={props.isTriggeredUsingKeyboard}
+								isRenderedInPortal={props.isRenderedInPortal}
 								fireAnalyticsWithDurationNext={fireAnalyticsWithDurationNext}
 							/>
 						</>
@@ -250,6 +251,7 @@ export const ProfilecardInternal = (
 interface ActionsProps extends AnalyticsWithDurationProps {
 	actions: ProfileCardAction[];
 	isTriggeredUsingKeyboard: boolean | undefined;
+	isRenderedInPortal?: boolean;
 	fullName?: string;
 }
 
@@ -258,6 +260,7 @@ const Actions = ({
 	fireAnalyticsWithDuration,
 	fireAnalyticsWithDurationNext,
 	isTriggeredUsingKeyboard,
+	isRenderedInPortal,
 	fullName,
 }: ActionsProps) => {
 	const onActionClick = useCallback(
@@ -322,7 +325,7 @@ const Actions = ({
 						}
 						href={action.link || ''}
 						target={action.target}
-						autoFocus={index === 0 && isTriggeredUsingKeyboard}
+						autoFocus={index === 0 && isTriggeredUsingKeyboard && !isRenderedInPortal}
 						id={`action-button-${action.id}`}
 						aria-labelledby={
 							fg('enable_userprofilecard_arialabelfix')

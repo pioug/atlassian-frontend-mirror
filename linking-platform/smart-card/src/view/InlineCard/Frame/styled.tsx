@@ -6,7 +6,6 @@ import React, { forwardRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { B100, B200, B400, B50, N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -83,9 +82,7 @@ export const WrapperAnchor = forwardRef<HTMLAnchorElement, WrapperProps>(
 					isHovered && !withoutBackground && hoveredWithBackgroundStyles,
 					isSelected ? selectedStyles : notSelectedStyle,
 					isInteractive && interactiveStyles,
-					viewType === 'errored' &&
-						fg('navx-2565-inline-card-error-state-underline') &&
-						errorViewTypeStyles,
+					viewType === 'errored' && errorViewTypeStyles,
 				]}
 				ref={ref}
 				{...props}

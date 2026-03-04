@@ -6,11 +6,13 @@ The official Model Context Protocol (MCP) server for the Atlassian Design System
 provides tools to access design tokens, icons, and components/primitives programmatically.
 
 **New: Remote MCP Server** A hosted version of the ADS MCP server is now available at
-`https://mcp.atlassian.com/v1/ads/public/mcp`. Simply point your MCP client to this URL to get started. See the [Usage](#usage) section for per-IDE configuration examples.
+`https://mcp.atlassian.com/v1/ads/public/mcp`. Simply point your MCP client to this URL to get
+started. See the [Usage](#usage) section for per-IDE configuration examples.
 
 Or, just click one of the buttons below to easily add the server to Cursor or VS Code.
 
-[![Install in Cursor](https://img.shields.io/badge/Cursor-Install_ads--mcp-000000?style=for-the-badge&logo=cursor&logoColor=ffffff)](vscode:mcp/install?%7B%22name%22%3A%22ads-mcp%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fmcp.atlassian.com%2Fv1%2Fads%2Fpublic%2Fmcp%22%7D) [![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_ads--mcp-0098FF?style=for-the-badge&logo=githubcopilot&logoColor=ffffff)](vscode:mcp/install?%7B%22name%22%3A%22ads-mcp%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fmcp.atlassian.com%2Fv1%2Fads%2Fpublic%2Fmcp%22%7D)
+[![Install in Cursor](https://img.shields.io/badge/Cursor-Install_ads--mcp-000000?style=for-the-badge&logo=cursor&logoColor=ffffff)](vscode:mcp/install?%7B%22name%22%3A%22ads-mcp%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fmcp.atlassian.com%2Fv1%2Fads%2Fpublic%2Fmcp%22%7D)
+[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_ads--mcp-0098FF?style=for-the-badge&logo=githubcopilot&logoColor=ffffff)](vscode:mcp/install?%7B%22name%22%3A%22ads-mcp%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fmcp.atlassian.com%2Fv1%2Fads%2Fpublic%2Fmcp%22%7D)
 
 **New: Accessibility Analysis & Guidance** The server now includes comprehensive accessibility tools
 to help ensure your interfaces are accessible to all users.
@@ -178,7 +180,9 @@ Add the following entry to your `mcp.json` file (located at `~/.cursor/mcp.json`
 
 ##### Remote
 
-Click [![Install in Cursor](https://img.shields.io/badge/Cursor-Install_ads--mcp-000000?style=for-the-badge&logo=cursor&logoColor=ffffff)](vscode:mcp/install?%7B%22name%22%3A%22ads-mcp%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fmcp.atlassian.com%2Fv1%2Fads%2Fpublic%2Fmcp%22%7D) to add or add the following to the same `mcp.json` file:
+Click
+[![Install in Cursor](https://img.shields.io/badge/Cursor-Install_ads--mcp-000000?style=for-the-badge&logo=cursor&logoColor=ffffff)](vscode:mcp/install?%7B%22name%22%3A%22ads-mcp%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fmcp.atlassian.com%2Fv1%2Fads%2Fpublic%2Fmcp%22%7D)
+to add or add the following to the same `mcp.json` file:
 
 ```json
 {
@@ -217,7 +221,9 @@ workspace):
 
 ###### Remote
 
-Click [![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_ads--mcp-0098FF?style=for-the-badge&logo=githubcopilot&logoColor=ffffff)](vscode:mcp/install?%7B%22name%22%3A%22ads-mcp%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fmcp.atlassian.com%2Fv1%2Fads%2Fpublic%2Fmcp%22%7D) or add the following to the same `mcp.json` file:
+Click
+[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_ads--mcp-0098FF?style=for-the-badge&logo=githubcopilot&logoColor=ffffff)](vscode:mcp/install?%7B%22name%22%3A%22ads-mcp%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fmcp.atlassian.com%2Fv1%2Fads%2Fpublic%2Fmcp%22%7D)
+or add the following to the same `mcp.json` file:
 
 ```json
 {

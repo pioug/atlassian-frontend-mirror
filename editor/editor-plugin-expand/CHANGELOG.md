@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-expand
 
+## 8.4.0
+
+### Minor Changes
+
+- [`342dd44a8575e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/342dd44a8575e) -
+  [ux] EDITOR-4609 Add prop to disable pasting expands
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.3.8
 
 ### Patch Changes

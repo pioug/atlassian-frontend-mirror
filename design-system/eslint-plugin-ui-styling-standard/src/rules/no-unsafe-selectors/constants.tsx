@@ -48,6 +48,7 @@ const cssPseudos = [
 	'&:picture-in-picture',
 	'&:placeholder-shown',
 	'&:playing',
+	'&:popover-open',
 	'&:read-only',
 	'&:read-write',
 	'&:required',
@@ -72,6 +73,22 @@ const cssPseudos = [
 	'&::target-text',
 	'&::view-transition',
 	'&::-webkit-details-marker',
+	// Chained pseudos (CSSFlattenedChainedPsuedos from @compiled/react)
+	'&:active:visited',
+	'&:focus:not(:focus-visible)',
+	'&:focus::after',
+	'&:focus::before',
+	'&:focus-visible::after',
+	'&:focus-visible::before',
+	'&:focus-within::after',
+	'&:focus-within::before',
+	'&:hover::after',
+	'&:hover::before',
+	'&:visited:active',
+	'&:visited:hover',
+	'&:visited:focus',
+	'&:visited:focus-visible',
+	'&:visited:focus-within',
 ] as const;
 
 export const allowedPseudos: Set<string> = new Set(

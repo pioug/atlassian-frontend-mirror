@@ -10,6 +10,7 @@ import {
 } from '@atlaskit/editor-prosemirror/state';
 import { type Mapping } from '@atlaskit/editor-prosemirror/transform';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -42,8 +43,9 @@ import { createSelectionPreservationPlugin } from './pm-plugins/selection-preser
 import { selectNode } from './pm-plugins/utils/getSelection';
 import { GlobalStylesWrapper } from './ui/global-styles';
 
-export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => {
+export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 	const nodeDecorationRegistry: NodeDecorationFactory[] = [];
+	const rightSideControlsEnabled = config?.rightSideControlsEnabled ?? false;
 
 	return {
 		name: 'blockControls',
@@ -65,14 +67,25 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => {
 				{
 					name: 'blockControlsPmPlugin',
 					plugin: ({ getIntl, nodeViewPortalProviderAPI }) =>
-						createPlugin(api, getIntl, nodeViewPortalProviderAPI, nodeDecorationRegistry),
+						createPlugin(
+							api,
+							getIntl,
+							nodeViewPortalProviderAPI,
+							nodeDecorationRegistry,
+							rightSideControlsEnabled &&
+								expValEquals('confluence_remix_icon_right_side', 'isEnabled', true),
+						),
 				},
 			];
 
 			if (editorExperiment('platform_editor_controls', 'variant1')) {
 				pmPlugins.push({
 					name: 'blockControlsInteractionTrackingPlugin',
-					plugin: createInteractionTrackingPlugin,
+					plugin: () =>
+						createInteractionTrackingPlugin(
+							rightSideControlsEnabled &&
+								expValEquals('confluence_remix_icon_right_side', 'isEnabled', true),
+						),
 				});
 			}
 
@@ -342,6 +355,16 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => {
 			if (editorExperiment('platform_editor_controls', 'variant1')) {
 				sharedState.isMouseOut =
 					interactionTrackingPluginKey.getState(editorState)?.isMouseOut ?? false;
+				sharedState.rightSideControlsEnabled =
+					rightSideControlsEnabled &&
+					expValEquals('confluence_remix_icon_right_side', 'isEnabled', true);
+				if (
+					rightSideControlsEnabled &&
+					expValEquals('confluence_remix_icon_right_side', 'isEnabled', true)
+				) {
+					sharedState.hoverSide =
+						interactionTrackingPluginKey.getState(editorState)?.hoverSide;
+				}
 			}
 
 			if (expValEqualsNoExposure('platform_editor_block_menu', 'isEnabled', true)) {

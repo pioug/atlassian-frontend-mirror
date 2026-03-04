@@ -219,6 +219,13 @@ export interface ProfileCardTriggerProps {
 	disabledAriaAttributes?: boolean;
 	onVisibilityChange?: (isVisible: boolean) => void;
 	isVisible?: boolean;
+	/**
+	 * Indicates whether the profile card is rendered in a portal.
+	 *
+	 * If true, the profile card will auto-focus the name element when opened for better accessibility,
+	 * keeping the user's focus in the tab trap.
+	 */
+	isRenderedInPortal?: boolean;
 	offset?: [number, number];
 	product?: string;
 	viewingUserId?: string;
@@ -486,6 +493,13 @@ export interface ProfilecardProps {
 	teamCentralBaseUrl?: string;
 	addFlag?: (flag: any) => void;
 	cloudId?: string;
+	/**
+	 * Indicates whether the profile card is rendered in a portal.
+	 *
+	 * If true, the profile card will auto-focus the name element when opened for better accessibility,
+	 * keeping the user's focus in the tab trap.
+	 */
+	isRenderedInPortal?: boolean;
 
 	// Allow to pass custom message for disabled account which `status` prop is `inactive` or `closed`.
 	// `disabledAccountMessage` should not contain react-intl-next components, ex: `FormattedMessage`,

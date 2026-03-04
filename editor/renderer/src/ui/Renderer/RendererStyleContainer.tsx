@@ -1477,26 +1477,13 @@ const baseOtherStylesDuplicateAnchor = css({
 		[`& .${RendererCssClassName.EXTENSION}:first-child`]: {
 			marginTop: 0,
 		},
-		[`& .${RendererCssClassName.FLEX_CENTER_WRAPPER}:first-child`]: {
-			marginTop: 0,
-		},
 	},
 
 	[`.${RendererCssClassName.DOCUMENT}`]: {
 		[`.${RendererCssClassName.EXTENSION}`]: {
 			marginTop: `${blockNodesVerticalMargin}`,
 		},
-		/* platform_editor_flex_based_centering: margin on wrapper so it participates in collapse; reset extension margin when wrapped */
-		[`.${RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER}`]: {
-			marginTop: `${blockNodesVerticalMargin}`,
-		},
-		/* When MBE section is first in doc, zero wrapper top margin (patch-on: wrapper is section's child, not DOCUMENT's; matches containerStyles for patch-off) */
-		[`.${RendererCssClassName.DOCUMENT} [data-multiBodiedExtension-container]:first-child .${RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER}`]:
-			{
-				marginTop: 0,
-			},
 		[`.${RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER} .${RendererCssClassName.EXTENSION}`]: {
-			marginTop: 0,
 			marginBottom: 0,
 		},
 		/* platform_editor_flex_based_centering: embed card center wrapper has margin; zero MediaSingle vertical margin when wrapped so it doesn't double */
@@ -1504,7 +1491,6 @@ const baseOtherStylesDuplicateAnchor = css({
 			marginTop: 0,
 			marginBottom: 0,
 		},
-		/* Zero first/last child margin inside flex items so flex container height = content height (matches legacy where those margins collapse) */
 		[`.${RendererCssClassName.STICKY_SAFE_BREAKOUT_INNER} > *:first-child`]: {
 			marginTop: 0,
 		},
@@ -1525,17 +1511,6 @@ const baseOtherStylesDuplicateAnchor = css({
 		[`.${RendererCssClassName.BLOCK_CARD_DATASOURCE_CENTER_WRAPPER} > div > *:last-child`]: {
 			marginBottom: 0,
 		},
-		[`.${RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER} .${RendererCssClassName.EXTENSION} > *:first-child`]:
-			{
-				marginTop: 0,
-			},
-		[`.${RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER} .${RendererCssClassName.EXTENSION} > *:last-child`]:
-			{
-				marginBottom: 0,
-			},
-
-		/* When platform_editor_flex_based_centering is off, EXTENSION_CENTER_ALIGN uses transform (see extensionCenterAlignLegacyStyles) */
-
 		[`.${TableSharedCssClassName.TABLE_NODE_WRAPPER}`]: {
 			overflowX: 'auto',
 		},
@@ -1642,26 +1617,13 @@ const baseOtherStyles = css({
 		[`& .${RendererCssClassName.EXTENSION}:first-child`]: {
 			marginTop: 0,
 		},
-		[`& .${RendererCssClassName.FLEX_CENTER_WRAPPER}:first-child`]: {
-			marginTop: 0,
-		},
 	},
 
 	[`.${RendererCssClassName.DOCUMENT}`]: {
 		[`.${RendererCssClassName.EXTENSION}`]: {
 			marginTop: `${blockNodesVerticalMargin}`,
 		},
-		/* platform_editor_flex_based_centering: margin on wrapper so it participates in collapse; reset extension margin when wrapped */
-		[`.${RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER}`]: {
-			marginTop: `${blockNodesVerticalMargin}`,
-		},
-		/* When MBE section is first in doc, zero wrapper top margin (patch-on: wrapper is section's child, not DOCUMENT's; matches containerStyles for patch-off) */
-		[`.${RendererCssClassName.DOCUMENT} [data-multiBodiedExtension-container]:first-child .${RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER}`]:
-			{
-				marginTop: 0,
-			},
 		[`.${RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER} .${RendererCssClassName.EXTENSION}`]: {
-			marginTop: 0,
 			marginBottom: 0,
 		},
 		/* platform_editor_flex_based_centering: embed card center wrapper has margin; zero MediaSingle vertical margin when wrapped so it doesn't double */
@@ -1669,7 +1631,6 @@ const baseOtherStyles = css({
 			marginTop: 0,
 			marginBottom: 0,
 		},
-		/* Zero first/last child margin inside flex items so flex container height = content height (matches legacy where those margins collapse) */
 		[`.${RendererCssClassName.STICKY_SAFE_BREAKOUT_INNER} > *:first-child`]: {
 			marginTop: 0,
 		},
@@ -1690,17 +1651,6 @@ const baseOtherStyles = css({
 		[`.${RendererCssClassName.BLOCK_CARD_DATASOURCE_CENTER_WRAPPER} > div > *:last-child`]: {
 			marginBottom: 0,
 		},
-		[`.${RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER} .${RendererCssClassName.EXTENSION} > *:first-child`]:
-			{
-				marginTop: 0,
-			},
-		[`.${RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER} .${RendererCssClassName.EXTENSION} > *:last-child`]:
-			{
-				marginBottom: 0,
-			},
-
-		/* When platform_editor_flex_based_centering is off, EXTENSION_CENTER_ALIGN uses transform (see extensionCenterAlignLegacyStyles) */
-
 		[`.${TableSharedCssClassName.TABLE_NODE_WRAPPER}`]: {
 			overflowX: 'auto',
 		},

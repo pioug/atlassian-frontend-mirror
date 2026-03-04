@@ -62,7 +62,7 @@ export type MediaNextEditorPluginType = NextEditorPlugin<
 			/**
 			 * Callback to be called when there is an error rendering a media node.
 			 */
-			handleMediaNodeRenderError: (node: PMNode, reason: string) => void;
+			handleMediaNodeRenderError: (node: PMNode, reason: string, nestedUnder?: string) => void;
 			/**
 			 * @private
 			 * @deprecated Use the command `insertMediaSingle` instead which is decoupled from EditorView

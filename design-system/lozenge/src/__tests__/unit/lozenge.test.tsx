@@ -507,5 +507,121 @@ describe('LozengeDropdownTrigger', () => {
 			fireEvent.click(trigger);
 			expect(handleClick).toHaveBeenCalledTimes(1);
 		});
+
+		it('should accept and pass through aria-controls prop', () => {
+			render(
+				<LozengeDropdownTrigger
+					appearance="success"
+					isSelected={false}
+					aria-controls="dropdown-menu-123"
+					testId="aria-controls-trigger"
+				>
+					Status
+				</LozengeDropdownTrigger>,
+			);
+
+			const trigger = screen.getByTestId('aria-controls-trigger');
+			expect(trigger).toHaveAttribute('aria-controls', 'dropdown-menu-123');
+		});
+
+		it('should accept and pass through aria-expanded prop', () => {
+			const { rerender } = render(
+				<LozengeDropdownTrigger
+					appearance="success"
+					isSelected={false}
+					aria-expanded={false}
+					testId="aria-expanded-trigger"
+				>
+					Status
+				</LozengeDropdownTrigger>,
+			);
+
+			const trigger = screen.getByTestId('aria-expanded-trigger');
+			expect(trigger).toHaveAttribute('aria-expanded', 'false');
+
+			// Test with expanded state
+			rerender(
+				<LozengeDropdownTrigger
+					appearance="success"
+					isSelected={true}
+					aria-expanded={true}
+					testId="aria-expanded-trigger"
+				>
+					Status
+				</LozengeDropdownTrigger>,
+			);
+
+			expect(trigger).toHaveAttribute('aria-expanded', 'true');
+		});
+
+		it('should accept and pass through aria-haspopup prop', () => {
+			render(
+				<LozengeDropdownTrigger
+					appearance="success"
+					isSelected={false}
+					aria-haspopup={true}
+					testId="aria-haspopup-trigger"
+				>
+					Status
+				</LozengeDropdownTrigger>,
+			);
+
+			const trigger = screen.getByTestId('aria-haspopup-trigger');
+			expect(trigger).toHaveAttribute('aria-haspopup', 'true');
+		});
+
+		it('should accept and pass through aria-haspopup with dialog value', () => {
+			render(
+				<LozengeDropdownTrigger
+					appearance="success"
+					isSelected={false}
+					aria-haspopup="dialog"
+					testId="aria-haspopup-dialog-trigger"
+				>
+					Status
+				</LozengeDropdownTrigger>,
+			);
+
+			const trigger = screen.getByTestId('aria-haspopup-dialog-trigger');
+			expect(trigger).toHaveAttribute('aria-haspopup', 'dialog');
+		});
+
+		it('should accept multiple aria props simultaneously', () => {
+			render(
+				<LozengeDropdownTrigger
+					appearance="success"
+					isSelected={true}
+					aria-controls="dropdown-menu-456"
+					aria-expanded={true}
+					aria-haspopup={true}
+					testId="multiple-aria-trigger"
+				>
+					Status
+				</LozengeDropdownTrigger>,
+			);
+
+			const trigger = screen.getByTestId('multiple-aria-trigger');
+			expect(trigger).toHaveAttribute('aria-controls', 'dropdown-menu-456');
+			expect(trigger).toHaveAttribute('aria-expanded', 'true');
+			expect(trigger).toHaveAttribute('aria-haspopup', 'true');
+		});
+
+		it('should work without any aria props (backward compatibility)', () => {
+			render(
+				<LozengeDropdownTrigger
+					appearance="success"
+					isSelected={false}
+					testId="no-aria-trigger"
+				>
+					Status
+				</LozengeDropdownTrigger>,
+			);
+
+			const trigger = screen.getByTestId('no-aria-trigger');
+			expect(trigger).toBeInTheDocument();
+			expect(trigger).not.toHaveAttribute('aria-controls');
+			expect(trigger).not.toHaveAttribute('aria-expanded');
+			expect(trigger).not.toHaveAttribute('aria-haspopup');
+		});
 	});
 });

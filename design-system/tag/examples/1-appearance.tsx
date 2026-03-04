@@ -1,8 +1,7 @@
 import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { AvatarTag, SimpleTag as Tag } from '@atlaskit/tag';
 import TeamAvatar from '@atlaskit/teams-avatar';
 

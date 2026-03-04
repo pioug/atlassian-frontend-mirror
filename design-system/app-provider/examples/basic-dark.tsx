@@ -1,8 +1,7 @@
 import React from 'react';
 
 import AppProvider, { useColorMode } from '@atlaskit/app-provider';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 
 function Basic() {
 	const colorMode = useColorMode();

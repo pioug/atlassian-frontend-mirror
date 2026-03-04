@@ -7,10 +7,12 @@ import type {
 	EditorCommand,
 	NextEditorPlugin,
 	OptionalPlugin,
+	PublicPluginAPI,
 } from '@atlaskit/editor-common/types';
 import type { AccessibilityUtilsPlugin } from '@atlaskit/editor-plugin-accessibility-utils';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
 import type { LimitedModePlugin } from '@atlaskit/editor-plugin-limited-mode';
@@ -86,6 +88,11 @@ export interface PluginState {
 
 export type ReleaseHiddenDecoration = () => boolean | undefined;
 
+export type BlockControlsPluginConfig = {
+	/** Enable left/right hover split: show left controls when hovering left, right controls when hovering right */
+	rightSideControlsEnabled?: boolean;
+};
+
 export type BlockControlsSharedState =
 	| {
 			activeDropTargetNode?: ActiveDropTargetNode;
@@ -95,6 +102,7 @@ export type BlockControlsSharedState =
 				canMoveUp?: boolean;
 				openedViaKeyboard?: boolean;
 			};
+			hoverSide?: 'left' | 'right';
 			isDragging: boolean;
 			isEditing?: boolean;
 			isMenuOpen: boolean;
@@ -107,10 +115,21 @@ export type BlockControlsSharedState =
 			menuTriggerByNode?: TriggerByNode;
 			multiSelectDnD?: MultiSelectDnD;
 			preservedSelection?: Selection;
+			/** Whether left/right hover split is enabled (from plugin config) */
+			rightSideControlsEnabled?: boolean;
 	  }
 	| undefined;
 
 export type HandleOptions = { isFocused: boolean } | undefined;
+
+/**
+ * Props passed to custom right-edge button components (e.g. config.rightEdgeButton).
+ * Used by malleable-ui for BlockRemixButton when rendered via node decoration.
+ */
+export type RightEdgeButtonProps = {
+	api: PublicPluginAPI<[BlockControlsPlugin]>;
+	getPos: () => number | undefined;
+};
 
 export type NodeDecorationFactoryParams = {
 	anchorName: string;
@@ -122,8 +141,14 @@ export type NodeDecorationFactoryParams = {
 	rootPos: number;
 };
 
+/**
+ * When true, this factory's decorations are shown in view mode on block hover
+ * (without drag handle or quick insert). Used for right-edge controls.
+ */
 export type NodeDecorationFactory = {
 	create: (params: NodeDecorationFactoryParams) => Decoration;
+	/** Show this decoration in view mode when hovering over a block */
+	showInViewMode?: boolean;
 	type: string;
 };
 
@@ -137,6 +162,7 @@ export type MoveNode = (
 export type BlockControlsPluginDependencies = [
 	OptionalPlugin<LimitedModePlugin>,
 	OptionalPlugin<EditorDisabledPlugin>,
+	OptionalPlugin<EditorViewModePlugin>,
 	OptionalPlugin<WidthPlugin>,
 	OptionalPlugin<FeatureFlagsPlugin>,
 	OptionalPlugin<AnalyticsPlugin>,
@@ -210,6 +236,7 @@ export type BlockControlsPlugin = NextEditorPlugin<
 			}) => EditorCommand;
 		};
 		dependencies: BlockControlsPluginDependencies;
+		pluginConfiguration?: BlockControlsPluginConfig;
 		sharedState: BlockControlsSharedState;
 	}
 >;

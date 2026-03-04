@@ -6,7 +6,7 @@ import Button from '@atlaskit/button/new';
 import __noop from '@atlaskit/ds-lib/noop';
 import PageHeader from '@atlaskit/page-header';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 import Select from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';

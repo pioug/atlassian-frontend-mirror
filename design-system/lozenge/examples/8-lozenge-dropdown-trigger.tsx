@@ -48,6 +48,9 @@ const styles = cssMap({
 		color: token('color.text.subtlest'),
 		marginBlockEnd: token('space.050'),
 	},
+	maxWidthContainer: {
+		width: '300px',
+	},
 });
 
 /**
@@ -299,6 +302,12 @@ export default function LozengeDropdownTriggerExample(): JSX.Element {
 					<LozengeDropdownTrigger appearance="danger" maxWidth={80}>
 						Another long label
 					</LozengeDropdownTrigger>
+					<Box xcss={styles.maxWidthContainer}>
+						<LozengeDropdownTrigger appearance="success" maxWidth="100%">
+							100% width lozenge - Lorem Ipsum is simply dummy text of the printing and typesetting
+							industry
+						</LozengeDropdownTrigger>
+					</Box>
 				</Box>
 			</Box>
 		</Box>

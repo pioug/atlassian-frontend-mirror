@@ -207,7 +207,14 @@ export class EditorCardProvider
 			callback({ data: details });
 		}
 
-		// fetch the latest data async and update the cache
+		// if parent class NodeDataProvider has cached the network request for the node
+		// we can skip fetching the data async and updating the session storage cache
+		const cacheStatus = this.getCacheStatusForNode(jsonNode);
+		if (cacheStatus === 'network') {
+			return;
+		}
+
+		// fetch the latest data async and update the session storage cache
 		this.getDataAsync(node, (payload) => {
 			if (payload.data && !payload.error) {
 				this.smartCardLocalCacheClient.setItem(key, payload.data);

@@ -166,6 +166,13 @@ export const messages = defineMessages({
 		defaultMessage: 'Create synced block',
 		description: 'Inserts a synced block that auto-updates content across Atlassian apps',
 	},
+	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
+	// New message with updated wording. To clean up: remove old message and feature flag check when flag is removed.
+	syncBlock: {
+		id: 'fabric.editor.syncBlock',
+		defaultMessage: 'Sync block',
+		description: 'Inserts a synced block that auto-updates content across Atlassian apps',
+	},
 	syncedBlockDescription: {
 		id: 'fabric.editor.syncedBlock.description',
 		defaultMessage: 'Sync content across multiple locations',

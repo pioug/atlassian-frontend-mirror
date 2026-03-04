@@ -103,6 +103,7 @@ import {
 	handleMention,
 	handleParagraphBlockMarks,
 	handleTableContentPasteInBodiedExtension,
+	handlePasteExpand
 } from './util/handlers';
 import { handleSyncBlocksPaste } from './util/sync-block';
 import {
@@ -158,6 +159,7 @@ export function createPlugin(
 	providerFactory?: ProviderFactory,
 	pasteWarningOptions?: PasteWarningOptions,
 ) {
+
 	const editorAnalyticsAPI = pluginInjectionApi?.analytics?.actions;
 	const atlassianMarkDownParser = new MarkdownTransformer(schema, md);
 
@@ -440,24 +442,22 @@ export function createPlugin(
 					return true;
 				}
 
-				if (fg('platform_editor_fix_captions_on_copy')) {
-					if (
-						handlePasteIntoCaptionWithAnalytics(editorAnalyticsAPI)(
-							view,
-							event,
-							slice,
-							PasteTypes.richText,
-						)(state, dispatch)
-					) {
-						// Create a custom handler to avoid handling with handleRichText method
-						// As SafeInsert is used inside handleRichText which caused some bad UX like this:
-						// https://product-fabric.atlassian.net/browse/MEX-1520
+				if (
+					handlePasteIntoCaptionWithAnalytics(editorAnalyticsAPI)(
+						view,
+						event,
+						slice,
+						PasteTypes.richText,
+					)(state, dispatch)
+				) {
+					// Create a custom handler to avoid handling with handleRichText method
+					// As SafeInsert is used inside handleRichText which caused some bad UX like this:
+					// https://product-fabric.atlassian.net/browse/MEX-1520
 
-						// Converting caption to plain text needs to be handled before transformSliceForMedia
-						// as createChecked will fail when trying to create a mediaSingle node with a caption
-						// that is not plain text.
-						return true;
-					}
+					// Converting caption to plain text needs to be handled before transformSliceForMedia
+					// as createChecked will fail when trying to create a mediaSingle node with a caption
+					// that is not plain text.
+					return true;
 				}
 
 				// transform slices based on destination
@@ -758,22 +758,6 @@ export function createPlugin(
 						slice = transformSliceNestedExpandToExpand(slice, state.schema);
 					}
 
-					if (!fg('platform_editor_fix_captions_on_copy')) {
-						if (
-							handlePasteIntoCaptionWithAnalytics(editorAnalyticsAPI)(
-								view,
-								event,
-								slice,
-								PasteTypes.richText,
-							)(state, dispatch)
-						) {
-							// Create a custom handler to avoid handling with handleRichText method
-							// As SafeInsert is used inside handleRichText which caused some bad UX like this:
-							// https://product-fabric.atlassian.net/browse/MEX-1520
-							return true;
-						}
-					}
-
 					if (
 						handlePastePanelOrDecisionIntoListWithAnalytics(editorAnalyticsAPI)(
 							view,
@@ -813,6 +797,10 @@ export function createPlugin(
 				 * so we merge ALL adjacent code blocks to support paste here */
 				if (pastedFromBitBucket) {
 					slice = transformSliceToJoinAdjacentCodeBlocks(slice);
+				}
+				// Filter out expand nodes if allowExpand is false
+				if (!pluginInjectionApi?.expand?.sharedState?.currentState()?.allowInsertion && expValEquals('platform_editor_expand_paste_in_comment_editor', 'isEnabled', true)) {
+					slice = handlePasteExpand(slice);
 				}
 
 				slice = transformSingleLineCodeBlockToCodeMark(slice, schema);

@@ -1,7 +1,7 @@
 import React, { type FC } from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 
 import { TH, type THProps } from './ui/th';
 

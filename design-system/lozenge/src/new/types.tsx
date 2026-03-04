@@ -144,6 +144,9 @@ export type LozengeBaseProps = NewLozengeBaseProps & {
 	onClick?: (event: React.MouseEvent<HTMLButtonElement>, analyticsEvent: UIAnalyticsEvent) => void;
 	analyticsContext?: Record<string, any>;
 	interactionName?: string;
+	'aria-controls'?: string;
+	'aria-expanded'?: boolean;
+	'aria-haspopup'?: boolean | 'dialog';
 };
 
 /**
@@ -175,4 +178,20 @@ export type LozengeDropdownTriggerProps = NewLozengeProps & {
 	 * An optional name used to identify events for React UFO (Unified Frontend Observability) press interactions. For more information, see [React UFO integration](https://go.atlassian.com/react-ufo-dst-integration).
 	 */
 	interactionName?: string;
+
+	/**
+	 * Identifies the popup element that the trigger controls.
+	 * Should match the `id` of the popup content for screen readers to understand the relationship.
+	 */
+	'aria-controls'?: string;
+
+	/**
+	 * Announces to assistive technology whether the popup is currently open or closed.
+	 */
+	'aria-expanded'?: boolean;
+
+	/**
+	 * Informs assistive technology that this element triggers a popup.
+	 */
+	'aria-haspopup'?: boolean | 'dialog';
 };

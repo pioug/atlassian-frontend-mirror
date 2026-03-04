@@ -35,3 +35,13 @@ export const insideTable = (path: Node[], schema: Schema): boolean => {
 	} = schema;
 	return path.some((n) => n.type === table);
 };
+
+export const getNestedUnderNodes = (path: Node[], nodeTypeNames: string[]): string | undefined => {
+	for (const node of path) {
+		if (nodeTypeNames.includes(node.type.name)) {
+			return node.type.name;
+		}
+	}
+
+	return undefined;
+};

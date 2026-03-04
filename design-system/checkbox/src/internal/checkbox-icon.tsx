@@ -4,9 +4,8 @@
  */
 import { memo, type NamedExoticComponent, useMemo } from 'react';
 
-import { css, cssMap, jsx } from '@compiled/react';
+import { cssMap, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 /**
@@ -35,16 +34,6 @@ const svgStyles = cssMap({
 		stroke: 'var(--checkbox-border-color)',
 		transition: 'stroke 0.2s ease-in-out',
 	},
-});
-
-/**
- * Legacy SVG styles.
- * Used when the `platform-checkbox-atomic-styles` feature gate is disabled.
- */
-const svgStylesLegacy = css({
-	fill: token('elevation.surface'),
-	overflow: 'hidden',
-	pointerEvents: 'none',
 });
 
 function getIcon(isIndeterminate: boolean, isChecked: boolean) {
@@ -91,42 +80,18 @@ const CheckboxIcon: NamedExoticComponent<CheckboxIconProps> = memo<CheckboxIconP
 	({ isIndeterminate, isChecked }) => {
 		const icon = useMemo(() => getIcon(isIndeterminate, isChecked), [isIndeterminate, isChecked]);
 
-		if (fg('platform-checkbox-atomic-styles')) {
-			return (
-				<svg width={24} height={24} viewBox="0 0 24 24" css={svgStyles.root} role="presentation">
-					<g fillRule="evenodd">
-						<rect
-							css={svgStyles.rect}
-							fill="currentColor"
-							x="5.5"
-							y="5.5"
-							width="13"
-							height="13"
-							rx="1.5"
-						/>
-						{icon}
-					</g>
-				</svg>
-			);
-		}
-
-		// Legacy rendering with inline style props for CSS variable consumption
 		return (
-			<svg
-				width={24}
-				height={24}
-				viewBox="0 0 24 24"
-				style={{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-					color: 'var(--checkbox-background-color)',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-					fill: 'var(--checkbox-tick-color)',
-				}}
-				css={svgStylesLegacy}
-				role="presentation"
-			>
+			<svg width={24} height={24} viewBox="0 0 24 24" css={svgStyles.root} role="presentation">
 				<g fillRule="evenodd">
-					<rect fill="currentColor" x="5.5" y="5.5" width="13" height="13" rx="1.5" />
+					<rect
+						css={svgStyles.rect}
+						fill="currentColor"
+						x="5.5"
+						y="5.5"
+						width="13"
+						height="13"
+						rx="1.5"
+					/>
 					{icon}
 				</g>
 			</svg>

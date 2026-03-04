@@ -4,6 +4,7 @@
 export { blockControlsPlugin } from './blockControlsPlugin';
 export type {
 	BlockControlsPlugin,
+	BlockControlsPluginConfig,
 	BlockControlsSharedState,
 	HandleOptions,
 	MoveNodeMethod,
@@ -11,5 +12,6 @@ export type {
 	NodeDecorationFactory,
 	NodeDecorationFactoryParams,
 	PluginState,
+	RightEdgeButtonProps,
 	MoveNode,
 } from './blockControlsPluginType';

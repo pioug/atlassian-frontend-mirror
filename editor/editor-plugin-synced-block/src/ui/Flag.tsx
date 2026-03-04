@@ -4,6 +4,7 @@ import { useIntl, type MessageDescriptor } from 'react-intl-next';
 
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import { SYNCED_BLOCKS_DOCUMENTATION_URL } from '@atlaskit/editor-common/sync-block';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import AkFlag, { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
@@ -127,7 +128,7 @@ export const Flag = ({ api }: Props) => {
 			return [
 				{
 					content: formatMessage(action),
-					href: 'https://support.atlassian.com/confluence-cloud/docs/reuse-content-with-synced-blocks',
+					href: SYNCED_BLOCKS_DOCUMENTATION_URL,
 					target: '_blank',
 					rel: 'noopener noreferrer',
 				},

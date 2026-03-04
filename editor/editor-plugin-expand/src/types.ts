@@ -30,6 +30,10 @@ export type ExpandPluginAction = {
 	type: 'SET_EXPAND_REF';
 };
 
+export type ExpandPluginSharedState = {
+	allowInsertion?: boolean;
+} | undefined;
+
 export type InsertMethod = INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.INSERT_MENU;
 
 export interface ExpandPluginOptions extends LongPressSelectionPluginOptions {
@@ -80,10 +84,6 @@ export type ExpandPlugin = NextEditorPlugin<
 		};
 		commands: {
 			/**
-			 * Toggle the expand or nested expand node open
-			 */
-			toggleExpandWithMatch: (selection: Selection) => EditorCommand;
-			/**
 			 * Expand or collapse a range of expand nodes. With no parameters
 			 *
 			 *
@@ -111,8 +111,13 @@ export type ExpandPlugin = NextEditorPlugin<
 			 * ```
 			 */
 			toggleExpandRange: (from?: number, to?: number, open?: boolean) => EditorCommand;
+			/**
+			 * Toggle the expand or nested expand node open
+			 */
+			toggleExpandWithMatch: (selection: Selection) => EditorCommand;
 		};
 		dependencies: ExpandPluginDependencies;
 		pluginConfiguration: ExpandPluginOptions | undefined;
+		sharedState: ExpandPluginSharedState;
 	}
 >;

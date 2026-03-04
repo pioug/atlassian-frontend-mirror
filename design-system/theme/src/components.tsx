@@ -5,11 +5,10 @@
 */
 
 export { default as getTheme } from './utils/get-theme';
-export { default as themed } from './utils/themed';
 
 export type { GlobalThemeTokens } from './types';
 
-export { default, useGlobalTheme } from './components/theme';
+export { default } from './components/theme';
 
 export type { ThemeProp } from './utils/create-theme';
 

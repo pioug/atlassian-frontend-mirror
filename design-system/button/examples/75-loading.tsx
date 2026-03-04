@@ -11,7 +11,7 @@ import capitalize from 'lodash/capitalize';
 import { type Appearance, type Spacing } from '@atlaskit/button/new';
 import Checkbox from '@atlaskit/checkbox';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Stack } from '@atlaskit/primitives';
+import { Box, Stack } from '@atlaskit/primitives/compiled';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import variants, { type Variant } from '../src/utils/variants';

@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 1.6.2
+
+### Patch Changes
+
+- [`2c00950ad9e0b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c00950ad9e0b) -
+  Align no-unsafe-selectors allowed pseudos with @compiled/react CSSPseudos: add &:popover-open and
+  chained pseudos (e.g. &:hover::after, &:focus::before, &:visited:focus) so the constants tuple
+  type-checks. Rule behavior unchanged; only type-sync with the platform.
+
 ## 1.6.1
 
 ### Patch Changes

@@ -1,7 +1,7 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Flex } from '@atlaskit/primitives';
+import { Box, Flex } from '@atlaskit/primitives/compiled';
 
 const Block = () => <Box backgroundColor="color.background.neutral" padding="space.600" />;
 

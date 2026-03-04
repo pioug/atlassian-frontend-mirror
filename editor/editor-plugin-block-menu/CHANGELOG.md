@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 6.1.8
+
+### Patch Changes
+
+- [`3b290b31e9ad1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b290b31e9ad1) -
+  Update menu button text for sync blocks
+- Updated dependencies
+
 ## 6.1.7
 
 ### Patch Changes

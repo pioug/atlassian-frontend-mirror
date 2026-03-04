@@ -6,6 +6,7 @@ import {
 	SyncBlockNotFound,
 	SyncBlockUnsyncNotFound,
 	SyncBlockWithParagraphAndPanelRenderer,
+	SyncBlockWithParagraphAndPanelRendererCompact,
 	SyncBlockWithPermissionDenied,
 } from './sync-block.fixture';
 
@@ -66,5 +67,15 @@ snapshot(SyncBlockInvalidRequestError, {
 
 snapshot(SyncBlockLoadingState, {
 	description: 'should render sync block loading state',
+	mockRequests: mockRequest,
+});
+
+snapshot(SyncBlockWithParagraphAndPanelRendererCompact, {
+	featureFlags: {
+		platform_synced_block_patch_5: true,
+		cc_editor_ai_content_mode: 'test',
+		confluence_compact_text_format: true,
+	},
+	description: 'should render sync block with paragraph and panel in compact mode',
 	mockRequests: mockRequest,
 });

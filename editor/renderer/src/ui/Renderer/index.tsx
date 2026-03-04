@@ -295,8 +295,8 @@ export const RendererFunctionalComponent = (
 			const { annotationProvider } = props;
 			const allowAnnotationsDraftMode = Boolean(
 				annotationProvider &&
-				annotationProvider.inlineComment &&
-				annotationProvider.inlineComment.allowDraftMode,
+					annotationProvider.inlineComment &&
+					annotationProvider.inlineComment.allowDraftMode,
 			);
 			const { featureFlags } = createRendererContext(props.featureFlags, props.isTopLevelRenderer);
 			return {
@@ -311,6 +311,7 @@ export const RendererFunctionalComponent = (
 						: props.document,
 					schema: props.schema,
 					...props.rendererContext,
+					nestedRendererType,
 				} as RendererContext,
 				appearance: props.appearance,
 				contentMode: props.contentMode,
@@ -348,7 +349,7 @@ export const RendererFunctionalComponent = (
 				shouldDisplayExtensionAsInline: props.shouldDisplayExtensionAsInline,
 			};
 		},
-		[createRendererContext, providerFactory, fireAnalyticsEvent],
+		[createRendererContext, providerFactory, fireAnalyticsEvent, nestedRendererType],
 	);
 
 	const serializer = useMemoFromPropsDerivative(

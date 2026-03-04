@@ -5,41 +5,6 @@ export {
 } from './ui/fhs-rollout/is-fhs-enabled-provider';
 export { useIsFhsEnabled } from './ui/fhs-rollout/use-is-fhs-enabled';
 
-export {
-	ExpandableMenuItem,
-	type ExpandableMenuItemProps,
-	ExpandableMenuItemTrigger,
-	type ExpandableMenuItemTriggerProps,
-	ExpandableMenuItemContent,
-	type ExpandableMenuItemContentProps,
-	useIsExpanded,
-} from '@atlaskit/side-nav-items/expandable-menu-item';
-
-export {
-	FlyoutMenuItem,
-	type FlyoutMenuItemProps,
-	FlyoutMenuItemContent,
-	type FlyoutMenuItemContentProps,
-	FlyoutMenuItemTrigger,
-	type FlyoutMenuItemTriggerProps,
-} from '@atlaskit/side-nav-items/flyout-menu-item';
-
-export {
-	ButtonMenuItem,
-	type ButtonMenuItemProps,
-	COLLAPSE_ELEM_BEFORE,
-} from '@atlaskit/side-nav-items/button-menu-item';
-export { LinkMenuItem, type LinkMenuItemProps } from '@atlaskit/side-nav-items/link-menu-item';
-export { MenuListItem } from '@atlaskit/side-nav-items/menu-list-item';
-export {
-	ContainerAvatar,
-	type ContainerAvatarProps,
-} from '@atlaskit/side-nav-items/container-avatar';
-export { MenuList } from '@atlaskit/side-nav-items/menu-list';
-export { TopLevelSpacer } from '@atlaskit/side-nav-items/top-level-spacer';
-
-export { MenuSection, MenuSectionHeading, Divider } from '@atlaskit/side-nav-items/menu-section';
-
 export { Aside } from './ui/page-layout/aside';
 export { Banner } from './ui/page-layout/banner';
 export { Main } from './ui/page-layout/main/main';

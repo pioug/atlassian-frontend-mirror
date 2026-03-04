@@ -24,8 +24,8 @@ export default (): JSX.Element => (
 		</SpotlightHeader>
 		<SpotlightBody>
 			<Text>
-				When your primary or secondary control should navigate to a URL instead of
-				performing an action, use SpotlightPrimaryLink and SpotlightSecondaryLink.
+				When your primary or secondary control should navigate to a URL instead of performing an
+				action, use SpotlightPrimaryLink and SpotlightSecondaryLink.
 			</Text>
 		</SpotlightBody>
 		<SpotlightFooter>
@@ -48,4 +48,3 @@ export default (): JSX.Element => (
 		</SpotlightFooter>
 	</SpotlightCard>
 );
-

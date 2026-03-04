@@ -1,9 +1,8 @@
 import * as colors from './colors';
 import * as typography from './typography';
 import getTheme from './utils/get-theme';
-import themed from './utils/themed';
 
-export { colors, typography, getTheme, themed };
+export { colors, typography, getTheme };
 
 export {
 	CHANNEL,
@@ -16,7 +15,7 @@ export {
 	skeletonShimmer,
 	visuallyHidden,
 } from './constants';
-export { default, useGlobalTheme } from './components/theme';
+export { default } from './components/theme';
 export { createTheme } from './utils/create-theme';
 export type { ThemeProp } from './utils/create-theme';
 export type {

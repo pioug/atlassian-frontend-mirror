@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.25.9",
+	"version": "43.25.12",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,7 +45,6 @@
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/icon-file-type": "workspace:^",
 		"@atlaskit/icon-object": "workspace:^",
-		"@atlaskit/icon-priority": "root:*",
 		"@atlaskit/image": "workspace:^",
 		"@atlaskit/json-ld-types": "workspace:^",
 		"@atlaskit/link": "workspace:^",
@@ -235,9 +234,6 @@
 		"platform_navx_send_context_to_ugs_for_rel_links": {
 			"type": "boolean"
 		},
-		"navx-2565-inline-card-error-state-underline": {
-			"type": "boolean"
-		},
 		"navx-3264-refactoring-unauth-provider-images-fe": {
 			"type": "boolean"
 		},
@@ -245,9 +241,6 @@
 			"type": "boolean"
 		},
 		"platform_sl_3p_auth_rovo_action_kill_switch": {
-			"type": "boolean"
-		},
-		"smart-card-migrate-icon-priority": {
 			"type": "boolean"
 		}
 	},

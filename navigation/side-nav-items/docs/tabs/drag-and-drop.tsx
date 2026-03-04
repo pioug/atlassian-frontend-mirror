@@ -14,74 +14,82 @@ guidelines correspond to our wider drag and drop
 some specific affordances and decisions specifically for our side navigation.
 
 ${(
-		<Example
-			packageName="@atlaskit/side-nav-items"
-			Component={
-				require('../../examples/drag-and-drop/standalone-jira-sidebar').StandaloneJiraSidebar
-			}
-			title="Drag and drop example"
-			source={require('!!raw-loader!../../examples/drag-and-drop/standalone-jira-sidebar')}
-		/>
-	)}
+	<Example
+		packageName="@atlaskit/side-nav-items"
+		Component={
+			require('../../examples/drag-and-drop/standalone-jira-sidebar').StandaloneJiraSidebar
+		}
+		title="Drag and drop example"
+		source={require('!!raw-loader!../../examples/drag-and-drop/standalone-jira-sidebar')}
+	/>
+)}
 
 ${(
-		<Disclosure heading="Thinking about our approach">
-			<Text>Our approach to drag and drop in the sidebar has been guided by three concerns:</Text>
-			<ol>
-				<li><Text as="strong">Performance</Text>: we only want consumers who need drag and drop to
-					include code for it.
-				</li>
-				<li><Text as="strong">Flexibility</Text>: we have created a system that lets you achieve any
-					drag and drop operation you could think of, and puts you in control of all of the business
-					logic
-				</li>
-				<li><Text as="strong">Consistency</Text>: we want drag and drop operations in the sidebar to
-					all feel the same to our users
-				</li>
-			</ol>
-			<Text>These desired outcomes have pushed us towards a solution were we provide a lot of the small
-				pieces, and it is up to you to put them together.</Text>
-		</Disclosure>
-	)}
+	<Disclosure heading="Thinking about our approach">
+		<Text>Our approach to drag and drop in the sidebar has been guided by three concerns:</Text>
+		<ol>
+			<li>
+				<Text as="strong">Performance</Text>: we only want consumers who need drag and drop to
+				include code for it.
+			</li>
+			<li>
+				<Text as="strong">Flexibility</Text>: we have created a system that lets you achieve any
+				drag and drop operation you could think of, and puts you in control of all of the business
+				logic
+			</li>
+			<li>
+				<Text as="strong">Consistency</Text>: we want drag and drop operations in the sidebar to all
+				feel the same to our users
+			</li>
+		</ol>
+		<Text>
+			These desired outcomes have pushed us towards a solution were we provide a lot of the small
+			pieces, and it is up to you to put them together.
+		</Text>
+	</Disclosure>
+)}
 
 <br />
 
 ${(
-		<SectionMessage title="Required" appearance="warning">
-			<Text>
-				It is so important that you stay within these guidelines for your experiences as it will
-				promote user experience consistency as well as enable us to more easily evolve all
-				experiences.
-			</Text>
-		</SectionMessage>
-	)}
+	<SectionMessage title="Required" appearance="warning">
+		<Text>
+			It is so important that you stay within these guidelines for your experiences as it will
+			promote user experience consistency as well as enable us to more easily evolve all
+			experiences.
+		</Text>
+	</SectionMessage>
+)}
 
 <br />
 
 ${(
-		<SectionMessage
-			title="Pre reading"
-			appearance="discovery"
-			actions={
-				<SectionMessageAction href="https://atlassian.design/components/pragmatic-drag-and-drop" target="_blank">
-					Learn about Pragmatic drag and drop
-				</SectionMessageAction>
-			}
-		>
-			<Text>This guide assumes you already have a working knowledge of Pragmatic drag and drop.</Text>
-		</SectionMessage>
-	)}
+	<SectionMessage
+		title="Pre reading"
+		appearance="discovery"
+		actions={
+			<SectionMessageAction
+				href="https://atlassian.design/components/pragmatic-drag-and-drop"
+				target="_blank"
+			>
+				Learn about Pragmatic drag and drop
+			</SectionMessageAction>
+		}
+	>
+		<Text>This guide assumes you already have a working knowledge of Pragmatic drag and drop.</Text>
+	</SectionMessage>
+)}
 
 ## Before a drag
 
 ${(
-		<Text>
-			<Lozenge appearance="success" isBold>
-				Goal
-			</Lozenge>{' '}
-			<Text as="strong">let a user know that a menu item can be dragged</Text>
-		</Text>
-	)}
+	<Text>
+		<Lozenge appearance="success" isBold>
+			Goal
+		</Lozenge>{' '}
+		<Text as="strong">let a user know that a menu item can be dragged</Text>
+	</Text>
+)}
 
 
 
@@ -161,13 +169,13 @@ ${code`function Item({ item }) {
 ## Start of a drag
 
 ${(
-		<Text>
-			<Lozenge appearance="success" isBold>
-				Goal
-			</Lozenge>{' '}
-			<Text as="strong">make it clear what is dragging</Text>
-		</Text>
-	)}
+	<Text>
+		<Lozenge appearance="success" isBold>
+			Goal
+		</Lozenge>{' '}
+		<Text as="strong">make it clear what is dragging</Text>
+	</Text>
+)}
 
 When a drag is starting, there are two things you need to do:
 
@@ -198,13 +206,13 @@ function ProjectsDragPreview() {
 }`}
 
 ${(
-		<SectionMessage>
-			<Text>
-				<code>useMenuItemDragAndDrop()</code> does a lot of the wiring talked about below. Please try
-				to use the hook first before reaching for the lower level pieces.
-			</Text>
-		</SectionMessage>
-	)}
+	<SectionMessage>
+		<Text>
+			<code>useMenuItemDragAndDrop()</code> does a lot of the wiring talked about below. Please try
+			to use the hook first before reaching for the lower level pieces.
+		</Text>
+	</SectionMessage>
+)}
 
 Please ensure the drag preview is pushed away from the users pointer (with \`pointerOutsideOfPreview\`
 from Pragmatic drag and drop) by our
@@ -224,13 +232,13 @@ dragged.
 ## While dragging
 
 ${(
-		<Text>
-			<Lozenge appearance="success" isBold>
-				Goal
-			</Lozenge>{' '}
-			<Text as="strong">make it clear what the result of the drag will be</Text>
-		</Text>
-	)}
+	<Text>
+		<Lozenge appearance="success" isBold>
+			Goal
+		</Lozenge>{' '}
+		<Text as="strong">make it clear what the result of the drag will be</Text>
+	</Text>
+)}
 
 There are four things you need to do in order to make it possible for a menu item to be dropped on:
 
@@ -305,15 +313,15 @@ ${code`function Item({ item }) {
 #### Stickiness
 
 ${(
-		<SectionMessage>
-			<Link
-				target="_blank"
-				href="https://atlassian.design/components/pragmatic-drag-and-drop/core-package/drop-targets#getissticky"
-			>
-				Background information about stickiness
-			</Link>
-		</SectionMessage>
-	)}
+	<SectionMessage>
+		<Link
+			target="_blank"
+			href="https://atlassian.design/components/pragmatic-drag-and-drop/core-package/drop-targets#getissticky"
+		>
+			Background information about stickiness
+		</Link>
+	</SectionMessage>
+)}
 
 If you are setting up drop targets without \`useMenuItemDragAndDrop()\` it is important that you make
 the menu item drop target sticky \`getIsSticky: () => true\`. The \`<GroupDropIndicator>\` should _not_
@@ -616,13 +624,13 @@ projects" section).
   \`<GroupDropIndicator>\`
 
 ${(
-		<Example
-			packageName="@atlaskit/side-nav-items"
-			Component={require('../../examples/drag-and-drop/simple').AllMenuItems}
-			title="Group drop indicator example"
-			source={require('!!raw-loader!../../examples/drag-and-drop/simple')}
-		/>
-	)}
+	<Example
+		packageName="@atlaskit/side-nav-items"
+		Component={require('../../examples/drag-and-drop/simple').AllMenuItems}
+		title="Group drop indicator example"
+		source={require('!!raw-loader!../../examples/drag-and-drop/simple')}
+	/>
+)}
 
 ${code`import { GroupDropIndicator } from '@atlaskit/side-nav-items/drag-and-drop/group-drop-indicator';
 
@@ -689,13 +697,13 @@ function Sidebar() {
 ## On drop
 
 ${(
-		<Text>
-			<Lozenge appearance="success" isBold>
-				Goal
-			</Lozenge>{' '}
-			<Text as="strong">immediately update the interface</Text>
-		</Text>
-	)}
+	<Text>
+		<Lozenge appearance="success" isBold>
+			Goal
+		</Lozenge>{' '}
+		<Text as="strong">immediately update the interface</Text>
+	</Text>
+)}
 
 1. Figure out what \`Operation\` to do
 
@@ -851,30 +859,30 @@ Return value:
 ## Accessible actions
 
 ${(
-		<Text>
-			<Lozenge appearance="success" isBold>
-				Goal
-			</Lozenge>{' '}
-			<Text as="strong">
-				provide a delightful way for folks leveraging assistive technologies to achieve the same
-				outcomes as a drag and drop operation
-			</Text>
+	<Text>
+		<Lozenge appearance="success" isBold>
+			Goal
+		</Lozenge>{' '}
+		<Text as="strong">
+			provide a delightful way for folks leveraging assistive technologies to achieve the same
+			outcomes as a drag and drop operation
 		</Text>
-	)}
+	</Text>
+)}
 
 All menu items that have drag and drop enabled must also include an alternative mechanism to achieve
 the same outcomes as drag and drop operations.
 
 ${(
-		<Example
-			packageName="@atlaskit/side-nav-items"
-			Component={
-				require('../../examples/drag-and-drop/standalone-jira-sidebar').StandaloneJiraSidebar
-			}
-			title="Accessible actions example"
-			source={require('!!raw-loader!../../examples/drag-and-drop/standalone-jira-sidebar')}
-		/>
-	)}
+	<Example
+		packageName="@atlaskit/side-nav-items"
+		Component={
+			require('../../examples/drag-and-drop/standalone-jira-sidebar').StandaloneJiraSidebar
+		}
+		title="Accessible actions example"
+		source={require('!!raw-loader!../../examples/drag-and-drop/standalone-jira-sidebar')}
+	/>
+)}
 
 What you need to do (for all menu items _except_ \`FlyoutMenuItemTrigger\`)
 
@@ -1078,16 +1086,16 @@ All \`<FlyoutMenuItemTrigger>\`s should be closed when dragging _any_ menu item.
 #### While dragging
 
 ${(
-		<SectionMessage title="Not supported (yet)" appearance="warning">
-			<Text>
-				It is currently _not supported_ to drop an item onto a <code>FlyoutMenuItemTrigger</code> or
-				into <code>FlyoutMenuItemContent</code>. There are some experience questions to be worked
-				through to support this. We thought we would wait and see if anybody needed this before
-				spending too much time on it. If you have need of this use case, please reach out and we can
-				prioritize working through the design challenges.
-			</Text>
-		</SectionMessage>
-	)}
+	<SectionMessage title="Not supported (yet)" appearance="warning">
+		<Text>
+			It is currently _not supported_ to drop an item onto a <code>FlyoutMenuItemTrigger</code> or
+			into <code>FlyoutMenuItemContent</code>. There are some experience questions to be worked
+			through to support this. We thought we would wait and see if anybody needed this before
+			spending too much time on it. If you have need of this use case, please reach out and we can
+			prioritize working through the design challenges.
+		</Text>
+	</SectionMessage>
+)}
 
 #### Accessible actions for flyouts
 

@@ -82,10 +82,22 @@ export const handleMouseOver = (
 	const { editorDisabled } = api?.editorDisabled?.sharedState.currentState() || {
 		editorDisabled: false,
 	};
+	const editorViewMode = api?.editorViewMode?.sharedState.currentState()?.mode;
+	const isViewMode = editorViewMode === 'view';
 	const toolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
 
-	// We shouldn't be firing mouse over transactions when the editor is disabled
-	if (editorDisabled) {
+	// We shouldn't be firing mouse over transactions when the editor is disabled,
+	// except in view mode when right-side controls are enabled (show controls on block hover)
+	const rightSideControlsEnabled =
+		api?.blockControls?.sharedState.currentState()?.rightSideControlsEnabled ?? false;
+	if (
+		editorDisabled &&
+		(!isViewMode ||
+			!(
+				rightSideControlsEnabled &&
+				expValEquals('confluence_remix_icon_right_side', 'isEnabled', true)
+			))
+	) {
 		return false;
 	}
 
@@ -120,6 +132,24 @@ export const handleMouseOver = (
 	let rootElement = target?.closest(
 		isNativeAnchorSupported ? getDefaultNodeSelector() : `[data-drag-handler-anchor-name]`,
 	);
+
+	// When hovering over the right-edge button (rendered in a portal outside the block), resolve the
+	// block from the container's anchor so activeNode stays set and the button remains visible.
+	if (
+		!rootElement &&
+		rightSideControlsEnabled &&
+		expValEquals('confluence_remix_icon_right_side', 'isEnabled', true)
+	) {
+		const rightEdgeContainer = target?.closest('[data-blocks-right-edge-button-container]');
+		if (rightEdgeContainer) {
+			const anchor = rightEdgeContainer.getAttribute('data-blocks-right-edge-button-anchor');
+			if (anchor) {
+				rootElement = view.dom.querySelector(
+					`[${getAnchorAttrName()}="${CSS.escape(anchor)}"]`,
+				) as HTMLElement | null;
+			}
+		}
+	}
 
 	if (rootElement) {
 		// We want to exlude handles from showing for empty paragraph and heading nodes

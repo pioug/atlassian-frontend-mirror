@@ -1,5 +1,27 @@
 # @atlaskit/smart-card
 
+## 43.25.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 43.25.11
+
+### Patch Changes
+
+- [`c70a18513ec27`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c70a18513ec27) -
+  NAVX-3307 cleaning up navx-2565-inline-card-error-state-underline
+- Updated dependencies
+
+## 43.25.10
+
+### Patch Changes
+
+- [`586574651d2fb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/586574651d2fb) -
+  Remove smart-card-migrate-icon-priority FG and clear out icon-priority usage
+- Updated dependencies
+
 ## 43.25.9
 
 ### Patch Changes

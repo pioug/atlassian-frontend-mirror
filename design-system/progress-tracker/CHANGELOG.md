@@ -1,5 +1,11 @@
 # @atlaskit/progress-tracker
 
+## 10.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.5.0
 
 ### Minor Changes

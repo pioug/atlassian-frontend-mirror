@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-media
 
+## 9.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.7.0
+
+### Minor Changes
+
+- [`27de3457c3a79`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27de3457c3a79) -
+  EDITOR-5532 add context to media error events
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.6.4
 
 ### Patch Changes

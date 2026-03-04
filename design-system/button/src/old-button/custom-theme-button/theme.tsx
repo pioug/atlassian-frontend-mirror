@@ -29,7 +29,6 @@ const stateToSelectorMap: Partial<InteractionMap> = {
 export function getCustomCss({
 	appearance = 'default',
 	spacing = 'default',
-	mode = 'light',
 	isSelected = false,
 	shouldFitContainer = false,
 	iconIsOnlyChild = false,
@@ -39,7 +38,6 @@ export function getCustomCss({
 	let result: CSSObject = getCss({
 		appearance,
 		spacing,
-		mode,
 		isSelected,
 		shouldFitContainer,
 		isOnlySingleIcon: iconIsOnlyChild,

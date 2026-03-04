@@ -2,7 +2,7 @@ import React from 'react';
 
 import Lozenge from '@atlaskit/lozenge';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Stack, Text } from '@atlaskit/primitives';
+import { Stack, Text } from '@atlaskit/primitives/compiled';
 
 export default (): React.JSX.Element => (
 	<Stack space="space.100">

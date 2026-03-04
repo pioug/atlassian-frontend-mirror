@@ -2,7 +2,6 @@
 import { css, type CSSObject } from '@emotion/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { type ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
 import { type Appearance, type Spacing } from '../types';
@@ -221,7 +220,6 @@ const hasOverlayStyles: CSSObject = {
 type GetCssArgs = {
 	appearance: Appearance;
 	spacing: Spacing;
-	mode: ThemeModes;
 	isSelected: boolean;
 	shouldFitContainer: boolean;
 	isOnlySingleIcon: boolean;

@@ -11,7 +11,6 @@ import {
 	type ErrorInfo,
 	type JSX,
 	type ReactInstance,
-	useEffect,
 } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -19,10 +18,11 @@ import { type Mark } from '@atlaskit/editor-prosemirror/model';
 import { useSmartCardContext } from '@atlaskit/link-provider';
 import { Card, getObjectAri, getObjectIconUrl, getObjectName } from '@atlaskit/smart-card';
 import { isWithinPreviewPanelIFrame } from '@atlaskit/linking-common/utils';
-import { useSmartLinkActions, useSmartLinkReload } from '@atlaskit/smart-card/hooks';
+import { useSmartLinkActions } from '@atlaskit/smart-card/hooks';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { HoverLinkOverlay, UnsupportedInline } from '@atlaskit/editor-common/ui';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
+import { useSmartCardReloadAfterCache } from '@atlaskit/editor-common/hooks';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
@@ -208,8 +208,12 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 		return card;
 	};
 
-	const reload = useSmartLinkReload({ url: url || '' });
+	const { getState: getSmartlinkState } = cardContext?.value?.store || {};
 	const [isResolvedViewRendered, setIsResolvedViewRendered] = useState(false);
+
+	const cardState = getSmartlinkState?.()[url || ''];
+	const cardStatus = cardState?.status;
+	useSmartCardReloadAfterCache(url, cardStatus, smartLinks?.ssr || false);
 
 	const onClick = getCardClickHandler(eventHandlers, url);
 	const cardProps = {
@@ -240,19 +244,6 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 	};
 
 	const MaybeOverlay = cardContext?.value ? OverlayWithCardContext : HoverLinkOverlayNoop;
-
-	const cardState = cardContext?.value?.store?.getState()[url || ''];
-	useEffect(() => {
-		// if we render from cache, we want to make sure we reload the data in the background
-		if (
-			expValEquals('platform_editor_smartlink_local_cache', 'isEnabled', true) &&
-			!ssr &&
-			url &&
-			cardState?.status === 'resolved'
-		) {
-			reload();
-		}
-	});
 
 	if (
 		(ssr ||
@@ -505,7 +496,7 @@ const _default_1: {
 		// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 		setState: <K extends never>(
 			state: // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-				| {}
+			| {}
 				| ((
 						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 						prevState: Readonly<{}>,
@@ -610,7 +601,7 @@ const _default_1: {
 		// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 		setState: <K extends never>(
 			state: // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-				| {}
+			| {}
 				| ((
 						// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 						prevState: Readonly<{}>,

@@ -3,6 +3,7 @@ import React, { useMemo } from 'react';
 import type { MentionProvider } from '@atlaskit/mention';
 import { ResourcedMention } from '@atlaskit/mention';
 import ProfileCardTrigger from '@atlaskit/profilecard/user';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ProfilecardProvider } from '../../provider-factory/profile-card-provider';
 import type { MentionEventHandler } from '../EventHandlers';
@@ -55,6 +56,7 @@ export default function MentionWithProfileCard({
 			// eslint-disable-next-line require-unicode-regexp
 			ariaLabel={text.replace(/^@/, '')}
 			ssrPlaceholderId={ssrPlaceholderId}
+			isRenderedInPortal={expValEquals('editor_a11y_7152_profile_card_tab_order', 'isEnabled', true)}
 		>
 			<ResourcedMention
 				id={id}

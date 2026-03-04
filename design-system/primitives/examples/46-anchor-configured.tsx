@@ -2,7 +2,7 @@ import React, { forwardRef, type Ref } from 'react';
 
 import AppProvider, { type RouterLinkComponentProps } from '@atlaskit/app-provider';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Anchor, Box } from '@atlaskit/primitives';
+import { Anchor, Box } from '@atlaskit/primitives/compiled';
 
 type MyRouterLinkConfig = {
 	to: string;
@@ -11,7 +11,7 @@ type MyRouterLinkConfig = {
 
 const MyRouterLinkComponent: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<RouterLinkComponentProps<MyRouterLinkConfig>> &
-		React.RefAttributes<HTMLAnchorElement>
+	React.RefAttributes<HTMLAnchorElement>
 > = forwardRef(
 	(
 		{ href, children, ...rest }: RouterLinkComponentProps<MyRouterLinkConfig>,

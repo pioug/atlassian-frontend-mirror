@@ -1,5 +1,4 @@
 import Link from '@atlaskit/link';
-import { fg } from '@atlaskit/platform-feature-flags';
 import React from 'react';
 import { md, Example, Props, code, AtlassianInternalWarning } from '@atlaskit/docs';
 import SectionMessage from '@atlaskit/section-message';
@@ -7,9 +6,8 @@ import { Text } from '@atlaskit/primitives/compiled';
 
 import ReactionsExample from '../examples/01-connected-reactions-view';
 
-const LinkComponent = (props: any) =>
-	// eslint-disable-next-line @atlaskit/design-system/no-html-anchor, @atlassian/a11y/anchor-has-content
-	fg('dst-a11y__replace-anchor-with-link__editor-collabo') ? <Link {...props} /> : <a {...props} />;
+// eslint-disable-next-line @atlassian/a11y/anchor-has-content
+const LinkComponent = (props: any) => <Link {...props} />;
 
 const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}

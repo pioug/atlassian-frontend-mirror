@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "24.38.0",
+	"version": "24.39.1",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -83,6 +83,7 @@
 		"@atlaskit/teams-avatar": "workspace:^",
 		"@atlaskit/teams-public": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
+		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@babel/runtime": "root:*",

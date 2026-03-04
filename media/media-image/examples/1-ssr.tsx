@@ -57,7 +57,9 @@ const Image = ({
 	identifier,
 	apiConfig,
 	ssr,
+	alt,
 }: {
+	alt: string;
 	identifier: FileIdentifier;
 	apiConfig?: MediaStoreGetFileImageParams;
 	ssr: SSR;
@@ -83,7 +85,7 @@ const Image = ({
 					return null;
 				}
 
-				return <img src={data.src} alt="Media file" />;
+				return <img src={data.src} alt={alt} />;
 			}}
 		</MediaImage>
 	);
@@ -101,8 +103,7 @@ const Page = ({
 	<SSRAnalyticsWrapper>
 		<h3>{title}</h3>
 		<MediaClientContext.Provider value={createMediaClient({ throwError })}>
-			{/* eslint-disable-next-line @atlassian/a11y/alt-text -- See https://go/a11y-alt-text for more details */}
-			<Image identifier={imageFileId} apiConfig={dimensions} ssr={ssr} />
+			<Image alt="Media file" identifier={imageFileId} apiConfig={dimensions} ssr={ssr} />
 		</MediaClientContext.Provider>
 	</SSRAnalyticsWrapper>
 );

@@ -162,6 +162,7 @@ export type MessageKey =
 	| 'image_cropper_zoom_out'
 	| 'image_cropper_zoom_in'
 	| 'image_cropper_zoom_slider'
+	| 'image_placer_img_alt'
 	| 'video_captions_enable'
 	| 'video_captions_select_captions'
 	| 'video_captions_upload_captions_form_header'
@@ -1075,5 +1076,10 @@ export const messages: Messages = defineMessages({
 		id: 'media.media-avatar-picker.image-cropper.zoom_slider',
 		defaultMessage: 'set zoom',
 		description: 'Label for the zoom slider to adjust image zoom',
+	},
+	image_placer_img_alt: {
+		id: 'media.media-avatar-picker.image-placer.image-alt',
+		defaultMessage: 'Image preview',
+		description: 'Alt text for the image being positioned in the image placer',
 	},
 });

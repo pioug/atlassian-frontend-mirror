@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-analytics
 
+## 0.19.0
+
+### Minor Changes
+
+- [`2ccb8729cef96`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2ccb8729cef96) -
+  Reorg agent action enums to different files, add the actionGroup to the analytics
+
 ## 0.18.0
 
 ### Minor Changes

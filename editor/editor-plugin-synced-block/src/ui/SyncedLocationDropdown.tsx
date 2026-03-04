@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { css, jsx, cssMap, keyframes, cx } from '@compiled/react';
 import { type IntlShape } from 'react-intl-next';
 
+
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import {
 	ACTION,
@@ -15,6 +16,7 @@ import {
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import { SYNCED_BLOCKS_DOCUMENTATION_URL } from '@atlaskit/editor-common/sync-block';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
 import {
@@ -228,7 +230,7 @@ const getConfluenceSubTypeIcon = (sourceAri: string, subType?: string | null) =>
 };
 
 const ProductIcon = ({ product }: { product?: SyncBlockProduct }) => {
-	const ProductIcon = product ? (productIconMap[product] ?? AtlassianIcon) : AtlassianIcon;
+	const ProductIcon = product ? productIconMap[product] ?? AtlassianIcon : AtlassianIcon;
 
 	return (
 		<span css={logoTileStyles}>
@@ -483,7 +485,7 @@ const NoResultScreen = ({ formatMessage }: { formatMessage: IntlShape['formatMes
 			<Text as="p">{formatMessage(messages.syncedLocationDropdownNoResults)}</Text>
 			<Text as="p">
 				<Anchor
-					href="https://support.atlassian.com/confluence-cloud/docs/reuse-content-with-synced-blocks"
+					href={SYNCED_BLOCKS_DOCUMENTATION_URL}
 					target="_blank"
 					rel="noopener noreferrer"
 					xcss={styles.learnMoreLink}

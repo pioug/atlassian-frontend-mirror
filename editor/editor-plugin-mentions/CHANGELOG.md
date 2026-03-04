@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-mentions
 
+## 9.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.4.0
+
+### Minor Changes
+
+- [`ab3866dd7f659`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab3866dd7f659) -
+  Make sure that we use isRenderedInPortal for profilecards in the editor to make sure we are
+  focusing on the heading
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.3.6
 
 ### Patch Changes

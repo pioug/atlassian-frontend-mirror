@@ -9,6 +9,7 @@ import type {
 	RendererAppearance,
 	HeadingAnchorLinksProps,
 	RendererContentMode,
+	NestedRendererType,
 } from '../ui/Renderer/types';
 import type { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
 
@@ -17,6 +18,7 @@ export interface RendererContext {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	adDoc?: any;
 	containerAri?: string;
+	nestedRendererType?: NestedRendererType;
 	objectAri?: string;
 	schema?: Schema;
 }

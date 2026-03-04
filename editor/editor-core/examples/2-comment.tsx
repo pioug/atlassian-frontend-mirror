@@ -8,6 +8,7 @@ import { DevTools, getTranslations, LanguagePicker } from '@af/editor-examples-h
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { syncBlockMessages } from '@atlaskit/editor-common/messages';
+import { SYNCED_BLOCKS_DOCUMENTATION_URL } from '@atlaskit/editor-common/sync-block';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { type HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
@@ -205,8 +206,7 @@ export class CommentEditorWithFeedback extends React.Component<Props, State> {
 												cannotPasteSyncedBlock: {
 													title: syncBlockMessages.cannotPasteSyncedBlockTitle,
 													description: syncBlockMessages.cannotPasteSyncedBlockDescription,
-													urlHref:
-														'https://support.atlassian.com/confluence-cloud/docs/reuse-content-with-synced-blocks',
+													urlHref: SYNCED_BLOCKS_DOCUMENTATION_URL,
 													urlText: syncBlockMessages.cannotPasteSyncedBlockAction,
 												},
 											}}

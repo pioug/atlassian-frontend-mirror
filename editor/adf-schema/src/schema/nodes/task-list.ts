@@ -9,8 +9,7 @@ import type {
 	TaskItemDefinition as TaskItemNode,
 } from './task-item';
 
-export interface TaskListContent
-	extends Array<TaskItemNode | TaskListDefinition | BlockTaskItem> {
+export interface TaskListContent extends Array<TaskItemNode | TaskListDefinition | BlockTaskItem> {
 	0: TaskItemNode | BlockTaskItem;
 }
 

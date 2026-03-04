@@ -1,5 +1,37 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 5.4.3
+
+### Patch Changes
+
+- [`514037bd94288`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/514037bd94288) -
+  [ux] EDITOR-5588 pass content mode setting to reference sync block
+
+## 5.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.4.1
+
+### Patch Changes
+
+- [`3b290b31e9ad1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b290b31e9ad1) -
+  Update menu button text for sync blocks
+- Updated dependencies
+
+## 5.4.0
+
+### Minor Changes
+
+- [`e9b20ca59c789`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e9b20ca59c789) -
+  EDITOR-5666 fix first node bodied synced block selection
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.37
 
 ### Patch Changes

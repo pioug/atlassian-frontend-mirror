@@ -68,8 +68,7 @@ class UploaderExample extends Component<UploaderExampleProps, UploaderExampleSta
 						<button onClick={this.onUploadStringClick}>Upload</button>
 					</div>
 					<div>
-						{/* eslint-disable-next-line @atlassian/a11y/aria-progressbar-name */}
-						<progress value={uploadingProgress} max="1" />
+						<progress value={uploadingProgress} max="1" aria-label="Upload progress" />
 					</div>
 					<div>Processing status: {processingStatus}</div>
 					<div>TraceId: {traceId}</div>

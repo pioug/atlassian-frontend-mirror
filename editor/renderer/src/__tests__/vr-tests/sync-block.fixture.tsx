@@ -23,6 +23,7 @@ import {
 	syncBlockUnsyncNotFoundAdf,
 } from './__fixtures__/sync-block.adf';
 import { SyncBlockActionsProvider } from '@atlaskit/editor-common/sync-block';
+import type { RendererContentMode } from '../../ui/Renderer/types';
 
 const mockSourceInfo: Record<string, { title: string; url: string }> = {
 	'ari:cloud:confluence:test-sync-block-not-found:page/1234/abc': {
@@ -39,7 +40,9 @@ export const SyncBlockRenderer = ({
 	doc,
 	mockRelayEnvironment = false,
 	isNotFoundError = false,
+	contentMode,
 }: {
+	contentMode?: RendererContentMode;
 	doc: DocNode;
 	isNotFoundError?: boolean;
 	mockRelayEnvironment?: boolean;
@@ -48,7 +51,7 @@ export const SyncBlockRenderer = ({
 	const SyncBlockNodeComponent = useMemoizedSyncedBlockNodeComponent({
 		syncBlockNodes,
 		syncBlockProvider: mockSyncedBlockProviderWithStaticData,
-		syncBlockRendererOptions: undefined,
+		syncBlockRendererOptions: contentMode ? { contentMode } : undefined,
 	});
 
 	const nodeComponents: RendererProps['nodeComponents'] = {
@@ -60,6 +63,7 @@ export const SyncBlockRenderer = ({
 			appearance="full-width"
 			adfStage={'stage0'}
 			nodeComponents={nodeComponents}
+			contentMode={contentMode}
 		/>
 	);
 
@@ -113,4 +117,8 @@ export const SyncBlockInvalidRequestError = () => {
 
 export const SyncBlockLoadingState = () => {
 	return <SyncBlockRenderer doc={syncBlockLoadingStateAdf} />;
+};
+
+export const SyncBlockWithParagraphAndPanelRendererCompact = () => {
+	return <SyncBlockRenderer doc={syncBlockWithParagraphAndPanelAdf} contentMode="compact" />;
 };

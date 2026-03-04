@@ -19,4 +19,5 @@ export type SyncedBlockRendererOptions = Pick<
 	| 'media'
 	| 'smartLinks'
 	| 'stickyHeaders'
+	| 'contentMode'
 >;

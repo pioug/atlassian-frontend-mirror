@@ -83,19 +83,19 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 				copySyncedBlockReferenceToClipboardEditorCommand(syncBlockStore, inputMethod, api),
 			insertSyncedBlock:
 				(): EditorCommand =>
-					({ tr }) => {
-						if (!config?.enableSourceCreation) {
-							return null;
-						}
+				({ tr }) => {
+					if (!config?.enableSourceCreation) {
+						return null;
+					}
 
-						return (
-							createSyncedBlock({
-								tr,
-								syncBlockStore,
-								fireAnalyticsEvent: api?.analytics?.actions.fireAnalyticsEvent,
-							}) || null
-						);
-					},
+					return (
+						createSyncedBlock({
+							tr,
+							syncBlockStore,
+							fireAnalyticsEvent: api?.analytics?.actions.fireAnalyticsEvent,
+						}) || null
+					);
+				},
 		},
 
 		actions: {

@@ -15,6 +15,7 @@ import type {
 	TeamCentralReportingLinesData,
 } from '@atlaskit/profilecard/types';
 import { ProfileCardLazy } from '@atlaskit/profilecard/user';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { Popup } from './PopperWrapper';
@@ -68,7 +69,7 @@ export const useProfileCardState = ({ id, provider }: ProfileCardStateProps) => 
 				setShouldShowGiveKudos(shouldGiveKudos ?? false);
 				setTeamCentralBaseUrl(teamCentralBaseUrl);
 				setHasError(false);
-			} catch (e) {
+			} catch {
 				setHasError(true);
 			} finally {
 				setIsLoading(false);
@@ -150,6 +151,7 @@ export function ProfileCardComponent({
 					reportingLines={reportingLinesData}
 					isKudosEnabled={shouldShowGiveKudos}
 					teamCentralBaseUrl={teamCentralBaseUrl}
+					isRenderedInPortal={expValEquals('editor_a11y_7152_profile_card_tab_order', 'isEnabled', true)}
 				/>
 			</LoadingWrapper>
 		</Popup>

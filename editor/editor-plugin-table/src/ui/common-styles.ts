@@ -375,7 +375,9 @@ const baseTableStylesWithoutSharedStyle = (props: {
 	/* Ends Delete button */
 
 	/* sticky styles */
-	.${ClassName.TABLE_STICKY} > .${props.isDragAndDropEnabled ? ClassName.DRAG_ROW_CONTROLS_WRAPPER : ClassName.ROW_CONTROLS_WRAPPER} .${ClassName.NUMBERED_COLUMN} .${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
+	.${ClassName.TABLE_STICKY} > .${props.isDragAndDropEnabled
+		? ClassName.DRAG_ROW_CONTROLS_WRAPPER
+		: ClassName.ROW_CONTROLS_WRAPPER} .${ClassName.NUMBERED_COLUMN} .${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
 		margin-top: ${stickyRowOffsetTop}px;
 		width: ${akEditorTableNumberColumnWidth}px;
 
@@ -645,7 +647,8 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		padding-top: ${tableControlsSpacing}px;
 	}
 
-	.${ClassName.WITH_CONTROLS}.${ClassName.TABLE_STICKY} > .${ClassName.DRAG_ROW_CONTROLS_WRAPPER}
+	.${ClassName.WITH_CONTROLS}.${ClassName.TABLE_STICKY}
+		> .${ClassName.DRAG_ROW_CONTROLS_WRAPPER}
 		.${ClassName.NUMBERED_COLUMN}
 		.${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
 		margin-top: ${tableControlsSpacing}px;
@@ -1064,8 +1067,11 @@ const baseTableStylesWithoutSharedStyle = (props: {
 
 	/* add a background above the first numbered column cell when sticky header is engaged
 	which hides the table when scrolling */
-	.${ClassName.TABLE_STICKY} > .${props.isDragAndDropEnabled ? ClassName.DRAG_ROW_CONTROLS_WRAPPER : ClassName.ROW_CONTROLS_WRAPPER} {
-			.${ClassName.NUMBERED_COLUMN_BUTTON_DISABLED}:first-of-type::after {
+	.${ClassName.TABLE_STICKY}
+		> .${props.isDragAndDropEnabled
+			? ClassName.DRAG_ROW_CONTROLS_WRAPPER
+			: ClassName.ROW_CONTROLS_WRAPPER} {
+		.${ClassName.NUMBERED_COLUMN_BUTTON_DISABLED}:first-of-type::after {
 			content: '';
 			display: block;
 			height: 33px;

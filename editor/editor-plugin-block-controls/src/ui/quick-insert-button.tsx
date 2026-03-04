@@ -10,11 +10,11 @@ import { css, jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
 import { type IntlShape } from 'react-intl-next';
 
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { blockControlsMessages as messages } from '@atlaskit/editor-common/messages';
 import { tableControlsSpacing } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode, findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -210,9 +210,12 @@ export const TypeAheadControl = ({
 	rootNodeType,
 	anchorRectCache,
 }: Props) => {
-	const macroInteractionUpdates = useSharedPluginStateSelector(
+	const { macroInteractionUpdates } = useSharedPluginStateWithSelector(
 		api,
-		'featureFlags.macroInteractionUpdates',
+		['featureFlags'],
+		(states) => ({
+			macroInteractionUpdates: states.featureFlagsState?.macroInteractionUpdates,
+		}),
 	);
 
 	const [positionStyles, setPositionStyles] = useState<React.CSSProperties>({ display: 'none' });
@@ -481,8 +484,15 @@ export const QuickInsertWithVisibility = ({
 	rootNodeType,
 	anchorRectCache,
 }: Props) => {
+	const rightSideControlsEnabled =
+		useSharedPluginStateWithSelector(api, ['blockControls'], (states) => ({
+			rightSideControlsEnabled: states.blockControlsState?.rightSideControlsEnabled ?? false,
+		})).rightSideControlsEnabled;
 	return (
-		<VisibilityContainer api={api}>
+		<VisibilityContainer
+			api={api}
+			controlSide={rightSideControlsEnabled ? 'left' : undefined}
+		>
 			<TypeAheadControl
 				view={view}
 				api={api}

@@ -1209,9 +1209,7 @@ describe('Field', () => {
 											label="Username"
 											defaultValue=""
 											isRequired={isRequired}
-											validate={(value) =>
-												isRequired && !value ? 'value is required' : undefined
-											}
+											validate={(value) => (isRequired && !value ? 'value is required' : undefined)}
 										>
 											{({ fieldProps, error }) => (
 												<>

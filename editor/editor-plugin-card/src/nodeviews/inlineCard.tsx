@@ -8,6 +8,7 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
+	useSmartCardReloadAfterCache,
 } from '@atlaskit/editor-common/hooks';
 import type {
 	InlineNodeViewComponentProps,
@@ -18,7 +19,6 @@ import { UnsupportedInline, findOverflowScrollParent } from '@atlaskit/editor-co
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Card as SmartCard } from '@atlaskit/smart-card';
-import { useSmartLinkReload } from '@atlaskit/smart-card/hooks';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -55,7 +55,10 @@ export const InlineCard = memo(
 		const { url, data } = node.attrs;
 		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		const refId = useRef(uuid());
-		const reload = useSmartLinkReload({ url });
+		const { getState: getSmartlinkState } = cardContext?.value?.store || {};
+		const cardState = getSmartlinkState?.()[url || ''];
+		const cardStatus = cardState?.status;
+		useSmartCardReloadAfterCache(url, cardStatus, isPageSSRed || false);
 
 		useEffect(() => {
 			const id = refId.current;
@@ -65,18 +68,6 @@ export const InlineCard = memo(
 				view.dispatch(tr);
 			};
 		}, [getPos, view]);
-
-		useEffect(() => {
-			// if we render from cache, we want to make sure we reload the data in the background
-			const cardState = cardContext?.value?.store?.getState()[url || ''];
-			if (
-				expValEquals('platform_editor_smartlink_local_cache', 'isEnabled', true) &&
-				!isPageSSRed &&
-				cardState?.status === 'resolved'
-			) {
-				reload();
-			}
-		});
 
 		const scrollContainer: HTMLElement | undefined = useMemo(
 			// Ignored via go/ees005
@@ -154,11 +145,10 @@ export const InlineCard = memo(
 			: propsOnClick;
 
 		const card = useMemo(() => {
-			const cardState = cardContext?.value?.store?.getState()[url || ''];
 			if (
 				(isPageSSRed ||
-					(expValEquals('platform_editor_smartlink_local_cache', 'isEnabled', true) &&
-						cardState)) &&
+					(cardState &&
+						expValEquals('platform_editor_smartlink_local_cache', 'isEnabled', true))) &&
 				url
 			) {
 				return (
@@ -212,7 +202,7 @@ export const InlineCard = memo(
 			hoverPreviewOptions,
 			isPageSSRed,
 			disablePreviewPanel,
-			cardContext?.value?.store,
+			cardState,
 		]);
 
 		// [WS-2307]: we only render card wrapped into a Provider when the value is ready,

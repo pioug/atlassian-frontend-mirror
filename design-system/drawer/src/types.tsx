@@ -94,7 +94,15 @@ export interface DrawerContentProps {
 		| 'paddingLeft'
 		| 'paddingRight'
 		| 'marginTop'
-		| 'backgroundColor',
+		| 'backgroundColor'
+		| 'marginBlockStart'
+		| 'paddingInlineStart'
+		| 'paddingInlineEnd'
+		| 'marginBlockStart'
+		| 'paddingBlockStart'
+		| 'paddingInlineEnd'
+		| 'paddingBlockEnd'
+		| 'paddingInlineStart',
 		never
 	>;
 }

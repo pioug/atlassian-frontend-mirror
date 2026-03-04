@@ -11,8 +11,7 @@ import Lorem from 'react-lorem-component';
 import Button from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
 import { Drawer, DrawerCloseButton, DrawerContent } from '@atlaskit/drawer';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Stack, Text } from '@atlaskit/primitives';
+import { Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
@@ -22,9 +21,9 @@ const styles = cssMap({
 		insetInlineStart: token('space.200'),
 	},
 	content: {
-		marginTop: token('space.0'),
-		paddingLeft: token('space.300'),
-		paddingRight: token('space.300'),
+		marginBlockStart: token('space.0'),
+		paddingInlineStart: token('space.300'),
+		paddingInlineEnd: token('space.300'),
 	},
 	contentLayout: {
 		height: '100%',

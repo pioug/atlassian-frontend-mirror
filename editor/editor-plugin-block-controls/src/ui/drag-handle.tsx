@@ -31,7 +31,6 @@ import { blockControlsMessages } from '@atlaskit/editor-common/messages';
 import { expandToBlockRange, isMultiBlockRange } from '@atlaskit/editor-common/selection';
 import { DRAG_HANDLE_WIDTH, tableControlsSpacing } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { NodeRange, Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { type Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -558,16 +557,21 @@ export const DragHandle = ({
 	const [recalculatePosition, setRecalculatePosition] = useState<boolean>(false);
 	const [positionStylesOld, setPositionStylesOld] = useState<CSSProperties>({ display: 'none' });
 	const [isFocused, setIsFocused] = useState(Boolean(handleOptions?.isFocused));
-	const { macroInteractionUpdates } = useSharedPluginStateWithSelector(
+	const {
+		macroInteractionUpdates,
+		selection,
+		isShiftDown,
+		interactionState,
+	} = useSharedPluginStateWithSelector(
 		api,
-		['featureFlags'],
+		['featureFlags', 'selection', 'blockControls', 'interaction'],
 		(states) => ({
 			macroInteractionUpdates: states.featureFlagsState?.macroInteractionUpdates,
+			selection: states.selectionState?.selection,
+			isShiftDown: states.blockControlsState?.isShiftDown,
+			interactionState: states.interactionState?.interactionState,
 		}),
 	);
-	const selection = useSharedPluginStateSelector(api, 'selection.selection');
-	const isShiftDown = useSharedPluginStateSelector(api, 'blockControls.isShiftDown');
-	const interactionState = useSharedPluginStateSelector(api, 'interaction.interactionState');
 
 	const start = getPos();
 	const isLayoutColumn = nodeType === 'layoutColumn';
@@ -1495,6 +1499,9 @@ export const DragHandle = ({
 			onDrop={handleOnDrop}
 			disabled={dragHandleDisabled}
 			data-editor-block-ctrl-drag-handle
+			data-blocks-drag-handle={
+				expValEquals('confluence_remix_icon_right_side', 'isEnabled', true) || undefined
+			}
 			data-testid="block-ctrl-drag-handle"
 			aria-label={dragHandleAriaLabel}
 			onBlur={
@@ -1629,8 +1636,15 @@ export const DragHandleWithVisibility = ({
 	isTopLevelNode,
 	anchorRectCache,
 }: DragHandleProps) => {
+	const rightSideControlsEnabled =
+		useSharedPluginStateWithSelector(api, ['blockControls'], (states) => ({
+			rightSideControlsEnabled: states.blockControlsState?.rightSideControlsEnabled ?? false,
+		})).rightSideControlsEnabled;
 	return (
-		<VisibilityContainer api={api}>
+		<VisibilityContainer
+			api={api}
+			controlSide={rightSideControlsEnabled ? 'left' : undefined}
+		>
 			<DragHandle
 				view={view}
 				api={api}

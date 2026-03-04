@@ -6,40 +6,23 @@ import {
 	useAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 
+import { AddToolsPromptActions } from '../actions/groups/add-tools-prompt';
+import { CreateFlowActions } from '../actions/groups/create-flow';
+import { ACTION_TO_GROUP } from '../actions/registry';
 import { ANALYTICS_CHANNEL } from '../common/constants';
 import { useRovoAgentCSID } from '../common/csid';
 import { getAttributesFromContexts, getDefaultTrackEventConfig } from '../common/utils';
 
+// Backward-compatible alias
+// TODO: migrate consumers to use CreateFlowActions / AddToolsPromptActions directly, then remove
+export const AgentCreateActions = {
+	...CreateFlowActions,
+	...AddToolsPromptActions,
+} as const;
+
 type CommonAnalyticsAttributes = {
 	touchPoint?: string;
 } & Record<string, any>;
-
-export enum AgentCreateActions {
-	/* Start create flow when user clicks on "Create agent" button - https://data-portal.internal.atlassian.com/analytics/registry/97089 */
-	START = 'createFlowStart',
-	/* Skip natural language - https://data-portal.internal.atlassian.com/analytics/registry/97127 */
-	SKIP_NL = 'createFlowSkipNL',
-	/* Review natural language - https://data-portal.internal.atlassian.com/analytics/registry/97124 */
-	REVIEW_NL = 'createFlowReviewNL',
-	/* Activate agent - https://data-portal.internal.atlassian.com/analytics/registry/97123 */
-	ACTIVATE = 'createFlowActivate',
-	/* Restart create flow - https://data-portal.internal.atlassian.com/analytics/registry/97131 */
-	RESTART = 'createFlowRestart',
-	/* Error occurred - https://data-portal.internal.atlassian.com/analytics/registry/97132 */
-	ERROR = 'createFlowError',
-	/* Land in studio - https://data-portal.internal.atlassian.com/analytics/registry/97136 */
-	LAND = 'createLandInStudio',
-	/* Discard agent - https://data-portal.internal.atlassian.com/analytics/registry/97137 */
-	DISCARD = 'createDiscard',
-	/* Show no skills modal - https://data-portal.internal.atlassian.com/analytics/registry/97435 */
-	SHOW_NO_SKILLS_MODAL = 'showNoSkillsModal',
-	/* Browse click no skills modal - https://data-portal.internal.atlassian.com/analytics/registry/97436 */
-	BROWSE_CLICK_NO_SKILLS_MODAL = 'browseClickNoSkillsModal',
-	/* Discard no skills modal - https://data-portal.internal.atlassian.com/analytics/registry/97437 */
-	DISCARD_NO_SKILLS_MODAL = 'discardNoSkillsModal',
-	/* Draft created from solution architect plan card - https://data-portal.internal.atlassian.com/analytics/registry/97924 */
-	SA_DRAFT = 'saDraft',
-}
 
 const globalEventConfig = getDefaultTrackEventConfig();
 
@@ -53,10 +36,12 @@ export const useRovoAgentCreateAnalytics = (commonAttributes: CommonAnalyticsAtt
 	const fireAnalyticsEvent = useCallback(
 		(event: AnalyticsEventPayload) => {
 			const referrer = typeof window !== 'undefined' ? window.document.referrer : 'unknown';
+			const action = event.action as string;
 			const attributes = {
 				...getAttributesFromContexts(analyticsContext.getAtlaskitAnalyticsContext()),
 				...commonAttributesRef.current,
 				...event.attributes,
+				actionGroup: ACTION_TO_GROUP[action],
 				csid,
 				referrer,
 			};
@@ -76,7 +61,7 @@ export const useRovoAgentCreateAnalytics = (commonAttributes: CommonAnalyticsAtt
 	 */
 	const trackCreateSession = useCallback(
 		(
-			action: Omit<AgentCreateActions, AgentCreateActions.START>,
+			action: (typeof AgentCreateActions)[keyof typeof AgentCreateActions],
 			attributes?: CommonAnalyticsAttributes,
 		) => {
 			fireAnalyticsEvent({
@@ -95,7 +80,7 @@ export const useRovoAgentCreateAnalytics = (commonAttributes: CommonAnalyticsAtt
 		(attributes?: CommonAnalyticsAttributes) => {
 			fireAnalyticsEvent({
 				actionSubject: 'rovoAgent',
-				action: AgentCreateActions.START,
+				action: CreateFlowActions.START,
 				attributes,
 			});
 			refreshCSID();
@@ -107,7 +92,7 @@ export const useRovoAgentCreateAnalytics = (commonAttributes: CommonAnalyticsAtt
 		(error: Error, attributes?: CommonAnalyticsAttributes) => {
 			fireAnalyticsEvent({
 				actionSubject: 'rovoAgent',
-				action: AgentCreateActions.ERROR,
+				action: CreateFlowActions.ERROR,
 				attributes: {
 					error: {
 						message: error.message,

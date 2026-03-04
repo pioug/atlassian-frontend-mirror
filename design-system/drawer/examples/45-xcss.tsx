@@ -8,26 +8,25 @@ import { useState } from 'react';
 import Button from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
 import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	root: {
-		paddingTop: token('space.200'),
-		paddingRight: token('space.200'),
-		paddingBottom: token('space.200'),
-		paddingLeft: token('space.200'),
+		paddingBlockStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		paddingBlockEnd: token('space.200'),
+		paddingInlineStart: token('space.200'),
 	},
 	sidebar: {
 		backgroundColor: token('color.background.accent.blue.bolder'),
 	},
 	content: {
-		marginTop: token('space.0'),
-		paddingTop: token('space.300'),
-		paddingRight: token('space.300'),
-		paddingBottom: token('space.300'),
-		paddingLeft: token('space.300'),
+		marginBlockStart: token('space.0'),
+		paddingBlockStart: token('space.300'),
+		paddingInlineEnd: token('space.300'),
+		paddingBlockEnd: token('space.300'),
+		paddingInlineStart: token('space.300'),
 	},
 });
 

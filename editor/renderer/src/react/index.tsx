@@ -46,6 +46,7 @@ import { getText } from '../utils';
 import { isAnnotationMark, toReact as markToReact } from './marks';
 import { isCodeMark } from './marks/code';
 import {
+	getNestedUnderNodes,
 	insideBlockNode,
 	insideBreakoutExpand,
 	insideBreakoutLayout,
@@ -656,6 +657,12 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		} = node.type.schema;
 
 		const isChildOfMediaSingle = path.some((n) => n.type?.name === 'mediaSingle');
+		// Only check path for bodiedSyncBlock; syncBlock uses RendererContext
+		const nestedUnder =
+			expValEquals('platform_synced_block', 'isEnabled', true) &&
+			fg('platform_synced_block_patch_5')
+				? getNestedUnderNodes(path, ['bodiedSyncBlock'])
+				: undefined;
 
 		const isAnnotationMark = (mark: Mark) => mark.type === annotation;
 		const isLinkMark = (mark: Mark) => mark.type === link;
@@ -674,6 +681,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			// surroundTextNodesWithTextWrapper checks inlineComment.allowDraftMode
 			allowAnnotationsDraftMode: this.surroundTextNodesWithTextWrapper,
 			enableSyncMediaCard: this.media?.enableSyncMediaCard,
+			nestedUnder,
 		};
 	}
 

@@ -20,7 +20,7 @@ export const EvaluationReason = {
 	// For when we could not migrate the reason from the new client
 	Unknown: 'Unknown',
 } as const;
-export type EvaluationReason = (typeof EvaluationReason)[keyof typeof EvaluationReason]
+export type EvaluationReason = (typeof EvaluationReason)[keyof typeof EvaluationReason];
 
 // Reference: https://github.com/statsig-io/js-lite/blob/main/src/StatsigSDKOptions.ts
 export type StatsigOptions = {

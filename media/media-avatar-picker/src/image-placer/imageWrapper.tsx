@@ -3,6 +3,8 @@
  * @jsx jsx
  */
 import { jsx, css } from '@compiled/react';
+import { useIntl } from 'react-intl-next';
+import { messages } from '@atlaskit/media-ui';
 
 const imageWrapperStyles = css({
 	position: 'absolute',
@@ -12,17 +14,21 @@ const imageWrapperStyles = css({
 	pointerEvents: 'none',
 });
 
-export const ImageWrapper = ({ x, y, width, height, transform, ...props }: any) => (
-	// eslint-disable-next-line @atlassian/a11y/alt-text
-	<img
-		css={imageWrapperStyles}
-		style={{
-			left: `${x}px`,
-			top: `${y}px`,
-			width: `${width}px`,
-			height: `${height}px`,
-			transform: transform,
-		}}
-		{...props}
-	/>
-);
+export const ImageWrapper = ({ x, y, width, height, transform, ...props }: any) => {
+	const intl = useIntl();
+
+	return (
+		<img
+			css={imageWrapperStyles}
+			style={{
+				left: `${x}px`,
+				top: `${y}px`,
+				width: `${width}px`,
+				height: `${height}px`,
+				transform: transform,
+			}}
+			alt={intl.formatMessage(messages.image_placer_img_alt)}
+			{...props}
+		/>
+	);
+};

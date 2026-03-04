@@ -32,10 +32,7 @@ export type UFOIgnoreHoldsProps = {
 const UFOIgnoreHolds: {
 	(props: UFOIgnoreHoldsProps): React.JSX.Element;
 	displayName: string;
-} = ({
-	children,
-	ignore = true,
-}: UFOIgnoreHoldsProps): React.JSX.Element => {
+} = ({ children, ignore = true }: UFOIgnoreHoldsProps): React.JSX.Element => {
 	const parentContext = useContext(InteractionContext);
 
 	const ignoredInteractionContext: InteractionContextType | null = useMemo(() => {

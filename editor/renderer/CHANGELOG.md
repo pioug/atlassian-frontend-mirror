@@ -1,5 +1,32 @@
 # @atlaskit/renderer
 
+## 126.14.2
+
+### Patch Changes
+
+- [`514037bd94288`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/514037bd94288) -
+  [ux] EDITOR-5588 pass content mode setting to reference sync block
+- Updated dependencies
+
+## 126.14.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 126.14.0
+
+### Minor Changes
+
+- [`27de3457c3a79`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27de3457c3a79) -
+  EDITOR-5532 add context to media error events
+
+### Patch Changes
+
+- [`8d4d473fe4cd8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d4d473fe4cd8) -
+  Only reload cached smartlinks when the url changes and we sucessfully got the data from cache
+- Updated dependencies
+
 ## 126.13.6
 
 ### Patch Changes

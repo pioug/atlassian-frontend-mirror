@@ -1452,10 +1452,8 @@ function isLinkOrUrlString(slice: Slice, schema: Schema): Boolean {
 
 export function handlePasteIntoCaption(slice: Slice): Command {
 	return (state, dispatch) => {
-		if (fg('platform_editor_fix_captions_on_copy')) {
-			if (isLinkOrUrlString(slice, state.schema)) {
-				return false;
-			}
+		if (isLinkOrUrlString(slice, state.schema)) {
+			return false;
 		}
 
 		const { caption } = state.schema.nodes;
@@ -1522,4 +1520,23 @@ export function checkIfSelectionInNestedList(state: EditorState): boolean {
 	});
 
 	return selectedListItemHasNestedList || selectionIsInNestedList;
+}
+
+
+// Helper function to filter expand nodes from slice when not allowed
+export function handlePasteExpand(slice: Slice): Slice {
+	return mapSlice(slice, (node) => {
+		if (node.type.name === 'expand' || node.type.name === 'nestedExpand') {
+			const children: PMNode[] = [];
+			if (node.attrs.title) {
+				children.push(node.type.schema.nodes.paragraph.createChecked(
+					undefined,
+					Fragment.from(node.type.schema.text(node.attrs.title)),
+				));
+			}
+			node.content.forEach((inner) => children.push(inner));
+			return children;
+		}
+		return node;
+	});
 }

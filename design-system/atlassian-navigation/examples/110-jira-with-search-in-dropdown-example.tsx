@@ -27,7 +27,7 @@ import { ButtonItem, HeadingItem, MenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
 import { type PopupProps } from '@atlaskit/popup/types';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
 
 import { DefaultCreate } from './shared/create';

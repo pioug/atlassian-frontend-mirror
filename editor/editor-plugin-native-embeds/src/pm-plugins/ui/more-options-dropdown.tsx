@@ -16,10 +16,7 @@ import DatabaseIcon from '@atlaskit/icon/core/database';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import EyeOpenIcon from '@atlaskit/icon/core/eye-open';
 import LinkIcon from '@atlaskit/icon/core/link';
-import {
-	BUILTIN_TOOLBAR_KEYS,
-	type EditorToolbarAction,
-} from '@atlaskit/native-embeds-common';
+import { BUILTIN_TOOLBAR_KEYS, type EditorToolbarAction } from '@atlaskit/native-embeds-common';
 import Toggle from '@atlaskit/toggle';
 
 import type {
@@ -99,7 +96,10 @@ function createBuiltinMoreOptionsRegistry(
 						toggleAlwaysShowTitle();
 					}}
 				>
-					<Toggle isChecked={getAlwaysShowTitleState(selectedNativeEmbed)} label="Always show title" />
+					<Toggle
+						isChecked={getAlwaysShowTitleState(selectedNativeEmbed)}
+						label="Always show title"
+					/>
 				</button>
 			),
 			onClick: () => {
@@ -173,7 +173,11 @@ export const getMoreOptionsDropdown = (
 	customActions?: Record<string, EditorToolbarAction>,
 	actionHandlers?: EditorPluginNativeEmbedsActionHandlers,
 ): FloatingToolbarOverflowDropdown<Command> => {
-	const builtinRegistry = createBuiltinMoreOptionsRegistry(api, selectedNativeEmbed, deleteHoverProps);
+	const builtinRegistry = createBuiltinMoreOptionsRegistry(
+		api,
+		selectedNativeEmbed,
+		deleteHoverProps,
+	);
 	const items = moreItems ?? DEFAULT_MORE_OPTIONS;
 
 	const options = resolveMoreOptions(items, builtinRegistry, customActions, actionHandlers);

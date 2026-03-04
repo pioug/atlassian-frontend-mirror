@@ -1,5 +1,33 @@
 # @atlaskit/editor-statsig-tmp
 
+## 32.8.0
+
+### Minor Changes
+
+- [`96e18b19a6a06`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96e18b19a6a06) -
+  EDITOR-5722 Tab to Improve Writing: Add experiment definition for platform_editor_ai_quick_prompt
+
+## 32.7.0
+
+### Minor Changes
+
+- [`45a3755608d26`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45a3755608d26) -
+  introduce discarded unified analytic events and fix bug with undo/deletion detection
+
+## 32.6.0
+
+### Minor Changes
+
+- [`342dd44a8575e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/342dd44a8575e) -
+  [ux] EDITOR-4609 Add prop to disable pasting expands
+
+## 32.5.0
+
+### Minor Changes
+
+- [`ab3866dd7f659`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab3866dd7f659) -
+  Add editor_a11y_7152_profile_card_tab_order experiment to package
+
 ## 32.4.0
 
 ### Minor Changes

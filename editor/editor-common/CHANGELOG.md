@@ -1,5 +1,36 @@
 # @atlaskit/editor-common
 
+## 111.23.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 111.23.0
+
+### Minor Changes
+
+- [`8d4d473fe4cd8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d4d473fe4cd8) -
+  Only reload cached smartlinks when the url changes and we sucessfully got the data from cache
+
+### Patch Changes
+
+- [`3b290b31e9ad1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b290b31e9ad1) -
+  Update menu button text for sync blocks
+- Updated dependencies
+
+## 111.22.0
+
+### Minor Changes
+
+- [`ab3866dd7f659`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab3866dd7f659) -
+  Make sure that we use isRenderedInPortal for profilecards in the editor to make sure we are
+  focusing on the heading
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 111.21.2
 
 ### Patch Changes

@@ -3,11 +3,11 @@ import React from 'react';
 import capitalize from 'lodash/capitalize';
 
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Stack } from '@atlaskit/primitives';
+import { Stack } from '@atlaskit/primitives/compiled';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import variants from '../src/utils/variants';
+
 
 export default function SpacingExample(): React.JSX.Element {
 	return (

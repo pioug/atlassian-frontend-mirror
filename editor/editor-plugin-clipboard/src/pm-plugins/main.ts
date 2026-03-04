@@ -7,7 +7,6 @@ import { DOMSerializer, Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { clipboardPluginKey } from './plugin-key';
 
@@ -119,25 +118,18 @@ export const createClipboardSerializer = (
 				mediaNode.marks?.filter((mark) => mark.type.name !== 'annotation'),
 			);
 
-			if (fg('platform_editor_fix_captions_on_copy')) {
-				// Content for media parents can include multiple content nodes (media and captions). We now take that
-				// into consideration when we are stripping annotations
-				let contentArray = [strippedMediaNode];
-				content.forEach((node) => {
-					if (node.type.name !== 'media') {
-						contentArray = [...contentArray, node];
-					}
-				});
-				const newContent = Fragment.fromArray(contentArray);
-				// Currently incorrectly typed, see comment above
-				//@ts-ignore
-				return originalSerializeFragment(newContent, options, target);
-			} else {
-				const newContent = Fragment.from(strippedMediaNode);
-				// Currently incorrectly typed, see comment above
-				//@ts-ignore
-				return originalSerializeFragment(newContent, options, target);
-			}
+			// Content for media parents can include multiple content nodes (media and captions). We now take that
+			// into consideration when we are stripping annotations.
+			let contentArray = [strippedMediaNode];
+			content.forEach((node) => {
+				if (node.type.name !== 'media') {
+					contentArray = [...contentArray, node];
+				}
+			});
+			const newContent = Fragment.fromArray(contentArray);
+			// Currently incorrectly typed, see comment above
+			// @ts-ignore
+			return originalSerializeFragment(newContent, options, target);
 		}
 
 		// If we're not copying any rows or media nodes, just run default serializeFragment function.

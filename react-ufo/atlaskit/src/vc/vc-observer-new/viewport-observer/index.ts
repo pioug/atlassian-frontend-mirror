@@ -407,11 +407,9 @@ export default class ViewportObserver {
 				return n.isEqualNode(addedNode);
 			});
 
-			const { isWithin: isWithinThirdPartySegment } = this.enableThirdPartyTracking ? checkWithinComponent(
-				addedNode,
-				'UFOThirdPartySegment',
-				this.mapIs3pResult,
-			) : { isWithin: false } ;
+			const { isWithin: isWithinThirdPartySegment } = this.enableThirdPartyTracking
+				? checkWithinComponent(addedNode, 'UFOThirdPartySegment', this.mapIs3pResult)
+				: { isWithin: false };
 
 			const isWithinSmartAnswersSegment = Boolean(
 				this.shouldCheckSmartAnswersMutations() && isContainedWithinSmartAnswers(addedNode),
@@ -464,11 +462,9 @@ export default class ViewportObserver {
 			}
 
 			if (fg('platform_ufo_exclude_3p_attribute_changes')) {
-				const { isWithin: isWithinThirdPartySegment } = this.enableThirdPartyTracking ? checkWithinComponent(
-					target,
-					'UFOThirdPartySegment',
-					this.mapIs3pResult,
-				) : { isWithin: false };
+				const { isWithin: isWithinThirdPartySegment } = this.enableThirdPartyTracking
+					? checkWithinComponent(target, 'UFOThirdPartySegment', this.mapIs3pResult)
+					: { isWithin: false };
 				if (isWithinThirdPartySegment) {
 					return {
 						type: 'mutation:third-party-attribute',

@@ -315,6 +315,7 @@ export const apply = (
 	flags: FlagType,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	nodeDecorationRegistry: NodeDecorationFactory[],
+	rightSideControlsEnabled = false,
 	anchorRectCache?: AnchorRectCache,
 	resizeObserverWidth?: ResizeObserver,
 	pragmaticCleanup?: (() => void) | null,
@@ -481,6 +482,7 @@ export const apply = (
 
 	const maybeNodeCountChanged = !isAllText && numReplaceSteps > 0;
 	let latestActiveNode = meta?.activeNode;
+	const isViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
 
 	if (!latestActiveNode && (!isActiveNodeDeleted || isReplacedWithSameSize)) {
 		latestActiveNode = activeNode;
@@ -636,9 +638,25 @@ export const apply = (
 					decorations = decorations.remove(old);
 				}
 			}
+			if (
+				rightSideControlsEnabled &&
+				expValEquals('confluence_remix_icon_right_side', 'isEnabled', true) &&
+				isViewMode
+			) {
+				for (const factory of nodeDecorationRegistry) {
+					if (factory.showInViewMode) {
+						const old = decorations.find(
+							activeNode?.rootPos,
+							activeNode?.rootPos,
+							(spec) => spec.type === factory.type,
+						);
+						decorations = decorations.remove(old);
+					}
+				}
+			}
 		}
 	} else if (api) {
-		if (shouldRecreateHandle) {
+		if (shouldRecreateHandle && (!rightSideControlsEnabled || !isViewMode)) {
 			const oldHandle = findHandleDec(decorations, activeNode?.pos, activeNode?.pos);
 			decorations = decorations.remove(oldHandle);
 
@@ -661,7 +679,8 @@ export const apply = (
 			shouldRecreateQuickInsertButton &&
 			latestActiveNode?.rootPos !== undefined &&
 			// platform_editor_controls note: enables quick insert
-			flags.toolbarFlagsEnabled
+			flags.toolbarFlagsEnabled &&
+			(!rightSideControlsEnabled || !isViewMode)
 		) {
 			const oldQuickInsertButton = findQuickInsertInsertButtonDecoration(
 				decorations,
@@ -702,6 +721,64 @@ export const apply = (
 						rootNodeType: latestActiveNode?.rootNodeType,
 					});
 					decorations = decorations.add(newState.doc, [dec]);
+				}
+			}
+		}
+
+		// In view mode (edit/live pages), show right-side controls on block hover (without drag handle or quick insert)
+		if (
+			isViewMode &&
+			latestActiveNode?.rootPos !== undefined &&
+			flags.toolbarFlagsEnabled &&
+			rightSideControlsEnabled &&
+			expValEquals('confluence_remix_icon_right_side', 'isEnabled', true)
+		) {
+			const rootPos = latestActiveNode.rootPos;
+			for (const factory of nodeDecorationRegistry) {
+				if (factory.showInViewMode) {
+					const existingAtPos = decorations.find(
+						rootPos,
+						rootPos,
+						(spec) => spec.type === factory.type,
+					);
+					// Skip remove/re-add when decoration already exists at correct position - avoids
+					// flickering from widget destroy/recreate on every transaction (e.g. on hover).
+					if (existingAtPos.length > 0) {
+						continue;
+					}
+					// Remove any stale decoration at a different position (e.g. after moving to another block)
+					const stale = decorations.find(
+						0,
+						newState.doc.nodeSize,
+						(spec) => spec.type === factory.type,
+					);
+					decorations = decorations.remove(stale);
+					const dec = factory.create({
+						editorState: newState,
+						nodeViewPortalProviderAPI,
+						anchorName: latestActiveNode?.anchorName,
+						nodeType: latestActiveNode?.nodeType,
+						rootPos: latestActiveNode?.rootPos,
+						rootAnchorName: latestActiveNode?.rootAnchorName,
+						rootNodeType: latestActiveNode?.rootNodeType,
+					});
+					decorations = decorations.add(newState.doc, [dec]);
+				}
+			}
+		} else if (
+			isViewMode &&
+			rightSideControlsEnabled &&
+			expValEquals('confluence_remix_icon_right_side', 'isEnabled', true)
+		) {
+			// Remove view-mode right-side decorations when no active node
+			for (const factory of nodeDecorationRegistry) {
+				if (factory.showInViewMode) {
+					const old = decorations.find(
+						0,
+						newState.doc.nodeSize,
+						(spec) => spec.type === factory.type,
+					);
+					decorations = decorations.remove(old);
 				}
 			}
 		}
@@ -777,9 +854,13 @@ export const apply = (
 	// platform_editor_controls note: enables quick insert
 	if (flags.toolbarFlagsEnabled) {
 		// remove isEmptyDoc check and let decorations render and determine their own visibility
+		// In view mode with right-side controls we render node decorations (right-edge button), not the
+		// handle - so findHandleDec is always empty. Don't clear activeNode in that case.
+		const hasHandleOrViewModeControls =
+			findHandleDec(decorations, latestActiveNode?.pos, latestActiveNode?.pos).length > 0 ||
+			(isViewMode && rightSideControlsEnabled);
 		newActiveNode =
-			!meta?.activeNode &&
-			findHandleDec(decorations, latestActiveNode?.pos, latestActiveNode?.pos).length === 0
+			meta?.editorBlurred || (!meta?.activeNode && !hasHandleOrViewModeControls)
 				? null
 				: latestActiveNode;
 	} else {
@@ -870,6 +951,7 @@ export const createPlugin = (
 	getIntl: () => IntlShape,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	nodeDecorationRegistry: NodeDecorationFactory[],
+	rightSideControlsEnabled = false,
 ): SafePlugin<
 	| PluginState
 	| {
@@ -956,6 +1038,7 @@ export const createPlugin = (
 					flags,
 					nodeViewPortalProviderAPI,
 					nodeDecorationRegistry,
+					rightSideControlsEnabled,
 					anchorRectCache,
 					resizeObserverWidth,
 					pragmaticCleanup,
@@ -969,9 +1052,14 @@ export const createPlugin = (
 				}
 
 				const isDisabled = api?.editorDisabled?.sharedState.currentState()?.editorDisabled;
-
 				if (isDisabled) {
-					return;
+					const remixRightSideEnabled =
+						rightSideControlsEnabled &&
+						expValEquals('confluence_remix_icon_right_side', 'isEnabled', true);
+					// Hide decorations when disabled, except in view mode when right-side controls are enabled
+					if (!remixRightSideEnabled || api?.editorViewMode?.sharedState.currentState()?.mode !== 'view') {
+						return;
+					}
 				}
 				return key.getState(state)?.decorations;
 			},

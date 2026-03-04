@@ -172,7 +172,7 @@ const getDefaultSchemaConfig = (): SchemaConfig<DefaultSchemaNodes, DefaultSchem
 };
 
 export const defaultSchemaConfig: SchemaConfig<DefaultSchemaNodes, DefaultSchemaMarks> =
-getDefaultSchemaConfig();
+	getDefaultSchemaConfig();
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getSchemaBasedOnStage: MemoizedFn<

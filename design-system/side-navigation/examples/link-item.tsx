@@ -3,7 +3,7 @@ import React, { type MouseEvent } from 'react';
 import BookIcon from '@atlaskit/icon/core/book-with-bookmark';
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { LinkItem } from '@atlaskit/side-navigation';
 
 const Example = (): React.JSX.Element => (

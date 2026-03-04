@@ -318,8 +318,8 @@ export default function createUniversalPresetInternal({
 					isChromelessEditor: isChromeless,
 					allowFixedColumnWidthOption: fg('platform_editor_table_fixed_column_width_prop')
 						? props.allowTables &&
-							typeof props.allowTables !== 'boolean' &&
-							props.allowTables.allowFixedColumnWidthOption
+						typeof props.allowTables !== 'boolean' &&
+						props.allowTables.allowFixedColumnWidthOption
 						: false,
 				},
 			],
@@ -569,6 +569,9 @@ interface ExpandEditorProps {
 }
 
 export function isExpandInsertionEnabled({ allowExpand }: ExpandEditorProps): boolean {
+	if (allowExpand === true && expValEquals('platform_editor_expand_paste_in_comment_editor', 'isEnabled', true)) {
+		return true
+	}
 	if (allowExpand && typeof allowExpand === 'object') {
 		return !!allowExpand.allowInsertion;
 	}

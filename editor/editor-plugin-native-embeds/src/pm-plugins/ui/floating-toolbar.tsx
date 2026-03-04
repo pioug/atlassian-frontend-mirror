@@ -257,7 +257,7 @@ export function getToolbarAnchorElement(node: Node | null): HTMLElement | undefi
 	}
 	const container =
 		node.querySelector('.extension-container') ?? node.closest('.extension-container');
-	return (container instanceof HTMLElement ? container : node);
+	return container instanceof HTMLElement ? container : node;
 }
 
 /**

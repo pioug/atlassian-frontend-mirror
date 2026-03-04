@@ -527,7 +527,7 @@ export interface EditorPluginFeatureProps {
 	// 	     title: messages.cannotPasteSyncedBlockTitle,
 	// 	     description: messages.cannotPasteSyncedBlockDescription,
 	// 	     urlText: messages.cannotPasteSyncedBlockAction,
-	// 	     urlHref: 'https://support.atlassian.com/confluence-cloud/docs/reuse-content-with-synced-blocks'
+	// 	     urlHref: SYNCED_BLOCKS_DOCUMENTATION_URL
 	//   }}
 	//}
 	pasteWarningOptions?: PasteWarningOptions;

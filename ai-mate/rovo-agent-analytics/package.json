@@ -25,7 +25,12 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
-		"./actions/tool-actions": "./src/actions/tool-actions/index.tsx",
+		"./actions/add-tools-prompt": "./src/actions/groups/add-tools-prompt.ts",
+		"./actions/agent-interactions": "./src/actions/groups/agent-interactions.ts",
+		"./actions/create-flow": "./src/actions/groups/create-flow.ts",
+		"./actions/debug": "./src/actions/groups/debug.ts",
+		"./actions/editing": "./src/actions/groups/editing.ts",
+		"./actions/tool-actions": "./src/actions/groups/tools.ts",
 		"./actions": "./src/actions/index.tsx",
 		"./create": "./src/create/index.tsx"
 	},
@@ -81,7 +86,7 @@
 		}
 	},
 	"name": "@atlaskit/rovo-agent-analytics",
-	"version": "0.18.0",
+	"version": "0.19.0",
 	"description": "Rovo Agents analytics",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

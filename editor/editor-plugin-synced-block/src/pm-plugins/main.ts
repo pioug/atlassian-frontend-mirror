@@ -374,9 +374,24 @@ export const createPlugin = (
 					retryCreationPosMap,
 				} = currentPluginState;
 
-				let newDecorationSet = selectionDecorationSet.map(tr.mapping, tr.doc);
+				let newDecorationSet = fg('platform_synced_block_patch_5')
+					? tr.docChanged
+						? selectionDecorationSet.map(tr.mapping, tr.doc) // only map if document changed
+						: selectionDecorationSet
+					: selectionDecorationSet.map(tr.mapping, tr.doc);
+
 				if (!tr.selection.eq(oldEditorState.selection)) {
 					newDecorationSet = calculateDecorations(tr.doc, tr.selection, tr.doc.type.schema);
+				} else if (tr.docChanged && fg('platform_synced_block_patch_5')) {
+					const existingDecorationsLength = selectionDecorationSet.find().length;
+					const newDecorationsLength = newDecorationSet.find().length;
+
+					// Edge case: When document nodes are replaced, the mapping can lose decorations
+					// We rebuild decorations when the document changes but the selection hasn't.
+					// We can do this check because we only expect 1 decoration for the selection
+					if (existingDecorationsLength !== newDecorationsLength) {
+						newDecorationSet = calculateDecorations(tr.doc, tr.selection, tr.doc.type.schema);
+					}
 				}
 
 				const newPosEntry = meta?.retryCreationPos;

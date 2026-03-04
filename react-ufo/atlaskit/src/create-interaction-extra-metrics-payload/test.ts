@@ -120,11 +120,7 @@ describe('createInteractionExtraLogPayload - revision resolution', () => {
 		});
 
 		const interaction = createMockInteraction();
-		const result = await createInteractionExtraLogPayload(
-			'test-interaction-id',
-			interaction,
-			null,
-		);
+		const result = await createInteractionExtraLogPayload('test-interaction-id', interaction, null);
 
 		// When FG is off, getDefaultTTVCRevision() returns 'fy25.03'
 		// which doesn't match 'fy26.04' → effectiveVCRevisionPayload is undefined → returns null
@@ -169,11 +165,7 @@ describe('createInteractionExtraLogPayload - revision resolution', () => {
 		});
 
 		const interaction = createMockInteraction();
-		const result = await createInteractionExtraLogPayload(
-			'test-interaction-id',
-			interaction,
-			null,
-		);
+		const result = await createInteractionExtraLogPayload('test-interaction-id', interaction, null);
 
 		expect(result).toBeNull();
 	});
@@ -186,11 +178,7 @@ describe('createInteractionExtraLogPayload - revision resolution', () => {
 		});
 
 		const interaction = createMockInteraction();
-		const result = await createInteractionExtraLogPayload(
-			'test-interaction-id',
-			interaction,
-			null,
-		);
+		const result = await createInteractionExtraLogPayload('test-interaction-id', interaction, null);
 
 		expect(result).toBeNull();
 	});

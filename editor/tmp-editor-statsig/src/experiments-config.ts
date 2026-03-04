@@ -18,8 +18,8 @@ export type EditorExperimentsConfig = typeof editorExperimentsConfig;
  */
 export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
-		? true // Boolean: only 'true' is allowed as expected value
-		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+	? true // Boolean: only 'true' is allowed as expected value
+	: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
 
 /**
  * Extract valid default values.
@@ -28,8 +28,8 @@ export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimen
  */
 export type ExperimentDefaultValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
-		? false // Boolean: only 'false' is allowed as default value
-		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+	? false // Boolean: only 'false' is allowed as default value
+	: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
 
 /**
  * When adding a new experiment, you need to add it here.
@@ -67,6 +67,13 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	platform_editor_blockquote_zero_padding: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-02-18
+	editor_a11y_7152_profile_card_tab_order: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -153,6 +160,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-01-09
 	platform_editor_render_bodied_extension_as_inline: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-03
+	platform_editor_ai_quick_prompt: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -364,6 +378,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-02-25
+	platform_editor_expand_paste_in_comment_editor: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	}
 	// Added 2025-06-02
 	platform_editor_block_control_optimise_render: {
 		defaultValue: boolean;
@@ -1282,6 +1303,20 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-02-27
 	platform_editor_early_exit_return_draft: {
+		// Added 2026-03-02
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	platform_editor_discarded_unified_analytic_events: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-03
+	platform_editor_ai_update_actioned_event_timeout: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2087,6 +2122,15 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-03-03
+	platform_editor_ai_quick_prompt: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_quick_prompt',
+			jira: 'platform_editor_ai_quick_prompt',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-02-25
 	platform_editor_ai_escape_early_for_unhealthy_node: createBooleanExperiment({
 		productKeys: {
@@ -2262,6 +2306,15 @@ export const editorExperimentsConfig: {
 		defaultValue: false,
 	}),
 
+	// Added 2026-02-18
+	editor_a11y_7152_profile_card_tab_order: createBooleanExperiment({
+		productKeys: {
+			confluence: 'editor_a11y_7152_profile_card_tab_order',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+
 	// Added 2025-11-19
 	platform_editor_lovability_navigation_fixes: createBooleanExperiment({
 		productKeys: {
@@ -2382,6 +2435,14 @@ export const editorExperimentsConfig: {
 	platform_editor_copy_link_a11y_inconsistency_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_copy_link_a11y_inconsistency_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-02-25
+	platform_editor_expand_paste_in_comment_editor: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_expand_paste_in_comment_editor',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2755,6 +2816,23 @@ export const editorExperimentsConfig: {
 	platform_editor_early_exit_return_draft: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_early_exit_return_draft',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-03
+	platform_editor_ai_update_actioned_event_timeout: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_update_actioned_event_timeout',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-02
+	platform_editor_discarded_unified_analytic_events: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_discarded_unified_analytic_events',
+			jira: 'platform_editor_discarded_unified_analytic_events',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

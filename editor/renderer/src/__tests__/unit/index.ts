@@ -439,9 +439,7 @@ describe('Renderer', () => {
 				jest.clearAllMocks();
 				(fg as jest.Mock).mockImplementation(() => false);
 				(
-					nativeEmbedsFallbackTransform as jest.MockedFunction<
-						typeof nativeEmbedsFallbackTransform
-					>
+					nativeEmbedsFallbackTransform as jest.MockedFunction<typeof nativeEmbedsFallbackTransform>
 				).mockImplementation((adf) => ({
 					transformedAdf: adf,
 					isTransformed: false,
@@ -467,9 +465,7 @@ describe('Renderer', () => {
 					(flagName: string) => flagName === 'platform_editor_native_embeds_fallback_transform',
 				);
 				(
-					nativeEmbedsFallbackTransform as jest.MockedFunction<
-						typeof nativeEmbedsFallbackTransform
-					>
+					nativeEmbedsFallbackTransform as jest.MockedFunction<typeof nativeEmbedsFallbackTransform>
 				).mockImplementation((adf) => ({
 					transformedAdf: adf,
 					isTransformed: true,

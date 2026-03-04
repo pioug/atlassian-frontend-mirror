@@ -70,11 +70,12 @@ const SyncedBlockRendererComponent = ({
 		};
 	}, [syncBlockRendererOptions, ssrProviders, isSSRMode]);
 
-	const { isCollabOffline } = useSharedPluginStateWithSelector(
+	const { isCollabOffline, contentMode } = useSharedPluginStateWithSelector(
 		api,
-		['connectivity'],
-		({ connectivityState }) => ({
+		['connectivity', 'contentFormat'],
+		({ connectivityState, contentFormatState }) => ({
 			isCollabOffline: connectivityState?.mode === 'collab-offline',
+			contentMode: contentFormatState?.contentMode,
 		}),
 	);
 
@@ -82,7 +83,7 @@ const SyncedBlockRendererComponent = ({
 		const result = renderSyncedBlockContent({
 			syncBlockInstance,
 			isLoading,
-			rendererOptions,
+			rendererOptions: contentMode ? { ...rendererOptions, contentMode } : rendererOptions,
 			providerFactory,
 			reloadData,
 			fireAnalyticsEvent: api?.analytics?.actions.fireAnalyticsEvent,

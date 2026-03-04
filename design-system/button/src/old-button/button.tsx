@@ -4,7 +4,6 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { type CSSObject } from '@emotion/react';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { useGlobalTheme } from '@atlaskit/theme/components';
 
 import ButtonBase from './shared/button-base';
 import { getCss } from './shared/css';
@@ -47,7 +46,6 @@ const Button: React.MemoExoticComponent<
 		}: ButtonProps,
 		ref: React.Ref<HTMLElement>,
 	) {
-		const { mode } = useGlobalTheme();
 		const isOnlySingleIcon: boolean = getIsOnlySingleIcon({
 			children,
 			iconBefore,
@@ -83,12 +81,11 @@ const Button: React.MemoExoticComponent<
 				getCss({
 					appearance,
 					spacing,
-					mode,
 					isSelected,
 					shouldFitContainer,
 					isOnlySingleIcon,
 				}),
-			[appearance, spacing, mode, isSelected, shouldFitContainer, isOnlySingleIcon],
+			[appearance, spacing, isSelected, shouldFitContainer, isOnlySingleIcon],
 		);
 
 		return (

@@ -49,9 +49,9 @@ const rule: Rule.RuleModule = createLintRule({
 			'JSXAttribute > JSXIdentifier[name=/[xX]css$/]'(node: Rule.Node) {
 				const xcssValue: JSXExpressionContainer | undefined =
 					node.parent &&
-					isNodeOfType(node.parent, 'JSXAttribute') &&
-					node.parent.value &&
-					isNodeOfType(node.parent.value, 'JSXExpressionContainer')
+						isNodeOfType(node.parent, 'JSXAttribute') &&
+						node.parent.value &&
+						isNodeOfType(node.parent.value, 'JSXExpressionContainer')
 						? node.parent.value
 						: undefined;
 
@@ -60,9 +60,9 @@ const rule: Rule.RuleModule = createLintRule({
 				}
 				const jsxElementName: string | undefined =
 					node.parent.parent &&
-					isNodeOfType(node.parent.parent, 'JSXOpeningElement') &&
-					node.parent.parent.name &&
-					isNodeOfType(node.parent.parent.name, 'JSXIdentifier')
+						isNodeOfType(node.parent.parent, 'JSXOpeningElement') &&
+						node.parent.parent.name &&
+						isNodeOfType(node.parent.parent.name, 'JSXIdentifier')
 						? node.parent.parent.name.name
 						: undefined;
 				if (!jsxElementName) {

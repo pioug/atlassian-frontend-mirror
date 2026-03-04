@@ -104,6 +104,9 @@ export const quickInsertButtonDecoration = ({
 			}
 			element.contentEditable = 'false';
 			element.setAttribute('data-blocks-quick-insert-container', 'true');
+			if (expValEquals('confluence_remix_icon_right_side', 'isEnabled', true)) {
+				element.setAttribute('data-blocks-quick-insert-button', 'true');
+			}
 			element.setAttribute('data-testid', 'block-ctrl-quick-insert-button');
 			if (
 				editorExperiment('platform_editor_block_control_optimise_render', true, { exposure: true })

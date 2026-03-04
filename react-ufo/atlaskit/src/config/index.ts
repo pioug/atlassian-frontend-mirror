@@ -231,9 +231,7 @@ export function setUFOConfig(newConfig: Config): void {
 			: typeof enabledVCRevisions?.byExperience === 'object'
 	) {
 		const byExperience =
-			typeof enabledVCRevisions?.byExperience === 'object'
-				? enabledVCRevisions.byExperience
-				: {};
+			typeof enabledVCRevisions?.byExperience === 'object' ? enabledVCRevisions.byExperience : {};
 		config = {
 			...newConfig,
 			vc: {

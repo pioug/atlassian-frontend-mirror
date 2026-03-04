@@ -78,6 +78,9 @@
 		},
 		{
 			"path": "../../native-embeds/native-embeds-core/tsconfig.app.json"
+		},
+		{
+			"path": "../../native-embeds/native-embeds-fallback-editor-extension/tsconfig.app.json"
 		}
 	]
 }

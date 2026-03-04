@@ -1,5 +1,22 @@
 # @atlaskit/profilecard
 
+## 24.39.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.39.0
+
+### Minor Changes
+
+- [`ab3866dd7f659`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab3866dd7f659) -
+  Focus on the heading in a profile card when it's rendered to keep the user in the focus trap
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.38.0
 
 ### Minor Changes

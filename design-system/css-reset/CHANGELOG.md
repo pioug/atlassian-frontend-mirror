@@ -1,5 +1,11 @@
 # @atlaskit/css-reset
 
+## 7.3.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.3.12
 
 ### Patch Changes

@@ -13,7 +13,9 @@ function getComponentsForSurface(
 	allComponents: RegisterComponent[],
 	surfaceKey: string,
 ): RegisterComponent[] {
-	const root = allComponents.find((c) => c.key === surfaceKey && (!c.parents || c.parents.length === 0));
+	const root = allComponents.find(
+		(c) => c.key === surfaceKey && (!c.parents || c.parents.length === 0),
+	);
 	if (!root) {
 		return [];
 	}

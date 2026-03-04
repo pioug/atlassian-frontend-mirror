@@ -223,9 +223,9 @@ export default function Field<
 
 	const [state, setState] = useState<State<FieldValue, Element>>({
 		fieldProps: {
-			onChange: () => { },
-			onBlur: () => { },
-			onFocus: () => { },
+			onChange: () => {},
+			onBlur: () => {},
+			onFocus: () => {},
 			/* Previously, defaultValue was being set as undefined in Field.defaultProps, which
 			 * effectively made it an optional prop to external consumers of Field. However the
 			 * prop types defined defaultValue as required, so inside the component it was not

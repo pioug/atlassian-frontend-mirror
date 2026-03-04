@@ -554,6 +554,9 @@ const LozengeBase: import('react').MemoExoticComponent<
 				style,
 				analyticsContext,
 				interactionName,
+				'aria-controls': ariaControls,
+				'aria-expanded': ariaExpanded,
+				'aria-haspopup': ariaHaspopup,
 			},
 			ref,
 		) => {
@@ -604,6 +607,11 @@ const LozengeBase: import('react').MemoExoticComponent<
 						spacing === 'spacious' && styles.contentSpacious,
 						isLoading && styles.loadingContent,
 					]}
+					style={{
+						// When maxWidth is a percentage, constrain the content wrapper
+						// so text truncation works correctly within the flex layout
+						maxWidth: maxWidthIsPc ? '100%' : undefined,
+					}}
 				>
 					{iconBefore && (
 						<IconRenderer
@@ -617,7 +625,7 @@ const LozengeBase: import('react').MemoExoticComponent<
 						css={[styles.text, spacing === 'spacious' && styles.textSpacious]}
 						style={{
 							maxWidth: maxWidthIsPc
-								? '100%'
+								? undefined
 								: `calc(${maxWidthValue} - ${token('space.100', '8px')})`,
 							color: style?.color,
 						}}
@@ -663,6 +671,9 @@ const LozengeBase: import('react').MemoExoticComponent<
 						)}
 						{...(isLoading && { 'aria-busy': true, 'aria-disabled': true, isDisabled: true })}
 						aria-label={isLoading ? 'Loading' : undefined}
+						aria-controls={ariaControls}
+						aria-expanded={ariaExpanded}
+						aria-haspopup={ariaHaspopup}
 						onClick={isLoading ? undefined : onClick}
 						style={{
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

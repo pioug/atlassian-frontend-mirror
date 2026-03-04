@@ -5,6 +5,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, Global, jsx } from '@emotion/react';
 
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import {
 	ANCHOR_VARIABLE_NAME,
 	DRAG_HANDLE_WIDTH,
@@ -13,7 +14,6 @@ import {
 } from '@atlaskit/editor-common/styles';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 import {
 	akEditorBreakoutPadding,
@@ -639,9 +639,17 @@ export const GlobalStylesWrapper = ({
 }: {
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
 }) => {
-	const isDragging = useSharedPluginStateSelector(api, 'blockControls.isDragging', {
-		disabled: !expValEquals('platform_editor_block_controls_perf_optimization', 'isEnabled', true),
-	});
+	const { isDragging: isDraggingFromState } = useSharedPluginStateWithSelector(
+		api,
+		['blockControls'],
+		(states) => ({
+			isDragging: states.blockControlsState?.isDragging,
+		}),
+	);
+	const isDragging =
+		expValEquals('platform_editor_block_controls_perf_optimization', 'isEnabled', true)
+			? isDraggingFromState
+			: false;
 
 	const shouldRenderAnchors =
 		isCSSAnchorSupported() &&

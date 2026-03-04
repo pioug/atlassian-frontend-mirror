@@ -18,9 +18,7 @@ export const findSurface = (
 ): RegisterComponent | undefined => {
 	return components.find(
 		(c) =>
-			c.key === surface.key &&
-			c.type === surface.type &&
-			(!c.parents || c.parents.length === 0),
+			c.key === surface.key && c.type === surface.type && (!c.parents || c.parents.length === 0),
 	);
 };
 

@@ -171,22 +171,27 @@ export const bodiedSyncBlockNodeView: (
 	view: EditorView,
 	getPos: getPosHandler,
 ) => ReactNodeView<BodiedSyncBlockNodeViewProps> =
-	({ pluginOptions, pmPluginFactoryParams, api, syncBlockStore }: BodiedSyncBlockNodeViewProperties) =>
-		(
-			node: PMNode,
-			view: EditorView,
-			getPos: getPosHandler,
-		): ReactNodeView<BodiedSyncBlockNodeViewProps> => {
-			const { portalProviderAPI, eventDispatcher } = pmPluginFactoryParams;
+	({
+		pluginOptions,
+		pmPluginFactoryParams,
+		api,
+		syncBlockStore,
+	}: BodiedSyncBlockNodeViewProperties) =>
+	(
+		node: PMNode,
+		view: EditorView,
+		getPos: getPosHandler,
+	): ReactNodeView<BodiedSyncBlockNodeViewProps> => {
+		const { portalProviderAPI, eventDispatcher } = pmPluginFactoryParams;
 
-			return new BodiedSyncBlock({
-				api,
-				pluginOptions,
-				node,
-				view,
-				getPos,
-				portalProviderAPI,
-				eventDispatcher,
-				syncBlockStore,
-			}).init();
-		};
+		return new BodiedSyncBlock({
+			api,
+			pluginOptions,
+			node,
+			view,
+			getPos,
+			portalProviderAPI,
+			eventDispatcher,
+			syncBlockStore,
+		}).init();
+	};

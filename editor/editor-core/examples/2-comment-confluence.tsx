@@ -81,6 +81,9 @@ const CommentEditorConfluence = ({ editorProps, replacementDoc }: Props): React.
 					exposure: true,
 				}),
 			},
+			allowExpand: {
+				allowInsertion: false,
+			},
 			allowHelpDialog: true,
 			allowExtension: true,
 			textFormatting: { responsiveToolbarMenu: true },

@@ -2,7 +2,7 @@ import React, { type MouseEvent } from 'react';
 
 import ProjectIcon from '@atlaskit/icon/core/project';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { Header, NavigationHeader } from '@atlaskit/side-navigation';
 
 const Example = (): React.JSX.Element => {

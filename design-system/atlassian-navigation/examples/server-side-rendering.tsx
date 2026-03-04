@@ -8,8 +8,7 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import ReactDOMServer from 'react-dom/server';
 
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Stack } from '@atlaskit/primitives';
+import { Stack } from '@atlaskit/primitives/compiled';
 
 import AuthenticatedExample from './10-authenticated-example';
 

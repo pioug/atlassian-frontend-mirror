@@ -191,18 +191,18 @@ describe('SurfaceRenderer', () => {
 				),
 				parents: [{ key: 'test-toolbar', type: 'toolbar', rank: 200 }],
 			};
-		const button1: RegisterComponent = {
-			key: 'btn-1',
-			type: 'group',
-			component: MockButton,
-			parents: [{ key: 'section-low', type: 'section', rank: 1 }],
-		};
-		const button2: RegisterComponent = {
-			key: 'btn-2',
-			type: 'group',
-			component: MockButton,
-			parents: [{ key: 'section-high', type: 'section', rank: 1 }],
-		};
+			const button1: RegisterComponent = {
+				key: 'btn-1',
+				type: 'group',
+				component: MockButton,
+				parents: [{ key: 'section-low', type: 'section', rank: 1 }],
+			};
+			const button2: RegisterComponent = {
+				key: 'btn-2',
+				type: 'group',
+				component: MockButton,
+				parents: [{ key: 'section-high', type: 'section', rank: 1 }],
+			};
 
 			render(
 				<SurfaceRenderer
@@ -289,12 +289,12 @@ describe('SurfaceRenderer', () => {
 				type: 'toolbar',
 				component: rootSpy,
 			};
-		const child: RegisterComponent = {
-			key: 'child',
-			type: 'section',
-			component: MockButton,
-			parents: [{ key: 'my-surface', type: 'toolbar', rank: 1 }],
-		};
+			const child: RegisterComponent = {
+				key: 'child',
+				type: 'section',
+				component: MockButton,
+				parents: [{ key: 'my-surface', type: 'toolbar', rank: 1 }],
+			};
 
 			render(
 				<SurfaceRenderer
@@ -325,12 +325,12 @@ describe('SurfaceRenderer', () => {
 				),
 				parents: [{ key: 'root', type: 'toolbar', rank }],
 			});
-		const makeButton = (key: string, parentKey: string): RegisterComponent => ({
-			key,
-			type: 'group',
-			component: MockButton,
-			parents: [{ key: parentKey, type: 'section', rank: 1 }],
-		});
+			const makeButton = (key: string, parentKey: string): RegisterComponent => ({
+				key,
+				type: 'group',
+				component: MockButton,
+				parents: [{ key: parentKey, type: 'section', rank: 1 }],
+			});
 
 			render(
 				<SurfaceRenderer
@@ -582,12 +582,12 @@ describe('SurfaceRenderer', () => {
 					type: 'section',
 					parents: [{ key: 'root', type: 'toolbar', rank: 1 }],
 				},
-			{
-				key: 'leaf',
-				type: 'group',
-				component: MockButton,
-				parents: [{ key: 'section-no-component', type: 'section', rank: 1 }],
-			},
+				{
+					key: 'leaf',
+					type: 'group',
+					component: MockButton,
+					parents: [{ key: 'section-no-component', type: 'section', rank: 1 }],
+				},
 			];
 
 			render(
@@ -615,19 +615,16 @@ describe('SurfaceRenderer', () => {
 					type: 'section',
 					parents: [{ key: 'root', type: 'toolbar', rank: 1 }],
 				},
-			{
-				key: 'leaf',
-				type: 'group',
-				component: MockButton,
-				parents: [{ key: 'wrapper', type: 'section', rank: 1 }],
-			},
+				{
+					key: 'leaf',
+					type: 'group',
+					component: MockButton,
+					parents: [{ key: 'wrapper', type: 'section', rank: 1 }],
+				},
 			];
 
 			render(
-				<SurfaceRenderer
-					surface={{ type: 'toolbar', key: 'root' }}
-					components={components}
-				/>,
+				<SurfaceRenderer surface={{ type: 'toolbar', key: 'root' }} components={components} />,
 			);
 
 			expect(screen.getByTestId('button')).toBeInTheDocument();
@@ -643,55 +640,49 @@ describe('SurfaceRenderer', () => {
 				type: 'toolbar',
 				component: rootSpy,
 			};
-		const child: RegisterComponent = {
-			key: 'child',
-			type: 'section',
-			component: MockButton,
-			parents: [{ key: 'root', type: 'toolbar', rank: 1 }],
-		};
+			const child: RegisterComponent = {
+				key: 'child',
+				type: 'section',
+				component: MockButton,
+				parents: [{ key: 'root', type: 'toolbar', rank: 1 }],
+			};
 
-		render(
-			<SurfaceRenderer
-				surface={{ type: 'toolbar', key: 'root' }}
-				components={[surface, child]}
-			/>,
-		);
+			render(
+				<SurfaceRenderer
+					surface={{ type: 'toolbar', key: 'root' }}
+					components={[surface, child]}
+				/>,
+			);
 
-		expect(screen.getByTestId('custom-root')).toBeInTheDocument();
-		expect(rootSpy).toHaveBeenCalledTimes(1);
+			expect(screen.getByTestId('custom-root')).toBeInTheDocument();
+			expect(rootSpy).toHaveBeenCalledTimes(1);
 		});
 	});
 
 	describe('edge cases', () => {
 		it('should render nothing when components array is empty', () => {
 			const { container } = render(
-				<SurfaceRenderer
-					surface={{ type: 'toolbar', key: 'nonexistent' }}
-					components={[]}
-				/>,
+				<SurfaceRenderer surface={{ type: 'toolbar', key: 'nonexistent' }} components={[]} />,
 			);
 
 			expect(container.innerHTML).toBe('');
 		});
 
 		it('should render nothing when surface root is not found', () => {
-		const components: RegisterComponent[] = [
-			{
-				key: 'orphan',
-				type: 'section',
-				component: MockButton,
-				parents: [{ key: 'nonexistent', type: 'toolbar', rank: 1 }],
-			},
-		];
+			const components: RegisterComponent[] = [
+				{
+					key: 'orphan',
+					type: 'section',
+					component: MockButton,
+					parents: [{ key: 'nonexistent', type: 'toolbar', rank: 1 }],
+				},
+			];
 
-		const { container } = render(
-			<SurfaceRenderer
-				surface={{ type: 'toolbar', key: 'missing' }}
-				components={components}
-			/>,
-		);
+			const { container } = render(
+				<SurfaceRenderer surface={{ type: 'toolbar', key: 'missing' }} components={components} />,
+			);
 
-		expect(container.innerHTML).toBe('');
+			expect(container.innerHTML).toBe('');
 		});
 
 		it('should render empty root when surface has no children', () => {
@@ -702,10 +693,7 @@ describe('SurfaceRenderer', () => {
 			};
 
 			render(
-				<SurfaceRenderer
-					surface={{ type: 'toolbar', key: 'empty-root' }}
-					components={[surface]}
-				/>,
+				<SurfaceRenderer surface={{ type: 'toolbar', key: 'empty-root' }} components={[surface]} />,
 			);
 
 			expect(screen.getByTestId('toolbar')).toBeInTheDocument();
@@ -733,15 +721,15 @@ describe('SurfaceRenderer', () => {
 				),
 				parents: [{ key: 'root', type: 'toolbar', rank: 2 }],
 			};
-		const sharedButton: RegisterComponent = {
-			key: 'shared-button',
-			type: 'group',
-			component: MockButton,
-			parents: [
-				{ key: 'section-a', type: 'section', rank: 1 },
-				{ key: 'section-b', type: 'section', rank: 1 },
-			],
-		};
+			const sharedButton: RegisterComponent = {
+				key: 'shared-button',
+				type: 'group',
+				component: MockButton,
+				parents: [
+					{ key: 'section-a', type: 'section', rank: 1 },
+					{ key: 'section-b', type: 'section', rank: 1 },
+				],
+			};
 
 			render(
 				<SurfaceRenderer
@@ -772,12 +760,12 @@ describe('SurfaceRenderer', () => {
 				component: () => <div data-testid="orphan">Orphan</div>,
 				parents: [{ key: 'nonexistent-parent', type: 'group', rank: 1 }],
 			};
-		const validChild: RegisterComponent = {
-			key: 'child',
-			type: 'section',
-			component: MockButton,
-			parents: [{ key: 'root', type: 'toolbar', rank: 1 }],
-		};
+			const validChild: RegisterComponent = {
+				key: 'child',
+				type: 'section',
+				component: MockButton,
+				parents: [{ key: 'root', type: 'toolbar', rank: 1 }],
+			};
 
 			render(
 				<SurfaceRenderer
@@ -791,18 +779,15 @@ describe('SurfaceRenderer', () => {
 		});
 
 		it('should not treat a component with parents as a surface root', () => {
-		const notRoot = {
-			key: 'my-toolbar',
-			type: 'toolbar',
-			component: MockToolbar,
-			parents: [{ key: 'some-parent', type: 'wrapper', rank: 1 }],
-		} as unknown as RegisterComponent;
+			const notRoot = {
+				key: 'my-toolbar',
+				type: 'toolbar',
+				component: MockToolbar,
+				parents: [{ key: 'some-parent', type: 'wrapper', rank: 1 }],
+			} as unknown as RegisterComponent;
 
 			const { container } = render(
-				<SurfaceRenderer
-					surface={{ type: 'toolbar', key: 'my-toolbar' }}
-					components={[notRoot]}
-				/>,
+				<SurfaceRenderer surface={{ type: 'toolbar', key: 'my-toolbar' }} components={[notRoot]} />,
 			);
 
 			expect(container.innerHTML).toBe('');

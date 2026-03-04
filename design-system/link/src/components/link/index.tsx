@@ -23,7 +23,6 @@ const styles = cssMap({
 		'&:visited': {
 			color: token('color.link.visited'),
 		},
-		// @ts-expect-error - chained pseudos are not supported properly
 		'&:visited:hover': {
 			color: token('color.link.visited'),
 		},

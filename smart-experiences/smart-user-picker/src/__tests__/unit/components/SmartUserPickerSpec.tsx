@@ -2251,15 +2251,6 @@ describe('SmartUserPicker', () => {
 	});
 
 	it('should allow email selection when only team matches found', async () => {
-		// Mock feature gate to enable the new behavior
-		const { fg } = require('@atlaskit/platform-feature-flags');
-		fg.mockImplementation((flag: string) => {
-			if (flag === 'smart_user_picker_allow_email_if_team_is_found') {
-				return true;
-			}
-			return false;
-		});
-
 		// When allowEmailSelectionWhenEmailMatched is false and only teams match (no users),
 		// email selection should still be allowed (as long as query is email format)
 		const mockTeamOnlyResponse: Team[] = [
@@ -2296,15 +2287,6 @@ describe('SmartUserPicker', () => {
 	});
 
 	it('should not allow email selection when query is not email format', async () => {
-		// Mock feature gate to enable the news behavior
-		const { fg } = require('@atlaskit/platform-feature-flags');
-		fg.mockImplementation((flag: string) => {
-			if (flag === 'smart_user_picker_allow_email_if_team_is_found') {
-				return true;
-			}
-			return false;
-		});
-
 		// When allowEmailSelectionWhenEmailMatched is false and query is not an email format,
 		// email selection should be disabled even if teams match
 		const mockTeamResponse: Team[] = [

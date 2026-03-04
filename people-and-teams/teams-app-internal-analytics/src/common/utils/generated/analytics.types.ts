@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::59c4bdd833e5deaf51ba7b43a7658597>>
+ * @codegen <<SignedSource::cd3e43aed89c6bc6bfed2bb49ec98ee6>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -1509,6 +1509,33 @@ export type StarTeamFailedAttributesType = {
 	errorMessage: string;
 	errorType: string | null;
 };
+export type TeamProfileHierarchyTabViewedAttributesType = {
+	teamId: string;
+};
+export type TeamHierarchyTreeShowMoreChildrenClickedAttributesType = {
+	teamId: string;
+};
+export type TeamHierarchyTreeCollapseChildrenClickedAttributesType = {
+	teamId: string;
+};
+export type TeamHierarchyTreeShowMoreAncestorsClickedAttributesType = {
+	teamId: string;
+};
+export type TeamHierarchyTreeCollapseAncestorsClickedAttributesType = {
+	teamId: string;
+};
+export type TeamHierarchyTreeCardHoveredAttributesType = {
+	teamId: string;
+};
+export type TeamHierarchyTreeCardClickedAttributesType = {
+	teamId: string;
+};
+export type TeamHierarchyErrorStateViewedAttributesType = {
+	teamId: string;
+};
+export type TeamHierarchyEmptyStateViewedAttributesType = {
+	teamId: string;
+};
 export type ParentTeamPickerOpenedAttributesType = {};
 export type ParentTeamPickerClosedAttributesType = {
 	newParentTeamId: string;
@@ -1518,6 +1545,14 @@ export type TeamPickerFailedAttributesType = {
 	error: string;
 	errorMessage: string;
 	errorType: string | null;
+};
+export type SubTeamPickerOpenedAttributesType = {};
+export type SubTeamPickerClosedAttributesType = {
+	teamId: string;
+};
+export type SubTeamPickerUpdatedAttributesType = {
+	subTeamId: string;
+	action: string;
 };
 
 export type AnalyticsEventAttributes = {
@@ -2563,6 +2598,33 @@ export type AnalyticsEventAttributes = {
 	 * fired when fetching starred teams or rendering the star team component fails */
 	'track.starTeam.failed': StarTeamFailedAttributesType;
 	/**
+	 * fired when the team profile hierarchy tab is viewed */
+	'screen.teamProfileHierarchyTab.viewed': TeamProfileHierarchyTabViewedAttributesType;
+	/**
+	 * fired when the show more children button in the team hierarchy tree is clicked */
+	'ui.teamHierarchyTreeShowMoreChildren.clicked': TeamHierarchyTreeShowMoreChildrenClickedAttributesType;
+	/**
+	 * fired when the collapse children button in the team hierarchy tree is clicked */
+	'ui.teamHierarchyTreeCollapseChildren.clicked': TeamHierarchyTreeCollapseChildrenClickedAttributesType;
+	/**
+	 * fired when the show more ancestors button in the team hierarchy tree is clicked */
+	'ui.teamHierarchyTreeShowMoreAncestors.clicked': TeamHierarchyTreeShowMoreAncestorsClickedAttributesType;
+	/**
+	 * fired when the collapse ancestors button in the team hierarchy tree is clicked */
+	'ui.teamHierarchyTreeCollapseAncestors.clicked': TeamHierarchyTreeCollapseAncestorsClickedAttributesType;
+	/**
+	 * fired when the team hierarchy card is hovered */
+	'ui.teamHierarchyTreeCard.hovered': TeamHierarchyTreeCardHoveredAttributesType;
+	/**
+	 * fired when the team hierarchy card is clicked */
+	'ui.teamHierarchyTreeCard.clicked': TeamHierarchyTreeCardClickedAttributesType;
+	/**
+	 * fired when the team hierarchy error state is viewed */
+	'screen.teamHierarchyErrorState.viewed': TeamHierarchyErrorStateViewedAttributesType;
+	/**
+	 * fired when the team hierarchy empty state is viewed */
+	'screen.teamHierarchyEmptyState.viewed': TeamHierarchyEmptyStateViewedAttributesType;
+	/**
 	 * fired when the parent team picker is opened */
 	'ui.parentTeamPicker.opened': ParentTeamPickerOpenedAttributesType;
 	/**
@@ -2571,6 +2633,15 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when the team picker fails */
 	'track.teamPicker.failed': TeamPickerFailedAttributesType;
+	/**
+	 * fired when the sub team picker is opened */
+	'ui.subTeamPicker.opened': SubTeamPickerOpenedAttributesType;
+	/**
+	 * fired when the sub team picker is closed */
+	'ui.subTeamPicker.closed': SubTeamPickerClosedAttributesType;
+	/**
+	 * fired when the sub team picker is updated */
+	'ui.subTeamPicker.updated': SubTeamPickerUpdatedAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

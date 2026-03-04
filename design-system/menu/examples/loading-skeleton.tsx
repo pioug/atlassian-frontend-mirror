@@ -13,7 +13,7 @@ import {
 	SkeletonItem,
 } from '@atlaskit/menu';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Stack } from '@atlaskit/primitives';
+import { Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import MenuGroupContainer from './common/menu-group-container';

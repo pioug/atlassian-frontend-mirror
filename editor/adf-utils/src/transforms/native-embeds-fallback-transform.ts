@@ -1,7 +1,6 @@
 import { traverse } from '../traverse/traverse';
 import { type ADFEntity } from '../types';
 
-
 const NATIVE_EMBED_EXTENSION_KEY = 'native-embed';
 
 /**

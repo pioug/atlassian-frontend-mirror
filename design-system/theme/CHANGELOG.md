@@ -1,5 +1,17 @@
 # @atlaskit/theme
 
+## 22.0.0
+
+### Major Changes
+
+- [`4d78aaa844538`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d78aaa844538) -
+  Removes the `useGlobalTheme` & `themed` functions. These APIs are non-functional and can be safely
+  replaced with a static color value or key/value pairs.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.0.5
 
 ### Patch Changes

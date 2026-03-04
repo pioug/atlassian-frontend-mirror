@@ -5,7 +5,7 @@ import { ButtonGroup } from '@atlaskit/button';
 import { LinkButton, LinkIconButton } from '@atlaskit/button/new';
 import AddIcon from '@atlaskit/icon/core/add';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Stack } from '@atlaskit/primitives';
+import { Stack } from '@atlaskit/primitives/compiled';
 
 type MyRouterLinkConfig = {
 	to: string;
@@ -14,7 +14,7 @@ type MyRouterLinkConfig = {
 
 const MyRouterLinkComponent: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<RouterLinkComponentProps<MyRouterLinkConfig>> &
-		React.RefAttributes<HTMLAnchorElement>
+	React.RefAttributes<HTMLAnchorElement>
 > = forwardRef(
 	(
 		{ href, children, ...rest }: RouterLinkComponentProps<MyRouterLinkConfig>,

@@ -1,7 +1,6 @@
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { ProgressTracker, type Stages } from '@atlaskit/progress-tracker';
 
 const items: Stages = [

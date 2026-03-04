@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.27.0
+
+### Minor Changes
+
+- [`5f4ff6a2dd06d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f4ff6a2dd06d) -
+  Added analytics events for team hierarchy tree
+
 ## 1.26.0
 
 ### Minor Changes

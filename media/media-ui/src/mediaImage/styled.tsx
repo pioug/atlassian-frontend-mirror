@@ -18,6 +18,7 @@ const imgStyle: CSSProperties = {
 export const ImageComponent: React.FC<
 	React.ClassAttributes<HTMLImageElement> &
 		React.ImgHTMLAttributes<HTMLImageElement> & {
+			alt: string;
 			loading?: 'lazy' | 'eager';
 			imageRef?:
 				| ((instance: HTMLImageElement | null) => void)
@@ -25,9 +26,9 @@ export const ImageComponent: React.FC<
 				| null;
 		}
 > = (props) => {
-	const { style, imageRef, ...otherProps } = props;
+	const { style, imageRef, alt, ...otherProps } = props;
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlassian/a11y/alt-text -- Ignored via go/DSP-18766
-		<img {...otherProps} ref={imageRef} style={{ ...imgStyle, ...style }} />
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+		<img {...otherProps} alt={alt} ref={imageRef} style={{ ...imgStyle, ...style }} />
 	);
 };

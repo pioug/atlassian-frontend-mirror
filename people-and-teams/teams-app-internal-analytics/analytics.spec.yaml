@@ -3364,6 +3364,77 @@ events:
           type: string
           required: false
           description: Specific type of error encountered
+  - teamProfileHierarchyTab viewed:
+      type: screen
+      description: fired when the team profile hierarchy tab is viewed
+      attributes:
+        teamId:
+          type: string
+          description: the id of the team
+  - teamHierarchyTreeShowMoreChildren clicked:
+      type: ui
+      description: fired when the show more children button in the team hierarchy tree is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: the id of the team
+  - teamHierarchyTreeCollapseChildren clicked:
+      type: ui
+      description: fired when the collapse children button in the team hierarchy tree is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: the id of the team
+  - teamHierarchyTreeShowMoreAncestors clicked:
+      type: ui
+      description: fired when the show more ancestors button in the team hierarchy tree is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: the id of the team
+  - teamHierarchyTreeCollapseAncestors clicked:
+      type: ui
+      description: fired when the collapse ancestors button in the team hierarchy tree is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: the id of the team
+  - teamHierarchyTreeCard hovered:
+      type: ui
+      description: fired when the team hierarchy card is hovered
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: the id of the team
+  - teamHierarchyTreeCard clicked:
+      type: ui
+      description: fired when the team hierarchy card is clicked
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: the id of the team
+  - teamHierarchyErrorState viewed:
+      type: screen
+      description: fired when the team hierarchy error state is viewed
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: the id of the team
+  - teamHierarchyEmptyState viewed:
+      type: screen
+      description: fired when the team hierarchy empty state is viewed
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: the id of the team
   - parentTeamPicker opened:
       type: ui
       description: fired when the parent team picker is opened
@@ -3395,3 +3466,27 @@ events:
           type: string
           required: false
           description: the error type
+  - subTeamPicker opened:
+      type: ui
+      description: fired when the sub team picker is opened
+      attributes:
+        <<: *PackageMetaDataContext
+  - subTeamPicker closed:
+      type: ui
+      description: fired when the sub team picker is closed
+      attributes:
+        <<: *PackageMetaDataContext
+        teamId:
+          type: string
+          description: the id of the team
+  - subTeamPicker updated:
+      type: ui
+      description: fired when the sub team picker is updated
+      attributes:
+        <<: *PackageMetaDataContext
+        subTeamId:
+          type: string
+          description: the id of the team
+        action:
+          type: string
+          description: the action that was performed

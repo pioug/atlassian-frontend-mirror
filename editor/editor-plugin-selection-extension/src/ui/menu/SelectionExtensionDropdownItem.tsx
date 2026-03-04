@@ -1,6 +1,10 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React, { useCallback, useRef, useState } from 'react';
 
-import { cssMap } from '@atlaskit/css';
+import { cssMap, jsx } from '@atlaskit/css';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -20,6 +24,11 @@ import { SelectionExtensionActionTypes } from '../../types';
 import { useSelectionExtensionComponentContext } from '../SelectionExtensionComponentContext';
 
 const styles = cssMap({
+	svgOverflow: {
+		// @ts-expect-error - nested selector required to target SVGs within icon wrapper
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors
+		svg: { overflow: 'visible' },
+	},
 	contentWrapper: {
 		display: 'flex',
 		alignItems: 'center',
@@ -111,26 +120,31 @@ export const SelectionExtensionDropdownItem = ({
 		}
 	}, []);
 
+	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
+	// Adds size="small" to icons for better visual co	nsistency in block menu.
+	// Adds overflow: visible to SVGs to fix when view port is in different zoom level, sometimes the right edge of the icon is cut off.
+	// To clean up: simplify conditional to just check if extensionLocation is inline-toolbar or block-menu,
+	// and always apply svgOverflowStyles wrapper for block-menu items.
+	const iconSize =
+		(extensionLocation === 'inline-toolbar' || extensionLocation === 'block-menu') &&
+		(fg('platform_editor_block_menu_v2_patch_1') || fg('platform_editor_block_menu_v2_patch_3'))
+			? 'small'
+			: undefined;
+	const iconElement = IconComponent ? <IconComponent size={iconSize} label="" /> : undefined;
+	const elemBeforeIcon =
+		iconElement &&
+		extensionLocation === 'block-menu' &&
+		fg('platform_editor_block_menu_v2_patch_3') ? (
+			<span css={styles.svgOverflow}>{iconElement}</span>
+		) : (
+			iconElement
+		);
+
 	if (fg('platform_editor_block_menu_v2_patch_2')) {
 		return (
 			<ToolbarTooltip content={isTruncated ? dropdownItem.label : null} position="top">
 				<ToolbarDropdownItem
-					elemBefore={
-						IconComponent ? (
-							<IconComponent
-								size={
-									// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
-									// To clean up: simplify conditional to just check if extensionLocation is inline-toolbar or block-menu
-									(extensionLocation === 'inline-toolbar' || extensionLocation === 'block-menu') &&
-									(fg('platform_editor_block_menu_v2_patch_1') ||
-										fg('platform_editor_block_menu_v2_patch_3'))
-										? 'small'
-										: undefined
-								}
-								label=""
-							/>
-						) : undefined
-					}
+					elemBefore={elemBeforeIcon}
 					onClick={handleClick}
 					isDisabled={dropdownItem.isDisabled}
 				>
@@ -151,22 +165,7 @@ export const SelectionExtensionDropdownItem = ({
 
 	return (
 		<ToolbarDropdownItem
-			elemBefore={
-				IconComponent ? (
-					<IconComponent
-						size={
-							// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
-							// To clean up: simplify conditional to just check if extensionLocation is inline-toolbar or block-menu
-							(extensionLocation === 'inline-toolbar' || extensionLocation === 'block-menu') &&
-							(fg('platform_editor_block_menu_v2_patch_1') ||
-								fg('platform_editor_block_menu_v2_patch_3'))
-								? 'small'
-								: undefined
-						}
-						label=""
-					/>
-				) : undefined
-			}
+			elemBefore={elemBeforeIcon}
 			onClick={handleClick}
 			isDisabled={dropdownItem.isDisabled}
 		>

@@ -11,6 +11,7 @@ import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { AnnotationPlugin } from '@atlaskit/editor-plugin-annotation';
 import type { BetterTypeHistoryPlugin } from '@atlaskit/editor-plugin-better-type-history';
 import type { CardPlugin } from '@atlaskit/editor-plugin-card';
+import type { ExpandPlugin } from '@atlaskit/editor-plugin-expand';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { ListPlugin } from '@atlaskit/editor-plugin-list';
@@ -64,6 +65,7 @@ export type PastePluginOptions = {
 	sanitizePrivateContent?: boolean;
 };
 
+
 export type PastePluginDependencies = [
 	OptionalPlugin<FeatureFlagsPlugin>,
 	OptionalPlugin<ListPlugin>,
@@ -74,6 +76,7 @@ export type PastePluginDependencies = [
 	OptionalPlugin<ExtensionPlugin>,
 	OptionalPlugin<AnnotationPlugin>,
 	OptionalPlugin<MentionsPlugin>,
+	OptionalPlugin<ExpandPlugin>
 ];
 
 export type PastePlugin = NextEditorPlugin<

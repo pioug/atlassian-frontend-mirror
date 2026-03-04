@@ -31,10 +31,8 @@ setupEditorExperiments('test', {
 });
 
 const NATIVE_EMBEDS_EXAMPLE_URLS = {
-	localDefault:
-		'https://pug.jira-dev.com/wiki/spaces/~437732578/whiteboard/455327744365',
-	whiteboard:
-		'https://pug.jira-dev.com/wiki/spaces/~437732578/whiteboard/455327744365',
+	localDefault: 'https://pug.jira-dev.com/wiki/spaces/~437732578/whiteboard/455327744365',
+	whiteboard: 'https://pug.jira-dev.com/wiki/spaces/~437732578/whiteboard/455327744365',
 	dbExperience: 'https://example.atlassian.net/wiki/spaces/DEMO/pages/12345/db/67890',
 };
 

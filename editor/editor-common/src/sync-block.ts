@@ -17,3 +17,4 @@ export type {
 	SyncedBlocksSSRErrorCode,
 } from './sync-block/ssr_error';
 export { handleSSRErrorsAnalytics, SyncedBlocksSSRErrorCodeMap } from './sync-block/ssr_error';
+export { SYNCED_BLOCKS_DOCUMENTATION_URL } from './sync-block/constants';

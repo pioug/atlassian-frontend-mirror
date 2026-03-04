@@ -27,68 +27,108 @@ Lozenges use semantic colors to indicate meanings that people can learn and reco
 Use `neutral` lozenges for general status without specific semantic meaning. For example: "default",
 "standard", "inactive", or "draft".
 
-<Example Component={NewLozengeNeutral} packageName="@atlaskit/lozenge" />
+<Example
+	Component={NewLozengeNeutral}
+	packageName="@atlaskit/lozenge"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>
 
 #### Success
 
 Use `success` lozenges to represent a constructive or positive status. For example: "available",
 "completed", "approved", "resolved", or "added".
 
-<Example Component={NewLozengeSuccess} packageName="@atlaskit/lozenge" />
+<Example
+	Component={NewLozengeSuccess}
+	packageName="@atlaskit/lozenge"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>
 
 #### Warning
 
 Use `warning` lozenges to represent a cautionary status that requires attention. For example:
 "pending", "needs review", "at risk", or "approaching deadline".
 
-<Example Component={NewLozengeWarning} packageName="@atlaskit/lozenge" />
+<Example
+	Component={NewLozengeWarning}
+	packageName="@atlaskit/lozenge"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>
 
 #### Danger
 
 Use `danger` lozenges to represent a critical or problematic status. For example: "error",
 "declined", "failed", "blocked", or "urgent".
 
-<Example Component={NewLozengeDanger} packageName="@atlaskit/lozenge" />
+<Example
+	Component={NewLozengeDanger}
+	packageName="@atlaskit/lozenge"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>
 
 #### Information
 
 Use `information` lozenges to represent informational or neutral status. For example: "in progress",
 "active", "open", or "modified".
 
-<Example Component={NewLozengeInformation} packageName="@atlaskit/lozenge" />
+<Example
+	Component={NewLozengeInformation}
+	packageName="@atlaskit/lozenge"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>
 
 #### Discovery
 
 Use `discovery` lozenges to represent new features, updates, or items that require exploration. For
 example: "new", "beta", "preview", or "experimental".
 
-<Example Component={NewLozengeDiscovery} packageName="@atlaskit/lozenge" />
+<Example
+	Component={NewLozengeDiscovery}
+	packageName="@atlaskit/lozenge"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>
 
 ### Accent colors
 
 In addition to semantic colors, lozenges support accent colors for categorical labeling and
 organization. Accent colors don't carry inherent meaning and can be used for visual distinction.
 
-<Example Component={NewLozengeAccentColors} packageName="@atlaskit/lozenge" />
+<Example
+	Component={NewLozengeAccentColors}
+	packageName="@atlaskit/lozenge"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>
 
 ## With icon
 
 Lozenges can include an icon before the text to provide additional visual context. Use the
 `iconBefore` prop with an [icon](/components/icon) component.
 
-<Example Component={NewLozengeWithIcon} packageName="@atlaskit/lozenge" />
+<Example
+	Component={NewLozengeWithIcon}
+	packageName="@atlaskit/lozenge"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>
 
 ## Trailing metric
 
 Use `trailingMetric` to display a numeric metric as a badge inside the lozenge.
 
-<Example Component={NewLozengeMetric} packageName="@atlaskit/lozenge" />
+<Example
+	Component={NewLozengeMetric}
+	packageName="@atlaskit/lozenge"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>
 
 ## Spacing
 
 Use `spacing="spacious"` to increase padding and lozenge height (32px).
 
-<Example Component={NewLozengeSpacing} packageName="@atlaskit/lozenge" />
+<Example
+	Component={NewLozengeSpacing}
+	packageName="@atlaskit/lozenge"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>
 
 ## Max width
 
@@ -99,4 +139,8 @@ width of the lozenge.
 Avoid truncation wherever possible by using shorter text in lozenges. The truncated text is not
 focusable or accessible.
 
-<Example Component={NewLozengeMaxWidth} packageName="@atlaskit/lozenge" />
+<Example
+	Component={NewLozengeMaxWidth}
+	packageName="@atlaskit/lozenge"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>

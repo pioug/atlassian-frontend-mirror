@@ -23,15 +23,15 @@ export const messages = defineMessages({
 	},
 	copyLinkToBlock: {
 		id: 'fabric.editor.block.menu.copy.link.to.block',
-		defaultMessage: 'Copy link to selection',
-		description: 'Copy link to the selected content',
-	},
-	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
-	// Old message retained for flag-off state. To clean up: remove this when flag is removed.
-	copyLinkToBlockOld: {
-		id: 'fabric.editor.block.menu.copy.link.to.block',
 		defaultMessage: 'Copy link to block',
 		description: 'Copy link to the selected block',
+	},
+	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
+	// New message with updated wording. To clean up: remove old message and feature flag check when flag is removed.
+	copyLinkToSelection: {
+		id: 'fabric.editor.block.menu.copy.link.to.selection',
+		defaultMessage: 'Copy link to selection',
+		description: 'Copy link to the selected content',
 	},
 	linkCopiedToClipboard: {
 		id: 'fabric.editor.block.menu.link.copied.to.clipboard',
@@ -66,6 +66,14 @@ export const messages = defineMessages({
 	createSyncedBlock: {
 		id: 'fabric.editor.block.menu.create.synced.block',
 		defaultMessage: 'Create synced block',
+		description:
+			'Create a synced block at this line, converting the selection to a synced block if applicable',
+	},
+	// [FEATURE FLAG: platform_editor_block_menu_v2_patch_3]
+	// New message with updated wording. To clean up: remove old message and feature flag check when flag is removed.
+	syncBlock: {
+		id: 'fabric.editor.block.menu.sync.block',
+		defaultMessage: 'Sync block',
 		description:
 			'Create a synced block at this line, converting the selection to a synced block if applicable',
 	},

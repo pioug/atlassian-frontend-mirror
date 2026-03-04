@@ -4,12 +4,26 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { handleKeyDown } from './handle-key-down';
 import { handleMouseEnter, handleMouseLeave, handleMouseMove } from './handle-mouse-move';
 
+/** Elements that extend the editor hover area (block controls, right-edge button, etc.) */
+const BLOCK_CONTROLS_HOVER_AREA_SELECTOR =
+	'[data-blocks-right-edge-button-container], [data-blocks-drag-handle-container], [data-testid="block-ctrl-drag-handle"], [data-testid="block-ctrl-drag-handle-container"], [data-testid="block-ctrl-decorator-widget"], [data-testid="block-ctrl-quick-insert-button"]';
+
+const MOUSE_LEAVE_DEBOUNCE_MS = 200;
+
+const isMovingToBlockControlsArea = (target: EventTarget | null): boolean =>
+	target instanceof Element && !!target.closest(BLOCK_CONTROLS_HOVER_AREA_SELECTOR);
+
 export type InteractionTrackingPluginState = {
+	/**
+	 * Tracks which side of the editor the mouse is currently on.
+	 */
+	hoverSide?: 'left' | 'right';
 	/**
 	 * Tracks if a users intention is to edit the document (e.g. typing, deleting, etc.)
 	 */
@@ -40,9 +54,24 @@ type MouseEnterMeta = {
 	type: 'mouseEnter';
 };
 
-type InteractionTrackingMeta = StartEditingMeta | StopEditingMeta | MouseLeaveMeta | MouseEnterMeta;
+type SetHoverSideMeta = {
+	side: 'left' | 'right';
+	type: 'setHoverSide';
+};
 
-export const createInteractionTrackingPlugin = () => {
+type ClearHoverSideMeta = {
+	type: 'clearHoverSide';
+};
+
+type InteractionTrackingMeta =
+	| StartEditingMeta
+	| StopEditingMeta
+	| MouseLeaveMeta
+	| MouseEnterMeta
+	| SetHoverSideMeta
+	| ClearHoverSideMeta;
+
+export const createInteractionTrackingPlugin = (rightSideControlsEnabled = false) => {
 	return new SafePlugin<InteractionTrackingPluginState>({
 		key: interactionTrackingPluginKey,
 		state: {
@@ -76,9 +105,16 @@ export const createInteractionTrackingPlugin = () => {
 						break;
 					case 'mouseLeave':
 						newState.isMouseOut = true;
+						newState.hoverSide = undefined;
 						break;
 					case 'mouseEnter':
 						newState.isMouseOut = false;
+						break;
+					case 'setHoverSide':
+						newState.hoverSide = meta.side;
+						break;
+					case 'clearHoverSide':
+						newState.hoverSide = undefined;
 						break;
 				}
 
@@ -89,35 +125,127 @@ export const createInteractionTrackingPlugin = () => {
 		props: {
 			handleKeyDown,
 			handleDOMEvents: {
-				mousemove: handleMouseMove,
+				mousemove: (view: EditorView, event: Event) =>
+					handleMouseMove(
+						view,
+						event,
+						rightSideControlsEnabled &&
+							expValEquals('confluence_remix_icon_right_side', 'isEnabled', true),
+					),
 			},
 		},
 
 		view: editorExperiment('platform_editor_controls', 'variant1')
 			? (view: EditorView) => {
 					const editorContentArea = view.dom.closest('.ak-editor-content-area');
+					const remixRightSideEnabled =
+						rightSideControlsEnabled &&
+						expValEquals('confluence_remix_icon_right_side', 'isEnabled', true);
 
 					let unbindMouseEnter: UnbindFn;
 					let unbindMouseLeave: UnbindFn;
+					let unbindDocumentMouseMove: UnbindFn | undefined;
+					let mouseLeaveTimeoutId: ReturnType<typeof setTimeout> | null = null;
+					let lastMousePosition = { x: 0, y: 0 };
+
+					const scheduleMouseLeave = (event: MouseEvent) => {
+						if (mouseLeaveTimeoutId) {
+							clearTimeout(mouseLeaveTimeoutId);
+							mouseLeaveTimeoutId = null;
+						}
+
+						// Don't set isMouseOut when moving to block controls (right-edge button, drag handle, etc.)
+						if (
+							rightSideControlsEnabled &&
+							expValEquals('confluence_remix_icon_right_side', 'isEnabled', true) &&
+							isMovingToBlockControlsArea(event.relatedTarget)
+						) {
+							return;
+						}
+
+						mouseLeaveTimeoutId = setTimeout(() => {
+							mouseLeaveTimeoutId = null;
+							// Before dispatching, check if mouse has moved to block controls (e.g. through empty space)
+							if (
+								rightSideControlsEnabled &&
+								expValEquals('confluence_remix_icon_right_side', 'isEnabled', true) &&
+								typeof document !== 'undefined'
+							) {
+								const el = document.elementFromPoint(lastMousePosition.x, lastMousePosition.y);
+								if (el && isMovingToBlockControlsArea(el)) {
+									return;
+								}
+							}
+							handleMouseLeave(
+								view,
+								rightSideControlsEnabled &&
+									expValEquals('confluence_remix_icon_right_side', 'isEnabled', true),
+							);
+						}, MOUSE_LEAVE_DEBOUNCE_MS);
+					};
+
+					const cancelScheduledMouseLeave = () => {
+						if (mouseLeaveTimeoutId) {
+							clearTimeout(mouseLeaveTimeoutId);
+							mouseLeaveTimeoutId = null;
+						}
+					};
 
 					if (editorContentArea) {
+						if (remixRightSideEnabled && typeof document !== 'undefined') {
+							unbindDocumentMouseMove = bind(document, {
+								type: 'mousemove',
+								listener: (event: MouseEvent) => {
+									lastMousePosition = { x: event.clientX, y: event.clientY };
+									// Use document-level mousemove so we get events when hovering over block
+									// controls (which may be in portals outside the editor DOM). Without this,
+									// handleDOMEvents.mousemove only fires when over the editor content.
+									if (
+										editorContentArea.contains(event.target as Node) ||
+										isMovingToBlockControlsArea(event.target)
+									) {
+										handleMouseMove(
+											view,
+											event,
+											rightSideControlsEnabled &&
+												expValEquals('confluence_remix_icon_right_side', 'isEnabled', true),
+										);
+									}
+								},
+								options: { passive: true },
+							});
+						}
+
 						unbindMouseEnter = bind(editorContentArea, {
 							type: 'mouseenter',
 							listener: () => {
+								if (remixRightSideEnabled) {
+									cancelScheduledMouseLeave();
+								}
 								handleMouseEnter(view);
 							},
 						});
 
 						unbindMouseLeave = bind(editorContentArea, {
 							type: 'mouseleave',
-							listener: () => {
-								handleMouseLeave(view);
+							listener: (event: Event) => {
+								const e = event as MouseEvent;
+								lastMousePosition = { x: e.clientX, y: e.clientY };
+								if (remixRightSideEnabled) {
+									scheduleMouseLeave(e);
+								} else {
+									handleMouseLeave(view, false);
+								}
 							},
 						});
 					}
 
 					return {
 						destroy: () => {
+							if (remixRightSideEnabled) {
+								cancelScheduledMouseLeave();
+								unbindDocumentMouseMove?.();
+							}
 							unbindMouseEnter?.();
 							unbindMouseLeave?.();
 						},

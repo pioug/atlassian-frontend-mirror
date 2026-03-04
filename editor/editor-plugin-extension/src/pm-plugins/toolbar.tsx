@@ -291,7 +291,7 @@ const breakoutOptions = (
 				extensionState,
 				breakoutEnabled,
 				editorAnalyticsAPI,
-		  );
+			);
 };
 
 const editButton = (
@@ -617,7 +617,7 @@ export const getToolbarConfig =
 										getUnsupportedContent,
 										state,
 										locale,
-								  })
+									})
 								: undefined,
 						},
 					],

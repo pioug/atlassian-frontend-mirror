@@ -131,6 +131,9 @@ export const dragHandleDecoration = ({
 			const element = document.createElement('span');
 			// inline decoration causes focus issues when refocusing Editor into first line
 			element.style.display = 'block';
+			if (expValEquals('confluence_remix_icon_right_side', 'isEnabled', true)) {
+				element.setAttribute('data-blocks-decorator-widget', 'true');
+			}
 			element.setAttribute('data-testid', 'block-ctrl-decorator-widget');
 			element.setAttribute('data-blocks-drag-handle-container', 'true');
 			element.setAttribute('data-blocks-drag-handle-key', key);

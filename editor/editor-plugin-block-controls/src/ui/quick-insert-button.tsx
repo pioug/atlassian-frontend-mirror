@@ -484,15 +484,15 @@ export const QuickInsertWithVisibility = ({
 	rootNodeType,
 	anchorRectCache,
 }: Props) => {
-	const rightSideControlsEnabled =
-		useSharedPluginStateWithSelector(api, ['blockControls'], (states) => ({
+	const rightSideControlsEnabled = useSharedPluginStateWithSelector(
+		api,
+		['blockControls'],
+		(states) => ({
 			rightSideControlsEnabled: states.blockControlsState?.rightSideControlsEnabled ?? false,
-		})).rightSideControlsEnabled;
+		}),
+	).rightSideControlsEnabled;
 	return (
-		<VisibilityContainer
-			api={api}
-			controlSide={rightSideControlsEnabled ? 'left' : undefined}
-		>
+		<VisibilityContainer api={api} controlSide={rightSideControlsEnabled ? 'left' : undefined}>
 			<TypeAheadControl
 				view={view}
 				api={api}

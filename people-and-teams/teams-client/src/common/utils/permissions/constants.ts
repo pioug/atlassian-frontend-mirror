@@ -1,4 +1,3 @@
-import { isFedRamp } from '@atlaskit/atlassian-context';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
@@ -86,21 +85,17 @@ const getDisbandedTeamPermissionMap = (
 	isMember: boolean,
 	isOrgAdmin: boolean,
 ): PermissionMap => {
-	const newTeamProfileEnabled = !isFedRamp() || fg('new_team_profile_fedramp');
-
 	// Base permission map - all actions disabled for disbanded teams
 	const basePermissions = allPermissions(false, false, false);
 
 	// UNARCHIVE_TEAM permission based on team settings
 	let canUnarchive = false;
-	if (newTeamProfileEnabled) {
-		if (settings === 'EXTERNAL' || settings === 'ORG_ADMIN_MANAGED') {
-			// For EXTERNAL and ORG_ADMIN_MANAGED teams, only org admins can unarchive
-			canUnarchive = isOrgAdmin;
-		} else if (settings === 'OPEN' || settings === 'MEMBER_INVITE') {
-			// For OPEN and MEMBER_INVITE teams, members with FULL_WRITE can unarchive
-			canUnarchive = (isMember || isOrgAdmin) && permission === 'FULL_WRITE';
-		}
+	if (settings === 'EXTERNAL' || settings === 'ORG_ADMIN_MANAGED') {
+		// For EXTERNAL and ORG_ADMIN_MANAGED teams, only org admins can unarchive
+		canUnarchive = isOrgAdmin;
+	} else if (settings === 'OPEN' || settings === 'MEMBER_INVITE') {
+		// For OPEN and MEMBER_INVITE teams, members with FULL_WRITE can unarchive
+		canUnarchive = (isMember || isOrgAdmin) && permission === 'FULL_WRITE';
 	}
 
 	return {
@@ -121,29 +116,26 @@ const getActiveTeamPermissionMap = (
 	isOrgAdmin: boolean,
 	source?: ExternalReferenceSource,
 ): PermissionMap => {
-	const newTeamProfileEnabled = !isFedRamp() || fg('new_team_profile_fedramp');
 	if (settings === 'OPEN') {
 		return {
 			...allPermissions(permission === 'FULL_WRITE', isMember, isOrgAdmin),
 			...openPermissions(permission),
-			ARCHIVE_TEAM:
-				newTeamProfileEnabled && permission === 'FULL_WRITE' && (isMember || isOrgAdmin),
+			ARCHIVE_TEAM: permission === 'FULL_WRITE' && (isMember || isOrgAdmin),
 		};
 	}
 	if (settings === 'MEMBER_INVITE') {
 		return {
 			...allPermissions(permission === 'FULL_WRITE', isMember, isOrgAdmin),
 			...inviteOnlyPermissions(permission),
-			ARCHIVE_TEAM:
-				newTeamProfileEnabled && permission === 'FULL_WRITE' && (isMember || isOrgAdmin),
+			ARCHIVE_TEAM: permission === 'FULL_WRITE' && (isMember || isOrgAdmin),
 		};
 	} else if (settings === 'EXTERNAL') {
 		return {
 			...allPermissions(false, isMember, isOrgAdmin),
 			...SCIMSyncTeamPermissions(isMember, isOrgAdmin, source),
-			ADD_AGENT_TO_TEAM: newTeamProfileEnabled && (isMember || isOrgAdmin),
-			REMOVE_AGENT_FROM_TEAM: newTeamProfileEnabled && (isMember || isOrgAdmin),
-			ARCHIVE_TEAM: newTeamProfileEnabled && isOrgAdmin,
+			ADD_AGENT_TO_TEAM: isMember || isOrgAdmin,
+			REMOVE_AGENT_FROM_TEAM: isMember || isOrgAdmin,
+			ARCHIVE_TEAM: isOrgAdmin,
 			EDIT_TEAM_TYPE: isOrgAdmin,
 		};
 	} else if (settings === 'ORG_ADMIN_MANAGED') {
@@ -151,9 +143,9 @@ const getActiveTeamPermissionMap = (
 		return {
 			...allPermissions(permission === 'FULL_WRITE', isMember, isOrgAdmin),
 			EDIT_TEAM_LINK: isMember || permission === 'FULL_WRITE',
-			ADD_AGENT_TO_TEAM: newTeamProfileEnabled && (isMember || permission === 'FULL_WRITE'),
-			REMOVE_AGENT_FROM_TEAM: newTeamProfileEnabled && (isMember || permission === 'FULL_WRITE'),
-			ARCHIVE_TEAM: newTeamProfileEnabled && permission === 'FULL_WRITE',
+			ADD_AGENT_TO_TEAM: isMember || permission === 'FULL_WRITE',
+			REMOVE_AGENT_FROM_TEAM: isMember || permission === 'FULL_WRITE',
+			ARCHIVE_TEAM: permission === 'FULL_WRITE',
 			CAN_EDIT_HIERARCHY: permission === 'FULL_WRITE',
 			EDIT_TEAM_TYPE: permission === 'FULL_WRITE',
 			// ORG_ADMIN_MANAGED teams should not provide options to edit membership settings

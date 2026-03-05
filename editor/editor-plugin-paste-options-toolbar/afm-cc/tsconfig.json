@@ -36,10 +36,16 @@
 			"path": "../../editor-plugin-paste/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-ui-control-registry/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-prosemirror/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../editor-shared-styles/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-ui-control-model/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/icon/afm-cc/tsconfig.json"

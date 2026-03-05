@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
-import { isFedRamp } from '@atlaskit/atlassian-context';
 import Avatar from '@atlaskit/avatar';
 import AvatarGroup, { type AvatarGroupProps } from '@atlaskit/avatar-group';
 import Button, { IconButton, LinkButton } from '@atlaskit/button/new';
@@ -415,8 +414,7 @@ const TeamProfilecardContent = ({
 	viewProfileOnClick,
 	isTriggeredByKeyboard,
 }: TeamProfilecardProps & { team: Team }) => {
-	const newTeamProfileEnabled = !isFedRamp() || fg('new_team_profile_fedramp');
-	const isTeamArchived = team.state === 'DISBANDED' && newTeamProfileEnabled;
+	const isTeamArchived = team.state === 'DISBANDED';
 	const allActions = [
 		{
 			label: <FormattedMessage {...messages.teamViewProfile} />,

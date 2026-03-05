@@ -57,7 +57,7 @@ type InnerContainerProps = {
 const InnerContainer = forwardRef<HTMLDivElement, PropsWithChildren<InnerContainerProps>>(
 	({ className, style, node, children, tableWrapperHeight }, ref) => {
 		const bordersReady = expValEquals(
-			'platform_editor_vc90_transition_fixes_batch_1',
+			'platform_editor_vc90_transition_table_border',
 			'isEnabled',
 			true,
 		)
@@ -255,7 +255,6 @@ export const ResizableTableContainer = React.memo(
 		isCommentEditor,
 		isChromelessEditor,
 	}: PropsWithChildren<ResizableTableContainerProps>): React.JSX.Element => {
-		const tableWidth = getTableContainerWidth(node);
 		const containerRef = useRef<HTMLDivElement | null>(null);
 		const tableWidthRef = useRef<number>(akEditorDefaultLayoutWidth);
 		const [resizing, setIsResizing] = useState(false);
@@ -266,7 +265,14 @@ export const ResizableTableContainer = React.memo(
 			selector,
 		);
 		const isFullWidthModeEnabled = tableState?.isFullWidthModeEnabled;
+		const isMaxWidthModeEnabled = tableState?.isMaxWidthModeEnabled;
 		const mode = editorViewModeState?.mode;
+
+		// If the editor is in max width mode and the table has no width, use the max width value rather than the default table value
+		const tableWidth =
+			isMaxWidthModeEnabled && !node.attrs.width && fg('platform_editor_max_width_default_width')
+				? TABLE_MAX_WIDTH
+				: getTableContainerWidth(node);
 
 		const updateContainerHeight = useCallback((height: number | 'auto') => {
 			// current StickyHeader State is not stable to be fetch.
@@ -345,12 +351,15 @@ export const ResizableTableContainer = React.memo(
 			let responsiveContainerWidth = 0;
 			const resizeHandleSpacing = 12;
 			const padding = getPadding(containerWidth);
-			// When Full width editor enabled, a Mac OS user can change "ak-editor-content-area" width by
+			// When Full width or Max width editor enabled, a Mac OS user can change "ak-editor-content-area" width by
 			// updating Settings -> Appearance -> Show scroll bars from "When scrolling" to "Always". It causes
-			// issues when viwport width is less than full width Editor's width. To detect avoid them
+			// issues when viwport width is less than full/max width Editor's width. To detect avoid them
 			// we need to use lineLength to defined responsiveWidth instead of containerWidth
-			// (which does not get updated when Mac setting changes) in Full-width editor.
-			if (isFullWidthModeEnabled) {
+			// (which does not get updated when Mac setting changes) in Full-width/Max-width editor.
+			if (
+				isFullWidthModeEnabled ||
+				(isMaxWidthModeEnabled && fg('platform_editor_max_width_default_width'))
+			) {
 				// When: Show scroll bars -> containerWidth = akEditorGutterPadding * 2 + lineLength;
 				// When: Always -> containerWidth = akEditorGutterPadding * 2 + lineLength + scrollbarWidth;
 				// scrollbarWidth can vary. Values can be 14, 15, 16 and up to 20px;
@@ -409,6 +418,7 @@ export const ResizableTableContainer = React.memo(
 			containerWidth,
 			isCommentEditor,
 			isFullWidthModeEnabled,
+			isMaxWidthModeEnabled,
 			isTableScalingEnabled,
 			lineLength,
 			node.attrs.width,

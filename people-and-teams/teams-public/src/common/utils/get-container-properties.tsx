@@ -45,6 +45,7 @@ const styles = cssMap({
 		marginInline: 0,
 		marginBlock: 0,
 	},
+
 	linkIconWrapper: {
 		width: '16px',
 		height: '16px',

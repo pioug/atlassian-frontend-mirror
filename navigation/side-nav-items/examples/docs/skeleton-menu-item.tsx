@@ -20,13 +20,13 @@ const wrapperStyles = cssMap({
 	},
 });
 
-export function SkeletonMenuItemDescriptionExample(): React.JSX.Element {
+export function SkeletonMenuItemExample(): React.JSX.Element {
 	return (
 		<MockSideNav>
 			<Stack space="space.300" xcss={wrapperStyles.root}>
 				<Stack space="space.050">
 					<Text size="small" color="color.text.subtlest">
-						Without description
+						Default
 					</Text>
 					<SkeletonMenuItem />
 				</Stack>
@@ -36,9 +36,21 @@ export function SkeletonMenuItemDescriptionExample(): React.JSX.Element {
 					</Text>
 					<SkeletonMenuItem hasDescription />
 				</Stack>
+				<Stack space="space.050">
+					<Text size="small" color="color.text.subtlest">
+						With elemBefore
+					</Text>
+					<SkeletonMenuItem hasElemBefore />
+				</Stack>
+				<Stack space="space.050">
+					<Text size="small" color="color.text.subtlest">
+						With elemBefore and description
+					</Text>
+					<SkeletonMenuItem hasElemBefore hasDescription />
+				</Stack>
 			</Stack>
 		</MockSideNav>
 	);
 }
 
-export default SkeletonMenuItemDescriptionExample;
+export default SkeletonMenuItemExample;

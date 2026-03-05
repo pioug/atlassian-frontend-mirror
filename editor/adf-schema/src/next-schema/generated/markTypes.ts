@@ -166,6 +166,25 @@ export const em = createPMMarkSpecFactory({
   group: 'fontStyle',
 });
 
+export interface FontSizeMarkAttributes {
+  fontSize: 'small';
+}
+
+export interface FontSizeDefinition {
+  type: 'fontSize';
+  attrs: FontSizeMarkAttributes;
+}
+
+export interface FontSizeMark extends Mark {
+  attrs: FontSizeMarkAttributes;
+}
+
+export const fontSize = createPMMarkSpecFactory<FontSizeMark>({
+  attrs: { fontSize: {} },
+  inclusive: false,
+  spanning: false,
+});
+
 export interface FragmentMarkAttributes {
   localId: string;
   name?: string;

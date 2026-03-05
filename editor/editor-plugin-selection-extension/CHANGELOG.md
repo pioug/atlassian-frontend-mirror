@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 10.3.24
+
+### Patch Changes
+
+- [`0a3f1913cc452`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a3f1913cc452) -
+  Skip tracking experience for extension item transform
+- Updated dependencies
+
 ## 10.3.23
 
 ### Patch Changes

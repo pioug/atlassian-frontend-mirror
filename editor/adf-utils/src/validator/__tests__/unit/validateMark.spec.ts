@@ -985,7 +985,7 @@ describe('validate Mark', () => {
 			};
 
 			validate(initialEntity, errorCallbackMock);
-			expect(errorCallbackMock).toHaveBeenCalledTimes(3);
+			expect(errorCallbackMock).toHaveBeenCalledTimes(5);
 			const expectedMeta = { attrs: { mode: 'wide' }, type: 'breakout' };
 			expect(errorCallbackMock).toHaveBeenNthCalledWith(
 				1,
@@ -1029,6 +1029,34 @@ describe('validate Mark', () => {
 					isMark: true,
 				}),
 			);
+			expect(errorCallbackMock).toHaveBeenNthCalledWith(
+				4,
+				expect.anything(),
+				expect.objectContaining({
+					code: 'INVALID_TYPE',
+					message: 'breakout: unsupported mark.',
+					meta: expectedMeta,
+				}),
+				expect.objectContaining({
+					allowUnsupportedBlock: false,
+					allowUnsupportedInline: false,
+					isMark: true,
+				}),
+			);
+			expect(errorCallbackMock).toHaveBeenNthCalledWith(
+				5,
+				expect.anything(),
+				expect.objectContaining({
+					code: 'INVALID_TYPE',
+					message: 'breakout: unsupported mark.',
+					meta: expectedMeta,
+				}),
+				expect.objectContaining({
+					allowUnsupportedBlock: false,
+					allowUnsupportedInline: false,
+					isMark: true,
+				}),
+			);
 		},
 	);
 
@@ -1056,7 +1084,7 @@ describe('validate Mark', () => {
 		};
 
 		validate(initialEntity, errorCallbackMock);
-		expect(errorCallbackMock).toHaveBeenCalledTimes(3);
+		expect(errorCallbackMock).toHaveBeenCalledTimes(5);
 		const expectedMeta = { type: 'unknownMark' };
 		expect(errorCallbackMock).toHaveBeenNthCalledWith(
 			1,
@@ -1088,6 +1116,34 @@ describe('validate Mark', () => {
 		);
 		expect(errorCallbackMock).toHaveBeenNthCalledWith(
 			3,
+			expect.anything(),
+			expect.objectContaining({
+				code: 'INVALID_CONTENT',
+				message: 'unknownMark: unsupported mark.',
+				meta: expectedMeta,
+			}),
+			expect.objectContaining({
+				allowUnsupportedBlock: false,
+				allowUnsupportedInline: false,
+				isMark: true,
+			}),
+		);
+		expect(errorCallbackMock).toHaveBeenNthCalledWith(
+			4,
+			expect.anything(),
+			expect.objectContaining({
+				code: 'INVALID_CONTENT',
+				message: 'unknownMark: unsupported mark.',
+				meta: expectedMeta,
+			}),
+			expect.objectContaining({
+				allowUnsupportedBlock: false,
+				allowUnsupportedInline: false,
+				isMark: true,
+			}),
+		);
+		expect(errorCallbackMock).toHaveBeenNthCalledWith(
+			5,
 			expect.anything(),
 			expect.objectContaining({
 				code: 'INVALID_CONTENT',
@@ -1273,7 +1329,7 @@ describe('validate Mark', () => {
 			],
 		};
 		validate(initialEntity, errorCallbackMock);
-		expect(errorCallbackMock).toHaveBeenCalledTimes(6);
+		expect(errorCallbackMock).toHaveBeenCalledTimes(10);
 		expect(errorCallbackMock).toHaveBeenNthCalledWith(
 			1,
 			expect.anything(),
@@ -1358,6 +1414,62 @@ describe('validate Mark', () => {
 				isMark: true,
 			}),
 		);
+		expect(errorCallbackMock).toHaveBeenNthCalledWith(
+			7,
+			expect.anything(),
+			expect.objectContaining({
+				code: 'INVALID_TYPE',
+				message: 'strong: unsupported mark.',
+				meta: mark1,
+			}),
+			expect.objectContaining({
+				allowUnsupportedBlock: false,
+				allowUnsupportedInline: false,
+				isMark: true,
+			}),
+		);
+		expect(errorCallbackMock).toHaveBeenNthCalledWith(
+			8,
+			expect.anything(),
+			expect.objectContaining({
+				code: 'INVALID_TYPE',
+				message: 'em: unsupported mark.',
+				meta: mark2,
+			}),
+			expect.objectContaining({
+				allowUnsupportedBlock: false,
+				allowUnsupportedInline: false,
+				isMark: true,
+			}),
+		);
+		expect(errorCallbackMock).toHaveBeenNthCalledWith(
+			9,
+			expect.anything(),
+			expect.objectContaining({
+				code: 'INVALID_TYPE',
+				message: 'strong: unsupported mark.',
+				meta: mark1,
+			}),
+			expect.objectContaining({
+				allowUnsupportedBlock: false,
+				allowUnsupportedInline: false,
+				isMark: true,
+			}),
+		);
+		expect(errorCallbackMock).toHaveBeenNthCalledWith(
+			10,
+			expect.anything(),
+			expect.objectContaining({
+				code: 'INVALID_TYPE',
+				message: 'em: unsupported mark.',
+				meta: mark2,
+			}),
+			expect.objectContaining({
+				allowUnsupportedBlock: false,
+				allowUnsupportedInline: false,
+				isMark: true,
+			}),
+		);
 	});
 
 	it(`should throw INVALID_TYPE error, when known mark along with an unknown
@@ -1387,7 +1499,7 @@ describe('validate Mark', () => {
 		};
 
 		validate(initialEntity, errorCallbackMock);
-		expect(errorCallbackMock).toHaveBeenCalledTimes(6);
+		expect(errorCallbackMock).toHaveBeenCalledTimes(10);
 		const expectedMeta1 = { type: 'strong' };
 		const expectedMeta2 = { type: 'unknownMark' };
 		expect(errorCallbackMock).toHaveBeenNthCalledWith(
@@ -1406,6 +1518,118 @@ describe('validate Mark', () => {
 		);
 		expect(errorCallbackMock).toHaveBeenNthCalledWith(
 			2,
+			expect.anything(),
+			expect.objectContaining({
+				code: 'INVALID_CONTENT',
+				message: 'unknownMark: unsupported mark.',
+				meta: expectedMeta2,
+			}),
+			expect.objectContaining({
+				allowUnsupportedBlock: false,
+				allowUnsupportedInline: false,
+				isMark: true,
+			}),
+		);
+		expect(errorCallbackMock).toHaveBeenNthCalledWith(
+			3,
+			expect.anything(),
+			expect.objectContaining({
+				code: 'INVALID_TYPE',
+				message: 'strong: unsupported mark.',
+				meta: expectedMeta1,
+			}),
+			expect.objectContaining({
+				allowUnsupportedBlock: false,
+				allowUnsupportedInline: false,
+				isMark: true,
+			}),
+		);
+		expect(errorCallbackMock).toHaveBeenNthCalledWith(
+			4,
+			expect.anything(),
+			expect.objectContaining({
+				code: 'INVALID_CONTENT',
+				message: 'unknownMark: unsupported mark.',
+				meta: expectedMeta2,
+			}),
+			expect.objectContaining({
+				allowUnsupportedBlock: false,
+				allowUnsupportedInline: false,
+				isMark: true,
+			}),
+		);
+		expect(errorCallbackMock).toHaveBeenNthCalledWith(
+			5,
+			expect.anything(),
+			expect.objectContaining({
+				code: 'INVALID_TYPE',
+				message: 'strong: unsupported mark.',
+				meta: expectedMeta1,
+			}),
+			expect.objectContaining({
+				allowUnsupportedBlock: false,
+				allowUnsupportedInline: false,
+				isMark: true,
+			}),
+		);
+		expect(errorCallbackMock).toHaveBeenNthCalledWith(
+			6,
+			expect.anything(),
+			expect.objectContaining({
+				code: 'INVALID_CONTENT',
+				message: 'unknownMark: unsupported mark.',
+				meta: expectedMeta2,
+			}),
+			expect.objectContaining({
+				allowUnsupportedBlock: false,
+				allowUnsupportedInline: false,
+				isMark: true,
+			}),
+		);
+		expect(errorCallbackMock).toHaveBeenNthCalledWith(
+			7,
+			expect.anything(),
+			expect.objectContaining({
+				code: 'INVALID_TYPE',
+				message: 'strong: unsupported mark.',
+				meta: expectedMeta1,
+			}),
+			expect.objectContaining({
+				allowUnsupportedBlock: false,
+				allowUnsupportedInline: false,
+				isMark: true,
+			}),
+		);
+		expect(errorCallbackMock).toHaveBeenNthCalledWith(
+			8,
+			expect.anything(),
+			expect.objectContaining({
+				code: 'INVALID_CONTENT',
+				message: 'unknownMark: unsupported mark.',
+				meta: expectedMeta2,
+			}),
+			expect.objectContaining({
+				allowUnsupportedBlock: false,
+				allowUnsupportedInline: false,
+				isMark: true,
+			}),
+		);
+		expect(errorCallbackMock).toHaveBeenNthCalledWith(
+			9,
+			expect.anything(),
+			expect.objectContaining({
+				code: 'INVALID_TYPE',
+				message: 'strong: unsupported mark.',
+				meta: expectedMeta1,
+			}),
+			expect.objectContaining({
+				allowUnsupportedBlock: false,
+				allowUnsupportedInline: false,
+				isMark: true,
+			}),
+		);
+		expect(errorCallbackMock).toHaveBeenNthCalledWith(
+			10,
 			expect.anything(),
 			expect.objectContaining({
 				code: 'INVALID_CONTENT',

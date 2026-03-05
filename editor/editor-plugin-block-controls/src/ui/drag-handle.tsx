@@ -557,21 +557,17 @@ export const DragHandle = ({
 	const [recalculatePosition, setRecalculatePosition] = useState<boolean>(false);
 	const [positionStylesOld, setPositionStylesOld] = useState<CSSProperties>({ display: 'none' });
 	const [isFocused, setIsFocused] = useState(Boolean(handleOptions?.isFocused));
-	const {
-		macroInteractionUpdates,
-		selection,
-		isShiftDown,
-		interactionState,
-	} = useSharedPluginStateWithSelector(
-		api,
-		['featureFlags', 'selection', 'blockControls', 'interaction'],
-		(states) => ({
-			macroInteractionUpdates: states.featureFlagsState?.macroInteractionUpdates,
-			selection: states.selectionState?.selection,
-			isShiftDown: states.blockControlsState?.isShiftDown,
-			interactionState: states.interactionState?.interactionState,
-		}),
-	);
+	const { macroInteractionUpdates, selection, isShiftDown, interactionState } =
+		useSharedPluginStateWithSelector(
+			api,
+			['featureFlags', 'selection', 'blockControls', 'interaction'],
+			(states) => ({
+				macroInteractionUpdates: states.featureFlagsState?.macroInteractionUpdates,
+				selection: states.selectionState?.selection,
+				isShiftDown: states.blockControlsState?.isShiftDown,
+				interactionState: states.interactionState?.interactionState,
+			}),
+		);
 
 	const start = getPos();
 	const isLayoutColumn = nodeType === 'layoutColumn';
@@ -1636,15 +1632,15 @@ export const DragHandleWithVisibility = ({
 	isTopLevelNode,
 	anchorRectCache,
 }: DragHandleProps) => {
-	const rightSideControlsEnabled =
-		useSharedPluginStateWithSelector(api, ['blockControls'], (states) => ({
+	const rightSideControlsEnabled = useSharedPluginStateWithSelector(
+		api,
+		['blockControls'],
+		(states) => ({
 			rightSideControlsEnabled: states.blockControlsState?.rightSideControlsEnabled ?? false,
-		})).rightSideControlsEnabled;
+		}),
+	).rightSideControlsEnabled;
 	return (
-		<VisibilityContainer
-			api={api}
-			controlSide={rightSideControlsEnabled ? 'left' : undefined}
-		>
+		<VisibilityContainer api={api} controlSide={rightSideControlsEnabled ? 'left' : undefined}>
 			<DragHandle
 				view={view}
 				api={api}

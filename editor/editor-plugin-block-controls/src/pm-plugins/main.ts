@@ -705,13 +705,7 @@ export const apply = (
 
 			if (fg('platform_editor_expose_block_controls_deco_api')) {
 				for (const factory of nodeDecorationRegistry) {
-					const old = decorations.find(
-						activeNode?.rootPos,
-						activeNode?.rootPos,
-						(spec) => spec.type === factory.type,
-					);
-					decorations = decorations.remove(old);
-					const dec = factory.create({
+					const params = {
 						editorState: newState,
 						nodeViewPortalProviderAPI,
 						anchorName: latestActiveNode?.anchorName,
@@ -719,21 +713,24 @@ export const apply = (
 						rootPos: latestActiveNode?.rootPos,
 						rootAnchorName: latestActiveNode?.rootAnchorName,
 						rootNodeType: latestActiveNode?.rootNodeType,
-					});
+					};
+					const old = decorations.find(
+						activeNode?.rootPos,
+						activeNode?.rootPos,
+						(spec) => spec.type === factory.type,
+					);
+					decorations = decorations.remove(old);
+					const dec = factory.create(params);
 					decorations = decorations.add(newState.doc, [dec]);
 				}
 			}
 		}
 
 		// In view mode (edit/live pages), show right-side controls on block hover (without drag handle or quick insert)
-		if (
-			isViewMode &&
-			latestActiveNode?.rootPos !== undefined &&
-			flags.toolbarFlagsEnabled &&
-			rightSideControlsEnabled &&
-			expValEquals('confluence_remix_icon_right_side', 'isEnabled', true)
-		) {
-			const rootPos = latestActiveNode.rootPos;
+		const rootPos = latestActiveNode?.rootPos;
+		// rootPos is computed using the same logic as the floating insert menu, so it always points to a top-level (doc child) block when defined.
+		const isDocLevel = rootPos !== undefined && !isNaN(rootPos);
+		if (isViewMode && isDocLevel && flags.toolbarFlagsEnabled && rightSideControlsEnabled) {
 			for (const factory of nodeDecorationRegistry) {
 				if (factory.showInViewMode) {
 					const existingAtPos = decorations.find(
@@ -1057,7 +1054,10 @@ export const createPlugin = (
 						rightSideControlsEnabled &&
 						expValEquals('confluence_remix_icon_right_side', 'isEnabled', true);
 					// Hide decorations when disabled, except in view mode when right-side controls are enabled
-					if (!remixRightSideEnabled || api?.editorViewMode?.sharedState.currentState()?.mode !== 'view') {
+					if (
+						!remixRightSideEnabled ||
+						api?.editorViewMode?.sharedState.currentState()?.mode !== 'view'
+					) {
 						return;
 					}
 				}

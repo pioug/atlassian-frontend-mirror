@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 8.9.1
+
+### Patch Changes
+
+- [`1d0fcc9c19260`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d0fcc9c19260) -
+  Clean up flag to make links more accessible.
+- Updated dependencies
+
+## 8.9.0
+
+### Minor Changes
+
+- [`e15637c7f5994`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e15637c7f5994) -
+  [ux] Fix hover logic for block
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.8.2
 
 ### Patch Changes

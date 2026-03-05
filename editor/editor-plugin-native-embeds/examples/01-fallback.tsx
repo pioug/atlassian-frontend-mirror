@@ -24,7 +24,8 @@ setupEditorExperiments('test', {
 });
 
 const NATIVE_EMBEDS_EXAMPLE_URLS = {
-	whiteboard: 'https://pug.jira-dev.com/wiki/spaces/~5d65cd4405102c0d9347842e/whiteboard/455194935306',
+	whiteboard:
+		'https://pug.jira-dev.com/wiki/spaces/~5d65cd4405102c0d9347842e/whiteboard/455194935306',
 };
 
 const nativeEmbedsFallbackDoc: DocNode = {
@@ -121,9 +122,7 @@ const NativeEmbedsFallbackEditorExample = (): React.JSX.Element => {
 					primaryToolbarIconBefore={
 						<Button iconBefore={<AtlassianIcon />} appearance="subtle" shouldFitContainer></Button>
 					}
-					extensionProviders={[
-						nativeEmbedsFallbackExtensionProvider,
-					]}
+					extensionProviders={[nativeEmbedsFallbackExtensionProvider]}
 					onEditorReady={onEditorReady}
 					// eslint-disable-next-line react/jsx-props-no-spreading -- needed only for providers
 					{...providers}

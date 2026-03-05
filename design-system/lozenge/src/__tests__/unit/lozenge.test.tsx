@@ -608,11 +608,7 @@ describe('LozengeDropdownTrigger', () => {
 
 		it('should work without any aria props (backward compatibility)', () => {
 			render(
-				<LozengeDropdownTrigger
-					appearance="success"
-					isSelected={false}
-					testId="no-aria-trigger"
-				>
+				<LozengeDropdownTrigger appearance="success" isSelected={false} testId="no-aria-trigger">
 					Status
 				</LozengeDropdownTrigger>,
 			);

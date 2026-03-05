@@ -26,7 +26,7 @@ describe(`${packageName}/schema layout-column node`, () => {
 				content: '(block | unsupportedBlock)+',
 				isolating: true,
 				marks:
-					'alignment dataConsumer fragment indentation unsupportedMark unsupportedNodeAttribute',
+					'alignment fontSize dataConsumer fragment indentation unsupportedMark unsupportedNodeAttribute',
 				parseDOM: [
 					{
 						context: 'layoutColumn//',
@@ -64,10 +64,68 @@ describe(`${packageName}/schema layout-column node`, () => {
 		const node = pmDoc.firstChild!;
 		expect(node.type.name).toEqual('paragraph');
 	});
+
+	describe('paragraph with fontSize mark', () => {
+		const schemaWithFontSize = makeSchemaWithFontSize();
+
+		it('paragraph with fontSize is valid inside layoutColumn', () => {
+			const paragraph = schemaWithFontSize.nodes.paragraph.create(
+				null,
+				schemaWithFontSize.text('Small text'),
+				[schemaWithFontSize.marks.fontSize.create({ fontSize: 'small' })],
+			);
+			const layoutCol = schemaWithFontSize.nodes.layoutColumn.create(null, [paragraph]);
+
+			expect(layoutCol).toBeDefined();
+			expect(layoutCol.firstChild).toBe(paragraph);
+			expect(layoutCol.firstChild?.marks[0].type.name).toBe('fontSize');
+			expect(layoutCol.firstChild?.marks[0].attrs.fontSize).toBe('small');
+		});
+
+		it('layoutColumn can contain multiple paragraphs with different fontSize values', () => {
+			const paragraphWithFontSize = schemaWithFontSize.nodes.paragraph.create(
+				null,
+				schemaWithFontSize.text('Small text'),
+				[schemaWithFontSize.marks.fontSize.create({ fontSize: 'small' })],
+			);
+			const paragraphNormal = schemaWithFontSize.nodes.paragraph.create(
+				null,
+				schemaWithFontSize.text('Normal text'),
+			);
+			const layoutCol = schemaWithFontSize.nodes.layoutColumn.create(null, [
+				paragraphWithFontSize,
+				paragraphNormal,
+			]);
+
+			expect(layoutCol.childCount).toBe(2);
+			expect(layoutCol.firstChild?.marks[0]?.type.name).toBe('fontSize');
+			expect(layoutCol.lastChild?.marks.length).toBe(0);
+		});
+
+		it('layoutColumn with fontSize paragraph serializes correctly', () => {
+			const paragraph = schemaWithFontSize.nodes.paragraph.create(
+				null,
+				schemaWithFontSize.text('Small text'),
+				[schemaWithFontSize.marks.fontSize.create({ fontSize: 'small' })],
+			);
+			const layoutCol = schemaWithFontSize.nodes.layoutColumn.create(null, [paragraph]);
+			const html = toHTML(layoutCol, schemaWithFontSize);
+
+			expect(html).toContain('data-layout-column');
+			expect(html).toContain('data-font-size="small"');
+		});
+	});
 });
 
 function makeSchema() {
 	return createSchema({
 		nodes: ['doc', 'layoutSection', 'layoutColumn', 'paragraph', 'text'],
+	});
+}
+
+function makeSchemaWithFontSize() {
+	return createSchema({
+		nodes: ['doc', 'layoutSection', 'layoutColumn', 'paragraph', 'text'],
+		marks: ['fontSize', 'alignment', 'indentation'],
 	});
 }

@@ -24,18 +24,19 @@ const calculateNodesForBlockDecoration = (
 	doc: EditorState['doc'],
 	from: number,
 	to: number,
-	colourScheme?: 'standard' | 'traditional',
+	colorScheme?: 'standard' | 'traditional',
 ): Decoration[] => {
 	const decorations: Decoration[] = [];
 	// Iterate over the document nodes within the range
 	doc.nodesBetween(from, to, (node, pos) => {
 		if (node.isBlock) {
-			decorations.push(
-				createBlockChangedDecoration(
-					{ from: pos, to: pos + node.nodeSize, name: node.type.name },
-					colourScheme,
-				),
+			const decoration = createBlockChangedDecoration(
+				{ from: pos, to: pos + node.nodeSize, name: node.type.name },
+				colorScheme,
 			);
+			if (decoration) {
+				decorations.push(decoration);
+			}
 		}
 	});
 
@@ -83,12 +84,12 @@ const calculateDiffDecorationsInner = ({
 	state,
 	pluginState,
 	nodeViewSerializer,
-	colourScheme,
+	colorScheme,
 	intl,
 	activeIndexPos,
 }: {
 	activeIndexPos?: { from: number; to: number };
-	colourScheme?: 'standard' | 'traditional';
+	colorScheme?: 'standard' | 'traditional';
 	intl: IntlShape;
 	nodeViewSerializer: NodeViewSerializer;
 	pluginState: Omit<ShowDiffPluginState, 'decorations'>;
@@ -131,9 +132,9 @@ const calculateDiffDecorationsInner = ({
 		const isActive =
 			activeIndexPos && change.fromB >= activeIndexPos.from && change.toB <= activeIndexPos.to;
 		if (change.inserted.length > 0) {
-			decorations.push(createInlineChangedDecoration(change, colourScheme, isActive));
+			decorations.push(createInlineChangedDecoration(change, colorScheme, isActive));
 			decorations.push(
-				...calculateNodesForBlockDecoration(tr.doc, change.fromB, change.toB, colourScheme),
+				...calculateNodesForBlockDecoration(tr.doc, change.fromB, change.toB, colorScheme),
 			);
 		}
 		if (change.deleted.length > 0) {
@@ -143,7 +144,7 @@ const calculateDiffDecorationsInner = ({
 				change,
 				doc: originalDoc,
 				nodeViewSerializer,
-				colourScheme,
+				colorScheme,
 				newDoc: tr.doc,
 				intl,
 				isActive,
@@ -156,11 +157,11 @@ const calculateDiffDecorationsInner = ({
 	getMarkChangeRanges(steps).forEach((change) => {
 		const isActive =
 			activeIndexPos && change.fromB >= activeIndexPos.from && change.toB <= activeIndexPos.to;
-		decorations.push(createInlineChangedDecoration(change, colourScheme, isActive));
+		decorations.push(createInlineChangedDecoration(change, colorScheme, isActive));
 	});
 	getAttrChangeRanges(tr.doc, attrSteps).forEach((change) => {
 		decorations.push(
-			...calculateNodesForBlockDecoration(tr.doc, change.fromB, change.toB, colourScheme),
+			...calculateNodesForBlockDecoration(tr.doc, change.fromB, change.toB, colorScheme),
 		);
 	});
 
@@ -171,12 +172,12 @@ export const calculateDiffDecorations = memoizeOne(
 	calculateDiffDecorationsInner,
 	// Cache results unless relevant inputs change
 	(
-		[{ pluginState, state, colourScheme, intl, activeIndexPos }],
+		[{ pluginState, state, colorScheme, intl, activeIndexPos }],
 		[
 			{
 				pluginState: lastPluginState,
 				state: lastState,
-				colourScheme: lastColourScheme,
+				colorScheme: lastColorScheme,
 				intl: lastIntl,
 				activeIndexPos: lastActiveIndexPos,
 			},
@@ -190,7 +191,7 @@ export const calculateDiffDecorations = memoizeOne(
 			(originalDocIsSame &&
 				isEqual(pluginState.steps, lastPluginState.steps) &&
 				state.doc.eq(lastState.doc) &&
-				colourScheme === lastColourScheme &&
+				colorScheme === lastColorScheme &&
 				intl.locale === lastIntl.locale &&
 				isEqual(activeIndexPos, lastActiveIndexPos)) ??
 			false

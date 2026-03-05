@@ -45,7 +45,7 @@ export interface AddContainerCardProps {
 	containerType: ContainerTypes;
 	onAddAContainerClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 	isLoading?: boolean;
-	showNewDesign?: boolean;
+	canCreateContainers?: boolean;
 }
 
 const AddContainerCardWrapper = ({
@@ -76,7 +76,7 @@ export const AddContainerCard = ({
 	containerType,
 	onAddAContainerClick,
 	isLoading = false,
-	showNewDesign = false,
+	canCreateContainers = false,
 }: AddContainerCardProps): React.JSX.Element => {
 	const { description, icon, title } = getContainerProperties({
 		containerType,
@@ -103,7 +103,7 @@ export const AddContainerCard = ({
 						}}
 					/>
 				</Box>
-				{showNewDesign ? (
+				{canCreateContainers ? (
 					<AddContainerCardButton type={containerType} />
 				) : (
 					<Stack
@@ -134,14 +134,14 @@ type GetAddContainerCardsProps = {
 		containerType: 'Confluence' | 'Jira' | 'Loom' | 'WebLink',
 	) => void;
 	CustomAddContainerCard?: React.ComponentType<AddContainerCardProps>;
-	showNewDesign?: boolean;
+	canCreateContainers?: boolean;
 };
 
 export const getAddContainerCards = ({
 	containers,
 	onAddAContainerClick,
 	CustomAddContainerCard,
-	showNewDesign,
+	canCreateContainers,
 }: GetAddContainerCardsProps): React.JSX.Element => {
 	const AddContainerCardComponent = CustomAddContainerCard ?? AddContainerCard;
 	return (
@@ -151,7 +151,7 @@ export const getAddContainerCards = ({
 					onAddAContainerClick={(e) => onAddAContainerClick(e, 'Jira')}
 					containerType="JiraProject"
 					isLoading={containers.Jira.isLoading}
-					showNewDesign={showNewDesign}
+					canCreateContainers={canCreateContainers}
 				/>
 			)}
 			{containers.Confluence.canAdd && (
@@ -159,7 +159,7 @@ export const getAddContainerCards = ({
 					onAddAContainerClick={(e) => onAddAContainerClick(e, 'Confluence')}
 					containerType="ConfluenceSpace"
 					isLoading={containers.Confluence.isLoading}
-					showNewDesign={showNewDesign}
+					canCreateContainers={canCreateContainers}
 				/>
 			)}
 			{containers.Loom.canAdd && (
@@ -167,14 +167,14 @@ export const getAddContainerCards = ({
 					onAddAContainerClick={(e) => onAddAContainerClick(e, 'Loom')}
 					containerType="LoomSpace"
 					isLoading={containers.Loom.isLoading}
-					showNewDesign={showNewDesign}
+					canCreateContainers={canCreateContainers}
 				/>
 			)}
 			{containers.WebLink.canAdd && (
 				<AddContainerCardComponent
 					onAddAContainerClick={(e) => onAddAContainerClick(e, 'WebLink')}
 					containerType="WebLink"
-					showNewDesign={showNewDesign}
+					canCreateContainers={canCreateContainers}
 				/>
 			)}
 		</>

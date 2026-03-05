@@ -204,6 +204,7 @@ import {
 	syncBlockFirstNodeStyles,
 	syncBlockOverflowStyles,
 	syncBlockOverflowStylesNew,
+	syncBlockDraggingStyles,
 } from './styles/syncBlockStyles';
 import {
 	tableCommentEditorStyles,
@@ -618,6 +619,10 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 						fg('platform_synced_block_patch_3') &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						syncBlockFirstNodeStyles,
+					editorExperiment('platform_synced_block', true) &&
+						fg('platform_synced_block_patch_5') &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						syncBlockDraggingStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					editorExperiment('advanced_layouts', true) && layoutBaseStylesAdvanced,
 					editorExperiment('advanced_layouts', true)

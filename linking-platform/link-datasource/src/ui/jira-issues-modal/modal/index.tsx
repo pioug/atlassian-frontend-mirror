@@ -118,7 +118,6 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 	const { cloudId, jql } = parameters ?? {};
 	const [initialJql] = useState(jql);
 
-	const isJqlSubmitFixEnabled = fg('navx-1345-issues-modal-jql-submit-fix');
 	const [hasJqlSyntaxErrors, setHasJqlSyntaxErrors] = useState(false); // Tracks if current jql input has syntax errors
 
 	const { currentViewMode } = useViewModeContext();
@@ -538,7 +537,7 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 								<JiraSearchContainer
 									setSearchBarJql={setSearchBarJql}
 									searchBarJql={searchBarJql}
-									setHasJqlSyntaxErrors={isJqlSubmitFixEnabled ? setHasJqlSyntaxErrors : undefined}
+									setHasJqlSyntaxErrors={setHasJqlSyntaxErrors}
 									isSearching={status === 'loading'}
 									parameters={parameters}
 									onSearch={onSearch}
@@ -581,12 +580,8 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 								testId="jira-datasource-modal--insert-button"
 								url={urlToInsert}
 								getAnalyticsPayload={getInsertButtonAnalyticsPayload}
-								{...(isJqlSubmitFixEnabled
-									? {
-											onBeforeInsert: updateParametersJql,
-											hasErrors: hasJqlSyntaxErrors,
-										}
-									: {})}
+								onBeforeInsert={updateParametersJql}
+								hasErrors={hasJqlSyntaxErrors}
 							>
 								<FormattedMessage {...modalMessages.insertIssuesButtonTextIssueTermSllv} />
 							</InsertButton>

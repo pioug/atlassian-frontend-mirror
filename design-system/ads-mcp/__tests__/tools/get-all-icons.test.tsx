@@ -9,6 +9,7 @@ jest.mock('@atlaskit/icon/metadata', () => ({
 			categorization: 'single-purpose',
 			usage: 'Example Usage',
 			status: 'published',
+			team: 'Design System Team',
 		},
 		'test-icon-2': {
 			keywords: ['test-keyword'],
@@ -18,6 +19,7 @@ jest.mock('@atlaskit/icon/metadata', () => ({
 			usage: 'Example Usage',
 			status: 'published',
 			shouldRecommendSmallIcon: true,
+			team: 'Design System Team',
 		},
 	},
 }));
@@ -35,6 +37,7 @@ describe('ads_get_all_icons tool', () => {
 					keywords: ['test-keyword'],
 					status: 'published',
 					usage: 'Example Usage',
+					team: 'Design System Team',
 				},
 				null,
 				2,
@@ -51,6 +54,7 @@ describe('ads_get_all_icons tool', () => {
 					status: 'published',
 					usage: 'Example Usage',
 					shouldRecommendSmallIcon: true,
+					team: 'Design System Team',
 				},
 				null,
 				2,

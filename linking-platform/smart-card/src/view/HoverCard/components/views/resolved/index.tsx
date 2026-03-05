@@ -13,6 +13,7 @@ import { token } from '@atlaskit/tokens';
 
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
 import { CardDisplay, SmartLinkPosition, SmartLinkSize } from '../../../../../constants';
+import extractRovoChatAction from '../../../../../extractors/flexible/actions/extract-rovo-chat-action';
 import { succeedUfoExperience } from '../../../../../state/analytics';
 import useAISummaryAction from '../../../../../state/hooks/use-ai-summary-action';
 import useRovoConfig from '../../../../../state/hooks/use-rovo-config';
@@ -58,6 +59,7 @@ const actionBlockCss = css({
 });
 
 const HoverCardResolvedView = ({
+	actionOptions,
 	cardState,
 	extensionKey,
 	flexibleCardProps,
@@ -70,7 +72,18 @@ const HoverCardResolvedView = ({
 	di(useAISummaryAction);
 
 	const { fireEvent } = useAnalyticsEvents();
-	const rovoConfig = useRovoConfig();
+	const rovoConfig = fg('platform_sl_3p_auth_rovo_action_kill_switch')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useRovoConfig()
+		: undefined;
+	const isRovoSummaryEnabled = fg('platform_sl_3p_auth_rovo_action_kill_switch')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useMemo(
+				() =>
+					cardState?.details && extractRovoChatAction(cardState.details, rovoConfig, actionOptions),
+				[actionOptions, cardState?.details, rovoConfig],
+			)
+		: false;
 
 	useEffect(() => {
 		// Since this hover view is only rendered on resolved status,
@@ -110,27 +123,6 @@ const HoverCardResolvedView = ({
 	const snippet = imagePreview ? null : <SnippetBlock css={[snippetBlockCss]} />;
 	const aiSummaryMinHeight = snippet ? snippetHeight.current : 0;
 
-	const isRovoSummaryEnabled =
-		rovoConfig?.isRovoEnabled &&
-		extensionKey === 'google-object-provider' &&
-		fg('platform_sl_3p_auth_rovo_action_kill_switch');
-
-	const aiSummaryProps = fg('platform_sl_3p_auth_rovo_action_kill_switch')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useAISummaryAction(url)
-		: undefined;
-	const hasSummarised = useRef(false);
-
-	useEffect(() => {
-		if (fg('platform_sl_3p_auth_rovo_action_kill_switch')) {
-			if (aiSummaryProps?.state.status !== 'ready' || hasSummarised.current) {
-				return;
-			}
-			hasSummarised.current = true;
-			aiSummaryProps?.summariseUrl();
-		}
-	}, [aiSummaryProps, isRovoSummaryEnabled]);
-
 	return (
 		<FlexibleCard {...flexibleCardProps}>
 			{imagePreview}
@@ -146,7 +138,7 @@ const HoverCardResolvedView = ({
 				size={SmartLinkSize.Medium}
 			/>
 			{isRovoSummaryEnabled ? (
-				<RovoSummaryBlock aiSummaryMinHeight={aiSummaryMinHeight} placeholder={snippet} url={url} />
+				<RovoSummaryBlock aiSummaryMinHeight={aiSummaryMinHeight} url={url} />
 			) : isAISummaryEnabled ? (
 				<AISummaryBlock aiSummaryMinHeight={aiSummaryMinHeight} placeholder={snippet} />
 			) : (

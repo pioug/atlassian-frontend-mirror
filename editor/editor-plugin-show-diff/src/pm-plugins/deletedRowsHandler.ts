@@ -36,7 +36,7 @@ interface DeletedRowInfo {
 type SimpleChange = Pick<Change, 'fromA' | 'toA' | 'fromB' | 'deleted'>;
 
 interface DeletedRowsHandlerProps {
-	colourScheme?: 'standard' | 'traditional';
+	colorScheme?: 'standard' | 'traditional';
 	deletedRows: DeletedRowInfo[];
 	newDoc: PMNode;
 	nodeViewSerializer: NodeViewSerializer;
@@ -89,7 +89,7 @@ const extractDeletedRows = (
 	let currentOffset = 0;
 	let rowIndex = 0;
 
-	tableOld.node.content.forEach((rowNode, index) => {
+	tableOld.node.content.forEach((rowNode) => {
 		const rowStart = currentOffset;
 		const rowEnd = currentOffset + rowNode.nodeSize;
 
@@ -166,12 +166,12 @@ const isEmptyRow = (rowNode: PMNode): boolean => {
 const createDeletedRowDOM = (
 	rowNode: PMNode,
 	nodeViewSerializer: NodeViewSerializer,
-	colourScheme?: 'standard' | 'traditional',
+	colorScheme?: 'standard' | 'traditional',
 ): HTMLTableRowElement => {
 	const tr = document.createElement('tr');
 	tr.setAttribute(
 		'style',
-		colourScheme === 'traditional' ? deletedTraditionalRowStyle : deletedRowStyle,
+		colorScheme === 'traditional' ? deletedTraditionalRowStyle : deletedRowStyle,
 	);
 	tr.setAttribute('data-testid', 'show-diff-deleted-row');
 
@@ -223,10 +223,10 @@ export const createDeletedRowsDecorations = ({
 	originalDoc,
 	newDoc,
 	nodeViewSerializer,
-	colourScheme,
+	colorScheme,
 }: DeletedRowsHandlerProps): Decoration[] => {
 	return deletedRows.map((deletedRow) => {
-		const rowDOM = createDeletedRowDOM(deletedRow.rowNode, nodeViewSerializer, colourScheme);
+		const rowDOM = createDeletedRowDOM(deletedRow.rowNode, nodeViewSerializer, colorScheme);
 
 		// Find safe insertion position for the deleted row
 		const safeInsertPos = findSafeInsertPos(
@@ -247,7 +247,7 @@ export const handleDeletedRows = (
 	originalDoc: PMNode,
 	newDoc: PMNode,
 	nodeViewSerializer: NodeViewSerializer,
-	colourScheme?: 'standard' | 'traditional',
+	colorScheme?: 'standard' | 'traditional',
 ): { decorations: Decoration[] } => {
 	// First, expand the changes to include complete deleted rows
 	const deletedRows = expandDiffForDeletedRows(
@@ -261,7 +261,7 @@ export const handleDeletedRows = (
 		originalDoc,
 		newDoc,
 		nodeViewSerializer,
-		colourScheme,
+		colorScheme,
 	});
 
 	return {

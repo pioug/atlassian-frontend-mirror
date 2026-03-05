@@ -162,7 +162,7 @@ class PanelNodeView {
 		// This avoids Portal rendering delays that cause flickering on SSR and page transitions
 		if (
 			isStandardPanel &&
-			expValEquals('platform_editor_vc90_transition_fixes_batch_1', 'isEnabled', true)
+			expValEquals('platform_editor_vc90_transition_panel_icon', 'isEnabled', true)
 		) {
 			renderPanelIcon(panelAttrs.panelType, this.icon);
 		} else {
@@ -208,7 +208,7 @@ class PanelNodeView {
 		if (
 			!(
 				isStandardPanel &&
-				expValEquals('platform_editor_vc90_transition_fixes_batch_1', 'isEnabled', true)
+				expValEquals('platform_editor_vc90_transition_panel_icon', 'isEnabled', true)
 			)
 		) {
 			this.nodeViewPortalProviderAPI.remove(this.key);

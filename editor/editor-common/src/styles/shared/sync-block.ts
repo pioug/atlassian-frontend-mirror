@@ -24,8 +24,10 @@ export const SyncBlockLabelSharedCssClassName = {
 export const disabledClassName = 'disabled';
 export const viewModeClassName = 'view-mode';
 export const creationLoadingClassName = 'creation-loading';
+export const draggingClassName = 'user-is-dragging';
 export const SyncBlockStateCssClassName = {
 	disabledClassName,
 	viewModeClassName,
 	creationLoadingClassName,
+	draggingClassName,
 };

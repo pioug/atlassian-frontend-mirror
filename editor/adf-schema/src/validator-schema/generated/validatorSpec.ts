@@ -31,6 +31,8 @@ export const block_content = [
   'paragraph_with_no_marks',
   'paragraph_with_alignment',
   'paragraph_with_indentation',
+  'paragraph_with_font_size_and_alignment',
+  'paragraph_with_font_size_and_indentation',
   'mediaSingle_caption',
   'mediaSingle_full',
   'codeBlock',
@@ -153,8 +155,16 @@ export const blockTaskItem = {
       type: 'array',
       isTupleLike: true,
       items: [
-        ['paragraph_with_no_marks', 'extension_with_marks'],
-        ['paragraph_with_no_marks', 'extension_with_marks'],
+        [
+          'paragraph_with_no_marks',
+          'paragraph_with_font_size',
+          'extension_with_marks',
+        ],
+        [
+          'paragraph_with_no_marks',
+          'paragraph_with_font_size',
+          'extension_with_marks',
+        ],
       ],
       minItems: 1,
     },
@@ -214,6 +224,8 @@ export const bodiedSyncBlock = {
           'paragraph',
           'paragraph_with_alignment',
           'paragraph_with_indentation',
+          'paragraph_with_font_size_and_alignment',
+          'paragraph_with_font_size_and_indentation',
           'paragraph_with_no_marks',
           'blockCard',
           'blockquote',
@@ -416,6 +428,8 @@ export const doc = {
           'paragraph_with_no_marks',
           'paragraph_with_alignment',
           'paragraph_with_indentation',
+          'paragraph_with_font_size_and_alignment',
+          'paragraph_with_font_size_and_indentation',
           'mediaSingle_caption',
           'mediaSingle_full',
           'codeBlock',
@@ -508,6 +522,7 @@ export const expand = {
       items: [
         [
           'paragraph_with_no_marks',
+          'paragraph_with_font_size',
           'panel',
           'blockquote',
           'orderedList',
@@ -580,6 +595,7 @@ export const extensionFrame = {
       items: [
         [
           'paragraph_with_no_marks',
+          'paragraph_with_font_size',
           'panel',
           'blockquote',
           'orderedList',
@@ -606,6 +622,13 @@ export const extensionFrame = {
       optional: true,
       items: [['dataConsumer', 'fragment']],
     },
+  },
+};
+
+export const fontSize = {
+  props: {
+    type: { type: 'enum', values: ['fontSize'] },
+    attrs: { props: { fontSize: { type: 'enum', values: ['small'] } } },
   },
 };
 
@@ -846,6 +869,7 @@ export const listItem = {
       isTupleLike: true,
       items: [
         [
+          'paragraph_with_font_size',
           'paragraph_with_no_marks',
           'mediaSingle_caption',
           'mediaSingle_full',
@@ -853,6 +877,7 @@ export const listItem = {
           'extension_with_marks',
         ],
         [
+          'paragraph_with_font_size',
           'paragraph_with_no_marks',
           'bulletList',
           'orderedList',
@@ -877,6 +902,7 @@ export const listItem_with_flexible_first_child = [
         type: 'array',
         items: [
           [
+            'paragraph_with_font_size',
             'paragraph_with_no_marks',
             'bulletList',
             'orderedList',
@@ -1126,6 +1152,7 @@ export const nestedExpand_content = {
   items: [
     [
       'paragraph_with_no_marks',
+      'paragraph_with_font_size',
       'heading_with_no_marks',
       'mediaSingle_caption',
       'mediaSingle_full',
@@ -1154,6 +1181,7 @@ export const nestedExpand_with_no_marks = [
 
 export const non_nestable_block_content = [
   'paragraph_with_no_marks',
+  'paragraph_with_font_size',
   'panel',
   'blockquote',
   'orderedList',
@@ -1219,6 +1247,7 @@ export const panel = {
       items: [
         [
           'paragraph_with_no_marks',
+          'paragraph_with_font_size',
           'heading_with_no_marks',
           'bulletList',
           'orderedList',
@@ -1259,6 +1288,37 @@ export const paragraph = {
 export const paragraph_with_alignment = [
   'paragraph',
   { props: { marks: { type: 'array', optional: true, items: ['alignment'] } } },
+];
+
+export const paragraph_with_font_size = [
+  'paragraph',
+  { props: { marks: { type: 'array', optional: true, items: ['fontSize'] } } },
+];
+
+export const paragraph_with_font_size_and_alignment = [
+  'paragraph',
+  {
+    props: {
+      marks: {
+        type: 'array',
+        optional: true,
+        items: [['fontSize', 'alignment']],
+      },
+    },
+  },
+];
+
+export const paragraph_with_font_size_and_indentation = [
+  'paragraph',
+  {
+    props: {
+      marks: {
+        type: 'array',
+        optional: true,
+        items: [['fontSize', 'indentation']],
+      },
+    },
+  },
 ];
 
 export const paragraph_with_indentation = [
@@ -1392,6 +1452,7 @@ export const tableCell = {
         [
           'paragraph_with_no_marks',
           'paragraph_with_alignment',
+          'paragraph_with_font_size_and_alignment',
           'panel',
           'blockquote',
           'orderedList',
@@ -1442,6 +1503,7 @@ export const tableHeader = {
         [
           'paragraph_with_no_marks',
           'paragraph_with_alignment',
+          'paragraph_with_font_size_and_alignment',
           'panel',
           'blockquote',
           'orderedList',

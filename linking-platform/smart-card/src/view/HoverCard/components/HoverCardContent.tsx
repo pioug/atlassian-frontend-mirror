@@ -184,6 +184,7 @@ const HoverCardContent = ({
 		if (cardState.status === 'resolved') {
 			return (
 				<HoverCardResolvedView
+					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ? { actionOptions } : undefined)}
 					cardState={cardState}
 					extensionKey={extensionKey}
 					flexibleCardProps={flexibleCardProps}

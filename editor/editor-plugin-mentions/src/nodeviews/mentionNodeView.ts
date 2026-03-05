@@ -185,7 +185,7 @@ export class MentionNodeView implements NodeView {
 
 	private async updateState(mentionProvider: MentionProvider | undefined) {
 		const isHighlighted = expValEquals(
-			'platform_editor_vc90_transition_fixes_batch_1',
+			'platform_editor_vc90_transition_mentions',
 			'isEnabled',
 			true,
 		)

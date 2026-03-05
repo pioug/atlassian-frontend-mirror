@@ -7,7 +7,7 @@ import { type PopupSelect, type OptionType, type StylesConfig, components } from
 import { DN900 } from '@atlaskit/theme/colors';
 import { cssMap } from '@compiled/react';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Flex } from '@atlaskit/primitives';
+import { Flex } from '@atlaskit/primitives/compiled';
 
 export const popupCustomStyles: StylesConfig<OptionType> = {
 	container: (styles) => ({

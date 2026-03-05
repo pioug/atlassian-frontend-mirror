@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, useRef } from 'react';
+import { Fragment, useEffect, useRef } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
@@ -102,6 +102,7 @@ export const RovoSummaryBlockResolvedView = (props: AISummaryBlockResolvedViewPr
 
 	const {
 		state: { content, status },
+		summariseUrl,
 	} = useAISummaryAction(url);
 
 	const showAISummary =
@@ -111,11 +112,19 @@ export const RovoSummaryBlockResolvedView = (props: AISummaryBlockResolvedViewPr
 
 	const isSummarisedOnMountRef = useRef(status === 'done');
 
+	useEffect(() => {
+		if (status !== 'ready' || isSummarisedOnMountRef.current) {
+			return;
+		}
+		isSummarisedOnMountRef.current = true;
+		summariseUrl();
+	}, [status, summariseUrl]);
+
 	const minHeight = isSummarisedOnMountRef.current ? 0 : aiSummaryMinHeight;
 
 	if (!showAISummary) {
 		return (
-			<Inline xcss={newStyles.placeholderWrapper}>
+			<Inline testId={`${testId}-placeholder`} xcss={newStyles.placeholderWrapper}>
 				<div css={newStyles.iconWrapper}>
 					<RovoIcon shouldUseHexLogo={true} size={'xxsmall'} />
 				</div>

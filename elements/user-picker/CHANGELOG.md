@@ -1,5 +1,19 @@
 # @atlaskit/user-picker
 
+## 11.23.3
+
+### Patch Changes
+
+- [`1d0fcc9c19260`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d0fcc9c19260) -
+  Document manual translation updates for user-picker team byline messages.
+
+  Translations were updated manually in locale files (en, en_GB, and other languages) to support the
+  dynamic `{teamTypeName}` parameter in official/verified team byline messages. This allows the UI
+  to display server-provided team type labels (e.g. "Managed team", "Official team") instead of a
+  single hardcoded string. The manual update was done because these message key changes and new
+  placeholder usage required coordinated updates across the translation files outside of the normal
+  code-driven flow.
+
 ## 11.23.2
 
 ### Patch Changes

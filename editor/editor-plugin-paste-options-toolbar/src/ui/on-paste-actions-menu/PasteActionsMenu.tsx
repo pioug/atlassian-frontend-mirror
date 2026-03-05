@@ -5,6 +5,7 @@ import { useIntl } from 'react-intl-next';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { pasteOptionsToolbarMessages as messages } from '@atlaskit/editor-common/messages';
+import { EditorToolbarProvider } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { withReactEditorViewOuterListeners } from '@atlaskit/editor-common/ui-react';
@@ -163,6 +164,9 @@ export const PasteActionsMenu = ({
 		return null;
 	}
 
+	const aiSurface = { type: 'menu' as const, key: 'ai-paste-menu' };
+	const aiSurfaceComponents = api?.uiControlRegistry?.actions.getComponents(aiSurface.key) ?? [];
+
 	return (
 		<PopupWithListeners
 			target={target}
@@ -176,11 +180,16 @@ export const PasteActionsMenu = ({
 			handleClickOutside={handleDismiss}
 			handleEscapeKeydown={handleDismiss}
 		>
-			<PasteActionsMenuContent
-				options={options}
-				onMouseDown={preventEditorFocusLoss}
-				onMouseEnter={handleMouseEnter}
-			/>
+			{/* TODO: EDITOR-5468 - Replace this with purpose built paste menu context provider */}
+			<EditorToolbarProvider editorView={editorView}>
+				<PasteActionsMenuContent
+					options={options}
+					onMouseDown={preventEditorFocusLoss}
+					onMouseEnter={handleMouseEnter}
+					aiSurface={aiSurface}
+					aiSurfaceComponents={aiSurfaceComponents}
+				/>
+			</EditorToolbarProvider>
 		</PopupWithListeners>
 	);
 };

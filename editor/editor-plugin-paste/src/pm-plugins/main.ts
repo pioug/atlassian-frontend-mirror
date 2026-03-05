@@ -103,7 +103,7 @@ import {
 	handleMention,
 	handleParagraphBlockMarks,
 	handleTableContentPasteInBodiedExtension,
-	handlePasteExpand
+	handlePasteExpand,
 } from './util/handlers';
 import { handleSyncBlocksPaste } from './util/sync-block';
 import {
@@ -159,7 +159,6 @@ export function createPlugin(
 	providerFactory?: ProviderFactory,
 	pasteWarningOptions?: PasteWarningOptions,
 ) {
-
 	const editorAnalyticsAPI = pluginInjectionApi?.analytics?.actions;
 	const atlassianMarkDownParser = new MarkdownTransformer(schema, md);
 
@@ -799,7 +798,10 @@ export function createPlugin(
 					slice = transformSliceToJoinAdjacentCodeBlocks(slice);
 				}
 				// Filter out expand nodes if allowExpand is false
-				if (!pluginInjectionApi?.expand?.sharedState?.currentState()?.allowInsertion && expValEquals('platform_editor_expand_paste_in_comment_editor', 'isEnabled', true)) {
+				if (
+					!pluginInjectionApi?.expand?.sharedState?.currentState()?.allowInsertion &&
+					expValEquals('platform_editor_expand_paste_in_comment_editor', 'isEnabled', true)
+				) {
 					slice = handlePasteExpand(slice);
 				}
 

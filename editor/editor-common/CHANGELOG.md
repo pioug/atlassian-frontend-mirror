@@ -1,5 +1,51 @@
 # @atlaskit/editor-common
 
+## 111.25.1
+
+### Patch Changes
+
+- [`1d0fcc9c19260`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d0fcc9c19260) -
+  Extract synced blocks documentation URL into a shared constant SYNCED_BLOCKS_DOCUMENTATION_URL in
+  @atlaskit/editor-common/sync-block
+- [`aaab1a6e50bc5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aaab1a6e50bc5) -
+  [EDITOR-5679] Initial implementation of the blockmenu ai intergration, added 2 current hero
+  prompts, one is ask rovo and the other improve writing as an iteration 0 phase
+- Updated dependencies
+
+## 111.25.0
+
+### Minor Changes
+
+- [`716283be992a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/716283be992a1) -
+  specify experienceName for ai_streaming_errored errors
+
+### Patch Changes
+
+- Updated dependencies
+
+## 111.24.1
+
+### Patch Changes
+
+- [`29d9d25ebe53a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29d9d25ebe53a) -
+  [ux] EDITOR-5009 show sync block border when dragging
+- [`0a3f1913cc452`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a3f1913cc452) -
+  Skip tracking experience for extension item transform
+- Updated dependencies
+
+## 111.24.0
+
+### Minor Changes
+
+- [`0f91061590da3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f91061590da3) -
+  Split platform_editor_vc90_transition_fixes_batch_1 into
+  platform_editor_vc90_transition_table_border, platform_editor_vc90_transition_expand_icon,
+  platform_editor_vc90_transition_mentions, platform_editor_vc90_transition_panel_icon
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 111.23.1
 
 ### Patch Changes

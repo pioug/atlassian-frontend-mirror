@@ -61,10 +61,50 @@ describe(`${packageName}/schema paragraph node`, () => {
 		expect(p.firstChild!.text!).toEqual('Hello World');
 		expect(p.attrs!.localId).toEqual('some-local-id');
 	});
+
+	it('can have fontSize mark', () => {
+		const mark = schema.marks.fontSize.create({ fontSize: 'small' });
+		const node = schema.nodes.paragraph.create({}, [], [mark]);
+		expect(node.marks).toHaveLength(1);
+		expect(node.marks[0].type.name).toBe('fontSize');
+		expect(node.marks[0].attrs.fontSize).toBe('small');
+	});
+
+	it('can have both fontSize and alignment marks simultaneously', () => {
+		const fontSizeMark = schema.marks.fontSize.create({ fontSize: 'small' });
+		const alignmentMark = schema.marks.alignment.create({ align: 'center' });
+		const node = schema.nodes.paragraph.create({}, [], [fontSizeMark, alignmentMark]);
+		expect(node.marks).toHaveLength(2);
+		const markNames = node.marks.map((m) => m.type.name);
+		expect(markNames).toContain('fontSize');
+		expect(markNames).toContain('alignment');
+	});
+
+	it('can have both fontSize and indentation marks simultaneously', () => {
+		const fontSizeMark = schema.marks.fontSize.create({ fontSize: 'small' });
+		const indentationMark = schema.marks.indentation.create({ level: 1 });
+		const node = schema.nodes.paragraph.create({}, [], [fontSizeMark, indentationMark]);
+		expect(node.marks).toHaveLength(2);
+		const markNames = node.marks.map((m) => m.type.name);
+		expect(markNames).toContain('fontSize');
+		expect(markNames).toContain('indentation');
+	});
+
+	it('fontSize mark is preserved in schema transformations', () => {
+		const mark = schema.marks.fontSize.create({ fontSize: 'small' });
+		const node = schema.nodes.paragraph.create({}, [], [mark]);
+		const html = toHTML(node, schema);
+		const parsedDoc = fromHTML(html, schema);
+		const parsedParagraph = parsedDoc.firstChild!;
+		expect(parsedParagraph.marks).toHaveLength(1);
+		expect(parsedParagraph.marks[0].type.name).toBe('fontSize');
+		expect(parsedParagraph.marks[0].attrs.fontSize).toBe('small');
+	});
 });
 
 function makeSchema() {
 	return createSchema({
 		nodes: ['doc', 'paragraph', 'text'],
+		marks: ['fontSize', 'alignment', 'indentation'],
 	});
 }

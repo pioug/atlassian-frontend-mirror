@@ -42,7 +42,6 @@ const ModalHeader = injectIntl(({ intl: { formatMessage }, onClose }: ModalHeade
 					{...messages.editorHelp}
 				/>
 			</Heading>
-
 			{onClose ? (
 				<div css={toolbarFocusStyles}>
 					<Tooltip content={formatMessage(messages.closeHelpDialog)} position="top">

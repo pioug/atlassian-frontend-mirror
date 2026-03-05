@@ -4,7 +4,6 @@ import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
 import type { InlineCardAdf } from '@atlaskit/linking-common';
 import { type DatasourceParameters } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { EVENT_CHANNEL } from '../../../../analytics';
 import { DatasourceDisplay, DatasourceSearchMethod } from '../../../../analytics/types';
@@ -43,10 +42,8 @@ export const InsertButton = <Parameters extends DatasourceParameters>({
 	const userInteractions = useUserInteractions();
 	const { currentViewMode } = useViewModeContext();
 
-	const isJqlSubmitFixEnabled = fg('navx-1345-issues-modal-jql-submit-fix');
-
 	const isInsertDisabled =
-		(isJqlSubmitFixEnabled ? hasErrors : false) ||
+		hasErrors ||
 		!isValidParameters(parameters) ||
 		status === 'rejected' ||
 		status === 'unauthorized' ||
@@ -58,9 +55,7 @@ export const InsertButton = <Parameters extends DatasourceParameters>({
 				return;
 			}
 
-			if (isJqlSubmitFixEnabled) {
-				onBeforeInsert?.(parameters);
-			}
+			onBeforeInsert?.(parameters);
 
 			const insertButtonClickedEvent = analyticsEvent.update({
 				actionSubjectId: 'insert',
@@ -134,7 +129,6 @@ export const InsertButton = <Parameters extends DatasourceParameters>({
 			visibleColumnCount,
 			visibleColumnKeys,
 			wrappedColumnKeys,
-			isJqlSubmitFixEnabled,
 			onBeforeInsert,
 		],
 	);

@@ -17,6 +17,7 @@ import { extension } from './extension';
 
 const panelContent = [
 	paragraph.use('with_no_marks'),
+	paragraph.use('with_font_size'),
 	heading.use('with_no_marks'),
 	bulletList,
 	orderedList,

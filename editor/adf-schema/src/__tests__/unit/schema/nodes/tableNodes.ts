@@ -71,6 +71,18 @@ const makeSchema = () =>
 		},
 	});
 
+const makeSchemaWithFontSize = () =>
+	createSchema({
+		nodes: ['doc', 'paragraph', 'text', 'table', 'tableRow', 'tableCell', 'tableHeader'],
+		marks: ['fontSize', 'alignment', 'indentation', 'fragment', 'unsupportedMark', 'unsupportedNodeAttribute'],
+		customNodeSpecs: {
+			table: tableWithNestedTable,
+			tableRow: tableRowWithNestedTable,
+			tableCell: tableCellWithNestedTable,
+			tableHeader: tableHeaderWithNestedTable,
+		},
+	});
+
 const TABLE_LOCAL_ID = 'test-table-local-id';
 const packageName = process.env.npm_package_name as string;
 
@@ -149,7 +161,7 @@ describe(`${packageName}/schema table node`, () => {
 					content:
 						'(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock)+',
 					isolating: true,
-					marks: 'alignment dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
+					marks: 'alignment fontSize dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
 					parseDOM: [
 						{
 							ignore: true,
@@ -192,7 +204,7 @@ describe(`${packageName}/schema table node`, () => {
 					content:
 						'(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand)+',
 					isolating: true,
-					marks: 'alignment dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
+					marks: 'alignment fontSize dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
 					parseDOM: [
 						{
 							getAttrs: expect.anything(),
@@ -289,7 +301,7 @@ describe(`${packageName}/schema table node`, () => {
 					content:
 						'(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock | table)+',
 					isolating: true,
-					marks: 'alignment dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
+					marks: 'alignment fontSize dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
 					parseDOM: [
 						{
 							ignore: true,
@@ -332,7 +344,7 @@ describe(`${packageName}/schema table node`, () => {
 					content:
 						'(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | table)+',
 					isolating: true,
-					marks: 'alignment dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
+					marks: 'alignment fontSize dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
 					parseDOM: [
 						{
 							getAttrs: expect.anything(),
@@ -1238,6 +1250,85 @@ describe(`${packageName}/schema table node`, () => {
 				const row = schema.nodes.tableRow.create();
 				expect(toHTML(row, schema)).toEqual('<tr></tr>');
 			});
+		});
+	});
+
+	describe('paragraph with fontSize mark', () => {
+		const schemaWithFontSize = makeSchemaWithFontSize();
+
+		it('paragraph with fontSize is valid inside tableCell', () => {
+			const paragraph = schemaWithFontSize.nodes.paragraph.create(
+				null,
+				schemaWithFontSize.text('Small text'),
+				[schemaWithFontSize.marks.fontSize.create({ fontSize: 'small' })],
+			);
+			const cell = schemaWithFontSize.nodes.tableCell.create(null, [paragraph]);
+
+			expect(cell).toBeDefined();
+			expect(cell.firstChild).toBe(paragraph);
+			expect(cell.firstChild?.marks[0].type.name).toBe('fontSize');
+			expect(cell.firstChild?.marks[0].attrs.fontSize).toBe('small');
+		});
+
+		it('paragraph with fontSize is valid inside tableHeader', () => {
+			const paragraph = schemaWithFontSize.nodes.paragraph.create(
+				null,
+				schemaWithFontSize.text('Small header'),
+				[schemaWithFontSize.marks.fontSize.create({ fontSize: 'small' })],
+			);
+			const header = schemaWithFontSize.nodes.tableHeader.create(null, [paragraph]);
+
+			expect(header).toBeDefined();
+			expect(header.firstChild).toBe(paragraph);
+			expect(header.firstChild?.marks[0].type.name).toBe('fontSize');
+			expect(header.firstChild?.marks[0].attrs.fontSize).toBe('small');
+		});
+
+		it('table cells with fontSize paragraph validate correctly', () => {
+			const paragraphWithFontSize = schemaWithFontSize.nodes.paragraph.create(
+				null,
+				schemaWithFontSize.text('Small text'),
+				[schemaWithFontSize.marks.fontSize.create({ fontSize: 'small' })],
+			);
+			const paragraphNormal = schemaWithFontSize.nodes.paragraph.create(
+				null,
+				schemaWithFontSize.text('Normal text'),
+			);
+
+			const cell1 = schemaWithFontSize.nodes.tableCell.create(null, [paragraphWithFontSize]);
+			const cell2 = schemaWithFontSize.nodes.tableCell.create(null, [paragraphNormal]);
+			const row = schemaWithFontSize.nodes.tableRow.create(null, [cell1, cell2]);
+			const table = schemaWithFontSize.nodes.table.create(null, [row]);
+
+			expect(table).toBeDefined();
+			expect(table.firstChild?.firstChild?.firstChild?.marks[0]?.type.name).toBe('fontSize');
+			expect(table.firstChild?.lastChild?.firstChild?.marks.length).toBe(0);
+		});
+
+		it('tableCell with fontSize paragraph serializes correctly', () => {
+			const paragraph = schemaWithFontSize.nodes.paragraph.create(
+				null,
+				schemaWithFontSize.text('Small text'),
+				[schemaWithFontSize.marks.fontSize.create({ fontSize: 'small' })],
+			);
+			const cell = schemaWithFontSize.nodes.tableCell.create(null, [paragraph]);
+			const html = toHTML(cell, schemaWithFontSize);
+
+			expect(html).toContain('data-font-size="small"');
+			expect(html).toContain('Small text');
+		});
+
+		it('tableHeader with fontSize paragraph serializes correctly', () => {
+			const paragraph = schemaWithFontSize.nodes.paragraph.create(
+				null,
+				schemaWithFontSize.text('Small header'),
+				[schemaWithFontSize.marks.fontSize.create({ fontSize: 'small' })],
+			);
+			const header = schemaWithFontSize.nodes.tableHeader.create(null, [paragraph]);
+			const html = toHTML(header, schemaWithFontSize);
+
+			expect(html).toContain('data-font-size="small"');
+			expect(html).toContain('Small header');
 		});
 	});
 });

@@ -90,59 +90,59 @@ export const SkipLink: ({
 	children: ReactNode;
 	onBeforeNavigate?: SkipLinkData['onBeforeNavigate'];
 }) => {
-		const href = `#${id}`;
+	const href = `#${id}`;
 
-		const onClick = useCallback(
-			(event: React.MouseEvent<HTMLAnchorElement>) => {
-				event.preventDefault();
+	const onClick = useCallback(
+		(event: React.MouseEvent<HTMLAnchorElement>) => {
+			event.preventDefault();
 
-				// Intentionally not using `document.querySelector` because many valid IDs are not valid selectors.
-				const target = document.getElementById(id);
-				if (!target) {
-					return;
-				}
+			// Intentionally not using `document.querySelector` because many valid IDs are not valid selectors.
+			const target = document.getElementById(id);
+			if (!target) {
+				return;
+			}
 
+			/**
+			 * Internal slots can attach an `onBeforeNavigate` callback.
+			 *
+			 * Side nav uses this to ensure it is expanded.
+			 */
+			onBeforeNavigate?.();
+
+			focusElement(target);
+
+			/**
+			 * We should look into removing this, or only calling it in specific cases.
+			 *
+			 * It means if the skip link element is in the window scroll container
+			 * then it might not get scrolled into view properly.
+			 *
+			 * This is not an issue for the default slots on desktop, but could break custom skip links or
+			 * even `Aside` on mobile.
+			 *
+			 * Keeping existing behavior for now because resetting the window scroll is actually good for some cases.
+			 * E.g. jumping to main / aside it makes sense to look at the start of the content.
+			 */
+			window.scrollTo(0, 0);
+		},
+		[id, onBeforeNavigate],
+	);
+
+	return (
+		<li css={styles.skipLinkListItem}>
+			<Anchor
 				/**
-				 * Internal slots can attach an `onBeforeNavigate` callback.
+				 * It looks like Safari handles link clicks during `pointerdown` unless it has an explicit `tabIndex={0}` :/
 				 *
-				 * Side nav uses this to ensure it is expanded.
+				 * Adding this explicitly makes the behavior consistent between browsers and lets us `event.preventDefault()`
+				 * in the `onClick` handler.
 				 */
-				onBeforeNavigate?.();
-
-				focusElement(target);
-
-				/**
-				 * We should look into removing this, or only calling it in specific cases.
-				 *
-				 * It means if the skip link element is in the window scroll container
-				 * then it might not get scrolled into view properly.
-				 *
-				 * This is not an issue for the default slots on desktop, but could break custom skip links or
-				 * even `Aside` on mobile.
-				 *
-				 * Keeping existing behavior for now because resetting the window scroll is actually good for some cases.
-				 * E.g. jumping to main / aside it makes sense to look at the start of the content.
-				 */
-				window.scrollTo(0, 0);
-			},
-			[id, onBeforeNavigate],
-		);
-
-		return (
-			<li css={styles.skipLinkListItem}>
-				<Anchor
-					/**
-					 * It looks like Safari handles link clicks during `pointerdown` unless it has an explicit `tabIndex={0}` :/
-					 *
-					 * Adding this explicitly makes the behavior consistent between browsers and lets us `event.preventDefault()`
-					 * in the `onClick` handler.
-					 */
-					tabIndex={0}
-					href={href}
-					onClick={onClick}
-				>
-					{children}
-				</Anchor>
-			</li>
-		);
-	};
+				tabIndex={0}
+				href={href}
+				onClick={onClick}
+			>
+				{children}
+			</Anchor>
+		</li>
+	);
+};

@@ -25,6 +25,7 @@ const listItem = adfNode('listItem')
 		contentMinItems: 1,
 		content: [
 			$or(
+				paragraph.use('with_font_size'),
 				paragraph.use('with_no_marks'),
 				mediaSingle.use('caption'),
 				mediaSingle.use('full'),
@@ -34,6 +35,7 @@ const listItem = adfNode('listItem')
 			),
 			$zeroPlus(
 				$or(
+					paragraph.use('with_font_size'),
 					paragraph.use('with_no_marks'),
 					bulletList,
 					orderedList,
@@ -51,6 +53,7 @@ const listItem = adfNode('listItem')
 		content: [
 			$onePlus(
 				$or(
+					paragraph.use('with_font_size'),
 					paragraph.use('with_no_marks'),
 					bulletList,
 					orderedList,

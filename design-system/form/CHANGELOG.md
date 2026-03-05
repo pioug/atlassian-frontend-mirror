@@ -1,5 +1,12 @@
 # @atlaskit/form
 
+## 15.4.0
+
+### Minor Changes
+
+- [`d8406f8f9043e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d8406f8f9043e) -
+  Removed FG which provides resetFieldState to form consumers
+
 ## 15.3.7
 
 ### Patch Changes

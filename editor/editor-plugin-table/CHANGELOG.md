@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-table
 
+## 17.4.4
+
+### Patch Changes
+
+- [`2ba512be34b34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2ba512be34b34) -
+  [ux] always enable table resizer extended zone
+- Updated dependencies
+
+## 17.4.3
+
+### Patch Changes
+
+- [`0f91061590da3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f91061590da3) -
+  Split platform_editor_vc90_transition_fixes_batch_1 into
+  platform_editor_vc90_transition_table_border, platform_editor_vc90_transition_expand_icon,
+  platform_editor_vc90_transition_mentions, platform_editor_vc90_transition_panel_icon
+- Updated dependencies
+
+## 17.4.2
+
+### Patch Changes
+
+- [`7c93170d2ea8a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c93170d2ea8a) -
+  [ux] Set full width for table if in Editor max width mode and table has no width attribute set
+- Updated dependencies
+
 ## 17.4.1
 
 ### Patch Changes

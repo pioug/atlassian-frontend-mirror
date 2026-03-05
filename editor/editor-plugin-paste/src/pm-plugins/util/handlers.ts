@@ -1522,17 +1522,18 @@ export function checkIfSelectionInNestedList(state: EditorState): boolean {
 	return selectedListItemHasNestedList || selectionIsInNestedList;
 }
 
-
 // Helper function to filter expand nodes from slice when not allowed
 export function handlePasteExpand(slice: Slice): Slice {
 	return mapSlice(slice, (node) => {
 		if (node.type.name === 'expand' || node.type.name === 'nestedExpand') {
 			const children: PMNode[] = [];
 			if (node.attrs.title) {
-				children.push(node.type.schema.nodes.paragraph.createChecked(
-					undefined,
-					Fragment.from(node.type.schema.text(node.attrs.title)),
-				));
+				children.push(
+					node.type.schema.nodes.paragraph.createChecked(
+						undefined,
+						Fragment.from(node.type.schema.text(node.attrs.title)),
+					),
+				);
 			}
 			node.content.forEach((inner) => children.push(inner));
 			return children;

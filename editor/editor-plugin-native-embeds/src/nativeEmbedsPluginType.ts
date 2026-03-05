@@ -2,6 +2,7 @@ import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/t
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { ManifestEditorToolbarActions } from '@atlaskit/native-embeds-common';
 
 /**
@@ -11,6 +12,7 @@ import type { ManifestEditorToolbarActions } from '@atlaskit/native-embeds-commo
 export interface EditorPluginNativeEmbedsToolbarHandlers {
 	onAlignmentClick?: () => void;
 	onChangeBorderClick?: () => void;
+	onEditClick?: () => void;
 	onEmbedClick?: () => void;
 	onMoreOptionsClick?: () => void;
 	onOpenInNewWindowClick?: () => void;
@@ -44,6 +46,13 @@ export interface EditorPluginNativeEmbedsPluginConfig {
 	 * Legacy handlers for backward compatibility.
 	 */
 	handlers?: EditorPluginNativeEmbedsToolbarHandlers;
+}
+
+export type NativeEmbedAppearance = 'url' | 'inline' | 'block' | 'embed';
+
+export interface SelectedNativeEmbed {
+	node: PMNode;
+	pos: number;
 }
 
 export type EditorPluginNativeEmbedsPlugin = NextEditorPlugin<

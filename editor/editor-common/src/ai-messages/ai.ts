@@ -270,4 +270,11 @@ export const aiMessages = defineMessages({
 		defaultMessage: 'Rovo',
 		description: 'This is the name which appears in the AI telepointer',
 	},
+
+	// On-paste menu messages
+	pasteMenuActionsTitle: {
+		id: 'fabric.editor.ai.paste-menu.section-title',
+		defaultMessage: 'Actions',
+		description: 'Section title for AI actions in the paste options menu',
+	},
 });

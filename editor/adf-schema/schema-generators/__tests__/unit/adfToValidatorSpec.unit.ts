@@ -66,6 +66,7 @@ const panel = {
 			items: [
 				[
 					'paragraph_with_no_marks',
+					'paragraph_with_font_size',
 					'heading_with_no_marks',
 					'bulletList',
 					'orderedList',

@@ -1,5 +1,14 @@
 # @atlaskit/link-picker
 
+## 4.2.13
+
+### Patch Changes
+
+- [`1d0fcc9c19260`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d0fcc9c19260) -
+  Add Confluence-only link picker for knowledge source in JSM Journey Builder, gated behind
+  jsm_journey_confluence_only_knowledge feature flag. Add insertInlineCard method to
+  useEditorPlaceholder. Add alwaysShowTabs prop to LinkPicker.
+
 ## 4.2.12
 
 ### Patch Changes

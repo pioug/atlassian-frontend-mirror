@@ -191,9 +191,6 @@
 		"rovo_display_ai_disclaimer_on_agent_profile_card": {
 			"type": "boolean"
 		},
-		"new_team_profile_fedramp": {
-			"type": "boolean"
-		},
 		"rovo_agent_support_a2a_avatar": {
 			"type": "boolean"
 		}

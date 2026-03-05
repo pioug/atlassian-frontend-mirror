@@ -24,6 +24,7 @@ import type {
   ConfluenceInlineCommentMark,
   DataConsumerMark,
   EmMark,
+  FontSizeMark,
   FragmentMark,
   IndentationMark,
   LinkMark,
@@ -139,6 +140,8 @@ export interface BlockTaskItemDefinition {
   content: Array<
     | ExtensionWithMarksDefinition
     | ExtensionWithMarksDefinition
+    | ParagraphWithFontSizeStage0Definition
+    | ParagraphWithFontSizeStage0Definition
     | ParagraphWithNoMarksDefinition
     | ParagraphWithNoMarksDefinition
   >;
@@ -150,7 +153,8 @@ export type BlockTaskItemNode = PMNode & BlockTaskItemDefinition;
 
 export const blockTaskItem = createPMNodeSpecFactory<BlockTaskItemNode>({
   content: '(paragraph | extension) (paragraph | extension)*',
-  marks: 'dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
+  marks:
+    'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
   attrs: { localId: { default: '' }, state: { default: 'TODO' } },
   selectable: false,
   defining: true,
@@ -172,6 +176,7 @@ export interface BodiedExtensionDefinition {
     | MediaSingleFullDefinition
     | OrderedListDefinition
     | PanelDefinition
+    | ParagraphWithFontSizeStage0Definition
     | ParagraphWithNoMarksDefinition
     | RuleDefinition
     | TableDefinition
@@ -276,6 +281,8 @@ export interface BodiedSyncBlockDefinition {
     | PanelDefinition
     | ParagraphDefinition
     | ParagraphWithAlignmentDefinition
+    | ParagraphWithFontSizeAndAlignmentStage0Definition
+    | ParagraphWithFontSizeAndIndentationStage0Definition
     | ParagraphWithIndentationDefinition
     | ParagraphWithNoMarksDefinition
     | RuleDefinition
@@ -296,7 +303,7 @@ export const bodiedSyncBlock = createPMNodeSpecFactory<BodiedSyncBlockNode>({
   content:
     '(paragraph | blockCard | blockquote | bulletList | codeBlock | confluenceUnsupportedBlock | decisionList | embedCard | expand | heading | layoutSection | mediaGroup | mediaSingle | orderedList | panel | rule | table | taskList | unsupportedBlock)+',
   marks:
-    'unsupportedMark unsupportedNodeAttribute alignment indentation breakout link fragment',
+    'unsupportedMark unsupportedNodeAttribute alignment indentation fontSize breakout link fragment',
   attrs: { resourceId: { default: '' }, localId: { default: '' } },
   selectable: true,
   isolating: true,
@@ -545,7 +552,7 @@ export const doc = createPMNodeSpecFactory<DocNode>({
   content:
     '(block | codeBlock | layoutSection | blockRootOnly | expand | syncBlock | bodiedSyncBlock)+',
   marks:
-    'unsupportedMark unsupportedNodeAttribute alignment indentation dataConsumer fragment breakout',
+    'unsupportedMark unsupportedNodeAttribute alignment indentation fontSize dataConsumer fragment breakout',
 });
 
 export interface EmbedCardDefinition {
@@ -642,6 +649,7 @@ export interface ExpandDefinition {
     | NestedExpandWithNoMarksDefinition
     | OrderedListDefinition
     | PanelDefinition
+    | ParagraphWithFontSizeStage0Definition
     | ParagraphWithNoMarksDefinition
     | RuleDefinition
     | TableDefinition
@@ -657,7 +665,8 @@ export type ExpandNode = PMNode & ExpandDefinition;
 export const expand = createPMNodeSpecFactory<ExpandNode>({
   content:
     '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | blockCard | embedCard | extension | unsupportedBlock | nestedExpand)+',
-  marks: 'unsupportedMark unsupportedNodeAttribute fragment dataConsumer',
+  marks:
+    'fontSize unsupportedMark unsupportedNodeAttribute fragment dataConsumer',
   group: 'block',
   attrs: {
     title: { default: '' },
@@ -685,6 +694,7 @@ export interface ExpandRootOnlyDefinition {
     | NestedExpandWithNoMarksDefinition
     | OrderedListDefinition
     | PanelDefinition
+    | ParagraphWithFontSizeStage0Definition
     | ParagraphWithNoMarksDefinition
     | RuleDefinition
     | TableDefinition
@@ -703,7 +713,8 @@ export type ExpandRootOnlyNode = PMNode & ExpandRootOnlyDefinition;
 export const expandRootOnly = createPMNodeSpecFactory<ExpandRootOnlyNode>({
   content:
     '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | blockCard | embedCard | extension | unsupportedBlock | nestedExpand)+',
-  marks: 'unsupportedMark unsupportedNodeAttribute fragment dataConsumer',
+  marks:
+    'fontSize unsupportedMark unsupportedNodeAttribute fragment dataConsumer',
   attrs: {
     title: { default: '' },
     __expanded: { default: true },
@@ -794,6 +805,7 @@ export interface ExtensionFrameStage0Definition {
     | MediaSingleFullDefinition
     | OrderedListDefinition
     | PanelDefinition
+    | ParagraphWithFontSizeStage0Definition
     | ParagraphWithNoMarksDefinition
     | RuleDefinition
     | TableDefinition
@@ -1063,7 +1075,7 @@ export type LayoutColumnNode = PMNode & LayoutColumnDefinition;
 export const layoutColumn = createPMNodeSpecFactory<LayoutColumnNode>({
   content: '(block | unsupportedBlock)+',
   marks:
-    'unsupportedMark unsupportedNodeAttribute alignment indentation dataConsumer fragment',
+    'unsupportedMark unsupportedNodeAttribute alignment indentation fontSize dataConsumer fragment',
   attrs: { width: { default: undefined }, localId: { default: null } },
   selectable: false,
   isolating: true,
@@ -1148,6 +1160,8 @@ export interface ListItemDefinition {
     | MediaSingleFullDefinition
     | MediaSingleFullDefinition
     | OrderedListDefinition
+    | ParagraphWithFontSizeStage0Definition
+    | ParagraphWithFontSizeStage0Definition
     | ParagraphWithNoMarksDefinition
     | ParagraphWithNoMarksDefinition
     | TaskListDefinition
@@ -1163,7 +1177,8 @@ export type ListItemNode = PMNode & ListItemDefinition;
 export const listItem = createPMNodeSpecFactory<ListItemNode>({
   content:
     '(paragraph | mediaSingle | codeBlock | unsupportedBlock | extension) (paragraph | bulletList | orderedList | taskList | mediaSingle | codeBlock | unsupportedBlock | extension)*',
-  marks: 'dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
+  marks:
+    'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
   attrs: { localId: { default: null } },
   selectable: false,
   defining: true,
@@ -1178,6 +1193,7 @@ export interface ListItemWithFlexibleFirstChildStage0Definition {
     | MediaSingleCaptionDefinition
     | MediaSingleFullDefinition
     | OrderedListDefinition
+    | ParagraphWithFontSizeStage0Definition
     | ParagraphWithNoMarksDefinition
     | TaskListDefinition
     | TaskListWithFlexibleFirstChildStage0Definition
@@ -1194,7 +1210,8 @@ export const listItemWithFlexibleFirstChildStage0 =
   createPMNodeSpecFactory<ListItemWithFlexibleFirstChildStage0Node>({
     content:
       '(paragraph | bulletList | orderedList | taskList | mediaSingle | codeBlock | unsupportedBlock | extension)+',
-    marks: 'unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+    marks:
+      'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
     attrs: { localId: { default: null } },
     selectable: false,
     defining: true,
@@ -1641,6 +1658,7 @@ export interface NestedExpandDefinition {
     | MediaSingleFullDefinition
     | OrderedListDefinition
     | PanelDefinition
+    | ParagraphWithFontSizeStage0Definition
     | ParagraphWithNoMarksDefinition
     | RuleDefinition
     | TaskListDefinition
@@ -1655,7 +1673,8 @@ export type NestedExpandNode = PMNode & NestedExpandDefinition;
 export const nestedExpand = createPMNodeSpecFactory<NestedExpandNode>({
   content:
     '(paragraph | heading | mediaSingle | mediaGroup | codeBlock | bulletList | orderedList | taskList | decisionList | rule | panel | blockquote | unsupportedBlock | extension)+',
-  marks: 'unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+  marks:
+    'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
   attrs: {
     title: { default: '' },
     __expanded: { default: true },
@@ -1716,6 +1735,7 @@ export interface PanelDefinition {
     | MediaSingleCaptionDefinition
     | MediaSingleFullDefinition
     | OrderedListDefinition
+    | ParagraphWithFontSizeStage0Definition
     | ParagraphWithNoMarksDefinition
     | RuleDefinition
     | TaskListDefinition
@@ -1744,7 +1764,8 @@ export type PanelNode = PMNode & PanelDefinition;
 export const panel = createPMNodeSpecFactory<PanelNode>({
   content:
     '(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | decisionList | unsupportedBlock | extension)+',
-  marks: 'unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+  marks:
+    'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
   group: 'block',
   attrs: {
     panelType: { default: 'info' },
@@ -1789,6 +1810,65 @@ export type ParagraphWithAlignmentNode = PMNode &
 export const paragraphWithAlignment =
   createPMNodeSpecFactory<ParagraphWithAlignmentNode>({
     group: 'block',
+    attrs: { localId: { default: null } },
+    selectable: false,
+  });
+
+export interface ParagraphWithFontSizeAndAlignmentStage0Definition {
+  type: 'paragraph';
+  marks: Array<
+    | AlignmentMark
+    | FontSizeMark
+    | UnsupportedMarkMark
+    | UnsupportedNodeAttributeMark
+  >;
+  attrs: { localId?: string };
+}
+
+export type ParagraphWithFontSizeAndAlignmentStage0Node = PMNode &
+  ParagraphWithFontSizeAndAlignmentStage0Definition;
+
+export const paragraphWithFontSizeAndAlignmentStage0 =
+  createPMNodeSpecFactory<ParagraphWithFontSizeAndAlignmentStage0Node>({
+    group: 'block',
+    attrs: { localId: { default: null } },
+    selectable: false,
+  });
+
+export interface ParagraphWithFontSizeAndIndentationStage0Definition {
+  type: 'paragraph';
+  marks: Array<
+    | FontSizeMark
+    | IndentationMark
+    | UnsupportedMarkMark
+    | UnsupportedNodeAttributeMark
+  >;
+  attrs: { localId?: string };
+}
+
+export type ParagraphWithFontSizeAndIndentationStage0Node = PMNode &
+  ParagraphWithFontSizeAndIndentationStage0Definition;
+
+export const paragraphWithFontSizeAndIndentationStage0 =
+  createPMNodeSpecFactory<ParagraphWithFontSizeAndIndentationStage0Node>({
+    group: 'block',
+    attrs: { localId: { default: null } },
+    selectable: false,
+  });
+
+export interface ParagraphWithFontSizeStage0Definition {
+  type: 'paragraph';
+  marks: Array<
+    FontSizeMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
+  >;
+  attrs: { localId?: string };
+}
+
+export type ParagraphWithFontSizeStage0Node = PMNode &
+  ParagraphWithFontSizeStage0Definition;
+
+export const paragraphWithFontSizeStage0 =
+  createPMNodeSpecFactory<ParagraphWithFontSizeStage0Node>({
     attrs: { localId: { default: null } },
     selectable: false,
   });
@@ -2023,6 +2103,7 @@ export interface TableCellDefinition {
     | OrderedListDefinition
     | PanelDefinition
     | ParagraphWithAlignmentDefinition
+    | ParagraphWithFontSizeAndAlignmentStage0Definition
     | ParagraphWithNoMarksDefinition
     | RuleDefinition
     | TaskListDefinition
@@ -2044,7 +2125,7 @@ export const tableCell = createPMNodeSpecFactory<TableCellNode>({
   content:
     '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock)+',
   marks:
-    'alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+    'alignment unsupportedMark unsupportedNodeAttribute fontSize dataConsumer fragment',
   attrs: {
     colspan: { default: 1 },
     rowspan: { default: 1 },
@@ -2077,6 +2158,7 @@ export interface TableCellWithNestedTableDefinition {
     | OrderedListDefinition
     | PanelDefinition
     | ParagraphWithAlignmentDefinition
+    | ParagraphWithFontSizeAndAlignmentStage0Definition
     | ParagraphWithNoMarksDefinition
     | RuleDefinition
     | TableDefinition
@@ -2101,7 +2183,7 @@ export const tableCellWithNestedTable =
     content:
       '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock | table)+',
     marks:
-      'alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+      'alignment unsupportedMark unsupportedNodeAttribute fontSize dataConsumer fragment',
     attrs: {
       colspan: { default: 1 },
       rowspan: { default: 1 },
@@ -2135,6 +2217,7 @@ export interface TableHeaderDefinition {
     | OrderedListDefinition
     | PanelDefinition
     | ParagraphWithAlignmentDefinition
+    | ParagraphWithFontSizeAndAlignmentStage0Definition
     | ParagraphWithNoMarksDefinition
     | RuleDefinition
     | TaskListDefinition
@@ -2155,7 +2238,7 @@ export const tableHeader = createPMNodeSpecFactory<TableHeaderNode>({
   content:
     '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand)+',
   marks:
-    'alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+    'alignment unsupportedMark unsupportedNodeAttribute fontSize dataConsumer fragment',
   attrs: {
     colspan: { default: 1 },
     rowspan: { default: 1 },
@@ -2189,6 +2272,7 @@ export interface TableHeaderWithNestedTableDefinition {
     | OrderedListDefinition
     | PanelDefinition
     | ParagraphWithAlignmentDefinition
+    | ParagraphWithFontSizeAndAlignmentStage0Definition
     | ParagraphWithNoMarksDefinition
     | RuleDefinition
     | TableDefinition
@@ -2212,7 +2296,7 @@ export const tableHeaderWithNestedTable =
     content:
       '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | table)+',
     marks:
-      'alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+      'alignment unsupportedMark unsupportedNodeAttribute fontSize dataConsumer fragment',
     attrs: {
       colspan: { default: 1 },
       rowspan: { default: 1 },

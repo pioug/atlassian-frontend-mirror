@@ -38,6 +38,8 @@ export const blockContentGroup: ADFNodeGroup = adfNodeGroup(
 		paragraph.use('with_no_marks'),
 		paragraph.use('with_alignment'),
 		paragraph.use('with_indentation'),
+		paragraph.use('with_font_size_and_alignment'),
+		paragraph.use('with_font_size_and_indentation'),
 		mediaSingle.use('caption'),
 		mediaSingle.use('full'),
 		codeBlock,

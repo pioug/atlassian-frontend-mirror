@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/form",
-	"version": "15.3.7",
+	"version": "15.4.0",
 	"description": "A form allows people to input information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -121,10 +121,5 @@
 		"./Label": "./src/entry-points/label.tsx",
 		".": "./src/index.tsx"
 	},
-	"homepage": "https://atlassian.design/components/form/",
-	"platform-feature-flags": {
-		"platform-form-reset-field-state": {
-			"type": "boolean"
-		}
-	}
+	"homepage": "https://atlassian.design/components/form/"
 }

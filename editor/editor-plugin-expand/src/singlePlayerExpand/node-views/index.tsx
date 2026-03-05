@@ -117,7 +117,7 @@ export class ExpandNodeView implements NodeView {
 			expandedState.set(this.node, false);
 		}
 
-		if (expValEquals('platform_editor_vc90_transition_fixes_batch_1', 'isEnabled', true)) {
+		if (expValEquals('platform_editor_vc90_transition_expand_icon', 'isEnabled', true)) {
 			this.renderNativeIcon(this.node);
 		} else {
 			this.renderIcon(this.icon, !isExpandCollapsed(this.node));
@@ -652,7 +652,7 @@ export class ExpandNodeView implements NodeView {
 				this.dom.className = buildExpandClassName(node.type.name, expanded);
 			}
 			// Re-render the icon to update the aria-expanded attribute
-			if (expValEquals('platform_editor_vc90_transition_fixes_batch_1', 'isEnabled', true)) {
+			if (expValEquals('platform_editor_vc90_transition_expand_icon', 'isEnabled', true)) {
 				this.renderNativeIcon(node);
 			} else {
 				this.renderIcon(this.icon ? this.icon : null, expandedState.get(node) ?? false);

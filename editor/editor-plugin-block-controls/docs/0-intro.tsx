@@ -60,8 +60,7 @@ function AlternativePackagesMessage({
 	if (alternatePackages.length === 1) {
 		return (
 			<p>
-				Consider using{' '}
-				<Link href={alternatePackages[0].link}>{alternatePackages[0].name}</Link>{' '}
+				Consider using <Link href={alternatePackages[0].link}>{alternatePackages[0].name}</Link>{' '}
 				instead.
 			</p>
 		);

@@ -106,9 +106,6 @@
 	"platform-feature-flags": {
 		"enable_edit_team_name_external_type_teams": {
 			"type": "boolean"
-		},
-		"new_team_profile_fedramp": {
-			"type": "boolean"
 		}
 	}
 }

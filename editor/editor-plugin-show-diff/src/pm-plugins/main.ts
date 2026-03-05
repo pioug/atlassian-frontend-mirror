@@ -12,7 +12,7 @@ import {
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView, Decoration } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -33,6 +33,13 @@ export type ShowDiffPluginState = {
 };
 
 type EditorStateConfig = Parameters<typeof EditorState.create>[0];
+
+export const getScrollableDecorations = (set: DecorationSet | undefined): Decoration[] =>
+	set?.find(
+		undefined,
+		undefined,
+		(spec) => spec.key === 'diff-inline' || spec.key === 'diff-widget' || spec.key === 'diff-block',
+	) ?? [];
 
 export const createPlugin = (config: DiffParams | undefined, getIntl: () => IntlShape) => {
 	const nodeViewSerializer = new NodeViewSerializer({});
@@ -66,7 +73,8 @@ export const createPlugin = (config: DiffParams | undefined, getIntl: () => Intl
 				return;
 			}
 
-			const decorations = pluginState.decorations.find();
+			const decorations = getScrollableDecorations(pluginState.decorations);
+
 			const decoration = decorations[pluginState.activeIndex ?? 0];
 			if (!decoration) {
 				return;
@@ -118,7 +126,7 @@ export const createPlugin = (config: DiffParams | undefined, getIntl: () => Intl
 							state: newState,
 							pluginState: newPluginState,
 							nodeViewSerializer,
-							colourScheme: config?.colourScheme,
+							colorScheme: config?.colorScheme,
 							intl: getIntl(),
 							activeIndexPos: fg('platform_editor_show_diff_scroll_navigation')
 								? newPluginState.activeIndexPos
@@ -139,7 +147,8 @@ export const createPlugin = (config: DiffParams | undefined, getIntl: () => Intl
 						fg('platform_editor_show_diff_scroll_navigation')
 					) {
 						// Update the active index in plugin state and recalculate decorations
-						const decorations = currentPluginState.decorations.find();
+						const decorations = getScrollableDecorations(currentPluginState.decorations);
+
 						if (decorations.length > 0) {
 							let nextIndex = currentPluginState.activeIndex ?? 0;
 							if (meta.action === 'SCROLL_TO_NEXT') {
@@ -160,7 +169,7 @@ export const createPlugin = (config: DiffParams | undefined, getIntl: () => Intl
 								state: newState,
 								pluginState: newPluginState,
 								nodeViewSerializer,
-								colourScheme: config?.colourScheme,
+								colorScheme: config?.colorScheme,
 								intl: getIntl(),
 								activeIndexPos: newPluginState.activeIndexPos,
 							});

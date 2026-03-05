@@ -3,9 +3,8 @@ import type { CallToolResult, Tool } from '@modelcontextprotocol/sdk/types.js';
 import Fuse from 'fuse.js';
 import { z } from 'zod';
 
-import { coreIconMetadata } from '@atlaskit/icon/metadata';
-
 import { cleanQuery, zodToJsonSchema } from '../../helpers';
+import { icons } from '../get-all-icons/icons';
 
 export const searchIconsInputSchema: z.ZodObject<
 	{
@@ -44,18 +43,6 @@ export const searchIconsInputSchema: z.ZodObject<
 		)
 		.optional(),
 });
-
-const icons = Object.entries(coreIconMetadata)
-	.map(([_key, icon]) => ({
-		componentName: icon.componentName,
-		package: icon.package,
-		categorization: icon.categorization,
-		keywords: icon.keywords,
-		status: icon.status,
-		usage: icon.usage,
-		shouldRecommendSmallIcon: icon.shouldRecommendSmallIcon,
-	}))
-	.filter((icon) => icon.status === 'published');
 
 type Icon = (typeof icons)[number];
 

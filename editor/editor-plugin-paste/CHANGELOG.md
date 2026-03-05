@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-paste
 
+## 8.4.1
+
+### Patch Changes
+
+- [`b47da2946160e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b47da2946160e) -
+  [FFCLEANUP-79685] clean up missed references to platform_editor_fix_captions_on_copy
+- Updated dependencies
+
 ## 8.4.0
 
 ### Minor Changes

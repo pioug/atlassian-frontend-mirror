@@ -1,5 +1,12 @@
 # @atlaskit/docs
 
+## 11.6.0
+
+### Minor Changes
+
+- [`f5c396ee51274`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5c396ee51274) -
+  Removes the `string-raw` ponyfill and uses `String.raw` directly.
+
 ## 11.5.1
 
 ### Patch Changes

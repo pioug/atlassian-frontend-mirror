@@ -23,6 +23,7 @@ import { unsupportedBlock } from '../nodes/unsupportedBlock';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const nonNestableBlockContent: Array<ADFNode<any, any>> = [
 	paragraph.use('with_no_marks'),
+	paragraph.use('with_font_size'),
 	panel,
 	blockquote,
 	orderedList,

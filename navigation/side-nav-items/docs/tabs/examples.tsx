@@ -1,13 +1,15 @@
 import React from 'react';
 
 import { Example, md } from '@atlaskit/docs';
+import Link from '@atlaskit/link';
+import { Text } from '@atlaskit/primitives/compiled';
 
 export const ExamplesTab: JSX.Element = md`
-These components can be used within
-the [side nav](https://atlassian.design/components/navigation-system/layout/examples#side-nav).
+These components are intended to be used within
+the [side nav](https://atlassian.design/components/navigation-system/layout/examples).
 
 For other components that can be used within the side nav, see
-[navigation experience guidelines (Atlassians only)](https://hello.atlassian.net/wiki/x/rBE7MAE).
+[navigation resources (Atlassians only)](https://hello.atlassian.net/wiki/x/rBE7MAE).
 
 ## Menu items
 
@@ -23,12 +25,11 @@ Within menu items, you can customize [\`elemBefore\`](/packages/navigation/side-
 
 ### Link menu item
 
-A menu item that is wrapped in an anchor tag \`<a>\`. This is the most common type of menu item, as
-most menu items are used to send people to another location.
+A menu item that is wrapped in an anchor tag \`<a>\`. This is the most common type of menu item, as most menu items are used to send people to another location.
 
-For menu items that trigger an action, instead use [button menu item](/packages/navigation/side-nav-items#button-menu-item).
-
-Use the [app provider](https://atlassian.design/components/app-provider/examples) to specify a custom router link component.
+- You are responsible for specifying when the link menu item is selected, for example checking if the \`href\` matches the current URL.
+- Use the [app provider](https://atlassian.design/components/app-provider/examples) to specify a custom router link component.
+- For menu items that trigger an action, use [button menu item](/packages/navigation/side-nav-items#button-menu-item).
 
 ${(
 	<Example
@@ -44,6 +45,7 @@ ${(
 A menu item wrapped in a button tag \`<button>\`. Use this component when you have an action that does
 something other than navigating to another location.
 
+- Set \`isSelected\` to indicate the button is selected.
 - [Avoid disabling button menu items](https://atlassian.design/components/button/usage#avoid-disabling-buttons) as this can
   cause accessibility problems. When disabled, [\`actions\`](/packages/navigation/side-nav-items#actions-and-actionsonhover) and
   [\`actionsOnHover\`](/packages/navigation/side-nav-items#actions-and-actionsonhover) will not display.
@@ -88,11 +90,11 @@ ${(
 
 #### Link
 
-The expandable menu item can also be a link location.
+An expandable menu item that is also a link location.
 
-- In this variant, the [\`elemBefore\`](/packages/navigation/side-nav-items#elembefore) chevron is an icon button so the menu can be
-  opened and closed independently from navigating to the link location.
-- A tootlip is not applied to the icon button.
+- You are responsible for specifying when the expandable link menu item is selected. For example, by checking if the \`href\` matches the current URL.
+- In this variant, the [\`elemBefore\`](/packages/navigation/side-nav-items#elembefore) chevron is an icon button so the menu can be opened and closed without navigating to the link location.
+- If changing the default chevron icon to another icon, don\`t override the color prop (it should be set to \`currentColor\`)
 
 ${(
 	<Example
@@ -108,13 +110,12 @@ ${(
 
 ### Flyout menu item
 
-A menu item that triggers a popup (flyout menu content) to expose side nav items. It can also
-contain other items, such as search bars and filters.
+A menu item that triggers a popup to expose side nav items. It can also contain other items, such as search bars and filters.
 
 - The flyout menu always displays a chevron icon at the end position.
 - Unlike other menu items, it does not support a \`description\`, [\`elemAfter\`](/packages/navigation/side-nav-items#elemafter),
   [\`actions\`](/packages/navigation/side-nav-items#actions-and-actionsonhover) or [\`actionsOnHover\`](/packages/navigation/side-nav-items#actions-and-actionsonhover).
-- The flyout menu content has a fixed 400px width. Height is not defined and can be set by makers.
+- The flyout menu popup has a fixed 400px width. Height is not defined and can be set by your team.
 
 ${(
 	<Example
@@ -125,6 +126,15 @@ ${(
 	/>
 )}
 
+#### Flyout menu popup slots
+
+The flyout menu popup has 3 slot components that should be used for creating consistent layouts.
+- \`FlyoutHeader\`. The top part of the flyout menu popup. Includes a header and a close button by default.
+- \`FlyoutBody\`. The middle part of the flyout menu popup. It acts as a scroll container. It will grow to take up the available space.
+- \`FlyoutFooter\` (optional). The bottom part of the flyout menu popup. Use to display a persistent 'view all' option.
+
+<!-- TODO: add image -->
+
 #### Responsive flyout menu
 
 At [breakpoints](https://atlassian.design/foundations/grid-beta/#breakpoints) \`s\` and below (less than 1024px), the flyout
@@ -132,9 +142,15 @@ menu content converts to a modal.
 
 The modal max height is 50% of the viewport height. The modal has a 4px margin.
 
-To see an example of this, open the [flyout menu item example](/packages/navigation/side-nav-items#flyout-menu-item) above in
-codesandbox and resize your browser.
-
+${(
+	<Text>
+		To see an example of this, open the{' '}
+		<Link target="_blank" href="/examples/navigation/side-nav-items/flyout-menu-item">
+			flyout menu item example
+		</Link>{' '}
+		and resize your browser.
+	</Text>
+)}
 ## Menu item customization
 
 ### elemBefore
@@ -257,10 +273,9 @@ ${(
 
 ### Menu divider
 
-A graphic divider to separate menu items or sections.
-
-Reserve for use in [flyout menu content](/packages/navigation/side-nav-items#flyout-menu-item). Avoid using directly in the side nav,
-use [top level spacer](/packages/navigation/side-nav-items#top-level-spacer) instead to create separation.
+Avoid using this component. Instead, use a [menu section heading](/packages/navigation/side-nav-items#menu-section-and-menu-section-heading)
+or a [top level spacer](/packages/navigation/side-nav-items#top-level-spacer).
+If you think you have a strong use case for this component, talk to the [Navigation Experiences](https://hello.atlassian.net/wiki/spaces/navx/pages/5104144812) team first.
 
 ${(
 	<Example
@@ -299,43 +314,28 @@ ${(
 
 ## Loading states
 
+The following skeleton components are available for loading states of side nav menu items and section headings.
+For loading states of other components that appear in the side navigation, compose your own using [skeleton](https://atlassian.design/components/skeleton/examples).
+
 ### Menu item skeleton
 
-#### With description
-
-Menu item skeletons can include a description, a secondary line of text. Use the \`hasDescription\`
-prop to match the corresponding menu item that will be loaded.
-
-${(
-	<Example
-		packageName="@atlaskit/side-nav-items"
-		Component={
-			require('../../examples/docs/skeleton-menu-item-description')
-				.SkeletonMenuItemDescriptionExample
-		}
-		title="Menu item skeleton with description"
-		source={require('!!raw-loader!../../examples/docs/skeleton-menu-item-description')}
-	/>
-)}
-
-#### With icon
-
-Menu item skeletons can include an icon or avatar before the label. Use the \`hasElemBefore\` prop to
-match the corresponding menu item that will be loaded.
+Use the menu item skeleton to represent the loading state of side nav [menu items](/packages/navigation/side-nav-items#menu-items). Configure each skeleton so it visually matches the menu item it represents.
+- By default, the skeleton represents the menu item label.
+- Use the \`hasDescription\` prop to add a skeleton for the menu item \`description\`.
+- Use the \`hasElemBefore\` prop to add a skeleton for the icon, app tile, or container avatar in the \`elemBefore\` slot.
 
 ${(
 	<Example
 		packageName="@atlaskit/side-nav-items"
-		Component={
-			require('../../examples/docs/skeleton-menu-item-elem-before')
-				.SkeletonMenuItemElemBeforeExample
-		}
-		title="Menu item skeleton with icon"
-		source={require('!!raw-loader!../../examples/docs/skeleton-menu-item-elem-before')}
+		Component={require('../../examples/docs/skeleton-menu-item').SkeletonMenuItemExample}
+		title="Menu item skeleton"
+		source={require('!!raw-loader!../../examples/docs/skeleton-menu-item')}
 	/>
 )}
 
 ### Menu section heading skeleton
+
+Use the menu section heading skeleton to represent the loading state of side nav [menu section heading](/packages/navigation/side-nav-items#menu-section-and-menu-section-heading).
 
 ${(
 	<Example

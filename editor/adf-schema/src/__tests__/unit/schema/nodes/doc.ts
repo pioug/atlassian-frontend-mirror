@@ -15,7 +15,7 @@ describe(`${packageName}/schema doc node`, () => {
 				content:
 					'(block | codeBlock | layoutSection | blockRootOnly | expand | syncBlock | bodiedSyncBlock)+',
 				marks:
-					'alignment breakout dataConsumer fragment indentation unsupportedMark unsupportedNodeAttribute',
+					'alignment fontSize breakout dataConsumer fragment indentation unsupportedMark unsupportedNodeAttribute',
 			}),
 		);
 	});

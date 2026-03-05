@@ -1,5 +1,12 @@
 # @atlaskit/tooltip
 
+## 20.14.6
+
+### Patch Changes
+
+- [`28cd2d5ab44fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28cd2d5ab44fa) -
+  doc tool changes
+
 ## 20.14.5
 
 ### Patch Changes

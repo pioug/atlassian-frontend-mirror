@@ -3,11 +3,21 @@ import { $or, $zeroPlus, adfNode } from '@atlaskit/adf-schema-generator';
 import { inlineContentGroup } from '../groups/inlineContentGroup';
 import { inlineGroup } from '../groups/inlineGroup';
 import { alignment, indentation } from '../marks/alignmentAndIndentation';
+import { fontSize } from '../marks/fontSize';
 import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
 
 export const paragraph: ADFNode<
-	[string, 'with_alignment', 'with_indentation', 'with_marks', 'with_no_marks'],
+	[
+		string,
+		'with_alignment',
+		'with_indentation',
+		'with_marks',
+		'with_no_marks',
+		'with_font_size',
+		'with_font_size_and_alignment',
+		'with_font_size_and_indentation',
+	],
 	ADFCommonNodeSpec & {
 		content: never[];
 		ignore: never[];
@@ -28,6 +38,24 @@ export const paragraph: ADFNode<
 		ignore: never[];
 		marks: never[];
 		noMarks: true;
+	} & {
+		content: never[];
+		ignore: never[];
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		marks: any[];
+		stage0: true;
+	} & {
+		content: never[];
+		ignore: never[];
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		marks: any[];
+		stage0: true;
+	} & {
+		content: never[];
+		ignore: never[];
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		marks: any[];
+		stage0: true;
 	}
 > = adfNode('paragraph')
 	.define({
@@ -59,4 +87,22 @@ export const paragraph: ADFNode<
 		marks: [],
 		noMarks: true,
 		ignore: [],
+	})
+	.variant('with_font_size', {
+		marks: [fontSize, unsupportedMark, unsupportedNodeAttribute],
+		content: [],
+		ignore: [],
+		stage0: true,
+	})
+	.variant('with_font_size_and_alignment', {
+		marks: [fontSize, alignment, unsupportedMark, unsupportedNodeAttribute],
+		content: [],
+		ignore: [],
+		stage0: true,
+	})
+	.variant('with_font_size_and_indentation', {
+		marks: [fontSize, indentation, unsupportedMark, unsupportedNodeAttribute],
+		content: [],
+		ignore: [],
+		stage0: true,
 	});

@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
 import { OutsideClickTargetRefContext } from '@atlaskit/editor-common/ui-react';
+import { SurfaceRenderer } from '@atlaskit/editor-ui-control-model';
+import type { RegisterComponent, SurfaceIdentifier } from '@atlaskit/editor-ui-control-model';
 import { Box, Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -34,6 +36,8 @@ export interface MenuOption {
 }
 
 interface PasteActionsMenuContentProps {
+	aiSurface?: SurfaceIdentifier;
+	aiSurfaceComponents?: RegisterComponent[];
 	onMouseDown: (e: React.MouseEvent) => void;
 	onMouseEnter: () => void;
 	options: MenuOption[];
@@ -43,16 +47,23 @@ export const PasteActionsMenuContent = ({
 	options,
 	onMouseDown,
 	onMouseEnter,
+	aiSurface,
+	aiSurfaceComponents,
 }: PasteActionsMenuContentProps) => {
 	const setOutsideClickTargetRef = useContext(OutsideClickTargetRefContext);
 
 	return (
-		<Box ref={setOutsideClickTargetRef} xcss={styles.container}>
+		<Box ref={setOutsideClickTargetRef} xcss={styles.container} onMouseDown={onMouseDown}>
+			{aiSurface && aiSurfaceComponents && aiSurfaceComponents.length > 0 && (
+				<SurfaceRenderer
+					surface={aiSurface}
+					components={aiSurfaceComponents}
+				/>
+			)}
 			{options.map((option) => (
 				<Pressable
 					key={option.id}
 					xcss={cx(styles.option, option.selected && styles.selectedOption)}
-					onMouseDown={onMouseDown}
 					onMouseEnter={onMouseEnter}
 					onFocus={onMouseEnter}
 					onClick={option.onClick}

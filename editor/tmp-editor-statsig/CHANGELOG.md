@@ -1,5 +1,35 @@
 # @atlaskit/editor-statsig-tmp
 
+## 32.12.0
+
+### Minor Changes
+
+- [`2ba512be34b34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2ba512be34b34) -
+  [ux] always enable table resizer extended zone
+
+## 32.11.0
+
+### Minor Changes
+
+- [`dbd7ff4f67cfb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dbd7ff4f67cfb) -
+  added `platform_editor_rovobutton_smartlink_toolbar_exp` experience gate
+
+## 32.10.0
+
+### Minor Changes
+
+- [`0f91061590da3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f91061590da3) -
+  Split platform_editor_vc90_transition_fixes_batch_1 into
+  platform_editor_vc90_transition_table_border, platform_editor_vc90_transition_expand_icon,
+  platform_editor_vc90_transition_mentions, platform_editor_vc90_transition_panel_icon
+
+## 32.9.0
+
+### Minor Changes
+
+- [`6555606e7bd91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6555606e7bd91) -
+  [NO-ISSUE] adding experiment for platform_editor_ai_blockmenu_integration
+
 ## 32.8.0
 
 ### Minor Changes

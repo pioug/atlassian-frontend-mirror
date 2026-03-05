@@ -74,13 +74,6 @@ describe('ADS MCP Server E2E', () => {
 		);
 	});
 
-	it('Lists the ads_get_icons tool with feature flags enabled', async () => {
-		const listedTools = (await client.listTools()).tools;
-		expect(listedTools).toEqual(
-			expect.arrayContaining([expect.objectContaining({ name: 'ads_get_icons' })]),
-		);
-	});
-
 	it('Does not list the ads_get_all_icons tool with feature flags enabled', async () => {
 		const listedTools = (await client.listTools()).tools;
 		expect(listedTools).not.toEqual(
@@ -164,75 +157,6 @@ describe('ADS MCP Server E2E', () => {
 		expect(token).toHaveProperty('name', 'color.text');
 		expect(token).toHaveProperty('description');
 		expect(token.description).toContain('primary text');
-	});
-
-	it('Returns markdown content for ads_get_icons tool with feature flags enabled', async () => {
-		const result = (
-			await client.callTool({
-				name: 'ads_get_icons',
-				arguments: {
-					terms: ['AddIcon'],
-					limit: 1,
-					exactName: true,
-				},
-			})
-		).content as { text: string }[];
-
-		expect(result).toHaveLength(1);
-		const text = result[0].text;
-
-		// With feature flags enabled, returns JSON (structured content; may be double-stringified)
-		const parsed = JSON.parse(text);
-		const icon = typeof parsed === 'string' ? JSON.parse(parsed) : parsed;
-		expect(icon).toHaveProperty('componentName', 'AddIcon');
-		expect(icon).toHaveProperty('package', '@atlaskit/icon/core/add');
-		expect(icon).toHaveProperty('keywords');
-		expect(Array.isArray(icon.keywords)).toBe(true);
-		expect(icon).toHaveProperty('usage');
-		expect(icon).toHaveProperty('status', 'published');
-	});
-
-	it('Returns all icons as markdown when no search terms provided for ads_get_icons tool with feature flags enabled', async () => {
-		const result = (
-			await client.callTool({
-				name: 'ads_get_icons',
-				arguments: {},
-			})
-		).content as { text: string }[];
-
-		expect(result).toHaveLength(1);
-		const text = result[0].text;
-
-		// With feature flags enabled, returns JSON array of icon objects (elements may be JSON strings)
-		const parsed = JSON.parse(text);
-		expect(Array.isArray(parsed)).toBe(true);
-		expect(parsed.length).toBeGreaterThan(0);
-		const firstIcon = typeof parsed[0] === 'string' ? JSON.parse(parsed[0]) : parsed[0];
-		expect(firstIcon).toHaveProperty('componentName');
-		expect(firstIcon).toHaveProperty('package');
-		expect(firstIcon).toHaveProperty('keywords');
-		expect(text.length).toBeGreaterThan(100); // Substantial content
-	});
-
-	it('Returns JSON with icon package path for ads_get_icons when searching for a core icon with feature flags enabled', async () => {
-		const result = (
-			await client.callTool({
-				name: 'ads_get_icons',
-				arguments: {
-					terms: ['AddIcon'],
-					limit: 1,
-					exactName: true,
-				},
-			})
-		).content as { text: string }[];
-
-		expect(result).toHaveLength(1);
-		const text = result[0].text;
-		const parsed = JSON.parse(text);
-		const icon = typeof parsed === 'string' ? JSON.parse(parsed) : parsed;
-		expect(icon).toHaveProperty('componentName', 'AddIcon');
-		expect(icon).toHaveProperty('package');
-		expect(icon.package).toContain('@atlaskit/icon/core/add');
 	});
 
 	it('Returns markdown content for ads_get_lint_rules tool with feature flags enabled', async () => {

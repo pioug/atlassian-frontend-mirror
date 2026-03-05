@@ -65,7 +65,6 @@ export type PastePluginOptions = {
 	sanitizePrivateContent?: boolean;
 };
 
-
 export type PastePluginDependencies = [
 	OptionalPlugin<FeatureFlagsPlugin>,
 	OptionalPlugin<ListPlugin>,
@@ -76,7 +75,7 @@ export type PastePluginDependencies = [
 	OptionalPlugin<ExtensionPlugin>,
 	OptionalPlugin<AnnotationPlugin>,
 	OptionalPlugin<MentionsPlugin>,
-	OptionalPlugin<ExpandPlugin>
+	OptionalPlugin<ExpandPlugin>,
 ];
 
 export type PastePlugin = NextEditorPlugin<

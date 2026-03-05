@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 8.2.0
+
+### Minor Changes
+
+- [`73fe865b67fd9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73fe865b67fd9) -
+  [ux] Adds new paste action buttons in editor-plugin-ai and registers them with the editor controls
+  registry - then renders these buttons from the registry into the (currently in development) paste
+  actions menu.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.3
 
 ### Patch Changes

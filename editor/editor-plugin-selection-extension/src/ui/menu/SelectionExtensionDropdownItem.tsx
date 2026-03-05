@@ -11,6 +11,7 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import { EXTENSION_MENU_ITEM_TEST_ID } from '@atlaskit/editor-common/block-menu';
 import { ToolbarDropdownItem, ToolbarTooltip } from '@atlaskit/editor-toolbar';
 import Lozenge from '@atlaskit/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -147,6 +148,7 @@ export const SelectionExtensionDropdownItem = ({
 					elemBefore={elemBeforeIcon}
 					onClick={handleClick}
 					isDisabled={dropdownItem.isDisabled}
+					testId={EXTENSION_MENU_ITEM_TEST_ID}
 				>
 					<Box as="span" xcss={styles.contentWrapper} onMouseOver={handleMouseEnter}>
 						<Box as="span" xcss={styles.label} ref={labelRef}>
@@ -166,6 +168,7 @@ export const SelectionExtensionDropdownItem = ({
 	return (
 		<ToolbarDropdownItem
 			elemBefore={elemBeforeIcon}
+			testId={EXTENSION_MENU_ITEM_TEST_ID}
 			onClick={handleClick}
 			isDisabled={dropdownItem.isDisabled}
 		>

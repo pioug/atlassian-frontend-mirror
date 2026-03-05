@@ -56,7 +56,11 @@ export default function MentionWithProfileCard({
 			// eslint-disable-next-line require-unicode-regexp
 			ariaLabel={text.replace(/^@/, '')}
 			ssrPlaceholderId={ssrPlaceholderId}
-			isRenderedInPortal={expValEquals('editor_a11y_7152_profile_card_tab_order', 'isEnabled', true)}
+			isRenderedInPortal={expValEquals(
+				'editor_a11y_7152_profile_card_tab_order',
+				'isEnabled',
+				true,
+			)}
 		>
 			<ResourcedMention
 				id={id}

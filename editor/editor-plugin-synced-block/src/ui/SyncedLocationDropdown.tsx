@@ -7,7 +7,6 @@ import { useState, useEffect } from 'react';
 import { css, jsx, cssMap, keyframes, cx } from '@compiled/react';
 import { type IntlShape } from 'react-intl-next';
 
-
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import {
 	ACTION,
@@ -230,7 +229,7 @@ const getConfluenceSubTypeIcon = (sourceAri: string, subType?: string | null) =>
 };
 
 const ProductIcon = ({ product }: { product?: SyncBlockProduct }) => {
-	const ProductIcon = product ? productIconMap[product] ?? AtlassianIcon : AtlassianIcon;
+	const ProductIcon = product ? (productIconMap[product] ?? AtlassianIcon) : AtlassianIcon;
 
 	return (
 		<span css={logoTileStyles}>

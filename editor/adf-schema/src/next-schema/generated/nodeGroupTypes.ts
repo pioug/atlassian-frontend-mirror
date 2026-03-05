@@ -47,6 +47,9 @@ import type {
   PanelDefinition,
   ParagraphDefinition,
   ParagraphWithAlignmentDefinition,
+  ParagraphWithFontSizeAndAlignmentStage0Definition,
+  ParagraphWithFontSizeAndIndentationStage0Definition,
+  ParagraphWithFontSizeStage0Definition,
   ParagraphWithIndentationDefinition,
   ParagraphWithNoMarksDefinition,
   PlaceholderDefinition,
@@ -73,6 +76,8 @@ export type BlockDefinition = Array<
   | ParagraphDefinition
   | ParagraphWithAlignmentDefinition
   | ParagraphWithIndentationDefinition
+  | ParagraphWithFontSizeAndAlignmentStage0Definition
+  | ParagraphWithFontSizeAndIndentationStage0Definition
   | ParagraphWithNoMarksDefinition
   | TaskListDefinition
   | OrderedListDefinition
@@ -129,6 +134,7 @@ export type InlineDefinition = Array<
 
 export type NonNestableBlockContentDefinition = Array<
   | ParagraphWithNoMarksDefinition
+  | ParagraphWithFontSizeStage0Definition
   | PanelDefinition
   | BlockquoteDefinition
   | OrderedListDefinition

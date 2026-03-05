@@ -1,13 +1,6 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import {
-	clearHoverSide,
-	mouseEnter,
-	mouseLeave,
-	setHoverSide,
-	stopEditing,
-} from './commands';
+import { clearHoverSide, mouseEnter, mouseLeave, setHoverSide, stopEditing } from './commands';
 import { getInteractionTrackingState } from './pm-plugin';
 
 /** Per-view pending hover state; avoids cross-editor singleton. */
@@ -31,14 +24,12 @@ const clearPendingHoverSide = (view: EditorView) => {
 
 const BLOCK_SELECTORS = '[data-node-anchor], [data-drag-handler-anchor-name]';
 
-const TABLE_SELECTOR = '[data-prosemirror-node-name="table"]';
-
 const RIGHT_EDGE_SELECTOR = '[data-blocks-right-edge-button-container]';
 
-const isInsideTable = (element: HTMLElement): boolean =>
-	element.closest(TABLE_SELECTOR) !== null ||
-	element.getAttribute?.('data-prosemirror-node-name') === 'table';
-
+/**
+ * Process hover position and set left/right side. Only invoked when right-side controls are
+ * enabled (confluence_remix_icon_right_side); handleMouseMove returns early otherwise.
+ */
 const processHoverSide = (view: EditorView) => {
 	const event = pendingByView.get(view);
 	if (!event) {
@@ -74,14 +65,18 @@ const processHoverSide = (view: EditorView) => {
 		return;
 	}
 
-	// Use the hovered block's midpoint when hovering over block content.
+	// Primary path: depth-1 block (doc direct child). Decorations-anchor sets [data-drag-handler-anchor-depth="1"]
+	// on every root block (table, layoutSection, expand, etc.), so we get the whole block without per-type logic.
 	const blockElement = target?.closest(BLOCK_SELECTORS);
-	const boundsElement =
-		blockElement instanceof HTMLElement ? blockElement : editorContentArea;
+	const depth1Block =
+		blockElement instanceof HTMLElement
+			? blockElement.closest('[data-drag-handler-anchor-depth="1"]')
+			: null;
 
-	// Tables show block controls at table level; don't restrict by side so drag handle
-	// stays visible when hovering anywhere in the table (e.g. paragraph in second cell).
-	if (isInsideTable(boundsElement)) {
+	const boundsElement: HTMLElement | null =
+		depth1Block instanceof HTMLElement ? depth1Block : editorContentArea;
+
+	if (!boundsElement) {
 		if (state?.hoverSide !== undefined) {
 			clearHoverSide(view);
 		}
@@ -108,11 +103,8 @@ export const handleMouseMove = (
 		stopEditing(view);
 	}
 
-	// Only track hover side when right-side controls are enabled and experiment is on (performance)
-	if (
-		!rightSideControlsEnabled ||
-		!expValEquals('confluence_remix_icon_right_side', 'isEnabled', true)
-	) {
+	// Only track hover side when right-side controls are enabled (single source: confluence_remix_icon_right_side via config)
+	if (!rightSideControlsEnabled) {
 		return false;
 	}
 
@@ -130,11 +122,8 @@ export const handleMouseMove = (
 	return false;
 };
 
-export const handleMouseLeave = (
-	view: EditorView,
-	rightSideControlsEnabled = false,
-) => {
-	if (rightSideControlsEnabled && expValEquals('confluence_remix_icon_right_side', 'isEnabled', true)) {
+export const handleMouseLeave = (view: EditorView, rightSideControlsEnabled = false) => {
+	if (rightSideControlsEnabled) {
 		clearPendingHoverSide(view);
 	}
 	mouseLeave(view);

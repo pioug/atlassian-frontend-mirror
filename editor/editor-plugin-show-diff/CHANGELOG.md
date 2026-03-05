@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 5.0.0
+
+### Major Changes
+
+- [`b5af20d6e019c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5af20d6e019c) -
+  EDITOR-5632: Change colourScheme param to colorScheme for standardisation.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.4
+
+### Patch Changes
+
+- [`4031146a0af6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4031146a0af6d) -
+  Updating the PR to calculate the correct number of decorations for display.
+- Updated dependencies
+
+## 4.1.3
+
+### Patch Changes
+
+- [`ea378cb5c7a31`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea378cb5c7a31) -
+  EDITOR-5632: no-op refactors to simplify code
+- Updated dependencies
+
 ## 4.1.2
 
 ### Patch Changes

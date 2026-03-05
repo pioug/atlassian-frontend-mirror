@@ -6,8 +6,24 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { token } from '@atlaskit/tokens';
 
+import {
+	getStandardNodeStyle,
+	deletedContentStyle,
+	deletedContentStyleActive,
+	deletedContentStyleNew,
+	deletedContentStyleNewActive,
+	editingStyle,
+	editingStyleActive,
+	deletedContentStyleUnbounded,
+} from './colorSchemes/standard';
+import {
+	getTraditionalNodeStyle,
+	deletedTraditionalContentStyle,
+	deletedTraditionalContentStyleUnbounded,
+	traditionalInsertStyle,
+	traditionalInsertStyleActive,
+} from './colorSchemes/traditional';
 import {
 	createDeletedStyleWrapperWithoutOpacity,
 	handleBlockNodeView,
@@ -15,38 +31,6 @@ import {
 import { handleDeletedRows } from './deletedRowsHandler';
 import { findSafeInsertPos } from './findSafeInsertPos';
 import type { NodeViewSerializer } from './NodeViewSerializer';
-
-const editingStyle = convertToInlineCss({
-	background: token('color.background.accent.purple.subtlest'),
-	textDecoration: 'underline',
-	textDecorationStyle: 'dotted',
-	textDecorationThickness: token('space.025'),
-	textDecorationColor: token('color.border.accent.purple'),
-});
-
-const editingStyleActive = convertToInlineCss({
-	background: token('color.background.accent.purple.subtler'),
-	textDecoration: 'underline',
-	textDecorationStyle: 'dotted',
-	textDecorationThickness: token('space.025'),
-	textDecorationColor: token('color.text.accent.purple'),
-});
-
-const traditionalInsertStyle = convertToInlineCss({
-	background: token('color.background.accent.green.subtlest'),
-	textDecoration: 'underline',
-	textDecorationStyle: 'solid',
-	textDecorationThickness: token('space.025'),
-	textDecorationColor: token('color.border.accent.green'),
-});
-
-const traditionalInsertStyleActive = convertToInlineCss({
-	background: token('color.background.accent.green.subtler'),
-	textDecoration: 'underline',
-	textDecorationStyle: 'solid',
-	textDecorationThickness: token('space.025'),
-	textDecorationColor: token('color.text.accent.green'),
-});
 
 /**
  * Inline decoration used for insertions as the content already exists in the document
@@ -56,11 +40,11 @@ const traditionalInsertStyleActive = convertToInlineCss({
  */
 export const createInlineChangedDecoration = (
 	change: { fromB: number; toB: number },
-	colourScheme?: 'standard' | 'traditional',
+	colorScheme?: 'standard' | 'traditional',
 	isActive: boolean = false,
 ) => {
 	let style: string;
-	if (colourScheme === 'traditional') {
+	if (colorScheme === 'traditional') {
 		style = isActive ? traditionalInsertStyleActive : traditionalInsertStyle;
 	} else {
 		style = isActive ? editingStyleActive : editingStyle;
@@ -72,158 +56,22 @@ export const createInlineChangedDecoration = (
 			style,
 			'data-testid': 'show-diff-changed-decoration',
 		},
-		{},
+		{ key: 'diff-inline' },
 	);
 };
 
-const getEditorStyleNode = (nodeName: string, colourScheme?: 'standard' | 'traditional') => {
-	switch (nodeName) {
-		case 'blockquote':
-			return colourScheme === 'traditional' ? traditionalStyleQuoteNode : editingStyleQuoteNode;
-		case 'mediaSingle':
-		case 'mediaGroup':
-		case 'table':
-		case 'tableRow':
-		case 'tableCell':
-		case 'tableHeader':
-			return undefined; // Handle table separately to avoid border issues
-		case 'paragraph':
-		case 'heading':
-		case 'hardBreak':
-			return undefined; // Paragraph and heading nodes do not need special styling
-		case 'decisionList':
-		case 'taskList':
-		case 'taskItem':
-		case 'bulletList':
-		case 'orderedList':
-			return undefined;
-		case 'extension':
-		case 'embedCard':
-		case 'listItem':
-			return convertToInlineCss({
-				'--diff-decoration-marker-color':
-					colourScheme === 'traditional'
-						? token('color.border.accent.green')
-						: token('color.border.accent.purple'),
-			});
-		case 'layoutSection':
-			return undefined; // Layout nodes do not need special styling
-		case 'rule':
-			return colourScheme === 'traditional' ? traditionalStyleRuleNode : editingStyleRuleNode;
-		case 'blockCard':
-			return colourScheme === 'traditional'
-				? traditionalStyleCardBlockNode
-				: editingStyleCardBlockNode;
-		default:
-			return colourScheme === 'traditional' ? traditionalStyleNode : editingStyleNode;
-	}
-};
-
-const editingStyleQuoteNode = convertToInlineCss({
-	borderLeft: `2px solid ${token('color.border.accent.purple')}`,
-});
-
-const traditionalStyleQuoteNode = convertToInlineCss({
-	borderLeft: `2px solid ${token('color.border.accent.green')}`,
-});
-
-const editingStyleRuleNode = convertToInlineCss({
-	backgroundColor: token('color.border.accent.purple'),
-});
-
-const traditionalStyleRuleNode = convertToInlineCss({
-	backgroundColor: token('color.border.accent.green'),
-});
-
-const editingStyleNode = convertToInlineCss({
-	boxShadow: `0 0 0 1px ${token('color.border.accent.purple')}`,
-	borderRadius: token('radius.small'),
-});
-
-const traditionalStyleNode = convertToInlineCss({
-	boxShadow: `0 0 0 1px ${token('color.border.accent.green')}`,
-	borderRadius: token('radius.small'),
-});
-
-const editingStyleCardBlockNode = convertToInlineCss({
-	boxShadow: `0 0 0 1px ${token('color.border.accent.purple')}`,
-	borderRadius: token('radius.medium'),
-});
-
-const traditionalStyleCardBlockNode = convertToInlineCss({
-	boxShadow: `0 0 0 1px ${token('color.border.accent.green')}`,
-	borderRadius: token('radius.medium'),
-});
-
-const deletedContentStyle = convertToInlineCss({
-	color: token('color.text.accent.gray'),
-	textDecoration: 'line-through',
-	position: 'relative',
-	opacity: 0.6,
-});
-
-const deletedContentStyleActive = convertToInlineCss({
-	color: token('color.text'),
-	textDecoration: 'line-through',
-	textDecorationColor: token('color.text.accent.gray'),
-	position: 'relative',
-	opacity: 1,
-});
-
-const deletedContentStyleNew = convertToInlineCss({
-	color: token('color.text.accent.gray'),
-	textDecoration: 'line-through',
-	position: 'relative',
-	opacity: 0.8,
-});
-
-const deletedContentStyleNewActive = convertToInlineCss({
-	color: token('color.text'),
-	textDecoration: 'line-through',
-	textDecorationColor: token('color.text.accent.gray'),
-	position: 'relative',
-	opacity: 1,
-});
-
-const deletedContentStyleUnbounded = convertToInlineCss({
-	position: 'absolute',
-	top: '50%',
-	width: '100%',
-	display: 'inline-block',
-	borderTop: `1px solid ${token('color.text.accent.gray')}`,
-	pointerEvents: 'none',
-	zIndex: 1,
-});
-
-const deletedTraditionalContentStyle = convertToInlineCss({
-	textDecorationColor: token('color.border.accent.red'),
-	textDecoration: 'line-through',
-	position: 'relative',
-	opacity: 1,
-});
-
-const deletedTraditionalContentStyleUnbounded = convertToInlineCss({
-	position: 'absolute',
-	top: '50%',
-	width: '100%',
-	display: 'inline-block',
-	borderTop: `1px solid ${token('color.border.accent.red')}`,
-	pointerEvents: 'none',
-	zIndex: 1,
-});
-
 export const getDeletedContentStyleUnbounded = (
-	colourScheme?: 'standard' | 'traditional',
+	colorScheme?: 'standard' | 'traditional',
 ): string =>
-	colourScheme === 'traditional'
+	colorScheme === 'traditional'
 		? deletedTraditionalContentStyleUnbounded
 		: deletedContentStyleUnbounded;
 
 export const getDeletedContentStyle = (
-	colourScheme?: 'standard' | 'traditional',
+	colorScheme?: 'standard' | 'traditional',
 	isActive: boolean = false,
 ): string => {
-	if (colourScheme === 'traditional') {
+	if (colorScheme === 'traditional') {
 		return deletedTraditionalContentStyle;
 	}
 	if (isActive) {
@@ -245,6 +93,10 @@ const getNodeClass = (name: string) => {
 	}
 };
 
+const getBlockNodeStyle = (name: string, colorScheme?: 'standard' | 'traditional') => {
+	return colorScheme === 'traditional' ? getTraditionalNodeStyle(name) : getStandardNodeStyle(name);
+};
+
 /**
  * Inline decoration used for insertions as the content already exists in the document
  *
@@ -253,22 +105,59 @@ const getNodeClass = (name: string) => {
  */
 export const createBlockChangedDecoration = (
 	change: { from: number; name: string; to: number },
-	colourScheme?: 'standard' | 'traditional',
-) =>
-	Decoration.node(
-		change.from,
-		change.to,
-		{
-			style: getEditorStyleNode(change.name, colourScheme),
-			'data-testid': 'show-diff-changed-decoration-node',
-			class: getNodeClass(change.name),
-		},
-		{},
-	);
+	colorScheme?: 'standard' | 'traditional',
+) => {
+	if (fg('platform_editor_show_diff_scroll_navigation')) {
+		const style = getBlockNodeStyle(change.name, colorScheme);
+		const className = getNodeClass(change.name);
+		if (style || className) {
+			return Decoration.node(
+				change.from,
+				change.to,
+				{
+					style: style,
+					'data-testid': 'show-diff-changed-decoration-node',
+					class: className,
+				},
+				{ key: 'diff-block' },
+			);
+		}
+		return undefined;
+	} else {
+		return Decoration.node(
+			change.from,
+			change.to,
+			{
+				style: getBlockNodeStyle(change.name, colorScheme),
+				'data-testid': 'show-diff-changed-decoration-node',
+				class: getNodeClass(change.name),
+			},
+			{ key: 'diff-block' },
+		);
+	}
+};
+
+const createContentWrapper = (
+	colorScheme?: 'standard' | 'traditional',
+	isActive: boolean = false,
+) => {
+	const wrapper = document.createElement('span');
+	const baseStyle = convertToInlineCss({
+		position: 'relative',
+		width: 'fit-content',
+	});
+	wrapper.setAttribute('style', `${baseStyle}${getDeletedContentStyle(colorScheme, isActive)}`);
+
+	const strikethrough = document.createElement('span');
+	strikethrough.setAttribute('style', getDeletedContentStyleUnbounded(colorScheme));
+	wrapper.append(strikethrough);
+
+	return wrapper;
+};
 
 interface DeletedContentDecorationProps {
 	change: Pick<Change, 'fromA' | 'toA' | 'fromB' | 'deleted'>;
-	colourScheme?: 'standard' | 'traditional';
+	colorScheme?: 'standard' | 'traditional';
 	doc: PMNode;
 	intl: IntlShape;
 	isActive?: boolean;
@@ -280,7 +169,7 @@ export const createDeletedContentDecoration = ({
 	change,
 	doc,
 	nodeViewSerializer,
-	colourScheme,
+	colorScheme,
 	newDoc,
 	intl,
 	isActive = false,
@@ -314,7 +203,7 @@ export const createDeletedContentDecoration = ({
 			doc,
 			newDoc,
 			nodeViewSerializer,
-			colourScheme,
+			colorScheme,
 		);
 		return decorations;
 	}
@@ -330,25 +219,6 @@ export const createDeletedContentDecoration = ({
 	 * or sliced End depth is and match only the entire node.
 	 */
 	slice.content.forEach((node) => {
-		// Create a wrapper for each node with strikethrough
-		const createWrapperWithStrikethrough = () => {
-			const wrapper = document.createElement('span');
-			const baseStyle = convertToInlineCss({
-				position: 'relative',
-				width: 'fit-content',
-			});
-			wrapper.setAttribute(
-				'style',
-				`${baseStyle}${getDeletedContentStyle(colourScheme, isActive)}`,
-			);
-
-			const strikethrough = document.createElement('span');
-			strikethrough.setAttribute('style', getDeletedContentStyleUnbounded(colourScheme));
-			wrapper.append(strikethrough);
-
-			return wrapper;
-		};
-
 		// Helper function to handle multiple child nodes
 		const handleMultipleChildNodes = (node: PMNode): boolean => {
 			if (node.content.childCount > 1 && node.type.inlineContent) {
@@ -356,16 +226,15 @@ export const createDeletedContentDecoration = ({
 					const childNodeView = serializer.tryCreateNodeView(childNode);
 					if (childNodeView) {
 						const lineBreak = document.createElement('br');
-						targetNode = node;
 						dom.append(lineBreak);
-						const wrapper = createWrapperWithStrikethrough();
+						const wrapper = createContentWrapper(colorScheme, isActive);
 						wrapper.append(childNodeView);
 						dom.append(wrapper);
 					} else {
 						// Fallback to serializing the individual child node
 						const serializedChild = serializer.serializeNode(childNode);
 						if (serializedChild) {
-							const wrapper = createWrapperWithStrikethrough();
+							const wrapper = createContentWrapper(colorScheme, isActive);
 							wrapper.append(serializedChild);
 							dom.append(wrapper);
 						}
@@ -381,21 +250,15 @@ export const createDeletedContentDecoration = ({
 		const isLast = slice.content.lastChild === node;
 		const hasInlineContent = node.content.childCount > 0 && node.type.inlineContent === true;
 
-		let targetNode: PMNode;
 		let fallbackSerialization: () => Node | null;
 
+		if (handleMultipleChildNodes(node)) {
+			return;
+		}
+
 		if ((isFirst || (isLast && slice.content.childCount > 2)) && hasInlineContent) {
-			if (handleMultipleChildNodes(node)) {
-				return;
-			}
-			targetNode = node;
 			fallbackSerialization = () => serializer.serializeFragment(node.content);
 		} else if (isLast && slice.content.childCount === 2) {
-			if (handleMultipleChildNodes(node)) {
-				return;
-			}
-			targetNode = node;
-
 			fallbackSerialization = () => {
 				if (node.type.name === 'text') {
 					return document.createTextNode(node.text || '');
@@ -410,35 +273,29 @@ export const createDeletedContentDecoration = ({
 				return serializer.serializeFragment(node.content);
 			};
 		} else {
-			if (handleMultipleChildNodes(node)) {
-				return;
-			}
-			targetNode = node;
 			fallbackSerialization = () => serializer.serializeNode(node);
 		}
 
 		// Try to create node view, fallback to serialization
-		const nodeView = serializer.tryCreateNodeView(targetNode);
+		const nodeView = serializer.tryCreateNodeView(node);
 		if (nodeView) {
-			if (targetNode.isInline) {
-				const wrapper = createWrapperWithStrikethrough();
+			if (node.isInline) {
+				const wrapper = createContentWrapper(colorScheme, isActive);
 				wrapper.append(nodeView);
 				dom.append(wrapper);
 			} else {
 				// Handle all block nodes with unified function
-				handleBlockNodeView(dom, nodeView, targetNode, colourScheme, intl);
+				handleBlockNodeView(dom, nodeView, node, colorScheme, intl);
 			}
 		} else if (
-			nodeViewSerializer
-				.getFilteredNodeViewBlocklist(['paragraph', 'tableRow'])
-				.has(targetNode.type.name)
+			nodeViewSerializer.getFilteredNodeViewBlocklist(['paragraph', 'tableRow']).has(node.type.name)
 		) {
 			// Skip the case where the node is a paragraph or table row that way it can still be rendered and delete the entire table
 			return;
 		} else {
 			const fallbackNode = fallbackSerialization();
 			if (fallbackNode) {
-				const wrapper = createDeletedStyleWrapperWithoutOpacity(colourScheme, isActive);
+				const wrapper = createDeletedStyleWrapperWithoutOpacity(colorScheme, isActive);
 				wrapper.append(fallbackNode);
 				dom.append(wrapper);
 			}
@@ -450,5 +307,5 @@ export const createDeletedContentDecoration = ({
 	// Widget decoration used for deletions as the content is not in the document
 	// and we want to display the deleted content with a style.
 	const safeInsertPos = findSafeInsertPos(newDoc, change.fromB, slice);
-	return [Decoration.widget(safeInsertPos, dom)];
+	return [Decoration.widget(safeInsertPos, dom, { key: 'diff-widget' })];
 };

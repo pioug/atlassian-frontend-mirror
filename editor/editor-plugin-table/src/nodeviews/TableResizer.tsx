@@ -856,7 +856,11 @@ export const TableResizer = ({
 				snap={guidelineSnaps}
 				handlePositioning="adjacent"
 				isHandleVisible={isTableSelected}
-				needExtendedResizeZone={!isTableSelected}
+				needExtendedResizeZone={
+					expValEquals('platform_editor_table_resizer_extended_zone', 'isEnabled', true)
+						? true
+						: !isTableSelected
+				}
 				appearance={isTableSelected && isWholeTableInDanger ? 'danger' : undefined}
 				handleHighlight="shadow"
 				handleTooltipContent={({ update }) => {

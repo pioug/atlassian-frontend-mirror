@@ -113,7 +113,7 @@ export default class BenefitsModal extends Component<ModalProps> {
 
 	render(): React.JSX.Element {
 		const {
-			actions,
+			actions: _actions,
 			children,
 			heading,
 			// All of the following props except `...rest` are unused but were being
@@ -137,7 +137,6 @@ export default class BenefitsModal extends Component<ModalProps> {
 			// TODO: This is a problem that needs solving: https://product-fabric.atlassian.net/browse/DSP-22238
 			// eslint-disable-next-line @atlaskit/design-system/use-modal-dialog-close-button
 			<Modal
-				autoFocus
 				shouldCloseOnEscapePress={false}
 				shouldCloseOnOverlayClick={false}
 				shouldScrollInViewport

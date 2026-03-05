@@ -12,7 +12,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { akEditorFullPageNarrowBreakout } from '@atlaskit/editor-shared-styles';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
@@ -83,11 +82,8 @@ export const VisibilityContainer = ({ api, children, controlSide }: VisibilityCo
 	);
 
 	const isViewMode = editorViewMode === 'view';
-	const shouldRestrictBySide =
-		rightSideControlsEnabled &&
-		expValEquals('confluence_remix_icon_right_side', 'isEnabled', true) &&
-		controlSide !== undefined &&
-		!isViewMode;
+	// rightSideControlsEnabled is the single source of truth (confluence_remix_icon_right_side from preset)
+	const shouldRestrictBySide = rightSideControlsEnabled && controlSide !== undefined && !isViewMode;
 	// Only restrict by side when hoverSide is known (after mousemove). When undefined, show both
 	// controls so drag handle is visible on load and for keyboard-only users.
 	const sideHidden =
@@ -97,19 +93,11 @@ export const VisibilityContainer = ({ api, children, controlSide }: VisibilityCo
 	// pages), avoiding flicker as the mouse crosses boundaries.
 	const hideOnMouseOut = isMouseOut;
 	const shouldHideImmediate =
-		isTypeAheadOpen ||
-		isEditing ||
-		hideOnMouseOut ||
-		userIntent === 'aiStreaming' ||
-		sideHidden;
+		isTypeAheadOpen || isEditing || hideOnMouseOut || userIntent === 'aiStreaming' || sideHidden;
 
 	// Delay hiding the right control in view mode to reduce flickering when moving from block
 	// toward the right-edge button (avoids rapid show/hide as mouse crosses boundaries).
-	const isRightControlViewMode =
-		isViewMode &&
-		rightSideControlsEnabled &&
-		expValEquals('confluence_remix_icon_right_side', 'isEnabled', true) &&
-		controlSide === 'right';
+	const isRightControlViewMode = isViewMode && rightSideControlsEnabled && controlSide === 'right';
 	// When in right-control view mode, we delay hiding so start visible; useEffect will update after delay
 	const [delayedShouldHide, setDelayedShouldHide] = useState(false);
 	const hideTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);

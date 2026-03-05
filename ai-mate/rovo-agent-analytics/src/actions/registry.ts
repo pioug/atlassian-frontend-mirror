@@ -24,10 +24,7 @@ import {
 	type AgentInteractionAttributes,
 	ACTION_GROUP as AGENT_INTERACTIONS_GROUP,
 } from './groups/agent-interactions';
-import {
-	CreateFlowActions,
-	ACTION_GROUP as CREATE_FLOW_GROUP,
-} from './groups/create-flow';
+import { CreateFlowActions, ACTION_GROUP as CREATE_FLOW_GROUP } from './groups/create-flow';
 import {
 	AgentDebugActions,
 	type DebugActionAttributes,

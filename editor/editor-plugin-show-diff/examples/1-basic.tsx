@@ -60,7 +60,7 @@ const step1 = {
 };
 
 export default function Editor(): React.JSX.Element {
-	const [colourScheme, setColourScheme] = useState<'standard' | 'traditional'>('traditional');
+	const [colorScheme, setColorScheme] = useState<'standard' | 'traditional'>('traditional');
 	const { preset } = usePreset(
 		(builder) =>
 			builder
@@ -141,7 +141,7 @@ export default function Editor(): React.JSX.Element {
 					showDiffPlugin,
 					{
 						steps: [step1],
-						colourScheme: colourScheme,
+						colorScheme: colorScheme,
 						originalDoc: {
 							type: 'doc',
 							version: 1,
@@ -154,17 +154,17 @@ export default function Editor(): React.JSX.Element {
 						},
 					},
 				]),
-		[colourScheme],
+		[colorScheme],
 	);
 
 	return (
 		<>
 			<Button
 				onClick={() => {
-					setColourScheme(colourScheme === 'traditional' ? 'standard' : 'traditional');
+					setColorScheme(colorScheme === 'traditional' ? 'standard' : 'traditional');
 				}}
 			>
-				Colour scheme: {colourScheme}
+				Colour scheme: {colorScheme}
 			</Button>
 			<ComposableEditor
 				appearance="full-page"

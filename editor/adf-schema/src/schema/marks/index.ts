@@ -19,6 +19,8 @@ export type { TextColorDefinition, TextColorAttributes } from './text-color';
 export { confluenceInlineComment } from './confluence-inline-comment';
 export { breakout } from './breakout';
 export type { BreakoutMarkAttrs, BreakoutMarkDefinition } from './breakout';
+export { fontSize } from './font-size';
+export type { FontSizeMarkAttrs, FontSizeMarkDefinition } from './font-size';
 export { alignment, alignmentPositionMap } from './alignment';
 export type { AlignmentAttributes, AlignmentMarkDefinition } from './alignment';
 export { indentation } from './indentation';

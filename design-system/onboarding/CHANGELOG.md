@@ -1,5 +1,12 @@
 # @atlaskit/onboarding
 
+## 14.5.5
+
+### Patch Changes
+
+- [`b35eb5f6a4e6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b35eb5f6a4e6a) -
+  Remove now inert `autoFocus` prop from modal dialog components.
+
 ## 14.5.4
 
 ### Patch Changes

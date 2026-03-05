@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/docs",
-	"version": "11.5.1",
+	"version": "11.6.0",
 	"description": "Utilities for building documentation",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -47,8 +47,7 @@
 		"codesandboxer": "root:*",
 		"pretty-proptypes": "root:*",
 		"react-markdown": "root:*",
-		"react-markings": "root:*",
-		"string-raw": "root:*"
+		"react-markings": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",

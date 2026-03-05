@@ -157,3 +157,15 @@ export const BLOCK_MENU_ACTION_TEST_ID = {
 	DELETE: 'block-menu-delete',
 	COPY_LINK: 'block-menu-copy-link',
 } as const;
+
+/** Test ID for extension menu items (used to skip block transform experience tracking) */
+export const EXTENSION_MENU_ITEM_TEST_ID = 'extension-menu-item';
+
+// AI
+export const AI_MENU_SECTION = {
+	key: 'ai-menu-section',
+};
+
+export const AI_ASK_ROVO_MENU_ITEM = {
+	key: 'ai-ask-rovo-menu-item',
+};

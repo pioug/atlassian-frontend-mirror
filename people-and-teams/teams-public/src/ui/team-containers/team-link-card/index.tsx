@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import { defineMessages, useIntl } from 'react-intl-next';
 
-import { isFedRamp } from '@atlaskit/atlassian-context';
 import { IconButton } from '@atlaskit/button/new';
 import { cssMap, cx } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
@@ -173,9 +172,7 @@ export const TeamLinkCard = ({
 	const [showKeyboardFocus, setShowKeyboardFocus] = useState(false);
 	const { formatMessage } = useIntl();
 	const { fireEvent } = useAnalyticsEvents();
-
-	const isNewTeamProfilePageEnabled = !isFedRamp() || fg('new_team_profile_fedramp');
-	const isOpenWebLinkInNewTabEnabled = containerType === 'WebLink' && isNewTeamProfilePageEnabled;
+	const isOpenWebLinkInNewTabEnabled = containerType === 'WebLink';
 
 	const handleMouseEnter = () => {
 		if (isReadOnly) {
@@ -285,18 +282,7 @@ export const TeamLinkCard = ({
 								<Flex gap="space.050" alignItems="center">
 									{!hideSubTextIcon ? icon : null}
 									<Inline space="space.050" alignBlock="center">
-										{isNewTeamProfilePageEnabled ? (
-											renderContainerTypeTextWithSeparator(containerTypeText, description)
-										) : (
-											<>
-												<Text size="small" color="color.text.subtle">
-													{description}
-												</Text>
-												<Text size="small" color="color.text.subtle">
-													{containerTypeText}
-												</Text>
-											</>
-										)}
+										{renderContainerTypeTextWithSeparator(containerTypeText, description)}
 									</Inline>
 								</Flex>
 							</Stack>
@@ -346,18 +332,7 @@ export const TeamLinkCard = ({
 									<Flex gap="space.050" alignItems="center">
 										{!hideSubTextIcon ? icon : null}
 										<Inline space="space.050" alignBlock="center">
-											{isNewTeamProfilePageEnabled ? (
-												renderContainerTypeTextWithSeparator(containerTypeText, description)
-											) : (
-												<>
-													<Text size="small" color="color.text.subtle">
-														{description}
-													</Text>
-													<Text size="small" color="color.text.subtle">
-														{containerTypeText}
-													</Text>
-												</>
-											)}
+											{renderContainerTypeTextWithSeparator(containerTypeText, description)}
 										</Inline>
 									</Flex>
 								</Stack>

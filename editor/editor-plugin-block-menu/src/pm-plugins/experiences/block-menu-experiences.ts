@@ -5,7 +5,11 @@ import {
 	ACTION_SUBJECT_ID,
 	type DispatchAnalyticsEvent,
 } from '@atlaskit/editor-common/analytics';
-import { BLOCK_MENU_ACTION_TEST_ID, BLOCK_MENU_TEST_ID } from '@atlaskit/editor-common/block-menu';
+import {
+	BLOCK_MENU_ACTION_TEST_ID,
+	BLOCK_MENU_TEST_ID,
+	EXTENSION_MENU_ITEM_TEST_ID,
+} from '@atlaskit/editor-common/block-menu';
 import {
 	Experience,
 	EXPERIENCE_ID,
@@ -166,7 +170,12 @@ export const getBlockMenuExperiencesPlugin = ({
 	};
 
 	const handleTransformActioned = (target: HTMLElement): boolean => {
-		if (!target.closest('[data-testid="editor-turn-into-menu--content"]')) {
+		if (
+			!target.closest('[data-testid="editor-turn-into-menu--content"]') ||
+			// Skip experience tracking when the clicked item is an extension menu item
+			// (e.g. Jira macro, etc.) - they don't perform block transforms
+			target.closest(`[data-testid="${EXTENSION_MENU_ITEM_TEST_ID}"]`)
+		) {
 			return false;
 		}
 

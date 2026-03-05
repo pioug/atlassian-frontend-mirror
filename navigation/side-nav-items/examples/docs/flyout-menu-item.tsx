@@ -47,7 +47,7 @@ function MyFlyoutMenuItemContent() {
 								paddingInlineEnd="space.025"
 								paddingBlockStart="space.025"
 							>
-								<SearchIcon label="" spacing="spacious" color="currentColor" />
+								<SearchIcon label="" spacing="spacious" />
 							</Box>
 						}
 						placeholder="Search recent items"
@@ -60,7 +60,7 @@ function MyFlyoutMenuItemContent() {
 				<MenuList>
 					<LinkMenuItem
 						href={exampleHref}
-						elemBefore={<BoardIcon label="" spacing="spacious" color="currentColor" />}
+						elemBefore={<BoardIcon label="" spacing="spacious" />}
 						description="5 days ago"
 					>
 						My Kanban Project
@@ -80,7 +80,7 @@ function MyFlyoutMenuItemContent() {
 				<MenuList>
 					<LinkMenuItem
 						href={exampleHref}
-						elemBefore={<BoardIcon label="" spacing="spacious" color="currentColor" />}
+						elemBefore={<BoardIcon label="" spacing="spacious" />}
 						description="5 days ago"
 					>
 						KO Board
@@ -90,10 +90,7 @@ function MyFlyoutMenuItemContent() {
 
 			<Divider />
 			<MenuList>
-				<LinkMenuItem
-					href={exampleHref}
-					elemBefore={<AlignTextLeftIcon label="" color="currentColor" />}
-				>
+				<LinkMenuItem href={exampleHref} elemBefore={<AlignTextLeftIcon label="" />}>
 					View all recent items
 				</LinkMenuItem>
 			</MenuList>
@@ -106,7 +103,7 @@ export const FlyoutMenuItemExample = (): React.JSX.Element => (
 		<SideNavContent>
 			<MenuList>
 				<FlyoutMenuItem>
-					<FlyoutMenuItemTrigger elemBefore={<ClockIcon label="" color="currentColor" />}>
+					<FlyoutMenuItemTrigger elemBefore={<ClockIcon label="" />}>
 						Flyout menu item (icon)
 					</FlyoutMenuItemTrigger>
 					<MyFlyoutMenuItemContent />
@@ -141,7 +138,7 @@ export const FlyoutMenuItemExample = (): React.JSX.Element => (
 				</FlyoutMenuItem>
 
 				<FlyoutMenuItem>
-					<FlyoutMenuItemTrigger elemBefore={<ClockIcon label="" color="currentColor" />}>
+					<FlyoutMenuItemTrigger elemBefore={<ClockIcon label="" />} isSelected>
 						Flyout menu item (selected state)
 					</FlyoutMenuItemTrigger>
 					<MyFlyoutMenuItemContent />

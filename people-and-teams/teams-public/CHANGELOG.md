@@ -1,5 +1,12 @@
 # @atlaskit/teams-public
 
+## 0.70.5
+
+### Patch Changes
+
+- [`f5d57d0bce900`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5d57d0bce900) -
+  Clean up teams_app_auto_container_creation experiment
+
 ## 0.70.4
 
 ### Patch Changes

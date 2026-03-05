@@ -193,89 +193,89 @@ export const CustomLogo: ({
 	 */
 	onClick?: React.MouseEventHandler<HTMLAnchorElement>;
 }) => {
-		const ref = useRef<HTMLAnchorElement>(null);
+	const ref = useRef<HTMLAnchorElement>(null);
 
-		useEffect(() => {
-			if (process.env.NODE_ENV === 'production') {
-				return;
-			}
+	useEffect(() => {
+		if (process.env.NODE_ENV === 'production') {
+			return;
+		}
 
-			if (!ref.current) {
-				return;
-			}
+		if (!ref.current) {
+			return;
+		}
 
-			const img = ref.current.querySelector('img');
-			if (!img) {
-				return;
-			}
+		const img = ref.current.querySelector('img');
+		if (!img) {
+			return;
+		}
 
-			/**
-			 * We want custom logo components to render the image as the immediate child
-			 */
-			const hasExpectedStructure = img.parentElement?.parentElement === ref.current;
-			/**
-			 * We want custom logo components to render only one image
-			 */
-			const isOnlyChild = img.parentElement?.childElementCount === 1;
+		/**
+		 * We want custom logo components to render the image as the immediate child
+		 */
+		const hasExpectedStructure = img.parentElement?.parentElement === ref.current;
+		/**
+		 * We want custom logo components to render only one image
+		 */
+		const isOnlyChild = img.parentElement?.childElementCount === 1;
 
-			if (!hasExpectedStructure || !isOnlyChild) {
-				// eslint-disable-next-line no-console
-				console.error('Custom logos should render only a single image tag with no wrappers.');
-			}
+		if (!hasExpectedStructure || !isOnlyChild) {
+			// eslint-disable-next-line no-console
+			console.error('Custom logos should render only a single image tag with no wrappers.');
+		}
 
-			if (
-				img.getAttribute('width') !== null ||
-				img.getAttribute('height') !== null ||
-				img.style.width !== '' ||
-				img.style.height !== ''
-			) {
-				// eslint-disable-next-line no-console
-				console.error(
-					'Do not set explicit dimensions on custom logo images. The container will resize the image to fit.',
-				);
-			}
-		}, []);
+		if (
+			img.getAttribute('width') !== null ||
+			img.getAttribute('height') !== null ||
+			img.style.width !== '' ||
+			img.style.height !== ''
+		) {
+			// eslint-disable-next-line no-console
+			console.error(
+				'Do not set explicit dimensions on custom logo images. The container will resize the image to fit.',
+			);
+		}
+	}, []);
 
-		const hasCustomTheme = useHasCustomTheme();
+	const hasCustomTheme = useHasCustomTheme();
 
-		const isFhsEnabled = useIsFhsEnabled();
+	const isFhsEnabled = useIsFhsEnabled();
 
-		return (
-			<Anchor
-				ref={ref}
-				aria-label={label}
-				href={href}
-				// @ts-expect-error - non-standard values for `borderRadius` and the custom theming interaction states
-				// eslint-disable-next-line @compiled/no-suppress-xcss
-				xcss={cx(
-					anchorStyles.root,
-					anchorStyles.customLogoBorderRadius,
-					fg('platform-dst-shape-theme-default') && anchorStyles.customLogoBorderRadiusT26Shape,
-					anchorStyles.newMargin,
-					hasCustomTheme
-						? anchorStyles.newInteractionStatesCustomTheming
-						: anchorStyles.newInteractionStates,
-				)}
-				onClick={onClick}
+	return (
+		<Anchor
+			ref={ref}
+			aria-label={label}
+			href={href}
+			// @ts-expect-error - non-standard values for `borderRadius` and the custom theming interaction states
+			// eslint-disable-next-line @compiled/no-suppress-xcss
+			xcss={cx(
+				anchorStyles.root,
+				anchorStyles.customLogoBorderRadius,
+				fg('platform-dst-shape-theme-default') && anchorStyles.customLogoBorderRadiusT26Shape,
+				anchorStyles.newMargin,
+				hasCustomTheme
+					? anchorStyles.newInteractionStatesCustomTheming
+					: anchorStyles.newInteractionStates,
+			)}
+			onClick={onClick}
+		>
+			<div
+				css={[
+					sharedIconOrLogoContainerStyles.root,
+					iconContainerStyles.root,
+					isFhsEnabled && sharedIconOrLogoContainerStyles.withFullHeightSidebar,
+				]}
 			>
-				<div
-					css={[
-						sharedIconOrLogoContainerStyles.root,
-						iconContainerStyles.root,
-						isFhsEnabled && sharedIconOrLogoContainerStyles.withFullHeightSidebar,
-					]}
-				>
-					<LogoRenderer logoOrIcon={icon} />
-				</div>
-				<div
-					css={[
-						sharedIconOrLogoContainerStyles.root,
-						logoContainerStyles.root,
-						isFhsEnabled && sharedIconOrLogoContainerStyles.withFullHeightSidebar,
-					]}
-				>
-					<LogoRenderer logoOrIcon={logo} />
-				</div>
-			</Anchor>
-		);
-	};
+				<LogoRenderer logoOrIcon={icon} />
+			</div>
+			<div
+				css={[
+					sharedIconOrLogoContainerStyles.root,
+					logoContainerStyles.root,
+					isFhsEnabled && sharedIconOrLogoContainerStyles.withFullHeightSidebar,
+				]}
+			>
+				<LogoRenderer logoOrIcon={logo} />
+			</div>
+		</Anchor>
+	);
+};

@@ -40,7 +40,7 @@ describe(`${packageName}/schema nestedExpand node`, () => {
 			content:
 				'(paragraph | heading | mediaSingle | mediaGroup | codeBlock | bulletList | orderedList | taskList | decisionList | rule | panel | blockquote | unsupportedBlock | extension)+',
 			isolating: true,
-			marks: 'unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+			marks: 'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
 			parseDOM: [
 				{
 					context: 'nestedExpand//',
@@ -69,7 +69,7 @@ describe(`${packageName}/schema nestedExpand node`, () => {
 		it('converts to PM node', () => {
 			const doc = fromHTML('<div data-node-type="nestedExpand" />', schema);
 			const node = findNestedExpand(doc, schema)!;
-			expect(node.type.spec).toEqual(nestedExpand);
+			expect(node.type.name).toEqual('nestedExpand');
 		});
 
 		it('gets attributes from html', () => {

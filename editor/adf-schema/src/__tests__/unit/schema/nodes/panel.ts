@@ -51,7 +51,7 @@ describe(`${packageName}/schema panel node `, () => {
 			content:
 				'(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | decisionList | unsupportedBlock | extension)+',
 			group: 'block',
-			marks: 'unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+			marks: 'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
 			parseDOM: [
 				{
 					getAttrs: expect.anything(),
@@ -90,7 +90,7 @@ describe(`${packageName}/schema panel node `, () => {
 			content:
 				'(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | decisionList | unsupportedBlock | extension)+',
 			group: 'block',
-			marks: 'unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+			marks: 'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
 			parseDOM: [
 				{
 					getAttrs: expect.anything(),
@@ -240,6 +240,61 @@ describe(`${packageName}/schema panel node `, () => {
 			});
 		});
 	});
+
+	describe('fontSize mark support in panel', () => {
+		it('paragraph with fontSize is valid inside panel node', () => {
+			const fontSizeMark = schema.marks.fontSize.create({ fontSize: 'small' });
+			const paragraph = schema.nodes.paragraph.create(
+				{},
+				[schema.text('Small text in panel')],
+				[fontSizeMark],
+			);
+			const panel = schema.nodes.panel.create({ panelType: 'info' }, [paragraph]);
+
+			expect(panel.type.name).toBe('panel');
+			expect(panel.firstChild).toBeTruthy();
+			expect(panel.firstChild!.type.name).toBe('paragraph');
+			expect(panel.firstChild!.marks).toHaveLength(1);
+			expect(panel.firstChild!.marks[0].type.name).toBe('fontSize');
+			expect(panel.firstChild!.marks[0].attrs.fontSize).toBe('small');
+		});
+
+		it('panel can contain multiple paragraphs with different fontSize values', () => {
+			const fontSizeMark = schema.marks.fontSize.create({ fontSize: 'small' });
+			const paragraph1 = schema.nodes.paragraph.create(
+				{},
+				[schema.text('Small text')],
+				[fontSizeMark],
+			);
+			const paragraph2 = schema.nodes.paragraph.create({}, [schema.text('Normal text')], []);
+			const panel = schema.nodes.panel.create({ panelType: 'info' }, [paragraph1, paragraph2]);
+
+			expect(panel.childCount).toBe(2);
+			expect(panel.firstChild!.marks).toHaveLength(1);
+			expect(panel.firstChild!.marks[0].type.name).toBe('fontSize');
+			expect(panel.lastChild!.marks).toHaveLength(0);
+		});
+
+		it('panel with fontSize paragraph validates correctly in JSON schema', () => {
+			const fontSizeMark = schema.marks.fontSize.create({ fontSize: 'small' });
+			const paragraph = schema.nodes.paragraph.create(
+				{},
+				[schema.text('Small text')],
+				[fontSizeMark],
+			);
+			const panel = schema.nodes.panel.create({ panelType: 'info' }, [paragraph]);
+
+			const html = toHTML(panel, schema);
+			const parsedDoc = fromHTML(html, schema);
+			const parsedPanel = parsedDoc.firstChild!;
+
+			expect(parsedPanel.type.name).toBe('panel');
+			expect(parsedPanel.firstChild).toBeTruthy();
+			expect(parsedPanel.firstChild!.marks).toHaveLength(1);
+			expect(parsedPanel.firstChild!.marks[0].type.name).toBe('fontSize');
+			expect(parsedPanel.firstChild!.marks[0].attrs.fontSize).toBe('small');
+		});
+	});
 });
 
 function makeSchema(customNodeSpecs?: { [key: string]: NodeSpec }) {
@@ -254,6 +309,7 @@ function makeSchema(customNodeSpecs?: { [key: string]: NodeSpec }) {
 			'bulletList',
 			'listItem',
 		],
+		marks: ['fontSize'],
 	};
 	return customNodeSpecs ? createSchema({ ...config, customNodeSpecs }) : createSchema(config);
 }

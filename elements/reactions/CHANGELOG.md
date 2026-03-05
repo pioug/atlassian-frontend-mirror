@@ -1,5 +1,12 @@
 # @atlaskit/reactions
 
+## 33.8.17
+
+### Patch Changes
+
+- [`1d0fcc9c19260`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d0fcc9c19260) -
+  Clean up flag to make links more accessible.
+
 ## 33.8.16
 
 ### Patch Changes

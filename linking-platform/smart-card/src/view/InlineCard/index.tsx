@@ -187,7 +187,7 @@ export const InlineCard = ({
 					onClick={handleFrameClick}
 					testId={testIdWithStatus || 'inline-card-errored-view'}
 					truncateInline={truncateInline}
-					viewType='errored'
+					viewType="errored"
 				/>
 			);
 	}

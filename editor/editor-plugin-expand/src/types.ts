@@ -30,9 +30,11 @@ export type ExpandPluginAction = {
 	type: 'SET_EXPAND_REF';
 };
 
-export type ExpandPluginSharedState = {
-	allowInsertion?: boolean;
-} | undefined;
+export type ExpandPluginSharedState =
+	| {
+			allowInsertion?: boolean;
+	  }
+	| undefined;
 
 export type InsertMethod = INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.INSERT_MENU;
 

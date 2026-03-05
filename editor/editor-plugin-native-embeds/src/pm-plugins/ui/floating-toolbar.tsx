@@ -1,5 +1,7 @@
 import React from 'react';
 
+import type { IntlShape } from 'react-intl-next';
+
 import type {
 	Command,
 	DropdownOptionT,
@@ -17,8 +19,8 @@ import AlignTextRightIcon from '@atlaskit/icon/core/align-text-right';
 import BorderIcon from '@atlaskit/icon/core/border';
 import ContentWrapLeftIcon from '@atlaskit/icon/core/content-wrap-left';
 import ContentWrapRightIcon from '@atlaskit/icon/core/content-wrap-right';
+import EditIcon from '@atlaskit/icon/core/edit';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
-import PageIcon from '@atlaskit/icon/core/page';
 import RefreshIcon from '@atlaskit/icon/core/refresh';
 import {
 	ALIGNMENT_VALUES,
@@ -37,6 +39,7 @@ import type {
 import { createOpenInNewWindowCommand, createUpdateAlignmentCommand } from '../commands';
 import { getSelectedNativeEmbedExtension } from '../utils/getSelectedNativeEmbedExtension';
 
+import { getNativeEmbedAppearanceDropdown } from './appearance-menu';
 import { getMoreOptionsDropdown } from './more-options-dropdown';
 
 type DeleteHoverProps = Pick<
@@ -103,6 +106,7 @@ function convertCustomActionToToolbarItem(
 function createBuiltinToolbarRegistry(
 	api: ExtractInjectionAPI<EditorPluginNativeEmbedsPlugin> | undefined,
 	handlers: EditorPluginNativeEmbedsToolbarHandlers | undefined,
+	intl: IntlShape,
 	currentAlignment: AlignmentValue,
 	selectedNativeEmbed: ContentNodeWithPos,
 ): Record<string, FloatingToolbarItem<Command>> {
@@ -129,12 +133,13 @@ function createBuiltinToolbarRegistry(
 			tabIndex: null,
 		},
 		[BUILTIN_TOOLBAR_KEYS.EMBED]: {
-			id: 'native-embed-embed-dropdown',
-			type: 'dropdown',
-			title: 'Embed',
-			iconBefore: PageIcon,
-			options: [],
-			onClick: handlers?.onEmbedClick,
+			...getNativeEmbedAppearanceDropdown({
+				intl,
+				selectedNativeEmbed: {
+					node: selectedNativeEmbed.node,
+					pos: selectedNativeEmbed.pos,
+				},
+			}),
 		},
 		[BUILTIN_TOOLBAR_KEYS.BORDER]: {
 			id: 'native-embed-change-border-dropdown',
@@ -168,6 +173,13 @@ function createBuiltinToolbarRegistry(
 			focusEditoronEnter: true,
 			tabIndex: null,
 		},
+		[BUILTIN_TOOLBAR_KEYS.EDIT]: {
+			id: 'native-embed-edit-button',
+			type: 'button',
+			title: 'Edit',
+			icon: EditIcon,
+			onClick: createHandlerCommand(handlers?.onEditClick),
+		},
 	};
 }
 
@@ -185,7 +197,7 @@ function resolveToolbarItemsFromItems(
 
 	for (const key of items) {
 		if (key === BUILTIN_TOOLBAR_KEYS.SEPARATOR) {
-			resolvedItems.push({ type: 'separator' });
+			resolvedItems.push({ type: 'separator', fullHeight: true });
 		} else if (key in builtinRegistry) {
 			resolvedItems.push(builtinRegistry[key]);
 		} else if (customActions && key in customActions) {
@@ -204,6 +216,7 @@ function convertManifestActionsToToolbarItems(
 	manifestActions: ManifestEditorToolbarActions,
 	api: ExtractInjectionAPI<EditorPluginNativeEmbedsPlugin> | undefined,
 	handlers: EditorPluginNativeEmbedsToolbarHandlers | undefined,
+	intl: IntlShape,
 	currentAlignment: AlignmentValue,
 	selectedNativeEmbed: ContentNodeWithPos,
 	actionHandlers?: EditorPluginNativeEmbedsActionHandlers,
@@ -215,6 +228,7 @@ function convertManifestActionsToToolbarItems(
 	const builtinRegistry = createBuiltinToolbarRegistry(
 		api,
 		handlers,
+		intl,
 		currentAlignment,
 		selectedNativeEmbed,
 	);
@@ -266,12 +280,14 @@ export function getToolbarAnchorElement(node: Node | null): HTMLElement | undefi
 function getDefaultToolbarItems(
 	api: ExtractInjectionAPI<EditorPluginNativeEmbedsPlugin> | undefined,
 	handlers: EditorPluginNativeEmbedsToolbarHandlers | undefined,
+	intl: IntlShape,
 	currentAlignment: AlignmentValue,
 	selectedNativeEmbed: ContentNodeWithPos,
 ): FloatingToolbarItem<Command>[] {
 	const builtinRegistry = createBuiltinToolbarRegistry(
 		api,
 		handlers,
+		intl,
 		currentAlignment,
 		selectedNativeEmbed,
 	);
@@ -285,7 +301,7 @@ export const getToolbarConfig =
 		actionHandlers,
 		handlers,
 	}: GetToolbarConfigProps): FloatingToolbarHandler =>
-	(state, _intl, _providerFactory, _activeConfigs) => {
+	(state, intl, _providerFactory, _activeConfigs) => {
 		const selectedNativeEmbed = getSelectedNativeEmbedExtension(state);
 		if (!selectedNativeEmbed) {
 			return undefined;
@@ -325,11 +341,12 @@ export const getToolbarConfig =
 					manifestActions,
 					api,
 					handlers,
+					intl,
 					currentAlignment,
 					selectedNativeEmbed,
 					actionHandlers,
 				)
-			: getDefaultToolbarItems(api, handlers, currentAlignment, selectedNativeEmbed);
+			: getDefaultToolbarItems(api, handlers, intl, currentAlignment, selectedNativeEmbed);
 
 		// Auto-append the "More Options" dropdown when there are items to show.
 		// Default toolbar (no manifest): always show with default items.

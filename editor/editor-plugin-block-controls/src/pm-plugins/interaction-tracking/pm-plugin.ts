@@ -4,7 +4,6 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { handleKeyDown } from './handle-key-down';
@@ -126,21 +125,15 @@ export const createInteractionTrackingPlugin = (rightSideControlsEnabled = false
 			handleKeyDown,
 			handleDOMEvents: {
 				mousemove: (view: EditorView, event: Event) =>
-					handleMouseMove(
-						view,
-						event,
-						rightSideControlsEnabled &&
-							expValEquals('confluence_remix_icon_right_side', 'isEnabled', true),
-					),
+					handleMouseMove(view, event, rightSideControlsEnabled),
 			},
 		},
 
 		view: editorExperiment('platform_editor_controls', 'variant1')
 			? (view: EditorView) => {
 					const editorContentArea = view.dom.closest('.ak-editor-content-area');
-					const remixRightSideEnabled =
-						rightSideControlsEnabled &&
-						expValEquals('confluence_remix_icon_right_side', 'isEnabled', true);
+					// rightSideControlsEnabled is the single source of truth (confluence_remix_icon_right_side from preset)
+					const remixRightSideEnabled = rightSideControlsEnabled;
 
 					let unbindMouseEnter: UnbindFn;
 					let unbindMouseLeave: UnbindFn;
@@ -155,32 +148,20 @@ export const createInteractionTrackingPlugin = (rightSideControlsEnabled = false
 						}
 
 						// Don't set isMouseOut when moving to block controls (right-edge button, drag handle, etc.)
-						if (
-							rightSideControlsEnabled &&
-							expValEquals('confluence_remix_icon_right_side', 'isEnabled', true) &&
-							isMovingToBlockControlsArea(event.relatedTarget)
-						) {
+						if (rightSideControlsEnabled && isMovingToBlockControlsArea(event.relatedTarget)) {
 							return;
 						}
 
 						mouseLeaveTimeoutId = setTimeout(() => {
 							mouseLeaveTimeoutId = null;
 							// Before dispatching, check if mouse has moved to block controls (e.g. through empty space)
-							if (
-								rightSideControlsEnabled &&
-								expValEquals('confluence_remix_icon_right_side', 'isEnabled', true) &&
-								typeof document !== 'undefined'
-							) {
+							if (rightSideControlsEnabled && typeof document !== 'undefined') {
 								const el = document.elementFromPoint(lastMousePosition.x, lastMousePosition.y);
 								if (el && isMovingToBlockControlsArea(el)) {
 									return;
 								}
 							}
-							handleMouseLeave(
-								view,
-								rightSideControlsEnabled &&
-									expValEquals('confluence_remix_icon_right_side', 'isEnabled', true),
-							);
+							handleMouseLeave(view, rightSideControlsEnabled);
 						}, MOUSE_LEAVE_DEBOUNCE_MS);
 					};
 
@@ -204,12 +185,7 @@ export const createInteractionTrackingPlugin = (rightSideControlsEnabled = false
 										editorContentArea.contains(event.target as Node) ||
 										isMovingToBlockControlsArea(event.target)
 									) {
-										handleMouseMove(
-											view,
-											event,
-											rightSideControlsEnabled &&
-												expValEquals('confluence_remix_icon_right_side', 'isEnabled', true),
-										);
+										handleMouseMove(view, event, rightSideControlsEnabled);
 									}
 								},
 								options: { passive: true },

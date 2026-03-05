@@ -4,8 +4,6 @@ import { screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import * as atlassianContext from '@atlaskit/atlassian-context';
-import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	type AnalyticsEventAttributes,
 	useAnalyticsEvents as useAnalyticsEventsNext,
@@ -155,9 +153,6 @@ describe('TeamProfileCard', () => {
 	describe('DISBANDED team state', () => {
 		beforeEach(() => {
 			jest.clearAllMocks();
-			// Enable new team profile by default (not FedRamp environment)
-			(atlassianContext.isFedRamp as jest.Mock).mockReturnValue(false);
-			(fg as jest.Mock).mockReturnValue(false);
 		});
 
 		it('displays archived lozenge when team is DISBANDED', () => {
@@ -183,19 +178,6 @@ describe('TeamProfileCard', () => {
 		it('does not display archived lozenge when team state is undefined', () => {
 			const teamWithoutState = createTeam();
 			renderComponent({ team: teamWithoutState });
-
-			expect(screen.queryByText('Archived')).not.toBeInTheDocument();
-		});
-
-		it('does not display archived lozenge when new team profile is disabled', () => {
-			// Disable new team profile: isFedRamp = true AND fg = false
-			(atlassianContext.isFedRamp as jest.Mock).mockReturnValue(true);
-			(fg as jest.Mock).mockReturnValue(false);
-			const disbandedTeam = {
-				...createTeam(),
-				state: 'DISBANDED' as const,
-			};
-			renderComponent({ team: disbandedTeam });
 
 			expect(screen.queryByText('Archived')).not.toBeInTheDocument();
 		});

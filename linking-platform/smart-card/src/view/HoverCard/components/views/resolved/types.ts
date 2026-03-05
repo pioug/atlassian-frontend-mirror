@@ -2,9 +2,11 @@ import { type CardState } from '@atlaskit/linking-common';
 
 import type { ActionName } from '../../../../../constants';
 import { type LinkAction } from '../../../../../state/hooks-external/useSmartLinkActions';
+import type { InternalCardActionOptions } from '../../../../Card/types.ts';
 import { type HoverCardLoadingViewProps } from '../resolving/types';
 
 export type HoverCardResolvedProps = {
+	actionOptions?: InternalCardActionOptions;
 	cardActions?: LinkAction[];
 	cardState: CardState;
 	extensionKey?: string;

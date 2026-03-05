@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 4.33.11
+
+### Patch Changes
+
+- [`92fc3a4a68be6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92fc3a4a68be6) -
+  Cleaning up navx-1345-issues-modal-jql-submit-fix in Jira issues modal component
+
 ## 4.33.10
 
 ### Patch Changes

@@ -18,6 +18,7 @@ import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmo
 import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
+import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type {
 	SyncBlockDataProviderInterface,
@@ -102,6 +103,7 @@ export type SyncedBlockPlugin = NextEditorPlugin<
 			OptionalPlugin<ConnectivityPlugin>,
 			OptionalPlugin<EditorViewModePlugin>,
 			OptionalPlugin<ContentFormatPlugin>,
+			OptionalPlugin<UserIntentPlugin>,
 		];
 		pluginConfiguration: SyncedBlockPluginOptions | undefined;
 		sharedState: SyncedBlockSharedState | undefined;

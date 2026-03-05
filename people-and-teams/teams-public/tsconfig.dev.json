@@ -41,9 +41,6 @@
 			"path": "./tsconfig.app.json"
 		},
 		{
-			"path": "../../uip/atlassian-context/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/css/tsconfig.app.json"
 		},
 		{

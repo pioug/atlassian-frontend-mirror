@@ -296,6 +296,26 @@ describe('HoverCard', () => {
 					);
 					expect(rovoChatAction).toBeInTheDocument();
 				});
+
+				it('should render Rovo AI summary on google-object-provider link', async () => {
+					await setup({
+						mock,
+						rovoOptions,
+					});
+
+					const aiSummaryBlock = await screen.findByTestId('smart-ai-summary-block-placeholder');
+					expect(aiSummaryBlock).toBeInTheDocument();
+				});
+
+				it('should not render Rovo AI summary on none google-object-provider link ', async () => {
+					await setup({
+						mock: mockConfluenceResponse,
+						rovoOptions,
+					});
+
+					const aiSummaryBlock = screen.queryByTestId('smart-ai-summary-block-placeholder');
+					expect(aiSummaryBlock).not.toBeInTheDocument();
+				});
 			});
 		});
 	});

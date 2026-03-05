@@ -35,7 +35,6 @@ import {
 	getGuidelinesTool,
 	listGetGuidelinesTool,
 } from './tools/get-guidelines';
-import { getIconsInputSchema, getIconsTool, listGetIconsTool } from './tools/get-icons';
 import {
 	getLintRulesInputSchema,
 	getLintRulesTool,
@@ -169,11 +168,6 @@ export const getToolRegistry = (): Record<
 			handler: getTokensTool,
 			inputSchema: getTokensInputSchema,
 			tool: listGetTokensTool,
-		} as (typeof baseTools)[string];
-		baseTools[listGetIconsTool.name] = {
-			handler: getIconsTool,
-			inputSchema: getIconsInputSchema,
-			tool: listGetIconsTool,
 		} as (typeof baseTools)[string];
 		baseTools[listGetLintRulesTool.name] = {
 			handler: getLintRulesTool,

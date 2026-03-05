@@ -43,6 +43,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/icon-lab": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@axe-core/playwright": "root:*",

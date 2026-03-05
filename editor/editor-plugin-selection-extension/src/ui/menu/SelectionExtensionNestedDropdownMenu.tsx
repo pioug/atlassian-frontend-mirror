@@ -6,6 +6,7 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import { EXTENSION_MENU_ITEM_TEST_ID } from '@atlaskit/editor-common/block-menu';
 import { ToolbarDropdownItemSection, ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -59,6 +60,7 @@ export const SelectionExtensionNestedDropdownMenu = ({
 
 	return (
 		<ToolbarNestedDropdownMenu
+			testId={EXTENSION_MENU_ITEM_TEST_ID}
 			text={nestedDropdownMenu.label}
 			elemBefore={
 				IconComponent ? (

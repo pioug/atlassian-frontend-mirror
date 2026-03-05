@@ -23,7 +23,6 @@ import set from 'lodash/set';
 import type { StrictXCSSProp, XCSSAllProperties, XCSSAllPseudos } from '@atlaskit/css';
 import forwardRefWithGeneric from '@atlaskit/ds-lib/forward-ref-with-generic';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type OnSubmitHandler } from './types';
 import { getFirstErrorField } from './utils';
@@ -331,9 +330,7 @@ const FormBase = <FormValues extends Record<string, any>>(
 							getState: () => form.getState(),
 							getValues: () => form.getState().values,
 							setFieldValue: form.change,
-							...(fg('platform-form-reset-field-state') && {
-								resetFieldState: form.resetFieldState,
-							}),
+							resetFieldState: form.resetFieldState,
 						})
 					: (children as () => ReactNode | void)();
 			return result === undefined ? null : result;

@@ -1,5 +1,5 @@
 {
-	"extends": "../../../tsconfig.base.json",
+	"extends": "../../../tsconfig.node.json",
 	"include": [
 		"**/docs/**/*",
 		"**/__tests__/**/*",
@@ -34,7 +34,8 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__tokens/dev"
+		"outDir": "../../../tsDist/@atlaskit__tokens/dev",
+		"types": ["node", "jest", "@testing-library/jest-dom"]
 	},
 	"references": [
 		{

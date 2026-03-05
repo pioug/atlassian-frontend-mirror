@@ -46,8 +46,18 @@ blockTaskItem.define({
 	allowAnyChildMark: false, // Override the commonTaskItemProps setting
 	contentMinItems: 1,
 	content: [
-		$or(paragraph.use('with_no_marks'), extension.use('with_marks')),
-		$zeroPlus($or(paragraph.use('with_no_marks'), extension.use('with_marks'))),
+		$or(
+			paragraph.use('with_no_marks'),
+			paragraph.use('with_font_size'),
+			extension.use('with_marks'),
+		),
+		$zeroPlus(
+			$or(
+				paragraph.use('with_no_marks'),
+				paragraph.use('with_font_size'),
+				extension.use('with_marks'),
+			),
+		),
 	],
 });
 

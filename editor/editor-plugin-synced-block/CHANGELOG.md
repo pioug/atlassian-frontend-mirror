@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 5.4.4
+
+### Patch Changes
+
+- [`29d9d25ebe53a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29d9d25ebe53a) -
+  [ux] EDITOR-5009 show sync block border when dragging
+- Updated dependencies
+
 ## 5.4.3
 
 ### Patch Changes

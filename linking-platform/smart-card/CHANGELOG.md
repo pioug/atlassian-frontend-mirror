@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 43.25.13
+
+### Patch Changes
+
+- [`e6df89ffb41e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e6df89ffb41e9) -
+  [ux] Fix Rovo AI Summery render on none target link, behind fg
+  platform_sl_3p_auth_rovo_action_kill_switch
+- Updated dependencies
+
 ## 43.25.12
 
 ### Patch Changes

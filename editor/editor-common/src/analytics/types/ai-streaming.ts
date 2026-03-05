@@ -50,6 +50,7 @@ type AIStreamingUpdateStreamError = OperationalAEP<
 		docSize: number;
 		errorMessage?: string;
 		errorStack: string;
+		experienceName?: string;
 		fragmentSize: number;
 		isFinalStream: boolean;
 	}

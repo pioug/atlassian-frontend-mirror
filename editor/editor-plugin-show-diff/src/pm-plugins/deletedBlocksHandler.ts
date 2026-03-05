@@ -67,11 +67,8 @@ const lozengeStyle = convertToInlineCss({
 	color: token('color.text.warning.inverse'),
 });
 
-export const getDeletedStyleNode = (
-	nodeName: string,
-	colourScheme?: 'standard' | 'traditional',
-) => {
-	const isTraditional = colourScheme === 'traditional';
+export const getDeletedStyleNode = (nodeName: string, colorScheme?: 'standard' | 'traditional') => {
+	const isTraditional = colorScheme === 'traditional';
 
 	switch (nodeName) {
 		case 'blockquote':
@@ -194,11 +191,11 @@ export const createBlockNodeWrapper = () => {
  * Wraps content with deleted styling without opacity (for use when content is a direct child of dom)
  */
 export const createDeletedStyleWrapperWithoutOpacity = (
-	colourScheme?: 'standard' | 'traditional',
+	colorScheme?: 'standard' | 'traditional',
 	isActive?: boolean,
 ) => {
 	const wrapper = document.createElement('span');
-	wrapper.setAttribute('style', getDeletedContentStyle(colourScheme, isActive));
+	wrapper.setAttribute('style', getDeletedContentStyle(colorScheme, isActive));
 	return wrapper;
 };
 
@@ -208,11 +205,11 @@ export const createDeletedStyleWrapperWithoutOpacity = (
 export const applyDeletedStylesToElement = (
 	element: HTMLElement,
 	targetNode: PMNode,
-	colourScheme: 'standard' | 'traditional' | undefined,
+	colorScheme: 'standard' | 'traditional' | undefined,
 ): void => {
 	const currentStyle = element.getAttribute('style') || '';
-	const deletedContentStyle = getDeletedContentStyle(colourScheme);
-	const nodeSpecificStyle = getDeletedStyleNode(targetNode.type.name, colourScheme) || '';
+	const deletedContentStyle = getDeletedContentStyle(colorScheme);
+	const nodeSpecificStyle = getDeletedStyleNode(targetNode.type.name, colorScheme) || '';
 
 	element.setAttribute('style', `${currentStyle}${deletedContentStyle}${nodeSpecificStyle}`);
 };
@@ -223,11 +220,11 @@ export const applyDeletedStylesToElement = (
 export const createBlockNodeContentWrapper = (
 	nodeView: Node,
 	targetNode: PMNode,
-	colourScheme: 'standard' | 'traditional' | undefined,
+	colorScheme: 'standard' | 'traditional' | undefined,
 ): HTMLElement => {
 	const contentWrapper = document.createElement('div');
-	const nodeStyle = getDeletedStyleNode(targetNode.type.name, colourScheme);
-	contentWrapper.setAttribute('style', `${getDeletedContentStyle(colourScheme)}${nodeStyle || ''}`);
+	const nodeStyle = getDeletedStyleNode(targetNode.type.name, colorScheme);
+	contentWrapper.setAttribute('style', `${getDeletedContentStyle(colorScheme)}${nodeStyle || ''}`);
 	contentWrapper.append(nodeView);
 	return contentWrapper;
 };
@@ -243,7 +240,7 @@ export const handleEmbedCardWithLozenge = (
 	nodeView: Node,
 	targetNode: PMNode,
 	lozenge: HTMLElement,
-	colourScheme: 'standard' | 'traditional' | undefined,
+	colorScheme: 'standard' | 'traditional' | undefined,
 ): boolean => {
 	if (targetNode.type.name !== 'embedCard' || !(nodeView instanceof HTMLElement)) {
 		return false;
@@ -266,7 +263,7 @@ export const handleEmbedCardWithLozenge = (
 
 	if (shouldAddShowDiffDeletedNodeClass(targetNode.type.name)) {
 		const showDiffDeletedNodeClass =
-			colourScheme === 'traditional'
+			colorScheme === 'traditional'
 				? 'show-diff-deleted-node-traditional'
 				: 'show-diff-deleted-node';
 		nodeView.classList.add(showDiffDeletedNodeClass);
@@ -285,7 +282,7 @@ export const handleMediaSingleWithLozenge = (
 	nodeView: Node,
 	targetNode: PMNode,
 	lozenge: HTMLElement,
-	colourScheme: 'standard' | 'traditional' | undefined,
+	colorScheme: 'standard' | 'traditional' | undefined,
 ): boolean => {
 	if (targetNode.type.name !== 'mediaSingle' || !(nodeView instanceof HTMLElement)) {
 		return false;
@@ -306,7 +303,7 @@ export const handleMediaSingleWithLozenge = (
 	// Add deleted node class if needed
 	if (shouldAddShowDiffDeletedNodeClass(targetNode.type.name)) {
 		const showDiffDeletedNodeClass =
-			colourScheme === 'traditional' && fg('platform_editor_ai_aifc_patch_ga_blockers')
+			colorScheme === 'traditional' && fg('platform_editor_ai_aifc_patch_ga_blockers')
 				? 'show-diff-deleted-node-traditional'
 				: 'show-diff-deleted-node';
 		nodeView.classList.add(showDiffDeletedNodeClass);
@@ -323,7 +320,7 @@ export const appendBlockNodeWithWrapper = (
 	dom: HTMLElement,
 	nodeView: Node,
 	targetNode: PMNode,
-	colourScheme: 'standard' | 'traditional' | undefined,
+	colorScheme: 'standard' | 'traditional' | undefined,
 	intl: IntlShape,
 ): void => {
 	const blockWrapper = createBlockNodeWrapper();
@@ -332,25 +329,25 @@ export const appendBlockNodeWithWrapper = (
 		const lozenge = createRemovedLozenge(intl);
 
 		if (
-			handleEmbedCardWithLozenge(dom, nodeView, targetNode, lozenge, colourScheme) &&
+			handleEmbedCardWithLozenge(dom, nodeView, targetNode, lozenge, colorScheme) &&
 			fg('platform_editor_ai_aifc_patch_ga_blockers')
 		) {
 			return;
 		}
 
-		if (handleMediaSingleWithLozenge(dom, nodeView, targetNode, lozenge, colourScheme)) {
+		if (handleMediaSingleWithLozenge(dom, nodeView, targetNode, lozenge, colorScheme)) {
 			return;
 		}
 
 		blockWrapper.append(lozenge);
 	}
 
-	const contentWrapper = createBlockNodeContentWrapper(nodeView, targetNode, colourScheme);
+	const contentWrapper = createBlockNodeContentWrapper(nodeView, targetNode, colorScheme);
 	blockWrapper.append(contentWrapper);
 
 	if (nodeView instanceof HTMLElement && shouldAddShowDiffDeletedNodeClass(targetNode.type.name)) {
 		const showDiffDeletedNodeClass =
-			colourScheme === 'traditional' && fg('platform_editor_ai_aifc_patch_ga_blockers')
+			colorScheme === 'traditional' && fg('platform_editor_ai_aifc_patch_ga_blockers')
 				? 'show-diff-deleted-node-traditional'
 				: 'show-diff-deleted-node';
 		nodeView.classList.add(showDiffDeletedNodeClass);
@@ -368,15 +365,15 @@ export const handleBlockNodeView = (
 	dom: HTMLElement,
 	nodeView: Node,
 	targetNode: PMNode,
-	colourScheme: 'standard' | 'traditional' | undefined,
+	colorScheme: 'standard' | 'traditional' | undefined,
 	intl: IntlShape,
 ): void => {
 	if (shouldApplyDeletedStylesDirectly(targetNode.type.name) && nodeView instanceof HTMLElement) {
 		// Apply deleted styles directly to preserve natural block-level margins
-		applyDeletedStylesToElement(nodeView, targetNode, colourScheme);
+		applyDeletedStylesToElement(nodeView, targetNode, colorScheme);
 		dom.append(nodeView);
 	} else {
 		// Use wrapper approach for other block nodes
-		appendBlockNodeWithWrapper(dom, nodeView, targetNode, colourScheme, intl);
+		appendBlockNodeWithWrapper(dom, nodeView, targetNode, colorScheme, intl);
 	}
 };

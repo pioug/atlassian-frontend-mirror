@@ -47,7 +47,7 @@ export class TableStickyScrollbar {
 			`.${TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_CONTAINER}`,
 		);
 
-		// eslint-disable-next-line @atlaskit/editor/no-as-casting
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting, @atlaskit/platform/valid-gate-name
 		this.stickyScrollbarContainerElement = fg('platform_editor_querySelector_fix_table_renderer')
 			? (scrollbarContainers?.item(scrollbarContainers.length - 1) as HTMLDivElement)
 			: this.wrapper.parentElement?.querySelector(
@@ -104,6 +104,7 @@ export class TableStickyScrollbar {
 			TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM,
 		);
 
+		// eslint-disable-next-line @atlaskit/platform/valid-gate-name
 		this.sentinels.bottom = fg('platform_editor_querySelector_fix_table_renderer')
 			? // eslint-disable-next-line @atlaskit/editor/no-as-casting
 				(bottomSentinels?.item(bottomSentinels.length - 1) as HTMLElement)

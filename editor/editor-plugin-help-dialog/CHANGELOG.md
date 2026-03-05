@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 7.2.7
+
+### Patch Changes
+
+- [`b35eb5f6a4e6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b35eb5f6a4e6a) -
+  Remove now inert `autoFocus` prop from modal dialog components.
+- Updated dependencies
+
 ## 7.2.6
 
 ### Patch Changes

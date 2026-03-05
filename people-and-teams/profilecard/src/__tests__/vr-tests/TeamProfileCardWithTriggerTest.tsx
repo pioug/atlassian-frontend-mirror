@@ -2,11 +2,9 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
-
-import FeatureGates, { FeatureGateEnvironment } from '@atlaskit/feature-gate-js-client';
 
 import TeamProfilecardTrigger from '../../components/Team';
 import { staticTeamData } from '../../mocks/team-data';
@@ -89,21 +87,6 @@ export const TeamProfileCardWithDisbandedState = () => {
 		}),
 		state: 'DISBANDED',
 	};
-
-	useEffect(() => {
-		async function setUpExperiments() {
-			if (!FeatureGates.initializeCalled()) {
-				const formValues = {
-					environment: FeatureGateEnvironment.Development,
-					localMode: true,
-					targetApp: '',
-				};
-				await FeatureGates.initializeFromValues(formValues, {});
-			}
-			FeatureGates.overrideConfig('new_team_profile', { isEnabled: true });
-		}
-		setUpExperiments();
-	}, []);
 
 	const disbandedProfileClient = {
 		getTeamProfile: () => Promise.resolve(disbandedTeam),

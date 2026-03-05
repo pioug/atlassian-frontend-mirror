@@ -2,19 +2,9 @@
 import type { Tool } from '@modelcontextprotocol/sdk/types.js';
 import { z } from 'zod';
 
-import { coreIconMetadata } from '@atlaskit/icon/metadata';
-
 import { zodToJsonSchema } from '../../helpers';
 
-const icons = Object.entries(coreIconMetadata).map(([_key, icon]) => ({
-	componentName: icon.componentName,
-	package: icon.package,
-	categorization: icon.categorization,
-	keywords: icon.keywords,
-	status: icon.status,
-	usage: icon.usage,
-	shouldRecommendSmallIcon: icon.shouldRecommendSmallIcon,
-}));
+import { icons } from './icons';
 
 export const listGetAllIconsTool: Tool = {
 	name: 'ads_get_all_icons',

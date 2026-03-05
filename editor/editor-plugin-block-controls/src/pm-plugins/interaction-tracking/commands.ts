@@ -19,7 +19,9 @@ export const mouseEnter = (view: EditorView): void => {
 };
 
 export const setHoverSide = (view: EditorView, side: 'left' | 'right'): void => {
-	view.dispatch(view.state.tr.setMeta(interactionTrackingPluginKey, { type: 'setHoverSide', side }));
+	view.dispatch(
+		view.state.tr.setMeta(interactionTrackingPluginKey, { type: 'setHoverSide', side }),
+	);
 };
 
 export const clearHoverSide = (view: EditorView): void => {

@@ -646,10 +646,13 @@ export const GlobalStylesWrapper = ({
 			isDragging: states.blockControlsState?.isDragging,
 		}),
 	);
-	const isDragging =
-		expValEquals('platform_editor_block_controls_perf_optimization', 'isEnabled', true)
-			? isDraggingFromState
-			: false;
+	const isDragging = expValEquals(
+		'platform_editor_block_controls_perf_optimization',
+		'isEnabled',
+		true,
+	)
+		? isDraggingFromState
+		: false;
 
 	const shouldRenderAnchors =
 		isCSSAnchorSupported() &&

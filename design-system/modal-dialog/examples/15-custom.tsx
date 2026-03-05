@@ -34,7 +34,9 @@ const styles = cssMap({
 		marginBlockEnd: token('space.200'),
 	},
 	header: {
-		backgroundImage: `linear-gradient(${token('color.background.accent.blue.subtler')}, ${token('color.background.accent.purple.subtler')})`,
+		backgroundImage: `linear-gradient(${token('color.background.accent.blue.subtler')}, ${token(
+			'color.background.accent.purple.subtler',
+		)})`,
 		paddingBlockStart: token('space.1000'),
 		position: 'relative',
 		flexDirection: 'row-reverse',

@@ -1349,30 +1349,6 @@ describe('In ORG_ADMIN_MANAGED teams', () => {
 			});
 		});
 
-		describe('When archive teams feature is disabled', () => {
-			beforeEach(() => {
-				(fg as jest.Mock).mockImplementation(() => false);
-				(FeatureGates.getExperimentValue as jest.Mock).mockImplementation(() => false);
-				// Simulate new team profile disabled: isFedRamp = true, fg = false
-				(atlassianContext.isFedRamp as jest.Mock).mockReturnValue(true);
-			});
-
-			it('does not allow anyone to archive teams', () => {
-				(isMember as jest.Mock).mockReturnValue(true);
-				expect(
-					hasPermission(
-						'ARCHIVE_TEAM',
-						'ORG_ADMIN_MANAGED',
-						'FULL_WRITE',
-						true,
-						currentMemberMembership,
-						undefined,
-						undefined,
-						'ACTIVE',
-					),
-				).toBe(false);
-			});
-		});
 	});
 
 	describe('UNARCHIVE_TEAM permission on disbanded teams', () => {

@@ -452,10 +452,14 @@ export const createPlugin = (
 
 				const isOffline = isOfflineMode(api?.connectivity?.sharedState.currentState()?.mode);
 				const isViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
+				const isDragging = fg('platform_synced_block_patch_5')
+					? api?.userIntent?.sharedState.currentState()?.currentUserIntent === 'dragging'
+					: undefined;
 
 				const offlineDecorations: Decoration[] = [];
 				const viewModeDecorations: Decoration[] = [];
 				const loadingDecorations: Decoration[] = [];
+				const dragDecorations: Decoration[] = [];
 
 				state.doc.descendants((node, pos) => {
 					if (node.type.name === 'bodiedSyncBlock' && isOffline) {
@@ -487,12 +491,26 @@ export const createPlugin = (
 							}),
 						);
 					}
+
+					// Show sync block border while the user is dragging
+					if (
+						isDragging &&
+						(node.type.name === 'bodiedSyncBlock' || node.type.name === 'syncBlock') &&
+						fg('platform_synced_block_patch_5')
+					) {
+						dragDecorations.push(
+							Decoration.node(pos, pos + node.nodeSize, {
+								class: SyncBlockStateCssClassName.draggingClassName,
+							}),
+						);
+					}
 				});
 
 				return selectionDecorationSet
 					.add(doc, offlineDecorations)
 					.add(doc, viewModeDecorations)
-					.add(doc, loadingDecorations);
+					.add(doc, loadingDecorations)
+					.add(doc, dragDecorations);
 			},
 			handleClickOn: createSelectionClickHandler(
 				['bodiedSyncBlock'],

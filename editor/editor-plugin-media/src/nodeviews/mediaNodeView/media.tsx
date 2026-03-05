@@ -4,7 +4,6 @@ import type { UnbindFn } from 'bind-event-listener';
 import { bind } from 'bind-event-listener';
 import memoizeOne from 'memoize-one';
 
-
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import type {

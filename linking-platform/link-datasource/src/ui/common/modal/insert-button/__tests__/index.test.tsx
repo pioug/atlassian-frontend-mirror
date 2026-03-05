@@ -6,7 +6,6 @@ import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { EVENT_CHANNEL } from '../../../../../analytics';
 import { UserInteractionsProvider } from '../../../../../contexts/user-interactions';
@@ -150,82 +149,39 @@ describe('InsertButton', () => {
 		expect(mockOnInsert).toHaveBeenCalled();
 	});
 
-	describe('navx-1345-issues-modal-jql-submit-fix feature flag', () => {
-		ffTest.on(
-			'navx-1345-issues-modal-jql-submit-fix',
-			'hasErrors behavior when feature flag is ON',
-			() => {
-				it('should disable the button when hasErrors is true', () => {
-					setup({ hasErrors: true });
+	describe('JQL persistence', () => {
+		it('should disable the button when hasErrors is true', () => {
+			setup({ hasErrors: true });
 
-					const button = screen.getByTestId('test-insert-button');
-					expect(button).toBeDisabled();
-				});
+			const button = screen.getByTestId('test-insert-button');
+			expect(button).toBeDisabled();
+		});
 
-				it('should not disable the button when hasErrors is false', () => {
-					setup({ hasErrors: false });
+		it('should not disable the button when hasErrors is false', () => {
+			setup({ hasErrors: false });
 
-					const button = screen.getByTestId('test-insert-button');
-					expect(button).not.toBeDisabled();
-				});
+			const button = screen.getByTestId('test-insert-button');
+			expect(button).not.toBeDisabled();
+		});
 
-				it('should not disable the button when hasErrors is undefined', () => {
-					setup({ hasErrors: undefined });
+		it('should not disable the button when hasErrors is undefined', () => {
+			setup({ hasErrors: undefined });
 
-					const button = screen.getByTestId('test-insert-button');
-					expect(button).not.toBeDisabled();
-				});
+			const button = screen.getByTestId('test-insert-button');
+			expect(button).not.toBeDisabled();
+		});
 
-				it('should call onBeforeInsert when insert button is clicked', async () => {
-					const mockOnBeforeInsert = jest.fn();
-					setup({ onBeforeInsert: mockOnBeforeInsert });
+		it('should call onBeforeInsert when insert button is clicked', async () => {
+			const mockOnBeforeInsert = jest.fn();
+			setup({ onBeforeInsert: mockOnBeforeInsert });
 
-					const button = screen.getByTestId('test-insert-button');
-					await user.click(button);
+			const button = screen.getByTestId('test-insert-button');
+			await user.click(button);
 
-					expect(mockOnBeforeInsert).toHaveBeenCalledWith({
-						cloudId: 'test-cloud-id',
-						jql: 'test-jql',
-					});
-				});
-			},
-		);
-
-		ffTest.off(
-			'navx-1345-issues-modal-jql-submit-fix',
-			'hasErrors behavior when feature flag is OFF',
-			() => {
-				it('should not disable the button when hasErrors is true (flag off)', () => {
-					setup({ hasErrors: true });
-
-					const button = screen.getByTestId('test-insert-button');
-					expect(button).not.toBeDisabled();
-				});
-
-				it('should not disable the button when hasErrors is false', () => {
-					setup({ hasErrors: false });
-
-					const button = screen.getByTestId('test-insert-button');
-					expect(button).not.toBeDisabled();
-				});
-
-				it('should not disable the button when hasErrors is undefined', () => {
-					setup({ hasErrors: undefined });
-
-					const button = screen.getByTestId('test-insert-button');
-					expect(button).not.toBeDisabled();
-				});
-
-				it('should not call onBeforeInsert when insert button is clicked', async () => {
-					const mockOnBeforeInsert = jest.fn();
-					setup({ onBeforeInsert: mockOnBeforeInsert });
-
-					const button = screen.getByTestId('test-insert-button');
-					await user.click(button);
-
-					expect(mockOnBeforeInsert).not.toHaveBeenCalled();
-				});
-			},
-		);
+			expect(mockOnBeforeInsert).toHaveBeenCalledWith({
+				cloudId: 'test-cloud-id',
+				jql: 'test-jql',
+			});
+		});
 	});
 });

@@ -18,6 +18,7 @@ import { unsupportedBlock } from './unsupportedBlock';
 
 const nestedExpandContent = [
 	paragraph.use('with_no_marks'),
+	paragraph.use('with_font_size'),
 	heading.use('with_no_marks'),
 	mediaSingle.use('caption'),
 	mediaSingle.use('full'),

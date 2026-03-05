@@ -48,7 +48,6 @@ export default function Example(): React.JSX.Element {
 			<Button aria-haspopup="dialog" appearance="primary" onClick={openModal}>
 				Open modal
 			</Button>
-
 			<ModalTransition>
 				{isOpen && (
 					// This is fixed in the custom header

@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
@@ -119,7 +118,7 @@ export const TeamContainers = ({
 
 	const hasPermissionToCreateContainer = useMemo(() => {
 		if (!productPermissions) {
-			return {};
+			return false;
 		}
 		const getPermission = (product: keyof typeof productPermissions, permission: string[]) => {
 			return productPermissions && hasProductPermission(productPermissions, product, permission);
@@ -130,11 +129,6 @@ export const TeamContainers = ({
 			getPermission('loom', ['write'])
 		);
 	}, [productPermissions]);
-
-	const createContainerExperimentEnabled =
-		hasPermissionToCreateContainer &&
-		FeatureGates.initializeCompleted() &&
-		FeatureGates.getExperimentValue('teams_app_auto_container_creation', 'isEnabled', false);
 
 	useEffect(() => {
 		if (isDisplayedOnProfileCard && filterContainerId) {
@@ -361,7 +355,7 @@ export const TeamContainers = ({
 								containers: availableContainers,
 								onAddAContainerClick: onAddAContainerClick,
 								CustomAddContainerCard: components?.AddContainerCard,
-								showNewDesign: createContainerExperimentEnabled,
+								canCreateContainers: hasPermissionToCreateContainer,
 							})}
 
 							{showMore &&

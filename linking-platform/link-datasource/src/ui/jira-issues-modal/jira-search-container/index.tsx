@@ -9,7 +9,6 @@ import { useIntl } from 'react-intl-next';
 import { useDebouncedCallback } from 'use-debounce';
 
 import { type Jast } from '@atlaskit/jql-ast';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -155,9 +154,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
 
 	const onQueryChange = useCallback(
 		(query: string, jast: Jast) => {
-			if (fg('navx-1345-issues-modal-jql-submit-fix')) {
-				setHasJqlSyntaxErrors?.(jast.errors.length > 0);
-			}
+			setHasJqlSyntaxErrors?.(jast.errors.length > 0);
 			// determine if order keys have been set so they can be saved and persisted when changes occur in basic search
 			const fragments =
 				query

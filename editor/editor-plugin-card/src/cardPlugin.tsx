@@ -194,6 +194,7 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 					categories: ['external-content', 'development'],
 					keywords: ['jira'],
 					featured: true,
+					...(fg('jim-lower-ranking-in-jira-macro-search') && { priority: 500 }),
 					icon: () => <IconDatasourceJiraIssue />,
 					action(insert) {
 						const tr = insert(undefined);

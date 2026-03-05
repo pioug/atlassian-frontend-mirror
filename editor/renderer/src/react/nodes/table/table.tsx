@@ -66,7 +66,7 @@ export const Table = React.memo(
 
 		return (
 			<table
-				// eslint-disable-next-line react/jsx-props-no-spreading
+				// eslint-disable-next-line react/jsx-props-no-spreading, @atlaskit/platform/valid-gate-name
 				{...(fg('platform_renderer_isPresentational') && {
 					role: isPresentational ? 'presentation' : undefined,
 				})}

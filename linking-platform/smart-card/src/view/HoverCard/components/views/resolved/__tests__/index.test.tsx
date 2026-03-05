@@ -7,7 +7,9 @@ import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/ana
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { type JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { GoogleDoc } from '@atlaskit/link-test-helpers';
 import type { CardState, ProductType } from '@atlaskit/linking-common';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { getCardState } from '../../../../../../../examples/utils/flexible-ui';
 import MockAtlasProject from '../../../../../../__fixtures__/atlas-project';
@@ -25,6 +27,7 @@ import {
 	mockIframelyResponse,
 	mockJiraResponse,
 } from '../../../../__tests__/__mocks__/mocks';
+import { flexibleUiOptions } from '../../../../styled.ts';
 import HoverCardResolvedView from '../index';
 
 jest.mock('../../../../../../state/hooks/use-ai-summary', () => {
@@ -69,6 +72,7 @@ describe('HoverCardResolvedView', () => {
 					}}
 					product={productName}
 					isAdminHubAIEnabled
+					rovoOptions={{ isRovoEnabled: true, isRovoLLMEnabled: true }}
 				>
 					{children}
 				</SmartCardProvider>
@@ -87,9 +91,10 @@ describe('HoverCardResolvedView', () => {
 	}) => {
 		return (
 			<HoverCardResolvedView
+				actionOptions={{ hide: false, rovoChatAction: true }}
 				extensionKey={mockResponse.meta.key}
 				id="123"
-				flexibleCardProps={{ cardState, children: null, url }}
+				flexibleCardProps={{ cardState, children: null, ui: flexibleUiOptions, url }}
 				onActionClick={jest.fn()}
 				cardState={cardState}
 				url={url}
@@ -344,6 +349,20 @@ describe('HoverCardResolvedView', () => {
 						product: productName,
 					}),
 				);
+			});
+
+			ffTest.on('platform_sl_3p_auth_rovo_action_kill_switch', '', () => {
+				it('should renders Rovo AI summary', async () => {
+					jest.mocked(useAISummary).mockReturnValue({
+						state: { status: 'done', content: 'content' },
+						summariseUrl: jest.fn(),
+					});
+
+					const { findByTestId } = setup({ mockResponse: GoogleDoc });
+
+					const aiSummaryBlock = await findByTestId('smart-ai-summary-block-resolved-view');
+					expect(aiSummaryBlock).toBeInTheDocument();
+				});
 			});
 		});
 	});

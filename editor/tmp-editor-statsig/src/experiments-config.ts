@@ -18,8 +18,8 @@ export type EditorExperimentsConfig = typeof editorExperimentsConfig;
  */
 export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
-	? true // Boolean: only 'true' is allowed as expected value
-	: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+		? true // Boolean: only 'true' is allowed as expected value
+		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
 
 /**
  * Extract valid default values.
@@ -28,8 +28,8 @@ export type ExperimentExpectedValue<ExperimentName extends keyof EditorExperimen
  */
 export type ExperimentDefaultValue<ExperimentName extends keyof EditorExperimentsConfig> =
 	EditorExperimentsConfig[ExperimentName]['defaultValue'] extends boolean
-	? false // Boolean: only 'false' is allowed as default value
-	: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
+		? false // Boolean: only 'false' is allowed as default value
+		: EditorExperimentsConfig[ExperimentName]['defaultValue']; // Multivariate: use the default value type
 
 /**
  * When adding a new experiment, you need to add it here.
@@ -384,7 +384,7 @@ export const editorExperimentsConfig: {
 		param: string;
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
-	}
+	};
 	// Added 2025-06-02
 	platform_editor_block_control_optimise_render: {
 		defaultValue: boolean;
@@ -1273,8 +1273,29 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-02-23
-	platform_editor_vc90_transition_fixes_batch_1: {
+	// Added 2026-03-04
+	platform_editor_vc90_transition_table_border: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-04
+	platform_editor_vc90_transition_expand_icon: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-04
+	platform_editor_vc90_transition_panel_icon: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-04
+	platform_editor_vc90_transition_mentions: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1317,6 +1338,27 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-03
 	platform_editor_ai_update_actioned_event_timeout: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-04
+	platform_editor_ai_blockmenu_integration: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-04
+	platform_editor_rovobutton_smartlink_toolbar_exp: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-05
+	platform_editor_table_resizer_extended_zone: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2762,10 +2804,34 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-02-23
-	platform_editor_vc90_transition_fixes_batch_1: createBooleanExperiment({
+	// Added 2026-03-04
+	platform_editor_vc90_transition_table_border: createBooleanExperiment({
 		productKeys: {
-			confluence: 'platform_editor_vc90_transition_fixes_batch_1',
+			confluence: 'platform_editor_vc90_transition_table_border',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-04
+	platform_editor_vc90_transition_expand_icon: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_vc90_transition_expand_icon',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-04
+	platform_editor_vc90_transition_panel_icon: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_vc90_transition_panel_icon',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-04
+	platform_editor_vc90_transition_mentions: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_vc90_transition_mentions',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2833,6 +2899,30 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_discarded_unified_analytic_events',
 			jira: 'platform_editor_discarded_unified_analytic_events',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-04
+	platform_editor_ai_blockmenu_integration: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_blockmenu_integration',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-04
+	platform_editor_rovobutton_smartlink_toolbar_exp: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_rovobutton_smartlink_toolbar_exp',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-05
+	platform_editor_table_resizer_extended_zone: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_table_resizer_extended_zone',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

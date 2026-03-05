@@ -45,6 +45,22 @@ jest.mock('@atlaskit/icon/metadata', () => ({
 	},
 }));
 
+jest.mock('@atlaskit/icon-lab/metadata', () => ({
+	__esModule: true,
+	default: {
+		duplicateIcon3: {
+			componentName: 'DuplicateIcon',
+			package: 'example-package',
+			categorization: 'example-category',
+			keywords: ['example', 'keywords'],
+			status: 'published',
+			usage: 'example usage',
+			type: 'core',
+			shouldRecommendSmallIcon: false,
+		},
+	},
+}));
+
 describe('search_icons tool', () => {
 	it('Returns an error if there are no search terms', async () => {
 		const result = await searchIconsTool({ terms: [] });
@@ -80,7 +96,7 @@ describe('search_icons tool', () => {
 		expect(result).toEqual({
 			content: [
 				{
-					text: "Error: No icons found for 'DOES NOT EXIST'. Available icons: ExactMatchIcon, FuzzyMatchIcon, DuplicateIcon, DuplicateIcon",
+					text: "Error: No icons found for 'DOES NOT EXIST'. Available icons: ExactMatchIcon, FuzzyMatchIcon, DuplicateIcon, DuplicateIcon, DuplicateIcon",
 					type: 'text',
 				},
 			],

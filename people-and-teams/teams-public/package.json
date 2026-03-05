@@ -37,7 +37,6 @@
 	"dependencies": {
 		"@atlaskit/afm-i18n-platform-people-and-teams-teams-public": "root:*",
 		"@atlaskit/analytics-next": "workspace:^",
-		"@atlaskit/atlassian-context": "workspace:^",
 		"@atlaskit/avatar": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/css": "workspace:^",
@@ -122,7 +121,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.70.4",
+	"version": "0.70.5",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -153,9 +152,6 @@
 			"type": "boolean"
 		},
 		"ptc-missed-analytics-migration-events": {
-			"type": "boolean"
-		},
-		"new_team_profile_fedramp": {
 			"type": "boolean"
 		}
 	}

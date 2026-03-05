@@ -11,7 +11,6 @@ import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode, findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import {
@@ -131,10 +130,7 @@ export const createVanillaButton = (props: VanillaQuickInsertProps): Node => {
 			return;
 		}
 		const isViewMode = editorViewMode === 'view';
-		const shouldRestrictBySide =
-			rightSideControlsEnabled &&
-			expValEquals('confluence_remix_icon_right_side', 'isEnabled', true) &&
-			!isViewMode;
+		const shouldRestrictBySide = rightSideControlsEnabled && !isViewMode;
 		// Only restrict by side when hoverSide is known. When undefined, show quick insert.
 		const sideHidden =
 			shouldRestrictBySide && hoverSide !== undefined ? hoverSide !== 'left' : false;
@@ -163,10 +159,7 @@ export const createVanillaButton = (props: VanillaQuickInsertProps): Node => {
 		}),
 	);
 	// Only subscribe to view mode when right-side controls are enabled (editorViewMode affects side restriction)
-	if (
-		rightSideControlsEnabled &&
-		expValEquals('confluence_remix_icon_right_side', 'isEnabled', true)
-	) {
+	if (rightSideControlsEnabled) {
 		const unsubscribeViewMode = props.api.editorViewMode?.sharedState.onChange?.(
 			({ nextSharedState }) => {
 				editorViewMode = nextSharedState?.mode as ViewMode | undefined;

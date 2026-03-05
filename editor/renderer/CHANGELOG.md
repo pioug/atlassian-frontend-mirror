@@ -1,5 +1,12 @@
 # @atlaskit/renderer
 
+## 126.14.3
+
+### Patch Changes
+
+- [`748d1c49e4a66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/748d1c49e4a66) -
+  [ux] Fix margin collapse with new flex centering for breakout nodes
+
 ## 126.14.2
 
 ### Patch Changes

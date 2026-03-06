@@ -201,6 +201,13 @@ const IntercomAgentAvatar = lazy(
 			/* webpackChunkName: "@atlaskit-rovo-avatar-IntercomAgentAvatar"*/ './assets/intercom-agent'
 		),
 );
+
+const GammaAgentAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-GammaAgentAvatar"*/ './assets/gamma-agent'
+		),
+);
 /**
  * OOTB Agents avatars - end
  */
@@ -457,6 +464,12 @@ const outOfTheBoxAgentAvatar: {
 	mcp_intercom_agent: {
 		getRender: (size: SizeType) => (
 			<IntercomAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+		),
+		color: blueColor,
+	},
+	mcp_gamma_agent: {
+		getRender: (size: SizeType) => (
+			<GammaAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 		),
 		color: blueColor,
 	},

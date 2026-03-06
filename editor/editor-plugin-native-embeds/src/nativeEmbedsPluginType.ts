@@ -1,4 +1,4 @@
-import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { LinkPickerOptions, NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
@@ -46,6 +46,17 @@ export interface EditorPluginNativeEmbedsPluginConfig {
 	 * Legacy handlers for backward compatibility.
 	 */
 	handlers?: EditorPluginNativeEmbedsToolbarHandlers;
+
+	/**
+	 * Options for the link picker component used when editing URLs.
+	 */
+	linkPickerOptions?: LinkPickerOptions;
+
+	/**
+	 * Whether to use the new link picker component (true) or the legacy one (false).
+	 * Defaults to true.
+	 */
+	lpLinkPicker?: boolean;
 }
 
 export type NativeEmbedAppearance = 'url' | 'inline' | 'block' | 'embed';

@@ -8,6 +8,7 @@ import { css, jsx } from '@compiled/react';
 import { type Color as ColorType } from '../Status';
 import Color from './color';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 const paletteLegacy: [
 	colorValue: ColorType,
@@ -123,6 +124,32 @@ export default ({ cols = 7, onClick, selectedColor, className, onHover }: ColorP
 		colorRefs.current = colorRefs.current.slice(0, palette.length);
 	}, [palette.length]);
 
+	const createKeyDownHandler = useCallback(
+		(index: number) => (e: React.KeyboardEvent<HTMLButtonElement>) => {
+			let newColorIndex: number | null = null;
+			const nextColor = () => (index + 1 > palette.length - 1 ? 0 : index + 1);
+			const previousColor = () => (index - 1 < 0 ? palette.length - 1 : index - 1);
+
+			switch (e.key) {
+				case 'ArrowRight':
+				case 'ArrowDown':
+					e.preventDefault();
+					newColorIndex = nextColor();
+					break;
+				case 'ArrowLeft':
+				case 'ArrowUp':
+					e.preventDefault();
+					newColorIndex = previousColor();
+					break;
+			}
+			if (newColorIndex === null) {
+				return;
+			}
+			colorRefs.current[newColorIndex]?.focus();
+		},
+		[colorRefs, palette.length],
+	);
+
 	const memoizedHandleKeyDown = useCallback(
 		(e: React.KeyboardEvent) => {
 			let newColorIndex: number | null = null;
@@ -157,36 +184,36 @@ export default ({ cols = 7, onClick, selectedColor, className, onHover }: ColorP
 	);
 
 	return (
-		/**
-      We need to disable below eslint rule becuase of role "radiogroup". This role was added
-      in https://a11y-internal.atlassian.net/browse/AK-832 to fix accessibility issue.
-      When we migrated to emotion from styled component, we started getting this error.
-      Task added in https://product-fabric.atlassian.net/wiki/spaces/E/pages/3182068181/Potential+improvements#Moderate-changes.
-     */
-		// eslint-disable-next-line @atlassian/a11y/no-noninteractive-element-interactions
 		<ul
 			css={colorPaletteWrapperStyles}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}
 			style={{ maxWidth: cols * 32 }}
-			onKeyDown={memoizedHandleKeyDown}
+			onKeyDown={
+				expValEquals('platform_editor_eslint_suppression_fix', 'isEnabled', true)
+					? undefined
+					: memoizedHandleKeyDown
+			}
 		>
-			{palette.map(([colorValue, backgroundColor, borderColor, iconColor], i) => {
-				return (
-					<Color
-						key={colorValue}
-						value={colorValue}
-						backgroundColor={backgroundColor}
-						borderColor={borderColor}
-						iconColor={iconColor}
-						onClick={onClick}
-						onHover={onHover}
-						isSelected={colorValue === selectedColor}
-						tabIndex={i === 0 ? 0 : -1}
-						setRef={(el) => (colorRefs.current[i] = el)}
-					/>
-				);
-			})}
+			{palette.map(([colorValue, backgroundColor, borderColor, iconColor], i) => (
+				<Color
+					key={colorValue}
+					value={colorValue}
+					backgroundColor={backgroundColor}
+					borderColor={borderColor}
+					iconColor={iconColor}
+					onClick={onClick}
+					onHover={onHover}
+					isSelected={colorValue === selectedColor}
+					tabIndex={i === 0 ? 0 : -1}
+					setRef={(el) => (colorRefs.current[i] = el)}
+					onKeyDown={
+						expValEquals('platform_editor_eslint_suppression_fix', 'isEnabled', true)
+							? createKeyDownHandler(i)
+							: undefined
+					}
+				/>
+			))}
 		</ul>
 	);
 };

@@ -1,5 +1,16 @@
 # @af/ufo-types
 
+## 0.4.2
+
+### Patch Changes
+
+- [`ed2bda18a9e03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed2bda18a9e03) -
+  Fix untilAll() incorrectly propagating FAILED/ABORTED state from unrelated experiences.
+  Previously, any UFO experience failure anywhere in the product would cause parent experiences
+  using untilAll dependencies to transition to FAILED, even when the failing experience was not a
+  declared dependency. Added a doneIndexes.length > 0 guard to the priorityStateFound check to
+  ensure only actual dependency failures trigger parent state transitions.
+
 ## 0.4.1
 
 ### Patch Changes

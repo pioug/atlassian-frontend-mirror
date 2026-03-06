@@ -2,7 +2,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { AddMarkStep } from '@atlaskit/editor-prosemirror/transform';
 
-function getStartPos(element: HTMLElement) {
+export function getStartPos(element: HTMLElement) {
 	return parseInt(element.dataset.rendererStartPos || '-1', 10);
 }
 
@@ -12,9 +12,9 @@ function isPositionPointer(element: HTMLElement) {
 	return getStartPos(element) > -1;
 }
 
-function findParent(element: ChildNode | Node): HTMLElement | null {
+export function findParent(element: ChildNode | Node): HTMLElement | null {
 	const { parentElement } = element;
-	if (!parentElement || isRoot(parentElement)) {
+	if (!parentElement || isRendererRoot(parentElement)) {
 		return null;
 	}
 
@@ -27,7 +27,7 @@ function findParent(element: ChildNode | Node): HTMLElement | null {
 
 function findMediaParent(element: ChildNode | Node): HTMLElement | null {
 	const { parentElement } = element;
-	if (!parentElement || isRoot(parentElement)) {
+	if (!parentElement || isRendererRoot(parentElement)) {
 		return null;
 	}
 
@@ -40,7 +40,7 @@ function findMediaParent(element: ChildNode | Node): HTMLElement | null {
 
 function findParentBeforePointer(element: HTMLElement): HTMLElement | null {
 	const { parentElement } = element;
-	if (isRoot(parentElement) || !parentElement) {
+	if (isRendererRoot(parentElement) || !parentElement) {
 		return null;
 	}
 
@@ -153,7 +153,7 @@ function resolveNodePos(node: Node) {
 	return resolvedPos;
 }
 
-export function isRoot(element: HTMLElement | null): boolean {
+export function isRendererRoot(element: HTMLElement | null): boolean {
 	return !!element && element.classList.contains('ak-renderer-document');
 }
 

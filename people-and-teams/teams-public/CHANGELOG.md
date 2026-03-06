@@ -1,5 +1,13 @@
 # @atlaskit/teams-public
 
+## 0.70.6
+
+### Patch Changes
+
+- [`cf41ce07edce7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf41ce07edce7) -
+  Clean up new_team_profile experiment
+- Updated dependencies
+
 ## 0.70.5
 
 ### Patch Changes

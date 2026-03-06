@@ -149,25 +149,6 @@ describe('Renderer - React/Nodes/Fallback', () => {
 	});
 
 	it('should render Link component', () => {
-		mockFg.mockImplementation(
-			(flag: string) => flag === 'dst-a11y__replace-anchor-with-link__editor',
-		);
-
-		render(
-			<CardErrorBoundary url={url} unsupportedComponent={MockedUnsupportedInline}>
-				<MockedChildren />
-				<FakeExplodingComponent />
-			</CardErrorBoundary>,
-		);
-
-		const link = screen.getByRole('link', { name: url });
-		expect(link).toBeVisible();
-		expect(link).toHaveAttribute('href', url);
-	});
-
-	it('should render anchor element with explicit props when dst-a11y__replace-anchor-with-link__editor FG is disabled', () => {
-		mockFg.mockReturnValue(false);
-
 		render(
 			<CardErrorBoundary url={url} unsupportedComponent={MockedUnsupportedInline}>
 				<MockedChildren />
@@ -183,11 +164,7 @@ describe('Renderer - React/Nodes/Fallback', () => {
 
 	describe('Link External Icon rendering for fallback link', () => {
 		it('should set target and rel attributes when onSetLinkTarget returns _blank when FG is enabled', () => {
-			mockFg.mockImplementation(
-				(flag: string) =>
-					flag === 'rovo_chat_deep_linking_enabled' ||
-					flag === 'dst-a11y__replace-anchor-with-link__editor',
-			);
+			mockFg.mockImplementation((flag: string) => flag === 'rovo_chat_deep_linking_enabled');
 
 			const mockOnSetLinkTarget = jest.fn().mockReturnValue('_blank');
 
@@ -209,10 +186,6 @@ describe('Renderer - React/Nodes/Fallback', () => {
 		});
 
 		it('should not set target and rel attributes when onSetLinkTarget returns _blank and FG is OFF', () => {
-			mockFg.mockImplementation(
-				(flag: string) => flag === 'dst-a11y__replace-anchor-with-link__editor',
-			);
-
 			const mockOnSetLinkTarget = jest.fn().mockReturnValue('_blank');
 
 			render(
@@ -233,11 +206,7 @@ describe('Renderer - React/Nodes/Fallback', () => {
 		});
 
 		it('should not set target and rel attributes when onSetLinkTarget returns undefined', () => {
-			mockFg.mockImplementation(
-				(flag: string) =>
-					flag === 'rovo_chat_deep_linking_enabled' ||
-					flag === 'dst-a11y__replace-anchor-with-link__editor',
-			);
+			mockFg.mockImplementation((flag: string) => flag === 'rovo_chat_deep_linking_enabled');
 
 			const mockOnSetLinkTarget = jest.fn().mockReturnValue(undefined);
 
@@ -258,11 +227,7 @@ describe('Renderer - React/Nodes/Fallback', () => {
 		});
 
 		it('should handle onSetLinkTarget throwing error gracefully', () => {
-			mockFg.mockImplementation(
-				(flag: string) =>
-					flag === 'rovo_chat_deep_linking_enabled' ||
-					flag === 'dst-a11y__replace-anchor-with-link__editor',
-			);
+			mockFg.mockImplementation((flag: string) => flag === 'rovo_chat_deep_linking_enabled');
 
 			const mockOnSetLinkTarget = jest.fn().mockImplementation(() => {
 				throw new Error('URL parsing failed');

@@ -173,10 +173,7 @@ export const renderExtension = (
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 					className={`${RendererCssClassName.EXTENSION_INNER_WRAPPER} ${overflowContainerClass}`}
 					css={[
-						!(
-							isInsideOfInlineExtension &&
-							expValEquals('confluence_inline_insert_excerpt_width_bugfix', 'isEnabled', true)
-						) &&
+						!isInsideOfInlineExtension &&
 							fg('platform_fix_macro_renders_in_layouts') &&
 							containerStyle,
 					]}
@@ -243,10 +240,7 @@ export const renderExtension = (
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 							className={`${RendererCssClassName.EXTENSION_INNER_WRAPPER} ${overflowContainerClass}`}
 							css={[
-								!(
-									isInsideOfInlineExtension &&
-									expValEquals('confluence_inline_insert_excerpt_width_bugfix', 'isEnabled', true)
-								) &&
+								!isInsideOfInlineExtension &&
 									fg('platform_fix_macro_renders_in_layouts') &&
 									containerStyle,
 							]}

@@ -5,10 +5,12 @@ import { selectors } from '../__helpers/page-objects/_renderer';
 test.use({
 	editorExperiments: {
 		platform_renderer_table_sticky_scrollbar: true,
+		platform_editor_a11y_table_wrapper_fix: true,
 	},
 	adf: tableWith30rows5ColsWithNestedTable,
 	platformFeatureFlags: {
 		platform_editor_querySelector_fix_table_renderer: true,
+		platform_editor_dec_a11y_fixes: true,
 	},
 	rendererProps: {
 		appearance: 'full-page',

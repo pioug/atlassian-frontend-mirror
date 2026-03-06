@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.41.0
+
+### Minor Changes
+
+- [`dcbccb3da71a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dcbccb3da71a6) -
+  The `use-side-nav-items-package` rule has been removed.
+
 ## 13.40.4
 
 ### Patch Changes

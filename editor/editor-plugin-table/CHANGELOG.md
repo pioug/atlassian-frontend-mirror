@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-table
 
+## 17.6.0
+
+### Minor Changes
+
+- [`17119fb95e0a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/17119fb95e0a4) -
+  [EDITOR-3747](https://hello.jira.atlassian.cloud/browse/EDITOR-3747) - clean up
+  platform_editor_ssr_renderer experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.5.0
+
+### Minor Changes
+
+- [`4225fbfc03770`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4225fbfc03770) -
+  [EDITOR-5765](https://hello.jira.atlassian.cloud/browse/EDITOR-5765) - clean up
+  platform_editor_rename_numbered_rows_label feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.4.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.4.4
 
 ### Patch Changes

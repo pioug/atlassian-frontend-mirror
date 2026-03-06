@@ -17,6 +17,7 @@ export const BUILTIN_TOOLBAR_KEYS = {
 	BORDER: 'border',
 	ALIGNMENT: 'alignment',
 	OPEN_IN_NEW_WINDOW: 'openInNewWindow',
+	EDIT_URL: 'editUrl',
 	ALWAYS_SHOW_TITLE: 'alwaysShowTitle',
 	SET_EMBED_TYPE: 'setEmbedType',
 	COPY_LINK: 'copyLink',

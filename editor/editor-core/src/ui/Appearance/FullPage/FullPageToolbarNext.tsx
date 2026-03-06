@@ -247,9 +247,7 @@ export const FullPageToolbarNext = ({
 										{primaryToolbarDockingConfigEnabled &&
 											components &&
 											isToolbar(toolbar) &&
-											((expValEquals('platform_editor_ssr_renderer', 'isEnabled', true) &&
-												isSSR()) ||
-												editorView) &&
+											(isSSR() || editorView) &&
 											(!expValEquals(
 												'platform_editor_toolbar_delay_render_fix',
 												'isEnabled',

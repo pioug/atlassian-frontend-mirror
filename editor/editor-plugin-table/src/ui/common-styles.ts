@@ -1468,9 +1468,7 @@ export const tableStyles = (props: {
 	isDragAndDropEnabled?: boolean;
 }) => css`
 	.ProseMirror {
-		${expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)
-			? baseTableStylesWithoutSharedStyle(props)
-			: baseTableStyles(props)};
+		${baseTableStylesWithoutSharedStyle(props)};
 	}
 
 	.ProseMirror.${ClassName.IS_RESIZING} {

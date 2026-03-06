@@ -55,6 +55,7 @@ export interface ColorProps {
 	isSelected?: boolean;
 	onClick: (value: ColorType) => void;
 	onHover?: (value: ColorType) => void;
+	onKeyDown?: React.KeyboardEventHandler<HTMLButtonElement>;
 	setRef?: (value: HTMLButtonElement) => HTMLButtonElement;
 	tabIndex?: number;
 	value: ColorType;
@@ -64,8 +65,16 @@ export default class Color extends PureComponent<ColorProps> {
 	private hoverStartTime: number = 0;
 
 	render() {
-		const { tabIndex, backgroundColor, isSelected, borderColor, iconColor, value, setRef } =
-			this.props;
+		const {
+			tabIndex,
+			backgroundColor,
+			isSelected,
+			borderColor,
+			iconColor,
+			value,
+			setRef,
+			onKeyDown,
+		} = this.props;
 		return (
 			<li css={buttonWrapperStyles}>
 				<FormattedMessage {...messages[`${value}Color` as keyof typeof messages]}>
@@ -76,6 +85,7 @@ export default class Color extends PureComponent<ColorProps> {
 							onMouseEnter={this.onMouseEnter}
 							onMouseLeave={this.onMouseLeave}
 							onMouseDown={this.onMouseDown}
+							onKeyDown={onKeyDown}
 							tabIndex={tabIndex}
 							title={labels[0] as string}
 							// button element does not support aria-selected.

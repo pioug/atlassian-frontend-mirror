@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 8.10.0
+
+### Minor Changes
+
+- [`cb0904030093f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb0904030093f) -
+  [ux] Restricting blocks from showing remix button
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.9.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.9.1
 
 ### Patch Changes

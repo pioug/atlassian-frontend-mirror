@@ -1,5 +1,12 @@
 # @atlaskit/teams-client
 
+## 4.30.2
+
+### Patch Changes
+
+- [`cf41ce07edce7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf41ce07edce7) -
+  Clean up new_team_profile experiment
+
 ## 4.30.1
 
 ### Patch Changes

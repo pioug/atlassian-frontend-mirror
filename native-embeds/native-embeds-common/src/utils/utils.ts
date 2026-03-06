@@ -36,12 +36,21 @@ export function updateParameters(
  *   items: ['refresh', 'myAction', 'separator'], // 'myAction' is type-checked
  *   moreItems: ['copyLink', 'myAction', 'separator', 'delete'], // 'myAction' is type-checked
  * });
+ *
+ * // Or without custom actions:
+ * const simpleConfig = createEditorToolbarActions({
+ *   items: ['alignment', 'separator', 'openInNewWindow', 'editUrl'],
+ *   moreItems: ['delete'],
+ * });
  * ```
  */
 export const createEditorToolbarActions = <
-	const TCustomActions extends Record<string, EditorToolbarAction>,
+	const TCustomActions extends Record<string, EditorToolbarAction> = Record<
+		string,
+		EditorToolbarAction
+	>,
 >(config: {
-	customActions: TCustomActions;
+	customActions?: TCustomActions;
 	items: (BuiltinToolbarKey | keyof TCustomActions)[];
 	moreItems?: (BuiltinToolbarKey | keyof TCustomActions)[];
 }): ManifestEditorToolbarActions<TCustomActions> => config;

@@ -254,11 +254,9 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 			return mediaOptions.provider;
 		}
 
-		if (expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)) {
-			return mediaOptions.syncProvider
-				? Promise.resolve(mediaOptions.syncProvider)
-				: mediaOptions.provider;
-		}
+		return mediaOptions.syncProvider
+			? Promise.resolve(mediaOptions.syncProvider)
+			: mediaOptions.provider;
 	};
 
 	renderMediaNodeWithState = (contextIdentifierProvider?: Promise<ContextIdentifierProvider>) => {

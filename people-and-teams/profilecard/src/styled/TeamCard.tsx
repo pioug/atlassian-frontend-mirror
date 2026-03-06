@@ -2,7 +2,6 @@ import React from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
 import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -67,14 +66,11 @@ export const TeamForbiddenErrorStateWrapper = (props: {
 	testId?: string;
 }): React.JSX.Element => <Box xcss={cx(styles.teamforbiddenerrorstatewrapper)} {...props} />;
 
-export const TeamName = (props: { children: React.ReactNode }): React.JSX.Element =>
-	fg('enable_profilecard_h2tag_a11y_fix') ? (
-		<Box xcss={cx(styles.teamname)}>
-			<Heading size="medium" as="h2" children={props.children} />
-		</Box>
-	) : (
-		<Box xcss={cx(styles.teamname)} {...props} />
-	);
+export const TeamName = (props: { children: React.ReactNode }): React.JSX.Element => (
+	<Box xcss={cx(styles.teamname)}>
+		<Heading size="medium" as="h2" children={props.children} />
+	</Box>
+);
 
 export const MemberCount = (props: { children: React.ReactNode }): React.JSX.Element => (
 	<Box xcss={cx(styles.membercount)} {...props} />

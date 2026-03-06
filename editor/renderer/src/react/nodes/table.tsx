@@ -214,6 +214,7 @@ const TableWrapper = ({
 	tabIndex,
 }: TableWrapperProps) => {
 	const { formatMessage } = useIntl();
+	const isScrollableRegion = (tabIndex !== undefined) && expValEquals('platform_editor_a11y_table_wrapper_fix', 'isEnabled', true);
 
 	return (
 		<div
@@ -224,8 +225,8 @@ const TableWrapper = ({
 			// Adding tabIndex here because this is a scrollable container and it needs to be focusable so keyboard users can scroll it.
 			// eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex
 			tabIndex={tabIndex}
-			role="region"
-			aria-label={formatMessage(tableMessages.tableScrollRegion)}
+			role={isScrollableRegion ? 'region' : undefined}
+			aria-label={isScrollableRegion ? formatMessage(tableMessages.tableScrollRegion) : undefined}
 		>
 			{children}
 		</div>

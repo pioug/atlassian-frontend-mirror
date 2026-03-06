@@ -49,6 +49,8 @@ export {
 	startPositionOfParent,
 } from './utils';
 
+export { getSliceFromSelection, getFragmentsFromSelection, getLocalIdsFromSelection } from './context-helpers';
+
 export function getNodeSelectionAnalyticsPayload(
 	selection: Selection,
 ): AnalyticsEventPayload | undefined {

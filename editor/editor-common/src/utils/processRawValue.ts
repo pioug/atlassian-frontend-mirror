@@ -13,7 +13,6 @@ import type { ADFEntity, ADFEntityMark } from '@atlaskit/adf-utils/types';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { Fragment, Node, type Schema } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { DispatchAnalyticsEvent } from '../analytics';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
@@ -79,7 +78,7 @@ export function processRawValueWithoutValidation(
 	if (typeof value === 'string') {
 		try {
 			node = JSON.parse(value);
-		} catch (e) {
+		} catch {
 			// eslint-disable-next-line no-console
 			console.error(`Error processing value: ${value} isn't a valid JSON`);
 			return;
@@ -126,7 +125,7 @@ export function processRawValue(
 			} else {
 				node = JSON.parse(value);
 			}
-		} catch (e) {
+		} catch {
 			// eslint-disable-next-line no-console
 			console.error(`Error processing value: ${value} isn't a valid JSON`);
 			return;
@@ -267,38 +266,19 @@ export function processRawValue(
 			}
 		}
 
-		let entity: ADFEntity;
+		// Validate ADF first before converting nested-table extensions into nested tables
+		// This matches the renderer's behavior in render-document.ts
+		const allowNestedTables = isNestedTablesSupported(schema);
+		let entity: ADFEntity = validateADFEntity(
+			schema,
+			transformedAdf || (node as ADFEntity),
+			dispatchAnalyticsEvent,
+			allowNestedTables ? { allowNestedTables } : undefined,
+		);
 
-		if (expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)) {
-			// Validate ADF first before converting nested-table extensions into nested tables
-			// This matches the renderer's behavior in render-document.ts
-			const allowNestedTables = isNestedTablesSupported(schema);
-			entity = validateADFEntity(
-				schema,
-				transformedAdf || (node as ADFEntity),
-				dispatchAnalyticsEvent,
-				allowNestedTables ? { allowNestedTables } : undefined,
-			);
-
-			// Convert nested-table extensions into nested tables
-			({ transformedAdf } = transformNestedTablesWithAnalytics(
-				entity as ADFEntity,
-				dispatchAnalyticsEvent,
-			));
-			entity = transformedAdf;
-		} else {
-			// Convert nested-table extensions into nested tables
-			({ transformedAdf } = transformNestedTablesWithAnalytics(
-				transformedAdf as ADFEntity,
-				dispatchAnalyticsEvent,
-			));
-
-			entity = validateADFEntity(
-				schema,
-				transformedAdf || (node as ADFEntity),
-				dispatchAnalyticsEvent,
-			);
-		}
+		// Convert nested-table extensions into nested tables
+		({ transformedAdf } = transformNestedTablesWithAnalytics(entity, dispatchAnalyticsEvent));
+		entity = transformedAdf;
 
 		const newEntity = maySanitizePrivateContent(
 			entity as JSONDocNode,

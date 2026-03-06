@@ -3,7 +3,7 @@
  * @jsx jsx
  * @jsxFrag
  */
-import React, { Fragment, type MouseEvent } from 'react';
+import React, { Fragment, type KeyboardEvent, type MouseEvent } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -555,6 +555,11 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 	const mediaSingleWrapperRef = React.createRef<HTMLDivElement>();
 	const captionPlaceHolderRef = React.createRef<HTMLSpanElement>();
 
+	const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
+		? getBrowserInfo()
+		: browserLegacy;
+	const notIos = !browser.ios;
+
 	const onMediaSingleClicked = React.useCallback(
 		(event: MouseEvent) => {
 			const browser = expValEquals('platform_editor_hydratable_ui', 'isEnabled', true)
@@ -571,6 +576,24 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 			}
 
 			captionPlaceHolderRef.current?.click();
+		},
+		[mediaSingleWrapperRef, captionPlaceHolderRef],
+	);
+
+	const onMediaSingleKeyDown = React.useCallback(
+		(event: KeyboardEvent<HTMLElement>) => {
+			if (!expValEquals('platform_editor_eslint_suppression_fix', 'isEnabled', true)) {
+				return;
+			}
+
+			if (mediaSingleWrapperRef.current !== event.target) {
+				return;
+			}
+			
+			if (event.key === 'Enter' || event.key === ' ') {
+				event.preventDefault();
+				captionPlaceHolderRef.current?.click();
+			}
 		},
 		[mediaSingleWrapperRef, captionPlaceHolderRef],
 	);
@@ -594,13 +617,17 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 	}, [widthType, mediaSingleWidthAttribute]);
 
 	const MediaChildren = (
-		// eslint-disable-next-line @atlassian/a11y/no-noninteractive-element-interactions, @atlassian/a11y/click-events-have-key-events
 		<figure
 			ref={mediaSingleWrapperRef}
 			css={figureWrapperStyles}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={MediaSingleNodeSelector}
-			onClick={onMediaSingleClicked}
+			onClick={
+				notIos && expValEquals('platform_editor_eslint_suppression_fix', 'isEnabled', true)
+					? undefined
+					: onMediaSingleClicked
+			}
+			onKeyDown={notIos ? undefined : onMediaSingleKeyDown}
 		>
 			<MediaBadges
 				mediaElement={currentMediaElement()}

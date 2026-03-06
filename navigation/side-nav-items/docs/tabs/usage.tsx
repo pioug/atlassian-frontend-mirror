@@ -9,7 +9,7 @@ export const UsageTab: JSX.Element = md`
 ## Usage
 
 Use side nav items to create different sections, actions, and links in the
-[side nav](https://atlassian.design/components/navigation-system/layout/examples#side-nav).
+[side nav](https://atlassian.design/components/navigation-system/layout/examples).
 
 ${(
 	<Image
@@ -71,8 +71,8 @@ ${(
 ### Follow Atlassian's navigation patterns
 
 The current navigation has specific menu items that are similar across apps. Make sure your side
-navigation follows Atlassian patterns consistently,
-[see navigation experience guidelines (Atlassians only)](https://hello.atlassian.net/wiki/spaces/navx/pages/5104144812).
+navigation follows Atlassian patterns consistently. For all the guidelines, [see navigation experience
+guidelines (Atlassians only)](https://hello.atlassian.net/wiki/spaces/navx/pages/5104144812).
 
 ### Choose side nav menu items based on action type
 
@@ -89,9 +89,8 @@ guidance for each menu item.
 ### Use side nav items only within the side nav
 
 Side nav menus are reserved for use directly within the
-[side nav](https://atlassian.design/components/navigation-system/layout/examples#side-nav) and the
-[flyout menu content](/packages/navigation/side-nav-items?tab=examples#flyout-menu-item)
-(popup).
+[side nav](https://atlassian.design/components/navigation-system/layout/examples) and the
+[flyout menu popup](/packages/navigation/side-nav-items?tab=examples#flyout-menu-item).
 
 Menus anywhere else in the app, including those triggered from the top navigation, should also use
 regular [menu](https://atlassian.design/components/menu) or [dropdown menu](https://atlassian.design/components/dropdown-menu).
@@ -180,8 +179,9 @@ ${(
 		>
 			Don't use disabled menu items, see{' '}
 			<Link target="_blank" href="https://atlassian.design/components/menu/usage">
-				menu guidance.
+				menu guidance
 			</Link>
+			.
 		</DoDont>
 	</DoDontGrid>
 )}
@@ -315,6 +315,31 @@ ${(
 		</DoDont>
 	</DoDontGrid>
 )}
+
+## Use skeletons for loading side nav items
+
+Use [menu item skeleton](/packages/navigation/side-nav-items?tab=examples#menu-item-skeleton) and
+[menu section heading skeleton](/packages/navigation/side-nav-items?tab=examples#menu-section-heading-skeleton) as placeholders
+for side nav items while content is loading.
+For example, use them when expanding a side nav menu or opening a flyout menu, if the content won't be available immediately.
+
+When designing and implementing the loading experience:
+
+- **Align skeletons to their content**
+<br />Compose skeleton components so they visually align with the nav items they represent.
+
+- **Prefer fewer skeleton items**
+<br/>When the number of items is unknown, render fewer skeleton items. It's better for the list to grow as content loads than to shrink.
+
+- **Smoothly transition between states**
+<br />Use a smooth transition from the skeleton state to the loaded content. Fade the skeleton in, then crossfade to the loaded content in place.
+
+- **Load items together**
+<br />Ensure all items appear loaded at the same time.
+
+For loading states of other components that may appear in the side navigation, compose your own using [skeleton](https://atlassian.design/components/skeleton/examples).
+
+<!-- TODO: Add DoDont once assets are ready -->
 
 ## Content guidelines
 

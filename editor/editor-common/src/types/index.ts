@@ -203,7 +203,7 @@ export type {
 } from './text-formatting';
 
 export type { LayoutPluginOptions } from './layout';
-export type { LongPressSelectionPluginOptions } from './selection';
+export type { LongPressSelectionPluginOptions, SelectionContext } from './selection';
 
 export type {
 	QuickInsertPluginState,

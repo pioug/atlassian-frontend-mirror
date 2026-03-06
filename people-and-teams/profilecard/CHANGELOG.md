@@ -1,5 +1,31 @@
 # @atlaskit/profilecard
 
+## 24.40.1
+
+### Patch Changes
+
+- [`b4517aae6b26f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b4517aae6b26f) -
+  [ux] PTC-15599]: Fix user profile hover card in hierachy clipping for bottom items
+
+## 24.40.0
+
+### Minor Changes
+
+- [`a4789cedc2893`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4789cedc2893) -
+  Cleanup rovo_agent_empty_state_refresh FG
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.39.2
+
+### Patch Changes
+
+- [`cf41ce07edce7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf41ce07edce7) -
+  Clean up new_team_profile experiment
+- Updated dependencies
+
 ## 24.39.1
 
 ### Patch Changes

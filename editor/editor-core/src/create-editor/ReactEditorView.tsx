@@ -256,11 +256,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 
 			// if the collabEdit API is set, skip this validation due to potential pm validation errors
 			// from docs that end up with invalid marks after processing (See #hot-111702 for more details)
-			if (
-				(isSSR() && expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)) ||
-				api?.collabEdit !== undefined ||
-				options.props.editorProps.skipValidation
-			) {
+			if (isSSR() || api?.collabEdit !== undefined || options.props.editorProps.skipValidation) {
 				return processRawValueWithoutValidation(schema, options.doc, dispatchAnalyticsEvent);
 			} else {
 				return processRawValue(
@@ -386,7 +382,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 
 	const initialEditorState = useMemo(
 		() => {
-			if (isSSR() && expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)) {
+			if (isSSR()) {
 				// We don't need to create initial state in SSR, it would be done by EditorSSRRenderer,
 				// so we can save some CPU time here.
 				return undefined;
@@ -471,7 +467,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 	});
 
 	useLayoutEffect(() => {
-		if (isSSR() && expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)) {
+		if (isSSR()) {
 			return;
 		}
 
@@ -495,7 +491,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 
 	// Cleanup
 	useLayoutEffect(() => {
-		if (isSSR() && expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)) {
+		if (isSSR()) {
 			// No cleanup in SSR should happened because SSR doesn't render a real editor.
 			return;
 		}
@@ -820,7 +816,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 		originalScrollToRestore.current !== 0;
 
 	useLayoutEffect(() => {
-		if (isSSR() && expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)) {
+		if (isSSR()) {
 			// We don't need to focus anything in SSR.
 			return;
 		}
@@ -866,7 +862,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 	const possibleListeners = React.useRef([] as [event: string, handler: () => void][]);
 
 	useEffect(() => {
-		if (isSSR() && expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)) {
+		if (isSSR()) {
 			// No event listeners should be attached to scroll element in SSR.
 			return;
 		}
@@ -1056,7 +1052,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 	const previousPreset = usePreviousState(preset);
 
 	useLayoutEffect(() => {
-		if (isSSR() && expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)) {
+		if (isSSR()) {
 			// No state reconfiguration is supported in SSR.
 			return;
 		}
@@ -1069,7 +1065,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 	const previousDisabledState = usePreviousState(disabled);
 
 	useLayoutEffect(() => {
-		if (isSSR() && expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)) {
+		if (isSSR()) {
 			// We don't need to focus anything in SSR.
 			return;
 		}
@@ -1129,7 +1125,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 	// In separate memo, because some props like `props.intl` that need only for rendering
 	// changes many times, but we don't want to process plugins and ADF document for each unnecessary changes.
 	const ssrDeps = useMemo(() => {
-		if (!isSSR() || !expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)) {
+		if (!isSSR()) {
 			return null;
 		}
 

@@ -107,6 +107,10 @@ export type Config = {
 		readonly test?: string;
 		readonly rate?: number;
 	}[];
+	/**
+	 * Should only used in emergency cases to stop sending events by ufoNames
+	 */
+	readonly disabledUfoNames?: readonly string[];
 	readonly killswitch?: readonly string[];
 	/**
 	 * @private

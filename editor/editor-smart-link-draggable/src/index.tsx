@@ -1,16 +1,23 @@
 /**
+ * @jsxFrag
  * @jsxRuntime classic
  * @jsx jsx
- * @jsxFrag React.Fragment
  */
-import React, { useEffect, useRef, type PropsWithChildren } from 'react';
+import React, { type PropsWithChildren, useEffect, useRef, useState } from 'react';
 
-import { css, jsx } from '@compiled/react';
+import { css } from '@compiled/react';
+import ReactDOM from 'react-dom';
 
-import { getDocument } from '@atlaskit/browser-apis';
+import { cssMap, jsx } from '@atlaskit/css';
+import { extractSmartLinkTitle } from '@atlaskit/link-extractors';
+import { useSmartLinkContext } from '@atlaskit/link-provider';
+import type { SmartLinkResponse } from '@atlaskit/linking-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { pointerOutsideOfPreview } from '@atlaskit/pragmatic-drag-and-drop/element/pointer-outside-of-preview';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
+import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { getObjectIconUrl } from '@atlaskit/smart-card';
 import { token } from '@atlaskit/tokens';
 
 /**
@@ -54,149 +61,113 @@ export interface SmartLinkDraggableProps {
 	url: string;
 }
 
-/**
- * Extracts the resolved title from the smart card's rendered DOM.
- * At drag time, the smart card has already resolved and rendered the title
- * as visible text. This avoids needing to thread the async onResolve title
- * back up to the outer ReactNodeView wrapper.
- */
-function getTitleFromDOM(
-	element: HTMLElement,
-	url: string,
-	propTitle?: string,
-): string | undefined {
-	if (propTitle) {
-		return propTitle;
-	}
+type DraggableState =
+	| { type: 'idle' }
+	| {
+			container: HTMLElement;
+			iconUrl: string | undefined;
+			title: string | undefined;
+			type: 'preview';
+	  }
+	| { type: 'dragging' };
 
-	// For inline cards: the title is rendered inside the first child span of
-	// the anchor element.
-	const inlineLink = element.querySelector<HTMLAnchorElement>('a[href]');
-	if (inlineLink) {
-		const titleSpan = inlineLink.querySelector<HTMLElement>(':scope > span:first-of-type');
-		const text = (titleSpan ?? inlineLink).textContent?.trim();
-		if (text && text !== url) {
-			return text;
-		}
-	}
+const idleState: DraggableState = { type: 'idle' };
+const draggingState: DraggableState = { type: 'dragging' };
 
-	// For block/embed cards (FlexibleCard): title is in the smart-link-title element
-	const smartTitle = element.querySelector<HTMLElement>('[data-smart-element="Title"]');
-	if (smartTitle) {
-		const text = smartTitle.textContent?.trim();
-		if (text && text !== url) {
-			return text;
-		}
-	}
-
-	// Fallback: use full textContent (works for simple cards without metadata)
-	const text = element.textContent?.trim();
-	if (text && text !== url) {
-		return text;
-	}
-	return undefined;
-}
-
-/**
- * Extracts the provider/favicon icon URL from the smart card's rendered DOM.
- * Looks for icons within elements marked with data-smart-element-icon (FlexibleCard),
- * then falls back to finding the first small <img> in the card.
- */
-function getIconUrlFromDOM(element: HTMLElement): string | undefined {
-	// Try smart element icon container (FlexibleCard)
-	const smartElementIcon = element.querySelector<HTMLElement>('[data-smart-element-icon]');
-	const smartElementImg = smartElementIcon?.querySelector<HTMLImageElement>('img[src]');
-	if (smartElementImg?.src) {
-		return smartElementImg.src;
-	}
-
-	// Fallback: find the first small img in the card (likely the provider/favicon icon)
-	const allImgs = element.querySelectorAll<HTMLImageElement>('img[src]');
-	for (const img of allImgs) {
-		// Skip large images (likely card previews, not icons)
-		if (img.naturalWidth > 0 && img.naturalWidth <= 32) {
-			return img.src;
-		}
-		// If natural dimensions aren't available yet, check computed/attribute size
-		if (img.width <= 32 || ['16', '20', '24', '32'].includes(img.getAttribute('width') ?? '')) {
-			return img.src;
-		}
-	}
-
-	return undefined;
-}
-
-/**
- * Renders a drag preview element for a smart link being dragged.
- * Shows an icon (if available) and the link title in a compact pill.
- */
-function renderDragPreview(
-	container: HTMLElement,
-	{ title, url, iconUrl }: { iconUrl: string | undefined; title: string | undefined; url: string },
-): void {
-	const doc = getDocument();
-	if (!doc) {
-		return;
-	}
-	const preview = doc.createElement('div');
-	Object.assign(preview.style, {
-		padding: `${token('space.050', '4px')} ${token('space.100', '8px')}`,
-		backgroundColor: token('elevation.surface.raised', '#fff'),
-		borderRadius: token('radius.small', '4px'),
-		boxShadow: token('elevation.shadow.raised', '0 2px 8px rgba(0,0,0,0.15)'),
-		font: token('font.body', '14px'),
-		maxWidth: '300px',
+const styles = cssMap({
+	preview: {
+		backgroundColor: token('elevation.surface'),
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.100'),
+		maxWidth: '260px',
+		overflow: 'hidden',
+		borderStyle: 'solid',
+		borderColor: token('color.border'),
+		borderRadius: token('radius.small'),
+		boxShadow: token('elevation.shadow.overlay'),
+	},
+	previewText: {
 		overflow: 'hidden',
 		textOverflow: 'ellipsis',
 		whiteSpace: 'nowrap',
-		display: 'flex',
-		alignItems: 'center',
-		gap: token('space.075', '6px'),
-	});
+	},
+	draggableInline: {
+		cursor: 'grab',
+		display: 'inline',
+	},
+	draggableBlock: {
+		cursor: 'grab',
+	},
+});
 
-	if (iconUrl) {
-		const icon = doc.createElement('img');
-		icon.src = iconUrl;
-		Object.assign(icon.style, {
-			width: token('space.200', '16px'),
-			height: token('space.200', '16px'),
-			flexShrink: '0',
-		});
-		preview.appendChild(icon);
-	}
+const previewIconStyles = css({
+	width: token('space.200'),
+	height: token('space.200'),
+	flexShrink: 0,
+});
 
-	const text = doc.createElement('span');
-	Object.assign(text.style, {
-		overflow: 'hidden',
-		textOverflow: 'ellipsis',
-	});
-	text.textContent = title || url;
-	preview.appendChild(text);
-
-	container.appendChild(preview);
+function SmartLinkDragPreview({
+	title,
+	url,
+	iconUrl,
+}: {
+	iconUrl: string | undefined;
+	title: string | undefined;
+	url: string;
+}) {
+	return (
+		<Box xcss={styles.preview}>
+			<Inline alignBlock="center" space="space.075">
+				{iconUrl && <img src={iconUrl} alt="" css={previewIconStyles} />}
+				<Box as="span" xcss={styles.previewText}>
+					{title || url}
+				</Box>
+			</Inline>
+		</Box>
+	);
 }
 
-const draggableInlineStyles = css({
-	cursor: 'grab',
-	display: 'inline',
-});
+function getIconUrl(details?: SmartLinkResponse): string | undefined {
+	if (details?.data && 'icon' in details.data && typeof details?.data?.icon === 'string') {
+		return details.data.icon;
+	}
 
-const draggableBlockStyles = css({
-	cursor: 'grab',
-});
+	const objectIconUrl = getObjectIconUrl(details);
+	if (objectIconUrl) {
+		return objectIconUrl;
+	}
+
+	// Confluence/Jira content-type specific icons (page, blog, whiteboard, issue, etc.)
+	if (
+		details?.entityData &&
+		'iconUrl' in details.entityData &&
+		typeof details.entityData.iconUrl === 'string'
+	) {
+		return details.entityData.iconUrl;
+	}
+
+	// Fallback to provider/generator icon (product logo)
+	if (typeof details?.meta?.generator?.icon?.url === 'string') {
+		return details.meta.generator.icon.url;
+	}
+
+	return undefined;
+}
 
 /**
  * Wraps a smart link card to make it draggable into the content tree.
- * Extracts the resolved title and icon from the card's DOM at drag start time.
+ * Extracts the resolved title and icon from the smart link data store at drag start time.
  */
 export function SmartLinkDraggable({
 	url,
-	title,
+	title: propTitle,
 	appearance,
 	source,
 	children,
 }: PropsWithChildren<SmartLinkDraggableProps>) {
 	const ref = useRef<HTMLDivElement>(null);
+	const { store } = useSmartLinkContext();
+	const [state, setState] = useState<DraggableState>(idleState);
 
 	useEffect(() => {
 		const el = ref.current;
@@ -207,48 +178,69 @@ export function SmartLinkDraggable({
 		return draggable({
 			element: el,
 			getInitialData: () => {
-				// Resolve the title and icon at drag start time, when the smart card has already rendered
-				const resolvedTitle = getTitleFromDOM(el, url, title);
-				const iconUrl = getIconUrlFromDOM(el);
+				const cardState = store.getState()[url];
+				const details = cardState?.details;
+
+				const title = propTitle || extractSmartLinkTitle(details);
+				const iconUrl = getIconUrl(details);
+
 				return {
 					type: source,
 					url,
-					title: resolvedTitle,
+					title,
 					iconUrl,
 					appearance,
 				};
 			},
 			onGenerateDragPreview: ({ nativeSetDragImage }) => {
-				const resolvedTitle = getTitleFromDOM(el, url, title);
-				const iconUrl = getIconUrlFromDOM(el);
+				const cardState = store.getState()[url];
+				const details = cardState?.details;
+				const title = propTitle || extractSmartLinkTitle(details);
+				const iconUrl = getIconUrl(details);
+
 				setCustomNativeDragPreview({
 					getOffset: pointerOutsideOfPreview({ x: '16px', y: '8px' }),
 					render({ container }) {
-						renderDragPreview(container, { title: resolvedTitle, url, iconUrl });
+						setState({ type: 'preview', container, title, iconUrl });
+						return () => setState(draggingState);
 					},
 					nativeSetDragImage,
 				});
 			},
+			onDragStart: () => setState(draggingState),
+			onDrop: () => setState(idleState),
 		});
-	}, [url, title, appearance, source]);
+	}, [url, propTitle, appearance, source, store]);
 
-	// Only wrap with draggable styles if we have a valid URL
-	if (!url) {
+	if (!url || !fg('confluence_dnd_smart_link_from_content')) {
 		return <>{children}</>;
 	}
 
-	// Use span with inline display for inline cards to preserve text flow
+	const preview =
+		state.type === 'preview'
+			? ReactDOM.createPortal(
+					<SmartLinkDragPreview title={state.title} url={url} iconUrl={state.iconUrl} />,
+					state.container,
+				)
+			: null;
+
 	if (appearance === SmartLinkAppearance.INLINE) {
 		return (
-			<span ref={ref} css={draggableInlineStyles}>
-				{children}
-			</span>
+			<>
+				<Box as="span" ref={ref} xcss={styles.draggableInline}>
+					{children}
+				</Box>
+				{preview}
+			</>
 		);
 	}
 
 	return (
-		<div ref={ref} css={draggableBlockStyles}>
-			{children}
-		</div>
+		<>
+			<Box ref={ref} xcss={styles.draggableBlock}>
+				{children}
+			</Box>
+			{preview}
+		</>
 	);
 }

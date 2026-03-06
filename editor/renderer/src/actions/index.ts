@@ -1,6 +1,10 @@
 import type { AnnotationId } from '@atlaskit/adf-schema';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
-import type { AnnotationActionResult, AnnotationByMatches } from '@atlaskit/editor-common/types';
+import type {
+	AnnotationActionResult,
+	AnnotationByMatches,
+	SelectionContext,
+} from '@atlaskit/editor-common/types';
 import {
 	canApplyAnnotationOnRange,
 	getAnnotationIdsFromRange,
@@ -32,6 +36,7 @@ import {
 	getRendererRangeAncestorNodeNames,
 } from './get-renderer-range-inline-node-names';
 import { getIndexMatch } from './matches-utils';
+import { getSelectionContext } from './selection';
 
 type ActionResult = { doc: JSONDocNode; step: Step } | false;
 type Position = { from: number; to: number };
@@ -55,12 +60,16 @@ interface PositionRendererActionsOptions {
 	getPositionFromRange: (range: Range) => Position | false;
 }
 
+interface SelectionRendererActionsOptions {
+	getSelectionContext: () => SelectionContext | null;
+}
+
 export default class RendererActions
 	implements
-		RendererActionsOptions,
-		AnnotationsRendererActionsOptions,
-		PositionRendererActionsOptions
-{
+	RendererActionsOptions,
+	AnnotationsRendererActionsOptions,
+	PositionRendererActionsOptions,
+	SelectionRendererActionsOptions {
 	// This is our psuedo feature flag for now
 	// This module can only be used when wrapped with
 	// the <RendererContext> component for now.
@@ -180,11 +189,11 @@ export default class RendererActions
 					inlineNodeNames:
 						step instanceof RemoveMarkStep
 							? getRendererRangeInlineNodeNames({
-									// Ignored via go/ees005
-									// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-									pos: { from: from!, to: to! },
-									actions: this,
-								})
+								// Ignored via go/ees005
+								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+								pos: { from: from!, to: to! },
+								actions: this,
+							})
 							: undefined,
 				},
 			};
@@ -308,6 +317,10 @@ export default class RendererActions
 		}
 
 		return getPosFromRange(range);
+	}
+
+	getSelectionContext(): SelectionContext | null {
+		return getSelectionContext({ doc: this.doc, schema: this.schema });
 	}
 
 	getAnnotationMarks() {

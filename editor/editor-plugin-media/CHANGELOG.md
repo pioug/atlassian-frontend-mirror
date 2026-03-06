@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-media
 
+## 9.8.0
+
+### Minor Changes
+
+- [`17119fb95e0a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/17119fb95e0a4) -
+  [EDITOR-3747](https://hello.jira.atlassian.cloud/browse/EDITOR-3747) - clean up
+  platform_editor_ssr_renderer experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.7.3
+
+### Patch Changes
+
+- [`c28209fcfdfd2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c28209fcfdfd2) -
+  [ENGHEALTH-46817] Resolving eslint suppressions for accessibility violations
+- Updated dependencies
+
+## 9.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.7.1
 
 ### Patch Changes

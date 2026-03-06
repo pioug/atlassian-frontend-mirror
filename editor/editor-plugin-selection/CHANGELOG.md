@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-selection
 
+## 7.0.25
+
+### Patch Changes
+
+- [`10f36a235eedd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/10f36a235eedd) -
+  Extract selection helpers to editor-common
+- Updated dependencies
+
+## 7.0.24
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.23
 
 ### Patch Changes

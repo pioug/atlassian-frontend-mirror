@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "43.25.13",
+	"version": "43.25.14",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -33,6 +33,7 @@
 		"@atlaskit/avatar": "workspace:^",
 		"@atlaskit/avatar-group": "workspace:^",
 		"@atlaskit/badge": "workspace:^",
+		"@atlaskit/browser-apis": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/checkbox": "workspace:^",
 		"@atlaskit/css": "workspace:^",
@@ -241,6 +242,9 @@
 			"type": "boolean"
 		},
 		"platform_sl_3p_auth_rovo_action_kill_switch": {
+			"type": "boolean"
+		},
+		"jpx-833-smart-links-graphql-provider": {
 			"type": "boolean"
 		}
 	},

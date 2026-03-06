@@ -9,6 +9,7 @@ import { css, jsx } from '@emotion/react';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { isVideo } from '../../pm-plugins/utils/is-type';
@@ -72,20 +73,32 @@ export const MediaViewerContainer = ({
 			{isEditorViewMode ? (
 				<Fragment>
 					{isInline ? (
+						// remove eslint disable when platform_editor_eslint_suppression_fix has been cleaned up
 						// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
 						<span
 							onClick={showMediaViewer}
 							css={interactiveStyles}
 							data-testid={mediaViewerContainerTestID}
+							role={
+								expValEquals('platform_editor_eslint_suppression_fix', 'isEnabled', true)
+									? 'none'
+									: undefined
+							}
 						>
 							{children}
 						</span>
 					) : (
+						// remove eslint disable when platform_editor_eslint_suppression_fix has been cleaned up
 						// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
 						<div
 							onClick={showMediaViewer}
 							css={interactiveStyles}
 							data-testid={mediaViewerContainerTestID}
+							role={
+								expValEquals('platform_editor_eslint_suppression_fix', 'isEnabled', true)
+									? 'none'
+									: undefined
+							}
 						>
 							{children}
 						</div>

@@ -611,6 +611,9 @@ export interface ProfileClient {
 }
 
 export type ProfilecardTriggerPosition =
+	| 'auto'
+	| 'auto-start'
+	| 'auto-end'
 	| 'bottom-start'
 	| 'bottom'
 	| 'bottom-end'

@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 216.14.0
+
+### Minor Changes
+
+- [`17119fb95e0a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/17119fb95e0a4) -
+  [EDITOR-3747](https://hello.jira.atlassian.cloud/browse/EDITOR-3747) - clean up
+  platform_editor_ssr_renderer experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 216.13.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 216.13.2
 
 ### Patch Changes

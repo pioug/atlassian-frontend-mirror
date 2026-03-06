@@ -1,8 +1,10 @@
+import { getFragmentsFromSelection, getLocalIdsFromSelection } from '@atlaskit/editor-common/selection';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { nodeToJSON, type JSONNode } from '@atlaskit/editor-json-transformer';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, type Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SelectionPlugin } from '../selectionPluginType';
 
@@ -72,24 +74,26 @@ export const getSliceFromSelection = (selection: Selection): Fragment => {
 export const getSelectionFragment =
 	(api: ExtractInjectionAPI<SelectionPlugin> | undefined) => () => {
 		const selection = api?.selection.sharedState?.currentState()?.selection;
-		const schema = api?.core.sharedState.currentState()?.schema;
-		if (!selection || !schema || selection.empty) {
-			return null;
+		if (fg('platform_editor_renderer_selection_context')) {
+			return getFragmentsFromSelection(selection);
+		} else {
+			const schema = api?.core.sharedState.currentState()?.schema;
+			if (!selection || !schema || selection.empty) {
+				return null;
+			}
+
+			const slice = getSliceFromSelection(selection);
+			const content = slice.content;
+
+			const fragment: JSONNode[] = [];
+			content.forEach((node) => {
+				fragment.push(nodeToJSON(node));
+			});
+			return fragment;
 		}
-
-		const slice = getSliceFromSelection(selection);
-		const content = slice.content;
-
-		const fragment: JSONNode[] = [];
-		content.forEach((node) => {
-			fragment.push(nodeToJSON(node));
-		});
-		return fragment;
 	};
 
-export const getSelectionLocalIds =
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	(api: ExtractInjectionAPI<SelectionPlugin> | undefined) => (): any[] | null => {
+export const getSelectionLocalIds =	(api?: ExtractInjectionAPI<SelectionPlugin>) => (): string[] | null => {
 		let selection = api?.selection.sharedState?.currentState()?.selection;
 		if (selection?.empty) {
 			// If we have an empty selection the current state might not be correct
@@ -100,23 +104,27 @@ export const getSelectionLocalIds =
 			});
 		}
 
-		if (!selection) {
-			return null;
-		}
-
-		if (selection instanceof NodeSelection) {
-			return [selection.node.attrs.localId];
-		} else if (selection.empty) {
-			return [selection.$from.parent.attrs.localId];
-		}
-		const content = getSliceFromSelection(selection).content;
-
-		const ids: string[] = [];
-		content.forEach((node) => {
-			const localId = node.attrs?.localId;
-			if (localId) {
-				ids.push(localId);
+		if (fg('platform_editor_renderer_selection_context')) {
+			return getLocalIdsFromSelection(selection);
+		} else {
+			if (!selection) {
+				return null;
 			}
-		});
-		return ids;
+
+			if (selection instanceof NodeSelection) {
+				return [selection.node.attrs.localId];
+			} else if (selection.empty) {
+				return [selection.$from.parent.attrs.localId];
+			}
+			const content = getSliceFromSelection(selection).content;
+
+			const ids: string[] = [];
+			content.forEach((node) => {
+				const localId = node.attrs?.localId;
+				if (localId) {
+					ids.push(localId);
+				}
+			});
+			return ids;
+		}
 	};

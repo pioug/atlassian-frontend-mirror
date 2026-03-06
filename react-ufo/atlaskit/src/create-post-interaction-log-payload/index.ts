@@ -218,6 +218,13 @@ function createPostInteractionLogPayload({
 		return null;
 	}
 
+	if (fg('platform_ufo_disable_ufo_names_config')) {
+		const config = getConfig();
+		if (config?.disabledUfoNames && config?.disabledUfoNames.includes(ufoName)) {
+			return null;
+		}
+	}
+
 	const pageVisibilityState = getPageVisibilityState(
 		lastInteractionFinish.start,
 		lastInteractionFinish.end,

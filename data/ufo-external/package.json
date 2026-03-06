@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/ufo",
-	"version": "0.4.1",
+	"version": "0.4.2",
 	"description": "UFO external part",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,6 +36,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "root:*",
 		"uuid": "root:*"
 	},
@@ -55,6 +56,11 @@
 			"deprecation": [
 				"no-deprecated-imports"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform_ufo_enable_untilall_parent_fix": {
+			"type": "boolean"
 		}
 	}
 }

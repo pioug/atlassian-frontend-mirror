@@ -1,5 +1,16 @@
 # @atlaskit/adf-schema
 
+## 52.2.0
+
+### Minor Changes
+
+- [`9ed9287650fea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ed9287650fea) -
+  Add fontSize mark to stage0 schema
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 52.1.0
 
 ### Minor Changes

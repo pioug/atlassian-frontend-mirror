@@ -1,5 +1,37 @@
 # @atlaskit/renderer
 
+## 126.16.0
+
+### Minor Changes
+
+- [`10f36a235eedd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/10f36a235eedd) -
+  Add getSelectionContext to RendererActions
+
+### Patch Changes
+
+- Updated dependencies
+
+## 126.15.1
+
+### Patch Changes
+
+- [`4f700a8131d20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f700a8131d20) -
+  [FFCLEANUP-79468] fix "landmark-unique" violation in TableWrapper component
+- Updated dependencies
+
+## 126.15.0
+
+### Minor Changes
+
+- [`a549780d70a91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a549780d70a91) -
+  Clean up confluence_inline_insert_excerpt_width_bugfix experiment
+- [`da1a213c6f6aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da1a213c6f6aa) -
+  Clean up flag to make links more accessible.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 126.14.3
 
 ### Patch Changes

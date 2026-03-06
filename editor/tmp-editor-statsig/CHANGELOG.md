@@ -1,5 +1,43 @@
 # @atlaskit/editor-statsig-tmp
 
+## 33.2.0
+
+### Minor Changes
+
+- [`17119fb95e0a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/17119fb95e0a4) -
+  [EDITOR-3747](https://hello.jira.atlassian.cloud/browse/EDITOR-3747) - clean up
+  platform_editor_ssr_renderer experiment
+- [`4f700a8131d20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f700a8131d20) -
+  [FFCLEANUP-79468] add platform_editor_a11y_table_wrapper_fix to statsig config
+
+## 33.1.0
+
+### Minor Changes
+
+- [`3c1ea42fe6741`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c1ea42fe6741) -
+  add ai stt POC to editor
+- [`c28209fcfdfd2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c28209fcfdfd2) -
+  [ENGHEALTH-46817] Resolving eslint suppressions for accessibility violations
+- [`9b88bc712cffc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b88bc712cffc) -
+  [ux] Adds outcome type picker to create with rovo modal
+
+## 33.0.0
+
+### Major Changes
+
+- [`a549780d70a91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a549780d70a91) -
+  Clean up confluence_inline_insert_excerpt_width_bugfix experiment
+
+### Minor Changes
+
+- [`671397538b131`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/671397538b131) -
+  All additive changes with a gate on the main ability of it to be used via the slides experiment.
+  Should be a completely safe change.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 32.12.0
 
 ### Minor Changes

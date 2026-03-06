@@ -1,7 +1,15 @@
 import { rendererTestCase as test, expect } from './not-libra';
 import { adf } from './breakout.spec.ts-fixtures';
 
-test.use({ adf });
+test.use({
+	adf,
+	platformFeatureFlags: {
+		platform_editor_dec_a11y_fixes: true,
+	},
+	editorExperiments: {
+		platform_editor_a11y_table_wrapper_fix: true,
+	},
+});
 
 const TABLE_CONTAINER_BUT_FULL_WIDTH = '.pm-table-container[data-layout="full-width"]';
 test('Addapts full-width table after scrolling to resizing', async ({ renderer }) => {

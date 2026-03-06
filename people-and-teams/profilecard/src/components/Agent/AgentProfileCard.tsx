@@ -8,7 +8,6 @@ import Link from '@atlaskit/link';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Stack, Text } from '@atlaskit/primitives/compiled';
 import { AgentBanner } from '@atlaskit/rovo-agent-components/ui/agent-avatar/GeneratedAvatar';
-import { AgentStarCount } from '@atlaskit/rovo-agent-components/ui/agent-profile-info/AgentStarCount';
 import {
 	AgentAvatar,
 	type AgentCreatorType,
@@ -35,8 +34,7 @@ import { useAgentUrlActions } from './hooks/useAgentActions';
 import { messages } from './messages';
 
 const styles = cssMap({
-	detailWrapper: { paddingBlockStart: token('space.400'), paddingInline: token('space.200') },
-	detailWrapperRefresh: {
+	detailWrapper: {
 		paddingBlockStart: token('space.300'),
 	},
 	avatarStyles: {
@@ -55,14 +53,11 @@ const styles = cssMap({
 	conversationStartersWrapper: {
 		paddingInline: token('space.150'),
 	},
-	disclosureWrapperRefresh: {
+	disclosureWrapper: {
 		paddingBlockStart: token('space.150'),
 		paddingBlockEnd: token('space.150'),
 		paddingInline: token('space.200'),
 		gap: token('space.050'),
-	},
-	disclosureWrapper: {
-		paddingBlockEnd: token('space.150'),
 	},
 });
 
@@ -187,7 +182,7 @@ const AgentProfileCard = ({
 				<AgentBanner
 					agentId={agent.id}
 					agentNamedId={agent.external_config_reference ?? agent.named_id}
-					height={fg('rovo_agent_empty_state_refresh') ? 48 : 96}
+					height={48}
 					agentIdentityAccountId={agent.identity_account_id}
 					isRovoDev={isRovoDev && fg('rovo_dev_themed_identity_card')}
 				/>
@@ -196,7 +191,7 @@ const AgentProfileCard = ({
 						agentId={agent.id}
 						agentNamedId={agent.external_config_reference ?? agent.named_id}
 						agentIdentityAccountId={agent.identity_account_id}
-						size={fg('rovo_agent_empty_state_refresh') ? 'large' : 'xlarge'}
+						size="large"
 						isRovoDev={isRovoDev && fg('rovo_dev_themed_identity_card')}
 						isForgeAgent={
 							fg('rovo_agent_support_a2a_avatar')
@@ -207,15 +202,8 @@ const AgentProfileCard = ({
 					/>
 				</Box>
 
-				<Stack
-					space="space.100"
-					xcss={
-						fg('rovo_agent_empty_state_refresh')
-							? styles.detailWrapperRefresh
-							: styles.detailWrapper
-					}
-				>
-					<Box xcss={fg('rovo_agent_empty_state_refresh') ? styles.agentProfileInfoWrapper : null}>
+				<Stack space="space.100" xcss={styles.detailWrapper}>
+					<Box xcss={styles.agentProfileInfoWrapper}>
 						<AgentProfileInfo
 							agentName={agent.name}
 							isStarred={isStarred}
@@ -235,11 +223,7 @@ const AgentProfileCard = ({
 									/>
 								)
 							}
-							starCountRender={
-								fg('rovo_agent_empty_state_refresh') ? null : (
-									<AgentStarCount starCount={starCount} isLoading={false} />
-								)
-							}
+							starCountRender={null}
 							agentDescription={agent.description}
 						/>
 					</Box>
@@ -248,11 +232,7 @@ const AgentProfileCard = ({
 							alignItems="start"
 							direction="column"
 							gap="space.050"
-							xcss={
-								fg('rovo_agent_empty_state_refresh')
-									? styles.disclosureWrapperRefresh
-									: styles.disclosureWrapper
-							}
+							xcss={styles.disclosureWrapper}
 						>
 							<Link
 								href="https://www.atlassian.com/trust/atlassian-intelligence"
@@ -269,11 +249,7 @@ const AgentProfileCard = ({
 						</Flex>
 					)}
 					{!(isRovoDev && fg('rovo_dev_themed_identity_card')) && (
-						<Box
-							xcss={
-								fg('rovo_agent_empty_state_refresh') ? styles.conversationStartersWrapper : null
-							}
-						>
+						<Box xcss={styles.conversationStartersWrapper}>
 							<ConversationStarters
 								isAgentDefault={agent.is_default}
 								userDefinedConversationStarters={userDefinedConversationStarters}

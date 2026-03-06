@@ -235,6 +235,69 @@ describe('RendererActions', () => {
 		});
 	});
 
+	describe('getSelectionContext', () => {
+		it('returns null when renderer state is not registered', () => {
+			const actions = new RendererActions(true);
+			expect(actions.getSelectionContext()).toBeNull();
+		});
+
+		it('returns null when renderer schema is missing', () => {
+			const docNode = defaultSchema.nodeFromJSON({
+				type: 'doc',
+				version: 1,
+				content: [{ type: 'paragraph', content: [{ type: 'text', text: 'Hello world' }] }],
+			});
+			const actions = new RendererActions(true);
+			(actions as any).doc = docNode;
+			(actions as any).schema = undefined;
+
+			expect(actions.getSelectionContext()).toBeNull();
+		});
+
+		it('returns null with registered renderer state when no DOM range selection exists', () => {
+			const docNode = defaultSchema.nodeFromJSON({
+				type: 'doc',
+				version: 1,
+				content: [{ type: 'paragraph', content: [{ type: 'text', text: 'Hello world' }] }],
+			});
+			const actions = new RendererActions(true);
+
+			actions._privateRegisterRenderer(mockArg, docNode, defaultSchema);
+
+			expect(actions.getSelectionContext()).toBeNull();
+		});
+
+		it('delegates getSelectionContext to selection helper with registered state', () => {
+			const mockedGetSelectionContext = jest.fn().mockReturnValue(null);
+			let registeredDoc;
+
+			jest.isolateModules(() => {
+				jest.doMock('../../selection', () => ({
+					getSelectionContext: mockedGetSelectionContext,
+				}));
+				// eslint-disable-next-line @typescript-eslint/no-var-requires
+				const IsolatedRendererActions = require('../../index').default;
+				const docNode = defaultSchema.nodeFromJSON({
+					type: 'doc',
+					version: 1,
+					content: [{ type: 'paragraph', content: [{ type: 'text', text: 'Hello world' }] }],
+				});
+				registeredDoc = docNode;
+
+				const actions = new IsolatedRendererActions(true);
+				actions._privateRegisterRenderer(mockArg, docNode, defaultSchema);
+				expect(actions.getSelectionContext()).toBeNull();
+			});
+
+			expect(mockedGetSelectionContext).toHaveBeenCalledWith({
+				doc: registeredDoc,
+				schema: defaultSchema,
+			});
+			jest.dontMock('../../selection');
+			jest.resetModules();
+		});
+	});
+
 	describe('isRendererWithinRange', () => {
 		it('should return false when no renderer within range', () => {
 			const actions = new RendererActions();

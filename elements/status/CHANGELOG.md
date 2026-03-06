@@ -1,5 +1,19 @@
 # @atlaskit/status
 
+## 3.1.12
+
+### Patch Changes
+
+- [`c28209fcfdfd2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c28209fcfdfd2) -
+  [ENGHEALTH-46817] Resolving eslint suppressions for accessibility violations
+- Updated dependencies
+
+## 3.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.10
 
 ### Patch Changes

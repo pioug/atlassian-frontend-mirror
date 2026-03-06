@@ -15,6 +15,8 @@ import React, {
 import { css, jsx } from '@compiled/react';
 import { di } from 'react-magnetic-di';
 
+import { getDocument } from '@atlaskit/browser-apis';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { getIframeSandboxAttribute } from '../../../utils';
@@ -73,6 +75,7 @@ export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(
 		iframeRef,
 	) => {
 		di(IFrame);
+		const doc = getDocument();
 		const [isIframeLoaded, setIframeLoaded] = useState(false);
 		const [isMouseOver, setMouseOver] = useState(false);
 		const [isWindowFocused, setWindowFocused] = useState(true);
@@ -112,8 +115,16 @@ export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(
 		useEffect(() => {
 			const onBlur = () => {
 				setWindowFocused(false);
-				if (document.activeElement === ref.current) {
-					onIframeFocus && onIframeFocus();
+				if (fg('jpx-833-smart-links-graphql-provider')) {
+					if (doc?.activeElement === ref.current) {
+						onIframeFocus && onIframeFocus();
+					}
+				} else {
+					// The below will be removed as part of FG cleanup
+					// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
+					if (document.activeElement === ref.current) {
+						onIframeFocus && onIframeFocus();
+					}
 				}
 			};
 
@@ -127,7 +138,7 @@ export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(
 				window.removeEventListener('blur', onBlur);
 				window.removeEventListener('focus', onFocus);
 			};
-		}, [ref, onIframeFocus]);
+		}, [ref, onIframeFocus, doc]);
 
 		if (!url) {
 			return null;
@@ -186,9 +197,20 @@ export const FrameUpdated = React.forwardRef<HTMLIFrameElement, FrameUpdatedProp
 		iframeRef,
 	) => {
 		di(IFrame);
+		const doc = getDocument();
 		const [isIframeLoaded, setIframeLoaded] = useState(false);
 		const [isMouseOver, setMouseOver] = useState(false);
-		const [isWindowFocused, setWindowFocused] = useState(document.hasFocus());
+		// Accessing the document here for SSR where document.hasFocus may be absent breaks SSR
+		// when we're trying to load things like Loom frames in SSR
+		// We _could_ either throw a guard in here (i.e check for the existence of document)
+		// _or_
+		// we can default to false, and set this state once the frame ref is available in a useEffect (safer IMO)
+		// which already seems to be existing behavior in a useEffect below.
+		const [isWindowFocused, setWindowFocused] = useState(
+			// The below will be removed as part of FG cleanup
+			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
+			fg('jpx-833-smart-links-graphql-provider') ? (doc?.hasFocus() ?? false) : document.hasFocus(),
+		);
 
 		// Use prop if provided (from wrapper), otherwise use local state (for backward compatibility)
 		const effectiveMouseOver = isMouseOverProp !== undefined ? isMouseOverProp : isMouseOver;
@@ -227,12 +249,26 @@ export const FrameUpdated = React.forwardRef<HTMLIFrameElement, FrameUpdatedProp
 
 		useEffect(() => {
 			// Initialize with current focus state
-			setWindowFocused(document.hasFocus());
+			// The below will be removed as part of FG cleanup
+			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
+			setWindowFocused(
+				fg('jpx-833-smart-links-graphql-provider')
+					? (doc?.hasFocus() ?? false)
+					: document.hasFocus(),
+			);
 
 			const onBlur = () => {
 				setWindowFocused(false);
-				if (document.activeElement === ref.current) {
-					onIframeFocus && onIframeFocus();
+				if (fg('jpx-833-smart-links-graphql-provider')) {
+					if (doc?.activeElement === ref.current) {
+						onIframeFocus && onIframeFocus();
+					}
+				} else {
+					// The below will be removed as part of FG cleanup
+					// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
+					if (document.activeElement === ref.current) {
+						onIframeFocus && onIframeFocus();
+					}
 				}
 			};
 
@@ -246,7 +282,7 @@ export const FrameUpdated = React.forwardRef<HTMLIFrameElement, FrameUpdatedProp
 				window.removeEventListener('blur', onBlur);
 				window.removeEventListener('focus', onFocus);
 			};
-		}, [ref, onIframeFocus]);
+		}, [ref, onIframeFocus, doc]);
 
 		if (!url) {
 			return null;

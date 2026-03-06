@@ -149,6 +149,11 @@ export type NodeDecorationFactory = {
 	create: (params: NodeDecorationFactoryParams) => Decoration;
 	/** Show this decoration in view mode when hovering over a block */
 	showInViewMode?: boolean;
+	/**
+	 * Optional filter: when false, the decoration is not created.
+	 * Use for node-type-specific visibility (e.g. Remix button only on remixable blocks).
+	 */
+	shouldCreate?: (params: NodeDecorationFactoryParams) => boolean;
 	type: string;
 };
 

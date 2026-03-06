@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9008dd06ba11a7ec23e19aa1d7c635e4>>
+ * @generated SignedSource<<70e06468f2842ba4ea0b24aee7291c1a>>
  * @relayHash 10df1400fe5f08dbb71223dbeb55d5d0
  * @lightSyntaxTransform
  * @nogrep
@@ -21,6 +21,7 @@ export type AgentStudioAgentQueryInput = {
   onlyFavouriteAgents?: boolean | null | undefined;
   onlyMyAgents?: boolean | null | undefined;
   onlyTemplateAgents?: boolean | null | undefined;
+  onlyUnpublishedAgents?: boolean | null | undefined;
   onlyVerifiedAgents?: boolean | null | undefined;
 };
 export type rovoAgentSelectorInternal_AtlaskitRovoAgentSelectorPaginationQuery$variables = {

@@ -6,9 +6,16 @@ import type {
 	Command,
 	DropdownOptionT,
 	ExtractInjectionAPI,
+	FloatingToolbarConfig,
 	FloatingToolbarHandler,
 	FloatingToolbarItem,
+	LinkPickerOptions,
 } from '@atlaskit/editor-common/types';
+import {
+	LINKPICKER_HEIGHT_IN_PX,
+	RECENT_SEARCH_HEIGHT_IN_PX,
+	RECENT_SEARCH_WIDTH_IN_PX,
+} from '@atlaskit/editor-common/ui';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
@@ -36,10 +43,13 @@ import type {
 	EditorPluginNativeEmbedsPlugin,
 	EditorPluginNativeEmbedsToolbarHandlers,
 } from '../../nativeEmbedsPluginType';
+import { showUrlToolbar } from '../actions';
 import { createOpenInNewWindowCommand, createUpdateAlignmentCommand } from '../commands';
+import { pluginKey } from '../plugin-state';
 import { getSelectedNativeEmbedExtension } from '../utils/getSelectedNativeEmbedExtension';
 
 import { getNativeEmbedAppearanceDropdown } from './appearance-menu';
+import { buildNativeEmbedEditUrlToolbar } from './edit-url-toolbar';
 import { getMoreOptionsDropdown } from './more-options-dropdown';
 
 type DeleteHoverProps = Pick<
@@ -173,6 +183,21 @@ function createBuiltinToolbarRegistry(
 			focusEditoronEnter: true,
 			tabIndex: null,
 		},
+		[BUILTIN_TOOLBAR_KEYS.EDIT_URL]: {
+			id: 'native-embed-edit-url-button',
+			type: 'button',
+			title: 'Edit link',
+			showTitle: true,
+			icon: EditIcon,
+			onClick: (state, dispatch) => {
+				if (dispatch) {
+					dispatch(showUrlToolbar(state.tr));
+				}
+				return true;
+			},
+			focusEditoronEnter: true,
+			tabIndex: null,
+		},
 		[BUILTIN_TOOLBAR_KEYS.EDIT]: {
 			id: 'native-embed-edit-button',
 			type: 'button',
@@ -245,7 +270,25 @@ interface GetToolbarConfigProps {
 	api?: ExtractInjectionAPI<EditorPluginNativeEmbedsPlugin>;
 	getEditorToolbarActions?: (url: string) => ManifestEditorToolbarActions | undefined;
 	handlers?: EditorPluginNativeEmbedsToolbarHandlers;
+	linkPickerOptions?: LinkPickerOptions;
+	lpLinkPicker?: boolean;
 }
+
+/**
+ * Returns toolbar sizing configuration when the URL edit toolbar is active.
+ */
+const editUrlToolbarConfig = (
+	showUrlToolbar: boolean,
+	lpLinkPicker?: boolean,
+): Partial<FloatingToolbarConfig> => {
+	return showUrlToolbar
+		? {
+				height: lpLinkPicker ? LINKPICKER_HEIGHT_IN_PX : RECENT_SEARCH_HEIGHT_IN_PX,
+				width: RECENT_SEARCH_WIDTH_IN_PX,
+				forcePlacement: true,
+			}
+		: {};
+};
 
 /**
  * Default items of toolbar items when no manifest is provided.
@@ -300,12 +343,17 @@ export const getToolbarConfig =
 		getEditorToolbarActions,
 		actionHandlers,
 		handlers,
+		linkPickerOptions,
+		lpLinkPicker,
 	}: GetToolbarConfigProps): FloatingToolbarHandler =>
-	(state, intl, _providerFactory, _activeConfigs) => {
+	(state, intl, providerFactory, _activeConfigs) => {
 		const selectedNativeEmbed = getSelectedNativeEmbedExtension(state);
 		if (!selectedNativeEmbed) {
 			return undefined;
 		}
+
+		const pluginState = pluginKey.getState(state);
+		const isShowingUrlToolbar = pluginState?.showUrlToolbar ?? false;
 
 		const currentAlignment =
 			(selectedNativeEmbed.node.attrs.parameters?.alignment as AlignmentValue | undefined) ??
@@ -334,6 +382,27 @@ export const getToolbarConfig =
 
 		// Resolve manifest toolbar actions for this URL
 		const manifestActions = url ? getEditorToolbarActions?.(url) : undefined;
+
+		// If URL toolbar is showing, render the edit URL toolbar instead of normal items
+		if (isShowingUrlToolbar) {
+			return {
+				title: 'Native Embed floating toolbar',
+				getDomRef,
+				nodeType: state.schema.nodes.extension,
+				offset: [0, 8],
+				scrollable: false,
+				...editUrlToolbarConfig(true, lpLinkPicker),
+				items: [
+					buildNativeEmbedEditUrlToolbar({
+						api,
+						linkPickerOptions,
+						lpLinkPicker: lpLinkPicker ?? true,
+						providerFactory,
+						selectedNativeEmbed,
+					}),
+				],
+			};
+		}
 
 		// Convert manifest actions to FloatingToolbarItems, or fall back to default items
 		const items: FloatingToolbarItem<Command>[] = manifestActions

@@ -1,6 +1,6 @@
 export { default } from './components';
 export { getUserRecommendations, hydrateDefaultValues } from './service';
-export type { RecommendationRequest, Props, State } from './types';
+export type { RecommendationRequest, Props, State, RestrictionFilter } from './types';
 export {
 	//Utils
 	isEmail,

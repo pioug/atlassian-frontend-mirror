@@ -26,6 +26,10 @@ test.describe('table width information analytics', () => {
 		},
 		platformFeatureFlags: {
 			platform_editor_editor_width_analytics: true,
+			platform_editor_dec_a11y_fixes: true,
+		},
+		editorExperiments: {
+			platform_editor_a11y_table_wrapper_fix: true,
 		},
 	});
 

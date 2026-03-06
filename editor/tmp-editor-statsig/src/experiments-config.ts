@@ -193,6 +193,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Addded 2026-02-11
+	ai_speech_to_text_in_editor: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-01-05
 	'company_hub_carousel_thumbnails-refactor': {
 		defaultValue: boolean;
@@ -746,12 +753,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	platform_editor_ssr_renderer: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-01-27
 	platform_editor_table_excerpts_fix: {
 		defaultValue: boolean;
@@ -1088,12 +1089,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	confluence_inline_insert_excerpt_width_bugfix: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-02-04
 	platform_editor_fix_cursor_flickering: {
 		defaultValue: boolean;
@@ -1259,6 +1254,20 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-03-05
+	'cc-mui-slides-experiment': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-02-27
+	'confluence_frontend_cwr_outcome_type_picker': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-02-12
 	platform_editor_a11y_escape_link_dialog: {
 		defaultValue: boolean;
@@ -1350,8 +1359,22 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-03-05
+	platform_editor_eslint_suppression_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-03-04
 	platform_editor_rovobutton_smartlink_toolbar_exp: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-02
+	platform_editor_a11y_table_wrapper_fix: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1370,6 +1393,14 @@ export const editorExperimentsConfig: {
 	// Editor Platform experiments
 	// lwoollard experiments
 
+	// Added 2026-02-11
+	ai_speech_to_text_in_editor: createBooleanExperiment({
+		productKeys: {
+			confluence: 'ai_speech_to_text_in_editor',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 22-12-2025
 	confluence_load_editor_title_on_transition: createBooleanExperiment({
 		productKeys: {
@@ -1671,13 +1702,6 @@ export const editorExperimentsConfig: {
 	platform_editor_blockquote_in_text_formatting_menu: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_blockquote_in_text_formatting_menu',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	platform_editor_ssr_renderer: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_ssr_renderer',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2612,13 +2636,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	confluence_inline_insert_excerpt_width_bugfix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'confluence_inline_insert_excerpt_width_bugfix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-01-29
 	platform_editor_send_client_platform_header: createBooleanExperiment({
 		productKeys: {
@@ -2795,6 +2812,22 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-03-05
+	'cc-mui-slides-experiment': createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc-mui-slides-experiment',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-02-27
+	'confluence_frontend_cwr_outcome_type_picker': createBooleanExperiment({
+		productKeys: {
+			confluence: 'confluence_frontend_cwr_outcome_type_picker',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-02-12
 	platform_editor_a11y_escape_link_dialog: createBooleanExperiment({
 		productKeys: {
@@ -2911,10 +2944,26 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-03-05
+	platform_editor_eslint_suppression_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_eslint_suppression_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-03-04
 	platform_editor_rovobutton_smartlink_toolbar_exp: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_rovobutton_smartlink_toolbar_exp',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-02
+	platform_editor_a11y_table_wrapper_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_a11y_table_wrapper_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

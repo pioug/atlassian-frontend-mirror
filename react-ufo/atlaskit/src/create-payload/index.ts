@@ -29950,6 +29950,13 @@ export async function createPayloads(
 	const ufoNameOverride = getUfoNameOverride(interaction);
 	const modifiedInteraction = { ...interaction, ufoName: ufoNameOverride };
 
+	if (fg('platform_ufo_disable_ufo_names_config')) {
+		const config = getConfig();
+		if (config?.disabledUfoNames && config?.disabledUfoNames.includes(ufoNameOverride)) {
+			return [];
+		}
+	}
+
 	const payloads: (
 		| CriticalMetricsPayload
 		| Awaited<ReturnType<typeof createInteractionMetricsPayload>>
@@ -59046,6 +59053,13 @@ export async function createExperimentalMetricsPayload(
 
 	if (!coinflip(rate)) {
 		return null;
+	}
+
+	if (fg('platform_ufo_disable_ufo_names_config')) {
+		const config = getConfig();
+		if (config?.disabledUfoNames && config?.disabledUfoNames.includes(ufoName)) {
+			return null;
+		}
 	}
 
 	const pageVisibilityState = getPageVisibilityState(interaction.start, interaction.end);

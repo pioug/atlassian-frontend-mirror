@@ -32,6 +32,7 @@ import StrokeWeightLargeIcon from '@atlaskit/icon/core/stroke-weight-large';
 import StrokeWeightMediumIcon from '@atlaskit/icon/core/stroke-weight-medium';
 import StrokeWeightSmallIcon from '@atlaskit/icon/core/stroke-weight-small';
 import { Text } from '@atlaskit/primitives/compiled';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -372,11 +373,14 @@ const ImageBorder = ({
 				stick={true}
 			>
 				<div
-					// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
-					onMouseLeave={() => {
-						setIsColorSubmenuOpen(false);
-						setIsSizeSubmenuOpen(false);
-					}}
+					onMouseLeave={
+						expValEquals('platform_editor_eslint_suppression_fix', 'isEnabled', true)
+							? undefined
+							: () => {
+									setIsColorSubmenuOpen(false);
+									setIsSizeSubmenuOpen(false);
+								}
+					}
 					/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */
 					css={dropdownWrapper}
 				>

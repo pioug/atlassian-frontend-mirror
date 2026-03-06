@@ -1,5 +1,46 @@
 # @atlaskit/editor-common
 
+## 111.28.1
+
+### Patch Changes
+
+- [`10f36a235eedd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/10f36a235eedd) -
+  Extract selection helpers to editor-common
+
+## 111.28.0
+
+### Minor Changes
+
+- [`17119fb95e0a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/17119fb95e0a4) -
+  [EDITOR-3747](https://hello.jira.atlassian.cloud/browse/EDITOR-3747) - clean up
+  platform_editor_ssr_renderer experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 111.27.0
+
+### Minor Changes
+
+- [`3c1ea42fe6741`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c1ea42fe6741) -
+  add ai stt POC to editor
+
+### Patch Changes
+
+- Updated dependencies
+
+## 111.26.0
+
+### Minor Changes
+
+- [`06576a95fd8a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06576a95fd8a9) -
+  lower jira legacy macro search ranking
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 111.25.1
 
 ### Patch Changes

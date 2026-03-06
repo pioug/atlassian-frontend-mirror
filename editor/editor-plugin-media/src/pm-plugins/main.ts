@@ -53,7 +53,6 @@ import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { UploadParams } from '@atlaskit/media-picker/types';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 // Ignored via go/ees005
@@ -861,12 +860,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 	};
 
 	selectedMediaContainerNode = (): PMNode | undefined => {
-		let selection: Selection | undefined;
-		if (expValEquals('platform_editor_ssr_renderer', 'isEnabled', true)) {
-			selection = this.view?.state?.selection;
-		} else {
-			({ selection } = this.view.state);
-		}
+		const selection: Selection | undefined = this.view?.state?.selection;
 		if (selection instanceof NodeSelection && this.isMediaSchemaNode(selection.node)) {
 			return selection.node;
 		}

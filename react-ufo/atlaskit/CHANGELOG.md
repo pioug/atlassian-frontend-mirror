@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.4.3
+
+### Patch Changes
+
+- [`d3afa1e1a9fc7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3afa1e1a9fc7) -
+  Stop sending ufo events by config
+
 ## 5.4.2
 
 ### Patch Changes

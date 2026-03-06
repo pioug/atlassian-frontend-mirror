@@ -77,7 +77,6 @@ export default meta;
 type Story = StoryObj<StoryArgs>;
 
 const baseFeatureGates = {
-	rovo_agent_empty_state_refresh: false,
 	jira_ai_force_rovo_dev_avatar: false,
 };
 

@@ -792,11 +792,10 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					tableContainerStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					!fg('platform_editor_table_container_y_overflow_fix') && tableContainerOverflowY,
-					expValEquals('platform_editor_ssr_renderer', 'isEnabled', true) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						tableSharedStyle(),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					expValEquals('platform_editor_ssr_renderer', 'isEnabled', true) && tableEmptyRowStyles,
+					tableSharedStyle(),
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					tableEmptyRowStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					hyperLinkFloatingToolbarStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

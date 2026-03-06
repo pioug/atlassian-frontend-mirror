@@ -640,8 +640,8 @@ export const apply = (
 			}
 			if (
 				rightSideControlsEnabled &&
-				expValEquals('confluence_remix_icon_right_side', 'isEnabled', true) &&
-				isViewMode
+				isViewMode &&
+				expValEquals('confluence_remix_icon_right_side', 'isEnabled', true)
 			) {
 				for (const factory of nodeDecorationRegistry) {
 					if (factory.showInViewMode) {
@@ -703,25 +703,48 @@ export const apply = (
 			});
 			decorations = decorations.add(newState.doc, [quickInsertButton]);
 
+			// both gates have overlapping logic to determine what controls to show
 			if (fg('platform_editor_expose_block_controls_deco_api')) {
-				for (const factory of nodeDecorationRegistry) {
-					const params = {
-						editorState: newState,
-						nodeViewPortalProviderAPI,
-						anchorName: latestActiveNode?.anchorName,
-						nodeType: latestActiveNode?.nodeType,
-						rootPos: latestActiveNode?.rootPos,
-						rootAnchorName: latestActiveNode?.rootAnchorName,
-						rootNodeType: latestActiveNode?.rootNodeType,
-					};
-					const old = decorations.find(
-						activeNode?.rootPos,
-						activeNode?.rootPos,
-						(spec) => spec.type === factory.type,
-					);
-					decorations = decorations.remove(old);
-					const dec = factory.create(params);
-					decorations = decorations.add(newState.doc, [dec]);
+				if (rightSideControlsEnabled) {
+					for (const factory of nodeDecorationRegistry) {
+						if (
+							!latestActiveNode ||
+							latestActiveNode.rootPos === undefined
+						) {
+							continue;
+						}
+						const params = {
+							editorState: newState,
+							nodeViewPortalProviderAPI,
+							anchorName: latestActiveNode.anchorName,
+							nodeType: latestActiveNode.nodeType,
+							rootPos: latestActiveNode.rootPos,
+							rootAnchorName: latestActiveNode.rootAnchorName,
+							rootNodeType: latestActiveNode.rootNodeType,
+						};
+						const old = decorations.find(
+							activeNode?.rootPos,
+							activeNode?.rootPos,
+							(spec) => spec.type === factory.type,
+						);
+						decorations = decorations.remove(old);
+
+						// determines whether to show the decorations, see malleableUiPlugin.tsx
+						if (factory.shouldCreate && !factory.shouldCreate(params)) {
+							continue;
+						}
+						const dec = factory.create(params);
+						decorations = decorations.add(newState.doc, [dec]);
+					}
+				} else {
+					for (const factory of nodeDecorationRegistry) {
+						const old = decorations.find(
+							0,
+							newState.doc.nodeSize,
+							(spec) => spec.type === factory.type,
+						);
+						decorations = decorations.remove(old);
+					}
 				}
 			}
 		}
@@ -733,6 +756,24 @@ export const apply = (
 		if (isViewMode && isDocLevel && flags.toolbarFlagsEnabled && rightSideControlsEnabled) {
 			for (const factory of nodeDecorationRegistry) {
 				if (factory.showInViewMode) {
+					if (
+						!latestActiveNode ||
+						latestActiveNode.rootPos === undefined
+					) {
+						continue;
+					}
+					const params = {
+						editorState: newState,
+						nodeViewPortalProviderAPI,
+						anchorName: latestActiveNode.anchorName,
+						nodeType: latestActiveNode.nodeType,
+						rootPos: latestActiveNode.rootPos,
+						rootAnchorName: latestActiveNode.rootAnchorName,
+						rootNodeType: latestActiveNode.rootNodeType,
+					};
+					if (factory.shouldCreate && !factory.shouldCreate(params)) {
+						continue;
+					}
 					const existingAtPos = decorations.find(
 						rootPos,
 						rootPos,
@@ -750,15 +791,7 @@ export const apply = (
 						(spec) => spec.type === factory.type,
 					);
 					decorations = decorations.remove(stale);
-					const dec = factory.create({
-						editorState: newState,
-						nodeViewPortalProviderAPI,
-						anchorName: latestActiveNode?.anchorName,
-						nodeType: latestActiveNode?.nodeType,
-						rootPos: latestActiveNode?.rootPos,
-						rootAnchorName: latestActiveNode?.rootAnchorName,
-						rootNodeType: latestActiveNode?.rootNodeType,
-					});
+					const dec = factory.create(params);
 					decorations = decorations.add(newState.doc, [dec]);
 				}
 			}

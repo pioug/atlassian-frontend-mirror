@@ -1174,68 +1174,60 @@ describe('@atlaskit/editor-core', () => {
 				jest.spyOn(coreUtilsModule, 'isSSR').mockReset();
 			});
 
-			eeTest
-				.describe('platform_editor_ssr_renderer', 'platform_editor_ssr_renderer is')
-				.each(() => {
-					it('ReactEditorView is rendered well', () => {
-						renderWithIntl(<ReactEditorView {...props} />);
+			it('ReactEditorView is rendered well', () => {
+				renderWithIntl(<ReactEditorView {...props} />);
 
-						const editor = screen.getByRole('textbox');
-						expect(editor).toBeInTheDocument();
-						expect(editor).not.toBeEmptyDOMElement();
-					});
-				});
+				const editor = screen.getByRole('textbox');
+				expect(editor).toBeInTheDocument();
+				expect(editor).not.toBeEmptyDOMElement();
+			});
 
-			eeTest
-				.describe('platform_editor_ssr_renderer', 'platform_editor_ssr_renderer is ON')
-				.variant(true, () => {
-					it('call EditorSSRRenderer only once during rendering', () => {
-						renderWithIntl(<ReactEditorView {...props} />);
+			it('call EditorSSRRenderer only once during rendering', () => {
+				renderWithIntl(<ReactEditorView {...props} />);
 
-						expect(EditorSSRRenderer).toHaveBeenCalledTimes(1);
-					});
+				expect(EditorSSRRenderer).toHaveBeenCalledTimes(1);
+			});
 
-					it('should not call processRawValue only once during rendering', () => {
-						renderWithIntl(<ReactEditorView {...props} />);
+			it('should not call processRawValue only once during rendering', () => {
+				renderWithIntl(<ReactEditorView {...props} />);
 
-						expect(processRawValue).not.toHaveBeenCalled();
-					});
-					it('should call processRawValueWithoutValidation only once during rendering', () => {
-						renderWithIntl(<ReactEditorView {...props} />);
+				expect(processRawValue).not.toHaveBeenCalled();
+			});
+			it('should call processRawValueWithoutValidation only once during rendering', () => {
+				renderWithIntl(<ReactEditorView {...props} />);
 
-						expect(processRawValueWithoutValidation).toHaveBeenCalledTimes(1);
-					});
+				expect(processRawValueWithoutValidation).toHaveBeenCalledTimes(1);
+			});
 
-					it('should render exactly the same HTML container that browser renders', () => {
-						function getAttributesMap(el: Element): Record<string, string> {
-							const map: Record<string, string> = {};
+			it('should render exactly the same HTML container that browser renders', () => {
+				function getAttributesMap(el: Element): Record<string, string> {
+					const map: Record<string, string> = {};
 
-							for (let i = 0; i < el.attributes.length; i++) {
-								const attr = el.attributes[i];
-								map[attr.name.toLowerCase()] = attr.value;
-							}
+					for (let i = 0; i < el.attributes.length; i++) {
+						const attr = el.attributes[i];
+						map[attr.name.toLowerCase()] = attr.value;
+					}
 
-							return map;
-						}
+					return map;
+				}
 
-						renderWithIntl(<ReactEditorView {...props} />);
-						const ssrEditor = screen.getByRole('textbox');
-						const ssrTagName = ssrEditor.tagName.toLowerCase();
-						const ssrAttributes = getAttributesMap(ssrEditor);
+				renderWithIntl(<ReactEditorView {...props} />);
+				const ssrEditor = screen.getByRole('textbox');
+				const ssrTagName = ssrEditor.tagName.toLowerCase();
+				const ssrAttributes = getAttributesMap(ssrEditor);
 
-						cleanup();
+				cleanup();
 
-						// Browser
-						jest.spyOn(coreUtilsModule, 'isSSR').mockReturnValue(false);
-						renderWithIntl(<ReactEditorView {...props} />);
-						const browserEditor = screen.getAllByRole('textbox')[0];
-						const browserTagName = ssrEditor.tagName.toLowerCase();
-						const browserAttributes = getAttributesMap(browserEditor);
+				// Browser
+				jest.spyOn(coreUtilsModule, 'isSSR').mockReturnValue(false);
+				renderWithIntl(<ReactEditorView {...props} />);
+				const browserEditor = screen.getAllByRole('textbox')[0];
+				const browserTagName = ssrEditor.tagName.toLowerCase();
+				const browserAttributes = getAttributesMap(browserEditor);
 
-						expect(ssrTagName).toBe(browserTagName);
-						expect(ssrAttributes).toStrictEqual(browserAttributes);
-					});
-				});
+				expect(ssrTagName).toBe(browserTagName);
+				expect(ssrAttributes).toStrictEqual(browserAttributes);
+			});
 		});
 
 		describe('browser environment', () => {
@@ -1247,17 +1239,13 @@ describe('@atlaskit/editor-core', () => {
 				jest.spyOn(coreUtilsModule, 'isSSR').mockReset();
 			});
 
-			eeTest
-				.describe('platform_editor_ssr_renderer', 'platform_editor_ssr_renderer is')
-				.each(() => {
-					it('ReactEditorView is rendered well', () => {
-						renderWithIntl(<ReactEditorView {...props} />);
+			it('ReactEditorView is rendered well', () => {
+				renderWithIntl(<ReactEditorView {...props} />);
 
-						const editor = screen.getByRole('textbox');
-						expect(editor).toBeInTheDocument();
-						expect(editor).not.toBeEmptyDOMElement();
-					});
-				});
+				const editor = screen.getByRole('textbox');
+				expect(editor).toBeInTheDocument();
+				expect(editor).not.toBeEmptyDOMElement();
+			});
 		});
 	});
 

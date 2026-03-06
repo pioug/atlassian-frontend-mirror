@@ -1,5 +1,19 @@
 # @atlaskit/side-nav-items
 
+## 1.9.0
+
+### Minor Changes
+
+- [`39d3ee1a3fcc2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39d3ee1a3fcc2) -
+  Migrated flyout menu slot subcomponents (header/body/footer) to global side navigation.
+
+  Updated FlyoutBody to have position: 'relative'.
+
+### Patch Changes
+
+- [`f40f11f98477c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f40f11f98477c) -
+  Updates package description.
+
 ## 1.8.0
 
 ### Minor Changes

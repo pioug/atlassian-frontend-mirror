@@ -66,7 +66,7 @@ export class CardErrorBoundary extends React.PureComponent<
 					...(actualTarget === '_blank' && { target: '_blank', rel: 'noreferrer noopener' }),
 				};
 
-				const fallback = fg('dst-a11y__replace-anchor-with-link__editor') ? (
+				const fallback = (
 					<Link
 						href={linkProps.href}
 						onClick={linkProps.onClick}
@@ -75,16 +75,6 @@ export class CardErrorBoundary extends React.PureComponent<
 					>
 						{url}
 					</Link>
-				) : (
-					// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
-					<a
-						href={linkProps.href}
-						onClick={linkProps.onClick}
-						target={linkProps.target}
-						rel={linkProps.rel}
-					>
-						{url}
-					</a>
 				);
 
 				if (isDatasource) {

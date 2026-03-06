@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-card
 
+## 12.4.0
+
+### Minor Changes
+
+- [`06576a95fd8a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06576a95fd8a9) -
+  lower jira legacy macro search ranking
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.3.19
 
 ### Patch Changes

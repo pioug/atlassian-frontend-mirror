@@ -7,7 +7,6 @@ import Button from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
-import { ChatPillIcon } from '@atlaskit/rovo-agent-components/common/ui/ChatIcon';
 import { AgentDropdownMenu } from '@atlaskit/rovo-agent-components/ui/AgentDropdownMenu';
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
 import { token } from '@atlaskit/tokens';
@@ -39,25 +38,12 @@ const styles = cssMap({
 		fontWeight: token('font.weight.medium'),
 		height: '20px',
 	},
-	chatPillButtonInlineStyles: { paddingInline: token('space.025') },
 	chatPillTextStyles: {
 		wordBreak: 'break-word',
 		textAlign: 'left',
 		whiteSpace: 'pre-wrap',
 	},
-	chatPillIconWrapper: { minWidth: '20px', height: '20px' },
 	actionsWrapperStyles: {
-		borderTopStyle: 'solid',
-		borderWidth: token('border.width'),
-		borderColor: token('color.border'),
-		paddingTop: token('space.200'),
-		paddingRight: token('space.200'),
-		paddingBottom: token('space.200'),
-		paddingLeft: token('space.200'),
-		marginBlockStart: token('space.200'),
-		color: token('color.text'),
-	},
-	actionsWrapperStylesRefresh: {
 		paddingTop: token('space.150'),
 		paddingRight: token('space.150'),
 		paddingBottom: token('space.150'),
@@ -119,14 +105,7 @@ export const AgentActions = ({
 
 	return (
 		<>
-			<Inline
-				space="space.100"
-				xcss={
-					fg('rovo_agent_empty_state_refresh')
-						? styles.actionsWrapperStylesRefresh
-						: styles.actionsWrapperStyles
-				}
-			>
+			<Inline space="space.100" xcss={styles.actionsWrapperStyles}>
 				<Box xcss={styles.chatToAgentButtonContainer}>
 					<Button
 						shouldFitContainer
@@ -136,18 +115,7 @@ export const AgentActions = ({
 						}}
 					>
 						<Box xcss={styles.chatToAgentButtonWrapper}>
-							<Inline
-								space="space.050"
-								xcss={
-									fg('rovo_agent_empty_state_refresh') ? null : styles.chatPillButtonInlineStyles
-								}
-								alignBlock="center"
-							>
-								{!fg('rovo_agent_empty_state_refresh') && (
-									<Box xcss={styles.chatPillIconWrapper}>
-										<ChatPillIcon />
-									</Box>
-								)}
+							<Inline space="space.050" alignBlock="center">
 								<Box xcss={styles.chatPillTextStyles}>
 									{formatMessage(messages.actionChatToAgent)}
 								</Box>

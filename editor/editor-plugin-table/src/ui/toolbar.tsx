@@ -59,7 +59,6 @@ import CopyIcon from '@atlaskit/icon/core/copy';
 import CustomizeIcon from '@atlaskit/icon/core/customize';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import TableColumnsDistributeIcon from '@atlaskit/icon/core/table-columns-distribute';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -151,11 +150,7 @@ export const getToolbarMenuConfig = (
 		},
 		{
 			id: 'editor.table.numberedColumn',
-			title: formatMessage(
-				fg('platform_editor_rename_numbered_rows_label')
-					? messages.numberedRows
-					: messages.numberedColumn,
-			),
+			title: formatMessage(messages.numberedRows),
 			onClick: toggleNumberColumnWithAnalytics(editorAnalyticsAPI),
 			selected: state.isNumberColumnEnabled,
 			hidden: !config.allowNumberColumn,

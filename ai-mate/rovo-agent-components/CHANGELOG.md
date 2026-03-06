@@ -1,5 +1,19 @@
 # @atlaskit/rovo-agent-components
 
+## 3.38.0
+
+### Minor Changes
+
+- [`a4789cedc2893`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4789cedc2893) -
+  Cleanup rovo_agent_empty_state_refresh FG
+
+## 3.37.0
+
+### Minor Changes
+
+- [`aa072e4b28464`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa072e4b28464) -
+  Add avatar for Gamma agent (OOTB)
+
 ## 3.36.4
 
 ### Patch Changes

@@ -1,4 +1,7 @@
-export const filterAndSortMarks = (marks: string, excluded: string[] = []) => {
+export const filterAndSortMarks: (
+	marks: string,
+	excluded?: string[],
+) => string = (marks: string, excluded: string[] = []) => {
 	return marks
 		.split(' ')
 		.filter((v) => !excluded.includes(v))
@@ -31,7 +34,11 @@ const unSupportedExp =
  * @param enableWrap flag to add back ()
  * @returns
  */
-const sortAndFilterOrsExp = (input: string, skipLists: string[] = [], enableWrap = false) => {
+const sortAndFilterOrsExp = (
+	input: string,
+	skipLists: string[] = [],
+	enableWrap = false,
+) => {
 	const filteredOr = input.split('|').filter(unSupportedExp(skipLists));
 	if (filteredOr.length === 1) {
 		return `${filteredOr[0]}`;
@@ -110,7 +117,10 @@ const expFormatter =
  * @param skipLists a list contains node name can be removed from contents string
  * @returns sorted content string, without node defined in skipList
  */
-export const formatContent = (content: string, skipLists: string[] = []) => {
+export const formatContent: (
+	content: string,
+	skipLists?: string[],
+) => string = (content: string, skipLists: string[] = []) => {
 	const result = content.replace(/\s*\|\s*/gu, '|');
 	if (result.includes(' ')) {
 		return result.split(' ').map(expFormatter(skipLists)).join(' ').trim();

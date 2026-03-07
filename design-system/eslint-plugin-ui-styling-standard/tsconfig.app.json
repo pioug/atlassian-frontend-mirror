@@ -1,6 +1,9 @@
 {
 	"extends": "../../../tsconfig.node.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx"
+	],
 	"exclude": [
 		"**/docs/**/*",
 		"**/__tests__/**/*",
@@ -26,9 +29,13 @@
 		"**/codemods/**/*.tsx"
 	],
 	"compilerOptions": {
-		"lib": ["ES2021.String", "ES2022"],
+		"lib": [
+			"ES2021.String",
+			"ES2022"
+		],
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__eslint-plugin-ui-styling-standard/app"
+		"outDir": "../../../tsDist/@atlaskit__eslint-plugin-ui-styling-standard/app",
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

@@ -214,7 +214,9 @@ const TableWrapper = ({
 	tabIndex,
 }: TableWrapperProps) => {
 	const { formatMessage } = useIntl();
-	const isScrollableRegion = (tabIndex !== undefined) && expValEquals('platform_editor_a11y_table_wrapper_fix', 'isEnabled', true);
+	const isScrollableRegion =
+		tabIndex !== undefined &&
+		expValEquals('platform_editor_a11y_table_wrapper_fix', 'isEnabled', true);
 
 	return (
 		<div

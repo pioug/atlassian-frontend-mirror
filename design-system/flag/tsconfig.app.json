@@ -27,7 +27,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__flag/app"
+		"outDir": "../../../tsDist/@atlaskit__flag/app",
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

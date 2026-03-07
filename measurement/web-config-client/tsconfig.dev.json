@@ -31,10 +31,15 @@
 		"**/stories/**/*.ts",
 		"**/stories/**/*.tsx"
 	],
-	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
+	"exclude": [
+		"./dist/**/*",
+		"./build/**/*",
+		"./node_modules/**/*"
+	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__web-config-client/dev"
+		"outDir": "../../../tsDist/@atlaskit__web-config-client/dev",
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

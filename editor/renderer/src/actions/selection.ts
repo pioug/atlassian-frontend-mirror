@@ -1,7 +1,10 @@
 import type { SelectionContext } from '@atlaskit/editor-common/types';
-import type{ Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
-import { getFragmentsFromSelection, getLocalIdsFromSelection } from '@atlaskit/editor-common/selection';
+import {
+	getFragmentsFromSelection,
+	getLocalIdsFromSelection,
+} from '@atlaskit/editor-common/selection';
 
 import { getPosFromRange, getStartPos, findParent } from '../steps';
 

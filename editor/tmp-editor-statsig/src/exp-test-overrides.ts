@@ -34,6 +34,7 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 };
 
 export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
+	cwr_blank_object_experiment: false,
 	cc_editor_hover_link_overlay_css_fix: false,
 	platform_editor_feedback_mandatory_rating: false,
 	platform_editor_preview_panel_responsiveness: false,

@@ -6,14 +6,5 @@
 		"codemods",
 		"schema-generators/**/*.ts"
 	],
-	"exclude": [
-		"node_modules",
-		"src/json-schema",
-		"**/*.ts",
-		"**/*.tsx",
-		"src/next-schema/generated/markTypes.ts",
-		"src/next-schema/generated/nodeTypes.ts",
-		"src/next-schema/generated/nodeGroupTypes.ts",
-		"src/validator-schema/generated/validatorSpec.ts"
-	]
+	"exclude": ["node_modules", "src/json-schema", "**/*.ts", "**/*.tsx"]
 }

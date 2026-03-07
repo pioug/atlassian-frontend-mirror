@@ -707,10 +707,7 @@ export const apply = (
 			if (fg('platform_editor_expose_block_controls_deco_api')) {
 				if (rightSideControlsEnabled) {
 					for (const factory of nodeDecorationRegistry) {
-						if (
-							!latestActiveNode ||
-							latestActiveNode.rootPos === undefined
-						) {
+						if (!latestActiveNode || latestActiveNode.rootPos === undefined) {
 							continue;
 						}
 						const params = {
@@ -756,10 +753,7 @@ export const apply = (
 		if (isViewMode && isDocLevel && flags.toolbarFlagsEnabled && rightSideControlsEnabled) {
 			for (const factory of nodeDecorationRegistry) {
 				if (factory.showInViewMode) {
-					if (
-						!latestActiveNode ||
-						latestActiveNode.rootPos === undefined
-					) {
+					if (!latestActiveNode || latestActiveNode.rootPos === undefined) {
 						continue;
 					}
 					const params = {

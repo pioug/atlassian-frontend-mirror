@@ -30,7 +30,11 @@
 		"**/stories/**/*.ts",
 		"**/stories/**/*.tsx"
 	],
-	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
+	"exclude": [
+		"./dist/**/*",
+		"./build/**/*",
+		"./node_modules/**/*"
+	],
 	"compilerOptions": {
 		"target": "es6",
 		"lib": [
@@ -46,7 +50,8 @@
 		],
 		"composite": true,
 		"verbatimModuleSyntax": false,
-		"outDir": "../../../tsDist/@atlaskit__codemod-cli/dev"
+		"outDir": "../../../tsDist/@atlaskit__codemod-cli/dev",
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

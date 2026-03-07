@@ -31,10 +31,15 @@
 		"**/stories/**/*.ts",
 		"**/stories/**/*.tsx"
 	],
-	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
+	"exclude": [
+		"./dist/**/*",
+		"./build/**/*",
+		"./node_modules/**/*"
+	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__contextual-survey/dev"
+		"outDir": "../../../tsDist/@atlaskit__contextual-survey/dev",
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

@@ -6,7 +6,6 @@ import {
 } from '../../../core';
 import { untilAll } from '../../../utils/until-helpers';
 
-
 let mockFgEnabled = false;
 jest.mock('@atlaskit/platform-feature-flags', () => ({
 	fg: (flag: string) => flag === 'platform_ufo_enable_untilall_parent_fix' && mockFgEnabled,
@@ -152,9 +151,7 @@ describe('untilAll helper', () => {
 		expect(res2.done).toBe(false);
 		expect(res2.state).toBe(undefined);
 	});
-
 });
-
 
 describe('untilAll helper with platform_ufo_enable_untilall_parent_fix enabled', () => {
 	beforeAll(() => {

@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 5.4.4
+
+### Patch Changes
+
+- [`4e77d43cefd28`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e77d43cefd28) -
+  Bring back the displayName that was removed from the UFOLabel
+
 ## 5.4.3
 
 ### Patch Changes

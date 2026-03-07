@@ -1,6 +1,9 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx"
+	],
 	"exclude": [
 		"**/docs/**/*",
 		"**/__tests__/**/*",
@@ -38,7 +41,8 @@
 		],
 		"composite": true,
 		"verbatimModuleSyntax": false,
-		"outDir": "../../../tsDist/@atlaskit__codemod-cli/app"
+		"outDir": "../../../tsDist/@atlaskit__codemod-cli/app",
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

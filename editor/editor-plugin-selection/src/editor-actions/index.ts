@@ -1,4 +1,7 @@
-import { getFragmentsFromSelection, getLocalIdsFromSelection } from '@atlaskit/editor-common/selection';
+import {
+	getFragmentsFromSelection,
+	getLocalIdsFromSelection,
+} from '@atlaskit/editor-common/selection';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { nodeToJSON, type JSONNode } from '@atlaskit/editor-json-transformer';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
@@ -93,7 +96,8 @@ export const getSelectionFragment =
 		}
 	};
 
-export const getSelectionLocalIds =	(api?: ExtractInjectionAPI<SelectionPlugin>) => (): string[] | null => {
+export const getSelectionLocalIds =
+	(api?: ExtractInjectionAPI<SelectionPlugin>) => (): string[] | null => {
 		let selection = api?.selection.sharedState?.currentState()?.selection;
 		if (selection?.empty) {
 			// If we have an empty selection the current state might not be correct

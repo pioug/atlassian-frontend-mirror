@@ -33,15 +33,7 @@
 		"codemods",
 		"schema-generators/**/*.ts"
 	],
-	"exclude": [
-		"./dist/**/*",
-		"./build/**/*",
-		"./node_modules/**/*",
-		"src/next-schema/generated/markTypes.ts",
-		"src/next-schema/generated/nodeTypes.ts",
-		"src/next-schema/generated/nodeGroupTypes.ts",
-		"src/validator-schema/generated/validatorSpec.ts"
-	],
+	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__adf-schema/dev"

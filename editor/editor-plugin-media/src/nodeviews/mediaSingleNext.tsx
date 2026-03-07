@@ -589,7 +589,7 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 			if (mediaSingleWrapperRef.current !== event.target) {
 				return;
 			}
-			
+
 			if (event.key === 'Enter' || event.key === ' ') {
 				event.preventDefault();
 				captionPlaceHolderRef.current?.click();

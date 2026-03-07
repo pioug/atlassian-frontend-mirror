@@ -81,10 +81,9 @@ describe(`${packageName}/schema blockTaskItem node`, () => {
 				[schemaWithFontSize.text('Small text')],
 				[fontSizeMark],
 			);
-			const normalParagraph = schemaWithFontSize.nodes.paragraph.create(
-				{},
-				[schemaWithFontSize.text('Normal text')],
-			);
+			const normalParagraph = schemaWithFontSize.nodes.paragraph.create({}, [
+				schemaWithFontSize.text('Normal text'),
+			]);
 			const taskItem = schemaWithFontSize.nodes.blockTaskItem.create(
 				{ localId: 'test-id', state: 'TODO' },
 				[smallParagraph, normalParagraph],

@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 7.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.4.0
+
+### Minor Changes
+
+- [`a567137003ae6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a567137003ae6) -
+  Add in Create with Rovo blank object experience functionality
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.3.3
 
 ### Patch Changes

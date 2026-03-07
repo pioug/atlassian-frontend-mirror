@@ -45,6 +45,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-03-04
+	cwr_blank_object_experiment: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-09-01
 	cc_editor_ai_content_mode: {
 		defaultValue: 'control' | 'test';
@@ -202,6 +209,12 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-01-05
 	'company_hub_carousel_thumbnails-refactor': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	'cc_perf-insights-cards_extension_a11y_list': {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1116,12 +1129,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	confluence_insert_excerpt_inline_vertical_align: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	platform_editor_fix_cross_origin_editor_focus: {
 		defaultValue: boolean;
 		param: string;
@@ -1262,7 +1269,7 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	// Added 2026-02-27
-	'confluence_frontend_cwr_outcome_type_picker': {
+	confluence_frontend_cwr_outcome_type_picker: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1484,6 +1491,14 @@ export const editorExperimentsConfig: {
 	cc_editor_insm_doc_size_stats: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_editor_insm_doc_size_stats',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-04
+	cwr_blank_object_experiment: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cwr_blank_object_experiment',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2113,6 +2128,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-03-05
+	'cc_perf-insights-cards_extension_a11y_list': createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_perf-insights-cards_extension_a11y_list',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-02-05
 	'editor-a11y-fy26-keyboard-move-row-column': createBooleanExperiment({
 		productKeys: {
@@ -2652,13 +2675,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	confluence_insert_excerpt_inline_vertical_align: createBooleanExperiment({
-		productKeys: {
-			confluence: 'confluence_insert_excerpt_inline_vertical_align',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-01-30
 	platform_editor_fix_cross_origin_editor_focus: createBooleanExperiment({
 		productKeys: {
@@ -2821,7 +2837,7 @@ export const editorExperimentsConfig: {
 		defaultValue: false,
 	}),
 	// Added 2026-02-27
-	'confluence_frontend_cwr_outcome_type_picker': createBooleanExperiment({
+	confluence_frontend_cwr_outcome_type_picker: createBooleanExperiment({
 		productKeys: {
 			confluence: 'confluence_frontend_cwr_outcome_type_picker',
 		},

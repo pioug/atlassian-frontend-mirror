@@ -37,11 +37,11 @@ export const bodiedSyncBlock: ADFNode<[string], ADFCommonNodeSpec> = adfNode(
 		$onePlus(
 			$or(
 				paragraph,
-			paragraph.use('with_alignment'),
-			paragraph.use('with_indentation'),
-			paragraph.use('with_font_size_and_alignment'),
-			paragraph.use('with_font_size_and_indentation'),
-			paragraph.use('with_no_marks'),
+				paragraph.use('with_alignment'),
+				paragraph.use('with_indentation'),
+				paragraph.use('with_font_size_and_alignment'),
+				paragraph.use('with_font_size_and_indentation'),
+				paragraph.use('with_no_marks'),
 				blockCard,
 				blockquote,
 				blockquote.use('legacy'),

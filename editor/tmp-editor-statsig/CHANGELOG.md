@@ -1,5 +1,26 @@
 # @atlaskit/editor-statsig-tmp
 
+## 34.0.0
+
+### Major Changes
+
+- [`451c2f1a9f5f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/451c2f1a9f5f0) -
+  Clean up confluence_insert_excerpt_inline_vertical_align experiment, which removes block nodes
+  vertical margin from inline extension elements to fix the inline vertical positioning of inline
+  extensions to match its surrounding text content.
+
+### Minor Changes
+
+- [`aa2864bc234dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa2864bc234dd) -
+  add experiement to tmp-editor-statsig for cards a11y aria-role list and listitem
+
+## 33.3.0
+
+### Minor Changes
+
+- [`a567137003ae6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a567137003ae6) -
+  Add in Create with Rovo blank object experience functionality
+
 ## 33.2.0
 
 ### Minor Changes

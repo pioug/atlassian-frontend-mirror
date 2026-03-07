@@ -1,6 +1,13 @@
-import { changeImportEntryPoint } from '@atlaskit/codemod-utils';
+import {
+	changeImportEntryPoint,
+	type JSCodeshift,
+	type Collection,
+} from '@atlaskit/codemod-utils';
 
-export const updateImportEntryPointsForJiraSchema = [
+export const updateImportEntryPointsForJiraSchema: ((
+	j: JSCodeshift,
+	root: Collection<Node>,
+) => void)[] = [
 	changeImportEntryPoint(
 		'@atlaskit/adf-schema',
 		'createJIRASchema',

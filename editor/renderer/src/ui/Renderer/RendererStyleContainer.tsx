@@ -2998,8 +2998,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 					(expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
 						? extensionAsInlineStyle
 						: oldExtensionAsInlineStyle),
-				expValEquals('confluence_insert_excerpt_inline_vertical_align', 'isEnabled', true) &&
-					inlineExtensionRendererMarginFix,
+				inlineExtensionRendererMarginFix,
 				allowNestedHeaderLinks &&
 					(expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)
 						? alignedHeadingAnchorStyle

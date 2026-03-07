@@ -1,5 +1,12 @@
 # @atlassian/smart-user-picker
 
+## 9.2.0
+
+### Minor Changes
+
+- [`bdbcc02f31ffe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bdbcc02f31ffe) -
+  [ux] Block viewers adding followers that don't have access to private projects
+
 ## 9.1.0
 
 ### Minor Changes

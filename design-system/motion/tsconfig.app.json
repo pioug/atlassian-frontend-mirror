@@ -27,7 +27,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__motion/app"
+		"outDir": "../../../tsDist/@atlaskit__motion/app",
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

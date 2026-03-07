@@ -1348,7 +1348,6 @@ describe('In ORG_ADMIN_MANAGED teams', () => {
 				).toBe(false);
 			});
 		});
-
 	});
 
 	describe('UNARCHIVE_TEAM permission on disbanded teams', () => {

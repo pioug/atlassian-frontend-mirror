@@ -55,10 +55,7 @@ export const PasteActionsMenuContent = ({
 	return (
 		<Box ref={setOutsideClickTargetRef} xcss={styles.container} onMouseDown={onMouseDown}>
 			{aiSurface && aiSurfaceComponents && aiSurfaceComponents.length > 0 && (
-				<SurfaceRenderer
-					surface={aiSurface}
-					components={aiSurfaceComponents}
-				/>
+				<SurfaceRenderer surface={aiSurface} components={aiSurfaceComponents} />
 			)}
 			{options.map((option) => (
 				<Pressable

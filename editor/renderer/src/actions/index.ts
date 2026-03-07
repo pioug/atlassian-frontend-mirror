@@ -66,10 +66,11 @@ interface SelectionRendererActionsOptions {
 
 export default class RendererActions
 	implements
-	RendererActionsOptions,
-	AnnotationsRendererActionsOptions,
-	PositionRendererActionsOptions,
-	SelectionRendererActionsOptions {
+		RendererActionsOptions,
+		AnnotationsRendererActionsOptions,
+		PositionRendererActionsOptions,
+		SelectionRendererActionsOptions
+{
 	// This is our psuedo feature flag for now
 	// This module can only be used when wrapped with
 	// the <RendererContext> component for now.
@@ -189,11 +190,11 @@ export default class RendererActions
 					inlineNodeNames:
 						step instanceof RemoveMarkStep
 							? getRendererRangeInlineNodeNames({
-								// Ignored via go/ees005
-								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-								pos: { from: from!, to: to! },
-								actions: this,
-							})
+									// Ignored via go/ees005
+									// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+									pos: { from: from!, to: to! },
+									actions: this,
+								})
 							: undefined,
 				},
 			};

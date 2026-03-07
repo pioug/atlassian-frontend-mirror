@@ -39,10 +39,14 @@
 		"build/**/*.ts",
 		"build/**/*.tsx"
 	],
-	"exclude": ["./dist/**/*", "./node_modules/**/*"],
+	"exclude": [
+		"./dist/**/*",
+		"./node_modules/**/*"
+	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__object/dev"
+		"outDir": "../../../tsDist/@atlaskit__object/dev",
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

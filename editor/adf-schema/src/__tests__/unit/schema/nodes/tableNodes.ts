@@ -74,7 +74,14 @@ const makeSchema = () =>
 const makeSchemaWithFontSize = () =>
 	createSchema({
 		nodes: ['doc', 'paragraph', 'text', 'table', 'tableRow', 'tableCell', 'tableHeader'],
-		marks: ['fontSize', 'alignment', 'indentation', 'fragment', 'unsupportedMark', 'unsupportedNodeAttribute'],
+		marks: [
+			'fontSize',
+			'alignment',
+			'indentation',
+			'fragment',
+			'unsupportedMark',
+			'unsupportedNodeAttribute',
+		],
 		customNodeSpecs: {
 			table: tableWithNestedTable,
 			tableRow: tableRowWithNestedTable,
@@ -161,7 +168,8 @@ describe(`${packageName}/schema table node`, () => {
 					content:
 						'(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock)+',
 					isolating: true,
-					marks: 'alignment fontSize dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
+					marks:
+						'alignment fontSize dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
 					parseDOM: [
 						{
 							ignore: true,
@@ -204,7 +212,8 @@ describe(`${packageName}/schema table node`, () => {
 					content:
 						'(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand)+',
 					isolating: true,
-					marks: 'alignment fontSize dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
+					marks:
+						'alignment fontSize dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
 					parseDOM: [
 						{
 							getAttrs: expect.anything(),
@@ -301,7 +310,8 @@ describe(`${packageName}/schema table node`, () => {
 					content:
 						'(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock | table)+',
 					isolating: true,
-					marks: 'alignment fontSize dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
+					marks:
+						'alignment fontSize dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
 					parseDOM: [
 						{
 							ignore: true,
@@ -344,7 +354,8 @@ describe(`${packageName}/schema table node`, () => {
 					content:
 						'(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | table)+',
 					isolating: true,
-					marks: 'alignment fontSize dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
+					marks:
+						'alignment fontSize dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
 					parseDOM: [
 						{
 							getAttrs: expect.anything(),

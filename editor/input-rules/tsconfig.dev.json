@@ -31,10 +31,15 @@
 		"**/stories/**/*.ts",
 		"**/stories/**/*.tsx"
 	],
-	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
+	"exclude": [
+		"./dist/**/*",
+		"./build/**/*",
+		"./node_modules/**/*"
+	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__prosemirror-input-rules/dev"
+		"outDir": "../../../tsDist/@atlaskit__prosemirror-input-rules/dev",
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

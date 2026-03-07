@@ -218,7 +218,9 @@ describe(`${packageName}/schema expand node`, () => {
 				[schemaWithFontSize.text('Small text in nestedExpand')],
 				[fontSizeMark],
 			);
-			const nestedExpandNode = schemaWithFontSize.nodes.nestedExpand.create({ title: 'Nested' }, [paragraph]);
+			const nestedExpandNode = schemaWithFontSize.nodes.nestedExpand.create({ title: 'Nested' }, [
+				paragraph,
+			]);
 
 			expect(nestedExpandNode.type.name).toBe('nestedExpand');
 			expect(nestedExpandNode.firstChild).toBeTruthy();
@@ -235,7 +237,9 @@ describe(`${packageName}/schema expand node`, () => {
 				[schemaWithFontSize.text('Small text')],
 				[fontSizeMark],
 			);
-			const nestedExpandNode = schemaWithFontSize.nodes.nestedExpand.create({ title: 'Nested' }, [paragraph]);
+			const nestedExpandNode = schemaWithFontSize.nodes.nestedExpand.create({ title: 'Nested' }, [
+				paragraph,
+			]);
 
 			// Verify the nestedExpand node and its paragraph child preserve the fontSize mark
 			expect(nestedExpandNode.type.name).toBe('nestedExpand');
@@ -254,8 +258,12 @@ describe(`${packageName}/schema expand node`, () => {
 				[schemaWithFontSize.text('Small text')],
 				[fontSizeMark],
 			);
-			const nestedExpandNode = schemaWithFontSize.nodes.nestedExpand.create({ title: 'Nested' }, [paragraph]);
-			const expand = schemaWithFontSize.nodes.expand.create({ title: 'Parent' }, [nestedExpandNode]);
+			const nestedExpandNode = schemaWithFontSize.nodes.nestedExpand.create({ title: 'Nested' }, [
+				paragraph,
+			]);
+			const expand = schemaWithFontSize.nodes.expand.create({ title: 'Parent' }, [
+				nestedExpandNode,
+			]);
 
 			expect(expand.type.name).toBe('expand');
 			expect(expand.firstChild!.type.name).toBe('nestedExpand');

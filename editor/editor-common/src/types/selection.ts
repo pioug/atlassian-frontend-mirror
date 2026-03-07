@@ -27,4 +27,4 @@ export type SelectionContext = {
 	 * Start index of the selection inside the first node of the selection
 	 */
 	startIndex?: number | null;
-}
+};

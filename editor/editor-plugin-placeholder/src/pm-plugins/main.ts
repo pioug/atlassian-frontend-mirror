@@ -6,6 +6,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { pluginKey, EMPTY_PARAGRAPH_TIMEOUT_DELAY } from '../placeholderPlugin';
 import type { PlaceholderPlugin } from '../placeholderPluginType';
@@ -86,8 +87,14 @@ export default function createPlugin(
 				}
 
 				if (meta?.placeholderText !== undefined && withEmptyParagraph) {
+					const isCreateWithRovoOverride =
+						!!meta.placeholderText && expVal('cwr_blank_object_experiment', 'isEnabled', false);
 					// Only update defaultPlaceholderText from meta if we're not using ADF placeholder
-					if (!(fg('platform_editor_ai_aifc_patch_ga') && placeholderADF)) {
+					// OR when the create-with-rovo experiment is active to allow intentional non-empty placeholder overrides
+					if (
+						!(fg('platform_editor_ai_aifc_patch_ga') && placeholderADF) ||
+						isCreateWithRovoOverride
+					) {
 						defaultPlaceholderText = meta.placeholderText;
 					}
 				}

@@ -5,7 +5,9 @@ import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
  * @param node nodeSpec
  * @returns
  */
-export const normalizeNodeSpec = (node: NodeSpec) => {
+export const normalizeNodeSpec: (node: NodeSpec) => NodeSpec = (
+	node: NodeSpec,
+) => {
 	return {
 		...node,
 		...(node.marks && {

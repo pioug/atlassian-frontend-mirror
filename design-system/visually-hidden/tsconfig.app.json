@@ -27,7 +27,8 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__visually-hidden/app"
+		"outDir": "../../../tsDist/@atlaskit__visually-hidden/app",
+		"isolatedDeclarations": true
 	},
 	"references": [],
 	"files": []

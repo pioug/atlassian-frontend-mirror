@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 127.0.0
+
+### Major Changes
+
+- [`451c2f1a9f5f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/451c2f1a9f5f0) -
+  Clean up confluence_insert_excerpt_inline_vertical_align experiment, which removes block nodes
+  vertical margin from inline extension elements to fix the inline vertical positioning of inline
+  extensions to match its surrounding text content.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 126.16.0
 
 ### Minor Changes

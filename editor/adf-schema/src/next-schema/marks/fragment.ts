@@ -1,5 +1,9 @@
-import type { ADFMark, ADFMarkSpec } from '@atlaskit/adf-schema-generator';
-import { MarkExcludesNone, adfMark } from '@atlaskit/adf-schema-generator';
+import {
+	adfMark,
+	MarkExcludesNone,
+	type ADFMark,
+	type ADFMarkSpec,
+} from '@atlaskit/adf-schema-generator';
 
 export const fragment: ADFMark<ADFMarkSpec> = adfMark('fragment').define({
 	inclusive: false,

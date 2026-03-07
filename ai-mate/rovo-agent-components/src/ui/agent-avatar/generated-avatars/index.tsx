@@ -204,9 +204,7 @@ const IntercomAgentAvatar = lazy(
 
 const GammaAgentAvatar = lazy(
 	() =>
-		import(
-			/* webpackChunkName: "@atlaskit-rovo-avatar-GammaAgentAvatar"*/ './assets/gamma-agent'
-		),
+		import(/* webpackChunkName: "@atlaskit-rovo-avatar-GammaAgentAvatar"*/ './assets/gamma-agent'),
 );
 /**
  * OOTB Agents avatars - end

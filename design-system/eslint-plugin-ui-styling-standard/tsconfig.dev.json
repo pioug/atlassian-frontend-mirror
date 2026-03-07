@@ -32,11 +32,18 @@
 		"**/stories/**/*.tsx",
 		"./scripts/*.tsx"
 	],
-	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
+	"exclude": [
+		"./dist/**/*",
+		"./build/**/*",
+		"./node_modules/**/*"
+	],
 	"compilerOptions": {
-		"lib": ["ES2021.String"],
+		"lib": [
+			"ES2021.String"
+		],
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__eslint-plugin-ui-styling-standard/dev"
+		"outDir": "../../../tsDist/@atlaskit__eslint-plugin-ui-styling-standard/dev",
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

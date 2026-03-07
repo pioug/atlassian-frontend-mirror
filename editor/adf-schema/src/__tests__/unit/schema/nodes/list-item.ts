@@ -161,7 +161,10 @@ describe(`${packageName}/schema listItem node`, () => {
 			const fontSizeMark = testSchema.marks.fontSize.create({ fontSize: 'small' });
 			const paragraphWithFontSize = testSchema.nodes.paragraph.create({}, [], [fontSizeMark]);
 			const regularParagraph = testSchema.nodes.paragraph.create({});
-			const listItemNode = testSchema.nodes.listItem.create({}, [paragraphWithFontSize, regularParagraph]);
+			const listItemNode = testSchema.nodes.listItem.create({}, [
+				paragraphWithFontSize,
+				regularParagraph,
+			]);
 
 			expect(listItemNode.childCount).toBe(2);
 			expect(listItemNode.firstChild?.marks).toHaveLength(1);

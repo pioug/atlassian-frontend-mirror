@@ -30,7 +30,9 @@ describe('getContainerProperties', () => {
 		).toBeInTheDocument();
 		expect(properties.icon).toBeTruthy();
 		renderWithIntl(properties.title);
-		expect(screen.getByText(messages.addConfluenceContainerTitle.defaultMessage)).toBeInTheDocument();
+		expect(
+			screen.getByText(messages.addConfluenceContainerTitle.defaultMessage),
+		).toBeInTheDocument();
 
 		await expect(document.body).toBeAccessible();
 	});

@@ -31,10 +31,15 @@
 		"**/stories/**/*.tsx",
 		"./build/*.tsx"
 	],
-	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
+	"exclude": [
+		"./dist/**/*",
+		"./build/**/*",
+		"./node_modules/**/*"
+	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__icon-lab/dev"
+		"outDir": "../../../tsDist/@atlaskit__icon-lab/dev",
+		"isolatedDeclarations": true
 	},
 	"references": [
 		{

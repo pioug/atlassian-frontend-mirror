@@ -1,6 +1,13 @@
-import { changeImportEntryPoint } from '@atlaskit/codemod-utils';
+import {
+	changeImportEntryPoint,
+	type JSCodeshift,
+	type Collection,
+} from '@atlaskit/codemod-utils';
 
-export const updateImportEntryPointsForConfluenceSchema = [
+export const updateImportEntryPointsForConfluenceSchema: ((
+	j: JSCodeshift,
+	root: Collection<Node>,
+) => void)[] = [
 	changeImportEntryPoint(
 		'@atlaskit/adf-schema',
 		'confluenceSchema',

@@ -1,4 +1,8 @@
-import type { LinkPickerOptions, NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
+import type {
+	LinkPickerOptions,
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';

@@ -1,8 +1,4 @@
-import {
-	changeImportEntryPoint,
-	type JSCodeshift,
-	type Collection,
-} from '@atlaskit/codemod-utils';
+import { changeImportEntryPoint, type JSCodeshift, type Collection } from '@atlaskit/codemod-utils';
 
 export const updateImportEntryPointsForDefaultSchema: ((
 	j: JSCodeshift,

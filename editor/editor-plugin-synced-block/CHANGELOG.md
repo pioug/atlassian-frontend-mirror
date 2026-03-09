@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 5.4.7
+
+### Patch Changes
+
+- [`dc717554783a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc717554783a6) -
+  [ux] EDITOR-5556 show warning flag when extensions are added inside synced blocks
+- Updated dependencies
+
+## 5.4.6
+
+### Patch Changes
+
+- [`2e6129d5b39bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e6129d5b39bc) -
+  EDITOR-5529 clean up platform_synced_block_patch_3 and platform_synced_block_patch_4
+- [`b853527230a60`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b853527230a60) -
+  [EDITOR-5520] Fix reference sync block shows old page data when transitioning between live pages
+- Updated dependencies
+
+## 5.4.5
+
+### Patch Changes
+
+- [`1a05924d64777`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a05924d64777) -
+  [EDITOR-5528] Fix bodiedSyncBlock mutation
+- Updated dependencies
+
 ## 5.4.4
 
 ### Patch Changes

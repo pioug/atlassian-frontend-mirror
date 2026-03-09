@@ -42,12 +42,6 @@
 			"path": "../../../measurement/feature-gate-js-client/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/flag/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../../helpers/frontend-utilities/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/heading/afm-jira/tsconfig.json"
 		},
 		{

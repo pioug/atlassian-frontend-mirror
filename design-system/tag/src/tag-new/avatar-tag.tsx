@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ComponentType, forwardRef, memo } from 'react';
+import { cloneElement, type ComponentType, forwardRef, isValidElement, memo } from 'react';
 
 import { cssMap as cssMapUnbound, jsx } from '@compiled/react';
 
@@ -111,7 +111,7 @@ type UserAvatarTag = CommonAvatarTagProps & {
 	 * @example avatar={Avatar}
 	 * @example avatar={(props) => <Avatar {...props} src="user.png" />}
 	 */
-	avatar: ComponentType<Omit<AvatarPropTypes, 'size' | 'appearance' | 'borderColor'>>;
+	avatar: ComponentType<AvatarPropTypes>;
 };
 
 /**
@@ -132,9 +132,7 @@ type OtherAvatarTag = CommonAvatarTagProps & {
 	 * @example avatar={TeamAvatar}
 	 * @example avatar={(props) => <TeamAvatar {...props} name="Team" />}
 	 */
-	avatar:
-		| ComponentType<Omit<AvatarPropTypes, 'size' | 'appearance' | 'borderColor'>>
-		| ComponentType<Omit<TeamAvatarProps, 'size'>>;
+	avatar: ComponentType<AvatarPropTypes> | ComponentType<TeamAvatarProps>;
 };
 
 /**
@@ -155,7 +153,7 @@ type AgentAvatarTag = CommonAvatarTagProps & {
 	 * @example avatar={Avatar}
 	 * @example avatar={(props) => <Avatar {...props} src="agent.png" />}
 	 */
-	avatar: ComponentType<Omit<AvatarPropTypes, 'size' | 'appearance' | 'borderColor'>>;
+	avatar: ComponentType<AvatarPropTypes>;
 };
 
 /**
@@ -440,16 +438,17 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 		buttonHandlers,
 	});
 
-	// Render the avatar component with controlled props
-	// Cast to ComponentType<AvatarRenderProps> to inject controlled props at runtime
-	const AvatarWithControlledProps = AvatarComponent as ComponentType<AvatarRenderProps>;
-	const avatarElement = (
-		<AvatarWithControlledProps
-			size="xsmall"
-			appearance={avatarAppearance}
-			borderColor="transparent"
-		/>
-	);
+	// Render the avatar with controlled props, then clone so our props are applied
+	const controlledProps: AvatarRenderProps = {
+		size: 'xsmall',
+		appearance: avatarAppearance,
+		borderColor: 'transparent',
+	};
+	const AvatarComponentTyped = AvatarComponent as unknown as ComponentType<AvatarRenderProps>;
+	const rendered = <AvatarComponentTyped {...controlledProps} />;
+	const avatarElement =
+		// eslint-disable-next-line @repo/internal/react/no-clone-element
+		isValidElement(rendered) ? cloneElement(rendered, controlledProps) : rendered;
 
 	const tagContent = (
 		<span

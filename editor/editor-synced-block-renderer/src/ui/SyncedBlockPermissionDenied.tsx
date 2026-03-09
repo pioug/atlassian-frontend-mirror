@@ -10,7 +10,6 @@ import { type SyncBlockProduct } from '@atlaskit/editor-synced-block-provider';
 import Heading from '@atlaskit/heading';
 import StatusSuccessIcon from '@atlaskit/icon/core/status-success';
 import Image from '@atlaskit/image';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Text, Flex, Stack, Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -104,9 +103,7 @@ const SyncedBlockPermissionDeniedConfluencePage = ({
 						<StatusSuccessIcon
 							size="small"
 							color={token('color.icon.subtle')}
-							label={
-								fg('platform_synced_block_patch_4') ? formatMessage(messages.accessRequested) : ''
-							}
+							label={formatMessage(messages.accessRequested)}
 						/>
 						<Text
 							color="color.text.subtlest"

@@ -105,12 +105,7 @@ const toDOM = (
 		'div',
 		{
 			// prettier-ignore
-			class: expandClassNames.content,
-			style: expValEquals('platform_editor_display_none_to_expand', 'isEnabled', true)
-				? `display: ${
-						__livePage ? !node.attrs.__expanded : node.attrs.__expanded ? 'flow-root' : 'none'
-					}`
-				: undefined,
+			class: `${expandClassNames.content} ${(__livePage ? !node.attrs.__expanded : node.attrs.__expanded) ? '' : expandClassNames.contentCollapsed}`,
 			contenteditable:
 				contentEditable !== undefined ? (contentEditable ? 'true' : 'false') : undefined,
 		},
@@ -237,9 +232,7 @@ export class ExpandNodeView implements NodeView {
 						);
 					}
 
-					if (expValEquals('platform_editor_display_none_to_expand', 'isEnabled', true)) {
-						this.updateDisplayStyle(this.node);
-					}
+					this.updateDisplayStyle(this.node);
 				},
 			);
 		}
@@ -673,8 +666,11 @@ export class ExpandNodeView implements NodeView {
 	private updateDisplayStyle(node: PmNode): void {
 		if (this.content) {
 			const isCollapsed = this.__livePage ? node.attrs.__expanded : !node.attrs.__expanded;
-
-			this.content.style.display = isCollapsed ? 'none' : 'flow-root';
+			if (isCollapsed) {
+				this.content.classList.add(expandClassNames.contentCollapsed);
+			} else {
+				this.content.classList.remove(expandClassNames.contentCollapsed);
+			}
 		}
 	}
 
@@ -727,9 +723,7 @@ export class ExpandNodeView implements NodeView {
 					);
 				}
 
-				if (expValEquals('platform_editor_display_none_to_expand', 'isEnabled', true)) {
-					this.updateDisplayStyle(node);
-				}
+				this.updateDisplayStyle(node);
 			}
 
 			// During a collab session the title doesn't sync with other users

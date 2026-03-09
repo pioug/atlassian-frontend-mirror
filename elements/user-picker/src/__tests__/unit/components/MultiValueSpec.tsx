@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { MultiValue, scrollToValue } from '../../../components/MultiValue';
 import { type Email, EmailType, type User, type Team } from '../../../types';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 jest.mock('@atlaskit/select', () => ({
 	...jest.requireActual('@atlaskit/select'),
@@ -22,6 +23,12 @@ jest.mock('../../../components/AvatarOrIcon', () => ({
 
 jest.mock('../../../components/SizeableAvatar', () => ({
 	SizeableAvatar: (props: any) => <div>SizeableAvatar - {JSON.stringify(props)}</div>,
+}));
+
+jest.mock('@atlaskit/tag', () => ({
+	AvatarTag: (props: { text: string }) => (
+		<div data-testid="user-picker-avatar-tag">{props.text}</div>
+	),
 }));
 
 const mockHtmlElement = (rect: Partial<DOMRect>): HTMLDivElement =>
@@ -288,6 +295,58 @@ describe('MultiValue', () => {
 					'SizeableAvatar - {"appearance":"multi","src":"http://avatars.atlassian.com/jace.png","type":"person"}',
 				),
 			).toBeInTheDocument();
+		});
+	});
+
+	describe('AvatarTag (platform-dst-lozenge-tag-badge-visual-uplifts)', () => {
+		ffTest.on('platform-dst-lozenge-tag-badge-visual-uplifts', 'on', () => {
+			it('should render AvatarTag for user when flag is on', async () => {
+				renderMultiValue();
+
+				const avatarTag = await screen.findByTestId('user-picker-avatar-tag');
+				expect(avatarTag).toBeInTheDocument();
+				expect(avatarTag).toHaveTextContent('Jace Beleren');
+
+				await expect(document.body).toBeAccessible();
+			});
+
+			it('should render AvatarTag for team when flag is on', async () => {
+				const team: Team = {
+					name: 'Design System',
+					type: 'team',
+					id: 'team-123',
+					verified: true,
+				};
+
+				renderMultiValue({
+					data: {
+						label: team.name,
+						value: team.id,
+						data: team,
+					},
+				});
+
+				const avatarTag = await screen.findByTestId('user-picker-avatar-tag');
+				expect(avatarTag).toBeInTheDocument();
+				expect(avatarTag).toHaveTextContent('Design System');
+
+				await expect(document.body).toBeAccessible();
+			});
+		});
+
+		ffTest.off('platform-dst-lozenge-tag-badge-visual-uplifts', 'off', () => {
+			it('should render SizeableAvatar for user when flag is off', async () => {
+				renderMultiValue();
+
+				expect(
+					await screen.findByText(
+						'SizeableAvatar - {"appearance":"multi","src":"http://avatars.atlassian.com/jace.png","type":"person"}',
+					),
+				).toBeInTheDocument();
+				expect(screen.queryByTestId('user-picker-avatar-tag')).not.toBeInTheDocument();
+
+				await expect(document.body).toBeAccessible();
+			});
 		});
 	});
 });

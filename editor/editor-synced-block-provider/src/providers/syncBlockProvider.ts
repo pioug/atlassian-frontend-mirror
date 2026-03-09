@@ -1,9 +1,6 @@
 import { useMemo, useRef } from 'react';
 
-import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react';
 
 import { getProductFromSourceAri } from '../clients/block-service/ari';
 import { getPageIdAndTypeFromConfluencePageAri } from '../clients/confluence/ari';
@@ -112,9 +109,7 @@ export class SyncedBlockProvider extends SyncBlockDataProviderInterface {
 						},
 						(error) => {
 							return {
-								error: fg('platform_synced_block_patch_3')
-									? { type: SyncBlockError.Errored, reason: error }
-									: { type: SyncBlockError.Errored },
+								error: { type: SyncBlockError.Errored, reason: error },
 								resourceId: blockIdentifier.resourceId,
 							};
 						},
@@ -147,8 +142,8 @@ export class SyncedBlockProvider extends SyncBlockDataProviderInterface {
 			return Promise.reject(new Error('Write provider not set'));
 		}
 
-		// Use batch write only when feature flag is enabled and method is available
-		if (this.writeProvider.writeDataBatch && fg('platform_synced_block_patch_4')) {
+		// Use batch write only when method is available
+		if (this.writeProvider.writeDataBatch) {
 			// Separate data into valid (with content) and invalid (without content)
 			const validDataWithIndices: SyncBlockData[] = [];
 			const invalidResults: WriteSyncBlockResult[] = [];
@@ -248,10 +243,7 @@ export class SyncedBlockProvider extends SyncBlockDataProviderInterface {
 		localId?: BlockInstanceId,
 		sourceAri?: string,
 		sourceProduct?: SyncBlockProduct,
-		fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
 		hasAccess: boolean = true,
-		urlType: 'view' | 'edit' = 'edit',
-		isUnpublished?: boolean,
 	): Promise<SyncBlockSourceInfo | undefined> {
 		const ari = sourceAri ?? this.writeProvider?.parentAri;
 		const product = sourceProduct ?? getProductFromSourceAri(ari);
@@ -262,13 +254,7 @@ export class SyncedBlockProvider extends SyncBlockDataProviderInterface {
 
 		switch (product) {
 			case 'confluence-page': {
-				const sourceInfo = await fetchConfluencePageInfo(
-					ari,
-					hasAccess,
-					urlType,
-					localId,
-					isUnpublished,
-				);
+				const sourceInfo = await fetchConfluencePageInfo(ari, hasAccess, localId);
 
 				if (!sourceInfo) {
 					return Promise.resolve(undefined);
@@ -403,28 +389,7 @@ const createSyncedBlockProvider = ({
 	return new SyncedBlockProvider(fetchProvider, writeProvider);
 };
 
-const useMemoizedSyncedBlockProviderBase = ({
-	fetchProvider,
-	writeProvider,
-	providerOptions,
-	getSSRData,
-}: UseMemoizedSyncedBlockProviderProps) => {
-	const syncBlockProvider = useMemo(
-		() => createSyncedBlockProvider({ fetchProvider, writeProvider }),
-		[fetchProvider, writeProvider],
-	);
-
-	syncBlockProvider.setProviderOptions(providerOptions);
-
-	const ssrData = getSSRData ? getSSRData() : undefined;
-	if (ssrData) {
-		syncBlockProvider.setSSRData(ssrData);
-	}
-
-	return syncBlockProvider;
-};
-
-const useMemoizedSyncedBlockProviderPatched = ({
+export const useMemoizedSyncedBlockProvider = ({
 	fetchProvider,
 	writeProvider,
 	providerOptions,
@@ -452,9 +417,3 @@ const useMemoizedSyncedBlockProviderPatched = ({
 
 	return syncBlockProvider;
 };
-
-export const useMemoizedSyncedBlockProvider = conditionalHooksFactory(
-	() => fg('platform_synced_block_patch_4'),
-	useMemoizedSyncedBlockProviderPatched,
-	useMemoizedSyncedBlockProviderBase,
-);

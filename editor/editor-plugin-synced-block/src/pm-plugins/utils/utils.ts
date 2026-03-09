@@ -10,6 +10,7 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 /**
  * Defers a callback to the next microtask (when gated) or next macrotask via setTimeout(0).
@@ -143,16 +144,23 @@ export const sliceFullyContainsNode = (slice: Slice, node: PMNode): boolean => {
 	return true;
 };
 
-const fragmentContainsInlineExtension = (fragment: Fragment): boolean => {
+// even though extension and bodiedExtension are explicitly not allowed by the schema, they can still be inserted nested inside other nodes e.g. layouts
+const EXTENSION_NODES = new Set(['inlineExtension', 'extension', 'bodiedExtension']);
+
+const fragmentContainsExtension = (fragment: Fragment): boolean => {
 	let found = false;
 	fragment.forEach((node) => {
 		if (found) {
 			return;
 		}
-		if (node.type.name === 'inlineExtension') {
+		if (
+			editorExperiment('platform_synced_block_patch_6', true, { exposure: true })
+				? EXTENSION_NODES.has(node.type.name)
+				: node.type.name === 'inlineExtension'
+		) {
 			found = true;
 		} else if (node.content.size) {
-			if (fragmentContainsInlineExtension(node.content)) {
+			if (fragmentContainsExtension(node.content)) {
 				found = true;
 			}
 		}
@@ -160,14 +168,13 @@ const fragmentContainsInlineExtension = (fragment: Fragment): boolean => {
 	return found;
 };
 
-const sliceContainsInlineExtension = (slice: Slice): boolean =>
-	fragmentContainsInlineExtension(slice.content);
+const sliceContainsExtension = (slice: Slice): boolean => fragmentContainsExtension(slice.content);
 
 /**
  * Returns the resourceId of the bodied sync block where an inline extension was inserted, or undefined.
  * Used to show a warning flag only on the first instance per sync block.
  */
-export const wasInlineExtensionInsertedInBodiedSyncBlock = (
+export const wasExtensionInsertedInBodiedSyncBlock = (
 	tr: Transaction,
 	state: EditorState,
 ): string | undefined => {
@@ -191,7 +198,7 @@ export const wasInlineExtensionInsertedInBodiedSyncBlock = (
 				continue;
 			}
 			const replaceStep = step as ReplaceStep | ReplaceAroundStep;
-			if (!sliceContainsInlineExtension(replaceStep.slice)) {
+			if (!sliceContainsExtension(replaceStep.slice)) {
 				continue;
 			}
 			const docAfterStep = docs[i + 1] ?? tr.doc;
@@ -214,13 +221,22 @@ export const wasInlineExtensionInsertedInBodiedSyncBlock = (
 		if (resourceId !== undefined) {
 			return false;
 		}
-		if (node.type.name === 'inlineExtension') {
+		if (
+			editorExperiment('platform_synced_block_patch_6', true, { exposure: true })
+				? EXTENSION_NODES.has(node.type.name)
+				: node.type.name === 'inlineExtension'
+		) {
 			const $pos = tr.doc.resolve(pos);
 			const parent = findParentNodeOfTypeClosestToPos($pos, bodiedSyncBlock);
 			if (parent?.node.attrs.resourceId) {
 				const mappedPos = tr.mapping.invert().map(pos);
 				const nodeBefore = state.doc.nodeAt(mappedPos);
-				if (!nodeBefore || nodeBefore.type.name !== 'inlineExtension') {
+				if (
+					!nodeBefore ||
+					(editorExperiment('platform_synced_block_patch_6', true, { exposure: true })
+						? EXTENSION_NODES.has(nodeBefore.type.name)
+						: nodeBefore.type.name !== 'inlineExtension')
+				) {
 					resourceId = parent.node.attrs.resourceId as string;
 					return false;
 				}

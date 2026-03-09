@@ -13,6 +13,8 @@ export type PasteOptionsToolbarPluginDependencies = [
 
 export interface PasteOptionsToolbarSharedState {
 	isPlainText: boolean;
+	pasteEndPos: number;
+	pasteStartPos: number;
 	plaintextLength: number;
 	selectedOption: ToolbarDropdownOption;
 	showToolbar: boolean;

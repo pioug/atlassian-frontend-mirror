@@ -3,8 +3,6 @@ import { useMemo, useRef } from 'react';
 import type { SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react';
 
 import { getProductFromSourceAri } from '../clients/block-service/ari';
 import {
@@ -83,9 +81,7 @@ export class SyncBlockStoreManager {
 					reference.blockInstanceId || '',
 					reference.documentAri,
 					getProductFromSourceAri(reference.documentAri),
-					this.fireAnalyticsEvent,
 					reference.hasAccess,
-					'view',
 				);
 				if (!sourceInfo) {
 					this.fetchSourceInfoExperience?.failure({
@@ -157,19 +153,7 @@ const createSyncBlockStoreManager = (dataProvider?: SyncBlockDataProviderInterfa
 	return new SyncBlockStoreManager(dataProvider);
 };
 
-const useMemoizedSyncBlockStoreManagerBase = (
-	dataProvider?: SyncBlockDataProviderInterface,
-	fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void,
-) => {
-	const syncBlockStoreManager = useMemo(() => {
-		return createSyncBlockStoreManager(dataProvider);
-	}, [dataProvider]);
-
-	syncBlockStoreManager.setFireAnalyticsEvent(fireAnalyticsEvent);
-	return syncBlockStoreManager;
-};
-
-const useMemoizedSyncBlockStoreManagerPatched = (
+export const useMemoizedSyncBlockStoreManager = (
 	dataProvider?: SyncBlockDataProviderInterface,
 	fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void,
 ) => {
@@ -188,9 +172,3 @@ const useMemoizedSyncBlockStoreManagerPatched = (
 
 	return syncBlockStoreManager;
 };
-
-export const useMemoizedSyncBlockStoreManager = conditionalHooksFactory(
-	() => fg('platform_synced_block_patch_4'),
-	useMemoizedSyncBlockStoreManagerPatched,
-	useMemoizedSyncBlockStoreManagerBase,
-);

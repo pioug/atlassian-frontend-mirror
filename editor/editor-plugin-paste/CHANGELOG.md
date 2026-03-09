@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-paste
 
+## 8.5.0
+
+### Minor Changes
+
+- [`a71583c5b6516`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a71583c5b6516) -
+  cleanup platform_editor_fix_emoji_paste_html
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.4.3
 
 ### Patch Changes

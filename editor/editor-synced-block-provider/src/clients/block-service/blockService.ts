@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type {
 	ReferenceSyncBlockResponse,
 	SyncBlockProduct,
@@ -165,9 +163,7 @@ export const getReferenceSyncedBlocks = async (
 		operationName: GET_DOCUMENT_REFERENCE_BLOCKS_OPERATION_NAME,
 	};
 
-	const url = fg('platform_synced_block_patch_3')
-		? `${GRAPHQL_ENDPOINT}?operation=editorSyncedBlockGetDocumentReferenceBlocks`
-		: GRAPHQL_ENDPOINT;
+	const url = `${GRAPHQL_ENDPOINT}?operation=editorSyncedBlockGetDocumentReferenceBlocks`;
 	const response = await fetchWithRetry(url, {
 		method: 'POST',
 		headers: COMMON_HEADERS,
@@ -289,7 +285,7 @@ const BATCH_UPDATE_BLOCKS_OPERATION_NAME = 'EDITOR_SYNCED_BLOCK_BATCH_UPDATE_BLO
 const buildGetDocumentReferenceBlocksQuery = (
 	documentAri: string,
 ) => `query ${GET_DOCUMENT_REFERENCE_BLOCKS_OPERATION_NAME} {
-	blockService_getDocumentReferenceBlocks(documentAri: ${fg('platform_synced_block_patch_4') ? JSON.stringify(documentAri) : `"${documentAri}"`}) {
+	blockService_getDocumentReferenceBlocks(documentAri: ${JSON.stringify(documentAri)}) {
 		blocks {
 			blockAri
 			blockInstanceId
@@ -567,9 +563,7 @@ export const getSyncedBlockContent = async ({
 		operationName: GET_BLOCK_OPERATION_NAME,
 	};
 
-	const url = fg('platform_synced_block_patch_3')
-		? `${GRAPHQL_ENDPOINT}?operation=editorSyncedBlockGetBlock`
-		: GRAPHQL_ENDPOINT;
+	const url = `${GRAPHQL_ENDPOINT}?operation=editorSyncedBlockGetBlock`;
 	const response = await fetchWithRetry(url, {
 		method: 'POST',
 		headers: COMMON_HEADERS,
@@ -610,9 +604,7 @@ export const batchRetrieveSyncedBlocks = async ({
 		operationName: BATCH_RETRIEVE_BLOCKS_OPERATION_NAME,
 	};
 
-	const url = fg('platform_synced_block_patch_3')
-		? `${GRAPHQL_ENDPOINT}?operation=editorSyncedBlockBatchRetrieveBlocks`
-		: GRAPHQL_ENDPOINT;
+	const url = `${GRAPHQL_ENDPOINT}?operation=editorSyncedBlockBatchRetrieveBlocks`;
 	const response = await fetchWithRetry(url, {
 		method: 'POST',
 		headers: COMMON_HEADERS,
@@ -649,9 +641,7 @@ export const deleteSyncedBlock = async ({
 		operationName: DELETE_BLOCK_OPERATION_NAME,
 	};
 
-	const url = fg('platform_synced_block_patch_3')
-		? `${GRAPHQL_ENDPOINT}?operation=editorSyncedBlockDeleteBlock`
-		: GRAPHQL_ENDPOINT;
+	const url = `${GRAPHQL_ENDPOINT}?operation=editorSyncedBlockDeleteBlock`;
 	const response = await fetchWithRetry(url, {
 		method: 'POST',
 		headers: COMMON_HEADERS,
@@ -668,9 +658,7 @@ export const deleteSyncedBlock = async ({
 		throw new Error(result.errors.map((e) => e.message).join(', '));
 	}
 
-	const isDeleted = fg('platform_synced_block_patch_4')
-		? result.data?.blockService_deleteBlock?.deleted
-		: result.data?.blockService_deleteBlock.deleted;
+	const isDeleted = result.data?.blockService_deleteBlock?.deleted;
 	if (!isDeleted) {
 		throw new Error('Block deletion failed; deleted flag is false');
 	}
@@ -687,9 +675,7 @@ export const updateSyncedBlock = async ({
 		operationName: UPDATE_BLOCK_OPERATION_NAME,
 	};
 
-	const url = fg('platform_synced_block_patch_3')
-		? `${GRAPHQL_ENDPOINT}?operation=editorSyncedBlockUpdateBlock`
-		: GRAPHQL_ENDPOINT;
+	const url = `${GRAPHQL_ENDPOINT}?operation=editorSyncedBlockUpdateBlock`;
 	const response = await fetchWithRetry(url, {
 		method: 'POST',
 		headers: COMMON_HEADERS,
@@ -729,9 +715,7 @@ export const createSyncedBlock = async ({
 		operationName: CREATE_BLOCK_OPERATION_NAME,
 	};
 
-	const url = fg('platform_synced_block_patch_3')
-		? `${GRAPHQL_ENDPOINT}?operation=editorSyncedBlockCreateBlock`
-		: GRAPHQL_ENDPOINT;
+	const url = `${GRAPHQL_ENDPOINT}?operation=editorSyncedBlockCreateBlock`;
 	const response = await fetchWithRetry(url, {
 		method: 'POST',
 		headers: COMMON_HEADERS,
@@ -765,9 +749,7 @@ export const updateReferenceSyncedBlockOnDocument = async ({
 		operationName: UPDATE_DOCUMENT_REFERENCES_OPERATION_NAME,
 	};
 
-	const url = fg('platform_synced_block_patch_3')
-		? `${GRAPHQL_ENDPOINT}?operation=editorSyncedBlockUpdateDocumentReferences`
-		: GRAPHQL_ENDPOINT;
+	const url = `${GRAPHQL_ENDPOINT}?operation=editorSyncedBlockUpdateDocumentReferences`;
 	const response = await fetchWithRetry(url, {
 		method: 'POST',
 		headers: COMMON_HEADERS,
@@ -801,9 +783,7 @@ export const getReferenceSyncedBlocksByBlockAri = async ({
 		operationName: GET_BLOCK_REFERENCES_OPERATION_NAME,
 	};
 
-	const url = fg('platform_synced_block_patch_3')
-		? `${GRAPHQL_ENDPOINT}?operation=editorSyncedBlockGetReferences`
-		: GRAPHQL_ENDPOINT;
+	const url = `${GRAPHQL_ENDPOINT}?operation=editorSyncedBlockGetReferences`;
 	const response = await fetchWithRetry(url, {
 		method: 'POST',
 		headers: COMMON_HEADERS,
@@ -862,9 +842,7 @@ export const updateSyncedBlocks = async ({
 		operationName: BATCH_UPDATE_BLOCKS_OPERATION_NAME,
 	};
 
-	const url = fg('platform_synced_block_patch_3')
-		? `${GRAPHQL_ENDPOINT}?operation=editorSyncedBlockBatchUpdateBlocks`
-		: GRAPHQL_ENDPOINT;
+	const url = `${GRAPHQL_ENDPOINT}?operation=editorSyncedBlockBatchUpdateBlocks`;
 	const response = await fetchWithRetry(url, {
 		method: 'POST',
 		headers: COMMON_HEADERS,

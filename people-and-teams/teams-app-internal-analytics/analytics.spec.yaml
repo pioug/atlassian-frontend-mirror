@@ -203,14 +203,6 @@ events:
       description: fired when the member picker error is triggered
       attributes:
         <<: *PackageMetaDataContext
-  - requestedContainers requested:
-      type: track
-      description: fired when the teams containers are requested
-      attributes:
-        <<: *PackageMetaDataContext
-        containers:
-          type: object
-          description: the containers that are requested
   - teamCreateDialog viewed:
       type: screen
       description: fired when the team create dialog is viewed
@@ -3209,6 +3201,48 @@ events:
         consumer:
           type: string
           description: The consumer of the team
+  - teamCustomField clicked:
+      type: ui
+      description: fired when user clicks a custom field to start editing
+      attributes:
+        teamId:
+          type: string
+          description: The id of the team
+        fieldId:
+          type: string
+          description: The ARI of the custom field
+        fieldType:
+          type: string
+          description: The type of the custom field (STRING, NUMBER, SELECTOR, USER, TEAM)
+  - teamCustomField updateSucceeded:
+      type: track
+      description: fired when saving a custom field value succeeds
+      attributes:
+        teamId:
+          type: string
+          description: The id of the team
+        fieldId:
+          type: string
+          description: The ARI of the custom field
+        fieldType:
+          type: string
+          description: The type of the custom field (STRING, NUMBER, SELECTOR, USER, TEAM)
+  - teamCustomField updateFailed:
+      type: track
+      description: fired when saving a custom field value fails (network error or server error)
+      attributes:
+        teamId:
+          type: string
+          description: The id of the team
+        fieldId:
+          type: string
+          description: The ARI of the custom field
+        fieldType:
+          type: string
+          description: The type of the custom field (STRING, NUMBER, SELECTOR, USER, TEAM)
+        errorMessage:
+          type: string
+          description: The error message returned from the mutation
   - invitePrompt eligibilityChecked:
       type: operational
       description:
@@ -3307,30 +3341,6 @@ events:
         error:
           type: string
           description: The error that was thrown
-  - requestedContainers tryAgain:
-      type: track
-      description: Fired when the user tries to add requested containers again
-      attributes:
-        containers:
-          type: []
-          description: The containers that the user tried to add
-        teamId:
-          type: string
-          description: The id of the team
-  - requestedContainers failed:
-      type: track
-      description: Fired when the user fails to add requested containers
-      attributes:
-        containers:
-          type: []
-          description: The containers that the user tried to add
-        teamId:
-          type: string
-          description: The id of the team
-        tryAgainCount:
-          required: false
-          type: number
-          description: The number of times the user has tried to add requested containers
   - starred succeeded (team):
       type: track
       description: fired when a team is starred or unstarred succeeds

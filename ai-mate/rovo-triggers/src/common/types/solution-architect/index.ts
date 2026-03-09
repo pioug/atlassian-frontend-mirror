@@ -4,11 +4,20 @@ type BaseHandoffPayload = {
 	conversationId: string;
 };
 
-export type NonAppHandoffPayload = BaseHandoffPayload & {
-	type: 'ROVO_AGENT' | 'AUTOMATION_RULE';
+export type AutomationHandoffPayload = BaseHandoffPayload & {
+	type: 'AUTOMATION_RULE';
 	ari?: never;
 	buildId: string;
 	appBuilderAutoStart?: never;
+	shouldActivateAgent?: never;
+};
+
+export type AgentHandoffPayload = BaseHandoffPayload & {
+	type: 'ROVO_AGENT';
+	ari?: never;
+	buildId: string;
+	appBuilderAutoStart?: never;
+	shouldActivateAgent?: boolean;
 };
 
 export type AppHandoffPayload = BaseHandoffPayload & {
@@ -16,10 +25,11 @@ export type AppHandoffPayload = BaseHandoffPayload & {
 	ari: string;
 	buildId?: never;
 	appBuilderAutoStart: boolean;
+	shouldActivateAgent?: never;
 };
 
 export type SolutionArchitectHandoffPayload = PayloadCore<'solution-architect-handoff'> & {
-	data: NonAppHandoffPayload | AppHandoffPayload;
+	data: AutomationHandoffPayload | AppHandoffPayload | AgentHandoffPayload;
 };
 
 export type SolutionPlanStateUpdatePayload = PayloadCore<'solution-plan-state-updated'>;

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-expand
 
+## 8.5.0
+
+### Minor Changes
+
+- [`00ae34886b5f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00ae34886b5f7) -
+  [EDITOR-5796](https://hello.jira.atlassian.cloud/browse/EDITOR-5796) - clean up
+  platform_editor_display_none_to_expand experiment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.4.3
 
 ### Patch Changes

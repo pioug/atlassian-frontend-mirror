@@ -222,7 +222,11 @@ ffTest.both('share-compiled-migration', 'share-compiled-migration', () => {
 
 				expect(screen.getByText('Not allowed')).toBeVisible();
 
-				await user.click(screen.getByTestId('show-clear-icon'));
+				// Legacy MultiValue: data-testid="show-clear-icon"; AvatarTag (platform-dst-lozenge-tag-badge-visual-uplifts): aria-label "Remove ..."
+				const clearButton =
+					screen.queryByTestId('show-clear-icon') ??
+					screen.getByRole('button', { name: /Remove |, remove/ });
+				await user.click(clearButton);
 				expect(screen.queryByText('Not allowed')).toBeNull();
 
 				await expect(document.body).toBeAccessible();

@@ -223,10 +223,7 @@ export class ExpandNodeView implements NodeView {
 				node: this.node,
 			})(this.view.state, this.view.dispatch);
 			this.updateExpandToggleIcon(this.node);
-
-			if (expValEquals('platform_editor_display_none_to_expand', 'isEnabled', true)) {
-				this.updateDisplayStyle(this.node);
-			}
+			this.updateDisplayStyle(this.node);
 
 			return;
 		}
@@ -358,10 +355,7 @@ export class ExpandNodeView implements NodeView {
 				node: this.node,
 			})(state, dispatch);
 			this.updateExpandToggleIcon(this.node);
-
-			if (expValEquals('platform_editor_display_none_to_expand', 'isEnabled', true)) {
-				this.updateDisplayStyle(this.node);
-			}
+			this.updateDisplayStyle(this.node);
 		}
 	};
 
@@ -622,10 +616,7 @@ export class ExpandNodeView implements NodeView {
 						: this.isExpanded.expanded !== currentExpanded;
 				if (hasChanged) {
 					this.updateExpandToggleIcon(node);
-
-					if (expValEquals('platform_editor_display_none_to_expand', 'isEnabled', true)) {
-						this.updateDisplayStyle(node);
-					}
+					this.updateDisplayStyle(node);
 				}
 			} else {
 				this.node = node;
@@ -670,7 +661,11 @@ export class ExpandNodeView implements NodeView {
 
 	private updateDisplayStyle(node: PmNode): void {
 		if (this.content) {
-			this.content.style.display = isExpandCollapsed(node) ? 'none' : 'flow-root';
+			if (isExpandCollapsed(node)) {
+				this.content.classList.add(expandClassNames.contentCollapsed);
+			} else {
+				this.content.classList.remove(expandClassNames.contentCollapsed);
+			}
 		}
 	}
 

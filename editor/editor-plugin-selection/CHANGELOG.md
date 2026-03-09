@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection
 
+## 7.0.27
+
+### Patch Changes
+
+- [`2e6129d5b39bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e6129d5b39bc) -
+  EDITOR-5529 clean up platform_synced_block_patch_3 and platform_synced_block_patch_4
+- Updated dependencies
+
 ## 7.0.26
 
 ### Patch Changes

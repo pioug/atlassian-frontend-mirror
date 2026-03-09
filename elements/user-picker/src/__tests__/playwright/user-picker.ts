@@ -3,8 +3,10 @@ import { PageRequestController } from '@af/search-test-utils';
 
 const Selectors = {
 	SELECTED_SINGLE_VALUE: '[class*="singleValue"]',
-	SELECTED_MULTI_VALUE: '[class*="multiValue"]',
-	MULTI_VALUE_CLEAR_BUTTON: '[data-testid="show-clear-icon"]',
+	// Legacy: [class*="multiValue"]; AvatarTag (ff-on): [data-user-picker-multi-value]
+	SELECTED_MULTI_VALUE: '[class*="multiValue"], [data-user-picker-multi-value]',
+	// Legacy MultiValue uses data-testid; AvatarTag path (platform-dst-lozenge-tag-badge-visual-uplifts) uses aria-label "Remove ..."
+	MULTI_VALUE_CLEAR_BUTTON: '[data-testid="show-clear-icon"], button[aria-label^="Remove "]',
 };
 
 /**

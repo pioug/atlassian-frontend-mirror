@@ -123,6 +123,11 @@ export const expandStyles: SerializedStyles = css({
 		},
 
 		cursor: 'text',
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'&.ak-editor-expand__content--collapsed': {
+			display: 'none',
+		},
 	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

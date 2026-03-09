@@ -134,7 +134,7 @@ export type MediaRenderErrorEvent = UIAEP<
 	ACTION.ERRORED,
 	ACTION_SUBJECT.EDITOR,
 	ACTION_SUBJECT_ID.MEDIA,
-	{ external?: boolean; reason: string },
+	{ external?: boolean; isDuplicateError?: boolean; nestedUnder?: string; reason: string },
 	undefined
 >;
 

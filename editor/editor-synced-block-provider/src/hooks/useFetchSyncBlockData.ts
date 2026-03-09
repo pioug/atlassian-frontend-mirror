@@ -4,7 +4,6 @@ import { type RendererSyncBlockEventPayload } from '@atlaskit/editor-common/anal
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ProviderFactory, MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SyncBlockError } from '../common/types';
 import type { SyncBlockInstance } from '../providers/types';
@@ -62,11 +61,7 @@ export const useFetchSyncBlockData = (
 			logException(error as Error, {
 				location: 'editor-synced-block-provider/useFetchSyncBlockData',
 			});
-			if (fg('platform_synced_block_patch_3')) {
-				fireAnalyticsEvent?.(fetchErrorPayload((error as Error).message));
-			} else {
-				manager?.referenceManager?.fetchExperience?.failure({ reason: (error as Error).message });
-			}
+			fireAnalyticsEvent?.(fetchErrorPayload((error as Error).message));
 
 			// Set error state if fetching fails
 			setFetchState({

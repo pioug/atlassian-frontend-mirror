@@ -15,7 +15,6 @@ import {
 	SyncBlockError,
 	type SyncBlockInstance,
 } from '@atlaskit/editor-synced-block-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SyncedBlockGenericError } from './SyncedBlockGenericError';
 import { SyncedBlockLoadError } from './SyncedBlockLoadError';
@@ -65,10 +64,6 @@ export const SyncedBlockErrorComponent = ({
 	sourceURL?: string;
 }): React.JSX.Element => {
 	useEffect(() => {
-		if (!fg('platform_synced_block_patch_3')) {
-			return;
-		}
-
 		fireAnalyticsEvent?.({
 			action: ACTION.ERROR,
 			actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,

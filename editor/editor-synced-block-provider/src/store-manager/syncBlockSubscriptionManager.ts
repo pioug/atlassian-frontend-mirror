@@ -182,9 +182,7 @@ export class SyncBlockSubscriptionManager {
 			});
 			this.deps.fetchSyncBlockSourceInfo(resolved.resourceId);
 		} else {
-			const errorMessage = fg('platform_synced_block_patch_3')
-				? syncBlockInstance.error?.reason || syncBlockInstance.error?.type
-				: syncBlockInstance.error?.type;
+			const errorMessage = syncBlockInstance.error?.reason || syncBlockInstance.error?.type;
 
 			this.deps.getFireAnalyticsEvent()?.(
 				fetchErrorPayload(errorMessage, syncBlockInstance.resourceId),

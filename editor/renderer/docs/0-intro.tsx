@@ -12,8 +12,11 @@ This component provides a renderer for ADF documents.
 Use the component in your React app as follows:
 
 ${code`
+import { createRoot } from 'react-dom/client';
 import { ReactRenderer } from '@atlaskit/renderer';
-ReactDOM.render(<ReactRenderer document={DOCUMENT} />, container);
+
+const root = createRoot(container);
+root.render(<ReactRenderer document={DOCUMENT} />);
 `}
 
 ## Example
@@ -102,13 +105,15 @@ You will need to use a transformer to convert your own storage format into the A
 We have provided helper utility to simplify this process:
 
 ${code`
+import { createRoot } from 'react-dom/client';
 import { BitbucketTransformer } from '@atlaskit/editor-bitbucket-transformer';
 import { ReactRenderer, ADFEncoder } from '@atlaskit/renderer';
 
 const adfEncoder = new ADFEncoder(schema => new BitbucketTransformer(schema));
 const document = adfEncoder.encode(DOCUMENT);
 
-ReactDOM.render(<ReactRenderer document={document} />, container);
+const root = createRoot(container);
+root.render(<ReactRenderer document={document} />);
 `}
 
 ## Polyfills
@@ -124,8 +129,11 @@ The props \`truncated\`, \`maxHeight\` and \`fadeOutHeight\` are all optional. \
 and \`fadeOutHeight\` will default to 30px unless defined.
 
 ${code`
+import { createRoot } from 'react-dom/client';
 import { ReactRenderer } from '@atlaskit/renderer';
-ReactDOM.render(<ReactRenderer document={DOCUMENT} truncated={true} maxHeight={70} fadeOutHeight={30} />, container);
+
+const root = createRoot(container);
+root.render(<ReactRenderer document={DOCUMENT} truncated={true} maxHeight={70} fadeOutHeight={30} />);
 `}
 
 ${(

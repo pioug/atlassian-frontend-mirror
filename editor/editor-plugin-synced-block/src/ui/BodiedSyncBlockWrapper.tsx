@@ -13,6 +13,7 @@ interface BodiedSyncBlockWrapperProps {
 	syncBlockStore: SyncBlockStoreManager;
 }
 
+// Delete this file when cleaning up platform_synced_block_use_new_source_nodeview
 export const BodiedSyncBlockWrapper: React.ForwardRefExoticComponent<
 	BodiedSyncBlockWrapperProps & React.RefAttributes<HTMLDivElement>
 > = React.forwardRef<HTMLDivElement, BodiedSyncBlockWrapperProps>(

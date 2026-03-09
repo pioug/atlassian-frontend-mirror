@@ -71,7 +71,7 @@ const dragPreviewStyles = cssMap({
  * A drag preview for sidebar menu items.
  *
  * The limited API corresponds with the limited amount of information we
- * want to show in drag previews.
+ * want to show in drag previews. Only essential information is shown.
  *
  * If no `elemBefore` is provided, then the `elemBefore` will automatically collapse.
  * There is no need to pass in `COLLAPSE_ELEM_BEFORE`. We do this as there is no

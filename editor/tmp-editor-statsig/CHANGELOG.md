@@ -1,5 +1,32 @@
 # @atlaskit/editor-statsig-tmp
 
+## 34.3.0
+
+### Minor Changes
+
+- [`b5e671b3b051c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5e671b3b051c) -
+  [ux] Fix inline node annotation color in Renderer to match text annotation color
+
+## 34.2.0
+
+### Minor Changes
+
+- [`a71583c5b6516`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a71583c5b6516) -
+  cleanup platform_editor_fix_emoji_paste_html
+
+## 34.1.0
+
+### Minor Changes
+
+- [`1a05924d64777`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a05924d64777) -
+  [EDITOR-5528] Fix bodiedSyncBlock mutation
+- [`00ae34886b5f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00ae34886b5f7) -
+  [EDITOR-5796](https://hello.jira.atlassian.cloud/browse/EDITOR-5796) - clean up
+  platform_editor_display_none_to_expand experiment
+- [`557de2bd28f21`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/557de2bd28f21) -
+  [EDITOR-5773](https://hello.jira.atlassian.cloud/browse/EDITOR-5773) - clean up
+  platform_editor_disable_query_command_supported experiment
+
 ## 34.0.0
 
 ### Major Changes

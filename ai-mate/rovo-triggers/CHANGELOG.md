@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 5.22.0
+
+### Minor Changes
+
+- [`1f7b273265659`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f7b273265659) -
+  [ux] Enable activate agent from outside agent view page in studio
+
 ## 5.21.0
 
 ### Minor Changes

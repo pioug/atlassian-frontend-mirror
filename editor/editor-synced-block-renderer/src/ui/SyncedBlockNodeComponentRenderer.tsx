@@ -59,7 +59,6 @@ export const SyncedBlockNodeComponentRenderer = ({
 
 	const finalRendererOptions = useMemo(() => {
 		if (
-			(!isSSR() && !fg('platform_synced_block_patch_4')) ||
 			rendererOptions?.media?.ssr || // already has ssr config
 			!ssrProviders?.media?.viewMediaClientConfig
 		) {
@@ -69,11 +68,7 @@ export const SyncedBlockNodeComponentRenderer = ({
 		const mediaSSR = {
 			// Use synced block's media config so auth uses source contentId, not current page.
 			// Server: during SSR; client: after hydration (avoids using page's MediaClient).
-			mode: fg('platform_synced_block_patch_4')
-				? isSSR()
-					? 'server'
-					: 'client'
-				: ('server' as const),
+			mode: isSSR() ? 'server' : 'client',
 			config: ssrProviders?.media.viewMediaClientConfig,
 		} as MediaSSR;
 
@@ -146,14 +141,7 @@ export const SyncedBlockNodeComponentRenderer = ({
 					});
 		return (
 			<SyncedBlockErrorComponent
-				error={
-					fg('platform_synced_block_patch_3')
-						? errorMessage
-						: (syncBlockInstance?.error ??
-							(syncBlockInstance?.data?.status === 'deleted'
-								? { type: SyncBlockError.NotFound }
-								: { type: SyncBlockError.Errored }))
-				}
+				error={errorMessage}
 				resourceId={syncBlockInstance?.resourceId}
 				onRetry={reloadData}
 				isLoading={isLoading}

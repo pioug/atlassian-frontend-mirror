@@ -258,9 +258,6 @@
 		"platform_ufo_enable_killswitch_config": {
 			"type": "boolean"
 		},
-		"ufo_update_and_enforce_ttvc_v4_default_version": {
-			"type": "boolean"
-		},
 		"platform_ufo_page_visibility_timeline": {
 			"type": "boolean"
 		},

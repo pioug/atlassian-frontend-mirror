@@ -81,7 +81,7 @@ function createBuiltinMoreOptionsRegistry(
 	selectedNativeEmbed: ContentNodeWithPos,
 	deleteHoverProps: DeleteHoverProps,
 ): Record<string, DropdownOptionT<Command>> {
-	const toggleAlwaysShowTitle = createToggleAlwaysShowTitle(api, selectedNativeEmbed);
+	const toggleAlwaysShowTitle = createToggleAlwaysShowTitle(api, selectedNativeEmbed.node);
 	return {
 		[BUILTIN_TOOLBAR_KEYS.ALWAYS_SHOW_TITLE]: {
 			id: 'native-embed-always-show-title',
@@ -97,7 +97,7 @@ function createBuiltinMoreOptionsRegistry(
 					}}
 				>
 					<Toggle
-						isChecked={getAlwaysShowTitleState(selectedNativeEmbed)}
+						isChecked={getAlwaysShowTitleState(selectedNativeEmbed.node)}
 						label="Always show title"
 					/>
 				</button>
@@ -117,7 +117,7 @@ function createBuiltinMoreOptionsRegistry(
 			id: 'native-embed-copy-link',
 			title: 'Copy link',
 			icon: <LinkIcon color="currentColor" spacing="spacious" label="" />,
-			onClick: createCopyLinkCommand(selectedNativeEmbed),
+			onClick: createCopyLinkCommand(selectedNativeEmbed.node),
 		},
 		[BUILTIN_TOOLBAR_KEYS.DELETE]: {
 			id: 'native-embed-delete',

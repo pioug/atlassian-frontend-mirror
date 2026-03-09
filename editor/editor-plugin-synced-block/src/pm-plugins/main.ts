@@ -24,9 +24,13 @@ import {
 	type DeletionReason,
 } from '@atlaskit/editor-synced-block-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { lazyBodiedSyncBlockView } from '../nodeviews/bodiedLazySyncedBlock';
-import { bodiedSyncBlockNodeView } from '../nodeviews/bodiedSyncedBlock';
+import {
+	bodiedSyncBlockNodeView,
+	bodiedSyncBlockNodeViewOld,
+} from '../nodeviews/bodiedSyncedBlock';
 import { SyncBlock as SyncBlockView } from '../nodeviews/syncedBlock';
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 import {
@@ -47,7 +51,7 @@ import { calculateDecorations } from './utils/selection-decorations';
 import { hasEditInSyncBlock, trackSyncBlocks } from './utils/track-sync-blocks';
 import {
 	deferDispatch,
-	wasInlineExtensionInsertedInBodiedSyncBlock,
+	wasExtensionInsertedInBodiedSyncBlock,
 	sliceFullyContainsNode,
 } from './utils/utils';
 
@@ -102,15 +106,12 @@ const showCopiedFlag = (api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined)
 	});
 };
 
-const showInlineExtensionInSyncBlockWarningIfNeeded = (
+const showExtensionInSyncBlockWarningIfNeeded = (
 	tr: Transaction,
 	state: EditorState,
 	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined,
-	inlineExtensionFlagShown: Set<string>,
+	extensionFlagShown: Set<string>,
 ) => {
-	if (!fg('platform_synced_block_patch_3')) {
-		return;
-	}
 	if (
 		!tr.docChanged ||
 		tr.getMeta('isRemote') ||
@@ -119,14 +120,18 @@ const showInlineExtensionInSyncBlockWarningIfNeeded = (
 	) {
 		return;
 	}
-	const resourceId = wasInlineExtensionInsertedInBodiedSyncBlock(tr, state);
+	const resourceId = wasExtensionInsertedInBodiedSyncBlock(tr, state);
 	// Only show the flag on the first instance per sync block (same as UNPUBLISHED_SYNC_BLOCK_PASTED)
-	if (resourceId && !inlineExtensionFlagShown.has(resourceId)) {
-		inlineExtensionFlagShown.add(resourceId);
+	if (resourceId && !extensionFlagShown.has(resourceId)) {
+		extensionFlagShown.add(resourceId);
 		deferDispatch(() => {
 			api?.core.actions.execute(({ tr }) =>
 				tr.setMeta(syncedBlockPluginKey, {
-					activeFlag: { id: FLAG_ID.INLINE_EXTENSION_IN_SYNC_BLOCK },
+					activeFlag: {
+						id: editorExperiment('platform_synced_block_patch_6', true, { exposure: true })
+							? FLAG_ID.EXTENSION_IN_SYNC_BLOCK
+							: FLAG_ID.INLINE_EXTENSION_IN_SYNC_BLOCK,
+					},
 				}),
 			);
 		});
@@ -146,7 +151,7 @@ type FilterTransactionOnlineParams = {
 	bodiedSyncBlockAdded: ReturnType<typeof trackSyncBlocks>['added'];
 	bodiedSyncBlockRemoved: ReturnType<typeof trackSyncBlocks>['removed'];
 	confirmationTransactionRef: TransactionRef;
-	inlineExtensionFlagShown: Set<string>;
+	extensionFlagShown: Set<string>;
 	state: EditorState;
 	syncBlockStore: SyncBlockStoreManager;
 	tr: Transaction;
@@ -160,7 +165,7 @@ const filterTransactionOnline = ({
 	confirmationTransactionRef,
 	bodiedSyncBlockRemoved,
 	bodiedSyncBlockAdded,
-	inlineExtensionFlagShown,
+	extensionFlagShown,
 }: FilterTransactionOnlineParams): boolean => {
 	const { removed: syncBlockRemoved, added: syncBlockAdded } = trackSyncBlocks(
 		(node) => node.type.name === 'syncBlock',
@@ -182,29 +187,16 @@ const filterTransactionOnline = ({
 	});
 
 	syncBlockAdded.forEach((syncBlock) => {
-		if (fg('platform_synced_block_patch_3')) {
-			api?.analytics?.actions?.fireAnalyticsEvent({
-				action: ACTION.INSERTED,
-				actionSubject: ACTION_SUBJECT.DOCUMENT,
-				actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK,
-				attributes: {
-					resourceId: syncBlock.attrs.resourceId,
-					blockInstanceId: syncBlock.attrs.localId,
-				},
-				eventType: EVENT_TYPE.TRACK,
-			});
-		} else {
-			api?.analytics?.actions?.fireAnalyticsEvent({
-				action: ACTION.INSERTED,
-				actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
-				actionSubjectId: ACTION_SUBJECT_ID.REFERENCE_SYNCED_BLOCK_CREATE,
-				attributes: {
-					resourceId: syncBlock.attrs.resourceId,
-					blockInstanceId: syncBlock.attrs.localId,
-				},
-				eventType: EVENT_TYPE.OPERATIONAL,
-			});
-		}
+		api?.analytics?.actions?.fireAnalyticsEvent({
+			action: ACTION.INSERTED,
+			actionSubject: ACTION_SUBJECT.DOCUMENT,
+			actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK,
+			attributes: {
+				resourceId: syncBlock.attrs.resourceId,
+				blockInstanceId: syncBlock.attrs.localId,
+			},
+			eventType: EVENT_TYPE.TRACK,
+		});
 	});
 
 	if (bodiedSyncBlockRemoved.length > 0) {
@@ -230,7 +222,7 @@ const filterTransactionOnline = ({
 		return true;
 	}
 
-	showInlineExtensionInSyncBlockWarningIfNeeded(tr, state, api, inlineExtensionFlagShown);
+	showExtensionInSyncBlockWarningIfNeeded(tr, state, api, extensionFlagShown);
 	return true;
 };
 
@@ -292,7 +284,7 @@ class SyncedBlockPluginContext {
 	readonly confirmationTransactionRef: TransactionRef = { current: undefined };
 	private _isCopyEvent = false;
 	readonly unpublishedFlagShown = new Set<string>();
-	readonly inlineExtensionFlagShown = new Set<string>();
+	readonly extensionFlagShown = new Set<string>();
 
 	get isCopyEvent(): boolean {
 		return this._isCopyEvent;
@@ -323,7 +315,7 @@ export const createPlugin = (
 	};
 	let isCopyEvent: boolean = false;
 	const unpublishedFlagShown = ctx?.unpublishedFlagShown ?? new Set<string>();
-	const inlineExtensionFlagShown = ctx?.inlineExtensionFlagShown ?? new Set<string>();
+	const extensionFlagShown = ctx?.extensionFlagShown ?? new Set<string>();
 
 	// Set up callback to detect unpublished sync blocks when they're fetched
 	syncBlockStore.referenceManager.setOnUnpublishedSyncBlockDetected((resourceId: string) => {
@@ -431,12 +423,21 @@ export const createPlugin = (
 						syncBlockStore: syncBlockStore,
 					}).init(),
 				bodiedSyncBlock: fg('platform_synced_block_patch_5')
-					? bodiedSyncBlockNodeView({
-							pluginOptions: options,
-							pmPluginFactoryParams,
-							api,
-							syncBlockStore,
+					? editorExperiment('platform_synced_block_use_new_source_nodeview', true, {
+							exposure: true,
 						})
+						? bodiedSyncBlockNodeView({
+								pluginOptions: options,
+								pmPluginFactoryParams,
+								api,
+								syncBlockStore,
+							})
+						: bodiedSyncBlockNodeViewOld({
+								pluginOptions: options,
+								pmPluginFactoryParams,
+								api,
+								syncBlockStore,
+							})
 					: lazyBodiedSyncBlockView({
 							pluginOptions: options,
 							pmPluginFactoryParams,
@@ -506,11 +507,23 @@ export const createPlugin = (
 					}
 				});
 
-				return selectionDecorationSet
-					.add(doc, offlineDecorations)
-					.add(doc, viewModeDecorations)
-					.add(doc, loadingDecorations)
-					.add(doc, dragDecorations);
+				if (
+					api?.focus?.sharedState?.currentState()?.hasFocus ||
+					!editorExperiment('platform_synced_block_patch_6', true, { exposure: true })
+				) {
+					// Don't show decorations if the editor is not focused
+					return selectionDecorationSet
+						.add(doc, offlineDecorations)
+						.add(doc, viewModeDecorations)
+						.add(doc, loadingDecorations)
+						.add(doc, dragDecorations);
+				} else {
+					return DecorationSet.empty
+						.add(doc, offlineDecorations)
+						.add(doc, viewModeDecorations)
+						.add(doc, loadingDecorations)
+						.add(doc, dragDecorations);
+				}
 			},
 			handleClickOn: createSelectionClickHandler(
 				['bodiedSyncBlock'],
@@ -624,7 +637,7 @@ export const createPlugin = (
 							confirmationTransactionRef,
 							bodiedSyncBlockRemoved,
 							bodiedSyncBlockAdded,
-							inlineExtensionFlagShown,
+							extensionFlagShown,
 						});
 			}
 
@@ -649,29 +662,16 @@ export const createPlugin = (
 				});
 
 				syncBlockAdded.forEach((syncBlock) => {
-					if (fg('platform_synced_block_patch_3')) {
-						api?.analytics?.actions?.fireAnalyticsEvent({
-							action: ACTION.INSERTED,
-							actionSubject: ACTION_SUBJECT.DOCUMENT,
-							actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK,
-							attributes: {
-								resourceId: syncBlock.attrs.resourceId,
-								blockInstanceId: syncBlock.attrs.localId,
-							},
-							eventType: EVENT_TYPE.TRACK,
-						});
-					} else {
-						api?.analytics?.actions?.fireAnalyticsEvent({
-							action: ACTION.INSERTED,
-							actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
-							actionSubjectId: ACTION_SUBJECT_ID.REFERENCE_SYNCED_BLOCK_CREATE,
-							attributes: {
-								resourceId: syncBlock.attrs.resourceId,
-								blockInstanceId: syncBlock.attrs.localId,
-							},
-							eventType: EVENT_TYPE.OPERATIONAL,
-						});
-					}
+					api?.analytics?.actions?.fireAnalyticsEvent({
+						action: ACTION.INSERTED,
+						actionSubject: ACTION_SUBJECT.DOCUMENT,
+						actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK,
+						attributes: {
+							resourceId: syncBlock.attrs.resourceId,
+							blockInstanceId: syncBlock.attrs.localId,
+						},
+						eventType: EVENT_TYPE.TRACK,
+					});
 				});
 
 				if (bodiedSyncBlockRemoved.length > 0) {
@@ -696,7 +696,7 @@ export const createPlugin = (
 					return true;
 				}
 
-				showInlineExtensionInSyncBlockWarningIfNeeded(tr, state, api, inlineExtensionFlagShown);
+				showExtensionInSyncBlockWarningIfNeeded(tr, state, api, extensionFlagShown);
 				return true;
 			}
 			const { removed: syncBlockRemoved, added: syncBlockAdded } = trackSyncBlocks(

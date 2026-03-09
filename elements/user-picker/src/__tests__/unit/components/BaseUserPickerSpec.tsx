@@ -1628,26 +1628,32 @@ describe('BaseUserPicker', () => {
 			it('should trigger deleted event', async () => {
 				render(<AnalyticsTestComponent value={[options[0]]} isMulti />);
 				act(() => screen.getByRole('combobox').focus());
-				act(() => screen.getByRole('button', { name: /, remove/ }).click());
-				expect(onEvent).toHaveBeenCalledWith(
-					expect.objectContaining({
-						payload: expect.objectContaining({
-							action: 'deleted',
-							actionSubject: 'userPickerItem',
-							eventType: 'ui',
-							attributes: {
-								context: 'test',
-								packageName: expect.any(String),
-								packageVersion: expect.any(String),
-								journeyId: expect.any(String),
-								sessionId: expect.any(String),
-								pickerOpen: true,
-								value: { id: options[0].id, type: UserType },
-							},
+				// Legacy: "Name, remove"; AvatarTag (ff-on): "Remove Name"
+				const removeButton = screen.getByRole('button', {
+					name: new RegExp(`Remove.*${options[0].name}|${options[0].name}.*, remove`),
+				});
+				act(() => removeButton.click());
+				await waitFor(() => {
+					expect(onEvent).toHaveBeenCalledWith(
+						expect.objectContaining({
+							payload: expect.objectContaining({
+								action: 'deleted',
+								actionSubject: 'userPickerItem',
+								eventType: 'ui',
+								attributes: {
+									context: 'test',
+									packageName: expect.any(String),
+									packageVersion: expect.any(String),
+									journeyId: expect.any(String),
+									sessionId: expect.any(String),
+									pickerOpen: true,
+									value: { id: options[0].id, type: UserType },
+								},
+							}),
 						}),
-					}),
-					'fabric-elements',
-				);
+						'fabric-elements',
+					);
+				});
 
 				// eslint-disable-next-line @atlassian/a11y/no-violation-count
 				await expect(document.body).toBeAccessible({ violationCount: 1 });

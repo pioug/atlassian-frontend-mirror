@@ -153,12 +153,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	platform_editor_fix_emoji_paste_html: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	platform_editor_flex_based_centering: {
 		defaultValue: boolean;
 		param: string;
@@ -344,20 +338,8 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	platform_editor_display_none_to_expand: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-05-07
 	platform_editor_ai_quickstart_command: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	platform_editor_disable_query_command_supported: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -886,6 +868,20 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-03-05
+	platform_synced_block_use_new_source_nodeview: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-05
+	platform_synced_block_patch_6: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-12-30
 	platform_editor_table_sticky_header_patch_9: {
 		defaultValue: boolean;
@@ -1367,6 +1363,13 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	// Added 2026-03-05
+	platform_editor_media_reliability_observability: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-05
 	platform_editor_eslint_suppression_fix: {
 		defaultValue: boolean;
 		param: string;
@@ -1382,6 +1385,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-02
 	platform_editor_a11y_table_wrapper_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-03-04
+	confluence_fe_renderer_inline_node_mark_color_fix: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1542,6 +1552,15 @@ export const editorExperimentsConfig: {
 	platform_editor_media_vc_fixes: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_media_vc_fixes',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+
+	// Added 2026-03-06
+	platform_editor_media_reliability_observability: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_media_reliability_observability',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -1923,24 +1942,10 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	platform_editor_display_none_to_expand: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_display_none_to_expand',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-06-24
 	platform_editor_find_and_replace_improvements: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_find_and_replace_improvements',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	platform_editor_disable_query_command_supported: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_disable_query_command_supported',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2170,6 +2175,24 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-03-05
+	platform_synced_block_use_new_source_nodeview: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_synced_block_use_new_source_nodeview',
+			jira: 'platform_synced_block_use_new_source_nodeview',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-05
+	platform_synced_block_patch_6: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_synced_block_patch_6',
+			jira: 'platform_synced_block_patch_6',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-08-18
 	platform_editor_locale_datepicker: createBooleanExperiment({
 		productKeys: {
@@ -2365,14 +2388,6 @@ export const editorExperimentsConfig: {
 	platform_editor_lovability_emoji_scaling: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_lovability_emoji_scaling',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-
-	platform_editor_fix_emoji_paste_html: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_fix_emoji_paste_html',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2980,6 +2995,14 @@ export const editorExperimentsConfig: {
 	platform_editor_a11y_table_wrapper_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_a11y_table_wrapper_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-03-04
+	confluence_fe_renderer_inline_node_mark_color_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'confluence_fe_renderer_inline_node_mark_color_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

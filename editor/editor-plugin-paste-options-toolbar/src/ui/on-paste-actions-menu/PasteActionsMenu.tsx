@@ -180,7 +180,6 @@ export const PasteActionsMenu = ({
 			handleClickOutside={handleDismiss}
 			handleEscapeKeydown={handleDismiss}
 		>
-			{/* TODO: EDITOR-5468 - Replace this with purpose built paste menu context provider */}
 			<EditorToolbarProvider editorView={editorView}>
 				<PasteActionsMenuContent
 					options={options}

@@ -20,6 +20,7 @@ import {
 } from '@atlaskit/editor-test-helpers/example-helpers';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+import { NATIVE_EMBED_PARAMETER_DEFAULTS, setParameters } from '@atlaskit/native-embeds-common';
 import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { getNativeEmbedFacade } from '@atlassian/native-embeds-core';
@@ -48,11 +49,15 @@ const nativeEmbedsDefaultDoc: DocNode = {
 		{
 			type: 'extension',
 			attrs: {
-				extensionKey: 'native-embed',
-				extensionType: 'com.atlassian.native-embeds',
-				parameters: {
-					url: NATIVE_EMBEDS_EXAMPLE_URLS.localDefault,
-				},
+				extensionKey: 'native-embed:whiteboard',
+				extensionType: 'com.atlassian.confluence.macro.core',
+				parameters: setParameters(
+					{},
+					{
+						...NATIVE_EMBED_PARAMETER_DEFAULTS,
+						url: NATIVE_EMBEDS_EXAMPLE_URLS.localDefault,
+					},
+				),
 			},
 		},
 		{

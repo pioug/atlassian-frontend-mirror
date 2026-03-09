@@ -59,6 +59,7 @@
 		"@atlaskit/synchrony-test-helpers": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlassian/native-embeds-fallback-editor-extension": "workspace:^",
+		"bind-event-listener": "root:*",
 		"typescript": "root:*"
 	},
 	"techstack": {

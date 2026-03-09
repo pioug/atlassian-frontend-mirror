@@ -1,9 +1,18 @@
 // Re-export constants
-export { ALIGNMENT_VALUES, DEFAULT_ALIGNMENT, BUILTIN_TOOLBAR_KEYS } from './utils/constants';
+export {
+	ALIGNMENT_VALUES,
+	DEFAULT_ALIGNMENT,
+	BUILTIN_TOOLBAR_KEYS,
+	NATIVE_EMBED_PARAMETER_DEFAULTS,
+} from './utils/constants';
 
 // Re-export types
 export type {
 	AlignmentValue,
+	NativeEmbedParameterKey,
+	NativeEmbedParameterValues,
+	NativeEmbedParameterValue,
+	NativeEmbedParameters,
 	EditorToolbarButtonAction,
 	EditorToolbarAction,
 	BuiltinToolbarKey,
@@ -11,4 +20,10 @@ export type {
 } from './utils/types';
 
 // Re-export utilities
-export { updateParameters, createEditorToolbarActions } from './utils/utils';
+export {
+	createEditorToolbarActions,
+	getParameter,
+	getParameters,
+	setParameter,
+	setParameters,
+} from './utils/utils';

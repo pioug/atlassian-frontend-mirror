@@ -433,12 +433,7 @@ export class ReferenceSyncBlockStoreManager {
 	 */
 	private handleGraphQLSubscriptionUpdate(syncBlockInstance: SyncBlockInstance): void {
 		if (!syncBlockInstance.resourceId) {
-			if (fg('platform_synced_block_patch_4')) {
-				return;
-			}
-			throw new Error(
-				'Sync block instance provided to graphql subscription update missing resource id',
-			);
+			return;
 		}
 
 		const existingSyncBlock = this.getFromCache(syncBlockInstance.resourceId);
@@ -463,9 +458,7 @@ export class ReferenceSyncBlockStoreManager {
 			});
 			this.fetchSyncBlockSourceInfo(resolvedSyncBlockInstance.resourceId);
 		} else {
-			const errorMessage = fg('platform_synced_block_patch_3')
-				? syncBlockInstance.error?.reason || syncBlockInstance.error?.type
-				: syncBlockInstance.error?.type;
+			const errorMessage = syncBlockInstance.error?.reason || syncBlockInstance.error?.type;
 
 			this.fireAnalyticsEvent?.(fetchErrorPayload(errorMessage, syncBlockInstance.resourceId));
 		}
@@ -514,11 +507,7 @@ export class ReferenceSyncBlockStoreManager {
 		this.graphqlSubscriptions.clear();
 	}
 
-	public fetchSyncBlockSourceInfoBySourceAri(
-		sourceAri: string,
-		hasAccess: boolean = true,
-		urlType: 'view' | 'edit' = 'view',
-	) {
+	public fetchSyncBlockSourceInfoBySourceAri(sourceAri: string, hasAccess: boolean = true) {
 		try {
 			if (!this.dataProvider) {
 				throw new Error('Data provider not set');
@@ -528,9 +517,7 @@ export class ReferenceSyncBlockStoreManager {
 				undefined,
 				sourceAri,
 				undefined,
-				undefined,
 				hasAccess,
-				urlType,
 			);
 
 			return sourceInfo;
@@ -592,18 +579,12 @@ export class ReferenceSyncBlockStoreManager {
 			}
 
 			this.fetchSourceInfoExperience?.start({});
-
-			const isUnpublished = existingSyncBlock.data?.status === 'unpublished';
-
 			const sourceInfoPromise = this.dataProvider
 				.fetchSyncBlockSourceInfo(
 					blockInstanceId,
 					sourceAri,
 					product,
-					this.fireAnalyticsEvent,
 					true, // hasAccess
-					'edit', // urlType
-					isUnpublished,
 				)
 				.then((sourceInfo) => {
 					if (!sourceInfo) {
@@ -764,12 +745,10 @@ export class ReferenceSyncBlockStoreManager {
 
 		data.forEach((syncBlockInstance) => {
 			if (!syncBlockInstance.resourceId) {
-				const payload = fg('platform_synced_block_patch_3')
-					? syncBlockInstance.error?.reason ||
-						syncBlockInstance.error?.type ||
-						'Returned sync block instance does not have resource id'
-					: syncBlockInstance.error?.type ||
-						'Returned sync block instance does not have resource id';
+				const payload =
+					syncBlockInstance.error?.reason ||
+					syncBlockInstance.error?.type ||
+					'Returned sync block instance does not have resource id';
 				this.fireAnalyticsEvent?.(fetchErrorPayload(payload));
 				return;
 			}
@@ -799,18 +778,12 @@ export class ReferenceSyncBlockStoreManager {
 			}
 
 			if (syncBlockInstance.error) {
-				if (fg('platform_synced_block_patch_3')) {
-					this.fireAnalyticsEvent?.(
-						fetchErrorPayload(
-							syncBlockInstance.error.reason || syncBlockInstance.error.type,
-							syncBlockInstance.resourceId,
-						),
-					);
-				} else {
-					this.fireAnalyticsEvent?.(
-						fetchErrorPayload(syncBlockInstance.error.type, syncBlockInstance.resourceId),
-					);
-				}
+				this.fireAnalyticsEvent?.(
+					fetchErrorPayload(
+						syncBlockInstance.error.reason || syncBlockInstance.error.type,
+						syncBlockInstance.resourceId,
+					),
+				);
 
 				if (
 					syncBlockInstance.error.type === SyncBlockError.NotFound ||
@@ -869,9 +842,7 @@ export class ReferenceSyncBlockStoreManager {
 					callback(syncBlock);
 				});
 			}
-			if (fg('platform_synced_block_patch_3')) {
-				this.updateSessionCache(resourceId);
-			}
+			this.updateSessionCache(resourceId);
 		}
 	}
 

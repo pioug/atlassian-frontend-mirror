@@ -1,5 +1,16 @@
 # @atlaskit/renderer
 
+## 127.1.0
+
+### Minor Changes
+
+- [`b5e671b3b051c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5e671b3b051c) -
+  [ux] Fix inline node annotation color in Renderer to match text annotation color
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 127.0.0
 
 ### Major Changes

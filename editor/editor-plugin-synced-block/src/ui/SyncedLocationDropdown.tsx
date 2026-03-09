@@ -33,7 +33,6 @@ import QuotationMarkIcon from '@atlaskit/icon/core/quotation-mark';
 import StatusErrorIcon from '@atlaskit/icon/core/status-error';
 import { ConfluenceIcon, JiraIcon, AtlassianIcon } from '@atlaskit/logo';
 import Lozenge from '@atlaskit/lozenge';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text, Inline, Anchor, Stack } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
@@ -200,32 +199,21 @@ const productIconMap = {
 const subTypeIconMap = {
 	live: PageLiveDocIcon,
 	page: PageIcon,
-	blogpost: QuotationMarkIcon,
-};
-
-const subTypeIconMapNew = {
-	live: PageLiveDocIcon,
-	page: PageIcon,
 };
 
 const getConfluenceSubTypeIcon = (sourceAri: string, subType?: string | null) => {
-	if (fg('platform_synced_block_patch_3')) {
-		try {
-			const { type: pageType } = getPageIdAndTypeFromConfluencePageAri({ ari: sourceAri });
-			if (pageType === 'blogpost') {
-				return QuotationMarkIcon;
-			} else {
-				return subType && subType in subTypeIconMapNew
-					? subTypeIconMapNew[subType as keyof typeof subTypeIconMapNew]
-					: PageIcon;
-			}
-		} catch {
-			return PageIcon;
+	try {
+		const { type: pageType } = getPageIdAndTypeFromConfluencePageAri({ ari: sourceAri });
+		if (pageType === 'blogpost') {
+			return QuotationMarkIcon;
+		} else {
+			return subType && subType in subTypeIconMap
+				? subTypeIconMap[subType as keyof typeof subTypeIconMap]
+				: PageIcon;
 		}
+	} catch {
+		return PageIcon;
 	}
-	return subType && subType in subTypeIconMap
-		? subTypeIconMap[subType as keyof typeof subTypeIconMap]
-		: PageIcon;
 };
 
 const ProductIcon = ({ product }: { product?: SyncBlockProduct }) => {

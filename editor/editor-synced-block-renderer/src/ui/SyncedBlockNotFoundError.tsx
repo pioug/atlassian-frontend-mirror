@@ -10,7 +10,6 @@ import CrossIcon from '@atlaskit/icon/core/cross';
 import EyeOpenStrikethroughIcon from '@atlaskit/icon/core/eye-open-strikethrough';
 import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
 import type { NewCoreIconProps } from '@atlaskit/icon/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor, Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
@@ -69,19 +68,12 @@ const useErrorInfo = (reason?: string, url?: string, title?: string) => {
 		return { description: formatMessage(description), icon };
 	}
 
-	const { icon, description } = fg('platform_synced_block_patch_4')
-		? (errorMap[reason || 'generic'] ?? errorMap['generic'])
-		: errorMap[reason || 'generic'];
+	const { icon, description } = errorMap[reason || 'generic'] ?? errorMap['generic'];
 	return {
 		description: formatMessage(description, {
 			title,
 			a: (chunk: ReactNode) => (
-				<Anchor
-					href={url}
-					target="_blank"
-					rel={fg('platform_synced_block_patch_4') ? 'noopener noreferrer' : undefined}
-					xcss={styles.link}
-				>
+				<Anchor href={url} target="_blank" rel={'noopener noreferrer'} xcss={styles.link}>
 					{chunk}
 				</Anchor>
 			),

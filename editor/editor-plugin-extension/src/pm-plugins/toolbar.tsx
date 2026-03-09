@@ -13,6 +13,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import {
 	messages,
+	NATIVE_EMBED_EXTENSION_KEY,
 	NATIVE_EMBED_EXTENSION_TYPE,
 	type ExtensionParams,
 	type ExtensionProvider,
@@ -548,7 +549,10 @@ export const getToolbarConfig =
 
 		// If this is a native-embed extension, skip providing a toolbar config to allow
 		// the native-embed plugin to provide a custom toolbar config.
-		if (extensionObj?.node.attrs.extensionType === NATIVE_EMBED_EXTENSION_TYPE) {
+		if (
+			extensionObj?.node.attrs.extensionType === NATIVE_EMBED_EXTENSION_TYPE &&
+			extensionObj?.node.attrs.extensionKey.includes(NATIVE_EMBED_EXTENSION_KEY)
+		) {
 			return;
 		}
 

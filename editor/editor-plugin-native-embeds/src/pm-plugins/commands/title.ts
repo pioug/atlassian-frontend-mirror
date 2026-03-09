@@ -1,20 +1,28 @@
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
-import { updateParameters } from '@atlaskit/native-embeds-common';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import {
+	getParameters,
+	setParameter,
+	type NativeEmbedParameters,
+} from '@atlaskit/native-embeds-common';
 
 import type { EditorPluginNativeEmbedsPlugin } from '../../nativeEmbedsPluginType';
+
+export const getAlwaysShowTitleState = (selectedNode: PMNode): boolean => {
+	return getParameters(
+		selectedNode.attrs.parameters as NativeEmbedParameters | undefined,
+		'alwaysShowTitle',
+	);
+};
 
 /**
  * Creates a plain function that toggles the `alwaysShowTitle` parameter on the
  * selected native embed extension node.
  */
 export const createToggleAlwaysShowTitle =
-	(
-		api: ExtractInjectionAPI<EditorPluginNativeEmbedsPlugin> | undefined,
-		selectedNativeEmbed: ContentNodeWithPos,
-	) =>
+	(api: ExtractInjectionAPI<EditorPluginNativeEmbedsPlugin> | undefined, selectedNode: PMNode) =>
 	() => {
-		const localId = selectedNativeEmbed.node.attrs.localId;
+		const localId = selectedNode.attrs.localId;
 		if (!localId) {
 			return;
 		}
@@ -24,14 +32,13 @@ export const createToggleAlwaysShowTitle =
 			return;
 		}
 
-		const current =
-			(selectedNativeEmbed.node.attrs.parameters?.alwaysShowTitle as boolean) ?? false;
-
-		extensionApi.doc.update(localId, (node) =>
-			updateParameters(node, { alwaysShowTitle: !current }),
-		);
+		const current = getAlwaysShowTitleState(selectedNode);
+		extensionApi.doc.update(localId, (node) => ({
+			attrs: {
+				...node.attrs,
+				parameters: setParameter(node.attrs?.parameters as NativeEmbedParameters | undefined, {
+					alwaysShowTitle: !current,
+				}),
+			},
+		}));
 	};
-
-export const getAlwaysShowTitleState = (selectedNativeEmbed: ContentNodeWithPos) => {
-	return (selectedNativeEmbed.node.attrs.parameters?.alwaysShowTitle as boolean) ?? false;
-};

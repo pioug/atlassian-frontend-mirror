@@ -41,8 +41,7 @@
 		],
 		"composite": true,
 		"verbatimModuleSyntax": false,
-		"outDir": "../../../tsDist/@atlaskit__codemod-cli/app",
-		"isolatedDeclarations": true
+		"outDir": "../../../tsDist/@atlaskit__codemod-cli/app"
 	},
 	"references": [
 		{

@@ -31,5 +31,6 @@ export const expandClassNames = {
 	iconSvg: `${prefix}__icon-svg`,
 	titleInput: `${prefix}__title-input`,
 	content: `${prefix}__content`,
+	contentCollapsed: `${prefix}__content--collapsed`,
 	type: (type: string) => `${prefix}__type-${type}`,
 };

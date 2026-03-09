@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { getPageIdAndTypeFromConfluencePageAri } from '../clients/confluence/ari';
 import { SyncBlockError } from '../common/types';
 import type { SyncBlockInstance } from '../providers/types';
@@ -41,9 +39,7 @@ export const resolveSyncBlockInstance = (
 			...newResult.data,
 			sourceURL: newResult.data?.sourceURL || oldResult.data?.sourceURL || undefined,
 			sourceTitle: newResult.data?.sourceTitle || oldResult.data?.sourceTitle || undefined,
-			sourceSubType: fg('platform_synced_block_patch_3')
-				? mergeSubType(oldResult, newResult)
-				: newResult.data?.sourceSubType || oldResult.data?.sourceSubType || undefined,
+			sourceSubType: mergeSubType(oldResult, newResult),
 			onSameDocument: newResult.data?.onSameDocument || oldResult.data?.onSameDocument || undefined,
 		},
 	};

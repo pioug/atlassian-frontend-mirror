@@ -1,4 +1,3 @@
-import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type {
 	CardProvider,
 	MediaProvider,
@@ -176,10 +175,7 @@ export abstract class SyncBlockDataProviderInterface extends NodeDataProvider<
 		localId?: BlockInstanceId,
 		sourceAri?: string,
 		sourceProduct?: SyncBlockProduct,
-		fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
 		hasAccess?: boolean,
-		urlType?: 'view' | 'edit',
-		isUnpublished?: boolean,
 	): Promise<SyncBlockSourceInfo | undefined>;
 	abstract setProviderOptions(providerOptions: SyncedBlockRendererProviderOptions): void;
 	abstract getSyncedBlockRendererProviderOptions(): SyncedBlockRendererProviderOptions;

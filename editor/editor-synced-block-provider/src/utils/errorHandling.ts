@@ -7,7 +7,6 @@ import {
 	type OperationalAEP,
 	type SyncBlockEventPayload,
 } from '@atlaskit/editor-common/analytics';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 export const stringifyError = (error: unknown) => {
 	try {
@@ -83,21 +82,13 @@ export const fetchSuccessPayload = (
 });
 
 export const createSuccessPayload = (resourceId: string): SyncBlockEventPayload => {
-	return fg('platform_synced_block_patch_3')
-		? {
-				action: ACTION.INSERTED,
-				actionSubject: ACTION_SUBJECT.DOCUMENT,
-				actionSubjectId: ACTION_SUBJECT_ID.BODIED_SYNCED_BLOCK,
-				eventType: EVENT_TYPE.TRACK,
-				attributes: { resourceId },
-			}
-		: {
-				action: ACTION.INSERTED,
-				actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
-				actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_CREATE,
-				eventType: EVENT_TYPE.OPERATIONAL,
-				attributes: { resourceId },
-			};
+	return {
+		action: ACTION.INSERTED,
+		actionSubject: ACTION_SUBJECT.DOCUMENT,
+		actionSubjectId: ACTION_SUBJECT_ID.BODIED_SYNCED_BLOCK,
+		eventType: EVENT_TYPE.TRACK,
+		attributes: { resourceId },
+	};
 };
 
 export const createSuccessPayloadNew = (resourceId: string): SyncBlockEventPayload => ({

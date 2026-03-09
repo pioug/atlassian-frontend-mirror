@@ -203,7 +203,6 @@ import {
 	syncBlockStyles,
 	syncBlockFirstNodeStyles,
 	syncBlockOverflowStyles,
-	syncBlockOverflowStylesNew,
 	syncBlockDraggingStyles,
 } from './styles/syncBlockStyles';
 import {
@@ -464,7 +463,6 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					gapCursorStyles,
 					expValEquals('platform_synced_block', 'isEnabled', true) &&
-						fg('platform_synced_block_patch_4') &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						gapCursorStylesVisibilityFix,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -609,14 +607,9 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					editorExperiment('platform_synced_block', true) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						syncBlockStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					editorExperiment('platform_synced_block', true) && syncBlockOverflowStyles,
 					editorExperiment('platform_synced_block', true) &&
-						(fg('platform_synced_block_patch_3')
-							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								syncBlockOverflowStylesNew
-							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								syncBlockOverflowStyles),
-					editorExperiment('platform_synced_block', true) &&
-						fg('platform_synced_block_patch_3') &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						syncBlockFirstNodeStyles,
 					editorExperiment('platform_synced_block', true) &&

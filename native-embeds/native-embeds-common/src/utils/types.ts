@@ -4,8 +4,31 @@ import type { NewCoreIconProps } from '@atlaskit/icon';
 
 import type { ALIGNMENT_VALUES, BUILTIN_TOOLBAR_KEYS } from './constants';
 
-// Alignment types
 export type AlignmentValue = (typeof ALIGNMENT_VALUES)[number];
+
+export type NativeEmbedParameterValues = {
+	alignment: AlignmentValue;
+	alwaysShowTitle: boolean;
+	height: number;
+	url: string | undefined;
+	width: number | undefined;
+};
+
+export type NativeEmbedParameterValue = {
+	value: string;
+};
+
+export type NativeEmbedParameters = {
+	macroParams?: {
+		alignment?: NativeEmbedParameterValue;
+		alwaysShowTitle?: NativeEmbedParameterValue;
+		height?: NativeEmbedParameterValue;
+		url?: NativeEmbedParameterValue;
+		width?: NativeEmbedParameterValue;
+	};
+};
+
+export type NativeEmbedParameterKey = keyof NonNullable<NativeEmbedParameters['macroParams']>;
 
 // Editor toolbar action types
 /**

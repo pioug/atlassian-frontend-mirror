@@ -2,7 +2,6 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SyncBlockAttrs, SyncBlockMap } from '../../types';
 
@@ -27,12 +26,10 @@ export const trackSyncBlocks = (
 	) as (ReplaceStep | ReplaceAroundStep)[];
 
 	// this is a quick check to see if any insertion/deletion of bodiedSyncBlock happened
-	const hasBodiedSyncBlockChanges = replaceSteps.some((step, idx) => {
+	const hasBodiedSyncBlockChanges = replaceSteps.some((step) => {
 		const { from, to } = step;
 
-		const docAtStep = fg('platform_synced_block_patch_3')
-			? tr.docs[tr.steps.indexOf(step)]
-			: tr.docs[idx];
+		const docAtStep = tr.docs[tr.steps.indexOf(step)];
 
 		let hasChange = false;
 		if (from !== to) {
@@ -122,62 +119,31 @@ export const trackSyncBlocks = (
 export const hasEditInSyncBlock = (tr: Transaction, state: EditorState): boolean => {
 	const { bodiedSyncBlock } = state.schema.nodes;
 
-	if (fg('platform_synced_block_patch_3')) {
-		for (let i = 0; i < tr.steps.length; i++) {
-			const step = tr.steps[i];
-			const map = step.getMap();
-			const docAfterStep = tr.docs[i + 1] ?? tr.doc;
-			const positions: number[] = [];
+	for (let i = 0; i < tr.steps.length; i++) {
+		const step = tr.steps[i];
+		const map = step.getMap();
+		const docAfterStep = tr.docs[i + 1] ?? tr.doc;
+		const positions: number[] = [];
 
-			// Extract positions from steps dynamically based on applicable properties
-			if (
-				'from' in step &&
-				typeof step.from === 'number' &&
-				'to' in step &&
-				typeof step.to === 'number'
-			) {
-				const { from, to } = step as { from: number; to: number };
-				positions.push(from, to);
-			} else if ('pos' in step && typeof step.pos === 'number') {
-				const { pos } = step as { pos: number };
-				positions.push(pos);
-			}
-
-			for (const pos of positions) {
-				const newPos = map.map(pos);
-				if (newPos >= 0 && newPos <= docAfterStep.content.size) {
-					if (findParentNodeOfTypeClosestToPos(docAfterStep.resolve(newPos), bodiedSyncBlock)) {
-						return true;
-					}
-				}
-			}
+		// Extract positions from steps dynamically based on applicable properties
+		if (
+			'from' in step &&
+			typeof step.from === 'number' &&
+			'to' in step &&
+			typeof step.to === 'number'
+		) {
+			const { from, to } = step as { from: number; to: number };
+			positions.push(from, to);
+		} else if ('pos' in step && typeof step.pos === 'number') {
+			const { pos } = step as { pos: number };
+			positions.push(pos);
 		}
-	} else {
-		for (const step of tr.steps) {
-			const map = step.getMap();
-			const { doc } = tr;
-			const positions: number[] = [];
 
-			// Extract positions from steps dynamically based on applicable properties
-			if (
-				'from' in step &&
-				typeof step.from === 'number' &&
-				'to' in step &&
-				typeof step.to === 'number'
-			) {
-				const { from, to } = step as { from: number; to: number };
-				positions.push(from, to);
-			} else if ('pos' in step && typeof step.pos === 'number') {
-				const { pos } = step as { pos: number };
-				positions.push(pos);
-			}
-
-			for (const pos of positions) {
-				const newPos = map.map(pos);
-				if (newPos >= 0 && newPos <= doc.content.size) {
-					if (findParentNodeOfTypeClosestToPos(doc.resolve(newPos), bodiedSyncBlock)) {
-						return true;
-					}
+		for (const pos of positions) {
+			const newPos = map.map(pos);
+			if (newPos >= 0 && newPos <= docAfterStep.content.size) {
+				if (findParentNodeOfTypeClosestToPos(docAfterStep.resolve(newPos), bodiedSyncBlock)) {
+					return true;
 				}
 			}
 		}

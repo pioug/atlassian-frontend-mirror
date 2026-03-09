@@ -30,11 +30,14 @@
 		"**/stories/**/*.ts",
 		"**/stories/**/*.tsx"
 	],
-	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
+	"exclude": [
+		"./dist/**/*",
+		"./build/**/*",
+		"./node_modules/**/*"
+	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__atlassian-navigation/dev",
-		"isolatedDeclarations": true
+		"outDir": "../../../tsDist/@atlaskit__atlassian-navigation/dev"
 	},
 	"references": [
 		{

@@ -3,6 +3,7 @@ import { withLazyLoading } from '@atlaskit/editor-common/lazy-node-view';
 
 import type { BodiedSyncBlockNodeViewProperties } from './bodiedSyncedBlock';
 
+// Delete this file when cleaning up platform_synced_block_patch_5
 export const lazyBodiedSyncBlockView: (
 	props: BodiedSyncBlockNodeViewProperties,
 ) => NodeViewConstructor = (props: BodiedSyncBlockNodeViewProperties) => {

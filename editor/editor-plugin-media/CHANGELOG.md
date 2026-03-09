@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-media
 
+## 9.9.0
+
+### Minor Changes
+
+- [`528cef02f2f27`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/528cef02f2f27) -
+  EDITOR-5532 improve duplicate media error handling in editor
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.8.1
 
 ### Patch Changes

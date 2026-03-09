@@ -42,12 +42,6 @@
 			"path": "../../../measurement/feature-gate-js-client/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/flag/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../helpers/frontend-utilities/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/heading/afm-products/tsconfig.json"
 		},
 		{

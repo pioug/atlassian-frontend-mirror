@@ -90,12 +90,11 @@ test.describe('ReactUFO: Third Party Segment Extra Metrics', () => {
 		});
 	}
 
-	test.describe('with ufo_update_and_enforce_ttvc_v4_default_version FG enabled', () => {
+	test.describe('with 3P feature flags enabled', () => {
 		const featureFlags = [
 			'platform_ufo_exclude_3p_elements_from_ttai',
 			'platform_ufo_exclude_3p_elements_from_ttvc',
 			'platform_ufo_enable_ttai_with_3p',
-			'ufo_update_and_enforce_ttvc_v4_default_version',
 		];
 
 		test.use({

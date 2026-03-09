@@ -45,13 +45,22 @@
 			"path": "../../editor-plugin-connectivity/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-content-format/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-decorations/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-floating-toolbar/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-focus/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-selection/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-user-intent/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../editor-prosemirror/afm-jira/tsconfig.json"
@@ -91,6 +100,9 @@
 		},
 		{
 			"path": "../../../design-system/spinner/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/tokens/afm-jira/tsconfig.json"

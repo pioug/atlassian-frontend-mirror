@@ -1,6 +1,9 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx"
+	],
 	"exclude": [
 		"**/docs/**/*",
 		"**/__tests__/**/*",
@@ -27,8 +30,7 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__logo/app",
-		"isolatedDeclarations": true
+		"outDir": "../../../tsDist/@atlaskit__logo/app"
 	},
 	"references": [
 		{

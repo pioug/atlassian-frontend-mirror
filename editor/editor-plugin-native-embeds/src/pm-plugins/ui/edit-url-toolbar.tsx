@@ -11,7 +11,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { updateParameters } from '@atlaskit/native-embeds-common';
+import { setParameter } from '@atlaskit/native-embeds-common';
 
 import type { EditorPluginNativeEmbedsPlugin } from '../../nativeEmbedsPluginType';
 import { hideUrlToolbar } from '../actions';
@@ -42,7 +42,12 @@ export const EditUrlToolbar = ({
 		if (href !== currentUrl && localId) {
 			const extensionApi = api?.extension?.actions?.api();
 			if (extensionApi?.doc?.update) {
-				extensionApi.doc.update(localId, (current) => updateParameters(current, { url: href }));
+				extensionApi.doc.update(localId, (current) => ({
+					attrs: {
+						...current.attrs,
+						parameters: setParameter(current.attrs?.parameters, { url: href }),
+					},
+				}));
 			}
 		}
 	};

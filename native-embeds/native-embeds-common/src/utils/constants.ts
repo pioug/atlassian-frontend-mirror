@@ -1,7 +1,17 @@
+import type { NativeEmbedParameterValues } from './types';
+
 // Alignment constants
 export const ALIGNMENT_VALUES = ['left', 'center', 'right', 'wrap-left', 'wrap-right'] as const;
 
 export const DEFAULT_ALIGNMENT = 'center' as const;
+
+export const NATIVE_EMBED_PARAMETER_DEFAULTS: NativeEmbedParameterValues = {
+	url: undefined,
+	alwaysShowTitle: false,
+	alignment: DEFAULT_ALIGNMENT,
+	height: 600,
+	width: undefined,
+};
 
 /**
  * Built-in keys that can be referenced in the `items` and `moreItems` arrays.

@@ -3,7 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { type ReactNode, type Ref, useEffect, useRef, useState } from 'react';
+import React, { type ReactNode, type Ref, useCallback, useEffect, useRef, useState } from 'react';
 
 import invariant from 'tiny-invariant';
 
@@ -37,6 +37,7 @@ import {
 import {
 	FlyoutBody,
 	FlyoutHeader,
+	FlyoutFooter,
 	FlyoutMenuItem,
 	FlyoutMenuItemContent,
 	FlyoutMenuItemTrigger,
@@ -53,14 +54,21 @@ function ReorderMenu({ onClose }: { onClose?: () => void }) {
 			shouldRenderToParent
 			placement="right-start"
 			trigger={({ triggerRef, ...triggerProps }) => (
-				<DropdownItem
+				<ButtonMenuItem
 					{...triggerProps}
 					ref={triggerRef}
 					elemBefore={<GrowVerticalIcon label="" />}
-					elemAfter={<ChevronRightIcon color={token('color.icon.subtle')} label="" size="small" />}
+					elemAfter={
+						<ChevronRightIcon
+							color={token('color.icon.subtle')}
+							label=""
+							size="small"
+							spacing="spacious"
+						/>
+					}
 				>
 					<span>Reorder</span>
-				</DropdownItem>
+				</ButtonMenuItem>
 			)}
 		>
 			<DropdownItemGroup>
@@ -223,9 +231,12 @@ function OurFlyoutMenuItem({
 			},
 		});
 
+	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const toggleOpen = useCallback(() => setIsOpen((current) => !current), []);
+
 	return (
 		<>
-			<FlyoutMenuItem>
+			<FlyoutMenuItem isOpen={isOpen} onOpenChange={setIsOpen}>
 				<FlyoutMenuItemTrigger
 					testId={triggerTestId}
 					elemBefore={<StarUnstarredIcon label="" />}
@@ -234,14 +245,22 @@ function OurFlyoutMenuItem({
 					hasDragIndicator
 					dropIndicator={forcedDropIndicator || dropIndicator}
 					visualContentRef={dropTargetRef}
+					onClick={toggleOpen}
 				>
 					Flyout menu item
 				</FlyoutMenuItemTrigger>
 				<FlyoutMenuItemContent>
 					<FlyoutHeader title="Flyout menu item" closeButtonLabel="Close menu" />
 					<FlyoutBody>
-						<ReorderMenu />
+						<ButtonMenuItem elemBefore={<StarUnstarredIcon label="" />}>
+							Button menu item
+						</ButtonMenuItem>
 					</FlyoutBody>
+					<FlyoutFooter>
+						<MenuList>
+							<ReorderMenu />
+						</MenuList>
+					</FlyoutFooter>
 				</FlyoutMenuItemContent>
 			</FlyoutMenuItem>
 			{dragPreview}

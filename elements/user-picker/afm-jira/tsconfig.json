@@ -60,6 +60,9 @@
 			"path": "../../../design-system/spinner/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/tag/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../people-and-teams/teams-avatar/afm-jira/tsconfig.json"
 		},
 		{

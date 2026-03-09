@@ -22,6 +22,8 @@ export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ api }) =>
 		if (!editorState) {
 			return {
 				isPlainText: false,
+				pasteEndPos: 0,
+				pasteStartPos: 0,
 				plaintextLength: 0,
 				selectedOption: ToolbarDropdownOption.None,
 				showToolbar: false,
@@ -32,6 +34,8 @@ export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ api }) =>
 			| undefined;
 		return {
 			isPlainText: pluginState?.isPlainText ?? false,
+			pasteEndPos: pluginState?.pasteEndPos ?? 0,
+			pasteStartPos: pluginState?.pasteStartPos ?? 0,
 			plaintextLength: pluginState?.plaintext.length ?? 0,
 			selectedOption: pluginState?.selectedOption ?? ToolbarDropdownOption.None,
 			showToolbar: pluginState?.showToolbar ?? false,

@@ -1,5 +1,12 @@
 # @atlaskit/editor-synced-block-provider
 
+## 3.31.3
+
+### Patch Changes
+
+- [`2e6129d5b39bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e6129d5b39bc) -
+  EDITOR-5529 clean up platform_synced_block_patch_3 and platform_synced_block_patch_4
+
 ## 3.31.2
 
 ### Patch Changes

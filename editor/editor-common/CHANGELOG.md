@@ -1,5 +1,40 @@
 # @atlaskit/editor-common
 
+## 111.29.1
+
+### Patch Changes
+
+- [`dc717554783a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc717554783a6) -
+  [ux] EDITOR-5556 show warning flag when extensions are added inside synced blocks
+
+## 111.29.0
+
+### Minor Changes
+
+- [`528cef02f2f27`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/528cef02f2f27) -
+  EDITOR-5532 improve duplicate media error handling in editor
+
+### Patch Changes
+
+- Updated dependencies
+
+## 111.28.4
+
+### Patch Changes
+
+- [`1a05924d64777`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a05924d64777) -
+  [EDITOR-5528] Fix bodiedSyncBlock mutation
+- Updated dependencies
+
+## 111.28.3
+
+### Patch Changes
+
+- [`808af626ed714`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/808af626ed714) -
+  [ux] EDITOR-5468 Introduce new paste menu context to pass required information to paste action
+  buttons. Modified createOpenAIModalCommand to optionally accept start/end positions if we want to
+  modify non-selection content (eg. pasted content).
+
 ## 111.28.2
 
 ### Patch Changes

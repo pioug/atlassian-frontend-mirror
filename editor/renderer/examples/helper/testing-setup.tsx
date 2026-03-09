@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot, type Root } from 'react-dom/client';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/types';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
@@ -30,6 +30,26 @@ import type { AnnotationId } from '@atlaskit/adf-schema';
 import { AnnotationTypes, AnnotationMarkStates } from '@atlaskit/adf-schema';
 import { ExampleSelectionInlineComponent } from './annotations/selection';
 import { IntlProvider } from 'react-intl-next';
+
+const rootMap = new WeakMap<Element, Root>();
+
+function getOrCreateRoot(container: Element): Root {
+	const existing = rootMap.get(container);
+	if (existing) {
+		return existing;
+	}
+	const root = createRoot(container);
+	rootMap.set(container, root);
+	return root;
+}
+
+function unmountRoot(container: Element): void {
+	const root = rootMap.get(container);
+	if (root) {
+		root.unmount();
+		rootMap.delete(container);
+	}
+}
 
 const mediaMockServer = createEditorMediaMock();
 const mediaProvider = storyMediaProviderFactory();
@@ -166,8 +186,8 @@ export function createRendererWindowBindings(win: Window, enableClickToEdit?: bo
 						<h1 className={editorPlaceholderClassname}>Editor placeholder</h1>
 					);
 
-					ReactDOM.unmountComponentAtNode(rendererContainer);
-					ReactDOM.render(editorPlaceholder, rendererContainer);
+					unmountRoot(rendererContainer);
+					getOrCreateRoot(rendererContainer).render(editorPlaceholder);
 				}
 			: undefined;
 
@@ -186,8 +206,8 @@ export function createRendererWindowBindings(win: Window, enableClickToEdit?: bo
 			);
 		}
 
-		ReactDOM.unmountComponentAtNode(target);
-		ReactDOM.render(content || render, target);
+		unmountRoot(target);
+		getOrCreateRoot(target).render(content || render);
 	};
 }
 

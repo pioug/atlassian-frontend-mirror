@@ -1,6 +1,7 @@
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import type { Command } from '@atlaskit/editor-common/types';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import { getParameter } from '@atlaskit/native-embeds-common';
 
 import type { NativeEmbedAppearance, SelectedNativeEmbed } from '../../nativeEmbedsPluginType';
 
@@ -41,9 +42,8 @@ export const setNativeEmbedAppearance =
 		}
 
 		const { pos, node } = selected;
-		const parameters = node.attrs.parameters || {};
 		const { schema } = state;
-		const url = parameters?.url;
+		const url = getParameter(node.attrs.parameters, 'url');
 
 		let content: PMNode | null = null;
 		if (url && isSafeUrl(url)) {

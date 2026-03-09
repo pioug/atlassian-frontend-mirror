@@ -5,6 +5,49 @@ import { md } from '@atlaskit/docs';
 import Image from '@atlaskit/image';
 import Link from '@atlaskit/link';
 
+import sideNavItemsAnatomy1Dark from './images/sideNavItems-anatomy-1-dark.png';
+import sideNavItemsAnatomy1Light from './images/sideNavItems-anatomy-1-light.png';
+import sideNavItemsAnatomy2Dark from './images/sideNavItems-anatomy-2-dark.png';
+import sideNavItemsAnatomy2Light from './images/sideNavItems-anatomy-2-light.png';
+import sideNavItemsDo1Dark from './images/sideNavItems-do-1-dark.png';
+import sideNavItemsDo1Light from './images/sideNavItems-do-1-light.png';
+import sideNavItemsDo2Dark from './images/sideNavItems-do-2-dark.png';
+import sideNavItemsDo2Light from './images/sideNavItems-do-2-light.png';
+import sideNavItemsDo3Dark from './images/sideNavItems-do-3-dark.png';
+import sideNavItemsDo3Light from './images/sideNavItems-do-3-light.png';
+import sideNavItemsDo4Dark from './images/sideNavItems-do-4-dark.png';
+import sideNavItemsDo4Light from './images/sideNavItems-do-4-light.png';
+import sideNavItemsDo5Dark from './images/sideNavItems-do-5-dark.png';
+import sideNavItemsDo5Light from './images/sideNavItems-do-5-light.png';
+import sideNavItemsDo6Dark from './images/sideNavItems-do-6-dark.png';
+import sideNavItemsDo6Light from './images/sideNavItems-do-6-light.png';
+import sideNavItemsDo7Dark from './images/sideNavItems-do-7-dark.png';
+import sideNavItemsDo7Light from './images/sideNavItems-do-7-light.png';
+import sideNavItemsDo8Dark from './images/sideNavItems-do-8-dark.png';
+import sideNavItemsDo8Light from './images/sideNavItems-do-8-light.png';
+import sideNavItemsDont1Dark from './images/sideNavItems-dont-1-dark.png';
+import sideNavItemsDont1Light from './images/sideNavItems-dont-1-light.png';
+import sideNavItemsDont10Dark from './images/sideNavItems-dont-10-dark.png';
+import sideNavItemsDont10Light from './images/sideNavItems-dont-10-light.png';
+import sideNavItemsDont11Dark from './images/sideNavItems-dont-11-dark.png';
+import sideNavItemsDont11Light from './images/sideNavItems-dont-11-light.png';
+import sideNavItemsDont2Dark from './images/sideNavItems-dont-2-dark.png';
+import sideNavItemsDont2Light from './images/sideNavItems-dont-2-light.png';
+import sideNavItemsDont3Dark from './images/sideNavItems-dont-3-dark.png';
+import sideNavItemsDont3Light from './images/sideNavItems-dont-3-light.png';
+import sideNavItemsDont4Dark from './images/sideNavItems-dont-4-dark.png';
+import sideNavItemsDont4Light from './images/sideNavItems-dont-4-light.png';
+import sideNavItemsDont5Dark from './images/sideNavItems-dont-5-dark.png';
+import sideNavItemsDont5Light from './images/sideNavItems-dont-5-light.png';
+import sideNavItemsDont6Dark from './images/sideNavItems-dont-6-dark.png';
+import sideNavItemsDont6Light from './images/sideNavItems-dont-6-light.png';
+import sideNavItemsDont7Dark from './images/sideNavItems-dont-7-dark.png';
+import sideNavItemsDont7Light from './images/sideNavItems-dont-7-light.png';
+import sideNavItemsDont8Dark from './images/sideNavItems-dont-8-dark.png';
+import sideNavItemsDont8Light from './images/sideNavItems-dont-8-light.png';
+import sideNavItemsDont9Dark from './images/sideNavItems-dont-9-dark.png';
+import sideNavItemsDont9Light from './images/sideNavItems-dont-9-light.png';
+
 export const UsageTab: JSX.Element = md`
 ## Usage
 
@@ -13,8 +56,9 @@ Use side nav items to create different sections, actions, and links in the
 
 ${(
 	<Image
-		src={require('./images/side-nav-anatomy-1.png')}
-		alt="Diagram of the navigation system side nav"
+		src={sideNavItemsAnatomy1Light}
+		srcDark={sideNavItemsAnatomy1Dark}
+		alt="Diagram of side nav with menu items, a menu section, and a menu section heading."
 	/>
 )}
 
@@ -22,8 +66,9 @@ ${(
 
 ${(
 	<Image
-		src={require('./images/side-nav-anatomy-2.png')}
-		alt="Diagram of the navigation system side nav items"
+		src={sideNavItemsAnatomy2Light}
+		srcDark={sideNavItemsAnatomy2Dark}
+		alt="Diagram of the navigation system side nav items."
 	/>
 )}
 
@@ -102,7 +147,8 @@ ${(
 		<DoDont
 			type="do"
 			image={{
-				url: require('./images/side-nav-do-1.png'),
+				url: sideNavItemsDo1Light,
+				urlDarkMode: sideNavItemsDo1Dark,
 				alt: 'A side nav with side nav items only.',
 			}}
 		>
@@ -111,7 +157,8 @@ ${(
 		<DoDont
 			type="dont"
 			image={{
-				url: require('./images/side-nav-dont-1.png'),
+				url: sideNavItemsDont1Light,
+				urlDarkMode: sideNavItemsDont1Dark,
 				alt: 'Side nav items incorrectly used in the top nav.',
 			}}
 		>
@@ -136,7 +183,8 @@ ${(
 		<DoDont
 			type="do"
 			image={{
-				url: require('./images/side-nav-do-2.png'),
+				url: sideNavItemsDo2Light,
+				urlDarkMode: sideNavItemsDo2Dark,
 				alt: 'An open dropdown menu with a list of items.',
 			}}
 			isFullWidth
@@ -146,7 +194,8 @@ ${(
 		<DoDont
 			type="dont"
 			image={{
-				url: require('./images/side-nav-dont-2.png'),
+				url: sideNavItemsDont2Light,
+				urlDarkMode: sideNavItemsDont2Dark,
 				alt: 'A dropdown menu with a list of items.',
 			}}
 		>
@@ -155,7 +204,8 @@ ${(
 		<DoDont
 			type="dont"
 			image={{
-				url: require('./images/side-nav-dont-3.png'),
+				url: sideNavItemsDont3Light,
+				urlDarkMode: sideNavItemsDont3Dark,
 				alt: 'A dropdown menu with menu item that uses compact density.',
 			}}
 		>
@@ -164,7 +214,8 @@ ${(
 		<DoDont
 			type="dont"
 			image={{
-				url: require('./images/side-nav-dont-4.png'),
+				url: sideNavItemsDont4Light,
+				urlDarkMode: sideNavItemsDont4Dark,
 				alt: 'A dropdown menu with menu item that does not have a selected state.',
 			}}
 		>
@@ -173,7 +224,8 @@ ${(
 		<DoDont
 			type="dont"
 			image={{
-				url: require('./images/side-nav-dont-5.png'),
+				url: sideNavItemsDont5Light,
+				urlDarkMode: sideNavItemsDont5Dark,
 				alt: 'A dropdown menu with a disabled menu item.',
 			}}
 		>
@@ -201,7 +253,8 @@ ${(
 		<DoDont
 			type="do"
 			image={{
-				url: require('./images/side-nav-do-3.png'),
+				url: sideNavItemsDo3Light,
+				urlDarkMode: sideNavItemsDo3Dark,
 				alt: 'A menu item with "Templates" label and "TRY" text properly placed in a designated slot on the right.',
 			}}
 		>
@@ -210,7 +263,8 @@ ${(
 		<DoDont
 			type="dont"
 			image={{
-				url: require('./images/side-nav-dont-6.png'),
+				url: sideNavItemsDont6Light,
+				urlDarkMode: sideNavItemsDont6Dark,
 				alt: 'A menu item with "Templates" label and "TRY" text incorrectly placed within the same text area.',
 			}}
 		>
@@ -234,7 +288,8 @@ ${(
 		<DoDont
 			type="do"
 			image={{
-				url: require('./images/side-nav-do-4.png'),
+				url: sideNavItemsDo4Light,
+				urlDarkMode: sideNavItemsDo4Dark,
 				alt: 'A menu item with "Projects" label, 16px rocket icon on the left, and 12px plus and ellipsis icons on the right.',
 			}}
 		>
@@ -244,7 +299,8 @@ ${(
 		<DoDont
 			type="dont"
 			image={{
-				url: require('./images/side-nav-dont-7.png'),
+				url: sideNavItemsDont7Light,
+				urlDarkMode: sideNavItemsDont7Dark,
 				alt: 'A menu item with "Projects" label, rocket icon, and incorrectly sized plus and ellipsis icons on the right.',
 			}}
 		>
@@ -265,7 +321,8 @@ ${(
 		<DoDont
 			type="do"
 			image={{
-				url: require('./images/side-nav-do-5.png'),
+				url: sideNavItemsDo5Light,
+				urlDarkMode: sideNavItemsDo5Dark,
 				alt: 'A menu item with "Projects" label, rocket icon, and subtle compact plus and ellipsis icon buttons with hover tooltip.',
 			}}
 		>
@@ -274,7 +331,8 @@ ${(
 		<DoDont
 			type="dont"
 			image={{
-				url: require('./images/side-nav-dont-8.png'),
+				url: sideNavItemsDont8Light,
+				urlDarkMode: sideNavItemsDont8Dark,
 				alt: 'A menu item with "Projects" label, rocket icon, and default icon buttons instead of subtle compact ones.',
 			}}
 		>
@@ -290,7 +348,8 @@ ${(
 		<DoDont
 			type="do"
 			image={{
-				url: require('./images/side-nav-do-6.png'),
+				url: sideNavItemsDo6Light,
+				urlDarkMode: sideNavItemsDo6Dark,
 				alt: 'A menu item with "Mobile app" label and ContainerAvatar icon on the left.',
 			}}
 		>
@@ -303,7 +362,8 @@ ${(
 		<DoDont
 			type="dont"
 			image={{
-				url: require('./images/side-nav-dont-9.png'),
+				url: sideNavItemsDont9Light,
+				urlDarkMode: sideNavItemsDont9Dark,
 				alt: 'A menu item with "Mobile app" label and regular avatar icon instead of ContainerAvatar.',
 			}}
 		>
@@ -339,7 +399,30 @@ When designing and implementing the loading experience:
 
 For loading states of other components that may appear in the side navigation, compose your own using [skeleton](https://atlassian.design/components/skeleton/examples).
 
-<!-- TODO: Add DoDont once assets are ready -->
+${(
+	<DoDontGrid>
+		<DoDont
+			type="do"
+			image={{
+				url: sideNavItemsDo8Light,
+				urlDarkMode: sideNavItemsDo8Dark,
+				alt: 'A side nav with loading menu items, showing a group of skeleton loaders in the content.',
+			}}
+		>
+			Use skeleton loaders as placeholders for side nav items while content is loading
+		</DoDont>
+		<DoDont
+			type="dont"
+			image={{
+				url: sideNavItemsDont11Light,
+				urlDarkMode: sideNavItemsDont11Dark,
+				alt: 'A side nav with loading menu items, showing a mix of skeleton loaders and loaded menu items.',
+			}}
+		>
+			Don't load menu items individually.
+		</DoDont>
+	</DoDontGrid>
+)}
 
 ## Content guidelines
 
@@ -355,7 +438,8 @@ ${(
 		<DoDont
 			type="do"
 			image={{
-				url: require('./images/side-nav-do-7.png'),
+				url: sideNavItemsDo7Light,
+				urlDarkMode: sideNavItemsDo7Dark,
 				alt: 'A menu item with "For you" label using sentence case.',
 			}}
 		>
@@ -364,7 +448,8 @@ ${(
 		<DoDont
 			type="dont"
 			image={{
-				url: require('./images/side-nav-dont-10.png'),
+				url: sideNavItemsDont10Light,
+				urlDarkMode: sideNavItemsDont10Dark,
 				alt: 'A menu item with "For You" label using title case.',
 			}}
 		>

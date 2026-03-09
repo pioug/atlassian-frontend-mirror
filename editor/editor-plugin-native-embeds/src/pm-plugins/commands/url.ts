@@ -1,10 +1,15 @@
 import type { Command } from '@atlaskit/editor-common/types';
-import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { getParameters } from '@atlaskit/native-embeds-common';
+
+export const getNativeEmbedUrl = (selectedNode: PMNode): string | undefined => {
+	return getParameters(selectedNode.attrs.parameters, 'url');
+};
 
 export const createOpenInNewWindowCommand =
-	(selectedNativeEmbed: ContentNodeWithPos): Command =>
+	(selectedNode: PMNode): Command =>
 	() => {
-		const url = getNativeEmbedUrl(selectedNativeEmbed);
+		const url = getNativeEmbedUrl(selectedNode);
 		if (url) {
 			window.open(url, '_blank', 'noopener,noreferrer');
 		}
@@ -12,15 +17,11 @@ export const createOpenInNewWindowCommand =
 	};
 
 export const createCopyLinkCommand =
-	(selectedNativeEmbed: ContentNodeWithPos): Command =>
+	(selectedNode: PMNode): Command =>
 	() => {
-		const url = getNativeEmbedUrl(selectedNativeEmbed);
+		const url = getNativeEmbedUrl(selectedNode);
 		if (url) {
 			navigator.clipboard.writeText(url);
 		}
 		return true;
 	};
-
-const getNativeEmbedUrl = (selectedNativeEmbed: ContentNodeWithPos): string | undefined => {
-	return selectedNativeEmbed.node.attrs.parameters?.url;
-};

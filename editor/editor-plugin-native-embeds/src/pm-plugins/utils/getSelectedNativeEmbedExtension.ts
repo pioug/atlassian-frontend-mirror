@@ -1,4 +1,7 @@
-import { NATIVE_EMBED_EXTENSION_TYPE } from '@atlaskit/editor-common/extensions';
+import {
+	NATIVE_EMBED_EXTENSION_KEY,
+	NATIVE_EMBED_EXTENSION_TYPE,
+} from '@atlaskit/editor-common/extensions';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
@@ -15,7 +18,10 @@ const getSelectedExtension = (state: EditorState) => {
  * Checks whether a given ProseMirror node is a native-embed extension.
  */
 const isNativeEmbedExtension = (node: PMNode): boolean => {
-	return node.attrs?.extensionType === NATIVE_EMBED_EXTENSION_TYPE;
+	return (
+		node.attrs?.extensionType === NATIVE_EMBED_EXTENSION_TYPE &&
+		node.attrs?.extensionKey.includes(NATIVE_EMBED_EXTENSION_KEY)
+	);
 };
 
 /**

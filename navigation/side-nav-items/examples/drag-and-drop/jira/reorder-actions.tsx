@@ -53,7 +53,12 @@ export function ReorderActionMenu({
 						ref={triggerRef}
 						elemBefore={<GrowVerticalIcon label="" />}
 						elemAfter={
-							<ChevronRightIcon color={token('color.icon.subtle')} label="" size="small" />
+							<ChevronRightIcon
+								color={token('color.icon.subtle')}
+								label=""
+								size="small"
+								spacing="spacious"
+							/>
 						}
 						// No movement operations available when there is only one item
 						isDisabled={type === 'only'}

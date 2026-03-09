@@ -59,9 +59,7 @@ export type TTVCRevision = 'fy25.01' | 'fy25.02' | 'fy25.03' | 'fy26.04' | 'next
 export const DEFAULT_TTVC_REVISION = 'fy26.04';
 
 export function getDefaultTTVCRevision(): TTVCRevision {
-	return fg('ufo_update_and_enforce_ttvc_v4_default_version')
-		? DEFAULT_TTVC_REVISION
-		: ('fy25.03' as TTVCRevision);
+	return DEFAULT_TTVC_REVISION;
 }
 
 export const UNKNOWN_INTERACTION_RATE = 1000;
@@ -229,11 +227,7 @@ export type Config = {
 export function setUFOConfig(newConfig: Config): void {
 	// Handle edge cases with `enabledVCRevisions`
 	const { enabledVCRevisions } = newConfig?.vc ?? {};
-	if (
-		fg('ufo_update_and_enforce_ttvc_v4_default_version')
-			? enabledVCRevisions
-			: typeof enabledVCRevisions?.byExperience === 'object'
-	) {
+	if (enabledVCRevisions) {
 		const byExperience =
 			typeof enabledVCRevisions?.byExperience === 'object' ? enabledVCRevisions.byExperience : {};
 		config = {

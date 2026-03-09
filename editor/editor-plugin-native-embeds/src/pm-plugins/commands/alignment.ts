@@ -1,28 +1,33 @@
 import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
-import type { AlignmentValue } from '@atlaskit/native-embeds-common';
-import { updateParameters } from '@atlaskit/native-embeds-common';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import {
+	getParameters,
+	setParameter,
+	type AlignmentValue,
+	type NativeEmbedParameters,
+} from '@atlaskit/native-embeds-common';
 
 import type { EditorPluginNativeEmbedsPlugin } from '../../nativeEmbedsPluginType';
+
+export const getAlignment = (selectedNode: PMNode): AlignmentValue => {
+	return getParameters(selectedNode.attrs.parameters, 'alignment');
+};
 
 export const createUpdateAlignmentCommand =
 	(
 		api: ExtractInjectionAPI<EditorPluginNativeEmbedsPlugin> | undefined,
 		alignment: AlignmentValue,
-		selectedNativeEmbed: ContentNodeWithPos,
+		selectedNode: PMNode,
 	): Command =>
 	() => {
-		const localId = selectedNativeEmbed.node.attrs.localId;
-		if (!localId) {
-			return false;
-		}
-
-		const extensionApi = api?.extension?.actions?.api();
-		if (!extensionApi?.doc?.update) {
-			return false;
-		}
-
-		extensionApi.doc.update(localId, (current) => updateParameters(current, { alignment }));
+		api?.extension?.actions?.api()?.doc?.update(selectedNode.attrs.localId, (current) => ({
+			attrs: {
+				...current.attrs,
+				parameters: setParameter(current.attrs?.parameters as NativeEmbedParameters | undefined, {
+					alignment,
+				}),
+			},
+		}));
 
 		return true;
 	};

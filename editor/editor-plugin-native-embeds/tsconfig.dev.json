@@ -62,10 +62,16 @@
 			"path": "../editor-test-helpers/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/icon/tsconfig.app.json"
+		},
+		{
 			"path": "../../linking-platform/link-provider/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/logo/tsconfig.app.json"
+		},
+		{
+			"path": "../../native-embeds/native-embeds-common/tsconfig.app.json"
 		},
 		{
 			"path": "../synchrony-test-helpers/tsconfig.app.json"
@@ -80,7 +86,13 @@
 			"path": "../../native-embeds/native-embeds-core/tsconfig.app.json"
 		},
 		{
+			"path": "../../native-embeds/native-embeds-editor-extension/tsconfig.app.json"
+		},
+		{
 			"path": "../../native-embeds/native-embeds-fallback-editor-extension/tsconfig.app.json"
+		},
+		{
+			"path": "../../ai-mate/rovo-content-bridge-api/tsconfig.app.json"
 		}
 	]
 }

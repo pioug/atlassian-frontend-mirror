@@ -13,7 +13,6 @@ import type { RevisionPayload, VCResult } from '../common/vc/types';
 import {
 	DEFAULT_TTVC_REVISION,
 	getConfig,
-	getDefaultTTVCRevision,
 	getExtraInteractionRate,
 	getMostRecentVCRevision,
 } from '../config';
@@ -220,9 +219,7 @@ async function createInteractionExtraLogPayload(
 
 	// Check if VC is clean and has valid metric
 	const vcRevisionPayload = finalVCMetrics?.['ufo:vc:rev'] as RevisionPayload;
-	const effectiveRevision = fg('ufo_update_and_enforce_ttvc_v4_default_version')
-		? (getMostRecentVCRevision(ufoName) ?? DEFAULT_TTVC_REVISION)
-		: getDefaultTTVCRevision();
+	const effectiveRevision = getMostRecentVCRevision(ufoName) ?? DEFAULT_TTVC_REVISION;
 	const effectiveVCRevisionPayload = vcRevisionPayload?.find(
 		({ revision }) => revision === effectiveRevision,
 	);

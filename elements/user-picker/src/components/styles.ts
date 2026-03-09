@@ -2,6 +2,7 @@ import { B100, N0, N10, N20, N30, N100, R50, R400, N90 } from '@atlaskit/theme/c
 import { token } from '@atlaskit/tokens';
 import memoizeOne from 'memoize-one';
 import { mergeStyles, type StylesConfig } from '@atlaskit/select';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export const BORDER_PADDING = token('space.075', '6px');
 export const AVATAR_PADDING = 6;
@@ -45,9 +46,11 @@ export const getStyles = memoizeOne(
 						? token('color.background.input', css['backgroundColor'])
 						: state.selectProps.subtle
 							? 'transparent'
-							: state.selectProps.textFieldBackgroundColor
-								? token('color.background.input', N10)
-								: token('color.background.input', N20),
+							: state.isDisabled && fg('platform-dst-lozenge-tag-badge-visual-uplifts')
+								? token('color.background.disabled', N10)
+								: state.selectProps.textFieldBackgroundColor
+									? token('color.background.input', N10)
+									: token('color.background.input', N20),
 					'&:hover .fabric-user-picker__clear-indicator': { opacity: 1 },
 					':hover': {
 						...css[':hover'],

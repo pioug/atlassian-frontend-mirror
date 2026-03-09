@@ -1,5 +1,13 @@
 # @atlaskit/user-picker
 
+## 11.24.0
+
+### Minor Changes
+
+- [`1ad583e025c33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ad583e025c33) -
+  [ux] Updates User picker, behind a feature gate, to use @atlaski/tag component when isMulti is
+  true.
+
 ## 11.23.3
 
 ### Patch Changes

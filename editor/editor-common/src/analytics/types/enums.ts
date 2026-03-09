@@ -559,6 +559,7 @@ export enum ACTION_SUBJECT_ID {
 	SYNCED_BLOCK_FETCH = 'syncedBlockFetch',
 	SYNCED_BLOCK_FETCH_REFERENCES = 'syncedBlockFetchReferences',
 	SYNCED_BLOCK_CLICK_SYNCED_LOCATION = 'syncedBlockClickSyncedLocation',
+	SYNCED_BLOCK_LABEL = 'syncedBlockLabel',
 	SYNCED_BLOCK_SSR_ERROR = 'syncedBlockSSRError',
 	TABLE_STICKY_HEADER = 'tableStickyHeader',
 }

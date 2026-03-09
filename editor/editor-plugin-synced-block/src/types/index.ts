@@ -11,6 +11,7 @@ export enum FLAG_ID {
 	UNPUBLISHED_SYNC_BLOCK_PASTED = 'unpublished-sync-block-pasted',
 	CANNOT_CREATE_SYNC_BLOCK = 'cannot-create-sync-block',
 	INLINE_EXTENSION_IN_SYNC_BLOCK = 'inline-extension-in-sync-block',
+	EXTENSION_IN_SYNC_BLOCK = 'extension-in-sync-block',
 }
 
 type FlagConfig = {
@@ -41,6 +42,10 @@ export type SyncedBlockSharedState = {
 	 */
 	bodiedSyncBlockDeletionStatus?: BodiedSyncBlockDeletionStatus;
 	/**
+	 * Whether there are unsaved bodiedSyncBlock changes in the cache
+	 */
+	hasUnsavedBodiedSyncBlockChanges: boolean;
+	/**
 	 * Positions of pending creations keyed by resourceId, used for retry/revert flow.
 	 * When a new bodiedSyncBlock is added, a new entry is added to map for mapping. The entry is removed when creation succeeds or retry option is dismissed.
 	 *
@@ -50,10 +55,6 @@ export type SyncedBlockSharedState = {
 	 * The current sync block store manager, used to manage fetching and updating sync block data
 	 */
 	syncBlockStore: SyncBlockStoreManager;
-	/**
-	 * Whether there are unsaved bodiedSyncBlock changes in the cache
-	 */
-	hasUnsavedBodiedSyncBlockChanges: boolean;
 };
 
 export type SyncBlockAttrs = {

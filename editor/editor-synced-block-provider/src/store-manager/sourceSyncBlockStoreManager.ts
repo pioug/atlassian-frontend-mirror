@@ -495,7 +495,7 @@ export class SourceSyncBlockStoreManager {
 
 			this.fetchSourceInfoExperience?.start();
 			return this.dataProvider
-				.fetchSyncBlockSourceInfo(localId, undefined, undefined, this.fireAnalyticsEvent)
+				.fetchSyncBlockSourceInfo(localId, undefined, undefined)
 				.then((sourceInfo) => {
 					if (!sourceInfo) {
 						this.fetchSourceInfoExperience?.failure({ reason: 'No source info returned' });

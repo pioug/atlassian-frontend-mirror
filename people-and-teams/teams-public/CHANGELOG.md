@@ -1,5 +1,14 @@
 # @atlaskit/teams-public
 
+## 0.70.7
+
+### Patch Changes
+
+- [`2c34be51e4045`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c34be51e4045) -
+  Remove code related to the teams_app_auto_container_create_universal_create experiment (we are not
+  going ahead with this)
+- Updated dependencies
+
 ## 0.70.6
 
 ### Patch Changes

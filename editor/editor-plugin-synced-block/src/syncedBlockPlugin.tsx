@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { bodiedSyncBlock, syncBlock } from '@atlaskit/adf-schema';
+import { syncBlock, bodiedSyncBlock } from '@atlaskit/adf-schema';
 import type { EditorCommand, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { flushBodiedSyncBlocks, flushSyncBlocks } from './editor-actions';
 import {
@@ -52,8 +53,9 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 				},
 				{
 					name: 'bodiedSyncBlock',
-					node: fg('platform_synced_block_patch_3')
-						? bodiedSyncBlockNodeWithToDOMFixed()
+					node: !editorExperiment('platform_synced_block_patch_6', true, { exposure: true })
+						? // delete bodiedSyncBlockNodeWithToDOMFixed when cleaning up platform_synced_block_patch_6
+							bodiedSyncBlockNodeWithToDOMFixed()
 						: bodiedSyncBlock,
 				},
 			];

@@ -2626,7 +2626,7 @@ const columnLayoutResponsiveRendererStyles = css({
 	},
 });
 
-const rendererAnnotationStyles = css({
+const rendererAnnotationStylesOld = css({
 	"& [data-mark-type='annotation'][data-mark-annotation-state='active'] [data-annotation-mark], & [data-annotation-draft-mark][data-annotation-inline-node]":
 		{
 			background: token('color.background.accent.yellow.subtler', Y75),
@@ -2640,6 +2640,26 @@ const rendererAnnotationStyles = css({
 			paddingRight: token('space.025', '2px'),
 			paddingBottom: token('space.050', '4px'),
 			paddingLeft: token('space.025', '2px'),
+		},
+});
+
+const rendererAnnotationStyles = css({
+	"& [data-mark-type='annotation'][data-mark-annotation-state='active'] [data-annotation-mark]": {
+		background: token('color.background.accent.yellow.subtlest'),
+		borderBottom: `${token('border.width.selected')} solid ${token(
+			'color.border.accent.yellow',
+			Y300,
+		)}`,
+		cursor: 'pointer',
+		paddingTop: token('space.050', '4px'),
+		paddingRight: token('space.025', '2px'),
+		paddingBottom: token('space.050', '4px'),
+		paddingLeft: token('space.025', '2px'),
+	},
+	"& [data-mark-type='annotation'][data-mark-annotation-state='active'][data-has-focus='true'] [data-annotation-mark]":
+		{
+			background: token('color.background.accent.yellow.subtlest.pressed'),
+			boxShadow: token('elevation.shadow.overlay', `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`),
 		},
 });
 
@@ -2985,7 +3005,10 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 					headerSmartCardStyles,
 				smartCardStylesAvatarMarginFix,
 				smartCardStylesAvatarListZeroMarginTop,
-				fg('editor_inline_comments_on_inline_nodes') && rendererAnnotationStyles,
+				fg('editor_inline_comments_on_inline_nodes') &&
+					(expValEquals('confluence_fe_renderer_inline_node_mark_color_fix', 'isEnabled', true)
+						? rendererAnnotationStyles
+						: rendererAnnotationStylesOld),
 				// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 				fg('editor_inline_comments_on_inline_nodes') && rendererAnnotationStylesCommentHeightFix,
 				expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)

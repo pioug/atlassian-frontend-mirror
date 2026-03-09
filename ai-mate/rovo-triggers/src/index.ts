@@ -31,7 +31,8 @@ export type {
 } from './types';
 export type {
 	SolutionArchitectHandoffPayload,
-	NonAppHandoffPayload,
+	AutomationHandoffPayload,
+	AgentHandoffPayload,
 	AppHandoffPayload,
 	SolutionArchitectAgentActivationPayload,
 	StudioAutomationBuildUpdatePayload,

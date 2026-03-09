@@ -1,23 +1,5 @@
-/* eslint-disable require-unicode-regexp  */
-import { type RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
-import { logException } from '@atlaskit/editor-common/monitoring';
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { SyncBlockSourceInfo } from '../../providers/types';
-import { getSourceInfoErrorPayload } from '../../utils/errorHandling';
 import { fetchWithRetry } from '../../utils/retry';
-
-import { getPageIdAndTypeFromConfluencePageAri } from './ari';
-import { isBlogPageType } from './utils';
-
-type UnpublishedPageResponse = {
-	_links?: {
-		base?: string;
-		edituiv2?: string;
-	};
-	subtype?: string | null;
-	title?: string;
-};
 
 const COMMON_HEADERS = {
 	'Content-Type': 'application/json',
@@ -45,8 +27,8 @@ type GetSourceInfoResult = {
 				space: {
 					key: string;
 				};
-				subType: string | null;
 				status: string;
+				subType: string | null;
 				title: string;
 			}[];
 		} | null;
@@ -133,117 +115,13 @@ const resolveNoAccessPageInfo = async (ari: string): Promise<SyncBlockSourceInfo
 	}
 };
 
-/**
- * Fetches unpublished page info from the v2 pages API
- * Used when the GraphQL query returns empty content.nodes for unpublished pages
- * @param pageAri - The page ARI
- * @param localId - Optional local ID to append as block anchor
- * @returns Source info with URL, title, and optional subtype
- */
-const fetchCompleteConfluencePageInfo = async (
-	pageAri: string,
-	localId?: string,
-): Promise<SyncBlockSourceInfo | undefined> => {
-	try {
-		const { id: pageId } = getPageIdAndTypeFromConfluencePageAri({ ari: pageAri });
-
-		const response = await fetchWithRetry(`/wiki/api/v2/pages/${pageId}?draft=true`, {
-			method: 'GET',
-			headers: COMMON_HEADERS,
-		});
-
-		if (!response.ok) {
-			throw new Error(`Failed to get unpublished page info: ${response.statusText}`);
-		}
-
-		const pageData = (await response.json()) as UnpublishedPageResponse;
-
-		const base = pageData._links?.base;
-		const edituiv2 = pageData._links?.edituiv2;
-		const title = pageData.title;
-		const subType = pageData.subtype;
-
-		let url: string | undefined;
-		if (base && edituiv2) {
-			url = `${base}${edituiv2}`;
-			url = url && localId ? `${url}#block-${localId}` : url;
-		}
-
-		return {
-			title,
-			url,
-			sourceAri: pageAri,
-			subType,
-		};
-	} catch (error) {
-		logException(error as Error, {
-			location: 'editor-synced-block-provider/sourceInfo/fetchUnpublishedConfluencePageInfo',
-		});
-		return Promise.resolve(undefined);
-	}
-};
-
-export const fetchConfluencePageInfoOld = async (
-	pageAri: string,
-	localId?: string,
-	fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void,
-): Promise<SyncBlockSourceInfo | undefined> => {
-	try {
-		const { type: pageType } = getPageIdAndTypeFromConfluencePageAri({ ari: pageAri });
-		const status = fg('platform_synced_block_patch_3')
-			? ['draft', 'archived', 'current']
-			: undefined;
-		const response = await getConfluenceSourceInfo(pageAri, status);
-
-		const contentData = response.data?.content?.nodes?.[0];
-		const title = contentData?.title;
-
-		let url;
-		const { base } = contentData?.links || {};
-		if (base && contentData?.space?.key && contentData?.id) {
-			if (isBlogPageType(pageType)) {
-				url = `${base}/spaces/${contentData.space.key}/blog/edit-v2/${contentData.id}`;
-			} else if (contentData.subType === 'live') {
-				url = `${base}/spaces/${contentData.space.key}/pages/${contentData.id}`;
-			} else {
-				url = `${base}/spaces/${contentData.space.key}/pages/edit-v2/${contentData.id}`;
-			}
-		}
-
-		url = url && localId ? `${url}#block-${localId}` : url;
-
-		if (!title || !url) {
-			fireAnalyticsEvent?.(getSourceInfoErrorPayload('Failed to get confluence page source info'));
-		}
-
-		return Promise.resolve({ title, url, sourceAri: pageAri });
-	} catch (error) {
-		logException(error as Error, {
-			location: 'editor-synced-block-provider/sourceInfo',
-		});
-		fireAnalyticsEvent?.(getSourceInfoErrorPayload((error as Error).message));
-		return Promise.resolve(undefined);
-	}
-};
-
 export const fetchConfluencePageInfo = async (
 	pageAri: string,
 	hasAccess: boolean,
-	urlType: 'view' | 'edit',
 	localId?: string,
-	isUnpublished?: boolean,
 ): Promise<SyncBlockSourceInfo | undefined> => {
-	// For unpublished pages, use the v2 pages API as GraphQL returns empty content.nodes
-	// We don't want to use the Rest API at all because it doesn't work if accessed from a custom base URL (e.g in Jira)
-	if (isUnpublished && !fg('platform_synced_block_patch_3')) {
-		return await fetchCompleteConfluencePageInfo(pageAri, localId);
-	}
-
 	if (hasAccess) {
-		const { type: pageType } = getPageIdAndTypeFromConfluencePageAri({ ari: pageAri });
-		const status = fg('platform_synced_block_patch_3')
-			? ['draft', 'archived', 'current']
-			: undefined;
+		const status = ['draft', 'archived', 'current'];
 		const response = await getConfluenceSourceInfo(pageAri, status);
 
 		const contentData = response.data?.content?.nodes?.[0];
@@ -252,26 +130,11 @@ export const fetchConfluencePageInfo = async (
 		let url;
 		const { base, editui, webui } = contentData?.links || {};
 		const pageStatus = contentData?.status;
-		if (fg('platform_synced_block_patch_3')) {
-			if (base && editui && pageStatus !== 'archived') {
-				url = `${base}${editui}`;
-			} else if (base && webui && pageStatus === 'archived') {
-				url = `${base}${webui}`;
-			}
-		} else {
-			if (base && contentData?.space?.key && contentData?.id) {
-				if (isBlogPageType(pageType)) {
-					url = `${base}/spaces/${contentData.space.key}/blog${
-						urlType === 'edit' ? '/edit-v2' : ''
-					}/${contentData.id}`;
-				} else if (contentData.subType === 'live') {
-					url = `${base}/spaces/${contentData.space.key}/pages/${contentData.id}`;
-				} else {
-					url = `${base}/spaces/${contentData.space.key}/pages${
-						urlType === 'edit' ? '/edit-v2' : ''
-					}/${contentData.id}`;
-				}
-			}
+
+		if (base && editui && pageStatus !== 'archived') {
+			url = `${base}${editui}`;
+		} else if (base && webui && pageStatus === 'archived') {
+			url = `${base}${webui}`;
 		}
 
 		url = url && localId ? `${url}#block-${localId}` : url;

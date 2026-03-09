@@ -91,7 +91,7 @@ export const gapCursorStyles: SerializedStyles = css({
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
 		[`&.${hideCaretModifier}`]: {
-			// Clean this up with platform_synced_block_patch_4
+			// Clean this up with platform_synced_block
 			caretColor: 'transparent',
 		},
 

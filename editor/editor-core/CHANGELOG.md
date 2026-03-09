@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 216.14.2
+
+### Patch Changes
+
+- [`2e6129d5b39bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e6129d5b39bc) -
+  EDITOR-5529 clean up platform_synced_block_patch_3 and platform_synced_block_patch_4
+- Updated dependencies
+
 ## 216.14.1
 
 ### Patch Changes

@@ -32,7 +32,6 @@ import RefreshIcon from '@atlaskit/icon/core/refresh';
 import {
 	ALIGNMENT_VALUES,
 	BUILTIN_TOOLBAR_KEYS,
-	DEFAULT_ALIGNMENT,
 	type AlignmentValue,
 	type EditorToolbarAction,
 	type ManifestEditorToolbarActions,
@@ -44,7 +43,12 @@ import type {
 	EditorPluginNativeEmbedsToolbarHandlers,
 } from '../../nativeEmbedsPluginType';
 import { showUrlToolbar } from '../actions';
-import { createOpenInNewWindowCommand, createUpdateAlignmentCommand } from '../commands';
+import {
+	createOpenInNewWindowCommand,
+	createUpdateAlignmentCommand,
+	getNativeEmbedUrl,
+} from '../commands';
+import { getAlignment } from '../commands/alignment';
 import { pluginKey } from '../plugin-state';
 import { getSelectedNativeEmbedExtension } from '../utils/getSelectedNativeEmbedExtension';
 
@@ -123,7 +127,7 @@ function createBuiltinToolbarRegistry(
 	const alignmentOptions: DropdownOptionT<Command>[] = ALIGNMENT_VALUES.map((alignment) => ({
 		id: `native-embed-alignment-${alignment}`,
 		title: ALIGNMENT_LABELS[alignment],
-		onClick: createUpdateAlignmentCommand(api, alignment, selectedNativeEmbed),
+		onClick: createUpdateAlignmentCommand(api, alignment, selectedNativeEmbed.node),
 		selected: currentAlignment === alignment,
 		icon: getAlignmentIcon(alignment),
 	}));
@@ -179,7 +183,7 @@ function createBuiltinToolbarRegistry(
 			title: 'Open in new window',
 			icon: LinkExternalIcon,
 			iconFallback: LinkExternalIcon,
-			onClick: createOpenInNewWindowCommand(selectedNativeEmbed),
+			onClick: createOpenInNewWindowCommand(selectedNativeEmbed.node),
 			focusEditoronEnter: true,
 			tabIndex: null,
 		},
@@ -355,9 +359,7 @@ export const getToolbarConfig =
 		const pluginState = pluginKey.getState(state);
 		const isShowingUrlToolbar = pluginState?.showUrlToolbar ?? false;
 
-		const currentAlignment =
-			(selectedNativeEmbed.node.attrs.parameters?.alignment as AlignmentValue | undefined) ??
-			DEFAULT_ALIGNMENT;
+		const currentAlignment = getAlignment(selectedNativeEmbed.node);
 
 		const hoverDecoration = api?.decorations?.actions.hoverDecoration;
 		const nodeType = state.schema.nodes.extension;
@@ -377,8 +379,8 @@ export const getToolbarConfig =
 			}
 		};
 
-		// Get URL from node parameters
-		const url = selectedNativeEmbed.node.attrs.parameters?.url as string | undefined;
+		// Get URL from native embed parameters
+		const url = getNativeEmbedUrl(selectedNativeEmbed.node);
 
 		// Resolve manifest toolbar actions for this URL
 		const manifestActions = url ? getEditorToolbarActions?.(url) : undefined;

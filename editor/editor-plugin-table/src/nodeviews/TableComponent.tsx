@@ -195,18 +195,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				});
 			}
 		});
-
-		if (!expValEquals('platform_editor_disable_query_command_supported', 'isEnabled', true)) {
-			if ('execCommand' in document) {
-				// Disable inline table editing and resizing controls in Firefox
-				// https://github.com/ProseMirror/prosemirror/issues/432
-				['enableObjectResizing', 'enableInlineTableEditing'].forEach((cmd) => {
-					if (document.queryCommandSupported(cmd)) {
-						document.execCommand(cmd, false, 'false');
-					}
-				});
-			}
-		}
 	}
 
 	private handleMouseOut = (event: Event) => {

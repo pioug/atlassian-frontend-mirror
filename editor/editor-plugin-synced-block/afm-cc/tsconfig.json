@@ -45,13 +45,22 @@
 			"path": "../../editor-plugin-connectivity/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-content-format/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-decorations/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-floating-toolbar/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-focus/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-selection/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-user-intent/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../editor-prosemirror/afm-cc/tsconfig.json"
@@ -91,6 +100,9 @@
 		},
 		{
 			"path": "../../../design-system/spinner/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/tokens/afm-cc/tsconfig.json"

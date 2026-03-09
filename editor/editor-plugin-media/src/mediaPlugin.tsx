@@ -170,12 +170,28 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 
 		actions: {
 			handleMediaNodeRenderError: (node: PMNode, reason: string, nestedUnder?: string) => {
-				if (!fg('platform_synced_block_patch_5')) {
+				if (
+					!fg('platform_synced_block_patch_5') &&
+					!expValEquals('platform_editor_media_reliability_observability', 'isEnabled', true)
+				) {
 					// Only fire the errored event once per media node
 					if (mediaErrorLocalIds.has(node.attrs.localId)) {
 						return;
 					}
 					mediaErrorLocalIds.add(node.attrs.localId);
+				}
+
+				let isDuplicateError = false;
+
+				if (expValEquals('platform_editor_media_reliability_observability', 'isEnabled', true)) {
+					if (mediaErrorLocalIds.has(node.attrs.localId)) {
+						// we mark duplicate errors in the case of nested media nodes
+						// renderering to avoid firing multiple errored events for the same underlying issue,
+						// which can happen more often with nested media nodes
+						isDuplicateError = true;
+					} else {
+						mediaErrorLocalIds.add(node.attrs.localId);
+					}
 				}
 
 				api?.analytics?.actions.fireAnalyticsEvent({
@@ -190,6 +206,10 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 						expValEquals('platform_synced_block', 'isEnabled', true) &&
 						fg('platform_synced_block_patch_5')
 							? { nestedUnder }
+							: {}),
+						...(expValEquals('platform_synced_block', 'isEnabled', true) &&
+						fg('platform_synced_block_patch_5')
+							? { isDuplicateError }
 							: {}),
 					},
 				});

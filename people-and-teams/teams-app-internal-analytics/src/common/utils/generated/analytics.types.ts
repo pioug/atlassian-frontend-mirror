@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::cd3e43aed89c6bc6bfed2bb49ec98ee6>>
+ * @codegen <<SignedSource::2c789c6695e7a48abf2bd9af058f68c3>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -34,9 +34,6 @@ export type AssignTeamToASiteConfirmButtonClickedAttributesType = {
 };
 export type AssignTeamToASiteCancelButtonClickedAttributesType = {};
 export type MemberPickerErrorAttributesType = {};
-export type RequestedContainersRequestedAttributesType = {
-	containers: Record<string, unknown>;
-};
 export type TeamCreateDialogViewedAttributesType = {
 	proposedMembersLength: number;
 };
@@ -1451,6 +1448,22 @@ export type TeamAssignedTypePickerClickedAttributesType = {
 	teamProfileTabIndex: number;
 	consumer: string;
 };
+export type TeamCustomFieldClickedAttributesType = {
+	teamId: string;
+	fieldId: string;
+	fieldType: string;
+};
+export type TeamCustomFieldUpdateSucceededAttributesType = {
+	teamId: string;
+	fieldId: string;
+	fieldType: string;
+};
+export type TeamCustomFieldUpdateFailedAttributesType = {
+	teamId: string;
+	fieldId: string;
+	fieldType: string;
+	errorMessage: string;
+};
 export type InvitePromptEligibilityCheckedAttributesType = {
 	isEligible: boolean;
 	ineligibilityReason: string;
@@ -1487,15 +1500,6 @@ export type FeatureExposedAttributesType = {
 };
 export type InvitePromptShowContainerAddedFlagFailedAttributesType = {
 	error: string;
-};
-export type RequestedContainersTryAgainAttributesType = {
-	containers: unknown[];
-	teamId: string;
-};
-export type RequestedContainersFailedAttributesType = {
-	containers: unknown[];
-	teamId: string;
-	tryAgainCount: number | null;
 };
 export type StarredSucceededTeamAttributesType = {
 	starred: boolean;
@@ -1589,9 +1593,6 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when the member picker error is triggered */
 	'track.memberPicker.error': MemberPickerErrorAttributesType;
-	/**
-	 * fired when the teams containers are requested */
-	'track.requestedContainers.requested': RequestedContainersRequestedAttributesType;
 	/**
 	 * fired when the team create dialog is viewed */
 	'screen.teamCreateDialog.viewed': TeamCreateDialogViewedAttributesType;
@@ -2556,6 +2557,15 @@ export type AnalyticsEventAttributes = {
 	 * fired when team assigned type picker is clicked */
 	'ui.teamAssignedTypePicker.clicked': TeamAssignedTypePickerClickedAttributesType;
 	/**
+	 * fired when user clicks a custom field to start editing */
+	'ui.teamCustomField.clicked': TeamCustomFieldClickedAttributesType;
+	/**
+	 * fired when saving a custom field value succeeds */
+	'track.teamCustomField.updateSucceeded': TeamCustomFieldUpdateSucceededAttributesType;
+	/**
+	 * fired when saving a custom field value fails (network error or server error) */
+	'track.teamCustomField.updateFailed': TeamCustomFieldUpdateFailedAttributesType;
+	/**
 	 * Fired when eligibility check is performed for twcg_640_invite_prompt_on_teams_page_links */
 	'operational.invitePrompt.eligibilityChecked': InvitePromptEligibilityCheckedAttributesType;
 	/**
@@ -2582,12 +2592,6 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * Fired when something fails horribly inside of showContainerAddedFlagFailed */
 	'operational.invitePrompt.showContainerAddedFlagFailed': InvitePromptShowContainerAddedFlagFailedAttributesType;
-	/**
-	 * Fired when the user tries to add requested containers again */
-	'track.requestedContainers.tryAgain': RequestedContainersTryAgainAttributesType;
-	/**
-	 * Fired when the user fails to add requested containers */
-	'track.requestedContainers.failed': RequestedContainersFailedAttributesType;
 	/**
 	 * fired when a team is starred or unstarred succeeds */
 	'track.starred.succeeded.team': StarredSucceededTeamAttributesType;

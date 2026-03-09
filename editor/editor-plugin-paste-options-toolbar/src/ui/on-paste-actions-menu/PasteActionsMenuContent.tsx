@@ -53,7 +53,12 @@ export const PasteActionsMenuContent = ({
 	const setOutsideClickTargetRef = useContext(OutsideClickTargetRefContext);
 
 	return (
-		<Box ref={setOutsideClickTargetRef} xcss={styles.container} onMouseDown={onMouseDown}>
+		<Box
+			ref={setOutsideClickTargetRef}
+			xcss={styles.container}
+			onMouseDown={onMouseDown}
+			onMouseEnter={onMouseEnter}
+		>
 			{aiSurface && aiSurfaceComponents && aiSurfaceComponents.length > 0 && (
 				<SurfaceRenderer surface={aiSurface} components={aiSurfaceComponents} />
 			)}
@@ -61,8 +66,6 @@ export const PasteActionsMenuContent = ({
 				<Pressable
 					key={option.id}
 					xcss={cx(styles.option, option.selected && styles.selectedOption)}
-					onMouseEnter={onMouseEnter}
-					onFocus={onMouseEnter}
 					onClick={option.onClick}
 				>
 					{option.label}

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 8.2.3
+
+### Patch Changes
+
+- [`808af626ed714`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/808af626ed714) -
+  [ux] EDITOR-5468 Introduce new paste menu context to pass required information to paste action
+  buttons. Modified createOpenAIModalCommand to optionally accept start/end positions if we want to
+  modify non-selection content (eg. pasted content).
+- Updated dependencies
+
 ## 8.2.2
 
 ### Patch Changes

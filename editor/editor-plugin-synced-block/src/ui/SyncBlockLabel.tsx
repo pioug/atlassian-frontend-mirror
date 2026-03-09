@@ -6,6 +6,7 @@ import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages'
 import { SyncBlockLabelSharedCssClassName } from '@atlaskit/editor-common/sync-block';
 import BlockSyncedIcon from '@atlaskit/icon-lab/core/block-synced';
 import { Text } from '@atlaskit/primitives/compiled';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -94,7 +95,14 @@ const SyncBlockLabelComponent = ({
 			data-testid={SyncBlockLabelDataId}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className={SyncBlockLabelSharedCssClassName.labelClassName}
-			aria-describedby={ariaDescribedById}
+			aria-describedby={
+				(isSource || isUnsyncedBlock) &&
+				editorExperiment('platform_synced_block_patch_6', true, {
+					exposure: true,
+				})
+					? undefined
+					: ariaDescribedById
+			}
 		>
 			<BlockSyncedIcon color={token('color.icon.subtle')} size="small" label="" />
 			{getLabelContent}

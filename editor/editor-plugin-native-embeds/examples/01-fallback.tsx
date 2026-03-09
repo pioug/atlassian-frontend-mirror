@@ -15,6 +15,7 @@ import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+import { NATIVE_EMBED_PARAMETER_DEFAULTS, setParameters } from '@atlaskit/native-embeds-common';
 import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { createNativeEmbedsFallbackManifest } from '@atlassian/native-embeds-fallback-editor-extension';
@@ -50,11 +51,14 @@ const nativeEmbedsFallbackDoc: DocNode = {
 			type: 'extension',
 			attrs: {
 				extensionKey: 'native-embed:whiteboard',
-				extensionType: 'com.atlassian.native-embeds',
-				localId: 'native-embed-with-url',
-				parameters: {
-					url: NATIVE_EMBEDS_EXAMPLE_URLS.whiteboard,
-				},
+				extensionType: 'com.atlassian.confluence.macro.core',
+				parameters: setParameters(
+					{},
+					{
+						...NATIVE_EMBED_PARAMETER_DEFAULTS,
+						url: NATIVE_EMBEDS_EXAMPLE_URLS.whiteboard,
+					},
+				),
 			},
 		},
 		{
@@ -70,9 +74,15 @@ const nativeEmbedsFallbackDoc: DocNode = {
 			type: 'extension',
 			attrs: {
 				extensionKey: 'native-embed:whiteboard',
-				extensionType: 'com.atlassian.native-embeds',
+				extensionType: 'com.atlassian.confluence.macro.core',
 				localId: 'native-embed-missing-url',
-				parameters: {},
+				parameters: setParameters(
+					{},
+					{
+						...NATIVE_EMBED_PARAMETER_DEFAULTS,
+						url: undefined,
+					},
+				),
 			},
 		},
 	],

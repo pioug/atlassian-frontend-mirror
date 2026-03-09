@@ -14,7 +14,7 @@ import type { Parameters } from './types/extension-parameters';
 
 export const FORGE_EXTENSION_TYPE = 'com.atlassian.ecosystem';
 
-export const NATIVE_EMBED_EXTENSION_TYPE = 'com.atlassian.native-embeds';
+export const NATIVE_EMBED_EXTENSION_TYPE = 'com.atlassian.confluence.macro.core';
 export const NATIVE_EMBED_EXTENSION_KEY = 'native-embed';
 
 export const getExtensionKeyAndNodeKey = (

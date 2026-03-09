@@ -112,24 +112,7 @@ describe('createInteractionExtraLogPayload - revision resolution', () => {
 		(fg as jest.Mock).mockImplementation(() => false);
 	});
 
-	it('should return null when FG is off and VC results only contain fy26.04 (broken path)', async () => {
-		(fg as jest.Mock).mockImplementation(() => false);
-
-		mockGetVCMetrics.mockResolvedValue({
-			'ufo:vc:rev': [createVCRevisionPayload('fy26.04', 300)],
-		});
-
-		const interaction = createMockInteraction();
-		const result = await createInteractionExtraLogPayload('test-interaction-id', interaction, null);
-
-		// When FG is off, getDefaultTTVCRevision() returns 'fy25.03'
-		// which doesn't match 'fy26.04' → effectiveVCRevisionPayload is undefined → returns null
-		expect(result).toBeNull();
-	});
-
-	it('should produce payload when FG is on and VC results only contain fy26.04', async () => {
-		(fg as jest.Mock).mockImplementation(() => true);
-
+	it('should produce payload when VC results contain fy26.04', async () => {
 		mockGetVCMetrics.mockResolvedValue({
 			'ufo:vc:rev': [createVCRevisionPayload('fy26.04', 300)],
 		});
@@ -151,15 +134,13 @@ describe('createInteractionExtraLogPayload - revision resolution', () => {
 			lastVCResult,
 		);
 
-		// When FG is on, getMostRecentVCRevision() returns 'fy26.04'
+		// getMostRecentVCRevision() returns 'fy26.04'
 		// which matches the VC results → payload is produced
 		expect(result).not.toBeNull();
 		expect(result?.attributes?.properties?.['vc:effective:revision']).toBe('fy26.04');
 	});
 
-	it('should return null when VC revision is unclean even with FG on', async () => {
-		(fg as jest.Mock).mockImplementation(() => true);
-
+	it('should return null when VC revision is unclean', async () => {
 		mockGetVCMetrics.mockResolvedValue({
 			'ufo:vc:rev': [createVCRevisionPayload('fy26.04', 300, false)],
 		});
@@ -171,8 +152,6 @@ describe('createInteractionExtraLogPayload - revision resolution', () => {
 	});
 
 	it('should return null when VC revision has no vc90 metric', async () => {
-		(fg as jest.Mock).mockImplementation(() => true);
-
 		mockGetVCMetrics.mockResolvedValue({
 			'ufo:vc:rev': [createVCRevisionPayload('fy26.04', null)],
 		});
@@ -183,9 +162,7 @@ describe('createInteractionExtraLogPayload - revision resolution', () => {
 		expect(result).toBeNull();
 	});
 
-	it('should use fy25.03 revision when FG is off and both revisions available', async () => {
-		(fg as jest.Mock).mockImplementation(() => false);
-
+	it('should use fy26.04 revision when both revisions available', async () => {
 		mockGetVCMetrics.mockResolvedValue({
 			'ufo:vc:rev': [
 				createVCRevisionPayload('fy25.03', 250),
@@ -213,14 +190,12 @@ describe('createInteractionExtraLogPayload - revision resolution', () => {
 			lastVCResult,
 		);
 
-		// When FG is off, defaults to fy25.03
+		// Defaults to fy26.04
 		expect(result).not.toBeNull();
-		expect(result?.attributes?.properties?.['vc:effective:revision']).toBe('fy25.03');
+		expect(result?.attributes?.properties?.['vc:effective:revision']).toBe('fy26.04');
 	});
 
 	it('should include lastInteractionFinish VC data using effective revision', async () => {
-		(fg as jest.Mock).mockImplementation(() => true);
-
 		mockGetVCMetrics.mockResolvedValue({
 			'ufo:vc:rev': [createVCRevisionPayload('fy26.04', 300)],
 		});
@@ -248,11 +223,9 @@ describe('createInteractionExtraLogPayload - revision resolution', () => {
 		expect(result?.attributes?.properties?.lastInteractionFinish?.vcClean).toBe(true);
 	});
 
-	it('should return null when lastInteractionFinish VC has no matching revision (FG off)', async () => {
-		(fg as jest.Mock).mockImplementation(() => false);
-
+	it('should return null when lastInteractionFinish VC has no matching revision', async () => {
 		mockGetVCMetrics.mockResolvedValue({
-			'ufo:vc:rev': [createVCRevisionPayload('fy25.03', 300)],
+			'ufo:vc:rev': [createVCRevisionPayload('fy26.04', 300)],
 		});
 
 		const interaction = createMockInteraction();
@@ -262,9 +235,9 @@ describe('createInteractionExtraLogPayload - revision resolution', () => {
 			end: 100,
 		});
 
-		// lastInteractionFinish only has fy26.04 but FG is off so we look for fy25.03
+		// lastInteractionFinish only has fy25.03 but we look for fy26.04
 		const lastVCResult = {
-			'ufo:vc:rev': [createVCRevisionPayload('fy26.04', 200)],
+			'ufo:vc:rev': [createVCRevisionPayload('fy25.03', 200)],
 		};
 
 		const result = await createInteractionExtraLogPayload(
@@ -274,7 +247,7 @@ describe('createInteractionExtraLogPayload - revision resolution', () => {
 			lastVCResult,
 		);
 
-		// lastInteractionFinish revision doesn't match fy25.03 → unclean → returns null
+		// lastInteractionFinish revision doesn't match fy26.04 → unclean → returns null
 		expect(result).toBeNull();
 	});
 });

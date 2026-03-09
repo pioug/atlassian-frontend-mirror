@@ -2,7 +2,6 @@
 import { useMemo } from 'react';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { generateBlockAri, generateBlockAriFromReference } from '../../clients/block-service/ari';
 import {
@@ -303,17 +302,13 @@ export const batchFetchData = async (
 						resourceId,
 					});
 				} catch {
-					if (fg('platform_synced_block_patch_3')) {
-						results.push({
-							error: {
-								type: SyncBlockError.Errored,
-								reason: `parsing JSON content response failed for resourceId: ${resourceId} localId: ${blockAri}`,
-							},
-							resourceId,
-						});
-					} else {
-						results.push({ error: { type: SyncBlockError.Errored }, resourceId });
-					}
+					results.push({
+						error: {
+							type: SyncBlockError.Errored,
+							reason: `parsing JSON content response failed for resourceId: ${resourceId} localId: ${blockAri}`,
+						},
+						resourceId,
+					});
 				}
 			}
 		}
@@ -330,9 +325,7 @@ export const batchFetchData = async (
 				processedResourceIds.add(resourceId);
 
 				results.push({
-					error: fg('platform_synced_block_patch_3')
-						? { type: mapErrorResponseCode(errorResponse.code), reason: errorResponse.reason }
-						: { type: mapErrorResponseCode(errorResponse.code) },
+					error: { type: mapErrorResponseCode(errorResponse.code), reason: errorResponse.reason },
 					resourceId,
 				});
 			}
@@ -354,7 +347,7 @@ export const batchFetchData = async (
 		return blockNodeIdentifiers.map((blockNodeIdentifier) => ({
 			error: {
 				type: error instanceof BlockError ? mapBlockError(error) : SyncBlockError.Errored,
-				reason: fg('platform_synced_block_patch_3') ? (error as Error).message : undefined,
+				reason: (error as Error).message,
 			},
 			resourceId: blockNodeIdentifier.resourceId,
 		}));
@@ -517,16 +510,12 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 		} catch (error) {
 			if (error instanceof BlockError) {
 				return {
-					error: fg('platform_synced_block_patch_3')
-						? { type: mapBlockError(error), reason: error.message }
-						: { type: mapBlockError(error) },
+					error: { type: mapBlockError(error), reason: error.message },
 					resourceId,
 				};
 			}
 			return {
-				error: fg('platform_synced_block_patch_3')
-					? { type: SyncBlockError.Errored, reason: (error as Error).message }
-					: { type: SyncBlockError.Errored },
+				error: { type: SyncBlockError.Errored, reason: (error as Error).message },
 				resourceId,
 			};
 		}

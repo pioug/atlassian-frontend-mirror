@@ -22,7 +22,6 @@ import { hasProductPermission as hasProductPermissionOld } from '../../controlle
 import { useCreateContainers } from '../../controllers/hooks/use-create-containers';
 import { useProductPermissions as useProductPermissionsOld } from '../../controllers/hooks/use-product-permission';
 import { useRefreshOnContainerCreated } from '../../controllers/hooks/use-refresh-containers-on-container-created';
-import { useRequestedContainers } from '../../controllers/hooks/use-requested-container';
 import {
 	useTeamContainers,
 	useTeamContainersHook,
@@ -49,7 +48,6 @@ export const TeamContainers = ({
 	teamId,
 	onAddAContainerClick,
 	onEditContainerClick,
-	onRequestedContainerTimeout = () => {},
 	components,
 	userId,
 	cloudId,
@@ -70,11 +68,6 @@ export const TeamContainers = ({
 		hasError,
 		isLoading: linksLoading,
 	} = useTeamLinksAndContainers(teamId, true);
-	const { requestedContainers } = useRequestedContainers({
-		teamId,
-		cloudId,
-		onRequestedContainerTimeout,
-	});
 	const [_, actions] = useTeamContainersHook();
 	const [showMore, setShowMore] = useState(false);
 	const [isDisconnectDialogOpen, setIsDisconnectDialogOpen] = useState(false);
@@ -279,23 +272,18 @@ export const TeamContainers = ({
 	}, [linksLoading, productPermissionIsLoading, productPermissionIsLoadingOld]);
 
 	const availableContainers = useMemo(() => {
-		const getAvailableContainer = (
-			productKey: keyof typeof canAddContainer,
-			requestedType: ContainerTypes,
-		) => ({
+		const getAvailableContainer = (productKey: keyof typeof canAddContainer) => ({
 			canAdd: canAddContainer?.[productKey],
-			isLoading:
-				containers?.[productKey as keyof typeof containers]?.isLoading ||
-				requestedContainers?.includes(requestedType),
+			isLoading: containers?.[productKey as keyof typeof containers]?.isLoading,
 		});
 
 		return {
-			Jira: getAvailableContainer('Jira', 'JiraProject'),
-			Confluence: getAvailableContainer('Confluence', 'ConfluenceSpace'),
-			Loom: getAvailableContainer('Loom', 'LoomSpace'),
-			WebLink: getAvailableContainer('WebLink', 'WebLink'),
+			Jira: getAvailableContainer('Jira'),
+			Confluence: getAvailableContainer('Confluence'),
+			Loom: getAvailableContainer('Loom'),
+			WebLink: getAvailableContainer('WebLink'),
 		};
-	}, [canAddContainer, containers, requestedContainers]);
+	}, [canAddContainer, containers]);
 
 	if (isLoading) {
 		return <TeamContainersSkeletonComponent numberOfContainers={maxNumberOfContainersToShow} />;

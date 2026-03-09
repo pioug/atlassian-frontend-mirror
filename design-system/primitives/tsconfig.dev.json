@@ -31,11 +31,14 @@
 		"**/stories/**/*.ts",
 		"**/stories/**/*.tsx"
 	],
-	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
+	"exclude": [
+		"./dist/**/*",
+		"./build/**/*",
+		"./node_modules/**/*"
+	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__primitives/dev",
-		"isolatedDeclarations": true
+		"outDir": "../../../tsDist/@atlaskit__primitives/dev"
 	},
 	"references": [
 		{

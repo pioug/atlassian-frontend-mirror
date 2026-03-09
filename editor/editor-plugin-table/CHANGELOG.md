@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 17.7.0
+
+### Minor Changes
+
+- [`557de2bd28f21`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/557de2bd28f21) -
+  [EDITOR-5773](https://hello.jira.atlassian.cloud/browse/EDITOR-5773) - clean up
+  platform_editor_disable_query_command_supported experiment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.6.1
 
 ### Patch Changes

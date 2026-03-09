@@ -16,12 +16,13 @@ import type {
 	PMPluginFactoryParams,
 } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView, Decoration, DecorationSource } from '@atlaskit/editor-prosemirror/view';
 import {
 	type SyncBlockStoreManager,
 	useFetchSyncBlockData,
 	useFetchSyncBlockTitle,
 } from '@atlaskit/editor-synced-block-provider';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { removeSyncedBlockAtPos } from '../editor-commands';
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
@@ -64,6 +65,30 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 		const domRef = document.createElement('div');
 		domRef.classList.add(SyncBlockSharedCssClassName.prefix);
 		return domRef;
+	}
+
+	validUpdate(currentNode: PMNode, newNode: PMNode): boolean {
+		// Only consider as the valid update if the localId and resourceId are the same
+		// This prevents PM reusing the same node view for different sync block node in live page transition
+		return (
+			currentNode.attrs.localId === newNode.attrs.localId &&
+			currentNode.attrs.resourceId === newNode.attrs.resourceId
+		);
+	}
+
+	update(
+		node: PMNode,
+		decorations: ReadonlyArray<Decoration>,
+		innerDecorations?: DecorationSource,
+	): boolean {
+		return super.update(
+			node,
+			decorations,
+			innerDecorations,
+			editorExperiment('platform_synced_block_patch_6', true, { exposure: true })
+				? this.validUpdate
+				: undefined,
+		);
 	}
 
 	render({ getPos }: SyncBlockNodeViewProps) {

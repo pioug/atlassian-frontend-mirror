@@ -1,5 +1,21 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 1.27.2
+
+### Patch Changes
+
+- [`c1deed94ac30d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1deed94ac30d) -
+  [ux] Build custom fields for number and string type, add analytics events for updating custom
+  fields
+
+## 1.27.1
+
+### Patch Changes
+
+- [`2c34be51e4045`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c34be51e4045) -
+  Remove code related to the teams_app_auto_container_create_universal_create experiment (we are not
+  going ahead with this)
+
 ## 1.27.0
 
 ### Minor Changes

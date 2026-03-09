@@ -12,6 +12,7 @@ import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import { useMenuItemDragAndDrop } from '@atlaskit/side-nav-items/drag-and-drop/use-menu-item-drag-and-drop';
 import {
 	FlyoutBody,
+	FlyoutFooter,
 	FlyoutHeader,
 	FlyoutMenuItem,
 	FlyoutMenuItemContent,
@@ -94,6 +95,9 @@ export function SharedTopLevelFlyout({
 				<FlyoutMenuItemContent onClose={() => setIsOpen(false)}>
 					<FlyoutHeader title={label} closeButtonLabel="Close menu" />
 					<FlyoutBody>
+						<ButtonMenuItem elemBefore={icon}>{label}</ButtonMenuItem>
+					</FlyoutBody>
+					<FlyoutFooter>
 						<MenuList>
 							<ReorderActionMenu
 								label="Reorder menu item"
@@ -142,7 +146,7 @@ export function SharedTopLevelFlyout({
 								}}
 							/>
 						</MenuList>
-					</FlyoutBody>
+					</FlyoutFooter>
 				</FlyoutMenuItemContent>
 			</FlyoutMenuItem>
 			{dragPreview}

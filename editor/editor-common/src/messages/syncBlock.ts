@@ -433,4 +433,16 @@ export const syncBlockMessages = defineMessages({
 		description:
 			'Description in flag which appears when an inline extension is inserted into a synced block',
 	},
+	extensionInSyncBlockTitle: {
+		id: 'fabric.editor.extensionInSyncBlockTitle',
+		defaultMessage: 'Some macros may not work when adding synced blocks to new locations',
+		description: 'Title in flag which appears when an extension is inserted into a synced block',
+	},
+	extensionInSyncBlockDescription: {
+		id: 'fabric.editor.extensionInSyncBlockDescription',
+		defaultMessage:
+			"This may happen if your synced block is used in places that don't support certain macros.",
+		description:
+			'Description in flag which appears when an extension is inserted into a synced block',
+	},
 });
